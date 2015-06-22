@@ -28,9 +28,9 @@ class EditionRelationTest < ActiveSupport::TestCase
   end
 
   test "should be valid if one edition is related from two others" do
-    policy = create(:policy)
-    existing_relation = create(:edition_relation, document: policy.document)
-    relation = build(:edition_relation, document: policy.document)
+    edition = create(:edition)
+    existing_relation = create(:edition_relation, document: edition.document)
+    relation = build(:edition_relation, document: edition.document)
     assert relation.valid?
   end
 

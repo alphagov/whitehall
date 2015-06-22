@@ -4,7 +4,7 @@ class Admin::GenericEditionsController::LinkingToPreviewOfDocumentOnPublicSiteTe
   tests Admin::GenericEditionsController
 
   setup do
-    login_as :policy_writer
+    login_as :writer
   end
 
   view_test "should link to preview version when not published" do

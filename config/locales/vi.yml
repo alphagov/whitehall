@@ -33,17 +33,6 @@ vi:
         unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
         file:
-      supporting_page/supporting_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      supporting_page/supporting_page_attachments/attachment/attachment_data:
-        file:
     nested_attachment_data_field_names:
       file:
     nested_attachment_field_names:
@@ -134,9 +123,6 @@ vi:
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     published: "Đã xuất bản"
     read: "Đọc bài có  %{title}"
     speech:
@@ -233,9 +219,6 @@ vi:
       oral_statement:
         one: Tuyên bố bằng lời nói tới quốc hội
         other: Tuyên bố bằng lời nói tới quốc hội
-      policy:
-        one: Chính sách
-        other: Các chính sách
       policy_paper:
         one: Tài liệu chính sách
         other: Tài liệu chính sách

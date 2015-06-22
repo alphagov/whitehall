@@ -9,7 +9,7 @@ module Whitehall
       autoload :PublicationTypeFinder, 'whitehall/uploader/finders/publication_type_finder'
       autoload :RoleAppointmentsFinder, 'whitehall/uploader/finders/role_appointments_finder'
       autoload :SluggedModelFinder, 'whitehall/uploader/finders/slugged_model_finder'
-      autoload :SpeachTypeFinder, 'whitehall/uploader/finders/speech_type_finder'
+      autoload :SpeechTypeFinder, 'whitehall/uploader/finders/speech_type_finder'
       autoload :WorldLocationsFinder, 'whitehall/uploader/finders/world_locations_finder'
     end
   end

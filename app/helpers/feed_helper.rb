@@ -1,11 +1,7 @@
 module FeedHelper
 
   def atom_feed_url_for(resource)
-    if resource.is_a?(Policy)
-      Whitehall.atom_feed_maker.activity_policy_url(resource.slug)
-    else
-      Whitehall.atom_feed_maker.url_for(resource)
-    end
+    Whitehall.atom_feed_maker.url_for(resource)
   end
 
   def documents_as_feed_entries(documents, builder, feed_updated_timestamp = Time.current)

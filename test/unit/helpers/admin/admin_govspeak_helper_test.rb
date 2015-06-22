@@ -58,11 +58,6 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, "del", text: "that"
   end
 
-  test "should rewrite link to destroyed supporting page in admin preview" do
-    html = govspeak_to_admin_html("this and [that](#{admin_supporting_page_path("doesnt-exist", "missing-id")})")
-    assert_select_within_html html, "del", text: "that"
-  end
-
   test "should rewrite link to published edition in admin preview" do
     publication = create(:published_publication)
     html = govspeak_to_admin_html("this and [that](#{admin_publication_path(publication)})")
@@ -71,14 +66,14 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
 
   test "should rewrite link to published edition with a newer draft in admin preview" do
     publication = create(:published_publication)
-    new_draft = publication.create_draft(create(:policy_writer))
+    new_draft = publication.create_draft(create(:writer))
     html = govspeak_to_admin_html("this and [that](#{admin_publication_path(publication)})")
     assert_select_within_html html, "a[href=?]", admin_publication_path(new_draft), text: "draft"
   end
 
   test "should rewrite link to superseded edition with a newer published edition in admin preview" do
     publication = create(:published_publication)
-    writer = create(:policy_writer)
+    writer = create(:writer)
     new_edition = publication.create_draft(writer)
     new_edition.change_note = "change-note"
     new_edition.save_as(writer)

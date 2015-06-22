@@ -8,7 +8,7 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   view_test "should render the edition title and body to give context to the person rejecting" do
-    edition = create(:submitted_policy, title: "edition-title", body: "edition-body")
+    edition = create(:submitted_publication, title: "edition-title", body: "edition-body")
     get :new, edition_id: edition
 
     assert_select "#{record_css_selector(edition)} .title", text: "edition-title"

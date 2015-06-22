@@ -46,12 +46,6 @@ module Whitehall::DocumentFilter
       rummager.publications_search
     end
 
-    test 'policies_search looks for Policy documents' do
-      rummager = Rummager.new({})
-      expect_search_by_format_types(format_types(Policy))
-      rummager.policies_search
-    end
-
     test 'documents returns a paginated array' do
       rummager = Rummager.new({})
       rummager.announcements_search

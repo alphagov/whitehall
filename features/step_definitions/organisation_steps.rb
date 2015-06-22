@@ -1,13 +1,3 @@
-Given /^the organisation "([^"]*)" contains some policies$/ do |name|
-  editions = Array.new(5) { build(:published_policy) } + Array.new(2) { build(:draft_policy) }
-  create(:ministerial_department, name: name, editions: editions)
-end
-
-Given /^other organisations also have policies$/ do
-  create(:organisation, editions: [build(:published_policy)])
-  create(:organisation, editions: [build(:published_policy)])
-end
-
 Given /^the organisation "([^"]*)" exists$/ do |name|
   create(:ministerial_department, name: name)
 end

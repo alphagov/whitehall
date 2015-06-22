@@ -5,10 +5,6 @@ lt:
         one: Dokumentas
         few:
         other: Dokumentai
-      policies:
-        one:
-        few:
-        other:
       applies_to_nations: Susiję su
       field_of_operation: Veiklos laukas
       from:
@@ -127,10 +123,6 @@ lt:
         one: "Žodinis kreipimasis į parlamentą"
         few:
         other: "Žodiniai kreipimaisi į parlamentą"
-      policy:
-        one: Strategija
-        few:
-        other: Strategija
       policy_paper:
         one: Strategijos dokumentas
         few:
@@ -290,17 +282,6 @@ lt:
         unique_reference:
         unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
-      supporting_page/supporting_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      supporting_page/supporting_page_attachments/attachment/attachment_data:
         file:
     nested_attachment_data_field_names:
       file:

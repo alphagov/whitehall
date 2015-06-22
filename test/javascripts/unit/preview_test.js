@@ -7,7 +7,7 @@ module("Previewing contents of a textarea", {
       '<div class="image"><input name="edition[images_attributes][1][id]" type="hidden" value="2"></div>' +
       '</fieldset>');
     var attachment_inputs = $('<fieldset class="attachments">' +
-      '<input id="supporting_page_supporting_page_attachments_attributes_0_attachment_attributes_id" name="supporting_page[supporting_page_attachments_attributes][0][attachment_attributes][id]" type="hidden" value="276">' +
+      '<input id="edition_edition_attachments_attributes_0_attachment_attributes_id" name="edition[edition_attachments_attributes][0][attachment_attributes][id]" type="hidden" value="276">' +
       '</fieldset>');
     var alternative_format_provider_select =$('<select id="edition_alternative_format_provider_id">' +
       '<option value="1">Ministry of Song</option>' +

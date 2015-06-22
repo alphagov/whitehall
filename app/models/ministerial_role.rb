@@ -3,8 +3,7 @@ class MinisterialRole < Role
   include PublishesToPublishingApi
 
   has_many :editions, -> { uniq }, through: :role_appointments
-  has_many :consultations, -> { where("editions.type" => Policy).uniq }, through: :role_appointments
-  has_many :policies, -> { where("editions.type" => Policy).uniq }, through: :role_appointments
+  has_many :consultations, -> { where("editions.type" => Consultation).uniq }, through: :role_appointments
   has_many :news_articles, -> { where("editions.type" => NewsArticle).uniq }, through: :role_appointments
   has_many :speeches, through: :role_appointments
 

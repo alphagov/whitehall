@@ -7,21 +7,6 @@ namespace :db do
   end
 end
 
-task :supporting_page_cleanup => :environment do
-  require 'data_hygiene/supporting_page_cleaner'
-
-  logger = Logger.new(Rails.root.join('log/supporting_page_cleanup.log'))
-
-  Document.where(document_type: 'SupportingPage').find_each do |document|
-    logger.info "Reparing: #{document.slug}"
-    cleaner = SupportingPageCleaner.new(document, logger)
-    if cleaner.needs_cleaning?
-      cleaner.delete_duplicate_superseded_editions!
-      cleaner.repair_version_history!
-    end
-  end
-end
-
 task :specialist_sector_cleanup => :environment do
   require "data_hygiene/specialist_sector_cleanup"
 

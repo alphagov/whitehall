@@ -6,11 +6,6 @@ uk:
         few:
         many:
         other: "Документи"
-      policies:
-        one:
-        few:
-        many:
-        other:
       applies_to_nations: "Застосовується до"
       field_of_operation: "Сфера діяльності"
       from:
@@ -157,11 +152,6 @@ uk:
         few:
         many:
         other: "Усні заяви у парламенті"
-      policy:
-        one: "Політика"
-        few:
-        many:
-        other: "Політики"
       policy_paper:
         one: "Програмний документ"
         few:
@@ -341,17 +331,6 @@ uk:
         unique_reference:
         unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
-      supporting_page/supporting_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      supporting_page/supporting_page_attachments/attachment/attachment_data:
         file:
     nested_attachment_data_field_names:
       file:

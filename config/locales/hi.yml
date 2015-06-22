@@ -4,9 +4,6 @@ hi:
       attachments:
         one: "दस्तावेज़"
         other: "दस्तावेजों"
-      policies:
-        one:
-        other:
       applies_to_nations: "पर लागू"
       field_of_operation: "प्रचालन क्षेत्र"
       from:
@@ -97,9 +94,6 @@ hi:
       oral_statement:
         one: "संसद में मौखिक बयान"
         other: "संसद में मौखिक बयान"
-      policy:
-        one: "नीति"
-        other: "नीतियां"
       policy_paper:
         one: "नीति पत्र"
         other: "नीति पत्र"
@@ -239,17 +233,6 @@ hi:
         unique_reference:
         unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
-      supporting_page/supporting_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      supporting_page/supporting_page_attachments/attachment/attachment_data:
         file:
     nested_attachment_data_field_names:
       file:

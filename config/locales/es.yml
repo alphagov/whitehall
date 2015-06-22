@@ -4,9 +4,6 @@ es:
       attachments:
         one: Documento
         other: Documentos
-      policies:
-        one:
-        other:
       applies_to_nations: Sirve para
       field_of_operation: "Ãmbito de actuación"
       from:
@@ -97,9 +94,6 @@ es:
       oral_statement:
         one: Declaración formulada oralmente
         other: Declaraciones formuladas oralmente
-      policy:
-        one: Política
-        other: Políticas
       policy_paper:
         one: Informe sobre políticas gubernamentales
         other: Informes sobre políticas gubernamentales
@@ -239,17 +233,6 @@ es:
         unique_reference:
         unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
-      supporting_page/supporting_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      supporting_page/supporting_page_attachments/attachment/attachment_data:
         file:
     nested_attachment_data_field_names:
       file:

@@ -3,7 +3,7 @@ require 'test_helper'
 
 class Admin::EditionTranslationsControllerTest < ActionController::TestCase
   setup do
-    @policy_writer = login_as(:policy_writer)
+    @writer = login_as(:writer)
   end
 
   should_be_an_admin_controller
@@ -95,7 +95,7 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
 
   test "update creates a translation for a new draft of a previously published edition" do
     published_edition = create(:published_edition)
-    draft_edition = published_edition.create_draft(@policy_writer)
+    draft_edition = published_edition.create_draft(@writer)
 
     put :update, edition_id: draft_edition, id: 'fr', edition: {
       title: 'translated-title',

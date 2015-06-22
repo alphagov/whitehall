@@ -23,12 +23,6 @@ class FeedHelperTest < ActionView::TestCase
       atom_feed_url_for(role)
   end
 
-  test '#atom_feed_url_for generates an atom feed url for the activity on a policy' do
-    policy = create(:published_policy)
-    assert_equal "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies/#{policy.slug}/activity.atom",
-      atom_feed_url_for(policy)
-  end
-
   test 'feed_wants_govdelivery_version? is false when there is no govdelivery_version param' do
     stubs(:params).returns({})
     refute feed_wants_govdelivery_version?
@@ -64,20 +58,20 @@ class FeedHelperTest < ActionView::TestCase
     d1.stubs(:id).returns(12)
     d1.stubs(:first_public_at).returns(1.week.ago)
     d1.stubs(:public_timestamp).returns(3.days.ago)
-    d2 = Policy.new
+    d2 = NewsArticle.new
     d2.stubs(:id).returns(14)
     d2.stubs(:first_public_at).returns(2.weeks.ago)
     d2.stubs(:public_timestamp).returns(13.days.ago)
     builder = mock('builder')
     entries = sequence('entries')
     builder.stubs(:updated)
-    builder.expects(:entry).with(d2, id: "tag:#{host},2005:Policy/14", url: '/policy_url', published: 2.weeks.ago, updated: 13.days.ago).yields(builder).in_sequence(entries)
+    builder.expects(:entry).with(d2, id: "tag:#{host},2005:NewsArticle/14", url: '/news_article_url', published: 2.weeks.ago, updated: 13.days.ago).yields(builder).in_sequence(entries)
     builder.expects(:entry).with(d1, id: "tag:#{host},2005:Publication/12", url: '/publication_url', published: 1.week.ago, updated: 3.days.ago).yields(builder).in_sequence(entries)
     feed_entry = sequence('feed_entry')
     expects(:document_as_feed_entry).with(d2, builder, false).in_sequence(feed_entry)
     expects(:document_as_feed_entry).with(d1, builder, false).in_sequence(feed_entry)
 
-    stubs(:public_document_url).with(d2).returns '/policy_url'
+    stubs(:public_document_url).with(d2).returns '/news_article_url'
     stubs(:public_document_url).with(d1).returns '/publication_url'
 
     documents_as_feed_entries([d2, d1], builder)

@@ -8,7 +8,11 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'publish publishes the given edition on behalf of the current user and redirects back to filtered search view' do
-    session[:document_filters] = session_filters = {"type"=>"policy", "state"=>"submitted", "page"=>"3" }
+    session[:document_filters] = session_filters = {
+      "type" => "publication",
+      "state" => "submitted",
+      "page" => "3",
+    }
 
     stub_panopticon_registration(submitted_edition)
     stub_publishing_api_registration_for(submitted_edition)
@@ -21,10 +25,10 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'publish redirects back to the edition with an error message if edition cannot be published' do
-    published_edition = create(:published_policy)
+    published_edition = create(:published_publication)
 
     post :publish, id: published_edition, lock_version: published_edition.lock_version
-    assert_redirected_to admin_policy_path(published_edition)
+    assert_redirected_to admin_publication_path(published_edition)
     assert_equal 'An edition that is published cannot be published', flash[:alert]
   end
 
@@ -33,7 +37,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     submitted_edition.touch
     post :publish, id: submitted_edition, lock_version: old_lock_version
 
-    assert_redirected_to admin_policy_path(submitted_edition)
+    assert_redirected_to admin_publication_path(submitted_edition)
     assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
   end
 
@@ -63,7 +67,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   test 'POST #force_publish without a reason is not allowed' do
     post :force_publish, id: draft_edition, lock_version: draft_edition.lock_version
 
-    assert_redirected_to admin_policy_path(draft_edition)
+    assert_redirected_to admin_publication_path(draft_edition)
     assert_equal 'You cannot force publish a document without a reason', flash[:alert]
     assert draft_edition.reload.draft?
   end
@@ -81,10 +85,10 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'schedule redirects back to the edition with an error message if scheduling reports a failure' do
-    scheduled_edition = create(:submitted_policy)
+    scheduled_edition = create(:submitted_publication)
     post :schedule, id: scheduled_edition, lock_version: scheduled_edition.lock_version
 
-    assert_redirected_to admin_policy_path(scheduled_edition)
+    assert_redirected_to admin_publication_path(scheduled_edition)
     assert_equal "This edition does not have a scheduled publication date set", flash[:alert]
   end
 
@@ -93,7 +97,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     acting_as(submitted_edition.creator) { submitted_edition.touch }
     post :schedule, id: submitted_edition, lock_version: old_lock_version
 
-    assert_redirected_to admin_policy_path(submitted_edition)
+    assert_redirected_to admin_publication_path(submitted_edition)
     assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
   end
 
@@ -117,7 +121,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
 
   test 'unschedule unschedules the given edition on behalf of the current user' do
     Sidekiq::Testing.fake! do
-      scheduled_edition = create(:scheduled_policy)
+      scheduled_edition = create(:scheduled_publication)
       post :unschedule, id: scheduled_edition, lock_version: scheduled_edition.lock_version
 
       assert_redirected_to admin_editions_path(state: :submitted)
@@ -127,7 +131,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
 
   test 'unschedule redirects back to the edition with an error message if unscheduling reports a failure' do
     post :unschedule, id: draft_edition, lock_version: draft_edition.lock_version
-    assert_redirected_to admin_policy_path(draft_edition)
+    assert_redirected_to admin_publication_path(draft_edition)
     assert_equal 'This edition is not scheduled for publication', flash[:alert]
   end
 
@@ -139,21 +143,21 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'submit submits the edition' do
-    draft_edition = create(:draft_policy)
+    draft_edition = create(:draft_publication)
     post :submit, id: draft_edition, lock_version: draft_edition.lock_version
 
-    assert_redirected_to admin_policy_path(draft_edition)
+    assert_redirected_to admin_publication_path(draft_edition)
     assert draft_edition.reload.submitted?
     assert_equal "Your document has been submitted for review by a second pair of eyes", flash[:notice]
   end
 
   test 'submit rejects stale editions' do
-    draft_edition = create(:draft_policy)
+    draft_edition = create(:draft_publication)
     old_lock_version = draft_edition.lock_version
     draft_edition.touch
     post :submit, id: draft_edition, lock_version: old_lock_version
 
-    assert_redirected_to admin_policy_path(draft_edition)
+    assert_redirected_to admin_publication_path(draft_edition)
     assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
   end
 
@@ -161,7 +165,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     draft_edition.update_attribute(:summary, nil)
     post :submit, id: draft_edition, lock_version: draft_edition.lock_version
 
-    assert_redirected_to admin_policy_path(draft_edition)
+    assert_redirected_to admin_publication_path(draft_edition)
     assert_equal "Unable to submit this edition because it is invalid (Summary can't be blank). Please edit it and try again.", flash[:alert]
   end
 
@@ -173,18 +177,18 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'reject redirects to the new editorial remark page to explain why the edition has been rejected' do
-    submitted_policy = create(:submitted_policy)
-    post :reject, id: submitted_policy, lock_version: submitted_policy.lock_version
+    submitted_publication = create(:submitted_publication)
+    post :reject, id: submitted_publication, lock_version: submitted_publication.lock_version
 
-    assert_redirected_to new_admin_edition_editorial_remark_path(submitted_policy)
-    assert submitted_policy.reload.rejected?
+    assert_redirected_to new_admin_edition_editorial_remark_path(submitted_publication)
+    assert submitted_publication.reload.rejected?
   end
 
   test 'reject notifies authors of rejection via email' do
-    submitted_policy = create(:submitted_policy)
-    post :reject, id: submitted_policy, lock_version: submitted_policy.lock_version
+    submitted_publication = create(:submitted_publication)
+    post :reject, id: submitted_publication, lock_version: submitted_publication.lock_version
 
-    assert_match /\'#{submitted_policy.title}\' was rejected by/, ActionMailer::Base.deliveries.last.body.to_s
+    assert_match /\'#{submitted_publication.title}\' was rejected by/, ActionMailer::Base.deliveries.last.body.to_s
   end
 
   test 'reject responds with 422 if missing a lock version' do
@@ -199,7 +203,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     acting_as(editor) { force_publish(draft_edition) }
     post :approve_retrospectively, id: draft_edition, lock_version: draft_edition.lock_version
 
-    assert_redirected_to admin_policy_path(draft_edition)
+    assert_redirected_to admin_publication_path(draft_edition)
     assert_equal "Thanks for reviewing; this document is no longer marked as force-published", flash[:notice]
   end
 
@@ -212,12 +216,12 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
 
   test "confirm_unpublish loads the edition and renders the confirm page" do
     login_as(create(:managing_editor))
-    policy = create(:published_policy)
-    get :confirm_unpublish, id: policy, lock_version: policy.lock_version
+    publication = create(:published_publication)
+    get :confirm_unpublish, id: publication, lock_version: publication.lock_version
 
     assert_response :success
     assert_template :confirm_unpublish
-    assert_equal policy, assigns(:edition)
+    assert_equal publication, assigns(:edition)
   end
 
   test 'unpublish is forbidden to non-Managing editors editors' do
@@ -234,7 +238,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     stub_panopticon_registration(published_edition)
     post :unpublish, id: published_edition, lock_version: published_edition.lock_version, unpublishing: unpublish_params
 
-    assert_redirected_to admin_policy_path(published_edition)
+    assert_redirected_to admin_publication_path(published_edition)
     assert_equal "This document has been unpublished and will no longer appear on the public website", flash[:notice]
     assert_equal 'Was classified', published_edition.reload.unpublishing.explanation
   end
@@ -243,14 +247,14 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     login_as create(:managing_editor)
     unpublish_params = {
         unpublishing_reason_id: UnpublishingReason::Withdrawn.id,
-        explanation: 'No longer government policy'
+        explanation: 'No longer government publication'
       }
     stub_panopticon_registration(published_edition)
     post :unpublish, id: published_edition, lock_version: published_edition.lock_version, unpublishing: unpublish_params
 
-    assert_redirected_to admin_policy_path(published_edition)
+    assert_redirected_to admin_publication_path(published_edition)
     assert_equal "This document has been marked as withdrawn", flash[:notice]
-    assert_equal 'No longer government policy', published_edition.reload.unpublishing.explanation
+    assert_equal 'No longer government publication', published_edition.reload.unpublishing.explanation
   end
 
   test '#unpublish when there are validation errors re-renders the unpublish form' do
@@ -317,15 +321,15 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   private
 
   def submitted_edition(options = {})
-    @submitted_edition ||= create(:submitted_policy, options)
+    @submitted_edition ||= create(:submitted_publication, options)
   end
 
   def draft_edition
-    @draft_edition ||= create(:draft_policy)
+    @draft_edition ||= create(:draft_publication)
   end
 
   def published_edition
-    @published_edition ||= create(:published_policy)
+    @published_edition ||= create(:published_publication)
   end
 
   def imported_edition

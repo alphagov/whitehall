@@ -172,18 +172,6 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
       ], taggable_world_locations_container
   end
 
-  test '#taggable_policies_container returns an array of label/ID pairs for all policies' do
-    topic      = create(:topic, name: 'Topic')
-    policy_1   = create(:draft_policy, title: 'Policy 1', topics: [topic])
-    superseded = create(:superseded_policy)
-    policy_2   = create(:published_policy, title: 'Policy 2', document: superseded.document, topics: [topic])
-
-    assert_equal [
-      ['Policy 1 (Topic)', policy_1.id],
-      ['Policy 2 (Topic)', policy_2.id],
-    ], taggable_policies_container
-  end
-
   test '#taggable_alternative_format_providers_container returns an array of label/ID pairs for organisation alternative format providers' do
     organisation_h = create(:organisation, name: 'Department for Hair and Makeup')
     organisation_m = create(:organisation, alternative_format_contact_email: 'barry@strange-fruit.uk', name: 'Ministry of Strange Fruit')

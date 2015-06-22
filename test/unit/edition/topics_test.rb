@@ -10,15 +10,15 @@ class Edition::TopicsTest < ActiveSupport::TestCase
   end
 
   test "#destroy should also remove the classification membership relationship" do
-    edition = create(:draft_policy, topics: [@topic])
+    edition = create(:draft_publication, topics: [@topic])
     relation = edition.classification_memberships.first
     edition.destroy
     refute ClassificationMembership.exists?(relation.id)
   end
 
   test "new edition of document that is a member of a topic should remain a member of that topic" do
-    edition = create(:published_policy, topics: [@topic])
-    new_edition = edition.create_draft(create(:policy_writer))
+    edition = create(:published_publication, topics: [@topic])
+    new_edition = edition.create_draft(create(:writer))
 
     assert_equal [@topic], new_edition.topics
   end

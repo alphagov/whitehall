@@ -36,14 +36,14 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test ".published_as returns edition if edition is published" do
-    edition = create(:published_policy)
-    assert_equal edition, Policy.published_as(edition.document.to_param)
+    edition = create(:published_publication)
+    assert_equal edition, Publication.published_as(edition.document.to_param)
   end
 
   test ".published_as returns latest published edition if several editions are part of the same document" do
-    edition = create(:published_policy)
-    new_draft = create(:draft_policy, document: edition.document)
-    assert_equal edition, Policy.published_as(edition.document.to_param)
+    edition = create(:published_publication)
+    new_draft = create(:draft_publication, document: edition.document)
+    assert_equal edition, Publication.published_as(edition.document.to_param)
   end
 
   test ".published_as returns nil if edition is not published" do
@@ -62,7 +62,7 @@ class EditionTest < ActiveSupport::TestCase
 
   test ".latest_edition includes only latest edition of a edition" do
     original_edition = create(:published_edition)
-    new_draft = original_edition.create_draft(create(:policy_writer))
+    new_draft = original_edition.create_draft(create(:writer))
     refute Edition.latest_edition.include?(original_edition)
     assert Edition.latest_edition.include?(new_draft)
   end
@@ -141,15 +141,15 @@ class EditionTest < ActiveSupport::TestCase
   test "should return a list of editions in a topic" do
     topic_1 = create(:topic)
     topic_2 = create(:topic)
-    draft_policy = create(:draft_policy, topics: [topic_1])
-    published_policy = create(:published_policy, topics: [topic_1])
-    scheduled_policy = create(:scheduled_policy, topics: [topic_1])
-    published_in_second_topic = create(:published_policy, topics: [topic_2])
+    draft_publication = create(:draft_publication, topics: [topic_1])
+    published_publication = create(:published_publication, topics: [topic_1])
+    scheduled_publication = create(:scheduled_publication, topics: [topic_1])
+    published_in_second_topic = create(:published_publication, topics: [topic_2])
 
-    assert_equal [draft_policy, published_policy, scheduled_policy], Policy.in_topic(topic_1)
-    assert_equal [published_policy], Policy.published_in_topic(topic_1)
-    assert_equal [scheduled_policy], Policy.scheduled_in_topic(topic_1)
-    assert_equal [published_in_second_topic], Policy.published_in_topic(topic_2)
+    assert_equal [draft_publication, published_publication, scheduled_publication], Publication.in_topic(topic_1)
+    assert_equal [published_publication], Publication.published_in_topic(topic_1)
+    assert_equal [scheduled_publication], Publication.scheduled_in_topic(topic_1)
+    assert_equal [published_in_second_topic], Publication.published_in_topic(topic_2)
   end
 
   test "should return a list of editions in an organisation" do
@@ -164,39 +164,19 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [published_in_second_organisation], Publication.in_organisation(organisation_2)
   end
 
-  test "return editions bi-directionally related to specific edition" do
-    policy = create(:policy)
-    publication_1 = create(:publication, related_editions: [policy])
-    publication_2 = create(:publication, related_editions: [policy])
-
-    assert_equal [publication_1, publication_2], policy.related_editions
-    assert_equal [policy], publication_1.related_policies
-    assert_equal [policy], publication_2.related_policies
-  end
-
-  test "return published editions bi-directionally related to specific policy" do
-    policy = create(:published_policy)
-    edition_1 = create(:published_publication, related_editions: [policy])
-    edition_2 = create(:published_publication, related_editions: [policy])
-
-    assert_equal [edition_1, edition_2], policy.published_related_editions
-    assert_equal [policy], edition_1.published_related_policies
-    assert_equal [policy], edition_2.published_related_policies
-  end
-
   test "#first_published_version? is true if published and published_major_version is 1" do
-    policy = build(:published_policy, published_major_version: 1)
-    assert policy.first_published_version?
+    edition = build(:published_edition, published_major_version: 1)
+    assert edition.first_published_version?
   end
 
   test "#first_published_major_version? is true if published_major_version is 1 and published minor version is 0" do
-    policy = build(:published_policy, published_major_version: 1, published_minor_version: 0)
-    assert policy.first_published_major_version?
+    edition = build(:published_edition, published_major_version: 1, published_minor_version: 0)
+    assert edition.first_published_major_version?
   end
 
   test "#first_edition? is false if published and published_major_version is not 1" do
-    policy = build(:published_policy, published_major_version: 2)
-    refute policy.first_published_version?
+    edition = build(:published_edition, published_major_version: 2)
+    refute edition.first_published_version?
   end
 
   test "#creator= builds an edition_author with the given creator for new records" do
@@ -227,25 +207,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal user1, edition.reload.last_author, 'publishing'
   end
 
-  test ".related_to includes editions related to edition" do
-    policy = create(:policy)
-    publication = create(:publication, related_editions: [policy])
-    assert Edition.related_to(policy).include?(publication)
-  end
-
-  test ".related_to respects chained scopes" do
-    policy = create(:policy)
-    publication = create(:publication, related_editions: [policy])
-    assert Publication.related_to(policy).include?(publication)
-    refute Policy.related_to(policy).include?(publication)
-  end
-
-  test ".related_to excludes unrelated editions" do
-    publication = create(:publication)
-    policy = create(:policy)
-    refute Edition.related_to(policy).include?(publication)
-  end
-
   test ".authored_by includes editions created by the given user" do
     publication = create(:publication)
     assert Edition.authored_by(publication.creator).include?(publication)
@@ -253,14 +214,14 @@ class EditionTest < ActiveSupport::TestCase
 
   test ".authored_by includes editions edited by given user" do
     publication = create(:publication)
-    writer = create(:policy_writer)
+    writer = create(:writer)
     publication.edit_as(writer, {})
     assert Edition.authored_by(writer).include?(publication)
   end
 
   test ".authored_by includes editions only once no matter how many edits a user has made" do
     publication = create(:publication)
-    writer = create(:policy_writer)
+    writer = create(:writer)
     publication.edit_as(writer, {})
     publication.edit_as(writer, {})
     publication.edit_as(writer, {})
@@ -269,19 +230,19 @@ class EditionTest < ActiveSupport::TestCase
 
   test ".authored_by excludes editions creatored by another user" do
     publication = create(:publication)
-    refute Edition.authored_by(create(:policy_writer)).include?(publication)
+    refute Edition.authored_by(create(:writer)).include?(publication)
   end
 
   test ".authored_by respects chained scopes" do
     publication = create(:publication)
     assert Edition.authored_by(publication.creator).include?(publication)
     assert Publication.authored_by(publication.creator).include?(publication)
-    refute Policy.authored_by(publication.creator).include?(publication)
+    refute NewsArticle.authored_by(publication.creator).include?(publication)
   end
 
   test "#rejected_by uses information from the audit trail" do
     publication = create(:submitted_publication)
-    user = create(:policy_writer)
+    user = create(:writer)
     Edition::AuditTrail.whodunnit = user
     publication.reject!
     assert_equal user, publication.rejected_by
@@ -289,7 +250,7 @@ class EditionTest < ActiveSupport::TestCase
 
   test "#rejected_by should not be confused by editorial remarks" do
     publication = create(:submitted_publication)
-    user = create(:policy_writer)
+    user = create(:writer)
     Edition::AuditTrail.whodunnit = user
     create(:editorial_remark, edition: publication)
     assert_nil publication.reload.rejected_by
@@ -297,16 +258,16 @@ class EditionTest < ActiveSupport::TestCase
 
   test "#submitted_by uses information from the audit trail" do
     publication = create(:draft_publication)
-    user = create(:policy_writer)
+    user = create(:writer)
     Edition::AuditTrail.whodunnit = user
     publication.submit!
     assert_equal user, publication.submitted_by
   end
 
   test "#submitted_by gets original submitter even if updates are made while in submitted state" do
-    submitter = create(:policy_writer)
+    submitter = create(:writer)
     publication = create(:submitted_publication, submitter: submitter)
-    reviewer = create(:policy_writer)
+    reviewer = create(:writer)
     Edition::AuditTrail.whodunnit = reviewer
     publication.body = 'updated body'
     publication.save!
@@ -352,10 +313,10 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test ".by_major_change_published_at orders by major_change_published_at descending" do
-    policy = create(:policy, major_change_published_at: 2.hours.ago)
+    edition = create(:edition, major_change_published_at: 2.hours.ago)
     publication = create(:publication, major_change_published_at: 4.hours.ago)
     article = create(:news_article, major_change_published_at: 1.hour.ago)
-    assert_equal [article, policy, publication], Edition.by_major_change_published_at
+    assert_equal [article, edition, publication], Edition.by_major_change_published_at
   end
 
   test "should only return the submitted editions" do
@@ -415,8 +376,8 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "should use the edition title as the basis for the document's slug" do
-    edition = create(:edition, title: 'My Policy Title')
-    assert_equal 'my-policy-title', edition.document.slug
+    edition = create(:edition, title: 'My Publication Title')
+    assert_equal 'my-publication-title', edition.document.slug
   end
 
   test "should not include apostrophes in slug" do
@@ -430,13 +391,11 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "is filterable by edition type" do
-    policy = create(:policy)
     publication = create(:publication)
     news = create(:news_article)
     speech = create(:speech)
     consultation = create(:consultation)
 
-    assert_equal [policy], Edition.by_type('Policy')
     assert_equal [publication], Edition.by_type('Publication')
     assert_equal [news], Edition.by_type('NewsArticle')
     assert_equal [speech], Edition.by_type('Speech')
@@ -445,18 +404,18 @@ class EditionTest < ActiveSupport::TestCase
 
   test "should return search index suitable for Rummageable" do
     government = create(:current_government)
-    policy = create(:published_policy, title: "policy-title", political: true, first_published_at: government.start_date)
-    slug = policy.document.slug
-    summary = policy.summary
+    publication = create(:published_publication, title: "publication-title", political: true, first_published_at: government.start_date)
+    slug = publication.document.slug
+    summary = publication.summary
 
-    assert_equal "policy-title", policy.search_index["title"]
-    assert_equal "/government/policies/#{slug}", policy.search_index["link"]
-    assert_equal policy.body, policy.search_index["indexable_content"]
-    assert_equal "policy", policy.search_index["format"]
-    assert_equal summary, policy.search_index["description"]
-    assert_equal policy.political?, policy.search_index["is_political"]
-    assert_equal policy.historic?, policy.search_index["is_historic"]
-    assert_equal government.name, policy.search_index["government_name"]
+    assert_equal "publication-title", publication.search_index["title"]
+    assert_equal "/government/publications/#{slug}", publication.search_index["link"]
+    assert_equal publication.body, publication.search_index["indexable_content"]
+    assert_equal "publication", publication.search_index["format"]
+    assert_equal summary, publication.search_index["description"]
+    assert_equal publication.political?, publication.search_index["is_political"]
+    assert_equal publication.historic?, publication.search_index["is_historic"]
+    assert_equal government.name, publication.search_index["government_name"]
   end
 
   test 'search_format_types tags the edtion as an edition' do
@@ -481,46 +440,45 @@ class EditionTest < ActiveSupport::TestCase
     assert concrete_formats.include? Consultation.search_format_type
     assert concrete_formats.include? DetailedGuide.search_format_type
     assert concrete_formats.include? CaseStudy.search_format_type
-    assert concrete_formats.include? Policy.search_format_type
     assert concrete_formats.include? WorldwidePriority.search_format_type
   end
 
   test "#indexable_content should return the body without markup by default" do
-    policy = create(:published_policy, body: "# header\n\nsome text")
-    assert_equal "header some text", policy.indexable_content
+    publication = create(:published_publication, body: "# header\n\nsome text")
+    assert_equal "header some text", publication.indexable_content
   end
 
   test "should use the result of #indexable_content for the content of #search_index" do
-    policy = create(:published_policy, title: "policy-title")
-    policy.stubs(:indexable_content).returns("some augmented searchable content")
-    assert_equal "some augmented searchable content", policy.search_index["indexable_content"]
+    publication = create(:published_publication, title: "publication-title")
+    publication.stubs(:indexable_content).returns("some augmented searchable content")
+    assert_equal "some augmented searchable content", publication.search_index["indexable_content"]
   end
 
   test "should return search index data for all published editions" do
-    create(:published_policy, title: "policy-title", body: "this and that",
-           summary: "policy-summary")
+    create(:published_news_article, title: "news_article-title", body: "this and that",
+           summary: "news_article-summary")
     create(:published_publication, title: "publication-title",
            body: "stuff and things", summary: "publication-summary")
     create(:draft_publication, title: "draft-publication-title", body: "bits and bobs")
 
     results = Edition.search_index.to_a
 
-    assert_equal ['policy-title', 'publication-title'], results.map {|r| r['title']}
+    assert_equal ['news_article-title', 'publication-title'], results.map {|r| r['title']}
   end
 
   test "should remove published edition from search index and update edition state in Panopticon when it is unpublished" do
-    policy = create(:published_policy)
-    create(:unpublishing, edition: policy)
+    news_article = create(:published_news_article)
+    create(:unpublishing, edition: news_article)
     mock_registrar = mock(register!: true)
 
-    Whitehall::SearchIndex.expects(:delete).with(policy)
-    ServiceListeners::PanopticonRegistrar.expects(:new).with(policy).returns(mock_registrar)
+    Whitehall::SearchIndex.expects(:delete).with(news_article)
+    ServiceListeners::PanopticonRegistrar.expects(:new).with(news_article).returns(mock_registrar)
 
-    Whitehall.edition_services.unpublisher(policy).perform!
+    Whitehall.edition_services.unpublisher(news_article).perform!
   end
 
   test "#destroy should also remove the relationship to any authors" do
-    edition = create(:draft_edition, creator: create(:policy_writer))
+    edition = create(:draft_edition, creator: create(:writer))
     relation = edition.edition_authors.first
     edition.destroy
     refute EditionAuthor.find_by(id: relation.id)
@@ -554,7 +512,7 @@ class EditionTest < ActiveSupport::TestCase
 
     assert_equal [jan, feb, second_feb].collect(&:id), Edition.published.in_chronological_order.collect(&:id)
 
-    re_editioned_feb = feb.create_draft(create(:policy_writer))
+    re_editioned_feb = feb.create_draft(create(:writer))
     re_editioned_feb.minor_change = true
     force_publish(re_editioned_feb)
 
@@ -568,7 +526,7 @@ class EditionTest < ActiveSupport::TestCase
 
     assert_equal [second_feb, feb, jan].collect(&:id), Edition.published.in_reverse_chronological_order.collect(&:id)
 
-    re_editioned_feb = feb.create_draft(create(:policy_writer))
+    re_editioned_feb = feb.create_draft(create(:writer))
     re_editioned_feb.minor_change = true
     force_publish(re_editioned_feb)
 
@@ -794,45 +752,15 @@ class EditionTest < ActiveSupport::TestCase
     refute no_editions.include?(edition_1)
   end
 
-  test 'relevant_to_local_government excludes editions not relevant to local government by default' do
-    local_gov_policy = create(:published_policy, :with_document, relevant_to_local_government: true)
-    non_local_gov_policy = create(:published_policy, :with_document, relevant_to_local_government: false)
-
-    local_gov_publication = create(:publication, related_policy_ids: [local_gov_policy.id])
-    non_local_gov_publication = create(:publication, related_policy_ids: [non_local_gov_policy.id])
-
-    local_gov_editions = Edition.relevant_to_local_government
-    assert local_gov_editions.include? local_gov_policy
-    assert local_gov_editions.include? local_gov_publication
-
-    refute local_gov_editions.include? non_local_gov_policy
-    refute local_gov_editions.include? non_local_gov_publication
-  end
-
-  test 'not_relevant_to_local_government only includes editions not relevant to local government' do
-    local_gov_policy = create(:published_policy, :with_document, relevant_to_local_government: true)
-    non_local_gov_policy = create(:published_policy, :with_document, relevant_to_local_government: false)
-
-    local_gov_publication = create(:publication, related_policy_ids: [local_gov_policy.id])
-    non_local_gov_publication = create(:publication, related_policy_ids: [non_local_gov_policy.id])
-
-    non_local_gov_editions = Edition.not_relevant_to_local_government
-    assert non_local_gov_editions.include? non_local_gov_policy
-    assert non_local_gov_editions.include? non_local_gov_publication
-
-    refute non_local_gov_editions.include? local_gov_policy
-    refute non_local_gov_editions.include? local_gov_publication
-  end
-
   test 'Edition.with_classification returns any editions tagged with the given classification' do
     topic_1 = create(:topic)
     topic_2 = create(:topic)
     news_article = create(:news_article, topics: [topic_1])
-    policy       = create(:policy, topics: [topic_1, topic_2])
+    publication       = create(:publication, topics: [topic_1, topic_2])
     speech       = create(:speech)
 
-    assert_equal [news_article, policy], Edition.with_classification(topic_1)
-    assert_equal [policy], Edition.with_classification(topic_2)
+    assert_equal [news_article, publication], Edition.with_classification(topic_1)
+    assert_equal [publication], Edition.with_classification(topic_2)
   end
 
   should_not_accept_footnotes_in :body

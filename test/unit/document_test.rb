@@ -2,32 +2,32 @@ require "test_helper"
 
 class DocumentTest < ActiveSupport::TestCase
   test "should return documents that have published editions" do
-    superseded_policy = create(:superseded_policy)
-    published_policy = create(:published_policy)
-    draft_policy = create(:draft_policy)
+    superseded_publication = create(:superseded_publication)
+    published_publication = create(:published_publication)
+    draft_publication = create(:draft_publication)
 
-    assert_equal [published_policy.document], Document.published
+    assert_equal [published_publication.document], Document.published
   end
 
   test "should return the published edition" do
     user = create(:departmental_editor)
     document = create(:document)
-    original_policy = create(:draft_policy, document: document)
-    force_publish(original_policy)
-    draft_policy = original_policy.create_draft(user)
-    draft_policy.change_note = "change-note"
-    force_publish(draft_policy)
+    original_publication = create(:draft_publication, document: document)
+    force_publish(original_publication)
+    draft_publication = original_publication.create_draft(user)
+    draft_publication.change_note = "change-note"
+    force_publish(draft_publication)
 
-    superseded_policy = original_policy
-    published_policy = draft_policy
-    new_draft_policy = published_policy.create_draft(user)
+    superseded_publication = original_publication
+    published_publication = draft_publication
+    new_draft_publication = published_publication.create_draft(user)
 
-    assert_equal published_policy, document.reload.published_edition
+    assert_equal published_publication, document.reload.published_edition
   end
 
   test "should be able to retrieve documents of a certain type at a particular slug" do
-    policy = create(:draft_policy)
-    assert_equal policy.document, Document.at_slug(policy.type, policy.document.slug)
+    publication = create(:draft_publication)
+    assert_equal publication.document, Document.at_slug(publication.type, publication.document.slug)
   end
 
   test "should be able to retrieve documents of many types at a particular slug" do
@@ -38,23 +38,23 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should be published if a published edition exists" do
-    published_policy = create(:published_policy)
-    assert published_policy.document.published?
+    published_publication = create(:published_publication)
+    assert published_publication.document.published?
   end
 
   test "should not be published if no published edition exists" do
-    draft_policy = create(:draft_policy)
-    refute draft_policy.document.published?
+    draft_publication = create(:draft_publication)
+    refute draft_publication.document.published?
   end
 
   test "should no longer be published when it's edition is unpublished" do
-    published_policy = create(:published_policy)
-    document = published_policy.document
-    assert published_policy.document.published?
+    published_publication = create(:published_publication)
+    document = published_publication.document
+    assert published_publication.document.published?
 
-    published_policy.unpublish!
+    published_publication.unpublish!
 
-    refute published_policy.document.published?
+    refute published_publication.document.published?
   end
 
   test "should ignore deleted editions when finding latest edition" do
@@ -99,7 +99,7 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should list a single change history when sole published edition is marked as a minor change" do
-    edition = create(:published_policy, minor_change: true, change_note: nil)
+    edition = create(:published_publication, minor_change: true, change_note: nil)
 
     history = edition.change_history
     assert_equal 1, history.length

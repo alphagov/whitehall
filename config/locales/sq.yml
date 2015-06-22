@@ -4,9 +4,6 @@ sq:
       attachments:
         one: Dokument
         other: Dokumente
-      policies:
-        one:
-        other:
       applies_to_nations: Zbatohet mbi
       field_of_operation: Fusha e veprimit
       from:
@@ -97,9 +94,6 @@ sq:
       oral_statement:
         one: Deklarate per Parliamentin
         other: Deklarata per Parlamentin
-      policy:
-        one: Politike
-        other: Politika
       policy_paper:
         one: dokument politikash
         other: dokumente politikash
@@ -239,17 +233,6 @@ sq:
         unique_reference:
         unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
-      supporting_page/supporting_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      supporting_page/supporting_page_attachments/attachment/attachment_data:
         file:
     nested_attachment_data_field_names:
       file:

@@ -71,7 +71,6 @@ class Edition < ActiveRecord::Base
   scope :announcements,                 -> { where(type: Announcement.concrete_descendants.collect(&:name)) }
   scope :consultations,                 -> { where(type: "Consultation") }
   scope :detailed_guides,               -> { where(type: "DetailedGuide") }
-  scope :policies,                      -> { where(type: "Policy") }
   scope :statistical_publications,      -> { where("publication_type_id IN (?)", PublicationType.statistical.map(&:id)) }
   scope :non_statistical_publications,  -> { where("publication_type_id NOT IN (?)", PublicationType.statistical.map(&:id)) }
   scope :corporate_publications,        -> { where(publication_type_id: PublicationType::CorporateReport.id) }
@@ -135,29 +134,6 @@ class Edition < ActiveRecord::Base
     where(arel_table[:type].not_in(edition_classes.map(&:name)))
   end
 
-  def self.not_relevant_to_local_government
-    relevant_to_local_government(false)
-  end
-
-  def self.relevant_to_local_government(include_relevant = true)
-    types_that_get_relevance_from_related_policies = Edition::CanApplyToLocalGovernmentThroughRelatedPolicies.edition_types.map(&:name)
-    where(%{
-      (
-        type IN (:types) AND EXISTS (
-          SELECT 1
-            FROM editions related_editions
-           INNER JOIN edition_relations ON related_editions.document_id = edition_relations.document_id
-           WHERE edition_relations.edition_id = editions.id
-             AND related_editions.type = 'Policy'
-             AND related_editions.relevant_to_local_government = :relevant
-             AND related_editions.state = 'published'
-        )
-      ) OR (
-        type NOT IN (:types) AND editions.relevant_to_local_government = :relevant
-      )
-    }, types: types_that_get_relevance_from_related_policies, relevant: include_relevant)
-  end
-
   def self.published_and_available_in_english
     with_translations(:en).published
   end
@@ -203,16 +179,6 @@ class Edition < ActiveRecord::Base
 
   def self.to_date(date)
     where("editions.updated_at <= ?", date)
-  end
-
-  def self.related_to(edition)
-    related = if edition.is_a?(Policy)
-      edition.related_editions
-    else
-      edition.related_policies
-    end
-
-    where(id: related.pluck(:id))
   end
 
   def self.latest_edition
@@ -403,10 +369,6 @@ class Edition < ActiveRecord::Base
   end
 
   def allows_inline_attachments?
-    false
-  end
-
-  def allows_supporting_pages?
     false
   end
 

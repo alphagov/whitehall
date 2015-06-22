@@ -2,7 +2,7 @@ require "test_helper"
 
 class Edition::FactCheckableTest < ActiveSupport::TestCase
   test "#destroy should also remove the fact check requests" do
-    edition = create(:draft_policy)
+    edition = create(:draft_publication)
     fact_check_request = create(:fact_check_request, edition: edition)
     edition.destroy
     refute FactCheckRequest.find_by(id: fact_check_request.id)
@@ -12,7 +12,7 @@ class Edition::FactCheckableTest < ActiveSupport::TestCase
     begin
       t0 = Time.zone.now
       user = create(:user)
-      old_edition = create(:published_policy)
+      old_edition = create(:published_publication)
       Timecop.freeze t0
       old_complete_fcr = create(:fact_check_request, edition: old_edition, comments: "Stuff")
       Timecop.freeze t0 + 1

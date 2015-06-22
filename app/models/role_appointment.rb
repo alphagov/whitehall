@@ -5,10 +5,6 @@ class RoleAppointment < ActiveRecord::Base
   has_many :editions, through: :edition_role_appointments
 
   # All this nonsense is because of all the intermediary associations
-  has_many :policies,
-            ->  { where("editions.type" => Policy) },
-            through: :edition_role_appointments,
-            source: :edition
   has_many :consultations,
             ->  { where("editions.type" => Consultation) },
             through: :edition_role_appointments,

@@ -4,11 +4,11 @@ class NotificationsFactCheckRequestTest < ActionMailer::TestCase
   enable_url_helpers
 
   setup do
-    @policy = build(:policy, title: "<policy-title>")
+    @publication = build(:publication, title: "<publication-title>")
     @requestor = build(:fact_check_requestor, name: "<requestor-name>")
     @request = build(:fact_check_request,
       email_address: 'fact-checker@example.com',
-      edition: @policy,
+      edition: @publication,
       requestor: @requestor
     )
     @mail = Notifications.fact_check_request(@request, host: "example.com")
@@ -19,7 +19,7 @@ class NotificationsFactCheckRequestTest < ActionMailer::TestCase
   end
 
   test "email subject should include the name of the requestor and the edition title" do
-    assert_equal "Fact checking request from <requestor-name>: <policy-title>", @mail.subject
+    assert_equal "Fact checking request from <requestor-name>: <publication-title>", @mail.subject
   end
 
   test "email body should contain a link to the fact checking comment page" do
@@ -28,11 +28,11 @@ class NotificationsFactCheckRequestTest < ActionMailer::TestCase
   end
 
   test "email body should contain the title of the edition to be checked" do
-    assert_match %r{<policy-title>}, @mail.body.to_s
+    assert_match %r{<publication-title>}, @mail.body.to_s
   end
 
   test "email body should contain the type of the edition to be checked" do
-    assert_match %r{policy}, @mail.body.to_s
+    assert_match %r{publication}, @mail.body.to_s
   end
 
   test "email body should contain unescaped instructions" do
@@ -43,8 +43,8 @@ class NotificationsFactCheckRequestTest < ActionMailer::TestCase
   end
 
   test "email body should contain unescaped edition title" do
-    policy = build(:policy, title: %{Use "double quotes" everywhere})
-    request = build(:fact_check_request, edition: policy)
+    publication = build(:publication, title: %{Use "double quotes" everywhere})
+    request = build(:fact_check_request, edition: publication)
     mail = Notifications.fact_check_request(request, host: "example.com")
 
     assert_match %r{Use "double quotes" everywhere}, mail.body.to_s
@@ -58,14 +58,14 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
   include Admin::EditionRoutesHelper
 
   setup do
-    @policy = build(:policy, title: "<policy-title>")
+    @publication = build(:publication, title: "<publication-title>")
     @requestor = build(:fact_check_requestor,
       name: "<requestor-name>",
       email: "fact-check-requestor@example.com"
     )
     @request = build(:fact_check_request,
       email_address: 'fact-checker@example.com',
-      edition: @policy,
+      edition: @publication,
       requestor: @requestor
     )
     @mail = Notifications.fact_check_response(@request, host: "example.com")
@@ -76,7 +76,7 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
   end
 
   test "email subject should include the name of the requestor and the edition title" do
-    assert_equal "Fact check comment added by fact-checker@example.com: <policy-title>", @mail.subject
+    assert_equal "Fact check comment added by fact-checker@example.com: <publication-title>", @mail.subject
   end
 
   test "email body should contain a link to the comment on the edition page" do
@@ -85,11 +85,11 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
   end
 
   test "email body should contain the title of the edition to be checked" do
-    assert_match %r{<policy-title>}, @mail.body.to_s
+    assert_match %r{<publication-title>}, @mail.body.to_s
   end
 
   test "email body should contain the type of the edition to be checked" do
-    assert_match %r{policy}, @mail.body.to_s
+    assert_match %r{publication}, @mail.body.to_s
   end
 
   test "email body should contain unescaped instructions" do
@@ -100,8 +100,8 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
   end
 
   test "email body should contain unescaped edition title" do
-    policy = build(:policy, title: %{Use "double quotes" everywhere})
-    request = build(:fact_check_request, edition: policy)
+    publication = build(:publication, title: %{Use "double quotes" everywhere})
+    request = build(:fact_check_request, edition: publication)
     mail = Notifications.fact_check_request(request, host: "example.com")
 
     assert_match %r{Use "double quotes" everywhere}, mail.body.to_s

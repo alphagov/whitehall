@@ -110,7 +110,7 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   test "should convert single document to govspeak" do
-    document = build(:published_policy, body: "## test")
+    document = build(:published_publication, body: "## test")
     html = govspeak_edition_to_html(document)
     assert_select_within_html html, "h2"
   end
@@ -120,7 +120,7 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   test "should optionally not wrap output in a govspeak class" do
-    document = build(:published_policy, body: "govspeak-text")
+    document = build(:published_publication, body: "govspeak-text")
     html = bare_govspeak_edition_to_html(document)
     assert_select_within_html html, ".govspeak", false
     assert_select_within_html html, "p", "govspeak-text"

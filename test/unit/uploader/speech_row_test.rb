@@ -44,20 +44,6 @@ module Whitehall::Uploader
       assert_match /Discarding delivered_by information "brian-jones" because delivered_on is missing/, @logged.string
     end
 
-    test "finds up to 4 policies specified by slug in columns policy_1, policy_2, policy_3 and policy_4" do
-      policy_1 = create(:published_policy, title: "Policy 1")
-      policy_2 = create(:published_policy, title: "Policy 2")
-      policy_3 = create(:published_policy, title: "Policy 3")
-      policy_4 = create(:published_policy, title: "Policy 4")
-      row = new_speech_row({"policy_1" => policy_1.slug,
-        "policy_2" => policy_2.slug,
-        "policy_3" => policy_3.slug,
-        "policy_4" => policy_4.slug
-      })
-
-      assert_equal [policy_1, policy_2, policy_3, policy_4], row.related_editions
-    end
-
     test "takes location from the event_and_location column" do
       row = new_speech_row({"event_and_location" => "a-location"})
       assert_equal "a-location", row.location
@@ -114,7 +100,7 @@ module Whitehall::Uploader
     end
 
     def basic_headings
-      %w{old_url title summary body  type  delivered_by  delivered_on event_and_location  policy_1  policy_2  policy_3  policy_4  organisation country_1 country_2 country_3 country_4}
+      %w{old_url title summary body  type  delivered_by  delivered_on event_and_location  organisation country_1 country_2 country_3 country_4}
     end
   end
 end

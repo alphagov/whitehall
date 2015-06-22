@@ -4,7 +4,7 @@ class Admin::GenericEditionsController::RevisingDocumentsTest < ActionController
   tests Admin::GenericEditionsController
 
   setup do
-    login_as :policy_writer
+    login_as :writer
   end
 
   view_test "should be possible to revise a published edition" do
@@ -33,7 +33,7 @@ class Admin::GenericEditionsController::RevisingDocumentsTest < ActionController
 
   view_test "show for a new draft links back to its published edition" do
     original_edition = create(:published_edition)
-    new_draft = original_edition.create_draft(create(:policy_writer))
+    new_draft = original_edition.create_draft(create(:writer))
 
     get :show, id: new_draft
 
@@ -42,7 +42,7 @@ class Admin::GenericEditionsController::RevisingDocumentsTest < ActionController
 
   view_test "show for a published edition links to a new draft" do
     original_edition = create(:published_edition)
-    new_draft = original_edition.create_draft(create(:policy_writer))
+    new_draft = original_edition.create_draft(create(:writer))
 
     get :show, id: original_edition
 

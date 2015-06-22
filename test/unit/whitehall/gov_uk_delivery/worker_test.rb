@@ -6,7 +6,7 @@ module Whitehall
     class WorkerTest < ActiveSupport::TestCase
 
       test ".notify! performs the job asynchronously with the given arguments" do
-        edition = create(:published_policy)
+        edition = create(:published_publication)
         notification_date = Time.zone.now
         title = "Example title"
         summary = "Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Maecenas sed diam eget risus varius blandit sit amet non magna."

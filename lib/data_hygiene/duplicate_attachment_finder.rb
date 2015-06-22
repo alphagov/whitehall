@@ -15,7 +15,7 @@ module DataHygiene
     DUP_NON_EDITION_ATTACHMENT_SQL = <<-HEREDOC
       SELECT attachable_type, attachable_id as id FROM attachments
       JOIN attachment_data on attachments.attachment_data_id = attachment_data.id
-      WHERE attachable_type != "Edition" and attachable_type != "SupportingPage"
+      WHERE attachable_type != "Edition"
       GROUP BY attachable_type, attachable_id, attachment_data.carrierwave_file
       HAVING count(*) > 1;
     HEREDOC

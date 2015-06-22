@@ -8,8 +8,8 @@ class TopicsControllerTest < ActionController::TestCase
   view_test "GET :shows lists the topic details, setting the expiry headers based on the scheduled editions" do
     organisation_1 = create(:organisation)
     organisation_2 = create(:organisation)
-    policy = create(:draft_policy, :scheduled)
-    topic = create(:topic, editions: [policy, create(:published_news_article)])
+    publication = create(:draft_publication, :scheduled)
+    topic = create(:topic, editions: [publication, create(:published_news_article)])
     topic.organisations << organisation_1
     topic.organisations << organisation_2
 
@@ -125,16 +125,16 @@ class TopicsControllerTest < ActionController::TestCase
 
   view_test "GET :show displays latest documents relating to the topic, including atom feed and govdelivery links" do
     topic = create(:topic)
-    policy_1 = create(:published_policy, topics: [topic])
+    publication_1 = create(:published_publication, topics: [topic])
     news_article = create(:published_news_article, topics: [topic])
-    policy_2 = create(:published_policy, topics: [topic])
-    create(:classification_featuring, classification: topic, edition: policy_1)
+    publication_2 = create(:published_publication, topics: [topic])
+    create(:classification_featuring, classification: topic, edition: publication_1)
 
     get :show, id: topic
 
     assert_select "#recently-updated" do
-      assert_select_prefix_object policy_1, prefix = "recent"
-      assert_select_prefix_object policy_2, prefix = "recent"
+      assert_select_prefix_object publication_1, prefix = "recent"
+      assert_select_prefix_object publication_2, prefix = "recent"
       assert_select_prefix_object news_article, prefix = "recent"
     end
 
@@ -144,7 +144,7 @@ class TopicsControllerTest < ActionController::TestCase
 
   view_test 'GET :show for atom feed has the right elements' do
     topic = create(:topic)
-    policy = create(:published_policy, topics: [topic])
+    publication = create(:published_publication, topics: [topic])
 
     get :show, id: topic, format: :atom
 
@@ -156,7 +156,7 @@ class TopicsControllerTest < ActionController::TestCase
       assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml', topic_url(topic, format: 'atom'), 1
       assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', topic_url(topic), 1
 
-      assert_select_atom_entries([policy])
+      assert_select_atom_entries([publication])
     end
   end
 

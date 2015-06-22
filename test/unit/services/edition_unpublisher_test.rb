@@ -54,7 +54,7 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
 
   test 'cannot unpublish a published editions if a newer draft exists' do
     edition = create(:published_edition)
-    edition.create_draft(create(:policy_writer))
+    edition.create_draft(create(:writer))
     unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
 
     refute unpublisher.can_perform?

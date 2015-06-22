@@ -108,13 +108,6 @@ Then /^the import should fail with errors about organisation and sub type and no
   assert_equal 0, Edition.count
 end
 
-Then /^the import should fail with errors about an unrecognised policy$/ do
-  click_on 'error'
-  assert page.has_content?("Unable to find Policy with slug 'non-existent-policy'")
-
-  assert_equal 0, Edition.count
-end
-
 Then /^I can't make the imported (?:publication|speech|news article|consultation) into a draft edition yet$/ do
   visit_edition_admin Edition.imported.last.title
 

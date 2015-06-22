@@ -70,24 +70,6 @@ class OrganisationHelperTest < ActionView::TestCase
     assert_equal 'clear-person', extra_board_member_class(organisation, 3)
   end
 
-  test 'link_to_all_featured_policies returns policies_path filtered by the supplied organisation if it has no featured_topics_and_policies_list' do
-    o = build(:organisation); o.stubs(:to_param).returns('woo')
-    assert_equal link_to('See all our policies', policies_path(departments: [o])), link_to_all_featured_policies(o)
-  end
-
-  test 'link_to_all_featured_policies returns policies_path if the supplied organisation has a featured_topics_and_features_list but it does not link_to_filtered_policies' do
-    o = build(:organisation); o.stubs(:to_param).returns('woo')
-    list = build(:featured_topics_and_policies_list, link_to_filtered_policies: false)
-    o.featured_topics_and_policies_list = list
-    assert_equal link_to('See all our policies', policies_path), link_to_all_featured_policies(o)
-  end
-
-  test 'link_to_all_featured_policies returns policies_path filtered by the supplied organisation if it has featured_topics_and_features_list\'s org that does link_to_filtered_policies' do
-    o = build(:organisation); o.stubs(:to_param).returns('woo')
-    list = build(:featured_topics_and_policies_list, link_to_filtered_policies: true)
-    assert_equal link_to('See all our policies', policies_path(departments: [o])), link_to_all_featured_policies(o)
-  end
-
   test 'organisation_count_paragraph includes the number of orgs in a filterable container' do
     orgs = [build(:organisation), build(:organisation)]
     render text: organisation_count_paragraph(orgs)

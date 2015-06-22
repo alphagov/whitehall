@@ -557,8 +557,7 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "edit displays document form with related policies field" do
-        policy = create(:policy)
-        document = create(document_type, related_editions: [policy])
+        document = create(document_type)
 
         get :edit, id: document
 
@@ -577,21 +576,16 @@ module AdminEditionControllerTestHelpers
         assert_equal [policy_2['content_id']], edition.reload.policy_content_ids
       end
 
-      view_test "updating a stale edition should render edit page with conflicting edition and its related policies" do
-        policy = create(:policy)
-        edition = create(document_type, related_editions: [policy])
+      view_test "updating a stale edition should render edit page with conflicting edition" do
+        edition = create(document_type)
         lock_version = edition.lock_version
         edition.touch
 
         put :update, id: edition, edition: {
           lock_version: lock_version,
-          policy_content_ids: edition.related_policy_ids
         }
 
-        assert_select ".document.conflict" do
-          assert_select "h1", "Related policies"
-          assert_select record_css_selector(policy)
-        end
+        assert_select ".document.conflict"
       end
     end
 

@@ -34,10 +34,6 @@ module CsvSampleHelpers
     minimally_valid_edition_row.merge(
       "opening_date"      => "16-Nov-2011",
       "closing_date"      => "16-Nov-2012",
-      "policy_1"          => "",
-      "policy_2"          => "",
-      "policy_3"          => "",
-      "policy_4"          => "",
       "consultation_ISBN" => "",
       "consultation_URN"  => "",
       "response_date"     => "20-Nov-2012",

@@ -12,7 +12,6 @@ module Whitehall::Uploader
 
     def self.validator
       super
-        .multiple("policy_#", 0..4)
         .required(%w{opening_date closing_date})
         .optional(%w{consultation_ISBN consultation_URN})
         .required(%w{response_date response_summary})
@@ -28,10 +27,6 @@ module Whitehall::Uploader
 
     def closing_at
       Parsers::DateParser.parse(row['closing_date'], @logger, @line_number)
-    end
-
-    def related_editions
-      Finders::EditionFinder.new(Policy, @logger, @line_number).find(row['policy_1'], row['policy_2'], row['policy_3'], row['policy_4'])
     end
 
     def alternative_format_provider
@@ -55,8 +50,7 @@ module Whitehall::Uploader
         :lead_organisations,
         :opening_at,
         :outcome,
-        :related_editions,
-        :topics
+        :topics,
       ]
     end
 

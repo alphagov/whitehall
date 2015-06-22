@@ -13,8 +13,8 @@ module Whitehall::GovUkDelivery
     end
 
     test '#display_title combines the title with the document type' do
-      policy = Policy.new(title: 'Compulsory pickles for all')
-      assert_equal 'Policy: Compulsory pickles for all', email_formatter_for(policy).display_title
+      guide = DetailedGuide.new(title: 'Compulsory pickles for all')
+      assert_equal 'Detailed guide: Compulsory pickles for all', email_formatter_for(guide).display_title
     end
 
     test '#display_title uses an appropriate document type for world location new articles' do

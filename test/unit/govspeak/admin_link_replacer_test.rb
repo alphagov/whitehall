@@ -12,19 +12,6 @@ module Govspeak
       assert_select_within_html fragment.to_html, "a[href='#{public_url}']", text: "that"
     end
 
-    test "handles old style admin links for supporting pages" do
-      policy          = create(:published_policy)
-      supporting_page = create(:published_supporting_page, related_policies: [policy])
-      EditionedSupportingPageMapping.create(old_supporting_page_id: 654321, new_supporting_page_id: supporting_page.id)
-      admin_path      = "/government/admin/editions/#{policy.id}/supporting-pages/654321"
-      public_url      = Whitehall.url_maker.policy_supporting_page_url(policy.document, supporting_page.document)
-      fragment        = govspeak_to_nokogiri_fragment("this and [that](#{admin_path}) yeah?")
-
-      AdminLinkReplacer.new(fragment).replace!
-
-      assert_select_within_html fragment.to_html, "a[href='#{public_url}']", text: "that"
-    end
-
     test 'unpublished edition links are replaced with plain text' do
       draft_speech = create(:draft_speech)
       admin_path   = Whitehall.url_maker.admin_speech_path(draft_speech)

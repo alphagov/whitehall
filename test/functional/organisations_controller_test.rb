@@ -108,13 +108,12 @@ class OrganisationsControllerTest < ActionController::TestCase
     contact = create(:contact)
     organisation = create(:organisation, management_roles: [management_role])
     create(:sub_organisation, parent_organisations: [organisation])
-    create(:published_policy, organisations: [organisation])
     role = create(:ministerial_role, role_appointments: [create(:role_appointment)])
     create(:organisation_role, organisation: organisation, role: role)
     create(:corporate_information_page, organisation: organisation)
     organisation.add_contact_to_home_page!(contact)
 
-    rummager_has_old_policies_for_every_organisation
+    rummager_has_new_policies_for_every_type
 
     get :show, id: organisation
 
@@ -147,7 +146,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  sets_cache_control_max_age_to_time_of_next_scheduled(:policy)
   sets_cache_control_max_age_to_time_of_next_scheduled(:publication)
   sets_cache_control_max_age_to_time_of_next_scheduled(:consultation)
   sets_cache_control_max_age_to_time_of_next_scheduled(:speech) do |organisation|
@@ -352,41 +350,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select "p.parent-organisations", text: /Administered by\s+HMCTS/m
   end
 
-  ###############
-  ## OLD POLICIES
-  view_test "should display the organisation's policies with content" do
-    organisation = create(:organisation)
-    rummager_has_old_policies_for_every_organisation
-
-    get :show, id: organisation
-
-    assert_select "#policies" do
-      assert_select "a[href='/government/policies/helping-people-to-find-and-stay-in-work']",
-                    text: "Employment"
-
-      assert_select "a[href='#{policies_finder_path(organisations: [organisation])}']"
-    end
-  end
-
-  test "should display organisation's latest three policies" do
-    organisation = create(:organisation)
-    rummager_has_old_policies_for_every_organisation(count: 3)
-
-    get :show, id: organisation
-
-    first_three_policy_titles = [
-      "Employment",
-      "Household energy",
-      "Poverty and social justice",
-    ]
-
-    assert_equal first_three_policy_titles, assigns[:policies].map(&:title)
-  end
-  ## OLD POLICIES
-  ###############
-
-  ###############
-  ## NEW POLICIES
   view_test "should display the organisation's future policies with content" do
     organisation = create(:organisation)
     rummager_has_new_policies_for_every_type
@@ -414,8 +377,6 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_equal first_three_policy_titles, assigns[:policies].map(&:title)
   end
-  ## NEW POLICIES
-  ###############
 
   test "should display 2 announcements in reverse chronological order" do
     organisation = create(:organisation)
@@ -573,12 +534,12 @@ class OrganisationsControllerTest < ActionController::TestCase
   view_test "show generates an atom feed with entries for latest activity" do
     organisation = create(:organisation, name: "org-name")
     pub = create(:published_publication, organisations: [organisation], first_published_at: 4.weeks.ago.to_date)
-    pol = create(:published_policy, organisations: [organisation], first_published_at: 2.weeks.ago)
+    news = create(:published_news_article, organisations: [organisation], first_published_at: 2.weeks.ago)
 
     get :show, id: organisation, format: :atom
 
     assert_select_atom_feed do
-      assert_select_atom_entries([pol, pub])
+      assert_select_atom_entries([news, pub])
     end
   end
 

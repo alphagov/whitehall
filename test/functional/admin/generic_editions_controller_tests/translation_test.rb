@@ -5,7 +5,7 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
 
   setup do
     GenericEdition.translatable = true
-    login_as :policy_writer
+    login_as :writer
   end
 
   teardown do

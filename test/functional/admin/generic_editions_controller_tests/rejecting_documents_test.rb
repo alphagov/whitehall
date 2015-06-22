@@ -4,7 +4,7 @@ class Admin::GenericEditionsController::RejectingDocumentsTest < ActionControlle
   tests Admin::GenericEditionsController
 
   setup do
-    login_as :policy_writer
+    login_as :writer
   end
 
   view_test "displays the 'Reject' button for privileged users " do

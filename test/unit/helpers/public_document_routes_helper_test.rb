@@ -2,18 +2,13 @@ require 'test_helper'
 
 class PublicDocumentRoutesHelperTest < ActionView::TestCase
   test 'uses the document to generate the route' do
-    policy = create(:policy)
-    assert_equal policy_path(policy.document), public_document_path(policy)
+    publication = create(:publication)
+    assert_equal publication_path(publication.document), public_document_path(publication)
   end
 
   test 'respects additional path options' do
-    policy = create(:policy)
-    assert_equal policy_path(policy.document, anchor: 'additional'), public_document_path(policy, anchor: 'additional')
-  end
-
-  test 'returns the policy_path for Policy instances' do
-    policy = create(:policy)
-    assert_equal policy_path(policy.document), public_document_path(policy)
+    publication = create(:publication)
+    assert_equal publication_path(publication.document, anchor: 'additional'), public_document_path(publication, anchor: 'additional')
   end
 
   test 'returns the publication_path for Publication instances' do
@@ -48,20 +43,6 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
     assert_equal statistical_data_set_path(statistical_data_set.document), public_document_path(statistical_data_set)
   end
 
-  test 'returns the policy_supporting_page path for SupportingPage instances' do
-    policy = create(:policy)
-    supporting_page = create(:supporting_page, related_policies: [policy])
-    assert_equal policy_supporting_page_path(policy.document, supporting_page.document), public_document_path(supporting_page)
-  end
-
-  test 'returns the policy_supporting_page path for SupportingPage instances for the specified policy' do
-    first_policy = create(:policy)
-    second_policy = create(:policy)
-    supporting_page = create(:supporting_page, related_policies: [first_policy, second_policy])
-    assert_equal policy_supporting_page_path(second_policy.document, supporting_page.document), public_document_path(supporting_page, policy_id: second_policy.document)
-    assert_equal policy_supporting_page_path(first_policy.document, supporting_page.document), public_document_path(supporting_page, policy_id: first_policy.document)
-  end
-
   test 'returns the correct path for CorporateInformationPage instances' do
     cip = create(:corporate_information_page)
     assert_equal organisation_corporate_information_page_path(cip.organisation, cip.slug), public_document_path(cip)
@@ -76,7 +57,7 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
   test 'returns the document URL using Whitehall public_host and protocol' do
     Whitehall.stubs(public_host: 'some.host')
     Whitehall.stubs(public_protocol: 'http')
-    edition = create(:published_policy)
+    edition = create(:published_publication)
     uri = URI.parse(public_document_url(edition))
     assert_equal 'some.host', uri.host
     assert_equal 'http', uri.scheme
@@ -84,26 +65,26 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
   end
 
   test 'generates an appropriate path for non-English editions' do
-    policy = create(:policy, primary_locale: 'fr')
-    assert_equal policy_path(policy.document, locale: 'fr'), public_document_path(policy)
+    publication = create(:publication, primary_locale: 'fr')
+    assert_equal publication_path(publication.document, locale: 'fr'), public_document_path(publication)
   end
 
   test 'generates an appropriate url for non-English editions' do
-    policy = create(:policy, primary_locale: 'fr')
-    assert_equal Whitehall.url_maker.policy_url(policy.document, locale: 'fr'), public_document_url(policy)
+    publication = create(:publication, primary_locale: 'fr')
+    assert_equal Whitehall.url_maker.publication_url(publication.document, locale: 'fr'), public_document_url(publication)
   end
 
   test 'When in a foreign locale, it generates a route to the foreign version if available' do
-    policy = create(:policy, :translated, translated_into: [:fr])
+    publication = create(:publication, :translated, translated_into: [:fr])
     I18n.with_locale(:fr) do
-      assert_equal Whitehall.url_maker.policy_url(policy.document, locale: 'fr'), public_document_url(policy)
+      assert_equal Whitehall.url_maker.publication_url(publication.document, locale: 'fr'), public_document_url(publication)
     end
   end
 
   test 'When in a foreign locale, it generates a route to the english version if no foreign version is available' do
-    policy = create(:policy)
+    publication = create(:publication)
     I18n.with_locale(:fr) do
-      assert_equal Whitehall.url_maker.policy_url(policy.document, locale: 'en'), public_document_url(policy)
+      assert_equal Whitehall.url_maker.publication_url(publication.document, locale: 'en'), public_document_url(publication)
     end
   end
 

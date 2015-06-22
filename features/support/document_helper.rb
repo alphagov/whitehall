@@ -1,4 +1,4 @@
-THE_DOCUMENT = Transform(/the (document|publication|policy|news article|consultation|consultation response|speech|worldwide priority|detailed guide|announcement|world location news article|statistical data set|supporting page|document collection|corporate information page) "([^"]*)"/) do |document_type, title|
+THE_DOCUMENT = Transform(/the (document|publication|news article|consultation|consultation response|speech|worldwide priority|detailed guide|announcement|world location news article|statistical data set|document collection|corporate information page) "([^"]*)"/) do |document_type, title|
   document_class(document_type).latest_edition.find_by!(title: title)
 end
 
@@ -54,10 +54,6 @@ module DocumentHelper
     end
   end
 
-  def begin_drafting_policy(options)
-    begin_drafting_document(options.merge(type: "policy", summary: options[:summary] || "Policy summary"))
-  end
-
   def begin_editing_document(title)
     visit_edition_admin title
     click_link "Edit draft"
@@ -84,7 +80,6 @@ module DocumentHelper
   end
 
   def begin_drafting_publication(title, options = {})
-    policy = create(:policy)
     begin_drafting_document type: 'publication', title: title, summary: "Some summary of the content", alternative_format_provider: create(:alternative_format_provider)
     fill_in_publication_fields(options)
   end

@@ -42,7 +42,6 @@ Feature: Importing new editions
 
   - publication_date: column required, data optional (required before draft)
   - publication_type: required, ideally default blank to ImportedAwaitingType, reject anything non-blank that can't be found
-  - policy_1..4: 1 column required, data optional
   - document_collection_1: column required, data optional
   - attachment_1..n_*: 1 column required, data required (should stay as is)
   - json_attachments: optional, leave as is
@@ -63,7 +62,6 @@ Feature: Importing new editions
 
   - first_published: column required, data optional (required before draft)
   - news_article_type: required, ideally default blank to ImportedAwaitingType, reject anything non-blank that can't be found
-  - policy_1..4: 1 column required, data optional
   - minister_1..2: optional
   - country_1..4: 1 column required, data optional
   - attachment_(0..Row::ATTACHMENT_LIMIT)_url: optional
@@ -101,7 +99,6 @@ Feature: Importing new editions
 
   CaseStudies:
 
-  - policy_1..4: 1 column required, data optional
   - document_collection_1..4: 1 column required, data optional
   - first_published: column required, data optional (required before draft)
 
@@ -111,8 +108,8 @@ Feature: Importing new editions
   Scenario: Importing publications with unrecognised types will be rejected
     When I import the following data as CSV as "Publication" for "Department for Transport":
       """
-      old_url,title,summary,body,organisation,policy_1,publication_type,document_collection_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
-      http://example.com/1,title,summary,body,weird organisation,,weird type,,14-Dec-2011,,,,,,,,,
+      old_url,title,summary,body,organisation,publication_type,document_collection_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
+      http://example.com/1,title,summary,body,weird organisation,weird type,,14-Dec-2011,,,,,,,,,
       """
     Then the import should fail with errors about organisation and sub type and no editions are created
 
@@ -120,26 +117,17 @@ Feature: Importing new editions
     Given the organisation "Foreign Commonwealth Office" exists
     When I import the following data as CSV as "Publication" for "Department for Transport":
       """
-      old_url,title,summary,body,organisation,policy_1,publication_type,document_collection_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
-      http://example.com/1,title,summary,body,foreign-commonwealth-office,,,,14-Dec-2011,,,,,,,,,
+      old_url,title,summary,body,organisation,publication_type,document_collection_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
+      http://example.com/1,title,summary,body,foreign-commonwealth-office,,,14-Dec-2011,,,,,,,,,
       """
     Then the import succeeds, creating 1 imported publication for "Foreign Commonwealth Office" with "imported-awaiting-type" publication type
-
-  Scenario: Attempt to import a publication with unrecognised policy slug is rejected
-    Given the organisation "Foreign Commonwealth Office" exists
-    When I import the following data as CSV as "Publication" for "Department for Transport":
-      """
-      old_url,title,summary,body,organisation,policy_1,publication_type,document_collection_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
-      http://example.com/1,title,summary,body,foreign-commonwealth-office,non-existent-policy,,,14-Dec-2011,,,,,,,,,
-      """
-    Then the import should fail with errors about an unrecognised policy
 
   Scenario: Importing publications sets imported state, ImportedAwaitingType type and default organisation, to be filled in later
     Given a topic with the slug "my-topic" exists
     When I import the following data as CSV as "Publication" for "Department for Transport":
       """
-      old_url,title,summary,body,organisation,policy_1,publication_type,document_collection_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1,topic_1
-      http://example.com/1,title,summary,body,,,,,14-Dec-2011,,,,,,,,,,my-topic
+      old_url,title,summary,body,organisation,publication_type,document_collection_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1,topic_1
+      http://example.com/1,title,summary,body,,,,14-Dec-2011,,,,,,,,,,my-topic
       """
     Then the import succeeds, creating 1 imported publication for "Department for Transport" with "imported-awaiting-type" publication type
     And I can't make the imported publication into a draft edition yet
@@ -150,8 +138,8 @@ Feature: Importing new editions
     Given a topic with the slug "my-topic" exists
     When I import the following data as CSV as "Publication" for "Department for Transport":
       """
-      old_url,title,summary,body,organisation,policy_1,publication_type,document_collection_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1,topic_1
-      http://example.com/1,title,summary,body,department-for-transport,,policy-papers,,,,,,,,,,,,my-topic
+      old_url,title,summary,body,organisation,publication_type,document_collection_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1,topic_1
+      http://example.com/1,title,summary,body,department-for-transport,policy-papers,,,,,,,,,,,,my-topic
       """
     Then the import succeeds, creating 1 imported publication for "Department for Transport" with no publication date
     And I can't make the imported publication into a draft edition yet
@@ -161,8 +149,8 @@ Feature: Importing new editions
   Scenario: Importing publications with an html attachment
     When I import the following data as CSV as "Publication" for "Department for Transport":
       """
-      old_url,title,summary,body,organisation,policy_1,publication_type,document_collection_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1,html_title,html_body,html_body_1
-      http://example.com/1,title,summary,body,department-for-transport,,policy-papers,,,,,,,,,,,,HTML attachment title,Body part one, plus body part two
+      old_url,title,summary,body,organisation,publication_type,document_collection_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1,html_title,html_body,html_body_1
+      http://example.com/1,title,summary,body,department-for-transport,policy-papers,,,,,,,,,,,,HTML attachment title,Body part one, plus body part two
       """
     Then the import succeeds, creating 1 imported publication for "Department for Transport"
     And the imported publication has an html attachment with the title "HTML attachment title" and body "Body part one plus body part two"
@@ -171,8 +159,8 @@ Feature: Importing new editions
     Given a topic with the slug "my-topic" exists
     When I import the following data as CSV as "News article" for "Department for Transport":
       """
-      old_url,title,summary,body,organisation,policy_1,minister_1,first_published,country_1,news_article_type,topic_1
-      http://example.com/1,title,summary,body,,,,14-Dec-2011,,,my-topic
+      old_url,title,summary,body,organisation,minister_1,first_published,country_1,news_article_type,topic_1
+      http://example.com/1,title,summary,body,,,14-Dec-2011,,,my-topic
       """
     Then the import succeeds, creating 1 imported news article for "Department for Transport" with "imported-awaiting-type" news article type
     And I can't make the imported news article into a draft edition yet
@@ -183,8 +171,8 @@ Feature: Importing new editions
     Given a topic with the slug "my-topic" exists
     When I import the following data as CSV as "News article" for "Department for Transport":
       """
-      old_url,title,summary,body,organisation,policy_1,minister_1,first_published,country_1,news_article_type,topic_1
-      http://example.com/1,title,summary,body,department-for-transport,,,,,news-stories,my-topic
+      old_url,title,summary,body,organisation,minister_1,first_published,country_1,news_article_type,topic_1
+      http://example.com/1,title,summary,body,department-for-transport,,,,news-stories,my-topic
       """
     Then the import succeeds, creating 1 imported news article for "Department for Transport" with no first published date
     And I can't make the imported news article into a draft edition yet
@@ -195,8 +183,8 @@ Feature: Importing new editions
     Given a topic with the slug "my-topic" exists
     When I import the following data as CSV as "Speech" for "Department for Transport":
       """
-      old_url,title,summary,body,organisation,policy_1,type,delivered_by,delivered_on,event_and_location,country_1,topic_1
-      http://example.com/1,title,summary,body,,,,,14-Dec-2011,location,,my-topic
+      old_url,title,summary,body,organisation,type,delivered_by,delivered_on,event_and_location,country_1,topic_1
+      http://example.com/1,title,summary,body,,,,14-Dec-2011,location,,my-topic
       """
     Then the import succeeds, creating 1 imported speech with "imported-awaiting-type" speech type and with no deliverer set
     And the imported speech's organisation is set to "Department for Transport"
@@ -211,8 +199,8 @@ Feature: Importing new editions
     And a topic with the slug "my-topic" exists
     When I import the following data as CSV as "Speech" for "Department for Transport":
       """
-      old_url,title,summary,body,organisation,policy_1,type,delivered_by,delivered_on,event_and_location,country_1,topic_1
-      http://example.com/1,title,summary,body,department-for-transport,,transcript,joe-bloggs,,location,,my-topic
+      old_url,title,summary,body,organisation,type,delivered_by,delivered_on,event_and_location,country_1,topic_1
+      http://example.com/1,title,summary,body,department-for-transport,transcript,joe-bloggs,,location,,my-topic
       """
     Then the import succeeds, creating 1 imported speech for "Department for Transport" with no delivered on date
     Then I can't make the imported speech into a draft edition yet
@@ -225,8 +213,8 @@ Feature: Importing new editions
     Given a topic with the slug "my-topic" exists
     When I import the following data as CSV as "Consultation" for "Department for Transport":
       """
-      old_url,title,summary,body,organisation,policy_1,opening_date,closing_date,response_date,response_summary,topic_1
-      http://example.com/1,title,summary,body,department-for-transport,,,,,,my-topic
+      old_url,title,summary,body,organisation,opening_date,closing_date,response_date,response_summary,topic_1
+      http://example.com/1,title,summary,body,department-for-transport,,,,,my-topic
       """
     Then the import succeeds, creating 1 imported consultation for "Department for Transport" with no opening or closing date
     And I can't make the imported publication into a draft edition yet
@@ -238,8 +226,8 @@ Feature: Importing new editions
   Scenario: Importing edition and then deleting it
     When I import the following data as CSV as "Speech" for "Department for Transport":
       """
-      old_url,title,summary,body,organisation,policy_1,type,delivered_by,delivered_on,event_and_location,country_1
-      http://example.com/1,title,summary,body,,,,,14-Dec-2011,location,
+      old_url,title,summary,body,organisation,type,delivered_by,delivered_on,event_and_location,country_1
+      http://example.com/1,title,summary,body,,,,14-Dec-2011,location,
       """
     Then I can delete the imported edition if I choose to
 
@@ -261,26 +249,11 @@ Feature: Importing new editions
       | mainstream_categories            | my-detailed-guidance-category |
       | related_documents                | my-related-detailed-guide     |
 
-
-  Scenario: Importing case study with related policies and document collection
-    Given a document collection "My document collection" exists
-    And a published policy "policy-one"
-    When I import the following data as CSV as "Case study" for "Department for Beards":
-      """
-      old_url,title,summary,body,organisation,policy_1,document_collection_1,first_published,ignore_this
-      http://example.com/1,title,summary,body,,policy-one,my-document-collection,14-Dec-2011
-      """
-    Then the import succeeds creating 1 case study
-    And the imported case study has the following associations:
-      | Name                             | Slugs                         |
-      | related_policies                 | policy-one                    |
-      | document_collections             | my-document-collection        |
-
   Scenario: Importing a news article with a translated version present
     When I import the following data as CSV as "News article" for "Department for Transport":
       """
-      old_url,title,summary,body,organisation,policy_1,minister_1,first_published,country_1,news_article_type,locale,translation_url,title_translation,summary_translation,body_translation
-      http://example.com/1,title,summary,body,,,,14-Dec-2011,,,es,http://example.com/1.es,spanish title,spanish summary,spanish body
+      old_url,title,summary,body,organisation,minister_1,first_published,country_1,news_article_type,locale,translation_url,title_translation,summary_translation,body_translation
+      http://example.com/1,title,summary,body,,,14-Dec-2011,,,es,http://example.com/1.es,spanish title,spanish summary,spanish body
       """
     Then the import succeeds, creating 1 imported news article for "Department for Transport" with "imported-awaiting-type" news article type
     And the imported news article has an "es" locale translation

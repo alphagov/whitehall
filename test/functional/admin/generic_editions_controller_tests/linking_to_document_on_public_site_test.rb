@@ -4,7 +4,7 @@ class Admin::GenericEditionsController::LinkingToDocumentOnPublicSiteTest < Acti
   tests Admin::GenericEditionsController
 
   setup do
-    login_as :policy_writer
+    login_as :writer
   end
 
   view_test "should link to public version when published" do

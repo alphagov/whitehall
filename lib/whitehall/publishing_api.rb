@@ -77,15 +77,11 @@ module Whitehall
     # managed by the content store at present. Background is here:
     # http://github.com/alphagov/whitehall/commit/6affc9da0d8ca93
     def self.skip_sending_to_content_store?(instance)
-      unpublishing_not_served_from_content_store?(instance) || policy?(instance)
+      unpublishing_not_served_from_content_store?(instance)
     end
 
     def self.unpublishing_not_served_from_content_store?(instance)
       instance.kind_of?(Unpublishing) && !served_from_content_store?(instance.edition)
-    end
-
-    def self.policy?(instance)
-      instance.kind_of?(Policy)
     end
 
     def self.assert_public_edition!(instance)

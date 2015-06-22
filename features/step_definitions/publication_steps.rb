@@ -197,3 +197,9 @@ Given /^"([^"]*)" submits the publication "([^"]*)"$/ do |user_name, title|
     click_button "Submit for 2nd eyes"
   end
 end
+
+Then /^I should see a link to the public version of the publication "([^"]*)"$/ do |publication_title|
+  publication = Publication.published.find_by!(title: publication_title)
+  visit admin_edition_path(publication)
+  assert_match public_document_path(publication), find("a.public_version")[:href]
+end

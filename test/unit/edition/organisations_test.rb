@@ -2,7 +2,7 @@ require "test_helper"
 
 class Edition::OrganisationsTest < ActiveSupport::TestCase
   test "#destroy removes relationship with organisation" do
-    edition = create(:draft_policy, organisations: [create(:organisation)])
+    edition = create(:draft_publication, organisations: [create(:organisation)])
     relation = edition.edition_organisations.first
     edition.destroy
     refute EditionOrganisation.exists?(relation.id)
@@ -14,7 +14,7 @@ class Edition::OrganisationsTest < ActiveSupport::TestCase
     organisation_3 = create(:organisation)
     news_article = create(:published_news_article, lead_organisations: [organisation_3, organisation_1], supporting_organisations: [organisation_2])
 
-    new_edition = news_article.create_draft(create(:policy_writer))
+    new_edition = news_article.create_draft(create(:writer))
     new_edition.change_note = 'change-note'
     force_publish(new_edition)
 

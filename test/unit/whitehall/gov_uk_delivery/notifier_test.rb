@@ -7,7 +7,7 @@ class Whitehall::GovUkDelivery::NotifierTest < ActiveSupport::TestCase
   end
 
   def self.deliverable_classes
-    [Policy, Announcement.concrete_descendants, Publicationesque.concrete_descendants].flatten
+    [Announcement.concrete_descendants, Publicationesque.concrete_descendants].flatten
   end
 
   def self.undeliverable_classes
@@ -47,7 +47,7 @@ class Whitehall::GovUkDelivery::NotifierTest < ActiveSupport::TestCase
   end
 
   test '#edition_published! routes editions to govuk delivery when they are not relevant to local government' do
-    edition = build(:published_policy, relevant_to_local_government: false, public_timestamp: Time.zone.now)
+    edition = build(:published_publication, relevant_to_local_government: false, public_timestamp: Time.zone.now)
     edition.stubs(:available_in_locale?).returns(true)
 
     expect_govdelivery_worker_to_be_notified(edition)
@@ -57,11 +57,11 @@ class Whitehall::GovUkDelivery::NotifierTest < ActiveSupport::TestCase
   end
 
   test '#edition_published! does nothing if the change is minor' do
-    policy = create(:published_policy, topics: [create(:topic)], minor_change: true, public_timestamp: Time.zone.now)
+    publication = create(:published_publication, topics: [create(:topic)], minor_change: true, public_timestamp: Time.zone.now)
 
     expect_govdelivery_worker_to_not_be_notified
 
-    notifier = notifier_for(policy)
+    notifier = notifier_for(publication)
     notifier.edition_published!
   end
 
@@ -76,11 +76,11 @@ class Whitehall::GovUkDelivery::NotifierTest < ActiveSupport::TestCase
   end
 
   test '#edition_published! does nothing if the edition was published in the past' do
-    policy = create(:published_policy, topics: [create(:topic)], minor_change: false, public_timestamp: 2.days.ago)
+    publication = create(:published_publication, topics: [create(:topic)], minor_change: false, public_timestamp: 2.days.ago)
 
     expect_govdelivery_worker_to_not_be_notified
 
-    notifier = notifier_for(policy)
+    notifier = notifier_for(publication)
     notifier.edition_published!
   end
 
@@ -108,7 +108,7 @@ class Whitehall::GovUkDelivery::NotifierTest < ActiveSupport::TestCase
     speech = create(:draft_speech, delivered_on: 30.days.ago)
     Timecop.travel(10.days.ago) { force_publish(speech) }
 
-    new_edition = speech.create_draft(create(:policy_writer))
+    new_edition = speech.create_draft(create(:writer))
     new_edition.change_note = 'Some major changes'
     force_publish(new_edition)
 
@@ -122,7 +122,7 @@ class Whitehall::GovUkDelivery::NotifierTest < ActiveSupport::TestCase
     speech = create(:draft_speech, delivered_on: 30.days.ago)
     Timecop.travel(10.days.ago) { force_publish(speech) }
 
-    new_edition = speech.create_draft(create(:policy_writer))
+    new_edition = speech.create_draft(create(:writer))
     new_edition.minor_change = true
     force_publish(new_edition)
 
@@ -133,11 +133,11 @@ class Whitehall::GovUkDelivery::NotifierTest < ActiveSupport::TestCase
   end
 
   test "#edition_published! does nothing if the edition is not published" do
-    policy = create(:draft_policy, first_published_at: 1.hour.ago)
+    publication = create(:draft_publication, first_published_at: 1.hour.ago)
 
     expect_govdelivery_worker_to_not_be_notified
 
-    notifier = notifier_for(policy)
+    notifier = notifier_for(publication)
     notifier.edition_published!
   end
 end

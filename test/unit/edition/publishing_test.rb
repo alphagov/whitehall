@@ -86,7 +86,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
 
   test "incrementing the version number on a minor change updates the minor version" do
     edition = create(:published_edition)
-    new_draft = edition.create_draft(create(:policy_writer))
+    new_draft = edition.create_draft(create(:writer))
     new_draft.minor_change = true
     new_draft.increment_version_number
     assert_equal '1.1', new_draft.published_version
@@ -101,7 +101,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
 
   test '#reset_version_numbers on a re-editioned edition resets the version numbers back to that of the previous edition' do
     previous_edition = create(:published_edition, published_major_version: 2, published_minor_version: 4)
-    new_edition = previous_edition.create_draft(create(:policy_writer))
+    new_edition = previous_edition.create_draft(create(:writer))
     new_edition.minor_change = true
     force_publish(new_edition)
 
@@ -112,14 +112,14 @@ class Edition::PublishingTest < ActiveSupport::TestCase
   end
 
   test "#approve_retrospectively should clear the force_published flag, and return true on success" do
-    edition = create(:published_policy, force_published: true)
+    edition = create(:published_publication, force_published: true)
 
     assert edition.approve_retrospectively
     refute edition.force_published?
   end
 
   test "#approve_retrospectively should return false and set a validation error if document was not force-published" do
-    edition = create(:published_policy)
+    edition = create(:published_publication)
 
     refute edition.approve_retrospectively
     assert edition.errors[:base].include?('This document has not been force-published')

@@ -63,7 +63,7 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
   end
 
   test '#visible_consultation_response returns a draft response if it is accessible to the provided user' do
-    user = create(:policy_writer)
+    user = create(:writer)
 
     response = create(:consultation_with_outcome, :draft).outcome
     response.attachments << attachment = build(:file_attachment)
@@ -83,7 +83,7 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
   end
 
   test '#visible_edition will return a draft edition if it is accessible to the provided user' do
-    user = create(:policy_writer)
+    user = create(:writer)
     edition = create(:draft_publication, :with_file_attachment)
     attachment_data = edition.attachments.first.attachment_data
     attachment_visibility = AttachmentVisibility.new(attachment_data, user)
@@ -102,7 +102,7 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
 
   test '#visible_attachment returns the attachment associated with a published edition' do
     edition               = create(:published_publication, :with_file_attachment)
-    new_draft             = edition.create_draft(create(:policy_writer))
+    new_draft             = edition.create_draft(create(:writer))
     attachment            = edition.attachments.first
     attachment_visibility = AttachmentVisibility.new(attachment.attachment_data, nil)
 

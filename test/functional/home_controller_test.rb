@@ -153,7 +153,6 @@ class HomeControllerTest < ActionController::TestCase
 
   def create_published_documents
     2.downto(1) do |x|
-      create(:published_policy, first_published_at: x.days.ago + 1.hour)
       create(:published_news_article, first_published_at: x.days.ago + 2.hours)
       create(:published_speech, delivered_on: x.days.ago + 3.hours)
       create(:published_publication, first_published_at: x.days.ago + 4.hours)
@@ -163,7 +162,6 @@ class HomeControllerTest < ActionController::TestCase
 
   def create_draft_documents
     [
-      create(:draft_policy),
       create(:draft_news_article),
       create(:draft_speech),
       create(:draft_consultation),

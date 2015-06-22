@@ -99,9 +99,6 @@ module Whitehall
           @feed_object_slug = uri.path.match(/([^\/]*)\.atom$/)[1]
 
           case path_root_fragment
-          when "policies"
-            @feed_object_slug = uri.path.match(/([^\/]*)\/activity\.atom$/)[1]
-            @feed_type = 'policy'
           when 'organisations'
             @feed_type = 'organisation'
           when 'topics'

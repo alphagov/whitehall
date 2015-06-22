@@ -4,9 +4,6 @@ el:
       attachments:
         one: "Έγγραφο"
         other: "Έγγραφα"
-      policies:
-        one:
-        other:
       applies_to_nations: "Ισχύει"
       field_of_operation: "Πεδίο δράσης"
       from:
@@ -97,9 +94,6 @@ el:
       oral_statement:
         one: "Δήλωση στη Βουλή"
         other: "Δηλώσεις στη Βουλή "
-      policy:
-        one: "Πολιτική"
-        other: "Πολιτικές"
       policy_paper:
         one: "Κείμενο πολιτικής"
         other: "Κείμενα πολιτικής"
@@ -239,17 +233,6 @@ el:
         unique_reference:
         unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
-      supporting_page/supporting_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      supporting_page/supporting_page_attachments/attachment/attachment_data:
         file:
     nested_attachment_data_field_names:
       file:

@@ -20,22 +20,6 @@ Feature: Policy groups
   Background:
     Given I am an editor
 
-  Scenario: Associate a policy group to a policy
-    Given a policy group "PolGroup Inc." exists
-    And a published policy "Policy of things" exists
-    When I associate the policy group "PolGroup Inc." with the policy "Policy of things"
-    And I visit the policy "Policy of things"
-    Then I should see a link to the policy group "PolGroup Inc."
-
-  Scenario: Associate multiple policy groups to a policy
-    Given a policy group "PolGroup Inc." exists
-    And a policy group "Acme Policies Ltd" exists
-    And a published policy "Policy of all the stuff" exists
-    When I associate the policy groups "PolGroup Inc." and "Acme Policies Ltd" with the policy "Policy of all the stuff"
-    And I visit the policy "Policy of all the stuff"
-    Then I should see a link to the policy group "Acme Policies Ltd"
-    And I should see a link to the policy group "PolGroup Inc."
-
   Scenario: Policy groups have their own page
     Given a policy group "ABC Advisories" exists
     When I visit the policy group "ABC Advisories"

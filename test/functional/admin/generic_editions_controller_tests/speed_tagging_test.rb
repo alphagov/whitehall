@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Admin::GenericEditionsController::SpeedTaggingTest < ActionController::TestCase
   setup do
-    login_as :policy_writer
+    login_as :writer
   end
 
   test "should redirect to the next document imported without changing state when 'Save and Next' is clicked" do

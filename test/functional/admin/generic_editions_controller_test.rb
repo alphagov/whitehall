@@ -4,7 +4,7 @@ class Admin::GenericEditionsControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   setup do
-    login_as :policy_writer
+    login_as :writer
   end
 
   test "POST :create redirects to edit page when 'Save and continue editing' button clicked" do

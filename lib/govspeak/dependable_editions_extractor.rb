@@ -10,7 +10,6 @@ module Govspeak
       return [] if @govspeak.blank?
       editions = []
       { ADMIN_EDITION_PATH => 0,
-        ADMIN_SUPPORTING_PAGE_PATH => 1,
         ADMIN_ORGANISATION_CIP_PATH => 1,
         ADMIN_WORLDWIDE_ORGANISATION_CIP_PATH => 1,
       }.each do |regex, capture_index|

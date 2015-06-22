@@ -22,17 +22,6 @@
     </section>
   <% end %>
 
-  <% if edition.can_be_related_to_policies? %>
-    <section>
-      <h1>Related policies</h1>
-      <% if edition.related_policies.any? %>
-        <%= render partial: "admin/editions/related_policies", locals: {policies: edition.related_policies} %>
-      <% else %>
-        <p>This document doesn't have any related policies.</p>
-      <% end %>
-    </section>
-  <% end %>
-
   <% if edition.can_be_associated_with_topics? %>
     <section>
       <h1>Topics</h1>

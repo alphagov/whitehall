@@ -33,17 +33,6 @@ hu:
         unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
         file:
-      supporting_page/supporting_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      supporting_page/supporting_page_attachments/attachment/attachment_data:
-        file:
     nested_attachment_data_field_names:
       file:
     nested_attachment_field_names:
@@ -135,9 +124,6 @@ hu:
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     published: közzététel dátuma
     read: 'Olvassa el a következő cikket: %{title}'
     speech:
@@ -234,9 +220,6 @@ hu:
       oral_statement:
         one: Parlamenti felszólalás
         other: Parlamenti felszólalások
-      policy:
-        one: Szakpolitika
-        other: Szakpolitikák
       policy_paper:
         one: Szakpolitikai dokumentum
         other: Szakpolitikai dokumentumok

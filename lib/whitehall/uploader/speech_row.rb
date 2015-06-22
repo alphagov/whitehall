@@ -4,7 +4,6 @@ module Whitehall::Uploader
       super
         .ignored("ignore_*")
         .required("type")
-        .multiple("policy_#", 0..4)
         .required(%w{delivered_by delivered_on event_and_location})
         .multiple("country_#", 0..4)
         .translatable(%w{title summary body})
@@ -22,10 +21,6 @@ module Whitehall::Uploader
       else
         Finders::RoleAppointmentsFinder.find(delivered_on, row['delivered_by'], @logger, @line_number).first
       end
-    end
-
-    def related_editions
-      Finders::EditionFinder.new(Policy, @logger, @line_number).find(row['policy_1'], row['policy_2'], row['policy_3'], row["policy_4"])
     end
 
     def location
@@ -53,7 +48,6 @@ module Whitehall::Uploader
         :role_appointment,
         :speech_type,
         :lead_organisations,
-        :related_editions,
         :topics,
         :world_locations
       ]

@@ -53,7 +53,7 @@ class EditionPublisherTest < ActiveSupport::TestCase
 
   test '#perform! with a re-editioned document updates the version numbers' do
     published_edition = create(:published_edition, major_change_published_at: 1.week.ago)
-    edition = published_edition.create_draft(create(:policy_writer))
+    edition = published_edition.create_draft(create(:writer))
     edition.minor_change = true
     edition.submit!
     publisher = EditionPublisher.new(edition)
@@ -66,7 +66,7 @@ class EditionPublisherTest < ActiveSupport::TestCase
 
   test '#perform! supersedes all previous editions' do
     published_edition = create(:published_edition)
-    edition = published_edition.create_draft(create(:policy_writer))
+    edition = published_edition.create_draft(create(:writer))
     edition.minor_change = true
     edition.submit!
     publisher = EditionPublisher.new(edition)
@@ -77,7 +77,7 @@ class EditionPublisherTest < ActiveSupport::TestCase
 
   test '#perform! does not choke if previous editions are invalid' do
     published_edition = create(:published_edition)
-    edition = published_edition.create_draft(create(:policy_writer))
+    edition = published_edition.create_draft(create(:writer))
     edition.minor_change = true
     edition.submit!
     published_edition.update_attribute(:title, nil)
@@ -128,7 +128,7 @@ class EditionPublisherTest < ActiveSupport::TestCase
 
   test '#perform! does not set political flag for political content on subsequent publishes' do
     published_edition = create(:published_edition)
-    edition = published_edition.create_draft(create(:policy_writer))
+    edition = published_edition.create_draft(create(:writer))
     edition.minor_change = true
     edition.submit!
 

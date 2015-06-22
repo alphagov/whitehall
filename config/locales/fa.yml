@@ -33,17 +33,6 @@ fa:
         unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
         file:
-      supporting_page/supporting_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      supporting_page/supporting_page_attachments/attachment/attachment_data:
-        file:
     nested_attachment_data_field_names:
       file:
     nested_attachment_field_names:
@@ -134,9 +123,6 @@ fa:
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     published: "منتشر شده"
     read: "مقاله  %{title} را بخوانید"
     speech:
@@ -233,9 +219,6 @@ fa:
       oral_statement:
         one: "گزارش شفاهی به پارلمان"
         other: "گزارش های شفاهی به پارلمان"
-      policy:
-        one: "سیاست"
-        other: "سیاست ها"
       policy_paper:
         one: "مقاله ی سیاسی"
         other: "مقاله های سیاسی"

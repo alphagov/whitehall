@@ -14,7 +14,7 @@ module Whitehall::Uploader
     end
 
     test "validates a complete set of row headings" do
-      complete_row_headings = basic_headings + %w(document_collection_2 document_collection_3 document_collection_4 policy_2 policy_3 policy_4)
+      complete_row_headings = basic_headings + %w(document_collection_2 document_collection_3 document_collection_4)
       assert_equal [], Whitehall::Uploader::CaseStudyRow.heading_validation_errors(complete_row_headings)
     end
 
@@ -28,14 +28,6 @@ module Whitehall::Uploader
       row = case_study_row({"document_collection_1" => doc_collection_1.slug, "document_collection_2" => doc_collection_2.slug})
       row.stubs(:organisation).returns(stubbed_organisation)
       assert_equal [doc_collection_1.slug, doc_collection_2.slug], row.document_collections
-    end
-
-    test "finds policies by slug in policy_n column" do
-      policy_1 = create(:policy)
-      policy_2 = create(:policy)
-      row = case_study_row({"policy_1" => policy_1.slug, "policy_2" => policy_2.slug})
-      row.stubs(:organisation).returns(stubbed_organisation)
-      assert_equal [policy_1, policy_2], row.attributes[:related_editions]
     end
 
     test "parses first published column" do
@@ -54,7 +46,7 @@ module Whitehall::Uploader
     private
 
     def basic_headings
-      %w(old_url title summary body organisation document_collection_1 policy_1 first_published)
+      %w(old_url title summary body organisation document_collection_1 first_published)
     end
 
     def case_study_row(data)

@@ -87,8 +87,6 @@ class DocumentListExportPresenter
   def lead_organisations
     if edition.is_a?(CorporateInformationPage)
       edition.owning_organisation.name
-    elsif edition.is_a?(SupportingPage)
-      edition.organisations.map(&:name)
     else
       edition.lead_organisations.map(&:name)
     end
@@ -99,7 +97,7 @@ class DocumentListExportPresenter
   end
 
   def policies
-    if edition.respond_to? :related_policies
+    if edition.can_be_related_to_policies?
       edition.policies.map(&:title)
     end
   end

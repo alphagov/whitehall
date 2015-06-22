@@ -4,7 +4,7 @@ class Admin::GenericEditionsController::PolticalDocumentsTest < ActionController
   tests Admin::NewsArticlesController
 
   setup do
-    login_as :policy_writer
+    login_as :writer
   end
 
   view_test "displays the political checkbox for privileged users " do

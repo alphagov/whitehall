@@ -341,13 +341,13 @@ class RoleAppointmentTest < ActiveSupport::TestCase
   end
 
   test "should be able to get editions associated with this appointment" do
-    editions = [create(:published_policy), create(:published_news_article)]
+    editions = [create(:published_publication), create(:published_news_article)]
     appointment = create(:role_appointment, editions: editions)
     assert_equal editions, appointment.editions
   end
 
   test "should be able to get news articles associated with this appointment" do
-    editions = [create(:published_policy), create(:published_news_article)]
+    editions = [create(:published_publication), create(:published_news_article)]
     appointment = create(:role_appointment, editions: editions)
     assert_equal editions[1..1], appointment.news_articles
   end

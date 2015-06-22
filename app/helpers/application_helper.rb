@@ -1,7 +1,11 @@
 module ApplicationHelper
 
+  def policies_path
+    "/government/policies"
+  end
+
   def policies_finder_path(query_params)
-    "/government/policies?#{query_params.to_query}"
+    "#{policies_path}?#{query_params.to_query}"
   end
 
   def page_title(*title_parts)
@@ -53,10 +57,6 @@ module ApplicationHelper
     else
       "#{appointment.role.name} (#{l(appointment.started_at.to_date)} to #{l(appointment.ended_at.to_date)})"
     end
-  end
-
-  def policies_for_editions_organisations(edition)
-    Policy.in_organisation(edition.organisations).latest_edition.active
   end
 
   def publication_type_options
@@ -239,7 +239,7 @@ module ApplicationHelper
       end
     when "world_locations", "worldwide_priorities", "world_location_news_articles", "worldwide_organisations", "worldwide_offices"
       world_locations_path(locale: :en)
-    when "policies", "supporting_pages", "policy_groups"
+    when "policy_groups"
       policies_path
     when "take_part_pages"
       get_involved_path

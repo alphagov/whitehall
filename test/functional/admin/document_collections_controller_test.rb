@@ -5,7 +5,7 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
     @organisation = create(:organisation)
     @topic = create(:topic)
 
-    @user = create(:policy_writer)
+    @user = create(:writer)
     login_as @user
   end
 

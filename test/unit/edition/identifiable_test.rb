@@ -4,118 +4,118 @@ require "test_helper"
 
 class Edition::IdentifiableTest < ActiveSupport::TestCase
   test "should set document type on document before validation for use in slug duplicate detection" do
-    policy = build(:policy)
-    policy.valid?
-    assert_equal "Policy", policy.document.document_type
+    publication = build(:publication)
+    publication.valid?
+    assert_equal "Publication", publication.document.document_type
   end
 
   test "should not attempt to set document type if document is not present" do
-    policy = build(:policy)
-    policy.stubs(:document).returns(nil)
-    assert_nothing_raised(NoMethodError) { policy.valid? }
+    publication = build(:publication)
+    publication.stubs(:document).returns(nil)
+    assert_nothing_raised(NoMethodError) { publication.valid? }
   end
 
   test "should generate a content_id for the document of a new draft" do
-    policy = build(:policy)
-    policy.valid?
-    assert policy.document.content_id.present?
+    publication = build(:publication)
+    publication.valid?
+    assert publication.document.content_id.present?
   end
 
   test "should not allow the same slug to be used again for the same document type" do
     same_title = "same-title"
-    policy_1 = create(:policy, title: same_title)
-    policy_2 = create(:policy, title: same_title)
+    publication_1 = create(:publication, title: same_title)
+    publication_2 = create(:publication, title: same_title)
 
-    refute_equal policy_1.document.slug, policy_2.document.slug
+    refute_equal publication_1.document.slug, publication_2.document.slug
   end
 
   test "should allow the same slug to be used again for another document type" do
     same_title = "same-title"
-    policy = create(:policy, title: same_title)
     publication = create(:publication, title: same_title)
+    news_article = create(:news_article, title: same_title)
 
-    assert_equal policy.document.slug, publication.document.slug
+    assert_equal publication.document.slug, news_article.document.slug
   end
 
   test "should allow the same slug to be used for a news article and a speech" do
     same_title = "same-title"
-    policy = create(:news_article, title: same_title)
+    publication = create(:news_article, title: same_title)
     publication = create(:speech, title: same_title)
 
-    assert_equal policy.document.slug, publication.document.slug
+    assert_equal publication.document.slug, publication.document.slug
   end
 
   test "should return the edition of the correct type when matching slugs for other types exist" do
     same_title = "same-title"
-    policy = create(:published_policy, title: same_title)
+    news_article = create(:published_news_article, title: same_title)
     publication = create(:published_publication, title: same_title)
 
-    assert_equal policy, Policy.published_as(same_title)
+    assert_equal news_article, NewsArticle.published_as(same_title)
     assert_equal publication, Publication.published_as(same_title)
   end
 
   test "should return nil if the edition isn't translated into the supplied locale" do
-    policy = create(:published_policy, translated_into: 'fr')
+    publication = create(:published_publication, translated_into: 'fr')
 
-    assert_nil Policy.published_as(policy.slug, 'zh')
+    assert_nil Publication.published_as(publication.slug, 'zh')
   end
 
   test "should return the edition if it is translated into the supplied locale" do
-    policy = create(:published_policy, translated_into: 'fr')
+    publication = create(:published_publication, translated_into: 'fr')
 
-    assert_equal policy, Policy.published_as(policy.slug, 'fr')
+    assert_equal publication, Publication.published_as(publication.slug, 'fr')
   end
 
   test "should return the edition if it is translated into the default locale when none is specified" do
-    policy = create(:published_policy, translated_into: I18n.default_locale)
+    publication = create(:published_publication, translated_into: I18n.default_locale)
 
-    assert_equal policy, Policy.published_as(policy.slug)
+    assert_equal publication, Publication.published_as(publication.slug)
   end
 
   test "should be linkable when draft if document is published" do
-    policy = create(:published_policy)
-    new_edition = policy.create_draft(create(:policy_writer))
+    publication = create(:published_publication)
+    new_edition = publication.create_draft(create(:writer))
     assert new_edition.linkable?
   end
 
   test "should not be linkable if document is not published" do
-    policy = create(:draft_policy)
-    refute policy.linkable?
+    publication = create(:draft_publication)
+    refute publication.linkable?
   end
 
   test "should be linkable when superseded if document is published" do
-    policy = create(:published_policy)
-    new_edition = policy.create_draft(create(:policy_writer))
+    publication = create(:published_publication)
+    new_edition = publication.create_draft(create(:writer))
     new_edition.minor_change = true
     force_publish(new_edition)
-    assert policy.linkable?
+    assert publication.linkable?
   end
 
   test "update slug if title changes on draft edition" do
-    policy = create(:draft_policy, title: "This is my policy")
-    policy.update_attributes!(title: "Another thing")
+    publication = create(:draft_publication, title: "This is my publication")
+    publication.update_attributes!(title: "Another thing")
 
-    assert_equal "another-thing", policy.document.reload.slug
+    assert_equal "another-thing", publication.document.reload.slug
   end
 
   test "do not update slug if non-english title changes on draft edition" do
-    policy = create(:draft_policy, title: "This is my policy")
+    publication = create(:draft_publication, title: "This is my publication")
     with_locale(:es) do
-      policy.update_attributes!(title: "Spanish thing", summary: "Avoid validation error", body: "Avoid validation error")
+      publication.update_attributes!(title: "Spanish thing", summary: "Avoid validation error", body: "Avoid validation error")
     end
 
-    assert_equal "this-is-my-policy", policy.document.reload.slug
+    assert_equal "this-is-my-publication", publication.document.reload.slug
   end
 
   test "should not update the slug of an existing edition when saved in the presence of a new edition with the same title" do
-    existing_edition = create(:draft_policy, title: "This is my policy")
-    assert_equal 'this-is-my-policy', existing_edition.document.reload.slug
+    existing_edition = create(:draft_publication, title: "This is my publication")
+    assert_equal 'this-is-my-publication', existing_edition.document.reload.slug
 
-    new_edition_with_same_title = create(:draft_policy, title: "This is my policy")
-    assert_equal 'this-is-my-policy--2', new_edition_with_same_title.document.reload.slug
+    new_edition_with_same_title = create(:draft_publication, title: "This is my publication")
+    assert_equal 'this-is-my-publication--2', new_edition_with_same_title.document.reload.slug
 
     existing_edition.save!
-    assert_equal 'this-is-my-policy', existing_edition.document.reload.slug
+    assert_equal 'this-is-my-publication', existing_edition.document.reload.slug
   end
 
   test "non-English editions get a slug based on the document id rather than the title" do

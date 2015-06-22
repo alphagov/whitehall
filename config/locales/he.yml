@@ -6,11 +6,6 @@ he:
         two:
         many:
         other: "מסמכים"
-      policies:
-        one:
-        two:
-        many:
-        other:
       applies_to_nations: "מתייחס ל"
       field_of_operation: "שדה פעולה"
       from:
@@ -157,11 +152,6 @@ he:
         two:
         many:
         other: "הצהרות בעל פה לפרלמנט"
-      policy:
-        one: "מדיניות"
-        two:
-        many:
-        other: "מדיניות"
       policy_paper:
         one: "נייר מדיניות"
         two:
@@ -341,17 +331,6 @@ he:
         unique_reference:
         unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
-      supporting_page/supporting_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      supporting_page/supporting_page_attachments/attachment/attachment_data:
         file:
     nested_attachment_data_field_names:
       file:

@@ -44,11 +44,6 @@ Then(/^I should be signed up for the "(.*?)" person mailing list$/) do |person_n
   assert_signed_up_to_mailing_list("/government/people/#{person_slug}.atom", person_name)
 end
 
-Then(/^I should be signed up for the "(.*?)" policy mailing list$/) do |policy_name|
-  policy_slug = Policy.find_by!(title: policy_name).slug
-  assert_signed_up_to_mailing_list("/government/policies/#{policy_slug}/activity.atom", policy_name)
-end
-
 Then(/^I should be signed up for the "(.*?)" topical event mailing list$/) do |topical_event_name|
   topical_event_slug = TopicalEvent.find_by!(name: topical_event_name).slug
   assert_signed_up_to_mailing_list("/government/topical-events/#{topical_event_slug}.atom", topical_event_name)

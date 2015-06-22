@@ -7,12 +7,6 @@ FactoryGirl.define do
     transient do
       relevant_to_local_government { false }
     end
-
-    after(:build) do |object, evaluator|
-      if evaluator.relevant_to_local_government
-        object.related_policy_ids = [FactoryGirl.create(:published_policy, relevant_to_local_government: true)].map(&:id)
-      end
-    end
   end
 
   factory :imported_consultation, parent: :consultation, traits: [:imported]

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Admin::TopicsControllerTest < ActionController::TestCase
   setup do
-    login_as :policy_writer
+    login_as :writer
   end
 
   should_be_an_admin_controller
@@ -98,7 +98,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
 
   test "PUT :update re-orders editions" do
     topic = create(:topic)
-    policy = create(:policy, topics: [topic])
+    publication = create(:publication, topics: [topic])
     association = topic.classification_memberships.first
 
     put :update, id: topic.id, topic: {name: "Blah", description: "Blah", classification_memberships_attributes: {

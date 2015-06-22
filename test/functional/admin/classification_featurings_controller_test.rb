@@ -5,7 +5,7 @@ class Admin::ClassificationFeaturingsControllerTest < ActionController::TestCase
 
   setup do
     @topic = create(:topic)
-    login_as :policy_writer
+    login_as :writer
   end
 
   test "GET :index assigns tagged_editions with a paginated collection of published editions related to the topic ordered by most recently created editions first" do

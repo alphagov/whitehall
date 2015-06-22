@@ -19,8 +19,6 @@ module Govspeak
 
     def replacement_html_for_admin_link(anchor, &block)
       case anchor['href']
-      when ADMIN_SUPPORTING_PAGE_PATH
-        convert_link_for_old_supporting_page(anchor, $1, $2, &block)
       when ADMIN_ORGANISATION_CIP_PATH
         convert_link_for_corporate_information_page(anchor, $1, $2, &block)
       when ADMIN_WORLDWIDE_ORGANISATION_CIP_PATH
@@ -34,13 +32,6 @@ module Govspeak
     end
 
     private
-
-    def convert_link_for_old_supporting_page(anchor, policy_slug, slug, &block)
-      policy = Policy.unscoped.find_by(id: policy_slug)
-      supporting_page = EditionedSupportingPageMapping.find_by(old_supporting_page_id: slug).try(:new_supporting_page)
-
-      convert_link_for_edition(anchor, supporting_page, policy_id: policy.document, &block)
-    end
 
     def convert_link_for_corporate_information_page(anchor, organisation_slug, slug, &block)
       organisation = Organisation.find_by(slug: organisation_slug)

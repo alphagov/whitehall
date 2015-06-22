@@ -19,67 +19,55 @@ class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::Te
   end
 
   test "#subscription_urls returns a feed for 'all' by default" do
-    @edition = build(:policy)
+    @edition = build(:publication)
     assert_subscription_urls_for_edition_include("feed")
   end
 
   test '#subscription_urls includes both a document specific and an "all" variant of the same params' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
-    @edition = create(:policy, topics: [topic], organisations: [organisation])
+    @edition = create(:publication, topics: [topic], organisations: [organisation])
 
     assert_subscription_urls_for_edition_include(
-      "policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}",
+      "publications.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}",
       "feed?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}",
       "feed?departments%5B%5D=#{organisation.slug}",
       "feed?topics%5B%5D=#{topic.slug}",
-      "policies.atom?departments%5B%5D=#{organisation.slug}",
-      "policies.atom?topics%5B%5D=#{topic.slug}"
+      "publications.atom?departments%5B%5D=#{organisation.slug}",
+      "publications.atom?topics%5B%5D=#{topic.slug}"
     )
   end
 
   test '#subscription_urls returns an atom feed url for the organisation and a topic' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
-    @edition = create(:policy, topics: [topic], organisations: [organisation])
+    @edition = create(:publication, topics: [topic], organisations: [organisation])
 
-    assert_subscription_urls_for_edition_include("policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}")
+    assert_subscription_urls_for_edition_include("publications.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}")
   end
 
-  test '#subscription_urls for a policy returns an atom feed url for each topic/organisation combination' do
-    topic1 = create(:topic)
-    topic2 = create(:topic)
-    organisation = create(:ministerial_department)
-    @edition = create(:policy, topics: [topic1, topic2], organisations: [organisation])
-
-    assert_subscription_urls_for_edition_include(
-      "policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic1.slug}",
-      "policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic2.slug}"
-    )
-  end
-
-  test '#subscription_urls for a policy returns an atom feed url that does not include topics' do
+  test '#subscription_urls for a publication returns an atom feed url that does not include topics' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
-    @edition = create(:policy, topics: [topic], organisations: [organisation])
+    @edition = create(:publication, topics: [topic], organisations: [organisation])
 
-    assert_subscription_urls_for_edition_include("policies.atom?departments%5B%5D=#{organisation.slug}")
+    assert_subscription_urls_for_edition_include("publications.atom?departments%5B%5D=#{organisation.slug}")
   end
 
-  test '#subscription_urls for a policy returns an atom feed url that does not include departments' do
+  test '#subscription_urls for a publication returns an atom feed url that does not include departments' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
-    @edition = create(:policy, topics: [topic], organisations: [organisation])
+    @edition = create(:publication, topics: [topic], organisations: [organisation])
 
-    assert_subscription_urls_for_edition_include("policies.atom?topics%5B%5D=#{topic.slug}")
+    assert_subscription_urls_for_edition_include("publications.atom?topics%5B%5D=#{topic.slug}")
   end
 
-  test '#subscription_urls for a policy returns an atom feed url that does not include departments or topics' do
+  test '#subscription_urls for a publication returns an atom feed url that does not include departments or topics' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
-    @edition = create(:policy, topics: [topic], organisations: [organisation])
+    @edition = create(:publication, topics: [topic], organisations: [organisation])
 
-    assert_subscription_urls_for_edition_include("policies.atom")
+    assert_subscription_urls_for_edition_include("publications.atom")
   end
 
   test '#subscription_urls for a publication returns an atom feed url for the organisation and a topic (with and without the publication_filter_option param)' do
@@ -290,40 +278,6 @@ class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::Te
       "organisations/#{organisation.slug}.atom",
       "feed?departments%5B%5D=#{organisation.slug}"
     )
-  end
-
-  test "#subscription_urls excludes policy activity feeds if new policies enabled" do
-    policy = create(:published_policy)
-    @edition = create(:news_article, related_policy_ids: [policy.id])
-
-    FeatureFlag.find_or_create_by(key: 'future_policies')
-    FeatureFlag.set('future_policies', true)
-
-    refute urls_for(@edition).any? { |feed_url| feed_url =~ /policies/ }
-  end
-
-  test '#subscription_urls excludes relevant_to_local_government variations if new policies enabled' do
-    role_appointment = create(:ministerial_role_appointment)
-    role = role_appointment.role
-    person = role_appointment.person
-    topic = create(:topic)
-    topical_event = create(:topical_event)
-    world_location = create(:world_location)
-    policy = create(:published_policy, relevant_to_local_government: true)
-
-    @edition = create(:news_article,
-      role_appointments: [role_appointment],
-      related_documents: [policy.document],
-      topics: [topic],
-      topical_events: [topical_event],
-      world_locations: [world_location]
-    )
-
-    FeatureFlag.find_or_create_by(key: 'future_policies')
-    FeatureFlag.set('future_policies', true)
-
-    refute urls_for(@edition).any? { |feed_url| feed_url =~ /policies/ }
-    refute urls_for(@edition).any? { |feed_url| feed_url =~ /relevant_to_local_government/ }
   end
 
   test "#subscription_urls for a statistics publication returns atom feed urls for both publications and statistics" do

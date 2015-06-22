@@ -4,7 +4,6 @@ class ClassificationMembership < ActiveRecord::Base
   belongs_to :topical_event, foreign_key: :classification_id
   belongs_to :topic, foreign_key: :classification_id
 
-  belongs_to :policy, foreign_key: :edition_id
   belongs_to :detailed_guide, foreign_key: :edition_id
   belongs_to :announcement, foreign_key: :edition_id
   belongs_to :news_article, foreign_key: :edition_id

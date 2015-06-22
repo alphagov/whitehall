@@ -4,7 +4,6 @@ module Whitehall::Uploader
       super
         .ignored("ignore_*")
         .required(%w{news_article_type first_published})
-        .multiple("policy_#", 0..4)
         .multiple("minister_#", 0..2)
         .multiple("country_#", 0..4)
         .multiple(%w{attachment_#_url attachment_#_title}, 0..Row::ATTACHMENT_LIMIT)
@@ -15,10 +14,6 @@ module Whitehall::Uploader
 
     def news_article_type
       Finders::NewsArticleTypeFinder.find(row['news_article_type'], @logger, @line_number)
-    end
-
-    def related_editions
-      Finders::EditionFinder.new(Policy, @logger, @line_number).find(row['policy_1'], row['policy_2'], row['policy_3'], row['policy_4'])
     end
 
     def role_appointments
@@ -40,7 +35,6 @@ module Whitehall::Uploader
         :first_published_at,
         :lead_organisations,
         :news_article_type,
-        :related_editions,
         :role_appointments,
         :topics,
         :world_locations

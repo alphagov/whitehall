@@ -55,30 +55,6 @@
       </div>
     <% end %>
 
-    <% if @edition.can_be_related_to_policies? %>
-      <div class="row-fluid">
-        <h3>Related policies</h3>
-        <% policies_for_editions_organisations(@edition).each do |policy| %>
-          <label class="checkbox">
-            <%= check_box_tag 'edition[related_policy_ids][]', policy.id, @edition.related_policies.include?(policy) %>
-            <%= policy.title %><% if policy.topics.any? %>
-            <span class="muted"><%= policy.topics.map(&:name).to_sentence%></span>
-            <% end %>
-          </label>
-        <% end %>
-      </div>
-      <div class="row-fluid">
-        <%= label_tag 'edition[related_policy_ids][]', 'Additional policies' %>
-        <%= select_tag 'edition[related_policy_ids][]',
-          options_for_select(taggable_policies_container, (@edition.related_policy_ids - policies_for_editions_organisations(@edition).map(&:id))),
-          include_blank: true,
-          multiple: true,
-          class: 'chzn-select',
-            data: { placeholder: "Choose from other policies..."}
-        %>
-      </div>
-    <% end %>
-
     <% if @edition.can_be_associated_with_topics? %>
       <div class="row-fluid">
         <h3>Topics</h3>

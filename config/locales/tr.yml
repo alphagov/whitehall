@@ -33,17 +33,6 @@ tr:
         unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
         file:
-      supporting_page/supporting_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      supporting_page/supporting_page_attachments/attachment/attachment_data:
-        file:
     nested_attachment_data_field_names:
       file:
     nested_attachment_field_names:
@@ -134,9 +123,6 @@ tr:
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     published: Yayında
     read: "%{title} makalesini okuyunuz"
     speech:
@@ -233,9 +219,6 @@ tr:
       oral_statement:
         one: Parlamento'ya sözlü açıklama
         other: Parlamento'ya sözlü açıklamalar
-      policy:
-        one: Politika
-        other: Politikalar
       policy_paper:
         one: Politika belgesi
         other: Politika belgeleri

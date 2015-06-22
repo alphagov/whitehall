@@ -4,9 +4,6 @@ so:
       attachments:
         one: Dokumenti
         other: Dokumentiyo
-      policies:
-        one:
-        other:
       applies_to_nations: Waxa lagu saleeyaa
       field_of_operation: Nooca hawlgalka
       from:
@@ -97,9 +94,6 @@ so:
       oral_statement:
         one: Hadal loo jeediyo baarlamaanka
         other: hadallo loo jeediyo baarlamaanka
-      policy:
-        one: Siyaasad
-        other: Siyaasado
       policy_paper:
         one: Waraaq qeexaysa siyaasadda
         other: Waraaqo qeexaya siyaasadda
@@ -239,17 +233,6 @@ so:
         unique_reference:
         unnumbered_hoc_paper:
       response/consultation_response_attachments/attachment/attachment_data:
-        file:
-      supporting_page/supporting_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      supporting_page/supporting_page_attachments/attachment/attachment_data:
         file:
     nested_attachment_data_field_names:
       file:
