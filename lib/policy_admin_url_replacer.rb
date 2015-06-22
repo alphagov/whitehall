@@ -5,7 +5,7 @@ class PolicyAdminURLReplacer
   end
 
   def replace_in!(edition_scope)
-    edition_scope.find_each do |edition|
+    edition_scope.find_each(batch_size: 50) do |edition|
       edition.body = replace_short_form(edition.body, edition.id)
       edition.body = replace_long_form(edition.body, edition.id)
       edition.body = replace_long_form_direct_links(edition.body, edition.id)
