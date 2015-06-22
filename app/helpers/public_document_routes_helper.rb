@@ -14,7 +14,7 @@ module PublicDocumentRoutesHelper
     document_path(edition, options.merge(query))
   end
 
-  def document_url(edition, options = {})
+  def document_url(edition, options = {}, builder_options = {})
     if edition.non_english_edition?
       options[:locale] = edition.primary_locale
     elsif edition.translatable?
@@ -27,7 +27,7 @@ module PublicDocumentRoutesHelper
     when CorporateInformationPage
       build_url_for_corporate_information_page(edition, options)
     when SupportingPage
-      build_url_for_supporting_page(edition, options)
+      build_url_for_supporting_page(edition, options, builder_options)
     else
       path_name = if edition.statistics?
                     "statistic"
@@ -38,8 +38,12 @@ module PublicDocumentRoutesHelper
     end
   end
 
-  def public_document_url(edition, options = {})
-    document_url edition, { host: Whitehall.public_host, protocol: Whitehall.public_protocol }.merge(options)
+  def public_document_url(edition, options = {}, builder_options = {})
+    document_url(
+      edition,
+      { host: Whitehall.public_host, protocol: Whitehall.public_protocol }.merge(options),
+      builder_options,
+    )
   end
 
   def preview_document_url(edition, options = {})
@@ -93,10 +97,18 @@ module PublicDocumentRoutesHelper
     end
   end
 
-  def build_url_for_supporting_page(edition, options)
+  def build_url_for_supporting_page(edition, options, builder_options)
     options = options.merge(id: edition.document)
-    options[:policy_id] ||= edition.related_policies.first.document
-    polymorphic_url('policy_supporting_page', options)
+
+    if policy = edition.related_policies.first
+      options[:policy_id] ||= policy.document
+    elsif builder_options[:include_deleted_documents]
+      options[:policy_id] ||= Edition.unscoped do
+        edition.related_policies.first.try(:document)
+      end
+    end
+
+    polymorphic_url('policy_supporting_page', options) unless options[:policy_id].blank?
   end
 
   def best_locale_for_edition(edition)
