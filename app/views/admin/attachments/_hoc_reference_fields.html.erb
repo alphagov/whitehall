@@ -1,6 +1,8 @@
 <div class="paper-number clearfix">
-  <%= form.text_field :hoc_paper_number, label_text: 'House of Commons paper number', class: 'paper-number' %>
+  <%= form.text_field :hoc_paper_number, label_text: 'House of Commons paper number', class: 'input-md-3' %>
   <%= form.check_box :unnumbered_hoc_paper, label_text: 'Unnumbered' %>
 </div>
-<%= form.label :parliamentary_session %>
-<%= form.select :parliamentary_session, Attachment.parliamentary_sessions, include_blank: true %>
+<div class="form-group">
+  <%= form.label :parliamentary_session %>
+  <%= form.select :parliamentary_session, Attachment.parliamentary_sessions, {include_blank: true}, {class: 'form-control input-md-3'} %>
+</div>
