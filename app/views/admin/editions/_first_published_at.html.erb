@@ -29,10 +29,12 @@
   </fieldset>
 <% else %>
   <fieldset class="first-published-date">
-  <%= form.label :first_published_at, "First published" %>
-  <p class="js-existing-first-published"><strong><%= edition.first_published_at.strftime('%I:%M%P, %d %B %Y') %></strong> &mdash; <a href="#">Edit date</a></p>
-  <div class="edit if-js-hide">
-    <%= form.datetime_select :first_published_at, { start_year: Date.today.year, end_year: 1945 }, { class: 'date js-first-published-at-edit' } %>
-  </div>
+    <div class="form-group">
+      <%= form.label :first_published_at, "First published" %>
+      <p class="js-existing-first-published"><strong><%= edition.first_published_at.to_s(:govuk_date) %></strong> &mdash; <a href="#">Edit date</a></p>
+      <div class="edit if-js-hide form-inline">
+        <%= form.datetime_select :first_published_at, { start_year: Date.today.year, end_year: 1945 }, { class: 'date js-first-published-at-edit form-control' } %>
+      </div>
+    </div>
   </fieldset>
 <% end %>

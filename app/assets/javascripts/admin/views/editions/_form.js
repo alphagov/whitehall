@@ -121,7 +121,7 @@
       showOrHideDateSelector();
 
       $('.js-existing-first-published a').on('click', function(e) {
-        $(this).parent().hide().next().show();
+        $(this).parent().hide().next().removeClass('if-js-hide');
         e.preventDefault();
       });
     }
