@@ -374,5 +374,9 @@ class GovspeakHelperTest < ActionView::TestCase
     input = "Some text [Fraction:1/x] and some text"
     html = govspeak_to_html(input)
     assert_select_within_html html, "span.fraction > img[alt='1/x']"
+
+    input = "Some text with an uppercased fraction [Fraction:1/X] and some text"
+    html = govspeak_to_html(input)
+    assert_select_within_html html, "span.fraction > img[alt='1/x']"
   end
 end
