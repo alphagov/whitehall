@@ -4,7 +4,7 @@
   <section class="col-md-8">
     <h1>New import</h1>
 
-    <p><strong>Alert:</strong> Notify the infrastructure and publishing teams before big imports; they may clash with day-to-day publishing activity.</p>
+    <p class="alert alert-warning">Notify the infrastructure and publishing teams before big imports; they may clash with day-to-day publishing activity.</p>
 
     <%= form_for [:admin, @import] do |import_form| %>
       <%= import_form.errors %>
@@ -12,7 +12,7 @@
       <fieldset>
         <%= content_tag :div, class: "form-group" do %>
           <%= import_form.label :data_type, 'Type' %>
-          <%= import_form.select :data_type, Import::TYPES.keys.map {|k| [k.to_s.humanize, k]}, label_text: "Type" %>
+          <%= import_form.select :data_type, Import::TYPES.keys.map {|k| [k.to_s.humanize, k]}, {}, {class: 'form-control input-md-3'} %>
         <% end %>
         <%= content_tag :div, class: "form-group" do %>
           <%= import_form.label :organisation_id, 'Default organisation' %>

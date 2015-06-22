@@ -4,7 +4,9 @@
   <h1>Imports</h1>
   <%= link_to "New import", new_admin_import_path, class: "btn btn-default new_resource add-top-margin" %>
 
-  <%= paginate @imports, theme: 'twitter-bootstrap-3' %>
+  <div>
+    <%= paginate @imports, theme: 'twitter-bootstrap-3' %>
+  </div>
 
   <table class="table table-striped table-bordered">
     <thead>
@@ -50,7 +52,7 @@
                   <%= button_to "Force publish #{pluralize(import.force_publishable_edition_count, 'document')}", force_publish_admin_import_path(import), class: "btn btn-sm btn-primary" %>
                 <% else %>
                   <% if import.most_recent_force_publication_attempt.nil? || (import.most_recent_force_publication_attempt.present? && import.most_recent_force_publication_attempt.status == :failure) %>
-                    <p class="alert alert-warn"><%= import.reason_for_not_being_force_publishable %></p>
+                    <p class="alert alert-warning remove-bottom-margin"><%= import.reason_for_not_being_force_publishable %></p>
                   <% end %>
                 <% end %>
               <% end %>
