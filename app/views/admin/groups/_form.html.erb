@@ -8,7 +8,7 @@
     <legend>Members</legend>
     <%= form.fields_for :group_memberships do |membership_fields| %>
       <fieldset>
-        <%= membership_fields.select :person_id, options_from_collection_for_select(Person.all, 'id', 'name', membership_fields.object.person_id), { include_blank: true }, class: 'chzn-select', data: { placeholder: "Choose person" } %>
+        <%= membership_fields.select :person_id, options_from_collection_for_select(Person.all, 'id', 'name', membership_fields.object.person_id), { include_blank: true }, class: 'chzn-select form-control', data: { placeholder: "Choose person" } %>
         <% if membership_fields.object.persisted? %>
           <%= membership_fields.check_box :_destroy, label_text: "Delete" %>
         <% end %>

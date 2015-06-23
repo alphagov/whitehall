@@ -16,7 +16,7 @@
         <% end %>
         <%= content_tag :div, class: "form-group" do %>
           <%= import_form.label :organisation_id, 'Default organisation' %>
-          <%= import_form.select :organisation_id, options_from_collection_for_select(Organisation.all, 'id', 'name', @import.organisation_id), { include_blank: true }, class: 'chzn-select', data: { placeholder: "Choose organisation to use as default when not specified..." } %>
+          <%= import_form.select :organisation_id, options_from_collection_for_select(Organisation.all, 'id', 'name', @import.organisation_id), { include_blank: true }, class: 'chzn-select form-control', data: { placeholder: "Choose organisation to use as default when not specified..." } %>
         <% end %>
         <%= content_tag :div, class: "form-group" do %>
           <%= import_form.label :file, 'CSV File' %>

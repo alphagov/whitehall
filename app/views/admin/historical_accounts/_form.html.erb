@@ -9,7 +9,7 @@
           <%= form.select :role_ids, options_from_collection_for_select(person.roles.where(supports_historical_accounts: true).uniq, :id, :name, historical_account.role_ids),
                         { include_blank: true },
                         multiple: true,
-                        class: 'chzn-select',
+                        class: 'chzn-select form-control',
                         data: { placeholder: "Role(s) this account is for..."} %>
         </div>
         <%= form.text_area :summary , rows: 2 %>
@@ -21,7 +21,7 @@
                         options_from_collection_for_select(PoliticalParty.all, :id, :name, historical_account.political_party_ids),
                         { include_blank: true },
                         multiple: true,
-                        class: 'chzn-select',
+                        class: 'chzn-select form-control',
                         data: { placeholder: "Political affiliation" } %>
         </div>
         <%= form.text_field :born %>

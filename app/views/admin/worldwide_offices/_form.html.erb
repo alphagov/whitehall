@@ -12,7 +12,7 @@
               office_form.object.worldwide_office_type_id || WorldwideOfficeType::Other.id
             ),
             {},
-            class: ['chzn-select'],
+            class: ['chzn-select', 'form-control'],
             data: { placeholder: "Choose office type..." } %>
       </div>
       <%= render partial: 'admin/contacts/embed_details_for_form', locals: { contact: office_form.object.contact } %>

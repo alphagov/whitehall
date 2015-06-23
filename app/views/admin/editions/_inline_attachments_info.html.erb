@@ -23,7 +23,7 @@
                           disabled: taggable_alternative_format_providers_container.select { |o| o[0].end_with?('(-)') }.map(&:last)
                         ),
                         { include_blank: true, multiple: false },
-                        class: 'chzn-select',
+                        class: 'chzn-select form-control',
                         data: { placeholder: "Choose which organisation will provide alternative formats..." }) %>
         <p class="help-block">
           If the email address you need isn’t here, it should be added to the relevant Department or Agency

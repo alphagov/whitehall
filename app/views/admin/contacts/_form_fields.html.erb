@@ -11,7 +11,7 @@
     <%= contact_form.select :country_id,
                             options_from_collection_for_select(WorldLocation.geographical, :id, :name, contact_form.object.country_id),
                             { include_blank: true },
-                            class: 'chzn-select',
+                            class: 'chzn-select form-control',
                             data: { placeholder: "Choose the country..." } %>
   </div>
 </fieldset>

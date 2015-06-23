@@ -2,5 +2,5 @@
 <%= form.select :policy_group_ids, PolicyGroup.order(:name).map { |group|
   ["#{group.name} (#{group.email})", group.id]}, { include_blank: true },
   multiple: true,
-  class: 'chzn-select',
+  class: 'chzn-select form-control',
   data: { placeholder: "Choose groups..."} %>

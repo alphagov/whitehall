@@ -28,7 +28,7 @@
   <%= classification_form.fields_for :social_media_accounts do |account_form| %>
     <div class="form-group">
       <%= account_form.label :social_media_service_id, 'Service' %>
-      <%= account_form.select :social_media_service_id, options_from_collection_for_select(SocialMediaService.all, :id, :name, account_form.object.social_media_service_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose the social media service..." } %>
+      <%= account_form.select :social_media_service_id, options_from_collection_for_select(SocialMediaService.all, :id, :name, account_form.object.social_media_service_id), {include_blank: true}, class: 'chzn-select form-control', data: { placeholder: "Choose the social media service..." } %>
     </div>
     <%= account_form.text_field :url %>
   <% end %>

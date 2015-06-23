@@ -4,7 +4,7 @@
 <%= form.select :person_id,
                 options_for_select(disambiguated_people_names, form.object.person_id),
                 {include_blank: true},
-                class: 'chzn-select',
+                class: 'chzn-select form-control',
                 data: { placeholder: "Choose person..." },
                 disabled: !form.object.new_record? %>
 

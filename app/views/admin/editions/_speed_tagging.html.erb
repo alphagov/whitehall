@@ -32,7 +32,7 @@
     <%= form.text_area :body, rows: 20, class: "previewable" %>
 
     <%= form.label :lead_organisation_ids, 'Lead Organisations:' %>
-    <%= form.select :lead_organisation_ids, options_for_select(taggable_organisations_container, @edition.lead_organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose organisations which produced this document..." } %>
+    <%= form.select :lead_organisation_ids, options_for_select(taggable_organisations_container, @edition.lead_organisation_ids), {}, multiple: true, class: 'chzn-select form-control', data: { placeholder: "Choose organisations which produced this document..." } %>
 
     <%= render partial: 'required_fields_for_imported_editions', locals: { form: form, edition: form.object } %>
 

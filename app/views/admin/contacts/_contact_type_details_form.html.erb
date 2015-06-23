@@ -3,6 +3,6 @@
   <%= contact_form.select :contact_type_id,
                           options_from_collection_for_select(ContactType.all, :id, :name, contact_form.object.contact_type_id),
                           { include_blank: true },
-                          class: 'chzn-select',
+                          class: 'chzn-select form-control',
                           data: { placeholder: "Choose the contact type..." } %>
 </div>

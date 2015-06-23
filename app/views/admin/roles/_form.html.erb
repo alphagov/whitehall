@@ -15,7 +15,7 @@
     </div>
     <div class="form-group">
       <%= form.label :organisation_ids, 'Organisations' %>
-      <%= form.select :organisation_ids, options_from_collection_for_select(Organisation.with_translations(:en), 'id', 'select_name', role.organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose organisations..." } %>
+      <%= form.select :organisation_ids, options_from_collection_for_select(Organisation.with_translations(:en), 'id', 'select_name', role.organisation_ids), {}, multiple: true, class: 'chzn-select form-control', data: { placeholder: "Choose organisations..." } %>
     </div>
     <div class="form-group">
       <%= form.label :whip_organisation_id, 'Whip Organisation' %>
@@ -31,7 +31,7 @@
     </div>
     <div class="form-group">
       <%= form.label :worldwide_organisation_ids, 'Worldwide organisations' %>
-      <%= form.select :worldwide_organisation_ids, options_from_collection_for_select(WorldwideOrganisation.all, 'id', 'name', role.worldwide_organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose worldwide organisations..." } %>
+      <%= form.select :worldwide_organisation_ids, options_from_collection_for_select(WorldwideOrganisation.all, 'id', 'name', role.worldwide_organisation_ids), {}, multiple: true, class: 'chzn-select form-control', data: { placeholder: "Choose worldwide organisations..." } %>
     </div>
   </fieldset>
 
