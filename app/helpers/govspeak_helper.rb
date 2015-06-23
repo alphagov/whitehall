@@ -89,6 +89,7 @@ module GovspeakHelper
   end
 
   def fraction_image(numerator, denominator)
+    denominator.downcase! if %w{X Y}.include? denominator
     if numerator.present? && denominator.present? && Rails.application.assets.find_asset("fractions/#{numerator}_#{denominator}.png")
       "fractions/#{numerator}_#{denominator}.png"
     end
