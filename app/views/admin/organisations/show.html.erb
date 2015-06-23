@@ -35,7 +35,7 @@
               None
             <% end %>
           </td></tr>
-          <tr><th>Topics and topical events</th><td>
+          <tr><th>Policy Areas and topical events</th><td>
             <% if @organisation.classifications.any? %>
               <%= @organisation.classifications.map {|t| link_to(t.name, [:edit, :admin, t]) }.to_sentence.html_safe %>
             <% else %>

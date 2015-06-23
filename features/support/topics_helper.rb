@@ -6,7 +6,7 @@ module TopicsHelper
 
   def start_creating_topic(options = {})
     visit admin_root_path
-    click_link "Topics"
+    click_link "Policy Areas"
     click_link "Create topic"
     fill_in "Name", with: options[:name] || "topic-name"
     fill_in "Description", with: options[:description] || "topic-description"

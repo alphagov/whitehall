@@ -57,7 +57,7 @@
 
     <% if @edition.can_be_associated_with_topics? %>
       <div class="row-fluid">
-        <h3>Topics</h3>
+        <h3>Policy Areas</h3>
         <%= render partial: 'topic_fields', locals: { form: form, edition: @edition } %>
       </div>
     <% end %>

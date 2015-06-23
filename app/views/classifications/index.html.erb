@@ -1,11 +1,11 @@
-<% page_title "Topics" %>
+<% page_title "Policy Areas" %>
 <% page_class "classifications-index index-list-page" %>
 
 
 <div class="block-1">
   <div class="inner-block">
     <header class="page-header js-filter-list">
-        <h1 class="title">Topics</h1>
+        <h1 class="title">Polocy Areas</h1>
         <form class="js-filter-form"><label for="what-is-the-government-doing-about" class="label">What&nbsp;is the government<br />doing about <div><input name="what-is-the-government-doing-about" id="what-is-the-government-doing-about" placeholder="Example: housing"> ?</div></label></form>
     </header>
   </div>
@@ -20,7 +20,7 @@
         </div>
       </div>
     <% else %>
-      <p>We don't have any topics with published documents at present.</p>
+      <p>We don't have any policy area with published documents at present.</p>
     <% end %>
     <% if @topical_events.any? %>
       <div class="heading-block js-filter-block">
@@ -33,7 +33,7 @@
       </div>
     <% end %>
     <div class="js-filter-no-results">
-      <p>No topics match that filter.</p>
+      <p>No policy areas match that filter.</p>
     </div>
   </div>
 </div>
