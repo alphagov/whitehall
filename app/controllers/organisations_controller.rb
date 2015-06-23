@@ -40,7 +40,7 @@ class OrganisationsController < PublicFacingController
             @promotional_features = PromotionalFeaturesPresenter.new(@organisation.promotional_features, view_context)
             render 'show-promotional'
           else
-            @policies = policy_results
+            @policies = @organisation.featured_policies.order('ordering').limit(5)
             @topics = @organisation.topics
             @mainstream_categories = @organisation.mainstream_categories
             @ministers = ministers
@@ -65,15 +65,6 @@ class OrganisationsController < PublicFacingController
   end
 
 private
-
-  def policy_results
-    Whitehall.unified_search_client.unified_search(
-      filter_organisations: [@organisation.slug],
-      filter_format: "policy",
-      count: "3",
-      order: "-public_timestamp"
-    ).results
-  end
 
   def ministers
     @ministerial_roles ||= filled_roles_presenter_for(@organisation, :ministerial)

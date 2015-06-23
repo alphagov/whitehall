@@ -108,6 +108,8 @@ class Organisation < ActiveRecord::Base
 
   has_many :offsite_links, as: :parent
 
+  has_many :featured_policies
+
   # I'm trying to use a domain centric design rather than a persistence
   # centric design, so I do not want to expose a has_many :home_page_lists
   # and all that this implies. I really only want to expose a list of
@@ -139,6 +141,7 @@ class Organisation < ActiveRecord::Base
   accepts_nested_attributes_for :organisation_classifications, reject_if: -> attributes { attributes['classification_id'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :organisation_mainstream_categories, reject_if: -> attributes { attributes['mainstream_category_id'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :offsite_links
+  accepts_nested_attributes_for :featured_policies
 
   validates :slug, presence: true, uniqueness: true
   validates_with SafeHtmlValidator

@@ -198,6 +198,9 @@ Whitehall::Application.routes.draw do
           end
           resources :financial_reports, except: [:show]
           resources :offsite_links
+          resources :featured_policies do
+            post :reorder, on: :collection
+          end
         end
         resources :corporate_information_pages, only: [] do
           resources :attachments, except: [:show] do
