@@ -44,7 +44,7 @@ private
     tagging.destroy
 
     add_editorial_remark(edition,
-      "Bulk retagging from topic '#{@source_topic_id}' to '#{@destination_topic_id}' resulted in duplicate tag - removed it"
+      "Bulk retagging from policy area '#{@source_topic_id}' to '#{@destination_topic_id}' resulted in duplicate tag - removed it"
     )
   end
 
@@ -55,7 +55,7 @@ private
     tagging.save!
 
     add_editorial_remark(edition,
-      "Bulk retagging from topic '#{@source_topic_id}' to '#{@destination_topic_id}' changed tag"
+      "Bulk retagging from policy area '#{@source_topic_id}' to '#{@destination_topic_id}' changed tag"
     )
   end
 

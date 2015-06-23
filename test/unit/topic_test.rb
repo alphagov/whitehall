@@ -7,7 +7,7 @@ class TopicTest < ActiveSupport::TestCase
     stub_content_register_policies
   end
 
-  test "should set a slug from the topic name" do
+  test "should set a slug from the policy area name" do
     topic = create(:topic, name: 'Love all the people')
     assert_equal 'love-all-the-people', topic.slug
   end
@@ -34,7 +34,7 @@ class TopicTest < ActiveSupport::TestCase
     refute topic.deleted?
   end
 
-  test "return topics bi-directionally related to specific topic" do
+  test "return topics bi-directionally related to specific policy area" do
     topic_1 = create(:topic)
     topic_2 = create(:topic)
     topic = build(:topic, related_classifications: [topic_1, topic_2])

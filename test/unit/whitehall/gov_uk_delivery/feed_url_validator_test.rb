@@ -84,7 +84,7 @@ class Whitehall::GovUkDelivery::FeedUrlValidatorTest < ActiveSupport::TestCase
     assert_equal organisation.name, validator.description
   end
 
-  test 'validates and describes a topic feed url' do
+  test 'validates and describes a policy area feed url' do
     topic     = create(:topic)
     feed_url  = atom_feed_maker.topic_url(topic)
     validator = FeedUrlValidator.new(feed_url)

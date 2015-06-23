@@ -1,17 +1,17 @@
 require 'test_helper'
 
 class ClassificationRelationTest < ActiveSupport::TestCase
-  test "should be invalid without a topic id" do
+  test "should be invalid without a policy area id" do
     classification_relation = build(:classification_relation, classification_id: nil)
     refute classification_relation.valid?
   end
 
-  test "should be invalid without a related topic id" do
+  test "should be invalid without a related policy area id" do
     classification_relation = build(:classification_relation, related_classification_id: nil)
     refute classification_relation.valid?
   end
 
-  test "should be invalid if more than one relation exists from one topic to another" do
+  test "should be invalid if more than one relation exists from one policy area to another" do
     existing_relation = create(:classification_relation)
     relation = build(:classification_relation,
       topic: existing_relation.topic,
@@ -20,21 +20,21 @@ class ClassificationRelationTest < ActiveSupport::TestCase
     refute relation.valid?
   end
 
-  test "should be valid if one topic is related to two others" do
+  test "should be valid if one policy area is related to two others" do
     topic = create(:topic)
     existing_relation = create(:classification_relation, topic: topic)
     relation = build(:classification_relation, topic: topic)
     assert relation.valid?
   end
 
-  test "should be valid if one topic is related from two others" do
+  test "should be valid if one policy area is related from two others" do
     topic = create(:topic)
     existing_relation = create(:classification_relation, related_topic: topic)
     relation = build(:classification_relation, related_topic: topic)
     assert relation.valid?
   end
 
-  test "should be invalid if a topic is related to itself" do
+  test "should be invalid if a policy area is related to itself" do
     topic = create(:topic)
     relation = build(:classification_relation, topic: topic, related_topic: topic)
     refute relation.valid?

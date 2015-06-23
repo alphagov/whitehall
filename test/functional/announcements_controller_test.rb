@@ -222,7 +222,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "index requested as JSON includes email signup path with organisation and topic parameters" do
+  view_test "index requested as JSON includes email signup path with organisation and policy area parameters" do
     topic = create(:topic)
     organisation = create(:organisation)
 

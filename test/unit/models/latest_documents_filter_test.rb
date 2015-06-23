@@ -8,7 +8,7 @@ class LatestDocumentsFilterTest < ActiveSupport::TestCase
     end
   end
 
-  test '.for_subject should return an instance of ClassificationFilter for a topic' do
+  test '.for_subject should return an instance of ClassificationFilter for a policy area' do
     topic = create(:topic)
     filter = LatestDocumentsFilter.for_subject(topic)
 

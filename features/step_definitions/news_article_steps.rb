@@ -47,11 +47,11 @@ When /^I publish a news article "([^"]*)" associated with "([^"]*)"$/ do |title,
   publish(force: true)
 end
 
-When /^I publish a news article "([^"]*)" associated with the (topic|topical event) "([^"]*)"$/ do |title, type, topic_name|
+When /^I publish a news article "([^"]*)" associated with the (policy area|topical event) "([^"]*)"$/ do |title, type, topic_name|
   begin_drafting_news_article title: title, skip_topic_selection: (type == 'topic')
 
   if type == 'topic'
-    select topic_name, from: "Topics"
+    select topic_name, from: "Policy Areas"
   else
     select topic_name, from: "Topical events"
   end

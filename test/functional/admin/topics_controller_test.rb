@@ -22,7 +22,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
 
   ### Describing :show ###
 
-  view_test "GET :show lists the topic's details" do
+  view_test "GET :show lists the policy area's details" do
     topic = create(:topic)
     get :show, id: topic
 
@@ -39,7 +39,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
 
   ### Describing :create ###
 
-  test "POST :create creates a new topic" do
+  test "POST :create creates a new policy area" do
     first_topic = create(:topic)
     second_topic = create(:topic)
     attributes = attributes_for(:topic)
@@ -75,7 +75,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
 
   ### Describing :update ###
 
-  test "PUT :update saves changes to the topic and redirects" do
+  test "PUT :update saves changes to the policy area and redirects" do
     topic = create(:topic)
 
     put :update, id: topic, topic: {
@@ -110,7 +110,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
 
   ### Describing :destroy ###
 
-  test "DELETE :destroy deletes a deletable topic" do
+  test "DELETE :destroy deletes a deletable policy area" do
     topic = create(:topic)
     delete :destroy, id: topic.id
 
@@ -118,11 +118,11 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     assert topic.reload.deleted?
   end
 
-  test "DELETE :destroy does not delete topics with associated content" do
+  test "DELETE :destroy does not delete policy areas with associated content" do
     topic = create(:topic, policy_content_ids: [policy_1["content_id"]])
 
     delete :destroy, id: topic
-    assert_equal "Cannot destroy Topic with associated content", flash[:alert]
+    assert_equal "Cannot destroy Policy Area with associated content", flash[:alert]
     refute topic.reload.deleted?
   end
 end

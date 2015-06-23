@@ -517,7 +517,7 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal 0, EditionOrganisation.count
   end
 
-  test 'destroy removes topic relationships' do
+  test 'destroy removes policy area relationships' do
     organisation = create(:organisation)
     topic = create(:topic)
     topic.organisations << organisation
@@ -628,7 +628,7 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal "FOO123", organisation.reload.analytics_identifier
   end
 
-  test "topics are explicitly ordered" do
+  test "policy areas are explicitly ordered" do
     topics = [create(:topic), create(:topic)]
     organisation = create(:organisation)
     organisation.organisation_classifications.create(classification_id: topics[0].id, ordering: 2)

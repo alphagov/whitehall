@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class EmailSignupTest < ActiveSupport::TestCase
-  test "#save ensures that a relevant topic exists in GovDelivery using the feed and the signup description" do
+  test "#save ensures that a relevant policy area exists in GovDelivery using the feed and the signup description" do
     email_signup = EmailSignup.new(feed: feed_url)
 
     Whitehall.govuk_delivery_client.expects(:topic).with(feed_url, email_signup.description)

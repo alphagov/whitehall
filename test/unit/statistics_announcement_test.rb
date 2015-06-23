@@ -23,7 +23,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_equal 'beard-statistics-2015', announcement.slug
   end
 
-  test 'must have at least one topic' do
+  test 'must have at least one policy area' do
     announcement = build(:statistics_announcement, topics: [])
     refute announcement.valid?
   end
@@ -209,7 +209,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     end
   end
 
-  test '#destroy destroys topic associations' do
+  test '#destroy destroys policy area associations' do
     statistics_announcement = create(:statistics_announcement)
     assert_difference %w(StatisticsAnnouncement.count StatisticsAnnouncementTopic.count), -1 do
       statistics_announcement.destroy

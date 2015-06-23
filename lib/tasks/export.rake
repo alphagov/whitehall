@@ -86,7 +86,7 @@ namespace :export do
         "People",
         "Document collections",
         "Policies",
-        "Topics",
+        "Policy areas",
         "Topical events"
       ]
 

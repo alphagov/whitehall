@@ -123,7 +123,7 @@ Feature: Importing new editions
     Then the import succeeds, creating 1 imported publication for "Foreign Commonwealth Office" with "imported-awaiting-type" publication type
 
   Scenario: Importing publications sets imported state, ImportedAwaitingType type and default organisation, to be filled in later
-    Given a topic with the slug "my-topic" exists
+    Given a policy area with the slug "my-topic" exists
     When I import the following data as CSV as "Publication" for "Department for Transport":
       """
       old_url,title,summary,body,organisation,publication_type,document_collection_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1,topic_1
@@ -135,7 +135,7 @@ Feature: Importing new editions
     Then I can make the imported publication into a draft edition
 
   Scenario: Importing publications with blank publication dates allows them to be filled in later
-    Given a topic with the slug "my-topic" exists
+    Given a policy area with the slug "my-topic" exists
     When I import the following data as CSV as "Publication" for "Department for Transport":
       """
       old_url,title,summary,body,organisation,publication_type,document_collection_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1,topic_1
@@ -156,7 +156,7 @@ Feature: Importing new editions
     And the imported publication has an html attachment with the title "HTML attachment title" and body "Body part one plus body part two"
 
   Scenario: Importing news article sets imported state, ImportedAwaitingType type and default organisation, to be filled in later
-    Given a topic with the slug "my-topic" exists
+    Given a policy area with the slug "my-topic" exists
     When I import the following data as CSV as "News article" for "Department for Transport":
       """
       old_url,title,summary,body,organisation,minister_1,first_published,country_1,news_article_type,topic_1
@@ -168,7 +168,7 @@ Feature: Importing new editions
     Then I can make the imported news article into a draft edition
 
   Scenario: Importing news article with blank first published allows them to be filled in later
-    Given a topic with the slug "my-topic" exists
+    Given a policy area with the slug "my-topic" exists
     When I import the following data as CSV as "News article" for "Department for Transport":
       """
       old_url,title,summary,body,organisation,minister_1,first_published,country_1,news_article_type,topic_1
@@ -180,7 +180,7 @@ Feature: Importing new editions
     Then I can make the imported news article into a draft edition
 
   Scenario: Importing speeches sets ImportedAwaitingType speech type and blank "delivered by", to be filled in later
-    Given a topic with the slug "my-topic" exists
+    Given a policy area with the slug "my-topic" exists
     When I import the following data as CSV as "Speech" for "Department for Transport":
       """
       old_url,title,summary,body,organisation,type,delivered_by,delivered_on,event_and_location,country_1,topic_1
@@ -196,7 +196,7 @@ Feature: Importing new editions
 
   Scenario: Importing speeches with blank delivered on means it must be filled in later, along with the deliverer
     Given a person called "Joe Bloggs"
-    And a topic with the slug "my-topic" exists
+    And a policy area with the slug "my-topic" exists
     When I import the following data as CSV as "Speech" for "Department for Transport":
       """
       old_url,title,summary,body,organisation,type,delivered_by,delivered_on,event_and_location,country_1,topic_1
@@ -210,7 +210,7 @@ Feature: Importing new editions
     Then I can make the imported speech into a draft edition
 
   Scenario: Importing consultations with blank dates allows them to be filled in later
-    Given a topic with the slug "my-topic" exists
+    Given a policy area with the slug "my-topic" exists
     When I import the following data as CSV as "Consultation" for "Department for Transport":
       """
       old_url,title,summary,body,organisation,opening_date,closing_date,response_date,response_summary,topic_1
@@ -231,8 +231,8 @@ Feature: Importing new editions
       """
     Then I can delete the imported edition if I choose to
 
-  Scenario: Importing detailed guides with topic, detailed guidance category, related detailed guide and related mainstream content
-    Given a topic with the slug "my-topic" exists
+  Scenario: Importing detailed guides with policy area, detailed guidance category, related detailed guide and related mainstream content
+    Given a policy area with the slug "my-topic" exists
     And a published document collection "My document collection" exists
     And a mainstream category with the slug "my-detailed-guidance-category" exists
     And a published detailed guide "My related detailed guide" for the organisation "Foreign Commonwealth Office"

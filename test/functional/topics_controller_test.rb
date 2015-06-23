@@ -5,7 +5,7 @@ class TopicsControllerTest < ActionController::TestCase
 
   should_be_a_public_facing_controller
 
-  view_test "GET :shows lists the topic details, setting the expiry headers based on the scheduled editions" do
+  view_test "GET :shows lists the policy area details, setting the expiry headers based on the scheduled editions" do
     organisation_1 = create(:organisation)
     organisation_2 = create(:organisation)
     publication = create(:draft_publication, :scheduled)

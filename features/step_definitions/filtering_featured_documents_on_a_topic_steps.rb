@@ -1,4 +1,4 @@
-Given(/^there is a topic with published documents$/) do
+Given(/^there is a policy area with published documents$/) do
   @topic = create(:topic, name: "A Topic")
   department = create(:ministerial_department, name: "A Department")
 
@@ -9,7 +9,7 @@ Given(/^there is a topic with published documents$/) do
   @news = create(:published_news_article, title: "News #2", topics: [@topic])
 end
 
-When(/^I view featured documents for that topic$/) do
+When(/^I view featured documents for that policy area$/) do
   visit admin_topic_classification_featurings_url(@topic)
   page.click_on "Reset all fields"
 end

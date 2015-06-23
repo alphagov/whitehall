@@ -34,13 +34,13 @@ Given(/^there is a cancelled statistics announcement, originally due to be publi
                                      precision: StatisticsAnnouncementDate::PRECISION[:exact])
 end
 
-Given(/^there are some statistics announcements for various departments and topics$/) do
+Given(/^there are some statistics announcements for various departments and policy areas$/) do
   @department = create :ministerial_department
   @topic = create :topic
 
   create :statistics_announcement, title: "Announcement for both department and topic", organisation_ids: [@department.id], topics: [@topic]
   create :statistics_announcement, title: "Announcement for department", organisation_ids: [@department.id]
-  create :statistics_announcement, title: "Announcement for topic", topics: [@topic]
+  create :statistics_announcement, title: "Announcement for policy area", topics: [@topic]
 
 end
 
@@ -75,7 +75,7 @@ end
 When(/^I filter the statistics announcements by department and topic$/) do
   within '.filter-form' do
     select @department.name, from: "Department"
-    select @topic.name, from: "Topic"
+    select @topic.name, from: "Policy Area"
     click_on "Refresh results"
   end
 end
@@ -109,13 +109,13 @@ Then(/^I should only see statistics announcements for those filters$/) do
   assert_equal 1, page.all(".document-list .document-row").length
 end
 
-Then(/^I should only see statistics announcements for the selected departments and topics$/) do
-  assert page.has_content? "Announcement for both department and topic"
+Then(/^I should only see statistics announcements for the selected departments and policy areas$/) do
+  assert page.has_content? "Announcement for both department and policy area"
   assert page.has_no_content? "Announcement for department"
-  assert page.has_no_content? "Announcement for topic"
+  assert page.has_no_content? "Announcement for policy area"
 end
 
-Then(/^I should be on a page showing the title, release date, organisation, topic, summary and date change information of the release announcement$/) do
+Then(/^I should be on a page showing the title, release date, organisation, policy area, summary and date change information of the release announcement$/) do
   assert_equal statistics_announcement_path(@announcement), current_path
 
   assert page.has_content? @announcement.title

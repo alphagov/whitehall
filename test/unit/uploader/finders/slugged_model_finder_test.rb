@@ -11,7 +11,7 @@ class Whitehall::Uploader::Finders::SluggedModelFinderTest < ActiveSupport::Test
     @finder = Whitehall::Uploader::Finders::SluggedModelFinder.new(@model_class, @log, @line_number)
   end
 
-  test "returns the topics by slug" do
+  test "returns the policy areas by slug" do
     assert_equal [@model_instance_1], @finder.find(["slug-1"])
   end
 
@@ -23,16 +23,16 @@ class Whitehall::Uploader::Finders::SluggedModelFinderTest < ActiveSupport::Test
     assert_equal [], @finder.find(['', ''])
   end
 
-  test "returns an empty array if a topic can't be found for the given slug" do
+  test "returns an empty array if a policy area can't be found for the given slug" do
     assert_equal [], @finder.find(['made-up-policy-slug'])
   end
 
-  test "logs an error if a topic can't be found for the given slug" do
+  test "logs an error if a policy area can't be found for the given slug" do
     @log.expects(:error).with(%q{Unable to find Model Class with slug 'made-up-slug'}, @line_number)
     @finder.find(['made-up-slug'])
   end
 
-  test "returns an empty array if the topic for the given slug that cannot be found" do
+  test "returns an empty array if the policy area for the given slug that cannot be found" do
     assert_equal [], @finder.find(['made-up-policy-slug'])
   end
 
