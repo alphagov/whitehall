@@ -16,21 +16,21 @@ class Edition::TopicsTest < ActiveSupport::TestCase
     refute ClassificationMembership.exists?(relation.id)
   end
 
-  test "new edition of document that is a member of a topic should remain a member of that topic" do
+  test "new edition of document that is a member of a policy area should remain a member of that policy area" do
     edition = create(:published_publication, topics: [@topic])
     new_edition = edition.create_draft(create(:writer))
 
     assert_equal [@topic], new_edition.topics
   end
 
-  test "edition should be invalid without a topic" do
+  test "edition should be invalid without a policy area" do
     edition = EditionWithTopics.new(attributes_for_edition)
 
     refute edition.valid?, "Edition should not be valid"
     assert_match /at least one required/, edition.errors[:topics].first
   end
 
-  test "imported editions are valid without any topics" do
+  test "imported editions are valid without any policy areas" do
     edition = EditionWithTopics.new(attributes_for_edition.merge(state: 'imported'))
 
     assert edition.valid?

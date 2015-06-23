@@ -44,7 +44,7 @@ task :specialist_sector_cleanup => :environment do
   end
 end
 
-desc "Export csv for topic retagging"
+desc "Export csv for policy area retagging"
 task topic_retagging_csv_export: :environment do
   require "data_hygiene/tag_changes_exporter"
 
@@ -80,7 +80,7 @@ task topic_retagging_csv_export: :environment do
   TagChangesExporter.new(csv_location, source_topic_id, destination_topic_id).export
 end
 
-desc "Process csv for topic retagging"
+desc "Process csv for policy area retagging"
 task process_topic_retagging_csv: :environment do
   require "data_hygiene/tag_changes_processor"
 

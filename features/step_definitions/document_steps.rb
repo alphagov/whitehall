@@ -13,17 +13,17 @@ Given /^a published document "([^"]*)" exists$/ do |title|
   create(:published_publication, title: title)
 end
 
-Given /^a draft (publication|news article|consultation) "([^"]*)" exists in the "([^"]*)" topic$/ do |document_type, title, topic_name|
+Given /^a draft (publication|news article|consultation) "([^"]*)" exists in the "([^"]*)" policy area$/ do |document_type, title, topic_name|
   topic = Topic.find_by!(name: topic_name)
   create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, topics: [topic])
 end
 
-Given /^a submitted (publication|news article|consultation|detailed guide) "([^"]*)" exists in the "([^"]*)" topic$/ do |document_type, title, topic_name|
+Given /^a submitted (publication|news article|consultation|detailed guide) "([^"]*)" exists in the "([^"]*)" policy area$/ do |document_type, title, topic_name|
   topic = Topic.find_by!(name: topic_name)
   create("submitted_#{document_class(document_type).name.underscore}".to_sym, title: title, topics: [topic])
 end
 
-Given /^a published (publication|news article|consultation) "([^"]*)" exists in the "([^"]*)" topic$/ do |document_type, title, topic_name|
+Given /^a published (publication|news article|consultation) "([^"]*)" exists in the "([^"]*)" policy area$/ do |document_type, title, topic_name|
   topic = Topic.find_by!(name: topic_name)
   create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, topics: [topic])
 end
@@ -205,7 +205,7 @@ Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |edition|
   assert page.has_css?(record_css_selector(edition), text: edition.title)
 end
 
-Then /^I should see in the preview that "([^"]*)" should be in the "([^"]*)" and "([^"]*)" topics$/ do |title, first_topic, second_topic|
+Then /^I should see in the preview that "([^"]*)" should be in the "([^"]*)" and "([^"]*)" policy area$/ do |title, first_topic, second_topic|
   visit_document_preview title
   assert has_css?(".meta a", text: first_topic, exact: false)
   assert has_css?(".meta a", text: second_topic, exact: false)

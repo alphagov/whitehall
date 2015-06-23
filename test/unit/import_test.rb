@@ -152,7 +152,7 @@ class ImportTest < ActiveSupport::TestCase
     end
   end
 
-  test '#perform assigns topics to the document' do
+  test '#perform assigns policy areas to the document' do
     topic = create(:topic)
     data = publication_csv_sample('topic_1' => topic.slug)
 

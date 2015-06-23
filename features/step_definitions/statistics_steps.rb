@@ -61,7 +61,7 @@ When(/^I should only see statistics matching the given keyword, from date and to
   assert_equal 1, page.all(".document-list .document-row").length
 end
 
-Given(/^there are some statisics for various departments and topics$/) do
+Given(/^there are some statisics for various departments and policy areas$/) do
   beard_topic = create(:topic, name: 'Beards')
   wombat_topic = create(:topic, name: 'Wombats')
 
@@ -82,15 +82,15 @@ Given(/^there are some statisics for various departments and topics$/) do
 
 end
 
-When(/^I filter the statistics by department and topic$/) do
+When(/^I filter the statistics by department and policy area$/) do
   within '.filter-form' do
-    select "Beards", from: "Topic"
+    select "Beards", from: "Policy Area"
     select "Wombats of Wimbledon", from: "Department"
     click_on "Refresh results"
   end
 end
 
-Then(/^I should only see statistics for the selected departments and topics$/) do
+Then(/^I should only see statistics for the selected departments and policy areas$/) do
   within('.filter-results') do
     assert page.has_content? "Average beard lengths of wombat organisations"
     assert page.has_no_content? "2015 Average beard lengths figures"

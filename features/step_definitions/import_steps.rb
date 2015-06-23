@@ -1,4 +1,4 @@
-Given /^a (topic|mainstream category) with the slug "([^"]*)" exists$/ do |type, slug|
+Given /^a (policy area|mainstream category) with the slug "([^"]*)" exists$/ do |type, slug|
   o = create(type.parameterize.underscore)
   o.update_attributes!(slug: slug)
 end

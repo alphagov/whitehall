@@ -138,7 +138,7 @@ class EditionTest < ActiveSupport::TestCase
     assert_nil Edition.scheduled_for_publication_as('unknown')
   end
 
-  test "should return a list of editions in a topic" do
+  test "should return a list of editions in a policy area" do
     topic_1 = create(:topic)
     topic_2 = create(:topic)
     draft_publication = create(:draft_publication, topics: [topic_1])

@@ -1,8 +1,8 @@
-Feature: Filtering Featured Documents On A Topic
+Feature: Filtering Featured Documents On A Policy Area
 
   Background:
-    Given there is a topic with published documents
-    When I view featured documents for that topic
+    Given there is a policy area with published documents
+    When I view featured documents for that policy area
 
   Scenario: User filters by title
     When I filter by title

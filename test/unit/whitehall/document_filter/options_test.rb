@@ -38,7 +38,7 @@ module Whitehall
         assert_equal "All locations", filter_options.label_for("world_locations", "all")
       end
 
-      test '#label_for downcases topics' do
+      test '#label_for downcases policy areas' do
         topic = create(:topic, name: "Example Topic", slug: "example-topic")
         topical_event = create(:topical_event, :active, name: "Example Topical Event", slug: "example-topical-event")
 
@@ -138,7 +138,7 @@ module Whitehall
         assert_equal [], options.ungrouped
       end
 
-      test "can get the list of options for topics" do
+      test "can get the list of options for policy areas" do
         topic = create(:topic)
         topical_event = create(:topical_event, :active)
 

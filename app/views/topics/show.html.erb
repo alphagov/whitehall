@@ -1,4 +1,4 @@
-<% page_title @classification.name, "Topics" %>
+<% page_title @classification.name, "Policy Area" %>
 <% page_class "topics-show" %>
 <% atom_discovery_link_tag atom_feed_url_for(@classification), "Latest activity on #{@classification.name}" %>
 
@@ -7,7 +7,7 @@
   <header class="block headings-block">
     <div class="inner-block floated-children">
       <%= render partial: 'shared/heading',
-                locals: { type: "Topic",
+                locals: { type: "Policy Area",
                           heading: @classification.name,
                           big: true, extra: true } %>
 
@@ -24,7 +24,7 @@
                           locals: { organisations: @classification.organisations } %>
             </dd>
             <% if @related_classifications.any? %>
-              <dt>Related topics:</dt>
+              <dt>Related policy areas:</dt>
               <dd class="js-hide-other-links related-topics">
                 <%= @related_classifications.map { |rc| link_to(rc.name, rc) }.to_sentence.html_safe %>
               </dd>
