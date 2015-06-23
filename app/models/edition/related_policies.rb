@@ -23,7 +23,7 @@ module Edition::RelatedPolicies
   end
 
   def policies
-    Future::Policy.from_content_ids(policy_content_ids)
+    Policy.from_content_ids(policy_content_ids)
   end
 
   def policy_areas

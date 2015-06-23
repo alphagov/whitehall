@@ -113,7 +113,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     create(:corporate_information_page, organisation: organisation)
     organisation.add_contact_to_home_page!(contact)
 
-    rummager_has_new_policies_for_every_type
+    rummager_has_policies_for_every_type
 
     get :show, id: organisation
 
@@ -350,9 +350,9 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select "p.parent-organisations", text: /Administered by\s+HMCTS/m
   end
 
-  view_test "should display the organisation's future policies with content" do
+  view_test "should display the organisation's policies with content" do
     organisation = create(:organisation)
-    rummager_has_new_policies_for_every_type
+    rummager_has_policies_for_every_type
 
     get :show, id: organisation
 
@@ -363,9 +363,9 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should display organisation's latest three future policies" do
+  test "should display organisation's latest three policies" do
     organisation = create(:organisation)
-    rummager_has_new_policies_for_every_type(count: 3)
+    rummager_has_policies_for_every_type(count: 3)
 
     get :show, id: organisation
 

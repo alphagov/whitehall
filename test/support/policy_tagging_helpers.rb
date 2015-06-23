@@ -4,7 +4,7 @@ module PolicyTaggingHelpers
   include GdsApi::TestHelpers::Rummager
 
   def assert_published_policies_returns_all_tagged_policies(object)
-    rummager_has_new_policies_for_every_type
+    rummager_has_policies_for_every_type
 
     all_policy_titles = [
       "Welfare reform",

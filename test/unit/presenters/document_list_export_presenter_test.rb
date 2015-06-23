@@ -62,16 +62,8 @@ class DocumentListExportPresenterTest < ActiveSupport::TestCase
   test '#policies returns a list of the related policies' do
     stub_content_register_policies
 
-    news   = create(:news_article, policy_content_ids: [policy_1['content_id']])
+    news = create(:news_article, policy_content_ids: [policy_1['content_id']])
     pr = DocumentListExportPresenter.new(news)
     assert_equal [policy_1['title']], pr.policies
-  end
-
-  test '#policies returns policy titles with future-policies flag on' do
-    stub_content_register_policies
-
-    news = create(:news_article, policy_content_ids: [policy_1["content_id"]])
-    pr = DocumentListExportPresenter.new(news)
-    assert_equal [policy_1["title"]], pr.policies
   end
 end

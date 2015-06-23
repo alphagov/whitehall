@@ -9,7 +9,7 @@ module Admin::TaggableContentHelper
   # If the Policy is part of a Policy Area, its name will be displayed as:
   # Policy Area 1; Policy Area 2 -> Policy
   def taggable_policy_content_ids_container
-    Future::Policy.all.map { |policy|
+    Policy.all.map { |policy|
       [
         taggable_policy_title(policy),
         policy.content_id,

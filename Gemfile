@@ -22,7 +22,7 @@ gem 'addressable'
 gem 'unicorn', '4.6.2'
 gem 'kaminari', '0.15.1'
 gem 'bootstrap-kaminari-views'
-gem 'gds-api-adapters', '18.7.0'
+gem 'gds-api-adapters', '19.0.0'
 gem 'mime-types', '1.25.1'
 gem 'whenever', '0.9.4', require: false
 gem 'mini_magick'
