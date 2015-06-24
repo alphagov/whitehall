@@ -16,7 +16,6 @@ class DeletePoliciesAndSupportingPages < ActiveRecord::Migration
       EditionDependency,
       EditionMainstreamCategory,
       EditionOrganisation,
-      EditionPolicyGroup,
       EditionRelation,
       EditionRoleAppointment,
       EditionStatisticalDataSet,
