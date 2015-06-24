@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150615080039) do
+ActiveRecord::Schema.define(version: 20150623074259) do
 
   create_table "about_pages", force: :cascade do |t|
     t.integer  "topical_event_id",    limit: 4
@@ -348,11 +348,6 @@ ActiveRecord::Schema.define(version: 20150615080039) do
   add_index "edition_policies", ["edition_id"], name: "index_edition_policies_on_edition_id", using: :btree
   add_index "edition_policies", ["policy_content_id"], name: "index_edition_policies_on_policy_content_id", using: :btree
 
-  create_table "edition_policy_groups", force: :cascade do |t|
-    t.integer "edition_id",      limit: 4
-    t.integer "policy_group_id", limit: 4
-  end
-
   create_table "edition_relations", force: :cascade do |t|
     t.integer  "edition_id",  limit: 4, null: false
     t.datetime "created_at"
@@ -412,15 +407,6 @@ ActiveRecord::Schema.define(version: 20150615080039) do
 
   add_index "edition_worldwide_organisations", ["edition_id"], name: "index_edition_worldwide_orgs_on_edition_id", using: :btree
   add_index "edition_worldwide_organisations", ["worldwide_organisation_id"], name: "index_edition_worldwide_orgs_on_worldwide_organisation_id", using: :btree
-
-  create_table "editioned_supporting_page_mappings", force: :cascade do |t|
-    t.integer  "old_supporting_page_id", limit: 4
-    t.integer  "new_supporting_page_id", limit: 4
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-  end
-
-  add_index "editioned_supporting_page_mappings", ["old_supporting_page_id"], name: "index_editioned_supporting_page_mappings", unique: true, using: :btree
 
   create_table "editions", force: :cascade do |t|
     t.datetime "created_at"
@@ -530,19 +516,6 @@ ActiveRecord::Schema.define(version: 20150615080039) do
 
   add_index "feature_lists", ["featurable_id", "featurable_type", "locale"], name: "featurable_lists_unique_locale_per_featurable", unique: true, using: :btree
 
-  create_table "featured_items", force: :cascade do |t|
-    t.integer  "item_id",                              limit: 4,   null: false
-    t.string   "item_type",                            limit: 255, null: false
-    t.integer  "featured_topics_and_policies_list_id", limit: 4
-    t.integer  "ordering",                             limit: 4
-    t.datetime "started_at"
-    t.datetime "ended_at"
-  end
-
-  add_index "featured_items", ["featured_topics_and_policies_list_id", "ordering"], name: "idx_featured_items_on_featured_ts_and_ps_list_id_and_ordering", using: :btree
-  add_index "featured_items", ["featured_topics_and_policies_list_id"], name: "index_featured_items_on_featured_topics_and_policies_list_id", using: :btree
-  add_index "featured_items", ["item_id", "item_type"], name: "index_featured_items_on_item_id_and_item_type", using: :btree
-
   create_table "featured_links", force: :cascade do |t|
     t.string   "url",           limit: 255
     t.string   "title",         limit: 255
@@ -551,16 +524,6 @@ ActiveRecord::Schema.define(version: 20150615080039) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end
-
-  create_table "featured_topics_and_policies_lists", force: :cascade do |t|
-    t.integer  "organisation_id",           limit: 4,                    null: false
-    t.text     "summary",                   limit: 65535
-    t.boolean  "link_to_filtered_policies", limit: 1,     default: true, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "featured_topics_and_policies_lists", ["organisation_id"], name: "index_featured_topics_and_policies_lists_on_organisation_id", using: :btree
 
   create_table "features", force: :cascade do |t|
     t.integer  "document_id",       limit: 4
@@ -1157,16 +1120,6 @@ ActiveRecord::Schema.define(version: 20150615080039) do
   add_index "statistics_announcements", ["slug"], name: "index_statistics_announcements_on_slug", using: :btree
   add_index "statistics_announcements", ["title"], name: "index_statistics_announcements_on_title", using: :btree
   add_index "statistics_announcements", ["topic_id"], name: "index_statistics_announcements_on_topic_id", using: :btree
-
-  create_table "supporting_page_redirects", force: :cascade do |t|
-    t.integer  "policy_document_id",          limit: 4
-    t.integer  "supporting_page_document_id", limit: 4
-    t.string   "original_slug",               limit: 255
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
-  end
-
-  add_index "supporting_page_redirects", ["policy_document_id", "original_slug"], name: "index_supporting_page_redirects_on_policy_and_slug", unique: true, using: :btree
 
   create_table "take_part_pages", force: :cascade do |t|
     t.string   "title",             limit: 255,      null: false
