@@ -929,7 +929,9 @@
       }
     }
 
-    #what-we-do, #who-we-are {
+    #featured-policies,
+    #what-we-do,
+    #who-we-are {
       @include media(tablet) {
         width: $two-thirds;
         float: left;
@@ -943,6 +945,9 @@
           border-bottom: 1px solid $border-colour;
           padding: $gutter-one-sixth 0;
         }
+      }
+      .see-all {
+        margin-top: $gutter-one-third;
       }
     }
 

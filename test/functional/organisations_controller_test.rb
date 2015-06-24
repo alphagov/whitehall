@@ -239,6 +239,16 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_template 'show-promotional'
   end
 
+  view_test "promotional template shows featured policies if there are any" do
+    organisation = create(:executive_office, govuk_status: 'live')
+    policies = content_register_has_policies(['test-policy'])
+    create(:featured_policy, organisation: organisation, policy_content_id: policies.first["content_id"])
+
+    get :show, id: organisation
+
+    assert_select "#featured-policies"
+  end
+
   test "showing a joining organisation renders the not live template" do
     organisation = create(:organisation, govuk_status: 'joining')
 
