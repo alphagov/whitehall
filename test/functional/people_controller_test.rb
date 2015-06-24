@@ -91,7 +91,7 @@ class PeopleControllerTest < ActionController::TestCase
 
   view_test "should display the person's policies with content" do
     create(:ministerial_role_appointment, person: @person)
-    rummager_has_new_policies_for_every_type
+    rummager_has_policies_for_every_type
 
     get :show, id: @person
 

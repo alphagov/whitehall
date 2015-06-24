@@ -18,7 +18,7 @@ class PolicyGroupsControllerTest < ActionController::TestCase
 
   view_test "should display the group's policies" do
     policy_group = create(:policy_group)
-    rummager_has_new_policies_for_every_type
+    rummager_has_policies_for_every_type
 
     get :show, id: policy_group
 
