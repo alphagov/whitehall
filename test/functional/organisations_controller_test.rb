@@ -113,7 +113,8 @@ class OrganisationsControllerTest < ActionController::TestCase
     create(:corporate_information_page, organisation: organisation)
     organisation.add_contact_to_home_page!(contact)
 
-    rummager_has_policies_for_every_type
+    policy = content_register_has_policies(['test-title']).first
+    create(:featured_policy, organisation: organisation, policy_content_id: policy["content_id"])
 
     get :show, id: organisation
 
@@ -239,6 +240,16 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_template 'show-promotional'
   end
 
+  view_test "promotional template shows featured policies if there are any" do
+    organisation = create(:executive_office, govuk_status: 'live')
+    policies = content_register_has_policies(['test-policy'])
+    create(:featured_policy, organisation: organisation, policy_content_id: policies.first["content_id"])
+
+    get :show, id: organisation
+
+    assert_select "#featured-policies"
+  end
+
   test "showing a joining organisation renders the not live template" do
     organisation = create(:organisation, govuk_status: 'joining')
 
@@ -352,28 +363,32 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   view_test "should display the organisation's policies with content" do
     organisation = create(:organisation)
-    rummager_has_policies_for_every_type
+    policy = content_register_has_policies(['Welfare reform']).first
+    create(:featured_policy, organisation: organisation, policy_content_id: policy["content_id"])
 
     get :show, id: organisation
 
     assert_select "#policies" do
-      assert_select "a[href='/government/policies/welfare-reform']", text: "Welfare reform"
+      assert_select "a[href='#{policy["base_path"]}']", text: "Welfare reform"
 
       assert_select "a[href='#{policies_finder_path(organisations: [organisation])}']"
     end
   end
 
   test "should display organisation's latest three policies" do
-    organisation = create(:organisation)
-    rummager_has_policies_for_every_type(count: 3)
-
-    get :show, id: organisation
-
     first_three_policy_titles = [
       "Welfare reform",
       "State Pension simplification",
       "State Pension age",
     ]
+
+    organisation = create(:organisation)
+    policies = content_register_has_policies(first_three_policy_titles)
+    create(:featured_policy, organisation: organisation, policy_content_id: policies[0]["content_id"])
+    create(:featured_policy, organisation: organisation, policy_content_id: policies[1]["content_id"])
+    create(:featured_policy, organisation: organisation, policy_content_id: policies[2]["content_id"])
+
+    get :show, id: organisation
 
     assert_equal first_three_policy_titles, assigns[:policies].map(&:title)
   end

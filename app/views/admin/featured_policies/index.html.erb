@@ -1,0 +1,18 @@
+<% page_title @organisation.name %>
+<div class="row-fluid organisation-header">
+  <div class="span8">
+    <h1><%= @organisation.name %></h1>
+    <%= link_to "View on website", organisation_path(@organisation) %>
+  </div>
+</div>
+
+<div class="row-fluid">
+  <div class="span12 organisation-details">
+    <section>
+      <%= tab_navigation_for(@organisation) do %>
+        <%= render 'feature_list', featured_policies: @featured_policies, organisation: @organisation %>
+        <%= render 'policy_list', policies: @policies %>
+      <% end %>
+    </section>
+  </div>
+</div>
