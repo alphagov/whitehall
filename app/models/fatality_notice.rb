@@ -20,10 +20,6 @@ class FatalityNotice < Announcement
 
   add_trait CasualtiesTrait
 
-  def can_be_associated_with_worldwide_priorities?
-    false
-  end
-
   def has_operational_field?
     true
   end

@@ -136,9 +136,6 @@ et:
       transparency:
         one: Läbipaistvusteave
         other: Läbipaistvusteave
-      worldwide_priority:
-        one: "Üleilmne prioriteet"
-        other: "Üleilmsed prioriteedid"
       written_statement:
         one: Kirjalik avaldus parlamendile
         other: Kirjalikud avaldused parlamendile
@@ -195,7 +192,6 @@ et:
       documents: Dokumendid
       mission: Meie missioon
       organisations: Organisatsioonid
-      priorities: Prioriteedid
       publications: Meie publikatsioonid
       quick_links: Otselingid
       related_policies: Seotud poliitikad
@@ -431,7 +427,6 @@ et:
     statutory_guidance: Vaadake kõiki meie seadusega kehtestatud juhiseid
     transcript: Vaadake kõiki meie protokolle
     transparency: Vaadake kõiki meie läbipaistvusteabe andmeid
-    worldwide_priority: Vaadake kõiki meie üleilmseid prioriteete
     written_statement: Vaadake kõiki meie kirjalikke avaldusi Parlamendile
   social_media:
     follow_us: Jälgige meid

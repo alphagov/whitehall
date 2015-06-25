@@ -38,8 +38,6 @@ class EditionCollectionPresenter
       NewsArticlePresenter
     when DetailedGuide
       DetailedGuidePresenter
-    when WorldwidePriority
-      WorldwidePriorityPresenter
     when CaseStudy
       CaseStudyPresenter
     when FatalityNotice

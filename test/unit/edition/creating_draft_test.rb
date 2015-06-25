@@ -126,19 +126,19 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
       summary: 'spanish-summary',
       body: 'spanish-body'
     }
-    priority = create(:draft_worldwide_priority)
-    with_locale(:es) { priority.update_attributes!(spanish_translation_attributes) }
-    force_publish(priority)
+    publication = create(:draft_publication)
+    with_locale(:es) { publication.update_attributes!(spanish_translation_attributes) }
+    force_publish(publication)
 
-    assert_equal 2, priority.translations.length
+    assert_equal 2, publication.translations.length
 
-    draft_priority = priority.create_draft(editor)
+    draft_publication = publication.create_draft(editor)
 
-    assert_equal 2, draft_priority.translations.length
+    assert_equal 2, draft_publication.translations.length
     with_locale(:es) do
-      assert_equal 'spanish-title', draft_priority.title
-      assert_equal 'spanish-summary', draft_priority.summary
-      assert_equal 'spanish-body', draft_priority.body
+      assert_equal 'spanish-title', draft_publication.title
+      assert_equal 'spanish-summary', draft_publication.summary
+      assert_equal 'spanish-body', draft_publication.body
     end
   end
 
@@ -148,5 +148,4 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
     assert_equal 'logos/flag.jpeg', draft_edition.logo_url
   end
-
 end

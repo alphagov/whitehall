@@ -1,4 +1,4 @@
-THE_DOCUMENT = Transform(/the (document|publication|news article|consultation|consultation response|speech|worldwide priority|detailed guide|announcement|world location news article|statistical data set|document collection|corporate information page) "([^"]*)"/) do |document_type, title|
+THE_DOCUMENT = Transform(/the (document|publication|news article|consultation|consultation response|speech|detailed guide|announcement|world location news article|statistical data set|document collection|corporate information page) "([^"]*)"/) do |document_type, title|
   document_class(document_type).latest_edition.find_by!(title: title)
 end
 

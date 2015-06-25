@@ -136,9 +136,6 @@ lv:
       transparency:
         one: Atklātības dati
         other: Atklātības dati
-      worldwide_priority:
-        one: Pasaules mēroga prioritāte
-        other: Pasaules mēroga prioritātes
       written_statement:
         one: Rakstisks ziņojums parlamentam
         other: Rakstiski ziņojumi parlamentam
@@ -195,7 +192,6 @@ lv:
       documents: Dokumenti
       mission: Misija
       organisations: Organizācijas
-      priorities: Prioritātes
       publications: Publikācijas
       quick_links: "Ātrās saites"
       related_policies: Saistītās politikas jomas
@@ -422,7 +418,6 @@ lv:
     statutory_guidance:
     transcript: Skatīt visas noraksti
     transparency: Skatīt visas atklātības dati
-    worldwide_priority: Skatīt visas pasaules mēroga prioritātes
     written_statement: Skatīt visas rakstiski ziņojumi parlamentam
   social_media:
     follow_us:

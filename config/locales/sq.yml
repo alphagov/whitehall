@@ -136,9 +136,6 @@ sq:
       transparency:
         one: Te dhena per transparencen
         other: Te dhena per transparencen
-      worldwide_priority:
-        one: Prioritet global
-        other: Prioritete globale
       written_statement:
         one: Deklarate me shkrim per Parlamentin
         other: Deklarata me shkrim per Parlamentin
@@ -195,7 +192,6 @@ sq:
       documents: Dokumenta
       mission: Misioni yne
       organisations: Organizatat
-      priorities: Prioritetet
       publications: Publikimet tona
       quick_links: Lidhje te shpejta
       related_policies: Politika me lidhje
@@ -424,7 +420,6 @@ sq:
     statutory_guidance:
     transcript: Shiko te gjitha transkripte
     transparency: Shiko te gjitha te dhena per transparencen
-    worldwide_priority: Shiko te gjitha prioritete globale
     written_statement: Shiko te gjitha deklarata me shkrim per parlamentin
   social_media:
     follow_us:

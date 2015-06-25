@@ -256,9 +256,6 @@ zh-tw:
       transparency:
         one: "透明化數據"
         other: "透明化數據"
-      worldwide_priority:
-        one: "全球性工作重點"
-        other: "全球性的其他工作重點"
       written_statement:
         one: "提交國會的書面聲明"
         other: "提交國會的其他書面聲明"
@@ -401,7 +398,6 @@ zh-tw:
     statutory_guidance:
     transcript: "查閱我們所有的其他談話副本"
     transparency: "查閱我們所有的透明化數據"
-    worldwide_priority: "查閱我們所有的全球性的其他工作重點"
     written_statement: "查閱我們所有的提交國會的其他書面聲明"
   social_media:
     follow_us:
@@ -418,7 +414,6 @@ zh-tw:
       documents: "文件"
       mission: "我們的使命"
       organisations: "組織"
-      priorities: "工作重點"
       publications: "我們的出版物"
       quick_links: "快速連結"
       related_policies: "相關政策"

@@ -441,7 +441,6 @@ class EditionTest < ActiveSupport::TestCase
     assert concrete_formats.include? Consultation.search_format_type
     assert concrete_formats.include? DetailedGuide.search_format_type
     assert concrete_formats.include? CaseStudy.search_format_type
-    assert concrete_formats.include? WorldwidePriority.search_format_type
   end
 
   test "#indexable_content should return the body without markup by default" do

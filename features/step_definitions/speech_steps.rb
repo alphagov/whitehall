@@ -66,13 +66,6 @@ When /^I draft a new speech "([^"]*)" relating it to the policies "([^"]*)" and 
   click_button "Save"
 end
 
-When /^I draft a new speech "([^"]*)" relating it to the worldwide_priorities "([^"]*)" and "([^"]*)"$/ do |title, first_priority, second_priority|
-  begin_drafting_speech title: title
-  select first_priority, from: "Worldwide priorities"
-  select second_priority, from: "Worldwide priorities"
-  click_button "Save"
-end
-
 Then /^the published speech should remain unchanged$/ do
   visit public_document_path(@speech)
   assert page.has_css?('h1', text: @speech.title)

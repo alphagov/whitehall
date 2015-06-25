@@ -74,7 +74,6 @@ class Edition < ActiveRecord::Base
   scope :statistical_publications,      -> { where("publication_type_id IN (?)", PublicationType.statistical.map(&:id)) }
   scope :non_statistical_publications,  -> { where("publication_type_id NOT IN (?)", PublicationType.statistical.map(&:id)) }
   scope :corporate_publications,        -> { where(publication_type_id: PublicationType::CorporateReport.id) }
-  scope :worldwide_priorities,          -> { where(type: "WorldwidePriority") }
   scope :corporate_information_pages,   -> { where(type: "CorporateInformationPage") }
   scope :publicly_visible,              -> { where(state: PUBLICLY_VISIBLE_STATES) }
 
@@ -320,10 +319,6 @@ class Edition < ActiveRecord::Base
   end
 
   def can_be_associated_with_role_appointments?
-    false
-  end
-
-  def can_be_associated_with_worldwide_priorities?
     false
   end
 

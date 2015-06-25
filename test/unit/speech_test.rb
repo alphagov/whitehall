@@ -10,10 +10,6 @@ class SpeechTest < ActiveSupport::TestCase
     assert article.can_be_related_to_policies?
   end
 
-  test "can be associated with worldwide priorities" do
-    assert Speech.new.can_be_associated_with_worldwide_priorities?
-  end
-
   test "should be invalid without a speech type" do
     speech = build(:speech, speech_type: nil)
     refute speech.valid?

@@ -257,9 +257,6 @@ th:
       transparency:
         one: "ข้อมูลโปร่งใส"
         other: "ข้อมูลโปร่งใส"
-      worldwide_priority:
-        one: "นโยบายสำคัญที่ใช้ทั่วโลก"
-        other: "นโยบายสำคัญที่ใช้ทั่วโลก"
       written_statement:
         one: "แถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา "
         other: "แถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา "
@@ -402,7 +399,6 @@ th:
     statutory_guidance:
     transcript: "ดูทั้งหมดสำเนา"
     transparency: "ดูทั้งหมดข้อมูลโปร่งใส"
-    worldwide_priority: "ดูทั้งหมดนโยบายสำคัญที่ใช้ทั่วโลก"
     written_statement: "ดูทั้งหมดแถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา "
   social_media:
     follow_us:
@@ -419,7 +415,6 @@ th:
       documents: "เอกสาร"
       mission: "ภาระกิจของเรา"
       organisations: "องค์กร"
-      priorities: "นโยบายหลัก"
       publications: "สิ่งพิมพ์ของเรา"
       quick_links: "ลิงค์ด่วน"
       related_policies: "นโยบายที่เกี่ยวข้อง"

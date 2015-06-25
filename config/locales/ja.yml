@@ -257,9 +257,6 @@ ja:
       transparency:
         one: "透明性データ"
         other: "透明性データ"
-      worldwide_priority:
-        one: "優先事項"
-        other: "優先事項"
       written_statement:
         one: "閣僚声明文"
         other: "閣僚声明文"
@@ -402,7 +399,6 @@ ja:
     statutory_guidance:
     transcript: "スピーチ全文 を全て見る"
     transparency: "透明性データ を全て見る"
-    worldwide_priority: "優先事項 を全て見る"
     written_statement: "閣僚声明文 を全て見る"
   social_media:
     follow_us:
@@ -419,7 +415,6 @@ ja:
       documents: "お知らせ"
       mission: "役割"
       organisations: "組織"
-      priorities: "優先事項"
       publications: "出版物"
       quick_links: Quick links
       related_policies: "関連政策"

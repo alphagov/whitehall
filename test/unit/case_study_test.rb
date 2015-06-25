@@ -12,10 +12,6 @@ class CaseStudyTest < ActiveSupport::TestCase
     assert article.can_be_related_to_policies?
   end
 
-  test "can be associated with worldwide priorities" do
-    assert CaseStudy.new.can_be_associated_with_worldwide_priorities?
-  end
-
   test 'search_format_types tags the case study as a case-study' do
     case_study = build(:case_study)
     assert case_study.search_format_types.include?('case-study')

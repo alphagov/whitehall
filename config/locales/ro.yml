@@ -179,10 +179,6 @@ ro:
         one:
         few:
         other:
-      worldwide_priority:
-        one: Prioritate
-        few:
-        other: Priorități
       written_statement:
         one: 'Declarație scrisă către Parlament '
         few:
@@ -244,7 +240,6 @@ ro:
       documents: Documente
       mission: Obiectiv
       organisations: Organizații
-      priorities: Priorități
       publications: Documente
       quick_links: 'Link-uri rapide '
       related_policies: 'Priorități conexe '
@@ -472,7 +467,6 @@ ro:
     statutory_guidance:
     transcript: Toate transcrieri
     transparency:
-    worldwide_priority: Toate priorități
     written_statement: 'Toate declarații scrise către parlament '
   social_media:
     follow_us:

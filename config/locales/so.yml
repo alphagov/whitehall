@@ -136,9 +136,6 @@ so:
       transparency:
         one: Xog daahfurnaan
         other: Xog daahfurnaan
-      worldwide_priority:
-        one: Muhiimad caalami ah
-        other: Muhiimado caalami ah
       written_statement:
         one: Hadal qoran oo loo gudbiyo baarlamaanka
         other: Hadallo qoran oo loo gudbiyo baarlamaanka
@@ -195,7 +192,6 @@ so:
       documents: Dokumentiyo
       mission: Hawsheenna
       organisations: Ururro
-      priorities: Arrimo mudnaan leh
       publications: Daabacaadaheenna
       quick_links: Waddooyin xiriir degdeg ah
       related_policies: Siyaasado xiriir la leh
@@ -425,7 +421,6 @@ so:
     statutory_guidance:
     transcript: Fiiri dhammaan qoraallo la soo guuriyey yadeenna
     transparency: Fiiri dhammaan xog daahfurnaan yadeenna
-    worldwide_priority: Fiiri dhammaan muhiimado caalami ah yadeenna
     written_statement: Fiiri dhammaan hadallo qoran oo loo gudbiyo baarlamaanka yadeenna
   social_media:
     follow_us:

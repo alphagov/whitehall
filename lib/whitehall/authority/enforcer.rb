@@ -42,7 +42,6 @@ module Whitehall::Authority
     'Edition' => Rules::EditionRules,
     'FatalityNotice' => Rules::FatalityNoticeRules,
     'WorldLocationNewsArticle' => Rules::WorldEditionRules,
-    'WorldwidePriority' => Rules::WorldEditionRules,
     'MinisterialRole' => Rules::MinisterialRoleRules,
     'PolicyGroup' => Rules::PolicyGroupRules,
     'Organisation' => Rules::OrganisationRules,

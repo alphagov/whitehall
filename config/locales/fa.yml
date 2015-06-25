@@ -258,9 +258,6 @@ fa:
       transparency:
         one: "داده های شفاف سازی"
         other: "داده های شفاف سازی"
-      worldwide_priority:
-        one: "اولویت جهانی"
-        other: "اولویت های جهانی"
       written_statement:
         one: "گزارش کتبی به پارلمان"
         other: "گزارش های کتبی به پارلمان"
@@ -404,7 +401,6 @@ fa:
     statutory_guidance:
     transcript: "تمامی رونوشت ها ما را مشاهده کنید"
     transparency: "تمامی داده های شفاف سازی ما را مشاهده کنید"
-    worldwide_priority: "تمامی اولویت های جهانی ما را مشاهده کنید"
     written_statement: "تمامی گزارش های کتبی به پارلمان ما را مشاهده کنید"
   social_media:
     follow_us:
@@ -421,7 +417,6 @@ fa:
       documents: "مدارک"
       mission: "هدف ما"
       organisations: "سازمان ها"
-      priorities: "اولویت ها"
       publications: "انتشارات ما"
       quick_links: "دسترسی سریع"
       related_policies: "سیاست های مربوط"

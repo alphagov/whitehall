@@ -32,13 +32,6 @@ When /^I draft a new news article "([^"]*)" relating it to the policies "([^"]*)
   click_button "Save"
 end
 
-When /^I draft a new news article "([^"]*)" relating it to the worldwide_priorities "([^"]*)" and "([^"]*)"$/ do |title, first_priority, second_priority|
-  begin_drafting_news_article title: title
-  select first_priority, from: "Worldwide priorities"
-  select second_priority, from: "Worldwide priorities"
-  click_button "Save"
-end
-
 When /^I publish a news article "([^"]*)" associated with "([^"]*)"$/ do |title, person_name|
   begin_drafting_news_article title: title
   fill_in_news_article_fields(first_published: Date.today.to_s)

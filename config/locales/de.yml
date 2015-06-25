@@ -136,9 +136,6 @@ de:
       transparency:
         one: Transparenz-Daten
         other: Transparenz-Daten
-      worldwide_priority:
-        one: Außenpolitische Priorität
-        other: Außenpolitische Prioritäten
       written_statement:
         one: Schriftliche Erklärung vor dem Parlament
         other: Schriftliche Erklärungen vor dem Parlament
@@ -195,7 +192,6 @@ de:
       documents: Dokumente
       mission: Unser Auftrag
       organisations: Organisationen
-      priorities: Prioritäten
       publications: Unsere Veröffentlichungen
       quick_links: Quicklinks
       related_policies: "Ähnliche Sachgebiete"
@@ -424,7 +420,6 @@ de:
     statutory_guidance:
     transcript: Alle unsere Mitschriften
     transparency: Alle unsere Transparenz-Daten
-    worldwide_priority: Alle unsere Außenpolitische Prioritäten
     written_statement: Alle unsere Schriftliche Erklärungen vor dem Parlament
   social_media:
     follow_us:

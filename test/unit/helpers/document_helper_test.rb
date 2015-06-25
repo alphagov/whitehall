@@ -224,7 +224,7 @@ class DocumentHelperTest < ActionView::TestCase
 
   test "from_metadata generates worldwide_organisations metadata" do
     organisation = create(:worldwide_organisation)
-    edition = create(:draft_worldwide_priority, worldwide_organisations: [organisation])
+    edition = create(:draft_case_study, worldwide_organisations: [organisation])
 
     metadata_links = from_metadata(edition).join(' ')
     assert_select_within_html metadata_links,

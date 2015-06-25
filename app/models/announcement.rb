@@ -6,7 +6,6 @@ class Announcement < Edition
   include Edition::WorldLocations
   include Edition::TopicalEvents
   include Edition::Topics
-  include Edition::WorldwidePriorities
 
   def self.sti_names
     ([self] + descendants).map { |model| model.sti_name }

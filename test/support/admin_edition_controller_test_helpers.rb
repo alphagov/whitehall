@@ -1307,31 +1307,5 @@ module AdminEditionControllerTestHelpers
         assert_equal [first_world_organisation, second_world_organisation], edition.worldwide_organisations
       end
     end
-
-    def should_allow_association_with_worldwide_priorities(edition_type)
-      edition_class = class_for(edition_type)
-
-      view_test "new should display worldwide priorities field" do
-        get :new
-
-        assert_select "form#new_edition" do
-          assert_select "select[name*='edition[worldwide_priority_ids]']"
-        end
-      end
-
-      test "create should associate worldwide priorities with the edition" do
-        first_worldwide_priority = create(:worldwide_priority)
-        second_worldwide_priority = create(:worldwide_priority)
-        attributes = controller_attributes_for(edition_type)
-
-        post :create, edition: attributes.merge(
-          worldwide_priority_ids: [first_worldwide_priority.id, second_worldwide_priority.id]
-        )
-
-        assert edition = edition_class.last
-        assert_equal [first_worldwide_priority, second_worldwide_priority], edition.worldwide_priorities
-      end
-    end
-
   end
 end

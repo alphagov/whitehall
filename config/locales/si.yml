@@ -136,9 +136,6 @@ si:
       transparency:
         one: "විනිවිධභාවයේ දත්ත"
         other: "විනිවිධභාවයේ දත්ත"
-      worldwide_priority:
-        one: "ලෝක ප්‍රමුඛතාව"
-        other: "ලෝක ප්‍රමුඛතා"
       written_statement:
         one: "පාර්ලිමේන්තුවට කල ලිඛිත ප්‍රකාශය"
         other: "පාර්ලිමේන්තුවට කල ලිඛිත ප්‍රකාශ"
@@ -195,7 +192,6 @@ si:
       documents: "ලේඛන"
       mission: "අපේ මෙහෙවර ප්‍රකාශය"
       organisations: "සංවිධාන"
-      priorities: "ප්‍රමුඛත"
       publications: "අපේ ප්‍රකාශන"
       quick_links: "ක්ෂණික සන්ධිය"
       related_policies: "අදාල ප්‍රතිපත්තීන්"
@@ -422,7 +418,6 @@ si:
     statutory_guidance:
     transcript: "අපගේ සියලු  අනුපත් බලන්න"
     transparency: "අපගේ සියලු විනිවිධභාවයේ දත්ත බලන්න"
-    worldwide_priority: "අපගේ සියලු ලෝක ප්‍රමුඛතා බලන්න"
     written_statement: "අපගේ සියලු පාර්ලිමේන්තුවට කල ලිඛිත ප්‍රකාශ බලන්න"
   social_media:
     follow_us:

@@ -222,11 +222,6 @@ he:
         two:
         many:
         other: "שקיפות מידע"
-      worldwide_priority:
-        one: "עדיפות גלובאלית"
-        two:
-        many:
-        other: "עדיפות גלובאלית"
       written_statement:
         one: "הצהרה בכתב לפרלמנט"
         two:
@@ -293,7 +288,6 @@ he:
       documents: "מסמכים"
       mission: "החזון שלנו"
       organisations: "ארגונים"
-      priorities: "עדיפויות"
       publications: "הפרסומים שלנו"
       quick_links: "קישורים מהירים"
       related_policies: "מדיניות רלוונטית"
@@ -521,7 +515,6 @@ he:
     statutory_guidance:
     transcript: "ראה כל תמלולים"
     transparency: "ראה כל שקיפות מידע"
-    worldwide_priority: "ראה כל עדיפות גלובאלית"
     written_statement: "ראה כל הצהרות בכתב לפרלמנט"
   social_media:
     follow_us:

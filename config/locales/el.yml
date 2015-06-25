@@ -136,9 +136,6 @@ el:
       transparency:
         one: "Στοιχεία διαφάνειας"
         other: "Στοιχεία διαφάνειας"
-      worldwide_priority:
-        one: "Παγκόσμια προτεραιότητα"
-        other: "Παγκόσμιες προτεραιότητες"
       written_statement:
         one: "Γραπτή  δήλωση στη Βουλή"
         other: "Γραπτές δηλώσεις στη Βουλή"
@@ -195,7 +192,6 @@ el:
       documents: "Έγγραφα"
       mission: "Η αποστολή μας"
       organisations: "Οργανισμοί"
-      priorities: "Προτεραιτότητες"
       publications: "Οι εκδόσεις μας"
       quick_links: "Σύντομοι σύνδεσμοι"
       related_policies: "Σχετικές πολιτικές"
@@ -425,7 +421,6 @@ el:
     statutory_guidance:
     transcript: "Δείτε τα Απομαγνητοφωνήσεις"
     transparency: "Δείτε τα Στοιχεία διαφάνειας"
-    worldwide_priority: "Δείτε τα Παγκόσμιες προτεραιότητες"
     written_statement: "Δείτε τα Γραπτές δηλώσεις στη Βουλή"
   social_media:
     follow_us:

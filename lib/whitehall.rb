@@ -153,7 +153,6 @@ module Whitehall
       Speech,
       StatisticalDataSet,
       WorldLocationNewsArticle,
-      WorldwidePriority,
     ]
   end
 

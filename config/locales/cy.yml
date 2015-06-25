@@ -308,13 +308,6 @@ cy:
         few:
         many:
         other: Data tryloywder
-      worldwide_priority:
-        zero:
-        one: Blaenoriaeth fyd-eang
-        two:
-        few:
-        many:
-        other: Blaenoriaethau byd-eang
       written_statement:
         zero:
         one: Datganiad ysgrifenedig i'r Senedd
@@ -391,7 +384,6 @@ cy:
       documents: Dogfennau
       mission: Ein cenhadaeth
       organisations: Sefydliadau
-      priorities: Blaenoriaethau
       publications: Ein cyhoeddiadau
       quick_links: Dolenni cyflym
       related_policies: Polisïau perthnasol
@@ -624,7 +616,6 @@ cy:
     statutory_guidance:
     transcript: Gweld ein holl trawsgrifiadau
     transparency: Gweld ein holl data tryloywder
-    worldwide_priority: Gweld ein holl blaenoriaethau byd-eang
     written_statement: Gweld ein holl datganiadau ysgrifenedig i'r senedd
   social_media:
     follow_us: Dilynwch ni

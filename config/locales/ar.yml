@@ -308,13 +308,6 @@ ar:
         few:
         many:
         other: "بيانات تتعلق بالشفافية"
-      worldwide_priority:
-        zero:
-        one: "أولوية في الخارج"
-        two:
-        few:
-        many:
-        other: "أولويات في الخارج"
       written_statement:
         zero:
         one: "تصريح خطي"
@@ -391,7 +384,6 @@ ar:
       documents: "وثائق"
       mission: "مهمتنا"
       organisations: "مؤسسات"
-      priorities: "أولويات"
       publications: "مطبوعاتنا"
       quick_links: "وصلات سريعة"
       related_policies: "سياسات ذات صلة"
@@ -619,7 +611,6 @@ ar:
     statutory_guidance:
     transcript: "اطلع على كافة نصوص منسوخة"
     transparency: "اطلع على كافة بيانات تتعلق بالشفافية"
-    worldwide_priority: "اطلع على كافة أولويات في الخارج"
     written_statement: "اطلع على كافة تصريحات خطية"
   social_media:
     follow_us:

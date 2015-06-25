@@ -3,10 +3,6 @@ require "test_helper"
 class StatisticalDataSetTest < ActiveSupport::TestCase
   should_allow_inline_attachments
 
-  test "can be associated with worldwide priorities" do
-    assert StatisticalDataSet.new.can_be_associated_with_worldwide_priorities?
-  end
-
   test "should include the Edition::HasDocumentCollections behaviour" do
     assert StatisticalDataSet.ancestors.include?(Edition::HasDocumentCollections)
   end

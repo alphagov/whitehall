@@ -303,10 +303,6 @@ class ConsultationTest < ActiveSupport::TestCase
     assert consultation.search_format_types.include?('consultation-outcome')
   end
 
-  test "can be associated with worldwide priorities" do
-    assert Consultation.new.can_be_associated_with_worldwide_priorities?
-  end
-
   test "can associate consultations with topical events" do
     consultation = create(:consultation)
     assert consultation.can_be_associated_with_topical_events?

@@ -76,13 +76,6 @@ Then(/^the public feedback should be viewable$/) do
   end
 end
 
-When /^I draft a new consultation "([^"]*)" relating it to the worldwide_priorities "([^"]*)" and "([^"]*)"$/ do |title, first_priority, second_priority|
-  begin_drafting_news_article title: title
-  select first_priority, from: "Worldwide priorities"
-  select second_priority, from: "Worldwide priorities"
-  click_button "Save"
-end
-
 When(/^I mark the consultation as offsite$/) do
   check 'This consultation is held on another website'
 end

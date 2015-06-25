@@ -190,7 +190,6 @@ class Admin::EditionsController < Admin::BaseController
       organisation_ids: [],
       world_location_ids: [],
       worldwide_organisation_ids: [],
-      worldwide_priority_ids: [],
       related_policy_ids: [],
       policy_content_ids: [],
       topic_ids: [],

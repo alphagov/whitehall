@@ -136,9 +136,6 @@ ur:
       transparency:
         one: "ٹرانسپیرنسی ڈیٹا"
         other: "ٹرانسپیرنسی ڈیٹا"
-      worldwide_priority:
-        one: "عالمی ترجیح"
-        other: "عالمی ترجیحات"
       written_statement:
         one: "پارلیمنٹ میں تحریری بیان"
         other: "پارلیمنٹ میں تحریری بیانات"
@@ -195,7 +192,6 @@ ur:
       documents: "دستاویزات"
       mission: "ہمارا مشن"
       organisations: "ادارے"
-      priorities: "ترجیحات"
       publications: "ہماری مطبوعات"
       quick_links: "فوری لنکس"
       related_policies: "متعلقہ پالیسیاں"
@@ -424,7 +420,6 @@ ur:
     statutory_guidance:
     transcript: "تما م دیکھئیے ٹرانسکرپٹس"
     transparency: "تما م دیکھئیے ٹرانسپیرنسی ڈیٹا"
-    worldwide_priority: "تما م دیکھئیے عالمی ترجیحات"
     written_statement: "تما م دیکھئیے پارلیمنٹ میں تحریری بیانات"
   social_media:
     follow_us:

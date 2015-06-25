@@ -222,11 +222,6 @@ sr:
         few:
         many:
         other: podaci o transparentnosti
-      worldwide_priority:
-        one: globalni prioritet
-        few:
-        many:
-        other: globalni prioriteti
       written_statement:
         one: Pisana predstavka Parlamentu
         few:
@@ -293,7 +288,6 @@ sr:
       documents: Dokumenti
       mission: Naša misija
       organisations: Organizacije
-      priorities: Prioriteti
       publications: Naše publikacije
       quick_links: Linkovi
       related_policies: Povezane politike
@@ -523,7 +517,6 @@ sr:
     statutory_guidance:
     transcript: Pogledajte sve naše transkripti
     transparency: Pogledajte sve naše podaci o transparentnosti
-    worldwide_priority: Pogledajte sve naše globalni prioriteti
     written_statement: Pogledajte sve naše pisane predstavke parlamentu
   social_media:
     follow_us:

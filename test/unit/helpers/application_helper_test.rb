@@ -128,11 +128,9 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal organisations_path, current_main_navigation_path(controller: "organisations", action: "news")
   end
 
-  test "world-location-related pages should be related to uk and the world main navigation" do
+  test "world location pages should be related to uk and the world main navigation" do
     assert_equal world_locations_path(locale: :en), current_main_navigation_path(controller: "world_locations", action: "index")
     assert_equal world_locations_path(locale: :en), current_main_navigation_path(controller: "world_locations", action: "show")
-    assert_equal world_locations_path(locale: :en), current_main_navigation_path(controller: "worldwide_priorities", action: "index")
-    assert_equal world_locations_path(locale: :en), current_main_navigation_path(controller: "worldwide_priorities", action: "show")
   end
 
   test "world locations index is forced to English locale in main navigation" do

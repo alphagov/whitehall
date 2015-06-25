@@ -11,7 +11,6 @@ class PublishingApiPresenters::CaseStudy < PublishingApiPresenters::Edition
       :topics,
       :world_locations,
       :worldwide_organisations,
-      :worldwide_priorities,
     ])
   end
 

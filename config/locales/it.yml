@@ -136,9 +136,6 @@ it:
       transparency:
         one: Dati sulla trasparenza
         other: Dati sulla trasparenza
-      worldwide_priority:
-        one: Priorità mondiale
-        other: Priorità mondiali
       written_statement:
         one: Dichiarazione scritta al parlamento
         other: Dichiarazioni scritte al parlamento
@@ -195,7 +192,6 @@ it:
       documents: Documenti
       mission: La nostra missione
       organisations: Organizzazioni
-      priorities: Priorità
       publications: Le nostre pubblicazioni
       quick_links: Link veloci
       related_policies: Politiche collegate
@@ -423,7 +419,6 @@ it:
     statutory_guidance:
     transcript: Vedi tutte le nostre trascrizioni
     transparency: Vedi tutte le nostre dati sulla trasparenza
-    worldwide_priority: Vedi tutte le nostre priorità mondiali
     written_statement: Vedi tutte le nostre dichiarazioni scritte al parlamento
   social_media:
     follow_us:
