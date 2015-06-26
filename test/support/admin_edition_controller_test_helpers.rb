@@ -191,10 +191,8 @@ module AdminEditionControllerTestHelpers
     end
 
     def should_allow_speed_tagging_of(edition_type)
-      test "update should convert to draft and go to the next #{edition_type} when speed tagging" do
+      test "update should convert #{edition_type} to draft when speed tagging" do
         edition = create("imported_#{edition_type}")
-        edition2 = create("imported_#{edition_type}")
-        Import.stubs(:source_of).returns(mock(document_imported_before: edition2))
 
         put :update, id: edition, speed_save_convert: 1, edition: {
           title: "new-title",
@@ -203,7 +201,7 @@ module AdminEditionControllerTestHelpers
 
         edition.reload
         assert_equal "draft", edition.state
-        assert_redirected_to send("admin_#{edition_type}_path", edition2)
+        assert_redirected_to send("admin_#{edition_type}_path", edition)
       end
     end
 

@@ -351,18 +351,6 @@ Whitehall::Application.routes.draw do
           resources :generic_editions, path: "generic-editions"
         end
 
-        resources :imports do
-          member do
-            get :annotated
-            post :run
-            post :force_publish
-            get :force_publish_log
-            get :new_document_list
-            get :error_list
-            get :import_log
-          end
-        end
-
         resources :governments, except: [:destroy] do
           member do
             get :prepare_to_close, path: "prepare-to-close"

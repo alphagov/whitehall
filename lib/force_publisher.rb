@@ -56,15 +56,6 @@ class ForcePublisher
     @failures << [edition, reason]
   end
 
-  def self.for_import(import_instance_or_id)
-    import = import_instance_or_id.is_a?(Import) ? import_instance_or_id : Import.find(import_instance_or_id)
-    raise "import #{import.id} status is #{import.status}, but only successful imports can be published" unless import.status == :succeeded
-    editions_to_publish = import.document_sources.map do |ds|
-      ds.document.latest_edition
-    end
-    ForcePublisher.new(editions_to_publish)
-  end
-
   def self.for_organisation(acronym, options = {})
     organisation = Organisation.find_by!(acronym: acronym)
     excluded_types = (options[:excluded_types] ? [*options[:excluded_types]] : []).map do |type_name|

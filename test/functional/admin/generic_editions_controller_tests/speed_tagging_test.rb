@@ -5,18 +5,16 @@ class Admin::GenericEditionsController::SpeedTaggingTest < ActionController::Tes
     login_as :writer
   end
 
-  test "should redirect to the next document imported without changing state when 'Save and Next' is clicked" do
-    first_document, second_document = *create_list(:edition, 2, :imported)
-    Import.stubs(:source_of).returns(mock(document_imported_before: second_document))
+  test "should show the document when 'Save' is clicked" do
+    edition = create(:edition, :imported)
 
-    first_document_latest_edition = first_document.latest_edition
-    put :update, id: first_document_latest_edition, speed_save_next: 1, edition: {
+    put :update, id: edition, speed_save: 1, edition: {
       title: "new-title",
       body: "new-body"
     }
 
-    assert first_document_latest_edition.reload.imported?
-    assert_redirected_to admin_edition_path(second_document.latest_edition)
+    assert edition.reload.imported?
+    assert_redirected_to admin_edition_path(edition)
   end
 
   test "re-renders the show page when there are errors during speed tagging update" do

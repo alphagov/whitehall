@@ -47,12 +47,6 @@ module Admin::UrlHelper
     admin_header_menu_link "Groups", admin_policy_groups_path
   end
 
-  def admin_imports_header_link
-    if current_user && current_user.can_import?
-      content_tag(:li, link_to("Import", admin_imports_path))
-    end
-  end
-
   def admin_users_header_link
     content_tag(:li, link_to("All users", admin_users_path))
   end
