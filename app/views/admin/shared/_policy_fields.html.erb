@@ -8,7 +8,7 @@
                   data: { placeholder: "Choose policies..."} %>
   <% if form.object.respond_to?(:important) %>
     <div id="important">
-      <%= form.check_box :important, label_text: "Is this an important document?" %>
+      <%= form.check_box :important, label_text: "Is this an important document? (<a href='https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#marking-a-document-as-important-to-a-policy'>What this does</a>)".html_safe %>
     </div>
   <% end %>
   <br/>
