@@ -1,5 +1,5 @@
 <h2>Policies available to feature</h2>
-<table class="table table-striped">
+<table class="table table-striped table-bordered">
   <thead>
     <tr class="table-header">
       <th>Title</th>
@@ -13,7 +13,7 @@
         <td>
           <%= button_to(admin_organisation_featured_policies_path(policy_content_id: policy.content_id),
                 method: :post,
-                class: 'btn') do %>
+                class: 'btn btn-default') do %>
             Feature <span class="visuallyhidden"><%= policy.title %></span>
           <% end %>
         </td>

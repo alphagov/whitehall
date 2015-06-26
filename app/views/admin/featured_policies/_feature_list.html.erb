@@ -14,23 +14,27 @@
       <% featured_policies.each do |featured_policy| %>
         <div class="well feature-list">
           <%= label_tag "ordering-#{featured_policy.id}" do %>
-            <div class="icon"><i class="icon-align-justify"></i></div>
-            <%= featured_policy.title %>
-            <div class="button">
-              <%= link_to(admin_organisation_featured_policy_path(organisation, featured_policy),
-                    data: { confirm: "Unfeature '#{featured_policy.title}'?" },
-                    method: :delete,
-                    class: "btn btn-danger") do %>
-                Unfeature <span class="visuallyhidden"><%= featured_policy.title %></span>
-              <% end %>
+            <div class="row">
+              <div class="title col-md-10">
+                <i class="glyphicon glyphicon-align-justify add-right-margin"></i>
+                <%= featured_policy.title %>
+              </div>
+              <div class="button text-right col-md-2">
+                <%= link_to(admin_organisation_featured_policy_path(organisation, featured_policy),
+                      data: { confirm: "Unfeature '#{featured_policy.title}'?" },
+                      method: :delete,
+                      class: "btn btn-danger") do %>
+                  Unfeature <span class="visuallyhidden"><%= featured_policy.title %></span>
+                <% end %>
+              </div>
             </div>
           <% end %>
           <%= text_field_tag "ordering[#{featured_policy.id}]", featured_policy.ordering, id: "ordering-#{featured_policy.id}", class: "ordering" %>
         </div>
       <% end %>
     </fieldset>
-    <%= form.submit "Save ordering", class: "btn btn-primary btn-large" %>
+    <%= form.submit "Save ordering", class: "btn btn-primary btn-lg" %>
   <% end %>
 <% else %>
-  <p>Nothing featured yet</p>
+  <p class="no-content no-content-bordered">Nothing featured yet</p>
 <% end %>
