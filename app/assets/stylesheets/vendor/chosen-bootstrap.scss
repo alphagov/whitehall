@@ -130,13 +130,13 @@ $chosen-sprite-retina-path: 'chosen-sprite@2x.png' !default;
     bottom: 0;
 
     span {
-      background: url($chosen-sprite-path) no-repeat -4px -3px;
+      background: image-url($chosen-sprite-path) no-repeat -4px -3px;
     }
   }
 
   .chosen-results-scroll-up {
     span {
-      background: url($chosen-sprite-path) no-repeat -22px -3px;
+      background: image-url($chosen-sprite-path) no-repeat -22px -3px;
     }
   }
 }
@@ -168,7 +168,7 @@ $chosen-sprite-retina-path: 'chosen-sprite@2x.png' !default;
     }
 
     abbr {
-      background: url($chosen-sprite-path) right top no-repeat;
+      background: image-url($chosen-sprite-path) right top no-repeat;
       display: block;
       font-size: 1px;
       height: 10px;
@@ -195,7 +195,7 @@ $chosen-sprite-retina-path: 'chosen-sprite@2x.png' !default;
       width: 18px;
 
       b {
-        background: url($chosen-sprite-path) no-repeat 0 7px;
+        background: image-url($chosen-sprite-path) no-repeat 0 7px;
         display: block;
         height: 100%;
         width: 100%;
@@ -215,7 +215,7 @@ $chosen-sprite-retina-path: 'chosen-sprite@2x.png' !default;
     z-index: $zindex-dropdown;
 
     input[type="text"] {
-      background: url($chosen-sprite-path) no-repeat 100% -20px, $chosen-background;
+      background: image-url($chosen-sprite-path) no-repeat 100% -20px, $chosen-background;
       border: $chosen-border;
       @include border-top-radius($chosen-border-radius);
       @include border-bottom-radius($chosen-border-radius);
@@ -303,7 +303,7 @@ $chosen-sprite-retina-path: 'chosen-sprite@2x.png' !default;
       position: relative;
 
       .search-choice-close {
-        background: url($chosen-sprite-path) right top no-repeat;
+        background: image-url($chosen-sprite-path) right top no-repeat;
         display: block;
         font-size: 1px;
         height: 10px;
@@ -453,7 +453,7 @@ $chosen-sprite-retina-path: 'chosen-sprite@2x.png' !default;
   }
 
   .chosen-search input[type="text"] {
-    background: url($chosen-sprite-path) no-repeat -28px -20px, $chosen-background;
+    background: image-url($chosen-sprite-path) no-repeat -28px -20px, $chosen-background;
     direction: rtl;
     padding: 4px 5px 4px 20px;
   }
@@ -467,7 +467,7 @@ $chosen-sprite-retina-path: 'chosen-sprite@2x.png' !default;
   .chosen-container-multi .chosen-choices .search-choice .search-choice-close,
   .chosen-container .chosen-results-scroll-down span,
   .chosen-container .chosen-results-scroll-up span {
-    background-image: url($chosen-sprite-retina-path) !important;
+    background-image: image-url($chosen-sprite-retina-path) !important;
     background-size: 52px 37px !important;
     background-repeat: no-repeat !important;
   }
