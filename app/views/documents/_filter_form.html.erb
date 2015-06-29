@@ -30,7 +30,7 @@
 
         <% if filters.include? :topic %>
           <div class="filter">
-            <%= label_tag "topics", "Topic" %>
+            <%= label_tag "topics", "Policy Area" %>
             <%= select_tag "topics[]", topic_filter_options(@filter.selected_topics), class: "single-row-select", id: "topics" %>
           </div>
         <% end %>

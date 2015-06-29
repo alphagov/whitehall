@@ -17,7 +17,7 @@
             data: { confirm: "Are you sure you want to delete: #{@classification} ?" } %>
     <% else %>
       <div class="policies_preventing_destruction">
-        <p>This topic can’t be deleted as it has associated policies:</p>
+        <p>This policy area can't be deleted as it has associated policies:</p>
         <ul>
           <% @classification.policies.each do |policy| %>
             <li><%= link_to(policy.title, policy_path(policy)) %></li>
