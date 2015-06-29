@@ -75,7 +75,7 @@ end
 When(/^I filter the statistics announcements by department and topic$/) do
   within '.filter-form' do
     select @department.name, from: "Department"
-    select @topic.name, from: "Topic"
+    select @topic.name, from: "Policy Area"
     click_on "Refresh results"
   end
 end

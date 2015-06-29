@@ -140,7 +140,7 @@ module DocumentHelper
   def select_topic_if_required
     if has_css?(".edition-topic-fields", wait: false)
       within(".edition-topic-fields") do
-        select Topic.first.name, from: "Topics"
+        select Topic.first.name, from: "Policy Areas"
       end
     end
   end
