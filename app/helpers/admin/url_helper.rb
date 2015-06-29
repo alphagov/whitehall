@@ -10,7 +10,7 @@ module Admin::UrlHelper
   end
 
   def admin_topics_header_menu_link
-    admin_header_menu_link "Topics", admin_topics_path
+    admin_header_menu_link "Policy Areas", admin_topics_path
   end
 
   def admin_featured_header_link
