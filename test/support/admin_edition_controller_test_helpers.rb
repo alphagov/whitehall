@@ -791,7 +791,7 @@ module AdminEditionControllerTestHelpers
         }
 
         assert_select ".document.conflict" do
-          assert_select "h1", "Topics"
+          assert_select "h1", "Policy Areas"
           assert_select record_css_selector(topic)
         end
       end

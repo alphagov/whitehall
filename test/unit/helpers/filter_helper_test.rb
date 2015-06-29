@@ -24,7 +24,7 @@ class FilterHelperTest < ActionView::TestCase
     rendered = Nokogiri::HTML::DocumentFragment.parse(topic_options_for_statistics_announcement_filter(topic_3.slug))
     options = rendered.css("option")
 
-    assert_equal ["All topics", topic_3.name, topic_2.name], options.map(&:text)
+    assert_equal ["All policy areas", topic_3.name, topic_2.name], options.map(&:text)
     assert_equal ["", topic_3.slug, topic_2.slug], options.map {|option| option[:value]}
     assert options[1][:selected]
   end
