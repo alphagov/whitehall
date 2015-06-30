@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+require 'open3'
 require 'carrierwave/processing/mime_types'
 
 class AttachmentUploader < WhitehallUploader
@@ -42,11 +43,11 @@ class AttachmentUploader < WhitehallUploader
   end
 
   def get_first_page_as_png(width, height)
-    output = Timeout.timeout(THUMBNAIL_GENERATION_TIMEOUT) do
-      `#{pdf_thumbnail_command(width, height)}`
+    output, status = Timeout.timeout(THUMBNAIL_GENERATION_TIMEOUT) do
+      Open3.capture2e(pdf_thumbnail_command(width, height))
     end
-    unless $?.success?
-      Rails.logger.warn "Error thumbnailing PDF. Exit status: #{$?.exitstatus}; Output: #{output}"
+    unless status.success?
+      Rails.logger.warn "Error thumbnailing PDF. Exit status: #{status.exitstatus}; Output: #{output}"
       use_fallback_pdf_thumbnail
     end
   rescue Timeout::Error => e
