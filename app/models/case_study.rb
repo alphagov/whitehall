@@ -26,8 +26,4 @@ class CaseStudy < Edition
   def translatable?
     !non_english_edition?
   end
-
-  def can_be_access_limited?
-    false
-  end
 end

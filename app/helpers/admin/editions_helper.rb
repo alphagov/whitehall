@@ -136,8 +136,7 @@ module Admin::EditionsHelper
       concat form.errors
       concat render("standard_fields", form: form, edition: edition)
       yield(form)
-      concat render('access_limiting_fields',
-                    form: form, edition: edition) if edition.can_be_access_limited?
+      concat render('access_limiting_fields', form: form, edition: edition)
       concat render("scheduled_publication_fields", form: form, edition: edition)
       concat standard_edition_publishing_controls(form, edition)
     end
