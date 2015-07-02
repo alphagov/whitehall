@@ -1,6 +1,6 @@
 <div class="speed-tag">
   <% unless @edition.valid_as_draft? %>
-    <div class="alert">
+    <div class="alert alert-danger">
       <strong>This edition cannot be saved because:</strong>
 
       <ul>
@@ -32,7 +32,7 @@
     <%= form.text_area :body, rows: 20, class: "previewable" %>
 
     <%= form.label :lead_organisation_ids, 'Lead Organisations:' %>
-    <%= form.select :lead_organisation_ids, options_for_select(taggable_organisations_container, @edition.lead_organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose organisations which produced this document..." } %>
+    <%= form.select :lead_organisation_ids, options_for_select(taggable_organisations_container, @edition.lead_organisation_ids), {}, multiple: true, class: 'chzn-select form-control', data: { placeholder: "Choose organisations which produced this document..." } %>
 
     <%= render partial: 'required_fields_for_imported_editions', locals: { form: form, edition: form.object } %>
 
@@ -41,32 +41,26 @@
     <% end %>
 
     <% if @edition.can_be_associated_with_role_appointments? %>
-      <div class="row-fluid">
-        <h3>Ministers</h3>
-        <% @edition.organisations.map(&:ministerial_role_appointments).flatten.each do |role_appointment| %>
-          <% if role_appointment.current_at(@edition.first_published_at) %>
-            <label class="checkbox">
-              <%= check_box_tag 'edition[role_appointment_ids][]', role_appointment.id, @edition.role_appointments.include?(role_appointment) %>
-              <%= RoleAppointmentPresenter.new(role_appointment, self).person.name %>
-              <span class="muted"><%= text_for_role_appointment(role_appointment) %></span>
-            </label>
-          <% end %>
+      <h3>Ministers</h3>
+      <% @edition.organisations.map(&:ministerial_role_appointments).flatten.each do |role_appointment| %>
+        <% if role_appointment.current_at(@edition.first_published_at) %>
+          <label class="checkbox">
+            <%= check_box_tag 'edition[role_appointment_ids][]', role_appointment.id, @edition.role_appointments.include?(role_appointment) %>
+            <%= RoleAppointmentPresenter.new(role_appointment, self).person.name %>
+            <span class="text-muted"><%= text_for_role_appointment(role_appointment) %></span>
+          </label>
         <% end %>
-      </div>
+      <% end %>
     <% end %>
 
     <% if @edition.can_be_associated_with_topics? %>
-      <div class="row-fluid">
-        <h3>Topics</h3>
-        <%= render partial: 'topic_fields', locals: { form: form, edition: @edition } %>
-      </div>
+      <h3>Topics</h3>
+      <%= render partial: 'topic_fields', locals: { form: form, edition: @edition } %>
     <% end %>
 
     <% if @edition.can_be_associated_with_world_locations? %>
-      <div class="row-fluid">
-        <h3>World locations</h3>
-        <%= render partial: 'world_location_fields', locals: { form: form, edition: @edition } %>
-      </div>
+      <h3>World locations</h3>
+      <%= render partial: 'world_location_fields', locals: { form: form, edition: @edition } %>
     <% end %>
 
     <%= submit_tag "Save", class: 'btn btn-primary', name: "speed_save" %>

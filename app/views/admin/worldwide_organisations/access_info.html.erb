@@ -1,31 +1,23 @@
 <% page_title @worldwide_organisation.name %>
 
 <%= content_tag_for(:div, @worldwide_organisation) do %>
-  <div class="row-fluid organisation-header">
-    <div class="span8">
-      <h1><%= @worldwide_organisation.name %></h1>
-      <%= link_to "View on website", url_for(@worldwide_organisation) %>
+<div class="organisation-header">
+  <h1><%= @worldwide_organisation.name %></h1>
+  <%= link_to "View on website", url_for(@worldwide_organisation) %>
+</div>
+<section class="organisation-details">
+  <%= tab_navigation_for(@worldwide_organisation) do %>
+    <h2>Access and opening times</h2>
+    <div>
+      <% if @access_and_opening_times.new_record? %>
+        <%= link_to 'Add default access information', edit_admin_worldwide_organisation_access_and_opening_time_path(@worldwide_organisation), class: "btn btn-primary" %>
+      <% else %>
+        <article class="document">
+          <div class="lead"><%= govspeak_to_admin_html(@access_and_opening_times.body) %></div>
+          <%= link_to 'Edit', edit_admin_worldwide_organisation_access_and_opening_time_path(@worldwide_organisation), class: 'btn btn-primary' %>
+        </article>
+      <% end %>
     </div>
-  </div>
-
-  <div class="row-fluid">
-    <div class="span12 organisation-details">
-      <section>
-        <%= tab_navigation_for(@worldwide_organisation) do %>
-          <h2>Access and opening times</h2>
-          <div>
-            <% if @access_and_opening_times.new_record? %>
-              <%= link_to 'Add default access information', edit_admin_worldwide_organisation_access_and_opening_time_path(@worldwide_organisation), class: "btn btn-primary" %>
-            <% else %>
-              <article class="document">
-                <h2 class="title">Default Access and opening times:</h2>
-                <p class="body"><%= govspeak_to_admin_html(@access_and_opening_times.body) %></p>
-                <%= link_to 'Edit', edit_admin_worldwide_organisation_access_and_opening_time_path(@worldwide_organisation), class: 'btn btn-primary' %>
-              </article>
-            <% end %>
-          </div>
-        <% end %>
-      </section>
-    </div>
-  </div>
+  <% end %>
+</section>
 <% end %>

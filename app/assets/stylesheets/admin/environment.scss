@@ -1,40 +1,11 @@
-$production-color: $mellow-red;
-$preview-color:    $yellow;
-$dev-color:        $grey-2;
-
-.environment-message {
-  padding: 3px 5px;
-  border-radius: 3px;
-  line-height: 19px;
-  font-weight: bold;
-  font-size: 16px;
-  margin: 16px 15px 0 10px;
-  float: left;
-}
-
-.environment-production .environment-message {
-  background-color: $production-color;
-  color: #fff;
-}
-
-.environment-preview .environment-message {
-  background-color: $preview-color;
-  color: #000;
-}
-
-.environment-development .environment-message {
-  background-color: $dev-color;
-  color: #000;
-}
-
-.environment-production .masthead {
+.environment-production .environment-indicator {
   border-top-color: $production-color;
 }
 
-.environment-preview .masthead {
+.environment-preview .environment-indicator {
   border-top-color: $preview-color;
 }
 
-.environment-development .masthead {
+.environment-development .environment-indicator {
   border-top-color: $dev-color;
 }

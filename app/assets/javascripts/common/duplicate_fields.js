@@ -15,7 +15,7 @@
     addButton: function(){
       duplicateFields.$sets.each(function(){
         var $set = $(this),
-            $button = $('<a href="#" class="btn add_new js-add-button">Add another</a>');
+            $button = $('<a href="#" class="btn btn-default add-bottom-margin add_new js-add-button">Add another</a>');
 
         $set.append($button);
         $button.on('click', duplicateFields.addFields);

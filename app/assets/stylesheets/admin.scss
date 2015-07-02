@@ -1,9 +1,5 @@
-// https://github.com/twbs/bootstrap-sass/blob/v2.3.2.2/vendor/assets/stylesheets/bootstrap/_variables.scss
-$baseFontSize: 13px;
-$baseLineHeight: 18px;
-$paddingLarge: 9px 14px;
-@import 'bootstrap';
-@import 'vendor/chosen';
+@import 'govuk_admin_template';
+@import 'vendor/chosen-bootstrap';
 @import 'vendor/jquery-ui';
 @import 'vendor/jquery.highlighttextarea';
 @import 'shared/helpers/_magna-charta';

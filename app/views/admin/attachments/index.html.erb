@@ -1,12 +1,12 @@
 <% page_title "Attachments for #{attachment.attachable_model_name}" %>
 <% page_class "attachments index" %>
 
-<div class="span8">
-  <section>
+<div class="row">
+  <section class="col-md-8">
     <h1>Attachments for <%= attachment.attachable_model_name %></h1>
 
     <%= attachable_editing_tabs(attachable) do %>
-      <ul class="actions">
+      <ul class="actions list-unstyled">
         <li>
           <%= link_to 'Upload new file attachment', new_polymorphic_path([:admin, typecast_for_attachable_routing(attachable), Attachment]) %>
         </li>

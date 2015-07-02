@@ -4,13 +4,13 @@ module Admin::OrganisationHelper
       role_name = link_to(organisation_role_form.object.role.name, [:edit, :admin, organisation_role_form.object.role.becomes(Role)])
       if organisation_role_form.object.role.current_person
         name = link_to(organisation_role_form.object.role.current_person_name, [:edit, :admin, organisation_role_form.object.role.current_person])
-        label_text = "#{role_name}<br/><strong>#{name}</strong>".html_safe
+        label_text = "<span class='normal'>#{role_name}</span><br/>#{name}".html_safe
       else
-        label_text = "#{role_name}<br/><strong>#{organisation_role_form.object.role.current_person_name}</strong>".html_safe
+        label_text = "<span class='normal'>#{role_name}</span><br/>#{organisation_role_form.object.role.current_person_name}".html_safe
       end
       content_tag(:div,
         organisation_role_form.text_field(:ordering, label_text: label_text, class: "ordering"),
-        class: "well"
+        class: "well remove-bottom-padding"
       )
     end
   end

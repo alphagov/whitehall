@@ -226,7 +226,7 @@ When /^I add some featured links to the topic "([^"]*)" via the admin$/ do |topi
   visit admin_topic_path(topic)
   click_link "Edit"
   within ".featured-links" do
-    fill_in "Url", with: "https://www.gov.uk/mainstream/tool-alpha"
+    fill_in "URL", with: "https://www.gov.uk/mainstream/tool-alpha"
     fill_in "Title", with: "Tool Alpha"
   end
   click_button "Save"

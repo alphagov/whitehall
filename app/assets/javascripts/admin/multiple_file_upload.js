@@ -6,10 +6,10 @@
         console.log("Element must have an ID; multiple file upload behaviour has not been enabled.");
         return;
       }
-      var lastFileInputSelector = ".well:last-child input[type=file]";
-      $(this).delegate(lastFileInputSelector, "click", function() {
+      var lastFileInputSelector = ".well:last-child .js-upload-image-input";
+      $(this).on("click", lastFileInputSelector, function() {
         var clone = $(this).parents(".file_upload").clone();
-        var referenceInput = clone.children("input:first")[0];
+        var referenceInput = clone.find(".js-upload-image-input")[0];
         var id = parseInt($(referenceInput).attr("id").match(/_(\d+)_/)[1]);
         var newId = id + 1;
         clone.find(".field_with_errors *").unwrap();

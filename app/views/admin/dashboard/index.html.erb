@@ -3,21 +3,21 @@
 
 <h1>Dashboard</h1>
 
-<div class="quick-links">
-  <div class="span4">
+<div class="row quick-links">
+  <div class="col-md-4">
     <h3>Writing and publishing</h3>
     <ul>
       <li><a href="https://www.gov.uk/guidance/style-guide">GOV.UK style guide</a></li>
       <li><a href="https://www.gov.uk/guidance/how-to-publish-on-gov-uk">How to publish content on GOV.UK</a></li>
     </ul>
   </div>
-  <div class="span4">
+  <div class="col-md-4">
     <h3>Product development</h3>
     <ul>
       <li><a href="https://insidegovuk.blog.gov.uk/">Inside GOV.UK blog</a></li>
     </ul>
   </div>
-  <div class="span4">
+  <div class="col-md-4">
     <h3>Support</h3>
     <ul>
       <li><a href="https://www.gov.uk/support/internal">GDS support form (Zendesk)</a></li>
@@ -26,13 +26,13 @@
   </div>
 </div>
 
-<div class="row-fluid">
-  <div class="span6 draft-documents">
+<div class="row">
+  <div class="col-md-6 draft-documents">
     <h2>My draft documents</h2>
     <%= render partial: 'document_table', locals: { documents: @draft_documents, title: 'draft documents' } %>
   </div>
   <% if current_user.organisation %>
-    <div class="span6 force-published-documents">
+    <div class="col-md-6 force-published-documents">
       <h2>
         <%= organisation_acronym_or_name(current_user.organisation) %>’s
         force-published documents

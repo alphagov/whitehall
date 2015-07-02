@@ -1,15 +1,14 @@
 .filter-options {
   background-color: #f5f5f5;
   margin-top: 0;
-  padding: $gutter-one-sixth $gutter-one-third;
+  padding: $default-vertical-padding;
 
   h2 {
     font-size: 19px;
   }
 
   .filter-grouping {
-    border-top: 1px solid #ddd;
-    padding: $gutter-one-sixth 0 $gutter-one-third 0;
+    @include add-bottom-margin;
 
     label,
     h3 {
@@ -17,11 +16,6 @@
       line-height: 27px;
       margin-bottom: 0;
       font-weight: bold;
-    }
-
-    input {
-      width: 95%;
-      padding: 6px;
     }
 
     // to align btn-enter with input

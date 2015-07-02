@@ -1,13 +1,12 @@
 <% page_title "New Worldwide organisation" %>
 
-<div class="span8">
-  <section>
+<div class="row">
+  <section class="col-md-8">
     <h1>New worldwide organisation</h1>
     <p class="warning">Warning: changes to worldwide organisations appear instantly on the live site.</p>
     <%= render partial: "form", locals: { worldwide_organisation: @worldwide_organisation } %>
   </section>
-</div>
-
-<div class="span4">
-  <%= render partial: "sidebar" %>
+  <div class="col-md-4">
+    <%= render partial: "sidebar" %>
+  </div>
 </div>

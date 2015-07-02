@@ -4,11 +4,10 @@
 // It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
 // the compiled file.
 //
-//= require jquery
+//= require govuk-admin-template
 //= require vendor/jquery/jquery-ui-1.10.2.custom
 //= require vendor/jquery/jquery.player.min
 //= require vendor/google-diff-match-patch.js
-//= require bootstrap
 //
 //= require shared_mustache
 //= require templates

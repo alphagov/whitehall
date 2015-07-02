@@ -1,5 +1,5 @@
-<div class="span8">
-  <section>
+<div class="row">
+  <section class="col-md-8">
     <h1><%= page_title %></h1>
 
     <p class="warning">Warning: changes to <%= human_friendly_model_name.downcase %>s appear instantly on the live site.</p>
@@ -18,8 +18,7 @@
       <%= form.save_or_cancel cancel: admin_topical_event_about_pages_path(@topical_event, @about_page) %>
     <% end %>
   </section>
-</div>
-
-<div class="span4">
-  <%= simple_formatting_sidebar %>
+  <div class="col-md-4">
+    <%= simple_formatting_sidebar %>
+  </div>
 </div>

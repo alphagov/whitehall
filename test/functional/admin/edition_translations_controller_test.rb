@@ -19,7 +19,7 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
 
     get :edit, edition_id: edition, id: 'fr'
 
-    assert_select "h1", text: "Edit 'Français (French)' translation for: english-title"
+    assert_select "h1", text: "Edit ‘Français (French)’ translation for: english-title"
   end
 
   view_test 'edit presents a form to update an existing translation' do

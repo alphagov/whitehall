@@ -1,11 +1,14 @@
 <div class="form-group">
   <%= form.label :release_date, "Release date", required: true %>
-  <%= form.datetime_select :release_date, {
-      start_year: Date.today.year,
-      end_year: Date.today.year + 5,
-      minute_step: 15,
-      default: (Date.tomorrow + 9.5.hours)
-    }, { class: 'date form-control' } %>
+  <div class="form-inline add-label-margin">
+    <%= form.datetime_select :release_date, {
+        start_year: Date.today.year,
+        end_year: Date.today.year + 5,
+        minute_step: 15,
+        default: (Date.tomorrow + 9.5.hours)
+      }, { class: 'date form-control' } %>
+  </div>
+
   <%= form.check_box :confirmed, label_text: 'Confirmed date?' %>
 </div>
 <hr />
@@ -16,7 +19,7 @@
     <label class="block-label js-label-<%= key_class %>">
       <%= form.radio_button(:precision, value) %>
       <span class="label-title"><%= key.to_s.humanize %></span>
-      <span class="muted js-example-<%= key_class %>"></span>
+      <span class="text-muted js-example-<%= key_class %>"></span>
     </label>
   <% end %>
 </div>

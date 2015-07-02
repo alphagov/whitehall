@@ -1,14 +1,13 @@
 <% content_for :page_class, 'document-collection-groups edit' %>
 <% page_title 'Edit group' %>
 
-<div class="span8">
-  <section>
+<div class="row">
+  <section class="col-md-8">
     <h1>Edit group</h1>
 
     <%= render partial: 'form', locals: { url: admin_document_collection_group_path(@collection, @group) } %>
   </section>
-</div>
-
-<div class="span4">
-  <%= simple_formatting_sidebar hide_inline_attachments_help: true, show_attachments_tab_help: false %>
+  <div class="col-md-4">
+    <%= simple_formatting_sidebar hide_inline_attachments_help: true, show_attachments_tab_help: false %>
+  </div>
 </div>

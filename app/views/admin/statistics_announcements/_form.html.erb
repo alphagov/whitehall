@@ -1,4 +1,4 @@
-<%= form_for [:admin, statistics_announcement], html: {class: 'form-large'} do |form| %>
+<%= form_for [:admin, statistics_announcement] do |form| %>
   <%= form.hidden_field :publication_id %>
   <%= form.errors %>
 
@@ -7,26 +7,24 @@
     <label class="block-label">
       <%= form.radio_button(:publication_type_id, PublicationType::Statistics.id) %>
       <span class="label-title">Statistics</span>
-      <span class="muted">Official statistics produced by government.</span>
+      <span class="text-muted">Official statistics produced by government.</span>
     </label>
     <label class="block-label">
       <%= form.radio_button(:publication_type_id, PublicationType::NationalStatistics.id) %>
       <span class="label-title">National Statistics</span>
-      <span class="muted">Official statistics approved by the UK Statistics Authority.<br/>
+      <span class="text-muted">Official statistics approved by the UK Statistics Authority.<br/>
       The National Statistics logo will display on this announcement.</span>
     </label>
   </div>
-  <div class="form-group">
-    <%= form.text_field :title, required: true, class: 'form-control' %>
-  </div>
-  <div class="form-group">
-    <%= form.text_area :summary, rows: 5, required: true, class: 'form-control' %>
-  </div>
+
+  <%= form.text_field :title, required: true, class: 'form-control' %>
+  <%= form.text_area :summary, rows: 5, required: true, class: 'form-control' %>
+
   <div class="form-group stats-chosen-wrapper">
     <%= form.label  :organisation_ids, 'Organisations', required: true %>
     <%= form.select :organisation_ids,
                   options_for_select(taggable_organisations_container, statistics_announcement.organisation_ids),
-                  { }, multiple: true, class: 'chzn-select' %>
+                  { }, multiple: true, class: 'chzn-select form-control' %>
   </div>
   <div class="form-group stats-chosen-wrapper">
     <%= form.label  :topic_ids, 'Topics', required: true %>
@@ -34,7 +32,7 @@
                   options_for_select(taggable_topics_container, statistics_announcement.topic_ids),
                   { prompt: 'Select a topic' },
                   multiple: true,
-                  class: 'chzn-select' %>
+                  class: 'chzn-select form-control' %>
   </div>
   <% if statistics_announcement.new_record? %>
     <%= form.fields_for :current_release_date do |fields| %>

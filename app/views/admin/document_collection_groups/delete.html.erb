@@ -1,12 +1,12 @@
 <% content_for :page_class, 'document-collection-groups delete' %>
 <% page_title 'Delete group' %>
 
-<div class="span8">
-  <section>
+<div class="row">
+  <section class="col-md-8">
     <h1>Delete group</h1>
 
     <% if (@collection.groups.size == 1) || @group.documents.present? %>
-      <div class="alert alert-error">
+      <div class="alert alert-danger">
         <% if @collection.groups.size == 1 %>
           <p>
             Every document collection needs at least one group, so you can't

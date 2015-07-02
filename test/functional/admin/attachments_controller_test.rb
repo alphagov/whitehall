@@ -97,7 +97,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     get :index, edition_id: @edition
 
     assert_response :success
-    assert_select 'li span.title', text: 'An HTML attachment'
+    assert_select '.existing-attachments li strong', text: 'An HTML attachment'
   end
 
   test 'POST :create handles html attachments when attachable allows them' do
@@ -133,7 +133,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     get :index, edition_id: @edition
 
     assert_response :success
-    assert_select 'li span.title', text: 'An external attachment'
+    assert_select '.existing-attachments li strong', text: 'An external attachment'
   end
 
   test 'POST :create handles external attachments when attachable allows them' do

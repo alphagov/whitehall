@@ -1,18 +1,9 @@
 <% page_title 'Get involved' %>
 
-<div>
-  <div class="row-fluid get-involved-header">
-    <div class="span8">
-      <h1>Get involved</h1>
-      <%= link_to "View on website", get_involved_path %>
-    </div>
-  </div>
-
-  <div class="row-fluid">
-    <div class="span12 get-involved">
-      <section>
-        <%= get_involved_tab_navigation %>
-      </section>
-    </div>
-  </div>
+<div class="get-involved-header">
+  <h1>Get involved</h1>
+  <%= link_to "View on website", get_involved_path %>
 </div>
+<section class="get-involved">
+  <%= get_involved_tab_navigation %>
+</section>

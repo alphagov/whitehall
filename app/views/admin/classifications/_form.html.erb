@@ -15,19 +15,19 @@
     <%= render 'admin/shared/policy_fields', form: classification_form %>
 
     <%= classification_form.label :related_classification_ids, "Related topics" %>
-    <%= classification_form.select :related_classification_ids, options_from_collection_for_select(Topic.all - [classification_form.object], 'id', 'name', classification_form.object.related_classification_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose related topics..."} %>
+    <%= classification_form.select :related_classification_ids, options_from_collection_for_select(Topic.all - [classification_form.object], 'id', 'name', classification_form.object.related_classification_ids), {}, multiple: true, class: 'chzn-select form-control', data: { placeholder: "Choose related topics..."} %>
   </fieldset>
 
   <%= render partial: 'custom_form_fields', locals: {classification_form: classification_form} %>
 
-  <div class="row-fluid">
-    <fieldset id="organisations" class="named span4">
+  <div class="row">
+    <fieldset id="organisations" class="named col-md-6">
       <legend>Organisations</legend>
 
       <div id="organisation_sortable">
         <%= classification_form.fields_for :organisation_classifications, classification.organisation_classifications.where(lead: false) do |organisation_form| %>
           <% organisation = organisation_form.object.organisation %>
-          <div id="<%= dom_id(organisation) %>" class="well">
+          <div id="<%= dom_id(organisation) %>" class="well remove-bottom-padding">
             <%= organisation_form.text_field :lead_ordering, label_text: link_to(organisation.name, admin_organisation_path(organisation)), class: "ordering" %>
             <%= organisation_form.text_field :lead, label_text: "#{organisation.name} is lead?", class: "lead" %>
           </div>
@@ -35,7 +35,7 @@
       </div>
     </fieldset>
 
-    <fieldset id="lead_organisation_order" class="named span4">
+    <fieldset id="lead_organisation_order" class="named col-md-6">
       <legend>Lead organisations</legend>
 
       <div id="lead_organisation_sortable">

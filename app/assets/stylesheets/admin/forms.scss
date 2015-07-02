@@ -13,9 +13,6 @@ form {
   }
 
   fieldset {
-    margin-top: 3em;
-    min-width: 0;
-    max-width: 100%;
 
     .role_appointment,
     .speech-type {
@@ -42,8 +39,6 @@ form {
     }
 
     > fieldset {
-      margin-top: 0;
-
       legend {
         font-size: 130%;
         line-height: 350%;
@@ -64,10 +59,6 @@ form {
     }
   }
 
-  textarea, input {
-    width: 97%;
-  }
-
   select {
     &.chzn-select, &.chzn-select-no-deselect {
       width: 100%;
@@ -78,15 +69,6 @@ form {
     }
     @include ie-lte(7){
       height: 100px;
-    }
-  }
-
-  .checkbox {
-    input {
-      @include ie(6){
-        width: auto;
-        float: left;
-      }
     }
   }
 
@@ -128,26 +110,10 @@ fieldset.contact_number {
 }
 
 .first-published-date {
-  .extra-label {
-    margin-top: 13px;
-    font-weight: bold;
-  }
-  label.radio {
-    margin-top: 13px;
-  }
-  .edit, .explanation {
-    .js-enabled & {
-      display: none;
-    }
-  }
-  &.form-errors label {
-    font-weight: bold;
-  }
   .show-first-published {
     margin-left: 20px;
   }
 }
-
 
 .contacts-admin {
   max-width: 600px;
@@ -254,10 +220,6 @@ fieldset.fatality-notice-casualties {
   vertical-align: middle;
 }
 
-.cancel-foreign-language-only {
-  margin-left: 5px;
-}
-
 #auto-complete-selector {
   position: absolute;
   display: none;
@@ -294,45 +256,15 @@ fieldset.fatality-notice-casualties {
   }
 }
 
-.feature-title {
-  margin-top:20px;
-  margin-bottom:5px;
-}
-
-.feature-column {
-  width:50%;
-  float:left;
-}
-
 .feature-list {
-  padding:12px;
-  vertical-align:middle;
-  label {
-    div {
-      float:left;
-    }
-    .icon
-    {
-      width:2%;
-      i {
-        opacity:0.1;
-      }
-    }
-    .title
-    {
-      width:50%;
-    }
-    .type
-    {
-      width:20%;
-    }
-    .date
-    {
-      width:15%;
-    }
-    .button
-    {
-      float:right;
-    }
+  padding: 12px 12px 6px;
+}
+
+.feature-list label {
+  display: block;
+  font-weight: normal;
+
+  i {
+    opacity:0.1;
   }
 }

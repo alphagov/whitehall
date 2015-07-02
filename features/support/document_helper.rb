@@ -152,8 +152,8 @@ module DocumentHelper
   def publish(options = {})
     if options[:force]
       click_link "Force publish"
-      page.has_css?("#forcePublishModal", visible: true)
-      within '#forcePublishModal' do
+      page.has_css?(".force-publish-form", visible: true)
+      within '.force-publish-form' do
         fill_in 'reason', with: "because"
         click_button 'Force publish'
       end

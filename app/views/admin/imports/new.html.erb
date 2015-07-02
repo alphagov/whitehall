@@ -1,32 +1,26 @@
 <% page_title "New import" %>
 
-<div class="span8">
-  <section>
+<div class="row">
+  <section class="col-md-8">
     <h1>New import</h1>
 
-    <p><strong>Alert:</strong> Notify the infrastructure and publishing teams before big imports; they may clash with day-to-day publishing activity.</p>
+    <p class="alert alert-warning">Notify the infrastructure and publishing teams before big imports; they may clash with day-to-day publishing activity.</p>
 
     <%= form_for [:admin, @import] do |import_form| %>
       <%= import_form.errors %>
 
       <fieldset>
-        <%= content_tag :div, class: "control-group" do %>
+        <%= content_tag :div, class: "form-group" do %>
           <%= import_form.label :data_type, 'Type' %>
-          <%= content_tag :div, class: "controls" do %>
-            <%= import_form.select :data_type, Import::TYPES.keys.map {|k| [k.to_s.humanize, k]}, label_text: "Type" %>
-          <% end %>
+          <%= import_form.select :data_type, Import::TYPES.keys.map {|k| [k.to_s.humanize, k]}, {}, {class: 'form-control input-md-3'} %>
         <% end %>
-        <%= content_tag :div, class: "control-group" do %>
+        <%= content_tag :div, class: "form-group" do %>
           <%= import_form.label :organisation_id, 'Default organisation' %>
-          <%= content_tag :div, class: "controls" do %>
-            <%= import_form.select :organisation_id, options_from_collection_for_select(Organisation.all, 'id', 'name', @import.organisation_id), { include_blank: true }, class: 'chzn-select', data: { placeholder: "Choose organisation to use as default when not specified..." } %>
-          <% end %>
+          <%= import_form.select :organisation_id, options_from_collection_for_select(Organisation.all, 'id', 'name', @import.organisation_id), { include_blank: true }, class: 'chzn-select form-control', data: { placeholder: "Choose organisation to use as default when not specified..." } %>
         <% end %>
-        <%= content_tag :div, class: "control-group" do %>
+        <%= content_tag :div, class: "form-group" do %>
           <%= import_form.label :file, 'CSV File' %>
-          <%= content_tag :div, class: "controls" do %>
-            <%= import_form.file_field :file %>
-          <% end %>
+          <%= import_form.file_field :file %>
         <% end %>
       </fieldset>
 

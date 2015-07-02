@@ -7,10 +7,10 @@ module Admin::IconHelper
 
   def icon_css_classes_for_label(label)
     case label.downcase
-    when "delete", "remove" then ['icon-trash', 'icon-white']
-    when "add" then ['icon-plus', 'icon-white']
+    when "delete", "remove" then ['glyphicon-trash', 'glyphicon']
+    when "add" then ['glyphicon-plus', 'glyphicon']
     else
-      ["icon-#{label.downcase}"]
+      ["glyphicon glyphicon-#{label.downcase}"]
     end
   end
 end

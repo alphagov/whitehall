@@ -4,7 +4,7 @@
   <%= form.select :role_appointment_id,
                   options_for_select(taggable_role_appointments_container, edition.role_appointment_id),
                   { include_blank: true },
-                  class: 'chzn-select',
+                  class: 'chzn-select form-control',
                     data: { placeholder: "Choose a person..." } %>
 <% end %>
 </div>
@@ -13,6 +13,8 @@
   <%= form.text_field :person_override, label_text: "Speaker" %>
 </div>
 
-<%= label_tag :person_override_active, nil, class: 'checkbox' do %>
-  <%= check_box_tag :person_override_active, "1", edition.person_override? %> Speaker does not have a profile on GOV.UK (eg the Queen)
-<% end %>
+<div class="checkbox">
+  <%= label_tag :person_override_active, nil do %>
+    <%= check_box_tag :person_override_active, "1", edition.person_override? %> Speaker does not have a profile on GOV.UK (eg the Queen)
+  <% end %>
+</div>

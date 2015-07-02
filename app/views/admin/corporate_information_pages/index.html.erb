@@ -1,23 +1,14 @@
 <% page_title @organisation.name %>
-<div class="row-fluid organisation-header">
-  <div class="span8">
-    <h1><%= @organisation.name %></h1>
-    <%= link_to "View on website", url_for(@organisation) %>
-  </div>
+<div class="organisation-header">
+  <h1><%= @organisation.name %></h1>
+  <%= link_to "View on website", url_for(@organisation) %>
 </div>
 
-
-<div class="row-fluid">
-  <div class="span12 organisation-details">
-    <section>
-      <%= tab_navigation_for(@organisation) do %>
-        <div class="row-fluid">
-          <%= render partial: 'search_results', locals: { show_export: false } %>
-        </div>
-        <% if @organisation.unused_corporate_information_page_types.any? %>
-          <div><%= link_to "New corporate information page", new_polymorphic_path([:admin, @organisation, CorporateInformationPage.new]), class: "btn"%></div>
-        <% end %>
-      <% end %>
-    </section>
-  </div>
-</div>
+<section class="organisation-details">
+  <%= tab_navigation_for(@organisation) do %>
+    <%= render partial: 'search_results', locals: { show_export: false } %>
+    <% if @organisation.unused_corporate_information_page_types.any? %>
+      <div><%= link_to "New corporate information page", new_polymorphic_path([:admin, @organisation, CorporateInformationPage.new]), class: "btn btn-default" %></div>
+    <% end %>
+  <% end %>
+</section>

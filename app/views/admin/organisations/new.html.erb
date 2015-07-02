@@ -1,11 +1,10 @@
 <% page_title "New Organisation" %>
-<div class="span8">
-  <section>
+<div class="row">
+  <section class="col-md-8">
     <h1>New organisation</h1>
     <%= render partial: "form", locals: {organisation: @organisation} %>
   </section>
-</div>
-
-<div class="span4">
-  <%= render partial: "sidebar" %>
+  <div class="col-md-4">
+    <%= render partial: "sidebar" %>
+  </div>
 </div>

@@ -1,23 +1,15 @@
 <% page_title "Featured items on " + @world_location.name %>
 
 <%= content_tag_for(:div, @world_location) do %>
-  <div class="row-fluid world-location-header">
-    <div class="span8">
-      <h1>
-        <span class="name"><%= @world_location.name %></span>
-        &ldquo;<span class="title"><%= @world_location.title %></span>&rdquo;
-      </h1>
-      <p><%= link_to "View on website", @world_location %></p>
-    </div>
+  <div class="world-location-header">
+    <h1>
+      <span class="name"><%= @world_location.name %></span>
+      &ldquo;<span class="title"><%= @world_location.title %></span>&rdquo;
+    </h1>
+    <p><%= link_to "View on website", @world_location %></p>
   </div>
-
-  <div class="row-fluid">
-    <div class="span12 world-location-details">
-      <section>
-        <%= tab_navigation_for(@world_location) %>
-        <%= render @feature_list, filter_by: [:title, :type, :world_location] %>
-        <%= link_to "Create an offsite link", new_admin_world_location_offsite_link_path(@world_location), class: "btn" %>
-      </section>
-    </div>
-  </div>
+  <section class="world-location-details">
+    <%= tab_navigation_for(@world_location) %>
+    <%= render @feature_list, filter_by: [:title, :type, :world_location] %>
+  </section>
 <% end %>

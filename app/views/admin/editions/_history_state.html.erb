@@ -1,5 +1,5 @@
 <% if edition.superseded? %>
-  <div class="alert alert-error">
+  <div class="alert alert-danger">
     <p>This edition has been superseded.</p>
     <p><%= link_to "Go to most recent edition", admin_edition_path(edition.latest_edition), class: "btn btn-primary" %></p>
   </div>
@@ -9,7 +9,7 @@
     <p>
       <%= link_to "Go to published edition", admin_edition_path(edition.latest_published_edition), class: "btn btn-primary" %>
       <% if edition.previous_edition %>
-        <%= link_to "See what's changed", diff_admin_edition_path(edition, audit_trail_entry_id: edition.previous_edition.id), class: "btn" %>
+        <%= link_to "See what’s changed", diff_admin_edition_path(edition, audit_trail_entry_id: edition.previous_edition.id), class: "btn btn-default" %>
       <% end %>
     </p>
   </div>
@@ -27,4 +27,3 @@
     </div>
   <% end %>
 <% end %>
-

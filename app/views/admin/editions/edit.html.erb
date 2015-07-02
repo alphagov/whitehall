@@ -8,20 +8,20 @@
       <p>Please review conflicts between the two versions and incorporate any changes before pressing save again.</p>
     </div>
 
-    <div class="row-fluid">
-      <div class="conflicting new span6">
+    <div class="row">
+      <div class="conflicting new col-md-6">
         <h2>Your version</h2>
         <%= render "form", edition: @edition %>
       </div>
 
-      <div class="conflicting latest span6">
+      <div class="conflicting latest col-md-6">
         <h2>Current saved version</h2>
         <%= render "conflict", edition: @conflicting_edition %>
       </div>
     </div>
   </section>
 <% else %>
-  <div class="span8">
+  <div class="col-md-8">
     <section>
       <h1><%= edition_edit_headline(@edition) %></h1>
 
@@ -31,7 +31,7 @@
     </section>
   </div>
 
-  <div class="span4">
+  <div class="col-md-4">
     <%= sidebar_tabs edition_tabs(@edition, remarks_count: @edition_remarks.length, history_count: @edition_history.total_count, editing: true) do |tabs| %>
       <%= tabs.pane class: "govspeak_help", id: "govspeak_help" do %>
         <%= render "govspeak_help", hide_inline_attachments_help: !@edition.allows_inline_attachments?,
@@ -47,7 +47,7 @@
       <%= tabs.pane class: "audit-trail", id: "notes" do %>
         <h1>Notes</h1>
         <p>To add a remark, save your changes.</p>
-        <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn add-remark" %>
+        <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn btn-default add-remark" %>
         <%= render_editorial_remarks_in_sidebar(@edition_remarks, @edition) %>
       <% end %>
 
@@ -55,7 +55,7 @@
         <div class="audit-trail-page">
           <h1>Activity</h1>
           <%= paginate @edition_history, theme: 'audit_trail' %>
-          <ul>
+          <ul class="list-unstyled">
             <%= render partial: "audit_trail_entry", collection: @edition_history %>
           </ul>
           <%= paginate @edition_history, theme: 'audit_trail' %>

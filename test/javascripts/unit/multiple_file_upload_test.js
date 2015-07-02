@@ -2,7 +2,7 @@ module("Uploading multiple files", {
   setup: function() {
     this.fieldset = $('<fieldset id="attachment_fields" class="multiple_file_uploads"></fieldset>');
     var file_upload = $('<div class="file_upload well"></div>');
-    this.first_input = $('<input id="edition_edition_attachments_attributes_0_attachment_attributes_file" name="edition[edition_attachments_attributes][0][attachment_attributes][file]" type="file" />');
+    this.first_input = $('<input id="edition_edition_attachments_attributes_0_attachment_attributes_file" name="edition[edition_attachments_attributes][0][attachment_attributes][file]" type="file" class="js-upload-image-input" />');
 
     file_upload.append('<label for="edition_edition_attachments_attributes_0_attachment_attributes_title">Title</label>');
     file_upload.append('<input id="edition_edition_attachments_attributes_0_attachment_attributes_title" name="edition[edition_attachments_attributes][0][attachment_attributes][title]" size="30" type="text" />');
@@ -157,7 +157,7 @@ module("Uploading multiple files after file field validation error", {
             <label for="edition_edition_attachments_attributes_0_attachment_attributes_file">File</label>\
           </div>\
           <div class="field_with_errors">\
-            <input id="edition_edition_attachments_attributes_0_attachment_attributes_file"\ name="edition[edition_attachments_attributes][0][attachment_attributes][file]" type="file" />\
+            <input id="edition_edition_attachments_attributes_0_attachment_attributes_file"\ name="edition[edition_attachments_attributes][0][attachment_attributes][file]" type="file" class="js-upload-image-input" />\
           </div>\
           <input id="edition_edition_attachments_attributes_0_attachment_attributes_file_cache"\ name="edition[edition_attachments_attributes][0][attachment_attributes][file_cache]" type="hidden" />\
         </div>\

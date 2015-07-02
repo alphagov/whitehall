@@ -1,12 +1,14 @@
 <% page_title "Edit " + @world_location.name %>
 
-<div class="span12 world-locations-edit-span">
-  <section>
+<div class="row">
+  <section class="col-md-8">
     <h1>Edit world location</h1>
   <p class="warning">Warning: changes to worldwide locations appear instantly on the live site.</p>
     <%= form_for([:admin, @world_location]) do |form| %>
-      <%= form.label :world_location_type_id, 'Type' %>
-      <%= form.select :world_location_type_id, options_from_collection_for_select(WorldLocationType.all, :id, :name, form.object.world_location_type_id) %>
+      <div class="form-group">
+        <%= form.label :world_location_type_id, 'Type' %>
+        <%= form.select :world_location_type_id, options_from_collection_for_select(WorldLocationType.all, :id, :name, form.object.world_location_type_id), {}, {class: 'form-control input-md-3'} %>
+      </div>
 
       <%= form.text_field :title %>
 

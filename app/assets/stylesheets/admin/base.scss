@@ -15,13 +15,7 @@
 @import "frontend/styleguide/_colours.scss";
 @import "frontend/styleguide/_right-to-left.scss";
 
-// GOVUK_ADMIN_TEMPLATE
-// Styles ported from the admin template
-// https://github.com/alphagov/govuk_admin_template
-@import "govuk_admin_template/_theme.scss";
-@import "govuk_admin_template/_mixins.scss";
-@import "govuk_admin_template/_base.scss";
-@import "govuk_admin_template/_tables.scss";
+
 @import "govuk_admin_template/emulate/_forms.scss";
 
 // COMPONENTS
@@ -56,6 +50,7 @@
 @import "helpers/_navigation_controls.scss";
 @import "helpers/_jquery_ui_overrides.scss";
 @import "helpers/_statistics_announcements.scss";
+@import "helpers/_words_to_avoid_highlighter.scss";
 @import "helpers/bootstrap/_button_dropdown.scss";
 
 // helpers shared with frontend

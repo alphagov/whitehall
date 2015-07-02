@@ -1,9 +1,8 @@
-<table class="table">
+<table class="table table-bordered">
   <thead>
-    <tr>
+    <tr class="table-header">
       <th>Title</th>
       <th>Duration</th>
-      <th></th>
       <th></th>
     </tr>
   </thead>
@@ -14,7 +13,7 @@
         <td><%= link_to event.name, admin_topical_event_path(event) %></td>
         <td><%= l event.start_date.to_date %> to <%= l event.end_date.to_date %></td>
         <td>
-          <%= link_to("Feature", polymorphic_url([:new, :admin, @feature_list, :feature], topical_event_id: event.id), class: 'btn') %>
+          <%= link_to("Feature", polymorphic_url([:new, :admin, @feature_list, :feature], topical_event_id: event.id), class: 'btn btn-default') %>
         </td>
       <% end %>
     <% end %>

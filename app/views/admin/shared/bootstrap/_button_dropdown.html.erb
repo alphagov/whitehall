@@ -1,6 +1,6 @@
 <% if links.count > 1 %>
   <div class='btn-group button-dropdown'>
-    <button type='button' class='btn btn-large btn-primary dropdown-toggle' data-toggle='dropdown'>
+    <button type='button' class='btn btn-lg btn-primary dropdown-toggle' data-toggle='dropdown'>
       <%= button_text %>
       <span class='caret'></span>
     </button>
@@ -12,5 +12,5 @@
   </div>
 <% else %>
   <% href, _ = links.first %>
-  <%= link_to button_text, href, class: 'btn btn-large btn-primary', target: '_blank' %>
+  <%= link_to button_text, href, class: 'btn btn-lg btn-primary', target: '_blank' %>
 <% end %>

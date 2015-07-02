@@ -6,7 +6,7 @@
   .dropdown-toggle {
     display: none;
   }
-  .js-enabled & .dropdown-toggle {
+  .js & .dropdown-toggle {
     display: block;
   }
 }

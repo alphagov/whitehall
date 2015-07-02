@@ -5,12 +5,12 @@
   function WordsToAvoidAlerter(wordsToAvoidRegexps, options) {
     var $el = $(options.el),
         $wordsToAvoidAlert = $(options.wordsToAvoidAlert),
-        $alertSpan = $("<span />").attr("id", "js-words-to-avoid-count").addClass("badge badge-warning"),
+        $alertCount = $("<strong />").attr("id", "js-words-to-avoid-count"),
         wordsToAvoidMatcher = new RegExp("(" + wordsToAvoidRegexps.join("|") + ")", "gi"),
         wordsToAvoidUsedSpan = $("<span />").attr("id", "js-words-to-avoid-used");
 
     var initAlertMessageTemplate = function() {
-      $wordsToAvoidAlert.append($alertSpan);
+      $wordsToAvoidAlert.append($alertCount);
       if(options.highlightingEnabled) {
         $wordsToAvoidAlert.append(" highlighted word(s) appear on the words to avoid list:");
       } else {
@@ -55,7 +55,7 @@
       var _numberOfWordsToAvoidUsed = numberOfWordsToAvoidUsed();
 
       if(_numberOfWordsToAvoidUsed) {
-        $wordsToAvoidAlert.show();
+        $wordsToAvoidAlert.removeClass('hide').show();
         $(options.wordsToAvoidCounter).html(_numberOfWordsToAvoidUsed);
         $(wordsToAvoidUsedSpan).html(listOfWordsToAvoidUsed());
       } else {

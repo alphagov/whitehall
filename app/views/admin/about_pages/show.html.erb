@@ -22,14 +22,14 @@
     </table>
 
     <div class="form-actions">
-      <%= link_to "Edit", [:edit, :admin, @topical_event, :about_pages], class: "btn btn-large btn-primary"%>
+      <%= link_to "Edit", [:edit, :admin, @topical_event, :about_pages], class: "btn btn-lg btn-primary"%>
     </div>
   <% else %>
     <p>
       <%= @topical_event.name %> doesn't yet have a page showing more information about it.
     </p>
     <div class="form-actions">
-      <%= link_to 'Create', new_admin_topical_event_about_pages_path, class: 'btn btn-large btn-primary' %>
+      <%= link_to 'Create', new_admin_topical_event_about_pages_path, class: 'btn btn-lg btn-primary' %>
     </div>
   <% end %>
 <% end %>

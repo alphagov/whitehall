@@ -22,7 +22,7 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
     get :show, id: collection
 
     assert_select "h1", "collection-title"
-    assert_select ".summary", "the summary"
+    assert_select ".page-header .lead", "the summary"
   end
 
   view_test "GET #new renders document collection form" do

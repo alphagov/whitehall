@@ -1,9 +1,9 @@
 <% page_title "Cabinet ministers ordering" %>
 
 <%= form_for admin_cabinet_ministers_path, method: :put do |form| %>
-  <div id="role_ordering" class="row-fluid">
+  <div id="role_ordering" class="row">
   <% if @cabinet_minister_roles.any? %>
-    <div class="span3">
+    <div class="col-md-3">
       <fieldset id="minister_ordering" class="sortable">
         <legend>Cabinet ministers ordering</legend>
         <%= ministers_role_ordering_fields(form, @cabinet_minister_roles, 'roles', &:seniority) %>
@@ -12,7 +12,7 @@
   <% end %>
 
   <% if @also_attends_cabinet_roles.any? %>
-    <div class="span3">
+    <div class="col-md-3">
       <fieldset id="special_representative_ordering" class="sortable">
         <legend>Also attends cabinet ordering</legend>
         <%= ministers_role_ordering_fields(form, @also_attends_cabinet_roles, 'roles', &:seniority) %>
@@ -21,7 +21,7 @@
   <% end %>
 
   <% if @whip_roles.any? %>
-    <div class="span3">
+    <div class="col-md-3">
       <fieldset id="special_representative_ordering" class="sortable">
         <legend>Whips ordering</legend>
         <%= ministers_role_ordering_fields(form, @whip_roles, 'whips', &:whip_ordering) %>
@@ -31,7 +31,7 @@
 
 
   <% if @organisations.any? %>
-    <div class="span3">
+    <div class="col-md-3">
       <fieldset id="organisations_ordering" class="sortable">
         <legend>Organisations ordering</legend>
         <%= organisation_ordering_fields(@organisations) %>

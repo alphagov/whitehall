@@ -1,15 +1,17 @@
-<%= form_for [:admin, socialable, social_media_account], html: {class: "form-horizontal"} do |form| %>
-  <%= form.errors %>
-  <fieldset class="social_media_account">
-    <div class="control-group">
-      <%= form.label :social_media_service_id, 'Service', class: "control-label" %>
-      <div class="controls">
-        <%= form.select :social_media_service_id, options_from_collection_for_select(SocialMediaService.all, :id, :name, form.object.social_media_service_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose the social media service..." } %>
-      </div>
-    </div>
-    <%= form.text_field :url, horizontal: true %>
-    <%= form.text_field :title, horizontal: true %>
-  </fieldset>
+<div class="row">
+  <div class="col-md-8">
+    <%= form_for [:admin, socialable, social_media_account], html: {class: "well"} do |form| %>
+      <%= form.errors %>
+      <fieldset class="social_media_account">
+        <div class="form-group">
+          <%= form.label :social_media_service_id, 'Service', class: "control-label" %>
+          <%= form.select :social_media_service_id, options_from_collection_for_select(SocialMediaService.all, :id, :name, form.object.social_media_service_id), {include_blank: true}, class: 'chzn-select form-control', data: { placeholder: "Choose the social media service..." } %>
+        </div>
+        <%= form.text_field :url %>
+        <%= form.text_field :title %>
+      </fieldset>
 
-  <%= form.save_or_cancel(cancel: [:admin, socialable, SocialMediaAccount]) %>
-<% end %>
+      <%= form.save_or_cancel(cancel: [:admin, socialable, SocialMediaAccount]) %>
+    <% end %>
+  </div>
+</div>

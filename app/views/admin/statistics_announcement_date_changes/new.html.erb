@@ -11,7 +11,7 @@
     </span>
   </h1>
 
-  <%= form_for @statistics_announcement_date_change, url: admin_statistics_announcement_changes_path(@statistics_announcement), html: {class: 'form-large'} do |form| %>
+  <%= form_for @statistics_announcement_date_change, url: admin_statistics_announcement_changes_path(@statistics_announcement) do |form| %>
     <%= form.errors %>
     <%= render '/admin/statistics_announcements/release_date', form: form %>
     <div class="form-group">
@@ -20,7 +20,7 @@
       <% end %>
     </div>
     <% if @statistics_announcement.publication %>
-      <div class="alert">
+      <div class="alert alert-warning">
         <span>Don’t forget to change the release date of the <%= link_to "attached publication", [:admin, @statistics_announcement.publication] %> as well.</span>
       </div>
     <% end %>

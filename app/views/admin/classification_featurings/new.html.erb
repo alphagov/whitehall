@@ -2,21 +2,21 @@
 
 <h2>
   <% if featuring_a_document? %>
-    Feature '<%= @classification_featuring.edition.title %>' within '<%= @classification.name %>'
+    Feature ‘<%= @classification_featuring.edition.title %>’ within ‘<%= @classification.name %>’
   <% else %>
-    Feature an offsite document within '<%= @classification.name %>'
+    Feature an offsite document within ‘<%= @classification.name %>’
   <% end %>
 </h2>
 
-<div class="row-fluid">
-  <div class="span6">
-    <%= form_for [:admin, @classification, @classification_featuring], builder: Whitehall::FormBuilder do |form| %>
+<div class="row">
+  <div class="col-md-8">
+    <%= form_for [:admin, @classification, @classification_featuring], builder: Whitehall::FormBuilder, html: {class: 'well'} do |form| %>
       <%= form.errors %>
 
       <%= form.fields_for :image do |image_fields| %>
-        <%= image_fields.upload :file, horizontal: true, label_text: 'Select a 960px wide and 640px tall image to be shown when featuring' %>
+        <%= image_fields.upload :file, label_text: 'Select a 960px wide and 640px tall image to be shown when featuring' %>
       <% end %>
-      <%= form.text_field :alt_text, horizontal: true, label_text: "Image description (alt text)" %>
+      <%= form.text_field :alt_text, label_text: "Image description (alt text)" %>
 
       <% if featuring_a_document? %>
         <%= form.hidden_field :edition_id %>

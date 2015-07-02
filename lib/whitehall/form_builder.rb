@@ -4,9 +4,7 @@ module Whitehall
     def label(method, text = nil, options = {}, &block)
       if calculate_required(method, options)
         unless !options[:required].nil? && options[:required] == false
-          options[:class] ||= ""
-          class_override = options[:class] << " required"
-          options.merge!(class: class_override.strip)
+          add_class_to_options(options, 'required')
           text_override = text ? text : method.to_s.humanize
           text = "#{text_override}<span>*</span>".html_safe
         end
@@ -18,10 +16,13 @@ module Whitehall
     def labelled_radio_button(label_text, *radio_button_args)
       # 2nd arg is either all the args for the radio_button, or an options
       # hash for the label, then all the args for the radio_button.
-      label_opts = {class: 'radio inline'}
+      label_opts = {}
       label_opts = label_opts.merge(radio_button_args.shift) if radio_button_args.first.is_a?(Hash)
-      @template.label_tag(nil, label_opts) do
-        radio_button(*radio_button_args) + label_text
+
+      @template.content_tag(:div, 'class' => 'radio') do
+        @template.label_tag(nil, label_opts) do
+          radio_button(*radio_button_args) + label_text
+        end
       end
     end
 
@@ -32,7 +33,7 @@ module Whitehall
            @template.concat @template.content_tag(:li, msg)
          end
        end
-       @template.content_tag(:div, "class" => "alert alert-error form-errors") do
+       @template.content_tag(:div, "class" => "alert alert-danger form-errors") do
          @template.concat @template.content_tag(:p, "To save the #{object.class.name.demodulize.underscore.humanize.downcase} please fix the following issues:")
          @template.concat error_list
        end
@@ -41,7 +42,7 @@ module Whitehall
     def form_actions(options = {})
       @template.content_tag(:div, "class" => "form-actions") {
         options[:buttons].each do |name, value|
-          @template.concat submit(value, name: name, class: "btn btn-primary btn-large")
+          @template.concat submit(value, name: name, class: "btn btn-primary btn-lg")
         end
         @template.concat @template.content_tag(:span, "class" => "or_cancel") {
           @template.concat %{ or }
@@ -57,9 +58,9 @@ module Whitehall
     def save_or_cancel_buttons(options = {})
       @template.content_tag(:div, "class" => "form-actions") {
         options[:buttons].each do |name, value|
-          @template.concat submit(value, name: name, class: "btn btn-large btn-primary")
+          @template.concat submit(value, name: name, class: "btn btn-lg btn-primary")
         end
-        @template.concat @template.link_to('Cancel', cancel_path(options[:cancel]), class: 'btn btn-large add-left-gutter')
+        @template.concat @template.link_to('Cancel', cancel_path(options[:cancel]), class: 'btn btn-default btn-lg add-left-margin')
       }
     end
 
@@ -69,27 +70,23 @@ module Whitehall
     end
 
     def text_field(method, options = {})
-      horizontal = options.delete(:horizontal)
+      add_class_to_options(options, 'form-control')
       label_options = { required: options.delete(:required) }
       label_text = options.delete(:label_text)
-      if horizontal
-        label_options[:class] = "control-label"
-        horizontal_group(label(method, label_text, label_options), super(method, options), options)
-      else
+
+      @template.content_tag(:div, class: 'form-group') do
         label(method, label_text, label_options) + super(method, options)
       end
     end
 
     def text_area(method, *args)
       options = (args.last || {})
-      horizontal = options.delete(:horizontal)
+      add_class_to_options(options, 'form-control')
       label_options = { required: options.delete(:required) }
       label_text = options.delete(:label_text)
-      if horizontal
-        label_options[:class] = "control-label"
-        horizontal_group(label(method, label_text, label_options), super, options)
-      else
-        label(method, label_text, label_options) + super
+
+      @template.content_tag(:div, class: 'form-group') do
+          label(method, label_text, label_options) + super
       end
     end
 
@@ -107,19 +104,15 @@ module Whitehall
     end
 
     def check_box(method, options = {}, *args)
-      horizontal = options.delete(:horizontal)
       label_options = { required: options.delete(:required) }
       label_text = options.delete(:label_text) || method.to_s.humanize
-      if horizontal
-        label_options[:class] = "control-label"
-        horizontal_group(label(method, label_text, label_options), super, options)
-      else
-        label(method, label_text, label_options.merge(class: "checkbox")) { super + label_text }
+
+      @template.content_tag(:div, class: 'checkbox') do
+        label(method, label_text, label_options) { super + label_text }
       end
     end
 
     def upload(method, options = {})
-      horizontal = options.delete(:horizontal)
       label_options = { required: options.delete(:required) }
       label_text = options.delete(:label_text)
       allow_removal = options.delete(:allow_removal) || false
@@ -134,15 +127,18 @@ module Whitehall
         fields += check_box(:"remove_#{method}", label_text: allow_removal_label_text)
       end
 
-      if horizontal
-        label_options[:class] = "control-label"
-        horizontal_group(label(method, label_text, label_options), fields, options)
-      else
+      @template.content_tag(:div, class: 'form-group') do
         label(method, label_text, label_options) + fields
       end
     end
 
     private
+
+    def add_class_to_options(options, name)
+      options[:class] ||= ""
+      class_override = options[:class] << " #{name}"
+      options.merge!(class: class_override.strip)
+    end
 
     def has_validators?(method)
       @has_validators ||= method && object.class.respond_to?(:validators_on)
@@ -207,17 +203,6 @@ module Whitehall
         options.merge(dir: 'rtl')
       else
         options
-      end
-    end
-
-    def horizontal_group(label_tag, content_tag, options = {})
-      @template.content_tag(:div, class: "control-group") do
-        label_tag +
-        @template.content_tag(:div, class: "controls") do
-          content_tag +
-            (options[:help_block] ? @template.content_tag(:span, options[:help_block], class: "help-block") : "") +
-            (options[:help_inline] ? @template.content_tag(:span, options[:help_inline], class: "help-inline") : "")
-        end
       end
     end
 

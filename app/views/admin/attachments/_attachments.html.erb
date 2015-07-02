@@ -8,10 +8,10 @@
 <% end %>
 
 <%= form_tag [:order, :admin, typecast_for_attachable_routing(attachable), Attachment], method: :put do %>
-  <ol class="existing-attachments">
+  <ol class="existing-attachments list-unstyled">
     <% attachable.attachments.each do |attachment| %>
       <%= content_tag_for(:li, attachment.becomes(Attachment), class: "well") do %>
-        <span class="title"><%= attachment.title %></span>
+        <strong><%= attachment.title %></strong>
         <span class="file">
           <%= attachment.is_a?(ExternalAttachment) ? 'Link' : 'File' %>: <%= link_to_attachment(attachment, preview: true) %>
         </span>
@@ -23,7 +23,7 @@
           <%= text_field_tag "ordering[#{attachment.id}]", attachment.ordering, id: "ordering-#{attachment.id}", class: "ordering" %>
         <% end %>
 
-        <ul class="actions">
+        <ul class="actions list-unstyled">
           <li>
             <%= link_to 'Edit', [:edit, :admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)] %>
           </li>

@@ -48,7 +48,7 @@
 
         var adviceText = formatAdviceMap[$field.val()];
         if (adviceText) {
-          var adviceHTML = '<div class="subtype-format-advice"><strong>Use this subformat for…</strong> '+adviceText+'</div>';
+          var adviceHTML = '<div class="subtype-format-advice add-label-margin"><strong>Use this subformat for…</strong> '+adviceText+'</div>';
           $container.append(adviceHTML);
         }
       }).change();
@@ -62,26 +62,28 @@
       $().ready(function() {
         // hide locale fieldsets
         var $localeInput = $(this).find('#edition_primary_locale');
-        var $fieldset = $localeInput.parent('fieldset');
+        var $fieldset = $localeInput.parents('fieldset');
 
         // add link for changing the default locale
-        var $revealLink = $('<a href=# class="foreign-language-only">Designate as a foreign language only document</a>');
+        var $revealLink = $('<p><a href="#" class="foreign-language-only">Designate as a foreign language only document</a></p>');
         $revealLink.insertBefore($fieldset);
-        $revealLink.on('click', function () {
+        $revealLink.on('click', 'a', function (evt) {
           // reveal the locale selector
-          $(this).hide();
+          $revealLink.hide();
           $fieldset.show();
+          evt.preventDefault();
         });
 
         // add link to cancel and reset back to the default locale
-        var $resetLink = $('<a href=# class="cancel-foreign-language-only">cancel</a>');
+        var $resetLink = $('<a href="#" class="add-left-margin cancel-foreign-language-only">Cancel</a>');
         $resetLink.insertAfter($localeInput);
-        $resetLink.on('click', function () {
+        $resetLink.on('click', function (evt) {
           // hide the fieldset and reset the locale selector
           $fieldset.hide();
           $revealLink.show();
           $localeInput.val('');
           $form.find('fieldset').removeClass('right-to-left');
+          evt.preventDefault();
         });
 
         // setup observer to apply right-to-left classes as appropriate
@@ -119,7 +121,7 @@
       showOrHideDateSelector();
 
       $('.js-existing-first-published a').on('click', function(e) {
-        $(this).parent().hide().next().show();
+        $(this).parent().hide().next().removeClass('if-js-hide');
         e.preventDefault();
       });
     }

@@ -1,22 +1,15 @@
 <% page_title @socialable.name %>
-<div class="row-fluid organisation-header">
-  <div class="span8">
-    <h1><%= @socialable.name %></h1>
-    <%= link_to "View on website", @socialable %>
-  </div>
+<div class="organisation-header">
+  <h1><%= @socialable.name %></h1>
+  <%= link_to "View on website", @socialable %>
 </div>
+<section class="organisation-details">
+  <%= tab_navigation_for(@socialable) do %>
+    <h2>Social media accounts</h2>
+    <%= render(@social_media_accounts, { socialable: @socialable }) || content_tag(:p, 'No social media accounts') %>
 
-<div class="row-fluid">
-  <div class="span12 organisation-details">
-    <section>
-      <%= tab_navigation_for(@socialable) do %>
-        <h2>Social media accounts</h2>
-        <%= render(@social_media_accounts, { socialable: @socialable }) || content_tag(:p, 'No social media accounts') %>
-
-        <div class="form-actions">
-          <%= link_to "Add", new_polymorphic_path([:admin, @socialable, SocialMediaAccount]), class: "btn btn-large btn-primary"%>
-        </div>
-      <% end %>
-    </section>
-  </div>
-</div>
+    <div class="form-actions">
+      <%= link_to "Add", new_polymorphic_path([:admin, @socialable, SocialMediaAccount]), class: "btn btn-lg btn-primary"%>
+    </div>
+  <% end %>
+</section>

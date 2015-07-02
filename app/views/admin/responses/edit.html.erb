@@ -1,14 +1,13 @@
 <% page_title "Editing #{@response.friendly_name} for: #{@edition.title}" %>
 
-<div class="span8">
-  <section>
+<div class="row">
+  <section class="col-md-8">
     <h1>Editing <%= @response.friendly_name %> for consultation</h1>
 
     <%= render partial: 'form', locals: { consultation: @edition, consultation_response: @response } %>
   </section>
-</div>
-
-<div class="span4">
-  <%= render partial: "admin/editions/govspeak_help",
-  locals: { hide_inline_attachments_help: !@edition.allows_inline_attachments?, show_attachments_tab_help: true } %>
+  <div class="col-md-4">
+    <%= render partial: "admin/editions/govspeak_help",
+    locals: { hide_inline_attachments_help: !@edition.allows_inline_attachments?, show_attachments_tab_help: true } %>
+  </div>
 </div>

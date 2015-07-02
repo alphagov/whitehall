@@ -5,8 +5,8 @@
 <% end %>
 <%= form.text_field :isbn, label_text: 'ISBN' %>
 <%= form.text_field :unique_reference %>
-<div class="paper-number clearfix">
-  <%= form.text_field :command_paper_number, class: 'paper-number' %>
+<div class="paper-number">
+  <%= form.text_field :command_paper_number, class: 'input-md-3' %>
   <%= form.check_box :unnumbered_command_paper, label_text: 'Unnumbered' %>
 </div>
 <% if attachable.can_have_attached_house_of_commons_papers? %>

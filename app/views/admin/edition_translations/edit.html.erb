@@ -1,9 +1,9 @@
 <% page_title "Edit translation for: #{@edition.title}" %>
 
-<h1>Edit '<%= @translation_locale.native_language_name %> (<%= @translation_locale.english_language_name %>)' translation for: <%= @edition.title %></h1>
+<h1>Edit ‘<%= @translation_locale.native_language_name %> (<%= @translation_locale.english_language_name %>)’ translation for: <%= @edition.title %></h1>
 
-<div class="row-fluid">
-  <div class="span8">
+<div class="row">
+  <div class="col-md-8">
     <section>
       <%= form_for @translated_edition, as: :edition, url: admin_edition_translation_path(@translated_edition, translation_locale), method: :put do |form| %>
         <%= form.errors %>
@@ -16,7 +16,7 @@
       <% end %>
     </section>
   </div>
-  <div class="span4">
+  <div class="col-md-4">
     <%= sidebar_tabs edition_tabs(@edition, remarks_count: @edition_remarks.length, history_count: @edition_history.total_count, editing: true) do |tabs| %>
       <%= tabs.pane class: "govspeak_help", id: "govspeak_help" do %>
         <%= render partial: "admin/editions/govspeak_help",
@@ -26,7 +26,7 @@
       <%= tabs.pane class: "audit-trail", id: "notes" do %>
         <h1>Notes</h1>
         <p>To add a remark, save your changes.</p>
-        <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn add-remark" %>
+        <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn btn-default add-remark" %>
         <%= render_editorial_remarks_in_sidebar(@edition_remarks, @edition) %>
       <% end %>
 
@@ -34,7 +34,7 @@
         <div class="audit-trail-page">
           <h1>Activity</h1>
           <%= paginate @edition_history, theme: 'audit_trail' %>
-          <ul>
+          <ul class="list-unstyled">
             <%= render partial: "admin/editions/audit_trail_entry", collection: @edition_history %>
           </ul>
           <%= paginate @edition_history, theme: 'audit_trail' %>

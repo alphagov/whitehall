@@ -1,6 +1,6 @@
 .govspeak_help {
-  .collapse {
-    height: auto;
+  .no-js .collapse {
+    display: block;
   }
 
   h3 {
@@ -9,7 +9,7 @@
     line-height: 27px;
   }
 
-  .js-enabled & .collapse {
-    height: 0;
+  pre {
+    white-space: pre-wrap;
   }
 }

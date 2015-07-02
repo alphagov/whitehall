@@ -44,38 +44,31 @@ body {
 $collapse-tabs-width: 710px;
 
 .masthead {
-  @extend %contain-floats;
-  background: #222;
-  margin-bottom: $gutter;
-  padding: 0 15px;
-  border-top: 5px solid #000;
+  border-top-width: 5px;
+  border-bottom-width: 0;
+
+  @include ie-lte(8) {
+    .container-fluid {
+      padding-right: 0;
+    }
+
+    .navbar-container {
+      padding-left: 30px;
+    }
+  }
 }
 
-.masthead .navbar-brand {
-  background-image: image-url('admin/header-crown.png');
-  background-repeat: no-repeat;
-  background-position: 0 15px;
-  color: #fff;
-  font-family: "GillSans", "Gill Sans MT", "Gill Sans", "Helvetica Neue", Arial, sans-serif;
-  font-size: 20px;
+.masthead .container-fluid .navbar-brand {
   margin-left: 10px;
-  padding: $default-vertical-padding 10px 0 2.3em;
-  min-height: 37px;
-  display: block;
-  float: left;
 }
 
-.masthead-details {
-  padding: 0;
-}
-
-.masthead-details a {
-  color: #fff;
-  font-size: 14px;
+.masthead .navbar-container {
+  margin: 3px 0;
 }
 
 .masthead-tabs {
   position: relative;
+  margin-bottom: 0;
 }
 
 .masthead-tab-item {
@@ -110,16 +103,13 @@ $collapse-tabs-width: 710px;
 
     // Prevent wrapping of tabs
     width: 16%;
-
-    // Move tabs down to sit on content correctly
-    margin-bottom: -8px;
   }
 }
 
 .masthead-tab-item > a {
   color: $white;
   font-size: 16px;
-  height: 40px;
+  height: 60px;
   padding: 10px;
   display: table-cell;
   text-align: center;
@@ -186,8 +176,4 @@ $collapse-tabs-width: 710px;
 
 .tabbable ul.actions {
   margin: 0 0 $gutter 0;
-}
-
-.js-enabled .navbar .nav .js-hidden {
-  display: none;
 }
