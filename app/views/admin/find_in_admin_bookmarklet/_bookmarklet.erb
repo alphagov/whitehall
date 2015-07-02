@@ -9,7 +9,7 @@ function id_from_url() {
   return window.location.toString().split('/').pop();
 };
 function id_from_doc_page() {
-  return $('.document_page, .document-page').attr('id').split('_').pop();
+  return $('.document-page, [id^=detailed_guide_]').attr('id').split('_').pop();
 };
 function id_from_doc_collection() {
   return $('.document_collection, .documentcollection').attr('id').split('_').pop();
