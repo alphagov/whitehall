@@ -18,12 +18,4 @@ class Admin::CaseStudiesControllerTest < ActionController::TestCase
   should_allow_setting_first_published_at_during_speed_tagging :case_study
   should_allow_association_with_worldwide_organisations :case_study
   should_allow_association_between_world_locations_and :case_study
-
-  view_test "should not display access limited field" do
-    get :new
-
-    assert_select "form#new_edition" do
-      assert_select "input[name='edition[access_limited]']", false
-    end
-  end
 end

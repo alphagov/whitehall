@@ -21,6 +21,16 @@ module PublishingApiPresenters
     end
 
     def as_json
+      if edition.access_limited? && !edition.publicly_visible?
+        standard_fields.merge(access_limited: access_limited)
+      else
+        standard_fields
+      end
+    end
+
+  private
+
+    def standard_fields
       {
         content_id: edition.content_id,
         title: edition.title,
@@ -39,8 +49,6 @@ module PublishingApiPresenters
         details: details
       }
     end
-
-  private
 
     def details
       {
@@ -72,6 +80,16 @@ module PublishingApiPresenters
 
     def specialist_sectors
       [edition.primary_specialist_sector_tag].compact + edition.secondary_specialist_sector_tags
+    end
+
+    def access_limited
+      {
+        users: users.map(&:uid).compact
+      }
+    end
+
+    def users
+      @users ||= User.where(organisation: edition.organisations)
     end
   end
 end

@@ -134,13 +134,10 @@ module Admin::EditionsHelper
       concat render('locale_fields', form: form, edition: edition)
       concat edition_information(@information) if @information
       concat form.errors
-      concat render(partial: "standard_fields",
-                    locals: { form: form, edition: edition })
+      concat render("standard_fields", form: form, edition: edition)
       yield(form)
-      concat render('access_limiting_fields',
-                    form: form, edition: edition) if edition.can_be_access_limited?
-      concat render(partial: "scheduled_publication_fields",
-                    locals: { form: form, edition: edition })
+      concat render('access_limiting_fields', form: form, edition: edition)
+      concat render("scheduled_publication_fields", form: form, edition: edition)
       concat standard_edition_publishing_controls(form, edition)
     end
   end

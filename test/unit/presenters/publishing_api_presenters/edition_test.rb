@@ -156,4 +156,58 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
 
     assert_equal ["policy-area-1", "policy-area-2", "policy-2"], present(edition)[:details][:tags][:policies]
   end
+
+  test "includes all users in access limiting fields for lead and supporting orgs" do
+    lead_org_1 = create(:organisation)
+    lead_org_2 = create(:organisation)
+    supporting_org = create(:organisation)
+
+    edition = create(:publication,
+      lead_organisations: [lead_org_1, lead_org_2],
+      supporting_organisations: [supporting_org],
+      access_limited: true,
+    )
+
+    org_users = [
+      create(:user, organisation: lead_org_1),
+      create(:user, organisation: lead_org_2),
+      create(:user, organisation: supporting_org),
+    ]
+
+    assert_equal org_users.map(&:uid).sort, present(edition)[:access_limited][:users].sort
+  end
+
+  test "removes users with no uid" do
+    lead_org = create(:organisation)
+
+    edition = create(:publication,
+      lead_organisations: [lead_org],
+      access_limited: true,
+    )
+
+    org_users = [
+      create(:user, organisation: lead_org, uid: nil),
+    ]
+
+    assert_equal [], present(edition)[:access_limited][:users]
+  end
+
+  test "does not include access limiting fields if not access limited" do
+    edition = create(:publication, access_limited: false)
+    assert_nil present(edition)[:access_limited]
+  end
+
+  test "does not include access limiting fields if publicly visible" do
+    edition = create(:publication, :published, access_limited: true)
+    assert_nil present(edition)[:access_limited]
+
+    edition = create(:publication, :withdrawn, access_limited: true)
+    assert_nil present(edition)[:access_limited]
+
+    edition = create(:publication, :draft, access_limited: true)
+    refute_nil present(edition)[:access_limited]
+
+    edition = create(:publication, :submitted, access_limited: true)
+    refute_nil present(edition)[:access_limited]
+  end
 end
