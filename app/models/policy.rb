@@ -45,7 +45,9 @@ private
   attr_reader :links
 
   def self.entries
-    content_register.entries("policy")
+    Rails.cache.fetch('policy.entries', expires_in: 5.minutes) do
+      content_register.entries("policy").to_a
+    end
   end
 
   def self.find_entry(content_id)
