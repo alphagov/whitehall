@@ -177,6 +177,21 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
     assert_equal org_users.map(&:uid).sort, present(edition)[:access_limited][:users].sort
   end
 
+  test "removes users with no uid" do
+    lead_org = create(:organisation)
+
+    edition = create(:publication,
+      lead_organisations: [lead_org],
+      access_limited: true,
+    )
+
+    org_users = [
+      create(:user, organisation: lead_org, uid: nil),
+    ]
+
+    assert_equal [], present(edition)[:access_limited][:users]
+  end
+
   test "does not include access limiting fields if not access limited" do
     edition = create(:publication, access_limited: false)
     assert_nil present(edition)[:access_limited]

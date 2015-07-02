@@ -84,7 +84,7 @@ module PublishingApiPresenters
 
     def access_limited
       {
-        users: users.map(&:uid)
+        users: users.map(&:uid).compact
       }
     end
 
