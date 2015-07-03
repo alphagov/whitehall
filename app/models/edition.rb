@@ -267,7 +267,8 @@ class Edition < ActiveRecord::Base
     latest_change_note: :most_recent_change_note,
     is_political: :political?,
     is_historic: :historic?,
-    government_name: :search_government_name
+    government_name: :search_government_name,
+    important_to_policy: :important?,
   )
 
   def search_title
@@ -648,6 +649,10 @@ class Edition < ActiveRecord::Base
     return false unless government
 
     political? && !government.current?
+  end
+
+  def important?
+    important
   end
 
 private

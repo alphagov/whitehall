@@ -131,3 +131,17 @@ When(/^I filter the announcements list by "(.*?)"$/) do |announcement_type|
   select announcement_type, from: "Announcement type"
   click_on "Refresh results"
 end
+
+When(/^I draft a new important news article "(.*?)" relating it to the policies "(.*?)" and "(.*?)"$/) do |news_article_title, policy_title_1, policy_title_2|
+  policies = content_register_has_policies([policy_title_1, policy_title_2])
+
+  create(:published_news_article, title: news_article_title, policy_content_ids: policies.map {|p| p['content_id']}, important: true)
+end
+
+Then(/^"(.*?)" is marked as important$/) do |news_article_title|
+  assert NewsArticle.where(title: news_article_title).first.important == true
+end
+
+And(/^two published policies "(.*?)" and "(.*?)" exist$/) do |policy_title_1, policy_title_2|
+  policies = content_register_has_policies([policy_title_1, policy_title_2])
+end

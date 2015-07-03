@@ -3,6 +3,7 @@ FactoryGirl.define do
     title "world-location-news-title"
     summary "world-location-news-summary"
     body  "world-location-news-body"
+    important false
 
     after :build do |news, evaluator|
       news.world_locations = [FactoryGirl.build(:world_location)] unless evaluator.world_locations.any?
