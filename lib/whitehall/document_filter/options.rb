@@ -73,7 +73,7 @@ module Whitehall
       end
 
       def options_for_topics
-        @options_for_topics ||= StructuredOptions.new(all_label: "All topics", grouped: Classification.grouped_by_type)
+        @options_for_topics ||= StructuredOptions.new(all_label: "All policy areas", grouped: Classification.grouped_by_type)
       end
 
       def options_for_document_type

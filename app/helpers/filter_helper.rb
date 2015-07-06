@@ -6,7 +6,7 @@ module FilterHelper
   end
 
   def topic_options_for_statistics_announcement_filter(selected_slug = nil)
-    options_for_select(Topic.with_statistics_announcements.alphabetical.map { |topic| [topic.name, topic.slug] }.unshift(['All topics', nil]), Array(selected_slug))
+    options_for_select(Topic.with_statistics_announcements.alphabetical.map { |topic| [topic.name, topic.slug] }.unshift(['All policy areas', nil]), Array(selected_slug))
   end
 
   def describe_filter(filter, base_url, opts = {})

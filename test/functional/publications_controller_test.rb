@@ -237,7 +237,7 @@ class PublicationsControllerTest < ActionController::TestCase
     get :index
 
     assert_select "select[name='topics[]']" do
-      assert_select "option[selected='selected']", text: "All topics"
+      assert_select "option[selected='selected']", text: "All policy areas"
     end
   end
 

@@ -62,7 +62,7 @@ end
 
 When /^I edit the topic "([^"]*)" to have description "([^"]*)"$/ do |name, description|
   visit admin_root_path
-  click_link "Topics"
+  click_link "Policy Areas"
   click_link name
   click_on "Edit"
   fill_in "Description", with: description

@@ -122,7 +122,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     topic = create(:topic, policy_content_ids: [policy_1["content_id"]])
 
     delete :destroy, id: topic
-    assert_equal "Cannot destroy Topic with associated content", flash[:alert]
+    assert_equal "Cannot destroy Policy area with associated content", flash[:alert]
     refute topic.reload.deleted?
   end
 end
