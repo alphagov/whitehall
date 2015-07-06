@@ -59,7 +59,7 @@ class Classification < ActiveRecord::Base
   def self.grouped_by_type
     Rails.cache.fetch("filter_options/topics", expires_in: 30.minutes) do
       {
-        'Topics' => Topic.alphabetical.map { |o| [o.name, o.slug] },
+        'Policy areas' => Topic.alphabetical.map { |o| [o.name, o.slug] },
         'Topical events' => TopicalEvent.active.order_by_start_date.map { |o| [o.name, o.slug] }
       }
     end
