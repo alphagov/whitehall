@@ -23,7 +23,7 @@ class Admin::ContactTranslationsControllerTest < ActionController::TestCase
 
     get :edit, organisation_id: organisation, contact_id: contact, id: "fr"
 
-    assert_select "h1", text: "Edit 'Français (French)' translation for: english-title"
+    assert_select "h1", text: "Edit ‘Français (French)’ translation for: english-title"
   end
 
   view_test "edit displays translation boxes for contact numbers" do

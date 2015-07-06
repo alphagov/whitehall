@@ -17,7 +17,7 @@
       <% if edition.organisations.any? %>
         <%= render partial: "admin/organisations/organisations_name_list", locals: {organisations: edition.sorted_organisations} %>
       <% else %>
-        <p>This document isn't assigned to any organisations.</p>
+        <p>This document isn’t assigned to any organisations.</p>
       <% end %>
     </section>
   <% end %>
@@ -28,7 +28,7 @@
       <% if edition.topics.any? %>
         <%= render partial: "classifications/list", locals: {topics: edition.topics} %>
       <% else %>
-        <p>This document isn't assigned to any topics.</p>
+        <p>This document isn’t assigned to any topics.</p>
       <% end %>
     </section>
   <% end %>
@@ -39,7 +39,7 @@
       <% if edition.world_locations.any? %>
         <%= render partial: "world_locations/list", locals: {world_locations: edition.world_locations} %>
       <% else %>
-        <p>This document isn't assigned to any world locations.</p>
+        <p>This document isn’t assigned to any world locations.</p>
       <% end %>
     </section>
   <% end %>
