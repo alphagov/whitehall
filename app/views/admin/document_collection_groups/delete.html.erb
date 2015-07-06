@@ -9,7 +9,7 @@
       <div class="alert alert-danger">
         <% if @collection.groups.size == 1 %>
           <p>
-            Every document collection needs at least one group, so you can't
+            Every document collection needs at least one group, so you can’t
             delete the last one.
           </p>
           <p>
@@ -17,7 +17,7 @@
             collection page, click the edit link, and rename it instead.
           </p>
         <% else %>
-          You can't delete a group that has documents in it &ndash;
+          You can’t delete a group that has documents in it &ndash;
           remove the documents first, or move them into another group.
         <% end %>
       </div>
@@ -28,7 +28,7 @@
     <% else %>
       <%= form_for [@collection, @group], url: admin_document_collection_group_path(@collection, @group), method: 'delete' do |form| %>
         <p>
-          Are you sure you want to delete the group '<%= @group.heading %>'?
+          Are you sure you want to delete the group ‘<%= @group.heading %>’?
         </p>
         <%= form.form_actions(buttons: { delete: 'Delete' }, cancel: admin_document_collection_groups_path(@collection)) %>
       <% end %>

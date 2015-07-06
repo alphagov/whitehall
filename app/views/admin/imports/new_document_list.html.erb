@@ -7,7 +7,7 @@
       <% if document.latest_edition %>
         [<%= document.latest_edition.state.humanize %>] <%= link_to document.latest_edition.title, admin_edition_path(document.latest_edition) %>
       <% else %>
-        DELETED - &ldquo;<%= Edition.unscoped.where(:document_id => document.id).first.title %>&rdquo;
+        DELETED – ‘<%= Edition.unscoped.where(:document_id => document.id).first.title %>’
       <% end %>
       imported from
       <%= document.document_sources.map { |ds| link_to(ds.url, ds.url) }.to_sentence.html_safe %>

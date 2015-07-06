@@ -87,13 +87,13 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
     @group.documents = [create(:publication).document]
     @collection.groups << build(:document_collection_group)
     get :delete, document_collection_id: @collection, id: @group
-    assert_select 'div.alert', /can't delete a group.*documents/
+    assert_select 'div.alert', /can’t delete a group.*documents/
     assert_select 'input[type="submit"]', count: 0
   end
 
   view_test "GET #delete explains you can't delete the last group" do
     get :delete, document_collection_id: @collection, id: @group
-    assert_select 'div.alert', /can't\s+delete the last/
+    assert_select 'div.alert', /can’t\s+delete the last/
     assert_select 'input[type="submit"]', count: 0
   end
 

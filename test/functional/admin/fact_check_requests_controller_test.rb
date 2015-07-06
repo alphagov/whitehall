@@ -23,7 +23,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
 
     get :show, id: fact_check_request
 
-    assert_select ".fact_check_request .apology", text: "We're sorry, but this document is no longer available for fact checking."
+    assert_select ".fact_check_request .apology", text: "We’re sorry, but this document is no longer available for fact checking."
     refute_select ".title", text: "deleted-publication-title"
     refute_select ".body", text: "deleted-publication-body"
   end
@@ -49,7 +49,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
 
     get :edit, id: fact_check_request
 
-    assert_select ".fact_check_request .apology", text: "We're sorry, but this document is no longer available for fact checking."
+    assert_select ".fact_check_request .apology", text: "We’re sorry, but this document is no longer available for fact checking."
     refute_select ".document .title", text: "deleted-publication-title"
     refute_select ".document .body", text: "deleted-publication-body"
   end
@@ -137,7 +137,7 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
 
     put :update, id: fact_check_request, fact_check_request: attributes
 
-    assert_select ".fact_check_request .apology", text: "We're sorry, but this document is no longer available for fact checking."
+    assert_select ".fact_check_request .apology", text: "We’re sorry, but this document is no longer available for fact checking."
   end
 end
 
@@ -244,7 +244,7 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
     edition = create(:deleted_publication)
     post :create, edition_id: edition.id, fact_check_request: @attributes
 
-    assert_select ".fact_check_request .apology", text: "We're sorry, but this document is no longer available for fact checking."
+    assert_select ".fact_check_request .apology", text: "We’re sorry, but this document is no longer available for fact checking."
   end
 
   private

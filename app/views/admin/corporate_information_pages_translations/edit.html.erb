@@ -1,6 +1,6 @@
 <% page_title "Edit translation for: #{@english_corporate_information_page.title}" %>
 
-<h1>Edit '<%= @translation_locale.native_language_name %> (<%= @translation_locale.english_language_name %>)' translation for: <%= @english_corporate_information_page.title %></h1>
+<h1>Edit ‘<%= @translation_locale.native_language_name %> (<%= @translation_locale.english_language_name %>)’ translation for: <%= @english_corporate_information_page.title %></h1>
 
 <%= form_for @translated_corporate_information_page, url: [:admin, @organisational_entity, @translated_corporate_information_page, translation_locale], method: :put do |form| %>
   <%= form.errors %>

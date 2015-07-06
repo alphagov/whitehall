@@ -1,5 +1,5 @@
 <% page_title "Edit #{@promotional_feature.title} promotional feature" %>
-<h1>Edit '<%= @promotional_feature.title %>' feature</h1>
+<h1>Edit ‘<%= @promotional_feature.title %>’ feature</h1>
 
 <%= form_for [:admin, @promotional_feature.organisation, @promotional_feature], html: { class: "form-horizontal promotional_feature_item" } do |form| %>
   <%= form.errors %>
