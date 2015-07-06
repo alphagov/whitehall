@@ -62,6 +62,16 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
       unpublisher.failure_reason
   end
 
+  test 'cannot unpublish a published edition if a newer submitted version exists' do
+    edition = create(:published_edition)
+    submitted_edition = create(:submitted_edition, document: edition.document)
+    unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
+
+    refute unpublisher.can_perform?
+    assert_equal 'There is already a submitted edition of this document. You must discard it before you can unpublish this edition.',
+      unpublisher.failure_reason
+  end
+
   test 'cannot unpublish without an unpublishing details' do
     edition = create(:published_edition)
     unpublisher = EditionUnpublisher.new(edition)

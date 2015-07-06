@@ -482,10 +482,6 @@ class Edition < ActiveRecord::Base
     end
   end
 
-  def other_draft_editions
-    other_editions.draft
-  end
-
   def latest_edition
     document.editions.latest_edition.first
   end
