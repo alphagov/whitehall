@@ -4,10 +4,10 @@
     <%= form.text_field :name %>
 
     <%= form.label :world_location_ids, 'World location' %>
-    <%= form.select :world_location_ids, WorldLocation.ordered_by_name.collect {|org| [org.name, org.id]}, {}, multiple: true, class: 'chzn-select form-control', data: { placeholder: "Choose world locations..."} %>
+    <%= form.select :world_location_ids, WorldLocation.ordered_by_name.collect {|org| [org.name, org.id]}, {}, multiple: true, class: 'chzn-select form-control', data: { placeholder: "Choose world locations…"} %>
 
     <%= form.label :sponsoring_organisation_ids, 'Sponsoring organisations' %>
-    <%= form.select :sponsoring_organisation_ids, Organisation.all.collect {|org| [org.name, org.id]}, {}, multiple: true, class: 'chzn-select form-control', data: { placeholder: "Choose sponsoring organisations..."} %>
+    <%= form.select :sponsoring_organisation_ids, Organisation.all.collect {|org| [org.name, org.id]}, {}, multiple: true, class: 'chzn-select form-control', data: { placeholder: "Choose sponsoring organisations…"} %>
 
     <%= form.text_area :logo_formatted_name, rows: "4", style: "width: auto" %>
 
