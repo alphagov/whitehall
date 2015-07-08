@@ -84,7 +84,7 @@ end
 
 When(/^I filter the statistics by department and topic$/) do
   within '.filter-form' do
-    select "Beards", from: "Policy Area"
+    select "Beards", from: "Policy area"
     select "Wombats of Wimbledon", from: "Department"
     click_on "Refresh results"
   end
