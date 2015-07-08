@@ -88,7 +88,7 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
     end
   end
 
-  test 'Locale is ignored if edition is a non-tranlatable type' do
+  test 'Locale is ignored if edition is a non-translatable type' do
     non_translatable_edition = create(:consultation)
     refute public_document_url(non_translatable_edition, locale: 'fr').include?('fr')
   end
@@ -98,6 +98,19 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
     with_locale :de do
       assert public_document_url(non_english_edition, locale: 'de').include? ".fr"
     end
+  end
+
+  test "Creates a preview URL with cachebust and edition parameters" do
+    edition = create(:draft_publication)
+    preview_url = preview_document_url(edition)
+    assert_equal "http://test.host/government/publications/#{edition.slug}?cachebust=#{Time.zone.now.getutc.to_i}&preview=#{edition.id}", preview_url
+  end
+
+  test "Creates a preview URL without parameters for case studies" do
+    Whitehall.stubs(case_study_preview_host: 'content.preview')
+    edition = create(:draft_case_study)
+    preview_url = preview_document_url(edition)
+    assert_equal "http://content.preview/government/case-studies/#{edition.slug}", preview_url
   end
 
   test "organisations have the correct path generated" do

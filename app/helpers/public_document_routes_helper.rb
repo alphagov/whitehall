@@ -45,9 +45,11 @@ module PublicDocumentRoutesHelper
   end
 
   def preview_document_url(edition, options = {})
-    case_study_preview_host = edition.is_a?(CaseStudy) && Whitehall.case_study_preview_host
-    options.merge!(host: case_study_preview_host || request.host)
-    options.merge!(preview: edition.latest_edition.id, cachebust: Time.zone.now.getutc.to_i)
+    if edition.is_a?(CaseStudy) && Whitehall.case_study_preview_host.present?
+      options[:host] = Whitehall.case_study_preview_host
+    else
+      options.merge!(preview: edition.latest_edition.id, cachebust: Time.zone.now.getutc.to_i)
+    end
 
     document_url(edition, options)
   end
