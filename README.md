@@ -220,13 +220,7 @@ call `save!` on it.
 ## Specifying a different endpoint for the GDS Content API
 
 Whitehall uses the GDS Content API to serve categorisation for
-Detailed Guidance.
-
-You need to set the following environment variables :-
-
-    CONTENT_API_ENDPOINT_URL # e.g. https://contentapi.preview.alphagov.co.uk
-    CONTENT_API_USERNAME
-    CONTENT_API_PASSWORD
+Detailed Guidance. In tests, this is stubbed out, see `config/initializers/content_api.rb`.
 
 ## Generating the documentation
 
