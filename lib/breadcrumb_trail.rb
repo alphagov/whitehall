@@ -15,6 +15,12 @@ class BreadcrumbTrail
   def url_maker
     Whitehall.url_maker
   end
+
+private
+
+  def mainstream_section_tag_for(string_tag_id)
+    Whitehall.content_api.tag(string_tag_id, "section") || {}
+  end
 end
 
 class DetailedGuideBreadcrumbTrail < BreadcrumbTrail
@@ -38,7 +44,7 @@ class DetailedGuideBreadcrumbTrail < BreadcrumbTrail
 
 private
   def tag_hash(mainstream_category)
-    tag = Whitehall.content_api.tag(mainstream_category.parent_tag) || {}
+    tag = mainstream_section_tag_for(mainstream_category.parent_tag)
     {
       title: mainstream_category.title,
       id: mainstream_category.path,
@@ -68,7 +74,9 @@ class MainstreamCategoryBreadcrumbTrail < BreadcrumbTrail
       format: 'section',
       web_url: url_maker.mainstream_category_path(@mainstream_category),
       id: @mainstream_category.path,
-      tags: [Whitehall.content_api.tag(@mainstream_category.parent_tag).to_hash]
+      tags: [
+        mainstream_section_tag_for(@mainstream_category.parent_tag).to_hash
+      ]
     }
   end
 end
