@@ -45,8 +45,9 @@ module PublicDocumentRoutesHelper
   end
 
   def preview_document_url(edition, options = {})
-    if edition.is_a?(CaseStudy) && Whitehall.case_study_preview_host.present?
-      options[:host] = Whitehall.case_study_preview_host
+    case edition
+    when CaseStudy
+      options[:host] = Plek.current.find("draft-origin")
     else
       options.merge!(preview: edition.latest_edition.id, cachebust: Time.zone.now.getutc.to_i)
     end
