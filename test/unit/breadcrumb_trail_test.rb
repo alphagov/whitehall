@@ -5,7 +5,9 @@ class BreadcrumbTrailTest < ActiveSupport::TestCase
     mainstream_category = create(:mainstream_category, parent_tag: "business/tax")
     detailed_guide = create(:detailed_guide, title: "detailed-guide-title", primary_mainstream_category: mainstream_category)
     content_api = stub("content-api")
-    content_api.expects(:tag).with(mainstream_category.parent_tag).returns(business_tax_tag)
+    content_api.expects(:tag)
+      .with(mainstream_category.parent_tag, "section")
+      .returns(business_tax_tag)
 
     with_content_api(content_api) do
       breadcrumb_trail = BreadcrumbTrail.for(detailed_guide)
@@ -49,7 +51,9 @@ class BreadcrumbTrailTest < ActiveSupport::TestCase
   test "should build hash suitable for slimmer from mainstream_category" do
     mainstream_category = create(:mainstream_category, parent_tag: "business/tax")
     content_api = stub("content-api")
-    content_api.expects(:tag).with(mainstream_category.parent_tag).returns(business_tax_tag)
+    content_api.expects(:tag)
+      .with(mainstream_category.parent_tag, "section")
+      .returns(business_tax_tag)
 
     with_content_api(content_api) do
       breadcrumb_trail = BreadcrumbTrail.for(mainstream_category)

@@ -1,7 +1,7 @@
 require 'gds_api/content_api'
 
 class GdsApi::ContentApi::Fake
-  def tag(tag)
+  def tag(tag, tag_type)
     {}
   end
 
