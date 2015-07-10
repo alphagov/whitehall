@@ -8,6 +8,7 @@ module Searchable
     :content,
     :description,
     :display_type,
+    :detailed_format,
     :format,
     :government_name,
     :id,
