@@ -34,4 +34,16 @@ class ServiceListeners::AuthorNotifierTest < ActiveSupport::TestCase
     assert_equal creator.email, first_notification.to[0]
     assert_match /\'#{edition.title}\' has been published/, first_notification.subject
   end
+
+  test 'sets a suitable "from" including a quoted display name' do
+    edition = create(:edition)
+
+    ServiceListeners::AuthorNotifier.new(edition).notify!
+
+    assert_equal 1, ActionMailer::Base.deliveries.size
+
+    first_notification = ActionMailer::Base.deliveries.first
+    # GovukAdminTemplate.environment_label isn't set in tests, hence the space inside the brackets
+    assert_equal '"[GOV.UK ] DO NOT REPLY" <inside-government@digital.cabinet-office.gov.uk>', first_notification[:from].to_s
+  end
 end

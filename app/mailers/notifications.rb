@@ -62,6 +62,9 @@ class Notifications < ActionMailer::Base
     if GovukAdminTemplate.environment_label !~ /production/i
       name.prepend("[GOV.UK #{GovukAdminTemplate.environment_label}] ")
     end
-    "#{name} <inside-government@digital.cabinet-office.gov.uk>"
+
+    address = Mail::Address.new("inside-government@digital.cabinet-office.gov.uk")
+    address.display_name = name
+    address.format
   end
 end
