@@ -8,7 +8,7 @@ class SpecialistSectorCleanup
   end
 
   def any_published_taggings?
-    taggings.map(&:edition).any? do |edition|
+    taggings.map(&:edition).compact.any? do |edition|
       edition.document.ever_published_editions.any?
     end
   end
@@ -16,12 +16,15 @@ class SpecialistSectorCleanup
   def remove_taggings(add_note: true)
     taggings.each do |tagging|
       edition = tagging.edition
-
-      puts "Removing tagging to edition ##{edition.id}"
+      if edition
+        puts "Removing tagging to edition ##{edition.id}"
+      else
+        puts "Removing orphaned tagging to edition_id ##{tagging.edition_id}"
+      end
 
       tagging.destroy
 
-      if add_note
+      if add_note && edition
         puts "Adding an editorial note from the GDS user"
 
         gds_user = User.find_by(email: "govuk-whitehall@digital.cabinet-office.gov.uk")
