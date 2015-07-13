@@ -75,10 +75,10 @@ class Api::DetailedGuidesControllerTest < ActionController::TestCase
     assert_equal 'ok', json_response['_response_info']['status']
   end
 
-  view_test "tags responds with 404 if there aren't any valid children" do
+  view_test "tags responds with empty array if there aren't any valid children" do
     MainstreamCategory.stubs(:with_published_content).returns(stub('scope', where: []))
     get :tags, { parent_id: 'test1/test2', format: 'json' }
-    assert_response :not_found
-    assert_equal 'not found', json_response['_response_info']['status']
+    assert_equal 'ok', json_response['_response_info']['status']
+    assert_equal [], json_response['results']
   end
 end
