@@ -29,20 +29,23 @@ module Organisation::OrganisationTypeConcern
     }
 
     scope :hmcts_tribunals, -> {
-      hmcts_id = Organisation.where(slug: "hm-courts-and-tribunals-service").ids.first
+      hmcts_id = Organisation.unscoped.where(slug: "hm-courts-and-tribunals-service").ids.first
       joins(:parent_organisational_relationships).
         where(organisation_type_key: :tribunal_ndpb).
         where("organisational_relationships.parent_organisation_id" => hmcts_id)
     }
 
     scope :excluding_hmcts_tribunals, -> {
-      hmcts_id = Organisation.where(slug: "hm-courts-and-tribunals-service").ids.first
-      distinct.joins("LEFT JOIN organisational_relationships parent_organisational_relationships
-        ON parent_organisational_relationships.child_organisation_id = organisations.id").
-      where("NOT (parent_organisational_relationships.parent_organisation_id = ? AND
-              organisations.organisation_type_key = ?) OR
-              parent_organisational_relationships.child_organisation_id IS NULL",
-              hmcts_id, :tribunal_ndpb)
+      hmcts_id = Organisation.unscoped.where(slug: "hm-courts-and-tribunals-service").ids.first
+
+      if hmcts_id
+        distinct.joins("LEFT JOIN organisational_relationships parent_organisational_relationships
+          ON parent_organisational_relationships.child_organisation_id = organisations.id").
+          where("NOT (parent_organisational_relationships.parent_organisation_id = ? AND
+                organisations.organisation_type_key = ?) OR
+                parent_organisational_relationships.child_organisation_id IS NULL",
+                hmcts_id, :tribunal_ndpb)
+      end
     }
 
     scope :excluding_courts, -> { where.not(organisation_type_key: :court) }
