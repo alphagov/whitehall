@@ -10,12 +10,6 @@
       <%= render 'admin/shared/policy_fields', form: form %>
       <%= render partial: 'topic_fields', locals: { form: form, edition: edition } %>
 
-      <%= form.label :primary_mainstream_category_id, 'Primary detailed guidance category' %>
-      <%= form.select :primary_mainstream_category_id, mainstream_category_options(edition, edition.primary_mainstream_category_id), {}, class: 'chzn-select form-control', data: { placeholder: "Choose a primary detailed guidance category…"} %>
-
-      <%= form.label :other_mainstream_category_ids, 'Other detailed guidance categories' %>
-      <%= form.select :other_mainstream_category_ids, mainstream_category_options(edition, edition.other_mainstream_category_ids), {}, multiple: true, class: 'chzn-select form-control', data: { placeholder: "Choose other detailed guidance categories…"} %>
-
       <%= form.text_field :need_ids, label_text: 'Maslow Need IDs (enter a comma-separated list)', placeholder: "Enter a comma-separated list of Maslow Need IDs", value: edition.need_ids.join(", ") %>
 
       <%= render partial: 'specialist_sector_fields', locals: { form: form, edition: edition } %>

@@ -20,13 +20,6 @@ Scenario: Publishing a submitted detailed guide
   Then I should see the detailed guide "Finer points of moustache trimming" in the list of published documents
   And the detailed guide "Finer points of moustache trimming" should be visible to the public
 
-Scenario: Publishing a submitted detailed guide to a mainstream category
-  Given I am an editor in the organisation "Department of Examples"
-  Given a mainstream category "Finer points of yak shaving" exists
-  And a submitted detailed guide "Yak shaving tools" exists in the "Finer points of yak shaving" mainstream category
-  When I publish the detailed guide "Yak shaving tools"
-  Then the detailed guide "Yak shaving tools" should be visible to the public in the mainstream category "Finer points of yak shaving"
-
 Scenario: Viewing detailed guide publishing history
   Given I am an editor in the organisation "Department of Examples"
   Given a published detailed guide "Ban Beards" exists
