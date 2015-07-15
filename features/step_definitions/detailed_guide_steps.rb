@@ -10,14 +10,12 @@ Given /^a published detailed guide "([^"]*)" for the organisation "([^"]*)"$/ do
 end
 
 When /^I draft a new detailed guide "([^"]*)"$/ do |title|
-  category = create(:mainstream_category)
-  begin_drafting_document type: 'detailed_guide', title: title, primary_mainstream_category: category, previously_published: false
+  begin_drafting_document type: 'detailed_guide', title: title, previously_published: false
   click_button "Save"
 end
 
 Given /^I start drafting a new detailed guide$/ do
-  category = create(:mainstream_category)
-  begin_drafting_document type: 'detailed_guide', title: "Detailed Guide", primary_mainstream_category: category, previously_published: false
+  begin_drafting_document type: 'detailed_guide', title: "Detailed Guide", previously_published: false
 end
 
 When /^I visit the detailed guide "([^"]*)"$/ do |name|
