@@ -8,6 +8,7 @@ class Api::WorldwideOrganisationPresenter < Api::BasePresenter
       web_url: Whitehall.url_maker.worldwide_organisation_url(model),
       details: {
         slug: model.slug,
+        analytics_identifier: model.analytics_identifier,
       },
       offices: offices_as_json,
       sponsors: sponsors_as_json,

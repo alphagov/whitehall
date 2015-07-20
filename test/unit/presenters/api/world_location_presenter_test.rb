@@ -52,6 +52,11 @@ class Api::WorldLocationPresenterTest < PresenterTestCase
     assert_equal 'location-slug', @presenter.as_json[:details][:slug]
   end
 
+  test "json includes analytics_identifier in details hash" do
+    @location.stubs(:analytics_identifier).returns('WL123')
+    assert_equal 'WL123', @presenter.as_json[:details][:analytics_identifier]
+  end
+
   test "json includes display type as format" do
     @location.stubs(:display_type).returns('location-display-type')
     assert_equal 'location-display-type', @presenter.as_json[:format]
