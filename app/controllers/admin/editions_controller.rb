@@ -104,7 +104,7 @@ class Admin::EditionsController < Admin::BaseController
       end
 
       @edition.convert_to_draft! if params[:speed_save_convert]
-      redirect_to after_update_path, saved_confirmation_notice
+      redirect_to show_or_edit_path, saved_confirmation_notice
     else
       flash.now[:alert] = "There are some problems with the document"
       if speed_tagging?
@@ -151,25 +151,7 @@ class Admin::EditionsController < Admin::BaseController
   private
 
   def speed_tagging?
-    params[:speed_save_convert] || params[:speed_save_next] || params[:speed_save]
-  end
-
-  def after_update_path
-    # infer the next action the user wants to take
-    # from the button they pressed to submit the form
-    if params[:speed_save_convert] || params[:speed_save_next]
-      previously_imported_document_path
-    else
-      show_or_edit_path
-    end
-  end
-
-  def previously_imported_document_path
-    import = Import.source_of(@edition.document)
-    previous_document = import.document_imported_before(@edition.document) if import
-    return admin_edition_path(previous_document.latest_edition) if previous_document
-
-    admin_editions_path(session_filters.merge('state' => :imported))
+    params[:speed_save_convert] || params[:speed_save]
   end
 
   def fetch_version_and_remark_trails
