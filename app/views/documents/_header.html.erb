@@ -5,7 +5,6 @@
 <%
   header_title ||= ""
   policies ||= nil
-  primary_mainstream_category ||= nil
   specialist_tag_finder = SpecialistTagFinder.new(@document)
 %>
 <%= render partial: 'shared/heading',
@@ -27,7 +26,6 @@
 <%= render 'documents/metadata', document: document,
                                  footer_meta: (defined?(footer_meta) ? footer_meta : false),
                                  policies: policies,
-                                 primary_mainstream_category: primary_mainstream_category,
                                  specialist_tag_finder: specialist_tag_finder %>
 
 <% if document.historic? %>

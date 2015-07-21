@@ -4,7 +4,6 @@ require 'test_helper'
 
 class DocumentHelperTest < ActionView::TestCase
   include PublicDocumentRoutesHelper
-  include MainstreamCategoryRoutesHelper
   include OrganisationHelper
 
   test "#edition_organisation_class returns the slug of the first organisation of the edition" do
@@ -173,17 +172,6 @@ class DocumentHelperTest < ActionView::TestCase
                               "a[href=?]",
                               topical_event_path(topical_event),
                               text: topical_event.name
-  end
-
-  test "part_of_metadata generates primary mainstream categories metadata" do
-    mainstream_category = create(:mainstream_category)
-    guide = create(:news_article)
-
-    metadata_links = part_of_metadata(guide, [], nil, mainstream_category).join(' ')
-    assert_select_within_html metadata_links,
-                              "a[href=?]",
-                              mainstream_category_path(mainstream_category),
-                              text: mainstream_category.title
   end
 
   test "part_of_metadata generates world_locations metadata" do

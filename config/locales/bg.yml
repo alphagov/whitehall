@@ -220,8 +220,6 @@ bg:
         unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         file:
-      detailed_guide:
-        primary_mainstream_category: "Първоначална  категория с подробни указания"
       policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
@@ -305,7 +303,6 @@ bg:
       long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents:
-    categories:
     contents:
     more:
     part_of_published_collection:
@@ -363,7 +360,6 @@ bg:
       our_announcements: "Съобщенията ни"
       our_consultations:
       our_judges:
-      our_mainstream_categories:
       our_management: "Нашето ръководство"
       our_ministers: "Нашите министи"
       our_policies: "Нашите политики"

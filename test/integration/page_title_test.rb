@@ -9,7 +9,6 @@ class PageTitleTest < ActiveSupport::TestCase
     admin/edition_audit_trail/index.html.erb
     admin/preview/preview.html.erb
     layouts/admin.html.erb
-    layouts/detailed-guidance.html.erb
     layouts/frontend.html.erb
     layouts/home.html.erb
     layouts/html_attachments.html.erb

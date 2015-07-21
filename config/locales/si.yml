@@ -219,8 +219,6 @@ si:
         unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         file:
-      detailed_guide:
-        primary_mainstream_category: "ප්‍රාථමික විස්තරාත්මක උපදෙස් වර්ගීකරණය"
       policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
@@ -301,7 +299,6 @@ si:
       long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents:
-    categories:
     contents:
     more:
     part_of_published_collection:
@@ -358,7 +355,6 @@ si:
       our_announcements: "අපේ නිවේදන"
       our_consultations:
       our_judges:
-      our_mainstream_categories:
       our_management: "අපේ කළමනාකරණය"
       our_ministers: "අපේ ඇමතිවරුන්"
       our_policies: "අපේ ප්‍රතිපත්ති"

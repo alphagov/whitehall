@@ -5,13 +5,10 @@ class DetailedGuide < Edition
   include ::Attachable
   include Edition::AlternativeFormatProvider
   include Edition::FactCheckable
-  include Edition::HasMainstreamCategories
   include Edition::HasDocumentCollections
   include Edition::Organisations
   include Edition::RelatedPolicies
   include Edition::RelatedDocuments
-
-  delegate :section, :subsection, :subsubsection, to: :primary_mainstream_category, allow_nil: true
 
   validate :related_mainstream_content_valid?
   validate :additional_related_mainstream_content_valid?

@@ -219,8 +219,6 @@ es-419:
         unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         file:
-      detailed_guide:
-        primary_mainstream_category: Categoría de orientación principal en detalle
       policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
@@ -302,7 +300,6 @@ es-419:
       long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents:
-    categories:
     contents:
     more:
     part_of_published_collection:
@@ -360,7 +357,6 @@ es-419:
       our_announcements: Nuestras novedades
       our_consultations:
       our_judges:
-      our_mainstream_categories:
       our_management: Nuestra administración
       our_ministers: Nuestros ministros
       our_policies: Nuestras políticas

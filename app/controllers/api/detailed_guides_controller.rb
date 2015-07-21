@@ -20,15 +20,6 @@ class Api::DetailedGuidesController < PublicFacingController
     )
   end
 
-  def tags
-    @results = MainstreamCategory.with_published_content.where(parent_tag: params[:parent_id])
-    if @results.any?
-      respond_with Api::MainstreamCategoryTagPresenter.new(@results)
-    else
-      respond_with_not_found
-    end
-  end
-
   private
 
   def respond_with_not_found

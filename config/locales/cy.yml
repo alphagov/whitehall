@@ -415,8 +415,6 @@ cy:
         unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         file:
-      detailed_guide:
-        primary_mainstream_category: Prif gategori cyfarwyddyd manwl
       policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
@@ -498,7 +496,6 @@ cy:
       long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents: Yn ôl i'r cynnwys
-    categories: Pob arweiniad manwl am Cynnwys
     contents: Cynnwys
     more: Mwy sy’n debyg i hyn
     part_of_published_collection: Mae hyn yn rhan o gasgliad
@@ -558,7 +555,6 @@ cy:
       our_announcements: Ein cyhoeddiadau
       our_consultations: Ein ymgynghoriadau
       our_judges:
-      our_mainstream_categories:
       our_management: Ein rheolaeth
       our_ministers: Ein gweinidogion
       our_policies: Ein polisïau

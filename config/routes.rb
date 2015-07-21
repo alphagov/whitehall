@@ -24,14 +24,8 @@ Whitehall::Application.routes.draw do
 
   get '/government/ministers/minister-of-state--11' => redirect('/government/people/kris-hopkins', prefix: '')
 
-  get '/browse/*parent_tag/:id', to: 'mainstream_categories#show'
-
   namespace 'api' do
-    resources :detailed_guides, path: 'specialist', only: [:show, :index], defaults: { format: :json } do
-      collection do
-        get :tags
-      end
-    end
+    resources :detailed_guides, path: 'specialist', only: [:show, :index], defaults: { format: :json }
     resources :governments, only: [:index, :show], defaults: { format: :json }
     resources :organisations, only: [:index, :show], defaults: { format: :json }
     resources :world_locations, path: 'world-locations', only: [:index, :show], defaults: { format: :json } do

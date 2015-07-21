@@ -68,7 +68,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
   private
 
   def controller_attributes_for(edition_type, attributes = {})
-    super.except(:primary_mainstream_category, :alternative_format_provider).reverse_merge(
+    super.except(:alternative_format_provider).reverse_merge(
       alternative_format_provider_id: create(:alternative_format_provider).id
     )
   end

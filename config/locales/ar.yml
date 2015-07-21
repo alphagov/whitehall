@@ -415,8 +415,6 @@ ar:
         unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         file:
-      detailed_guide:
-        primary_mainstream_category: "فئة توجيهات مفصلة أساسية"
       policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
@@ -497,7 +495,6 @@ ar:
       long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents:
-    categories:
     contents:
     more:
     part_of_published_collection:
@@ -555,7 +552,6 @@ ar:
       our_announcements: "إعلاناتنا"
       our_consultations:
       our_judges:
-      our_mainstream_categories:
       our_management: "إدارتنا"
       our_ministers: "وزراؤنا"
       our_policies: "سياساتنا"

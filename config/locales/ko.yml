@@ -18,8 +18,6 @@ ko:
         unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         file:
-      detailed_guide:
-        primary_mainstream_category: "상세 안내 카테고리"
       policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
@@ -99,7 +97,6 @@ ko:
       long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents:
-    categories:
     contents:
     more:
     part_of_published_collection:
@@ -318,7 +315,6 @@ ko:
       our_announcements: "뉴스"
       our_consultations:
       our_judges:
-      our_mainstream_categories:
       our_management: "조직"
       our_ministers: "장관급"
       our_policies: "정책"

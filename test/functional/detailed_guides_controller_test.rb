@@ -64,25 +64,6 @@ That's all
     assert_select "a[href='http://mainstream/additional-content']", "Some additional related mainstream content"
   end
 
-  view_test "show mainstream categories for a detailed guide" do
-    category = create(:mainstream_category)
-    guide = create(:published_detailed_guide, primary_mainstream_category: category)
-    get :show, id: guide.document
-
-    assert_select_object category
-  end
-
-  view_test "show sets breadcrumb trail" do
-    category = create(:mainstream_category)
-    detailed_guide = create(:published_detailed_guide, primary_mainstream_category: category)
-
-    get :show, id: detailed_guide.document
-
-    artefact_headers = ActiveSupport::JSON.decode(response.headers[Slimmer::Headers::ARTEFACT_HEADER])
-
-    assert_equal category.title, artefact_headers['tags'].first['title']
-  end
-
   view_test "show includes link to API representation" do
     detailed_guide = create(:published_detailed_guide)
 
@@ -97,21 +78,6 @@ That's all
     get :show, id: guide.document
 
     assert_equal "detailed_guidance", response.headers["X-Slimmer-Format"]
-  end
-
-  view_test "guides show more like this when there are categories" do
-    category = create(:mainstream_category)
-    guide = create(:published_detailed_guide, primary_mainstream_category: category)
-    get :show, id: guide.document
-
-    assert_select "#more-like-this"
-  end
-
-  view_test "detailed guides without a mainstream category are successfully rendered" do
-    guide = create(:published_detailed_guide, primary_mainstream_category: nil)
-    get :show, id: guide.document
-
-    assert_response :success
   end
 
   private

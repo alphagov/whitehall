@@ -219,8 +219,6 @@ et:
         unnumbered_hoc_paper: Nummerdamata Parlamendi alamkoja dokument
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         file: Manus
-      detailed_guide:
-        primary_mainstream_category: Esmane detailne juhisekategooria
       policy_group/policy_group_attachments/attachment/attachment_data:
         file: Manus
       response/consultation_response_attachments/attachment:
@@ -303,7 +301,6 @@ et:
       long_ordinal:
   detailed_guidance:
     back_to_contents: Tagasi sisukorda
-    categories: "Üksikasjaline tervikjuhend"
     contents: Sisukord
     more: Rohkem sarnaseid valikuid
     part_of_published_collection: See on osa sarjast
@@ -365,8 +362,6 @@ et:
       our_announcements: Meie teadaanded
       our_consultations: Meie konsultatsioonid
       our_judges:
-      our_mainstream_categories: 'Me väljastame detailseid juhendeid alljärgnevates
-        kategooriates:'
       our_management: Meie juhtkond
       our_ministers: Meie ministrid
       our_policies: Meie poliitikad

@@ -40,9 +40,6 @@ module DocumentHelper
       if options[:alternative_format_provider]
         select options[:alternative_format_provider].name, from: "edition_alternative_format_provider_id"
       end
-      if options[:primary_mainstream_category]
-        select options[:primary_mainstream_category].title, from: "Primary detailed guidance category"
-      end
 
       case options[:previously_published]
       when false

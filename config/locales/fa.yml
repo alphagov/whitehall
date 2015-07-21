@@ -18,8 +18,6 @@ fa:
         unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         file:
-      detailed_guide:
-        primary_mainstream_category: "دسته بندی راهنمایی های اولیه"
       policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
@@ -100,7 +98,6 @@ fa:
       long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents:
-    categories:
     contents:
     more:
     part_of_published_collection:
@@ -320,7 +317,6 @@ fa:
       our_announcements: "اطلاعیه های ما"
       our_consultations:
       our_judges:
-      our_mainstream_categories:
       our_management: "مدیریت ما"
       our_ministers: "معاونین وزیر ما"
       our_policies: "سیاست های ما"
