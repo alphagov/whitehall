@@ -202,7 +202,7 @@ Please tell us:
     link_to native_language_name_for(locale), locale: locale
   end
 
-  def part_of_metadata(document, policies = [], sector_tag_finder = nil, primary_mainstream_category = nil)
+  def part_of_metadata(document, policies = [], sector_tag_finder = nil)
     part_of = []
 
     if document.respond_to?(:part_of_published_collection?) && document.part_of_published_collection?
@@ -223,12 +223,6 @@ Please tell us:
 
     if policies.any?
       part_of += array_of_links_to_policies(policies)
-    end
-
-    if primary_mainstream_category
-      part_of << link_to(primary_mainstream_category.title,
-                         mainstream_category_path(primary_mainstream_category),
-                         class: 'primary-mainstream-category-link')
     end
 
     if document.respond_to?(:world_locations) && document.world_locations.any?

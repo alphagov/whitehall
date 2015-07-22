@@ -50,16 +50,11 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     parent_org_1 = create(:organisation)
     parent_org_2 = create(:organisation)
     topic_ids = [create(:topic), create(:topic)].map(&:id)
-    mainstream_category_ids = [create(:mainstream_category), create(:mainstream_category)].map(&:id)
 
     post :create, organisation: attributes.merge(
       organisation_classifications_attributes: [
         { classification_id: topic_ids[0], ordering: 1 },
         { classification_id: topic_ids[1], ordering: 2 }
-      ],
-      organisation_mainstream_categories_attributes: [
-        { mainstream_category_id: mainstream_category_ids[0], ordering: 2 },
-        { mainstream_category_id: mainstream_category_ids[1], ordering: 1 }
       ],
       parent_organisation_ids: [parent_org_1.id, parent_org_2.id],
       organisation_type_key: :executive_agency,
@@ -76,8 +71,6 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert organisation = Organisation.last
     assert organisation.organisation_classifications.map(&:ordering).all?(&:present?), "no ordering"
     assert_equal organisation.organisation_classifications.map(&:ordering).sort, organisation.organisation_classifications.map(&:ordering).uniq.sort
-    assert organisation.organisation_mainstream_categories.map(&:ordering).all?(&:present?), "no ordering"
-    assert_equal [mainstream_category_ids[1], mainstream_category_ids[0]], organisation.organisation_mainstream_categories.sort_by(&:ordering).map(&:mainstream_category_id)
     assert_equal topic_ids, organisation.organisation_classifications.sort_by(&:ordering).map(&:classification_id)
     assert organisation_top_task = organisation.featured_links.last
     assert_equal "http://www.gov.uk/mainstream/something", organisation_top_task.url

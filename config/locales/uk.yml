@@ -317,8 +317,6 @@ uk:
         unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         file:
-      detailed_guide:
-        primary_mainstream_category: "Первинна деталізована категорія"
       policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
@@ -399,7 +397,6 @@ uk:
       long_ordinal:
   detailed_guidance:
     back_to_contents:
-    categories:
     contents:
     more:
     part_of_published_collection:
@@ -457,7 +454,6 @@ uk:
       our_announcements: "Наші оголошення"
       our_consultations:
       our_judges:
-      our_mainstream_categories:
       our_management: "Наше керівництво"
       our_ministers: "Наші міністри"
       our_policies: "Наша політика"

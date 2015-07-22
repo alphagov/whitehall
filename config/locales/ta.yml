@@ -219,8 +219,6 @@ ta:
         unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         file:
-      detailed_guide:
-        primary_mainstream_category: "முதனிலை விளக்க வழிகாட்டல் வகை"
       policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
@@ -303,7 +301,6 @@ ta:
       long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents:
-    categories:
     contents:
     more:
     part_of_published_collection:
@@ -361,7 +358,6 @@ ta:
       our_announcements: "எங்களது அறிவிப்புகள்"
       our_consultations:
       our_judges:
-      our_mainstream_categories:
       our_management: "எங்களது முகாமைத்துவம்"
       our_ministers: "எங்களது அமைச்சர்கள்"
       our_policies: "எங்களது கொள்கைகள்"

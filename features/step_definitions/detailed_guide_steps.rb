@@ -34,22 +34,6 @@ Then /^I should be able to select another image for the detailed guide$/ do
   assert_equal 2, page.all(".images input[type=file]").length
 end
 
-Given /^a mainstream category "([^"]*)" exists$/ do |title|
-  create(:mainstream_category, title: title, slug: title.parameterize, parent_title: "Some parent", parent_tag: "some/parent")
-end
-
-Given /^a submitted detailed guide "([^"]*)" exists in the "([^"]*)" mainstream category$/ do |title, category_title|
-  category = MainstreamCategory.find_by!(title: category_title)
-  create(:submitted_detailed_guide, title: title, primary_mainstream_category: category)
-end
-
-Then /^the detailed guide "([^"]*)" should be visible to the public in the mainstream category "([^"]*)"$/ do |title, category_title|
-  category = MainstreamCategory.find_by!(title: category_title)
-  detailed_guide = DetailedGuide.latest_edition.find_by!(title: title)
-  visit "/browse/#{category.parent_tag}/#{category.slug}"
-  assert page.has_css?(record_css_selector(detailed_guide))
-end
-
 When /^I publish a new edition of the detailed guide "([^"]*)" with a change note "([^"]*)"$/ do |guide_title, change_note|
   guide = DetailedGuide.latest_edition.find_by!(title: guide_title)
   visit admin_edition_path(guide)

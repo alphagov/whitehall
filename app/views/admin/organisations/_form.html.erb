@@ -88,18 +88,6 @@
         <% end %>
       </p>
     <% end %>
-
-    <h3>Detailed guidance categories</h3>
-    <% organisation_form.object.organisation_mainstream_categories.each do |omc| %>
-      <p>
-        <%= label_tag "organisation_mainstream_categories_ids_#{omc.ordering}" do %>
-          Detailed guidance category <%= omc.ordering + 1 %>
-          <%= select_tag "organisation[organisation_mainstream_categories_attributes][][mainstream_category_id]", options_from_collection_for_select(MainstreamCategory.all, 'id', 'title', omc.mainstream_category_id), include_blank: true, multiple: false, class: 'chzn-select form-control', data: { placeholder: "Choose detailed guidance category…"}, id: "organisation_mainstream_category_ids_#{omc.ordering}" %>
-          <%= hidden_field_tag "organisation[organisation_mainstream_categories_attributes][][ordering]", omc.ordering %>
-          <%= hidden_field_tag "organisation[organisation_mainstream_categories_attributes][][id]", omc.id %>
-        <% end %>
-      </p>
-    <% end %>
   </fieldset>
 
   <% if can?(:manage_featured_links, @organisation) %>

@@ -22,17 +22,6 @@ namespace :router do
     @router_api.add_route("/courts-tribunals", "prefix", @application_id)
   end
 
-  desc "Register all detailed guidance categories with the router"
-  task :register_detailed_guidance_categories => :register_backend do
-    MainstreamCategory.find_each do |category|
-      path = "/browse/" + category.path
-      @logger.info "Registering detailed guidance category '#{path}'"
-      @router_api.add_route(path, "exact", @application_id)
-    end
-    @logger.info "Detailed guidance categories registered, reloading routes..."
-    @router_api.commit_routes
-  end
-
   desc "Register whitehall backend and routes with the router"
   task :register => [ :register_backend, :register_routes ]
 end

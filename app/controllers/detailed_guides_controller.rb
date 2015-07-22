@@ -1,11 +1,9 @@
 class DetailedGuidesController < DocumentsController
   skip_before_filter :set_search_path
-  before_filter :set_breadcrumb_trail, only: [:show]
   before_filter :set_expiry, only: [:show]
   before_filter :set_analytics_format, only: [:show]
 
   def show
-    @categories = @document.mainstream_categories
     @topics = @document.topics
     @related_policies = document_related_policies
   end
@@ -17,11 +15,6 @@ private
 
   def analytics_format
     :detailed_guidance
-  end
-
-  def set_breadcrumb_trail
-    breadcrumb_trail = BreadcrumbTrail.for(@document)
-    set_slimmer_artefact breadcrumb_trail if breadcrumb_trail.valid?
   end
 
   def canonical_redirect_path(redir_params)

@@ -221,13 +221,6 @@ module Admin::EditionsHelper
     end
   end
 
-  def mainstream_category_options(edition, selected)
-    grouped_options = MainstreamCategory.all.group_by {|c| c.parent_title}.map do |group, members|
-      [group, members.map {|c| [c.title, c.id]}]
-    end
-    grouped_options_for_select(grouped_options, selected, { prompt: "" })
-  end
-
   def warn_about_lack_of_contacts_in_body?(edition)
     if edition.is_a?(NewsArticle) && edition.news_article_type == NewsArticleType::PressRelease
       (govspeak_embedded_contacts(edition.body).size < 1)

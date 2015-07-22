@@ -81,8 +81,6 @@ en:
         <<: *nested_attachment_field_names
       response/consultation_response_attachments/attachment/attachment_data:
         <<: *nested_attachment_data_field_names
-      detailed_guide:
-        primary_mainstream_category: Primary detailed guidance category
   date:
     formats:
       default: ! '%d %B %Y'
@@ -341,7 +339,6 @@ en:
       what_we_do: What we do
       who_we_are: Who we are
       our_topics: We work on these topics
-      our_mainstream_categories: We produce detailed guidance in these categories
       our_policies: Our policies
       our_announcements: Our announcements
       our_consultations: Our consultations
@@ -441,7 +438,6 @@ en:
     see_more: See more information about this %{document_type}
   detailed_guidance:
     back_to_contents: Back to contents
-    categories: All detailed guidance about
     contents: Contents
     more: More like this
     part_of_published_collection: This is part of a collection

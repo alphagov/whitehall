@@ -123,7 +123,6 @@ end
 
 When /^I add a new organisation called "([^"]*)"$/ do |organisation_name|
   create(:topic, name: 'Jazz Bizniz')
-  create(:mainstream_category, title: 'Jazzy Bizzle')
 
   visit new_admin_organisation_path
 
@@ -132,7 +131,6 @@ When /^I add a new organisation called "([^"]*)"$/ do |organisation_name|
   fill_in 'Logo formatted name', with: organisation_name
   select 'Ministerial department', from: 'Organisation type'
   select 'Jazz Bizniz', from: 'organisation_topic_ids_0'
-  select 'Jazzy Bizzle', from: 'organisation_mainstream_category_ids_0'
   within '.featured-links' do
     fill_in 'Title', with: 'Top task 1'
     fill_in 'URL', with: 'http://mainstream.co.uk'

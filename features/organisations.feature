@@ -92,15 +92,6 @@ Scenario: Managing social media links
   Then the "Twooter" social link should be shown on the public website for the organisation
   And the "Facebark" social link called "Beards on Facebark!" should be shown on the public website for the organisation
 
-Scenario: Managing mainstream categories
-  Given the organisation "Ministry of Pop" has no mainstream categories defined
-  Then the public page for the organisation says nothing about mainstream categories
-  But the admin page for the organisation says it has no mainstream categories
-  And there are some mainstream categories
-  When I add a few of those mainstream categories in a specific order to the organisation
-  Then only the mainstream categories I chose appear on the public page for the organisation, in my specified order
-  And they also appear on the admin page, in my specified order
-
 Scenario: Adding a new translation
   Given the organisation "Department of Beards" exists
   When I add a new translation to the organisation with:

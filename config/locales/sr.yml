@@ -317,8 +317,6 @@ sr:
         unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         file:
-      detailed_guide:
-        primary_mainstream_category:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
@@ -400,7 +398,6 @@ sr:
       long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents:
-    categories:
     contents:
     more:
     part_of_published_collection:
@@ -458,7 +455,6 @@ sr:
       our_announcements: Naše objave
       our_consultations:
       our_judges:
-      our_mainstream_categories:
       our_management: Naše rukovodstvo
       our_ministers: Naši ministri
       our_policies: Naše politike

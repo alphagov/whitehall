@@ -219,8 +219,6 @@ fr:
         unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         file:
-      detailed_guide:
-        primary_mainstream_category: Catégorie d'instructions détaillées
       policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
@@ -302,7 +300,6 @@ fr:
       long_ordinal: "%B %d, %Y"
   detailed_guidance:
     back_to_contents:
-    categories:
     contents:
     more:
     part_of_published_collection:
@@ -360,7 +357,6 @@ fr:
       our_announcements: Nos actualités
       our_consultations:
       our_judges:
-      our_mainstream_categories:
       our_management: Notre direction
       our_ministers: Nos ministres
       our_policies: Nos politiques

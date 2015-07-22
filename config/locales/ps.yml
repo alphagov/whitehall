@@ -219,8 +219,6 @@ ps:
         unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         file:
-      detailed_guide:
-        primary_mainstream_category: "د مفصل لومړني لارښونې کتګوري"
       policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
@@ -301,7 +299,6 @@ ps:
       long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents:
-    categories:
     contents:
     more:
     part_of_published_collection:
@@ -359,7 +356,6 @@ ps:
       our_announcements: "زمونږه اعلانات"
       our_consultations:
       our_judges:
-      our_mainstream_categories:
       our_management: "زمونږه اداره"
       our_ministers: "زموږه وزیران"
       our_policies: "زموږه پالیسی ګانی"

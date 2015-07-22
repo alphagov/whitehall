@@ -83,18 +83,6 @@ class DetailedGuideTest < ActiveSupport::TestCase
     refute detailed_guide.valid?
   end
 
-  test "should build a draft copy of the existing detailed with the same mainstream categories" do
-    primary_mainstream_category = create(:mainstream_category)
-    other_mainstream_category = create(:mainstream_category)
-    published_guide = create(:published_detailed_guide,
-                             primary_mainstream_category: primary_mainstream_category,
-                             other_mainstream_categories: [other_mainstream_category])
-
-    draft_guide = published_guide.create_draft(create(:writer))
-
-    assert_equal published_guide.mainstream_categories, draft_guide.mainstream_categories
-  end
-
   test "should be valid if all level-3 headings have a parent level-2 heading" do
     body = "## Parent1\n\n### Child1\n\n### Child2\n\n## Parent2\n\n### Child3"
     detailed_guide = build(:detailed_guide, body: body)
@@ -106,21 +94,6 @@ class DetailedGuideTest < ActiveSupport::TestCase
     detailed_guide = build(:detailed_guide, body: body)
     refute detailed_guide.valid?
     assert_equal ["must have a level-2 heading (h2 - ##) before level-3 heading (h3 - ###): 'Orphan'"], detailed_guide.errors[:body]
-  end
-
-  test "should include breadcrumb metadata in search index" do
-    category = create(:mainstream_category,
-      slug: "manufactured-goods-trade-compliance",
-      parent_tag: "business/international-trade"
-    )
-    detailed_guide = create(:published_detailed_guide,
-      primary_mainstream_category: category
-    )
-
-    index = detailed_guide.search_index
-    assert_equal "business", index["section"]
-    assert_equal "international-trade", index["subsection"]
-    assert_equal "manufactured-goods-trade-compliance", index["subsubsection"]
   end
 
   test 'search_format_types tags the detailed guide as detailed-guidance' do

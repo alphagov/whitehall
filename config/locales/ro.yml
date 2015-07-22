@@ -268,8 +268,6 @@ ro:
         unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         file:
-      detailed_guide:
-        primary_mainstream_category: 'Ghid detaliat '
       policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
@@ -350,7 +348,6 @@ ro:
       long_ordinal:
   detailed_guidance:
     back_to_contents:
-    categories:
     contents:
     more:
     part_of_published_collection:
@@ -408,7 +405,6 @@ ro:
       our_announcements: "Știri "
       our_consultations:
       our_judges:
-      our_mainstream_categories:
       our_management: 'Echipa ambasadei '
       our_ministers: 'Miniștrii '
       our_policies: 'Obiective strategice '

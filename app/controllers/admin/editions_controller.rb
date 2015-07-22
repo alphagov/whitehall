@@ -168,14 +168,15 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def permitted_edition_attributes
-    [:title, :body, :change_note, :summary, :first_published_at,
+    [
+      :title, :body, :change_note, :summary, :first_published_at,
       :publication_type_id, :scheduled_publication, :lock_version,
       :access_limited, :alternative_format_provider_id, :opening_at,
       :closing_at, :external, :external_url, :minor_change, :previously_published,
       :roll_call_introduction, :operational_field_id, :news_article_type_id,
       :relevant_to_local_government, :role_appointment_id, :speech_type_id,
       :delivered_on, :location, :person_override, :primary_locale,
-      :primary_mainstream_category_id, :related_mainstream_content_url,
+      :related_mainstream_content_url,
       :related_mainstream_content_title,
       :additional_related_mainstream_content_url,
       :additional_related_mainstream_content_title,
@@ -191,7 +192,6 @@ class Admin::EditionsController < Admin::BaseController
       worldwide_priority_ids: [],
       related_policy_ids: [],
       policy_content_ids: [],
-      other_mainstream_category_ids: [],
       topic_ids: [],
       topical_event_ids: [],
       related_detailed_guide_ids: [],

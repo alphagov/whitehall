@@ -16,7 +16,6 @@ class NavigationSelectionTest < ActiveSupport::TestCase
     email_signups
     embassies
     healthcheck
-    mainstream_categories
     people
     placeholder
     public_facing

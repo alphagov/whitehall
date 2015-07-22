@@ -42,7 +42,6 @@ class OrganisationsController < PublicFacingController
             render 'show-promotional'
           else
             @topics = @organisation.topics
-            @mainstream_categories = @organisation.mainstream_categories
             @ministers = ministers
             @important_board_members = board_members.take(@organisation.important_board_members)
             @board_members = board_members.from(@organisation.important_board_members)

@@ -18,8 +18,6 @@ zh:
         unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         file:
-      detailed_guide:
-        primary_mainstream_category: "首要详细指导类别"
       policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
@@ -98,7 +96,6 @@ zh:
       long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents:
-    categories:
     contents:
     more:
     part_of_published_collection:
@@ -317,7 +314,6 @@ zh:
       our_announcements: "我们的公告"
       our_consultations:
       our_judges:
-      our_mainstream_categories:
       our_management: "我们的管理层"
       our_ministers: "我们的首相/大臣/秘书"
       our_policies: "我们的政策"

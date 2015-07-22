@@ -1,6 +1,5 @@
 <%
   policies ||= []
-  primary_mainstream_category ||= nil
 %>
 <aside class="meta metadata-list">
   <div class="inner-heading">
@@ -16,7 +15,7 @@
       <%= render  partial: 'documents/change_notes',
                   locals: { document: document, footer_meta: footer_meta } %>
 
-      <% if (part_of = part_of_metadata(document, policies, specialist_tag_finder, primary_mainstream_category)).any? %>
+      <% if (part_of = part_of_metadata(document, policies, specialist_tag_finder)).any? %>
         <dt><%= t('document.headings.part_of') %>:</dt>
         <dd class="js-hide-extra-metadata"><%= part_of.to_sentence.html_safe %></dd>
       <% end %>

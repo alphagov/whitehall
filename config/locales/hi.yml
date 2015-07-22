@@ -219,8 +219,6 @@ hi:
         unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         file:
-      detailed_guide:
-        primary_mainstream_category: "प्राथमिक विस्तृत मार्गदर्शन श्रेणी"
       policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
@@ -302,7 +300,6 @@ hi:
       long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents:
-    categories:
     contents:
     more:
     part_of_published_collection:
@@ -360,7 +357,6 @@ hi:
       our_announcements: "हमारी घोषणाएं"
       our_consultations:
       our_judges:
-      our_mainstream_categories:
       our_management: "हमारा प्रबंधन"
       our_ministers: "हमारे मंत्री"
       our_policies: "हमारी नीतियां"

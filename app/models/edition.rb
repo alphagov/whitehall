@@ -352,10 +352,6 @@ class Edition < ActiveRecord::Base
     false
   end
 
-  def can_be_associated_with_mainstream_categories?
-    false
-  end
-
   def can_apply_to_subset_of_nations?
     false
   end
