@@ -27,7 +27,7 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
   end
 
   test 'presents an Organisation ready for adding to the publishing API' do
-    organisation = create(:organisation, name: 'Organisation of Things')
+    organisation = create(:organisation, name: 'Organisation of Things', analytics_identifier: 'O123')
     public_path = Whitehall.url_maker.organisation_path(organisation)
 
     expected_hash = {
@@ -40,6 +40,9 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
       public_updated_at: organisation.updated_at,
       routes: [ { path: public_path, type: "exact" } ],
       update_type: "major",
+      details: {
+        analytics_identifier: "O123",
+      },
     }
 
     presented_hash = present(organisation)
@@ -69,7 +72,7 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
   end
 
   test 'presents a Worldwide Organisation ready for adding to the publishing API' do
-    worldwide_org = create(:worldwide_organisation, name: 'Locationia Embassy')
+    worldwide_org = create(:worldwide_organisation, name: 'Locationia Embassy', analytics_identifier: 'WO123')
     public_path = Whitehall.url_maker.worldwide_organisation_path(worldwide_org)
 
     expected_hash = {
@@ -82,6 +85,9 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
       public_updated_at: worldwide_org.updated_at,
       routes: [ { path: public_path, type: "exact" } ],
       update_type: "major",
+      details: {
+        analytics_identifier: "WO123",
+      },
     }
 
     presented_hash = present(worldwide_org)
@@ -90,7 +96,7 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
   end
 
   test 'presents a World Location ready for adding to the publishing API' do
-    world_location = create(:world_location, name: 'Locationia')
+    world_location = create(:world_location, name: 'Locationia', analytics_identifier: 'WL123')
     public_path = Whitehall.url_maker.world_location_path(world_location)
 
     expected_hash = {
@@ -103,6 +109,9 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
       public_updated_at: world_location.updated_at,
       routes: [ { path: public_path, type: "exact" } ],
       update_type: "major",
+      details: {
+        analytics_identifier: "WL123",
+      },
     }
 
     presented_hash = present(world_location)

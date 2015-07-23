@@ -15,7 +15,7 @@ class PublishingApiPresenters::Placeholder
   end
 
   def as_json
-    {
+    json = {
       content_id: item.content_id,
       title: item.name,
       format: format,
@@ -31,6 +31,10 @@ class PublishingApiPresenters::Placeholder
       ],
       update_type: update_type,
     }
+    if item.respond_to?(:analytics_identifier)
+      json.merge!(details: { analytics_identifier: item.analytics_identifier })
+    end
+    json
   end
 
 private
