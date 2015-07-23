@@ -64,6 +64,11 @@ class Api::OrganisationPresenterTest < PresenterTestCase
     assert_equal "live", @presenter.as_json[:details][:govuk_status]
   end
 
+  test "json includes analytics_identifier in details hash" do
+    @organisation.stubs(:analytics_identifier).returns("O123")
+    assert_equal "O123", @presenter.as_json[:details][:analytics_identifier]
+  end
+
   test "json includes human organisation type as format" do
     assert_equal 'Ministerial department', @presenter.as_json[:format]
   end

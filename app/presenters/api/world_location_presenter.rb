@@ -9,6 +9,7 @@ class Api::WorldLocationPresenter < Api::BasePresenter
       details: {
         slug: model.slug,
         iso2: model.iso2,
+        analytics_identifier: model.analytics_identifier,
       },
       organisations: {
         id: context.api_world_location_worldwide_organisations_url(model),
