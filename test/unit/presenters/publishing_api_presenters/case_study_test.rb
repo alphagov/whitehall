@@ -223,4 +223,10 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     assert_equivalent_html archive_notice[:explanation],
       present(case_study)[:details][:withdrawn_notice][:explanation]
   end
+
+  test "an unpublished document has a first_public_at of the document creation time" do
+    case_study = create(:draft_case_study)
+    presented_hash = present(case_study)
+    assert_equal case_study.document.created_at.iso8601, presented_hash[:details][:first_public_at]
+  end
 end

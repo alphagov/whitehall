@@ -25,11 +25,19 @@ private
     super.merge({
       body: body,
       format_display_type: edition.display_type_key,
-      first_public_at: edition.first_public_at,
+      first_public_at: first_public_at,
       change_history: edition.change_history.as_json,
     }).tap do |json|
       json[:image] = image_details if image_available?
       json[:withdrawn_notice] = withdrawn_notice if edition.withdrawn?
+    end
+  end
+
+  def first_public_at
+    if edition.document.published?
+      edition.first_public_at
+    else
+      edition.document.created_at.iso8601
     end
   end
 
