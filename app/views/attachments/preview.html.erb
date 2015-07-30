@@ -42,7 +42,7 @@
   </div>
 </header>
 <% if @csv_preview %>
-  <%= render(partial: 'truncated_message', locals: { attachment: @attachment }) if @csv_preview.truncated? %>
+  <%= render(partial: 'truncated_message', locals: { csv_preview: @csv_preview, attachment: @attachment }) if @csv_preview.truncated? %>
   <div class="csv-preview">
     <div class="csv-preview-inner">
       <table>
@@ -66,7 +66,7 @@
       </table>
     </div>
   </div>
-  <%= render(partial: 'truncated_message', locals: { attachment: @attachment }) if @csv_preview.truncated? %>
+  <%= render(partial: 'truncated_message', locals: { csv_preview: @csv_preview, attachment: @attachment }) if @csv_preview.truncated? %>
 <% else %>
   <p class="preview-error">
     This file could not be previewed.
