@@ -69,6 +69,20 @@ class RegisterableEditionTest < ActiveSupport::TestCase
     assert_equal "government/publications/edition-title", registerable_edition.slug
   end
 
+  test "sets the correct slug and routes for a deleted detailed guide" do
+    edition = create(:draft_detailed_guide, title: 'Just A Test')
+
+    Whitehall.edition_services.deleter(edition).perform!
+    assert_equal 'deleted-just-a-test', edition.slug
+
+    registerable_edition = RegisterableEdition.new(edition)
+
+    assert_equal "just-a-test", registerable_edition.slug
+    assert_equal ["/just-a-test"], registerable_edition.paths
+    assert_equal [], registerable_edition.prefixes
+    assert_equal "archived", registerable_edition.state
+  end
+
   test "sets the state to draft if the edition isn't published" do
     edition = create(:draft_detailed_guide)
     registerable_edition = RegisterableEdition.new(edition)
