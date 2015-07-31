@@ -54,6 +54,10 @@ class CsvPreviewTest < ActiveSupport::TestCase
     assert_equal 1_000, csv_preview.maximum_rows
   end
 
+  test 'the size of the preview is limited to 50 columns of data by default' do
+    assert_equal 50, csv_preview.maximum_columns
+  end
+
   test 'the size of the preview can be overridden' do
     preview       = CsvPreview.new(File.open(Rails.root.join('test/fixtures/csv_encodings/utf-8.csv')), 1)
     expected_data = [['Office for Facial Hair Studies', '£12000000' , '£10000000']]
@@ -61,12 +65,22 @@ class CsvPreviewTest < ActiveSupport::TestCase
     assert_csv_data(expected_data, preview)
   end
 
-  test '#truncated? returns true if the preview does not show the entire file contents' do
+  test '#truncated? returns true if the preview does not include all the rows' do
     csv_preview.each_row {}
     refute csv_preview.truncated?
 
     truncated_preview = CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/utf-8.csv'), 1)
     truncated_preview.each_row {}
+    assert truncated_preview.truncated?
+  end
+
+  test '#truncated? returns true if the preview does not include all the columns' do
+    csv_preview.each_row {}
+    refute csv_preview.truncated?
+
+    truncated_preview = CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/utf-8.csv'), 10, 1)
+    truncated_preview.each_row {}
+
     assert truncated_preview.truncated?
   end
 

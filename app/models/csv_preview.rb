@@ -4,13 +4,18 @@ class CsvPreview
   class FileEncodingError < ::EncodingError
   end
 
-  attr_reader :file_path, :headings, :maximum_rows
+  attr_reader :file_path, :headings, :maximum_rows, :maximum_columns
 
-  def initialize(file_path, maximum_rows = 1_000)
+  def initialize(file_path, maximum_rows = 1_000, maximum_columns = 50)
     @maximum_rows = maximum_rows
+    @maximum_columns = maximum_columns
     @file_path = file_path
     @csv = CSV.open(file_path, encoding: encoding)
     @headings = @csv.shift
+    if @headings.size > maximum_columns
+      @truncated_columns = true
+      @headings = @headings[0..maximum_columns]
+    end
     ensure_csv_data_is_well_formed
   rescue ArgumentError => e
     if e.message =~ /invalid byte sequence/
@@ -25,18 +30,23 @@ class CsvPreview
   def each_row
     (0...maximum_rows).each do
       if row = @csv.shift
-        yield row
+        if row.size > maximum_columns
+          @truncated_columns = true
+          yield row[0..maximum_columns]
+        else
+          yield row
+        end
       else
         return
       end
     end
-    @truncated = true
+    @truncated_rows = true
   ensure
     reset
   end
 
   def truncated?
-    @truncated
+    @truncated_rows || @truncated_columns
   end
 
   def reset
