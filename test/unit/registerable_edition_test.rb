@@ -16,7 +16,7 @@ class RegisterableEditionTest < ActiveSupport::TestCase
     assert_equal "Edition summary", registerable_edition.description
     assert_equal "live", registerable_edition.state
     assert_equal [], registerable_edition.specialist_sectors
-    assert_equal ["/#{slug}"], registerable_edition.paths
+    assert_equal ["/#{slug}", "/guidance/#{slug}"], registerable_edition.paths
     assert_equal [], registerable_edition.prefixes
   end
 
@@ -29,7 +29,7 @@ class RegisterableEditionTest < ActiveSupport::TestCase
 
     registerable_edition = RegisterableEdition.new(edition)
 
-    assert_same_elements ["/#{slug}", "/#{slug}.cy", "/#{slug}.fr"], registerable_edition.paths
+    assert_same_elements ["/#{slug}", "/#{slug}.cy", "/#{slug}.fr", "/guidance/#{slug}", "/guidance/#{slug}.cy", "/guidance/#{slug}.fr"], registerable_edition.paths
   end
 
 
@@ -78,7 +78,7 @@ class RegisterableEditionTest < ActiveSupport::TestCase
     registerable_edition = RegisterableEdition.new(edition)
 
     assert_equal "just-a-test", registerable_edition.slug
-    assert_equal ["/just-a-test"], registerable_edition.paths
+    assert_equal ["/just-a-test", "/guidance/just-a-test"], registerable_edition.paths
     assert_equal [], registerable_edition.prefixes
     assert_equal "archived", registerable_edition.state
   end

@@ -89,6 +89,7 @@ private
   end
 
   def detailed_guide_paths
-    ["/#{slug}"] + edition.non_english_translations.map { |t| "/#{edition.slug}.#{t.locale}" }
+    ["/#{slug}"] + edition.non_english_translations.map { |t| "/#{edition.slug}.#{t.locale}" } +
+      ["/guidance/#{slug}"] + edition.non_english_translations.map { |t| "/guidance/#{edition.slug}.#{t.locale}" }
   end
 end
