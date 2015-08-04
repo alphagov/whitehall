@@ -6,7 +6,5 @@
       <span><%= organisation_logo_name(organisation, false) %></span>
     <% end %>
   </h2>
-  <% if include_works_with %>
-    <%= render partial: 'works_with', locals: { organisation: organisation, link_to_homepage: true } %>
-  <% end %>
+  <%= render partial: 'works_with', locals: { organisation: organisation, link_to_homepage: true } %>
 <% end %>
