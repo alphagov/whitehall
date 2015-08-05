@@ -7,7 +7,7 @@ class PanopticonRegisterArtefactWorkerTest < ActiveSupport::TestCase
 
   test "registers an artefact with Panopticon" do
     edition = create(:published_detailed_guide)
-    request = stub_artefact_registration(edition.slug)
+    request = stub_artefact_registration("guidance/#{edition.slug}")
 
     PanopticonRegisterArtefactWorker.new.perform(edition.id)
 
