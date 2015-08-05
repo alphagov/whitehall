@@ -10,7 +10,7 @@ class RegisterableEditionTest < ActiveSupport::TestCase
 
     registerable_edition = RegisterableEdition.new(edition)
 
-    assert_equal slug, registerable_edition.slug
+    assert_equal "guidance/#{slug}", registerable_edition.slug
     assert_equal "Edition title", registerable_edition.title
     assert_equal "detailed_guide", registerable_edition.kind
     assert_equal "Edition summary", registerable_edition.description
@@ -77,7 +77,7 @@ class RegisterableEditionTest < ActiveSupport::TestCase
 
     registerable_edition = RegisterableEdition.new(edition)
 
-    assert_equal "just-a-test", registerable_edition.slug
+    assert_equal "guidance/just-a-test", registerable_edition.slug
     assert_equal ["/just-a-test", "/guidance/just-a-test"], registerable_edition.paths
     assert_equal [], registerable_edition.prefixes
     assert_equal "archived", registerable_edition.state
