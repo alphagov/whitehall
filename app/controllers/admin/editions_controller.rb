@@ -78,12 +78,12 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def create
-    if @edition.save
+    if updater.can_perform? && @edition.save
       updater.perform!
       redirect_to show_or_edit_path, saved_confirmation_notice
     else
       flash.now[:alert] = "There are some problems with the document"
-      extract_edition_information_from_errors
+      @information = updater.failure_reason
       build_edition_dependencies
       render action: "new"
     end
@@ -96,7 +96,8 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def update
-    if @edition.edit_as(current_user, edition_params)
+    @edition.assign_attributes(edition_params)
+    if updater.can_perform? && @edition.save_as(current_user)
       updater.perform!
 
       if @edition.links_reports.last
@@ -110,7 +111,7 @@ class Admin::EditionsController < Admin::BaseController
       if speed_tagging?
         render :show
       else
-        extract_edition_information_from_errors
+        @information = updater.failure_reason
         build_edition_dependencies
         fetch_version_and_remark_trails
         render :edit
@@ -248,11 +249,6 @@ class Admin::EditionsController < Admin::BaseController
   def find_edition
     edition = edition_class.find(params[:id])
     @edition = LocalisedModel.new(edition, edition.primary_locale)
-  end
-
-  def extract_edition_information_from_errors
-    information = @edition.errors.delete(:information)
-    @information = information ? information.first : nil
   end
 
   def build_edition_dependencies

@@ -8,8 +8,8 @@ class DraftEditionUpdater < EditionService
   end
 
   def failure_reason
-    if !edition.draft?
-      "This edition is not draft."
+    if !edition.pre_publication?
+      "A #{edition.state} edition may not be updated."
     elsif !edition.valid?
       "This edition is invalid: #{edition.errors.full_messages.to_sentence}"
     end

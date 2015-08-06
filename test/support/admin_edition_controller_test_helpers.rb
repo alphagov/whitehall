@@ -190,6 +190,88 @@ module AdminEditionControllerTestHelpers
       end
     end
 
+    def should_send_drafts_to_content_preview_environment_for(edition_type)
+      test "updating a draft edition sends the draft to the content preview environment" do
+        edition = create("draft_#{edition_type}")
+
+        Whitehall::PublishingApi.expects(:publish_draft_async).with(
+          all_of(
+            responds_with(:model_name, "CaseStudy"),
+            responds_with(:id, edition.id)
+          )
+        )
+
+        put :update, id: edition, edition: { title: 'updated title' }
+      end
+
+      test "updating a submitted edition sends the draft to the content preview environment" do
+        edition = create("submitted_#{edition_type}")
+
+        Whitehall::PublishingApi.expects(:publish_draft_async).with(
+          all_of(
+            responds_with(:model_name, "CaseStudy"),
+            responds_with(:id, edition.id)
+          )
+        )
+
+        put :update, id: edition, edition: { title: 'updated title' }
+      end
+
+      test "updating a rejected edition sends the draft to the content preview environment" do
+        edition = create("rejected_#{edition_type}")
+
+        Whitehall::PublishingApi.expects(:publish_draft_async).with(
+          all_of(
+            responds_with(:model_name, "CaseStudy"),
+            responds_with(:id, edition.id)
+          )
+        )
+
+        put :update, id: edition, edition: { title: 'updated title' }
+      end
+
+      view_test "reports an error if the updater has an error on create" do
+        draft_updater = stub("draft updater",
+                              can_perform?: false,
+                              perform!: false,
+                              failure_reason: "Unable to perform draft update"
+                            )
+
+        Whitehall.edition_services.stubs(:draft_updater).returns(draft_updater)
+
+        attributes = controller_attributes_for(edition_type)
+
+        assert_difference "Edition.count", 0 do
+          post :create, edition: attributes.merge(
+            summary: "my summary",
+          )
+        end
+
+        assert_template "editions/new"
+        assert_equal "There are some problems with the document", flash.now[:alert]
+        assert_select ".alert", text: /Unable to perform draft update/
+      end
+
+      view_test "reports an error if the updater has an error on update" do
+        edition = create("draft_#{edition_type}", title: "Original title")
+
+        draft_updater = stub("draft updater",
+                              can_perform?: false,
+                              perform!: false,
+                              failure_reason: "Unable to perform draft update"
+                            )
+
+        Whitehall.edition_services.stubs(:draft_updater).returns(draft_updater)
+
+        put :update, id: edition, edition: { title: 'updated title' }
+
+        assert_equal "Original title", edition.reload.title
+        assert_template "editions/edit"
+        assert_equal "There are some problems with the document", flash.now[:alert]
+        assert_select ".alert", text: /Unable to perform draft update/
+      end
+    end
+
     def should_allow_speed_tagging_of(edition_type)
       test "update should convert #{edition_type} to draft when speed tagging" do
         edition = create("imported_#{edition_type}")
