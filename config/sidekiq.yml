@@ -2,6 +2,7 @@
 :concurrency:  2
 :logfile: ./log/sidekiq.json.log
 :queues:
+  - [bulk_republishing, 1]
   - [imports, 2]
   - [router, 4]
   - [panopticon, 4]
