@@ -96,7 +96,8 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def update
-    if updater.can_perform? && @edition.edit_as(current_user, edition_params)
+    @edition.assign_attributes(edition_params)
+    if updater.can_perform? && @edition.save_as(current_user)
       updater.perform!
 
       if @edition.links_reports.last

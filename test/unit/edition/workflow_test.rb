@@ -84,42 +84,6 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     assert edition.valid?
   end
 
-  test "#edit_as updates the edition" do
-    attributes = stub(:attributes)
-    edition = create(:publication)
-    edition.edit_as(create(:user), title: 'new-title')
-    assert_equal 'new-title', edition.reload.title
-  end
-
-  test "#edit_as records new creator if edit succeeds" do
-    edition = create(:publication)
-    edition.stubs(:save).returns(true)
-    user = create(:user)
-    edition.edit_as(user, {})
-    assert_equal 2, edition.edition_authors.count
-    assert_equal user, edition.edition_authors.last.user
-  end
-
-  test "#edit_as returns true if edit succeeds" do
-    edition = create(:publication)
-    edition.stubs(:save).returns(true)
-    assert edition.edit_as(create(:user), {})
-  end
-
-  test "#edit_as does not record new creator if edit fails" do
-    edition = create(:publication)
-    edition.stubs(:save).returns(false)
-    user = create(:user)
-    edition.edit_as(user, {})
-    assert_equal 1, edition.edition_authors.count
-  end
-
-  test "#edit_as returns false if edit fails" do
-    edition = create(:publication)
-    edition.stubs(:save).returns(false)
-    refute edition.edit_as(create(:user), {})
-  end
-
   test "#save_as saves the edition" do
     edition = create(:publication)
     edition.expects(:save)

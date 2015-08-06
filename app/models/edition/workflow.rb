@@ -102,11 +102,6 @@ module Edition::Workflow
     end
   end
 
-  def edit_as(user, attributes = {})
-    assign_attributes(attributes)
-    save_as(user)
-  end
-
   def edition_has_no_unpublished_editions
     return unless document
     if existing_edition = document.non_published_edition
