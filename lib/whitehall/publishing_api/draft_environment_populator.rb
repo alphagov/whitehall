@@ -1,9 +1,9 @@
 module Whitehall
   class PublishingApi
     class DraftEnvironmentPopulator < Populator
-      def initialize(logger: )
+      def initialize(items: nil, logger:)
         super(
-          items: self.class.default_items,
+          items: items || self.class.default_items,
           sender: self.class.method(:send_to_publishing_api),
           logger: logger
         )
