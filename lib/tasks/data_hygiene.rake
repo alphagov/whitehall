@@ -120,3 +120,34 @@ task :unpublish_statistics_announcement, [:slug] => :environment do |t, args|
     logger: Logger.new(STDOUT),
   ).call
 end
+
+# This task must be removed once the move of detailed guides to /guidance
+# is complete.
+desc "Rename detailed guides in Rummager individually"
+task :rummager_rename_detailed_guides => :environment do
+  index = Whitehall::SearchIndex.for(:detailed_guides)
+  live_specialist_sector_tag_slugs = nil
+  scope = DetailedGuide.published
+  count = scope.count
+  i = 0
+
+  scope.find_each do |dg|
+    # This injects a pre-memoised set of slugs for live specialist sector tags
+    # This is necessary as fetching these from Content API is expensive, and
+    # unnecessary. The memoisation is scoped only to the Edition instance, which
+    # is the correct behaviour in normal production running mode due to the
+    # need to ensure the list is up to date. As this is a one-shot task which
+    # will be removed, "external memoisation" seems like the most pragmatic
+    # approach.
+    # This saves approximately 1.5 seconds per published Detailed Guide, so
+    # around an hour and a half.
+    live_specialist_sector_tag_slugs ||=
+      SpecialistSector.live_subsectors.map(&:slug)
+    dg.instance_variable_set(:@live_specialist_sector_tag_slugs,
+      live_specialist_sector_tag_slugs)
+
+    index.add(dg.search_index)
+    index.delete("/#{dg.slug}")
+    puts "Renamed #{dg.slug} (#{i += 1}/#{count})"
+  end
+end
