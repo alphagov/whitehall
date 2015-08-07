@@ -86,7 +86,8 @@ end
 def mock_govuk_delivery_client
   @mock_client ||= RetrospectiveStub.new.tap { |mock_client|
     mock_client.stub :topic
-    mock_client.stub :signup_url, returns: public_url("/email_signup_url")
+    # FIXME: Actually send client to relevant email signup page
+    mock_client.stub :signup_url, returns: public_url("/government/organisations")
     mock_client.stub :notify
     Whitehall.stubs(govuk_delivery_client: mock_client)
   }
