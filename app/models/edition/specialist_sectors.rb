@@ -38,13 +38,12 @@ module Edition::SpecialistSectors
   end
 
   def specialist_sector_tags
-    Array(primary_specialist_sector_tag) + secondary_specialist_sector_tags
+    specialist_sectors.order("specialist_sectors.primary DESC").map(&:tag)
   end
 
   def live_specialist_sector_tags
-    specialist_sector_tags.select do |tag|
-      live_specialist_sector_tag_slugs.include?(tag)
-    end
+    specialist_sectors.order("specialist_sectors.primary DESC").
+      where(tag: live_specialist_sector_tag_slugs).pluck(:tag)
   end
 
 private
