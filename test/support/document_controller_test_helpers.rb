@@ -406,7 +406,7 @@ module DocumentControllerTestHelpers
 
     def should_set_meta_description_for(document_type)
       test "#{document_type} should set a meaningful meta description" do
-        edition = create("published_#{document_type}", summary: "My first #{document_type}")
+        edition = create("published_#{document_type}", summary: "My **first** #{document_type}")
 
         get :show, id: edition.document
 

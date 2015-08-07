@@ -74,6 +74,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_meta_description(description)
-    @meta_description = description
+    @meta_description = Govspeak::Document.new(description).to_text
   end
 end
