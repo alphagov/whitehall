@@ -89,8 +89,6 @@ private
   end
 
   def detailed_guide_paths
-    old_slug = slug.sub(%r{^guidance/}, '')
-    ["/#{old_slug}"] + edition.non_english_translations.map { |t| "/#{edition.slug}.#{t.locale}" } +
-      ["/#{slug}"] + edition.non_english_translations.map { |t| "/guidance/#{edition.slug}.#{t.locale}" }
+    ["/#{slug}"] + edition.non_english_translations.map { |t| "/#{slug}.#{t.locale}" }
   end
 end
