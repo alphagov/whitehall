@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150623085836) do
+ActiveRecord::Schema.define(version: 20150807112957) do
 
   create_table "about_pages", force: :cascade do |t|
     t.integer  "topical_event_id",    limit: 4
@@ -316,16 +316,6 @@ ActiveRecord::Schema.define(version: 20150623085836) do
 
   add_index "edition_dependencies", ["dependable_id", "dependable_type", "edition_id"], name: "index_edition_dependencies_on_dependable_and_edition", unique: true, using: :btree
 
-  create_table "edition_mainstream_categories", force: :cascade do |t|
-    t.integer  "edition_id",             limit: 4
-    t.integer  "mainstream_category_id", limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "edition_mainstream_categories", ["edition_id"], name: "index_edition_mainstream_categories_on_edition_id", using: :btree
-  add_index "edition_mainstream_categories", ["mainstream_category_id"], name: "index_edition_mainstream_categories_on_mainstream_category_id", using: :btree
-
   create_table "edition_organisations", force: :cascade do |t|
     t.integer  "edition_id",      limit: 4
     t.integer  "organisation_id", limit: 4
@@ -432,7 +422,6 @@ ActiveRecord::Schema.define(version: 20150623085836) do
     t.string   "additional_related_mainstream_content_title", limit: 255
     t.integer  "alternative_format_provider_id",              limit: 4
     t.datetime "public_timestamp"
-    t.integer  "primary_mainstream_category_id",              limit: 4
     t.datetime "scheduled_publication"
     t.boolean  "replaces_businesslink",                       limit: 1,     default: false
     t.boolean  "access_limited",                              limit: 1,                       null: false
@@ -460,7 +449,6 @@ ActiveRecord::Schema.define(version: 20150623085836) do
   add_index "editions", ["first_published_at"], name: "index_editions_on_first_published_at", using: :btree
   add_index "editions", ["opening_at"], name: "index_editions_on_opening_at", using: :btree
   add_index "editions", ["operational_field_id"], name: "index_editions_on_operational_field_id", using: :btree
-  add_index "editions", ["primary_mainstream_category_id"], name: "index_editions_on_primary_mainstream_category_id", using: :btree
   add_index "editions", ["public_timestamp", "document_id"], name: "index_editions_on_public_timestamp_and_document_id", using: :btree
   add_index "editions", ["public_timestamp"], name: "index_editions_on_public_timestamp", using: :btree
   add_index "editions", ["publication_type_id"], name: "index_editions_on_publication_type_id", using: :btree
@@ -734,18 +722,6 @@ ActiveRecord::Schema.define(version: 20150623085836) do
 
   add_index "links_reports", ["link_reportable_id", "link_reportable_type"], name: "link_reportable_index", using: :btree
 
-  create_table "mainstream_categories", force: :cascade do |t|
-    t.string   "slug",         limit: 255
-    t.string   "title",        limit: 255
-    t.string   "parent_title", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "parent_tag",   limit: 255
-    t.text     "description",  limit: 65535
-  end
-
-  add_index "mainstream_categories", ["slug"], name: "index_mainstream_categories_on_slug", unique: true, using: :btree
-
   create_table "nation_inapplicabilities", force: :cascade do |t|
     t.integer  "nation_id",       limit: 4
     t.integer  "edition_id",      limit: 4
@@ -792,18 +768,6 @@ ActiveRecord::Schema.define(version: 20150623085836) do
   add_index "organisation_classifications", ["classification_id"], name: "index_org_classifications_on_classification_id", using: :btree
   add_index "organisation_classifications", ["organisation_id", "ordering"], name: "index_org_classifications_on_organisation_id_and_ordering", unique: true, using: :btree
   add_index "organisation_classifications", ["organisation_id"], name: "index_org_classifications_on_organisation_id", using: :btree
-
-  create_table "organisation_mainstream_categories", force: :cascade do |t|
-    t.integer  "organisation_id",        limit: 4,              null: false
-    t.integer  "mainstream_category_id", limit: 4,              null: false
-    t.integer  "ordering",               limit: 4, default: 99, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "organisation_mainstream_categories", ["mainstream_category_id"], name: "index_org_mainstream_cats_on_mainstream_cat_id", using: :btree
-  add_index "organisation_mainstream_categories", ["organisation_id", "mainstream_category_id"], name: "index_org_mainstream_cats_on_org_id_and_mainstream_cat_id", unique: true, using: :btree
-  add_index "organisation_mainstream_categories", ["organisation_id"], name: "index_org_mainstream_cats_on_org_id", using: :btree
 
   create_table "organisation_roles", force: :cascade do |t|
     t.integer  "organisation_id", limit: 4
