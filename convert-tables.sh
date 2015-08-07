@@ -27,7 +27,6 @@ latin_tables=(
     document_sources
     edition_authors
     edition_document_series
-    edition_mainstream_categories
     edition_organisation_image_data
     edition_policy_groups
     edition_role_appointments
@@ -40,7 +39,6 @@ latin_tables=(
     import_errors
     imports
     import_logs
-    mainstream_categories
     operational_fields
     organisation_mainstream_links
     organisational_relationships
