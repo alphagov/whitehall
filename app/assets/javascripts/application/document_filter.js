@@ -314,7 +314,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           $form.submit();
         });
 
-        $('#keyword-filter').add('#date-range-filter').find('input[type=text]').keyup(function () {
+        $('#keyword-filter').add('.date-range-filter').find('input[type=text]').keyup(function () {
           delay(function () {
             $form.submit();
           }, 600);
