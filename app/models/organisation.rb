@@ -167,7 +167,7 @@ class Organisation < ActiveRecord::Base
              acronym: :acronym,
              link: :search_link,
              content: :indexable_content,
-             description: :summary,
+             description: :description_for_search,
              boost_phrases: :acronym,
              slug: :slug,
              organisation_state: :searchable_govuk_status
@@ -353,6 +353,10 @@ class Organisation < ActiveRecord::Base
 
   def indexable_content
     Govspeak::Document.new("#{summary} #{body}").to_text
+  end
+
+  def description_for_search
+    Govspeak::Document.new(summary).to_text
   end
 
   def search_link

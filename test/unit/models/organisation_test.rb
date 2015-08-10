@@ -379,6 +379,20 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal 'live', organisation.search_index['organisation_state']
   end
 
+  test 'should return a rendered summary as description' do
+    organisation = create(:organisation)
+
+    page_params = {
+      organisation: organisation,
+      summary: "A [text-rendered](http://example.org/irrelevant) summary.",
+      corporate_information_page_type: CorporateInformationPageType.find('about')
+    }
+
+    page = create(:published_corporate_information_page, page_params)
+
+    assert_equal 'A text-rendered summary.', organisation.search_index['description']
+  end
+
   test 'should add organisation to search index on creating' do
     organisation = build(:organisation)
 
@@ -484,6 +498,7 @@ class OrganisationTest < ActiveSupport::TestCase
                   'link' => '/government/organisations/devolved-organisation',
                   'slug' => 'devolved-organisation',
                   'indexable_content' => '',
+                  'description' => '',
                   'format' => 'organisation',
                   'boost_phrases' => 'dev',
                   'organisation_state' => 'devolved'}, results[5])
