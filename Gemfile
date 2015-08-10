@@ -22,7 +22,7 @@ gem 'unicorn', '4.6.2'
 gem 'kaminari', '0.15.1'
 gem 'govuk_admin_template', '2.5.1'
 gem 'bootstrap-kaminari-views', '0.0.5'
-gem 'gds-api-adapters', '21.0.0'
+gem 'gds-api-adapters', '23.2.2'
 gem 'mime-types', '1.25.1'
 gem 'whenever', '0.9.4', require: false
 gem 'mini_magick'
