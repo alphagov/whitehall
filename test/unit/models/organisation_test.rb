@@ -381,7 +381,7 @@ class OrganisationTest < ActiveSupport::TestCase
   end
 
   test 'should return a rendered summary as description' do
-    organisation = create(:organisation)
+    organisation = create(:organisation, name: "HMRC")
 
     page_params = {
       organisation: organisation,
@@ -391,7 +391,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
     page = create(:published_corporate_information_page, page_params)
 
-    assert_equal 'A text-rendered summary.', organisation.search_index['description']
+    assert_equal 'The home of HMRC on GOV.UK. A text-rendered summary.', organisation.search_index['description']
   end
 
   test 'includes self in organisations for search index data' do
@@ -488,7 +488,7 @@ class OrganisationTest < ActiveSupport::TestCase
                   'slug' => 'department-of-education',
                   'indexable_content' => 'Bookish. Some stuff',
                   'format' => 'organisation',
-                  'description' => 'Bookish.',
+                  'description' => 'The home of Department of Education on GOV.UK. Bookish.',
                   'organisations' => ["department-of-education"],
                   'organisation_state' => 'live'}, results[1])
     assert_equal({'title' => 'HMRC',
@@ -498,7 +498,7 @@ class OrganisationTest < ActiveSupport::TestCase
                   'indexable_content' => 'Taxing. Some stuff',
                   'format' => 'organisation',
                   'boost_phrases' => 'hmrc',
-                  'description' => 'Taxing.',
+                  'description' => 'The home of HMRC on GOV.UK. Taxing.',
                   'organisations' => ["hmrc"],
                   'organisation_state' => 'live'}, results[2])
     assert_equal({'title' => 'Ministry of Defence',
@@ -508,7 +508,7 @@ class OrganisationTest < ActiveSupport::TestCase
                   'indexable_content' => 'Defensive. Some stuff',
                   'format' => 'organisation',
                   'boost_phrases' => 'mod',
-                  'description' => 'Defensive.',
+                  'description' => 'The home of Ministry of Defence on GOV.UK. Defensive.',
                   'organisations' => ["ministry-of-defence"],
                   'organisation_state' => 'live'}, results[3])
     assert_equal({'title' => 'Devolved organisation',
@@ -895,5 +895,21 @@ class OrganisationTest < ActiveSupport::TestCase
 
     assert organisation.news_priority_homepage?
     refute organisation.service_priority_homepage?
+  end
+
+  test "search description for a closed organisation" do
+    about_type = CorporateInformationPageType.find('about')
+    sport = create(:organisation, name: 'Department for Culture and Sports', govuk_status: 'closed', govuk_closed_status: 'no_longer_exists')
+    create(:published_corporate_information_page, corporate_information_page_type: about_type, summary: 'A summary.', organisation: sport)
+
+    assert_equal sport.description_for_search, "A summary."
+  end
+
+  test "search description for a non-closed organisation" do
+    about_type = CorporateInformationPageType.find('about')
+    sport = create(:organisation, name: 'Department for Culture and Sports')
+    create(:published_corporate_information_page, corporate_information_page_type: about_type, summary: 'A summary.', organisation: sport)
+
+    assert_equal sport.description_for_search, "The home of Department for Culture and Sports on GOV.UK. A summary."
   end
 end
