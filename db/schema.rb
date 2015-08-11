@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150807112957) do
+ActiveRecord::Schema.define(version: 20150811135445) do
 
   create_table "about_pages", force: :cascade do |t|
     t.integer  "topical_event_id",    limit: 4
@@ -1040,9 +1040,9 @@ ActiveRecord::Schema.define(version: 20150807112957) do
     t.datetime "release_date"
     t.integer  "precision",                  limit: 4
     t.boolean  "confirmed",                  limit: 1
-    t.string   "change_note",                limit: 255
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.text     "change_note",                limit: 65535
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.integer  "creator_id",                 limit: 4
   end
 
