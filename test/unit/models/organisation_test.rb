@@ -377,6 +377,7 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal organisation.indexable_content, organisation.search_index['indexable_content']
     assert_equal 'organisation', organisation.search_index['format']
     assert_equal 'live', organisation.search_index['organisation_state']
+    assert_equal ['ministry-of-funk'], organisation.search_index['organisations']
   end
 
   test 'should return a rendered summary as description' do
@@ -391,6 +392,19 @@ class OrganisationTest < ActiveSupport::TestCase
     page = create(:published_corporate_information_page, page_params)
 
     assert_equal 'A text-rendered summary.', organisation.search_index['description']
+  end
+
+  test 'includes self in organisations for search index data' do
+    organisation = create(:organisation, name: "A Child Org")
+
+    assert_equal ['a-child-org'], organisation.search_index['organisations']
+  end
+
+  test 'includes self and parent in organisations for search index data' do
+    organisation = create(:organisation, name: "A Child Org")
+    create(:organisation, name: "A Parent Org", child_organisations: [organisation])
+
+    assert_equal ['a-child-org', 'a-parent-org'], organisation.search_index['organisations']
   end
 
   test 'should add organisation to search index on creating' do
@@ -467,6 +481,7 @@ class OrganisationTest < ActiveSupport::TestCase
                   'indexable_content' => 'Sporty. Some stuff',
                   'format' => 'organisation',
                   'description' => 'Sporty.',
+                  'organisations' => ["department-for-culture-and-sports"],
                   'organisation_state' => 'closed'}, results[0])
     assert_equal({'title' => 'Department of Education',
                   'link' => '/government/organisations/department-of-education',
@@ -474,6 +489,7 @@ class OrganisationTest < ActiveSupport::TestCase
                   'indexable_content' => 'Bookish. Some stuff',
                   'format' => 'organisation',
                   'description' => 'Bookish.',
+                  'organisations' => ["department-of-education"],
                   'organisation_state' => 'live'}, results[1])
     assert_equal({'title' => 'HMRC',
                   'acronym' => 'hmrc',
@@ -483,6 +499,7 @@ class OrganisationTest < ActiveSupport::TestCase
                   'format' => 'organisation',
                   'boost_phrases' => 'hmrc',
                   'description' => 'Taxing.',
+                  'organisations' => ["hmrc"],
                   'organisation_state' => 'live'}, results[2])
     assert_equal({'title' => 'Ministry of Defence',
                   'acronym' => 'mod',
@@ -492,6 +509,7 @@ class OrganisationTest < ActiveSupport::TestCase
                   'format' => 'organisation',
                   'boost_phrases' => 'mod',
                   'description' => 'Defensive.',
+                  'organisations' => ["ministry-of-defence"],
                   'organisation_state' => 'live'}, results[3])
     assert_equal({'title' => 'Devolved organisation',
                   'acronym' => 'dev',
@@ -499,6 +517,7 @@ class OrganisationTest < ActiveSupport::TestCase
                   'slug' => 'devolved-organisation',
                   'indexable_content' => '',
                   'description' => '',
+                  'organisations' => ["devolved-organisation"],
                   'format' => 'organisation',
                   'boost_phrases' => 'dev',
                   'organisation_state' => 'devolved'}, results[5])
