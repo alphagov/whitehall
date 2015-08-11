@@ -20,7 +20,7 @@ class PersonTest < ActiveSupport::TestCase
                   'link' => '/government/people/david-cameron',
                   'indexable_content' => 'David Cameron became Prime Minister in May 2010.',
                   'format' => 'person',
-                  'description' => '',
+                  'description' => 'David Cameron became Prime Minister in May 2010.',
                   'slug' => 'david-cameron'
                   }, person.search_index)
   end

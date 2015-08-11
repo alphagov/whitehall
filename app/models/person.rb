@@ -40,6 +40,7 @@ class Person < ActiveRecord::Base
   searchable title: :name,
              link: :search_link,
              content: :biography_without_markup,
+             description: :biography_without_markup,
              slug: :slug
 
   extend FriendlyId
