@@ -82,9 +82,10 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     ministerial_role = create(:ministerial_role_without_organisation, name: 'Prime Minister')
     create(:ministerial_role_appointment, role: ministerial_role, person: person)
 
-    assert_equal 'David Cameron (Prime Minister)', ministerial_role.search_index['title']
+    assert_equal 'Prime Minister', ministerial_role.search_index['title']
     assert_equal "/government/ministers/#{ministerial_role.slug}", ministerial_role.search_index['link']
     assert_equal 'David Cameron became Prime Minister in May 2010.', ministerial_role.search_index['indexable_content']
+    assert_equal 'Current role holder: David Cameron.', ministerial_role.search_index['description']
     assert_equal 'minister', ministerial_role.search_index['format']
   end
 
@@ -130,26 +131,26 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     results = MinisterialRole.search_index.to_a
 
     assert_equal 4, results.length
-    assert_equal({'title' => 'Nick Clegg (Deputy Prime Minister)',
+    assert_equal({'title' => 'Deputy Prime Minister',
                   'link' => '/government/ministers/deputy-prime-minister',
                   'indexable_content' => 'Cleggy.',
                   'format' => 'minister',
-                  'description' => ''}, results[0])
-    assert_equal({'title' => 'Jeremy Hunt (Secretary of State for Culture)',
+                  'description' => 'Current role holder: Nick Clegg.'}, results[0])
+    assert_equal({'title' => 'Secretary of State for Culture',
                   'link' => '/government/ministers/secretary-of-state-for-culture',
                   'indexable_content' => 'Hunty.',
                   'format' => 'minister',
-                  'description' => ''}, results[1])
-    assert_equal({'title' => 'Edward Garnier (Solicitor General)',
+                  'description' => 'Current role holder: Jeremy Hunt.'}, results[1])
+    assert_equal({'title' => 'Solicitor General',
                   'link' => '/government/ministers/solicitor-general',
                   'indexable_content' => 'Garnerian.',
                   'format' => 'minister',
-                  'description' => ''}, results[2])
-    assert_equal({'title' => 'David Cameron (Prime Minister)',
+                  'description' => 'Current role holder: Edward Garnier.'}, results[2])
+    assert_equal({'title' => 'Prime Minister',
                   'link' => '/government/ministers/prime-minister',
                   'indexable_content' => 'Cameronian.',
                   'format' => 'minister',
-                  'description' => ''}, results[3])
+                  'description' => 'Current role holder: David Cameron.'}, results[3])
   end
 
   test "#current_person_name should return the role name when vacant" do

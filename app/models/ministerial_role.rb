@@ -29,9 +29,10 @@ class MinisterialRole < Role
       .limit(options[:limit])
   end
 
-  searchable title: :search_title,
+  searchable title: :to_s,
              link: :search_link,
              content: :current_person_biography,
+             description: :search_description,
              format: 'minister'
 
   def self.cabinet
@@ -40,10 +41,6 @@ class MinisterialRole < Role
 
   def ministerial?
     true
-  end
-
-  def search_title
-    current_person ? "#{current_person.name} (#{to_s})" : to_s
   end
 
   def destroyable?
@@ -55,6 +52,14 @@ class MinisterialRole < Role
     # the old value of the slug (e.g. nil for a new record) if the record is dirty, and apparently the record
     # is still marked as dirty during after_save callbacks.
     Whitehall.url_maker.ministerial_role_path(slug)
+  end
+
+  def search_description
+    if current_person
+      "Current role holder: #{current_person.name}."
+    else
+      ""
+    end
   end
 
 private
