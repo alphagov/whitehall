@@ -168,6 +168,7 @@ class Organisation < ActiveRecord::Base
              link: :search_link,
              content: :indexable_content,
              description: :description_for_search,
+             organisations: :search_organisations,
              boost_phrases: :acronym,
              slug: :slug,
              organisation_state: :searchable_govuk_status
@@ -363,6 +364,10 @@ class Organisation < ActiveRecord::Base
     Whitehall.url_maker.organisation_path(self)
   end
 
+  def search_organisations
+    [slug] + parent_organisations.map(&:slug)
+  end
+
   def published_speeches
     ministerial_roles.map { |mr| mr.speeches.published }.flatten.uniq
   end
@@ -488,5 +493,4 @@ class Organisation < ActiveRecord::Base
       end
     end
   end
-
 end
