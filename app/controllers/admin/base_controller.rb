@@ -3,9 +3,9 @@ class Admin::BaseController < ApplicationController
   include PermissionsChecker
 
   layout 'admin'
+  prepend_before_filter :skip_slimmer
   prepend_before_filter :authenticate_user!
   before_filter :require_signin_permission!
-  before_filter :skip_slimmer
 
   def limit_edition_access!
     enforce_permission!(:see, @edition)
