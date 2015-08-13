@@ -30,15 +30,6 @@ module Whitehall
       #{config.root}/app/concerns
     )
 
-    # In the context of Sidekiq workers in production mode, autoloading is
-    # disabled and instead Sidekiq uses eager loading. By default, eager
-    # loading only includes directories under app/ and not lib/. Therefore
-    # Sidkiq workers are (sometimes) unable to autoload constants which we've
-    # defined in files in lib/.
-    #
-    # https://github.com/mperham/sidekiq/wiki/FAQ#why-doesnt-sidekiq-autoload-my-rails-application-code
-    config.eager_load_paths += config.autoload_paths
-
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
