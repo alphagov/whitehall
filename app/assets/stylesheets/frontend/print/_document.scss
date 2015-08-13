@@ -52,31 +52,62 @@ article {
 .govspeak {
   h2 {
     clear: both;
-    padding-top: $gutter*2;
+  }
+  figure {
+    margin: 0;
   }
   .attachment {
     clear: both;
-    .attachment-thumb,
-    .attachment-details {
-      float: left;
-      width: 15%;
-    }
     .attachment-thumb {
-      margin: 0 $gutter*2 $gutter*2 0;
-      a {
-        img {
-          width: 100%;
-        }
-        &:after {
-          content: "";
-        }
-      }
+      display: none;
     }
     .attachment-details {
-      width: 80%;
       h3 {
         margin-top: 0;
       }
+      .accessibility-warning {
+        h2 {
+          @include core-14;
+          padding: 0;
+          margin: 0;
+        }
+        .toggler {
+          display: none;
+        }
+      }
     }
+  }
+
+  table {
+    border: 1pt solid rgb(125,125,125);
+    border-collapse: collapse;
+    width: 100%;
+    margin: $gutter-half 0;
+
+    th,
+    td {
+      border: 1pt solid rgb(125,125,125);
+      padding: 0.25em 0.5em;
+      text-align: left;
+    }
+
+    caption {
+      @include core-19;
+      margin: 14pt 0;
+    }
+  }
+
+}
+
+.call-to-action, .information-block {
+  border: 1px solid $border-colour;
+  padding: $gutter-half;
+  margin: $gutter-half 0;
+  h4 {
+    @include core-14;
+    margin-top: 0;
+  }
+  p {
+    margin: 0;
   }
 }

@@ -34,7 +34,7 @@ h5 {
   }
 }
 p {
-  @include copy-14;
+  @include core-14;
   margin: $gutter-half 0;
 }
 ol,
@@ -48,9 +48,8 @@ ul {
   list-style: disc;
 }
 li {
-  @include copy-14;
+  @include core-14;
   margin-left: $gutter*1.2;
-  
   li {
     margin-left: $gutter;
   }
@@ -88,10 +87,11 @@ figure {
     max-width: $full-width;
   }
   figcaption {
-    @include copy-14;
+    @include core-14;
   }
 }
+
+.back-to-content,
 .player-container {
   display: none;
 }
-
