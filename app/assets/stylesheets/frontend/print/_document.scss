@@ -2,7 +2,7 @@ img {
   float: left;
   width: 25%;
   clear: both;
-  margin: 0 30px 30px 0px;
+  margin: 0 $gutter $gutter 0;
 }
 
 .document-footer-meta {
@@ -79,28 +79,28 @@ article {
   }
 
   table {
-    border: 1pt solid rgb(125,125,125);
+    border: 1pt solid $border-colour;
     border-collapse: collapse;
     width: 100%;
     margin: $gutter-half 0;
 
     th,
     td {
-      border: 1pt solid rgb(125,125,125);
-      padding: 0.25em 0.5em;
+      border: 1pt solid $border-colour;
+      padding: $gutter-one-third;
       text-align: left;
     }
 
     caption {
       @include core-19;
-      margin: 14pt 0;
+      margin: $gutter-half 0;
     }
   }
 
 }
 
 .call-to-action, .information-block {
-  border: 1px solid $border-colour;
+  border: 1pt solid $border-colour;
   padding: $gutter-half;
   margin: $gutter-half 0;
   h4 {
