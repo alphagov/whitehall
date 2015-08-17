@@ -357,7 +357,13 @@ class Organisation < ActiveRecord::Base
   end
 
   def description_for_search
-    Govspeak::Document.new(summary).to_text
+    description = Govspeak::Document.new(summary).to_text
+
+    if !closed?
+      "The home of #{name} on GOV.UK. #{description}"
+    else
+      description
+    end
   end
 
   def search_link
