@@ -27,7 +27,8 @@ namespace :panopticon do
     logger.info "Registering detailed guides with Panopticon..."
     registerer = GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: 'whitehall-frontend', kind: 'detailed_guide')
 
-    DetailedGuide.published.includes(:document).each do |guide|
+    Document.where(document_type: "DetailedGuide").published.each do |document|
+      guide = document.published_edition
       artefact = RegisterableEdition.new(guide)
       logger.info "Registering /#{guide.slug} with Panopticon..."
       begin
