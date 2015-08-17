@@ -40,9 +40,7 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
       public_updated_at: organisation.updated_at,
       routes: [ { path: public_path, type: "exact" } ],
       update_type: "major",
-      details: {
-        analytics_identifier: "O123",
-      },
+      analytics_identifier: "O123",
     }
 
     presented_hash = present(organisation)
@@ -85,9 +83,7 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
       public_updated_at: worldwide_org.updated_at,
       routes: [ { path: public_path, type: "exact" } ],
       update_type: "major",
-      details: {
-        analytics_identifier: "WO123",
-      },
+      analytics_identifier: "WO123",
     }
 
     presented_hash = present(worldwide_org)
@@ -109,9 +105,7 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
       public_updated_at: world_location.updated_at,
       routes: [ { path: public_path, type: "exact" } ],
       update_type: "major",
-      details: {
-        analytics_identifier: "WL123",
-      },
+      analytics_identifier: "WL123",
     }
 
     presented_hash = present(world_location)
