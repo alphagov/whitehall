@@ -54,7 +54,7 @@ class Api::WorldLocationPresenterTest < PresenterTestCase
 
   test "json includes analytics_identifier in details hash" do
     @location.stubs(:analytics_identifier).returns('WL123')
-    assert_equal 'WL123', @presenter.as_json[:details][:analytics_identifier]
+    assert_equal 'WL123', @presenter.as_json[:analytics_identifier]
   end
 
   test "json includes display type as format" do

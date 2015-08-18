@@ -15,8 +15,8 @@ class Api::OrganisationPresenter < Api::BasePresenter
         closed_at: model.closed_at,
         govuk_status: model.govuk_status,
         content_id: model.content_id,
-        analytics_identifier: model.analytics_identifier,
       },
+      analytics_identifier: model.analytics_identifier,
       parent_organisations: parent_organisations,
       child_organisations: child_organisations,
     }

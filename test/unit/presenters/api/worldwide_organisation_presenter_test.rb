@@ -63,7 +63,7 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
 
   test "json includes analytics_identifier in details hash" do
     @world_org.stubs(:analytics_identifier).returns('WO123')
-    assert_equal 'WO123', @presenter.as_json[:details][:analytics_identifier]
+    assert_equal 'WO123', @presenter.as_json[:analytics_identifier]
   end
 
   test "json includes public world organisations url as web_url" do
