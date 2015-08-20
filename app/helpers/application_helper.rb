@@ -159,19 +159,19 @@ module ApplicationHelper
   end
 
   def render_datetime_microformat(object, method, &block)
-    content_tag(:abbr, class: method, title: object.send(method).iso8601, &block)
+    content_tag(:time, class: method, datetime: object.send(method).iso8601, &block)
   end
 
   def absolute_time(time, options = {})
     content_tag(:time, l(time, format: :long_ordinal),
                 class: [options[:class], "datetime"].compact.join(" "),
-                title: time.iso8601) if time
+                datetime: time.iso8601) if time
   end
 
   def absolute_date(time, options = {})
     content_tag(:time, l(time.to_date, format: :long_ordinal),
                 class: [options[:class], "date"].compact.join(" "),
-                title: time.iso8601) if time
+                datetime: time.iso8601) if time
   end
 
   def main_navigation_link_to(name, path, html_options = {}, &block)
