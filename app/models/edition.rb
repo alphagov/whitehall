@@ -246,9 +246,6 @@ class Edition < ActiveRecord::Base
     format: -> d { d.format_name.gsub(" ", "_") },
     content: :indexable_content,
     description: :summary,
-    section: :section,
-    subsection: :subsection,
-    subsubsection: :subsubsection,
     organisations: nil,
     people: nil,
     display_type: :display_type,
@@ -468,18 +465,6 @@ class Edition < ActiveRecord::Base
 
   def body_without_markup
     Govspeak::Document.new(body).to_text
-  end
-
-  def section
-    nil
-  end
-
-  def subsection
-    nil
-  end
-
-  def subsubsection
-    nil
   end
 
   def other_editions
