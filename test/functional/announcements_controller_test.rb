@@ -55,7 +55,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     get :index
 
     assert_select_object(speech) do
-      assert_select "abbr.public_timestamp[title=?]", first_published_at.to_datetime.iso8601
+      assert_select "time.public_timestamp[datetime=?]", first_published_at.to_datetime.iso8601
     end
   end
 
@@ -66,7 +66,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     get :index
 
     assert_select_object(news_article) do
-      assert_select "abbr.public_timestamp[title=?]", first_published_at.iso8601
+      assert_select "time.public_timestamp[datetime=?]", first_published_at.iso8601
     end
   end
 

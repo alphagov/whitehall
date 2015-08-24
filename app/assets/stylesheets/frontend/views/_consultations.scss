@@ -57,7 +57,7 @@
       p {
         span {
           display: block;
-          abbr {
+          time {
             @include core-24(1.4em);
             &.date {
               font-weight: bold;

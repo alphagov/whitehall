@@ -92,7 +92,7 @@ class ApplicationHelperTest < ActionView::TestCase
     created_at = Time.zone.now
     object = stub(created_at: created_at)
     html = render_datetime_microformat(object, :created_at) { "human-friendly" }
-    assert_select_within_html(html, "abbr.created_at[title='#{created_at.iso8601}']", text: "human-friendly")
+    assert_select_within_html(html, "time.created_at[datetime='#{created_at.iso8601}']", text: "human-friendly")
   end
 
   test "home page should be related to home main navigation" do

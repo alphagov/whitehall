@@ -416,11 +416,11 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_select '#announcements' do
       assert_select_object(announcement_1) do
-        assert_select "abbr.public_timestamp[title=?]", 1.days.ago.iso8601
+        assert_select "time.public_timestamp[datetime=?]", 1.days.ago.iso8601
         assert_select ".document-type", "Press release"
       end
       assert_select_object(announcement_2) do
-        assert_select "abbr.public_timestamp[title=?]", 2.days.ago.to_date.to_datetime.iso8601
+        assert_select "time.public_timestamp[datetime=?]", 2.days.ago.to_date.to_datetime.iso8601
         assert_select ".document-type", "Written statement to Parliament"
       end
       refute_select_object(announcement_3)
@@ -452,11 +452,11 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_select "#consultations" do
       assert_select_object consultation_1 do
-        assert_select '.publication-date abbr[title=?]', 3.days.ago.iso8601
+        assert_select '.publication-date time[datetime=?]', 3.days.ago.iso8601
         assert_select '.document-type', "Open consultation"
       end
       assert_select_object consultation_2 do
-        assert_select '.publication-date abbr[title=?]', 4.days.ago.iso8601
+        assert_select '.publication-date time[datetime=?]', 4.days.ago.iso8601
         assert_select '.document-type', "Closed consultation"
       end
       refute_select_object consultation_3
@@ -488,7 +488,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_select "#publications" do
       assert_select_object publication_2 do
-        assert_select '.publication-date abbr[title=?]', 2.days.ago.to_date.to_datetime.iso8601
+        assert_select '.publication-date time[datetime=?]', 2.days.ago.to_date.to_datetime.iso8601
         assert_select '.document-type', "Policy paper"
       end
       assert_select_object publication_3
@@ -516,7 +516,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_select "#statistics-publications" do
       assert_select_object publication_1 do
-        assert_select '.publication-date abbr[title=?]', 1.days.ago.to_date.to_datetime.iso8601
+        assert_select '.publication-date time[datetime=?]', 1.days.ago.to_date.to_datetime.iso8601
         assert_select '.document-type', "Statistics - national statistics"
       end
       assert_select_object publication_2

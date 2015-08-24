@@ -46,8 +46,8 @@ class WorldLocationNewsArticlesControllerTest < ActionController::TestCase
     get :show, id: updated_world_news_article.document
 
     assert_select ".meta" do
-      assert_select ".date[title='#{world_news_article.first_published_at.iso8601}']"
-      assert_select ".date[title='#{updated_world_news_article.public_timestamp.iso8601}']"
+      assert_select ".date[datetime='#{world_news_article.first_published_at.iso8601}']"
+      assert_select ".date[datetime='#{updated_world_news_article.public_timestamp.iso8601}']"
     end
   end
 

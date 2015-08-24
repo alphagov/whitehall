@@ -191,7 +191,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
     assert_select "#announcements" do
       assert_select_object announcement_1 do
-        assert_select '.publication-date abbr[title=?]', 1.days.ago.iso8601
+        assert_select '.publication-date time[datetime=?]', 1.days.ago.iso8601
         assert_select '.document-type', "Press release"
       end
       assert_select_object announcement_2
@@ -225,7 +225,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
     assert_select "#publications" do
       assert_select_object publication_2 do
-        assert_select '.publication-date abbr[title=?]', 2.days.ago.to_date.to_datetime.iso8601
+        assert_select '.publication-date time[datetime=?]', 2.days.ago.to_date.to_datetime.iso8601
         assert_select '.document-type', "Policy paper"
       end
       assert_select_object publication_3
@@ -253,7 +253,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
     assert_select "#statistics-publications" do
       assert_select_object publication_1 do
-        assert_select '.publication-date abbr[title=?]', 1.days.ago.to_date.to_datetime.iso8601
+        assert_select '.publication-date time[datetime=?]', 1.days.ago.to_date.to_datetime.iso8601
         assert_select '.document-type', "Statistics - national statistics"
       end
       assert_select_object publication_2
