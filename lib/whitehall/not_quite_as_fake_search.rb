@@ -50,9 +50,6 @@ module Whitehall
             description
             indexable_content
             display_type
-            section
-            subsection
-            subsubsection
             link
             organisations
             people
