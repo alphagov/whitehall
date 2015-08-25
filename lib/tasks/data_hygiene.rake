@@ -113,14 +113,6 @@ task :unwithdraw_edition, [:edition_id] => :environment do |t,args|
   DataHygiene::EditionUnwithdrawer.new(args[:edition_id], Logger.new(STDOUT)).unwithdraw!
 end
 
-desc "Unpublish a statistics announcement and register a 410 GONE route for it"
-task :unpublish_statistics_announcement, [:slug] => :environment do |t, args|
-  DataHygiene::StatisticsAnnouncementUnpublisher.new(
-    announcement_slug: args[:slug],
-    logger: Logger.new(STDOUT),
-  ).call
-end
-
 # This task must be removed once the move of detailed guides to /guidance
 # is complete.
 desc "Rename detailed guides in Rummager individually"
