@@ -99,6 +99,14 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     announcement.update!(publishing_state: "unpublished", redirect_url: "https://www.test.alphagov.co.uk/foo")
   end
 
+  test 'a redirect item is published to content-store after being unpublished' do
+    announcement = create(:statistics_announcement)
+
+    Whitehall::PublishingApi.expects(:publish_redirect).with(is_a(Whitehall::PublishingApi::Redirect))
+
+    announcement.update!(publishing_state: "unpublished", redirect_url: 'https://www.test.alphagov.co.uk/foo')
+  end
+
   test 'only valid when associated publication is of a matching type' do
     statistics          = create(:draft_statistics)
     national_statistics = create(:draft_national_statistics)

@@ -158,23 +158,21 @@ class StatisticsAnnouncement < ActiveRecord::Base
   end
 
   def publish_if_needed!
-    if !unpublished?
-      publish
-    end
+    publish if !unpublished?
   end
 
   def publish
+    # This is where we would send (a placeholder) to publishing-api
     update_in_search_index
   end
 
   def unpublish_if_needed!
-    if publishing_state_changed?
-      unpublish
-    end
+    unpublish if publishing_state_changed?
   end
 
   def unpublish
     if unpublished?
+      publish_redirect_item
       remove_from_search_index
     end
   end
@@ -204,5 +202,13 @@ private
         errors.add(:redirect_url, "cannot redirect to itself")
       end
     end
+  end
+
+  def publish_redirect_item
+    redirects = [
+      { path: public_path, destination: redirect_url, type: "exact" }
+    ]
+    redirect_item = Whitehall::PublishingApi::Redirect.new(public_path, redirects)
+    Whitehall::PublishingApi.publish_redirect(redirect_item)
   end
 end
