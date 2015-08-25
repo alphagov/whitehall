@@ -45,6 +45,9 @@ class StatisticsAnnouncement < ActiveRecord::Base
 
   default_scope { published }
 
+  after_save :publish_if_needed!
+  after_save :unpublish_if_needed!
+
   include Searchable
   searchable  only: :without_published_publication,
               title: :title,
@@ -56,7 +59,9 @@ class StatisticsAnnouncement < ActiveRecord::Base
               topics: :topic_slugs,
               release_timestamp: :release_date,
               statistics_announcement_state: :state,
-              metadata: :search_metadata
+              metadata: :search_metadata,
+              index_after: [],
+              unindex_after: []
 
   delegate  :release_date, :display_date, :confirmed?,
               to: :current_release_date, allow_nil: true
@@ -150,6 +155,28 @@ class StatisticsAnnouncement < ActiveRecord::Base
 
   def unpublished?
     publishing_state == "unpublished"
+  end
+
+  def publish_if_needed!
+    if !unpublished?
+      publish
+    end
+  end
+
+  def publish
+    update_in_search_index
+  end
+
+  def unpublish_if_needed!
+    if publishing_state_changed?
+      unpublish
+    end
+  end
+
+  def unpublish
+    if unpublished?
+      remove_from_search_index
+    end
   end
 
 private
