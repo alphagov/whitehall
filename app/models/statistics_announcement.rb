@@ -19,6 +19,11 @@ class StatisticsAnnouncement < ActiveRecord::Base
   has_many :organisations, through: :statistics_announcement_organisations
 
   validate  :publication_is_matching_type, if: :publication
+  validate  :redirect_not_circular, if: :unpublished?
+  validates :publishing_state, inclusion: %w{published unpublished}
+  validates :redirect_url, presence: { message: "must be provided when unpublishing an announcement" }, if: :unpublished?
+  validates :redirect_url, uri: true, allow_blank: true
+  validates :redirect_url, gov_uk_url: true, allow_blank: true
   validates :title, :summary, :organisations, :topics, :creator, :current_release_date, presence: true
   validates :cancellation_reason, presence: {  message: "must be provided when cancelling an announcement" }, if: :cancelled?
   validates :publication_type_id,
@@ -36,6 +41,9 @@ class StatisticsAnnouncement < ActiveRecord::Base
   scope :in_organisations, Proc.new { |organisation_ids| joins(:statistics_announcement_organisations)
     .where(statistics_announcement_organisations: { organisation_id: organisation_ids })
   }
+  scope :published, -> { where(publishing_state: "published") }
+
+  default_scope { published }
 
   include Searchable
   searchable  only: :without_published_publication,
@@ -140,6 +148,10 @@ class StatisticsAnnouncement < ActiveRecord::Base
     end
   end
 
+  def unpublished?
+    publishing_state == "unpublished"
+  end
+
 private
 
   def last_major_change
@@ -157,5 +169,13 @@ private
 
   def type_string
     national_statistic? ? 'national statistics' : 'statistics'
+  end
+
+  def redirect_not_circular
+    if redirect_url.present?
+      if public_path == redirect_url
+        errors.add(:redirect_url, "cannot redirect to itself")
+      end
+    end
   end
 end

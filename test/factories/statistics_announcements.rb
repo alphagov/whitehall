@@ -24,4 +24,9 @@ FactoryGirl.define do
     cancellation_reason "Cancelled for a reason"
     cancelled_at Time.zone.now
   end
+
+  factory :unpublished_statistics_announcement, parent: :statistics_announcement do
+    publishing_state "unpublished"
+    redirect_url "https://www.test.alphagov.co.uk/government/sparkle"
+  end
 end

@@ -18,6 +18,33 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_match /must be a statistical type/, announcement.errors[:publication_type_id].first
   end
 
+  test 'when unpublished, a redirect_url is required' do
+    announcement = build(:unpublished_statistics_announcement, redirect_url: nil)
+    refute announcement.valid?
+
+    assert_match /must be provided when unpublishing an announcement/, announcement.errors[:redirect_url].first
+  end
+
+  test 'when unpublished, a GOV.UK redirect_url is required' do
+    announcement = build(:unpublished_statistics_announcement, redirect_url: "https://www.youtube.com")
+    refute announcement.valid?
+
+    assert_match %r{must be in the form of https://www.test.alphagov.co.uk/example}, announcement.errors[:redirect_url].first
+  end
+
+  test 'when unpublished, it cannot redirect to itself' do
+    announcement = build(:unpublished_statistics_announcement, slug: "dummy")
+    announcement.redirect_url = announcement.public_path
+    refute announcement.valid?
+
+    assert_match /cannot redirect to itself/, announcement.errors[:redirect_url].first
+  end
+
+  test 'when unpublished, is valid with a GOV.UK redirect_url' do
+    announcement = build(:unpublished_statistics_announcement, redirect_url: "https://www.test.alphagov.co.uk/government/statistics")
+    assert announcement.valid?
+  end
+
   test 'generates slug from its title' do
     announcement = create(:statistics_announcement, title: 'Beard statistics 2015')
     assert_equal 'beard-statistics-2015', announcement.slug

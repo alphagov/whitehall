@@ -172,6 +172,13 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
       filter(unlinked_only: '1').description
   end
 
+  test "excludes unpublished announcements" do
+    deleted = create(:unpublished_statistics_announcement)
+    published = create(:statistics_announcement)
+
+    assert_equal [published.id], filter.statistics_announcements.map(&:id)
+  end
+
 private
 
   def statistics_announcement_for(datetime, attributes={})

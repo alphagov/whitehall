@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150811135445) do
+ActiveRecord::Schema.define(version: 20150821143729) do
 
   create_table "about_pages", force: :cascade do |t|
     t.integer  "topical_event_id",    limit: 4
@@ -1064,12 +1064,14 @@ ActiveRecord::Schema.define(version: 20150811135445) do
     t.integer  "publication_type_id", limit: 4
     t.integer  "topic_id",            limit: 4
     t.integer  "creator_id",          limit: 4
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",                                              null: false
+    t.datetime "updated_at",                                              null: false
     t.integer  "publication_id",      limit: 4
     t.text     "cancellation_reason", limit: 65535
     t.datetime "cancelled_at"
     t.integer  "cancelled_by_id",     limit: 4
+    t.string   "publishing_state",    limit: 255,   default: "published", null: false
+    t.string   "redirect_url",        limit: 255
   end
 
   add_index "statistics_announcements", ["cancelled_by_id"], name: "index_statistics_announcements_on_cancelled_by_id", using: :btree
