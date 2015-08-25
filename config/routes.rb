@@ -291,6 +291,7 @@ Whitehall::Application.routes.draw do
             post :publish_cancellation
           end
           resources :statistics_announcement_date_changes, as: 'changes', path: 'changes'
+          resource :statistics_announcement_unpublishings, as: 'unpublish', path: 'unpublish', only: [:new, :create]
         end
 
         resources :suggestions, only: [:index]

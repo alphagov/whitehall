@@ -30,6 +30,8 @@
         <% else %>
           <%= @statistics_announcement.release_date.to_s(:date_with_time) %>
         <% end %>
+        –
+        <%= link_to "Change release date", new_admin_statistics_announcement_change_path(@statistics_announcement) %>
       </dd>
       <dt>Display date:</dt>
       <dd>
@@ -55,11 +57,12 @@
     </p>
 
     <div class="form-actions">
-      <%= link_to "Edit announcement details", [:edit, :admin, @statistics_announcement], class: "btn btn-default add-right-margin"%>
+      <%= link_to "Edit announcement", [:edit, :admin, @statistics_announcement], class: "btn btn-default add-right-margin"%>
+
+      <%= link_to "Unpublish announcement", new_admin_statistics_announcement_unpublish_path(@statistics_announcement), class: "btn btn-default pull-right add-left-margin" %>
       <% if  @statistics_announcement.cancelled? %>
         <%= link_to "Edit cancellation reason", [:cancel_reason, :admin, @statistics_announcement], class: 'btn btn-default' %>
       <% else %>
-        <%= link_to "Change release date", new_admin_statistics_announcement_change_path(@statistics_announcement), class: "btn btn-default"%>
         <%= link_to "Cancel statistics release", [:cancel, :admin, @statistics_announcement], class: "btn btn-default pull-right" %>
       <% end %>
     </div>
