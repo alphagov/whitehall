@@ -12,6 +12,16 @@ class GdsApi::ContentApi::Fake
   def artefact(*args)
     nil
   end
+
+  def artefacts_tagged_to_mainstream_browse_pages
+    []
+  end
+end
+
+class GdsApi::ContentApi
+  def artefacts_tagged_to_mainstream_browse_pages
+    get_json!("#{base_url}/whitehall-artefacts-tagged-to-mainstream-browse-pages.json")
+  end
 end
 
 if Rails.env.test?
