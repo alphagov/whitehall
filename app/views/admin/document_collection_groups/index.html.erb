@@ -10,9 +10,6 @@
   <%= form_tag admin_document_collection_new_member_path(@collection), class: 'document-finder' do %>
     <h2>Add a document</h2>
     <div id="document-finder" class="form-inline well remove-top-margin">
-      <div class="reorder-buttons">
-        <%= button_tag 'Reorder groups', class: 'btn btn-sm btn-info js-reorder' %><%= button_tag 'Finish reordering', class: 'btn btn-sm btn-success js-finish-reorder' %>
-      </div>
       <label for="title">Add</label>
       <div class="document-finder-fields">
         <%= search_field_tag :title, '', placeholder: 'Title or slug&hellip;'.html_safe, results: 5, autosave: 'unique', autofocus: true, class: 'form-control input-sm' %>
@@ -30,6 +27,9 @@
     </div>
   <% end %>
   <div class="js-group-container">
+    <div class="reorder-buttons">
+      <%= button_tag 'Reorder groups', class: 'btn btn-sm btn-info js-reorder' %><%= button_tag 'Finish reordering', class: 'btn btn-sm btn-success js-finish-reorder' %>
+    </div>
     <% @groups.each do |group| %>
       <section class="group">
         <header class="js-group-header">
