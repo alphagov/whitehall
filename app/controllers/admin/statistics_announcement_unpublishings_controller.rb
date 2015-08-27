@@ -1,5 +1,6 @@
 class Admin::StatisticsAnnouncementUnpublishingsController < Admin::BaseController
   before_filter :find_statistics_announcement
+  before_filter :enforce_permissions!
 
   def new
   end
@@ -20,5 +21,9 @@ private
 
   def statistics_announcement_params
     params.require(:statistics_announcement).permit(:redirect_url)
+  end
+
+  def enforce_permissions!
+    enforce_permission!(:unpublish, @statistics_announcement)
   end
 end

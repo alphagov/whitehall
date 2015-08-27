@@ -46,6 +46,7 @@ module Whitehall::Authority
     'MinisterialRole' => Rules::MinisterialRoleRules,
     'PolicyGroup' => Rules::PolicyGroupRules,
     'Organisation' => Rules::OrganisationRules,
-    'Government' => Rules::GovernmentRules
+    'Government' => Rules::GovernmentRules,
+    'StatisticsAnnouncement' => Rules::StatisticsAnnouncementRules,
   }
 end

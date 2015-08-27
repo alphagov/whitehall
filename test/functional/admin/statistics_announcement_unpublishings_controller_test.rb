@@ -8,6 +8,12 @@ class Admin::StatisticsAnnouncementUnpublishingsControllerTest < ActionControlle
 
   should_be_an_admin_controller
 
+  test "GDS Editor permission required to unpublish" do
+    login_as :departmental_editor
+    get :new, statistics_announcement_id: @announcement.id
+    assert_response 403
+  end
+
   view_test "GET :new renders a form" do
     get :new, statistics_announcement_id: @announcement
 

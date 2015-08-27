@@ -59,7 +59,10 @@
     <div class="form-actions">
       <%= link_to "Edit announcement", [:edit, :admin, @statistics_announcement], class: "btn btn-default add-right-margin"%>
 
-      <%= link_to "Unpublish announcement", new_admin_statistics_announcement_unpublish_path(@statistics_announcement), class: "btn btn-default pull-right add-left-margin" %>
+      <% if can?(:unpublish, @statistics_announcement) %>
+        <%= link_to "Unpublish announcement", new_admin_statistics_announcement_unpublish_path(@statistics_announcement), class: "btn btn-default pull-right add-left-margin" %>
+      <% end %>
+
       <% if  @statistics_announcement.cancelled? %>
         <%= link_to "Edit cancellation reason", [:cancel_reason, :admin, @statistics_announcement], class: 'btn btn-default' %>
       <% else %>
