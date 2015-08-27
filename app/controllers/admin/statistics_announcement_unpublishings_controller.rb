@@ -7,7 +7,7 @@ class Admin::StatisticsAnnouncementUnpublishingsController < Admin::BaseControll
 
   def create
     if @statistics_announcement.update(statistics_announcement_params.merge(publishing_state: "unpublished"))
-      redirect_to admin_statistics_announcements_path
+      redirect_to admin_statistics_announcements_path, notice: "Unpublished statistics announcement: #{@statistics_announcement.title}"
     else
       render :new
     end
