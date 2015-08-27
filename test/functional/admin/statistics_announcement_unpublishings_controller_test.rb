@@ -36,7 +36,7 @@ class Admin::StatisticsAnnouncementUnpublishingsControllerTest < ActionControlle
     }
 
     @announcement.reload
-    assert_redirected_to admin_statistics_announcement_url(@announcement)
+    assert_redirected_to admin_statistics_announcements_path
     assert_equal redirect_url, @announcement.redirect_url
     assert @announcement.unpublished?
   end

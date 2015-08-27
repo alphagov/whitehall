@@ -102,7 +102,10 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   test 'a redirect item is published to content-store after being unpublished' do
     announcement = create(:statistics_announcement)
 
-    Whitehall::PublishingApi.expects(:publish_redirect).with(is_a(Whitehall::PublishingApi::Redirect))
+    Whitehall::PublishingApi.expects(:publish_redirect).with do |instance|
+      instance.is_a?(Whitehall::PublishingApi::Redirect) &&
+        assert_valid_against_schema(instance.as_json, "redirect")
+    end
 
     announcement.update!(publishing_state: "unpublished", redirect_url: 'https://www.test.alphagov.co.uk/foo')
   end
