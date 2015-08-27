@@ -27,7 +27,7 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
     @collection.groups << build(:document_collection_group)
     group1, group2 = @collection.groups
     get :index, document_collection_id: @collection
-    assert_select 'section.group:nth-child(1)' do
+    assert_select 'section.group' do
       assert_select "option[value='#{group1.id}']", count: 0
       assert_select "option[value='#{group2.id}']", group2.heading
     end
