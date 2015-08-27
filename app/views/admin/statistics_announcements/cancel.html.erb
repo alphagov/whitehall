@@ -11,21 +11,17 @@
     </span>
   </h1>
 
+  <p class="lead">
+    The announcement will remain on GOV.UK, together with the reason for cancellation.
+    <br />
+    Cancelling a release cannot be undone.
+  </p>
+
   <%= form_for [:publish_cancellation, :admin, @statistics_announcement], method: :post, html: {class: 'well'} do |form| %>
     <%= form.errors %>
 
     <div class="form-group">
       <%= form.text_area :cancellation_reason, rows: 5, required: true, label_text: 'Official reason for cancellation' %>
-    </div>
-
-    <div class="callout callout-warning add-bottom-margin">
-      <div class="callout-title">
-        Warning
-      </div>
-      <div class="callout-body">
-        Cancelling an announcement cannot be undone.<br />
-        The cancelled announcement will remain on GOV.UK.
-      </div>
     </div>
 
     <%= form.submit "Publish cancellation", class: "btn btn-lg btn-danger add-right-margin" %>

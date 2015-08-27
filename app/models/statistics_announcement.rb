@@ -19,6 +19,11 @@ class StatisticsAnnouncement < ActiveRecord::Base
   has_many :organisations, through: :statistics_announcement_organisations
 
   validate  :publication_is_matching_type, if: :publication
+  validate  :redirect_not_circular, if: :unpublished?
+  validates :publishing_state, inclusion: %w{published unpublished}
+  validates :redirect_url, presence: { message: "must be provided when unpublishing an announcement" }, if: :unpublished?
+  validates :redirect_url, uri: true, allow_blank: true
+  validates :redirect_url, gov_uk_url: true, allow_blank: true
   validates :title, :summary, :organisations, :topics, :creator, :current_release_date, presence: true
   validates :cancellation_reason, presence: {  message: "must be provided when cancelling an announcement" }, if: :cancelled?
   validates :publication_type_id,
@@ -36,6 +41,12 @@ class StatisticsAnnouncement < ActiveRecord::Base
   scope :in_organisations, Proc.new { |organisation_ids| joins(:statistics_announcement_organisations)
     .where(statistics_announcement_organisations: { organisation_id: organisation_ids })
   }
+  scope :published, -> { where(publishing_state: "published") }
+
+  default_scope { published }
+
+  after_save :publish_if_needed!
+  after_save :unpublish_if_needed!
 
   include Searchable
   searchable  only: :without_published_publication,
@@ -48,7 +59,9 @@ class StatisticsAnnouncement < ActiveRecord::Base
               topics: :topic_slugs,
               release_timestamp: :release_date,
               statistics_announcement_state: :state,
-              metadata: :search_metadata
+              metadata: :search_metadata,
+              index_after: [],
+              unindex_after: []
 
   delegate  :release_date, :display_date, :confirmed?,
               to: :current_release_date, allow_nil: true
@@ -140,6 +153,30 @@ class StatisticsAnnouncement < ActiveRecord::Base
     end
   end
 
+  def unpublished?
+    publishing_state == "unpublished"
+  end
+
+  def publish_if_needed!
+    publish if !unpublished?
+  end
+
+  def publish
+    # This is where we would send (a placeholder) to publishing-api
+    update_in_search_index
+  end
+
+  def unpublish_if_needed!
+    unpublish if publishing_state_changed?
+  end
+
+  def unpublish
+    if unpublished?
+      publish_redirect_item
+      remove_from_search_index
+    end
+  end
+
 private
 
   def last_major_change
@@ -157,5 +194,21 @@ private
 
   def type_string
     national_statistic? ? 'national statistics' : 'statistics'
+  end
+
+  def redirect_not_circular
+    if redirect_url.present?
+      if public_path == redirect_url
+        errors.add(:redirect_url, "cannot redirect to itself")
+      end
+    end
+  end
+
+  def publish_redirect_item
+    redirects = [
+      { path: public_path, destination: redirect_url, type: "exact" }
+    ]
+    redirect_item = Whitehall::PublishingApi::Redirect.new(public_path, redirects)
+    Whitehall::PublishingApi.publish_redirect(redirect_item)
   end
 end
