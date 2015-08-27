@@ -8,6 +8,7 @@ class Feature < ActiveRecord::Base
   validates :document, presence: true, unless: -> feature { feature.topical_event_id.present? || feature.offsite_link_id.present? }
   validates :started_at, presence: true
   validates :image, :alt_text, presence: true, on: :create
+  validates :alt_text, length: { maximum: 255 }
   validates_with ImageValidator, method: :image, size: [960, 640], if: :image_changed?
 
   before_validation :set_started_at!, on: :create

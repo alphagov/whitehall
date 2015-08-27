@@ -2,7 +2,7 @@ class Image < ActiveRecord::Base
   belongs_to :image_data
   belongs_to :edition
 
-  validates :alt_text, presence: true, unless: :skip_main_validation?
+  validates :alt_text, presence: true, length: { maximum: 255 }, unless: :skip_main_validation?
   validates :image_data, presence: { message: 'must be present' }
 
   after_destroy :destroy_image_data_if_required
