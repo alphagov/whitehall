@@ -353,15 +353,6 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (~> 1.1)
-    sassc (1.2.0)
-      bundler
-      ffi (~> 1.9.6)
-    sassc-rails (0.1.0)
-      rails (>= 4.0.0)
-      sass
-      sassc (~> 1.2.0)
-      sprockets (> 2.11)
-      tilt
     shared_mustache (0.2.1)
       execjs (>= 1.2.4)
       mustache (~> 0.99.4)
@@ -504,7 +495,6 @@ DEPENDENCIES
   rummageable (= 1.2.0)
   sass (= 3.4.9)
   sass-rails
-  sassc-rails (= 0.1.0)
   shared_mustache (~> 0.2.1)
   sidekiq (~> 3.3.0)
   sidekiq-logging-json (= 0.0.14)
