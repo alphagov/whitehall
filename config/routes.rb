@@ -379,10 +379,6 @@ Whitehall::Application.routes.draw do
   get 'healthcheck' => 'healthcheck#check'
   get 'healthcheck/overdue' => 'healthcheck#overdue'
 
-  # XXX: we use a blank prefix here because redirect has been
-  # overridden further up in the routes
-  get '/specialist/:id', constraints: {id: /[A-z0-9\-]+/}, to: redirect("/%{id}", prefix: '')
-
   get '/guidance/:id' => 'detailed_guides#show', constraints: {id: /[A-z0-9\-]+/}, as: 'detailed_guide', localised: true
 
   get '/government/uploads/system/uploads/consultation_response_form/*path.:extension' => LongLifeRedirect.new('/government/uploads/system/uploads/consultation_response_form_data/')

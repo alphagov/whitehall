@@ -66,11 +66,6 @@ class RoutingTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "visiting a detailed guidance document redirects you to the slug at root" do
-    get "/specialist/vat-tax-rates"
-    assert_redirected_to "/vat-tax-rates"
-  end
-
   test "redirects organisation groups index URL to organisation page" do
     organisation = create(:organisation)
     get "/government/organisations/#{organisation.to_param}/groups"

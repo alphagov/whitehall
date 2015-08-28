@@ -3,7 +3,7 @@ require "test_helper"
 class HackableUrlTest < ActiveSupport::TestCase
   # TODO: remove statistics_announcment exemptions after statistics have been given their own site area
   EXEMPT_ROUTE_NAMES = %w[ statistics_announcements statistics_announcement ]
-  EXEMPT_ROUTE_PATHS = ['/specialist/:id(.:format)', '/guidance/:id(.:locale)(.:format)']
+  EXEMPT_ROUTE_PATHS = ['/guidance/:id(.:locale)(.:format)']
 
   test "should always provide an index for resources that have a show action" do
     all_routes = Rails.application.routes.routes
