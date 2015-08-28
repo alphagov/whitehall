@@ -1,6 +1,8 @@
 class MainstreamBrowseTags
-  def initialize(edition)
-    @edition = edition
+  attr_reader :artefact_slug
+
+  def initialize(artefact_slug)
+    @artefact_slug = artefact_slug
   end
 
   def tags
@@ -12,10 +14,6 @@ class MainstreamBrowseTags
   end
 
 private
-
-  def artefact_slug
-    @artefact_slug ||= Whitehall.url_maker.public_document_path(@edition).sub(/\A\//, "")
-  end
 
   def cached_artefacts_tagged_to_browse_pages
     Rails.cache.fetch 'artefacts_tagged_to_mainstream_browse_pages', expires_in: 5.minutes do

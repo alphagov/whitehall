@@ -274,7 +274,8 @@ class Edition < ActiveRecord::Base
 
   def mainstream_browse_page_slugs
     return unless persisted?
-    MainstreamBrowseTags.new(self).tags
+    artefact_slug = Whitehall.url_maker.public_document_path(self).sub(/\A\//, "")
+    MainstreamBrowseTags.new(artefact_slug).tags
   end
 
   def search_link
