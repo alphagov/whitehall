@@ -932,7 +932,8 @@ img.organisation-logo-custom {
 }
 
 // Custom logos Medium
-.organisation-logo-custom-medium {
+.organisation-logo-custom-medium,
+.organisation-logo-stacked-custom-medium {
   @extend .organisation-logo-identity-medium;
   border-left: none;
 }
