@@ -274,13 +274,7 @@ class Edition < ActiveRecord::Base
 
   def mainstream_browse_page_slugs
     return unless persisted?
-    artefact = Whitehall.content_api.artefact(Whitehall.url_maker.public_document_path(self).sub(/\A\//, ""))
-    return unless artefact && artefact['tags'].any?
-
-    artefact['tags'].map { |tag|
-      next unless tag['details']['type'] == 'section'
-      tag['slug']
-    }.compact
+    MainstreamBrowseTags.new(self).tags
   end
 
   def search_link

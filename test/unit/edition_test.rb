@@ -428,16 +428,12 @@ class EditionTest < ActiveSupport::TestCase
 
   test "should include browse page taggings in search data" do
     publication = create(:published_publication, title: "publication-title")
-    Whitehall.content_api.expects(:artefact).with('government/publications/publication-title').returns({
-      "tags" => [{
-        "slug" => "driving/businesses",
-        "title" => "Driving and transport businesses",
-        "details" => {
-          "description" => "Includes setting up test stations, employing drivers and becoming a vehicle operator",
-          "short_description" => nil,
-          "type" => "section"
-        }
-    }]})
+    Whitehall.content_api.expects(:artefacts_tagged_to_mainstream_browse_pages).returns([
+      {
+        "artefact_slug" => "government/publications/publication-title",
+        "mainstream_browse_page_slugs" => ["driving/businesses"]
+      }
+    ])
 
     search_data = publication.search_index
 
