@@ -9,7 +9,13 @@ When(/^I sign up for emails$/) do
     click_on 'email'
   end
 
-  click_on 'Create subscription'
+  # There is a bug which is causes external urls to get requested from the
+  # server. So catch the routing error and handle it so we can continue to
+  # assert that the right things have happened to generate the redirect.
+  begin
+    click_on 'Create subscription'
+  rescue ActionController::RoutingError
+  end
 end
 
 Then(/^I should be signed up for the all publications mailing list$/) do
@@ -86,7 +92,7 @@ end
 def mock_govuk_delivery_client
   @mock_client ||= RetrospectiveStub.new.tap { |mock_client|
     mock_client.stub :topic
-    mock_client.stub :signup_url, returns: public_url("/email_signup_url")
+    mock_client.stub :signup_url, returns: 'http://govdelivery.url'
     mock_client.stub :notify
     Whitehall.stubs(govuk_delivery_client: mock_client)
   }
