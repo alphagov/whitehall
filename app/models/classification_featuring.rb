@@ -7,6 +7,7 @@ class ClassificationFeaturing < ActiveRecord::Base
   accepts_nested_attributes_for :image, reject_if: :all_blank
 
   validates :image, :alt_text, presence: true
+  validates :alt_text, length: { maximum: 255 }
 
   validates :classification, :ordering, presence: true
 
