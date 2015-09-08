@@ -10,15 +10,15 @@ module Whitehall
     end
 
     def self.indexer_class
-      if ENV.has_key?('RUMMAGER_HOST') || Rails.env.production?
-        Rummageable::Index
-      else
+      if Rails.env.test?
         FakeRummageableIndex
+      else
+        Rummageable::Index
       end
     end
 
     def self.rummager_host
-      ENV.fetch('RUMMAGER_HOST', Plek.find('search'))
+      Plek.find('search')
     end
 
     def self.add(instance)

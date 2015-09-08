@@ -1,5 +1,5 @@
-if Rails.env.production? || ENV["RUMMAGER_HOST"]
-  Whitehall.search_backend = Whitehall::DocumentFilter::Rummager
-else
+if Rails.env.test?
   Whitehall.search_backend = Whitehall::DocumentFilter::Mysql
+else
+  Whitehall.search_backend = Whitehall::DocumentFilter::Rummager
 end
