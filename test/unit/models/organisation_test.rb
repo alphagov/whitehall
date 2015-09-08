@@ -394,6 +394,12 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal 'The home of HMRC on GOV.UK. A text-rendered summary.', organisation.search_index['description']
   end
 
+  test 'should prepend the search title if closed' do
+    organisation = create(:organisation, :closed, name: "HMRC")
+
+    assert_equal 'Closed organisation: HMRC', organisation.search_index['title']
+  end
+
   test 'includes self in organisations for search index data' do
     organisation = create(:organisation, name: "A Child Org")
 
@@ -475,7 +481,7 @@ class OrganisationTest < ActiveSupport::TestCase
     results = Organisation.search_index.to_a
 
     assert_equal 6, results.length
-    assert_equal({'title' => 'Department for Culture and Sports',
+    assert_equal({'title' => 'Closed organisation: Department for Culture and Sports',
                   'link' => '/government/organisations/department-for-culture-and-sports',
                   'slug' => 'department-for-culture-and-sports',
                   'indexable_content' => 'Sporty. Some stuff',
@@ -511,7 +517,7 @@ class OrganisationTest < ActiveSupport::TestCase
                   'description' => 'The home of Ministry of Defence on GOV.UK. Defensive.',
                   'organisations' => ["ministry-of-defence"],
                   'organisation_state' => 'live'}, results[3])
-    assert_equal({'title' => 'Devolved organisation',
+    assert_equal({'title' => 'Closed organisation: Devolved organisation',
                   'acronym' => 'dev',
                   'link' => '/government/organisations/devolved-organisation',
                   'slug' => 'devolved-organisation',

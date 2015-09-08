@@ -163,7 +163,7 @@ class Organisation < ActiveRecord::Base
 
   mount_uploader :logo, LogoUploader
 
-  searchable title: :name,
+  searchable title: :title_for_search,
              acronym: :acronym,
              link: :search_link,
              content: :indexable_content,
@@ -363,6 +363,14 @@ class Organisation < ActiveRecord::Base
       "The home of #{name} on GOV.UK. #{description}"
     else
       description
+    end
+  end
+
+  def title_for_search
+    if closed?
+      "Closed organisation: #{name}"
+    else
+      name
     end
   end
 
