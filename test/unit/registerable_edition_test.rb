@@ -18,6 +18,7 @@ class RegisterableEditionTest < ActiveSupport::TestCase
     assert_equal [], registerable_edition.specialist_sectors
     assert_equal ["/guidance/#{slug}"], registerable_edition.paths
     assert_equal [], registerable_edition.prefixes
+    assert edition.content_id
   end
 
   test "prepares a translated detailed guide for registration with Panopticon" do
