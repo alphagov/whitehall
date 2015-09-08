@@ -78,6 +78,10 @@ class RegisterableEdition
     end
   end
 
+  def content_id
+    edition.content_id
+  end
+
 private
 
   def no_longer_published?
