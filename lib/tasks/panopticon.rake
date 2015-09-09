@@ -85,4 +85,26 @@ namespace :panopticon do
       end
     end
   end
+
+  desc "Re-register published editions with Panopticon"
+  task :re_register_published_editions => :environment do
+    logger = GdsApi::Base.logger = Logger.new(STDERR).tap { |l| l.level = Logger::INFO }
+
+    documents = Document.all.published
+
+    documents.find_each do |document|
+
+      if edition = document.published_edition
+        artefact = RegisterableEdition.new(edition)
+        registerer = GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: 'whitehall-frontend', kind: artefact.kind)
+        logger.info "Registering /#{artefact.slug} with Panopticon..."
+
+        begin
+          registerer.register(artefact)
+        rescue GdsApi::HTTPErrorResponse => e
+          logger.error "Failed to register /#{edition.slug} with #{e.code}: #{e.error_details}"
+        end
+      end
+    end
+  end
 end
