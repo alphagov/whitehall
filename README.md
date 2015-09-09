@@ -144,17 +144,6 @@ indexing, and the
 [GOV.UK frontend application](https://github.com/alphagov/frontend) to
 serve results.
 
-To use a local copy of Rummager you'll need to:
-
-* [elasticsearch](http://www.elasticsearch.org/);
-* Set the environment variable `RUMMAGER_HOST` to point to the local
-  instance of Rummager (e.g. `export
-  RUMMAGER_HOST=http://search.dev.gov.uk` in `.powrc`);
-* You'll also need to set `RUMMAGER_HOST` when using the Rummager rake
-  tasks (ie. when building search index)
-* Run the `rummager` and `frontend` applications to view results. You
-  just need the `rummager` app to index results.
-
 ### Rebuilding whitehall search index
 
 The easiest way to get a search index is to replicate it from the preview
