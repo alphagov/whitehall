@@ -5,8 +5,6 @@ jQuery(function($) {
 
   $('.govspeak').enhanceYoutubeVideoLinks();
 
-  GOVUK.stickAtTopWhenScrolling.init();
-
   $('.js-toggle-change-notes').toggler({actLikeLightbox: true});
   $('.js-toggle-footer-change-notes').toggler();
 
@@ -18,7 +16,6 @@ jQuery(function($) {
   $('.js-hide-extra-metadata').hideExtraRows({ rows: 2, appendToParent: true });
 
   $('.see-all-updates').click(function(e) {
-    GOVUK.stickAtTopWhenScrolling.stick($('.js-stick-at-top-when-scrolling'));
     $('#history .overlay').removeClass('visuallyhidden');
   });
 
