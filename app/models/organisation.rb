@@ -480,6 +480,7 @@ class Organisation < ActiveRecord::Base
     %w{
       charity-commission
       department-for-education
+      department-for-environment-food-rural-affairs
       driver-and-vehicle-standards-agency
       environment-agency
       high-speed-two-limited
