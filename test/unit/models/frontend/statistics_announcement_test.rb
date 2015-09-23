@@ -36,8 +36,8 @@ class Frontend::StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_equal 'a-slug', build_announcement(slug: 'a-slug').to_param
   end
 
-  test "#national_statistic? is true if the document_type is 'Statistics - national statistics'" do
-    assert build_announcement(document_type: "Statistics - national statistics").national_statistic?
+  test "#national_statistic? is true if the document_type is 'National statistics'" do
+    assert build_announcement(document_type: "National statistics").national_statistic?
     refute build_announcement(document_type: "Statistics").national_statistic?
   end
 end

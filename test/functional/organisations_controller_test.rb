@@ -517,7 +517,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select "#statistics-publications" do
       assert_select_object publication_1 do
         assert_select '.publication-date time[datetime=?]', 1.days.ago.to_date.to_datetime.iso8601
-        assert_select '.document-type', "Statistics - national statistics"
+        assert_select '.document-type', "National statistics"
       end
       assert_select_object publication_2
       refute_select_object publication_3

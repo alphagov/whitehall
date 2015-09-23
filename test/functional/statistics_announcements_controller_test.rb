@@ -55,7 +55,7 @@ class StatisticsAnnouncementsControllerTest < ActionController::TestCase
       list_item = rendered.css('.document-list li').first
 
       assert_string_includes "Average beard lengths 2015", list_item.text
-      assert_string_includes "national statistics", list_item.text
+      assert_string_includes "National statistics", list_item.text
       assert_string_includes "1 January 2050 9:30am", list_item.text
       assert_has_link organisation.name, organisation_path(organisation), list_item
       assert_has_link topic.name, topic_path(topic), list_item

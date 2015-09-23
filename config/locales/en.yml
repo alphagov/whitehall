@@ -175,8 +175,8 @@ en:
         one: World priority
         other: World priorities
       national_statistics:
-        one: Statistics - national statistics
-        other: Statistics - national statistics
+        one: National statistics
+        other: National statistics
       news_article:
         one: News article
         other: News articles
