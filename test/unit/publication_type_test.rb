@@ -29,7 +29,7 @@ class PublicationTypeTest < ActiveSupport::TestCase
   test "should limit access by default for statistics or national statistics, but not other types" do
     PublicationType.all.each do |type|
       case type
-      when PublicationType::NationalStatistics, PublicationType::Statistics
+      when PublicationType::NationalStatistics, PublicationType::OfficialStatistics
         assert type.access_limited_by_default?
       else
         refute type.access_limited_by_default?

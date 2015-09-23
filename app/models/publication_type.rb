@@ -10,7 +10,7 @@ class PublicationType
     2 => "<p>Cost-benefit analyses and other assessments of the impact of proposed initiatives, or changes to regulations or legislation.</p>",
     3 => "<p>Non-statutory guidance publications. Includes: manuals, handbooks and other documents that offer advice.</p><p>Do <em>not</em> use for: statutory guidance (use the “statutory guidance” publication type) or guidance about completing a form (attach to same publication as the form itself).</p>",
     4 => "<p>Pro-forma or form documents that need to be completed by the user. Can include guidance on how to fill in forms (ie no need to create a separate “guidance” publication for form instructions).</p>",
-    5 => "<p>Official statistics, of the kind governed by the UK Statistics Authority and produced by members of the Government Statistical Service.</p>",
+    5 => "<p>Statistics governed by the UK Statistics Authority and produced by members of the Government Statistical Service.</p>",
     6 => "<p>Research and evaluation papers. Can be conducted by government, commissioned by government or independent of government.</p>",
     7 => "<p>Publications about what an organisation does (eg business plans, annual reports, accounts), or any plans that affect the organisation (eg structural reform plans, efficiency reviews). Corporate reports are shown automatically on the organisation’s “What we do” page.</p>",
     8 => "<p>Ministerial or departmental responses (eg to campaign letters), announcements, or statements;regularly issued circulars or bulletins (eg fire service circulars), official correspondence to professionals (eg “Dear chief planning officer” letters);letters to individuals or organisations that are published to share with a wider audience than their original recipient;online versions of e-bulletins or newsletters.</p><p>Do <em>not</em> use for: minutes, agendas or other meeting papers. Attach them to relevant “policy detail”, “team” or “our governance” pages instead.</p>",
@@ -64,7 +64,7 @@ class PublicationType
   end
 
   def self.statistical
-    [Statistics, NationalStatistics]
+    [OfficialStatistics, NationalStatistics]
   end
 
   def slug
@@ -96,7 +96,7 @@ class PublicationType
   Guidance               = create(id: 3, key: "guidance", singular_name: "Guidance", plural_name: "Guidance", prevalence: :primary, additional_search_format_types: ['publicationesque-guidance', 'publication-statutory_guidance'])
   StatutoryGuidance      = create(id: 19, key: "statutory_guidance", singular_name: "Statutory guidance", plural_name: "Statutory guidance", prevalence: :primary, additional_search_format_types: ['publicationesque-guidance'])
   Form                   = create(id: 4, key: "form", singular_name: "Form", plural_name: "Forms", prevalence: :primary)
-  Statistics             = create(id: 5, key: "statistics", singular_name: "Statistics", plural_name: "Statistics", prevalence: :primary, access_limited_by_default: true, additional_search_format_types: ['publicationesque-statistics'])
+  OfficialStatistics     = create(id: 5, key: "official_statistics", singular_name: "Official statistics", plural_name: "Official statistics", prevalence: :primary, access_limited_by_default: true, additional_search_format_types: ['publicationesque-statistics'])
   NationalStatistics     = create(id: 15, key: "national_statistics", singular_name: "Statistics - national statistics", plural_name: "Statistics - national statistics", prevalence: :primary, access_limited_by_default: true, additional_search_format_types: ['publicationesque-statistics'])
   ResearchAndAnalysis    = create(id: 6, key: "research", singular_name: "Research and analysis", plural_name: "Research and analysis", prevalence: :primary)
   CorporateReport        = create(id: 7, key: "corporate_report", singular_name: "Corporate report", plural_name: "Corporate reports", prevalence: :primary)

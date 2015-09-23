@@ -6,7 +6,7 @@ FactoryGirl.define do
 
     sequence(:title) { |index| "Stats announcement #{index}" }
     summary "Summary of announcement"
-    publication_type_id PublicationType::Statistics.id
+    publication_type_id PublicationType::OfficialStatistics.id
     organisations { FactoryGirl.build_list :organisation, 1 }
 
     topics { FactoryGirl.build_list :topic, 1 }

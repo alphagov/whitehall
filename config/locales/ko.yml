@@ -245,7 +245,7 @@ ko:
       statistical_data_set:
         one: "통계 데이터 세트"
         other: "통계 데이터 세트"
-      statistics:
+      official_statistics:
         one: "통계"
         other: "통계"
       statutory_guidance:

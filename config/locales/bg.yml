@@ -124,7 +124,7 @@ bg:
       statistical_data_set:
         one: "Набор от статистически данни"
         other: "Набори от статистически данни"
-      statistics:
+      official_statistics:
         one: "Статистики"
         other: "Статистики"
       statutory_guidance:

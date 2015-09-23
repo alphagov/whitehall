@@ -19,7 +19,7 @@ FactoryGirl.define do
     end
 
     trait(:statistics) do
-      publication_type_id { PublicationType::Statistics.id }
+      publication_type_id { PublicationType::OfficialStatistics.id }
     end
 
     trait(:national_statistics) do

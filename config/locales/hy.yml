@@ -124,7 +124,7 @@ hy:
       statistical_data_set:
         one: "Վիճակագրական տվյալ"
         other: "Վիճակագրական տվյալներ"
-      statistics:
+      official_statistics:
         one: "Վիճակագրություն"
         other: "Վիճակագրություն"
       statutory_guidance:

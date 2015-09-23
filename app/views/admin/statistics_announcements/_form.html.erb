@@ -5,9 +5,9 @@
   <div class="form-group">
     <%= form.label  :publication_type_id, 'Statistics type', required: true %>
     <label class="block-label">
-      <%= form.radio_button(:publication_type_id, PublicationType::Statistics.id) %>
-      <span class="label-title">Statistics</span>
-      <span class="text-muted">Official statistics produced by government.</span>
+      <%= form.radio_button(:publication_type_id, PublicationType::OfficialStatistics.id) %>
+      <span class="label-title">Official statistics</span>
+      <span class="text-muted">Statistics governed by the UK Statistics Authority.</span>
     </label>
     <label class="block-label">
       <%= form.radio_button(:publication_type_id, PublicationType::NationalStatistics.id) %>

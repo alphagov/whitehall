@@ -53,8 +53,8 @@ Feature: Filtering Documents
     Then I should see only announcements which have French translations
     And I should be able to filter them by country (or 'Pays' in French)
 
-  Scenario: User filters by "Statistics" which returns statistics and national statistics
-    Given a published publication "Road accidents" with type "Statistics"
+  Scenario: User filters by "Statistics" which returns official statistics and national statistics
+    Given a published publication "Road accidents" with type "Official statistics"
     And a published publication "National road accidents" with type "Statistics - national statistics"
     When I filter the publications list by "Statistics"
     Then I should see "Road accidents" in the result list
@@ -62,7 +62,7 @@ Feature: Filtering Documents
 
   @javascript
   Scenario: User filters by "Statistics" which returns statistics and national statistics
-    Given a published publication "Road accidents" with type "Statistics"
+    Given a published publication "Road accidents" with type "Official statistics"
     When I visit the publications index page
     When I select the Statistics publication type option without clicking any button
     Then I should be notified that statistics have moved

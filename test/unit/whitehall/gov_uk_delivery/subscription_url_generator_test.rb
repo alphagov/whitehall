@@ -281,7 +281,7 @@ class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::Te
   end
 
   test "#subscription_urls for a statistics publication returns atom feed urls for both publications and statistics" do
-    @edition = create(:publication, publication_type: PublicationType::Statistics)
+    @edition = create(:publication, publication_type: PublicationType::OfficialStatistics)
 
     assert_subscription_urls_for_edition_include(
       "publications.atom",
