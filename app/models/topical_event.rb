@@ -53,6 +53,10 @@ class TopicalEvent < Classification
     end
   end
 
+  def beta?
+    slug.in?(%w[farming])
+  end
+
   def search_link
     Whitehall.url_maker.topical_event_path(slug)
   end
