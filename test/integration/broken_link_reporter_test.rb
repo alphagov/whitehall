@@ -40,7 +40,7 @@ class BrokenLinkReporterTest < ActiveSupport::TestCase
     assert_equal 2, embassy_csv.size
     assert_equal ['page', 'admin link', 'public timestamp', 'format', 'broken link count', 'broken links'], embassy_csv[0]
     assert_equal [ "https://www.gov.uk#{Whitehall.url_maker.world_location_news_article_path(news_article.slug)}",
-                   "https://whitehall-admin.production.alphagov.co.uk#{Whitehall.url_maker.admin_world_location_news_article_path(news_article)}",
+                   "https://whitehall-admin.publishing.service.gov.uk#{Whitehall.url_maker.admin_world_location_news_article_path(news_article)}",
                    news_article.public_timestamp.to_s,
                    'WorldLocationNewsArticle',
                    '1',
@@ -50,13 +50,13 @@ class BrokenLinkReporterTest < ActiveSupport::TestCase
     assert_equal 3, hmrc_csv.size
     assert_equal ['page', 'admin link', 'public timestamp', 'format', 'broken link count', 'broken links'], hmrc_csv[0]
     assert_equal [ "https://www.gov.uk#{Whitehall.url_maker.publication_path(publication.slug)}",
-                   "https://whitehall-admin.production.alphagov.co.uk#{Whitehall.url_maker.admin_publication_path(publication)}",
+                   "https://whitehall-admin.publishing.service.gov.uk#{Whitehall.url_maker.admin_publication_path(publication)}",
                    publication.public_timestamp.to_s,
                    'Publication',
                    '1',
                    "https://www.gov.uk/bad-link"], hmrc_csv[1]
     assert_equal [ "https://www.gov.uk#{Whitehall.url_maker.detailed_guide_path(detailed_guide.slug)}",
-                   "https://whitehall-admin.production.alphagov.co.uk#{Whitehall.url_maker.admin_detailed_guide_path(detailed_guide)}",
+                   "https://whitehall-admin.publishing.service.gov.uk#{Whitehall.url_maker.admin_detailed_guide_path(detailed_guide)}",
                    detailed_guide.public_timestamp.to_s,
                    'DetailedGuide',
                    '2',
@@ -81,7 +81,7 @@ class BrokenLinkReporterTest < ActiveSupport::TestCase
     assert_equal 2, csv.size
     assert_equal ['page', 'admin link', 'public timestamp', 'format', 'broken link count', 'broken links'], csv[0]
     assert_equal [ "https://www.gov.uk#{Whitehall.url_maker.speech_path(speech.slug)}",
-                   "https://whitehall-admin.production.alphagov.co.uk#{Whitehall.url_maker.admin_speech_path(speech)}",
+                   "https://whitehall-admin.publishing.service.gov.uk#{Whitehall.url_maker.admin_speech_path(speech)}",
                    speech.public_timestamp.to_s,
                    'Speech',
                    '1',
