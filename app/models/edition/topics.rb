@@ -41,7 +41,7 @@ private
     # the parent topic is valid. We need to use #empty? here as ActiveRecord
     # overrides it to avoid caching the topics association.
     if classification_memberships.empty? && topics.empty?
-      errors.add(:topics, "at least one required")
+      errors.add(:policy_area, "at least one required")
     end
   end
 end
