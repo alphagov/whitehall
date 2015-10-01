@@ -19,7 +19,6 @@ Frontend code should follow the [css](https://github.com/alphagov/whitehall/tree
   which will report back on whether the tests still pass on your
   branch
 - You *may* rebase your branch after feedback if it's to include include relevant updates to the master branch. We prefer a rebase here to a merge commit as we prefer a clean and straight history on master with discrete merge commits for features
-- When merging a pull request, include the Pivotal ticket in the merge commit details.
 
 ## Copy ##
 
