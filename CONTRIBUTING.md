@@ -9,7 +9,7 @@ Frontend code should follow the [css](https://github.com/alphagov/whitehall/tree
 
 ## Git workflow ##
 
-- Make a feature branch
+- Make a branch
 - Work in any way you like
 - Rebase your branch into logical commits before sending a pull request -
   follow our [Git styleguide](https://github.com/alphagov/styleguides/blob/master/git.md)
