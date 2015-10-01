@@ -27,7 +27,7 @@ class Edition::TopicsTest < ActiveSupport::TestCase
     edition = EditionWithTopics.new(attributes_for_edition)
 
     refute edition.valid?, "Edition should not be valid"
-    assert_match /at least one required/, edition.errors[:topics].first
+    assert_match /at least one required/, edition.errors[:policy_area].first
   end
 
   test "imported editions are valid without any topics" do
