@@ -51,7 +51,7 @@ private
   end
 
   def set_slimmer_template
-    slimmer_template('chromeless')
+    slimmer_template 'chromeless'
   end
 
   def attachment_data
