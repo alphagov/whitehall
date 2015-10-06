@@ -15,7 +15,7 @@ Frontend code should follow the [css](https://github.com/alphagov/whitehall/tree
   follow our [Git styleguide](https://github.com/alphagov/styleguides/blob/master/git.md)
 - If you're working off the [Pivotal backlog](https://www.pivotaltracker.com/s/projects/1008986),
   include the ticket number in the pull request details
-- Pull requests are automatically integration tested using [Travis CI](https://travis-ci.org/alphagov/whitehall),
+- Pull requests are automatically integration tested using [Jenkins](https://ci-new.alphagov.co.uk/job/govuk_whitehall/),
   which will report back on whether the tests still pass on your
   branch
 - You *may* rebase your branch after feedback if it's to include include relevant updates to the master branch. We prefer a rebase here to a merge commit as we prefer a clean and straight history on master with discrete merge commits for features
