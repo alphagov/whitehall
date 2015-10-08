@@ -1,6 +1,5 @@
 .lead-image-sidebar {
-  img {
-    max-width: $full-width;
+  .image {
     @include media(tablet) {
       float: right;
       margin: $gutter-one-third 0 $gutter $gutter;
@@ -11,5 +10,8 @@
       margin: 0;
       width: auto;
     }
+  }
+  img {
+    max-width: $full-width;
   }
 }
