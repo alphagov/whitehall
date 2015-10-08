@@ -364,15 +364,6 @@
         }
       }
 
-      .stat-headline-group {
-        margin-top: $gutter;
-        @extend %grid-row;
-
-        .stat-headline {
-          @include grid-column(1/2);
-        }
-      }
-
       .stat-headline {
         margin-bottom: $gutter;
 
