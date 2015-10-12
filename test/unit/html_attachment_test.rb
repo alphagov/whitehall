@@ -73,6 +73,27 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal "an-html-attachment", attachment.slug
   end
 
+  test "slug is not updated when the title has been changed in a prior published edition" do
+    edition = create(:published_publication, attachments: [
+      build(:html_attachment, title: "an-html-attachment")
+    ])
+    draft = edition.create_draft(create(:writer))
+    attachment = draft.attachments.first
+
+    attachment.title = "a-new-title"
+    attachment.save
+    attachment.reload
+
+    draft.change_note = 'Edited HTML attachment title'
+    force_publish(draft)
+
+    second_draft = draft.create_draft(create(:writer))
+    second_draft_attachment = second_draft.attachments.first
+
+    assert_equal "an-html-attachment", attachment.slug
+    assert_equal "an-html-attachment", second_draft_attachment.slug
+  end
+
   test "slug is not created for non-english attachments" do
     # Additional attachment to ensure the duplicate detection behaviour isn't triggered
     create(:html_attachment, locale: "fr")
