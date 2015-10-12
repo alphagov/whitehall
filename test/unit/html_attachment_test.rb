@@ -20,7 +20,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     refute GovspeakContent.exists?(govspeak_content.id)
   end
 
-  test '#deep_clone deep clones the HTML attachment and body' do
+  test '#deep_clone deep clones the HTML attachment, body and slug' do
     attachment = create(:html_attachment)
 
     clone = attachment.deep_clone
@@ -29,6 +29,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert clone.new_record?
     assert_equal attachment.title, clone.title
     assert_equal attachment.govspeak_content_body, clone.govspeak_content_body
+    assert_equal attachment.slug, clone.slug
   end
 
   test '#url returns absolute path' do
