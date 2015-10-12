@@ -363,6 +363,21 @@
           margin: 0 0 -5px 0;
         }
       }
+
+      .stat-headline {
+        margin-bottom: $gutter;
+
+        p {
+          @include bold-19;
+          margin: 0;
+        }
+
+        em {
+          display: block;
+          @include bold-80;
+          margin: 3px 0 -5px;
+        }
+      }
     }
   }
   .back-to-content {

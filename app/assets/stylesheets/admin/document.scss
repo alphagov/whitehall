@@ -58,6 +58,17 @@
       direction: rtl;
     }
   }
+
+  .govspeak .stat-headline {
+    em {
+      display: block;
+      @include bold-48;
+    }
+
+    p {
+      font-weight: bold;
+    }
+  }
 }
 
 
