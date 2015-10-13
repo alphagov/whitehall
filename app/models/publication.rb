@@ -62,6 +62,10 @@ class Publication < Publicationesque
     publication_type.key
   end
 
+  def detailed_format
+    publication_type.detailed_format || super
+  end
+
   def search_format_types
     super + [Publication.search_format_type] + self.publication_type.search_format_types
   end

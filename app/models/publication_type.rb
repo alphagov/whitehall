@@ -29,7 +29,7 @@ class PublicationType
     1000 => "<p>DO NOT USE. This is a holding category for content that has been imported automatically.</p>",
   }.to_json.freeze
 
-  attr_accessor :id, :singular_name, :plural_name, :prevalence, :access_limited_by_default, :key, :additional_search_format_types
+  attr_accessor :id, :singular_name, :plural_name, :prevalence, :access_limited_by_default, :key, :additional_search_format_types, :detailed_format
 
   def self.access_limitable
     all.select(&:access_limited_by_default?)
@@ -96,8 +96,8 @@ class PublicationType
   Guidance               = create(id: 3, key: "guidance", singular_name: "Guidance", plural_name: "Guidance", prevalence: :primary, additional_search_format_types: ['publicationesque-guidance', 'publication-statutory_guidance'])
   StatutoryGuidance      = create(id: 19, key: "statutory_guidance", singular_name: "Statutory guidance", plural_name: "Statutory guidance", prevalence: :primary, additional_search_format_types: ['publicationesque-guidance'])
   Form                   = create(id: 4, key: "form", singular_name: "Form", plural_name: "Forms", prevalence: :primary)
-  OfficialStatistics     = create(id: 5, key: "official_statistics", singular_name: "Official statistics", plural_name: "Official statistics", prevalence: :primary, access_limited_by_default: true, additional_search_format_types: ['publicationesque-statistics'])
-  NationalStatistics     = create(id: 15, key: "national_statistics", singular_name: "National statistics", plural_name: "National statistics", prevalence: :primary, access_limited_by_default: true, additional_search_format_types: ['publicationesque-statistics'])
+  OfficialStatistics     = create(id: 5, key: "official_statistics", singular_name: "Official statistics", plural_name: "Official statistics", prevalence: :primary, access_limited_by_default: true, additional_search_format_types: ['publicationesque-statistics'], detailed_format: "statistics")
+  NationalStatistics     = create(id: 15, key: "national_statistics", singular_name: "National statistics", plural_name: "National statistics", prevalence: :primary, access_limited_by_default: true, additional_search_format_types: ['publicationesque-statistics'], detailed_format: "statistics-national-statistics")
   ResearchAndAnalysis    = create(id: 6, key: "research", singular_name: "Research and analysis", plural_name: "Research and analysis", prevalence: :primary)
   CorporateReport        = create(id: 7, key: "corporate_report", singular_name: "Corporate report", plural_name: "Corporate reports", prevalence: :primary)
   Map                    = create(id: 17, key: "map", singular_name: "Map", plural_name: "Maps", prevalence: :primary)
