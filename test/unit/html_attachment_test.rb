@@ -20,7 +20,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     refute GovspeakContent.exists?(govspeak_content.id)
   end
 
-  test '#deep_clone deep clones the HTML attachment and body' do
+  test '#deep_clone deep clones the HTML attachment, body and slug' do
     attachment = create(:html_attachment)
 
     clone = attachment.deep_clone
@@ -29,6 +29,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert clone.new_record?
     assert_equal attachment.title, clone.title
     assert_equal attachment.govspeak_content_body, clone.govspeak_content_body
+    assert_equal attachment.slug, clone.slug
   end
 
   test '#url returns absolute path' do
@@ -71,6 +72,27 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     attachment.reload
 
     assert_equal "an-html-attachment", attachment.slug
+  end
+
+  test "slug is not updated when the title has been changed in a prior published edition" do
+    edition = create(:published_publication, attachments: [
+      build(:html_attachment, title: "an-html-attachment")
+    ])
+    draft = edition.create_draft(create(:writer))
+    attachment = draft.attachments.first
+
+    attachment.title = "a-new-title"
+    attachment.save
+    attachment.reload
+
+    draft.change_note = 'Edited HTML attachment title'
+    force_publish(draft)
+
+    second_draft = draft.create_draft(create(:writer))
+    second_draft_attachment = second_draft.attachments.first
+
+    assert_equal "an-html-attachment", attachment.slug
+    assert_equal "an-html-attachment", second_draft_attachment.slug
   end
 
   test "slug is not created for non-english attachments" do
