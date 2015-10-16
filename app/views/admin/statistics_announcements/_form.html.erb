@@ -6,13 +6,13 @@
     <%= form.label  :publication_type_id, 'Statistics type', required: true %>
     <label class="block-label">
       <%= form.radio_button(:publication_type_id, PublicationType::OfficialStatistics.id) %>
-      <span class="label-title">Official statistics</span>
+      <span class="label-title">Official Statistics</span>
       <span class="text-muted">Statistics governed by the UK Statistics Authority.</span>
     </label>
     <label class="block-label">
       <%= form.radio_button(:publication_type_id, PublicationType::NationalStatistics.id) %>
       <span class="label-title">National Statistics</span>
-      <span class="text-muted">Official statistics approved by the UK Statistics Authority.<br/>
+      <span class="text-muted">Official Statistics approved by the UK Statistics Authority.<br/>
       The National Statistics logo will display on this announcement.</span>
     </label>
   </div>

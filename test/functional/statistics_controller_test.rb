@@ -133,7 +133,7 @@ class StatisticsControllerTest < ActionController::TestCase
     assert_equal statistic_path(statistics_publication.document), json["url"]
     assert_equal "org-name and other-org", json["organisations"]
     assert_equal %{<time class="public_timestamp" datetime="2012-03-14T00:00:00+00:00">14 March 2012</time>}, json["display_date_microformat"]
-    assert_equal "Official statistics", json["display_type"]
+    assert_equal "Official Statistics", json["display_type"]
   end
 
   view_test '#index should show relevant document collection information' do
@@ -189,17 +189,17 @@ class StatisticsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "#show displays a badge when the publication is national statistics" do
+  view_test "#show displays a badge when the publication is National Statistics" do
     publication = create(:published_publication, publication_type_id: PublicationType::NationalStatistics.id)
     get :show, id: publication.document
 
-    assert_match /National statistics/, response.body
+    assert_match /National Statistics/, response.body
   end
 
-  view_test "#show does not show a badge when publication is not national statistics" do
+  view_test "#show does not show a badge when publication is not National Statistics" do
     publication = create(:published_publication, publication_type_id: PublicationType::OfficialStatistics.id)
     get :show, id: publication.document
 
-    refute_match /National statistics/, response.body
+    refute_match /National Statistics/, response.body
   end
 end

@@ -175,8 +175,8 @@ en:
         one: World priority
         other: World priorities
       national_statistics:
-        one: National statistics
-        other: National statistics
+        one: National Statistics
+        other: National Statistics
       news_article:
         one: News article
         other: News articles
@@ -223,8 +223,8 @@ en:
         one: Statistical data set
         other: Statistical data sets
       official_statistics:
-        one: Official statistics
-        other: Official statistics
+        one: Official Statistics
+        other: Official Statistics
       transcript:
         one: Transcript
         other: Transcripts
@@ -378,7 +378,7 @@ en:
     heading: Announcements
     view_all: View all announcements
   national_statistics:
-    heading: National statistics
+    heading: National Statistics
   policies:
     heading: Policies
     view_all: View all policies
@@ -467,7 +467,7 @@ en:
     notice: See all our notices
     decision: See all our decisions
     worldwide_priority: See all our world priorities
-    national_statistics: See all our national statistics
+    national_statistics: See all our National Statistics
     news_article: See all our news articles
     news_story: See all our news stories
     open_consultation: See all our open consultations

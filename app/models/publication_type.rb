@@ -18,7 +18,7 @@ class PublicationType
     12 => "<p>Responses to Freedom of Information requests. Ensure the title describes specifically what the request is about.</p>",
     13 =>"<p>Leaflets, posters, fact sheets and marketing collateral.</p>",
     14 => "<p>Reviews, inquiries and other reports commissioned from or conducted by independent (ie non-governmental) bodies for consideration by the government.</p>",
-    15 => "<p>Official statistics that have been produced in accordance with the Code of Practice for Official Statistics, which is indicated using the National Statistics quality mark.</p>",
+    15 => "<p>Official Statistics that have been produced in accordance with the Code of Practice for Official Statistics, which is indicated using the National Statistics quality mark.</p>",
     17 => "<p>Drawn maps and geographical data.</p>",
     18 => "<p>Treaties and memoranda of understanding between the UK and other nations.</p>",
     19 => "<p>Guidance which relevant users are legally obliged to follow. (For non-statutory guidance publications, use the “guidance” sub-type).</p>",
@@ -96,8 +96,8 @@ class PublicationType
   Guidance               = create(id: 3, key: "guidance", singular_name: "Guidance", plural_name: "Guidance", prevalence: :primary, additional_search_format_types: ['publicationesque-guidance', 'publication-statutory_guidance'])
   StatutoryGuidance      = create(id: 19, key: "statutory_guidance", singular_name: "Statutory guidance", plural_name: "Statutory guidance", prevalence: :primary, additional_search_format_types: ['publicationesque-guidance'])
   Form                   = create(id: 4, key: "form", singular_name: "Form", plural_name: "Forms", prevalence: :primary)
-  OfficialStatistics     = create(id: 5, key: "official_statistics", singular_name: "Official statistics", plural_name: "Official statistics", prevalence: :primary, access_limited_by_default: true, additional_search_format_types: ['publicationesque-statistics'], detailed_format: "statistics")
-  NationalStatistics     = create(id: 15, key: "national_statistics", singular_name: "National statistics", plural_name: "National statistics", prevalence: :primary, access_limited_by_default: true, additional_search_format_types: ['publicationesque-statistics'], detailed_format: "statistics-national-statistics")
+  OfficialStatistics     = create(id: 5, key: "official_statistics", singular_name: "Official Statistics", plural_name: "Official Statistics", prevalence: :primary, access_limited_by_default: true, additional_search_format_types: ['publicationesque-statistics'], detailed_format: "statistics")
+  NationalStatistics     = create(id: 15, key: "national_statistics", singular_name: "National Statistics", plural_name: "National Statistics", prevalence: :primary, access_limited_by_default: true, additional_search_format_types: ['publicationesque-statistics'], detailed_format: "statistics-national-statistics")
   ResearchAndAnalysis    = create(id: 6, key: "research", singular_name: "Research and analysis", plural_name: "Research and analysis", prevalence: :primary)
   CorporateReport        = create(id: 7, key: "corporate_report", singular_name: "Corporate report", plural_name: "Corporate reports", prevalence: :primary)
   Map                    = create(id: 17, key: "map", singular_name: "Map", plural_name: "Maps", prevalence: :primary)

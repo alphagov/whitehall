@@ -19,14 +19,14 @@ class DocumentHelperTest < ActionView::TestCase
     assert_equal 'unknown_organisation', edition_organisation_class(edition)
   end
 
-  test "should generate a national statistics logo for a national statistic" do
+  test "should generate a National Statistics logo for a national statistic" do
     publication = create(:publication, publication_type_id: PublicationType::NationalStatistics.id)
-    assert_match /National statistics/, national_statistics_logo(publication)
+    assert_match /National Statistics/, national_statistics_logo(publication)
   end
 
-  test "should generate no national statistics logo for an edition that is not a national statistic" do
+  test "should generate no National Statistics logo for an edition that is not a national statistic" do
     publication = create(:publication)
-    refute_match /National statistics/, national_statistics_logo(publication)
+    refute_match /National Statistics/, national_statistics_logo(publication)
   end
 
   test "should generate list of links to inapplicable nations with alternative URL" do

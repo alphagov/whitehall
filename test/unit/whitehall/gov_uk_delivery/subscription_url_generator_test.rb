@@ -280,7 +280,7 @@ class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::Te
     )
   end
 
-  test "#subscription_urls for a statistics publication returns atom feed urls for both publications and statistics" do
+  test "#subscription_urls for an Official Statistics publication returns atom feed urls for both publications and statistics" do
     @edition = create(:publication, publication_type: PublicationType::OfficialStatistics)
 
     assert_subscription_urls_for_edition_include(
@@ -291,7 +291,7 @@ class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::Te
     )
   end
 
-  test "#subscription_urls for a national statistics publication returns atom feed urls for both publications and statistics" do
+  test "#subscription_urls for a National Statistics publication returns atom feed urls for both publications and statistics" do
     @edition = create(:publication, publication_type: PublicationType::NationalStatistics)
 
     assert_subscription_urls_for_edition_include(
