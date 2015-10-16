@@ -1,7 +1,7 @@
 Given(/^there are some statistics announcements$/) do
   create :statistics_announcement, title: "Womble to Wombat population ratios",
                                             summary: "All populations of wombles and wombats by region",
-                                            publication_type_id: PublicationType::Statistics.id,
+                                            publication_type_id: PublicationType::OfficialStatistics.id,
                                             current_release_date: build(:statistics_announcement_date,
                                                                         release_date: Time.zone.parse("2050-02-15 12:45:00"),
                                                                         precision: StatisticsAnnouncementDate::PRECISION[:exact])
@@ -15,7 +15,7 @@ Given(/^there are some statistics announcements$/) do
 
   create :statistics_announcement, title: "Wombat population in Wimbledon Common 2063",
                                             summary: "Wombat vs Womble populations in Wimbledon Common for the year 2063",
-                                            publication_type_id: PublicationType::Statistics.id,
+                                            publication_type_id: PublicationType::OfficialStatistics.id,
                                             current_release_date: build(:statistics_announcement_date,
                                                                         release_date: Time.zone.parse("2063-02-15 12:45:00"),
                                                                         precision: StatisticsAnnouncementDate::PRECISION[:one_month])

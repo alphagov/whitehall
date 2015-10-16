@@ -48,7 +48,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   test 'POST :create with an statistics announcement id assigns the publication to the announcement' do
     statistics_announcement = create(:statistics_announcement)
     post :create, edition: controller_attributes_for(:publication,
-      publication_type_id: PublicationType::Statistics.id,
+      publication_type_id: PublicationType::OfficialStatistics.id,
       lead_organisation_ids: [@organisation.id],
       statistics_announcement_id: statistics_announcement.id
     )

@@ -101,7 +101,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
   view_test "#show not link ministers to general statistics publications" do
     appointment = create(:ministerial_role_appointment)
-    publication = create(:published_publication, publication_type_id: PublicationType::Statistics.id, role_appointments: [appointment])
+    publication = create(:published_publication, publication_type_id: PublicationType::OfficialStatistics.id, role_appointments: [appointment])
     get :show, id: publication.document
 
     refute_select '.meta a', text: appointment.person.name
@@ -293,7 +293,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   test '#show for statistics document type redirect to statistic#show' do
-    publication = create(:published_publication, publication_type_id: PublicationType::Statistics.id)
+    publication = create(:published_publication, publication_type_id: PublicationType::OfficialStatistics.id)
     get :show, id: publication.document
     assert_redirected_to statistic_path(publication.slug)
   end

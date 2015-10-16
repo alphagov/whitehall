@@ -249,7 +249,7 @@ class Edition < ActiveRecord::Base
     organisations: nil,
     people: nil,
     display_type: :display_type,
-    detailed_format: -> d { d.display_type.parameterize },
+    detailed_format: :detailed_format,
     public_timestamp: :public_timestamp,
     relevant_to_local_government: :relevant_to_local_government?,
     world_locations: nil,
@@ -632,6 +632,10 @@ class Edition < ActiveRecord::Base
     return false unless government
 
     political? && !government.current?
+  end
+
+  def detailed_format
+    display_type.parameterize
   end
 
 private

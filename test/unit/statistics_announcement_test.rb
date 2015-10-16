@@ -3,13 +3,13 @@ require 'test_helper'
 class StatisticsAnnouncementTest < ActiveSupport::TestCase
 
   test 'can set publication type using an ID' do
-    announcement = StatisticsAnnouncement.new(publication_type_id: PublicationType::Statistics.id)
+    announcement = StatisticsAnnouncement.new(publication_type_id: PublicationType::OfficialStatistics.id)
 
-    assert_equal PublicationType::Statistics, announcement.publication_type
+    assert_equal PublicationType::OfficialStatistics, announcement.publication_type
   end
 
   test 'only statistical publication types are valid' do
-    assert build(:statistics_announcement, publication_type_id: PublicationType::Statistics.id).valid?
+    assert build(:statistics_announcement, publication_type_id: PublicationType::OfficialStatistics.id).valid?
     assert build(:statistics_announcement, publication_type_id: PublicationType::NationalStatistics.id).valid?
 
     announcement = build(:statistics_announcement, publication_type_id: PublicationType::PolicyPaper.id)
@@ -115,7 +115,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     national_statistics = create(:draft_national_statistics)
     policy_paper        = create(:draft_policy_paper)
 
-    announcement   = build(:statistics_announcement, publication_type_id: PublicationType::Statistics.id)
+    announcement   = build(:statistics_announcement, publication_type_id: PublicationType::OfficialStatistics.id)
 
     announcement.publication = statistics
     assert announcement.valid?

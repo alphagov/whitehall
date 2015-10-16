@@ -404,7 +404,7 @@ class EditionTest < ActiveSupport::TestCase
 
   test "should return search index suitable for Rummageable" do
     government = create(:current_government)
-    publication = create(:published_publication, title: "publication-title", political: true, first_published_at: government.start_date)
+    publication = create(:published_policy_paper, title: "publication-title", political: true, first_published_at: government.start_date)
     slug = publication.document.slug
     summary = publication.summary
 
@@ -412,6 +412,7 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal "/government/publications/#{slug}", publication.search_index["link"]
     assert_equal publication.body, publication.search_index["indexable_content"]
     assert_equal "publication", publication.search_index["format"]
+    assert_equal "policy-paper", publication.search_index["detailed_format"]
     assert_equal summary, publication.search_index["description"]
     assert_equal publication.political?, publication.search_index["is_political"]
     assert_equal publication.historic?, publication.search_index["is_historic"]

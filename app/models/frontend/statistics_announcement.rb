@@ -31,7 +31,7 @@ class Frontend::StatisticsAnnouncement < InflatableModel
   end
 
   def national_statistic?
-    document_type == "Statistics - national statistics"
+    document_type == "National statistics"
   end
 
 private

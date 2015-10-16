@@ -124,7 +124,7 @@ dr:
       statistical_data_set:
         one: "ارقام احصائیوی"
         other: "ارقام احصائیوی"
-      statistics:
+      official_statistics:
         one: "احصائیه ها"
         other: "احصائیه ها"
       statutory_guidance:

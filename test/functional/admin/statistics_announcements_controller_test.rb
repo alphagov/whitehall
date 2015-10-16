@@ -39,7 +39,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     post :create, statistics_announcement: {
                     title: 'Beard stats 2014',
                     summary: 'Summary text',
-                    publication_type_id: PublicationType::Statistics.id,
+                    publication_type_id: PublicationType::OfficialStatistics.id,
                     organisation_ids: [@organisation.id],
                     topic_ids: [@topic.id],
                     current_release_date_attributes: {

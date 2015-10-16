@@ -24,7 +24,7 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
                           title: "The title",
                           slug: 'the-title',
                           summary: "The summary",
-                          publication_type_id: PublicationType.find_by_slug("statistics").id,
+                          publication_type_id: PublicationType.find_by_slug("official-statistics").id,
                           statistics_announcement_dates: [build(:statistics_announcement_date,
                                                                  release_date:  "2050-03-01",
                                                                  precision: StatisticsAnnouncementDate::PRECISION[:two_month],
@@ -41,7 +41,7 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
     assert_equal "The title", returned_announcement_hash["title"]
     assert_equal "The summary", returned_announcement_hash["description"]
     assert_equal "the-title", returned_announcement_hash["slug"]
-    assert_equal "Statistics", returned_announcement_hash["display_type"]
+    assert_equal "Official statistics", returned_announcement_hash["display_type"]
     assert_equal ["statistics_announcement"], returned_announcement_hash["search_format_types"]
     assert_equal "statistics_announcement", returned_announcement_hash["format"]
     assert_equal announcement.organisations_slugs, returned_announcement_hash["organisations"]

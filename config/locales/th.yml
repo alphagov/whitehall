@@ -245,7 +245,7 @@ th:
       statistical_data_set:
         one: "ชุดข้อมูลสถิติ"
         other: "ชุดข้อมูลสถิติ"
-      statistics:
+      official_statistics:
         one: "สถิติ"
         other: "สถิติ"
       statutory_guidance:

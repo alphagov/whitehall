@@ -280,7 +280,7 @@ ar:
         few:
         many:
         other: "مجموعات بيانات إحصائية"
-      statistics:
+      official_statistics:
         zero:
         one: "إحصائية"
         two:
