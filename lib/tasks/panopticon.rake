@@ -92,6 +92,8 @@ namespace :panopticon do
 
     documents = Document.all.published
 
+    unregistered_documents = []
+
     documents.find_each do |document|
 
       if edition = document.published_edition
@@ -103,7 +105,16 @@ namespace :panopticon do
           registerer.register(artefact)
         rescue GdsApi::HTTPErrorResponse => e
           logger.error "Failed to register /#{edition.slug} with #{e.code}: #{e.error_details}"
+          unregistered_documents << "#{edition.slug}, error code: #{e.code}, error details: #{e.error_details}"
+        rescue StandardError => e
+          logger.error "Failed to register /#{edition.slug}, error: #{e}"
+          unregistered_documents << "#{edition.slug}, error: #{e}"
         end
+
+        puts
+        puts "*******************************"
+        puts "Slugs of unregistered documents along with the errors:"
+        puts unregistered_documents
       end
     end
   end
