@@ -13,7 +13,7 @@ class BrokenLinkReporterTest < ActiveSupport::TestCase
       detailed_guide = create(:detailed_guide)
       checker = Whitehall::BrokenLinkReporter::EditionChecker.new(detailed_guide)
 
-      assert_equal "https://whitehall-admin.production.alphagov.co.uk/government/admin/detailed-guides/#{detailed_guide.id}",
+      assert_equal "https://whitehall-admin.publishing.service.gov.uk/government/admin/detailed-guides/#{detailed_guide.id}",
         checker.admin_url
     end
 

@@ -70,6 +70,6 @@ private
   end
 
   def admin_link(path)
-    "https://whitehall-admin.production.alphagov.co.uk" + path
+    "https://whitehall-admin.publishing.service.gov.uk" + path
   end
 end

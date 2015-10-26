@@ -107,7 +107,7 @@ module Whitehall
       end
 
       def admin_host
-        'whitehall-admin.production.alphagov.co.uk'
+        'whitehall-admin.publishing.service.gov.uk'
       end
 
       def run_links_report
