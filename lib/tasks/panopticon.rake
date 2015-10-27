@@ -110,12 +110,12 @@ namespace :panopticon do
           logger.error "Failed to register /#{edition.slug}, error: #{e}"
           unregistered_documents << "#{edition.slug}, error: #{e}"
         end
-
-        puts
-        puts "*******************************"
-        puts "Slugs of unregistered documents along with the errors:"
-        puts unregistered_documents
       end
     end
+
+    puts
+    puts "*******************************"
+    puts "Slugs of unregistered documents along with the errors:"
+    puts unregistered_documents
   end
 end
