@@ -144,7 +144,8 @@ namespace :export do
         title: a.title,
         body: a.govspeak_content_body,
         issued_date: a.created_at.strftime("%Y-%m-%d"),
-        summary: edition.summary
+        summary: edition.summary,
+        slug: a.slug
       }
     end
     puts result.to_json
