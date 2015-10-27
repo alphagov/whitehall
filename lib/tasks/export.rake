@@ -135,4 +135,18 @@ namespace :export do
     end
   end
 
+  desc "Exports HTML attachments for a particular publication as JSON"
+  task :html_attachments, [:slug] => :environment do |t, args|
+    edition = Document.find_by(slug: args[:slug]).published_edition
+
+    result = edition.html_attachments.map do |a|
+      {
+        title: a.title,
+        body: a.govspeak_content_body,
+        issued_date: a.created_at.strftime("%Y-%m-%d"),
+        summary: edition.summary
+      }
+    end
+    puts result.to_json
+  end
 end
