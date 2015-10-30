@@ -302,14 +302,6 @@
           @include copy-19;
           margin: 0;
         }
-        .adr,
-        .email-url-number,
-        .comments {
-          @include media(tablet) {
-            width: $half;
-            float: left;
-          }
-        }
         .email-url-number {
           p {
             margin: 0;

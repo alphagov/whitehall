@@ -344,14 +344,6 @@
         font-weight: bold;
         margin-bottom: $gutter-one-sixth;
       }
-      .adr,
-      .email-url-number,
-      .comments {
-        @include media(tablet) {
-          width: $half;
-          float: left;
-        }
-      }
       .email-url-number {
         p {
           margin: 0;
