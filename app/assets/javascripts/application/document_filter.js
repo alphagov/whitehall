@@ -292,7 +292,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
     this.each(function(){
       if (window.GOVUK.support.history()) {
         var $form = $(this);
-        $(window).on('popstate', function(evet) {
+        $(window).on('popstate', function(event) {
           documentFilter.onPopState(event);
         });
         documentFilter.$form = $form;
