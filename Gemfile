@@ -47,6 +47,7 @@ gem 'sprockets', '~> 3.0'
 gem 'rinku', require: 'rails_rinku'
 gem 'parallel', '1.4.1'
 gem 'responders', '~> 2.0'
+gem 'sidekiq-statsd', '0.1.5'
 
 if ENV['GLOBALIZE_DEV']
   gem 'globalize', path: '../globalize'
