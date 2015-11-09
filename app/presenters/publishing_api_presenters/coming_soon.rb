@@ -13,15 +13,15 @@
 # Note this format becomes redundant once the caching infrasture is able to
 # honour caching headers on upstream 404 responses.
 class PublishingApiPresenters::ComingSoon
-  attr_reader :edition, :locale
-
-  def initialize(edition, locale)
+  def initialize(edition, locale, content_id)
     @edition = edition
     @locale = locale
+    @content_id = content_id
   end
 
   def as_json
     {
+      content_id: content_id,
       publishing_app: 'whitehall',
       rendering_app: edition.rendering_app,
       format: 'coming_soon',
@@ -32,10 +32,15 @@ class PublishingApiPresenters::ComingSoon
       routes: [ { path: base_path, type: "exact" } ],
       # We don't store when the coming_soon was created, so use the last time the record was updated
       public_updated_at: edition.updated_at,
+      links: {
+        can_be_replaced_by: [edition.content_id]
+      }
     }
   end
 
 private
+  attr_reader :edition, :locale, :content_id
+
   def base_path
     Whitehall.url_maker.public_document_path(edition, locale: locale)
   end
