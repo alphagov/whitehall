@@ -2,6 +2,7 @@ class Api::OrganisationPresenter < Api::BasePresenter
   def as_json(options = {})
     {
       id: context.api_organisation_url(model),
+      content_id: model.content_id,
       title: model.name,
       format: model.organisation_type.name,
       updated_at: model.updated_at,
