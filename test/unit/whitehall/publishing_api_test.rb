@@ -261,8 +261,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       assert_equal [german_path], PublishingApiUnscheduleWorker.jobs[0]['args']
       assert_equal [english_path], PublishingApiUnscheduleWorker.jobs[1]['args']
 
-      assert_equal [german_path], PublishingApiGoneWorker.jobs[0]['args']
-      assert_equal [english_path], PublishingApiGoneWorker.jobs[1]['args']
+      assert_equal german_path, PublishingApiGoneWorker.jobs[0]['args'].first
+      assert_equal english_path, PublishingApiGoneWorker.jobs[1]['args'].first
     end
   end
 
