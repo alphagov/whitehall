@@ -23,6 +23,7 @@ private
   def redirect_hash
     {
       content_id: unpublishing.content_id,
+      base_path: base_path,
       format: 'redirect',
       publishing_app: 'whitehall',
       redirects: [

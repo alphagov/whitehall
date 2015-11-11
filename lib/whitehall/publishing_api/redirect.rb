@@ -10,6 +10,7 @@ module Whitehall
 
       def as_json
         {
+          base_path: base_path,
           format: "redirect",
           publishing_app: "whitehall",
           update_type: "major",

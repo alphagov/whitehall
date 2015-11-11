@@ -162,6 +162,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
     alternative_path = URI.parse(unpublishing.alternative_url).path
     expected_hash    = {
       content_id: unpublishing.content_id,
+      base_path: public_path,
       format: 'redirect',
       publishing_app: 'whitehall',
       update_type: 'major',
@@ -186,6 +187,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
     alternative_path = URI.parse(unpublishing.alternative_url).path
     expected_hash    = {
       content_id: unpublishing.content_id,
+      base_path: public_path,
       format: 'redirect',
       publishing_app: 'whitehall',
       update_type: 'major',
