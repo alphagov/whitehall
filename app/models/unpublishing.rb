@@ -1,3 +1,5 @@
+require "securerandom"
+
 class Unpublishing < ActiveRecord::Base
   belongs_to :edition
 
@@ -9,6 +11,7 @@ class Unpublishing < ActiveRecord::Base
   validate :redirect_not_circular
 
   after_update :publish_to_publishing_api
+  after_initialize :ensure_presence_of_content_id
 
   def self.from_slug(slug, type)
     where(slug: slug, document_type: type.to_s).last
@@ -63,5 +66,9 @@ private
 
   def publish_to_publishing_api
     Whitehall::PublishingApi.publish_async(self, 'minor')
+  end
+
+  def ensure_presence_of_content_id
+    self.content_id ||= SecureRandom.uuid
   end
 end

@@ -1,6 +1,11 @@
 require 'test_helper'
 
 class PublishingApiComingSoonWorkerTest < ActiveSupport::TestCase
+  setup do
+    @uuid = "a-uuid"
+    SecureRandom.stubs(uuid: @uuid)
+  end
+
   test 'publishes a "coming_soon" format to the Publishing API' do
     base_path    = '/government/case-studies/case-study-title.fr'
     publish_time = 2.days.from_now
@@ -12,6 +17,7 @@ class PublishingApiComingSoonWorkerTest < ActiveSupport::TestCase
                            scheduled_publication: publish_time)
 
     expected_payload = {
+      content_id: @uuid,
       publishing_app: 'whitehall',
       rendering_app: 'government-frontend',
       format: 'coming_soon',
@@ -21,6 +27,9 @@ class PublishingApiComingSoonWorkerTest < ActiveSupport::TestCase
       details: { publish_time: publish_time },
       routes: [ { path: base_path, type: 'exact' } ],
       public_updated_at: edition.updated_at,
+      links: {
+        can_be_replaced_by: [edition.content_id]
+      }
     }
 
     expected_request = stub_publishing_api_put_item(base_path, expected_payload)

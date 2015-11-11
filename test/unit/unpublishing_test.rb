@@ -143,6 +143,16 @@ class UnpublishingTest < ActiveSupport::TestCase
     unpublishing.update_attribute(:explanation, new_explanation)
   end
 
+  test "generates its own content ID on creation" do
+    assert_not_nil Unpublishing.new.content_id
+  end
+
+  test "does not overwrite a provided content ID" do
+    content_id = SecureRandom.uuid
+    unpublishing = Unpublishing.new(content_id: content_id)
+    assert_equal content_id, unpublishing.content_id
+  end
+
   def reason
     UnpublishingReason::PublishedInError
   end

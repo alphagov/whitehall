@@ -1,13 +1,12 @@
 require 'test_helper'
 
 class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
-
   test '#as_json returns a valid representation of an Unpublishing' do
     unpublishing = create(:unpublishing)
     edition      = unpublishing.edition
     public_path  = unpublishing.document_path
     expected_hash = {
-      content_id: edition.content_id,
+      content_id: unpublishing.content_id,
       title: edition.title,
       description: edition.summary,
       format: 'unpublishing',
@@ -25,6 +24,9 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
         explanation: nil,
         unpublished_at: unpublishing.created_at,
         alternative_url: nil
+      },
+      links: {
+        can_be_replaced_by: [edition.content_id]
       }
     }
 
@@ -100,7 +102,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
     edition      = unpublishing.edition
     public_path  = unpublishing.document_path
     expected_hash = {
-      content_id: edition.content_id,
+      content_id: unpublishing.content_id,
       title: edition.title,
       description: edition.summary,
       format: 'unpublishing',
@@ -118,6 +120,9 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
         explanation: nil,
         unpublished_at: unpublishing.created_at,
         alternative_url: nil
+      },
+      links: {
+        can_be_replaced_by: [edition.content_id]
       }
     }
 
@@ -156,12 +161,17 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
     public_path      = unpublishing.document_path
     alternative_path = URI.parse(unpublishing.alternative_url).path
     expected_hash    = {
+      content_id: unpublishing.content_id,
+      base_path: public_path,
       format: 'redirect',
       publishing_app: 'whitehall',
       update_type: 'major',
       redirects: [
         { path: public_path, type: 'exact', destination: alternative_path }
-      ]
+      ],
+      links: {
+        can_be_replaced_by: [unpublishing.edition.content_id]
+      }
     }
 
     presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
@@ -176,12 +186,17 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
     public_path      = unpublishing.document_path
     alternative_path = URI.parse(unpublishing.alternative_url).path
     expected_hash    = {
+      content_id: unpublishing.content_id,
+      base_path: public_path,
       format: 'redirect',
       publishing_app: 'whitehall',
       update_type: 'major',
       redirects: [
         { path: public_path, type: 'exact', destination: alternative_path }
-      ]
+      ],
+      links: {
+        can_be_replaced_by: [unpublishing.edition.content_id]
+      }
     }
 
     presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
@@ -199,5 +214,19 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
     presented_hash = presenter.as_json
 
     assert_equal alternative_path, presented_hash[:redirects][0][:destination]
+  end
+
+  test "redirect representations containt content IDs" do
+    unpublishing = create(:redirect_unpublishing)
+
+    presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
+    presented_hash = presenter.as_json
+
+    assert_equal unpublishing.content_id, presented_hash[:content_id]
+
+    links_hash = {
+      can_be_replaced_by: [unpublishing.edition.content_id]
+    }
+    assert_equal links_hash, presented_hash[:links]
   end
 end
