@@ -489,6 +489,7 @@ class Organisation < ActiveRecord::Base
       maritime-and-coastguard-agency
       medicines-and-healthcare-products-regulatory-agency
       natural-england
+      planning-inspectorate
     }
   end
 
