@@ -31,6 +31,7 @@ module OrganisationResluggerTest
       old_base_path = @organisation.search_link
       new_base_path = "#{base_path}/corrected-slug"
       content_item[:routes][0][:path] = new_base_path
+      SecureRandom.stubs(:uuid).returns("a-uuid")
 
       redirects = [
         { path: old_base_path, type: "exact", destination: new_base_path },
