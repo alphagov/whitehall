@@ -21,6 +21,7 @@ class PersonSlugChangerTest < ActiveSupport::TestCase
   end
 
   test "publishes to Publishing API with the new slug and redirects the old" do
+    SecureRandom.stubs(:uuid).returns("a-uuid")
     content_item = PublishingApiPresenters.presenter_for(@person).as_json
     old_base_path = @person.search_link
     new_base_path = "/government/people/updated-slug"

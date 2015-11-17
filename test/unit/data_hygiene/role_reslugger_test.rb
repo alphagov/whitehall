@@ -19,6 +19,7 @@ class MinisterialRoleResluggerTest < ActiveSupport::TestCase
   end
 
   test "publishes to Publishing API with the new slug and redirects the old" do
+    SecureRandom.stubs(:uuid).returns("a-uuid")
     content_item = PublishingApiPresenters.presenter_for(@ministerial_role).as_json
     old_base_path = @ministerial_role.search_link
     new_base_path = "/government/ministers/corrected-slug"
