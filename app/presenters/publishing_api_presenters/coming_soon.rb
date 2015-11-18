@@ -1,3 +1,5 @@
+require "securerandom"
+
 # A temporary content format used as a splash page for scheduled documents.
 #
 # When a piece of content is scheduled for publication, a "coming_soon" content
@@ -13,15 +15,14 @@
 # Note this format becomes redundant once the caching infrasture is able to
 # honour caching headers on upstream 404 responses.
 class PublishingApiPresenters::ComingSoon
-  def initialize(edition, locale, content_id)
+  def initialize(edition, locale)
     @edition = edition
     @locale = locale
-    @content_id = content_id
   end
 
   def as_json
     {
-      content_id: content_id,
+      content_id: SecureRandom.uuid,
       publishing_app: 'whitehall',
       rendering_app: edition.rendering_app,
       format: 'coming_soon',
@@ -39,7 +40,7 @@ class PublishingApiPresenters::ComingSoon
   end
 
 private
-  attr_reader :edition, :locale, :content_id
+  attr_reader :edition, :locale
 
   def base_path
     Whitehall.url_maker.public_document_path(edition, locale: locale)
