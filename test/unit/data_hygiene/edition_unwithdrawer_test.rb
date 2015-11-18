@@ -17,7 +17,7 @@ module DataHygiene
       assert_equal @edition, EditionUnwithdrawer.new(@edition.id).edition
     end
 
-    test "initialize finds the correct user for unarchiving" do
+    test "initialize finds the correct user for unwithdrawing" do
       assert_equal @user, EditionUnwithdrawer.new(@edition.id).user
     end
 
@@ -46,22 +46,22 @@ module DataHygiene
     end
 
     test "unwithdraw publishes a draft of the withdrawn edition" do
-      unwithdrawen_edition = EditionUnwithdrawer.new(@edition.id).unwithdraw!
-      assert unwithdrawen_edition.published?
-      assert unwithdrawen_edition.minor_change
-      assert_equal @edition.document, unwithdrawen_edition.document
-      assert_equal @user, unwithdrawen_edition.editorial_remarks.first.author
-      assert_equal "Unwithdrawn", unwithdrawen_edition.editorial_remarks.first.body
+      unwithdrawn_edition = EditionUnwithdrawer.new(@edition.id).unwithdraw!
+      assert unwithdrawn_edition.published?
+      assert unwithdrawn_edition.minor_change
+      assert_equal @edition.document, unwithdrawn_edition.document
+      assert_equal @user, unwithdrawn_edition.editorial_remarks.first.author
+      assert_equal "Unwithdrawn", unwithdrawn_edition.editorial_remarks.first.body
     end
 
     test "unwithdraw handles legacy withdrawn editions" do
       edition = FactoryGirl.create(:published_edition, state: 'withdrawn')
-      unwithdrawen_edition = EditionUnwithdrawer.new(edition.id).unwithdraw!
-      assert unwithdrawen_edition.published?
-      assert unwithdrawen_edition.minor_change
-      assert_equal edition.document, unwithdrawen_edition.document
-      assert_equal @user, unwithdrawen_edition.editorial_remarks.first.author
-      assert_equal "Unwithdrawn", unwithdrawen_edition.editorial_remarks.first.body
+      unwithdrawn_edition = EditionUnwithdrawer.new(edition.id).unwithdraw!
+      assert unwithdrawn_edition.published?
+      assert unwithdrawn_edition.minor_change
+      assert_equal edition.document, unwithdrawn_edition.document
+      assert_equal @user, unwithdrawn_edition.editorial_remarks.first.author
+      assert_equal "Unwithdrawn", unwithdrawn_edition.editorial_remarks.first.body
     end
   end
 end
