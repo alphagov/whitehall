@@ -42,8 +42,6 @@ class ActiveSupport::TestCase
     Whitehall.search_backend = Whitehall::DocumentFilter::FakeSearch
     VirusScanHelpers.erase_test_files
     Sidekiq::Worker.clear_all
-    stub_default_publishing_api_put
-    stub_default_publishing_api_put_draft
     fake_whodunnit = FactoryGirl.build(:user)
     fake_whodunnit.stubs(:id).returns(1000)
     fake_whodunnit.stubs(:persisted?).returns(true)
