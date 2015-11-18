@@ -10,7 +10,7 @@ gem 'transitions', require: ['transitions', 'active_record/transitions']
 gem 'carrierwave', '0.9.0'
 gem 'validates_email_format_of'
 gem 'friendly_id', '5.0.4'
-gem 'babosa'
+gem 'babosa', '1.0.2'
 gem 'nokogiri'
 gem 'slimmer', '9.0.0'
 gem 'plek', '1.10.0'
