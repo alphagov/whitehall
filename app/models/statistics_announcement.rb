@@ -208,7 +208,6 @@ private
     redirects = [
       { path: public_path, destination: URI.parse(redirect_url).path, type: "exact" }
     ]
-    redirect_item = Whitehall::PublishingApi::Redirect.new(public_path, redirects)
-    Whitehall::PublishingApi.publish_redirect(redirect_item)
+    Whitehall::PublishingApi.publish_redirect_async(public_path, redirects)
   end
 end
