@@ -12,7 +12,7 @@ require "securerandom"
 # preventing a 404 page from being cached for up to 30 minutes from the point
 # the document was published.
 #
-# Note this format becomes redundant once the caching infrasture is able to
+# Note this format becomes redundant once the caching infrastructure is able to
 # honour caching headers on upstream 404 responses.
 class PublishingApiPresenters::ComingSoon
   def initialize(edition, locale)
