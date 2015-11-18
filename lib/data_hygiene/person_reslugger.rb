@@ -52,8 +52,7 @@ module DataHygiene
     end
 
     def register_redirect
-      redirect_item = Whitehall::PublishingApi::Redirect.new(old_base_path, redirects)
-      Whitehall::PublishingApi.publish_redirect(redirect_item)
+      Whitehall::PublishingApi.publish_redirect_async(old_base_path, redirects)
     end
 
     def republish_dependencies

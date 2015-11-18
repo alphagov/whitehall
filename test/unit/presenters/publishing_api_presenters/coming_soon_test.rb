@@ -6,6 +6,7 @@ class PublishingApiPresenters::ComingSoonTest < ActiveSupport::TestCase
     @locale = 'en'
     @publish_timestamp = 1.day.from_now
     @content_id = SecureRandom.uuid
+    SecureRandom.stubs(uuid: @content_id)
     @edition = create(:scheduled_case_study,
                        title: 'Case study title',
                        summary: 'The summary',
@@ -31,14 +32,14 @@ class PublishingApiPresenters::ComingSoonTest < ActiveSupport::TestCase
       }
     }
 
-    presenter = PublishingApiPresenters::ComingSoon.new(@edition, @locale, @content_id)
+    presenter = PublishingApiPresenters::ComingSoon.new(@edition, @locale)
 
     assert_equal expected_hash, presenter.as_json
     assert_valid_against_schema(presenter.as_json, 'coming_soon')
   end
 
   test "includes content IDs" do
-    presenter = PublishingApiPresenters::ComingSoon.new(@edition, @locale, @content_id)
+    presenter = PublishingApiPresenters::ComingSoon.new(@edition, @locale)
 
     coming_soon_content_id = presenter.as_json.fetch(:content_id)
     assert_equal @content_id, coming_soon_content_id

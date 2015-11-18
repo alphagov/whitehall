@@ -335,9 +335,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
         destination: "/government/poeple/milli-vanilli"
       }
     ]
-    redirect = Whitehall::PublishingApi::Redirect.new(base_path, redirects)
-    expected_request = stub_publishing_api_put_item(redirect.base_path, redirect.as_json)
-    Whitehall::PublishingApi.publish_redirect(redirect)
+    expected_request = stub_publishing_api_put_item(base_path, Whitehall::PublishingApi::Redirect.new(base_path, redirects).as_json)
+    Whitehall::PublishingApi.publish_redirect_async(base_path, redirects)
 
     assert_requested expected_request
   end

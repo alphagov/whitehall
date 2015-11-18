@@ -47,8 +47,8 @@ module Whitehall
       end
     end
 
-    def self.publish_redirect(redirect)
-      Whitehall.publishing_api_client.put_content_item(redirect.base_path, redirect.as_json)
+    def self.publish_redirect_async(base_path, redirects, edition_content_id = nil)
+      PublishingApiRedirectWorker.perform_async(base_path, redirects, edition_content_id)
     end
 
   private

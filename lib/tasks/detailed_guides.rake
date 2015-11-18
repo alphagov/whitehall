@@ -92,8 +92,7 @@ namespace :detailed_guides do
       redirect_items = redirects.map do |from, to|
         {path: from, destination: to, type: "exact"}
       end
-      redirect_payload = Whitehall::PublishingApi::Redirect.new("/#{slug}", redirect_items)
-      Whitehall::PublishingApi.publish_redirect(redirect_payload)
+      Whitehall::PublishingApi.publish_redirect_async("/#{slug}", redirect_items)
     rescue GdsApi::HTTPClientError => e
       puts "Couldn't publish redirect for #{slug}: #{e.message}"
     end
