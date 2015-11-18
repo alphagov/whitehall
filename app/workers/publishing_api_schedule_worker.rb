@@ -2,17 +2,8 @@ class PublishingApiScheduleWorker < WorkerBase
   sidekiq_options queue: "publishing_api"
 
   def perform(base_path, publish_timestamp)
-    publish_intent = build_publish_intent(base_path, publish_timestamp)
+    publish_intent = PublishingApiPresenters::PublishIntent.new(base_path, publish_timestamp)
 
-    Whitehall.publishing_api_client.put_intent(base_path, publish_intent)
-  end
-
-  def build_publish_intent(base_path, publish_timestamp)
-    {
-      publish_time: publish_timestamp,
-      publishing_app: 'whitehall',
-      rendering_app: 'whitehall-frontend',
-      routes: [ { path: base_path, type: 'exact'} ]
-    }
+    Whitehall.publishing_api_client.put_intent(base_path, publish_intent.as_json)
   end
 end
