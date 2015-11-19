@@ -322,6 +322,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
   end
 
   test 'definite article skipped for certain parent organisations' do
+    assert_definite_article_skipped 'Civil Service Resourcing'
     assert_definite_article_skipped 'HM Treasury'
     assert_definite_article_skipped 'Ordnance Survey'
   end
