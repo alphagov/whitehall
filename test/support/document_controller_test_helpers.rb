@@ -82,7 +82,7 @@ module DocumentControllerTestHelpers
           refute_select ".title a[aria-describedby='attachment-#{attachment_1.id}-accessibility-help']"
         end
         assert_select_object(attachment_2) do
-          assert_select "title. a[aria-describedby='attachment-#{attachment_2.id}-accessibility-help']"
+          assert_select ".title a[aria-describedby='attachment-#{attachment_2.id}-accessibility-help']"
           assert_select '.accessibility-warning'
         end
       end
