@@ -419,28 +419,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal government.name, publication.search_index["government_name"]
   end
 
-  test "should not include browse page taggings in search data if those are empty" do
-    publication = create(:published_publication, title: "publication-title")
-
-    search_data = publication.search_index
-
-    refute search_data.key?('mainstream_browse_pages')
-  end
-
-  test "should include browse page taggings in search data" do
-    publication = create(:published_publication, title: "publication-title")
-    Whitehall.content_api.expects(:artefacts_tagged_to_mainstream_browse_pages).returns([
-      {
-        "artefact_slug" => "government/publications/publication-title",
-        "mainstream_browse_page_slugs" => ["driving/businesses"]
-      }
-    ])
-
-    search_data = publication.search_index
-
-    assert_equal search_data['mainstream_browse_pages'], ["driving/businesses"]
-  end
-
   test 'search_format_types tags the edtion as an edition' do
     edition = build(:edition)
     assert edition.search_format_types.include?('edition')

@@ -17,7 +17,6 @@ module Searchable
     :latest_change_note,
     :link,
     :metadata,
-    :mainstream_browse_pages,
     :news_article_type,
     :operational_field,
     :organisation_state,
