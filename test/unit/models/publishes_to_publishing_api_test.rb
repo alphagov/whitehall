@@ -65,4 +65,12 @@ class PublishesToPublishingApiTest < ActiveSupport::TestCase
 
     assert_requested expected_publish_request
   end
+
+  test "destroy publishes a Gone item to Publishing API" do
+    organisation = create(:organisation)
+    path = Whitehall.url_maker.polymorphic_path(organisation)
+    Whitehall::PublishingApi.expects(:publish_gone).with(path)
+    Whitehall::PublishingApi.expects(:publish_async).never
+    organisation.destroy
+  end
 end

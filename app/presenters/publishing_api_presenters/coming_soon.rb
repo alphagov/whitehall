@@ -33,9 +33,6 @@ class PublishingApiPresenters::ComingSoon
       routes: [ { path: base_path, type: "exact" } ],
       # We don't store when the coming_soon was created, so use the last time the record was updated
       public_updated_at: edition.updated_at,
-      links: {
-        can_be_replaced_by: [edition.content_id]
-      }
     }
   end
 

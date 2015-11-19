@@ -43,12 +43,16 @@ module Whitehall
       locales_for(edition).each do |locale|
         base_path = Whitehall.url_maker.public_document_path(edition, locale: locale)
         PublishingApiUnscheduleWorker.perform_async(base_path)
-        PublishingApiGoneWorker.perform_async(base_path, edition.content_id) unless edition.document.published?
+        self.publish_gone(base_path) unless edition.document.published?
       end
     end
 
     def self.publish_redirect_async(base_path, redirects, edition_content_id = nil)
       PublishingApiRedirectWorker.perform_async(base_path, redirects, edition_content_id)
+    end
+
+    def self.publish_gone(base_path)
+      PublishingApiGoneWorker.perform_async(base_path)
     end
 
   private
