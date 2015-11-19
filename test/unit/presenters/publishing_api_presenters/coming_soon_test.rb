@@ -27,9 +27,6 @@ class PublishingApiPresenters::ComingSoonTest < ActiveSupport::TestCase
       details: { publish_time: @publish_timestamp },
       routes: [ { path: '/government/case-studies/case-study-title', type: 'exact' } ],
       public_updated_at: @edition.updated_at,
-      links: {
-        can_be_replaced_by: [@edition.document.content_id]
-      }
     }
 
     presenter = PublishingApiPresenters::ComingSoon.new(@edition, @locale)
@@ -43,8 +40,5 @@ class PublishingApiPresenters::ComingSoonTest < ActiveSupport::TestCase
 
     coming_soon_content_id = presenter.as_json.fetch(:content_id)
     assert_equal @content_id, coming_soon_content_id
-
-    can_be_replaced_by_id = presenter.as_json.fetch(:links).fetch(:can_be_replaced_by)
-    assert_equal [@edition.document.content_id], can_be_replaced_by_id
   end
 end

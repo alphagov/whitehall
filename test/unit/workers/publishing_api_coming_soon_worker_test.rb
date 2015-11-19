@@ -27,9 +27,6 @@ class PublishingApiComingSoonWorkerTest < ActiveSupport::TestCase
       details: { publish_time: publish_time },
       routes: [ { path: base_path, type: 'exact' } ],
       public_updated_at: edition.updated_at,
-      links: {
-        can_be_replaced_by: [edition.content_id]
-      }
     }
 
     expected_request = stub_publishing_api_put_item(base_path, expected_payload)

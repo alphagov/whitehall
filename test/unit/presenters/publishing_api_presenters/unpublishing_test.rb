@@ -25,9 +25,6 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
         unpublished_at: unpublishing.created_at,
         alternative_url: nil
       },
-      links: {
-        can_be_replaced_by: [edition.content_id]
-      }
     }
 
     presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
@@ -121,9 +118,6 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
         unpublished_at: unpublishing.created_at,
         alternative_url: nil
       },
-      links: {
-        can_be_replaced_by: [edition.content_id]
-      }
     }
 
     EditionDeleter.new(edition).perform!
@@ -169,9 +163,6 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
       redirects: [
         { path: public_path, type: 'exact', destination: alternative_path }
       ],
-      links: {
-        can_be_replaced_by: [unpublishing.edition.content_id]
-      }
     }
 
     presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
@@ -194,9 +185,6 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
       redirects: [
         { path: public_path, type: 'exact', destination: alternative_path }
       ],
-      links: {
-        can_be_replaced_by: [unpublishing.edition.content_id]
-      }
     }
 
     presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
@@ -223,10 +211,5 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
     presented_hash = presenter.as_json
 
     assert_equal unpublishing.content_id, presented_hash[:content_id]
-
-    links_hash = {
-      can_be_replaced_by: [unpublishing.edition.content_id]
-    }
-    assert_equal links_hash, presented_hash[:links]
   end
 end

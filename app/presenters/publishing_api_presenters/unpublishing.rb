@@ -30,7 +30,6 @@ private
         { path: base_path, type: 'exact', destination: alternative_path }
       ],
       update_type: update_type,
-      links: links,
     }
   end
 
@@ -49,7 +48,6 @@ private
       routes: [ { path: base_path, type: 'exact' } ],
       redirects: [],
       details: details,
-      links: links,
     }
   end
 
@@ -71,12 +69,6 @@ private
       explanation: unpublishing_explanation,
       unpublished_at: unpublishing.created_at,
       alternative_url: unpublishing.alternative_url
-    }
-  end
-
-  def links
-    {
-      can_be_replaced_by: [edition.content_id]
     }
   end
 
