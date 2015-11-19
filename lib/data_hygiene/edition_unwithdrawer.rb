@@ -21,7 +21,7 @@ module DataHygiene
         draft.editorial_remarks << EditorialRemark.create(author: @user, edition: @edition, body: "Unwithdrawn")
 
         Edition::AuditTrail.acting_as(user) do
-          EditionForcePublisher.new(draft).perform!
+          Whitehall.edition_services.force_publisher(draft).perform!
         end
 
         draft.reload

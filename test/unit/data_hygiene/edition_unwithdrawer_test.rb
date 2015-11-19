@@ -1,10 +1,20 @@
 require 'test_helper'
+require 'gds_api/test_helpers/panopticon'
 
 module DataHygiene
   class EditionUnwithdrawerTest < ActiveSupport::TestCase
+    include GdsApi::TestHelpers::Panopticon
+
+    def stub_live_artefact_registration(edition)
+      # We use RegisterableEdition to ensure we get the same slug mangling
+      registerable = RegisterableEdition.new(edition)
+      request = stub_artefact_registration(registerable.slug, hash_including(state: "live"), true)
+    end
+
     setup do
       @edition = FactoryGirl.create(:published_edition, state: 'withdrawn')
       @user = FactoryGirl.create(:user, id: 406)
+      @panopticon_request = stub_live_artefact_registration(@edition)
     end
 
     test "initialize with a non-existent edition id errors" do
@@ -56,12 +66,21 @@ module DataHygiene
 
     test "unwithdraw handles legacy withdrawn editions" do
       edition = FactoryGirl.create(:published_edition, state: 'withdrawn')
+      stub_live_artefact_registration(edition)
+
       unwithdrawn_edition = EditionUnwithdrawer.new(edition.id).unwithdraw!
+
       assert unwithdrawn_edition.published?
       assert unwithdrawn_edition.minor_change
       assert_equal edition.document, unwithdrawn_edition.document
       assert_equal @user, unwithdrawn_edition.editorial_remarks.first.author
       assert_equal "Unwithdrawn", unwithdrawn_edition.editorial_remarks.first.body
+    end
+
+    test "unwithdraw handles re-registration with Panopticon" do
+      unwithdrawn_edition = EditionUnwithdrawer.new(@edition.id).unwithdraw!
+
+      assert_requested @panopticon_request
     end
   end
 end
