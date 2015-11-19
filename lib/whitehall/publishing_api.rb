@@ -47,8 +47,8 @@ module Whitehall
       end
     end
 
-    def self.publish_redirect_async(base_path, redirects)
-      PublishingApiRedirectWorker.perform_async(base_path, redirects)
+    def self.publish_redirect_async(base_path, redirects, locale = I18n.default_locale.to_s)
+      PublishingApiRedirectWorker.perform_async(base_path, redirects, locale)
     end
 
     def self.publish_gone(base_path)

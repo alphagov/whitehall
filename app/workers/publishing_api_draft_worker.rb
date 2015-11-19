@@ -1,5 +1,5 @@
 class PublishingApiDraftWorker < PublishingApiWorker
-  def send_item(base_path, content)
-    Whitehall.publishing_api_client.put_draft_content_item(base_path, content)
+  def send_item(payload, locale = nil)
+    send_item_to_draft_stack(payload)
   end
 end

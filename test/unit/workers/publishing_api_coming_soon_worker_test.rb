@@ -1,6 +1,8 @@
 require 'test_helper'
+require 'gds_api/test_helpers/publishing_api_v2'
 
 class PublishingApiComingSoonWorkerTest < ActiveSupport::TestCase
+  include GdsApi::TestHelpers::PublishingApiV2
   setup do
     @uuid = "a-uuid"
     SecureRandom.stubs(uuid: @uuid)
@@ -29,10 +31,12 @@ class PublishingApiComingSoonWorkerTest < ActiveSupport::TestCase
       public_updated_at: edition.updated_at,
     }
 
-    expected_request = stub_publishing_api_put_item(base_path, expected_payload)
+    content_request = stub_publishing_api_put_content(@uuid, expected_payload)
+    publish_request = stub_publishing_api_publish(@uuid, { update_type: { locale: "fr", update_type: "major" } })
 
     PublishingApiComingSoonWorker.new.perform(edition.id, locale)
 
-    assert_requested expected_request
+    assert_requested content_request
+    assert_requested publish_request
   end
 end
