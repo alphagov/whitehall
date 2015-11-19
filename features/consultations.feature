@@ -32,3 +32,11 @@ Scenario: Adding public feedback to a closed consultation
   When I add public feedback to the consultation
   And I save and publish the amended consultation
   Then the public feedback should be viewable
+
+@javascript
+Scenario: Associating an offsite consultation with topical events
+  Given I am an editor
+  And a draft consultation "Beard Length Review" exists
+  When I am on the edit page for consultation "Beard Length Review"
+  And I mark the consultation as offsite
+  Then the consultation can be associated with topical events

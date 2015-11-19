@@ -82,3 +82,11 @@ When /^I draft a new consultation "([^"]*)" relating it to the worldwide_priorit
   select second_priority, from: "Worldwide priorities"
   click_button "Save"
 end
+
+When(/^I mark the consultation as offsite$/) do
+  check 'This consultation is held on another website'
+end
+
+Then(/^the consultation can be associated with topical events$/) do
+  assert has_css?('label', text: 'Topical events')
+end
