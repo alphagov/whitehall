@@ -1,16 +1,15 @@
 require "test_helper"
 require "gds_api/panopticon"
 require "gds_api/test_helpers/panopticon"
-require "gds_api/test_helpers/publishing_api"
 
 class UnpublishingTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::Panopticon
-  include GdsApi::TestHelpers::PublishingApi
 
   setup do
     @published_edition = create(:published_case_study)
     @registerable = RegisterableEdition.new(@published_edition)
     @request = stub_artefact_registration(@registerable.slug)
+    stub_any_publishing_api_call
   end
 
   test "When unpublishing an edition, its state reverts to draft in Whitehall" do
@@ -39,7 +38,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     path = Whitehall.url_maker.public_document_path(@published_edition)
     stub_panopticon_registration(@published_edition)
     unpublish(@published_edition, unpublishing_params)
-    assert_publishing_api_put_item(path, format: 'unpublishing')
+    assert_publishing_api_put_content(@published_edition.unpublishing.content_id, format: 'unpublishing')
   end
 
   test 'When a case study is unpublished, a job is queued to republish the draft to the draft stack' do
@@ -56,13 +55,10 @@ class UnpublishingTest < ActiveSupport::TestCase
     path = Whitehall.url_maker.public_document_path(detailed_guide)
     stub_panopticon_registration(detailed_guide)
     unpublish(detailed_guide, unpublishing_params)
-    assert_not_requested(:put, %r{#{PUBLISHING_API_ENDPOINT}/content.*})
+    assert_not_requested(:put, %r{#{PUBLISHING_API_V2_ENDPOINT}/content.*})
   end
 
   test 'when a translated edition is unpublished, an "unpublishing" is published to the Publishing API for each translation' do
-    en_path = Whitehall.url_maker.public_document_path(@published_edition)
-    fr_path = Whitehall.url_maker.public_document_path(@published_edition, locale: 'fr')
-
     I18n.with_locale 'fr' do
       @published_edition.title = "French title"
       @published_edition.body = "French body"
@@ -71,13 +67,14 @@ class UnpublishingTest < ActiveSupport::TestCase
 
     unpublish(@published_edition, unpublishing_params)
 
-    assert_publishing_api_put_item(en_path, format: 'unpublishing')
-    assert_publishing_api_put_item(fr_path, format: 'unpublishing')
+    assert_publishing_api_put_content(@published_edition.unpublishing.content_id, { format: 'unpublishing' }, 2)
+    assert_publishing_api_publish(@published_edition.unpublishing.content_id, { "update_type" => { "locale" => "en", "update_type" => "major" } })
+    assert_publishing_api_publish(@published_edition.unpublishing.content_id, { "update_type" => { "locale" => "fr", "update_type" => "major" } })
   end
 
   test 'when a translated edition is unpublished as a redirect, redirects are published to the Publishing API for each translation' do
-    en_path = Whitehall.url_maker.public_document_path(@published_edition)
-    fr_path = Whitehall.url_maker.public_document_path(@published_edition, locale: 'fr')
+    redirect_uuid = SecureRandom.uuid
+    SecureRandom.stubs(uuid: redirect_uuid)
 
     I18n.with_locale 'fr' do
       @published_edition.title = "French title"
@@ -92,8 +89,9 @@ class UnpublishingTest < ActiveSupport::TestCase
 
     unpublish(@published_edition, unpublishing_redirect_params)
 
-    assert_publishing_api_put_item(en_path, format: 'redirect')
-    assert_publishing_api_put_item(fr_path, format: 'redirect')
+    assert_publishing_api_put_content(redirect_uuid, { format: 'redirect' }, 2)
+    assert_publishing_api_publish(redirect_uuid, { "update_type" => { "locale" => "en", "update_type" => "major" } })
+    assert_publishing_api_publish(redirect_uuid, { "update_type" => { "locale" => "fr", "update_type" => "major" } })
   end
 
 private

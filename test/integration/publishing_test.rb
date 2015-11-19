@@ -1,9 +1,9 @@
 require "test_helper"
-require "gds_api/test_helpers/publishing_api"
+require "gds_api/test_helpers/publishing_api_v2"
 require "gds_api/test_helpers/panopticon"
 
 class PublishingTest < ActiveSupport::TestCase
-  include GdsApi::TestHelpers::PublishingApi
+  include GdsApi::TestHelpers::PublishingApiV2
   include GdsApi::TestHelpers::Panopticon
 
   setup do
@@ -18,11 +18,11 @@ class PublishingTest < ActiveSupport::TestCase
       # edition has been published
       public_updated_at: Time.zone.now.as_json
     )
-    request = stub_publishing_api_put_item(@presenter.base_path, expected_attributes)
+    requests = stub_publishing_api_put_content_links_and_publish(expected_attributes)
 
     perform_force_publishing_for(@draft_edition)
 
-    assert_requested request
+    requests.each { |request| assert_requested request }
   end
 
   test "When a translated edition is published, all translations are published with the Publishing API" do
@@ -31,16 +31,16 @@ class PublishingTest < ActiveSupport::TestCase
       @draft_edition.save!
 
       expected_attributes = @presenter.as_json.merge(public_updated_at: Time.zone.now.as_json)
-      @french_request = stub_publishing_api_put_item(@presenter.base_path, expected_attributes)
+      @french_requests = stub_publishing_api_put_content_links_and_publish(expected_attributes)
    end
 
    expected_attributes = @presenter.as_json.merge(public_updated_at: Time.zone.now.as_json)
-   @english_request = stub_publishing_api_put_item(@presenter.base_path, expected_attributes)
+   @english_requests = stub_publishing_api_put_content_links_and_publish(expected_attributes)
 
    perform_force_publishing_for(@draft_edition)
 
-   assert_requested @english_request
-   assert_requested @french_request
+   @english_requests.each { |request| assert_requested request }
+   @french_requests.each { |request| assert_requested request }
   end
 
   private

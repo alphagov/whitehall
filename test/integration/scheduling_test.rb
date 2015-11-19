@@ -8,14 +8,17 @@ class SchedulingTest < ActiveSupport::TestCase
     @submitted_edition = create(:submitted_case_study,
                                 scheduled_publication: 1.day.from_now)
     stub_legacy_sidekiq_scheduling
-    stub_default_publishing_api_put
+    stub_any_publishing_api_call
     stub_default_publishing_api_put_intent
   end
 
   test "scheduling a first-edition publishes a publish intent and 'coming_soon' content item to the Publishing API" do
+    coming_soon_uuid = SecureRandom.uuid
+    SecureRandom.stubs(uuid: coming_soon_uuid)
+
     path = Whitehall.url_maker.public_document_path(@submitted_edition)
     schedule(@submitted_edition)
-    assert_publishing_api_put_item(path, format: 'coming_soon')
+    assert_publishing_api_put_content(coming_soon_uuid, format: 'coming_soon')
     assert_publishing_api_put_intent(path, publish_time: @submitted_edition.scheduled_publication.as_json)
   end
 
@@ -31,7 +34,7 @@ class SchedulingTest < ActiveSupport::TestCase
 
     acting_as(create(:user)) { schedule(new_draft) }
 
-    assert_not_requested(:put, %r{#{PUBLISHING_API_ENDPOINT}/content.*})
+    assert_not_requested(:put, %r{#{PUBLISHING_API_V2_ENDPOINT}/content.*})
     assert_publishing_api_put_intent(path, publish_time: new_draft.scheduled_publication.as_json)
   end
 
@@ -52,6 +55,8 @@ class SchedulingTest < ActiveSupport::TestCase
   end
 
   test "unscheduling a scheduled first-edition removes the publish intent and replaces the 'coming_soon' with a 'gone' item" do
+    gone_uuid = SecureRandom.uuid
+    SecureRandom.stubs(uuid: gone_uuid)
     scheduled_edition = create(:scheduled_case_study)
     unscheduler       = Whitehall.edition_services.unscheduler(scheduled_edition)
     base_path         = Whitehall.url_maker.public_document_path(scheduled_edition)
@@ -61,7 +66,7 @@ class SchedulingTest < ActiveSupport::TestCase
     unscheduler.perform!
 
     assert_requested destroy_intent_request
-    assert_publishing_api_put_item(base_path, format: 'gone')
+    assert_publishing_api_put_content(gone_uuid, format: 'gone')
   end
 
   test "unscheduling a scheduled subsequent edition removes the publish intent but doesn't publish a 'gone' item" do
