@@ -138,7 +138,7 @@ module OrganisationHelper
   end
 
   def needs_definite_article?(phrase)
-    exceptions = [/^hm/, /ordnance survey/]
+    exceptions = [/civil service resourcing/, /^hm/, /ordnance survey/]
     !has_definite_article?(phrase) && !(exceptions.any? { |e| e =~ phrase.downcase })
   end
 
