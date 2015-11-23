@@ -58,7 +58,7 @@ end
 if ENV['GOVSPEAK_DEV']
   gem 'govspeak', path: '../govspeak'
 else
-  gem 'govspeak', '~> 3.5.0'
+  gem 'govspeak', '~> 3.5.1'
 end
 
 if ENV['FRONTEND_TOOLKIT_DEV']
