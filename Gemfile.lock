@@ -178,6 +178,7 @@ GEM
     govuk_frontend_toolkit (4.1.1)
       rails (>= 3.1.0)
       sass (>= 3.2.0)
+    hashdiff (0.2.3)
     hashery (2.1.1)
     hashie (3.2.0)
     hitimes (1.2.2)
@@ -431,9 +432,10 @@ GEM
       rack (>= 1.0)
     warden-oauth2 (0.0.1)
       warden
-    webmock (1.20.4)
+    webmock (1.22.3)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
+      hashdiff
     websocket-driver (0.3.5)
     whenever (0.9.4)
       chronic (>= 0.6.3)
@@ -523,7 +525,7 @@ DEPENDENCIES
   uglifier
   unicorn (= 5.0.0)
   validates_email_format_of
-  webmock
+  webmock (~> 1.22.3)
   whenever (= 0.9.4)
 
 BUNDLED WITH
