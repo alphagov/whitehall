@@ -33,7 +33,7 @@ class DocumentCollection < Edition
   def indexable_content
     [
       Govspeak::Document.new(body).to_text,
-      groups.map do |group|
+      groups.visible.map do |group|
         [group.heading, Govspeak::Document.new(group.body).to_text]
       end
     ].flatten.join("\n")
