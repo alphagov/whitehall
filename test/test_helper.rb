@@ -61,6 +61,10 @@ class ActiveSupport::TestCase
     assert_equal array1.to_set, array2.to_set, "Different elements in #{array1.inspect} and #{array2}.inspect"
   end
 
+  def assert_all_requested(array)
+    array.each { |request| assert_requested request }
+  end
+
   def count_queries
     count = 0
     subscriber = ActiveSupport::Notifications.subscribe("sql.active_record") do |*args|

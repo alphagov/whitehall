@@ -48,4 +48,5 @@ class PublishingTest < ActiveSupport::TestCase
   def perform_force_publishing_for(edition)
     Whitehall.edition_services.force_publisher(edition).perform!
   end
+
 end

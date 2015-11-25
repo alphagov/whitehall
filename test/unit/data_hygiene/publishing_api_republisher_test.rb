@@ -7,11 +7,11 @@ class DataHygiene::PublishingApiRepublisherTest < ActiveSupport::TestCase
     presenter        = PublishingApiPresenters.presenter_for(organisation, update_type: "republish")
     WebMock.reset!
 
-    expected_request = stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
+    expected_requests = stub_publishing_api_put_content_links_and_publish(presenter.as_json)
 
     DataHygiene::PublishingApiRepublisher.new(scope, NullLogger.instance).perform
 
-    assert_requested expected_request
+    assert_all_requested(expected_requests)
   end
 
 end

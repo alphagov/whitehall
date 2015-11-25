@@ -11,8 +11,11 @@ module OrganisationResluggerTest
     end
 
     def setup
+      stub_any_publishing_api_call
       DatabaseCleaner.clean_with :truncation
       @organisation = create_organisation
+      WebMock.reset! # clear the Publishing API calls after org creation
+      stub_any_publishing_api_call
       @reslugger = DataHygiene::OrganisationReslugger.new(@organisation, 'corrected-slug')
     end
 
@@ -31,7 +34,8 @@ module OrganisationResluggerTest
       old_base_path = @organisation.search_link
       new_base_path = "#{base_path}/corrected-slug"
       content_item[:routes][0][:path] = new_base_path
-      SecureRandom.stubs(:uuid).returns("a-uuid")
+      redirect_uuid = SecureRandom.uuid
+      SecureRandom.stubs(uuid: redirect_uuid)
 
       redirects = [
         { path: old_base_path, type: "exact", destination: new_base_path },
@@ -45,13 +49,13 @@ module OrganisationResluggerTest
 
       redirect_item = Whitehall::PublishingApi::Redirect.new(old_base_path, redirects).as_json
 
-      expected_publish_request = stub_publishing_api_put_item(new_base_path, content_item)
-      expected_redirect = stub_publishing_api_put_item(old_base_path, redirect_item)
+      expected_publish_requests = stub_publishing_api_put_content_links_and_publish(content_item)
+      expected_redirect_requests = stub_publishing_api_put_content_links_and_publish(redirect_item, redirect_uuid, update_type: { update_type: 'major', locale: 'en' })
 
       @reslugger.run!
 
-      assert_requested expected_redirect
-      assert_requested expected_publish_request
+      expected_publish_requests.each { |request| assert_requested request }
+      expected_redirect_requests.each { |request| assert_requested request }
     end
 
     test "deletes the old slug from the search index" do

@@ -8,6 +8,7 @@ class PublishesToPublishingApiTest < ActiveSupport::TestCase
 
   setup do
     DatabaseCleaner.clean_with :truncation
+    stub_any_publishing_api_call
   end
 
   teardown do
@@ -15,11 +16,12 @@ class PublishesToPublishingApiTest < ActiveSupport::TestCase
   end
 
   test "generating a content_id" do
-    SecureRandom.stubs(:uuid).returns("a random UUID")
+    test_uuid = SecureRandom.uuid
+    SecureRandom.stubs(uuid: test_uuid)
     organisation = create(:organisation)
 
     assert organisation.valid?
-    assert_equal organisation.content_id, "a random UUID"
+    assert_equal test_uuid, organisation.content_id
   end
 
   test "create publishes to Publishing API if not disallowed" do
@@ -52,18 +54,18 @@ class PublishesToPublishingApiTest < ActiveSupport::TestCase
     person = create(:person, attributes_for(:person).except(:biography))
 
     content_item = PublishingApiPresenters.presenter_for(person).as_json
-    expected_publish_request = stub_publishing_api_put_item(person.search_link, content_item)
+    requests = stub_publishing_api_put_content_links_and_publish(content_item)
 
-    assert_requested expected_publish_request
+    assert_all_requested(requests)
   end
 
   test "update publishes to Publishing API using :en locale when the object is not translatable" do
     policy_group = create(:policy_group)
 
     content_item = PublishingApiPresenters.presenter_for(policy_group).as_json
-    expected_publish_request = stub_publishing_api_put_item(policy_group.search_link, content_item)
+    requests = stub_publishing_api_put_content_links_and_publish(content_item)
 
-    assert_requested expected_publish_request
+    assert_all_requested(requests)
   end
 
   test "destroy publishes a Gone item to Publishing API" do

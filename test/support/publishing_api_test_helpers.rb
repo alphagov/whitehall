@@ -13,26 +13,32 @@ module PublishingApiTestHelpers
 
   def expect_publishing(*editions)
     editions.each do |edition|
-      Whitehall.publishing_api_client.expects(:put_content_item)
-        .with(Whitehall.url_maker.public_document_path(edition),
+      Whitehall.publishing_api_v2_client.expects(:put_content)
+        .with(edition.content_id,
           has_entries(content_id: edition.content_id, update_type: 'major',
             publishing_app: 'whitehall', rendering_app: 'whitehall-frontend'))
+      Whitehall.publishing_api_v2_client.expects(:publish)
+        .with(edition.content_id,
+          has_entries(update_type: 'major'))
     end
   end
 
   def expect_republishing(*editions)
     editions.each do |edition|
-      Whitehall.publishing_api_client.expects(:put_content_item)
-        .with(Whitehall.url_maker.public_document_path(edition),
+      Whitehall.publishing_api_v2_client.expects(:put_content)
+        .with(edition.content_id,
           has_entries(content_id: edition.content_id, update_type: 'republish',
             publishing_app: 'whitehall', rendering_app: 'whitehall-frontend'))
+      Whitehall.publishing_api_v2_client.expects(:publish)
+        .with(edition.content_id,
+          has_entries(update_type: 'republish'))
     end
   end
 
   def expect_no_republishing(*editions)
     editions.each do |edition|
-      Whitehall.publishing_api_client.expects(:put_content_item)
-        .with(Whitehall.url_maker.public_document_path(edition)).never
+      Whitehall.publishing_api_v2_client.expects(:put_content)
+        .with(content_id: edition.content_id).never
     end
   end
 end

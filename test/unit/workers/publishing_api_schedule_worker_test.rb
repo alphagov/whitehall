@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class PublishingApiScheduleWorkerTest < ActiveSupport::TestCase
+  include GdsApi::TestHelpers::PublishingApi
+
   test 'publishes a publish intent for the base path and publish time' do
     base_path    = '/base_path/for/content.fr'
     publish_time = 2.days.from_now

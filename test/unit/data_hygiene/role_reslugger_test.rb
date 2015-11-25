@@ -4,6 +4,7 @@ class MinisterialRoleResluggerTest < ActiveSupport::TestCase
   self.use_transactional_fixtures = false
 
   setup do
+    stub_any_publishing_api_call
     DatabaseCleaner.clean_with :truncation
     @ministerial_role = create(:ministerial_role, name: "Misspelt role")
     @reslugger = DataHygiene::RoleReslugger.new(@ministerial_role, 'corrected-slug')
@@ -19,7 +20,10 @@ class MinisterialRoleResluggerTest < ActiveSupport::TestCase
   end
 
   test "publishes to Publishing API with the new slug and redirects the old" do
-    SecureRandom.stubs(:uuid).returns("a-uuid")
+    WebMock.reset! # reset the stubs after Publishing API calls caused by `create(:ministerial_role, name: "Misspelt role")`
+
+    redirect_uuid = SecureRandom.uuid
+    SecureRandom.stubs(uuid: redirect_uuid)
     content_item = PublishingApiPresenters.presenter_for(@ministerial_role).as_json
     old_base_path = @ministerial_role.search_link
     new_base_path = "/government/ministers/corrected-slug"
@@ -30,13 +34,13 @@ class MinisterialRoleResluggerTest < ActiveSupport::TestCase
     ]
     redirect_item = Whitehall::PublishingApi::Redirect.new(old_base_path, redirects).as_json
 
-    expected_publish_request = stub_publishing_api_put_item(new_base_path, content_item)
-    expected_redirect = stub_publishing_api_put_item(old_base_path, redirect_item)
+    expected_publish_requests = stub_publishing_api_put_content_links_and_publish(content_item)
+    expected_redirect_requests = stub_publishing_api_put_content_links_and_publish(redirect_item, redirect_uuid, { update_type: { update_type: 'major', locale: 'en' } })
 
     @reslugger.run!
 
-    assert_requested expected_redirect
-    assert_requested expected_publish_request
+    assert_all_requested(expected_publish_requests)
+    assert_all_requested(expected_redirect_requests)
   end
 
   test "deletes the old slug from the search index" do

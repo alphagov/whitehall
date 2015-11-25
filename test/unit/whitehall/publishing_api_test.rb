@@ -1,35 +1,39 @@
 require 'test_helper'
+require "gds_api/test_helpers/publishing_api_v2"
 
 class Whitehall::PublishingApiTest < ActiveSupport::TestCase
+  include GdsApi::TestHelpers::PublishingApiV2
+
   setup do
     # Disable any predefined webmock stubs, we want a clean slate
     # TODO: investigate removing stubbing of publishing api calls from standard test setup
     WebMock.reset!
 
-    # In the case of unpublishings, we trigger a job to republish the draft
-    # edition. That job runs inline because we're in test mode, so we need to stub it.
-    stub_default_publishing_api_put_draft
+    # In the case of unpublishings, we trigger a job to save the draft edition.
+    # That job runs inline because we're in test mode, so we need to stub it.
+    stub_any_publishing_api_put_content
+    stub_any_publishing_api_put_links
   end
 
   test "#publish publishes an Edition with the Publishing API" do
     edition = create(:published_publication)
     presenter = PublishingApiPresenters.presenter_for(edition)
-    request = stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
+    requests = stub_publishing_api_put_content_links_and_publish(presenter.as_json)
 
     Whitehall::PublishingApi.publish_async(edition)
 
-    assert_requested request
+    assert_all_requested(requests)
   end
 
   test "#publish publishes non-Edition instances with the Publishing API" do
     organisation = create(:organisation)
     WebMock.reset! # because creating an organisation also pushes to Publishing API
     presenter = PublishingApiPresenters.presenter_for(organisation)
-    request = stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
+    requests = stub_publishing_api_put_content_links_and_publish(presenter.as_json)
 
     Whitehall::PublishingApi.publish_async(organisation)
 
-    assert_requested request
+    assert_all_requested(requests)
   end
 
   test "#publish sends unpublishing for case studies to the content store" do
@@ -37,11 +41,11 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     unpublishing = create(:unpublishing, edition: edition)
 
     payload = PublishingApiPresenters::Unpublishing.new(unpublishing).as_json
-    request = stub_publishing_api_put_item(unpublishing.document_path, payload)
+    requests = stub_publishing_api_put_content_links_and_publish(payload)
 
     Whitehall::PublishingApi.publish_async(unpublishing)
 
-    assert_requested request
+    assert_all_requested(requests)
   end
 
   test "#publish skips sending unpublishings for formats other than case study" do
@@ -57,21 +61,21 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     edition = create(:published_case_study)
 
     presenter = PublishingApiPresenters.presenter_for(edition)
-    request = stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
+    requests = stub_publishing_api_put_content_links_and_publish(presenter.as_json)
 
     Whitehall::PublishingApi.publish_async(edition)
 
-    assert_requested request
+    assert_all_requested(requests)
   end
 
   test "#republish publishes to the Publishing API as a 'republish' update_type" do
     edition = create(:published_publication)
     presenter = PublishingApiPresenters.presenter_for(edition, update_type: 'republish')
-    request = stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
+    requests = stub_publishing_api_put_content_links_and_publish(presenter.as_json)
 
     Whitehall::PublishingApi.republish_async(edition)
 
-    assert_requested request
+    assert_all_requested(requests)
   end
 
   test "#publish publishes all available translations of a translatable model" do
@@ -83,14 +87,14 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       organisation.save!
       WebMock.reset!
 
-      @french_request = stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
+      @french_requests = stub_publishing_api_put_content_links_and_publish(presenter.as_json)
     end
-    english_request = stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
+    english_requests = stub_publishing_api_put_content_links_and_publish(presenter.as_json)
 
     Whitehall::PublishingApi.publish_async(organisation)
 
-    assert_requested @french_request
-    assert_requested english_request
+    assert_all_requested(@french_requests)
+    assert_all_requested(english_requests)
   end
 
   test "#republish republishes all available translations of a translatable model" do
@@ -102,14 +106,14 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       organisation.save!
       WebMock.reset!
 
-      @french_request = stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
+      @french_requests = stub_publishing_api_put_content_links_and_publish(presenter.as_json)
     end
-    english_request = stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
+    english_requests = stub_publishing_api_put_content_links_and_publish(presenter.as_json)
 
     Whitehall::PublishingApi.republish_async(organisation)
 
-    assert_requested @french_request
-    assert_requested english_request
+    assert_all_requested(@french_requests)
+    assert_all_requested(english_requests)
   end
 
   test "#republish raises error for editions that are not publicly visible" do
@@ -121,9 +125,9 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     published_payload = PublishingApiPresenters.presenter_for(published, update_type: "republish").as_json
     withdrawn_payload = PublishingApiPresenters.presenter_for(withdrawn, update_type: "republish").as_json
 
-    draft_request     = stub_publishing_api_put_item(draft.search_link, draft_payload)
-    published_request = stub_publishing_api_put_item(published.search_link, published_payload)
-    withdrawn_request = stub_publishing_api_put_item(withdrawn.search_link, withdrawn_payload)
+    draft_requests     = stub_publishing_api_put_content_links_and_publish(draft_payload)
+    published_requests = stub_publishing_api_put_content_links_and_publish(published_payload)
+    withdrawn_requests = stub_publishing_api_put_content_links_and_publish(withdrawn_payload)
 
     Whitehall::PublishingApi.republish_async(published)
     Whitehall::PublishingApi.republish_async(withdrawn)
@@ -131,48 +135,48 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       Whitehall::PublishingApi.republish_async(draft)
     end
 
-    assert_requested published_request
-    assert_requested withdrawn_request
-    assert_not_requested draft_request
+    assert_all_requested(published_requests)
+    assert_all_requested(withdrawn_requests)
+    draft_requests.each { |request| assert_not_requested request }
   end
 
   test "republishes an unpublishing" do
     unpublishing = create(:unpublishing)
     payload      = PublishingApiPresenters::Unpublishing.new(unpublishing, update_type: "republish").as_json
-    request      = stub_publishing_api_put_item(unpublishing.document_path, payload)
+    requests     = stub_publishing_api_put_content_links_and_publish(payload)
 
     Whitehall::PublishingApi.republish_async(unpublishing)
-    assert_requested request
+    assert_all_requested(requests)
   end
 
   test "publishes a redirect unpublishing" do
     unpublishing = create(:redirect_unpublishing)
     payload      = PublishingApiPresenters::Unpublishing.new(unpublishing, update_type: "republish").as_json
-    request      = stub_publishing_api_put_item(unpublishing.document_path, payload)
+    requests     = stub_publishing_api_put_content_links_and_publish(payload, payload["content_id"], { update_type: { update_type: "republish", locale: 'en' } })
 
     Whitehall::PublishingApi.republish_async(unpublishing)
-    assert_requested request
+    assert_all_requested(requests)
   end
 
   test "publishes a translated edition that has been unpublished" do
-    unpublishing    = create(:unpublishing)
-    edition         = unpublishing.edition
-    english_payload = PublishingApiPresenters::Unpublishing.new(unpublishing).as_json
-    english_request = stub_publishing_api_put_item(unpublishing.document_path, english_payload)
+    unpublishing     = create(:unpublishing)
+    edition          = unpublishing.edition
+    english_payload  = PublishingApiPresenters::Unpublishing.new(unpublishing).as_json
+    english_requests = stub_publishing_api_put_content_links_and_publish(english_payload)
 
-    german_payload, german_request = nil
+    german_payload, german_requests = nil
     I18n.with_locale(:de) do
       edition.title = 'German title'
       edition.save!
 
-      german_payload = PublishingApiPresenters::Unpublishing.new(unpublishing).as_json
-      german_request = stub_publishing_api_put_item(unpublishing.document_path, german_payload)
+      german_payload  = PublishingApiPresenters::Unpublishing.new(unpublishing).as_json
+      german_requests = stub_publishing_api_put_content_links_and_publish(german_payload)
     end
 
     Whitehall::PublishingApi.publish_async(unpublishing)
 
-    assert_requested english_request
-    assert_requested german_request
+    assert_all_requested(english_requests)
+    assert_all_requested(german_requests)
   end
 
   test "schedule for a first edition served from Whitehall doesn't queue jobs to push publish intents and 'coming_soon' items" do
@@ -290,8 +294,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
   test "#publish_draft_async publishes a draft edition" do
     draft_edition = create(:draft_case_study)
-    presenter = PublishingApiPresenters.presenter_for(draft_edition)
-    request = stub_publishing_api_put_draft_item(presenter.base_path, presenter.as_json)
+    payload = PublishingApiPresenters.presenter_for(draft_edition).as_json
+    request = stub_publishing_api_put_content(payload[:content_id], payload.except(:links))
 
     Whitehall::PublishingApi.publish_draft_async(draft_edition)
 
@@ -325,19 +329,22 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
   end
 
   test "#publish_redirect publishes a redirect to the Publishing API" do
-    SecureRandom.stubs(:uuid).returns("a-uuid")
+    redirect_uuid = SecureRandom.uuid
+    SecureRandom.stubs(uuid: redirect_uuid)
     base_path = "/government/people/milly-vanilly"
     redirects = [
       {
-        content_id: "a-uuid",
+        content_id: redirect_uuid,
         path: base_path,
         type: "exact",
         destination: "/government/poeple/milli-vanilli"
       }
     ]
-    expected_request = stub_publishing_api_put_item(base_path, Whitehall::PublishingApi::Redirect.new(base_path, redirects).as_json)
+    expected_content_request = stub_publishing_api_put_content(redirect_uuid, Whitehall::PublishingApi::Redirect.new(base_path, redirects).as_json)
+    expected_publish_request = stub_publishing_api_publish(redirect_uuid, update_type: { update_type: 'major', locale: 'en' })
     Whitehall::PublishingApi.publish_redirect_async(base_path, redirects)
 
-    assert_requested expected_request
+    assert_requested expected_content_request
+    assert_requested expected_publish_request
   end
 end
