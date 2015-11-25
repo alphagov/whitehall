@@ -3,6 +3,7 @@ require 'test_helper'
 class Admin::FatalityNoticesControllerTest < ActionController::TestCase
   setup do
     login_as :gds_editor
+    stub_any_publishing_api_call
   end
 
   should_be_an_admin_controller

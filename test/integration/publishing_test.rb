@@ -22,7 +22,7 @@ class PublishingTest < ActiveSupport::TestCase
 
     perform_force_publishing_for(@draft_edition)
 
-    requests.each { |request| assert_requested request }
+    assert_all_requested(requests)
   end
 
   test "When a translated edition is published, all translations are published with the Publishing API" do
@@ -39,8 +39,8 @@ class PublishingTest < ActiveSupport::TestCase
 
    perform_force_publishing_for(@draft_edition)
 
-   @english_requests.each { |request| assert_requested request }
-   @french_requests.each { |request| assert_requested request }
+   assert_all_requested(@english_requests)
+   assert_all_requested(@french_requests)
   end
 
   private
@@ -48,5 +48,4 @@ class PublishingTest < ActiveSupport::TestCase
   def perform_force_publishing_for(edition)
     Whitehall.edition_services.force_publisher(edition).perform!
   end
-
 end
