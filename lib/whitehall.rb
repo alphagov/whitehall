@@ -96,14 +96,6 @@ module Whitehall
     @secrets ||= load_secrets
   end
 
-  def self.aws_access_key_id
-    secrets["aws_access_key_id"]
-  end
-
-  def self.aws_secret_access_key
-    secrets["aws_secret_access_key"]
-  end
-
   # The base folder where incoming-uploads and clean-uploads live.
   def self.uploads_root
     (Rails.env.test? ? uploads_root_for_test_env : Rails.root).to_s
