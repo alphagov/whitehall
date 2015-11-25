@@ -12,7 +12,7 @@ module Whitehall
       def self.send_to_publishing_api(item)
         update_type = 'bulk_draft_update'
         queue_name = 'bulk_republishing'
-        PublishingApi.publish_draft_async(item, update_type, queue_name)
+        PublishingApi.save_draft_async(item, update_type, queue_name)
       end
 
       def self.edition_scope

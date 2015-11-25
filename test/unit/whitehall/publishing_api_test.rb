@@ -292,12 +292,12 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     end
   end
 
-  test "#publish_draft_async publishes a draft edition" do
+  test "#save_draft_async publishes a draft edition" do
     draft_edition = create(:draft_case_study)
     payload = PublishingApiPresenters.presenter_for(draft_edition).as_json
     request = stub_publishing_api_put_content(payload[:content_id], payload.except(:links))
 
-    Whitehall::PublishingApi.publish_draft_async(draft_edition)
+    Whitehall::PublishingApi.save_draft_async(draft_edition)
 
     assert_requested request
   end
@@ -315,7 +315,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     Whitehall::PublishingApi.publish_async(edition, update_type, queue_name)
   end
 
-  test "#publish_draft_async propagates update_type and queue overrides to worker" do
+  test "#save_draft_async propagates update_type and queue overrides to worker" do
     queue_name = "bang"
     update_type = "whizzo"
 
@@ -325,7 +325,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       .with(queue_name, draft_edition.class.name, draft_edition.id,
             update_type, draft_edition.primary_locale.to_sym)
 
-    Whitehall::PublishingApi.publish_draft_async(draft_edition, update_type, queue_name)
+    Whitehall::PublishingApi.save_draft_async(draft_edition, update_type, queue_name)
   end
 
   test "#publish_redirect publishes a redirect to the Publishing API" do

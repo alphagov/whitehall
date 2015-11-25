@@ -13,7 +13,7 @@ class PublishingApiWorker < WorkerBase
       if model.is_a?(::Unpublishing)
         # Unpublishings will be mirrored to the draft content-store, but we want
         # it to have the now-current draft edition
-        publish_draft_edition_to_draft_stack(model)
+        save_draft_of_unpublished_edition(model)
       end
     end
   end
@@ -25,18 +25,18 @@ class PublishingApiWorker < WorkerBase
   end
 
   def send_item(payload, locale = payload[:locale])
-    send_item_to_draft_stack(payload)
+    save_draft(payload)
     Whitehall.publishing_api_v2_client.publish(payload[:content_id], locale: locale, update_type: payload[:update_type])
   end
 
-  def send_item_to_draft_stack(payload)
+  def save_draft(payload)
     Whitehall.publishing_api_v2_client.put_content(payload[:content_id], payload.except(:links))
     Whitehall.publishing_api_v2_client.put_links(payload[:content_id], payload.slice(:links)) if payload[:links]
   end
 
-  def publish_draft_edition_to_draft_stack(unpublishing)
+  def save_draft_of_unpublished_edition(unpublishing)
     if draft = unpublishing.edition
-      Whitehall::PublishingApi.publish_draft_async(draft)
+      Whitehall::PublishingApi.save_draft_async(draft)
     end
   end
 end

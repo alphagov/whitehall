@@ -45,7 +45,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     path = Whitehall.url_maker.public_document_path(@published_edition)
     stub_panopticon_registration(@published_edition)
 
-    Whitehall::PublishingApi.expects(:publish_draft_async).once
+    Whitehall::PublishingApi.expects(:save_draft_async).once
 
     unpublish(@published_edition, unpublishing_params)
   end
