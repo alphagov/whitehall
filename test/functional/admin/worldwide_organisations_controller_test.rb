@@ -77,6 +77,14 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
 
   test "destroys an existing object" do
     organisation = create(:worldwide_organisation)
+
+    page = create(:published_worldwide_organisation_corporate_information_page,
+                  worldwide_organisation: organisation)
+
+    create(:published_worldwide_organisation_corporate_information_page,
+           worldwide_organisation: organisation,
+           document: page.document)
+
     count = WorldwideOrganisation.count
     delete :destroy, id: organisation.id
     assert_equal count - 1, WorldwideOrganisation.count
