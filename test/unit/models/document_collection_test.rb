@@ -105,9 +105,14 @@ class DocumentCollectionTest < ActiveSupport::TestCase
   end
 
   test 'indexes the group headings and body copy without markup as indexable_content' do
-    group = create(:document_collection_group, heading: 'The Heading', body: 'The *Body*')
-    collection = create(:document_collection, groups: [group])
+    doc = create(:published_news_article).document
+    empty_group = create(:document_collection_group, heading: 'Empty Heading', body: 'The *Body*')
+    visible_group = create(:document_collection_group, heading: 'The Heading', body: 'The *Body*', documents: [doc])
+
+    collection = create(:document_collection, groups: [empty_group, visible_group])
+
     assert_match /^The Heading$/, collection.search_index['indexable_content']
+    refute_match /^Empty Heading$/, collection.search_index['indexable_content']
     assert_match /^The Body$/, collection.search_index['indexable_content']
   end
 
