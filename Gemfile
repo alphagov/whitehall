@@ -11,7 +11,7 @@ gem 'carrierwave', '0.9.0'
 gem 'validates_email_format_of'
 gem 'friendly_id', '5.0.4'
 gem 'babosa', '1.0.2'
-gem 'nokogiri', github: "alphagov/nokogiri", branch: "v1.6.6.5.rc"
+gem 'nokogiri'
 gem 'slimmer', '9.0.0'
 gem 'plek', '1.10.0'
 gem 'isbn_validation'
