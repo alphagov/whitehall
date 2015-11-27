@@ -15,6 +15,7 @@ module DataHygiene
       @edition = FactoryGirl.create(:published_edition, state: 'withdrawn')
       @user = FactoryGirl.create(:user, id: 406)
       @panopticon_request = stub_live_artefact_registration(@edition)
+      stub_any_publishing_api_call
     end
 
     test "initialize with a non-existent edition id errors" do

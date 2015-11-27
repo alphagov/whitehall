@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class PublishingApiUnscheduleWorkerTest < ActiveSupport::TestCase
+  include GdsApi::TestHelpers::PublishingApi
 
   test "removes a publish intent when performed" do
     base_path = '/base_path/for/content.fr'

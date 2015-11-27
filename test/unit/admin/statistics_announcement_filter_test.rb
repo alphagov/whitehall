@@ -173,6 +173,7 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
   end
 
   test "excludes unpublished announcements" do
+    stub_any_publishing_api_call
     deleted = create(:unpublished_statistics_announcement)
     published = create(:statistics_announcement)
 

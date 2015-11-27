@@ -12,9 +12,9 @@ module Whitehall
         DraftEnvironmentPopulator.new(logger: logger).call
       end
 
-      test ".send_to_publishing_api calls publish_draft_async with the item" do
+      test ".send_to_publishing_api calls save_draft_async with the item" do
         item = stub("item")
-        PublishingApi.expects(:publish_draft_async).with(item, 'bulk_draft_update', 'bulk_republishing')
+        PublishingApi.expects(:save_draft_async).with(item, 'bulk_draft_update', 'bulk_republishing')
         DraftEnvironmentPopulator.send_to_publishing_api(item)
       end
 

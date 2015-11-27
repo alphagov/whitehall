@@ -194,7 +194,7 @@ module AdminEditionControllerTestHelpers
       test "updating a draft edition sends the draft to the content preview environment" do
         edition = create("draft_#{edition_type}")
 
-        Whitehall::PublishingApi.expects(:publish_draft_async).with(
+        Whitehall::PublishingApi.expects(:save_draft_async).with(
           all_of(
             responds_with(:model_name, "CaseStudy"),
             responds_with(:id, edition.id)
@@ -207,7 +207,7 @@ module AdminEditionControllerTestHelpers
       test "updating a submitted edition sends the draft to the content preview environment" do
         edition = create("submitted_#{edition_type}")
 
-        Whitehall::PublishingApi.expects(:publish_draft_async).with(
+        Whitehall::PublishingApi.expects(:save_draft_async).with(
           all_of(
             responds_with(:model_name, "CaseStudy"),
             responds_with(:id, edition.id)
@@ -220,7 +220,7 @@ module AdminEditionControllerTestHelpers
       test "updating a rejected edition sends the draft to the content preview environment" do
         edition = create("rejected_#{edition_type}")
 
-        Whitehall::PublishingApi.expects(:publish_draft_async).with(
+        Whitehall::PublishingApi.expects(:save_draft_async).with(
           all_of(
             responds_with(:model_name, "CaseStudy"),
             responds_with(:id, edition.id)

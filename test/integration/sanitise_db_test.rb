@@ -68,6 +68,7 @@ class SanitiseDBTest < ActiveSupport::TestCase
   end
 
   test "scrub script sanitises all fact checks" do
+    stub_any_publishing_api_call
     fact_check = create(:fact_check_request, email_address: "important-person@example.com", comments: "Secret data", instructions: "Secret data", key: "abcdefghijklmnop")
 
     run_script

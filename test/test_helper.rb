@@ -42,8 +42,6 @@ class ActiveSupport::TestCase
     Whitehall.search_backend = Whitehall::DocumentFilter::FakeSearch
     VirusScanHelpers.erase_test_files
     Sidekiq::Worker.clear_all
-    stub_default_publishing_api_put
-    stub_default_publishing_api_put_draft
     fake_whodunnit = FactoryGirl.build(:user)
     fake_whodunnit.stubs(:id).returns(1000)
     fake_whodunnit.stubs(:persisted?).returns(true)
@@ -61,6 +59,10 @@ class ActiveSupport::TestCase
 
   def assert_same_elements(array1, array2)
     assert_equal array1.to_set, array2.to_set, "Different elements in #{array1.inspect} and #{array2}.inspect"
+  end
+
+  def assert_all_requested(array)
+    array.each { |request| assert_requested request }
   end
 
   def count_queries
@@ -171,6 +173,7 @@ class ActionController::TestCase
   setup do
     request.env['warden'] = stub(authenticate!: false, authenticated?: false, user: nil)
     stub_content_register_policies
+    stub_any_publishing_api_call
   end
 
   def login_as(role_or_user)

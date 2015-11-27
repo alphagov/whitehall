@@ -7,12 +7,13 @@ class PublishingApiWorker < WorkerBase
     presenter = PublishingApiPresenters.presenter_for(model, update_type: update_type)
 
     I18n.with_locale(locale) do
-      send_item(presenter.base_path, presenter.as_json)
+      payload = presenter.as_json
+      send_item(payload, locale)
 
       if model.is_a?(::Unpublishing)
         # Unpublishings will be mirrored to the draft content-store, but we want
         # it to have the now-current draft edition
-        publish_draft_edition_to_draft_stack(model)
+        save_draft_of_unpublished_edition(model)
       end
     end
   end
@@ -23,13 +24,19 @@ class PublishingApiWorker < WorkerBase
     model_name.constantize
   end
 
-  def send_item(base_path, content)
-    Whitehall.publishing_api_client.put_content_item(base_path, content)
+  def send_item(payload, locale = payload[:locale])
+    save_draft(payload)
+    Whitehall.publishing_api_v2_client.publish(payload[:content_id], locale: locale, update_type: payload[:update_type])
   end
 
-  def publish_draft_edition_to_draft_stack(unpublishing)
+  def save_draft(payload)
+    Whitehall.publishing_api_v2_client.put_content(payload[:content_id], payload.except(:links))
+    Whitehall.publishing_api_v2_client.put_links(payload[:content_id], payload.slice(:links)) if payload[:links]
+  end
+
+  def save_draft_of_unpublished_edition(unpublishing)
     if draft = unpublishing.edition
-      Whitehall::PublishingApi.publish_draft_async(draft)
+      Whitehall::PublishingApi.save_draft_async(draft)
     end
   end
 end

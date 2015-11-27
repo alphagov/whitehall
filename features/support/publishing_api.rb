@@ -1,6 +1,7 @@
-require 'gds_api/publishing_api'
+require 'gds_api/publishing_api_v2'
 
 Before do
-  GdsApi::PublishingApi.any_instance.stubs(:put_content_item)
-  GdsApi::PublishingApi.any_instance.stubs(:put_draft_content_item)
+  GdsApi::PublishingApiV2.any_instance.stubs(:publish)
+  GdsApi::PublishingApiV2.any_instance.stubs(:put_content)
+  GdsApi::PublishingApiV2.any_instance.stubs(:put_links)
 end

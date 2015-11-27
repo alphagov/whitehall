@@ -14,7 +14,7 @@ module Whitehall
       push_live(model_instance, update_type_override, queue_override)
     end
 
-    def self.publish_draft_async(model_instance, update_type_override=nil, queue_override=nil)
+    def self.save_draft_async(model_instance, update_type_override = nil, queue_override = nil)
       return if skip_sending_to_content_store?(model_instance)
       locales_for(model_instance).each do |locale|
         PublishingApiDraftWorker.perform_async_in_queue(queue_override, model_instance.class.name, model_instance.id, update_type_override, locale)
@@ -47,8 +47,8 @@ module Whitehall
       end
     end
 
-    def self.publish_redirect_async(base_path, redirects)
-      PublishingApiRedirectWorker.perform_async(base_path, redirects)
+    def self.publish_redirect_async(base_path, redirects, locale = I18n.default_locale.to_s)
+      PublishingApiRedirectWorker.perform_async(base_path, redirects, locale)
     end
 
     def self.publish_gone(base_path)
