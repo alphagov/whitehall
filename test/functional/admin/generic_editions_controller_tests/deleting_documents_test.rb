@@ -1,6 +1,9 @@
 require 'test_helper'
+require "gds_api/test_helpers/publishing_api_v2"
 
 class Admin::GenericEditionsController::DeletingDocumentsTest < ActionController::TestCase
+  include GdsApi::TestHelpers::PublishingApiV2
+
   tests Admin::GenericEditionsController
 
   setup do
@@ -62,5 +65,14 @@ class Admin::GenericEditionsController::DeletingDocumentsTest < ActionController
     draft_edition = create(:draft_edition, title: "edition-title")
     delete :destroy, id: draft_edition
     assert_equal "The document 'edition-title' has been deleted", flash[:notice]
+  end
+
+  test "destroy notifies the publishing API of the deleted document" do
+    draft_edition = create(:draft_edition, translated_into: [:es, :fr])
+    delete :destroy, id: draft_edition
+
+    %w[en es fr].each do |locale|
+      assert_publishing_api_discard_draft(draft_edition.content_id, locale: locale)
+    end
   end
 end
