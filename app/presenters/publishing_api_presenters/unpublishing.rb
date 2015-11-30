@@ -35,6 +35,7 @@ private
 
   def unpublishing_hash
     {
+      base_path: base_path,
       content_id: unpublishing.content_id,
       title: edition.title,
       description: edition.summary,

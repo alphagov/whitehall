@@ -19,6 +19,7 @@ class PublishingApiComingSoonWorkerTest < ActiveSupport::TestCase
                            scheduled_publication: publish_time)
 
     expected_payload = {
+      base_path: base_path,
       content_id: @uuid,
       publishing_app: 'whitehall',
       rendering_app: 'government-frontend',

@@ -29,6 +29,7 @@ class PersonSlugChangerTest < ActiveSupport::TestCase
     content_item = PublishingApiPresenters.presenter_for(@person).as_json
     old_base_path = @person.search_link
     new_base_path = "/government/people/updated-slug"
+    content_item[:base_path] = new_base_path
     content_item[:routes][0][:path] = new_base_path
     redirects = [
       { path: old_base_path, type: "exact", destination: new_base_path },

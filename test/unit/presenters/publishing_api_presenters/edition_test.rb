@@ -19,6 +19,7 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
     public_path = Whitehall.url_maker.public_document_path(edition)
 
     expected_hash = {
+      base_path: public_path,
       content_id: edition.document.content_id,
       title: 'The title',
       description: 'The summary',
@@ -58,6 +59,7 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
     public_path = Whitehall.url_maker.public_document_path(edition)
 
     expected_hash = {
+      base_path: public_path,
       content_id: edition.document.content_id,
       title: 'The title',
       description: 'The summary',

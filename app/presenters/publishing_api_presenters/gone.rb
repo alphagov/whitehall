@@ -7,6 +7,7 @@ class PublishingApiPresenters::Gone
 
   def as_json
     {
+      base_path: @base_path,
       content_id: SecureRandom.uuid,
       format: 'gone',
       publishing_app: 'whitehall',
