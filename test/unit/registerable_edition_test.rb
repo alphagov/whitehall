@@ -1,6 +1,9 @@
 require 'test_helper'
 
 class RegisterableEditionTest < ActiveSupport::TestCase
+  setup do
+    stub_any_publishing_api_call
+  end
 
   test "prepares a detailed guide for registration with Panopticon" do
     edition = create(:published_detailed_guide,
