@@ -162,6 +162,8 @@ class WorldLocationTest < ActiveSupport::TestCase
   end
 
   test "has removeable translations" do
+    stub_any_publishing_api_call
+
     world_location = create(:world_location, translated_into: [:fr, :es])
     world_location.remove_translations_for(:fr)
     refute world_location.translated_locales.include?(:fr)

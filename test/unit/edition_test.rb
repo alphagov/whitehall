@@ -737,6 +737,8 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "has removeable translations" do
+    stub_any_publishing_api_call
+
     edition = create(:edition)
     with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body') }
     with_locale(:es) { edition.update_attributes!(title: 'spanish-title', summary: 'spanish-summary', body: 'spanish-body') }

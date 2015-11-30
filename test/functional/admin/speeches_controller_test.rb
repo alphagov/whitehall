@@ -3,7 +3,6 @@ require 'test_helper'
 class Admin::SpeechesControllerTest < ActionController::TestCase
   setup do
     login_as :writer
-    stub_any_publishing_api_call
   end
 
   should_be_an_admin_controller

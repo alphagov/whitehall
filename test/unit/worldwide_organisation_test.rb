@@ -165,6 +165,8 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test "has removeable translations" do
+    stub_any_publishing_api_call
+
     worldwide_organisation = create(:worldwide_organisation, translated_into: [:fr, :es])
     worldwide_organisation.remove_translations_for(:fr)
     refute worldwide_organisation.translated_locales.include?(:fr)

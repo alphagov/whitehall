@@ -222,6 +222,8 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   test "has removeable translations" do
+    stub_any_publishing_api_call
+
     person = create(:person, translated_into: {
       fr: { biography: "french-biography" },
       es: { biography: "spanish-biography" }
