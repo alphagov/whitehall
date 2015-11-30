@@ -55,6 +55,12 @@ module Whitehall
       PublishingApiGoneWorker.perform_async(base_path)
     end
 
+    def self.discard_draft_async(edition)
+      locales_for(edition).each do |locale|
+        PublishingApiDiscardDraftWorker.perform_async(edition.content_id, locale)
+      end
+    end
+
   private
 
     def self.locales_for(model_instance)
