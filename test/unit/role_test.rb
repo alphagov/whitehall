@@ -180,6 +180,8 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "has removeable translations" do
+    stub_any_publishing_api_call
+
     role = create(:role, translated_into: [:fr, :es])
     role.remove_translations_for(:fr)
     refute role.translated_locales.include?(:fr)

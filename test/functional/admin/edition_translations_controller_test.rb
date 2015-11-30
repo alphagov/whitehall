@@ -159,4 +159,13 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
     refute edition.translated_locales.include?(:fr)
     assert_redirected_to admin_edition_path(edition)
   end
+
+  test "#destroy deletes the translation from the publishing API" do
+    edition = create(:edition)
+    with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body') }
+
+    delete :destroy, edition_id: edition, id: 'fr'
+
+    assert_publishing_api_discard_draft(edition.content_id, locale: 'fr')
+  end
 end

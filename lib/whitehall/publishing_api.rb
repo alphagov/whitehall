@@ -61,6 +61,10 @@ module Whitehall
       end
     end
 
+    def self.discard_translation_async(edition, locale:)
+      PublishingApiDiscardDraftWorker.perform_async(edition.content_id, locale)
+    end
+
   private
 
     def self.locales_for(model_instance)
