@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'gds_api/test_helpers/publishing_api_v2'
 
-class PublishingApiWorkerTest < ActiveSupport::TestCase
+class PublishingApiDraftWorkerTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApiV2
 
   test "registers a draft edition with the publishing api" do
