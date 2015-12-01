@@ -12,4 +12,13 @@ class PublishingApDiscardDraftiWorkerTest < ActiveSupport::TestCase
 
     assert_requested request
   end
+
+  test "gracefully handles the deletion of an already-deleted draft edition" do
+    edition = create(:draft_case_study)
+    request = stub_any_publishing_api_call_to_return_not_found
+
+    PublishingApiDiscardDraftWorker.new.perform(edition.content_id, 'en')
+
+    assert_requested request
+  end
 end
