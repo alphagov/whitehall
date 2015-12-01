@@ -22,6 +22,7 @@ class PublishingApiPresenters::ComingSoon
 
   def as_json
     {
+      base_path: base_path,
       content_id: SecureRandom.uuid,
       publishing_app: 'whitehall',
       rendering_app: edition.rendering_app,

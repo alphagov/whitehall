@@ -27,6 +27,7 @@ class MinisterialRoleResluggerTest < ActiveSupport::TestCase
     content_item = PublishingApiPresenters.presenter_for(@ministerial_role).as_json
     old_base_path = @ministerial_role.search_link
     new_base_path = "/government/ministers/corrected-slug"
+    content_item[:base_path] = new_base_path
     content_item[:routes][0][:path] = new_base_path
     redirects = [
       { path: old_base_path, type: "exact", destination: new_base_path },

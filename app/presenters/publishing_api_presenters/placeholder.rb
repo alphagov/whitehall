@@ -16,6 +16,7 @@ class PublishingApiPresenters::Placeholder
 
   def as_json
     json = {
+      base_path: base_path,
       content_id: item.content_id,
       title: item.name,
       format: format,

@@ -15,6 +15,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
 
     public_path = Whitehall.url_maker.public_document_path(case_study)
     expected_hash = {
+      base_path: public_path,
       content_id: case_study.document.content_id,
       title: 'Case study title',
       description: 'The summary',

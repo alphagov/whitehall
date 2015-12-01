@@ -16,7 +16,9 @@ class PublishingApiPresenters::ComingSoonTest < ActiveSupport::TestCase
   end
 
   test 'presents a valid "coming_soon" content item' do
+    public_path = '/government/case-studies/case-study-title'
     expected_hash = {
+      base_path: public_path,
       content_id: @content_id,
       publishing_app: 'whitehall',
       rendering_app: 'government-frontend',
@@ -25,7 +27,7 @@ class PublishingApiPresenters::ComingSoonTest < ActiveSupport::TestCase
       locale: @locale,
       update_type: 'major',
       details: { publish_time: @publish_timestamp },
-      routes: [ { path: '/government/case-studies/case-study-title', type: 'exact' } ],
+      routes: [{ path: public_path, type: 'exact' }],
       public_updated_at: @edition.updated_at,
     }
 

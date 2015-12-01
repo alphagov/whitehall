@@ -5,8 +5,10 @@ class PublishingApiPresenters::WorkingGroupTest < ActiveSupport::TestCase
     group = create(:policy_group,
       name: "Government Digital Service"
     )
+    public_path = '/government/groups/government-digital-service'
 
     expected_hash = {
+      base_path: public_path,
       content_id: group.content_id,
       publishing_app: "whitehall",
       rendering_app: "whitehall-frontend",
@@ -16,7 +18,7 @@ class PublishingApiPresenters::WorkingGroupTest < ActiveSupport::TestCase
       update_type: "major",
       routes: [
         {
-          path: '/government/groups/government-digital-service',
+          path: public_path,
           type: 'exact'
         }
       ],

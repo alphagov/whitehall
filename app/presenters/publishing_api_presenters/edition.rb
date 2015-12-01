@@ -32,6 +32,7 @@ module PublishingApiPresenters
 
     def standard_fields
       {
+        base_path: base_path,
         content_id: edition.content_id,
         title: edition.title,
         description: edition.summary,

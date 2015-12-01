@@ -33,6 +33,7 @@ module OrganisationResluggerTest
       content_item = PublishingApiPresenters.presenter_for(@organisation).as_json
       old_base_path = @organisation.search_link
       new_base_path = "#{base_path}/corrected-slug"
+      content_item[:base_path] = new_base_path
       content_item[:routes][0][:path] = new_base_path
       redirect_uuid = SecureRandom.uuid
       SecureRandom.stubs(uuid: redirect_uuid)

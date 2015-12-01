@@ -13,6 +13,7 @@ class PublishingApiGoneWorkerTest < ActiveSupport::TestCase
     base_path = '/government/this-never-existed-honest'
 
     payload = {
+      base_path: base_path,
       content_id: @uuid,
       format: 'gone',
       publishing_app: 'whitehall',

@@ -6,6 +6,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
     edition      = unpublishing.edition
     public_path  = unpublishing.document_path
     expected_hash = {
+      base_path: public_path,
       content_id: unpublishing.content_id,
       title: edition.title,
       description: edition.summary,
@@ -99,6 +100,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
     edition      = unpublishing.edition
     public_path  = unpublishing.document_path
     expected_hash = {
+      base_path: public_path,
       content_id: unpublishing.content_id,
       title: edition.title,
       description: edition.summary,

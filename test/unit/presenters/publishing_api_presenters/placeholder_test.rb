@@ -10,6 +10,7 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
     public_path = Whitehall.url_maker.ministerial_role_path(ministerial_role)
 
     expected_hash = {
+      base_path: public_path,
       content_id: ministerial_role.content_id,
       title: "Secretary of State for Silly Walks",
       format: "placeholder_ministerial_role",
@@ -31,6 +32,7 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
     public_path = Whitehall.url_maker.organisation_path(organisation)
 
     expected_hash = {
+      base_path: public_path,
       content_id: organisation.content_id,
       title: "Organisation of Things",
       format: "placeholder_organisation",
@@ -53,6 +55,7 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
     public_path = Whitehall.url_maker.person_path(person)
 
     expected_hash = {
+      base_path: public_path,
       content_id: person.content_id,
       title: "Winston",
       format: "placeholder_person",
@@ -74,6 +77,7 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
     public_path = Whitehall.url_maker.worldwide_organisation_path(worldwide_org)
 
     expected_hash = {
+      base_path: public_path,
       content_id: worldwide_org.content_id,
       title: "Locationia Embassy",
       format: "placeholder_worldwide_organisation",
@@ -96,6 +100,7 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
     public_path = Whitehall.url_maker.world_location_path(world_location)
 
     expected_hash = {
+      base_path: public_path,
       content_id: world_location.content_id,
       title: "Locationia",
       format: "placeholder_world_location",
