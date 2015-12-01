@@ -47,7 +47,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
     requests        = stub_publishing_api_put_content_links_and_publish(presenter.as_json)
     payload         = presenter.as_json
     content_request = stub_publishing_api_put_content(payload[:content_id], payload)
-    publish_request = stub_publishing_api_publish(payload[:content_id], { update_type: { locale: "en", update_type: "republish" } })
+    publish_request = stub_publishing_api_publish(payload[:content_id], { locale: "en", update_type: "republish" })
 
     PublishingApiWorker.new.perform(edition.class.name, edition.id, update_type)
 
@@ -64,7 +64,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
       organisation.save!
 
       @spanish_request = stub_publishing_api_put_content(presenter.as_json[:content_id], presenter.as_json)
-      @publish_request = stub_publishing_api_publish(presenter.as_json[:content_id], { update_type: { locale: "es", update_type: "major" } })
+      @publish_request = stub_publishing_api_publish(presenter.as_json[:content_id], { locale: "es", update_type: "major" })
     end
 
     PublishingApiWorker.new.perform(organisation.class.name, organisation.id, nil, 'es')

@@ -18,8 +18,7 @@ module PublishingApiTestHelpers
           has_entries(content_id: edition.content_id, update_type: 'major',
             publishing_app: 'whitehall', rendering_app: 'whitehall-frontend'))
       Whitehall.publishing_api_v2_client.expects(:publish)
-        .with(edition.content_id,
-          has_entries(update_type: 'major'))
+        .with(edition.content_id, 'major', locale: "en")
     end
   end
 
@@ -30,8 +29,7 @@ module PublishingApiTestHelpers
           has_entries(content_id: edition.content_id, update_type: 'republish',
             publishing_app: 'whitehall', rendering_app: 'whitehall-frontend'))
       Whitehall.publishing_api_v2_client.expects(:publish)
-        .with(edition.content_id,
-          has_entries(update_type: 'republish'))
+        .with(edition.content_id, 'republish', locale: "en")
     end
   end
 

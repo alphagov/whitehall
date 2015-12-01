@@ -36,7 +36,7 @@ class MinisterialRoleResluggerTest < ActiveSupport::TestCase
     redirect_item = Whitehall::PublishingApi::Redirect.new(old_base_path, redirects).as_json
 
     expected_publish_requests = stub_publishing_api_put_content_links_and_publish(content_item)
-    expected_redirect_requests = stub_publishing_api_put_content_links_and_publish(redirect_item, redirect_uuid, { update_type: { update_type: 'major', locale: 'en' } })
+    expected_redirect_requests = stub_publishing_api_put_content_links_and_publish(redirect_item, redirect_uuid, { update_type: 'major', locale: 'en' })
 
     @reslugger.run!
 

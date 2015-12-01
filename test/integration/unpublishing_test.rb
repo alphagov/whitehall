@@ -68,8 +68,8 @@ class UnpublishingTest < ActiveSupport::TestCase
     unpublish(@published_edition, unpublishing_params)
 
     assert_publishing_api_put_content(@published_edition.unpublishing.content_id, { format: 'unpublishing' }, 2)
-    assert_publishing_api_publish(@published_edition.unpublishing.content_id, { "update_type" => { "locale" => "en", "update_type" => "major" } })
-    assert_publishing_api_publish(@published_edition.unpublishing.content_id, { "update_type" => { "locale" => "fr", "update_type" => "major" } })
+    assert_publishing_api_publish(@published_edition.unpublishing.content_id, { "locale" => "en", "update_type" => "major" })
+    assert_publishing_api_publish(@published_edition.unpublishing.content_id, { "locale" => "fr", "update_type" => "major" })
   end
 
   test 'when a translated edition is unpublished as a redirect, redirects are published to the Publishing API for each translation' do
@@ -90,8 +90,8 @@ class UnpublishingTest < ActiveSupport::TestCase
     unpublish(@published_edition, unpublishing_redirect_params)
 
     assert_publishing_api_put_content(redirect_uuid, { format: 'redirect' }, 2)
-    assert_publishing_api_publish(redirect_uuid, { "update_type" => { "locale" => "en", "update_type" => "major" } })
-    assert_publishing_api_publish(redirect_uuid, { "update_type" => { "locale" => "fr", "update_type" => "major" } })
+    assert_publishing_api_publish(redirect_uuid, { "locale" => "en", "update_type" => "major" })
+    assert_publishing_api_publish(redirect_uuid, { "locale" => "fr", "update_type" => "major" })
   end
 
 private

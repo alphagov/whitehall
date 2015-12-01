@@ -152,7 +152,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
   test "publishes a redirect unpublishing" do
     unpublishing = create(:redirect_unpublishing)
     payload      = PublishingApiPresenters::Unpublishing.new(unpublishing, update_type: "republish").as_json
-    requests     = stub_publishing_api_put_content_links_and_publish(payload, payload["content_id"], { update_type: { update_type: "republish", locale: 'en' } })
+    requests     = stub_publishing_api_put_content_links_and_publish(payload, payload["content_id"], { update_type: "republish", locale: 'en' })
 
     Whitehall::PublishingApi.republish_async(unpublishing)
     assert_all_requested(requests)
@@ -341,7 +341,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       }
     ]
     expected_content_request = stub_publishing_api_put_content(redirect_uuid, Whitehall::PublishingApi::Redirect.new(base_path, redirects).as_json)
-    expected_publish_request = stub_publishing_api_publish(redirect_uuid, update_type: { update_type: 'major', locale: 'en' })
+    expected_publish_request = stub_publishing_api_publish(redirect_uuid, { update_type: 'major', locale: 'en' })
     Whitehall::PublishingApi.publish_redirect_async(base_path, redirects)
 
     assert_requested expected_content_request
