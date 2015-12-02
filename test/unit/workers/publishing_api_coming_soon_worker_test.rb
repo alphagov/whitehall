@@ -33,7 +33,7 @@ class PublishingApiComingSoonWorkerTest < ActiveSupport::TestCase
     }
 
     content_request = stub_publishing_api_put_content(@uuid, expected_payload)
-    publish_request = stub_publishing_api_publish(@uuid, { update_type: { locale: "fr", update_type: "major" } })
+    publish_request = stub_publishing_api_publish(@uuid, { locale: "fr", update_type: "major" })
 
     PublishingApiComingSoonWorker.new.perform(edition.id, locale)
 

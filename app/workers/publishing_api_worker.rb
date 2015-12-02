@@ -26,7 +26,7 @@ class PublishingApiWorker < WorkerBase
 
   def send_item(payload, locale = payload[:locale])
     save_draft(payload)
-    Whitehall.publishing_api_v2_client.publish(payload[:content_id], locale: locale, update_type: payload[:update_type])
+    Whitehall.publishing_api_v2_client.publish(payload[:content_id], payload[:update_type], locale: locale)
   end
 
   def save_draft(payload)
