@@ -85,10 +85,10 @@ module PublicDocumentRoutesHelper
   def build_url_for_corporate_information_page(edition, options)
     org = edition.owning_organisation
     # About pages are actually shown on the CIP index for an Organisation.
-    # But worldwide orgs show the about text on the org page itself.
+    # We generate a unique path for them anyway, but this is always redirected.
     if edition.about_page?
       if org.is_a?(WorldwideOrganisation)
-        polymorphic_url([org], options)
+        polymorphic_url([org, edition.slug], options)
       else
         polymorphic_url([org, CorporateInformationPage], options)
       end

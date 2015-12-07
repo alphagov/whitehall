@@ -54,6 +54,25 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
     assert_equal organisation_corporate_information_pages_path(cip.organisation), public_document_path(cip)
   end
 
+  test 'returns correct path for organisation About Us pages' do
+    org = build(:organisation, slug: 'an-organisation')
+    cip = build(:corporate_information_page,
+                organisation: org,
+                corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id)
+
+    assert_equal "/government/organisations/#{org.slug}/about", public_document_path(cip)
+  end
+
+  test 'returns correct path for world organisation About Us pages' do
+    world_org = build(:worldwide_organisation, slug: 'a-worldwide-org')
+    cip = build(:corporate_information_page,
+                organisation: nil,
+                worldwide_organisation: world_org,
+                corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id)
+
+    assert_equal "/government/world/organisations/#{world_org.slug}/about", public_document_path(cip)
+  end
+
   test 'returns the document URL using Whitehall public_host and protocol' do
     Whitehall.stubs(public_host: 'some.host')
     Whitehall.stubs(public_protocol: 'http')
