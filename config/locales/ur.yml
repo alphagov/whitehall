@@ -8,6 +8,7 @@ ur:
       field_of_operation: "کارروائی کا میدان"
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

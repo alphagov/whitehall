@@ -118,6 +118,7 @@ th:
       field_of_operation: "ลักษณะงาน"
       from:
       location:
+      organisations:
       part_of:
     published: "ตีพิมพ์"
     read: "อ่าน%{title}บทความ"

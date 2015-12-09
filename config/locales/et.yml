@@ -8,6 +8,7 @@ et:
       field_of_operation: Tegevusvaldkond
       from: Kellelt
       location: Asukoht
+      organisations:
       part_of: Osa
     type:
       announcement:

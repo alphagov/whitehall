@@ -119,6 +119,7 @@ tr:
       field_of_operation: Faaliyet Alanı
       from:
       location:
+      organisations:
       part_of:
     published: Yayında
     read: "%{title} makalesini okuyunuz"

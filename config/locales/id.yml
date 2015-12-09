@@ -119,6 +119,7 @@ id:
       field_of_operation: Area operasi
       from:
       location:
+      organisations:
       part_of:
     published: Diterbitkan
     read: Baca artikel %{title}

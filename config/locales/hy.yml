@@ -8,6 +8,7 @@ hy:
       field_of_operation: "Գործունեության ոլորտ"
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

@@ -9,6 +9,7 @@ lt:
       field_of_operation: Veiklos laukas
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

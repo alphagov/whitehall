@@ -8,6 +8,7 @@ de:
       field_of_operation: Einsatzbereich
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

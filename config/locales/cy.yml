@@ -12,6 +12,7 @@ cy:
       field_of_operation: Maes gweithredu
       from: O
       location:
+      organisations:
       part_of: Rhan o
     type:
       announcement:

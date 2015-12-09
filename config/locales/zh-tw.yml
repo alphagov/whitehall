@@ -117,6 +117,7 @@ zh-tw:
       field_of_operation: "運用領域"
       from:
       location:
+      organisations:
       part_of:
     published: "發行"
     read: "閱讀%{title}文章"

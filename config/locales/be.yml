@@ -10,6 +10,7 @@ be:
       field_of_operation: "Сфера дзейнасці"
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

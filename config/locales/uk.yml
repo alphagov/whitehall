@@ -10,6 +10,7 @@ uk:
       field_of_operation: "Сфера діяльності"
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

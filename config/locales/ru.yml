@@ -10,6 +10,7 @@ ru:
       field_of_operation: "Сфера деятельности"
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

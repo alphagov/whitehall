@@ -8,6 +8,7 @@ tk:
       field_of_operation:
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

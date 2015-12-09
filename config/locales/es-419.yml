@@ -8,6 +8,7 @@ es-419:
       field_of_operation: Terreno de operaciones
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

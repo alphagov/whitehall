@@ -119,6 +119,7 @@ vi:
       field_of_operation: Lĩnh vực hoạt động
       from:
       location:
+      organisations:
       part_of:
     published: "Đã xuất bản"
     read: "Đọc bài có  %{title}"

@@ -8,6 +8,7 @@ el:
       field_of_operation: "Πεδίο δράσης"
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

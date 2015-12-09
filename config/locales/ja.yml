@@ -118,6 +118,7 @@ ja:
       field_of_operation: "担当分野"
       from:
       location:
+      organisations:
       part_of:
     published: "掲載日"
     read: "%{title} の記事を読む"

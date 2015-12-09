@@ -8,6 +8,7 @@ es:
       field_of_operation: "Ãmbito de actuación"
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

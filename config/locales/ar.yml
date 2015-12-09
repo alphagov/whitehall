@@ -12,6 +12,7 @@ ar:
       field_of_operation: "مجال العمل"
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

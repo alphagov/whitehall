@@ -8,6 +8,7 @@ bg:
       field_of_operation: "Поле на операцията"
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

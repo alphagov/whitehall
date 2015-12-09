@@ -117,6 +117,7 @@ zh:
       field_of_operation: "操作区域"
       from:
       location:
+      organisations:
       part_of:
     published: "已发布"
     read: "阅读%{title}文章"

@@ -118,6 +118,7 @@ ko:
       field_of_operation: "오퍼레이션 필드"
       from:
       location:
+      organisations:
       part_of:
     published: "발행"
     read: "%{title} 기사를 확인하세요"

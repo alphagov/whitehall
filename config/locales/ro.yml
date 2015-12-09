@@ -9,6 +9,7 @@ ro:
       field_of_operation: Domeniu de activitate
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

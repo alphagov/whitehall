@@ -8,6 +8,7 @@ lv:
       field_of_operation: Darbības lauks
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

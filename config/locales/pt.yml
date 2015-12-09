@@ -8,6 +8,7 @@ pt:
       field_of_operation: Campo de Operação
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

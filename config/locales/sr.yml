@@ -10,6 +10,7 @@ sr:
       field_of_operation: polje delovanja
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

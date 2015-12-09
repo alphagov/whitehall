@@ -10,6 +10,7 @@ he:
       field_of_operation: "שדה פעולה"
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

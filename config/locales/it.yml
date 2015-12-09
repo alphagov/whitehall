@@ -8,6 +8,7 @@ it:
       field_of_operation: Settore di lavoro
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

@@ -8,6 +8,7 @@ ta:
       field_of_operation: "செயற்பாட்டுத் துறை"
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

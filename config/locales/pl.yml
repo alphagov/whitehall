@@ -10,6 +10,7 @@ pl:
       field_of_operation: Obszar działania
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

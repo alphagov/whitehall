@@ -117,6 +117,7 @@ az:
       field_of_operation: "əməliyyat sahəsi"
       from:
       location:
+      organisations:
       part_of:
     published: dərc olunub
     read:

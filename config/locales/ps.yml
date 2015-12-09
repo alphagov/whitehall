@@ -8,6 +8,7 @@ ps:
       field_of_operation: "د کړنو څانګه"
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

@@ -8,6 +8,7 @@ hi:
       field_of_operation: "प्रचालन क्षेत्र"
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:
