@@ -13,9 +13,6 @@ Then /^I can tag it to some specialist sectors$/ do
 end
 
 Given(/^there is a document tagged to specialist sectors$/) do
-  # The factory is calling `refresh_index_if_required`, but in this case
-  # calling the content-api will blow up because we haven't stubbed that yet. 
-  Edition.any_instance.stubs(:refresh_index_if_required)
   @document = create_document_tagged_to_a_specialist_sector
   stub_content_api_tags(@document)
 end

@@ -261,7 +261,6 @@ class Edition < ActiveRecord::Base
     attachments: nil,
     operational_field: nil,
     specialist_sectors: :live_specialist_sector_tags,
-    mainstream_browse_pages: :mainstream_browse_page_slugs,
     latest_change_note: :most_recent_change_note,
     is_political: :political?,
     is_historic: :historic?,
@@ -270,12 +269,6 @@ class Edition < ActiveRecord::Base
 
   def search_title
     title
-  end
-
-  def mainstream_browse_page_slugs
-    return unless persisted?
-    artefact_slug = Whitehall.url_maker.public_document_path(self).sub(/\A\//, "")
-    MainstreamBrowseTags.new(artefact_slug).tags
   end
 
   def search_link
