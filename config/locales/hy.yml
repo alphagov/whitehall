@@ -88,6 +88,9 @@ hy:
       notice:
         one:
         other:
+      official_statistics:
+        one: "Վիճակագրություն"
+        other: "Վիճակագրություն"
       open_consultation:
         one: "Բաց խորհրդատվություն"
         other: "Բաց խորհրդատվություններ"
@@ -124,9 +127,6 @@ hy:
       statistical_data_set:
         one: "Վիճակագրական տվյալ"
         other: "Վիճակագրական տվյալներ"
-      official_statistics:
-        one: "Վիճակագրություն"
-        other: "Վիճակագրություն"
       statutory_guidance:
         one:
         other:

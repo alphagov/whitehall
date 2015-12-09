@@ -88,6 +88,9 @@ so:
       notice:
         one:
         other:
+      official_statistics:
+        one: Istaatistik
+        other: Istaatistik
       open_consultation:
         one: Wada-tashi furan
         other: Wada-tashiyo furan
@@ -124,9 +127,6 @@ so:
       statistical_data_set:
         one: Xirmo xog istaatistik ah
         other: Xirmooyin xog istaatistik ah
-      official_statistics:
-        one: Istaatistik
-        other: Istaatistik
       statutory_guidance:
         one:
         other:

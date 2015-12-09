@@ -210,6 +210,9 @@ id:
       notice:
         one:
         other:
+      official_statistics:
+        one: Statistik
+        other: Statistik-statistik
       open_consultation:
         one: Konsultasi terbuka
         other: Konsultasi-konsultasi terbuka
@@ -246,9 +249,6 @@ id:
       statistical_data_set:
         one: Set data statistik
         other: Set data statistik
-      official_statistics:
-        one: Statistik
-        other: Statistik-statistik
       statutory_guidance:
         one:
         other:

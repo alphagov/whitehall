@@ -196,6 +196,13 @@ ar:
         few:
         many:
         other:
+      official_statistics:
+        zero:
+        one: "إحصائية"
+        two:
+        few:
+        many:
+        other: "إحصائيات"
       open_consultation:
         zero:
         one: "مشاورة جارية"
@@ -280,13 +287,6 @@ ar:
         few:
         many:
         other: "مجموعات بيانات إحصائية"
-      official_statistics:
-        zero:
-        one: "إحصائية"
-        two:
-        few:
-        many:
-        other: "إحصائيات"
       statutory_guidance:
         zero:
         one:

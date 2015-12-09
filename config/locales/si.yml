@@ -88,6 +88,9 @@ si:
       notice:
         one:
         other:
+      official_statistics:
+        one: "සංඛ්යාන"
+        other: "සංඛ්යාන"
       open_consultation:
         one: "විවෘත මත විමසුම"
         other: "විවෘත මත විමසුම්"
@@ -124,9 +127,6 @@ si:
       statistical_data_set:
         one: "සංඛ්යාන දත්ත සමූහය  "
         other: "සංඛ්යාන දත්ත සමූහ"
-      official_statistics:
-        one: "සංඛ්යාන"
-        other: "සංඛ්යාන"
       statutory_guidance:
         one:
         other:

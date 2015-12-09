@@ -208,6 +208,9 @@ zh-tw:
       notice:
         one:
         other:
+      official_statistics:
+        one: "統計"
+        other: "統計"
       open_consultation:
         one: "公開諮詢"
         other: "其他公開諮詢"
@@ -244,9 +247,6 @@ zh-tw:
       statistical_data_set:
         one: "統計數據資料"
         other: "其他統計數據料"
-      official_statistics:
-        one: "統計"
-        other: "統計"
       statutory_guidance:
         one:
         other:

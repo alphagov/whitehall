@@ -88,6 +88,9 @@ bn:
       notice:
         one:
         other:
+      official_statistics:
+        one:
+        other:
       open_consultation:
         one:
         other:
@@ -122,9 +125,6 @@ bn:
         one:
         other:
       statistical_data_set:
-        one:
-        other:
-      official_statistics:
         one:
         other:
       statutory_guidance:

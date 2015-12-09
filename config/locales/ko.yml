@@ -209,6 +209,9 @@ ko:
       notice:
         one:
         other:
+      official_statistics:
+        one: "통계"
+        other: "통계"
       open_consultation:
         one: "오픈 컨설테이션"
         other: "오픈 컨설테이션"
@@ -245,9 +248,6 @@ ko:
       statistical_data_set:
         one: "통계 데이터 세트"
         other: "통계 데이터 세트"
-      official_statistics:
-        one: "통계"
-        other: "통계"
       statutory_guidance:
         one:
         other:

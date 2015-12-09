@@ -88,6 +88,9 @@ dr:
       notice:
         one:
         other:
+      official_statistics:
+        one: "احصائیه ها"
+        other: "احصائیه ها"
       open_consultation:
         one: "مشاورت باز"
         other: "مشاورت های باز"
@@ -124,9 +127,6 @@ dr:
       statistical_data_set:
         one: "ارقام احصائیوی"
         other: "ارقام احصائیوی"
-      official_statistics:
-        one: "احصائیه ها"
-        other: "احصائیه ها"
       statutory_guidance:
         one:
         other:

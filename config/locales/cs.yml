@@ -115,6 +115,10 @@ cs:
         one:
         few:
         other:
+      official_statistics:
+        one: Statistika
+        few:
+        other: Statistiky
       open_consultation:
         one: Otevřená konzultace
         few:
@@ -163,10 +167,6 @@ cs:
         one: Statistická data
         few:
         other: Statistická data
-      official_statistics:
-        one: Statistika
-        few:
-        other: Statistiky
       statutory_guidance:
         one:
         few:

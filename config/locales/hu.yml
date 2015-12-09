@@ -211,6 +211,9 @@ hu:
       notice:
         one:
         other:
+      official_statistics:
+        one: Statisztika
+        other: Statisztikák
       open_consultation:
         one: Nyílt konzultáció
         other: Nyílt konzultációk
@@ -247,9 +250,6 @@ hu:
       statistical_data_set:
         one: Statisztikai adatcsoport
         other: Statisztikai adatcsoportok
-      official_statistics:
-        one: Statisztika
-        other: Statisztikák
       statutory_guidance:
         one:
         other:

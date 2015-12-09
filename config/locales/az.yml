@@ -208,6 +208,9 @@ az:
       notice:
         one:
         other:
+      official_statistics:
+        one: statistika
+        other: statistika
       open_consultation:
         one: açıq məsləhətləşmələr
         other: açıq məsləhətləşmələr
@@ -244,9 +247,6 @@ az:
       statistical_data_set:
         one: statistik məlumatlar bazası
         other: statistik məlumatlar bazaları
-      official_statistics:
-        one: statistika
-        other: statistika
       statutory_guidance:
         one:
         other:

@@ -88,6 +88,9 @@ hi:
       notice:
         one:
         other:
+      official_statistics:
+        one: "आंकड़े"
+        other: "आंकड़े"
       open_consultation:
         one: "खुला परामर्श"
         other: "खुले परामर्श"
@@ -124,9 +127,6 @@ hi:
       statistical_data_set:
         one: "सांख्यिकीय आंकड़े का समूह"
         other: "सांख्यिकीय आंकड़े का समूह"
-      official_statistics:
-        one: "आंकड़े"
-        other: "आंकड़े"
       statutory_guidance:
         one:
         other:

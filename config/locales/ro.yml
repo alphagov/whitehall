@@ -115,6 +115,10 @@ ro:
         one:
         few:
         other:
+      official_statistics:
+        one: Statistici
+        few:
+        other: Statistici
       open_consultation:
         one: Dezbatere
         few:
@@ -163,10 +167,6 @@ ro:
         one: Date statistice
         few:
         other: Date statistice
-      official_statistics:
-        one: Statistici
-        few:
-        other: Statistici
       statutory_guidance:
         one:
         few:

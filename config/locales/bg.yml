@@ -88,6 +88,9 @@ bg:
       notice:
         one:
         other:
+      official_statistics:
+        one: "Статистики"
+        other: "Статистики"
       open_consultation:
         one: "Отворена консултация"
         other: "Отворени консултации"
@@ -124,9 +127,6 @@ bg:
       statistical_data_set:
         one: "Набор от статистически данни"
         other: "Набори от статистически данни"
-      official_statistics:
-        one: "Статистики"
-        other: "Статистики"
       statutory_guidance:
         one:
         other:

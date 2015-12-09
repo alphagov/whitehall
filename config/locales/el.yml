@@ -88,6 +88,9 @@ el:
       notice:
         one:
         other:
+      official_statistics:
+        one: "Στατιστικά στοιχεία"
+        other: "Στατιστικά στοιχεία"
       open_consultation:
         one: "Ανοιχτή διαβούλευση"
         other: "Ανοιχτές διαβουλεύσεις"
@@ -122,9 +125,6 @@ el:
         one: "Δήλωση στη Βουλή"
         other: "Δηλώσεις στη Βουλή "
       statistical_data_set:
-        one: "Στατιστικά στοιχεία"
-        other: "Στατιστικά στοιχεία"
-      official_statistics:
         one: "Στατιστικά στοιχεία"
         other: "Στατιστικά στοιχεία"
       statutory_guidance:

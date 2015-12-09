@@ -88,6 +88,9 @@ de:
       notice:
         one:
         other:
+      official_statistics:
+        one: Statistik
+        other: Statistiken
       open_consultation:
         one: Laufende Konsultation
         other: Laufende Konsultationen
@@ -124,9 +127,6 @@ de:
       statistical_data_set:
         one: Statistischer Datensatz
         other: Statistische Datensätze
-      official_statistics:
-        one: Statistik
-        other: Statistiken
       statutory_guidance:
         one:
         other:

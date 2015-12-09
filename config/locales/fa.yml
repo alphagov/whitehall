@@ -210,6 +210,9 @@ fa:
       notice:
         one:
         other:
+      official_statistics:
+        one: "آمار"
+        other: "آمار"
       open_consultation:
         one: "رایزنی باز"
         other: "رایزنی های باز"
@@ -246,9 +249,6 @@ fa:
       statistical_data_set:
         one: "بسته ی داده های آماری"
         other: "بسته های داده های آماری"
-      official_statistics:
-        one: "آمار"
-        other: "آمار"
       statutory_guidance:
         one:
         other:

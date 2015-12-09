@@ -142,6 +142,11 @@ uk:
         few:
         many:
         other:
+      official_statistics:
+        one: "Статистика"
+        few:
+        many:
+        other: "Статистика"
       open_consultation:
         one: "Відкрите обговорення"
         few:
@@ -202,11 +207,6 @@ uk:
         few:
         many:
         other: "Набори статистичних даних"
-      official_statistics:
-        one: "Статистика"
-        few:
-        many:
-        other: "Статистика"
       statutory_guidance:
         one:
         few:

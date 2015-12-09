@@ -142,6 +142,11 @@ pl:
         few:
         many:
         other:
+      official_statistics:
+        one: Statystyki
+        few:
+        many:
+        other: Statystyki
       open_consultation:
         one: Konsultacje otwarte
         few:
@@ -202,11 +207,6 @@ pl:
         few:
         many:
         other: Zestawy danych statystycznych
-      official_statistics:
-        one: Statystyki
-        few:
-        many:
-        other: Statystyki
       statutory_guidance:
         one:
         few:

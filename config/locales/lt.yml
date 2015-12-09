@@ -115,6 +115,10 @@ lt:
         one:
         few:
         other:
+      official_statistics:
+        one: Statistika
+        few:
+        other: Statistika
       open_consultation:
         one: Atvira konsultacija
         few:
@@ -163,10 +167,6 @@ lt:
         one: Statistiniai duomenys
         few:
         other: Statistiniai duomenys
-      official_statistics:
-        one: Statistika
-        few:
-        other: Statistika
       statutory_guidance:
         one:
         few:

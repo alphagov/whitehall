@@ -88,6 +88,9 @@ ur:
       notice:
         one:
         other:
+      official_statistics:
+        one: "اعدادوشمار"
+        other: "اعدادو شمار"
       open_consultation:
         one: "جاری مشاورت"
         other: "جاری مشاورت"
@@ -124,9 +127,6 @@ ur:
       statistical_data_set:
         one: "شماریاتی ڈیٹا سیٹ"
         other: " شماریاتی ڈیٹا سیٹس"
-      official_statistics:
-        one: "اعدادوشمار"
-        other: "اعدادو شمار"
       statutory_guidance:
         one:
         other:

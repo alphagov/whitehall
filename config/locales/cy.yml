@@ -196,6 +196,13 @@ cy:
         few:
         many:
         other:
+      official_statistics:
+        zero:
+        one: Ystadegau
+        two:
+        few:
+        many:
+        other: Ystadegau
       open_consultation:
         zero:
         one: Ymgynghoriad ar agor
@@ -280,13 +287,6 @@ cy:
         few:
         many:
         other: Setiau data ystadegol
-      official_statistics:
-        zero:
-        one: Ystadegau
-        two:
-        few:
-        many:
-        other: Ystadegau
       statutory_guidance:
         zero:
         one:

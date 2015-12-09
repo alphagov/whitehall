@@ -210,6 +210,9 @@ tr:
       notice:
         one:
         other:
+      official_statistics:
+        one: "İstatistikler"
+        other: "İstatistikler"
       open_consultation:
         one: Devam eden çalışma
         other: Devam eden çalışmalar
@@ -246,9 +249,6 @@ tr:
       statistical_data_set:
         one: "İstatiksel veri setleri"
         other: "İstatiksel veri setleri"
-      official_statistics:
-        one: "İstatistikler"
-        other: "İstatistikler"
       statutory_guidance:
         one:
         other:

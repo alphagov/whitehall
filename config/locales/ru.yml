@@ -142,6 +142,11 @@ ru:
         few:
         many:
         other:
+      official_statistics:
+        one: "Статистика"
+        few:
+        many:
+        other: "Статистика"
       open_consultation:
         one: "Открытая консультация"
         few:
@@ -202,11 +207,6 @@ ru:
         few:
         many:
         other: "Статистические данные"
-      official_statistics:
-        one: "Статистика"
-        few:
-        many:
-        other: "Статистика"
       statutory_guidance:
         one:
         few:
