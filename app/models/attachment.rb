@@ -13,7 +13,7 @@ class Attachment < ActiveRecord::Base
 
   validates_with AttachmentValidator
   validates :attachable, presence: true
-  validates :title, presence: true
+  validates :title, presence: true, length: { maximum: 255 }
   validates :isbn, isbn_format: true, allow_blank: true
   validates :command_paper_number, format: {
     with: /\A(#{VALID_COMMAND_PAPER_NUMBER_PREFIXES.join('|')}) ?\d+/,
