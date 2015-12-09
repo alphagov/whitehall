@@ -1,5 +1,5 @@
 class ExternalAttachment < Attachment
-  validates :external_url, presence: true, uri: true
+  validates :external_url, presence: true, uri: true, length: { maximum: 255 }
 
   def accessible?
     true
