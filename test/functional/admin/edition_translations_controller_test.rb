@@ -136,6 +136,22 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
     assert_select '.form-errors'
   end
 
+  view_test "#update puts the translation to the publishing API" do
+    edition = create(:draft_edition)
+
+    put :update, edition_id: edition, id: "fr", edition: {
+      title: "translated-title",
+      summary: "translated-summary",
+      body: "translated-body",
+    }
+
+    assert_publishing_api_put_content(edition.content_id, {
+      title: "translated-title",
+      description: "translated-summary",
+      locale: "fr",
+    })
+  end
+
   test "should limit access to translations of editions that aren't accessible to the current user" do
     protected_edition = create(:draft_publication, :access_limited)
 
