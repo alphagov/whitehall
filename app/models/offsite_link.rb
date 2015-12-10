@@ -1,6 +1,6 @@
 class OffsiteLink < ActiveRecord::Base
   belongs_to :parent, polymorphic: true
-  validates :title, :summary, :link_type, :url, presence: true
+  validates :title, :summary, :link_type, :url, presence: true, length: { maximum: 255 }
   validate :url_is_govuk
   validates :link_type, presence: true, inclusion: {in: %w{alert blog_post campaign careers service}}
 
