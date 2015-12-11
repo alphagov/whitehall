@@ -102,4 +102,12 @@ class User < ActiveRecord::Base
   def fuzzy_last_name
     name.split(/ +/, 2).last
   end
+
+  def organisation_content_id
+    return organisation.content_id if organisation
+
+    @organisation_content_id || ''
+  end
+
+  attr_writer :organisation_content_id
 end

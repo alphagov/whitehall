@@ -1,6 +1,25 @@
 require 'test_helper'
+require 'gds-sso/lint/user_test'
+
+class GDS::SSO::Lint::UserTest
+  def user_class
+    ::User
+  end
+end
 
 class UserTest < ActiveSupport::TestCase
+  test '#organisation_content_id is empty with no associated organisation' do
+    user = build(:user, organisation: nil)
+
+    assert user.organisation_content_id.empty?
+  end
+
+  test '#organisation_content_id is correct with associated organisation' do
+    user = build(:user, organisation: build(:organisation, content_id: 'example'))
+
+    assert_equal user.organisation.content_id, user.organisation_content_id
+  end
+
   test 'should be invalid without a name' do
     user = build(:user, name: nil)
     refute user.valid?
