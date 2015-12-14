@@ -49,6 +49,8 @@ gem 'parallel', '1.4.1'
 gem 'responders', '~> 2.0'
 gem 'sidekiq-statsd', '0.1.5'
 
+gem 'deprecated_columns', '0.1.0'
+
 if ENV['GLOBALIZE_DEV']
   gem 'globalize', path: '../globalize'
 else
