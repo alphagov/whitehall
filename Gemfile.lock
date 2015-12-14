@@ -114,6 +114,8 @@ GEM
     database_cleaner (1.4.0)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
+    deprecated_columns (0.1.0)
+      rails (>= 4.0)
     diff-lcs (1.2.5)
     docile (1.1.5)
     domain_name (0.5.25)
@@ -453,6 +455,7 @@ DEPENDENCIES
   cucumber-rails (~> 1.4.2)
   dalli
   database_cleaner (= 1.4.0)
+  deprecated_columns (= 0.1.0)
   equivalent-xml (= 0.5.1)
   factory_girl
   friendly_id (= 5.0.4)
