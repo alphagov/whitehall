@@ -11,7 +11,7 @@ class PublishingApiWorker < WorkerBase
 
       begin
         send_item(payload, locale)
-      rescue => e
+      rescue GdsApi::HTTPErrorResponse => e
         handle_error(e)
       end
 
