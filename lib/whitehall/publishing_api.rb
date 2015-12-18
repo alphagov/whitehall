@@ -17,8 +17,12 @@ module Whitehall
     def self.save_draft_async(model_instance, update_type_override = nil, queue_override = nil)
       return if skip_sending_to_content_store?(model_instance)
       locales_for(model_instance).each do |locale|
-        PublishingApiDraftWorker.perform_async_in_queue(queue_override, model_instance.class.name, model_instance.id, update_type_override, locale)
+        save_draft_translation_async(model_instance, locale, update_type_override, queue_override)
       end
+    end
+
+    def self.save_draft_translation_async(model_instance, locale, update_type_override = nil, queue_override = nil)
+      PublishingApiDraftWorker.perform_async_in_queue(queue_override, model_instance.class.name, model_instance.id, update_type_override, locale)
     end
 
     def self.republish_async(model_instance)

@@ -13,6 +13,7 @@ module TranslationControllerConcern
 
   def update
     if translatable_item.update_attributes(translation_params)
+      save_draft_translation_async if send_downstream?
       redirect_to update_redirect_path, notice: notice_message("saved")
     else
       render action: 'edit'
@@ -30,5 +31,13 @@ module TranslationControllerConcern
 
   def notice_message(action)
     %{#{translation_locale.english_language_name} translation for "#{translated_item_name}" #{action}.}
+  end
+
+  def save_draft_translation_async
+    Whitehall::PublishingApi.save_draft_translation_async(translatable_item, translation_locale.code)
+  end
+
+  def send_downstream?
+    translatable_item.respond_to?(:publish_to_publishing_api)
   end
 end
