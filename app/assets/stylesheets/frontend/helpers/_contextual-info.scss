@@ -1,4 +1,3 @@
-    
 .contextual-info {
   position: relative;
   clear: both;
@@ -7,15 +6,15 @@
 
   nav {
     overflow: hidden;
-    
+
     li {
-      list-style-position: inside;
+      list-style-type: disc;
+      margin-left: $gutter-half;
       padding-right: $gutter-half;
       padding-top: $gutter-one-sixth;
-    
+
       @media (min-width: 1px ){ // target modern browsers
-        margin-left: $gutter-half;
-        list-style: none;
+        list-style-type: none;
         &:before {
           content: "-";
           position: relative;
@@ -25,7 +24,7 @@
         }
       }
     }
-    
+
     @include media(tablet){
       overflow: visible;
 
