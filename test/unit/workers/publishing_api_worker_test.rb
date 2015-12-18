@@ -72,4 +72,25 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
     assert_requested @spanish_request
     assert_requested @publish_request
   end
+
+  test "only raises >= 500 errors" do
+    organisation = create(:organisation)
+
+    stub_any_publishing_api_put_content.and_raise(GdsApi::HTTPClientError.new(500))
+
+    assert_raises(GdsApi::HTTPClientError) do
+      PublishingApiWorker.new.perform(organisation.class.name, organisation.id, nil, 'en')
+    end
+  end
+
+  test "reports or ignores < 500 errors" do
+    organisation = create(:organisation)
+    error = GdsApi::HTTPClientError.new(400)
+
+    stub_any_publishing_api_put_content.and_raise(error)
+
+    Airbrake.expects(:notify_or_ignore)
+      .with(error, parameters: { explanation: "The message is a duplicate and does not need to be retried" })
+    PublishingApiWorker.new.perform(organisation.class.name, organisation.id, nil, 'en')
+  end
 end

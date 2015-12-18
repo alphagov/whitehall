@@ -8,7 +8,12 @@ class PublishingApiWorker < WorkerBase
 
     I18n.with_locale(locale) do
       payload = presenter.as_json
-      send_item(payload, locale)
+
+      begin
+        send_item(payload, locale)
+      rescue => e
+        handle_error(e)
+      end
 
       if model.is_a?(::Unpublishing)
         # Unpublishings will be mirrored to the draft content-store, but we want
@@ -37,6 +42,15 @@ class PublishingApiWorker < WorkerBase
   def save_draft_of_unpublished_edition(unpublishing)
     if draft = unpublishing.edition
       Whitehall::PublishingApi.save_draft_async(draft)
+    end
+  end
+
+  def handle_error(error)
+    if error.code >= 500
+      raise error
+    else
+      explanation = "The message is a duplicate and does not need to be retried"
+      Airbrake.notify_or_ignore(error, parameters: { explanation: explanation })
     end
   end
 end
