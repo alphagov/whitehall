@@ -37,9 +37,9 @@ class Edition < ActiveRecord::Base
   validates_with NoFootnotesInGovspeakValidator, attribute: :body
 
   validates :creator, presence: true
-  validates :title, presence: true, if: :title_required?
-  validates :body, presence: true, if: :body_required?
-  validates :summary, presence: true, if: :summary_required?
+  validates :title, presence: true, if: :title_required?, length: 255
+  validates :body, presence: true, if: :body_required?, length: 16777215
+  validates :summary, presence: true, if: :summary_required?, length: 65535
   validates :first_published_at, recent_date: true, allow_blank: true
   validate :need_ids_are_six_digit_integers?
 
