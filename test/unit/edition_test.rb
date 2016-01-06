@@ -105,7 +105,7 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal 'My new version', version_3.most_recent_change_note
   end
 
-    test "can find editions due for publication" do
+  test "can find editions due for publication" do
     due_in_one_day = create(:edition, :scheduled, scheduled_publication: 1.day.from_now)
     due_in_two_days = create(:edition, :scheduled, scheduled_publication: 2.days.from_now)
     already_published = create(:edition, :published, scheduled_publication: 1.day.from_now)
