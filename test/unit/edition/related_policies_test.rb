@@ -86,4 +86,51 @@ class Edition::RelatedPoliciesTest < ActiveSupport::TestCase
     assert_equal 1, edition.policies.size
     assert_equal policy.title, edition.policies[0].title
   end
+
+  [:news_article,
+   :document_collection,
+   :consultation,
+   :publication,
+   :detailed_guide,
+   :speech,
+  ].each do |document_with_policies|
+    test "can add a policy by content id to a #{document_with_policies}" do
+      content_id_1 = SecureRandom.uuid
+      content_id_2 = SecureRandom.uuid
+
+      edition = create(document_with_policies, policy_content_ids: [content_id_1])
+
+      assert_equal [content_id_1], edition.policy_content_ids
+
+      edition.add_policy(content_id_2)
+
+      assert_equal [content_id_1, content_id_2], edition.reload.policy_content_ids
+    end
+
+    test "can remove a policy by content id to a #{document_with_policies}" do
+      content_id_1 = SecureRandom.uuid
+      content_id_2 = SecureRandom.uuid
+      edition = create(document_with_policies, policy_content_ids: [content_id_1, content_id_2])
+
+      assert_equal [content_id_1, content_id_2], edition.policy_content_ids
+
+      edition.delete_policy(content_id_2)
+
+      assert_equal [content_id_1], edition.reload.policy_content_ids
+    end
+  end
+
+  test "does not add a policy twice" do
+    content_id_1 = SecureRandom.uuid
+    content_id_2 = SecureRandom.uuid
+
+    edition = create(:speech, policy_content_ids: [content_id_1])
+
+    assert_equal [content_id_1], edition.policy_content_ids
+
+    edition.add_policy(content_id_2)
+    edition.add_policy(content_id_2)
+
+    assert_equal [content_id_1, content_id_2], edition.reload.policy_content_ids
+  end
 end
