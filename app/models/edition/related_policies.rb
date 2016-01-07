@@ -1,6 +1,16 @@
 module Edition::RelatedPolicies
   extend ActiveSupport::Concern
 
+  def delete_policy(content_id)
+    self.edition_policies.delete(EditionPolicy.where(policy_content_id: content_id))
+  end
+
+  def add_policy(content_id)
+    unless policy_content_ids.include?(content_id)
+      self.edition_policies.create!(policy_content_id: content_id)
+    end
+  end
+
   class Trait < Edition::Traits::Trait
     def process_associations_after_save(edition)
       edition.policy_content_ids = @edition.policy_content_ids
