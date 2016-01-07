@@ -6,7 +6,10 @@ class OffsiteLink < ActiveRecord::Base
 
   def url_is_govuk
     begin
-      host = URI.parse(url).host
+      if (uri = Addressable::URI.parse(url))
+        host = uri.host
+      end
+
       split_host = host.split(".") if host
       if !host || split_host[split_host.length - 1] != "uk" || split_host[split_host.length - 2] != "gov"
         errors.add(:base, "Please enter a valid GOV.UK URL, such as https://www.gov.uk/jobsearch")

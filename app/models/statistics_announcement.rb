@@ -206,7 +206,7 @@ private
 
   def publish_redirect_item
     redirects = [
-      { path: public_path, destination: URI.parse(redirect_url).path, type: "exact" }
+      { path: public_path, destination: Addressable::URI.parse(redirect_url).path, type: "exact" }
     ]
     Whitehall::PublishingApi.publish_redirect_async(public_path, redirects)
   end

@@ -44,7 +44,7 @@ private
   end
 
   def self.slug_for_sector_tag(tag)
-    URI.unescape(tag.id.match(%r{/([^/]*)\.json})[1])
+    Addressable::URI.unescape(tag.id.match(%r{/([^/]*)\.json})[1])
   end
 
   class DataUnavailable < StandardError; end

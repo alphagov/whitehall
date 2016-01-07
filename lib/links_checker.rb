@@ -36,7 +36,7 @@ class LinksChecker
 private
 
   def options_for_link(link)
-    host = URI.parse(link).host
+    host = Addressable::URI.parse(link).host
 
     if userpwd_for(host)
       default_options.merge(userpwd: userpwd_for(host))

@@ -1,6 +1,12 @@
 module Assertions
   def assert_current_url(url, message = nil)
-    assert_equal URI.split(url)[3..-1], URI.split(current_url)[3..-1], message
+    uri = Addressable::URI.parse(url)
+    current_uri = Addressable::URI.parse(current_url)
+
+    assert_equal uri.port, current_uri.port, message
+    assert_equal uri.path, current_uri.path, message
+    assert_equal uri.query, current_uri.query, message
+    assert_equal uri.fragment, current_uri.fragment, message
   end
 
   def assert_path(path)

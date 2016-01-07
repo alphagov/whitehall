@@ -77,7 +77,7 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
     Whitehall.stubs(public_host: 'some.host')
     Whitehall.stubs(public_protocol: 'http')
     edition = create(:published_publication)
-    uri = URI.parse(public_document_url(edition))
+    uri = Addressable::URI.parse(public_document_url(edition))
     assert_equal 'some.host', uri.host
     assert_equal 'http', uri.scheme
     assert_equal public_document_path(edition), uri.path

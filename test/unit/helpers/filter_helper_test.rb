@@ -82,7 +82,7 @@ class FilterHelperTest::FilterDescriptionTest < ActionView::TestCase
     assert link.present?, "No link with data-field=\"#{field}\""
     assert_equal expected_value, link[:"data-value"]
     assert_equal "Remove #{expected_text}", link[:title]
-    assert_equal expected_query_params, Rack::Utils.parse_nested_query(URI.parse(link[:href]).query).symbolize_keys
+    assert_equal expected_query_params, Rack::Utils.parse_nested_query(Addressable::URI.parse(link[:href]).query).symbolize_keys
   end
 
   test "It renders links to remove search parameters" do

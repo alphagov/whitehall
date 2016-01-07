@@ -17,7 +17,7 @@ class LongLifeRedirect
     params = req.path_parameters
     path_and_filename = [params[:path], params[:extension]].join(".")
 
-    uri = URI.parse(@root_path + path_and_filename)
+    uri = Addressable::URI.parse(@root_path + path_and_filename)
     uri.scheme ||= req.scheme
     uri.host   ||= req.host
     uri.port   ||= req.port unless req.standard_port?

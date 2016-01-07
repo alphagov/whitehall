@@ -1,12 +1,11 @@
 require 'test_helper'
-require 'uri'
 
 class DocumentLocaleParamCanonicalisationTest < ActionDispatch::IntegrationTest
   # we need this because locale param might be stripped by our path
   # helpers and routing, need to test what happens if it is actually
   # there
   def with_locale_param(path, locale)
-    u = URI.parse(path)
+    u = Addressable::URI.parse(path)
     u.query = "locale=#{locale}"
     u.to_s
   end

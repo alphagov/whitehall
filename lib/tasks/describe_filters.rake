@@ -1,7 +1,5 @@
-
 desc "Takes a file containing a list of filter page urls and outputs the descriptions of the filter options"
 task :describe_filters, [:topic_list_csv] => :environment do |t, args|
-  require 'uri'
   require 'rack'
   require 'json'
 
@@ -13,7 +11,7 @@ task :describe_filters, [:topic_list_csv] => :environment do |t, args|
   end
 
   def parse_params(line)
-    uri = URI.parse(line.gsub(';', "%#{';'.ord.to_s(16).upcase}"))
+    uri = Addressable::URI.parse(line.gsub(';', "%#{';'.ord.to_s(16).upcase}"))
 
     params = HashWithIndifferentAccess.new(Rack::Utils.parse_nested_query(uri.query))
     params['topics'] = params['topics'].map {|t| t.split(";")}.flatten
@@ -49,5 +47,4 @@ task :describe_filters, [:topic_list_csv] => :environment do |t, args|
     params = parse_params(line)
     puts describe(params).reverse_merge(url: line.strip).to_json
   end
-
 end

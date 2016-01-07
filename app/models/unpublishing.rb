@@ -59,7 +59,7 @@ private
   end
 
   def alternative_path
-    URI.parse(alternative_url).path
+    Addressable::URI.parse(alternative_url).path
   rescue URI::InvalidURIError
     nil
   end

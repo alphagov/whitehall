@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class OffsiteLinkTest < ActiveSupport::TestCase
-
   test 'should be invalid without a title' do
     offsite_link = build(:offsite_link, title: nil)
     refute offsite_link.valid?

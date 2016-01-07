@@ -1,5 +1,4 @@
 require 'whitehall/document_filter/options'
-require 'uri'
 require 'cgi'
 
 module Whitehall
@@ -81,7 +80,7 @@ module Whitehall
 
       def uri
         @uri ||= begin
-          URI.parse(feed_url)
+          Addressable::URI.parse(feed_url)
         rescue URI::InvalidURIError
           nil
         end

@@ -294,7 +294,7 @@ module ApplicationHelper
   end
 
   def is_external?(href)
-    if host = URI.parse(href).host
+    if host = Addressable::URI.parse(href).host
       Whitehall.public_host != host
     end
   end
