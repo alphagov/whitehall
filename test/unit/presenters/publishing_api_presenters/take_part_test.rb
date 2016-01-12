@@ -5,8 +5,7 @@ class PublishingApiPresenters::TakePartTest < ActiveSupport::TestCase
     PublishingApiPresenters::TakePart.new(record).as_json
   end
 
-  test "case study presentation includes the correct values" do
-    # TODO move setting content_id to model
+  test "take part presentation includes the correct values" do
     take_part_page = create(:take_part_page, content_id: SecureRandom.uuid)
 
     image_url = Whitehall.asset_root + take_part_page.image_url(:s300)
@@ -37,9 +36,6 @@ class PublishingApiPresenters::TakePartTest < ActiveSupport::TestCase
     presented_hash = present(take_part_page)
 
     assert_valid_against_schema(presented_hash, 'take_part')
-
-    assert_equal expected_hash.except(:details),
-      presented_hash.except(:details)
 
     # We test for HTML equivalance rather than string equality to get around
     # inconsistencies with line breaks between different XML libraries
