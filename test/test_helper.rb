@@ -8,6 +8,7 @@ if ENV["TEST_COVERAGE"]
   SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
 end
 
+require 'maxitest/autorun'
 require 'rails/test_help'
 require 'mocha/setup'
 require 'slimmer/test'

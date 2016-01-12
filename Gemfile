@@ -106,6 +106,7 @@ group :test do
   gem 'test_track', '~> 0.1.0', github: 'alphagov/test_track'
   gem 'govuk-content-schema-test-helpers', '1.3.0'
   gem 'minitest-fail-fast'
+  gem 'maxitest'
 end
 
 group :test_coverage do

@@ -216,6 +216,8 @@ GEM
       PriorityQueue (~> 0.1.2)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    maxitest (1.5.5)
+      minitest (>= 5.0.0, < 5.9.0)
     metaclass (0.0.4)
     method_source (0.8.2)
     mime-types (1.25.1)
@@ -476,6 +478,7 @@ DEPENDENCIES
   launchy (~> 2.4.3)
   link_header
   logstasher (= 0.6.2)
+  maxitest
   mime-types (= 1.25.1)
   mini_magick
   minitest-fail-fast
