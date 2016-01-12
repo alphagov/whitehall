@@ -1,11 +1,11 @@
 require 'test_helper'
 
-class Whitehall::EditionGovspeakRendererTest < ActiveSupport::TestCase
+class Whitehall::GovspeakRendererTest < ActiveSupport::TestCase
   test "Renders basic govspeak" do
     edition = build(:edition, body: 'Some content')
 
     assert_equivalent_html '<div class="govspeak"><p>Some content</p></div>',
-      render_govspeak(edition).body
+      render_govspeak(edition)
   end
 
   test "interpolates images into rendered HTML" do
@@ -14,7 +14,7 @@ class Whitehall::EditionGovspeakRendererTest < ActiveSupport::TestCase
     edition.stubs(:images).returns([image])
 
     assert_equivalent_html govspeak_with_image_html(image),
-      render_govspeak(edition).body
+      render_govspeak(edition)
   end
 
   test "converts inline attachments" do
@@ -23,19 +23,13 @@ class Whitehall::EditionGovspeakRendererTest < ActiveSupport::TestCase
       attachment_1 = build(:file_attachment, id: 1),
       attachment_2 = build(:file_attachment, id: 2)
     ])
-    html = render_govspeak(edition).body
+    html = render_govspeak(edition)
     assert_select_within_html html, "#attachment_#{attachment_1.id}"
     assert_select_within_html html, "#attachment_#{attachment_2.id}"
   end
 
-  test "renders unpublishing explanation as govspeak" do
-    edition = create(:unpublishing, explanation: 'Some explanation').edition
-    assert_equivalent_html '<div class="govspeak"><p>Some explanation</p></div>',
-      render_govspeak(edition).unpublishing_explanation
-  end
-
   def render_govspeak(edition)
-    Whitehall::EditionGovspeakRenderer.new(edition)
+    Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(edition)
   end
 
 private

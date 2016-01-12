@@ -57,11 +57,13 @@ private
   end
 
   def body
-    Whitehall::EditionGovspeakRenderer.new(edition).body
+    Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(edition)
   end
 
   def unpublishing_explanation
-    Whitehall::EditionGovspeakRenderer.new(edition).unpublishing_explanation
+    if edition.unpublishing.try(:explanation).present?
+      Whitehall::GovspeakRenderer.new.govspeak_to_html(edition.unpublishing.explanation)
+    end
   end
 
   def image_available?

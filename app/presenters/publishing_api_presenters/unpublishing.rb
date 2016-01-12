@@ -74,7 +74,9 @@ private
   end
 
   def unpublishing_explanation
-    Whitehall::EditionGovspeakRenderer.new(edition).unpublishing_explanation
+    if @unpublishing.try(:explanation).present?
+      Whitehall::GovspeakRenderer.new.govspeak_to_html(@unpublishing.explanation)
+    end
   end
 
   def default_update_type
