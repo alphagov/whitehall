@@ -108,6 +108,20 @@ task process_topic_tagging_csv: :environment do
   SpecialistSectorTagger.process_from_csv(csv_location, logger: Logger.new(STDOUT))
 end
 
+desc "Process CSV for policy tagging"
+task process_policy_tagging_csv: :environment do
+  require "data_hygiene/policy_tagger"
+
+  csv_location = ENV['CSV_LOCATION']
+
+  unless csv_location
+    $stderr.puts "No CSV path specified: please pass CSV_LOCATION"
+    exit 1
+  end
+
+  PolicyTagger.process_from_csv(csv_location, logger: Logger.new(STDOUT))
+end
+
 desc "Unwithdraw an edition (creates and publishes a draft with audit trail)"
 task :unwithdraw_edition, [:edition_id] => :environment do |t,args|
   DataHygiene::EditionUnwithdrawer.new(args[:edition_id], Logger.new(STDOUT)).unwithdraw!
