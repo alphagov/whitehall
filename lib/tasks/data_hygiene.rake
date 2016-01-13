@@ -122,6 +122,21 @@ task process_policy_tagging_csv: :environment do
   PolicyTagger.process_from_csv(csv_location, logger: Logger.new(STDOUT))
 end
 
+desc "Untag all editions from a policy"
+task untag_editions_from_policy: :environment do
+  policy_content_id = ENV['POLICY_CONTENT_ID']
+
+  unless policy_content_id
+    $stderr.puts "No policy content id specified: please pass POLICY_CONTENT_ID"
+    exit 1
+  end
+
+  edition_policies = EditionPolicy.where(policy_content_id: policy_content_id)
+  puts "Deleting #{edition_policies.count} edition policies."
+  edition_policies.delete_all
+  puts "Complete."
+end
+
 desc "Unwithdraw an edition (creates and publishes a draft with audit trail)"
 task :unwithdraw_edition, [:edition_id] => :environment do |t,args|
   DataHygiene::EditionUnwithdrawer.new(args[:edition_id], Logger.new(STDOUT)).unwithdraw!
