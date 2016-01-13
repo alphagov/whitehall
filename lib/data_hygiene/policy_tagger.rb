@@ -1,3 +1,11 @@
+# PolicyTagger is expecting to be fed a csv with the following header:
+# policies_to_remove,policies_to_add,slug
+#
+# Where:
+# - policies_to_remove: space delimited list of content ids
+# - policies_to_add: space delimited list of content ids
+# - slug: the slug of the document you want to update
+
 class PolicyTagger
   def self.process_from_csv(csv_location, logger: Logger.new(nil))
     CSV.foreach(csv_location, headers: true) do |row|
