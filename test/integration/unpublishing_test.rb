@@ -38,7 +38,8 @@ class UnpublishingTest < ActiveSupport::TestCase
     path = Whitehall.url_maker.public_document_path(@published_edition)
     stub_panopticon_registration(@published_edition)
     unpublish(@published_edition, unpublishing_params)
-    assert_publishing_api_put_content(@published_edition.unpublishing.content_id, format: 'unpublishing')
+    assert_publishing_api_put_content(@published_edition.unpublishing.content_id,
+                                      request_json_includes(format: 'unpublishing'))
   end
 
   test 'When a case study is unpublished, a job is queued to republish the draft to the draft stack' do
@@ -67,9 +68,13 @@ class UnpublishingTest < ActiveSupport::TestCase
 
     unpublish(@published_edition, unpublishing_params)
 
-    assert_publishing_api_put_content(@published_edition.unpublishing.content_id, { format: 'unpublishing' }, 2)
-    assert_publishing_api_publish(@published_edition.unpublishing.content_id, { "locale" => "en", "update_type" => "major" })
-    assert_publishing_api_publish(@published_edition.unpublishing.content_id, { "locale" => "fr", "update_type" => "major" })
+    assert_publishing_api_put_content(@published_edition.unpublishing.content_id,
+                                      request_json_includes({ format: 'unpublishing' }),
+                                      2)
+    assert_publishing_api_publish(@published_edition.unpublishing.content_id,
+                                  { locale: "en", update_type: "major" })
+    assert_publishing_api_publish(@published_edition.unpublishing.content_id,
+                                  { locale: "fr", update_type: "major" })
   end
 
   test 'when a translated edition is unpublished as a redirect, redirects are published to the Publishing API for each translation' do
@@ -89,9 +94,11 @@ class UnpublishingTest < ActiveSupport::TestCase
 
     unpublish(@published_edition, unpublishing_redirect_params)
 
-    assert_publishing_api_put_content(redirect_uuid, { format: 'redirect' }, 2)
-    assert_publishing_api_publish(redirect_uuid, { "locale" => "en", "update_type" => "major" })
-    assert_publishing_api_publish(redirect_uuid, { "locale" => "fr", "update_type" => "major" })
+    assert_publishing_api_put_content(redirect_uuid,
+                                      request_json_includes({ format: 'redirect' }),
+                                      2)
+    assert_publishing_api_publish(redirect_uuid, { locale: "en", update_type: "major" })
+    assert_publishing_api_publish(redirect_uuid, { locale: "fr", update_type: "major" })
   end
 
 private
