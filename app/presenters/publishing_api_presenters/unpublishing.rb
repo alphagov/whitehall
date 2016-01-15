@@ -1,87 +1,77 @@
-class PublishingApiPresenters::Unpublishing
-  attr_reader :unpublishing, :update_type
-
-  def initialize(unpublishing, options = {})
-    @unpublishing = unpublishing
-    @update_type = options[:update_type] || default_update_type
-  end
-
-  def as_json
-    if unpublishing.redirect?
-      redirect_hash
-    else
-      unpublishing_hash
+module PublishingApiPresenters
+  class Unpublishing < Item
+    def content
+      item.redirect? ? redirect_hash : super
     end
-  end
 
-  def base_path
-    unpublishing.document_path
-  end
-
-private
-
-  def redirect_hash
-    {
-      content_id: unpublishing.content_id,
-      base_path: base_path,
-      format: 'redirect',
-      publishing_app: 'whitehall',
-      redirects: [
-        { path: base_path, type: 'exact', destination: alternative_path }
-      ],
-      update_type: update_type,
-    }
-  end
-
-  def unpublishing_hash
-    {
-      base_path: base_path,
-      content_id: unpublishing.content_id,
-      title: edition.title,
-      description: edition.summary,
-      format: 'unpublishing',
-      locale: I18n.locale.to_s,
-      need_ids: edition.need_ids,
-      public_updated_at: edition.public_timestamp,
-      update_type: update_type,
-      publishing_app: 'whitehall',
-      rendering_app: edition.rendering_app,
-      routes: [ { path: base_path, type: 'exact' } ],
-      redirects: [],
-      details: details,
-    }
-  end
-
-  def edition
-    @edition ||= Edition.unscoped.find(unpublishing.edition_id)
-  end
-
-  def alternative_path
-    full_uri = Addressable::URI.parse(unpublishing.alternative_url)
-
-    path_uri = Addressable::URI.new
-    path_uri.path = full_uri.path
-    path_uri.query = full_uri.query
-    path_uri.fragment = full_uri.fragment
-
-    path_uri.to_s
-  end
-
-  def details
-    {
-      explanation: unpublishing_explanation,
-      unpublished_at: unpublishing.created_at,
-      alternative_url: unpublishing.alternative_url
-    }
-  end
-
-  def unpublishing_explanation
-    if @unpublishing.try(:explanation).present?
-      Whitehall::GovspeakRenderer.new.govspeak_to_html(@unpublishing.explanation)
+  private
+    def document_format
+      item.redirect? ? 'redirect' : 'unpublishing'
     end
-  end
 
-  def default_update_type
-    'major'
+    def base_path
+      item.document_path
+    end
+
+    def redirect_hash
+      {
+        base_path: base_path,
+        format: 'redirect',
+        publishing_app: 'whitehall',
+        redirects: [
+          { path: base_path, type: 'exact', destination: alternative_path }
+        ],
+      }
+    end
+
+    def edition
+      @edition ||= ::Edition.unscoped.find(item.edition_id)
+    end
+
+    def rendering_app
+      edition.rendering_app
+    end
+
+    def title
+      edition.title
+    end
+
+    def description
+      edition.summary
+    end
+
+    def public_updated_at
+      edition.public_timestamp
+    end
+
+    def need_ids
+      edition.need_ids
+    end
+
+    def alternative_path
+      full_uri = Addressable::URI.parse(item.alternative_url)
+
+      path_uri = Addressable::URI.new(
+        path: full_uri.path,
+        query: full_uri.query,
+        fragment: full_uri.fragment
+      )
+
+      path_uri.to_s
+    end
+
+    def details
+      {
+        explanation: unpublishing_explanation,
+        unpublished_at: item.created_at,
+        alternative_url: item.alternative_url
+      }
+    end
+
+    def unpublishing_explanation
+      if item.try(:explanation).present?
+        Whitehall::GovspeakRenderer.new.govspeak_to_html(item.explanation)
+      end
+    end
   end
 end
