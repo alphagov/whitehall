@@ -3,7 +3,6 @@ require 'securerandom'
 
 class PublishingApiPresenters::ComingSoonTest < ActiveSupport::TestCase
   setup do
-    @locale = 'en'
     @publish_timestamp = 1.day.from_now
     @content_id = SecureRandom.uuid
     SecureRandom.stubs(uuid: @content_id)
@@ -19,28 +18,23 @@ class PublishingApiPresenters::ComingSoonTest < ActiveSupport::TestCase
     public_path = '/government/case-studies/case-study-title'
     expected_hash = {
       base_path: public_path,
-      content_id: @content_id,
       publishing_app: 'whitehall',
       rendering_app: 'government-frontend',
       format: 'coming_soon',
       title: 'Coming soon',
-      locale: @locale,
-      update_type: 'major',
+      description: 'Coming soon',
+      locale: 'en',
+      need_ids: [],
       details: { publish_time: @publish_timestamp },
       routes: [{ path: public_path, type: 'exact' }],
+      redirects: [],
       public_updated_at: @edition.updated_at,
     }
 
-    presenter = PublishingApiPresenters::ComingSoon.new(@edition, @locale)
+    presenter = PublishingApiPresenters::ComingSoon.new(@edition)
 
-    assert_equal expected_hash, presenter.as_json
-    assert_valid_against_schema(presenter.as_json, 'coming_soon')
-  end
-
-  test "includes content IDs" do
-    presenter = PublishingApiPresenters::ComingSoon.new(@edition, @locale)
-
-    coming_soon_content_id = presenter.as_json.fetch(:content_id)
-    assert_equal @content_id, coming_soon_content_id
+    assert_equal expected_hash, presenter.content
+    assert_equal @content_id, presenter.content_id
+    assert_valid_against_schema(presenter.content, 'coming_soon')
   end
 end
