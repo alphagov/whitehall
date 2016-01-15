@@ -5,9 +5,9 @@ module PublishingApiPresenters
     def_delegators :item, :base_path, :content_id, :title, :description, :need_ids, :public_updated_at
     attr_accessor :update_type
 
-    def initialize(item, update_type: "major")
-      self.update_type = update_type
+    def initialize(item, update_type: nil)
       self.item = item
+      self.update_type = update_type || default_update_type
     end
 
     def content
@@ -24,7 +24,11 @@ module PublishingApiPresenters
         routes: routes,
         redirects: [],
         details: details
-      }
+      }.tap do |content_hash|
+        if item.respond_to?(:analytics_identifier)
+          content_hash.merge!(analytics_identifier: item.analytics_identifier)
+        end
+      end
     end
 
     def links
@@ -40,6 +44,22 @@ module PublishingApiPresenters
 
     def routes
       [{ path: base_path, type: "exact" }]
+    end
+
+    def base_path
+      Whitehall.url_maker.polymorphic_path(item)
+    end
+
+    def default_update_type
+      "major"
+    end
+
+    def need_ids
+      []
+    end
+
+    def details
+      {}
     end
   end
 end
