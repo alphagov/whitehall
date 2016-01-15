@@ -2,48 +2,23 @@
 # store as "placeholder" content items. This is so that finders can reference
 # items using content_ids and have their basic information expanded
 # out when read back out from the content store.
-class PublishingApiPresenters::Placeholder
-  attr_reader :item, :update_type
-
-  def initialize(item, options = {})
-    @item = item
-    @update_type = options[:update_type] || default_update_type
-  end
-
-  def base_path
-    Whitehall.url_maker.polymorphic_path(item)
-  end
-
-  def as_json
-    json = {
-      base_path: base_path,
-      content_id: item.content_id,
-      title: item.name,
-      format: format,
-      locale: I18n.locale.to_s,
-      publishing_app: 'whitehall',
-      rendering_app: 'whitehall-frontend',
-      public_updated_at: item.updated_at,
-      routes: [
-        {
-          path: base_path,
-          type: "exact"
-        }
-      ],
-      update_type: update_type,
-    }
-    if item.respond_to?(:analytics_identifier)
-      json.merge!(analytics_identifier: item.analytics_identifier)
+module PublishingApiPresenters
+  class Placeholder < Item
+  private
+    def title
+      item.name
     end
-    json
-  end
 
-private
-  def format
-    "placeholder_#{item.class.name.underscore}"
-  end
+    def description
+      nil
+    end
 
-  def default_update_type
-    "major"
+    def public_updated_at
+      item.updated_at
+    end
+
+    def document_format
+      "placeholder_#{item.class.name.underscore}"
+    end
   end
 end
