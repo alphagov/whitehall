@@ -13,12 +13,11 @@ class PublishingTest < ActiveSupport::TestCase
   end
 
   test "When an edition is published, it gets published with the Publishing API" do
-    expected_attributes = @presenter.as_json.merge(
-      # This is to simulate what the time public timestamp will be after the
-      # edition has been published
-      public_updated_at: Time.zone.now.as_json
-    )
-    requests = stub_publishing_api_put_content_links_and_publish(expected_attributes)
+    requests = [
+      stub_publishing_api_put_content(@presenter.content_id, @presenter.content),
+      stub_publishing_api_put_links(@presenter.content_id, links: @presenter.links),
+      stub_publishing_api_publish(@presenter.content_id, locale: 'en', update_type: 'major')
+    ]
 
     perform_force_publishing_for(@draft_edition)
 
@@ -26,21 +25,28 @@ class PublishingTest < ActiveSupport::TestCase
   end
 
   test "When a translated edition is published, all translations are published with the Publishing API" do
-   I18n.with_locale :fr do
+    french_requests = I18n.with_locale :fr do
       @draft_edition.title = "French title"
       @draft_edition.save!
 
-      expected_attributes = @presenter.as_json.merge(public_updated_at: Time.zone.now.as_json)
-      @french_requests = stub_publishing_api_put_content_links_and_publish(expected_attributes)
-   end
+      [
+        stub_publishing_api_put_content(@presenter.content_id, @presenter.content),
+        stub_publishing_api_publish(@presenter.content_id, locale: 'fr', update_type: 'major')
+      ]
+    end
 
-   expected_attributes = @presenter.as_json.merge(public_updated_at: Time.zone.now.as_json)
-   @english_requests = stub_publishing_api_put_content_links_and_publish(expected_attributes)
+    english_requests = [
+      stub_publishing_api_put_content(@presenter.content_id, @presenter.content),
+      stub_publishing_api_publish(@presenter.content_id, locale: 'en', update_type: 'major')
+    ]
 
-   perform_force_publishing_for(@draft_edition)
+    links_request = stub_publishing_api_put_links(@presenter.content_id, links: @presenter.links)
 
-   assert_all_requested(@english_requests)
-   assert_all_requested(@french_requests)
+    perform_force_publishing_for(@draft_edition)
+
+    assert_all_requested(english_requests)
+    assert_all_requested(french_requests)
+    assert_requested(links_request, times: 2)
   end
 
   private
