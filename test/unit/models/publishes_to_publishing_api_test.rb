@@ -53,8 +53,12 @@ class PublishesToPublishingApiTest < ActiveSupport::TestCase
   test "update publishes to Publishing API using :en locale when no translated fields are set" do
     person = create(:person, attributes_for(:person).except(:biography))
 
-    content_item = PublishingApiPresenters.presenter_for(person).as_json
-    requests = stub_publishing_api_put_content_links_and_publish(content_item)
+    content_item = PublishingApiPresenters.presenter_for(person)
+    requests = [
+      stub_publishing_api_put_content(content_item.content_id, content_item.content),
+      stub_publishing_api_put_links(content_item.content_id, links: content_item.links),
+      stub_publishing_api_publish(content_item.content_id, locale: content_item.content[:locale], update_type: 'major')
+    ]
 
     assert_all_requested(requests)
   end
@@ -62,8 +66,12 @@ class PublishesToPublishingApiTest < ActiveSupport::TestCase
   test "update publishes to Publishing API using :en locale when the object is not translatable" do
     policy_group = create(:policy_group)
 
-    content_item = PublishingApiPresenters.presenter_for(policy_group).as_json
-    requests = stub_publishing_api_put_content_links_and_publish(content_item)
+    content_item = PublishingApiPresenters.presenter_for(policy_group)
+    requests = [
+      stub_publishing_api_put_content(content_item.content_id, content_item.content),
+      stub_publishing_api_put_links(content_item.content_id, links: content_item.links),
+      stub_publishing_api_publish(content_item.content_id, locale: content_item.content[:locale], update_type: 'major')
+    ]
 
     assert_all_requested(requests)
   end
