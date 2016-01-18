@@ -17,7 +17,7 @@ gem 'plek', '1.10.0'
 gem 'isbn_validation'
 gem 'gds-sso', '~> 11.0'
 gem 'rummageable', '1.2.0'
-gem 'addressable'
+gem 'addressable', ">= 2.3.7"
 gem 'unicorn', '5.0.0'
 gem 'kaminari', '0.15.1'
 gem 'govuk_admin_template', '3.0.0'
@@ -60,7 +60,7 @@ end
 if ENV['GOVSPEAK_DEV']
   gem 'govspeak', path: '../govspeak'
 else
-  gem 'govspeak', '~> 3.5.0'
+  gem 'govspeak', '~> 3.5.1'
 end
 
 if ENV['FRONTEND_TOOLKIT_DEV']

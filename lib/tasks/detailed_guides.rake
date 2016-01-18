@@ -123,7 +123,7 @@ namespace :detailed_guides do
         paths = unpublishing.edition.translated_locales.map do |locale|
           "/#{slug}.#{locale}".chomp(".en")
         end
-        alternative_path = URI.parse(unpublishing.alternative_url).path
+        alternative_path = Addressable::URI.parse(unpublishing.alternative_url).path
         puts "Redirecting #{paths.join(", ")} to #{alternative_path}"
         redirects = Hash[paths.map { |path| [path, alternative_path] }]
         publish_redirects(slug, redirects)

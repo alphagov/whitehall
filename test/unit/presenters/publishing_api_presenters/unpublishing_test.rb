@@ -155,7 +155,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
   test '#as_json returns a redirect representation for Unpublishings that are set to auto-redirect' do
     unpublishing     = create(:redirect_unpublishing)
     public_path      = unpublishing.document_path
-    alternative_path = URI.parse(unpublishing.alternative_url).path
+    alternative_path = Addressable::URI.parse(unpublishing.alternative_url).path
     expected_hash    = {
       content_id: unpublishing.content_id,
       base_path: public_path,
@@ -177,7 +177,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
     alternative_path = '/government/some/page'
     unpublishing     = create(:consolidated_unpublishing)
     public_path      = unpublishing.document_path
-    alternative_path = URI.parse(unpublishing.alternative_url).path
+    alternative_path = Addressable::URI.parse(unpublishing.alternative_url).path
     expected_hash    = {
       content_id: unpublishing.content_id,
       base_path: public_path,

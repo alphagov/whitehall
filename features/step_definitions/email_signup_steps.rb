@@ -1,5 +1,3 @@
-require 'uri'
-
 Given(/^govuk delivery exists$/) do
   mock_govuk_delivery_client
 end

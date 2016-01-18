@@ -57,12 +57,14 @@ private
   end
 
   def alternative_path
-    uri = URI.parse(unpublishing.alternative_url)
-    URI::Generic.build(
-      path: uri.path,
-      query: uri.query,
-      fragment: uri.fragment
-    ).to_s
+    full_uri = Addressable::URI.parse(unpublishing.alternative_url)
+
+    path_uri = Addressable::URI.new
+    path_uri.path = full_uri.path
+    path_uri.query = full_uri.query
+    path_uri.fragment = full_uri.fragment
+
+    path_uri.to_s
   end
 
   def details

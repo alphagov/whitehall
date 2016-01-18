@@ -1,3 +1,1 @@
-2.1.7
-# DO NOT UPGRADE past 2.1.X until we resolve the following in Govspeak:
-# https://github.com/alphagov/whitehall/pull/2234
+2.2.3
