@@ -53,7 +53,7 @@ gem 'deprecated_columns', '0.1.0'
 if ENV['GDS_API_ADAPTERS_DEV']
   gem 'gds-api-adapters', path: '../gds-api-adapters'
 else
-  gem 'gds-api-adapters', '26.7.0'
+  gem 'gds-api-adapters', '27.0.0'
 end
 
 if ENV['GLOBALIZE_DEV']
