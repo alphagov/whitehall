@@ -400,16 +400,19 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
   test "#publish_redirect publishes a redirect to the Publishing API" do
     redirect_uuid = SecureRandom.uuid
     SecureRandom.stubs(uuid: redirect_uuid)
+
     base_path = "/government/people/milly-vanilly"
     redirects = [
       {
-        content_id: redirect_uuid,
         path: base_path,
         type: "exact",
         destination: "/government/poeple/milli-vanilli"
       }
     ]
-    expected_content_request = stub_publishing_api_put_content(redirect_uuid, Whitehall::PublishingApi::Redirect.new(base_path, redirects).as_json)
+
+    presenter = PublishingApiPresenters::Redirect.new(base_path, redirects)
+
+    expected_content_request = stub_publishing_api_put_content(redirect_uuid, presenter.content)
     expected_publish_request = stub_publishing_api_publish(redirect_uuid, update_type: 'major', locale: 'en')
     Whitehall::PublishingApi.publish_redirect_async(base_path, redirects)
 
