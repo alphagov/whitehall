@@ -1,18 +1,27 @@
 require "securerandom"
 
 class PublishingApiPresenters::Gone
+  attr_reader :content_id
+
   def initialize(base_path)
     @base_path = base_path
+    @content_id = SecureRandom.uuid
   end
 
-  def as_json
+  def content
     {
       base_path: @base_path,
-      content_id: SecureRandom.uuid,
       format: 'gone',
       publishing_app: 'whitehall',
-      update_type: 'major',
       routes: [{ path: @base_path, type: 'exact' }],
     }
+  end
+
+  def update_type
+    'major'
+  end
+
+  def links
+    {}
   end
 end
