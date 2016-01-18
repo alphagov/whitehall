@@ -30,11 +30,16 @@ module OrganisationResluggerTest
     end
 
     test "publishes to Publishing API with the new slug and redirects the old" do
-      content_item = PublishingApiPresenters.presenter_for(@organisation).as_json
+      content_item = PublishingApiPresenters.presenter_for(@organisation)
       old_base_path = @organisation.search_link
       new_base_path = "#{base_path}/corrected-slug"
-      content_item[:base_path] = new_base_path
-      content_item[:routes][0][:path] = new_base_path
+
+      content = content_item.content
+      content[:base_path] = new_base_path
+      content[:routes][0][:path] = new_base_path
+
+      content_item.stubs(:content).returns(content)
+
       redirect_uuid = SecureRandom.uuid
       SecureRandom.stubs(uuid: redirect_uuid)
 
@@ -48,15 +53,24 @@ module OrganisationResluggerTest
                        destination: (new_base_path + ".atom") }
       end
 
-      redirect_item = Whitehall::PublishingApi::Redirect.new(old_base_path, redirects).as_json
+      redirect_item = PublishingApiPresenters::Redirect.new(old_base_path, redirects)
 
-      expected_publish_requests = stub_publishing_api_put_content_links_and_publish(content_item)
-      expected_redirect_requests = stub_publishing_api_put_content_links_and_publish(redirect_item, redirect_uuid, update_type: 'major', locale: 'en')
+      expected_publish_requests = [
+        stub_publishing_api_put_content(content_item.content_id, content_item.content),
+        stub_publishing_api_put_links(content_item.content_id, links: content_item.links),
+        stub_publishing_api_publish(content_item.content_id, locale: 'en', update_type: 'major')
+      ]
+
+      expected_redirect_requests = [
+        stub_publishing_api_put_content(redirect_item.content_id, redirect_item.content),
+        stub_publishing_api_put_links(redirect_item.content_id, links: redirect_item.links),
+        stub_publishing_api_publish(redirect_item.content_id, locale: 'en', update_type: 'major')
+      ]
 
       @reslugger.run!
 
-      expected_publish_requests.each { |request| assert_requested request }
-      expected_redirect_requests.each { |request| assert_requested request }
+      assert_all_requested expected_publish_requests
+      assert_all_requested expected_redirect_requests
     end
 
     test "deletes the old slug from the search index" do
