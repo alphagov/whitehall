@@ -13,7 +13,6 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     presenter = PublishingApiPresenters.presenter_for(take_part_page)
 
     assert_equal PublishingApiPresenters::TakePart, presenter.class
-    assert_equal take_part_page, presenter.take_part_page
   end
 
   test ".presenter_for returns an Unpublishing presenter for an Unpublishing" do
