@@ -3,12 +3,11 @@ require 'gds_api/test_helpers/publishing_api_v2'
 
 class PublishingApiComingSoonWorkerTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApiV2
-  setup do
-    @uuid = "a-uuid"
-    SecureRandom.stubs(uuid: @uuid)
-  end
 
   test 'publishes a "coming_soon" format to the Publishing API' do
+    uuid = "a-uuid"
+    SecureRandom.stubs(uuid: uuid)
+
     base_path    = '/government/case-studies/case-study-title.fr'
     publish_time = 2.days.from_now
     locale       = 'fr'
@@ -20,24 +19,27 @@ class PublishingApiComingSoonWorkerTest < ActiveSupport::TestCase
 
     expected_payload = {
       base_path: base_path,
-      content_id: @uuid,
       publishing_app: 'whitehall',
       rendering_app: 'government-frontend',
       format: 'coming_soon',
       title: 'Coming soon',
+      description: 'Coming soon',
+      need_ids: [],
       locale: locale,
-      update_type: 'major',
       details: { publish_time: publish_time },
       routes: [ { path: base_path, type: 'exact' } ],
+      redirects: [],
       public_updated_at: edition.updated_at,
     }
 
-    content_request = stub_publishing_api_put_content(@uuid, expected_payload)
-    publish_request = stub_publishing_api_publish(@uuid, { locale: "fr", update_type: "major" })
+    requests = [
+      stub_publishing_api_put_content(uuid, expected_payload),
+      stub_publishing_api_put_links(uuid, links: {}),
+      stub_publishing_api_publish(uuid, { locale: "fr", update_type: "major" })
+    ]
 
     PublishingApiComingSoonWorker.new.perform(edition.id, locale)
 
-    assert_requested content_request
-    assert_requested publish_request
+    assert_all_requested requests
   end
 end
