@@ -24,6 +24,8 @@ class TakePartPage < ActiveRecord::Base
              description: :summary,
              format: 'take_part'
 
+  include PublishesToPublishingApi
+
   def search_link
     Whitehall.url_maker.take_part_page_path(self.slug)
   end

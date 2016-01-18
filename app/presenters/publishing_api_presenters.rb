@@ -18,6 +18,8 @@ private
       PublishingApiPresenters::Unpublishing
     when PolicyGroup
       PublishingApiPresenters::WorkingGroup
+    when TakePartPage
+      PublishingApiPresenters::TakePart
     else
       PublishingApiPresenters::Placeholder
     end

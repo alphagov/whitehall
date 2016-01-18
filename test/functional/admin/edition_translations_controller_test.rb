@@ -145,11 +145,11 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
       body: "translated-body",
     }
 
-    assert_publishing_api_put_content(edition.content_id, {
+    assert_publishing_api_put_content(edition.content_id, request_json_includes({
       title: "translated-title",
       description: "translated-summary",
       locale: "fr",
-    })
+    }))
   end
 
   test "should limit access to translations of editions that aren't accessible to the current user" do

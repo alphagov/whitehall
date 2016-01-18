@@ -22,7 +22,6 @@ gem 'unicorn', '5.0.0'
 gem 'kaminari', '0.15.1'
 gem 'govuk_admin_template', '3.0.0'
 gem 'bootstrap-kaminari-views', '0.0.5'
-gem 'gds-api-adapters', '26.7.0'
 gem 'mime-types', '1.25.1'
 gem 'whenever', '0.9.4', require: false
 gem 'mini_magick'
@@ -50,6 +49,12 @@ gem 'responders', '~> 2.0'
 gem 'sidekiq-statsd', '0.1.5'
 
 gem 'deprecated_columns', '0.1.0'
+
+if ENV['GDS_API_ADAPTERS_DEV']
+  gem 'gds-api-adapters', path: '../gds-api-adapters'
+else
+  gem 'gds-api-adapters', '27.0.0'
+end
 
 if ENV['GLOBALIZE_DEV']
   gem 'globalize', path: '../globalize'

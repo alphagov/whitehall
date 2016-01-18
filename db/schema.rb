@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151111101103) do
+ActiveRecord::Schema.define(version: 20160111120144) do
 
   create_table "about_pages", force: :cascade do |t|
     t.integer  "topical_event_id",    limit: 4
@@ -1091,6 +1091,7 @@ ActiveRecord::Schema.define(version: 20151111101103) do
     t.integer  "ordering",          limit: 4,        null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "content_id",        limit: 255
   end
 
   add_index "take_part_pages", ["ordering"], name: "index_take_part_pages_on_ordering", using: :btree
