@@ -26,6 +26,14 @@ namespace :publishing_api do
         Whitehall::PublishingApi::LiveEnvironmentPopulator.new(items: CaseStudy.latest_published_edition.find_each, logger: Logger.new(STDOUT)).call
       end
     end
+
+    desc "republish non-edition content to the Publishing API (model_class_name example: TakePartPage)"
+    task :non_editions, [:model_class_name] => :environment do |t, args|
+      model = args[:model_class_name].constantize
+      model.all.find_each do |instance|
+        Whitehall::PublishingApi.republish_async(instance)
+      end
+    end
   end
 
   desc "Publish special routes (eg /government)"
