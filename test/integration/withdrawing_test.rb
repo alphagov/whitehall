@@ -9,17 +9,22 @@ class WithdrawingTest < ActiveSupport::TestCase
       unpublishing_reason_id: UnpublishingReason::Withdrawn.id)
 
     stub_panopticon_registration(edition)
-    publishing_api_payload = presenter.as_json.tap { |json|
-      json[:details][:withdrawn_notice] = {
-        explanation: "<div class=\"govspeak\"><p>Old information</p>\n</div>",
-        withdrawn_at: edition.updated_at
-      }
-      json[:update_type] = "republish"
+
+    content = presenter.content
+    content[:details][:withdrawn_notice] = {
+      explanation: "<div class=\"govspeak\"><p>Old information</p>\n</div>",
+      withdrawn_at: edition.updated_at
     }
-    requests = stub_publishing_api_put_content_links_and_publish(publishing_api_payload)
+
+    requests = [
+      stub_publishing_api_put_content(presenter.content_id, content),
+      stub_publishing_api_put_links(presenter.content_id, links: presenter.links),
+      stub_publishing_api_publish(presenter.content_id, locale: 'en', update_type: 'republish')
+    ]
+
     perform_withdrawal(edition)
 
-    requests.each { |request| assert_requested request }
+    assert_all_requested requests
   end
 
 private
