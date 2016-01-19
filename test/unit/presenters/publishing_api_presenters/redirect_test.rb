@@ -12,7 +12,9 @@ class PublishingApiPresenters::RedirectTest < ActiveSupport::TestCase
       ],
     }
 
-    presenter = PublishingApiPresenters::Redirect.new('/foo', ['/bar', '/baz/qux'])
+    presenter = PublishingApiPresenters::Redirect.new('/foo', [
+      { path: '/foo', type: 'exact', destination: '/bar' },
+      { path: '/foo', type: 'exact', destination: '/baz/qux' }])
 
     assert_equal expected_hash, presenter.content
     assert_valid_against_schema(presenter.content, 'redirect')

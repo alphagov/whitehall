@@ -412,6 +412,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
     presenter = PublishingApiPresenters::Redirect.new(base_path, redirects)
 
+    assert_valid_against_schema(presenter.content, "redirect")
+
     expected_content_request = stub_publishing_api_put_content(redirect_uuid, presenter.content)
     expected_publish_request = stub_publishing_api_publish(redirect_uuid, update_type: 'major', locale: 'en')
     Whitehall::PublishingApi.publish_redirect_async(base_path, redirects)

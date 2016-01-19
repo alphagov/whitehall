@@ -15,9 +15,7 @@ module PublishingApiPresenters
         base_path: @base_path,
         format: 'redirect',
         publishing_app: 'whitehall',
-        redirects: @redirects.map { |redirect|
-          { path: @base_path, type: 'exact', destination: redirect }
-        },
+        redirects: @redirects
       }
     end
 
