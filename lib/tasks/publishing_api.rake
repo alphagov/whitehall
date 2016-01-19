@@ -26,12 +26,24 @@ namespace :publishing_api do
         Whitehall::PublishingApi::LiveEnvironmentPopulator.new(items: CaseStudy.latest_published_edition.find_each, logger: Logger.new(STDOUT)).call
       end
     end
+  end
 
+  namespace :republish do
     desc "republish non-edition content to the Publishing API (model_class_name example: TakePartPage)"
     task :non_editions, [:model_class_name] => :environment do |t, args|
       model = args[:model_class_name].constantize
       model.all.find_each do |instance|
         Whitehall::PublishingApi.republish_async(instance)
+        print "."
+      end
+    end
+
+    desc "generate content ids for non-edition content prior to publishing"
+    task :add_content_ids, [:model_class_name] => :environment do |t, args|
+      model = args[:model_class_name].constantize
+      model.all.find_each do |instance|
+        instance.update_column(:content_id, SecureRandom.uuid) unless instance.content_id
+        print "."
       end
     end
   end
