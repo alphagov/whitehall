@@ -19,7 +19,7 @@ user-friendly manner. Documentation can be found on [rdoc](http://rdoc.info/gith
 * Mysql
 * Imagemagick and Ghostscript (for generating thumbnails of uploaded
   PDFs)
-* xpdf (first download [XQuarts](http://www.xquartz.org/))
+* xpdf (first download [XQuartz](http://www.xquartz.org/))
 * PhantomJS (for running the Javascript tests)
 
 If you use [Homebrew](http://brew.sh/) you can run the following:
