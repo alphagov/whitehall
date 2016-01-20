@@ -44,7 +44,7 @@ class DocumentListExportPresenter
       edition.updated_at,
       content_type,
       sub_content_type,
-      edition.state,
+      state,
       attachment_types,
       policies,
       specialist_sectors,
@@ -94,6 +94,14 @@ class DocumentListExportPresenter
 
   def supporting_organisations
     edition.supporting_organisations.map(&:name) if edition.respond_to? :supporting_organisations
+  end
+
+  def state
+    if edition.force_published?
+      "force published"
+    else
+      edition.state
+    end
   end
 
   def policies
