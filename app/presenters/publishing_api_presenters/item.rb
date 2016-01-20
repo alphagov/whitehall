@@ -23,7 +23,8 @@ module PublishingApiPresenters
         rendering_app: rendering_app,
         routes: routes,
         redirects: [],
-        details: details
+        details: details,
+        update_type: update_type
       }.tap do |content_hash|
         if item.respond_to?(:analytics_identifier)
           content_hash.merge!(analytics_identifier: item.analytics_identifier)

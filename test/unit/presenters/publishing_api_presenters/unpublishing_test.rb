@@ -19,6 +19,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
         { path: public_path, type: 'exact' }
       ],
       redirects: [],
+      update_type: 'major',
       details: {
         explanation: nil,
         unpublished_at: unpublishing.created_at,
@@ -115,6 +116,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
         { path: public_path, type: 'exact' }
       ],
       redirects: [],
+      update_type: 'major',
       details: {
         explanation: nil,
         unpublished_at: unpublishing.created_at,

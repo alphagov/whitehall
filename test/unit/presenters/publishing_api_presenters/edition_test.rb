@@ -32,6 +32,7 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
         { path: public_path, type: 'exact' }
       ],
       redirects: [],
+      update_type: 'major',
       details: {
         change_note: nil,
         tags: {
@@ -70,6 +71,7 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
         { path: public_path, type: 'exact' }
       ],
       redirects: [],
+      update_type: 'major',
       details: {
         change_note: nil,
         tags: {
@@ -103,6 +105,7 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
   test 'minor changes are a "minor" update type' do
     edition = create(:case_study, minor_change: true)
     assert_equal 'minor', present(edition).update_type
+    assert_equal 'minor', present(edition).content[:update_type]
   end
 
   test 'update type can be overridden by passing an update_type option' do
@@ -110,6 +113,7 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
     edition = create(:case_study)
     presented_item = present(edition, update_type: update_type_override)
     assert_equal update_type_override, presented_item.update_type
+    assert_equal update_type_override, presented_item.content[:update_type]
   end
 
   test 'is locale aware' do
