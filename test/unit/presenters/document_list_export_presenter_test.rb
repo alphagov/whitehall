@@ -66,4 +66,11 @@ class DocumentListExportPresenterTest < ActiveSupport::TestCase
     pr = DocumentListExportPresenter.new(news)
     assert_equal [policy_1['title']], pr.policies
   end
+
+  test '#state returns `force published` when a document is force published' do
+    publication = create(:published_publication, force_published: true)
+
+    pub = DocumentListExportPresenter.new(publication)
+    assert_equal "force published", pub.state
+  end
 end
