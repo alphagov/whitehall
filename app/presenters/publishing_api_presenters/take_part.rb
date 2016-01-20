@@ -26,7 +26,7 @@ module PublishingApiPresenters
         public_updated_at: public_updated_at,
         update_type: update_type,
         publishing_app: "whitehall",
-        rendering_app: "whitehall-frontend",
+        rendering_app: "government-frontend",
         routes: [{ path: base_path, type: "exact" }],
         redirects: [],
         details: details

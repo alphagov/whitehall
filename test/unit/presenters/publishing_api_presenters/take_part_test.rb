@@ -20,7 +20,7 @@ class PublishingApiPresenters::TakePartTest < ActiveSupport::TestCase
       public_updated_at: take_part_page.updated_at,
       update_type: 'major',
       publishing_app: 'whitehall',
-      rendering_app: 'whitehall-frontend',
+      rendering_app: 'government-frontend',
       routes: [
         { path: take_part_page.search_link, type: 'exact' }
       ],
