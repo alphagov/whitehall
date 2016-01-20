@@ -34,7 +34,7 @@ class PersonSlugChangerTest < ActiveSupport::TestCase
     content[:base_path] = new_base_path
     content[:routes][0][:path] = new_base_path
 
-    content_item.stubs(:content).returns(content)
+    content_item.stubs(content: content)
 
     redirects = [
       { path: old_base_path, type: "exact", destination: new_base_path },

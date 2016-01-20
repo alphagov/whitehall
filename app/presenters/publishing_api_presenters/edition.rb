@@ -18,7 +18,6 @@ module PublishingApiPresenters
     end
 
   private
-
     def base_path
       Whitehall.url_maker.public_document_path(item)
     end

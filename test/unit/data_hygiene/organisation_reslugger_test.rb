@@ -38,7 +38,7 @@ module OrganisationResluggerTest
       content[:base_path] = new_base_path
       content[:routes][0][:path] = new_base_path
 
-      content_item.stubs(:content).returns(content)
+      content_item.stubs(content: content)
 
       redirect_uuid = SecureRandom.uuid
       SecureRandom.stubs(uuid: redirect_uuid)

@@ -58,7 +58,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     presented_item = present(case_study)
 
     assert_valid_against_schema(presented_item.content, 'case_study')
-    assert_valid_against_links_schema({links: presented_item.links}, 'case_study')
+    assert_valid_against_links_schema({ links: presented_item.links }, 'case_study')
 
     assert_equal expected_content.except(:details),
       presented_item.content.except(:details)
@@ -138,7 +138,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
       worldwide_priorities: [],
     }
 
-    assert_valid_against_links_schema({links: presented_item.links}, 'case_study')
+    assert_valid_against_links_schema({ links: presented_item.links }, 'case_study')
     assert_equal expected_links_hash, presented_item.links
   end
 
@@ -162,7 +162,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     case_study = create(:published_case_study,
                         world_locations: [location])
     presented_item = present(case_study)
-    assert_valid_against_links_schema({links: presented_item.links}, 'case_study')
+    assert_valid_against_links_schema({ links: presented_item.links }, 'case_study')
     assert_equal [location.content_id], presented_item.links[:world_locations]
   end
 
@@ -171,7 +171,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     case_study = create(:published_case_study,
                         worldwide_organisations: [wworg])
     presented_item = present(case_study)
-    assert_valid_against_links_schema({links: presented_item.links}, 'case_study')
+    assert_valid_against_links_schema({ links: presented_item.links }, 'case_study')
     assert_equal [wworg.content_id], presented_item.links[:worldwide_organisations]
   end
 
@@ -181,7 +181,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     case_study = create(:published_case_study, policy_content_ids: [policy_1["content_id"]])
     presented_item = present(case_study)
 
-    assert_valid_against_links_schema({links: presented_item.links}, 'case_study')
+    assert_valid_against_links_schema({ links: presented_item.links }, 'case_study')
     assert_equal [policy_1["content_id"]], presented_item.links[:related_policies]
   end
 
@@ -191,7 +191,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     priority.document.edition_relations.create!(edition: case_study)
     presented_item = present(case_study)
 
-    assert_valid_against_links_schema({links: presented_item.links}, 'case_study')
+    assert_valid_against_links_schema({ links: presented_item.links }, 'case_study')
     assert_equal [priority.content_id], presented_item.links[:worldwide_priorities]
   end
 
@@ -205,7 +205,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     case_study.document_collections.reload
     presented_item = present(case_study)
 
-    assert_valid_against_links_schema({links: presented_item.links}, 'case_study')
+    assert_valid_against_links_schema({ links: presented_item.links }, 'case_study')
     assert_same_elements document_collections.map(&:content_id), presented_item.links[:document_collections]
   end
 
