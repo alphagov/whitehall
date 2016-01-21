@@ -1073,6 +1073,7 @@ ActiveRecord::Schema.define(version: 20160212160106) do
     t.integer  "cancelled_by_id",     limit: 4
     t.string   "publishing_state",    limit: 255,   default: "published", null: false
     t.string   "redirect_url",        limit: 255
+    t.string   "content_id",          limit: 255,                         null: false
   end
 
   add_index "statistics_announcements", ["cancelled_by_id"], name: "index_statistics_announcements_on_cancelled_by_id", using: :btree
