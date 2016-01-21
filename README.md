@@ -13,13 +13,18 @@ user-friendly manner. Documentation can be found on [rdoc](http://rdoc.info/gith
 
 ### Pre-requisites
 
-* Ruby 2.1.4
+* Xcode (for the Command Line Tools `xcode-select --install`)
+* Ruby 2.2.3
 * Rubygems and Bundler
 * Mysql
 * Imagemagick and Ghostscript (for generating thumbnails of uploaded
   PDFs)
-* xpdf
+* xpdf (first download [XQuartz](http://www.xquartz.org/))
 * PhantomJS (for running the Javascript tests)
+
+If you use [Homebrew](http://brew.sh/) you can run the following:
+
+    brew install ruby-build rbenv mysql phantomjs imagemagick ghostscript xpdf
 
 ### Creating the mysql user
 
@@ -32,7 +37,22 @@ database.yml.
 ### Preparing the app
 
     $ cd /path/to/whitehall
+    $ rbenv install
+    $ gem install bundler
     $ bundle install
+
+If you running on OSX Yosemite or later you might come across an installation failure:
+
+```
+An error occurred while installing eventmachine (1.0.4), and Bundler cannot continue.
+Make sure that `gem install eventmachine -v '1.0.4'` succeeds before bundling.
+```
+
+To solve the problem make sure you have openssl under `/usr/local/opt/openssl/include` and run the following:
+
+
+    $ gem install eventmachine -v '1.0.4' -- --with-cppflags=-I/usr/local/opt/openssl/include
+
 
 ### Set up the database
 
@@ -40,12 +60,7 @@ If you wish to use a sanitized export of the production data (recommended for
 internal staff) then see the alphagov/development repo for the replication script.
 Once that is imported upgrade your import to the latest schema version with
 
-    $ bundle exec rake db:migrate
-
-Otherwise set up an empty database with:
-
-    $ bundle exec rake db:create:all
-    $ bundle exec rake db:schema:load
+    $ bundle exec rake db:setup
 
 ### Running tests locally
 
