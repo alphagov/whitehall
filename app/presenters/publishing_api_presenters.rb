@@ -1,8 +1,9 @@
-require 'publishing_api_presenters/edition.rb'
-require 'publishing_api_presenters/case_study.rb'
-require 'publishing_api_presenters/coming_soon.rb'
-require 'publishing_api_presenters/placeholder.rb'
-require 'publishing_api_presenters/unpublishing.rb'
+require 'publishing_api_presenters/edition'
+require 'publishing_api_presenters/case_study'
+require 'publishing_api_presenters/coming_soon'
+require 'publishing_api_presenters/placeholder'
+require 'publishing_api_presenters/unpublishing'
+require 'publishing_api_presenters/redirect'
 
 module PublishingApiPresenters
   def self.presenter_for(model, options={})

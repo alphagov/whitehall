@@ -14,33 +14,39 @@ require "securerandom"
 #
 # Note this format becomes redundant once the caching infrastructure is able to
 # honour caching headers on upstream 404 responses.
-class PublishingApiPresenters::ComingSoon
-  def initialize(edition, locale)
-    @edition = edition
-    @locale = locale
-  end
+module PublishingApiPresenters
+  class ComingSoon < Item
+    def content_id
+      SecureRandom.uuid
+    end
 
-  def as_json
-    {
-      base_path: base_path,
-      content_id: SecureRandom.uuid,
-      publishing_app: 'whitehall',
-      rendering_app: edition.rendering_app,
-      format: 'coming_soon',
-      title: 'Coming soon',
-      locale: locale,
-      update_type: 'major',
-      details: { publish_time: edition.scheduled_publication.as_json },
-      routes: [ { path: base_path, type: "exact" } ],
-      # We don't store when the coming_soon was created, so use the last time the record was updated
-      public_updated_at: edition.updated_at,
-    }
-  end
+  private
+    def document_format
+      'coming_soon'
+    end
 
-private
-  attr_reader :edition, :locale
+    def title
+      'Coming soon'
+    end
 
-  def base_path
-    Whitehall.url_maker.public_document_path(edition, locale: locale)
+    def description
+      'Coming soon'
+    end
+
+    def rendering_app
+      item.rendering_app
+    end
+
+    def details
+      { publish_time: item.scheduled_publication.as_json }
+    end
+
+    def public_updated_at
+      item.updated_at
+    end
+
+    def base_path
+      Whitehall.url_maker.public_document_path(item, locale: I18n.locale)
+    end
   end
 end

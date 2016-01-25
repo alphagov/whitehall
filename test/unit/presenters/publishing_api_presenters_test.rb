@@ -6,7 +6,6 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     presenter  = PublishingApiPresenters.presenter_for(case_study)
 
     assert_equal PublishingApiPresenters::CaseStudy, presenter.class
-    assert_equal case_study, presenter.edition
   end
 
   test ".presenter_for returns a presenter for a Take Part page" do
@@ -14,7 +13,6 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     presenter = PublishingApiPresenters.presenter_for(take_part_page)
 
     assert_equal PublishingApiPresenters::TakePart, presenter.class
-    assert_equal take_part_page, presenter.take_part_page
   end
 
   test ".presenter_for returns an Unpublishing presenter for an Unpublishing" do
@@ -37,7 +35,6 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     presenter  = PublishingApiPresenters.presenter_for(organisation)
 
     assert_equal PublishingApiPresenters::Placeholder, presenter.class
-    assert_equal organisation, presenter.item
   end
 
   test ".presenter_for returns a Placeholder presenter for a world location" do
@@ -45,7 +42,6 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     presenter  = PublishingApiPresenters.presenter_for(world_location)
 
     assert_equal PublishingApiPresenters::Placeholder, presenter.class
-    assert_equal world_location, presenter.item
   end
 
   test ".presenter_for returns a WorkingGroup presenter for a policy group" do

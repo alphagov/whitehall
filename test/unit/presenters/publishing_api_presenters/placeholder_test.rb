@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
   def present(model_instance, options = {})
-    PublishingApiPresenters::Placeholder.new(model_instance, options).as_json
+    PublishingApiPresenters::Placeholder.new(model_instance, options)
   end
 
   test 'presents a Ministerial Role ready for adding to the publishing API' do
@@ -11,20 +11,28 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
 
     expected_hash = {
       base_path: public_path,
-      content_id: ministerial_role.content_id,
       title: "Secretary of State for Silly Walks",
+      description: nil,
       format: "placeholder_ministerial_role",
       locale: 'en',
       publishing_app: 'whitehall',
       rendering_app: 'whitehall-frontend',
       public_updated_at: ministerial_role.updated_at,
-      routes: [ { path: public_path, type: "exact" } ],
-      update_type: "major",
+      routes: [{ path: public_path, type: "exact" }],
+      redirects: [],
+      update_type: 'major',
+      need_ids: [],
+      details: {},
     }
 
-    presented_hash = present(ministerial_role)
-    assert_equal expected_hash, presented_hash
-    assert_valid_against_schema(presented_hash, 'placeholder')
+    presented_item = present(ministerial_role)
+
+    assert_equal expected_hash, presented_item.content
+    assert_equal Hash.new, presented_item.links
+    assert_equal "major", presented_item.update_type
+    assert_equal ministerial_role.content_id, presented_item.content_id
+
+    assert_valid_against_schema(presented_item.content, 'placeholder')
   end
 
   test 'presents an Organisation ready for adding to the publishing API' do
@@ -33,21 +41,29 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
 
     expected_hash = {
       base_path: public_path,
-      content_id: organisation.content_id,
       title: "Organisation of Things",
+      description: nil,
       format: "placeholder_organisation",
       locale: 'en',
       publishing_app: 'whitehall',
       rendering_app: 'whitehall-frontend',
       public_updated_at: organisation.updated_at,
-      routes: [ { path: public_path, type: "exact" } ],
-      update_type: "major",
+      routes: [{ path: public_path, type: "exact" }],
+      redirects: [],
+      update_type: 'major',
+      need_ids: [],
+      details: {},
       analytics_identifier: "O123",
     }
 
-    presented_hash = present(organisation)
-    assert_equal expected_hash, presented_hash
-    assert_valid_against_schema(presented_hash, 'placeholder')
+    presented_item = present(organisation)
+
+    assert_equal expected_hash, presented_item.content
+    assert_equal Hash.new, presented_item.links
+    assert_equal "major", presented_item.update_type
+    assert_equal organisation.content_id, presented_item.content_id
+
+    assert_valid_against_schema(presented_item.content, 'placeholder')
   end
 
   test 'presents a Person ready for adding to the publishing API' do
@@ -56,20 +72,28 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
 
     expected_hash = {
       base_path: public_path,
-      content_id: person.content_id,
       title: "Winston",
+      description: nil,
       format: "placeholder_person",
       locale: 'en',
       publishing_app: 'whitehall',
       rendering_app: 'whitehall-frontend',
       public_updated_at: person.updated_at,
-      routes: [ { path: public_path, type: "exact" } ],
-      update_type: "major",
+      routes: [{ path: public_path, type: "exact" }],
+      redirects: [],
+      update_type: 'major',
+      need_ids: [],
+      details: {},
     }
 
-    presented_hash = present(person)
-    assert_equal expected_hash, presented_hash
-    assert_valid_against_schema(presented_hash, 'placeholder')
+    presented_item = present(person)
+
+    assert_equal expected_hash, presented_item.content
+    assert_equal Hash.new, presented_item.links
+    assert_equal "major", presented_item.update_type
+    assert_equal person.content_id, presented_item.content_id
+
+    assert_valid_against_schema(presented_item.content, 'placeholder')
   end
 
   test 'presents a Worldwide Organisation ready for adding to the publishing API' do
@@ -78,21 +102,29 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
 
     expected_hash = {
       base_path: public_path,
-      content_id: worldwide_org.content_id,
       title: "Locationia Embassy",
+      description: nil,
       format: "placeholder_worldwide_organisation",
       locale: 'en',
       publishing_app: 'whitehall',
       rendering_app: 'whitehall-frontend',
       public_updated_at: worldwide_org.updated_at,
-      routes: [ { path: public_path, type: "exact" } ],
-      update_type: "major",
+      routes: [{ path: public_path, type: "exact" }],
+      redirects: [],
+      update_type: 'major',
+      need_ids: [],
+      details: {},
       analytics_identifier: "WO123",
     }
 
-    presented_hash = present(worldwide_org)
-    assert_equal expected_hash, presented_hash
-    assert_valid_against_schema(presented_hash, 'placeholder')
+    presented_item = present(worldwide_org)
+
+    assert_equal expected_hash, presented_item.content
+    assert_equal Hash.new, presented_item.links
+    assert_equal "major", presented_item.update_type
+    assert_equal worldwide_org.content_id, presented_item.content_id
+
+    assert_valid_against_schema(presented_item.content, 'placeholder')
   end
 
   test 'presents a World Location ready for adding to the publishing API' do
@@ -101,28 +133,37 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
 
     expected_hash = {
       base_path: public_path,
-      content_id: world_location.content_id,
       title: "Locationia",
+      description: nil,
       format: "placeholder_world_location",
       locale: 'en',
       publishing_app: 'whitehall',
       rendering_app: 'whitehall-frontend',
       public_updated_at: world_location.updated_at,
-      routes: [ { path: public_path, type: "exact" } ],
-      update_type: "major",
+      routes: [{ path: public_path, type: "exact" }],
+      redirects: [],
+      update_type: 'major',
+      need_ids: [],
+      details: {},
       analytics_identifier: "WL123",
     }
 
-    presented_hash = present(world_location)
-    assert_equal expected_hash, presented_hash
-    assert_valid_against_schema(presented_hash, 'placeholder')
+    presented_item = present(world_location)
+
+    assert_equal expected_hash, presented_item.content
+    assert_equal Hash.new, presented_item.links
+    assert_equal "major", presented_item.update_type
+    assert_equal world_location.content_id, presented_item.content_id
+
+    assert_valid_against_schema(presented_item.content, 'placeholder')
   end
 
   test 'update type can be overridden by passing an update_type option' do
     update_type_override = 'republish'
     organisation = create(:organisation)
-    presented_hash = present(organisation, update_type: update_type_override)
-    assert_equal update_type_override, presented_hash[:update_type]
+    presented_item = present(organisation, update_type: update_type_override)
+    assert_equal update_type_override, presented_item.update_type
+    assert_equal update_type_override, presented_item.content[:update_type]
   end
 
   test 'is locale aware' do
@@ -131,13 +172,12 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
     I18n.with_locale :fr do
       organisation.name = "French name"
       organisation.save!
-      presented_hash = present(organisation)
+      presented_item = present(organisation)
 
-      assert_equal 'fr', presented_hash[:locale]
-      assert_equal 'French name', presented_hash[:title]
+      assert_equal 'fr', presented_item.content[:locale]
+      assert_equal 'French name', presented_item.content[:title]
       assert_equal Whitehall.url_maker.organisation_path(organisation, locale: :fr),
-        presented_hash[:routes].first[:path]
-
+        presented_item.content[:routes].first[:path]
     end
   end
 end

@@ -5,19 +5,27 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApiV2
 
   test "registers an edition with the publishing api" do
-    edition         = create(:published_detailed_guide)
-    presenter       = PublishingApiPresenters.presenter_for(edition)
-    requests        = stub_publishing_api_put_content_links_and_publish(presenter.as_json)
+    edition = create(:published_detailed_guide)
+    presenter = PublishingApiPresenters.presenter_for(edition)
+    requests = [
+      stub_publishing_api_put_content(presenter.content_id, presenter.content),
+      stub_publishing_api_put_links(presenter.content_id, links: presenter.links),
+      stub_publishing_api_publish(presenter.content_id, update_type: "major", locale: "en")
+    ]
 
     PublishingApiWorker.new.perform(edition.class.name, edition.id)
 
-    requests.each { |request| assert_requested request }
+    assert_all_requested(requests)
   end
 
   test "registers case studies with their own presenter" do
-    edition         = create(:published_case_study)
-    presenter       = PublishingApiPresenters.presenter_for(edition)
-    requests        = stub_publishing_api_put_content_links_and_publish(presenter.as_json)
+    edition = create(:published_case_study)
+    presenter = PublishingApiPresenters.presenter_for(edition)
+    requests = [
+      stub_publishing_api_put_content(presenter.content_id, presenter.content),
+      stub_publishing_api_put_links(presenter.content_id, links: presenter.links),
+      stub_publishing_api_publish(presenter.content_id, update_type: "major", locale: "en")
+    ]
 
     PublishingApiWorker.new.perform(edition.class.name, edition.id)
 
@@ -26,9 +34,13 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
 
   test "registers an organisation with the publishing api" do
     organisation = create(:organisation)
-    presenter    = PublishingApiPresenters.presenter_for(organisation)
+    presenter = PublishingApiPresenters.presenter_for(organisation)
 
-    requests      = stub_publishing_api_put_content_links_and_publish(presenter.as_json)
+    requests = [
+      stub_publishing_api_put_content(presenter.content_id, presenter.content),
+      stub_publishing_api_put_links(presenter.content_id, links: presenter.links),
+      stub_publishing_api_publish(presenter.content_id, update_type: "major", locale: "en")
+    ]
 
     PublishingApiWorker.new.perform(organisation.class.name, organisation.id)
 
@@ -42,35 +54,37 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
   test "passes the update_type option to the presenter" do
     update_type = "republish"
 
-    edition         = create(:published_detailed_guide)
-    presenter       = PublishingApiPresenters.presenter_for(edition, update_type: update_type)
-    requests        = stub_publishing_api_put_content_links_and_publish(presenter.as_json)
-    payload         = presenter.as_json
-    content_request = stub_publishing_api_put_content(payload[:content_id], payload)
-    publish_request = stub_publishing_api_publish(payload[:content_id], { locale: "en", update_type: "republish" })
+    edition = create(:published_detailed_guide)
+    presenter = PublishingApiPresenters.presenter_for(edition, update_type: update_type)
+    requests = [
+      stub_publishing_api_put_content(presenter.content_id, presenter.content),
+      stub_publishing_api_put_links(presenter.content_id, links: presenter.links),
+      stub_publishing_api_publish(presenter.content_id, update_type: update_type, locale: "en")
+    ]
 
     PublishingApiWorker.new.perform(edition.class.name, edition.id, update_type)
 
-    assert_requested content_request
-    assert_requested publish_request
+    assert_all_requested requests
   end
 
   test "allows the locale to be overridden" do
     organisation = create(:organisation)
     presenter = PublishingApiPresenters.presenter_for(organisation)
 
-    I18n.with_locale(:es) do
+    requests = I18n.with_locale(:es) do
       organisation.name = "Spanish name"
       organisation.save!
 
-      @spanish_request = stub_publishing_api_put_content(presenter.as_json[:content_id], presenter.as_json)
-      @publish_request = stub_publishing_api_publish(presenter.as_json[:content_id], { locale: "es", update_type: "major" })
+      [
+        stub_publishing_api_put_content(presenter.content_id, presenter.content),
+        stub_publishing_api_put_links(presenter.content_id, links: presenter.links),
+        stub_publishing_api_publish(presenter.content_id, { locale: "es", update_type: "major" })
+      ]
     end
 
     PublishingApiWorker.new.perform(organisation.class.name, organisation.id, nil, 'es')
 
-    assert_requested @spanish_request
-    assert_requested @publish_request
+    assert_all_requested requests
   end
 
   test "only raises >= 500 errors" do

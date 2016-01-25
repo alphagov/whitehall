@@ -8,6 +8,7 @@ if ENV["TEST_COVERAGE"]
   SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
 end
 
+require 'maxitest/autorun'
 require 'rails/test_help'
 require 'mocha/setup'
 require 'slimmer/test'
@@ -22,7 +23,7 @@ Dir[Rails.root.join('test/support/*.rb')].each { |f| require f }
 Mocha::Configuration.prevent(:stubbing_non_existent_method)
 
 GovukContentSchemaTestHelpers.configure do |config|
-  config.schema_type = 'publisher'
+  config.schema_type = 'publisher_v2'
   config.project_root = Rails.root
 end
 

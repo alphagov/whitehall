@@ -7,7 +7,6 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
     public_path  = unpublishing.document_path
     expected_hash = {
       base_path: public_path,
-      content_id: unpublishing.content_id,
       title: edition.title,
       description: edition.summary,
       format: 'unpublishing',
@@ -16,11 +15,11 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
       publishing_app: 'whitehall',
       rendering_app: 'government-frontend',
       public_updated_at: edition.public_timestamp,
-      update_type: 'major',
       routes: [
         { path: public_path, type: 'exact' }
       ],
       redirects: [],
+      update_type: 'major',
       details: {
         explanation: nil,
         unpublished_at: unpublishing.created_at,
@@ -30,15 +29,16 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
 
     presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
 
-    assert_equal expected_hash, presenter.as_json
-    assert_valid_against_schema(presenter.as_json, 'unpublishing')
+    assert_equal expected_hash, presenter.content
+    assert_equal unpublishing.content_id, presenter.content_id
+    assert_valid_against_schema(presenter.content, 'unpublishing')
   end
 
   test '#as_json allows update_type to be overridden' do
     presenter = PublishingApiPresenters::Unpublishing.new(create(:unpublishing), update_type: 'republish')
 
-    assert_equal 'republish', presenter.as_json[:update_type]
-    assert_valid_against_schema(presenter.as_json, 'unpublishing')
+    assert_equal 'republish', presenter.update_type
+    assert_valid_against_schema(presenter.content, 'unpublishing')
   end
 
   test '#as_json returns a valid representation of an Unpublishing with compiled govspeak explanation' do
@@ -51,14 +51,17 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
       alternative_url: nil
     }
 
-    presented_hash = PublishingApiPresenters::Unpublishing.new(unpublishing).as_json
+    presented_item = PublishingApiPresenters::Unpublishing.new(unpublishing)
 
-    assert_valid_against_schema(presented_hash, 'unpublishing')
+    assert_valid_against_schema(presented_item.content, 'unpublishing')
+    assert_valid_against_links_schema(presented_item.links, 'unpublishing')
+
     # We test for HTML equivalence rather than string equality to get around
     # inconsistencies with line breaks between different XML libraries
     assert_equivalent_html expected_details_hash.delete(:explanation),
-      presented_hash[:details].delete(:explanation)
-    assert_equal expected_details_hash, presented_hash[:details]
+      presented_item.content[:details].delete(:explanation)
+
+    assert_equal expected_details_hash, presented_item.content[:details].except(:explanation)
   end
 
   test '#as_json returns a valid representation of an Unpublishing with an alternative URL' do
@@ -74,8 +77,8 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
 
     presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
 
-    assert_equal expected_details_hash, presenter.as_json[:details]
-    assert_valid_against_schema(presenter.as_json, 'unpublishing')
+    assert_equal expected_details_hash, presenter.content[:details]
+    assert_valid_against_schema(presenter.content, 'unpublishing')
   end
 
   test '#as_json handles Unpublishings for translated editions' do
@@ -90,8 +93,8 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
 
       presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
 
-      assert_equal french_base_path, presenter.as_json[:routes].first[:path]
-      assert_valid_against_schema(presenter.as_json, 'unpublishing')
+      assert_equal french_base_path, presenter.content[:routes].first[:path]
+      assert_valid_against_schema(presenter.content, 'unpublishing')
     end
   end
 
@@ -101,7 +104,6 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
     public_path  = unpublishing.document_path
     expected_hash = {
       base_path: public_path,
-      content_id: unpublishing.content_id,
       title: edition.title,
       description: edition.summary,
       format: 'unpublishing',
@@ -110,11 +112,11 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
       publishing_app: 'whitehall',
       rendering_app: 'government-frontend',
       public_updated_at: edition.public_timestamp,
-      update_type: 'major',
       routes: [
         { path: public_path, type: 'exact' }
       ],
       redirects: [],
+      update_type: 'major',
       details: {
         explanation: nil,
         unpublished_at: unpublishing.created_at,
@@ -126,8 +128,9 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
 
     presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
 
-    assert_equal expected_hash, presenter.as_json
-    assert_valid_against_schema(presenter.as_json, 'unpublishing')
+    assert_equal expected_hash, presenter.content
+    assert_equal unpublishing.content_id, presenter.content_id
+    assert_valid_against_schema(presenter.content, 'unpublishing')
   end
 
   test '#as_json handles an Unpublishing with a deleted translated edition' do
@@ -146,9 +149,9 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
     I18n.with_locale(:fr) do
       presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
 
-      assert_equal french_base_path, presenter.as_json[:routes].first[:path]
-      assert_equal 'fr', presenter.as_json[:locale]
-      assert_valid_against_schema(presenter.as_json, 'unpublishing')
+      assert_equal french_base_path, presenter.content[:routes].first[:path]
+      assert_equal 'fr', presenter.content[:locale]
+      assert_valid_against_schema(presenter.content, 'unpublishing')
     end
   end
 
@@ -157,11 +160,9 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
     public_path      = unpublishing.document_path
     alternative_path = Addressable::URI.parse(unpublishing.alternative_url).path
     expected_hash    = {
-      content_id: unpublishing.content_id,
       base_path: public_path,
       format: 'redirect',
       publishing_app: 'whitehall',
-      update_type: 'major',
       redirects: [
         { path: public_path, type: 'exact', destination: alternative_path }
       ],
@@ -169,8 +170,9 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
 
     presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
 
-    assert_equal expected_hash, presenter.as_json
-    assert_valid_against_schema(presenter.as_json, 'redirect')
+    assert_equal expected_hash, presenter.content
+    assert_equal unpublishing.content_id, presenter.content_id
+    assert_valid_against_schema(presenter.content, 'redirect')
   end
 
   test '#as_json returns a redirect representation for consolidated Unpublishings' do
@@ -179,11 +181,9 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
     public_path      = unpublishing.document_path
     alternative_path = Addressable::URI.parse(unpublishing.alternative_url).path
     expected_hash    = {
-      content_id: unpublishing.content_id,
       base_path: public_path,
       format: 'redirect',
       publishing_app: 'whitehall',
-      update_type: 'major',
       redirects: [
         { path: public_path, type: 'exact', destination: alternative_path }
       ],
@@ -191,8 +191,9 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
 
     presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
 
-    assert_equal expected_hash, presenter.as_json
-    assert_valid_against_schema(presenter.as_json, 'redirect')
+    assert_equal expected_hash, presenter.content
+    assert_equal unpublishing.content_id, presenter.content_id
+    assert_valid_against_schema(presenter.content, 'redirect')
   end
 
   test 'redirect representations can contain query paramters and anchor tags' do
@@ -201,17 +202,16 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
       alternative_url: Whitehall.public_root + alternative_path)
 
     presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
-    presented_hash = presenter.as_json
+    presented_hash = presenter.content
 
     assert_equal alternative_path, presented_hash[:redirects][0][:destination]
   end
 
-  test "redirect representations containt content IDs" do
+  test "redirect representations contain content IDs" do
     unpublishing = create(:redirect_unpublishing)
 
     presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
-    presented_hash = presenter.as_json
 
-    assert_equal unpublishing.content_id, presented_hash[:content_id]
+    assert_equal unpublishing.content_id, presenter.content_id
   end
 end

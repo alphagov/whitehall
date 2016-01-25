@@ -7,10 +7,8 @@ class PublishingApiWorker < WorkerBase
     presenter = PublishingApiPresenters.presenter_for(model, update_type: update_type)
 
     I18n.with_locale(locale) do
-      payload = presenter.as_json
-
       begin
-        send_item(payload, locale)
+        send_item(presenter, locale)
       rescue GdsApi::HTTPErrorResponse => e
         handle_error(e)
       end
@@ -29,14 +27,14 @@ class PublishingApiWorker < WorkerBase
     model_name.constantize
   end
 
-  def send_item(payload, locale = payload[:locale])
+  def send_item(payload, locale)
     save_draft(payload)
-    Whitehall.publishing_api_v2_client.publish(payload[:content_id], payload[:update_type], locale: locale)
+    Whitehall.publishing_api_v2_client.publish(payload.content_id, payload.update_type, locale: locale)
   end
 
   def save_draft(payload)
-    Whitehall.publishing_api_v2_client.put_content(payload[:content_id], payload.except(:links))
-    Whitehall.publishing_api_v2_client.put_links(payload[:content_id], payload.slice(:links)) if payload[:links]
+    Whitehall.publishing_api_v2_client.put_content(payload.content_id, payload.content)
+    Whitehall.publishing_api_v2_client.put_links(payload.content_id, links: payload.links)
   end
 
   def save_draft_of_unpublished_edition(unpublishing)

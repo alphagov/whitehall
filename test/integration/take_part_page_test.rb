@@ -16,7 +16,7 @@ class TakePartPageTest < ActiveSupport::TestCase
     presenter = PublishingApiPresenters.presenter_for(@take_part_page)
     @take_part_page.save!
 
-    expected_json = presenter.as_json.merge(
+    expected_json = presenter.content.merge(
       # This is to simulate what the time public timestamp will be after the
       # page has been published
       public_updated_at: Time.zone.now.as_json
@@ -27,14 +27,14 @@ class TakePartPageTest < ActiveSupport::TestCase
                                                                locale: 'en' }, 1)
   end
 
-  test "TakePartPage is published gone  to the Publishing API on destroy" do
+  test "TakePartPage publishes gone route to the Publishing API on destroy" do
     @take_part_page.save!
 
     new_content_id = SecureRandom.uuid
     SecureRandom.stubs(uuid: new_content_id)
 
     presenter = PublishingApiPresenters::Gone.new(@take_part_page.search_link)
-    expected_json = presenter.as_json
+    expected_json = presenter.content
 
     @take_part_page.destroy
     assert_publishing_api_put_content(new_content_id, expected_json)
@@ -46,7 +46,7 @@ class TakePartPageTest < ActiveSupport::TestCase
     @take_part_page.save!
     presenter = PublishingApiPresenters.presenter_for(@take_part_page)
 
-    expected_json = presenter.as_json.merge(
+    expected_json = presenter.content.merge(
       # This is to simulate what the time public timestamp will be after the
       # page has been published
       public_updated_at: Time.zone.now.as_json

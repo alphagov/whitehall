@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PublishingApiPresenters::TakePartTest < ActiveSupport::TestCase
   def present(record)
-    PublishingApiPresenters::TakePart.new(record).as_json
+    PublishingApiPresenters::TakePart.new(record)
   end
 
   test "take part presentation includes the correct values" do
@@ -33,15 +33,16 @@ class PublishingApiPresenters::TakePartTest < ActiveSupport::TestCase
         }
       }
     }
-    presented_hash = present(take_part_page)
+    presented_item = present(take_part_page)
 
-    assert_valid_against_schema(presented_hash, 'take_part')
+    assert_valid_against_schema(presented_item.content, 'take_part')
+    assert_valid_against_links_schema({ links: presented_item.links }, 'take_part')
 
     # We test for HTML equivalance rather than string equality to get around
     # inconsistencies with line breaks between different XML libraries
     assert_equivalent_html expected_hash[:details].delete(:body),
-      presented_hash[:details].delete(:body)
+      presented_item.content[:details].delete(:body)
 
-    assert_equal expected_hash[:details], presented_hash[:details]
+    assert_equal expected_hash[:details], presented_item.content[:details].except(:body)
   end
 end
