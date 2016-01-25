@@ -43,15 +43,6 @@ Then /^I see the take part pages in my specified order including the new page on
   end
 end
 
-Then /^I can click through to read all about my new page$/ do
-  find('a', text: @the_new_take_part_page.title).click
-
-  assert page.has_css?('h1', text: @the_new_take_part_page.title)
-  assert page.has_css?('.description', text: @the_new_take_part_page.summary)
-  assert page.has_css?('.body .govspeak', text: @the_new_take_part_page.body)
-  assert page.has_css?("img[src='#{@the_new_take_part_page.image_url(:s300)}']")
-end
-
 When /^I remove one of the take part pages because it's not something we want to promote$/ do
   visit admin_get_involved_path
   click_on 'Take part pages'
@@ -73,10 +64,5 @@ Then /^the removed take part page is no longer displayed on the frontend get inv
     @the_removed_pages.each do |removed_page|
       assert page.has_no_css?('article h3', text: removed_page.title)
     end
-  end
-
-  @the_removed_pages.each do |removed_page|
-    visit take_part_page_path(removed_page)
-    assert_equal 404, page.status_code
   end
 end
