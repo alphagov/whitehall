@@ -1,6 +1,7 @@
 class StatisticsAnnouncement < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title
+  include PublishesToPublishingApi
 
   belongs_to :creator, class_name: 'User'
   belongs_to :cancelled_by, class_name: 'User'
@@ -100,6 +101,9 @@ class StatisticsAnnouncement < ActiveRecord::Base
   def public_path
     Whitehall.url_maker.statistics_announcement_path(self)
   end
+
+  alias_method :base_path, :public_path
+  alias_method :search_link, :public_path
 
   def organisations_slugs
     organisations.map(&:slug)
