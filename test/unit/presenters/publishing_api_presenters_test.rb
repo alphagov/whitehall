@@ -15,8 +15,15 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     assert_equal PublishingApiPresenters::TakePart, presenter.class
   end
 
+  test ".presenter_for returns a presenter for a Statistics Announcement" do
+    statistics_announcement = StatisticsAnnouncement.new
+    presenter = PublishingApiPresenters.presenter_for(statistics_announcement)
+
+    assert_equal PublishingApiPresenters::StatisticsAnnouncement, presenter.class
+  end
+
   test ".presenter_for returns an Unpublishing presenter for an Unpublishing" do
-    unpublishing = create(:unpublishing)
+    unpublishing = Unpublishing.new
     presenter = PublishingApiPresenters.presenter_for(unpublishing)
 
     assert_equal PublishingApiPresenters::Unpublishing, presenter.class
