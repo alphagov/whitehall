@@ -133,7 +133,19 @@
   <div class="inner-block floated-children featured-news">
     <h2 id="take-part">Take part</h2>
     <section class="take-part-pages">
-      <%= render @take_part_pages %>
+      <% @take_part_pages.each_with_index do |take_part_page, index| %>
+        <article<% if index % 3 == 0 %> class="article-clear"<% end %>>
+          <div class="content">
+            <span class="image-holder">
+              <%= link_to image_tag(take_part_page.image_url(:s300), alt: take_part_page.image_alt_text), take_part_page, title: take_part_page.title, class: 'img' %>
+            </span>
+            <div class="text">
+              <h3><%= link_to take_part_page.title, take_part_page %></h3>
+              <p class="summary"><%= format_with_html_line_breaks(take_part_page.summary) %></p>
+            </div>
+          </div>
+        </article>
+      <% end %>
     </section>
     <hr class="keyline">
     <section class="more-ways">
