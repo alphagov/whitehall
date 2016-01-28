@@ -90,9 +90,9 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
   test "only raises >= 500 errors" do
     organisation = create(:organisation)
 
-    stub_any_publishing_api_put_content.and_raise(GdsApi::HTTPClientError.new(500))
+    stub_any_publishing_api_put_content.and_raise(GdsApi::HTTPServerError.new(500))
 
-    assert_raises(GdsApi::HTTPClientError) do
+    assert_raises(GdsApi::HTTPServerError) do
       PublishingApiWorker.new.perform(organisation.class.name, organisation.id, nil, 'en')
     end
   end
@@ -104,7 +104,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
     stub_any_publishing_api_put_content.and_raise(error)
 
     Airbrake.expects(:notify_or_ignore)
-      .with(error, parameters: { explanation: "The message is a duplicate and does not need to be retried" })
+      .with(error, parameters: { explanation: "The error code indicates that retrying this request will not help. This job is being aborted and will not be retried." })
     PublishingApiWorker.new.perform(organisation.class.name, organisation.id, nil, 'en')
   end
 end

@@ -9,8 +9,8 @@ class PublishingApiWorker < WorkerBase
     I18n.with_locale(locale) do
       begin
         send_item(presenter, locale)
-      rescue GdsApi::HTTPErrorResponse => e
-        handle_error(e)
+      rescue GdsApi::HTTPClientError => e
+        handle_client_error(e)
       end
 
       if model.is_a?(::Unpublishing)
@@ -43,12 +43,8 @@ class PublishingApiWorker < WorkerBase
     end
   end
 
-  def handle_error(error)
-    if error.code >= 500
-      raise error
-    else
-      explanation = "The message is a duplicate and does not need to be retried"
-      Airbrake.notify_or_ignore(error, parameters: { explanation: explanation })
-    end
+  def handle_client_error(error)
+    explanation = "The error code indicates that retrying this request will not help. This job is being aborted and will not be retried."
+    Airbrake.notify_or_ignore(error, parameters: { explanation: explanation })
   end
 end
