@@ -108,7 +108,7 @@
   .feature-ministers{
     p {
       text-align: center;
-      color: #999;
+      color: $secondary-text-colour;
       @include ig-core-48;
       padding: $gutter-half 0 $gutter;
     }
