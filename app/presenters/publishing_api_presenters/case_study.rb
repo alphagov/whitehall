@@ -16,10 +16,6 @@ private
     "case_study"
   end
 
-  def rendering_app
-    "government-frontend"
-  end
-
   def details
     super.merge({
       body: body,

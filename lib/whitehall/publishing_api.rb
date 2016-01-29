@@ -88,7 +88,7 @@ module Whitehall
     end
 
     def self.served_from_content_store?(edition)
-      edition.kind_of?(CaseStudy)
+      edition.rendering_app == "government-frontend"
     end
 
     # We want to avoid sending unpublishings for content types which are not
