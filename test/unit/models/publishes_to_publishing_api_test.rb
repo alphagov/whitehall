@@ -2,85 +2,76 @@ require 'test_helper'
 require 'sidekiq/testing'
 
 class PublishesToPublishingApiTest < ActiveSupport::TestCase
-  # publish_to_publishing_api runs on after_commit hook, so we need to disable
-  # transactions for this test to allow it to run.
-  self.use_transactional_fixtures = false
+  class TestObject
+    include ActiveModel::Validations
+    include ActiveModel::Validations::Callbacks
+
+    def self.after_commit
+    end
+
+    def persisted?
+      true
+    end
+
+    def search_link
+      "test_link"
+    end
+  end
+
+  def include_module(object)
+    class << object
+      include PublishesToPublishingApi
+    end
+    object
+  end
 
   setup do
-    DatabaseCleaner.clean_with :truncation
-    stub_any_publishing_api_call
+    TestObject.stubs(:after_commit).with(
+      :publish_to_publishing_api,
+      { if: :can_publish_to_publishing_api? }
+    )
+    TestObject.stubs(:after_commit).with(
+      :publish_gone_to_publishing_api,
+      { on: :destroy }
+    )
   end
 
-  teardown do
-    DatabaseCleaner.clean_with :truncation
+  test "it hooks up publish_to_publishing_api correctly" do
+    TestObject.expects(:after_commit).with(
+      :publish_to_publishing_api,
+      { if: :can_publish_to_publishing_api? }
+    )
+    include_module(TestObject.new)
   end
 
-  test "generating a content_id" do
-    test_uuid = SecureRandom.uuid
-    SecureRandom.stubs(uuid: test_uuid)
-    organisation = create(:organisation)
-
-    assert organisation.valid?
-    assert_equal test_uuid, organisation.content_id
+  test "it hooks up publish_gone_to_publishing_api correctly" do
+    TestObject.expects(:after_commit).with(
+      :publish_gone_to_publishing_api,
+      { on: :destroy }
+    )
+    include_module(TestObject.new)
   end
 
-  test "create publishes to Publishing API if not disallowed" do
-    organisation = build(:organisation)
-    Whitehall::PublishingApi.expects(:publish_async).with(organisation)
-    organisation.save
+  test "can publish to publishing api returns true when object persisted" do
+    test_object = include_module(TestObject.new)
+    assert test_object.can_publish_to_publishing_api?
   end
 
-  test "update publishes to Publishing API if not disallowed" do
-    organisation = create(:organisation)
-    Whitehall::PublishingApi.expects(:publish_async).with(organisation)
-    organisation.update_attribute(:name, 'Edited org')
+  test "can publish to publishing api returns false when object not persisted" do
+    test_object = include_module(TestObject.new)
+    test_object.stubs(persisted?: false)
+    refute test_object.can_publish_to_publishing_api?
   end
 
-  test "create does not publish to Publishing API if disallowed" do
-    organisation = build(:organisation)
-    organisation.stubs(:can_publish_to_publishing_api?).returns(false)
-    Whitehall::PublishingApi.expects(:publish_async).never
-    organisation.save
+  test "publish to publishing api publishes async" do
+    test_object = include_module(TestObject.new)
+    Whitehall::PublishingApi.expects(:publish_async).with(test_object)
+    test_object.publish_to_publishing_api
   end
 
-  test "update does not publish to Publishing API if disallowed" do
-    organisation = create(:organisation)
-    organisation.stubs(:can_publish_to_publishing_api?).returns(false)
-    Whitehall::PublishingApi.expects(:publish_async).never
-    organisation.update_attribute(:name, 'Edited org')
-  end
-
-  test "update publishes to Publishing API using :en locale when no translated fields are set" do
-    person = create(:person, attributes_for(:person).except(:biography))
-
-    content_item = PublishingApiPresenters.presenter_for(person)
-    requests = [
-      stub_publishing_api_put_content(content_item.content_id, content_item.content),
-      stub_publishing_api_put_links(content_item.content_id, links: content_item.links),
-      stub_publishing_api_publish(content_item.content_id, locale: content_item.content[:locale], update_type: 'major')
-    ]
-
-    assert_all_requested(requests)
-  end
-
-  test "update publishes to Publishing API using :en locale when the object is not translatable" do
-    policy_group = create(:policy_group)
-
-    content_item = PublishingApiPresenters.presenter_for(policy_group)
-    requests = [
-      stub_publishing_api_put_content(content_item.content_id, content_item.content),
-      stub_publishing_api_put_links(content_item.content_id, links: content_item.links),
-      stub_publishing_api_publish(content_item.content_id, locale: content_item.content[:locale], update_type: 'major')
-    ]
-
-    assert_all_requested(requests)
-  end
-
-  test "destroy publishes a Gone item to Publishing API" do
-    organisation = create(:organisation)
-    path = Whitehall.url_maker.polymorphic_path(organisation)
-    Whitehall::PublishingApi.expects(:publish_gone).with(path)
-    Whitehall::PublishingApi.expects(:publish_async).never
-    organisation.destroy
+  test "publish gone to publishing api publishes async" do
+    test_object = include_module(TestObject.new)
+    Whitehall::PublishingApi.expects(:publish_gone).with("test_link")
+    test_object.publish_gone_to_publishing_api
   end
 end
