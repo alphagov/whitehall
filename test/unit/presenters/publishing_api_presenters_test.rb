@@ -24,11 +24,12 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
 
   test ".presenter_for returns a redirect presenter for a
     Statistics Announcement that has been unpublished" do
-    statistics_announcement = StatisticsAnnouncement.new
+    statistics_announcement = StatisticsAnnouncement.new(id: 1,
+                                                         redirect_url: 'www.google.com')
     statistics_announcement.publishing_state = "unpublished"
     presenter = PublishingApiPresenters.presenter_for(statistics_announcement)
 
-    assert_equal PublishingApiPresenters::Redirect, presenter.class
+    assert_equal PublishingApiPresenters::ItemRedirect, presenter.class
   end
 
   test ".presenter_for returns an Unpublishing presenter for an Unpublishing" do

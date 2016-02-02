@@ -22,7 +22,7 @@ private
       PublishingApiPresenters::TopicalEvent
     when ::StatisticsAnnouncement
       if model.unpublished?
-        PublishingApiPresenters::Redirect
+        PublishingApiPresenters::ItemRedirect
       else
         PublishingApiPresenters::StatisticsAnnouncement
       end
