@@ -46,8 +46,8 @@ class StatisticsAnnouncement < ActiveRecord::Base
 
   default_scope { published }
 
-  after_save :publish_if_needed!
-  after_save :unpublish_if_needed!
+  # after_save :publish_if_needed!
+  # after_save :unpublish_if_needed!
 
   include Searchable
   searchable  only: :without_published_publication,
@@ -161,25 +161,25 @@ class StatisticsAnnouncement < ActiveRecord::Base
     publishing_state == "unpublished"
   end
 
-  def publish_if_needed!
-    publish if !unpublished?
-  end
+  # def publish_if_needed!
+  #   publish if !unpublished?
+  # end
 
-  def publish
-    # This is where we would send (a placeholder) to publishing-api
-    update_in_search_index
-  end
+  # def publish
+  #   # This is where we would send (a placeholder) to publishing-api
+  #   update_in_search_index
+  # end
 
-  def unpublish_if_needed!
-    unpublish if publishing_state_changed?
-  end
+  # def unpublish_if_needed!
+  #   unpublish if publishing_state_changed?
+  # end
 
-  def unpublish
-    if unpublished?
-      publish_redirect_item
-      remove_from_search_index
-    end
-  end
+  # def unpublish
+  #   if unpublished?
+  #     publish_redirect_item
+  #     remove_from_search_index
+  #   end
+  # end
 
 private
 

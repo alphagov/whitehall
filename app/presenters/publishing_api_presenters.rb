@@ -21,7 +21,11 @@ private
     when ::TopicalEvent
       PublishingApiPresenters::TopicalEvent
     when ::StatisticsAnnouncement
-      PublishingApiPresenters::StatisticsAnnouncement
+      if model.unpublished?
+        PublishingApiPresenters::Redirect
+      else
+        PublishingApiPresenters::StatisticsAnnouncement
+      end
     else
       PublishingApiPresenters::Placeholder
     end
