@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20160111120144) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "title",                    limit: 255
-    t.boolean  "accessible",               limit: 1
+    t.boolean  "accessible"
     t.string   "isbn",                     limit: 255
     t.string   "unique_reference",         limit: 255
     t.string   "command_paper_number",     limit: 255
@@ -66,8 +66,8 @@ ActiveRecord::Schema.define(version: 20160111120144) do
     t.integer  "ordering",                 limit: 4,   null: false
     t.string   "hoc_paper_number",         limit: 255
     t.string   "parliamentary_session",    limit: 255
-    t.boolean  "unnumbered_command_paper", limit: 1
-    t.boolean  "unnumbered_hoc_paper",     limit: 1
+    t.boolean  "unnumbered_command_paper"
+    t.boolean  "unnumbered_hoc_paper"
     t.integer  "attachable_id",            limit: 4
     t.string   "attachable_type",          limit: 255
     t.string   "type",                     limit: 255
@@ -309,7 +309,7 @@ ActiveRecord::Schema.define(version: 20160111120144) do
     t.integer  "organisation_id", limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "lead",            limit: 1, default: false, null: false
+    t.boolean  "lead",                      default: false, null: false
     t.integer  "lead_ordering",   limit: 4
   end
 
@@ -399,10 +399,10 @@ ActiveRecord::Schema.define(version: 20160111120144) do
     t.datetime "major_change_published_at"
     t.datetime "first_published_at"
     t.integer  "speech_type_id",                              limit: 4
-    t.boolean  "stub",                                        limit: 1,     default: false
+    t.boolean  "stub",                                                      default: false
     t.text     "change_note",                                 limit: 65535
-    t.boolean  "force_published",                             limit: 1
-    t.boolean  "minor_change",                                limit: 1,     default: false
+    t.boolean  "force_published"
+    t.boolean  "minor_change",                                              default: false
     t.integer  "publication_type_id",                         limit: 4
     t.string   "related_mainstream_content_url",              limit: 255
     t.string   "related_mainstream_content_title",            limit: 255
@@ -411,23 +411,23 @@ ActiveRecord::Schema.define(version: 20160111120144) do
     t.integer  "alternative_format_provider_id",              limit: 4
     t.datetime "public_timestamp"
     t.datetime "scheduled_publication"
-    t.boolean  "replaces_businesslink",                       limit: 1,     default: false
-    t.boolean  "access_limited",                              limit: 1,                       null: false
+    t.boolean  "replaces_businesslink",                                     default: false
+    t.boolean  "access_limited",                                                              null: false
     t.integer  "published_major_version",                     limit: 4
     t.integer  "published_minor_version",                     limit: 4
     t.integer  "operational_field_id",                        limit: 4
     t.text     "roll_call_introduction",                      limit: 65535
     t.integer  "news_article_type_id",                        limit: 4
-    t.boolean  "relevant_to_local_government",                limit: 1,     default: false
+    t.boolean  "relevant_to_local_government",                              default: false
     t.string   "person_override",                             limit: 255
-    t.boolean  "external",                                    limit: 1,     default: false
+    t.boolean  "external",                                                  default: false
     t.string   "external_url",                                limit: 255
     t.datetime "opening_at"
     t.datetime "closing_at"
     t.integer  "corporate_information_page_type_id",          limit: 4
     t.string   "need_ids",                                    limit: 255
     t.string   "primary_locale",                              limit: 255,   default: "en",    null: false
-    t.boolean  "political",                                   limit: 1,     default: false
+    t.boolean  "political",                                                 default: false
     t.string   "logo_url",                                    limit: 255
   end
 
@@ -479,7 +479,7 @@ ActiveRecord::Schema.define(version: 20160111120144) do
 
   create_table "feature_flags", force: :cascade do |t|
     t.string  "key",     limit: 255
-    t.boolean "enabled", limit: 1,   default: false
+    t.boolean "enabled",             default: false
   end
 
   create_table "feature_lists", force: :cascade do |t|
@@ -567,7 +567,7 @@ ActiveRecord::Schema.define(version: 20160111120144) do
   create_table "govspeak_contents", force: :cascade do |t|
     t.integer  "html_attachment_id",         limit: 4
     t.text     "body",                       limit: 16777215
-    t.boolean  "manually_numbered_headings", limit: 1
+    t.boolean  "manually_numbered_headings"
     t.text     "computed_body_html",         limit: 16777215
     t.text     "computed_headers_html",      limit: 65535
     t.datetime "created_at",                                  null: false
@@ -749,7 +749,7 @@ ActiveRecord::Schema.define(version: 20160111120144) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "ordering",          limit: 4
-    t.boolean  "lead",              limit: 1, default: false, null: false
+    t.boolean  "lead",                        default: false, null: false
     t.integer  "lead_ordering",     limit: 4
   end
 
@@ -808,25 +808,25 @@ ActiveRecord::Schema.define(version: 20160111120144) do
     t.string   "govuk_status",                            limit: 255, default: "live", null: false
     t.integer  "organisation_logo_type_id",               limit: 4,   default: 2
     t.string   "analytics_identifier",                    limit: 255
-    t.boolean  "handles_fatalities",                      limit: 1,   default: false
+    t.boolean  "handles_fatalities",                                  default: false
     t.integer  "important_board_members",                 limit: 4,   default: 1
     t.integer  "default_news_organisation_image_data_id", limit: 4
     t.datetime "closed_at"
     t.integer  "organisation_brand_colour_id",            limit: 4
-    t.boolean  "ocpa_regulated",                          limit: 1
-    t.boolean  "public_meetings",                         limit: 1
-    t.boolean  "public_minutes",                          limit: 1
-    t.boolean  "register_of_interests",                   limit: 1
-    t.boolean  "regulatory_function",                     limit: 1
+    t.boolean  "ocpa_regulated"
+    t.boolean  "public_meetings"
+    t.boolean  "public_minutes"
+    t.boolean  "register_of_interests"
+    t.boolean  "regulatory_function"
     t.string   "logo",                                    limit: 255
     t.string   "organisation_type_key",                   limit: 255
-    t.boolean  "foi_exempt",                              limit: 1,   default: false,  null: false
+    t.boolean  "foi_exempt",                                          default: false,  null: false
     t.string   "organisation_chart_url",                  limit: 255
     t.string   "govuk_closed_status",                     limit: 255
     t.string   "custom_jobs_url",                         limit: 255
     t.string   "content_id",                              limit: 255
     t.string   "homepage_type",                           limit: 255, default: "news"
-    t.boolean  "political",                               limit: 1,   default: false
+    t.boolean  "political",                                           default: false
     t.integer  "ministerial_ordering",                    limit: 4
   end
 
@@ -845,7 +845,7 @@ ActiveRecord::Schema.define(version: 20160111120144) do
     t.datetime "updated_at"
     t.string   "carrierwave_image", limit: 255
     t.string   "slug",              limit: 255
-    t.boolean  "privy_counsellor",  limit: 1,   default: false
+    t.boolean  "privy_counsellor",              default: false
     t.string   "content_id",        limit: 255
   end
 
@@ -882,7 +882,7 @@ ActiveRecord::Schema.define(version: 20160111120144) do
     t.string   "image_alt_text",         limit: 255
     t.string   "title",                  limit: 255
     t.string   "title_url",              limit: 255
-    t.boolean  "double_width",           limit: 1,     default: false
+    t.boolean  "double_width",                         default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -958,15 +958,15 @@ ActiveRecord::Schema.define(version: 20160111120144) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "type",                         limit: 255,                 null: false
-    t.boolean  "permanent_secretary",          limit: 1,   default: false
-    t.boolean  "cabinet_member",               limit: 1,   default: false, null: false
+    t.boolean  "permanent_secretary",                      default: false
+    t.boolean  "cabinet_member",                           default: false, null: false
     t.string   "slug",                         limit: 255
-    t.boolean  "chief_of_the_defence_staff",   limit: 1,   default: false, null: false
+    t.boolean  "chief_of_the_defence_staff",               default: false, null: false
     t.integer  "whip_organisation_id",         limit: 4
     t.integer  "seniority",                    limit: 4,   default: 100
     t.integer  "attends_cabinet_type_id",      limit: 4
     t.integer  "role_payment_type_id",         limit: 4
-    t.boolean  "supports_historical_accounts", limit: 1,   default: false, null: false
+    t.boolean  "supports_historical_accounts",             default: false, null: false
     t.integer  "whip_ordering",                limit: 4,   default: 100
     t.string   "content_id",                   limit: 255
   end
@@ -978,7 +978,7 @@ ActiveRecord::Schema.define(version: 20160111120144) do
   create_table "sitewide_settings", force: :cascade do |t|
     t.string   "key",         limit: 255
     t.text     "description", limit: 65535
-    t.boolean  "on",          limit: 1
+    t.boolean  "on"
     t.text     "govspeak",    limit: 65535
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
@@ -1008,7 +1008,7 @@ ActiveRecord::Schema.define(version: 20160111120144) do
     t.string   "tag",        limit: 255
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
-    t.boolean  "primary",    limit: 1,   default: false
+    t.boolean  "primary",                default: false
   end
 
   add_index "specialist_sectors", ["edition_id", "tag"], name: "index_specialist_sectors_on_edition_id_and_tag", unique: true, using: :btree
@@ -1027,7 +1027,7 @@ ActiveRecord::Schema.define(version: 20160111120144) do
     t.integer  "statistics_announcement_id", limit: 4
     t.datetime "release_date"
     t.integer  "precision",                  limit: 4
-    t.boolean  "confirmed",                  limit: 1
+    t.boolean  "confirmed"
     t.text     "change_note",                limit: 65535
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
@@ -1106,7 +1106,7 @@ ActiveRecord::Schema.define(version: 20160111120144) do
     t.datetime "updated_at"
     t.string   "document_type",          limit: 255
     t.string   "slug",                   limit: 255
-    t.boolean  "redirect",               limit: 1,     default: false
+    t.boolean  "redirect",                             default: false
     t.string   "content_id",             limit: 255,                   null: false
   end
 
@@ -1128,9 +1128,9 @@ ActiveRecord::Schema.define(version: 20160111120144) do
     t.string   "uid",                 limit: 255
     t.integer  "version",             limit: 4
     t.text     "permissions",         limit: 65535
-    t.boolean  "remotely_signed_out", limit: 1,     default: false
+    t.boolean  "remotely_signed_out",               default: false
     t.string   "organisation_slug",   limit: 255
-    t.boolean  "disabled",            limit: 1,     default: false
+    t.boolean  "disabled",                          default: false
   end
 
   add_index "users", ["disabled"], name: "index_users_on_disabled", using: :btree
@@ -1165,7 +1165,7 @@ ActiveRecord::Schema.define(version: 20160111120144) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "slug",                   limit: 255
-    t.boolean  "active",                 limit: 1,   default: false, null: false
+    t.boolean  "active",                             default: false, null: false
     t.integer  "world_location_type_id", limit: 4,                   null: false
     t.string   "iso2",                   limit: 2
     t.string   "analytics_identifier",   limit: 255
