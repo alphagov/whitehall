@@ -50,4 +50,16 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
 
     assert_equal PublishingApiPresenters::WorkingGroup, presenter.class
   end
+
+  test ".presenter_for returns a Placeholder presenter for classifications" do
+    [Classification, TopicalEvent].each do |model|
+      presenter = PublishingApiPresenters.presenter_for(model.new)
+      assert_equal PublishingApiPresenters::Placeholder, presenter.class
+    end
+  end
+
+  test ".presenter_for returns a special-case presenter for `Topic`" do
+    presenter = PublishingApiPresenters.presenter_for(Topic.new)
+    assert_equal PublishingApiPresenters::PolicyAreaPlaceholder, presenter.class
+  end
 end

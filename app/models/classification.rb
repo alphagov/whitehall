@@ -2,6 +2,7 @@
 class Classification < ActiveRecord::Base
   include Searchable
   include SimpleWorkflow
+  include PublishesToPublishingApi
 
   searchable title: :name,
              link: :search_link,

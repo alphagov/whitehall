@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160111120144) do
+ActiveRecord::Schema.define(version: 20160201171846) do
 
   create_table "about_pages", force: :cascade do |t|
     t.integer  "topical_event_id",    limit: 4
@@ -146,6 +146,7 @@ ActiveRecord::Schema.define(version: 20160111120144) do
     t.string   "logo_alt_text",     limit: 255
     t.date     "start_date"
     t.date     "end_date"
+    t.string   "content_id",        limit: 255
   end
 
   add_index "classifications", ["slug"], name: "index_classifications_on_slug", using: :btree

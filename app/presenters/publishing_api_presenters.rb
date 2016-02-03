@@ -4,6 +4,7 @@ require 'publishing_api_presenters/coming_soon'
 require 'publishing_api_presenters/placeholder'
 require 'publishing_api_presenters/unpublishing'
 require 'publishing_api_presenters/redirect'
+require 'publishing_api_presenters/policy_area_placeholder'
 
 module PublishingApiPresenters
   def self.presenter_for(model, options={})
@@ -21,6 +22,8 @@ private
       PublishingApiPresenters::WorkingGroup
     when TakePartPage
       PublishingApiPresenters::TakePart
+    when Topic
+      PublishingApiPresenters::PolicyAreaPlaceholder
     else
       PublishingApiPresenters::Placeholder
     end
