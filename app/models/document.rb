@@ -1,8 +1,6 @@
 # All {Edition}s have one document, this model contains the slug and
 # handles the logic for slug regeneration.
 class Document < ActiveRecord::Base
-  deprecated_columns :government_id
-
   extend FriendlyId
 
   friendly_id :sluggable_string, use: :scoped, scope: :document_type
