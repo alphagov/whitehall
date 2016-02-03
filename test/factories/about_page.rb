@@ -5,4 +5,8 @@ FactoryGirl.define do
     summary 'Summary'
     body 'Body'
   end
+
+  factory :topical_event_about_page, parent: :about_page do
+    topical_event
+  end
 end
