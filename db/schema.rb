@@ -281,7 +281,6 @@ ActiveRecord::Schema.define(version: 20160201171846) do
     t.string   "slug",          limit: 255
     t.string   "document_type", limit: 255
     t.string   "content_id",    limit: 255
-    t.integer  "government_id", limit: 4
   end
 
   add_index "documents", ["document_type"], name: "index_documents_on_document_type", using: :btree
