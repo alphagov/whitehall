@@ -64,6 +64,10 @@ class StatisticsAnnouncement < ActiveRecord::Base
   delegate  :release_date, :display_date, :confirmed?,
               to: :current_release_date, allow_nil: true
 
+  set_callback :published, :after, :notify_search
+  def notify_search
+    unpublished? ? remove_from_search_index : update_in_search_index
+  end
 
   def self.without_published_publication
     includes(:publication).
