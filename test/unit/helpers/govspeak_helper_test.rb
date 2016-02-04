@@ -205,7 +205,7 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   test "prefixes embedded image urls with asset host if present" do
-    Whitehall.stubs(:asset_root).returns("https://some.cdn.com")
+    Whitehall.stubs(:public_asset_host).returns("https://some.cdn.com")
     edition = build(:published_news_article, body: "!!1")
     edition.stubs(:images).returns([OpenStruct.new(alt_text: "My Alt", url: "/image.jpg")])
     html = govspeak_edition_to_html(edition)
@@ -213,7 +213,7 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   test "does not prefix embedded attachment urls with asset host so that access to them can be authenticated when previewing draft documents" do
-    Whitehall.stubs(:asset_root).returns("https://some.cdn.com")
+    Whitehall.stubs(:public_asset_host).returns("https://some.cdn.com")
     edition = build(:published_publication, :with_file_attachment, body: "!@1")
     html = govspeak_edition_to_html(edition)
     assert_select_within_html html, ".govspeak .attachment.embedded a[href^='/'][href$='greenpaper.pdf']"

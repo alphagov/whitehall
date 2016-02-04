@@ -253,7 +253,7 @@ module GovspeakHelper
 
   class AssetHostDecorator < SimpleDelegator
     def url(*args)
-      (Whitehall.asset_root || "") + super(*args)
+      (Whitehall.public_asset_host || "") + super(*args)
     end
   end
 end
