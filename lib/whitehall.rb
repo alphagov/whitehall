@@ -72,6 +72,10 @@ module Whitehall
     @asset_root ||= Plek.new.asset_root
   end
 
+  def self.public_asset_host
+    @asset_root ||= Plek.new.public_asset_host
+  end
+
   def self.admin_host
     @admin_host ||=  URI(admin_root).host
   end
