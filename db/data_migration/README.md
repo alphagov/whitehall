@@ -8,6 +8,8 @@ deploy-time which either:
   index
 * depends on specific data being present in the database - for example, a third
   party running our code won't have access to a copy of our production data
+* is a long-running data change which you want the flexibility to be able to run
+  during quiet times
 
 It is useful for them to be separate because developers and CI need to be able
 to run normal migrations without requiring specific data in their database or to
@@ -21,6 +23,9 @@ They are implemented by reusing Rails' data migration code, but they have their
 own rake task and database table for tracking which ones have been run.
 
 ## How to run them
+
+Data migrations don't run automatically, they have to be run manually in all
+environments.
 
 ### Development
 
@@ -39,4 +44,4 @@ or up to a specific version:
 ### At deploy time
 
 We have a Jenkins job for convenience to save you having to ssh onto a box to
-run the rake task: [Run_Whitehall_Data_Migrations](https://deploy.integration.publishing.service.gov.uk/job/Run_Whitehall_Data_Migrations/)
+run the rake task. Here's the job on deploy.integration: [Run_Whitehall_Data_Migrations](https://deploy.integration.publishing.service.gov.uk/job/Run_Whitehall_Data_Migrations/)
