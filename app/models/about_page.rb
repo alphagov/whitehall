@@ -1,5 +1,6 @@
 class AboutPage < ActiveRecord::Base
   include Searchable
+  include PublishesToPublishingApi
 
   belongs_to :topical_event
 

@@ -5,6 +5,7 @@ require 'publishing_api_presenters/placeholder'
 require 'publishing_api_presenters/unpublishing'
 require 'publishing_api_presenters/redirect'
 require 'publishing_api_presenters/policy_area_placeholder'
+require 'publishing_api_presenters/topical_event_about_page'
 
 module PublishingApiPresenters
   def self.presenter_for(model, options={})
@@ -18,6 +19,8 @@ private
       presenter_class_for_edition(model)
     when ::Unpublishing
       PublishingApiPresenters::Unpublishing
+    when AboutPage
+      PublishingApiPresenters::TopicalEventAboutPage
     when PolicyGroup
       PublishingApiPresenters::WorkingGroup
     when TakePartPage
