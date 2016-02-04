@@ -84,7 +84,7 @@ group :development, :test do
   gem 'test-queue', '0.2.11'
   gem 'ruby-prof'
   gem 'pry-byebug'
-  gem 'govuk-lint', '~> 0.2.0'
+  gem 'govuk-lint', '~> 0.5.1'
 end
 
 group :development do
