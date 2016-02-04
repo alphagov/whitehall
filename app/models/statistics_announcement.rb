@@ -162,11 +162,6 @@ class StatisticsAnnouncement < ActiveRecord::Base
     publishing_state == "unpublished"
   end
 
-  alias_method :base_path, :public_path
-
-  def redirects
-    { path: public_path, destination: Addressable::URI.parse(redirect_url).path, type: "exact" }
-  end
 
 private
 

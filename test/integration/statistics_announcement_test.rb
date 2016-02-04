@@ -60,12 +60,8 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     SecureRandom.stubs(:uuid).returns(new_content_id)
     statistics_announcement.update_attributes!(publishing_state: "unpublished",
                                                redirect_url: "https://www.test.alphagov.co.uk/example")
-    expected = {
-      format: "redirect",
-      publishing_app: "whitehall",
-      redirects: statistics_announcement.redirects,
-      base_path: statistics_announcement.public_path
-    }
+
+    expected = PublishingApiPresenters::StatisticsAnnouncementRedirect.new(statistics_announcement).content
 
     assert_publishing_api_put_content(new_content_id,
                                       expected)
