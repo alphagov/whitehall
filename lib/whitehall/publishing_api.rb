@@ -26,7 +26,18 @@ module Whitehall
     end
 
     def self.republish_async(model_instance)
+      if model_instance.class < Edition
+        raise ArgumentError, "Use republish_document_async for republishing Editions"
+      end
       push_live(model_instance, 'republish')
+    end
+
+    # Synchronise the published and/or draft documents in publishing-api with
+    # the contents of Whitehall's database.
+    def self.republish_document_async(document)
+      published_edition_id = document.published_edition.try(:id)
+      pre_publication_edition_id = document.pre_publication_edition.try(:id)
+      PublishingApiDocumentRepublishingWorker.perform_async(published_edition_id, pre_publication_edition_id)
     end
 
     def self.schedule_async(edition)

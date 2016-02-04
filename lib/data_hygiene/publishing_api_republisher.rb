@@ -1,23 +1,18 @@
 module DataHygiene
-  # Can be used to republish a bunch of models to the Publishing API.
+  # Can be used to republish things which are not Editions to the Publishing API.
   #
   # Usage:
   #
-  #   scope = CaseStudy.published
+  #   scope = TakePartPage.all
   #   publisher = DataHygiene::PublishingApiRepublisher.new(scope)
   #   publisher.perform
-  #
-  # Note: Whitehall::PublishingApi will raise an exception if an attempt is made
-  # to publish an instance that is not currently supported (e.g. draft editions
-  # cannot be pubilshed yet). The scope passed in should not include any
-  # instances that are not publishable.
   class PublishingApiRepublisher
-    attr_reader :logger, :scope, :republished
+    attr_reader :logger, :scope, :queued
 
-    def initialize(scope, logger=Logger.new(STDOUT))
+    def initialize(scope, logger = Logger.new(STDOUT))
       @scope = scope
       @logger = logger
-      @republished = 0
+      @queued = 0
     end
 
     def perform
@@ -25,7 +20,7 @@ module DataHygiene
 
       scope.find_each { |instance| republish(instance) }
 
-      logger.info("Queued #{republished} instances for republishing")
+      logger.info("Queued #{queued} instances for republishing")
     end
 
   private
@@ -33,7 +28,7 @@ module DataHygiene
     def republish(instance)
       Whitehall::PublishingApi.republish_async(instance)
       logger << '.'
-      @republished +=1
+      @queued += 1
     end
   end
 end

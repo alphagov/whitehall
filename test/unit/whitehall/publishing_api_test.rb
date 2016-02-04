@@ -85,6 +85,20 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
   end
 
   test "#republish publishes to the Publishing API as a 'republish' update_type" do
+    take_part_page = create(:take_part_page)
+    presenter = PublishingApiPresenters.presenter_for(take_part_page, update_type: 'republish')
+    requests = [
+      stub_publishing_api_put_content(presenter.content_id, presenter.content),
+      stub_publishing_api_put_links(presenter.content_id, links: presenter.links),
+      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: 'republish')
+    ]
+
+    Whitehall::PublishingApi.republish_async(take_part_page)
+
+    assert_all_requested(requests)
+  end
+
+  test "#republish_document_async publishes to the publishing API as a 'republish' update_type" do
     edition = create(:published_publication)
     presenter = PublishingApiPresenters.presenter_for(edition, update_type: 'republish')
     requests = [
@@ -93,7 +107,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: 'republish')
     ]
 
-    Whitehall::PublishingApi.republish_async(edition)
+    Whitehall::PublishingApi.republish_document_async(edition.document)
 
     assert_all_requested(requests)
   end
@@ -156,40 +170,11 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     assert_requested(links_request, times: 2)
   end
 
-  test "#republish raises error for editions that are not publicly visible" do
-    draft     = create(:draft_edition)
-    published = create(:published_edition)
-    withdrawn = create(:published_edition, state: 'withdrawn')
-
-    draft_presenter     = PublishingApiPresenters.presenter_for(draft, update_type: "republish")
-    published_presenter = PublishingApiPresenters.presenter_for(published, update_type: "republish")
-    withdrawn_presenter = PublishingApiPresenters.presenter_for(withdrawn, update_type: "republish")
-
-    draft_requests = [
-      stub_publishing_api_put_content(draft_presenter.content_id, draft_presenter.content),
-      stub_publishing_api_put_links(draft_presenter.content_id, links: draft_presenter.links),
-      stub_publishing_api_publish(draft_presenter.content_id, locale: draft_presenter.content[:locale], update_type: draft_presenter.update_type)
-    ]
-    published_requests = [
-      stub_publishing_api_put_content(published_presenter.content_id, published_presenter.content),
-      stub_publishing_api_put_links(published_presenter.content_id, links: published_presenter.links),
-      stub_publishing_api_publish(published_presenter.content_id, locale: published_presenter.content[:locale], update_type: published_presenter.update_type)
-    ]
-    withdrawn_requests = [
-      stub_publishing_api_put_content(withdrawn_presenter.content_id, withdrawn_presenter.content),
-      stub_publishing_api_put_links(withdrawn_presenter.content_id, links: withdrawn_presenter.links),
-      stub_publishing_api_publish(withdrawn_presenter.content_id, locale: withdrawn_presenter.content[:locale], update_type: withdrawn_presenter.update_type)
-    ]
-
-    Whitehall::PublishingApi.republish_async(published)
-    Whitehall::PublishingApi.republish_async(withdrawn)
-    assert_raise Whitehall::UnpublishableInstanceError do
-      Whitehall::PublishingApi.republish_async(draft)
+  test "#republish raises an error when passed an Edition type" do
+    edition = create(:published_edition)
+    assert_raise(ArgumentError, "Use republish_document_async for republishing Editions") do
+      Whitehall::PublishingApi.republish_async(edition)
     end
-
-    assert_all_requested(published_requests)
-    assert_all_requested(withdrawn_requests)
-    draft_requests.each { |request| assert_not_requested request }
   end
 
   test "republishes an unpublishing" do
