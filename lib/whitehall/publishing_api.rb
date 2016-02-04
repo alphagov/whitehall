@@ -69,8 +69,6 @@ module Whitehall
       PublishingApiDiscardDraftWorker.perform_async(edition.content_id, locale)
     end
 
-  private
-
     def self.locales_for(model_instance)
       if model_instance.respond_to?(:translated_locales) && (locales = model_instance.translated_locales).any?
         locales
