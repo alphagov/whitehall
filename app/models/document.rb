@@ -14,6 +14,10 @@ class Document < ActiveRecord::Base
            -> { where(state: Edition::PUBLICLY_VISIBLE_STATES) },
            class_name: 'Edition',
            inverse_of: :document
+  has_one  :pre_publication_edition,
+           -> { where(state: Edition::PRE_PUBLICATION_STATES) },
+           class_name: 'Edition',
+           inverse_of: :document
 
   has_one  :latest_edition,
            -> {
