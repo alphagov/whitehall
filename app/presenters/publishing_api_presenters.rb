@@ -27,6 +27,8 @@ private
       PublishingApiPresenters::TakePart
     when Topic
       PublishingApiPresenters::PolicyAreaPlaceholder
+    when ::TopicalEvent
+      PublishingApiPresenters::TopicalEvent
     else
       PublishingApiPresenters::Placeholder
     end
