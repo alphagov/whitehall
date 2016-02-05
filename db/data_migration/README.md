@@ -22,6 +22,14 @@ changes.
 They are implemented by reusing Rails' data migration code, but they have their
 own rake task and database table for tracking which ones have been run.
 
+## How to add one
+
+Just like a normal migration, there is a Rails command:
+
+```
+  be rails g data_migration MyDataMigrationName
+```
+
 ## How to run them
 
 Data migrations don't run automatically, they have to be run manually in all
