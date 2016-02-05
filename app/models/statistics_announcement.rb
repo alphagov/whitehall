@@ -162,8 +162,15 @@ class StatisticsAnnouncement < ActiveRecord::Base
     publishing_state == "unpublished"
   end
 
+  def requires_redirect?
+    unpublished? || publication_has_been_published?
+  end
+
 
 private
+  def publication_has_been_published?
+    publication && publication.published?
+  end
 
   def last_major_change
     statistics_announcement_dates.

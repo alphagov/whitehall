@@ -21,7 +21,7 @@ private
     when ::TopicalEvent
       PublishingApiPresenters::TopicalEvent
     when ::StatisticsAnnouncement
-      if model.unpublished? || (model.publication && model.publication.published?)
+      if model.requires_redirect?
         PublishingApiPresenters::StatisticsAnnouncementRedirect
       else
         PublishingApiPresenters::StatisticsAnnouncement

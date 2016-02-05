@@ -23,25 +23,8 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
   end
 
   test ".presenter_for returns a redirect presenter for a
-    Statistics Announcement that has been unpublished" do
-    statistics_announcement = StatisticsAnnouncement.new(
-      id: 1,
-      redirect_url: 'www.google.com'
-    )
-
-    statistics_announcement.publishing_state = "unpublished"
-    presenter = PublishingApiPresenters.presenter_for(statistics_announcement)
-
-    assert_equal PublishingApiPresenters::StatisticsAnnouncementRedirect, presenter.class
-  end
-
-  test ".presenter_for returns a redirect presenter for a
-    Statistics Announcement when the related Publication has been published" do
-    statistics_announcement = StatisticsAnnouncement.new(
-      id: 1,
-      redirect_url: 'www.google.com',
-      publication: build(:published_statistics)
-    )
+    Statistics Announcement that requires a redirect" do
+    statistics_announcement = build(:statistics_announcement_requiring_redirect)
 
     presenter = PublishingApiPresenters.presenter_for(statistics_announcement)
 

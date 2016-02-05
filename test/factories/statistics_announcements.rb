@@ -29,4 +29,8 @@ FactoryGirl.define do
     publishing_state "unpublished"
     redirect_url "https://www.test.alphagov.co.uk/government/sparkle"
   end
+
+  factory :statistics_announcement_requiring_redirect,
+    parent: :unpublished_statistics_announcement do
+  end
 end

@@ -207,6 +207,41 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
       StatisticsAnnouncement.with_topics([topic2])
   end
 
+  test 'requires_redirect? returns true when unpublished?' do
+    statistics_announcement = build(
+      :statistics_announcement,
+      publishing_state: 'unpublished',
+    )
+    assert statistics_announcement.requires_redirect?
+  end
+
+  test 'requires_redirect? returns false when not unpublished?' do
+    statistics_announcement = build(
+      :statistics_announcement,
+      publishing_state: 'published',
+      publication: nil,
+    )
+    refute statistics_announcement.requires_redirect?
+  end
+
+  test 'requires_redirect? returns true when when publication is published?' do
+    statistics_announcement = build(
+      :statistics_announcement,
+      publishing_state: 'published',
+      publication: build(:published_statistics),
+    )
+    assert statistics_announcement.requires_redirect?
+  end
+
+  test 'requires_redirect? returns false when when publication is draft' do
+    statistics_announcement = build(
+      :statistics_announcement,
+      publishing_state: 'published',
+      publication: build(:draft_statistics),
+    )
+    refute statistics_announcement.requires_redirect?
+  end
+
 private
 
   def create_announcement_with_changes
