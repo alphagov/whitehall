@@ -65,6 +65,15 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal original_edition, document.latest_edition
   end
 
+  test "#pre_publication_edition returns the edition in a pre-publication state" do
+    document = create(:document)
+    create(:deleted_edition, document: document)
+    create(:published_edition, document: document)
+    draft_edition = create(:draft_edition, document: document)
+
+    assert_equal draft_edition, document.pre_publication_edition
+  end
+
   test "#destroy also destroys ALL editions including those marked as deleted" do
     document = create(:document)
     original_edition = create(:published_edition, document: document)

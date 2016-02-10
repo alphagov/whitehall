@@ -7,6 +7,11 @@ module Dependable
   end
 
   def republish_dependent_editions
-    dependent_editions.each { |e| Whitehall::PublishingApi.republish_async(e) }
+    documents = dependent_editions.map(&:document)
+    # We can't just republish the published editions because that might trash
+    # any draft editions stored in publishing-api. Therefore we need to
+    # republish the published and draft editions in the correct order, via
+    # republish_document_async.
+    documents.each { |e| Whitehall::PublishingApi.republish_document_async(e) }
   end
 end
