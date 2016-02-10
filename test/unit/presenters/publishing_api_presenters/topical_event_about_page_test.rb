@@ -10,8 +10,7 @@ class PublishingApiPresenters::TopicalEventAboutPageTest < ActiveSupport::TestCa
 
     expected_hash = {
       base_path: topical_event_about_page.search_link,
-      content_id: topical_event_about_page.content_id,
-      title: topical_event_about_page.topical_event.name,
+      title: topical_event_about_page.name,
       description: 'Summary',
       format: 'topical_event_about_page',
       need_ids: [],
@@ -40,6 +39,7 @@ class PublishingApiPresenters::TopicalEventAboutPageTest < ActiveSupport::TestCa
     assert_equivalent_html expected_hash[:details].delete(:body),
       presented_item.content[:details].delete(:body)
 
+    assert_equal expected_hash.except(:details), presented_item.content.except(:details)
     assert_equal expected_hash[:details], presented_item.content[:details].except(:body)
   end
 end
