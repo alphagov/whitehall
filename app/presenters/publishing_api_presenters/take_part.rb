@@ -10,7 +10,7 @@ module PublishingApiPresenters
       {
         body: body,
         image: {
-          url: Whitehall.asset_root + item.image_url(:s300),
+          url: Whitehall.public_asset_host + item.image_url(:s300),
           alt_text: item.image_alt_text,
         }
       }

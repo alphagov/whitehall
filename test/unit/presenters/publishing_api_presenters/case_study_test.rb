@@ -78,7 +78,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     case_study = create(:published_case_study, images: [image])
 
     expected_hash = {
-      url: (Whitehall.asset_root + image.url(:s300)),
+      url: (Whitehall.public_asset_host + image.url(:s300)),
       alt_text: image.alt_text,
       caption: image.caption
     }
@@ -93,7 +93,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     case_study = create(:published_case_study, images: [image])
 
     expected_hash = {
-      url: (Whitehall.asset_root + image.url(:s300)),
+      url: (Whitehall.public_asset_host + image.url(:s300)),
       alt_text: image.alt_text,
       caption: nil
     }
@@ -110,7 +110,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     case_study = create(:published_case_study, lead_organisations: [organisation])
 
     expected_hash = {
-      url: (Whitehall.asset_root + organisation_image.file.url(:s300)),
+      url: (Whitehall.public_asset_host + organisation_image.file.url(:s300)),
       alt_text: 'placeholder',
       caption: nil
     }
