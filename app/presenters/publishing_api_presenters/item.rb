@@ -40,7 +40,7 @@ module PublishingApiPresenters
     attr_accessor :item
 
     def rendering_app
-      "whitehall-frontend"
+      Whitehall::RenderingApp::WHITEHALL_FRONTEND
     end
 
     def routes

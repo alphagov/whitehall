@@ -493,7 +493,7 @@ class Edition < ActiveRecord::Base
   end
 
   def rendering_app
-    "whitehall-frontend"
+    Whitehall::RenderingApp::WHITEHALL_FRONTEND
   end
 
   def format_name
