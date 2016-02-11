@@ -107,6 +107,10 @@ Whitehall::Application.routes.draw do
 
     resources :topics, path: "topics", only: [:index, :show]
     resources :topical_events, path: "topical-events", only: [:index, :show] do
+      # Controller removed. Whitehall frontend no longer serves these
+      # pages however the route is needed to generate path and url
+      # helper methods.
+      # TODO: Remove when about page paths can be otherwise generated
       resource :about_pages, path: "about", only: [:show]
     end
 
