@@ -13,6 +13,7 @@ module Searchable
     :government_name,
     :id,
     :is_historic,
+    :is_withdrawn,
     :is_political,
     :latest_change_note,
     :link,
