@@ -8,7 +8,7 @@ class PublishingApiPresenters::PublishIntent
     {
       publish_time: @publish_timestamp,
       publishing_app: 'whitehall',
-      rendering_app: 'whitehall-frontend',
+      rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
       routes: [{ path: @base_path, type: 'exact' }],
     }
   end

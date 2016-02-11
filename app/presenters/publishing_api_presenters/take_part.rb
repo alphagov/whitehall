@@ -29,7 +29,7 @@ module PublishingApiPresenters
     end
 
     def rendering_app
-      "government-frontend"
+      Whitehall::RenderingApp::GOVERNMENT_FRONTEND
     end
   end
 end

@@ -8,7 +8,7 @@ namespace :panopticon do
   task :register => :environment do
     logger = GdsApi::Base.logger = Logger.new(STDERR).tap { |l| l.level = Logger::INFO }
 
-    registerer = GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: 'whitehall-frontend')
+    registerer = GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND)
     logger.info "Registering application with Panopticon..."
 
     record = OpenStruct.new(
@@ -25,7 +25,7 @@ namespace :panopticon do
   task :register_guidance => :environment do
     logger = GdsApi::Base.logger = Logger.new(STDERR).tap { |l| l.level = Logger::INFO }
     logger.info "Registering detailed guides with Panopticon..."
-    registerer = GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: 'whitehall-frontend', kind: 'detailed_guide')
+    registerer = GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND, kind: 'detailed_guide')
 
     Document.where(document_type: "DetailedGuide").published.each do |document|
       guide = document.published_edition
@@ -56,7 +56,7 @@ namespace :panopticon do
 
     published_editions.each do |edition|
       artefact = RegisterableEdition.new(edition)
-      registerer = GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: 'whitehall-frontend', kind: artefact.kind)
+      registerer = GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND, kind: artefact.kind)
       logger.info "Registering /#{artefact.slug} with Panopticon..."
 
       begin
@@ -74,7 +74,7 @@ namespace :panopticon do
     registerable_editions = RegisterableEditionBuilderForUnpublishedEditions.build
 
     registerable_editions.each do |registerable_edition|
-      registerer = GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: 'whitehall-frontend', kind: registerable_edition.kind)
+      registerer = GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND, kind: registerable_edition.kind)
 
       begin
         logger.info "About to register #{registerable_edition.edition.id}"
@@ -98,7 +98,7 @@ namespace :panopticon do
 
       if edition = document.published_edition
         artefact = RegisterableEdition.new(edition)
-        registerer = GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: 'whitehall-frontend', kind: artefact.kind)
+        registerer = GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND, kind: artefact.kind)
         logger.info "Registering /#{artefact.slug} with Panopticon..."
 
         begin

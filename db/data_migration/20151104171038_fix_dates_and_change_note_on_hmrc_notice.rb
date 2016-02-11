@@ -18,7 +18,7 @@ published_edition.update_columns(
 )
 
 artefact = RegisterableEdition.new(published_edition)
-registerer = GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: 'whitehall-frontend', kind: artefact.kind)
+registerer = GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND, kind: artefact.kind)
 puts "Registering /#{artefact.slug} with Panopticon..."
 registerer.register(artefact)
 

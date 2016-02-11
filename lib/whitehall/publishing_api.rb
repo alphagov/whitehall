@@ -97,7 +97,7 @@ module Whitehall
     end
 
     def self.served_from_content_store?(edition)
-      edition.rendering_app == "government-frontend"
+      edition.rendering_app == Whitehall::RenderingApp::GOVERNMENT_FRONTEND
     end
 
     # We want to avoid sending unpublishings for content types which are not

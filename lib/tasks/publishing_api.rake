@@ -25,7 +25,7 @@ namespace :publishing_api do
       publisher.publish(route.merge(
         format: "special_route",
         publishing_app: "whitehall",
-        rendering_app: "whitehall-frontend",
+        rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
         update_type: "major",
         type: "prefix",
         public_updated_at: Time.zone.now.iso8601,

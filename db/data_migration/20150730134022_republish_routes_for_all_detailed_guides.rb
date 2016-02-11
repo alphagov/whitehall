@@ -35,7 +35,7 @@ scope.each_with_index do |edition, i|
     url_arbiter.set_publishing_app_for_path("/#{slug}", "whitehall")
   end
   puts "Adding route #{i+1}/#{count} for /#{slug}"
-  router_api.add_route("/#{slug}", "exact", "whitehall-frontend")
+  router_api.add_route("/#{slug}", "exact", Whitehall::RenderingApp::WHITEHALL_FRONTEND)
 end
 
 router_api.commit_routes

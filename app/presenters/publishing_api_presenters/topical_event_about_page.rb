@@ -40,7 +40,7 @@ module PublishingApiPresenters
     end
 
     def rendering_app
-      "whitehall-frontend"
+      Whitehall::RenderingApp::WHITEHALL_FRONTEND
     end
   end
 end

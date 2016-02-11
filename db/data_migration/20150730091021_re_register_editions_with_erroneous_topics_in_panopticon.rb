@@ -11,7 +11,7 @@ CSV.foreach(csv_filename, headers: true) do |row|
   raise "No published edition found for #{slug}" if edition.nil?
 
   artefact = RegisterableEdition.new(edition)
-  registerer = GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: 'whitehall-frontend', kind: artefact.kind)
+  registerer = GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND, kind: artefact.kind)
 
   puts "Registering /#{artefact.slug} with Panopticon..."
   registerer.register(artefact)
