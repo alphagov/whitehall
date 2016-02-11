@@ -6,7 +6,7 @@ Whitehall.edition_services.tap do |es|
   es.subscribe(/^(force_publish|publish)$/)                   { |_, edition, _| ServiceListeners::AnnouncementClearer.new(edition).clear! }
 
   # search
-  es.subscribe(/^(force_publish|publish)$/) { |event, edition, options| ServiceListeners::SearchIndexer.new(edition).index! }
+  es.subscribe(/^(force_publish|publish|withdraw)$/) { |_, edition, _| ServiceListeners::SearchIndexer.new(edition).index! }
   es.subscribe("unpublish")                 { |event, edition, options| ServiceListeners::SearchIndexer.new(edition).remove! }
 
   # publishing API

@@ -43,6 +43,20 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     Whitehall.edition_services.publisher(edition).perform!
   end
 
+  test "should add edition to search index on withdrawing" do
+    edition = create(:published_edition)
+
+    stub_panopticon_registration(edition)
+    expect_republishing(edition)
+
+    edition.build_unpublishing(explanation: 'Old policy', unpublishing_reason_id: UnpublishingReason::Withdrawn.id)
+
+    Whitehall.stubs(:searchable_classes).returns([edition.class])
+    Whitehall::SearchIndex.expects(:add).with(edition)
+
+    Whitehall.edition_services.withdrawer(edition).perform!
+  end
+
   test "should add latest change note to search index" do
     user  = create(:gds_editor)
     first = create(:published_edition)
@@ -68,7 +82,16 @@ class Edition::SearchableTest < ActiveSupport::TestCase
 
   test "should not remove edition from search index when a new edition is published" do
     edition = create(:published_edition)
-    slug = edition.document.slug
+
+    Whitehall::SearchIndex.expects(:delete).with(edition).never
+
+    new_edition = edition.create_draft(create(:writer))
+    new_edition.change_note = "change-note"
+    force_publish(new_edition)
+  end
+
+  test "should not remove edition from search index when a published edition is withdran" do
+    edition = create(:published_edition)
 
     Whitehall::SearchIndex.expects(:delete).with(edition).never
 
@@ -80,7 +103,6 @@ class Edition::SearchableTest < ActiveSupport::TestCase
   test "should remove published edition from search index when it's unpublished" do
     edition = create(:published_edition)
     create(:unpublishing, edition: edition)
-    slug = edition.document.slug
     stub_panopticon_registration(edition)
 
     Whitehall::SearchIndex.expects(:delete).with(edition)

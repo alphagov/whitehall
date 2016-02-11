@@ -8,9 +8,9 @@ class SearchableTest < ActiveSupport::TestCase
     self.table_name = 'classifications'
 
     include Searchable
-    searchable  link: :name, only: :published, index_after: [:save], unindex_after: [:destroy]
+    searchable  link: :name, only: :publicly_visible, index_after: [:save], unindex_after: [:destroy]
 
-    scope :published, -> { where(state: 'published') }
+    scope :publicly_visible, -> { where(state: ['published', 'withdrawn']) }
   end
 
   def setup
@@ -25,6 +25,12 @@ class SearchableTest < ActiveSupport::TestCase
 
   test 'will request indexing on save if it is in searchable_instances' do
     s = SearchableTestTopic.create(name: 'woo', state: 'published')
+    Whitehall::SearchIndex.expects(:add).with(s)
+    s.save
+  end
+
+  test 'will request indexing on save if it is in searchable_instances and withrawn' do
+    s = SearchableTestTopic.create(name: 'woo', state: 'withdrawn')
     Whitehall::SearchIndex.expects(:add).with(s)
     s.save
   end

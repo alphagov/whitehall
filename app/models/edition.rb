@@ -134,10 +134,6 @@ class Edition < ActiveRecord::Base
     where(arel_table[:type].not_in(edition_classes.map(&:name)))
   end
 
-  def self.published_and_available_in_english
-    with_translations(:en).published
-  end
-
   def self.format_name
     @format_name ||= model_name.human.downcase
   end
@@ -279,8 +275,12 @@ class Edition < ActiveRecord::Base
     [Edition.search_format_type]
   end
 
+  def self.publicly_visible_and_available_in_english
+    with_translations(:en).publicly_visible
+  end
+
   def self.search_only
-    published_and_available_in_english
+    publicly_visible_and_available_in_english
   end
 
   def refresh_index_if_required
