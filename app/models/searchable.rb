@@ -45,7 +45,7 @@ module Searchable
       include Searchable::Mixin
 
       self.searchable_options = options.reverse_merge \
-        format:         -> o { o.class.model_name.element },
+        format:         -> (o) { o.class.model_name.element },
         index_after:    :save,
         unindex_after:  :destroy,
         only:           :all,
@@ -65,7 +65,7 @@ module Searchable
             value.to_proc
           else
             # treat other objects (e.g. strings) as constants
-            -> _ { value }
+            -> (_) { value }
           end
       end
 
@@ -95,9 +95,7 @@ module Searchable
     end
 
     def update_in_search_index
-      if can_index_in_search?
-        Whitehall::SearchIndex.add(self)
-      end
+      Whitehall::SearchIndex.add(self) if can_index_in_search?
     end
 
     def remove_from_search_index
@@ -112,7 +110,7 @@ module Searchable
       def reindex_all
         searchable_instances
           .select { |instance| Whitehall.searchable_classes.include?(instance.class) }
-          .each { |instance|  Whitehall::SearchIndex.add(instance) }
+          .each { |instance| Whitehall::SearchIndex.add(instance) }
       end
 
       def searchable_instances

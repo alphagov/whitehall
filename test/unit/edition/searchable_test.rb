@@ -1,7 +1,6 @@
 require "test_helper"
 
 class Edition::SearchableTest < ActiveSupport::TestCase
-
   test "should return search index suitable for Rummageable when published" do
     edition = create(:published_edition, title: "edition-title")
 

@@ -8,9 +8,9 @@ class SearchableTest < ActiveSupport::TestCase
     self.table_name = 'classifications'
 
     include Searchable
-    searchable  link: :name, only: :publicly_visible, index_after: [:save], unindex_after: [:destroy]
+    searchable link: :name, only: :publicly_visible, index_after: [:save], unindex_after: [:destroy]
 
-    scope :publicly_visible, -> { where(state: ['published', 'withdrawn']) }
+    scope :publicly_visible, -> { where(state: %w(published withdrawn)) }
   end
 
   def setup
@@ -58,7 +58,7 @@ class SearchableTest < ActiveSupport::TestCase
   test '#reindex_all will not request indexing for an instance whose class is not in Whitehall.searchable_classes' do
     class NonExistentClass; end
     Whitehall.stubs(:searchable_classes).returns([NonExistentClass])
-    s = SearchableTestTopic.create(name: 'woo', state: 'published')
+    SearchableTestTopic.create(name: 'woo', state: 'published')
     Whitehall::SearchIndex.expects(:add).never
     SearchableTestTopic.reindex_all
   end
