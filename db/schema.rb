@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160203145841) do
+ActiveRecord::Schema.define(version: 20160212160106) do
 
   create_table "about_pages", force: :cascade do |t|
     t.integer  "topical_event_id",    limit: 4
@@ -281,7 +281,7 @@ ActiveRecord::Schema.define(version: 20160203145841) do
     t.datetime "updated_at"
     t.string   "slug",          limit: 255
     t.string   "document_type", limit: 255
-    t.string   "content_id",    limit: 255
+    t.string   "content_id",    limit: 255, null: false
   end
 
   add_index "documents", ["document_type"], name: "index_documents_on_document_type", using: :btree
