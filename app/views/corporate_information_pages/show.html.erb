@@ -6,7 +6,18 @@
     <div class="block-1">
       <div class="inner-block">
         <%= render_corporate_info_header_for(@organisation, @corporate_information_page) %>
-        <%= render 'shared/govspeak_header_contents', govspeak: @corporate_information_page.body %>
+
+        <% headers = govspeak_headers(@corporate_information_page.body) %>
+        <% if headers.any? %>
+          <nav>
+            <h1><%= t 'document.contents' %></h1>
+            <ol class="dash-list">
+              <% headers.each do |header| %>
+                <li><%= link_to header.text, "##{header.id}" %></li>
+              <% end %>
+            </ol>
+          </nav>
+        <% end %>
       </div>
     </div>
     <div class="block-2">
