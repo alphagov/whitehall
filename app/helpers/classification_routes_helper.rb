@@ -7,7 +7,19 @@ module ClassificationRoutesHelper
     polymorphic_url(classification_model_name(classification), options.merge(id: classification))
   end
 
-  private
+  def public_classification_url(classification, options = {})
+    classification_url(classification, public_url_options.merge(options))
+  end
+
+  def public_url_options
+    { host: Whitehall.public_host, protocol: Whitehall.public_protocol }
+  end
+
+  def cachebust_options
+    { cachebust: Time.zone.now.getutc.to_i }
+  end
+
+private
 
   # NOTE: This method could (possibly) be dropped once Draper has been removed/replaced.
   def classification_model_name(classification)
