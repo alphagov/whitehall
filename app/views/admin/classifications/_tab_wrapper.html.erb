@@ -1,7 +1,7 @@
 <header class="row add-bottom-margin">
   <div class="col-md-8">
     <h1><%= model.name %></h1>
-    <%= link_to "View on website", public_classification_url(model, cachebust_options) %>
+    <%= link_to "View on website", classification_url(model, public_and_cachebusted_url_options) %>
   </div>
 </header>
 
