@@ -24,6 +24,15 @@ namespace :rummager do
       index.add_batch(Consultation.published.closed_since(25.hours.ago).map(&:search_index))
       index.commit
     end
+
+    desc "indexes all withdrawn content"
+    task :withdrawn => :environment do
+      Edition.where(state: "withdrawn").each do |ed|
+        puts "Indexing: #{ed.content_id}"
+        Whitehall::SearchIndex.add(ed)
+      end
+      puts "Complete."
+    end
   end
 
   desc "removes and re-indexes all searchable whitehall content"
