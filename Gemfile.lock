@@ -187,7 +187,7 @@ GEM
       bootstrap-sass (~> 3.3.3)
       jquery-rails (~> 3.1.3)
       rails (>= 3.2.0)
-    govuk_frontend_toolkit (4.1.1)
+    govuk_frontend_toolkit (4.8.1)
       rails (>= 3.1.0)
       sass (>= 3.2.0)
     hashdiff (0.2.3)
@@ -487,7 +487,7 @@ DEPENDENCIES
   govuk-content-schema-test-helpers (= 1.4.0)
   govuk-lint (~> 0.5.1)
   govuk_admin_template (= 3.0.0)
-  govuk_frontend_toolkit (= 4.1.1)
+  govuk_frontend_toolkit (= 4.8.1)
   invalid_utf8_rejector (~> 0.0.1)
   isbn_validation
   jbuilder

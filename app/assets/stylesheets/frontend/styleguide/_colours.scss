@@ -12,14 +12,12 @@ $detailed-guidance-brand: $light-blue;
 $detailed-guidance-background: #fff;
 
 $inside-gov-brand: #2E3191;
-//$inside-gov-secondary: adjust-hue(lighten($inside-gov-brand, 40%), -25%);
 $inside-gov-secondary: #57da95;
 $inside-gov-nav: #0B0C0C;
 $inside-gov-nav-dropdown: #888;
 
 $coalition-green: #85994b;
 $g8-brand: #c10019;
-
 
 // Web safe department colours
 $attorney-generals-office-websafe: #a03a88;
@@ -28,7 +26,6 @@ $department-for-business-innovation-skills-websafe: #347da4;
 $department-for-communities-and-local-government-websafe: #37836e;
 $department-for-culture-media-sport-websafe: #a03155;
 $department-for-education-websafe: #347ca9;
-$department-for-environment-food-rural-affairs-websafe: #67650f;
 $department-for-international-development-websafe: #405e9a;
 $department-for-transport-websafe: #398373;
 $department-for-work-pensions-websafe: #37807b;
@@ -81,7 +78,6 @@ $wales-office-websafe: #7a242a;
 //       @include organisation-brand-colour("a", border-color);
 //     }
 
-
 // All organisation colours as list of (class_name, colour, websafe colour)
 $all-organisation-brand-colours:
   'attorney-generals-office' $attorney-generals-office $attorney-generals-office-websafe,
@@ -91,7 +87,7 @@ $all-organisation-brand-colours:
   'department-for-communities-and-local-government' $department-for-communities-and-local-government $department-for-communities-and-local-government-websafe,
   'department-for-culture-media-sport' $department-for-culture-media-sport $department-for-culture-media-sport-websafe,
   'department-for-education' $department-for-education $department-for-education-websafe,
-  'department-for-environment-food-rural-affairs' $department-for-environment-food-rural-affairs $department-for-environment-food-rural-affairs-websafe,
+  'department-for-environment-food-rural-affairs' $department-for-environment-food-rural-affairs $department-for-environment-food-rural-affairs,
   'department-for-international-development' $department-for-international-development $department-for-international-development-websafe,
   'department-for-transport' $department-for-transport $department-for-transport-websafe,
   'department-for-work-pensions' $department-for-work-pensions $department-for-work-pensions-websafe,
@@ -126,5 +122,3 @@ $all-organisation-brand-colours:
     }
   }
 }
-
-
