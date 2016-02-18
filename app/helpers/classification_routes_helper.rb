@@ -7,7 +7,7 @@ module ClassificationRoutesHelper
     polymorphic_url(classification_model_name(classification), options.merge(id: classification))
   end
 
-  private
+private
 
   # NOTE: This method could (possibly) be dropped once Draper has been removed/replaced.
   def classification_model_name(classification)
