@@ -357,7 +357,11 @@
       }
 
       .stat-headline {
-        margin-bottom: $gutter;
+        margin-bottom: $gutter-half;
+
+        @include media(tablet) {
+          margin-bottom: $gutter;
+        }
 
         p {
           @include bold-19;
@@ -368,6 +372,14 @@
           display: block;
           @include bold-80;
           margin: 3px 0 -5px;
+        }
+      }
+
+      & > .stat-headline:first-child {
+        margin-top: $gutter;
+
+        @include media(tablet) {
+          margin-top: ($gutter * 2) + $gutter-two-thirds;
         }
       }
     }
