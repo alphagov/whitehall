@@ -1,8 +1,7 @@
 require "test_helper"
 
 class Edition::SearchableTest < ActiveSupport::TestCase
-
-  test "should return search index suitable for Rummageable" do
+  test "should return search index suitable for Rummageable when published" do
     edition = create(:published_edition, title: "edition-title")
 
     assert_equal "edition-title", edition.search_index["title"]
@@ -17,9 +16,29 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     assert_equal nil, edition.search_index["people"]
     assert_equal nil, edition.search_index["publication_type"]
     assert_equal nil, edition.search_index["speech_type"]
-
     assert_equal edition.public_timestamp, edition.search_index["public_timestamp"]
     assert_equal nil, edition.search_index["topics"]
+    assert_equal false, edition.search_index["is_withdrawn"]
+  end
+
+  test "should return search index suitable for Rummageable when withdrawn" do
+    edition = create(:withdrawn_edition, title: "edition-title")
+
+    assert_equal "edition-title", edition.search_index["title"]
+    assert_equal routes_helper.public_document_path(edition), edition.search_index["link"]
+    assert_equal edition.body, edition.search_index["indexable_content"]
+    assert_equal "generic_edition", edition.search_index["format"]
+    assert_equal edition.summary, edition.search_index["description"]
+    assert_equal edition.id, edition.search_index["id"]
+    assert_equal edition.live_specialist_sector_tags, edition.search_index["specialist_sectors"]
+    assert_equal edition.most_recent_change_note, edition.search_index["latest_change_note"]
+    assert_equal nil, edition.search_index["organisations"]
+    assert_equal nil, edition.search_index["people"]
+    assert_equal nil, edition.search_index["publication_type"]
+    assert_equal nil, edition.search_index["speech_type"]
+    assert_equal edition.public_timestamp, edition.search_index["public_timestamp"]
+    assert_equal nil, edition.search_index["topics"]
+    assert_equal true, edition.search_index["is_withdrawn"]
   end
 
   test "#indexable_content should return the body without markup by default" do
@@ -41,6 +60,20 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     Whitehall::SearchIndex.expects(:add).with(edition)
 
     Whitehall.edition_services.publisher(edition).perform!
+  end
+
+  test "should add edition to search index on withdrawing" do
+    edition = create(:published_edition)
+
+    stub_panopticon_registration(edition)
+    expect_republishing(edition)
+
+    edition.build_unpublishing(explanation: 'Old policy', unpublishing_reason_id: UnpublishingReason::Withdrawn.id)
+
+    Whitehall.stubs(:searchable_classes).returns([edition.class])
+    Whitehall::SearchIndex.expects(:add).with(edition)
+
+    Whitehall.edition_services.withdrawer(edition).perform!
   end
 
   test "should add latest change note to search index" do
@@ -68,7 +101,16 @@ class Edition::SearchableTest < ActiveSupport::TestCase
 
   test "should not remove edition from search index when a new edition is published" do
     edition = create(:published_edition)
-    slug = edition.document.slug
+
+    Whitehall::SearchIndex.expects(:delete).with(edition).never
+
+    new_edition = edition.create_draft(create(:writer))
+    new_edition.change_note = "change-note"
+    force_publish(new_edition)
+  end
+
+  test "should not remove edition from search index when a published edition is withdran" do
+    edition = create(:published_edition)
 
     Whitehall::SearchIndex.expects(:delete).with(edition).never
 
@@ -80,7 +122,6 @@ class Edition::SearchableTest < ActiveSupport::TestCase
   test "should remove published edition from search index when it's unpublished" do
     edition = create(:published_edition)
     create(:unpublishing, edition: edition)
-    slug = edition.document.slug
     stub_panopticon_registration(edition)
 
     Whitehall::SearchIndex.expects(:delete).with(edition)

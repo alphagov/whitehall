@@ -49,7 +49,7 @@ class Edition < ActiveRecord::Base
   POST_PUBLICATION_STATES = %w(published superseded withdrawn).freeze
   PUBLICLY_VISIBLE_STATES = %w(published withdrawn).freeze
 
-  scope :with_title_or_summary_containing, -> *keywords {
+  scope :with_title_or_summary_containing, -> (*keywords) {
     pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
     in_default_locale.where("edition_translations.title REGEXP :pattern OR edition_translations.summary REGEXP :pattern", pattern: pattern)
   }
@@ -126,16 +126,13 @@ class Edition < ActiveRecord::Base
   def self.in_chronological_order
     order(arel_table[:public_timestamp].asc, arel_table[:document_id].asc)
   end
+
   def self.in_reverse_chronological_order
     order(arel_table[:public_timestamp].desc, arel_table[:document_id].desc, arel_table[:id].desc)
   end
 
   def self.without_editions_of_type(*edition_classes)
     where(arel_table[:type].not_in(edition_classes.map(&:name)))
-  end
-
-  def self.published_and_available_in_english
-    with_translations(:en).published
   end
 
   def self.format_name
@@ -200,21 +197,21 @@ class Edition < ActiveRecord::Base
   end
 
   def self.search_format_type
-    self.name.underscore.gsub('_', '-')
+    self.name.underscore.tr('_', '-')
   end
 
   def self.concrete_descendants
-    descendants.reject { |model| model.descendants.any? }.sort_by { |model| model.name }
+    descendants.reject { |model| model.descendants.any? }.sort_by(&:name)
   end
 
   def self.concrete_descendant_search_format_types
-    concrete_descendants.map { |model| model.search_format_type }
+    concrete_descendants.map(&:search_format_type)
   end
 
   # NOTE: this scope becomes redundant once Admin::EditionFilterer is backed by an admin-only rummager index
   def self.with_classification(classification)
     joins('INNER JOIN classification_memberships ON classification_memberships.edition_id = editions.id').
-    where("classification_memberships.classification_id" => classification.id)
+      where("classification_memberships.classification_id" => classification.id)
   end
 
   def self.due_for_publication(within_time = 0)
@@ -243,7 +240,7 @@ class Edition < ActiveRecord::Base
     id: :id,
     title: :search_title,
     link: :search_link,
-    format: -> d { d.format_name.gsub(" ", "_") },
+    format: -> (d) { d.format_name.tr(" ", "_") },
     content: :indexable_content,
     description: :summary,
     organisations: nil,
@@ -264,6 +261,7 @@ class Edition < ActiveRecord::Base
     latest_change_note: :most_recent_change_note,
     is_political: :political?,
     is_historic: :historic?,
+    is_withdrawn: :withdrawn?,
     government_name: :search_government_name
   )
 
@@ -279,8 +277,12 @@ class Edition < ActiveRecord::Base
     [Edition.search_format_type]
   end
 
+  def self.publicly_visible_and_available_in_english
+    with_translations(:en).publicly_visible
+  end
+
   def self.search_only
-    published_and_available_in_english
+    publicly_visible_and_available_in_english
   end
 
   def refresh_index_if_required
@@ -373,7 +375,7 @@ class Edition < ActiveRecord::Base
     false
   end
 
-  def image_disallowed_in_body_text?(i)
+  def image_disallowed_in_body_text?(_)
     false
   end
 
@@ -407,8 +409,17 @@ class Edition < ActiveRecord::Base
     unless published?
       raise "Cannot create new edition based on edition in the #{state} state"
     end
-    draft_attributes = attributes.except(*%w{id type state created_at updated_at change_note
-      minor_change force_published scheduled_publication})
+    draft_attributes = attributes.except(*%w{
+      id
+      type
+      state
+      created_at
+      updated_at
+      change_note
+      minor_change
+      force_published
+      scheduled_publication
+    })
     self.class.new(draft_attributes.merge('state' => 'draft', 'creator' => user)).tap do |draft|
       traits.each { |t| t.process_associations_before_save(draft) }
       if draft.valid? || !draft.errors.keys.include?(:base)
@@ -579,7 +590,7 @@ class Edition < ActiveRecord::Base
   def need_ids_are_six_digit_integers?
     invalid_need_ids = need_ids.reject { |need_id| need_id =~ /\A\d{6}\z/ }
     unless invalid_need_ids.empty?
-      errors.add(:need_ids, "are invalid: #{invalid_need_ids.join(", ")}")
+      errors.add(:need_ids, "are invalid: #{invalid_need_ids.join(', ')}")
     end
   end
 
@@ -607,7 +618,7 @@ class Edition < ActiveRecord::Base
     if @previously_published.nil?
       errors[:base] << 'You must specify whether the document has been published before'
       @has_first_published_error = true
-    elsif previously_published == 'true'  # not a real field, so isn't converted to bool
+    elsif previously_published == 'true' # not a real field, so isn't converted to bool
       errors.add(:first_published_at, "can't be blank") if first_published_at.blank?
       @has_first_published_error = true
     end
@@ -625,6 +636,10 @@ class Edition < ActiveRecord::Base
     return false unless government
 
     political? && !government.current?
+  end
+
+  def withdrawn?
+    self.state == 'withdrawn'
   end
 
   def detailed_format
