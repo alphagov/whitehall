@@ -7,15 +7,21 @@
   title_link_options = {}
   title_link_options['rel'] = 'external' if attachment.external?
   title_link_options["aria-describedby"] = help_block_id unless attachment.accessible?
+
+  # This partial is rendered when sending to the publishing-api, so needs to
+  # work outside of a request/controller context. The preview param, which exists
+  # to bust cache and view a specific edition, isn't applicable when publishing
+  # to publishing-api.
+  preview = controller.nil? ? nil : params[:preview]
 %>
 <%= content_tag_for(:section, attachment.becomes(Attachment), class: attachment.external? ? "hosted-externally" : "embedded") do %>
   <div class="attachment-thumb">
     <% unless defined?(hide_thumbnail) && hide_thumbnail %>
-      <%= link_to_unless previewable?(attachment), attachment_thumbnail(attachment), attachment.url(preview: params[:preview]), thumbnail_link_options %>
+      <%= link_to_unless previewable?(attachment), attachment_thumbnail(attachment), attachment.url(preview: preview), thumbnail_link_options %>
     <% end %>
   </div>
   <div class="attachment-details">
-    <h2 class="title"><%= link_to_unless previewable?(attachment), attachment.title, attachment.url(preview: params[:preview]), title_link_options %></h2>
+    <h2 class="title"><%= link_to_unless previewable?(attachment), attachment.title, attachment.url(preview: preview), title_link_options %></h2>
     <p class="metadata">
       <% if attachment.isbn.present? or attachment.unique_reference.present? or attachment.command_paper_number.present? or attachment.hoc_paper_number.present? %>
         <span class="references">
@@ -41,7 +47,7 @@
           </strong>
         </span>
         <span class="download">
-          <%= link_to attachment.url(preview: params[:preview]) do %>
+          <%= link_to attachment.url(preview: preview) do %>
             <strong>Download <%= attachment.file_extension.upcase %></strong>
             <%= number_to_human_size(attachment.file_size) %>
           <% end %>

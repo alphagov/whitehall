@@ -39,4 +39,14 @@ class PublishingApiPresenters::WorkingGroupTest < ActiveSupport::TestCase
     assert_equal expected_hash, presenter.content
     assert_valid_against_schema(presenter.content, 'working_group')
   end
+
+  test "renders attachments in the body" do
+    group = create(:policy_group, :with_file_attachment, description: "#Heading\n\n!@1\n\n##Subheading")
+
+    presenter = PublishingApiPresenters::WorkingGroup.new(group)
+
+    body = Nokogiri::HTML.parse(presenter.content[:details][:body])
+    assert_not_nil body.at_css("section.attachment")
+    assert_match %r{#{group.attachments.first.title}}, body.at_css("section.attachment")
+  end
 end
