@@ -27,6 +27,7 @@ module Whitehall
   mattr_accessor :organisations_transition_visualisation_feature_enabled
   mattr_accessor :unified_search_client
   mattr_accessor :case_study_publishing_api_rendering_app
+  # TODO remove when no longer being set in alphagov-deployment
   mattr_accessor :case_study_preview_host
 
   revision_file = "#{Rails.root}/REVISION"
