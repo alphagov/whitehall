@@ -47,9 +47,11 @@ module Whitehall::DocumentFilter
       end
     end
 
+    # Note that "Topics" are called "Policy Areas" in Rummager. That's why we
+    # use `policy_areas` as the filter key here.
     def filter_by_topics
       if selected_topics.any?
-        {topics: selected_topics.map(&:slug)}
+        { policy_areas: selected_topics.map(&:slug) }
       else
         {}
       end

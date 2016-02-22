@@ -76,19 +76,27 @@ module Whitehall
 
       def apply_filters(keywords, params, order, per_page, page)
         results = @store.index(@index_name).values
+
         results = filter_by_keywords(keywords, results) unless keywords.blank?
-        results = params.keys.inject(results) do |results, field_name|
+        results = params.inject(results) do |new_results, (field_name, value)|
+          # This client is called with params from Whitehall::DocumentFilter::Rummager,
+          # which uses `policy_areas`, the new name for `topics`. To keep
+          # returning documents for this query, we need to translate it back
+          # here.
+          field_name = 'topics' if field_name == 'policy_areas'
+
           case field_type(field_name)
           when :date
-            filter_by_date_field(field_name, params[field_name], results)
+            filter_by_date_field(field_name, value, new_results)
           when :boolean
-            filter_by_boolean_field(field_name, params[field_name], results)
+            filter_by_boolean_field(field_name, value, new_results)
           when :simple
-            filter_by_simple_field(field_name, params[field_name], results)
+            filter_by_simple_field(field_name, value, new_results)
           else
             raise GdsApi::HTTPErrorResponse, "cannot filter by field '#{field_name}', its type is not known"
           end
         end
+
         if order && order.any?
           results = Ordering.new(order).sort(results)
         end
