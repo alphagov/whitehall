@@ -107,16 +107,6 @@ $thumbnail-width: 99px;
       margin: 0;
       color: $text-colour;
     }
-    .toggler {
-      display: inline-block;
-      color: $link-colour;
-      cursor: pointer;
-      &:hover,
-      &:focus {
-        outline: none;
-        text-decoration: underline;
-      }
-    }
   }
   &:first-child {
     margin-top: 0;

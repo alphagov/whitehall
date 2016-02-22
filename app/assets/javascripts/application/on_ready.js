@@ -8,8 +8,6 @@ jQuery(function($) {
   $('.js-toggle-change-notes').toggler({actLikeLightbox: true});
   $('.js-toggle-footer-change-notes').toggler();
 
-  $('.js-toggle-accessibility-warning').toggler({header: ".toggler", content: ".help-block"})
-
   $(".js-document-filter").enableDocumentFilter();
 
   $('.js-hide-extra-social-media').hideExtraRows({ rows: 5 });

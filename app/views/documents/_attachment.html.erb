@@ -2,6 +2,7 @@
   extra_description ||= ""
   published_on ||= ""
   help_block_id = "attachment-#{attachment.id}-accessibility-help"
+  help_block_toggle_id = "attachment-#{attachment.id}-accessibility-request"
   thumbnail_link_options = { "aria-hidden" => true, class: 'thumbnail' }
 
   title_link_options = {}
@@ -70,11 +71,11 @@
     <% end %>
 
     <% unless attachment.accessible? %>
-      <div class="accessibility-warning js-toggle-accessibility-warning" id="<%= help_block_id %>">
+      <div data-module="toggle" class="accessibility-warning" id="<%= help_block_id %>">
         <h2><%= t('attachment.accessibility.heading') %>
-          <span class="toggler"><%= t('attachment.accessibility.request_a_different_format') %></span>
+          <a class="toggler" href="#<%= help_block_toggle_id %>" data-controls="<%= help_block_toggle_id %>" data-expanded="false"><%= t('attachment.accessibility.request_a_different_format') %></a>
         </h2>
-        <p class="help-block">
+        <p id="<%= help_block_toggle_id %>" class="js-hidden">
           <%= t('attachment.accessibility.full_help_html',
                 email: alternative_format_order_link(attachment, alternative_format_contact_email),
                 title: attachment.title,
