@@ -1,5 +1,6 @@
 require 'test_helper'
 
+# NB: Topic is being renamed to "Policy Area" across GOV.UK.
 class TopicTest < ActiveSupport::TestCase
   include ContentRegisterHelpers
 

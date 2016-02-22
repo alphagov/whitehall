@@ -1,3 +1,4 @@
+# NB: Topic is being renamed to "Policy Area" across GOV.UK.
 Feature: Assigning editions to topics, via policies
 
   Background:

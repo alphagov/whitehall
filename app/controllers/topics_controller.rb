@@ -1,3 +1,4 @@
+# NB: Topic is being renamed to "Policy Area" across GOV.UK.
 class TopicsController < ClassificationsController
   enable_request_formats show: :atom
 
