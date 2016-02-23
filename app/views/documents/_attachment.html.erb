@@ -1,5 +1,4 @@
 <%
-  extra_description ||= ""
   published_on ||= ""
   help_block_id = "attachment-#{attachment.id}-accessibility-help"
   help_block_toggle_id = "attachment-#{attachment.id}-accessibility-request"
@@ -17,9 +16,6 @@
   </div>
   <div class="attachment-details">
     <h2 class="title"><%= link_to_unless previewable?(attachment), attachment.title, attachment.url(preview: params[:preview]), title_link_options %></h2>
-    <% unless extra_description.empty? %>
-      <p class="extra-description"><%= extra_description %></p>
-    <% end %>
     <p class="metadata">
       <% if attachment.isbn.present? or attachment.unique_reference.present? or attachment.command_paper_number.present? or attachment.hoc_paper_number.present? %>
         <span class="references">
