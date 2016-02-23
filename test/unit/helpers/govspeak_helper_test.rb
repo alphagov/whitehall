@@ -140,7 +140,7 @@ class GovspeakHelperTest < ActionView::TestCase
     document = build(:published_detailed_guide, :with_file_attachment, body: text)
     html = govspeak_edition_to_html(document)
     assert_select_within_html html, "h1"
-    assert_select_within_html html, ".attachment.inline"
+    assert_select_within_html html, ".attachment-inline"
   end
 
   test "should ignore missing block attachments" do
@@ -157,7 +157,7 @@ class GovspeakHelperTest < ActionView::TestCase
     document = build(:published_detailed_guide, :with_file_attachment, body: text)
     html = govspeak_edition_to_html(document)
     assert_select_within_html html, "h1"
-    refute_select_within_html html, ".attachment.inline"
+    refute_select_within_html html, ".attachment-inline"
   end
 
   test "should not convert documents with no block attachments" do
@@ -171,7 +171,7 @@ class GovspeakHelperTest < ActionView::TestCase
     text = "#Heading\n\nText about my [InlineAttachment:2]."
     document = build(:published_detailed_guide, body: text)
     html = govspeak_edition_to_html(document)
-    refute_select_within_html html, ".attachment.inline"
+    refute_select_within_html html, ".attachment-inline"
   end
 
   test "should convert multiple block attachments" do

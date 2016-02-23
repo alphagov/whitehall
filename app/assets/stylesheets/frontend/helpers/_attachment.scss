@@ -9,16 +9,6 @@ $thumbnail-width: 99px;
     padding: $gutter-half ($thumbnail-width + $gutter) 0 0;
   }
 
-  &.inline {
-    background: transparent;
-    position: static;
-    padding: 0;
-    margin: 0;
-    &:after {
-      display: none;
-    }
-  }
-
   .attachment-thumb {
     position: relative;
     float: left;
