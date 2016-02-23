@@ -1,4 +1,5 @@
 module PublishingApiPresenters
+  # Note that "Policy Area" is the new name for "Topic".
   class PolicyAreaPlaceholder < Placeholder
   private
 

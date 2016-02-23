@@ -1,3 +1,4 @@
+# NB: Topic is being renamed to "Policy Area" across GOV.UK.
 module Edition::Topics
   extend ActiveSupport::Concern
   include Edition::Classifications
