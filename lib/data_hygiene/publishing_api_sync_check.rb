@@ -15,7 +15,7 @@
 # pagination, so it won't (reliably) handle lots of items...
 module DataHygiene
   class PublishingApiSyncCheck
-    attr_reader :hydra, :scope, :expectations, :successes, :failures
+    attr_reader :hydra, :scope, :expectations, :successes, :failures, :base_path_builder
 
     def initialize(scope)
       @scope = scope
@@ -24,10 +24,16 @@ module DataHygiene
       @expectations = []
       @successes = []
       @failures = []
+
+      @base_path_builder = lambda { |whitehall_model| Whitehall.url_maker.polymorphic_path(whitehall_model) }
     end
 
     def add_expectation(&block)
       expectations << block
+    end
+
+    def override_base_path(&base_path_builder)
+      @base_path_builder = base_path_builder
     end
 
     def perform(output: true)
@@ -68,7 +74,7 @@ module DataHygiene
     end
 
     def base_path_for(whitehall_model)
-      Whitehall.url_maker.polymorphic_path(whitehall_model)
+      @base_path_builder.call(whitehall_model)
     end
   end
 end
