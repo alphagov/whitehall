@@ -125,11 +125,10 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
     assert_equal "http://test.host/government/publications/#{edition.slug}?cachebust=#{Time.zone.now.getutc.to_i}&preview=#{edition.id}", preview_url
   end
 
-  test "Creates a preview URL without parameters for case studies" do
-    Whitehall.stubs(case_study_preview_host: 'content.preview')
+  test "Creates a preview URL without parameters for edition formats that have migrated" do
     edition = create(:draft_case_study)
     preview_url = preview_document_url(edition)
-    assert_equal "http://content.preview/government/case-studies/#{edition.slug}", preview_url
+    assert_equal "http://draft-origin.test.alphagov.co.uk/government/case-studies/#{edition.slug}", preview_url
   end
 
   test "organisations have the correct path generated" do
