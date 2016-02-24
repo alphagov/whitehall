@@ -22,7 +22,7 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
       check.perform
     end
 
-    assert_equal(["/government/get-involved/take-part/take-part-slug"], check.successes)
+    assert_equal ["/government/get-involved/take-part/take-part-slug"], check.successes.map(&:base_path)
     assert_empty(check.failures)
   end
 
@@ -40,12 +40,21 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
     content_store_has_item("/government/get-involved/take-part/take-part-slug", payload)
 
     check = check_take_part
-    assert_output(/Successes: 0\nFailures: 1/m) do
+    expected_error_message = "Failed path: /government/get-involved/take-part/take-part-slug, failed expectations: format"
+    assert_output(/Successes: 0\nFailures: 1\n#{expected_error_message}/m) do
       check.perform
     end
 
     assert_empty(check.successes)
-    assert_equal(["/government/get-involved/take-part/take-part-slug"], check.failures)
+    assert_equal(
+      [
+        check_failure(
+          base_path: "/government/get-involved/take-part/take-part-slug",
+          failed_expectations: ["format"],
+        )
+      ],
+      check.failures
+    )
   end
 
   test "detects when the content item is missing from the Content Store" do
@@ -60,7 +69,15 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
     check.perform(output: false)
 
     assert_empty(check.successes)
-    assert_equal(["/government/get-involved/take-part/take-part-slug"], check.failures)
+    assert_equal(
+      [
+        check_failure(
+          base_path: "/government/get-involved/take-part/take-part-slug",
+          failed_expectations: ["item missing from Content Store"],
+        )
+      ],
+      check.failures
+    )
   end
 
   test "overriding the base path fetching for formats that don't follow the conventions" do
@@ -78,20 +95,20 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
     check.override_base_path(&:search_link)
     check.perform(output: false)
 
-    assert_equal(["/government/topical-events/example-event/about"], check.successes)
+    assert_equal ["/government/topical-events/example-event/about"], check.successes.map(&:base_path)
     assert_empty(check.failures)
   end
 
   def check_take_part
     check = DataHygiene::PublishingApiSyncCheck.new(TakePartPage.all)
 
-    check.add_expectation do |content_store_payload, _|
+    check.add_expectation("format") do |content_store_payload, _|
       content_store_payload["format"] == 'take_part'
     end
-    check.add_expectation do |content_store_payload, model|
+    check.add_expectation("base_path") do |content_store_payload, model|
       content_store_payload["base_path"] == Whitehall.url_maker.polymorphic_path(model)
     end
-    check.add_expectation do |content_store_payload, model|
+    check.add_expectation("title") do |content_store_payload, model|
       content_store_payload["title"] == model.title
     end
 
@@ -101,16 +118,20 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
   def check_about_pages
     check = DataHygiene::PublishingApiSyncCheck.new(AboutPage.all)
 
-    check.add_expectation do |content_store_payload, _|
+    check.add_expectation("format") do |content_store_payload, _|
       content_store_payload["format"] == 'topical_event_about_page'
     end
-    check.add_expectation do |content_store_payload, model|
+    check.add_expectation("base_path") do |content_store_payload, model|
       content_store_payload["base_path"] == model.search_link
     end
-    check.add_expectation do |content_store_payload, model|
+    check.add_expectation("title") do |content_store_payload, model|
       content_store_payload["title"] == model.name
     end
 
     check
+  end
+
+  def check_failure(options)
+    DataHygiene::PublishingApiSyncCheck::Failure.new(options)
   end
 end

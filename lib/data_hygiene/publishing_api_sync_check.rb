@@ -15,6 +15,31 @@
 # pagination, so it won't (reliably) handle lots of items...
 module DataHygiene
   class PublishingApiSyncCheck
+    class Success
+      attr_reader :base_path
+
+      def initialize(base_path:)
+        @base_path = base_path
+      end
+    end
+
+    class Failure
+      attr_reader :base_path, :failed_expectations
+
+      def initialize(base_path:, failed_expectations:)
+        @base_path = base_path
+        @failed_expectations = failed_expectations
+      end
+
+      def to_s
+        "Failed path: #{@base_path}, failed expectations: #{@failed_expectations.join(', ')}"
+      end
+
+      def ==(other)
+        self.base_path == other.base_path && self.failed_expectations == other.failed_expectations
+      end
+    end
+
     attr_reader :hydra, :scope, :expectations, :successes, :failures, :base_path_builder
 
     def initialize(scope)
@@ -28,8 +53,8 @@ module DataHygiene
       @base_path_builder = lambda { |whitehall_model| Whitehall.url_maker.polymorphic_path(whitehall_model) }
     end
 
-    def add_expectation(&block)
-      expectations << block
+    def add_expectation(description, &block)
+      expectations << { description: description, block: block }
     end
 
     def override_base_path(&base_path_builder)
@@ -56,13 +81,15 @@ module DataHygiene
       base_path = base_path_for(whitehall_model)
       if response.success?
         json = JSON.parse(response.body)
-        if expectations.all? { |expectation| expectation.call(json, whitehall_model) } # should return true if expectations is empty
-          successes << base_path
+        failed_expectations = expectations.reject { |expectation| expectation[:block].call(json, whitehall_model) }
+        if failed_expectations.empty?
+          successes << Success.new(base_path: base_path)
         else
-          failures << base_path
+          failed_expectation_descriptions = failed_expectations.map { |expectation| expectation[:description] }
+          failures << Failure.new(base_path: base_path, failed_expectations: failed_expectation_descriptions)
         end
       else
-        failures << base_path
+        failures << Failure.new(base_path: base_path, failed_expectations: ["item missing from Content Store"])
       end
     end
 
@@ -70,7 +97,7 @@ module DataHygiene
       puts "\nCheck complete"
       puts "Successes: #{successes.count}"
       puts "Failures: #{failures.count}"
-      puts "Failure paths:\n#{failures.join("\n")}" unless failures.empty?
+      failures.each { |failure| puts failure.to_s } unless failures.empty?
     end
 
     def base_path_for(whitehall_model)
