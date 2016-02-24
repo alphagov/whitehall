@@ -18,7 +18,9 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
     content_store_has_item("/government/get-involved/take-part/take-part-slug", payload)
 
     check = check_take_part
-    check.perform(output: false)
+    assert_output(/Successes: 1\nFailures: 0/m) do
+      check.perform
+    end
 
     assert_equal(["/government/get-involved/take-part/take-part-slug"], check.successes)
     assert_empty(check.failures)
@@ -38,7 +40,9 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
     content_store_has_item("/government/get-involved/take-part/take-part-slug", payload)
 
     check = check_take_part
-    check.perform(output: false)
+    assert_output(/Successes: 0\nFailures: 1/m) do
+      check.perform
+    end
 
     assert_empty(check.successes)
     assert_equal(["/government/get-involved/take-part/take-part-slug"], check.failures)
