@@ -1,3 +1,4 @@
+require_relative "../publishing_api_presenters"
 module PublishingApiPresenters
   class Item
     extend Forwardable

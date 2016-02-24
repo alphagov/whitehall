@@ -1,4 +1,5 @@
 require "securerandom"
+require_relative "../publishing_api_presenters"
 
 # A temporary content format used as a splash page for scheduled documents.
 #

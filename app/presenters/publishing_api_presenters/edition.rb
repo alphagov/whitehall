@@ -1,3 +1,4 @@
+require_relative "../publishing_api_presenters"
 # This base class is used to register dummy items in the content store as
 # "placeholder" content items. Only the specialist topics information is
 # exposed. This is to enable the email alerts service to generate alerts

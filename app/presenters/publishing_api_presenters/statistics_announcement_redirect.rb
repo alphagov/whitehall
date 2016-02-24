@@ -1,4 +1,5 @@
-require 'securerandom'
+require "securerandom"
+require_relative "../publishing_api_presenters"
 
 module PublishingApiPresenters
   class StatisticsAnnouncementRedirect

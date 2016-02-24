@@ -1,3 +1,5 @@
+require_relative "../publishing_api_presenters"
+
 module PublishingApiPresenters
   class Unpublishing < Item
     def content

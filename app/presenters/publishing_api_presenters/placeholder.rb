@@ -1,3 +1,4 @@
+require_relative "../publishing_api_presenters"
 # For now, this is used to register data for items in the content
 # store as "placeholder" content items. This is so that finders can reference
 # items using content_ids and have their basic information expanded

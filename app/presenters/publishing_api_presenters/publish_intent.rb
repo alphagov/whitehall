@@ -1,3 +1,5 @@
+require_relative "../publishing_api_presenters"
+
 class PublishingApiPresenters::PublishIntent
   def initialize(base_path, publish_timestamp)
     @base_path = base_path
