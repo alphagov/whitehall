@@ -50,7 +50,13 @@ module DataHygiene
       @successes = []
       @failures = []
 
-      @base_path_builder = lambda { |whitehall_model| Whitehall.url_maker.polymorphic_path(whitehall_model) }
+      @base_path_builder = lambda do |model|
+        if model.is_a?(Edition)
+          Whitehall.url_maker.public_document_path(model)
+        else
+          Whitehall.url_maker.polymorphic_path(model)
+        end
+      end
     end
 
     def add_expectation(description, &block)

@@ -26,6 +26,23 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
     assert_empty(check.failures)
   end
 
+  test "checker works with editions" do
+    create(:published_case_study, title: 'Example case study')
+    payload = {
+      format: "case_study",
+      base_path: "/government/case-studies/example-case-study",
+    }
+    content_store_has_item("/government/case-studies/example-case-study", payload)
+
+    check = check_case_study
+    assert_output(/Successes: 1\nFailures: 0/m) do
+      check.perform
+    end
+
+    assert_equal ["/government/case-studies/example-case-study"], check.successes.map(&:base_path)
+    assert_empty(check.failures)
+  end
+
   test "detects when the format published in the Content Store does not match the persisted model" do
     create(
       :take_part_page,
@@ -126,6 +143,16 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
     end
     check.add_expectation("title") do |content_store_payload, model|
       content_store_payload["title"] == model.name
+    end
+
+    check
+  end
+
+  def check_case_study
+    check = DataHygiene::PublishingApiSyncCheck.new(CaseStudy.latest_published_edition)
+
+    check.add_expectation("format") do |content_store_payload, _|
+      content_store_payload["format"] == 'case_study'
     end
 
     check
