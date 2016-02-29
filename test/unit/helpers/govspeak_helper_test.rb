@@ -353,6 +353,14 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, "table.sortable.js-barchart-table"
   end
 
+  test "fraction image paths include the public asset host and configured asset prefix" do
+    prefix = Rails.application.config.assets.prefix
+    path   = "#{Whitehall.public_asset_host}#{prefix}/fractions/1_2.png"
+    html   = govspeak_to_html("I'm [Fraction:1/2] a person")
+
+    assert_select_within_html(html, "img[src='#{path}']")
+  end
+
   test 'will create bespoke fractions' do
     input = "Some text [Fraction:1/72] and some text"
     html = govspeak_to_html(input)
