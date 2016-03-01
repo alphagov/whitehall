@@ -72,8 +72,11 @@ module DataHygiene
         url = Plek.find('content-store') + "/content" + base_path_for(whitehall_model)
         request = Typhoeus::Request.new(url)
         request.on_complete do |response|
-          print "." if output
-          compare_content(response, whitehall_model)
+          success = compare_content(response, whitehall_model)
+          if output
+            progress_indicator = success ? "." : "x"
+            print progress_indicator
+          end
         end
         hydra.queue(request)
       end
@@ -90,13 +93,17 @@ module DataHygiene
         failed_expectations = expectations.reject { |expectation| expectation[:block].call(json, whitehall_model) }
         if failed_expectations.empty?
           successes << Success.new(base_path: base_path)
+          success = true
         else
           failed_expectation_descriptions = failed_expectations.map { |expectation| expectation[:description] }
           failures << Failure.new(base_path: base_path, failed_expectations: failed_expectation_descriptions)
+          success = false
         end
       else
         failures << Failure.new(base_path: base_path, failed_expectations: ["item missing from Content Store"])
+        success = false
       end
+      success
     end
 
     def print_results
