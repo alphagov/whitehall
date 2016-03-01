@@ -15,39 +15,39 @@ require_relative "../publishing_api_presenters"
 #
 # Note this format becomes redundant once the caching infrastructure is able to
 # honour caching headers on upstream 404 responses.
-module PublishingApiPresenters
-  class ComingSoon < Item
-    def content_id
-      SecureRandom.uuid
-    end
+
+class PublishingApiPresenters::ComingSoon < PublishingApiPresenters::Item
+  def content_id
+    SecureRandom.uuid
+  end
 
   private
-    def document_format
-      'coming_soon'
-    end
 
-    def title
-      'Coming soon'
-    end
+  def document_format
+    'coming_soon'
+  end
 
-    def description
-      'Coming soon'
-    end
+  def title
+    'Coming soon'
+  end
 
-    def rendering_app
-      item.rendering_app
-    end
+  def description
+    'Coming soon'
+  end
 
-    def details
-      { publish_time: item.scheduled_publication.as_json }
-    end
+  def rendering_app
+    item.rendering_app
+  end
 
-    def public_updated_at
-      item.updated_at
-    end
+  def details
+    { publish_time: item.scheduled_publication.as_json }
+  end
 
-    def base_path
-      Whitehall.url_maker.public_document_path(item, locale: I18n.locale)
-    end
+  def public_updated_at
+    item.updated_at
+  end
+
+  def base_path
+    Whitehall.url_maker.public_document_path(item, locale: I18n.locale)
   end
 end

@@ -1,4 +1,5 @@
 require "test_helper"
+require File.join(Rails.root, "app/presenters/publishing_api_presenters")
 
 module PublishingApiPresenters
   class StatisticsAnnouncementRedirectTest < ActiveSupport::TestCase
