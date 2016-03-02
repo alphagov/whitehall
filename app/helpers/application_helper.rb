@@ -285,14 +285,6 @@ module ApplicationHelper
     end
   end
 
-  def path_to_image(source)
-    if source && source.starts_with?("/government/uploads") && user_signed_in?
-      source
-    else
-      super(source)
-    end
-  end
-
   def is_external?(href)
     if host = Addressable::URI.parse(href).host
       Whitehall.public_host != host
