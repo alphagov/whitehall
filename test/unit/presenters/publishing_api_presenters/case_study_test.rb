@@ -43,10 +43,11 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     }
 
     expected_links = {
+      document_collections: [],
       lead_organisations: [case_study.lead_organisations.first.content_id],
       related_policies: [],
       supporting_organisations: [],
-      document_collections: [],
+      topics: [],
       world_locations: [],
       worldwide_organisations: [],
       worldwide_priorities: [],
@@ -126,10 +127,11 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
                         supporting_organisations: [supporting_org])
     presented_item = present(case_study)
     expected_links_hash = {
+      document_collections: [],
       lead_organisations: [lead_org_1.content_id, lead_org_2.content_id],
       related_policies: [],
       supporting_organisations: [supporting_org.content_id],
-      document_collections: [],
+      topics: [],
       world_locations: [],
       worldwide_organisations: [],
       worldwide_priorities: [],

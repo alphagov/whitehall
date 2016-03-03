@@ -7,6 +7,11 @@ class PublishingApiPresenters::Unpublishing < PublishingApiPresenters::Item
 
 private
 
+  def filter_links
+    # nothing to tag
+    []
+  end
+
   def document_format
     item.redirect? ? 'redirect' : 'unpublishing'
   end

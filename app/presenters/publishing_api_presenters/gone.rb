@@ -23,6 +23,6 @@ class PublishingApiPresenters::Gone
   end
 
   def links
-    {}
+    {} # Gone Item. no links
   end
 end

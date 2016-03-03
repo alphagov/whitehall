@@ -1,14 +1,15 @@
 require_relative "../publishing_api_presenters"
 
 class PublishingApiPresenters::StatisticsAnnouncement < PublishingApiPresenters::Item
-  def links
-    {
-      organisations: item.organisations.map(&:content_id),
-      policy_areas: item.topics.map(&:content_id)
-    }
-  end
-
 private
+
+  def filter_links
+    [
+      :organisations,
+      :policy_areas,
+      :topics,
+    ]
+  end
 
   def details
     {

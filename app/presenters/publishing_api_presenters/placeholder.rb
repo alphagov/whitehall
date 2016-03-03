@@ -6,6 +6,12 @@ require_relative "../publishing_api_presenters"
 class PublishingApiPresenters::Placeholder < PublishingApiPresenters::Item
 private
 
+  def filter_links
+    [
+      :topics,
+    ]
+  end
+
   def title
     item.name
   end

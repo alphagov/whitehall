@@ -19,11 +19,12 @@ class PublishingApiPresenters::Redirect
     }
   end
 
-  def links
-    {}
-  end
-
   def update_type
     'major'
+  end
+
+  def links
+    # no tags
+    {}
   end
 end

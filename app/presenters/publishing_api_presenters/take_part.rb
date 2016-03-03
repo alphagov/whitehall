@@ -3,6 +3,14 @@ require_relative "../publishing_api_presenters"
 class PublishingApiPresenters::TakePart < PublishingApiPresenters::Item
 private
 
+  def filter_links
+    [
+      :lead_organisations,
+      :policy_areas,
+      :topics,
+    ]
+  end
+
   def document_format
     "take_part"
   end

@@ -2,6 +2,7 @@ require_relative "../publishing_api_presenters"
 
 class PublishingApiPresenters::TopicalEventAboutPage < PublishingApiPresenters::Item
   def links
+    # about pages aren't tagged
     {
       parent: [item.topical_event.content_id]
     }

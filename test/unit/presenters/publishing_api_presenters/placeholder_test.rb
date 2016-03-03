@@ -23,11 +23,12 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
       need_ids: [],
       details: {},
     }
+    expected_links = { topics: [] }
 
     presented_item = present(ministerial_role)
 
     assert_equal expected_hash, presented_item.content
-    assert_equal Hash.new, presented_item.links
+    assert_equal expected_links, presented_item.links
     assert_equal "major", presented_item.update_type
     assert_equal ministerial_role.content_id, presented_item.content_id
 
@@ -52,11 +53,12 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
       need_ids: [],
       details: {},
     }
+    expected_links = { topics: [] }
 
     presented_item = present(person)
 
     assert_equal expected_hash, presented_item.content
-    assert_equal Hash.new, presented_item.links
+    assert_equal expected_links, presented_item.links
     assert_equal "major", presented_item.update_type
     assert_equal person.content_id, presented_item.content_id
 
@@ -82,11 +84,12 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
       details: {},
       analytics_identifier: "WO123",
     }
+    expected_links = { topics: [] }
 
     presented_item = present(worldwide_org)
 
     assert_equal expected_hash, presented_item.content
-    assert_equal Hash.new, presented_item.links
+    assert_equal expected_links, presented_item.links
     assert_equal "major", presented_item.update_type
     assert_equal worldwide_org.content_id, presented_item.content_id
 
@@ -112,11 +115,12 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
       details: {},
       analytics_identifier: "WL123",
     }
+    expected_links = { topics: [] }
 
     presented_item = present(world_location)
 
     assert_equal expected_hash, presented_item.content
-    assert_equal Hash.new, presented_item.links
+    assert_equal expected_links, presented_item.links
     assert_equal "major", presented_item.update_type
     assert_equal world_location.content_id, presented_item.content_id
 
