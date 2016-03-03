@@ -43,6 +43,48 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
     assert_empty(check.failures)
   end
 
+  test "checker works with translated versions of editions" do
+    create(:published_case_study, :translated, translated_into: [:fr], title: 'Example case study')
+
+    content_store_has_item(
+      "/government/case-studies/example-case-study",
+      format: "case_study",
+      base_path: "/government/case-studies/example-case-study",
+    )
+    content_store_has_item(
+      "/government/case-studies/example-case-study.fr",
+      format: "case_study",
+      base_path: "/government/case-studies/example-case-study.fr",
+    )
+
+    check = check_case_study
+    assert_output(/Successes: 1\nFailures: 0/m) do
+      check.perform
+    end
+
+    assert_equal ["/government/case-studies/example-case-study"], check.successes.map(&:base_path)
+    assert_empty check.failures
+  end
+
+  test "detects missing translations of editions" do
+    create(:published_case_study, :translated, translated_into: [:es], title: 'Another example case study')
+
+    content_store_has_item(
+      "/government/case-studies/another-example-case-study",
+      format: "case_study",
+      base_path: "/government/case-studies/another-example-case-study",
+    )
+    content_store_does_not_have_item("/government/case-studies/another-example-case-study.es")
+
+    check = check_case_study
+    assert_output(/Successes: 0\nFailures: 1/m) do
+      check.perform
+    end
+
+    assert_empty check.successes
+    assert_equal ["/government/case-studies/another-example-case-study"], check.failures.map(&:base_path)
+  end
+
   test "detects when the format published in the Content Store does not match the persisted model" do
     create(
       :take_part_page,

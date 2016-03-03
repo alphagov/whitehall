@@ -1,3 +1,5 @@
+require 'gds_api/content_store'
+
 # Check to see how complete the (live) content-store's copies of data are.
 #
 #   pasc = DataHygiene::PublishingApiSyncCheck.new(StatisticsAnnouncement.limit(100))
@@ -57,6 +59,8 @@ module DataHygiene
           Whitehall.url_maker.polymorphic_path(model)
         end
       end
+
+      add_translations_expectation if can_have_translations?(scope.first)
     end
 
     def add_expectation(description, &block)
@@ -86,6 +90,22 @@ module DataHygiene
 
   private
 
+    def add_translations_expectation
+      add_expectation("translations") do |_, record|
+        translations_present_and_have_correct_basepath?(record)
+      end
+    end
+
+    def translations_present_and_have_correct_basepath?(record)
+      content_store = GdsApi::ContentStore.new(Plek.find("content-store"))
+      translation_locales_for(record).each do |locale|
+        base_path_for_translation = base_path_for(record, locale: locale)
+        content_item = content_store.content_item(base_path_for_translation)
+        return false if content_item.nil? || content_item["base_path"] != base_path_for_translation
+      end
+      true
+    end
+
     def compare_content(response, whitehall_model)
       base_path = base_path_for(whitehall_model)
       if response.success?
@@ -113,8 +133,22 @@ module DataHygiene
       failures.each { |failure| puts failure.to_s } unless failures.empty?
     end
 
-    def base_path_for(whitehall_model)
-      @base_path_builder.call(whitehall_model)
+    def base_path_for(whitehall_model, locale: :en)
+      I18n.with_locale(locale) do
+        @base_path_builder.call(whitehall_model)
+      end
+    end
+
+    def translation_locales_for(record)
+      if can_have_translations?(record)
+        record.translated_locales - [:en]
+      else
+        []
+      end
+    end
+
+    def can_have_translations?(record)
+      record.respond_to?(:translated_locales)
     end
   end
 end
