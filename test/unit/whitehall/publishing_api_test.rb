@@ -98,6 +98,33 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     assert_all_requested(requests)
   end
 
+  test "#bulk_republish_async publishes to the Publishing API as a 'republish'" do
+    take_part_page = create(:take_part_page)
+    presenter = PublishingApiPresenters.presenter_for(take_part_page, update_type: 'republish')
+    requests = [
+      stub_publishing_api_put_content(presenter.content_id, presenter.content),
+      stub_publishing_api_put_links(presenter.content_id, links: presenter.links),
+      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: 'republish')
+    ]
+
+    Whitehall::PublishingApi.bulk_republish_async(take_part_page)
+
+    assert_all_requested(requests)
+  end
+
+  test "#bulk_republish_async queues the job on the bulk_republishing queue" do
+    take_part_page = create(:take_part_page)
+    PublishingApiWorker.expects(:perform_async_in_queue)
+      .with(
+        "bulk_republishing",
+        "TakePartPage",
+        take_part_page.id,
+        "republish",
+        :en
+      )
+    Whitehall::PublishingApi.bulk_republish_async(take_part_page)
+  end
+
   test "#republish_document_async publishes to the publishing API as a 'republish' update_type" do
     edition = create(:published_publication)
     presenter = PublishingApiPresenters.presenter_for(edition, update_type: 'republish')
