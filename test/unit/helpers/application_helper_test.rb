@@ -6,21 +6,6 @@ class ApplicationHelperTest < ActionView::TestCase
   include ERB::Util
   include Rails.application.routes.url_helpers
 
-  class TestView
-    module RailsPathToImage
-      def path_to_image(source)
-        'assets.example.com' + source
-      end
-    end
-
-    def user_signed_in?
-      false
-    end
-
-    include RailsPathToImage
-    include ApplicationHelper
-  end
-
   # Exposes request object to helper in tests
   def request
     controller.request
@@ -180,24 +165,6 @@ class ApplicationHelperTest < ActionView::TestCase
     refute classes.include?("active")
     assert classes.include?("class-1")
     assert classes.include?("class-2")
-  end
-
-  test "skips asset host for image paths if user signed in and image in uploads" do
-    view = TestView.new
-    view.stubs(:user_signed_in?).returns(true)
-    assert_equal '/government/uploads/path/to/my/image', view.path_to_image('/government/uploads/path/to/my/image')
-  end
-
-  test "uses asset host for image paths if user signed in but image not in uploads" do
-    view = TestView.new
-    view.stubs(:user_signed_in?).returns(true)
-    assert_equal 'assets.example.com/path/to/another/image', view.path_to_image('/path/to/another/image')
-  end
-
-  test "uses asset standard rails image paths if user not signed in" do
-    view = TestView.new
-    view.stubs(:user_signed_in?).returns(false)
-    assert_equal 'assets.example.com/government/uploads/path/to/my/image', view.path_to_image('/government/uploads/path/to/my/image')
   end
 
   test "correctly identifies external links" do

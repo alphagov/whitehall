@@ -28,6 +28,20 @@ class Whitehall::GovspeakRendererTest < ActiveSupport::TestCase
     assert_select_within_html html, "#attachment_#{attachment_2.id}"
   end
 
+  test "converts block attachments and handles thumbnails for PDFs" do
+    body = "#Heading\n\nText. \n\n!@1\n\n Fooble"
+    edition = create(:published_detailed_guide, :with_file_attachment, body: body, attachments: [
+      attachment = build(:file_attachment, id: 1),
+    ])
+
+    # The content_type doesn't get set for some reason, so set it manually
+    ad = edition.attachments.first.attachment_data
+    ad.update_column(:content_type, 'application/pdf')
+
+    html = render_govspeak(edition)
+    assert_select_within_html html, "#attachment_#{attachment.id}"
+  end
+
   def render_govspeak(edition)
     Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(edition)
   end

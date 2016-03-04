@@ -106,6 +106,10 @@ class Attachment < ActiveRecord::Base
     ''
   end
 
+  def url
+    raise NotImplementedError, "Subclasses must implement the url method"
+  end
+
   private
 
   def store_price_in_pence
