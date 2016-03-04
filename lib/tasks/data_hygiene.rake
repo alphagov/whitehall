@@ -124,10 +124,7 @@ end
 
 desc "Unwithdraw an edition (creates and publishes a draft with audit trail)"
 task :unwithdraw_edition, [:edition_id] => :environment do |t,args|
+  edition = Edition.find(args[:edition_id])
   gds_inside_gov_user = User.find(406)
-  DataHygiene::EditionUnwithdrawer.new(
-    edition_id: args[:edition_id],
-    logger: Logger.new(STDOUT),
-    user: gds_inside_gov_user,
-  ).unwithdraw!
+  Whitehall.edition_services.unwithdrawer(edition, user: gds_inside_gov_user).perform!
 end

@@ -47,6 +47,10 @@ class EditionServiceCoordinator
     ::EditionWithdrawer.new(edition, options.merge(notifier: self))
   end
 
+  def unwithdrawer(edition, options = {})
+    ::EditionUnwithdrawer.new(edition, options.merge(notifier: self))
+  end
+
   def deleter(edition, options = {})
     ::EditionDeleter.new(edition, options.merge(notifier: self))
   end
