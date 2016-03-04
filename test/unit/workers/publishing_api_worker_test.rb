@@ -9,7 +9,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
     presenter = PublishingApiPresenters.presenter_for(edition)
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_put_links(presenter.content_id, links: presenter.links),
+      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
       stub_publishing_api_publish(presenter.content_id, update_type: "major", locale: "en")
     ]
 
@@ -23,7 +23,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
     presenter = PublishingApiPresenters.presenter_for(edition)
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_put_links(presenter.content_id, links: presenter.links),
+      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
       stub_publishing_api_publish(presenter.content_id, update_type: "major", locale: "en")
     ]
 
@@ -38,7 +38,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
 
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_put_links(presenter.content_id, links: presenter.links),
+      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
       stub_publishing_api_publish(presenter.content_id, update_type: "major", locale: "en")
     ]
 
@@ -58,7 +58,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
     presenter = PublishingApiPresenters.presenter_for(edition, update_type: update_type)
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_put_links(presenter.content_id, links: presenter.links),
+      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
       stub_publishing_api_publish(presenter.content_id, update_type: update_type, locale: "en")
     ]
 
@@ -77,7 +77,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
 
       [
         stub_publishing_api_put_content(presenter.content_id, presenter.content),
-        stub_publishing_api_put_links(presenter.content_id, links: presenter.links),
+        stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
         stub_publishing_api_publish(presenter.content_id, { locale: "es", update_type: "major" })
       ]
     end

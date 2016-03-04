@@ -57,13 +57,13 @@ module OrganisationResluggerTest
 
       expected_publish_requests = [
         stub_publishing_api_put_content(content_item.content_id, content_item.content),
-        stub_publishing_api_put_links(content_item.content_id, links: content_item.links),
+        stub_publishing_api_patch_links(content_item.content_id, links: content_item.links),
         stub_publishing_api_publish(content_item.content_id, locale: 'en', update_type: 'major')
       ]
 
       expected_redirect_requests = [
         stub_publishing_api_put_content(redirect_item.content_id, redirect_item.content),
-        stub_publishing_api_put_links(redirect_item.content_id, links: redirect_item.links),
+        stub_publishing_api_patch_links(redirect_item.content_id, links: redirect_item.links),
         stub_publishing_api_publish(redirect_item.content_id, locale: 'en', update_type: 'major')
       ]
 

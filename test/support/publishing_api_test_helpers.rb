@@ -8,7 +8,7 @@ module PublishingApiTestHelpers
     Array(editions).each do |edition|
       presenter = PublishingApiPresenters::Edition.new(edition)
       stub_publishing_api_put_content(presenter.content_id, presenter.content)
-      stub_publishing_api_put_links(presenter.content_id, links: presenter.links)
+      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links)
       stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: 'major')
     end
   end
@@ -18,7 +18,7 @@ module PublishingApiTestHelpers
       Whitehall.publishing_api_v2_client.expects(:put_content)
         .with(edition.content_id,
           has_entries(publishing_app: 'whitehall', rendering_app: 'whitehall-frontend'))
-      Whitehall.publishing_api_v2_client.stubs(:put_links)
+      Whitehall.publishing_api_v2_client.stubs(:patch_links)
         .with(edition.content_id,
           has_entries(links: {}))
       Whitehall.publishing_api_v2_client.expects(:publish)
@@ -31,7 +31,7 @@ module PublishingApiTestHelpers
       Whitehall.publishing_api_v2_client.expects(:put_content)
         .with(edition.content_id,
           has_entries(publishing_app: 'whitehall', rendering_app: 'whitehall-frontend'))
-      Whitehall.publishing_api_v2_client.stubs(:put_links)
+      Whitehall.publishing_api_v2_client.stubs(:patch_links)
         .with(edition.content_id,
           has_entries(links: {}))
       Whitehall.publishing_api_v2_client.expects(:publish)

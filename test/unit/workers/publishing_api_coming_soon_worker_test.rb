@@ -35,7 +35,7 @@ class PublishingApiComingSoonWorkerTest < ActiveSupport::TestCase
 
     requests = [
       stub_publishing_api_put_content(uuid, expected_payload),
-      stub_publishing_api_put_links(uuid, links: {}),
+      stub_publishing_api_patch_links(uuid, links: {}),
       stub_publishing_api_publish(uuid, { locale: "fr", update_type: "major" })
     ]
 
