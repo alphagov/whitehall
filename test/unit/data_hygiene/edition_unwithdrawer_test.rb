@@ -13,29 +13,29 @@ module DataHygiene
 
     setup do
       @edition = FactoryGirl.create(:published_edition, state: 'withdrawn')
-      @user = FactoryGirl.create(:user, id: 406)
+      @user = FactoryGirl.create(:user)
       @panopticon_request = stub_live_artefact_registration(@edition)
       stub_any_publishing_api_call
     end
 
     test "initialize with a non-existent edition id errors" do
       assert_raises ActiveRecord::RecordNotFound do
-        EditionUnwithdrawer.new(123)
+        EditionUnwithdrawer.new(edition_id: 123, user: @user)
       end
     end
 
     test "initialize with an existing edition id finds the edition" do
-      assert_equal @edition, EditionUnwithdrawer.new(@edition.id).edition
+      assert_equal @edition, EditionUnwithdrawer.new(edition_id: @edition.id, user: @user).edition
     end
 
     test "initialize finds the correct user for unwithdrawing" do
-      assert_equal @user, EditionUnwithdrawer.new(@edition.id).user
+      assert_equal @user, EditionUnwithdrawer.new(edition_id: @edition.id, user: @user).user
     end
 
     test "initialize raises an error unless the edition is withdrawn" do
       @edition.update_attribute(:state, "published")
       assert_raises RuntimeError do
-        EditionUnwithdrawer.new(@edition.id)
+        unwithdraw
       end
     end
 
@@ -43,7 +43,7 @@ module DataHygiene
       EditionForcePublisher.any_instance.stubs(:perform!).raises("Something bad happened here.")
 
       assert_raises RuntimeError do
-        EditionUnwithdrawer.new(@edition.id).unwithdraw!
+        unwithdraw
       end
       @edition.reload
 
@@ -51,13 +51,13 @@ module DataHygiene
     end
 
     test "unwithdraw updates the state of the original edition to superseded" do
-      EditionUnwithdrawer.new(@edition.id).unwithdraw!
+      unwithdraw
       @edition.reload
       assert_equal "superseded", @edition.state
     end
 
     test "unwithdraw publishes a draft of the withdrawn edition" do
-      unwithdrawn_edition = EditionUnwithdrawer.new(@edition.id).unwithdraw!
+      unwithdrawn_edition = unwithdraw
       assert unwithdrawn_edition.published?
       assert unwithdrawn_edition.minor_change
       assert_equal @edition.document, unwithdrawn_edition.document
@@ -69,7 +69,7 @@ module DataHygiene
       edition = FactoryGirl.create(:published_edition, state: 'withdrawn')
       stub_live_artefact_registration(edition)
 
-      unwithdrawn_edition = EditionUnwithdrawer.new(edition.id).unwithdraw!
+      unwithdrawn_edition = unwithdraw(edition)
 
       assert unwithdrawn_edition.published?
       assert unwithdrawn_edition.minor_change
@@ -79,9 +79,14 @@ module DataHygiene
     end
 
     test "unwithdraw handles re-registration with Panopticon" do
-      unwithdrawn_edition = EditionUnwithdrawer.new(@edition.id).unwithdraw!
+      unwithdraw
 
       assert_requested @panopticon_request
+    end
+
+    def unwithdraw(edition = nil)
+      edition ||= @edition
+      EditionUnwithdrawer.new(edition_id: edition.id, user: @user).unwithdraw!
     end
   end
 end
