@@ -32,6 +32,13 @@ module Whitehall
       push_live(model_instance, 'republish')
     end
 
+    def self.bulk_republish_async(model_instance)
+      if model_instance.class < Edition
+        raise ArgumentError, "This method does not support Editions"
+      end
+      push_live(model_instance, 'republish', 'bulk_republishing')
+    end
+
     # Synchronise the published and/or draft documents in publishing-api with
     # the contents of Whitehall's database.
     def self.republish_document_async(document)
@@ -39,6 +46,7 @@ module Whitehall
       pre_publication_edition_id = document.pre_publication_edition.try(:id)
       PublishingApiDocumentRepublishingWorker.perform_async(published_edition_id, pre_publication_edition_id)
     end
+
 
     def self.schedule_async(edition)
       return unless served_from_content_store?(edition)

@@ -1,10 +1,13 @@
 require 'test_helper'
 
 class DataHygiene::PublishingApiRepublisherTest < ActiveSupport::TestCase
+  setup do
+    @organisation = create(:organisation)
+    @scope = Organisation.where(id: @organisation.id)
+  end
+
   test "republishes a model to the Publishing API" do
-    organisation     = create(:organisation)
-    scope            = Organisation.where(id: organisation.id)
-    presenter        = PublishingApiPresenters.presenter_for(organisation, update_type: "republish")
+    presenter = PublishingApiPresenters.presenter_for(@organisation, update_type: "republish")
     WebMock.reset!
 
     expected_requests = [
@@ -13,9 +16,14 @@ class DataHygiene::PublishingApiRepublisherTest < ActiveSupport::TestCase
       stub_publishing_api_publish(presenter.content_id, locale: 'en', update_type: 'republish')
     ]
 
-    DataHygiene::PublishingApiRepublisher.new(scope, NullLogger.instance).perform
+    DataHygiene::PublishingApiRepublisher.new(@scope, NullLogger.instance).perform
 
     assert_all_requested(expected_requests)
+  end
+
+  test "uses bulk_republish_async" do
+    Whitehall::PublishingApi.expects(:bulk_republish_async).with(@organisation)
+    DataHygiene::PublishingApiRepublisher.new(@scope, NullLogger.instance).perform
   end
 
 end
