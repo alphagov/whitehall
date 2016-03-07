@@ -86,6 +86,10 @@ module Edition::Workflow
       event :withdraw do
         transitions from: :published, to: :withdrawn
       end
+
+      event :unwithdraw do
+        transitions from: :withdrawn, to: :superseded
+      end
     end
 
     validate :edition_has_no_unpublished_editions, on: :create
