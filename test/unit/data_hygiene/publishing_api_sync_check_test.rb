@@ -4,7 +4,7 @@ require 'gds_api/test_helpers/content_store'
 class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::ContentStore
 
-  test "checks that the format published in the content store matches the persisted model" do
+  test "checks that the format published in the Content Store and the Draft Content Store matches the persisted model" do
     create(
       :take_part_page,
       title: "Title of a take part page",
@@ -16,6 +16,7 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
       base_path: "/government/get-involved/take-part/take-part-slug",
     }
     content_store_has_item("/government/get-involved/take-part/take-part-slug", payload)
+    content_store_has_item("/government/get-involved/take-part/take-part-slug", payload, draft: true)
 
     check = check_take_part
     assert_output(/Successes: 1\nFailures: 0/m) do
@@ -33,6 +34,7 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
       base_path: "/government/case-studies/example-case-study",
     }
     content_store_has_item("/government/case-studies/example-case-study", payload)
+    content_store_has_item("/government/case-studies/example-case-study", payload, draft: true)
 
     check = check_case_study
     assert_output(/Successes: 1\nFailures: 0/m) do
@@ -46,16 +48,20 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
   test "checker works with translated versions of editions" do
     create(:published_case_study, :translated, translated_into: [:fr], title: 'Example case study')
 
-    content_store_has_item(
-      "/government/case-studies/example-case-study",
+    payload = {
       format: "case_study",
       base_path: "/government/case-studies/example-case-study",
-    )
-    content_store_has_item(
-      "/government/case-studies/example-case-study.fr",
+    }
+
+    translated_payload = {
       format: "case_study",
       base_path: "/government/case-studies/example-case-study.fr",
-    )
+    }
+
+    content_store_has_item("/government/case-studies/example-case-study", payload)
+    content_store_has_item("/government/case-studies/example-case-study.fr", translated_payload)
+    content_store_has_item("/government/case-studies/example-case-study", payload, draft: true)
+    content_store_has_item("/government/case-studies/example-case-study", translated_payload, draft: true)
 
     check = check_case_study
     assert_output(/Successes: 1\nFailures: 0/m) do
@@ -69,11 +75,20 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
   test "detects missing translations of editions" do
     create(:published_case_study, :translated, translated_into: [:es], title: 'Another example case study')
 
-    content_store_has_item(
-      "/government/case-studies/another-example-case-study",
+    payload = {
       format: "case_study",
       base_path: "/government/case-studies/another-example-case-study",
-    )
+    }
+
+    translated_payload = {
+      format: "case_study",
+      base_path: "/government/case-studies/another-example-case-study.es",
+    }
+
+    content_store_has_item("/government/case-studies/another-example-case-study", payload)
+    content_store_has_item("/government/case-studies/another-example-case-study", payload, draft: true)
+    content_store_has_item("/government/case-studies/another-example-case-study.es", translated_payload, draft: true)
+
     content_store_does_not_have_item("/government/case-studies/another-example-case-study.es")
 
     check = check_case_study
@@ -97,6 +112,7 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
       base_path: "/government/get-involved/take-part/take-part-slug",
     }
     content_store_has_item("/government/get-involved/take-part/take-part-slug", payload)
+    content_store_has_item("/government/get-involved/take-part/take-part-slug", payload, draft: true)
 
     check = check_take_part
     expected_error_message = "Failed path: /government/get-involved/take-part/take-part-slug, failed expectations: format"
@@ -122,17 +138,56 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
       title: "Title of a take part page",
       slug: "take-part-slug",
     )
+
+    payload = {
+      format: "take_part",
+      title: "Title of a take part page",
+      base_path: "/government/get-involved/take-part/take-part-slug",
+    }
+
     content_store_does_not_have_item("/government/get-involved/take-part/take-part-slug")
+    content_store_has_item("/government/get-involved/take-part/take-part-slug", payload, draft: true)
 
     check = check_take_part
     check.perform(output: false)
 
-    assert_empty(check.successes)
+    assert_equal(1, check.successes.count)
     assert_equal(
       [
         check_failure(
           base_path: "/government/get-involved/take-part/take-part-slug",
           failed_expectations: ["item missing from Content Store"],
+        )
+      ],
+      check.failures
+    )
+  end
+
+  test "detects when the content item is missing from the Draft Content Store" do
+    create(
+      :take_part_page,
+      title: "Title of a take part page",
+      slug: "take-part-slug",
+    )
+
+    payload = {
+      format: "take_part",
+      title: "Title of a take part page",
+      base_path: "/government/get-involved/take-part/take-part-slug",
+    }
+
+    content_store_has_item("/government/get-involved/take-part/take-part-slug", payload)
+    content_store_does_not_have_item("/government/get-involved/take-part/take-part-slug", draft: true)
+
+    check = check_take_part
+    check.perform(output: false)
+
+    assert_equal(1, check.successes.count)
+    assert_equal(
+      [
+        check_failure(
+          base_path: "/government/get-involved/take-part/take-part-slug",
+          failed_expectations: ["item missing from Draft Content Store"],
         )
       ],
       check.failures
@@ -149,12 +204,13 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
       base_path: "/government/topical-events/example-event/about",
     }
     content_store_has_item("/government/topical-events/example-event/about", payload)
+    content_store_has_item("/government/topical-events/example-event/about", payload, draft: true)
 
     check = check_about_pages
     check.override_base_path(&:search_link)
     check.perform(output: false)
 
-    assert_equal ["/government/topical-events/example-event/about"], check.successes.map(&:base_path)
+    assert_equal ["/government/topical-events/example-event/about", "/government/topical-events/example-event/about"], check.successes.map(&:base_path)
     assert_empty(check.failures)
   end
 

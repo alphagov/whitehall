@@ -18,7 +18,7 @@ class PublishingApiGoneWorkerTest < ActiveSupport::TestCase
 
     requests = [
       stub_publishing_api_put_content(uuid, content),
-      stub_publishing_api_put_links(uuid, links: {}),
+      stub_publishing_api_patch_links(uuid, links: {}),
       stub_publishing_api_publish(uuid, update_type: 'major', locale: 'en')
     ]
 

@@ -60,7 +60,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     national_statistics = create(:draft_national_statistics)
     policy_paper        = create(:draft_policy_paper)
 
-    announcement   = build(:statistics_announcement, publication_type_id: PublicationType::OfficialStatistics.id)
+    announcement = build(:statistics_announcement, publication_type_id: PublicationType::OfficialStatistics.id)
 
     announcement.publication = statistics
     assert announcement.valid?

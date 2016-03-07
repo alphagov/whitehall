@@ -73,22 +73,27 @@ module DataHygiene
 
     def perform(output: true)
       scope.find_each do |whitehall_model|
-        url = Plek.find('content-store') + "/content" + base_path_for(whitehall_model)
-        request = Typhoeus::Request.new(url)
-        request.on_complete do |response|
-          success = compare_content(response, whitehall_model)
-          if output
-            progress_indicator = success ? "." : "x"
-            print progress_indicator
-          end
-        end
-        hydra.queue(request)
+        queue_check("content-store", whitehall_model, output)
+        queue_check("draft-content-store", whitehall_model, output)
       end
       hydra.run
       print_results if output
     end
 
   private
+
+    def queue_check(content_store, whitehall_model, output)
+      url = Plek.find(content_store) + "/content" + base_path_for(whitehall_model)
+      request = Typhoeus::Request.new(url)
+      request.on_complete do |response|
+        success = compare_content(response, whitehall_model, content_store)
+        if output
+          progress_indicator = success ? "." : "x"
+          print progress_indicator
+        end
+      end
+      hydra.queue(request)
+    end
 
     def add_translations_expectation
       add_expectation("translations") do |_, record|
@@ -106,7 +111,7 @@ module DataHygiene
       true
     end
 
-    def compare_content(response, whitehall_model)
+    def compare_content(response, whitehall_model, content_store)
       base_path = base_path_for(whitehall_model)
       if response.success?
         json = JSON.parse(response.body)
@@ -120,13 +125,15 @@ module DataHygiene
           success = false
         end
       else
-        failures << Failure.new(base_path: base_path, failed_expectations: ["item missing from Content Store"])
+        failures << Failure.new(base_path: base_path, failed_expectations: ["item missing from #{content_store.titleize}"])
         success = false
       end
       success
     end
 
     def print_results
+      successes.uniq!(&:base_path)
+      failures.uniq!(&:base_path)
       puts "\nCheck complete"
       puts "Successes: #{successes.count}"
       puts "Failures: #{failures.count}"

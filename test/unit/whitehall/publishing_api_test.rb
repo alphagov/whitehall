@@ -12,7 +12,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     # In the case of unpublishings, we trigger a job to save the draft edition.
     # That job runs inline because we're in test mode, so we need to stub it.
     stub_any_publishing_api_put_content
-    stub_any_publishing_api_put_links
+    stub_any_publishing_api_patch_links
   end
 
   test "#publish publishes an Edition with the Publishing API" do
@@ -20,7 +20,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     presenter = PublishingApiPresenters.presenter_for(edition)
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_put_links(presenter.content_id, links: presenter.links),
+      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
       stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: presenter.update_type)
     ]
 
@@ -35,7 +35,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     presenter = PublishingApiPresenters.presenter_for(organisation)
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_put_links(presenter.content_id, links: presenter.links),
+      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
       stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: presenter.update_type)
     ]
 
@@ -51,7 +51,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_put_links(presenter.content_id, links: presenter.links),
+      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
       stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: presenter.update_type)
     ]
 
@@ -75,7 +75,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     presenter = PublishingApiPresenters.presenter_for(edition)
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_put_links(presenter.content_id, links: presenter.links),
+      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
       stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: presenter.update_type)
     ]
 
@@ -89,7 +89,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     presenter = PublishingApiPresenters.presenter_for(take_part_page, update_type: 'republish')
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_put_links(presenter.content_id, links: presenter.links),
+      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
       stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: 'republish')
     ]
 
@@ -103,7 +103,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     presenter = PublishingApiPresenters.presenter_for(take_part_page, update_type: 'republish')
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_put_links(presenter.content_id, links: presenter.links),
+      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
       stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: 'republish')
     ]
 
@@ -130,7 +130,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     presenter = PublishingApiPresenters.presenter_for(edition, update_type: 'republish')
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_put_links(presenter.content_id, links: presenter.links),
+      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
       stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: 'republish')
     ]
 
@@ -159,7 +159,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       stub_publishing_api_publish(presenter.content_id, locale: 'en', update_type: 'major')
     ]
 
-    links_request = stub_publishing_api_put_links(presenter.content_id, links: presenter.links)
+    links_request = stub_publishing_api_patch_links(presenter.content_id, links: presenter.links)
 
     Whitehall::PublishingApi.publish_async(organisation)
 
@@ -188,7 +188,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       stub_publishing_api_publish(presenter.content_id, locale: 'en', update_type: 'republish')
     ]
 
-    links_request = stub_publishing_api_put_links(presenter.content_id, links: presenter.links)
+    links_request = stub_publishing_api_patch_links(presenter.content_id, links: presenter.links)
 
     Whitehall::PublishingApi.republish_async(organisation)
 
@@ -209,7 +209,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     presenter = PublishingApiPresenters::Unpublishing.new(unpublishing, update_type: "republish")
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_put_links(presenter.content_id, links: presenter.links),
+      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
       stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: 'republish')
     ]
 
@@ -222,7 +222,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     presenter = PublishingApiPresenters::Unpublishing.new(unpublishing, update_type: "republish")
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_put_links(presenter.content_id, links: presenter.links),
+      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
       stub_publishing_api_publish(presenter.content_id, locale: "en", update_type: 'republish')
     ]
 
@@ -251,7 +251,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       stub_publishing_api_publish(presenter.content_id, locale: 'en', update_type: 'major')
     ]
 
-    links_request = stub_publishing_api_put_links(presenter.content_id, links: presenter.links)
+    links_request = stub_publishing_api_patch_links(presenter.content_id, links: presenter.links)
 
     Whitehall::PublishingApi.publish_async(unpublishing)
 

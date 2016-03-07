@@ -12,7 +12,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
     presenter = PublishingApiPresenters.presenter_for(published, update_type: 'republish')
     requests = [
       stub_publishing_api_put_content(document.content_id, presenter.content),
-      stub_publishing_api_put_links(document.content_id, links: presenter.links),
+      stub_publishing_api_patch_links(document.content_id, links: presenter.links),
       stub_publishing_api_publish(document.content_id, locale: presenter.content[:locale], update_type: 'republish')
     ]
     Whitehall::PublishingApi.expects(:save_draft_async).with(draft, 'republish')
@@ -38,11 +38,11 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
     # Have to separate this as we need to manually assert it was done twice. If
     # we split the pushing of links into a separate job, then we would only push
     # links once and could put this back into the array.
-    put_links_request = stub_publishing_api_put_links(document.content_id, links: {})
+    patch_links_request = stub_publishing_api_patch_links(document.content_id, links: {})
 
     PublishingApiDocumentRepublishingWorker.new.perform(edition.id, nil)
 
     assert_all_requested(requests)
-    assert_requested(put_links_request, times: 2)
+    assert_requested(patch_links_request, times: 2)
   end
 end
