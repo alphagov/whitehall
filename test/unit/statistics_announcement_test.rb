@@ -1,5 +1,4 @@
 require 'test_helper'
-require "securerandom"
 
 class StatisticsAnnouncementTest < ActiveSupport::TestCase
 
@@ -56,68 +55,6 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     refute announcement.valid?
   end
 
-  test 'is search indexable' do
-    announcement   = create_announcement_with_changes
-    expected_indexed_content = {
-      'title' => announcement.title,
-      'link' => announcement.public_path,
-      'format' => 'statistics_announcement',
-      'description' => announcement.summary,
-      'organisations' => announcement.organisations.map(&:slug),
-      'topics' => announcement.topics.map(&:slug),
-      'display_type' => announcement.display_type,
-      'slug' => announcement.slug,
-      'release_timestamp' => announcement.release_date,
-      'statistics_announcement_state' => announcement.state,
-      'metadata' => {
-        # TODO: the "confirmed" metadata becomes redundant once all entries are
-        # updated with a "statistics_announcement_state". Get rid.
-        confirmed: announcement.confirmed?,
-        display_date: announcement.display_date,
-        change_note: announcement.last_change_note,
-        previous_display_date: announcement.previous_display_date,
-        cancelled_at: announcement.cancelled_at,
-        cancellation_reason: announcement.cancellation_reason,
-      }
-    }
-
-    assert announcement.can_index_in_search?
-    assert_equal expected_indexed_content, announcement.search_index
-  end
-
-  test 'is indexed for search after being saved' do
-    Whitehall::SearchIndex.stubs(:add)
-    Whitehall::SearchIndex.expects(:add).with { |instance| instance.is_a?(StatisticsAnnouncement) && instance.title = 'indexed announcement' }
-    create(:statistics_announcement, title: 'indexed announcement')
-  end
-
-  test 'is removed from search after being unpublished' do
-    announcement = create(:statistics_announcement)
-
-    Whitehall.publishing_api_v2_client.expects(:put_content)
-    Whitehall.publishing_api_v2_client.expects(:put_links)
-    Whitehall.publishing_api_v2_client.expects(:publish)
-
-    Whitehall::SearchIndex.expects(:add).never
-    Whitehall::SearchIndex.expects(:delete).with(announcement)
-
-    announcement.update!(publishing_state: "unpublished", redirect_url: "https://www.test.alphagov.co.uk/foo")
-  end
-
-  test 'a redirect item is published to Publishing API after being unpublished' do
-    test_uuid = SecureRandom.uuid
-    SecureRandom.stubs(uuid: test_uuid)
-    announcement = create(:statistics_announcement)
-
-    Whitehall.publishing_api_v2_client.expects(:put_content).with do |content_id, payload|
-      content_id == test_uuid && assert_valid_against_schema(payload, "redirect")
-    end
-    Whitehall.publishing_api_v2_client.expects(:put_links)
-    Whitehall.publishing_api_v2_client.expects(:publish)
-
-    announcement.update!(publishing_state: "unpublished", redirect_url: 'https://www.test.alphagov.co.uk/foo')
-  end
-
   test 'only valid when associated publication is of a matching type' do
     statistics          = create(:draft_statistics)
     national_statistics = create(:draft_national_statistics)
@@ -142,13 +79,13 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
 
   test ".with_title_containing returns statistics announcements matching provided title" do
     match = create(:statistics_announcement, title: "MQ5 statistics")
-    no_match = create(:statistics_announcement, title: "PQ6 statistics")
+    create(:statistics_announcement, title: "PQ6 statistics")
 
     assert_equal [match], StatisticsAnnouncement.with_title_containing("mq5")
   end
 
   test '#most_recent_change_note returns the most recent change note' do
-    announcement    = create_announcement_with_changes
+    announcement = create_announcement_with_changes
 
     assert_equal '11 January 2012 9:30am', announcement.reload.display_date
     assert announcement.confirmed?
@@ -268,6 +205,41 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
 
     assert_equal [announcement, announcement2],
       StatisticsAnnouncement.with_topics([topic2])
+  end
+
+  test 'requires_redirect? returns true when unpublished?' do
+    statistics_announcement = build(
+      :statistics_announcement,
+      publishing_state: 'unpublished',
+    )
+    assert statistics_announcement.requires_redirect?
+  end
+
+  test 'requires_redirect? returns false when not unpublished?' do
+    statistics_announcement = build(
+      :statistics_announcement,
+      publishing_state: 'published',
+      publication: nil,
+    )
+    refute statistics_announcement.requires_redirect?
+  end
+
+  test 'requires_redirect? returns true when when publication is published?' do
+    statistics_announcement = build(
+      :statistics_announcement,
+      publishing_state: 'published',
+      publication: build(:published_statistics),
+    )
+    assert statistics_announcement.requires_redirect?
+  end
+
+  test 'requires_redirect? returns false when when publication is draft' do
+    statistics_announcement = build(
+      :statistics_announcement,
+      publishing_state: 'published',
+      publication: build(:draft_statistics),
+    )
+    refute statistics_announcement.requires_redirect?
   end
 
 private

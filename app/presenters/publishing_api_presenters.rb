@@ -1,12 +1,3 @@
-require 'publishing_api_presenters/edition'
-require 'publishing_api_presenters/case_study'
-require 'publishing_api_presenters/coming_soon'
-require 'publishing_api_presenters/placeholder'
-require 'publishing_api_presenters/unpublishing'
-require 'publishing_api_presenters/redirect'
-require 'publishing_api_presenters/policy_area_placeholder'
-require 'publishing_api_presenters/topical_event_about_page'
-
 module PublishingApiPresenters
   def self.presenter_for(model, options={})
     presenter_class_for(model).new(model, options)
@@ -29,6 +20,12 @@ private
       PublishingApiPresenters::PolicyAreaPlaceholder
     when ::TopicalEvent
       PublishingApiPresenters::TopicalEvent
+    when ::StatisticsAnnouncement
+      if model.requires_redirect?
+        PublishingApiPresenters::StatisticsAnnouncementRedirect
+      else
+        PublishingApiPresenters::StatisticsAnnouncement
+      end
     else
       PublishingApiPresenters::Placeholder
     end

@@ -5,6 +5,7 @@ module PublishesToPublishingApi
   included do
     after_commit :publish_to_publishing_api, if: :can_publish_to_publishing_api?
     after_commit :publish_gone_to_publishing_api, on: :destroy
+    define_callbacks :published, :published_gone
   end
 
   def can_publish_to_publishing_api?
@@ -12,10 +13,14 @@ module PublishesToPublishingApi
   end
 
   def publish_to_publishing_api
-    Whitehall::PublishingApi.publish_async(self)
+    run_callbacks :published do
+      Whitehall::PublishingApi.publish_async(self)
+    end
   end
 
   def publish_gone_to_publishing_api
-    Whitehall::PublishingApi.publish_gone(search_link)
+    run_callbacks :published_gone do
+      Whitehall::PublishingApi.publish_gone(search_link)
+    end
   end
 end

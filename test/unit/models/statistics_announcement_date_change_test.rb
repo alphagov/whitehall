@@ -51,11 +51,14 @@ class StatisticsAnnouncementDateChangeTest < ActiveSupport::TestCase
     assert_nil new_date.reload.change_note
   end
 
-  test "saving a date change updates the announcement in the search index" do
+  test "saving a date change updates the announcement" do
+    Timecop.return
     announcement = create(:statistics_announcement)
-    announcement.expects(:update_in_search_index)
 
     new_date = announcement.build_statistics_announcement_date_change
     new_date.save!
+
+    assert announcement.updated_at > announcement.created_at,
+      "StatisticsAnnouncement has not been updated"
   end
 end

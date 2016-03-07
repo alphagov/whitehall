@@ -1,4 +1,5 @@
 require "securerandom"
+require_relative "../publishing_api_presenters"
 
 class PublishingApiPresenters::Gone
   attr_reader :content_id

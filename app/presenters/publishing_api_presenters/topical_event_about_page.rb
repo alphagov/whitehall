@@ -1,46 +1,46 @@
-module PublishingApiPresenters
-  class TopicalEventAboutPage < Item
-    def links
-      {
-        parent: [item.topical_event.content_id]
-      }
-    end
+require_relative "../publishing_api_presenters"
 
-  private
+class PublishingApiPresenters::TopicalEventAboutPage < PublishingApiPresenters::Item
+  def links
+    {
+      parent: [item.topical_event.content_id]
+    }
+  end
 
-    def document_format
-      "topical_event_about_page"
-    end
+private
 
-    def base_path
-      Whitehall.url_maker.topical_event_about_pages_path(item.topical_event)
-    end
+  def document_format
+    "topical_event_about_page"
+  end
 
-    def details
-      {
-        body: body,
-        read_more: item.read_more_link_text
-      }
-    end
+  def base_path
+    Whitehall.url_maker.topical_event_about_pages_path(item.topical_event)
+  end
 
-    def title
-      item.name
-    end
+  def details
+    {
+      body: body,
+      read_more: item.read_more_link_text
+    }
+  end
 
-    def description
-      item.summary
-    end
+  def title
+    item.name
+  end
 
-    def public_updated_at
-      item.updated_at
-    end
+  def description
+    item.summary
+  end
 
-    def body
-      Whitehall::GovspeakRenderer.new.govspeak_to_html(item.body)
-    end
+  def public_updated_at
+    item.updated_at
+  end
 
-    def rendering_app
-      Whitehall::RenderingApp::GOVERNMENT_FRONTEND
-    end
+  def body
+    Whitehall::GovspeakRenderer.new.govspeak_to_html(item.body)
+  end
+
+  def rendering_app
+    Whitehall::RenderingApp::GOVERNMENT_FRONTEND
   end
 end

@@ -4,8 +4,6 @@ class StatisticsAnnouncementDateChange < StatisticsAnnouncementDate
 
   attr_accessor :current_release_date
 
-  after_create :update_announcement_in_search_index
-
 private
 
   def ignore_change_note
@@ -14,10 +12,6 @@ private
 
   def changing_a_confirmed_date?
     current_release_date.confirmed?
-  end
-
-  def update_announcement_in_search_index
-    statistics_announcement.update_in_search_index
   end
 
   def change_note_only_present_for_major_changes

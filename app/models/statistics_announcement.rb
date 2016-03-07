@@ -1,6 +1,7 @@
 class StatisticsAnnouncement < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title
+  include PublishesToPublishingApi
 
   belongs_to :creator, class_name: 'User'
   belongs_to :cancelled_by, class_name: 'User'
@@ -45,9 +46,6 @@ class StatisticsAnnouncement < ActiveRecord::Base
 
   default_scope { published }
 
-  after_save :publish_if_needed!
-  after_save :unpublish_if_needed!
-
   include Searchable
   searchable  only: :without_published_publication,
               title: :title,
@@ -66,6 +64,10 @@ class StatisticsAnnouncement < ActiveRecord::Base
   delegate  :release_date, :display_date, :confirmed?,
               to: :current_release_date, allow_nil: true
 
+  set_callback :published, :after, :notify_search
+  def notify_search
+    unpublished? ? remove_from_search_index : update_in_search_index
+  end
 
   def self.without_published_publication
     includes(:publication).
@@ -100,6 +102,9 @@ class StatisticsAnnouncement < ActiveRecord::Base
   def public_path
     Whitehall.url_maker.statistics_announcement_path(self)
   end
+
+  alias_method :base_path, :public_path
+  alias_method :search_link, :public_path
 
   def organisations_slugs
     organisations.map(&:slug)
@@ -157,27 +162,15 @@ class StatisticsAnnouncement < ActiveRecord::Base
     publishing_state == "unpublished"
   end
 
-  def publish_if_needed!
-    publish if !unpublished?
+  def requires_redirect?
+    unpublished? || publication_has_been_published?
   end
 
-  def publish
-    # This is where we would send (a placeholder) to publishing-api
-    update_in_search_index
-  end
-
-  def unpublish_if_needed!
-    unpublish if publishing_state_changed?
-  end
-
-  def unpublish
-    if unpublished?
-      publish_redirect_item
-      remove_from_search_index
-    end
-  end
 
 private
+  def publication_has_been_published?
+    publication && publication.published?
+  end
 
   def last_major_change
     statistics_announcement_dates.
@@ -202,12 +195,5 @@ private
         errors.add(:redirect_url, "cannot redirect to itself")
       end
     end
-  end
-
-  def publish_redirect_item
-    redirects = [
-      { path: public_path, destination: Addressable::URI.parse(redirect_url).path, type: "exact" }
-    ]
-    Whitehall::PublishingApi.publish_redirect_async(public_path, redirects)
   end
 end

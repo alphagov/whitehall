@@ -74,4 +74,32 @@ class PublishesToPublishingApiTest < ActiveSupport::TestCase
     Whitehall::PublishingApi.expects(:publish_gone).with("test_link")
     test_object.publish_gone_to_publishing_api
   end
+
+  test "defines and executes published callback when published" do
+    Whitehall::PublishingApi.stubs(:publish_async)
+    test_object = TestObject.new
+    class << test_object
+      include PublishesToPublishingApi
+      set_callback :published, :test_published_handler
+
+      def test_published_handler; end
+    end
+
+    test_object.expects(:test_published_handler)
+    test_object.publish_to_publishing_api
+  end
+
+  test "defines and executes published_gone callback when published gone" do
+    Whitehall::PublishingApi.stubs(:publish_gone)
+    test_object = TestObject.new
+    class << test_object
+      include PublishesToPublishingApi
+      set_callback :published_gone, :test_published_gone_handler
+
+      def test_published_gone_handler; end
+    end
+
+    test_object.expects(:test_published_gone_handler)
+    test_object.publish_gone_to_publishing_api
+  end
 end

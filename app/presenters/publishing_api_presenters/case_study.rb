@@ -1,3 +1,5 @@
+require_relative "../publishing_api_presenters"
+
 class PublishingApiPresenters::CaseStudy < PublishingApiPresenters::Edition
   def links
     {
