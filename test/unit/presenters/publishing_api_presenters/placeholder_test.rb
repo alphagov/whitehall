@@ -20,7 +20,6 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
       public_updated_at: ministerial_role.updated_at,
       routes: [{ path: public_path, type: "exact" }],
       redirects: [],
-      update_type: 'major',
       need_ids: [],
       details: {},
     }
@@ -50,7 +49,6 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
       public_updated_at: organisation.updated_at,
       routes: [{ path: public_path, type: "exact" }],
       redirects: [],
-      update_type: 'major',
       need_ids: [],
       details: {},
       analytics_identifier: "O123",
@@ -81,7 +79,6 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
       public_updated_at: person.updated_at,
       routes: [{ path: public_path, type: "exact" }],
       redirects: [],
-      update_type: 'major',
       need_ids: [],
       details: {},
     }
@@ -111,7 +108,6 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
       public_updated_at: worldwide_org.updated_at,
       routes: [{ path: public_path, type: "exact" }],
       redirects: [],
-      update_type: 'major',
       need_ids: [],
       details: {},
       analytics_identifier: "WO123",
@@ -142,7 +138,6 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
       public_updated_at: world_location.updated_at,
       routes: [{ path: public_path, type: "exact" }],
       redirects: [],
-      update_type: 'major',
       need_ids: [],
       details: {},
       analytics_identifier: "WL123",
@@ -163,7 +158,6 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
     organisation = create(:organisation)
     presented_item = present(organisation, update_type: update_type_override)
     assert_equal update_type_override, presented_item.update_type
-    assert_equal update_type_override, presented_item.content[:update_type]
   end
 
   test 'is locale aware' do

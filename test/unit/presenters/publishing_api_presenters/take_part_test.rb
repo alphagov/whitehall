@@ -18,7 +18,6 @@ class PublishingApiPresenters::TakePartTest < ActiveSupport::TestCase
       format: 'take_part',
       locale: 'en',
       public_updated_at: take_part_page.updated_at,
-      update_type: 'major',
       publishing_app: 'whitehall',
       rendering_app: 'government-frontend',
       routes: [

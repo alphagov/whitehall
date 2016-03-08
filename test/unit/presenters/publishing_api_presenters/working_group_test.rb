@@ -26,7 +26,6 @@ class PublishingApiPresenters::WorkingGroupTest < ActiveSupport::TestCase
         }
       ],
       redirects: [],
-      update_type: 'major',
       public_updated_at: group.updated_at,
       details: {
         email: "group-1@example.com",

@@ -21,7 +21,6 @@ class PublishingApiPresenters::ClassificationTest < ActiveSupport::TestCase
         }
       ],
       redirects: [],
-      update_type: "major",
       public_updated_at: topic.updated_at,
       details: {}
     }

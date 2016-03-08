@@ -29,7 +29,6 @@ class PublishingApiComingSoonWorkerTest < ActiveSupport::TestCase
       details: { publish_time: publish_time },
       routes: [ { path: base_path, type: 'exact' } ],
       redirects: [],
-      update_type: 'major',
       public_updated_at: edition.updated_at,
     }
 

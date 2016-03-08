@@ -16,7 +16,6 @@ class PublishingApiPresenters::TopicalEventAboutPageTest < ActiveSupport::TestCa
       need_ids: [],
       locale: 'en',
       public_updated_at: topical_event_about_page.updated_at,
-      update_type: 'major',
       publishing_app: 'whitehall',
       rendering_app: 'government-frontend',
       routes: [
