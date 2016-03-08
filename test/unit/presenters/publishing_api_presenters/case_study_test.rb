@@ -28,7 +28,6 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
         { path: public_path, type: 'exact' }
       ],
       redirects: [],
-      update_type: 'major',
       details: {
         body: "<div class=\"govspeak\"><p>Some content</p></div>",
         format_display_type: 'case_study',
