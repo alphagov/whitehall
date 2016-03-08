@@ -41,10 +41,11 @@
           <%= content_tag_for(:div, @document.outcome, class: 'consultation-response') do %>
             <% if @document.outcome.attachments.any? %>
               <%= render partial: "documents/attachment_full_width",
-                        locals: { document: @document.outcome,
-                          title: "Download the full outcome",
-                          published_on: @document.outcome_published_on,
-                          summary: nil } %>
+                         locals: {
+                           document: @document.outcome,
+                           title: "Download the full outcome",
+                           summary: nil
+                         } %>
             <% end %>
             <% if @document.outcome.summary.present? %>
               <section class="consultation-response-summary">
