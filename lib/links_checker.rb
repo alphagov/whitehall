@@ -19,12 +19,19 @@ class LinksChecker
   def run
     hydra = Typhoeus::Hydra.new(max_concurrency: 5)
     links.each do |link|
-      hydra.queue request(link)
+      req = request(link)
+      hydra.queue req if req
     end
     hydra.run
   end
 
   def request(link)
+    begin
+      Addressable::URI.parse(link)
+    rescue URI::InvalidURIError, Addressable::URI::InvalidURIError
+      @broken_links << link
+      return nil
+    end
     Typhoeus::Request.new(link, options_for_link(link)).tap do |request|
       request.on_failure do |response|
         @broken_links << link
@@ -43,7 +50,7 @@ private
     else
       default_options
     end
-  rescue URI::InvalidURIError
+  rescue URI::InvalidURIError, Addressable::URI::InvalidURIError
     default_options
   end
 

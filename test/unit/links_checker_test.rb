@@ -40,9 +40,8 @@ class LinkCheckerTest < ActiveSupport::TestCase
   end
 
   test 'bad URIs do not cause link checker to fall over' do
-    bad_link = 'http://wales.gov.uk/?lang=en}'
-    stub_link_check(bad_link, 500)
-    checker   = LinksChecker.new([bad_link], NullLogger.instance)
+    bad_link = 'http://:wales.gov.uk/?lang=en}'
+    checker = LinksChecker.new([bad_link], NullLogger.instance)
     checker.run
 
     assert_equal [bad_link], checker.broken_links
