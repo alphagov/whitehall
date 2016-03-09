@@ -18,6 +18,8 @@ private
       PublishingApiPresenters::TakePart
     when Topic
       PublishingApiPresenters::PolicyAreaPlaceholder
+    when ::Organisation
+      PublishingApiPresenters::Organisation
     when ::TopicalEvent
       PublishingApiPresenters::TopicalEvent
     when ::StatisticsAnnouncement

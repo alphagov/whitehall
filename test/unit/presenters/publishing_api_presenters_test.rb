@@ -50,7 +50,7 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     organisation = Organisation.new
     presenter  = PublishingApiPresenters.presenter_for(organisation)
 
-    assert_equal PublishingApiPresenters::Placeholder, presenter.class
+    assert_equal PublishingApiPresenters::Organisation, presenter.class
   end
 
   test ".presenter_for returns a Placeholder presenter for a world location" do
