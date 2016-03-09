@@ -4,13 +4,13 @@ class PublishingApiPresenters::Organisation < PublishingApiPresenters::Placehold
   include ApplicationHelper
 
   def details
-    super.tap do |d|
-      d[:brand] = brand
-      d[:logo]  = {
+    super.merge(
+      brand: brand,
+      logo: {
         formatted_title: formatted_title,
         crest: crest,
-      }
-    end
+      },
+    )
   end
 
 private
