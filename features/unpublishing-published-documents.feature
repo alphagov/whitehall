@@ -39,13 +39,13 @@ Feature: Unpublishing published documents
   Scenario: Withdraw a document that is no longer current
     Given I am a managing editor
     And a published publication "Shaving kits for all" exists
-    When I withdraw the publication because it is no longer government publication
+    When I withdraw the publication because it no longer reflects current government policy
     Then there should be an editorial remark recording the fact that the document was withdrawn
     And the publication should be marked as withdrawn on the public site
 
   Scenario: Change the public explanation for archiving a document
     Given I am a managing editor
     And a published publication "Shaving kits for all" exists
-    And I withdraw the publication because it is no longer government publication
+    And I withdraw the publication because it no longer reflects current government policy
     When I edit the public explanation for withdrawal
     Then I should see the updated explanation on the public site
