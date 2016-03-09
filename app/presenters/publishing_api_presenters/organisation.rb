@@ -6,11 +6,18 @@ class PublishingApiPresenters::Organisation < PublishingApiPresenters::Placehold
   def details
     super.tap do |d|
       d[:brand] = brand
-      d[:logo]  = { formatted_title: formatted_title }
+      d[:logo]  = {
+        formatted_title: formatted_title,
+        crest: crest,
+      }
     end
   end
 
 private
+
+  def crest
+    item.organisation_logo_type.class_name
+  end
 
   def formatted_title
     format_with_html_line_breaks(item.logo_formatted_name)

@@ -32,6 +32,7 @@ class PublishingApiPresenters::OrganisationTest < ActiveSupport::TestCase
         brand: nil,
         logo: {
           formatted_title: "Organisation<br/>of<br/>Things",
+          crest: "single-identity",
         },
       },
       analytics_identifier: "O123",
