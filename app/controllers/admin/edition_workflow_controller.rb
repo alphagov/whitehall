@@ -36,6 +36,8 @@ class Admin::EditionWorkflowController < Admin::BaseController
       enforce_permission!(:force_publish, @edition)
     when 'unpublish', 'confirm_unpublish'
       enforce_permission!(:unpublish, @edition)
+    when 'unwithdraw', 'confirm_unwithdraw'
+      enforce_permission!(:unwithdraw, @edition)
     when 'approve_retrospectively'
       enforce_permission!(:approve, @edition)
     else
@@ -93,6 +95,20 @@ class Admin::EditionWorkflowController < Admin::BaseController
       @unpublishing = @edition.unpublishing
       flash.now[:alert] = @service_object.failure_reason
       render :confirm_unpublish
+    end
+  end
+
+  def confirm_unwithdraw
+  end
+
+  def unwithdraw
+    edition_unwithdrawer = Whitehall.edition_services.unwithdrawer(@edition, user: current_user)
+    if edition_unwithdrawer.perform!
+      new_edition = @edition.document.published_edition
+      redirect_to admin_edition_path(new_edition), notice: "This document has been unwithdrawn"
+    else
+      flash.now[:alert] = edition_unwithdrawer.failure_reason
+      render :confirm_unwithdraw
     end
   end
 
