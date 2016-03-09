@@ -29,7 +29,10 @@ class PublishingApiPresenters::OrganisationTest < ActiveSupport::TestCase
       redirects: [],
       need_ids: [],
       details: {
-        brand: nil
+        brand: nil,
+        logo: {
+          formatted_title: "Organisation<br/>of<br/>Things",
+        },
       },
       analytics_identifier: "O123",
     }

@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :organisation, traits: [:translated] do
     sequence(:name) { |index| "organisation-#{index}" }
-    sequence(:logo_formatted_name) { |index| "organisation-#{index} logo text".split(" ").join("\n") }
+    logo_formatted_name { name.to_s.split.join("\n") }
     organisation_type_key :other
     sequence(:analytics_identifier) { |index| "T#{index}" }
     organisation_logo_type_id { OrganisationLogoType::SingleIdentity.id }
