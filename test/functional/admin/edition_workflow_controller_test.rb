@@ -93,7 +93,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'schedule redirects back to the edition with an error message if the edition is stale' do
-    old_lock_version = submitted_edition(scheduled_publication: 1.day.from_now)
+    old_lock_version = submitted_edition(scheduled_publication: 1.day.from_now).lock_version
     acting_as(submitted_edition.creator) { submitted_edition.touch }
     post :schedule, id: submitted_edition, lock_version: old_lock_version
 
