@@ -50,7 +50,7 @@ private
   end
 
   def document_related_policies
-    @document.policy_areas + @document.policies
+    @document.policies
   end
 
   def find_unpublishing

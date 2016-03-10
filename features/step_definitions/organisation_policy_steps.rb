@@ -1,5 +1,5 @@
 Given /^and the policies "(.*?)" and "(.*?)" exist$/ do |policy_name_1, policy_name_2|
-  content_register_has_policies([policy_name_1, policy_name_2])
+  publishing_api_has_policies([policy_name_1, policy_name_2])
 end
 
 When /^I feature the policies "(.*?)" and "(.*?)" for "(.*?)"$/ do |policy_name_1, policy_name_2, organisation_name|

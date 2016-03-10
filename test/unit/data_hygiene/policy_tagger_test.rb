@@ -3,8 +3,8 @@ require "data_hygiene/policy_tagger"
 
 class PolicyTaggerTest < ActiveSupport::TestCase
   setup do
-    @content_id_1 = SecureRandom.uuid
-    @content_id_2 = SecureRandom.uuid
+    @content_id_1 = policy_area_1["content_id"]
+    @content_id_2 = policy_area_2["content_id"]
 
     @my_document = create(:document)
     @published_edition = create(:published_detailed_guide, document: @my_document)

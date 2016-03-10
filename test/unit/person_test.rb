@@ -1,8 +1,6 @@
 require 'test_helper'
 
 class PersonTest < ActiveSupport::TestCase
-  include PolicyTaggingHelpers
-
   should_protect_against_xss_and_content_attacks_on :biography
 
   test "#columns excludes biography so that we can safely it from editions in a future migration" do

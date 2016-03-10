@@ -612,8 +612,6 @@ module AdminEditionControllerTestHelpers
       edition_class = class_for(document_type)
 
       view_test "new displays document form with related policies field" do
-        stub_content_register_policies
-
         get :new
 
         assert_select "form#new_edition" do
@@ -625,7 +623,6 @@ module AdminEditionControllerTestHelpers
       end
 
       test "creating should create a new document with related policies" do
-        stub_content_register_policies
         attributes = controller_attributes_for(document_type)
 
         post :create, edition: attributes.merge(
@@ -633,7 +630,12 @@ module AdminEditionControllerTestHelpers
         )
 
         assert document = edition_class.last
-        assert_equal [policy_1['content_id'], policy_2['content_id']], document.policy_content_ids
+        assert_equal [
+          policy_area_1['content_id'],
+          policy_area_2['content_id'],
+          policy_1['content_id'],
+          policy_2['content_id'],
+        ], document.policy_content_ids
       end
 
       view_test "edit displays document form with related policies field" do
@@ -647,13 +649,15 @@ module AdminEditionControllerTestHelpers
       end
 
       test "updating should save modified edition attributes with related policies" do
-        stub_content_register_policies
-
         edition = create(document_type, policy_content_ids: [policy_1['content_id']])
 
         put :update, id: edition, edition: {policy_content_ids: [policy_2['content_id']]}
 
-        assert_equal [policy_2['content_id']], edition.reload.policy_content_ids
+        assert_equal [
+          policy_area_1['content_id'],
+          policy_area_2['content_id'],
+          policy_2['content_id']
+        ], edition.reload.policy_content_ids
       end
 
       view_test "updating a stale edition should render edit page with conflicting edition" do

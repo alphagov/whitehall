@@ -1,8 +1,6 @@
 require "test_helper"
 
 class DocumentListExportPresenterTest < ActiveSupport::TestCase
-  include ContentRegisterHelpers
-
   test '#sub_content_type returns the correct subtype for news articles' do
     article = build(:news_article, news_article_type: NewsArticleType::PressRelease)
     pr = DocumentListExportPresenter.new(article)
@@ -60,11 +58,9 @@ class DocumentListExportPresenterTest < ActiveSupport::TestCase
   end
 
   test '#policies returns a list of the related policies' do
-    stub_content_register_policies
-
     news = create(:news_article, policy_content_ids: [policy_1['content_id']])
     pr = DocumentListExportPresenter.new(news)
-    assert_equal [policy_1['title']], pr.policies
+    assert_equal [policy_area_1['title'], policy_1['title']], pr.policies
   end
 
   test '#state returns `force published` when a document is force published' do

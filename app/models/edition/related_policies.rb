@@ -27,25 +27,42 @@ module Edition::RelatedPolicies
   end
 
   def policy_content_ids=(content_ids)
-    self.edition_policies = content_ids.map do |content_id|
+    # This is a workaround to preserve the functionality
+    # where tagging to a policy automatically tags to the parent
+    # policies, so that the content appears in the parent policies' finders.
+    all_content_ids = parent_policy_content_ids(content_ids) + Set.new(content_ids)
+
+    self.edition_policies = all_content_ids.map { |content_id|
       EditionPolicy.new(policy_content_id: content_id)
+    }
+  end
+
+  def parent_policy_content_ids(content_ids)
+    parent_ids = Set.new
+
+    content_ids.each do |policy_content_id|
+      link_response = publishing_api.get_links(policy_content_id)
+      next unless link_response
+
+      if (pa_links = publishing_api.get_links(policy_content_id)["links"]["policy_areas"])
+        parent_ids += pa_links
+      end
     end
+
+    parent_ids
+  end
+
+  def publishing_api
+    @publishing_api ||= Whitehall.publishing_api_v2_client
   end
 
   def policies
     Policy.from_content_ids(policy_content_ids)
   end
 
-  def policy_areas
-    policies.flat_map(&:policy_areas).uniq
-  end
-
   def search_index
     super.merge(
-      policies: [
-        policy_areas.map(&:slug),
-        policies.map(&:slug),
-      ].flatten.uniq
+      policies: policies.map(&:slug)
     )
   end
 

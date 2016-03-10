@@ -113,7 +113,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     create(:corporate_information_page, organisation: organisation)
     organisation.add_contact_to_home_page!(contact)
 
-    policy = content_register_has_policies(['test-title']).first
+    policy = publishing_api_has_policies(['test-title']).first
     create(:featured_policy, organisation: organisation, policy_content_id: policy["content_id"])
 
     get :show, id: organisation
@@ -242,7 +242,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   view_test "promotional template shows featured policies if there are any" do
     organisation = create(:executive_office, govuk_status: 'live')
-    policies = content_register_has_policies(['test-policy'])
+    policies = publishing_api_has_policies(['test-policy'])
     create(:featured_policy, organisation: organisation, policy_content_id: policies.first["content_id"])
 
     get :show, id: organisation
@@ -363,7 +363,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   view_test "should display the organisation's policies with content" do
     organisation = create(:organisation)
-    policy = content_register_has_policies(['Welfare reform']).first
+    policy = publishing_api_has_policies(['Welfare reform']).first
     create(:featured_policy, organisation: organisation, policy_content_id: policy["content_id"])
 
     get :show, id: organisation
@@ -383,7 +383,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     ]
 
     organisation = create(:organisation)
-    policies = content_register_has_policies(first_three_policy_titles)
+    policies = publishing_api_has_policies(first_three_policy_titles)
     create(:featured_policy, organisation: organisation, policy_content_id: policies[0]["content_id"])
     create(:featured_policy, organisation: organisation, policy_content_id: policies[1]["content_id"])
     create(:featured_policy, organisation: organisation, policy_content_id: policies[2]["content_id"])

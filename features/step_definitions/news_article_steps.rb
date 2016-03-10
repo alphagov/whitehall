@@ -1,5 +1,5 @@
 Given /^a published news article "([^"]*)" with related published policies "([^"]*)" and "([^"]*)"$/ do |news_article_title, policy_title_1, policy_title_2|
-  policies = content_register_has_policies([policy_title_1, policy_title_2])
+  policies = publishing_api_has_policies([policy_title_1, policy_title_2])
 
   create(:published_news_article, title: news_article_title, policy_content_ids: policies.map {|p| p['content_id']})
 end
@@ -24,7 +24,7 @@ When /^I draft a new news article "([^"]*)"$/ do |title|
 end
 
 When /^I draft a new news article "([^"]*)" relating it to the policies "([^"]*)" and "([^"]*)"$/ do |title, first_policy, second_policy|
-  content_register_has_policies([first_policy, second_policy])
+  publishing_api_has_policies([first_policy, second_policy])
 
   begin_drafting_news_article title: title
   select first_policy, from: "Policies"

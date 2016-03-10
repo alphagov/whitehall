@@ -53,7 +53,8 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       statistics_announcement_id: statistics_announcement.id
     )
 
-    assert publication = Publication.last, assigns(:edition).errors.full_messages.inspect
+    publication = Publication.last
+    assert publication.present?, assigns(:edition).errors.full_messages.inspect
     assert_redirected_to admin_publication_path(publication)
     assert_equal publication, statistics_announcement.reload.publication
   end

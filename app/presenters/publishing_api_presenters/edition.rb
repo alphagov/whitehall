@@ -57,10 +57,7 @@ class PublishingApiPresenters::Edition < PublishingApiPresenters::Item
 
   def policies
     if item.can_be_related_to_policies?
-      [
-        item.policy_areas.map(&:slug),
-        item.policies.map(&:slug),
-      ].flatten.uniq
+      item.policies.map(&:slug)
     else
       []
     end

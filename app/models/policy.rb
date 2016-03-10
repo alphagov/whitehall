@@ -1,23 +1,23 @@
 # A model to represent policies that are published by policy-publisher
-# and stored in the content-store.
+# and stored in the publishing-api / content-store.
 class Policy
-  attr_reader :base_path, :content_id, :title
+  attr_reader :base_path, :content_id, :title, :internal_name
 
   def initialize(attributes)
-    @base_path = attributes["base_path"]
     @content_id = attributes["content_id"]
     @title = attributes["title"]
-    @links = attributes["links"]
+    @base_path = attributes["base_path"]
+    @internal_name = attributes["internal_name"]
   end
 
   def self.find(content_id)
-    if attributes = find_entry(content_id)
+    if (attributes = find_policy(content_id))
       new(attributes)
     end
   end
 
   def self.all
-    entries.map { |attrs| new(attrs) }
+    linkables.map { |attrs| new(attrs) }
   end
 
   def self.from_content_ids(content_ids)
@@ -32,33 +32,19 @@ class Policy
     @slug ||= base_path.split('/').last
   end
 
-  def policy_areas
-    @policy_areas ||= Policy.from_content_ids(policy_area_content_ids)
-  end
-
-  def policy_area_titles
-    policy_areas.map(&:title)
-  end
-
 private
 
-  attr_reader :links
-
-  def self.entries
-    Rails.cache.fetch('policy.entries', expires_in: 5.minutes) do
-      content_register.entries("policy").to_a
+  def self.linkables
+    Rails.cache.fetch('policy.linkables', expires_in: 5.minutes) do
+      publishing_api.get_linkables(document_type: "policy").to_a
     end
   end
 
-  def self.find_entry(content_id)
-    entries.find { |p| p["content_id"] == content_id }
+  def self.find_policy(content_id)
+    linkables.find { |p| p["content_id"] == content_id }
   end
 
-  def self.content_register
-    @content_register ||= Whitehall.content_register
-  end
-
-  def policy_area_content_ids
-    links.fetch("policy_areas", []).map { |link| link["content_id"] }
+  def self.publishing_api
+    @publishing_api ||= Whitehall.publishing_api_v2_client
   end
 end

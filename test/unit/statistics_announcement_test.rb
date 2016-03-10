@@ -56,7 +56,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   end
 
   test 'is search indexable' do
-    announcement   = create_announcement_with_changes
+    announcement = create_announcement_with_changes
     expected_indexed_content = {
       'title' => announcement.title,
       'link' => announcement.public_path,

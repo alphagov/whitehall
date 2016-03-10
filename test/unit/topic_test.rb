@@ -2,12 +2,6 @@ require 'test_helper'
 
 # NB: Topic is being renamed to "Policy Area" across GOV.UK.
 class TopicTest < ActiveSupport::TestCase
-  include ContentRegisterHelpers
-
-  setup do
-    stub_content_register_policies
-  end
-
   test "should set a slug from the topic name" do
     topic = create(:topic, name: 'Love all the people')
     assert_equal 'love-all-the-people', topic.slug
@@ -33,6 +27,18 @@ class TopicTest < ActiveSupport::TestCase
     refute topic.destroyable?
     topic.delete!
     refute topic.deleted?
+  end
+
+  test 'includes linked policies with multiple parents' do
+    topic = create(:topic)
+    assert_equal [], topic.policy_content_ids
+
+    topic.policy_content_ids = [policy_2.fetch("content_id")]
+    assert_equal [
+      policy_area_1.fetch("content_id"),
+      policy_area_2.fetch("content_id"),
+      policy_2.fetch("content_id"),
+    ], topic.policy_content_ids
   end
 
   test "return topics bi-directionally related to specific topic" do

@@ -1,8 +1,6 @@
 require 'test_helper'
 
 class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
-  include ContentRegisterHelpers
-
   def present(edition)
     PublishingApiPresenters::CaseStudy.new(edition)
   end
@@ -175,13 +173,11 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
   end
 
   test 'links hash includes related policies' do
-    stub_content_register_policies
-
     case_study = create(:published_case_study, policy_content_ids: [policy_1["content_id"]])
     presented_item = present(case_study)
 
     assert_valid_against_links_schema({ links: presented_item.links }, 'case_study')
-    assert_equal [policy_1["content_id"]], presented_item.links[:related_policies]
+    assert_equal [policy_area_1["content_id"], policy_1["content_id"]], presented_item.links[:related_policies]
   end
 
   test "links hash includes worldwide priorities" do

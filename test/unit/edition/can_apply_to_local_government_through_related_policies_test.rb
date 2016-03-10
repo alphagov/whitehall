@@ -16,11 +16,9 @@ class Edition::CanApplyToLocalGovernmentThroughRelatedPoliciesTest < ActiveSuppo
       creator: build(:user)
     }
   end
-  include ContentRegisterHelpers
 
   setup do
     @edition = EditionWhichCanBeApplied.new(valid_edition_attributes)
-    stub_content_register_policies
   end
 
   test "edition can be applied to local government" do

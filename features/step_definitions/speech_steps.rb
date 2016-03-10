@@ -21,7 +21,7 @@ Given /^a published speech exists$/ do
 end
 
 Given /^a published speech "([^"]*)" with related published policies "([^"]*)" and "([^"]*)"$/ do |speech_title, policy_title_1, policy_title_2|
-  policies = content_register_has_policies([policy_title_1, policy_title_2])
+  policies = publishing_api_has_policies([policy_title_1, policy_title_2])
 
   create(:published_speech, title: speech_title, policy_content_ids: policies.map {|p| p['content_id']})
 end
