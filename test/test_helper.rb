@@ -52,6 +52,7 @@ class ActiveSupport::TestCase
   teardown do
     Edition::AuditTrail.whodunnit = nil
     Timecop.return
+    DatabaseCleaner.clean_with(:truncation, pre_count: true, reset_ids: false)
   end
 
   def acting_as(actor, &block)
