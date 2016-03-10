@@ -52,6 +52,7 @@ class ActiveSupport::TestCase
   teardown do
     Edition::AuditTrail.whodunnit = nil
     Timecop.return
+    DatabaseCleaner.clean_with(:truncation, pre_count: true, reset_ids: false)
   end
 
   def acting_as(actor, &block)
@@ -96,6 +97,9 @@ class ActiveSupport::TestCase
   def self.disable_database_queries
     setup do
       ActiveRecord::Base.connection.expects(:select).never
+    end
+    teardown do
+      ActiveRecord::Base.connection.unstub(:select)
     end
   end
 
