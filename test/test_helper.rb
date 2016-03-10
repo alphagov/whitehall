@@ -98,6 +98,9 @@ class ActiveSupport::TestCase
     setup do
       ActiveRecord::Base.connection.expects(:select).never
     end
+    teardown do
+      ActiveRecord::Base.connection.unstub(:select)
+    end
   end
 
   def self.class_for(document_type)
