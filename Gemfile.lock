@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/alphagov/Sidekiq-Logging-JSON.git
+  revision: 3c6d56d6ff3646c4ff00c209912514df08eabe26
+  specs:
+    sidekiq-logging-json (0.0.14)
+      sidekiq (>= 3)
+
+GIT
   remote: git://github.com/alphagov/test_track.git
   revision: 1f997082e2f1be94274d294c2f8d34ab0b21bb7f
   branch: master
@@ -86,23 +93,6 @@ GEM
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
       json (>= 1.7)
-    celluloid (0.17.3)
-      celluloid-essentials
-      celluloid-extras
-      celluloid-fsm
-      celluloid-pool
-      celluloid-supervision
-      timers (>= 4.1.1)
-    celluloid-essentials (0.20.5)
-      timers (>= 4.1.1)
-    celluloid-extras (0.20.5)
-      timers (>= 4.1.1)
-    celluloid-fsm (0.20.5)
-      timers (>= 4.1.1)
-    celluloid-pool (0.20.5)
-      timers (>= 4.1.1)
-    celluloid-supervision (0.20.5)
-      timers (>= 4.1.1)
     chronic (0.10.2)
     ci_reporter (1.8.4)
       builder (>= 2.1.2)
@@ -193,7 +183,6 @@ GEM
     hashdiff (0.2.3)
     hashery (2.1.1)
     hashie (3.4.3)
-    hitimes (1.2.3)
     htmlentities (4.3.4)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
@@ -378,14 +367,10 @@ GEM
     shared_mustache (0.2.1)
       execjs (>= 1.2.4)
       mustache (~> 0.99.4)
-    sidekiq (3.5.4)
-      celluloid (~> 0.17.2)
+    sidekiq (4.1.1)
+      concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
-      json (~> 1.0)
       redis (~> 3.2, >= 3.2.1)
-      redis-namespace (~> 1.5, >= 1.5.2)
-    sidekiq-logging-json (0.0.14)
-      sidekiq (~> 3)
     sidekiq-statsd (0.1.5)
       activesupport
       sidekiq (>= 2.6)
@@ -424,8 +409,6 @@ GEM
     thread_safe (0.3.5)
     tilt (1.4.1)
     timecop (0.7.1)
-    timers (4.1.1)
-      hitimes
     tins (1.6.0)
     transitions (0.2.0)
     ttfunk (1.1.1)
@@ -520,6 +503,7 @@ DEPENDENCIES
   rails_translation_manager (= 0.0.1)
   raindrops (= 0.15.0)
   rake (= 10.1.0)
+  redis-namespace
   responders (~> 2.0)
   rinku
   ruby-prof
@@ -527,8 +511,8 @@ DEPENDENCIES
   sass (= 3.4.9)
   sass-rails
   shared_mustache (~> 0.2.1)
-  sidekiq (~> 3.4)
-  sidekiq-logging-json (= 0.0.14)
+  sidekiq (~> 4.0)
+  sidekiq-logging-json!
   sidekiq-statsd (= 0.1.5)
   simplecov
   simplecov-rcov
