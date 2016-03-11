@@ -28,6 +28,8 @@ private
       else
         PublishingApiPresenters::StatisticsAnnouncement
       end
+    when ::HtmlAttachment
+      PublishingApiPresenters::HtmlAttachment
     else
       PublishingApiPresenters::Placeholder
     end

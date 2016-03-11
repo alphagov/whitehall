@@ -76,4 +76,9 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     presenter = PublishingApiPresenters.presenter_for(Topic.new)
     assert_equal PublishingApiPresenters::PolicyAreaPlaceholder, presenter.class
   end
+
+  test ".presenter_for returns a HtmlAttachment presenter for `HtmlAttachment`" do
+    presenter = PublishingApiPresenters.presenter_for(HtmlAttachment.new)
+    assert_equal PublishingApiPresenters::HtmlAttachment, presenter.class
+  end
 end
