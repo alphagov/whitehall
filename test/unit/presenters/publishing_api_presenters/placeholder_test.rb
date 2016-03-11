@@ -34,36 +34,6 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
     assert_valid_against_schema(presented_item.content, 'placeholder')
   end
 
-  test 'presents an Organisation ready for adding to the publishing API' do
-    organisation = create(:organisation, name: 'Organisation of Things', analytics_identifier: 'O123')
-    public_path = Whitehall.url_maker.organisation_path(organisation)
-
-    expected_hash = {
-      base_path: public_path,
-      title: "Organisation of Things",
-      description: nil,
-      format: "placeholder_organisation",
-      locale: 'en',
-      publishing_app: 'whitehall',
-      rendering_app: 'whitehall-frontend',
-      public_updated_at: organisation.updated_at,
-      routes: [{ path: public_path, type: "exact" }],
-      redirects: [],
-      need_ids: [],
-      details: {},
-      analytics_identifier: "O123",
-    }
-
-    presented_item = present(organisation)
-
-    assert_equal expected_hash, presented_item.content
-    assert_equal Hash.new, presented_item.links
-    assert_equal "major", presented_item.update_type
-    assert_equal organisation.content_id, presented_item.content_id
-
-    assert_valid_against_schema(presented_item.content, 'placeholder')
-  end
-
   test 'presents a Person ready for adding to the publishing API' do
     person = create(:person, forename: "Winston")
     public_path = Whitehall.url_maker.person_path(person)
