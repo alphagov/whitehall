@@ -121,10 +121,3 @@ task process_policy_tagging_csv: :environment do
 
   PolicyTagger.process_from_csv(csv_location, logger: Logger.new(STDOUT))
 end
-
-desc "Unwithdraw an edition (creates and publishes a draft with audit trail)"
-task :unwithdraw_edition, [:edition_id] => :environment do |t,args|
-  edition = Edition.find(args[:edition_id])
-  gds_inside_gov_user = User.find(406)
-  Whitehall.edition_services.unwithdrawer(edition, user: gds_inside_gov_user).perform!
-end

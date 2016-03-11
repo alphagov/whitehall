@@ -42,6 +42,10 @@
           <%= link_to "Edit #{withdrawal_or_unpublishing(@edition)} explanation", edit_admin_edition_unpublishing_path(@edition), class: "btn btn-primary" %>
         <% end %>
       <% end %>
+      <% if can?(:unwithdraw, @edition) && @edition.can_unwithdraw? %>
+        <%= render partial: "admin/edition_workflow/unwithdraw_modal", locals: { modal: true } %>
+        <%= link_to 'Unwithdraw', confirm_unwithdraw_admin_edition_path(@edition, lock_version: @edition.lock_version), class: "btn btn-danger", "data-module" => "linked-modal", "data-target" => "#unwithdraw-modal" %>
+      <% end %>
     </section>
 
     <%= render('similar_slug_warning') if show_similar_slugs_warning?(@edition) %>

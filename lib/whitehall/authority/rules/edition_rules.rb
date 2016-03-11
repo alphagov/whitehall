@@ -6,7 +6,7 @@ module Whitehall::Authority::Rules
         :approve, :publish, :force_publish,
         :reject, :make_fact_check, :review_fact_check,
         :make_editorial_remark, :review_editorial_remark,
-        :limit_access, :unpublish, :export, :confirm_export,
+        :limit_access, :unpublish, :unwithdraw, :export, :confirm_export,
         :mark_political
       ]
     end
@@ -38,6 +38,8 @@ module Whitehall::Authority::Rules
       elsif !can_see?
         return false
       elsif action == :unpublish && actor.managing_editor?
+        return true
+      elsif action == :unwithdraw && actor.managing_editor?
         return true
       elsif action == :modify && @subject.historic?
         return actor.gds_editor? || actor.gds_admin?

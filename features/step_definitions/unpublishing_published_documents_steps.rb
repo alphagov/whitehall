@@ -20,7 +20,7 @@ When(/^I unpublish the duplicate, marking it as consolidated into the other page
   end
 end
 
-When(/^I withdraw the publication because it is no longer government publication$/) do
+When(/^I withdraw the publication because it no longer reflects current government policy$/) do
   @publication = Publication.last
   visit admin_edition_path(@publication)
   click_on 'Withdraw or unpublish'
