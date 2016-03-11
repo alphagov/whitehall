@@ -1,6 +1,6 @@
 <% if flash[:alert] %>
-  <div class="flash alert"><%= flash[:alert].html_safe %></div>
+  <%= content_tag :div, flash[:alert].html_safe, class: "flash alert", data: track_analytics_data(:danger, strip_tags(flash[:alert])) %>
 <% end %>
 <% if flash[:notice] %>
-  <div class="flash notice"><%= flash[:notice] %></div>
+  <%= content_tag :div, flash[:notice], class: "flash notice", data: track_analytics_data(:success, strip_tags(flash[:notice])) %>
 <% end %>
