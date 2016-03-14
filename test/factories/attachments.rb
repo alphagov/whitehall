@@ -21,13 +21,15 @@ FactoryGirl.define do
     end
   end
 
-  factory :html_attachment, traits: [:abstract_attachment] do
+  factory :html_attachment do
     sequence(:title) { |index| "html-attachment-title-#{index}" }
 
     transient do
       body "Attachment body"
       manually_numbered_headings false
     end
+
+    attachable { build :edition }
 
     # body and numbering method boolean can be passed directly into the factory
     # and is automatically set on the internal GovspeakContent instance.
