@@ -35,6 +35,7 @@ class ActiveSupport::TestCase
   include I18nHelpers
   include PanopticonTestHelpers
   include PublishingApiTestHelpers
+  include PolicyTaggingHelpers
   include GovukContentSchemaTestHelpers::TestUnit
   extend GovspeakValidationTestHelper
 
@@ -47,6 +48,8 @@ class ActiveSupport::TestCase
     fake_whodunnit.stubs(:id).returns(1000)
     fake_whodunnit.stubs(:persisted?).returns(true)
     Edition::AuditTrail.whodunnit = fake_whodunnit
+    stub_any_publishing_api_call
+    stub_publishing_api_policies
   end
 
   teardown do
@@ -168,7 +171,6 @@ class ActionController::TestCase
   include AtomTestHelpers
   include CacheControlTestHelpers
   include ViewRendering
-  include ContentRegisterHelpers
 
   include PublicDocumentRoutesHelper
   include Admin::EditionRoutesHelper
@@ -177,8 +179,6 @@ class ActionController::TestCase
 
   setup do
     request.env['warden'] = stub(authenticate!: false, authenticated?: false, user: nil)
-    stub_content_register_policies
-    stub_any_publishing_api_call
   end
 
   def login_as(role_or_user)

@@ -16,7 +16,6 @@ end
 Given(/^an announcement that can be assigned to policies and topics$/) do
   @edition = create(:draft_news_article)
   @topic = create(:topic)
-  stub_content_register_policies
 end
 
 When(/^I assign the announcement to a policy with topics$/) do

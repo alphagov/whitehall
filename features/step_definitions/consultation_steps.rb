@@ -3,7 +3,7 @@ Given(/^a closed consultation exists$/) do
 end
 
 When /^I draft a new consultation "([^"]*)"$/ do |title|
-  content_register_has_policies([title])
+  publishing_api_has_policies([title])
 
   begin_drafting_document type: 'consultation', title: title, summary: 'consultation-summary', alternative_format_provider: create(:alternative_format_provider)
   fill_in "Link URL", with: "http://participate.com"

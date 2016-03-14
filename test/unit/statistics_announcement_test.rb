@@ -55,6 +55,68 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     refute announcement.valid?
   end
 
+  test 'is search indexable' do
+    announcement = create_announcement_with_changes
+    expected_indexed_content = {
+      'title' => announcement.title,
+      'link' => announcement.public_path,
+      'format' => 'statistics_announcement',
+      'description' => announcement.summary,
+      'organisations' => announcement.organisations.map(&:slug),
+      'topics' => announcement.topics.map(&:slug),
+      'display_type' => announcement.display_type,
+      'slug' => announcement.slug,
+      'release_timestamp' => announcement.release_date,
+      'statistics_announcement_state' => announcement.state,
+      'metadata' => {
+        # TODO: the "confirmed" metadata becomes redundant once all entries are
+        # updated with a "statistics_announcement_state". Get rid.
+        confirmed: announcement.confirmed?,
+        display_date: announcement.display_date,
+        change_note: announcement.last_change_note,
+        previous_display_date: announcement.previous_display_date,
+        cancelled_at: announcement.cancelled_at,
+        cancellation_reason: announcement.cancellation_reason,
+      }
+    }
+
+    assert announcement.can_index_in_search?
+    assert_equal expected_indexed_content, announcement.search_index
+  end
+
+  test 'is indexed for search after being saved' do
+    Whitehall::SearchIndex.stubs(:add)
+    Whitehall::SearchIndex.expects(:add).with { |instance| instance.is_a?(StatisticsAnnouncement) && instance.title = 'indexed announcement' }
+    create(:statistics_announcement, title: 'indexed announcement')
+  end
+
+  test 'is removed from search after being unpublished' do
+    announcement = create(:statistics_announcement)
+
+    Whitehall.publishing_api_v2_client.expects(:put_content)
+    Whitehall.publishing_api_v2_client.expects(:patch_links)
+    Whitehall.publishing_api_v2_client.expects(:publish)
+
+    Whitehall::SearchIndex.expects(:add).never
+    Whitehall::SearchIndex.expects(:delete).with(announcement)
+
+    announcement.update!(publishing_state: "unpublished", redirect_url: "https://www.test.alphagov.co.uk/foo")
+  end
+
+  test 'a redirect item is published to Publishing API after being unpublished' do
+    test_uuid = SecureRandom.uuid
+    SecureRandom.stubs(uuid: test_uuid)
+    announcement = create(:statistics_announcement)
+
+    Whitehall.publishing_api_v2_client.expects(:put_content).with do |content_id, payload|
+      content_id == test_uuid && assert_valid_against_schema(payload, "redirect")
+    end
+    Whitehall.publishing_api_v2_client.expects(:patch_links)
+    Whitehall.publishing_api_v2_client.expects(:publish)
+
+    announcement.update!(publishing_state: "unpublished", redirect_url: 'https://www.test.alphagov.co.uk/foo')
+  end
+
   test 'only valid when associated publication is of a matching type' do
     statistics          = create(:draft_statistics)
     national_statistics = create(:draft_national_statistics)

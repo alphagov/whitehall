@@ -1,8 +1,6 @@
 require "test_helper"
 
 class PolicyGroupTest < ActiveSupport::TestCase
-  include PolicyTaggingHelpers
-
   test "should be invalid without a name" do
     policy_group = build(:policy_group, name: '')
     refute policy_group.valid?

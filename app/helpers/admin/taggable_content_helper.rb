@@ -7,11 +7,11 @@ module Admin::TaggableContentHelper
   # the content id of the policy
   #
   # If the Policy is part of a Policy Area, its name will be displayed as:
-  # Policy Area 1; Policy Area 2 -> Policy
+  # Policy Area 2: Policy
   def taggable_policy_content_ids_container
     Policy.all.map { |policy|
       [
-        taggable_policy_title(policy),
+        policy.internal_name || policy.title,
         policy.content_id,
       ]
     }
@@ -276,12 +276,5 @@ private
     end
 
     [person, role, organisations].join(', ')
-  end
-
-  def taggable_policy_title(policy)
-    [
-      policy.policy_area_titles.join('; ').presence,
-      policy.title,
-    ].compact.join(' -> ')
   end
 end

@@ -9,9 +9,9 @@ class PolicyTaggerTest < ActiveSupport::TestCase
 
   setup do
     @csv_file = Tempfile.new('policy_changes')
-    @content_id_1 = SecureRandom.uuid
-    @content_id_2 = SecureRandom.uuid
-    @content_id_3 = SecureRandom.uuid
+    @content_id_1 = policy_area_1["content_id"]
+    @content_id_2 = policy_area_2["content_id"]
+    @content_id_3 = policy_area_3["content_id"]
 
     @edition = create(:news_article, policy_content_ids: [@content_id_1])
     @document = @edition.document
