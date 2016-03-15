@@ -23,6 +23,10 @@ private
     "statistics_announcement"
   end
 
+  def rendering_app
+    Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+  end
+
   def description
     item.summary
   end

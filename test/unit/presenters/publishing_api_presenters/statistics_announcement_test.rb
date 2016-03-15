@@ -18,7 +18,7 @@ class PublishingApiPresenters::StatisticsAnnouncementTest < ActiveSupport::TestC
       need_ids: [],
       public_updated_at: statistics_announcement.updated_at,
       publishing_app: 'whitehall',
-      rendering_app: 'whitehall-frontend',
+      rendering_app: 'government-frontend',
       details: {
         display_date: statistics_announcement.current_release_date.display_date,
         state: statistics_announcement.state,
