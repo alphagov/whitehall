@@ -26,7 +26,8 @@ class PublishingApiPresenters::StatisticsAnnouncementTest < ActiveSupport::TestC
       },
       links: {
         organisations: statistics_announcement.organisations.map(&:content_id),
-        policy_areas: statistics_announcement.topics.map(&:content_id)
+        policy_areas: statistics_announcement.topics.map(&:content_id),
+        topics: [],
       }
     }
 

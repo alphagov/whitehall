@@ -27,12 +27,13 @@ class PublishingApiPresenters::StatisticsAnnouncementRedirect
     }
   end
 
-  def links
-    {}
-  end
-
   def update_type
     "major"
+  end
+
+  def links
+    # no tags
+    {}
   end
 
 private

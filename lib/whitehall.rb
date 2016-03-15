@@ -12,6 +12,7 @@ module Whitehall
   mattr_accessor :government_search_client
   mattr_accessor :statistics_announcement_search_client
   mattr_accessor :content_api
+  mattr_accessor :content_store
   mattr_accessor :publishing_api_client
   mattr_accessor :publishing_api_v2_client
   mattr_accessor :skip_safe_html_validation

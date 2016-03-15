@@ -23,6 +23,10 @@ class PublishingApiPresenters::ComingSoon < PublishingApiPresenters::Item
 
   private
 
+  def filter_links
+    []
+  end
+
   def document_format
     'coming_soon'
   end

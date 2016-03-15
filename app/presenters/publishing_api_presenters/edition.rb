@@ -15,11 +15,11 @@ class PublishingApiPresenters::Edition < PublishingApiPresenters::Item
     end
   end
 
-  def links
-    {}
-  end
+private
 
-  private
+  def filter_links
+    [:topics]
+  end
 
   def rendering_app
     item.rendering_app

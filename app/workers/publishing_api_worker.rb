@@ -31,11 +31,11 @@ class PublishingApiWorker < WorkerBase
   def send_item(payload, locale)
     save_draft(payload)
     Whitehall.publishing_api_v2_client.publish(payload.content_id, payload.update_type, locale: locale)
+    Whitehall.publishing_api_v2_client.patch_links(payload.content_id, links: payload.links)
   end
 
   def save_draft(payload)
     Whitehall.publishing_api_v2_client.put_content(payload.content_id, payload.content)
-    Whitehall.publishing_api_v2_client.patch_links(payload.content_id, links: payload.links)
   end
 
   def save_draft_of_unpublished_edition(unpublishing)

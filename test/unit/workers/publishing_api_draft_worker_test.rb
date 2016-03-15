@@ -10,7 +10,6 @@ class PublishingApiDraftWorkerTest < ActiveSupport::TestCase
 
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links)
     ]
 
     PublishingApiDraftWorker.new.perform(edition.class.name, edition.id)

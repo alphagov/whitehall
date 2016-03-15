@@ -38,7 +38,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
     # Have to separate this as we need to manually assert it was done twice. If
     # we split the pushing of links into a separate job, then we would only push
     # links once and could put this back into the array.
-    patch_links_request = stub_publishing_api_patch_links(document.content_id, links: {})
+    patch_links_request = stub_publishing_api_patch_links(document.content_id, links: presenter.links)
 
     PublishingApiDocumentRepublishingWorker.new.perform(edition.id, nil)
 

@@ -33,7 +33,7 @@ class PublishingApiPresenters::Item
   end
 
   def links
-    {}
+    PublishingApiPresenters::LinkExtractor.new(item).extract(filter_links)
   end
 
 private

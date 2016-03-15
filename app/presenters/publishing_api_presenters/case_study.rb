@@ -1,19 +1,22 @@
 require_relative "../publishing_api_presenters"
 
 class PublishingApiPresenters::CaseStudy < PublishingApiPresenters::Edition
-  def links
-    {
-      lead_organisations: item.lead_organisations.map(&:content_id),
-      related_policies: policy_content_ids,
-      supporting_organisations: item.supporting_organisations.map(&:content_id),
-      document_collections: item.published_document_collections.map(&:content_id),
-      world_locations: item.world_locations.map(&:content_id),
-      worldwide_organisations: item.worldwide_organisations.map(&:content_id),
-      worldwide_priorities: item.worldwide_priorities.map(&:content_id),
-    }
-  end
 
 private
+
+  def filter_links
+    [
+      :document_collections,
+      :lead_organisations,
+      :related_policies,
+      :supporting_organisations,
+      :topics,
+      :world_locations,
+      :worldwide_organisations,
+      :worldwide_priorities,
+    ]
+  end
+
   def document_format
     "case_study"
   end

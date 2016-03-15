@@ -32,10 +32,12 @@ class PublishingApiComingSoonWorkerTest < ActiveSupport::TestCase
       public_updated_at: edition.updated_at,
     }
 
+    expected_links = PublishingApiPresenters::ComingSoon.new(edition).links
+
     requests = [
       stub_publishing_api_put_content(uuid, expected_payload),
-      stub_publishing_api_patch_links(uuid, links: {}),
-      stub_publishing_api_publish(uuid, { locale: "fr", update_type: "major" })
+      stub_publishing_api_publish(uuid, { locale: "fr", update_type: "major" }),
+      stub_publishing_api_patch_links(uuid, links: expected_links),
     ]
 
     PublishingApiComingSoonWorker.new.perform(edition.id, locale)
