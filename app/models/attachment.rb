@@ -1,5 +1,6 @@
 # Abstract base class for Attachments.
 class Attachment < ActiveRecord::Base
+  include HasContentId
   belongs_to :attachable, polymorphic: true
   has_one :attachment_source
 

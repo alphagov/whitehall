@@ -205,4 +205,11 @@ class AttachmentTest < ActiveSupport::TestCase
     refute build(:html_attachment, locale: nil).rtl_locale?
     refute build(:html_attachment, locale: "").rtl_locale?
   end
+
+  test '#content_id is set on save' do
+    attachment = build(:html_attachment)
+    assert attachment.content_id.nil?
+    attachment.save
+    assert attachment.content_id =~ /^[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12}$/
+  end
 end
