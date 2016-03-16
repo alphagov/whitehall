@@ -34,7 +34,7 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   test "should be valid if legacy image isn't 960x640px" do
-    person = build(:person, slug: 'stubbed', image: File.open(Rails.root.join('test/fixtures/horrible-image.64x96.jpg')), content_id: "a-content-id")
+    person = build(:person, slug: 'stubbed', image: File.open(Rails.root.join('test/fixtures/horrible-image.64x96.jpg')))
     person.save(validate: false)
     assert person.reload.valid?
   end

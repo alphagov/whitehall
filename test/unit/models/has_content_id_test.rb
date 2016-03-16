@@ -18,4 +18,12 @@ class HasContentIdTest < ActiveSupport::TestCase
 
     assert_equal object.content_id, expected_content_id
   end
+
+  test "it rejects invalid uuids" do
+    object = TestObject.new(content_id: "abcde")
+
+    object.validate
+
+    assert_equal ["is invalid"], object.errors[:content_id]
+  end
 end
