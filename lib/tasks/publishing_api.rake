@@ -32,6 +32,44 @@ namespace :publishing_api do
       ))
     end
   end
+
+  desc "Send publishable item links to Publishing API."
+  task :publishing_api_patch_links, [:item_class] => :environment do |_, args|
+    def patch_links(item)
+      retries = 0
+      begin
+        content_id = item.content_id
+        links = PublishingApiPresenters.presenter_for(item).links
+        if links && !links.empty?
+          Whitehall.publishing_api_v2_client.patch_links(content_id, {links: links})
+        end
+      rescue GdsApi::TimedOutException, Timeout::Error
+        retries += 1
+        if retries <= 3
+          $stderr.puts "Class #{item.class} id: #{item.id} Timeout: retry #{retries}"
+          sleep 0.5
+          retry
+        end
+        raise
+      end
+    rescue => err
+      $stderr.puts "Class: #{item.class}; id: #{item.id}; Error: #{err.message}"
+    end
+
+    class_name = args[:item_class]
+    if class_name == 'Edition'
+      klass = Edition.published
+    else
+      klass = class_name.constantize
+    end
+
+    count = klass.all.count
+    $stdout.puts "# Sending #{count} #{class_name} items to Publishing API"
+    klass.find_each do |publishable_item|
+      patch_links(publishable_item)
+    end
+    $stdout.puts "Finished sending items to Publishing API"
+  end
 end
 
 desc "Temporary alias of publishing_api:publish_special_routes for backward compatibility"
