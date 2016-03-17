@@ -32,4 +32,8 @@ private
   def public_updated_at
     item.updated_at
   end
+
+  def rendering_app
+    Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+  end
 end

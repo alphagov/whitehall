@@ -13,7 +13,7 @@ class PublishingApiPresenters::WorkingGroupTest < ActiveSupport::TestCase
     expected_hash = {
       base_path: public_path,
       publishing_app: "whitehall",
-      rendering_app: "whitehall-frontend",
+      rendering_app: "government-frontend",
       format: "working_group",
       title: "Government Digital Service",
       description: "This is some plaintext in the summary field", # This is deliberately the 'wrong' way around
