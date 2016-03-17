@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class PublishingApiPresenters::WorkingGroupTest < ActiveSupport::TestCase
-  test 'presents a valid placeholder "working_group" content item' do
+  test 'presents a valid "working_group" content item' do
     group = create(:policy_group,
       name: "Government Digital Service",
       email: "group-1@example.com",
@@ -13,7 +13,7 @@ class PublishingApiPresenters::WorkingGroupTest < ActiveSupport::TestCase
     expected_hash = {
       base_path: public_path,
       publishing_app: "whitehall",
-      rendering_app: "whitehall-frontend",
+      rendering_app: "government-frontend",
       format: "working_group",
       title: "Government Digital Service",
       description: "This is some plaintext in the summary field", # This is deliberately the 'wrong' way around

@@ -1,7 +1,7 @@
 # Working Groups are called PolicyGroup in the code as they have been partially
 # renamed
-take_part_pages = PolicyGroup.all
-check = DataHygiene::PublishingApiSyncCheck.new(take_part_pages)
+working_groups = PolicyGroup.all
+check = DataHygiene::PublishingApiSyncCheck.new(working_groups)
 
 check.add_expectation("format") do |content_store_payload, _|
   content_store_payload["format"] == "working_group"
