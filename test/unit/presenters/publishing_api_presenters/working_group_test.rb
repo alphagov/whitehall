@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class PublishingApiPresenters::WorkingGroupTest < ActiveSupport::TestCase
-  test 'presents a valid placeholder "working_group" content item' do
+  test 'presents a valid "working_group" content item' do
     group = create(:policy_group,
       name: "Government Digital Service",
       email: "group-1@example.com",
