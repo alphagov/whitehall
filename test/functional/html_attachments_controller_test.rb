@@ -46,6 +46,20 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
     end
   end
 
+  test '#show returns 404 if the attachment is marked as deleted' do
+    # when an HTML attachment has been published with a previous edition, and deleted
+    # on a subsequent edition, fetching the attachment's slug ideally shouldn't
+    # result in a 404. However, this is the system's current behaviour and this
+    # test documents this fact. The behaviour is likely to change when HTML attachments
+    # are moved to the new publishing stack
+    consultation, attachment = create_edition_and_attachment(type: :consultation)
+    attachment.update(deleted: true)
+
+    assert_raise ActiveRecord::RecordNotFound do
+      get :show, consultation_id: consultation.document, id: attachment
+    end
+  end
+
   test '#show returns 404 if the trying to preview a non-existent document' do
     login_as create(:departmental_editor)
     attachment = create(:html_attachment)

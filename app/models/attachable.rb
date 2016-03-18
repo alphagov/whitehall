@@ -3,11 +3,11 @@ module Attachable
 
   included do
     has_many :attachments,
-             -> { order('attachments.ordering, attachments.id') },
+             -> { not_deleted.order('attachments.ordering, attachments.id') },
              as: :attachable,
              inverse_of: :attachable
     has_many :html_attachments,
-             -> { order('attachments.ordering, attachments.id') },
+             -> { not_deleted.order('attachments.ordering, attachments.id') },
              as: :attachable
 
     if respond_to?(:add_trait)
@@ -110,7 +110,7 @@ module Attachable
   end
 
   def next_ordering
-    max = Attachment.where(attachable_id: id, attachable_type: self.class.base_class).maximum(:ordering)
+    max = Attachment.not_deleted.where(attachable_id: id, attachable_type: self.class.base_class).maximum(:ordering)
     max ? max + 1 : 0
   end
 

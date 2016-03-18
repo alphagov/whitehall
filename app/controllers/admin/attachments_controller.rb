@@ -49,7 +49,7 @@ class Admin::AttachmentsController < Admin::BaseController
   end
 
   def destroy
-    attachment.destroy
+    attachment.update(deleted: true)
     redirect_to attachable_attachments_path(attachable), notice: 'Attachment deleted'
   end
 
