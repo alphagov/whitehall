@@ -20,7 +20,7 @@ module PublishesToPublishingApi
 
   def publish_gone_to_publishing_api
     run_callbacks :published_gone do
-      Whitehall::PublishingApi.publish_gone(search_link)
+      Whitehall::PublishingApi.publish_gone_async(search_link)
     end
   end
 end
