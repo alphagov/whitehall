@@ -410,28 +410,50 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     Whitehall::PublishingApi.save_draft_async(draft_edition, update_type, queue_name)
   end
 
-  test ".publish_redirect_async publishes a redirect to the Publishing API" do
-    redirect_uuid = SecureRandom.uuid
-    SecureRandom.stubs(uuid: redirect_uuid)
+  def setup_redirect
+    @redirect_uuid = SecureRandom.uuid
+    SecureRandom.stubs(uuid: @redirect_uuid)
 
-    base_path = "/government/people/milly-vanilly"
-    redirects = [
+    @base_path = "/government/people/milly-vanilly"
+    @redirects = [
       {
-        path: base_path,
+        path: @base_path,
         type: "exact",
         destination: "/government/poeple/milli-vanilli"
       }
     ]
 
-    presenter = PublishingApiPresenters::Redirect.new(base_path, redirects)
+    @presenter = PublishingApiPresenters::Redirect.new(@base_path, @redirects)
+  end
 
-    assert_valid_against_schema(presenter.content, "redirect")
+  test ".publish_redirect_async publishes a redirect to the Publishing API" do
+    setup_redirect
 
-    expected_content_request = stub_publishing_api_put_content(redirect_uuid, presenter.content)
-    expected_publish_request = stub_publishing_api_publish(redirect_uuid, update_type: 'major', locale: 'en')
-    Whitehall::PublishingApi.publish_redirect_async(base_path, redirects)
+    assert_valid_against_schema(@presenter.content, "redirect")
+
+    expected_content_request = stub_publishing_api_put_content(@redirect_uuid, @presenter.content)
+    expected_publish_request = stub_publishing_api_publish(@redirect_uuid, update_type: 'major', locale: 'en')
+    Whitehall::PublishingApi.publish_redirect_async(@base_path, @redirects)
 
     assert_requested expected_content_request
     assert_requested expected_publish_request
+  end
+
+  test ".save_draft_redirect_async puts the content" do
+    setup_redirect
+
+    expected_content_request = stub_publishing_api_put_content(@redirect_uuid, @presenter.content)
+    Whitehall::PublishingApi.save_draft_redirect_async(@base_path, @redirects)
+
+    assert_requested expected_content_request
+  end
+
+  test ".save_draft_redirect_async does not publish" do
+    setup_redirect
+
+    Whitehall::PublishingApi.save_draft_redirect_async(@base_path, @redirects)
+
+    not_expected_publish_request = stub_publishing_api_publish(@redirect_uuid, update_type: 'major', locale: 'en')
+    assert_not_requested not_expected_publish_request
   end
 end
