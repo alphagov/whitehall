@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PublishingApiPresenters::LinkExtractorTest < ActionView::TestCase
+class PublishingApiPresenters::LinksPresenterTest < ActionView::TestCase
   ALL_LINK_TYPES = [
     :document_collections,
     :lead_organisations,
@@ -15,7 +15,7 @@ class PublishingApiPresenters::LinkExtractorTest < ActionView::TestCase
   ]
 
   def links_for(item, filter_links = ALL_LINK_TYPES)
-    LinkExtractor.new(item).extract(filter_links)
+    LinksPresenter.new(item).extract(filter_links)
   end
 
   test 'nil returns a set of tags that are defaulted to []' do

@@ -1,5 +1,5 @@
 module PublishingApiPresenters
-  class LinkExtractor
+  class LinksPresenter
     LINK_NAMES_TO_METHODS_MAP = {
       document_collections: :document_collection_ids,
       lead_organisations: :lead_organisation_ids,
