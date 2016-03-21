@@ -456,4 +456,21 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     not_expected_publish_request = stub_publishing_api_publish(@redirect_uuid, update_type: 'major', locale: 'en')
     assert_not_requested not_expected_publish_request
   end
+
+  test ".publish_gone_async publishes a gone to the Publishing API" do
+    gone_uuid = SecureRandom.uuid
+    SecureRandom.stubs(uuid: gone_uuid)
+
+    base_path = "/government/people/milly-vanilly"
+    presenter = PublishingApiPresenters::Gone.new(base_path)
+
+    assert_valid_against_schema(presenter.content, "gone")
+
+    expected_content_request = stub_publishing_api_put_content(gone_uuid, presenter.content)
+    expected_publish_request = stub_publishing_api_publish(gone_uuid, update_type: 'major', locale: 'en')
+    Whitehall::PublishingApi.publish_gone_async(base_path)
+
+    assert_requested expected_content_request
+    assert_requested expected_publish_request
+  end
 end
