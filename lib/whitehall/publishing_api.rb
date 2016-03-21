@@ -82,6 +82,10 @@ module Whitehall
       PublishingApiRedirectWorker.perform_async(base_path, redirects, locale, true)
     end
 
+    def self.save_draft_gone_async(base_path)
+      PublishingApiGoneWorker.perform_async(base_path, true)
+    end
+
     def self.discard_draft_async(edition)
       locales_for(edition).each do |locale|
         PublishingApiDiscardDraftWorker.perform_async(edition.content_id, locale)

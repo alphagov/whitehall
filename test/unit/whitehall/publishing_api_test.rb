@@ -457,20 +457,42 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     assert_not_requested not_expected_publish_request
   end
 
+  def setup_gone
+    @gone_uuid = SecureRandom.uuid
+    SecureRandom.stubs(uuid: @gone_uuid)
+
+    @base_path = "/government/people/milly-vanilly"
+    @presenter = PublishingApiPresenters::Gone.new(@base_path)
+  end
+
   test ".publish_gone_async publishes a gone to the Publishing API" do
-    gone_uuid = SecureRandom.uuid
-    SecureRandom.stubs(uuid: gone_uuid)
+    setup_gone
 
-    base_path = "/government/people/milly-vanilly"
-    presenter = PublishingApiPresenters::Gone.new(base_path)
+    assert_valid_against_schema(@presenter.content, "gone")
 
-    assert_valid_against_schema(presenter.content, "gone")
-
-    expected_content_request = stub_publishing_api_put_content(gone_uuid, presenter.content)
-    expected_publish_request = stub_publishing_api_publish(gone_uuid, update_type: 'major', locale: 'en')
-    Whitehall::PublishingApi.publish_gone_async(base_path)
+    expected_content_request = stub_publishing_api_put_content(@gone_uuid, @presenter.content)
+    expected_publish_request = stub_publishing_api_publish(@gone_uuid, update_type: 'major', locale: 'en')
+    Whitehall::PublishingApi.publish_gone_async(@base_path)
 
     assert_requested expected_content_request
     assert_requested expected_publish_request
+  end
+
+  test ".save_draft_gone_async puts the content" do
+    setup_gone
+
+    expected_content_request = stub_publishing_api_put_content(@gone_uuid, @presenter.content)
+    Whitehall::PublishingApi.save_draft_gone_async(@base_path)
+
+    assert_requested expected_content_request
+  end
+
+  test ".save_draft_gone_async does not publish" do
+    setup_gone
+
+    Whitehall::PublishingApi.save_draft_gone_async(@base_path)
+
+    not_expected_publish_request = stub_publishing_api_publish(@gone_uuid, update_type: 'major', locale: 'en')
+    assert_not_requested not_expected_publish_request
   end
 end
