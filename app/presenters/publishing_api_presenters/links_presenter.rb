@@ -59,13 +59,10 @@ module PublishingApiPresenters
     end
 
     def topic_content_ids
-      secondaries = item.try(:secondary_specialist_sector_tags) || []
-      primary = item.try(:primary_specialist_sector_tag)
-      (secondaries.unshift(primary))
-        .compact
-        .map do |tag|
-          Whitehall.content_store.content_item!("/topic/#{tag}").content_id
-        end
+      specialist_sector_tags = item.try(:specialist_sector_tags) || []
+      base_paths = specialist_sector_tags.compact.map { |tag| "/topic/#{tag}" }
+      return [] unless base_paths.any?
+      Whitehall.publishing_api_v2_client.lookup_content_ids(base_paths: base_paths).values
     end
 
     def world_location_ids

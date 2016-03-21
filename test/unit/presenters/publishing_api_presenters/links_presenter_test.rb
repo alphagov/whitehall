@@ -37,12 +37,17 @@ class PublishingApiPresenters::LinksPresenterTest < ActionView::TestCase
 
 
   test 'extracts content_ids from a tagged edition' do
-      edition = create(:edition)
-      create(:specialist_sector, tag: 'oil-and-gas/offshore', edition: edition, primary: true)
-      create(:specialist_sector, tag: 'oil-and-gas/onshore', edition: edition, primary: false)
+    edition = create(:edition)
+    create(:specialist_sector, tag: "oil-and-gas/offshore", edition: edition, primary: true)
+    create(:specialist_sector, tag: "oil-and-gas/onshore", edition: edition, primary: false)
 
-      links = links_for(edition)
+    publishing_api_has_lookups({
+      "/topic/oil-and-gas/offshore" => "content_id_1",
+      "/topic/oil-and-gas/onshore" => "content_id_2",
+    })
 
-      assert_equal links[:topics], ["129fb467-afd8-42e5-98c9-4f3294c40bb9", "129fb467-afd8-42e5-98c9-4f3294c40bb9"]
-    end
+    links = links_for(edition)
+
+    assert_equal links[:topics], %w(content_id_1 content_id_2)
+  end
 end
