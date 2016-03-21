@@ -34,7 +34,7 @@ class PublishingApiGoneWorkerTest < ActiveSupport::TestCase
       stub_publishing_api_put_content(@uuid, @content),
     ]
 
-    PublishingApiGoneWorker.new.perform(@base_path, true)
+    PublishingApiGoneWorker.new.perform(@base_path, draft: true)
 
     assert_all_requested requests
   end

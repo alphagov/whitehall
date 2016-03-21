@@ -79,11 +79,16 @@ module Whitehall
     end
 
     def self.save_draft_redirect_async(base_path, redirects, locale = I18n.default_locale.to_s)
-      PublishingApiRedirectWorker.perform_async(base_path, redirects, locale, true)
+      PublishingApiRedirectWorker.perform_async(
+        base_path,
+        redirects,
+        locale,
+        draft: true
+      )
     end
 
     def self.save_draft_gone_async(base_path)
-      PublishingApiGoneWorker.perform_async(base_path, true)
+      PublishingApiGoneWorker.perform_async(base_path, draft: true)
     end
 
     def self.discard_draft_async(edition)

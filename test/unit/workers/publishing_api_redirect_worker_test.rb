@@ -48,7 +48,12 @@ class PublishingApiRedirectWorkerTest < ActiveSupport::TestCase
       stub_publishing_api_put_content(@uuid, @content),
     ]
 
-    PublishingApiRedirectWorker.new.perform(@base_path, @redirects, "en", true)
+    PublishingApiRedirectWorker.new.perform(
+      @base_path,
+      @redirects,
+      "en",
+      draft: true,
+    )
 
     assert_all_requested requests
   end
