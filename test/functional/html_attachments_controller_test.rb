@@ -129,12 +129,7 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
   end
 
 private
-  def create_edition_and_attachment(options = {})
-    type = options.fetch(:type, :publication)
-    state = options.fetch(:state, :published)
-    build_unpublishing = options.fetch(:build_unpublishing, false)
-    locale = options.fetch(:locale, nil)
-
+  def create_edition_and_attachment(type: :publication, state: :published, build_unpublishing: false, locale: nil)
     publication = create("#{state}_#{type}", translated_into: [locale].compact, attachments: [
       attachment = build(:html_attachment, title: 'HTML Attachment Title', locale: locale)
     ])
