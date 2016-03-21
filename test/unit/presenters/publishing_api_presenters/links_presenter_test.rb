@@ -34,4 +34,15 @@ class PublishingApiPresenters::LinksPresenterTest < ActionView::TestCase
     # whitehall names and publishing api names don't necessarily match...
     assert_equal document.topics.map(&:content_id), links[:policy_areas]
   end
+
+
+  test 'extracts content_ids from a tagged edition' do
+      edition = create(:edition)
+      create(:specialist_sector, tag: 'oil-and-gas/offshore', edition: edition, primary: true)
+      create(:specialist_sector, tag: 'oil-and-gas/onshore', edition: edition, primary: false)
+
+      links = links_for(edition)
+
+      assert_equal links[:topics], ["129fb467-afd8-42e5-98c9-4f3294c40bb9", "129fb467-afd8-42e5-98c9-4f3294c40bb9"]
+    end
 end

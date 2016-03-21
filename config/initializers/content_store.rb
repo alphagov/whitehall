@@ -1,9 +1,9 @@
 require 'gds_api/content_store'
 
 class GdsApi::ContentStore::Fake
-  def content_item!(tag)
+  def content_item!(_base_path)
     Struct.new("ContentItem", :content_id)
-    Struct::ContentItem.new("#{tag}-content-id")
+    Struct::ContentItem.new("129fb467-afd8-42e5-98c9-4f3294c40bb9")
   end
 end
 
