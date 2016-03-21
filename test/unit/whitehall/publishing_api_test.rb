@@ -84,61 +84,6 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     assert_all_requested(requests)
   end
 
-  test ".republish_async publishes to the Publishing API as a 'republish' update_type" do
-    take_part_page = create(:take_part_page)
-    presenter = PublishingApiPresenters.presenter_for(take_part_page, update_type: 'republish')
-    requests = [
-      stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: 'republish')
-    ]
-
-    Whitehall::PublishingApi.republish_async(take_part_page)
-
-    assert_all_requested(requests)
-  end
-
-  test ".bulk_republish_async publishes to the Publishing API as a 'republish'" do
-    take_part_page = create(:take_part_page)
-    presenter = PublishingApiPresenters.presenter_for(take_part_page, update_type: 'republish')
-    requests = [
-      stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: 'republish')
-    ]
-
-    Whitehall::PublishingApi.bulk_republish_async(take_part_page)
-
-    assert_all_requested(requests)
-  end
-
-  test ".bulk_republish_async queues the job on the bulk_republishing queue" do
-    take_part_page = create(:take_part_page)
-    PublishingApiWorker.expects(:perform_async_in_queue)
-      .with(
-        "bulk_republishing",
-        "TakePartPage",
-        take_part_page.id,
-        "republish",
-        :en
-      )
-    Whitehall::PublishingApi.bulk_republish_async(take_part_page)
-  end
-
-  test ".republish_document_async publishes to the publishing API as a 'republish' update_type" do
-    edition = create(:published_publication)
-    presenter = PublishingApiPresenters.presenter_for(edition, update_type: 'republish')
-    requests = [
-      stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: 'republish')
-    ]
-
-    Whitehall::PublishingApi.republish_document_async(edition.document)
-
-    assert_all_requested(requests)
-  end
-
   test ".publish_async publishes all available translations of a translatable model" do
     organisation = create(:organisation)
     presenter = PublishingApiPresenters.presenter_for(organisation)
@@ -166,6 +111,63 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     assert_all_requested(french_requests)
     assert_all_requested(english_requests)
     assert_requested(links_request, times: 2)
+  end
+
+  test ".publish_async publishes a translated edition that has been unpublished" do
+    unpublishing     = create(:unpublishing)
+    edition          = unpublishing.edition
+
+    presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
+
+    german_requests = I18n.with_locale(:de) do
+      edition.title = 'German title'
+      edition.save!
+
+      [
+        stub_publishing_api_put_content(presenter.content_id, presenter.content),
+        stub_publishing_api_publish(presenter.content_id, locale: 'de', update_type: 'major')
+      ]
+    end
+
+    english_requests = [
+      stub_publishing_api_put_content(presenter.content_id, presenter.content),
+      stub_publishing_api_publish(presenter.content_id, locale: 'en', update_type: 'major')
+    ]
+
+    links_request = stub_publishing_api_patch_links(presenter.content_id, links: presenter.links)
+
+    Whitehall::PublishingApi.publish_async(unpublishing)
+
+    assert_all_requested(english_requests)
+    assert_all_requested(german_requests)
+    assert_requested(links_request, times: 2)
+  end
+
+  test ".publish_async propagates update_type and queue overrides to worker" do
+    queue_name = "bang"
+    update_type = "whizzo"
+
+    edition = create(:published_case_study)
+
+    PublishingApiWorker.expects(:perform_async_in_queue)
+      .with(queue_name, edition.class.name, edition.id,
+            update_type, edition.primary_locale.to_sym)
+
+    Whitehall::PublishingApi.publish_async(edition, update_type, queue_name)
+  end
+
+  test ".republish_async publishes to the Publishing API as a 'republish' update_type" do
+    take_part_page = create(:take_part_page)
+    presenter = PublishingApiPresenters.presenter_for(take_part_page, update_type: 'republish')
+    requests = [
+      stub_publishing_api_put_content(presenter.content_id, presenter.content),
+      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
+      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: 'republish')
+    ]
+
+    Whitehall::PublishingApi.republish_async(take_part_page)
+
+    assert_all_requested(requests)
   end
 
   test ".republish_async republishes all available translations of a translatable model" do
@@ -230,35 +232,47 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     assert_all_requested(requests)
   end
 
-  test ".publish_async publishes a translated edition that has been unpublished" do
-    unpublishing     = create(:unpublishing)
-    edition          = unpublishing.edition
-
-    presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
-
-    german_requests = I18n.with_locale(:de) do
-      edition.title = 'German title'
-      edition.save!
-
-      [
-        stub_publishing_api_put_content(presenter.content_id, presenter.content),
-        stub_publishing_api_publish(presenter.content_id, locale: 'de', update_type: 'major')
-      ]
-    end
-
-    english_requests = [
+  test ".bulk_republish_async publishes to the Publishing API as a 'republish'" do
+    take_part_page = create(:take_part_page)
+    presenter = PublishingApiPresenters.presenter_for(take_part_page, update_type: 'republish')
+    requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_publish(presenter.content_id, locale: 'en', update_type: 'major')
+      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
+      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: 'republish')
     ]
 
-    links_request = stub_publishing_api_patch_links(presenter.content_id, links: presenter.links)
+    Whitehall::PublishingApi.bulk_republish_async(take_part_page)
 
-    Whitehall::PublishingApi.publish_async(unpublishing)
-
-    assert_all_requested(english_requests)
-    assert_all_requested(german_requests)
-    assert_requested(links_request, times: 2)
+    assert_all_requested(requests)
   end
+
+  test ".bulk_republish_async queues the job on the bulk_republishing queue" do
+    take_part_page = create(:take_part_page)
+    PublishingApiWorker.expects(:perform_async_in_queue)
+      .with(
+        "bulk_republishing",
+        "TakePartPage",
+        take_part_page.id,
+        "republish",
+        :en
+      )
+    Whitehall::PublishingApi.bulk_republish_async(take_part_page)
+  end
+
+  test ".republish_document_async publishes to the publishing API as a 'republish' update_type" do
+    edition = create(:published_publication)
+    presenter = PublishingApiPresenters.presenter_for(edition, update_type: 'republish')
+    requests = [
+      stub_publishing_api_put_content(presenter.content_id, presenter.content),
+      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
+      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: 'republish')
+    ]
+
+    Whitehall::PublishingApi.republish_document_async(edition.document)
+
+    assert_all_requested(requests)
+  end
+
 
   test ".schedule_async for a first edition served from Whitehall doesn't queue jobs to push publish intents and 'coming_soon' items" do
     timestamp = 12.hours.from_now
@@ -381,19 +395,6 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     Whitehall::PublishingApi.save_draft_async(draft_edition)
 
     assert_requested request
-  end
-
-  test ".publish_async propagates update_type and queue overrides to worker" do
-    queue_name = "bang"
-    update_type = "whizzo"
-
-    edition = create(:published_case_study)
-
-    PublishingApiWorker.expects(:perform_async_in_queue)
-      .with(queue_name, edition.class.name, edition.id,
-            update_type, edition.primary_locale.to_sym)
-
-    Whitehall::PublishingApi.publish_async(edition, update_type, queue_name)
   end
 
   test ".save_draft_async propagates update_type and queue overrides to worker" do
