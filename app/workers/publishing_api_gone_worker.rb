@@ -1,6 +1,7 @@
 class PublishingApiGoneWorker < PublishingApiWorker
-  def perform(base_path)
+  def perform(base_path, options = {})
+    draft = options.fetch("draft", false)
     gone_item = PublishingApiPresenters::Gone.new(base_path)
-    send_item(gone_item, 'en')
+    draft ? save_draft(gone_item) : send_item(gone_item, 'en')
   end
 end
