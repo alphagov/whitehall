@@ -1,4 +1,9 @@
 namespace :rummager do
+  desc "Re-index one Document. Takes a `content_id` as argument."
+  task :resend_document, [:content_id] => [:environment] do |_, args|
+    Document.find_by(content_id: args[:content_id]).published_edition.update_in_search_index
+  end
+
   desc "indexes all published searchable whitehall content"
   task index: ['rummager:index:detailed', 'rummager:index:government']
 
