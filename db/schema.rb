@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160311090953) do
+ActiveRecord::Schema.define(version: 20160318154626) do
 
   create_table "about_pages", force: :cascade do |t|
     t.integer  "topical_event_id",    limit: 4
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20160311090953) do
     t.string   "order_url",                limit: 255
     t.integer  "price_in_pence",           limit: 4
     t.integer  "attachment_data_id",       limit: 4
-    t.integer  "ordering",                 limit: 4,   null: false
+    t.integer  "ordering",                 limit: 4,                   null: false
     t.string   "hoc_paper_number",         limit: 255
     t.string   "parliamentary_session",    limit: 255
     t.boolean  "unnumbered_command_paper"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 20160311090953) do
     t.string   "locale",                   limit: 255
     t.string   "external_url",             limit: 255
     t.string   "content_id",               limit: 255
+    t.boolean  "deleted",                              default: false, null: false
   end
 
   add_index "attachments", ["attachable_id", "attachable_type"], name: "index_attachments_on_attachable_id_and_attachable_type", using: :btree
