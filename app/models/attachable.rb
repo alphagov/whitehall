@@ -110,7 +110,7 @@ module Attachable
   end
 
   def next_ordering
-    max = Attachment.not_deleted.where(attachable_id: id, attachable_type: self.class.base_class).maximum(:ordering)
+    max = Attachment.where(attachable_id: id, attachable_type: self.class.base_class).maximum(:ordering)
     max ? max + 1 : 0
   end
 
@@ -125,7 +125,7 @@ module Attachable
 
       # To get around it, we check that we can start at 0 and fit all the
       # ordering values below the current lowest ordering.
-      if ordered_attachment_ids.count < attachments.minimum(:ordering)
+      if ordered_attachment_ids.count < attachments.unscoped.minimum(:ordering)
         start_at = 0
 
       # Otherwise, we start reordering at the next available number
