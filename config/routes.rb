@@ -142,6 +142,7 @@ Whitehall::Application.routes.draw do
     resources :ministerial_roles, path: 'ministers', only: [:index, :show], localised: true
     resources :people, only: [:index, :show], localised: true
 
+    # TODO: Remove `:show` when policy group paths can be otherwise generated
     resources :policy_groups, path: 'groups', only: [:index, :show]
     resources :operational_fields, path: 'fields-of-operation', only: [:index, :show]
     get 'world/organisations/:organisation_id/office' => redirect('/world/organisations/%{organisation_id}')
