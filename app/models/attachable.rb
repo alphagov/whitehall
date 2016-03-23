@@ -114,6 +114,10 @@ module Attachable
     max ? max + 1 : 0
   end
 
+  def delete_all_attachments
+    attachments.each { |attachment| attachment.update(deleted: true) }
+  end
+
   def reorder_attachments(ordered_attachment_ids)
     return if ordered_attachment_ids.empty?
 
