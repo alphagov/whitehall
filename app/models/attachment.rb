@@ -10,6 +10,8 @@ class Attachment < ActiveRecord::Base
   before_save :nilify_locale_if_blank
   before_save :prevent_saving_of_abstract_base_class
 
+  deprecated_columns :deleted
+
   VALID_COMMAND_PAPER_NUMBER_PREFIXES = ['C.', 'Cd.', 'Cmd.', 'Cmnd.', 'Cm.']
 
   validates_with AttachmentValidator
@@ -37,8 +39,6 @@ class Attachment < ActiveRecord::Base
   scope :files, -> { where(type: FileAttachment) }
 
   scope :for_current_locale, -> { where(locale: [nil, I18n.locale]) }
-
-  scope :not_deleted, -> { where(deleted: false) }
 
   def self.parliamentary_sessions
     (1951..Time.zone.now.year).to_a.reverse.map do |year|
