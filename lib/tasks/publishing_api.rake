@@ -34,7 +34,7 @@ namespace :publishing_api do
   end
 
   desc "Send publishable item links to Publishing API."
-  task :publishing_api_patch_links, [:item_class] => :environment do |_, args|
+  task :publishing_api_patch_links, [:item_classes] => :environment do |_, args|
     def patch_links(item)
       retries = 0
       begin
@@ -56,19 +56,22 @@ namespace :publishing_api do
       $stderr.puts "Class: #{item.class}; id: #{item.id}; Error: #{err.message}"
     end
 
-    class_name = args[:item_class]
-    if class_name == 'Edition'
-      klass = Edition.published
-    else
-      klass = class_name.constantize
-    end
+    args[:item_classes].split(',').each do |class_name|
+      if class_name == 'Edition'
+        klass = Edition.published
+      else
+        klass = class_name.constantize
+      end
 
-    count = klass.all.count
-    $stdout.puts "# Sending #{count} #{class_name} items to Publishing API"
-    klass.find_each do |publishable_item|
-      patch_links(publishable_item)
+      count = klass.all.count
+      $stdout.puts "# Sending #{count} #{class_name} items to Publishing API"
+      klass.find_each.with_index do |publishable_item, i|
+        patch_links(publishable_item)
+
+        $stdout.puts "Sending #{i}-#{i + 99} of #{count} items" if i % 100 == 0
+      end
+      $stdout.puts "Finished sending items to Publishing API"
     end
-    $stdout.puts "Finished sending items to Publishing API"
   end
 end
 
