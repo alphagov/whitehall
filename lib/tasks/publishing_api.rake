@@ -57,15 +57,18 @@ namespace :publishing_api do
     end
 
     args[:item_classes].split(',').each do |class_name|
-      if class_name == 'Edition'
-        klass = Edition.published
+      klass = class_name.constantize
+      if klass.ancestors.include?(Edition)
+        editions = klass.published
+        count = editions.count
+        $stdout.puts "# Sending #{count} published #{class_name} items to Publishing API"
       else
-        klass = class_name.constantize
+        editions = klass.all
+        count = editions.count
+        $stdout.puts "# Sending all #{count} #{class_name} items to Publishing API"
       end
 
-      count = klass.all.count
-      $stdout.puts "# Sending #{count} #{class_name} items to Publishing API"
-      klass.find_each.with_index do |publishable_item, i|
+      editions.find_each.with_index do |publishable_item, i|
         patch_links(publishable_item)
 
         $stdout.puts "Sending #{i}-#{i + 99} of #{count} items" if i % 100 == 0
