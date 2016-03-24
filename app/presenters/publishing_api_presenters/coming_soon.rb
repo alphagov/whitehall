@@ -17,8 +17,11 @@ require_relative "../publishing_api_presenters"
 # honour caching headers on upstream 404 responses.
 
 class PublishingApiPresenters::ComingSoon < PublishingApiPresenters::Item
-  def content_id
-    SecureRandom.uuid
+  attr_reader :content_id
+
+  def initialize(item, update_type: nil)
+    super
+    @content_id = SecureRandom.uuid
   end
 
   private
