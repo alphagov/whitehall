@@ -16,7 +16,12 @@ class PublishingApiPresenters::Organisation < PublishingApiPresenters::Placehold
 private
 
   def crest
-    item.organisation_logo_type.class_name
+    crest_is_publishable? ? item.organisation_logo_type.class_name : nil
+  end
+
+  def crest_is_publishable?
+    class_name = item.organisation_logo_type.class_name
+    class_name != "no-identity" && class_name != "custom"
   end
 
   def formatted_title

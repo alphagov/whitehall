@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PublishingApiPresenters::OrganisationTest < ActiveSupport::TestCase
+class PublishingApiPresenters::OrganisationTest < ActionView::TestCase
   def present(model_instance, options = {})
     PublishingApiPresenters::Organisation.new(model_instance, options)
   end
@@ -47,5 +47,28 @@ class PublishingApiPresenters::OrganisationTest < ActiveSupport::TestCase
     assert_equal organisation.content_id, presented_item.content_id
 
     assert_valid_against_schema(presented_item.content, 'placeholder')
+  end
+
+  test 'presents an organisation with a custom logo with a nil crest' do
+    organisation = create(
+      :organisation,
+      name: 'Organisation of Things',
+      organisation_logo_type_id: 14,
+      logo: fixture_file_upload('images/960x640_jpeg.jpg', 'image/jpeg')
+    )
+    presented_item = present(organisation)
+
+    assert_equal presented_item.content[:details][:logo][:crest], nil
+  end
+
+  test 'presents an organisation with no identity with a nil crest' do
+    organisation = create(
+      :organisation,
+      name: 'Organisation of Things',
+      organisation_logo_type_id: 1
+    )
+    presented_item = present(organisation)
+
+    assert_equal presented_item.content[:details][:logo][:crest], nil
   end
 end
