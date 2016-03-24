@@ -32,5 +32,4 @@ Then /^I should be able to add attachments to the policy group "(.*?)"$/ do |gro
   group = PolicyGroup.find_by(name: group_name)
   attachment = upload_pdf_to_policy_group(group)
   insert_attachment_markdown_into_policy_group_description(attachment, group)
-  check_attachment_appears_on_policy_group(attachment, group)
 end
