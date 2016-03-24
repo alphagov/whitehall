@@ -156,6 +156,30 @@ class AttachableTest < ActiveSupport::TestCase
     assert_equal [b, a, c], attachable.reload.attachments
   end
 
+  test '#reorder_attachments handles deleted attachments that had high ordering values' do
+    attachable = create(:consultation)
+    a = create(:file_attachment, attachable: attachable, ordering: 0)
+    b = create(:file_attachment, attachable: attachable, ordering: 1)
+    create(:file_attachment, attachable: attachable, ordering: 2, deleted: true)
+
+    attachable.reload.reorder_attachments([b.id, a.id])
+
+    assert_equal [b, a], attachable.reload.attachments
+  end
+
+  test '#reorder_attachments handles deleted attachments that had low ordering values' do
+    attachable = create(:consultation)
+    create(:file_attachment, attachable: attachable, ordering: 0, deleted: true)
+    create(:file_attachment, attachable: attachable, ordering: 1, deleted: true)
+    create(:file_attachment, attachable: attachable, ordering: 2, deleted: true)
+    a = create(:file_attachment, attachable: attachable, ordering: 3)
+    b = create(:file_attachment, attachable: attachable, ordering: 4)
+
+    attachable.reload.reorder_attachments([b.id, a.id])
+
+    assert_equal [b, a], attachable.reload.attachments
+  end
+
   test 'has html_attachments association to fetch only HtmlAttachments' do
     publication = create(:publication, :with_file_attachment, attachments: [
       attachment_1 = build(:file_attachment, ordering: 0),
