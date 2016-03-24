@@ -192,24 +192,6 @@ class AttachableTest < ActiveSupport::TestCase
     assert_equal [attachment_2, attachment_3], publication.html_attachments(true)
   end
 
-  test 'attachment association excludes soft-deleted Attachments' do
-    publication = create(:publication, :with_file_attachment, attachments: [
-      attachment_1 = build(:file_attachment),
-      build(:html_attachment, title: "HTML attachment", deleted: true),
-    ])
-
-    assert_equal [attachment_1], publication.attachments(true)
-  end
-
-  test 'html_attachment association excludes soft-deleted HtmlAttachments' do
-    publication = create(:publication, attachments: [
-      attachment_1 = build(:html_attachment, title: "Test HTML attachment"),
-      build(:html_attachment, title: "Another HTML attachment", deleted: true),
-    ])
-
-    assert_equal [attachment_1], publication.html_attachments(true)
-  end
-
   test '#has_command_paper? is true if an attachment is a command paper' do
     pub = build(:publication)
     pub.stubs(:attachments).returns([
