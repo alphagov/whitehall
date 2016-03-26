@@ -7,26 +7,26 @@
 // files can be used in the view files.
 
 // From the https://github.com/alphagov/govuk_frontend_toolkit
-@import "_colours.scss";
-@import "_conditionals.scss";
-@import "_css3.scss";
-@import "_grid_layout.scss";
-@import "_measurements.scss";
-@import "_typography.scss";
-@import "_shims.scss";
+@import "_colours";
+@import "_conditionals";
+@import "_css3";
+@import "_grid_layout";
+@import "_measurements";
+@import "_typography";
+@import "_shims";
 
-@import "styleguide/_dimensions.scss";
-@import "styleguide/_typography.scss";
-@import "styleguide/_colours.scss";
-@import "styleguide/_button.scss";
-@import "styleguide/_float-fix.scss";
-@import "styleguide/_hidpi.scss";
-@import "styleguide/_right-to-left.scss";
+@import "styleguide/_dimensions";
+@import "styleguide/_typography";
+@import "styleguide/_colours";
+@import "styleguide/_button";
+@import "styleguide/_float-fix";
+@import "styleguide/_hidpi";
+@import "styleguide/_right-to-left";
 
 // RESET
 // Flatten exising styles
 
-@import "reset/_reset.scss";
+@import "reset/_reset";
 // reset styles applied to #whitehall-wrapper & #whitehall-wrapper *
 // so as to override global styles being set by gov.uk chrome. When
 // gov.uk styles are scoped, will want to change these selectors to
@@ -36,57 +36,57 @@
 // Styles that apply to all of whitehall.
 
 #whitehall-wrapper {
-  @import "global/_links.scss";
+  @import "global/_links";
 }
 
 // HELPERS
 // Styles for comment page elements
 
 #whitehall-wrapper {
-  @import "helpers/_activity-nav.scss";
-  @import "helpers/_announcements.scss";
-  @import "helpers/_withdrawal-notice.scss";
-  @import "helpers/_attachment.scss";
-  @import "helpers/_available_languages.scss";
-  @import "helpers/_browse.scss";
-  @import "helpers/_change-notes.scss";
-  @import "helpers/_collection_list.scss";
-  @import "helpers/_contextual-info.scss";
-  @import "helpers/_corporate-information.scss";
-  @import "helpers/_dash-list.scss";
-  @import "helpers/_document.scss";
-  @import "helpers/_document_footer_meta.scss";
-  @import "helpers/_document_list.scss";
-  @import "helpers/_document-share-links.scss";
-  @import "helpers/_documents-grid.scss";
-  @import "helpers/_headings.scss";
-  @import "helpers/_featured-links.scss";
-  @import "helpers/_featured_news.scss";
-  @import "helpers/_feeds.scss";
-  @import "helpers/_filtered-index.scss";
-  @import "helpers/_govspeak.scss";
-  @import "helpers/_heading-block.scss";
-  @import "helpers/_historic-people-list.scss";
-  @import "helpers/_holding.scss";
-  @import "helpers/_index-list.scss";
-  @import "helpers/_js-list-items.scss";
-  @import "helpers/_lead-image.scss";
-  @import "helpers/_metadata-list.scss";
-  @import "helpers/_organisations.scss";
-  @import "helpers/_organisation-news.scss";
-  @import "helpers/_page-header.scss";
-  @import "helpers/_pagination.scss";
-  @import "helpers/_person.scss";
-  @import "helpers/_recently_updated.scss";
-  @import "helpers/_simple-alphabetical-list.scss";
-  @import "helpers/_social-media-accounts.scss";
-  @import "helpers/_status-block.scss";
-  @import "helpers/_sub-navigation.scss";
-  @import "helpers/_worldwide-organisation-header.scss";
+  @import "helpers/_activity-nav";
+  @import "helpers/_announcements";
+  @import "helpers/_withdrawal-notice";
+  @import "helpers/_attachment";
+  @import "helpers/_available_languages";
+  @import "helpers/_browse";
+  @import "helpers/_change-notes";
+  @import "helpers/_collection_list";
+  @import "helpers/_contextual-info";
+  @import "helpers/_corporate-information";
+  @import "helpers/_dash-list";
+  @import "helpers/_document";
+  @import "helpers/_document_footer_meta";
+  @import "helpers/_document_list";
+  @import "helpers/_document-share-links";
+  @import "helpers/_documents-grid";
+  @import "helpers/_headings";
+  @import "helpers/_featured-links";
+  @import "helpers/_featured_news";
+  @import "helpers/_feeds";
+  @import "helpers/_filtered-index";
+  @import "helpers/_govspeak";
+  @import "helpers/_heading-block";
+  @import "helpers/_historic-people-list";
+  @import "helpers/_holding";
+  @import "helpers/_index-list";
+  @import "helpers/_js-list-items";
+  @import "helpers/_lead-image";
+  @import "helpers/_metadata-list";
+  @import "helpers/_organisations";
+  @import "helpers/_organisation-news";
+  @import "helpers/_page-header";
+  @import "helpers/_pagination";
+  @import "helpers/_person";
+  @import "helpers/_recently_updated";
+  @import "helpers/_simple-alphabetical-list";
+  @import "helpers/_social-media-accounts";
+  @import "helpers/_status-block";
+  @import "helpers/_sub-navigation";
+  @import "helpers/_worldwide-organisation-header";
 
   // helpers shared with admin
-  @import "../shared/helpers/_magna-charta.scss";
-  @import "../shared/helpers/_player-container.scss";
+  @import "../shared/helpers/_magna-charta";
+  @import "../shared/helpers/_player-container";
 }
 
 
@@ -96,55 +96,55 @@
 // Styles scoped to each template in /views
 
 #whitehall-wrapper {
-  @import "views/_biographical-page.scss";
-  @import "views/_consultations.scss";
-  @import "views/_corporate-information-pages-worldwide-organisation.scss";
-  @import "views/_detailed_guides.scss";
-  @import "views/_document-collection.scss";
-  @import "views/_email-signup.scss";
-  @import "views/_email-signup-information.scss";
-  @import "views/_embassies.scss";
-  @import "views/_get-involved.scss";
-  @import "views/_groups.scss";
-  @import "views/_history.scss";
-  @import "views/_history-buildings.scss";
-  @import "views/_history-people.scss";
-  @import "views/_historic-appointments.scss";
-  @import "views/_how-gov-works.scss";
-  @import "views/_layouts.scss";
-  @import "views/_ministerial-roles.scss";
-  @import "views/_new-document-page.scss";
-  @import "views/_operational-field.scss";
-  @import "views/_organisations.scss";
-  @import "views/_people.scss";
-  @import "views/_policy_groups.scss";
-  @import "views/_publications.scss";
-  @import "views/_search.scss";
-  @import "views/_services-and-information.scss";
-  @import "views/_site-index.scss";
-  @import "views/_speeches.scss";
-  @import "views/_statistical-data-sets.scss";
-  @import "views/_topic.scss";
-  @import "views/_world_locations.scss";
-  @import "views/_worldwide_organisations.scss";
-  @import "views/_worldwide_priorities.scss";
-  @import "views/_topical-events.scss";
-  @import "views/corporate_information_pages/show.scss";
-  @import "views/publications/_index.scss";
-  @import "views/statistics/_index.scss";
-  @import "views/statistics_announcements/_index.scss";
-  @import "views/statistics_announcements/_show.scss";
+  @import "views/_biographical-page";
+  @import "views/_consultations";
+  @import "views/_corporate-information-pages-worldwide-organisation";
+  @import "views/_detailed_guides";
+  @import "views/_document-collection";
+  @import "views/_email-signup";
+  @import "views/_email-signup-information";
+  @import "views/_embassies";
+  @import "views/_get-involved";
+  @import "views/_groups";
+  @import "views/_history";
+  @import "views/_history-buildings";
+  @import "views/_history-people";
+  @import "views/_historic-appointments";
+  @import "views/_how-gov-works";
+  @import "views/_layouts";
+  @import "views/_ministerial-roles";
+  @import "views/_new-document-page";
+  @import "views/_operational-field";
+  @import "views/_organisations";
+  @import "views/_people";
+  @import "views/_policy_groups";
+  @import "views/_publications";
+  @import "views/_search";
+  @import "views/_services-and-information";
+  @import "views/_site-index";
+  @import "views/_speeches";
+  @import "views/_statistical-data-sets";
+  @import "views/_topic";
+  @import "views/_world_locations";
+  @import "views/_worldwide_organisations";
+  @import "views/_worldwide_priorities";
+  @import "views/_topical-events";
+  @import "views/corporate_information_pages/show";
+  @import "views/publications/_index";
+  @import "views/statistics/_index";
+  @import "views/statistics_announcements/_index";
+  @import "views/statistics_announcements/_show";
 }
 
 
 // LAYOUTS
 // Styles scoped to a layout. Be careful.
 
-@import "layouts/_main.scss";
-@import "layouts/detailed-guidance.scss";
+@import "layouts/_main";
+@import "layouts/detailed-guidance";
 
 #whitehall-wrapper {
-  @import "layouts/two_column_page.scss";
+  @import "layouts/two_column_page";
 }
 
 
