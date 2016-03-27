@@ -29,6 +29,19 @@ module Edition::Translatable
     def globalize_fallbacks(for_locale = I18n.locale)
       [for_locale, primary_locale.to_sym].uniq
     end
+
+    after_save do
+      ActiveRecord::Base.transaction do
+        terms = self.title.parameterize.split('-').map do |t|
+          "(#{self.id}, '#{t}')"
+        end
+
+        ActiveRecord::Base.connection
+          .execute("DELETE FROM edition_title_terms WHERE edition_id = #{self.id}")
+        ActiveRecord::Base.connection
+          .insert("INSERT INTO edition_title_terms VALUES#{terms.join(', ')}")
+      end
+    end
   end
 
   def translatable?

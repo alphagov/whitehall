@@ -566,10 +566,10 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [edition_with_nasty_characters], Edition.with_title_or_summary_containing("[stuff")
   end
 
-  test "should find editions with title containing keyword" do
-    edition_with_first_keyword = create(:edition, title: "klingons")
+  test "should find editions with title containing keywords" do
+    edition_with_first_keyword = create(:edition, title: "klingons rule the galaxy")
     edition_without_first_keyword = create(:edition, title: "this document is about muppets")
-    assert_equal [edition_with_first_keyword], Edition.with_title_containing("klingons")
+    assert_equal [edition_with_first_keyword], Edition.with_title_containing("klingons galaxy")
   end
 
   test "should find editions with slug containing keyword" do
