@@ -260,4 +260,16 @@ class AttachableTest < ActiveSupport::TestCase
     assert_equal html_attachment.govspeak_content.body, attachment_2.govspeak_content.body
     assert_equal html_attachment.title, attachment_2.title
   end
+
+  test '#delete_all_attachments soft-deletes any attachments that the edition has' do
+    publication = create(:draft_publication, :with_file_attachment, attachments: [
+      attachment_1 = build(:file_attachment, ordering: 0),
+      attachment_2 = build(:html_attachment, title: "Test HTML attachment", ordering: 1),
+    ])
+
+    publication.delete_all_attachments
+
+    assert Attachment.find(attachment_1.id).deleted?
+    assert Attachment.find(attachment_2.id).deleted?
+  end
 end
