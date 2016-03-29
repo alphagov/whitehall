@@ -8,24 +8,24 @@
 // files can be used in the view files.
 
 // From the https://github.com/alphagov/govuk_frontend_toolkit
-@import "_colours.scss";
-@import "_conditionals.scss";
-@import "_css3.scss";
-@import "_grid_layout.scss";
-@import "_measurements.scss";
-@import "_typography.scss";
+@import "_colours";
+@import "_conditionals";
+@import "_css3";
+@import "_grid_layout";
+@import "_measurements";
+@import "_typography";
 
-@import "styleguide/_dimensions.scss";
-@import "styleguide/_colours.scss";
-@import "styleguide/_float-fix.scss";
-@import "styleguide/_hidpi.scss";
-@import "styleguide/_typography.scss";
-@import "styleguide/_right-to-left.scss";
+@import "styleguide/_dimensions";
+@import "styleguide/_colours";
+@import "styleguide/_float-fix";
+@import "styleguide/_hidpi";
+@import "styleguide/_typography";
+@import "styleguide/_right-to-left";
 
 // RESET
 // Flatten exising styles
 
-@import "reset/_reset.scss";
+@import "reset/_reset";
 // reset styles applied to #whitehall-wrapper & #whitehall-wrapper *
 // so as to override global styles being set by gov.uk chrome. When
 // gov.uk styles are scoped, will want to change these selectors to
@@ -35,25 +35,25 @@
 // HELPERS
 // Styles for comment page elements
 #whitehall-wrapper {
-  @import "helpers/_govspeak.scss";
-  @import "helpers/_organisations.scss";
+  @import "helpers/_govspeak";
+  @import "helpers/_organisations";
 
   // helpers shared with frontend and admin
-  @import "../shared/helpers/_player-container.scss";
+  @import "../shared/helpers/_player-container";
 
   // Support for bar charts
-  @import "../shared/helpers/_magna-charta.scss";
+  @import "../shared/helpers/_magna-charta";
 }
 
 
 // VIEWS
 // Styles scoped to each template in /views
 #whitehall-wrapper {
-  @import "views/attachments/_preview.scss";
-  @import "views/_html-publications.scss";
+  @import "views/attachments/_preview";
+  @import "views/_html-publications";
 }
 
 
 // LAYOUTS
 // Styles scoped to a layout. Be careful.
-@import "layouts/html-publication.scss";
+@import "layouts/html-publication";

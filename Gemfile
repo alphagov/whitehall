@@ -77,7 +77,7 @@ else
 end
 
 gem 'sass', '3.4.9'
-gem 'sass-rails' # required by bootstrap-sass, but not listed as a dependency of it
+gem 'sassc-rails'
 gem 'uglifier'
 
 group :development, :test do

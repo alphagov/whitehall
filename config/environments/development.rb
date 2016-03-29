@@ -21,6 +21,8 @@ Whitehall::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  config.assets.cache_store = :null_store
+  config.sass.cache = false
 
   config.slimmer.asset_host = ENV['STATIC_DEV'] || Plek.find('static')
 
