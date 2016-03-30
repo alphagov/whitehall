@@ -1,13 +1,4 @@
 module TopicsHelper
-  def topic_links_sentence(topics)
-    array_of_links_to_topics(topics).to_sentence.html_safe
-  end
-
-  def array_of_links_to_topics(topics)
-    topics.map { |topic|
-      link_to topic.name, topic_path(topic), class: 'topic-link'
-    }
-  end
 
   def array_of_links_to_topical_events(topical_events)
     topical_events.map { |topical_event|

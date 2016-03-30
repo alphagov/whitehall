@@ -80,10 +80,6 @@ When(/^I filter the statistics announcements by department and topic$/) do
   end
 end
 
-When(/^I click on the first statistics announcement$/) do
-  within(".filter-results") { click_on @announcement.title }
-end
-
 Then(/^I can see the first page of all the statistics announcements, including the cancelled announcement$/) do
   within '.filter-results-summary' do
     assert page.has_content? "44 release announcements"
@@ -113,16 +109,4 @@ Then(/^I should only see statistics announcements for the selected departments a
   assert page.has_content? "Announcement for both department and topic"
   assert page.has_no_content? "Announcement for department"
   assert page.has_no_content? "Announcement for topic"
-end
-
-Then(/^I should be on a page showing the title, release date, organisation, topic, summary and date change information of the release announcement$/) do
-  assert_equal statistics_announcement_path(@announcement), current_path
-
-  assert page.has_content? @announcement.title
-  assert page.has_content? @announcement.current_release_date.display_date
-  assert page.has_content? @announcement.summary
-  assert page.has_link? @organisation.name, href: organisation_path(@organisation)
-  assert page.has_link? @topic.name, href: topic_path(@topic)
-  assert page.has_content? @announcement.last_change_note
-  assert page.has_content? @announcement.previous_display_date
 end
