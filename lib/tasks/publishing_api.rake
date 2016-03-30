@@ -34,47 +34,18 @@ namespace :publishing_api do
   end
 
   desc "Send publishable item links to Publishing API."
-  task :publishing_api_patch_links, [:item_classes] => :environment do |_, args|
-    def patch_links(item)
-      retries = 0
-      begin
-        content_id = item.content_id
-        links = PublishingApiPresenters.presenter_for(item).links
-        if links && !links.empty?
-          Whitehall.publishing_api_v2_client.patch_links(content_id, {links: links})
-        end
-      rescue GdsApi::TimedOutException, Timeout::Error
-        retries += 1
-        if retries <= 3
-          $stderr.puts "Class #{item.class} id: #{item.id} Timeout: retry #{retries}"
-          sleep 0.5
-          retry
-        end
-        raise
-      end
-    rescue => err
-      $stderr.puts "Class: #{item.class}; id: #{item.id}; Error: #{err.message}"
+  task publishing_api_patch_links: :environment do
+    editions = Edition.published
+    count = editions.count
+    $stdout.puts "# Sending #{count} published editions to Publishing API"
+
+    editions.pluck(:id).each_with_index do |item_id, i|
+      PublishingApiLinksWorker.perform_async(item_id)
+
+      $stdout.puts "Queuing #{i}-#{i + 99} of #{count} items" if i % 100 == 0
     end
 
-    args[:item_classes].split(',').each do |class_name|
-      klass = class_name.constantize
-      if klass.ancestors.include?(Edition)
-        editions = klass.published
-        count = editions.count
-        $stdout.puts "# Sending #{count} published #{class_name} items to Publishing API"
-      else
-        editions = klass.all
-        count = editions.count
-        $stdout.puts "# Sending all #{count} #{class_name} items to Publishing API"
-      end
-
-      editions.find_each.with_index do |publishable_item, i|
-        patch_links(publishable_item)
-
-        $stdout.puts "Sending #{i}-#{i + 99} of #{count} items" if i % 100 == 0
-      end
-      $stdout.puts "Finished sending items to Publishing API"
-    end
+    $stdout.puts "Finished queuing items for Publishing API"
   end
 end
 
