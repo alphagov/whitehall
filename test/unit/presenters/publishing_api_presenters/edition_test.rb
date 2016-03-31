@@ -204,4 +204,14 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
     edition = create(:publication, :submitted, access_limited: true)
     refute_nil present(edition).content[:access_limited]
   end
+
+  test "it exposes specific fields in the document's links hash" do
+    edition = create(:published_publication)
+    mock_links_presenter = MiniTest::Mock.new
+    PublishingApiPresenters::LinksPresenter.stubs(:new).returns(mock_links_presenter)
+
+    mock_links_presenter.expect :extract, nil, [[:topics, :parent]]
+
+    present(edition).links
+  end
 end

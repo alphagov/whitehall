@@ -18,7 +18,7 @@ class PublishingApiPresenters::Edition < PublishingApiPresenters::Item
 private
 
   def filter_links
-    [:topics]
+    [:topics, :parent]
   end
 
   def rendering_app
