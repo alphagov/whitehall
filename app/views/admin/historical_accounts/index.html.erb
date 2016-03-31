@@ -3,7 +3,7 @@
 <%= content_tag_for(:div, @person) do %>
   <div class="organisation-header">
     <h1><%= @person.name %></h1>
-    <%= link_to "View on website", url_for(@person) %>
+    <%= view_on_website_link_for @person %>
   </div>
 
   <section class="organisation-details">
