@@ -12,6 +12,7 @@ module PublishingApiPresenters
       world_locations: :world_location_ids,
       worldwide_organisations: :worldwide_organisation_ids,
       worldwide_priorities: :worldwide_priority_ids,
+      parent: :parent_content_id,
     }
 
     def initialize(item)
@@ -63,6 +64,13 @@ module PublishingApiPresenters
       base_paths = specialist_sector_tags.compact.map { |tag| "/topic/#{tag}" }
       return [] unless base_paths.any?
       Whitehall.publishing_api_v2_client.lookup_content_ids(base_paths: base_paths).values
+    end
+
+    def parent_content_id
+      primary_specialist_sector_tag = item.try(:primary_specialist_sector_tag)
+      return [] unless primary_specialist_sector_tag
+      base_path = "/topic/#{primary_specialist_sector_tag}"
+      Array(Whitehall.publishing_api_v2_client.lookup_content_id(base_path: base_path))
     end
 
     def world_location_ids
