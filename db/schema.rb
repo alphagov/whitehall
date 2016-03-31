@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160318154626) do
+ActiveRecord::Schema.define(version: 20160326184221) do
 
   create_table "about_pages", force: :cascade do |t|
     t.integer  "topical_event_id",    limit: 4
@@ -354,6 +354,14 @@ ActiveRecord::Schema.define(version: 20160318154626) do
 
   add_index "edition_statistical_data_sets", ["document_id"], name: "index_edition_statistical_data_sets_on_document_id", using: :btree
   add_index "edition_statistical_data_sets", ["edition_id"], name: "index_edition_statistical_data_sets_on_edition_id", using: :btree
+
+  create_table "edition_title_terms", id: false, force: :cascade do |t|
+    t.integer "edition_id", limit: 4
+    t.string  "term",       limit: 255
+  end
+
+  add_index "edition_title_terms", ["edition_id"], name: "index_edition_title_terms_on_edition_id", using: :btree
+  add_index "edition_title_terms", ["term"], name: "index_edition_title_terms_on_term", using: :btree
 
   create_table "edition_translations", force: :cascade do |t|
     t.integer  "edition_id", limit: 4

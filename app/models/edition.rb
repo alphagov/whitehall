@@ -55,13 +55,24 @@ class Edition < ActiveRecord::Base
   }
 
   scope :with_title_containing, ->(keywords) {
-    escaped_like_expression = keywords.gsub(/([%_])/, '%' => '\\%', '_' => '\\_')
-    like_clause = "%#{escaped_like_expression}%"
+    normalized_keywords = keywords.parameterize.split('-')
+    edition_title_terms = Arel::Table.new(:edition_title_terms)
+
+    title_ids_query = edition_title_terms
+      .where(edition_title_terms[:term].in(normalized_keywords))
+      .group(edition_title_terms[:edition_id])
+      .having(Arel.sql('GROUP_CONCAT(DISTINCT term ORDER BY term)')
+        .eq(normalized_keywords.sort.join(',')))
+      .project(:edition_id)
+
+    ids = connection.select_values(title_ids_query)
+    ids += Edition
+      .joins(:document)
+      .where(documents: { slug: keywords })
+      .pluck(:id)
 
     in_default_locale
-      .includes(:document)
-      .where("edition_translations.title LIKE :like_clause OR documents.slug = :slug", like_clause: like_clause, slug: keywords)
-      .references(:document)
+      .where(id: ids)
   }
 
   scope :in_pre_publication_state,      -> { where(state: Edition::PRE_PUBLICATION_STATES) }
