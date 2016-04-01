@@ -74,11 +74,13 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     test "DELETE :destroy handles file attachments for #{type} as attachable" do
       attachable = create(type)
       attachment = create(:file_attachment, attachable: attachable)
+      attachment_data = attachment.attachment_data
 
       delete :destroy, param_name => attachable.id, id: attachment.id
 
       assert_response :redirect
       assert Attachment.find(attachment.id).deleted?, 'attachment should have been soft-deleted'
+      assert AttachmentData.find_by(id: attachment_data.id).nil?, 'attachment data should have been deleted'
     end
   end
 
