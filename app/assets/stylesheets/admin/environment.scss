@@ -2,8 +2,9 @@
   border-top-color: $production-color;
 }
 
-.environment-preview .environment-indicator {
-  border-top-color: $preview-color;
+.environment-preview .environment-indicator,
+.environment-integration .environment-indicator {
+  border-top-color: $integration-color;
 }
 
 .environment-development .environment-indicator {

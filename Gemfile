@@ -20,7 +20,7 @@ gem 'rummageable', '1.2.0'
 gem 'addressable', ">= 2.3.7"
 gem 'unicorn', '5.0.0'
 gem 'kaminari', '0.15.1'
-gem 'govuk_admin_template', '3.0.0'
+gem 'govuk_admin_template', '4.2.0'
 gem 'bootstrap-kaminari-views', '0.0.5'
 gem 'mime-types', '1.25.1'
 gem 'whenever', '0.9.4', require: false
