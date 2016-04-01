@@ -212,4 +212,16 @@ class AttachmentTest < ActiveSupport::TestCase
     attachment.save
     assert attachment.content_id =~ /^[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12}$/
   end
+
+  test 'delete sets deleted true' do
+    attachment = create(:file_attachment)
+    attachment.delete
+    assert attachment.deleted?
+  end
+
+  test 'destroy sets deleted true' do
+    attachment = create(:file_attachment)
+    attachment.destroy
+    assert attachment.deleted?
+  end
 end

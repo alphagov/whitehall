@@ -30,7 +30,7 @@ private
 
   # Only destroy the associated attachment_data record if no other attachments are using it
   def destroy_unused_attachment_data
-    if attachment_data && Attachment.where(attachment_data_id: attachment_data.id).empty?
+    if attachment_data && Attachment.not_deleted.where(attachment_data_id: attachment_data.id).empty?
       attachment_data.destroy
     end
   end

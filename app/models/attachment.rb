@@ -113,6 +113,19 @@ class Attachment < ActiveRecord::Base
     raise NotImplementedError, "Subclasses must implement the url method"
   end
 
+  def delete
+    update_column(:deleted, true)
+  end
+
+  def destroy
+    callbacks_result = transaction do
+      run_callbacks(:destroy) do
+        delete
+      end
+    end
+    callbacks_result ? self : false
+  end
+
   private
 
   def store_price_in_pence
