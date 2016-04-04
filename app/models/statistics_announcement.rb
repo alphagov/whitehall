@@ -71,7 +71,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
   end
 
   def update_publish_intent
-    if unpublished?
+    if unpublished? || cancelled?
       PublishingApiUnscheduleWorker.perform_async(base_path)
     else
       PublishingApiScheduleWorker.perform_async(base_path, statistics_announcement_dates.last.release_date)

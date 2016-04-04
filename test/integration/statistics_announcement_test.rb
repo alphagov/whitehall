@@ -114,6 +114,13 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_publishing_api_delete_intent(statistics_announcement.base_path)
   end
 
+  test "it deletes the publish intent when cancelled" do
+    statistics_announcement = create(:statistics_announcement)
+    statistics_announcement.cancel!("testing", User.new(id: 1))
+
+    assert_publishing_api_delete_intent(statistics_announcement.base_path)
+  end
+
   test "it is added to the search index when created" do
     Whitehall::SearchIndex.stubs(:add)
     statistics_announcement = build(:statistics_announcement)
