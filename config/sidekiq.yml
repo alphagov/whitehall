@@ -1,5 +1,7 @@
 :verbose: true
-:concurrency:  2
+# This is set to single-threaded due to an issue with thread
+# safety in GovspeakRenderer.
+:concurrency: 1
 :logfile: ./log/sidekiq.json.log
 :queues:
   - [bulk_republishing, 1]
