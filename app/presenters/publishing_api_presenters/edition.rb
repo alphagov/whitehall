@@ -16,7 +16,25 @@ class PublishingApiPresenters::Edition < PublishingApiPresenters::Item
   end
 
   def links
-    extract_links([:topics])
+    topic_tags = item.specialist_sector_tags
+    return {} unless topic_tags.present?
+
+    parent_tag = item.primary_specialist_sector_tag
+    base_paths = topic_tags.map { |tag| topic_path_from(tag) }
+    content_id_lookup = Whitehall.publishing_api_v2_client.lookup_content_ids(base_paths: base_paths)
+
+    if parent_tag
+      parent_content_id = content_id_lookup[topic_path_from(parent_tag)]
+      { topics: content_id_lookup.values, parent: [parent_content_id] }
+    else
+      { topics: content_id_lookup.values }
+    end
+  end
+
+private
+
+  def topic_path_from(tag)
+    "/topic/#{tag}"
   end
 
 private

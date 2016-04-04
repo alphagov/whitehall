@@ -204,4 +204,28 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
     edition = create(:publication, :submitted, access_limited: true)
     refute_nil present(edition).content[:access_limited]
   end
+
+  test '#links returns a links hash derived from the edition' do
+    edition = create(:edition)
+    create(:specialist_sector, tag: "oil-and-gas/onshore", edition: edition, primary: false)
+    publishing_api_has_lookups({"/topic/oil-and-gas/offshore" => "content_id_1"})
+
+    links = present(edition).links
+
+    assert_equal({ topics: %w(content_id_1) }, links)
+  end
+
+  test '#links treats the primary specialist sector of the item as the parent' do
+    edition = create(:edition)
+    create(:specialist_sector, tag: "oil-and-gas/offshore", edition: edition, primary: true)
+    create(:specialist_sector, tag: "oil-and-gas/onshore", edition: edition, primary: false)
+    publishing_api_has_lookups({
+      "/topic/oil-and-gas/offshore" => "content_id_1",
+      "/topic/oil-and-gas/onshore" => "content_id_2",
+    })
+
+    links = present(edition).links
+
+    assert_equal({ topics: %w(content_id_1 content_id_2), parent: %w(content_id_1) }, links)
+  end
 end
