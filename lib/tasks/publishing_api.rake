@@ -37,15 +37,15 @@ namespace :publishing_api do
   task publishing_api_patch_links: :environment do
     editions = Edition.published
     count = editions.count
-    $stdout.puts "# Sending #{count} published editions to Publishing API"
+    puts "# Sending #{count} published editions to Publishing API"
 
     editions.pluck(:id).each_with_index do |item_id, i|
       PublishingApiLinksWorker.perform_async(item_id)
 
-      $stdout.puts "Queuing #{i}-#{i + 99} of #{count} items" if i % 100 == 0
+      puts "Queuing #{i}-#{i + 99} of #{count} items" if i % 100 == 0
     end
 
-    $stdout.puts "Finished queuing items for Publishing API"
+    puts "Finished queuing items for Publishing API"
   end
 end
 
