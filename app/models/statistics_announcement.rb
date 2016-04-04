@@ -64,9 +64,18 @@ class StatisticsAnnouncement < ActiveRecord::Base
   delegate  :release_date, :display_date, :confirmed?,
               to: :current_release_date, allow_nil: true
 
-  set_callback :published, :after, :notify_search
+  set_callback :published, :after, :notify_search, :update_publish_intent
+
   def notify_search
     unpublished? ? remove_from_search_index : update_in_search_index
+  end
+
+  def update_publish_intent
+    if unpublished?
+      PublishingApiUnscheduleWorker.perform_async(base_path)
+    else
+      PublishingApiScheduleWorker.perform_async(base_path, statistics_announcement_dates.last.release_date)
+    end
   end
 
   def self.without_published_publication
