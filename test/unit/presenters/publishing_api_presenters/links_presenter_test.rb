@@ -1,18 +1,7 @@
 require 'test_helper'
 
 class PublishingApiPresenters::LinksPresenterTest < ActionView::TestCase
-  ALL_LINK_TYPES = [
-    :document_collections,
-    :lead_organisations,
-    :policy_areas,
-    :related_policies,
-    :statistical_data_set_documents,
-    :supporting_organisations,
-    :topics,
-    :world_locations,
-    :worldwide_organisations,
-    :worldwide_priorities,
-  ]
+  ALL_LINK_TYPES = PublishingApiPresenters::LinksPresenter::LINK_NAMES_TO_METHODS_MAP.keys
 
   def links_for(item, filter_links = ALL_LINK_TYPES)
     LinksPresenter.new(item).extract(filter_links)
