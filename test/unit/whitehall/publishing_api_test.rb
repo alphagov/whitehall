@@ -220,7 +220,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
   end
 
   test ".republish_async publishes a redirect unpublishing" do
-    unpublishing = create(:redirect_unpublishing)
+    unpublishing = create(:published_in_error_redirect_unpublishing)
     presenter = PublishingApiPresenters::Unpublishing.new(unpublishing, update_type: "republish")
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),

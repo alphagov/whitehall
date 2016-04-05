@@ -32,6 +32,16 @@ module ServiceListeners
       PublishingApiPusher.new(edition).push(event: "withdraw")
     end
 
+    test "withdraw republishes the attachments" do
+      edition = build(
+        :publication,
+        html_attachments: [attachment = build(:html_attachment)]
+      )
+      Whitehall::PublishingApi.expects(:republish_document_async).with(edition.document)
+      Whitehall::PublishingApi.expects(:republish_async).with(attachment)
+      PublishingApiPusher.new(edition).push(event: "withdraw")
+    end
+
     test "unpublish publishes the unpublishing" do
       edition = build(:unpublished_publication)
       Whitehall::PublishingApi.expects(:publish_async).with(edition.unpublishing)

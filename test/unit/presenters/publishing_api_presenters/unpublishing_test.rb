@@ -154,7 +154,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
   end
 
   test '#as_json returns a redirect representation for Unpublishings that are set to auto-redirect' do
-    unpublishing     = create(:redirect_unpublishing)
+    unpublishing     = create(:published_in_error_redirect_unpublishing)
     public_path      = unpublishing.document_path
     alternative_path = Addressable::URI.parse(unpublishing.alternative_url).path
     expected_hash    = {
@@ -196,7 +196,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
 
   test 'redirect representations can contain query paramters and anchor tags' do
     alternative_path = '/page?param=1#subheading'
-    unpublishing     = create(:redirect_unpublishing,
+    unpublishing     = create(:published_in_error_redirect_unpublishing,
       alternative_url: Whitehall.public_root + alternative_path)
 
     presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
@@ -206,7 +206,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
   end
 
   test "redirect representations contain content IDs" do
-    unpublishing = create(:redirect_unpublishing)
+    unpublishing = create(:published_in_error_redirect_unpublishing)
 
     presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
 

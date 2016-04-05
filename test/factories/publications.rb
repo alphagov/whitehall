@@ -68,6 +68,12 @@ FactoryGirl.define do
   factory :superseded_publication, parent: :publication, traits: [:superseded]
   factory :scheduled_publication, parent: :publication, traits: [:scheduled]
   factory :unpublished_publication, parent: :publication, traits: [:draft, :unpublished]
+  factory :unpublished_publication_in_error_no_redirect,
+    parent: :publication, traits: [:draft, :published_in_error_no_redirect]
+  factory :unpublished_publication_in_error_redirect,
+    parent: :publication, traits: [:draft, :published_in_error_redirect]
+  factory :unpublished_publication_consolidated,
+    parent: :publication, traits: [:draft, :consolidated_redirect]
 
   factory :draft_corporate_publication, parent: :publication, traits: [:draft, :corporate]
   factory :submitted_corporate_publication, parent: :publication, traits: [:submitted, :corporate]
