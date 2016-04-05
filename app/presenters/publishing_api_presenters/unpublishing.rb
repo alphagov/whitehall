@@ -5,12 +5,11 @@ class PublishingApiPresenters::Unpublishing < PublishingApiPresenters::Item
     item.redirect? ? redirect_hash : super
   end
 
-private
-
-  def filter_links
-    # nothing to tag
-    []
+  def links
+    {}
   end
+
+private
 
   def document_format
     item.redirect? ? 'redirect' : 'unpublishing'

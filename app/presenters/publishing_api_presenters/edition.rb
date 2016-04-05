@@ -15,11 +15,11 @@ class PublishingApiPresenters::Edition < PublishingApiPresenters::Item
     end
   end
 
-private
-
-  def filter_links
-    [:topics]
+  def links
+    extract_links([:topics])
   end
+
+private
 
   def rendering_app
     item.rendering_app

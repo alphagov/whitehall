@@ -32,7 +32,6 @@ class PublishingApiPresenters::StatisticsAnnouncementRedirect
   end
 
   def links
-    # no tags
     {}
   end
 

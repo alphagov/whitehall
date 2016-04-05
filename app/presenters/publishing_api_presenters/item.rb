@@ -32,8 +32,8 @@ class PublishingApiPresenters::Item
     end
   end
 
-  def links
-    PublishingApiPresenters::LinksPresenter.new(item).extract(filter_links)
+  def extract_links(link_types)
+    PublishingApiPresenters::LinksPresenter.new(item).extract(link_types)
   end
 
 private

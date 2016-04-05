@@ -24,11 +24,11 @@ class PublishingApiPresenters::ComingSoon < PublishingApiPresenters::Item
     @content_id = SecureRandom.uuid
   end
 
-  private
-
-  def filter_links
-    []
+  def links
+    {}
   end
+
+private
 
   def document_format
     'coming_soon'

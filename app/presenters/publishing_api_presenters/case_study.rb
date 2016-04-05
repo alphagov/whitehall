@@ -2,10 +2,8 @@ require_relative "../publishing_api_presenters"
 
 class PublishingApiPresenters::CaseStudy < PublishingApiPresenters::Edition
 
-private
-
-  def filter_links
-    [
+  def links
+    extract_links([
       :document_collections,
       :lead_organisations,
       :related_policies,
@@ -14,8 +12,10 @@ private
       :world_locations,
       :worldwide_organisations,
       :worldwide_priorities,
-    ]
+    ])
   end
+
+private
 
   def document_format
     "case_study"
