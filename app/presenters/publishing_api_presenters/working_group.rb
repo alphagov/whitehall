@@ -1,9 +1,9 @@
 class PublishingApiPresenters::WorkingGroup < PublishingApiPresenters::Item
-private
-
-  def filter_links
-    [] # nothing to tag
+  def links
+    {}
   end
+
+private
 
   def title
     item.name

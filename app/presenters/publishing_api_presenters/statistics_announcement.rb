@@ -1,15 +1,15 @@
 require_relative "../publishing_api_presenters"
 
 class PublishingApiPresenters::StatisticsAnnouncement < PublishingApiPresenters::Item
-private
-
-  def filter_links
-    [
+  def links
+    extract_links([
       :organisations,
       :policy_areas,
       :topics,
-    ]
+    ])
   end
+
+private
 
   def details
     {

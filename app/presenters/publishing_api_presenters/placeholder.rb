@@ -4,13 +4,11 @@ require_relative "../publishing_api_presenters"
 # items using content_ids and have their basic information expanded
 # out when read back out from the content store.
 class PublishingApiPresenters::Placeholder < PublishingApiPresenters::Item
-private
-
-  def filter_links
-    [
-      :topics,
-    ]
+  def links
+    extract_links([:topics])
   end
+
+private
 
   def title
     item.name

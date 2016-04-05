@@ -3,6 +3,10 @@ require_relative '../publishing_api_presenters'
 class PublishingApiPresenters::Organisation < PublishingApiPresenters::Placeholder
   include ApplicationHelper
 
+  def links
+    extract_links([:topics])
+  end
+
   def details
     super.merge(
       brand: brand,

@@ -24,7 +24,6 @@ class PublishingApiPresenters::Redirect
   end
 
   def links
-    # no tags
     {}
   end
 end

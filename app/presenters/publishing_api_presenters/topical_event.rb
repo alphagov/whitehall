@@ -7,4 +7,8 @@ class PublishingApiPresenters::TopicalEvent < PublishingApiPresenters::Placehold
       details[:end_date] = item.end_date.to_datetime if item.end_date
     end
   end
+
+  def links
+    extract_links([:topics])
+  end
 end
