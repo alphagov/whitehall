@@ -19,11 +19,11 @@ private
       images = []
     end
 
-    helpers.govspeak_to_html(body, images, options)
+    renderer.govspeak_to_html(body, images, options)
   end
 
   def generate_headers(govspeak_content)
-    helpers.html_attachment_govspeak_headers_html(govspeak_content.html_attachment)
+    renderer.html_attachment_govspeak_headers_html(govspeak_content.html_attachment)
   end
 
   def govspeak_options(govspeak_content)
@@ -31,14 +31,7 @@ private
     { heading_numbering: method, contact_heading_tag: 'h4' }
   end
 
-  # Because the govspeak helpers in whitehall rely on rendering partials, we
-  # need to make sure the view paths are set, otherwise the helpers can't find
-  # the partials.
-  def helpers
-    @helpers ||= begin
-      helpers = ApplicationController.helpers
-      helpers.view_paths = ApplicationController.view_paths
-      helpers
-    end
+  def renderer
+    @renderer ||= Whitehall::GovspeakRenderer.new
   end
 end
