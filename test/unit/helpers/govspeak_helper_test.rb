@@ -104,6 +104,27 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_equal expected_headings, html_attachment_govspeak_headers(attachment)
   end
 
+  test "#html_attachment_govspeak_headers_html renders an <ol>" do
+    attachment = build(
+      :html_attachment,
+      body: "## 1. First\n\n## 2. Second\n\n### 2.1 Sub",
+      manually_numbered_headings: true
+    )
+    expected = <<-HTML
+      <ol class=\"unnumbered\">
+        <li class=\"numbered\">
+          <a href=\"#first\"><span class=\"heading-number\">1.</span> First</a>
+        </li>
+        <li class=\"numbered\">
+          <a href=\"#second\"><span class=\"heading-number\">2.</span> Second</a>
+        </li>
+      </ol>
+      HTML
+
+    rendered_attachment_headers = html_attachment_govspeak_headers_html(attachment)
+    assert_equivalent_html expected, rendered_attachment_headers
+  end
+
   test "should raise exception when extracting header hierarchy with orphaned level 3 headings" do
     e = assert_raise(OrphanedHeadingError) { govspeak_header_hierarchy("### Heading 3") }
     assert_equal "Heading 3", e.heading
