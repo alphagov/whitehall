@@ -15,6 +15,7 @@ require 'slimmer/test'
 require 'factories'
 require 'webmock/minitest'
 require 'whitehall/not_quite_as_fake_search'
+require 'whitehall/search_index'
 require 'sidekiq/testing/inline'
 require 'govuk-content-schema-test-helpers/test_unit'
 
