@@ -1,7 +1,11 @@
 # Helper class to render govspeak outside of the view contexts.
 module Whitehall
   class GovspeakRenderer
-    delegate :govspeak_edition_to_html, :govspeak_to_html, :govspeak_with_attachments_to_html, to: :view_context
+    delegate :govspeak_edition_to_html,
+      :govspeak_to_html,
+      :govspeak_with_attachments_to_html,
+      :html_attachment_govspeak_headers_html,
+      to: :view_context
 
   private
 
