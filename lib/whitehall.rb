@@ -9,6 +9,7 @@ module Whitehall
   autoload :GovspeakRenderer, 'whitehall/govspeak_renderer'
 
   mattr_accessor :content_api
+  mattr_accessor :content_store
   mattr_accessor :default_cache_max_age
   mattr_accessor :document_collections_cache_max_age
   mattr_accessor :government_search_client
