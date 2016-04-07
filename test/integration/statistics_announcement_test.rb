@@ -4,9 +4,27 @@ require "gds_api/test_helpers/publishing_api_v2"
 class StatisticsAnnouncementTest < ActiveSupport::TestCase
   self.use_transactional_fixtures = false
 
+  # Similar methods to these exist in `gds_api/test_helpers/publishing_api`.
+  # To avoid clashes between v1 and v2 helpers, we've reimplemented them here,
+  # as `publish_intents` only exist in v1 and there's no plan to reimplement them
+  # as their functionality will ultimately be included in `publishing-api`.
+  PUBLISHING_API_V1_ENDPOINT = Plek.current.find('publishing-api')
+
+  def assert_publishing_api_put_intent(base_path, attributes = {}, times = 1)
+    intent_url = PUBLISHING_API_V1_ENDPOINT + "/publish-intent" + base_path
+    assert_requested(:put, intent_url, {times: times, body: attributes})
+  end
+
+  def assert_publishing_api_delete_intent(base_path, times = 1)
+    intent_url = PUBLISHING_API_V1_ENDPOINT + "/publish-intent" + base_path
+    assert_requested(:delete, intent_url, {times: times})
+  end
+
   setup do
     DatabaseCleaner.clean_with :truncation
     stub_any_publishing_api_call
+    # Additionally, stub v1 requests, while we need to support `publish_intents`.
+    stub_request(:any, %r{\A#{PUBLISHING_API_V1_ENDPOINT}})
   end
 
   test "it gets published to the Publishing API when saved" do
@@ -19,10 +37,19 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
       public_updated_at: Time.zone.now.as_json
     )
 
+    expected_intent = PublishingApiPresenters::PublishIntent.new(
+      statistics_announcement.base_path,
+      statistics_announcement.statistics_announcement_dates.last.release_date
+    )
+
     assert_publishing_api_put_content(statistics_announcement.content_id,
                                       expected)
     assert_publishing_api_publish(statistics_announcement.content_id,
                                   { update_type: "major", locale: "en" }, 1)
+    assert_publishing_api_put_intent(
+      statistics_announcement.base_path,
+      expected_intent.as_json
+    )
   end
 
   test "it publishes gone on destroy" do
@@ -48,10 +75,20 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
       public_updated_at: Time.zone.now.as_json
     )
 
+    expected_intent = PublishingApiPresenters::PublishIntent.new(
+      statistics_announcement.base_path,
+      statistics_announcement.statistics_announcement_dates.last.release_date
+    )
+
     assert_publishing_api_put_content(statistics_announcement.content_id,
                                       expected)
     assert_publishing_api_publish(statistics_announcement.content_id,
                                   { update_type: "major", locale: "en" }, 2)
+    assert_publishing_api_put_intent(
+      statistics_announcement.base_path,
+      expected_intent.as_json,
+      2
+    )
   end
 
   test "it redirects when unpublished" do
@@ -67,6 +104,21 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
                                       expected)
     assert_publishing_api_publish(new_content_id,
                                   { update_type: "major", locale: "en" }, 1)
+  end
+
+  test "it deletes the publish intent when unpublished" do
+    statistics_announcement = create(:statistics_announcement)
+    statistics_announcement.update_attributes!(publishing_state: "unpublished",
+                                               redirect_url: "https://www.test.alphagov.co.uk/example")
+
+    assert_publishing_api_delete_intent(statistics_announcement.base_path)
+  end
+
+  test "it deletes the publish intent when cancelled" do
+    statistics_announcement = create(:statistics_announcement)
+    statistics_announcement.cancel!("testing", User.new(id: 1))
+
+    assert_publishing_api_delete_intent(statistics_announcement.base_path)
   end
 
   test "it is added to the search index when created" do
@@ -115,10 +167,20 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
       }
     }
 
+    expected_intent = PublishingApiPresenters::PublishIntent.new(
+      statistics_announcement.base_path,
+      statistics_announcement.statistics_announcement_dates.last.release_date
+    )
+
     assert_publishing_api_put_content(statistics_announcement.content_id,
                                       request_json_includes(expected))
     assert_publishing_api_publish(statistics_announcement.content_id,
                                   { update_type: "major", locale: "en" }, 2)
+    assert_publishing_api_put_intent(
+      statistics_announcement.base_path,
+      expected_intent.as_json,
+      2
+    )
   end
 
   test "a redirect is published if saved when its associated Publication has
