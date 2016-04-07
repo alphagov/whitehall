@@ -8,21 +8,20 @@ module Whitehall
   autoload :GovUkDelivery, 'whitehall/gov_uk_delivery'
   autoload :GovspeakRenderer, 'whitehall/govspeak_renderer'
 
-  mattr_accessor :search_backend
-  mattr_accessor :government_search_client
-  mattr_accessor :statistics_announcement_search_client
   mattr_accessor :content_api
+  mattr_accessor :default_cache_max_age
+  mattr_accessor :document_collections_cache_max_age
+  mattr_accessor :government_search_client
+  mattr_accessor :govuk_delivery_client
+  mattr_accessor :maslow
+  mattr_accessor :need_api
   mattr_accessor :publishing_api_client
   mattr_accessor :publishing_api_v2_client
+  mattr_accessor :search_backend
   mattr_accessor :skip_safe_html_validation
-  mattr_accessor :govuk_delivery_client
-  mattr_accessor :need_api
-  mattr_accessor :maslow
-  mattr_accessor :default_cache_max_age
-  mattr_accessor :uploads_cache_max_age
-  mattr_accessor :document_collections_cache_max_age
-
+  mattr_accessor :statistics_announcement_search_client
   mattr_accessor :unified_search_client
+  mattr_accessor :uploads_cache_max_age
 
   revision_file = "#{Rails.root}/REVISION"
   if File.exists?(revision_file)
