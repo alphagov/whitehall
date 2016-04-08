@@ -1,6 +1,11 @@
 require_relative "../publishing_api_presenters"
 
 class PublishingApiPresenters::HtmlAttachment < PublishingApiPresenters::Item
+  def initialize(item, update_type: nil)
+    super
+    item.govspeak_content.render_govspeak!
+  end
+
   def links
     {
       parent: [
