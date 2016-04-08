@@ -1,6 +1,9 @@
 require "test_helper"
+require "gds_api/test_helpers/content_store"
 
 class SpecialistTagFinderTest < ActiveSupport::TestCase
+  include GdsApi::TestHelpers::ContentStore
+
   setup do
     @edition = stub
     @tag_finder = SpecialistTagFinder.new(@edition)
@@ -19,6 +22,23 @@ class SpecialistTagFinderTest < ActiveSupport::TestCase
     ])
 
     @tag_finder.stubs(artefact: @artefact)
+  end
+
+  test "#topics returns all linked topics" do
+    edition = create(:edition_with_document)
+    edition_base_path = PublishingApiPresenters::Edition.new(edition).base_path
+    content_item = content_item_for_base_path(edition_base_path).merge!({
+      "links" => {
+        "topics" => [
+          { "title" => "topic-1" },
+          { "title" => "topic-2" },
+        ]
+      }
+    })
+
+    content_store_has_item(edition_base_path, content_item)
+
+    assert_equal ["topic-1", "topic-2"], SpecialistTagFinder.new(edition).topics.map { |topic| topic["title"] }
   end
 
   test "#primary_sector_tag returns the primary subsector tag's parent" do

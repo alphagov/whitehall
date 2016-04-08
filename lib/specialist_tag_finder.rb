@@ -4,6 +4,14 @@ class SpecialistTagFinder
     @edition = edition
   end
 
+  def topics
+    presented_edition = PublishingApiPresenters::Edition.new(@edition)
+    edition_path = presented_edition.base_path
+    content_item = Whitehall.content_store.content_item(edition_path)
+    return [] unless content_item
+    Array(content_item.links["topics"])
+  end
+
   def primary_sector_tag
     primary_subsector_tag.parent if primary_subsector_tag
   end
@@ -28,5 +36,4 @@ private
     return [] if artefact.nil?
     artefact.tags.select {|t| t.details['type'] == 'specialist_sector' }
   end
-
 end
