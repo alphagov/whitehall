@@ -1,18 +1,7 @@
 require 'test_helper'
 
 class PublishingApiPresenters::LinksPresenterTest < ActionView::TestCase
-  ALL_LINK_TYPES = [
-    :document_collections,
-    :lead_organisations,
-    :policy_areas,
-    :related_policies,
-    :statistical_data_set_documents,
-    :supporting_organisations,
-    :topics,
-    :world_locations,
-    :worldwide_organisations,
-    :worldwide_priorities,
-  ]
+  ALL_LINK_TYPES = PublishingApiPresenters::LinksPresenter::LINK_NAMES_TO_METHODS_MAP.keys
 
   def links_for(item, filter_links = ALL_LINK_TYPES)
     LinksPresenter.new(item).extract(filter_links)
@@ -33,21 +22,5 @@ class PublishingApiPresenters::LinksPresenterTest < ActionView::TestCase
     assert_equal document.lead_organisations.map(&:content_id), links[:lead_organisations]
     # whitehall names and publishing api names don't necessarily match...
     assert_equal document.topics.map(&:content_id), links[:policy_areas]
-  end
-
-
-  test 'extracts content_ids from a tagged edition' do
-    edition = create(:edition)
-    create(:specialist_sector, tag: "oil-and-gas/offshore", edition: edition, primary: true)
-    create(:specialist_sector, tag: "oil-and-gas/onshore", edition: edition, primary: false)
-
-    publishing_api_has_lookups({
-      "/topic/oil-and-gas/offshore" => "content_id_1",
-      "/topic/oil-and-gas/onshore" => "content_id_2",
-    })
-
-    links = links_for(edition)
-
-    assert_equal links[:topics], %w(content_id_1 content_id_2)
   end
 end
