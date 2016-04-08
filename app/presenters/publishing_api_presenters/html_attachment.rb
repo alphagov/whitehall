@@ -44,7 +44,7 @@ private
   end
 
   def body
-    Whitehall::GovspeakRenderer.new.govspeak_to_html(govspeak_content.body)
+    govspeak_content.computed_body_html
   end
 
   def headings
