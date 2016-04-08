@@ -125,6 +125,24 @@ FactoryGirl.define do
         edition.unpublishing = build(:unpublishing, edition: edition)
       end
     end
+
+    trait(:published_in_error_redirect) do
+      after(:create) do |edition|
+        edition.unpublishing = build(:published_in_error_redirect_unpublishing, edition: edition)
+      end
+    end
+
+    trait(:published_in_error_no_redirect) do
+      after(:create) do |edition|
+        edition.unpublishing = build(:published_in_error_no_redirect_unpublishing, edition: edition)
+      end
+    end
+
+    trait(:consolidated_redirect) do
+      after(:create) do |edition|
+        edition.unpublishing = build(:consolidated_unpublishing, edition: edition)
+      end
+    end
   end
 
   factory :imported_edition, parent: :edition, traits: [:imported]
