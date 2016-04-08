@@ -1,7 +1,7 @@
 class SpecialistTagFinder
 
-  def initialize(document)
-    @document = document
+  def initialize(edition)
+    @edition = edition
   end
 
   def primary_sector_tag
@@ -9,7 +9,7 @@ class SpecialistTagFinder
   end
 
   def primary_subsector_tag
-    if primary_tag_slug = @document.primary_specialist_sector_tag
+    if primary_tag_slug = @edition.primary_specialist_sector_tag
       specialist_sector_tags.find {|t| t.slug == primary_tag_slug }
     end
   end
@@ -21,7 +21,7 @@ class SpecialistTagFinder
 private
 
   def artefact
-    @artefact ||= Whitehall.content_api.artefact(RegisterableEdition.new(@document).slug)
+    @artefact ||= Whitehall.content_api.artefact(RegisterableEdition.new(@edition).slug)
   end
 
   def specialist_sector_tags

@@ -2,8 +2,8 @@ require "test_helper"
 
 class SpecialistTagFinderTest < ActiveSupport::TestCase
   setup do
-    @document = stub
-    @tag_finder = SpecialistTagFinder.new(@document)
+    @edition = stub
+    @tag_finder = SpecialistTagFinder.new(@edition)
 
     @parent_tag = stub(details: {'type' => 'specialist_sector'}, slug: 'super')
     @primary_tag = stub(details: {'type' => 'specialist_sector'},
@@ -35,13 +35,13 @@ class SpecialistTagFinderTest < ActiveSupport::TestCase
   end
 
   test "#primary_subsector_tag returns the specialist sector tag whose slug matches the primary" do
-    @document.stubs(primary_specialist_sector_tag: 'super/primary')
+    @edition.stubs(primary_specialist_sector_tag: 'super/primary')
 
     assert_equal @primary_tag, @tag_finder.primary_subsector_tag
   end
 
   test "#primary_subsector_tag returns nil if no primary specialist sector tag" do
-    @document.stubs(primary_specialist_sector_tag: nil)
+    @edition.stubs(primary_specialist_sector_tag: nil)
 
     assert_equal nil, @tag_finder.primary_subsector_tag
   end
