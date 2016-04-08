@@ -2,6 +2,8 @@ FactoryGirl.define do
   factory :statistics_announcement do
     transient do
       release_date nil
+      previous_display_date nil
+      change_note nil
     end
 
     sequence(:title) { |index| "Stats announcement #{index}" }
@@ -16,6 +18,17 @@ FactoryGirl.define do
     after :build do |announcement, evaluator|
       if evaluator.release_date.present?
         announcement.current_release_date.release_date = evaluator.release_date
+      end
+
+      if evaluator.change_note.present?
+        announcement.current_release_date.change_note = evaluator.change_note
+      end
+
+      if evaluator.previous_display_date.present?
+        announcement.statistics_announcement_dates <<
+          create(:statistics_announcement_date_change,
+                 current_release_date: announcement.current_release_date,
+                 release_date: evaluator.previous_display_date)
       end
     end
   end

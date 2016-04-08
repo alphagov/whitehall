@@ -26,7 +26,7 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
                           summary: "The summary",
                           publication_type_id: PublicationType.find_by_slug("official-statistics").id,
                           statistics_announcement_dates: [build(:statistics_announcement_date,
-                                                                 release_date:  "2050-03-01",
+                                                                 release_date: Time.zone.parse("2050-03-01"),
                                                                  precision: StatisticsAnnouncementDate::PRECISION[:two_month],
                                                                  confirmed: false,
                                                                  change_note: nil),
