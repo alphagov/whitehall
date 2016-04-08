@@ -61,6 +61,56 @@ class GovspeakContentTest < ActiveSupport::TestCase
     end
   end
 
+  test "#render_govspeak sets computed_headers_html correctly" do
+    govspeak_content = create(:html_attachment,
+                        manually_numbered_headings: false,
+                        body: "## 1.0 A heading\nSome content").govspeak_content
+    govspeak_content.render_govspeak!
+    expected_headers_html = <<-HTML
+      <ol>
+        <li>
+          <a href="#a-heading">1.0 A heading</a>
+        </li>
+      </ol>
+      HTML
+    assert_equivalent_html expected_headers_html, govspeak_content.computed_headers_html
+  end
+
+  test "#render_govspeak sets computed_headers_html correctly when manually
+    numbered headings is true" do
+    govspeak_content = create(:html_attachment,
+                        manually_numbered_headings: true,
+                        body: "## 1.0 A heading\nSome content").govspeak_content
+    govspeak_content.render_govspeak!
+    expected_headers_html = <<-HTML
+      <ol class="unnumbered">
+        <li class="numbered">
+          <a href="#a-heading">
+            <span class="heading-number">1.0</span>
+            A heading
+          </a>
+        </li>
+      </ol>
+      HTML
+    assert_equivalent_html expected_headers_html, govspeak_content.computed_headers_html
+  end
+
+  test "#render_govspeak sets computed_body_html correctly" do
+    govspeak_content = create(:html_attachment,
+                        manually_numbered_headings: false,
+                        body: "## 1.0 A heading\nSome content").govspeak_content
+    govspeak_content.render_govspeak!
+    expected_body_html = <<-HTML
+      <div class="govspeak">
+        <h2 id="a-heading">
+          <span class="number">1. </span>
+          1.0 A heading
+        </h2>
+        <p>Some content</p>
+      </div>
+    HTML
+    assert_equivalent_html expected_body_html, govspeak_content.computed_body_html
+  end
 private
 
   def compute_govspeak(govspeak_content)

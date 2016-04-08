@@ -15,6 +15,12 @@ class GovspeakContent < ActiveRecord::Base
     computed_headers_html.try(:html_safe)
   end
 
+  def render_govspeak!
+    self.computed_body_html = generate_govspeak
+    self.computed_headers_html = generate_headers
+    save!
+  end
+
 private
 
   # NOTE: we delay the processing of the govspeak so as to ensure that the
@@ -34,5 +40,29 @@ private
   def reset_computed_html
     self.computed_body_html = nil
     self.computed_headers_html = nil
+  end
+
+  def generate_govspeak
+    options = govspeak_options
+    if html_attachment.attachable.respond_to?(:images)
+      images = html_attachment.attachable.images
+    else
+      images = []
+    end
+
+    renderer.govspeak_to_html(body, images, options)
+  end
+
+  def generate_headers
+    renderer.html_attachment_govspeak_headers_html(html_attachment)
+  end
+
+  def govspeak_options
+    method = manually_numbered_headings? ? :manual : :auto
+    { heading_numbering: method, contact_heading_tag: 'h4' }
+  end
+
+  def renderer
+    @renderer ||= Whitehall::GovspeakRenderer.new
   end
 end
