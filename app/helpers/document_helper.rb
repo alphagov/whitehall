@@ -217,8 +217,11 @@ Please tell us:
       part_of += array_of_links_to_topical_events(document.topical_events)
     end
 
-    if sector_tag_finder && (all_sectors = sector_tag_finder.sectors_and_subsectors).any?
-      part_of += array_of_links_to_sectors(all_sectors)
+    if sector_tag_finder && (tagged_topics = sector_tag_finder.topics).any?
+      links_to_topics = tagged_topics.map do |topic|
+        link_to topic.title, topic.web_url, class: 'sector-link'
+      end
+      part_of += links_to_topics
     end
 
     if policies.any?

@@ -180,6 +180,11 @@ class ActionController::TestCase
 
   setup do
     request.env['warden'] = stub(authenticate!: false, authenticated?: false, user: nil)
+
+    # In controller tests, assume by default that the resource being rendered
+    # does not have any topic tags.
+    SpecialistTagFinder.any_instance.stubs(:grandparent_topic).returns(nil)
+    SpecialistTagFinder.any_instance.stubs(:topics).returns([])
   end
 
   def login_as(role_or_user)

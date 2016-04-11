@@ -7,10 +7,16 @@
   policies ||= nil
   specialist_tag_finder = SpecialistTagFinder.new(@document)
 %>
-<%= render partial: 'shared/heading',
-          locals: { type: add_sector_name(header_title, specialist_tag_finder.primary_sector_tag),
-                    heading: document.title,
-                    extra: true } %>
+<%=
+  render(
+    partial: 'shared/heading',
+    locals: {
+      type: add_sector_name(header_title, specialist_tag_finder.grandparent_topic),
+      heading: document.title,
+      extra: true
+    }
+  )
+%>
 
 <%= render('documents/withdrawn_notice', document: document, type: document.format_name) if document.withdrawn? %>
 
