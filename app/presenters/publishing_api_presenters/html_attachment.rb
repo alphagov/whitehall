@@ -46,10 +46,6 @@ private
     govspeak_content.computed_headers_html
   end
 
-  def rendering_app
-    Whitehall::RenderingApp::GOVERNMENT_FRONTEND
-  end
-
   def first_published_version?
     parent.first_published_version?
   end
