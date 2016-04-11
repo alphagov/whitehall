@@ -34,7 +34,7 @@ class SpecialistTagFinder
   end
 
   def primary_subsector_tag
-    if primary_tag_slug = @edition.primary_specialist_sector_tag
+    if (primary_tag_slug = @edition.primary_specialist_sector_tag)
       specialist_sector_tags.find {|t| t.slug == primary_tag_slug }
     end
   end
