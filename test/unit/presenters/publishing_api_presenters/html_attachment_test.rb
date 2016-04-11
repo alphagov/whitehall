@@ -24,8 +24,7 @@ class PublishingApiPresenters::HtmlAttachmentTest < ActiveSupport::TestCase
       ],
       redirects: [],
       details: {
-        body: Whitehall::GovspeakRenderer.new
-          .govspeak_to_html(html_attachment.govspeak_content.body),
+        body: '',
         headings: html_attachment.govspeak_content.computed_headers_html,
         public_timestamp: edition.public_timestamp,
         first_published_version: html_attachment.attachable.first_published_version?,
