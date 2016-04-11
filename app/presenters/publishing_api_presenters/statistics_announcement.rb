@@ -21,6 +21,10 @@ private
         cancellation_reason: item.cancellation_reason,
         cancelled_at: cancelled_at
       ) if item.cancelled?
+      d.merge!(
+        previous_display_date: item.previous_display_date,
+        latest_change_note: item.last_change_note
+      ) if item.previous_display_date
     end
   end
 
