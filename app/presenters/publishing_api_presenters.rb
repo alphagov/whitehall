@@ -41,6 +41,8 @@ private
       PublishingApiPresenters::CaseStudy
     when ::DocumentCollection
       PublishingApiPresenters::DocumentCollectionPlaceholder
+    when ::DetailedGuide
+      PublishingApiPresenters::DetailedGuide
     else
       PublishingApiPresenters::Edition
     end
