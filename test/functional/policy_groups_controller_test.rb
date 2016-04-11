@@ -26,4 +26,12 @@ class PolicyGroupsControllerTest < ActionController::TestCase
       assert_select "a[href='/government/policies/welfare-reform']", text: "Welfare reform"
     end
   end
+
+  test "should redirect to the slug URL if a policy id is provided" do
+    policy_group = create(:policy_group)
+
+    get :show, id: policy_group.id
+
+    assert_redirected_to policy_group
+  end
 end
