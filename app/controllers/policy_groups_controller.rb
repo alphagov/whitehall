@@ -5,8 +5,13 @@ class PolicyGroupsController < PublicFacingController
 
   def show
     @policy_group = PolicyGroup.friendly.find(params[:id])
-    @policies = @policy_group.published_policies
 
-    set_meta_description(@policy_group.summary)
+    #return 301 and redirect in case a URL uses the group's ID rather than slug
+    if params[:id] != @policy_group.to_param
+      redirect_to @policy_group, status: :moved_permanently
+    else
+      @policies = @policy_group.published_policies
+      set_meta_description(@policy_group.summary)
+    end
   end
 end
