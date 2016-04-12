@@ -1,6 +1,11 @@
 require_relative "../publishing_api_presenters"
 
 class PublishingApiPresenters::HtmlAttachment < PublishingApiPresenters::Item
+  def initialize(item, update_type: nil)
+    super
+    item.govspeak_content.render_govspeak!
+  end
+
   def links
     {
       parent: [
@@ -39,7 +44,7 @@ private
   end
 
   def body
-    Whitehall::GovspeakRenderer.new.govspeak_to_html(govspeak_content.body)
+    govspeak_content.computed_body_html
   end
 
   def headings

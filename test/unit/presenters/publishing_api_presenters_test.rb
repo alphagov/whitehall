@@ -78,7 +78,7 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
   end
 
   test ".presenter_for returns a HtmlAttachment presenter for `HtmlAttachment`" do
-    presenter = PublishingApiPresenters.presenter_for(HtmlAttachment.new)
+    presenter = PublishingApiPresenters.presenter_for(build(:html_attachment))
     assert_equal PublishingApiPresenters::HtmlAttachment, presenter.class
   end
 end

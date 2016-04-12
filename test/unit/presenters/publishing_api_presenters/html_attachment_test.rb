@@ -5,6 +5,12 @@ class PublishingApiPresenters::HtmlAttachmentTest < ActiveSupport::TestCase
     PublishingApiPresenters::HtmlAttachment.new(record)
   end
 
+  test "the constructor calls HtmlAttachment#render_govspeak!" do
+    html_attachment = build(:html_attachment)
+    html_attachment.govspeak_content.expects(:render_govspeak!)
+    PublishingApiPresenters::HtmlAttachment.new(html_attachment)
+  end
+
   test "HtmlAttachment presentation includes the correct values" do
     edition = create(:publication, :with_html_attachment, :published)
     html_attachment = HtmlAttachment.last
