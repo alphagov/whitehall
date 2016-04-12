@@ -9,14 +9,14 @@ user-friendly manner. Documentation can be found on [rdoc](http://rdoc.info/gith
 
 ## Nomenclature
 
-* *Govspeak* A variation of [Markdown](https://daringfireball.net/projects/markdow://daringfireball.net/projects/markdown) 
+* *Govspeak* A variation of [Markdown](https://daringfireball.net/projects/markdown) 
 used throughout 'Whitehall' as the general publishing format
 
 ## Technical Documentation
 
-Whitehall is a Rails 4 app built on a Mysql database. It is deployed
-in two 'modes', 'admin' for publishers to create and manage content and
-'frontend' for rendering content to https://gov.uk. In addition to
+Whitehall is a Rails 4 app built on a MyQL database. It is deployed
+in two modes, 'admin' for publishers to create and manage content and
+'frontend' for rendering content under https://www.gov.uk/government. In addition to
 storing and managing its own content database Whitehall also updates
 various other APIs including search and is currently being migrated
 towards a new publishing model utilising [Publishing
@@ -43,7 +43,7 @@ bundle exec rails s
 ```
 
 Note that the application itself will respond to requests on the root URL `/` with a
-routing error. To check that it works, try visiting `/government/admin`.
+routing error. To check that it works, try visiting `/government/admin` and `/government/organisations`.
 
 Further setup instructions are available in the [detailed setup guide](docs/detailed_setup_guide.md)
 
@@ -77,7 +77,7 @@ See the [search setup guide](docs/search_setup_guide.md)
 
 [Creating new users](docs/creating_new_users.md)
 
-[Contributing guide](CONTRIBUTING.md).
+[Contributing guide](CONTRIBUTING.md)
 
 ## Generating the documentation
 
