@@ -164,6 +164,7 @@ class Organisation < ActiveRecord::Base
   mount_uploader :logo, LogoUploader
 
   searchable title: :title_for_search,
+             content_id: :content_id,
              acronym: :acronym,
              link: :search_link,
              content: :indexable_content,

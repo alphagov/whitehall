@@ -476,12 +476,13 @@ class OrganisationTest < ActiveSupport::TestCase
     mod = create(:organisation, name: 'Ministry of Defence', acronym: 'mod')
     create(:published_corporate_information_page, corporate_information_page_type: about_type, summary: 'Defensive.', organisation: mod)
     superseding_organisation = create(:devolved_administration, name: 'Devolved administration')
-    create(:organisation, name: 'Devolved organisation', acronym: 'dev', govuk_status: 'closed', govuk_closed_status: 'devolved', superseding_organisations: [superseding_organisation])
+    devolved = create(:organisation, name: 'Devolved organisation', acronym: 'dev', govuk_status: 'closed', govuk_closed_status: 'devolved', superseding_organisations: [superseding_organisation])
 
     results = Organisation.search_index.to_a
 
     assert_equal 6, results.length
     assert_equal({'title' => 'Closed organisation: Department for Culture and Sports',
+                  'content_id' => sport.content_id,
                   'link' => '/government/organisations/department-for-culture-and-sports',
                   'slug' => 'department-for-culture-and-sports',
                   'indexable_content' => 'Sporty. Some stuff',
@@ -490,6 +491,7 @@ class OrganisationTest < ActiveSupport::TestCase
                   'organisations' => ["department-for-culture-and-sports"],
                   'organisation_state' => 'closed'}, results[0])
     assert_equal({'title' => 'Department of Education',
+                  'content_id' => ed.content_id,
                   'link' => '/government/organisations/department-of-education',
                   'slug' => 'department-of-education',
                   'indexable_content' => 'Bookish. Some stuff',
@@ -498,6 +500,7 @@ class OrganisationTest < ActiveSupport::TestCase
                   'organisations' => ["department-of-education"],
                   'organisation_state' => 'live'}, results[1])
     assert_equal({'title' => 'HMRC',
+                  'content_id' => hmrc.content_id,
                   'acronym' => 'hmrc',
                   'link' => '/government/organisations/hmrc',
                   'slug' => 'hmrc',
@@ -508,6 +511,7 @@ class OrganisationTest < ActiveSupport::TestCase
                   'organisations' => ["hmrc"],
                   'organisation_state' => 'live'}, results[2])
     assert_equal({'title' => 'Ministry of Defence',
+                  'content_id' => mod.content_id,
                   'acronym' => 'mod',
                   'link' => '/government/organisations/ministry-of-defence',
                   'slug' => 'ministry-of-defence',
@@ -518,6 +522,7 @@ class OrganisationTest < ActiveSupport::TestCase
                   'organisations' => ["ministry-of-defence"],
                   'organisation_state' => 'live'}, results[3])
     assert_equal({'title' => 'Closed organisation: Devolved organisation',
+                  'content_id' => devolved.content_id,
                   'acronym' => 'dev',
                   'link' => '/government/organisations/devolved-organisation',
                   'slug' => 'devolved-organisation',

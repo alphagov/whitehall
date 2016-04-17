@@ -6,6 +6,7 @@ module Searchable
     :attachments,
     :boost_phrases,
     :content,
+    :content_id,
     :description,
     :display_type,
     :detailed_format,
