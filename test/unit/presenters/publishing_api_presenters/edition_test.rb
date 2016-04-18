@@ -228,4 +228,17 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
 
     assert_equal({ topics: %w(content_id_1 content_id_2), parent: %w(content_id_1) }, links)
   end
+
+  test '#links.parent will not be set if the specialist sector is not found' do
+    edition = create(:edition)
+    create(:specialist_sector, tag: "oil-and-gas/primary", edition: edition, primary: true)
+    create(:specialist_sector, tag: "oil-and-gas/secondary", edition: edition, primary: false)
+    publishing_api_has_lookups({
+      "/topic/oil-and-gas/secondary" => "content_id_1",
+    })
+
+    links = present(edition).links
+
+    assert_equal({ topics: %w(content_id_1) }, links)
+  end
 end
