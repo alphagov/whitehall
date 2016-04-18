@@ -11,11 +11,6 @@ module PolicyGroupHelper
     fill_in 'Description', with: group.description.to_s + "\n\n" + markdown
     click_button 'Save'
   end
-
-  def check_attachment_appears_on_policy_group(attachment, group)
-    visit policy_group_path(group)
-    assert page_has_attachment?(attachment)
-  end
 end
 
 World(PolicyGroupHelper)

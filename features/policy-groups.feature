@@ -20,10 +20,10 @@ Feature: Policy groups
   Background:
     Given I am an editor
 
-  Scenario: Policy groups have their own page
+  Scenario: Policy groups appear in the public index
     Given a policy group "ABC Advisories" exists
-    When I visit the policy group "ABC Advisories"
-    Then I should see the policy group "ABC Advisories"
+    When I visit the policy group index
+    Then I should see the policy group "ABC Advisories" in the index
 
   Scenario:
     Given a policy group "Panel" exists
