@@ -25,7 +25,13 @@ class PublishingApiPresenters::Edition < PublishingApiPresenters::Item
 
     if parent_tag
       parent_content_id = content_id_lookup[topic_path_from(parent_tag)]
-      { topics: content_id_lookup.values, parent: [parent_content_id] }
+
+      if parent_content_id.nil?
+        Rails.logger.info "#{item.content_id} has non-existing primary_specialist_sector_tag: #{parent_tag}"
+        { topics: content_id_lookup.values }
+      else
+        { topics: content_id_lookup.values, parent: [parent_content_id] }
+      end
     else
       { topics: content_id_lookup.values }
     end
