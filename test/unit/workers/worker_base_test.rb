@@ -6,7 +6,7 @@ class WorkerBaseTest < ActiveSupport::TestCase
 
   class MyWorker < WorkerBase
     sidekiq_options queue: "my-test-queue"
-    def perform
+    def perform(*_args)
       WorkerBaseTest.worker_has_run!
     end
   end
@@ -20,7 +20,7 @@ class WorkerBaseTest < ActiveSupport::TestCase
     example_arg = stub("example arg")
     WorkerBase.expects(:client_push).with(
       'class' => WorkerBaseTest::MyWorker,
-      'args' => [example_arg],
+      'args' => [example_arg, { request_id: nil }],
       'queue' => 'test_queue'
     )
     MyWorker.perform_async_in_queue('test_queue', example_arg)
@@ -30,7 +30,7 @@ class WorkerBaseTest < ActiveSupport::TestCase
     example_arg = stub("example arg")
     WorkerBase.expects(:client_push).with(
       'class' => WorkerBaseTest::MyWorker,
-      'args' => [example_arg],
+      'args' => [example_arg, { request_id: nil }],
       'queue' => 'my-test-queue'
     )
     MyWorker.perform_async_in_queue(nil, example_arg)
