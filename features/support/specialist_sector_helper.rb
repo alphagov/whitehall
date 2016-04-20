@@ -1,5 +1,12 @@
 require 'gds_api/test_helpers/content_api'
 
+Before do
+  # Assume documents rendered in these features have no topic tags.
+  # Stub can be overriden in individual features if required.
+  SpecialistTagFinder.any_instance.stubs(:grandparent_topic).returns(nil)
+  SpecialistTagFinder.any_instance.stubs(:topics).returns([])
+end
+
 module SpecialistSectorHelper
   include GdsApi::TestHelpers::ContentApi
 
