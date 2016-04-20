@@ -30,7 +30,6 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
         body: "<div class=\"govspeak\"><p>Some content</p></div>",
         format_display_type: 'case_study',
         first_public_at: case_study.first_public_at,
-        change_note: nil,
         change_history: [
           { public_timestamp: case_study.public_timestamp, note: 'change-note' }.as_json
         ],

@@ -45,7 +45,6 @@ class PublishingApiPresenters::DetailedGuideTest < ActiveSupport::TestCase
       details: {
         body: "<div class=\"govspeak\"><p>Some content</p></div>",
         first_public_at: detailed_guide.created_at.iso8601,
-        change_note: nil,
         change_history: [],
         tags: {
           browse_pages: [],

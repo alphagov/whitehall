@@ -31,7 +31,6 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
       ],
       redirects: [],
       details: {
-        change_note: nil,
         tags: {
           browse_pages: [],
           policies: [],
@@ -69,7 +68,6 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
       ],
       redirects: [],
       details: {
-        change_note: nil,
         tags: {
           browse_pages: [],
           policies: [],
@@ -81,21 +79,6 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
     presented_item = present(edition)
     assert_equal expected_hash, presented_item.content
     assert_valid_against_schema(presented_item.content, 'placeholder')
-  end
-
-  test 'includes the most recent change note even when the edition is only a minor change' do
-    user  = create(:gds_editor)
-    first = create(:published_edition)
-
-    major = first.create_draft(user)
-    major.change_note = 'This was a major change'
-    force_publish(major)
-
-    minor = major.create_draft(user)
-    minor.minor_change = true
-    minor.change_note = nil
-
-    assert_equal 'This was a major change', present(minor).content[:details][:change_note]
   end
 
   test 'minor changes are a "minor" update type' do
