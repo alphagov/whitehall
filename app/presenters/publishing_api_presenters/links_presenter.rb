@@ -5,7 +5,6 @@ module PublishingApiPresenters
       lead_organisations: :lead_organisation_ids,
       organisations: :organisation_ids,
       policy_areas: :policy_area_ids,
-      related_guides: :related_guides_ids,
       related_policies: :related_policy_ids,
       statistical_data_set_documents: :statistical_data_set_ids,
       supporting_organisations: :supporting_organisation_ids,
@@ -40,10 +39,6 @@ module PublishingApiPresenters
 
     def policy_area_ids
       (item.try(:topics) || []).map(&:content_id)
-    end
-
-    def related_guides_ids
-      item.try(:related_detailed_guide_ids) || []
     end
 
     def related_policy_ids

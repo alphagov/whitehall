@@ -76,7 +76,25 @@ class DetailedGuide < Edition
     true
   end
 
+  def related_mainstream_base_path
+    url = related_mainstream_content_url
+    parse_base_path_from_related_mainstream_url(url)
+  end
+
+  def additional_related_mainstream_base_path
+    url = additional_related_mainstream_content_url
+    parse_base_path_from_related_mainstream_url(url)
+  end
+
   private
+
+  def parse_base_path_from_related_mainstream_url(url)
+    return nil if url.nil? || url.empty?
+    parsed_url = URI.parse(url)
+    url_is_invalid = !['gov.uk', 'www.gov.uk'].include?(parsed_url.host)
+    return nil if url_is_invalid
+    URI.parse(url).path
+  end
 
   # Returns the published edition of any detailed guide documents that this edition is related to.
   def published_outbound_related_detailed_guides

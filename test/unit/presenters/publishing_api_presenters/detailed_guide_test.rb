@@ -1,6 +1,9 @@
 require "test_helper"
+require 'gds_api/test_helpers/publishing_api_v2'
 
 class PublishingApiPresenters::DetailedGuideTest < ActiveSupport::TestCase
+  include GdsApi::TestHelpers::PublishingApiV2
+
   def present(edition)
     PublishingApiPresenters::DetailedGuide.new(edition)
   end
@@ -50,12 +53,14 @@ class PublishingApiPresenters::DetailedGuideTest < ActiveSupport::TestCase
           browse_pages: [],
           topics: [],
           policies: []
-        }
-      }
+        },
+        related_mainstream_content: [],
+      },
     }
     expected_links = {
       lead_organisations: [detailed_guide.lead_organisations.first.content_id],
       related_guides: [],
+      related_mainstream: [],
     }
     presented_item = present(detailed_guide)
 
@@ -64,5 +69,82 @@ class PublishingApiPresenters::DetailedGuideTest < ActiveSupport::TestCase
     assert_equal expected_content[:details], presented_item.content[:details].except(:body)
     assert_equal expected_links, presented_item.links
     assert_equal detailed_guide.document.content_id, presented_item.content_id
+  end
+
+  test 'DetailedGuide presents related_mainstream and related_mainstream_content' do
+    lookup_hash = {
+      "/guidance/lorem" => "deadbeef-cafe-babe-c0ffe1",
+      "/guidance/ipsum" => "deadbeef-cafe-babe-c0ffe2"
+    }
+
+    publishing_api_has_lookups(lookup_hash)
+    detailed_guide = create(
+      :detailed_guide,
+      title: "Some detailed guide",
+      summary: "Some summary",
+      body: "Some content",
+      related_mainstream_content_title: "Lorem",
+      related_mainstream_content_url: "http://www.gov.uk/guidance/lorem",
+      additional_related_mainstream_content_title: "Ipsum",
+      additional_related_mainstream_content_url: "http://www.gov.uk/guidance/ipsum",
+    )
+
+    presented_item = present(detailed_guide)
+    links = presented_item.links
+    details = presented_item.content[:details]
+    expected_ids = [
+      "deadbeef-cafe-babe-c0ffe1",
+      "deadbeef-cafe-babe-c0ffe2"
+    ]
+
+    # Links can come in any order, so we sort to make sure the set is the same.
+    assert_equal expected_ids.sort, links[:related_mainstream].sort
+
+    # Details should respect the specified order.
+    assert_equal expected_ids, details[:related_mainstream_content]
+  end
+
+  test 'DetailedGuide presents related_mainstream with dodgy data' do
+    lookup_hash = {
+      "/guidance/lorem" => "deadbeef-cafe-babe-c0ffe1"
+    }
+    publishing_api_has_lookups(lookup_hash)
+
+    detailed_guide = create(
+      :detailed_guide,
+      title: "Some detailed guide",
+      summary: "Some summary",
+      body: "Some content",
+      related_mainstream_content_title: "Lorem",
+      related_mainstream_content_url: "http://www.gov.uk/guidance/lorem?query=string"
+    )
+
+    presented_item = present(detailed_guide)
+    links = presented_item.links
+    expected_ids = ["deadbeef-cafe-babe-c0ffe1"]
+
+    assert_equal expected_ids.sort, links[:related_mainstream].sort
+  end
+
+  test 'DetailedGuide does not present related_mainstream with invalid data' do
+    lookup_hash = {}
+    publishing_api_has_lookups(lookup_hash)
+
+    detailed_guide = create(
+      :detailed_guide,
+      title: "Some detailed guide",
+      summary: "Some summary",
+      body: "Some content",
+      related_mainstream_content_title: "Lorem",
+      related_mainstream_content_url: "http://www.gov.uk/guidance/lorem",
+      additional_related_mainstream_content_title: "Ipsum",
+      additional_related_mainstream_content_url: "http://www.whatever.uk/guidance/ipsum",
+    )
+
+    presented_item = present(detailed_guide)
+    links = presented_item.links
+    expected_ids = []
+
+    assert_equal expected_ids.sort, links[:related_mainstream].sort
   end
 end
