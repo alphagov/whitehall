@@ -9,7 +9,6 @@ puts "Deleting data (but not tables) for #{edition_ids.count} WorldwidePriority 
   ConsultationParticipation,
   EditionAuthor,
   EditionDependency,
-  EditionMainstreamCategory,
   EditionOrganisation,
   EditionRelation,
   EditionRoleAppointment,
