@@ -21,7 +21,7 @@ class SpecialistTagFinderTest < ActiveSupport::TestCase
     assert_equal ["topic-1", "topic-2"], SpecialistTagFinder.new(edition).topics.map { |topic| topic["title"] }
   end
 
-  test "#grandparent_topic returns the parent of the edition's parent topic" do
+  test "#top_level_topic returns the parent of the edition's parent topic" do
     edition = create(:edition_with_document)
     edition_base_path = PublishingApiPresenters::Edition.new(edition).base_path
     parent_base_path = "/parent-item"
@@ -36,6 +36,6 @@ class SpecialistTagFinderTest < ActiveSupport::TestCase
     content_store_has_item(parent_base_path, parent_content_item)
 
 
-    assert_equal "/grandpa", SpecialistTagFinder.new(edition).grandparent_topic.base_path
+    assert_equal "/grandpa", SpecialistTagFinder.new(edition).top_level_topic.base_path
   end
 end

@@ -7,7 +7,7 @@ class DetailedGuideIntegrationTest < ActionDispatch::IntegrationTest
   test "meta data tag is present" do
     detailed_guide = create(:published_detailed_guide, summary: "This is a published detailed guide summary")
     stubbed_topics_finder = SpecialistTagFinder.new(detailed_guide)
-    stubbed_topics_finder.stubs(grandparent_topic: nil, topics: [])
+    stubbed_topics_finder.stubs(top_level_topic: nil, topics: [])
     SpecialistTagFinder.stubs(:new).returns(stubbed_topics_finder)
 
     get detailed_guide_path(detailed_guide.slug)

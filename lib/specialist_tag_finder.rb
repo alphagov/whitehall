@@ -26,12 +26,17 @@ class SpecialistTagFinder
       end
   end
 
-  def grandparent_topic
-    @grandparent_topic ||=
-      begin
-        presented_edition = PublishingApiPresenters::Edition.new(@edition)
-        edition_path = presented_edition.base_path
-        edition_content_item = Whitehall.content_store.content_item(edition_path)
+  def top_level_topic
+    # Topics in GOVUK (called 'Specialist Sectors' in  Whitehall admin and
+    # throughout this codebase) exist in a 2-level hierarchy.  Editions may be
+    # tagged with a parent - this is always one of the 2nd level topics.  The
+    # top level topic (i.e. - the parent of the edition's parent) is required
+    # in the frontend when rendering an Edition's breadcrumb.
+
+    @top_level_topic ||= begin
+      presented_edition = PublishingApiPresenters::Edition.new(@edition)
+      edition_path = presented_edition.base_path
+      edition_content_item = Whitehall.content_store.content_item(edition_path)
 
         return unless edition_content_item
         parents = Array(edition_content_item.links["parent"])
