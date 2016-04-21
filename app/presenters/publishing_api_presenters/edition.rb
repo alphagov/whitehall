@@ -16,6 +16,12 @@ class PublishingApiPresenters::Edition < PublishingApiPresenters::Item
   end
 
   def links
+    extract_links([:organisations]).merge(topic_and_parent_links_payload)
+  end
+
+private
+
+  def topic_and_parent_links_payload
     topic_tags = item.specialist_sector_tags
     return {} unless topic_tags.present?
 
@@ -37,13 +43,9 @@ class PublishingApiPresenters::Edition < PublishingApiPresenters::Item
     end
   end
 
-private
-
   def topic_path_from(tag)
     "/topic/#{tag}"
   end
-
-private
 
   def rendering_app
     item.rendering_app
