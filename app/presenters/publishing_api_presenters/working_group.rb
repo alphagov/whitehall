@@ -1,3 +1,4 @@
+# Presents a `PolicyGroup` model.
 class PublishingApiPresenters::WorkingGroup < PublishingApiPresenters::Item
   def links
     {}
