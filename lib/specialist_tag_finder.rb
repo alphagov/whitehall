@@ -8,6 +8,7 @@ class SpecialistTagFinder
     presented_edition = PublishingApiPresenters::Edition.new(@edition)
     edition_path = presented_edition.base_path
     content_item = Whitehall.content_store.content_item(edition_path)
+
     return [] unless content_item
     Array(content_item.links["topics"])
   end
@@ -16,6 +17,7 @@ class SpecialistTagFinder
     presented_edition = PublishingApiPresenters::Edition.new(@edition)
     edition_path = presented_edition.base_path
     edition_content_item = Whitehall.content_store.content_item(edition_path)
+
     return unless edition_content_item
     parents = Array(edition_content_item.links["parent"])
     return unless parents.any?
