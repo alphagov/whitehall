@@ -1,5 +1,15 @@
 class SpecialistTagFinder
 
+  class Null
+    def topics
+      []
+    end
+
+    def top_level_topic
+      nil
+    end
+  end
+
   def initialize(edition)
     @edition = edition
   end

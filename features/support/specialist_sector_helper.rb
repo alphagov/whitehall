@@ -4,8 +4,7 @@ require "gds_api/test_helpers/content_store"
 Before do
   # Assume documents rendered in these features have no topic tags.
   # Stub can be removed in individual features if required.
-  SpecialistTagFinder.any_instance.stubs(:grandparent_topic).returns(nil)
-  SpecialistTagFinder.any_instance.stubs(:topics).returns([])
+  SpecialistTagFinder.stubs(:new).returns(SpecialistTagFinder::Null.new)
 end
 
 module SpecialistSectorHelper
@@ -13,7 +12,7 @@ module SpecialistSectorHelper
   include GdsApi::TestHelpers::ContentStore
 
   def unstub_tag_finder
-    SpecialistTagFinder.any_instance.unstub(:grandparent_topic, :topics)
+    SpecialistTagFinder.unstub(:new)
   end
 
   def stub_specialist_sectors

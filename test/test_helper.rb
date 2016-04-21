@@ -183,8 +183,7 @@ class ActionController::TestCase
 
     # In controller tests, assume by default that the resource being rendered
     # does not have any topic tags.
-    SpecialistTagFinder.any_instance.stubs(:grandparent_topic).returns(nil)
-    SpecialistTagFinder.any_instance.stubs(:topics).returns([])
+    SpecialistTagFinder.stubs(:new).returns(SpecialistTagFinder::Null.new)
   end
 
   def login_as(role_or_user)
