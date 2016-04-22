@@ -1,5 +1,4 @@
 class LinksReportWorker < WorkerBase
-
   def call(id)
     links_report = LinksReport.find(id)
     link_checker = LinksChecker.new(links_report.links)

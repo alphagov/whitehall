@@ -1,5 +1,4 @@
 class SearchIndexAddWorker < WorkerBase
-
   attr_reader :id, :class_name
 
   def call(class_name, id)

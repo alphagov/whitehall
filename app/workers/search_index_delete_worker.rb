@@ -1,5 +1,4 @@
 class SearchIndexDeleteWorker < WorkerBase
-
   attr_reader :link, :index
 
   def call(link, index)
