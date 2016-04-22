@@ -125,6 +125,31 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_equivalent_html expected, rendered_attachment_headers
   end
 
+
+  test "#html_attachment_govspeak_headers_html correctly renders links to overridden header ids" do
+    attachment = build(
+      :html_attachment,
+      body: "## First\n{:#overridden-first}\n\n## Second\n{:#overridden-second}\n\n## Third\n{:#overridden-third}",
+      manually_numbered_headings: true
+    )
+    expected = <<-HTML
+      <ol class=\"unnumbered\">
+        <li>
+          <a href=\"#overridden-first\">First</a>
+        </li>
+        <li>
+          <a href=\"#overridden-second\">Second</a>
+        </li>
+        <li>
+          <a href=\"#overridden-third\">Third</a>
+        </li>
+      </ol>
+    HTML
+
+    rendered_attachment_headers = html_attachment_govspeak_headers_html(attachment)
+    assert_equivalent_html expected, rendered_attachment_headers
+  end
+
   test "should raise exception when extracting header hierarchy with orphaned level 3 headings" do
     e = assert_raise(OrphanedHeadingError) { govspeak_header_hierarchy("### Heading 3") }
     assert_equal "Heading 3", e.heading
