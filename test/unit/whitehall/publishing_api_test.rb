@@ -301,11 +301,23 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     Sidekiq::Testing.fake! do
       Whitehall::PublishingApi.schedule_async(edition)
 
-      assert_equal [english_path, timestamp], PublishingApiScheduleWorker.jobs[0]['args']
-      assert_equal [french_path, timestamp], PublishingApiScheduleWorker.jobs[1]['args']
+      first_job = PublishingApiScheduleWorker.jobs[0]['args']
+      second_job = PublishingApiScheduleWorker.jobs[1]['args']
 
-      assert_equal [edition.id, 'en'], PublishingApiComingSoonWorker.jobs[0]['args']
-      assert_equal [edition.id, 'fr'], PublishingApiComingSoonWorker.jobs[1]['args']
+      assert_equal english_path, first_job[0]
+      assert_equal timestamp, first_job[1]
+
+      assert_equal french_path, second_job[0]
+      assert_equal timestamp, second_job[1]
+
+      first_job = PublishingApiComingSoonWorker.jobs[0]['args']
+      second_job = PublishingApiComingSoonWorker.jobs[1]['args']
+
+      assert_equal edition.id, first_job[0]
+      assert_equal 'en', first_job[1]
+
+      assert_equal edition.id, second_job[0]
+      assert_equal 'fr', second_job[1]
     end
   end
 
@@ -325,8 +337,14 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     Sidekiq::Testing.fake! do
       Whitehall::PublishingApi.schedule_async(updated_edition)
 
-      assert_equal [english_path, timestamp], PublishingApiScheduleWorker.jobs[0]['args']
-      assert_equal [spanish_path, timestamp], PublishingApiScheduleWorker.jobs[1]['args']
+      first_job = PublishingApiScheduleWorker.jobs[0]['args']
+      second_job = PublishingApiScheduleWorker.jobs[1]['args']
+
+      assert_equal english_path, first_job[0]
+      assert_equal timestamp, first_job[1]
+
+      assert_equal spanish_path, second_job[0]
+      assert_equal timestamp, second_job[1]
 
       assert_equal [], PublishingApiComingSoonWorker.jobs
     end
@@ -357,8 +375,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     Sidekiq::Testing.fake! do
       Whitehall::PublishingApi.unschedule_async(edition)
 
-      assert_equal [german_path], PublishingApiUnscheduleWorker.jobs[0]['args']
-      assert_equal [english_path], PublishingApiUnscheduleWorker.jobs[1]['args']
+      assert_equal german_path, PublishingApiUnscheduleWorker.jobs[0]['args'].first
+      assert_equal english_path, PublishingApiUnscheduleWorker.jobs[1]['args'].first
 
       assert_equal german_path, PublishingApiGoneWorker.jobs[0]['args'].first
       assert_equal english_path, PublishingApiGoneWorker.jobs[1]['args'].first
@@ -380,8 +398,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     Sidekiq::Testing.fake! do
       Whitehall::PublishingApi.unschedule_async(updated_edition)
 
-      assert_equal [german_path], PublishingApiUnscheduleWorker.jobs[0]['args']
-      assert_equal [english_path], PublishingApiUnscheduleWorker.jobs[1]['args']
+      assert_equal german_path, PublishingApiUnscheduleWorker.jobs[0]['args'].first
+      assert_equal english_path, PublishingApiUnscheduleWorker.jobs[1]['args'].first
 
       assert_equal [], PublishingApiGoneWorker.jobs
     end

@@ -13,7 +13,7 @@ class LinksReportTest < ActiveSupport::TestCase
       assert_equal %w(http://example.com http://link.com), links_report.links
 
       job = LinksReportWorker.jobs.last
-      assert_equal [links_report.id], job['args']
+      assert_equal links_report.id, job['args'].first
     end
   end
 

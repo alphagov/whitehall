@@ -28,7 +28,7 @@ class ScheduledPublishingWorker < WorkerBase
     queued_jobs.map { |job| job['args'][0] }
   end
 
-  def perform(edition_id)
+  def call(edition_id)
     edition = Edition.find(edition_id)
     return if edition.published?
 

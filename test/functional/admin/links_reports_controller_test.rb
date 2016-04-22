@@ -18,7 +18,7 @@ class Admin::LinksReportsControllerTest < ActionController::TestCase
 
       assert links_report = @publication.links_reports.last
       job = LinksReportWorker.jobs.last
-      assert_equal [links_report.id], job['args']
+      assert_equal links_report.id, job['args'].first
     end
   end
 
@@ -30,7 +30,7 @@ class Admin::LinksReportsControllerTest < ActionController::TestCase
 
       assert links_report = @publication.links_reports.last
       job = LinksReportWorker.jobs.last
-      assert_equal [links_report.id], job['args']
+      assert_equal links_report.id, job['args'].first
     end
   end
 

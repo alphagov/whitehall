@@ -1,13 +1,11 @@
 module Whitehall
   module GovUkDelivery
-    class Worker
-      include Sidekiq::Worker
-
+    class Worker < WorkerBase
       def self.notify!(edition, notification_date, title = nil, summary = nil)
         self.perform_async(edition.id, notification_date.iso8601, title: title, summary: summary)
       end
 
-      def perform(edition_id, notification_date, options = {})
+      def call(edition_id, notification_date, options = {})
         options.symbolize_keys!
 
         edition = Edition.find(edition_id)
