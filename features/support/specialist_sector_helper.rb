@@ -1,7 +1,19 @@
 require 'gds_api/test_helpers/content_api'
+require "gds_api/test_helpers/content_store"
+
+Before do
+  # Assume documents rendered in these features have no topic tags.
+  # Stub can be removed in individual features if required.
+  SpecialistTagFinder.stubs(:new).returns(SpecialistTagFinder::Null.new)
+end
 
 module SpecialistSectorHelper
   include GdsApi::TestHelpers::ContentApi
+  include GdsApi::TestHelpers::ContentStore
+
+  def unstub_tag_finder
+    SpecialistTagFinder.unstub(:new)
+  end
 
   def stub_specialist_sectors
     oil_and_gas = { slug: 'oil-and-gas', title: 'Oil and Gas' }
@@ -43,27 +55,6 @@ module SpecialistSectorHelper
 
   def save_document
     click_button 'Save'
-  end
-
-  def create_document_tagged_to_a_specialist_sector
-    create(:published_publication, :guidance,
-            primary_specialist_sector_tag: 'oil-and-gas/wells',
-            secondary_specialist_sector_tags: ['oil-and-gas/offshore', 'oil-and-gas/fields']
-    )
-  end
-
-  def check_for_primary_sector_in_heading
-    assert find("article header").has_content?("Oil and gas")
-  end
-
-  def check_for_sectors_and_subsectors_in_metadata
-    ['Oil and gas', 'Wells', 'Offshore', 'Fields'].each do |sector_name|
-      assert has_css?('dd', text: sector_name, exact: false)
-    end
-  end
-
-  def check_for_absence_of_draft_sectors_and_subsectors_in_metadata
-    assert has_no_css?('dd', text: 'Distillation', exact: false)
   end
 end
 

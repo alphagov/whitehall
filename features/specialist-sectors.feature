@@ -10,10 +10,7 @@ Feature: Tagging content with specialist sectors
     When I start editing a draft document
     Then I can tag it to some specialist sectors
 
-  @real_content_api
   Scenario: sectors are shown on tagged content
-    Given there are some specialist sectors
-    And there is a document tagged to specialist sectors
+    Given there is a document tagged to specialist sectors
     When I view the document
     Then I should see the specialist sub-sector and its parent sector
-    And I should not see draft specialist sectors

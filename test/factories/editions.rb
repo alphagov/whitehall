@@ -145,6 +145,7 @@ FactoryGirl.define do
     end
   end
 
+  factory :edition_with_document, parent: :edition, traits: [:with_document]
   factory :imported_edition, parent: :edition, traits: [:imported]
   factory :draft_edition, parent: :edition, traits: [:draft]
   factory :submitted_edition, parent: :edition, traits: [:submitted]

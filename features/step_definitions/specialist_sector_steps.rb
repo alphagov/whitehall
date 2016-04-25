@@ -13,15 +13,34 @@ Then /^I can tag it to some specialist sectors$/ do
 end
 
 Given(/^there is a document tagged to specialist sectors$/) do
-  @document = create_document_tagged_to_a_specialist_sector
-  stub_content_api_tags(@document)
+  unstub_tag_finder # we're testing topic tags, remove any existing stubs
+
+  @document = create(:published_publication, :guidance)
+  document_base_path = PublishingApiPresenters.presenter_for(@document).base_path
+  parent_base_path = "/parent-topic"
+
+  document_content_item = content_item_for_base_path(document_base_path).merge!({
+    "links" => {
+      "parent" => [{ "base_path" => parent_base_path }],
+      "topics" => [{ "title" => "Topic 1" }, { "title" => "Topic 2"  }]
+    }
+  })
+  parent_content_item = content_item_for_base_path(parent_base_path).merge!({
+    "links" => {
+      "parent" => [{
+        "title" => "Top Level Topic",
+        "web_url" => "http://gov.uk/top-level-topic"
+      }]
+    }
+  })
+
+  content_store_has_item(document_base_path, document_content_item)
+  content_store_has_item(parent_base_path, parent_content_item)
 end
 
 Then(/^I should see the specialist sub\-sector and its parent sector$/) do
-  check_for_primary_sector_in_heading
-  check_for_sectors_and_subsectors_in_metadata
+  header = find("article header")
+  assert header.has_content?("Top Level Topic")
+  assert header.has_css?('dd', text: "Topic 1 and Topic 2", exact: false)
 end
 
-Then(/^I should not see draft specialist sectors$/) do
-  check_for_absence_of_draft_sectors_and_subsectors_in_metadata
-end

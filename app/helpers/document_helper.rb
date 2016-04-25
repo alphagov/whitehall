@@ -202,7 +202,7 @@ Please tell us:
     link_to native_language_name_for(locale), locale: locale
   end
 
-  def part_of_metadata(document, policies = [], sector_tag_finder = nil)
+  def part_of_metadata(document, policies = [], sector_tag_finder = SpecialistTagFinder::Null.new)
     part_of = []
 
     if document.respond_to?(:part_of_published_collection?) && document.part_of_published_collection?
@@ -217,9 +217,10 @@ Please tell us:
       part_of += array_of_links_to_topical_events(document.topical_events)
     end
 
-    if sector_tag_finder && (all_sectors = sector_tag_finder.sectors_and_subsectors).any?
-      part_of += array_of_links_to_sectors(all_sectors)
+    links_to_topics = sector_tag_finder.topics.map do |topic|
+      link_to topic.title, topic.web_url, class: 'sector-link'
     end
+    part_of += links_to_topics
 
     if policies.any?
       part_of += array_of_links_to_policies(policies)
