@@ -47,6 +47,7 @@ module Searchable
 
       self.searchable_options = options.reverse_merge \
         format:         -> (o) { o.class.model_name.element },
+        content_id:     -> (o) { o.try(:content_id) },
         index_after:    :save,
         unindex_after:  :destroy,
         only:           :all,
