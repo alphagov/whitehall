@@ -6,6 +6,7 @@ Given /^a draft (document|publication|news article|consultation|speech) "([^"]*)
 end
 
 Given /^a published (publication|news article|consultation|speech|detailed guide) "([^"]*)" exists$/ do |document_type, title|
+  create(:government) if Government.first.nil?
   create("published_#{document_class(document_type).name.underscore}".to_sym, title: title)
 end
 
@@ -19,6 +20,7 @@ Given /^a draft (publication|news article|consultation) "([^"]*)" exists in the 
 end
 
 Given /^a submitted (publication|news article|consultation|detailed guide) "([^"]*)" exists in the "([^"]*)" topic$/ do |document_type, title, topic_name|
+  create(:government)
   topic = Topic.find_by!(name: topic_name)
   create("submitted_#{document_class(document_type).name.underscore}".to_sym, title: title, topics: [topic])
 end

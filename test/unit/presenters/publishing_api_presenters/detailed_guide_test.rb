@@ -9,6 +9,7 @@ class PublishingApiPresenters::DetailedGuideTest < ActiveSupport::TestCase
   end
 
   test "DetailedGuide presenter passes schema tests" do
+    create(:government)
     detailed_guide = create(
       :detailed_guide,
       title: "Some detailed guide",
@@ -23,6 +24,7 @@ class PublishingApiPresenters::DetailedGuideTest < ActiveSupport::TestCase
   end
 
   test "DetailedGuide presents correct information" do
+    government = create(:government)
     detailed_guide = create(
       :detailed_guide,
       title: "Some detailed guide",
@@ -54,6 +56,12 @@ class PublishingApiPresenters::DetailedGuideTest < ActiveSupport::TestCase
           topics: [],
           policies: []
         },
+        political: false,
+        government: {
+          title: government.name,
+          slug: government.slug,
+          current: government.current?
+        },
         related_mainstream_content: [],
       },
     }
@@ -78,6 +86,7 @@ class PublishingApiPresenters::DetailedGuideTest < ActiveSupport::TestCase
     }
 
     publishing_api_has_lookups(lookup_hash)
+    create(:government)
     detailed_guide = create(
       :detailed_guide,
       title: "Some detailed guide",
@@ -110,6 +119,7 @@ class PublishingApiPresenters::DetailedGuideTest < ActiveSupport::TestCase
     }
     publishing_api_has_lookups(lookup_hash)
 
+    create(:government)
     detailed_guide = create(
       :detailed_guide,
       title: "Some detailed guide",
@@ -130,6 +140,7 @@ class PublishingApiPresenters::DetailedGuideTest < ActiveSupport::TestCase
     lookup_hash = {}
     publishing_api_has_lookups(lookup_hash)
 
+    create(:government)
     detailed_guide = create(
       :detailed_guide,
       title: "Some detailed guide",
@@ -146,5 +157,27 @@ class PublishingApiPresenters::DetailedGuideTest < ActiveSupport::TestCase
     expected_ids = []
 
     assert_equal expected_ids.sort, links[:related_mainstream].sort
+  end
+
+  test 'DetailedGuide presents political information correctly' do
+    government = create(:government)
+    detailed_guide = create(
+      :published_detailed_guide,
+      title: "Some detailed guide",
+      summary: "Some summary",
+      body: "Some content",
+      political: true
+    )
+
+    presented_item = present(detailed_guide)
+    details = presented_item.content[:details]
+
+    expected_government = {
+      title: government.name,
+      slug: government.slug,
+      current: government.current?
+    }
+    assert_equal details[:political], true
+    assert_equal details[:government], expected_government
   end
 end

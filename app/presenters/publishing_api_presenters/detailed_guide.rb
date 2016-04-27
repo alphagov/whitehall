@@ -21,7 +21,9 @@ private
       body: body,
       first_public_at: first_public_at,
       change_history: item.change_history.as_json,
-      related_mainstream_content: related_mainstream
+      related_mainstream_content: related_mainstream,
+      political: item.political?,
+      government: government
     )
   end
 
@@ -56,5 +58,15 @@ private
     else
       []
     end
+  end
+
+  # Detailed Guides need a government to publish successfully.
+  def government
+    gov = item.government
+    {
+      title: gov.name,
+      slug: gov.slug,
+      current: gov.current?
+    }
   end
 end

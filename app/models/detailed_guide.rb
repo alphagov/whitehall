@@ -86,7 +86,17 @@ class DetailedGuide < Edition
     parse_base_path_from_related_mainstream_url(url)
   end
 
-  private
+  def government
+    @government ||= Government.on_date(date_for_government) unless date_for_government.nil?
+  end
+
+private
+
+  def date_for_government
+    published_edition_date = first_public_at.try(:to_date)
+    draft_edition_date = updated_at.try(:to_date)
+    published_edition_date || draft_edition_date
+  end
 
   def parse_base_path_from_related_mainstream_url(url)
     return nil if url.nil? || url.empty?
