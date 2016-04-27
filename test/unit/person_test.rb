@@ -11,9 +11,10 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   test 'should return search index data suitable for Rummageable' do
-    person = create(:person, forename: 'David', surname: 'Cameron', biography: 'David Cameron became Prime Minister in May 2010.')
+    person = create(:person, content_id: 'f585949d-3796-4566-ab31-cb0d978aec00', forename: 'David', surname: 'Cameron', biography: 'David Cameron became Prime Minister in May 2010.')
 
     assert_equal({
+                  'content_id' => 'f585949d-3796-4566-ab31-cb0d978aec00',
                   'title' => 'David Cameron',
                   'link' => '/government/people/david-cameron',
                   'indexable_content' => 'David Cameron became Prime Minister in May 2010.',

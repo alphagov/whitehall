@@ -35,6 +35,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
       corporate_information_page_type: CorporateInformationPageType::TermsOfReference,
       organisation: organisation)
 
+    assert_equal corporate_information_page.content_id, corporate_information_page.search_index['content_id']
     assert_equal "#{organisation.name} \u2013 #{corporate_information_page.title}", corporate_information_page.search_index['title']
     assert_equal "/government/organisations/#{organisation.slug}/about/#{corporate_information_page.slug}", corporate_information_page.search_index['link']
   end

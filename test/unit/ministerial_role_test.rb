@@ -132,21 +132,25 @@ class MinisterialRoleTest < ActiveSupport::TestCase
 
     assert_equal 4, results.length
     assert_equal({'title' => 'Deputy Prime Minister',
+                  'content_id' => deputy_prime_minister.content_id,
                   'link' => '/government/ministers/deputy-prime-minister',
                   'indexable_content' => 'Cleggy.',
                   'format' => 'minister',
                   'description' => 'Current role holder: Nick Clegg.'}, results[0])
     assert_equal({'title' => 'Secretary of State for Culture',
+                  'content_id' => culture_minister.content_id,
                   'link' => '/government/ministers/secretary-of-state-for-culture',
                   'indexable_content' => 'Hunty.',
                   'format' => 'minister',
                   'description' => 'Current role holder: Jeremy Hunt.'}, results[1])
     assert_equal({'title' => 'Solicitor General',
+                  'content_id' => solicitor_general.content_id,
                   'link' => '/government/ministers/solicitor-general',
                   'indexable_content' => 'Garnerian.',
                   'format' => 'minister',
                   'description' => 'Current role holder: Edward Garnier.'}, results[2])
     assert_equal({'title' => 'Prime Minister',
+                  'content_id' => prime_minister.content_id,
                   'link' => '/government/ministers/prime-minister',
                   'indexable_content' => 'Cameronian.',
                   'format' => 'minister',
