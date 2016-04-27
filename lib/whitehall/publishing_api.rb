@@ -47,7 +47,6 @@ module Whitehall
       PublishingApiDocumentRepublishingWorker.perform_async(published_edition_id, pre_publication_edition_id)
     end
 
-
     def self.schedule_async(edition)
       return unless served_from_content_store?(edition)
       publish_timestamp = edition.scheduled_publication.as_json
