@@ -1,7 +1,5 @@
 // BASE STYLESHEET COMPILER
 
-
-
 // STYLEGUIDE
 // Mixins to be shared across gov.uk sites. Anything set in these
 // files can be used in the view files.
@@ -89,9 +87,6 @@
   @import "../shared/helpers/_player-container";
 }
 
-
-
-
 // VIEWS
 // Styles scoped to each template in /views
 
@@ -131,7 +126,6 @@
   @import "views/statistics_announcements/_index";
 }
 
-
 // LAYOUTS
 // Styles scoped to a layout. Be careful.
 
@@ -141,15 +135,3 @@
 #whitehall-wrapper {
   @import "layouts/two_column_page";
 }
-
-
-
-
-
-
-// DEBUG
-//#whitehall-wrapper {
-//  background-position: left 1px;
-//  background-image: -webkit-linear-gradient(transparent 9px,#E4E4E4 1px);
-//  background-size: 100% 10px;
-//}
