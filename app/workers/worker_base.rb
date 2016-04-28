@@ -22,9 +22,11 @@ class WorkerBase
     if last_arg.is_a?(Hash) && last_arg.keys == ["request_id"]
       args.pop
       request_id = last_arg["request_id"]
-      GdsApi::GovukHeaders.set_header(:govuk_request_id, request_id)
+    else
+      request_id = nil
     end
 
+    GdsApi::GovukHeaders.set_header(:govuk_request_id, request_id)
     call(*args)
   end
 end
