@@ -141,6 +141,11 @@ uk:
         few:
         many:
         other:
+      official_statistics:
+        one: "Статистика"
+        few:
+        many:
+        other: "Статистика"
       open_consultation:
         one: "Відкрите обговорення"
         few:
@@ -201,11 +206,6 @@ uk:
         few:
         many:
         other: "Набори статистичних даних"
-      official_statistics:
-        one: "Статистика"
-        few:
-        many:
-        other: "Статистика"
       statutory_guidance:
         one:
         few:
@@ -389,14 +389,6 @@ uk:
     formats:
       default:
       long_ordinal:
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document_filters:
     description: "Ви можете скористатись фільтрами для отримання тільки тих результатів,
       що відповідають Вашому запиту"

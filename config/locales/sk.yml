@@ -114,6 +114,10 @@ sk:
         one:
         few:
         other:
+      official_statistics:
+        one:
+        few:
+        other:
       open_consultation:
         one:
         few:
@@ -159,10 +163,6 @@ sk:
         few:
         other:
       statistical_data_set:
-        one:
-        few:
-        other:
-      official_statistics:
         one:
         few:
         other:
@@ -339,14 +339,6 @@ sk:
     formats:
       default:
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document_filters:
     description:
     no_results:

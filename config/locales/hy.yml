@@ -87,6 +87,9 @@ hy:
       notice:
         one:
         other:
+      official_statistics:
+        one: "Վիճակագրություն"
+        other: "Վիճակագրություն"
       open_consultation:
         one: "Բաց խորհրդատվություն"
         other: "Բաց խորհրդատվություններ"
@@ -123,9 +126,6 @@ hy:
       statistical_data_set:
         one: "Վիճակագրական տվյալ"
         other: "Վիճակագրական տվյալներ"
-      official_statistics:
-        one: "Վիճակագրություն"
-        other: "Վիճակագրություն"
       statutory_guidance:
         one:
         other:
@@ -294,14 +294,6 @@ hy:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document_filters:
     description: "Դուք կարող եք օգտագործել ֆիլտրերը պահպանելու համար միայն ձեզ հետաքրքրող
       արդյունքները"

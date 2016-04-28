@@ -97,14 +97,6 @@ fa:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document:
     contents:
     footer_meta:
@@ -210,6 +202,9 @@ fa:
       notice:
         one:
         other:
+      official_statistics:
+        one: "آمار"
+        other: "آمار"
       open_consultation:
         one: "رایزنی باز"
         other: "رایزنی های باز"
@@ -246,9 +241,6 @@ fa:
       statistical_data_set:
         one: "بسته ی داده های آماری"
         other: "بسته های داده های آماری"
-      official_statistics:
-        one: "آمار"
-        other: "آمار"
       statutory_guidance:
         one:
         other:

@@ -95,14 +95,6 @@ ms:
     formats:
       default:
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document:
     contents:
     footer_meta:
@@ -208,6 +200,9 @@ ms:
       notice:
         one:
         other:
+      official_statistics:
+        one:
+        other:
       open_consultation:
         one:
         other:
@@ -242,9 +237,6 @@ ms:
         one:
         other:
       statistical_data_set:
-        one:
-        other:
-      official_statistics:
         one:
         other:
       statutory_guidance:

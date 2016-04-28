@@ -114,6 +114,10 @@ ro:
         one:
         few:
         other:
+      official_statistics:
+        one: Statistici
+        few:
+        other: Statistici
       open_consultation:
         one: Dezbatere
         few:
@@ -162,10 +166,6 @@ ro:
         one: Date statistice
         few:
         other: Date statistice
-      official_statistics:
-        one: Statistici
-        few:
-        other: Statistici
       statutory_guidance:
         one:
         few:
@@ -341,14 +341,6 @@ ro:
     formats:
       default:
       long_ordinal:
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document_filters:
     description: Personalizează căutarea
     no_results:

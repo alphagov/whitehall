@@ -87,6 +87,9 @@ dr:
       notice:
         one:
         other:
+      official_statistics:
+        one: "احصائیه ها"
+        other: "احصائیه ها"
       open_consultation:
         one: "مشاورت باز"
         other: "مشاورت های باز"
@@ -123,9 +126,6 @@ dr:
       statistical_data_set:
         one: "ارقام احصائیوی"
         other: "ارقام احصائیوی"
-      official_statistics:
-        one: "احصائیه ها"
-        other: "احصائیه ها"
       statutory_guidance:
         one:
         other:
@@ -293,14 +293,6 @@ dr:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document_filters:
     description: "شما میتوانید از فیلتر ها جهت نشان دادن و nbsp استفاده نمایید. تنها
       نتایجی که با منفعت های شما و nbsp تطابق دارند"

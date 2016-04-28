@@ -98,14 +98,6 @@ hu:
     formats:
       default: "%Y %B %d"
       long_ordinal: "%Y %B %e"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document:
     contents:
     footer_meta:
@@ -211,6 +203,9 @@ hu:
       notice:
         one:
         other:
+      official_statistics:
+        one: Statisztika
+        other: Statisztikák
       open_consultation:
         one: Nyílt konzultáció
         other: Nyílt konzultációk
@@ -247,9 +242,6 @@ hu:
       statistical_data_set:
         one: Statisztikai adatcsoport
         other: Statisztikai adatcsoportok
-      official_statistics:
-        one: Statisztika
-        other: Statisztikák
       statutory_guidance:
         one:
         other:

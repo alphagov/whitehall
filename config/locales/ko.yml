@@ -96,14 +96,6 @@ ko:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document:
     contents:
     footer_meta:
@@ -209,6 +201,9 @@ ko:
       notice:
         one:
         other:
+      official_statistics:
+        one: "통계"
+        other: "통계"
       open_consultation:
         one: "오픈 컨설테이션"
         other: "오픈 컨설테이션"
@@ -245,9 +240,6 @@ ko:
       statistical_data_set:
         one: "통계 데이터 세트"
         other: "통계 데이터 세트"
-      official_statistics:
-        one: "통계"
-        other: "통계"
       statutory_guidance:
         one:
         other:

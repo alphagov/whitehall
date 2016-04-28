@@ -87,6 +87,9 @@ de:
       notice:
         one:
         other:
+      official_statistics:
+        one: Statistik
+        other: Statistiken
       open_consultation:
         one: Laufende Konsultation
         other: Laufende Konsultationen
@@ -123,9 +126,6 @@ de:
       statistical_data_set:
         one: Statistischer Datensatz
         other: Statistische Datensätze
-      official_statistics:
-        one: Statistik
-        other: Statistiken
       statutory_guidance:
         one:
         other:
@@ -294,14 +294,6 @@ de:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document_filters:
     description: Mit Hilfe der Filter erhalten Sie nur Ergebnisse, die Ihrem Interesse
       entsprechen.

@@ -87,6 +87,9 @@ uz:
       notice:
         one:
         other:
+      official_statistics:
+        one: Statistika
+        other: Statistika
       open_consultation:
         one: Ochiq fikr almashish
         other: Ochiq fikr almashishlar
@@ -123,9 +126,6 @@ uz:
       statistical_data_set:
         one: Statistika ma'lumot to'plami
         other: Statistika ma'lumot to'plamlari
-      official_statistics:
-        one: Statistika
-        other: Statistika
       statutory_guidance:
         one:
         other:
@@ -293,14 +293,6 @@ uz:
     formats:
       default: "%e %B %Y"
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document_filters:
     description: Sizni&nbsp; qiziqtirgan natijalarni ko'rish&nbsp; uchun filtrlarni
       qullaning

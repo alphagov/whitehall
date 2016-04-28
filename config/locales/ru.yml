@@ -141,6 +141,11 @@ ru:
         few:
         many:
         other:
+      official_statistics:
+        one: "Статистика"
+        few:
+        many:
+        other: "Статистика"
       open_consultation:
         one: "Открытая консультация"
         few:
@@ -201,11 +206,6 @@ ru:
         few:
         many:
         other: "Статистические данные"
-      official_statistics:
-        one: "Статистика"
-        few:
-        many:
-        other: "Статистика"
       statutory_guidance:
         one:
         few:
@@ -388,14 +388,6 @@ ru:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document_filters:
     description: "Чтобы увидеть результаты, соответствующие Вашим требовниям, используйте
       фильтры"

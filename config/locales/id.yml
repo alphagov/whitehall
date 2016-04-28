@@ -97,14 +97,6 @@ id:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document:
     contents:
     footer_meta:
@@ -210,6 +202,9 @@ id:
       notice:
         one:
         other:
+      official_statistics:
+        one: Statistik
+        other: Statistik-statistik
       open_consultation:
         one: Konsultasi terbuka
         other: Konsultasi-konsultasi terbuka
@@ -246,9 +241,6 @@ id:
       statistical_data_set:
         one: Set data statistik
         other: Set data statistik
-      official_statistics:
-        one: Statistik
-        other: Statistik-statistik
       statutory_guidance:
         one:
         other:

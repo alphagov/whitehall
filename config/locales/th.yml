@@ -96,14 +96,6 @@ th:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document:
     contents:
     footer_meta:
@@ -209,6 +201,9 @@ th:
       notice:
         one:
         other:
+      official_statistics:
+        one: "สถิติ"
+        other: "สถิติ"
       open_consultation:
         one: "การให้คำปรึกษาเปิด"
         other: "การให้คำปรึกษาเปิด"
@@ -245,9 +240,6 @@ th:
       statistical_data_set:
         one: "ชุดข้อมูลสถิติ"
         other: "ชุดข้อมูลสถิติ"
-      official_statistics:
-        one: "สถิติ"
-        other: "สถิติ"
       statutory_guidance:
         one:
         other:

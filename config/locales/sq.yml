@@ -87,6 +87,9 @@ sq:
       notice:
         one:
         other:
+      official_statistics:
+        one: Statistika
+        other: Statistika
       open_consultation:
         one: Konsultim i hapur
         other: Konsultime te hapur
@@ -123,9 +126,6 @@ sq:
       statistical_data_set:
         one: Grup te dhenash statistikore
         other: Grupe te dhenash stasistikore
-      official_statistics:
-        one: Statistika
-        other: Statistika
       statutory_guidance:
         one:
         other:
@@ -294,14 +294,6 @@ sq:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document_filters:
     description: Ju mund te perdorni filtrat per te treguar&nbsp; vetem rezultatet
       qe perputhen me interesin tuaj&nbsp;

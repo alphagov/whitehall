@@ -195,6 +195,13 @@ cy:
         few:
         many:
         other:
+      official_statistics:
+        zero:
+        one: Ystadegau
+        two:
+        few:
+        many:
+        other: Ystadegau
       open_consultation:
         zero:
         one: Ymgynghoriad ar agor
@@ -279,13 +286,6 @@ cy:
         few:
         many:
         other: Setiau data ystadegol
-      official_statistics:
-        zero:
-        one: Ystadegau
-        two:
-        few:
-        many:
-        other: Ystadegau
       statutory_guidance:
         zero:
         one:
@@ -488,15 +488,6 @@ cy:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents: Yn ôl i'r cynnwys
-    contents: Cynnwys
-    more: Mwy sy’n debyg i hyn
-    part_of_published_collection: Mae hyn yn rhan o gasgliad
-    published_related_detailed_guides: Arweiniad manwl perthnasol
-    related_mainstream_content: Gormod o fanylion?<br/>Edrychwch ar y canllawiau cyflym
-      hyn
-    see_more_like_this: Gweld mwy sy’n debyg i hyn
   document_filters:
     description: Gallwch ddefnyddio'r hidlyddion i ddangos y canlyniadau sydd o ddiddordeb
       i chi

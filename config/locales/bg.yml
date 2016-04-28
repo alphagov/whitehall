@@ -87,6 +87,9 @@ bg:
       notice:
         one:
         other:
+      official_statistics:
+        one: "Статистики"
+        other: "Статистики"
       open_consultation:
         one: "Отворена консултация"
         other: "Отворени консултации"
@@ -123,9 +126,6 @@ bg:
       statistical_data_set:
         one: "Набор от статистически данни"
         other: "Набори от статистически данни"
-      official_statistics:
-        one: "Статистики"
-        other: "Статистики"
       statutory_guidance:
         one:
         other:
@@ -297,14 +297,6 @@ bg:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document_filters:
     description: "Можете да използвате филтрите, за да видите резултатите, които пасват
       на вашето търсене"

@@ -195,6 +195,13 @@ ar:
         few:
         many:
         other:
+      official_statistics:
+        zero:
+        one: "إحصائية"
+        two:
+        few:
+        many:
+        other: "إحصائيات"
       open_consultation:
         zero:
         one: "مشاورة جارية"
@@ -279,13 +286,6 @@ ar:
         few:
         many:
         other: "مجموعات بيانات إحصائية"
-      official_statistics:
-        zero:
-        one: "إحصائية"
-        two:
-        few:
-        many:
-        other: "إحصائيات"
       statutory_guidance:
         zero:
         one:
@@ -485,14 +485,6 @@ ar:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document_filters:
     description: "باستطاعتك استخدام الفلتر لعرض &nbsp; فقط النتائج التي تتطابق مع
       &nbsp; اهتماماتك"

@@ -87,6 +87,9 @@ si:
       notice:
         one:
         other:
+      official_statistics:
+        one: "සංඛ්යාන"
+        other: "සංඛ්යාන"
       open_consultation:
         one: "විවෘත මත විමසුම"
         other: "විවෘත මත විමසුම්"
@@ -123,9 +126,6 @@ si:
       statistical_data_set:
         one: "සංඛ්යාන දත්ත සමූහය  "
         other: "සංඛ්යාන දත්ත සමූහ"
-      official_statistics:
-        one: "සංඛ්යාන"
-        other: "සංඛ්යාන"
       statutory_guidance:
         one:
         other:
@@ -293,14 +293,6 @@ si:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document_filters:
     description: "ඔබේ රුචිකත්වයන්ට පමණක් ගැලපෙන ප්‍රතිපල ලබාගැනීමට පෙරනය භාවිතා කරන්න"
     no_results:

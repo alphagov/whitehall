@@ -87,6 +87,9 @@ ur:
       notice:
         one:
         other:
+      official_statistics:
+        one: "اعدادوشمار"
+        other: "اعدادو شمار"
       open_consultation:
         one: "جاری مشاورت"
         other: "جاری مشاورت"
@@ -123,9 +126,6 @@ ur:
       statistical_data_set:
         one: "شماریاتی ڈیٹا سیٹ"
         other: " شماریاتی ڈیٹا سیٹس"
-      official_statistics:
-        one: "اعدادوشمار"
-        other: "اعدادو شمار"
       statutory_guidance:
         one:
         other:
@@ -294,14 +294,6 @@ ur:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document_filters:
     description: "آپ صرف اپنی دلچسپی &nbsp;کے نتائج دیکھنے&nbsp;کے لئے فلٹرزاستعمال
       کر سکتے ہیں"

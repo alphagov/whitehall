@@ -87,6 +87,9 @@ sw:
       notice:
         one:
         other:
+      official_statistics:
+        one:
+        other:
       open_consultation:
         one:
         other:
@@ -121,9 +124,6 @@ sw:
         one:
         other:
       statistical_data_set:
-        one:
-        other:
-      official_statistics:
         one:
         other:
       statutory_guidance:
@@ -291,14 +291,6 @@ sw:
     formats:
       default:
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document_filters:
     description:
     no_results:
