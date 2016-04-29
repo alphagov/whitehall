@@ -8,9 +8,10 @@ class PublishingApiPresenters::StatisticsAnnouncementTest < ActiveSupport::TestC
   test "a scheduled statistics announcement presents the correct values" do
     statistics_announcement = create(:statistics_announcement)
 
-    expected = {
-      content_id: statistics_announcement.content_id,
-      base_path: statistics_announcement.slug,
+    public_path = Whitehall.url_maker.statistics_announcement_path(statistics_announcement)
+
+    expected_content = {
+      base_path: public_path,
       description: statistics_announcement.summary,
       title: statistics_announcement.title,
       schema_name: 'statistics_announcement',
@@ -20,62 +21,82 @@ class PublishingApiPresenters::StatisticsAnnouncementTest < ActiveSupport::TestC
       public_updated_at: statistics_announcement.updated_at,
       publishing_app: 'whitehall',
       rendering_app: 'government-frontend',
+      routes: [
+        { path: public_path, type: 'exact' }
+      ],
+      redirects: [],
       details: {
         display_date: statistics_announcement.current_release_date.display_date,
         state: statistics_announcement.state,
         format_sub_type: 'official'
-      },
-      links: {
-        organisations: statistics_announcement.organisations.map(&:content_id),
-        policy_areas: statistics_announcement.topics.map(&:content_id),
-        topics: [],
       }
     }
 
-    presented = present(statistics_announcement)
+    expected_links = {
+      organisations: statistics_announcement.organisations.map(&:content_id),
+      policy_areas: statistics_announcement.topics.map(&:content_id),
+      topics: [],
+    }
 
-    assert_valid_against_schema(presented.content, 'statistics_announcement')
-    assert_valid_against_links_schema({ links: presented.links }, 'statistics_announcement')
+    presented_item = present(statistics_announcement)
+    presented_content = presented_item.content
 
-    assert_equal expected[:details], presented.content[:details].except(:body)
-    assert_equal expected[:links], presented.links
+    assert_valid_against_schema(presented_content, 'statistics_announcement')
+    assert_valid_against_links_schema({ links: presented_item.links }, 'statistics_announcement')
+
+    assert_equivalent_html expected_content[:details].delete(:body),
+      presented_content[:details].delete(:body)
+
+    assert_equal expected_content, presented_content
+    assert_equal expected_links, presented_item.links
   end
 
   test "a cancelled statistics announcement presents the correct values" do
     statistics_announcement = create(:cancelled_statistics_announcement)
 
-    expected = {
-      content_id: statistics_announcement.content_id,
-      base_path: statistics_announcement.slug,
+    public_path = Whitehall.url_maker.statistics_announcement_path(statistics_announcement)
+
+    expected_content = {
+      base_path: public_path,
       description: statistics_announcement.summary,
       title: statistics_announcement.title,
-      format: 'statistics_announcement',
+      schema_name: 'statistics_announcement',
+      document_type: 'official',
       locale: 'en',
       need_ids: [],
       public_updated_at: statistics_announcement.updated_at,
       publishing_app: 'whitehall',
       rendering_app: 'government-frontend',
+      routes: [
+        { path: public_path, type: 'exact' }
+      ],
+      redirects: [],
       details: {
         display_date: statistics_announcement.current_release_date.display_date,
         state: statistics_announcement.state,
         format_sub_type: 'official',
         cancelled_at: statistics_announcement.cancelled_at,
         cancellation_reason: 'Cancelled for a reason'
-      },
-      links: {
-        organisations: statistics_announcement.organisations.map(&:content_id),
-        policy_areas: statistics_announcement.topics.map(&:content_id),
-        topics: [],
       }
     }
 
-    presented = present(statistics_announcement)
+    expected_links = {
+      organisations: statistics_announcement.organisations.map(&:content_id),
+      policy_areas: statistics_announcement.topics.map(&:content_id),
+      topics: []
+    }
 
-    assert_valid_against_schema(presented.content, 'statistics_announcement')
-    assert_valid_against_links_schema({ links: presented.links }, 'statistics_announcement')
+    presented_item = present(statistics_announcement)
+    presented_content = presented_item.content
 
-    assert_equal expected[:details], presented.content[:details].except(:body)
-    assert_equal expected[:links], presented.links
+    assert_valid_against_schema(presented_content, 'statistics_announcement')
+    assert_valid_against_links_schema({ links: presented_item.links }, 'statistics_announcement')
+
+    assert_equivalent_html expected_content[:details].delete(:body),
+      presented_content[:details].delete(:body)
+
+    assert_equal expected_content, presented_content
+    assert_equal expected_links, presented_item.links
   end
 
   test "a statistics announcement with a date change presents both dates and a notice" do
@@ -83,9 +104,10 @@ class PublishingApiPresenters::StatisticsAnnouncementTest < ActiveSupport::TestC
       previous_display_date: 7.days.from_now,
       change_note: "Reasons")
 
-    expected = {
-      content_id: statistics_announcement.content_id,
-      base_path: statistics_announcement.slug,
+    public_path = Whitehall.url_maker.statistics_announcement_path(statistics_announcement)
+
+    expected_content = {
+      base_path: public_path,
       description: statistics_announcement.summary,
       title: statistics_announcement.title,
       schema_name: 'statistics_announcement',
@@ -95,26 +117,35 @@ class PublishingApiPresenters::StatisticsAnnouncementTest < ActiveSupport::TestC
       public_updated_at: statistics_announcement.updated_at,
       publishing_app: 'whitehall',
       rendering_app: 'government-frontend',
+      routes: [
+        { path: public_path, type: 'exact' }
+      ],
+      redirects: [],
       details: {
         display_date: statistics_announcement.current_release_date.display_date,
         previous_display_date: 7.days.from_now.to_s(:date_with_time),
         latest_change_note: "Reasons",
         state: statistics_announcement.state,
         format_sub_type: 'official',
-      },
-      links: {
-        organisations: statistics_announcement.organisations.map(&:content_id),
-        policy_areas: statistics_announcement.topics.map(&:content_id),
-        topics: [],
       }
     }
 
-    presented = present(statistics_announcement)
+    expected_links = {
+      organisations: statistics_announcement.organisations.map(&:content_id),
+      policy_areas: statistics_announcement.topics.map(&:content_id),
+      topics: [],
+    }
 
-    assert_valid_against_schema(presented.content, 'statistics_announcement')
-    assert_valid_against_links_schema({ links: presented.links }, 'statistics_announcement')
+    presented_item = present(statistics_announcement)
+    presented_content = presented_item.content
 
-    assert_equal expected[:details], presented.content[:details].except(:body)
-    assert_equal expected[:links], presented.links
+    assert_valid_against_schema(presented_content, 'statistics_announcement')
+    assert_valid_against_links_schema({ links: presented_item.links }, 'statistics_announcement')
+
+    assert_equivalent_html expected_content[:details].delete(:body),
+      presented_content[:details].delete(:body)
+
+    assert_equal expected_content, presented_content
+    assert_equal expected_links, presented_item.links
   end
 end

@@ -16,16 +16,15 @@ class PublishingApiPresenters::HtmlAttachmentTest < ActiveSupport::TestCase
     html_attachment = HtmlAttachment.last
 
     expected_hash = {
-      base_path: html_attachment.slug,
-      content_id: html_attachment.content_id,
+      base_path: "/government/publications/#{edition.document.slug}/#{html_attachment.slug}",
       title: html_attachment.title,
+      description: nil,
       schema_name: 'html_publication',
       document_type: 'html_publication',
       locale: 'en',
       public_updated_at: html_attachment.updated_at,
-      update_type: 'major',
       publishing_app: 'whitehall',
-      rendering_app: 'whitehall',
+      rendering_app: 'whitehall-frontend',
       routes: [
         { path: html_attachment.url, type: 'exact' }
       ],
@@ -37,8 +36,7 @@ class PublishingApiPresenters::HtmlAttachmentTest < ActiveSupport::TestCase
         public_timestamp: edition.public_timestamp,
         first_published_version: html_attachment.attachable.first_published_version?,
       },
-      need_ids: [],
-      updated_at: html_attachment.updated_at
+      need_ids: []
     }
     presented_item = present(html_attachment)
 
@@ -47,9 +45,10 @@ class PublishingApiPresenters::HtmlAttachmentTest < ActiveSupport::TestCase
 
     # We test for HTML equivalance rather than string equality to get around
     # inconsistencies with line breaks between different XML libraries
+    presented_content = presented_item.content
     assert_equivalent_html expected_hash[:details].delete(:body),
-      presented_item.content[:details].delete(:body)
+      presented_content[:details].delete(:body)
 
-    assert_equal expected_hash[:details], presented_item.content[:details].except(:body)
+    assert_equal expected_hash, presented_content
   end
 end

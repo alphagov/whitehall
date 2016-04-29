@@ -39,7 +39,7 @@ class PublishingApiPresenters::DetailedGuideTest < ActiveSupport::TestCase
       description: "Some summary",
       public_updated_at: detailed_guide.updated_at,
       schema_name: "detailed_guide",
-      document_type: "detailed_guide",
+      document_type: "detailed_guidance",
       locale: "en",
       need_ids: [],
       publishing_app: "whitehall",
