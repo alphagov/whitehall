@@ -11,8 +11,12 @@ class PublishingApiPresenters::Unpublishing < PublishingApiPresenters::Item
 
 private
 
-  def document_format
+  def schema_name
     item.redirect? ? 'redirect' : 'unpublishing'
+  end
+
+  def document_type
+    edition.class.name.underscore
   end
 
   def base_path

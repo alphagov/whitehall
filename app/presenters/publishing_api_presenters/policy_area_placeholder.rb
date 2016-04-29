@@ -6,7 +6,7 @@ class PublishingApiPresenters::PolicyAreaPlaceholder < PublishingApiPresenters::
 
   private
 
-  def document_format
-    "placeholder_policy_area"
+  def document_type
+    "policy_area"
   end
 end

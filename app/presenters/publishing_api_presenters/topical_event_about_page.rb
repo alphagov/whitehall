@@ -7,7 +7,7 @@ class PublishingApiPresenters::TopicalEventAboutPage < PublishingApiPresenters::
 
 private
 
-  def document_format
+  def schema_name
     "topical_event_about_page"
   end
 

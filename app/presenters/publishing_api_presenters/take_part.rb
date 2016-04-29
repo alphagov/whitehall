@@ -11,7 +11,7 @@ class PublishingApiPresenters::TakePart < PublishingApiPresenters::Item
 
 private
 
-  def document_format
+  def schema_name
     "take_part"
   end
 

@@ -15,7 +15,7 @@ private
     {
       display_date: item.current_release_date.display_date,
       state: item.state,
-      format_sub_type: item.national_statistic? ? "national" : "official"
+      format_sub_type: document_type # deprecated
     }.tap do |d|
       d.merge!(
         cancellation_reason: item.cancellation_reason,
@@ -28,8 +28,12 @@ private
     end
   end
 
-  def document_format
+  def schema_name
     "statistics_announcement"
+  end
+
+  def document_type
+    item.national_statistic? ? "national" : "official"
   end
 
   def rendering_app

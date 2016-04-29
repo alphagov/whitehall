@@ -72,8 +72,12 @@ private
     }
   end
 
-  def document_format
-    "placeholder"
+  def schema_name
+    "placeholder_#{item.class.name.underscore}"
+  end
+
+  def document_type
+    item.display_type_key
   end
 
   def policies

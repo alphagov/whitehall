@@ -12,7 +12,7 @@ class PublishingApiPresenters::DetailedGuide < PublishingApiPresenters::Edition
 
 private
 
-  def document_format
+  def schema_name
     "detailed_guide"
   end
 

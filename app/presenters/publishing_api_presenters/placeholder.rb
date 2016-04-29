@@ -22,7 +22,11 @@ private
     item.updated_at
   end
 
-  def document_format
-    "placeholder_#{item.class.name.underscore}"
+  def schema_name
+    "placeholder"
+  end
+
+  def document_type
+    item.class.name.underscore
   end
 end
