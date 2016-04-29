@@ -237,7 +237,7 @@ module ApplicationHelper
       else
         organisations_path
       end
-    when "world_locations", "worldwide_priorities", "world_location_news_articles", "worldwide_organisations", "worldwide_offices"
+    when "world_locations", "world_location_news_articles", "worldwide_organisations", "worldwide_offices"
       world_locations_path(locale: :en)
     when "policy_groups"
       policies_path

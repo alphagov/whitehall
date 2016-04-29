@@ -57,13 +57,6 @@ When /^I draft a new publication "([^"]*)" relating it to the policies "([^"]*)"
   click_button "Save"
 end
 
-When /^I draft a new publication "([^"]*)" relating it to the worldwide_priorities "([^"]*)" and "([^"]*)"$/ do |title, first_priority, second_priority|
-  begin_drafting_publication(title)
-  select first_priority, from: "Worldwide priorities"
-  select second_priority, from: "Worldwide priorities"
-  click_button "Save"
-end
-
 When /^I draft a new publication "([^"]*)" referencing the data set "([^"]*)"$/ do |title, data_set_name|
   begin_drafting_publication(title)
   select data_set_name, from: "Related statistical data sets"

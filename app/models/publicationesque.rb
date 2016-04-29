@@ -4,7 +4,6 @@ class Publicationesque < Edition
   include Edition::HasDocumentCollections
   include Edition::Organisations
   include Edition::Topics
-  include Edition::WorldwidePriorities
   include ::Attachable
 
   def self.sti_names

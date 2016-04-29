@@ -167,41 +167,6 @@
     }
   }
 
-  #worldwide-priorities {
-    margin-bottom: $gutter-two-thirds;
-
-    h1 {
-      margin: 0 $gutter-half $gutter-half;
-    }
-    article {
-      padding-bottom: $gutter;
-      @include media(tablet) {
-        float: left;
-        width: $half;
-
-        @include right-to-left {
-          float: right;
-        }
-      }
-      &.clear-priority {
-        clear: both;
-      }
-
-      .content {
-        padding: 0 $gutter-half;
-
-        h2 {
-          @include heading-27;
-          font-weight: bold;
-        }
-      }
-    }
-
-    @include media(tablet) {
-      margin-bottom: $gutter*2
-    }
-  }
-
   .world-organisations {
     h1 {
       margin-bottom: $gutter;

@@ -222,11 +222,6 @@ pl:
         few:
         many:
         other: Dane o transparentności
-      worldwide_priority:
-        one: "Światowy priorytet"
-        few:
-        many:
-        other: "Światowe priorytety"
       written_statement:
         one: Pisemne oświadczenie przed parlamentem
         few:
@@ -293,7 +288,6 @@ pl:
       documents: Dokumenty
       mission: Nasza misja
       organisations: Organizacje
-      priorities: Priorytety
       publications: Nasze publikacje
       quick_links: Szybkie linki
       related_policies: Powiązane polityki
@@ -523,7 +517,6 @@ pl:
     statutory_guidance:
     transcript: Zobacz wszystkie nasze transkrypcje
     transparency: Zobacz wszystkie nasze dane o transparentności
-    worldwide_priority: Zobacz wszystkie nasze Światowe priorytety
     written_statement: Zobacz wszystkie nasze pisemne oświadczenia przed parlamentem
   social_media:
     follow_us:

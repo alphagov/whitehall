@@ -222,11 +222,6 @@ be:
         few:
         many:
         other: "Адкрытыя дадзеныя"
-      worldwide_priority:
-        one: "Сусветны прыярытэт"
-        few:
-        many:
-        other: "Сусветныя прыярытэты"
       written_statement:
         one: "Пісьмовая заява ў парламенце"
         few:
@@ -293,7 +288,6 @@ be:
       documents: "Дакументы"
       mission: "Наша місія"
       organisations: "Арганізацыі"
-      priorities: "Прыярытэты"
       publications: "Нашы публікацыі"
       quick_links: "Хуткія спасылкі"
       related_policies: "Падобныя напрамкі дзейнасці "
@@ -522,7 +516,6 @@ be:
     statutory_guidance: "Паглядзець усе Поўны тэкст"
     transcript:
     transparency: "Паглядзець усе Адкрытыя дадзеныя"
-    worldwide_priority: "Паглядзець усе Сусветныя прыярытэты"
     written_statement: "Паглядзець усе Пісьмовыя заявы ў парламенце"
   social_media:
     follow_us:

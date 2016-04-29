@@ -27,10 +27,6 @@ Feature: World location news for people local to countries
   Worldwide organisations, as well as to locations, so the world
   organisation logos are shown as the producing orgs
 
-  It should be possible to associate them to worldwide priorities
-  (not to policies). Doing so should make them appear on a latest tab
-  on the worldwide priority.
-
   Background:
     Given I am an GDS editor
 

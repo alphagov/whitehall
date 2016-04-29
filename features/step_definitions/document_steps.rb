@@ -49,7 +49,7 @@ Given /^a published (publication|news article|consultation) "([^"]*)" exists rel
   create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, first_published_at: days_ago.to_i.days.ago, world_locations: [world_location])
 end
 
-Given /^a submitted (publication|news article|consultation|speech|worldwide priority|detailed guide) "([^"]*)" exists$/ do |document_type, title|
+Given /^a submitted (publication|news article|consultation|speech|detailed guide) "([^"]*)" exists$/ do |document_type, title|
   create("submitted_#{document_class(document_type).name.underscore}".to_sym, title: title)
 end
 
@@ -234,12 +234,6 @@ Then /^I should see in the preview that "([^"]*)" should related to "([^"]*)" an
   visit_document_preview title
   assert has_css?(".meta a", text: related_policy_1, exact: false)
   assert has_css?(".meta a", text: related_policy_2, exact: false)
-end
-
-Then /^I should see in the preview that "([^"]*)" should related to "([^"]*)" and "([^"]*)" worldwide priorities$/ do |title, related_priority_1, related_priority_2|
-  visit_document_preview title
-  assert has_content?(related_priority_1)
-  assert has_content?(related_priority_2)
 end
 
 Then /^I should see the conflict between the (publication|policy|news article|consultation|speech) titles "([^"]*)" and "([^"]*)"$/ do |document_type, new_title, latest_title|

@@ -258,9 +258,6 @@ vi:
       transparency:
         one: Dữ liệu kịch bản
         other: Dữ liệu kịch bản
-      worldwide_priority:
-        one: "Ưu tiên toàn cầu"
-        other: Các ưu tiên toàn cầu
       written_statement:
         one: Tuyên bố bằng văn bản tới quốc hội
         other: Các Tuyên bố bằng văn bản tới quốc hội
@@ -404,7 +401,6 @@ vi:
     statutory_guidance:
     transcript: Xem tất cả kịch bản của chúng tôi
     transparency: Xem tất cả dữ liệu kịch bản của chúng tôi
-    worldwide_priority: Xem tất cả các ưu tiên toàn cầu của chúng tôi
     written_statement: Xem tất cả các tuyên bố bằng văn bản tới quốc hội của chúng
       tôi
   social_media:
@@ -422,7 +418,6 @@ vi:
       documents: Tài liệu
       mission: Nhiệm vụ của chúng tôi
       organisations: Các tổ chức
-      priorities: Các ưu tiên
       publications: Tài liệu truyền thông của chúng tôi
       quick_links: Links nhanh
       related_policies: Các chính sách liên quan

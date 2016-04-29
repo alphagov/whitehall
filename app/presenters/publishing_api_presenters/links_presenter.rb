@@ -11,7 +11,6 @@ module PublishingApiPresenters
       topics: :topic_content_ids,
       world_locations: :world_location_ids,
       worldwide_organisations: :worldwide_organisation_ids,
-      worldwide_priorities: :worldwide_priority_ids,
     }
 
     def initialize(item)
@@ -71,11 +70,6 @@ module PublishingApiPresenters
 
     def worldwide_organisation_ids
       (item.try(:worldwide_organisations) || []).map(&:content_id)
-    end
-
-    # FIXME: these tags will be discontinued
-    def worldwide_priority_ids
-      (item.try(:worldwide_priorities) || []).map(&:content_id)
     end
   end
 end

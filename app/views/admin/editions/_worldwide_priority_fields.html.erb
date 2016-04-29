@@ -1,9 +1,0 @@
-<% cache_if edition.worldwide_priority_ids.empty?, taggable_worldwide_priorities_cache_digest do %>
-  <%= form.label :worldwide_priority_ids, 'Worldwide priorities' %>
-  <%= form.select :worldwide_priority_ids,
-                  options_for_select(taggable_worldwide_priorities_container, edition.worldwide_priority_ids),
-                  {},
-                  multiple: true,
-                  class: 'chzn-select form-control',
-                  data: { placeholder: "Choose worldwide priorities…"} %>
-<% end %>

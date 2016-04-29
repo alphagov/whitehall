@@ -136,9 +136,6 @@ fr:
       transparency:
         one: Transparence des données
         other: Transparence des données
-      worldwide_priority:
-        one: Priorité internationale
-        other: Priorités internationales
       written_statement:
         one: Communiqué
         other: Communiqués
@@ -195,7 +192,6 @@ fr:
       documents: Documents
       mission: Notre mission
       organisations: Organisations
-      priorities: Priorités
       publications: Nos publications
       quick_links: Liens directs
       related_policies: Priorités politiques connexes
@@ -424,7 +420,6 @@ fr:
     statutory_guidance:
     transcript: Voir toutes nos transcriptions
     transparency: Voir toutes nos transparence des données
-    worldwide_priority: Voir toutes nos priorités internationales
     written_statement: Voir toutes nos communiqués
   social_media:
     follow_us:

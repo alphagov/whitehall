@@ -59,8 +59,6 @@ module NavigationHelpers
       visit consultations_path
     when DetailedGuide
       visit detailed_guide_path(edition.document)
-    when WorldwidePriority
-      visit worldwide_priorities_path
     else
       raise "Don't know where to go for #{edition.class.name}s"
     end

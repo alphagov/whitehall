@@ -171,9 +171,6 @@ en:
       decision:
         one: Decision
         other: Decisions
-      worldwide_priority:
-        one: World priority
-        other: World priorities
       national_statistics:
         one: National Statistics
         other: National Statistics
@@ -274,7 +271,6 @@ en:
       documents: Documents
       mission: Our mission
       organisations: Organisations
-      priorities: Priorities
       publications: Our publications
       quick_links: Quick links
       related_policies: Related policies
@@ -466,7 +462,6 @@ en:
     map: See all our maps
     notice: See all our notices
     decision: See all our decisions
-    worldwide_priority: See all our world priorities
     national_statistics: See all our National Statistics
     news_article: See all our news articles
     news_story: See all our news stories

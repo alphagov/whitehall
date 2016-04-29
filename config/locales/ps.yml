@@ -136,9 +136,6 @@ ps:
       transparency:
         one: "د روڼوالې اطلاعات"
         other: "د روڼوالي اطلاعات"
-      worldwide_priority:
-        one: "نړیوال لومړیتوب"
-        other: "نړیوال لومړیتوبونه"
       written_statement:
         one: "پارلمان ته لیکلې اعلامیه"
         other: "پارلمان ته لیکلې اعلامیې"
@@ -195,7 +192,6 @@ ps:
       documents: "سندونه"
       mission: "زموږ ماموریت"
       organisations: "دفترونه"
-      priorities: "وړاندیتوبونه"
       publications: "زموږ نشریات"
       quick_links: "چټکی اړیکی"
       related_policies: "ارتباط لرونکی پالیسی ګانی"
@@ -423,7 +419,6 @@ ps:
     statutory_guidance:
     transcript: "ټول وګوری لیکنې"
     transparency: "ټول وګوری د روڼوالي اطلاعات"
-    worldwide_priority: "ټول وګوری نړیوال لومړیتوبونه"
     written_statement: "ټول وګوری پارلمان ته لیکلې اعلامیې"
   social_media:
     follow_us:

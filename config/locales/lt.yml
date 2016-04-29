@@ -179,10 +179,6 @@ lt:
         one: Skaidrumo informacija
         few:
         other: Skaidrumo informacija
-      worldwide_priority:
-        one: Pasaulinis pioritetas
-        few:
-        other: Pasauliniai prioritetai
       written_statement:
         one: Rašytinis kreipimasis į parlamentą
         few:
@@ -244,7 +240,6 @@ lt:
       documents: Dokumentai
       mission: Mūsų misija
       organisations: Organizacijos
-      priorities: Prioritetai
       publications: Mūsų publikacijos
       quick_links: Greitos nuorodos
       related_policies: Susijusios strategijos
@@ -472,7 +467,6 @@ lt:
     statutory_guidance:
     transcript: Pažiūrėkite  mūsų kalbų tekstai
     transparency: Pažiūrėkite  mūsų skaidrumo informacija
-    worldwide_priority: Pažiūrėkite  mūsų pasauliniai prioritetai
     written_statement: Pažiūrėkite  mūsų rašytiniai kreipimaisi į parlamentą
   social_media:
     follow_us:

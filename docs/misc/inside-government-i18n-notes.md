@@ -4,7 +4,7 @@ These are notes about the i18n work. Some of this may have been superceded, but 
 
 ## User experience
 
-* Translation of editions (worldwide priorities, news articles and speeches)
+* Translation of editions (publications, news articles and speeches)
 * Translation of world locations
 * Translation of worldwide organisations
 * Translation of worldwide offices

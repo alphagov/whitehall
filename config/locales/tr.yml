@@ -258,9 +258,6 @@ tr:
       transparency:
         one: Veri saydamlığı
         other: Veri saydamlığı
-      worldwide_priority:
-        one: "Öncelik"
-        other: "Öncelikler"
       written_statement:
         one: Parlamento'ya yapılan yazılı açıklama
         other: Parlamento'ya yapılan yazılı açıklamalar
@@ -403,7 +400,6 @@ tr:
     statutory_guidance:
     transcript: Tamamını görüntüle
     transparency: Tamamını görüntüle
-    worldwide_priority: Tamamını görüntüle
     written_statement: Tamamını görüntüle
   social_media:
     follow_us:
@@ -420,7 +416,6 @@ tr:
       documents: Belgeler
       mission: Misyonumuz
       organisations: Organizasyon
-      priorities: "Öncelikler"
       publications: Yayınlarımız
       quick_links: Kısa Yollar
       related_policies: "İlgili politikalar"

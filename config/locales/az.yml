@@ -256,9 +256,6 @@ az:
       transparency:
         one: "Şəffaf məlumat"
         other: "Şəffaf məlumat"
-      worldwide_priority:
-        one: dünya üzrə prioritet
-        other: dünya üzrə prioritetlər
       written_statement:
         one: Parlamentə yazılı müraciət
         other: Parlamentə yazılı müraciət
@@ -401,7 +398,6 @@ az:
     statutory_guidance:
     transcript: Bax bütün növ
     transparency: Bax bütün növ
-    worldwide_priority: Bax bütün növ
     written_statement: Bax bütün növ
   social_media:
     follow_us:
@@ -418,7 +414,6 @@ az:
       documents: Sənədlər
       mission: Bizim missiyamız
       organisations: Təşkilatlar
-      priorities: Prioritetlər
       publications: Bizim nəşrlər
       quick_links: Linklər
       related_policies: Uygün mövzular

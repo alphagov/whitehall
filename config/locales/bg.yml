@@ -136,9 +136,6 @@ bg:
       transparency:
         one: "Информация за прозрачността"
         other: "Информация за прозрачността"
-      worldwide_priority:
-        one: "Глобален приоритет"
-        other: "Глобални приоритети"
       written_statement:
         one: "Писмено изявление до парламента"
         other: "Писмени изявления до парламента"
@@ -196,7 +193,6 @@ bg:
       documents: "Документи"
       mission: "Нашата мисия"
       organisations: "Организации"
-      priorities: "Приоритети"
       publications: "Нашите публикации"
       quick_links: "Бързи връзки"
       related_policies: "Свързани политики"
@@ -427,7 +423,6 @@ bg:
     statutory_guidance:
     transcript: "Вижте всички наши Преписи"
     transparency: "Вижте всички наши Информация за прозрачността"
-    worldwide_priority: "Вижте всички наши Глобални приоритети"
     written_statement: "Вижте всички наши Писмени изявления до парламента"
   social_media:
     follow_us:

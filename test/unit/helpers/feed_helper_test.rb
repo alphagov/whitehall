@@ -135,17 +135,6 @@ class FeedHelperTest < ActionView::TestCase
     document_as_feed_entry(document, builder, false)
   end
 
-  test 'document_as_feed_entry converts worldwide priority to "Priority" in title' do
-    document = WorldwidePriority.new(title: 'A thing!', summary: 'summary')
-    builder = mock('builder')
-    builder.expects(:title).with "Priority: A thing!"
-    builder.stubs(:category)
-    builder.stubs(:summary)
-    builder.stubs(:content)
-    expects(:govspeak_edition_to_html).with(document).returns('govspoken content')
-    document_as_feed_entry(document, builder, false)
-  end
-
   test 'document_as_feed_entry sets the title, category, summary, and content on the builder prepending the change note to the begining the summary when govdelivery_version is true' do
     document = Edition.new(title: 'A thing!', summary: 'A thing has happened', published_major_version: 2, change_note: 'note')
     builder = mock('builder')

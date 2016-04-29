@@ -222,11 +222,6 @@ uk:
         few:
         many:
         other: "Прозорість інформації"
-      worldwide_priority:
-        one: "Глобальний пріоритет"
-        few:
-        many:
-        other: "Глобальні пріоритети"
       written_statement:
         one: "Письмова заява у парламенті"
         few:
@@ -293,7 +288,6 @@ uk:
       documents: "Документи"
       mission: "Наша місія"
       organisations: "Організації"
-      priorities: "Пріоритети"
       publications: "Наші публікації"
       quick_links: "Короткі посилання"
       related_policies: "Подібні документи"
@@ -521,7 +515,6 @@ uk:
     statutory_guidance:
     transcript: "Дивіться всі наші Транскрипти"
     transparency: "Дивіться всі наші Прозорість інформації"
-    worldwide_priority: "Дивіться всі наші Глобальні пріоритети"
     written_statement: "Дивіться всі наші Письмові заяви у парламенті"
   social_media:
     follow_us:

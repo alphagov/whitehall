@@ -136,9 +136,6 @@ hi:
       transparency:
         one: "पारदर्शिता आंकड़े"
         other: "पारदर्शिता आंकड़े"
-      worldwide_priority:
-        one: "वैश्विक प्राथमिकता"
-        other: "वैश्विक प्राथमिकताएं"
       written_statement:
         one: "संसद में लिखित बयान"
         other: "संसद में लिखित बयान"
@@ -195,7 +192,6 @@ hi:
       documents: "दस्तावेज़"
       mission: "हमारा लक्ष्य"
       organisations: "संगठन"
-      priorities: "प्राथमिकताएं"
       publications: "हमारे प्रकाशन"
       quick_links: "क्विक लिंक्स"
       related_policies: "सम्बंधित नीतियां"
@@ -424,7 +420,6 @@ hi:
     statutory_guidance:
     transcript: "देखें हमारे सभी प्रतिलिपियां"
     transparency: "देखें हमारे सभी पारदर्शिता आंकड़े"
-    worldwide_priority: "देखें हमारे सभी वैश्विक प्राथमिकताएं"
     written_statement: "देखें हमारे सभी संसद में लिखित बयान"
   social_media:
     follow_us:

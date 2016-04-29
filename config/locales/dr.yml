@@ -136,9 +136,6 @@ dr:
       transparency:
         one: "ارقام شفافیت"
         other: "ارقام شفافیت"
-      worldwide_priority:
-        one: "اولویت جهانی"
-        other: "اولویت های جهانی"
       written_statement:
         one: "بیانیه تحریری به پارلمان"
         other: "بیانیه های تحریری به پارلمان"
@@ -195,7 +192,6 @@ dr:
       documents: "اسناد"
       mission: "ماموریت ما"
       organisations: "سازمان ها"
-      priorities: "اولویت ها"
       publications: "نشریات ما"
       quick_links: "لینک های عاجل"
       related_policies: "پالیسی های مرتبط"
@@ -423,7 +419,6 @@ dr:
     statutory_guidance:
     transcript: "همه را ببینید نسخه ها"
     transparency: "همه را ببینید ارقام شفافیت"
-    worldwide_priority: "همه را ببینید اولویت های جهانی"
     written_statement: "همه را ببینید بیانیه های تحریری به پارلمان"
   social_media:
     follow_us:

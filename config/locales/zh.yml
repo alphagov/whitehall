@@ -256,9 +256,6 @@ zh:
       transparency:
         one: "透明化数据"
         other: "透明化数据"
-      worldwide_priority:
-        one: "世界范围内的工作重点"
-        other: "世界范围内的工作重点"
       written_statement:
         one: "对议会的书面声明"
         other: "对议会的书面声明"
@@ -401,7 +398,6 @@ zh:
     statutory_guidance:
     transcript: "查阅我们所有的副本"
     transparency: "查阅我们所有的透明化数据"
-    worldwide_priority: "查阅我们所有的世界范围内的工作重点"
     written_statement: "查阅我们所有的对议会的书面声明"
   social_media:
     follow_us:
@@ -418,7 +414,6 @@ zh:
       documents: "文件"
       mission: "我们的任务"
       organisations: "机构"
-      priorities: "工作重点"
       publications: "我们的报告"
       quick_links: "快速链接"
       related_policies: "相关政策"

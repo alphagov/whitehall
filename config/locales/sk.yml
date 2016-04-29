@@ -179,10 +179,6 @@ sk:
         one:
         few:
         other:
-      worldwide_priority:
-        one:
-        few:
-        other:
       written_statement:
         one:
         few:
@@ -244,7 +240,6 @@ sk:
       documents:
       mission:
       organisations:
-      priorities:
       publications:
       quick_links:
       related_policies:
@@ -469,7 +464,6 @@ sk:
     statutory_guidance:
     transcript:
     transparency:
-    worldwide_priority:
     written_statement:
   social_media:
     follow_us:

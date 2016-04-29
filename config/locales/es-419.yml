@@ -136,9 +136,6 @@ es-419:
       transparency:
         one: Datos sobre transparencia
         other: Datos sobre transparencia
-      worldwide_priority:
-        one: Prioridad en todo el mundo
-        other: Prioridades en todo el mundo
       written_statement:
         one: Declaración escrita al Parlamento
         other: Declaraciones escritas al Parlamento
@@ -195,7 +192,6 @@ es-419:
       documents: Documentos
       mission: Nuestra misión
       organisations: Organizaciones
-      priorities: Prioridades
       publications: Nuestras publicaciones
       quick_links: Vínculos rápidos
       related_policies: Políticas relacionadas
@@ -424,7 +420,6 @@ es-419:
     statutory_guidance:
     transcript: Vea todos nuestros transcripciones
     transparency: Vea todos nuestros datos sobre transparencia
-    worldwide_priority: Vea todos nuestros prioridades en todo el mundo
     written_statement: Vea todos nuestros declaraciones escritas al parlamento
   social_media:
     follow_us:

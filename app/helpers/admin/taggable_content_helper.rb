@@ -97,15 +97,6 @@ module Admin::TaggableContentHelper
     end
   end
 
-  # Returns an Array that represents the taggable published worldwide
-  # priorities. Each element of the array consists of two values: the
-  # worldwide priority title and its ID.
-  def taggable_worldwide_priorities_container
-    Rails.cache.fetch(taggable_worldwide_priorities_cache_digest, expires_in: 1.day) do
-      WorldwidePriority.alphabetical.published.map {|w| [w.title, w.id] }
-    end
-  end
-
   # Returns an Array that represents the taggable world locations. Each element
   # of the array consists of two values: the location name and its ID
   def taggable_world_locations_container
@@ -201,12 +192,6 @@ module Admin::TaggableContentHelper
   # will change if any statistical data set is added or updated.
   def taggable_statistical_data_sets_cache_digest
     @_taggable_statistical_data_sets_cache_digest ||= calculate_digest(Document.where(document_type: StatisticalDataSet).order(:id), 'statistical-data-sets')
-  end
-
-  # Returns an MD5 digest representing the taggable worldwide priorities. This
-  # will change if any worldwide priorities are added or updated.
-  def taggable_worldwide_priorities_cache_digest
-    @_taggable_worldwide_priorities_cache_digest ||= calculate_digest(Document.where(document_type: WorldwidePriority).order(:id), 'worldwide-priorities')
   end
 
   # Returns an MD5 digest representing the taggable policies. This will change

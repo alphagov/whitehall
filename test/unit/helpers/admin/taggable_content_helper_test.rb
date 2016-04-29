@@ -147,19 +147,6 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     ], taggable_statistical_data_sets_container
   end
 
-  test '#taggable_worldwide_priorities_container returns an array of label/ID pairs for all published worldwide priorities' do
-    priority_c = create(:published_worldwide_priority, title: 'Worldwide priority C')
-    priority_a = create(:published_worldwide_priority, title: 'Worldwide priority A')
-    priority_b = create(:published_worldwide_priority, title: 'Worldwide priority B')
-    draft      = create(:draft_worldwide_priority)
-
-    assert_equal [
-      [priority_a.title, priority_a.id],
-      [priority_b.title, priority_b.id],
-      [priority_c.title, priority_c.id],
-    ], taggable_worldwide_priorities_container
-  end
-
   test '#taggable_world_locations_container returns an array of label/ID pairs for all world locations' do
     location_a = create(:world_location, name: 'Andora')
     location_c = create(:world_location, name: 'Croatia')

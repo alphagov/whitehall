@@ -222,11 +222,6 @@ ru:
         few:
         many:
         other: "Прозрачность данных"
-      worldwide_priority:
-        one: "Мировой приоритет"
-        few:
-        many:
-        other: "Мировые приоритеты"
       written_statement:
         one: "Письменное заявление парламенту"
         few:
@@ -293,7 +288,6 @@ ru:
       documents: "Документы"
       mission: "Наша цель"
       organisations: "Организации"
-      priorities: "Приоритеты"
       publications: "Наши публикации"
       quick_links: "Быстрые ссылки"
       related_policies: "Публикации на схожие темы"
@@ -520,7 +514,6 @@ ru:
     statutory_guidance:
     transcript: "Посмотреть все наши Тексты"
     transparency: "Посмотреть все наши Прозрачность данных"
-    worldwide_priority: "Посмотреть все наши Мировые приоритеты"
     written_statement: "Посмотреть все наши Письменные заявления парламенту"
   social_media:
     follow_us:

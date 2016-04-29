@@ -20,8 +20,8 @@ class Admin::EditionRoutesHelperTest < ActionView::TestCase
   end
 
   test 'edit_admin_edition_path take an edition instance and uses polymorphic routes to generate the correct path' do
-    w = FactoryGirl.create(:worldwide_priority)
-    assert_equal "/government/admin/priority/#{w.id}/edit", edit_admin_edition_path(w)
+    s = FactoryGirl.create(:speech)
+    assert_equal "/government/admin/speeches/#{s.id}/edit", edit_admin_edition_path(s)
   end
 
   test 'generates editorial_remarks path helpers for each edition subtype' do

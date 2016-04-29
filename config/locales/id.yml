@@ -258,9 +258,6 @@ id:
       transparency:
         one: Transparansi data
         other: Transparansi data
-      worldwide_priority:
-        one: Prioritas di penjuru dunia
-        other: Prioritas-prioritas di penjuru dunia
       written_statement:
         one: Pernyataan tertulis kepada parlemen
         other: Pernyataan-pernyatan tertulis kepada parlemen
@@ -404,7 +401,6 @@ id:
     statutory_guidance:
     transcript: Lihat semua transkrip-transkrip
     transparency: Lihat semua transparansi data
-    worldwide_priority: Lihat semua prioritas-prioritas di penjuru dunia
     written_statement: Lihat semua pernyataan-pernyatan tertulis kepada parlemen
   social_media:
     follow_us:
@@ -421,7 +417,6 @@ id:
       documents: Dokumen-dokumen
       mission: Misi kami
       organisations: Organisasi-organisasi
-      priorities: Kebijakan-kebijakan
       publications: Publikasi-publikasi kami
       quick_links: Tautan cepat
       related_policies: Kebijakan terkait

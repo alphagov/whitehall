@@ -179,10 +179,6 @@ cs:
         one: Transparenost
         few:
         other: Transparentnost
-      worldwide_priority:
-        one: Světová priorita
-        few:
-        other: Světové priority
       written_statement:
         one: Písemná prohlášení do parlamentu
         few:
@@ -244,7 +240,6 @@ cs:
       documents: Dokumenty
       mission: Naše poslání
       organisations: Organizace
-      priorities: Priority
       publications: Naše publikace
       quick_links: Odkazy
       related_policies: Související témata
@@ -473,7 +468,6 @@ cs:
     statutory_guidance:
     transcript: Podívejte se na
     transparency: Podívejte se na
-    worldwide_priority: Podívejte se na
     written_statement: Podívejte se na
   social_media:
     follow_us:

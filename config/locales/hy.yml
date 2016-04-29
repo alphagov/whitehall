@@ -136,9 +136,6 @@ hy:
       transparency:
         one: "Բաց տեղեկատվություն"
         other: "Բաց տեղեկատվություններ"
-      worldwide_priority:
-        one: "Համաշխարհային առաջնայնություն"
-        other: "Համաշխարհային առաջնայնություններ"
       written_statement:
         one: "Գրավոր դիմում խորհրդարան"
         other: "Գրավոր դիմումներ խորհրդարան"
@@ -195,7 +192,6 @@ hy:
       documents: "Փաստաթղթեր"
       mission: "Մեր գործունեությունը"
       organisations: "Կազմակերպություններ"
-      priorities: "Առաջնայնություններ"
       publications: "Մեր հրատարակությունները"
       quick_links: "Հղումներ"
       related_policies: "Համանման նյութեր"
@@ -425,7 +421,6 @@ hy:
     statutory_guidance:
     transcript: "Տես՝ մեր բոլոր Վերծանումներ -ը"
     transparency: "Տես՝ մեր բոլոր Բաց տեղեկատվություններ -ը"
-    worldwide_priority: "Տես՝ մեր բոլոր Համաշխարհային առաջնայնություններ -ը"
     written_statement: "Տես՝ մեր բոլոր Գրավոր դիմումներ խորհրդարան -ը"
   social_media:
     follow_us:

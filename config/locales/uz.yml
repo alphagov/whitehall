@@ -136,9 +136,6 @@ uz:
       transparency:
         one: Ochiqlikka oid ma'lumotlar
         other: Ochiqlikka oid ma'lumotlar
-      worldwide_priority:
-        one: Dunyoviy prioritet
-        other: Dunyoviy prioritetlar
       written_statement:
         one: Parlament uchun yozma hisobot
         other: Parlament uchun yozma hisobotlar
@@ -195,7 +192,6 @@ uz:
       documents: Hujjatlar
       mission: Bizning vazifalar
       organisations: Tashkilotlar
-      priorities: Prioritetlar
       publications: Bizning nashrlar
       quick_links: Tez bog'lanish linklari
       related_policies: Oid dasturlar
@@ -423,7 +419,6 @@ uz:
     statutory_guidance:
     transcript: Bizning butun matnlar ko'ring
     transparency: Bizning butun ochiqlikka oid ma'lumotlar ko'ring
-    worldwide_priority: Bizning butun dunyoviy prioritetlar ko'ring
     written_statement: Bizning butun parlament uchun yozma hisobotlar ko'ring
   social_media:
     follow_us:

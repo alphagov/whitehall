@@ -257,9 +257,6 @@ ko:
       transparency:
         one: "투명성 데이타"
         other: "투명성 데이타"
-      worldwide_priority:
-        one: "세계 우선과제"
-        other: "세계 우선과제"
       written_statement:
         one: "의회로 서면 성명"
         other: "의회로 서면 성명"
@@ -402,7 +399,6 @@ ko:
     statutory_guidance:
     transcript: "트랜스크립트 모두 둘러보기"
     transparency: "투명성 데이타 모두 둘러보기"
-    worldwide_priority: "세계 우선과제 모두 둘러보기"
     written_statement: "의회로 서면 성명 모두 둘러보기"
   social_media:
     follow_us:
@@ -419,7 +415,6 @@ ko:
       documents: "자료"
       mission: "대사관 안내"
       organisations: "조직 안내"
-      priorities: "우선과제"
       publications: "출판물"
       quick_links: "퀵 링크"
       related_policies: "관련 정책"

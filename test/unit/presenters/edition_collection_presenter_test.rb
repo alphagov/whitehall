@@ -23,11 +23,6 @@ class EditionCollectionPresenterTest < PresenterTestCase
     assert_kind_of DetailedGuidePresenter, collection.first
   end
 
-  test "should wrap worldwide priority in a worldwide priority presenter" do
-    collection = EditionCollectionPresenter.new([WorldwidePriority.new], @view_context)
-    assert_kind_of WorldwidePriorityPresenter, collection.first
-  end
-
   test "should wrap world location news article in a world location news article presenter" do
     collection = EditionCollectionPresenter.new([WorldLocationNewsArticle.new], @view_context)
     assert_kind_of WorldLocationNewsArticlePresenter, collection.first

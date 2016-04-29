@@ -13,11 +13,6 @@ class SearchIndexTest < ActiveSupport::TestCase
     refute Whitehall.government_search_index.include?('a detailed guide')
   end
 
-  test "Whitehall.government_search_index includes WorldwidePriorities" do
-    WorldwidePriority.stubs(search_index: ['worldwide_priorities_index'])
-    assert Whitehall.government_search_index.include?('worldwide_priorities_index')
-  end
-
   test "Whitehall.government_search_index includes WorldLocationNewsArticles" do
     WorldLocationNewsArticle.stubs(search_index: ['world_location_news_articles_index'])
     assert Whitehall.government_search_index.include?('world_location_news_articles_index')
