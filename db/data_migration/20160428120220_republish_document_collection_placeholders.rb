@@ -1,0 +1,1 @@
+DataHygiene::PublishingApiDocumentRepublisher.new(DocumentCollection).perform
