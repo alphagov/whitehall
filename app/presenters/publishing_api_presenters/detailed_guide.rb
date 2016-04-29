@@ -40,8 +40,7 @@ private
   end
 
   def related_guides
-    # TODO: Return real related guide content_ids.
-    []
+    item.related_detailed_guide_content_ids
   end
 
   def related_mainstream

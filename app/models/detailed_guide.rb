@@ -32,6 +32,10 @@ class DetailedGuide < Edition
     related_to_editions.where(type: 'DetailedGuide').map(&:id)
   end
 
+  def related_detailed_guide_content_ids
+    related_to_editions.where(type: 'DetailedGuide').map(&:content_id)
+  end
+
   # Ensure that we set related detailed guides without stomping on other related documents
   def related_detailed_guide_ids=(detailed_guide_ids)
     detailed_guide_ids        = Array.wrap(detailed_guide_ids).reject(&:blank?)

@@ -180,4 +180,25 @@ class PublishingApiPresenters::DetailedGuideTest < ActiveSupport::TestCase
     assert_equal details[:political], true
     assert_equal details[:government], expected_government
   end
+
+  test 'DetailedGuide presents related_guides correctly' do
+    create(:government)
+    some_detailed_guide = create(:detailed_guide)
+    detailed_guide = create(
+      :published_detailed_guide,
+      title: "Some detailed guide",
+      summary: "Some summary",
+      body: "Some content",
+      related_editions: [some_detailed_guide]
+    )
+
+    presented_item = present(detailed_guide)
+    related_guides = presented_item.links[:related_guides]
+
+    expected_related_guides = [
+      some_detailed_guide.content_id
+    ]
+
+    assert_equal related_guides, expected_related_guides
+  end
 end

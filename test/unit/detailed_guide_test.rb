@@ -111,4 +111,14 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert_equal detailed_guide.related_mainstream_base_path, '/content'
     assert_equal detailed_guide.additional_related_mainstream_base_path, '/additional-content'
   end
+
+  test 'related_detailed_guide_ids works correctly' do
+    some_detailed_guide = create(:detailed_guide)
+    detailed_guide = create(
+      :detailed_guide,
+      related_editions: [some_detailed_guide]
+    )
+
+    assert_equal detailed_guide.related_detailed_guide_content_ids, [some_detailed_guide.content_id]
+  end
 end
