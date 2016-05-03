@@ -25,7 +25,7 @@ private
       body: body,
       format_display_type: item.display_type_key,
       first_public_at: first_public_at,
-      change_history: item.change_history.as_json,
+      change_history: item.change_history.as_json
     }).tap do |json|
       json[:image] = image_details if image_available?
       json[:withdrawn_notice] = withdrawn_notice if item.withdrawn?

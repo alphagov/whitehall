@@ -5,6 +5,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApiV2
 
   test "registers an edition with the publishing api" do
+    create(:government)
     edition = create(:published_detailed_guide)
     presenter = PublishingApiPresenters.presenter_for(edition)
     requests = [
@@ -54,6 +55,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
   test "passes the update_type option to the presenter" do
     update_type = "republish"
 
+    create(:government)
     edition = create(:published_detailed_guide)
     presenter = PublishingApiPresenters.presenter_for(edition, update_type: update_type)
     requests = [

@@ -100,4 +100,25 @@ class DetailedGuideTest < ActiveSupport::TestCase
     detailed_guide = build(:detailed_guide)
     assert detailed_guide.search_format_types.include?('detailed-guidance')
   end
+
+  test 'should return base paths for related mainstream content urls' do
+    detailed_guide = build(
+      :detailed_guide,
+      related_mainstream_content_url: "http://gov.uk/content",
+      additional_related_mainstream_content_url: "http://gov.uk/additional-content"
+    )
+
+    assert_equal detailed_guide.related_mainstream_base_path, '/content'
+    assert_equal detailed_guide.additional_related_mainstream_base_path, '/additional-content'
+  end
+
+  test 'related_detailed_guide_ids works correctly' do
+    some_detailed_guide = create(:detailed_guide)
+    detailed_guide = create(
+      :detailed_guide,
+      related_editions: [some_detailed_guide]
+    )
+
+    assert_equal detailed_guide.related_detailed_guide_content_ids, [some_detailed_guide.content_id]
+  end
 end

@@ -3,9 +3,16 @@ require 'test_helper'
 class PublishingApiPresentersTest < ActiveSupport::TestCase
   test ".presenter_for returns a presenter for a case study" do
     case_study = CaseStudy.new
-    presenter  = PublishingApiPresenters.presenter_for(case_study)
+    presenter = PublishingApiPresenters.presenter_for(case_study)
 
     assert_equal PublishingApiPresenters::CaseStudy, presenter.class
+  end
+
+  test ".presenter_for returns a presenter for a detailed guide" do
+    detailed_guide = DetailedGuide.new
+    presenter = PublishingApiPresenters.presenter_for(detailed_guide)
+
+    assert_equal PublishingApiPresenters::DetailedGuide, presenter.class
   end
 
   test ".presenter_for returns a presenter for a Take Part page" do

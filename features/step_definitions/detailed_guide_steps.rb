@@ -1,15 +1,18 @@
 Given /^a published detailed guide "([^"]*)" related to published detailed guides "([^"]*)" and "([^"]*)"$/ do |title, first_related_title, second_related_title|
+  create(:government)
   first_related = create(:published_detailed_guide, title: first_related_title)
   second_related = create(:published_detailed_guide, title: second_related_title)
   guide = create(:published_detailed_guide, title: title, related_documents: [first_related.document, second_related.document], topics: [create(:topic)])
 end
 
 Given /^a published detailed guide "([^"]*)" for the organisation "([^"]*)"$/ do |title, organisation|
+  create(:government)
   organisation = create(:organisation, name: organisation)
   create(:published_detailed_guide, title: title, organisations: [organisation])
 end
 
 When /^I draft a new detailed guide "([^"]*)"$/ do |title|
+  create(:government)
   begin_drafting_document type: 'detailed_guide', title: title, previously_published: false
   click_button "Save"
 end

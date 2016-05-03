@@ -62,7 +62,6 @@ private
 
   def details
     {
-      change_note: item.most_recent_change_note,
       # These tags are used downstream for sending email alerts.
       # For more details please see https://gov-uk.atlassian.net/wiki/display/TECH/Email+alerts+2.0
       tags: {

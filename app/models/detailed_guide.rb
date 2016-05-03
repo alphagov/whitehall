@@ -32,6 +32,10 @@ class DetailedGuide < Edition
     related_to_editions.where(type: 'DetailedGuide').map(&:id)
   end
 
+  def related_detailed_guide_content_ids
+    related_to_editions.where(type: 'DetailedGuide').map(&:content_id)
+  end
+
   # Ensure that we set related detailed guides without stomping on other related documents
   def related_detailed_guide_ids=(detailed_guide_ids)
     detailed_guide_ids        = Array.wrap(detailed_guide_ids).reject(&:blank?)
@@ -76,7 +80,35 @@ class DetailedGuide < Edition
     true
   end
 
-  private
+  def related_mainstream_base_path
+    url = related_mainstream_content_url
+    parse_base_path_from_related_mainstream_url(url)
+  end
+
+  def additional_related_mainstream_base_path
+    url = additional_related_mainstream_content_url
+    parse_base_path_from_related_mainstream_url(url)
+  end
+
+  def government
+    @government ||= Government.on_date(date_for_government) unless date_for_government.nil?
+  end
+
+private
+
+  def date_for_government
+    published_edition_date = first_public_at.try(:to_date)
+    draft_edition_date = updated_at.try(:to_date)
+    published_edition_date || draft_edition_date
+  end
+
+  def parse_base_path_from_related_mainstream_url(url)
+    return nil if url.nil? || url.empty?
+    parsed_url = URI.parse(url)
+    url_is_invalid = !['gov.uk', 'www.gov.uk'].include?(parsed_url.host)
+    return nil if url_is_invalid
+    URI.parse(url).path
+  end
 
   # Returns the published edition of any detailed guide documents that this edition is related to.
   def published_outbound_related_detailed_guides

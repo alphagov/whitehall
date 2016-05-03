@@ -11,6 +11,7 @@ module TestsForNationalApplicability
     end
 
     test 'create should create a new edition with nation inapplicabilities' do
+      create(:government)
       attributes = attributes_for_edition
 
       post :create, edition: attributes.merge(nation_inapplicabilities_attributes_for(Nation.scotland => "http://www.scotland.com/"))
@@ -59,6 +60,7 @@ module TestsForNationalApplicability
     end
 
     test 'updating should save modified edition with nation inapplicabilities' do
+      create(:government)
       attributes = attributes_for_edition
       edition = create_edition(attributes)
       northern_ireland_inapplicability = edition.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://www.discovernorthernireland.com/")

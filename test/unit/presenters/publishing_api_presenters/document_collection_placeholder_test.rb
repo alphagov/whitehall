@@ -37,7 +37,6 @@ class PublishingApiPresenters::DocumentCollectionPlaceholderTest < ActiveSupport
       redirects: [],
       need_ids: [],
       details: {
-        change_note: nil,
         tags: {
           browse_pages: [],
           policies: [],

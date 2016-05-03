@@ -6,6 +6,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
 
   setup do
     login_as create(:writer, organisation: create(:organisation))
+    create(:government)
   end
 
   should_be_an_admin_controller
