@@ -2,7 +2,7 @@
 class PublishingApiLinksWorker < WorkerBase
   sidekiq_options queue: "bulk_republishing"
 
-  def perform(edition_id)
+  def call(edition_id)
     item = Edition.find(edition_id)
     content_id = item.content_id
     links = PublishingApiPresenters.presenter_for(item).links

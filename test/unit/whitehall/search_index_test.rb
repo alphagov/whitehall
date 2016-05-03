@@ -22,9 +22,10 @@ module Whitehall
 
       Sidekiq::Testing.fake! do
         SearchIndex.delete(searchable_thing)
-        job = SearchIndexDeleteWorker.jobs.last
+        args = SearchIndexDeleteWorker.jobs.last['args']
 
-        assert_equal ['full_slug', 'index_name'], job['args']
+        assert_equal 'full_slug', args[0]
+        assert_equal 'index_name', args[1]
       end
     end
   end
