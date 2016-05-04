@@ -24,7 +24,9 @@ private
       related_mainstream_content: related_mainstream,
       political: item.political?,
       government: government
-    )
+    ).tap do |json|
+      json[:withdrawn_notice] = withdrawn_notice if item.withdrawn?
+    end
   end
 
   def body
@@ -67,5 +69,18 @@ private
       slug: gov.slug,
       current: gov.current?
     }
+  end
+
+  def withdrawn_notice
+    {
+      explanation: unpublishing_explanation,
+      withdrawn_at: item.updated_at
+    }
+  end
+
+  def unpublishing_explanation
+    if item.unpublishing.try(:explanation).present?
+      Whitehall::GovspeakRenderer.new.govspeak_to_html(item.unpublishing.explanation)
+    end
   end
 end
