@@ -23,9 +23,10 @@ private
       change_history: item.change_history.as_json,
       related_mainstream_content: related_mainstream,
       political: item.political?,
-      government: government
+      government: government,
     ).tap do |json|
       json[:withdrawn_notice] = withdrawn_notice if item.withdrawn?
+      json[:national_applicability] = national_applicability if item.nation_inapplicabilities.any?
     end
   end
 
@@ -82,5 +83,35 @@ private
     if item.unpublishing.try(:explanation).present?
       Whitehall::GovspeakRenderer.new.govspeak_to_html(item.unpublishing.explanation)
     end
+  end
+
+  def nation_to_sym(nation)
+    key = nation.tr(' ', '_').downcase.to_sym
+  end
+
+  def universally_applicable
+    all_nations = %w(England Northern\ Ireland Scotland Wales)
+    all_nations.reduce({}) { |hash, nation|
+      key = nation_to_sym(nation)
+      hash[key] = {
+        label: nation,
+        applicable: true
+      }
+      hash
+    }
+  end
+
+  def national_applicability
+    nations = universally_applicable
+
+    inapplicabilities = item.nation_inapplicabilities
+    nations = inapplicabilities.reduce(nations) { |hash, inapplicability|
+      key = nation_to_sym(inapplicability.nation.name)
+      hash[key][:applicable] = false
+      hash[key][:alternative_url] = inapplicability.alternative_url if inapplicability.alternative_url
+      hash
+    }
+
+    nations
   end
 end
