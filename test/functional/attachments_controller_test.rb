@@ -253,4 +253,41 @@ class AttachmentsControllerTest < ActionController::TestCase
     assert_select 'div.csv-preview td', text: "£12000000"
     assert_select 'div.csv-preview td', text: "£10000000"
   end
+
+  test 'deleted attachments on documents that have more than one edition 404' do
+    edition = create(:draft_publication, :with_file_attachment)
+    new_edition = create(:published_publication)
+    new_edition.attachments = edition.attachments.map(&:deep_clone)
+    attachment = new_edition.attachments.last
+    attachment_data = attachment.attachment_data
+    VirusScanHelpers.simulate_virus_scan(attachment_data.file)
+    attachment.update_column(:deleted, true)
+
+    get :show, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
+
+    assert_response :not_found
+  end
+
+  test 'deleted attachments on documents with one edition 404' do
+    visible_edition = create(:published_publication, :with_file_attachment)
+    attachment = visible_edition.attachments.first
+    attachment_data = attachment.attachment_data
+    VirusScanHelpers.simulate_virus_scan(attachment_data.file)
+    attachment.update_column(:deleted, true)
+
+    get_show attachment_data
+
+    assert_response :not_found
+  end
+
+  test 'deleted attachments policy groups return 404' do
+    attachment = create(:file_attachment, attachable: create(:policy_group))
+    attachment_data = attachment.attachment_data
+    VirusScanHelpers.simulate_virus_scan(attachment_data.file)
+    attachment.destroy
+
+    assert_raises(ActiveRecord::RecordNotFound) do
+      get_show attachment_data
+    end
+  end
 end
