@@ -9,7 +9,7 @@ private
     item.name
   end
 
-  def document_format
+  def schema_name
     "working_group"
   end
 

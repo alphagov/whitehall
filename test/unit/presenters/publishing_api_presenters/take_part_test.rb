@@ -12,10 +12,10 @@ class PublishingApiPresenters::TakePartTest < ActiveSupport::TestCase
 
     expected_hash = {
       base_path: take_part_page.search_link,
-      content_id: take_part_page.content_id,
       title: 'A take part page title',
       description: 'Summary text',
-      format: 'take_part',
+      schema_name: 'take_part',
+      document_type: 'take_part',
       locale: 'en',
       public_updated_at: take_part_page.updated_at,
       publishing_app: 'whitehall',
@@ -30,18 +30,21 @@ class PublishingApiPresenters::TakePartTest < ActiveSupport::TestCase
           url: image_url,
           alt_text: "Image alt text"
         }
-      }
+      },
+      need_ids: []
     }
-    presented_item = present(take_part_page)
 
-    assert_valid_against_schema(presented_item.content, 'take_part')
+    presented_item = present(take_part_page)
+    presented_content = presented_item.content
+
+    assert_valid_against_schema(presented_content, 'take_part')
     assert_valid_against_links_schema({ links: presented_item.links }, 'take_part')
 
     # We test for HTML equivalance rather than string equality to get around
     # inconsistencies with line breaks between different XML libraries
     assert_equivalent_html expected_hash[:details].delete(:body),
-      presented_item.content[:details].delete(:body)
+      presented_content[:details].delete(:body)
 
-    assert_equal expected_hash[:details], presented_item.content[:details].except(:body)
+    assert_equal expected_hash, presented_content
   end
 end

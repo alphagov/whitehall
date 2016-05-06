@@ -17,7 +17,7 @@ class PublishingApiPresenters::HtmlAttachment < PublishingApiPresenters::Item
 
 private
 
-  def document_format
+  def schema_name
     "html_publication"
   end
 

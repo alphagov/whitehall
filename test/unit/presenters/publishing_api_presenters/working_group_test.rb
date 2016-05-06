@@ -14,7 +14,8 @@ class PublishingApiPresenters::WorkingGroupTest < ActiveSupport::TestCase
       base_path: public_path,
       publishing_app: "whitehall",
       rendering_app: "government-frontend",
-      format: "working_group",
+      schema_name: "working_group",
+      document_type: "working_group",
       title: "Government Digital Service",
       description: "This is some plaintext in the summary field", # This is deliberately the 'wrong' way around
       locale: "en",

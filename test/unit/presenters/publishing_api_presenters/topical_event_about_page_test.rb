@@ -12,7 +12,8 @@ class PublishingApiPresenters::TopicalEventAboutPageTest < ActiveSupport::TestCa
       base_path: topical_event_about_page.search_link,
       title: topical_event_about_page.name,
       description: 'Summary',
-      format: 'topical_event_about_page',
+      schema_name: 'topical_event_about_page',
+      document_type: 'topical_event_about_page',
       need_ids: [],
       locale: 'en',
       public_updated_at: topical_event_about_page.updated_at,
@@ -27,7 +28,9 @@ class PublishingApiPresenters::TopicalEventAboutPageTest < ActiveSupport::TestCa
         read_more: 'Read more'
       }
     }
+
     presented_item = present(topical_event_about_page)
+    presented_content = presented_item.content
 
     assert_valid_against_schema(presented_item.content, 'topical_event_about_page')
     assert_valid_against_links_schema({ links: presented_item.links }, 'topical_event_about_page')
@@ -36,9 +39,8 @@ class PublishingApiPresenters::TopicalEventAboutPageTest < ActiveSupport::TestCa
     # We test for HTML equivalance rather than string equality to get around
     # inconsistencies with line breaks between different XML libraries
     assert_equivalent_html expected_hash[:details].delete(:body),
-      presented_item.content[:details].delete(:body)
+      presented_content[:details].delete(:body)
 
-    assert_equal expected_hash.except(:details), presented_item.content.except(:details)
-    assert_equal expected_hash[:details], presented_item.content[:details].except(:body)
+    assert_equal expected_hash, presented_content
   end
 end

@@ -39,7 +39,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     stub_panopticon_registration(@published_edition)
     unpublish(@published_edition, unpublishing_params)
     assert_publishing_api_put_content(@published_edition.unpublishing.content_id,
-                                      request_json_includes(format: 'unpublishing'))
+                                      request_json_includes(schema_name: 'unpublishing'))
   end
 
   test 'When a case study is unpublished, a job is queued to republish the draft to the draft stack' do
@@ -69,7 +69,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     unpublish(@published_edition, unpublishing_params)
 
     assert_publishing_api_put_content(@published_edition.unpublishing.content_id,
-                                      request_json_includes({ format: 'unpublishing' }),
+                                      request_json_includes({ schema_name: 'unpublishing' }),
                                       2)
     assert_publishing_api_publish(@published_edition.unpublishing.content_id,
                                   { locale: "en", update_type: "major" })

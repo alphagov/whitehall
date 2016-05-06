@@ -16,7 +16,8 @@ class PublishingApiPresenters::Item
       base_path: base_path,
       title: title,
       description: description,
-      format: document_format,
+      schema_name: schema_name,
+      document_type: document_type,
       locale: I18n.locale.to_s,
       need_ids: need_ids,
       public_updated_at: public_updated_at,
@@ -62,5 +63,9 @@ private
 
   def details
     {}
+  end
+
+  def document_type
+    schema_name
   end
 end

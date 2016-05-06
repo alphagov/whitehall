@@ -1,7 +1,6 @@
 require_relative "../publishing_api_presenters"
 
 class PublishingApiPresenters::CaseStudy < PublishingApiPresenters::Edition
-
   def links
     extract_links([
       :document_collections,
@@ -16,7 +15,7 @@ class PublishingApiPresenters::CaseStudy < PublishingApiPresenters::Edition
 
 private
 
-  def document_format
+  def schema_name
     "case_study"
   end
 

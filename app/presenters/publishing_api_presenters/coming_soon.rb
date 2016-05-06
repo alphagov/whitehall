@@ -30,7 +30,7 @@ class PublishingApiPresenters::ComingSoon < PublishingApiPresenters::Item
 
 private
 
-  def document_format
+  def schema_name
     'coming_soon'
   end
 
