@@ -134,6 +134,16 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
     assert_equal attachment, attachment_visibility.visible_attachment
   end
 
+  test '#visible_attachment does not return the attachment if it is deleted' do
+    edition = create(:published_publication, :with_file_attachment)
+    edition.create_draft(create(:writer))
+    attachment = edition.attachments.first
+    attachment.destroy
+    attachment_visibility = AttachmentVisibility.new(attachment.attachment_data, nil)
+
+    assert_nil attachment_visibility.visible_attachment
+  end
+
   test '#unpublished_edition returns the edition for an attachment associated with an unpublished edition' do
     unpublished_edition = create(:publication, :unpublished, :with_file_attachment)
     attachment_data = unpublished_edition.attachments.first.attachment_data
@@ -151,5 +161,48 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
 
     refute attachment_visibility.visible?
     assert_equal deleted_edition, attachment_visibility.unpublished_edition
+  end
+
+  test "#visible returns false for deleted attachment on a publication" do
+    publication = create(:published_publication, :with_file_attachment)
+    attachment = publication.attachments.last
+    attachment.destroy
+
+    attachment_data = attachment.attachment_data
+    attachment_visibility = AttachmentVisibility.new(attachment_data, nil)
+    refute attachment_visibility.visible?
+  end
+
+  test "#visible returns false for deleted attachment on a publication with more than one edition" do
+    publication = create(:draft_publication, :with_file_attachment)
+    new_edition = create(:published_publication)
+    new_edition.attachments = publication.attachments.map(&:deep_clone)
+    attachment = new_edition.attachments.last
+    attachment.destroy
+
+    attachment_data = attachment.attachment_data
+    attachment_visibility = AttachmentVisibility.new(attachment_data, nil)
+    refute attachment_visibility.visible?
+  end
+
+  test "#visible returns false for deleted attachment on a PolicyGroup" do
+    policy_group = create(:policy_group, :with_file_attachment)
+    attachment = policy_group.attachments.last
+    attachment.destroy
+
+    attachment_data = attachment.attachment_data
+    attachment_visibility = AttachmentVisibility.new(attachment_data, nil)
+    refute attachment_visibility.visible?
+  end
+
+  test "#visible returns false for deleted attachment on a Consultation Response" do
+    response = create(:consultation_with_outcome).outcome
+    response.attachments << build(:file_attachment)
+    attachment = response.attachments.first
+    attachment.destroy
+
+    attachment_data = attachment.attachment_data
+    attachment_visibility = AttachmentVisibility.new(attachment_data, nil)
+    refute attachment_visibility.visible?
   end
 end

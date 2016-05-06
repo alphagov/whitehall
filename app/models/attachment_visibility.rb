@@ -113,6 +113,6 @@ class AttachmentVisibility
   end
 
   def edition_ids
-    @edition_ids ||= Attachment.where(attachment_data_id: id).where(attachable_type: 'Edition').pluck(:attachable_id)
+    @edition_ids ||= Attachment.not_deleted.where(attachment_data_id: id).where(attachable_type: 'Edition').pluck(:attachable_id)
   end
 end
