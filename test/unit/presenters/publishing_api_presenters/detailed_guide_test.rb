@@ -227,4 +227,45 @@ class PublishingApiPresenters::DetailedGuideTest < ActiveSupport::TestCase
     assert_equal expected_withdrawn_notice[:withdrawn_at], details[:withdrawn_notice][:withdrawn_at]
     assert_equivalent_html expected_withdrawn_notice[:explanation], details[:withdrawn_notice][:explanation]
   end
+
+  test 'DetailedGuide presents national_applicability correctly when some are specified' do
+    scotland_nation_inapplicability = create(
+      :nation_inapplicability,
+      nation: Nation.scotland,
+      alternative_url: "http://scotland.com"
+    )
+    create(:government)
+    detailed_guide = create(
+      :published_detailed_guide,
+      nation_inapplicabilities: [
+        scotland_nation_inapplicability
+      ]
+    )
+
+    presented_item = present(detailed_guide)
+    details = presented_item.content[:details]
+
+    expected_national_applicability = {
+      england: {
+        label: "England",
+        applicable: true,
+      },
+      northern_ireland: {
+        label: "Northern Ireland",
+        applicable: true,
+      },
+      scotland: {
+        label: "Scotland",
+        applicable: false,
+        alternative_url: "http://scotland.com",
+      },
+      wales: {
+        label: "Wales",
+        applicable: true,
+      },
+    }
+
+    assert_valid_against_schema(presented_item.content, 'detailed_guide')
+    assert_equal expected_national_applicability, details[:national_applicability]
+  end
 end
