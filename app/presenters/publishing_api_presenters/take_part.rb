@@ -4,6 +4,7 @@ class PublishingApiPresenters::TakePart < PublishingApiPresenters::Item
   def links
     extract_links([
       :lead_organisations,
+      :organisations,
       :policy_areas,
       :topics,
     ])

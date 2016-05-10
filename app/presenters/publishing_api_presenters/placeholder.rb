@@ -5,7 +5,10 @@ require_relative "../publishing_api_presenters"
 # out when read back out from the content store.
 class PublishingApiPresenters::Placeholder < PublishingApiPresenters::Item
   def links
-    extract_links([:topics])
+    extract_links([
+      :topics,
+      :organisations,
+    ])
   end
 
 private

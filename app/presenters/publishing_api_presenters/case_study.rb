@@ -5,6 +5,7 @@ class PublishingApiPresenters::CaseStudy < PublishingApiPresenters::Edition
     extract_links([
       :document_collections,
       :lead_organisations,
+      :organisations,
       :related_policies,
       :supporting_organisations,
       :topics,

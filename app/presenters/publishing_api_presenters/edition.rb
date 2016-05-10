@@ -16,6 +16,16 @@ class PublishingApiPresenters::Edition < PublishingApiPresenters::Item
   end
 
   def links
+    extract_links([:organisations]).merge(topic_and_parent_links_payload)
+  end
+
+  def base_path
+    Whitehall.url_maker.public_document_path(item)
+  end
+
+private
+
+  def topic_and_parent_links_payload
     topic_tags = item.specialist_sector_tags
     return {} unless topic_tags.present?
 
@@ -36,12 +46,6 @@ class PublishingApiPresenters::Edition < PublishingApiPresenters::Item
       { topics: content_id_lookup.values }
     end
   end
-
-  def base_path
-    Whitehall.url_maker.public_document_path(item)
-  end
-
-private
 
   def topic_path_from(tag)
     "/topic/#{tag}"

@@ -197,7 +197,10 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
 
     links = present(edition).links
 
-    assert_equal({ topics: %w(content_id_1) }, links)
+    assert_equal({
+      topics: %w(content_id_1),
+      organisations: [],
+    }, links)
   end
 
   test '#links treats the primary specialist sector of the item as the parent' do
@@ -211,7 +214,11 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
 
     links = present(edition).links
 
-    assert_equal({ topics: %w(content_id_1 content_id_2), parent: %w(content_id_1) }, links)
+    assert_equal({
+      topics: %w(content_id_1 content_id_2),
+      parent: %w(content_id_1),
+      organisations: [],
+    }, links)
   end
 
   test '#links.parent will not be set if the specialist sector is not found' do
@@ -224,6 +231,9 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
 
     links = present(edition).links
 
-    assert_equal({ topics: %w(content_id_1) }, links)
+    assert_equal({
+      topics: %w(content_id_1),
+      organisations: [],
+    }, links)
   end
 end

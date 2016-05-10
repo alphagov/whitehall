@@ -24,7 +24,10 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
       need_ids: [],
       details: {},
     }
-    expected_links = { topics: [] }
+    expected_links = {
+      topics: [],
+      organisations: ministerial_role.organisations.map(&:content_id)
+    }
 
     presented_item = present(ministerial_role)
 
@@ -55,7 +58,10 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
       need_ids: [],
       details: {},
     }
-    expected_links = { topics: [] }
+    expected_links = {
+      topics: [],
+      organisations: [],
+    }
 
     presented_item = present(person)
 
@@ -87,7 +93,10 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
       details: {},
       analytics_identifier: "WO123",
     }
-    expected_links = { topics: [] }
+    expected_links = {
+      topics: [],
+      organisations: [],
+    }
 
     presented_item = present(worldwide_org)
 
@@ -119,7 +128,10 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
       details: {},
       analytics_identifier: "WL123",
     }
-    expected_links = { topics: [] }
+    expected_links = {
+      topics: [],
+      organisations: [],
+    }
 
     presented_item = present(world_location)
 

@@ -3,7 +3,8 @@ require_relative "../publishing_api_presenters"
 class PublishingApiPresenters::DetailedGuide < PublishingApiPresenters::Edition
   def links
     extract_links([
-      :lead_organisations
+      :lead_organisations,
+      :organisations,
     ]).merge(
       related_guides: related_guides,
       related_mainstream: related_mainstream
