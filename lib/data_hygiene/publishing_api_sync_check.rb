@@ -126,7 +126,10 @@ module DataHygiene
           success = false
         end
       else
-        failures << Failure.new(base_path: base_path, failed_expectations: ["item missing from #{content_store.titleize}"])
+        failures << Failure.new(
+          base_path: base_path,
+          failed_expectations: ["item unreachable in #{content_store.titleize}; response status: #{response.status_message}"]
+        )
         success = false
       end
       success
