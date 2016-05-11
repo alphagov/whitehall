@@ -47,7 +47,8 @@ module DataHygiene
     def initialize(scope)
       @scope = scope
       Ethon.logger = Logger.new(nil) # disable Typhoeus/Ethon debug logging
-      @hydra = Typhoeus::Hydra.new(max_concurrency: 20)
+      max_concurrency = Rails.env.development? ? 1 : 20
+      @hydra = Typhoeus::Hydra.new(max_concurrency: max_concurrency)
       @expectations = []
       @successes = []
       @failures = []
