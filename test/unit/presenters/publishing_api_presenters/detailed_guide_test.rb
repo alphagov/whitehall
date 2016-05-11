@@ -64,11 +64,12 @@ class PublishingApiPresenters::DetailedGuideTest < ActiveSupport::TestCase
           current: government.current?
         },
         related_mainstream_content: [],
+        emphasised_organisations: detailed_guide.lead_organisations.map(&:content_id),
       },
     }
     expected_links = {
-      lead_organisations: [detailed_guide.lead_organisations.first.content_id],
-      organisations: [detailed_guide.lead_organisations.first.content_id],
+      lead_organisations: detailed_guide.lead_organisations.map(&:content_id),
+      organisations: detailed_guide.organisations.map(&:content_id),
       related_guides: [],
       related_mainstream: [],
     }
@@ -83,8 +84,8 @@ class PublishingApiPresenters::DetailedGuideTest < ActiveSupport::TestCase
 
   test 'DetailedGuide presents related_mainstream and related_mainstream_content' do
     lookup_hash = {
-      "/guidance/lorem" => "deadbeef-cafe-babe-c0ffe1",
-      "/guidance/ipsum" => "deadbeef-cafe-babe-c0ffe2"
+      "/guidance/lorem" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312",
+      "/guidance/ipsum" => "9af50189-de1c-49af-a334-6b1d87b593a6"
     }
 
     publishing_api_has_lookups(lookup_hash)
@@ -104,8 +105,8 @@ class PublishingApiPresenters::DetailedGuideTest < ActiveSupport::TestCase
     links = presented_item.links
     details = presented_item.content[:details]
     expected_ids = [
-      "deadbeef-cafe-babe-c0ffe1",
-      "deadbeef-cafe-babe-c0ffe2"
+      "9dd9e077-ae45-45f6-ad9d-2a484e5ff312",
+      "9af50189-de1c-49af-a334-6b1d87b593a6"
     ]
 
     # Links can come in any order, so we sort to make sure the set is the same.
@@ -117,7 +118,7 @@ class PublishingApiPresenters::DetailedGuideTest < ActiveSupport::TestCase
 
   test 'DetailedGuide presents related_mainstream with dodgy data' do
     lookup_hash = {
-      "/guidance/lorem" => "deadbeef-cafe-babe-c0ffe1"
+      "/guidance/lorem" => "cd7fde45-5f79-4982-8939-cedc4bed161c"
     }
     publishing_api_has_lookups(lookup_hash)
 
@@ -133,7 +134,7 @@ class PublishingApiPresenters::DetailedGuideTest < ActiveSupport::TestCase
 
     presented_item = present(detailed_guide)
     links = presented_item.links
-    expected_ids = ["deadbeef-cafe-babe-c0ffe1"]
+    expected_ids = ["cd7fde45-5f79-4982-8939-cedc4bed161c"]
 
     assert_equal expected_ids.sort, links[:related_mainstream].sort
   end

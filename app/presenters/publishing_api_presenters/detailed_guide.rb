@@ -20,11 +20,12 @@ private
   def details
     super.merge(
       body: body,
-      first_public_at: first_public_at,
       change_history: item.change_history.as_json,
-      related_mainstream_content: related_mainstream,
-      political: item.political?,
+      emphasised_organisations: item.lead_organisations.map(&:content_id),
+      first_public_at: first_public_at,
       government: government,
+      political: item.political?,
+      related_mainstream_content: related_mainstream,
     ).tap do |json|
       json[:withdrawn_notice] = withdrawn_notice if item.withdrawn?
       json[:national_applicability] = national_applicability if item.nation_inapplicabilities.any?

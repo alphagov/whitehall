@@ -38,14 +38,15 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
           browse_pages: [],
           topics: [],
           policies: []
-        }
+        },
+        emphasised_organisations: case_study.lead_organisations.map(&:content_id),
       },
     }
 
     expected_links = {
       document_collections: [],
-      lead_organisations: [case_study.lead_organisations.first.content_id],
-      organisations: [case_study.lead_organisations.first.content_id],
+      lead_organisations: case_study.lead_organisations.map(&:content_id),
+      organisations: case_study.lead_organisations.map(&:content_id),
       related_policies: [],
       supporting_organisations: [],
       topics: [],
