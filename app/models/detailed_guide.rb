@@ -9,6 +9,7 @@ class DetailedGuide < Edition
   include Edition::Organisations
   include Edition::RelatedPolicies
   include Edition::RelatedDocuments
+  include PublishesToPublishingApi
 
   validate :related_mainstream_content_valid?
   validate :additional_related_mainstream_content_valid?
