@@ -3,7 +3,6 @@ require_relative "../publishing_api_presenters"
 class PublishingApiPresenters::TakePart < PublishingApiPresenters::Item
   def links
     extract_links([
-      :lead_organisations,
       :policy_areas,
       :topics,
     ])

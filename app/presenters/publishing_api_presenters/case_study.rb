@@ -5,6 +5,7 @@ class PublishingApiPresenters::CaseStudy < PublishingApiPresenters::Edition
     extract_links([
       :document_collections,
       :lead_organisations,
+      :organisations,
       :related_policies,
       :supporting_organisations,
       :topics,
@@ -24,7 +25,8 @@ private
       body: body,
       format_display_type: item.display_type_key,
       first_public_at: first_public_at,
-      change_history: item.change_history.as_json
+      change_history: item.change_history.as_json,
+      emphasised_organisations: item.lead_organisations.map(&:content_id),
     }).tap do |json|
       json[:image] = image_details if image_available?
       json[:withdrawn_notice] = withdrawn_notice if item.withdrawn?
