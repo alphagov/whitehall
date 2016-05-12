@@ -156,7 +156,7 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
       [
         check_failure(
           base_path: "/government/get-involved/take-part/take-part-slug",
-          failed_expectations: ["item missing from Content Store"],
+          failed_expectations: ["item unreachable in Content Store; response status: "],
         )
       ],
       check.failures
@@ -187,7 +187,7 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
       [
         check_failure(
           base_path: "/government/get-involved/take-part/take-part-slug",
-          failed_expectations: ["item missing from Draft Content Store"],
+          failed_expectations: ["item unreachable in Draft Content Store; response status: "],
         )
       ],
       check.failures

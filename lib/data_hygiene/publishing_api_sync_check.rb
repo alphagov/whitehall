@@ -47,7 +47,8 @@ module DataHygiene
     def initialize(scope)
       @scope = scope
       Ethon.logger = Logger.new(nil) # disable Typhoeus/Ethon debug logging
-      @hydra = Typhoeus::Hydra.new(max_concurrency: 20)
+      max_concurrency = Rails.env.development? ? 1 : 20
+      @hydra = Typhoeus::Hydra.new(max_concurrency: max_concurrency)
       @expectations = []
       @successes = []
       @failures = []
@@ -125,7 +126,10 @@ module DataHygiene
           success = false
         end
       else
-        failures << Failure.new(base_path: base_path, failed_expectations: ["item missing from #{content_store.titleize}"])
+        failures << Failure.new(
+          base_path: base_path,
+          failed_expectations: ["item unreachable in #{content_store.titleize}; response status: #{response.status_message}"]
+        )
         success = false
       end
       success
