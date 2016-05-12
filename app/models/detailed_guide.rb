@@ -33,7 +33,7 @@ class DetailedGuide < Edition
   end
 
   def related_detailed_guide_content_ids
-    related_to_editions.where(type: 'DetailedGuide').map(&:content_id)
+    related_to_editions.where(type: 'DetailedGuide').map(&:content_id).uniq
   end
 
   # Ensure that we set related detailed guides without stomping on other related documents
