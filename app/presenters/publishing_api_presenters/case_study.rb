@@ -1,6 +1,8 @@
 require_relative "../publishing_api_presenters"
 
 class PublishingApiPresenters::CaseStudy < PublishingApiPresenters::Edition
+  include PublishingApiPresenters::WithdrawingHelper
+
   def links
     extract_links([
       :document_collections,
@@ -33,37 +35,12 @@ private
     end
   end
 
-  def first_public_at
-    if item.document.published?
-      item.first_public_at
-    else
-      item.document.created_at.iso8601
-    end
-  end
-
   def image_details
     {
       url: Whitehall.public_asset_host + presented_case_study.lead_image_path,
       alt_text: presented_case_study.lead_image_alt_text,
       caption: presented_case_study.lead_image_caption,
     }
-  end
-
-  def withdrawn_notice
-    {
-      explanation: unpublishing_explanation,
-      withdrawn_at: item.updated_at
-    }
-  end
-
-  def body
-    Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item)
-  end
-
-  def unpublishing_explanation
-    if item.unpublishing.try(:explanation).present?
-      Whitehall::GovspeakRenderer.new.govspeak_to_html(item.unpublishing.explanation)
-    end
   end
 
   def image_available?

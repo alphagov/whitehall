@@ -109,4 +109,16 @@ private
   def default_update_type
     item.minor_change? ? 'minor' : 'major'
   end
+
+  def first_public_at
+    if item.document.published?
+      item.first_public_at
+    else
+      item.document.created_at.iso8601
+    end
+  end
+
+  def body
+    Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item)
+  end
 end
