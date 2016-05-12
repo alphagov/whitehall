@@ -20,7 +20,7 @@ class PublishingApiPresenters::Edition < PublishingApiPresenters::Item
   end
 
   def base_path
-    Whitehall.url_maker.public_document_path(item)
+    Whitehall.url_maker.public_document_path(item, locale: I18n.locale)
   end
 
 private
