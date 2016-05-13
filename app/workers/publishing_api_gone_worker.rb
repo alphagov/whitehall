@@ -1,7 +1,9 @@
 class PublishingApiGoneWorker < PublishingApiWorker
-  def call(base_path, options = {})
-    draft = options.fetch("draft", false)
-    gone_item = PublishingApiPresenters::Gone.new(base_path)
-    draft ? save_draft(gone_item) : send_item(gone_item, 'en')
+  def call(content_id, locale)
+    Whitehall.publishing_api_v2_client.unpublish(
+      content_id,
+      type: "gone",
+      locale: locale,
+    )
   end
 end

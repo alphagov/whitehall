@@ -378,8 +378,10 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       assert_equal german_path, PublishingApiUnscheduleWorker.jobs[0]['args'].first
       assert_equal english_path, PublishingApiUnscheduleWorker.jobs[1]['args'].first
 
-      assert_equal german_path, PublishingApiGoneWorker.jobs[0]['args'].first
-      assert_equal english_path, PublishingApiGoneWorker.jobs[1]['args'].first
+      assert_equal edition.content_id, PublishingApiGoneWorker.jobs[0]['args'].first
+      assert_equal edition.content_id, PublishingApiGoneWorker.jobs[1]['args'].first
+      assert_equal "de", PublishingApiGoneWorker.jobs[0]['args'].second
+      assert_equal "en", PublishingApiGoneWorker.jobs[1]['args'].second
     end
   end
 
@@ -428,89 +430,29 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     Whitehall::PublishingApi.save_draft_async(draft_edition, update_type, queue_name)
   end
 
-  def setup_redirect
-    @redirect_uuid = SecureRandom.uuid
-    SecureRandom.stubs(uuid: @redirect_uuid)
-
-    @base_path = "/government/people/milly-vanilly"
-    @redirects = [
-      {
-        path: @base_path,
-        type: "exact",
-        destination: "/government/poeple/milli-vanilli"
-      }
-    ]
-
-    @presenter = PublishingApiPresenters::Redirect.new(@base_path, @redirects)
-  end
-
   test ".publish_redirect_async publishes a redirect to the Publishing API" do
-    setup_redirect
+    redirect_uuid = SecureRandom.uuid
+    destination = "/government/people/milli-vanilli"
+    redirect_request = stub_publishing_api_unpublish(
+      redirect_uuid,
+      body: { type: "redirect", alternative_path: destination, locale: "en" }
+    )
 
-    assert_valid_against_schema(@presenter.content, "redirect")
+    Whitehall::PublishingApi.publish_redirect_async(redirect_uuid, destination)
 
-    expected_content_request = stub_publishing_api_put_content(@redirect_uuid, @presenter.content)
-    expected_publish_request = stub_publishing_api_publish(@redirect_uuid, update_type: 'major', locale: 'en')
-    Whitehall::PublishingApi.publish_redirect_async(@base_path, @redirects)
-
-    assert_requested expected_content_request
-    assert_requested expected_publish_request
-  end
-
-  test ".save_draft_redirect_async puts the content" do
-    setup_redirect
-
-    expected_content_request = stub_publishing_api_put_content(@redirect_uuid, @presenter.content)
-    Whitehall::PublishingApi.save_draft_redirect_async(@base_path, @redirects)
-
-    assert_requested expected_content_request
-  end
-
-  test ".save_draft_redirect_async does not publish" do
-    setup_redirect
-
-    Whitehall::PublishingApi.save_draft_redirect_async(@base_path, @redirects)
-
-    not_expected_publish_request = stub_publishing_api_publish(@redirect_uuid, update_type: 'major', locale: 'en')
-    assert_not_requested not_expected_publish_request
-  end
-
-  def setup_gone
-    @gone_uuid = SecureRandom.uuid
-    SecureRandom.stubs(uuid: @gone_uuid)
-
-    @base_path = "/government/people/milly-vanilly"
-    @presenter = PublishingApiPresenters::Gone.new(@base_path)
+    assert_requested redirect_request
   end
 
   test ".publish_gone_async publishes a gone to the Publishing API" do
-    setup_gone
+    gone_uuid = SecureRandom.uuid
 
-    assert_valid_against_schema(@presenter.content, "gone")
+    gone_request = stub_publishing_api_unpublish(
+      gone_uuid,
+      body: { type: "gone", locale: "en" }
+    )
 
-    expected_content_request = stub_publishing_api_put_content(@gone_uuid, @presenter.content)
-    expected_publish_request = stub_publishing_api_publish(@gone_uuid, update_type: 'major', locale: 'en')
-    Whitehall::PublishingApi.publish_gone_async(@base_path)
+    Whitehall::PublishingApi.publish_gone_async(gone_uuid)
 
-    assert_requested expected_content_request
-    assert_requested expected_publish_request
-  end
-
-  test ".save_draft_gone_async puts the content" do
-    setup_gone
-
-    expected_content_request = stub_publishing_api_put_content(@gone_uuid, @presenter.content)
-    Whitehall::PublishingApi.save_draft_gone_async(@base_path)
-
-    assert_requested expected_content_request
-  end
-
-  test ".save_draft_gone_async does not publish" do
-    setup_gone
-
-    Whitehall::PublishingApi.save_draft_gone_async(@base_path)
-
-    not_expected_publish_request = stub_publishing_api_publish(@gone_uuid, update_type: 'major', locale: 'en')
-    assert_not_requested not_expected_publish_request
+    assert_requested gone_request
   end
 end
