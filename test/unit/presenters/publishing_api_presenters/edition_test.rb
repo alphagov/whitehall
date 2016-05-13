@@ -45,6 +45,45 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
     assert_valid_against_schema(presented_item.content, 'placeholder')
   end
 
+  test 'presents a translatable Edition, obeying the current locale' do
+    edition = create(:published_publication,
+                title: 'The title',
+                summary: 'The summary',
+                primary_specialist_sector_tag: 'oil-and-gas/taxation',
+                secondary_specialist_sector_tags: ['oil-and-gas/licensing'],
+                translated_into: [:cy])
+
+    public_path = Whitehall.url_maker.public_document_path(edition) + ".cy"
+
+    expected_hash = {
+      base_path: public_path,
+      title: 'cy-The title',
+      description: 'cy-The summary',
+      schema_name: 'placeholder_publication',
+      document_type: 'policy_paper',
+      locale: 'cy',
+      need_ids: [],
+      public_updated_at: edition.public_timestamp,
+      publishing_app: 'whitehall',
+      rendering_app: 'whitehall-frontend',
+      routes: [
+        { path: public_path, type: 'exact' }
+      ],
+      redirects: [],
+      details: {
+        tags: {
+          browse_pages: [],
+          policies: [],
+          topics: ['oil-and-gas/taxation', 'oil-and-gas/licensing']
+        }
+      },
+    }
+
+    presented_content = I18n.with_locale(:cy) { present(edition).content }
+    assert_equal expected_hash, presented_content
+    assert_valid_against_schema(presented_content, 'placeholder')
+  end
+
   test 'can present a draft Edition for the publishing API' do
     edition = create(:publication,
                 title: 'The title',

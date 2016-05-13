@@ -2,7 +2,7 @@ module PublicDocumentRoutesHelper
   include ActionDispatch::Routing::PolymorphicRoutes
 
   def document_path(edition, options = {})
-    document_url(edition, options.merge(routing_type: :path))
+    document_url(edition, options.merge(only_path: true))
   end
 
   def public_document_path(edition, options = {})
