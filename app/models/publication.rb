@@ -148,6 +148,12 @@ class Publication < Publicationesque
 
   private
 
+  def date_for_government
+    published_edition_date = first_public_at.try(:to_date)
+    draft_edition_date = updated_at.try(:to_date)
+    published_edition_date || draft_edition_date
+  end
+
   def attachment_required_before_moving_out_of_draft
     if %w(submitted scheduled published).include?(state) && !has_attachments?
       errors.add(:base, "Publications must have either a URL for off-site documents, an attachment or HTML version before being #{current_state}")
