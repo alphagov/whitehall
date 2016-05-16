@@ -4,9 +4,8 @@ module DataHygiene
   # When run, the following happens:
   #
   #   - updates the Organisation's slug
+  #   - republishes the org to Publishing API (which creates a redirect)
   #   - reindexes the org for search
-  #   - republishes the org to Publishing API
-  #   - publishes a redirect content item to Publishing API
   #   - reindexes all dependent documents in search
   #
   #
@@ -22,7 +21,6 @@ module DataHygiene
       update_slug
       update_users if organisation.is_a? Organisation
       update_editions if organisation.is_a? Organisation
-      register_redirect
     end
 
   private
@@ -48,15 +46,6 @@ module DataHygiene
       end
     end
 
-    def old_base_path
-      case organisation
-      when Organisation
-        Whitehall.url_maker.organisation_path(old_slug)
-      when WorldwideOrganisation
-        Whitehall.url_maker.worldwide_organisation_path(old_slug)
-      end
-    end
-
     def new_base_path
       case organisation
       when Organisation
@@ -64,21 +53,6 @@ module DataHygiene
       when WorldwideOrganisation
         Whitehall.url_maker.worldwide_organisation_path(new_slug)
       end
-    end
-
-    def redirects
-      redirects = [{ path: old_base_path, destination: new_base_path, type: "exact" }]
-
-      if organisation.is_a? Organisation
-        redirects << { path: (old_base_path + ".atom"),
-                       destination: (new_base_path + ".atom"),
-                       type: "exact" }
-      end
-      redirects
-    end
-
-    def register_redirect
-      Whitehall::PublishingApi.publish_redirect_async(old_base_path, redirects)
     end
   end
 end

@@ -6,7 +6,7 @@ module DataHygiene
   #   - updates the Role record's slug
   #   - reindexes the role for search
   #   - republishes the role to Publishing API
-  #   - publishes a redirect content item to Publishing API
+  #   - publishes a redirect to Publishing API
   #   - reindexes all dependent documents in search
   #
   class RoleReslugger
@@ -19,7 +19,6 @@ module DataHygiene
     def run!
       remove_from_search_index
       update_slug
-      register_redirect
     end
 
   private
@@ -35,23 +34,8 @@ module DataHygiene
       role.update_attributes!(slug: new_slug)
     end
 
-    def old_base_path
-      Whitehall.url_maker.ministerial_role_path(old_slug)
-    end
-
     def new_base_path
       Whitehall.url_maker.ministerial_role_path(new_slug)
-    end
-
-    def redirects
-      @redirects ||= [
-        { path: old_base_path, destination: new_base_path, type: "exact" },
-        { path: (old_base_path + ".atom"), destination: (new_base_path + ".atom"), type: "exact" },
-      ]
-    end
-
-    def register_redirect
-      Whitehall::PublishingApi.publish_redirect_async(old_base_path, redirects)
     end
   end
 end

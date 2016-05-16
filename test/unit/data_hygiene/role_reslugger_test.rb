@@ -24,21 +24,13 @@ class MinisterialRoleResluggerTest < ActiveSupport::TestCase
 
     redirect_uuid = SecureRandom.uuid
     SecureRandom.stubs(uuid: redirect_uuid)
-    content_item = PublishingApiPresenters.presenter_for(@ministerial_role)
-    old_base_path = @ministerial_role.search_link
     new_base_path = "/government/ministers/corrected-slug"
 
+    content_item = PublishingApiPresenters.presenter_for(@ministerial_role)
     content = content_item.content
     content[:base_path] = new_base_path
     content[:routes][0][:path] = new_base_path
-
     content_item.stubs(content: content)
-
-    redirects = [
-      { path: old_base_path, type: "exact", destination: new_base_path },
-      { path: (old_base_path + ".atom"), type: "exact", destination: (new_base_path + ".atom") }
-    ]
-    redirect_item = PublishingApiPresenters::Redirect.new(old_base_path, redirects)
 
     expected_publish_requests = [
       stub_publishing_api_put_content(content_item.content_id, content_item.content),
@@ -46,16 +38,9 @@ class MinisterialRoleResluggerTest < ActiveSupport::TestCase
       stub_publishing_api_publish(content_item.content_id, locale: 'en', update_type: 'major')
     ]
 
-    expected_redirect_requests = [
-      stub_publishing_api_put_content(redirect_item.content_id, redirect_item.content),
-      stub_publishing_api_patch_links(redirect_item.content_id, links: redirect_item.links),
-      stub_publishing_api_publish(redirect_item.content_id, locale: 'en', update_type: 'major')
-    ]
-
     @reslugger.run!
 
     assert_all_requested(expected_publish_requests)
-    assert_all_requested(expected_redirect_requests)
   end
 
   test "deletes the old slug from the search index" do

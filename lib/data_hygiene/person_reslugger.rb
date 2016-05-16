@@ -4,9 +4,8 @@ module DataHygiene
   # When run, the following happens:
   #
   #   - updates the Person record's slug
+  #   - republishes to Publishing API (which creates a redirect)
   #   - reindexes the person for search
-  #   - republishes the person to Publishing API
-  #   - publishes a redirect content item to Publishing API
   #   - reindexes all dependent documents in search
   #
   class PersonReslugger
@@ -19,7 +18,6 @@ module DataHygiene
     def run!
       remove_from_search_index
       update_slug
-      register_redirect
       republish_dependencies
     end
 
@@ -36,23 +34,8 @@ module DataHygiene
       person.update_attributes!(slug: new_slug)
     end
 
-    def old_base_path
-      Whitehall.url_maker.person_path(old_slug)
-    end
-
     def new_base_path
       Whitehall.url_maker.person_path(new_slug)
-    end
-
-    def redirects
-      @redirects ||= [
-        { path: old_base_path, destination: new_base_path, type: "exact" },
-        { path: (old_base_path + ".atom"), destination: (new_base_path + ".atom"), type: "exact" },
-      ]
-    end
-
-    def register_redirect
-      Whitehall::PublishingApi.publish_redirect_async(old_base_path, redirects)
     end
 
     def republish_dependencies
