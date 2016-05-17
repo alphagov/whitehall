@@ -26,7 +26,11 @@ module ServiceListeners
           redirect_if_required(attachment)
         end
       when "withdraw"
-        api.republish_document_async(edition.document)
+        api.publish_withdrawal_async(
+          edition.content_id,
+          edition.unpublishing.explanation,
+          edition.primary_locale
+        )
         edition_html_attachments.each do |attachment|
           api.republish_async(attachment)
         end
