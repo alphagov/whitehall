@@ -10,6 +10,7 @@ Before do
   GdsApi::PublishingApiV2.any_instance.stubs(:publish)
   GdsApi::PublishingApiV2.any_instance.stubs(:put_content)
   GdsApi::PublishingApiV2.any_instance.stubs(:patch_links)
+  GdsApi::PublishingApiV2.any_instance.stubs(:unpublish)
   stub_publishing_api_policies
 end
 

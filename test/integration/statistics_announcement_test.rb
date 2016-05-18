@@ -54,15 +54,13 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
 
   test "it publishes gone on destroy" do
     statistics_announcement = create(:statistics_announcement)
-
-    new_content_id = SecureRandom.uuid
-    SecureRandom.stubs(uuid: new_content_id)
-
-    presenter = PublishingApiPresenters::Gone.new(statistics_announcement.search_link)
-    expected = presenter.content
+    gone_request = stub_publishing_api_unpublish(
+      statistics_announcement.content_id,
+      body: { type: "gone", locale: "en" }
+    )
 
     statistics_announcement.destroy
-    assert_publishing_api_put_content(new_content_id, expected)
+    assert_requested gone_request
   end
 
   test "it publishes when updated" do
