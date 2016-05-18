@@ -48,6 +48,7 @@ class PublishStaticPages
     {
       content_id: page[:content_id],
       content: {
+        details: {},
         title: page[:title],
         description: page[:description],
         format: "placeholder", # This content will never be rendered by content store
