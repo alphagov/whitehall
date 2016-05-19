@@ -64,14 +64,6 @@ That's all
     assert_select "a[href='http://mainstream/additional-content']", "Some additional related mainstream content"
   end
 
-  view_test "show includes link to API representation" do
-    detailed_guide = create(:published_detailed_guide)
-
-    get :show, id: detailed_guide.document
-
-    assert_select "link[rel=alternate][href=?]", api_detailed_guide_url(detailed_guide.document)
-  end
-
   test "the format name is being set to 'detailed_guidance'" do
     guide = create(:published_detailed_guide)
 
