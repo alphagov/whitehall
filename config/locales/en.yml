@@ -423,11 +423,10 @@ en:
       unnumbered_hoc_paper: Unnumbered act paper
     accessibility:
       heading: This file may not be suitable for users of assistive technology.
-      request_a_different_format: Request a different format.
+      request_a_different_format: Request an accessible format.
       full_help_html: |
-        If you use assistive technology and need a version of this document
-        in a more accessible format, please email
-        %{email}.
+        If you use assistive technology (eg a screen reader) and need a
+        version of this document in a more accessible format, please email %{email}.
         Please tell us what format you need. It will help us if you say what assistive technology you use.
     opendocument:
       help_html: This file is in an <a rel="external" href="https://en.wikipedia.org/wiki/OpenDocument_software">OpenDocument</a> format
