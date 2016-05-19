@@ -1,6 +1,10 @@
 require_relative "../publishing_api_presenters"
 
 class PublishingApiPresenters::DetailedGuide < PublishingApiPresenters::Edition
+  include PublishingApiPresenters::WithdrawingHelper
+  include PublishingApiPresenters::PoliticalHelper # Detailed Guides need a government to publish successfully.
+  include PublishingApiPresenters::ApplicabilityHelper
+
   def links
     extract_links([
       :lead_organisations,
@@ -23,25 +27,12 @@ private
       change_history: item.change_history.as_json,
       emphasised_organisations: item.lead_organisations.map(&:content_id),
       first_public_at: first_public_at,
-      government: government,
-      political: item.political?,
       related_mainstream_content: related_mainstream,
-    ).tap do |json|
-      json[:withdrawn_notice] = withdrawn_notice if item.withdrawn?
-      json[:national_applicability] = national_applicability if item.nation_inapplicabilities.any?
-    end
-  end
-
-  def body
-    Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item)
-  end
-
-  def first_public_at
-    if item.document.published?
-      item.first_public_at
-    else
-      item.document.created_at.iso8601
-    end
+    ).merge(political_details)
+      .tap do |json|
+        json[:withdrawn_notice] = withdrawn_notice if item.withdrawn?
+        json[:national_applicability] = national_applicability if item.nation_inapplicabilities.any?
+      end
   end
 
   def related_guides
@@ -62,58 +53,5 @@ private
     else
       []
     end
-  end
-
-  # Detailed Guides need a government to publish successfully.
-  def government
-    gov = item.government
-    {
-      title: gov.name,
-      slug: gov.slug,
-      current: gov.current?
-    }
-  end
-
-  def withdrawn_notice
-    {
-      explanation: unpublishing_explanation,
-      withdrawn_at: item.updated_at
-    }
-  end
-
-  def unpublishing_explanation
-    if item.unpublishing.try(:explanation).present?
-      Whitehall::GovspeakRenderer.new.govspeak_to_html(item.unpublishing.explanation)
-    end
-  end
-
-  def nation_to_sym(nation)
-    key = nation.tr(' ', '_').downcase.to_sym
-  end
-
-  def universally_applicable
-    all_nations = %w(England Northern\ Ireland Scotland Wales)
-    all_nations.reduce({}) { |hash, nation|
-      key = nation_to_sym(nation)
-      hash[key] = {
-        label: nation,
-        applicable: true
-      }
-      hash
-    }
-  end
-
-  def national_applicability
-    nations = universally_applicable
-
-    inapplicabilities = item.nation_inapplicabilities
-    nations = inapplicabilities.reduce(nations) { |hash, inapplicability|
-      key = nation_to_sym(inapplicability.nation.name)
-      hash[key][:applicable] = false
-      hash[key][:alternative_url] = inapplicability.alternative_url if inapplicability.alternative_url
-      hash
-    }
-
-    nations
   end
 end
