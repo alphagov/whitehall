@@ -18,6 +18,13 @@ class Publication < Publicationesque
   attr_accessor :statistics_announcement_id
   after_create :assign_statistics_announcement
 
+  after_save :touch_statistics_announcement
+  def touch_statistics_announcement
+    unless draft?
+      statistics_announcement.touch unless statistics_announcement.nil?
+    end
+  end
+
   def self.subtypes
     PublicationType.all
   end
