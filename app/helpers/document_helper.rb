@@ -106,7 +106,7 @@ module DocumentHelper
       "txt"  => "Plain text",
       "wsdl" => file_abbr_tag('WSDL', 'Web Services Description Language'),
       "xls"  => MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE,
-      "xlsm" => file_abbr_tag('XSLM', 'MS Excel Macro-Enabled Workbook'),
+      "xlsm" => file_abbr_tag('XLSM', 'MS Excel Macro-Enabled Workbook'),
       "xlsx" => MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE,
       "xlt"  => file_abbr_tag('XLT', 'MS Excel Spreadsheet Template'),
       "xsd"  => file_abbr_tag('XSD', 'XML Schema'),
