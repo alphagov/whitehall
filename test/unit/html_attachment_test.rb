@@ -118,4 +118,28 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     attachment.update_attributes!(locale: "fr")
     assert attachment.slug.blank?
   end
+
+  test "#save_and_update_publishing_api saves the attachment" do
+    build(
+      :draft_publication,
+      html_attachments: [attachment = build(:html_attachment)]
+    )
+    attachment.save_and_update_publishing_api
+    assert attachment.persisted?, "Attachment has not been saved"
+  end
+
+  test "#save_and_udpate_publishing_api sends the attachable to draft_updater" do
+    edition = create(
+      :draft_publication,
+      html_attachments: [attachment = build(:html_attachment)]
+    )
+
+    Whitehall.edition_services
+      .expects(:draft_updater)
+      .with(edition)
+      .returns(draft_updater = stub)
+    draft_updater.expects(:perform!)
+
+    attachment.save_and_update_publishing_api
+  end
 end

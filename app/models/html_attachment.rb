@@ -88,6 +88,10 @@ class HtmlAttachment < Attachment
     'HTML'
   end
 
+  def save_and_update_publishing_api
+    save && Whitehall.edition_services.draft_updater(attachable).perform!
+  end
+
   private
 
   def sluggable_locale?
