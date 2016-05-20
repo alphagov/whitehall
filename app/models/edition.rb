@@ -654,7 +654,9 @@ class Edition < ActiveRecord::Base
 private
 
   def date_for_government
-    first_public_at.try(:to_date)
+    published_edition_date = first_public_at.try(:to_date)
+    draft_edition_date = updated_at.try(:to_date)
+    published_edition_date || draft_edition_date
   end
 
   def enforcer(user)
