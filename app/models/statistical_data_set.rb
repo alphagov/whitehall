@@ -1,3 +1,8 @@
+# Statistical data sets live at https://www.gov.uk/government/statistical-data-sets
+#
+# Example:
+#  https://www.gov.uk/government/statistical-data-sets/2011-skills-for-life-survey-small-area-estimation-data
+#
 class StatisticalDataSet < Publicationesque
   include Edition::AlternativeFormatProvider
 

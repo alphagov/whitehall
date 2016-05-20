@@ -1,4 +1,4 @@
-# The base class for all editoral content. It configures the searchable options and callbacks.
+# The base class for almost all editoral content.
 # @abstract Using STI should not create editions directly.
 class Edition < ActiveRecord::Base
   include Edition::Traits
@@ -8,17 +8,27 @@ class Edition < ActiveRecord::Base
 
   include Edition::Identifiable
   include Edition::LimitedAccess
+
+  # Adds a statemachine for the publishing workflow. States and methods like
+  # `publish` and `withdraw` are defined here.
   include Edition::Workflow
+
+  # Adds support for `unpublishing`, change notes and version numbers.
   include Edition::Publishing
+
+  # Sets up papertrail and versioning
   include Edition::AuditTrail
+
   include Edition::ActiveEditors
   include Edition::Translatable
+
+  # Add support for specialist sector tagging.
   include Edition::SpecialistSectors
+
   include Dependable
 
   serialize :need_ids, Array
 
-  # This mixin should go away when we switch to a search backend for admin documents
   extend Edition::FindableByOrganisation
 
   include Searchable

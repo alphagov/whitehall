@@ -38,6 +38,7 @@ private
   end
 
   def fire_transition!
+    # The `publish` method is part of `Edition::Workflow`.
     edition.publish
     edition.save(validate: false)
     supersede_previous_editions!
