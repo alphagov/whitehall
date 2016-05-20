@@ -1,11 +1,20 @@
 <% page_title "Attachments for #{attachment.attachable_model_name}" %>
 <% page_class "attachments index" %>
+<% is_publication = attachment.attachable_model_name == 'publication' %>
 
 <div class="row">
   <section class="col-md-8">
     <h1>Attachments for <%= attachment.attachable_model_name %></h1>
 
     <%= attachable_editing_tabs(attachable) do %>
+      <p class="qa-helper-copy">
+        <strong>Note:</strong>
+        <% if is_publication %>
+          Attachments added to a publication will appear automatically.
+        <% else %>
+          Attachments need to be referenced in the body markdown to appear in your document.
+        <% end %>
+      <p>
       <ul class="actions list-unstyled">
         <li>
           <%= link_to 'Upload new file attachment', new_polymorphic_path([:admin, typecast_for_attachable_routing(attachable), Attachment]) %>
