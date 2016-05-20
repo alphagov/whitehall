@@ -1,10 +1,19 @@
-class Frontend::StatisticsAnnouncement < InflatableModel
+# Presenter used by `StatisticsAnnouncementProvider` to present a document
+# fetched from Rummager for display on the statistics announcement index page.
+class Frontend::StatisticsAnnouncement
   attr_accessor :slug, :title, :summary,
                 :publication, :document_type,
                 :release_date, :display_date, :release_date_confirmed,
                 :release_date_change_note, :previous_display_date,
                 :organisations, :topics,
                 :state, :cancellation_reason, :cancellation_date
+
+  def initialize(attrs = {})
+    attrs = Hash(attrs)
+    attrs.each do |key, value|
+      self.send("#{key}=", value)
+    end
+  end
 
   def cancelled?
     state == "cancelled"
