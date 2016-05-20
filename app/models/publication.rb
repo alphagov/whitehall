@@ -1,3 +1,10 @@
+# Publications live at https://www.gov.uk/government/publications
+#
+# There are many types of publications - see `PublicationType`.
+#
+# Publication pages are rendered by Whitehall.
+#
+# Note that `Publicationesque` inherits from `Edition`
 class Publication < Publicationesque
   include Edition::Images
   include Edition::NationalApplicability

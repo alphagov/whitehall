@@ -1,3 +1,10 @@
+# Publicationesque is a common base class for things that look like
+# publications:
+#
+# - Consultations
+# - Publication
+# - StatisticalDataSet
+#
 # @abstract
 class Publicationesque < Edition
   include Edition::RelatedPolicies

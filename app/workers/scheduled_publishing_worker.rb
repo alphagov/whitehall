@@ -1,5 +1,8 @@
 require 'sidekiq/api'
 
+# ScheduledPublishingWorker is a job that is scheduled by the `EditionScheduler`.
+# It is never executed immediately but uses the Sidekiq delay mechanism to
+# execute at the time the edition should be published.
 class ScheduledPublishingWorker < WorkerBase
   class ScheduledPublishingFailure < StandardError; end
 
@@ -32,6 +35,7 @@ class ScheduledPublishingWorker < WorkerBase
     edition = Edition.find(edition_id)
     return if edition.published?
 
+    # Call `ScheduledEditionPublisher` via the `EditionServiceCoordinator`.
     publisher = Whitehall.edition_services.scheduled_publisher(edition)
 
     Edition::AuditTrail.acting_as(publishing_robot) do

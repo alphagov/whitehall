@@ -1,3 +1,15 @@
+# Statistics Announcements can be found at https://www.gov.uk/government/statistics/announcements
+#
+# They are used to announce the publication of official statistics. Some info
+# can be found in the Wiki - https://gov-uk.atlassian.net/wiki/display/GOVUK/Statistics.
+#
+# Once the statistics are published, the statistics announcement will redirect and
+# dissapear from search.
+#
+# Statistics Announcements pages are rendered by the `government-frontend` app,
+# the index page is still rendered from Whitehall.
+#
+# Statistics announcements are not versioned/editioned.
 class StatisticsAnnouncement < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title

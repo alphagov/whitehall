@@ -1,4 +1,3 @@
-# This mixin should go away when we switch to a search backend for admin documents
 module Edition::FindableByOrganisation
   def in_organisation(organisation)
     organisation_ids = Array(organisation).map(&:id)

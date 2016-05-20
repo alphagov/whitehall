@@ -1,3 +1,4 @@
+# Note that announcement pages are rendered by the `government-frontend` application.
 class StatisticsAnnouncementsController < PublicFacingController
   include PublicDocumentRoutesHelper
 
@@ -13,6 +14,7 @@ class StatisticsAnnouncementsController < PublicFacingController
   end
 
 private
+
   def filter_params
     params.slice(:page, :keywords, :from_date, :to_date, :organisations, :topics)
   end
