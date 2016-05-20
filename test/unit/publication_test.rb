@@ -215,4 +215,18 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
 
     assert_equal publication, statistics_announcement.reload.publication
   end
+
+  test 'touches statistics_announcement on save' do
+    statistics_announcement = create(:statistics_announcement)
+    publication = build(:published_statistics, statistics_announcement: statistics_announcement)
+    statistics_announcement.expects(:touch)
+    publication.save!
+  end
+
+  test "it doesn't touch the statistics_announcement if it's in draft" do
+    statistics_announcement = create(:statistics_announcement)
+    publication = build(:draft_statistics, statistics_announcement: statistics_announcement)
+    statistics_announcement.expects(:touch).never
+    publication.save!
+  end
 end
