@@ -1,3 +1,5 @@
+# Presenter used by `StatisticsAnnouncementProvider` to present a document
+# fetched from Rummager for display on the statistics announcement index page.
 class Frontend::StatisticsAnnouncement
   attr_accessor :slug, :title, :summary,
                 :publication, :document_type,
