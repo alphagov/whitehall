@@ -3,6 +3,7 @@ private
 
   def government
     gov = item.government
+    return nil unless gov
     {
       title: gov.name,
       slug: gov.slug,
