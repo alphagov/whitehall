@@ -214,8 +214,11 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
 
     assert_valid_against_schema(presented_item.content, 'case_study')
     assert_equal archive_notice[:archived_at], presented_item.content[:details][:withdrawn_notice][:withdrawn_at]
+    assert_equal archive_notice[:archived_at], presented_item.content[:withdrawn_notice][:withdrawn_at]
     assert_equivalent_html archive_notice[:explanation],
       presented_item.content[:details][:withdrawn_notice][:explanation]
+    assert_equivalent_html archive_notice[:explanation],
+      presented_item.content[:withdrawn_notice][:explanation]
   end
 
   test "an unpublished document has a first_public_at of the document creation time" do

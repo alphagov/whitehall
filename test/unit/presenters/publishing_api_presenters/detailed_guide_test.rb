@@ -227,7 +227,9 @@ class PublishingApiPresenters::DetailedGuideTest < ActiveSupport::TestCase
 
     assert_valid_against_schema(presented_item.content, 'detailed_guide')
     assert_equal expected_withdrawn_notice[:withdrawn_at], details[:withdrawn_notice][:withdrawn_at]
+    assert_equal expected_withdrawn_notice[:withdrawn_at], presented_item.content[:withdrawn_notice][:withdrawn_at]
     assert_equivalent_html expected_withdrawn_notice[:explanation], details[:withdrawn_notice][:explanation]
+    assert_equivalent_html expected_withdrawn_notice[:explanation], presented_item.content[:withdrawn_notice][:explanation]
   end
 
   test 'DetailedGuide presents national_applicability correctly when some are specified' do
