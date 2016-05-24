@@ -28,13 +28,14 @@ module DataHygiene
     class Failure
       attr_reader :base_path, :failed_expectations
 
-      def initialize(base_path:, failed_expectations:)
+      def initialize(base_path:, failed_expectations:, content_store:)
         @base_path = base_path
         @failed_expectations = failed_expectations
+        @content_store = content_store
       end
 
       def to_s
-        "Failed path: #{@base_path}, failed expectations: #{@failed_expectations.join(', ')}"
+        "Failed path: #{@base_path} in #{@content_store.titleize}, failed expectations: #{@failed_expectations.join(', ')}"
       end
 
       def ==(other)
@@ -116,19 +117,31 @@ module DataHygiene
       base_path = base_path_for(whitehall_model)
       if response.success?
         json = JSON.parse(response.body)
-        failed_expectations = expectations.reject { |expectation| expectation[:block].call(json, whitehall_model) }
+        failed_expectations = expectations.reject do |expectation|
+          begin
+            expectation[:block].call(json, whitehall_model)
+          rescue => e
+            failures << Failure.new(
+              base_path: base_path,
+              failed_expectations: ["raised error #{e.message}"],
+              content_store: content_store
+            )
+            true # Already adding a Failure, no need to add another one later
+          end
+        end
         if failed_expectations.empty?
           successes << Success.new(base_path: base_path)
           success = true
         else
           failed_expectation_descriptions = failed_expectations.map { |expectation| expectation[:description] }
-          failures << Failure.new(base_path: base_path, failed_expectations: failed_expectation_descriptions)
+          failures << Failure.new(base_path: base_path, failed_expectations: failed_expectation_descriptions, content_store: content_store)
           success = false
         end
       else
         failures << Failure.new(
           base_path: base_path,
-          failed_expectations: ["item unreachable in #{content_store.titleize}; response status: #{response.status_message}"]
+          failed_expectations: ["item unreachable, response status: #{response.status_message}"],
+          content_store: content_store
         )
         success = false
       end
