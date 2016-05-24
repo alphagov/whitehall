@@ -19,7 +19,7 @@ class PublishingApiPresenters::LinksPresenterTest < ActionView::TestCase
     document = create(:detailed_guide)
     links = links_for(document)
 
-    assert_equal document.lead_organisations.map(&:content_id), links[:lead_organisations]
+    assert_equal document.organisations.map(&:content_id), links[:organisations]
     # whitehall names and publishing api names don't necessarily match...
     assert_equal document.topics.map(&:content_id), links[:policy_areas]
   end

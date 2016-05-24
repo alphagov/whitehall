@@ -68,7 +68,6 @@ class PublishingApiPresenters::DetailedGuideTest < ActiveSupport::TestCase
       },
     }
     expected_links = {
-      lead_organisations: detailed_guide.lead_organisations.map(&:content_id),
       organisations: detailed_guide.organisations.map(&:content_id),
       related_guides: [],
       related_mainstream: [],

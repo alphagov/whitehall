@@ -6,10 +6,8 @@ class PublishingApiPresenters::CaseStudy < PublishingApiPresenters::Edition
   def links
     extract_links([
       :document_collections,
-      :lead_organisations,
       :organisations,
       :related_policies,
-      :supporting_organisations,
       :topics,
       :world_locations,
       :worldwide_organisations,
@@ -44,10 +42,10 @@ private
   end
 
   def image_available?
-    item.images.any? || lead_organisation_default_image_available?
+    item.images.any? || emphasised_organisation_default_image_available?
   end
 
-  def lead_organisation_default_image_available?
+  def emphasised_organisation_default_image_available?
     item.lead_organisations.first.default_news_image.present?
   end
 
