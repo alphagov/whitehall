@@ -1,5 +1,8 @@
 $:.unshift(File.dirname(__FILE__))
 ENV["RAILS_ENV"] = "test"
+ENV["GOVUK_APP_DOMAIN"] = "test.alphagov.co.uk"
+ENV["GOVUK_ASSET_ROOT"] = "http://static.test.alphagov.co.uk"
+
 require File.expand_path('../../config/environment', __FILE__)
 
 if ENV["TEST_COVERAGE"]
