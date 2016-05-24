@@ -30,7 +30,6 @@ private
     }
   end
 
-
   def base_path
     item.url
   end
@@ -65,5 +64,9 @@ private
 
   def govspeak_content
     item.govspeak_content
+  end
+
+  def locale
+    item.translated_locales.first
   end
 end

@@ -142,4 +142,9 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
 
     attachment.save_and_update_publishing_api
   end
+
+  test "#translated_locales lists only the attachment's locale" do
+    assert_equal ["en"], HtmlAttachment.new.translated_locales
+    assert_equal ["cy"], HtmlAttachment.new(locale: "cy").translated_locales
+  end
 end
