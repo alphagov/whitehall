@@ -1,7 +1,5 @@
 #!/bin/bash -xe
 export DISPLAY=:99
-export GOVUK_APP_DOMAIN=test.alphagov.co.uk
-export GOVUK_ASSET_ROOT=http://static.test.alphagov.co.uk
 env
 
 function github_status {
@@ -61,7 +59,7 @@ fi
 
 RAILS_ENV=test bundle exec rake db:drop db:create db:schema:load
 RAILS_ENV=test GOVUK_CONTENT_SCHEMAS_PATH=tmp/govuk-content-schemas time bundle exec rake ci:setup:minitest test:in_parallel --trace
-RAILS_ENV=production time bundle exec rake assets:precompile --trace
+RAILS_ENV=production GOVUK_ASSET_ROOT=http://static.test.alphagov.co.uk time bundle exec rake assets:precompile --trace
 
 EXIT_STATUS=$?
 echo "EXIT STATUS: $EXIT_STATUS"

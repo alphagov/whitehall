@@ -1,7 +1,5 @@
 #!/bin/bash -xe
 export DISPLAY=:99
-export GOVUK_APP_DOMAIN=test.alphagov.co.uk
-export GOVUK_ASSET_ROOT=http://static.test.alphagov.co.uk
 env
 
 function github_status {
