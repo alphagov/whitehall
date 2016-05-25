@@ -36,14 +36,13 @@ class TopicalEventAboutPageTest < ActiveSupport::TestCase
   test "TopicalEventAboutPage publishes gone route to the Publishing API on destroy" do
     @topical_event_about_page.save!
 
-    new_content_id = SecureRandom.uuid
-    SecureRandom.stubs(uuid: new_content_id)
-
-    presenter = PublishingApiPresenters::Gone.new(@topical_event_about_page.search_link)
-    expected_json = presenter.content
+    gone_request = stub_publishing_api_unpublish(
+      @topical_event_about_page.content_id,
+      body: { type: "gone", locale: "en" }
+    )
 
     @topical_event_about_page.destroy
-    assert_publishing_api_put_content(new_content_id, expected_json)
+    assert_requested gone_request
   end
 
   test "TopicalEventAboutPage is published to the Publishing API when updated" do

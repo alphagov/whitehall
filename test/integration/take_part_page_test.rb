@@ -30,14 +30,14 @@ class TakePartPageTest < ActiveSupport::TestCase
   test "TakePartPage publishes gone route to the Publishing API on destroy" do
     @take_part_page.save!
 
-    new_content_id = SecureRandom.uuid
-    SecureRandom.stubs(uuid: new_content_id)
-
-    presenter = PublishingApiPresenters::Gone.new(@take_part_page.search_link)
-    expected_json = presenter.content
+    gone_request = stub_publishing_api_unpublish(
+      @take_part_page.content_id,
+      body: { type: "gone", locale: "en" }
+    )
 
     @take_part_page.destroy
-    assert_publishing_api_put_content(new_content_id, expected_json)
+
+    assert_requested gone_request
   end
 
   test "TakePartPage is published to the Publishing API when updated" do

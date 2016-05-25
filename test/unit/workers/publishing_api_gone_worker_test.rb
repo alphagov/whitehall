@@ -5,37 +5,17 @@ class PublishingApiGoneWorkerTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApiV2
 
   setup do
-    @uuid = "a-uuid"
-    SecureRandom.stubs(uuid: @uuid)
-    @base_path = '/government/this-never-existed-honest'
-
-    @content = {
-      base_path: @base_path,
-      format: 'gone',
-      publishing_app: 'whitehall',
-      routes: [{path: @base_path, type: 'exact'}],
-    }
+    @uuid = SecureRandom.uuid
   end
 
-  test "publishes a 'gone' item for the supplied base path" do
-    requests = [
-      stub_publishing_api_put_content(@uuid, @content),
-      stub_publishing_api_patch_links(@uuid, links: {}),
-      stub_publishing_api_publish(@uuid, update_type: 'major', locale: 'en')
-    ]
+  test "publishes a 'gone' item for the supplied content id" do
+    request = stub_publishing_api_unpublish(
+      @uuid,
+      body: { type: "gone", locale: "de" }
+    )
 
-    PublishingApiGoneWorker.new.perform(@base_path)
+    PublishingApiGoneWorker.new.perform(@uuid, "de")
 
-    assert_all_requested requests
-  end
-
-  test "saves a draft 'gone' item for the supplied base path if draft == true" do
-    requests = [
-      stub_publishing_api_put_content(@uuid, @content),
-    ]
-
-    PublishingApiGoneWorker.new.perform(@base_path, draft: true)
-
-    assert_all_requested requests
+    assert_requested request
   end
 end

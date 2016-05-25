@@ -67,18 +67,32 @@ module ServiceListeners
     end
 
     test "withdraw republishes" do
-      edition = build(:publication)
-      Whitehall::PublishingApi.expects(:republish_document_async).with(edition.document)
+      document = build(:document)
+      edition = build(:publication, document: document)
+      edition.build_unpublishing(explanation: 'Old information',
+        unpublishing_reason_id: UnpublishingReason::Withdrawn.id)
+
+      Whitehall::PublishingApi.expects(:publish_withdrawal_async)
+        .with(edition.document.content_id, edition.unpublishing.explanation, edition.primary_locale)
+
       PublishingApiPusher.new(edition).push(event: "withdraw")
     end
 
     test "withdraw republishes the attachments" do
+      document = build(:document)
       edition = build(
         :publication,
-        html_attachments: [attachment = build(:html_attachment)]
+        html_attachments: [attachment = build(:html_attachment)],
+        document: document,
       )
-      Whitehall::PublishingApi.expects(:republish_document_async).with(edition.document)
+      edition.build_unpublishing(explanation: 'Old information',
+        unpublishing_reason_id: UnpublishingReason::Withdrawn.id)
+
+      Whitehall::PublishingApi.expects(:publish_withdrawal_async)
+        .with(edition.content_id, edition.unpublishing.explanation, edition.primary_locale)
+
       Whitehall::PublishingApi.expects(:republish_async).with(attachment)
+
       PublishingApiPusher.new(edition).push(event: "withdraw")
     end
 
@@ -95,16 +109,8 @@ module ServiceListeners
       )
       attachment = edition.attachments.first
       Whitehall::PublishingApi.expects(:publish_redirect_async).with(
-        attachment.url,
-        [
-          {
-            path: attachment.url,
-            destination: Addressable::URI.parse(
-              edition.unpublishing.alternative_url
-            ).path,
-            type: 'exact',
-          }
-        ]
+        attachment.content_id,
+        Addressable::URI.parse(edition.unpublishing.alternative_url).path
       )
       PublishingApiPusher.new(edition).push(event: "unpublish")
     end
@@ -116,14 +122,8 @@ module ServiceListeners
       )
       attachment = edition.attachments.first
       Whitehall::PublishingApi.expects(:publish_redirect_async).with(
-        attachment.url,
-        [
-          {
-            path: attachment.url,
-            destination: Whitehall.url_maker.public_document_path(edition),
-            type: 'exact',
-          }
-        ]
+        attachment.content_id,
+        Whitehall.url_maker.public_document_path(edition),
       )
       PublishingApiPusher.new(edition).push(event: "unpublish")
     end
@@ -135,16 +135,10 @@ module ServiceListeners
       )
       attachment = edition.attachments.first
       Whitehall::PublishingApi.expects(:publish_redirect_async).with(
-        attachment.url,
-        [
-          {
-            path: attachment.url,
-            destination: Addressable::URI.parse(
-              edition.unpublishing.alternative_url
-            ).path,
-            type: 'exact',
-          }
-        ]
+        attachment.content_id,
+        Addressable::URI.parse(
+          edition.unpublishing.alternative_url
+        ).path,
       )
       PublishingApiPusher.new(edition).push(event: "unpublish")
     end

@@ -13,8 +13,8 @@ class PublishesToPublishingApiTest < ActiveSupport::TestCase
       true
     end
 
-    def search_link
-      "test_link"
+    def content_id
+      "26d638-e253-4b6c-a5e6-82122c441e50"
     end
   end
 
@@ -71,7 +71,8 @@ class PublishesToPublishingApiTest < ActiveSupport::TestCase
 
   test "publish gone to publishing api publishes async" do
     test_object = include_module(TestObject.new)
-    Whitehall::PublishingApi.expects(:publish_gone_async).with("test_link")
+    Whitehall::PublishingApi.expects(:publish_gone_async)
+      .with("26d638-e253-4b6c-a5e6-82122c441e50")
     test_object.publish_gone_to_publishing_api
   end
 

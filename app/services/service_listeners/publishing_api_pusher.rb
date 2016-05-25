@@ -26,7 +26,11 @@ module ServiceListeners
           redirect_if_required(attachment)
         end
       when "withdraw"
-        api.republish_document_async(edition.document)
+        api.publish_withdrawal_async(
+          edition.content_id,
+          edition.unpublishing.explanation,
+          edition.primary_locale
+        )
         edition_html_attachments.each do |attachment|
           api.republish_async(attachment)
         end
@@ -82,7 +86,7 @@ module ServiceListeners
 
     def redirect_to_parent(attachment)
       publish_redirect(
-        attachment.url,
+        attachment.content_id,
         Whitehall.url_maker.public_document_path(edition)
       )
     end
@@ -90,24 +94,15 @@ module ServiceListeners
     def redirect_to_unpublishing_alternative(attachment)
       edition = attachment.attachable
       publish_redirect(
-        attachment.url,
+        attachment.content_id,
         Addressable::URI.parse(
           edition.unpublishing.alternative_url
         ).path
       )
     end
 
-    def publish_redirect(path, destination)
-      api.publish_redirect_async(
-        path,
-        [
-          {
-            path: path,
-            destination: destination,
-            type: "exact",
-          }
-        ]
-      )
+    def publish_redirect(content_id, destination)
+      api.publish_redirect_async(content_id, destination)
     end
   end
 end

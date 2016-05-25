@@ -63,11 +63,15 @@ class SchedulingTest < ActiveSupport::TestCase
     base_path         = Whitehall.url_maker.public_document_path(scheduled_edition)
 
     destroy_intent_request = stub_publishing_api_destroy_intent(base_path)
+    gone_request = stub_publishing_api_unpublish(
+      scheduled_edition.content_id,
+      body: { type: "gone", locale: "en" }
+    )
 
     unscheduler.perform!
 
     assert_requested destroy_intent_request
-    assert_publishing_api_put_content(gone_uuid, request_json_includes(format: 'gone'))
+    assert_requested gone_request
   end
 
   test "unscheduling a scheduled subsequent edition removes the publish intent but doesn't publish a 'gone' item" do
