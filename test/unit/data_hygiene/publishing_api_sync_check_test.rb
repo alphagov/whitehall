@@ -115,7 +115,7 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
     content_store_has_item("/government/get-involved/take-part/take-part-slug", payload, draft: true)
 
     check = check_take_part
-    expected_error_message = "Failed path: /government/get-involved/take-part/take-part-slug, failed expectations: format"
+    expected_error_message = "Failed path: /government/get-involved/take-part/take-part-slug in Content Store, failed expectations: format"
     assert_output(/Successes: 0\nFailures: 1\n#{expected_error_message}/m) do
       check.perform
     end
@@ -156,7 +156,7 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
       [
         check_failure(
           base_path: "/government/get-involved/take-part/take-part-slug",
-          failed_expectations: ["item unreachable in Content Store; response status: "],
+          failed_expectations: ["item unreachable, response status: "],
         )
       ],
       check.failures
@@ -187,7 +187,7 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
       [
         check_failure(
           base_path: "/government/get-involved/take-part/take-part-slug",
-          failed_expectations: ["item unreachable in Draft Content Store; response status: "],
+          failed_expectations: ["item unreachable, response status: "],
         )
       ],
       check.failures
@@ -256,7 +256,11 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
     check
   end
 
-  def check_failure(options)
-    DataHygiene::PublishingApiSyncCheck::Failure.new(options)
+  def check_failure(base_path:, failed_expectations:, content_store: "content-store")
+    DataHygiene::PublishingApiSyncCheck::Failure.new(
+      base_path: base_path,
+      failed_expectations: failed_expectations,
+      content_store: content_store
+    )
   end
 end
