@@ -110,7 +110,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     announcement = create(:statistics_announcement)
 
     Whitehall.publishing_api_v2_client.expects(:put_content).with do |content_id, payload|
-      content_id == test_uuid && assert_valid_against_schema(payload, "redirect")
+      content_id == test_uuid && payload[:format] == "redirect"
     end
     Whitehall.publishing_api_v2_client.expects(:patch_links)
     Whitehall.publishing_api_v2_client.expects(:publish)
