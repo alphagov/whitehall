@@ -18,7 +18,7 @@ class PublishingApiPresenters::Item
       description: description,
       schema_name: schema_name,
       document_type: document_type,
-      locale: I18n.locale.to_s,
+      locale: locale,
       need_ids: need_ids,
       public_updated_at: public_updated_at,
       publishing_app: "whitehall",
@@ -67,5 +67,9 @@ private
 
   def document_type
     schema_name
+  end
+
+  def locale
+    I18n.locale.to_s
   end
 end

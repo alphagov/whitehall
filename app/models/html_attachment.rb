@@ -92,6 +92,10 @@ class HtmlAttachment < Attachment
     save && Whitehall.edition_services.draft_updater(attachable).perform!
   end
 
+  def translated_locales
+    [locale || I18n.default_locale.to_s]
+  end
+
   private
 
   def sluggable_locale?

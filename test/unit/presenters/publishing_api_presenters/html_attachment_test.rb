@@ -51,4 +51,13 @@ class PublishingApiPresenters::HtmlAttachmentTest < ActiveSupport::TestCase
 
     assert_equal expected_hash, presented_content
   end
+
+  test "HtmlAttachment presentation includes the correct locale" do
+    create(:publication, :with_html_attachment, :published)
+
+    html_attachment = HtmlAttachment.last
+    html_attachment.locale = "cy"
+
+    assert_equal "cy", present(html_attachment).content[:locale]
+  end
 end
