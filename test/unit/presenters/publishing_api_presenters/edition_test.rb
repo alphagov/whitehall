@@ -275,4 +275,28 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
       organisations: [],
     }, links)
   end
+
+  test 'Edition presents withdrawn_notice correctly' do
+    create(:government)
+    edition = create(
+      :edition,
+      :withdrawn,
+    )
+    edition.build_unpublishing(
+      unpublishing_reason_id: UnpublishingReason::Withdrawn.id,
+      explanation: 'No longer relevant'
+    )
+    edition.unpublishing.save!
+
+    presented_item = present(edition)
+
+    expected_withdrawn_notice = {
+      explanation: "<div class=\"govspeak\"><p>No longer relevant</p></div>",
+      withdrawn_at: edition.updated_at
+    }
+
+    assert_valid_against_schema(presented_item.content, "placeholder")
+    assert_equal expected_withdrawn_notice[:withdrawn_at], presented_item.content[:withdrawn_notice][:withdrawn_at]
+    assert_equivalent_html expected_withdrawn_notice[:explanation], presented_item.content[:withdrawn_notice][:explanation]
+  end
 end

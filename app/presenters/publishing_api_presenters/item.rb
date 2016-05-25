@@ -3,6 +3,8 @@ require_relative "../publishing_api_presenters"
 class PublishingApiPresenters::Item
   extend Forwardable
 
+  include PublishingApiPresenters::WithdrawingHelper
+
   def_delegators :item, :base_path, :content_id, :title, :description, :need_ids, :public_updated_at
   attr_accessor :update_type
 
@@ -27,6 +29,9 @@ class PublishingApiPresenters::Item
       redirects: [],
       details: details,
     }.tap do |content_hash|
+      if item.try(:withdrawn?)
+        content_hash.merge!(withdrawn_notice: withdrawn_notice)
+      end
       if item.respond_to?(:analytics_identifier)
         content_hash.merge!(analytics_identifier: item.analytics_identifier)
       end
