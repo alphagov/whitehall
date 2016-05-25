@@ -2,12 +2,10 @@ module PublishingApiPresenters
   class LinksPresenter
     LINK_NAMES_TO_METHODS_MAP = {
       document_collections: :document_collection_ids,
-      lead_organisations: :lead_organisation_ids,
       organisations: :organisation_ids,
       policy_areas: :policy_area_ids,
       related_policies: :related_policy_ids,
       statistical_data_set_documents: :statistical_data_set_ids,
-      supporting_organisations: :supporting_organisation_ids,
       topics: :topic_content_ids,
       world_locations: :world_location_ids,
       worldwide_organisations: :worldwide_organisation_ids,
@@ -33,10 +31,6 @@ module PublishingApiPresenters
       (item.try(:published_document_collections) || []).map(&:content_id)
     end
 
-    def lead_organisation_ids
-      (item.try(:lead_organisations) || []).map(&:content_id)
-    end
-
     def policy_area_ids
       (item.try(:topics) || []).map(&:content_id)
     end
@@ -47,10 +41,6 @@ module PublishingApiPresenters
 
     def statistical_data_set_ids
       (item.try(:statistical_data_sets) || []).map(&:content_id)
-    end
-
-    def supporting_organisation_ids
-      (item.try(:supporting_organisations) || []).map(&:content_id)
     end
 
     def organisation_ids
