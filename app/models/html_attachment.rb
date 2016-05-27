@@ -80,6 +80,7 @@ class HtmlAttachment < Attachment
   def deep_clone
     super.tap do |clone|
       clone.slug = slug
+      clone.content_id = content_id
       clone.govspeak_content = govspeak_content.dup
     end
   end
