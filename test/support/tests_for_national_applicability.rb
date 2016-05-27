@@ -21,6 +21,42 @@ module TestsForNationalApplicability
       assert_equal "http://www.scotland.com/", scotland_inapplicability.alternative_url
     end
 
+    test 'national_applicability works correctly' do
+      scotland_nation_inapplicability = create(
+        :nation_inapplicability,
+        nation: Nation.scotland,
+        alternative_url: "http://scotland.com"
+      )
+      detailed_guide = create(
+        :published_detailed_guide,
+        nation_inapplicabilities: [
+          scotland_nation_inapplicability
+        ]
+      )
+
+      expected_national_applicability = {
+        england: {
+          label: "England",
+          applicable: true,
+        },
+        northern_ireland: {
+          label: "Northern Ireland",
+          applicable: true,
+        },
+        scotland: {
+          label: "Scotland",
+          applicable: false,
+          alternative_url: "http://scotland.com",
+        },
+        wales: {
+          label: "Wales",
+          applicable: true,
+        },
+      }
+
+      assert_equal detailed_guide.national_applicability, expected_national_applicability
+    end
+
     view_test 'creating with invalid edition data should not lose the nation inapplicability fields or values' do
       attributes = attributes_for_edition
       post :create, edition: attributes.merge(
