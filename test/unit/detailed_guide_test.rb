@@ -113,12 +113,42 @@ class DetailedGuideTest < ActiveSupport::TestCase
   end
 
   test 'related_detailed_guide_ids works correctly' do
-    some_detailed_guide = create(:detailed_guide)
+    some_detailed_guide = create(:published_detailed_guide)
     detailed_guide = create(
-      :detailed_guide,
+      :published_detailed_guide,
       related_editions: [some_detailed_guide]
     )
 
     assert_equal detailed_guide.related_detailed_guide_content_ids, [some_detailed_guide.content_id]
+  end
+
+  test 'related_mainstream works correctly' do
+    lookup_hash = {
+      "/guidance/lorem" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312",
+      "/guidance/ipsum" => "9af50189-de1c-49af-a334-6b1d87b593a6"
+    }
+
+    publishing_api_has_lookups(lookup_hash)
+
+    detailed_guide = create(
+      :detailed_guide,
+      title: "Some detailed guide",
+      summary: "Some summary",
+      body: "Some content",
+      related_mainstream_content_title: "Lorem",
+      related_mainstream_content_url: "http://www.gov.uk/guidance/lorem",
+      additional_related_mainstream_content_title: "Ipsum",
+      additional_related_mainstream_content_url: "http://www.gov.uk/guidance/ipsum",
+    )
+
+    related_mainstream_ids = detailed_guide.related_mainstream
+
+    expected_ids = [
+      "9dd9e077-ae45-45f6-ad9d-2a484e5ff312",
+      "9af50189-de1c-49af-a334-6b1d87b593a6"
+    ]
+
+    # Links can come in any order, so we sort to make sure the set is the same.
+    assert_equal related_mainstream_ids.sort, expected_ids.sort
   end
 end
