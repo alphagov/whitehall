@@ -3,15 +3,13 @@ require_relative "../publishing_api_presenters"
 class PublishingApiPresenters::HtmlAttachment < PublishingApiPresenters::Item
   def initialize(item, update_type: nil)
     super
-    item.govspeak_content.render_govspeak!
+    item.govspeak_content.try(:render_govspeak!)
   end
 
   def links
     {
-      parent: [
-        parent.content_id
-      ],
-      organisations: parent.organisations.map(&:content_id),
+      parent: parent_content_ids,
+      organisations: parent.organisations.pluck(:content_id),
     }
   end
 
@@ -43,11 +41,11 @@ private
   end
 
   def body
-    govspeak_content.computed_body_html
+    govspeak_content.try(:computed_body_html)
   end
 
   def headings
-    govspeak_content.computed_headers_html
+    govspeak_content.try(:computed_headers_html)
   end
 
   def first_published_version?
@@ -60,6 +58,10 @@ private
 
   def parent
     item.attachable
+  end
+
+  def parent_content_ids
+    Edition.joins(:document).where(editions: {id: item.attachable_id}).pluck(:content_id)
   end
 
   def govspeak_content
