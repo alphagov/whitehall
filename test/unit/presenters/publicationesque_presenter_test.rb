@@ -37,6 +37,8 @@ class PublicationesquePresenterTest < PresenterTestCase
       public_timestamp: Time.zone.now,
       attachments: [],
       organisations: [organisation])
+    government = Government.new
+    publication.stubs(:government).returns(government)
     publication.stubs(:published_document_collections).returns([collection])
     publication.expects(:part_of_published_collection?).returns(true)
     # TODO: perhaps rethink edition factory, so this apparent duplication
