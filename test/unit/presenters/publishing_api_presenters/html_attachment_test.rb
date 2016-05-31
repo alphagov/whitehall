@@ -60,4 +60,13 @@ class PublishingApiPresenters::HtmlAttachmentTest < ActiveSupport::TestCase
 
     assert_equal "cy", present(html_attachment).content[:locale]
   end
+
+  test "HtmlAttachment presentations sends an empty body if there's no govspeak" do
+    create(:publication, :with_html_attachment, :published)
+
+    GovspeakContent.delete_all
+    html_attachment = HtmlAttachment.last
+
+    assert_nil present(html_attachment).content[:body]
+  end
 end
