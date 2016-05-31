@@ -56,10 +56,8 @@ class PublishingApiPresenters::PublicationTest < ActiveSupport::TestCase
     publication.classification_memberships.create(classification_id: topical_event.id)
 
     expected_links = {
-      lead_organisations: publication.lead_organisations.map(&:content_id),
       organisations: publication.lead_organisations.map(&:content_id),
       document_collections: [],
-      supporting_organisations: [],
       ministers: [minister.person.content_id],
       related_statistical_data_sets: [],
       world_locations: [],
@@ -92,10 +90,8 @@ class PublishingApiPresenters::PublicationTest < ActiveSupport::TestCase
                         supporting_organisations: [supporting_org])
     presented_item = present(publication)
     expected_links_hash = {
-      lead_organisations: [lead_org_1.content_id, lead_org_2.content_id],
       organisations: [lead_org_1.content_id, lead_org_2.content_id, supporting_org.content_id],
       document_collections: [],
-      supporting_organisations: [supporting_org.content_id],
       world_locations: [],
       ministers: [],
       related_statistical_data_sets: [],

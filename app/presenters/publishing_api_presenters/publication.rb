@@ -7,10 +7,8 @@ class PublishingApiPresenters::Publication < PublishingApiPresenters::Edition
 
   def links
     extract_links([
-      :lead_organisations,
       :organisations,
       :document_collections,
-      :supporting_organisations,
       :world_locations
     ]).merge(
       ministers: ministers,
