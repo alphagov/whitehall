@@ -8,10 +8,8 @@ class PublishingApiPresenters::HtmlAttachment < PublishingApiPresenters::Item
 
   def links
     {
-      parent: [
-        parent.content_id
-      ],
-      organisations: parent.organisations.map(&:content_id),
+      parent: parent_content_ids,
+      organisations: parent.organisations.pluck(:content_id),
     }
   end
 
@@ -60,6 +58,10 @@ private
 
   def parent
     item.attachable
+  end
+
+  def parent_content_ids
+    Edition.joins(:document).where(editions: {id: item.attachable_id}).pluck(:content_id)
   end
 
   def govspeak_content
