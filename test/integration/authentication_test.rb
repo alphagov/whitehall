@@ -23,4 +23,12 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
     get admin_people_path
     assert_select "a[href=?]", "/auth/gds/sign_out"
   end
+
+  test "should set the authenticated user header" do
+    login_as_admin
+    get admin_people_path
+    assert_match(
+      /uid-\d+/, GdsApi::GovukHeaders.headers[:x_govuk_authenticated_user]
+    )
+  end
 end
