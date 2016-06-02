@@ -1,8 +1,13 @@
 require 'test_helper'
 require 'gds_api/test_helpers/content_store'
+require 'data_hygiene/publishing_api_sync_check'
 
 class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::ContentStore
+  setup do
+    @progress = stub("ProgressBar", log: nil, increment: nil, finish: nil)
+    ProgressBar.stubs(create: @progress)
+  end
 
   test "checks that the format published in the Content Store and the Draft Content Store matches the persisted model" do
     create(
@@ -19,11 +24,11 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
     content_store_has_item("/government/get-involved/take-part/take-part-slug", payload, draft: true)
 
     check = check_take_part
-    assert_output(/Successes: 1\nFailures: 0/m) do
+    assert_output(/Successes: 2\nFailures: 0/m) do
       check.perform
     end
 
-    assert_equal ["/government/get-involved/take-part/take-part-slug"], check.successes.map(&:base_path)
+    assert_equal ["/government/get-involved/take-part/take-part-slug"] * 2, check.successes.map(&:base_path)
     assert_empty(check.failures)
   end
 
@@ -37,11 +42,11 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
     content_store_has_item("/government/case-studies/example-case-study", payload, draft: true)
 
     check = check_case_study
-    assert_output(/Successes: 1\nFailures: 0/m) do
+    assert_output(/Successes: 2\nFailures: 0/m) do
       check.perform
     end
 
-    assert_equal ["/government/case-studies/example-case-study"], check.successes.map(&:base_path)
+    assert_equal ["/government/case-studies/example-case-study"] * 2, check.successes.map(&:base_path)
     assert_empty(check.failures)
   end
 
@@ -64,11 +69,11 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
     content_store_has_item("/government/case-studies/example-case-study", translated_payload, draft: true)
 
     check = check_case_study
-    assert_output(/Successes: 1\nFailures: 0/m) do
+    assert_output(/Successes: 2\nFailures: 0/m) do
       check.perform
     end
 
-    assert_equal ["/government/case-studies/example-case-study"], check.successes.map(&:base_path)
+    assert_equal ["/government/case-studies/example-case-study"] * 2, check.successes.map(&:base_path)
     assert_empty check.failures
   end
 
@@ -92,12 +97,12 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
     content_store_does_not_have_item("/government/case-studies/another-example-case-study.es")
 
     check = check_case_study
-    assert_output(/Successes: 0\nFailures: 1/m) do
+    assert_output(/Successes: 0\nFailures: 2/m) do
       check.perform
     end
 
     assert_empty check.successes
-    assert_equal ["/government/case-studies/another-example-case-study"], check.failures.map(&:base_path)
+    assert_equal ["/government/case-studies/another-example-case-study"] * 2, check.failures.map(&:base_path)
   end
 
   test "detects when the format published in the Content Store does not match the persisted model" do
@@ -115,8 +120,7 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
     content_store_has_item("/government/get-involved/take-part/take-part-slug", payload, draft: true)
 
     check = check_take_part
-    expected_error_message = "Failed path: /government/get-involved/take-part/take-part-slug in Content Store, failed expectations: format"
-    assert_output(/Successes: 0\nFailures: 1\n#{expected_error_message}/m) do
+    assert_output(/Successes: 0\nFailures: 2/m) do
       check.perform
     end
 
@@ -127,7 +131,7 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
           base_path: "/government/get-involved/take-part/take-part-slug",
           failed_expectations: ["format"],
         )
-      ],
+      ] * 2,
       check.failures
     )
   end
@@ -156,7 +160,7 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
       [
         check_failure(
           base_path: "/government/get-involved/take-part/take-part-slug",
-          failed_expectations: ["item unreachable, response status: "],
+          failed_expectations: ["unreachable: "],
         )
       ],
       check.failures
@@ -187,7 +191,7 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
       [
         check_failure(
           base_path: "/government/get-involved/take-part/take-part-slug",
-          failed_expectations: ["item unreachable, response status: "],
+          failed_expectations: ["unreachable: "],
         )
       ],
       check.failures

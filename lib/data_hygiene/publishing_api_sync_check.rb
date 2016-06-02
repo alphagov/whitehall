@@ -1,3 +1,7 @@
+require 'csv'
+
+require 'ruby-progressbar'
+
 require 'gds_api/content_store'
 
 # Check to see how complete the (live) content-store's copies of data are.
@@ -17,11 +21,20 @@ require 'gds_api/content_store'
 # pagination, so it won't (reliably) handle lots of items...
 module DataHygiene
   class PublishingApiSyncCheck
+    class NullCSV
+      def <<(val)
+      end
+    end
+
     class Success
       attr_reader :base_path
 
       def initialize(base_path:)
         @base_path = base_path
+      end
+
+      def to_row
+        [@base_path, "success", @content_store]
       end
     end
 
@@ -38,6 +51,10 @@ module DataHygiene
         "Failed path: #{@base_path} in #{@content_store.titleize}, failed expectations: #{@failed_expectations.join(', ')}"
       end
 
+      def to_row
+        [@base_path, "failure", @content_store] + @failed_expectations
+      end
+
       def ==(other)
         self.base_path == other.base_path && self.failed_expectations == other.failed_expectations
       end
@@ -51,8 +68,16 @@ module DataHygiene
       max_concurrency = Rails.env.development? ? 1 : 20
       @hydra = Typhoeus::Hydra.new(max_concurrency: max_concurrency)
       @expectations = []
+
       @successes = []
       @failures = []
+
+      if ARGV[0].present? && !Rails.env.test?
+        csv_file = File.open(File.expand_path(ARGV[0]), "w")
+        @csv = CSV.new(csv_file)
+      else
+        @csv = NullCSV.new
+      end
 
       @base_path_builder = lambda do |model|
         if model.is_a?(Edition)
@@ -74,11 +99,20 @@ module DataHygiene
     end
 
     def perform(output: true)
+      count = 0
       scope.find_each do |whitehall_model|
+        count += 2
         queue_check("content-store", whitehall_model, output)
         queue_check("draft-content-store", whitehall_model, output)
       end
+
+      @progress = ProgressBar.create(
+        total: count,
+        format: "%e [%b>%i] [%c/%C]"
+      )
+
       hydra.run
+      @progress.finish
       print_results if output
     end
 
@@ -88,11 +122,15 @@ module DataHygiene
       url = Plek.find(content_store) + "/content" + base_path_for(whitehall_model)
       request = Typhoeus::Request.new(url)
       request.on_complete do |response|
-        success = compare_content(response, whitehall_model, content_store)
-        if output
-          progress_indicator = success ? "." : "x"
-          print progress_indicator
+        result = compare_content(response, whitehall_model, content_store)
+        if result.is_a? Success
+          @successes << result
+        else
+          @failures << result
+          @csv << result.to_row
+          @progress.log result.to_s
         end
+        @progress.increment
       end
       hydra.queue(request)
     end
@@ -115,46 +153,39 @@ module DataHygiene
 
     def compare_content(response, whitehall_model, content_store)
       base_path = base_path_for(whitehall_model)
+
       if response.success?
         json = JSON.parse(response.body)
         failed_expectations = expectations.reject do |expectation|
           begin
             expectation[:block].call(json, whitehall_model)
           rescue => e
-            failures << Failure.new(
+            Failure.new(
               base_path: base_path,
-              failed_expectations: ["raised error #{e.message}"],
+              failed_expectations: ["error: #{e.message}"],
               content_store: content_store
             )
-            true # Already adding a Failure, no need to add another one later
           end
         end
         if failed_expectations.empty?
-          successes << Success.new(base_path: base_path)
-          success = true
+          Success.new(base_path: base_path)
         else
           failed_expectation_descriptions = failed_expectations.map { |expectation| expectation[:description] }
-          failures << Failure.new(base_path: base_path, failed_expectations: failed_expectation_descriptions, content_store: content_store)
-          success = false
+          Failure.new(base_path: base_path, failed_expectations: failed_expectation_descriptions, content_store: content_store)
         end
       else
-        failures << Failure.new(
+        Failure.new(
           base_path: base_path,
-          failed_expectations: ["item unreachable, response status: #{response.status_message}"],
+          failed_expectations: ["unreachable: #{response.status_message}"],
           content_store: content_store
         )
-        success = false
       end
-      success
     end
 
     def print_results
-      successes.uniq!(&:base_path)
-      failures.uniq!(&:base_path)
       puts "\nCheck complete"
       puts "Successes: #{successes.count}"
       puts "Failures: #{failures.count}"
-      failures.each { |failure| puts failure.to_s } unless failures.empty?
     end
 
     def base_path_for(whitehall_model, locale: :en)
