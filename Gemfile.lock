@@ -511,6 +511,7 @@ DEPENDENCIES
   responders (~> 2.0)
   rinku
   ruby-prof
+  ruby-progressbar
   rummageable (= 1.2.0)
   sass (= 3.4.9)
   sassc-rails
