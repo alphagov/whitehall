@@ -113,6 +113,10 @@ module Edition::Workflow
     end
   end
 
+  def has_workflow?
+    true
+  end
+
 private
 
   def destroy_associations_with_edition_dependencies_and_dependants
