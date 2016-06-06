@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_slimmer_application_name
   before_filter :set_audit_trail_whodunnit
+  before_filter :set_authenticated_user_header
 
   layout 'frontend'
   after_filter :set_slimmer_template
@@ -71,5 +72,11 @@ class ApplicationController < ActionController::Base
 
   def set_meta_description(description)
     @meta_description = Govspeak::Document.new(description).to_text
+  end
+
+  def set_authenticated_user_header
+    if current_user && GdsApi::GovukHeaders.headers[:x_govuk_authenticated_user].nil?
+      GdsApi::GovukHeaders.set_header(:x_govuk_authenticated_user, current_user.uid)
+    end
   end
 end
