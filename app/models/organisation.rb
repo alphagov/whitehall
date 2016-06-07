@@ -379,7 +379,7 @@ class Organisation < ActiveRecord::Base
   end
 
   def search_organisations
-    [slug] + parent_organisations.map(&:slug)
+    parent_organisations.map(&:slug)
   end
 
   def published_speeches
