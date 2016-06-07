@@ -2,6 +2,7 @@ require 'delegate'
 
 module GovspeakHelper
   include ::Govspeak::ContactsExtractorHelpers
+  include Rails.application.routes.url_helpers
 
   BARCHART_REGEXP = /{barchart(.*?)}/
   SORTABLE_REGEXP = /{sortable}/

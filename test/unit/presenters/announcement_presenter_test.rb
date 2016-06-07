@@ -42,6 +42,8 @@ class AnnouncementPresenterTest < PresenterTestCase
     # TODO: perhaps rethink edition factory, so this apparent duplication
     # isn't neccessary
     fatality_notice.stubs(:organisations).returns([organisation])
+    government = Government.new
+    fatality_notice.stubs(:government).returns(government)
     hash = AnnouncementPresenter.new(fatality_notice, @view_context).as_hash
     assert hash[:field_of_operation]
   end

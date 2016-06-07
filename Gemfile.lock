@@ -536,6 +536,3 @@ DEPENDENCIES
   validates_email_format_of
   webmock (~> 1.22.3)
   whenever (= 0.9.4)
-
-BUNDLED WITH
-   1.11.2

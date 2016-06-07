@@ -19,6 +19,8 @@ class DocumentFilterPresenterTest < PresenterTestCase
         organisations: [organisation],
         public_timestamp: 3.days.ago.as_json
       )
+      government = Government.new
+      publication.stubs(:government).returns(government)
       # TODO: perhaps rethink edition factory, so this apparent duplication
       # isn't neccessary
       publication.stubs(:organisations).returns([organisation])

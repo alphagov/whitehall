@@ -43,6 +43,8 @@ private
       PublishingApiPresenters::DocumentCollectionPlaceholder
     when ::DetailedGuide
       PublishingApiPresenters::DetailedGuide
+    when ::Publication
+      PublishingApiPresenters::Publication
     else
       PublishingApiPresenters::Edition
     end
