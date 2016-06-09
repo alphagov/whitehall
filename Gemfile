@@ -95,6 +95,7 @@ group :development do
   gem 'thin', '1.6.3'
   gem 'newrelic_rpm'
   gem 'quiet_assets'
+  gem 'stackprof', require: false
 end
 
 group :test do
