@@ -18,8 +18,8 @@ module GovspeakHelper
     wrapped_in_govspeak_div(bare_govspeak_edition_to_html(edition))
   end
 
-  def govspeak_with_attachments_to_html(body, attachments = [])
-    wrapped_in_govspeak_div(bare_govspeak_with_attachments_to_html(body, attachments))
+  def govspeak_with_attachments_to_html(body, attachments = [], alternative_format_contact_email = nil)
+    wrapped_in_govspeak_div(bare_govspeak_with_attachments_to_html(body, attachments, alternative_format_contact_email))
   end
 
   def bare_govspeak_edition_to_html(edition)
@@ -28,8 +28,8 @@ module GovspeakHelper
     bare_govspeak_to_html(partially_processed_govspeak, images)
   end
 
-  def bare_govspeak_with_attachments_to_html(body, attachments = [])
-    partially_processed_govspeak = govspeak_with_attachments_and_alt_format_information(body, attachments)
+  def bare_govspeak_with_attachments_to_html(body, attachments = [], alternative_format_contact_email = nil)
+    partially_processed_govspeak = govspeak_with_attachments_and_alt_format_information(body, attachments, alternative_format_contact_email)
     bare_govspeak_to_html(partially_processed_govspeak, [])
   end
 

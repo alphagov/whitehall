@@ -26,7 +26,7 @@ private
 
   def body
     # It looks 'wrong' using the description as the body, but it isn't
-    Whitehall::GovspeakRenderer.new.govspeak_with_attachments_to_html(item.description, item.attachments)
+    Whitehall::GovspeakRenderer.new.govspeak_with_attachments_to_html(item.description, item.attachments, item.email)
   end
 
   def public_updated_at
