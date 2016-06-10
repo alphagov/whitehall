@@ -47,6 +47,7 @@ class PublishingApiPresenters::WorkingGroupTest < ActiveSupport::TestCase
 
     body = Nokogiri::HTML.parse(presenter.content[:details][:body])
     assert_not_nil body.at_css("section.attachment")
+    assert_match %r{#{presenter.content[:details][:email]}}, body.at_css("a[href^='mailto']"), "expect to see email in a mailto link"
     assert_match %r{#{group.attachments.first.title}}, body.at_css("section.attachment")
   end
 end
