@@ -48,7 +48,7 @@ private
   end
 
   def topical_events
-    TopicalEvent
+    ::TopicalEvent
       .joins(:classification_memberships)
       .where(classification_memberships: {edition_id: item.id})
       .pluck(:content_id)
