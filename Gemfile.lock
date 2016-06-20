@@ -402,6 +402,7 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
+    stackprof (0.2.9)
     statsd-ruby (1.2.1)
     subexec (0.2.3)
     test-queue (0.2.11)
@@ -524,6 +525,7 @@ DEPENDENCIES
   slimmer (= 9.0.1)
   sprockets (~> 3.0)
   sprockets-rails (= 2.3.3)
+  stackprof
   statsd-ruby (~> 1.2.1)
   test-queue (= 0.2.11)
   test_track (~> 0.1.0)!
