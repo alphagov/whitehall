@@ -41,11 +41,6 @@ module Edition::SpecialistSectors
     specialist_sectors.order("specialist_sectors.primary DESC").map(&:tag)
   end
 
-  def live_specialist_sector_tags
-    specialist_sectors.order("specialist_sectors.primary DESC").
-      where(tag: live_specialist_sector_tag_slugs).pluck(:tag)
-  end
-
 private
 
   def set_specialist_sectors(tags, primary: false)
@@ -59,9 +54,5 @@ private
     end
 
     self.public_send("#{relation}=", sectors)
-  end
-
-  def live_specialist_sector_tag_slugs
-    @live_specialist_sector_tag_slugs ||= SpecialistSector.live_subsectors.map(&:slug)
   end
 end
