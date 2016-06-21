@@ -1,5 +1,5 @@
 :verbose: true
-:concurrency: 8
+:concurrency: 2
 :logfile: ./log/sidekiq.json.log
 :queues:
   - [bulk_republishing, 1]
