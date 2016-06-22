@@ -29,7 +29,7 @@
           </div>
           <div class="filter">
             <%= label_tag "topics", "Policy Area" %>
-            <%= select_tag "topics[]", topic_options_for_statistics_announcement_filter(@filter.topic_slugs), id: "topics", class: "single-row-select" %>
+            <%= select_tag "topics[]", topic_options_for_statistics_announcement_filter(@filter.policy_area_slugs), id: "topics", class: "single-row-select" %>
           </div>
           <div class="filter">
             <%= label_tag "organisations", "Department" %>

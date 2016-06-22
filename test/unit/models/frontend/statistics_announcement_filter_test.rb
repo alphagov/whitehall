@@ -59,9 +59,9 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
     assert_equal [], filter.topics
   end
 
-  test "topic_slugs returns slugs of topics" do
+  test "policy_area_slugs returns slugs of topics" do
     topic = create(:topic)
-    assert_equal [topic.slug], build(topics: [topic.slug]).topic_slugs
+    assert_equal [topic.slug], build(topics: [topic.slug]).policy_area_slugs
   end
 
   test "#valid_filter_params returns all attributes if all are present and valid excluding pagination parameters" do
@@ -79,7 +79,7 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
                    from_date: Date.new(2020, 1, 1),
                    to_date: Date.new(2020, 2, 1),
                    organisations: [organisation.slug],
-                   topics: [topic.slug],
+                   policy_areas: [topic.slug],
                  }, filter.valid_filter_params)
   end
 

@@ -1,4 +1,3 @@
-
 class Frontend::StatisticsAnnouncementsFilter < FormObject
   named "StatisticsAnnouncementsFilter"
   attr_accessor :keywords,
@@ -60,8 +59,14 @@ class Frontend::StatisticsAnnouncementsFilter < FormObject
     Array(@topics)
   end
 
-  def topic_slugs
-    topics.map &:slug
+  # Policy areas used to be named topics.
+  # Elsewhere we use "topic" to refer to specialist sectors.
+  def policy_areas
+    topics
+  end
+
+  def policy_area_slugs
+    policy_areas.map(&:slug)
   end
 
   def valid_filter_params
@@ -70,7 +75,7 @@ class Frontend::StatisticsAnnouncementsFilter < FormObject
     params[:to_date]       = to_date            if to_date.present?
     params[:from_date]     = from_date          if from_date.present?
     params[:organisations] = organisation_slugs if organisations.present?
-    params[:topics]        = topic_slugs        if topics.present?
+    params[:policy_areas]  = policy_area_slugs  if policy_areas.present?
     params
   end
 
