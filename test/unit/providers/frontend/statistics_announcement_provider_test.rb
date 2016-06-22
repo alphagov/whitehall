@@ -1,3 +1,5 @@
+require 'test_helper'
+
 class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
   attr_accessor :rummager_api_stub
 
@@ -49,7 +51,7 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
       "slug" => "a-slug",
       "release_timestamp" => Time.zone.now,
       "organisations" => ["cabinet-office"],
-      "topics" => ["home-affairs"],
+      "policy_areas" => ["home-affairs"],
       "display_type" => "Statistics",
       "search_format_types" => ["statistics_announcement"],
       "format" => "statistics_announcement",
