@@ -1,5 +1,6 @@
 class Contact < ActiveRecord::Base
   include Dependable
+  include PublishesToPublishingApi
 
   belongs_to :contactable, polymorphic: true
   has_many   :contact_numbers, dependent: :destroy
