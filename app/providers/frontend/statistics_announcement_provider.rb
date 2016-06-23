@@ -22,7 +22,7 @@ module Frontend
         release_date_change_note: rummager_hash['metadata']['change_note'],
         previous_display_date: rummager_hash['metadata']['previous_display_date'],
         organisations: build_organisations(rummager_hash['organisations']),
-        topics: build_topics(rummager_hash['topics']),
+        topics: build_topics(rummager_hash['policy_areas']),
         state: rummager_hash['statistics_announcement_state'],
         cancellation_reason: rummager_hash['metadata']['cancellation_reason'],
         cancellation_date: rummager_hash['metadata']['cancelled_at'],

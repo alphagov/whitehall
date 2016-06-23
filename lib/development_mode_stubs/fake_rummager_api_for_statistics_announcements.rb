@@ -10,8 +10,8 @@ module DevelopmentModeStubs
         organisation_ids = Organisation.where(slug: params[:organisations]).pluck(:id)
         scope = scope.in_organisations(organisation_ids)
       end
-      if params[:topics].present?
-        topic_ids = Topic.where(slug: params[:topics]).pluck(:id)
+      if params[:policy_areas].present?
+        topic_ids = Topic.where(slug: params[:policy_areas]).pluck(:id)
         scope = scope.with_topics(topic_ids)
       end
       if params[:release_timestamp].present?
@@ -50,7 +50,7 @@ module DevelopmentModeStubs
         "slug" => announcement.slug,
         "release_timestamp" => announcement.current_release_date.release_date.iso8601,
         "organisations" => announcement.organisations_slugs,
-        "topics" => announcement.topic_slugs,
+        "policy_areas" => announcement.topic_slugs,
         "display_type" => announcement.publication_type.singular_name,
         "search_format_types" => ["statistics_announcement"],
         "format" => "statistics_announcement",
