@@ -41,18 +41,19 @@ module DataHygiene
     class Failure
       attr_reader :base_path, :failed_expectations
 
-      def initialize(base_path:, failed_expectations:, content_store:)
+      def initialize(record_id:, base_path:, failed_expectations:, content_store:)
+        @record_id = record_id
         @base_path = base_path
         @failed_expectations = failed_expectations
         @content_store = content_store
       end
 
       def to_s
-        "Failed path: #{@base_path} in #{@content_store.titleize}, failed expectations: #{@failed_expectations.join(', ')}"
+        "Model id #{@record_id} failed path: #{@base_path} in #{@content_store.titleize}, failed expectations: #{@failed_expectations.join(', ')}"
       end
 
       def to_row
-        [@base_path, "failure", @content_store] + @failed_expectations
+        [@record_id, @base_path, "failure", @content_store] + @failed_expectations
       end
 
       def ==(other)
@@ -161,6 +162,7 @@ module DataHygiene
             expectation[:block].call(json, whitehall_model)
           rescue => e
             Failure.new(
+              record_id: whitehall_model.id,
               base_path: base_path,
               failed_expectations: ["error: #{e.message}"],
               content_store: content_store
@@ -171,10 +173,16 @@ module DataHygiene
           Success.new(base_path: base_path)
         else
           failed_expectation_descriptions = failed_expectations.map { |expectation| expectation[:description] }
-          Failure.new(base_path: base_path, failed_expectations: failed_expectation_descriptions, content_store: content_store)
+          Failure.new(
+            record_id: whitehall_model.id,
+            base_path: base_path,
+            failed_expectations: failed_expectation_descriptions,
+            content_store: content_store
+          )
         end
       else
         Failure.new(
+          record_id: whitehall_model.id,
           base_path: base_path,
           failed_expectations: ["unreachable: #{response.status_message}"],
           content_store: content_store
