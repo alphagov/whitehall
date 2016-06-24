@@ -5,7 +5,7 @@ module Whitehall
         self.perform_async(edition.id, notification_date.iso8601, title: title, summary: summary)
       end
 
-      def call(edition_id, notification_date, options = {})
+      def perform(edition_id, notification_date, options = {})
         options.symbolize_keys!
 
         edition = Edition.find(edition_id)

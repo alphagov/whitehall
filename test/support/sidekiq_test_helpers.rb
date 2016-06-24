@@ -1,3 +1,4 @@
+require 'govuk_sidekiq/testing'
 require 'sidekiq/api'
 
 module SidekiqTestHelpers

@@ -1,5 +1,5 @@
 class PublishingApiComingSoonWorker < PublishingApiWorker
-  def call(edition_id, locale)
+  def perform(edition_id, locale)
     edition = Edition.find(edition_id)
 
     I18n.with_locale(locale) do

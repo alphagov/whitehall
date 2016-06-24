@@ -12,7 +12,7 @@
 # and sending it again after republishing. This also changes the version
 # numbering and would probably appear in the version history.
 class PublishingApiDocumentRepublishingWorker < WorkerBase
-  def call(published_edition_id, pre_publication_edition_id)
+  def perform(published_edition_id, pre_publication_edition_id)
     if published_edition_id
       published_edition = Edition.find(published_edition_id)
       Whitehall::PublishingApi.locales_for(published_edition).each do |locale|

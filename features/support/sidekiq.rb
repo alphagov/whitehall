@@ -1,4 +1,4 @@
-require 'sidekiq/testing'
+require 'govuk_sidekiq/testing'
 require 'sidekiq/testing/inline'
 require_relative '../../test/support/sidekiq_test_helpers'
 
