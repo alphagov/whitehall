@@ -64,7 +64,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
       'format' => 'statistics_announcement',
       'description' => announcement.summary,
       'organisations' => announcement.organisations.map(&:slug),
-      'topics' => announcement.topics.map(&:slug),
+      'policy_areas' => announcement.topics.map(&:slug),
       'display_type' => announcement.display_type,
       'slug' => announcement.slug,
       'release_timestamp' => announcement.release_date,

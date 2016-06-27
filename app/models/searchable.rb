@@ -33,7 +33,10 @@ module Searchable
     :speech_type,
     :statistics_announcement_state,
     :title,
+
+    # Topics display as policy areas in the frontend and map to policy areas in rummager
     :topics,
+
     :world_locations,
   ]
 
@@ -84,9 +87,11 @@ module Searchable
     extend ActiveSupport::Concern
 
     KEY_MAPPING = {
-      content: 'indexable_content'
+      content: 'indexable_content',
+      topics: 'policy_areas',
     }
 
+    # Build the payload to pass to the search index
     def search_index
       SEARCH_FIELDS.reduce({}) do |result, name|
         value = searchable_options[name].call(self)
