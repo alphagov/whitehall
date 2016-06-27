@@ -10,6 +10,9 @@ require 'gds_api/content_store'
 #   pasc.add_expectation { |json, model| json.fetch("format") == "statistics_announcement" }
 #   pasc.perform
 #
+# Pass in a file path as the first argument to output CSV data of any failures to
+# that file. For example: rails runner script/publishing-api-sync-checks/my-sync-checks.rb failures.csv
+#
 # The disadvantages of running against content-store are that you can't inspect
 # things like rendering_app.
 #
@@ -41,18 +44,19 @@ module DataHygiene
     class Failure
       attr_reader :base_path, :failed_expectations
 
-      def initialize(base_path:, failed_expectations:, content_store:)
+      def initialize(record_id:, base_path:, failed_expectations:, content_store:)
+        @record_id = record_id
         @base_path = base_path
         @failed_expectations = failed_expectations
         @content_store = content_store
       end
 
       def to_s
-        "Failed path: #{@base_path} in #{@content_store.titleize}, failed expectations: #{@failed_expectations.join(', ')}"
+        "Model id #{@record_id} failed path: #{@base_path} in #{@content_store.titleize}, failed expectations: #{@failed_expectations.join(', ')}"
       end
 
       def to_row
-        [@base_path, "failure", @content_store] + @failed_expectations
+        [@record_id, @base_path, "failure", @content_store] + @failed_expectations
       end
 
       def ==(other)
@@ -72,8 +76,10 @@ module DataHygiene
       @successes = []
       @failures = []
 
-      if ARGV[0].present? && !Rails.env.test?
-        csv_file = File.open(File.expand_path(ARGV[0]), "w")
+      csv_file_path = ARGV[0]
+
+      if csv_file_path.present? && !Rails.env.test?
+        csv_file = File.open(File.expand_path(csv_file_path), "w")
         @csv = CSV.new(csv_file)
       else
         @csv = NullCSV.new
@@ -169,6 +175,7 @@ module DataHygiene
             expectation[:block].call(json, whitehall_model)
           rescue => e
             Failure.new(
+              record_id: whitehall_model.id,
               base_path: base_path,
               failed_expectations: ["error: #{e.message}"],
               content_store: content_store
@@ -179,10 +186,16 @@ module DataHygiene
           Success.new(base_path: base_path)
         else
           failed_expectation_descriptions = failed_expectations.map { |expectation| expectation[:description] }
-          Failure.new(base_path: base_path, failed_expectations: failed_expectation_descriptions, content_store: content_store)
+          Failure.new(
+            record_id: whitehall_model.id,
+            base_path: base_path,
+            failed_expectations: failed_expectation_descriptions,
+            content_store: content_store
+          )
         end
       else
         Failure.new(
+          record_id: whitehall_model.id,
           base_path: base_path,
           failed_expectations: ["unreachable: #{response.status_message}"],
           content_store: content_store

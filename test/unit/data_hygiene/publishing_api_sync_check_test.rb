@@ -262,6 +262,7 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
 
   def check_failure(base_path:, failed_expectations:, content_store: "content-store")
     DataHygiene::PublishingApiSyncCheck::Failure.new(
+      record_id: 1,
       base_path: base_path,
       failed_expectations: failed_expectations,
       content_store: content_store
