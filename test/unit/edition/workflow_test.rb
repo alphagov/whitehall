@@ -174,4 +174,8 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     assert_empty dependable_speech.dependent_editions.reload
   end
 
+  test "#has_workflow? returns true" do
+    edition = create(:publication)
+    assert edition.has_workflow?
+  end
 end

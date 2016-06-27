@@ -3,7 +3,6 @@ require_relative "../publishing_api_presenters"
 class PublishingApiPresenters::Publication < PublishingApiPresenters::Edition
   include PublishingApiPresenters::WithdrawingHelper
   include PublishingApiPresenters::PoliticalHelper
-  include PublishingApiPresenters::ApplicabilityHelper
 
   def links
     extract_links([
@@ -33,7 +32,7 @@ private
     }).merge(political_details)
       .tap do |json|
         json[:withdrawn_notice] = withdrawn_notice if item.withdrawn?
-        json[:national_applicability] = national_applicability if item.nation_inapplicabilities.any?
+        json[:national_applicability] = item.national_applicability if item.nation_inapplicabilities.any?
       end
   end
 

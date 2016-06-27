@@ -102,8 +102,16 @@ module DataHygiene
       count = 0
       scope.find_each do |whitehall_model|
         count += 2
-        queue_check("content-store", whitehall_model, output)
-        queue_check("draft-content-store", whitehall_model, output)
+        if whitehall_model.try(:has_workflow?)
+          if whitehall_model.try(:state) == 'draft'
+            queue_check("draft-content-store", whitehall_model, output)
+          else
+            queue_check("content-store", whitehall_model, output)
+          end
+        else
+          queue_check("content-store", whitehall_model, output)
+          queue_check("draft-content-store", whitehall_model, output)
+        end
       end
 
       @progress = ProgressBar.create(

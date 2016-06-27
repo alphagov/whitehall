@@ -42,11 +42,11 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
     content_store_has_item("/government/case-studies/example-case-study", payload, draft: true)
 
     check = check_case_study
-    assert_output(/Successes: 2\nFailures: 0/m) do
+    assert_output(/Successes: 1\nFailures: 0/m) do
       check.perform
     end
 
-    assert_equal ["/government/case-studies/example-case-study"] * 2, check.successes.map(&:base_path)
+    assert_equal ["/government/case-studies/example-case-study"], check.successes.map(&:base_path)
     assert_empty(check.failures)
   end
 
@@ -69,11 +69,11 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
     content_store_has_item("/government/case-studies/example-case-study", translated_payload, draft: true)
 
     check = check_case_study
-    assert_output(/Successes: 2\nFailures: 0/m) do
+    assert_output(/Successes: 1\nFailures: 0/m) do
       check.perform
     end
 
-    assert_equal ["/government/case-studies/example-case-study"] * 2, check.successes.map(&:base_path)
+    assert_equal ["/government/case-studies/example-case-study"], check.successes.map(&:base_path)
     assert_empty check.failures
   end
 
@@ -97,12 +97,12 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
     content_store_does_not_have_item("/government/case-studies/another-example-case-study.es")
 
     check = check_case_study
-    assert_output(/Successes: 0\nFailures: 2/m) do
+    assert_output(/Successes: 0\nFailures: 1/m) do
       check.perform
     end
 
     assert_empty check.successes
-    assert_equal ["/government/case-studies/another-example-case-study"] * 2, check.failures.map(&:base_path)
+    assert_equal ["/government/case-studies/another-example-case-study"], check.failures.map(&:base_path)
   end
 
   test "detects when the format published in the Content Store does not match the persisted model" do

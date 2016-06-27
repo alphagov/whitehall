@@ -185,7 +185,7 @@ class PublishingApiPresenters::DetailedGuideTest < ActiveSupport::TestCase
 
   test 'DetailedGuide presents related_guides correctly' do
     create(:government)
-    some_detailed_guide = create(:detailed_guide)
+    some_detailed_guide = create(:published_detailed_guide)
     detailed_guide = create(
       :published_detailed_guide,
       title: "Some detailed guide",
