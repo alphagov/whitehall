@@ -56,6 +56,7 @@ class PublishingApiPresenters::PublicationTest < ActiveSupport::TestCase
     publication.classification_memberships.create(classification_id: topical_event.id)
 
     expected_links = {
+      topics: [],
       organisations: publication.lead_organisations.map(&:content_id),
       document_collections: [],
       ministers: [minister.person.content_id],
@@ -90,6 +91,7 @@ class PublishingApiPresenters::PublicationTest < ActiveSupport::TestCase
                         supporting_organisations: [supporting_org])
     presented_item = present(publication)
     expected_links_hash = {
+      topics: [],
       organisations: [lead_org_1.content_id, lead_org_2.content_id, supporting_org.content_id],
       document_collections: [],
       world_locations: [],

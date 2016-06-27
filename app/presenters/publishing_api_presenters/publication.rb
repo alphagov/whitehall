@@ -6,6 +6,7 @@ class PublishingApiPresenters::Publication < PublishingApiPresenters::Edition
 
   def links
     extract_links([
+      :topics,
       :organisations,
       :document_collections,
       :world_locations
