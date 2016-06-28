@@ -7,6 +7,7 @@ class PublishingApiPresenters::DetailedGuide < PublishingApiPresenters::Edition
   def links
     extract_links([
       :organisations,
+      :topics,
     ]).merge(
       related_guides: item.related_detailed_guide_content_ids,
       related_mainstream: item.related_mainstream
