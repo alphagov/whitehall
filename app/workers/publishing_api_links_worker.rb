@@ -7,7 +7,11 @@ class PublishingApiLinksWorker < WorkerBase
     content_id = item.content_id
     links = PublishingApiPresenters.presenter_for(item).links
     if links && !links.empty?
-      Whitehall.publishing_api_v2_client.patch_links(content_id, {links: links})
+      Whitehall.publishing_api_v2_client.patch_links(
+        content_id,
+        links: links,
+        bulk_publishing: true
+      )
     end
   end
 end
