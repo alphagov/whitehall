@@ -13,11 +13,11 @@ module PublishingApiTestHelpers
     end
   end
 
-  def expect_publishing(*editions)
+  def expect_publishing(*editions, content_entries: {})
     editions.each do |edition|
       Whitehall.publishing_api_v2_client.expects(:put_content)
         .with(edition.content_id,
-          has_entries(publishing_app: 'whitehall', rendering_app: 'whitehall-frontend'))
+          has_entries({publishing_app: 'whitehall', rendering_app: 'whitehall-frontend'}.merge(content_entries)))
       Whitehall.publishing_api_v2_client.stubs(:patch_links)
         .with(edition.content_id, has_entries(links: anything))
       Whitehall.publishing_api_v2_client.expects(:publish)
@@ -25,11 +25,11 @@ module PublishingApiTestHelpers
     end
   end
 
-  def expect_republishing(*editions)
+  def expect_republishing(*editions, content_entries: {})
     editions.each do |edition|
       Whitehall.publishing_api_v2_client.expects(:put_content)
         .with(edition.content_id,
-          has_entries(publishing_app: 'whitehall', rendering_app: 'whitehall-frontend'))
+          has_entries({publishing_app: 'whitehall', rendering_app: 'whitehall-frontend'}.merge(content_entries)))
       Whitehall.publishing_api_v2_client.stubs(:patch_links)
         .with(edition.content_id, has_entries(links: anything))
       Whitehall.publishing_api_v2_client.expects(:publish)
