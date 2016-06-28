@@ -69,6 +69,7 @@ class PublishingApiPresenters::DetailedGuideTest < ActiveSupport::TestCase
     }
     expected_links = {
       organisations: detailed_guide.organisations.map(&:content_id),
+      topics: [],
       related_guides: [],
       related_mainstream: [],
     }
