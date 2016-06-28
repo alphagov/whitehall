@@ -32,4 +32,8 @@ private
         json[:national_applicability] = item.national_applicability if item.nation_inapplicabilities.any?
       end
   end
+
+  def rendering_app
+    Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+  end
 end
