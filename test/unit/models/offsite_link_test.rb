@@ -31,6 +31,11 @@ class OffsiteLinkTest < ActiveSupport::TestCase
     assert offsite_link.valid?
   end
 
+  test 'should be valid with a gov.wales url' do
+    offsite_link = build(:offsite_link, url: 'http://gov.wales/page')
+    assert offsite_link.valid?
+  end
+
   test 'should be valid if the type is not supported' do
     offsite_link = build(:offsite_link, link_type: 'notarealtype')
     refute offsite_link.valid?
