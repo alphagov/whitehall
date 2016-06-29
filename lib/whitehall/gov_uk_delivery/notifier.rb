@@ -33,7 +33,7 @@ module Whitehall
       end
 
       def published_today?
-        Date.today == notification_date.to_date
+        Time.zone.today == notification_date.to_date
       end
 
       def outdated_speech?

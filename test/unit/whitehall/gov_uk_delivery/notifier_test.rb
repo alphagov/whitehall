@@ -140,4 +140,17 @@ class Whitehall::GovUkDelivery::NotifierTest < ActiveSupport::TestCase
     notifier = notifier_for(publication)
     notifier.edition_published!
   end
+
+  test "#edition_published! takes into account timezones" do
+    time = Time.new(2011, 6, 11, 0, 30, 0, "+01:00")
+    Timecop.travel(time) {
+      edition = build(:draft_publication, public_timestamp: time, first_published_at: time)
+      force_publish(edition)
+
+      expect_govdelivery_worker_to_be_notified(edition)
+
+      notifier = notifier_for(edition)
+      notifier.edition_published!
+    }
+  end
 end
