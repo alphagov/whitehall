@@ -20,19 +20,19 @@
   </div>
 
   <div class="col-md-6">
-    <h2 class="add-bottom-margin">Feature new offsite link</h2>
+    <h2 class="add-bottom-margin">Feature non-GOV.UK government link</h2>
     <% if @featurable_offsite_links.any? %>
       <%= render partial: 'admin/feature_lists/featurable_offsite_links', locals: { feature_list: feature_list, featurable_offsite_links: @featurable_offsite_links } %>
     <% else %>
-      <p class="no-content no-content-bordered">There are currently no offsite links.</p>
+      <p class="no-content no-content-bordered">There are currently no non-GOV.UK government links.</p>
     <% end %>
 
     <% if @organisation %>
-      <%= link_to "Create an offsite link", new_admin_organisation_offsite_link_path(@organisation), class: "btn btn-default" %>
+      <%= link_to "Create a non-GOV.UK government link", new_admin_organisation_offsite_link_path(@organisation), class: "btn btn-default" %>
     <% end %>
 
     <% if @world_location %>
-      <%= link_to "Create an offsite link", new_admin_world_location_offsite_link_path(@world_location), class: "btn btn-default" %>
+      <%= link_to "Create a non-GOV.UK government link", new_admin_world_location_offsite_link_path(@world_location), class: "btn btn-default" %>
     <% end %>
   </div>
 </div>

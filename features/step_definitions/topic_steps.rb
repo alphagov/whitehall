@@ -183,7 +183,7 @@ end
 When(/^I add the offsite link "(.*?)" of type "(.*?)" to the topic "(.*?)"$/) do |title, type, topic_name|
   topic = Topic.find_by!(name: topic_name)
   visit admin_topic_classification_featurings_path(topic)
-  click_link "Create an offsite link"
+  click_link "Create a non-GOV.UK government link"
   fill_in :offsite_link_title, with: title
   select type, from: 'offsite_link_link_type'
   fill_in :offsite_link_summary, with: "summary"

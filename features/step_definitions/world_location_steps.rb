@@ -90,7 +90,7 @@ When(/^I add the offsite link "(.*?)" of type "(.*?)" to the world location "(.*
   world_location = WorldLocation.find_by!(name: location_name)
   visit admin_world_location_path(world_location)
   click_link "Features (English)"
-  click_link "Create an offsite link"
+  click_link "Create a non-GOV.UK government link"
   fill_in :offsite_link_title, with: title
   select type, from: 'offsite_link_link_type'
   fill_in :offsite_link_summary, with: "summary"
