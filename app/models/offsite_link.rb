@@ -11,7 +11,7 @@ class OffsiteLink < ActiveRecord::Base
       end
 
       unless url_is_gov_uk?(host) || url_is_gov_wales?(host) || url_is_whitelisted?(host)
-        errors.add(:base, "Please enter a valid GOV.UK URL, such as https://www.gov.uk/jobsearch")
+        errors.add(:base, "Please enter a valid government URL, such as https://www.gov.uk/jobsearch")
       end
     rescue URI::InvalidURIError
       errors.add(:base, "Please enter a valid URL, such as https://www.gov.uk/jobsearch")
