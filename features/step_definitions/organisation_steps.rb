@@ -191,7 +191,7 @@ end
 When(/^I add the offsite link "(.*?)" of type "(.*?)" to the organisation "(.*?)"$/) do |title, type, organisation_name|
   organisation = Organisation.find_by!(name: organisation_name)
   visit features_admin_organisation_path(organisation)
-  click_link "Create an offsite link"
+  click_link "Create a non-GOV.UK government link"
   fill_in :offsite_link_title, with: title
   select type, from: 'offsite_link_link_type'
   fill_in :offsite_link_summary, with: "summary"

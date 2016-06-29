@@ -73,7 +73,7 @@ end
 When(/^I add the offsite link "(.*?)" of type "(.*?)" to the topical event "(.*?)"$/) do |title, type, topical_event_name|
   topical_event = TopicalEvent.find_by!(name: topical_event_name)
   visit admin_topical_event_classification_featurings_path(topical_event)
-  click_link "Create an offsite link"
+  click_link "Create a non-GOV.UK government link"
   fill_in :offsite_link_title, with: title
   select type, from: 'offsite_link_link_type'
   fill_in :offsite_link_summary, with: "summary"
