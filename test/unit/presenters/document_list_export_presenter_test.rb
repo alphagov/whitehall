@@ -69,4 +69,18 @@ class DocumentListExportPresenterTest < ActiveSupport::TestCase
     pub = DocumentListExportPresenter.new(publication)
     assert_equal "force published", pub.state
   end
+
+  test '#unpublished? returns `yes` when a document is unpublished' do
+    unpublished_edition = create(:edition, :unpublished)
+
+    presenter = DocumentListExportPresenter.new(unpublished_edition)
+    assert_equal "yes", presenter.unpublished?
+  end
+
+  test '#unpublished? returns `no` when a document is draft' do
+    draft_edition = create(:edition, :draft)
+
+    presenter = DocumentListExportPresenter.new(draft_edition)
+    assert_equal "no", presenter.unpublished?
+  end
 end
