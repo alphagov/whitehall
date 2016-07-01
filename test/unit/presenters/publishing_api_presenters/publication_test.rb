@@ -7,10 +7,12 @@ class PublishingApiPresenters::PublicationTest < ActiveSupport::TestCase
 
   test "publication presentation includes the correct values" do
     government = create(:government)
+    statistical_data_set = create(:published_statistical_data_set)
     publication = create(:published_publication,
                     title: 'Publication title',
                     summary: 'The summary',
-                    body: 'Some content')
+                    body: 'Some content',
+                    statistical_data_sets: [statistical_data_set])
 
     public_path = Whitehall.url_maker.public_document_path(publication)
     expected_content = {
@@ -60,7 +62,7 @@ class PublishingApiPresenters::PublicationTest < ActiveSupport::TestCase
       organisations: publication.lead_organisations.map(&:content_id),
       document_collections: [],
       ministers: [minister.person.content_id],
-      related_statistical_data_sets: [],
+      related_statistical_data_sets: [statistical_data_set.content_id],
       world_locations: [],
       topical_events: [topical_event.content_id],
     }

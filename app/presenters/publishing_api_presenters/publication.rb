@@ -12,7 +12,7 @@ class PublishingApiPresenters::Publication < PublishingApiPresenters::Edition
       :world_locations
     ]).merge(
       ministers: ministers,
-      related_statistical_data_sets: item.statistical_data_set_ids,
+      related_statistical_data_sets: related_statistical_data_sets,
       topical_events: topical_events
     )
   end
@@ -52,5 +52,9 @@ private
       .joins(:classification_memberships)
       .where(classification_memberships: {edition_id: item.id})
       .pluck(:content_id)
+  end
+
+  def related_statistical_data_sets
+    item.statistical_data_sets.map(&:content_id)
   end
 end
