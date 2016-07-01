@@ -16,7 +16,9 @@ class PublishingApiPresenters::Edition < PublishingApiPresenters::Item
   end
 
   def links
-    extract_links([:organisations]).merge(topic_and_parent_links_payload)
+    extract_links([:organisations])
+      .merge(topic_links)
+      .merge(parent_links)
   end
 
   def base_path
@@ -25,29 +27,34 @@ class PublishingApiPresenters::Edition < PublishingApiPresenters::Item
 
 private
 
-  def topic_and_parent_links_payload
-    topic_tags = item.specialist_sector_tags
-    return {} unless topic_tags.present?
-
-    parent_tag = item.primary_specialist_sector_tag
-    base_paths = topic_tags.map { |tag| topic_path_from(tag) }
-    content_id_lookup = Whitehall.publishing_api_v2_client.lookup_content_ids(base_paths: base_paths)
-
-    if parent_tag
-      parent_content_id = content_id_lookup[topic_path_from(parent_tag)]
-
-      if parent_content_id.nil?
-        Rails.logger.info "#{item.content_id} has non-existing primary_specialist_sector_tag: #{parent_tag}"
-        { topics: content_id_lookup.values }
-      else
-        { topics: content_id_lookup.values, parent: [parent_content_id] }
-      end
-    else
-      { topics: content_id_lookup.values }
-    end
+  def topic_base_paths
+    @topic_base_paths ||= item.specialist_sector_tags.map { |tag| full_topic_path_from(tag) }
   end
 
-  def topic_path_from(tag)
+  def content_id_lookup
+    @content_id_lookup ||= Whitehall.publishing_api_v2_client.lookup_content_ids(base_paths: topic_base_paths)
+  end
+
+  def topic_links
+    return { topics: [] } if topic_base_paths.blank?
+    { topics: content_id_lookup.values }
+  end
+
+  def parent_links
+    empty_parent = { parent: [] }
+    return empty_parent if topic_base_paths.blank?
+    parent_tag = item.primary_specialist_sector_tag
+    return empty_parent if parent_tag.blank?
+
+    parent_content_id = content_id_lookup[full_topic_path_from(parent_tag)]
+    return { parent: [parent_content_id] } if parent_content_id
+
+    Rails.logger.info "#{item.content_id} has non-existing primary_specialist_sector_tag: #{parent_tag}"
+    empty_parent
+  end
+
+
+  def full_topic_path_from(tag)
     "/topic/#{tag}"
   end
 
