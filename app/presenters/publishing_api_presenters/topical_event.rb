@@ -9,9 +9,6 @@ class PublishingApiPresenters::TopicalEvent < PublishingApiPresenters::Placehold
   end
 
   def links
-    extract_links([
-      :topics,
-      :organisations,
-    ])
+    extract_links([:organisations])
   end
 end
