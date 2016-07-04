@@ -16,7 +16,14 @@ module PublishingApiPresenters
       @item = item
     end
 
+    def empty_links
+      LINK_NAMES_TO_METHODS_MAP.keys.each_with_object({}) do |link_name, hash|
+        hash[link_name] = []
+      end
+    end
+
     def extract(filter_links)
+      return empty_links if item.blank?
       filter_links.reduce(Hash.new) do |links, link_name|
         private_method_name = LINK_NAMES_TO_METHODS_MAP[link_name]
         links[link_name] = send(private_method_name)

@@ -35,7 +35,6 @@ class PublishingApiPresenters::StatisticsAnnouncementTest < ActiveSupport::TestC
     expected_links = {
       organisations: statistics_announcement.organisations.map(&:content_id),
       policy_areas: statistics_announcement.topics.map(&:content_id),
-      topics: [],
     }
 
     presented_item = present(statistics_announcement)
@@ -83,7 +82,6 @@ class PublishingApiPresenters::StatisticsAnnouncementTest < ActiveSupport::TestC
     expected_links = {
       organisations: statistics_announcement.organisations.map(&:content_id),
       policy_areas: statistics_announcement.topics.map(&:content_id),
-      topics: []
     }
 
     presented_item = present(statistics_announcement)
@@ -133,7 +131,6 @@ class PublishingApiPresenters::StatisticsAnnouncementTest < ActiveSupport::TestC
     expected_links = {
       organisations: statistics_announcement.organisations.map(&:content_id),
       policy_areas: statistics_announcement.topics.map(&:content_id),
-      topics: [],
     }
 
     presented_item = present(statistics_announcement)
