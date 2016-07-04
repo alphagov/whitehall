@@ -70,6 +70,7 @@ class PublishingApiPresenters::DetailedGuideTest < ActiveSupport::TestCase
     expected_links = {
       organisations: detailed_guide.organisations.map(&:content_id),
       topics: [],
+      parent: [],
       related_guides: [],
       related_mainstream: [],
     }
@@ -80,6 +81,21 @@ class PublishingApiPresenters::DetailedGuideTest < ActiveSupport::TestCase
     assert_equal expected_content[:details], presented_item.content[:details].except(:body)
     assert_equal expected_links, presented_item.links
     assert_equal detailed_guide.document.content_id, presented_item.content_id
+  end
+
+  test 'links hash includes topics and parent if set' do
+    edition = create(:detailed_guide)
+    create(:specialist_sector, tag: "oil-and-gas/offshore", edition: edition, primary: true)
+    create(:specialist_sector, tag: "oil-and-gas/onshore", edition: edition, primary: false)
+    publishing_api_has_lookups({
+      "/topic/oil-and-gas/offshore" => "content_id_1",
+      "/topic/oil-and-gas/onshore" => "content_id_2",
+    })
+
+    links = present(edition).links
+
+    assert_equal links[:topics], %w(content_id_1 content_id_2)
+    assert_equal links[:parent], %w(content_id_1)
   end
 
   test 'DetailedGuide presents related_mainstream and related_mainstream_content' do

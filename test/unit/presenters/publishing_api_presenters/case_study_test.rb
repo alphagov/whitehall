@@ -48,6 +48,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
       organisations: case_study.lead_organisations.map(&:content_id),
       related_policies: [],
       topics: [],
+      parent: [],
       world_locations: [],
       worldwide_organisations: [],
     }
@@ -117,6 +118,21 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     assert_equal expected_hash, presented_item.content[:details][:image]
   end
 
+  test 'links hash includes topics and parent if set' do
+    edition = create(:published_case_study)
+    create(:specialist_sector, tag: "oil-and-gas/offshore", edition: edition, primary: true)
+    create(:specialist_sector, tag: "oil-and-gas/onshore", edition: edition, primary: false)
+    publishing_api_has_lookups({
+      "/topic/oil-and-gas/offshore" => "content_id_1",
+      "/topic/oil-and-gas/onshore" => "content_id_2",
+    })
+
+    links = present(edition).links
+
+    assert_equal links[:topics], %w(content_id_1 content_id_2)
+    assert_equal links[:parent], %w(content_id_1)
+  end
+
   test "links hash includes lead and supporting organisations in correct order" do
     lead_org_1 = create(:organisation)
     lead_org_2 = create(:organisation)
@@ -130,6 +146,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
       organisations: [lead_org_1.content_id, lead_org_2.content_id, supporting_org.content_id],
       related_policies: [],
       topics: [],
+      parent: [],
       world_locations: [],
       worldwide_organisations: [],
     }
