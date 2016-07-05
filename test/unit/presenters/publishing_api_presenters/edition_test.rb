@@ -8,11 +8,13 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
   end
 
   test 'presents an Edition ready for adding to the publishing API' do
-    edition = create(:published_publication,
-                title: 'The title',
-                summary: 'The summary',
-                primary_specialist_sector_tag: 'oil-and-gas/taxation',
-                secondary_specialist_sector_tags: ['oil-and-gas/licensing'])
+    edition = create(
+      :published_publication,
+      title: 'The title',
+      summary: 'The summary',
+      primary_specialist_sector_tag: 'oil-and-gas/taxation',
+      secondary_specialist_sector_tags: ['oil-and-gas/licensing']
+    )
 
     public_path = Whitehall.url_maker.public_document_path(edition)
 
@@ -236,10 +238,7 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
 
     links = present(edition).links
 
-    assert_equal({
-      topics: %w(content_id_1),
-      organisations: [],
-    }, links)
+    assert_equal({ topics: %w(content_id_1), parent: [], organisations: [] }, links)
   end
 
   test '#links treats the primary specialist sector of the item as the parent' do
@@ -253,11 +252,14 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
 
     links = present(edition).links
 
-    assert_equal({
-      topics: %w(content_id_1 content_id_2),
-      parent: %w(content_id_1),
-      organisations: [],
-    }, links)
+    assert_equal(
+      {
+        topics: %w(content_id_1 content_id_2),
+        parent: %w(content_id_1),
+        organisations: [],
+      },
+      links
+    )
   end
 
   test '#links.parent will not be set if the specialist sector is not found' do
@@ -270,10 +272,21 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
 
     links = present(edition).links
 
-    assert_equal({
-      topics: %w(content_id_1),
-      organisations: [],
-    }, links)
+    assert_equal({ topics: %w(content_id_1), parent: [], organisations: [] }, links)
+  end
+
+  test "#links correctly sets blank topic and parent values if no specialist sectors are specified" do
+    edition = create(:edition)
+    links = present(edition).links
+
+    assert_equal(
+      {
+        topics: [],
+        parent: [],
+        organisations: [],
+      },
+      links
+    )
   end
 
   test 'Edition presents withdrawn_notice correctly' do
