@@ -3,6 +3,9 @@ module PublishingApiPresenters
     presenter_class_for(model).new(model, options)
   end
 
+  class UndefinedPresenterError < StandardError
+  end
+
 private
   def self.presenter_class_for(model)
     case model
@@ -39,8 +42,7 @@ private
     when ::WorldwideOrganisation
       PublishingApiPresenters::WorldwideOrganisation
     else
-      # FIXME: does anything still use this?
-      PublishingApiPresenters::Placeholder
+      raise UndefinedPresenterError, "Could not find presenter class for: #{model.inspect}"
     end
   end
 

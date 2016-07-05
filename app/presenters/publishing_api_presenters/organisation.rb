@@ -1,10 +1,30 @@
 require_relative '../publishing_api_presenters'
 
-class PublishingApiPresenters::Organisation < PublishingApiPresenters::Placeholder
+class PublishingApiPresenters::Organisation < PublishingApiPresenters::Item
   include ApplicationHelper
 
   def links
     {}
+  end
+
+  def title
+    item.name
+  end
+
+  def description
+    nil
+  end
+
+  def schema_name
+    "placeholder"
+  end
+
+  def document_type
+    item.class.name.underscore
+  end
+
+  def public_updated_at
+    item.updated_at
   end
 
   def details
