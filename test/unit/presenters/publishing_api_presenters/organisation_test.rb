@@ -38,7 +38,7 @@ class PublishingApiPresenters::OrganisationTest < ActionView::TestCase
       },
       analytics_identifier: "O123",
     }
-    expected_links = { topics: [] }
+    expected_links = {}
 
     presented_item = present(organisation)
 

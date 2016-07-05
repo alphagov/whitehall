@@ -5,7 +5,6 @@ class PublishingApiPresenters::StatisticsAnnouncement < PublishingApiPresenters:
     extract_links([
       :organisations,
       :policy_areas,
-      :topics,
     ])
   end
 

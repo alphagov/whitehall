@@ -4,7 +4,7 @@ class PublishingApiPresenters::Organisation < PublishingApiPresenters::Placehold
   include ApplicationHelper
 
   def links
-    extract_links([:topics])
+    {}
   end
 
   def details

@@ -30,7 +30,16 @@ private
       end
     when ::HtmlAttachment
       PublishingApiPresenters::HtmlAttachment
+    when ::Person
+      PublishingApiPresenters::Person
+    when ::WorldLocation
+      PublishingApiPresenters::WorldLocation
+    when ::MinisterialRole
+      PublishingApiPresenters::MinisterialRole
+    when ::WorldwideOrganisation
+      PublishingApiPresenters::WorldwideOrganisation
     else
+      # FIXME: does anything still use this?
       PublishingApiPresenters::Placeholder
     end
   end

@@ -59,6 +59,7 @@ class PublishingApiPresenters::PublicationTest < ActiveSupport::TestCase
 
     expected_links = {
       topics: [],
+      parent: [],
       organisations: publication.lead_organisations.map(&:content_id),
       document_collections: [],
       ministers: [minister.person.content_id],
@@ -84,6 +85,21 @@ class PublishingApiPresenters::PublicationTest < ActiveSupport::TestCase
     assert_equal publication.document.content_id, presented_item.content_id
   end
 
+  test 'links hash includes topics and parent if set' do
+    edition = create(:published_publication)
+    create(:specialist_sector, tag: "oil-and-gas/offshore", edition: edition, primary: true)
+    create(:specialist_sector, tag: "oil-and-gas/onshore", edition: edition, primary: false)
+    publishing_api_has_lookups({
+      "/topic/oil-and-gas/offshore" => "content_id_1",
+      "/topic/oil-and-gas/onshore" => "content_id_2",
+    })
+
+    links = present(edition).links
+
+    assert_equal links[:topics], %w(content_id_1 content_id_2)
+    assert_equal links[:parent], %w(content_id_1)
+  end
+
   test "links hash includes lead and supporting organisations in correct order" do
     lead_org_1 = create(:organisation)
     lead_org_2 = create(:organisation)
@@ -94,6 +110,7 @@ class PublishingApiPresenters::PublicationTest < ActiveSupport::TestCase
     presented_item = present(publication)
     expected_links_hash = {
       topics: [],
+      parent: [],
       organisations: [lead_org_1.content_id, lead_org_2.content_id, supporting_org.content_id],
       document_collections: [],
       world_locations: [],

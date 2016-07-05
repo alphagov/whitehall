@@ -4,7 +4,6 @@ class PublishingApiPresenters::TakePart < PublishingApiPresenters::Item
   def links
     extract_links([
       :policy_areas,
-      :topics,
     ])
   end
 
