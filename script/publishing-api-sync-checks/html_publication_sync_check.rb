@@ -6,10 +6,19 @@ html_attachments = HtmlAttachment.includes(attachable: [:document])
     AND editions.state IN ('published', 'withdrawn')
   SQL
 
+
+def base_path_for_html_publication(html_publication)
+  if html_publication.attachable.is_a?(Publication)
+    Whitehall.url_maker.publication_html_attachment_path(publication_id: html_publication.attachable.document.slug, id: html_publication.to_param)
+  else
+    Whitehall.url_maker.consultation_html_attachment_path(consultation_id: html_publication.attachable.document.slug, id: html_publication.to_param)
+  end
+end
+
 check = DataHygiene::PublishingApiSyncCheck.new(html_attachments)
 
 check.override_base_path do |record|
-  Whitehall.url_maker.publication_html_attachment_path(publication_id: record.attachable.document.slug, id: record.to_param)
+  base_path_for_html_publication(record)
 end
 
 check.add_expectation("content_id") do |content_store_payload, record|
@@ -22,7 +31,7 @@ check.add_expectation("schema_name") do |content_store_payload, _|
 end
 
 check.add_expectation("base_path") do |content_store_payload, record|
-  content_store_payload["base_path"] == Whitehall.url_maker.publication_html_attachment_path(publication_id: record.attachable.document.slug, id: record.to_param)
+  content_store_payload["base_path"] == base_path_for_html_publication(record)
 end
 
 check.add_expectation("title") do |content_store_payload, record|
