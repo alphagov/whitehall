@@ -28,7 +28,6 @@ class DocumentListExportPresenter
       'Specialist sectors',
       'Collections',
       'Affected by history-mode',
-      'Unpublished',
     ]
   end
 
@@ -51,7 +50,6 @@ class DocumentListExportPresenter
       specialist_sectors,
       collections,
       edition.political?,
-      unpublished?,
     ]
   end
 
@@ -101,13 +99,11 @@ class DocumentListExportPresenter
   def state
     if edition.force_published?
       "force published"
+    elsif edition.unpublishing
+      "unpublished"
     else
       edition.state
     end
-  end
-
-  def unpublished?
-    edition.unpublishing ? 'yes' : 'no'
   end
 
   def policies
