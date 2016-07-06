@@ -55,4 +55,19 @@ class PublishingApiPresenters::DocumentCollectionPlaceholderTest < ActiveSupport
 
     assert_valid_against_schema(presented_item.content, 'placeholder')
   end
+
+  test 'links hash includes topics and parent if set' do
+    edition = create(:published_document_collection)
+    create(:specialist_sector, tag: "oil-and-gas/offshore", edition: edition, primary: true)
+    create(:specialist_sector, tag: "oil-and-gas/onshore", edition: edition, primary: false)
+    publishing_api_has_lookups({
+      "/topic/oil-and-gas/offshore" => "content_id_1",
+      "/topic/oil-and-gas/onshore" => "content_id_2",
+    })
+
+    links = present(edition).links
+
+    assert_equal links[:topics], %w(content_id_1 content_id_2)
+    assert_equal links[:parent], %w(content_id_1)
+  end
 end

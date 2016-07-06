@@ -14,6 +14,7 @@ class TopicalEventAboutPageTest < ActiveSupport::TestCase
 
   test "TopicalEventAboutPage is published to the Publishing API on save" do
     presenter = PublishingApiPresenters.presenter_for(@topical_event_about_page)
+
     @topical_event_about_page.save!
 
     expected_json = presenter.content.merge(

@@ -55,16 +55,37 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
 
   test ".presenter_for returns a Placeholder presenter for an organisation" do
     organisation = Organisation.new
-    presenter  = PublishingApiPresenters.presenter_for(organisation)
+    presenter = PublishingApiPresenters.presenter_for(organisation)
 
     assert_equal PublishingApiPresenters::Organisation, presenter.class
   end
 
-  test ".presenter_for returns a Placeholder presenter for a world location" do
-    world_location = WorldLocation.new
-    presenter  = PublishingApiPresenters.presenter_for(world_location)
+  test ".presenter_for returns a Person presenter for a person" do
+    person = Person.new
+    presenter = PublishingApiPresenters.presenter_for(person)
 
-    assert_equal PublishingApiPresenters::Placeholder, presenter.class
+    assert_equal PublishingApiPresenters::Person, presenter.class
+  end
+
+  test ".presenter_for returns a WorldLocation presenter for a world location" do
+    ministerial_role = WorldLocation.new
+    presenter = PublishingApiPresenters.presenter_for(ministerial_role)
+
+    assert_equal PublishingApiPresenters::WorldLocation, presenter.class
+  end
+
+  test ".presenter_for returns a MinisterialRole presenter for a ministerial role" do
+    world_location = MinisterialRole.new
+    presenter = PublishingApiPresenters.presenter_for(world_location)
+
+    assert_equal PublishingApiPresenters::MinisterialRole, presenter.class
+  end
+
+  test ".presenter_for returns a WorldwideOrganisation presenter for a worldwide organisation" do
+    worldwide_organisation = WorldwideOrganisation.new
+    presenter = PublishingApiPresenters.presenter_for(worldwide_organisation)
+
+    assert_equal PublishingApiPresenters::WorldwideOrganisation, presenter.class
   end
 
   test ".presenter_for returns a WorkingGroup presenter for a policy group" do

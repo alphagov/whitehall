@@ -9,6 +9,7 @@ class PublishingApiPresenters::CaseStudy < PublishingApiPresenters::Edition
       :organisations,
       :related_policies,
       :topics,
+      :parent,
       :world_locations,
       :worldwide_organisations,
     ])

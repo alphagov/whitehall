@@ -3,6 +3,9 @@ module PublishingApiPresenters
     presenter_class_for(model).new(model, options)
   end
 
+  class UndefinedPresenterError < StandardError
+  end
+
 private
   def self.presenter_class_for(model)
     case model
@@ -30,8 +33,16 @@ private
       end
     when ::HtmlAttachment
       PublishingApiPresenters::HtmlAttachment
+    when ::Person
+      PublishingApiPresenters::Person
+    when ::WorldLocation
+      PublishingApiPresenters::WorldLocation
+    when ::MinisterialRole
+      PublishingApiPresenters::MinisterialRole
+    when ::WorldwideOrganisation
+      PublishingApiPresenters::WorldwideOrganisation
     else
-      PublishingApiPresenters::Placeholder
+      raise UndefinedPresenterError, "Could not find presenter class for: #{model.inspect}"
     end
   end
 
