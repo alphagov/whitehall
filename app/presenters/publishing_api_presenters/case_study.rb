@@ -1,37 +1,71 @@
 require_relative "../publishing_api_presenters"
 
-class PublishingApiPresenters::CaseStudy < PublishingApiPresenters::Edition
-  include PublishingApiPresenters::WithdrawingHelper
+class PublishingApiPresenters::CaseStudy
+  include PublishingApiPresenters::UpdateTypeHelper
+
+  attr_accessor :item
+  attr_accessor :update_type
+
+  def initialize(item, update_type: nil)
+    self.item = item
+    self.update_type = update_type || default_update_type(item)
+  end
+
+  def content_id
+    item.content_id
+  end
+
+  def content
+    content = PublishingApiPresenters::BaseItem.new(item).base_attributes
+    content.merge!(
+      description: item.summary,
+      details: details,
+      document_type: "case_study",
+      public_updated_at: item.public_timestamp || item.updated_at,
+      rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
+      schema_name: "case_study",
+    )
+    content.merge!(PublishingApiPresenters::PayloadBuilder::PublicDocumentPath.for(item))
+    content.merge!(PublishingApiPresenters::PayloadBuilder::AccessLimitation.for(item))
+    content.merge!(PublishingApiPresenters::PayloadBuilder::WithdrawnNotice.for(item))
+  end
 
   def links
-    extract_links([
-      :document_collections,
-      :organisations,
-      :related_policies,
-      :topics,
-      :parent,
-      :world_locations,
-      :worldwide_organisations,
-    ])
+    PublishingApiPresenters::LinksPresenter.new(item).extract(
+      [
+        :document_collections,
+        :organisations,
+        :parent,
+        :related_policies,
+        :topics,
+        :world_locations,
+        :worldwide_organisations,
+      ]
+    )
   end
 
 private
 
-  def schema_name
-    "case_study"
-  end
-
   def details
-    super.merge({
+    details_hash = {
       body: body,
-      format_display_type: item.display_type_key,
-      first_public_at: first_public_at,
       change_history: item.change_history.as_json,
       emphasised_organisations: item.lead_organisations.map(&:content_id),
-    }).tap do |json|
-      json[:image] = image_details if image_available?
-      json[:withdrawn_notice] = withdrawn_notice if item.withdrawn?
-    end
+      first_public_at: first_public_at,
+      format_display_type: item.display_type_key,
+    }
+    details_hash[:image] = image_details if image_available?
+    details_hash.merge!(PublishingApiPresenters::PayloadBuilder::WithdrawnNotice.for(item))
+    details_hash.merge!(PublishingApiPresenters::PayloadBuilder::TagDetails.for(item))
+  end
+
+  def first_public_at
+    return item.first_public_at if item.document.published?
+    item.document.created_at.iso8601
+  end
+
+  def body
+    Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item)
   end
 
   def image_details
@@ -52,9 +86,5 @@ private
 
   def presented_case_study
     CaseStudyPresenter.new(item)
-  end
-
-  def policy_content_ids
-    item.policy_content_ids
   end
 end
