@@ -41,6 +41,8 @@ private
       PublishingApiPresenters::MinisterialRole
     when ::WorldwideOrganisation
       PublishingApiPresenters::WorldwideOrganisation
+    when ::Contact
+      PublishingApiPresenters::Contact
     else
       raise UndefinedPresenterError, "Could not find presenter class for: #{model.inspect}"
     end

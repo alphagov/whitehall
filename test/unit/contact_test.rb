@@ -118,6 +118,7 @@ class ContactTest < ActiveSupport::TestCase
     EditionDependenciesPopulator.new(news_article).populate!
     EditionDependenciesPopulator.new(corp_info_page).populate!
 
+    expect_publishing(contact, content_entries: {rendering_app: 'government-frontend'})
     expect_republishing(news_article, corp_info_page)
 
     contact.update_attributes(title: "Changed contact title")

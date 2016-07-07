@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160318154626) do
+ActiveRecord::Schema.define(version: 20160622080303) do
 
   create_table "about_pages", force: :cascade do |t|
     t.integer  "topical_event_id",    limit: 4
@@ -228,6 +228,7 @@ ActiveRecord::Schema.define(version: 20160318154626) do
     t.string  "postal_code",      limit: 255
     t.integer "country_id",       limit: 4
     t.integer "contact_type_id",  limit: 4,                             null: false
+    t.string  "content_id",       limit: 255,                           null: false
   end
 
   add_index "contacts", ["contact_type_id"], name: "index_contacts_on_contact_type_id", using: :btree
