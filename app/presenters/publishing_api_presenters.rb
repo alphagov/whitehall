@@ -59,6 +59,9 @@ private
     when ::Publication
       PublishingApiPresenters::Publication
     else
+      # FIXME: Announcement, CorporateInformationPage, Publicationesque
+      # (Consultations, StatisticalDataSet) should have their own presenters
+      # and replace the line below.
       PublishingApiPresenters::Edition
     end
   end

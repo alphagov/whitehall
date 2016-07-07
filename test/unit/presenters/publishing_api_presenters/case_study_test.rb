@@ -6,11 +6,12 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
   end
 
   test "case study presentation includes the correct values" do
-    case_study = create(:published_case_study,
-                    title: 'Case study title',
-                    summary: 'The summary',
-                    body: 'Some content')
-
+    case_study = create(
+      :published_case_study,
+      title: 'Case study title',
+      summary: 'The summary',
+      body: 'Some content',
+    )
     public_path = Whitehall.url_maker.public_document_path(case_study)
     expected_content = {
       base_path: public_path,
@@ -42,7 +43,6 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
         emphasised_organisations: case_study.lead_organisations.map(&:content_id),
       },
     }
-
     expected_links = {
       document_collections: [],
       organisations: case_study.lead_organisations.map(&:content_id),
@@ -57,15 +57,13 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
 
     assert_valid_against_schema(presented_item.content, 'case_study')
     assert_valid_against_links_schema({ links: presented_item.links }, 'case_study')
-
-    assert_equal expected_content.except(:details),
-      presented_item.content.except(:details)
-
+    assert_equal expected_content.except(:details), presented_item.content.except(:details)
     # We test for HTML equivlance rather than string equality to get around
     # inconsistencies with line breaks between different XML libraries
-    assert_equivalent_html expected_content[:details].delete(:body),
+    assert_equivalent_html(
+      expected_content[:details].delete(:body),
       presented_item.content[:details].delete(:body)
-
+    )
     assert_equal expected_content[:details], presented_item.content[:details].except(:body)
     assert_equal expected_links, presented_item.links
     assert_equal case_study.document.content_id, presented_item.content_id
