@@ -4,14 +4,14 @@ module PublishingApiPresenters
       attr_reader :item
 
       def self.for(item)
-        new(item).for
+        new(item).call
       end
 
       def initialize(item)
         @item = item
       end
 
-      def for
+      def call
         {
           political: item.political?,
           government: government
