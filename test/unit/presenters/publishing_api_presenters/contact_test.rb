@@ -38,7 +38,8 @@ class PublishingApiPresenters::ContactTest < ActiveSupport::TestCase
       publishing_app: "whitehall",
       details: {
         description: nil,
-        contact_type: 1,
+        title: "Government Digital Service",
+        contact_type: "General contact",
         post_addresses: [
           {
             title: "GDS mail room",
