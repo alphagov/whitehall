@@ -1,5 +1,4 @@
 require "securerandom"
-require_relative "../publishing_api_presenters"
 
 # A temporary content format used as a splash page for scheduled documents.
 #
@@ -16,45 +15,47 @@ require_relative "../publishing_api_presenters"
 # Note this format becomes redundant once the caching infrastructure is able to
 # honour caching headers on upstream 404 responses.
 
-class PublishingApiPresenters::ComingSoon < PublishingApiPresenters::Item
-  attr_reader :content_id
+module PublishingApiPresenters
+  class ComingSoon < Item
+    attr_reader :content_id
 
-  def initialize(item, update_type: nil)
-    super
-    @content_id = SecureRandom.uuid
-  end
+    def initialize(item, update_type: nil)
+      super
+      @content_id = SecureRandom.uuid
+    end
 
-  def links
-    {}
-  end
+    def links
+      {}
+    end
 
-private
+  private
 
-  def schema_name
-    'coming_soon'
-  end
+    def schema_name
+      'coming_soon'
+    end
 
-  def title
-    'Coming soon'
-  end
+    def title
+      'Coming soon'
+    end
 
-  def description
-    'Coming soon'
-  end
+    def description
+      'Coming soon'
+    end
 
-  def rendering_app
-    item.rendering_app
-  end
+    def rendering_app
+      item.rendering_app
+    end
 
-  def details
-    { publish_time: item.scheduled_publication.as_json }
-  end
+    def details
+      { publish_time: item.scheduled_publication.as_json }
+    end
 
-  def public_updated_at
-    item.updated_at
-  end
+    def public_updated_at
+      item.updated_at
+    end
 
-  def base_path
-    Whitehall.url_maker.public_document_path(item, locale: I18n.locale)
+    def base_path
+      Whitehall.url_maker.public_document_path(item, locale: I18n.locale)
+    end
   end
 end

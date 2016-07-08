@@ -1,29 +1,29 @@
-require_relative "../publishing_api_presenters"
+module PublishingApiPresenters
+  class WorldLocation < Item
+    def links
+      {}
+    end
 
-class PublishingApiPresenters::WorldLocation < PublishingApiPresenters::Item
-  def links
-    {}
-  end
+  private
 
-private
+    def title
+      item.name
+    end
 
-  def title
-    item.name
-  end
+    def description
+      nil
+    end
 
-  def description
-    nil
-  end
+    def public_updated_at
+      item.updated_at
+    end
 
-  def public_updated_at
-    item.updated_at
-  end
+    def schema_name
+      "placeholder"
+    end
 
-  def schema_name
-    "placeholder"
-  end
-
-  def document_type
-    item.class.name.underscore
+    def document_type
+      item.class.name.underscore
+    end
   end
 end
