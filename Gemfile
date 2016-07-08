@@ -50,6 +50,7 @@ gem 'parallel', '1.4.1'
 gem 'responders', '~> 2.0'
 gem 'sidekiq-statsd', '0.1.5'
 gem 'ruby-progressbar', require: false
+gem 'active_model_serializers', '~> 0.10'
 
 gem 'deprecated_columns', '0.1.0'
 

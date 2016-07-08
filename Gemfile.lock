@@ -37,6 +37,11 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    active_model_serializers (0.10.2)
+      actionpack (>= 4.1, < 6)
+      activemodel (>= 4.1, < 6)
+      jsonapi (~> 0.1.1.beta2)
+      railties (>= 4.1, < 6)
     activejob (4.2.5.2)
       activesupport (= 4.2.5.2)
       globalid (>= 0.3.0)
@@ -201,6 +206,8 @@ GEM
     json (1.8.3)
     json-schema (2.5.1)
       addressable (~> 2.3.7)
+    jsonapi (0.1.1.beta2)
+      json (~> 1.8)
     jwt (1.5.2)
     kaminari (0.15.1)
       actionpack (>= 3.0.0)
@@ -451,6 +458,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_serializers (~> 0.10)
   addressable (>= 2.3.7)
   airbrake (= 4.1.0)
   babosa (= 1.0.2)
