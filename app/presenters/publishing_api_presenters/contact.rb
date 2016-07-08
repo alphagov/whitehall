@@ -67,11 +67,11 @@ private
   end
 
   def contact_type
-    contact.contact_type.id
+    contact.contact_type.name
   end
 
   def details
-    details = { description: description, contact_type: contact_type }
+    details = { description: description, contact_type: contact_type, title: title }
     details[:post_addresses] = [post_address] if postal_code
     details[:email_addresses] = [email_address] if email
     details[:phone_numbers] = phone_numbers if contact_numbers.any?
