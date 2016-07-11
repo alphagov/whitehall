@@ -1,4 +1,5 @@
 require "test_helper"
+require 'active_model_serializers'
 
 class CaseStudySerializerTest < ActiveSupport::TestCase
   def stubbed_item

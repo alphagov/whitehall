@@ -1,4 +1,5 @@
 require "test_helper"
+require 'active_model_serializers'
 
 class PublicDocumentPathSerializerTest < ActiveSupport::TestCase
   def serializer

@@ -1,4 +1,5 @@
 require_relative "../publishing_api_presenters"
+require 'active_model_serializers'
 
 class PublishingApiPresenters::CaseStudy
   include PublishingApiPresenters::UpdateTypeHelper

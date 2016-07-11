@@ -1,4 +1,5 @@
 require "test_helper"
+require 'active_model_serializers'
 
 class AccessLimitationSerializerTest < ActiveSupport::TestCase
   test "it includes access limited attribute when it as limited access" do

@@ -1,4 +1,5 @@
 require "test_helper"
+require 'active_model_serializers'
 
 class WithdrawnNoticeSerializerTest < ActiveSupport::TestCase
   test "it includes withdraw notice when the item has been withdrawn" do
