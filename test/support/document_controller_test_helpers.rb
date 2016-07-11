@@ -162,6 +162,13 @@ module DocumentControllerTestHelpers
         get :show, id: edition.document
         assert_select ".meta a", text: policy_1["title"]
       end
+
+      view_test "shows no policies if publishing api is unavailable" do
+        edition = create("published_#{document_type}", policy_content_ids: [policy_1["content_id"]])
+        publishing_api_isnt_available
+        get :show, id: edition.document
+        refute_select ".meta a", text: policy_1["title"]
+      end
     end
 
     def should_show_the_world_locations_associated_with(document_type)
