@@ -145,6 +145,8 @@ FactoryGirl.define do
     end
   end
 
+  factory :announcement, parent: :edition, class: Announcement, traits: [:with_organisations, :with_topics]
+
   factory :edition_with_document, parent: :edition, traits: [:with_document]
   factory :imported_edition, parent: :edition, traits: [:imported]
   factory :draft_edition, parent: :edition, traits: [:draft]

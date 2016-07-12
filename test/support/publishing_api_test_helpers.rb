@@ -6,7 +6,7 @@ module PublishingApiTestHelpers
 
   def stub_publishing_api_registration_for(editions)
     Array(editions).each do |edition|
-      presenter = PublishingApiPresenters::Edition.new(edition)
+      presenter = PublishingApiPresenters.presenter_for(edition)
       stub_publishing_api_put_content(presenter.content_id, presenter.content)
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links)
       stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: 'major')

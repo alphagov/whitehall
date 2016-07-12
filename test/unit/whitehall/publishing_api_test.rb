@@ -48,7 +48,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     edition = create(:draft_case_study)
     unpublishing = create(:unpublishing, edition: edition)
 
-    presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
+    presenter = PublishingApi::UnpublishingPresenter.new(unpublishing)
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
@@ -117,7 +117,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     unpublishing     = create(:unpublishing)
     edition          = unpublishing.edition
 
-    presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
+    presenter = PublishingApi::UnpublishingPresenter.new(unpublishing)
 
     german_requests = I18n.with_locale(:de) do
       edition.title = 'German title'
@@ -208,7 +208,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
   test ".republish_async republishes an unpublishing" do
     unpublishing = create(:unpublishing)
-    presenter = PublishingApiPresenters::Unpublishing.new(unpublishing, update_type: "republish")
+    presenter = PublishingApi::UnpublishingPresenter.new(unpublishing, update_type: "republish")
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
@@ -221,7 +221,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
   test ".republish_async publishes a redirect unpublishing" do
     unpublishing = create(:published_in_error_redirect_unpublishing)
-    presenter = PublishingApiPresenters::Unpublishing.new(unpublishing, update_type: "republish")
+    presenter = PublishingApi::UnpublishingPresenter.new(unpublishing, update_type: "republish")
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),

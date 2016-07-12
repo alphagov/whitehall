@@ -37,7 +37,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
       public_updated_at: Time.zone.now.as_json
     )
 
-    expected_intent = PublishingApiPresenters::PublishIntent.new(
+    expected_intent = PublishingApi::PublishIntentPresenter.new(
       statistics_announcement.base_path,
       statistics_announcement.statistics_announcement_dates.last.release_date
     )
@@ -73,7 +73,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
       public_updated_at: Time.zone.now.as_json
     )
 
-    expected_intent = PublishingApiPresenters::PublishIntent.new(
+    expected_intent = PublishingApi::PublishIntentPresenter.new(
       statistics_announcement.base_path,
       statistics_announcement.statistics_announcement_dates.last.release_date
     )
@@ -96,7 +96,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     statistics_announcement.update_attributes!(publishing_state: "unpublished",
                                                redirect_url: "https://www.test.alphagov.co.uk/example")
 
-    expected = PublishingApiPresenters::StatisticsAnnouncementRedirect.new(statistics_announcement).content
+    expected = PublishingApi::StatisticsAnnouncementRedirectPresenter.new(statistics_announcement).content
 
     assert_publishing_api_put_content(new_content_id,
                                       expected)
@@ -165,7 +165,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
       }
     }
 
-    expected_intent = PublishingApiPresenters::PublishIntent.new(
+    expected_intent = PublishingApi::PublishIntentPresenter.new(
       statistics_announcement.base_path,
       statistics_announcement.statistics_announcement_dates.last.release_date
     )
@@ -194,7 +194,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
 
     statistics_announcement.save!
 
-    expected = PublishingApiPresenters::StatisticsAnnouncementRedirect.new(statistics_announcement).content
+    expected = PublishingApi::StatisticsAnnouncementRedirectPresenter.new(statistics_announcement).content
 
     assert_publishing_api_put_content(new_content_id,
                                       expected)

@@ -33,7 +33,7 @@ class PublishingApiComingSoonWorkerTest < ActiveSupport::TestCase
       public_updated_at: edition.updated_at,
     }
 
-    expected_links = PublishingApiPresenters::ComingSoon.new(edition).links
+    expected_links = PublishingApi::ComingSoonPresenter.new(edition).links
 
     requests = [
       stub_publishing_api_put_content(uuid, expected_payload),

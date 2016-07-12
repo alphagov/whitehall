@@ -6,7 +6,7 @@ class SpecialistTagFinderTest < ActiveSupport::TestCase
 
   test "#topics returns all linked topics" do
     edition = create(:edition_with_document)
-    edition_base_path = PublishingApiPresenters::Edition.new(edition).base_path
+    edition_base_path = PublishingApiPresenters.presenter_for(edition).content[:base_path]
     content_item = content_item_for_base_path(edition_base_path).merge!({
       "links" => {
         "topics" => [
@@ -23,7 +23,7 @@ class SpecialistTagFinderTest < ActiveSupport::TestCase
 
   test "#topics returns empty array if no content item found" do
     edition = create(:edition_with_document)
-    edition_base_path = PublishingApiPresenters::Edition.new(edition).base_path
+    edition_base_path = PublishingApiPresenters.presenter_for(edition).content[:base_path]
 
     content_store_does_not_have_item(edition_base_path)
 
@@ -32,7 +32,7 @@ class SpecialistTagFinderTest < ActiveSupport::TestCase
 
   test "#topics returns empty array if content item has no topics link" do
     edition = create(:edition_with_document)
-    edition_base_path = PublishingApiPresenters::Edition.new(edition).base_path
+    edition_base_path = PublishingApiPresenters.presenter_for(edition).content[:base_path]
     content_item = content_item_for_base_path(edition_base_path).merge!(
       "links" => { "other" => [] }
     )
@@ -44,7 +44,7 @@ class SpecialistTagFinderTest < ActiveSupport::TestCase
 
   test "#top_level_topic returns the parent of the edition's parent topic" do
     edition = create(:edition_with_document)
-    edition_base_path = PublishingApiPresenters::Edition.new(edition).base_path
+    edition_base_path = PublishingApiPresenters.presenter_for(edition).content[:base_path]
     parent_base_path = "/parent-item"
     edition_content_item = content_item_for_base_path(edition_base_path).merge!({
       "links" => { "parent" => [{ "base_path" => parent_base_path }] }
@@ -61,7 +61,7 @@ class SpecialistTagFinderTest < ActiveSupport::TestCase
 
   test "#top_level_topic returns nil if no parents" do
     edition = create(:edition_with_document)
-    edition_base_path = PublishingApiPresenters::Edition.new(edition).base_path
+    edition_base_path = PublishingApiPresenters.presenter_for(edition).content[:base_path]
     edition_content_item = content_item_for_base_path(edition_base_path).merge!({
       "links" => { }
     })
@@ -73,7 +73,7 @@ class SpecialistTagFinderTest < ActiveSupport::TestCase
 
   test "#top_level_topic returns nil if not content item found" do
     edition = create(:edition_with_document)
-    edition_base_path = PublishingApiPresenters::Edition.new(edition).base_path
+    edition_base_path = PublishingApiPresenters.presenter_for(edition).content[:base_path]
 
     content_store_does_not_have_item(edition_base_path)
 

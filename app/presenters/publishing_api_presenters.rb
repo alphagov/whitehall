@@ -12,37 +12,37 @@ private
     when ::Edition
       presenter_class_for_edition(model)
     when ::Unpublishing
-      PublishingApiPresenters::Unpublishing
+      PublishingApi::UnpublishingPresenter
     when AboutPage
-      PublishingApiPresenters::TopicalEventAboutPage
+      PublishingApi::TopicalEventAboutPagePresenter
     when PolicyGroup
-      PublishingApiPresenters::WorkingGroup
+      PublishingApi::WorkingGroupPresenter
     when TakePartPage
-      PublishingApiPresenters::TakePart
+      PublishingApi::TakePartPresenter
     when Topic
-      PublishingApiPresenters::PolicyAreaPlaceholder
+      PublishingApi::PolicyAreaPlaceholderPresenter
     when ::Organisation
-      PublishingApiPresenters::Organisation
+      PublishingApi::OrganisationPresenter
     when ::TopicalEvent
-      PublishingApiPresenters::TopicalEvent
+      PublishingApi::TopicalEventPresenter
     when ::StatisticsAnnouncement
       if model.requires_redirect?
-        PublishingApiPresenters::StatisticsAnnouncementRedirect
+        PublishingApi::StatisticsAnnouncementRedirectPresenter
       else
-        PublishingApiPresenters::StatisticsAnnouncement
+        PublishingApi::StatisticsAnnouncementPresenter
       end
     when ::HtmlAttachment
-      PublishingApiPresenters::HtmlAttachment
+      PublishingApi::HtmlAttachmentPresenter
     when ::Person
-      PublishingApiPresenters::Person
+      PublishingApi::PersonPresenter
     when ::WorldLocation
-      PublishingApiPresenters::WorldLocation
+      PublishingApi::WorldLocationPresenter
     when ::MinisterialRole
-      PublishingApiPresenters::MinisterialRole
+      PublishingApi::MinisterialRolePresenter
     when ::WorldwideOrganisation
-      PublishingApiPresenters::WorldwideOrganisation
+      PublishingApi::WorldwideOrganisationPresenter
     when ::Contact
-      PublishingApiPresenters::Contact
+      PublishingApi::ContactPresenter
     else
       raise UndefinedPresenterError, "Could not find presenter class for: #{model.inspect}"
     end
@@ -51,18 +51,20 @@ private
   def self.presenter_class_for_edition(edition)
     case edition
     when ::CaseStudy
-      PublishingApiPresenters::CaseStudy
+      PublishingApi::CaseStudyPresenter
     when ::DocumentCollection
-      PublishingApiPresenters::DocumentCollectionPlaceholder
+      PublishingApi::DocumentCollectionPlaceholderPresenter
     when ::DetailedGuide
-      PublishingApiPresenters::DetailedGuide
+      PublishingApi::DetailedGuidePresenter
     when ::Publication
-      PublishingApiPresenters::Publication
+      PublishingApi::PublicationPresenter
     else
-      # FIXME: Announcement, CorporateInformationPage, Publicationesque
-      # (Consultations, StatisticalDataSet) should have their own presenters
-      # and replace the line below.
-      PublishingApiPresenters::Edition
+      # This is a catch-all clause for the following classes:
+      # NewsArticle, WorldLocationNewsArticle, Speech, CorporateInformationPage,
+      # Consultations, StatisticalDataSet
+      # The presenter implementation for all of these models is identical and
+      # the structure of the presented payload is the same.
+      PublishingApi::GenericEditionPresenter
     end
   end
 end
