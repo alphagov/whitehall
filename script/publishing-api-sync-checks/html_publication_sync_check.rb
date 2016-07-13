@@ -3,6 +3,7 @@ html_attachments = HtmlAttachment.includes(attachable: [:document])
   INNER JOIN editions ON attachable_id = editions.id
     AND attachable_type = 'Edition'
     AND attachments.type = 'HtmlAttachment'
+    AND attachments.deleted = 0
     AND editions.state IN ('published', 'withdrawn')
   SQL
 
