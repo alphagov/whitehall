@@ -18,7 +18,6 @@ slugs_to_fix = %w{
 # 5 'similar' documents in Whitehall:
 obsolete_slugs = %w{
   deleted-how-to-appeal-your-rateable-value
-  lorem-ipsum-dolor-sit-amet-elit-311681
   deleted-uk-visa-operations-in-south-india-are-impacted-by-the-floods-in-chennai
   deleted-common-land-guidance-for-commons-registration-authorities-and-applicants
   deleted-rpa-remains-on-track-to-pay-bps-2015-claims-from-december
@@ -27,7 +26,13 @@ obsolete_slugs = %w{
 # These appear to be junk documents with no corresponding editions, and can be
 # safely deleted.
 obsolete_slugs.each do |slug|
-  Document.where(slug: slug).first!.destroy!
+  doc = Document.where(slug: slug).first
+  if doc.present?
+    doc.destroy!
+    puts "Destroyed #{slug}"
+  else
+    puts "Not found: #{slug}"
+  end
 end
 
 # As for the 'good' documents with incorrect content IDs, we can fetch the
