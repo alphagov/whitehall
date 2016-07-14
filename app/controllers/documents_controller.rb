@@ -51,6 +51,8 @@ private
 
   def document_related_policies
     @document.policies
+  rescue GdsApi::TimedOutException, GdsApi::HTTPServerError
+    []
   end
 
   def find_unpublishing

@@ -15,4 +15,10 @@ class PolicyTest < ActiveSupport::TestCase
     assert_equal policy_1["content_id"], policy.content_id
     assert_equal policy_1["title"], policy.title
   end
+
+  test "#all returns an empty array if publishing api errors" do
+    publishing_api_isnt_available
+
+    assert_raises(GdsApi::HTTPServerError) { Policy.all }
+  end
 end
