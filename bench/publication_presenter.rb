@@ -14,7 +14,7 @@ publications = Publication
 StackProf.run(mode: :wall, out: "tmp/publication_presenter_content.dump") do
   puts Benchmark.measure {
     publications.each do |publication|
-      PublishingApiPresenters::Publication.new(publication).content
+      PublishingApi::PublicationPresenter.new(publication).content
       print "."
     end
     puts
@@ -24,7 +24,7 @@ end
 StackProf.run(mode: :wall, out: "tmp/publication_presenter_links.dump") do
   puts Benchmark.measure {
     publications.each do |publication|
-      PublishingApiPresenters::Publication.new(publication).links
+      PublishingApi::PublicationPresenter.new(publication).links
       print "."
     end
     puts

@@ -1,5 +1,4 @@
 class SpecialistTagFinder
-
   class Null
     def topics
       []
@@ -47,8 +46,8 @@ private
 
   def edition_content_item
     @edition_content_item ||= begin
-      presented_edition = PublishingApiPresenters::Edition.new(@edition)
-      edition_path = presented_edition.base_path
+      presented_edition = PublishingApiPresenters.presenter_for(@edition)
+      edition_path = presented_edition.content[:base_path]
       Whitehall.content_store.content_item(edition_path)
     end
   end
