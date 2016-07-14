@@ -67,6 +67,18 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
     GovspeakContent.delete_all
     html_attachment = HtmlAttachment.last
 
-    assert_nil present(html_attachment).content[:body]
+    assert_equal "", present(html_attachment).content[:details][:body]
+    assert_equal "", present(html_attachment).content[:details][:headings]
+  end
+
+  test "HtmlAttachment presentations sends the parent updated_at if it has no public_timestamp" do
+    Timecop.freeze do
+      create(:publication, :with_html_attachment, :draft)
+
+      GovspeakContent.delete_all
+      html_attachment = HtmlAttachment.last
+
+      assert_equal Time.zone.now, present(html_attachment).content[:details][:public_timestamp]
+    end
   end
 end

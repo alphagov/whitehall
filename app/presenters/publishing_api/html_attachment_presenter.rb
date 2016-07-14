@@ -59,11 +59,11 @@ module PublishingApi
     end
 
     def body
-      govspeak_content.try(:computed_body_html)
+      govspeak_content.try(:computed_body_html) || ""
     end
 
     def headings
-      govspeak_content.try(:computed_headers_html)
+      govspeak_content.try(:computed_headers_html) || ""
     end
 
     def first_published_version?
@@ -71,7 +71,7 @@ module PublishingApi
     end
 
     def public_timestamp
-      parent.public_timestamp
+      parent.public_timestamp || parent.updated_at
     end
 
     def parent
