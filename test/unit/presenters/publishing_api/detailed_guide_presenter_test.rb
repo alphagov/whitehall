@@ -31,6 +31,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
       summary: "Some summary",
       body: "Some content"
     )
+    EditionPolicy.create(edition_id: detailed_guide.id, policy_content_id: "dc6d2e0e-8f5d-4c3f-aaea-c890e07d0cf8")
 
     public_path = Whitehall.url_maker.public_document_path(detailed_guide)
     expected_content = {
@@ -71,6 +72,8 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
       organisations: detailed_guide.organisations.map(&:content_id),
       topics: [],
       parent: [],
+      related_policies: ["dc6d2e0e-8f5d-4c3f-aaea-c890e07d0cf8"],
+      policy_areas: detailed_guide.topics.map(&:content_id),
       related_guides: [],
       related_mainstream: [],
     }
