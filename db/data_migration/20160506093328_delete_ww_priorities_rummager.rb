@@ -724,5 +724,5 @@ BASE_PATHS = [
 ]
 
 BASE_PATHS.each do |base_path|
-  Whitehall.government_search_client.delete_content! base_path
+  Whitehall.unified_search_client.delete_content! base_path
 end
