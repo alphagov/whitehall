@@ -17,19 +17,19 @@
       <div class="halves-width-section prime-minister">
         <div class="one-half">
           <div class="inner-block">
-            <%= image_tag 'how-gov-works/Theresa_May.jpg', alt: 'The Prime Minister' %>
+            <%= image_tag @prime_minister.image_url(:s465), { alt: @prime_minister.name } %>
           </div>
         </div>
         <div class="one-half">
           <div class="inner-block">
             <h3>The Prime Minister</h3>
-            <p>The <a href="/government/ministers/prime-minister">Prime Minister</a> is head of the UK government. She is ultimately responsible for all policy and decisions. She:</p>
+            <p>The <a href="/government/ministers/prime-minister">Prime Minister</a> is head of the UK government. They are ultimately responsible for all policy and decisions. They:</p>
             <ul>
-              <li>oversees the operation of the Civil Service and government agencies</li>
-              <li>appoints members of the government</li>
-              <li>is the principal government figure in the House of Commons</li>
+              <li>oversee the operation of the Civil Service and government agencies</li>
+              <li>appoint members of the government</li>
+              <li>are the principal government figure in the House of Commons</li>
             </ul>
-            <p>The Prime Minister is <a href="/government/people/theresa-may">Theresa May</a> and she is based at Number 10 Downing Street in London.</p>
+            <p>The Prime Minister is <%= link_to @prime_minister.name, url_for(@prime_minister) %>.</p>
             <p><a href="/government/organisations/prime-ministers-office-10-downing-street">Read more about the Prime Minister's Office, 10 Downing Street</a></p>
           </div>
         </div>

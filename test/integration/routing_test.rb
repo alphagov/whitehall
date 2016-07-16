@@ -35,7 +35,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   test "should allow access to non-admin URLs for requests through the single domain router" do
-    get_via_redirect "/government/how-government-works", {}, "HTTP_X_GOVUK_ROUTER_REQUEST" => true
+    get_via_redirect "/government/history/king-charles-street", {}, "HTTP_X_GOVUK_ROUTER_REQUEST" => true
     assert_response :success
   end
 
