@@ -4,7 +4,7 @@
 <%
   heading = [t('publications.heading')]
   heading << "<span>: #{@filter.selected_publication_filter_option.label.downcase}</span>" if @filter.selected_publication_filter_option
-  heading = heading.join('').html_safe
+  heading = heading.join('').humanize.html_safe
 %>
 
 <header class="block headings-block">
