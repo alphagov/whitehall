@@ -62,6 +62,11 @@ class RegisterableEdition
     edition.need_ids
   end
 
+  # DID YOU MEAN: Topic?
+  # "Policy area" is the newer name for "topic"
+  # (https://www.gov.uk/government/topics)
+  # "Topic" is the newer name for "specialist sector"
+  # (https://www.gov.uk/topic)
   def specialist_sectors
     [edition.primary_specialist_sector_tag].compact + edition.secondary_specialist_sector_tags
   end

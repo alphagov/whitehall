@@ -1,3 +1,8 @@
+# DID YOU MEAN: Topic?
+# "Policy area" is the newer name for "topic"
+# (https://www.gov.uk/government/topics)
+# "Topic" is the newer name for "specialist sector"
+# (https://www.gov.uk/topic)
 class SpecialistSector < ActiveRecord::Base
   belongs_to :edition
 
@@ -27,6 +32,11 @@ private
     sectors.select(&:parent)
   end
 
+  # DID YOU MEAN: Topic?
+  # "Policy area" is the newer name for "topic"
+  # (https://www.gov.uk/government/topics)
+  # "Topic" is the newer name for "specialist sector"
+  # (https://www.gov.uk/topic)
   def self.fetch_sectors
     Whitehall.content_api.tags('specialist_sector', draft: true)
   rescue
