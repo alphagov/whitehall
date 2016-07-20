@@ -29,13 +29,24 @@ module Searchable
     :release_timestamp,
     :search_format_types,
     :slug,
-    :specialist_sectors,
+
+
     :speech_type,
     :statistics_announcement_state,
     :title,
 
-    # Topics display as policy areas in the frontend and map to policy areas in rummager
+    # DID YOU MEAN: Policy Area?
+    # "Policy area" is the newer name for "topic"
+    # (https://www.gov.uk/government/topics)
+    # "Topic" is the newer name for "specialist sector"
+    # (https://www.gov.uk/topic)
+    # You can help improve this code by renaming all usages of this field to use
+    # the new terminology.
     :topics,
+
+    # DID YOU MEAN: Topic?
+    # See above.
+    :specialist_sectors,
 
     :world_locations,
   ]

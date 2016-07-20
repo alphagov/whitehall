@@ -1,6 +1,14 @@
 class ClassificationRelation < ActiveRecord::Base
   belongs_to :classification, inverse_of: :classification_relations
   belongs_to :related_classification, foreign_key: :related_classification_id, class_name: "Classification"
+
+  # DID YOU MEAN: Policy Area?
+  # "Policy area" is the newer name for "topic"
+  # (https://www.gov.uk/government/topics)
+  # "Topic" is the newer name for "specialist sector"
+  # (https://www.gov.uk/topic)
+  # You can help improve this code by renaming all usages of this field to use
+  # the new terminology.
   belongs_to :topic, foreign_key: :classification_id, class_name: "Topic"
   belongs_to :related_topic, foreign_key: :related_classification_id, class_name: "Topic"
 

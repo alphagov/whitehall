@@ -2,8 +2,17 @@ class Frontend::StatisticsAnnouncementsFilter < FormObject
   named "StatisticsAnnouncementsFilter"
   attr_accessor :keywords,
                 :from_date, :to_date,
-                :organisations, :topics,
+                :organisations,
                 :page
+
+  # DID YOU MEAN: Policy Area?
+  # "Policy area" is the newer name for "topic"
+  # (https://www.gov.uk/government/topics)
+  # "Topic" is the newer name for "specialist sector"
+  # (https://www.gov.uk/topic)
+  # You can help improve this code by renaming all usages of this field to use
+  # the new terminology.
+  attr_accessor :topics
 
   RESULTS_PER_PAGE = 40
 

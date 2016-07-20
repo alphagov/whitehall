@@ -20,6 +20,12 @@ private
     {
       count: "0",
       filter_organisations: [organisation.slug],
+
+      # DID YOU MEAN: Topic?
+      # "Policy area" is the newer name for "topic"
+      # (https://www.gov.uk/government/topics)
+      # "Topic" is the newer name for "specialist sector"
+      # (https://www.gov.uk/topic)
       facet_specialist_sectors: "1000,examples:4,example_scope:query,order:value.title",
     }
   end
