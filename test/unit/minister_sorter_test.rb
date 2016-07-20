@@ -72,4 +72,20 @@ class MinisterSorterTest < ActiveSupport::TestCase
     set = MinisterSorter.new(roles)
     assert_equal expected, set.other_ministers
   end
+
+  def test_should_list_cabinet_ministers_in_order_of_cabinet_role_seniority
+    senior_person = person("0")
+    junior_person = person("1")
+    roles = [
+      role("Senior Non Cabinet Role", 100, false, [senior_person]),
+      role("Senior Cabinet Role", 16, true, [senior_person]),
+      role("Junior Non Cabinet Role", 14, false, [junior_person]),
+      role("Junior Cabinet Role", 17, true, [junior_person]),
+    ]
+
+    expected = [senior_person, junior_person]
+    set = MinisterSorter.new(roles)
+
+    assert_equal expected, set.cabinet_ministers.collect(&:first)
+  end
 end
