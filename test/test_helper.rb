@@ -184,9 +184,11 @@ class ActionController::TestCase
   setup do
     request.env['warden'] = stub(authenticate!: false, authenticated?: false, user: nil)
 
-    # In controller tests, assume by default that the resource being rendered
-    # does not have any topic tags.
-    SpecialistTagFinder.stubs(:new).returns(SpecialistTagFinder::Null.new)
+    # In controller tests, stub out all calls to the content store. This
+    # implies that by default we don't care about responses from this endpoint,
+    # which is currently only used to render specialist sector links in the
+    # header.
+    stub_request(:get, %r{.*content-store.*/content/.*}).to_return(status: 404)
   end
 
   def login_as(role_or_user)
