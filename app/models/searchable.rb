@@ -30,22 +30,26 @@ module Searchable
     :search_format_types,
     :slug,
 
-
     :speech_type,
     :statistics_announcement_state,
     :title,
 
-    # DID YOU MEAN: Policy Area?
     # "Policy area" is the newer name for "topic"
     # (https://www.gov.uk/government/topics)
     # "Topic" is the newer name for "specialist sector"
     # (https://www.gov.uk/topic)
-    # You can help improve this code by renaming all usages of this field to use
-    # the new terminology.
-    :topics,
+    #
+    # There are two ways for policy areas to wind up in rummager:
+    # 1. Models directly ask for them in the class method call to `searchable`:
+    #    in this case it is the responsibility of the subclasses to handle
+    #    the naming clash if they are still using the older name
+    # 2. Through the Edition::Topics and Edition::TopicalEvents concerns.
+    #    These override #search_index and add to the policy_areas key.
+    :policy_areas,
 
     # DID YOU MEAN: Topic?
-    # See above.
+    # See above: this should be renamed once the naming for policy areas is
+    # consistent.
     :specialist_sectors,
 
     :world_locations,
@@ -99,7 +103,6 @@ module Searchable
 
     KEY_MAPPING = {
       content: 'indexable_content',
-      topics: 'policy_areas',
     }
 
     # Build the payload to pass to the search index
