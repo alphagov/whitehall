@@ -13,8 +13,6 @@ Then /^I can tag it to some specialist sectors$/ do
 end
 
 Given(/^there is a document tagged to specialist sectors$/) do
-  unstub_tag_finder # we're testing topic tags, remove any existing stubs
-
   @document = create(:published_publication, :guidance)
   document_base_path = PublishingApiPresenters.presenter_for(@document).content[:base_path]
   parent_base_path = "/parent-topic"
