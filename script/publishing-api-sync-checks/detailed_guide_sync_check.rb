@@ -77,4 +77,14 @@ check.add_expectation("national_applicability") do |content_store_payload, recor
   end
 end
 
+check.add_expectation("policy_areas") do |content_store_payload, record|
+  policy_areas_ids = (record.try(:topics) || []).map(&:content_id).to_set
+  policy_areas_ids == content_store_payload["links"]["policy_areas"].to_set
+end
+
+check.add_expectation("related_policies") do |content_store_payload, record|
+  related_policies_ids = (record.try(:policy_content_ids) || []).to_set
+  related_policies_ids == content_store_payload["links"]["related_policies"].to_set
+end
+
 check.perform
