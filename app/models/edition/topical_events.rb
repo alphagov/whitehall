@@ -26,6 +26,8 @@ module Edition::TopicalEvents
     # (https://www.gov.uk/government/topics)
     # Rummager's policy areas also include "topical events", which we model
     # separately in whitehall.
-    super.merge("policy_areas" => topical_events.map(&:slug)) {|_k, ov, nv| ov + nv}
+    new_slugs = topical_events.map(&:slug)
+    existing_slugs = super.fetch("policy_areas", [])
+    super.merge("policy_areas" => new_slugs + existing_slugs)
   end
 end
