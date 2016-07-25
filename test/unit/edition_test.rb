@@ -433,7 +433,7 @@ class EditionTest < ActiveSupport::TestCase
     publication = create(:published_policy_paper, :with_topical_events, title: "publication-title", political: true, first_published_at: government.start_date)
 
     expected = publication.topics.map(&:name) + publication.topical_events.map(&:name)
-    assert_equal expected, publication.search_index["policy_areas"]
+    assert_equal expected.sort, publication.search_index["policy_areas"].sort
     assert_not publication.search_index.include?("topics")
   end
 
