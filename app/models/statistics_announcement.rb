@@ -73,7 +73,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
               display_type: :display_type,
               slug: :slug,
               organisations: :organisations_slugs,
-              topics: :topic_slugs,
+              policy_areas: :topic_slugs,
               release_timestamp: :release_date,
               statistics_announcement_state: :state,
               metadata: :search_metadata,

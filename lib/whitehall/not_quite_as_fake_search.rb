@@ -53,7 +53,7 @@ module Whitehall
             link
             organisations
             people
-            topics
+            policy_areas
             topical_events
             search_format_types
             world_locations
@@ -78,13 +78,8 @@ module Whitehall
         results = @store.index(@index_name).values
 
         results = filter_by_keywords(keywords, results) unless keywords.blank?
-        results = params.inject(results) do |new_results, (field_name, value)|
-          # This client is called with params from Whitehall::DocumentFilter::Rummager,
-          # which uses `policy_areas`, the new name for `topics`. To keep
-          # returning documents for this query, we need to translate it back
-          # here.
-          field_name = 'topics' if field_name == 'policy_areas'
 
+        results = params.inject(results) do |new_results, (field_name, value)|
           case field_type(field_name)
           when :date
             filter_by_date_field(field_name, value, new_results)

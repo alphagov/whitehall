@@ -19,7 +19,13 @@ module Edition::Topics
   end
 
   def search_index
-    super.merge("topics" => topics.map(&:slug)) { |_, ov, nv| ov + nv }
+    # "Policy area" is the newer name for "topic"
+    # (https://www.gov.uk/government/topics)
+    # Rummager's policy areas also include "topical events", which we model
+    # separately in whitehall.
+    new_slugs = topics.map(&:slug)
+    existing_slugs = super.fetch("policy_areas", [])
+    super.merge("policy_areas" => new_slugs + existing_slugs)
   end
 
   def title_with_topics

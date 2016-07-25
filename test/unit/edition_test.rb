@@ -419,6 +419,24 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal government.name, publication.search_index["government_name"]
   end
 
+
+  test "should present policy_areas to rummageable" do
+    government = create(:current_government)
+    publication = create(:published_policy_paper, title: "publication-title", political: true, first_published_at: government.start_date)
+
+    assert_equal publication.topics.map(&:name), publication.search_index["policy_areas"]
+    assert_not publication.search_index.include?("topics")
+  end
+
+  test "rummager policy_areas include topical_events" do
+    government = create(:current_government)
+    publication = create(:published_policy_paper, :with_topical_events, title: "publication-title", political: true, first_published_at: government.start_date)
+
+    expected = publication.topics.map(&:name) + publication.topical_events.map(&:name)
+    assert_equal expected.sort, publication.search_index["policy_areas"].sort
+    assert_not publication.search_index.include?("topics")
+  end
+
   test 'search_format_types tags the edtion as an edition' do
     edition = build(:edition)
     assert edition.search_format_types.include?('edition')

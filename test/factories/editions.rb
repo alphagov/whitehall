@@ -50,6 +50,15 @@ FactoryGirl.define do
       end
     end
 
+    trait(:with_topical_events) do
+      after :build do |edition, evaluator|
+        if evaluator.topical_events.empty?
+          edition.classification_memberships.build(edition: edition,
+                                                   classification: build(:topical_event))
+        end
+      end
+    end
+
     trait(:imported) do
       state "imported"
       first_published_at { 1.year.ago }
