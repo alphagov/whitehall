@@ -30,7 +30,11 @@ module PublishingApi
     end
 
     def links
-      LinksPresenter.new(item).extract([:organisations, :topics, :parent])
+      LinksPresenter.new(item).extract([
+        :organisations,
+        :topics,
+        :parent, # please use the breadcrumb component when migrating document_type to government-frontend
+      ])
     end
   end
 end
