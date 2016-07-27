@@ -16,6 +16,27 @@ class Group < ActiveRecord::Base
     end
   end
 
+  def update_memberships_and_attributes(group_params, person_ids)
+    # This methods is intended to allow us to preserve the ordering of
+    # associated members. By destroying all group_memberships and then
+    # rebuilding them we ensure that the ascending membership IDs reflect the
+    # order of members in the edit form.
+    begin
+      Group.transaction do
+        self.group_memberships.destroy_all
+
+        person_ids.each do |person_id|
+          self.group_memberships.build(person_id: person_id)
+        end
+
+        self.assign_attributes(group_params)
+        save!
+      end
+    rescue
+      false
+    end
+  end
+
   validates_with Validator
 
   extend FriendlyId
