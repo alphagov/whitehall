@@ -658,7 +658,7 @@ from_ukti_to_dit:
   - the-uk-your-partner-for-patient-safety
   - selling-financial-professional-and-business-services-overseas
 
-bis_to_beis:
+from_bis_to_beis:
   - building-materials-statistics-review-final-report
   - building-materials-statistics-revisions-policy
   - building-materials-statistics-administrative-sources

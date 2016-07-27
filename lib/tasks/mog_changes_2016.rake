@@ -22,10 +22,10 @@ task mog_changes_2016: [:environment] do
   mog_changes = YAML.load_file("#{Rails.root}/lib/tasks/mog_changes_2016.yml")
 
   # Retag documents
-  retag_slugs_to_lead_organisations(mog_changes["from_decc_to_beis"], beis)
-  retag_slugs_to_lead_organisations(mog_changes["from_ukti_to_dit"], dit)
-  retag_slugs_to_lead_organisations(mog_changes["from_bis_to_beis"], beis)
-  retag_slugs_to_lead_organisations(mog_changes["from_bis_to_dit"], dit)
+  retag_slugs_to_lead_organisations(mog_changes.fetch("from_decc_to_beis"), beis)
+  retag_slugs_to_lead_organisations(mog_changes.fetch("from_ukti_to_dit"), dit)
+  retag_slugs_to_lead_organisations(mog_changes.fetch("from_bis_to_beis"), beis)
+  retag_slugs_to_lead_organisations(mog_changes.fetch("from_bis_to_dit"), dit)
 end
 
 def retag_slugs_to_lead_organisations(slugs, new_organisation)
