@@ -44,7 +44,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
       locale: "en",
       need_ids: [],
       publishing_app: "whitehall",
-      rendering_app: "government-frontend",
+      rendering_app: "whitehall-frontend",
       routes: [
         { path: public_path, type: "exact" }
       ],
