@@ -6,11 +6,6 @@ class DetailedGuideTest < ActiveSupport::TestCase
   should_allow_inline_attachments
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
 
-  test "is rendered by government_frontend" do
-    detailed_guide = build(:detailed_guide)
-    assert_equal Whitehall::RenderingApp::GOVERNMENT_FRONTEND, detailed_guide.rendering_app
-  end
-
   test "should be able to relate to topics" do
     article = build(:detailed_guide)
     assert article.can_be_associated_with_topics?
