@@ -26,7 +26,9 @@ class Admin::GroupsController < Admin::BaseController
   end
 
   def update
-    if @group.update_attributes(group_params)
+    filtered_group_params = group_params.except(:group_memberships_attributes)
+
+    if @group.update_memberships_and_attributes(filtered_group_params, membership_person_id_params)
       redirect_to admin_organisation_path(@organisation, anchor: "groups"), notice: %{"#{@group.name}" updated.}
     else
       render action: "edit"
@@ -57,5 +59,19 @@ class Admin::GroupsController < Admin::BaseController
       :name, :description,
       group_memberships_attributes: [:id, :person_id, :_destroy]
     )
+  end
+
+  def membership_person_id_params
+    if group_params[:group_memberships_attributes]
+      group_params[:group_memberships_attributes].values.reduce([]) do |result, attributes|
+        unless(attributes[:_destroy] == "1" || attributes[:person_id].empty?)
+          result << attributes[:person_id]
+        end
+
+        result
+      end
+    else
+      []
+    end
   end
 end
