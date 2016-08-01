@@ -180,6 +180,12 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select 'h1 span', ': all consultations'
   end
 
+  view_test "#index capitalises FOI in the title correctly" do
+    get :index, publication_filter_option: 'foi-releases'
+
+    assert_select 'h1', html: 'Publications<span>: FOI releases</span>'
+  end
+
   view_test "#index highlights selected publication type filter options" do
     get :index, publication_filter_option: "forms"
 

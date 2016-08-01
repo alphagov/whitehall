@@ -3,6 +3,8 @@
 # Add new inflection rules using the following format
 # (all these examples are active by default):
 ActiveSupport::Inflector.inflections do |inflect|
+  inflect.acronym 'FOI'
+
   inflect.plural /^(Minister)/, '\0s'
   inflect.plural /^Chancellor/, '\0s'
 #   inflect.plural /^(ox)$/i, '\1en'
