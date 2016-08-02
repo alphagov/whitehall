@@ -10,7 +10,6 @@ class Unpublishing < ActiveRecord::Base
   validates :alternative_url, gov_uk_url: true, allow_blank: true
   validate :redirect_not_circular
 
-  after_update :publish_to_publishing_api
   after_initialize :ensure_presence_of_content_id
 
   def self.from_slug(slug, type)
@@ -64,10 +63,6 @@ private
         errors.add(:alternative_url, "cannot redirect to itself")
       end
     end
-  end
-
-  def publish_to_publishing_api
-    Whitehall::PublishingApi.publish_async(self, 'minor')
   end
 
   def ensure_presence_of_content_id
