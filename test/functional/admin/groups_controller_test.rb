@@ -206,6 +206,38 @@ class Admin::GroupsControllerTest < ActionController::TestCase
     assert_equal %{"group-name" updated.}, flash[:notice]
   end
 
+  test "update with existing members re-ordered should not display errors" do
+    bob = create(:person)
+    dave = create(:person)
+    group = create(:group, members: [bob, dave])
+
+    put :update, organisation_id: @organisation.id, id: group, group: {
+      name: 'test-group',
+      group_memberships_attributes: {
+        "0" => { person_id: dave.id },
+        "1" => { person_id: bob.id }
+      }
+    }
+
+    assert_equal %{"test-group" updated.}, flash[:notice]
+    assert_equal nil, flash[:alert]
+  end
+
+  test "update with existing members re-ordered should preserve new ordering" do
+    bob = create(:person)
+    dave = create(:person)
+    group = create(:group, members: [bob, dave])
+
+    put :update, organisation_id: @organisation.id, id: group, group: {
+      group_memberships_attributes: {
+        "0" => { person_id: dave.id },
+        "1" => { person_id: bob.id }
+      }
+    }
+
+    assert_equal [dave, bob], group.members(reload: true)
+  end
+
   view_test "update with invalid data should display errors" do
     group = create(:group)
 

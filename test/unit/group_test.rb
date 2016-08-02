@@ -52,4 +52,51 @@ class GroupTest < ActiveSupport::TestCase
     refute group.destroyable?
     refute group.destroy
   end
+
+  test "#update_memberships_and_attributes returns false and rolls back changes if the update fails" do
+    person = create(:person)
+    group = create(:group)
+    group_membership = create(:group_membership, group: group, person: person)
+
+    group.stubs(:save!).raises(ActiveRecord::RecordInvalid.new(group))
+
+    refute group.update_memberships_and_attributes({}, [1])
+    refute group_membership.destroyed?
+  end
+
+  test "#update_memberships_and_attributes populates the errors array if the update fails" do
+    person = create(:person)
+    group = create(:group)
+
+    refute group.update_memberships_and_attributes({}, [person.id, person.id])
+
+    assert_equal group.errors.count, 1
+  end
+
+  test "#update_memberships_and_attributes returns true if memberships and attributes are updated" do
+    group = create(:group)
+    person = create(:person)
+
+    assert group.update_memberships_and_attributes({}, [person.id])
+  end
+
+  test "#update_memberships_and_attributes calls active record to save attributes" do
+    group = create(:group)
+
+    group.expects(:save!).once
+
+    group.update_memberships_and_attributes({}, [])
+  end
+
+  test "#update_memberships_and_attributes removes existing memberships and rebuilds them" do
+    person = create(:person)
+    group = create(:group, members: [person])
+
+    group_membership = GroupMembership.first
+
+    group.update_memberships_and_attributes({}, [person.id])
+
+    assert_equal GroupMembership.where(id: group_membership.id), []
+    assert_equal group.members.first, person
+  end
 end
