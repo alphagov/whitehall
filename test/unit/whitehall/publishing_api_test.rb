@@ -378,10 +378,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       assert_equal german_path, PublishingApiUnscheduleWorker.jobs[0]['args'].first
       assert_equal english_path, PublishingApiUnscheduleWorker.jobs[1]['args'].first
 
-      assert_equal edition.content_id, PublishingApiGoneWorker.jobs[0]['args'].first
-      assert_equal edition.content_id, PublishingApiGoneWorker.jobs[1]['args'].first
-      assert_equal "de", PublishingApiGoneWorker.jobs[0]['args'].second
-      assert_equal "en", PublishingApiGoneWorker.jobs[1]['args'].second
+      assert_equal [edition.content_id, nil, nil, "de"], PublishingApiGoneWorker.jobs[0]["args"][0..3]
+      assert_equal [edition.content_id, nil, nil, "en"], PublishingApiGoneWorker.jobs[1]["args"][0..3]
     end
   end
 
