@@ -224,33 +224,6 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     assert_equal related_guides, expected_related_guides
   end
 
-  test 'DetailedGuide presents withdrawn_notice correctly' do
-    create(:government)
-    detailed_guide = create(
-      :published_detailed_guide,
-      :withdrawn,
-    )
-    detailed_guide.build_unpublishing(
-      unpublishing_reason_id: UnpublishingReason::Withdrawn.id,
-      explanation: 'No longer relevant'
-    )
-    detailed_guide.unpublishing.save!
-
-    presented_item = present(detailed_guide)
-    details = presented_item.content[:details]
-
-    expected_withdrawn_notice = {
-      explanation: "<div class=\"govspeak\"><p>No longer relevant</p></div>",
-      withdrawn_at: detailed_guide.updated_at
-    }
-
-    assert_valid_against_schema(presented_item.content, 'detailed_guide')
-    assert_equal expected_withdrawn_notice[:withdrawn_at], details[:withdrawn_notice][:withdrawn_at]
-    assert_equal expected_withdrawn_notice[:withdrawn_at], presented_item.content[:withdrawn_notice][:withdrawn_at]
-    assert_equivalent_html expected_withdrawn_notice[:explanation], details[:withdrawn_notice][:explanation]
-    assert_equivalent_html expected_withdrawn_notice[:explanation], presented_item.content[:withdrawn_notice][:explanation]
-  end
-
   test 'DetailedGuide presents national_applicability correctly when some are specified' do
     scotland_nation_inapplicability = create(
       :nation_inapplicability,
