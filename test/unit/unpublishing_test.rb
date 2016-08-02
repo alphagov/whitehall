@@ -55,6 +55,16 @@ class UnpublishingTest < ActiveSupport::TestCase
     assert unpublishing.valid?
   end
 
+  test 'alternative_path returns the path of alternative_url' do
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: 'https://www.dev.gov.uk/guidance/document-path')
+    assert_equal "/guidance/document-path", unpublishing.alternative_path
+  end
+
+  test 'alternative_path returns nil if alternative_url is nil' do
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: nil)
+    assert_equal nil, unpublishing.alternative_path
+  end
+
   test 'returns an unpublishing reason' do
     unpublishing = build(:unpublishing, unpublishing_reason_id: reason.id)
     assert_equal reason, unpublishing.unpublishing_reason
