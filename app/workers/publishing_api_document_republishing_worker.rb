@@ -12,18 +12,20 @@
 # and sending it again after republishing. This also changes the version
 # numbering and would probably appear in the version history.
 class PublishingApiDocumentRepublishingWorker < WorkerBase
-  def perform(published_edition_id, pre_publication_edition_id)
-    if published_edition_id
-      published_edition = Edition.find(published_edition_id)
+  def perform(document_id)
+    document = Document.find(document_id)
+    published_edition = document.published_edition
+    pre_publication_edition = document.pre_publication_edition
+
+    if published_edition
       Whitehall::PublishingApi.locales_for(published_edition).each do |locale|
         # We need to do this synchronously because we need to guarantee it
         # completes before pushing the pre_publication_edition.
-        PublishingApiWorker.new.perform('Edition', published_edition_id, 'republish', locale.to_s)
+        PublishingApiWorker.new.perform('Edition', published_edition.id, 'republish', locale.to_s)
       end
     end
 
-    if pre_publication_edition_id
-      pre_publication_edition = Edition.find(pre_publication_edition_id)
+    if pre_publication_edition
       # Now that we know we've completed pushing the currently published
       # editions, we can safely push the drafts.
       #

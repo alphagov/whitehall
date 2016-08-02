@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'gds_api/test_helpers/publishing_api_v2'
 
-class PublishingApiWorkerTest < ActiveSupport::TestCase
+class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApiV2
 
   test "it pushes the published and then the draft editions of a document" do
@@ -17,7 +17,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
     ]
     Whitehall::PublishingApi.expects(:save_draft_async).with(draft, 'republish')
 
-    PublishingApiDocumentRepublishingWorker.new.perform(published.id, draft.id)
+    PublishingApiDocumentRepublishingWorker.new.perform(document.id)
 
     assert_all_requested(requests)
   end
@@ -40,7 +40,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
     # links once and could put this back into the array.
     patch_links_request = stub_publishing_api_patch_links(document.content_id, links: presenter.links)
 
-    PublishingApiDocumentRepublishingWorker.new.perform(edition.id, nil)
+    PublishingApiDocumentRepublishingWorker.new.perform(document.id)
 
     assert_all_requested(requests)
     assert_requested(patch_links_request, times: 2)
