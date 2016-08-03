@@ -95,6 +95,9 @@ FactoryGirl.define do
     }
     trait(:withdrawn) {
       state "withdrawn"
+      after(:create) do |edition|
+        edition.unpublishing = build(:withdrawn_unpublishing, edition: edition)
+      end
     }
     trait(:featured) { featured true }
     trait(:scheduled) {
