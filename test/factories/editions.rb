@@ -63,7 +63,9 @@ FactoryGirl.define do
       state "imported"
       first_published_at { 1.year.ago }
     end
+
     trait(:draft) { state "draft" }
+
     trait(:submitted) do
       transient do
         submitter nil
@@ -75,7 +77,9 @@ FactoryGirl.define do
         edition.versions.create! event: 'update', whodunnit: submitter.id, state: 'submitted'
       end
     end
+
     trait(:rejected) { state "rejected" }
+
     trait(:published) do
       state "published"
       first_published_at { 2.days.ago }
@@ -87,23 +91,18 @@ FactoryGirl.define do
         edition.refresh_index_if_required
       end
     end
-    trait(:deleted) {
-      state "deleted"
-    }
-    trait(:superseded) {
-      state "superseded"
-    }
-    trait(:withdrawn) {
-      state "withdrawn"
-      after(:create) do |edition|
-        edition.unpublishing = build(:withdrawn_unpublishing, edition: edition)
-      end
-    }
+
+    trait(:deleted) { state "deleted" }
+
+    trait(:superseded) { state "superseded" }
+
     trait(:featured) { featured true }
-    trait(:scheduled) {
+
+    trait(:scheduled) do
       state "scheduled"
       scheduled_publication 7.days.from_now
-    }
+    end
+
     trait(:access_limited) { access_limited true }
 
     trait(:with_alternative_format_provider) do
@@ -153,6 +152,13 @@ FactoryGirl.define do
     trait(:consolidated_redirect) do
       after(:create) do |edition|
         edition.unpublishing = build(:consolidated_unpublishing, edition: edition)
+      end
+    end
+
+    trait(:withdrawn) do
+      state "withdrawn"
+      after(:create) do |edition|
+        edition.unpublishing = build(:withdrawn_unpublishing, edition: edition)
       end
     end
   end
