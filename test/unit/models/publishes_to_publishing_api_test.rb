@@ -68,10 +68,10 @@ class PublishesToPublishingApiTest < ActiveSupport::TestCase
     test_object.publish_to_publishing_api
   end
 
-  test "publish gone to publishing api publishes async" do
+  test "publish gone to publishing api publishes gone async" do
     test_object = include_module(TestObject.new)
     Whitehall::PublishingApi.expects(:publish_gone_async)
-      .with("26d638-e253-4b6c-a5e6-82122c441e50")
+      .with("26d638-e253-4b6c-a5e6-82122c441e50", nil, nil)
     test_object.publish_gone_to_publishing_api
   end
 

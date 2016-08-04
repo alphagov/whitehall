@@ -44,22 +44,6 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     assert_all_requested(requests)
   end
 
-  test ".publish_async sends unpublishing for case studies to the content store" do
-    edition = create(:draft_case_study)
-    unpublishing = create(:unpublishing, edition: edition)
-
-    presenter = PublishingApi::UnpublishingPresenter.new(unpublishing)
-    requests = [
-      stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: presenter.update_type)
-    ]
-
-    Whitehall::PublishingApi.publish_async(unpublishing)
-
-    assert_all_requested(requests)
-  end
-
   test ".publish_async skips sending unpublishings for formats other than case study" do
     edition = create(:draft_publication)
     unpublishing = create(:unpublishing, edition: edition)
@@ -449,8 +433,14 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       body: { type: "gone", locale: "en" }
     )
 
-    Whitehall::PublishingApi.publish_gone_async(gone_uuid)
+    Whitehall::PublishingApi.publish_gone_async(gone_uuid, nil, nil)
 
     assert_requested gone_request
+  end
+
+  test ".unpublish_async queues a PublishingApiUnpublishingWorker job for the unpublishing" do
+    unpublishing = build(:unpublishing, id: 1)
+    PublishingApiUnpublishingWorker.expects(:perform_async).with(1)
+    Whitehall::PublishingApi.unpublish_async(unpublishing)
   end
 end

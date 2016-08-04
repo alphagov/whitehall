@@ -21,7 +21,7 @@ module ServiceListeners
           api.save_draft_translation_async(record, options.fetch(:locale))
         end
       when "unpublish"
-        api.publish_async(edition.unpublishing)
+        api.unpublish_async(edition.unpublishing)
         edition_html_attachments.each do |attachment|
           redirect_if_required(attachment)
         end
