@@ -6300,13 +6300,18 @@ def unpublish(content_ids, draft)
   ).find_each do |document|
     edition = document.latest_edition
 
-    edition.translated_locales.each do |locale|
-      PublishingApiWithdrawalWorker.perform_async(
-        document.content_id,
-        edition.unpublishing.explanation,
-        locale,
-        draft,
-      )
+    if edition.unpublishing
+      edition.translated_locales.each do |locale|
+        PublishingApiWithdrawalWorker.perform_async(
+          document.content_id,
+          edition.unpublishing.explanation,
+          locale,
+          draft,
+        )
+      end
+    else
+      puts "Edition #{edition.id} (#{edition.search_link}) does not have an unpublishing."
+      puts "This edition will need to be unwithdrawn and then withdrawn with an explanation."
     end
   end
 end
