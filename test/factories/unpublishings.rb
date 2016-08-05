@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :unpublishing do
-    unpublishing_reason_id UnpublishingReason::PublishedInError.id
+    unpublishing_reason_id UnpublishingReason::PUBLISHED_IN_ERROR_ID
     edition { create(:published_case_study, state: 'draft', first_published_at: 2.days.ago) }
 
     after(:build) do |unpublishing|
@@ -21,7 +21,13 @@ FactoryGirl.define do
   end
 
   factory :consolidated_unpublishing, parent: :unpublishing do
-    unpublishing_reason_id UnpublishingReason::Consolidated.id
+    unpublishing_reason_id UnpublishingReason::CONSOLIDATED_ID
     alternative_url Whitehall.public_root + '/government/another/page'
+  end
+
+  factory :withdrawn_unpublishing, parent: :unpublishing do
+    unpublishing_reason_id UnpublishingReason::WITHDRAWN_ID
+    redirect false
+    explanation "content was withdrawn"
   end
 end

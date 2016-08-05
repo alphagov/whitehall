@@ -10,8 +10,7 @@ class Admin::EditionUnpublishingControllerTest < ActionController::TestCase
   end
 
   test "#edit loads the unpublishing and renders the unpublish edit template" do
-    unpublishing = create(:unpublishing, edition: @edition)
-
+    unpublishing = @edition.unpublishing
     get :edit, edition_id: @edition.id
 
     assert_response :success
@@ -20,24 +19,21 @@ class Admin::EditionUnpublishingControllerTest < ActionController::TestCase
   end
 
   test "#update updates the unpublishing and redirects to admin policy page" do
-    unpublishing = create(:unpublishing, edition: @edition, explanation: "Content is mislidding")
-
-    put :update, edition_id: @edition.id, unpublishing: { explanation: "Content is misleading" }
+    put :update, edition_id: @edition.id, unpublishing: { explanation: "this used to say withdrawn" }
 
     assert_redirected_to admin_edition_path(@edition)
     assert_equal "The public explanation was updated", flash[:notice]
-    assert_equal "Content is misleading", unpublishing.reload.explanation
+    assert_equal "this used to say withdrawn", @edition.unpublishing.reload.explanation
   end
 
   test "#update shows form with error if the update was not possible" do
-    unpublishing = create(:unpublishing, edition: @edition, explanation: "Content is mislidding",
-      unpublishing_reason_id: UnpublishingReason::Withdrawn.id)
-
+    unpublishing = @edition.unpublishing
+    original_explanation = unpublishing.explanation
     put :update, edition_id: @edition, unpublishing: { explanation: nil }
 
     assert_template :edit
     assert_equal "The public explanation could not be updated", flash[:alert]
-    assert_equal "Content is mislidding", unpublishing.reload.explanation
+    assert_equal original_explanation, unpublishing.reload.explanation
   end
 
 end
