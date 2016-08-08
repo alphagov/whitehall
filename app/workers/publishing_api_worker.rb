@@ -13,12 +13,6 @@ class PublishingApiWorker < WorkerBase
       rescue GdsApi::HTTPClientError => e
         handle_client_error(e)
       end
-
-      if model.is_a?(::Unpublishing)
-        # Unpublishings will be mirrored to the draft content-store, but we want
-        # it to have the now-current draft edition
-        save_draft_of_unpublished_edition(model)
-      end
     end
   end
 
@@ -36,12 +30,6 @@ class PublishingApiWorker < WorkerBase
 
   def save_draft(payload)
     Whitehall.publishing_api_v2_client.put_content(payload.content_id, payload.content)
-  end
-
-  def save_draft_of_unpublished_edition(unpublishing)
-    if draft = unpublishing.edition
-      Whitehall::PublishingApi.save_draft_async(draft)
-    end
   end
 
   def handle_client_error(error)

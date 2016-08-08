@@ -97,36 +97,6 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     assert_requested(links_request, times: 2)
   end
 
-  test ".publish_async publishes a translated edition that has been unpublished" do
-    unpublishing     = create(:unpublishing)
-    edition          = unpublishing.edition
-
-    presenter = PublishingApi::UnpublishingPresenter.new(unpublishing)
-
-    german_requests = I18n.with_locale(:de) do
-      edition.title = 'German title'
-      edition.save!
-
-      [
-        stub_publishing_api_put_content(presenter.content_id, presenter.content),
-        stub_publishing_api_publish(presenter.content_id, locale: 'de', update_type: 'major')
-      ]
-    end
-
-    english_requests = [
-      stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_publish(presenter.content_id, locale: 'en', update_type: 'major')
-    ]
-
-    links_request = stub_publishing_api_patch_links(presenter.content_id, links: presenter.links)
-
-    Whitehall::PublishingApi.publish_async(unpublishing)
-
-    assert_all_requested(english_requests)
-    assert_all_requested(german_requests)
-    assert_requested(links_request, times: 2)
-  end
-
   test ".publish_async propagates update_type and queue overrides to worker" do
     queue_name = "bang"
     update_type = "whizzo"
@@ -188,32 +158,6 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     assert_raise(ArgumentError, "Use republish_document_async for republishing Editions") do
       Whitehall::PublishingApi.republish_async(edition)
     end
-  end
-
-  test ".republish_async republishes an unpublishing" do
-    unpublishing = create(:unpublishing)
-    presenter = PublishingApi::UnpublishingPresenter.new(unpublishing, update_type: "republish")
-    requests = [
-      stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: 'republish')
-    ]
-
-    Whitehall::PublishingApi.republish_async(unpublishing)
-    assert_all_requested(requests)
-  end
-
-  test ".republish_async publishes a redirect unpublishing" do
-    unpublishing = create(:published_in_error_redirect_unpublishing)
-    presenter = PublishingApi::UnpublishingPresenter.new(unpublishing, update_type: "republish")
-    requests = [
-      stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, locale: "en", update_type: 'republish')
-    ]
-
-    Whitehall::PublishingApi.republish_async(unpublishing)
-    assert_all_requested(requests)
   end
 
   test ".bulk_republish_async publishes to the Publishing API as a 'republish'" do
