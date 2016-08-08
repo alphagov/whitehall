@@ -27,7 +27,8 @@ class DocumentListExportPresenter
       'Policies',
       'Specialist sectors',
       'Collections',
-      'Affected by history-mode',
+      'Can have history-mode',
+      'History-mode applied'
     ]
   end
 
@@ -50,6 +51,7 @@ class DocumentListExportPresenter
       specialist_sectors,
       collections,
       edition.political?,
+      edition.historic?,
     ]
   end
 
