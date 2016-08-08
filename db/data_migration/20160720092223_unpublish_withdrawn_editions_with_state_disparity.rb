@@ -6300,7 +6300,7 @@ def unpublish(content_ids, draft)
   ).find_each do |document|
     edition = document.latest_edition
 
-    if edition.unpublishing
+    if edition.unpublishing && edition.unpublishing.explanation
       edition.translated_locales.each do |locale|
         PublishingApiWithdrawalWorker.perform_async(
           document.content_id,
