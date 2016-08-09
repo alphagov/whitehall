@@ -4,7 +4,7 @@ class PublishingApiWithdrawalWorker < PublishingApiWorker
       content_id,
       type: "withdrawal",
       locale: locale,
-      explanation: explanation,
+      explanation: Whitehall::GovspeakRenderer.new.govspeak_to_html(explanation),
       allow_draft: allow_draft,
     )
   end
