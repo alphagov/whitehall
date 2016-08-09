@@ -14,12 +14,12 @@ class PublishingApiGoneWorkerTest < ActiveSupport::TestCase
       body: {
         type: "gone",
         alternative_path: "alternative_path",
-        explanation: "explanation",
+        explanation: "<div class=\"govspeak\"><p><em>why?</em></p>\n</div>",
         locale: "de",
       }
     )
 
-    PublishingApiGoneWorker.new.perform(@uuid, "alternative_path", "explanation", "de")
+    PublishingApiGoneWorker.new.perform(@uuid, "alternative_path", "*why?*", "de")
 
     assert_requested request
   end
