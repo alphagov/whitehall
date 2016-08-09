@@ -23,4 +23,18 @@ class PublishingApiGoneWorkerTest < ActiveSupport::TestCase
 
     assert_requested request
   end
+
+  test "supports previous method signature" do
+    request = stub_publishing_api_unpublish(
+      @uuid,
+      body: {
+        type: "gone",
+        locale: "de",
+      }
+    )
+
+    PublishingApiGoneWorker.new.perform(@uuid, "de")
+
+    assert_requested request
+  end
 end
