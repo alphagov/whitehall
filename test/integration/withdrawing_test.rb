@@ -14,7 +14,7 @@ class WithdrawingTest < ActiveSupport::TestCase
       body: {
         type: "withdrawal",
         locale: "en",
-        explanation: "Old information",
+        explanation: "<div class=\"govspeak\"><p>Old information</p>\n</div>",
       }
     )
 

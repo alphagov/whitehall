@@ -11,12 +11,12 @@ class PublishingApiWithdrawalWorkerTest < ActiveSupport::TestCase
       body: {
         type: "withdrawal",
         locale: "en",
-        explanation: "This content is no longer valid",
+        explanation: "<div class=\"govspeak\"><p><em>why?</em></p>\n</div>"
       }
     )
 
     PublishingApiWithdrawalWorker.new.perform(
-      uuid, "This content is no longer valid", "en"
+      uuid, "*why?*", "en"
     )
 
     assert_requested request

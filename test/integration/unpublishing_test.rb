@@ -40,7 +40,7 @@ class UnpublishingTest < ActiveSupport::TestCase
 
     assert_publishing_api_unpublish(
       @published_edition.document.content_id,
-      request_json_includes(type: "gone", explanation: "Published by mistake", locale: "en")
+      request_json_includes(type: "gone", explanation: "<div class=\"govspeak\"><p>Published by mistake</p>\n</div>", locale: "en")
     )
   end
 
@@ -62,9 +62,9 @@ class UnpublishingTest < ActiveSupport::TestCase
     unpublish(@published_edition, unpublishing_params)
 
     assert_publishing_api_unpublish(@published_edition.document.content_id,
-                                    { type: "gone", explanation: "Published by mistake", locale: "en"})
+                                    { type: "gone", explanation: "<div class=\"govspeak\"><p>Published by mistake</p>\n</div>", locale: "en"})
     assert_publishing_api_unpublish(@published_edition.document.content_id,
-                                    { type: "gone", explanation: "Published by mistake", locale: "fr"})
+                                    { type: "gone", explanation: "<div class=\"govspeak\"><p>Published by mistake</p>\n</div>", locale: "fr"})
   end
 
   test "when a translated edition is unpublished with a redirect, redirects are sent to the Publishing API for each translation" do

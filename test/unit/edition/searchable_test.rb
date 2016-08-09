@@ -64,10 +64,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     edition = create(:published_edition)
 
     stub_panopticon_registration(edition)
-    withdrawal_request = stub_publishing_api_unpublish(
-      edition.content_id,
-      body: { type: "withdrawal", explanation: "Old policy", locale: "en" }
-    )
+    Whitehall::PublishingApi.stubs(:publish_withdrawal_async)
 
     edition.build_unpublishing(explanation: 'Old policy', unpublishing_reason_id: UnpublishingReason::Withdrawn.id)
 
@@ -75,8 +72,6 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     Whitehall::SearchIndex.expects(:add).with(edition)
 
     Whitehall.edition_services.withdrawer(edition).perform!
-
-    assert_requested withdrawal_request
   end
 
   test "should add latest change note to search index" do
