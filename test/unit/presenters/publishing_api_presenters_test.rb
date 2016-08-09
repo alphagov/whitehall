@@ -38,13 +38,6 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     assert_equal PublishingApi::StatisticsAnnouncementRedirectPresenter, presenter.class
   end
 
-  test ".presenter_for returns an Unpublishing presenter for an Unpublishing" do
-    unpublishing = Unpublishing.new
-    presenter = PublishingApiPresenters.presenter_for(unpublishing)
-
-    assert_equal PublishingApi::UnpublishingPresenter, presenter.class
-  end
-
   test ".presenter_for returns a Generic Edition presenter for all models without a presenter class" do
     assert_equal PublishingApi::GenericEditionPresenter,
       PublishingApiPresenters.presenter_for(GenericEdition.new).class

@@ -11,8 +11,6 @@ private
     case model
     when ::Edition
       presenter_class_for_edition(model)
-    when ::Unpublishing
-      PublishingApi::UnpublishingPresenter
     when AboutPage
       PublishingApi::TopicalEventAboutPagePresenter
     when PolicyGroup

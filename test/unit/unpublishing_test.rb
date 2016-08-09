@@ -55,6 +55,16 @@ class UnpublishingTest < ActiveSupport::TestCase
     assert unpublishing.valid?
   end
 
+  test 'alternative_path returns the path of alternative_url' do
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: 'https://www.dev.gov.uk/guidance/document-path')
+    assert_equal "/guidance/document-path", unpublishing.alternative_path
+  end
+
+  test 'alternative_path returns nil if alternative_url is nil' do
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: nil)
+    assert_equal nil, unpublishing.alternative_path
+  end
+
   test 'returns an unpublishing reason' do
     unpublishing = build(:unpublishing, unpublishing_reason_id: reason.id)
     assert_equal reason, unpublishing.unpublishing_reason
@@ -132,15 +142,6 @@ class UnpublishingTest < ActiveSupport::TestCase
     unpublishing = create(:unpublishing, edition: edition)
 
     assert_equal [:en, :es], unpublishing.translated_locales
-  end
-
-  test 'updates are propogated to publishing API as a minor update' do
-    unpublishing = create(:unpublishing, unpublishing_reason_id: UnpublishingReason::Withdrawn.id, explanation: 'Needs more work.')
-
-    new_explanation = 'This publication will be ready for publishing next week.'
-    Whitehall::PublishingApi.expects(:publish_async).with(responds_with(:explanation, new_explanation), 'minor').once
-
-    unpublishing.update_attribute(:explanation, new_explanation)
   end
 
   test "generates its own content ID on creation" do

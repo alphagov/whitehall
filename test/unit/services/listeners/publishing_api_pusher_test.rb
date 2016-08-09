@@ -98,7 +98,7 @@ module ServiceListeners
 
     test "unpublish publishes the unpublishing" do
       edition = create(:unpublished_publication)
-      Whitehall::PublishingApi.expects(:publish_async).with(edition.unpublishing)
+      Whitehall::PublishingApi.expects(:unpublish_async).with(edition.unpublishing)
       PublishingApiPusher.new(edition).push(event: "unpublish")
     end
 

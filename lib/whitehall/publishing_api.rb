@@ -70,7 +70,7 @@ module Whitehall
       locales_for(edition).each do |locale|
         base_path = Whitehall.url_maker.public_document_path(edition, locale: locale)
         PublishingApiUnscheduleWorker.perform_async(base_path)
-        self.publish_gone_async(edition.content_id, locale) unless edition.document.published?
+        self.publish_gone_async(edition.content_id, nil, nil, locale) unless edition.document.published?
       end
     end
 
@@ -78,12 +78,16 @@ module Whitehall
       PublishingApiRedirectWorker.perform_async(content_id, destination, locale)
     end
 
-    def self.publish_gone_async(content_id, locale = I18n.default_locale.to_s)
-      PublishingApiGoneWorker.perform_async(content_id, locale)
+    def self.publish_gone_async(content_id, alternative_path, explanation, locale = I18n.default_locale.to_s)
+      PublishingApiGoneWorker.perform_async(content_id, alternative_path, explanation, locale)
     end
 
     def self.publish_withdrawal_async(content_id, explanation, locale = I18n.default_locale.to_s)
       PublishingApiWithdrawalWorker.perform_async(content_id, explanation, locale)
+    end
+
+    def self.unpublish_async(unpublishing)
+      PublishingApiUnpublishingWorker.perform_async(unpublishing.id)
     end
 
     def self.save_draft_redirect_async(base_path, redirects, locale = I18n.default_locale.to_s)

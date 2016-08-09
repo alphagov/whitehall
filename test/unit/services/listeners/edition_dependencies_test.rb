@@ -63,6 +63,9 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
       assert Whitehall.edition_services.send(service_name, dependable_speech).perform!
 
       dependable_speech.unpublishing = create(:unpublishing)
+
+      #stub unpublishing worker to avoid the extra save draft calls
+      PublishingApiUnpublishingWorker.stubs(:perform_async)
       assert Whitehall.edition_services.unpublisher(dependable_speech).perform!
 
       dependable_speech.title = "New speech title"

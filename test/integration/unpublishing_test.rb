@@ -34,16 +34,17 @@ class UnpublishingTest < ActiveSupport::TestCase
     assert_equal "archived", @registerable.state
   end
 
-  test 'When a case study is unpublished, an "unpublishing" is published to the Publishing API' do
-    path = Whitehall.url_maker.public_document_path(@published_edition)
+  test "When an edition is unpublished, it is unpublished to the Publishing API" do
     stub_panopticon_registration(@published_edition)
     unpublish(@published_edition, unpublishing_params)
-    assert_publishing_api_put_content(@published_edition.unpublishing.content_id,
-                                      request_json_includes(schema_name: 'unpublishing'))
+
+    assert_publishing_api_unpublish(
+      @published_edition.document.content_id,
+      request_json_includes(type: "gone", explanation: "Published by mistake", locale: "en")
+    )
   end
 
-  test 'When an edition is unpublished, a job is queued to republish the draft to the draft stack' do
-    path = Whitehall.url_maker.public_document_path(@published_edition)
+  test "When an edition is unpublished, a job is queued to republish the draft to the draft stack" do
     stub_panopticon_registration(@published_edition)
 
     Whitehall::PublishingApi.expects(:save_draft_async).once
@@ -51,7 +52,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     unpublish(@published_edition, unpublishing_params)
   end
 
-  test 'when a translated edition is unpublished, an "unpublishing" is published to the Publishing API for each translation' do
+  test "when a translated edition is unpublished, an request is made for each locale" do
     I18n.with_locale 'fr' do
       @published_edition.title = "French title"
       @published_edition.body = "French body"
@@ -60,16 +61,13 @@ class UnpublishingTest < ActiveSupport::TestCase
 
     unpublish(@published_edition, unpublishing_params)
 
-    assert_publishing_api_put_content(@published_edition.unpublishing.content_id,
-                                      request_json_includes({ schema_name: 'unpublishing' }),
-                                      2)
-    assert_publishing_api_publish(@published_edition.unpublishing.content_id,
-                                  { locale: "en", update_type: "major" })
-    assert_publishing_api_publish(@published_edition.unpublishing.content_id,
-                                  { locale: "fr", update_type: "major" })
+    assert_publishing_api_unpublish(@published_edition.document.content_id,
+                                    { type: "gone", explanation: "Published by mistake", locale: "en"})
+    assert_publishing_api_unpublish(@published_edition.document.content_id,
+                                    { type: "gone", explanation: "Published by mistake", locale: "fr"})
   end
 
-  test 'when a translated edition is unpublished as a redirect, redirects are published to the Publishing API for each translation' do
+  test "when a translated edition is unpublished with a redirect, redirects are sent to the Publishing API for each translation" do
     redirect_uuid = SecureRandom.uuid
     SecureRandom.stubs(uuid: redirect_uuid)
 
@@ -81,16 +79,15 @@ class UnpublishingTest < ActiveSupport::TestCase
 
     unpublishing_redirect_params = unpublishing_params.merge({
       redirect: true,
-      alternative_url: (Whitehall.public_root + '/government/page')
+      alternative_url: Whitehall.public_root + '/government/page'
     })
 
     unpublish(@published_edition, unpublishing_redirect_params)
 
-    assert_publishing_api_put_content(redirect_uuid,
-                                      request_json_includes({ format: 'redirect' }),
-                                      2)
-    assert_publishing_api_publish(redirect_uuid, { locale: "en", update_type: "major" })
-    assert_publishing_api_publish(redirect_uuid, { locale: "fr", update_type: "major" })
+    assert_publishing_api_unpublish(@published_edition.document.content_id,
+                                  { type: "redirect", alternative_path: "/government/page", locale: "en"})
+    assert_publishing_api_unpublish(@published_edition.document.content_id,
+                                  { type: "redirect", alternative_path: "/government/page", locale: "fr"})
   end
 
 private
@@ -99,6 +96,6 @@ private
   end
 
   def unpublishing_params
-    { unpublishing_reason_id: UnpublishingReason::PublishedInError.id, explanation: "Published by mistake" }
+    { unpublishing_reason_id: UnpublishingReason::PUBLISHED_IN_ERROR_ID, explanation: "Published by mistake" }
   end
 end

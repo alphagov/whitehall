@@ -10,7 +10,6 @@ class Unpublishing < ActiveRecord::Base
   validates :alternative_url, gov_uk_url: true, allow_blank: true
   validate :redirect_not_circular
 
-  after_update :publish_to_publishing_api
   after_initialize :ensure_presence_of_content_id
 
   def self.from_slug(slug, type)
@@ -49,23 +48,21 @@ class Unpublishing < ActiveRecord::Base
     edition.translated_locales
   end
 
+  def alternative_path
+    return if alternative_url.nil?
+    Addressable::URI.parse(alternative_url).path
+  rescue URI::InvalidURIError
+    nil
+  end
+
 private
+
   def redirect_not_circular
     if alternative_url.present?
       if document_path == alternative_path
         errors.add(:alternative_url, "cannot redirect to itself")
       end
     end
-  end
-
-  def alternative_path
-    Addressable::URI.parse(alternative_url).path
-  rescue URI::InvalidURIError
-    nil
-  end
-
-  def publish_to_publishing_api
-    Whitehall::PublishingApi.publish_async(self, 'minor')
   end
 
   def ensure_presence_of_content_id
