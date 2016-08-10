@@ -47,4 +47,20 @@ namespace :publishing_api do
 
     puts "Finished queuing items for Publishing API"
   end
+
+  desc "Send publishable item links of a specific type to Publishing API (ie, 'CaseStudy')."
+  task :publishing_api_patch_links_by_type, [:document_type] => :environment do |_, args|
+    document_type = args[:document_type]
+    editions = document_type.constantize.published
+    count = editions.count
+    puts "# Sending #{count} published editions to Publishing API"
+
+    editions.pluck(:id).each_with_index do |item_id, i|
+      PublishingApiLinksWorker.perform_async(item_id)
+
+      puts "Queuing #{i}-#{i + 99} of #{count} items" if i % 100 == 0
+    end
+
+    puts "Finished queuing items for Publishing API"
+  end
 end
