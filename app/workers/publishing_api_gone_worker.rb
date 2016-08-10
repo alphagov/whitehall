@@ -1,11 +1,5 @@
 class PublishingApiGoneWorker < PublishingApiWorker
-  def perform(content_id, *args)
-    if args.length == 1
-      locale = args[0]
-    else
-      alternative_path, explanation, locale = args
-    end
-
+  def perform(content_id, alternative_path, explanation, locale)
     if explanation.present?
       rendered_explanation = Whitehall::GovspeakRenderer
         .new.govspeak_to_html(explanation)
