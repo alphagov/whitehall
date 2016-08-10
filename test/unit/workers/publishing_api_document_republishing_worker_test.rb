@@ -78,4 +78,18 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
 
     PublishingApiDocumentRepublishingWorker.new.perform(document.id)
   end
+
+  test "it supports jobs with the old method signature" do
+    document  = create(:document, content_id: SecureRandom.uuid)
+    edition = create(:published_edition, title: "Published edition", document: document)
+
+    real_worker = PublishingApiDocumentRepublishingWorker.new
+
+    PublishingApiDocumentRepublishingWorker
+      .expects(:new).returns(worker = mock)
+    worker.expects(:perform)
+      .with(document.id)
+
+    real_worker.perform(edition.id, nil)
+  end
 end
