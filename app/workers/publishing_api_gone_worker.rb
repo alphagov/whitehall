@@ -1,5 +1,5 @@
 class PublishingApiGoneWorker < PublishingApiWorker
-  def perform(content_id, alternative_path, explanation, locale)
+  def perform(content_id, alternative_path, explanation, locale, allow_draft = false)
     if explanation.present?
       rendered_explanation = Whitehall::GovspeakRenderer
         .new.govspeak_to_html(explanation)
@@ -11,6 +11,7 @@ class PublishingApiGoneWorker < PublishingApiWorker
       explanation: rendered_explanation,
       type: "gone",
       locale: locale,
+      allow_draft: allow_draft,
     )
   end
 end
