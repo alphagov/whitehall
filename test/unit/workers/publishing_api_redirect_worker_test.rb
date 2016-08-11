@@ -25,4 +25,20 @@ class PublishingApiRedirectWorkerTest < ActiveSupport::TestCase
 
     assert_requested request
   end
+
+  test "passes allow_draft if it is supplied" do
+    request = stub_publishing_api_unpublish(
+      @uuid,
+      body: {
+        type: 'redirect',
+        locale: 'fr',
+        alternative_path: @destination,
+        allow_draft: true,
+      }
+    )
+
+    PublishingApiRedirectWorker.new.perform(@uuid, @destination, "fr", true)
+
+    assert_requested request
+  end
 end
