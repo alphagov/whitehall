@@ -34,7 +34,6 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
       locale: "en",
       phase: "live",
       public_updated_at: @updated_at,
-      rendering_app: "government-frontend",
       publishing_app: "whitehall",
       details: {
         description: nil,
