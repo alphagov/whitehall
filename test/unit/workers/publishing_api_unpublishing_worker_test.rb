@@ -18,7 +18,8 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
       unpublished_edition.document.content_id,
       unpublishing.alternative_path,
       unpublishing.explanation,
-      :en
+      :en,
+      false
     )
 
     PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id)
@@ -37,7 +38,8 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
     redirect_worker.expects(:perform).with(
       unpublished_edition.document.content_id,
       unpublishing.alternative_path,
-      :en
+      :en,
+      false
     )
 
     PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id)
@@ -56,7 +58,8 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
     redirect_worker.expects(:perform).with(
       unpublished_edition.document.content_id,
       unpublishing.alternative_path,
-      :en
+      :en,
+      false
     )
 
     PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id)
@@ -74,7 +77,8 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
     withdrawal_worker.expects(:perform).with(
       unpublished_edition.document.content_id,
       unpublishing.explanation,
-      :en
+      :en,
+      false
     )
 
     PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id)
@@ -88,5 +92,23 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
 
     Whitehall::PublishingApi.expects(:save_draft_async).with(unpublished_edition)
     PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id)
+  end
+
+  test "passes allow_draft if supplied" do
+    unpublished_edition = create(
+      :withdrawn_edition
+    )
+
+    PublishingApiWithdrawalWorker.expects(:new).returns(withdrawal_worker = mock)
+    unpublishing = unpublished_edition.unpublishing
+
+    withdrawal_worker.expects(:perform).with(
+      unpublished_edition.document.content_id,
+      unpublishing.explanation,
+      :en,
+      true
+    )
+
+    PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id, true)
   end
 end

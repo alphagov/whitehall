@@ -1,7 +1,7 @@
 class PublishingApiUnpublishingWorker
   include Sidekiq::Worker
 
-  def perform(unpublishing_id)
+  def perform(unpublishing_id, allow_draft = false)
     unpublishing = Unpublishing.includes(:edition).find(unpublishing_id)
     edition = unpublishing.edition
     content_id = Document.where(id: edition.document_id).pluck(:content_id).first
@@ -13,27 +13,31 @@ class PublishingApiUnpublishingWorker
           PublishingApiRedirectWorker.new.perform(
             content_id,
             unpublishing.alternative_path,
-            locale
+            locale,
+            allow_draft
           )
         else
           PublishingApiGoneWorker.new.perform(
             content_id,
             unpublishing.alternative_path,
             unpublishing.explanation,
-            locale
+            locale,
+            allow_draft
           )
         end
       when UnpublishingReason::CONSOLIDATED_ID
         PublishingApiRedirectWorker.new.perform(
           content_id,
           unpublishing.alternative_path,
-          locale
+          locale,
+          allow_draft
         )
       when UnpublishingReason::WITHDRAWN_ID
         PublishingApiWithdrawalWorker.new.perform(
           content_id,
           unpublishing.explanation,
-          locale
+          locale,
+          allow_draft
         )
       end
     end
