@@ -94,6 +94,7 @@ group :development do
   gem 'newrelic_rpm'
   gem 'quiet_assets'
   gem 'stackprof', require: false
+  gem 'graphviz_transitions'
 end
 
 group :test do
