@@ -22,3 +22,4 @@
 .yardoc/
 /doc/
 /failures
+.DS_Store
