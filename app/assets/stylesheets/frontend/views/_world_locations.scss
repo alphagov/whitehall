@@ -195,6 +195,7 @@
           font-weight: bold;
           a {
             @include heading-27;
+            display: inline;
             font-weight: bold;
           }
         }
