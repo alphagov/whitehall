@@ -77,16 +77,6 @@ class SpecialistSectorTest < ActiveSupport::TestCase
     end
   end
 
-  test '.live_subsectors should return only live subsectors' do
-    assert_equal [@income_tax, @fields], SpecialistSector.live_subsectors
-  end
-
-  test '.live_subsectors should cache bust the Content API request' do
-    SpecialistSector.live_subsectors
-
-    assert_requested :get, Regexp.new("#{Plek.find('content_api')}.*\\?(.*&)?cachebust=")
-  end
-
 private
   def use_real_content_api
     Whitehall.content_api = GdsApi::ContentApi.new(Plek.find('content_api'))
