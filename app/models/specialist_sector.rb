@@ -15,10 +15,6 @@ class SpecialistSector < ActiveRecord::Base
     end
   end
 
-  def self.live_subsectors
-    find_subsectors(fetch_live_sectors).map {|sector_tag| sector_topic_from_tag(sector_tag) }
-  end
-
   def edition
     Edition.unscoped { super }
   end
@@ -39,12 +35,6 @@ private
   # (https://www.gov.uk/topic)
   def self.fetch_sectors
     Whitehall.content_api.tags('specialist_sector', draft: true)
-  rescue
-    raise DataUnavailable.new
-  end
-
-  def self.fetch_live_sectors
-    Whitehall.content_api.tags('specialist_sector', draft: false, bust_cache: true)
   rescue
     raise DataUnavailable.new
   end
