@@ -87,7 +87,7 @@ end
 
 When /^I unpublish the document and ask for a redirect$/ do
   unpublish_edition(Edition.last) do
-    fill_in 'published_in_error_alternative_url', with: Whitehall.url_maker.how_government_works_url
+    fill_in 'published_in_error_alternative_url', with: Whitehall.url_maker.placeholder_url
     check 'Redirect to URL automatically?'
   end
 end

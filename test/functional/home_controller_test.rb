@@ -3,6 +3,12 @@ require "test_helper"
 class HomeControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
+  setup do
+    pm_person = create(:person, forename: 'Firstname', surname: 'Lastname')
+    pm_role = create(:ministerial_role_without_organisation, name: 'Prime Minister', cabinet_member: true)
+    create(:ministerial_role_appointment, role: pm_role, person: pm_person)
+  end
+
   view_test 'Atom feed has the right elements' do
     document = create(:published_news_article)
 
@@ -57,18 +63,21 @@ class HomeControllerTest < ActionController::TestCase
     assert_select ".header-context"
   end
 
+  view_test "how government works shows the current prime minister" do
+    get :how_government_works
+
+    assert_select '.prime-minister p a', 'Firstname Lastname'
+  end
+
   view_test "how government works page shows a count of cabinet ministers, other ministers and total ministers" do
-    david_cameron = create(:person, forename: 'David', surname: 'Cameron')
     philip_hammond = create(:person, forename: 'Philip', surname: 'Hammond')
     mark_prisk = create(:person, forename: 'Mark', surname: 'Prisk')
     michael_gove = create(:person, forename: 'Michael', surname: 'Gove')
 
-    prime_minister = create(:ministerial_role, name: 'Prime Minister', cabinet_member: true)
     defence_minister = create(:ministerial_role, name: 'Secretary of State for Defence', cabinet_member: true)
     state_for_housing_minister = create(:ministerial_role, name: 'Minister of State for Housing', cabinet_member: false)
     education_minister = create(:ministerial_role, name: 'Secretary of State for Education', cabinet_member: true)
 
-    create(:ministerial_role_appointment, role: prime_minister, person: david_cameron)
     create(:ministerial_role_appointment, role: defence_minister, person: philip_hammond)
     create(:ministerial_role_appointment, role: state_for_housing_minister, person: mark_prisk)
     create(:ministerial_role_appointment, role: education_minister, person: michael_gove)
