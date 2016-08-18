@@ -19,34 +19,6 @@ $inside-gov-nav-dropdown: #888;
 $coalition-green: #85994b;
 $g8-brand: #c10019;
 
-// Web safe department colours
-$attorney-generals-office-websafe: #a03a88;
-$cabinet-office-websafe: #347da4;
-$department-for-business-innovation-skills-websafe: #347da4;
-$department-for-communities-and-local-government-websafe: #37836e;
-$department-for-culture-media-sport-websafe: #a03155;
-$department-for-education-websafe: #347ca9;
-$department-for-international-development-websafe: #405e9a;
-$department-for-transport-websafe: #398373;
-$department-for-work-pensions-websafe: #37807b;
-$department-of-energy-climate-change-websafe: #2b7cac;
-$department-of-health-websafe: #39836e;
-$foreign-commonwealth-office-websafe: #406e97;
-$hm-government-websafe: #347da4;
-$hm-revenue-customs-websafe: #008770;
-$hm-treasury-websafe: #832322;
-$home-office-websafe: #9440b2;
-$ministry-of-defence-websafe: #5A5C92;
-$ministry-of-justice-websafe: #5A5C92;
-$northern-ireland-office-websafe: #3e598c;
-$office-of-the-advocate-general-for-scotland-websafe: $link-colour;
-$office-of-the-leader-of-the-house-of-lords-websafe: #c2395d;
-$scotland-office-websafe: #405c8a;
-$the-office-of-the-leader-of-the-house-of-commons-websafe: #005f8f;
-$uk-export-finance-websafe: $link-colour;
-$uk-trade-investment-websafe: $link-colour;
-$wales-office-websafe: #7a242a;
-
 // Organisation brand colours
 //
 // Organisation brand colours are specified manually because there is no
@@ -77,38 +49,6 @@ $wales-office-websafe: #7a242a;
 //       }
 //       @include organisation-brand-colour("a", border-color);
 //     }
-
-// All organisation colours as list of (class_name, colour, websafe colour)
-$all-organisation-brand-colours:
-  'attorney-generals-office' $attorney-generals-office $attorney-generals-office-websafe,
-  'cabinet-office' $cabinet-office $cabinet-office-websafe,
-  'civil-service' $civil-service $civil-service,
-  'department-for-business-innovation-skills' $department-for-business-innovation-skills $department-for-business-innovation-skills-websafe,
-  'department-for-communities-and-local-government' $department-for-communities-and-local-government $department-for-communities-and-local-government-websafe,
-  'department-for-culture-media-sport' $department-for-culture-media-sport $department-for-culture-media-sport-websafe,
-  'department-for-education' $department-for-education $department-for-education-websafe,
-  'department-for-environment-food-rural-affairs' $department-for-environment-food-rural-affairs $department-for-environment-food-rural-affairs,
-  'department-for-international-development' $department-for-international-development $department-for-international-development-websafe,
-  'department-for-transport' $department-for-transport $department-for-transport-websafe,
-  'department-for-work-pensions' $department-for-work-pensions $department-for-work-pensions-websafe,
-  'department-of-energy-climate-change' $department-of-energy-climate-change $department-of-energy-climate-change-websafe,
-  'department-of-health' $department-of-health $department-of-health-websafe,
-  'foreign-commonwealth-office' $foreign-commonwealth-office $foreign-commonwealth-office-websafe,
-  'hm-government' $hm-government $hm-government-websafe,
-  'hm-revenue-customs' $hm-revenue-customs $hm-revenue-customs-websafe,
-  'hm-treasury' $hm-treasury $hm-treasury-websafe,
-  'home-office' $home-office $home-office-websafe,
-  'ministry-of-defence' $ministry-of-defence $ministry-of-defence-websafe,
-  'ministry-of-justice' $ministry-of-justice $ministry-of-justice-websafe,
-  'northern-ireland-office' $northern-ireland-office $northern-ireland-office-websafe,
-  'office-of-the-advocate-general-for-scotland' $office-of-the-advocate-general-for-scotland $office-of-the-advocate-general-for-scotland-websafe,
-  'office-of-the-leader-of-the-house-of-lords' $office-of-the-leader-of-the-house-of-lords $office-of-the-leader-of-the-house-of-lords-websafe,
-  'scotland-office' $scotland-office $scotland-office-websafe,
-  'the-office-of-the-leader-of-the-house-of-commons' $the-office-of-the-leader-of-the-house-of-commons $the-office-of-the-leader-of-the-house-of-commons-websafe,
-  'uk-export-finance' $uk-export-finance $uk-export-finance-websafe,
-  'uk-trade-investment' $uk-trade-investment $uk-trade-investment-websafe,
-  'wales-office' $wales-office $wales-office-websafe;
-
 
 @mixin organisation-brand-colour($selector, $property, $websafe: false) {
   @each $organisation in $all-organisation-brand-colours {

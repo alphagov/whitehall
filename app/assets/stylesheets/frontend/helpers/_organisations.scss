@@ -213,6 +213,38 @@ img.organisation-logo-custom {
   }
 }
 
+
+// DIT
+// DIT now has what was formally BIS' crest, but we will keep BIS around
+// so we can render BIS still in older content.
+.organisation-logo-dit {
+  @extend .organisation-logo-identity;
+
+  padding: 3px 0 2px 30px;
+  background-image: image-url("crests/dit_crest_13px.png");
+  background-position: 5px center;
+  background-size: auto 20px;
+}
+.organisation-logo-stacked-dit {
+  @extend .organisation-logo-identity;
+
+  padding: 20px 0 0 6px;
+  background-image: image-url("crests/dit_crest_13px.png");
+  background-position: 5px top;
+  background-size: auto 20px;
+}
+.organisation-logo-stacked-dit span {
+  display: block;
+  position: relative;
+  top: 3px;
+}
+@media all and (-webkit-min-device-pixel-ratio: 2) {
+  .organisation-logo-dit,
+  .organisation-logo-stacked-dit {
+    background-image: image-url("crests/dit_crest_13px_x2.png");
+  }
+}
+
 // Scotland Office
 .organisation-logo-so {
   @extend .organisation-logo-identity;
@@ -587,6 +619,40 @@ img.organisation-logo-custom {
     .organisation-logo-bis-medium,
     .organisation-logo-stacked-bis-medium {
       background-image: image-url("crests/bis_crest_18px_x2.png");
+    }
+  }
+}
+
+// DIT Medium
+.organisation-logo-dit-medium {
+  @extend .organisation-logo-identity-medium;
+  @include media(tablet){
+    padding: 3px 0 2px 38px;
+    background-image: image-url("crests/dit_crest_18px.png");
+    background-position: 6px center;
+    background-size: auto 25px;
+  }
+}
+.organisation-logo-stacked-dit-medium {
+  @extend .organisation-logo-identity-medium;
+  @include media(tablet){
+    padding: 25px 0 0 7px;
+    background-image: image-url("crests/dit_crest_18px.png");
+    background-position: 6px top;
+    background-size: auto 25px;
+  }
+}
+@include media(tablet){
+  .organisation-logo-stacked-dit-medium span,
+  .organisation-logo-stacked-dit-large span {
+    display: block;
+    position: relative;
+    top: 3px;
+  }
+  @media all and (-webkit-min-device-pixel-ratio: 2) {
+    .organisation-logo-dit-medium,
+    .organisation-logo-stacked-dit-medium {
+      background-image: image-url("crests/dit_crest_18px_x2.png");
     }
   }
 }
@@ -1030,6 +1096,43 @@ img.organisation-logo-custom {
   }
 }
 
+// DIT Large
+.organisation-logo-dit-large {
+  @extend .organisation-logo-dit-medium;
+  @extend .organisation-logo-identity-large;
+  @include media($min-width: 990px){
+    padding: 5px 0 5px 56px;
+    background-image: image-url("crests/dit_crest_27px.png");
+    background-position: 9px center;
+    background-size: auto 40px;
+  }
+}
+.organisation-logo-stacked-dit-large {
+  @extend .organisation-logo-stacked-dit-medium;
+  @extend .organisation-logo-identity-large;
+  @include media($min-width: 990px){
+    padding: 40px 0 0 10px;
+    background-image: image-url("crests/dit_crest_27px.png");
+    background-position: 9px top;
+    background-size: auto 40px;
+  }
+}
+@include media($min-width: 990px){
+  .organisation-logo-stacked-dit-large span {
+    display: block;
+    position: relative;
+    top: 5px;
+  }
+}
+@media all and (-webkit-min-device-pixel-ratio: 2) {
+  .organisation-logo-dit-large,
+  .organisation-logo-stacked-dit-large {
+    @include media($min-width: 990px){
+      background-image: image-url("crests/dit_crest_27px_x2.png");
+    }
+  }
+}
+
 // Scotland Office Large
 .organisation-logo-so-large {
   @extend .organisation-logo-so-medium;
@@ -1399,4 +1502,3 @@ img.organisation-logo-custom {
     }
   }
 }
-

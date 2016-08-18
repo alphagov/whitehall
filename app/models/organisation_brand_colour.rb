@@ -147,4 +147,9 @@ class OrganisationBrandColour
     title: "Civil Service",
     class_name: "civil-service"
   )
+  DepartmentForInternationalTrade = create(
+    id: 29,
+    title: "Department for International Trade",
+    class_name: "department-for-international-trade"
+  )
 end

@@ -72,7 +72,7 @@ end
 if ENV['FRONTEND_TOOLKIT_DEV']
   gem 'govuk_frontend_toolkit', path: '../govuk_frontend_toolkit_gem'
 else
-  gem 'govuk_frontend_toolkit', '4.8.1'
+  gem 'govuk_frontend_toolkit', '4.16.0'
 end
 
 gem 'sass', '3.4.9'
