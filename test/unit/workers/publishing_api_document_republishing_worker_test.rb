@@ -110,4 +110,17 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
 
     real_worker.perform(edition.id, nil)
   end
+
+  test "it raises if an unknown combination is encountered" do
+    document = stub(
+      published_edition: nil,
+      id: 1,
+      pre_publication_edition: nil,
+    )
+
+    Document.stubs(:find).returns(document)
+    assert_raise "Document id: 1 has an unrecognised state for republishing" do
+      PublishingApiDocumentRepublishingWorker.new.perform(document.id)
+    end
+  end
 end

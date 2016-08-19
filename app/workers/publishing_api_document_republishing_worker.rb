@@ -43,6 +43,8 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
       elsif there_is_a_newer_draft?
         send_published_edition
         send_draft_edition
+      else
+        raise "Document id: #{document.id} has an unrecognised state for republishing"
       end
     end
   end
