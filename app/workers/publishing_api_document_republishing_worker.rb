@@ -104,7 +104,7 @@ private
   end
 
   def send_unpublish(edition)
-    PublishingApiUnpublishingWorker.new.perform(edition.unpublishing.id, true)
+    PublishingApiUnpublishingWorker.new.perform(edition.unpublishing.id, edition.draft?)
   end
 
   def locales_for(edition)
