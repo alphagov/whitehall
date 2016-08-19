@@ -33,6 +33,8 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
 
     if the_document_has_been_unpublished?
       send_draft_and_unpublish
+    elsif the_document_has_been_withdrawn?
+      send_published_and_unpublish
     else
       if there_is_only_a_draft?
         send_draft_edition
@@ -51,6 +53,10 @@ private
     pre_publication_edition && pre_publication_edition.unpublishing
   end
 
+  def the_document_has_been_withdrawn?
+    published_edition && published_edition.unpublishing
+  end
+
   def there_is_only_a_draft?
     pre_publication_edition && published_edition.nil?
   end
@@ -65,7 +71,7 @@ private
 
   def send_draft_and_unpublish
     send_draft_edition
-    PublishingApiUnpublishingWorker.new.perform(pre_publication_edition.unpublishing.id, true)
+    send_unpublish(pre_publication_edition)
   end
 
   def send_draft_edition
@@ -79,6 +85,11 @@ private
     end
   end
 
+  def send_published_and_unpublish
+    send_published_edition
+    send_unpublish(published_edition)
+  end
+
   def send_published_edition
     locales_for(published_edition) do |locale|
       PublishingApiWorker.new.perform(
@@ -88,6 +99,10 @@ private
         locale
       )
     end
+  end
+
+  def send_unpublish(edition)
+    PublishingApiUnpublishingWorker.new.perform(edition.unpublishing.id, true)
   end
 
   def locales_for(edition)

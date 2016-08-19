@@ -79,6 +79,24 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
     PublishingApiDocumentRepublishingWorker.new.perform(document.id)
   end
 
+  test "it publishes and then unpublishes if the published edition withdrawn" do
+    unpublishing = build(:withdrawn_unpublishing, id: 10)
+    document = stub(
+      published_edition: published_edition = build(:withdrawn_edition, unpublishing: unpublishing),
+      id: 1,
+      pre_publication_edition: nil,
+    )
+
+    Document.stubs(:find).returns(document)
+    PublishingApiWorker.expects(:new).returns(api_worker = mock)
+    api_worker.expects(:perform).with(published_edition.class.name, published_edition.id, "republish", "en")
+
+    PublishingApiUnpublishingWorker.expects(:new).returns(unpublishing_worker = mock)
+    unpublishing_worker.expects(:perform).with(published_edition.unpublishing.id, true)
+
+    PublishingApiDocumentRepublishingWorker.new.perform(document.id)
+  end
+
   test "it supports jobs with the old method signature" do
     document  = create(:document, content_id: SecureRandom.uuid)
     edition = create(:published_edition, title: "Published edition", document: document)
