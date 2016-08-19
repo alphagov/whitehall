@@ -38,6 +38,7 @@ private
   def fire_transition!
     super
     supersede_previous_editions!
+    delete_unpublishing!
   end
 
   def supersede_previous_editions!
@@ -47,6 +48,10 @@ private
         e.save(validate: false)
       end
     end
+  end
+
+  def delete_unpublishing!
+    edition.unpublishing.destroy if edition.unpublishing.present?
   end
 
   def scheduled_for_publication?
