@@ -42,13 +42,10 @@ module Whitehall
     # Synchronise the published and/or draft documents in publishing-api with
     # the contents of Whitehall's database.
     def self.republish_document_async(document, bulk: false)
-      published_edition_id = document.published_edition.try(:id)
-      pre_publication_edition_id = document.pre_publication_edition.try(:id)
       queue = bulk ? 'bulk_republishing' : 'default'
       PublishingApiDocumentRepublishingWorker.perform_async_in_queue(
         queue,
-        published_edition_id,
-        pre_publication_edition_id
+        document.id
       )
     end
 

@@ -24,16 +24,19 @@ class PublishingApiGoneWorkerTest < ActiveSupport::TestCase
     assert_requested request
   end
 
-  test "supports previous method signature" do
+  test "passes allow_draft if supplied" do
     request = stub_publishing_api_unpublish(
       @uuid,
       body: {
         type: "gone",
+        alternative_path: "alternative_path",
+        explanation: "<div class=\"govspeak\"><p><em>why?</em></p>\n</div>",
         locale: "de",
+        allow_draft: true,
       }
     )
 
-    PublishingApiGoneWorker.new.perform(@uuid, "de")
+    PublishingApiGoneWorker.new.perform(@uuid, "alternative_path", "*why?*", "de", true)
 
     assert_requested request
   end
