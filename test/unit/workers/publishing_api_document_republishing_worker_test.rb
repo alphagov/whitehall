@@ -67,8 +67,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
     assert_requested(patch_links_request, times: 2)
   end
 
-  test "it runs the PublishingApiUnpublishingWorker if the latest edition
-    has an unpublishing" do
+  test "it runs the PublishingApiUnpublishingWorker if the latest edition has an unpublishing" do
     document  = create(:document, content_id: SecureRandom.uuid)
     edition = create(:unpublished_edition, title: "Unpublished edition", document: document)
     unpublishing = edition.unpublishing
@@ -92,7 +91,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
     api_worker.expects(:perform).with(published_edition.class.name, published_edition.id, "republish", "en")
 
     PublishingApiUnpublishingWorker.expects(:new).returns(unpublishing_worker = mock)
-    unpublishing_worker.expects(:perform).with(published_edition.unpublishing.id, true)
+    unpublishing_worker.expects(:perform).with(published_edition.unpublishing.id, false)
 
     PublishingApiDocumentRepublishingWorker.new.perform(document.id)
   end
