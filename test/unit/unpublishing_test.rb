@@ -55,6 +55,13 @@ class UnpublishingTest < ActiveSupport::TestCase
     assert unpublishing.valid?
   end
 
+  test 'alternative_url is stripped before validate' do
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://gov.uk/guidance ")
+    unpublishing.valid?
+
+    assert_equal "https://gov.uk/guidance", unpublishing.alternative_url
+  end
+
   test 'alternative_path returns the path of alternative_url' do
     unpublishing = build(:unpublishing, redirect: true, alternative_url: 'https://www.dev.gov.uk/guidance/document-path')
     assert_equal "/guidance/document-path", unpublishing.alternative_path
