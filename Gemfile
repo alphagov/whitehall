@@ -102,7 +102,7 @@ group :test do
   gem 'factory_girl'
   gem 'mocha', '1.1.0', require: false
   gem 'timecop'
-  gem 'webmock', '~> 1.22.3', require: false
+  gem 'webmock', '~> 2.1', require: false
   gem 'ci_reporter'
   gem 'database_cleaner', '1.4.0'
   gem 'equivalent-xml', '0.5.1', require: false
