@@ -41,4 +41,21 @@ class PublishingApiRedirectWorkerTest < ActiveSupport::TestCase
 
     assert_requested request
   end
+
+  test "trims the destination url" do
+    @destination = "/government/has-been-redirected.fr "
+    request = stub_publishing_api_unpublish(
+      @uuid,
+      body: {
+        type: 'redirect',
+        locale: 'fr',
+        alternative_path: "/government/has-been-redirected.fr",
+        allow_draft: true,
+      }
+    )
+
+    PublishingApiRedirectWorker.new.perform(@uuid, @destination, "fr", true)
+
+    assert_requested request
+  end
 end

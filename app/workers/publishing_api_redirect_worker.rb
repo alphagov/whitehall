@@ -4,7 +4,7 @@ class PublishingApiRedirectWorker < PublishingApiWorker
       content_id,
       type: "redirect",
       locale: locale,
-      alternative_path: destination,
+      alternative_path: destination.strip,
       allow_draft: allow_draft
     )
   end

@@ -12,6 +12,12 @@ class Unpublishing < ActiveRecord::Base
 
   after_initialize :ensure_presence_of_content_id
 
+  before_validation :strip_alternative_url
+
+  def strip_alternative_url
+    alternative_url.strip! if alternative_url.present?
+  end
+
   def self.from_slug(slug, type)
     where(slug: slug, document_type: type.to_s).last
   end
