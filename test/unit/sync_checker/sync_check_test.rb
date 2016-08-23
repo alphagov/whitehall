@@ -1,10 +1,15 @@
 require 'minitest/autorun'
 require 'mocha/setup'
+require 'ruby-progressbar'
 
 require_relative '../../../lib/sync_checker/request_queue'
 require_relative '../../../lib/sync_checker/sync_check'
 
 class SyncCheckTest < Minitest::Test
+  def setup
+    ProgressBar.stubs(:create).returns(stub_everything)
+  end
+
   def test_it_creates_a_queued_request_for_each_check
     document_checks = [
       stub,
@@ -14,7 +19,7 @@ class SyncCheckTest < Minitest::Test
     options = {
       mutex: Mutex.new,
       failures: stub(:<< => true),
-      hydra: stub(run: nil, queue: nil)
+      hydra: stub(run: nil, queue: nil, queued_requests: [])
     }
 
     checker = SyncChecker::SyncCheck.new(document_checks, options)
@@ -36,7 +41,7 @@ class SyncCheckTest < Minitest::Test
       stub(id: 2, base_path: "/one"),
     ]
 
-    checker = SyncChecker::SyncCheck.new(document_checks, hydra: hydra = stub(queue: nil, run: nil))
+    checker = SyncChecker::SyncCheck.new(document_checks, hydra: hydra = stub(queue: nil, run: nil, queued_requests: []))
 
     SyncChecker::RequestQueue.stubs(:new).returns(stub(requests: [1, 2]))
     hydra.expects(:queue).with(1)
@@ -52,7 +57,9 @@ class SyncCheckTest < Minitest::Test
   end
 
   def test_runs_the_hydra
-    Typhoeus::Hydra.expects(:new).with(max_concurrency: 20).returns(hydra = stub)
+    Typhoeus::Hydra.expects(:new)
+      .with(max_concurrency: 20)
+      .returns(hydra = stub(queued_requests: []))
     hydra.expects(:run)
     checker = SyncChecker::SyncCheck.new([])
     checker.run

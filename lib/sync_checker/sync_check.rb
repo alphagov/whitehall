@@ -1,4 +1,4 @@
-require 'typhoeus'
+require 'ruby-progressbar'
 
 module SyncChecker
   class SyncCheck
@@ -7,7 +7,7 @@ module SyncChecker
     def initialize(document_checks, options = {})
       @document_checks = document_checks
       @hydra = options[:hydra] || Typhoeus::Hydra.new(max_concurrency: max_concurrency)
-      @failures = options[:failures] || []
+      @failures = options[:failures] || ResultSet.new(progress_bar)
       @mutex = options[:mutex] || Mutex.new
     end
 
@@ -16,7 +16,9 @@ module SyncChecker
         request = RequestQueue.new(document_check, failures, mutex)
         request.requests.each { |req| hydra.queue(req) }
       end
+      progress_bar.total = hydra.queued_requests.count
       hydra.run
+      progress_bar.finish
     end
 
   private
@@ -27,6 +29,12 @@ module SyncChecker
       else
         20
       end
+    end
+
+    def progress_bar
+      @progress ||= ProgressBar.create(
+        format: "%e [%b>%i] [%c/%C]"
+      )
     end
   end
 end
