@@ -68,7 +68,7 @@ module SyncChecker
 
       errors = checks.flat_map { |check| check.call(response) }
 
-      return Failure.new(document.id, edition_expected_in_draft.id, locale, errors) if errors.any?
+      return Failure.new(document.id, edition_expected_in_draft.id, locale, DRAFT_CONTENT_STORE, errors) if errors.any?
     end
 
     def check_live(response, locale)
@@ -94,7 +94,7 @@ module SyncChecker
 
       errors = checks.flat_map { |check| check.call(response) }
 
-      return Failure.new(document.id, edition_expected_in_live.id, locale, errors) if errors.any?
+      return Failure.new(document.id, edition_expected_in_live.id, locale, LIVE_CONTENT_STORE, errors) if errors.any?
     end
 
   private

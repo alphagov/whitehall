@@ -1,11 +1,10 @@
 
 module SyncChecker
+  DRAFT_CONTENT_STORE = 'draft-content-store'
+  LIVE_CONTENT_STORE = 'content-store'
+
   class RequestQueue
     attr_reader :request_type, :requests
-
-    DRAFT_CONTENT_STORE = 'draft-content-store'
-    LIVE_CONTENT_STORE = 'content-store'
-
     def initialize(document_check, failure_result_set, mutex)
       @requests = []
       document_check.base_paths[:draft].each do |locale, path|
