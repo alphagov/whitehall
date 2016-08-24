@@ -31,6 +31,8 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
     #an associated unpublishing
     @pre_publication_edition = document.pre_publication_edition
 
+    return unless the_document_has_an_edition_to_check?
+
     if the_document_has_been_unpublished?
       send_draft_and_unpublish
     elsif the_document_has_been_withdrawn?
@@ -50,6 +52,12 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
   end
 
 private
+
+  def the_document_has_an_edition_to_check?
+    #there are documents in the Whitehall DB with only superseded editions
+    #this is mostly legacy data
+    pre_publication_edition || published_edition
+  end
 
   def the_document_has_been_unpublished?
     pre_publication_edition && pre_publication_edition.unpublishing
