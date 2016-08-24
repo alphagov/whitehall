@@ -17,6 +17,7 @@ module SyncChecker
         request.requests.each { |req| hydra.queue(req) }
       end
       progress_bar.total = hydra.queued_requests.count
+      progress_bar.start
       hydra.run
       progress_bar.finish
     end
@@ -33,6 +34,7 @@ module SyncChecker
 
     def progress_bar
       @progress ||= ProgressBar.create(
+        autostart: false,
         format: "%e [%b>%i] [%c/%C]"
       )
     end
