@@ -20,24 +20,19 @@ module SyncChecker
     end
 
     def base_paths
-      paths = {
-        draft: {},
-        live: {}
-      }
+      @base_paths ||= {draft: {}, live: {}}.tap do |paths|
+        if edition_expected_in_draft
+          edition_expected_in_draft.translated_locales.each do |locale|
+            paths[:draft][locale] = get_path(locale)
+          end
+        end
 
-      if edition_expected_in_draft
-        edition_expected_in_draft.translated_locales.each do |locale|
-          paths[:draft][locale] = get_path(locale)
+        if edition_expected_in_live
+          edition_expected_in_live.translated_locales.each do |locale|
+            paths[:live][locale] = get_path(locale)
+          end
         end
       end
-
-      if edition_expected_in_live
-        edition_expected_in_live.translated_locales.each do |locale|
-          paths[:live][locale] = get_path(locale)
-        end
-      end
-
-      paths
     end
 
     def get_path(locale)
