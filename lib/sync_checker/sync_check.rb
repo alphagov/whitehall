@@ -1,3 +1,5 @@
+require 'csv'
+
 require 'ruby-progressbar'
 
 module SyncChecker
@@ -7,7 +9,7 @@ module SyncChecker
     def initialize(document_checks, options = {})
       @document_checks = document_checks
       @hydra = options[:hydra] || Typhoeus::Hydra.new(max_concurrency: max_concurrency)
-      @failures = options[:failures] || ResultSet.new(progress_bar)
+      @failures = options[:failures] || ResultSet.new(progress_bar, options[:csv_file_path])
       @mutex = options[:mutex] || Mutex.new
     end
 
@@ -19,6 +21,7 @@ module SyncChecker
       progress_bar.total = hydra.queued_requests.count
       progress_bar.start
       hydra.run
+
       progress_bar.finish
     end
 
