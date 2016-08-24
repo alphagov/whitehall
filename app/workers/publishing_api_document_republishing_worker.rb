@@ -46,7 +46,19 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
         send_published_edition
         send_draft_edition
       else
-        raise "Document id: #{document.id} has an unrecognised state for republishing"
+        error_message = <<-ERROR
+          Document id: #{document.id} has an unrecognised state for republishing.
+          the_document_has_been_unpublished? = #{the_document_has_been_unpublished?}
+          the_document_has_been_withdrawn? = #{the_document_has_been_withdrawn?}
+          there_is_only_a_draft? = #{there_is_only_a_draft?}
+          there_is_only_a_published_edition? = #{there_is_only_a_published_edition?}
+          there_is_a_newer_draft? = #{there_is_a_newer_draft?}
+          published_edition.id = #{published_edition.try(:id)}
+          pre_publication_edition.id = #{pre_publication_edition.try(:id)}
+          published_edition.unpublishing = #{published_edition.try(:unpublishing)}
+          pre_publication_edition.unpublishing = #{pre_publication_edition.try(:unpublishing)}
+        ERROR
+        raise error_message
       end
     end
   end
