@@ -15,7 +15,7 @@ module SyncChecker
         draft_request.on_complete do |response|
           mutex.synchronize do
             result = document_check.check_draft(response, locale)
-            failure_result_set << result unless result.nil?
+            failure_result_set << result
           end
         end
       end
@@ -27,7 +27,7 @@ module SyncChecker
         live_request.on_complete do |response|
           mutex.synchronize do
             result = document_check.check_live(response, locale)
-            failure_result_set << result unless result.nil?
+            failure_result_set << result
           end
         end
       end

@@ -9,6 +9,13 @@ class ResultSetTest < Minitest::Test
     result_set << Object.new
   end
 
+  def test_adding_nil_result_increments_the_progress_bar_but_is_excluded_from_results
+    result_set = SyncChecker::ResultSet.new(progress_bar = stub(increment: true))
+    progress_bar.expects(:increment)
+    result_set << nil
+    assert_equal 0, result_set.length
+  end
+
   def test_added_result_exposed_at_index
     result_set = SyncChecker::ResultSet.new(stub(increment: true))
     result_set << item = stub

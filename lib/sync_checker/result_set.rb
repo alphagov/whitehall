@@ -10,7 +10,7 @@ module SyncChecker
     def_delegators :@results, :[], :each, :map, :length
 
     def <<(result)
-      results << result
+      results << result unless result.nil?
       progress_bar.increment
     end
 
