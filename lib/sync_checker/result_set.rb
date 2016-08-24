@@ -16,8 +16,11 @@ module SyncChecker
     end
 
     def <<(result)
-      results << result unless result.nil?
-      csv << result.to_row unless result.nil?
+      if result
+        csv << result.to_row
+        progress_bar.log result.to_s
+      end
+
       progress_bar.increment
     end
 

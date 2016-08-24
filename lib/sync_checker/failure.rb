@@ -5,6 +5,10 @@ module SyncChecker
       base_path.sub!(%r{^http.*/content}, '')
     end
 
+    def to_s
+      each_pair.map { |k,v| "#{k}=#{v}" }.join(" ")
+    end
+
     def to_row
       values.flatten
     end
