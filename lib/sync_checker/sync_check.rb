@@ -23,6 +23,7 @@ module SyncChecker
       hydra.run
 
       progress_bar.finish
+      puts "#{failures.results.count} failures"
     end
 
   private

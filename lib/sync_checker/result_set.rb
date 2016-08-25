@@ -6,6 +6,7 @@ module SyncChecker
 
     def initialize(progress_bar, csv_file_path = nil)
       @progress_bar = progress_bar
+      @results = []
 
       if csv_file_path.present? && !Rails.env.test?
         file = File.open(File.expand_path(csv_file_path), "w")
@@ -18,6 +19,7 @@ module SyncChecker
 
     def <<(result)
       if result
+        results << result
         csv << result.to_row
         progress_bar.log result.to_s
       end
@@ -26,6 +28,6 @@ module SyncChecker
     end
 
     attr_reader :results, :progress_bar, :csv
-    private :results, :progress_bar, :csv
+    private :progress_bar, :csv
   end
 end
