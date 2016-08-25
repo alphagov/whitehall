@@ -22,6 +22,7 @@ class CorporateInformationPage < Edition
 
   validates :corporate_information_page_type_id, presence: true
   validate :only_one_organisation_or_worldwide_organisation
+  validate :unique_organisation_and_page_type, on: :create, if: :organisation
 
   def body_required?
     !about_page?
@@ -47,6 +48,16 @@ class CorporateInformationPage < Edition
   def only_one_organisation_or_worldwide_organisation
     if organisation && worldwide_organisation
       errors.add(:base, "Only one organisation or worldwide organisation allowed")
+    end
+  end
+
+  def unique_organisation_and_page_type
+    duplicate_scope = CorporateInformationPage
+      .joins(:edition_organisation)
+      .where("edition_organisations.organisation_id = ?", organisation.id)
+      .where(corporate_information_page_type_id: corporate_information_page_type_id)
+    if duplicate_scope.exists?
+      errors.add(:base, "Another '#{display_type_key.humanize}' page already exists for this organisation")
     end
   end
 
