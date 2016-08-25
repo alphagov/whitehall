@@ -1,6 +1,15 @@
 module SyncChecker
   module Formats
     class EditionBase
+      def self.scope
+        klass = self.name.demodulize.sub(/Check$/, '')
+        Document.where(id: klass.constantize.all.pluck(:document_id).uniq)
+      end
+
+      def self.scope_with_ids(ids)
+        Document.where(id: ids)
+      end
+
       attr_reader :document, :results
       def initialize(document)
         @document = document

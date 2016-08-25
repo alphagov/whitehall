@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH << File.expand_path("../", File.dirname(__FILE__))
+require_relative '../config/environment'
+
+require 'optparse'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: run_sync_checks [options] ModelName"
+
+  opts.on("-o", "--output FILE", "output results to a CSV file") do |f|
+    options[:output] = f
+  end
+end.parse!
+
+document_format = "SyncChecker::Formats::#{ARGV[0]}Check".constantize
+documents = document_format.scope
+checks = documents.map { |doc| document_format.new(doc) }
+checker = SyncChecker::SyncCheck.new(checks, csv_file_path: options[:output])
+checker.run
