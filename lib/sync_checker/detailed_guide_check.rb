@@ -77,10 +77,6 @@ module SyncChecker
           "related_guides",
           edition_expected_in_live.related_detailed_guide_content_ids
         ),
-        LinksCheck.new(
-          "related_mainstream",
-          edition_expected_in_live.related_mainstream
-        ),
         DetailsCheck.new(
           I18n.with_locale(locale) do
             {
