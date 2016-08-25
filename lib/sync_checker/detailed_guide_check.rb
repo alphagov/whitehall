@@ -46,22 +46,6 @@ module SyncChecker
         TopLevelCheck.new(
           top_level_fields_hash(edition_expected_in_draft.translation_for(locale))
         ),
-        LinksCheck.new(
-          "organisations",
-          (edition_expected_in_draft.try(:organisations) || []).map(&:content_id)
-        ),
-        LinksCheck.new(
-          "policy_areas",
-          (edition_expected_in_draft.try(:topics) || []).map(&:content_id)
-        ),
-        LinksCheck.new(
-          "related_guides",
-          edition_expected_in_draft.related_detailed_guide_content_ids
-        ),
-        LinksCheck.new(
-          "related_mainstream",
-          edition_expected_in_draft.related_mainstream
-        ),
         DetailsCheck.new(
           I18n.with_locale(locale) do
             {
