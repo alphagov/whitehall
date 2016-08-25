@@ -54,6 +54,14 @@ module SyncChecker
           "policy_areas",
           (edition_expected_in_draft.try(:topics) || []).map(&:content_id)
         ),
+        LinksCheck.new(
+          "related_guides",
+          edition_expected_in_draft.related_detailed_guide_content_ids
+        ),
+        LinksCheck.new(
+          "related_mainstream",
+          edition_expected_in_draft.related_mainstream
+        ),
         DetailsCheck.new(
           I18n.with_locale(locale) do
             {
@@ -80,6 +88,14 @@ module SyncChecker
         LinksCheck.new(
           "policy_areas",
           (edition_expected_in_live.try(:topics) || []).map(&:content_id)
+        ),
+        LinksCheck.new(
+          "related_guides",
+          edition_expected_in_live.related_detailed_guide_content_ids
+        ),
+        LinksCheck.new(
+          "related_mainstream",
+          edition_expected_in_live.related_mainstream
         ),
         DetailsCheck.new(
           I18n.with_locale(locale) do
