@@ -10,6 +10,7 @@ module SyncChecker
       if csv_file_path.present? && !Rails.env.test?
         file = File.open(File.expand_path(csv_file_path), "w")
         @csv = CSV.new(file)
+        @csv << Failure.members
       else
         @csv = NullCSV
       end
