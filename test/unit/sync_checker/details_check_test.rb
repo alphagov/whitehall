@@ -1,6 +1,8 @@
 require 'minitest/autorun'
 require 'mocha/setup'
+require 'active_support'
 require 'active_support/json'
+require 'active_support/core_ext'
 
 require_relative '../../../lib/sync_checker/details_check'
 
@@ -67,6 +69,27 @@ class DetailsCheckTest < Minitest::Test
 
     expected = {
       body: "the right html"
+    }
+
+    assert_equal [], SyncChecker::DetailsCheck.new(expected).call(response)
+  end
+
+  def test_html_equivalence_passes
+    response = stub(
+      response_code: 200,
+      body: {
+        details: {
+          body: "<h1>the right html</h1>"
+        }
+      }.to_json
+    )
+
+    expected = {
+      body: <<-HTML
+        <h1>
+          the right html
+        </h1>
+      HTML
     }
 
     assert_equal [], SyncChecker::DetailsCheck.new(expected).call(response)

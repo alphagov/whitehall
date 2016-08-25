@@ -1,3 +1,4 @@
+require 'equivalent-xml'
 module SyncChecker
   DetailsCheck = Struct.new(:expected_details) do
     attr_reader :content_item
@@ -6,7 +7,7 @@ module SyncChecker
       if response.response_code == 200
         @content_item = JSON.parse(response.body)
         if run_check?
-          if content_item["details"]["body"] != expected_details[:body]
+          unless body_is_equivalent?
             failures << "details body doesn't match"
           end
         end
@@ -18,6 +19,13 @@ module SyncChecker
 
     def run_check?
       %w(redirect gone).exclude?(content_item["schema_name"])
+    end
+
+    def body_is_equivalent?
+      EquivalentXml.equivalent?(
+        content_item["details"]["body"],
+        expected_details[:body]
+      )
     end
   end
 end
