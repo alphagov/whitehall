@@ -55,9 +55,11 @@ module SyncChecker
           (edition_expected_in_draft.try(:topics) || []).map(&:content_id)
         ),
         DetailsCheck.new(
-          {
-            body: Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(edition_expected_in_draft)
-          }
+          I18n.with_locale(locale) do
+            {
+              body: Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(edition_expected_in_live)
+            }
+          end
         )
       ]
 
@@ -80,9 +82,11 @@ module SyncChecker
           (edition_expected_in_live.try(:topics) || []).map(&:content_id)
         ),
         DetailsCheck.new(
-          {
-            body: Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(edition_expected_in_live)
-          }
+          I18n.with_locale(locale) do
+            {
+              body: Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(edition_expected_in_live)
+            }
+          end
         ),
         UnpublishedCheck.new(document)
       ]
@@ -101,7 +105,7 @@ module SyncChecker
         content_id: document.content_id,
         document_type: "detailed_guidance",
         format: "detailed_guide",
-        locale: "en",
+        locale: translation_for_locale.locale.to_s,
         publishing_app: "whitehall",
         rendering_app: "whitehall-frontend",
         schema_name: "detailed_guide",
