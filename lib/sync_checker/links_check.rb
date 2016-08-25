@@ -7,7 +7,7 @@ module SyncChecker
       if response.response_code == 200
         @content_item = JSON.parse(response.body)
         if run_check?
-          if object_at_key.nil?
+          if key_should_be_present? && object_at_key.nil?
             failures << "the links key '#{links_key}' is not present"
           else
             failures += check_for_missing_content_ids
@@ -21,11 +21,15 @@ module SyncChecker
   private
 
     def run_check?
-      %w(gone redirect).exclude?(content_item["schema_name"]) && expected_content_ids.any?
+      %w(gone redirect).exclude?(content_item["schema_name"])
     end
 
     def object_at_key
       content_item["links"][links_key]
+    end
+
+    def key_should_be_present?
+      expected_content_ids.any?
     end
 
     def response_content_ids

@@ -39,6 +39,54 @@ class LinksCheckTest < Minitest::Test
     ).call(response)
   end
 
+  def test_it_returns_an_empty_array_if_expected_content_ids_is_empty_and_the_key_is_not_present
+    response = stub(
+      response_code: 200,
+      body: {
+        links: {
+          lead_organisations: [
+            {
+              content_id: "ABC1"
+            },
+          ]
+        }
+      }.to_json
+    )
+
+    expected_content_ids = []
+
+    expected_errors = []
+
+    assert_equal expected_errors, SyncChecker::LinksCheck.new(
+      "organisations",
+      expected_content_ids
+    ).call(response)
+  end
+
+  def test_it_returns_an_error_if_expected_content_ids_is_empty_but_the_key_is_present
+    response = stub(
+      response_code: 200,
+      body: {
+        links: {
+          organisations: [
+            {
+              content_id: "ABC1"
+            },
+          ]
+        }
+      }.to_json
+    )
+
+    expected_content_ids = []
+
+    expected_errors = ["rganisations shouldn't contain 'ABC1'"]
+
+    assert_equal expected_errors, SyncChecker::LinksCheck.new(
+      "organisations",
+      expected_content_ids
+    ).call(response)
+  end
+
   def test_it_returns_an_error_message_for_each_missing_content_id
     response = stub(
       response_code: 200,
