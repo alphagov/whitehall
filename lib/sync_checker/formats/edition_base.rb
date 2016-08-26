@@ -10,6 +10,10 @@ module SyncChecker
         Document.where(id: ids)
       end
 
+      def self.republish(id)
+        PublishingApiDocumentRepublishingWorker.new.perform(id)
+      end
+
       attr_reader :document, :results
       def initialize(document)
         @document = document

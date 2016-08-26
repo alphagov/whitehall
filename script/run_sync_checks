@@ -1,4 +1,5 @@
 require 'optparse'
+require 'ruby-progressbar'
 
 options = {}
 OptionParser.new do |opts|
@@ -14,6 +15,10 @@ OptionParser.new do |opts|
       options[:ids] = File.readlines(file).map(&:to_i).uniq
     end
   end
+
+  opts.on("-r", "--republish", "republish the documents, then quit") do |r|
+    options[:republish] = r
+  end
 end.parse!
 
 document_format = "SyncChecker::Formats::#{ARGV[0]}Check".constantize
@@ -24,6 +29,25 @@ documents = (
     document_format.scope
   end
 )
+
+if options[:republish]
+  progress = ProgressBar.create(
+    title: "Republishing",
+    total: documents.count,
+    format: "%e [%b>%i] [%c/%C]"
+  )
+  documents.pluck(:id).each do |id|
+    begin
+      document_format.republish(id)
+    rescue GdsApi::Timeout
+      progress.log "Timeout..."
+      retry
+    end
+    progress.increment
+  end
+  progress.finish
+  exit 0
+end
 
 checks = documents.map { |doc| document_format.new(doc) }
 checker = SyncChecker::SyncCheck.new(checks, csv_file_path: options[:output])
