@@ -1,6 +1,8 @@
 require 'optparse'
 require 'ruby-progressbar'
 
+require 'gds_api/exceptions'
+
 options = {}
 OptionParser.new do |opts|
   opts.banner = "Usage: run_sync_checks [options] ModelName"
@@ -48,7 +50,7 @@ if options[:republish]
   documents.pluck(:id).each do |id|
     begin
       document_format.republish(id)
-    rescue GdsApi::Timeout
+    rescue GdsApi::TimedOutException, GdsApi::HTTPServerError
       progress.log "Timeout..."
       retry
     end
