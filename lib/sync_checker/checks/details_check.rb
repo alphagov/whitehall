@@ -25,7 +25,7 @@ module SyncChecker
 
       def body_is_equivalent?
         content_body = content_item["details"]["body"]
-        content_body.gsub!(/<td>\s*<\/td>/, "<td>&npsp;</td>") if content_body
+        content_body.gsub!(/<td>\s*<\/td>/, "<td>&nbsp;</td>") if content_body
         expected_body = expected_details[:body]
 
         EquivalentXml.equivalent?(
