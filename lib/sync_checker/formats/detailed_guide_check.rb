@@ -9,7 +9,11 @@ module SyncChecker
         super + [
           Checks::LinksCheck.new(
             "related_guides",
-            edition_expected_in_draft.related_detailed_guide_content_ids
+            edition_expected_in_live
+              .published_related_detailed_guides
+              .reject { |dg| dg.unpublishing }
+              .map(&:content_id)
+              .uniq
           )
         ]
       end
