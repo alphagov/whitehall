@@ -5,7 +5,8 @@ class PublishingApiRedirectWorker < PublishingApiWorker
       type: "redirect",
       locale: locale,
       alternative_path: destination.strip,
-      allow_draft: allow_draft
+      allow_draft: allow_draft,
+      discard_drafts: !allow_draft,
     )
   end
 end

@@ -12,6 +12,7 @@ class PublishingApiGoneWorker < PublishingApiWorker
       type: "gone",
       locale: locale,
       allow_draft: allow_draft,
+      discard_drafts: !allow_draft
     )
   end
 end
