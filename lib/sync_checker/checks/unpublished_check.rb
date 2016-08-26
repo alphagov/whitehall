@@ -35,7 +35,7 @@ module SyncChecker
             end
           end
         else
-          failures << "item is unpublished but there is nothing in the draft content store"
+          failures << "item is unpublished but there is no item in the content store"
         end
 
         failures.compact
