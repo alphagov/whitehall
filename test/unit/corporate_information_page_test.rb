@@ -29,6 +29,18 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     refute corporate_information_page.valid?
   end
 
+  test 'should be invalid if has a duplicate organisation id and page type' do
+    organisation = create(:organisation)
+    corporate_information_page = build(:corporate_information_page,
+                                       organisation: organisation,
+                                       corporate_information_page_type: CorporateInformationPageType::AboutUs)
+    corporate_information_page.save!
+    corporate_information_page2 = build(:corporate_information_page,
+                                       organisation: organisation,
+                                       corporate_information_page_type: CorporateInformationPageType::AboutUs)
+    refute corporate_information_page2.valid?
+  end
+
   test 'should return search index data suitable for Rummageable' do
     organisation = create(:organisation)
     corporate_information_page = create(:corporate_information_page,
