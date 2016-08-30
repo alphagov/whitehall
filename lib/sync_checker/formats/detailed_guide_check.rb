@@ -11,7 +11,7 @@ module SyncChecker
             "related_guides",
             edition_expected_in_live
               .published_related_detailed_guides
-              .reject { |dg| dg.unpublishing }
+              .reject(&:unpublishing)
               .map(&:content_id)
               .uniq
           )

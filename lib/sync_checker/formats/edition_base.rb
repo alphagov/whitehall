@@ -87,7 +87,7 @@ module SyncChecker
       end
 
       def checks_for_live(locale)
-        checks = [
+        [
           Checks::TopLevelCheck.new(
             top_level_fields_hash(edition_expected_in_live.translation_for(locale))
           ),

@@ -9,9 +9,7 @@ module SyncChecker
         if response.response_code == 200
           @content_item = JSON.parse(response.body)
           if run_check?
-            unless body_is_equivalent?
-              failures << "details body doesn't match"
-            end
+            failures << "details body doesn't match" unless body_is_equivalent?
           end
         end
         failures

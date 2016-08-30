@@ -6,7 +6,7 @@ module SyncChecker
     end
 
     def to_s
-      each_pair.map { |k,v| "#{k}=#{v}" }.join(" ")
+      each_pair.map { |k, v| "#{k}=#{v}" }.join(" ")
     end
 
     def to_row

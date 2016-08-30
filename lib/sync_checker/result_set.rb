@@ -1,7 +1,7 @@
 module SyncChecker
   class ResultSet
     class NullCSV
-      def self.<<(val); end
+      def self.<<(_val); end
     end
 
     def initialize(progress_bar, csv_file_path = nil)
