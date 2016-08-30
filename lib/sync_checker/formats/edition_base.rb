@@ -98,6 +98,10 @@ module SyncChecker
             "policy_areas",
             (edition_expected_in_live.try(:topics) || []).map(&:content_id)
           ),
+          Checks::LinksCheck.new(
+            "related_policies",
+            (edition_expected_in_live.try(:policy_content_ids) || [])
+          ),
           Checks::DetailsCheck.new(
             I18n.with_locale(locale) do
               expected_details_hash(edition_expected_in_live)
