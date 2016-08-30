@@ -66,7 +66,8 @@ module SyncChecker
                 body: Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(edition_expected_in_draft)
               }
             end
-          )
+          ),
+          Checks::TranslationsCheck.new(edition_expected_in_draft.available_locales)
         ]
       end
 
@@ -106,7 +107,8 @@ module SyncChecker
               }
             end
           ),
-          Checks::UnpublishedCheck.new(document)
+          Checks::UnpublishedCheck.new(document),
+          Checks::TranslationsCheck.new(edition_expected_in_live.available_locales)
         ]
       end
 
