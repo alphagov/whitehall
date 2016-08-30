@@ -48,6 +48,7 @@ gem 'rinku', require: 'rails_rinku'
 gem 'parallel', '1.4.1'
 gem 'responders', '~> 2.0'
 gem 'ruby-progressbar', require: false
+gem 'equivalent-xml', '0.5.1', require: false
 
 gem 'deprecated_columns', '0.1.0'
 
@@ -105,7 +106,6 @@ group :test do
   gem 'webmock', '~> 2.1', require: false
   gem 'ci_reporter'
   gem 'database_cleaner', '1.4.0'
-  gem 'equivalent-xml', '0.5.1', require: false
   gem 'test_track', '~> 0.1.0', github: 'alphagov/test_track', branch: 'master'
   gem 'govuk-content-schema-test-helpers', '1.4.0'
   gem 'minitest-fail-fast'
