@@ -62,9 +62,7 @@ module SyncChecker
           ),
           Checks::DetailsCheck.new(
             I18n.with_locale(locale) do
-              {
-                body: Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(edition_expected_in_draft)
-              }
+              expected_details_hash(edition_expected_in_draft)
             end
           ),
           Checks::TranslationsCheck.new(edition_expected_in_draft.available_locales)
@@ -102,9 +100,7 @@ module SyncChecker
           ),
           Checks::DetailsCheck.new(
             I18n.with_locale(locale) do
-              {
-                body: Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(edition_expected_in_live)
-              }
+              expected_details_hash(edition_expected_in_live)
             end
           ),
           Checks::UnpublishedCheck.new(document),
@@ -128,17 +124,26 @@ module SyncChecker
         end
       end
 
+      def expected_details_hash(edition)
+        {
+          body: Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(edition),
+          change_history: edition.change_history.as_json,
+          emphasised_organisations: edition.lead_organisations.map(&:content_id),
+          first_public_at: first_public_at(edition),
+          political: edition.political?,
+          government: expected_government_value(edition)
+        }
+      end
+
     private
 
       def top_level_fields_hash(translation_for_locale)
         {
-          analytics_identifier: nil,
           base_path: get_path(translation_for_locale.locale),
           content_id: document.content_id,
           document_type: document_type,
           locale: translation_for_locale.locale.to_s,
           publishing_app: "whitehall",
-          rendering_app: rendering_app,
           schema_name: document.document_type.underscore,
           title: translation_for_locale.title,
           description: translation_for_locale.summary,
@@ -152,6 +157,20 @@ module SyncChecker
 
       def document_type
         document.document_type.underscore
+      end
+
+      def first_public_at(edition)
+        (document.published? ? edition.first_public_at : document.created_at).try(:iso8601)
+      end
+
+      def expected_government_value(edition)
+        government = edition.government
+        return unless government
+        {
+          title: government.name,
+          slug: government.slug,
+          current: government.current?
+        }.stringify_keys
       end
     end
   end
