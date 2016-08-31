@@ -88,7 +88,9 @@ Whitehall::Application.configure do
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 
-  # Enable threaded mode
+  # This is not enabled because parts of the publishing pipeline
+  # are not threadsafe. Once we've removed instances of `I18n.with_locale`
+  # from the codebase, we will be able to enable this if desired.
   # config.threadsafe!
 
   # Send deprecation notices to registered listeners
