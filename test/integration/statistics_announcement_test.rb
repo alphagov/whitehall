@@ -56,7 +56,11 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     statistics_announcement = create(:statistics_announcement)
     gone_request = stub_publishing_api_unpublish(
       statistics_announcement.content_id,
-      body: { type: "gone", locale: "en" }
+      body: {
+        type: "gone",
+        locale: "en",
+        discard_drafts: true,
+      }
     )
 
     statistics_announcement.destroy

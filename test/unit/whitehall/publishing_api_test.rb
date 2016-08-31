@@ -361,7 +361,12 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     destination = "/government/people/milli-vanilli"
     redirect_request = stub_publishing_api_unpublish(
       redirect_uuid,
-      body: { type: "redirect", alternative_path: destination, locale: "en" }
+      body: {
+        type: "redirect",
+        alternative_path: destination,
+        locale: "en",
+        discard_drafts: true,
+      }
     )
 
     Whitehall::PublishingApi.publish_redirect_async(redirect_uuid, destination)
@@ -374,7 +379,11 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
     gone_request = stub_publishing_api_unpublish(
       gone_uuid,
-      body: { type: "gone", locale: "en" }
+      body: {
+        type: "gone",
+        locale: "en",
+        discard_drafts: true,
+      }
     )
 
     Whitehall::PublishingApi.publish_gone_async(gone_uuid, nil, nil)

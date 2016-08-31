@@ -61,10 +61,17 @@ class UnpublishingTest < ActiveSupport::TestCase
 
     unpublish(@published_edition, unpublishing_params)
 
-    assert_publishing_api_unpublish(@published_edition.document.content_id,
-                                    { type: "gone", explanation: "<div class=\"govspeak\"><p>Published by mistake</p>\n</div>", locale: "en"})
-    assert_publishing_api_unpublish(@published_edition.document.content_id,
-                                    { type: "gone", explanation: "<div class=\"govspeak\"><p>Published by mistake</p>\n</div>", locale: "fr"})
+    %w(en fr).each do |locale|
+      assert_publishing_api_unpublish(
+        @published_edition.document.content_id,
+        {
+          type: "gone",
+          explanation: "<div class=\"govspeak\"><p>Published by mistake</p>\n</div>",
+          locale: locale,
+          discard_drafts: true,
+        }
+      )
+    end
   end
 
   test "when a translated edition is unpublished with a redirect, redirects are sent to the Publishing API for each translation" do
@@ -79,15 +86,22 @@ class UnpublishingTest < ActiveSupport::TestCase
 
     unpublishing_redirect_params = unpublishing_params.merge({
       redirect: true,
-      alternative_url: Whitehall.public_root + '/government/page'
+      alternative_url: Whitehall.public_root + '/government/page',
     })
 
     unpublish(@published_edition, unpublishing_redirect_params)
 
-    assert_publishing_api_unpublish(@published_edition.document.content_id,
-                                  { type: "redirect", alternative_path: "/government/page", locale: "en"})
-    assert_publishing_api_unpublish(@published_edition.document.content_id,
-                                  { type: "redirect", alternative_path: "/government/page", locale: "fr"})
+    %w(en fr).each do |locale|
+      assert_publishing_api_unpublish(
+        @published_edition.document.content_id,
+        {
+          type: "redirect",
+          alternative_path: "/government/page",
+          locale: locale,
+          discard_drafts: true
+        }
+      )
+    end
   end
 
 private

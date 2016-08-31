@@ -32,7 +32,11 @@ class TakePartPageTest < ActiveSupport::TestCase
 
     gone_request = stub_publishing_api_unpublish(
       @take_part_page.content_id,
-      body: { type: "gone", locale: "en" }
+      body: {
+        type: "gone",
+        locale: "en",
+        discard_drafts: true,
+      }
     )
 
     @take_part_page.destroy

@@ -7,5 +7,8 @@ class PublishingApiWithdrawalWorker < PublishingApiWorker
       explanation: Whitehall::GovspeakRenderer.new.govspeak_to_html(explanation),
       allow_draft: allow_draft,
     )
+  rescue GdsApi::HTTPNotFound, GdsApi::HTTPUnprocessableEntity
+    # nothing to do here as we can't unpublish something that doesn't exist
+    nil
   end
 end
