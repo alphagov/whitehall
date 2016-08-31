@@ -18,6 +18,7 @@ class PublishingApiRedirectWorkerTest < ActiveSupport::TestCase
         type: 'redirect',
         locale: 'fr',
         alternative_path: @destination,
+        discard_drafts: true,
       }
     )
 
