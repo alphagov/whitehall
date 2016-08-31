@@ -19,6 +19,8 @@ class DetailedGuide < Edition
   include Edition::RelatedPolicies
   include Edition::RelatedDocuments
 
+  has_many :related_mainstream, foreign_key: "edition_id", dependent: :destroy
+
   validate :related_mainstream_content_valid?
   validate :additional_related_mainstream_content_valid?
 
