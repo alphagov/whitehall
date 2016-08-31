@@ -4,6 +4,12 @@ class Admin::EditionUnpublishingController < Admin::BaseController
 
   def update
     if @unpublishing.update_attributes(explanation: params[:unpublishing][:explanation])
+      if withdrawing?
+        content_id = @unpublishing.edition.content_id
+        Whitehall::PublishingApi.publish_withdrawal_async(content_id, @unpublishing.explanation)
+      else
+        Whitehall::PublishingApi.unpublish_async(@unpublishing)
+      end
       redirect_to admin_edition_path(@unpublishing.edition), notice: "The public explanation was updated"
     else
       flash.now[:alert] = "The public explanation could not be updated"
@@ -21,4 +27,7 @@ private
     enforce_permission!(:unpublish, @unpublishing.edition)
   end
 
+  def withdrawing?
+    @unpublishing.unpublishing_reason_id == UnpublishingReason::Withdrawn.id
+  end
 end

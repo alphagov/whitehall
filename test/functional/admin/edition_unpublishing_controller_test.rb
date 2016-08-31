@@ -18,12 +18,25 @@ class Admin::EditionUnpublishingControllerTest < ActionController::TestCase
     assert_equal unpublishing, assigns(:unpublishing)
   end
 
-  test "#update updates the unpublishing and redirects to admin policy page" do
+  test "#update updates the withdrawal and redirects to admin policy page" do
+    Whitehall::PublishingApi.expects(:publish_withdrawal_async)
+
     put :update, edition_id: @edition.id, unpublishing: { explanation: "this used to say withdrawn" }
 
     assert_redirected_to admin_edition_path(@edition)
     assert_equal "The public explanation was updated", flash[:notice]
     assert_equal "this used to say withdrawn", @edition.unpublishing.reload.explanation
+  end
+
+  test "#update updates the unpublishing and redirects to admin policy page" do
+    @unpublished_edition = create(:unpublished_edition)
+    Whitehall::PublishingApi.expects(:unpublish_async)
+
+    put :update, edition_id: @unpublished_edition.id, unpublishing: { explanation: "this used to say unpublished" }
+
+    assert_redirected_to admin_edition_path(@unpublished_edition)
+    assert_equal "The public explanation was updated", flash[:notice]
+    assert_equal "this used to say unpublished", @unpublished_edition.unpublishing.reload.explanation
   end
 
   test "#update shows form with error if the update was not possible" do
