@@ -1,5 +1,8 @@
 :verbose: true
-:concurrency: 2
+# We set concurrency to 1 because parts of the publishing pipeline
+# are not threadsafe. Once we've removed instances of `I18n.with_locale`
+# from the workers, we can increase this again.
+:concurrency: 1
 :logfile: ./log/sidekiq.json.log
 :queues:
   - [bulk_republishing, 1]
