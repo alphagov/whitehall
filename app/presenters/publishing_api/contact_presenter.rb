@@ -19,7 +19,6 @@ module PublishingApi
         locale: locale,
         public_updated_at: public_updated_at,
         publishing_app: "whitehall",
-        rendering_app: rendering_app,
         details: details,
         phase: phase,
       }
