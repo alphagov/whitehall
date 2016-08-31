@@ -65,7 +65,11 @@ class SchedulingTest < ActiveSupport::TestCase
     destroy_intent_request = stub_publishing_api_destroy_intent(base_path)
     gone_request = stub_publishing_api_unpublish(
       scheduled_edition.content_id,
-      body: { type: "gone", locale: "en" }
+      body: {
+        type: "gone",
+        locale: "en",
+        discard_drafts: true,
+      }
     )
 
     unscheduler.perform!

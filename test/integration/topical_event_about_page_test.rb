@@ -39,7 +39,11 @@ class TopicalEventAboutPageTest < ActiveSupport::TestCase
 
     gone_request = stub_publishing_api_unpublish(
       @topical_event_about_page.content_id,
-      body: { type: "gone", locale: "en" }
+      body: {
+        type: "gone",
+        locale: "en",
+        discard_drafts: true,
+      }
     )
 
     @topical_event_about_page.destroy
