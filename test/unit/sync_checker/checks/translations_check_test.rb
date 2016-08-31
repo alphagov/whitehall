@@ -3,7 +3,7 @@ require 'mocha/setup'
 require 'active_support'
 require 'active_support/json'
 require 'active_support/core_ext'
-require_relative '../../../lib/sync_checker/checks/translations_check'
+require_relative '../../../../lib/sync_checker/checks/translations_check'
 
 class TranslationsCheckTest < Minitest::Test
   def test_returns_an_empty_array_if_the_translations_match

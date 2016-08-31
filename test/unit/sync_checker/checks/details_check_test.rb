@@ -4,7 +4,7 @@ require 'active_support'
 require 'active_support/json'
 require 'active_support/core_ext'
 
-require_relative '../../../lib/sync_checker/checks/details_check'
+require_relative '../../../../lib/sync_checker/checks/details_check'
 
 module SyncChecker::Checks
   class DetailsCheckTest < Minitest::Test

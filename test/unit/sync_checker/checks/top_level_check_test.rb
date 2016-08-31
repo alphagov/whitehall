@@ -1,9 +1,9 @@
 require 'minitest/autorun'
 require 'mocha/setup'
 require 'active_support/json'
-require_relative '../../../lib/sync_checker/top_level_check'
+require_relative '../../../../lib/sync_checker/checks/top_level_check'
 
-module SyncChecker
+module SyncChecker::Checks
   class TopLevelCheckTest < Minitest::Test
     def test_returns_empty_array_when_expected_are_present_in_response_body
       response = stub(response_code: 200, body: {

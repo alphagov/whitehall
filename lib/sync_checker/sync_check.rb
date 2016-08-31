@@ -1,5 +1,4 @@
 require 'csv'
-
 require 'ruby-progressbar'
 
 module SyncChecker
@@ -23,17 +22,13 @@ module SyncChecker
       hydra.run
 
       progress_bar.finish
-      puts "#{failures.results.count} failures"
+      puts "#{failures.results.count} failures" unless Rails.env.test?
     end
 
   private
 
     def max_concurrency
-      if defined? Rails
-        Rails.env.development? ? 1 : 20
-      else
-        20
-      end
+      Rails.env.development? ? 1 : 20
     end
 
     def progress_bar
