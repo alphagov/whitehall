@@ -28,7 +28,9 @@ class LinkCheckerTest < ActiveSupport::TestCase
     begin
       current_authed_domains = LinksChecker.authed_domains
       LinksChecker.authed_domains = { 'www.requires-auth.com' => 'user:password' }
-      stub_request(:get, 'user:password@www.requires-auth.com/authed_page').to_return(status: 400)
+      stub_request(:get, 'www.requires-auth.com/authed_page')
+        .with(basic_auth: %w(user password))
+        .to_return(status: 400)
 
       checker   = LinksChecker.new(['http://www.requires-auth.com/authed_page'], NullLogger.instance)
       checker.run

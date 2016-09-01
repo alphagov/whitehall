@@ -38,7 +38,7 @@ gem 'redis-namespace'
 gem 'raindrops', '0.15.0'
 gem 'airbrake', '4.1.0'
 gem 'pdf-reader', '1.3.3'
-gem 'typhoeus', '0.6.9'
+gem 'typhoeus', '~> 1.1'
 gem 'dalli'
 gem 'rails_translation_manager', '0.0.1'
 gem 'rails-observers'
@@ -48,6 +48,7 @@ gem 'rinku', require: 'rails_rinku'
 gem 'parallel', '1.4.1'
 gem 'responders', '~> 2.0'
 gem 'ruby-progressbar', require: false
+gem 'equivalent-xml', '0.5.1', require: false
 
 gem 'deprecated_columns', '0.1.0'
 
@@ -102,10 +103,9 @@ group :test do
   gem 'factory_girl'
   gem 'mocha', '1.1.0', require: false
   gem 'timecop'
-  gem 'webmock', '~> 1.22.3', require: false
+  gem 'webmock', '~> 2.1', require: false
   gem 'ci_reporter'
   gem 'database_cleaner', '1.4.0'
-  gem 'equivalent-xml', '0.5.1', require: false
   gem 'test_track', '~> 0.1.0', github: 'alphagov/test_track', branch: 'master'
   gem 'govuk-content-schema-test-helpers', '1.4.0'
   gem 'minitest-fail-fast'
