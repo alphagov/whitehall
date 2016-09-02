@@ -8,6 +8,7 @@ class CorporateInformationPage < Edition
   has_one :worldwide_organisation, through: :edition_worldwide_organisation, autosave: false
 
   delegate :slug, :display_type_key, to: :corporate_information_page_type
+  validate :unique_organisation_and_page_type, on: :create, if: :organisation
 
   add_trait do
     def process_associations_before_save(new_edition)
@@ -119,5 +120,19 @@ class CorporateInformationPage < Edition
 
   def string_for_slug
     nil
+  end
+
+  def unique_organisation_and_page_type
+    duplicate_scope = CorporateInformationPage
+      .joins(:edition_organisation)
+      .where("edition_organisations.organisation_id = ?", organisation.id)
+      .where(corporate_information_page_type_id: corporate_information_page_type_id)
+      .where("state not like 'superseded'")
+    if document_id
+      duplicate_scope = duplicate_scope.where("document_id <> ?", document_id)
+    end
+    if duplicate_scope.exists?
+      errors.add(:base, "Another '#{display_type_key.humanize}' page was already published for this organisation")
+    end
   end
 end
