@@ -11,7 +11,7 @@ module SyncChecker
           if run_check?
             if available_translations
               locales_present = available_translations.map { |translation| translation["locale"] }
-              if locales_present != stringified_locales
+              if locales_present.sort != stringified_locales.sort
                 failures << "expected #{stringified_locales} translations but got #{locales_present}"
               end
             else
