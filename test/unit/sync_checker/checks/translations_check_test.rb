@@ -97,6 +97,29 @@ class TranslationsCheckTest < Minitest::Test
     assert_equal expected_errors, SyncChecker::Checks::TranslationsCheck.new(expected).call(response)
   end
 
+  def test_does_not_fail_erroneously_if_locales_are_in_a_different_order
+    response = stub(
+      response_code: 200,
+      body: {
+        links: {
+          available_translations: [
+            {
+              locale: "fr",
+            },
+            {
+              locale: "en",
+            }
+          ]
+        }
+      }.to_json
+    )
+
+    expected = [:en, :fr]
+    expected_errors = []
+
+    assert_equal expected_errors, SyncChecker::Checks::TranslationsCheck.new(expected).call(response)
+  end
+
   def test_returns_no_errors_if_gone
     response = stub(
       response_code: 200,
