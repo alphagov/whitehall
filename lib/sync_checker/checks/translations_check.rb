@@ -7,6 +7,10 @@ module SyncChecker
         failures = []
         if response.response_code == 200
           @content_item = JSON.parse(response.body)
+          #FIXME we're ignore withdrawn items for now due to a bug in
+          #publishing api causing them not to have an `available_translations`
+          #links element
+          return [] if withdrawn?
           available_translations = content_item["links"]["available_translations"]
           if run_check?
             if available_translations
@@ -26,6 +30,10 @@ module SyncChecker
 
       def run_check?
         %w(redirect gone).exclude?(content_item["schema_name"])
+      end
+
+      def withdrawn?
+        content_item["withdrawn_notice"].present?
       end
     end
   end

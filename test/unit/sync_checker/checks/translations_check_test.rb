@@ -1,4 +1,4 @@
-require 'minitest/autorun'
+require 'maxitest/autorun'
 require 'mocha/setup'
 require 'active_support'
 require 'active_support/json'
@@ -32,6 +32,23 @@ class TranslationsCheckTest < Minitest::Test
     response = stub(
       response_code: 404,
       body: {
+      }.to_json
+    )
+
+    expected = %w(en fr)
+    assert_equal [], SyncChecker::Checks::TranslationsCheck.new(expected).call(response)
+  end
+
+  #there is currently a Publishing API bug that prevents the `available_translations`
+  #links being populated on `withdrawn` items. This makes things noisy so we should
+  #skip them for now.
+  def test_returns_an_empty_array_if_the_item_is_withdrawn
+    response = stub(
+      response_code: 200,
+      body: {
+        withdrawn_notice: {
+          explanation: "blahdy blah"
+        }
       }.to_json
     )
 
