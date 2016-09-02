@@ -13,7 +13,7 @@ private
   attr_reader :organisation, :search_client
 
   def services_and_information_for_organisation
-    search_client.unified_search(search_query)
+    search_client.search(search_query)
   end
 
   def search_query

@@ -55,7 +55,7 @@ class Person < ActiveRecord::Base
   after_update :touch_role_appointments
 
   def published_policies
-    Whitehall.unified_search_client.unified_search(
+    Whitehall.search_client.search(
       filter_people: [slug],
       filter_format: "policy",
       order: "-public_timestamp"

@@ -34,6 +34,6 @@ private
   end
 
   def search_client
-    Whitehall.unified_search_client
+    Whitehall.search_client
   end
 end

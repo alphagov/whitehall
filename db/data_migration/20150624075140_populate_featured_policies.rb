@@ -16,7 +16,7 @@ def policies_to_organisations(policies)
 end
 
 def top_3_policy_results(organisation)
-  Whitehall.unified_search_client.unified_search(
+  Whitehall.search_client.search(
     filter_organisations: [organisation.slug],
     filter_format: "policy",
     count: "3",
