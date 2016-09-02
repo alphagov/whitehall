@@ -1,4 +1,3 @@
-require 'gds_api/test_helpers/content_api'
 require "gds_api/test_helpers/content_store"
 
 Before do
@@ -11,33 +10,38 @@ Before do
   # stub should be overriden in specific features where this behaviour needs to
   # be tested.
   stub_request(:get, %r{.*content-store.*/content/.*}).to_return(status: 404)
+  publishing_api_has_linkables([], document_type: 'topic')
 end
 
 module SpecialistSectorHelper
-  include GdsApi::TestHelpers::ContentApi
   include GdsApi::TestHelpers::ContentStore
 
   def stub_specialist_sectors
-    oil_and_gas = { slug: 'oil-and-gas', title: 'Oil and Gas' }
-    sector_tags = [
-      oil_and_gas,
-      { slug: 'oil-and-gas/wells', title: 'Wells', parent: oil_and_gas },
-      { slug: 'oil-and-gas/fields', title: 'Fields', parent: oil_and_gas },
-      { slug: 'oil-and-gas/offshore', title: 'Offshore', parent: oil_and_gas }
-    ]
-
-    distillation = { slug: 'oil-and-gas/distillation', title: 'Distillation', parent: oil_and_gas }
-
-    content_api_has_draft_and_live_tags(type: 'specialist_sector', live: sector_tags, draft: [distillation])
-  end
-
-  def stub_content_api_tags(document)
-    artefact_slug = RegisterableEdition.new(document).slug
-    tag_slugs = document.specialist_sectors.map(&:tag)
-
-    # These methods are located in gds_api_adapters
-    stubbed_artefact = artefact_for_slug_with_a_child_tags('specialist_sector', artefact_slug, tag_slugs)
-    content_api_has_an_artefact(artefact_slug, stubbed_artefact)
+    publishing_api_has_linkables(
+      [
+        {
+          'base_path' => '/topic/oil-and-gas/wells',
+          'internal_name' => 'Oil and Gas / Wells',
+          'publication_state' => 'published',
+        },
+        {
+          'base_path' => '/topic/oil-and-gas/fields',
+          'internal_name' => 'Oil and Gas / Fields',
+          'publication_state' => 'published',
+        },
+        {
+          'base_path' => '/topic/oil-and-gas/offshore',
+          'internal_name' => 'Oil and Gas / Offshore',
+          'publication_state' => 'published',
+        },
+        {
+          'base_path' => '/topic/oil-and-gas/distillation',
+          'internal_name' => 'Oil and Gas / Distillation',
+          'publication_state' => 'draft',
+        },
+      ],
+      document_type: 'topic'
+    )
   end
 
   def select_specialist_sectors_in_form

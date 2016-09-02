@@ -277,29 +277,8 @@ module Admin::EditionsHelper
     edition.unpublishing.unpublishing_reason_id == UnpublishingReason::Withdrawn.id ? 'withdrawal' : 'unpublishing'
   end
 
-  def specialist_sector_options_for_select(sectors)
-    sectors.map do |sector|
-      topics = sector.topics.map do |topic|
-        if topic.draft?
-          topic_title = "#{topic.title} (draft)"
-        else
-          topic_title = topic.title
-        end
-
-        ["#{sector.title}: #{topic_title}", topic.slug]
-      end
-
-      [sector.title, topics]
-    end
-  end
-
-  def specialist_sector_fields
-    capture do
-      yield(SpecialistSector.grouped_sector_topics)
-    end
-  rescue SpecialistSector::DataUnavailable
-    Rails.logger.warn("WARNING: Could not retrieve specialist sectors")
-    nil
+  def specialist_sector_options_for_select
+    @specialist_sector_options_for_select ||= LinkableTopics.new.topics
   end
 
   def show_similar_slugs_warning?(edition)

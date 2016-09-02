@@ -93,10 +93,6 @@ class ActiveSupport::TestCase
     Whitehall.send(:"#{service_name}=", original_service)
   end
 
-  def with_content_api(content_api, &block)
-    with_service(:content_api, content_api, &block)
-  end
-
   def routes_helper
     @routes_helper ||= Whitehall::UrlMaker.new
   end
@@ -189,6 +185,7 @@ class ActionController::TestCase
     # which is currently only used to render specialist sector links in the
     # header.
     stub_request(:get, %r{.*content-store.*/content/.*}).to_return(status: 404)
+    publishing_api_has_linkables([], document_type: 'topic')
   end
 
   def login_as(role_or_user)

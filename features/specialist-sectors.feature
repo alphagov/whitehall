@@ -3,7 +3,6 @@ Feature: Tagging content with specialist sectors
   As a departmental content editor
   I want to be able to tag my content to one or more specialist sectors
 
-  @real_content_api
   Scenario: writer can tag documents with specialist sectors
     Given I am a writer
     And there are some specialist sectors
