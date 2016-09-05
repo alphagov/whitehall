@@ -29,6 +29,40 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     refute corporate_information_page.valid?
   end
 
+  test 'should be invalid if it refers to the same document of another page' do
+    organisation = create(:organisation)
+    corporate_information_page = build(:corporate_information_page,
+                                       organisation: organisation,
+                                       corporate_information_page_type: CorporateInformationPageType::AboutUs,
+                                       state: 'published',
+                                       major_change_published_at: Time.zone.now)
+    corporate_information_page.save!
+
+    corporate_information_page2 = build(:corporate_information_page,
+                                       organisation: organisation,
+                                       corporate_information_page_type: CorporateInformationPageType::AboutUs)
+    refute corporate_information_page2.valid?
+
+    assert corporate_information_page2.errors.full_messages.include?("Another 'About' page was already published for this organisation")
+  end
+
+  test 'should be valid if it is a new draft of the same document' do
+    organisation = create(:organisation)
+    corporate_information_page = build(:corporate_information_page,
+                                       organisation: organisation,
+                                       corporate_information_page_type: CorporateInformationPageType::AboutUs,
+                                       state: 'published',
+                                       major_change_published_at: Time.zone.now)
+    corporate_information_page.save!
+
+    corporate_information_page2 = build(:corporate_information_page,
+                                       organisation: organisation,
+                                       corporate_information_page_type: CorporateInformationPageType::AboutUs,
+                                       document_id: corporate_information_page.document_id,
+                                       state: 'draft')
+    assert corporate_information_page2.valid?
+  end
+
   test 'should return search index data suitable for Rummageable' do
     organisation = create(:organisation)
     corporate_information_page = create(:corporate_information_page,
