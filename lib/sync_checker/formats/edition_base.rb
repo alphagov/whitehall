@@ -108,7 +108,8 @@ module SyncChecker
             end
           ),
           Checks::UnpublishedCheck.new(document),
-          Checks::TranslationsCheck.new(edition_expected_in_live.available_locales)
+          Checks::TranslationsCheck.new(edition_expected_in_live.available_locales),
+          Checks::TopicsCheck.new(edition_expected_in_live)
         ]
       end
 
