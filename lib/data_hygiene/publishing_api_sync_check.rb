@@ -160,9 +160,11 @@ module DataHygiene
       translation_locales_for(record).each do |locale|
         base_path_for_translation = base_path_for(record, locale: locale)
         content_item = content_store.content_item(base_path_for_translation)
-        return false if content_item.nil? || content_item["base_path"] != base_path_for_translation
+        return false if content_item["base_path"] != base_path_for_translation
       end
       true
+    rescue GdsApi::HTTPNotFound
+      false
     end
 
     def compare_content(response, whitehall_model, content_store)
