@@ -375,8 +375,6 @@ Whitehall::Application.routes.draw do
 
     get '/policy-topics' => redirect("/topics")
 
-    get 'site/sha' => 'site#sha'
-
     get '/placeholder' => 'placeholder#show', as: :placeholder
   end
 
