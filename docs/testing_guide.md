@@ -56,8 +56,3 @@ In absence of this generated template, shared mustache inlines mustache template
 on the page, which enables developers to see changes to mustache without compiling. If this generated
 template is checked-in, shared mustache uses this file instead of inlining templates. Hence, we don't
 check-in this file.
-
-## Specifying a different endpoint for the GDS Content API
-
-Whitehall uses the GDS Content API to serve categorisation for
-Detailed Guidance. In tests, this is stubbed out, see `config/initializers/content_api.rb`.
