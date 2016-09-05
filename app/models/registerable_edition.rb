@@ -1,3 +1,9 @@
+# RegisterableEdition is an object that `GdsApi::Panopticon::Registerer` uses
+# to generate a payload to send to panopticon.
+#
+# The reason we're still sending things to panopticon is to make them available
+# to link to as "related artefacts" and to make the need_ids available for
+# metadata-api via content-api.
 class RegisterableEdition
   attr_accessor :edition
 
@@ -60,27 +66,6 @@ class RegisterableEdition
 
   def need_ids
     edition.need_ids
-  end
-
-  # DID YOU MEAN: Topic?
-  # "Policy area" is the newer name for "topic"
-  # (https://www.gov.uk/government/topics)
-  # "Topic" is the newer name for "specialist sector"
-  # (https://www.gov.uk/topic)
-  def specialist_sectors
-    [edition.primary_specialist_sector_tag].compact + edition.secondary_specialist_sector_tags
-  end
-
-  def organisation_ids
-    registered_organisations.map(&:slug)
-  end
-
-  def registered_organisations
-    if edition.respond_to?(:organisations)
-      edition.organisations.reject {|organisation| organisation.is_a?(WorldwideOrganisation) }
-    else
-      []
-    end
   end
 
   def content_id
