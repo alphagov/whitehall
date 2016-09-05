@@ -725,8 +725,8 @@ BASE_PATHS = [
 
 BASE_PATHS.each do |base_path|
   begin
-    Whitehall.unified_search_client.delete_content! base_path
-  rescue GdsApi::HTTPNotFound => e 
+    Whitehall.search_client.delete_content! base_path
+  rescue GdsApi::HTTPNotFound => e
     puts "\n" + "="*25 + "\nURL not found error:\n#{e}"
   end
 end

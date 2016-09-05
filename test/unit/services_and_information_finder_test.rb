@@ -11,7 +11,7 @@ class ServicesAndInformationFinderTest < ActiveSupport::TestCase
     }
 
     finder = ServicesAndInformationFinder.new(organisation, search_client)
-    search_client.expects(:unified_search).with(expected_search_query)
+    search_client.expects(:search).with(expected_search_query)
 
     finder.find
   end

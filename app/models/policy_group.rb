@@ -10,7 +10,7 @@ class PolicyGroup < ActiveRecord::Base
   validates_with NoFootnotesInGovspeakValidator, attribute: :description
 
   def published_policies
-    Whitehall.unified_search_client.unified_search(
+    Whitehall.search_client.search(
       filter_policy_groups: [slug],
       filter_format: "policy",
       order: "-public_timestamp"

@@ -4,7 +4,7 @@ Whitehall.government_search_client = GdsApi::Rummager.new(
   Plek.find('search') + Whitehall.government_search_index_path
 )
 
-Whitehall.unified_search_client = GdsApi::Rummager.new(
+Whitehall.search_client = GdsApi::Rummager.new(
   Plek.find('search')
 )
 

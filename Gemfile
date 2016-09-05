@@ -55,7 +55,7 @@ gem 'deprecated_columns', '0.1.0'
 if ENV['GDS_API_ADAPTERS_DEV']
   gem 'gds-api-adapters', path: '../gds-api-adapters'
 else
-  gem 'gds-api-adapters', '~> 32.0.0'
+  gem 'gds-api-adapters', '~> 34.1.0'
 end
 
 if ENV['GLOBALIZE_DEV']
@@ -104,7 +104,7 @@ group :test do
   gem 'mocha', '1.1.0', require: false
   gem 'timecop'
   gem 'webmock', '~> 2.1', require: false
-  gem 'ci_reporter'
+  gem 'ci_reporter_minitest'
   gem 'database_cleaner', '1.4.0'
   gem 'test_track', '~> 0.1.0', github: 'alphagov/test_track', branch: 'master'
   gem 'govuk-content-schema-test-helpers', '1.4.0'
