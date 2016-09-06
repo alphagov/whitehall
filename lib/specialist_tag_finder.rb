@@ -48,5 +48,7 @@ private
     @edition_content_item ||= begin
       Whitehall.content_store.content_item(@edition_path)
     end
+  rescue GdsApi::HTTPNotFound
+    nil
   end
 end
