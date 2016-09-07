@@ -151,6 +151,20 @@ private
   def related_mainstream_found
     return unless related_mainstream_requested?
     fetch_related_mainstream_content_ids
+    add_errors_for_missing_related_mainstream
+    add_errors_for_missing_additional_related_mainstream
+  end
+
+  def add_errors_for_missing_related_mainstream
+    if @related_mainstream_content_ids.count >= 1
+      errors.add(:related_mainstream_content_url, "This mainstream content could not be found") if @related_mainstream_content_ids[0].nil?
+    end
+  end
+
+  def add_errors_for_missing_additional_related_mainstream
+    if @related_mainstream_content_ids.count > 1
+      errors.add(:additional_related_mainstream_content_url, "This mainstream content could not be found") if @related_mainstream_content_ids[1].nil?
+    end
   end
 
   def fetch_related_mainstream_content_ids

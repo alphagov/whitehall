@@ -143,6 +143,26 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert_equal ["9af50189-de1c-49af-a334-6b1d87b593a6", "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"], detailed_guide.related_mainstream_content_ids
   end
 
+
+  test 'related_mainstream_found raises two errors for two incorrect related mainstream paths' do
+    Whitehall.publishing_api_v2_client.stubs(:lookup_content_id).with(base_path: "/content-missing-from-publishing-api").returns(nil)
+    Whitehall.publishing_api_v2_client.stubs(:lookup_content_id).with(base_path: "/another-content-missing-from-publishing-api").returns(nil)
+
+    detailed_guide = build(
+      :detailed_guide,
+      related_mainstream_content_title: "A piece of content not in publishing API",
+      related_mainstream_content_url: "http://www.gov.uk/content-missing-from-publishing-api",  additional_related_mainstream_content_title: "Another piece of content not in publishing API",
+      additional_related_mainstream_content_url: "http://www.gov.uk/another-content-missing-from-publishing-api"
+    )
+
+    detailed_guide.send(:related_mainstream_found)
+
+    refute detailed_guide.valid?
+    assert_equal ["This mainstream content could not be found"], detailed_guide.errors[:related_mainstream_content_url]
+    assert_equal ["This mainstream content could not be found"], detailed_guide.errors[:additional_related_mainstream_content_url]
+    assert_equal [nil, nil], detailed_guide.related_mainstream_content_ids
+  end
+
   test 'should persist related mainstream content ids' do
     lookup_hash = {
       "/mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
