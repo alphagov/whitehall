@@ -23,6 +23,11 @@ class DetailedGuide < Edition
 
   validate :related_mainstream_content_valid?
   validate :additional_related_mainstream_content_valid?
+  validate :related_mainstream_found
+
+  after_save :persist_content_ids
+
+  attr_reader :content_ids, :related_mainstream_content_ids
 
   class HeadingHierarchyValidator < ActiveModel::Validator
     include GovspeakHelper
@@ -101,22 +106,6 @@ class DetailedGuide < Edition
     parse_base_path_from_related_mainstream_url(url)
   end
 
-  def related_mainstream
-    base_paths = []
-    base_paths.push(related_mainstream_base_path)
-    base_paths.push(additional_related_mainstream_base_path)
-    base_paths.compact!
-
-    if base_paths.any?
-      Whitehall.publishing_api_v2_client
-        .lookup_content_ids(base_paths: base_paths)
-        .values
-        .compact
-    else
-      []
-    end
-  end
-
   def government
     @government ||= Government.on_date(date_for_government) unless date_for_government.nil?
   end
@@ -157,6 +146,39 @@ private
     if additional_related_mainstream_content_url.present? && additional_related_mainstream_content_title.blank?
       errors.add(:additional_related_mainstream_content_title, "cannot be blank if an additional related URL is given")
     end
+  end
+
+  def related_mainstream_found
+    return unless related_mainstream_requested?
+    fetch_related_mainstream_content_ids
+  end
+
+  def fetch_related_mainstream_content_ids
+    base_paths = [related_mainstream_base_path, additional_related_mainstream_base_path].compact
+    if base_paths.any?
+      @content_ids ||= lookup_content_ids(base_paths)
+    else
+      @related_mainstream_content_ids ||= []
+    end
+  end
+
+  def lookup_content_ids(base_paths)
+    @content_ids = []
+    base_paths.each do |base_path|
+      content_id = Whitehall.publishing_api_v2_client.lookup_content_id(base_path: base_path)
+      @related_mainstream_content_ids << content_id
+    end
+    @content_ids
+  end
+
+  def related_mainstream_requested?
+    related_mainstream_content_url.present? || additional_related_mainstream_content_url.present?
+  end
+
+  def persist_content_ids
+    return if @related_mainstream_content_ids.nil? || @related_mainstream_content_ids.compact.empty?
+    RelatedMainstream.find_or_create_by!(edition_id: self.id, content_id: @related_mainstream_content_ids[0])
+    RelatedMainstream.find_or_create_by!(edition_id: self.id, content_id: @related_mainstream_content_ids[1], additional: true) if @related_mainstream_content_ids[1].present?
   end
 
   def self.format_name

@@ -122,33 +122,64 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert_equal detailed_guide.related_detailed_guide_content_ids, [some_detailed_guide.content_id]
   end
 
-  test 'related_mainstream works correctly' do
+  test 'related_mainstream_found works correctly for two correct related mainstream paths' do
     lookup_hash = {
-      "/guidance/lorem" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312",
-      "/guidance/ipsum" => "9af50189-de1c-49af-a334-6b1d87b593a6"
+      "/mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
+      "/another-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"
+    }
+
+    publishing_api_has_lookups(lookup_hash)
+
+    detailed_guide = build(
+      :detailed_guide,
+      related_mainstream_content_title: "A mainstream content",
+      related_mainstream_content_url: "http://www.gov.uk/mainstream-content",
+      additional_related_mainstream_content_title: "Another mainstream content",
+      additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content"
+    )
+
+    detailed_guide.send(:related_mainstream_found)
+
+    assert_equal ["9af50189-de1c-49af-a334-6b1d87b593a6", "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"], detailed_guide.related_mainstream_content_ids
+  end
+
+  test 'should persist related mainstream content ids' do
+    lookup_hash = {
+      "/mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
+      "/another-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"
     }
 
     publishing_api_has_lookups(lookup_hash)
 
     detailed_guide = create(
       :detailed_guide,
-      title: "Some detailed guide",
-      summary: "Some summary",
-      body: "Some content",
-      related_mainstream_content_title: "Lorem",
-      related_mainstream_content_url: "http://www.gov.uk/guidance/lorem",
-      additional_related_mainstream_content_title: "Ipsum",
-      additional_related_mainstream_content_url: "http://www.gov.uk/guidance/ipsum",
+      related_mainstream_content_title: "A mainstream content",
+      related_mainstream_content_url: "http://www.gov.uk/mainstream-content",
+      additional_related_mainstream_content_title: "Another mainstream content",
+      additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content"
     )
 
-    related_mainstream_ids = detailed_guide.related_mainstream
+    assert_equal 2, RelatedMainstream.count
+  end
 
-    expected_ids = [
-      "9dd9e077-ae45-45f6-ad9d-2a484e5ff312",
-      "9af50189-de1c-49af-a334-6b1d87b593a6"
-    ]
+  test 'should not persist related mainstream content ids if edition isn\'t valid' do
+    lookup_hash = {
+      "/mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
+      "/another-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"
+    }
 
-    # Links can come in any order, so we sort to make sure the set is the same.
-    assert_equal related_mainstream_ids.sort, expected_ids.sort
+    publishing_api_has_lookups(lookup_hash)
+
+    invalid_detailed_guide = build(
+      :detailed_guide,
+      title: nil,
+      related_mainstream_content_title: "A mainstream content",
+      related_mainstream_content_url: "http://www.gov.uk/mainstream-content",
+      additional_related_mainstream_content_title: "Another mainstream content",
+      additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content"
+    )
+    invalid_detailed_guide.send(:related_mainstream_found)
+
+    assert_equal 0, RelatedMainstream.count
   end
 end
