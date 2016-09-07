@@ -101,10 +101,10 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     assert_equal links[:parent], %w(content_id_1)
   end
 
-  test 'DetailedGuide presents related_mainstream and related_mainstream_content' do
+  test 'DetailedGuide presents related mainstream in links and details' do
     lookup_hash = {
-      "/guidance/lorem" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312",
-      "/guidance/ipsum" => "9af50189-de1c-49af-a334-6b1d87b593a6"
+      "/mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312",
+      "/another-mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6"
     }
 
     publishing_api_has_lookups(lookup_hash)
@@ -114,25 +114,18 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
       title: "Some detailed guide",
       summary: "Some summary",
       body: "Some content",
-      related_mainstream_content_title: "Lorem",
-      related_mainstream_content_url: "http://www.gov.uk/guidance/lorem",
-      additional_related_mainstream_content_title: "Ipsum",
-      additional_related_mainstream_content_url: "http://www.gov.uk/guidance/ipsum",
+      related_mainstream_content_title: "Mainstream content",
+      related_mainstream_content_url: "http://www.gov.uk/mainstream-content",
+      additional_related_mainstream_content_title: "Related mainstream content",
+      additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content",
     )
 
     presented_item = present(detailed_guide)
     links = presented_item.links
     details = presented_item.content[:details]
-    expected_ids = [
-      "9dd9e077-ae45-45f6-ad9d-2a484e5ff312",
-      "9af50189-de1c-49af-a334-6b1d87b593a6"
-    ]
 
-    # Links can come in any order, so we sort to make sure the set is the same.
-    assert_equal expected_ids.sort, links[:related_mainstream].sort
-
-    # Details should respect the specified order.
-    assert_equal expected_ids, details[:related_mainstream_content]
+    assert_equal ["9dd9e077-ae45-45f6-ad9d-2a484e5ff312", "9af50189-de1c-49af-a334-6b1d87b593a6"], details[:related_mainstream_content]
+    assert_equal ["9dd9e077-ae45-45f6-ad9d-2a484e5ff312", "9af50189-de1c-49af-a334-6b1d87b593a6"].sort!, links[:related_mainstream].sort!
   end
 
   test 'DetailedGuide presents related_mainstream with dodgy data' do
@@ -154,29 +147,6 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     presented_item = present(detailed_guide)
     links = presented_item.links
     expected_ids = ["cd7fde45-5f79-4982-8939-cedc4bed161c"]
-
-    assert_equal expected_ids.sort, links[:related_mainstream].sort
-  end
-
-  test 'DetailedGuide does not present related_mainstream with invalid data' do
-    lookup_hash = {}
-    publishing_api_has_lookups(lookup_hash)
-
-    create(:government)
-    detailed_guide = create(
-      :detailed_guide,
-      title: "Some detailed guide",
-      summary: "Some summary",
-      body: "Some content",
-      related_mainstream_content_title: "Lorem",
-      related_mainstream_content_url: "http://www.gov.uk/guidance/lorem",
-      additional_related_mainstream_content_title: "Ipsum",
-      additional_related_mainstream_content_url: "http://www.whatever.uk/guidance/ipsum",
-    )
-
-    presented_item = present(detailed_guide)
-    links = presented_item.links
-    expected_ids = []
 
     assert_equal expected_ids.sort, links[:related_mainstream].sort
   end

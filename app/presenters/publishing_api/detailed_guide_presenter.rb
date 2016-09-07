@@ -39,7 +39,7 @@ module PublishingApi
         ]
       ).merge(
         related_guides: item.related_detailed_guide_content_ids,
-        related_mainstream: item.related_mainstream
+        related_mainstream: item.related_mainstream_content_ids
       )
     end
 
@@ -56,7 +56,7 @@ module PublishingApi
         change_history: item.change_history.as_json,
         emphasised_organisations: item.lead_organisations.map(&:content_id),
         first_public_at: first_public_at,
-        related_mainstream_content: item.related_mainstream,
+        related_mainstream_content: item.related_mainstream_content_ids,
       }
       details_hash = maybe_add_national_applicability(details_hash)
       details_hash.merge!(PayloadBuilder::PoliticalDetails.for(item))
