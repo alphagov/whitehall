@@ -130,7 +130,7 @@ module SyncChecker
       end
 
       def expected_details_hash(edition)
-        {
+        expected_details = {
           body: Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(edition),
           change_history: edition.change_history.as_json,
           emphasised_organisations: edition.lead_organisations.map(&:content_id),
@@ -138,6 +138,13 @@ module SyncChecker
           political: edition.political?,
           government: expected_government_value(edition)
         }
+        expected_details.tap do |details_hash|
+          details_hash.merge(
+            {
+              national_applicability: edition.national_applicability
+            }
+          ) if edition.nation_inapplicabilities.any?
+        end
       end
 
     private
