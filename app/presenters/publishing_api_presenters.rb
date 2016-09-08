@@ -24,11 +24,7 @@ private
     when ::TopicalEvent
       PublishingApi::TopicalEventPresenter
     when ::StatisticsAnnouncement
-      if model.requires_redirect?
-        PublishingApi::StatisticsAnnouncementRedirectPresenter
-      else
-        PublishingApi::StatisticsAnnouncementPresenter
-      end
+      PublishingApi::StatisticsAnnouncementPresenter
     when ::HtmlAttachment
       PublishingApi::HtmlAttachmentPresenter
     when ::Person

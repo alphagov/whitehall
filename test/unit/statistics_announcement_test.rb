@@ -104,20 +104,6 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     announcement.update!(publishing_state: "unpublished", redirect_url: "https://www.test.alphagov.co.uk/foo")
   end
 
-  test 'a redirect item is published to Publishing API after being unpublished' do
-    test_uuid = SecureRandom.uuid
-    SecureRandom.stubs(uuid: test_uuid)
-    announcement = create(:statistics_announcement)
-
-    Whitehall.publishing_api_v2_client.expects(:put_content).with do |content_id, payload|
-      content_id == test_uuid && payload[:format] == "redirect"
-    end
-    Whitehall.publishing_api_v2_client.expects(:patch_links)
-    Whitehall.publishing_api_v2_client.expects(:publish)
-
-    announcement.update!(publishing_state: "unpublished", redirect_url: 'https://www.test.alphagov.co.uk/foo')
-  end
-
   test 'only valid when associated publication is of a matching type' do
     statistics          = create(:draft_statistics)
     national_statistics = create(:draft_national_statistics)
