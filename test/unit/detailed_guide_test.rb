@@ -140,7 +140,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
 
     detailed_guide.send(:related_mainstream_found)
 
-    assert_equal ["9af50189-de1c-49af-a334-6b1d87b593a6", "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"], detailed_guide.related_mainstream_content_ids
+    assert_equal ["9af50189-de1c-49af-a334-6b1d87b593a6", "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"], detailed_guide.content_ids
   end
 
 
@@ -160,7 +160,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
     refute detailed_guide.valid?
     assert_equal ["This mainstream content could not be found"], detailed_guide.errors[:related_mainstream_content_url]
     assert_equal ["This mainstream content could not be found"], detailed_guide.errors[:additional_related_mainstream_content_url]
-    assert_equal [nil, nil], detailed_guide.related_mainstream_content_ids
+    assert_equal [nil, nil], detailed_guide.content_ids
   end
 
   test 'should persist related mainstream content ids' do
@@ -201,5 +201,24 @@ class DetailedGuideTest < ActiveSupport::TestCase
     invalid_detailed_guide.send(:related_mainstream_found)
 
     assert_equal 0, RelatedMainstream.count
+  end
+
+  test '#related_mainstream_content_ids should return the content_ids of associated RelatedMainstream records' do
+    lookup_hash = {
+      "/mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
+      "/another-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"
+    }
+
+    publishing_api_has_lookups(lookup_hash)
+
+    detailed_guide = create(
+      :detailed_guide,
+      related_mainstream_content_title: "A mainstream content",
+      related_mainstream_content_url: "http://www.gov.uk/mainstream-content",
+      additional_related_mainstream_content_title: "Another mainstream content",
+      additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content"
+    )
+
+    assert_equal ["9af50189-de1c-49af-a334-6b1d87b593a6", "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"], detailed_guide.related_mainstream_content_ids
   end
 end

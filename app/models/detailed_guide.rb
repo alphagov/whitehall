@@ -106,6 +106,10 @@ class DetailedGuide < Edition
     parse_base_path_from_related_mainstream_url(url)
   end
 
+  def related_mainstream_content_ids
+    RelatedMainstream.where(edition_id: self.id).pluck(:content_id)
+  end
+
   def government
     @government ||= Government.on_date(date_for_government) unless date_for_government.nil?
   end
@@ -156,14 +160,14 @@ private
   end
 
   def add_errors_for_missing_related_mainstream
-    if @related_mainstream_content_ids.count >= 1
-      errors.add(:related_mainstream_content_url, "This mainstream content could not be found") if @related_mainstream_content_ids[0].nil?
+    if @content_ids.count >= 1
+      errors.add(:related_mainstream_content_url, "This mainstream content could not be found") if @content_ids[0].nil?
     end
   end
 
   def add_errors_for_missing_additional_related_mainstream
-    if @related_mainstream_content_ids.count > 1
-      errors.add(:additional_related_mainstream_content_url, "This mainstream content could not be found") if @related_mainstream_content_ids[1].nil?
+    if @content_ids.count > 1
+      errors.add(:additional_related_mainstream_content_url, "This mainstream content could not be found") if @content_ids[1].nil?
     end
   end
 
@@ -172,7 +176,7 @@ private
     if base_paths.any?
       @content_ids ||= lookup_content_ids(base_paths)
     else
-      @related_mainstream_content_ids ||= []
+      @content_ids ||= []
     end
   end
 
@@ -180,7 +184,7 @@ private
     @content_ids = []
     base_paths.each do |base_path|
       content_id = Whitehall.publishing_api_v2_client.lookup_content_id(base_path: base_path)
-      @related_mainstream_content_ids << content_id
+      @content_ids << content_id
     end
     @content_ids
   end
@@ -190,9 +194,9 @@ private
   end
 
   def persist_content_ids
-    return if @related_mainstream_content_ids.nil? || @related_mainstream_content_ids.compact.empty?
-    RelatedMainstream.find_or_create_by!(edition_id: self.id, content_id: @related_mainstream_content_ids[0])
-    RelatedMainstream.find_or_create_by!(edition_id: self.id, content_id: @related_mainstream_content_ids[1], additional: true) if @related_mainstream_content_ids[1].present?
+    return if @content_ids.nil? || @content_ids.compact.empty?
+    RelatedMainstream.find_or_create_by!(edition_id: self.id, content_id: @content_ids[0])
+    RelatedMainstream.find_or_create_by!(edition_id: self.id, content_id: @content_ids[1], additional: true) if @content_ids[1].present?
   end
 
   def self.format_name
