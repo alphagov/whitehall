@@ -19,7 +19,7 @@ module SyncChecker
       end
 
       def document_type
-        "detailed_guidance"
+        "detailed_guide"
       end
     end
   end
