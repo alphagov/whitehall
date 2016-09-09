@@ -10,21 +10,28 @@ def validate_url_content_id(url)
   content_id
 end
 
+
 def write_detailed_guide_to_file(id, url)
-  File.open("detailed_guide_items_found", "a+") do |f|
+  File.open("improve_mainstream_content.detailed_guide_items_found", "a+") do |f|
     f.write "#{id}, #{url}\n"
   end
 end
 
 def write_content_items_not_found_to_file(id, url)
-  File.open("content_items_not_found", "a+") do |f|
+  File.open("improve_mainstream_content.content_items_not_found", "a+") do |f|
     f.write "#{id}, #{url}\n"
   end
 end
 
 def write_updated_items_to_file(id, old_url, updated_url)
-  File.open("related_content_found", "a+") do |f|
+  File.open("improve_mainstream_content.related_content_found_and_updated", "a+") do |f|
     f.write "#{id}, #{old_url}, #{updated_url}\n"
+  end
+end
+
+def write_items_that_dont_need_updating(id, old_url, content_id)
+  File.open("improve_mainstream_content.original_url_already_perfect", "a+") do |f|
+    f.write "#{id}, #{content_id}, #{old_url}\n"
   end
 end
 
@@ -48,9 +55,13 @@ def clean_the_url(url)
   clean_url
 end
 
-File.truncate("content_items_not_found", 0)
-File.truncate("related_content_found", 0)
-# File.truncate("detailed_guide_items_found", 0)
+files = %w(improve_mainstream_content.original_url_already_perfect
+          improve_mainstream_content.content_items_not_found
+          improve_mainstream_content.detailed_guide_items_found
+          original_url_already_perfect.related_content_found_and_updated)
+files.each do |f|
+  File.delete(f) if File.exists?(f)
+end
 
 related_mainstream_content_urls = DetailedGuide.select(
                                     :id,
@@ -62,8 +73,7 @@ related_mainstream_content_urls = DetailedGuide.select(
                                   ])
 n = 0
 related_mainstream_content_urls.each do |detailed_guide|
-  n += 1
-  p "#{detailed_guide[:id]} #{n}/#{related_mainstream_content_urls.length}"
+  p "#{detailed_guide[:id]} #{n += 1}/#{related_mainstream_content_urls.length}"
   next if detailed_guide?(detailed_guide[:id], detailed_guide[:related_mainstream_content_url])
   content_id =  validate_url_content_id(detailed_guide[:related_mainstream_content_url])
   if content_id.nil?
@@ -71,7 +81,7 @@ related_mainstream_content_urls.each do |detailed_guide|
     content_id = validate_url_content_id(chopped_url) if chopped_url
     update_mainstream_url(detailed_guide[:id], chopped_url) if !content_id.nil?
   else
-    update_mainstream_url(detailed_guide[:id], detailed_guide[:related_mainstream_content_url]) if !content_id.nil?
+    write_items_that_dont_need_updating(detailed_guide[:id], content_id, detailed_guide[:related_mainstream_content_url])
   end
   write_content_items_not_found_to_file(detailed_guide[:id], detailed_guide[:related_mainstream_content_url]) if content_id.nil?
 end
