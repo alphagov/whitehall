@@ -10,7 +10,7 @@ module Whitehall
       end
 
       def call
-        send(event) if respond_to?(event)
+        send(event) if respond_to?(event) && edition.respond_to?(:html_attachments)
       end
 
       def publish
@@ -21,6 +21,7 @@ module Whitehall
           api.publish_redirect_async(content_id, edition.search_link)
         end
       end
+      alias :force_publish :publish
 
     private
 

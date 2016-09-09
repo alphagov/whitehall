@@ -10,6 +10,11 @@ module Whitehall
       end
 
       class Publish < HtmlAttachmentPusherTest
+        test "for something that can't have html attachments" do
+          Whitehall::PublishingApi.expects(:publish_async).never
+          call(build(:person))
+        end
+
         test "with no html attachments" do
           publication = create(:published_publication, :with_external_attachment)
           Whitehall::PublishingApi.expects(:publish_async).never
