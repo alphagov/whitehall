@@ -93,21 +93,6 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     )
   end
 
-  test "it redirects when unpublished" do
-    statistics_announcement = create(:statistics_announcement)
-    new_content_id = SecureRandom.uuid
-    SecureRandom.stubs(:uuid).returns(new_content_id)
-    statistics_announcement.update_attributes!(publishing_state: "unpublished",
-                                               redirect_url: "https://www.test.alphagov.co.uk/example")
-
-    expected = PublishingApi::StatisticsAnnouncementRedirectPresenter.new(statistics_announcement).content
-
-    assert_publishing_api_put_content(new_content_id,
-                                      expected)
-    assert_publishing_api_publish(new_content_id,
-                                  { update_type: "major", locale: "en" }, 1)
-  end
-
   test "it deletes the publish intent when unpublished" do
     statistics_announcement = create(:statistics_announcement)
     statistics_announcement.update_attributes!(publishing_state: "unpublished",
@@ -185,24 +170,15 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     )
   end
 
-  test "a redirect is published if saved when its associated Publication has
-    been published" do
-    published_statistics = create(:published_statistics)
-    statistics_announcement = build(
-      :statistics_announcement,
-      publication: published_statistics
-    )
+  test "it is redirected to its associated publication when the publication is published" do
+    statistics = create(:draft_statistics)
+    statistics_announcement = create(:statistics_announcement, publication: statistics)
 
-    new_content_id = SecureRandom.uuid
-    SecureRandom.stubs(:uuid).returns(new_content_id)
+    stub_panopticon_registration(statistics)
 
-    statistics_announcement.save!
+    Whitehall::PublishingApi.expects(:publish_redirect_async)
+      .with(statistics_announcement.content_id, "/government/statistics/#{statistics.slug}")
 
-    expected = PublishingApi::StatisticsAnnouncementRedirectPresenter.new(statistics_announcement).content
-
-    assert_publishing_api_put_content(new_content_id,
-                                      expected)
-    assert_publishing_api_publish(new_content_id,
-                                  { update_type: "major", locale: "en" }, 3)
+    Whitehall.edition_services.force_publisher(statistics).perform!
   end
 end

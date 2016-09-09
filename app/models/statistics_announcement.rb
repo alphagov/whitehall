@@ -15,6 +15,10 @@ class StatisticsAnnouncement < ActiveRecord::Base
   friendly_id :title
   include PublishesToPublishingApi
 
+  def can_publish_to_publishing_api?
+    super && !publication_has_been_published?
+  end
+
   belongs_to :creator, class_name: 'User'
   belongs_to :cancelled_by, class_name: 'User'
   belongs_to :publication
@@ -83,6 +87,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
   delegate  :release_date, :display_date, :confirmed?,
               to: :current_release_date, allow_nil: true
 
+  after_touch :publish_redirect, if: :publication_has_been_published?
   set_callback :published, :after, :notify_search, :update_publish_intent
 
   def notify_search
@@ -200,6 +205,10 @@ private
     publication && publication.published?
   end
 
+  def publication_url
+    Whitehall.url_maker.public_document_path(publication)
+  end
+
   def last_major_change
     statistics_announcement_dates.
       where('change_note IS NOT NULL && change_note != ?', '').
@@ -223,5 +232,9 @@ private
         errors.add(:redirect_url, "cannot redirect to itself")
       end
     end
+  end
+
+  def publish_redirect
+    Whitehall::PublishingApi.publish_redirect_async(content_id, publication_url)
   end
 end

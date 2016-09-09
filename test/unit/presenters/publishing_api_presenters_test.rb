@@ -29,15 +29,6 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     assert_equal PublishingApi::StatisticsAnnouncementPresenter, presenter.class
   end
 
-  test ".presenter_for returns a redirect presenter for a
-    Statistics Announcement that requires a redirect" do
-    statistics_announcement = build(:statistics_announcement_requiring_redirect)
-
-    presenter = PublishingApiPresenters.presenter_for(statistics_announcement)
-
-    assert_equal PublishingApi::StatisticsAnnouncementRedirectPresenter, presenter.class
-  end
-
   test ".presenter_for returns a Generic Edition presenter for all models without a presenter class" do
     assert_equal PublishingApi::GenericEditionPresenter,
       PublishingApiPresenters.presenter_for(GenericEdition.new).class
