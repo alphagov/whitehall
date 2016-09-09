@@ -19,7 +19,7 @@ module PublishingApi
       content.merge!(
         description: item.summary,
         details: details,
-        document_type: item.display_type_key,
+        document_type: "detailed_guide",
         public_updated_at: item.public_timestamp || item.updated_at,
         rendering_app: item.rendering_app,
         schema_name: "detailed_guide",
