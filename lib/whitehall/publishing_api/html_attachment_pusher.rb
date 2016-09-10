@@ -50,6 +50,16 @@ module Whitehall
         end
       end
 
+      def withdraw
+        current_html_attachments.each do |html_attachment|
+          api.publish_withdrawal_async(
+            html_attachment.content_id,
+            edition.unpublishing.explanation,
+            edition.primary_locale
+          )
+        end
+      end
+
     private
 
       def previous_edition

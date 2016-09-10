@@ -198,6 +198,30 @@ module Whitehall
           )
           call(publication)
         end
+
+        class Withdraw < HtmlAttachmentPusherTest
+          test "for something that can't have html attachments" do
+            Whitehall::PublishingApi.expects(:publish_withdrawal_async).never
+            call(build(:person))
+          end
+
+          test "for a publication with no html attachments" do
+            publication = create(:withdrawn_publication, :with_external_attachment)
+            Whitehall::PublishingApi.expects(:publish_withdrawal_async).never
+            call(publication)
+          end
+
+          test "for a publication that has been withdrawn" do
+            publication = create(:withdrawn_publication)
+            attachment = publication.html_attachments.first
+            Whitehall::PublishingApi.expects(:publish_withdrawal_async).with(
+              attachment.content_id,
+              "content was withdrawn",
+              "en"
+            )
+            call(publication)
+          end
+        end
       end
     end
   end
