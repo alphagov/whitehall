@@ -156,6 +156,49 @@ module Whitehall
           call(new_edition)
         end
       end
+
+      class Unpublish < HtmlAttachmentPusherTest
+        test "for something that can't have html attachments" do
+          Whitehall::PublishingApi.expects(:publish_redirect_async).never
+          call(build(:person))
+        end
+
+        test "for a publication with no html attachments" do
+          publication = create(:published_publication, :with_external_attachment)
+          Whitehall::PublishingApi.expects(:publish_redirect_async).never
+          call(publication)
+        end
+
+        test "for a publication that has been consolidated" do
+          publication = create(:unpublished_publication_consolidated)
+          attachment = publication.html_attachments.first
+          Whitehall::PublishingApi.expects(:publish_redirect_async).with(
+            attachment.content_id,
+            '/government/another/page'
+          )
+          call(publication)
+        end
+
+        test "for a publication that has been unpublished with a redirect" do
+          publication = create(:unpublished_publication_in_error_redirect)
+          attachment = publication.html_attachments.first
+          Whitehall::PublishingApi.expects(:publish_redirect_async).with(
+            attachment.content_id,
+            '/government/another/page'
+          )
+          call(publication)
+        end
+
+        test "for a publication that has been unpublished without a redirect" do
+          publication = create(:unpublished_publication_in_error_no_redirect)
+          attachment = publication.html_attachments.first
+          Whitehall::PublishingApi.expects(:publish_redirect_async).with(
+            attachment.content_id,
+            publication.search_link
+          )
+          call(publication)
+        end
+      end
     end
   end
 end

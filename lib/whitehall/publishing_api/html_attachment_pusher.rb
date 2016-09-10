@@ -18,7 +18,10 @@ module Whitehall
           api.publish_async(html_attachment)
         end
         content_ids_to_remove.each do |content_id|
-          api.publish_redirect_async(content_id, edition.search_link)
+          api.publish_redirect_async(
+            content_id,
+            Whitehall.url_maker.public_document_path(edition)
+          )
         end
       end
       alias :force_publish :publish
@@ -31,6 +34,21 @@ module Whitehall
       # we don't care whether this is a translation or the main document, we just send the
       # correct html attachments regardless.
       alias :update_draft_translation :update_draft
+
+      def unpublish
+        unpublishing = edition.unpublishing
+        return if unpublishing.nil?
+
+        destination = if unpublishing.redirect?
+                        Addressable::URI.parse(unpublishing.alternative_url).path
+                      else
+                        Whitehall.url_maker.public_document_path(edition)
+                      end
+
+        current_html_attachments.each do |html_attachment|
+          api.publish_redirect_async(html_attachment.content_id, destination)
+        end
+      end
 
     private
 
