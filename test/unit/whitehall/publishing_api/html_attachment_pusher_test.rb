@@ -4,6 +4,11 @@ require 'whitehall/publishing_api/html_attachment_pusher'
 module Whitehall
   class PublishingApi
     class HtmlAttachmentPusherTest < ActiveSupport::TestCase
+      setup do
+        # Assert we don't make calls other than those we specify in tests
+        WebMock.reset!
+      end
+
       def call(edition)
         event = self.class.name.demodulize.underscore
         HtmlAttachmentPusher.new(edition: edition, event: event).call
@@ -94,6 +99,59 @@ module Whitehall
             old_attachment.content_id,
             new_edition.search_link
           )
+
+          call(new_edition)
+        end
+      end
+
+      class UpdateDraft < HtmlAttachmentPusherTest
+        test "for something that can't have html attachments" do
+          Whitehall::PublishingApi.expects(:save_draft_async).never
+          call(build(:person))
+        end
+
+        test "with no html attachments" do
+          publication = create(:published_publication, :with_external_attachment)
+          Whitehall::PublishingApi.expects(:save_draft_async).never
+          call(publication)
+        end
+
+        test "with an html attachment on a new document" do
+          publication = create(:draft_publication)
+          attachment = publication.html_attachments.first
+          Whitehall::PublishingApi.expects(:save_draft_async).with(attachment)
+          call(publication)
+        end
+
+        test "with an html attachment on all versions of a document" do
+          publication = create(:published_publication)
+          new_edition = publication.create_draft(create(:writer))
+
+          attachment = new_edition.html_attachments.first
+          Whitehall::PublishingApi.expects(:save_draft_async).with(attachment)
+
+          call(new_edition)
+        end
+
+        test "with an html attachment on the old version of a document" do
+          publication = create(:published_publication)
+
+          new_edition = publication.create_draft(create(:writer))
+          new_edition.attachments = [build(:external_attachment)]
+
+          Whitehall::PublishingApi.expects(:save_draft_async).never
+
+          call(new_edition)
+        end
+
+        test "with different html attachments on each version of a document" do
+          publication = create(:published_publication)
+
+          new_edition = publication.create_draft(create(:writer))
+          new_edition.attachments = [build(:html_attachment)]
+
+          new_attachment = new_edition.html_attachments.first
+          Whitehall::PublishingApi.expects(:save_draft_async).with(new_attachment)
 
           call(new_edition)
         end

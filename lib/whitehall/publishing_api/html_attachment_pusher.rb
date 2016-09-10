@@ -23,6 +23,15 @@ module Whitehall
       end
       alias :force_publish :publish
 
+      def update_draft
+        current_html_attachments.each do |html_attachment|
+          api.save_draft_async(html_attachment)
+        end
+      end
+      # we don't care whether this is a translation or the main document, we just send the
+      # correct html attachments regardless.
+      alias :update_draft_translation :update_draft
+
     private
 
       def previous_edition
