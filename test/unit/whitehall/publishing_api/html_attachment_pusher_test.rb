@@ -222,6 +222,29 @@ module Whitehall
             call(publication)
           end
         end
+
+        class Delete < HtmlAttachmentPusherTest
+          test "for something that can't have html attachments" do
+            PublishingApiDiscardDraftWorker.expects(:perform_async).never
+            call(build(:person))
+          end
+
+          test "for a draft publication with no html attachments" do
+            publication = create(:draft_publication, :with_external_attachment)
+            PublishingApiDiscardDraftWorker.expects(:perform_async).never
+            call(publication)
+          end
+
+          test "for a draft publication with html attachments" do
+            publication = create(:draft_publication)
+            attachment = publication.html_attachments.first
+            PublishingApiDiscardDraftWorker.expects(:perform_async).with(
+              attachment.content_id,
+              "en"
+            )
+            call(publication)
+          end
+        end
       end
     end
   end

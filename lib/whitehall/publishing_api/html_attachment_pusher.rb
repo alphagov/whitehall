@@ -60,6 +60,15 @@ module Whitehall
         end
       end
 
+      def delete
+        current_html_attachments.each do |html_attachment|
+          PublishingApiDiscardDraftWorker.perform_async(
+            html_attachment.content_id,
+            edition.primary_locale
+          )
+        end
+      end
+
     private
 
       def previous_edition
