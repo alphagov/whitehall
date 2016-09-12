@@ -221,4 +221,28 @@ class DetailedGuideTest < ActiveSupport::TestCase
 
     assert_equal ["9af50189-de1c-49af-a334-6b1d87b593a6", "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"], detailed_guide.related_mainstream_content_ids
   end
+
+  test 'if related_mainstream_content_url gets updated, #persist_content_ids should update existing RelatedMainstream records' do
+    lookup_hash = {
+      "/mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
+      "/new-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"
+    }
+
+    publishing_api_has_lookups(lookup_hash)
+
+    create(
+      :detailed_guide,
+      related_mainstream_content_title: "A mainstream content",
+      related_mainstream_content_url: "http://www.gov.uk/mainstream-content"
+    )
+
+    detailed_guide = DetailedGuide.last
+    #we want to mimic the behaviour of creating a detailed guide, then editing it. This clears the @content_ids array as it would do on a new page load.
+
+    detailed_guide.related_mainstream_content_url = "http://www.gov.uk/new-mainstream-content"
+    detailed_guide.save
+
+    assert_equal 1, detailed_guide.related_mainstream_content_ids.count
+    assert_equal ["9dd9e077-ae45-45f6-ad9d-2a484e5ff312"], detailed_guide.related_mainstream_content_ids
+  end
 end
