@@ -37,8 +37,9 @@ def update_additional_related_mainstream_url(id, clean_url)
 end
 
 def clean_the_url(url)
-  clean_url = url[/(https:\/\/www.gov.uk\/)([^\/]*)\//]
+  clean_url = url[/(http(s?):\/\/www.gov.uk\/)([^\/]*)/]
   if !clean_url.nil?
+    clean_url.insert(4, 's') if clean_url.start_with?('http://')
     clean_url = clean_url.chop if clean_url[-1] == "/"
   end
   clean_url
