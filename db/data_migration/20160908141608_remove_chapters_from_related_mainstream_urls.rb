@@ -29,6 +29,13 @@ def update_mainstream_url(id, clean_url)
   write_to_file("related_mainstream_content.related_content_found_and_updated", [id, incorrect_url, clean_url])
 end
 
+def update_additional_related_mainstream_url(id, clean_url)
+  detailed_guide = DetailedGuide.find(id)
+  incorrect_url = detailed_guide.additional_related_mainstream_content_url
+  #detailed_guide.update_attribute(:additional_related_mainstream_content_url, clean_url)
+  write_to_file("related_mainstream_content.related_content_found_and_updated", [id, incorrect_url, clean_url])
+end
+
 def clean_the_url(url)
   clean_url = url[/(https:\/\/www.gov.uk\/)(.*)\//]
   if !clean_url.nil?
@@ -68,34 +75,36 @@ related_mainstream_content_urls.each do |detailed_guide|
   write_to_file("related_mainstream_content.content_items_not_found", [detailed_guide[:id], detailed_guide[:related_mainstream_content_url]]) if content_id.nil?
 end
 
+# add some space to the files before additional related mainstream content
+files.each do |file|
+  write_to_file(file, ["\n--------------------------------\n"])
+end
 
-# additional_related_mainstream_content_urls = DetailedGuide.select(
-#                                     :id,
-#                                     :additional_related_mainstream_content_url
-#                                   ).where([
-#                                     "additional_related_mainstream_content_url IS NOT NULL
-#                                     AND additional_related_mainstream_content_url != ''"
-#                                   ])
-# n = 0
-# additional_related_mainstream_content_urls.each do |detailed_guide|
-#   id = detailed_guide.id
-#   url = detailed_guide.additional_related_mainstream_content_url
-#
-#   next if detailed_guide?(id, url)
-# end
+p "---"
+p "Additional related mainstream content"
+p "---"
 
+additional_related_mainstream_content_urls = DetailedGuide.select(
+                                    :id,
+                                    :additional_related_mainstream_content_url
+                                  ).where([
+                                    "additional_related_mainstream_content_url IS NOT NULL
+                                    AND additional_related_mainstream_content_url != ''"
+                                  ])
+n = 0
+additional_related_mainstream_content_urls.each do |detailed_guide|
+  detailed_guide_id = detailed_guide.id
+  additional_related_mainstream_content_url = detailed_guide.additional_related_mainstream_content_url
+  p "#{detailed_guide_id} #{n += 1}/#{additional_related_mainstream_content_urls.length}"
 
-
-#
-# additional_related_mainstream_content_urls.each do |detailed_guide|
-#   p detailed_guide[:id]
-#   p detailed_guide[:additional_related_mainstream_content_url]
-#   next if detailed_guide?(detailed_guide[:additional_related_mainstream_content_url])
-#   clean_url = detailed_guide[:additional_related_mainstream_content_url][/(https:\/\/www.gov.uk\/)(.*)\//]
-#   if !clean_url.nil?
-#     clean_url = clean_url.chop if clean_url[-1] == "/"
-#     detailed_guide_to_update = DetailedGuide.find(detailed_guide[:id])
-#     detailed_guide_to_update.update_attribute(:additional_related_mainstream_content_url, clean_url)
-#     p detailed_guide_to_update.additional_related_mainstream_content_url
-#   end
-# end
+  next if detailed_guide?(detailed_guide_id, additional_related_mainstream_content_url)
+  content_id = validate_url_content_id(additional_related_mainstream_content_url)
+  if content_id.nil?
+    chopped_url = clean_the_url(additional_related_mainstream_content_url)
+    content_id = validate_url_content_id(chopped_url) if chopped_url
+    update_additional_related_mainstream_url(detailed_guide_id, chopped_url) if !content_id.nil?
+  else
+    write_to_file("related_mainstream_content.original_url_already_perfect", [detailed_guide_id, content_id, additional_related_mainstream_content_url])
+  end
+  write_to_file("related_mainstream_content.content_items_not_found", [detailed_guide_id, additional_related_mainstream_content_url]) if content_id.nil?
+end
