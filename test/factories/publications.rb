@@ -74,6 +74,7 @@ FactoryGirl.define do
     parent: :publication, traits: [:draft, :published_in_error_redirect]
   factory :unpublished_publication_consolidated,
     parent: :publication, traits: [:draft, :consolidated_redirect]
+  factory :withdrawn_publication, parent: :publication, traits: [:withdrawn]
 
   factory :draft_corporate_publication, parent: :publication, traits: [:draft, :corporate]
   factory :submitted_corporate_publication, parent: :publication, traits: [:submitted, :corporate]
