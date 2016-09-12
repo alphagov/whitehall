@@ -37,7 +37,7 @@ def update_additional_related_mainstream_url(id, clean_url)
 end
 
 def clean_the_url(url)
-  clean_url = url[/(https:\/\/www.gov.uk\/)(.*)\//]
+  clean_url = url[/(https:\/\/www.gov.uk\/)([^\/]*)\//]
   if !clean_url.nil?
     clean_url = clean_url.chop if clean_url[-1] == "/"
   end
@@ -95,6 +95,7 @@ n = 0
 additional_related_mainstream_content_urls.each do |detailed_guide|
   detailed_guide_id = detailed_guide.id
   additional_related_mainstream_content_url = detailed_guide.additional_related_mainstream_content_url
+
   p "#{detailed_guide_id} #{n += 1}/#{additional_related_mainstream_content_urls.length}"
 
   next if detailed_guide?(detailed_guide_id, additional_related_mainstream_content_url)
