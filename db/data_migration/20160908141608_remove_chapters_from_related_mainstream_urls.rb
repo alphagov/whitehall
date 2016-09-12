@@ -1,4 +1,12 @@
-#This script removes the last part of a slug for related mainstream content urls that are linking to a chapter of a related mainstream content instead of the related mainstream document.
+# This script removes the last part of a slug for related mainstream content urls
+# that are linking to a chapter of a related mainstream content instead of the
+# related mainstream document.
+# The script also fixes some urls that were prefixed with an http instead of an
+# https such that they can also be migrated - some of the http prefixed urls
+# might have valid base_paths already, in which case we just save the https
+# based url. Some of them might also have chapters in which case we remove the
+# chapters and save.
+
 require 'gds-api-adapters'
 
 def validate_url_content_id(url)
