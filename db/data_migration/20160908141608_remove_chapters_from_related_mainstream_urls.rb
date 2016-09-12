@@ -98,7 +98,8 @@ additional_related_mainstream_content_urls = DetailedGuide.select(
                                     :additional_related_mainstream_content_url
                                   ).where([
                                     "additional_related_mainstream_content_url IS NOT NULL
-                                    AND additional_related_mainstream_content_url != ''"
+                                    AND additional_related_mainstream_content_url != ''
+                                    AND state != 'superseded'"
                                   ])
 n = 0
 additional_related_mainstream_content_urls.each do |detailed_guide|
