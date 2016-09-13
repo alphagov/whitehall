@@ -85,6 +85,9 @@
     .current-appointee {
       padding-top: 0;
       a {
+        display: block;
+        overflow: hidden;
+
         &:hover,
         &:focus,
         &:active {
