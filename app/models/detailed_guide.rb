@@ -21,8 +21,6 @@ class DetailedGuide < Edition
 
   has_many :related_mainstream, foreign_key: "edition_id", dependent: :destroy
 
-  validate :related_mainstream_content_valid?
-  validate :additional_related_mainstream_content_valid?
   validate :related_mainstream_found
 
   after_save :persist_content_ids
@@ -138,18 +136,6 @@ private
   # Returns the published editions that are related to this edition's document.
   def published_inbound_related_detailed_guides
     DetailedGuide.published.joins(:outbound_edition_relations).where(edition_relations: { document_id: document.id })
-  end
-
-  def related_mainstream_content_valid?
-    if related_mainstream_content_url.present? && related_mainstream_content_title.blank?
-      errors.add(:related_mainstream_content_title, "cannot be blank if a related URL is given")
-    end
-  end
-
-  def additional_related_mainstream_content_valid?
-    if additional_related_mainstream_content_url.present? && additional_related_mainstream_content_title.blank?
-      errors.add(:additional_related_mainstream_content_title, "cannot be blank if an additional related URL is given")
-    end
   end
 
   def related_mainstream_found

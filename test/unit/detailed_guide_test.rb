@@ -4,7 +4,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
   should_allow_image_attachments
   should_be_attachable
   should_allow_inline_attachments
-  should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
+  should_protect_against_xss_and_content_attacks_on :body, :summary, :change_note
 
   test "should be able to relate to topics" do
     article = build(:detailed_guide)
@@ -64,23 +64,14 @@ class DetailedGuideTest < ActiveSupport::TestCase
 
   test "can be associated with some content in the mainstream application" do
     refute build(:detailed_guide).has_related_mainstream_content?
-    guide = build(:detailed_guide, related_mainstream_content_url: "http://mainstream/content", related_mainstream_content_title: "Name of content")
+    guide = build(:detailed_guide, related_mainstream_content_url: "http://mainstream/content")
     assert guide.has_related_mainstream_content?
   end
 
   test "can be associated with some additional content in the mainstream application" do
     refute build(:detailed_guide).has_additional_related_mainstream_content?
-    guide = build(:detailed_guide, additional_related_mainstream_content_url: "http://mainstream/content", additional_related_mainstream_content_title: "Name of content")
+    guide = build(:detailed_guide, additional_related_mainstream_content_url: "http://mainstream/content")
     assert guide.has_additional_related_mainstream_content?
-  end
-
-  test "should require a title if related mainstream content url is given" do
-    refute build(:detailed_guide, related_mainstream_content_url: "http://mainstream/content").valid?
-  end
-
-  test "should require a title if additional related mainstream content url is given" do
-    detailed_guide = build(:detailed_guide, additional_related_mainstream_content_url: "http://mainstream/additional-content")
-    refute detailed_guide.valid?
   end
 
   test "should be valid if all level-3 headings have a parent level-2 heading" do
@@ -132,9 +123,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
 
     detailed_guide = build(
       :detailed_guide,
-      related_mainstream_content_title: "A mainstream content",
       related_mainstream_content_url: "http://www.gov.uk/mainstream-content",
-      additional_related_mainstream_content_title: "Another mainstream content",
       additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content"
     )
 
@@ -150,8 +139,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
 
     detailed_guide = build(
       :detailed_guide,
-      related_mainstream_content_title: "A piece of content not in publishing API",
-      related_mainstream_content_url: "http://www.gov.uk/content-missing-from-publishing-api",  additional_related_mainstream_content_title: "Another piece of content not in publishing API",
+      related_mainstream_content_url: "http://www.gov.uk/content-missing-from-publishing-api",
       additional_related_mainstream_content_url: "http://www.gov.uk/another-content-missing-from-publishing-api"
     )
 
@@ -173,9 +161,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
 
     detailed_guide = create(
       :detailed_guide,
-      related_mainstream_content_title: "A mainstream content",
       related_mainstream_content_url: "http://www.gov.uk/mainstream-content",
-      additional_related_mainstream_content_title: "Another mainstream content",
       additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content"
     )
 
@@ -193,9 +179,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
     invalid_detailed_guide = build(
       :detailed_guide,
       title: nil,
-      related_mainstream_content_title: "A mainstream content",
       related_mainstream_content_url: "http://www.gov.uk/mainstream-content",
-      additional_related_mainstream_content_title: "Another mainstream content",
       additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content"
     )
     invalid_detailed_guide.send(:related_mainstream_found)
@@ -213,9 +197,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
 
     detailed_guide = create(
       :detailed_guide,
-      related_mainstream_content_title: "A mainstream content",
       related_mainstream_content_url: "http://www.gov.uk/mainstream-content",
-      additional_related_mainstream_content_title: "Another mainstream content",
       additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content"
     )
 
@@ -232,7 +214,6 @@ class DetailedGuideTest < ActiveSupport::TestCase
 
     create(
       :detailed_guide,
-      related_mainstream_content_title: "A mainstream content",
       related_mainstream_content_url: "http://www.gov.uk/mainstream-content"
     )
 
