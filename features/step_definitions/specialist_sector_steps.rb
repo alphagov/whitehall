@@ -19,21 +19,24 @@ Given(/^there is a document tagged to specialist sectors$/) do
 
   document_content_item = content_item_for_base_path(document_base_path).merge!({
     "links" => {
-      "parent" => [{ "base_path" => parent_base_path }],
+      "parent" => [
+        {
+          "base_path" => parent_base_path,
+          "links" => {
+            "parent" => [
+              {
+                "title" => "Top Level Topic",
+                "web_url" => "http://gov.uk/top-level-topic"
+              }
+            ]
+          }
+        }
+      ],
       "topics" => [{ "title" => "Topic 1" }, { "title" => "Topic 2"  }]
-    }
-  })
-  parent_content_item = content_item_for_base_path(parent_base_path).merge!({
-    "links" => {
-      "parent" => [{
-        "title" => "Top Level Topic",
-        "web_url" => "http://gov.uk/top-level-topic"
-      }]
     }
   })
 
   content_store_has_item(document_base_path, document_content_item)
-  content_store_has_item(parent_base_path, parent_content_item)
 end
 
 Then(/^I should see the specialist sub\-sector and its parent sector$/) do
