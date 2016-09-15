@@ -14,15 +14,7 @@
 class PublishingApiDocumentRepublishingWorker < WorkerBase
   attr_reader :published_edition, :pre_publication_edition
 
-  def perform(*args)
-    if args.length > 1
-      document_id = Edition.where(id: args).pluck(:document_id).last
-      PublishingApiDocumentRepublishingWorker.new.perform(document_id)
-      return
-    end
-
-    document_id = args[0]
-
+  def perform(document_id)
     document = Document.find(document_id)
     #this the latest edition in a visible state ie: withdrawn, published
     @published_edition = document.published_edition
