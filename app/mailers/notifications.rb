@@ -58,7 +58,7 @@ class Notifications < ActionMailer::Base
   private
 
   def no_reply_email_address
-    name = "DO NOT REPLY"
+    name = "GOV.UK publishing"
     if GovukAdminTemplate.environment_label !~ /production/i
       name.prepend("[GOV.UK #{GovukAdminTemplate.environment_label}] ")
     end
