@@ -25,8 +25,6 @@ class DetailedGuide < Edition
 
   after_save :persist_content_ids
 
-  attr_reader :content_ids, :related_mainstream_content_ids
-
   class HeadingHierarchyValidator < ActiveModel::Validator
     include GovspeakHelper
     def validate(record)

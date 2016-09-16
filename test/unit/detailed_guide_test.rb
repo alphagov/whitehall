@@ -127,9 +127,10 @@ class DetailedGuideTest < ActiveSupport::TestCase
       additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content"
     )
 
-    detailed_guide.send(:related_mainstream_found)
+    detailed_guide.save
+    detailed_guide.send(:persist_content_ids)
 
-    assert_equal ["9af50189-de1c-49af-a334-6b1d87b593a6", "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"], detailed_guide.content_ids
+    assert_equal ["9af50189-de1c-49af-a334-6b1d87b593a6", "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"], detailed_guide.related_mainstream_content_ids
   end
 
 
@@ -148,7 +149,6 @@ class DetailedGuideTest < ActiveSupport::TestCase
     refute detailed_guide.valid?
     assert_equal ["This mainstream content could not be found"], detailed_guide.errors[:related_mainstream_content_url]
     assert_equal ["This mainstream content could not be found"], detailed_guide.errors[:additional_related_mainstream_content_url]
-    assert_equal [nil, nil], detailed_guide.content_ids
   end
 
   test 'should persist related mainstream content ids' do
