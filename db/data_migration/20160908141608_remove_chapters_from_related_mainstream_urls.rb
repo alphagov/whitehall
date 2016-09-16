@@ -6,6 +6,7 @@
 # might have valid base_paths already, in which case we just save the https
 # based url. Some of them might also have chapters in which case we remove the
 # chapters and save.
+# Finally, the scripts outputs any items that need manual updating.
 
 require 'gds-api-adapters'
 
@@ -16,17 +17,7 @@ def validate_url_content_id(url)
   content_id
 end
 
-def write_to_file(file_name, params)
-  File.open(file_name, "a+") do |f|
-    params.each do |param|
-      f.write "#{param}, "
-    end
-    f.write "\n"
-  end
-end
-
 def detailed_guide?(id, url)
-  write_to_file("related_mainstream_content.detailed_guide_items_found", [id, url]) if url.start_with?("https://www.gov.uk/guidance/")
   url.start_with?("https://www.gov.uk/guidance/")
 end
 
@@ -34,14 +25,12 @@ def update_mainstream_url(id, clean_url)
   detailed_guide = DetailedGuide.find(id)
   incorrect_url = detailed_guide.related_mainstream_content_url
   detailed_guide.update_attribute(:related_mainstream_content_url, clean_url)
-  write_to_file("related_mainstream_content.related_content_found_and_updated", [id, incorrect_url, clean_url])
 end
 
 def update_additional_related_mainstream_url(id, clean_url)
   detailed_guide = DetailedGuide.find(id)
   incorrect_url = detailed_guide.additional_related_mainstream_content_url
   detailed_guide.update_attribute(:additional_related_mainstream_content_url, clean_url)
-  write_to_file("related_mainstream_content.related_content_found_and_updated", [id, incorrect_url, clean_url])
 end
 
 def clean_the_url(url)
@@ -53,14 +42,6 @@ def clean_the_url(url)
   clean_url
 end
 
-files = %w(related_mainstream_content.original_url_already_perfect
-          related_mainstream_content.content_items_not_found
-          related_mainstream_content.detailed_guide_items_found
-          related_mainstream_content.related_content_found_and_updated)
-files.each do |f|
-  File.delete(f) if File.exists?(f)
-end
-
 related_mainstream_content_urls = DetailedGuide.select(
                                     :id,
                                     :related_mainstream_content_url
@@ -69,29 +50,17 @@ related_mainstream_content_urls = DetailedGuide.select(
                                     AND related_mainstream_content_url != ''
                                     AND state != 'superseded'"
                                   ])
-n = 0
+puts "#{related_mainstream_content_urls.length} Related mainstream content urls"
 related_mainstream_content_urls.each do |detailed_guide|
-  p "#{detailed_guide[:id]} #{n += 1}/#{related_mainstream_content_urls.length}"
   next if detailed_guide?(detailed_guide[:id], detailed_guide[:related_mainstream_content_url])
   content_id =  validate_url_content_id(detailed_guide[:related_mainstream_content_url])
   if content_id.nil?
     chopped_url = clean_the_url(detailed_guide[:related_mainstream_content_url])
     content_id = validate_url_content_id(chopped_url) if chopped_url
     update_mainstream_url(detailed_guide[:id], chopped_url) if !content_id.nil?
-  else
-    write_to_file("related_mainstream_content.original_url_already_perfect", [detailed_guide[:id], content_id, detailed_guide[:related_mainstream_content_url]])
   end
-  write_to_file("related_mainstream_content.content_items_not_found", [detailed_guide[:id], detailed_guide[:related_mainstream_content_url]]) if content_id.nil?
+  puts "Content item not found: #{detailed_guide[:id]}, #{detailed_guide[:related_mainstream_content_url]}" if content_id.nil?
 end
-
-# add some space to the files before additional related mainstream content
-files.each do |file|
-  write_to_file(file, ["\n--------------------------------\n"])
-end
-
-p "---"
-p "Additional related mainstream content"
-p "---"
 
 additional_related_mainstream_content_urls = DetailedGuide.select(
                                     :id,
@@ -101,12 +70,11 @@ additional_related_mainstream_content_urls = DetailedGuide.select(
                                     AND additional_related_mainstream_content_url != ''
                                     AND state != 'superseded'"
                                   ])
-n = 0
+puts "\n#{additional_related_mainstream_content_urls.length} Additional related mainstream content urls"
+
 additional_related_mainstream_content_urls.each do |detailed_guide|
   detailed_guide_id = detailed_guide.id
   additional_related_mainstream_content_url = detailed_guide.additional_related_mainstream_content_url
-
-  p "#{detailed_guide_id} #{n += 1}/#{additional_related_mainstream_content_urls.length}"
 
   next if detailed_guide?(detailed_guide_id, additional_related_mainstream_content_url)
   content_id = validate_url_content_id(additional_related_mainstream_content_url)
@@ -114,8 +82,12 @@ additional_related_mainstream_content_urls.each do |detailed_guide|
     chopped_url = clean_the_url(additional_related_mainstream_content_url)
     content_id = validate_url_content_id(chopped_url) if chopped_url
     update_additional_related_mainstream_url(detailed_guide_id, chopped_url) if !content_id.nil?
-  else
-    write_to_file("related_mainstream_content.original_url_already_perfect", [detailed_guide_id, content_id, additional_related_mainstream_content_url])
   end
-  write_to_file("related_mainstream_content.content_items_not_found", [detailed_guide_id, additional_related_mainstream_content_url]) if content_id.nil?
+  puts "Content item not found: #{detailed_guide_id}, #{additional_related_mainstream_content_url}" if content_id.nil?
 end
+
+note = "\nContent items not found need to be manually fixed.\n"
+note << "Some (potentially all) of these will be fixed when\n"
+note << "20160912131542_destroy_open_policy_making_toolkit_detailed_guide\n"
+note << "is run."
+puts note
