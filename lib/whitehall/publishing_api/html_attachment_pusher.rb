@@ -15,12 +15,18 @@ module Whitehall
 
       def publish
         current_html_attachments.each do |html_attachment|
-          api.publish_async(html_attachment)
+          PublishingApiWorker.new.perform(
+            html_attachment.class.name,
+            html_attachment.id,
+            edition.minor_change? ? "minor" : "major",
+            html_attachment.locale || I18n.default_locale.to_s
+          )
         end
         content_ids_to_remove.each do |content_id|
-          api.publish_redirect_async(
+          PublishingApiRedirectWorker.new.perform(
             content_id,
-            Whitehall.url_maker.public_document_path(edition)
+            Whitehall.url_maker.public_document_path(edition),
+            I18n.default_locale.to_s
           )
         end
       end
@@ -28,7 +34,12 @@ module Whitehall
 
       def update_draft
         current_html_attachments.each do |html_attachment|
-          api.save_draft_async(html_attachment)
+          PublishingApiDraftWorker.new.perform(
+            html_attachment.class.name,
+            html_attachment.id,
+            edition.minor_change? ? "minor" : "major",
+            html_attachment.locale || I18n.default_locale.to_s
+          )
         end
       end
       # we don't care whether this is a translation or the main document, we just send the
@@ -46,13 +57,17 @@ module Whitehall
                       end
 
         current_html_attachments.each do |html_attachment|
-          api.publish_redirect_async(html_attachment.content_id, destination)
+          PublishingApiRedirectWorker.new.perform(
+            html_attachment.content_id,
+            destination,
+            html_attachment.locale || I18n.default_locale.to_s
+          )
         end
       end
 
       def withdraw
         current_html_attachments.each do |html_attachment|
-          api.publish_withdrawal_async(
+          PublishingApiWithdrawalWorker.new.perform(
             html_attachment.content_id,
             edition.unpublishing.explanation,
             edition.primary_locale
@@ -85,10 +100,6 @@ module Whitehall
         new_content_ids = current_html_attachments.pluck(:content_id).to_set
 
         old_content_ids - new_content_ids
-      end
-
-      def api
-        Whitehall::PublishingApi
       end
     end
   end

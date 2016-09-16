@@ -16,20 +16,23 @@ module Whitehall
 
       class Publish < HtmlAttachmentPusherTest
         test "for something that can't have html attachments doesn't publish" do
-          Whitehall::PublishingApi.expects(:publish_async).never
           call(build(:person))
         end
 
         test "with no html attachments doesn't publish" do
           publication = create(:published_publication, :with_external_attachment)
-          Whitehall::PublishingApi.expects(:publish_async).never
           call(publication)
         end
 
         test "with an html attachment on a new document publishes the attachment" do
           publication = create(:published_publication)
           attachment = publication.html_attachments.first
-          Whitehall::PublishingApi.expects(:publish_async).with(attachment)
+          PublishingApiWorker.any_instance.expects(:perform).with(
+            "HtmlAttachment",
+            attachment.id,
+            "major",
+            "en"
+          )
           call(publication)
         end
 
@@ -43,7 +46,12 @@ module Whitehall
 
           attachment = new_edition.html_attachments.first
 
-          Whitehall::PublishingApi.expects(:publish_async).with(attachment)
+          PublishingApiWorker.any_instance.expects(:perform).with(
+            "HtmlAttachment",
+            attachment.id,
+            "minor",
+            "en"
+          )
           call(new_edition)
         end
 
@@ -58,7 +66,12 @@ module Whitehall
 
           attachment = new_edition.html_attachments.first
 
-          Whitehall::PublishingApi.expects(:publish_async).with(attachment)
+          PublishingApiWorker.any_instance.expects(:perform).with(
+            "HtmlAttachment",
+            attachment.id,
+            "minor",
+            "en"
+          )
           call(new_edition)
         end
 
@@ -71,12 +84,11 @@ module Whitehall
           new_edition.submit!
           new_edition.publish!
 
-          Whitehall::PublishingApi.expects(:publish_async).never
-
           old_attachment = publication.html_attachments.first
-          Whitehall::PublishingApi.expects(:publish_redirect_async).with(
+          PublishingApiRedirectWorker.any_instance.expects(:perform).with(
             old_attachment.content_id,
-            new_edition.search_link
+            new_edition.search_link,
+            "en"
           )
 
           call(new_edition)
@@ -92,12 +104,18 @@ module Whitehall
           new_edition.publish!
 
           new_attachment = new_edition.html_attachments.first
-          Whitehall::PublishingApi.expects(:publish_async).with(new_attachment)
+          PublishingApiWorker.any_instance.expects(:perform).with(
+            "HtmlAttachment",
+            new_attachment.id,
+            "minor",
+            "en"
+          )
 
           old_attachment = publication.html_attachments.first
-          Whitehall::PublishingApi.expects(:publish_redirect_async).with(
+          PublishingApiRedirectWorker.any_instance.expects(:perform).with(
             old_attachment.content_id,
-            new_edition.search_link
+            new_edition.search_link,
+            "en"
           )
 
           call(new_edition)
@@ -106,20 +124,23 @@ module Whitehall
 
       class UpdateDraft < HtmlAttachmentPusherTest
         test "for something that can't have html attachments doesn't save draft" do
-          Whitehall::PublishingApi.expects(:save_draft_async).never
           call(build(:person))
         end
 
         test "with no html attachments doesn't save draft" do
           publication = create(:published_publication, :with_external_attachment)
-          Whitehall::PublishingApi.expects(:save_draft_async).never
           call(publication)
         end
 
         test "with an html attachment on a new document saves it as a draft" do
           publication = create(:draft_publication)
           attachment = publication.html_attachments.first
-          Whitehall::PublishingApi.expects(:save_draft_async).with(attachment)
+          PublishingApiDraftWorker.any_instance.expects(:perform).with(
+            "HtmlAttachment",
+            attachment.id,
+            "major",
+            "en"
+          )
           call(publication)
         end
 
@@ -128,7 +149,12 @@ module Whitehall
           new_edition = publication.create_draft(create(:writer))
 
           attachment = new_edition.html_attachments.first
-          Whitehall::PublishingApi.expects(:save_draft_async).with(attachment)
+          PublishingApiDraftWorker.any_instance.expects(:perform).with(
+            "HtmlAttachment",
+            attachment.id,
+            "major",
+            "en"
+          )
 
           call(new_edition)
         end
@@ -138,8 +164,6 @@ module Whitehall
 
           new_edition = publication.create_draft(create(:writer))
           new_edition.attachments = [build(:external_attachment)]
-
-          Whitehall::PublishingApi.expects(:save_draft_async).never
 
           call(new_edition)
         end
@@ -151,7 +175,12 @@ module Whitehall
           new_edition.attachments = [build(:html_attachment)]
 
           new_attachment = new_edition.html_attachments.first
-          Whitehall::PublishingApi.expects(:save_draft_async).with(new_attachment)
+          PublishingApiDraftWorker.any_instance.expects(:perform).with(
+            "HtmlAttachment",
+            new_attachment.id,
+            "major",
+            "en"
+          )
 
           call(new_edition)
         end
@@ -159,22 +188,21 @@ module Whitehall
 
       class Unpublish < HtmlAttachmentPusherTest
         test "for something that can't have html attachments doesn't publish a redirect" do
-          Whitehall::PublishingApi.expects(:publish_redirect_async).never
           call(build(:person))
         end
 
         test "for a publication with no html attachments doesn't publish a redirect" do
           publication = create(:published_publication, :with_external_attachment)
-          Whitehall::PublishingApi.expects(:publish_redirect_async).never
           call(publication)
         end
 
         test "for a publication that has been consolidated publishes a redirect to the alternative url" do
           publication = create(:unpublished_publication_consolidated)
           attachment = publication.html_attachments.first
-          Whitehall::PublishingApi.expects(:publish_redirect_async).with(
+          PublishingApiRedirectWorker.any_instance.expects(:perform).with(
             attachment.content_id,
-            '/government/another/page'
+            "/government/another/page",
+            "en"
           )
           call(publication)
         end
@@ -182,9 +210,10 @@ module Whitehall
         test "for a publication that has been unpublished with a redirect publishes a redirect to the alternative url" do
           publication = create(:unpublished_publication_in_error_redirect)
           attachment = publication.html_attachments.first
-          Whitehall::PublishingApi.expects(:publish_redirect_async).with(
+          PublishingApiRedirectWorker.any_instance.expects(:perform).with(
             attachment.content_id,
-            '/government/another/page'
+            "/government/another/page",
+            "en"
           )
           call(publication)
         end
@@ -192,29 +221,28 @@ module Whitehall
         test "for a publication that has been unpublished without a redirect publishes a redirect to the parent document" do
           publication = create(:unpublished_publication_in_error_no_redirect)
           attachment = publication.html_attachments.first
-          Whitehall::PublishingApi.expects(:publish_redirect_async).with(
+          PublishingApiRedirectWorker.any_instance.expects(:perform).with(
             attachment.content_id,
-            publication.search_link
+            publication.search_link,
+            "en"
           )
           call(publication)
         end
 
         class Withdraw < HtmlAttachmentPusherTest
           test "for something that can't have html attachments doesn't publish a withdrawal" do
-            Whitehall::PublishingApi.expects(:publish_withdrawal_async).never
             call(build(:person))
           end
 
           test "for a publication with no html attachments doesn't publish a withdrawal" do
             publication = create(:withdrawn_publication, :with_external_attachment)
-            Whitehall::PublishingApi.expects(:publish_withdrawal_async).never
             call(publication)
           end
 
           test "for a publication that has been withdrawn publishes a withdrawal" do
             publication = create(:withdrawn_publication)
             attachment = publication.html_attachments.first
-            Whitehall::PublishingApi.expects(:publish_withdrawal_async).with(
+            PublishingApiWithdrawalWorker.any_instance.expects(:perform).with(
               attachment.content_id,
               "content was withdrawn",
               "en"
@@ -225,13 +253,11 @@ module Whitehall
 
         class Delete < HtmlAttachmentPusherTest
           test "for something that can't have html attachments doesn't discard any drafts" do
-            PublishingApiDiscardDraftWorker.expects(:perform_async).never
             call(build(:person))
           end
 
           test "for a draft publication with no html attachments doesn't discard any drafts" do
             publication = create(:draft_publication, :with_external_attachment)
-            PublishingApiDiscardDraftWorker.expects(:perform_async).never
             call(publication)
           end
 
