@@ -157,8 +157,8 @@ private
 
   def fetch_related_mainstream_content_ids
     base_paths = [related_mainstream_base_path, additional_related_mainstream_base_path].compact
-    if base_paths.any?
-      @content_ids ||= lookup_content_ids(base_paths)
+    if base_paths.any? && @content_ids.nil?
+      lookup_content_ids(base_paths)
     else
       @content_ids ||= []
     end
