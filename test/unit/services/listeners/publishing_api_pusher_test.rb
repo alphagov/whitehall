@@ -3,13 +3,10 @@ require 'test_helper'
 module ServiceListeners
   class PublishingApiPusherTest < ActiveSupport::TestCase
     def stub_html_attachment_pusher(edition, event)
-      pusher = mock
-      Whitehall::PublishingApi::HtmlAttachmentPusher
-        .expects(:new)
-        .with(edition: edition, event: event)
-        .returns(pusher)
-
-      pusher.expects(:call)
+      PublishingApiHtmlAttachmentsWorker
+        .any_instance
+        .expects(:perform)
+        .with(edition.id, event)
     end
 
     test "saves draft async for update_draft" do
