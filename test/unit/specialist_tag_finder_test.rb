@@ -63,6 +63,27 @@ class SpecialistTagFinderTest < ActiveSupport::TestCase
     assert_equal "/grandpa", SpecialistTagFinder.new(edition_base_path).top_level_topic.base_path
   end
 
+  test "#top_level_topic falls back to expanded_links on the parent if links aren't present" do
+    edition = create(:edition_with_document)
+    edition_base_path = Whitehall.url_maker.public_document_path(edition)
+    parent_base_path = "/parent-item"
+    edition_content_item = content_item_for_base_path(edition_base_path).merge!(
+      "links" => {
+        "parent" => [
+          {
+            "base_path" => parent_base_path,
+            "expanded_links" => {
+              "parent" => [{ "base_path" => "/grandpa", links: {}}],
+            }
+          }
+        ]
+      }
+    )
+    content_store_has_item(edition_base_path, edition_content_item)
+
+    assert_equal "/grandpa", SpecialistTagFinder.new(edition_base_path).top_level_topic.base_path
+  end
+
   test "#top_level_topic returns nil if no parents" do
     edition = create(:edition_with_document)
     edition_base_path = Whitehall.url_maker.public_document_path(edition)

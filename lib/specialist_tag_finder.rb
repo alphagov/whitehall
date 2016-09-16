@@ -31,7 +31,10 @@ class SpecialistTagFinder
       parent = Array(edition_content_item.links["parent"])
       return unless parent.any?
 
-      parent_links = parent.first["links"]
+      # FIXME: Some content items may still contain the 'expanded_links' field.
+      # Remove the following defensive check once this is fixed.
+      parent_links = parent.first["links"] || parent.first["expanded_links"]
+
       Array(parent_links["parent"]).first
     end
   end
