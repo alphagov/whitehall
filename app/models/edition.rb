@@ -137,7 +137,15 @@ class Edition < ActiveRecord::Base
   end
 
   def self.in_reverse_chronological_order
-    order(arel_table[:public_timestamp].desc, arel_table[:document_id].desc, arel_table[:id].desc)
+    ids = pluck(:id)
+    Edition
+      .unscoped
+      .where(id: ids)
+      .order(
+        arel_table[:public_timestamp].desc,
+        arel_table[:document_id].desc,
+        arel_table[:id].desc
+      )
   end
 
   def self.without_editions_of_type(*edition_classes)
