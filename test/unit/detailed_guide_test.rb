@@ -128,7 +128,6 @@ class DetailedGuideTest < ActiveSupport::TestCase
     )
 
     detailed_guide.save
-    detailed_guide.send(:persist_content_ids)
 
     assert_equal ["9af50189-de1c-49af-a334-6b1d87b593a6", "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"], detailed_guide.related_mainstream_content_ids
   end
@@ -159,7 +158,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
 
     publishing_api_has_lookups(lookup_hash)
 
-    detailed_guide = create(
+    create(
       :detailed_guide,
       related_mainstream_content_url: "http://www.gov.uk/mainstream-content",
       additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content"
@@ -225,5 +224,27 @@ class DetailedGuideTest < ActiveSupport::TestCase
 
     assert_equal 1, detailed_guide.related_mainstream_content_ids.count
     assert_equal ["9dd9e077-ae45-45f6-ad9d-2a484e5ff312"], detailed_guide.related_mainstream_content_ids
+  end
+
+  test 'if related_mainstream_content_url gets deleted, #persist_content_ids should delete existing RelatedMainstream records' do
+    lookup_hash = {
+      "/mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
+    }
+
+    publishing_api_has_lookups(lookup_hash)
+
+    create(
+      :detailed_guide,
+      related_mainstream_content_url: "http://www.gov.uk/mainstream-content"
+    )
+
+    detailed_guide = DetailedGuide.last
+    #we want to mimic the behaviour of creating a detailed guide, then editing it. This clears the @content_ids array as it would do on a new page load.
+    detailed_guide.related_mainstream_content_url = nil
+    detailed_guide.save
+    detailed_guide.send(:persist_content_ids)
+
+    assert_equal 0, detailed_guide.related_mainstream_content_ids.count
+    assert_equal [], detailed_guide.related_mainstream_content_ids
   end
 end

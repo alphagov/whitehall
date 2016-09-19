@@ -178,10 +178,15 @@ private
   end
 
   def persist_content_ids
-    return if @content_ids.nil? || @content_ids.compact.empty?
+    return unless need_to_persist_related_content_ids?
+    @content_ids ||= []
     RelatedMainstream.where(edition_id: self.id).delete_all
-    RelatedMainstream.create!(edition_id: self.id, content_id: @content_ids[0])
+    RelatedMainstream.create!(edition_id: self.id, content_id: @content_ids[0]) if @content_ids[0]
     RelatedMainstream.create!(edition_id: self.id, content_id: @content_ids[1], additional: true) if @content_ids[1]
+  end
+
+  def need_to_persist_related_content_ids?
+    related_mainstream_requested? || RelatedMainstream.where(edition_id: self.id).exists?
   end
 
   def self.format_name
