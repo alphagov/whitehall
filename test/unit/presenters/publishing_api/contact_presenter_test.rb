@@ -74,4 +74,9 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
 
     assert_equal expected_links, @presented.links
   end
+
+  test "world_location rendered as empty string when not present" do
+    @contact.country = nil
+    assert_equal "", @presented.content[:details][:post_addresses].first[:world_location]
+  end
 end
