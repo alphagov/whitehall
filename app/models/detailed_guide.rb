@@ -144,20 +144,32 @@ private
   end
 
   def add_errors_for_missing_related_mainstream
-    if @content_ids.count >= 1
-      errors.add(:related_mainstream_content_url, "This mainstream content could not be found") if @content_ids[0].nil?
+    if missing_related_mainstream?
+      errors.add(:related_mainstream_content_url, "This mainstream content could not be found")
     end
   end
 
   def add_errors_for_missing_additional_related_mainstream
-    if @content_ids.count > 1
-      errors.add(:additional_related_mainstream_content_url, "This mainstream content could not be found") if @content_ids[1].nil?
+    if missing_additional_related_mainstream?
+      errors.add(:additional_related_mainstream_content_url, "This mainstream content could not be found")
     end
+  end
+
+  def missing_related_mainstream?
+    related_mainstream_content_url.present? &&
+      @content_ids.count >= 1 &&
+      @content_ids[0].nil?
+  end
+
+  def missing_additional_related_mainstream?
+    additional_related_mainstream_content_url.present? &&
+      @content_ids.count > 1 &&
+      @content_ids[1].nil?
   end
 
   def fetch_related_mainstream_content_ids
     base_paths = [related_mainstream_base_path, additional_related_mainstream_base_path].compact
-    if base_paths.any? && @content_ids.nil?
+    if @content_ids.nil? && need_to_fetch_or_persist_related_content_ids?
       lookup_content_ids(base_paths)
     else
       @content_ids ||= []
@@ -166,10 +178,9 @@ private
 
   def lookup_content_ids(base_paths)
     @content_ids = []
-    base_paths.each do |base_path|
-      content_id = Whitehall.publishing_api_v2_client.lookup_content_id(base_path: base_path)
-      @content_ids << content_id
-    end
+    response_hash = Whitehall.publishing_api_v2_client.lookup_content_ids(base_paths: base_paths)
+    @content_ids << response_hash["#{related_mainstream_base_path}"] || nil
+    @content_ids << response_hash["#{additional_related_mainstream_base_path}"] || nil
     @content_ids
   end
 
@@ -178,14 +189,14 @@ private
   end
 
   def persist_content_ids
-    return unless need_to_persist_related_content_ids?
+    return unless need_to_fetch_or_persist_related_content_ids?
     @content_ids ||= []
     RelatedMainstream.where(edition_id: self.id).delete_all
     RelatedMainstream.create!(edition_id: self.id, content_id: @content_ids[0]) if @content_ids[0]
     RelatedMainstream.create!(edition_id: self.id, content_id: @content_ids[1], additional: true) if @content_ids[1]
   end
 
-  def need_to_persist_related_content_ids?
+  def need_to_fetch_or_persist_related_content_ids?
     related_mainstream_requested? || RelatedMainstream.where(edition_id: self.id).exists?
   end
 

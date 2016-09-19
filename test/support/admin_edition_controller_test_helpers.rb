@@ -1072,30 +1072,35 @@ module AdminEditionControllerTestHelpers
       end
 
       test "create should allow setting of related mainstream content urls" do
+        Whitehall.publishing_api_v2_client.stubs(:lookup_content_ids).with(base_paths: ["/starting-to-export", "/vat-rates"]).returns({"/starting-to-export" => "af70706d-1286-49a8-a597-b3715f29edb5", "/vat-rates" => "c621b246-aa0e-44ad-b320-5a9c16c1123b"})
+
         post :create, edition: controller_attributes_for(edition_type).merge(
-          related_mainstream_content_url: "http://mainstream/content",
-          additional_related_mainstream_content_url: "http://mainstream/additional-content"
+          related_mainstream_content_url: "https://www.gov.uk/starting-to-export",
+          additional_related_mainstream_content_url: "https://www.gov.uk/vat-rates"
         )
 
         edition = edition_class.last
-        assert_equal "http://mainstream/content", edition.related_mainstream_content_url
-        assert_equal "http://mainstream/additional-content", edition.additional_related_mainstream_content_url
+        assert_equal "https://www.gov.uk/starting-to-export", edition.related_mainstream_content_url
+        assert_equal "https://www.gov.uk/vat-rates", edition.additional_related_mainstream_content_url
       end
 
       test "update should allow setting of a related mainstream content url" do
+        Whitehall.publishing_api_v2_client.stubs(:lookup_content_ids).with(base_paths: ["/starting-to-export", "/vat-rates"]).returns({"/starting-to-export" => "af70706d-1286-49a8-a597-b3715f29edb5", "/vat-rates" => "c621b246-aa0e-44ad-b320-5a9c16c1123b"})
+
         edition = create(edition_type,
-          related_mainstream_content_url: "http://mainstream/content",
-          additional_related_mainstream_content_url: "http://mainstream/additional-content"
+          related_mainstream_content_url: "https://www.gov.uk/starting-to-export",
+          additional_related_mainstream_content_url: "https://www.gov.uk/vat-rates"
         )
+        Whitehall.publishing_api_v2_client.stubs(:lookup_content_ids).with(base_paths: ["/fishing-licences", "/set-up-business-uk"]).returns({"/fishing-licences" => "bc46370c-2f2b-4db7-bf23-ace64b465eca", "/set-up-business-uk" => "5e5bb54d-e471-4d07-977b-291168569f26"})
 
         put :update, id: edition, edition: {
-          related_mainstream_content_url: "http://mainstream/updated-content",
-          additional_related_mainstream_content_url: "http://mainstream/updated-additional-content"
+          related_mainstream_content_url: "https://www.gov.uk/fishing-licences",
+          additional_related_mainstream_content_url: "https://www.gov.uk/set-up-business-uk"
         }
 
         edition.reload
-        assert_equal "http://mainstream/updated-content", edition.related_mainstream_content_url
-        assert_equal "http://mainstream/updated-additional-content", edition.additional_related_mainstream_content_url
+        assert_equal "https://www.gov.uk/fishing-licences", edition.related_mainstream_content_url
+        assert_equal "https://www.gov.uk/set-up-business-uk", edition.additional_related_mainstream_content_url
       end
     end
 
