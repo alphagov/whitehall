@@ -25,6 +25,10 @@ class StatisticsController < DocumentsController
     end
   end
 
+  def show
+    set_meta_description(@document.summary)
+  end
+
 private
 
   def inject_statistics_publication_filter_option_param
