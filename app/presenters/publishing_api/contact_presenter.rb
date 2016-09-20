@@ -105,7 +105,7 @@ module PublishingApi
     end
 
     def country_name
-      country.title if country
+      country.try(:title) || ""
     end
 
     def updated_at
