@@ -14,6 +14,7 @@ class MinisterialRolesController < PublicFacingController
     @also_attends_cabinet = decorated_people_and_their_roles(cabinet_roles)
     @ministers_by_organisation = ministers_by_organisation
     @whips_by_organisation = whips_by_organisation
+    set_meta_description("Read biographies and responsibilities of Cabinet ministers and all ministers by department, as well as the whips who help co-ordinate parliamentary business.")
   end
 
   def show

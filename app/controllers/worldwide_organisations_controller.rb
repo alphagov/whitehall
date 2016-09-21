@@ -7,6 +7,7 @@ class WorldwideOrganisationsController < PublicFacingController
 
   def index
     @worldwide_organisations = WorldwideOrganisation.ordered_by_name
+    set_meta_description("A list of British organisations worldwide.")
   end
 
   def show
