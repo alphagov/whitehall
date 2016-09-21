@@ -58,7 +58,7 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
     assert_valid_against_schema(presented_item.content, 'case_study')
     assert_valid_against_links_schema({ links: presented_item.links }, 'case_study')
     assert_equal expected_content.except(:details), presented_item.content.except(:details)
-    # We test for HTML equivlance rather than string equality to get around
+    # We test for HTML equivalance rather than string equality to get around
     # inconsistencies with line breaks between different XML libraries
     assert_equivalent_html(
       expected_content[:details].delete(:body),
