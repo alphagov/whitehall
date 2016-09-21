@@ -11,6 +11,7 @@ module PublishingApi
     def content
       content = {}
       content[:description] = item.summary
+      content[:public_updated_at] = item.public_timestamp || item.updated_at
       content.merge!(BaseItemPresenter.new(item).base_attributes)
       content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
       content

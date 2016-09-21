@@ -24,6 +24,26 @@ class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
   end
 
   test "it presents the base_path" do
-    assert_equal  "/government/fatalities/fatality-notice-title", @presented_fatality_notice.content[:base_path]
+    assert_equal "/government/fatalities/fatality-notice-title", @presented_fatality_notice.content[:base_path]
+  end
+
+  test "it presents updated_at if public_timestamp is nil" do
+    assert_equal @fatality_notice.updated_at, @presented_fatality_notice.content[:public_updated_at]
+  end
+end
+
+
+class PublishingApi::FatalityNoticePresenterWithPublicTimestampTest < ActiveSupport::TestCase
+  setup do
+    @expected_time = Time.parse("10/01/2016")
+    @fatality_notice = create(
+      :fatality_notice
+    )
+    @fatality_notice.public_timestamp = @expected_time
+    @presented_fatality_notice = PublishingApi::FatalityNoticePresenter.new(@fatality_notice)
+  end
+
+  test "it presents public_timestamp if it exists" do
+    assert_equal @expected_time, @presented_fatality_notice.content[:public_updated_at]
   end
 end
