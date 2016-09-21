@@ -10,8 +10,9 @@ module PublishingApi
 
     def content
       content = {}
-      content.merge!(BaseItemPresenter.new(item).base_attributes)
       content[:description] = item.summary
+      content.merge!(BaseItemPresenter.new(item).base_attributes)
+      content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
       content
     end
 
