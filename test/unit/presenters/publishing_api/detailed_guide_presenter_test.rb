@@ -114,9 +114,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
       title: "Some detailed guide",
       summary: "Some summary",
       body: "Some content",
-      related_mainstream_content_title: "Mainstream content",
       related_mainstream_content_url: "http://www.gov.uk/mainstream-content",
-      additional_related_mainstream_content_title: "Related mainstream content",
       additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content",
     )
 
