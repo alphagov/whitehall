@@ -142,8 +142,6 @@ class DetailedGuideTest < ActiveSupport::TestCase
       additional_related_mainstream_content_url: "http://www.gov.uk/another-content-missing-from-publishing-api"
     )
 
-    detailed_guide.send(:related_mainstream_found)
-
     refute detailed_guide.valid?
     assert_equal ["This mainstream content could not be found"], detailed_guide.errors[:related_mainstream_content_url]
     assert_equal ["This mainstream content could not be found"], detailed_guide.errors[:additional_related_mainstream_content_url]
@@ -180,7 +178,8 @@ class DetailedGuideTest < ActiveSupport::TestCase
       related_mainstream_content_url: "http://www.gov.uk/mainstream-content",
       additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content"
     )
-    invalid_detailed_guide.send(:related_mainstream_found)
+
+    invalid_detailed_guide.save
 
     assert_equal 0, RelatedMainstream.count
   end
@@ -241,7 +240,6 @@ class DetailedGuideTest < ActiveSupport::TestCase
     #we want to mimic the behaviour of creating a detailed guide, then editing it. This clears the @content_ids array as it would do on a new page load.
     detailed_guide.related_mainstream_content_url = nil
     detailed_guide.save
-    detailed_guide.send(:persist_content_ids)
 
     assert_equal 0, detailed_guide.related_mainstream_content_ids.count
     assert_equal [], detailed_guide.related_mainstream_content_ids

@@ -19,9 +19,9 @@ class DetailedGuide < Edition
   include Edition::RelatedPolicies
   include Edition::RelatedDocuments
 
-  has_many :related_mainstream, foreign_key: "edition_id", dependent: :destroy
+  has_many :related_mainstreams, foreign_key: "edition_id", dependent: :destroy
 
-  validate :related_mainstream_found
+  validate :related_mainstream_found, if: :related_mainstream_requested?
 
   after_save :persist_content_ids
 
@@ -84,6 +84,7 @@ class DetailedGuide < Edition
   def search_format_types
     super + [DetailedGuide.search_format_type]
   end
+
   def self.search_format_type
     'detailed-guidance'
   end
@@ -103,7 +104,12 @@ class DetailedGuide < Edition
   end
 
   def related_mainstream_content_ids
-    RelatedMainstream.where(edition_id: self.id).pluck(:content_id)
+    @related_mainstream_content_ids ||= (
+      base_paths = [related_mainstream_base_path, additional_related_mainstream_base_path].compact
+      return [] if base_paths.empty?
+      response_hash = Whitehall.publishing_api_v2_client.lookup_content_ids(base_paths: base_paths)
+      response_hash.values_at(*base_paths)
+    )
   end
 
   def government
@@ -118,14 +124,6 @@ private
     published_edition_date || draft_edition_date
   end
 
-  def parse_base_path_from_related_mainstream_url(url)
-    return nil if url.nil? || url.empty?
-    parsed_url = URI.parse(url)
-    url_is_invalid = !['gov.uk', 'www.gov.uk'].include?(parsed_url.host)
-    return nil if url_is_invalid
-    URI.parse(url).path
-  end
-
   # Returns the published edition of any detailed guide documents that this edition is related to.
   def published_outbound_related_detailed_guides
     related_documents.published.where(document_type: 'DetailedGuide').map { |document| document.published_edition }.compact
@@ -136,20 +134,18 @@ private
     DetailedGuide.published.joins(:outbound_edition_relations).where(edition_relations: { document_id: document.id })
   end
 
-  def related_mainstream_found
-    return unless related_mainstream_requested?
-    fetch_related_mainstream_content_ids
-    add_errors_for_missing_related_mainstream
-    add_errors_for_missing_additional_related_mainstream
+  def parse_base_path_from_related_mainstream_url(url)
+    return nil if url.nil? || url.empty?
+    parsed_url = URI.parse(url)
+    url_is_invalid = !['gov.uk', 'www.gov.uk'].include?(parsed_url.host)
+    return nil if url_is_invalid
+    parsed_url.path
   end
 
-  def add_errors_for_missing_related_mainstream
+  def related_mainstream_found
     if missing_related_mainstream?
       errors.add(:related_mainstream_content_url, "This mainstream content could not be found")
     end
-  end
-
-  def add_errors_for_missing_additional_related_mainstream
     if missing_additional_related_mainstream?
       errors.add(:additional_related_mainstream_content_url, "This mainstream content could not be found")
     end
@@ -157,32 +153,14 @@ private
 
   def missing_related_mainstream?
     related_mainstream_content_url.present? &&
-      @content_ids.count >= 1 &&
-      @content_ids[0].nil?
+      related_mainstream_content_ids.count >= 1 &&
+      related_mainstream_content_ids[0].nil?
   end
 
   def missing_additional_related_mainstream?
     additional_related_mainstream_content_url.present? &&
-      @content_ids.count > 1 &&
-      @content_ids[1].nil?
-  end
-
-  def fetch_related_mainstream_content_ids
-    base_paths = [related_mainstream_base_path, additional_related_mainstream_base_path].compact
-    if @content_ids.nil? && need_to_fetch_or_persist_related_content_ids?
-      lookup_content_ids(base_paths)
-    else
-      @content_ids ||= []
-    end
-  end
-
-  def lookup_content_ids(base_paths)
-    @content_ids = []
-    return if base_paths.empty?
-    response_hash = Whitehall.publishing_api_v2_client.lookup_content_ids(base_paths: base_paths)
-    @content_ids << response_hash["#{related_mainstream_base_path}"] || nil
-    @content_ids << response_hash["#{additional_related_mainstream_base_path}"] || nil
-    @content_ids
+      related_mainstream_content_ids.count > 1 &&
+      related_mainstream_content_ids[1].nil?
   end
 
   def related_mainstream_requested?
@@ -190,15 +168,9 @@ private
   end
 
   def persist_content_ids
-    return unless need_to_fetch_or_persist_related_content_ids?
-    @content_ids ||= []
-    RelatedMainstream.where(edition_id: self.id).delete_all
-    RelatedMainstream.create!(edition_id: self.id, content_id: @content_ids[0]) if @content_ids[0]
-    RelatedMainstream.create!(edition_id: self.id, content_id: @content_ids[1], additional: true) if @content_ids[1]
-  end
-
-  def need_to_fetch_or_persist_related_content_ids?
-    related_mainstream_requested? || RelatedMainstream.where(edition_id: self.id).exists?
+    related_mainstreams.delete_all
+    related_mainstreams.create!(content_id: related_mainstream_content_ids[0]) if related_mainstream_content_ids[0]
+    related_mainstreams.create!(content_id: related_mainstream_content_ids[1], additional: true) if related_mainstream_content_ids[1]
   end
 
   def self.format_name
