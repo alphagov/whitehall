@@ -86,4 +86,26 @@ class PublishingApi::FatalityNoticePresenterDetailsTest < ActiveSupport::TestCas
       @presented_fatality_notice.content[:details][:body]
     )
   end
+
+  test "it presents first_public_at as nil for draft" do
+    assert_nil @presented_fatality_notice.content[:details][:first_published_at]
+  end
+end
+
+class PublishingApi::PublishedFatalityNoticePresenterDetailsTest < ActiveSupport::TestCase
+  setup do
+    @expected_time = Time.new(2015, 12, 25)
+    @fatality_notice = create(
+      :fatality_notice,
+      :published,
+      body: "*Test string*",
+      first_published_at: @expected_time
+    )
+
+    @presented_fatality_notice = PublishingApi::FatalityNoticePresenter.new(@fatality_notice)
+  end
+
+  test "it presents first_public_at as details, first_public_at" do
+    assert_equal @expected_time, @presented_fatality_notice.content[:details][:first_public_at]
+  end
 end

@@ -28,7 +28,10 @@ module PublishingApi
     attr_reader :item
 
     def details
-      { body: Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item) }
+      {
+        body: Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item),
+        first_public_at: item.first_public_at
+      }
     end
   end
 end
