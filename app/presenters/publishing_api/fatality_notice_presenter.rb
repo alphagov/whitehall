@@ -15,6 +15,7 @@ module PublishingApi
       content.merge!(BaseItemPresenter.new(item).base_attributes)
       content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
       content[:rendering_app] = Whitehall::RenderingApp::WHITEHALL_FRONTEND
+      content[:schema_name] = "fatality_notice"
       content
     end
 

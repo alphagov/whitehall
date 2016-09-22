@@ -37,7 +37,11 @@ class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
 
   test "it presents the rendering_app as whitehall-frontend" do
     assert_equal 'whitehall-frontend', @presented_fatality_notice.content[:rendering_app]
-  end  
+  end
+
+  test "it presents the schema_name as fatality_notice" do
+    assert_equal "fatality_notice", @presented_fatality_notice.content[:schema_name]
+  end
 end
 
 
