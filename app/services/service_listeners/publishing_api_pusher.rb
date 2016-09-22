@@ -8,7 +8,7 @@ module ServiceListeners
 
     def push(event:, options: {})
       case event
-      when "force_publish", "publish"
+      when "force_publish", "publish", "unwithdraw"
         api.publish_async(edition)
       when "update_draft"
         api.save_draft_async(edition)

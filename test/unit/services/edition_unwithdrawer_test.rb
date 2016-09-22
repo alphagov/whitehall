@@ -25,7 +25,7 @@ class EditionUnwithdrawerTest < ActiveSupport::TestCase
   end
 
   test "unwithdraw performs steps in a transaction" do
-    EditionForcePublisher.any_instance.stubs(:perform!).raises("Something bad happened here.")
+    Edition.any_instance.stubs(:create_draft).raises("Something bad happened here.")
 
     assert_raises RuntimeError do
       unwithdraw
