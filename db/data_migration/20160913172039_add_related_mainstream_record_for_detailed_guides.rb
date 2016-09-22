@@ -1,55 +1,45 @@
-RelatedMainstream.destroy_all
+RelatedMainstream.delete_all
 
 guides = DetailedGuide.where([
            "related_mainstream_content_url IS NOT NULL
-              AND related_mainstream_content_url != ''
+              AND (
+                related_mainstream_content_url != ''
+                OR
+                additional_related_mainstream_content_url != ''
+              )
               AND state != 'superseded'"
          ])
 related_mainstream_not_found = []
-n = 0
-guides.each do |guide|
-  guide.send(:fetch_related_mainstream_content_ids)
-  if guide.content_ids[0].nil?
-    related_mainstream_not_found << guide.id
-  else
-    n+=1
-  end
-  guide.send(:persist_content_ids)
-  p "#{n}/#{guides.count}"
-  p guide.related_mainstream
-end
-
-p "---"
-p "Additional related mainstream content"
-p "---"
-
-additional_guides = DetailedGuide.where([
-           "additional_related_mainstream_content_url IS NOT NULL
-              AND additional_related_mainstream_content_url != ''
-              AND state != 'superseded'"
-         ])
 additional_related_mainstream_not_found = []
-n = 0
-additional_guides.each do |guide|
-  guide.send(:fetch_related_mainstream_content_ids)
-  if guide.content_ids[0].nil?
-    additional_related_mainstream_not_found << guide.id
-  else
-    n+=1
+
+guides_count = guides.count
+guides.find_each.with_index do |guide, i|
+  puts "#{i+1}/#{guides_count}"
+  guide.valid?
+
+  if guide.errors[:related_mainstream_content_url].any? || guide.errors[:additional_related_mainstream_content_url].any?
+    related_mainstream_not_found << guide.id
   end
-  guide.send(:persist_content_ids)
-  p "#{n}/#{additional_guides.count}"
-  p guide.related_mainstream
+
+  if guide.errors[:additional_related_mainstream_content_url].any?
+    additional_related_mainstream_not_found << guide.id
+  end
+
+  guide.persist_content_ids
 end
 
-p "Related mainstream found: #{n}/#{guides.count}"
-p "Additional related mainstream found: #{n}/#{additional_guides.count}"
-p "---"
-p "Guides where related mainstream was not found: #{related_mainstream_not_found}"
-p "Guides where additional related mainstream was not found: #{additional_related_mainstream_not_found}"
-p "---"
-p "Related mainstream urls not found"
-related_mainstream_not_found.each { |id| p DetailedGuide.find(id).related_mainstream_content_url }
-p "---"
-p "Additional related mainstream urls not found"
-additional_related_mainstream_not_found.each { |id| p DetailedGuide.find(id).additional_related_mainstream_content_url }
+puts "---"
+puts "Guides where related mainstream was not found:"
+puts "#{related_mainstream_not_found.join(",")}"
+puts "Guides where additional related mainstream was not found:"
+puts "#{additional_related_mainstream_not_found.join(",")}"
+puts "---"
+puts "Related mainstream urls not found"
+DetailedGuide.where(id: related_mainstream_not_found).pluck(:related_mainstream_content_url).each do |url|
+  puts url
+end
+puts "---"
+puts "Additional related mainstream urls not found"
+DetailedGuide.where(id: additional_related_mainstream_not_found).pluck(:additional_related_mainstream_content_url).each do |url|
+  puts url
+end

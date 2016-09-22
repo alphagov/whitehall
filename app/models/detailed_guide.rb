@@ -116,6 +116,12 @@ class DetailedGuide < Edition
     @government ||= Government.on_date(date_for_government) unless date_for_government.nil?
   end
 
+  def persist_content_ids
+    related_mainstreams.delete_all
+    related_mainstreams.create!(content_id: related_mainstream_content_ids[0]) if related_mainstream_content_ids[0]
+    related_mainstreams.create!(content_id: related_mainstream_content_ids[1], additional: true) if related_mainstream_content_ids[1]
+  end
+
 private
 
   def date_for_government
@@ -165,12 +171,6 @@ private
 
   def related_mainstream_requested?
     related_mainstream_content_url.present? || additional_related_mainstream_content_url.present?
-  end
-
-  def persist_content_ids
-    related_mainstreams.delete_all
-    related_mainstreams.create!(content_id: related_mainstream_content_ids[0]) if related_mainstream_content_ids[0]
-    related_mainstreams.create!(content_id: related_mainstream_content_ids[1], additional: true) if related_mainstream_content_ids[1]
   end
 
   def self.format_name
