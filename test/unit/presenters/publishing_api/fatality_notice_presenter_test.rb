@@ -108,4 +108,15 @@ class PublishingApi::PublishedFatalityNoticePresenterDetailsTest < ActiveSupport
   test "it presents first_public_at as details, first_public_at" do
     assert_equal @expected_time, @presented_fatality_notice.content[:details][:first_public_at]
   end
+
+  test "it presents change_history" do
+    change_history = [
+      {
+        "public_timestamp" => @expected_time,
+        "note" => "change-note"
+      }
+    ]
+
+    assert_equal change_history, @presented_fatality_notice.content[:details][:change_history]
+  end
 end

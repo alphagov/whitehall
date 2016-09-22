@@ -30,7 +30,8 @@ module PublishingApi
     def details
       {
         body: Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item),
-        first_public_at: item.first_public_at
+        first_public_at: item.first_public_at,
+        change_history: item.change_history.as_json
       }
     end
   end
