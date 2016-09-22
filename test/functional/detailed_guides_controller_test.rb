@@ -1,6 +1,9 @@
 require "test_helper"
+require "gds_api/test_helpers/content_store"
 
 class DetailedGuidesControllerTest < ActionController::TestCase
+  include GdsApi::TestHelpers::ContentStore
+
   should_be_a_public_facing_controller
   should_display_attachments_for :detailed_guide
   should_show_inapplicable_nations :detailed_guide
@@ -51,6 +54,9 @@ That's all
   end
 
   view_test "show includes any links to related mainstream content" do
+    content_store_has_item("/content", title: "Some related mainstream content")
+    content_store_has_item("/additional-content", title: "Some additional related mainstream content")
+
     guide = create(:published_detailed_guide,
       related_mainstream_content_url: "http://mainstream/content",
       related_mainstream_content_title: "Some related mainstream content",
