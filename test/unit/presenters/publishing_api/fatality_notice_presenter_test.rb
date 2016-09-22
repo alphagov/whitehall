@@ -46,6 +46,12 @@ class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
   test "it presents the document type as fatality_notice" do
     assert_equal "fatality_notice", @presented_fatality_notice.content[:document_type]
   end
+
+  test "it presents the global process wide locale as the locale of the fatality_notice" do
+    I18n.with_locale "de" do
+      assert_equal "de", @presented_fatality_notice.content[:locale]
+    end
+  end
 end
 
 
