@@ -30,6 +30,14 @@ class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
   test "it presents updated_at if public_timestamp is nil" do
     assert_equal @fatality_notice.updated_at, @presented_fatality_notice.content[:public_updated_at]
   end
+
+  test "it presents the publishing_app as whitehall" do
+    assert_equal 'whitehall', @presented_fatality_notice.content[:publishing_app]
+  end
+
+  test "it presents the rendering_app as whitehall-frontend" do
+    assert_equal 'whitehall-frontend', @presented_fatality_notice.content[:rendering_app]
+  end  
 end
 
 

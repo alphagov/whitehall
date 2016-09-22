@@ -14,6 +14,7 @@ module PublishingApi
       content[:public_updated_at] = item.public_timestamp || item.updated_at
       content.merge!(BaseItemPresenter.new(item).base_attributes)
       content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
+      content[:rendering_app] = Whitehall::RenderingApp::WHITEHALL_FRONTEND
       content
     end
 
