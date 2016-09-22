@@ -15,6 +15,7 @@ class OrganisationsController < PublicFacingController
     else
       @organisations = OrganisationsIndexPresenter.new(
         Organisation.excluding_courts_and_tribunals.listable.ordered_by_name_ignoring_prefix)
+      set_meta_description("What's the latest from a department, agency or public body?")
       render :index
     end
   end
