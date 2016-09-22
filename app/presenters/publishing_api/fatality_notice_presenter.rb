@@ -9,15 +9,17 @@ module PublishingApi
     end
 
     def content
-      content = {}
-      content[:description] = item.summary
-      content[:public_updated_at] = item.public_timestamp || item.updated_at
-      content.merge!(BaseItemPresenter.new(item).base_attributes)
-      content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
-      content[:rendering_app] = Whitehall::RenderingApp::WHITEHALL_FRONTEND
-      content[:schema_name] = "fatality_notice"
-      content[:document_type] = "fatality_notice"
-      content
+      {}.tap { |content|
+        content.merge!(BaseItemPresenter.new(item).base_attributes)
+        content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
+        content.merge!(
+          description: item.summary,
+          document_type: "fatality_notice",
+          public_updated_at: item.public_timestamp || item.updated_at,
+          rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
+          schema_name: "fatality_notice",
+        )
+      }
     end
 
   private
