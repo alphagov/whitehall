@@ -42,6 +42,10 @@ class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
   test "it presents the schema_name as fatality_notice" do
     assert_equal "fatality_notice", @presented_fatality_notice.content[:schema_name]
   end
+
+  test "it presents the document type as fatality_notice" do
+    assert_equal "fatality_notice", @presented_fatality_notice.content[:document_type]
+  end
 end
 
 
