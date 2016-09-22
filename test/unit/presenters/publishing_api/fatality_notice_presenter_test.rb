@@ -69,3 +69,21 @@ class PublishingApi::FatalityNoticePresenterWithPublicTimestampTest < ActiveSupp
     assert_equal @expected_time, @presented_fatality_notice.content[:public_updated_at]
   end
 end
+
+class PublishingApi::FatalityNoticePresenterDetailsTest < ActiveSupport::TestCase
+  setup do
+    @fatality_notice = create(
+      :fatality_notice,
+      body: "*Test string*"
+    )
+
+    @presented_fatality_notice = PublishingApi::FatalityNoticePresenter.new(@fatality_notice)
+  end
+
+  test "it presents the Govspeak body as details rendered as HTML" do
+    assert_equal(
+      "<div class=\"govspeak\"><p><em>Test string</em></p>\n</div>",
+      @presented_fatality_notice.content[:details][:body]
+    )
+  end
+end
