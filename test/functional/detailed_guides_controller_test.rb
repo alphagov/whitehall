@@ -57,17 +57,24 @@ That's all
     content_store_has_item("/content", title: "Some related mainstream content")
     content_store_has_item("/additional-content", title: "Some additional related mainstream content")
 
+    lookup_hash = {
+      "/content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
+      "/additional-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"
+    }
+
+    publishing_api_has_lookups(lookup_hash)
+
     guide = create(:published_detailed_guide,
-      related_mainstream_content_url: "http://mainstream/content",
-      related_mainstream_content_title: "Some related mainstream content",
-      additional_related_mainstream_content_url: "http://mainstream/additional-content",
-      additional_related_mainstream_content_title: "Some additional related mainstream content"
+      related_mainstream_content_url: "https://www.gov.uk/content",
+      related_mainstream_content_title: "A title that will be ignored",
+      additional_related_mainstream_content_url: "https://www.gov.uk/additional-content",
+      additional_related_mainstream_content_title: "Another title that will be ignored"
     )
 
     get :show, id: guide.document
 
-    assert_select "a[href='http://mainstream/content']", "Some related mainstream content"
-    assert_select "a[href='http://mainstream/additional-content']", "Some additional related mainstream content"
+    assert_select "a[href='https://www.gov.uk/content']", "Some related mainstream content"
+    assert_select "a[href='https://www.gov.uk/additional-content']", "Some additional related mainstream content"
   end
 
   test "the format name is being set to 'detailed_guidance'" do

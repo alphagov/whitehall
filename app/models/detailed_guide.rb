@@ -178,6 +178,7 @@ private
 
   def lookup_content_ids(base_paths)
     @content_ids = []
+    return if base_paths.empty?
     response_hash = Whitehall.publishing_api_v2_client.lookup_content_ids(base_paths: base_paths)
     @content_ids << response_hash["#{related_mainstream_base_path}"] || nil
     @content_ids << response_hash["#{additional_related_mainstream_base_path}"] || nil
