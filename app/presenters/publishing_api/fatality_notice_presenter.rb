@@ -40,7 +40,8 @@ module PublishingApi
     def links
       {
         organisations: item.organisations.map(&:content_id),
-        policy_areas: item.topics.map(&:content_id)
+        policy_areas: item.topics.map(&:content_id),
+        field_of_operation: [item.operational_field.content_id]
       }
     end
   end

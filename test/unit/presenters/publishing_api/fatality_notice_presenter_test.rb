@@ -146,4 +146,11 @@ class PublishingApi::PublishedFatalityNoticePresenterLinksTest < ActiveSupport::
       @presented_links[:policy_areas]
     )
   end
+
+  test "it presents the field of operation as links, field_of_operation" do
+    assert_equal(
+      [@fatality_notice.operational_field.content_id],
+      @presented_links[:field_of_operation]
+    )
+  end
 end
