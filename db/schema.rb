@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160805122401) do
+ActiveRecord::Schema.define(version: 20160923134615) do
 
   create_table "about_pages", force: :cascade do |t|
     t.integer  "topical_event_id",    limit: 4
@@ -743,6 +743,7 @@ ActiveRecord::Schema.define(version: 20160805122401) do
     t.datetime "updated_at"
     t.text     "description", limit: 65535
     t.string   "slug",        limit: 255
+    t.string   "content_id",  limit: 255
   end
 
   add_index "operational_fields", ["slug"], name: "index_operational_fields_on_slug", using: :btree
