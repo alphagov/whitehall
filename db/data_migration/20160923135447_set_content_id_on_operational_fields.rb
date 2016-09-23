@@ -1,0 +1,1 @@
+OperationalField.all.each(&:save)
