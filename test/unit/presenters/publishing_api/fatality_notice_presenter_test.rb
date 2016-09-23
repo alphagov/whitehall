@@ -119,4 +119,11 @@ class PublishingApi::PublishedFatalityNoticePresenterDetailsTest < ActiveSupport
 
     assert_equal change_history, @presented_fatality_notice.content[:details][:change_history]
   end
+
+  test "it presents the lead organisation content_ids as details, emphasised_organisations" do
+    assert_equal(
+      @fatality_notice.lead_organisations.map(&:content_id),
+      @presented_fatality_notice.content[:details][:emphasised_organisations]
+    )
+  end
 end
