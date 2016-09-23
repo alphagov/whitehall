@@ -139,4 +139,11 @@ class PublishingApi::PublishedFatalityNoticePresenterLinksTest < ActiveSupport::
       @presented_links[:organisations]
     )
   end
+
+  test "it presents the topics content_ids as links, policy_areas" do
+    assert_equal(
+      @fatality_notice.topics.map(&:content_id),
+      @presented_links[:policy_areas]
+    )
+  end
 end
