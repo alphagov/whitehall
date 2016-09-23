@@ -125,3 +125,18 @@ class PublishingApi::PublishedFatalityNoticePresenterDetailsTest < ActiveSupport
     )
   end
 end
+
+class PublishingApi::PublishedFatalityNoticePresenterLinksTest < ActiveSupport::TestCase
+  setup do
+    @fatality_notice = create(:fatality_notice)
+    presented_fatality_notice = PublishingApi::FatalityNoticePresenter.new(@fatality_notice)
+    @presented_links = presented_fatality_notice.content[:links]
+  end
+
+  test "it presents the organisation content_ids as links, organisations" do
+    assert_equal(
+      @fatality_notice.organisations.map(&:content_id),
+      @presented_links[:organisations]
+    )
+  end
+end

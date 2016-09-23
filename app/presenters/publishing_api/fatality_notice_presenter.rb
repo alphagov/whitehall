@@ -18,7 +18,8 @@ module PublishingApi
           public_updated_at: item.public_timestamp || item.updated_at,
           rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
           schema_name: "fatality_notice",
-          details: details
+          details: details,
+          links: links
         )
       }
     end
@@ -33,6 +34,12 @@ module PublishingApi
         first_public_at: item.first_public_at,
         change_history: item.change_history.as_json,
         emphasised_organisations: item.lead_organisations.map(&:content_id)
+      }
+    end
+
+    def links
+      {
+        organisations: item.organisations.map(&:content_id)
       }
     end
   end
