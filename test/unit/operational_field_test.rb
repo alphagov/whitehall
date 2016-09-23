@@ -1,6 +1,11 @@
 require "test_helper"
 
 class OperationalFieldTest < ActiveSupport::TestCase
+  test "has a content_id when saved" do
+    operational_field = create(:operational_field)
+    assert operational_field.content_id
+  end
+
   test "is invalid without a name" do
     operational_field = build(:operational_field, name: "")
     refute operational_field.valid?
