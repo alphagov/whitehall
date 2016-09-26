@@ -6,6 +6,7 @@ class DetailedGuidesController < DocumentsController
   def show
     @topics = @document.topics
     @related_policies = document_related_policies
+    @document = DetailedGuidePresenter.new(@document, view_context)
 
     set_meta_description(@document.summary)
   end

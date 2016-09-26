@@ -4,7 +4,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
   should_allow_image_attachments
   should_be_attachable
   should_allow_inline_attachments
-  should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
+  should_protect_against_xss_and_content_attacks_on :body, :summary, :change_note
 
   test "should be able to relate to topics" do
     article = build(:detailed_guide)
@@ -64,23 +64,14 @@ class DetailedGuideTest < ActiveSupport::TestCase
 
   test "can be associated with some content in the mainstream application" do
     refute build(:detailed_guide).has_related_mainstream_content?
-    guide = build(:detailed_guide, related_mainstream_content_url: "http://mainstream/content", related_mainstream_content_title: "Name of content")
+    guide = build(:detailed_guide, related_mainstream_content_url: "http://mainstream/content")
     assert guide.has_related_mainstream_content?
   end
 
   test "can be associated with some additional content in the mainstream application" do
     refute build(:detailed_guide).has_additional_related_mainstream_content?
-    guide = build(:detailed_guide, additional_related_mainstream_content_url: "http://mainstream/content", additional_related_mainstream_content_title: "Name of content")
+    guide = build(:detailed_guide, additional_related_mainstream_content_url: "http://mainstream/content")
     assert guide.has_additional_related_mainstream_content?
-  end
-
-  test "should require a title if related mainstream content url is given" do
-    refute build(:detailed_guide, related_mainstream_content_url: "http://mainstream/content").valid?
-  end
-
-  test "should require a title if additional related mainstream content url is given" do
-    detailed_guide = build(:detailed_guide, additional_related_mainstream_content_url: "http://mainstream/additional-content")
-    refute detailed_guide.valid?
   end
 
   test "should be valid if all level-3 headings have a parent level-2 heading" do
@@ -122,33 +113,135 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert_equal detailed_guide.related_detailed_guide_content_ids, [some_detailed_guide.content_id]
   end
 
-  test 'related_mainstream works correctly' do
+  test 'related_mainstream_found works correctly for two correct related mainstream paths' do
     lookup_hash = {
-      "/guidance/lorem" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312",
-      "/guidance/ipsum" => "9af50189-de1c-49af-a334-6b1d87b593a6"
+      "/mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
+      "/another-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"
+    }
+
+    publishing_api_has_lookups(lookup_hash)
+
+    detailed_guide = build(
+      :detailed_guide,
+      related_mainstream_content_url: "http://www.gov.uk/mainstream-content",
+      additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content"
+    )
+
+    detailed_guide.save
+
+    assert_equal ["9af50189-de1c-49af-a334-6b1d87b593a6", "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"], detailed_guide.related_mainstream_content_ids
+  end
+
+
+  test 'related_mainstream_found raises two errors for two incorrect related mainstream paths' do
+    Whitehall.publishing_api_v2_client.stubs(:lookup_content_ids).with(base_paths: ["/content-missing-from-publishing-api", "/another-content-missing-from-publishing-api"]).returns({})
+
+    detailed_guide = build(
+      :detailed_guide,
+      related_mainstream_content_url: "http://www.gov.uk/content-missing-from-publishing-api",
+      additional_related_mainstream_content_url: "http://www.gov.uk/another-content-missing-from-publishing-api"
+    )
+
+    refute detailed_guide.valid?
+    assert_equal ["This mainstream content could not be found"], detailed_guide.errors[:related_mainstream_content_url]
+    assert_equal ["This mainstream content could not be found"], detailed_guide.errors[:additional_related_mainstream_content_url]
+  end
+
+  test 'should persist related mainstream content ids' do
+    lookup_hash = {
+      "/mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
+      "/another-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"
+    }
+
+    publishing_api_has_lookups(lookup_hash)
+
+    create(
+      :detailed_guide,
+      related_mainstream_content_url: "http://www.gov.uk/mainstream-content",
+      additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content"
+    )
+
+    assert_equal 2, RelatedMainstream.count
+  end
+
+  test 'should not persist related mainstream content ids if edition isn\'t valid' do
+    lookup_hash = {
+      "/mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
+      "/another-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"
+    }
+
+    publishing_api_has_lookups(lookup_hash)
+
+    invalid_detailed_guide = build(
+      :detailed_guide,
+      title: nil,
+      related_mainstream_content_url: "http://www.gov.uk/mainstream-content",
+      additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content"
+    )
+
+    invalid_detailed_guide.save
+
+    assert_equal 0, RelatedMainstream.count
+  end
+
+  test '#related_mainstream_content_ids should return the content_ids of associated RelatedMainstream records' do
+    lookup_hash = {
+      "/mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
+      "/another-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"
     }
 
     publishing_api_has_lookups(lookup_hash)
 
     detailed_guide = create(
       :detailed_guide,
-      title: "Some detailed guide",
-      summary: "Some summary",
-      body: "Some content",
-      related_mainstream_content_title: "Lorem",
-      related_mainstream_content_url: "http://www.gov.uk/guidance/lorem",
-      additional_related_mainstream_content_title: "Ipsum",
-      additional_related_mainstream_content_url: "http://www.gov.uk/guidance/ipsum",
+      related_mainstream_content_url: "http://www.gov.uk/mainstream-content",
+      additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content"
     )
 
-    related_mainstream_ids = detailed_guide.related_mainstream
+    assert_equal ["9af50189-de1c-49af-a334-6b1d87b593a6", "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"], detailed_guide.related_mainstream_content_ids
+  end
 
-    expected_ids = [
-      "9dd9e077-ae45-45f6-ad9d-2a484e5ff312",
-      "9af50189-de1c-49af-a334-6b1d87b593a6"
-    ]
+  test 'if related_mainstream_content_url gets updated, #persist_content_ids should update existing RelatedMainstream records' do
+    lookup_hash = {
+      "/mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
+      "/new-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"
+    }
 
-    # Links can come in any order, so we sort to make sure the set is the same.
-    assert_equal related_mainstream_ids.sort, expected_ids.sort
+    publishing_api_has_lookups(lookup_hash)
+
+    create(
+      :detailed_guide,
+      related_mainstream_content_url: "http://www.gov.uk/mainstream-content"
+    )
+
+    detailed_guide = DetailedGuide.last
+    #we want to mimic the behaviour of creating a detailed guide, then editing it. This clears the @content_ids array as it would do on a new page load.
+
+    detailed_guide.related_mainstream_content_url = "http://www.gov.uk/new-mainstream-content"
+    detailed_guide.save
+
+    assert_equal 1, detailed_guide.related_mainstream_content_ids.count
+    assert_equal ["9dd9e077-ae45-45f6-ad9d-2a484e5ff312"], detailed_guide.related_mainstream_content_ids
+  end
+
+  test 'if related_mainstream_content_url gets deleted, #persist_content_ids should delete existing RelatedMainstream records' do
+    lookup_hash = {
+      "/mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
+    }
+
+    publishing_api_has_lookups(lookup_hash)
+
+    create(
+      :detailed_guide,
+      related_mainstream_content_url: "http://www.gov.uk/mainstream-content"
+    )
+
+    detailed_guide = DetailedGuide.last
+    #we want to mimic the behaviour of creating a detailed guide, then editing it. This clears the @content_ids array as it would do on a new page load.
+    detailed_guide.related_mainstream_content_url = nil
+    detailed_guide.save
+
+    assert_equal 0, detailed_guide.related_mainstream_content_ids.count
+    assert_equal [], detailed_guide.related_mainstream_content_ids
   end
 end

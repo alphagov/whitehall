@@ -19,8 +19,11 @@ class DetailedGuide < Edition
   include Edition::RelatedPolicies
   include Edition::RelatedDocuments
 
-  validate :related_mainstream_content_valid?
-  validate :additional_related_mainstream_content_valid?
+  has_many :related_mainstreams, foreign_key: "edition_id", dependent: :destroy
+
+  validate :related_mainstream_found, if: :related_mainstream_requested?
+
+  after_save :persist_content_ids
 
   class HeadingHierarchyValidator < ActiveModel::Validator
     include GovspeakHelper
@@ -81,6 +84,7 @@ class DetailedGuide < Edition
   def search_format_types
     super + [DetailedGuide.search_format_type]
   end
+
   def self.search_format_type
     'detailed-guidance'
   end
@@ -99,24 +103,23 @@ class DetailedGuide < Edition
     parse_base_path_from_related_mainstream_url(url)
   end
 
-  def related_mainstream
-    base_paths = []
-    base_paths.push(related_mainstream_base_path)
-    base_paths.push(additional_related_mainstream_base_path)
-    base_paths.compact!
-
-    if base_paths.any?
-      Whitehall.publishing_api_v2_client
-        .lookup_content_ids(base_paths: base_paths)
-        .values
-        .compact
-    else
-      []
-    end
+  def related_mainstream_content_ids
+    @related_mainstream_content_ids ||= (
+      base_paths = [related_mainstream_base_path, additional_related_mainstream_base_path].compact
+      return [] if base_paths.empty?
+      response_hash = Whitehall.publishing_api_v2_client.lookup_content_ids(base_paths: base_paths)
+      response_hash.values_at(*base_paths)
+    )
   end
 
   def government
     @government ||= Government.on_date(date_for_government) unless date_for_government.nil?
+  end
+
+  def persist_content_ids
+    related_mainstreams.delete_all
+    related_mainstreams.create!(content_id: related_mainstream_content_ids[0]) if related_mainstream_content_ids[0]
+    related_mainstreams.create!(content_id: related_mainstream_content_ids[1], additional: true) if related_mainstream_content_ids[1]
   end
 
 private
@@ -125,14 +128,6 @@ private
     published_edition_date = first_public_at.try(:to_date)
     draft_edition_date = updated_at.try(:to_date)
     published_edition_date || draft_edition_date
-  end
-
-  def parse_base_path_from_related_mainstream_url(url)
-    return nil if url.nil? || url.empty?
-    parsed_url = URI.parse(url)
-    url_is_invalid = !['gov.uk', 'www.gov.uk'].include?(parsed_url.host)
-    return nil if url_is_invalid
-    URI.parse(url).path
   end
 
   # Returns the published edition of any detailed guide documents that this edition is related to.
@@ -145,16 +140,37 @@ private
     DetailedGuide.published.joins(:outbound_edition_relations).where(edition_relations: { document_id: document.id })
   end
 
-  def related_mainstream_content_valid?
-    if related_mainstream_content_url.present? && related_mainstream_content_title.blank?
-      errors.add(:related_mainstream_content_title, "cannot be blank if a related URL is given")
+  def parse_base_path_from_related_mainstream_url(url)
+    return nil if url.nil? || url.empty?
+    parsed_url = URI.parse(url)
+    url_is_invalid = !['gov.uk', 'www.gov.uk'].include?(parsed_url.host)
+    return nil if url_is_invalid
+    parsed_url.path
+  end
+
+  def related_mainstream_found
+    if missing_related_mainstream?
+      errors.add(:related_mainstream_content_url, "This mainstream content could not be found")
+    end
+    if missing_additional_related_mainstream?
+      errors.add(:additional_related_mainstream_content_url, "This mainstream content could not be found")
     end
   end
 
-  def additional_related_mainstream_content_valid?
-    if additional_related_mainstream_content_url.present? && additional_related_mainstream_content_title.blank?
-      errors.add(:additional_related_mainstream_content_title, "cannot be blank if an additional related URL is given")
-    end
+  def missing_related_mainstream?
+    related_mainstream_content_url.present? &&
+      related_mainstream_content_ids.count >= 1 &&
+      related_mainstream_content_ids[0].nil?
+  end
+
+  def missing_additional_related_mainstream?
+    additional_related_mainstream_content_url.present? &&
+      related_mainstream_content_ids.count > 1 &&
+      related_mainstream_content_ids[1].nil?
+  end
+
+  def related_mainstream_requested?
+    related_mainstream_content_url.present? || additional_related_mainstream_content_url.present?
   end
 
   def self.format_name
