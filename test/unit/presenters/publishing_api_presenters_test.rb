@@ -113,4 +113,9 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     presenter = PublishingApiPresenters.presenter_for(build(:document_collection))
     assert_equal PublishingApi::DocumentCollectionPlaceholderPresenter, presenter.class
   end
+
+  test ".presenter_for returns an OperationalFieldPresenter for an OperationalField" do
+    presenter = PublishingApiPresenters.presenter_for(build(:operational_field))
+    assert_equal PublishingApi::OperationalFieldPresenter, presenter.class
+  end
 end
