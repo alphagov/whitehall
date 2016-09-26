@@ -1,6 +1,10 @@
 require "test_helper"
 
 class OperationalFieldTest < ActiveSupport::TestCase
+  test "publishes to PublishingApi" do
+    assert OperationalField.new.is_a?(PublishesToPublishingApi)
+  end
+
   test "has a content_id when saved" do
     operational_field = create(:operational_field)
     assert operational_field.content_id
