@@ -37,6 +37,8 @@ private
       PublishingApi::WorldwideOrganisationPresenter
     when ::Contact
       PublishingApi::ContactPresenter
+    when OperationalField
+      PublishingApi::OperationalFieldPresenter
     else
       raise UndefinedPresenterError, "Could not find presenter class for: #{model.inspect}"
     end
