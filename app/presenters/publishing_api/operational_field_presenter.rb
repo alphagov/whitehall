@@ -2,10 +2,10 @@ module PublishingApi
   class OperationalFieldPresenter
     attr_reader :links, :update_type
 
-    def initialize(operational_field, update_type: nil)
+    def initialize(operational_field, **_)
       @operational_field = operational_field
       @links = {}
-      @update_type = update_type
+      @update_type = "major"
     end
 
     def content_id
