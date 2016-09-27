@@ -5,11 +5,16 @@ class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
     @fatality_notice = create(
       :fatality_notice,
       title: "Fatality Notice title",
-      summary: "Fatality Notice summary"
+      summary: "Fatality Notice summary",
+      first_published_at: Time.now
     )
 
     @presented_fatality_notice = PublishingApi::FatalityNoticePresenter.new(@fatality_notice)
     @presented_content = I18n.with_locale("de") { @presented_fatality_notice.content }
+  end
+
+  test "it presents a valid fatality_notice content item" do
+    assert_valid_against_schema @presented_content, "fatality_notice"
   end
 
   test "it delegates the content id" do
@@ -130,7 +135,7 @@ class PublishingApi::PublishedFatalityNoticePresenterLinksTest < ActiveSupport::
   setup do
     @fatality_notice = create(:fatality_notice)
     presented_fatality_notice = PublishingApi::FatalityNoticePresenter.new(@fatality_notice)
-    @presented_links = presented_fatality_notice.content[:links]
+    @presented_links = presented_fatality_notice.links
   end
 
   test "it presents the organisation content_ids as links, organisations" do
@@ -152,5 +157,42 @@ class PublishingApi::PublishedFatalityNoticePresenterLinksTest < ActiveSupport::
       [@fatality_notice.operational_field.content_id],
       @presented_links[:field_of_operation]
     )
+  end
+end
+
+class PublishingApi::FatalityNoticePresenterUpdateTypeTest < ActiveSupport::TestCase
+  setup do
+    @presented_fatality_notice = PublishingApi::FatalityNoticePresenter.new(
+      create(:fatality_notice, minor_change: false)
+    )
+  end
+
+  test "if the update type is not supplied it presents based on the item" do
+    assert_equal "major", @presented_fatality_notice.update_type
+  end
+end
+
+class PublishingApi::FatalityNoticePresenterMinorUpdateTypeTest < ActiveSupport::TestCase
+  setup do
+    @presented_fatality_notice = PublishingApi::FatalityNoticePresenter.new(
+      create(:fatality_notice, minor_change: true)
+    )
+  end
+
+  test "if the update type is not supplied it presents based on the item" do
+    assert_equal "minor", @presented_fatality_notice.update_type
+  end
+end
+
+class PublishingApi::FatalityNoticePresenterUpdateTypeArgumentTest < ActiveSupport::TestCase
+  setup do
+    @presented_fatality_notice = PublishingApi::FatalityNoticePresenter.new(
+      create(:fatality_notice, minor_change: true),
+      update_type: "major"
+    )
+  end
+
+  test "presents based on the supplied update type argument" do
+    assert_equal "major", @presented_fatality_notice.update_type
   end
 end

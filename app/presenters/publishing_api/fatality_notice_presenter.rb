@@ -1,7 +1,12 @@
 module PublishingApi
   class FatalityNoticePresenter
-    def initialize(item)
+    include UpdateTypeHelper
+
+    attr_reader :update_type
+
+    def initialize(item, update_type: nil)
       @item = item
+      @update_type = update_type || default_update_type(item)
     end
 
     def content_id
@@ -18,10 +23,17 @@ module PublishingApi
           public_updated_at: item.public_timestamp || item.updated_at,
           rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
           schema_name: "fatality_notice",
-          details: details,
-          links: links
+          details: details
         )
       }
+    end
+
+    def links
+      LinksPresenter.new(item).extract(
+        %i(organisations policy_areas)
+      ).merge(
+        field_of_operation: [item.operational_field.content_id]
+      )
     end
 
   private
@@ -34,14 +46,6 @@ module PublishingApi
         first_public_at: item.first_public_at,
         change_history: item.change_history.as_json,
         emphasised_organisations: item.lead_organisations.map(&:content_id)
-      }
-    end
-
-    def links
-      {
-        organisations: item.organisations.map(&:content_id),
-        policy_areas: item.topics.map(&:content_id),
-        field_of_operation: [item.operational_field.content_id]
       }
     end
   end
