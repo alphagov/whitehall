@@ -75,7 +75,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
       related_policies: ["dc6d2e0e-8f5d-4c3f-aaea-c890e07d0cf8"],
       policy_areas: detailed_guide.topics.map(&:content_id),
       related_guides: [],
-      related_mainstream: [],
+      related_mainstream_content: [],
     }
     presented_item = present(detailed_guide)
 
@@ -123,7 +123,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     details = presented_item.content[:details]
 
     assert_equal ["9dd9e077-ae45-45f6-ad9d-2a484e5ff312", "9af50189-de1c-49af-a334-6b1d87b593a6"], details[:related_mainstream_content]
-    assert_equal ["9dd9e077-ae45-45f6-ad9d-2a484e5ff312", "9af50189-de1c-49af-a334-6b1d87b593a6"].sort!, links[:related_mainstream].sort!
+    assert_equal ["9dd9e077-ae45-45f6-ad9d-2a484e5ff312", "9af50189-de1c-49af-a334-6b1d87b593a6"].sort!, links[:related_mainstream_content].sort!
   end
 
   test 'DetailedGuide presents related_mainstream with dodgy data' do
@@ -146,7 +146,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     links = presented_item.links
     expected_ids = ["cd7fde45-5f79-4982-8939-cedc4bed161c"]
 
-    assert_equal expected_ids.sort, links[:related_mainstream].sort
+    assert_equal expected_ids.sort, links[:related_mainstream_content].sort
   end
 
   test 'DetailedGuide presents political information correctly' do

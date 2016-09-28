@@ -39,7 +39,7 @@ module PublishingApi
         ]
       ).merge(
         related_guides: item.related_detailed_guide_content_ids,
-        related_mainstream: related_mainstream_content_ids
+        related_mainstream_content: related_mainstream_content_ids
       )
     end
 
