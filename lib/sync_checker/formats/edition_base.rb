@@ -134,9 +134,7 @@ module SyncChecker
           body: Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(edition),
           change_history: edition.change_history.as_json,
           emphasised_organisations: edition.lead_organisations.map(&:content_id),
-          first_public_at: first_public_at(edition),
-          political: edition.political?,
-          government: expected_government_value(edition)
+          first_public_at: first_public_at(edition)
         }
       end
 
@@ -165,7 +163,13 @@ module SyncChecker
       end
 
       def first_public_at(edition)
-        (document.published? ? edition.first_public_at : document.created_at).try(:iso8601)
+        first_public_at = if document.published?
+                            edition.first_public_at
+                          else
+                            document.created_at
+                          end
+
+        first_public_at.to_datetime.rfc3339(3)
       end
 
       def expected_government_value(edition)
