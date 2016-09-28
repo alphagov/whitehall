@@ -138,13 +138,6 @@ module SyncChecker
           political: edition.political?,
           government: expected_government_value(edition)
         }
-        expected_details.tap do |details_hash|
-          details_hash.merge(
-            {
-              national_applicability: edition.national_applicability
-            }
-          ) if edition.nation_inapplicabilities.any?
-        end
       end
 
     private
