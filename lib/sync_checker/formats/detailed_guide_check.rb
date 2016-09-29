@@ -14,12 +14,33 @@ module SyncChecker
               .reject(&:unpublishing)
               .map(&:content_id)
               .uniq
+          ),
+          Checks::LinksCheck.new(
+            "related_mainstream_content",
+            related_mainstream_content_ids(edition_expected_in_live)
           )
         ]
       end
 
       def document_type
         "detailed_guide"
+      end
+
+      def expected_details_hash(edition)
+        super.tap do |expected_details_hash|
+          expected_details_hash.merge(
+            national_applicability: edition.national_applicability
+          ) if edition.nation_inapplicabilities.any?
+          expected_details_hash.merge(
+            related_mainstream_content: related_mainstream_content_ids(edition)
+          )
+        end
+      end
+
+    private
+
+      def related_mainstream_content_ids(edition)
+        edition.related_mainstreams.pluck(:content_id)
       end
     end
   end

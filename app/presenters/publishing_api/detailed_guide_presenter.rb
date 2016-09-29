@@ -64,7 +64,7 @@ module PublishingApi
     end
 
     def first_public_at
-      (item.document.published? ? item.first_public_at : item.document.created_at).try(:iso8601)
+      item.document.published? ? item.first_public_at : item.document.created_at
     end
 
 
