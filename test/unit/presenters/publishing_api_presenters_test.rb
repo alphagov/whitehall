@@ -118,4 +118,9 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     presenter = PublishingApiPresenters.presenter_for(build(:operational_field))
     assert_equal PublishingApi::OperationalFieldPresenter, presenter.class
   end
+
+  test ".presenter_for returns a FatalityNoticePresenter for a FatalityNotice" do
+    presenter = PublishingApiPresenters.presenter_for(build(:fatality_notice))
+    assert_equal PublishingApi::FatalityNoticePresenter, presenter.class
+  end
 end

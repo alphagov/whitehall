@@ -52,6 +52,8 @@ private
       PublishingApi::DocumentCollectionPlaceholderPresenter
     when ::DetailedGuide
       PublishingApi::DetailedGuidePresenter
+    when ::FatalityNotice
+      PublishingApi::FatalityNoticePresenter
     when ::Publication
       PublishingApi::PublicationPresenter
     else
