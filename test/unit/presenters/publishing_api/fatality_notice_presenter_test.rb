@@ -6,7 +6,7 @@ class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
       :fatality_notice,
       title: "Fatality Notice title",
       summary: "Fatality Notice summary",
-      first_published_at: Time.now
+      first_published_at: Time.zone.now
     )
 
     @presented_fatality_notice = PublishingApi::FatalityNoticePresenter.new(@fatality_notice)
@@ -60,7 +60,7 @@ end
 
 class PublishingApi::FatalityNoticePresenterWithPublicTimestampTest < ActiveSupport::TestCase
   setup do
-    @expected_time = Time.parse("10/01/2016")
+    @expected_time = Time.zone.parse("10/01/2016")
     @fatality_notice = create(
       :fatality_notice
     )
