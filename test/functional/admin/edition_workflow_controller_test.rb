@@ -1,6 +1,9 @@
 require 'test_helper'
+require 'gds_api/test_helpers/panopticon'
 
 class Admin::EditionWorkflowControllerTest < ActionController::TestCase
+  include GdsApi::TestHelpers::Panopticon
+
   should_be_an_admin_controller
 
   setup do
@@ -70,6 +73,14 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_redirected_to admin_publication_path(draft_edition)
     assert_equal 'You cannot force publish a document without a reason', flash[:alert]
     assert draft_edition.reload.draft?
+  end
+
+  test 'unwithdraw handles re-registration with Panopticon' do
+    registerable = RegisterableEdition.new(withdrawn_edition)
+    panopticon_request = stub_artefact_registration(registerable.slug)
+    post :unwithdraw, id: withdrawn_edition, lock_version: withdrawn_edition.lock_version, reason: 'Withdrawn by error'
+
+    assert_requested panopticon_request
   end
 
   test 'schedule schedules the given edition on behalf of the current user' do
@@ -334,5 +345,9 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
 
   def imported_edition
     @imported_edition ||= create(:imported_edition)
+  end
+
+  def withdrawn_edition
+    @withdrawn_edition ||= create(:withdrawn_edition, major_change_published_at: Time.zone.now)
   end
 end
