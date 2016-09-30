@@ -21,7 +21,7 @@ module PublishingApi
           description: item.summary,
           document_type: "fatality_notice",
           public_updated_at: item.public_timestamp || item.updated_at,
-          rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
+          rendering_app: item.rendering_app,
           schema_name: "fatality_notice",
           details: details
         )
