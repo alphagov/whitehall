@@ -12,7 +12,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
   end
 
   test "should use detailed guidance as its format name" do
-    assert_equal 'detailed guidance', DetailedGuide.format_name
+    assert_equal "detailed guidance", DetailedGuide.format_name
   end
 
   test "should use detailed guidance as rummageable search index format" do
@@ -20,7 +20,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert_equal "detailed_guidance", guide.search_index["format"]
   end
 
-  test 'should be added to the detailed guides rummager index' do
+  test "should be added to the detailed guides rummager index" do
     assert_equal :detailed_guides, build(:detailed_guide).rummager_index
   end
 
@@ -87,23 +87,23 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert_equal ["must have a level-2 heading (h2 - ##) before level-3 heading (h3 - ###): 'Orphan'"], detailed_guide.errors[:body]
   end
 
-  test 'search_format_types tags the detailed guide as detailed-guidance' do
+  test "search_format_types tags the detailed guide as detailed-guidance" do
     detailed_guide = build(:detailed_guide)
-    assert detailed_guide.search_format_types.include?('detailed-guidance')
+    assert detailed_guide.search_format_types.include?("detailed-guidance")
   end
 
-  test 'should return base paths for related mainstream content urls' do
+  test "should return base paths for related mainstream content urls" do
     detailed_guide = build(
       :detailed_guide,
       related_mainstream_content_url: "http://gov.uk/content",
       additional_related_mainstream_content_url: "http://gov.uk/additional-content"
     )
 
-    assert_equal detailed_guide.related_mainstream_base_path, '/content'
-    assert_equal detailed_guide.additional_related_mainstream_base_path, '/additional-content'
+    assert_equal detailed_guide.related_mainstream_base_path, "/content"
+    assert_equal detailed_guide.additional_related_mainstream_base_path, "/additional-content"
   end
 
-  test 'related_detailed_guide_ids works correctly' do
+  test "related_detailed_guide_ids works correctly" do
     some_detailed_guide = create(:published_detailed_guide)
     detailed_guide = create(
       :published_detailed_guide,
@@ -113,7 +113,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert_equal detailed_guide.related_detailed_guide_content_ids, [some_detailed_guide.content_id]
   end
 
-  test 'related_mainstream_found works correctly for two correct related mainstream paths' do
+  test "related_mainstream_found works correctly for two correct related mainstream paths" do
     lookup_hash = {
       "/mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
       "/another-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"
@@ -133,7 +133,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
   end
 
 
-  test 'related_mainstream_found raises two errors for two incorrect related mainstream paths' do
+  test "related_mainstream_found raises two errors for two incorrect related mainstream paths" do
     Whitehall.publishing_api_v2_client.stubs(:lookup_content_ids).with(base_paths: ["/content-missing-from-publishing-api", "/another-content-missing-from-publishing-api"]).returns({})
 
     detailed_guide = build(
@@ -147,7 +147,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert_equal ["This mainstream content could not be found"], detailed_guide.errors[:additional_related_mainstream_content_url]
   end
 
-  test 'should persist related mainstream content ids' do
+  test "should persist related mainstream content ids" do
     lookup_hash = {
       "/mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
       "/another-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"
@@ -164,7 +164,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert_equal 2, RelatedMainstream.count
   end
 
-  test 'should not persist related mainstream content ids if edition isn\'t valid' do
+  test "should not persist related mainstream content ids if edition isn't valid" do
     lookup_hash = {
       "/mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
       "/another-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"
@@ -184,7 +184,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert_equal 0, RelatedMainstream.count
   end
 
-  test '#related_mainstream_content_ids should return the content_ids of associated RelatedMainstream records' do
+  test "#related_mainstream_content_ids should return the content_ids of associated RelatedMainstream records" do
     lookup_hash = {
       "/mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
       "/another-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"
@@ -201,7 +201,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert_equal ["9af50189-de1c-49af-a334-6b1d87b593a6", "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"], detailed_guide.related_mainstream_content_ids
   end
 
-  test 'if related_mainstream_content_url gets updated, #persist_content_ids should update existing RelatedMainstream records' do
+  test "if related_mainstream_content_url gets updated, #persist_content_ids should update existing RelatedMainstream records" do
     lookup_hash = {
       "/mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
       "/new-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"
@@ -224,7 +224,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert_equal ["9dd9e077-ae45-45f6-ad9d-2a484e5ff312"], detailed_guide.related_mainstream_content_ids
   end
 
-  test 'if related_mainstream_content_url gets deleted, #persist_content_ids should delete existing RelatedMainstream records' do
+  test "if related_mainstream_content_url gets deleted, #persist_content_ids should delete existing RelatedMainstream records" do
     lookup_hash = {
       "/mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
     }
@@ -245,7 +245,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert_equal [], detailed_guide.related_mainstream_content_ids
   end
 
-  test 'is rendered by government-frontend' do
+  test "is rendered by government-frontend" do
     assert DetailedGuide.new.rendering_app == Whitehall::RenderingApp::GOVERNMENT_FRONTEND
   end
 end
