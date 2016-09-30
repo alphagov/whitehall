@@ -63,12 +63,6 @@ class EditionUnwithdrawerTest < ActiveSupport::TestCase
     assert_equal "Unwithdrawn", unwithdrawn_edition.editorial_remarks.first.body
   end
 
-  test "unwithdraw handles re-registration with Panopticon" do
-    unwithdraw
-
-    assert_requested @panopticon_request
-  end
-
   def unwithdraw(edition = nil)
     edition ||= @edition
     @unwithdrawer = EditionUnwithdrawer.new(edition, user: @user)
