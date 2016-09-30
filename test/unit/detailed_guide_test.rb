@@ -244,4 +244,8 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert_equal 0, detailed_guide.related_mainstream_content_ids.count
     assert_equal [], detailed_guide.related_mainstream_content_ids
   end
+
+  test 'is rendered by government-frontend' do
+    assert DetailedGuide.new.rendering_app == Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+  end
 end
