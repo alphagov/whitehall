@@ -41,4 +41,8 @@ class FatalityNoticeTest < ActiveSupport::TestCase
     fatality_notice = create(:published_fatality_notice, operational_field: operational_field)
     assert_equal operational_field.slug, fatality_notice.search_index["operational_field"]
   end
+
+  test "is rendered by government-frontend" do
+    assert FatalityNotice.new.rendering_app == Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+  end
 end
