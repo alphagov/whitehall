@@ -36,6 +36,10 @@ class DetailedGuide < Edition
 
   validates_with HeadingHierarchyValidator
 
+  def rendering_app
+    Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+  end
+
   def rummager_index
     :detailed_guides
   end

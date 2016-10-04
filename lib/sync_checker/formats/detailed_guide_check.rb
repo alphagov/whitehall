@@ -43,6 +43,10 @@ module SyncChecker
       def related_mainstream_content_ids(edition)
         edition.related_mainstreams.pluck(:content_id)
       end
+
+      def rendering_app
+        Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+      end
     end
   end
 end
