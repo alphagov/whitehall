@@ -43,10 +43,15 @@ module PublishingApi
     def details
       {
         body: Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item),
-        first_public_at: item.first_public_at,
+        first_public_at: first_public_at,
         change_history: item.change_history.as_json,
         emphasised_organisations: item.lead_organisations.map(&:content_id)
       }
+    end
+
+    def first_public_at
+      document = item.document
+      document.published? ? item.first_public_at : document.created_at
     end
   end
 end
