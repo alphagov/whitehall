@@ -18,6 +18,13 @@ module SyncChecker
           Checks::LinksCheck.new(
             "related_mainstream_content",
             related_mainstream_content_ids(edition_expected_in_live)
+          ),
+          Checks::LinksCheck.new(
+            "document_collections",
+            edition_expected_in_live
+              .document_collections
+              .published
+              .map(&:content_id)
           )
         ]
       end
