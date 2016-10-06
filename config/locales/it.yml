@@ -45,9 +45,6 @@ it:
       draft_text:
         one: Bozza
         other: Bozze
-      fatality_notice:
-        one: Messaggio di errore
-        other: Messaggi di errore
       foi_release:
         one: Comunicato FOI (accesso agli atti)
         other: Comunicati FOI (accesso agli atti)

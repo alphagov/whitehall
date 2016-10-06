@@ -71,11 +71,6 @@ sr:
         few:
         many:
         other: Nacrti tekstova
-      fatality_notice:
-        one: Obaveštenje o smrtnim slučajevima
-        few:
-        many:
-        other: Obaveštenja o smrtnim slučajevima
       foi_release:
         one: Odgovor na zahtev za pristup informaciji od javnog značaja
         few:

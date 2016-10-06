@@ -45,9 +45,6 @@ dr:
       draft_text:
         one: "متن مسوده"
         other: "متون مسوده"
-      fatality_notice:
-        one: "خبر  مرگ و میر"
-        other: "اخبار مرگ و میر"
       foi_release:
         one: "نشرآزادی بیان"
         other: "نشریه های آزادی بیان"

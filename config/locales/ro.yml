@@ -58,10 +58,6 @@ ro:
         one: Versiune preliminară
         few:
         other: Versiuni preliminare
-      fatality_notice:
-        one: Anunț privind decesul
-        few:
-        other: Anunțuri privind decese
       foi_release:
         one: 'Acces la informații publice '
         few:

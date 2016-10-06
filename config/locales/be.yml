@@ -71,11 +71,6 @@ be:
         few:
         many:
         other: "Чарнавікі"
-      fatality_notice:
-        one: "Паведамленне"
-        few:
-        many:
-        other: "Паведамленні"
       foi_release:
         one: "Рэліз у межах Закона аб свабодзе інфармацыі"
         few:

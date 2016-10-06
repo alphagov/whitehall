@@ -165,9 +165,6 @@ zh-tw:
       draft_text:
         one: "內容"
         other: "其他內容"
-      fatality_notice:
-        one: "安全事故通知"
-        other: "安全事故通知"
       foi_release:
         one: "政府公開訊息"
         other: "其他政府公開訊息"

@@ -45,9 +45,6 @@ tk:
       draft_text:
         one:
         other:
-      fatality_notice:
-        one:
-        other:
       foi_release:
         one:
         other:

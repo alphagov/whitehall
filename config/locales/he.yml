@@ -71,11 +71,6 @@ he:
         two:
         many:
         other: "טיוטות"
-      fatality_notice:
-        one: "הודעת פטירה"
-        two:
-        many:
-        other: "הודעות פטירה"
       foi_release:
         one: "פרסום חופש מידע"
         two:

@@ -165,9 +165,6 @@ az:
       draft_text:
         one: hazırlanmış mətn
         other: hazırlanmış mətn
-      fatality_notice:
-        one: səhvlə bağlı qeyd
-        other: səhvlə bağlı qeydlər
       foi_release:
         one: Məlumat azadlığı ilə bağlı açıqlama
         other: Məlumat azadlığı ilə bağlı açıqlamalar

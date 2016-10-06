@@ -97,13 +97,6 @@ ar:
         few:
         many:
         other: "مسودة النصوص"
-      fatality_notice:
-        zero:
-        one: "إشعار وفاة"
-        two:
-        few:
-        many:
-        other: "إشعارات وفاة"
       foi_release:
         zero:
         one: "نشرة وفق حرية الحصول على المعلومات"

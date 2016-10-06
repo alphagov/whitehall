@@ -58,10 +58,6 @@ lt:
         one: Pirminis teksto variantas
         few:
         other: Pirminiai teksto variantai
-      fatality_notice:
-        one: Pranešimas apie nelaimę
-        few:
-        other: Pranešimas apie nelaimes
       foi_release:
         one: 'Informacijos laisvė: pranešimas'
         few:

@@ -168,9 +168,6 @@ hu:
       draft_text:
         one: Szövegtervezet
         other: Szövegtervezetek
-      fatality_notice:
-        one: Halálesettel kapcsolatos értesítés
-        other: Halálesettel kapcsolatos értesítések
       foi_release:
         one: Információhoz való joggal kapcsolatos közlemény
         other: Információhoz való joggal kapcsolatos közlemények

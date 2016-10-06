@@ -45,9 +45,6 @@ hi:
       draft_text:
         one: "मसौदा पाठ"
         other: "मसौदे के पाठ"
-      fatality_notice:
-        one: "विपत्ति की सूचना"
-        other: "विपत्ति की सूचना"
       foi_release:
         one: "एफओआई की विज्ञप्ति"
         other: "एफओआई की विज्ञप्तियां"

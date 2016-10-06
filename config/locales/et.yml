@@ -45,9 +45,6 @@ et:
       draft_text:
         one: Eelnõu
         other: Eelnõud
-      fatality_notice:
-        one: Surmateade
-        other: Surmateated
       foi_release:
         one: FOI teavitus
         other: FOI teavitused

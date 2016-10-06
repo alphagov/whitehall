@@ -167,9 +167,6 @@ tr:
       draft_text:
         one: Taslak metin
         other: Taslak metinler
-      fatality_notice:
-        one: "Ölüm ilanı"
-        other: "Ölüm ilanları"
       foi_release:
         one: Bilgi edinme hakkı raporu
         other: Bilgi edinme hakkı raporları

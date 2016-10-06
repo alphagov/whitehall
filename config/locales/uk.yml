@@ -71,11 +71,6 @@ uk:
         few:
         many:
         other: "Проекти документів"
-      fatality_notice:
-        one: "Повідомлення про смерть"
-        few:
-        many:
-        other: "Повідомлення про смерть"
       foi_release:
         one: "Відповідь на інформаційний запит"
         few:

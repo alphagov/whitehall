@@ -45,9 +45,6 @@ ps:
       draft_text:
         one: "مسوده"
         other: "مسودی"
-      fatality_notice:
-        one: "دمړینی خبرتیا"
-        other: "دمړینی خبرتیاوی"
       foi_release:
         one: "د بیان د آزادی خپرونه"
         other: "د بیان د آزادی خپرونی"

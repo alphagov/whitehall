@@ -97,13 +97,6 @@ cy:
         few:
         many:
         other: Testun drafft
-      fatality_notice:
-        zero:
-        one: Hysbysiad marwolaeth
-        two:
-        few:
-        many:
-        other: Hysbysiadau marwolaeth
       foi_release:
         zero:
         one: Datganiad Rhyddid Gwybodaeth

@@ -165,9 +165,6 @@ zh-hk:
       draft_text:
         one: "內容"
         other: "其他內容"
-      fatality_notice:
-        one: "安全事故通知"
-        other: "其他安全事故通知"
       foi_release:
         one: "資訊自由(FOI)資訊發布"
         other: "其他資訊自由(FOI)資訊發布"

@@ -71,11 +71,6 @@ pl:
         few:
         many:
         other: Teksty robocze
-      fatality_notice:
-        one: Informacja o śmierci
-        few:
-        many:
-        other: Informacje o śmierci
       foi_release:
         one: Informacja zgodnie z ustawą o wolnosci informacji
         few:

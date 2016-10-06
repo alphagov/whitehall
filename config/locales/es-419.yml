@@ -45,9 +45,6 @@ es-419:
       draft_text:
         one: Borrador
         other: Borradores
-      fatality_notice:
-        one: Aviso de defunción
-        other: Avisos de defunción
       foi_release:
         one: Boletín de FOI
         other: Boletines de FOI

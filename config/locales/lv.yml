@@ -45,9 +45,6 @@ lv:
       draft_text:
         one: Teksta uzmetums
         other: Teksta uzmetumi
-      fatality_notice:
-        one: Nāves paziņojums
-        other: Nāves paziņojumi
       foi_release:
         one: Informācijas atklātības datu publicēšana
         other: Informācijas atklātības datu publicēšana

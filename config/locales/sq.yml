@@ -45,9 +45,6 @@ sq:
       draft_text:
         one: Draft tekst
         other: draft tekste
-      fatality_notice:
-        one: njoftim fataliteti
-        other: njoftime fataliteti
       foi_release:
         one: Njoftim mbi Lirine e Informacionit
         other: Njoftime mbi Lirine e Informacionit

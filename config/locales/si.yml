@@ -45,9 +45,6 @@ si:
       draft_text:
         one: "අශෝදිත වැකිය"
         other: "අශෝදිත වැකි"
-      fatality_notice:
-        one: "තීරණාත්මක  දැන්වීම"
-        other: "තීරණාත්මක  දැන්වීම්"
       foi_release:
         one: "එෆ්. ඉ. ඕ. දැන්වීම"
         other: "එෆ්. ඉ. ඕ. දැන්වීම්"
