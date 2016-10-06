@@ -35,4 +35,8 @@ class FatalityNotice < Announcement
   def search_format_types
     super + [FatalityNotice.search_format_type]
   end
+
+  def rendering_app
+    Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+  end
 end
