@@ -25,7 +25,7 @@ class EditionUnwithdrawerTest < ActiveSupport::TestCase
   end
 
   test "unwithdraw performs steps in a transaction" do
-    EditionForcePublisher.any_instance.stubs(:perform!).raises("Something bad happened here.")
+    Edition.any_instance.stubs(:create_draft).raises("Something bad happened here.")
 
     assert_raises RuntimeError do
       unwithdraw
@@ -61,12 +61,6 @@ class EditionUnwithdrawerTest < ActiveSupport::TestCase
     assert_equal edition.document, unwithdrawn_edition.document
     assert_equal @user, unwithdrawn_edition.editorial_remarks.first.author
     assert_equal "Unwithdrawn", unwithdrawn_edition.editorial_remarks.first.body
-  end
-
-  test "unwithdraw handles re-registration with Panopticon" do
-    unwithdraw
-
-    assert_requested @panopticon_request
   end
 
   def unwithdraw(edition = nil)

@@ -1,4 +1,4 @@
-class EditionUnwithdrawer < EditionService
+class EditionUnwithdrawer < EditionPublisher
   def verb
     'unwithdraw'
   end
@@ -34,8 +34,16 @@ private
     unwithdrawn_edition.editorial_remarks << EditorialRemark.create(author: user, edition: edition, body: "Unwithdrawn")
 
     Edition::AuditTrail.acting_as(user) do
-      Whitehall.edition_services.force_publisher(unwithdrawn_edition).perform!
+      force_publish! unwithdrawn_edition
     end
+  end
+
+  def force_publish!(unwithdrawn_edition)
+    # The perform! method could be called instead, but this would lead to a nested transaction,
+    # with possible race conditions
+    force_publisher = EditionForcePublisher.new(unwithdrawn_edition)
+    force_publisher.send(:prepare_edition)
+    force_publisher.send(:fire_transition!)
   end
 
   def user
