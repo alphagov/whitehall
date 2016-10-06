@@ -5,7 +5,6 @@ dr:
         one: "سند"
         other: "اسناد"
       applies_to_nations: "اطلاق میشود به"
-      field_of_operation: "بخش عملیاتی"
       from:
       location:
       part_of:

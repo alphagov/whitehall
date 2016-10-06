@@ -7,7 +7,6 @@ be:
         many:
         other: "Дакументы"
       applies_to_nations: "У адносінах да"
-      field_of_operation: "Сфера дзейнасці"
       from:
       location:
       part_of:

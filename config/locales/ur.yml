@@ -5,7 +5,6 @@ ur:
         one: "دستاویز"
         other: "دستاویزات"
       applies_to_nations: "اطلاق ہوتا ہے"
-      field_of_operation: "کارروائی کا میدان"
       from:
       location:
       part_of:

@@ -7,7 +7,6 @@ ru:
         many:
         other: "Документы"
       applies_to_nations: "Применимо к"
-      field_of_operation: "Сфера деятельности"
       from:
       location:
       part_of:

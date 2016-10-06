@@ -5,7 +5,6 @@ hi:
         one: "दस्तावेज़"
         other: "दस्तावेजों"
       applies_to_nations: "पर लागू"
-      field_of_operation: "प्रचालन क्षेत्र"
       from:
       location:
       part_of:

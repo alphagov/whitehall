@@ -5,7 +5,6 @@ ta:
         one: " ஆவணம்"
         other: "ஆவணங்கள்"
       applies_to_nations: "பிரயோகமாகிறது"
-      field_of_operation: "செயற்பாட்டுத் துறை"
       from:
       location:
       part_of:

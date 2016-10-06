@@ -115,7 +115,6 @@ th:
       attachments:
         one: "เอกสาร"
         other: "เอกสารต่างๆ"
-      field_of_operation: "ลักษณะงาน"
       from:
       location:
       part_of:

@@ -5,7 +5,6 @@ hy:
         one: "Փաստաթուղթ"
         other: "Փաստաթղթեր"
       applies_to_nations: "Վերաբերվում է"
-      field_of_operation: "Գործունեության ոլորտ"
       from:
       location:
       part_of:

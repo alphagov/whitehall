@@ -115,7 +115,6 @@ ko:
       attachments:
         one: "문서"
         other: "문서"
-      field_of_operation: "오퍼레이션 필드"
       from:
       location:
       part_of:
