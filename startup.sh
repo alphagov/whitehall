@@ -14,4 +14,4 @@ fi
 export STATIC_DEV
 echo
 bundle install
-bundle exec rails s thin -p 3020
+bundle exec rails s -p 3020
