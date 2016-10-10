@@ -1,12 +1,5 @@
 class Person < ActiveRecord::Base
   include PublishesToPublishingApi
-
-  def self.columns
-    # This is here to enable us to gracefully remove the biography column
-    # in a future commit, *after* this change has been deployed
-    super.reject { |column| ['biography'].include?(column.name) }
-  end
-
   include Searchable
 
   mount_uploader :image, ImageUploader, mount_on: :carrierwave_image

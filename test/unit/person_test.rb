@@ -3,13 +3,6 @@ require 'test_helper'
 class PersonTest < ActiveSupport::TestCase
   should_protect_against_xss_and_content_attacks_on :biography
 
-  test "#columns excludes biography so that we can safely it from editions in a future migration" do
-    # This test ensure that we're excluding the biography column from Person.columns.
-    # You can safely remove this, and Person.columns, once it's been deployed and we've subsequently removed
-    # this column for real.
-    refute Person.columns.map(&:name).include?('biography')
-  end
-
   test 'should return search index data suitable for Rummageable' do
     person = create(:person, content_id: 'f585949d-3796-4566-ab31-cb0d978aec00', forename: 'David', surname: 'Cameron', biography: 'David Cameron became Prime Minister in May 2010.')
 
