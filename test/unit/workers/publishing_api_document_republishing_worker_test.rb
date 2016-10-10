@@ -19,6 +19,18 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
     PublishingApiDraftWorker.expects(:new).returns(draft_worker = mock)
     draft_worker.expects(:perform).with(draft_edition.class.name, draft_edition.id, "republish", "en")
 
+    invocation_order = sequence('invocation_order')
+    PublishingApiHtmlAttachmentsWorker
+      .any_instance
+      .expects(:perform)
+      .with(published_edition.id, "publish")
+      .in_sequence(invocation_order)
+    PublishingApiHtmlAttachmentsWorker
+      .any_instance
+      .expects(:perform)
+      .with(draft_edition.id, "update_draft")
+      .in_sequence(invocation_order)
+
     PublishingApiDocumentRepublishingWorker.new.perform(document.id)
   end
 
@@ -78,10 +90,10 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
     PublishingApiDocumentRepublishingWorker.new.perform(document.id)
   end
 
-  test "it publishes and then unpublishes if the published edition withdrawn" do
+  test "it publishes and then unpublishes if the published edition is withdrawn" do
     unpublishing = build(:withdrawn_unpublishing, id: 10)
     document = stub(
-      published_edition: published_edition = build(:withdrawn_edition, unpublishing: unpublishing),
+      published_edition: published_edition = create(:withdrawn_edition, unpublishing: unpublishing),
       id: 1,
       pre_publication_edition: nil,
     )
@@ -92,6 +104,18 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
 
     PublishingApiUnpublishingWorker.expects(:new).returns(unpublishing_worker = mock)
     unpublishing_worker.expects(:perform).with(published_edition.unpublishing.id, false)
+
+    invocation_order = sequence('invocation_order')
+    PublishingApiHtmlAttachmentsWorker
+      .any_instance
+      .expects(:perform)
+      .with(published_edition.id, "publish")
+      .in_sequence(invocation_order)
+    PublishingApiHtmlAttachmentsWorker
+      .any_instance
+      .expects(:perform)
+      .with(published_edition.id, "withdraw")
+      .in_sequence(invocation_order)
 
     PublishingApiDocumentRepublishingWorker.new.perform(document.id)
   end
