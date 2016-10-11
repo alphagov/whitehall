@@ -36,6 +36,9 @@ module SyncChecker
           ),
           Checks::DetailsCheck.new(
             expected_details_hash
+          ),
+          Checks::HtmlAttachmentUnpublishedCheck.new(
+            attachment
           )
         ]
       end
