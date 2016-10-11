@@ -28,7 +28,7 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
     if the_document_has_been_unpublished?
       send_draft_and_unpublish
     elsif the_document_has_been_withdrawn?
-      send_published_and_unpublish
+      send_published_and_withdraw
     else
       if there_is_only_a_draft?
         send_draft_edition
@@ -86,6 +86,10 @@ private
   def send_draft_and_unpublish
     send_draft_edition
     send_unpublish(pre_publication_edition)
+    PublishingApiHtmlAttachmentsWorker.new.perform(
+      pre_publication_edition.id,
+      "unpublish"
+    )
   end
 
   def send_draft_edition
@@ -97,11 +101,20 @@ private
         locale
       )
     end
+
+    PublishingApiHtmlAttachmentsWorker.new.perform(
+      pre_publication_edition.id,
+      "update_draft"
+    )
   end
 
-  def send_published_and_unpublish
+  def send_published_and_withdraw
     send_published_edition
     send_unpublish(published_edition)
+    PublishingApiHtmlAttachmentsWorker.new.perform(
+      published_edition.id,
+      "withdraw"
+    )
   end
 
   def send_published_edition
@@ -113,6 +126,11 @@ private
         locale
       )
     end
+
+    PublishingApiHtmlAttachmentsWorker.new.perform(
+      published_edition.id,
+      "republish"
+    )
   end
 
   def send_unpublish(edition)

@@ -112,9 +112,10 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   end
 
   test 'POST :create saves a draft html attachment to the Publishing API' do
-    Whitehall::PublishingApi.stubs(:save_draft_async)
-    Whitehall::PublishingApi.expects(:save_draft_async).with(instance_of(HtmlAttachment))
+    stub_any_publishing_api_put_content
     post :create, edition_id: @edition.id, type: 'html', attachment: valid_html_attachment_params
+    attachment_content_id = HtmlAttachment.pluck(:content_id).last
+    assert_publishing_api_put_content(attachment_content_id)
   end
 
   test 'POST :create ignores html attachments when attachable does not allow them' do
@@ -246,14 +247,14 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   end
 
   test "PUT :update for HTML attachments sends a draft to the Publishing API" do
-    Whitehall::PublishingApi.stubs(:save_draft_async)
-    Whitehall::PublishingApi.expects(:save_draft_async).with(instance_of(HtmlAttachment))
+    stub_any_publishing_api_put_content
     attachment = create(:html_attachment, attachable: @edition)
 
     put :update, edition_id: @edition, id: attachment.id, attachment: {
       title: 'New title',
       govspeak_content_attributes: { body: 'New body', id: attachment.govspeak_content.id }
     }
+    assert_publishing_api_put_content(attachment.content_id)
   end
 
   test "PUT :update with empty file payload changes attachment metadata, but not the attachment data" do

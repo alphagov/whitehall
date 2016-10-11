@@ -30,16 +30,13 @@ module ServiceListeners
         api.discard_draft_async(edition)
       end
 
-      html_attachments_pusher(event).call
+      handle_html_attachments(event)
     end
 
   private
 
-    def html_attachments_pusher(event)
-      Whitehall::PublishingApi::HtmlAttachmentPusher.new(
-        edition: edition,
-        event: event
-      )
+    def handle_html_attachments(event)
+      PublishingApiHtmlAttachmentsWorker.perform_async(edition.id, event)
     end
 
     def api
