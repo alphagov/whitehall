@@ -89,19 +89,20 @@ private
   end
 
   def do_publish(update_type)
+    content_ids_to_remove.each do |content_id|
+      PublishingApiRedirectWorker.new.perform(
+        content_id,
+        Whitehall.url_maker.public_document_path(edition),
+        I18n.default_locale.to_s
+      )
+    end
+
     current_html_attachments.each do |html_attachment|
       PublishingApiWorker.new.perform(
         html_attachment.class.name,
         html_attachment.id,
         update_type,
         html_attachment.locale || I18n.default_locale.to_s
-      )
-    end
-    content_ids_to_remove.each do |content_id|
-      PublishingApiRedirectWorker.new.perform(
-        content_id,
-        Whitehall.url_maker.public_document_path(edition),
-        I18n.default_locale.to_s
       )
     end
   end
