@@ -23,7 +23,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
     PublishingApiHtmlAttachmentsWorker
       .any_instance
       .expects(:perform)
-      .with(published_edition.id, "publish")
+      .with(published_edition.id, "republish")
       .in_sequence(invocation_order)
     PublishingApiHtmlAttachmentsWorker
       .any_instance
@@ -109,7 +109,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
     PublishingApiHtmlAttachmentsWorker
       .any_instance
       .expects(:perform)
-      .with(published_edition.id, "publish")
+      .with(published_edition.id, "republish")
       .in_sequence(invocation_order)
     PublishingApiHtmlAttachmentsWorker
       .any_instance

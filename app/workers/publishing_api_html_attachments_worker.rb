@@ -10,23 +10,13 @@ class PublishingApiHtmlAttachmentsWorker
   end
 
   def publish
-    current_html_attachments.each do |html_attachment|
-      PublishingApiWorker.new.perform(
-        html_attachment.class.name,
-        html_attachment.id,
-        edition.minor_change? ? "minor" : "major",
-        html_attachment.locale || I18n.default_locale.to_s
-      )
-    end
-    content_ids_to_remove.each do |content_id|
-      PublishingApiRedirectWorker.new.perform(
-        content_id,
-        Whitehall.url_maker.public_document_path(edition),
-        I18n.default_locale.to_s
-      )
-    end
+    do_publish(edition.minor_change? ? "minor" : "major")
   end
   alias :force_publish :publish
+
+  def republish
+    do_publish("republish")
+  end
 
   def update_draft
     current_html_attachments.each do |html_attachment|
@@ -96,5 +86,23 @@ private
     new_content_ids = current_html_attachments.pluck(:content_id).to_set
 
     old_content_ids - new_content_ids
+  end
+
+  def do_publish(update_type)
+    current_html_attachments.each do |html_attachment|
+      PublishingApiWorker.new.perform(
+        html_attachment.class.name,
+        html_attachment.id,
+        update_type,
+        html_attachment.locale || I18n.default_locale.to_s
+      )
+    end
+    content_ids_to_remove.each do |content_id|
+      PublishingApiRedirectWorker.new.perform(
+        content_id,
+        Whitehall.url_maker.public_document_path(edition),
+        I18n.default_locale.to_s
+      )
+    end
   end
 end

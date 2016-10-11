@@ -129,7 +129,7 @@ private
 
     PublishingApiHtmlAttachmentsWorker.new.perform(
       published_edition.id,
-      "publish"
+      "republish"
     )
   end
 

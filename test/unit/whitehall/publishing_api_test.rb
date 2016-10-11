@@ -190,10 +190,13 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
   test ".republish_document_async publishes to the publishing API as a 'republish' update_type" do
     edition = create(:published_publication)
     presenter = PublishingApiPresenters.presenter_for(edition, update_type: 'republish')
+    html_attachment_content_id = edition.html_attachments.first.content_id
+
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: 'republish')
+      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: 'republish'),
+      stub_publishing_api_publish(html_attachment_content_id, locale: presenter.content[:locale], update_type: 'republish')
     ]
 
     Whitehall::PublishingApi.republish_document_async(edition.document)
