@@ -115,7 +115,6 @@ ko:
       attachments:
         one: "문서"
         other: "문서"
-      field_of_operation: "오퍼레이션 필드"
       from:
       location:
       part_of:
@@ -167,9 +166,6 @@ ko:
       draft_text:
         one: "드래프트 택스트"
         other: "드래프트 택스트"
-      fatality_notice:
-        one: "사상자 공지"
-        other: "사상자 공지"
       foi_release:
         one: FOI 보도자료
         other: FOI 보도자료

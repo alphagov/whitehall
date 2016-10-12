@@ -5,7 +5,6 @@ fr:
         one: Document
         other: Documents
       applies_to_nations: s'appliquant à
-      field_of_operation: Domaine d'activité
       from:
       location:
       part_of:
@@ -46,9 +45,6 @@ fr:
       draft_text:
         one: Projet de texte
         other: Projets de textes
-      fatality_notice:
-        one: Avis de décès
-        other: Avis de décès
       foi_release:
         one: Communiqué Freedom of Information
         other: Communiqués Freedom of Information

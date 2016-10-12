@@ -5,7 +5,6 @@ ta:
         one: " ஆவணம்"
         other: "ஆவணங்கள்"
       applies_to_nations: "பிரயோகமாகிறது"
-      field_of_operation: "செயற்பாட்டுத் துறை"
       from:
       location:
       part_of:
@@ -46,9 +45,6 @@ ta:
       draft_text:
         one: "வரைபு உரை"
         other: "வரைபு உரைகள்"
-      fatality_notice:
-        one: "இடர் அறிவித்தல்"
-        other: "இடர் அறிவித்தல்கள்"
       foi_release:
         one: "தகவலின் சுதந்திரமான  வெளியிடுதல்"
         other: "தகவல்களின் சுதந்திரமான  வெளியிடுதல்கள்"

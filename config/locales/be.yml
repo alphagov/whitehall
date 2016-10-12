@@ -7,7 +7,6 @@ be:
         many:
         other: "Дакументы"
       applies_to_nations: "У адносінах да"
-      field_of_operation: "Сфера дзейнасці"
       from:
       location:
       part_of:
@@ -72,11 +71,6 @@ be:
         few:
         many:
         other: "Чарнавікі"
-      fatality_notice:
-        one: "Паведамленне"
-        few:
-        many:
-        other: "Паведамленні"
       foi_release:
         one: "Рэліз у межах Закона аб свабодзе інфармацыі"
         few:

@@ -5,7 +5,6 @@ lv:
         one: Dokuments
         other: Dokumenti
       applies_to_nations: Attiecas uz
-      field_of_operation: Darbības lauks
       from:
       location:
       part_of:
@@ -46,9 +45,6 @@ lv:
       draft_text:
         one: Teksta uzmetums
         other: Teksta uzmetumi
-      fatality_notice:
-        one: Nāves paziņojums
-        other: Nāves paziņojumi
       foi_release:
         one: Informācijas atklātības datu publicēšana
         other: Informācijas atklātības datu publicēšana

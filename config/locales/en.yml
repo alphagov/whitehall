@@ -96,7 +96,6 @@ en:
     published: published
     contents: Contents
     headings:
-      field_of_operation: Field of operation
       applies_to_nations: Applies to
       part_of: Part of
       from: From
@@ -135,9 +134,6 @@ en:
       draft_text:
         one: Draft text
         other: Draft texts
-      fatality_notice:
-        one: Fatality notice
-        other: Fatality notices
       foi_release:
         one: FOI release
         other: FOI releases

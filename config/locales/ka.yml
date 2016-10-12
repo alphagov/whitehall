@@ -114,7 +114,6 @@ ka:
       attachments:
         one:
         other:
-      field_of_operation:
       from:
       location:
       part_of:
@@ -164,9 +163,6 @@ ka:
         one:
         other:
       draft_text:
-        one:
-        other:
-      fatality_notice:
         one:
         other:
       foi_release:

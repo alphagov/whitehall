@@ -7,7 +7,6 @@ ru:
         many:
         other: "Документы"
       applies_to_nations: "Применимо к"
-      field_of_operation: "Сфера деятельности"
       from:
       location:
       part_of:
@@ -72,11 +71,6 @@ ru:
         few:
         many:
         other: "Проект текстов"
-      fatality_notice:
-        one: "Уведомление о несчастном случае"
-        few:
-        many:
-        other: "Уведомления о несчастных случаях"
       foi_release:
         one: "Свобода распространения информации "
         few:

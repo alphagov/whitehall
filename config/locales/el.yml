@@ -5,7 +5,6 @@ el:
         one: "Έγγραφο"
         other: "Έγγραφα"
       applies_to_nations: "Ισχύει"
-      field_of_operation: "Πεδίο δράσης"
       from:
       location:
       part_of:
@@ -46,9 +45,6 @@ el:
       draft_text:
         one: "Προσχέδιο"
         other: "Προσχέδια"
-      fatality_notice:
-        one: "Ανακοίνωση θανάτου"
-        other: "Ανακοινώσεις θανάτων"
       foi_release:
         one: "Δημοσιοποίηση"
         other: "Δημοσιοποίηση"

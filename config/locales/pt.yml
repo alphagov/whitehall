@@ -5,7 +5,6 @@ pt:
         one: Documento
         other: Documentos
       applies_to_nations: Aplica-se a
-      field_of_operation: Campo de Operação
       from:
       location:
       part_of:
@@ -46,9 +45,6 @@ pt:
       draft_text:
         one: Texto preliminar
         other: Textos preliminares
-      fatality_notice:
-        one: Aviso de Falecimento
-        other: Avisos de Falecimento
       foi_release:
         one: Comunicado sobre pedido de acesso a informação
         other: Comunicados sobre pedidos de acesso a informação

@@ -114,7 +114,6 @@ zh-tw:
       attachments:
         one: "文件"
         other: "其他文件"
-      field_of_operation: "運用領域"
       from:
       location:
       part_of:
@@ -166,9 +165,6 @@ zh-tw:
       draft_text:
         one: "內容"
         other: "其他內容"
-      fatality_notice:
-        one: "安全事故通知"
-        other: "安全事故通知"
       foi_release:
         one: "政府公開訊息"
         other: "其他政府公開訊息"

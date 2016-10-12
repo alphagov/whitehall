@@ -7,7 +7,6 @@ he:
         many:
         other: "מסמכים"
       applies_to_nations: "מתייחס ל"
-      field_of_operation: "שדה פעולה"
       from:
       location:
       part_of:
@@ -72,11 +71,6 @@ he:
         two:
         many:
         other: "טיוטות"
-      fatality_notice:
-        one: "הודעת פטירה"
-        two:
-        many:
-        other: "הודעות פטירה"
       foi_release:
         one: "פרסום חופש מידע"
         two:

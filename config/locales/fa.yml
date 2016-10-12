@@ -116,7 +116,6 @@ fa:
       attachments:
         one: "مدرک"
         other: "مدارک"
-      field_of_operation: "میدان عمل"
       from:
       location:
       part_of:
@@ -168,9 +167,6 @@ fa:
       draft_text:
         one: "متن پیش نویس"
         other: "متون پیش نویس"
-      fatality_notice:
-        one: "اطلاعیه تلفات"
-        other: "اطلاعیه تلفات"
       foi_release:
         one: "انتشار آزاد اطلاعات"
         other: "انتشار آزاد اطلاعات"

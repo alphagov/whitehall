@@ -6,7 +6,6 @@ ro:
         few:
         other: Documente
       applies_to_nations: Se adresează
-      field_of_operation: Domeniu de activitate
       from:
       location:
       part_of:
@@ -59,10 +58,6 @@ ro:
         one: Versiune preliminară
         few:
         other: Versiuni preliminare
-      fatality_notice:
-        one: Anunț privind decesul
-        few:
-        other: Anunțuri privind decese
       foi_release:
         one: 'Acces la informații publice '
         few:

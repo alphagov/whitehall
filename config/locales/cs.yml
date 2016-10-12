@@ -6,7 +6,6 @@ cs:
         few:
         other: Dokumenty
       applies_to_nations: Týká se
-      field_of_operation: Oblast působnosti
       from:
       location:
       part_of:
@@ -59,10 +58,6 @@ cs:
         one: Koncept
         few:
         other: Koncepty
-      fatality_notice:
-        one: Hlášení závad
-        few:
-        other: Hlášení závad
       foi_release:
         one: Zpráva vydaná na základě Zákona o svobodném přístupu k informacím
         few:

@@ -116,7 +116,6 @@ vi:
       attachments:
         one: Tài liệu
         other: Tài liệu
-      field_of_operation: Lĩnh vực hoạt động
       from:
       location:
       part_of:
@@ -168,9 +167,6 @@ vi:
       draft_text:
         one: Nội dung dự thảo
         other: Các nội dung dự thảo
-      fatality_notice:
-        one: Tin buồn
-        other: Tin buồn
       foi_release:
         one: Thông cáo FOI
         other: Thông cáo FOI

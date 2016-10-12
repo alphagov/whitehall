@@ -5,7 +5,6 @@ es:
         one: Documento
         other: Documentos
       applies_to_nations: Sirve para
-      field_of_operation: "Ãmbito de actuación"
       from:
       location:
       part_of:
@@ -46,9 +45,6 @@ es:
       draft_text:
         one: Borrador
         other: Borradores
-      fatality_notice:
-        one: Aviso de defunción
-        other: Avisos de defunción
       foi_release:
         one: Nota de prensa de Freedom of Information
         other: Boletines de FOI

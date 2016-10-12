@@ -5,7 +5,6 @@ et:
         one: Dokument
         other: Dokumendid
       applies_to_nations: Seondub
-      field_of_operation: Tegevusvaldkond
       from: Kellelt
       location: Asukoht
       part_of: Osa
@@ -46,9 +45,6 @@ et:
       draft_text:
         one: Eelnõu
         other: Eelnõud
-      fatality_notice:
-        one: Surmateade
-        other: Surmateated
       foi_release:
         one: FOI teavitus
         other: FOI teavitused

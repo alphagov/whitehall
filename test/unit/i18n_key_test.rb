@@ -45,7 +45,6 @@ class I18nKeyTest < ActiveSupport::TestCase
 
   test "translations for misc other edition types are present" do
     assert_translation DetailedGuide.new, "document.type"
-    assert_translation FatalityNotice.new, "document.type"
     assert_translation StatisticalDataSet.new, "document.type"
     assert_translation CaseStudy.new, "document.type"
   end

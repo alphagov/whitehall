@@ -115,7 +115,6 @@ th:
       attachments:
         one: "เอกสาร"
         other: "เอกสารต่างๆ"
-      field_of_operation: "ลักษณะงาน"
       from:
       location:
       part_of:
@@ -167,9 +166,6 @@ th:
       draft_text:
         one: "ร่างข้อความ"
         other: "ร่างข้อความ"
-      fatality_notice:
-        one: "การแจ้งมรณะกรรม"
-        other: "การแจ้งมรณะกรรม"
       foi_release:
         one: "ข้อมูลที่เปิดเผยได้"
         other: "ข้อมูลที่เปิดเผยได้"

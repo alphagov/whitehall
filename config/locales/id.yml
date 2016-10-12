@@ -116,7 +116,6 @@ id:
       attachments:
         one: Dokumen
         other: Dokumen-dokumen
-      field_of_operation: Area operasi
       from:
       location:
       part_of:
@@ -168,9 +167,6 @@ id:
       draft_text:
         one: Rancangan teks
         other: Rancangan tulisan
-      fatality_notice:
-        one: Pemberitahuan kematian
-        other: Pemberitahuan-pemberitahuan kematian
       foi_release:
         one: Rilis FOI
         other: Rilis FOI

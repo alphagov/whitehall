@@ -3,20 +3,10 @@ When /^I create a fatality notice titled "([^"]*)" in the field "([^"]*)"$/ do |
   publish(force: true)
 end
 
-Then /^the fatality notice should be visible on the public site$/ do
+Then /^the fatality notice is shown on the Announcements page$/ do
   visit homepage
   click_link "Announcements"
   assert page.has_content?(FatalityNotice.last.title)
-end
-
-Then /^the document should be clearly marked as a fatality notice$/ do
-  click_link FatalityNotice.last.title
-  assert page.has_css?(".type", text: /Operations/)
-end
-
-Then /^the document should show the field of operation as "([^"]*)"$/ do |field|
-  assert page.has_css?("dt", text: "Field of operation:")
-  assert page.has_css?("dd", text: field)
 end
 
 Given /^there is a fatality notice titled "([^"]*)" in the field "([^"]*)"$/ do |title, field_name|
@@ -32,15 +22,6 @@ When /^I link the minister "([^"]*)" to the fatality notice$/ do |minister_name|
   choose "edition_minor_change_true"
   click_button "Save"
   publish(force: true)
-end
-
-Then /^I should see the minister's name listed at the top$/ do
-  visit document_path(FatalityNotice.last)
-  assert page.has_css?("dd", text: %r{#{@person.name}})
-end
-
-When /^I look at the fatality notice titled "([^"]*)"$/ do |title|
-  visit document_path(FatalityNotice.find_by(title: title))
 end
 
 Then /^I can view the field of operations information from a link in the metadata$/ do

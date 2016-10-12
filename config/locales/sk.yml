@@ -6,7 +6,6 @@ sk:
         few:
         other:
       applies_to_nations:
-      field_of_operation:
       from:
       location:
       part_of:
@@ -56,10 +55,6 @@ sk:
         few:
         other:
       draft_text:
-        one:
-        few:
-        other:
-      fatality_notice:
         one:
         few:
         other:

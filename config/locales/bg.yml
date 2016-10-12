@@ -5,7 +5,6 @@ bg:
         one: "Документ"
         other: "Документи"
       applies_to_nations: "Отнася се към"
-      field_of_operation: "Поле на операцията"
       from:
       location:
       part_of:
@@ -46,9 +45,6 @@ bg:
       draft_text:
         one: "Чернова"
         other: "Чернови"
-      fatality_notice:
-        one: "Уведомление за кончина"
-        other: "Уведомления за кончина"
       foi_release:
         one: "Съобщение във връзка със свободен достъп до информация"
         other: "Съобщения във връзка със свободен достъп до информация"

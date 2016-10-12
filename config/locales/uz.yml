@@ -5,7 +5,6 @@ uz:
         one: Hujjat
         other: Hujjatlar
       applies_to_nations: 'Tegishli '
-      field_of_operation: Faoliyat sohasi
       from:
       location:
       part_of:
@@ -46,9 +45,6 @@ uz:
       draft_text:
         one: Matn loyihasi
         other: Matn loyihalari
-      fatality_notice:
-        one: Falokat haqida e'lon
-        other: Falokat haqida e'lonlar
       foi_release:
         one: So'z erkinligiga bag'ishlangan nashr
         other: So'z erkinligiga bag'ishlangan nashrlar
