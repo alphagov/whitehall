@@ -232,4 +232,17 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     assert_valid_against_schema(presented_item.content, 'detailed_guide')
     assert_equal expected_national_applicability, details[:national_applicability]
   end
+
+  test 'DetailedGuide presents an image correctly' do
+    detailed_guide = create(
+      :published_detailed_guide,
+      title: "Some detailed guide",
+      summary: "Some summary",
+      body: "Some content",
+      logo_url: "http://www.example.com/foo.jpg"
+    )
+
+    presented_item = present(detailed_guide)
+    assert_equal "http://www.example.com/foo.jpg", presented_item.content[:details][:image][:url]
+  end
 end
