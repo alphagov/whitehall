@@ -24,7 +24,7 @@ module PublishingApi
         document_type: document_type,
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
-        schema_name: schema_name,
+        schema_name: "statistics_announcement",
       )
       content.merge!(PayloadBuilder::PolymorphicPath.for(item))
     end
@@ -39,15 +39,15 @@ module PublishingApi
 
   private
 
-    def schema_name
-      "statistics_announcement"
+    def document_type
+      item.national_statistic? ? "national_statistics_announcement" : "official_statistics_announcement"
     end
 
     def details
       {
         display_date: item.current_release_date.display_date,
         state: item.state,
-        format_sub_type: document_type
+        format_sub_type: format_sub_type
       }.tap do |d|
         d.merge!(
           cancellation_reason: item.cancellation_reason,
@@ -60,7 +60,7 @@ module PublishingApi
       end
     end
 
-    def document_type
+    def format_sub_type
       item.national_statistic? ? "national" : "official"
     end
 
