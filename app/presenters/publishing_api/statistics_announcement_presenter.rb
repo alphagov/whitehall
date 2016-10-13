@@ -47,7 +47,7 @@ module PublishingApi
       {
         display_date: item.current_release_date.display_date,
         state: item.state,
-        format_sub_type: document_type # deprecated
+        format_sub_type: document_type
       }.tap do |d|
         d.merge!(
           cancellation_reason: item.cancellation_reason,
