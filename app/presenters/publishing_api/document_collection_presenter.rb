@@ -1,0 +1,53 @@
+module PublishingApi
+  class DocumentCollectionPresenter
+    include UpdateTypeHelper
+
+    attr_reader :update_type
+
+    def initialize(item, update_type: nil)
+      @item = item
+      @update_type = update_type || default_update_type(item)
+    end
+
+    def content_id
+      item.content_id
+    end
+
+    def content
+      content = BaseItemPresenter.new(item).base_attributes
+      content.merge!(
+        description: item.summary,
+        details: details,
+        document_type: "document_collection",
+        first_published_at: first_public_at,
+        public_updated_at: item.public_timestamp || item.updated_at,
+        rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
+        schema_name: "document_collection",
+      )
+      content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
+    end
+
+    def links
+      LinksPresenter.new(item).extract(
+        %i(organisations policy_areas)
+      )
+    end
+
+  private
+
+    attr_reader :item
+
+    def details
+      {
+        first_public_at: first_public_at,
+        change_history: item.change_history.as_json,
+        body: Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item),
+        emphasised_organisations: item.lead_organisations.map(&:content_id),
+      }
+    end
+
+    def first_public_at
+      item.document.published? ? item.first_public_at : item.document.created_at
+    end
+  end
+end
