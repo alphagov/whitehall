@@ -20,22 +20,22 @@ module SpecialistSectorHelper
     publishing_api_has_linkables(
       [
         {
-          'base_path' => '/topic/oil-and-gas/wells',
+          'content_id' => 'WELLS',
           'internal_name' => 'Oil and Gas / Wells',
           'publication_state' => 'published',
         },
         {
-          'base_path' => '/topic/oil-and-gas/fields',
+          'content_id' => 'FIELDS',
           'internal_name' => 'Oil and Gas / Fields',
           'publication_state' => 'published',
         },
         {
-          'base_path' => '/topic/oil-and-gas/offshore',
+          'content_id' => 'OFFSHORE',
           'internal_name' => 'Oil and Gas / Offshore',
           'publication_state' => 'published',
         },
         {
-          'base_path' => '/topic/oil-and-gas/distillation',
+          'content_id' => 'DISTILL',
           'internal_name' => 'Oil and Gas / Distillation',
           'publication_state' => 'draft',
         },
@@ -54,8 +54,8 @@ module SpecialistSectorHelper
   def assert_specialist_sectors_were_saved
     assert has_css?('.flash.notice')
     click_on 'Edit draft'
-    assert_equal 'oil-and-gas/wells', find_field('Primary specialist sector').value
-    assert_equal ['oil-and-gas/offshore', 'oil-and-gas/fields', 'oil-and-gas/distillation'].to_set,
+    assert_equal 'WELLS', find_field('Primary specialist sector').value
+    assert_equal ['OFFSHORE', 'FIELDS', 'DISTILL'].to_set,
                  find_field('Additional specialist sectors').value.to_set
   end
 
