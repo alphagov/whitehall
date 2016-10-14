@@ -23,7 +23,8 @@ module PublishingApi
           public_updated_at: item.public_timestamp || item.updated_at,
           rendering_app: item.rendering_app,
           schema_name: "fatality_notice",
-          details: details
+          details: details,
+          first_published_at: first_public_at.utc
         )
       }
     end
