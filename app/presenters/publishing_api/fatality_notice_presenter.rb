@@ -25,6 +25,7 @@ module PublishingApi
           schema_name: "fatality_notice",
           details: details
         )
+        content.merge!(PayloadBuilder::AccessLimitation.for(item))
       }
     end
 
