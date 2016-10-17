@@ -14,6 +14,11 @@ class PublishingApi::DocumentCollectionPresenterTest < ActiveSupport::TestCase
     @presented_content = I18n.with_locale("de") { @presented_document_collection.content }
   end
 
+  test "it presents a valid document_collection content item" do
+    skip
+    assert_valid_against_schema @presented_content, "document_collection"
+  end
+
   test "it delegates the content id" do
     assert_equal @document_collection.content_id, @presented_document_collection.content_id
   end
