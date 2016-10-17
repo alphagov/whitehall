@@ -2,6 +2,8 @@ require 'test_helper'
 
 class PublishingApi::DocumentCollectionPresenterTest < ActiveSupport::TestCase
   setup do
+    create(:current_government)
+
     @document_collection = create(
       :document_collection,
       title: "Document Collection title",
@@ -218,5 +220,76 @@ class PublishingApi::DocumentCollectionPresenterUpdateTypeArgumentTest < ActiveS
 
   test "presents based on the supplied update type argument" do
     assert_equal "major", @presented_document_collection.update_type
+  end
+end
+
+class PublishingApi::DocumentCollectionPresenterCurrentGovernmentTest < ActiveSupport::TestCase
+  setup do
+    # Goverments are not explicitly associated with an Edition.
+    # The Government is determined based on date of publication.
+    create(
+      :current_government,
+      name: "The Current Government",
+      slug: "the-current-government",
+    )
+    @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(
+      create(:document_collection)
+    )
+  end
+
+  test "presents a current government" do
+    assert_equal(
+      {
+        "title": "The Current Government",
+        "slug": "the-current-government",
+        "current": true
+      },
+      @presented_document_collection.content[:details][:government]
+    )
+  end
+end
+
+
+class PublishingApi::DocumentCollectionPresenterPreviousGovernmentTest < ActiveSupport::TestCase
+  setup do
+    # Goverments are not explicitly associated with an Edition.
+    # The Government is determined based on date of publication.
+    create(:current_government)
+    previous_government = create(
+      :previous_government,
+      name: "A Previous Government",
+      slug: "a-previous-government",
+    )
+    @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(
+      create(
+        :document_collection,
+        first_published_at: previous_government.start_date + 1.day
+      )
+    )
+  end
+
+  test "presents a previous government" do
+    assert_equal(
+      {
+        "title": "A Previous Government",
+        "slug": "a-previous-government",
+        "current": false
+      },
+      @presented_document_collection.content[:details][:government]
+    )
+  end
+end
+
+class PublishingApi::DocumentCollectionPresenterPoliticalTest < ActiveSupport::TestCase
+  setup do
+    document_collection = create(:document_collection)
+    document_collection.stubs(:political?).returns(true)
+    @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(
+      document_collection
+    )
+  end
+
+  test "presents political" do
+    assert @presented_document_collection.content[:details][:political]
   end
 end

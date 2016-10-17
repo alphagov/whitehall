@@ -43,7 +43,9 @@ module PublishingApi
         change_history: item.change_history.as_json,
         body: Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item),
         emphasised_organisations: item.lead_organisations.map(&:content_id),
-      }
+      }.merge(
+        PayloadBuilder::PoliticalDetails.for(item)
+      )
     end
 
     def first_public_at
