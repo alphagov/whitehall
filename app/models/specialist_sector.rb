@@ -7,7 +7,7 @@ class SpecialistSector < ActiveRecord::Base
   belongs_to :edition
 
   validates :edition, presence: true
-  validates :tag, presence: true, uniqueness: { scope: :edition_id }
+  validates :topic_content_id, presence: true, uniqueness: { scope: :edition_id }
 
   def edition
     Edition.unscoped { super }

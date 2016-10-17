@@ -29,32 +29,32 @@ module Edition::SpecialistSectors
   end
 
   def primary_specialist_sector_tag
-    primary_specialist_sectors.first.try(:tag)
+    primary_specialist_sectors.first.try(:topic_content_id)
   end
 
-  def primary_specialist_sector_tag=(sector_tag)
-    set_specialist_sectors([sector_tag], primary: true)
+  def primary_specialist_sector_tag=(content_id)
+    set_specialist_sectors([content_id], primary: true)
   end
 
   def secondary_specialist_sector_tags
-    secondary_specialist_sectors.map(&:tag)
+    secondary_specialist_sectors.map(&:topic_content_id)
   end
 
-  def secondary_specialist_sector_tags=(sector_tags)
-    set_specialist_sectors(sector_tags, primary: false)
+  def secondary_specialist_sector_tags=(content_ids)
+    set_specialist_sectors(content_ids, primary: false)
   end
 
   def specialist_sector_tags
-    specialist_sectors.order("specialist_sectors.primary DESC").map(&:tag)
+    specialist_sectors.order("specialist_sectors.primary DESC").map(&:topic_content_id)
   end
 
 private
 
-  def set_specialist_sectors(tags, primary: false)
+  def set_specialist_sectors(content_ids, primary: false)
     relation = primary ? 'primary_specialist_sectors' : 'secondary_specialist_sectors'
 
-    sectors = tags.reject(&:blank?).map do |tag|
-      self.specialist_sectors.where(tag: tag).first_or_initialize.tap do |sector|
+    sectors = content_ids.reject(&:blank?).map do |content_id|
+      self.specialist_sectors.where(topic_content_id: content_id).first_or_initialize.tap do |sector|
         sector.edition = self
         sector.primary = primary
       end

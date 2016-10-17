@@ -17,8 +17,7 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
 
   test 'returns a links hash derived from the edition' do
     edition = create(:edition)
-    create(:specialist_sector, tag: "oil-and-gas/onshore", edition: edition, primary: false)
-    publishing_api_has_lookups({"/topic/oil-and-gas/offshore" => "content_id_1"})
+    create(:specialist_sector, topic_content_id: "content_id_1", edition: edition, primary: false)
 
     links = links_for(edition, [:topics, :parent, :organisations])
 
@@ -27,12 +26,8 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
 
   test 'it treats the primary specialist sector of the item as the parent' do
     edition = create(:edition)
-    create(:specialist_sector, tag: "oil-and-gas/offshore", edition: edition, primary: true)
-    create(:specialist_sector, tag: "oil-and-gas/onshore", edition: edition, primary: false)
-    publishing_api_has_lookups({
-      "/topic/oil-and-gas/offshore" => "content_id_1",
-      "/topic/oil-and-gas/onshore" => "content_id_2",
-    })
+    create(:specialist_sector, topic_content_id: "content_id_1", edition: edition, primary: true)
+    create(:specialist_sector, topic_content_id: "content_id_2", edition: edition, primary: false)
 
     links = links_for(edition, [:topics, :parent, :organisations])
 
@@ -44,19 +39,6 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
       },
       links
     )
-  end
-
-  test 'parent will not be set if the specialist sector is not found' do
-    edition = create(:edition)
-    create(:specialist_sector, tag: "oil-and-gas/primary", edition: edition, primary: true)
-    create(:specialist_sector, tag: "oil-and-gas/secondary", edition: edition, primary: false)
-    publishing_api_has_lookups({
-      "/topic/oil-and-gas/secondary" => "content_id_1",
-    })
-
-    links = links_for(edition, [:topics, :parent, :organisations])
-
-    assert_equal({ topics: %w(content_id_1), parent: [], organisations: [] }, links)
   end
 
   test "correctly sets blank topic and parent values if no specialist sectors are specified" do

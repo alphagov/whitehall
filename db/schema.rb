@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160923134615) do
+ActiveRecord::Schema.define(version: 20161010135926) do
 
   create_table "about_pages", force: :cascade do |t|
     t.integer  "topical_event_id",    limit: 4
@@ -1020,11 +1020,12 @@ ActiveRecord::Schema.define(version: 20160923134615) do
   end
 
   create_table "specialist_sectors", force: :cascade do |t|
-    t.integer  "edition_id", limit: 4,                   null: false
-    t.string   "tag",        limit: 255,                 null: false
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.boolean  "primary",                default: false
+    t.integer  "edition_id",       limit: 4,                   null: false
+    t.string   "tag",              limit: 255
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.boolean  "primary",                      default: false
+    t.string   "topic_content_id", limit: 255
   end
 
   add_index "specialist_sectors", ["edition_id", "tag"], name: "index_specialist_sectors_on_edition_id_and_tag", unique: true, using: :btree

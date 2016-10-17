@@ -50,12 +50,8 @@ module PublishingApi
 
     test 'links hash includes topics and parent if set' do
       news_article = create(:news_article)
-      create(:specialist_sector, tag: "oil-and-gas/offshore", edition: news_article, primary: true)
-      create(:specialist_sector, tag: "oil-and-gas/onshore", edition: news_article, primary: false)
-      publishing_api_has_lookups({
-        "/topic/oil-and-gas/offshore" => "content_id_1",
-        "/topic/oil-and-gas/onshore" => "content_id_2",
-      })
+      create(:specialist_sector, topic_content_id: "content_id_1", edition: news_article, primary: true)
+      create(:specialist_sector, topic_content_id: "content_id_2", edition: news_article, primary: false)
 
       links = present(news_article).links
 

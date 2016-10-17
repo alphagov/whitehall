@@ -88,12 +88,8 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
 
   test 'links hash includes topics and parent if set' do
     edition = create(:detailed_guide)
-    create(:specialist_sector, tag: "oil-and-gas/offshore", edition: edition, primary: true)
-    create(:specialist_sector, tag: "oil-and-gas/onshore", edition: edition, primary: false)
-    publishing_api_has_lookups({
-      "/topic/oil-and-gas/offshore" => "content_id_1",
-      "/topic/oil-and-gas/onshore" => "content_id_2",
-    })
+    create(:specialist_sector, topic_content_id: "content_id_1", edition: edition, primary: true)
+    create(:specialist_sector, topic_content_id: "content_id_2", edition: edition, primary: false)
 
     links = present(edition).links
 

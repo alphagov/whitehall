@@ -36,9 +36,7 @@ private
       title = item.fetch('internal_name')
       title = "#{title} (draft)" if item.fetch("publication_state") == "draft"
 
-      # Whitehall uses the slug of the topic to identify the specialist sectors
-      # a document is tagged to. The slug is always the base_path minus the prefix.
-      select_value = item.fetch('base_path').sub('/topic/', '')
+      select_value = item.fetch('content_id')
 
       [title, select_value]
     end
