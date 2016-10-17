@@ -105,26 +105,43 @@ class PublishingApi::DraftDocumentCollectionBelongingToPublishedDocumentNoticePr
   end
 end
 
-
-class PublishingApi::DocumentCollectionPresenterDetailsTest < ActiveSupport::TestCase
+class PublishingApi::DocumentCollectionPresenterGroupTest < ActiveSupport::TestCase
   setup do
-    @document_collection = create(
-      :document_collection,
-      body: "*Test string*"
+    document_collection = create(:document_collection, :with_groups)
+    document_collection.groups.first.stubs(:documents).returns(
+      [
+        stub(content_id: "aaa"),
+        stub(content_id: "bbb"),
+      ]
+    )
+    document_collection.groups.second.stubs(:documents).returns(
+      [
+        stub(content_id: "fff"),
+        stub(content_id: "eee"),
+      ]
     )
 
-    @presented_details = PublishingApi::DocumentCollectionPresenter.new(@document_collection).content[:details]
+    @presented_details = PublishingApi::DocumentCollectionPresenter.new(
+      document_collection
+    ).content[:details]
   end
 
-  test "it presents the Govspeak body as details rendered as HTML" do
+  test "it presents group 1 in collection_groups" do
     assert_equal(
-      "<div class=\"govspeak\"><p><em>Test string</em></p>\n</div>",
-      @presented_details[:body]
+      [
+        {
+          "title": "Group 1",
+          "body": "<div class=\"govspeak\"><p>Group body text</p>\n</div>",
+          "documents": %w(aaa bbb)
+        },
+        {
+          "title": "Group 2",
+          "body": "<div class=\"govspeak\"><p>Group body text</p>\n</div>",
+          "documents": %w(fff eee)
+        }
+      ],
+      @presented_details[:collection_groups]
     )
-  end
-
-  test "it presents first_public_at as nil for draft" do
-    assert_nil @presented_details[:first_published_at]
   end
 end
 
