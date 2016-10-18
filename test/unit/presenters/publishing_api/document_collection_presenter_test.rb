@@ -15,7 +15,6 @@ class PublishingApi::DocumentCollectionPresenterTest < ActiveSupport::TestCase
   end
 
   test "it presents a valid document_collection content item" do
-    skip
     assert_valid_against_schema @presented_content, "document_collection"
   end
 
