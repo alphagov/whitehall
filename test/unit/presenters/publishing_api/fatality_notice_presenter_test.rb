@@ -231,3 +231,17 @@ class PublishingApi::FatalityNoticePresenterUpdateTypeArgumentTest < ActiveSuppo
     assert_equal "major", @presented_fatality_notice.update_type
   end
 end
+
+class PublishingApi::AccessLimitedFatalityNoticeTest < ActiveSupport::TestCase
+  setup do
+    @presented_fatality_notice = PublishingApi::FatalityNoticePresenter.new(
+      @fatality_notice = create(:fatality_notice, :access_limited)
+    )
+    @user = create(:user, organisation: @fatality_notice.organisations.first, uid: "booyah")
+    @presented_content = @presented_fatality_notice.content
+  end
+
+  test "presents allowed users" do
+    assert_equal ["booyah"], @presented_content[:access_limited][:users]
+  end
+end

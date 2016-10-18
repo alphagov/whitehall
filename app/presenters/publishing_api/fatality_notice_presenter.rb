@@ -26,6 +26,7 @@ module PublishingApi
           details: details,
           first_published_at: first_public_at.utc
         )
+        content.merge!(PayloadBuilder::AccessLimitation.for(item))
       }
     end
 
