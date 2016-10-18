@@ -314,3 +314,21 @@ class PublishingApi::DocumentCollectionPresenterPoliticalTest < ActiveSupport::T
     assert @presented_document_collection.content[:details][:political]
   end
 end
+
+class PublishingApi::DocumentCollectionAccessLimitedTest < ActiveSupport::TestCase
+  setup do
+    @document_collection = create(:document_collection)
+  end
+
+  test "include access limiting" do
+    PublishingApi::PayloadBuilder::AccessLimitation.expects(:for)
+      .with(@document_collection)
+      .returns(
+        { foo: "bar" }
+      )
+    presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(
+      @document_collection
+    )
+    assert_equal "bar", presented_document_collection.content[:details][:foo]
+  end
+end

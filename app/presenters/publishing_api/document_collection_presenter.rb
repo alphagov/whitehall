@@ -44,9 +44,10 @@ module PublishingApi
         collection_groups: collection_groups,
         body: govspeak_renderer.govspeak_edition_to_html(item),
         emphasised_organisations: item.lead_organisations.map(&:content_id),
-      }.merge(
-        PayloadBuilder::PoliticalDetails.for(item)
-      )
+      }.tap do |details_hash|
+        details_hash.merge!(PayloadBuilder::PoliticalDetails.for(item))
+        details_hash.merge!(PayloadBuilder::AccessLimitation.for(item))
+      end
     end
 
     def first_public_at
