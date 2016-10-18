@@ -120,9 +120,11 @@ class PublishingApi::DocumentCollectionPresenterGroupTest < ActiveSupport::TestC
       ]
     )
 
-    @presented_details = PublishingApi::DocumentCollectionPresenter.new(
+    presenter = PublishingApi::DocumentCollectionPresenter.new(
       document_collection
-    ).content[:details]
+    )
+    @presented_details = presenter.content[:details]
+    @presented_links = presenter.links
   end
 
   test "it presents group 1 in collection_groups" do
@@ -140,6 +142,29 @@ class PublishingApi::DocumentCollectionPresenterGroupTest < ActiveSupport::TestC
         }
       ],
       @presented_details[:collection_groups]
+    )
+  end
+end
+
+class PublishingApi::DocumentCollectionPresenterDocumentLinksTestCase < ActiveSupport::TestCase
+  setup do
+    document_collection = create(:document_collection)
+    document_collection.stubs(:documents).returns(
+      [
+        stub(content_id: "faf"),
+        stub(content_id: "afa")
+      ]
+    )
+
+    @presented_links = PublishingApi::DocumentCollectionPresenter.new(
+      document_collection
+    ).links
+  end
+
+  test "it presents the document content_ids as links, documents" do
+    assert_equal(
+      %w(faf afa),
+      @presented_links[:documents]
     )
   end
 end
@@ -270,7 +295,6 @@ class PublishingApi::DocumentCollectionPresenterCurrentGovernmentTest < ActiveSu
   end
 end
 
-
 class PublishingApi::DocumentCollectionPresenterPreviousGovernmentTest < ActiveSupport::TestCase
   setup do
     # Goverments are not explicitly associated with an Edition.
@@ -332,3 +356,4 @@ class PublishingApi::DocumentCollectionAccessLimitedTest < ActiveSupport::TestCa
     assert_equal "bar", presented_document_collection.content[:details][:foo]
   end
 end
+
