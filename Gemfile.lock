@@ -1,7 +1,6 @@
 GIT
-  remote: git://github.com/alphagov/test_track.git
+  remote: https://github.com/alphagov/test_track
   revision: 1f997082e2f1be94274d294c2f8d34ab0b21bb7f
-  branch: master
   specs:
     test_track (0.1.0)
       rails (>= 3.1.0)
