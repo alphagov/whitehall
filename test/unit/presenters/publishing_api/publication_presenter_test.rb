@@ -34,7 +34,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
         body: "<div class=\"govspeak\"><p>Some content</p></div>",
         tags: {
           browse_pages: [],
-          policies: [],
+          policies: ['2012-olympic-and-paralympic-legacy'],
           topics: []
         },
         documents: ["<section class=\"attachment embedded\" id=\"attachment_1\">\n  <div class=\"attachment-thumb\">\n      <a aria-hidden=\"true\" class=\"thumbnail\" href=\"/government/publications/publication-title/#{publication.attachments.first.title}\"><img alt=\"\" src=\"/government/assets/pub-cover-html.png\" /></a>\n  </div>\n  <div class=\"attachment-details\">\n    <h2 class=\"title\"><a href=\"/government/publications/publication-title/#{publication.attachments.first.title}\">#{publication.attachments.first.title}</a></h2>\n    <p class=\"metadata\">\n        <span class=\"type\">HTML</span>\n    </p>\n\n\n  </div>\n</section>"],
@@ -56,6 +56,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     publication.role_appointments << minister
     topical_event = create(:topical_event)
     publication.classification_memberships.create(classification_id: topical_event.id)
+    publication.policy_content_ids = ['5d37821b-7631-11e4-a3cb-005056011aef']
 
     expected_links = {
       topics: [],
@@ -66,6 +67,8 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       related_statistical_data_sets: [statistical_data_set.content_id],
       world_locations: [],
       topical_events: [topical_event.content_id],
+      related_policies: ['5d37821b-7631-11e4-a3cb-005056011aef'],
+      policy_areas: publication.topics.map(&:content_id)
     }
 
     presented_item = present(publication)
@@ -112,7 +115,9 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       world_locations: [],
       ministers: [],
       related_statistical_data_sets: [],
-      topical_events: []
+      topical_events: [],
+      policy_areas: publication.topics.map(&:content_id),
+      related_policies: []
     }
 
     assert_valid_against_links_schema({ links: presented_item.links }, 'publication')
