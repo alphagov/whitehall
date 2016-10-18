@@ -1,6 +1,22 @@
 module SyncChecker
   module Formats
     class HtmlAttachmentCheck
+      def self.scope
+        HtmlAttachment.where(
+          attachable_id: Edition.where(state: %w(draft published withdrawn)).pluck(:id))
+      end
+
+      def self.scope_with_ids(ids)
+        HtmlAttachment.where(id: ids)
+      end
+
+      def self.republish(id)
+        document_id = Edition.where(id: HtmlAttachment.where(id: id).pluck(:attachable_id)).pluck(:document_id)
+        if document_id.any?
+          PublishingApiDocumentRepublishingWorker.new.perform(document_id.first)
+        end
+      end
+
       def initialize(attachment)
         @attachment = attachment
         @locale = (attachment.locale || "en").to_str
@@ -21,7 +37,7 @@ module SyncChecker
         run_checks(response, locale, checks_for_draft, DRAFT_CONTENT_STORE)
       end
 
-      def checks_for_live(locale)
+      def checks_for_live
         [
           Checks::TopLevelCheck.new(
             top_level_fields_hash
@@ -68,7 +84,7 @@ module SyncChecker
         }
       end
 
-      def top_level_fields_hash(translation_for_locale)
+      def top_level_fields_hash
         {
           base_path: attachment.url,
           content_id: attachment.content_id,
