@@ -6,7 +6,7 @@ class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
       :fatality_notice,
       title: "Fatality Notice title",
       summary: "Fatality Notice summary",
-      first_published_at: Time.zone.now
+      first_published_at: @first_published_at = Time.zone.now
     )
 
     @presented_fatality_notice = PublishingApi::FatalityNoticePresenter.new(@fatality_notice)
@@ -56,6 +56,10 @@ class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
   test "it presents the global process wide locale as the locale of the fatality_notice" do
     assert_equal "de", @presented_content[:locale]
   end
+
+  test "it presents the first_published_at in UTC" do
+    assert_equal @first_published_at.utc, @presented_content[:first_published_at]
+  end
 end
 
 class PublishingApi::FatalityNoticePresenterWithPublicTimestampTest < ActiveSupport::TestCase
@@ -77,12 +81,12 @@ class PublishingApi::DraftFatalityNoticePresenter < ActiveSupport::TestCase
   test "it presents the Fatality Notice's parent document created_at as first_public_at" do
     presented_notice = PublishingApi::FatalityNoticePresenter.new(
       create(:draft_fatality_notice) do |fatality_notice|
-        fatality_notice.document.stubs(:created_at).returns(Date.new(2015, 4, 10))
+        fatality_notice.document.stubs(:created_at).returns(DateTime.new(2015, 4, 10))
       end
     )
 
     assert_equal(
-      Date.new(2015, 4, 10),
+      DateTime.new(2015, 4, 10),
       presented_notice.content[:details][:first_public_at]
     )
   end
@@ -92,12 +96,12 @@ class PublishingApi::DraftFatalityBelongingToPublishedDocumentNoticePresenter < 
   test "it presents the Fatality Notice's first_public_at" do
     presented_notice = PublishingApi::FatalityNoticePresenter.new(
       create(:published_fatality_notice) do |fatality_notice|
-        fatality_notice.stubs(:first_public_at).returns(Date.new(2015, 4, 10))
+        fatality_notice.stubs(:first_public_at).returns(DateTime.new(2015, 4, 10))
       end
     )
 
     assert_equal(
-      Date.new(2015, 04, 10),
+      DateTime.new(2015, 04, 10),
       presented_notice.content[:details][:first_public_at]
     )
   end
