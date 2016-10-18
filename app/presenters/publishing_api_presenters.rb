@@ -49,7 +49,7 @@ private
     when ::CaseStudy
       PublishingApi::CaseStudyPresenter
     when ::DocumentCollection
-      PublishingApi::DocumentCollectionPlaceholderPresenter
+      PublishingApi::DocumentCollectionPresenter
     when ::DetailedGuide
       PublishingApi::DetailedGuidePresenter
     when ::FatalityNotice

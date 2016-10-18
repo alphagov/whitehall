@@ -109,9 +109,9 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     assert_equal PublishingApi::HtmlAttachmentPresenter, presenter.class
   end
 
-  test ".presenter_for returns a DocumentCollectionPlaceholder presenter for `DocumentCollection`" do
+  test ".presenter_for returns a DocumentCollection presenter for `DocumentCollection`" do
     presenter = PublishingApiPresenters.presenter_for(build(:document_collection))
-    assert_equal PublishingApi::DocumentCollectionPlaceholderPresenter, presenter.class
+    assert_equal PublishingApi::DocumentCollectionPresenter, presenter.class
   end
 
   test ".presenter_for returns an OperationalFieldPresenter for an OperationalField" do
