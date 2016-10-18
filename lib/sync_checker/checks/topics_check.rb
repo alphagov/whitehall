@@ -1,10 +1,9 @@
 module SyncChecker
   module Checks
     class TopicsCheck
-      attr_reader :topic_content_id_map, :edition, :content_item
+      attr_reader :edition, :content_item
 
-      def initialize(edition, topic_content_id_map = TopicContentIdMap.fetch)
-        @topic_content_id_map = topic_content_id_map
+      def initialize(edition)
         @edition = edition
       end
 
@@ -32,16 +31,15 @@ module SyncChecker
         return "links#parent is present but shouldn't be" if links_parent.present? && parent_base_path.blank?
 
         parent_content_id = links_parent["content_id"]
-        expected_parent_content_id = topic_content_id_map["/topic/#{edition.primary_specialist_sector_tag}"]
-        if parent_content_id != expected_parent_content_id
-          "expected parent#content_id to be '#{expected_parent_content_id}' but got '#{parent_content_id}'"
+        if parent_content_id != edition.primary_specialist_sector_tag
+          "expected parent#content_id to be '#{edition.primary_specialist_sector_tag}' but got '#{parent_content_id}'"
         end
       end
 
       def check_topics
-        return if topic_base_paths.empty? && links_topics.nil?
-        return "expected links#topics but it isn't present" if links_topics.nil? && topic_base_paths.any?
-        return "links#topics are present but shouldn't be" if links_topics.present? && topic_base_paths.empty?
+        return if expected_content_ids.empty? && links_topics.nil?
+        return "expected links#topics but it isn't present" if links_topics.nil? && expected_content_ids.any?
+        return "links#topics are present but shouldn't be" if links_topics.present? && expected_content_ids.empty?
         check_for_missing_topics + check_for_unexpected_topics
       end
 
@@ -57,12 +55,8 @@ module SyncChecker
           .map { |unexpected_content_id| "links#topics contains '#{unexpected_content_id}' but shouldn't" }
       end
 
-      def topic_base_paths
-        edition.specialist_sector_tags.map { |tag| "/topic/#{tag}" }
-      end
-
       def expected_content_ids
-        topic_content_id_map.slice(*topic_base_paths).values
+        edition.specialist_sector_tags
       end
 
       def links_parent
