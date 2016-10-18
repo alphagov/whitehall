@@ -14,7 +14,7 @@ module SyncChecker
         response = stub(
           response_code: 404
         )
-        assert_equal [], TopicsCheck.new(edition, stub).call(response)
+        assert_equal [], TopicsCheck.new(edition).call(response)
       end
 
       def test_it_returns_no_errors_if_response_gone
@@ -25,7 +25,7 @@ module SyncChecker
             schema_name: "gone"
           }.to_json
         )
-        assert_equal [], TopicsCheck.new(edition, stub).call(response)
+        assert_equal [], TopicsCheck.new(edition).call(response)
       end
 
       def test_it_returns_no_errors_if_response_redirect
@@ -36,17 +36,15 @@ module SyncChecker
             schema_name: "redirect"
           }.to_json
         )
-        assert_equal [], TopicsCheck.new(edition, stub).call(response)
+        assert_equal [], TopicsCheck.new(edition).call(response)
       end
 
       def test_it_returns_an_error_if_parent_is_incorrect
-        tag = "health-protection/services"
+        tag = "ABC-CORRECT-CONTENT-ID"
         edition = stub(
           specialist_sector_tags: [tag],
           primary_specialist_sector_tag: tag,
         )
-
-        topic_content_id_map = {"/topic/#{tag}" => "ABC-CORRECT-CONTENT-ID"}
 
         response = stub(
           response_code: 200,
@@ -68,20 +66,15 @@ module SyncChecker
 
         expected_errors = ["expected parent#content_id to be 'ABC-CORRECT-CONTENT-ID' but got 'XYZ-WRONG-CONTENT-ID'"]
 
-        assert_equal expected_errors, TopicsCheck.new(edition, topic_content_id_map).call(response)
+        assert_equal expected_errors, TopicsCheck.new(edition).call(response)
       end
 
       def test_it_returns_no_error_if_parent_is_correct
-        tag = "health-protection/services"
+        tag = "ABC-CORRECT-CONTENT-ID"
         edition = stub(
           specialist_sector_tags: [tag],
           primary_specialist_sector_tag: tag,
         )
-
-        topic_content_id_map = {
-          "/topic/other_random" => "MAKE-SURE-THESE-ARE-FILTERED",
-          "/topic/#{tag}" => "ABC-CORRECT-CONTENT-ID"
-        }
 
         response = stub(
           response_code: 200,
@@ -103,7 +96,7 @@ module SyncChecker
 
         expected_errors = []
 
-        assert_equal expected_errors, TopicsCheck.new(edition, topic_content_id_map).call(response)
+        assert_equal expected_errors, TopicsCheck.new(edition).call(response)
       end
 
       def test_it_returns_no_error_if_there_is_no_parent_and_no_primary_specialist_sector
@@ -122,11 +115,11 @@ module SyncChecker
 
         expected_errors = []
 
-        assert_equal expected_errors, TopicsCheck.new(edition, stub).call(response)
+        assert_equal expected_errors, TopicsCheck.new(edition).call(response)
       end
 
       def test_it_returns_an_error_if_parent_isnt_present_but_should_be
-        tag = "health-protection/services"
+        tag = "ABC-CORRECT-CONTENT-ID"
         edition = stub(
           specialist_sector_tags: [],
           primary_specialist_sector_tag: tag,
@@ -142,7 +135,7 @@ module SyncChecker
 
         expected_errors = ["expected links#parent but it isn't present"]
 
-        assert_equal expected_errors, TopicsCheck.new(edition, stub).call(response)
+        assert_equal expected_errors, TopicsCheck.new(edition).call(response)
       end
 
       def test_it_returns_an_error_if_parent_is_present_but_shouldnt_be
@@ -166,7 +159,7 @@ module SyncChecker
 
         expected_errors = ["links#parent is present but shouldn't be"]
 
-        assert_equal expected_errors, TopicsCheck.new(edition, stub).call(response)
+        assert_equal expected_errors, TopicsCheck.new(edition).call(response)
       end
 
       def test_it_returns_no_errors_if_topics_are_appropriately_absent
@@ -185,7 +178,7 @@ module SyncChecker
 
         expected_errors = []
 
-        assert_equal expected_errors, TopicsCheck.new(edition, stub).call(response)
+        assert_equal expected_errors, TopicsCheck.new(edition).call(response)
       end
 
       def test_it_returns_an_error_if_topics_is_present_and_shouldnt_be
@@ -209,7 +202,7 @@ module SyncChecker
 
         expected_errors = ["links#topics are present but shouldn't be"]
 
-        assert_equal expected_errors, TopicsCheck.new(edition, stub).call(response)
+        assert_equal expected_errors, TopicsCheck.new(edition).call(response)
       end
 
       def test_it_returns_an_error_if_there_are_no_topics_but_there_should_be
@@ -229,20 +222,15 @@ module SyncChecker
 
         expected_errors = ["expected links#topics but it isn't present"]
 
-        assert_equal expected_errors, TopicsCheck.new(edition, stub).call(response)
+        assert_equal expected_errors, TopicsCheck.new(edition).call(response)
       end
 
       def test_it_returns_no_errors_if_the_topics_are_correct
-        tags = ["test/tag_one", "test/tag_two"]
+        tags = %w(CORRECT_TOPIC_ID_ONE CORRECT_TOPIC_ID_TWO)
         edition = stub(
           specialist_sector_tags: tags,
           primary_specialist_sector_tag: nil,
         )
-
-        topic_content_id_map = {
-          "/topic/#{tags[0]}" => "CORRECT_TOPIC_ID_ONE",
-          "/topic/#{tags[1]}" => "CORRECT_TOPIC_ID_TWO",
-        }
 
         response = stub(
           response_code: 200,
@@ -262,20 +250,15 @@ module SyncChecker
 
         expected_errors = []
 
-        assert_equal expected_errors, TopicsCheck.new(edition, topic_content_id_map).call(response)
+        assert_equal expected_errors, TopicsCheck.new(edition).call(response)
       end
 
       def test_it_returns_an_error_if_there_are_missing_topics
-        tags = ["test/tag_one", "test/tag_two"]
+        tags = %w(MISSING_TOPIC_ID_ONE MISSING_TOPIC_ID_TWO)
         edition = stub(
           specialist_sector_tags: tags,
           primary_specialist_sector_tag: nil,
         )
-
-        topic_content_id_map = {
-            "/topic/#{tags[0]}" => "MISSING_TOPIC_ID_ONE",
-            "/topic/#{tags[1]}" => "MISSING_TOPIC_ID_TWO",
-        }
 
         response = stub(
           response_code: 200,
@@ -292,19 +275,15 @@ module SyncChecker
           "links#topics should contain 'MISSING_TOPIC_ID_TWO' but doesn't"
         ]
 
-        assert_equal expected_errors, TopicsCheck.new(edition, topic_content_id_map).call(response)
+        assert_equal expected_errors, TopicsCheck.new(edition).call(response)
       end
 
       def test_it_returns_an_error_if_there_are_unexpected_topics
-        tags = ["test/tag_one"]
+        tags = ["CORRECT_TOPIC_ID_ONE"]
         edition = stub(
           specialist_sector_tags: tags,
           primary_specialist_sector_tag: nil,
         )
-
-        topic_content_id_map = {
-          "/topic/#{tags[0]}" => "CORRECT_TOPIC_ID_ONE"
-        }
 
         response = stub(
           response_code: 200,
@@ -326,7 +305,7 @@ module SyncChecker
           "links#topics contains 'UNEXPECTED_TOPIC_ID' but shouldn't",
         ]
 
-        assert_equal expected_errors, TopicsCheck.new(edition, topic_content_id_map).call(response)
+        assert_equal expected_errors, TopicsCheck.new(edition).call(response)
       end
     end
   end

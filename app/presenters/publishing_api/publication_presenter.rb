@@ -36,7 +36,9 @@ module PublishingApi
           :parent,
           :organisations,
           :document_collections,
-          :world_locations
+          :world_locations,
+          :policy_areas,
+          :related_policies,
         ]
       ).merge(
         ministers: ministers,
