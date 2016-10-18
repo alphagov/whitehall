@@ -3,6 +3,10 @@ FactoryGirl.define do
     trait(:with_group) do
       groups { FactoryGirl.build_list :document_collection_group, 1 }
     end
+
+    trait(:with_groups) do
+      groups { FactoryGirl.build_list :document_collection_group, 2 }
+    end
   end
 
   factory :imported_document_collection, parent: :document_collection, traits: [:imported]
