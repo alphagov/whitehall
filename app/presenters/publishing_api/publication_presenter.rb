@@ -87,10 +87,7 @@ module PublishingApi
     end
 
     def topical_events
-      ::TopicalEvent
-        .joins(:classification_memberships)
-        .where(classification_memberships: {edition_id: item.id})
-        .pluck(:content_id)
+      ::TopicalEvent.for_edition(item.id).pluck(:content_id)
     end
 
     def related_statistical_data_sets
