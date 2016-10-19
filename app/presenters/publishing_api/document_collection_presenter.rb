@@ -29,7 +29,7 @@ module PublishingApi
 
     def links
       LinksPresenter.new(item).extract(
-        %i(organisations policy_areas)
+        %i(organisations policy_areas topics)
       ).merge(documents: item.documents.map(&:content_id))
     end
 

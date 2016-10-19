@@ -230,6 +230,13 @@ class PublishingApi::PublishedDocumentCollectionPresenterLinksTest < ActiveSuppo
       @presented_links[:policy_areas]
     )
   end
+
+  test "it presents the topic content_ids as links, topics" do
+    assert_equal(
+      @document_collection.specialist_sectors.map(&:content_id),
+      @presented_links[:topics]
+    )
+  end
 end
 
 class PublishingApi::DocumentCollectionPresenterUpdateTypeTest < ActiveSupport::TestCase
@@ -356,4 +363,3 @@ class PublishingApi::DocumentCollectionAccessLimitedTest < ActiveSupport::TestCa
     assert_equal "bar", presented_document_collection.content[:details][:foo]
   end
 end
-
