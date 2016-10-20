@@ -28,9 +28,11 @@ module PublishingApi
     end
 
     def links
-      LinksPresenter.new(item).extract(
+      links = LinksPresenter.new(item).extract(
         %i(organisations policy_areas topics related_policies)
-      ).merge(documents: item.documents.map(&:content_id))
+      )
+      links.merge!(documents: item.documents.map(&:content_id))
+      links.merge!(PayloadBuilder::TopicalEvents.for(item))
     end
 
   private

@@ -259,6 +259,22 @@ class PublishingApi::PublishedDocumentCollectionPresenterRelatedPolicyLinksTest 
   end
 end
 
+class PublishingApi::PublishedDocumentCollectionPresenterTopicalEventsLinksTest < ActiveSupport::TestCase
+  setup do
+    document_collection = create(:document_collection)
+    PayloadBuilder::TopicalEvents.stubs(:for).with(document_collection).returns({ topical_events: ['bfa'] })
+    presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(document_collection)
+    @presented_links = presented_document_collection.links
+  end
+
+  test "it presents the topical events as links, topical_events" do
+    assert_equal(
+      ["bfa"],
+      @presented_links[:topical_events]
+    )
+  end
+end
+
 class PublishingApi::DocumentCollectionPresenterUpdateTypeTest < ActiveSupport::TestCase
   setup do
     @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(
