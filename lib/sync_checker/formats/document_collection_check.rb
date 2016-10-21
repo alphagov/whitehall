@@ -10,7 +10,12 @@ module SyncChecker
       end
 
       def checks_for_live(locale)
-        super
+        super << Checks::LinksCheck.new(
+          "topical_events",
+          TopicalEvent
+          .for_edition(edition_expected_in_live.id)
+          .pluck(:content_id)
+        )
       end
 
       def expected_details_hash(edition)
