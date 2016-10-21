@@ -38,6 +38,11 @@ class Api::OrganisationPresenterTest < PresenterTestCase
     assert_equal 'organisation-name', @presenter.as_json[:title]
   end
 
+  test "json includes content_id" do
+    @organisation.stubs(:content_id).returns('MY-CONTENT-ID')
+    assert_equal 'MY-CONTENT-ID', @presenter.as_json[:content_id]
+  end
+
   test "json includes organisation updated_at as updated_at" do
     now = Time.current
     @organisation.stubs(:updated_at).returns(now)
