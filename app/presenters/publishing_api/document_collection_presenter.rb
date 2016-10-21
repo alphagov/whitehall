@@ -19,7 +19,7 @@ module PublishingApi
         description: item.summary,
         details: details,
         document_type: "document_collection",
-        first_published_at: first_public_at,
+        first_published_at: first_public_at.utc,
         public_updated_at: item.public_timestamp || item.updated_at,
         rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
         schema_name: "document_collection",
