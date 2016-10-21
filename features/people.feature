@@ -6,13 +6,6 @@ So that I can find a specific person
 Background:
   Given I am an admin
 
-Scenario: Viewing all people
-  Given "Johnny Macaroon" is the "Minister of Crazy" for the "Department of Woah"
-  And "Fred Bloggs" is the "Minister of Sane" for the "Department of Foo"
-  When I visit the people page
-  Then I should see that "Johnny Macaroon" is listed under "m"
-  And I should see that "Fred Bloggs" is listed under "b"
-
 Scenario: Viewing the person page for a person
   Given a person called "Benjamin Disraeli"
   When I visit the person page for "Benjamin Disraeli"

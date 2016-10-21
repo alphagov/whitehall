@@ -40,21 +40,6 @@ class PeopleControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "index displays a rudimentary index of people (for url hackers)" do
-    people = [@person, stub_translatable_record(:person), stub_translatable_record(:person)]
-    Person.stubs(:all).returns(people)
-
-    get :index
-
-    assert_select ".people" do
-      people.each do |person|
-        assert_select_object person do
-          assert_select "a[href=?]", person_path(person)
-        end
-      end
-    end
-  end
-
   view_test 'show has atom feed autodiscovery link' do
     get :show, id: @person
     assert_select_autodiscovery_link atom_feed_url_for(@person)
