@@ -31,7 +31,10 @@ private
         expire_on_next_scheduled_publication([scheduled_document])
       end
     else
-      if @document = document_class.scheduled_for_publication_as(params[:id])
+      if I18n.locale != I18n.default_locale && untranslated_edition = I18n.with_locale(I18n.default_locale) { find_document_or_edition }
+        # Redirect to untranslated version if translation isn't available
+        redirect_to document_path(untranslated_edition, locale: I18n.default_locale)
+      elsif @document = document_class.scheduled_for_publication_as(params[:id])
         expire_on_next_scheduled_publication([@document])
         render :coming_soon
       elsif @unpublishing = find_unpublishing
