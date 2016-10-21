@@ -72,7 +72,7 @@
     @include ig-core-19;
     margin: $gutter-one-sixth 0 $gutter-one-sixth $gutter-two-thirds;
     @include media (tablet) {
-      margin: $gutter-one-third 0 $gutter-one-third $gutter-two-thirds;
+      margin: $gutter-one-third 0 $gutter-one-third 0;
     }
     ul, ol {
       margin: 0 0 0 $gutter-two-thirds;
@@ -86,7 +86,7 @@
     @include right-to-left {
       margin: $gutter-one-sixth $gutter-two-thirds $gutter-one-sixth 0;
       @include media (tablet) {
-        margin: $gutter-one-third $gutter-two-thirds $gutter-one-third 0;
+        margin: $gutter-one-third 0 $gutter-one-third 0;
       }
       ul, ol {
         margin: 0 $gutter-two-thirds 0 0;
@@ -108,7 +108,7 @@
     @include ig-core-19;
     margin: $gutter-one-sixth 0 $gutter-one-sixth $gutter-two-thirds;
     @include media (tablet) {
-      margin: $gutter-one-third 0 $gutter-one-third $gutter-two-thirds;
+      margin: $gutter-one-third 0 $gutter-one-third 0;
     }
     ul, ol {
       margin: 0 0 0 $gutter-two-thirds;
@@ -122,7 +122,7 @@
     @include right-to-left {
       margin: $gutter-one-sixth $gutter-two-thirds $gutter-one-sixth 0;
       @include media (tablet) {
-        margin: $gutter-one-third $gutter-two-thirds $gutter-one-third 0;
+        margin: $gutter-one-third 0 $gutter-one-third 0;
       }
       ul, ol {
         margin: 0 $gutter-two-thirds 0 0;
