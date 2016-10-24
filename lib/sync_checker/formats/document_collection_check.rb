@@ -19,7 +19,7 @@ module SyncChecker
           ),
           Checks::LinksCheck.new(
             "documents",
-            edition_expected_in_live.documents.pluck(:content_id)
+            linked_document_content_ids(edition_expected_in_live)
           )
         ]
       end
@@ -62,6 +62,16 @@ module SyncChecker
 
       def govspeak_renderer
         @govspeak_renderer ||= Whitehall::GovspeakRenderer.new
+      end
+
+      def linked_document_content_ids(edition)
+        edition.documents
+          .select { |document| latest_edition_published?(document) }
+          .map(&:content_id)
+      end
+
+      def latest_edition_published?(document)
+        document.published_edition && !document.published_edition.withdrawn?
       end
     end
   end
