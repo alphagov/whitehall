@@ -1,0 +1,30 @@
+{
+  "base_path": "/government/people",
+  "title": "All ministers and senior officials on GOV.UK",
+  "description": "",
+  "locale": "en",
+  "document_type": "finder",
+  "schema_name": "finder",
+  "publishing_app": "whitehall",
+  "rendering_app": "finder-frontend",
+  "details": {
+    "document_noun": "person",
+    "default_order": "title",
+    "facets": [],
+    "filter": {
+      "format": "person"
+    },
+    "format_name": "All ministers and senior officials on GOV.UK",
+    "show_summaries": true
+  },
+  "routes": [
+    {
+      "type": "exact",
+      "path": "/government/people"
+    },
+    {
+      "type": "exact",
+      "path": "/government/people.json"
+    }
+  ]
+}
