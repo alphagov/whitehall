@@ -258,7 +258,7 @@ end
 class PublishingApi::PublishedDocumentCollectionPresenterTopicalEventsLinksTest < ActiveSupport::TestCase
   setup do
     document_collection = create(:document_collection)
-    PayloadBuilder::TopicalEvents.stubs(:for).with(document_collection).returns({ topical_events: ['bfa'] })
+    PublishingApi::PayloadBuilder::TopicalEvents.stubs(:for).with(document_collection).returns({ topical_events: ['bfa'] })
     presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(document_collection)
     @presented_links = presented_document_collection.links
   end
