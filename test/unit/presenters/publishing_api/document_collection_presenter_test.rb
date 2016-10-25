@@ -187,10 +187,6 @@ class PublishingApi::PublishedDocumentCollectionPresenterDetailsTest < ActiveSup
     assert_equal @expected_first_published_at, @presented_details[:first_public_at]
   end
 
-  test "it presents first_published_at at top level" do
-    assert_equal @expected_time, @presented_content[:first_published_at]
-  end
-
   test "it presents change_history" do
     change_history = [
       {

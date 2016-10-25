@@ -32,24 +32,6 @@ module SyncChecker
 
     private
 
-      def top_level_fields_hash(edition, locale)
-        super.merge(
-          {
-            first_published_at: format_date_for_content_store(
-              first_published_at(edition)
-            )
-          }
-        )
-      end
-
-      def first_published_at(edition)
-        (edition.first_published_at || edition.document.created_at).utc
-      end
-
-      def format_date_for_content_store(date)
-        DateTime.parse(date.to_s).rfc3339(3)
-      end
-
       def collection_groups(edition)
         edition.groups.map do |group|
           {
