@@ -33,11 +33,26 @@ namespace :publishing_api do
     end
   end
 
-  desc "Send publishable item links to Publishing API."
-  task publishing_api_patch_links: :environment do
+  desc "Send published item links to Publishing API."
+  task patch_published_item_links: :environment do
     editions = Edition.published
     count = editions.count
     puts "# Sending #{count} published editions to Publishing API"
+
+    editions.pluck(:id).each_with_index do |item_id, i|
+      PublishingApiLinksWorker.perform_async(item_id)
+
+      puts "Queuing #{i}-#{i + 99} of #{count} items" if i % 100 == 0
+    end
+
+    puts "Finished queuing items for Publishing API"
+  end
+
+  desc "Send withdrawn item links to Publishing API."
+  task patch_withdrawn_item_links: :environment do
+    editions = Edition.withdrawn
+    count = editions.count
+    puts "# Sending #{count} withdrawn editions to Publishing API"
 
     editions.pluck(:id).each_with_index do |item_id, i|
       PublishingApiLinksWorker.perform_async(item_id)
