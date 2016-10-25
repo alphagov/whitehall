@@ -78,7 +78,7 @@ class PublishingApi::DraftDocumentCollectionPresenter < ActiveSupport::TestCase
   test "it presents the Document Collection's parent document created_at as first_public_at" do
     presented_notice = PublishingApi::DocumentCollectionPresenter.new(
       create(:draft_document_collection) do |document_collection|
-        document_collection.document.stubs(:created_at).returns(Date.new(2015, 4, 10))
+        document_collection.document.stubs(:created_at).returns(DateTime.new(2015, 4, 10))
       end
     )
 
