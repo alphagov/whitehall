@@ -133,7 +133,7 @@ Whitehall::Application.routes.draw do
       as: :organisation_email_signup_information
 
     resources :ministerial_roles, path: 'ministers', only: [:index, :show], localised: true
-    resources :people, only: [:index, :show], localised: true
+    resources :people, only: :show, localised: true
 
     # TODO: Remove `:show` when policy group paths can be otherwise generated
     resources :policy_groups, path: 'groups', only: [:index, :show]

@@ -13,9 +13,4 @@ class PeopleController < PublicFacingController
       format.atom
     end
   end
-
-  def index
-    @people = decorate_collection(Person.all, PersonPresenter)
-    set_meta_description("All ministers and senior officials on GOV.UK.")
-  end
 end
