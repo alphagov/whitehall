@@ -22,8 +22,7 @@ class SyncChecker::RequestQueueTest < Minitest::Test
     }
     document_check = stub(id: 1, base_paths: base_paths)
     result_set = []
-    mutex = Mutex.new
-    queued_request = SyncChecker::RequestQueue.new(document_check, result_set, mutex)
+    queued_request = SyncChecker::RequestQueue.new(document_check, result_set)
     response = Typhoeus::Response.new(code: 200, body: "{'content_id', 'booyah'}")
     Typhoeus.stub("https://draft-content-store.test.alphagov.co.uk/content/one").and_return(response)
 
@@ -38,8 +37,7 @@ class SyncChecker::RequestQueueTest < Minitest::Test
     }
     document_check = stub(id: 1, base_paths: base_paths)
     result_set = []
-    mutex = Mutex.new
-    queued_request = SyncChecker::RequestQueue.new(document_check, result_set, mutex)
+    queued_request = SyncChecker::RequestQueue.new(document_check, result_set)
     response = Typhoeus::Response.new(code: 200, body: "{'content_id', 'booyah'}")
     Typhoeus.stub("https://content-store.test.alphagov.co.uk/content/one").and_return(response)
 
@@ -54,8 +52,7 @@ class SyncChecker::RequestQueueTest < Minitest::Test
     }
     document_check = stub(id: 1, base_paths: base_paths)
     result_set = []
-    mutex = Mutex.new
-    queued_request = SyncChecker::RequestQueue.new(document_check, result_set, mutex)
+    queued_request = SyncChecker::RequestQueue.new(document_check, result_set)
     response = Typhoeus::Response.new(code: 200, body: "{'content_id', 'booyah'}")
     Typhoeus.stub("https://content-store.test.alphagov.co.uk/content/one").and_return(response)
 
@@ -72,8 +69,7 @@ class SyncChecker::RequestQueueTest < Minitest::Test
     }
     document_check = stub(id: 1, base_paths: base_paths)
     result_set = []
-    mutex = Mutex.new
-    queued_request = SyncChecker::RequestQueue.new(document_check, result_set, mutex)
+    queued_request = SyncChecker::RequestQueue.new(document_check, result_set)
     response = Typhoeus::Response.new(code: 200, body: "{'content_id', 'booyah'}")
     Typhoeus.stub("https://draft-content-store.test.alphagov.co.uk/content/one").and_return(response)
 
@@ -90,7 +86,6 @@ class SyncChecker::RequestQueueTest < Minitest::Test
     }
     document_check = stub(id: 1, base_paths: base_paths)
     result_set = []
-    mutex = Mutex.new
     Typhoeus::Request.expects(:new).with(
       "https://draft-content-store.test.alphagov.co.uk/content/one",
     ).returns(draft_request = stub(:on_complete))
@@ -98,7 +93,7 @@ class SyncChecker::RequestQueueTest < Minitest::Test
       "https://content-store.test.alphagov.co.uk/content/two",
     ).returns(live_request = stub(:on_complete))
 
-    queued_request = SyncChecker::RequestQueue.new(document_check, result_set, mutex)
+    queued_request = SyncChecker::RequestQueue.new(document_check, result_set)
 
     assert queued_request.requests.include?(draft_request)
     assert queued_request.requests.include?(live_request)

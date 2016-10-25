@@ -1,21 +1,18 @@
-
 module SyncChecker
   DRAFT_CONTENT_STORE = 'draft-content-store'
   LIVE_CONTENT_STORE = 'content-store'
 
   class RequestQueue
     attr_reader :request_type, :requests
-    def initialize(document_check, failure_result_set, mutex)
+    def initialize(document_check, failure_result_set)
       @requests = []
       document_check.base_paths[:draft].each do |locale, path|
         requests << draft_request = Typhoeus::Request.new(
           request_url(path, DRAFT_CONTENT_STORE)
         )
         draft_request.on_complete do |response|
-          mutex.synchronize do
-            result = document_check.check_draft(response, locale)
-            failure_result_set << result
-          end
+          result = document_check.check_draft(response, locale)
+          failure_result_set << result
         end
       end
 
@@ -24,10 +21,8 @@ module SyncChecker
           request_url(path, LIVE_CONTENT_STORE)
         )
         live_request.on_complete do |response|
-          mutex.synchronize do
-            result = document_check.check_live(response, locale)
-            failure_result_set << result
-          end
+          result = document_check.check_live(response, locale)
+          failure_result_set << result
         end
       end
     end
