@@ -3,23 +3,25 @@ require 'ruby-progressbar'
 
 module SyncChecker
   class SyncCheck
-    attr_reader :document_checks, :hydra, :failures, :mutex
+    attr_reader :checker, :scope, :hydra, :failures
 
-    def initialize(document_checks, options = {})
-      @document_checks = document_checks
+    def initialize(checker, scope, options = {})
+      @checker = checker
+      @scope = scope
       @hydra = options[:hydra] || Typhoeus::Hydra.new(max_concurrency: max_concurrency)
       @failures = options[:failures] || ResultSet.new(progress_bar, options[:csv_file_path])
-      @mutex = options[:mutex] || Mutex.new
     end
 
     def run
-      document_checks.each do |document_check|
-        request = RequestQueue.new(document_check, failures, mutex)
+      progress_bar.total = scope.count
+
+      scope.find_each do |document|
+        document_check = checker.new(document)
+        request = RequestQueue.new(document_check, failures)
         request.requests.each { |req| hydra.queue(req) }
+        hydra.run
+        progress_bar.start unless progress_bar.started?
       end
-      progress_bar.total = hydra.queued_requests.count
-      progress_bar.start
-      hydra.run
 
       progress_bar.finish
       puts "#{failures.results.count} failures" unless Rails.env.test?

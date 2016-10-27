@@ -32,12 +32,12 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-document_format = "SyncChecker::Formats::#{ARGV[0]}Check".constantize
-documents = (
+checker = "SyncChecker::Formats::#{ARGV[0]}Check".constantize
+scope = (
   if options[:ids]
-    document_format.scope_with_ids(options[:ids])
+    checker.scope_with_ids(options[:ids])
   else
-    document_format.scope
+    checker.scope
   end
 )
 
@@ -47,9 +47,9 @@ if options[:republish]
     total: documents.count,
     format: "%e [%b>%i] [%c/%C]"
   )
-  documents.pluck(:id).each do |id|
+  scope.pluck(:id).each do |id|
     begin
-      document_format.republish(id)
+      checker.republish(id)
     rescue GdsApi::TimedOutException, GdsApi::HTTPServerError
       progress.log "Timeout..."
       retry
@@ -60,6 +60,5 @@ if options[:republish]
   exit 0
 end
 
-checks = documents.map { |doc| document_format.new(doc) }
-checker = SyncChecker::SyncCheck.new(checks, csv_file_path: options[:output])
-checker.run
+sync_check = SyncChecker::SyncCheck.new(checker, scope, csv_file_path: options[:output])
+sync_check.run
