@@ -22,19 +22,22 @@ module SyncChecker::Checks
     def test_returns_no_errors_if_the_document_is_withdrawn_and_has_the_correct_notice
       document = stub(
         published_edition: stub(
-          unpublishing: stub(
-            unpublishing_reason_id: 5,
-            explanation: "Some explainings"
-          )
+          updated_at: Time.gm(2016, 8, 10, 1, 2, 3, 456)
         ),
         pre_publication_edition: nil
       )
+      document.published_edition.stubs(unpublishing: stub(
+        unpublishing_reason_id: 5,
+        explanation: "Some explainings",
+        edition: document.published_edition
+      ))
       @stub_renderer.stubs(:govspeak_to_html).returns("<p>Some explainings</p>")
 
       response = stub(
         body: {
           withdrawn_notice: {
-            explanation: "<p>Some explainings</p>"
+            explanation: "<p>Some explainings</p>",
+            withdrawn_at: "2016-08-10T01:02:03.000+00:00"
           }
         }.to_json
       )
@@ -45,19 +48,22 @@ module SyncChecker::Checks
     def test_returns_an_error_if_the_document_is_withdrawn_and_has_the_wrong_notice
       document = stub(
         published_edition: stub(
-          unpublishing: stub(
-            unpublishing_reason_id: 5,
-            explanation: "Some explainings"
-          )
+          updated_at: Time.gm(2016, 8, 10, 1, 2, 3, 456)
         ),
         pre_publication_edition: nil
       )
+      document.published_edition.stubs(unpublishing: stub(
+        unpublishing_reason_id: 5,
+        explanation: "Some explainings",
+        edition: document.published_edition
+      ))
       @stub_renderer.stubs(:govspeak_to_html).returns("<p>Some explainings</p>")
 
       response = stub(
         body: {
           withdrawn_notice: {
-            explanation: "<p>Some other explainings</p>"
+            explanation: "<p>Some other explainings</p>",
+            withdrawn_at: "2016-08-10T01:02:03.000+00:00"
           }
         }.to_json
       )
@@ -70,21 +76,54 @@ module SyncChecker::Checks
     def test_returns_an_error_if_the_document_is_withdrawn_and_has_no_notice
       document = stub(
         published_edition: stub(
-          unpublishing: stub(
-            unpublishing_reason_id: 5,
-            explanation: "Some explainings"
-          )
+          updated_at: Time.gm(2016, 8, 10, 1, 2, 3, 456)
         ),
         pre_publication_edition: nil
       )
+      document.published_edition.stubs(unpublishing: stub(
+        unpublishing_reason_id: 5,
+        explanation: "Some explainings",
+        edition: document.published_edition
+      ))
       @stub_renderer.stubs(:govspeak_to_html).returns("<p>Some explainings</p>")
 
       response = stub(
         body: {
-          withdrawn_notice: {}
+          withdrawn_notice: {
+            withdrawn_at: "2016-08-10T01:02:03.000+00:00"
+          }
         }.to_json
       )
       expected_error = "expected withdrawn notice: '<p>Some explainings</p>' but got ''"
+
+      assert_equal [expected_error],
+        UnpublishedCheck.new(document).call(response)
+    end
+
+    def test_returns_an_error_if_the_document_is_withdrawn_and_has_the_wrong_date
+      document = stub(
+        published_edition: stub(
+          updated_at: Time.gm(2016, 8, 10, 1, 2, 3, 456)
+        ),
+        pre_publication_edition: nil
+      )
+      document.published_edition.stubs(unpublishing: stub(
+        unpublishing_reason_id: 5,
+        explanation: "Some explainings",
+        edition: document.published_edition
+      ))
+
+      @stub_renderer.stubs(:govspeak_to_html).returns("<p>Some explainings</p>")
+
+      response = stub(
+        body: {
+          withdrawn_notice: {
+            explanation: "<p>Some explainings</p>",
+            withdrawn_at: "2016-08-10T02:02:03.000+00:00"
+          }
+        }.to_json
+      )
+      expected_error = "expected withdrawn at '2016-08-10T01:02:03.000+00:00' but got '2016-08-10T02:02:03.000+00:00'"
 
       assert_equal [expected_error],
         UnpublishedCheck.new(document).call(response)

@@ -16,6 +16,7 @@ module SyncChecker
             #withdraw
             unpublishing = document.published_edition.unpublishing
             failures << check_for_withdrawn_notice(unpublishing)
+            failures << check_withdrawn_at(unpublishing)
           elsif pre_publication_has_unpublishing?
             unpublishing = document.pre_publication_edition.unpublishing
             if unpublishing.unpublishing_reason_id == 1
@@ -96,6 +97,16 @@ module SyncChecker
 
         if !EquivalentXml.equivalent?(withdrawn_explanation, item_withdrawn_explanation)
           "expected withdrawn notice: '#{withdrawn_explanation}' but got '#{item_withdrawn_explanation}'"
+        end
+      end
+
+      def check_withdrawn_at(unpublishing)
+        item_withdrawn_at = content_item["withdrawn_notice"]["withdrawn_at"]
+        return "expected withdrawn at but was missing" if item_withdrawn_at.blank?
+
+        edition_withdrawn_at = unpublishing.edition.updated_at.to_datetime.utc.rfc3339(3)
+        if item_withdrawn_at != edition_withdrawn_at
+          "expected withdrawn at '#{edition_withdrawn_at}' but got '#{item_withdrawn_at}'"
         end
       end
     end
