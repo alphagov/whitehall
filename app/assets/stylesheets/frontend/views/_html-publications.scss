@@ -286,6 +286,71 @@
           }
         }
       }
+
+      table.financial-data {
+
+        .numeric {
+          text-align: right;
+          font-family: $NTA-Light-Tabular;
+        }
+
+        // make all elements inside thead look the same
+        // (td can sometimes be used to overcome complexity of multiple lines in thead)
+        // and make all of thead and tfoot stand out
+        thead,
+        tfoot {
+          background-color: $grey-3;
+        }
+        thead th,
+        thead td {
+          font-weight: bold;
+        }
+        // don't make `th`s bold unless they are a section heading or a (sub)total row
+        tbody th,
+        tfoot th {
+          font-weight: normal;
+        }
+
+        // needs padding due to occasional background colour
+        // is intentionally small and not balanced with other padding
+        // as tables can be quite wide
+        tr > :first-child {
+          padding-left: $gutter-one-third/2;
+        }
+
+        // add spacing so that groupings are clearer
+        tr.section-heading > * {
+          font-weight: bold;
+          padding-top: $gutter;
+        }
+
+        // ideally this should be just a top margin on the tfoot
+        // but as that is very tricky, this is more complex
+        tbody:last-of-type tr:last-child > * {
+          padding-bottom: $gutter;
+        }
+        tbody:last-child tr:last-child > * {
+          padding-bottom: $gutter-one-third;
+        }
+
+        // total and subtotal rows
+        tr.subtotal > *,
+        tr.total > * {
+          border-top: 3px solid $grey-2;
+        }
+
+        tr.total > *,
+        tbody tr.subtotal > * {
+          font-weight: bold;
+        }
+
+        // the total is usually in the tfoot, so already has that background colour
+        // but when it's used inside the tbody, it should also be highlighted
+        tr.total {
+          background-color: $grey-3;
+        }
+      }
+
       .contact {
         @extend %contain-floats;
         background: $panel-colour;
