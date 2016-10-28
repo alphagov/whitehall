@@ -1,4 +1,4 @@
 GdsApi.configure do |config|
-  # Never return nil when a server responds with 404 or 410.
-  config.always_raise_for_not_found = true
+  # Opt out of always returning hashes for `GdsApi::Response`s
+  config.hash_response_for_requests = false
 end
