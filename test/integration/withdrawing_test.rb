@@ -15,6 +15,7 @@ class WithdrawingTest < ActiveSupport::TestCase
         type: "withdrawal",
         locale: "en",
         explanation: "<div class=\"govspeak\"><p>Old information</p>\n</div>",
+        unpublished_at: edition.updated_at.utc.iso8601,
       }
     )
 
