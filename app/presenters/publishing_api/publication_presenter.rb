@@ -41,9 +41,10 @@ module PublishingApi
           :related_policies,
         ]
       ).merge(
+        PayloadBuilder::TopicalEvents.for(item)
+      ).merge(
         ministers: ministers,
         related_statistical_data_sets: related_statistical_data_sets,
-        topical_events: topical_events
       )
     end
 
@@ -84,13 +85,6 @@ module PublishingApi
 
     def ministers
       item.role_appointments.collect {|a| a.person.content_id}
-    end
-
-    def topical_events
-      ::TopicalEvent
-        .joins(:classification_memberships)
-        .where(classification_memberships: {edition_id: item.id})
-        .pluck(:content_id)
     end
 
     def related_statistical_data_sets

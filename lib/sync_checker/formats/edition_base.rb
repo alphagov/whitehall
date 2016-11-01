@@ -58,7 +58,7 @@ module SyncChecker
       def checks_for_draft(locale)
         [
           Checks::TopLevelCheck.new(
-            top_level_fields_hash(edition_expected_in_draft.translation_for(locale))
+            top_level_fields_hash(edition_expected_in_draft, locale)
           ),
           Checks::DetailsCheck.new(
             I18n.with_locale(locale) do
@@ -88,7 +88,7 @@ module SyncChecker
       def checks_for_live(locale)
         [
           Checks::TopLevelCheck.new(
-            top_level_fields_hash(edition_expected_in_live.translation_for(locale))
+            top_level_fields_hash(edition_expected_in_live, locale)
           ),
           Checks::LinksCheck.new(
             "organisations",
@@ -130,7 +130,7 @@ module SyncChecker
       end
 
       def expected_details_hash(edition)
-        expected_details = {
+        {
           body: Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(edition),
           change_history: edition.change_history.as_json,
           emphasised_organisations: edition.lead_organisations.map(&:content_id),
@@ -140,12 +140,13 @@ module SyncChecker
 
     private
 
-      def top_level_fields_hash(translation_for_locale)
+      def top_level_fields_hash(edition, locale)
+        translation_for_locale = edition.translation_for(locale)
         {
-          base_path: get_path(translation_for_locale.locale),
+          base_path: get_path(locale),
           content_id: document.content_id,
           document_type: document_type,
-          locale: translation_for_locale.locale.to_s,
+          locale: locale.to_s,
           publishing_app: "whitehall",
           schema_name: document.document_type.underscore,
           title: translation_for_locale.title,

@@ -41,4 +41,12 @@ class TopicalEventTest < ActiveSupport::TestCase
     topical_event = build(:topical_event, start_date: Date.today, end_date: Date.today)
     refute topical_event.valid?
   end
+
+  test "for edition returns topical events related to supplied edition" do
+    topical_event = create(:topical_event)
+    publication = build(:publication)
+    topical_event.publications << publication
+    topical_event.save!
+    assert_equal [topical_event], TopicalEvent.for_edition(publication.id)
+  end
 end
