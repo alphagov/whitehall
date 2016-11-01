@@ -44,7 +44,7 @@ module SyncChecker
       end
 
       def document_type
-        edition_expected_in_live.publication_type.key
+        (edition_expected_in_live || edition_expected_in_draft).publication_type.key
       end
 
       def expected_details_hash(edition)
