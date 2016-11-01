@@ -14,13 +14,13 @@ module SyncChecker
 
     def run
       progress_bar.total = scope.count
+      progress_bar.start
 
       scope.find_each do |document|
         document_check = checker.new(document)
         request = RequestQueue.new(document_check, failures)
         request.requests.each { |req| hydra.queue(req) }
         hydra.run
-        progress_bar.start unless progress_bar.started?
       end
 
       progress_bar.finish
