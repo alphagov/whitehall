@@ -107,17 +107,26 @@ end
 class PublishingApi::DocumentCollectionPresenterGroupTest < ActiveSupport::TestCase
   setup do
     document_collection = create(:document_collection, :with_groups)
-    document_collection.groups.first.stubs(:documents).returns(
+    group_one = document_collection.groups.first
+    group_two = document_collection.groups.second
+
+    group_one.stubs(:documents).returns(
       [
         stub(content_id: "aaa"),
         stub(content_id: "bbb"),
       ]
     )
-    document_collection.groups.second.stubs(:documents).returns(
+    group_two.stubs(:documents).returns(
       [
         stub(content_id: "fff"),
         stub(content_id: "eee"),
       ]
+    )
+    group_one.stubs(:heading).returns(
+      "Group 1"
+    )
+    group_two.stubs(:heading).returns(
+      "Group 2"
     )
 
     presenter = PublishingApi::DocumentCollectionPresenter.new(
