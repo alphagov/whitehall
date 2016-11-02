@@ -26,8 +26,6 @@ module SyncChecker
         csv << result.to_row
         progress_bar.log result.to_s
       end
-
-      progress_bar.increment
     end
 
     attr_reader :results, :progress_bar, :csv
