@@ -164,12 +164,7 @@ module SyncChecker
       end
 
       def first_public_at(edition)
-        first_public_at = if document.published?
-                            edition.first_public_at
-                          else
-                            document.created_at
-                          end
-
+        first_public_at = edition.first_public_at || edition.document.created_at
         first_public_at.to_datetime.rfc3339(3)
       end
 
