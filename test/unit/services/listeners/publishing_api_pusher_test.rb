@@ -96,18 +96,29 @@ module ServiceListeners
       PublishingApiPusher.new(edition).push(event: "delete")
     end
 
-    test "redirects deleted translations" do
-      published_edition = create(:published_edition, document: build(:document), translated_into: [:es, :fr])
+    def draft_edition_with_deleted_translation(type)
+      published_edition = create(type, document: build(:document), translated_into: [:es, :fr])
 
       old_translations = published_edition.translations
       en = old_translations[0]
       es = old_translations[1]
       fr = old_translations[2]
 
-      new_edition = published_edition.create_draft(create(:writer))
-      new_edition.translations = [en, es]
-      new_edition.minor_change = true
-      new_edition.submit!
+      draft_edition = published_edition.create_draft(create(:writer))
+      draft_edition.translations = [en, es]
+      draft_edition.minor_change = true
+      draft_edition.submit!
+
+      {
+        draft_edition: draft_edition,
+        deleted_translation: fr
+      }
+    end
+
+    test "redirects deleted translations for a migrated format" do
+      res = draft_edition_with_deleted_translation(:published_case_study)
+      new_edition = res[:draft_edition]
+      fr = res[:deleted_translation]
 
       Whitehall::PublishingApi.expects(:publish_async).with(new_edition)
       stub_html_attachment_pusher(new_edition, "publish")
@@ -122,6 +133,20 @@ module ServiceListeners
         new_edition.search_link,
         fr.locale
       )
+
+      PublishingApiPusher.new(new_edition).push(event: "publish")
+    end
+
+    test "does not redirect translations for an unmigrated format" do
+      res = draft_edition_with_deleted_translation(:published_publication)
+      new_edition = res[:draft_edition]
+
+      Whitehall::PublishingApi.expects(:publish_async).with(new_edition)
+      stub_html_attachment_pusher(new_edition, "publish")
+
+      PublishingApiRedirectWorker
+        .expects(:new)
+        .never
 
       PublishingApiPusher.new(new_edition).push(event: "publish")
     end

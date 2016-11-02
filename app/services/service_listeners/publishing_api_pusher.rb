@@ -9,7 +9,7 @@ module ServiceListeners
     def push(event:, options: {})
       # This is done synchronously before the rest of the publishing,
       # because it creates redirects and currently (02/11/2016) publishing-api links
-      # will are not recalculated on parent documents when their translations are unpublished.
+      # are not recalculated on parent documents when their translations are unpublished.
       handle_translations
 
       case event
@@ -45,16 +45,21 @@ module ServiceListeners
     end
 
     # If the previous edition had extra translations, redirect them to the :en locale.
+    # Unmigrated formats as of now (02/11/2016) do not work with this, as the redirects
+    # are not removed if the translation is added back in.
     def handle_translations
-      previous_edition = edition.previous_edition
-      if previous_edition
-        removed_locales = previous_edition.translations.map(&:locale) - edition.translations.map(&:locale)
-        removed_locales.each do |locale|
-          PublishingApiRedirectWorker.new.perform(
-            edition.content_id,
-            edition.search_link,
-            locale
-          )
+      is_migrated_format = edition.rendering_app != Whitehall::RenderingApp::WHITEHALL_FRONTEND
+      if is_migrated_format
+        previous_edition = edition.previous_edition
+        if previous_edition
+          removed_locales = previous_edition.translations.map(&:locale) - edition.translations.map(&:locale)
+          removed_locales.each do |locale|
+            PublishingApiRedirectWorker.new.perform(
+              edition.content_id,
+              edition.search_link,
+              locale
+            )
+          end
         end
       end
     end
