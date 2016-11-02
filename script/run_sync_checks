@@ -44,7 +44,7 @@ scope = (
 if options[:republish]
   progress = ProgressBar.create(
     title: "Republishing",
-    total: documents.count,
+    total: scope.count,
     format: "%e [%b>%i] [%c/%C]"
   )
   scope.pluck(:id).each do |id|
