@@ -21,6 +21,7 @@ module SyncChecker
         request = RequestQueue.new(document_check, failures)
         request.requests.each { |req| hydra.queue(req) }
         hydra.run
+        progress_bar.increment
       end
 
       progress_bar.finish
