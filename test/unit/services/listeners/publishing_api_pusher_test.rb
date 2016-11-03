@@ -10,7 +10,7 @@ module ServiceListeners
     end
 
     test "saves draft async for update_draft" do
-      edition = build(:draft_publication)
+      edition = build(:draft_publication, document: build(:document))
       Whitehall::PublishingApi.expects(:save_draft_async).with(edition)
       stub_html_attachment_pusher(edition, "update_draft")
       PublishingApiPusher.new(edition).push(event: "update_draft")
@@ -19,7 +19,8 @@ module ServiceListeners
     test "saves attachments draft" do
       edition = build(
         :draft_publication,
-        html_attachments: [attachment = build(:html_attachment)]
+        html_attachments: [build(:html_attachment)],
+        document: build(:document)
       )
       Whitehall::PublishingApi.expects(:save_draft_async).with(edition)
       stub_html_attachment_pusher(edition, "update_draft")
@@ -27,21 +28,21 @@ module ServiceListeners
     end
 
     test "publish publishes" do
-      edition = build(:publication)
+      edition = build(:publication, document: build(:document))
       Whitehall::PublishingApi.expects(:publish_async).with(edition)
       stub_html_attachment_pusher(edition, "publish")
       PublishingApiPusher.new(edition).push(event: "publish")
     end
 
     test "force_publish publishes" do
-      edition = build(:publication)
+      edition = build(:publication, document: build(:document))
       Whitehall::PublishingApi.expects(:publish_async).with(edition)
       stub_html_attachment_pusher(edition, "force_publish")
       PublishingApiPusher.new(edition).push(event: "force_publish")
     end
 
     test "update_draft_translation saves draft translation" do
-      edition = build(:publication)
+      edition = build(:publication, document: build(:document))
       Whitehall::PublishingApi.expects(:save_draft_translation_async).with(edition, 'en')
       stub_html_attachment_pusher(edition, "update_draft_translation")
       PublishingApiPusher.new(edition).push(event: "update_draft_translation", options: { locale: "en" })
@@ -68,31 +69,86 @@ module ServiceListeners
     end
 
     test "force_schedule schedules the edition" do
-      edition = build(:publication)
+      edition = build(:publication, document: build(:document))
       Whitehall::PublishingApi.expects(:schedule_async).with(edition)
       stub_html_attachment_pusher(edition, "force_schedule")
       PublishingApiPusher.new(edition).push(event: "force_schedule")
     end
 
     test "schedule schedules the edition" do
-      edition = build(:publication)
+      edition = build(:publication, document: build(:document))
       Whitehall::PublishingApi.expects(:schedule_async).with(edition)
       stub_html_attachment_pusher(edition, "schedule")
       PublishingApiPusher.new(edition).push(event: "schedule")
     end
 
     test "unschedule unschedules the edition" do
-      edition = build(:publication)
+      edition = build(:publication, document: build(:document))
       Whitehall::PublishingApi.expects(:unschedule_async).with(edition)
       stub_html_attachment_pusher(edition, "unschedule")
       PublishingApiPusher.new(edition).push(event: "unschedule")
     end
 
     test "delete discards draft" do
-      edition = build(:publication)
+      edition = build(:publication, document: build(:document))
       Whitehall::PublishingApi.expects(:discard_draft_async).with(edition)
       stub_html_attachment_pusher(edition, "delete")
       PublishingApiPusher.new(edition).push(event: "delete")
+    end
+
+    def draft_edition_with_deleted_translation(type)
+      published_edition = create(type, document: build(:document), translated_into: [:es, :fr])
+
+      old_translations = published_edition.translations
+      en = old_translations[0]
+      es = old_translations[1]
+      fr = old_translations[2]
+
+      draft_edition = published_edition.create_draft(create(:writer))
+      draft_edition.translations = [en, es]
+      draft_edition.minor_change = true
+      draft_edition.submit!
+
+      {
+        draft_edition: draft_edition,
+        deleted_translation: fr
+      }
+    end
+
+    test "redirects deleted translations for a migrated format" do
+      res = draft_edition_with_deleted_translation(:published_case_study)
+      new_edition = res[:draft_edition]
+      fr = res[:deleted_translation]
+
+      Whitehall::PublishingApi.expects(:publish_async).with(new_edition)
+      stub_html_attachment_pusher(new_edition, "publish")
+
+      pusher = mock
+      PublishingApiRedirectWorker
+        .expects(:new)
+        .returns(pusher)
+
+      pusher.expects(:perform).with(
+        new_edition.document.content_id,
+        new_edition.search_link,
+        fr.locale
+      )
+
+      PublishingApiPusher.new(new_edition).push(event: "publish")
+    end
+
+    test "does not redirect translations for an unmigrated format" do
+      res = draft_edition_with_deleted_translation(:published_publication)
+      new_edition = res[:draft_edition]
+
+      Whitehall::PublishingApi.expects(:publish_async).with(new_edition)
+      stub_html_attachment_pusher(new_edition, "publish")
+
+      PublishingApiRedirectWorker
+        .expects(:new)
+        .never
+
+      PublishingApiPusher.new(new_edition).push(event: "publish")
     end
   end
 end
