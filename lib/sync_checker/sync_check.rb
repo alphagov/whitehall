@@ -17,6 +17,7 @@ module SyncChecker
       progress_bar.start
 
       scope.find_each do |document|
+        progress_bar.log "running check for document_id #{document.id}"
         document_check = checker.new(document)
         request = RequestQueue.new(document_check, failures)
         request.requests.each { |req| hydra.queue(req) }
