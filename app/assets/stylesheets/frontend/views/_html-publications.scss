@@ -326,7 +326,8 @@
 
         // ideally this should be just a top margin on the tfoot
         // but as that is very tricky, this is more complex
-        tbody:last-of-type tr:last-child > * {
+        tbody:last-of-type tr:last-child > *,
+        tfoot ~ tbody:last-of-type tr:last-child > * {
           padding-bottom: $gutter;
         }
         tbody:last-child tr:last-child > * {
