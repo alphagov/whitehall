@@ -32,7 +32,6 @@ module PublishingApi
     def links
       LinksPresenter.new(item).extract(
         [
-          :document_collections,
           :organisations,
           :parent,
           :related_policies,

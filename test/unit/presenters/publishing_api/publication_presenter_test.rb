@@ -62,7 +62,6 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       topics: [],
       parent: [],
       organisations: publication.lead_organisations.map(&:content_id),
-      document_collections: [],
       ministers: [minister.person.content_id],
       related_statistical_data_sets: [statistical_data_set.content_id],
       world_locations: [],
@@ -111,7 +110,6 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       topics: [],
       parent: [],
       organisations: [lead_org_1.content_id, lead_org_2.content_id, supporting_org.content_id],
-      document_collections: [],
       world_locations: [],
       ministers: [],
       related_statistical_data_sets: [],
@@ -147,20 +145,6 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     presented_item = present(publication)
     assert_valid_against_links_schema({ links: presented_item.links }, 'publication')
     assert_equal [location.content_id], presented_item.links[:world_locations]
-  end
-
-  test "links hash includes document collections that the publication is part of" do
-    publication = create(:published_publication)
-    document_collections = [
-      create(:published_document_collection, groups: [build(:document_collection_group, documents: [publication.document])]),
-      create(:published_document_collection, groups: [build(:document_collection_group, documents: [publication.document])])
-    ]
-
-    publication.document_collections.reload
-    presented_item = present(publication)
-
-    assert_valid_against_links_schema({ links: presented_item.links }, 'publication')
-    assert_same_elements document_collections.map(&:content_id), presented_item.links[:document_collections]
   end
 
   test "a withdrawn publication includes details of the archive notice" do

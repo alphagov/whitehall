@@ -44,7 +44,6 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
       },
     }
     expected_links = {
-      document_collections: [],
       organisations: case_study.lead_organisations.map(&:content_id),
       related_policies: [],
       topics: [],
@@ -136,7 +135,6 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
                         supporting_organisations: [supporting_org])
     presented_item = present(case_study)
     expected_links_hash = {
-      document_collections: [],
       organisations: [lead_org_1.content_id, lead_org_2.content_id, supporting_org.content_id],
       related_policies: [],
       topics: [],
@@ -188,20 +186,6 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
 
     assert_valid_against_links_schema({ links: presented_item.links }, 'case_study')
     assert_equal [policy_area_1["content_id"], policy_1["content_id"]], presented_item.links[:related_policies]
-  end
-
-  test "links hash includes document collections that the case study is part of" do
-    case_study = create(:published_case_study)
-    document_collections = [
-      create(:published_document_collection, groups: [build(:document_collection_group, documents: [case_study.document])]),
-      create(:published_document_collection, groups: [build(:document_collection_group, documents: [case_study.document])])
-    ]
-
-    case_study.document_collections.reload
-    presented_item = present(case_study)
-
-    assert_valid_against_links_schema({ links: presented_item.links }, 'case_study')
-    assert_same_elements document_collections.map(&:content_id), presented_item.links[:document_collections]
   end
 
   test "a withdrawn case study includes details of the archive notice" do

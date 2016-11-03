@@ -1,7 +1,6 @@
 module PublishingApi
   class LinksPresenter
     LINK_NAMES_TO_METHODS_MAP = {
-      document_collections: :document_collection_ids,
       organisations: :organisation_ids,
       policy_areas: :policy_area_ids,
       related_policies: :related_policy_ids,
@@ -27,10 +26,6 @@ module PublishingApi
   private
 
     attr_reader :item
-
-    def document_collection_ids
-      (item.try(:published_document_collections) || []).map(&:content_id)
-    end
 
     def policy_area_ids
       (item.try(:topics) || []).map(&:content_id)

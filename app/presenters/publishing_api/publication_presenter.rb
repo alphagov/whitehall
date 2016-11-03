@@ -35,7 +35,6 @@ module PublishingApi
           :topics,
           :parent,
           :organisations,
-          :document_collections,
           :world_locations,
           :policy_areas,
           :related_policies,
