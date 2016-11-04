@@ -21,6 +21,7 @@ module SyncChecker
       end
 
       def edition_expected_in_draft
+        return nil if draft_is_access_limited?(document)
         document.pre_publication_edition || document.published_edition
       end
 
@@ -176,6 +177,11 @@ module SyncChecker
           slug: government.slug,
           current: government.current?
         }.stringify_keys
+      end
+
+      def draft_is_access_limited?(document)
+        draft = document.pre_publication_edition
+        !!(draft && draft.access_limited?)
       end
     end
   end
