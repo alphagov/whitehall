@@ -38,7 +38,7 @@ module SyncChecker
 
       def check_topics
         return if expected_content_ids.empty? && links_topics.nil?
-        return "expected links#topics but it isn't present" if links_topics.nil? && expected_content_ids.any?
+        return "expected links#topics but it isn't present" if links_topics.nil? && !expected_content_ids.empty?
         return "links#topics are present but shouldn't be" if links_topics.present? && expected_content_ids.empty?
         check_for_missing_topics + check_for_unexpected_topics
       end
