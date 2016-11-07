@@ -100,11 +100,15 @@ module SyncChecker
         end
       end
 
+      def format_date(date)
+        Time.parse(date.to_s).utc
+      end
+
       def check_withdrawn_at(unpublishing)
-        item_withdrawn_at = content_item["withdrawn_notice"]["withdrawn_at"]
+        item_withdrawn_at = format_date(content_item["withdrawn_notice"]["withdrawn_at"])
         return "expected withdrawn at but was missing" if item_withdrawn_at.blank?
 
-        edition_withdrawn_at = unpublishing.edition.updated_at.to_datetime.utc.rfc3339(3)
+        edition_withdrawn_at = format_date(unpublishing.edition.updated_at)
         if item_withdrawn_at != edition_withdrawn_at
           "expected withdrawn at '#{edition_withdrawn_at}' but got '#{item_withdrawn_at}'"
         end

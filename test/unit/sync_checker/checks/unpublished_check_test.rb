@@ -100,6 +100,34 @@ module SyncChecker::Checks
         UnpublishedCheck.new(document).call(response)
     end
 
+    def test_returns_no_error_if_the_document_is_withdrawn_and_has_a_withdrawn_date_expressed_with_an_offset
+      document = stub(
+        published_edition: stub(
+          updated_at: Time.gm(2016, 8, 10, 1, 2, 3, 456)
+        ),
+        pre_publication_edition: nil
+      )
+      document.published_edition.stubs(unpublishing: stub(
+        unpublishing_reason_id: 5,
+        explanation: "Explanation",
+        edition: document.published_edition
+      ))
+
+      @stub_renderer.stubs(:govspeak_to_html).returns("<p>Explanation</p>")
+
+      response = stub(
+        body: {
+          withdrawn_notice: {
+            explanation: "<p>Explanation</p>",
+            withdrawn_at: "2016-08-10T02:02:03.000+01:00"
+          }
+        }.to_json
+      )
+
+      assert_equal [],
+        UnpublishedCheck.new(document).call(response)
+    end
+
     def test_returns_an_error_if_the_document_is_withdrawn_and_has_the_wrong_date
       document = stub(
         published_edition: stub(
@@ -123,7 +151,7 @@ module SyncChecker::Checks
           }
         }.to_json
       )
-      expected_error = "expected withdrawn at '2016-08-10T01:02:03.000+00:00' but got '2016-08-10T02:02:03.000+00:00'"
+      expected_error = "expected withdrawn at '2016-08-10 01:02:03 UTC' but got '2016-08-10 02:02:03 UTC'"
 
       assert_equal [expected_error],
         UnpublishedCheck.new(document).call(response)
