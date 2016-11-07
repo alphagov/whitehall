@@ -26,6 +26,7 @@ module SyncChecker
       end
 
       def edition_expected_in_live
+        return nil if latest_edition_is_rejected?(document)
         case
         when document.published_edition
           document.published_edition
@@ -182,6 +183,12 @@ module SyncChecker
       def draft_is_access_limited?(document)
         draft = document.pre_publication_edition
         !!(draft && draft.access_limited?)
+      end
+
+      def latest_edition_is_rejected?(document)
+        document.published_edition.nil? &&
+          document.pre_publication_edition &&
+          document.pre_publication_edition.rejected?
       end
     end
   end
