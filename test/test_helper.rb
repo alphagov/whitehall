@@ -54,6 +54,7 @@ class ActiveSupport::TestCase
     Edition::AuditTrail.whodunnit = fake_whodunnit
     stub_any_publishing_api_call
     stub_publishing_api_policies
+    SyncCheckWorker.stubs(:enqueue)
   end
 
   teardown do

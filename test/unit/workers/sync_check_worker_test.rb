@@ -4,6 +4,10 @@ require 'gds_api/test_helpers/content_store.rb'
 class SyncCheckWorkerTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::ContentStore
 
+  setup do
+    SyncCheckWorker.unstub(:enqueue)
+  end
+
   def dummy_content_item(item)
     presenter = PublishingApiPresenters.presenter_for(item)
 
@@ -56,5 +60,43 @@ class SyncCheckWorkerTest < ActiveSupport::TestCase
     assert_equal 2, result.failures.size
     assert_match %r{expected content_id}, result.failures.first.errors.first
     assert_match %r{expected content_id}, result.failures.last.errors.first
+  end
+
+  test "it determines the correct check class" do
+    case_study = create(:published_case_study)
+    assert_equal SyncChecker::Formats::CaseStudyCheck, SyncCheckWorker.check_class_for(case_study)
+
+    assert_nil SyncCheckWorker.check_class_for(User.first)
+  end
+
+  test "it determines the correct id to send for Editioned formats" do
+    case_study = create(:published_case_study)
+    html_attachment = create(:html_attachment)
+
+    assert_equal case_study.document_id, SyncCheckWorker.item_id_for(case_study)
+    assert_equal html_attachment.id, SyncCheckWorker.item_id_for(html_attachment)
+  end
+
+  test "it schedules the job for 5 minutes time" do
+    case_study = create(:published_case_study)
+
+    Sidekiq::Testing.fake! do
+      SyncCheckWorker.enqueue(case_study)
+
+      assert_equal 1, SyncCheckWorker.jobs.size
+
+      job = SyncCheckWorker.jobs.first
+      assert_equal SyncChecker::Formats::CaseStudyCheck.name, job["args"][0]
+      assert_equal case_study.document_id, job["args"][1]
+      assert_in_delta 5.minutes, job["at"] - job["created_at"], 1
+    end
+  end
+
+  test "it doesn't schedule a job that a check doesn't exist for" do
+    Sidekiq::Testing.fake! do
+      SyncCheckWorker.enqueue(create(:user))
+
+      assert_empty SyncCheckWorker.jobs
+    end
   end
 end
