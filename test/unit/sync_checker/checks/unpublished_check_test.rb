@@ -1,7 +1,9 @@
+ENV["RAILS_ENV"] = "test"
+
+require File.expand_path('../../../../../config/environment', __FILE__)
 require 'minitest/autorun'
 require 'mocha/setup'
-require 'active_support/json'
-
+require 'rails/test_help'
 require_relative '../../../../lib/sync_checker/checks/unpublished_check'
 require_relative '../../../../lib/whitehall/govspeak_renderer'
 

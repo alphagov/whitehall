@@ -101,7 +101,7 @@ module SyncChecker
       end
 
       def format_date(date)
-        Time.parse(date.to_s).utc
+        Time.zone.parse(date.to_s).utc
       end
 
       def check_withdrawn_at(unpublishing)
