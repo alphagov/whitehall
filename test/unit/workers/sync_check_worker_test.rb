@@ -5,6 +5,7 @@ class SyncCheckWorkerTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::ContentStore
 
   setup do
+    SyncChecker::DraftTopicContentIds.stubs(:fetch)
     SyncCheckWorker.unstub(:enqueue)
   end
 

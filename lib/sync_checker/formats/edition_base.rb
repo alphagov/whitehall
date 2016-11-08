@@ -110,7 +110,8 @@ module SyncChecker
           ),
           Checks::UnpublishedCheck.new(document),
           Checks::TranslationsCheck.new(edition_expected_in_live.available_locales),
-          Checks::TopicsCheck.new(edition_expected_in_live)
+          Checks::TopicsCheck.new(edition_expected_in_live,
+                                  topic_blacklist: DraftTopicContentIds.fetch)
         ]
       end
 
