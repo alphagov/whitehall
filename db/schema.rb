@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161010135926) do
+ActiveRecord::Schema.define(version: 20161106133205) do
 
   create_table "about_pages", force: :cascade do |t|
     t.integer  "topical_event_id",    limit: 4
@@ -1098,6 +1098,16 @@ ActiveRecord::Schema.define(version: 20161010135926) do
   add_index "statistics_announcements", ["slug"], name: "index_statistics_announcements_on_slug", using: :btree
   add_index "statistics_announcements", ["title"], name: "index_statistics_announcements_on_title", using: :btree
   add_index "statistics_announcements", ["topic_id"], name: "index_statistics_announcements_on_topic_id", using: :btree
+
+  create_table "sync_check_results", force: :cascade do |t|
+    t.string   "check_class", limit: 255
+    t.integer  "item_id",     limit: 4
+    t.text     "failures",    limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "sync_check_results", ["check_class", "item_id"], name: "index_sync_check_results_on_check_class_and_item_id", unique: true, using: :btree
 
   create_table "take_part_pages", force: :cascade do |t|
     t.string   "title",             limit: 255,      null: false

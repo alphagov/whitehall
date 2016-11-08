@@ -14,10 +14,9 @@ module SyncChecker
         PublishingApiDocumentRepublishingWorker.new.perform(id)
       end
 
-      attr_reader :document, :results
+      attr_reader :document
       def initialize(document)
         @document = document
-        @results = []
       end
 
       def edition_expected_in_draft

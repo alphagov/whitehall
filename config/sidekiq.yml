@@ -12,3 +12,4 @@
   - [publishing_api, 4]
   - [default, 5]
   - [scheduled_publishing, 10]
+  - [sync_checks, 1]
