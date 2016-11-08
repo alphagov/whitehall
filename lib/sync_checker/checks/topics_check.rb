@@ -3,8 +3,9 @@ module SyncChecker
     class TopicsCheck
       attr_reader :edition, :content_item
 
-      def initialize(edition)
+      def initialize(edition, topic_blacklist: nil)
         @edition = edition
+        @topic_blacklist = topic_blacklist
       end
 
       def call(response)
@@ -56,7 +57,11 @@ module SyncChecker
       end
 
       def expected_content_ids
-        edition.specialist_sector_tags
+        if @topic_blacklist
+          edition.specialist_sector_tags - @topic_blacklist
+        else
+          edition.specialist_sector_tags
+        end
       end
 
       def links_parent

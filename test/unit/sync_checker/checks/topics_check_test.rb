@@ -307,6 +307,38 @@ module SyncChecker
 
         assert_equal expected_errors, TopicsCheck.new(edition).call(response)
       end
+
+      def test_it_returns_no_errors_when_draft_topics_are_not_present_in_the_response
+        tag = 'ABC-CORRECT-CONTENT-ID'
+        draft_tag = 'XYZ-CORRECT-CONTENT-ID'
+
+        edition = stub(
+          specialist_sector_tags: [tag, draft_tag],
+          primary_specialist_sector_tag: tag,
+        )
+
+        response = stub(
+          response_code: 200,
+          body: {
+            links: {
+              parent: [
+                {
+                  content_id: 'ABC-CORRECT-CONTENT-ID'
+                }
+              ],
+              topics: [
+                {
+                  content_id: 'ABC-CORRECT-CONTENT-ID'
+                }
+              ]
+            }
+          }.to_json
+        )
+
+        topics_check = TopicsCheck.new(edition, topic_blacklist: ['XYZ-CORRECT-CONTENT-ID'])
+
+        assert_empty topics_check.call(response)
+      end
     end
   end
 end
