@@ -15,6 +15,7 @@ class Admin::OrganisationsController < Admin::BaseController
   def create
     @organisation = Organisation.new(organisation_params)
     if @organisation.save
+      publish_services_and_information_page
       redirect_to admin_organisations_path
     else
       render :new
@@ -63,6 +64,7 @@ class Admin::OrganisationsController < Admin::BaseController
   def update
     delete_absent_organisation_classifications
     if @organisation.update_attributes(organisation_params)
+      publish_services_and_information_page
       redirect_to admin_organisation_path(@organisation)
     else
       render :edit
@@ -131,5 +133,9 @@ class Admin::OrganisationsController < Admin::BaseController
 
   def load_organisation
     @organisation = Organisation.friendly.find(params[:id])
+  end
+
+  def publish_services_and_information_page
+    Whitehall::PublishingApi.publish_services_and_information_async(@organisation.id)
   end
 end

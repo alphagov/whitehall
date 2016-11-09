@@ -482,8 +482,6 @@ class Organisation < ActiveRecord::Base
     featured_links.limit(visible_featured_links_count)
   end
 
-  private
-
   def organisations_with_services_and_information_link
     %w{
       charity-commission
@@ -492,6 +490,7 @@ class Organisation < ActiveRecord::Base
       driver-and-vehicle-standards-agency
       environment-agency
       high-speed-two-limited
+      highways-england
       hm-revenue-customs
       marine-management-organisation
       maritime-and-coastguard-agency
@@ -500,6 +499,8 @@ class Organisation < ActiveRecord::Base
       planning-inspectorate
     }
   end
+
+private
 
   def organisations_with_scoped_search
     [
