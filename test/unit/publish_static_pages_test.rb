@@ -16,15 +16,6 @@ class PublishStaticPagesTest < ActiveSupport::TestCase
     expect_valid_placeholder(presented[:content])
   end
 
-  test 'base paths do not change' do
-    base_paths = PublishStaticPages.new.pages.map { |page| page[:base_path] }
-    assert_equal(
-      base_paths,
-      ["/government/how-government-works", "/government/get-involved", "/government/history", "/government/history/10-downing-street", "/government/history/1-horse-guards-road", "/government/history/11-downing-street", "/government/history/king-charles-street", "/government/history/lancaster-house"],
-      "Base paths for static content should not be changed without first setting up a redirect"
-    )
-  end
-
   def expect_publishing(pages)
     pages.each do |page|
       Whitehall.publishing_api_v2_client.expects(:put_content)
