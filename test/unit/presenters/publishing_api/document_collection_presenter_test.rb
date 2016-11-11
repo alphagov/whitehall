@@ -242,6 +242,13 @@ class PublishingApi::PublishedDocumentCollectionPresenterLinksTest < ActiveSuppo
       @presented_links[:topics]
     )
   end
+
+  test "it presents the primary_specialist_sector content_id as links, parent" do
+    assert_equal(
+      @document_collection.primary_specialist_sectors.map(&:content_id),
+      @presented_links[:parent]
+    )
+  end
 end
 
 class PublishingApi::PublishedDocumentCollectionPresenterRelatedPolicyLinksTest < ActiveSupport::TestCase
