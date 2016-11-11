@@ -68,6 +68,34 @@ class PublishStaticPages
         indexable_content: TemplateContent.new("histories/lancaster_house").indexable_content,
         base_path: "/government/history/lancaster-house",
       },
+      {
+        content_id: "b13317e9-3753-47b2-95da-c173071e621d",
+        title: "All publications",
+        description: "Find publications from across government including policy papers, consultations, statistics, research, transparency data and Freedom of Information responses.",
+        indexable_content: "Find publications from across government including policy papers, consultations, statistics, research, transparency data and Freedom of Information responses.",
+        base_path: "/government/publications",
+      },
+      {
+        content_id: "a34e9bb6-f4af-4e4f-a21c-8127e3d2edbf",
+        title: "Statistics",
+        description: "Find statistics publications from across government, including statistical releases, live data tables, and National Statistics.",
+        indexable_content: "Find statistics publications from across government, including statistical releases, live data tables, and National Statistics. statistics, live tables, live table, statistical release, stats",
+        base_path: "/government/statistics",
+      },
+      {
+        content_id: "88936763-df8a-441f-8b96-9ea0dc0758a1",
+        title: "Government announcements",
+        description: "Find news articles, speeches and statements from government organisations",
+        indexable_content: "Find news articles, speeches and statements from government organisations news, press release, speech, press notice, statement, wms, oms",
+        base_path: "/government/announcements",
+      },
+      {
+        content_id: "324e4708-2285-40a0-b3aa-cb13af14ec5f",
+        title: "Ministers",
+        description: "Read biographies and responsibilities of Cabinet ministers and all ministers by department, as well as the whips who help co-ordinate parliamentary business",
+        indexable_content: "Read biographies and responsibilities of Cabinet ministers and all ministers by department, as well as the whips who help co-ordinate parliamentary business government, parliament, parliamentary, minister, ministers, mp, rt hon, right honourable, secretary of state, westminster, whitehall, house of commons, house of lords",
+        base_path: "/government/ministers",
+      },
     ]
   end
 
