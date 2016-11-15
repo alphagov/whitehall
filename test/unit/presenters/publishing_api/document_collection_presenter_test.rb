@@ -396,18 +396,24 @@ end
 
 class PublishingApi::DocumentCollectionAccessLimitedTest < ActiveSupport::TestCase
   setup do
-    @document_collection = create(:document_collection)
+    create(:current_government)
+    document_collection = create(:document_collection)
+
+    PublishingApi::PayloadBuilder::AccessLimitation.expects(:for)
+      .with(document_collection)
+      .returns(
+        { access_limited: { users: %w(abcdef12345) } }
+      )
+    @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(
+      document_collection
+    )
   end
 
   test "include access limiting" do
-    PublishingApi::PayloadBuilder::AccessLimitation.expects(:for)
-      .with(@document_collection)
-      .returns(
-        { foo: "bar" }
-      )
-    presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(
-      @document_collection
-    )
-    assert_equal "bar", presented_document_collection.content[:details][:foo]
+    assert_equal %w(abcdef12345), @presented_document_collection.content[:access_limited][:users]
+  end
+
+  test "is valid against content schemas" do
+    assert_valid_against_schema @presented_document_collection.content, "document_collection"
   end
 end

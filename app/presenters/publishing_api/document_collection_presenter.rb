@@ -23,6 +23,7 @@ module PublishingApi
         rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
         schema_name: "document_collection",
       )
+      content.merge!(PayloadBuilder::AccessLimitation.for(item))
       content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
     end
 
@@ -47,7 +48,6 @@ module PublishingApi
         emphasised_organisations: item.lead_organisations.map(&:content_id),
       }.tap do |details_hash|
         details_hash.merge!(PayloadBuilder::PoliticalDetails.for(item))
-        details_hash.merge!(PayloadBuilder::AccessLimitation.for(item))
       end
     end
 
