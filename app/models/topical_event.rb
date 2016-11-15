@@ -4,7 +4,9 @@ class TopicalEvent < Classification
              content: :description,
              format: 'topical_event',
              description: :description_without_markup,
-             slug: :slug
+             slug: :slug,
+             start_date: :start_date,
+             end_date: :end_date
 
   has_one :about_page
 
