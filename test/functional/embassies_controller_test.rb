@@ -34,4 +34,12 @@ class EmbassiesControllerTest < ActionController::TestCase
     assert_select "ol[class='locations'] li p", /There are no consular services available in Aruba. British nationals should contact the British Consulate General Amsterdam/
     assert_select "ol[class='locations'] li p", /There are no consular services available in Sealand. British nationals should contact the local authorities/
   end
+
+  view_test "UK doesn't appear in the page" do
+    create(:world_location, name: "United Kingdom")
+
+    get :index
+
+    assert_select "ol[class='locations'] h2", false, "This page shouldn't contain any embassies."
+  end
 end
