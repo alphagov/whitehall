@@ -1,2 +1,2 @@
-+publisher = DataHygiene::PublishingApiDocumentRepublisher.new(DocumentCollection)
-+publisher.perform
+publisher = DataHygiene::PublishingApiDocumentRepublisher.new(DocumentCollection)
+publisher.perform
