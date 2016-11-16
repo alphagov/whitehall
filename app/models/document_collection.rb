@@ -60,6 +60,10 @@ class DocumentCollection < Edition
     editions.scheduled
   end
 
+  def rendering_app
+    Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+  end
+
   private
 
   def create_default_group

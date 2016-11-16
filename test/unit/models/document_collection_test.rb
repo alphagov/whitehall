@@ -141,4 +141,9 @@ class DocumentCollectionTest < ActiveSupport::TestCase
 
     assert_equal [scheduled_publication], collection.scheduled_editions
   end
+
+  test 'specifies the rendering app as government frontend' do
+    document_collection = DocumentCollection.new
+    assert_equal Whitehall::RenderingApp::GOVERNMENT_FRONTEND, document_collection.rendering_app
+  end
 end
