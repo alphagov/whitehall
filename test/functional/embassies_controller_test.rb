@@ -31,9 +31,7 @@ class EmbassiesControllerTest < ActionController::TestCase
     assert_select "ol[class='locations'] h2", "Aruba"
     assert_select "ol[class='locations'] h2", "Sealand"
     assert_select "ol[class='locations'] ul a", /The British Embassy Kabul/
-    assert_select "ol[class='locations'] li p", /Aruba doesn't have consular services, you need to go to the British Consulate General Amsterdam/
-    assert_select "ol[class='locations'] li p", /Sealand doesn't have consular services, you can get consular assistance from/
+    assert_select "ol[class='locations'] li p", /There are no consular services available in Aruba. British nationals should contact the British Consulate General Amsterdam/
+    assert_select "ol[class='locations'] li p", /There are no consular services available in Sealand. British nationals should contact the local authorities/
   end
-
-
 end

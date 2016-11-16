@@ -19,14 +19,14 @@
       <li>
         <h2><%= embassy.name %></h2>
         <% if embassy.offices.empty? -%>
-          <p><%= embassy.name %> doesn't have consular services, you can get consular assistance from the local authorities.</p>
+          <p>There are no consular services available in <%= embassy.name %>. British nationals should contact the local authorities.</p>
         <% else -%>
           <ul>
 
           <% if embassy.remote_services_country -%>
             <% organisation = embassy.consular_services_organisations.first -%>
             <li>
-              <p><%= embassy.name %> doesn't have consular services, you need to go to the <%= organisation.name %> in <%= embassy.remote_services_country %>.</p>
+              <p>There are no consular services available in <%= embassy.name %>. British nationals should contact the <%= organisation.name %> in <%= embassy.remote_services_country %>.</p>
               <%= link_to(organisation.name, worldwide_organisation_path(organisation.slug)) %>
             </li>
 
