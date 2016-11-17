@@ -1,9 +1,15 @@
 require 'test_helper'
 
 class FinderSchemaValidationTest < ActiveSupport::TestCase
-  test "the people finder is a valid finder" do
-    people_finder = JSON.parse(File.read("lib/finders/people.json"))
+  FINDER_FILES = Dir[Rails.root + "lib/finders/*.json"]
 
-    assert_valid_against_schema(people_finder, 'finder')
+  FINDER_FILES.each do |file_path|
+    name = File.basename(file_path, '.json')
+
+    test "the #{name} finder is a valid finder" do
+      finder = JSON.parse(File.read(file_path))
+
+      assert_valid_against_schema(finder, 'finder')
+    end
   end
 end
