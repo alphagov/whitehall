@@ -122,7 +122,7 @@ class PublishStaticPages
         locale: "en",
         base_path: page[:base_path],
         publishing_app: "whitehall",
-        rendering_app: "whitehall",
+        rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
         routes: [
           {
             path: page[:base_path],
