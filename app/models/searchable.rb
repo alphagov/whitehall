@@ -10,6 +10,7 @@ module Searchable
     :description,
     :display_type,
     :detailed_format,
+    :end_date,
     :format,
     :government_name,
     :id,
@@ -29,9 +30,9 @@ module Searchable
     :release_timestamp,
     :search_format_types,
     :slug,
-
     :speech_type,
     :statistics_announcement_state,
+    :start_date,
     :title,
 
     # "Policy area" is the newer name for "topic"

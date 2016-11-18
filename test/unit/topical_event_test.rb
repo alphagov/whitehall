@@ -49,4 +49,14 @@ class TopicalEventTest < ActiveSupport::TestCase
     topical_event.save!
     assert_equal [topical_event], TopicalEvent.for_edition(publication.id)
   end
+
+  test "start and end dates are considered indexable for search" do
+    start_date = Date.new(2016, 1, 1)
+    end_date = Date.new(2017, 1, 1)
+    topical_event = create(:topical_event, start_date: start_date, end_date: end_date)
+    rummager_payload = topical_event.search_index
+
+    assert_equal start_date, rummager_payload["start_date"]
+    assert_equal end_date, rummager_payload["end_date"]
+  end
 end
