@@ -21,25 +21,27 @@ module PublishingApi
     end
 
     def content
-      # We're not using the BaseItemPresenter here since it's a special_route
-      # and the BaseItemPresenter adds extra fields that are not allowed by
-      # that schema.
-      {
-        base_path: base_path,
+      content = BaseItemPresenter.new(
+        organisation,
         title: "Services and information - #{organisation.name}",
-        description: "",
-        document_type: "special_route",
+        need_ids: [],
+      ).base_attributes
+
+      content.merge!(
+        base_path: base_path,
+        description: nil,
+        details: {},
+        document_type: "services_and_information",
         public_updated_at: organisation.updated_at,
-        publishing_app: "whitehall",
-        rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
-        schema_name: "special_route",
+        rendering_app: "collections",
+        schema_name: "generic",
         routes: [
           {
             type: "exact",
             path: "/government/organisations/#{organisation.slug}/services-information"
           },
         ]
-      }
+      )
     end
 
     def links
