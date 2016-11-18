@@ -12,12 +12,5 @@
     @include media(tablet) {
       padding-bottom: $gutter-one-sixth;
     }
-
-    a[rel="external"] {
-      @include external-link-14-bold-no-hover;
-      @include media(tablet) {
-        @include external-link-16-bold-no-hover;
-      }
-    }
   }
 }

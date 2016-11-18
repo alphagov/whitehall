@@ -63,9 +63,6 @@
           padding-top: 0;
           a {
             font-weight: bold;
-            &[rel=external] {
-              @include external-link-19-bold-no-hover;
-            }
           }
         }
         h3 {
@@ -80,4 +77,3 @@
     }
   }
 }
-

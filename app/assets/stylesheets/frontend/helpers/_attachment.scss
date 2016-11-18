@@ -80,9 +80,6 @@ $thumbnail-width: 99px;
   .opendocument-help {
     margin: 0;
     @include ig-core-14;
-    a {
-      @include external-link-14;
-    }
   }
 
   .accessibility-warning {

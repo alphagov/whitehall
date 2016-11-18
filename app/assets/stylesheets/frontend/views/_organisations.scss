@@ -998,9 +998,6 @@
         ul {
           margin-top: $gutter-one-third;
         }
-        a[rel=external] {
-          @include external-link-16-bold-no-hover;
-        }
       }
       .large {
         ul {
