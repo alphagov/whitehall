@@ -1,7 +1,11 @@
 class EmbassiesController < ApplicationController
   def index
-    @embassies_by_location = WorldLocation.geographical.order(:slug).map do |location|
-      Embassy.new(location)
-    end
+    @embassies_by_location =
+      WorldLocation.geographical.order(:slug).map { |location|
+        # We don't want to show the UK on the embassies page.
+        next if location.name.in?(["United Kingdom"])
+
+        EmbassyPresenter.new(Embassy.new(location))
+      }.reject(&:blank?)
   end
 end

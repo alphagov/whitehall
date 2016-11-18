@@ -18,22 +18,19 @@
       <% @embassies_by_location.each do |embassy| -%>
       <li>
         <h2><%= embassy.name %></h2>
-        <% if embassy.offices.empty? -%>
-          <p><%= embassy.name %> doesn't have consular services, you can get consular assistance from the local authorities.</p>
+
+        <% if embassy.has_consular_service_in_location? && embassy.offices.empty? -%>
+          <p><%= embassy.text %></p>
         <% else -%>
           <ul>
-
-          <% if embassy.remote_services_country -%>
-            <% organisation = embassy.consular_services_organisations.first -%>
+            <% if !embassy.has_consular_service_in_location? || embassy.has_remote_service? -%>
             <li>
-              <p><%= embassy.name %> doesn't have consular services, you need to go to the <%= organisation.name %> in <%= embassy.remote_services_country %>.</p>
-              <%= link_to(organisation.name, worldwide_organisation_path(organisation.slug)) %>
+              <p><%= embassy.text %></p>
+              <%= embassy.embassy_path %>
             </li>
-
-          <% else -%>
-            <%= render partial: "organisation", collection: embassy.consular_services_organisations %>
-          <% end -%>
-
+            <% else %>
+              <%= render partial: "organisation", collection: embassy.consular_services_organisations -%>
+            <% end %>
           </ul>
         <% end -%>
       </li>

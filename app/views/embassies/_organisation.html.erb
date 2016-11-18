@@ -1,7 +1,7 @@
 <% offices = Embassy.filter_offices(organisation) -%>
-<% unless offices.empty? -%>
-<li>
-  <h3><%= offices.first.contact.locality %></h3>
-  <%= link_to(organisation.name, worldwide_organisation_path(organisation.slug)) %>
-</li>
+<% if offices.any? -%>
+  <li>
+    <h3><%= offices.first.contact.locality %></h3>
+    <%= link_to(organisation.name, worldwide_organisation_path(organisation.slug)) %>
+  </li>
 <% end -%>
