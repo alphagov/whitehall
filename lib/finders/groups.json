@@ -1,0 +1,29 @@
+{
+  "base_path": "/government/groups",
+  "title": "Groups",
+  "description": "",
+  "locale": "en",
+  "document_type": "finder",
+  "schema_name": "finder",
+  "publishing_app": "whitehall",
+  "rendering_app": "finder-frontend",
+  "details": {
+    "document_noun": "policy_group",
+    "default_order": "title",
+    "facets": [],
+    "filter": {
+      "format": "policy_group"
+    },
+    "show_summaries": true
+  },
+  "routes": [
+    {
+      "type": "exact",
+      "path": "/government/groups"
+    },
+    {
+      "type": "exact",
+      "path": "/government/groups.json"
+    }
+  ]
+}
