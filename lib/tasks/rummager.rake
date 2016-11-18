@@ -45,6 +45,25 @@ namespace :rummager do
       end
       puts "Complete."
     end
+
+    desc "indexes all content belonging to a model"
+    task :model, [:model_name] => :environment do |_, args|
+      model_name = args[:model_name]
+
+      begin
+        model = model_name.constantize
+      rescue NameError
+        raise "You need to specify a valid model name, not \"#{model_name}\""
+      end
+
+      raise "#{model_name} doesn't seem to be searchable" unless model.respond_to? :search_index
+
+      model.all.each do |ed|
+        puts "Indexing: #{ed.content_id}"
+        Whitehall::SearchIndex.add(ed)
+      end
+      puts "Complete."
+    end
   end
 
   desc "removes and re-indexes all searchable whitehall content"
