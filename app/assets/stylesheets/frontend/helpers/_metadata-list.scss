@@ -51,13 +51,6 @@
       }
     }
 
-    a[rel="external"] {
-      @include external-link-12;
-      @include media(tablet) {
-        @include external-link-14;
-      }
-    }
-
     .change-notes-title {
       @include media(desktop){
         clear: left;
