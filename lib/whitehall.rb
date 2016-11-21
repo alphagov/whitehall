@@ -110,28 +110,6 @@ module Whitehall
     File.join(uploads_root, 'infected-uploads')
   end
 
-  def self.government_search_index_path
-    '/government'
-  end
-
-  def self.detailed_guidance_search_index_path
-    '/detailed'
-  end
-
-  def self.government_search_index
-    Enumerator.new do |y|
-      searchable_classes_for_government_index.each do |klass|
-        klass.search_index.each do |search_index_entry|
-          y << search_index_entry
-        end
-      end
-    end
-  end
-
-  def self.detailed_guidance_search_index
-    DetailedGuide.search_index
-  end
-
   def self.edition_classes
     [
       CaseStudy,
@@ -148,32 +126,8 @@ module Whitehall
     ]
   end
 
-  def self.searchable_classes
-    [
-      Organisation,
-      MinisterialRole,
-      Person,
-      Topic,
-      TopicalEvent,
-      OperationalField,
-      PolicyGroup,
-      TakePartPage,
-      StatisticsAnnouncement,
-      WorldLocation,
-      WorldwideOrganisation,
-    ] + edition_classes
-  end
-
   def self.edition_route_path_segments
     %w(news speeches policies publications consultations priority detailed-guides case-studies statistical-data-sets fatalities world-location-news collections supporting-pages)
-  end
-
-  def self.searchable_classes_for_government_index
-    searchable_classes - searchable_classes_for_detailed_guides_index
-  end
-
-  def self.searchable_classes_for_detailed_guides_index
-    [DetailedGuide]
   end
 
   def self.analytics_format(format)

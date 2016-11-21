@@ -132,10 +132,6 @@ class TakePartPageTest < ActiveSupport::TestCase
     assert_equal 1, page_3.reload.ordering
   end
 
-  test 'is in the Whitehall searchable_classes list' do
-    assert Whitehall.searchable_classes.include?(TakePartPage)
-  end
-
   test 'returns search index data suitable for Rummageable' do
     page = create(:take_part_page, title: 'Build a new polling station', summary: 'Help people vote!')
 

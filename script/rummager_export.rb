@@ -17,9 +17,9 @@ require 'config/environment'
 logger.info "Booted"
 
 classes_to_index = if ARGV.include?("--detailed")
-  Whitehall.searchable_classes_for_detailed_guides_index
+  [DetailedGuide]
 else
-  Whitehall.searchable_classes_for_government_index
+  RummagerPresenters.searchable_classes_for_government_index
 end
 
 id_groups = []

@@ -18,14 +18,14 @@ namespace :rummager do
     desc "indexes all published searchable content for the main government index (i.e. excluding detailed guides)"
     task government: :environment do
       index = Whitehall::SearchIndex.for(:government)
-      index.add_batch(Whitehall.government_search_index)
+      index.add_batch(RummagerPresenters.present_all_government_content)
       index.commit
     end
 
     desc "indexes all published detailed guiudes"
     task detailed: :environment do
       index = Whitehall::SearchIndex.for(:detailed_guides)
-      index.add_batch(Whitehall.detailed_guidance_search_index)
+      index.add_batch(RummagerPresenters.present_all_detailed_content)
       index.commit
     end
 
