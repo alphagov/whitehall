@@ -1,0 +1,30 @@
+{
+  "base_path": "/government/case-studies",
+  "title": "Case studies: Real-life examples of government activity",
+  "description": "Real examples of how government programmes are helping businesses and people in the UK.",
+  "locale": "en",
+  "document_type": "finder",
+  "schema_name": "finder",
+  "publishing_app": "whitehall",
+  "rendering_app": "finder-frontend",
+  "details": {
+    "document_noun": "case study",
+    "default_order": "-public_timestamp",
+    "facets": [],
+    "filter": {
+      "format": "case_study"
+    },
+    "format_name": "Case studies: Real-life examples of government activity",
+    "show_summaries": true
+  },
+  "routes": [
+    {
+      "type": "exact",
+      "path": "/government/case-studies"
+    },
+    {
+      "type": "exact",
+      "path": "/government/case-studies.json"
+    }
+  ]
+}
