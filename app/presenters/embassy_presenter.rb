@@ -99,7 +99,7 @@ private
     },
     "Taiwan" => {
       building: "British Office Taipei",
-      location: "Taipei",
+      location: "Taiwan",
       base_path: "/government/world/organisations/british-office-taipei",
     },
     "Timor Leste" => {
