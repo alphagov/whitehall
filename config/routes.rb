@@ -157,6 +157,7 @@ Whitehall::Application.routes.draw do
 
         get 'find-in-admin-bookmarklet' => 'find_in_admin_bookmarklet#index', as: :find_in_admin_bookmarklet_instructions_index
         get 'find-in-admin-bookmarklet/:browser' => 'find_in_admin_bookmarklet#show', as: :find_in_admin_bookmarklet_instructions
+        get 'by-content-id/:content_id' => 'documents#by_content_id'
 
         resources :users, only: [:index, :show, :edit, :update]
 
