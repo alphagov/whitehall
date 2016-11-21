@@ -175,4 +175,12 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     presented_item = present(publication)
     assert_equal publication.document.created_at.iso8601, presented_item.content[:details][:first_public_at]
   end
+
+  test "documents include the alternative format contact email" do
+    publication = create(:publication, :with_command_paper)
+    presented_item = present(publication)
+    document = presented_item.content[:details][:documents].first
+    assert document.include?("This file may not be suitable for users of assistive technology.")
+    assert document.include?("mailto:#{publication.alternative_format_provider.alternative_format_contact_email}")
+  end
 end
