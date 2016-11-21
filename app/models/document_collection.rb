@@ -61,7 +61,10 @@ class DocumentCollection < Edition
   end
 
   def rendering_app
-    Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+    #this is overridden in the presenter for published content
+    #but maintained here to force preview to use Whitehall
+    #until a draft linkset is implemented in Publishing API
+    Whitehall::RenderingApp::WHITEHALL_FRONTEND
   end
 
   private
