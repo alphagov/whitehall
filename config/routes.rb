@@ -140,7 +140,7 @@ Whitehall::Application.routes.draw do
     resources :operational_fields, path: 'fields-of-operation', only: [:index, :show]
     get 'world/organisations/:organisation_id/office' => redirect('/world/organisations/%{organisation_id}')
     get 'world/organisations/:organisation_id/about' => redirect('/world/organisations/%{organisation_id}')
-    resources :worldwide_organisations, path: 'world/organisations', only: [:show, :index], localised: true do
+    resources :worldwide_organisations, path: 'world/organisations', only: [:show], localised: true do
       resources :corporate_information_pages, only: [:show], path: 'about', localised: true
       # Dummy path for the sake of polymorphic_path: will always be directed above.
       get :about

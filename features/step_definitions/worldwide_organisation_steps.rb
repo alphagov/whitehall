@@ -295,24 +295,3 @@ Then /^I should be able to associate "([^"]*)" with the topical event "([^"]*)"$
   select topical_event_title, from: "edition_topical_event_ids"
   click_on "Save"
 end
-
-Given /^two worldwide organisations "([^"]*)" and "([^"]*)"$/ do |org1, org2|
-  create(:worldwide_organisation, name: org1)
-  create(:worldwide_organisation, name: org2)
-end
-
-When /^I visit the worldwide organisations index page$/ do
-  visit worldwide_organisations_path
-end
-
-Then /^I should see an alphabetical list containing "([^"]*)" and "([^"]*)"$/ do |name1, name2|
-  titles = [name1, name2].sort
-  titles_by_letter = titles.group_by {|title| title[0].upcase}.sort_by {|letter, titles| letter}
-
-  titles_by_letter.zip(page.all(".alphabetical-row")).each do |(letter, titles), row|
-    assert row.has_css?('.alphabetical-list-letter', text: letter), "No letter #{letter} found"
-    titles.each do |title|
-      assert row.has_css?('li.worldwide_organisation', text: title)
-    end
-  end
-end

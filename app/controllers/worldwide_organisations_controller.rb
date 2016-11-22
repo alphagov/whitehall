@@ -1,14 +1,9 @@
 class WorldwideOrganisationsController < PublicFacingController
   include CacheControlHelper
   enable_request_formats show: :json
-  before_filter :load_worldwide_organisation, only: :show
+  before_filter :load_worldwide_organisation
 
   respond_to :html, :json
-
-  def index
-    @worldwide_organisations = WorldwideOrganisation.ordered_by_name
-    set_meta_description("A list of British organisations worldwide.")
-  end
 
   def show
     respond_to do |format|
