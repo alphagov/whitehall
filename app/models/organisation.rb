@@ -450,6 +450,10 @@ class Organisation < ActiveRecord::Base
     organisations_with_services_and_information_link.include?(slug)
   end
 
+  def has_services_and_information_page?
+    organisations_with_services_and_information_page.include?(slug)
+  end
+
   def has_scoped_search?
     organisations_with_scoped_search.include?(slug)
   end
