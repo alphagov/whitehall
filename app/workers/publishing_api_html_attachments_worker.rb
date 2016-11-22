@@ -75,7 +75,7 @@ class PublishingApiHtmlAttachmentsWorker
 private
 
   def update_publishing_api_content
-    if edition.draft?
+    if Edition::PRE_PUBLICATION_STATES.include?(edition.state)
       update_draft(update_type: "republish")
     else
       do_publish("republish")
