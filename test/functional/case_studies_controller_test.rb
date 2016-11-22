@@ -2,7 +2,6 @@ require 'test_helper'
 
 class CaseStudiesControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
-  should_render_a_list_of :case_studies
   should_show_related_policies_for :case_study
   should_display_inline_images_for :case_study
   should_be_previewable :case_study

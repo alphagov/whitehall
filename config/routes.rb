@@ -81,7 +81,7 @@ Whitehall::Application.routes.draw do
     resources :publications, only: [:index, :show], localised: true
     get "/publications/:publication_id/:id" => 'html_attachments#show', as: 'publication_html_attachment'
 
-    resources :case_studies, path: 'case-studies', only: [:show, :index], localised: true
+    resources :case_studies, path: 'case-studies', only: [:show], localised: true
     resources :speeches, only: [:show], localised: true
     resources :statistical_data_sets, path: 'statistical-data-sets', only: [:index, :show]
     get "/speeches" => redirect("/announcements")

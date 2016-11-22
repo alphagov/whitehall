@@ -11,14 +11,14 @@ class DocumentLocaleParamCanonicalisationTest < ActionDispatch::IntegrationTest
   end
 
   announcement_redir_document_types = %w(news_article speech)
+  document_types_with_no_index = %w(detailed_guide case_study)
   normal_document_types = [
     "world_location_news_article",
     "publication", "consultation",
     "statistical_data_set",
-    "case_study"
   ]
 
-  (announcement_redir_document_types + normal_document_types).each do |doc_type|
+  (announcement_redir_document_types + document_types_with_no_index + normal_document_types).each do |doc_type|
     test "visiting a #{doc_type} with a spurious locale=en param will redirect to remove it" do
       canonical_path = send("#{doc_type}_path", "a-#{doc_type}")
       extra_path = with_locale_param(canonical_path, 'en')
@@ -42,15 +42,6 @@ class DocumentLocaleParamCanonicalisationTest < ActionDispatch::IntegrationTest
   # index, instead of serving their own
   test 'visiting the announcements index with a spurious locale=en param will redirect to remove it' do
     canonical_path = announcements_path
-    extra_path = with_locale_param(canonical_path, 'en')
-    get extra_path
-
-    assert_redirected_to canonical_path
-  end
-
-  # no index for detailed guides
-  test "visiting a detailed_guide with a spurious locale=en param will redirect to remove it" do
-    canonical_path = detailed_guide_path("a-detailed_guide")
     extra_path = with_locale_param(canonical_path, 'en')
     get extra_path
 
