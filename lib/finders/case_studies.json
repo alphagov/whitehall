@@ -15,7 +15,8 @@
       "format": "case_study"
     },
     "format_name": "Case studies: Real-life examples of government activity",
-    "show_summaries": true
+    "show_summaries": true,
+    "default_documents_per_page": 100
   },
   "routes": [
     {
