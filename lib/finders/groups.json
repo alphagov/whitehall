@@ -8,7 +8,7 @@
   "publishing_app": "whitehall",
   "rendering_app": "finder-frontend",
   "details": {
-    "document_noun": "policy_group",
+    "document_noun": "group",
     "default_order": "title",
     "facets": [],
     "filter": {
