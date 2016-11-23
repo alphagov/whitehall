@@ -79,7 +79,7 @@ module PublishingApi
 
     def documents
       return [] unless item.attachments.any?
-      Whitehall::GovspeakRenderer.new.block_attachments(item.attachments)
+      Whitehall::GovspeakRenderer.new.block_attachments(item.attachments, alternative_format_email)
     end
 
     def ministers
@@ -88,6 +88,10 @@ module PublishingApi
 
     def related_statistical_data_sets
       item.statistical_data_sets.map(&:content_id)
+    end
+
+    def alternative_format_email
+      item.alternative_format_provider.try(:alternative_format_contact_email)
     end
   end
 end
