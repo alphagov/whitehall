@@ -262,3 +262,9 @@ Then(/^there should be nothing featured on the home page of world location "(.*?
   rows = find(featured_documents_selector).all('.feature')
   assert rows.empty?
 end
+
+Then(/^I should see the following world locations grouped under "(.*?)" in order:$/) do |letter, ordered_locations|
+  within :xpath, ".//*#{xpath_class_selector('world-locations')}//*#{xpath_class_selector('js-filter-block')}[./h2[text()='#{letter}']]" do
+    assert_equal ordered_locations.raw.map(&:first), page.all('.world_location').map(&:text)
+  end
+end
