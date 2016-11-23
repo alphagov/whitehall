@@ -450,10 +450,6 @@ class Organisation < ActiveRecord::Base
     organisations_with_services_and_information_link.include?(slug)
   end
 
-  def has_services_and_information_page?
-    organisations_with_services_and_information_page.include?(slug)
-  end
-
   def has_scoped_search?
     organisations_with_scoped_search.include?(slug)
   end
@@ -486,12 +482,7 @@ class Organisation < ActiveRecord::Base
     featured_links.limit(visible_featured_links_count)
   end
 
-  # This is the same as organisations_with_services_and_information_link
-  # but also includes Highways England. This is because they have a manual
-  # link to their "services and information" page which we don't want to
-  # duplicate, but we still want to publish the page. This can be removed
-  # once they have removed their manual link.
-  def organisations_with_services_and_information_page
+  def organisations_with_services_and_information_link
     %w{
       charity-commission
       department-for-education
@@ -510,23 +501,6 @@ class Organisation < ActiveRecord::Base
   end
 
 private
-
-  def organisations_with_services_and_information_link
-    %w{
-      charity-commission
-      department-for-education
-      department-for-environment-food-rural-affairs
-      driver-and-vehicle-standards-agency
-      environment-agency
-      high-speed-two-limited
-      hm-revenue-customs
-      marine-management-organisation
-      maritime-and-coastguard-agency
-      medicines-and-healthcare-products-regulatory-agency
-      natural-england
-      planning-inspectorate
-    }
-  end
 
   def organisations_with_scoped_search
     [
