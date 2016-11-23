@@ -13,7 +13,7 @@ class PublishingApiServicesAndInformationWorkerTest < ActiveSupport::TestCase
   test "publishes a services and information page for an eligible organisation" do
     stub_request(:post, "#{Plek.new.find('publishing-api')}/lookup-by-base-path")
       .to_return(body: {}.to_json)
-    Organisation.any_instance.stubs(:has_services_and_information_page?).returns(true)
+    Organisation.any_instance.stubs(:has_services_and_information_link?).returns(true)
 
     put_content_request = stub_publishing_api_put_content("a-content-id", @payload.content)
     publish_request = stub_publishing_api_publish("a-content-id", {
@@ -32,7 +32,7 @@ class PublishingApiServicesAndInformationWorkerTest < ActiveSupport::TestCase
   end
 
   test "does not publish a services and information page for an ineligible organisation" do
-    Organisation.any_instance.stubs(:has_services_and_information_page?).returns(false)
+    Organisation.any_instance.stubs(:has_services_and_information_link?).returns(false)
 
     put_content_request = stub_publishing_api_put_content("a-content-id", @payload.content)
     publish_request = stub_publishing_api_publish("a-content-id", {
@@ -55,7 +55,7 @@ class PublishingApiServicesAndInformationWorkerTest < ActiveSupport::TestCase
       .to_return(body: {
         "/government/organisations/things/services-information": "another-content-id"
       }.to_json)
-    Organisation.any_instance.stubs(:has_services_and_information_page?).returns(true)
+    Organisation.any_instance.stubs(:has_services_and_information_link?).returns(true)
 
     put_content_request = stub_publishing_api_put_content("another-content-id", @payload.content)
     publish_request = stub_publishing_api_publish("another-content-id", {
