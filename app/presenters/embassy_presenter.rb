@@ -42,6 +42,11 @@ private
   end
 
   SPECIAL_CASES = {
+    "Central African Republic" => {
+      building: "Foreign and Commonwealth Office",
+      location: "the UK",
+      base_path: "/government/organisations/foreign-commonwealth-office",
+    },
     "French Polynesia" => {
       building: "British High Commission Wellington",
       location: "New Zealand",
