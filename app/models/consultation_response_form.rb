@@ -4,8 +4,6 @@ class ConsultationResponseForm < ActiveRecord::Base
 
   delegate :url, :file, to: :consultation_response_form_data
 
-  validates :title, presence: true
-
   accepts_nested_attributes_for :consultation_response_form_data
 
   after_destroy :destroy_consultation_response_form_data_if_required
