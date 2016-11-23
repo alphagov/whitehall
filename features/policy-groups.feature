@@ -20,11 +20,6 @@ Feature: Policy groups
   Background:
     Given I am an editor
 
-  Scenario: Policy groups appear in the public index
-    Given a policy group "ABC Advisories" exists
-    When I visit the policy group index
-    Then I should see the policy group "ABC Advisories" in the index
-
   Scenario:
     Given a policy group "Panel" exists
     Then I should be able to add attachments to the policy group "Panel"

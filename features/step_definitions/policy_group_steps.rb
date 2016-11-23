@@ -2,18 +2,6 @@ Given /^a policy group "([^"]*)" exists$/ do |group_name|
   create(:policy_group, name: group_name)
 end
 
-Then /^I should see the policy group "([^"]*)" in the index$/ do |group_name|
-  assert page.has_text?(group_name)
-end
-
-Then /^I should see a link to the policy group "([^"]*)"$/ do |group_name|
-  assert page.has_css?('a', text: group_name)
-end
-
-When /^I visit the policy group index$/ do
-  visit policy_groups_path
-end
-
 When /^I delete the policy group "([^"]*)"$/ do |group_name|
   visit admin_policy_groups_path
   group = PolicyGroup.where(name: group_name).first
