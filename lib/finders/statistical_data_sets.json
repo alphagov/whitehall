@@ -1,0 +1,29 @@
+{
+  "base_path": "/government/statistical-data-sets",
+  "title": "Statistical data sets",
+  "description": "List of statistical data sets published by the UK government.",
+  "locale": "en",
+  "document_type": "finder",
+  "schema_name": "finder",
+  "publishing_app": "whitehall",
+  "rendering_app": "finder-frontend",
+  "details": {
+    "document_noun": "data set",
+    "default_order": "title",
+    "facets": [],
+    "filter": {
+      "format": "statistical_data_set"
+    },
+    "show_summaries": false
+  },
+  "routes": [
+    {
+      "type": "exact",
+      "path": "/government/statistical-data-sets"
+    },
+    {
+      "type": "exact",
+      "path": "/government/statistical-data-sets.json"
+    }
+  ]
+}
