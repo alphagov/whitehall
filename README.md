@@ -9,7 +9,7 @@ user-friendly manner. Documentation can be found on [rdoc](http://rdoc.info/gith
 
 ## Nomenclature
 
-* *Govspeak* A variation of [Markdown](https://daringfireball.net/projects/markdown) 
+* *Govspeak* A variation of [Markdown](https://daringfireball.net/projects/markdown)
 used throughout 'Whitehall' as the general publishing format
 
 ## Technical Documentation
@@ -20,7 +20,7 @@ in two modes, 'admin' for publishers to create and manage content and
 storing and managing its own content database Whitehall also updates
 various other APIs including search and is currently being migrated
 towards a new publishing model utilising [Publishing
-API](https://github.com/alphagov/publishing-api) and 
+API](https://github.com/alphagov/publishing-api) and
 [Content Store](https://github.com/alphagov/content-store).
 
 ## Dependencies
@@ -55,9 +55,9 @@ See the [testing guide](docs/testing_guide.md)
 
 GOV.UK shares assets (eg stylesheets and JavaScript) across apps using the
 [`slimmer` gem](https://github.com/alphagov/slimmer) and the [`static`
-app](https://github.com/alphagov/static). 
+app](https://github.com/alphagov/static).
 
-See the [local asset setup guide](docs/local_asset_setup_guide.md) 
+See the [local asset setup guide](docs/local_asset_setup_guide.md)
 
 ## Search
 
@@ -68,6 +68,18 @@ indexing, and the
 serve results.
 
 See the [search setup guide](docs/search_setup_guide.md)
+
+## How to publish a finder in whitehall?
+
+- You will need to create a JSON file in the whitehall repository, under [whitehall/lib/finders][finders-folder]
+- You can base it on one of the existing files in that folder
+- Double-check the filter format and document noun - the filter format is used for rummager to return the data, while the document noun is displayed to the user
+- The default_documents_per_page key can be used to paginate very long finders (see [whitehall/lib/finders/case_studies.json][case-studies] for an example)
+- Running the [finders:publish rake task][rake-task] will publish your new finder to the [publishing-api](https://github.com/alphagov/publishing-api), the the route defined in the JSON will be taken over by [finder-frontend](https://github.com/alphagov/finder-frontend)
+
+[finders-folder]: https://github.com/alphagov/whitehall/tree/master/lib/finders
+[case-studies]: https://github.com/alphagov/whitehall/blob/master/lib/finders/case_studies.json
+[rake-task]: https://github.com/alphagov/whitehall/blob/master/lib/tasks/publish_finders.rake
 
 ## Other guides
 
@@ -90,9 +102,3 @@ You can also read the docs on [rdoc.info](http://rdoc.info/github/alphagov/white
 ## Licence
 
 [MIT License](LICENCE)
-
-
-
-
-
-
