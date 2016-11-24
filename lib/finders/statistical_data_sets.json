@@ -10,7 +10,25 @@
   "details": {
     "document_noun": "data set",
     "default_order": "title",
-    "facets": [],
+    "facets": [
+      {
+        "name": "Published",
+        "key": "public_timestamp",
+        "type": "date",
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "short_name": "Published at"
+      },
+      {
+        "name": "Organisation",
+        "key": "organisations",
+        "short_name": "From",
+        "type": "text",
+        "display_as_result_metadata": true,
+        "filterable": true,
+        "preposition": "from"
+      }
+    ],
     "filter": {
       "format": "statistical_data_set"
     },
