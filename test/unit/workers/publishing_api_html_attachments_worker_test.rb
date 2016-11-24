@@ -181,6 +181,19 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
 
       call(new_edition)
     end
+
+    test "with a deleted html attachment removes the draft" do
+      publication = create(:draft_publication)
+      attachment = publication.html_attachments.first
+      attachment.destroy
+
+      PublishingApiDiscardDraftWorker.any_instance.expects(:perform).with(
+        attachment.content_id,
+        "en"
+      )
+
+      call(publication)
+    end
   end
 
   class Unpublish < PublishingApiHtmlAttachmentsWorkerTest

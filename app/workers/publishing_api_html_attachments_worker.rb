@@ -28,7 +28,9 @@ class PublishingApiHtmlAttachmentsWorker
         html_attachment.locale || I18n.default_locale.to_s
       )
     end
+    discard_drafts(deleted_html_attachments)
   end
+
   # we don't care whether this is a translation or the main document, we just send the
   # correct html attachments regardless.
   alias :update_draft_translation :update_draft
@@ -64,15 +66,19 @@ class PublishingApiHtmlAttachmentsWorker
   end
 
   def delete
-    current_html_attachments.each do |html_attachment|
+    discard_drafts(current_html_attachments)
+  end
+
+private
+
+  def discard_drafts(html_attachments)
+    html_attachments.each do |html_attachment|
       PublishingApiDiscardDraftWorker.perform_async(
         html_attachment.content_id,
         edition.primary_locale
       )
     end
   end
-
-private
 
   def update_publishing_api_content
     if Edition::PRE_PUBLICATION_STATES.include?(edition.state)
@@ -106,6 +112,10 @@ private
     new_content_ids = current_html_attachments.pluck(:content_id).to_set
 
     old_content_ids - new_content_ids
+  end
+
+  def deleted_html_attachments
+    edition.deleted_html_attachments
   end
 
   def do_publish(update_type)
