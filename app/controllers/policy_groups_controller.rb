@@ -1,8 +1,4 @@
 class PolicyGroupsController < PublicFacingController
-  def index
-    @policy_groups = PolicyGroup.order(:name)
-  end
-
   def show
     # Routes matching /policy/[ID] still fall through to Whitehall rather than
     # government-frontend. We redirect them.
