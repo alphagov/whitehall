@@ -23,14 +23,18 @@ module SyncChecker
       end
 
       def checks_for_draft
-        [
-          Checks::TopLevelCheck.new(
-            top_level_fields_hash
-          ),
-          Checks::DetailsCheck.new(
-            expected_details_hash
-          )
-        ]
+        if attachment_should_exist_in_draft_content_store?
+          [
+            Checks::TopLevelCheck.new(
+              top_level_fields_hash
+            ),
+            Checks::DetailsCheck.new(
+              expected_details_hash
+            )
+          ]
+        else
+          []
+        end
       end
 
       def check_draft(response, locale)
@@ -38,25 +42,29 @@ module SyncChecker
       end
 
       def checks_for_live
-        [
-          Checks::TopLevelCheck.new(
-            top_level_fields_hash
-          ),
-          Checks::LinksCheck.new(
-            "organisations",
-            (attachable.try(:organisations) || []).map(&:content_id)
-          ),
-          Checks::LinksCheck.new(
-            "parent",
-            [attachable.content_id]
-          ),
-          Checks::DetailsCheck.new(
-            expected_details_hash
-          ),
-          Checks::HtmlAttachmentUnpublishedCheck.new(
-            attachment
-          )
-        ]
+        if attachment_should_exist_in_live_content_store?
+          [
+            Checks::TopLevelCheck.new(
+              top_level_fields_hash
+            ),
+            Checks::LinksCheck.new(
+              "organisations",
+              (attachable.try(:organisations) || []).map(&:content_id)
+            ),
+            Checks::LinksCheck.new(
+              "parent",
+              [attachable.content_id]
+            ),
+            Checks::DetailsCheck.new(
+              expected_details_hash
+            ),
+            Checks::HtmlAttachmentUnpublishedCheck.new(
+              attachment
+            )
+          ]
+        else
+          []
+        end
       end
 
       def check_live(response, locale)
@@ -98,8 +106,30 @@ module SyncChecker
         }
       end
 
+      def attachment_should_exist_in_live_content_store?
+        Edition::PUBLICLY_VISIBLE_STATES.include?(attachable.state) ||
+          attachable_is_unpublished?
+      end
+
       def attachment_should_exist_in_draft_content_store?
-        attachable.draft? && attachable.unpublishing.blank?
+        attachable_is_the_latest_draft? || attachable_is_published_and_there_is_no_newer_draft?
+      end
+
+      def attachable_is_the_latest_draft?
+        attachable == document.pre_publication_edition
+      end
+
+      def attachable_is_published_and_there_is_no_newer_draft?
+        attachable == document.published_edition &&
+          document.pre_publication_edition.nil?
+      end
+
+      def attachable_is_unpublished?
+        attachable.draft? && attachable.unpublishing
+      end
+
+      def document
+        @document ||= attachable.document
       end
 
       def rendering_app
