@@ -86,10 +86,7 @@ private
   def send_draft_and_unpublish
     send_draft_edition
     send_unpublish(pre_publication_edition)
-    PublishingApiHtmlAttachmentsWorker.new.perform(
-      pre_publication_edition.id,
-      "unpublish"
-    )
+    handle_attachments_for(pre_publication_edition)
   end
 
   def send_draft_edition
@@ -101,20 +98,13 @@ private
         locale
       )
     end
-
-    PublishingApiHtmlAttachmentsWorker.new.perform(
-      pre_publication_edition.id,
-      "update_draft"
-    )
+    handle_attachments_for(pre_publication_edition)
   end
 
   def send_published_and_withdraw
     send_published_edition
     send_unpublish(published_edition)
-    PublishingApiHtmlAttachmentsWorker.new.perform(
-      published_edition.id,
-      "withdraw"
-    )
+    handle_attachments_for(published_edition)
   end
 
   def send_published_edition
@@ -126,11 +116,7 @@ private
         locale
       )
     end
-
-    PublishingApiHtmlAttachmentsWorker.new.perform(
-      published_edition.id,
-      "republish"
-    )
+    handle_attachments_for(published_edition)
   end
 
   def send_unpublish(edition)
@@ -141,5 +127,12 @@ private
     Whitehall::PublishingApi.locales_for(edition).each do |locale|
       yield locale.to_s
     end
+  end
+
+  def handle_attachments_for(edition)
+    PublishingApiHtmlAttachmentsWorker.new.perform(
+      edition.id,
+      "republish"
+    )
   end
 end

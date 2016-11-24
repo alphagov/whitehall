@@ -15,15 +15,16 @@ class PublishingApiHtmlAttachmentsWorker
   alias :force_publish :publish
 
   def republish
-    do_publish("republish")
+    update_publishing_api_content
+    unpublish_if_required
   end
 
-  def update_draft
+  def update_draft(update_type: nil)
     current_html_attachments.each do |html_attachment|
       PublishingApiDraftWorker.new.perform(
         html_attachment.class.name,
         html_attachment.id,
-        edition.minor_change? ? "minor" : "major",
+        update_type || (edition.minor_change? ? "minor" : "major"),
         html_attachment.locale || I18n.default_locale.to_s
       )
     end
@@ -32,7 +33,7 @@ class PublishingApiHtmlAttachmentsWorker
   # correct html attachments regardless.
   alias :update_draft_translation :update_draft
 
-  def unpublish
+  def unpublish(allow_draft: false)
     unpublishing = edition.unpublishing
     return if unpublishing.nil?
 
@@ -46,7 +47,8 @@ class PublishingApiHtmlAttachmentsWorker
       PublishingApiRedirectWorker.new.perform(
         html_attachment.content_id,
         destination,
-        html_attachment.locale || I18n.default_locale.to_s
+        html_attachment.locale || I18n.default_locale.to_s,
+        allow_draft
       )
     end
   end
@@ -71,6 +73,24 @@ class PublishingApiHtmlAttachmentsWorker
   end
 
 private
+
+  def update_publishing_api_content
+    if edition.draft?
+      update_draft(update_type: "republish")
+    else
+      do_publish("republish")
+    end
+  end
+
+  def unpublish_if_required
+    if edition.unpublishing
+      if edition.withdrawn?
+        withdraw
+      else
+        unpublish(allow_draft: true)
+      end
+    end
+  end
 
   def previous_edition
     @previous_edition ||= edition.previous_edition

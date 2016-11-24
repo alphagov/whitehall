@@ -199,7 +199,8 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
       PublishingApiRedirectWorker.any_instance.expects(:perform).with(
         attachment.content_id,
         "/government/another/page",
-        "en"
+        "en",
+        false
       )
       call(publication)
     end
@@ -210,7 +211,8 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
       PublishingApiRedirectWorker.any_instance.expects(:perform).with(
         attachment.content_id,
         "/government/another/page",
-        "en"
+        "en",
+        false
       )
       call(publication)
     end
@@ -221,7 +223,8 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
       PublishingApiRedirectWorker.any_instance.expects(:perform).with(
         attachment.content_id,
         publication.search_link,
-        "en"
+        "en",
+        false
       )
       call(publication)
     end
@@ -267,6 +270,103 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
         )
         call(publication)
       end
+    end
+  end
+
+  class Republish < PublishingApiHtmlAttachmentsWorkerTest
+    test "for a draft publication with an attachment saves the draft" do
+      publication = create(:draft_publication)
+      attachment = publication.html_attachments.first
+      PublishingApiDraftWorker.any_instance.expects(:perform).with(
+        'HtmlAttachment',
+        attachment.id,
+        "republish",
+        "en"
+      )
+      call(publication)
+    end
+
+    test "for a published publication with an attachment publishes the attachment" do
+      publication = create(:published_publication)
+      attachment = publication.html_attachments.first
+      PublishingApiWorker.any_instance.expects(:perform).with(
+        'HtmlAttachment',
+        attachment.id,
+        "republish",
+        "en"
+      )
+      call(publication)
+    end
+
+    test "for a withdrawn publicaton with an attachment withdraws the attachment" do
+      publication = create(:withdrawn_publication)
+      attachment = publication.html_attachments.first
+      PublishingApiWorker.any_instance.expects(:perform).with(
+        'HtmlAttachment',
+        attachment.id,
+        "republish",
+        "en"
+      )
+      PublishingApiWithdrawalWorker.any_instance.expects(:perform).with(
+        attachment.content_id,
+        "content was withdrawn",
+        "en"
+      )
+      call(publication)
+    end
+
+    test "for a publication that has been consolidated publishes a redirect to the alternative url" do
+      publication = create(:unpublished_publication_consolidated)
+      attachment = publication.html_attachments.first
+      PublishingApiWorker.any_instance.expects(:perform).with(
+        'HtmlAttachment',
+        attachment.id,
+        "republish",
+        "en"
+      )
+      PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        attachment.content_id,
+        "/government/another/page",
+        "en",
+        true
+      )
+      call(publication)
+    end
+
+    test "for a publication that has been unpublished with a redirect publishes a redirect to the alternative url" do
+      publication = create(:unpublished_publication_in_error_redirect)
+      attachment = publication.html_attachments.first
+      PublishingApiWorker.any_instance.expects(:perform).with(
+        'HtmlAttachment',
+        attachment.id,
+        "republish",
+        "en"
+      )
+      PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        attachment.content_id,
+        "/government/another/page",
+        "en",
+        true
+      )
+      call(publication)
+    end
+
+    test "for a publication that has been unpublished without a redirect publishes a redirect to the parent document" do
+      publication = create(:unpublished_publication_in_error_no_redirect)
+      attachment = publication.html_attachments.first
+      PublishingApiWorker.any_instance.expects(:perform).with(
+        'HtmlAttachment',
+        attachment.id,
+        "republish",
+        "en"
+      )
+      PublishingApiRedirectWorker.any_instance.expects(:perform).with(
+        attachment.content_id,
+        publication.search_link,
+        "en",
+        true
+      )
+      call(publication)
     end
   end
 end
