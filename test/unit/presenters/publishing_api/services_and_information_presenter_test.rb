@@ -12,13 +12,17 @@ class PublishingApi::ServicesAndInformationPresenterTest < ActionView::TestCase
     expected_hash = {
       base_path: public_path,
       title: "Services and information - Organisation of Things",
-      description: "",
-      schema_name: "special_route",
-      document_type: "special_route",
+      description: nil,
+      schema_name: "generic",
+      document_type: "services_and_information",
+      locale: "en",
       publishing_app: "whitehall",
-      rendering_app: "whitehall-frontend",
+      rendering_app: "collections",
       public_updated_at: organisation.updated_at,
       routes: [{ path: public_path, type: "exact" }],
+      redirects: [],
+      need_ids: [],
+      details: {},
     }
     expected_links = {
       parent: [
@@ -33,6 +37,6 @@ class PublishingApi::ServicesAndInformationPresenterTest < ActionView::TestCase
     assert_equal expected_links, presented_item.links
     assert_equal expected_update_type, presented_item.update_type
 
-    assert_valid_against_schema(presented_item.content, "special_route")
+    assert_valid_against_schema(presented_item.content, "generic")
   end
 end
