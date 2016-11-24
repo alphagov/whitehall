@@ -9,7 +9,6 @@
   "rendering_app": "finder-frontend",
   "details": {
     "document_noun": "data set",
-    "default_order": "title",
     "facets": [
       {
         "name": "Published",
