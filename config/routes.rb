@@ -83,7 +83,7 @@ Whitehall::Application.routes.draw do
 
     resources :case_studies, path: 'case-studies', only: [:show], localised: true
     resources :speeches, only: [:show], localised: true
-    resources :statistical_data_sets, path: 'statistical-data-sets', only: [:index, :show]
+    resources :statistical_data_sets, path: 'statistical-data-sets', only: [:show]
     get "/speeches" => redirect("/announcements")
 
     # Controller removed for stats announce show. Whitehall frontend no longer serves these
