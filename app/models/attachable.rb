@@ -10,6 +10,11 @@ module Attachable
              -> { not_deleted.order('attachments.ordering, attachments.id') },
              as: :attachable
 
+    has_many :deleted_html_attachments,
+             -> { deleted },
+             class_name: "HtmlAttachment",
+             as: :attachable
+
     if respond_to?(:add_trait)
       add_trait do
         def process_associations_after_save(edition)

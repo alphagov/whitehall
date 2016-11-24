@@ -39,6 +39,7 @@ class Attachment < ActiveRecord::Base
   scope :for_current_locale, -> { where(locale: [nil, I18n.locale]) }
 
   scope :not_deleted, -> { where(deleted: false) }
+  scope :deleted, -> { where(deleted: true) }
 
   def self.parliamentary_sessions
     (1951..Time.zone.now.year).to_a.reverse.map do |year|

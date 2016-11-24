@@ -272,4 +272,24 @@ class AttachableTest < ActiveSupport::TestCase
     assert Attachment.find(attachment_1.id).deleted?
     assert Attachment.find(attachment_2.id).deleted?
   end
+
+  test "#deleted_html_attachments returns associated HTML attachments that have been deleted" do
+    publication = create(:draft_publication, attachments: [
+      attachment_1 = build(:html_attachment, title: "First"),
+      attachment_2 = build(:html_attachment, title: "Second"),
+    ])
+
+    attachment_1.destroy
+    attachment_2.destroy
+
+    assert_equal [attachment_1, attachment_2], publication.deleted_html_attachments
+  end
+
+  test "#deleted_html_attachments doesn't return undeleted attachments" do
+    publication = create(:draft_publication, attachments: [
+      build(:html_attachment, title: "First"),
+    ])
+
+    assert_empty publication.deleted_html_attachments
+  end
 end
