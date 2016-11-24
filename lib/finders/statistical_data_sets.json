@@ -14,7 +14,7 @@
     "filter": {
       "format": "statistical_data_set"
     },
-    "show_summaries": false
+    "show_summaries": true
   },
   "routes": [
     {
