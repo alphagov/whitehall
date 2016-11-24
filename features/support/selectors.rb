@@ -34,6 +34,10 @@ module HtmlSelectorsHelpers
         "Now, go and add a mapping in #{__FILE__}"
     end
   end
+
+  def xpath_class_selector(class_name)
+    "[contains(concat(' ', normalize-space(@class), ' '), ' #{class_name} ')]"
+  end
 end
 
 World(HtmlSelectorsHelpers)
