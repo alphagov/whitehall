@@ -14,7 +14,8 @@
     "filter": {
       "format": "statistical_data_set"
     },
-    "show_summaries": true
+    "show_summaries": true,
+    "default_documents_per_page": 20
   },
   "routes": [
     {
