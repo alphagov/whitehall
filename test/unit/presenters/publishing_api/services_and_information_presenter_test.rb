@@ -27,7 +27,10 @@ class PublishingApi::ServicesAndInformationPresenterTest < ActionView::TestCase
     expected_links = {
       parent: [
         organisation.content_id
-      ]
+      ],
+      organisations: [
+        organisation.content_id
+      ],
     }
     expected_update_type = "minor"
 
