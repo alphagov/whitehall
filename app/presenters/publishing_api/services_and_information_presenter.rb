@@ -48,7 +48,10 @@ module PublishingApi
       {
         parent: [
           organisation.content_id
-        ]
+        ],
+        organisations: [
+          organisation.content_id
+        ],
       }
     end
 
