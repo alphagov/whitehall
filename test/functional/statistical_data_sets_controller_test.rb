@@ -39,11 +39,4 @@ class StatisticalDataSetsControllerTest < ActionController::TestCase
 
     assert_select "a[href=?]", public_document_path(document_collection)
   end
-
-  view_test 'index should display a list of all published statistical data sets' do
-    create(:published_statistical_data_set)
-    create(:draft_statistical_data_set)
-    get :index
-    assert_select '.statistical_data_set', count: 1
-  end
 end
