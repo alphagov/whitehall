@@ -54,7 +54,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     edition = create(:submitted_edition)
     stub_panopticon_registration(edition)
     stub_publishing_api_registration_for(edition)
-    Whitehall.stubs(:searchable_classes).returns([edition.class])
+    RummagerPresenters.stubs(:searchable_classes).returns([edition.class])
     Whitehall::SearchIndex.expects(:add).with(edition)
 
     Whitehall.edition_services.publisher(edition).perform!
@@ -68,7 +68,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
 
     edition.build_unpublishing(explanation: 'Old policy', unpublishing_reason_id: UnpublishingReason::Withdrawn.id)
 
-    Whitehall.stubs(:searchable_classes).returns([edition.class])
+    RummagerPresenters.stubs(:searchable_classes).returns([edition.class])
     Whitehall::SearchIndex.expects(:add).with(edition)
 
     Whitehall.edition_services.withdrawer(edition).perform!
@@ -91,7 +91,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     stub_publishing_api_registration_for(french_edition)
     I18n.locale = I18n.default_locale
     stub_panopticon_registration(french_edition)
-    Whitehall.stubs(:searchable_classes).returns([french_edition.class])
+    RummagerPresenters.stubs(:searchable_classes).returns([french_edition.class])
     Whitehall::SearchIndex.expects(:add).with(french_edition).never
 
     Whitehall.edition_services.publisher(french_edition).perform!

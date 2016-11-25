@@ -30,6 +30,6 @@ private
   end
 
   def searchable_class_names
-    Whitehall.searchable_classes.map(&:name)
+    RummagerPresenters.searchable_classes.map(&:name)
   end
 end

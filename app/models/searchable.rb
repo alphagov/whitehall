@@ -131,7 +131,7 @@ module Searchable
     module ClassMethods
       def reindex_all
         searchable_instances
-          .select { |instance| Whitehall.searchable_classes.include?(instance.class) }
+          .select { |instance| RummagerPresenters.searchable_classes.include?(instance.class) }
           .each { |instance| Whitehall::SearchIndex.add(instance) }
       end
 
@@ -150,6 +150,6 @@ module Searchable
   end
 
   def can_index_in_search?
-    self.class.searchable_instances.find_by(id: self.id).present? && Whitehall.searchable_classes.include?(self.class)
+    self.class.searchable_instances.find_by(id: self.id).present? && RummagerPresenters.searchable_classes.include?(self.class)
   end
 end
