@@ -127,8 +127,6 @@ Whitehall::Application.routes.draw do
       resources :groups, only: [:show]
     end
     get "/organisations/:organisation_id/groups" => redirect("/organisations/%{organisation_id}")
-    get "/organisations/:organisation_id/services-information" => 'services_and_information#show',
-      as: :services_and_information
     get "/organisations/:organisation_slug/email-signup" => 'email_signup_information#show',
       as: :organisation_email_signup_information
 

@@ -39,7 +39,7 @@
       <% if organisation.has_services_and_information_link? %>
         <p class="see-all">
           <%= link_to "All #{organisation_display_name(organisation)} services and information".html_safe,
-                      services_and_information_path(organisation) %>
+                      "/government/organisations/#{@organisation.slug}/services-information" %>
         </p>
       <% end %>
     <% end %>

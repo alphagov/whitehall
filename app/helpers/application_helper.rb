@@ -225,7 +225,7 @@ module ApplicationHelper
       publications_path(publication_filter_option: 'consultations')
     when "ministerial_roles"
       ministerial_roles_path
-    when "organisations", "groups", "services_and_information", "email_signup_information"
+    when "organisations", "groups", "email_signup_information"
       if parameters[:courts_only]
         courts_path
       else
