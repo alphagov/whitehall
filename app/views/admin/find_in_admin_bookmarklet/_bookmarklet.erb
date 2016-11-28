@@ -9,10 +9,16 @@ function id_from_url() {
   return window.location.toString().split('/').pop();
 };
 function id_from_doc_page() {
-  return $('.document-page, [id^=detailed_guide_]').attr('id').split('_').pop();
+  document_page_id = $('.document-page, [id^=detailed_guide_]');
+  if (document_page_id.length > 0) {
+    return document_page_id.attr('id').split('_').pop();
+  }
 };
 function id_from_doc_collection() {
   return $('.document_collection, .documentcollection').attr('id').split('_').pop();
+};
+function content_id_from_meta_tag() {
+  return $("meta[name='govuk:content-id']").attr('content');
 };
 
 function path_builder(path_fragment) {
@@ -60,7 +66,14 @@ function get_mapping() {
 
 function nav_to_backend() {
   var mapping = get_mapping();
-  if (mapping) window.location = "<%= Whitehall.admin_root + Whitehall.router_prefix %>/admin/" + mapping.path_builder(mapping.id_finder());
+  if (mapping){ 
+    admin_path = "<%= Whitehall.admin_root + Whitehall.router_prefix %>/admin";
+    if(mapping.id_finder()){
+      window.location = admin_path + "/" + mapping.path_builder(mapping.id_finder());
+    }else{
+      window.location = admin_path + "/by-content-id/" + content_id_from_meta_tag();
+    };
+  }
 }
 
 nav_to_backend();
