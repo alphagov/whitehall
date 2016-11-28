@@ -1,0 +1,57 @@
+{
+   "base_path":"/government/topics",
+   "title":"Topical Events",
+   "description":"Government news and information about major events: including the budget, commemorative events, responses to global incidents and more",
+   "document_type":"finder",
+   "schema_name":"finder",
+   "locale":"en",
+   "publishing_app":"whitehall",
+   "rendering_app":"finder-frontend",
+   "details": {
+     "document_noun": "topical event",
+     "default_documents_per_page": 20,
+     "default_order": "-start_date",
+     "filter": {
+       "format": "topical_event"
+     },
+     "show_summaries": true,
+     "facets": [
+       {
+         "key": "end_date",
+         "name": "Status",
+         "type": "topical",
+         "open_value": {
+           "label": "Current",
+           "value": "current"
+         },
+         "closed_value": {
+           "label": "Archived",
+           "value": "archived"
+         },
+         "preposition": "with status",
+         "display_as_result_metadata": false,
+         "filterable": true
+       },
+       {
+         "key": "start_date",
+         "name": "Created",
+         "type": "date",
+         "preposition": "created",
+         "display_as_result_metadata": false,
+         "filterable": true
+       }
+     ]
+   },
+   "routes": [
+     {
+       "type": "exact",
+       "path": "/government/topical-events"
+     },
+     {
+       "type": "exact",
+       "path": "/government/topical-events.json"
+     }
+   ]
+}
+
+
