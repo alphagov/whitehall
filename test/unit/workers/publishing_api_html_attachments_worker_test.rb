@@ -311,6 +311,17 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
       call(publication)
     end
 
+    test "for a published publication with a deleted attachment discards the attachment draft" do
+      publication = create(:published_publication)
+      attachment = publication.html_attachments.first
+      attachment.destroy
+      PublishingApiDiscardDraftWorker.any_instance.expects(:perform).with(
+        attachment.content_id,
+        "en"
+      )
+      call(publication)
+    end
+
     test "for a withdrawn publicaton with an attachment withdraws the attachment" do
       publication = create(:withdrawn_publication)
       attachment = publication.html_attachments.first

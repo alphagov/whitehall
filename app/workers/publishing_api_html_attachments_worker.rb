@@ -85,6 +85,7 @@ private
       update_draft(update_type: "republish")
     else
       do_publish("republish")
+      discard_drafts(deleted_html_attachments)
     end
   end
 
