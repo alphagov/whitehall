@@ -107,12 +107,16 @@ module SyncChecker
       end
 
       def attachment_should_exist_in_live_content_store?
-        Edition::PUBLICLY_VISIBLE_STATES.include?(attachable.state) ||
-          attachable_is_unpublished?
+        !attachment.deleted? && (
+          Edition::PUBLICLY_VISIBLE_STATES.include?(attachable.state) ||
+            attachable_is_unpublished?
+        )
       end
 
       def attachment_should_exist_in_draft_content_store?
-        attachable_is_the_latest_draft? || attachable_is_published_and_there_is_no_newer_draft?
+        !attachment.deleted? && (
+          attachable_is_the_latest_draft? || attachable_is_published_and_there_is_no_newer_draft?
+        )
       end
 
       def attachable_is_the_latest_draft?
