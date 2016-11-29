@@ -473,7 +473,7 @@ cy:
       staff_update: Gwybodaeth a newyddion staff
       statistics: Ystadegau yn %{organisation_name}
       terms_of_reference: Cylch gorchwyl
-      welsh_language_scheme: Cynllun iaith Gymraeg
+      welsh_language_scheme: gyhoeddi yn y Gymraeg
   date:
     formats:
       default: "%d %B %Y"
@@ -625,7 +625,7 @@ cy:
       publication_scheme_html: Darllenwch am y mathau o wybodaeth rydym yn eu cyhoeddi'n
         rheolaidd yn ein %{link}.
       social_media_use_html: Darllenwch ein polisi ar %{link}
-      welsh_language_scheme_html: Dysgwch am ein hymrwymiad i gyhoeddi yn y %{link}.
+      welsh_language_scheme_html: Dysgwch am ein hymrwymiad i %{link}.
     find_out_more: Gweld proffil llawn a'r holl fanylion cyswllt
     headings:
       about_us: Gwybodaeth amdanom ni
