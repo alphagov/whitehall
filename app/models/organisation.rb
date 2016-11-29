@@ -179,7 +179,8 @@ class Organisation < ActiveRecord::Base
              organisations: :search_organisations,
              boost_phrases: :acronym,
              slug: :slug,
-             organisation_state: :searchable_govuk_status
+             organisation_state: :searchable_govuk_status,
+             organisation_type: :organisation_type_key
 
   extend FriendlyId
   friendly_id
