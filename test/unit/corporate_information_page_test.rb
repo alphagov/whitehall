@@ -88,9 +88,9 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
 
   test "should translate title" do
     welsh_language_scheme_page = build(:corporate_information_page, corporate_information_page_type: CorporateInformationPageType::WelshLanguageScheme)
-    assert_equal "publishing in Welsh", welsh_language_scheme_page.title
+    assert_equal "Welsh language scheme", welsh_language_scheme_page.title
     I18n.with_locale(:cy) do
-      assert_equal "gyhoeddi yn y Gymraeg", welsh_language_scheme_page.title
+      assert_equal "Cynllun iaith Gymraeg", welsh_language_scheme_page.title
     end
   end
 

@@ -314,26 +314,27 @@ cs:
     email: Email
   corporate_information_page:
     type:
-      about:
-      about_our_services:
-      access_and_opening:
-      complaints_procedure:
-      equality_and_diversity:
-      media_enquiries:
-      membership:
-      our_energy_use:
-      our_governance:
-      personal_information_charter: Registr osobních informací
-      petitions_and_campaigns:
-      procurement:
-      publication_scheme: Publikační plán
-      recruitment:
-      research:
-      social_media_use: Použití sociálních sítí
-      staff_update:
-      statistics:
-      terms_of_reference:
-      welsh_language_scheme: Welština
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: Registr osobních informací
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: Publikační plán
+        recruitment:
+        research:
+        social_media_use: Použití sociálních sítí
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: Welština
   date:
     formats:
       default: "%d %B %Y"

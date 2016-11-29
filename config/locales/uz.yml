@@ -265,26 +265,27 @@ uz:
     email: Elektron manzil
   corporate_information_page:
     type:
-      about:
-      about_our_services:
-      access_and_opening:
-      complaints_procedure:
-      equality_and_diversity:
-      media_enquiries:
-      membership:
-      our_energy_use:
-      our_governance:
-      personal_information_charter: Shaxsiy ma'lumot nizomi
-      petitions_and_campaigns:
-      procurement:
-      publication_scheme: Nashr rejasi
-      recruitment:
-      research:
-      social_media_use: Jamoat media vositalarini qullanilishi
-      staff_update:
-      statistics:
-      terms_of_reference:
-      welsh_language_scheme: Uels tili rejasi
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: Shaxsiy ma'lumot nizomi
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: Nashr rejasi
+        recruitment:
+        research:
+        social_media_use: Jamoat media vositalarini qullanilishi
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: Uels tili rejasi
   date:
     formats:
       default: "%e %B %Y"

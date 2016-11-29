@@ -312,26 +312,27 @@ ro:
     email: Email
   corporate_information_page:
     type:
-      about:
-      about_our_services:
-      access_and_opening:
-      complaints_procedure:
-      equality_and_diversity:
-      media_enquiries:
-      membership:
-      our_energy_use:
-      our_governance:
-      personal_information_charter: Organigramă
-      petitions_and_campaigns:
-      procurement:
-      publication_scheme:
-      recruitment:
-      research:
-      social_media_use: 'Utilizarea rețelelor sociale online '
-      staff_update:
-      statistics:
-      terms_of_reference:
-      welsh_language_scheme:
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: Organigramă
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme:
+        recruitment:
+        research:
+        social_media_use: 'Utilizarea rețelelor sociale online '
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme:
   date:
     formats:
       default:

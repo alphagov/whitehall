@@ -266,26 +266,27 @@ fr:
     email: Email
   corporate_information_page:
     type:
-      about:
-      about_our_services:
-      access_and_opening:
-      complaints_procedure:
-      equality_and_diversity:
-      media_enquiries:
-      membership:
-      our_energy_use:
-      our_governance:
-      personal_information_charter: Charte de données personnelles
-      petitions_and_campaigns:
-      procurement:
-      publication_scheme: Régime de publication
-      recruitment: Travail pour %{organisation_name}
-      research:
-      social_media_use: 'Utilisation réseaux sociaux '
-      staff_update:
-      statistics:
-      terms_of_reference:
-      welsh_language_scheme: Système de la langue galloise
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: Charte de données personnelles
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: Régime de publication
+        recruitment: Travail pour %{organisation_name}
+        research:
+        social_media_use: 'Utilisation réseaux sociaux '
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: Système de la langue galloise
   date:
     formats:
       default: "%d %B %Y"

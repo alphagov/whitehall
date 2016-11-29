@@ -266,26 +266,27 @@ es-419:
     email: Correo electrónico
   corporate_information_page:
     type:
-      about:
-      about_our_services:
-      access_and_opening:
-      complaints_procedure: Procedimiento de quejas
-      equality_and_diversity:
-      media_enquiries:
-      membership:
-      our_energy_use:
-      our_governance:
-      personal_information_charter: Estatuto de información personal
-      petitions_and_campaigns:
-      procurement:
-      publication_scheme: Plano de publicación
-      recruitment:
-      research:
-      social_media_use: Utilización de redes sociales
-      staff_update:
-      statistics:
-      terms_of_reference:
-      welsh_language_scheme: Plan de idioma galés
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        complaints_procedure: Procedimiento de quejas
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: Estatuto de información personal
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: Plano de publicación
+        recruitment:
+        research:
+        social_media_use: Utilización de redes sociales
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: Plan de idioma galés
   date:
     formats:
       default: "%d %B %Y"

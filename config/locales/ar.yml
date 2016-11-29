@@ -453,26 +453,27 @@ ar:
     email: "بريد إلكتروني"
   corporate_information_page:
     type:
-      about:
-      about_our_services:
-      access_and_opening:
-      complaints_procedure:
-      equality_and_diversity:
-      media_enquiries:
-      membership:
-      our_energy_use:
-      our_governance:
-      personal_information_charter: "ميثاق الاحتفاظ بالمعلومات الشخصية"
-      petitions_and_campaigns:
-      procurement:
-      publication_scheme: "نظام المطبوعات"
-      recruitment:
-      research:
-      social_media_use: "استخدام مواقع التواصل الاجتماعي"
-      staff_update:
-      statistics:
-      terms_of_reference:
-      welsh_language_scheme: "برنامج لغة ويلز"
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: "ميثاق الاحتفاظ بالمعلومات الشخصية"
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: "نظام المطبوعات"
+        recruitment:
+        research:
+        social_media_use: "استخدام مواقع التواصل الاجتماعي"
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: "برنامج لغة ويلز"
   date:
     formats:
       default: "%d %B %Y"

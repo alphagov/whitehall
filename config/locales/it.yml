@@ -266,26 +266,27 @@ it:
     email: Email
   corporate_information_page:
     type:
-      about:
-      about_our_services:
-      access_and_opening:
-      complaints_procedure:
-      equality_and_diversity:
-      media_enquiries: Ufficio stampa
-      membership:
-      our_energy_use:
-      our_governance:
-      personal_information_charter: Informazioni personali
-      petitions_and_campaigns:
-      procurement:
-      publication_scheme: Schema di pubblicazione
-      recruitment:
-      research:
-      social_media_use: Uso dei social media
-      staff_update:
-      statistics:
-      terms_of_reference:
-      welsh_language_scheme: Schema gaelico
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries: Ufficio stampa
+        membership:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: Informazioni personali
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: Schema di pubblicazione
+        recruitment:
+        research:
+        social_media_use: Uso dei social media
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: Schema gaelico
   date:
     formats:
       default: "%d %B %Y"

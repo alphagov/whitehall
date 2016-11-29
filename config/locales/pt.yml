@@ -265,26 +265,27 @@ pt:
     email: E-mail
   corporate_information_page:
     type:
-      about:
-      about_our_services:
-      access_and_opening:
-      complaints_procedure:
-      equality_and_diversity:
-      media_enquiries:
-      membership:
-      our_energy_use:
-      our_governance:
-      personal_information_charter: Guia de Informação Pessoal
-      petitions_and_campaigns:
-      procurement:
-      publication_scheme: Programa de publicação
-      recruitment:
-      research:
-      social_media_use: Uso de mídias sociais
-      staff_update:
-      statistics:
-      terms_of_reference:
-      welsh_language_scheme: 'Programa de língua galesa '
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: Guia de Informação Pessoal
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: Programa de publicação
+        recruitment:
+        research:
+        social_media_use: Uso de mídias sociais
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: 'Programa de língua galesa '
   date:
     formats:
       default: "%e %B %Y"

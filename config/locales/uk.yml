@@ -359,26 +359,27 @@ uk:
     email: "Електронна пошта"
   corporate_information_page:
     type:
-      about:
-      about_our_services:
-      access_and_opening:
-      complaints_procedure:
-      equality_and_diversity:
-      media_enquiries:
-      membership:
-      our_energy_use:
-      our_governance:
-      personal_information_charter: "Персональна інформація"
-      petitions_and_campaigns:
-      procurement:
-      publication_scheme: "План публікацій"
-      recruitment:
-      research:
-      social_media_use: "Використання соціальних медіа"
-      staff_update:
-      statistics:
-      terms_of_reference:
-      welsh_language_scheme: "Програма збереження валійської мови"
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: "Персональна інформація"
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: "План публікацій"
+        recruitment:
+        research:
+        social_media_use: "Використання соціальних медіа"
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: "Програма збереження валійської мови"
   date:
     formats:
       default:

@@ -267,26 +267,27 @@ ta:
     email: "மின்னஞ்சல்"
   corporate_information_page:
     type:
-      about:
-      about_our_services:
-      access_and_opening:
-      complaints_procedure:
-      equality_and_diversity:
-      media_enquiries:
-      membership:
-      our_energy_use:
-      our_governance:
-      personal_information_charter: "தனிப்பட்ட தகவல் பட்டயம்"
-      petitions_and_campaigns:
-      procurement:
-      publication_scheme: "பிரசுரித்தல் திட்டம்"
-      recruitment:
-      research:
-      social_media_use: "சமூக ஊடகப் பயன்பாடு"
-      staff_update:
-      statistics:
-      terms_of_reference:
-      welsh_language_scheme: "வெல்ஷ் மொழித் திட்டம்"
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: "தனிப்பட்ட தகவல் பட்டயம்"
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: "பிரசுரித்தல் திட்டம்"
+        recruitment:
+        research:
+        social_media_use: "சமூக ஊடகப் பயன்பாடு"
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: "வெல்ஷ் மொழித் திட்டம்"
   date:
     formats:
       default: "%d %B %Y"
