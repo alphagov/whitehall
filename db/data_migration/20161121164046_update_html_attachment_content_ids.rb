@@ -3,8 +3,9 @@
 # 1683924 => "e52eaeda-abe6-4b53-aaf9-ef4049ad215c"
 
 {
-  163803 => "1daa93ab-a5f0-4043-9177-f6aad84e0d4d",
+  1638037 => "1daa93ab-a5f0-4043-9177-f6aad84e0d4d",
   1683924 => "22443bfa-c8d2-45b0-9827-a3ae42b759b5"
 }.each do |id, new_content_id|
-  HtmlAttachment.find(id).update_attributes(content_id: new_content_id)
+  attachment = HtmlAttachment.find_by(id: id)
+  attachment.update_attributes(content_id: new_content_id) if attachment
 end
