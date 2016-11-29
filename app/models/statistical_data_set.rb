@@ -21,4 +21,8 @@ class StatisticalDataSet < Publicationesque
   def search_format_types
     super + ['publicationesque-statistics', StatisticalDataSet.search_format_type]
   end
+
+  def rendering_app
+    Whitehall::RenderingApp::WHITEHALL_FRONTEND
+  end
 end
