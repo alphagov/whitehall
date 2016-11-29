@@ -30,6 +30,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
         { path: public_path, type: 'exact' }
       ],
       redirects: [],
+      first_published_at: publication.first_public_at,
       details: {
         body: "<div class=\"govspeak\"><p>Some content</p></div>",
         tags: {
@@ -169,18 +170,22 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       presented_item.content[:details][:withdrawn_notice][:explanation]
   end
 
-  test "an unpublished document has a first_public_at of the document creation time" do
-    create(:government)
-    publication = create(:draft_publication)
-    presented_item = present(publication)
-    assert_equal publication.document.created_at.iso8601, presented_item.content[:details][:first_public_at]
-  end
-
   test "documents include the alternative format contact email" do
     publication = create(:publication, :with_command_paper)
     presented_item = present(publication)
     document = presented_item.content[:details][:documents].first
     assert document.include?("This file may not be suitable for users of assistive technology.")
     assert document.include?("mailto:#{publication.alternative_format_provider.alternative_format_contact_email}")
+  end
+
+  test "it uses the PayloadBuilder::FirstPublishedAt helper" do
+    publication = create(:publication)
+    PublishingApi::PayloadBuilder::FirstPublishedAt.stubs(:for).with(publication).returns({ first_published_at: 'test' })
+    PublishingApi::PayloadBuilder::FirstPublicAt.stubs(:for).with(publication).returns({ first_public_at: 'test' })
+    presented_publication = PublishingApi::PublicationPresenter.new(publication)
+    @presented_content = presented_publication.content
+
+    assert_equal('test', @presented_content[:first_published_at])
+    assert_equal('test', @presented_content[:details][:first_public_at])
   end
 end
