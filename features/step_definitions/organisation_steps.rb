@@ -606,8 +606,8 @@ Then(/^I can filter instantaneously the list of documents by title, author, orga
   click_link "Reset all fields"
   within "#search_results" do
     assert page.has_css?(record_css_selector(@documents[0]))
-    assert page.has_css?(record_css_selector(@documents[1]))
-    assert page.has_css?(record_css_selector(@documents[2]))
+    assert page.has_no_css?(record_css_selector(@documents[1]))
+    assert page.has_no_css?(record_css_selector(@documents[2]))
   end
   select @organisation2.name, from: "organisation"
   within "#search_results" do

@@ -43,8 +43,11 @@ class Admin::OrganisationsController < Admin::BaseController
   def features
     @feature_list = @organisation.load_or_create_feature_list(params[:locale])
 
-    filter_params = params.slice(:page, :type, :author, :organisation, :title).
-      merge(state: 'published')
+    filtering_organisation = params[:organisation] || @organisation.id
+
+    filter_params = params.slice(:page, :type, :author, :title).
+      merge(state: 'published', organisation: filtering_organisation)
+
     @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
     @featurable_topical_events = TopicalEvent.active
     @featurable_offsite_links = @organisation.offsite_links
