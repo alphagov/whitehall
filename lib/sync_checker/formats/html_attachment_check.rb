@@ -73,8 +73,8 @@ module SyncChecker
 
       def base_paths
         {
-          draft: { locale => attachment.url },
-          live: { locale => attachment.url }
+          draft: attachment && { locale => attachment.url } || {},
+          live: attachment && { locale => attachment.url } || {}
         }
       end
 
