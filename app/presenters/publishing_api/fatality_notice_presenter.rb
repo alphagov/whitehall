@@ -24,9 +24,9 @@ module PublishingApi
           rendering_app: item.rendering_app,
           schema_name: "fatality_notice",
           details: details,
-          first_published_at: first_public_at.utc
         )
         content.merge!(PayloadBuilder::AccessLimitation.for(item))
+        content.merge!(PayloadBuilder::FirstPublishedAt.for(item))
       }
     end
 
@@ -43,17 +43,12 @@ module PublishingApi
     attr_reader :item
 
     def details
-      {
+      details_hash = {
         body: Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item),
-        first_public_at: first_public_at,
         change_history: item.change_history.as_json,
         emphasised_organisations: item.lead_organisations.map(&:content_id)
       }
-    end
-
-    def first_public_at
-      document = item.document
-      document.published? ? item.first_public_at : document.created_at
+      details_hash.merge!(PayloadBuilder::FirstPublicAt.for(item))
     end
   end
 end
