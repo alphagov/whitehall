@@ -1,10 +1,6 @@
 module SyncChecker
   module Formats
     class PublicationCheck < EditionBase
-      def root_path
-        "/government/publications/"
-      end
-
       def checks_for_live(locale)
         super + [
           Checks::LinksCheck.new(

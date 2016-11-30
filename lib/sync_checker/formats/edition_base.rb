@@ -51,7 +51,7 @@ module SyncChecker
       end
 
       def get_path(locale)
-        path = "#{root_path}#{document.slug}"
+        path = Whitehall::UrlMaker.new.public_document_path(edition_expected_in_draft)
         path += ".#{locale}" unless locale.to_s == "en"
         path
       end
