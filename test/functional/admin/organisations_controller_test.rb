@@ -413,6 +413,16 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  view_test "GET :features without an organisation defaults to the user organisation" do
+    organisation = create(:organisation)
+
+    get :features, id: organisation, locale: 'en'
+    assert_response :success
+
+    selected_organisation = css_select('#organisation option[selected="selected"]')
+    assert_equal selected_organisation.text, organisation.name
+  end
+
   view_test "GDS Editors can set political status" do
     organisation = create(:organisation)
     writer = create(:writer, organisation: organisation)
