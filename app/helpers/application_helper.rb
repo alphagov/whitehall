@@ -207,8 +207,6 @@ module ApplicationHelper
       root_path
     when "announcements", "news_articles", "speeches", "fatality_notices", "operational_fields"
       announcements_path
-    when "topics", "classifications", "topical_events", "about_pages"
-      topics_path
     when "statistics", "statistics_announcements"
       statistics_path
     when "publications", "statistical_data_sets"
@@ -248,8 +246,6 @@ module ApplicationHelper
         organisations_path
       elsif parameters[:world_locations]
         world_locations_path
-      elsif parameters[:topics]
-        topics_path
       else
         latest_path
       end

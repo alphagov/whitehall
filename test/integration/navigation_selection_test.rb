@@ -20,6 +20,9 @@ class NavigationSelectionTest < ActiveSupport::TestCase
     placeholder
     public_facing
     public_uploads
+    topics
+    topical_events
+    classifications
     uploads
     historic_appointments
   ).map do |f|

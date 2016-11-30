@@ -5,11 +5,6 @@ class TopicalEventsControllerTest < ActionController::TestCase
 
   should_be_a_public_facing_controller
 
-  test "#index redirects to topics homepage" do
-    get :index
-    assert_redirected_to :topics
-  end
-
   test "#show displays primary featured editions in ordering defined by association" do
     topical_event = create(:topical_event)
     news_article = create(:published_news_article)

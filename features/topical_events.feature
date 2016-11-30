@@ -14,7 +14,6 @@ Scenario: Adding a new topical event
 Scenario: Archiving a new topical event
   When I create a new topical event "An Event" with description "A topical event" and it ends today
   Then I should see the topical event "An Event" in the admin interface
-  And I should not see the topical event "An Event" on the topics listing
   And I should see the topical event "An Event" on the frontend is archived
 
 Scenario: Associating a speech with a topical event

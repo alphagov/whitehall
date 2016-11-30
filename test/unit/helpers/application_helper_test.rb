@@ -92,11 +92,6 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal announcements_path, current_main_navigation_path(controller: "speeches", action: "show")
   end
 
-  test "topic-related pages should be related to topics main navigation" do
-    assert_equal topics_path, current_main_navigation_path(controller: "topics", action: "index")
-    assert_equal topics_path, current_main_navigation_path(controller: "topics", action: "show")
-  end
-
   test "publication-related pages should be related to publications main navigation" do
     assert_equal publications_path, current_main_navigation_path(controller: "publications", action: "index")
     assert_equal publications_path, current_main_navigation_path(controller: "publications", action: "show")
