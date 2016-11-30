@@ -26,6 +26,7 @@ module PublishingApi
       )
       content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
       content.merge!(PayloadBuilder::AccessLimitation.for(item))
+      content.merge!(PayloadBuilder::FirstPublishedAt.for(item))
     end
 
     def links
@@ -55,19 +56,14 @@ module PublishingApi
         body: body,
         change_history: item.change_history.as_json,
         emphasised_organisations: item.lead_organisations.map(&:content_id),
-        first_public_at: first_public_at,
         related_mainstream_content: related_mainstream_content_ids,
       }
       details_hash = maybe_add_national_applicability(details_hash)
       details_hash.merge!(image: {url: item.logo_url}) if item.logo_url.present?
       details_hash.merge!(PayloadBuilder::PoliticalDetails.for(item))
       details_hash.merge!(PayloadBuilder::TagDetails.for(item))
+      details_hash.merge!(PayloadBuilder::FirstPublicAt.for(item))
     end
-
-    def first_public_at
-      item.document.published? ? item.first_public_at : item.document.created_at
-    end
-
 
     def body
       Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item)
