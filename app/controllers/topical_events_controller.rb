@@ -1,10 +1,6 @@
 class TopicalEventsController < ClassificationsController
   enable_request_formats show: :atom
 
-  def index
-    redirect_to :topics
-  end
-
   def show
     @classification = TopicalEvent.friendly.find(params[:id])
     @publications = fetch_associated(:published_publications, PublicationesquePresenter)

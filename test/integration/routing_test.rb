@@ -7,7 +7,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   test "assets are served under the #{Whitehall.router_prefix} prefix" do
-    get topics_path
+    get publications_path
     assert_select "script[src=?]", "#{Whitehall.router_prefix}/assets/application.js"
   end
 

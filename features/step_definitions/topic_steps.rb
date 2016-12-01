@@ -69,10 +69,6 @@ When /^I edit the topic "([^"]*)" to have description "([^"]*)"$/ do |name, desc
   click_button "Save"
 end
 
-When /^I visit the list of topics$/ do
-  visit topics_path
-end
-
 When /^I visit the "([^"]*)" (topic|topical event)$/ do |name, type|
   classification = if type == 'topic'
     Topic.find_by!(name: name)

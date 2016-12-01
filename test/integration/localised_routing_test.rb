@@ -61,12 +61,8 @@ class RoutingLocaleTest < ActionDispatch::IntegrationTest
       ministerial_role_path(ministerial_role, locale: 'cy', format: 'json')
   end
 
-  test "#index for a non-localised resource" do
-    assert_equal "/government/topics", topics_path
-  end
-
   test "#index for a non-localised resource with a format" do
-    assert_equal "/government/topics.json", topics_path(format: 'json')
+    assert_equal "/government/publications.json", publications_path(format: 'json')
   end
 
   test "#show for a non-localised resource" do

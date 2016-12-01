@@ -42,12 +42,6 @@ Scenario: Choosing and ordering lead organisations within a topic
   And I should see the following organisations for the "Facial Hair" topic:
     |Ministry of War|
 
-Scenario: Viewing the list of topics
-  Given a topic called "Higher Education" exists
-  And a topic called "Science and Innovation" exists
-  When I visit the list of topics
-  Then I should see the topics "Higher Education" and "Science and Innovation"
-
 Scenario: Visiting a topic page
   Given a topic called "Higher Education" exists
   And a topic called "Science and Innovation" exists
