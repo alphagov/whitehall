@@ -28,11 +28,6 @@ module Admin::EditionsHelper
     'active' if current
   end
 
-  def active_filter_unless_values_match_class(filter, key, *disallowed_values)
-    filter_value = filter.options[key]
-    'active' if filter_value && disallowed_values.none? { |disallowed_value| filter_value == disallowed_value }
-  end
-
   def admin_organisation_filter_options(current_user, selected_organisation)
     organisations = Organisation.with_translations(:en).order(:name).excluding_govuk_status_closed || []
     closed_organisations = Organisation.with_translations(:en).closed || []
