@@ -1,8 +1,4 @@
 module CountryHelper
-  def world_location_navigation_link_to(body, path)
-    link_to body, path, class: ('current' if current_world_location_navigation_path(params) == path)
-  end
-
   def current_world_location_navigation_path(params)
     url_for params.slice(:controller, :action, :id).merge(only_path: true)
   end
