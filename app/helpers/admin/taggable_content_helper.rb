@@ -26,15 +26,6 @@ module Admin::TaggableContentHelper
     end
   end
 
-  # Returns an Array that represents the current set of taggable topical
-  # events. Each element of the array consists of two values: the name and ID
-  # of the topical event.
-  def taggable_topical_events_container
-    Rails.cache.fetch(taggable_topical_events_cache_digest, expires_in: 1.day) do
-      TopicalEvent.order(:name).map { |te| [te.name, te.id] }
-    end
-  end
-
   # Returns an Array that represents the current set of taggable organisations.
   # Each element of the array consists of two values: the select_name and the
   # ID of the organisation
@@ -63,17 +54,6 @@ module Admin::TaggableContentHelper
   def taggable_role_appointments_container
     Rails.cache.fetch(taggable_role_appointments_cache_digest, expires_in: 1.day) do
       role_appointments_container_for(RoleAppointment)
-    end
-  end
-
-  # Returns an Array that represents the taggable ministerial roles. Each
-  # element of the array consists of two values: the name of the ministerial
-  # role with the organisation and current holder and its ID.
-  def taggable_ministerial_roles_container
-    Rails.cache.fetch(taggable_ministerial_roles_cache_digest, expires_in: 1.day) do
-      MinisterialRole.with_translations.with_translations_for(:organisations).alphabetical_by_person.map do |role|
-        ["#{role.name}, #{role.organisations.map(&:name).to_sentence} (#{role.current_person_name})", role.id]
-      end
     end
   end
 
@@ -192,12 +172,6 @@ module Admin::TaggableContentHelper
   # will change if any statistical data set is added or updated.
   def taggable_statistical_data_sets_cache_digest
     @_taggable_statistical_data_sets_cache_digest ||= calculate_digest(Document.where(document_type: StatisticalDataSet).order(:id), 'statistical-data-sets')
-  end
-
-  # Returns an MD5 digest representing the taggable policies. This will change
-  # if any policies are added or updated.
-  def taggable_policies_cache_digest
-    @_taggable_policies_cache_digest ||= calculate_digest(Document.where(document_type: Policy).order(:id), 'policies')
   end
 
   # Returns an MD5 digest representing the taggable world locations. This will

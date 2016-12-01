@@ -14,18 +14,6 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     ], taggable_topics_container
   end
 
-  test '#taggable_topical_events_container returns an array of name/ID pairs for all TopicalEvents' do
-    event_a = create(:topical_event, name: 'Event A')
-    event_c = create(:topical_event, name: 'Event C')
-    event_b = create(:topical_event, name: 'Event B')
-
-    assert_equal [
-      ['Event A', event_a.id],
-      ['Event B', event_b.id],
-      ['Event C', event_c.id],
-    ], taggable_topical_events_container
-  end
-
   test '#taggable_organisations_container returns an array of select_name/ID pairs for all Organisations' do
     organisation_c = create(:organisation, name: 'Organisation C', acronym: "OC")
     organisation_b = create(:organisation, name: 'Organisation B', acronym: "OB")
@@ -104,22 +92,6 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
       ['George Clinton, Board Member, Ministry for Funk', board_member_appointment.id],
       ['Little Richard, Minister of Funk (05 December 1932 to 14 May 1972), Ministry for Funk', old_minister_appointment.id],
     ], taggable_role_appointments_container
-  end
-
-  test '#taggable_ministerial_roles_container returns an array of label/ID pairs for all the ministerial roles' do
-    create(:board_member_role)
-    minister_b = create(:ministerial_role, name: 'Minister B', organisations: [create(:organisation, name: 'Jazz Ministry')])
-    minister_a = create(:ministerial_role, name: 'Minister A', organisations: minister_b.organisations)
-    minister_c = create(:ministerial_role, name: 'Minister C', organisations: [create(:organisation, name: 'Ministry of Outer Space')])
-
-    create(:role_appointment, role: minister_a, person: create(:person, forename: 'Sun', surname: 'Ra'))
-    create(:role_appointment, role: minister_c, person: create(:person, forename: 'George', surname: 'Clinton'))
-
-    assert_equal [
-      ["Minister B, Jazz Ministry (Minister B)", minister_b.id],
-      ["Minister C, Ministry of Outer Space (George Clinton)", minister_c.id],
-      ["Minister A, Jazz Ministry (Sun Ra)", minister_a.id],
-    ], taggable_ministerial_roles_container
   end
 
   test '#taggable_detailed_guides_container returns an array of label/ID pairs for all active detailed guides' do
