@@ -14,9 +14,6 @@ function id_from_doc_page() {
     return document_page_id.attr('id').split('_').pop();
   }
 };
-function id_from_doc_collection() {
-  return $('.document_collection, .documentcollection').attr('id').split('_').pop();
-};
 function content_id_from_meta_tag() {
   return $("meta[name='govuk:content-id']").attr('content');
 };
@@ -30,11 +27,6 @@ var mappings = [
     matcher: url_matcher("announcements/"),
     path_builder: path_builder("statistics_announcements/"),
     id_finder: id_from_url
-  },
-  {
-    matcher: url_matcher("collections/"),
-    path_builder: path_builder("collections/"),
-    id_finder: id_from_doc_collection
   },
   {
     matcher: url_matcher("organisations/"),
