@@ -279,7 +279,7 @@ fr:
       petitions_and_campaigns:
       procurement:
       publication_scheme: Régime de publication
-      recruitment:
+      recruitment: Travail pour %{organisation_name}
       research:
       social_media_use: 'Utilisation réseaux sociaux '
       staff_update:
