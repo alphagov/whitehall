@@ -27,6 +27,7 @@ module PublishingApi
       content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
       content.merge!(PayloadBuilder::AccessLimitation.for(item))
       content.merge!(PayloadBuilder::WithdrawnNotice.for(item))
+      content.merge!(PayloadBuilder::FirstPublishedAt.for(item))
     end
 
     def links
@@ -60,17 +61,12 @@ module PublishingApi
         change_history: item.change_history.as_json,
         documents: documents,
         emphasised_organisations: item.lead_organisations.map(&:content_id),
-        first_public_at: first_public_at,
       }
       details_hash = maybe_add_national_applicability(details_hash)
       details_hash.merge!(PayloadBuilder::PoliticalDetails.for(item))
       details_hash.merge!(PayloadBuilder::WithdrawnNotice.for(item))
       details_hash.merge!(PayloadBuilder::TagDetails.for(item))
-    end
-
-    def first_public_at
-      return item.first_public_at if item.document.published?
-      item.document.created_at.iso8601
+      details_hash.merge!(PayloadBuilder::FirstPublicAt.for(item))
     end
 
     def body

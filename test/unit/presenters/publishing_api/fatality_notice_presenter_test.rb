@@ -96,7 +96,7 @@ class PublishingApi::DraftFatalityBelongingToPublishedDocumentNoticePresenter < 
   test "it presents the Fatality Notice's first_public_at" do
     presented_notice = PublishingApi::FatalityNoticePresenter.new(
       create(:published_fatality_notice) do |fatality_notice|
-        fatality_notice.stubs(:first_public_at).returns(DateTime.new(2015, 4, 10))
+        fatality_notice.stubs(:first_published_at).returns(DateTime.new(2015, 4, 10))
       end
     )
 

@@ -49,6 +49,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
         { path: public_path, type: "exact" }
       ],
       redirects: [],
+      first_published_at: detailed_guide.created_at,
       details: {
         body: "<div class=\"govspeak\"><p>Some content</p></div>",
         first_public_at: detailed_guide.created_at,

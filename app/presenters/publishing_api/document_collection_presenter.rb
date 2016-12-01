@@ -25,6 +25,7 @@ module PublishingApi
       )
       content.merge!(PayloadBuilder::AccessLimitation.for(item))
       content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
+      content.merge!(PayloadBuilder::FirstPublishedAt.for(item))
     end
 
     def links
@@ -41,18 +42,14 @@ module PublishingApi
 
     def details
       {
-        first_public_at: first_public_at,
         change_history: item.change_history.as_json,
         collection_groups: collection_groups,
         body: govspeak_renderer.govspeak_edition_to_html(item),
         emphasised_organisations: item.lead_organisations.map(&:content_id),
       }.tap do |details_hash|
         details_hash.merge!(PayloadBuilder::PoliticalDetails.for(item))
+        details_hash.merge!(PayloadBuilder::FirstPublicAt.for(item))
       end
-    end
-
-    def first_public_at
-      item.first_published_at || item.document.created_at
     end
 
     def collection_groups
