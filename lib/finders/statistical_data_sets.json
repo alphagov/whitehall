@@ -32,7 +32,7 @@
       "format": "statistical_data_set"
     },
     "show_summaries": true,
-    "default_documents_per_page": 20
+    "default_documents_per_page": 50
   },
   "routes": [
     {

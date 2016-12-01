@@ -9,7 +9,7 @@
    "rendering_app":"finder-frontend",
    "details": {
      "document_noun": "topical event",
-     "default_documents_per_page": 20,
+     "default_documents_per_page": 50,
      "default_order": "-start_date",
      "filter": {
        "format": "topical_event"
@@ -53,5 +53,3 @@
      }
    ]
 }
-
-
