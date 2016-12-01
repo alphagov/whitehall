@@ -130,7 +130,7 @@ class DocumentHelperTest < ActionView::TestCase
       locale: "it",
       id: "a-world-location"
     })
-    assert_dom_equal %Q(<a href="#{world_location_path("a-world-location", :de)}">Deutsch</a>),
+    assert_dom_equal %(<a lang="de" href="#{world_location_path('a-world-location', :de)}">Deutsch</a>),
       link_to_translation(:de)
   end
 
