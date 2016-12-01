@@ -23,18 +23,6 @@ class TranslationHelperTest < ActionView::TestCase
     assert_equal [:de, :es, :fr], sorted_locales([:fr, :de, :es])
   end
 
-  test "t_delivery_title returns translation of 'Minister' if document was delivered by minister" do
-    I18n.with_locale(:fr) do
-      assert_equal "Ministre", t_delivery_title(stub('document', speech_type: stub('type', owner_key_group: 'delivery_title'), delivered_by_minister?: true))
-    end
-  end
-
-  test "t_delivery_title returns translation of 'Speaker' if document was not delivered by minister" do
-    I18n.with_locale(:fr) do
-      assert_equal "Orateur", t_delivery_title(stub('document', speech_type: stub('type', owner_key_group: 'delivery_title'), delivered_by_minister?: false))
-    end
-  end
-
   test "t_corporate_information_page_type tranlsates the type of corporate informaton page" do
     I18n.with_locale(:fr) do
       assert_equal "Charte de données personnelles", t_corporate_information_page_type(stub('corp info page', display_type_key: "personal_information_charter"))
