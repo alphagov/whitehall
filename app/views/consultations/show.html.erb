@@ -36,7 +36,6 @@
           <%= render partial: "document_summary", locals: { document: @document } %>
         </div>
       <% else %>
-
         <% if @document.outcome_published? %>
           <%= content_tag_for(:div, @document.outcome, class: 'consultation-response') do %>
             <% if @document.outcome.attachments.any? %>
@@ -85,14 +84,27 @@
           <% end %>
         <% end %>
 
-        <h2 class="original-consultation">Original consultation</h2>
-        <div class="consultation-block <%= consultation_css_class(@document) %>">
-          <div class="consultation-dates">
-            <p>This consultation ran from <span><%= absolute_time(@document.opening_at, class: 'opening-at') %> to<br><%= absolute_time(@document.closing_at, class: 'closing-at') %></span></p>
+        <% if @document.closed? %>
+          <h2 class="original-consultation">Original consultation</h2>
+          <div class="consultation-block <%= consultation_css_class(@document) %>">
+            <div class="consultation-dates">
+              <p>This consultation ran from <span><%= absolute_time(@document.opening_at, class: 'opening-at') %> to<br><%= absolute_time(@document.closing_at, class: 'closing-at') %></span></p>
+            </div>
+            <%= render partial: "document_summary", locals: { document: @document } %>
           </div>
+        <% elsif @document.not_yet_open? && @document.opening_at.present? %>
+          <div class="status-block">
+            <h2>This consultation opens on <%= absolute_time(@document.opening_at, class: 'opening-at') %></h2>
+          </div>
+          <div class="consultation-block <%= consultation_css_class(@document) %>">
+            <div class="consultation-dates">
+              <p>This consultation opens on<br><span><%= absolute_time(@document.opening_at, class: 'opening-at') %></span></p>
+              <p>It closes on<br><span><%= absolute_time(@document.closing_at, class: 'closing-at') %></span></p>
+            </div>
 
-          <%= render partial: "document_summary", locals: { document: @document } %>
-        </div>
+            <%= render partial: "document_summary", locals: { document: @document } %>
+          </div>
+        <% end %>
       <% end %>
 
       <% if @document.attachments.any? %>

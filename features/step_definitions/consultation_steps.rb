@@ -2,6 +2,15 @@ Given(/^a closed consultation exists$/) do
   create(:closed_consultation)
 end
 
+Given(/^an unopened consultation exists$/) do
+  create(:unopened_consultation)
+end
+
+When /^I visit the consultation$/ do
+  consultation = Consultation.find_by!(title: 'consultation-title')
+  visit consultation_path(consultation.document)
+end
+
 When /^I draft a new consultation "([^"]*)"$/ do |title|
   publishing_api_has_policies([title])
 
@@ -63,6 +72,12 @@ Then /^the consultation outcome should be viewable$/ do
     assert has_content?('Outcome summary')
     assert has_content?('Outcome attachment title')
   end
+end
+
+Then /^the date the consultation opens should be viewable$/ do
+  assert has_content?('This consultation opens on')
+  assert has_content?('It closes on')
+  refute has_content?('Original consultation')
 end
 
 Then(/^the public feedback should be viewable$/) do
