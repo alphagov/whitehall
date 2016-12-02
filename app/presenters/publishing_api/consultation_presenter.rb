@@ -17,6 +17,7 @@ module PublishingApi
           description: consultation.summary,
           details: details,
           document_type: document_type,
+          public_updated_at: public_updated_at,
           rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
           schema_name: SCHEMA_NAME,
         )
@@ -36,6 +37,15 @@ module PublishingApi
     def details
       base_details
         .merge(PayloadBuilder::PoliticalDetails.for(consultation))
+    end
+
+    def public_updated_at
+      public_updated_at = (consultation.public_timestamp || consultation.updated_at)
+      public_updated_at = if public_updated_at.respond_to?(:to_datetime)
+                            public_updated_at.to_datetime
+                          end
+
+      public_updated_at.rfc3339
     end
   end
 end

@@ -196,4 +196,40 @@ module PublishingApi::ConsultationPresenterTest
       assert_valid_against_schema presented_content, 'consultation'
     end
   end
+
+  class ConsultationWithPublicTimestamp < TestCase
+    setup do
+      self.consultation = create(:consultation_with_outcome)
+
+      consultation.stubs(public_timestamp: Date.new(1999),
+                         updated_at: Date.new(2012))
+    end
+
+    test 'public updated at' do
+      assert_attribute :public_updated_at,
+                       '1999-01-01T00:00:00+00:00'
+    end
+
+    test 'validity' do
+      assert_valid_against_schema presented_content, 'consultation'
+    end
+  end
+
+  class ConsultationWithoutPublicTimestamp < TestCase
+    setup do
+      self.consultation = create(:consultation_with_outcome)
+
+      consultation.stubs(public_timestamp: nil,
+                         updated_at: Date.new(2012))
+    end
+
+    test 'public updated at' do
+      assert_attribute :public_updated_at,
+                       '2012-01-01T00:00:00+00:00'
+    end
+
+    test 'validity' do
+      assert_valid_against_schema presented_content, 'consultation'
+    end
+  end
 end
