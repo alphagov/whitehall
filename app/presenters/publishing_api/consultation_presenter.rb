@@ -1,5 +1,7 @@
 module PublishingApi
   class ConsultationPresenter
+    extend Forwardable
+
     SCHEMA_NAME = 'consultation'
 
     def initialize(consultation)
@@ -13,7 +15,7 @@ module PublishingApi
         .merge(PayloadBuilder::PublicDocumentPath.for(consultation))
         .merge(
           details: details,
-          document_type: 'consultation',
+          document_type: document_type,
           rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
           schema_name: SCHEMA_NAME,
         )
@@ -22,6 +24,7 @@ module PublishingApi
   private
 
     attr_accessor :consultation
+    def_delegator :consultation, :display_type_key, :document_type
 
     def base_details
       {

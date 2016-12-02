@@ -4,6 +4,10 @@ module PublishingApi::ConsultationPresenterTest
   class TestCase < ActiveSupport::TestCase
     attr_accessor :consultation
 
+    setup do
+      create(:current_government)
+    end
+
     def presented_content
       PublishingApi::ConsultationPresenter.new(consultation).content
     end
@@ -40,12 +44,6 @@ module PublishingApi::ConsultationPresenterTest
 
   class BasicConsultationTest < TestCase
     setup do
-      create(
-        :current_government,
-        name: 'The Current Government',
-        slug: 'the-current-government',
-      )
-
       self.consultation = create(:consultation)
     end
 
@@ -83,7 +81,7 @@ module PublishingApi::ConsultationPresenterTest
     end
 
     test 'document type' do
-      assert_attribute :document_type, 'consultation'
+      assert_attribute :document_type, 'open_consultation'
     end
 
     test 'political details' do
@@ -100,6 +98,94 @@ module PublishingApi::ConsultationPresenterTest
 
     test 'schema name' do
       assert_attribute :schema_name, 'consultation'
+    end
+
+    test 'validity' do
+      assert_valid_against_schema presented_content, 'consultation'
+    end
+  end
+
+  class UnopenedConsultationTest < TestCase
+    setup do
+      self.consultation = create(:unopened_consultation)
+    end
+
+    test 'document type' do
+      assert_attribute :document_type, 'consultation'
+    end
+  end
+
+  class OpenConsultationTest < TestCase
+    setup do
+      self.consultation = create(:open_consultation)
+    end
+
+    test 'document type' do
+      assert_attribute :document_type, 'open_consultation'
+    end
+
+    test 'validity' do
+      assert_valid_against_schema presented_content, 'consultation'
+    end
+  end
+
+  class OpenConsultationWithParticipationTest < TestCase
+    setup do
+      participation = create(:consultation_participation,
+                             link_url: 'http://www.example.com')
+
+      self.consultation = create(:open_consultation,
+                                 consultation_participation: participation)
+    end
+
+    test 'document type' do
+      assert_attribute :document_type, 'open_consultation'
+    end
+
+    test 'validity' do
+      assert_valid_against_schema presented_content, 'consultation'
+    end
+  end
+
+  class ClosedConsultationTest < TestCase
+    setup do
+      self.consultation = create('closed_consultation')
+    end
+
+    test 'document type' do
+      assert_attribute :document_type, 'closed_consultation'
+    end
+
+    test 'validity' do
+      assert_valid_against_schema presented_content, 'consultation'
+    end
+  end
+
+  class ClosedConsultationWithFeedbackTest < TestCase
+    setup do
+      self.consultation = create(:closed_consultation)
+
+      create(:consultation_public_feedback,
+             consultation: consultation,
+             summary: 'Public feedback summary')
+    end
+
+    test 'document type' do
+      assert_attribute :document_type, 'closed_consultation'
+    end
+
+    test 'validity' do
+      assert_valid_against_schema presented_content, 'consultation'
+    end
+  end
+
+  class ClosedConsultationWithOutcomeTest < TestCase
+    setup do
+      self.consultation = create(:consultation_with_outcome)
+    end
+
+    test 'document type' do
+      assert_attribute :document_type, 'consultation_outcome'
     end
 
     test 'validity' do
