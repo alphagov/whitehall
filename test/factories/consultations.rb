@@ -28,6 +28,11 @@ FactoryGirl.define do
     closing_at { 1.day.ago }
   end
 
+  factory :unopened_consultation, parent: :published_consultation do
+    opening_at { 2.days.from_now }
+    closing_at { 3.days.from_now }
+  end
+
   factory :consultation_with_outcome, parent: :closed_consultation do
     outcome { create(:consultation_outcome) }
   end

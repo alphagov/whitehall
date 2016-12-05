@@ -40,7 +40,7 @@
   .consultation-block {
     @extend %contain-floats;
     @include white-links;
-    background: $inside-gov-brand;
+    background: $govuk-blue;
     color: $white;
     padding: $gutter-half;
     margin-bottom: $gutter * 1.5;
@@ -130,5 +130,5 @@
 .consultation-closed {
   .original-consultation {
     border-top: 0;
-  }  
+  }
 }

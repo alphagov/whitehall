@@ -19,6 +19,12 @@ Scenario: Publishing a submitted consultation
   Then I should see the consultation "Beard Length Review" in the list of published documents
   And the consultation "Beard Length Review" should be visible to the public
 
+Scenario: Viewing an unopened consultation
+  Given I am an editor
+  And an unopened consultation exists
+  When I visit the consultation
+  Then the date the consultation opens should be viewable
+
 Scenario: Adding an outcome to a closed consultation
   Given I am an editor
   And a closed consultation exists
