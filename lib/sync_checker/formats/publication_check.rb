@@ -21,6 +21,7 @@ module SyncChecker
             "related_statistical_data_sets",
             edition_expected_in_live
               .statistical_data_sets
+              .select { |ds| ds.unpublishing.nil? }
               .map(&:content_id)
           ),
           Checks::LinksCheck.new(
