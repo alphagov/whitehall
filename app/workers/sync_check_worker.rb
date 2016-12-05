@@ -1,3 +1,5 @@
+require 'sync_checker'
+
 class SyncCheckWorker < WorkerBase
   sidekiq_options queue: :sync_checks
 
