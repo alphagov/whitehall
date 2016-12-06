@@ -125,11 +125,18 @@ module PublishingApi::ConsultationPresenterTest
 
   class OpenConsultationTest < TestCase
     setup do
-      self.consultation = create(:open_consultation)
+      self.consultation = create(
+        :open_consultation,
+        opening_at: 1.day.ago,
+      )
     end
 
     test 'document type' do
       assert_attribute :document_type, 'open_consultation'
+    end
+
+    test 'opening date' do
+      assert_details_attribute :opening_date, 1.day.ago
     end
 
     test 'validity' do
