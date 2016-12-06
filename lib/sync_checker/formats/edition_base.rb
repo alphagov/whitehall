@@ -38,20 +38,20 @@ module SyncChecker
         @base_paths ||= {draft: {}, live: {}}.tap do |paths|
           if edition_expected_in_draft
             edition_expected_in_draft.translated_locales.each do |locale|
-              paths[:draft][locale] = get_path(locale)
+              paths[:draft][locale] = get_path(edition_expected_in_draft, locale)
             end
           end
 
           if edition_expected_in_live
             edition_expected_in_live.translated_locales.each do |locale|
-              paths[:live][locale] = get_path(locale)
+              paths[:live][locale] = get_path(edition_expected_in_live, locale)
             end
           end
         end
       end
 
-      def get_path(locale)
-        path = Whitehall::UrlMaker.new.public_document_path(edition_expected_in_draft)
+      def get_path(edition, locale)
+        path = Whitehall::UrlMaker.new.public_document_path(edition)
         path += ".#{locale}" unless locale.to_s == "en"
         path
       end
@@ -145,7 +145,7 @@ module SyncChecker
       def top_level_fields_hash(edition, locale)
         translation_for_locale = edition.translation_for(locale)
         {
-          base_path: get_path(locale),
+          base_path: get_path(edition, locale),
           content_id: document.content_id,
           document_type: document_type,
           locale: locale.to_s,
