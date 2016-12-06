@@ -12,6 +12,10 @@ module PublishingApi::ConsultationPresenterTest
       PublishingApi::ConsultationPresenter.new(consultation).content
     end
 
+    def presented_links
+      PublishingApi::ConsultationPresenter.new(consultation).links
+    end
+
     def assert_attribute(attribute, value)
       assert_equal value, presented_content[attribute]
     end
@@ -63,6 +67,32 @@ module PublishingApi::ConsultationPresenterTest
       expected_content = actual_content.merge(attributes_double)
 
       assert_equal actual_content, expected_content
+    end
+
+    test 'base links' do
+      expected_link_keys = %i(organisations policy_areas topics)
+
+      links_double = {
+        link_one: 'link_one',
+        link_two: 'link_two',
+        link_three: 'link_three',
+      }
+
+      LinksPresenter
+        .expects(:new)
+        .with(consultation)
+        .returns(
+          mock('LinksPresenter') {
+            expects(:extract)
+              .with(expected_link_keys)
+              .returns(links_double)
+          }
+        )
+
+      actual_links = presented_links
+      expected_links = actual_links.merge(links_double)
+
+      assert_equal actual_links, expected_links
     end
 
     test 'body details' do

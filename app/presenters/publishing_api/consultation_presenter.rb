@@ -23,6 +23,12 @@ module PublishingApi
         )
     end
 
+    def links
+      LinksPresenter
+        .new(consultation)
+        .extract(%i(organisations policy_areas topics))
+    end
+
   private
 
     attr_accessor :consultation
