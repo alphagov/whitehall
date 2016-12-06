@@ -127,8 +127,13 @@ module PublishingApi::ConsultationPresenterTest
     setup do
       self.consultation = create(
         :open_consultation,
+        closing_at: 1.day.from_now,
         opening_at: 1.day.ago,
       )
+    end
+
+    test 'closing date' do
+      assert_details_attribute :closing_date, 1.day.from_now
     end
 
     test 'document type' do

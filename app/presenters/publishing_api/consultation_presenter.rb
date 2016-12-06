@@ -31,6 +31,7 @@ module PublishingApi
     def base_details
       {
         body: Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(consultation),
+        closing_date: consultation.closing_at,
         opening_date: consultation.opening_at,
       }
     end
