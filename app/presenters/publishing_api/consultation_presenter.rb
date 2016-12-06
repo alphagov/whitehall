@@ -32,6 +32,7 @@ module PublishingApi
       {
         body: Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(consultation),
         closing_date: consultation.closing_at,
+        emphasised_organisations: consultation.lead_organisations.map(&:content_id),
         opening_date: consultation.opening_at,
       }
     end

@@ -88,6 +88,11 @@ module PublishingApi::ConsultationPresenterTest
       assert_attribute :document_type, 'open_consultation'
     end
 
+    test 'emphasised organisations' do
+      assert_details_attribute :emphasised_organisations,
+                               consultation.lead_organisations.map(&:content_id)
+    end
+
     test 'first public at details' do
       assert_details_payload 'PublishingApi::PayloadBuilder::FirstPublicAt'
     end
