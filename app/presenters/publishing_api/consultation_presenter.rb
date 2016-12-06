@@ -36,6 +36,7 @@ module PublishingApi
 
     def details
       base_details
+        .merge(PayloadBuilder::FirstPublicAt.for(consultation))
         .merge(PayloadBuilder::PoliticalDetails.for(consultation))
     end
 

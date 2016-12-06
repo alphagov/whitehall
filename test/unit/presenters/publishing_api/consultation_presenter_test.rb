@@ -88,6 +88,10 @@ module PublishingApi::ConsultationPresenterTest
       assert_attribute :document_type, 'open_consultation'
     end
 
+    test 'first public at details' do
+      assert_details_payload 'PublishingApi::PayloadBuilder::FirstPublicAt'
+    end
+
     test 'political details' do
       assert_details_payload 'PublishingApi::PayloadBuilder::PoliticalDetails'
     end
