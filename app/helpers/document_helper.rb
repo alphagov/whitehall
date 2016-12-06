@@ -22,14 +22,6 @@ module DocumentHelper
     edition.first_published_version? ? t('document.published') : t('document.updated')
   end
 
-  def edition_organisation_class(edition)
-    if organisation = edition.sorted_organisations.first
-      organisation.slug
-    else
-      'unknown_organisation'
-    end
-  end
-
   def national_statistics_logo(edition)
     if edition.national_statistic?
       content_tag :div, class: 'national-statistic' do

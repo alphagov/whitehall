@@ -192,10 +192,6 @@ module OrganisationHelper
       @judges.any?
   end
 
-  def organisations_grouped_by_type(organisations)
-    organisations.group_by(&:organisation_type).sort_by { |type, department| type.listing_position }
-  end
-
   def extra_board_member_class(organisation, i)
     clear_number = 3
     if organisation.important_board_members > 1

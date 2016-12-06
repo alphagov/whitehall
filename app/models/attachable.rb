@@ -26,12 +26,6 @@ module Attachable
     end
   end
 
-  def build_empty_file_attachment
-    attachment = FileAttachment.new
-    attachment.build_attachment_data
-    attachments << attachment
-  end
-
   def valid_virus_state?
     attachments.each do |attachment|
       if attachment.could_contain_viruses? && (attachment.virus_status != :clean)
