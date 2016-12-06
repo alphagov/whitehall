@@ -108,6 +108,10 @@ module PublishingApi::ConsultationPresenterTest
       assert_attribute :schema_name, 'consultation'
     end
 
+    test 'tags' do
+      assert_details_payload 'PublishingApi::PayloadBuilder::TagDetails'
+    end
+
     test 'validity' do
       assert_valid_against_schema presented_content, 'consultation'
     end
