@@ -358,26 +358,27 @@ ru:
     email: "Электронный адрес"
   corporate_information_page:
     type:
-      about:
-      about_our_services:
-      access_and_opening:
-      complaints_procedure:
-      equality_and_diversity:
-      media_enquiries:
-      membership:
-      our_energy_use:
-      our_governance:
-      personal_information_charter: "Раздел личной информации"
-      petitions_and_campaigns:
-      procurement:
-      publication_scheme: "Схема публикации"
-      recruitment:
-      research:
-      social_media_use: "Использование социальных сетей"
-      staff_update:
-      statistics:
-      terms_of_reference:
-      welsh_language_scheme: "Выбор Уэльского языка"
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: "Раздел личной информации"
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: "Схема публикации"
+        recruitment:
+        research:
+        social_media_use: "Использование социальных сетей"
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: "Выбор Уэльского языка"
   date:
     formats:
       default: "%d %B %Y"

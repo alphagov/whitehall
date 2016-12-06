@@ -71,26 +71,27 @@ th:
     email: "อีเมล์"
   corporate_information_page:
     type:
-      about:
-      about_our_services:
-      access_and_opening:
-      complaints_procedure:
-      equality_and_diversity:
-      media_enquiries:
-      membership:
-      our_energy_use:
-      our_governance:
-      personal_information_charter: "กฎบัตรข้อมูลส่วนบุคคล"
-      petitions_and_campaigns:
-      procurement:
-      publication_scheme: "โครงการสิ่งพิม์"
-      recruitment:
-      research:
-      social_media_use: "การใช้สื่อสังคมออนล์"
-      staff_update:
-      statistics:
-      terms_of_reference:
-      welsh_language_scheme: "โครงการภาษาเวลช์"
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: "กฎบัตรข้อมูลส่วนบุคคล"
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: "โครงการสิ่งพิม์"
+        recruitment:
+        research:
+        social_media_use: "การใช้สื่อสังคมออนล์"
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: "โครงการภาษาเวลช์"
   date:
     formats:
       default: "%d %B %Y"

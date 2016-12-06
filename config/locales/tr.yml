@@ -72,26 +72,27 @@ tr:
     email: E-posta
   corporate_information_page:
     type:
-      about:
-      about_our_services:
-      access_and_opening:
-      complaints_procedure:
-      equality_and_diversity:
-      media_enquiries:
-      membership:
-      our_energy_use:
-      our_governance:
-      personal_information_charter: Kişisel Bilgiler Tüzüğü
-      petitions_and_campaigns:
-      procurement:
-      publication_scheme: Yayın Programı
-      recruitment:
-      research:
-      social_media_use: 'Sosyal Medya Kullanımı '
-      staff_update:
-      statistics:
-      terms_of_reference:
-      welsh_language_scheme: Galler dili Programı
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: Kişisel Bilgiler Tüzüğü
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: Yayın Programı
+        recruitment:
+        research:
+        social_media_use: 'Sosyal Medya Kullanımı '
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: Galler dili Programı
   date:
     formats:
       default: "%d %B %Y"

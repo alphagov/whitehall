@@ -267,26 +267,27 @@ el:
     email: Email
   corporate_information_page:
     type:
-      about:
-      about_our_services:
-      access_and_opening:
-      complaints_procedure:
-      equality_and_diversity:
-      media_enquiries:
-      membership:
-      our_energy_use:
-      our_governance:
-      personal_information_charter: "Προστασία προσωπικών δεδομένων"
-      petitions_and_campaigns:
-      procurement:
-      publication_scheme: "Σχέδιο έκδοσης"
-      recruitment:
-      research:
-      social_media_use: "Χρήση κοινωνικών δικτύων"
-      staff_update:
-      statistics:
-      terms_of_reference:
-      welsh_language_scheme: "Πρόγραμμα Ουαλλικής γλώσσας"
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: "Προστασία προσωπικών δεδομένων"
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: "Σχέδιο έκδοσης"
+        recruitment:
+        research:
+        social_media_use: "Χρήση κοινωνικών δικτύων"
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: "Πρόγραμμα Ουαλλικής γλώσσας"
   date:
     formats:
       default:

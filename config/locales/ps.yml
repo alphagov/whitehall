@@ -265,26 +265,27 @@ ps:
     email: "برښنالیک"
   corporate_information_page:
     type:
-      about:
-      about_our_services:
-      access_and_opening:
-      complaints_procedure:
-      equality_and_diversity:
-      media_enquiries:
-      membership:
-      our_energy_use:
-      our_governance:
-      personal_information_charter: "د شخصی معلوماتی په اړه سند"
-      petitions_and_campaigns:
-      procurement:
-      publication_scheme: "د خپرولو پلان"
-      recruitment:
-      research:
-      social_media_use: "د ټولنیزو رسنیو استعمال"
-      staff_update:
-      statistics:
-      terms_of_reference:
-      welsh_language_scheme: "د ویلز د ژبی پلان"
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: "د شخصی معلوماتی په اړه سند"
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: "د خپرولو پلان"
+        recruitment:
+        research:
+        social_media_use: "د ټولنیزو رسنیو استعمال"
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: "د ویلز د ژبی پلان"
   date:
     formats:
       default: "%d %B %Y"

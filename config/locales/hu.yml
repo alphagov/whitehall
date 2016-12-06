@@ -73,26 +73,27 @@ hu:
     email: E-mail
   corporate_information_page:
     type:
-      about:
-      about_our_services:
-      access_and_opening:
-      complaints_procedure:
-      equality_and_diversity:
-      media_enquiries:
-      membership:
-      our_energy_use:
-      our_governance:
-      personal_information_charter: Személyes információk kezelése
-      petitions_and_campaigns:
-      procurement:
-      publication_scheme: Az információk publikálására vonatkozó eljárási rend
-      recruitment:
-      research:
-      social_media_use: Social media
-      staff_update:
-      statistics:
-      terms_of_reference:
-      welsh_language_scheme: Welsh language scheme
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: Személyes információk kezelése
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: Az információk publikálására vonatkozó eljárási rend
+        recruitment:
+        research:
+        social_media_use: Social media
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: Welsh language scheme
   date:
     formats:
       default: "%Y %B %d"

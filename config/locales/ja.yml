@@ -71,26 +71,27 @@ ja:
     email: Email
   corporate_information_page:
     type:
-      about:
-      about_our_services:
-      access_and_opening:
-      complaints_procedure:
-      equality_and_diversity:
-      media_enquiries:
-      membership:
-      our_energy_use:
-      our_governance:
-      personal_information_charter: "個人情報保護法"
-      petitions_and_campaigns:
-      procurement:
-      publication_scheme: "情報公開法"
-      recruitment:
-      research:
-      social_media_use: "ソーシャルメディア"
-      staff_update:
-      statistics:
-      terms_of_reference:
-      welsh_language_scheme: "ウェールズ語スキーム"
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: "個人情報保護法"
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: "情報公開法"
+        recruitment:
+        research:
+        social_media_use: "ソーシャルメディア"
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: "ウェールズ語スキーム"
   date:
     formats:
       default: "%Y %B %d"

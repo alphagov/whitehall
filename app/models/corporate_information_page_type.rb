@@ -18,7 +18,7 @@ class CorporateInformationPageType
   def title(organisation)
     organisation_name = (organisation.respond_to?(:acronym) && organisation.acronym || "#{organisation.name}")
     translation_key = slug.gsub('-', '_')
-    I18n.t("corporate_information_page.type.#{translation_key}", organisation_name: organisation_name)
+    I18n.t("corporate_information_page.type.title.#{translation_key}", organisation_name: organisation_name)
   end
 
   def self.by_menu_heading(menu_heading)

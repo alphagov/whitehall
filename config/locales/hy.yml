@@ -266,26 +266,27 @@ hy:
     email: "Էլելտրոնային հասցե"
   corporate_information_page:
     type:
-      about:
-      about_our_services:
-      access_and_opening:
-      complaints_procedure:
-      equality_and_diversity:
-      media_enquiries:
-      membership:
-      our_energy_use:
-      our_governance:
-      personal_information_charter: "Անձնական տվյալների կանոնադրություն"
-      petitions_and_campaigns:
-      procurement:
-      publication_scheme: "Հրապարակման համակարգ"
-      recruitment:
-      research:
-      social_media_use: "Սոցիալական լրատվամիջոցի օգտագործում"
-      staff_update:
-      statistics:
-      terms_of_reference:
-      welsh_language_scheme: "Ուելսերենի կանոնադրություն"
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: "Անձնական տվյալների կանոնադրություն"
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: "Հրապարակման համակարգ"
+        recruitment:
+        research:
+        social_media_use: "Սոցիալական լրատվամիջոցի օգտագործում"
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: "Ուելսերենի կանոնադրություն"
   date:
     formats:
       default: "%d %B %Y"

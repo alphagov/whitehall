@@ -266,26 +266,27 @@ sq:
     email: Email
   corporate_information_page:
     type:
-      about:
-      about_our_services:
-      access_and_opening:
-      complaints_procedure:
-      equality_and_diversity:
-      media_enquiries:
-      membership:
-      our_energy_use:
-      our_governance:
-      personal_information_charter: Informacion Personal
-      petitions_and_campaigns:
-      procurement:
-      publication_scheme: Skeme publikimi
-      recruitment:
-      research:
-      social_media_use: Perdorim media sociale
-      staff_update:
-      statistics:
-      terms_of_reference:
-      welsh_language_scheme: Skeme e gjuhes Uells
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: Informacion Personal
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: Skeme publikimi
+        recruitment:
+        research:
+        social_media_use: Perdorim media sociale
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: Skeme e gjuhes Uells
   date:
     formats:
       default: "%d %B %Y"

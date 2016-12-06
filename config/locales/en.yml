@@ -292,31 +292,34 @@ en:
     corporate_information:
       publication_scheme_html: Read about the types of information we routinely publish in our %{link}.
       personal_information_charter_html: Our %{link} explains how we treat your personal information.
-      welsh_language_scheme_html: Find out about our commitment to publishing in the %{link}.
+      welsh_language_scheme_html: Find out about our commitment to %{link}.
       social_media_use_html: Read our policy on %{link}.
       about_our_services_html: Find out %{link}.
   corporate_information_page:
     type:
-      personal_information_charter: Personal information charter
-      publication_scheme: Publication scheme
-      complaints_procedure: Complaints procedure
-      terms_of_reference: Terms of reference
-      our_governance: Our governance
-      statistics: Statistics at %{organisation_name}
-      procurement: Procurement at %{organisation_name}
-      recruitment: Working for %{organisation_name}
-      our_energy_use: Our energy use
-      membership: Membership
-      welsh_language_scheme: Welsh language scheme
-      equality_and_diversity: Equality and diversity
-      petitions_and_campaigns: Petitions and campaigns
-      research: Research at %{organisation_name}
-      access_and_opening: Office access and opening times
-      staff_update: Staff news and information
-      media_enquiries: Media enquiries
-      social_media_use: Social media use
-      about_our_services: About our services
-      about: About us
+      title:
+        about: About us
+        about_our_services: About our services
+        access_and_opening: Office access and opening times
+        complaints_procedure: Complaints procedure
+        equality_and_diversity: Equality and diversity
+        media_enquiries: Media enquiries
+        membership: Membership
+        our_energy_use: Our energy use
+        our_governance: Our governance
+        personal_information_charter: Personal information charter
+        petitions_and_campaigns: Petitions and campaigns
+        procurement: Procurement at %{organisation_name}
+        publication_scheme: Publication scheme
+        recruitment: Working for %{organisation_name}
+        research: Research at %{organisation_name}
+        social_media_use: Social media use
+        staff_update: Staff news and information
+        statistics: Statistics at %{organisation_name}
+        terms_of_reference: Terms of reference
+        welsh_language_scheme: Welsh language scheme
+      link_text:
+        welsh_language_scheme: publishing in Welsh
   contact:
     email: Email
     contact_form: Contact form

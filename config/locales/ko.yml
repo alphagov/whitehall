@@ -71,26 +71,27 @@ ko:
     email: "이메일"
   corporate_information_page:
     type:
-      about:
-      about_our_services:
-      access_and_opening:
-      complaints_procedure:
-      equality_and_diversity:
-      media_enquiries:
-      membership:
-      our_energy_use:
-      our_governance:
-      personal_information_charter: "개인정보 규정"
-      petitions_and_campaigns:
-      procurement:
-      publication_scheme: "발행 계획"
-      recruitment:
-      research:
-      social_media_use: "소셜미디어 사용"
-      staff_update:
-      statistics:
-      terms_of_reference:
-      welsh_language_scheme: "웨일스어 계획"
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: "개인정보 규정"
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: "발행 계획"
+        recruitment:
+        research:
+        social_media_use: "소셜미디어 사용"
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: "웨일스어 계획"
   date:
     formats:
       default: "%d %B %Y"

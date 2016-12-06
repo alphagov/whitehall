@@ -266,26 +266,27 @@ ur:
     email: "ای میل"
   corporate_information_page:
     type:
-      about:
-      about_our_services:
-      access_and_opening:
-      complaints_procedure:
-      equality_and_diversity:
-      media_enquiries:
-      membership:
-      our_energy_use:
-      our_governance:
-      personal_information_charter: "ذاتی معلومات کاچارٹر"
-      petitions_and_campaigns:
-      procurement:
-      publication_scheme: "اشاعتی اسکیم"
-      recruitment:
-      research:
-      social_media_use: "سوشل میڈیاکااستعمال"
-      staff_update:
-      statistics:
-      terms_of_reference:
-      welsh_language_scheme: " ویلش زبان اسکیم"
+      title:
+        about:
+        about_our_services:
+        access_and_opening:
+        complaints_procedure:
+        equality_and_diversity:
+        media_enquiries:
+        membership:
+        our_energy_use:
+        our_governance:
+        personal_information_charter: "ذاتی معلومات کاچارٹر"
+        petitions_and_campaigns:
+        procurement:
+        publication_scheme: "اشاعتی اسکیم"
+        recruitment:
+        research:
+        social_media_use: "سوشل میڈیاکااستعمال"
+        staff_update:
+        statistics:
+        terms_of_reference:
+        welsh_language_scheme: " ویلش زبان اسکیم"
   date:
     formats:
       default: "%d %B %Y"

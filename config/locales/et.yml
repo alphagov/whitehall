@@ -267,26 +267,27 @@ et:
     email: E-post
   corporate_information_page:
     type:
-      about: Meist
-      about_our_services: Meie teenustest
-      access_and_opening: Kontori asukoht ja tööaeg
-      complaints_procedure: Kaebuste esitamise kord
-      equality_and_diversity: Võrdõiguslikkus ja diversiteet
-      media_enquiries: Meediapäringud
-      membership: Liikmelisus
-      our_energy_use: Meie energiatarbimus
-      our_governance: Meie juhatus
-      personal_information_charter: Isikuandmete harta
-      petitions_and_campaigns: Petitsioonid ja kampaaniad
-      procurement: Hanked %{organisation_name}
-      publication_scheme: Avaldamise kord
-      recruitment: Töötamine %{organisation_name}
-      research: Uuringud %{organisation_name}
-      social_media_use: Sotsiaalmeedia kasutus
-      staff_update: Meeskonna uudised ja info
-      statistics: Statistika %{organisation_name}
-      terms_of_reference: Ametivolitused
-      welsh_language_scheme: Uelsi keele kasutusest
+      title:
+        about: Meist
+        about_our_services: Meie teenustest
+        access_and_opening: Kontori asukoht ja tööaeg
+        complaints_procedure: Kaebuste esitamise kord
+        equality_and_diversity: Võrdõiguslikkus ja diversiteet
+        media_enquiries: Meediapäringud
+        membership: Liikmelisus
+        our_energy_use: Meie energiatarbimus
+        our_governance: Meie juhatus
+        personal_information_charter: Isikuandmete harta
+        petitions_and_campaigns: Petitsioonid ja kampaaniad
+        procurement: Hanked %{organisation_name}
+        publication_scheme: Avaldamise kord
+        recruitment: Töötamine %{organisation_name}
+        research: Uuringud %{organisation_name}
+        social_media_use: Sotsiaalmeedia kasutus
+        staff_update: Meeskonna uudised ja info
+        statistics: Statistika %{organisation_name}
+        terms_of_reference: Ametivolitused
+        welsh_language_scheme: Uelsi keele kasutusest
   date:
     formats:
       default:

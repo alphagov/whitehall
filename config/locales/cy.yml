@@ -454,26 +454,29 @@ cy:
     email: E-bost
   corporate_information_page:
     type:
-      about: Amdanom ni
-      about_our_services: Gwybodaeth am ein gwasanaethau
-      access_and_opening: Mynediad i'n swyddfeydd ac amseroedd agor
-      complaints_procedure: Trefn gwyno
-      equality_and_diversity: Cydraddoldeb ac amrywiaeth
-      media_enquiries: Ymholiadau'r cyfryngau
-      membership: Aelodaeth
-      our_energy_use: Ein defnydd o egni
-      our_governance: Ein trefn lywodraethu
-      personal_information_charter: Siarter gwybodaeth bersonol
-      petitions_and_campaigns: Deisebau ac ymgyrchoedd
-      procurement: Caffael yn %{organisation_name}
-      publication_scheme: Cynllun cyhoeddi
-      recruitment: Yn gweithio i %{organisation_name}
-      research: Ymchwil yn %{organisation_name}
-      social_media_use: Defnydd o gyfryngau cymdeithasol
-      staff_update: Gwybodaeth a newyddion staff
-      statistics: Ystadegau yn %{organisation_name}
-      terms_of_reference: Cylch gorchwyl
-      welsh_language_scheme: Cynllun iaith Gymraeg
+      title:
+        about: Amdanom ni
+        about_our_services: Gwybodaeth am ein gwasanaethau
+        access_and_opening: Mynediad i'n swyddfeydd ac amseroedd agor
+        complaints_procedure: Trefn gwyno
+        equality_and_diversity: Cydraddoldeb ac amrywiaeth
+        media_enquiries: Ymholiadau'r cyfryngau
+        membership: Aelodaeth
+        our_energy_use: Ein defnydd o egni
+        our_governance: Ein trefn lywodraethu
+        personal_information_charter: Siarter gwybodaeth bersonol
+        petitions_and_campaigns: Deisebau ac ymgyrchoedd
+        procurement: Caffael yn %{organisation_name}
+        publication_scheme: Cynllun cyhoeddi
+        recruitment: Yn gweithio i %{organisation_name}
+        research: Ymchwil yn %{organisation_name}
+        social_media_use: Defnydd o gyfryngau cymdeithasol
+        staff_update: Gwybodaeth a newyddion staff
+        statistics: Ystadegau yn %{organisation_name}
+        terms_of_reference: Cylch gorchwyl
+        welsh_language_scheme: Cynllun iaith Gymraeg
+      link_text:
+        welsh_language_scheme: gyhoeddi yn y Gymraeg
   date:
     formats:
       default: "%d %B %Y"
@@ -625,7 +628,7 @@ cy:
       publication_scheme_html: Darllenwch am y mathau o wybodaeth rydym yn eu cyhoeddi'n
         rheolaidd yn ein %{link}.
       social_media_use_html: Darllenwch ein polisi ar %{link}
-      welsh_language_scheme_html: Dysgwch am ein hymrwymiad i gyhoeddi yn y %{link}.
+      welsh_language_scheme_html: Dysgwch am ein hymrwymiad i %{link}.
     find_out_more: Gweld proffil llawn a'r holl fanylion cyswllt
     headings:
       about_us: Gwybodaeth amdanom ni
