@@ -248,4 +248,23 @@ module PublishingApi::ConsultationPresenterTest
       assert_valid_against_schema presented_content, 'consultation'
     end
   end
+
+  class ConsultationHeldOnAnotherWebsite < TestCase
+    setup do
+      self.consultation = create(
+        :open_consultation,
+        external: true,
+        external_url: 'https://example.com/link/to/consultation'
+      )
+    end
+
+    test 'held on another website URL' do
+      assert_details_attribute :held_on_another_website_url,
+                               'https://example.com/link/to/consultation'
+    end
+
+    test 'validity' do
+      assert_valid_against_schema presented_content, 'consultation'
+    end
+  end
 end

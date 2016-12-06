@@ -38,6 +38,7 @@ module PublishingApi
 
     def details
       base_details
+        .merge(ExternalURL.for(consultation))
         .merge(PayloadBuilder::FirstPublicAt.for(consultation))
         .merge(PayloadBuilder::PoliticalDetails.for(consultation))
     end
@@ -49,6 +50,26 @@ module PublishingApi
                           end
 
       public_updated_at.rfc3339
+    end
+
+    class ExternalURL
+      def self.for(consultation)
+        new(consultation).call
+      end
+
+      def initialize(consultation)
+        self.consultation = consultation
+      end
+
+      def call
+        return {} unless consultation.external?
+
+        { held_on_another_website_url: consultation.external_url }
+      end
+
+    private
+
+      attr_accessor :consultation
     end
   end
 end
