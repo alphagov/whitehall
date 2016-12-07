@@ -36,15 +36,20 @@ module PublishingApi
 
     def base_details
       {
-        body: Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(consultation),
+        body: body,
         closing_date: consultation.closing_at,
         emphasised_organisations: consultation.lead_organisations.map(&:content_id),
         opening_date: consultation.opening_at,
       }
     end
 
+    def body
+      Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(consultation)
+    end
+
     def details
       base_details
+        .merge(Documents.for(consultation))
         .merge(ExternalURL.for(consultation))
         .merge(WaysToRespond.for(consultation))
         .merge(PayloadBuilder::FirstPublicAt.for(consultation))
@@ -59,6 +64,40 @@ module PublishingApi
                           end
 
       public_updated_at.rfc3339
+    end
+
+    class Documents
+      def self.for(consultation)
+        new(consultation).call
+      end
+
+      def initialize(consultation, renderer: Whitehall::GovspeakRenderer.new)
+        self.consultation = consultation
+        self.renderer = renderer
+      end
+
+      def call
+        return {} unless consultation.attachments.present?
+
+        { documents: documents }
+      end
+
+    private
+
+      attr_accessor :consultation, :renderer
+
+      def alternative_format_email
+        consultation
+          .alternative_format_provider
+          .try(:alternative_format_contact_email)
+      end
+
+      def documents
+        renderer.block_attachments(
+          consultation.attachments,
+          alternative_format_email,
+        )
+      end
     end
 
     class ExternalURL

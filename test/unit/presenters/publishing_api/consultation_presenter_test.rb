@@ -107,6 +107,8 @@ module PublishingApi::ConsultationPresenterTest
 
       Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer)
 
+      PublishingApi::ConsultationPresenter::Documents.stubs(:for).returns({})
+
       assert_details_attribute :body, body_double
     end
 
@@ -282,6 +284,37 @@ module PublishingApi::ConsultationPresenterTest
 
     test 'document type' do
       assert_attribute :document_type, 'consultation_outcome'
+    end
+
+    test 'validity' do
+      assert_valid_against_schema presented_content, 'consultation'
+    end
+  end
+
+  class ConsultationWithFileAttachments < TestCase
+    setup do
+      self.consultation = create(:consultation, :with_html_attachment)
+    end
+
+    test 'documents' do
+      attachments_double = Object.new
+
+      alternative_format_email =
+        consultation
+          .alternative_format_provider
+          .alternative_format_contact_email
+
+      govspeak_renderer = mock('Whitehall::GovspeakRenderer')
+
+      govspeak_renderer
+        .expects(:block_attachments)
+        .with(consultation.attachments, alternative_format_email)
+        .returns(attachments_double)
+
+      Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer)
+      PublishingApi::ConsultationPresenter.any_instance.stubs(:body)
+
+      assert_details_attribute :documents, attachments_double
     end
 
     test 'validity' do
