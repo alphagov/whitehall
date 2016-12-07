@@ -51,6 +51,7 @@ module PublishingApi
       base_details
         .merge(Documents.for(consultation))
         .merge(ExternalURL.for(consultation))
+        .merge(FinalOutcome.for(consultation))
         .merge(WaysToRespond.for(consultation))
         .merge(PayloadBuilder::FirstPublicAt.for(consultation))
         .merge(PayloadBuilder::PoliticalDetails.for(consultation))
@@ -118,6 +119,49 @@ module PublishingApi
     private
 
       attr_accessor :consultation
+    end
+
+    class FinalOutcome
+      extend Forwardable
+
+      def self.for(consultation)
+        new(consultation).call
+      end
+
+      def initialize(consultation, renderer: Whitehall::GovspeakRenderer.new)
+        self.consultation = consultation
+        self.renderer = renderer
+      end
+
+      def call
+        return {} unless consultation.outcome_published?
+
+        {
+          final_outcome_detail: final_outcome_detail,
+          final_outcome_documents: final_outcome_documents,
+        }.compact
+      end
+
+      private
+
+      attr_accessor :consultation, :renderer
+      def_delegator :consultation, :outcome
+
+      def alternative_format_email
+        consultation
+          .alternative_format_provider
+          .try(:alternative_format_contact_email)
+      end
+
+      def final_outcome_detail
+        outcome.summary
+      end
+
+      def final_outcome_documents
+        return unless outcome.attachments.present?
+
+        renderer.block_attachments(outcome.attachments, alternative_format_email)
+      end
     end
 
     class WaysToRespond

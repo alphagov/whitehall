@@ -108,6 +108,7 @@ module PublishingApi::ConsultationPresenterTest
       Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer)
 
       PublishingApi::ConsultationPresenter::Documents.stubs(:for).returns({})
+      PublishingApi::ConsultationPresenter::FinalOutcome.stubs(:for).returns({})
 
       assert_details_attribute :body, body_double
     end
@@ -279,11 +280,39 @@ module PublishingApi::ConsultationPresenterTest
 
   class ClosedConsultationWithOutcomeTest < TestCase
     setup do
-      self.consultation = create(:consultation_with_outcome)
+      self.consultation = create(:consultation_with_outcome_attachment)
     end
 
     test 'document type' do
       assert_attribute :document_type, 'consultation_outcome'
+    end
+
+    test 'final outcome detail' do
+      assert_details_attribute :final_outcome_detail,
+                               consultation.outcome.summary
+    end
+
+    test 'final outcome documents' do
+      attachments_double = Object.new
+
+      alternative_format_email =
+        consultation
+          .alternative_format_provider
+          .try(:alternative_format_contact_email)
+
+      govspeak_renderer = mock('Whitehall::GovspeakRenderer')
+
+      govspeak_renderer
+        .expects(:block_attachments)
+        .with(consultation.outcome.attachments, alternative_format_email)
+        .returns(attachments_double)
+
+      Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer)
+
+      PublishingApi::ConsultationPresenter.any_instance.stubs(:body)
+      PublishingApi::ConsultationPresenter::Documents.stubs(:for).returns({})
+
+      assert_details_attribute :final_outcome_documents, attachments_double
     end
 
     test 'validity' do
@@ -312,7 +341,9 @@ module PublishingApi::ConsultationPresenterTest
         .returns(attachments_double)
 
       Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer)
+
       PublishingApi::ConsultationPresenter.any_instance.stubs(:body)
+      PublishingApi::ConsultationPresenter::FinalOutcome.stubs(:for).returns({})
 
       assert_details_attribute :documents, attachments_double
     end
