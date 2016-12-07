@@ -78,11 +78,11 @@ module PublishingApi::ConsultationPresenterTest
         link_three: 'link_three',
       }
 
-      LinksPresenter
+      PublishingApi::LinksPresenter
         .expects(:new)
         .with(consultation)
         .returns(
-          mock('LinksPresenter') {
+          mock('PublishingApi::LinksPresenter') {
             expects(:extract)
               .with(expected_link_keys)
               .returns(links_double)
@@ -190,8 +190,28 @@ module PublishingApi::ConsultationPresenterTest
 
   class OpenConsultationWithParticipationTest < TestCase
     setup do
-      participation = create(:consultation_participation,
-                             link_url: 'http://www.example.com')
+      response_form_data_attributes = attributes_for(
+        :consultation_response_form_data
+      )
+
+      response_form_attributes = attributes_for(
+        :consultation_response_form,
+        consultation_response_form_data_attributes: response_form_data_attributes
+      )
+
+      participation = create(
+        :consultation_participation,
+        consultation_response_form_attributes: response_form_attributes,
+        email: 'postmaster@example.com',
+        link_url: 'http://www.example.com',
+        postal_address: <<-ADDRESS.strip_heredoc.chop
+                        2 Home Farm Ln
+                        Kirklington
+                        Newark
+                        NG22 8PE
+                        UK
+      ADDRESS
+      )
 
       self.consultation = create(:open_consultation,
                                  consultation_participation: participation)
@@ -199,6 +219,23 @@ module PublishingApi::ConsultationPresenterTest
 
     test 'document type' do
       assert_attribute :document_type, 'open_consultation'
+    end
+
+    test 'ways to respond' do
+      expected_ways_to_respond = {
+        attachment_url: 'https://www.test.alphagov.co.uk/government/uploads/system/uploads/consultation_response_form_data/file/1/two-pages.pdf',
+        email: 'postmaster@example.com',
+        link_url: 'http://www.example.com',
+        postal_address: <<-ADDRESS.strip_heredoc.chop
+                        2 Home Farm Ln
+                        Kirklington
+                        Newark
+                        NG22 8PE
+                        UK
+                        ADDRESS
+      }
+
+      assert_details_attribute :ways_to_respond, expected_ways_to_respond
     end
 
     test 'validity' do

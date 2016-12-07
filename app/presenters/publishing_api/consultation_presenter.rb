@@ -46,6 +46,7 @@ module PublishingApi
     def details
       base_details
         .merge(ExternalURL.for(consultation))
+        .merge(WaysToRespond.for(consultation))
         .merge(PayloadBuilder::FirstPublicAt.for(consultation))
         .merge(PayloadBuilder::PoliticalDetails.for(consultation))
         .merge(PayloadBuilder::TagDetails.for(consultation))
@@ -78,6 +79,76 @@ module PublishingApi
     private
 
       attr_accessor :consultation
+    end
+
+    class WaysToRespond
+      extend Forwardable
+
+      def self.for(consultation)
+        new(consultation).call
+      end
+
+      def initialize(consultation, url_helpers: Whitehall.url_maker)
+        self.consultation = consultation
+        self.url_helpers = url_helpers
+      end
+
+      def call
+        return {} if consultation.external? ||
+            !consultation.open? ||
+            !consultation.has_consultation_participation?
+
+        {
+          ways_to_respond: {
+            email: email,
+            link_url: link_url,
+            postal_address: postal_address,
+            attachment_url: attachment_url,
+          }.compact
+        }.compact
+      end
+
+    private
+
+      GOVERNMENT_UPLOADS_PATH = '/government/uploads/'
+
+      attr_accessor :consultation, :url_helpers
+      def_delegator :consultation, :consultation_participation, :participation
+      def_delegator :participation, :consultation_response_form, :participation_response_form
+
+      def attachment_url
+        return unless participation.has_response_form?
+
+        absolute_path = Pathname(participation_response_form.file.url)
+        parent_path = Pathname(GOVERNMENT_UPLOADS_PATH)
+        child_path = absolute_path.relative_path_from(parent_path)
+
+        extension = child_path.extname
+        basename = child_path.basename(extension)
+        dirname = child_path.dirname
+
+        path = File.join(dirname, basename)
+
+        url_helpers.public_upload_url(path, extension: extension.delete('.'))
+      end
+
+      def email
+        return unless participation.has_email?
+
+        participation.email
+      end
+
+      def link_url
+        return unless participation.has_link?
+
+        participation.link_url
+      end
+
+      def postal_address
+        return unless participation.has_postal_address?
+
+        participation.postal_address
+      end
     end
   end
 end
