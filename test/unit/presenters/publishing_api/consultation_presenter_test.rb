@@ -407,4 +407,46 @@ module PublishingApi::ConsultationPresenterTest
       assert_valid_against_schema presented_content, 'consultation'
     end
   end
+
+  class ConsultationWithNationalApplicability < TestCase
+    setup do
+      scotland_nation_inapplicability = create(
+        :nation_inapplicability,
+        nation: Nation.scotland,
+        alternative_url: 'http://scotland.com'
+      )
+
+      self.consultation = create(
+        :consultation,
+        nation_inapplicabilities: [scotland_nation_inapplicability]
+      )
+    end
+
+    test 'national applicability' do
+      assert_details_attribute :national_applicability,
+                               {
+                                 england: {
+                                   label: 'England',
+                                   applicable: true,
+                                 },
+                                 northern_ireland: {
+                                   label: 'Northern Ireland',
+                                   applicable: true,
+                                 },
+                                 scotland: {
+                                   label: 'Scotland',
+                                   applicable: false,
+                                   alternative_url: 'http://scotland.com'
+                                 },
+                                 wales: {
+                                   label: 'Wales',
+                                   applicable: true,
+                                 }
+                               }
+    end
+
+    test 'validity' do
+      assert_valid_against_schema presented_content, 'consultation'
+    end
+  end
 end

@@ -52,6 +52,7 @@ module PublishingApi
         .merge(Documents.for(consultation))
         .merge(ExternalURL.for(consultation))
         .merge(FinalOutcome.for(consultation))
+        .merge(NationalApplicability.for(consultation))
         .merge(WaysToRespond.for(consultation))
         .merge(PayloadBuilder::FirstPublicAt.for(consultation))
         .merge(PayloadBuilder::PoliticalDetails.for(consultation))
@@ -142,7 +143,7 @@ module PublishingApi
         }.compact
       end
 
-      private
+    private
 
       attr_accessor :consultation, :renderer
       def_delegator :consultation, :outcome
@@ -162,6 +163,26 @@ module PublishingApi
 
         renderer.block_attachments(outcome.attachments, alternative_format_email)
       end
+    end
+
+    class NationalApplicability
+      def self.for(consultation)
+        new(consultation).call
+      end
+
+      def initialize(consultation)
+        self.consultation = consultation
+      end
+
+      def call
+        return {} unless consultation.nation_inapplicabilities.present?
+
+        { national_applicability: consultation.national_applicability }
+      end
+
+    private
+
+      attr_accessor :consultation
     end
 
     class WaysToRespond
