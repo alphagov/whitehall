@@ -49,6 +49,7 @@ module PublishingApi
 
     def details
       base_details
+        .merge(ChangeHistory.for(consultation))
         .merge(Documents.for(consultation))
         .merge(ExternalURL.for(consultation))
         .merge(FinalOutcome.for(consultation))
@@ -66,6 +67,26 @@ module PublishingApi
                           end
 
       public_updated_at.rfc3339
+    end
+
+    class ChangeHistory
+      def self.for(consultation)
+        new(consultation).call
+      end
+
+      def initialize(consultation)
+        self.consultation = consultation
+      end
+
+      def call
+        return {} unless consultation.change_history.present?
+
+        { change_history: consultation.change_history.as_json }
+      end
+
+    private
+
+      attr_accessor :consultation
     end
 
     class Documents

@@ -449,4 +449,25 @@ module PublishingApi::ConsultationPresenterTest
       assert_valid_against_schema presented_content, 'consultation'
     end
   end
+
+  class ConsultationWithChangeHistory < TestCase
+    setup do
+      self.consultation = create(:open_consultation)
+    end
+
+    test 'change history' do
+      expected_change_history = [
+        {
+          'public_timestamp' => '2011-11-10T11:11:11.000+00:00',
+          'note' => 'change-note',
+        }
+      ]
+
+      assert_details_attribute :change_history, expected_change_history
+    end
+
+    test 'validity' do
+      assert_valid_against_schema presented_content, 'consultation'
+    end
+  end
 end
