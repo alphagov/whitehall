@@ -109,6 +109,7 @@ module PublishingApi::ConsultationPresenterTest
 
       PublishingApi::ConsultationPresenter::Documents.stubs(:for).returns({})
       PublishingApi::ConsultationPresenter::FinalOutcome.stubs(:for).returns({})
+      PublishingApi::ConsultationPresenter::PublicFeedback.stubs(:for).returns({})
 
       assert_details_attribute :body, body_double
     end
@@ -265,12 +266,67 @@ module PublishingApi::ConsultationPresenterTest
       self.consultation = create(:closed_consultation)
 
       create(:consultation_public_feedback,
+             :with_file_attachment,
              consultation: consultation,
              summary: 'Public feedback summary')
     end
 
     test 'document type' do
       assert_attribute :document_type, 'closed_consultation'
+    end
+
+    test 'public feedback detail' do
+      public_feedback_detail_double = Object.new
+
+      govspeak_renderer = mock('Whitehall::GovspeakRenderer')
+
+      govspeak_renderer.stubs(:block_attachments)
+
+      govspeak_renderer
+        .expects(:govspeak_to_html)
+        .with(consultation.public_feedback.summary)
+        .returns(public_feedback_detail_double)
+
+      Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer)
+
+      PublishingApi::ConsultationPresenter.any_instance.stubs(:body)
+      PublishingApi::ConsultationPresenter::Documents.stubs(:for).returns({})
+      PublishingApi::ConsultationPresenter::FinalOutcome.stubs(:for).returns({})
+
+      assert_details_attribute :public_feedback_detail,
+                               public_feedback_detail_double
+    end
+
+    test 'public feedback documents' do
+      attachments_double = Object.new
+
+      alternative_format_email =
+        consultation
+          .alternative_format_provider
+          .try(:alternative_format_contact_email)
+
+      govspeak_renderer = mock('Whitehall::GovspeakRenderer')
+
+      govspeak_renderer.stubs(:govspeak_to_html)
+
+      govspeak_renderer
+        .expects(:block_attachments)
+        .with(consultation.public_feedback.attachments, alternative_format_email)
+        .returns(attachments_double)
+
+      Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer)
+
+      PublishingApi::ConsultationPresenter.any_instance.stubs(:body)
+      PublishingApi::ConsultationPresenter::Documents.stubs(:for).returns({})
+      PublishingApi::ConsultationPresenter::FinalOutcome.stubs(:for).returns({})
+
+      assert_details_attribute :public_feedback_documents,
+                               attachments_double
+    end
+
+    test 'public feedback publication date' do
+      assert_details_attribute :public_feedback_publication_date,
+                               '2011-11-11T00:00:00+00:00'
     end
 
     test 'validity' do
@@ -311,6 +367,7 @@ module PublishingApi::ConsultationPresenterTest
 
       PublishingApi::ConsultationPresenter.any_instance.stubs(:body)
       PublishingApi::ConsultationPresenter::Documents.stubs(:for).returns({})
+      PublishingApi::ConsultationPresenter::PublicFeedback.stubs(:for).returns({})
 
       assert_details_attribute :final_outcome_documents, attachments_double
     end
@@ -354,6 +411,7 @@ module PublishingApi::ConsultationPresenterTest
 
       PublishingApi::ConsultationPresenter.any_instance.stubs(:body)
       PublishingApi::ConsultationPresenter::FinalOutcome.stubs(:for).returns({})
+      PublishingApi::ConsultationPresenter::PublicFeedback.stubs(:for).returns({})
 
       assert_details_attribute :documents, attachments_double
     end

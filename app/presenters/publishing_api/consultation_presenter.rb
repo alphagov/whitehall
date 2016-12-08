@@ -55,6 +55,7 @@ module PublishingApi
         .merge(ExternalURL.for(consultation))
         .merge(FinalOutcome.for(consultation))
         .merge(NationalApplicability.for(consultation))
+        .merge(PublicFeedback.for(consultation))
         .merge(WaysToRespond.for(consultation))
         .merge(PayloadBuilder::FirstPublicAt.for(consultation))
         .merge(PayloadBuilder::PoliticalDetails.for(consultation))
@@ -205,6 +206,56 @@ module PublishingApi
     private
 
       attr_accessor :consultation
+    end
+
+    class PublicFeedback
+      extend Forwardable
+
+      def self.for(consultation)
+        new(consultation).call
+      end
+
+      def initialize(consultation, renderer: Whitehall::GovspeakRenderer.new)
+        self.consultation = consultation
+        self.renderer = renderer
+      end
+
+      def call
+        return {} unless consultation.closed? &&
+            consultation.public_feedback.present?
+
+        {
+          public_feedback_detail: detail,
+          public_feedback_documents: documents,
+          public_feedback_publication_date: publication_date,
+        }.compact
+      end
+
+    private
+
+      attr_accessor :consultation, :renderer
+      def_delegator :consultation, :public_feedback
+
+      def detail
+        return unless public_feedback.summary.present?
+
+        renderer.govspeak_to_html(public_feedback.summary)
+      end
+
+      def documents
+        return unless public_feedback.attachments.present?
+
+        renderer.block_attachments(
+          public_feedback.attachments,
+          consultation.alternative_format_provider.try(:alternative_format_contact_email),
+        )
+      end
+
+      def publication_date
+        return unless public_feedback.published_on.present?
+
+        public_feedback.published_on.rfc3339
+      end
     end
 
     class WaysToRespond
