@@ -1,13 +1,16 @@
 module PublishingApi
   class ConsultationPresenter
     extend Forwardable
+    include UpdateTypeHelper
 
     SCHEMA_NAME = 'consultation'
 
+    attr_reader :update_type
     def_delegator :consultation, :content_id
 
-    def initialize(consultation)
+    def initialize(consultation, update_type: nil)
       self.consultation = consultation
+      self.update_type = update_type || default_update_type(consultation)
     end
 
     def content
@@ -35,6 +38,7 @@ module PublishingApi
   private
 
     attr_accessor :consultation
+    attr_writer :update_type
     def_delegator :consultation, :display_type_key, :document_type
 
     def base_details

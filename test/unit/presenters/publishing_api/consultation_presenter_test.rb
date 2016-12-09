@@ -2,18 +2,25 @@ require 'test_helper'
 
 module PublishingApi::ConsultationPresenterTest
   class TestCase < ActiveSupport::TestCase
-    attr_accessor :consultation
+    attr_accessor :consultation, :update_type
 
     setup do
       create(:current_government)
     end
 
+    def presented_consultation
+      PublishingApi::ConsultationPresenter.new(
+        consultation,
+        update_type: update_type,
+      )
+    end
+
     def presented_content
-      PublishingApi::ConsultationPresenter.new(consultation).content
+      presented_consultation.content
     end
 
     def presented_links
-      PublishingApi::ConsultationPresenter.new(consultation).links
+      presented_consultation.links
     end
 
     def assert_attribute(attribute, value)
@@ -540,6 +547,37 @@ module PublishingApi::ConsultationPresenterTest
 
     test 'validity' do
       assert_valid_against_schema presented_content, 'consultation'
+    end
+  end
+
+  class ConsultationWithMajorChange < TestCase
+    setup do
+      self.consultation = create(:consultation, minor_change: false)
+      self.update_type = 'major'
+    end
+
+    test 'update type' do
+      assert_equal 'major', presented_consultation.update_type
+    end
+  end
+
+  class ConsultationWithMinorChange < TestCase
+    setup do
+      self.consultation = create(:consultation, minor_change: true)
+    end
+
+    test 'update type' do
+      assert_equal 'minor', presented_consultation.update_type
+    end
+  end
+
+  class ConsultationWithoutMinorChange < TestCase
+    setup do
+      self.consultation = create(:consultation, minor_change: false,)
+    end
+
+    test 'update type' do
+      assert_equal 'major', presented_consultation.update_type
     end
   end
 end
