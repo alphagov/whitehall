@@ -114,6 +114,10 @@ module PublishingApi::ConsultationPresenterTest
       assert_details_attribute :body, body_double
     end
 
+    test 'content id' do
+      assert_equal consultation.content_id, presented_consultation.content_id
+    end
+
     test 'description' do
       assert_attribute :description, consultation.summary
     end

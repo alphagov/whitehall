@@ -4,6 +4,8 @@ module PublishingApi
 
     SCHEMA_NAME = 'consultation'
 
+    def_delegator :consultation, :content_id
+
     def initialize(consultation)
       self.consultation = consultation
     end
