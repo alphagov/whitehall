@@ -44,9 +44,6 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
 
     assert_equal PublishingApi::GenericEditionPresenter,
       PublishingApiPresenters.presenter_for(CorporateInformationPage.new).class
-
-    assert_equal PublishingApi::GenericEditionPresenter,
-      PublishingApiPresenters.presenter_for(Consultation.new).class
   end
 
   test ".presenter_for returns a Placeholder presenter for an organisation" do
