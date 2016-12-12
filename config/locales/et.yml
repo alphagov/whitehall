@@ -15,6 +15,9 @@ et:
       authored_article:
         one: Avaldatud artikkel
         other: 'Avaldatud artiklid '
+      blog_post:
+        one:
+        other:
       case_study:
         one: Juhtumiuuring
         other: Juhtumiuuringud

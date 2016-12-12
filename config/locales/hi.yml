@@ -15,6 +15,9 @@ hi:
       authored_article:
         one: "मूल आलेख"
         other: "मूल आलेख"
+      blog_post:
+        one:
+        other:
       case_study:
         one: "विषय अध्ययन"
         other: "विषय अध्ययन"

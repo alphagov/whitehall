@@ -18,6 +18,10 @@ ro:
         one: 'Articol '
         few:
         other: 'Articol '
+      blog_post:
+        one:
+        few:
+        other:
       case_study:
         one: Studiu de caz
         few:

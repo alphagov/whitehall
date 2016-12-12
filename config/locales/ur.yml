@@ -15,6 +15,9 @@ ur:
       authored_article:
         one: "تحریر کردہ مضمون"
         other: "تحریر کردہ مضامین"
+      blog_post:
+        one:
+        other:
       case_study:
         one: "کیس اسٹڈی"
         other: "کیس اسٹڈیز"

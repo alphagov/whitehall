@@ -21,6 +21,11 @@ he:
         two:
         many:
         other: "מאמרים מאושרים"
+      blog_post:
+        one:
+        two:
+        many:
+        other:
       case_study:
         one: "מקרה בוחן"
         two:

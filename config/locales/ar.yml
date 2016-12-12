@@ -27,6 +27,13 @@ ar:
         few:
         many:
         other: "مقالات مرخصة"
+      blog_post:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       case_study:
         zero:
         one: "دراسة حالة"

@@ -15,6 +15,9 @@ de:
       authored_article:
         one: Namensartikel
         other: Namensartikel
+      blog_post:
+        one:
+        other:
       case_study:
         one: Fallstudie
         other: Fallstudien

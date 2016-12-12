@@ -136,6 +136,9 @@ ms:
       authored_article:
         one:
         other:
+      blog_post:
+        one:
+        other:
       case_study:
         one:
         other:

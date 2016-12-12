@@ -138,6 +138,9 @@ vi:
       authored_article:
         one: bài viết do tác giả
         other: Các bài viết do tác giả
+      blog_post:
+        one:
+        other:
       case_study:
         one: Trường hợp cụ thể
         other: Các Trường hợp cụ thể

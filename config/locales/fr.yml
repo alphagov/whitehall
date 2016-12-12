@@ -15,6 +15,9 @@ fr:
       authored_article:
         one: Article signé
         other: Articles signés
+      blog_post:
+        one:
+        other:
       case_study:
         one: Etude de cas
         other: Etudes de cas

@@ -21,6 +21,11 @@ sr:
         few:
         many:
         other: Autorski članci
+      blog_post:
+        one:
+        few:
+        many:
+        other:
       case_study:
         one: Studija slučaja
         few:

@@ -136,6 +136,9 @@ zh:
       authored_article:
         one: "撰写的文章"
         other: "撰写的文章"
+      blog_post:
+        one:
+        other:
       case_study:
         one: "实例研究"
         other: "实例研究"

@@ -107,6 +107,9 @@ en:
       announcement:
         one: Announcement
         other: Announcements
+      blog_post:
+        one: Blog post
+        other: Blog posts
       case_study:
         one: Case study
         other: Case studies

@@ -15,6 +15,9 @@ it:
       authored_article:
         one: Articolo autorizzato
         other: Articoli autorizzati
+      blog_post:
+        one:
+        other:
       case_study:
         one: Caso studio
         other: Casi studio

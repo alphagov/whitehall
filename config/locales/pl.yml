@@ -21,6 +21,11 @@ pl:
         few:
         many:
         other: Dokumenty utworzone przez
+      blog_post:
+        one:
+        few:
+        many:
+        other:
       case_study:
         one: Studium przypadku
         few:

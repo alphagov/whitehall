@@ -139,6 +139,9 @@ hu:
       authored_article:
         one: Publicisztika
         other: Publicisztikák
+      blog_post:
+        one:
+        other:
       case_study:
         one: Esettanulmány
         other: Esettanulmányok

@@ -15,6 +15,9 @@ ta:
       authored_article:
         one: " எழுதப்பட்ட   கட்டுரை"
         other: "எழுதப்பட்ட கட்டுரைகள்"
+      blog_post:
+        one:
+        other:
       case_study:
         one: "சம்பவ ஆய்வுக் கற்கை"
         other: "சம்பவ ஆய்வுக் கற்கைகள்"
