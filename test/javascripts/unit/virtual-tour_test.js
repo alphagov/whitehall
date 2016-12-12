@@ -1,4 +1,4 @@
-module("display joining message", {
+module("virtual tour", {
   setup: function() {
     this.$tour = $('<div class="js-virtual-tour"></div>');
     $('#qunit-fixture').append(this.$tour);
@@ -8,6 +8,9 @@ module("display joining message", {
 
     this.$info = $('<div id="one" data-tour-xml="one.xml" class="tour-info"></div><div id="two" data-tour-xml="two.xml" class="tour-info"></div>');
     this.$tour.append(this.$info);
+
+    GOVUK.virtualTour.$tour = this.$tour;
+    GOVUK.virtualTour.$nav = this.$nav;
   },
   teardown: function() {
     GOVUK.virtualTour.tours = [];
@@ -15,21 +18,18 @@ module("display joining message", {
 });
 
 test('adds tour player element' , function(){
-  GOVUK.virtualTour.$tour = this.$tour;
   GOVUK.virtualTour.addTourPlayerWrapper();
 
   equal(this.$tour.find('#tour-player').length, 1);
 });
 
 test('finds all tours on the page' , function(){
-  GOVUK.virtualTour.$tour = this.$tour;
   GOVUK.virtualTour.findTours();
 
   equal(GOVUK.virtualTour.tours.length, 2);
 });
 
 test('finds named tour from tours' , function(){
-  GOVUK.virtualTour.$tour = this.$tour;
   GOVUK.virtualTour.findTours();
 
   equal(GOVUK.virtualTour.findTour('one').id, 'one');
@@ -54,7 +54,6 @@ test('calls for tour switch based on event', function(){
 test('loads new tour with tour object', function(){
   var mock = sinon.mock(window);
   mock.expects("embedpano").once().withArgs({ swf: "/government/assets/tour/tour_pano.swf", xml: "/government/assets/tour/two.xml", target: "tour-player"});
-  GOVUK.virtualTour.$tour = this.$tour;
   GOVUK.virtualTour.$player = $('<div id="tour-player"></div>');
   this.$tour.prepend(GOVUK.virtualTour.$player);
 
@@ -68,7 +67,6 @@ test('loads new tour with tour object', function(){
 test('hides old tour info', function(){
   var mock = sinon.mock(window);
   mock.expects("embedpano").once().withArgs({ swf: "/government/assets/tour/tour_pano.swf", xml: "/government/assets/tour/two.xml", target: "tour-player"});
-  GOVUK.virtualTour.$tour = this.$tour;
   GOVUK.virtualTour.$player = $('<div id="tour-player"></div>');
   this.$tour.prepend(GOVUK.virtualTour.$player);
 
@@ -81,6 +79,18 @@ test('hides old tour info', function(){
   mock.restore();
 });
 
+test('marks the nav as active and unmarks the old nav', function(){
+  var mock = sinon.mock(window);
+  mock.expects("embedpano").once();
+  GOVUK.virtualTour.$player = $('<div id="tour-player"></div>');
+  this.$tour.prepend(GOVUK.virtualTour.$player);
+  var oneLink = this.$nav.find("a[href='#one']"),
+    twoLink = this.$nav.find("a[href='#two']");
+  oneLink.addClass('active-tour')
 
+  GOVUK.virtualTour.loadTour({ xml: 'two.xml', $el: this.$tour.find('#two') });
+  ok(!oneLink.hasClass('active-tour'));
+  ok(twoLink.hasClass('active-tour'));
 
-
+  mock.restore();
+});

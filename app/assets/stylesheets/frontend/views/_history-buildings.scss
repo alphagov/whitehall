@@ -159,6 +159,11 @@
           display: block;
           border-bottom: 1px solid $border-colour;
           padding: 4px 0 3px;
+
+          .active-tour {
+            text-decoration:none;
+            color: $text-colour;
+          }
         }
       }
     }
