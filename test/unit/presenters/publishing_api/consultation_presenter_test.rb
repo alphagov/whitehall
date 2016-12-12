@@ -320,6 +320,16 @@ module PublishingApi::ConsultationPresenterTest
     end
   end
 
+  class ConsultationWithAccessLimitation < TestCase
+    setup do
+      self.consultation = create(:consultation)
+    end
+
+    test 'access limited' do
+      assert_payload 'PublishingApi::PayloadBuilder::AccessLimitation'
+    end
+  end
+
   class ConsultationWithFileAttachments < TestCase
     setup do
       self.consultation = create(:consultation, :with_html_attachment)

@@ -12,6 +12,7 @@ module PublishingApi
       BaseItemPresenter
         .new(consultation)
         .base_attributes
+        .merge(PayloadBuilder::AccessLimitation.for(consultation))
         .merge(PayloadBuilder::PublicDocumentPath.for(consultation))
         .merge(
           description: consultation.summary,
