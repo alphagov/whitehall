@@ -14,6 +14,7 @@ module PublishingApi
         .base_attributes
         .merge(PayloadBuilder::PublicDocumentPath.for(consultation))
         .merge(
+          description: consultation.summary,
           details: details,
           document_type: document_type,
           rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,

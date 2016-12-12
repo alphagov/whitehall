@@ -80,6 +80,10 @@ module PublishingApi::ConsultationPresenterTest
       assert_details_attribute :body, body_double
     end
 
+    test 'description' do
+      assert_attribute :description, consultation.summary
+    end
+
     test 'document type' do
       assert_attribute :document_type, 'open_consultation'
     end
