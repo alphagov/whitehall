@@ -91,6 +91,8 @@ See the [search setup guide](docs/search_setup_guide.md)
 
 [Contributing guide](CONTRIBUTING.md)
 
+[Migration sync checks](docs/migration_sync_checks.md)
+
 ## Generating the documentation
 
 We use [YARD](https://github.com/lsegal/yard) for the documentation. You can generate a local copy with:
