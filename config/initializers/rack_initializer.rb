@@ -3,6 +3,6 @@
 if ENV.has_key?("KEY_SPACE_LIMIT")
   # http://stackoverflow.com/a/9123664/61435
   if Rack::Utils.respond_to?("key_space_limit=")
-    Rack::Utils.key_space_limit = ENV.fetch("KEY_SPACE_LIMIT")
+    Rack::Utils.key_space_limit = Integer(ENV["KEY_SPACE_LIMIT"])
   end
 end
