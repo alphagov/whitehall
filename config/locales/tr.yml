@@ -138,6 +138,9 @@ tr:
       authored_article:
         one: Yazılan makale
         other: Yazılan makaleler
+      blog_post:
+        one:
+        other:
       case_study:
         one: "Örnek Olay"
         other: "Örnek Olaylar"

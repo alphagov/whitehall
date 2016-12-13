@@ -138,6 +138,9 @@ fa:
       authored_article:
         one: "مقاله"
         other: "مقالات"
+      blog_post:
+        one:
+        other:
       case_study:
         one: "مطالعه ی موردی"
         other: "مطالعه های موردی"

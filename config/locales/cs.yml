@@ -18,6 +18,10 @@ cs:
         one: Autorský článek
         few:
         other: Autorské články
+      blog_post:
+        one:
+        few:
+        other:
       case_study:
         one: Případová studie
         few:

@@ -15,6 +15,9 @@ ps:
       authored_article:
         one: "تالیف شوی مضمون"
         other: "تالیف شوي مضامین"
+      blog_post:
+        one:
+        other:
       case_study:
         one: "موردی څیړنه"
         other: "مودری څیړنی"

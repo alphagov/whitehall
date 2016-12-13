@@ -137,6 +137,9 @@ ja:
       authored_article:
         one: Authored article
         other: Authored articles
+      blog_post:
+        one:
+        other:
       case_study:
         one: "ケーススタディ"
         other: "ケーススタディ"

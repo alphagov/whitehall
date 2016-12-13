@@ -15,6 +15,9 @@ si:
       authored_article:
         one: "රචිත ලිපිය  "
         other: "රචිත ලිපි"
+      blog_post:
+        one:
+        other:
       case_study:
         one: "සිද්ධි අධ්යනයනය"
         other: "සිද්ධීන්  අධ්යයයනය"

@@ -15,6 +15,9 @@ es:
       authored_article:
         one: Artículo de autor
         other: Artículos de autor
+      blog_post:
+        one:
+        other:
       case_study:
         one: Caso de estudio práctico
         other: Casos de estudio práctico

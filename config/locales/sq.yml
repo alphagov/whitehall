@@ -15,6 +15,9 @@ sq:
       authored_article:
         one: Artikull autori
         other: Artikuj autoresh
+      blog_post:
+        one:
+        other:
       case_study:
         one: Rast studimi
         other: Raste studimi

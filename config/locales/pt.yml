@@ -15,6 +15,9 @@ pt:
       authored_article:
         one: Artigo
         other: Artigos
+      blog_post:
+        one:
+        other:
       case_study:
         one: Estudo de caso
         other: Estudos de caso

@@ -137,6 +137,9 @@ ko:
       authored_article:
         one: "기사"
         other: "기사"
+      blog_post:
+        one:
+        other:
       case_study:
         one: "케이스 스터디"
         other: "케이스 스터디"

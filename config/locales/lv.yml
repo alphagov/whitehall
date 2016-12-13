@@ -15,6 +15,9 @@ lv:
       authored_article:
         one: Autora raksts
         other: Autora raksti
+      blog_post:
+        one:
+        other:
       case_study:
         one: Piemērs
         other: Piemēri

@@ -15,6 +15,9 @@ dr:
       authored_article:
         one: "مقاله نوشته شده"
         other: "مقاله های نوشته شده"
+      blog_post:
+        one:
+        other:
       case_study:
         one: "بررسی  موردی"
         other: "بررسی های موردی"

@@ -21,6 +21,11 @@ ru:
         few:
         many:
         other: "Авторские статьи"
+      blog_post:
+        one:
+        few:
+        many:
+        other:
       case_study:
         one: "Ситуационный анализ"
         few:

@@ -137,6 +137,9 @@ th:
       authored_article:
         one: "บทความที่เขียน"
         other: "บทความที่เขียน"
+      blog_post:
+        one:
+        other:
       case_study:
         one: "กรณีศึกษา"
         other: "กรณีศึกษา"

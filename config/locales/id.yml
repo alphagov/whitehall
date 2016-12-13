@@ -138,6 +138,9 @@ id:
       authored_article:
         one: Artikel yang ditulis
         other: Artikel-artikel yang ditulis
+      blog_post:
+        one:
+        other:
       case_study:
         one: Studi kasus
         other: Studi-studi kasus

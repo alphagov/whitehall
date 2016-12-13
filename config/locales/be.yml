@@ -16,6 +16,11 @@ be:
         few:
         many:
         other: "Аб'явы"
+      blog_post:
+        one:
+        few:
+        many:
+        other:
       authored_article:
         one: "Аўтарскі артыкул"
         few:

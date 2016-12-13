@@ -18,6 +18,10 @@ lt:
         one: Autoriaus straipsnis
         few:
         other: Autorių straipsniai
+      blog_post:
+        one:
+        few:
+        other:
       case_study:
         one: Atvejo analizė
         few:

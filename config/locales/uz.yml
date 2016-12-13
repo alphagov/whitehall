@@ -15,6 +15,9 @@ uz:
       authored_article:
         one: Muallif maqolasi
         other: Muallif maqolalari
+      blog_post:
+        one:
+        other:
       case_study:
         one: Holat o'rganilishi
         other: Holat o'rganilishlari

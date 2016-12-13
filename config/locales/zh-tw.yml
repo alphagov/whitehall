@@ -136,6 +136,9 @@ zh-tw:
       authored_article:
         one: "撰寫文章"
         other: "撰寫其他文章"
+      blog_post:
+        one:
+        other:
       case_study:
         one: "案例研究"
         other: "其他案例研究"

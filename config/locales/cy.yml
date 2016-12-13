@@ -27,6 +27,13 @@ cy:
         few:
         many:
         other:
+      blog_post:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       case_study:
         zero:
         one: Astudiaeth achos
