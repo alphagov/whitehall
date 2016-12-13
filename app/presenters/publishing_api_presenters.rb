@@ -56,10 +56,12 @@ private
       PublishingApi::FatalityNoticePresenter
     when ::Publication
       PublishingApi::PublicationPresenter
+    when StatisticalDataSet
+      PublishingApi::StatisticalDataSetPresenter
     else
       # This is a catch-all clause for the following classes:
       # NewsArticle, WorldLocationNewsArticle, Speech, CorporateInformationPage,
-      # Consultations, StatisticalDataSet
+      # Consultations
       # The presenter implementation for all of these models is identical and
       # the structure of the presented payload is the same.
       PublishingApi::GenericEditionPresenter

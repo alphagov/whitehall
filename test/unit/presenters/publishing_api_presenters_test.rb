@@ -47,9 +47,6 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
 
     assert_equal PublishingApi::GenericEditionPresenter,
       PublishingApiPresenters.presenter_for(Consultation.new).class
-
-    assert_equal PublishingApi::GenericEditionPresenter,
-      PublishingApiPresenters.presenter_for(StatisticalDataSet.new).class
   end
 
   test ".presenter_for returns a Placeholder presenter for an organisation" do
@@ -122,5 +119,10 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
   test ".presenter_for returns a FatalityNoticePresenter for a FatalityNotice" do
     presenter = PublishingApiPresenters.presenter_for(build(:fatality_notice))
     assert_equal PublishingApi::FatalityNoticePresenter, presenter.class
+  end
+
+  test ".presenter_for returns a StatisticalDataSetPresenter for a StatisticalDataSet" do
+    presenter = PublishingApiPresenters.presenter_for(build(:statistical_data_set))
+    assert_equal PublishingApi::StatisticalDataSetPresenter, presenter.class
   end
 end

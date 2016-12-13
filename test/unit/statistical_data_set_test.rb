@@ -27,4 +27,9 @@ class StatisticalDataSetTest < ActiveSupport::TestCase
     assert statistical_data_set.search_format_types.include?('statistical-data-set')
     assert statistical_data_set.search_format_types.include?('publicationesque-statistics')
   end
+
+  test 'specifies rendering app to be whitehall frontend' do
+    statistical_data_set = StatisticalDataSet.new
+    assert statistical_data_set.rendering_app.include?(Whitehall::RenderingApp::WHITEHALL_FRONTEND)
+  end
 end
