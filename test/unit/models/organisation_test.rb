@@ -377,6 +377,7 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal organisation.indexable_content, organisation.search_index['indexable_content']
     assert_equal 'organisation', organisation.search_index['format']
     assert_equal 'live', organisation.search_index['organisation_state']
+    assert_equal 'other', organisation.search_index['organisation_type'].to_s
     assert_equal [], organisation.search_index['organisations']
   end
 
@@ -483,6 +484,7 @@ class OrganisationTest < ActiveSupport::TestCase
                   'format' => 'organisation',
                   'description' => 'Sporty.',
                   'organisations' => [],
+                  'organisation_type' => :other,
                   'organisation_state' => 'closed'}, results[0])
     assert_equal({'title' => 'Department of Education',
                   'content_id' => ed.content_id,
@@ -492,6 +494,7 @@ class OrganisationTest < ActiveSupport::TestCase
                   'format' => 'organisation',
                   'description' => 'The home of Department of Education on GOV.UK. Bookish.',
                   'organisations' => [],
+                  'organisation_type' => :other,
                   'organisation_state' => 'live'}, results[1])
     assert_equal({'title' => 'HMRC',
                   'content_id' => hmrc.content_id,
@@ -503,6 +506,7 @@ class OrganisationTest < ActiveSupport::TestCase
                   'boost_phrases' => 'hmrc',
                   'description' => 'The home of HMRC on GOV.UK. Taxing.',
                   'organisations' => [],
+                  'organisation_type' => :other,
                   'organisation_state' => 'live'}, results[2])
     assert_equal({'title' => 'Ministry of Defence',
                   'content_id' => mod.content_id,
@@ -514,6 +518,7 @@ class OrganisationTest < ActiveSupport::TestCase
                   'boost_phrases' => 'mod',
                   'description' => 'The home of Ministry of Defence on GOV.UK. Defensive.',
                   'organisations' => [],
+                  'organisation_type' => :other,
                   'organisation_state' => 'live'}, results[3])
     assert_equal({'title' => 'Closed organisation: Devolved organisation',
                   'content_id' => devolved.content_id,
@@ -525,6 +530,7 @@ class OrganisationTest < ActiveSupport::TestCase
                   'organisations' => [],
                   'format' => 'organisation',
                   'boost_phrases' => 'dev',
+                  'organisation_type' => :other,
                   'organisation_state' => 'devolved'}, results[5])
   end
 
