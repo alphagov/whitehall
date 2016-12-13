@@ -44,6 +44,8 @@
 
       tour.$tour.find('.js-visible').not(newTour.$el).removeClass('js-visible');
       newTour.$el.addClass('js-visible');
+      tour.$nav.find('a').removeClass('active-tour');
+      tour.$nav.find("a[href$='#"+newTour.$el.attr('id')+"']").addClass('active-tour');
     },
     init: function (){
       tour.$tour = $('.js-virtual-tour');
