@@ -23,6 +23,7 @@ module Searchable
     :news_article_type,
     :operational_field,
     :organisation_state,
+    :organisation_type,
     :organisations,
     :people,
     :public_timestamp,
