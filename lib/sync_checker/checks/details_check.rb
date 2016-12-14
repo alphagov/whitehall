@@ -40,11 +40,14 @@ module SyncChecker
         content_body = content_item["details"]["body"]
         content_body.gsub!(/<td>\s*<\/td>/, "<td>&nbsp;</td>") if content_body
         expected_body = expected_details[:body]
-
         EquivalentXml.equivalent?(
-          content_body,
-          expected_body
+          string_to_xml(content_body),
+          string_to_xml(expected_body)
         )
+      end
+
+      def string_to_xml(string)
+        Nokogiri::HTML(string)
       end
     end
   end
