@@ -48,6 +48,8 @@ private
     case edition
     when ::CaseStudy
       PublishingApi::CaseStudyPresenter
+    when Consultation
+      PublishingApi::ConsultationPresenter
     when ::DocumentCollection
       PublishingApi::DocumentCollectionPresenter
     when ::DetailedGuide

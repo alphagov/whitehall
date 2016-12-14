@@ -36,4 +36,8 @@ FactoryGirl.define do
   factory :consultation_with_outcome, parent: :closed_consultation do
     outcome { create(:consultation_outcome) }
   end
+
+  factory :consultation_with_outcome_attachment, parent: :closed_consultation do
+    outcome { create(:consultation_outcome, :with_file_attachment) }
+  end
 end
