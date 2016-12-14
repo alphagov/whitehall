@@ -52,7 +52,7 @@ class Person < ActiveRecord::Base
       filter_people: [slug],
       filter_format: "policy",
       order: "-public_timestamp"
-    ).results
+    )["results"]
   end
 
   def search_link

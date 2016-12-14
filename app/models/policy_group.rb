@@ -14,7 +14,7 @@ class PolicyGroup < ActiveRecord::Base
       filter_policy_groups: [slug],
       filter_format: "policy",
       order: "-public_timestamp"
-    ).results
+    )["results"]
   end
 
   def has_summary?

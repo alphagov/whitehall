@@ -1,7 +1,11 @@
 <ol class="policies document-list">
   <% policies.each do |policy| %>
     <%= content_tag(:li, class: "document-row") do %>
-      <%= link_to policy.title, policy.link, class: 'title' %>
+      <% if policy.kind_of? Hash %>
+        <%= link_to policy["title"], policy["link"], class: 'title' %>
+      <% else %>
+        <%= link_to policy.title, policy.link, class: 'title' %>
+      <% end %>
     <% end %>
   <% end %>
 </ol>

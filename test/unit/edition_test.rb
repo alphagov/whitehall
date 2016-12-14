@@ -814,8 +814,8 @@ class EditionTest < ActiveSupport::TestCase
     edition = create(:edition, need_ids: ["000123", "000456"])
 
     assert edition.has_associated_needs?
-    assert_equal "000123", edition.associated_needs.first.id
-    assert_equal "000456", edition.associated_needs.last.id
+    assert_equal "000123", edition.associated_needs.first["id"]
+    assert_equal "000456", edition.associated_needs.last["id"]
   end
 
   test 'previously_published returns nil for new edition' do
