@@ -13,5 +13,13 @@ module SyncChecker::Formats
     def root_path
       '/government/consultations/'
     end
+
+  private
+
+    def top_level_fields_hash(consultation, _)
+      super.tap do |fields|
+        fields[:document_type] = consultation.display_type_key
+      end
+    end
   end
 end
