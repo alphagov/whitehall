@@ -24,12 +24,6 @@ When /^I follow the link to the "([^"]*)" document collection$/ do |document_col
   end
 end
 
-When /^I follow the link to the "([^"]*)" statistical data set$/ do |data_set_title|
-  within('.statistical_data_set.document-row') do
-    click_link data_set_title
-  end
-end
-
 Then /^I should see the "([^"]*)" statistical data set$/ do |data_set_title|
-  assert page.has_css?('h1', text: data_set_title)
+  assert page.has_css?('a', text: data_set_title)
 end

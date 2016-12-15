@@ -12,5 +12,4 @@ Feature: Statistical data sets
     And a published statistical data set "Vehicle speeds 2010" that's part of the "Free flow speeds" document collection
     When I visit the list of publications
     And I follow the link to the "Free flow speeds" document collection
-    And I follow the link to the "Vehicle speeds 2010" statistical data set
     Then I should see the "Vehicle speeds 2010" statistical data set
