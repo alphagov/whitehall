@@ -246,6 +246,6 @@ class DetailedGuideTest < ActiveSupport::TestCase
   end
 
   test "is rendered by government-frontend" do
-    assert DetailedGuide.new.rendering_app == Whitehall::RenderingApp::WHITEHALL_FRONTEND
+    assert DetailedGuide.new.rendering_app == Whitehall::RenderingApp::GOVERNMENT_FRONTEND
   end
 end
