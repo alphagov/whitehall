@@ -427,7 +427,7 @@ en:
       heading: This file may not be suitable for users of assistive technology.
       request_a_different_format: Request an accessible format.
       full_help_html: |
-        If you use assistive technology (eg a screen reader) and need a
+        If you use assistive technology (such as a screen reader) and need a
         version of this document in a more accessible format, please email %{email}.
         Please tell us what format you need. It will help us if you say what assistive technology you use.
     opendocument:
