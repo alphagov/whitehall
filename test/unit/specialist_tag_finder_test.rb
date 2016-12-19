@@ -60,7 +60,7 @@ class SpecialistTagFinderTest < ActiveSupport::TestCase
     )
     content_store_has_item(edition_base_path, edition_content_item)
 
-    assert_equal "/grandpa", SpecialistTagFinder.new(edition_base_path).top_level_topic.base_path
+    assert_equal "/grandpa", SpecialistTagFinder.new(edition_base_path).top_level_topic["base_path"]
   end
 
   test "#top_level_topic falls back to expanded_links on the parent if links aren't present" do
@@ -81,7 +81,7 @@ class SpecialistTagFinderTest < ActiveSupport::TestCase
     )
     content_store_has_item(edition_base_path, edition_content_item)
 
-    assert_equal "/grandpa", SpecialistTagFinder.new(edition_base_path).top_level_topic.base_path
+    assert_equal "/grandpa", SpecialistTagFinder.new(edition_base_path).top_level_topic["base_path"]
   end
 
   test "#top_level_topic returns nil if no parents" do

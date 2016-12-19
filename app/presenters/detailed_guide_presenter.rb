@@ -6,7 +6,7 @@ class DetailedGuidePresenter < Whitehall::Decorators::Decorator
   def related_mainstream_content_title
     @related_mainstream_content_title ||= begin
       item = Whitehall.content_store.content_item(related_mainstream_base_path)
-      item.title
+      item["title"]
     rescue GdsApi::TimedOutException
       ""
     end
@@ -15,7 +15,7 @@ class DetailedGuidePresenter < Whitehall::Decorators::Decorator
   def additional_related_mainstream_content_title
     @additional_related_mainstream_content_title ||= begin
       item = Whitehall.content_store.content_item(additional_related_mainstream_base_path)
-      item.title
+      item["title"]
     rescue GdsApi::TimedOutException
       ""
     end

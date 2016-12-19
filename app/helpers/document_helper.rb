@@ -218,7 +218,7 @@ Please tell us:
     end
 
     links_to_topics = sector_tag_finder.topics.map do |topic|
-      link_to topic.title, topic.web_url, class: 'sector-link'
+      link_to topic['title'], topic['web_url'], class: 'sector-link'
     end
     part_of += links_to_topics
 

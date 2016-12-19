@@ -21,7 +21,7 @@ module PolicyTaggingHelpers
       "Child maintenance reform",
     ]
 
-    assert_equal all_policy_titles, object.published_policies.map(&:title)
+    assert_equal all_policy_titles, object.published_policies.collect {|p| p["title"]}
   end
 
   def stub_publishing_api_policies
