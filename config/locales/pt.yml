@@ -87,6 +87,9 @@ pt:
       notice:
         one:
         other:
+      official_statistics:
+        one: Estatística
+        other: Estatísticas
       open_consultation:
         one: Consulta aberta
         other: Consultas abertas
@@ -123,9 +126,6 @@ pt:
       statistical_data_set:
         one: Conjunto de dados estastísticos
         other: Conjuntos de dados estatísticos
-      official_statistics:
-        one: Estatística
-        other: Estatísticas
       statutory_guidance:
         one:
         other:
@@ -293,14 +293,6 @@ pt:
     formats:
       default: "%e %B %Y"
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document_filters:
     description: Você pode usar filtros para ver &nbsp; apenas os resultados que lhe
       &nbsp; interessam

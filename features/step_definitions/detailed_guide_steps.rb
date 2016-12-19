@@ -1,10 +1,3 @@
-Given /^a published detailed guide "([^"]*)" related to published detailed guides "([^"]*)" and "([^"]*)"$/ do |title, first_related_title, second_related_title|
-  create(:government)
-  first_related = create(:published_detailed_guide, title: first_related_title)
-  second_related = create(:published_detailed_guide, title: second_related_title)
-  guide = create(:published_detailed_guide, title: title, related_documents: [first_related.document, second_related.document], topics: [create(:topic)])
-end
-
 Given /^a published detailed guide "([^"]*)" for the organisation "([^"]*)"$/ do |title, organisation|
   create(:government)
   organisation = create(:organisation, name: organisation)
@@ -19,18 +12,6 @@ end
 
 Given /^I start drafting a new detailed guide$/ do
   begin_drafting_document type: 'detailed_guide', title: "Detailed Guide", previously_published: false
-end
-
-When /^I visit the detailed guide "([^"]*)"$/ do |name|
-  guide = DetailedGuide.find_by!(title: name)
-  visit detailed_guide_path(guide.document)
-end
-
-Then /^I can see links to the related detailed guides "([^"]*)" and "([^"]*)"$/ do |guide_1, guide_2|
-  within ".related-detailed-guides" do
-    assert has_css?("a", text: guide_1), "should have link to #{guide_1}"
-    assert has_css?("a", text: guide_2), "should have link to #{guide_2}"
-  end
 end
 
 Then /^I should be able to select another image for the detailed guide$/ do

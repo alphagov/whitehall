@@ -87,6 +87,9 @@ et:
       notice:
         one: Teade
         other: Teated
+      official_statistics:
+        one: 'Statistika '
+        other: Statistika
       open_consultation:
         one: Avatud konsultatsioon
         other: Avatud konsultatsioonid
@@ -123,9 +126,6 @@ et:
       statistical_data_set:
         one: Statistiline andmekogu
         other: Statistilised andmekogud
-      official_statistics:
-        one: 'Statistika '
-        other: Statistika
       statutory_guidance:
         one: Seadusejärgne juhis
         other: Seadusejärgne juhis
@@ -295,14 +295,6 @@ et:
     formats:
       default:
       long_ordinal:
-  detailed_guidance:
-    back_to_contents: Tagasi sisukorda
-    contents: Sisukord
-    more: Rohkem sarnaseid valikuid
-    part_of_published_collection: See on osa sarjast
-    published_related_detailed_guides: Seotud detailne juhend
-    related_mainstream_content: 'Liiga detailne?<br/>Vt. neid kokkuvõtlikke juhendeid? '
-    see_more_like_this: Vaata veel sarnaseid
   document_filters:
     description: Te võite kasutada filtreid, et kuvada ainult otsingu tulemusi, mis
       Teie huvile vastavad

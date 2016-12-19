@@ -96,14 +96,6 @@ ja:
     formats:
       default: "%Y %B %d"
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document:
     contents:
     footer_meta:
@@ -209,6 +201,9 @@ ja:
       notice:
         one:
         other:
+      official_statistics:
+        one: "統計"
+        other: "統計"
       open_consultation:
         one: "公開協議"
         other: "公開協議"
@@ -245,9 +240,6 @@ ja:
       statistical_data_set:
         one: "統計データセット"
         other: "統計データセット"
-      official_statistics:
-        one: "統計"
-        other: "統計"
       statutory_guidance:
         one:
         other:

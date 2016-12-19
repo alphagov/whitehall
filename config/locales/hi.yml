@@ -87,6 +87,9 @@ hi:
       notice:
         one:
         other:
+      official_statistics:
+        one: "आंकड़े"
+        other: "आंकड़े"
       open_consultation:
         one: "खुला परामर्श"
         other: "खुले परामर्श"
@@ -123,9 +126,6 @@ hi:
       statistical_data_set:
         one: "सांख्यिकीय आंकड़े का समूह"
         other: "सांख्यिकीय आंकड़े का समूह"
-      official_statistics:
-        one: "आंकड़े"
-        other: "आंकड़े"
       statutory_guidance:
         one:
         other:
@@ -294,14 +294,6 @@ hi:
     formats:
       default: "%e %B %Y"
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document_filters:
     description: "आप फिल्टरों का उपयोग सिर्फ उन नतीजों को दर्शाने के लिए कर सकते हैं,
       जिनमें आप की दिलचस्पी हो।"

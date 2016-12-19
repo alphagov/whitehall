@@ -141,6 +141,11 @@ be:
         few:
         many:
         other:
+      official_statistics:
+        one: "Статыстыка"
+        few:
+        many:
+        other: "Статыстыка"
       open_consultation:
         one: "Адкрытая кансультацыя"
         few:
@@ -201,11 +206,6 @@ be:
         few:
         many:
         other: "Статыстычныя дадзеныя"
-      official_statistics:
-        one: "Статыстыка"
-        few:
-        many:
-        other: "Статыстыка"
       statutory_guidance:
         one:
         few:
@@ -389,14 +389,6 @@ be:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document_filters:
     description: "Вы можаце выкарыстоўваць фільтры, каб пабачыць толькі тыя вынікі,
       якія вас цікавяць."

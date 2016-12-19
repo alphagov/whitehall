@@ -141,6 +141,11 @@ pl:
         few:
         many:
         other:
+      official_statistics:
+        one: Statystyki
+        few:
+        many:
+        other: Statystyki
       open_consultation:
         one: Konsultacje otwarte
         few:
@@ -201,11 +206,6 @@ pl:
         few:
         many:
         other: Zestawy danych statystycznych
-      official_statistics:
-        one: Statystyki
-        few:
-        many:
-        other: Statystyki
       statutory_guidance:
         one:
         few:
@@ -391,14 +391,6 @@ pl:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document_filters:
     description: Można skorzystać z filtrów by pokazać&nbsp;tylko te wyniki,którymi
       są Państwo&nbsp;zainteresowani

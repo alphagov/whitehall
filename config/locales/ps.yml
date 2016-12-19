@@ -87,6 +87,9 @@ ps:
       notice:
         one:
         other:
+      official_statistics:
+        one: "شمیرنه"
+        other: "شمیرنه"
       open_consultation:
         one: "آزاده مشوره"
         other: "آزادې مشورې"
@@ -123,9 +126,6 @@ ps:
       statistical_data_set:
         one: "د شمیرنې اطلاعات"
         other: "د شمیرنې اطلاعات"
-      official_statistics:
-        one: "شمیرنه"
-        other: "شمیرنه"
       statutory_guidance:
         one:
         other:
@@ -293,14 +293,6 @@ ps:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document_filters:
     description: "تاسې کولای شي  د فیلترونه څخه یوازې د هغو پایلو د ښودلو په خاطر
       کار واخلۍ چې ستاسې لپاره په زړه پوری وی"

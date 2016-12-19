@@ -433,14 +433,6 @@ en:
     opendocument:
       help_html: This file is in an <a rel="external" href="https://en.wikipedia.org/wiki/OpenDocument_software">OpenDocument</a> format
     see_more: See more information about this %{document_type}
-  detailed_guidance:
-    back_to_contents: Back to contents
-    contents: Contents
-    more: More like this
-    part_of_published_collection: This is part of a collection
-    published_related_detailed_guides: Related detailed guidance
-    related_mainstream_content: Too much detail?<br/>See these quick guides
-    see_more_like_this: See more like this
   see_all:
     announcement: See all our announcements
     case_study: See all our case studies

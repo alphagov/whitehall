@@ -97,14 +97,6 @@ vi:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%d %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document:
     contents:
     footer_meta:
@@ -210,6 +202,9 @@ vi:
       notice:
         one:
         other:
+      official_statistics:
+        one: Thống kê
+        other: Thống kê
       open_consultation:
         one: Tham vấn mở rộng
         other: Tham vấn mở rộng
@@ -246,9 +241,6 @@ vi:
       statistical_data_set:
         one: Bộ dữ liệu thống kê
         other: Bộ dữ liệu thống kê
-      official_statistics:
-        one: Thống kê
-        other: Thống kê
       statutory_guidance:
         one:
         other:

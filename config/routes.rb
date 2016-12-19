@@ -384,6 +384,7 @@ Whitehall::Application.routes.draw do
   get 'healthcheck' => 'healthcheck#check'
   get 'healthcheck/overdue' => 'healthcheck#overdue'
 
+  # TODO: Remove when paths for new content can be generated without a route helper
   get '/guidance/:id' => 'detailed_guides#show', constraints: {id: /[A-z0-9\-]+/}, as: 'detailed_guide', localised: true
 
   get '/government/uploads/system/uploads/consultation_response_form/*path.:extension' => LongLifeRedirect.new('/government/uploads/system/uploads/consultation_response_form_data/')

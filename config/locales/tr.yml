@@ -97,14 +97,6 @@ tr:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document:
     contents:
     footer_meta:
@@ -210,6 +202,9 @@ tr:
       notice:
         one:
         other:
+      official_statistics:
+        one: "İstatistikler"
+        other: "İstatistikler"
       open_consultation:
         one: Devam eden çalışma
         other: Devam eden çalışmalar
@@ -246,9 +241,6 @@ tr:
       statistical_data_set:
         one: "İstatiksel veri setleri"
         other: "İstatiksel veri setleri"
-      official_statistics:
-        one: "İstatistikler"
-        other: "İstatistikler"
       statutory_guidance:
         one:
         other:

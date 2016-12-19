@@ -114,6 +114,10 @@ lt:
         one:
         few:
         other:
+      official_statistics:
+        one: Statistika
+        few:
+        other: Statistika
       open_consultation:
         one: Atvira konsultacija
         few:
@@ -162,10 +166,6 @@ lt:
         one: Statistiniai duomenys
         few:
         other: Statistiniai duomenys
-      official_statistics:
-        one: Statistika
-        few:
-        other: Statistika
       statutory_guidance:
         one:
         few:
@@ -341,14 +341,6 @@ lt:
     formats:
       default: "%Y %B %d"
       long_ordinal: "%Y %B %e"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document_filters:
     description: Galite naudoti filtrus &nbsp; kad būtų pateikiami tik jus dominantys&nbsp;
       rezultatai

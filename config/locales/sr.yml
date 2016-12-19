@@ -141,6 +141,11 @@ sr:
         few:
         many:
         other:
+      official_statistics:
+        one: statistika
+        few:
+        many:
+        other: statistika
       open_consultation:
         one: Otvorene konsultacije
         few:
@@ -201,11 +206,6 @@ sr:
         few:
         many:
         other: set statističkih podataka
-      official_statistics:
-        one: statistika
-        few:
-        many:
-        other: statistika
       statutory_guidance:
         one:
         few:
@@ -390,14 +390,6 @@ sr:
     formats:
       default:
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document_filters:
     description: Možete iskoristiti filter da biste videli rezultate u skladu sa vašim
       interesovanjima

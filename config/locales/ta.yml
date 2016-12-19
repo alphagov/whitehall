@@ -87,6 +87,9 @@ ta:
       notice:
         one:
         other:
+      official_statistics:
+        one: "புள்ளிவிபரம்"
+        other: "புள்ளிவிபரம்"
       open_consultation:
         one: "திறந்த கலந்தாலோசனை"
         other: "திறந்த கலந்தாலோசனைகள்"
@@ -123,9 +126,6 @@ ta:
       statistical_data_set:
         one: "புள்ளிவிபர தரவுத் தொகுதி"
         other: "புள்ளிவிபர தரவுத் தொகுதிகள்"
-      official_statistics:
-        one: "புள்ளிவிபரம்"
-        other: "புள்ளிவிபரம்"
       statutory_guidance:
         one:
         other:
@@ -295,14 +295,6 @@ ta:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document_filters:
     description: "உங்களது &nbsp உடன் பொருந்தும் &nbsp பெறுபேறுகளைக் காண்பிப்பதற்கு
       வடிகட்டிகளை நீங்கள் உபயோகிப்பதற்கு முடியும்."

@@ -87,6 +87,9 @@ el:
       notice:
         one:
         other:
+      official_statistics:
+        one: "Στατιστικά στοιχεία"
+        other: "Στατιστικά στοιχεία"
       open_consultation:
         one: "Ανοιχτή διαβούλευση"
         other: "Ανοιχτές διαβουλεύσεις"
@@ -121,9 +124,6 @@ el:
         one: "Δήλωση στη Βουλή"
         other: "Δηλώσεις στη Βουλή "
       statistical_data_set:
-        one: "Στατιστικά στοιχεία"
-        other: "Στατιστικά στοιχεία"
-      official_statistics:
         one: "Στατιστικά στοιχεία"
         other: "Στατιστικά στοιχεία"
       statutory_guidance:
@@ -295,14 +295,6 @@ el:
     formats:
       default:
       long_ordinal:
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document_filters:
     description: "Χρησιμοποιήστε τα φίλτρα για εξειδίκευση αποτελεσμάτων"
     no_results:

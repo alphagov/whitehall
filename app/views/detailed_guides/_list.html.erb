@@ -1,7 +1,0 @@
-<ul class="detailed_guides">
-  <% detailed_guides.each do |detailed_guide| %>
-    <%= content_tag_for(:li, detailed_guide, class: "g1") do %>
-      <%= link_to detailed_guide.title, public_document_path(detailed_guide), title: "View #{detailed_guide.title}", class: "title" %>
-    <% end %>
-  <% end %>
-</ul>

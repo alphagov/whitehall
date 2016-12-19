@@ -141,6 +141,11 @@ he:
         two:
         many:
         other:
+      official_statistics:
+        one: "נתונים"
+        two:
+        many:
+        other: "נתונים"
       open_consultation:
         one: "דיון פתוח"
         two:
@@ -201,11 +206,6 @@ he:
         two:
         many:
         other: "מידע סטטיסטי"
-      official_statistics:
-        one: "נתונים"
-        two:
-        many:
-        other: "נתונים"
       statutory_guidance:
         one:
         two:
@@ -390,14 +390,6 @@ he:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
-  detailed_guidance:
-    back_to_contents:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
   document_filters:
     description: "ניתן לעשות שימוש בפילטרים כדי לראות תוצאות ממוקדות"
     no_results:
