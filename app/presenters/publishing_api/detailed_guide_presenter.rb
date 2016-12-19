@@ -21,7 +21,7 @@ module PublishingApi
         details: details,
         document_type: "detailed_guide",
         public_updated_at: item.public_timestamp || item.updated_at,
-        rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
+        rendering_app: item.rendering_app,
         schema_name: "detailed_guide",
       )
       content.merge!(PayloadBuilder::PublicDocumentPath.for(item))

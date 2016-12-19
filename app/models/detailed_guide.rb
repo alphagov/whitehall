@@ -37,7 +37,7 @@ class DetailedGuide < Edition
   validates_with HeadingHierarchyValidator
 
   def rendering_app
-    Whitehall::RenderingApp::WHITEHALL_FRONTEND
+    Whitehall::RenderingApp::GOVERNMENT_FRONTEND
   end
 
   def rummager_index
