@@ -83,6 +83,7 @@ Whitehall::Application.routes.draw do
 
     resources :case_studies, path: 'case-studies', only: [:show], localised: true
     resources :speeches, only: [:show], localised: true
+    # TODO: Remove when paths can be generated without a routes entry
     resources :statistical_data_sets, path: 'statistical-data-sets', only: [:show]
     get "/speeches" => redirect("/announcements")
 
