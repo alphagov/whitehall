@@ -13,7 +13,6 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
       contact, speech = create(:contact), create(:speech)
       news_article = create(:submitted_news_article, body: "For more information, get in touch at:
         [Contact:#{contact.id}] or read our [official statement](/government/admin/speeches/#{speech.id})", major_change_published_at: Time.zone.now)
-      stub_panopticon_registration(news_article)
 
       assert Whitehall.edition_services.send(service_name, news_article).perform!
       assert_equal [contact], news_article.depended_upon_contacts
@@ -22,7 +21,6 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
 
     test "#{transition}ing a depended-upon edition republishes the dependent edition" do
       dependable_speech, dependent_article = create_article_dependent_on_speech
-      stub_panopticon_registration(dependable_speech)
 
       expect_publishing(dependable_speech)
       expect_republishing(dependent_article)
@@ -33,7 +31,6 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
 
     test "#{transition}ing a depended-upon edition's subsequent edition doesn't republish the dependent edition" do
       dependable_speech, dependent_article = create_article_dependent_on_speech
-      stub_panopticon_registration(dependable_speech)
 
       dependable_speech.major_change_published_at = Time.zone.now
       assert Whitehall.edition_services.send(service_name, dependable_speech).perform!
@@ -42,7 +39,6 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
       subsequent_edition_of_dependable_speech.change_note = "change-note"
       subsequent_edition_of_dependable_speech.submit!
 
-      stub_panopticon_registration(subsequent_edition_of_dependable_speech)
       expect_publishing(subsequent_edition_of_dependable_speech)
       expect_no_republishing(dependent_article)
 
@@ -56,7 +52,6 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
     # edition changes the title/slug, leaving an outdated slug in the dependent edition.
     test "unpublishing a depended-upon edition and #{transition}ing it again should cause dependent editions to be republished" do
       dependable_speech, dependent_article = create_article_dependent_on_speech
-      stub_panopticon_registration(dependable_speech)
 
       expect_publishing(dependable_speech)
       expect_republishing(dependent_article)
@@ -83,7 +78,6 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
     edition.depended_upon_contacts << create(:contact)
     edition.depended_upon_editions << create(:speech)
 
-    stub_panopticon_registration(edition)
     edition.unpublishing = create(:unpublishing)
     assert Whitehall.edition_services.unpublisher(edition).perform!
 

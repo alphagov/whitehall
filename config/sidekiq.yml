@@ -8,6 +8,5 @@
   - scheduled_publishing
   - default
   - publishing_api
-  - panopticon
   - bulk_republishing
   - sync_checks

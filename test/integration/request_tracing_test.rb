@@ -10,7 +10,6 @@ class RequestTracingTest < ActionDispatch::IntegrationTest
     # Use the real GovUkDelivery client
     Whitehall.govuk_delivery_client = GdsApi::GovUkDelivery.new(Plek.find('govuk-delivery'))
 
-    stub_request(:put, /panopticon/)
     stub_request(:post, /govuk-delivery/)
   end
 
@@ -47,7 +46,6 @@ class RequestTracingTest < ActionDispatch::IntegrationTest
     }
 
     assert_requested(:post, /govuk-delivery/, headers: onward_headers)
-    assert_requested(:put, /panopticon/, headers: onward_headers)
 
     # Main document
     content_id = @draft_edition.content_id

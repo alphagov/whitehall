@@ -1,11 +1,8 @@
 require 'test_helper'
 require 'data_hygiene/policy_tagger'
-require 'gds_api/panopticon'
-require 'gds_api/test_helpers/panopticon'
 
 class PolicyTaggerTest < ActiveSupport::TestCase
   include DataHygiene
-  include GdsApi::TestHelpers::Panopticon
 
   setup do
     @csv_file = Tempfile.new('policy_changes')
@@ -40,6 +37,5 @@ class PolicyTaggerTest < ActiveSupport::TestCase
   def stub_registration
     Whitehall::PublishingApi.stubs(:republish_async)
     ServiceListeners::SearchIndexer.any_instance.stubs(:index!)
-    ServiceListeners::PanopticonRegistrar.any_instance.stubs(:register!)
   end
 end

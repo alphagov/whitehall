@@ -1,14 +1,8 @@
 require "test_helper"
-require "gds_api/panopticon"
-require "gds_api/test_helpers/panopticon"
 
 class UnpublishingTest < ActiveSupport::TestCase
-  include GdsApi::TestHelpers::Panopticon
-
   setup do
     @published_edition = create(:published_case_study)
-    @registerable = RegisterableEdition.new(@published_edition)
-    @request = stub_artefact_registration(@registerable.slug)
     stub_any_publishing_api_call
   end
 
@@ -27,15 +21,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     unpublish(@published_edition, unpublishing_params)
   end
 
-  test "When unpublishing an edition, its state is updated in Panopticon as 'archived'" do
-    unpublish(@published_edition, unpublishing_params)
-
-    assert_requested @request
-    assert_equal "archived", @registerable.state
-  end
-
   test "When an edition is unpublished, it is unpublished to the Publishing API" do
-    stub_panopticon_registration(@published_edition)
     unpublish(@published_edition, unpublishing_params)
 
     assert_publishing_api_unpublish(
@@ -45,8 +31,6 @@ class UnpublishingTest < ActiveSupport::TestCase
   end
 
   test "When an edition is unpublished, a job is queued to republish the draft to the draft stack" do
-    stub_panopticon_registration(@published_edition)
-
     Whitehall::PublishingApi.expects(:save_draft_async).once
 
     unpublish(@published_edition, unpublishing_params)

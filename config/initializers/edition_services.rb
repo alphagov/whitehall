@@ -2,7 +2,6 @@ Whitehall.edition_services.tap do |es|
   es.subscribe(/^(force_publish|publish|unwithdraw)$/)                   { |event, edition, options| ServiceListeners::AuthorNotifier.new(edition, options[:user]).notify! }
   es.subscribe(/^(force_publish|publish|unwithdraw|unpublish|withdraw)$/) { |event, edition, options| ServiceListeners::EditorialRemarker.new(edition, options[:user], options[:remark]).save_remark! }
   es.subscribe(/^(force_publish|publish|unwithdraw)$/)                   { |event, edition, options| Whitehall::GovUkDelivery::Notifier.new(edition).edition_published! }
-  es.subscribe(/^(force_publish|publish|unwithdraw|unpublish|withdraw)$/) { |_, edition, _| ServiceListeners::PanopticonRegistrar.new(edition).register! }
   es.subscribe(/^(force_publish|publish|unwithdraw)$/)                   { |_, edition, _| ServiceListeners::AnnouncementClearer.new(edition).clear! }
 
   # search

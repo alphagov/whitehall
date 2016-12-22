@@ -52,7 +52,6 @@ class Edition::SearchableTest < ActiveSupport::TestCase
 
   test "should add edition to search index on publishing" do
     edition = create(:submitted_edition)
-    stub_panopticon_registration(edition)
     stub_publishing_api_registration_for(edition)
     RummagerPresenters.stubs(:searchable_classes).returns([edition.class])
     Whitehall::SearchIndex.expects(:add).with(edition)
@@ -63,7 +62,6 @@ class Edition::SearchableTest < ActiveSupport::TestCase
   test "should add edition to search index on withdrawing" do
     edition = create(:published_edition)
 
-    stub_panopticon_registration(edition)
     Whitehall::PublishingApi.stubs(:publish_withdrawal_async)
 
     edition.build_unpublishing(explanation: 'Old policy', unpublishing_reason_id: UnpublishingReason::Withdrawn.id)
@@ -90,7 +88,6 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     french_edition = create(:submitted_edition, title: 'French Title', body: 'French Body', primary_locale: :fr)
     stub_publishing_api_registration_for(french_edition)
     I18n.locale = I18n.default_locale
-    stub_panopticon_registration(french_edition)
     RummagerPresenters.stubs(:searchable_classes).returns([french_edition.class])
     Whitehall::SearchIndex.expects(:add).with(french_edition).never
 
@@ -120,7 +117,6 @@ class Edition::SearchableTest < ActiveSupport::TestCase
   test "should remove published edition from search index when it's unpublished" do
     edition = create(:published_edition)
     create(:unpublishing, edition: edition)
-    stub_panopticon_registration(edition)
 
     Whitehall::SearchIndex.expects(:delete).with(edition)
     Whitehall.edition_services.unpublisher(edition).perform!

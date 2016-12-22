@@ -37,7 +37,6 @@ class ActiveSupport::TestCase
   include ModelStubbingHelpers
   include HtmlAssertions
   include I18nHelpers
-  include PanopticonTestHelpers
   include PublishingApiTestHelpers
   include PolicyTaggingHelpers
   include GovukContentSchemaTestHelpers::TestUnit

@@ -174,8 +174,6 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     statistics = create(:draft_statistics)
     statistics_announcement = create(:statistics_announcement, publication: statistics)
 
-    stub_panopticon_registration(statistics)
-
     Whitehall::PublishingApi.expects(:publish_redirect_async)
       .with(statistics_announcement.content_id, "/government/statistics/#{statistics.slug}")
 

@@ -58,13 +58,8 @@ private
   def register_edition(edition)
     log "registering '#{edition.slug}' #{document.document_type}"
     edition.reload
-    register_with_panopticon(edition)
     register_with_publishing_api(edition)
     register_with_search(edition)
-  end
-
-  def register_with_panopticon(edition)
-    ServiceListeners::PanopticonRegistrar.new(edition).register!
   end
 
   def register_with_publishing_api(edition)
