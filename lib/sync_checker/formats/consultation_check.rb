@@ -10,6 +10,7 @@ module SyncChecker::Formats
         details.merge!(expected_national_applicability(consultation))
         details.merge!(expected_political(consultation))
         details.merge!(expected_public_feedback(consultation))
+        details.merge!(expected_tags(consultation))
         details.merge!(expected_ways_to_respond(consultation))
       end
     end
@@ -108,6 +109,23 @@ module SyncChecker::Formats
         public_feedback_documents: documents,
         public_feedback_publication_date: publication_date,
       }.compact
+    end
+
+    def expected_tags(consultation)
+      policies = if consultation.can_be_related_to_policies?
+                   consultation.policies.map(&:slug)
+                 end
+
+      topics = Array(consultation.primary_specialist_sector_tag) +
+        consultation.secondary_specialist_sector_tags
+
+      {
+        'tags' => {
+          'browse_pages' => [],
+          'policies' => policies.compact,
+          'topics' => topics.compact,
+        }
+      }
     end
 
     def expected_ways_to_respond(consultation)
