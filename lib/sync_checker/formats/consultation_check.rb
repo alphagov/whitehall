@@ -4,6 +4,7 @@ module SyncChecker::Formats
       super.tap do |details|
         details.except!(:change_history) unless consultation.change_history.present?
         details.merge!(expected_documents(consultation))
+        details.merge!(expected_external_url(consultation))
       end
     end
 
@@ -28,6 +29,12 @@ module SyncChecker::Formats
           consultation.alternative_format_contact_email
         )
       }
+    end
+
+    def expected_external_url(consultation)
+      return {} unless consultation.external?
+
+      { held_on_another_website_url: consultation.external_url }
     end
 
     def first_public_at(consultation)
