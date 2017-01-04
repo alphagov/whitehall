@@ -5,6 +5,7 @@ module SyncChecker::Formats
         details.except!(:change_history) unless consultation.change_history.present?
         details.merge!(expected_documents(consultation))
         details.merge!(expected_external_url(consultation))
+        details.merge!(expected_final_outcome(consultation))
       end
     end
 
@@ -35,6 +36,24 @@ module SyncChecker::Formats
       return {} unless consultation.external?
 
       { held_on_another_website_url: consultation.external_url }
+    end
+
+    def expected_final_outcome(consultation)
+      return {} unless consultation.outcome_published?
+
+      outcome = consultation.outcome
+
+      {
+        final_outcome_detail: outcome.summary,
+        final_outcome_documents: if outcome.attachments.present?
+                                   Whitehall::GovspeakRenderer
+                                     .new
+                                     .block_attachments(
+                                       outcome.attachments,
+                                       outcome.alternative_format_contact_email,
+                                     )
+                                 end,
+      }.compact
     end
 
     def first_public_at(consultation)
