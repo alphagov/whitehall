@@ -8,6 +8,7 @@ module SyncChecker::Formats
         details.merge!(expected_final_outcome(consultation))
         details.merge!(expected_national_applicability(consultation))
         details.merge!(expected_public_feedback(consultation))
+        details.merge!(expected_ways_to_respond(consultation))
       end
     end
 
@@ -88,6 +89,47 @@ module SyncChecker::Formats
         public_feedback_detail: detail,
         public_feedback_documents: documents,
         public_feedback_publication_date: publication_date,
+      }.compact
+    end
+
+    def expected_ways_to_respond(consultation)
+      return {} if consultation.external? ||
+          !consultation.open? ||
+          !consultation.has_consultation_participation?
+
+      participation = consultation.consultation_participation
+
+      attachment_url = if participation.has_response_form?
+                         absolute_path = Pathname(participation.consultation_response_form.file.url)
+                         parent_path = Pathname('/government/uploads/')
+                         child_path = absolute_path.relative_path_from(parent_path)
+                         extension = child_path.extname
+
+                         Whitehall.url_maker.public_upload_url(
+                           File.join(
+                             child_path.dirname,
+                             child_path.basename(extension),
+                           ),
+                           {
+                             extension: extension.delete('.'),
+                           },
+                         )
+                       end
+
+      email = participation.email if participation.has_email?
+      link_url = participation.link_url if participation.has_link?
+
+      postal_address = if participation.has_postal_address?
+                         participation.postal_address
+                       end
+
+      {
+        'ways_to_respond' => {
+          'attachment_url' => attachment_url,
+          'email' => email,
+          'link_url' => link_url,
+          'postal_address' => postal_address,
+        }.compact
       }.compact
     end
 
