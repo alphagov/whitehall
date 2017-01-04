@@ -8,6 +8,7 @@ module SyncChecker::Formats
         details.merge!(expected_final_outcome(consultation))
         details.merge!(expected_government(consultation))
         details.merge!(expected_national_applicability(consultation))
+        details.merge!(expected_political(consultation))
         details.merge!(expected_public_feedback(consultation))
         details.merge!(expected_ways_to_respond(consultation))
       end
@@ -77,6 +78,10 @@ module SyncChecker::Formats
       {
         national_applicability: consultation.national_applicability.deep_stringify_keys
       }
+    end
+
+    def expected_political(consultation)
+      { political: consultation.political? }
     end
 
     def expected_public_feedback(consultation)
