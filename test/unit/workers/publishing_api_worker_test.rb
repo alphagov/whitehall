@@ -14,8 +14,6 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
       stub_publishing_api_publish(presenter.content_id, update_type: "major", locale: "en")
     ]
 
-    SyncCheckWorker.expects(:enqueue).with(edition)
-
     PublishingApiWorker.new.perform(edition.class.name, edition.id)
 
     assert_all_requested(requests)
@@ -29,8 +27,6 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
       stub_publishing_api_publish(presenter.content_id, update_type: "major", locale: "en")
     ]
-
-    SyncCheckWorker.expects(:enqueue).with(edition)
 
     PublishingApiWorker.new.perform(edition.class.name, edition.id)
 
@@ -68,8 +64,6 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
       stub_publishing_api_publish(presenter.content_id, update_type: update_type, locale: "en")
     ]
-
-    SyncCheckWorker.expects(:enqueue).with(edition)
 
     PublishingApiWorker.new.perform(edition.class.name, edition.id, update_type)
 
