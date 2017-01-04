@@ -7,6 +7,7 @@ module SyncChecker::Formats
         details.merge!(expected_external_url(consultation))
         details.merge!(expected_final_outcome(consultation))
         details.merge!(expected_national_applicability(consultation))
+        details.merge!(expected_public_feedback(consultation))
       end
     end
 
@@ -26,7 +27,7 @@ module SyncChecker::Formats
       return {} unless consultation.attachments.present?
 
       {
-        documents: Whitehall::GovspeakRenderer.new.block_attachments(
+        documents: govspeak_renderer.block_attachments(
           consultation.attachments,
           consultation.alternative_format_contact_email
         )
@@ -47,8 +48,7 @@ module SyncChecker::Formats
       {
         final_outcome_detail: outcome.summary,
         final_outcome_documents: if outcome.attachments.present?
-                                   Whitehall::GovspeakRenderer
-                                     .new
+                                   govspeak_renderer
                                      .block_attachments(
                                        outcome.attachments,
                                        outcome.alternative_format_contact_email,
@@ -65,10 +65,40 @@ module SyncChecker::Formats
       }
     end
 
+    def expected_public_feedback(consultation)
+      public_feedback = consultation.public_feedback
+
+      return {} unless consultation.closed? && public_feedback.present?
+
+      detail = if public_feedback.summary.present?
+                 govspeak_renderer.govspeak_to_html(public_feedback.summary)
+               end
+
+      documents = if public_feedback.attachments.present?
+                    govspeak_renderer
+                      .block_attachments(
+                        public_feedback.attachments,
+                        public_feedback.alternative_format_contact_email,
+                      )
+                  end
+
+      publication_date = public_feedback.published_on.try(:rfc3339)
+
+      {
+        public_feedback_detail: detail,
+        public_feedback_documents: documents,
+        public_feedback_publication_date: publication_date,
+      }.compact
+    end
+
     def first_public_at(consultation)
       (consultation.first_published_at || consultation.document.created_at)
         .to_datetime
         .rfc3339(LENGTH_OF_FRACTIONAL_SECONDS)
+    end
+
+    def govspeak_renderer
+      @govspeak_renderer ||= Whitehall::GovspeakRenderer.new
     end
 
     def top_level_fields_hash(consultation, _)
