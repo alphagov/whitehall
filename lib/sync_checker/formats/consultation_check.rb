@@ -6,6 +6,7 @@ module SyncChecker::Formats
         details.merge!(expected_documents(consultation))
         details.merge!(expected_external_url(consultation))
         details.merge!(expected_final_outcome(consultation))
+        details.merge!(expected_national_applicability(consultation))
       end
     end
 
@@ -54,6 +55,14 @@ module SyncChecker::Formats
                                      )
                                  end,
       }.compact
+    end
+
+    def expected_national_applicability(consultation)
+      return {} unless consultation.nation_inapplicabilities.present?
+
+      {
+        national_applicability: consultation.national_applicability.deep_stringify_keys
+      }
     end
 
     def first_public_at(consultation)
