@@ -6,6 +6,7 @@ module SyncChecker::Formats
         details.merge!(expected_documents(consultation))
         details.merge!(expected_external_url(consultation))
         details.merge!(expected_final_outcome(consultation))
+        details.merge!(expected_government(consultation))
         details.merge!(expected_national_applicability(consultation))
         details.merge!(expected_public_feedback(consultation))
         details.merge!(expected_ways_to_respond(consultation))
@@ -56,6 +57,18 @@ module SyncChecker::Formats
                                      )
                                  end,
       }.compact
+    end
+
+    def expected_government(consultation)
+      return {} unless consultation.government
+
+      {
+        'government' => {
+          'title' => consultation.government.name,
+          'slug' => consultation.government.slug,
+          'current' => consultation.government.current?
+        }
+      }
     end
 
     def expected_national_applicability(consultation)
