@@ -3,6 +3,7 @@ module SyncChecker::Formats
     def expected_details_hash(consultation)
       super.tap do |details|
         details.except!(:change_history) unless consultation.change_history.present?
+        details.merge!(expected_documents(consultation))
       end
     end
 
@@ -17,6 +18,17 @@ module SyncChecker::Formats
   private
 
     LENGTH_OF_FRACTIONAL_SECONDS = 3
+
+    def expected_documents(consultation)
+      return {} unless consultation.attachments.present?
+
+      {
+        documents: Whitehall::GovspeakRenderer.new.block_attachments(
+          consultation.attachments,
+          consultation.alternative_format_contact_email
+        )
+      }
+    end
 
     def first_public_at(consultation)
       (consultation.first_published_at || consultation.document.created_at)
