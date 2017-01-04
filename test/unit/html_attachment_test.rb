@@ -148,4 +148,43 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal ["en"], HtmlAttachment.new.translated_locales
     assert_equal ["cy"], HtmlAttachment.new(locale: "cy").translated_locales
   end
+
+  test "attachment with the same base path as a previously deleted attachment
+    retains the content_id" do
+    content_id = "2f142514-15bf-4779-b651-5a9aaf6df93c"
+    deleted_attachment = create(
+      :html_attachment,
+      content_id: content_id,
+      title: "booyah",
+      attachable: build(:published_publication)
+    )
+    first_edition = deleted_attachment.attachable
+    deleted_attachment.destroy
+
+    new_draft = first_edition.create_draft(first_edition.creator)
+    new_attachment = create(
+      :html_attachment,
+      title: "booyah",
+      attachable: new_draft
+    )
+
+    assert_equal content_id, new_attachment.content_id
+  end
+
+  test "attachment with an unused base path gets a new content_id" do
+    first_attachment = create(
+      :html_attachment,
+      title: "booyah",
+      attachable: build(:published_publication)
+    )
+    published_edition = first_attachment.attachable
+    new_draft = published_edition.create_draft(published_edition.creator)
+    second_attachment = create(
+      :html_attachment,
+      title: "kasha",
+      attachable: new_draft
+    )
+
+    assert_not_equal first_attachment.content_id, second_attachment.content_id
+  end
 end
