@@ -147,7 +147,7 @@ module SyncChecker
         {
           base_path: get_path(edition, locale),
           content_id: document.content_id,
-          document_type: document_type,
+          document_type: document_type(edition),
           locale: locale.to_s,
           publishing_app: "whitehall",
           schema_name: document.document_type.underscore,
@@ -161,7 +161,7 @@ module SyncChecker
         Whitehall::RenderingApp::WHITEHALL_FRONTEND
       end
 
-      def document_type
+      def document_type(_edition)
         document.document_type.underscore
       end
 
