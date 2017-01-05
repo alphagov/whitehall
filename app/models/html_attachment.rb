@@ -13,6 +13,10 @@ class HtmlAttachment < Attachment
   delegate :body, :body_html, :headers_html,
             to: :govspeak_content, allow_nil: true, prefix: true
 
+  def rendering_app
+    Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+  end
+
   def manually_numbered_headings?
     govspeak_content.manually_numbered_headings?
   end

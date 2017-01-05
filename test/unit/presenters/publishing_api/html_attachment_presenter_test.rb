@@ -24,7 +24,7 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
       locale: 'en',
       public_updated_at: html_attachment.updated_at,
       publishing_app: 'whitehall',
-      rendering_app: 'whitehall-frontend',
+      rendering_app: 'government-frontend',
       routes: [
         { path: html_attachment.url, type: 'exact' }
       ],

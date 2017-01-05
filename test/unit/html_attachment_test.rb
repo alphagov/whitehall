@@ -187,4 +187,8 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
 
     assert_not_equal first_attachment.content_id, second_attachment.content_id
   end
+
+  test "#rendering_app returns government_frontend" do
+    assert_equal "government-frontend", HtmlAttachment.new.rendering_app
+  end
 end
