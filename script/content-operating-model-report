@@ -1,0 +1,71 @@
+#!/usr/bin/env ruby
+
+require 'csv'
+
+output_filename = Rails.root.join("content-operating-report-#{Time.zone.today.strftime('%Y-%m-%d')}.csv")
+
+def first_published(editions)
+  # We can't use first_published_at or first_public_at because these don't
+  # neccessarily represent when the item was first published.  For example
+  # first_public_at can be when a consultation opens, which isn't when it was
+  # first published, and first_published_at can be manually entered to represent
+  # content that has been transitioned.
+  # A safer solution is to walk through the audit trail versions and find the
+  # first version where the state is "published" and use the creation time
+  # of that object.
+  all_edition_versions = editions.last.document_version_trail.map(&:object)
+  first_published_version = all_edition_versions.detect { |v| v.state == 'published' }
+  if first_published_version
+    first_published_version.created_at
+  else
+    "Never published on GOV.UK"
+  end
+end
+
+def last_state_change(editions)
+  # We walk backwards through the audit trail versions and find the last
+  # version where the state is the same as the latest edition; the creation
+  # time of this object is when the change occurred
+  last_edition = editions.last
+  all_edition_versions = editions.last.document_version_trail.map(&:object)
+  most_recent_state_change = all_edition_versions.reverse_each.detect { |v| v.state == last_edition.state }
+  if most_recent_state_change
+    most_recent_state_change.created_at
+  else
+    "State has never changed"
+  end
+end
+
+def document_format(edition)
+  case edition
+  when CorporateInformationPage
+    "Corporate Information Page: #{edition.corporate_information_page_type.display_type_key.humanize}"
+  when NewsArticle
+    "News article: #{edition.news_article_type.singular_name}"
+  when Publication
+    "Publication: #{edition.publication_type.singular_name}"
+  when Speech
+    "Speech: #{edition.speech_type.singular_name}"
+  else
+    edition.model_name.human
+  end
+end
+
+url_maker = Whitehall.url_maker
+CSV.open(output_filename, 'w') do |csv|
+  csv << ["URL", "Organisation", "First published on GOV.UK", "Format", "Status", "Timestamp of last state change"]
+  Organisation.ordered_by_name_ignoring_prefix.each do |org|
+    org.editions.alphabetical.group_by(&:document_id).each do |document_id, editions|
+      sorted_editions = editions.sort_by &:lock_version
+      latest_edition = sorted_editions.last
+      csv << [
+        url_maker.public_document_url(latest_edition),
+        org.name,
+        first_published(sorted_editions),
+        document_format(latest_edition),
+        latest_edition.state,
+        last_state_change(sorted_editions),
+      ]
+    end
+  end
+end
