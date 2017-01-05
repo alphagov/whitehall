@@ -14,8 +14,6 @@ class PublishingApiWorker < WorkerBase
         handle_client_error(e)
       end
     end
-
-    SyncCheckWorker.enqueue(model)
   end
 
   private
