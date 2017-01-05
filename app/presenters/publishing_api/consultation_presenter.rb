@@ -32,7 +32,7 @@ module PublishingApi
     def links
       LinksPresenter
         .new(consultation)
-        .extract(%i(organisations policy_areas topics))
+        .extract(%i(organisations parent policy_areas related_policies topics))
     end
 
   private
