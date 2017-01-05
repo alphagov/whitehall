@@ -117,16 +117,11 @@ module PublishingApi
 
       attr_accessor :consultation, :renderer
 
-      def alternative_format_email
-        consultation
-          .alternative_format_provider
-          .try(:alternative_format_contact_email)
-      end
 
       def documents
         renderer.block_attachments(
           consultation.attachments,
-          alternative_format_email,
+          consultation.alternative_format_contact_email,
         )
       end
     end
@@ -177,12 +172,6 @@ module PublishingApi
       attr_accessor :consultation, :renderer
       def_delegator :consultation, :outcome
 
-      def alternative_format_email
-        consultation
-          .alternative_format_provider
-          .try(:alternative_format_contact_email)
-      end
-
       def final_outcome_detail
         outcome.summary
       end
@@ -190,7 +179,10 @@ module PublishingApi
       def final_outcome_documents
         return unless outcome.attachments.present?
 
-        renderer.block_attachments(outcome.attachments, alternative_format_email)
+        renderer.block_attachments(
+          outcome.attachments,
+          outcome.alternative_format_contact_email,
+        )
       end
     end
 
@@ -253,7 +245,7 @@ module PublishingApi
 
         renderer.block_attachments(
           public_feedback.attachments,
-          consultation.alternative_format_provider.try(:alternative_format_contact_email),
+          public_feedback.alternative_format_contact_email,
         )
       end
 

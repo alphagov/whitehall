@@ -311,18 +311,16 @@ module PublishingApi::ConsultationPresenterTest
     test 'public feedback documents' do
       attachments_double = Object.new
 
-      alternative_format_email =
-        consultation
-          .alternative_format_provider
-          .try(:alternative_format_contact_email)
-
       govspeak_renderer = mock('Whitehall::GovspeakRenderer')
 
       govspeak_renderer.stubs(:govspeak_to_html)
 
       govspeak_renderer
         .expects(:block_attachments)
-        .with(consultation.public_feedback.attachments, alternative_format_email)
+        .with(
+          consultation.public_feedback.attachments,
+          consultation.public_feedback.alternative_format_contact_email
+        )
         .returns(attachments_double)
 
       Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer)
@@ -362,16 +360,14 @@ module PublishingApi::ConsultationPresenterTest
     test 'final outcome documents' do
       attachments_double = Object.new
 
-      alternative_format_email =
-        consultation
-          .alternative_format_provider
-          .try(:alternative_format_contact_email)
-
       govspeak_renderer = mock('Whitehall::GovspeakRenderer')
 
       govspeak_renderer
         .expects(:block_attachments)
-        .with(consultation.outcome.attachments, alternative_format_email)
+        .with(
+          consultation.outcome.attachments,
+          consultation.outcome.alternative_format_contact_email,
+        )
         .returns(attachments_double)
 
       Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer)
@@ -406,16 +402,14 @@ module PublishingApi::ConsultationPresenterTest
     test 'documents' do
       attachments_double = Object.new
 
-      alternative_format_email =
-        consultation
-          .alternative_format_provider
-          .alternative_format_contact_email
-
       govspeak_renderer = mock('Whitehall::GovspeakRenderer')
 
       govspeak_renderer
         .expects(:block_attachments)
-        .with(consultation.attachments, alternative_format_email)
+        .with(
+          consultation.attachments,
+          consultation.alternative_format_contact_email,
+        )
         .returns(attachments_double)
 
       Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer)
