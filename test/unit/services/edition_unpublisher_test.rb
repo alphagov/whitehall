@@ -31,8 +31,22 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
     assert_equal Time.zone.now, feature.reload.ended_at
   end
 
-  test 'only "published" editions can be unpublished' do
-    (Edition.available_states - [:published]).each do |state|
+  test '"published" editions can be unpublished' do
+    edition = create(:published_edition)
+    unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
+
+    assert unpublisher.perform!
+  end
+
+  test '"draft" editions can be unpublished' do
+    edition = create(:draft_edition)
+    unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
+
+    assert unpublisher.perform!
+  end
+
+  test 'other edition states cannot be unpublished' do
+    (Edition.available_states - [:published, :draft]).each do |state|
       edition = create(:edition, state: state)
       unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
 
