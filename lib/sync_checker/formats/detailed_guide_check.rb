@@ -29,7 +29,7 @@ module SyncChecker
         ]
       end
 
-      def document_type
+      def document_type(_edition)
         "detailed_guide"
       end
 
