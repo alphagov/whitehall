@@ -19,7 +19,13 @@ class Admin::EditionUnpublishingControllerTest < ActionController::TestCase
   end
 
   test "#update updates the withdrawal and redirects to admin policy page" do
-    Whitehall::PublishingApi.expects(:publish_withdrawal_async)
+    Whitehall.edition_services
+      .expects(:withdrawer)
+      .with(@edition)
+      .returns(withdrawer = stub)
+
+    withdrawer.expects(:perform!)
+
 
     put :update, edition_id: @edition.id, unpublishing: { explanation: "this used to say withdrawn" }
 
@@ -30,7 +36,13 @@ class Admin::EditionUnpublishingControllerTest < ActionController::TestCase
 
   test "#update updates the unpublishing and redirects to admin policy page" do
     @unpublished_edition = create(:unpublished_edition)
-    Whitehall::PublishingApi.expects(:unpublish_async)
+
+    Whitehall.edition_services
+      .expects(:unpublisher)
+      .with(@unpublished_edition)
+      .returns(unpublisher = stub)
+
+    unpublisher.expects(:perform!)
 
     put :update, edition_id: @unpublished_edition.id, unpublishing: { explanation: "this used to say unpublished" }
 
