@@ -101,7 +101,7 @@ module SyncChecker
           ),
           Checks::LinksCheck.new(
             "related_policies",
-            (edition_expected_in_live.try(:policy_content_ids) || [])
+            (edition_expected_in_live.try(:policies) || []).map(&:content_id)
           ),
           Checks::DetailsCheck.new(
             I18n.with_locale(locale) do
