@@ -393,4 +393,18 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
       call(publication)
     end
   end
+
+  class Unwithdraw < PublishingApiHtmlAttachmentsWorkerTest
+    test "with an html attachment on a new document publishes the attachment" do
+      publication = create(:withdrawn_publication)
+      attachment = publication.html_attachments.first
+      PublishingApiWorker.any_instance.expects(:perform).with(
+        "HtmlAttachment",
+        attachment.id,
+        "major",
+        "en"
+      )
+      call(publication)
+    end
+  end
 end

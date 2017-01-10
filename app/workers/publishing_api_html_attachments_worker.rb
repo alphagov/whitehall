@@ -13,6 +13,7 @@ class PublishingApiHtmlAttachmentsWorker
     do_publish(edition.minor_change? ? "minor" : "major")
   end
   alias :force_publish :publish
+  alias :unwithdraw :publish
 
   def republish
     update_publishing_api_content
