@@ -1,9 +1,6 @@
 require 'test_helper'
-require 'gds_api/test_helpers/panopticon'
 
 class Admin::EditionWorkflowControllerTest < ActionController::TestCase
-  include GdsApi::TestHelpers::Panopticon
-
   should_be_an_admin_controller
 
   setup do
@@ -17,7 +14,6 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
       "page" => "3",
     }
 
-    stub_panopticon_registration(submitted_edition)
     stub_publishing_api_registration_for(submitted_edition)
     post :publish, id: submitted_edition, lock_version: submitted_edition.lock_version
 
@@ -59,7 +55,6 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'POST #force_publish force publishes the edition' do
-    stub_panopticon_registration(draft_edition)
     stub_publishing_api_registration_for(draft_edition)
     post :force_publish, id: draft_edition, lock_version: draft_edition.lock_version, reason: 'Urgent change'
 
@@ -73,14 +68,6 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_redirected_to admin_publication_path(draft_edition)
     assert_equal 'You cannot force publish a document without a reason', flash[:alert]
     assert draft_edition.reload.draft?
-  end
-
-  test 'unwithdraw handles re-registration with Panopticon' do
-    registerable = RegisterableEdition.new(withdrawn_edition)
-    panopticon_request = stub_artefact_registration(registerable.slug)
-    post :unwithdraw, id: withdrawn_edition, lock_version: withdrawn_edition.lock_version, reason: 'Withdrawn by error'
-
-    assert_requested panopticon_request
   end
 
   test 'schedule schedules the given edition on behalf of the current user' do
@@ -246,7 +233,6 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
         unpublishing_reason_id: UnpublishingReason::PublishedInError.id,
         explanation: 'Was classified'
       }
-    stub_panopticon_registration(published_edition)
     post :unpublish, id: published_edition, lock_version: published_edition.lock_version, unpublishing: unpublish_params
 
     assert_redirected_to admin_publication_path(published_edition)
@@ -260,7 +246,6 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
         unpublishing_reason_id: UnpublishingReason::Withdrawn.id,
         explanation: 'No longer government publication'
       }
-    stub_panopticon_registration(published_edition)
     post :unpublish, id: published_edition, lock_version: published_edition.lock_version, unpublishing: unpublish_params
 
     assert_redirected_to admin_publication_path(published_edition)

@@ -1,15 +1,12 @@
 require "test_helper"
 require "gds_api/test_helpers/publishing_api_v2"
-require "gds_api/test_helpers/panopticon"
 
 class PublishingTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApiV2
-  include GdsApi::TestHelpers::Panopticon
 
   setup do
     @draft_edition = create(:draft_edition)
     @presenter = PublishingApiPresenters.presenter_for(@draft_edition)
-    stub_panopticon_registration(@draft_edition)
   end
 
   test "When an edition is published, it gets published with the Publishing API" do

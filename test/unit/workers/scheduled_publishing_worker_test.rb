@@ -10,7 +10,6 @@ class ScheduledPublishingWorkerTest < ActiveSupport::TestCase
   test '#perform publishes a scheduled edition as the publishing robot' do
     edition = create(:scheduled_edition, scheduled_publication: 1.second.ago)
 
-    stub_panopticon_registration(edition)
     stub_publishing_api_registration_for(edition)
     ScheduledPublishingWorker.new.perform(edition.id)
 

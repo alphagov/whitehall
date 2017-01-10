@@ -1,6 +1,5 @@
 require "test_helper"
 require "gds_api/test_helpers/publishing_api_v2"
-require "gds_api/test_helpers/panopticon"
 
 class TakePartPageTest < ActiveSupport::TestCase
   #api calls happen in after commit so we need to disable transactions

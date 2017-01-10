@@ -277,7 +277,6 @@ class EditionTest < ActiveSupport::TestCase
   test "#published_by uses information from the audit trail" do
     editor = create(:departmental_editor)
     publication = create(:submitted_publication)
-    stub_panopticon_registration(publication)
     Sidekiq::Testing.fake! do
       acting_as(editor) do
         Whitehall.edition_services.publisher(publication).perform!
@@ -300,7 +299,7 @@ class EditionTest < ActiveSupport::TestCase
       editor = create(:departmental_editor)
       robot = create(:scheduled_publishing_robot)
       publication = create(:submitted_publication, scheduled_publication: 1.day.from_now)
-      stub_panopticon_registration(publication)
+
       acting_as(editor) { Whitehall.edition_services.force_scheduler(publication).perform! }
       Timecop.freeze publication.scheduled_publication do
         acting_as(robot) { Whitehall.edition_services.scheduled_publisher(publication).perform! }
@@ -482,17 +481,6 @@ class EditionTest < ActiveSupport::TestCase
     results = Edition.search_index.to_a
 
     assert_equal ['news_article-title', 'publication-title'], results.map {|r| r['title']}
-  end
-
-  test "should remove published edition from search index and update edition state in Panopticon when it is unpublished" do
-    news_article = create(:published_news_article)
-    create(:unpublishing, edition: news_article)
-    mock_registrar = mock(register!: true)
-
-    Whitehall::SearchIndex.expects(:delete).with(news_article)
-    ServiceListeners::PanopticonRegistrar.expects(:new).with(news_article).returns(mock_registrar)
-
-    Whitehall.edition_services.unpublisher(news_article).perform!
   end
 
   test "#destroy should also remove the relationship to any authors" do

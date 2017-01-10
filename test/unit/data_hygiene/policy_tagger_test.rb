@@ -56,8 +56,6 @@ class PolicyTaggerTest < ActiveSupport::TestCase
     Whitehall::PublishingApi.expects(:republish_async).with(@published_edition)
     ServiceListeners::SearchIndexer.expects(:new).with(@published_edition)
       .returns(mock(index!: true))
-    ServiceListeners::PanopticonRegistrar.expects(:new).with(@published_edition)
-      .returns(mock(register!: true))
 
     policies_to_add = [@content_id_1, @content_id_2]
     PolicyTagger.new(
@@ -71,7 +69,6 @@ class PolicyTaggerTest < ActiveSupport::TestCase
     @published_edition.destroy
     Whitehall::PublishingApi.expects(:republish_async).never
     ServiceListeners::SearchIndexer.expects(:new).never
-    ServiceListeners::PanopticonRegistrar.expects(:new).never
 
     PolicyTagger.new(slug: @my_document.slug, policies_to_remove: [], policies_to_add: []).process
   end
@@ -79,6 +76,5 @@ class PolicyTaggerTest < ActiveSupport::TestCase
   def stub_registration
     Whitehall::PublishingApi.stubs(:republish_async)
     ServiceListeners::SearchIndexer.any_instance.stubs(:index!)
-    ServiceListeners::PanopticonRegistrar.any_instance.stubs(:register!)
   end
 end

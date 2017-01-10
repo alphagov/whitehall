@@ -1,19 +1,9 @@
 require 'test_helper'
-require 'gds_api/test_helpers/panopticon'
 
 class EditionUnwithdrawerTest < ActiveSupport::TestCase
-  include GdsApi::TestHelpers::Panopticon
-
-  def stub_live_artefact_registration(edition)
-    # We use RegisterableEdition to ensure we get the same slug mangling
-    registerable = RegisterableEdition.new(edition)
-    stub_artefact_registration(registerable.slug, hash_including(state: "live"), true)
-  end
-
   setup do
     @edition = FactoryGirl.create(:published_edition, state: 'withdrawn')
     @user = FactoryGirl.create(:user)
-    @panopticon_request = stub_live_artefact_registration(@edition)
     stub_any_publishing_api_call
   end
 
@@ -52,7 +42,6 @@ class EditionUnwithdrawerTest < ActiveSupport::TestCase
 
   test "unwithdraw handles legacy withdrawn editions" do
     edition = FactoryGirl.create(:published_edition, state: 'withdrawn')
-    stub_live_artefact_registration(edition)
 
     unwithdrawn_edition = unwithdraw(edition)
 
