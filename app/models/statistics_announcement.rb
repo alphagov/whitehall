@@ -16,7 +16,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
   include PublishesToPublishingApi
 
   def can_publish_to_publishing_api?
-    super && !publication_has_been_published?
+    super && !publication_has_been_published? && !unpublished?
   end
 
   belongs_to :creator, class_name: 'User'
@@ -87,11 +87,19 @@ class StatisticsAnnouncement < ActiveRecord::Base
   delegate  :release_date, :display_date, :confirmed?,
               to: :current_release_date, allow_nil: true
 
-  after_touch :publish_redirect, if: :publication_has_been_published?
-  set_callback :published, :after, :notify_search, :update_publish_intent
+  after_touch :publish_redirect_to_publication, if: :publication_has_been_published?
+  set_callback :published, :after, :after_publish
+  after_commit :notify_unpublished, if: :unpublished?
 
-  def notify_search
-    unpublished? ? remove_from_search_index : update_in_search_index
+  def notify_unpublished
+    publish_redirect_to_redirect_url
+    remove_from_search_index
+    update_publish_intent
+  end
+
+  def after_publish
+    update_in_search_index
+    update_publish_intent
   end
 
   def update_publish_intent
@@ -234,7 +242,11 @@ private
     end
   end
 
-  def publish_redirect
+  def publish_redirect_to_publication
     Whitehall::PublishingApi.publish_redirect_async(content_id, publication_url)
+  end
+
+  def publish_redirect_to_redirect_url
+    Whitehall::PublishingApi.publish_redirect_async(content_id, redirect_url)
   end
 end

@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class StatisticsAnnouncementTest < ActiveSupport::TestCase
+  include GdsApi::TestHelpers::PublishingApi
 
   test 'can set publication type using an ID' do
     announcement = StatisticsAnnouncement.new(publication_type_id: PublicationType::OfficialStatistics.id)
@@ -88,20 +89,28 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   test 'is indexed for search after being saved' do
     Whitehall::SearchIndex.stubs(:add)
     Whitehall::SearchIndex.expects(:add).with { |instance| instance.is_a?(StatisticsAnnouncement) && instance.title = 'indexed announcement' }
-    create(:statistics_announcement, title: 'indexed announcement')
-  end
-
-  test 'is removed from search after being unpublished' do
-    announcement = create(:statistics_announcement)
 
     Whitehall.publishing_api_v2_client.expects(:put_content)
     Whitehall.publishing_api_v2_client.expects(:patch_links)
     Whitehall.publishing_api_v2_client.expects(:publish)
 
+    stub_default_publishing_api_put_intent
+
+    announcement = create(:statistics_announcement, title: 'indexed announcement', slug: "example")
+    announcement.run_callbacks(:commit)
+  end
+
+  test 'is removed from search after being unpublished' do
+    announcement = create(:statistics_announcement)
+    redirect_url = "https://www.test.alphagov.co.uk/foo"
+
+    stub_publishing_api_destroy_intent(announcement.base_path)
+
     Whitehall::SearchIndex.expects(:add).never
     Whitehall::SearchIndex.expects(:delete).with(announcement)
 
-    announcement.update!(publishing_state: "unpublished", redirect_url: "https://www.test.alphagov.co.uk/foo")
+    announcement.update!(publishing_state: "unpublished", redirect_url: redirect_url)
+    announcement.run_callbacks(:commit)
   end
 
   test 'only valid when associated publication is of a matching type' do
