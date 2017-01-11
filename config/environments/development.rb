@@ -20,7 +20,7 @@ Whitehall::Application.configure do
   config.action_mailer.raise_delivery_errors = false
 
   # Expands the lines which load the assets
-  config.assets.debug = true
+  config.assets.debug = ENV['DISABLE_ASSETS_DEBUG'].nil?
   config.assets.cache_store = :null_store
   config.sass.cache = false
 
