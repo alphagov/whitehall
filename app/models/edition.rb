@@ -25,6 +25,8 @@ class Edition < ActiveRecord::Base
   # Add support for specialist sector tagging.
   include Edition::SpecialistSectors
 
+  include Edition::TaggableOrganisations
+
   include Dependable
 
   serialize :need_ids, Array

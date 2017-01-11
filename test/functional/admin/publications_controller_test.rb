@@ -137,6 +137,43 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
+  view_test "when edition is not from DfE or SFA dont show a button to tag to the new taxonomy" do
+    draft_edition = create(:draft_publication)
+    get :show, id: draft_edition
+
+    refute_select '.tag-taxonomy'
+  end
+
+  view_test "when edition is from DfE show a button to tag to the new taxonomy" do
+    dfe_organisation = create(:organisation, content_id: "ebd15ade-73b2-4eaf-b1c3-43034a42eb37")
+
+    publication = create(
+      :publication,
+      organisations: [dfe_organisation]
+    )
+
+    login_as(create(:user, organisation: dfe_organisation))
+
+    get :show, id: publication
+
+    assert_select '.tag-taxonomy', "Tag to new taxonomy"
+  end
+
+  view_test "when edition is from SFA show a button to tag to the new taxonomy" do
+    sfa_organisation = create(:organisation, content_id: "3e5a6924-b369-4eb3-8b06-3c0814701de4")
+
+    publication = create(
+      :publication,
+      organisations: [sfa_organisation]
+    )
+
+    login_as(create(:user, organisation: sfa_organisation))
+
+    get :show, id: publication
+
+    assert_select '.tag-taxonomy', "Tag to new taxonomy"
+  end
+
   private
 
   def controller_attributes_for(edition_type, attributes = {})

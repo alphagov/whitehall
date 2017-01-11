@@ -14,4 +14,9 @@
   <% elsif @edition.is_latest_edition? and @edition.published? %>
     <%= redraft_edition_button(@edition) %>
   <% end %>
+
+  <% if @edition.can_be_tagged_to_taxonomy? %>
+    <%= link_to "Tag to new taxonomy", edit_admin_edition_tags_path(@edition.id),
+        class: "btn btn-lg btn-default tag-taxonomy" %>
+  <% end %>
 </section>

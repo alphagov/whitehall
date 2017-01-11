@@ -1,0 +1,24 @@
+<% page_title "Tagging: " + @edition.title %>
+<h1>Edit Tags for</h1>
+<h2>"<%= @edition.title %>"</h2>
+
+<%= form_for @edition_tag_form, url: admin_edition_tags_path(@edition), method: :put do |form| %>
+  <%= form.hidden_field :previous_version %>
+
+  <div class="form-group">
+    <%= form.label :tags %>
+    <%= form.select :taxons,
+                    LinkableTopics.new.taxons,
+                    {},
+                    { multiple: true,
+                      class: 'chzn-select form-control',
+                      data: { placeholder: 'Choose additional tags…' } } %>
+  </div>
+
+  <p class="warning">
+    Warning: changes to tags appear instantly on the live site.
+  </p>
+
+  <%= form.submit "Save", class: "btn btn-primary" %>
+  <%= link_to "Cancel", admin_edition_path(@edition), class: 'btn btn-default' %>
+<% end %>

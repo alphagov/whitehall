@@ -1,0 +1,7 @@
+# This file has a list of organisation content_id's
+# that are allowed to have their documents tagged into the taxonomy
+# - This is part of the work performed by Finding Things team.
+
+organisations_in_tagging_beta:
+  - "ebd15ade-73b2-4eaf-b1c3-43034a42eb37" # DfE
+  - "3e5a6924-b369-4eb3-8b06-3c0814701de4" # SFA
