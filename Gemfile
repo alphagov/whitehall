@@ -16,7 +16,6 @@ gem 'slimmer', '9.0.1'
 gem 'plek', '~> 1.12'
 gem 'isbn_validation'
 gem 'gds-sso', '~> 11.0'
-gem 'rummageable', '1.2.0'
 gem 'addressable', ">= 2.3.7"
 gem 'unicorn', '5.0.0'
 gem 'kaminari', '0.15.1'

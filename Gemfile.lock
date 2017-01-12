@@ -355,10 +355,6 @@ GEM
     ruby-prof (0.15.2)
     ruby-progressbar (1.7.5)
     ruby-rc4 (0.1.5)
-    rummageable (1.2.0)
-      multi_json
-      null_logger
-      rest-client
     safe_yaml (1.0.4)
     sanitize (2.1.0)
       nokogiri (>= 1.4.4)
@@ -524,7 +520,6 @@ DEPENDENCIES
   rinku
   ruby-prof
   ruby-progressbar
-  rummageable (= 1.2.0)
   sass (= 3.4.9)
   sassc-rails
   shared_mustache (~> 0.2.1)
