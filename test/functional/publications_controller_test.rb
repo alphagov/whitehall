@@ -217,7 +217,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "#index orders consultations by first_published_at date by default" do
-    consultations = 5.times.map {|i| create(:published_consultation, opening_at: (10 - i).days.ago) }
+    consultations = 5.times.map {|i| create(:published_consultation, first_published_at: (10 - i).days.ago) }
 
     get :index
 
@@ -227,7 +227,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
   view_test "#index orders documents by appropriate timestamp by default" do
     documents = [
-      consultation = create(:published_consultation, opening_at: 5.days.ago),
+      consultation = create(:published_consultation, first_published_at: 5.days.ago),
       publication = create(:published_publication, first_published_at: 4.days.ago)
     ]
 
@@ -347,7 +347,8 @@ class PublicationsControllerTest < ActionController::TestCase
     consultation = create(:published_consultation, title: "consultation-title",
                          organisations: [org, org2],
                          opening_at: Time.zone.parse("2012-03-14"),
-                         closing_at: Time.zone.parse("2012-03-15"))
+                         closing_at: Time.zone.parse("2012-03-15"),
+                         first_published_at: Time.zone.parse("2012-03-10"))
 
     get :index, format: :json
 
@@ -359,7 +360,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal consultation.id, json["id"]
     assert_equal consultation_path(consultation.document), json["url"]
     assert_equal "org-name and other-org", json["organisations"]
-    assert_equal %{<time class="public_timestamp" datetime="2012-03-14T00:00:00+00:00">14 March 2012</time>}, json["display_date_microformat"]
+    assert_equal %{<time class="public_timestamp" datetime="2012-03-10T00:00:00+00:00">10 March 2012</time>}, json["display_date_microformat"]
     assert_equal "Consultation", json["display_type"]
   end
 
@@ -500,10 +501,10 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_publication_order [newest, middle, oldest]
   end
 
-  test '#index atom feed orders consultations according to opening_at (newest first)' do
-    oldest = create(:published_consultation, opening_at: 5.days.ago, title: "oldest")
-    newest = create(:published_consultation, opening_at: 1.days.ago, title: "newest")
-    middle = create(:published_consultation, opening_at: 3.days.ago, title: "middle")
+  test '#index atom feed orders consultations according to first_published_at (newest first)' do
+    oldest = create(:published_consultation, first_published_at: 5.days.ago, title: "oldest")
+    newest = create(:published_consultation, first_published_at: 1.days.ago, title: "newest")
+    middle = create(:published_consultation, first_published_at: 3.days.ago, title: "middle")
 
     get :index, format: :atom
 

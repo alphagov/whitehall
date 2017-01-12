@@ -50,7 +50,7 @@ class TopicsControllerTest < ActionController::TestCase
     published = []
     4.times do |i|
       published << create(:published_consultation, {
-        title: "title-#{i}", topics: [topic], opening_at: i.days.ago
+        title: "title-#{i}", topics: [topic], first_published_at: i.days.ago
       })
     end
 

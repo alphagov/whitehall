@@ -64,7 +64,7 @@ class OrganisationFilterTest < ActiveSupport::TestCase
     expected = [
       document(:detailed_guide, first_published_at: 1.days.ago),
       document(:policy_paper, first_published_at: 2.days.ago),
-      document(:consultation, opening_at: 4.days.ago),
+      document(:consultation, first_published_at: 4.days.ago),
       document(:statistics, first_published_at: 5.days.ago),
     ]
 
@@ -96,7 +96,7 @@ class WorldLocationFilterTest < ActiveSupport::TestCase
     expected = [
       document(:detailed_guide, first_published_at: 1.days.ago),
       document(:policy_paper, first_published_at: 2.days.ago),
-      document(:consultation, opening_at: 4.days.ago),
+      document(:consultation, first_published_at: 4.days.ago),
       document(:statistics, first_published_at: 5.days.ago),
     ]
 
@@ -121,7 +121,7 @@ class ClassificationFilterTest < ActiveSupport::TestCase
     expected = [
       document(:detailed_guide, first_published_at: 1.days.ago),
       document(:policy_paper, first_published_at: 2.days.ago),
-      document(:consultation, opening_at: 4.days.ago),
+      document(:consultation, first_published_at: 4.days.ago),
       document(:statistics, first_published_at: 5.days.ago),
     ]
 
