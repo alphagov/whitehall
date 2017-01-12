@@ -113,14 +113,16 @@ module Admin
     end
 
     def editions_with_translations(locale = nil)
-      editions_without_translations = unpaginated_editions.
-                                        includes(:unpublishing).
-                                        order("editions.updated_at DESC")
+      Rails.cache.fetch(cache_key(locale), expires_in: 15.minutes) do
+        editions_without_translations = unpaginated_editions.
+                                          includes(:unpublishing).
+                                          order("editions.updated_at DESC")
 
-      if locale
-        editions_without_translations.with_translations(locale)
-      else
-        editions_without_translations.includes(:translations)
+        if locale
+          editions_without_translations.with_translations(locale)
+        else
+          editions_without_translations.includes(:translations)
+        end
       end
     end
 
@@ -219,6 +221,10 @@ module Admin
         sentence = selected_world_locations.map { |l| WorldLocation.friendly.find(l).name }.to_sentence
         " about #{sentence}"
       end
+    end
+
+    def cache_key(locale)
+      "#{@source}_#{locale}"
     end
   end
 end
