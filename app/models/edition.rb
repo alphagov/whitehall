@@ -25,8 +25,6 @@ class Edition < ActiveRecord::Base
   # Add support for specialist sector tagging.
   include Edition::SpecialistSectors
 
-  include Edition::TaggableOrganisations
-
   include Dependable
 
   serialize :need_ids, Array
@@ -418,6 +416,10 @@ class Edition < ActiveRecord::Base
   end
 
   def statistics?
+    false
+  end
+
+  def can_be_tagged_to_taxonomy?
     false
   end
 
