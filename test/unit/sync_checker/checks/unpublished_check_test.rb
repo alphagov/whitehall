@@ -159,6 +159,35 @@ module SyncChecker::Checks
         UnpublishedCheck.new(document).call(response)
     end
 
+    def test_returns_an_error_if_the_document_is_withdrawn_and_has_blank_date
+      document = stub(
+        published_edition: stub(
+          updated_at: Time.gm(2016, 8, 10, 1, 2, 3, 456)
+        ),
+        pre_publication_edition: nil
+      )
+      document.published_edition.stubs(unpublishing: stub(
+        unpublishing_reason_id: 5,
+        explanation: "Some explainings",
+        edition: document.published_edition
+      ))
+
+      @stub_renderer.stubs(:govspeak_to_html).returns("<p>Some explainings</p>")
+
+      response = stub(
+        body: {
+          withdrawn_notice: {
+            explanation: "<p>Some explainings</p>",
+            withdrawn_at: ""
+          }
+        }.to_json
+      )
+      expected_error = "expected withdrawn at but was missing"
+
+      assert_equal [expected_error],
+        UnpublishedCheck.new(document).call(response)
+    end
+
     def test_returns_no_error_if_the_document_is_unpublished_in_error_and_has_gone
       document = stub(
         published_edition: nil,
