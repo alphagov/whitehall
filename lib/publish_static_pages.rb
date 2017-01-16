@@ -96,6 +96,13 @@ class PublishStaticPages
         indexable_content: "Read biographies and responsibilities of Cabinet ministers and all ministers by department, as well as the whips who help co-ordinate parliamentary business government, parliament, parliamentary, minister, ministers, mp, rt hon, right honourable, secretary of state, westminster, whitehall, house of commons, house of lords",
         base_path: "/government/ministers",
       },
+      {
+        content_id: "430df081-f28e-4a1f-b812-8977fdac6e9a",
+        title: "Find a British embassy, high commission or consulate",
+        base_path: "/government/world/embassies",
+        description: "Contact details of British embassies, consulates, high commissions around the world for help with visas, passports and more.",
+        indexable_content: "Contact details of British embassies, consulates, high commissions around the world for help with visas, passports and more.",
+      },
     ]
   end
 
