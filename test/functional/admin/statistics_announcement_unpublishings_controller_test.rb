@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class Admin::StatisticsAnnouncementUnpublishingsControllerTest < ActionController::TestCase
+  include GdsApi::TestHelpers::PublishingApi
+
   setup do
     @user = login_as(:gds_editor)
     @announcement = create(:statistics_announcement)
@@ -31,6 +33,9 @@ class Admin::StatisticsAnnouncementUnpublishingsControllerTest < ActionControlle
 
   test "POST :create with valid params unpublishes the announcement" do
     redirect_url = 'https://www.test.alphagov.co.uk/example'
+
+    stub_publishing_api_destroy_intent(@announcement.base_path)
+
     post :create, statistics_announcement_id: @announcement, statistics_announcement: {
       redirect_url: redirect_url
     }

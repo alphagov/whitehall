@@ -85,25 +85,6 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_equal expected_indexed_content, announcement.search_index
   end
 
-  test 'is indexed for search after being saved' do
-    Whitehall::SearchIndex.stubs(:add)
-    Whitehall::SearchIndex.expects(:add).with { |instance| instance.is_a?(StatisticsAnnouncement) && instance.title = 'indexed announcement' }
-    create(:statistics_announcement, title: 'indexed announcement')
-  end
-
-  test 'is removed from search after being unpublished' do
-    announcement = create(:statistics_announcement)
-
-    Whitehall.publishing_api_v2_client.expects(:put_content)
-    Whitehall.publishing_api_v2_client.expects(:patch_links)
-    Whitehall.publishing_api_v2_client.expects(:publish)
-
-    Whitehall::SearchIndex.expects(:add).never
-    Whitehall::SearchIndex.expects(:delete).with(announcement)
-
-    announcement.update!(publishing_state: "unpublished", redirect_url: "https://www.test.alphagov.co.uk/foo")
-  end
-
   test 'only valid when associated publication is of a matching type' do
     statistics          = create(:draft_statistics)
     national_statistics = create(:draft_national_statistics)

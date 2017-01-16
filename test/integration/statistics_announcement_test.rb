@@ -179,4 +179,16 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
 
     Whitehall.edition_services.force_publisher(statistics).perform!
   end
+
+  test "it is redirected to an alternate URL when unpublished" do
+    statistics_announcement = create(:statistics_announcement)
+
+    Whitehall::PublishingApi.expects(:publish_redirect_async)
+      .with(statistics_announcement.content_id, "https://www.test.alphagov.co.uk/government/something-else")
+
+    statistics_announcement.update_attributes!(
+      publishing_state: "unpublished",
+      redirect_url: "https://www.test.alphagov.co.uk/government/something-else"
+    )
+  end
 end
