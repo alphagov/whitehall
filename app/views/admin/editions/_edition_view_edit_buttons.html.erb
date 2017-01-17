@@ -15,7 +15,7 @@
     <%= redraft_edition_button(@edition) %>
   <% end %>
 
-  <% if @edition.can_be_tagged_to_taxonomy? %>
+  <% if @edition.can_be_tagged_to_taxonomy? && tagging_taxonomy_enabled? %>
     <%= link_to "Tag to new taxonomy", edit_admin_edition_tags_path(@edition.id),
         class: "btn btn-lg btn-default tag-taxonomy" %>
   <% end %>

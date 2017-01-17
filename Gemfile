@@ -85,6 +85,7 @@ group :development, :test do
   gem 'ruby-prof'
   gem 'pry-byebug'
   gem 'govuk-lint', '~> 0.5.1'
+  gem 'dotenv-rails'
 end
 
 group :development do
