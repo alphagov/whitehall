@@ -3,5 +3,11 @@
 # - This is part of the work performed by Finding Things team.
 
 organisations_in_tagging_beta:
-  - "ebd15ade-73b2-4eaf-b1c3-43034a42eb37" # DfE
-  - "3e5a6924-b369-4eb3-8b06-3c0814701de4" # SFA
+  - "b9fc8528-81d1-419b-8748-6c00be71044b" # Education Funding Agency
+  - "ebd15ade-73b2-4eaf-b1c3-43034a42eb37" # Department for Education
+  - "e1cbab66-b0d3-4186-917c-afd4f3fb6967" # National College for Teaching and Leadership
+  - "e7f33769-a539-4fb4-b24f-f6c1cabc3f59" # Office of the Schools Adjudicator
+  - "83f6e93f-bb2c-46ab-9b02-394f972b7030" # Ofqual
+  - "ad5f6169-ac7b-4382-9eb6-e58af71a2f00" # Ofsted
+  - "3e5a6924-b369-4eb3-8b06-3c0814701de4" # Skills Funding Agency
+  - "863ffacd-d313-49c1-b856-58fe0799fd41" # Standards and Testing Agency
