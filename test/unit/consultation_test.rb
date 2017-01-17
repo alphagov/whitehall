@@ -252,10 +252,10 @@ class ConsultationTest < ActiveSupport::TestCase
     assert_equal today, consultation.outcome_published_on
   end
 
-  test "make_public_at should not set first_published_at" do
+  test "make_public_at should set first_published_at" do
     consultation = build(:consultation, first_published_at: nil)
     consultation.make_public_at(2.days.ago)
-    refute consultation.first_published_at
+    assert consultation.first_published_at
   end
 
   test "display_type when not yet open" do
@@ -353,10 +353,10 @@ class ConsultationTest < ActiveSupport::TestCase
     assert consultation_with_command_paper_outcome.search_index[:has_act_paper]
   end
 
-  test "#government returns the government active on the opening_at date" do
+  test "#government returns the government active on the first_public_at date" do
     create(:current_government)
     previous_government = create(:previous_government)
-    consultation = create(:consultation, opening_at: 4.years.ago)
+    consultation = create(:consultation, first_published_at: 4.years.ago)
 
     assert_equal previous_government, consultation.government
   end

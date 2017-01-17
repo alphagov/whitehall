@@ -430,9 +430,9 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   test "should display 2 consultations in reverse chronological order" do
     organisation = create(:organisation)
-    consultation_2 = create(:published_consultation, organisations: [organisation], opening_at: 2.days.ago)
-    consultation_3 = create(:published_consultation, organisations: [organisation], opening_at: 3.days.ago)
-    consultation_1 = create(:published_consultation, organisations: [organisation], opening_at: 1.day.ago)
+    consultation_2 = create(:published_consultation, organisations: [organisation], first_published_at: 2.days.ago)
+    _consultation_3 = create(:published_consultation, organisations: [organisation], first_published_at: 3.days.ago)
+    consultation_1 = create(:published_consultation, organisations: [organisation], first_published_at: 1.day.ago)
 
     get :show, id: organisation
 
@@ -441,9 +441,9 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   view_test "should display 2 consultations with details and a link to publications filter if there are many consultations" do
     organisation = create(:organisation)
-    consultation_3 = create(:published_consultation, organisations: [organisation], opening_at: 5.days.ago, closing_at: 1.days.ago)
-    consultation_2 = create(:published_consultation, organisations: [organisation], opening_at: 4.days.ago, closing_at: 1.days.ago)
-    consultation_1 = create(:published_consultation, organisations: [organisation], opening_at: 3.days.ago)
+    consultation_3 = create(:published_consultation, organisations: [organisation], first_published_at: 5.days.ago, opening_at: 5.days.ago, closing_at: 1.days.ago)
+    consultation_2 = create(:published_consultation, organisations: [organisation], first_published_at: 4.days.ago, opening_at: 4.days.ago, closing_at: 1.days.ago)
+    consultation_1 = create(:published_consultation, organisations: [organisation], first_published_at: 3.days.ago, opening_at: 3.days.ago)
     response = create(:consultation_outcome, consultation: consultation_3, attachments: [
       build(:file_attachment)
     ])
