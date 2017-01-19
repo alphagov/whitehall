@@ -22,14 +22,14 @@ class DocumentHistoryTest < ActiveSupport::TestCase
     assert_history_equal [[4.days.ago, edition.change_note]], history
   end
 
-  test "#changes on a consultation derives the timestamp from the consultation first published time" do
-    first_published_at = 1.day.ago
-    edition = create(:draft_consultation, first_published_at: first_published_at, opening_at: 1.day.from_now, closing_at: 2.days.from_now)
+  test "#changes on a consultation derives the timestamp from the consultation opening time" do
+    opening_at = 1.day.from_now
+    edition  = create(:draft_consultation, opening_at: opening_at, closing_at: 2.days.from_now)
     EditionForcePublisher.new(edition).perform!
     edition.reload
     history  = DocumentHistory.new(edition.document)
 
-    assert_equal first_published_at, history.first.public_timestamp
+    assert_equal opening_at, history.first.public_timestamp
   end
 
   test "#changes returns change history for all historic editions, excluding those with minor changes" do
