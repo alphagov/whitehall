@@ -21,4 +21,9 @@ namespace :reporting  do
   task :collections_report => :environment do
     CollectionDataReporter.new(ENV.fetch('OUTPUT_DIR', './tmp')).report
   end
+
+  desc "A report of PDF attachments counts by organisation as CSV. Takes many hours to run."
+  task pdf_attachments_report: :environment do
+    PDFAttachmentReporter.new(opts_from_environment(:data_path, :first_period_start_date, :last_time_period_days)).pdfs_by_organisation
+  end
 end
