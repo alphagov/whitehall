@@ -37,9 +37,6 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
       PublishingApiPresenters.presenter_for(NewsArticle.new).class
 
     assert_equal PublishingApi::GenericEditionPresenter,
-      PublishingApiPresenters.presenter_for(WorldLocationNewsArticle.new).class
-
-    assert_equal PublishingApi::GenericEditionPresenter,
       PublishingApiPresenters.presenter_for(Speech.new).class
 
     assert_equal PublishingApi::GenericEditionPresenter,
@@ -126,5 +123,10 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
   test ".presenter_for returns a ConsultationPresenter for a Consultation" do
     presenter = PublishingApiPresenters.presenter_for(build(:consultation))
     assert_equal PublishingApi::ConsultationPresenter, presenter.class
+  end
+
+  test ".preseter_for returns a WorldLocationNewsArticle for a WorldLocationNewsArticle" do
+    presenter = PublishingApiPresenters.presenter_for(build(:world_location_news_article))
+    assert_equal PublishingApi::WorldLocationNewsArticlePresenter, presenter.class
   end
 end
