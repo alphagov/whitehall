@@ -7,6 +7,7 @@ module Searchable
     :boost_phrases,
     :content,
     :content_id,
+    :content_store_document_type,
     :description,
     :display_type,
     :detailed_format,
