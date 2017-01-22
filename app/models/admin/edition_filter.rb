@@ -18,6 +18,7 @@ module Admin
       return @editions[locale] if @editions[locale]
 
       requested_editions = editions_with_translations(locale)
+        .includes(:last_author)
         .page(options[:page])
         .per(options.fetch(:per_page) { default_page_size })
 
