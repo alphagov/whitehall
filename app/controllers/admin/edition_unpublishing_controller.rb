@@ -3,12 +3,12 @@ class Admin::EditionUnpublishingController < Admin::BaseController
   before_filter :enforce_permissions!
 
   def update
+    services = Whitehall.edition_services
     if @unpublishing.update_attributes(explanation: params[:unpublishing][:explanation])
       if withdrawing?
-        content_id = @unpublishing.edition.content_id
-        Whitehall::PublishingApi.publish_withdrawal_async(content_id, @unpublishing.explanation)
+        services.withdrawer(@unpublishing.edition).perform!
       else
-        Whitehall::PublishingApi.unpublish_async(@unpublishing)
+        services.unpublisher(@unpublishing.edition).perform!
       end
       redirect_to admin_edition_path(@unpublishing.edition), notice: "The public explanation was updated"
     else

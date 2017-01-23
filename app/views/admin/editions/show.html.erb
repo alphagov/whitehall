@@ -36,7 +36,7 @@
       <%= # TODO: remove condition based on unpublishing once we have a separate state for unpublished editions
         delete_edition_button(@edition) if @edition.can_delete? && @edition.unpublishing.nil? %>
       <% if can?(:unpublish, @edition) %>
-        <% if @edition.can_unpublish? %>
+        <% if @edition.published? %>
           <%= link_to 'Withdraw or unpublish', confirm_unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version), class: "btn btn-danger" %>
         <% elsif @edition.unpublishing.present? && @edition.unpublishing.explanation.present? %>
           <%= link_to "Edit #{withdrawal_or_unpublishing(@edition)} explanation", edit_admin_edition_unpublishing_path(@edition), class: "btn btn-primary" %>

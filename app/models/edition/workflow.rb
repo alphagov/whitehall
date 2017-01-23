@@ -76,7 +76,7 @@ module Edition::Workflow
       end
 
       event :unpublish do
-        transitions from: :published, to: :draft
+        transitions from: [:published, :draft], to: :draft
       end
 
       event :supersede, success: :destroy_associations_with_edition_dependencies_and_dependants do
@@ -84,7 +84,7 @@ module Edition::Workflow
       end
 
       event :withdraw do
-        transitions from: :published, to: :withdrawn
+        transitions from: [:published, :withdrawn], to: :withdrawn
       end
 
       event :unwithdraw do
