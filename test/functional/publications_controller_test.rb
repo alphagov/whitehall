@@ -267,7 +267,7 @@ class PublicationsControllerTest < ActionController::TestCase
     get :index
 
     assert_select "input[name='from_date'][placeholder=?]", "e.g. 01/01/2013"
-    assert_select "input[name='to_date'][placeholder=?]", "e.g. 30/02/2013"
+    assert_select "input[name='to_date'][placeholder=?]", "e.g. 28/02/2013"
   end
 
   view_test "#index should show a helpful message if there are no matching publications" do
