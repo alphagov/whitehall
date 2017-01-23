@@ -75,7 +75,20 @@ module PublishingApi
 
     def documents
       return [] unless item.attachments.any?
-      Whitehall::GovspeakRenderer.new.block_attachments(item.attachments, alternative_format_email)
+      Whitehall::GovspeakRenderer.new.block_attachments(
+        attachments_for_current_locale,
+        alternative_format_email
+      )
+    end
+
+    def attachments_for_current_locale
+      attachments = item.attachments
+      locales_that_match = Array(I18n.locale.to_s)
+      locales_that_match << "" if I18n.locale == I18n.default_locale
+      attachments.to_a.select do |attachment|
+        attachment.is_a?(FileAttachment) ||
+          locales_that_match.include?(attachment.locale.to_s)
+      end
     end
 
     def ministers
