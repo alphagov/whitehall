@@ -33,9 +33,10 @@ module SyncChecker
           ),
           Checks::LinksCheck.new(
             "children",
-            edition_expected_in_live
-              .html_attachments
-              .pluck(:content_id)
+            filter_documents_for_locale(
+              edition_expected_in_live,
+              locale
+            )
           )
         ]
       end
@@ -56,6 +57,16 @@ module SyncChecker
 
       def rendering_app
         Whitehall::RenderingApp::WHITEHALL_FRONTEND
+      end
+
+      def filter_documents_for_locale(edition, locale)
+        all_attachments = edition.attachments
+        locales_to_filter = Array(locale.to_s)
+        locales_to_filter << "" if locale.to_s == I18n.default_locale.to_s
+        all_attachments.select do |attachment|
+          attachment.is_a?(FileAttachment) ||
+            locales_to_filter.include?(attachment.locale.to_s)
+        end
       end
     end
   end
