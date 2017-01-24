@@ -81,7 +81,7 @@ module SyncChecker
 
       def check_alternative_path(unpublishing)
         alternative_url = unpublishing.alternative_url
-        alternative_path = URI(alternative_url).path
+        alternative_path = URI(alternative_url.strip).path
 
         item_alternative_path = content_item["details"]["alternative_path"]
         if alternative_path != item_alternative_path
