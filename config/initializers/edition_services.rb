@@ -1,18 +1,50 @@
-Whitehall.edition_services.tap do |es|
-  es.subscribe(/^(force_publish|publish|unwithdraw)$/)                   { |event, edition, options| ServiceListeners::AuthorNotifier.new(edition, options[:user]).notify! }
-  es.subscribe(/^(force_publish|publish|unwithdraw|unpublish|withdraw)$/) { |event, edition, options| ServiceListeners::EditorialRemarker.new(edition, options[:user], options[:remark]).save_remark! }
-  es.subscribe(/^(force_publish|publish|unwithdraw)$/)                   { |event, edition, options| Whitehall::GovUkDelivery::Notifier.new(edition).edition_published! }
-  es.subscribe(/^(force_publish|publish|unwithdraw)$/)                   { |_, edition, _| ServiceListeners::AnnouncementClearer.new(edition).clear! }
-
-  # search
-  es.subscribe(/^(force_publish|publish|withdraw|unwithdraw)$/) { |_, edition, _| ServiceListeners::SearchIndexer.new(edition).index! }
-  es.subscribe("unpublish")                 { |event, edition, options| ServiceListeners::SearchIndexer.new(edition).remove! }
-
+Whitehall.edition_services.tap do |coordinator|
   # publishing API
-  es.subscribe { |event, edition, options| ServiceListeners::PublishingApiPusher.new(edition).push(event: event, options: options) }
+  coordinator.subscribe do |event, edition, options|
+    ServiceListeners::PublishingApiPusher
+      .new(edition)
+      .push(event: event, options: options)
+  end
 
-  # handling edition's dependency on other content
-  es.subscribe(/^(force_publish|publish|unwithdraw)$/) { |_, edition, _| EditionDependenciesPopulator.new(edition).populate! }
-  es.subscribe(/^(force_publish|publish|unwithdraw)$/) { |_, edition, _| edition.republish_dependent_editions }
-  es.subscribe("unpublish")                 { |_, edition, _| edition.edition_dependencies.destroy_all }
+  coordinator.subscribe('unpublish') do |_event, edition, _options|
+    # handling edition's dependency on other content
+    edition.edition_dependencies.destroy_all
+
+    # search
+    ServiceListeners::SearchIndexer
+      .new(edition)
+      .remove!
+  end
+
+  coordinator.subscribe(/^(force_publish|publish|unwithdraw)$/) do |_event, edition, options|
+    # handling edition's dependency on other content
+    edition.republish_dependent_editions
+    EditionDependenciesPopulator
+      .new(edition)
+      .populate!
+
+    ServiceListeners::AnnouncementClearer
+      .new(edition)
+      .clear!
+
+    ServiceListeners::AuthorNotifier
+      .new(edition, options[:user])
+      .notify!
+
+    Whitehall::GovUkDelivery::Notifier
+      .new(edition)
+      .edition_published!
+  end
+
+  coordinator.subscribe(/^(force_publish|publish|withdraw|unwithdraw)$/) do |_event, edition, _options|
+    ServiceListeners::SearchIndexer
+      .new(edition)
+      .index!
+  end
+
+  coordinator.subscribe(/^(force_publish|publish|unwithdraw|unpublish|withdraw)$/) do |_event, edition, options|
+    ServiceListeners::EditorialRemarker
+      .new(edition, options[:user], options[:remark])
+      .save_remark!
+  end
 end
