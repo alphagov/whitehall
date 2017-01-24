@@ -119,6 +119,10 @@ GEM
     docile (1.1.5)
     domain_name (0.5.20161021)
       unf (>= 0.0.5, < 1.0.0)
+    dotenv (2.1.2)
+    dotenv-rails (2.1.2)
+      dotenv (= 2.1.2)
+      railties (>= 3.2, < 5.1)
     equivalent-xml (0.5.1)
       nokogiri (>= 1.4.3)
     erubis (2.7.0)
@@ -470,6 +474,7 @@ DEPENDENCIES
   dalli
   database_cleaner (= 1.4.0)
   deprecated_columns (= 0.1.0)
+  dotenv-rails
   equivalent-xml (= 0.5.1)
   factory_girl
   friendly_id (= 5.0.4)

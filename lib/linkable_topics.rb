@@ -1,7 +1,7 @@
 # Creates a payload for the topic (formerly specialist sector) select box.
 class LinkableTopics
   def topics
-    items = fetch_topics_from_publishing_api
+    items = fetch_linkables_from_publishing_api(document_type: 'topic')
     items = change_separator(items)
     items = select_only_subtopics(items)
     items = format_for_select_input(items)
@@ -9,10 +9,16 @@ class LinkableTopics
     alphabetize_by_parent(items)
   end
 
+  def taxons
+    items = fetch_linkables_from_publishing_api(document_type: 'taxon')
+    items = items.sort_by { |item| item["internal_name"] }
+    format_for_select_input(items)
+  end
+
 private
 
-  def fetch_topics_from_publishing_api
-    Whitehall.publishing_api_v2_client.get_linkables(document_type: 'topic')
+  def fetch_linkables_from_publishing_api(document_type:)
+    Whitehall.publishing_api_v2_client.get_linkables(document_type: document_type)
   end
 
   # collections-publisher uses a slash to separate the top-level topic name from

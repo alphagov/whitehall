@@ -1,5 +1,6 @@
 class DocumentCollection < Edition
   include Edition::Organisations
+  include Edition::TaggableOrganisations
   include Edition::RelatedPolicies
 
   # DID YOU MEAN: Policy Area?

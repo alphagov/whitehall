@@ -16,6 +16,7 @@ class DetailedGuide < Edition
   include Edition::FactCheckable
   include Edition::HasDocumentCollections
   include Edition::Organisations
+  include Edition::TaggableOrganisations
   include Edition::RelatedPolicies
   include Edition::RelatedDocuments
 

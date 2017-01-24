@@ -154,6 +154,11 @@ module Whitehall
     @edition_actions ||= EditionServiceCoordinator.new
   end
 
+  def self.organisations_in_tagging_beta
+    @taggable_organisations ||=
+      YAML.load_file(Rails.root + "config/organisations_in_tagging_beta.yml")["organisations_in_tagging_beta"]
+  end
+
   def self.load_secrets
     if File.exists?(secrets_path)
       YAML.load_file(secrets_path)

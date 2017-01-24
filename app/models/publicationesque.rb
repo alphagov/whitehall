@@ -10,6 +10,7 @@ class Publicationesque < Edition
   include Edition::RelatedPolicies
   include Edition::HasDocumentCollections
   include Edition::Organisations
+  include Edition::TaggableOrganisations
 
   # DID YOU MEAN: Policy Area?
   # "Policy area" is the newer name for "topic"

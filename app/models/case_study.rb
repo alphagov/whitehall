@@ -5,6 +5,7 @@ class CaseStudy < Edition
   include Edition::FirstImagePulledOut
   include Edition::HasDocumentCollections
   include Edition::Organisations
+  include Edition::TaggableOrganisations
   include Edition::WorldLocations
   include Edition::WorldwideOrganisations
 

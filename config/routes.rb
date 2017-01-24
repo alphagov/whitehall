@@ -251,6 +251,8 @@ Whitehall::Application.routes.draw do
         end
 
         resources :editions, only: [:index] do
+          resource :tags, only: [:edit, :update], controller: :edition_tags
+
           collection do
             post :export
             get :confirm_export

@@ -2,6 +2,7 @@
 class Announcement < Edition
   include Edition::Images
   include Edition::Organisations
+  include Edition::TaggableOrganisations
   include Edition::RelatedPolicies
   include Edition::WorldLocations
   include Edition::TopicalEvents
