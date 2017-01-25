@@ -188,4 +188,45 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     assert_equal('test', @presented_content[:first_published_at])
     assert_equal('test', @presented_content[:details][:first_public_at])
   end
+
+  test "non-default locale documents do not present default attachments" do
+    publication = create(:published_publication)
+    publication.html_attachments << build(
+      :html_attachment,
+      title: "welsh one",
+      locale: :cy,
+      attachable_id: publication.id
+    )
+    publication.reload #ensures the html attachment is in #attachments and #html_attachmnents
+
+    presented_publication = PublishingApi::PublicationPresenter.new(publication)
+
+    begin
+      I18n.locale = :cy
+      document_elements = presented_publication.content[:details][:documents]
+      default_attachment_title = publication.html_attachments.first.title
+      assert_equal 1, document_elements.length
+      refute_match default_attachment_title, document_elements.first
+    ensure
+      I18n.locale = I18n.default_locale
+    end
+  end
+
+  test "default locale documents do not present non-default attachments" do
+    publication = create(:published_publication)
+    publication.html_attachments << build(
+      :html_attachment,
+      title: "welsh one",
+      locale: :cy,
+      attachable_id: publication.id
+    )
+    publication.reload
+
+    presented_publication = PublishingApi::PublicationPresenter.new(publication)
+
+    document_elements = presented_publication.content[:details][:documents]
+    default_attachment_title = publication.html_attachments.first.title
+    assert_equal 1, document_elements.length
+    assert_match default_attachment_title, document_elements.first
+  end
 end
