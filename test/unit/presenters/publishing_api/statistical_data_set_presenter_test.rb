@@ -168,6 +168,13 @@ class PublishingApi::PublishedStatisticalDataSetPresenterLinksTest < ActiveSuppo
       @presented_links[:topics]
     )
   end
+
+  test "it presents the primary_specialist_sector content_ids as links, parent" do
+    assert_equal(
+      @statistical_data_set.primary_specialist_sectors.map(&:content_id),
+      @presented_links[:parent]
+    )
+  end
 end
 
 class PublishingApi::StatisticalDataSetPresenterUpdateTypeTest < ActiveSupport::TestCase

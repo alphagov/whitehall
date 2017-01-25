@@ -30,7 +30,7 @@ module PublishingApi
 
     def links
       LinksPresenter.new(item).extract(
-        %i(organisations policy_areas topics)
+        %i(organisations policy_areas topics parent)
       )
     end
 
