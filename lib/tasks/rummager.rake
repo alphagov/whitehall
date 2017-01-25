@@ -22,7 +22,7 @@ namespace :rummager do
       index.commit
     end
 
-    desc "indexes all published detailed guiudes"
+    desc "indexes all published detailed guides"
     task detailed: :environment do
       index = Whitehall::SearchIndex.for(:detailed_guides)
       index.add_batch(RummagerPresenters.present_all_detailed_content)

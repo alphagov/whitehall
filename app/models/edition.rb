@@ -286,7 +286,8 @@ class Edition < ActiveRecord::Base
     is_political: :political?,
     is_historic: :historic?,
     is_withdrawn: :withdrawn?,
-    government_name: :search_government_name
+    government_name: :search_government_name,
+    content_store_document_type: :display_type_key,
   )
 
   def search_title

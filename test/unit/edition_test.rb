@@ -416,8 +416,8 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal publication.political?, publication.search_index["is_political"]
     assert_equal publication.historic?, publication.search_index["is_historic"]
     assert_equal government.name, publication.search_index["government_name"]
+    assert_equal "policy_paper", publication.search_index["content_store_document_type"]
   end
-
 
   test "should present policy_areas to rummageable" do
     government = create(:current_government)
