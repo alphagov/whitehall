@@ -360,4 +360,42 @@ class ConsultationTest < ActiveSupport::TestCase
 
     assert_equal previous_government, consultation.government
   end
+
+  test "#save triggers consultation opening in the future to be republished twice" do
+    opening_at = 2.days.from_now
+    closing_at = 3.days.from_now
+
+    consultation = create(:consultation, opening_at: opening_at, closing_at: closing_at)
+
+    PublishingApiDocumentRepublishingWorker
+      .expects(:perform_at)
+      .with(opening_at, consultation.document.id)
+      .once
+
+    PublishingApiDocumentRepublishingWorker
+      .expects(:perform_at)
+      .with(closing_at, consultation.document.id)
+      .once
+
+    consultation.save
+  end
+
+  test "#save triggers consultation closing in the future to be republished once" do
+    opening_at = 2.days.ago
+    closing_at = 3.days.from_now
+
+    consultation = create(:consultation, opening_at: opening_at, closing_at: closing_at)
+
+    PublishingApiDocumentRepublishingWorker
+      .expects(:perform_at)
+      .with(opening_at, consultation.document.id)
+      .never
+
+    PublishingApiDocumentRepublishingWorker
+      .expects(:perform_at)
+      .with(closing_at, consultation.document.id)
+      .once
+
+    consultation.save
+  end
 end

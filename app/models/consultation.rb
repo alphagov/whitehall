@@ -50,6 +50,21 @@ class Consultation < Publicationesque
     end
   end
 
+  # A consultation changes outside the edition workflow when it opens or
+  # closes. We need to republish the consultation at these times to ensure
+  # changes are reflected in any external systems.
+  after_save do
+    if opening_at.try(:future?)
+      PublishingApiDocumentRepublishingWorker
+        .perform_at(opening_at, document.id)
+    end
+
+    if closing_at.try(:future?)
+      PublishingApiDocumentRepublishingWorker
+        .perform_at(closing_at, document.id)
+    end
+  end
+
   def allows_inline_attachments?
     false
   end
