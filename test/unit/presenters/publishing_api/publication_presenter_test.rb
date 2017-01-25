@@ -25,7 +25,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       need_ids: [],
       public_updated_at: publication.public_timestamp,
       publishing_app: 'whitehall',
-      rendering_app: 'whitehall-frontend', #to be renamed into 'government-frontend'
+      rendering_app: 'government-frontend',
       routes: [
         { path: public_path, type: 'exact' }
       ],

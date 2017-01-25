@@ -52,6 +52,10 @@ class Publication < Publicationesque
     where(publication_type_id: PublicationType.statistical.map(&:id))
   end
 
+  def rendering_app
+    Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+  end
+
   def allows_inline_attachments?
     false
   end
