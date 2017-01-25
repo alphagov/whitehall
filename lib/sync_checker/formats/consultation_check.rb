@@ -16,7 +16,7 @@ module SyncChecker::Formats
     end
 
     def rendering_app
-      Whitehall::RenderingApp::WHITEHALL_FRONTEND
+      Whitehall::RenderingApp::GOVERNMENT_FRONTEND
     end
 
     def root_path
