@@ -306,7 +306,7 @@ class PublishingApi::WorldLocationNewsArticleImageDetailsTest < ActiveSupport::T
     @image = build(:image, alt_text: 'Image alt text')
     @world_location_news_article = create(:world_location_news_article, images: [@image])
     @presented_world_location_news_article = PublishingApi::WorldLocationNewsArticlePresenter.new(@world_location_news_article)
-   end
+  end
 
   test "includes details of the world location news article image if present" do
     expected_hash = {

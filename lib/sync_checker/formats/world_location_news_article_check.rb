@@ -10,7 +10,7 @@ module SyncChecker
       end
 
       def expected_details_hash(edition)
-        super.reject{ |k, _| k == :emphasised_organisations }
+        super.reject { |k, _| k == :emphasised_organisations }
       end
 
       def document_type(_edition)

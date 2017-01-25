@@ -34,7 +34,7 @@ module PublishingApi
       )
     end
 
-    private
+  private
 
     def details
       {
