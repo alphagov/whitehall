@@ -173,7 +173,7 @@ module PublishingApi
       def_delegator :consultation, :outcome
 
       def final_outcome_detail
-        outcome.summary
+        renderer.govspeak_to_html(outcome.summary)
       end
 
       def final_outcome_documents
