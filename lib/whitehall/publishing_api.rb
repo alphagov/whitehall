@@ -15,7 +15,6 @@ module Whitehall
     end
 
     def self.save_draft_async(model_instance, update_type_override = nil, queue_override = nil)
-      return if skip_sending_to_content_store?(model_instance)
       locales_for(model_instance).each do |locale|
         save_draft_translation_async(model_instance, locale, update_type_override, queue_override)
       end
@@ -123,7 +122,6 @@ module Whitehall
     end
 
     def self.push_live(model_instance, update_type_override=nil, queue_override=nil)
-      return if skip_sending_to_content_store?(model_instance)
       self.assert_public_edition!(model_instance)
       locales_for(model_instance).each do |locale|
         PublishingApiWorker.perform_async_in_queue(queue_override, model_instance.class.name, model_instance.id, update_type_override, locale)
@@ -132,17 +130,6 @@ module Whitehall
 
     def self.served_from_content_store?(edition)
       edition.rendering_app == Whitehall::RenderingApp::GOVERNMENT_FRONTEND
-    end
-
-    # We want to avoid sending unpublishings for content types which are not
-    # managed by the content store at present. Background is here:
-    # http://github.com/alphagov/whitehall/commit/6affc9da0d8ca93
-    def self.skip_sending_to_content_store?(instance)
-      unpublishing_not_served_from_content_store?(instance)
-    end
-
-    def self.unpublishing_not_served_from_content_store?(instance)
-      instance.kind_of?(Unpublishing) && !served_from_content_store?(instance.edition)
     end
 
     def self.assert_public_edition!(instance)
