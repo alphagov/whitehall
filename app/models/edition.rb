@@ -287,7 +287,7 @@ class Edition < ActiveRecord::Base
     is_historic: :historic?,
     is_withdrawn: :withdrawn?,
     government_name: :search_government_name,
-    content_store_document_type: :display_type_key,
+    content_store_document_type: :content_store_document_type,
   )
 
   def search_title
@@ -669,6 +669,10 @@ class Edition < ActiveRecord::Base
 
   def detailed_format
     display_type.parameterize
+  end
+
+  def content_store_document_type
+    PublishingApiPresenters.presenter_for(self).content.fetch(:document_type)
   end
 
 private
