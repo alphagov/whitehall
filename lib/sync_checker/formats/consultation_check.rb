@@ -49,8 +49,12 @@ module SyncChecker::Formats
 
       outcome = consultation.outcome
 
+      detail = if outcome.summary.present?
+                 govspeak_renderer.govspeak_to_html(outcome.summary)
+               end
+
       {
-        final_outcome_detail: outcome.summary,
+        final_outcome_detail: detail,
         final_outcome_documents: if outcome.attachments.present?
                                    govspeak_renderer
                                      .block_attachments(

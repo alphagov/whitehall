@@ -359,14 +359,33 @@ module PublishingApi::ConsultationPresenterTest
     end
 
     test 'final outcome detail' do
+      final_outcome_detail_double = Object.new
+
+      govspeak_renderer = mock('Whitehall::GovspeakRenderer')
+
+      govspeak_renderer.stubs(:block_attachments)
+
+      govspeak_renderer
+        .expects(:govspeak_to_html)
+        .with(consultation.outcome.summary)
+        .returns(final_outcome_detail_double)
+
+      Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer)
+
+      PublishingApi::ConsultationPresenter.any_instance.stubs(:body)
+      PublishingApi::ConsultationPresenter::Documents.stubs(:for).returns({})
+      PublishingApi::ConsultationPresenter::PublicFeedback.stubs(:for).returns({})
+
       assert_details_attribute :final_outcome_detail,
-                               consultation.outcome.summary
+                               final_outcome_detail_double
     end
 
     test 'final outcome documents' do
       attachments_double = Object.new
 
       govspeak_renderer = mock('Whitehall::GovspeakRenderer')
+
+      govspeak_renderer.stubs(:govspeak_to_html)
 
       govspeak_renderer
         .expects(:block_attachments)
