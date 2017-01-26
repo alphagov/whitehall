@@ -44,15 +44,6 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     assert_all_requested(requests)
   end
 
-  test ".publish_async skips sending unpublishings for formats other than case study" do
-    edition = create(:draft_publication)
-    unpublishing = create(:unpublishing, edition: edition)
-
-    Whitehall::PublishingApi.publish_async(unpublishing)
-
-    assert_not_requested :put, %r{/content/}
-  end
-
   test ".publish_async sends case studies to the content store" do
     edition = create(:published_case_study)
 
