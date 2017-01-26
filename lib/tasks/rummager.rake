@@ -29,6 +29,15 @@ namespace :rummager do
       index.commit
     end
 
+    desc "indexes all published publications with particular subtype IDs (supports multiple subtypes eg [1,2,3,4])"
+    task :publications_with_subtypes, [:publication_type] => :environment do |task, args|
+      publication_type_ids = [ args[:publication_type] ] + args.extras.to_a
+      index = Whitehall::SearchIndex.for(:government)
+      publications = Publication.published.where(publication_type_id: publication_type_ids)
+      index.add_batch(publications.map(&:search_index))
+      index.commit
+    end
+
     # NOTE: Run daily to ensure consultation state is reflected in the search results
     desc "indexes consultations which closed in the past day"
     task closed_consultations: :environment do
