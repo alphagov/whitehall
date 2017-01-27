@@ -21,7 +21,9 @@ module PublishingApi
         details: details,
         document_type: item.display_type_key,
         public_updated_at: item.public_timestamp || item.updated_at,
-        rendering_app: item.rendering_app,
+        #TODO: rendering app is hard coded until
+        #item.rendering_app is switched when preview is ready
+        rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
         schema_name: "publication",
       )
       content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
