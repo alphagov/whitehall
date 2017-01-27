@@ -63,10 +63,11 @@ module SyncChecker
         all_attachments = edition.attachments
         locales_to_filter = Array(locale.to_s)
         locales_to_filter << "" if locale.to_s == I18n.default_locale.to_s
-        all_attachments.select do |attachment|
+        locale_attachments = all_attachments.select do |attachment|
           attachment.is_a?(FileAttachment) ||
             locales_to_filter.include?(attachment.locale.to_s)
         end
+        locale_attachments.map(&:content_id)
       end
     end
   end
