@@ -65,6 +65,10 @@ class Consultation < Publicationesque
     end
   end
 
+  def rendering_app
+    Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+  end
+
   def allows_inline_attachments?
     false
   end
