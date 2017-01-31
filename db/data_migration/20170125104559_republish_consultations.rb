@@ -8,12 +8,12 @@ Consultation.publicly_visible.each do |consultation|
   document_id = consultation.document.id
 
   if opening_at.try(:future?)
-    DataHygiene::PublishingApiDocumentRepublishingWorker
+    PublishingApiDocumentRepublishingWorker
       .perform_at(opening_at, document_id)
   end
 
   if closing_at.try(:future?)
-    DataHygiene::PublishingApiDocumentRepublishingWorker
+    PublishingApiDocumentRepublishingWorker
       .perform_at(closing_at, document_id)
   end
 end
