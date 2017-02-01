@@ -40,7 +40,8 @@ private
     whitelisted_hosts = [
       "flu-lab-net.eu",
       "tse-lab-net.eu",
-      "beisgovuk.citizenspace.com"
+      "beisgovuk.citizenspace.com",
+      "nhs.uk",
     ]
 
     whitelisted_hosts.any? { |whitelisted_host| host =~ /#{whitelisted_host}$/}
