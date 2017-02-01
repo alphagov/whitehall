@@ -27,7 +27,7 @@ edition_translation_data.each do |edition_id, locales|
       unless edition_translation_locales.include?(locale)
         alternative_url = Whitehall::UrlMaker.new.public_document_url(edition)
         explanation = "This translation is no longer available. You can find the original version of this content at [#{alternative_url}](#{alternative_url})"
-        PublishingApiGoneWorker(edition.content_id, nil, explanation, locale, true)
+        PublishingApiGoneWorker.perform_async(edition.content_id, nil, explanation, locale, true)
       end
     end
   end
