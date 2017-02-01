@@ -48,6 +48,19 @@ class OffsiteLinkTest < ActiveSupport::TestCase
     end
   end
 
+  test 'should not be valid with almost whitelisted urls' do
+    whitelisted_urls = [
+      'http://someotherflu-lab-net.eu',
+      'http://a.n.othertse-lab-net.eu',
+      'http://almostbeisgovuk.citizenspace.com',
+      'http://notthenhs.uk',
+    ]
+    whitelisted_urls.each do |url|
+      refute build(:offsite_link, url: url).valid?, "#{url} is valid"
+    end
+  end
+
+
   test 'should be valid if the type is not supported' do
     offsite_link = build(:offsite_link, link_type: 'notarealtype')
     refute offsite_link.valid?
