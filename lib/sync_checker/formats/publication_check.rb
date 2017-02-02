@@ -61,8 +61,9 @@ module SyncChecker
 
       def filter_documents_for_locale(edition, locale)
         all_attachments = edition.attachments
-        locales_to_filter = Array(locale.to_s)
-        locales_to_filter << "" if locale.to_s == I18n.default_locale.to_s
+        #pub-api always expands the default locale so we need
+        #en and '' (some default locale attachments have nil locales)
+        locales_to_filter = ["en", "", locale.to_s]
         locale_attachments = all_attachments.select do |attachment|
           attachment.is_a?(HtmlAttachment) &&
             locales_to_filter.include?(attachment.locale.to_s)
