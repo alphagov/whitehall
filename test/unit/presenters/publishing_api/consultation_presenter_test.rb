@@ -325,7 +325,8 @@ module PublishingApi::ConsultationPresenterTest
         .expects(:block_attachments)
         .with(
           consultation.public_feedback.attachments,
-          consultation.public_feedback.alternative_format_contact_email
+          consultation.public_feedback.alternative_format_contact_email,
+          consultation.public_feedback.published_on,
         )
         .returns(attachments_double)
 
