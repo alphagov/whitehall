@@ -14,7 +14,7 @@ module SyncChecker
       end
 
       def document_type(_edition)
-        "news_article"
+        "world_location_news_article"
       end
 
       def checks_for_live(locale)

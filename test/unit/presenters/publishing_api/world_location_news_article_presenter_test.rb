@@ -49,8 +49,8 @@ class PublishingApi::WorldLocationNewsArticlePresenterTest < ActiveSupport::Test
     assert_equal "world_location_news_article", @presented_content[:schema_name]
   end
 
-  test "it presents the document type as news_article" do
-    assert_equal "news_article", @presented_content[:document_type]
+  test "it presents the document type as world_location_news_article" do
+    assert_equal "world_location_news_article", @presented_content[:document_type]
   end
 
   test "it presents the global process wide locale as the locale of the world_location_news_article" do

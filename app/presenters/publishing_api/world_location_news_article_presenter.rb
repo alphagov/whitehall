@@ -18,7 +18,7 @@ module PublishingApi
       content.merge!(
         description: item.summary,
         details: details,
-        document_type: "news_article",
+        document_type: "world_location_news_article",
         public_updated_at: item.public_timestamp || item.updated_at,
         rendering_app: item.rendering_app,
         schema_name: "world_location_news_article",
