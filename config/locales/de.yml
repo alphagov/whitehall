@@ -78,6 +78,9 @@ de:
       national_statistics:
         one: Statistik - Nationale Statistik
         other: Statistik - Nationale Statistik
+      nhs_content:
+        one:
+        other:
       news_article:
         one: Artikel
         other: Artikel

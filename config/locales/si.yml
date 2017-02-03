@@ -78,6 +78,9 @@ si:
       national_statistics:
         one: "සංඛ්යාන - ජාතික සංඛ්යාන"
         other: "සංඛ්යාන - ජාතික සංඛ්යාන"
+      nhs_content:
+        one:
+        other:
       news_article:
         one: "පුවත් ලිපිය"
         other: "පුවත් ලිපි"

@@ -126,6 +126,11 @@ be:
         few:
         many:
         other: "Статыстыка - нацыянальная статыстыка"
+      nhs_content:
+        one:
+        few:
+        many:
+        other:
       news_article:
         one: "Артыкул"
         few:

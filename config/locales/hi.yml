@@ -78,6 +78,9 @@ hi:
       national_statistics:
         one: "सांख्यिकी - राष्ट्रीय सांख्यिकी"
         other: "सांख्यिकी - राष्ट्रीय सांख्यिकी"
+      nhs_content:
+        one:
+        other:
       news_article:
         one: "समाचार लेख"
         other: "समाचार लेख"

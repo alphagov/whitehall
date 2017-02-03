@@ -126,6 +126,10 @@ sr:
         few:
         many:
         other: statistika - nacionalna statistika
+      nhs_content:
+        one:
+        few:
+        other:
       news_article:
         one: Vest
         few:

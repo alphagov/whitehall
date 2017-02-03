@@ -78,6 +78,9 @@ et:
       national_statistics:
         one: Statistika - rahvuslikud statistikaandmed
         other: Statistika - rahvuslikud statistikaandmed
+      nhs_content:
+        one:
+        other:
       news_article:
         one: Artikkel
         other: Artiklid

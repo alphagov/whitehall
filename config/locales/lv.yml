@@ -78,6 +78,9 @@ lv:
       national_statistics:
         one: Statistika - valsts dati
         other: Statistika - valsts dati
+      nhs_content:
+        one:
+        other:
       news_article:
         one: Raksts
         other: Raksti

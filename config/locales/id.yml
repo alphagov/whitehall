@@ -193,6 +193,9 @@ id:
       national_statistics:
         one: Statistik-statistik nasional
         other: Statistik-statistik nasional
+      nhs_content:
+        one:
+        other:
       news_article:
         one: Artikel berita
         other: Artikel-artikel berita

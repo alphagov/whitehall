@@ -194,6 +194,9 @@ hu:
       national_statistics:
         one: Statisztikák - nemzeti adatok
         other: Statisztikák - nemzeti adatok
+      nhs_content:
+        one:
+        other:
       news_article:
         one: Cikk
         other: Cikkek

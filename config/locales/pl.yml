@@ -126,6 +126,11 @@ pl:
         few:
         many:
         other: Statystyki - statystyki narodowe
+      nhs_content:
+        one:
+        few:
+        many:
+        other:
       news_article:
         one: Artykuł prasowy
         few:

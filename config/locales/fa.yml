@@ -193,6 +193,9 @@ fa:
       national_statistics:
         one: "آمار - آمار ملی"
         other: "آمار - آمار ملی"
+      nhs_content:
+        one:
+        other:
       news_article:
         one: "مقاله ی خبری"
         other: "مقالات خبری"

@@ -102,6 +102,10 @@ cs:
         one: Statistiky - národní statistiky
         few:
         other: Statistiky - národní statistiky
+      nhs_content:
+        one:
+        few:
+        other:
       news_article:
         one: Nový článek
         few:

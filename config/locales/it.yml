@@ -78,6 +78,9 @@ it:
       national_statistics:
         one: Statistica - statistica nazionale
         other: Statistica - statistica nazionale
+      nhs_content:
+        one:
+        other:
       news_article:
         one: Articolo
         other: Articoli

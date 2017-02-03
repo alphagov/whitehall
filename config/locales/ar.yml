@@ -174,6 +174,13 @@ ar:
         few:
         many:
         other: "إحصائيات - إحصائيات محلية"
+      nhs_content:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       news_article:
         zero:
         one: "مقال إخباري"

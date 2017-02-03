@@ -78,6 +78,9 @@ ur:
       national_statistics:
         one: "شماریات- قومی اعدادوشمار"
         other: "شماریات- قومی اعدادوشمار"
+      nhs_content:
+        one:
+        other:
       news_article:
         one: "نیوزآرٹیکل"
         other: "نیوزآرٹیکلز"

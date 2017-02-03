@@ -78,6 +78,9 @@ bg:
       national_statistics:
         one: "Статистика- национална статистика"
         other: "Статистики- национални статистики"
+      nhs_content:
+        one:
+        other:
       news_article:
         one: "Новинарска статия"
         other: "Новинарски статии"

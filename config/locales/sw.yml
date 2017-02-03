@@ -78,6 +78,9 @@ sw:
       national_statistics:
         one:
         other:
+      nhs_content:
+        one:
+        other:
       news_article:
         one:
         other:

@@ -192,6 +192,9 @@ ko:
       national_statistics:
         one: "통계 - 국가 통계"
         other: "통계 - 국가 통계"
+      nhs_content:
+        one:
+        other:
       news_article:
         one: "뉴스"
         other: "뉴스"

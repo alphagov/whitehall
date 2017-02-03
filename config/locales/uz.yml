@@ -78,6 +78,9 @@ uz:
       national_statistics:
         one: Statistika - milliy statistika
         other: Statistika - milliy statistika
+      nhs_content:
+        one:
+        other:
       news_article:
         one: Yangi maqola
         other: Yangi maqolalar

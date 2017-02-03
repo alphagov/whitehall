@@ -102,6 +102,10 @@ sk:
         one:
         few:
         other:
+      nhs_content:
+        one:
+        few:
+        other:
       news_article:
         one:
         few:

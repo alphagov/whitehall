@@ -78,6 +78,9 @@ el:
       national_statistics:
         one: "Στατιστικά στοιχεία- εθνικά στατιστικά στοιχεία"
         other: "Στατιστικά στοιχεία- εθνικά στατιστικά στοιχεία"
+      nhs_content:
+        one:
+        other:
       news_article:
         one: "Είδηση"
         other: "Ειδήσεις"

@@ -78,6 +78,9 @@ so:
       national_statistics:
         one: Istaatistik - istaatistik qaran
         other: Istaatistik - istaatistik qaran
+      nhs_content:
+        one:
+        other:
       news_article:
         one: Maqaal wareed
         other: Maqaallo wareed

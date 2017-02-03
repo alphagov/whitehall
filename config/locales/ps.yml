@@ -78,6 +78,9 @@ ps:
       national_statistics:
         one: "شمیرنه - ملی شمیرنې"
         other: "شمیرنه - ملی شمیرنې"
+      nhs_content:
+        one:
+        other:
       news_article:
         one: "خبری مقاله"
         other: "خبری مقالی"

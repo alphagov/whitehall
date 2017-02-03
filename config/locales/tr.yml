@@ -193,6 +193,9 @@ tr:
       national_statistics:
         one: "İstatistikler - ulusal istatistikler"
         other: "İstatistikler - ulusal istatistikler"
+      nhs_content:
+        one:
+        other:
       news_article:
         one: Makale
         other: Makaleler

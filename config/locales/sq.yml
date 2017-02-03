@@ -78,6 +78,9 @@ sq:
       national_statistics:
         one: Statistika - statistika kombetare
         other: Statistika - statistika kombetare
+      nhs_content:
+        one:
+        other:
       news_article:
         one: Artikull lajm
         other: Artikuj lajme

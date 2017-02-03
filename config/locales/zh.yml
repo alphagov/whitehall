@@ -191,6 +191,9 @@ zh:
       national_statistics:
         one: "统计数据 - 国家数据"
         other: "统计数据 - 国家数据"
+      nhs_content:
+        one:
+        other:
       news_article:
         one: "新闻文章"
         other: "新闻文章"

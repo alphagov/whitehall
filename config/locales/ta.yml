@@ -78,6 +78,9 @@ ta:
       national_statistics:
         one: "புள்ளிவிபரம் - தேசிய புள்ளிவிபரம்"
         other: "புள்ளிவிபரம் - தேசிய புள்ளிவிபரம்"
+      nhs_content:
+        one:
+        other:
       news_article:
         one: "செய்திக் கட்டுரை"
         other: "செய்திக் கட்டுரைகள்"
