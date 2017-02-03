@@ -60,8 +60,7 @@ class OffsiteLinkTest < ActiveSupport::TestCase
     end
   end
 
-
-  test 'should be valid if the type is not supported' do
+  test 'should not be valid if the type is not supported' do
     offsite_link = build(:offsite_link, link_type: 'notarealtype')
     refute offsite_link.valid?
   end
@@ -88,6 +87,11 @@ class OffsiteLinkTest < ActiveSupport::TestCase
 
   test 'should be valid if the type is service' do
     offsite_link = build(:offsite_link, link_type: 'service')
+    assert offsite_link.valid?
+  end
+
+  test 'should be valid if the type is nhs_content' do
+    offsite_link = build(:offsite_link, link_type: 'nhs_content')
     assert offsite_link.valid?
   end
 end

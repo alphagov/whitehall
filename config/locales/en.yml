@@ -173,6 +173,9 @@ en:
       national_statistics:
         one: National Statistics
         other: National Statistics
+      nhs_content:
+        one: NHS content
+        other: NHS content
       news_article:
         one: News article
         other: News articles

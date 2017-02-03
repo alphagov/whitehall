@@ -2,7 +2,7 @@ class OffsiteLink < ActiveRecord::Base
   belongs_to :parent, polymorphic: true
   validates :title, :summary, :link_type, :url, presence: true, length: { maximum: 255 }
   validate :check_url_is_allowed
-  validates :link_type, presence: true, inclusion: {in: %w{alert blog_post campaign careers service}}
+  validates :link_type, presence: true, inclusion: {in: %w{alert blog_post campaign careers service nhs_content}}
 
   def check_url_is_allowed
     begin
@@ -19,7 +19,11 @@ class OffsiteLink < ActiveRecord::Base
   end
 
   def humanized_link_type
-    link_type.humanize
+    if link_type == 'nhs_content'
+      'NHS content'
+    else
+      link_type.humanize
+    end
   end
 
   def to_s
