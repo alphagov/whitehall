@@ -34,4 +34,8 @@ class WorldLocationNewsArticle < Newsesque
   def display_type_key
     'news_article'
   end
+
+  def rendering_app
+    Whitehall::RenderingApp::WHITEHALL_FRONTEND
+  end
 end
