@@ -188,30 +188,6 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
     assert_equal [policy_area_1["content_id"], policy_1["content_id"]], presented_item.links[:related_policies]
   end
 
-  test "a withdrawn case study includes details of the archive notice" do
-    case_study = create(:published_case_study, :withdrawn)
-    case_study.build_unpublishing(
-      unpublishing_reason_id: UnpublishingReason::Withdrawn.id,
-      explanation: 'No longer relevant')
-
-    case_study.unpublishing.save!
-
-    archive_notice = {
-      explanation: "<div class=\"govspeak\"><p>No longer relevant</p></div>",
-      archived_at: case_study.updated_at
-    }
-
-    presented_item = present(case_study)
-
-    assert_valid_against_schema(presented_item.content, 'case_study')
-    assert_equal archive_notice[:archived_at], presented_item.content[:details][:withdrawn_notice][:withdrawn_at]
-    assert_equal archive_notice[:archived_at], presented_item.content[:withdrawn_notice][:withdrawn_at]
-    assert_equivalent_html archive_notice[:explanation],
-      presented_item.content[:details][:withdrawn_notice][:explanation]
-    assert_equivalent_html archive_notice[:explanation],
-      presented_item.content[:withdrawn_notice][:explanation]
-  end
-
   test "an unpublished document has a first_public_at of the document creation time" do
     case_study = create(:draft_case_study)
     presented_item = present(case_study)
