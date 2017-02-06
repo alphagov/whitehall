@@ -115,7 +115,7 @@ module ServiceListeners
       }
     end
 
-    test "redirects deleted translations for a migrated format" do
+    test "makes deleted translations gone" do
       res = draft_edition_with_deleted_translation(:published_case_study)
       new_edition = res[:draft_edition]
       fr = res[:deleted_translation]
@@ -124,29 +124,18 @@ module ServiceListeners
       stub_html_attachment_pusher(new_edition, "publish")
 
       pusher = mock
-      PublishingApiRedirectWorker
+      PublishingApiGoneWorker
         .expects(:new)
         .returns(pusher)
 
+      expected_original_url = Whitehall::UrlMaker.new.public_document_url(new_edition)
+
       pusher.expects(:perform).with(
         new_edition.document.content_id,
-        new_edition.search_link,
+        "",
+        "This translation is no longer available. You can find the original version of this content at [#{expected_original_url}](#{expected_original_url})",
         fr.locale
       )
-
-      PublishingApiPusher.new(new_edition).push(event: "publish")
-    end
-
-    test "does not redirect translations for an unmigrated format" do
-      res = draft_edition_with_deleted_translation(:published_publication)
-      new_edition = res[:draft_edition]
-
-      Whitehall::PublishingApi.expects(:publish_async).with(new_edition)
-      stub_html_attachment_pusher(new_edition, "publish")
-
-      PublishingApiRedirectWorker
-        .expects(:new)
-        .never
 
       PublishingApiPusher.new(new_edition).push(event: "publish")
     end
