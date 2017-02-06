@@ -139,9 +139,11 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
   view_test "when edition is not from DfE or SFA dont show a button to tag to the new taxonomy" do
     draft_edition = create(:draft_publication)
+
+    publication_has_no_expanded_links(draft_edition.content_id)
     get :show, id: draft_edition
 
-    refute_select '.tag-taxonomy'
+    refute_select '.taxonomy-topics'
   end
 
   view_test "when edition is from DfE show a button to tag to the new taxonomy" do
@@ -154,9 +156,10 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     login_as(create(:user, organisation: dfe_organisation))
 
+    publication_has_no_expanded_links(publication.content_id)
     get :show, id: publication
 
-    assert_select '.tag-taxonomy', "Tag to new taxonomy"
+    assert_select '.taxonomy-topics .btn', "Add topic"
   end
 
   view_test "when edition is from SFA show a button to tag to the new taxonomy" do
@@ -169,12 +172,76 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     login_as(create(:user, organisation: sfa_organisation))
 
+    publication_has_no_expanded_links(publication.content_id)
     get :show, id: publication
 
-    assert_select '.tag-taxonomy', "Tag to new taxonomy"
+    assert_select '.taxonomy-topics .btn', "Add topic"
+  end
+
+  view_test "when edition is not tagged to the new taxonomy" do
+    sfa_organisation = create(:organisation, content_id: "3e5a6924-b369-4eb3-8b06-3c0814701de4")
+
+    publication = create(
+      :publication,
+      organisations: [sfa_organisation]
+    )
+
+    login_as(create(:user, organisation: sfa_organisation))
+
+    publication_has_no_expanded_links(publication.content_id)
+    get :show, id: publication
+
+    refute_select '.taxonomy-topics .content'
+    assert_select '.taxonomy-topics .no-content', "No topics - please add a topic before publishing"
+  end
+
+  view_test "when edition is tagged to the new taxonomy" do
+    sfa_organisation = create(:organisation, content_id: "3e5a6924-b369-4eb3-8b06-3c0814701de4")
+
+    publication = create(
+      :publication,
+      organisations: [sfa_organisation]
+    )
+
+    login_as(create(:user, organisation: sfa_organisation))
+
+    publication_has_expanded_links(publication.content_id)
+    get :show, id: publication
+
+    refute_select '.taxonomy-topics .no-content'
+    assert_select '.taxonomy-topics .content li', "Education, Training and Skills"
+    assert_select '.taxonomy-topics .content li', "Primary Education"
   end
 
   private
+
+  def publication_has_no_expanded_links(content_id)
+    publishing_api_has_expanded_links(
+      content_id:  content_id,
+      expanded_links:  {}
+    )
+  end
+
+  def publication_has_expanded_links(content_id)
+    publishing_api_has_expanded_links(
+      content_id:  content_id,
+      expanded_links:  {
+        "taxons" => [
+          {
+            "title" => "Primary Education",
+            "links" => {
+              "parent_taxons" => [
+                {
+                  "title" => "Education, Training and Skills",
+                  "links" => {}
+                }
+              ]
+            }
+          }
+        ]
+      }
+    )
+  end
 
   def controller_attributes_for(edition_type, attributes = {})
     super.except(:alternative_format_provider).reverse_merge(

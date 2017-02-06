@@ -1,0 +1,24 @@
+@import "design-patterns/breadcrumbs";
+
+.taxon-breadcrumb {
+  // reset the default browser styles
+  ol {
+    padding: 0;
+    margin: 0;
+  }
+
+  li:last-child {
+    font-weight: bold;
+  }
+
+  color: $black;
+
+  @include breadcrumbs;
+}
+
+.content-bordered{
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 16px;
+}
