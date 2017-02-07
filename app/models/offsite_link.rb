@@ -1,8 +1,26 @@
 class OffsiteLink < ActiveRecord::Base
+  module LinkTypes
+    def self.all
+      @types ||= %w(alert blog_post campaign careers nhs_content service)
+    end
+
+    def self.humanize(link_type)
+      if link_type == 'nhs_content'
+        'NHS content'
+      else
+        link_type.humanize
+      end
+    end
+
+    def self.as_select_options
+      all.map { |type| [humanize(type), type] }
+    end
+  end
+
   belongs_to :parent, polymorphic: true
   validates :title, :summary, :link_type, :url, presence: true, length: { maximum: 255 }
   validate :check_url_is_allowed
-  validates :link_type, presence: true, inclusion: {in: %w{alert blog_post campaign careers service nhs_content}}
+  validates :link_type, presence: true, inclusion: {in: LinkTypes.all}
 
   def check_url_is_allowed
     begin
@@ -19,11 +37,7 @@ class OffsiteLink < ActiveRecord::Base
   end
 
   def humanized_link_type
-    if link_type == 'nhs_content'
-      'NHS content'
-    else
-      link_type.humanize
-    end
+    LinkTypes.humanize(link_type)
   end
 
   def to_s
