@@ -25,7 +25,6 @@ module PublishingApi
         schema_name: "placeholder_#{item.class.name.underscore}",
       )
       content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
-      content.merge!(PayloadBuilder::WithdrawnNotice.for(item))
       content.merge!(PayloadBuilder::AccessLimitation.for(item))
     end
 

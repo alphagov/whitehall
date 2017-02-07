@@ -148,28 +148,6 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     assert_equal [location.content_id], presented_item.links[:world_locations]
   end
 
-  test "a withdrawn publication includes details of the archive notice" do
-    create(:government)
-    publication = create(:published_publication, :withdrawn)
-    publication.build_unpublishing(
-      unpublishing_reason_id: UnpublishingReason::Withdrawn.id,
-      explanation: 'No longer relevant')
-
-    publication.unpublishing.save!
-
-    archive_notice = {
-      explanation: "<div class=\"govspeak\"><p>No longer relevant</p></div>",
-      archived_at: publication.updated_at
-    }
-
-    presented_item = present(publication)
-
-    assert_valid_against_schema(presented_item.content, 'publication')
-    assert_equal archive_notice[:archived_at], presented_item.content[:details][:withdrawn_notice][:withdrawn_at]
-    assert_equivalent_html archive_notice[:explanation],
-      presented_item.content[:details][:withdrawn_notice][:explanation]
-  end
-
   test "documents include the alternative format contact email" do
     publication = create(:publication, :with_command_paper)
     presented_item = present(publication)

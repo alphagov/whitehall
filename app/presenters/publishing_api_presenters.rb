@@ -65,7 +65,6 @@ private
     else
       # This is a catch-all clause for the following classes:
       # NewsArticle, Speech, CorporateInformationPage,
-      # Consultations
       # The presenter implementation for all of these models is identical and
       # the structure of the presented payload is the same.
       PublishingApi::GenericEditionPresenter

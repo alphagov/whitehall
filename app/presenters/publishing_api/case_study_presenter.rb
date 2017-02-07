@@ -26,7 +26,6 @@ module PublishingApi
       )
       content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
       content.merge!(PayloadBuilder::AccessLimitation.for(item))
-      content.merge!(PayloadBuilder::WithdrawnNotice.for(item))
     end
 
     def links
@@ -53,7 +52,6 @@ module PublishingApi
         format_display_type: item.display_type_key,
       }
       details_hash[:image] = image_details if image_available?
-      details_hash.merge!(PayloadBuilder::WithdrawnNotice.for(item))
       details_hash.merge!(PayloadBuilder::TagDetails.for(item))
     end
 
