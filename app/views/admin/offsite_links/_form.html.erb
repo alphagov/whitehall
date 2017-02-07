@@ -8,7 +8,7 @@
         <%= form.label :link_type, "Type", required: true %>
 
         <div class="form-group">
-          <%= form.select :link_type, [["Alert", "alert"], ["Blog Post", "blog_post"], ["Campaign", "campaign"], ["Careers", "careers"], ["Service", "service"]], {}, {class: 'form-control input-md-2'} %>
+          <%= form.select :link_type, OffsiteLink::LinkTypes.as_select_options, {}, {class: 'form-control input-md-2'} %>
         </div>
 
         <div class="form-group">
