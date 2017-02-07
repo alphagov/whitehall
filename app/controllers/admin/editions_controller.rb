@@ -72,7 +72,10 @@ class Admin::EditionsController < Admin::BaseController
 
   def show
     fetch_version_and_remark_trails
-    fetch_expanded_links
+
+    if @edition.can_be_tagged_to_taxonomy? && tagging_taxonomy_enabled?
+      fetch_expanded_links
+    end
   end
 
   def new
