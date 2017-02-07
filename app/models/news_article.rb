@@ -48,6 +48,10 @@ class NewsArticle < Newsesque
     false
   end
 
+  def rendering_app
+    Whitehall::RenderingApp::WHITEHALL_FRONTEND
+  end
+
   private
 
   def only_news_article_allowed_invalid_data_can_be_awaiting_type

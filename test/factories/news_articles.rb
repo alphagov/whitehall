@@ -30,4 +30,15 @@ FactoryGirl.define do
     news_article_type_id { NewsArticleType::NewsStory.id }
   end
 
+  factory :news_article_news_story, parent: :news_article do
+    news_article_type_id { NewsArticleType::NewsStory.id }
+  end
+
+  factory :news_article_press_release, parent: :news_article do
+    news_article_type_id { NewsArticleType::PressRelease.id }
+  end
+
+  factory :news_article_government_response, parent: :news_article do
+    news_article_type_id { NewsArticleType::GovernmentResponse.id }
+  end
 end
