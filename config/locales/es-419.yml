@@ -78,6 +78,9 @@ es-419:
       national_statistics:
         one: Estadísticas - cifras nacionales
         other: Estadísticas - cifras nacionales
+      nhs_content:
+        one:
+        other:
       news_article:
         one: Artículo
         other: Artículos

@@ -191,6 +191,9 @@ zh-hk:
       national_statistics:
         one: "國家統計數據"
         other: "其他國家統計數據"
+      nhs_content:
+        one:
+        other:
       news_article:
         one: "新聞"
         other: "其他新聞"

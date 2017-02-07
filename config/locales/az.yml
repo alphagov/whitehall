@@ -191,6 +191,9 @@ az:
       national_statistics:
         one: Statistika - milli statistika
         other: Statistika - milli statistika
+      nhs_content:
+        one:
+        other:
       news_article:
         one: məqalə
         other: məqalələr

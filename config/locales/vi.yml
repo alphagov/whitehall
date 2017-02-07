@@ -193,6 +193,9 @@ vi:
       national_statistics:
         one: Thống kê - Thống kê quốc gia
         other: Thống kê - Thống kê quốc gia
+      nhs_content:
+        one:
+        other:
       news_article:
         one: Tin tức
         other: Tin tức

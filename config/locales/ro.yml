@@ -102,6 +102,10 @@ ro:
         one: Statistici - statistici naționale
         few:
         other: Statistici - statistici naționale
+      nhs_content:
+        one:
+        few:
+        other:
       news_article:
         one: "Știre"
         few:

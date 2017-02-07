@@ -78,6 +78,9 @@ fr:
       national_statistics:
         one: Statistiques - statistiques nationales
         other: Statistiques - statistiques nationales
+      nhs_content:
+        one:
+        other:
       news_article:
         one: Actualités
         other: Actualités

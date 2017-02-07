@@ -192,6 +192,9 @@ th:
       national_statistics:
         one: "สถิติ-สถิติแห่งชาน"
         other: "สถิติ-สถิติแห่งชาติ"
+      nhs_content:
+        one:
+        other:
       news_article:
         one: "บทความข่าว"
         other: "บทความข่าว"

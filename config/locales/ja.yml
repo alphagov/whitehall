@@ -192,6 +192,9 @@ ja:
       national_statistics:
         one: "国家統計"
         other: "国家統計"
+      nhs_content:
+        one:
+        other:
       news_article:
         one: "ニュース"
         other: "ニュース"

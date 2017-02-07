@@ -126,6 +126,11 @@ uk:
         few:
         many:
         other: "Статистика - національна статистика"
+      nhs_content:
+        one:
+        few:
+        many:
+        other:
       news_article:
         one: "Стаття"
         few:

@@ -78,6 +78,9 @@ dr:
       national_statistics:
         one: "احصایه ها - احصایه های ملی"
         other: "احصایه ها - احصایه های ملی"
+      nhs_content:
+        one:
+        other:
       news_article:
         one: "مقاله جدید"
         other: "مقاله خبری"

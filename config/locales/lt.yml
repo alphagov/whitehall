@@ -102,6 +102,10 @@ lt:
         one: 'Statistika - nacionalinė statistika '
         few:
         other: 'Statistika - nacionalinė statistika '
+      nhs_content:
+        one:
+        few:
+        other:
       news_article:
         one: Straipsnis
         few:
