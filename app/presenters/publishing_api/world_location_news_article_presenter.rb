@@ -51,7 +51,8 @@ module PublishingApi
     def image_details
       {
         url: Whitehall.public_asset_host + presented_world_location_news_article.lead_image_path,
-        alt_text: presented_world_location_news_article.lead_image_alt_text
+        alt_text: presented_world_location_news_article.lead_image_alt_text,
+        caption: presented_world_location_news_article.lead_image_caption
       }
     end
 

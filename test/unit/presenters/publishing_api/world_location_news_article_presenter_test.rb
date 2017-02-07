@@ -303,7 +303,7 @@ end
 class PublishingApi::WorldLocationNewsArticleImageDetailsTest < ActiveSupport::TestCase
   setup do
     create(:current_government)
-    @image = build(:image, alt_text: 'Image alt text')
+    @image = build(:image, alt_text: 'Image alt text', caption: 'Image caption')
     @world_location_news_article = create(:world_location_news_article, images: [@image])
     @presented_world_location_news_article = PublishingApi::WorldLocationNewsArticlePresenter.new(@world_location_news_article)
   end
@@ -311,7 +311,8 @@ class PublishingApi::WorldLocationNewsArticleImageDetailsTest < ActiveSupport::T
   test "includes details of the world location news article image if present" do
     expected_hash = {
       url: (Whitehall.public_asset_host + @image.url(:s300)),
-      alt_text: @image.alt_text
+      alt_text: @image.alt_text,
+      caption: @image.caption
     }
 
     assert_valid_against_schema(@presented_world_location_news_article.content, 'world_location_news_article')
