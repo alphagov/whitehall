@@ -1,6 +1,19 @@
 module SyncChecker
   module Formats
     class WorldLocationNewsArticleCheck < EditionBase
+      def checks_for_live(_locale)
+        super.tap do |checks|
+          checks << Checks::LinksCheck.new(
+            'worldwide_organisations',
+            expected_worldwide_organisation_content_ids,
+          )
+          checks << Checks::LinksCheck.new(
+            'world_locations',
+            expected_world_location_content_ids,
+          )
+        end
+      end
+
       def expected_details_hash(world_location_news_article)
         super.tap do |details|
           details.merge!(expected_government(world_location_news_article))
@@ -9,19 +22,6 @@ module SyncChecker
           details.merge!(expected_tags(world_location_news_article))
           details.reject! { |k, _| k == :emphasised_organisations }
         end
-      end
-
-      def checks_for_live(locale)
-        super + [
-          Checks::LinksCheck.new(
-            "worldwide_organisations",
-            edition_expected_in_live.worldwide_organisations.map(&:content_id)
-          ),
-          Checks::LinksCheck.new(
-            "world_locations",
-            edition_expected_in_live.world_locations.map(&:content_id)
-          )
-        ]
       end
 
     private
@@ -112,6 +112,14 @@ module SyncChecker
             'topics' => topics.compact,
           }
         }
+      end
+
+      def expected_world_location_content_ids
+        edition_expected_in_live.world_locations.map(&:content_id)
+      end
+
+      def expected_worldwide_organisation_content_ids
+        edition_expected_in_live.worldwide_organisations.map(&:content_id)
       end
     end
   end
