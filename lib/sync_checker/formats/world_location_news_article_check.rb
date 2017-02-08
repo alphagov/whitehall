@@ -9,8 +9,11 @@ module SyncChecker
         Whitehall::RenderingApp::WHITEHALL_FRONTEND
       end
 
-      def expected_details_hash(edition)
-        super.reject { |k, _| k == :emphasised_organisations }
+      def expected_details_hash(world_location_news_article)
+        super.tap do |details|
+          details.merge!(expected_image(world_location_news_article))
+          details.reject! { |k, _| k == :emphasised_organisations }
+        end
       end
 
       def document_type(_edition)
@@ -28,6 +31,55 @@ module SyncChecker
             edition_expected_in_live.world_locations.map(&:content_id)
           )
         ]
+      end
+
+      private
+
+      IMAGE_FORMAT = :s300
+      IMAGE_PLACEHOLDER = '/placeholder.jpg'
+
+      def expected_image(world_location_news_article)
+        images = world_location_news_article.images
+        lead_organisations = world_location_news_article.lead_organisations
+        organisations = world_location_news_article.organisations
+        worldwide_organisations = world_location_news_article.worldwide_organisations
+
+        first_image = images.first
+        first_lead_organisation = lead_organisations.first
+        first_organisation = organisations.first
+        first_worldwide_organisation = worldwide_organisations.first
+
+        image_alt_text = if first_image
+                           first_image.alt_text.squish
+                         else
+                           'placeholder'
+                         end
+
+        image_caption = first_image.try(:caption).try(:strip).presence
+
+        image_path = if first_image
+                       first_image.url(IMAGE_FORMAT)
+                     elsif lead_organisations.any? && first_lead_organisation.default_news_image
+                       first_lead_organisation.default_news_image.file.url(IMAGE_FORMAT)
+                     elsif organisations.any? && first_organisation.default_news_image
+                       first_organisation.default_news_image.file.url(IMAGE_FORMAT)
+                     elsif worldwide_organisations.any? && first_worldwide_organisation.default_news_image
+                       first_worldwide_organisation.default_news_image.file.url(IMAGE_FORMAT)
+                     else
+                       IMAGE_PLACEHOLDER
+                     end
+
+        image_uri = URI(Whitehall.public_asset_host).tap do |uri|
+          uri.path = image_path
+        end
+
+        {
+          'image' => {
+            'alt_text' => image_alt_text,
+            'caption' => image_caption,
+            'url' => image_uri.to_s,
+          }
+        }
       end
     end
   end
