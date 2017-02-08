@@ -72,6 +72,10 @@ class Admin::EditionsController < Admin::BaseController
 
   def show
     fetch_version_and_remark_trails
+
+    if @edition.can_be_tagged_to_taxonomy? && tagging_taxonomy_enabled?
+      fetch_expanded_links
+    end
   end
 
   def new
@@ -158,6 +162,10 @@ class Admin::EditionsController < Admin::BaseController
   def fetch_version_and_remark_trails
     @edition_remarks = @edition.document_remarks_trail.reverse
     @edition_history = Kaminari.paginate_array(@edition.document_version_trail.reverse).page(params[:page]).per(30)
+  end
+
+  def fetch_expanded_links
+    @expanded_links = ExpandedLinksFetcher.new(@edition.content_id).fetch
   end
 
   def edition_class
