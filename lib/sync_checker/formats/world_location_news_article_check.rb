@@ -12,6 +12,7 @@ module SyncChecker
       def expected_details_hash(world_location_news_article)
         super.tap do |details|
           details.merge!(expected_image(world_location_news_article))
+          details.merge!(expected_political(world_location_news_article))
           details.reject! { |k, _| k == :emphasised_organisations }
         end
       end
@@ -80,6 +81,10 @@ module SyncChecker
             'url' => image_uri.to_s,
           }
         }
+      end
+
+      def expected_political(world_location_news_article)
+        { political: world_location_news_article.political? }
       end
     end
   end
