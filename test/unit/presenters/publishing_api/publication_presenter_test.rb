@@ -167,44 +167,56 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     assert_equal('test', @presented_content[:details][:first_public_at])
   end
 
-  test "non-default locale documents do not present default attachments" do
+  test "specific locale attachments are presented for that locale" do
+    #this factory creates an nil locale attachment
     publication = create(:published_publication)
-    publication.html_attachments << build(
-      :html_attachment,
-      title: "welsh one",
-      locale: :cy,
-      attachable_id: publication.id
-    )
+    attachment = publication.html_attachments.first
+    attachment.update_attributes!(locale: 'cy', title: "welsh one")
     publication.reload #ensures the html attachment is in #attachments and #html_attachmnents
 
     presented_publication = PublishingApi::PublicationPresenter.new(publication)
 
-    begin
-      I18n.locale = :cy
+    I18n.with_locale(:cy) do
       document_elements = presented_publication.content[:details][:documents]
-      default_attachment_title = publication.html_attachments.first.title
-      assert_equal 1, document_elements.length
-      refute_match default_attachment_title, document_elements.first
-    ensure
-      I18n.locale = I18n.default_locale
+      assert_equal 1, document_elements.count
+      assert document_elements.first =~ /welsh one/
     end
   end
 
-  test "default locale documents do not present non-default attachments" do
+  test "specific locale attachments are not presented for other locales" do
+    #this factory creates an nil locale attachment
     publication = create(:published_publication)
-    publication.html_attachments << build(
-      :html_attachment,
-      title: "welsh one",
-      locale: :cy,
-      attachable_id: publication.id
-    )
+    attachment = publication.html_attachments.first
+    attachment.update_attributes!(locale: 'cy', title: "welsh one")
     publication.reload
 
     presented_publication = PublishingApi::PublicationPresenter.new(publication)
 
-    document_elements = presented_publication.content[:details][:documents]
-    default_attachment_title = publication.html_attachments.first.title
-    assert_equal 1, document_elements.length
-    assert_match default_attachment_title, document_elements.first
+    I18n.with_locale(:en) do
+      document_elements = presented_publication.content[:details][:documents]
+      assert_equal 0, document_elements.count
+    end
+  end
+
+  test "nil locale attachments are present for all locales" do
+    #this factory creates an nil locale attachment
+    publication = create(:published_publication)
+    attachment = publication.html_attachments.first
+    attachment.update_attributes!(title: "nil one")
+    publication.reload
+
+    presented_publication = PublishingApi::PublicationPresenter.new(publication)
+
+    I18n.with_locale(:cy) do
+      document_elements = presented_publication.content[:details][:documents]
+      assert_equal 1, document_elements.length
+      assert_match(/nil one/, document_elements.first)
+    end
+
+    I18n.with_locale(:en) do
+      document_elements = presented_publication.content[:details][:documents]
+      assert_equal 1, document_elements.length
+      assert_match(/nil one/, document_elements.first)
+    end
   end
 end
