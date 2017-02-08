@@ -13,6 +13,7 @@ module SyncChecker
         super.tap do |details|
           details.merge!(expected_image(world_location_news_article))
           details.merge!(expected_political(world_location_news_article))
+          details.merge!(expected_tags(world_location_news_article))
           details.reject! { |k, _| k == :emphasised_organisations }
         end
       end
@@ -85,6 +86,19 @@ module SyncChecker
 
       def expected_political(world_location_news_article)
         { political: world_location_news_article.political? }
+      end
+
+      def expected_tags(world_location_news_article)
+        topics = Array(world_location_news_article.primary_specialist_sector_tag) +
+          world_location_news_article.secondary_specialist_sector_tags
+
+        {
+          'tags' => {
+            'browse_pages' => [],
+            'policies' => [],
+            'topics' => topics.compact,
+          }
+        }
       end
     end
   end
