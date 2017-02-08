@@ -1,14 +1,6 @@
 module SyncChecker
   module Formats
     class WorldLocationNewsArticleCheck < EditionBase
-      def root_path
-        "/government/world-location-news/"
-      end
-
-      def rendering_app
-        Whitehall::RenderingApp::WHITEHALL_FRONTEND
-      end
-
       def expected_details_hash(world_location_news_article)
         super.tap do |details|
           details.merge!(expected_government(world_location_news_article))
@@ -17,10 +9,6 @@ module SyncChecker
           details.merge!(expected_tags(world_location_news_article))
           details.reject! { |k, _| k == :emphasised_organisations }
         end
-      end
-
-      def document_type(_edition)
-        "world_location_news_article"
       end
 
       def checks_for_live(locale)
@@ -36,10 +24,22 @@ module SyncChecker
         ]
       end
 
-      private
+    private
 
       IMAGE_FORMAT = :s300
       IMAGE_PLACEHOLDER = '/placeholder.jpg'
+
+      def document_type(_edition)
+        'world_location_news_article'
+      end
+
+      def rendering_app
+        Whitehall::RenderingApp::WHITEHALL_FRONTEND
+      end
+
+      def root_path
+        '/government/world-location-news/'
+      end
 
       def expected_government(world_location_news_article)
         return {} unless world_location_news_article.government
