@@ -266,16 +266,22 @@
       }
       .heading-extra {
         @include grid-column( 2/3 );
-        ul {
+        .featured-links {
           margin: 0;
           padding: 0;
         }
-        li a,
+
+        .featured-links li a,
         .see-all{
           @include bold-24;
         }
+
         .see-all {
           padding-top: $gutter-one-third;
+          margin-left: 0;
+        }
+
+        .available-languages {
           margin-left: 0;
         }
       }
