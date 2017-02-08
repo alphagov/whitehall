@@ -11,6 +11,7 @@ module SyncChecker
 
       def expected_details_hash(world_location_news_article)
         super.tap do |details|
+          details.merge!(expected_government(world_location_news_article))
           details.merge!(expected_image(world_location_news_article))
           details.merge!(expected_political(world_location_news_article))
           details.merge!(expected_tags(world_location_news_article))
@@ -39,6 +40,18 @@ module SyncChecker
 
       IMAGE_FORMAT = :s300
       IMAGE_PLACEHOLDER = '/placeholder.jpg'
+
+      def expected_government(world_location_news_article)
+        return {} unless world_location_news_article.government
+
+        {
+          'government' => {
+            'title' => world_location_news_article.government.name,
+            'slug' => world_location_news_article.government.slug,
+            'current' => world_location_news_article.government.current?
+          }
+        }
+      end
 
       def expected_image(world_location_news_article)
         images = world_location_news_article.images
