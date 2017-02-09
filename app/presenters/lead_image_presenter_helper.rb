@@ -15,7 +15,7 @@ module LeadImagePresenterHelper
 
   def lead_image_alt_text
     if images.first
-      images.first.alt_text
+      images.first.alt_text.squish
     else
       'placeholder'
     end
