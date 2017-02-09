@@ -31,8 +31,7 @@ end
 Then /^I should see a link to the preview version of the publication "([^"]*)"$/ do |publication_title|
   publication = Publication.find_by!(title: publication_title)
   visit admin_edition_path(publication)
-  preview_path_regexp = Regexp.new(Regexp.escape(preview_document_path(publication)).gsub(/cachebust=[0-9]+/, 'cachebust=[0-9]+'))
-  assert_match preview_path_regexp, find("a.preview_version")[:href]
+  assert_equal preview_document_url(publication), find("a.preview_version")[:href]
 end
 
 Then /^I should see that it was rejected by "([^"]*)"$/ do |rejected_by|

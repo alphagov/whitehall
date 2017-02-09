@@ -120,9 +120,9 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
   end
 
   test "Creates a preview URL with cachebust and edition parameters" do
-    edition = create(:draft_publication)
+    edition = create(:draft_speech)
     preview_url = preview_document_url(edition)
-    assert_equal "http://test.host/government/publications/#{edition.slug}?cachebust=#{Time.zone.now.getutc.to_i}&preview=#{edition.id}", preview_url
+    assert_equal "http://test.host/government/speeches/#{edition.slug}?cachebust=#{Time.zone.now.getutc.to_i}&preview=#{edition.id}", preview_url
   end
 
   test "Creates a preview URL without parameters for edition formats that have migrated" do

@@ -56,7 +56,7 @@ module SyncChecker
     private
 
       def rendering_app
-        Whitehall::RenderingApp::WHITEHALL_FRONTEND
+        Whitehall::RenderingApp::GOVERNMENT_FRONTEND
       end
 
       def filter_documents_for_locale(edition, locale)
