@@ -15,6 +15,18 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_cache_control("max-age=#{5.minutes}")
   end
 
+  test "show responds with 'not found' and default cache control 'max-age' if document has been unpublished and then deleted" do
+    login_as(:departmental_editor)
+    edition = create(:unpublished_publication)
+
+    Whitehall.edition_services.deleter(edition).perform!
+
+    get :show, id: edition.unpublishing.slug
+
+    assert_response :not_found
+    assert_cache_control("max-age=#{5.minutes}")
+  end
+
   test "show responds with 'unpublished' and default cache control 'max-age' if document has been unpublished" do
     login_as(:departmental_editor)
     edition = create(:unpublished_publication)
