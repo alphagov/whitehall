@@ -1,7 +1,7 @@
 <% page_title "Tagging: " + @edition.title %>
 
 <div class="row">
-  <div class="col-md-8">
+  <div class="col-md-12">
     <h1><%= @edition.title %></h1>
     <h2>Edit topics</h2>
     <p class="lead add-top-margin add-bottom-margin">
@@ -31,6 +31,9 @@
 
           <%= render partial: "taxonomy", locals: {form: @edition_tag_form, taxons: @edition_tag_form.education_taxons.children} %>
         </div>
+      </div>
+
+      <div class="content content-bordered hidden" data-module="breadcrumb-preview">
       </div>
 
       <p class="warning">
