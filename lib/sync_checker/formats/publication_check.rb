@@ -21,7 +21,7 @@ module SyncChecker
             "related_statistical_data_sets",
             edition_expected_in_live
               .statistical_data_sets
-              .where(state: %w(published withdrawn))
+              .where(state: %w(published))
               .map(&:content_id)
           ),
           Checks::LinksCheck.new(
