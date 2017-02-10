@@ -15,7 +15,6 @@ class DocumentLocaleParamCanonicalisationTest < ActionDispatch::IntegrationTest
   normal_document_types = [
     "world_location_news_article",
     "publication",
-    "consultation",
   ]
 
   (announcement_redir_document_types + document_types_with_no_index + normal_document_types).each do |doc_type|
