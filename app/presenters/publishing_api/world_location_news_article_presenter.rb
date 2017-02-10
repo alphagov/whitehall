@@ -41,7 +41,7 @@ module PublishingApi
         body: govspeak_renderer.govspeak_edition_to_html(item),
         change_history: item.change_history.as_json,
       }.tap do |details_hash|
-        details_hash[:image] = image_details if image_available?
+        details_hash[:image] = image_details
         details_hash.merge!(PayloadBuilder::PoliticalDetails.for(item))
         details_hash.merge!(PayloadBuilder::TagDetails.for(item))
         details_hash.merge!(PayloadBuilder::FirstPublicAt.for(item))
