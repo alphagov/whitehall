@@ -19,10 +19,7 @@ module SyncChecker
           ),
           Checks::LinksCheck.new(
             "related_statistical_data_sets",
-            edition_expected_in_live
-              .statistical_data_sets
-              .where(state: %w(published withdrawn))
-              .map(&:content_id)
+            expected_statistical_data_sets(edition_expected_in_live)
           ),
           Checks::LinksCheck.new(
             "topical_events",
@@ -69,6 +66,12 @@ module SyncChecker
             locales_to_filter.include?(attachment.locale.to_s)
         end
         locale_attachments.map(&:content_id)
+      end
+
+      def expected_statistical_data_sets(edition)
+        published_content_ids = edition.published_statistical_data_sets.pluck(:content_id)
+        withdrawn_content_ids = edition.statistical_data_sets.withdrawn.pluck(:content_id)
+        published_content_ids + withdrawn_content_ids
       end
     end
   end
