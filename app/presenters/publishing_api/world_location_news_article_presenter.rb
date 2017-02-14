@@ -50,14 +50,14 @@ module PublishingApi
 
     def image_details
       {
-        url: Whitehall.public_asset_host + presented_world_location_news_article.lead_image_path,
+        url: image_url,
         alt_text: presented_world_location_news_article.lead_image_alt_text,
         caption: presented_world_location_news_article.lead_image_caption
       }
     end
 
-    def image_available?
-      item.images.any?
+    def image_url
+      URI.join(Whitehall.public_asset_host, presented_world_location_news_article.lead_image_path).to_s
     end
 
     def govspeak_renderer

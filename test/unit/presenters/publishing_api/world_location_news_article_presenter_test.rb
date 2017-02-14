@@ -319,3 +319,21 @@ class PublishingApi::WorldLocationNewsArticleImageDetailsTest < ActiveSupport::T
     assert_equal expected_hash, @presented_world_location_news_article.content[:details][:image]
   end
 end
+
+class PublishingApi::WorldLocationNewsArticlePlaceholderImageTest < ActiveSupport::TestCase
+  setup do
+    create(:current_government)
+    @wlna = create(:world_location_news_article)
+    @presented_wlna = PublishingApi::WorldLocationNewsArticlePresenter.new(@wlna)
+  end
+
+  test "includes a placeholder image when no image is presented" do
+    expected_placeholder_image = {
+      alt_text: "placeholder",
+      caption: nil,
+      url: Whitehall.public_asset_host + "/placeholder.jpg"
+    }
+
+    assert_equal expected_placeholder_image, @presented_wlna.content[:details][:image]
+  end
+end
