@@ -116,7 +116,7 @@ module PublishingApi
       def call
         {
           image: {
-            url: image_uri.to_s,
+            url: image_url,
             caption: image_caption,
             alt_text: image_alt_text,
           },
@@ -132,14 +132,8 @@ module PublishingApi
         news_article.lead_image_alt_text.squish
       end
 
-      def image_path
-        image_path = news_article.lead_image_path
-
-        image_path.starts_with?('/') ? image_path : image_path.prepend('/')
-      end
-
-      def image_uri
-        URI(Whitehall.public_asset_host).tap { |uri| uri.path = image_path }
+      def image_url
+        URI.join(Whitehall.public_asset_host, news_article.lead_image_path).to_s
       end
     end
 
