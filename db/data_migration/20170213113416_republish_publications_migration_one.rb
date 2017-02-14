@@ -1,17 +1,14 @@
-latest_publication_document_ids = Document.where(
+document_scope = Document.where(
   id: Publication.where(state: %w(draft published withdrawn)).pluck(:id)
 )
-  .order(id: :desc)
-  .limit(10000)
-  .pluck(:id)
 
-latest_publication_document_ids.each do |document_id|
+lowest_document_id_for_this_republish = 290000
+document_scope = document_scope.where(
+  "id > ?", lowest_document_id_for_this_republish
+).order(id: :desc)
+
+document_scope.pluck(:id).each do |document_id|
   print "."
-  PublishingApiDocumentRepublishingWorker.perform_async(document_id)
+  PublishingApiDocumentRepublishingWorker
+    .perform_async_in_queue("bulk_republishing", document_id)
 end
-
-puts "\n" * 10
-puts "*" * 50
-puts "Last document republished #{latest_publication_document_ids.last}"
-puts "*" * 50
-puts "\n" * 10
