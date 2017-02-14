@@ -32,9 +32,18 @@ module PublishingApi
     end
 
     def links
+      link_keys = %i(
+        organisations
+        parent
+        policy_areas
+        related_policies
+        topics
+        world_locations
+      )
+
       LinksPresenter
         .new(news_article)
-        .extract(%i(parent policy_areas related_policies topics world_locations))
+        .extract(link_keys)
         .merge(Ministers.for(news_article))
         .merge(PayloadBuilder::TopicalEvents.for(news_article))
     end

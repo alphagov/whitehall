@@ -82,6 +82,7 @@ module PublishingApi::NewsArticlePresenterTest
 
     test 'base links' do
       expected_link_keys = %i(
+        organisations
         parent
         policy_areas
         related_policies
