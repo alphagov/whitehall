@@ -3,7 +3,7 @@
 REPOSITORY = 'whitehall'
 DEFAULT_SCHEMA_BRANCH = 'deployed-to-production'
 
-node ('ci-agent-3') {
+node {
   def govuk = load '/var/lib/jenkins/groovy_scripts/govuk_jenkinslib.groovy'
 
   properties([
