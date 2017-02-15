@@ -1,8 +1,8 @@
 document_scope = Document.where(
-  id: Publication.where(state: %w(draft published withdrawn)).pluck(:id)
+  id: Publication.where(state: %w(draft published withdrawn)).pluck(:document_id)
 )
 
-lowest_document_id_for_this_republish = 290000
+lowest_document_id_for_this_republish = 330000
 document_scope = document_scope.where(
   "id > ?", lowest_document_id_for_this_republish
 ).order(id: :desc)
