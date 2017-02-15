@@ -56,7 +56,9 @@ private
   end
 
   def find_unpublishing
-    Unpublishing.from_slug(params[:id], document_class)
+    unpublishing = Unpublishing.from_slug(params[:id], document_class)
+
+    unpublishing if unpublishing && !unpublishing.edition.deleted?
   end
 
   def find_document_or_edition
