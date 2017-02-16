@@ -1,6 +1,8 @@
 module SyncChecker
   module Formats
     class EditionBase
+      HTTP_400_AND_500_ERRORS = 400..599
+
       def self.scope
         klass = self.name.demodulize.sub(/Check$/, '')
         Document.where(id: klass.constantize.all.pluck(:document_id).uniq)
@@ -70,7 +72,8 @@ module SyncChecker
               expected_details_hash(edition_expected_in_draft, locale)
             end
           ),
-          Checks::TranslationsCheck.new(edition_expected_in_draft.available_locales)
+          Checks::TranslationsCheck.new(edition_expected_in_draft.available_locales),
+          Checks::HttpStatusCheck.new(HTTP_400_AND_500_ERRORS)
         ]
       end
 
@@ -115,7 +118,8 @@ module SyncChecker
           Checks::UnpublishedCheck.new(document),
           Checks::TranslationsCheck.new(edition_expected_in_live.available_locales),
           Checks::TopicsCheck.new(edition_expected_in_live,
-                                  topic_blacklist: DraftTopicContentIds.fetch)
+                                  topic_blacklist: DraftTopicContentIds.fetch),
+          Checks::HttpStatusCheck.new(HTTP_400_AND_500_ERRORS)
         ]
       end
 
