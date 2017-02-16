@@ -30,12 +30,19 @@ OptionParser.new do |opts|
     puts opts
     exit
   end
+
+  opts.on("-b", "--between RANGE", "set the scope to document ids between") do |b|
+    range_arr = b.split(',').map(&:to_i)
+    options[:range] = Range.new(*range_arr)
+  end
 end.parse!
 
 checker = "SyncChecker::Formats::#{ARGV[0]}Check".constantize
 scope = (
   if options[:ids]
     checker.scope_with_ids(options[:ids])
+  elsif options[:range]
+    checker.scope_with_range(options[:range])
   else
     checker.scope
   end
