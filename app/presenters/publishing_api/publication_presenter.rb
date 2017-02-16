@@ -86,8 +86,7 @@ module PublishingApi
       #nil/"" locale should always be returned
       locales_that_match = [I18n.locale.to_s, ""]
       attachments.to_a.select do |attachment|
-        attachment.is_a?(FileAttachment) ||
-          locales_that_match.include?(attachment.locale.to_s)
+        locales_that_match.include?(attachment.locale.to_s)
       end
     end
 

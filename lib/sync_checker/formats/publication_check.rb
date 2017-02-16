@@ -62,8 +62,7 @@ module SyncChecker
         #en and '' (nil locale attachments should always be present)
         locales_to_filter = ["en", "", locale.to_s]
         locale_attachments = all_attachments.select do |attachment|
-          attachment.is_a?(HtmlAttachment) &&
-            locales_to_filter.include?(attachment.locale.to_s)
+          locales_to_filter.include?(attachment.locale.to_s)
         end
         locale_attachments.map(&:content_id)
       end
