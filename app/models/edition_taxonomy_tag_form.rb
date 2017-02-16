@@ -20,7 +20,7 @@ class EditionTaxonomyTagForm
       .publishing_api_v2_client
       .patch_links(
         edition_content_id,
-        links: { taxons: taxons_to_publish },
+        links: { taxons: most_specific_taxons },
         previous_version: previous_version
       )
   end
@@ -29,12 +29,19 @@ class EditionTaxonomyTagForm
     Taxonomy.education
   end
 
-private
+  # Ignore any taxons that already have a more specific taxon selected
+  def most_specific_taxons
+    education_taxons.tree.each_with_object([]) do |taxon, list_of_taxons|
+      content_ids = taxon.descendants.map(&:content_id)
 
-  def taxons_to_publish
-    Taxonomy::FindChildest.new(
-      tree: education_taxons.tree,
-      selected_taxons: selected_taxons
-    ).taxons
+      any_descendants_selected = selected_taxons.any? do |selected_taxon|
+        content_ids.include?(selected_taxon)
+      end
+
+      unless any_descendants_selected
+        content_id = taxon.content_id
+        list_of_taxons << content_id if selected_taxons.include?(content_id)
+      end
+    end
   end
 end
