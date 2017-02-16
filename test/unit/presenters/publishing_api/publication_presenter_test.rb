@@ -219,4 +219,31 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       assert_match(/nil one/, document_elements.first)
     end
   end
+
+  test "file attachments are correctly filtered for locale" do
+    publication = create(:published_publication)
+    publication.stubs(:attachments).returns(
+      [
+        build(:csv_attachment, id: 1, title: "en one", locale: "en"),
+        build(:csv_attachment, id: 2, title: "cy one", locale: "cy"),
+        build(:csv_attachment, id: 3, title: "nil one", locale: nil)
+      ]
+    )
+
+    presented_publication = PublishingApi::PublicationPresenter.new(publication)
+
+    I18n.with_locale(:cy) do
+      document_elements = presented_publication.content[:details][:documents]
+      assert_equal 2, document_elements.length
+      assert_match(/cy one/, document_elements.first)
+      assert_match(/nil one/, document_elements.last)
+    end
+
+    I18n.with_locale(:en) do
+      document_elements = presented_publication.content[:details][:documents]
+      assert_equal 2, document_elements.length
+      assert_match(/en one/, document_elements.first)
+      assert_match(/nil one/, document_elements.last)
+    end
+  end
 end
