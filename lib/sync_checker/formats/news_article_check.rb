@@ -1,7 +1,7 @@
 module SyncChecker
   module Formats
     class NewsArticleCheck < EditionBase
-      def expected_details_hash(news_article)
+      def expected_details_hash(news_article, _)
         super.tap do |details|
           details.except!(:change_history) unless news_article.change_history.present?
           details.merge!(expected_government(news_article))

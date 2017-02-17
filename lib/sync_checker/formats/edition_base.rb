@@ -67,7 +67,7 @@ module SyncChecker
           ),
           Checks::DetailsCheck.new(
             I18n.with_locale(locale) do
-              expected_details_hash(edition_expected_in_draft)
+              expected_details_hash(edition_expected_in_draft, locale)
             end
           ),
           Checks::TranslationsCheck.new(edition_expected_in_draft.available_locales)
@@ -109,7 +109,7 @@ module SyncChecker
           ),
           Checks::DetailsCheck.new(
             I18n.with_locale(locale) do
-              expected_details_hash(edition_expected_in_live)
+              expected_details_hash(edition_expected_in_live, locale)
             end
           ),
           Checks::UnpublishedCheck.new(document),
@@ -135,7 +135,7 @@ module SyncChecker
         end
       end
 
-      def expected_details_hash(edition)
+      def expected_details_hash(edition, _locale)
         {
           body: Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(edition),
           change_history: edition.change_history.as_json,
