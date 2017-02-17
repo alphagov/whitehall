@@ -10,6 +10,10 @@ module SyncChecker
         Document.where(id: ids)
       end
 
+      def self.scope_with_range(range)
+        self.scope.where(id: range)
+      end
+
       def self.republish(id)
         PublishingApiDocumentRepublishingWorker.new.perform(id)
       end
