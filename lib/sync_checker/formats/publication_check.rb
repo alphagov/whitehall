@@ -30,10 +30,12 @@ module SyncChecker
           ),
           Checks::LinksCheck.new(
             "children",
+            #file attachments won't appear in children
+            #as they're not in publishing api
             filter_documents_for_locale(
               edition_expected_in_live,
               locale
-            )
+            ).reject{ |attachment| attachment.is_a?(FileAttachment) }
           )
         ]
       end
