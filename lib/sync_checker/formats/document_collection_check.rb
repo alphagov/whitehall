@@ -24,7 +24,7 @@ module SyncChecker
         ]
       end
 
-      def expected_details_hash(edition)
+      def expected_details_hash(edition, _)
         super.merge(
           collection_groups: collection_groups(edition)
         )

@@ -32,10 +32,10 @@ module SyncChecker
             "children",
             #file attachments won't appear in children
             #as they're not in publishing api
-            filter_documents_for_locale(
+            expected_child_content_ids(
               edition_expected_in_live,
               locale
-            ).reject{ |attachment| attachment.is_a?(FileAttachment) }
+            )
           )
         ]
       end
@@ -44,10 +44,15 @@ module SyncChecker
         edition.publication_type.key
       end
 
-      def expected_details_hash(edition)
+      def expected_details_hash(edition, locale)
         super.tap do |expected_details_hash|
           expected_details_hash.merge(
-            documents: Whitehall::GovspeakRenderer.new.block_attachments(edition.attachments)
+            documents: Whitehall::GovspeakRenderer.new.block_attachments(
+              filter_documents_for_locale(
+                edition,
+                locale
+              )
+            )
           ) if edition.attachments.any?
         end
       end
@@ -66,7 +71,13 @@ module SyncChecker
         locale_attachments = all_attachments.select do |attachment|
           locales_to_filter.include?(attachment.locale.to_s)
         end
-        locale_attachments.map(&:content_id)
+        locale_attachments
+      end
+
+      def expected_child_content_ids(edition, locale)
+        filter_documents_for_locale(edition, locale)
+          .reject { |attachment| attachment.is_a?(FileAttachment) }
+          .map(&:content_id)
       end
 
       def expected_statistical_data_sets(edition)

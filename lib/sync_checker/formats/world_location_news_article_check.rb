@@ -14,7 +14,7 @@ module SyncChecker
         end
       end
 
-      def expected_details_hash(world_location_news_article)
+      def expected_details_hash(world_location_news_article, _)
         super.tap do |details|
           details.merge!(expected_government(world_location_news_article))
           details.merge!(expected_image(world_location_news_article))

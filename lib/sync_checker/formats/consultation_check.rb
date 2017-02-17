@@ -1,6 +1,6 @@
 module SyncChecker::Formats
   class ConsultationCheck < EditionBase
-    def expected_details_hash(consultation)
+    def expected_details_hash(consultation, _)
       super.tap do |details|
         details.except!(:change_history) unless consultation.change_history.present?
         details.merge!(expected_documents(consultation))
