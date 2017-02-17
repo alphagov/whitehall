@@ -11,12 +11,13 @@ class Admin::EditionTagsController < Admin::BaseController
   def update
     @edition_tag_form = EditionTaxonomyTagForm.new(
       edition_content_id: @edition.content_id,
-      taxons: params["edition_taxonomy_tag_form"]["taxons"].reject(&:blank?),
+      selected_taxons: params["edition_taxonomy_tag_form"]["taxons"].reject(&:blank?),
       previous_version: params["edition_taxonomy_tag_form"]["previous_version"]
     )
 
     @edition_tag_form.publish!
-    redirect_to admin_edition_path(@edition)
+    redirect_to edit_admin_edition_tags_path(@edition),
+      notice: "The tags have been updated."
   rescue GdsApi::HTTPConflict
     redirect_to edit_admin_edition_tags_path(@edition),
       alert: "Somebody changed the tags before you could. Your changes have not been saved."

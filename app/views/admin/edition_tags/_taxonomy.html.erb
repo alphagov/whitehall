@@ -1,0 +1,15 @@
+<% taxons.each do |taxon| %>
+  <p>
+    <label>
+      <%= checkbox_for_taxonomy(@edition_tag_form.selected_taxons, taxon) %>
+      <span><%= taxon.name %></span>
+    </label>
+  </p>
+
+  <div class="topics">
+    <% if taxon.children.present? %>
+      <%= render partial: "taxonomy",
+            locals: { form: form, taxons: taxon.children } %>
+    <% end %>
+  </div>
+<% end %>
