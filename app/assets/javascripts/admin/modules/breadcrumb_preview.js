@@ -24,10 +24,19 @@
       var breadcrumbsArray = preview.buildBreadcrumbsStructure(checkboxes);
       var breadcrumbsToDisplay = preview.filterBreadcrumbs(breadcrumbsArray);
 
-      $(element).mustache(
-        'admin/edition_tags/_breadcrumb_list',
-        { breadcrumbs: breadcrumbsToDisplay }
-      );
+      if (breadcrumbsToDisplay.length === 0) {
+        $(element).removeClass("content").removeClass("content-bordered");
+        $(element).addClass("no-content").addClass("no-content-bordered");
+        $(element).text("No topics - please add a topic before publishing");
+      } else {
+        $(element).addClass("content").addClass("content-bordered");
+        $(element).removeClass("no-content").removeClass("no-content-bordered");
+
+        $(element).mustache(
+          'admin/edition_tags/_breadcrumb_list',
+          { breadcrumbs: breadcrumbsToDisplay }
+        );
+      }
     };
 
     preview.filterBreadcrumbs = function(breadcrumbs) {
