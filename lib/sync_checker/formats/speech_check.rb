@@ -2,13 +2,7 @@ module SyncChecker
   module Formats
     class SpeechCheck < EditionBase
       def checks_for_live(_locale)
-        super + [
-          Checks::LinksCheck.new(
-            "speaker",
-            [edition_expected_in_live
-              .role_appointment
-              .person.content_id]
-          ),
+        checks = super + [
           Checks::LinksCheck.new(
             "policies",
             (edition_expected_in_live.try(:related_policies) || []).map(&:content_id)
@@ -21,9 +15,20 @@ module SyncChecker
               .pluck(:content_id)
           )
         ]
+
+        if edition_expected_in_live.role_appointment
+          checks << Checks::LinksCheck.new(
+            "speaker",
+            [edition_expected_in_live
+              .role_appointment
+              .person.content_id]
+          )
+        end
+
+        checks
       end
 
-      def expected_details_hash(speech)
+      def expected_details_hash(speech, _locale)
         super.tap do |details|
           details.merge!(expected_delivered_on(speech))
           details.merge!(expected_government(speech))
@@ -36,21 +41,21 @@ module SyncChecker
     private
 
       def expected_political(world_location_news_article)
-        { political: world_location_news_article.political? }
+        { "political" => world_location_news_article.political? }
       end
 
       def expected_delivered_on(speech)
-        { delivered_on: speech.delivered_on.iso8601 }
+        { "delivered_on" => speech.delivered_on.iso8601 }
       end
 
       def expected_government(speech)
         return {} unless speech.government
 
         {
-          foo: {
-            name: speech.government.name,
-            slug: speech.government.slug,
-            current: speech.government.current?,
+          "government" => {
+            "title" => speech.government.name,
+            "slug" => speech.government.slug,
+            "current" => speech.government.current?,
           }
         }
       end
@@ -60,9 +65,9 @@ module SyncChecker
         return {} unless speaker && speaker.image && speaker.image.url
 
         {
-          image: {
-            alt_text: speaker.name,
-            url: speaker.image.url,
+          "image" => {
+            "alt_text" => speaker.name,
+            "url" => speaker.image.url,
           }
         }
       end
