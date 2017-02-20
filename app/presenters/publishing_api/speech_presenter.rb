@@ -36,13 +36,15 @@ module PublishingApi
         body: item.body,
         political: item.political,
         delivered_on: item.delivered_on.iso8601,
+        change_history: item.change_history.as_json,
       }
       details.merge!(image_payload) if speaker_has_image?
       details.merge!(PayloadBuilder::PoliticalDetails.for(item))
+      details.merge!(PayloadBuilder::FirstPublicAt.for(item))
     end
 
     def links
-      links = LinksPresenter.new(item).extract([:organisations])
+      links = LinksPresenter.new(item).extract([:organisations, :policy_areas])
       links.merge!(links_for_policies)
       links.merge!(links_for_speaker)
       links.merge!(links_for_topical_events)
@@ -64,6 +66,7 @@ module PublishingApi
     end
 
     def links_for_speaker
+      return {} unless speaker
       { speaker: [speaker.content_id] }
     end
 
