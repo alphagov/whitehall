@@ -2,13 +2,13 @@
   "use strict";
 
   Modules.BreadcrumbPreview = function() {
-    var that = this;
+    var preview = this;
 
-    that.fetchCheckedCheckboxes = function() {
+    preview.fetchCheckedCheckboxes = function() {
       return $('.topic-tree :checked');
     };
 
-    that.buildBreadcrumbsStructure = function(checkboxes) {
+    preview.buildBreadcrumbsStructure = function(checkboxes) {
       var structure = $.map(checkboxes, function(checkbox) {
         var $checkbox = $(checkbox);
         var ancestors = $checkbox.data('ancestors').split('|');
@@ -19,7 +19,18 @@
       return structure;
     };
 
-    that.filterBreadcrumbs = function(breadcrumbs) {
+    preview.renderUpdatedBreadcrumbs = function(element) {
+      var checkboxes = preview.fetchCheckedCheckboxes();
+      var breadcrumbsArray = preview.buildBreadcrumbsStructure(checkboxes);
+      var breadcrumbsToDisplay = preview.filterBreadcrumbs(breadcrumbsArray);
+
+      $(element).mustache(
+        'admin/edition_tags/_breadcrumb_list',
+        { breadcrumbs: breadcrumbsToDisplay }
+      );
+    };
+
+    preview.filterBreadcrumbs = function(breadcrumbs) {
       var longestFirst = breadcrumbs.sort(function (a, b) {
         return b.length - a.length;
       });
@@ -31,7 +42,9 @@
 
         $.each(breadcrumbsToDisplay, function(index, visitedBreadcrumb) {
           var breadcrumbString = JSON.stringify(breadcrumb);
-          var visitedBreadcrumbString = JSON.stringify(visitedBreadcrumb.slice(0, breadcrumb.length));
+          var visitedBreadcrumbString = JSON.stringify(
+            visitedBreadcrumb.slice(0, breadcrumb.length)
+          );
 
           if (breadcrumbString === visitedBreadcrumbString) {
             visited = true;
@@ -44,24 +57,18 @@
       });
 
       return breadcrumbsToDisplay;
-    }
+    };
 
-    that.start = function(element) {
-      var $topicTree = $('.topic-tree');
+    preview.start = function(element) {
       $(element).removeClass('hidden');
 
-      $topicTree.on('change', function() {
-        var checkboxes = that.fetchCheckedCheckboxes();
-        var breadcrumbsArray = that.buildBreadcrumbsStructure(checkboxes);
-        var breadcrumbsToDisplay = that.filterBreadcrumbs(breadcrumbsArray);
+      var $topicTree = $('.topic-tree');
 
-        $(element).mustache(
-          'admin/edition_tags/_breadcrumb_list',
-          { breadcrumbs: breadcrumbsToDisplay }
-        );
+      $topicTree.on('change', function() {
+        preview.renderUpdatedBreadcrumbs(element);
       });
 
       $topicTree.trigger('change');
-    }
+    };
   };
 })(window.GOVUKAdmin.Modules);
