@@ -23,7 +23,7 @@ module SyncChecker
         ]
       end
 
-      def expected_details_hash(speech)
+      def expected_details_hash(speech, _locale)
         super.tap do |details|
           details.merge!(expected_delivered_on(speech))
           details.merge!(expected_government(speech))
@@ -36,21 +36,21 @@ module SyncChecker
     private
 
       def expected_political(world_location_news_article)
-        { political: world_location_news_article.political? }
+        { "political" => world_location_news_article.political? }
       end
 
       def expected_delivered_on(speech)
-        { delivered_on: speech.delivered_on.iso8601 }
+        { "delivered_on" => speech.delivered_on.iso8601 }
       end
 
       def expected_government(speech)
         return {} unless speech.government
 
         {
-          foo: {
-            name: speech.government.name,
-            slug: speech.government.slug,
-            current: speech.government.current?,
+          "government" => {
+            "title" => speech.government.name,
+            "slug" => speech.government.slug,
+            "current" => speech.government.current?,
           }
         }
       end
@@ -60,9 +60,9 @@ module SyncChecker
         return {} unless speaker && speaker.image && speaker.image.url
 
         {
-          image: {
-            alt_text: speaker.name,
-            url: speaker.image.url,
+          "image" => {
+            "alt_text" => speaker.name,
+            "url" => speaker.image.url,
           }
         }
       end
