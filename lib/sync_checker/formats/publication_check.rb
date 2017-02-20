@@ -75,9 +75,12 @@ module SyncChecker
       end
 
       def expected_child_content_ids(edition, locale)
-        filter_documents_for_locale(edition, locale)
-          .reject { |attachment| attachment.is_a?(FileAttachment) }
-          .map(&:content_id)
+        expected_children = filter_documents_for_locale(edition, locale)
+          .reject do |attachment|
+            attachment.is_a?(FileAttachment) ||
+              attachment.is_a?(ExternalAttachment)
+          end
+        expected_children.map(&:content_id)
       end
 
       def expected_statistical_data_sets(edition)
