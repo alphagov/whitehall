@@ -87,5 +87,15 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
       assert_includes(presented.links[:speaker], person.content_id)
       assert_includes(presented.links[:topical_events], topical_event.content_id)
     end
+
+    context "no role appointment (no speaker)" do
+      before do
+        speech.role_appointment = nil
+      end
+
+      it "doesn't present a speaker link" do
+        refute(presented.links.has_key?(:speaker))
+      end
+    end
   end
 end
