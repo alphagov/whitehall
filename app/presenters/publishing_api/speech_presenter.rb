@@ -64,6 +64,7 @@ module PublishingApi
     end
 
     def links_for_speaker
+      return {} unless speaker
       { speaker: [speaker.content_id] }
     end
 
