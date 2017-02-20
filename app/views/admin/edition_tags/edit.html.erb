@@ -1,49 +1,46 @@
 <% page_title "Tagging: " + @edition.title %>
 
 <div class="row">
-  <div class="col-md-12">
-    <h1><%= @edition.title %></h1>
-    <h2>Edit topics</h2>
-    <p class="lead add-top-margin add-bottom-margin">
-      Edit topics for the new education taxonomy. Changes do not go through the review process.
+  <h1><%= @edition.title %></h1>
+  <h2>Edit topics</h2>
+  <p class="lead add-top-margin add-bottom-margin">
+    Edit topics for the new education taxonomy. Changes do not go through the review process.
+  </p>
+  <p class="lead add-top-margin add-bottom-margin">
+    Adding topics will include this content in the navigation beta.
+  </p>
+
+  <%= form_for @edition_tag_form, url: admin_edition_tags_path(@edition), method: :put do |form| %>
+    <%= form.hidden_field :previous_version %>
+
+    <div class="publishing-controls well">
+      <%= form.form_actions(buttons: { save: 'Save topic changes' }, cancel: admin_edition_path(@edition)) %>
+    </div>
+
+    <p class="warning">
+      Warning: topic changes to published content appear instantly on the live site.
     </p>
-    <p class="lead add-top-margin add-bottom-margin">
-      Adding topics will include this content in the navigation beta.
+
+    <div class="form-group" data-module="taxonomy-tree-checkboxes">
+      <div class="topic-tree">
+
+        <p class="bold-taxon-name">
+          <%= @edition_tag_form.education_taxons.name %>
+        </p>
+
+        <%= render partial: "taxonomy", locals: {form: @edition_tag_form, taxons: @edition_tag_form.education_taxons.children} %>
+      </div>
+    </div>
+
+    <div class="content content-bordered hidden" data-module="breadcrumb-preview">
+    </div>
+
+    <p class="warning">
+      Warning: topic changes to published content appear instantly on the live site.
     </p>
 
-    <%= form_for @edition_tag_form, url: admin_edition_tags_path(@edition), method: :put do |form| %>
-      <%= form.hidden_field :previous_version %>
-
-      <div class="publishing-controls well">
-        <%= form.form_actions(buttons: { save: 'Save topic changes' }, cancel: admin_edition_path(@edition)) %>
-      </div>
-
-      <p class="warning">
-        Warning: topic changes to published content appear instantly on the live site.
-      </p>
-
-      <div class="form-group" data-module="taxonomy-tree-checkboxes">
-        <div class="topic-tree">
-
-          <p class="bold-taxon-name">
-            <%= @edition_tag_form.education_taxons.name %>
-          </p>
-
-          <%= render partial: "taxonomy", locals: {form: @edition_tag_form, taxons: @edition_tag_form.education_taxons.children} %>
-        </div>
-      </div>
-
-      <div class="content content-bordered hidden" data-module="breadcrumb-preview">
-      </div>
-
-      <p class="warning">
-        Warning: topic changes to published content appear instantly on the live site.
-      </p>
-
-      <div class="publishing-controls well">
-        <%= form.form_actions(buttons: { save: 'Save topic changes' }, cancel: admin_edition_path(@edition)) %>
-      </div>
-    <% end %>
-
-  </div>
+    <div class="publishing-controls well">
+      <%= form.form_actions(buttons: { save: 'Save topic changes' }, cancel: admin_edition_path(@edition)) %>
+    </div>
+  <% end %>
 </div>
