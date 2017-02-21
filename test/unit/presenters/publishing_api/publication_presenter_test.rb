@@ -67,7 +67,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       related_statistical_data_sets: [statistical_data_set.content_id],
       world_locations: [],
       topical_events: [topical_event.content_id],
-      related_policies: ['5d37821b-7631-11e4-a3cb-005056011aef'],
+      policies: ['5d37821b-7631-11e4-a3cb-005056011aef'],
       policy_areas: publication.topics.map(&:content_id)
     }
 
@@ -116,7 +116,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       related_statistical_data_sets: [],
       topical_events: [],
       policy_areas: publication.topics.map(&:content_id),
-      related_policies: []
+      policies: []
     }
 
     assert_valid_against_links_schema({ links: presented_item.links }, 'publication')

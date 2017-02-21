@@ -39,7 +39,7 @@ module PublishingApi
           :organisations,
           :world_locations,
           :policy_areas,
-          :related_policies,
+          :policies,
         ]
       ).merge(
         PayloadBuilder::TopicalEvents.for(item)
