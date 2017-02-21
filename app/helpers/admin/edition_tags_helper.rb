@@ -9,6 +9,7 @@ module Admin::EditionTagsHelper
       taxon.content_id,
       checked,
       id: taxon.content_id,
+      "data-taxon-name" => taxon.name,
       "data-ancestors": taxon.breadcrumb_trail.map(&:name).join('|')
     )
   end
