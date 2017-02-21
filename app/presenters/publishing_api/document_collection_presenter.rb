@@ -30,7 +30,7 @@ module PublishingApi
 
     def links
       links = LinksPresenter.new(item).extract(
-        %i(organisations policy_areas topics related_policies parent)
+        %i(organisations policy_areas topics policies parent)
       )
       links.merge!(documents: item.documents.map(&:content_id))
       links.merge!(PayloadBuilder::TopicalEvents.for(item))
