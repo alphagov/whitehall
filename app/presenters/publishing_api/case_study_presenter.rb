@@ -33,7 +33,7 @@ module PublishingApi
         [
           :organisations,
           :parent,
-          :related_policies,
+          :policies,
           :topics,
           :world_locations,
           :worldwide_organisations,
