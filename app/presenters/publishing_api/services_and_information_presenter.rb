@@ -24,7 +24,6 @@ module PublishingApi
       content = BaseItemPresenter.new(
         organisation,
         title: "Services and information - #{organisation.name}",
-        need_ids: [],
         update_type: update_type,
       ).base_attributes
 
