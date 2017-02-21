@@ -10,7 +10,10 @@
       <%= render 'admin/shared/policy_fields', form: form %>
       <%= render partial: 'topic_fields', locals: { form: form, edition: edition } %>
 
-      <%= form.text_field :need_ids, label_text: 'Maslow Need IDs (enter a comma-separated list)', placeholder: "Enter a comma-separated list of Maslow Need IDs", value: edition.need_ids.join(", ") %>
+      <fieldset class="edition-user-needs">
+        <%= form.label :need_ids, 'User needs', required: true %>
+        <%= form.select :need_ids, options_for_select(taggable_needs_container, edition.need_ids), {}, multiple: true, class: 'chzn-select form-control', data: { placeholder: "Search Maslow user needs by title"} %>
+      </fieldset>
 
       <%= render partial: 'specialist_sector_fields', locals: { form: form, edition: edition } %>
 
