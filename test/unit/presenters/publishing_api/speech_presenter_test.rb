@@ -43,8 +43,17 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
       create(:speech,
              title: "Speech title",
              summary: "The description",
-             body: "Some content",
+             body: "# Woo!\nSome content",
              role_appointment: role_appointment)
+    end
+
+    let(:expected_body) do
+      expected_body = <<-HTML.strip_heredoc
+      <div class="govspeak"><h1 id="woo">Woo!</h1>
+      <p>Some content</p>
+      </div>
+      HTML
+      expected_body.chomp
     end
 
     it "contains the expected values" do
@@ -55,7 +64,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
 
       details = presented.content[:details]
       refute(details[:political])
-      assert_equal("Some content",    details[:body])
+      assert_equal(expected_body,     details[:body])
       assert_match(iso8601_regex,     details[:delivered_on])
 
       assert_equal("The Government",  details[:government][:title])
