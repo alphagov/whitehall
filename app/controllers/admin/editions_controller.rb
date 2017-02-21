@@ -1,7 +1,6 @@
 class Admin::EditionsController < Admin::BaseController
   before_action :remove_blank_parameters
   before_action :clean_edition_parameters, only: [:create, :update]
-  before_action :build_array_out_of_need_ids_string, only: [:create, :update]
   before_action :clear_scheduled_publication_if_not_activated, only: [:create, :update]
   before_action :find_edition, only: [:show, :edit, :update, :submit, :revise, :diff, :reject, :destroy]
   before_action :prevent_modification_of_unmodifiable_edition, only: [:edit, :update]
@@ -370,11 +369,6 @@ class Admin::EditionsController < Admin::BaseController
     if params[:edition] && params[:edition][:secondary_specialist_sector_tags] && params[:edition][:primary_specialist_sector_tag]
       params[:edition][:secondary_specialist_sector_tags] -= [params[:edition][:primary_specialist_sector_tag]]
     end
-  end
-
-  def build_array_out_of_need_ids_string
-    return if params[:edition].blank? || params[:edition][:need_ids].nil?
-    params[:edition][:need_ids] = params[:edition][:need_ids].split(",").map(&:strip).reject(&:blank?)
   end
 
   def trigger_previously_published_validations
