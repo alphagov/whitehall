@@ -85,7 +85,7 @@ module PublishingApi::NewsArticlePresenterTest
         organisations
         parent
         policy_areas
-        related_policies
+        policies
         topics
         world_locations
       )
