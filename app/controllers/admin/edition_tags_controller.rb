@@ -16,7 +16,7 @@ class Admin::EditionTagsController < Admin::BaseController
     )
 
     @edition_tag_form.publish!
-    redirect_to edit_admin_edition_tags_path(@edition),
+    redirect_to admin_edition_path(@edition),
       notice: "The tags have been updated."
   rescue GdsApi::HTTPConflict
     redirect_to edit_admin_edition_tags_path(@edition),
