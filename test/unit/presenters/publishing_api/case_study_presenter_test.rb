@@ -20,7 +20,6 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
       schema_name: 'case_study',
       document_type: 'case_study',
       locale: 'en',
-      need_ids: [],
       public_updated_at: case_study.public_timestamp,
       publishing_app: 'whitehall',
       rendering_app: 'government-frontend',

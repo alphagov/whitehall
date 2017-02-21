@@ -25,7 +25,6 @@ class PublishingApiComingSoonWorkerTest < ActiveSupport::TestCase
       document_type: 'coming_soon',
       title: 'Coming soon',
       description: 'Coming soon',
-      need_ids: [],
       locale: locale,
       details: { publish_time: publish_time },
       routes: [ { path: base_path, type: 'exact' } ],

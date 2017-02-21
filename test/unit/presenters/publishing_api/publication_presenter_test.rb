@@ -22,7 +22,6 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       schema_name: 'publication',
       document_type: 'policy_paper',
       locale: 'en',
-      need_ids: [],
       public_updated_at: publication.public_timestamp,
       publishing_app: 'whitehall',
       rendering_app: 'government-frontend',

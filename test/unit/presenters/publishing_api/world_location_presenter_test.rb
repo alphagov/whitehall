@@ -18,7 +18,6 @@ class PublishingApi::WorldLocationPresenterTest < ActiveSupport::TestCase
       rendering_app: 'whitehall-frontend',
       public_updated_at: world_location.updated_at,
       redirects: [],
-      need_ids: [],
       details: {},
       analytics_identifier: "WL123",
       update_type: "major",

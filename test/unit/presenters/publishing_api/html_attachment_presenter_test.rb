@@ -36,7 +36,6 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
         public_timestamp: edition.public_timestamp,
         first_published_version: html_attachment.attachable.first_published_version?,
       },
-      need_ids: []
     }
     presented_item = present(html_attachment)
 

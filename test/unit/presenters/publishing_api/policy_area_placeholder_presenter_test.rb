@@ -21,7 +21,6 @@ class PublishingApi::PolicyAreaPlaceholderPresenterTest < ActionView::TestCase
       public_updated_at: policy_area.updated_at,
       routes: [{ path: public_path, type: "exact" }],
       redirects: [],
-      need_ids: [],
       details: {},
       update_type: "major",
     }

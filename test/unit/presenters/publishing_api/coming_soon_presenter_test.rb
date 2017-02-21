@@ -25,7 +25,6 @@ class PublishingApi::ComingSoonPresenterTest < ActiveSupport::TestCase
       title: 'Coming soon',
       description: 'Coming soon',
       locale: 'en',
-      need_ids: [],
       details: { publish_time: @publish_timestamp },
       routes: [{ path: public_path, type: 'exact' }],
       redirects: [],

@@ -14,7 +14,6 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
       title: "Humans going to Mars",
       description: nil,
       locale: "en",
-      need_ids: [],
       routes: [
         {
           path: public_path,
@@ -49,7 +48,6 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
       title: "Humans going to Mars",
       description: nil,
       locale: "en",
-      need_ids: [],
       routes: [
         {
           path: public_path,

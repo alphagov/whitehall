@@ -31,7 +31,6 @@ class PublishingApi::TakePartPresenterTest < ActiveSupport::TestCase
           alt_text: "Image alt text"
         }
       },
-      need_ids: [],
       update_type: "major",
     }
 
