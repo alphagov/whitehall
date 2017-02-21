@@ -33,7 +33,7 @@ module PublishingApi
 
     def details
       details = {
-        body: item.body,
+        body: body,
         political: item.political,
         delivered_on: item.delivered_on.iso8601,
         change_history: item.change_history.as_json,
@@ -51,6 +51,10 @@ module PublishingApi
     end
 
   private
+
+    def body
+      Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item)
+    end
 
     def image_payload
       {
