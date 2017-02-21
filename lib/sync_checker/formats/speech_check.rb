@@ -4,8 +4,7 @@ module SyncChecker
       def checks_for_live(_locale)
         checks = super + [
           Checks::LinksCheck.new(
-            "policies",
-            (edition_expected_in_live.try(:related_policies) || []).map(&:content_id)
+            "policies", edition_expected_in_live.policy_content_ids
           ),
           Checks::LinksCheck.new(
             "topical_events",
