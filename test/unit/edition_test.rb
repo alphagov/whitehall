@@ -773,37 +773,51 @@ class EditionTest < ActiveSupport::TestCase
 
   should_not_accept_footnotes_in :body
 
-  test 'need ids can be stored on the edition' do
-    edition = create(:edition, need_ids: ["100001", "100002", "100003"])
-    edition.reload
-    assert_equal ["100001", "100002", "100003"], edition.need_ids
-  end
-
-  test 'need ids ought to be six-digit integers' do
-    edition_with_invalid_need_ids = build(:edition, need_ids: ["12345", "x1234", "678905"])
-    refute edition_with_invalid_need_ids.valid?
-    refute edition_with_invalid_need_ids.errors[:need_ids].empty?
-
-    error_message = edition_with_invalid_need_ids.errors[:need_ids].first
-    assert_match /12345/, error_message
-    assert_match /x1234/, error_message
-    refute_match /678905/, error_message
-  end
-
   test 'should have no associated needs when there are no need ids' do
-    edition = create(:edition, need_ids: [])
+    edition = create(:edition)
     refute edition.has_associated_needs?
     assert_equal [], edition.associated_needs
   end
 
   test 'should have associated needs when need ids are present' do
-    need_api_has_need_ids([{ "id" => "000123" }, { "id" => "000456" }])
+    edition = create(:detailed_guide)
 
-    edition = create(:edition, need_ids: ["000123", "000456"])
+    needs = [
+      {
+        content_id: SecureRandom.uuid,
+        details: {
+          role: "a",
+          goal: "b",
+          benefit: "c",
+        }
+      },
+      {
+        content_id: SecureRandom.uuid,
+        details: {
+          role: "d",
+          goal: "e",
+          benefit: "f",
+        }
+      }
+    ]
+    publishing_api_has_links(
+      content_id: edition.document.content_id,
+      links: {
+        meets_user_needs: needs.map { |need| need[:content_id] }
+      }
+    )
+    publishing_api_has_expanded_links(
+      content_id: edition.document.content_id,
+      expanded_links: {
+        meets_user_needs: needs
+      }
+    )
+
+    puts edition.document.content_id
 
     assert edition.has_associated_needs?
-    assert_equal "000123", edition.associated_needs.first["id"]
-    assert_equal "000456", edition.associated_needs.last["id"]
+    assert_equal needs.first[:content_id], edition.associated_needs.first["content_id"]
+    assert_equal needs.last[:content_id], edition.associated_needs.last["content_id"]
   end
 
   test 'previously_published returns nil for new edition' do
