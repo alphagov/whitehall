@@ -55,6 +55,22 @@ module Admin::TaggableContentHelper
     end
   end
 
+  def taggable_needs_container
+    Rails.cache.fetch("need.linkables", expires_in: 1.minute) do
+      publishing_api = Whitehall.publishing_api_v2_client.dup.tap do |client|
+        client.options[:timeout] = 1
+      end
+
+      publishing_api.get_linkables(document_type: "need").to_a.map do |need|
+        need.values_at("title", "content_id")
+      end
+    end
+  rescue GdsApi::TimedOutException, GdsApi::HTTPServerError
+    stale_data = Rails.cache.fetch("need.linkables")
+    return stale_data if stale_data
+    raise
+  end
+
   # Returns an Array that represents the current set of taggable roles (both
   # past and present). Each element of the array consists of two values: a
   # selectable label (consisting of the person, the role, the date the role was
