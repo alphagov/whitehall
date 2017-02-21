@@ -25,6 +25,9 @@ class DetailedGuide < Edition
   validate :related_mainstream_found, if: :related_mainstream_requested?
 
   after_save :persist_content_ids
+  after_save :patch_meets_user_needs_links
+
+  attr_writer :need_ids
 
   class HeadingHierarchyValidator < ActiveModel::Validator
     include GovspeakHelper
@@ -60,6 +63,34 @@ class DetailedGuide < Edition
     detailed_guide_documents  = DetailedGuide.find(detailed_guide_ids).map {|guide| guide.document }
 
     self.related_documents = other_related_documents + detailed_guide_documents
+  end
+
+  def need_ids
+    # When new editions are created, the content id is unknown until
+    # the edition is saved as they don't have an associated
+    # document. Therefore, just return [].
+    return [] unless document
+
+    @need_ids ||= get_user_needs_from_publishing_api
+  end
+
+  def get_user_needs_from_publishing_api
+    response = Whitehall.publishing_api_v2_client.get_links(
+      document.content_id
+    )
+
+    return unless response
+
+    response["links"]["meets_user_needs"]
+  end
+
+  def patch_meets_user_needs_links
+    return unless @need_ids
+
+    Whitehall.publishing_api_v2_client.patch_links(
+      content_id,
+      links: { meets_user_needs: @need_ids.reject(&:empty?) }
+    )
   end
 
   def published_related_detailed_guides

@@ -27,8 +27,6 @@ class Edition < ApplicationRecord
 
   include Dependable
 
-  serialize :need_ids, Array
-
   extend Edition::FindableByOrganisation
   extend Edition::FindableByWorldwideOrganisation
 
@@ -53,7 +51,6 @@ class Edition < ApplicationRecord
   validates :body, presence: true, if: :body_required?, length: { maximum: 16777215 }
   validates :summary, presence: true, if: :summary_required?, length: { maximum: 65535 }
   validates :first_published_at, recent_date: true, allow_blank: true
-  validate :need_ids_are_six_digit_integers?
 
   UNMODIFIABLE_STATES = %w(scheduled published superseded deleted).freeze
   FROZEN_STATES = %w(superseded deleted).freeze
@@ -617,19 +614,17 @@ class Edition < ApplicationRecord
   end
 
   def has_associated_needs?
-    associated_needs.any?
+    respond_to?(:need_ids) && need_ids.try(:any?)
   end
 
   def associated_needs
-    return [] if need_ids.empty?
-    Whitehall.need_api.needs_by_id(*need_ids).with_subsequent_pages.to_a
-  end
+    return [] unless has_associated_needs?
 
-  def need_ids_are_six_digit_integers?
-    invalid_need_ids = need_ids.reject { |need_id| need_id =~ /\A\d{6}\z/ }
-    unless invalid_need_ids.empty?
-      errors.add(:need_ids, "are invalid: #{invalid_need_ids.join(', ')}")
-    end
+    response = Whitehall.publishing_api_v2_client.get_expanded_links(
+      document.content_id
+    )
+
+    response["expanded_links"]["meets_user_needs"]
   end
 
   attr_accessor :has_first_published_error
