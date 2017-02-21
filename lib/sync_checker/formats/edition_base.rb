@@ -104,7 +104,7 @@ module SyncChecker
             (edition_expected_in_live.try(:topics) || []).map(&:content_id)
           ),
           Checks::LinksCheck.new(
-            "related_policies",
+            "policies",
             (edition_expected_in_live.try(:policies) || []).map(&:content_id)
           ),
           Checks::DetailsCheck.new(
