@@ -1,24 +1,29 @@
 namespace :reporting  do
-  def opts_from_environment
-    opts = {}
-    [:data_path, :start_date, :end_date].each do |key|
-      opts[key] = ENV[key.to_s.upcase] if ENV[key.to_s.upcase]
+  def opts_from_environment(*option_keys)
+    {}.tap do |option_hash|
+      option_keys.each do |key|
+        option_hash[key] = ENV[key.to_s.upcase] if ENV[key.to_s.upcase]
+      end
     end
-    opts
   end
 
   desc "An overview of attachment statistics by organisation as CSV"
   task :attachments_overview => :environment do
-    AttachmentDataReporter.new(opts_from_environment).overview
+    AttachmentDataReporter.new(opts_from_environment(:data_path, :start_date, :end_date)).overview
   end
 
   desc "A report of attachments statistics with related document slugs as CSV"
   task :attachments_report => :environment do
-    AttachmentDataReporter.new(opts_from_environment).report
+    AttachmentDataReporter.new(opts_from_environment(:data_path, :start_date, :end_date)).report
   end
 
   desc "A report of collection statistics by organisation as CSV"
   task :collections_report => :environment do
     CollectionDataReporter.new(ENV.fetch('OUTPUT_DIR', './tmp')).report
+  end
+
+  desc "A report of PDF attachments counts by organisation as CSV. Takes many hours to run."
+  task pdf_attachments_report: :environment do
+    PDFAttachmentReporter.new(opts_from_environment(:data_path, :first_period_start_date, :last_time_period_days)).pdfs_by_organisation
   end
 end
