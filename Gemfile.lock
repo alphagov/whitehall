@@ -117,7 +117,7 @@ GEM
       rails (>= 4.0)
     diff-lcs (1.2.5)
     docile (1.1.5)
-    domain_name (0.5.20161021)
+    domain_name (0.5.20161129)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.1.2)
     dotenv-rails (2.1.2)
@@ -136,7 +136,7 @@ GEM
     ffi (1.9.14)
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
-    gds-api-adapters (37.5.0)
+    gds-api-adapters (40.0.0)
       link_header
       lrucache (~> 0.1.1)
       null_logger
@@ -293,10 +293,10 @@ GEM
       pry (~> 0.10)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
-    rack (1.6.4)
+    rack (1.6.5)
     rack-accept (0.4.5)
       rack (>= 0.4)
-    rack-cache (1.6.1)
+    rack-cache (1.7.0)
       rack (>= 0.4)
     rack-protection (1.5.3)
       rack
@@ -343,7 +343,7 @@ GEM
     request_store (1.1.0)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
-    rest-client (2.0.0)
+    rest-client (2.0.1)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
@@ -478,7 +478,7 @@ DEPENDENCIES
   equivalent-xml (= 0.5.1)
   factory_girl
   friendly_id (= 5.0.4)
-  gds-api-adapters (~> 37.5.0)
+  gds-api-adapters (~> 40.0.0)
   gds-sso (~> 11.0)
   globalize (~> 5.0.0)
   govspeak (~> 3.6.2)
