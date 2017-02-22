@@ -1,6 +1,24 @@
 require 'test_helper'
 
 class ExpandedLinksFetcherTest < ActiveSupport::TestCase
+  test "it returns '[]' if there are no expanded_links" do
+    content_id = "64aadc14-9bca-40d9-abb4-4f21f9792a05"
+
+    body = {
+      "error" => {
+        "code" => 404,
+        "message" => "Could not find link set with content_id: #{content_id}"
+      }
+    }.to_json
+
+    stub_request(:get, %r{.*/v2/expanded-links/#{content_id}.*})
+      .to_return(body: body, status: 404)
+
+    links_fetcher = ExpandedLinksFetcher.new(content_id)
+
+    assert_equal links_fetcher.fetch.selected_taxon_paths, []
+  end
+
   test "it returns '[]' if there are no taxons" do
     publishing_api_has_expanded_links(
       content_id:  "64aadc14-9bca-40d9-abb4-4f21f9792a05",

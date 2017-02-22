@@ -9,6 +9,18 @@ class ExpandedLinksFetcher
     ExpandedLinks.new(
       Whitehall.publishing_api_v2_client.get_expanded_links(content_id)
     )
+
+  rescue GdsApi::HTTPNotFound
+    MissingExpandedLinks.new
+  end
+
+  # TODO: This is a workaround, because Publishing API
+  # returns 404 when the document exists but there are no links
+  # This can be removed when that changes.
+  class MissingExpandedLinks
+    def selected_taxon_paths
+      []
+    end
   end
 
   class ExpandedLinks
