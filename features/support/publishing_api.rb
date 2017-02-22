@@ -11,7 +11,12 @@ Before do
   GdsApi::PublishingApiV2.any_instance.stubs(:put_content)
   GdsApi::PublishingApiV2.any_instance.stubs(:patch_links)
   GdsApi::PublishingApiV2.any_instance.stubs(:unpublish)
+  stub_request(
+    :get,
+    %r{\A#{Plek.find('publishing-api')}/v2/links}
+  ).to_return(body: { links: {} }.to_json)
   stub_publishing_api_policies
+  publishing_api_has_linkables([], document_type: "need")
 end
 
 World(PolicyTaggingHelpers)
