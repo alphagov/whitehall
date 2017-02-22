@@ -11,7 +11,7 @@ class Admin::EditionTagsController < Admin::BaseController
   def update
     @edition_tag_form = EditionTaxonomyTagForm.new(
       edition_content_id: @edition.content_id,
-      selected_taxons: params["edition_taxonomy_tag_form"]["taxons"].reject(&:blank?),
+      selected_taxons: params["edition_taxonomy_tag_form"].fetch("taxons", []).reject(&:blank?),
       previous_version: params["edition_taxonomy_tag_form"]["previous_version"]
     )
 

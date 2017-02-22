@@ -14,7 +14,7 @@ module Taxonomy
   # https://github.com/alphagov/govuk_taxonomy_helpers/pull/1
   class LinkedEdition
     extend Forwardable
-    attr_reader :name, :content_id, :base_path, :children
+    attr_reader :name, :content_id, :base_path
     attr_accessor :parent_node
     def_delegators :tree, :map, :each
 
@@ -23,6 +23,10 @@ module Taxonomy
       @content_id = content_id
       @base_path = base_path
       @children = []
+    end
+
+    def children
+      @children.sort_by(&:name)
     end
 
     def <<(child_node)

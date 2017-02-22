@@ -44,6 +44,14 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
     assert_publishing_api_patch_links(@edition.content_id, links: { taxons: [child_taxon_content_id] }, previous_version: "1")
   end
 
+  test 'should post empty array to publishing api if no taxons are selected' do
+    stub_publishing_api_links_with_taxons(@edition.content_id, [])
+
+    put :update, edition_id: @edition, edition_taxonomy_tag_form: { previous_version: 1 }
+
+    assert_publishing_api_patch_links(@edition.content_id, links: { taxons: [] }, previous_version: "1")
+  end
+
   view_test 'should check a child taxon and its parents when only a child taxon is returned' do
     stub_publishing_api_links_with_taxons(@edition.content_id, [child_taxon_content_id])
 
