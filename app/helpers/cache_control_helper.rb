@@ -11,6 +11,14 @@ module CacheControlHelper
     end
   end
 
+  def expire_on_open_state_change(consultation)
+    if consultation.opening_at.present? && consultation.opening_at >= Time.zone.now
+      expires_in max_age_for(consultation.opening_at), public: true
+    elsif consultation.closing_at.present? && consultation.closing_at >= Time.zone.now
+      expires_in max_age_for(consultation.closing_at), public: true
+    end
+  end
+
   def max_age_for(scheduled_publication)
     seconds_away = scheduled_publication - Time.zone.now
     if seconds_away > cache_max_age
