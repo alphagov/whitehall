@@ -24,9 +24,13 @@ class ConsultationsControllerTest < ActionController::TestCase
 
   view_test 'show displays the summary of the published consultation response when there are response attachments' do
     closed_consultation = create(:published_consultation, opening_at: 2.days.ago, closing_at: 1.day.ago)
-    response = create(:consultation_outcome, consultation: closed_consultation, attachments: [
-      response_attachment = build(:file_attachment)
-    ])
+    response = create(
+      :consultation_outcome,
+      consultation: closed_consultation,
+      attachments: [
+        build(:file_attachment)
+      ]
+    )
 
     get :show, id: closed_consultation.document
 
@@ -60,7 +64,8 @@ class ConsultationsControllerTest < ActionController::TestCase
   end
 
   view_test 'show displays consultation participation link and email' do
-    consultation_participation = create(:consultation_participation,
+    consultation_participation = create(
+      :consultation_participation,
       link_url: "http://telluswhatyouthink.com",
       email: "contact@example.com"
     )
@@ -80,7 +85,8 @@ class ConsultationsControllerTest < ActionController::TestCase
   end
 
   view_test 'show does not display consultation participation email if none available' do
-    consultation_participation = create(:consultation_participation,
+    consultation_participation = create(
+      :consultation_participation,
       link_url: "http://telluswhatyouthink.com"
     )
     published_consultation = create(:published_consultation, consultation_participation: consultation_participation)
@@ -89,7 +95,8 @@ class ConsultationsControllerTest < ActionController::TestCase
   end
 
   view_test 'show does not display consultation participation link if consultation finished' do
-    consultation_participation = create(:consultation_participation,
+    consultation_participation = create(
+      :consultation_participation,
       email: "contact@example.com",
       link_url: "http://telluswhatyouthink.com"
     )
@@ -100,11 +107,15 @@ class ConsultationsControllerTest < ActionController::TestCase
   end
 
   view_test 'show displays the postal address for participation' do
-    address = %q{123 Example Street
-London N123}
-    consultation_participation = create(:consultation_participation,
-                                        postal_address: address
-                                        )
+    address = <<-ADD.strip_heredoc
+      123 Example Street
+      London N123
+      ADD
+
+    consultation_participation = create(
+      :consultation_participation,
+      postal_address: address
+    )
     published_consultation = create(:published_consultation, consultation_participation: consultation_participation)
     get :show, id: published_consultation.document
 
