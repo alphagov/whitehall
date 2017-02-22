@@ -1,0 +1,134 @@
+.consultation {
+  &.consultation-closed,
+  &.consultation-responded {
+    .status-block {
+      border-color: $govuk-blue;
+      margin: 0 $gutter-half ($gutter * 1.5) $gutter-half;
+      @include media(tablet) {
+        margin: 0 $gutter ($gutter * 1.5) $gutter;
+        h2 {
+          padding-top: 0;
+        }
+      }
+      p {
+        @include core-16;
+      }
+    }
+  }
+  &.consultation-responded {
+    .status-block {
+      h2 {
+        @include media(tablet) {
+          padding-bottom: 0;
+        }
+      }
+    }
+  }
+
+  .original-consultation {
+    @include heading-27;
+    border-top: 1px solid $border-colour;
+    font-weight: bold;
+    margin-bottom: $gutter-half;
+    padding-top: $gutter-half;
+    @include media(tablet) {
+      margin: $gutter-half;
+      padding-top: $gutter-half;
+    }
+  }
+
+  .consultation-block {
+    @extend %contain-floats;
+    @include white-links;
+    background: $govuk-blue;
+    color: $white;
+    padding: $gutter-half;
+    margin-bottom: $gutter * 1.5;
+    @include media(tablet) {
+      padding: $gutter;
+      margin: 0 $gutter-half $gutter*1.5;
+    }
+
+    .consultation-dates {
+      @include media(tablet) {
+        float: left;
+        width: $one-third;
+      }
+      p {
+        span {
+          display: block;
+          time {
+            @include core-24(1.4em);
+            &.date {
+              font-weight: bold;
+            }
+          }
+        }
+        @include media(tablet) {
+          padding-right: $gutter;
+        }
+      }
+    }
+
+    .consultation-summary {
+      @include media(tablet) {
+        float: left;
+        margin-top: 0;
+        width: $two-thirds;
+      }
+      .consultation-summary-inner {
+        border-top: 1px solid $white;
+        padding-top: $gutter-half;
+        margin-top: $gutter-half;
+
+        @include media(tablet) {
+          border-top: 0;
+          padding-top: 0;
+          margin-top: 0;
+          border-left: 1px solid $white;
+          padding-left: $gutter-half;
+          margin-left: -$gutter-half + 1px;
+        }
+      }
+      h2 {
+        @include heading-27;
+        font-weight: bold;
+        padding-top: 0;
+      }
+      h3 {
+        @include heading-24;
+        font-weight: bold;
+      }
+      p {
+        @include core-19;
+      }
+    }
+  }
+
+  .consultation-response {
+    margin-bottom: $gutter-half;
+  }
+
+  .participation {
+    .content {
+      @include core-19;
+    }
+    dd,
+    p {
+      margin-bottom: $gutter-half;
+    }
+    dt {
+      font-weight: bold;
+    }
+    .online {
+      @include core-24;
+      font-weight: bold;
+    }
+  }
+}
+
+.consultation-closed {
+  .original-consultation {
+    border-top: 0;
+  }
+}

@@ -6,6 +6,11 @@ Given(/^an unopened consultation exists$/) do
   create(:unopened_consultation)
 end
 
+When /^I visit the consultation$/ do
+  consultation = Consultation.find_by!(title: 'consultation-title')
+  visit consultation_path(consultation.document)
+end
+
 When /^I draft a new consultation "([^"]*)"$/ do |title|
   publishing_api_has_policies([title])
 
@@ -58,17 +63,38 @@ When /^I save and publish the amended consultation$/ do
   publish force: true
 end
 
+Then /^the consultation outcome should be viewable$/ do
+  select_most_recent_consultation_from_list
+  view_visible_consultation_on_website
+
+  outcome = ConsultationOutcome.last
+  within(record_css_selector(outcome)) do
+    assert has_content?('Outcome summary')
+    assert has_content?('Outcome attachment title')
+  end
+end
+
+Then /^the date the consultation opens should be viewable$/ do
+  assert has_content?('This consultation opens on')
+  assert has_content?('It closes on')
+  refute has_content?('Original consultation')
+end
+
+Then(/^the public feedback should be viewable$/) do
+  select_most_recent_consultation_from_list
+  view_visible_consultation_on_website
+
+  feedback = ConsultationPublicFeedback.last
+  within(record_css_selector(feedback)) do
+    assert has_content?('Feedback summary')
+    assert has_content?('Feedback attachment title')
+  end
+end
+
 When(/^I mark the consultation as offsite$/) do
   check 'This consultation is held on another website'
 end
 
 Then(/^the consultation can be associated with topical events$/) do
   assert has_css?('label', text: 'Topical events')
-end
-
-Then(/^I can see that the consultation has been published$/) do
-  expected_title = Consultation.last.title
-  expected_message = "The document #{expected_title} has been published"
-
-  assert has_css?('.flash', text: expected_message)
 end
