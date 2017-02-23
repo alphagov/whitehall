@@ -5,9 +5,11 @@ class PublishingApiGoneWorker < PublishingApiWorker
         .new.govspeak_to_html(explanation)
     end
 
+    alternative_path_with_no_trailing_space = alternative_path.rstrip if alternative_path
+
     Whitehall.publishing_api_v2_client.unpublish(
       content_id,
-      alternative_path: alternative_path,
+      alternative_path: alternative_path_with_no_trailing_space,
       explanation: rendered_explanation,
       type: "gone",
       locale: locale,
