@@ -43,11 +43,36 @@
       return $checkedSiblings.length > 0;
     };
 
+    var checkboxTrackClick = function(action, options) {
+      var root = window;
+      root.ga('send', 'event', {
+        eventCategory: options.eventCategory,
+        eventAction: action,
+        eventLabel: options.eventLabel,
+        eventValue: 1,
+        cd1: options.cd1,
+        cd2: options.cd2,
+        cd4: options.cd4
+      });
+    };
+
     this.start = function(element) {
-      $(element).on('click', 'input:checkbox', function() {
+      var $element = $(element);
+      var publicPath = $element.data("content-public-path");
+      var contentFormat = $element.data("content-format");
+      var contentId = $element.data("content-id");
 
-        var checked = $(this).is(":checked");
-
+      $element.on('click', 'input:checkbox', function() {
+        var $checkbox = $(this);
+        var checked = $checkbox.is(":checked");
+        var taxonName = $checkbox.data("taxon-name");
+        var options = {
+          eventCategory: "pageElementInteraction",
+          eventLabel: taxonName,
+          cd1: publicPath,
+          cd2: contentFormat,
+          cd4: contentId
+        }
         /*
         Checking a checkbox also checks all of the ancestor taxons.
         Unchecking a checkbox also unchecks all of the ancestor taxons,
@@ -56,8 +81,10 @@
         and the content could be shown to users seeking any of them.
         */
         if (checked) {
+          checkboxTrackClick("checkboxClickedOn", options);
           checkAncestors(this);
         } else {
+          checkboxTrackClick("checkboxClickedOff", options);
           uncheckDescendants(this);
 
           if (!hasCheckedSiblings(this)) {

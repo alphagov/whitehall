@@ -13,7 +13,12 @@
     <%= form_for @edition_tag_form, url: admin_edition_tags_path(@edition), method: :put do |form| %>
       <%= form.hidden_field :previous_version %>
 
-      <div class="form-group" data-module="taxonomy-tree-checkboxes">
+      <div class="form-group"
+        data-module="taxonomy-tree-checkboxes"
+        data-content-id="<%= @edition.content_id %>"
+        data-content-format="<%= @edition.display_type %>"
+        data-content-public-path="<%= public_document_path(@edition) %>">
+
         <div class="topic-tree">
 
           <p class="bold-taxon-name">
