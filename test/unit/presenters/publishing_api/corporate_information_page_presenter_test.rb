@@ -14,6 +14,10 @@ module PublishingApi::CorporateInformationPagePresenterTest
     def presented_content
       presented_corporate_information_page.content
     end
+
+    def assert_attribute(attribute, value)
+      assert_equal value, presented_content[attribute]
+    end
   end
 
   class BasicCorporateInformationPageTest < TestCase
@@ -37,6 +41,10 @@ module PublishingApi::CorporateInformationPagePresenterTest
       expected_content = actual_content.merge(attributes_double)
 
       assert_equal actual_content, expected_content
+    end
+
+    test 'schema name' do
+      assert_attribute :schema_name, 'corporate_information_page'
     end
 
     test 'validity' do

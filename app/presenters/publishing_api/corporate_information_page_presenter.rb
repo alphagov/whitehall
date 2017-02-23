@@ -3,6 +3,8 @@ module PublishingApi
     extend Forwardable
     include UpdateTypeHelper
 
+    SCHEMA_NAME = 'corporate_information_page'
+
     attr_reader :update_type
 
     def initialize(corporate_information_page, update_type: nil)
@@ -17,6 +19,9 @@ module PublishingApi
       BaseItemPresenter
         .new(corporate_information_page)
         .base_attributes
+        .merge(
+          schema_name: SCHEMA_NAME,
+        )
     end
 
   private
