@@ -7,7 +7,7 @@ module SyncChecker
             "document_collections",
             edition_expected_in_live
               .document_collections
-              .where(state: %w(published withdrawn))
+              .where(state: "published")
               .map(&:content_id)
           ),
           Checks::LinksCheck.new(
