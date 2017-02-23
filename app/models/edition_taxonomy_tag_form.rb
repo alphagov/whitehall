@@ -4,14 +4,25 @@ class EditionTaxonomyTagForm
   attr_accessor :selected_taxons, :edition_content_id, :previous_version
 
   def self.load(content_id)
-    content_item = Whitehall
-      .publishing_api_v2_client
-      .get_links(content_id)
+    begin
+      content_item = Whitehall
+        .publishing_api_v2_client
+        .get_links(content_id)
+
+      selected_taxons = content_item["links"]["taxons"] || []
+      previous_version = content_item["version"] || 0
+    rescue GdsApi::HTTPNotFound
+      # TODO: This is a workaround, because Publishing API
+      # returns 404 when the document exists but there are no links.
+      # This can be removed when that changes.
+      selected_taxons = []
+      previous_version = 0
+    end
 
     new(
-      selected_taxons: content_item["links"]["taxons"] || [],
+      selected_taxons: selected_taxons,
       edition_content_id: content_id,
-      previous_version: content_item["version"] || 0
+      previous_version: previous_version
     )
   end
 
