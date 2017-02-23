@@ -178,9 +178,15 @@ class SpeechTest < ActiveSupport::TestCase
     assert_equal previous_government, speech.government
   end
 
-  test '#government returns nil for an speech without a delivered_on' do
+  test '#government returns the current government for an speech delivered at an unspecified time' do
+    current_government = create(:current_government)
     speech = create(:imported_speech, delivered_on: nil)
-    assert_nil speech.government
+    assert_equal current_government, speech.government
   end
 
+  test '#government returns the current government for an speech in the future' do
+    current_government = create(:current_government)
+    speech = create(:imported_speech, delivered_on: 2.weeks.from_now)
+    assert_equal current_government, speech.government
+  end
 end

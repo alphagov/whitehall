@@ -52,7 +52,11 @@ class Speech < Announcement
 private
 
   def date_for_government
-    delivered_on.try(:to_date)
+    if delivered_on && delivered_on.past?
+      delivered_on.to_date
+    else
+      super
+    end
   end
 
   def skip_organisation_validation?
