@@ -34,6 +34,10 @@ module Whitehall
     Plek.new.website_uri.scheme
   end
 
+  def self.support_url
+    Plek.find('support')
+  end
+
   def self.available_locales
     [
       :en, :ar, :az, :be, :bg, :bn, :cs, :cy, :de, :dr, :el,
