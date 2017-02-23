@@ -87,6 +87,13 @@ class DetailedGuide < Edition
   def patch_meets_user_needs_links
     return unless @need_ids
 
+    # TODO: Until the need_ids are removed from the Whitehall
+    # database, this will be a String if they exist for this detailed
+    # guide. Once Whitehall is deployed using the Publishing API to
+    # store associated needs, the column can be removed from the
+    # database, and this line can be removed.
+    return if @need_ids.is_a? String
+
     Whitehall.publishing_api_v2_client.patch_links(
       content_id,
       links: { meets_user_needs: @need_ids.reject(&:empty?) }
