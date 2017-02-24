@@ -107,4 +107,31 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
       end
     end
   end
+
+  describe "speech types" do
+    before do
+      Speech.any_instance.stubs(:change_history).returns({})
+      Speech.any_instance.stubs(:document).returns(document)
+    end
+
+    let(:document) { FactoryGirl.build(:document) }
+
+    [SpeechType::DraftText, SpeechType::SpeakingNotes, SpeechType::Transcript].each do |speech_type|
+      context "for #{speech_type.plural_name}" do
+        let(:speech) { FactoryGirl.build(:speech, speech_type: speech_type) }
+        it "is 'speech' for draft text" do
+          assert_equal(presented.content[:document_type], "speech")
+        end
+      end
+    end
+
+    [SpeechType::AuthoredArticle, SpeechType::OralStatement, SpeechType::WrittenStatement].each do |speech_type|
+      context "for #{speech_type.plural_name}" do
+        let(:speech) { FactoryGirl.build(:speech, speech_type: speech_type) }
+        it "is '#{speech_type.key}'" do
+          assert_equal(presented.content[:document_type], speech_type.key)
+        end
+      end
+    end
+  end
 end

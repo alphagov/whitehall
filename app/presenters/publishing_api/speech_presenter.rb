@@ -19,7 +19,7 @@ module PublishingApi
       content.merge!(
         description: item.summary,
         details: details,
-        document_type: "speech",
+        document_type: document_type,
         public_updated_at: item.public_timestamp || item.updated_at,
         #TODO: rendering app is hard coded until format is ready
         #rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
@@ -51,6 +51,14 @@ module PublishingApi
     end
 
   private
+
+    def document_type
+      if SpeechType.non_statements.include?(item.speech_type)
+        "speech"
+      else
+        item.speech_type.key
+      end
+    end
 
     def body
       Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item)
