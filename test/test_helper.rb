@@ -22,9 +22,6 @@ require 'whitehall/search_index'
 require 'sidekiq/testing/inline'
 require 'govuk-content-schema-test-helpers/test_unit'
 
-require 'slimmer/test_helpers/govuk_components'
-include Slimmer::TestHelpers::GovukComponents
-
 Dir[Rails.root.join('test/support/*.rb')].each { |f| require f }
 
 Mocha::Configuration.prevent(:stubbing_non_existent_method)
@@ -43,6 +40,7 @@ class ActiveSupport::TestCase
   include PublishingApiTestHelpers
   include PolicyTaggingHelpers
   include GovukContentSchemaTestHelpers::TestUnit
+  include StaticStubHelpers
   extend GovspeakValidationTestHelper
 
   setup do
@@ -57,6 +55,7 @@ class ActiveSupport::TestCase
     stub_any_publishing_api_call
     stub_publishing_api_policies
     SyncCheckWorker.stubs(:enqueue)
+    stub_static_locales
   end
 
   teardown do
@@ -174,6 +173,7 @@ class ActionController::TestCase
   include AtomTestHelpers
   include CacheControlTestHelpers
   include ViewRendering
+  include StaticStubHelpers
 
   include PublicDocumentRoutesHelper
   include Admin::EditionRoutesHelper
@@ -190,8 +190,7 @@ class ActionController::TestCase
     stub_request(:get, %r{.*content-store.*/content/.*}).to_return(status: 404)
     publishing_api_has_linkables([], document_type: 'topic')
 
-    stub_request(:get, %r{.*static.*/templates/.*})
-      .to_return(status: 200, body: "", headers: {})
+    stub_static_locales
   end
 
   def login_as(role_or_user)
