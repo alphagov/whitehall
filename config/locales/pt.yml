@@ -7,6 +7,7 @@ pt:
       applies_to_nations: Aplica-se a
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

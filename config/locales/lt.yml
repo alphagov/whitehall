@@ -8,6 +8,7 @@ lt:
       applies_to_nations: Susiję su
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

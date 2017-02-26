@@ -111,6 +111,7 @@ fa:
         other: "مدارک"
       from:
       location:
+      organisations:
       part_of:
     published: "منتشر شده"
     read: "مقاله  %{title} را بخوانید"

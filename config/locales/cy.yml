@@ -11,6 +11,7 @@ cy:
       applies_to_nations: Yn berthnasol i
       from: O
       location:
+      organisations:
       part_of: Rhan o
     type:
       announcement:

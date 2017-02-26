@@ -9,6 +9,7 @@ be:
       applies_to_nations: "У адносінах да"
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

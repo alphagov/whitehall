@@ -112,6 +112,7 @@ hu:
         other: Dokumentumok
       from:
       location:
+      organisations:
       part_of:
     published: közzététel dátuma
     read: 'Olvassa el a következő cikket: %{title}'

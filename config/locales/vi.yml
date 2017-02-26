@@ -111,6 +111,7 @@ vi:
         other: Tài liệu
       from:
       location:
+      organisations:
       part_of:
     published: "Đã xuất bản"
     read: "Đọc bài có  %{title}"

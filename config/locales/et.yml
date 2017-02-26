@@ -7,6 +7,7 @@ et:
       applies_to_nations: Seondub
       from: Kellelt
       location: Asukoht
+      organisations:
       part_of: Osa
     type:
       announcement:

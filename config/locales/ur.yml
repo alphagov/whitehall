@@ -7,6 +7,7 @@ ur:
       applies_to_nations: "اطلاق ہوتا ہے"
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

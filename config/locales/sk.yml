@@ -8,6 +8,7 @@ sk:
       applies_to_nations:
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

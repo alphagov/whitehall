@@ -7,6 +7,7 @@ bg:
       applies_to_nations: "Отнася се към"
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

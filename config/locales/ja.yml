@@ -110,6 +110,7 @@ ja:
         other: "お知らせ"
       from:
       location:
+      organisations:
       part_of:
     published: "掲載日"
     read: "%{title} の記事を読む"

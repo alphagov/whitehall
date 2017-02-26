@@ -9,6 +9,7 @@ he:
       applies_to_nations: "מתייחס ל"
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

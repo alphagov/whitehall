@@ -9,6 +9,7 @@ uk:
       applies_to_nations: "Застосовується до"
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

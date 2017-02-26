@@ -11,6 +11,7 @@ ar:
       applies_to_nations: "ينطبق على"
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

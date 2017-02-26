@@ -7,6 +7,7 @@ hi:
       applies_to_nations: "पर लागू"
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

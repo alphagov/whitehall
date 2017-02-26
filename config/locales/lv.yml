@@ -7,6 +7,7 @@ lv:
       applies_to_nations: Attiecas uz
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

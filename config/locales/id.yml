@@ -111,6 +111,7 @@ id:
         other: Dokumen-dokumen
       from:
       location:
+      organisations:
       part_of:
     published: Diterbitkan
     read: Baca artikel %{title}

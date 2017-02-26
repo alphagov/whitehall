@@ -8,6 +8,7 @@ ro:
       applies_to_nations: Se adresează
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

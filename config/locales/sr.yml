@@ -9,6 +9,7 @@ sr:
       applies_to_nations: Odnosi se na
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

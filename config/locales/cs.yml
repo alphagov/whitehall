@@ -8,6 +8,7 @@ cs:
       applies_to_nations: Týká se
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

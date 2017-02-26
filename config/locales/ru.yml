@@ -9,6 +9,7 @@ ru:
       applies_to_nations: "Применимо к"
       from:
       location:
+      organisations:
       part_of:
     type:
       announcement:

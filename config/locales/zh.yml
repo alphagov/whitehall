@@ -109,6 +109,7 @@ zh:
         other: "文件"
       from:
       location:
+      organisations:
       part_of:
     published: "已发布"
     read: "阅读%{title}文章"

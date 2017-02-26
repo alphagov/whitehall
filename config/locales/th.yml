@@ -110,6 +110,7 @@ th:
         other: "เอกสารต่างๆ"
       from:
       location:
+      organisations:
       part_of:
     published: "ตีพิมพ์"
     read: "อ่าน%{title}บทความ"
