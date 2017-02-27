@@ -18,6 +18,10 @@ module PublishingApi::CorporateInformationPagePresenterTest
     def assert_attribute(attribute, value)
       assert_equal value, presented_content[attribute]
     end
+
+    def assert_details_attribute(attribute, value)
+      assert_equal value, presented_content[:details][attribute]
+    end
   end
 
   class BasicCorporateInformationPageTest < TestCase
@@ -41,6 +45,21 @@ module PublishingApi::CorporateInformationPagePresenterTest
       expected_content = actual_content.merge(attributes_double)
 
       assert_equal actual_content, expected_content
+    end
+
+    test 'body details' do
+      body_double = Object.new
+
+      govspeak_renderer = mock('Whitehall::GovspeakRenderer')
+
+      govspeak_renderer
+        .expects(:govspeak_edition_to_html)
+        .with(corporate_information_page)
+        .returns(body_double)
+
+      Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer)
+
+      assert_details_attribute :body, body_double
     end
 
     test 'description' do
@@ -128,6 +147,42 @@ module PublishingApi::CorporateInformationPagePresenterTest
 
     test 'update type' do
       assert_equal 'major', presented_corporate_information_page.update_type
+    end
+  end
+
+  class CorporateInformationPageWithPublicTimestamp < TestCase
+    setup do
+      self.corporate_information_page = create(:corporate_information_page)
+
+      corporate_information_page.stubs(public_timestamp: Date.new(1999),
+                                       updated_at: Date.new(2012))
+    end
+
+    test 'public updated at' do
+      assert_attribute :public_updated_at,
+                       '1999-01-01T00:00:00+00:00'
+    end
+
+    test 'validity' do
+      assert_valid_against_schema presented_content, 'corporate_information_page'
+    end
+  end
+
+  class CorporateInformationPageWithoutPublicTimestamp < TestCase
+    setup do
+      self.corporate_information_page = create(:corporate_information_page)
+
+      corporate_information_page.stubs(public_timestamp: nil,
+                                       updated_at: Date.new(2012))
+    end
+
+    test 'public updated at' do
+      assert_attribute :public_updated_at,
+                       '2012-01-01T00:00:00+00:00'
+    end
+
+    test 'validity' do
+      assert_valid_against_schema presented_content, 'corporate_information_page'
     end
   end
 end
