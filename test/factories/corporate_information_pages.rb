@@ -14,6 +14,13 @@ FactoryGirl.define do
     corporate_information_page_type_id CorporateInformationPageType::AboutUs.id
   end
 
+  factory :complaints_procedure_corporate_information_page,
+          parent: :published_corporate_information_page do
+    corporate_information_page_type_id(
+      CorporateInformationPageType::ComplaintsProcedure.id
+    )
+  end
+
   factory :published_worldwide_organisation_corporate_information_page, parent: :corporate_information_page, traits: [:published] do
     organisation nil
     association :worldwide_organisation, factory: :worldwide_organisation

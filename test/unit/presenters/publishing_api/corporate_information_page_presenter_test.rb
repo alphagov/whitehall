@@ -43,8 +43,44 @@ module PublishingApi::CorporateInformationPagePresenterTest
       assert_equal actual_content, expected_content
     end
 
+    test 'document type' do
+      assert_attribute :document_type, 'publication_scheme'
+    end
+
     test 'schema name' do
       assert_attribute :schema_name, 'corporate_information_page'
+    end
+
+    test 'validity' do
+      skip
+      assert_valid_against_schema presented_content, 'corporate_information_page'
+    end
+  end
+
+  class AboutCorporateInformationPage < TestCase
+    setup do
+      self.corporate_information_page =
+        create(:about_corporate_information_page)
+    end
+
+    test 'document type' do
+      assert_attribute :document_type, 'about'
+    end
+
+    test 'validity' do
+      skip
+      assert_valid_against_schema presented_content, 'corporate_information_page'
+    end
+  end
+
+  class ComplaintsProcedureCorporateInformationPage < TestCase
+    setup do
+      self.corporate_information_page =
+        create(:complaints_procedure_corporate_information_page)
+    end
+
+    test 'document type' do
+      assert_attribute :document_type, 'complaints_procedure'
     end
 
     test 'validity' do
