@@ -39,6 +39,14 @@ module SyncChecker
 
     private
 
+      def document_type(speech)
+        if SpeechType.non_statements.include?(speech.speech_type)
+          "speech"
+        else
+          speech.speech_type.key
+        end
+      end
+
       def expected_political(world_location_news_article)
         { "political" => world_location_news_article.political? }
       end
