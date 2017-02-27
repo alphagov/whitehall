@@ -5,6 +5,7 @@
     <li>
       <%= link_to "https://www.facebook.com/sharer/sharer.php?u=#{url_encode(public_document_url(document))}",
           target: "_blank",
+          rel: "noopener noreferrer",
           class: "facebook" do %>
         <span class="connect">Share on</span> Facebook
       <% end %>
@@ -12,6 +13,7 @@
     <li>
       <%= link_to "https://twitter.com/share?url=#{url_encode(public_document_url(document))}&text=#{url_encode(document.title)}",
           target: "_blank",
+          rel: "noopener noreferrer",
           class: "twitter" do %>
         <span class="connect">Share on</span> Twitter
       <% end %>
