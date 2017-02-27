@@ -20,6 +20,7 @@ module PublishingApi
         .new(corporate_information_page)
         .base_attributes
         .merge(
+          description: corporate_information_page.summary,
           document_type: display_type_key,
           rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
           schema_name: SCHEMA_NAME,

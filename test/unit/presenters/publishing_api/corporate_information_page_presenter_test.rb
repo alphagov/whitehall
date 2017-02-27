@@ -43,6 +43,10 @@ module PublishingApi::CorporateInformationPagePresenterTest
       assert_equal actual_content, expected_content
     end
 
+    test 'description' do
+      assert_attribute :description, corporate_information_page.summary
+    end
+
     test 'document type' do
       assert_attribute :document_type, 'publication_scheme'
     end
