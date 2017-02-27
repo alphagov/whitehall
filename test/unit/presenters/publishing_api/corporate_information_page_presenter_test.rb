@@ -47,6 +47,10 @@ module PublishingApi::CorporateInformationPagePresenterTest
       assert_attribute :document_type, 'publication_scheme'
     end
 
+    test 'rendering app' do
+      assert_attribute :rendering_app, 'whitehall-frontend'
+    end
+
     test 'schema name' do
       assert_attribute :schema_name, 'corporate_information_page'
     end

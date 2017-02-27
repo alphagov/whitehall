@@ -21,6 +21,7 @@ module PublishingApi
         .base_attributes
         .merge(
           document_type: display_type_key,
+          rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
           schema_name: SCHEMA_NAME,
         )
     end
