@@ -21,9 +21,7 @@ module PublishingApi
         details: details,
         document_type: document_type,
         public_updated_at: item.public_timestamp || item.updated_at,
-        #TODO: rendering app is hard coded until format is ready
-        #rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
-        rendering_app: "whitehall-frontend",
+        rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
         schema_name: "speech",
       )
       content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
