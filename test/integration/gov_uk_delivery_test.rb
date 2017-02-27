@@ -17,7 +17,15 @@ class GovUkDeliveryTest < ActiveSupport::TestCase
     Whitehall::GovUkDelivery::SubscriptionUrlGenerator.any_instance.stubs(:subscription_urls).returns(['http://example.com/feed'])
     Whitehall::GovUkDelivery::EmailFormatter.any_instance.stubs(:email_body).returns('body')
 
-    expected_payload = { feed_urls: ['http://example.com/feed'], subject: "Policy paper: #{publication.title}", body: 'body' }
+    expected_payload = {
+      feed_urls: ['http://example.com/feed'],
+      subject: "Policy paper: #{publication.title}",
+      body: 'body',
+      logging_params: {
+        content_id: publication.content_id,
+        public_updated_at: publication.major_change_published_at.iso8601,
+      },
+    }
     stub = stub_gov_uk_delivery_post_request('notifications', expected_payload).to_return(created_response_hash)
     stub_publishing_api_registration_for(publication)
     assert Whitehall.edition_services.publisher(publication).perform!
@@ -32,7 +40,15 @@ class GovUkDeliveryTest < ActiveSupport::TestCase
     Whitehall::GovUkDelivery::SubscriptionUrlGenerator.any_instance.stubs(:subscription_urls).returns(['http://example.com/feed'])
     Whitehall::GovUkDelivery::EmailFormatter.any_instance.stubs(:email_body).returns('body')
 
-    expected_payload = { feed_urls: ['http://example.com/feed'], subject: "Policy paper: #{publication.title}", body: 'body' }
+    expected_payload = {
+      feed_urls: ['http://example.com/feed'],
+      subject: "Policy paper: #{publication.title}",
+      body: 'body',
+      logging_params: {
+        content_id: publication.content_id,
+        public_updated_at: publication.major_change_published_at.iso8601,
+      },
+    }
     stub = stub_gov_uk_delivery_post_request('notifications', expected_payload).to_return(error_response_hash)
     stub_publishing_api_registration_for(publication)
 

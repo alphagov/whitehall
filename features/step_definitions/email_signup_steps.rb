@@ -64,7 +64,7 @@ Then(/^I should be signed up for the "(.*?)" world location mailing list$/) do |
 end
 
 Then(/^a govuk_delivery notification should have been sent to the mailing list I signed up for$/) do
-  mock_govuk_delivery_client.assert_method_called(:notify, with: ->(feed_urls, _subject, _body) {
+  mock_govuk_delivery_client.assert_method_called(:notify, with: ->(feed_urls, _subject, _body, logging_params) {
     feed_urls.include?(@feed_signed_up_to)
   })
 end
