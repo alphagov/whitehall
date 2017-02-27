@@ -22,6 +22,23 @@ module PublishingApi::CorporateInformationPagePresenterTest
     def assert_details_attribute(attribute, value)
       assert_equal value, presented_content[:details][attribute]
     end
+
+    def assert_payload(builder, data: -> { presented_content })
+      builder_double = builder.demodulize.underscore
+      payload_double = { :"#{builder_double}_key" => "#{builder_double}_value" }
+
+      builder
+        .constantize
+        .expects(:for)
+        .at_least_once
+        .with(corporate_information_page)
+        .returns(payload_double)
+
+      actual_data = data.call
+      expected_data = actual_data.merge(payload_double)
+
+      assert_equal expected_data, actual_data
+    end
   end
 
   class BasicCorporateInformationPageTest < TestCase
@@ -68,6 +85,10 @@ module PublishingApi::CorporateInformationPagePresenterTest
 
     test 'document type' do
       assert_attribute :document_type, 'publication_scheme'
+    end
+
+    test 'public document path' do
+      assert_payload 'PublishingApi::PayloadBuilder::PublicDocumentPath'
     end
 
     test 'rendering app' do
