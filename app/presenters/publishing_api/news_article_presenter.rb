@@ -142,7 +142,9 @@ module PublishingApi
       end
 
       def image_url
-        URI.join(Whitehall.public_asset_host, news_article.lead_image_path).to_s
+        ActionController::Base.helpers.image_url(
+          news_article.lead_image_path, host: Whitehall.public_asset_host
+        )
       end
     end
 

@@ -57,7 +57,10 @@ module PublishingApi
     end
 
     def image_url
-      URI.join(Whitehall.public_asset_host, presented_world_location_news_article.lead_image_path).to_s
+      ActionController::Base.helpers.image_url(
+        presented_world_location_news_article.lead_image_path,
+        host: Whitehall.public_asset_host,
+      )
     end
 
     def govspeak_renderer

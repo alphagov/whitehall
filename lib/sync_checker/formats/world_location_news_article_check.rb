@@ -84,15 +84,15 @@ module SyncChecker
                        IMAGE_PLACEHOLDER
                      end
 
-        image_uri = URI(Whitehall.public_asset_host).tap do |uri|
-          uri.path = image_path
-        end
+        image_uri = ActionController::Base.helpers.image_url(
+          image_path, host: Whitehall.public_asset_host,
+        )
 
         {
           'image' => {
             'alt_text' => image_alt_text,
             'caption' => image_caption,
-            'url' => image_uri.to_s,
+            'url' => image_uri,
           }
         }
       end
