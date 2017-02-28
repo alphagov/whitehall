@@ -49,10 +49,9 @@
         eventCategory: options.eventCategory,
         eventAction: action,
         eventLabel: options.eventLabel,
-        eventValue: 1,
-        cd1: options.cd1,
-        cd2: options.cd2,
-        cd4: options.cd4
+        dimension1: options.dimension1,
+        dimension2: options.dimension2,
+        dimension4: options.dimension4
       });
     };
 
@@ -69,9 +68,9 @@
         var options = {
           eventCategory: "pageElementInteraction",
           eventLabel: taxonName,
-          cd1: publicPath,
-          cd2: contentFormat,
-          cd4: contentId
+          dimension1: publicPath,
+          dimension2: contentFormat,
+          dimension4: contentId
         }
         /*
         Checking a checkbox also checks all of the ancestor taxons.
