@@ -36,6 +36,11 @@ class OffsiteLinkTest < ActiveSupport::TestCase
     assert offsite_link.valid?
   end
 
+  test 'should be valid with a gov.scot url' do
+    offsite_link = build(:offsite_link, url: 'http://news.gov.scot/news/avian-influenza-5')
+    assert offsite_link.valid?
+  end
+
   test 'should be valid with whitelisted urls' do
     whitelisted_urls = [
       'http://www.flu-lab-net.eu',
