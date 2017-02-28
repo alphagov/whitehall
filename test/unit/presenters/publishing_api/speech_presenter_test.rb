@@ -87,12 +87,12 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
 
     it "contains the expected keys and values" do
       assert_includes(presented.links.keys, :organisations)
-      assert_includes(presented.links.keys, :policies)
+      assert_includes(presented.links.keys, :related_policies)
       assert_includes(presented.links.keys, :speaker)
       assert_includes(presented.links.keys, :topical_events)
 
       assert_includes(presented.links[:organisations], speech.organisations.first.content_id)
-      assert_includes(presented.links[:policies], policy_content_id)
+      assert_includes(presented.links[:related_policies], policy_content_id)
       assert_includes(presented.links[:speaker], person.content_id)
       assert_includes(presented.links[:topical_events], topical_event.content_id)
     end

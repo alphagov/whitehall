@@ -44,8 +44,13 @@ module PublishingApi
     end
 
     def links
-      links = LinksPresenter.new(item).extract([:organisations, :policy_areas])
-      links.merge!(links_for_policies)
+      links = LinksPresenter.new(item).extract(
+        [
+          :organisations,
+          :policy_areas,
+          :related_policies
+        ]
+      )
       links.merge!(links_for_speaker)
       links.merge!(links_for_topical_events)
     end
@@ -71,10 +76,6 @@ module PublishingApi
           url: speaker.image.url,
         }
       }
-    end
-
-    def links_for_policies
-      { policies: item.policy_content_ids }
     end
 
     def links_for_speaker
