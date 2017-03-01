@@ -52,7 +52,7 @@ module PublishingApi
     end
 
     def topic_content_ids
-      item.specialist_sectors.map(&:topic_content_id)
+      item.specialist_sectors.reject(&:invalid?).map(&:topic_content_id)
     end
 
     def parent_content_ids

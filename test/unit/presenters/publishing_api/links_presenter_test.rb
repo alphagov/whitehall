@@ -24,6 +24,19 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
     assert_equal({ topics: %w(content_id_1), parent: [], organisations: [] }, links)
   end
 
+  test 'rejects invalid specialist sectors' do
+    edition = create(:edition)
+
+    create(:specialist_sector, topic_content_id: "content_id_1", edition: edition, primary: true)
+    create(:specialist_sector, :invalid, edition: edition, primary: false)
+    create(:specialist_sector, topic_content_id: "content_id_3", edition: edition, primary: false)
+
+    assert_equal(
+      { topics: %w(content_id_1 content_id_3) },
+      links_for(edition, %i(topics))
+    )
+  end
+
   test 'it treats the primary specialist sector of the item as the parent' do
     edition = create(:edition)
     create(:specialist_sector, topic_content_id: "content_id_1", edition: edition, primary: true)
