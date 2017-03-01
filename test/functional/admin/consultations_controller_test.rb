@@ -28,7 +28,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       assert_select "select[name*='edition[closing_at']", count: 5
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][link_url]']"
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][email]']"
-      assert_select "input[type='text'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][title]']"
       assert_select "input[type='file'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][consultation_response_form_data_attributes][file]']"
     end
   end
@@ -39,7 +38,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
         link_url: "http://participation.com",
         email: "countmein@participation.com",
         consultation_response_form_attributes: {
-          title: "the title of the response form",
           consultation_response_form_data_attributes: {
             file: fixture_file_upload('two-pages.pdf')
           }
@@ -56,7 +54,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal attributes[:closing_at], consultation.closing_at
     assert_equal "http://participation.com", consultation.consultation_participation.link_url
     assert_equal "countmein@participation.com", consultation.consultation_participation.email
-    assert_equal "the title of the response form", response_form.title
 
     VirusScanHelpers.simulate_virus_scan(response_form.consultation_response_form_data.file)
     assert response_form.consultation_response_form_data.file.present?
@@ -68,7 +65,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
         link_url: nil,
         email: nil,
         consultation_response_form_attributes: {
-          title: nil,
           consultation_response_form_data_attributes: {
             file: nil
           }
@@ -88,7 +84,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
         link_url: nil,
         email: nil,
         consultation_response_form_attributes: {
-          title: nil,
           consultation_response_form_data_attributes: {
             file: fixture_file_upload('two-pages.pdf')
           }
@@ -125,7 +120,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][email]']"
       assert_select "textarea[name='edition[consultation_participation_attributes][postal_address]']"
       assert_select "input[type='hidden'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][id]'][value='#{response_form.id}']"
-      assert_select "input[type='text'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][title]']"
       assert_select "input[type='hidden'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][consultation_response_form_data_attributes][id]'][value='#{response_form.consultation_response_form_data.id}']"
       assert_select "input[type='file'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][consultation_response_form_data_attributes][file]']"
     end

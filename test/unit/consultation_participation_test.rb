@@ -43,13 +43,6 @@ class ConsultationParticipationTest < ActiveSupport::TestCase
     assert participation.valid?
   end
 
-  test "should be invalid if the response form has no title" do
-    data_attributes = attributes_for(:consultation_response_form_data)
-    form_attributes = attributes_for(:consultation_response_form, title: nil, consultation_response_form_data_attributes: data_attributes)
-    participation = build(:consultation_participation, consultation_response_form_attributes: form_attributes)
-    refute participation.valid?
-  end
-
   test "should be invalid if the response form's data has no file" do
     participation = build(:consultation_participation, consultation_response_form: build(:consultation_response_form, file: nil))
     refute participation.valid?

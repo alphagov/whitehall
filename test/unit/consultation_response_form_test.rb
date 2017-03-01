@@ -1,10 +1,6 @@
 require 'test_helper'
 
 class ConsultationResponseFormTest < ActiveSupport::TestCase
-  test 'should be invalid without a title' do
-    form = build(:consultation_response_form, title: nil)
-    refute form.valid?
-  end
 
   test "does not destroy response form data when other response forms are associated with it" do
     consultation_response_form = create(:consultation_response_form)
