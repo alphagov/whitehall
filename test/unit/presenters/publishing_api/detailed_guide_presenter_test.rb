@@ -73,7 +73,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
       organisations: detailed_guide.organisations.map(&:content_id),
       topics: [],
       parent: [],
-      related_policies: ["dc6d2e0e-8f5d-4c3f-aaea-c890e07d0cf8"],
+      policies: ["dc6d2e0e-8f5d-4c3f-aaea-c890e07d0cf8"],
       policy_areas: detailed_guide.topics.map(&:content_id),
       related_guides: [],
       related_mainstream_content: [],

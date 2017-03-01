@@ -4,6 +4,7 @@ module PublishingApi
       organisations: :organisation_ids,
       policy_areas: :policy_area_ids,
       related_policies: :related_policy_ids,
+      policies: :policy_ids,
       statistical_data_set_documents: :statistical_data_set_ids,
       topics: :topic_content_ids,
       parent: :parent_content_ids,
@@ -34,6 +35,7 @@ module PublishingApi
     def related_policy_ids
       item.try(:policy_content_ids) || []
     end
+    alias :policy_ids :related_policy_ids
 
     def statistical_data_set_ids
       (item.try(:statistical_data_sets) || []).map(&:content_id)

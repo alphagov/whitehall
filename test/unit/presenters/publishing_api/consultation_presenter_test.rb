@@ -81,7 +81,7 @@ module PublishingApi::ConsultationPresenterTest
         organisations
         parent
         policy_areas
-        related_policies
+        policies
         topics
       )
 

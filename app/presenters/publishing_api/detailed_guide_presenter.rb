@@ -35,7 +35,7 @@ module PublishingApi
           :organisations,
           :parent,
           :policy_areas,
-          :related_policies,
+          :policies,
           :topics,
         ]
       ).merge(

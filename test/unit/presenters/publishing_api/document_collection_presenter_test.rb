@@ -263,10 +263,10 @@ class PublishingApi::PublishedDocumentCollectionPresenterRelatedPolicyLinksTest 
     @presented_links = presented_document_collection.links
   end
 
-  test "it presents the policy_content_ids as links, related_policies" do
+  test "it presents the policy_content_ids as links, policies" do
     assert_equal(
       @document_collection.policy_content_ids,
-      @presented_links[:related_policies]
+      @presented_links[:policies]
     )
   end
 end
