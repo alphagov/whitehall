@@ -557,7 +557,7 @@ module PublishingApi::ConsultationPresenterTest
     test 'change history' do
       expected_change_history = [
         {
-          'public_timestamp' => '2011-11-09T11:11:11.000+00:00',
+          'public_timestamp' => '2011-11-10T11:11:11.000+00:00',
           'note' => 'change-note',
         }
       ]
