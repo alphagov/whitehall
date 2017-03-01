@@ -40,6 +40,7 @@ class ActiveSupport::TestCase
   include PublishingApiTestHelpers
   include PolicyTaggingHelpers
   include GovukContentSchemaTestHelpers::TestUnit
+  include StaticStubHelpers
   extend GovspeakValidationTestHelper
 
   setup do
@@ -54,6 +55,7 @@ class ActiveSupport::TestCase
     stub_any_publishing_api_call
     stub_publishing_api_policies
     SyncCheckWorker.stubs(:enqueue)
+    stub_static_locales
   end
 
   teardown do
@@ -171,6 +173,7 @@ class ActionController::TestCase
   include AtomTestHelpers
   include CacheControlTestHelpers
   include ViewRendering
+  include StaticStubHelpers
 
   include PublicDocumentRoutesHelper
   include Admin::EditionRoutesHelper
@@ -186,6 +189,8 @@ class ActionController::TestCase
     # header.
     stub_request(:get, %r{.*content-store.*/content/.*}).to_return(status: 404)
     publishing_api_has_linkables([], document_type: 'topic')
+
+    stub_static_locales
   end
 
   def login_as(role_or_user)

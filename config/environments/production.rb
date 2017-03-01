@@ -97,6 +97,4 @@ Whitehall::Application.configure do
   config.active_support.deprecation = :notify
 
   config.action_mailer.delivery_method = :ses
-
-  config.slimmer.use_cache = true
 end
