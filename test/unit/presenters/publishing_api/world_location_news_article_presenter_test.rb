@@ -331,7 +331,7 @@ class PublishingApi::WorldLocationNewsArticlePlaceholderImageTest < ActiveSuppor
     expected_placeholder_image = {
       alt_text: "placeholder",
       caption: nil,
-      url: Whitehall.public_asset_host + "/placeholder.jpg"
+      url: Whitehall.public_asset_host + "/government/assets/placeholder.jpg"
     }
 
     assert_equal expected_placeholder_image, @presented_wlna.content[:details][:image]
