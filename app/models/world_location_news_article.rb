@@ -36,6 +36,6 @@ class WorldLocationNewsArticle < Newsesque
   end
 
   def rendering_app
-    Whitehall::RenderingApp::WHITEHALL_FRONTEND
+    Whitehall::RenderingApp::GOVERNMENT_FRONTEND
   end
 end

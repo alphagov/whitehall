@@ -41,8 +41,8 @@ class PublishingApi::WorldLocationNewsArticlePresenterTest < ActiveSupport::Test
     assert_equal 'whitehall', @presented_content[:publishing_app]
   end
 
-  test "it presents the rendering_app as whitehall-frontend" do
-    assert_equal 'whitehall-frontend', @presented_content[:rendering_app]
+  test "it presents the rendering_app as government-frontend" do
+    assert_equal 'government-frontend', @presented_content[:rendering_app]
   end
 
   test "it presents the schema_name as world_location_news_article" do

@@ -44,8 +44,8 @@ class WorldLocationNewsArticleTest < ActiveSupport::TestCase
     refute world_article.valid?
   end
 
-  test 'specifies rendering app to be whitehall frontend' do
+  test 'specifies rendering app to be government frontend' do
     world_location_news_article = WorldLocationNewsArticle.new
-    assert world_location_news_article .rendering_app.include?(Whitehall::RenderingApp::WHITEHALL_FRONTEND)
+    assert world_location_news_article .rendering_app.include?(Whitehall::RenderingApp::GOVERNMENT_FRONTEND)
   end
 end
