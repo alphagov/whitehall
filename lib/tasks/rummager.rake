@@ -29,11 +29,11 @@ namespace :rummager do
       index.commit
     end
 
-    # NOTE: Run daily to ensure consultation state is reflected in the search results
-    desc "indexes consultations which closed in the past day"
+    # NOTE: Run hourly to ensure consultation state is reflected in the search results
+    desc "indexes consultations which closed in the past 2 hours"
     task closed_consultations: :environment do
       index = Whitehall::SearchIndex.for(:government)
-      index.add_batch(Consultation.published.closed_since(25.hours.ago).map(&:search_index))
+      index.add_batch(Consultation.published.closed_since(2.hours.ago).map(&:search_index))
       index.commit
     end
 
