@@ -55,7 +55,6 @@ module Whitehall
         PublishingApiScheduleWorker.perform_async(base_path, publish_timestamp)
         unless edition.document.published?
           PublishingApiComingSoonWorker.perform_async(edition.id, locale)
-                                      # perform_async(base_path, publish_timestamp, locale)
         end
       end
     end
