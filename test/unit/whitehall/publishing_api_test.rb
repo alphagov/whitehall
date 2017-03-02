@@ -195,22 +195,9 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     assert_all_requested(requests)
   end
 
-
-  test ".schedule_async for a first edition served from Whitehall doesn't queue jobs to push publish intents and 'coming_soon' items" do
-    timestamp = 12.hours.from_now
-    edition   = create(:draft_edition, scheduled_publication: timestamp)
-
-    Sidekiq::Testing.fake! do
-      Whitehall::PublishingApi.schedule_async(edition)
-
-      assert_empty PublishingApiScheduleWorker.jobs
-      assert_empty PublishingApiComingSoonWorker.jobs
-    end
-  end
-
   test ".schedule_async for a first edition served from the content store queues jobs to push publish intents and 'coming_soon' items" do
     timestamp = 12.hours.from_now
-    edition   = create(:draft_case_study, scheduled_publication: timestamp)
+    edition   = create(:draft_publication, scheduled_publication: timestamp)
 
     I18n.with_locale(:fr) do
       edition.title = 'French title'
@@ -246,7 +233,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
   test ".schedule_async for a subsequent edition served from the content store queues jobs to push publish intents, but not to publish 'coming_soon' items" do
     timestamp = 2.hours.from_now
     existing_edition = create(:published_case_study)
-    updated_edition = create(:draft_case_study, scheduled_publication: timestamp, document: existing_edition.document)
+    updated_edition = create(:draft_publication, scheduled_publication: timestamp, document: existing_edition.document)
 
     I18n.with_locale(:es) do
       updated_edition.title = 'Spanish title'
@@ -272,19 +259,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     end
   end
 
-  test ".unschedule_async for a first edition served from Whitehall doesn't queue jobs to remove publish intents and publish 'gone' items" do
-    edition = create(:scheduled_edition)
-
-    Sidekiq::Testing.fake! do
-      Whitehall::PublishingApi.unschedule_async(edition)
-
-      assert_empty PublishingApiUnscheduleWorker.jobs
-      assert_empty PublishingApiGoneWorker.jobs
-    end
-  end
-
   test ".unschedule_async for a first edition served from the content store queues jobs to remove publish intents and publish 'gone' items" do
-    edition = create(:scheduled_case_study)
+    edition = create(:scheduled_publication)
 
     I18n.with_locale(:de) do
       edition.title = 'German title'
@@ -306,8 +282,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
   end
 
   test ".unschedule_async for a subsequent edition served from the content store queues jobs to remove publish intents, but not to publish 'gone' items" do
-    existing_edition = create(:published_case_study)
-    updated_edition = create(:scheduled_case_study, document: existing_edition.document)
+    existing_edition = create(:published_publication)
+    updated_edition = create(:scheduled_publication, document: existing_edition.document)
 
     I18n.with_locale(:de) do
       updated_edition.title = 'German title'

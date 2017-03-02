@@ -5,7 +5,7 @@ class SchedulingTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApi
 
   setup do
-    @submitted_edition = create(:submitted_case_study,
+    @submitted_edition = create(:submitted_publication,
                                 scheduled_publication: 1.day.from_now)
     stub_legacy_sidekiq_scheduling
     stub_any_publishing_api_call
@@ -24,7 +24,7 @@ class SchedulingTest < ActiveSupport::TestCase
   end
 
   test "scheduling a subsequent edition publishes a publish intent to the Publishing API" do
-    published_edition = create(:published_case_study)
+    published_edition = create(:published_publication)
     new_draft = published_edition.create_draft(published_edition.creator)
     new_draft.change_note = 'changed'
     new_draft.scheduled_publication = 1.day.from_now

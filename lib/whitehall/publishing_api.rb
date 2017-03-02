@@ -49,7 +49,6 @@ module Whitehall
     end
 
     def self.schedule_async(edition)
-      return unless served_from_content_store?(edition)
       publish_timestamp = edition.scheduled_publication.as_json
       locales_for(edition).each do |locale|
         base_path = Whitehall.url_maker.public_document_path(edition, locale: locale)
@@ -62,7 +61,6 @@ module Whitehall
     end
 
     def self.unschedule_async(edition)
-      return unless served_from_content_store?(edition)
       locales_for(edition).each do |locale|
         base_path = Whitehall.url_maker.public_document_path(edition, locale: locale)
         PublishingApiUnscheduleWorker.perform_async(base_path)
