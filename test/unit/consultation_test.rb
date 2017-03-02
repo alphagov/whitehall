@@ -119,6 +119,16 @@ class ConsultationTest < ActiveSupport::TestCase
     assert_equal 0, Consultation.open.count
   end
 
+  test ".open_since only includes consultations open at or after the specified time" do
+    create(:consultation, opening_at: 1.month.ago)
+    open_three_days_ago = create(:consultation, opening_at: 3.days.ago)
+    open_two_days_ago = create(:consultation, opening_at: 2.days.ago)
+
+    assert_same_elements [], Consultation.open_since(1.days.ago)
+    assert_same_elements [open_two_days_ago], Consultation.open_since(2.days.ago)
+    assert_same_elements [open_two_days_ago, open_three_days_ago], Consultation.open_since(3.days.ago)
+  end
+
   test ".upcoming includes consultations opening in the future" do
     upcoming_consultation = create(:consultation, opening_at: 10.minutes.from_now, closing_at: 2.days.from_now)
 

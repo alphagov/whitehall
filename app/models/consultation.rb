@@ -22,6 +22,7 @@ class Consultation < Publicationesque
   scope :closed, -> { where("closing_at < ?",  Time.zone.now) }
   scope :closed_since, ->(time) { closed.where('closing_at >= ?', time) }
   scope :open, -> { where('closing_at >= ? AND opening_at <= ?', Time.zone.now, Time.zone.now) }
+  scope :open_since, ->(time) { open.where('opening_at >= ?', time) }
   scope :upcoming, -> { where('opening_at > ?', Time.zone.now) }
   scope :responded, -> { joins(:outcome) }
 

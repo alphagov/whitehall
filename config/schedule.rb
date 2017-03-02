@@ -9,5 +9,5 @@ every :day, at: ['3am', '12:45pm'], roles: [:admin] do
 end
 
 every :hour, roles: [:backend] do
-  rake "rummager:index:closed_consultations"
+  rake "rummager:index:consultations"
 end
