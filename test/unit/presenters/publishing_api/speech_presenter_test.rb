@@ -60,7 +60,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
       assert_equal("Speech title",        presented.content[:title])
       assert_equal("The description",     presented.content[:description])
       assert_equal("whitehall",           presented.content[:publishing_app])
-      assert_equal("whitehall-frontend",  presented.content[:rendering_app])
+      assert_equal("government-frontend", presented.content[:rendering_app])
 
       details = presented.content[:details]
       refute(details[:political])
