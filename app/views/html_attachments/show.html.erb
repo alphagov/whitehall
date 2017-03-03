@@ -33,6 +33,9 @@
 </header>
 <div class="block publication-content">
   <div class="inner-block floated-children">
+    <div id="print-meta-data">
+      <%= render partial: 'print_meta_data' %>
+    </div>
     <%= @html_attachment.govspeak_content_body_html || govspeak_to_html(@html_attachment.govspeak_content_body, @edition.images, govspeak_options_for_html_attachment(@html_attachment)) %>
   </div>
 </div>

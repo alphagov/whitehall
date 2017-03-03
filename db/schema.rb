@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161106133205) do
+ActiveRecord::Schema.define(version: 20170223180546) do
 
   create_table "about_pages", force: :cascade do |t|
     t.integer  "topical_event_id",    limit: 4
@@ -56,27 +56,28 @@ ActiveRecord::Schema.define(version: 20161106133205) do
   create_table "attachments", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "title",                    limit: 255
+    t.string   "title",                           limit: 255
     t.boolean  "accessible"
-    t.string   "isbn",                     limit: 255
-    t.string   "unique_reference",         limit: 255
-    t.string   "command_paper_number",     limit: 255
-    t.string   "order_url",                limit: 255
-    t.integer  "price_in_pence",           limit: 4
-    t.integer  "attachment_data_id",       limit: 4
-    t.integer  "ordering",                 limit: 4,                   null: false
-    t.string   "hoc_paper_number",         limit: 255
-    t.string   "parliamentary_session",    limit: 255
+    t.string   "isbn",                            limit: 255
+    t.string   "unique_reference",                limit: 255
+    t.string   "command_paper_number",            limit: 255
+    t.string   "order_url",                       limit: 255
+    t.integer  "price_in_pence",                  limit: 4
+    t.integer  "attachment_data_id",              limit: 4
+    t.integer  "ordering",                        limit: 4,                   null: false
+    t.string   "hoc_paper_number",                limit: 255
+    t.string   "parliamentary_session",           limit: 255
     t.boolean  "unnumbered_command_paper"
     t.boolean  "unnumbered_hoc_paper"
-    t.integer  "attachable_id",            limit: 4
-    t.string   "attachable_type",          limit: 255
-    t.string   "type",                     limit: 255
-    t.string   "slug",                     limit: 255
-    t.string   "locale",                   limit: 255
-    t.string   "external_url",             limit: 255
-    t.string   "content_id",               limit: 255
-    t.boolean  "deleted",                              default: false, null: false
+    t.integer  "attachable_id",                   limit: 4
+    t.string   "attachable_type",                 limit: 255
+    t.string   "type",                            limit: 255
+    t.string   "slug",                            limit: 255
+    t.string   "locale",                          limit: 255
+    t.string   "external_url",                    limit: 255
+    t.string   "content_id",                      limit: 255
+    t.boolean  "deleted",                                     default: false, null: false
+    t.string   "print_meta_data_contact_address", limit: 255
   end
 
   add_index "attachments", ["attachable_id", "attachable_type"], name: "index_attachments_on_attachable_id_and_attachable_type", using: :btree

@@ -53,4 +53,17 @@
       padding: 0;
     }
   }
+
+  #print-meta-data {
+    page-break-before: always;
+    page-break-after: always;
+    visibility: visible;
+    height: 100%;
+    width: 100%;
+
+    .print-meta-data-licence {
+      width: 78px;
+      height: auto;
+    }
+  }
 }
