@@ -39,6 +39,10 @@ module SyncChecker
 
     private
 
+      def rendering_app
+        Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+      end
+
       def document_type(speech)
         if SpeechType.non_statements.include?(speech.speech_type)
           "speech"
