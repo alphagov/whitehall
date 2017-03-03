@@ -14,7 +14,13 @@ module Whitehall
         endpoint = SubscriptionUrlGenerator.new(edition)
         email_formatter = EmailFormatter.new(edition, notification_date, options)
 
-        Whitehall.govuk_delivery_client.notify(endpoint.subscription_urls, email_formatter.display_title, email_formatter.email_body)
+        Whitehall.govuk_delivery_client.notify(
+          endpoint.subscription_urls,
+          email_formatter.display_title,
+          email_formatter.email_body,
+          content_id: edition.content_id,
+          public_updated_at: edition.major_change_published_at.iso8601,
+        )
       rescue GdsApi::HTTPErrorResponse => exception
         raise unless exception.code == 400
       end
