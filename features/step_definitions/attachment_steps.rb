@@ -113,7 +113,7 @@ end
 
 Given(/^the publication "(.*?)" has an html attachment "(.*?)" with the body "(.*?)"$/) do |publication_title, attachment_title, attachment_body|
   publication = Publication.find_by(title: publication_title)
-  create(:html_attachment, attachable: publication, title: attachment_title, body: attachment_body)
+  create :html_attachment, attachable: publication, title: attachment_title, body: attachment_body
 end
 
 When(/^I preview the attachment "(.*?)"$/) do |attachment_title|
@@ -122,4 +122,27 @@ end
 
 Then(/^I should see the html attachment body "(.*?)"$/) do |attachment_body|
   assert page.has_content?(attachment_body)
+end
+
+When(/^I upload an html attachment with the title "(.*?)" and the isbn "(.*?)" and the contact address "(.*?)"$/) do |title, isbn, contact_address|
+  click_on "Add new HTML attachment"
+  fill_in "Title", with: title
+  fill_in "ISBN (web version)", with: isbn
+  fill_in "Organisation's Contact Details", with: contact_address
+  fill_in "Body", with: "Body"
+  check "Manually numbered headings"
+  click_on "Save"
+end
+
+When(/^I publish the draft edition for publication "(.*?)"$/) do |publication_title|
+  publication = Publication.find_by title: publication_title
+  publication.update!(state: 'published', major_change_published_at: Date.today)
+end
+
+Then /^previewing the html attachment "(.*?)" in print mode includes the contact address "(.*?)" and the isbn "(.*?)"$/ do |attachment_title, contact_address, isbn|
+  html_attachment = HtmlAttachment.find_by title: attachment_title
+  publication = html_attachment.attachable
+  visit publication_html_attachment_path publication_id: publication.slug, id: html_attachment.slug, medium: "print"
+  assert page.has_content? contact_address
+  assert page.has_content? isbn
 end

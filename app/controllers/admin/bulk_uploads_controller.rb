@@ -47,6 +47,7 @@ class Admin::BulkUploadsController < Admin::BaseController
       :title,
       :locale,
       :isbn,
+      :print_meta_data_contact_address,
       :unique_reference,
       :command_paper_number,
       :unnumbered_command_paper,
