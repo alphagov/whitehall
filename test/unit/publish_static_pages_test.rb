@@ -12,8 +12,10 @@ class PublishStaticPagesTest < ActiveSupport::TestCase
 
   test 'static pages presented to the publishing api are valid placeholders' do
     publisher = PublishStaticPages.new
-    presented = publisher.present_for_publishing_api(publisher.pages.first)
-    expect_valid_placeholder(presented[:content])
+    publisher.pages.each do |page|
+      presented = publisher.present_for_publishing_api(page)
+      expect_valid_placeholder(presented[:content])
+    end
   end
 
   def expect_publishing(pages)
