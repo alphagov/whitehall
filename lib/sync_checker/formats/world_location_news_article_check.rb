@@ -27,7 +27,7 @@ module SyncChecker
     private
 
       IMAGE_FORMAT = :s300
-      IMAGE_PLACEHOLDER = '/placeholder.jpg'
+      IMAGE_PLACEHOLDER = 'placeholder.jpg'
 
       def document_type(_edition)
         'world_location_news_article'
