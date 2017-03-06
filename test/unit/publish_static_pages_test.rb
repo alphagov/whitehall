@@ -24,7 +24,7 @@ class PublishStaticPagesTest < ActiveSupport::TestCase
         .with(
           page[:content_id],
           has_entries(
-            document_type: "placeholder",
+            document_type: page[:document_type],
             schema_name: "placeholder",
             base_path: page[:base_path],
             title: page[:title]
