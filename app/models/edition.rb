@@ -88,7 +88,10 @@ class Edition < ApplicationRecord
 
   # @!group Callbacks
   before_save :set_public_timestamp
+  after_save :patch_meets_user_needs_links
   # @!endgroup
+
+  attr_writer :need_ids
 
   class UnmodifiableValidator < ActiveModel::Validator
     def validate(record)
@@ -613,8 +616,43 @@ class Edition < ApplicationRecord
     true
   end
 
+  def need_ids
+    # When new editions are created, the content id is unknown until
+    # the edition is saved as they don't have an associated
+    # document. Therefore, just return [].
+    return [] unless document
+
+    @need_ids ||= get_user_needs_from_publishing_api
+  end
+
+  def get_user_needs_from_publishing_api
+    response = Whitehall.publishing_api_v2_client.get_links(
+      document.content_id
+    )
+
+    return unless response
+
+    response["links"]["meets_user_needs"]
+  end
+
+  def patch_meets_user_needs_links
+    return unless @need_ids
+
+    # TODO: Until the need_ids are removed from the Whitehall
+    # database, this will be a String if they exist for this detailed
+    # guide. Once Whitehall is deployed using the Publishing API to
+    # store associated needs, the column can be removed from the
+    # database, and this line can be removed.
+    return if @need_ids.is_a? String
+
+    Whitehall.publishing_api_v2_client.patch_links(
+      content_id,
+      links: { meets_user_needs: @need_ids.reject(&:empty?) }
+    )
+  end
+
   def has_associated_needs?
-    respond_to?(:need_ids) && need_ids.try(:any?)
+    need_ids.try(:any?)
   end
 
   def associated_needs
