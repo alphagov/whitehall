@@ -775,6 +775,7 @@ class EditionTest < ActiveSupport::TestCase
 
   test 'should have no associated needs when there are no need ids' do
     edition = create(:edition)
+    publishing_api_has_links(content_id: edition.document.content_id, links: {})
     refute edition.has_associated_needs?
     assert_equal [], edition.associated_needs
   end

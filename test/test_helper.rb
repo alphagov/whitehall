@@ -194,6 +194,7 @@ class ActionController::TestCase
     publishing_api_has_linkables([], document_type: 'topic')
 
     stub_static_locales
+    stub_request(:get, %r{\A#{Plek.find('publishing-api')}/v2/links/}).to_return(body: { links: {} }.to_json)
   end
 
   def login_as(role_or_user)
