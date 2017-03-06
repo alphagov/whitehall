@@ -30,12 +30,28 @@ module PublishingApi
         )
     end
 
+    def links
+      LinksPresenter
+        .new(corporate_information_page)
+        .extract(
+          %i(
+            organisations
+          )
+        )
+    end
+
   private
 
     attr_accessor :corporate_information_page
     attr_writer :update_type
 
     def_delegator :corporate_information_page, :display_type_key
+
+    def base_details
+      {
+        body: body,
+      }
+    end
 
     def body
       Whitehall::GovspeakRenderer
@@ -44,9 +60,8 @@ module PublishingApi
     end
 
     def details
-      {
-        body: body,
-      }
+      base_details
+        .merge(Organisation.for(corporate_information_page))
     end
 
     def public_updated_at
@@ -58,6 +73,31 @@ module PublishingApi
                           end
 
       public_updated_at.rfc3339
+    end
+
+    class Organisation
+      extend Forwardable
+
+      def self.for(corporate_information_page)
+        new(corporate_information_page).call
+      end
+
+      def initialize(corporate_information_page)
+        self.corporate_information_page = corporate_information_page
+      end
+
+      def call
+        return {} unless organisation.present?
+
+        {
+          organisation: organisation.content_id
+        }
+      end
+
+    private
+
+      attr_accessor :corporate_information_page
+      def_delegator :corporate_information_page, :owning_organisation, :organisation
     end
   end
 end
