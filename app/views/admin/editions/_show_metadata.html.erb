@@ -186,7 +186,7 @@
   </section>
 <% end %>
 
-<% if @edition.respond_to?(:has_associated_needs?) && @edition.has_associated_needs? %>
+<% if @edition.associated_needs.any? %>
   <section id="user-needs-section">
     <h2>Associated user needs</h2>
     <table class="table table-bordered">
