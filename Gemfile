@@ -116,7 +116,7 @@ group :test_coverage do
   gem 'simplecov-rcov'
 end
 
-group :cucumber do
+group :cucumber, :test do
   gem 'cucumber-rails', '~> 1.4.2', require: false
   gem 'launchy', '~> 2.4.3'
   gem 'capybara', '~> 2.4.4'
