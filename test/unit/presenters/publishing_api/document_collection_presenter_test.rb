@@ -133,7 +133,7 @@ class PublishingApi::DocumentCollectionPresenterGroupTest < ActiveSupport::TestC
       document_collection
     )
     @presented_details = presenter.content[:details]
-    @presented_links = presenter.links
+    @presented_links = presenter.content[:links]
   end
 
   test "it presents group 1 in collection_groups" do
@@ -167,7 +167,7 @@ class PublishingApi::DocumentCollectionPresenterDocumentLinksTestCase < ActiveSu
 
     @presented_links = PublishingApi::DocumentCollectionPresenter.new(
       document_collection
-    ).links
+    ).content[:links]
   end
 
   test "it presents the document content_ids as links, documents" do
@@ -251,6 +251,56 @@ class PublishingApi::PublishedDocumentCollectionPresenterLinksTest < ActiveSuppo
   end
 end
 
+class PublishingApi::PublishedDocumentCollectionPresenterEditionLinksTest < ActiveSupport::TestCase
+  setup do
+    @document_collection = create(:document_collection)
+    presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(@document_collection)
+    @presented_links = presented_document_collection.content[:links]
+  end
+
+  test "it presents the documents content_ids as links, documents" do
+    assert_equal(
+      @document_collection.documents.map(&:content_id),
+      @presented_links[:documents]
+    )
+  end
+
+  test "it presents the organisation content_ids as links, organisations" do
+    assert_equal(
+      @document_collection.organisations.map(&:content_id),
+      @presented_links[:organisations]
+    )
+  end
+
+  test "it presents the policy area content_ids as links, policy_areas" do
+    assert_equal(
+      @document_collection.topics.map(&:content_id),
+      @presented_links[:policy_areas]
+    )
+  end
+
+  test "it presents the topic content_ids as links, topics" do
+    assert_equal(
+      @document_collection.specialist_sectors.map(&:content_id),
+      @presented_links[:topics]
+    )
+  end
+
+  test "it presents the topical_events content_ids as links, topical_events" do
+    assert_equal(
+      @document_collection.topical_events.map(&:content_id),
+      @presented_links[:topical_events]
+    )
+  end
+
+  test "it presentes the primary_specialist_sector content_ids as links, parent" do
+    assert_equal(
+      @document_collection.primary_specialist_sectors.map(&:content_id),
+      @presented_links[:parent]
+    )
+  end
+end
+
 class PublishingApi::PublishedDocumentCollectionPresenterRelatedPolicyLinksTest < ActiveSupport::TestCase
   setup do
     @document_collection = create(:document_collection)
@@ -259,14 +309,20 @@ class PublishingApi::PublishedDocumentCollectionPresenterRelatedPolicyLinksTest 
       "a8b90171-7f0a-4dd5-986c-d9e414a2dc17",
       "7a892570-6428-4baa-b825-9ebc4faf5773"
     ])
-    presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(@document_collection)
-    @presented_links = presented_document_collection.links
+    @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(@document_collection)
   end
 
   test "it presents the policy_content_ids as links, related_policies" do
     assert_equal(
       @document_collection.policy_content_ids,
-      @presented_links[:related_policies]
+      @presented_document_collection.links[:related_policies]
+    )
+  end
+
+  test "it presents the policy_content_ids as content, links, related_policies" do
+    assert_equal(
+      @document_collection.policy_content_ids,
+      @presented_document_collection.content[:links][:related_policies]
     )
   end
 end
@@ -275,14 +331,20 @@ class PublishingApi::PublishedDocumentCollectionPresenterTopicalEventsLinksTest 
   setup do
     document_collection = create(:document_collection)
     PublishingApi::PayloadBuilder::TopicalEvents.stubs(:for).with(document_collection).returns({ topical_events: ['bfa'] })
-    presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(document_collection)
-    @presented_links = presented_document_collection.links
+    @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(document_collection)
   end
 
   test "it presents the topical events as links, topical_events" do
     assert_equal(
       ["bfa"],
-      @presented_links[:topical_events]
+      @presented_document_collection.links[:topical_events]
+    )
+  end
+
+  test "it presents the topical events as content, links, topical_events" do
+    assert_equal(
+      ["bfa"],
+      @presented_document_collection.content[:links][:topical_events]
     )
   end
 end
