@@ -20,7 +20,7 @@ module PublishingApi
         details: details,
         document_type: "document_collection",
         public_updated_at: item.public_timestamp || item.updated_at,
-        rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
+        rendering_app: item.rendering_app,
         schema_name: "document_collection",
       )
       content.merge!(PayloadBuilder::AccessLimitation.for(item))
