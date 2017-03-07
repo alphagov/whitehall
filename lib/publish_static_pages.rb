@@ -116,6 +116,14 @@ class PublishStaticPages
         description: "Contact details of British embassies, consulates, high commissions around the world for help with visas, passports and more.",
         indexable_content: "Contact details of British embassies, consulates, high commissions around the world for help with visas, passports and more.",
       },
+      {
+        content_id: "fde62e52-dfb6-42ae-b336-2c4faf068101",
+        title: "Departments, agencies and public bodies",
+        base_path: "/government/organisations",
+        document_type: "finder",
+        description: "Information from government departments, agencies and public bodies, including news, campaigns, policies and contact details.",
+        indexable_content: "Information from government departments, agencies and public bodies, including news, campaigns, policies and contact details.",
+      },
     ]
   end
 
