@@ -39,6 +39,10 @@ module PublishingApi::CorporateInformationPagePresenterTest
 
       assert_equal expected_data, actual_data
     end
+
+    def assert_details_payload(builder)
+      assert_payload builder, data: -> { presented_content[:details] }
+    end
   end
 
   class BasicCorporateInformationPageTest < TestCase
@@ -106,6 +110,10 @@ module PublishingApi::CorporateInformationPagePresenterTest
 
     test 'schema name' do
       assert_attribute :schema_name, 'corporate_information_page'
+    end
+
+    test 'tags' do
+      assert_details_payload 'PublishingApi::PayloadBuilder::TagDetails'
     end
 
     test 'validity' do

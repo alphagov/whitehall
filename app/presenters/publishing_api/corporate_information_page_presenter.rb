@@ -62,6 +62,7 @@ module PublishingApi
     def details
       base_details
         .merge(Organisation.for(corporate_information_page))
+        .merge(PayloadBuilder::TagDetails.for(corporate_information_page))
     end
 
     def public_updated_at
