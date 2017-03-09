@@ -68,11 +68,6 @@ When /^I attempt to add the article image into the markdown$/ do
   fill_in "Body", with: "body copy\n!!1\nmore body"
 end
 
-Then /^the article mentions "([^"]*)" and links to their bio page$/ do |person_name|
-  visit document_path(NewsArticle.last)
-  assert has_css?(".meta a[href*='#{person_path(find_person(person_name))}']", text: person_name)
-end
-
 Then /^the news article tag is the same as the person in the text$/ do
   visit admin_edition_path(NewsArticle.last)
   click_button "Create new edition"
@@ -93,20 +88,6 @@ end
 Then /^I should be informed I shouldn't use this image in the markdown$/ do
   click_on "Edit draft"
   assert has_no_css?("fieldset#image_fields .image input[value='!!1']")
-end
-
-Then /^I should see the first uploaded image used as the lead image$/ do
-  article = NewsArticle.last
-  publish force: true
-  visit document_path(article)
-  assert page.has_css?("aside.sidebar img[src*='#{article.images.first.url(:s300)}']")
-end
-
-Then /^if no image is uploaded a default image is shown$/ do
-  article = NewsArticle.last
-  article.images.first.destroy
-  visit document_path(article)
-  assert page.has_css?("aside.sidebar img[src*='placeholder']")
 end
 
 When /^I browse to the announcements index$/ do

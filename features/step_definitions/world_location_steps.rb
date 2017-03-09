@@ -246,17 +246,6 @@ Then /^I cannot feature "([^"]*)" on the french "([^"]*)" page due to the lack o
   assert page.has_no_css?("a.btn", text: "Feature")
 end
 
-Then /^clicking on "([^"]*)" on the french "([^"]*)" page should take me to the french version of the article$/ do |title, world_location_name|
-  view_world_location_in_locale(world_location_name, "Français")
-
-  within '.feature h2' do
-    click_on title
-  end
-
-  assert page.has_css?('h1', text: title)
-  assert page.has_css?('.available-languages li.translation span', text: 'Français')
-end
-
 Then(/^there should be nothing featured on the home page of world location "(.*?)"$/) do |name|
   visit world_location_path(name)
   rows = find(featured_documents_selector).all('.feature')
