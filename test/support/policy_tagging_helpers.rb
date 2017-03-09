@@ -25,7 +25,7 @@ module PolicyTaggingHelpers
   end
 
   def stub_publishing_api_policies
-    policies = [
+    @policies = [
       policy_1,
       policy_2,
       policy_3,
@@ -35,9 +35,9 @@ module PolicyTaggingHelpers
       policy_relevant_to_local_government,
     ]
 
-    publishing_api_has_linkables(policies, document_type: "policy")
+    publishing_api_has_linkables(@policies, document_type: "policy")
 
-    policies.each do |policy|
+    @policies.each do |policy|
       publishing_api_has_links(
         "content_id" => policy["content_id"],
         "links" => policy["links"],

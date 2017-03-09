@@ -1,13 +1,6 @@
 Feature: Speeches
 
-Scenario: Creating a new edition
-  Given I am a writer
-  And a published speech exists
-  When I create a new edition of the published speech
-  And I edit the new edition
-  Then the published speech should remain unchanged
-
-  Scenario: Creating a new draft speech
+Scenario: Creating a new draft speech
   Given I am a writer
   When I draft a new speech "Outlaw Moustaches"
   Then I should see the speech "Outlaw Moustaches" in the list of draft documents
@@ -21,7 +14,7 @@ Scenario: Editing an existing draft speech
 Scenario: Creating a speech related to multiple policies
   Given I am a writer
   When I draft a new speech "Fishy Business" relating it to the policies "Policy 1" and "2012 olympic and paralympic legacy"
-  Then I should see in the preview that "Fishy Business" should related to "Policy 1" and "2012 olympic and paralympic legacy" policies
+  Then "Fishy Business" should be related to "Policy 1" and "2012 olympic and paralympic legacy" policies
 
 Scenario: Trying to save a speech that has been changed by another user
   Given I am a writer
@@ -52,30 +45,15 @@ Scenario: Creating authored articles (originally published externally)
   And I should be able to choose the date it was written on
   But I cannot choose a location for the article
 
-Scenario: Viewing authored articles (originally published externally)
-  Given I am an editor
-  When I draft a new authored article "Colonel Mustard talks about beards to The Times"
-  Then it should be shown as an authored article in the admin screen
-  When I preview the document
-  Then I should see who wrote it clearly labelled in the metadata
-
 @not-quite-as-fake-search
 Scenario: Publishing a submitted speech
   Given I am an editor
   And a submitted speech "Stubble to be Outlawed" exists
   When I publish the speech "Stubble to be Outlawed"
   Then I should see the speech "Stubble to be Outlawed" in the list of published documents
-  And the speech "Stubble to be Outlawed" should be visible to the public
 
 Scenario: Viewing speeches made by a minister
   Given "David Cameron" is the "Prime Minister" for the "Cabinet Office"
   And a published speech "Abolish Fig Rolls" by "Prime Minister" on "June 23rd, 2010" at "The Mansion House"
   When I visit the minister page for "Prime Minister"
   Then I should see the speech "Abolish Fig Rolls"
-  When I visit the speech "Abolish Fig Rolls"
-  Then I should see the speech was delivered on "23 June 2010" at "The Mansion House"
-
-Scenario: Viewing a published speech with related policies
-  Given a published speech "Things I Have Thought" with related published policies "Policy 1" and "Policy 2"
-  When I visit the speech "Things I Have Thought"
-  Then I can see links to the related published policies "Policy 1" and "Policy 2"
