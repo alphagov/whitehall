@@ -1,7 +1,0 @@
-<dt><%= t_delivered_on(document.speech_type) %></dt>
-<dd class="delivered-on"><%= absolute_date(document.delivered_on) %> <% if document.explanation %><span class="explanation">(<%= document.explanation %>)</span><% end %>
-</dd>
-<% if document.location.present? %>
-  <dt><%= t('document.headings.location') %>:</dt>
-  <dd class="location"><%= document.location %></dd>
-<% end %>
