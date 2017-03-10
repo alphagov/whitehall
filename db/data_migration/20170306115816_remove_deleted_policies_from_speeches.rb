@@ -13,6 +13,6 @@ deleted_policy_content_ids = %w(
 EditionPolicy.destroy_all(policy_content_id: deleted_policy_content_ids)
 
 # This draft only Speech has a different content id to that stored
-# in the publishing api, it's easier to update in Whitehall.
-speech = Speech.find(content_id: "39c5a555-9f62-4303-8919-1795d2bf103a")
-speech.document.update!(content_id: "6778ffde-8d6c-43a2-ae74-2b255183b2fd")
+# in the publishing api, it's easier to update the document in Whitehall.
+doc = Document.find(313611)
+doc.update!(content_id: "6778ffde-8d6c-43a2-ae74-2b255183b2fd")
