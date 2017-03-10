@@ -34,11 +34,6 @@ node {
   ])
 
   try {
-    govuk.initializeParameters([
-      'IS_SCHEMA_TEST': 'false',
-      'SCHEMA_BRANCH': DEFAULT_SCHEMA_BRANCH,
-    ])
-
     if (!govuk.isAllowedBranchBuild(env.BRANCH_NAME)) {
       return
     }
@@ -63,7 +58,7 @@ node {
     }
 
     stage("Set up content schema dependency") {
-      govuk.contentSchemaDependency(env.SCHEMA_BRANCH)
+      govuk.contentSchemaDependency(params.SCHEMA_BRANCH)
       govuk.setEnvar("GOVUK_CONTENT_SCHEMAS_PATH", "tmp/govuk-content-schemas")
     }
 
@@ -80,11 +75,21 @@ node {
     }
 
     stage("Run tests") {
-      sh("RAILS_ENV=test bundle exec rake ci:setup:minitest test:in_parallel --trace")
+      govuk.setEnvar("RAILS_ENV", "test")
+      if (params.IS_SCHEMA_TEST) {
+        echo "Running a subset of the tests to check the content schema changes"
+        govuk.runRakeTask("test:publishing_schemas --trace")
+      } else {
+        govuk.runRakeTask("ci:setup:minitest test:in_parallel --trace")
+      }
     }
 
     stage("Precompile assets") {
-      sh("RAILS_ENV=production GOVUK_ASSET_ROOT=http://static.test.alphagov.co.uk bundle exec rake assets:precompile --trace")
+      if (params.IS_SCHEMA_TEST) {
+        echo "Skipping precompile step because this is a schema test"
+      } else {
+        sh("RAILS_ENV=production GOVUK_ASSET_ROOT=http://static.test.alphagov.co.uk bundle exec rake assets:precompile --trace")
+      }
     }
 
     if (env.BRANCH_NAME == 'master') {
