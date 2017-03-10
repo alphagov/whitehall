@@ -19,6 +19,7 @@ class DetailedGuide < Edition
   include Edition::TaggableOrganisations
   include Edition::RelatedPolicies
   include Edition::RelatedDocuments
+  include PublishesToPublishingApi
 
   has_many :related_mainstreams, foreign_key: "edition_id", dependent: :destroy
 
