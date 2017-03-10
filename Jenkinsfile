@@ -34,11 +34,6 @@ node {
   ])
 
   try {
-    govuk.initializeParameters([
-      'IS_SCHEMA_TEST': 'false',
-      'SCHEMA_BRANCH': DEFAULT_SCHEMA_BRANCH,
-    ])
-
     if (!govuk.isAllowedBranchBuild(env.BRANCH_NAME)) {
       return
     }
@@ -63,7 +58,7 @@ node {
     }
 
     stage("Set up content schema dependency") {
-      govuk.contentSchemaDependency(env.SCHEMA_BRANCH)
+      govuk.contentSchemaDependency(params.SCHEMA_BRANCH)
       govuk.setEnvar("GOVUK_CONTENT_SCHEMAS_PATH", "tmp/govuk-content-schemas")
     }
 
