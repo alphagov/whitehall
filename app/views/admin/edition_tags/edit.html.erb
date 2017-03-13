@@ -25,13 +25,27 @@
             <%= @edition_tag_form.education_taxons.name %>
           </p>
 
-          <%= render partial: "taxonomy", locals: {form: @edition_tag_form, taxons: @edition_tag_form.education_taxons.children} %>
+          <%= render partial: "taxonomy", locals: {form: @edition_tag_form, taxons: @edition_tag_form.live_education_taxons} %>
         </div>
       </div>
 
       <p>
         <%= link_to "Report a missing topic", Whitehall.support_url, class: "feedback-link" %>
       </p>
+
+      <% if @edition_tag_form.draft_education_taxons.any? %>
+        <div class="topic-tree">
+
+          <p class="bold-taxon-name">
+            Draft topics
+          </p>
+
+          <p>These topic pages are in development, and are not shown on GOV.UK</p>
+
+          <%= render partial: "taxonomy", locals: {form: @edition_tag_form, taxons: @edition_tag_form.draft_education_taxons} %>
+        </div>
+      <% end %>
+    </div>
 
       <h2>Selected topics</h2>
       <div class="content content-bordered hidden" data-module="breadcrumb-preview">

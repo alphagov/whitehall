@@ -14,14 +14,15 @@ module Taxonomy
   # https://github.com/alphagov/govuk_taxonomy_helpers/pull/1
   class LinkedEdition
     extend Forwardable
-    attr_reader :name, :content_id, :base_path
+    attr_reader :name, :content_id, :base_path, :draft
     attr_accessor :parent_node
     def_delegators :tree, :map, :each
 
-    def initialize(name:, base_path:, content_id:)
+    def initialize(name:, base_path:, content_id:, draft:)
       @name = name
       @content_id = content_id
       @base_path = base_path
+      @draft = draft
       @children = []
     end
 
@@ -85,7 +86,8 @@ module Taxonomy
       @linked_edition = LinkedEdition.new(
         name: edition_response[name_field],
         content_id: edition_response["content_id"],
-        base_path: edition_response["base_path"]
+        base_path: edition_response["base_path"],
+        draft: edition_response["draft"]
       )
 
       @name_field = name_field
@@ -109,7 +111,8 @@ module Taxonomy
       nested_linked_edition = LinkedEdition.new(
         name: nested_item[name_field],
         content_id: nested_item["content_id"],
-        base_path: nested_item["base_path"]
+        base_path: nested_item["base_path"],
+        draft: nested_item["draft"]
       )
 
       child_taxons = nested_item["links"]["child_taxons"]
