@@ -33,7 +33,7 @@ class OrganisationsController < PublicFacingController
         if @organisation.live?
           @recently_updated = recently_updated_source.with_translations(I18n.locale).limit(3)
           @feature_list = OrganisationFeatureListPresenter.new(@organisation, view_context)
-          @policies = @organisation.featured_policies.order('ordering').limit(5)
+          @policies = featured_policies
           set_meta_description(@organisation.summary)
 
           expire_on_next_scheduled_publication(@organisation.scheduled_editions)
@@ -101,6 +101,18 @@ private
     @judge_roles.with_unique_people
   end
 
+  def featured_policies
+    @featured_policies ||= FeaturedPoliciesPresenter.new(
+      @organisation.featured_policies.order('ordering').limit(5),
+      links_for_featured_policies
+    )
+  end
+
+  def links_for_featured_policies
+    return unless organisation_content
+    organisation_content["links"].try(:[], "featured_policies")
+  end
+
   def filled_roles_presenter_for(organisation, association)
     roles_presenter = roles_presenter_for(organisation, association)
     roles_presenter.remove_unfilled_roles!
@@ -122,6 +134,16 @@ private
     else
       raise ActiveRecord::RecordNotFound if @organisation.court_or_hmcts_tribunal?
     end
+  end
+
+  def organisation_content
+    @organisation_content ||= begin
+                                path = Whitehall.url_maker.organisation_path(@organisation)
+                                Whitehall.content_store.content_item(path)
+                              rescue GdsApi::ContentStore::ItemNotFound
+                                :content_not_found
+                              end
+    @organisation_content != :content_not_found ? @organisation_content : nil
   end
 
   def set_cache_max_age
