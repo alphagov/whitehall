@@ -25,6 +25,7 @@ module PublishingApi
         #item.rendering_app is switched when preview is ready
         rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
         schema_name: "publication",
+        links: links,
       )
       content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
       content.merge!(PayloadBuilder::AccessLimitation.for(item))
