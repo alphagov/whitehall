@@ -1,5 +1,6 @@
 Given(/^a topical event called "(.*?)" with description "(.*?)"$/) do |name, description|
   @topical_event = create(:topical_event, name: name, description: description)
+  stub_topical_event_in_content_store(name)
 end
 
 Given(/^I have an offsite link "(.*?)" for the topical event "(.*?)"$/) do |title, topical_event_name|
@@ -8,11 +9,11 @@ Given(/^I have an offsite link "(.*?)" for the topical event "(.*?)"$/) do |titl
 end
 
 When /^I create a new topical event "([^"]*)" with description "([^"]*)"$/ do |name, description|
-  create_topical_event(name: name, description: description)
+  create_topical_event_and_stub_in_content_store(name: name, description: description)
 end
 
 When /^I create a new topical event "([^"]*)" with description "([^"]*)" and it ends today$/ do |name, description|
-  create_topical_event(name: name, description: description, start_date: 2.months.ago.to_date.to_s, end_date: Date.today.to_s)
+  create_topical_event_and_stub_in_content_store(name: name, description: description, start_date: 2.months.ago.to_date.to_s, end_date: Date.today.to_s)
 end
 
 Then /^I should see the topical event "([^"]*)" on the frontend is archived$/ do |topical_event_name|
@@ -133,7 +134,8 @@ Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" topical event p
 end
 
 Given(/^I'm administering a topical event$/) do
-  event = create(:topical_event)
+  event = create(:topical_event, name: "Name of event")
+  stub_topical_event_in_content_store("Name of event")
   visit admin_topical_event_path(event)
 end
 
@@ -159,7 +161,9 @@ Then(/^a link to the event's about page is visible$/) do
 end
 
 Given /^a topical event with published documents$/ do
-  @topical_event = create(:topical_event, name: 'Topical Event with Published Documents')
+  name = 'Topical Event with Published Documents'
+  @topical_event = create(:topical_event, name: name)
+  stub_topical_event_in_content_store(name)
   create_recently_published_documents_for_topical_event(@topical_event)
 end
 

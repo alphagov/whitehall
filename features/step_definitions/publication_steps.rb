@@ -1,3 +1,7 @@
+Given /^a list of publications exists$/ do
+  stub_organisation_homepage_in_content_store
+end
+
 Given /^a published publication "([^"]*)" exists that is about "([^"]*)"$/ do |publication_title, world_location_name|
   world_location = WorldLocation.find_by!(name: world_location_name)
   create(:published_publication, title: publication_title, world_locations: [world_location])

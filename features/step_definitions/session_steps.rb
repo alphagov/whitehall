@@ -19,7 +19,7 @@ Given /^I am (?:a|an) (writer|editor|admin|GDS editor|GDS admin|importer|managin
 end
 
 Given /^I am (?:an?) (admin|writer|editor|GDS editor) in the organisation "([^"]*)"$/ do |role, organisation_name|
-  organisation = Organisation.find_by(name: organisation_name) || create(:ministerial_department, name: organisation_name)
+  organisation = Organisation.find_by(name: organisation_name) || create_org_and_stub_content_store(:ministerial_department, name: organisation_name)
   @user = case role
   when "admin"
     create(:user, organisation: organisation)

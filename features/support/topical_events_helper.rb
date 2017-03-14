@@ -1,5 +1,5 @@
 module TopicalEventsHelper
-  def create_topical_event(options = {})
+  def create_topical_event_and_stub_in_content_store(options = {})
     visit admin_root_path
     click_link "Topical events"
     click_link "Create topical event"
@@ -8,6 +8,8 @@ module TopicalEventsHelper
     select_date (options[:start_date] || 1.day.ago.to_s), from: "Start Date"
     select_date (options[:end_date] || 1.month.from_now.to_s), from: "End Date"
     click_button "Save"
+
+    stub_topical_event_in_content_store(options[:name])
   end
 
   def create_recently_published_documents_for_topical_event(event)
@@ -26,6 +28,17 @@ module TopicalEventsHelper
       news_story: 'PM attends summit on topical events',
       statistics: 'Weekly topical event prices'
     }
+  end
+
+  def stub_topical_event_in_content_store(name)
+    content_item = {
+      format: "topical_event",
+      title: name,
+    }
+
+    base_path = topical_event_path(TopicalEvent.find_by!(name: name))
+
+    content_store_has_item(base_path, content_item)
   end
 end
 

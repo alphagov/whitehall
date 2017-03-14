@@ -60,8 +60,12 @@ class TopicalEvent < Classification
     slug.in?(%w[farming])
   end
 
-  def search_link
+  def base_path
     Whitehall.url_maker.topical_event_path(slug)
+  end
+
+  def search_link
+    base_path
   end
 
   private

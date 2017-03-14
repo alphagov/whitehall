@@ -1,5 +1,6 @@
 Given /^a topic called "([^"]*)" exists$/ do |name|
   @topic = create(:topic, name: name)
+  stub_topic_in_content_store(name)
 end
 
 Given /^a topic called "([^"]*)" with description "([^"]*)"$/ do |name, description|
@@ -38,9 +39,13 @@ end
 
 Given(/^a (topic|topical event) called "(.*?)" exists with featured documents$/) do |type, name|
   classification = if type == 'topic'
-    create(:topic, name: name)
+    topic = create(:topic, name: name)
+    stub_topic_in_content_store(name)
+    topic
   else
-    create(:topical_event, name: name)
+    topical_event = create(:topical_event, name: name)
+    stub_topical_event_in_content_store(name)
+    topical_event
   end
 
   create(:classification_featuring, classification: classification)
@@ -52,12 +57,12 @@ Given(/^I have an offsite link "(.*?)" for the topic "(.*?)"$/) do |title, topic
 end
 
 When /^I create a new topic "([^"]*)" with description "([^"]*)"$/ do |name, description|
-  create_topic(name: name, description: description)
+  create_topic_and_stub_content_store(name: name, description: description)
 end
 
 When /^I create a new topic "([^"]*)" related to topic "([^"]*)"$/ do |name, related_name|
-  create_topic(name: related_name)
-  create_topic(name: name, related_classifications: [related_name])
+  create_topic_and_stub_content_store(name: related_name)
+  create_topic_and_stub_content_store(name: name, related_classifications: [related_name])
 end
 
 When /^I edit the topic "([^"]*)" to have description "([^"]*)"$/ do |name, description|

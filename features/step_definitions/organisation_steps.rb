@@ -1,9 +1,13 @@
+Given /^a directory of organisations exists$/ do
+  stub_organisation_homepage_in_content_store
+end
+
 Given /^the organisation "([^"]*)" exists$/ do |name|
-  create(:ministerial_department, name: name)
+  create_org_and_stub_content_store(:ministerial_department, name: name)
 end
 
 Given(/^the organisation "(.*?)" exists with a featured article$/) do |name|
-  org = create(:ministerial_department, name: name)
+  org = create_org_and_stub_content_store(:ministerial_department, name: name)
   create(:feature_list, featurable: org, features: [create(:feature, document: create(:published_news_article).document)])
 end
 
@@ -26,7 +30,7 @@ Given /^two organisations "([^"]*)" and "([^"]*)" exist$/ do |first_organisation
 end
 
 Given /^the "([^"]*)" organisation is associated with several ministers and civil servants$/ do |organisation_name|
-  organisation = Organisation.find_by(name: organisation_name) || create(:ministerial_department, name: organisation_name)
+  organisation = Organisation.find_by(name: organisation_name) || create_org_and_stub_content_store(:ministerial_department, name: organisation_name)
   3.times do |x|
     person = create(:person)
     ministerial_role = create(:ministerial_role, cabinet_member: (x == 1))
@@ -42,19 +46,19 @@ Given /^the "([^"]*)" organisation is associated with several ministers and civi
 end
 
 Given /^the "([^"]*)" organisation is associated with traffic commissioners$/ do |organisation_name|
-  organisation = Organisation.find_by(name: organisation_name) || create(:ministerial_department, name: organisation_name)
+  organisation = Organisation.find_by(name: organisation_name) || create_org_and_stub_content_store(:ministerial_department, name: organisation_name)
   traffic_commissioner_role = create(:traffic_commissioner_role, name: "traffic-commissioner-role", organisations: [organisation])
   create(:role_appointment, role: traffic_commissioner_role)
 end
 
 Given /^the "([^"]*)" organisation is associated with scientific advisors$/ do |organisation_name|
-  organisation = Organisation.find_by(name: organisation_name) || create(:ministerial_department, name: organisation_name)
+  organisation = Organisation.find_by(name: organisation_name) || create_org_and_stub_content_store(:ministerial_department, name: organisation_name)
   chief_scientific_advisor_role = create(:chief_scientific_advisor_role, name: "csi-role", organisations: [organisation])
   create(:role_appointment, role: chief_scientific_advisor_role)
 end
 
 Given /^the "([^"]*)" organisation is associated with chief professional officers$/ do |organisation_name|
-  organisation = Organisation.find_by(name: organisation_name) || create(:ministerial_department, name: organisation_name)
+  organisation = Organisation.find_by(name: organisation_name) || create_org_and_stub_content_store(:ministerial_department, name: organisation_name)
   chief_professional_officer_role = create(:chief_professional_officer_role, name: "cmo-role", organisations: [organisation])
   create(:role_appointment, role: chief_professional_officer_role)
 end
@@ -65,7 +69,7 @@ Given /^a submitted corporate publication "([^"]*)" about the "([^"]*)"$/ do |pu
 end
 
 Given /^the organisation "([^"]*)" is associated with consultations "([^"]*)" and "([^"]*)"$/ do |name, consultation_1, consultation_2|
-  organisation = create(:organisation, name: name)
+  organisation = create_org_and_stub_content_store(:organisation, name: name)
   create(:published_consultation, title: consultation_1, organisations: [organisation])
   create(:published_consultation, title: consultation_2, organisations: [organisation])
 end
@@ -481,7 +485,9 @@ end
 
 Given /^the organisation "([^"]*)" exists with a translation for the locale "([^"]*)"$/ do |name, native_locale_name|
   locale_code = Locale.find_by_language_name(native_locale_name).code
-  create(:ministerial_department, name: name, translated_into: [locale_code])
+  organisation = create(:ministerial_department, name: name, translated_into: [locale_code])
+  stub_organisation_in_content_store(name, organisation.base_path)
+  stub_organisation_in_content_store(name, organisation.base_path, locale_code)
 end
 
 When /^I add a new translation to the organisation with:$/ do |table|
@@ -493,6 +499,9 @@ When /^I add a new translation to the organisation with:$/ do |table|
   select translation["locale"], from: "Locale"
   click_on "Create translation"
   fill_in_organisation_translation_form(translation)
+
+  locale_code = Locale.find_by_language_name(translation["locale"]).code
+  stub_organisation_in_content_store(organisation.name, organisation.base_path, locale_code)
 end
 
 When /^I edit the translation for the organisation setting:$/ do |table|
@@ -647,7 +656,7 @@ end
 
 Given(/^a closed organisation with documents which has been superseded by another$/) do
   @superseding_organisation  = create(:organisation)
-  @organisation              = create(:organisation, govuk_status: 'closed', govuk_closed_status: 'replaced', superseding_organisations: [@superseding_organisation])
+  @organisation              = create_org_and_stub_content_store(:organisation, govuk_status: 'closed', govuk_closed_status: 'replaced', superseding_organisations: [@superseding_organisation])
   @organisation_speech       = create(:published_speech, organisations: [@organisation])
   @organisation_consultation = create(:published_consultation, organisations: [@organisation])
   @organisation_publication  = create(:published_publication, organisations: [@organisation])

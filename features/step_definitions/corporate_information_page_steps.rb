@@ -109,6 +109,7 @@ end
 
 Given /^my organisation has a "(.*?)" corporate information page$/ do |page_title|
   @user.organisation ||= create(:organisation)
+  stub_organisation_in_content_store("Organisation name", @user.organisation.base_path)
   page_type = find_corporation_information_page_type_by_title(page_title)
   create(:corporate_information_page,
          corporate_information_page_type: page_type,

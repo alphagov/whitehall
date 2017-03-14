@@ -1,12 +1,14 @@
 require "test_helper"
+require 'gds_api/test_helpers/content_store'
 
 class TopicalEventsControllerTest < ActionController::TestCase
   include FeedHelper
+  include GdsApi::TestHelpers::ContentStore
 
   should_be_a_public_facing_controller
 
   test "#show displays primary featured editions in ordering defined by association" do
-    topical_event = create(:topical_event)
+    topical_event = create_topical_event_and_stub_in_content_store
     news_article = create(:published_news_article)
     publication = create(:published_publication)
     news_article_featuring = create(:classification_featuring, classification: topical_event, edition: news_article, ordering: 0)
@@ -18,7 +20,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
   end
 
   view_test "#show displays a maximum of 5 featured editions" do
-    topical_event = create(:topical_event)
+    topical_event = create_topical_event_and_stub_in_content_store
     editions = []
     7.times do |i|
       edition = create(:published_news_article)
@@ -31,7 +33,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
   end
 
   view_test 'show has a link to the atom feed' do
-    event = create(:topical_event)
+    event = create_topical_event_and_stub_in_content_store
 
     get :show, id: event
 
@@ -39,7 +41,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
   end
 
   view_test 'show has a link to email signup page' do
-    event = create(:topical_event)
+    event = create_topical_event_and_stub_in_content_store
 
     get :show, id: event
 
@@ -47,7 +49,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
   end
 
   view_test "#show displays extra org logos for first-world-war-centenary" do
-    topical_event = create(:topical_event, name: 'First World War Centenary')
+    topical_event = create_topical_event_and_stub_in_content_store(name: 'First World War Centenary')
     create(:organisation_classification, lead: true, classification: topical_event)
 
     get :show, id: topical_event
@@ -63,7 +65,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
   end
 
   view_test "#show doesn't show extra org logos for non first-world-war-centenary" do
-    topical_event = create(:topical_event, name: 'Something exciting')
+    topical_event = create_topical_event_and_stub_in_content_store(name: 'Something exciting')
     create(:organisation_classification, lead: true, classification: topical_event)
 
     get :show, id: topical_event
@@ -79,7 +81,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
   end
 
   test "sets a meta description" do
-    topical_event = create(:topical_event, description: 'my description')
+    topical_event = create_topical_event_and_stub_in_content_store(description: 'my description')
 
     get :show, id: topical_event
 
@@ -87,7 +89,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
   end
 
   view_test 'GET :show renders an atom feed' do
-    topical_event = create(:topical_event)
+    topical_event = create_topical_event_and_stub_in_content_store
     publication = create(:published_publication, topical_events: [topical_event])
 
     get :show, id: topical_event, format: :atom
@@ -102,5 +104,16 @@ class TopicalEventsControllerTest < ActionController::TestCase
 
       assert_select_atom_entries([publication])
     end
+  end
+
+  def create_topical_event_and_stub_in_content_store(*args)
+    topical_event = create(:topical_event, *args)
+    payload = {
+      format: "topical_event",
+      title: "Title of topical event",
+    }
+    content_store_has_item(topical_event.base_path, payload)
+
+    topical_event
   end
 end

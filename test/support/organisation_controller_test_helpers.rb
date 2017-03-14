@@ -1,10 +1,13 @@
+require 'gds_api/test_helpers/content_store'
+
 module OrganisationControllerTestHelpers
   extend ActiveSupport::Concern
+  include GdsApi::TestHelpers::ContentStore
 
   module ClassMethods
     def should_display_organisation_page_elements_for(org_type)
       test "#{org_type} sets meta description" do
-        organisation = create(org_type)
+        organisation = create_org_and_stub_content_store(org_type)
         create(:about_corporate_information_page, organisation: organisation, summary: 'my org description')
 
         get :show, id: organisation
@@ -13,7 +16,7 @@ module OrganisationControllerTestHelpers
       end
 
       view_test "#{org_type}:shows organisation name" do
-        organisation = create(org_type,
+        organisation = create_org_and_stub_content_store(org_type,
           logo_formatted_name: "unformatted name"
         )
         get :show, id: organisation
@@ -21,7 +24,7 @@ module OrganisationControllerTestHelpers
       end
 
       view_test "#{org_type}:shows a maximum of 6 featured editions" do
-        organisation = create(org_type)
+        organisation = create_org_and_stub_content_store(org_type)
         features = []
         feature_list = organisation.load_or_create_feature_list(:en)
         7.times do |i|
@@ -43,13 +46,13 @@ module OrganisationControllerTestHelpers
       end
 
       view_test "#{org_type}:should not display an empty featured editions section" do
-        organisation = create(org_type)
+        organisation = create_org_and_stub_content_store(org_type)
         get :show, id: organisation
         refute_select "#featured-documents article"
       end
 
       view_test "#{org_type}:presents the contact details of the organisation using hcard" do
-        organisation = create(org_type)
+        organisation = create_org_and_stub_content_store(org_type)
         organisation.contacts.create!(
           title: "Main",
           recipient: "Ministry of Pomp",
@@ -85,7 +88,7 @@ module OrganisationControllerTestHelpers
       end
 
       view_test "#{org_type}:show has atom feed autodiscovery link" do
-        organisation = create(org_type)
+        organisation = create_org_and_stub_content_store(org_type)
 
         get :show, id: organisation
 
@@ -93,7 +96,7 @@ module OrganisationControllerTestHelpers
       end
 
       view_test "#{org_type}:show includes a link to the atom feed and featured documents" do
-        organisation = create(org_type)
+        organisation = create_org_and_stub_content_store(org_type)
         feature_list = organisation.load_or_create_feature_list(:en)
         edition = create(:published_news_article, first_published_at: 1.days.ago)
         create(:feature, document: edition.document, feature_list: feature_list, ordering: 1)
@@ -109,7 +112,7 @@ module OrganisationControllerTestHelpers
                   create(:published_consultation, first_published_at: 3.days.ago),
                   create(:published_speech, first_published_at: 4.days.ago)]
 
-        organisation = create(org_type, editions: editions)
+        organisation = create_org_and_stub_content_store(org_type, editions: editions)
 
         feature_list = create(:feature_list, featurable: organisation, locale: :en)
         create(:feature, feature_list: feature_list, document: editions[0].document)
@@ -123,7 +126,7 @@ module OrganisationControllerTestHelpers
       end
 
       view_test "#{org_type}:should not show most recently published editions when there are none" do
-        organisation = create(org_type, editions: [])
+        organisation = create_org_and_stub_content_store(org_type, editions: [])
         get :show, id: organisation
 
         refute_select "h1", text: "Recently updated"
@@ -134,7 +137,7 @@ module OrganisationControllerTestHelpers
         flickr = create(:social_media_service, name: "Flickr")
         twitter_account = create(:social_media_account, social_media_service: twitter, url: "https://twitter.com/#!/bisgovuk")
         flickr_account = create(:social_media_account, social_media_service: flickr, url: "http://www.flickr.com/photos/bisgovuk")
-        organisation = create(org_type, social_media_accounts: [twitter_account, flickr_account])
+        organisation = create_org_and_stub_content_store(org_type, social_media_accounts: [twitter_account, flickr_account])
 
         get :show, id: organisation
 
@@ -143,7 +146,7 @@ module OrganisationControllerTestHelpers
       end
 
       view_test "#{org_type}:should not show list of links to social media accounts if there are none" do
-        organisation = create(org_type, social_media_accounts: [])
+        organisation = create_org_and_stub_content_store(org_type, social_media_accounts: [])
 
         get :show, id: organisation
 
@@ -151,7 +154,7 @@ module OrganisationControllerTestHelpers
       end
 
       view_test "#{org_type}:show has a link to govdelivery if one exists and featured documents" do
-        organisation = create(org_type)
+        organisation = create_org_and_stub_content_store(org_type)
         feature_list = organisation.load_or_create_feature_list(:en)
         edition = create(:published_news_article, first_published_at: 1.days.ago)
         create(:feature, document: edition.document, feature_list: feature_list, ordering: 1)
@@ -162,7 +165,7 @@ module OrganisationControllerTestHelpers
       end
 
       view_test "#{org_type}:show has link to published corporate information pages" do
-        organisation = create(org_type)
+        organisation = create_org_and_stub_content_store(org_type)
         corporate_information_page = create(:published_corporate_information_page, organisation: organisation, corporate_information_page_type_id: CorporateInformationPageType::TermsOfReference.id)
         draft_corporate_information_page = create(:corporate_information_page, organisation: organisation, corporate_information_page_type_id: CorporateInformationPageType::ComplaintsProcedure.id)
 
@@ -172,5 +175,16 @@ module OrganisationControllerTestHelpers
         refute_select ".corporate-information a[href='#{organisation_corporate_information_page_path(organisation, draft_corporate_information_page.slug)}']"
       end
     end
+  end
+
+  def create_org_and_stub_content_store(*args)
+    organisation = create(*args)
+    content_item = {
+      format: "organisation",
+      title: "Title of organisation",
+    }
+    content_store_has_item(organisation.base_path, content_item)
+
+    organisation
   end
 end

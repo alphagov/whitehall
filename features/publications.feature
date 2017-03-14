@@ -72,6 +72,7 @@ Scenario: Viewing a publication that's been submitted for review with a PDF atta
 @not-quite-as-fake-search
 Scenario: Viewing published publications
   Given a published publication "Lamb chops on baker's faces" with a PDF attachment
+  And a list of publications exists
   When I visit the list of publications
   Then I should see the publication "Lamb chops on baker's faces"
   And I should see the summary of the publication "Lamb chops on baker's faces"

@@ -10,6 +10,9 @@
 
     <%= meta_description_tag %>
 
+    <%= render partial: 'govuk_component/analytics_meta_tags',
+      locals: { content_item: @content_item } %>
+
     <title><%= page_title %></title>
     <%-
       stylesheet_base = local_assigns[:stylesheet] || "base"
