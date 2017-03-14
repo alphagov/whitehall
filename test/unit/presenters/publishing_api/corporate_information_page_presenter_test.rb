@@ -43,6 +43,10 @@ module PublishingApi::CorporateInformationPagePresenterTest
     def assert_details_payload(builder)
       assert_payload builder, data: -> { presented_content[:details] }
     end
+
+    def refute_details_attribute(attribute)
+      refute presented_content[:details].key?(attribute)
+    end
   end
 
   class BasicCorporateInformationPageTest < TestCase
@@ -81,6 +85,10 @@ module PublishingApi::CorporateInformationPagePresenterTest
       Whitehall::GovspeakRenderer.expects(:new).returns(govspeak_renderer)
 
       assert_details_attribute :body, body_double
+    end
+
+    test 'corporate information groups' do
+      refute_details_attribute :corporate_information_groups
     end
 
     test 'description' do
@@ -124,8 +132,90 @@ module PublishingApi::CorporateInformationPagePresenterTest
 
   class AboutCorporateInformationPage < TestCase
     setup do
+      organisation = create(
+        :organisation,
+        organisation_chart_url: 'https://www.example.com/path/to/org/chart',
+      )
+
       self.corporate_information_page =
-        create(:about_corporate_information_page)
+        create(:about_corporate_information_page, organisation: organisation)
+
+      @complaints_procedure_corporate_information_page =
+        create(:complaints_procedure_corporate_information_page,
+               organisation: organisation)
+
+      @our_energy_use_corporate_information_page =
+        create(:our_energy_use_corporate_information_page,
+               organisation: organisation)
+
+      @procurement_corporate_information_page =
+        create(:procurement_corporate_information_page,
+               organisation: organisation)
+
+      @recruitment_corporate_information_page =
+        create(:recruitment_corporate_information_page,
+               organisation: organisation)
+
+      create_list(:published_publication, 2, :corporate,
+                  organisations: [organisation])
+
+      create_list(:published_publication, 2, :transparency_data,
+                  organisations: [organisation])
+    end
+
+    test 'corporate information groups' do
+      organisation_chart = {
+        title: 'Our organisation chart',
+        url: corporate_information_page.organisation.organisation_chart_url,
+      }
+
+      jobs = [
+        @procurement_corporate_information_page.content_id,
+        @recruitment_corporate_information_page.content_id,
+        {
+          title: 'Jobs',
+          url: corporate_information_page.organisation.jobs_url,
+        },
+      ]
+
+      our_information = [
+        @complaints_procedure_corporate_information_page.content_id,
+        @our_energy_use_corporate_information_page.content_id,
+      ]
+
+      corporate_reports_publications_filter = {
+        title: 'Corporate reports',
+        path: '/government/publications?' +
+          "departments%5B%5D=#{corporate_information_page.organisation.slug}&" +
+          'publication_type=corporate-reports',
+      }
+
+      transparency_data_publications_filter = {
+        title: 'Transparency data',
+        path: '/government/publications?' +
+          "departments%5B%5D=#{corporate_information_page.organisation.slug}&" +
+          'publication_type=transparency-data',
+      }
+
+      expected_groups = [
+        {
+          name: 'Access our information',
+          contents: [].tap { |contents|
+            contents.push(organisation_chart)
+            contents.push(*our_information)
+            contents.push(corporate_reports_publications_filter)
+            contents.push(transparency_data_publications_filter)
+          },
+        },
+        {
+          name: 'Jobs and contracts',
+          contents: [].tap { |contents|
+            contents.push(*jobs)
+          },
+        }
+      ]
+
+      assert_details_attribute :corporate_information_groups, expected_groups
     end
 
     test 'document type' do

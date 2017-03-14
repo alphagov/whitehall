@@ -17,7 +17,28 @@ FactoryGirl.define do
   factory :complaints_procedure_corporate_information_page,
           parent: :published_corporate_information_page do
     corporate_information_page_type_id(
-      CorporateInformationPageType::ComplaintsProcedure.id
+      CorporateInformationPageType::ComplaintsProcedure.id,
+    )
+  end
+
+  factory :our_energy_use_corporate_information_page,
+          parent: :published_corporate_information_page do
+    corporate_information_page_type_id(
+      CorporateInformationPageType::OurEnergyUse.id,
+    )
+  end
+
+  factory :procurement_corporate_information_page,
+          parent: :published_corporate_information_page do
+    corporate_information_page_type_id(
+      CorporateInformationPageType::Procurement.id,
+    )
+  end
+
+  factory :recruitment_corporate_information_page,
+          parent: :published_corporate_information_page do
+    corporate_information_page_type_id(
+      CorporateInformationPageType::Recruitment.id,
     )
   end
 
