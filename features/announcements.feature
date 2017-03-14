@@ -1,5 +1,8 @@
 Feature: Announcements
 
+Background:
+  Given I can navigate to the list of announcements
+
 @not-quite-as-fake-search
 Scenario: Viewing news articles and speeches together on the news and speeches page
   Given a published news article "Crackdown on tax avoidance" exists

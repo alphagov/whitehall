@@ -14,6 +14,11 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   setup do
     rummager_has_no_policies_for_any_type
+
+    content_store_has_item(
+      "/government/organisations",
+      format: "finder",
+      title: "Title of organisations homepage")
   end
 
   ### Describing :index ###
@@ -95,7 +100,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   view_test "showing an organisation without a list of contacts doesn't try to create one" do
     # needs to be a view_test so the entire view is rendered
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     get :show, id: organisation
 
     organisation.reload
@@ -106,7 +111,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     management_role = create(:board_member_role)
     management = create(:role_appointment, role: management_role, person: create(:person))
     contact = create(:contact)
-    organisation = create(:organisation, management_roles: [management_role])
+    organisation = create_org_and_stub_content_store(:organisation, management_roles: [management_role])
     create(:sub_organisation, parent_organisations: [organisation])
     role = create(:ministerial_role, role_appointments: [create(:role_appointment)])
     create(:organisation_role, organisation: organisation, role: role)
@@ -130,7 +135,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   def self.sets_cache_control_max_age_to_time_of_next_scheduled(edition_type)
     test "#show sets Cache-Control: max-age to the time of the next scheduled #{edition_type}" do
-      organisation = create(:ministerial_department)
+      organisation = create_org_and_stub_content_store(:ministerial_department)
       edition = if block_given?
         yield organisation
       else
@@ -162,7 +167,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     chief_of_the_defence_staff = create(:military_role, chief_of_the_defence_staff: true)
     person = create(:person)
     create(:role_appointment, role: chief_of_the_defence_staff, person: person)
-    organisation = create(:organisation, roles: [chief_of_the_defence_staff])
+    organisation = create_org_and_stub_content_store(:organisation, roles: [chief_of_the_defence_staff])
 
     get :show, id: organisation
 
@@ -172,7 +177,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "#show doesn't present expanded navigation for non-department organisations" do
-    organisation = create(:organisation, organisation_type: OrganisationType.other)
+    organisation = create_org_and_stub_content_store(:organisation, organisation_type: OrganisationType.other)
     get :show, id: organisation
     assert_select "nav" do
       refute_select "a[href=?]", announcements_path(departments: [organisation])
@@ -182,19 +187,19 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "#show uses the correct logo type branding" do
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     get :show, id: organisation
     assert_select ".organisation-logo-stacked-single-identity"
   end
 
   view_test "#show indicates when an organisation is not part of the single identity branding" do
-    organisation = create(:organisation, organisation_logo_type_id: OrganisationLogoType::NoIdentity.id)
+    organisation = create_org_and_stub_content_store(:organisation, organisation_logo_type_id: OrganisationLogoType::NoIdentity.id)
     get :show, id: organisation
     assert_select ".organisation-logo-stacked-no-identity"
   end
 
   view_test "#show uses a custom logo in the h1 tag, instead of usual branding" do
-    organisation = create(
+    organisation = create_org_and_stub_content_store(
       :organisation,
       organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
       logo: fixture_file_upload('logo.png')
@@ -206,7 +211,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   view_test "#show includes the parent organisations for sub-organisations in the header" do
     organisation = create(:organisation, logo_formatted_name: "Ministry of Jam")
-    sub_organisation = create(:sub_organisation, name: "Marmalade Inspection Board", logo_formatted_name: "Marmalade Inspection Board", parent_organisations: [organisation])
+    sub_organisation = create_org_and_stub_content_store(:sub_organisation, name: "Marmalade Inspection Board", logo_formatted_name: "Marmalade Inspection Board", parent_organisations: [organisation])
 
     get :show, id: sub_organisation.slug
 
@@ -219,13 +224,13 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "#show uses the correct organisation brand colour" do
-    organisation = create(:organisation, organisation_brand_colour_id: OrganisationBrandColour::HMGovernment.id)
+    organisation = create_org_and_stub_content_store(:organisation, organisation_brand_colour_id: OrganisationBrandColour::HMGovernment.id)
     get :show, id: organisation
     assert_select ".hm-government-brand-colour"
   end
 
   test "showing a live organisation renders the show template" do
-    organisation = create(:organisation, govuk_status: 'live')
+    organisation = create_org_and_stub_content_store(:organisation, govuk_status: 'live')
 
     get :show, id: organisation
 
@@ -233,7 +238,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "showing a live promotional style organisation renders the show promotional template" do
-    organisation = create(:executive_office, govuk_status: 'live')
+    organisation = create_org_and_stub_content_store(:executive_office, govuk_status: 'live')
 
     get :show, id: organisation
 
@@ -241,7 +246,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "promotional template shows featured policies if there are any" do
-    organisation = create(:executive_office, govuk_status: 'live')
+    organisation = create_org_and_stub_content_store(:executive_office, govuk_status: 'live')
     policies = publishing_api_has_policies(['test-policy'])
     create(:featured_policy, organisation: organisation, policy_content_id: policies.first["content_id"])
 
@@ -251,7 +256,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "showing a joining organisation renders the not live template" do
-    organisation = create(:organisation, govuk_status: 'joining')
+    organisation = create_org_and_stub_content_store(:organisation, govuk_status: 'joining')
 
     get :show, id: organisation
 
@@ -259,7 +264,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "showing an exempt organisation renders the not live template" do
-    organisation = create(:organisation, govuk_status: 'exempt')
+    organisation = create_org_and_stub_content_store(:organisation, govuk_status: 'exempt')
 
     get :show, id: organisation
 
@@ -267,7 +272,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "showing an transitioning organisation renders the not live template" do
-    organisation = create(:organisation, govuk_status: 'transitioning')
+    organisation = create_org_and_stub_content_store(:organisation, govuk_status: 'transitioning')
 
     get :show, id: organisation
 
@@ -275,7 +280,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "showing a closed organisation renders the not live template" do
-    organisation = create(:closed_organisation)
+    organisation = create_org_and_stub_content_store(:closed_organisation)
 
     get :show, id: organisation
 
@@ -283,7 +288,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "showing a closed organisation does not render the parent_organisations or the url" do
-    organisation = create(:closed_organisation)
+    organisation = create_org_and_stub_content_store(:closed_organisation)
 
     get :show, id: organisation
 
@@ -293,7 +298,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "showing a transitioning court or tribunal does not render the parent_organisations or the url" do
-    organisation = create(:hmcts_tribunal, govuk_status: 'transitioning')
+    organisation = create_org_and_stub_content_store(:hmcts_tribunal, govuk_status: 'transitioning')
 
     get :show, id: organisation, courts_only: true
 
@@ -303,7 +308,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "doesn't show a thumbnail if the organisation has no url" do
-    organisation = create(:organisation, govuk_status: 'exempt', url: '')
+    organisation = create_org_and_stub_content_store(:organisation, govuk_status: 'exempt', url: '')
     create(:published_corporate_information_page, organisation: organisation)
 
     get :show, id: organisation
@@ -313,7 +318,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "doesn't show a thumbnail if the organisation is closed" do
-    organisation = create(:closed_organisation, url: 'http://madeup-url.com')
+    organisation = create_org_and_stub_content_store(:closed_organisation, url: 'http://madeup-url.com')
     create(:published_corporate_information_page, organisation: organisation)
 
     get :show, id: organisation
@@ -323,13 +328,13 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "should not display an empty published policies section" do
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     get :show, id: organisation
     refute_select "#policies"
   end
 
   view_test "should not display an empty published document sections" do
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     get :show, id: organisation
     refute_select "#publications"
     refute_select "#consultations"
@@ -338,31 +343,31 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "should not display the child organisations section" do
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     get :show, id: organisation
     refute_select "#child_organisations"
   end
 
   view_test "should not display the parent organisations section" do
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     get :show, id: organisation
     refute_select "#parent_organisations"
   end
 
   view_test "shows that courts are 'administered by' their parent organisation" do
-    court = create(:court)
+    court = create_org_and_stub_content_store(:court)
     get :show, id: court, courts_only: true
     assert_select "p.parent-organisations", text: /Administered by\s+HMCTS/m
   end
 
   view_test "shows that HMCTS tribunals are 'administered by' HMCTS" do
-    hmcts_tribunal = create(:hmcts_tribunal)
+    hmcts_tribunal = create_org_and_stub_content_store(:hmcts_tribunal)
     get :show, id: hmcts_tribunal, courts_only: true
     assert_select "p.parent-organisations", text: /Administered by\s+HMCTS/m
   end
 
   view_test "should display the organisation's policies with content" do
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     policy = publishing_api_has_policies(['Welfare reform']).first
     create(:featured_policy, organisation: organisation, policy_content_id: policy["content_id"])
 
@@ -382,7 +387,7 @@ class OrganisationsControllerTest < ActionController::TestCase
       "State Pension age",
     ]
 
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     policies = publishing_api_has_policies(first_three_policy_titles)
     create(:featured_policy, organisation: organisation, policy_content_id: policies[0]["content_id"])
     create(:featured_policy, organisation: organisation, policy_content_id: policies[1]["content_id"])
@@ -394,7 +399,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "should display 2 announcements in reverse chronological order" do
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     role = create(:ministerial_role, organisations: [organisation])
     role_appointment = create(:ministerial_role_appointment, role: role)
     announcement_1 = create(:published_news_article, organisations: [organisation], first_published_at: 2.days.ago)
@@ -407,7 +412,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "should display 2 announcements with details and a link to announcements filter if there are many announcements" do
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     announcement_1 = create(:published_news_article, organisations: [organisation], first_published_at: 1.days.ago)
     announcement_2 = create(:published_speech, organisations: [organisation], first_published_at: 2.days.ago.to_date, speech_type: SpeechType::WrittenStatement)
     announcement_3 = create(:published_news_article, organisations: [organisation], first_published_at: 3.days.ago)
@@ -429,7 +434,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "should display 2 consultations in reverse chronological order" do
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     consultation_2 = create(:published_consultation, organisations: [organisation], first_published_at: 2.days.ago)
     _consultation_3 = create(:published_consultation, organisations: [organisation], first_published_at: 3.days.ago)
     consultation_1 = create(:published_consultation, organisations: [organisation], first_published_at: 1.day.ago)
@@ -440,7 +445,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "should display 2 consultations with details and a link to publications filter if there are many consultations" do
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     consultation_3 = create(:published_consultation, organisations: [organisation], first_published_at: 5.days.ago, opening_at: 5.days.ago, closing_at: 1.days.ago)
     consultation_2 = create(:published_consultation, organisations: [organisation], first_published_at: 4.days.ago, opening_at: 4.days.ago, closing_at: 1.days.ago)
     consultation_1 = create(:published_consultation, organisations: [organisation], first_published_at: 3.days.ago, opening_at: 3.days.ago)
@@ -465,7 +470,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "should display organisation's latest two non-statistics and non-consultation publications in reverse chronological order" do
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     publication_2 = create(:published_publication, organisations: [organisation], first_published_at: 2.days.ago)
     publication_3 = create(:published_publication, organisations: [organisation], first_published_at: 3.days.ago)
     publication_1 = create(:published_publication, organisations: [organisation], first_published_at: 1.day.ago)
@@ -479,7 +484,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "should display 2 non-statistics publications with details and a link to publications filter if there are many publications" do
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     publication_2 = create(:published_publication, organisations: [organisation], first_published_at: 2.days.ago.to_date, publication_type: PublicationType::PolicyPaper)
     publication_3 = create(:published_publication, organisations: [organisation], first_published_at: 3.days.ago.to_date, publication_type: PublicationType::PolicyPaper)
     publication_1 = create(:published_publication, organisations: [organisation], first_published_at: 1.day.ago.to_date, publication_type: PublicationType::OfficialStatistics)
@@ -498,7 +503,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "should display organisation's latest two statistics publications in reverse chronological order" do
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     publication_2 = create(:published_publication, organisations: [organisation], first_published_at: 2.days.ago, publication_type: PublicationType::OfficialStatistics)
     publication_3 = create(:published_publication, organisations: [organisation], first_published_at: 3.days.ago, publication_type: PublicationType::OfficialStatistics)
     publication_1 = create(:published_publication, organisations: [organisation], first_published_at: 1.day.ago, publication_type: PublicationType::NationalStatistics)
@@ -507,7 +512,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "should display 2 statistics publications with details and a link to publications filter if there are many publications" do
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     publication_2 = create(:published_publication, organisations: [organisation], first_published_at: 2.days.ago.to_date, publication_type: PublicationType::OfficialStatistics)
     publication_3 = create(:published_publication, organisations: [organisation], first_published_at: 3.days.ago.to_date, publication_type: PublicationType::OfficialStatistics)
     publication_1 = create(:published_publication, organisations: [organisation], first_published_at: 1.day.ago.to_date, publication_type: PublicationType::NationalStatistics)
@@ -526,7 +531,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "should exclude corporate information pages from Latest block" do
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     cip = create(:published_corporate_information_page, organisation: organisation, first_published_at: 1.day.ago.to_date)
     publication_1 = create(:published_publication, organisations: [organisation], first_published_at: 1.day.ago.to_date, publication_type: PublicationType::NationalStatistics)
     publication_2 = create(:published_publication, organisations: [organisation], first_published_at: 2.day.ago.to_date, publication_type: PublicationType::NationalStatistics)
@@ -536,7 +541,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "should display sub-organisations" do
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     sub_organisation = create(:sub_organisation, parent_organisations: [organisation])
 
     get :show, id: organisation
@@ -547,7 +552,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "show generates an atom feed with entries for latest activity" do
-    organisation = create(:organisation, name: "org-name")
+    organisation = create_org_and_stub_content_store(:organisation, name: "org-name")
     pub = create(:published_publication, organisations: [organisation], first_published_at: 4.weeks.ago.to_date)
     news = create(:published_news_article, organisations: [organisation], first_published_at: 2.weeks.ago)
 
@@ -559,7 +564,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "show should include a rel='alternate' link to the organisation's JSON representation" do
-    organisation = create(:organisation, name: "org-name")
+    organisation = create_org_and_stub_content_store(:organisation, name: "org-name")
 
     get :show, id: organisation
 
@@ -569,7 +574,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   test "shows ministerial roles in the specified order" do
     junior_role = create(:ministerial_role, role_appointments: [create(:role_appointment)])
     senior_role = create(:ministerial_role, role_appointments: [create(:role_appointment)])
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     create(:organisation_role, organisation: organisation, role: junior_role, ordering: 2)
     create(:organisation_role, organisation: organisation, role: senior_role, ordering: 1)
 
@@ -581,7 +586,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   test "only shows ministerials roles for which there are people currently appointed" do
     assigned_role = create(:ministerial_role, role_appointments: [create(:role_appointment)])
     vacant_role = create(:ministerial_role)
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     create(:organisation_role, organisation: organisation, role: assigned_role, ordering: 2)
     create(:organisation_role, organisation: organisation, role: vacant_role, ordering: 1)
 
@@ -593,7 +598,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   test "shows traffic commissioner roles in the specified order" do
     junior_role = create(:traffic_commissioner_role, role_appointments: [create(:role_appointment)])
     senior_role = create(:traffic_commissioner_role, role_appointments: [create(:role_appointment)])
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     create(:organisation_role, organisation: organisation, role: junior_role, ordering: 2)
     create(:organisation_role, organisation: organisation, role: senior_role, ordering: 1)
 
@@ -605,7 +610,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   test "shows chief professional officer roles in the specified order" do
     junior_role = create(:chief_professional_officer_role, role_appointments: [create(:role_appointment)])
     senior_role = create(:chief_professional_officer_role, role_appointments: [create(:role_appointment)])
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     create(:organisation_role, organisation: organisation, role: junior_role, ordering: 2)
     create(:organisation_role, organisation: organisation, role: senior_role, ordering: 1)
 
@@ -617,7 +622,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   test "shows judge roles in the specified order" do
     junior_role = create(:judge_role, role_appointments: [create(:role_appointment)])
     senior_role = create(:judge_role, role_appointments: [create(:role_appointment)])
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     create(:organisation_role, organisation: organisation, role: junior_role, ordering: 2)
     create(:organisation_role, organisation: organisation, role: senior_role, ordering: 1)
 
@@ -629,7 +634,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   test "shows military roles in the specified order" do
     junior_role = create(:military_role, role_appointments: [create(:role_appointment)])
     senior_role = create(:military_role, role_appointments: [create(:role_appointment)])
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     create(:organisation_role, organisation: organisation, role: junior_role, ordering: 2)
     create(:organisation_role, organisation: organisation, role: senior_role, ordering: 1)
 
@@ -642,7 +647,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     minister = create(:ministerial_role)
     person = create(:person)
     create(:role_appointment, role: minister, person: person)
-    organisation = create(:organisation, ministerial_roles: [minister])
+    organisation = create_org_and_stub_content_store(:organisation, ministerial_roles: [minister])
 
     get :show, id: organisation
 
@@ -658,7 +663,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     ministerial_role_2 = create(:ministerial_role, name: "Minister of State")
     create(:role_appointment, person: person_1, role: ministerial_role_1)
     create(:role_appointment, person: person_2, role: ministerial_role_2)
-    organisation = create(:organisation, ministerial_roles: [ministerial_role_1, ministerial_role_2])
+    organisation = create_org_and_stub_content_store(:organisation, ministerial_roles: [ministerial_role_1, ministerial_role_2])
     minister_in_another_organisation = create(:ministerial_role)
 
     get :show, id: organisation
@@ -678,7 +683,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     ministerial_role = create(:ministerial_role)
     person = create(:person, image: image_fixture_file)
     create(:role_appointment, person: person, role: ministerial_role)
-    organisation = create(:organisation, ministerial_roles: [ministerial_role])
+    organisation = create_org_and_stub_content_store(:organisation, ministerial_roles: [ministerial_role])
     get :show, id: organisation
     assert_select "img[src*='minister-of-funk.960x640.jpg']"
   end
@@ -687,7 +692,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     ministerial_role = create(:ministerial_role)
     person = create(:person)
     create(:role_appointment, person: person, role: ministerial_role)
-    organisation = create(:organisation, ministerial_roles: [ministerial_role])
+    organisation = create_org_and_stub_content_store(:organisation, ministerial_roles: [ministerial_role])
     get :show, id: organisation
     assert_select "div.blank-person div.blank-person-inner"
   end
@@ -699,7 +704,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     junior = create(:board_member_role)
     junior_person = create(:person)
     create(:role_appointment, role: junior, person: junior_person)
-    organisation = create(:organisation, management_roles: [permanent_secretary, junior])
+    organisation = create_org_and_stub_content_store(:organisation, management_roles: [permanent_secretary, junior])
 
     get :show, id: organisation
 
@@ -714,7 +719,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "should not display an empty management team section" do
-    organisation = create(:organisation, management_roles: [])
+    organisation = create_org_and_stub_content_store(:organisation, management_roles: [])
 
     get :show, id: organisation
 
@@ -726,7 +731,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     special_representative_role = create(:special_representative_role)
     create(:role_appointment, role: special_representative_role, person: representative)
 
-    organisation = create(:organisation, special_representative_roles: [special_representative_role])
+    organisation = create_org_and_stub_content_store(:organisation, special_representative_roles: [special_representative_role])
 
     get :show, id: organisation
 
@@ -738,7 +743,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "should not display an empty special representatives section" do
-    organisation = create(:organisation, special_representative_roles: [])
+    organisation = create_org_and_stub_content_store(:organisation, special_representative_roles: [])
 
     get :show, id: organisation
 
@@ -746,14 +751,14 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "should place organisation brand colour css class on organisation pages" do
-    organisation = create(:organisation, organisation_type: OrganisationType.ministerial_department, organisation_brand_colour_id: OrganisationBrandColour::HMGovernment.id)
+    organisation = create_org_and_stub_content_store(:organisation, organisation_type: OrganisationType.ministerial_department, organisation_brand_colour_id: OrganisationBrandColour::HMGovernment.id)
 
     get :show, id: organisation
     assert_select "##{dom_id(organisation)}.#{organisation.organisation_brand_colour.class_name}-brand-colour.ministerial-department"
   end
 
   view_test "should show featured links if there are some" do
-    organisation = create(:organisation,)
+    organisation = create_org_and_stub_content_store(:organisation,)
     featured_link = create(:featured_link, linkable: organisation)
     get :show, id: organisation
 
@@ -763,77 +768,77 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "should set slimmer analytics headers on organisation pages" do
-    organisation = create(:organisation, acronym: "ABC")
+    organisation = create_org_and_stub_content_store(:organisation, acronym: "ABC")
     get :show, id: organisation
     assert_equal "<#{organisation.analytics_identifier}>", response.headers["X-Slimmer-Organisations"]
     assert_equal organisation.acronym.downcase, response.headers["X-Slimmer-Page-Owner"]
   end
 
   view_test "should show FOI contact information if not exempt" do
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     get :show, id: organisation
     assert_select '#freedom-of-information', /Make an FOI request/
   end
 
   view_test "should show FOI exemption notice if exempt" do
-    organisation = create(:organisation, foi_exempt: true)
+    organisation = create_org_and_stub_content_store(:organisation, foi_exempt: true)
     get :show, id: organisation
     assert_select '#freedom-of-information', /not covered by the Freedom of Information Act/
   end
 
   view_test "should not show FOI for courts" do
-    court = create(:court)
+    court = create_org_and_stub_content_store(:court)
     get :show, id: court, courts_only: true
     refute_select '#freedom-of-information'
   end
 
   view_test "should not show FOI for HMCTS tribunals" do
-    hmcts_tribunal = create(:hmcts_tribunal)
+    hmcts_tribunal = create_org_and_stub_content_store(:hmcts_tribunal)
     get :show, id: hmcts_tribunal, courts_only: true
     refute_select '#freedom-of-information'
   end
 
   test "should not show Courts from the organisations namespace" do
     assert_raises(ActiveRecord::RecordNotFound) do
-      court = create(:court)
+      court = create_org_and_stub_content_store(:court)
       get :show, id: court
     end
   end
 
   test "should not show Tribunals from the organisations namespace" do
     assert_raises(ActiveRecord::RecordNotFound) do
-      hmcts_tribunal = create(:hmcts_tribunal)
+      hmcts_tribunal = create_org_and_stub_content_store(:hmcts_tribunal)
       get :show, id: hmcts_tribunal
     end
   end
 
   test "should not show Organisations from the courts-and-tribunals namespace" do
     assert_raises(ActiveRecord::RecordNotFound) do
-      organisation = create(:organisation)
+      organisation = create_org_and_stub_content_store(:organisation)
       get :show, id: organisation, courts_only: true
     end
   end
 
   view_test "shows a beta banner for courts" do
-    court = create(:court)
+    court = create_org_and_stub_content_store(:court)
     get :show, id: court, courts_only: true
     assert_select "test-govuk-component[data-template=govuk_component-beta_label]"
   end
 
   view_test "shows a beta banner for HMCTS tribunals" do
-    hmcts_tribunal = create(:hmcts_tribunal)
+    hmcts_tribunal = create_org_and_stub_content_store(:hmcts_tribunal)
     get :show, id: hmcts_tribunal, courts_only: true
     assert_select "test-govuk-component[data-template=govuk_component-beta_label]"
   end
 
   view_test "does not show a beta banner for organisations" do
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     get :show, id: organisation
     refute_select "test-govuk-component[data-template=govuk_component-beta_label]"
   end
 
   view_test "organisations show the 'About Us' summary and link to page under 'What we do'" do
-    organisation = create(:organisation, parent_organisations: [create(:organisation)])
+    organisation = create_org_and_stub_content_store(:organisation, parent_organisations: [create_org_and_stub_content_store(:organisation)])
     create(:about_corporate_information_page, organisation: organisation, summary: "This is *what* we do")
     get :show, id: organisation
 
@@ -846,7 +851,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "courts show the 'About Us' body as govspeak under 'What we do', with no link to the page" do
-    court = create(:court)
+    court = create_org_and_stub_content_store(:court)
     create(:about_corporate_information_page, organisation: court, body: "This is *who* we are")
     get :show, id: court, courts_only: true
 
@@ -859,7 +864,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "HMCTS tribunals show the 'About Us' body as govspeak under 'Who we are', with no link to the page" do
-    hmcts_tribunal = create(:hmcts_tribunal)
+    hmcts_tribunal = create_org_and_stub_content_store(:hmcts_tribunal)
     create(:about_corporate_information_page, organisation: hmcts_tribunal, body: "This is *who* we are")
     get :show, id: hmcts_tribunal, courts_only: true
 
@@ -872,7 +877,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "auto-links comments in contacts" do
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     contact = create(:contact, comments: "This is a link: http://www.example.com")
     organisation.add_contact_to_home_page!(contact)
 
@@ -884,19 +889,19 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "organisations shows the default Jobs link" do
-    organisation = create(:organisation)
+    organisation = create_org_and_stub_content_store(:organisation)
     get :show, id: organisation
     assert_select "a", text: "Jobs"
   end
 
   view_test "courts don't show a Jobs link" do
-    court = create(:court)
+    court = create_org_and_stub_content_store(:court)
     get :show, id: court, courts_only: true
     refute_select "a", text: "Jobs"
   end
 
   view_test "HMCTS tribunals don't show a Jobs link" do
-    hmcts_tribunal = create(:hmcts_tribunal)
+    hmcts_tribunal = create_org_and_stub_content_store(:hmcts_tribunal)
     get :show, id: hmcts_tribunal, courts_only: true
     refute_select "a", text: "Jobs"
   end

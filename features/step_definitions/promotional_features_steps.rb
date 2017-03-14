@@ -1,5 +1,5 @@
 Given /^the executive office organisation "([^"]*)" exists$/ do |organisation_name|
-  @executive_office = create(:executive_office, name: organisation_name)
+  @executive_office = create_org_and_stub_content_store(:executive_office, name: organisation_name)
 end
 
 Given /^the executive office has a promotional feature with an item$/ do

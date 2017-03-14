@@ -1,5 +1,5 @@
 Given /^there is an organisation with some contacts on its home page$/ do
-  @the_organisation = create(:organisation)
+  @the_organisation = create_org_and_stub_content_store(:organisation, name: "Name of org with contacts")
   contact_1 = create(:contact, contactable: @the_organisation, title: 'Main office')
   contact_2 = create(:contact, contactable: @the_organisation, title: 'Summer office by the lake')
   contact_3 = create(:contact, contactable: @the_organisation, title: 'Emergency bunker office')

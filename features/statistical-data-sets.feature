@@ -10,6 +10,7 @@ Feature: Statistical data sets
     Given a published document collection "Free flow speeds" exists
     And a published publication that's part of the "Free flow speeds" document collection
     And a published statistical data set "Vehicle speeds 2010" that's part of the "Free flow speeds" document collection
+    And a list of publications exists
     When I visit the list of publications
     And I follow the link to the "Free flow speeds" document collection
     Then I should see the "Vehicle speeds 2010" statistical data set

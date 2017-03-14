@@ -3,6 +3,7 @@ class TopicalEventsController < ClassificationsController
 
   def show
     @classification = TopicalEvent.friendly.find(params[:id])
+    @content_item = Whitehall.content_store.content_item(@classification.base_path)
     @publications = fetch_associated(:published_publications, PublicationesquePresenter)
     @consultations = fetch_associated(:published_consultations, PublicationesquePresenter)
     @announcements = fetch_associated(:published_announcements, AnnouncementPresenter)

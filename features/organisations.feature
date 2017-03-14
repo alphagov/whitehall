@@ -2,6 +2,7 @@ Feature: Administering Organisations
 
 Background:
   Given I am an admin in the organisation "Ministry of Pop"
+  And a directory of organisations exists
   And a world location "United Kingdom" exists
 
 Scenario: Adding an Organisation

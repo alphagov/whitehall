@@ -383,8 +383,12 @@ class Organisation < ActiveRecord::Base
     end
   end
 
-  def search_link
+  def base_path
     Whitehall.url_maker.organisation_path(self)
+  end
+
+  def search_link
+    base_path
   end
 
   def search_organisations

@@ -4,6 +4,7 @@ class TopicsController < ClassificationsController
 
   def show
     @classification = Topic.friendly.find(params[:id])
+    @content_item = Whitehall.content_store.content_item(@classification.base_path)
 
     respond_to do |format|
       format.html do

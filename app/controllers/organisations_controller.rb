@@ -8,6 +8,8 @@ class OrganisationsController < PublicFacingController
   before_filter :set_cache_max_age, only: [:show]
 
   def index
+    @content_item = Whitehall.content_store.content_item("/government/organisations")
+
     if params[:courts_only]
       @courts = Organisation.courts.listable.ordered_by_name_ignoring_prefix
       @hmcts_tribunals = Organisation.hmcts_tribunals.listable.ordered_by_name_ignoring_prefix
@@ -21,6 +23,8 @@ class OrganisationsController < PublicFacingController
   end
 
   def show
+    @content_item = Whitehall.content_store.content_item(@organisation.base_path)
+
     recently_updated_source = @organisation.published_non_corporate_information_pages.in_reverse_chronological_order
     set_expiry 5.minutes
     respond_to do |format|

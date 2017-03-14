@@ -1,7 +1,9 @@
 require "test_helper"
+require 'gds_api/test_helpers/content_store'
 
 class TopicsControllerTest < ActionController::TestCase
   include FeedHelper
+  include GdsApi::TestHelpers::ContentStore
 
   should_be_a_public_facing_controller
 
@@ -9,7 +11,7 @@ class TopicsControllerTest < ActionController::TestCase
     organisation_1 = create(:organisation)
     organisation_2 = create(:organisation)
     publication = create(:draft_publication, :scheduled)
-    topic = create(:topic, editions: [publication, create(:published_news_article)])
+    topic = create_topic_and_stub_content_store(editions: [publication, create(:published_news_article)])
     topic.organisations << organisation_1
     topic.organisations << organisation_2
 
@@ -25,7 +27,7 @@ class TopicsControllerTest < ActionController::TestCase
   end
 
   view_test "GET :show lists published publications and links to more" do
-    topic = create(:topic)
+    topic = create_topic_and_stub_content_store
     published = []
     4.times do |i|
       published << create(:published_publication, {
@@ -46,7 +48,7 @@ class TopicsControllerTest < ActionController::TestCase
   end
 
   view_test "GET :show lists published consultations and links to more" do
-    topic = create(:topic)
+    topic = create_topic_and_stub_content_store
     published = []
     4.times do |i|
       published << create(:published_consultation, {
@@ -65,7 +67,7 @@ class TopicsControllerTest < ActionController::TestCase
   end
 
   view_test "GET :show lists published statistical publications and links to more" do
-    topic = create(:topic)
+    topic = create_topic_and_stub_content_store
     published = []
     4.times do |i|
       published << create(:published_statistics, {
@@ -84,7 +86,7 @@ class TopicsControllerTest < ActionController::TestCase
   end
 
   view_test "GET :show lists published announcements and links to more" do
-    topic = create(:topic)
+    topic = create_topic_and_stub_content_store
     published = []
     4.times do |i|
       published << create(:published_news_article, {
@@ -109,7 +111,7 @@ class TopicsControllerTest < ActionController::TestCase
     6.times do |i|
       published_detailed_guides << create(:published_detailed_guide, title: "detailed-guide-title-#{i}")
     end
-    topic = create(:topic, editions: published_detailed_guides)
+    topic = create_topic_and_stub_content_store(editions: published_detailed_guides)
 
     get :show, id: topic
 
@@ -124,7 +126,7 @@ class TopicsControllerTest < ActionController::TestCase
   end
 
   view_test "GET :show displays latest documents relating to the topic, including atom feed and govdelivery links" do
-    topic = create(:topic)
+    topic = create_topic_and_stub_content_store
     publication_1 = create(:published_publication, topics: [topic])
     news_article = create(:published_news_article, topics: [topic])
     publication_2 = create(:published_publication, topics: [topic])
@@ -143,7 +145,7 @@ class TopicsControllerTest < ActionController::TestCase
   end
 
   view_test 'GET :show for atom feed has the right elements' do
-    topic = create(:topic)
+    topic = create_topic_and_stub_content_store
     publication = create(:published_publication, topics: [topic])
 
     get :show, id: topic, format: :atom
@@ -161,14 +163,14 @@ class TopicsControllerTest < ActionController::TestCase
   end
 
   test 'GET :show has a 5 minute expiry time' do
-    topic = create(:topic)
+    topic = create_topic_and_stub_content_store
     get :show, id: topic
 
     assert_cache_control("max-age=#{5.minutes}")
   end
 
   test 'GET :show caps max expiry to 5 minute when there are future scheduled editions' do
-    topic = create(:topic)
+    topic = create_topic_and_stub_content_store
     create(:scheduled_publication, scheduled_publication: 1.day.from_now, topics: [topic])
 
     get :show, id: topic
@@ -178,11 +180,22 @@ class TopicsControllerTest < ActionController::TestCase
 
   test 'GET :show sets analytics organisation headers' do
     organisation = create(:organisation)
-    topic = create(:topic)
+    topic = create_topic_and_stub_content_store
     topic.organisations << organisation
 
     get :show, id: topic
 
     assert_equal "<#{organisation.analytics_identifier}>", response.headers["X-Slimmer-Organisations"]
+  end
+
+  def create_topic_and_stub_content_store(*args)
+    topic = create(:topic, *args)
+    payload = {
+      format: "topic",
+      title: "Title of topic",
+    }
+    content_store_has_item(topic.base_path, payload)
+
+    topic
   end
 end

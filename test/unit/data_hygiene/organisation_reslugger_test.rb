@@ -13,7 +13,7 @@ module OrganisationResluggerTest
     def setup
       stub_any_publishing_api_call
       DatabaseCleaner.clean_with :truncation
-      @organisation = create_organisation
+      @organisation = create_org_and_stub_content_store
       WebMock.reset! # clear the Publishing API calls after org creation
       stub_any_publishing_api_call
       @reslugger = DataHygiene::OrganisationReslugger.new(@organisation, 'corrected-slug')
@@ -63,7 +63,7 @@ module OrganisationResluggerTest
   class OrganisationTest < ActiveSupport::TestCase
     include SharedTests
 
-    def create_organisation
+    def create_org_and_stub_content_store
       create(:organisation, name: "Old slug")
     end
 
@@ -92,7 +92,7 @@ module OrganisationResluggerTest
   class WorldwideOrganisationTest < ActiveSupport::TestCase
     include SharedTests
 
-    def create_organisation
+    def create_org_and_stub_content_store
       create(:worldwide_organisation, name: "Old slug")
     end
 

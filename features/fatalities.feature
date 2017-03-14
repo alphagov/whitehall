@@ -33,6 +33,7 @@ Feature: Fatalities
   Background:
     Given an organisation "MOD" has been assigned to handle fatalities
     And I am an editor in the organisation "MOD"
+    And I can navigate to the list of announcements
 
   Scenario: Editor adds field of operation
     When I create a new field of operation called "New Field" with description "Description"
