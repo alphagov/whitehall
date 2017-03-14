@@ -22,7 +22,7 @@ class PDFAttachmentReporter
   POLICY_GROUPS = 'Policy Groups'.freeze
 
   def initialize(opts = {})
-    @data_path = opts.fetch(:data_path, ENV['HOME'])
+    @data_path = opts.fetch(:data_path, Rails.root)
     @first_period_start_date = opts.fetch(:first_period_start_date, Date.parse('2016-01-01'))
     @last_time_period_days = opts.fetch(:last_time_period_days, 30)
   end
