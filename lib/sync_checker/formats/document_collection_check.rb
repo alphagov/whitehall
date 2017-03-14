@@ -9,6 +9,21 @@ module SyncChecker
         Whitehall::RenderingApp::GOVERNMENT_FRONTEND
       end
 
+      def checks_for_draft(locale)
+        super + [
+          Checks::LinksCheck.new(
+            "topical_events",
+            TopicalEvent
+              .for_edition(edition_expected_in_draft.id)
+              .pluck(:content_id)
+          ),
+          Checks::LinksCheck.new(
+            "documents",
+            draft_linked_document_content_ids(edition_expected_in_draft)
+          )
+        ]
+      end
+
       def checks_for_live(locale)
         super + [
           Checks::LinksCheck.new(
@@ -50,6 +65,16 @@ module SyncChecker
         edition.documents
           .select { |document| latest_edition_published?(document) }
           .map(&:content_id)
+      end
+
+      def draft_linked_document_content_ids(edition)
+        edition.documents
+          .reject { |document| document_is_deleted?(document) }
+          .map(&:content_id)
+      end
+
+      def document_is_deleted?(document)
+        document.slug =~ /^deleted-/
       end
 
       def latest_edition_published?(document)
