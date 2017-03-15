@@ -301,6 +301,36 @@ class PublishingApi::PublishedDocumentCollectionPresenterEditionLinksTest < Acti
   end
 end
 
+class PublishingApi::PublishedDocumentCollectionPresenterDuplicateDocumentsTest < ActiveSupport::TestCase
+  setup do
+    @document_collection = create(:document_collection)
+    @document_collection.stubs(:documents).returns(
+      [
+        OpenStruct.new(content_id: "test"),
+        OpenStruct.new(content_id: "test"),
+        OpenStruct.new(content_id: "ers"),
+      ]
+    )
+    presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(@document_collection)
+    @presented_edition_links = presented_document_collection.content[:links]
+    @presented_links = presented_document_collection.links
+  end
+
+  test "it doesn't present duplicate content ids in content, links, documents" do
+    assert_equal(
+      ["test", "ers"],
+      @presented_edition_links[:documents]
+    )
+  end
+
+  test "it doesn't present duplicate content ids in links, documents" do
+    assert_equal(
+      ["test", "ers"],
+      @presented_links[:documents]
+    )
+  end
+end
+
 class PublishingApi::PublishedDocumentCollectionPresenterRelatedPolicyLinksTest < ActiveSupport::TestCase
   setup do
     @document_collection = create(:document_collection)
