@@ -162,6 +162,10 @@ module Whitehall
       YAML.load_file(Rails.root + "config/organisations_in_tagging_beta.yml")["organisations_in_tagging_beta"]
   end
 
+  def self.tagging_taxonomy_enabled?
+    ENV['ENABLE_TAGGING_TO_NEW_TAXONOMY'] == 'yes'
+  end
+
   def self.load_secrets
     if File.exists?(secrets_path)
       YAML.load_file(secrets_path)

@@ -54,6 +54,24 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_template :confirm_force_publish
   end
 
+  test 'GET #confirm_force_publish redirects when edition has no taxons' do
+    publishing_api_has_links(
+      {
+        "content_id" => draft_edition.content_id,
+        "links" => {
+          "taxons" => []
+        },
+        "version" => 1
+      }
+    )
+
+    Publication.any_instance.stubs(:can_be_tagged_to_taxonomy?).returns(true)
+
+    get :confirm_force_publish, id: draft_edition, lock_version: draft_edition.lock_version
+
+    assert_response :redirect
+  end
+
   test 'POST #force_publish force publishes the edition' do
     stub_publishing_api_registration_for(draft_edition)
     post :force_publish, id: draft_edition, lock_version: draft_edition.lock_version, reason: 'Urgent change'

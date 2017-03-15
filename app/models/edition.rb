@@ -45,6 +45,7 @@ class Edition < ActiveRecord::Base
 
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :body
+  validates_with TaxonValidator, on: :publish
 
   validates :creator, presence: true
   validates :title, presence: true, if: :title_required?, length: { maximum: 255 }
@@ -422,6 +423,13 @@ class Edition < ActiveRecord::Base
 
   def can_be_tagged_to_taxonomy?
     false
+  end
+
+  def has_been_tagged?
+    api_response = Services.publishing_api.get_links(content_id)
+
+    return false if api_response["links"].nil? || api_response["links"]["taxons"].nil?
+    api_response["links"]["taxons"].any?
   end
 
   def included_in_statistics_feed?

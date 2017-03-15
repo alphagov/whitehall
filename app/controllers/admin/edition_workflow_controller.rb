@@ -71,9 +71,16 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def confirm_force_publish
+    unless @edition.valid?(:publish)
+      return redirect_to admin_edition_path(@edition), alert: @edition.errors[:base].join('. ')
+    end
   end
 
   def force_publish
+    unless @edition.valid?(:publish)
+      return redirect_to admin_edition_path(@edition), alert: @edition.errors[:base].join('. ')
+    end
+
     edition_publisher = Whitehall.edition_services.force_publisher(@edition, user: current_user, remark: force_publish_reason)
     if edition_publisher.perform!
       redirect_to admin_editions_path(state: :published), notice: "The document #{@edition.title} has been published"
