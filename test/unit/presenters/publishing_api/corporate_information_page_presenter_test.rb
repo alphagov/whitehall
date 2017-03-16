@@ -15,6 +15,10 @@ module PublishingApi::CorporateInformationPagePresenterTest
       presented_corporate_information_page.content
     end
 
+    def presented_links
+      presented_corporate_information_page.links
+    end
+
     def assert_attribute(attribute, value)
       assert_equal value, presented_content[attribute]
     end
@@ -70,6 +74,35 @@ module PublishingApi::CorporateInformationPagePresenterTest
       expected_content = actual_content.merge(attributes_double)
 
       assert_equal actual_content, expected_content
+    end
+
+    test 'base links' do
+      expected_link_keys = %i(
+        organisations
+        parent
+      )
+
+      links_double = {
+        link_one: 'link_one',
+        link_two: 'link_two',
+        link_three: 'link_three',
+      }
+
+      PublishingApi::LinksPresenter
+        .expects(:new)
+        .with(corporate_information_page)
+        .returns(
+          mock('PublishingApi::LinksPresenter') {
+            expects(:extract)
+              .with(expected_link_keys)
+              .returns(links_double)
+          }
+        )
+
+      actual_links = presented_links
+      expected_links = actual_links.merge(links_double)
+
+      assert_equal actual_links, expected_links
     end
 
     test 'body details' do
