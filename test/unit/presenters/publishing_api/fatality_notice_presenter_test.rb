@@ -169,6 +169,7 @@ end
 class PublishingApi::PublishedFatalityNoticePresenterLinksTest < ActiveSupport::TestCase
   setup do
     @fatality_notice = create(:fatality_notice)
+    @fatality_notice.role_appointments << create(:ministerial_role_appointment)
     presented_fatality_notice = PublishingApi::FatalityNoticePresenter.new(@fatality_notice)
     @presented_links = presented_fatality_notice.links
   end
@@ -191,6 +192,13 @@ class PublishingApi::PublishedFatalityNoticePresenterLinksTest < ActiveSupport::
     assert_equal(
       [@fatality_notice.operational_field.content_id],
       @presented_links[:field_of_operation]
+    )
+  end
+
+  test "it presents the role_appointments person content_ids as links, ministers" do
+    assert_equal(
+      @fatality_notice.role_appointments.map(&:person).collect(&:content_id),
+      @presented_links[:ministers]
     )
   end
 end
