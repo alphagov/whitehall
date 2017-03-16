@@ -162,7 +162,6 @@ module PublishingApi::CorporateInformationPagePresenterTest
     end
 
     test 'validity' do
-      skip
       assert_valid_against_schema presented_content, 'corporate_information_page'
     end
   end
@@ -296,7 +295,6 @@ module PublishingApi::CorporateInformationPagePresenterTest
     end
 
     test 'validity' do
-      skip
       assert_valid_against_schema presented_content, 'corporate_information_page'
     end
   end
@@ -312,7 +310,6 @@ module PublishingApi::CorporateInformationPagePresenterTest
     end
 
     test 'validity' do
-      skip
       assert_valid_against_schema presented_content, 'corporate_information_page'
     end
   end
