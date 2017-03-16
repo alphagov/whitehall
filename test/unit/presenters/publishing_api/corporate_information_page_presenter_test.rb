@@ -48,6 +48,10 @@ module PublishingApi::CorporateInformationPagePresenterTest
       assert_payload builder, data: -> { presented_content[:details] }
     end
 
+    def assert_links(key, value)
+      assert_equal value.sort, presented_links[key].sort
+    end
+
     def refute_details_attribute(attribute)
       refute presented_content[:details].key?(attribute)
     end
@@ -173,6 +177,10 @@ module PublishingApi::CorporateInformationPagePresenterTest
       self.corporate_information_page =
         create(:about_corporate_information_page, organisation: organisation)
 
+      @about_our_services_corporate_information_page =
+        create(:about_our_services_corporate_information_page,
+               organisation: organisation)
+
       @complaints_procedure_corporate_information_page =
         create(:complaints_procedure_corporate_information_page,
                organisation: organisation)
@@ -181,12 +189,28 @@ module PublishingApi::CorporateInformationPagePresenterTest
         create(:our_energy_use_corporate_information_page,
                organisation: organisation)
 
+      @personal_information_charter_corporate_information_page =
+        create(:personal_information_charter_corporate_information_page,
+               organisation: organisation)
+
       @procurement_corporate_information_page =
         create(:procurement_corporate_information_page,
                organisation: organisation)
 
+      @publication_scheme_corporate_information_page =
+        create(:publication_scheme_corporate_information_page,
+               organisation: organisation)
+
       @recruitment_corporate_information_page =
         create(:recruitment_corporate_information_page,
+               organisation: organisation)
+
+      @social_media_use_information_page =
+        create(:social_media_use_corporate_information_page,
+               organisation: organisation)
+
+      @welsh_language_scheme_corporate_information_page =
+        create(:welsh_language_scheme_corporate_information_page,
                organisation: organisation)
 
       create_list(:published_publication, 2, :corporate,
@@ -249,6 +273,22 @@ module PublishingApi::CorporateInformationPagePresenterTest
       ]
 
       assert_details_attribute :corporate_information_groups, expected_groups
+    end
+
+    test 'corporate information page links' do
+      expected_content_ids = [
+        @about_our_services_corporate_information_page.content_id,
+        @complaints_procedure_corporate_information_page.content_id,
+        @our_energy_use_corporate_information_page.content_id,
+        @personal_information_charter_corporate_information_page.content_id,
+        @procurement_corporate_information_page.content_id,
+        @publication_scheme_corporate_information_page.content_id,
+        @recruitment_corporate_information_page.content_id,
+        @social_media_use_information_page.content_id,
+        @welsh_language_scheme_corporate_information_page.content_id,
+      ]
+
+      assert_links :corporate_information_pages, expected_content_ids
     end
 
     test 'document type' do
