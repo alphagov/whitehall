@@ -318,14 +318,14 @@ class PublishingApi::PublishedDocumentCollectionPresenterDuplicateDocumentsTest 
 
   test "it doesn't present duplicate content ids in content, links, documents" do
     assert_equal(
-      ["test", "ers"],
+      %w(test ers),
       @presented_edition_links[:documents]
     )
   end
 
   test "it doesn't present duplicate content ids in links, documents" do
     assert_equal(
-      ["test", "ers"],
+      %w(test ers),
       @presented_links[:documents]
     )
   end
