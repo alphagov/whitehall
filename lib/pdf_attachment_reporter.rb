@@ -31,13 +31,13 @@ class PDFAttachmentReporter
   def pdfs_by_organisation
     second_time_period_date = @last_time_period_days.days.ago.to_date
 
-    live_organisation_names = Organisation.where(govuk_status: 'live').map(&:name) << POLICY_GROUPS
+    live_organisation_names = Organisation.where(govuk_status: 'live').includes(:translations).map(&:name) << POLICY_GROUPS
 
     live_organisation_published_pdfs_total_counts_hash = Hash[live_organisation_names.map { |o| [o, 0] }]
     live_organisation_published_pdfs_since_first_period_counts_hash = Hash[live_organisation_names.map { |o| [o, 0] }]
     live_organisation_published_pdfs_since_second_period_counts_hash = Hash[live_organisation_names.map { |o| [o, 0] }]
 
-    unique_published_pdf_attachments.each do |attachment|
+    unique_published_pdf_attachments.find_each do |attachment|
       pdf_attachment_data = find_pdf_attachment_data(attachment)
 
       if pdf_attachment_data
@@ -74,18 +74,11 @@ class PDFAttachmentReporter
 
 private
 
-  class PDFAttachmentData
-    attr_reader :owning_organisation_name, :created_at
-
-    def initialize(owning_organisation_name, created_at)
-      @owning_organisation_name = owning_organisation_name
-      @created_at = created_at
-    end
-  end
+  PDFAttachmentData = Struct.new(:owning_organisation_name, :created_at)
 
   def find_pdf_attachment_data(attachment)
     if attachment.attachable
-      if attachment.attachable.is_a? PolicyGroup
+      if attachment.attachable_type == 'PolicyGroup'
         PDFAttachmentData.new(POLICY_GROUPS, attachment.created_at)
       else
         # Responses are only sometimes linked to organisations (via a consultation)
@@ -105,7 +98,7 @@ private
 
     if last_published_edition_with_attachment
       pdf_owning_organisation = guess_organisation_owner_of_edition(last_published_edition_with_attachment)
-      first_published_edition_with_attachment = find_first_published_version_with_attachment(edition, attachment_data)
+      first_published_edition_with_attachment = find_first_published_version_with_attachment(edition)
     end
 
     if pdf_organisation_live_and_edition_has_timestamp(pdf_owning_organisation, first_published_edition_with_attachment)
@@ -123,10 +116,11 @@ private
     end
   end
 
-  def find_first_published_version_with_attachment(edition, attachment_data)
-    edition.document.ever_published_editions.order('created_at ASC').detect do |ed|
-      ed.attachments.any? { |a| a.attachment_data_id == attachment_data.id }
-    end
+  def find_first_published_version_with_attachment(edition)
+    edition.document.ever_published_editions
+      .order('created_at DESC')
+      .joins("INNER JOIN attachments ON attachable_id = editions.id AND attachable_type = 'Edition'")
+      .first
   end
 
   def guess_organisation_owner_of_edition(edition)
@@ -161,14 +155,10 @@ private
   end
 
   def unique_published_pdf_attachments
-    Attachment.find_by_sql([
-      "SELECT a.*
-       FROM attachments a
-       INNER JOIN attachment_data ad
-       ON a.attachment_data_id=ad.id
-       AND ad.content_type = ?
-       GROUP BY ad.id", AttachmentUploader::PDF_CONTENT_TYPE
-    ])
+    Attachment.joins(:attachment_data)
+        .where(attachment_data: { content_type: AttachmentUploader::PDF_CONTENT_TYPE })
+        .group('attachment_data.id')
+        .includes(:attachment_data)
   end
 
   def csv_file_path
