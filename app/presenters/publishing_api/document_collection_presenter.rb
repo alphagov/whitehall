@@ -22,6 +22,7 @@ module PublishingApi
         public_updated_at: item.public_timestamp || item.updated_at,
         rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
         schema_name: "document_collection",
+        links: links,
       )
       content.merge!(PayloadBuilder::AccessLimitation.for(item))
       content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
@@ -32,7 +33,7 @@ module PublishingApi
       links = LinksPresenter.new(item).extract(
         %i(organisations policy_areas topics related_policies parent)
       )
-      links.merge!(documents: item.documents.map(&:content_id))
+      links.merge!(documents: item.documents.map(&:content_id).uniq)
       links.merge!(PayloadBuilder::TopicalEvents.for(item))
     end
 
