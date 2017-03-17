@@ -33,6 +33,7 @@ module PublishingApi
       LinksPresenter
         .new(consultation)
         .extract(%i(organisations parent policy_areas related_policies topics))
+        .merge(PayloadBuilder::Ministers.for(consultation))
     end
 
   private
