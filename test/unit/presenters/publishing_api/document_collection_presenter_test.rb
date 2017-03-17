@@ -158,12 +158,9 @@ end
 class PublishingApi::DocumentCollectionPresenterDocumentLinksTestCase < ActiveSupport::TestCase
   setup do
     document_collection = create(:document_collection)
-    document_collection.stubs(:documents).returns(
-      [
-        stub(content_id: "faf"),
-        stub(content_id: "afa")
-      ]
-    )
+    documents = mock('documents')
+    documents.expects(:pluck).with(:content_id).returns(%w(faf afa))
+    document_collection.stubs(:documents).returns(documents)
 
     @presented_links = PublishingApi::DocumentCollectionPresenter.new(
       document_collection
@@ -304,13 +301,9 @@ end
 class PublishingApi::PublishedDocumentCollectionPresenterDuplicateDocumentsTest < ActiveSupport::TestCase
   setup do
     @document_collection = create(:document_collection)
-    @document_collection.stubs(:documents).returns(
-      [
-        OpenStruct.new(content_id: "test"),
-        OpenStruct.new(content_id: "test"),
-        OpenStruct.new(content_id: "ers"),
-      ]
-    )
+    documents = mock('documents')
+    documents.expects(:pluck).twice.with(:content_id).returns(%w(test test ers))
+    @document_collection.stubs(:documents).returns(documents)
     presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(@document_collection)
     @presented_edition_links = presented_document_collection.content[:links]
     @presented_links = presented_document_collection.links
