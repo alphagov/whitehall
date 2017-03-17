@@ -44,7 +44,7 @@ module PublishingApi
       LinksPresenter
         .new(news_article)
         .extract(link_keys)
-        .merge(Ministers.for(news_article))
+        .merge(PayloadBuilder::Ministers.for(news_article))
         .merge(PayloadBuilder::TopicalEvents.for(news_article))
     end
 
@@ -145,33 +145,6 @@ module PublishingApi
         ActionController::Base.helpers.image_url(
           news_article.lead_image_path, host: Whitehall.public_asset_host
         )
-      end
-    end
-
-    class Ministers
-      extend Forwardable
-
-      def self.for(news_article)
-        new(news_article).call
-      end
-
-      def initialize(news_article)
-        self.news_article = news_article
-      end
-
-      def call
-        return {} unless ministers.present?
-
-        { ministers: ministers.collect(&:content_id) }
-      end
-
-    private
-
-      attr_accessor :news_article
-      def_delegator :news_article, :role_appointments
-
-      def ministers
-        role_appointments.try(:collect, &:person)
       end
     end
   end
