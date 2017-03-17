@@ -28,6 +28,7 @@ module PublishingApi
         public_updated_at: item.updated_at,
         rendering_app: item.rendering_app,
         schema_name: schema_name,
+        links: links,
       )
       content.merge!(PayloadBuilder::Routes.for(base_path))
     end

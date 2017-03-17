@@ -121,10 +121,11 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
   end
 
   test "#save_and_update_publishing_api saves the attachment" do
-    build(
+    publication = build(
       :draft_publication,
       html_attachments: [attachment = build(:html_attachment)]
     )
+    attachment.attachable = publication
     attachment.save_and_update_publishing_api
     assert attachment.persisted?, "Attachment has not been saved"
   end
