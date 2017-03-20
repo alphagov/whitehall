@@ -201,6 +201,20 @@ class PublishingApi::PublishedFatalityNoticePresenterLinksTest < ActiveSupport::
       @presented_links[:ministers]
     )
   end
+
+  test "it presents the role_appointments person content_ids as links, people" do
+    assert_equal(
+      @fatality_notice.role_appointments.map(&:person).collect(&:content_id),
+      @presented_links[:people]
+    )
+  end
+
+  test "it presents the role_appointments role content_ids as links, roles" do
+    assert_equal(
+      @fatality_notice.role_appointments.map(&:role).collect(&:content_id),
+      @presented_links[:roles]
+    )
+  end
 end
 
 class PublishingApi::FatalityNoticePresenterUpdateTypeTest < ActiveSupport::TestCase
