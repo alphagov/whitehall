@@ -40,9 +40,17 @@ class EditionTaxonomyTagForm
     Taxonomy.education
   end
 
+  def draft_taxons
+    Taxonomy.drafts
+  end
+
+  def all_taxons
+    education_taxons.tree + draft_taxons.flat_map(&:tree)
+  end
+
   # Ignore any taxons that already have a more specific taxon selected
   def most_specific_taxons
-    education_taxons.tree.each_with_object([]) do |taxon, list_of_taxons|
+    all_taxons.each_with_object([]) do |taxon, list_of_taxons|
       content_ids = taxon.descendants.map(&:content_id)
 
       any_descendants_selected = selected_taxons.any? do |selected_taxon|

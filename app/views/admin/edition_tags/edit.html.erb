@@ -29,6 +29,12 @@
         </div>
       </div>
 
+      <h2>Draft topics</h2>
+
+      <div class="topic-tree">
+        <%= render partial: "taxonomy", locals: {form: @edition_tag_form, taxons: @edition_tag_form.draft_taxons} %>
+      </div>
+
       <p>
         <%= link_to "Report a missing topic", Whitehall.support_url, class: "feedback-link" %>
       </p>

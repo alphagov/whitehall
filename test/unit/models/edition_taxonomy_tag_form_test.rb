@@ -43,7 +43,7 @@ class EditionTaxonomyTagFormTest < ActiveSupport::TestCase
   end
 
   test '#most_specific_taxons ignores taxons if there is a more specific one' do
-    stub_education_taxonomy
+    stub_education_taxonomy_with_draft_expanded_links
 
     selected_taxons = [
       grandparent_taxon_content_id,
