@@ -54,7 +54,7 @@ gem 'deprecated_columns', '0.1.0'
 if ENV['GDS_API_ADAPTERS_DEV']
   gem 'gds-api-adapters', path: '../gds-api-adapters'
 else
-  gem 'gds-api-adapters', '~> 40.2.0'
+  gem 'gds-api-adapters', '~> 40.5.0'
 end
 
 if ENV['GLOBALIZE_DEV']
