@@ -188,6 +188,15 @@ class Organisation < ActiveRecord::Base
   before_destroy { |r| r.destroyable? }
   after_save :ensure_analytics_identifier
 
+  # If the organisation has an about us page and the chart URL changes we need
+  # to republish the about us page as it contains the chart URL.
+  after_save do
+    if organisation_chart_url_changed? && about_us.present?
+      PublishingApiDocumentRepublishingWorker
+        .perform_async(about_us.document_id)
+    end
+  end
+
   def custom_logo_selected?
     organisation_logo_type_id == OrganisationLogoType::CustomLogo.id
   end
