@@ -268,6 +268,24 @@ module PublishingApi::NewsArticlePresenterTest
       assert_equal presented_links[:ministers], expected_content_ids
     end
 
+    test 'roles' do
+      expected_content_ids = news_article
+        .role_appointments
+        .map(&:role)
+        .map(&:content_id)
+
+      assert_equal presented_links[:roles], expected_content_ids
+    end
+
+    test 'people' do
+      expected_content_ids = news_article
+        .role_appointments
+        .map(&:person)
+        .map(&:content_id)
+
+      assert_equal presented_links[:people], expected_content_ids
+    end
+
     test 'validity' do
       assert_valid_against_schema presented_content, 'news_article'
     end
