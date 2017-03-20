@@ -90,11 +90,15 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
       assert_includes(presented.links.keys, :related_policies)
       assert_includes(presented.links.keys, :speaker)
       assert_includes(presented.links.keys, :topical_events)
+      assert_includes(presented.links.keys, :people)
+      assert_includes(presented.links.keys, :roles)
 
       assert_includes(presented.links[:organisations], speech.organisations.first.content_id)
       assert_includes(presented.links[:related_policies], policy_content_id)
       assert_includes(presented.links[:speaker], person.content_id)
       assert_includes(presented.links[:topical_events], topical_event.content_id)
+      assert_includes(presented.links[:roles], speech.role_appointment.role.content_id)
+      assert_includes(presented.links[:people], person.content_id)
     end
 
     context "no role appointment (no speaker)" do
@@ -104,6 +108,14 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
 
       it "doesn't present a speaker link" do
         refute(presented.links.has_key?(:speaker))
+      end
+
+      it "doesn't present a roles link" do
+        refute(presented.links.has_key?(:roles))
+      end
+
+      it "doesn't present a people link" do
+        refute(presented.links.has_key?(:people))
       end
     end
   end
