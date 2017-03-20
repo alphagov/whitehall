@@ -68,7 +68,9 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       world_locations: [],
       topical_events: [topical_event.content_id],
       related_policies: ['5d37821b-7631-11e4-a3cb-005056011aef'],
-      policy_areas: publication.topics.map(&:content_id)
+      policy_areas: publication.topics.map(&:content_id),
+      roles: publication.role_appointments.map(&:role).collect(&:content_id),
+      people: publication.role_appointments.map(&:person).collect(&:content_id)
     }
 
     presented_item = present(publication)

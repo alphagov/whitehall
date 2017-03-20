@@ -46,6 +46,10 @@ module PublishingApi
       ).merge(
         ministers: ministers,
         related_statistical_data_sets: related_statistical_data_sets,
+      ).merge(
+        PayloadBuilder::Roles.for(item)
+      ).merge(
+        PayloadBuilder::People.for(item, :people)
       )
     end
 
