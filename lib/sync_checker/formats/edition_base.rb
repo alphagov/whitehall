@@ -136,12 +136,16 @@ module SyncChecker
       end
 
       def expected_details_hash(edition, _locale)
-        {
-          body: Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(edition),
-          change_history: edition.change_history.as_json,
-          emphasised_organisations: edition.lead_organisations.map(&:content_id),
-          first_public_at: first_public_at(edition)
-        }
+        {}.tap do |details|
+          details[:body] = Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(edition)
+          details[:change_history] = edition.change_history.as_json
+          details[:first_public_at] = first_public_at(edition)
+
+          if edition.respond_to?(:lead_organisations)
+            details[:emphasised_organisations] =
+              edition.lead_organisations.map(&:content_id)
+          end
+        end
       end
 
     private
