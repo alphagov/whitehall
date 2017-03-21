@@ -35,6 +35,8 @@ module PublishingApi
         %i(organisations policy_areas)
       ).merge(
         field_of_operation: [item.operational_field.content_id]
+      ).merge(
+        PayloadBuilder::Ministers.for(item)
       )
     end
 

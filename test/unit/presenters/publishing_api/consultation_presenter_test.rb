@@ -600,4 +600,22 @@ module PublishingApi::ConsultationPresenterTest
       assert_equal 'major', presented_consultation.update_type
     end
   end
+
+  class ConsultationWithMinisterialRoleAppointments < TestCase
+    setup do
+      self.consultation = create(
+        :consultation,
+        role_appointments: create_list(:ministerial_role_appointment, 2)
+      )
+    end
+
+    test 'ministers' do
+      expected_content_ids = consultation
+        .role_appointments
+        .map(&:person)
+        .map(&:content_id)
+
+      assert_equal expected_content_ids, presented_links[:ministers]
+    end
+  end
 end
