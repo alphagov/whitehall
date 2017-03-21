@@ -49,6 +49,10 @@ class Speech < Announcement
     role_appointment && role_appointment.role && role_appointment.role.ministerial?
   end
 
+  def rendering_app
+    Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+  end
+
 private
 
   def date_for_government

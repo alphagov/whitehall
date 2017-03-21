@@ -189,4 +189,8 @@ class SpeechTest < ActiveSupport::TestCase
     speech = create(:imported_speech, delivered_on: 2.weeks.from_now)
     assert_equal current_government, speech.government
   end
+
+  test 'Speech is rendered by government-frontend' do
+    assert_equal Speech.new.rendering_app, Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+  end
 end
