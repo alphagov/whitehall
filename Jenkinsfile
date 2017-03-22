@@ -62,12 +62,12 @@ node {
       govuk.rubyLinter('app test lib')
     }
 
-    stage("Set up the DB") {
-      sh("RAILS_ENV=test bundle exec rake db:drop db:create db:schema:load")
-    }
+    lock ("whitehall-$NODE_NAME-test") {
+      stage("Set up the DB") {
+        sh("RAILS_ENV=test bundle exec rake db:drop db:create db:schema:load")
+      }
 
-    stage("Run tests") {
-      lock ("whitehall-$NODE_NAME-test") {
+      stage("Run tests") {
         govuk.setEnvar("RAILS_ENV", "test")
         if (params.IS_SCHEMA_TEST) {
           echo "Running a subset of the tests to check the content schema changes"
