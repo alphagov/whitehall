@@ -1,7 +1,7 @@
 class FeaturedPolicy < ActiveRecord::Base
   extend ActiveSupport::Concern
 
-  belongs_to :organisation, inverse_of: :featured_policies
+  belongs_to :organisation, inverse_of: :featured_policies, touch: true
 
   before_create :set_ordering, if: -> { ordering.blank? }
 

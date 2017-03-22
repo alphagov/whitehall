@@ -25,6 +25,9 @@ module PublishingApi
         description: nil,
         details: details,
         document_type: item.class.name.underscore,
+        links: {
+          featured_policies: featured_policies_links,
+        },
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
         schema_name: schema_name,
@@ -69,6 +72,12 @@ module PublishingApi
     def brand
       brand_colour = item.organisation_brand_colour
       brand_colour ? brand_colour.class_name : nil
+    end
+
+    def featured_policies_links
+      # Publishing API will reject duplicate content_ids here so distinct is
+      # used
+      item.featured_policies.order(:ordering).distinct.pluck(:policy_content_id)
     end
   end
 end

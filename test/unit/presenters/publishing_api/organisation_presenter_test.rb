@@ -22,6 +22,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       description: nil,
       schema_name: 'placeholder',
       document_type: 'organisation',
+      links: { featured_policies: [] },
       locale: 'en',
       publishing_app: 'whitehall',
       rendering_app: 'whitehall-frontend',
