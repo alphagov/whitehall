@@ -5,5 +5,5 @@ ids = [
 ]
 Document.where(id: ids).each do |document|
   PublishingApiDocumentRepublishingWorker
-    .perform_async_in_queue("bulk_republishng", document.id)
+    .perform_async_in_queue("bulk_republishing", document.id)
 end
