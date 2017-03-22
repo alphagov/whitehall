@@ -1,6 +1,44 @@
 module SyncChecker
   module Formats
     class PublicationCheck < EditionBase
+      def checks_for_draft(locale)
+        super + [
+          Checks::LinksCheck.new(
+            "document_collections",
+            edition_expected_in_draft
+              .document_collections
+              .map(&:content_id)
+          ),
+          Checks::LinksCheck.new(
+            "ministers",
+            edition_expected_in_draft
+              .role_appointments
+              .joins(:person)
+              .pluck("people.content_id")
+          ),
+          Checks::LinksCheck.new(
+            "related_statistical_data_sets",
+            expected_statistical_data_sets(edition_expected_in_draft)
+          ),
+          Checks::LinksCheck.new(
+            "topical_events",
+            ::TopicalEvent
+              .joins(:classification_memberships)
+              .where(classification_memberships: { edition_id: edition_expected_in_draft.id })
+              .pluck(:content_id)
+          ),
+          Checks::LinksCheck.new(
+            "children",
+            #file attachments won't appear in children
+            #as they're not in publishing api
+            expected_child_content_ids(
+              edition_expected_in_draft,
+              locale
+            )
+          )
+        ]
+      end
+
       def checks_for_live(locale)
         super + [
           Checks::LinksCheck.new(
