@@ -21,7 +21,6 @@ Scenario: Associating a speech with a topical event
   When I draft a new speech "A speech" relating it to topical event "An Event"
   And I force publish the speech "A speech"
   Then I should see the speech "A speech" in the announcements section of the topical event "An Event"
-  And the speech "A speech" shows it is related to the topical event "An Event" on its public page
 
 Scenario: Associating a news article with a topical event
   Given a topical event called "An Event" with description "A topical event"

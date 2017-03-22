@@ -10,7 +10,7 @@ class DocumentLocaleParamCanonicalisationTest < ActionDispatch::IntegrationTest
     u.to_s
   end
 
-  announcement_redir_document_types = %w(news_article speech)
+  announcement_redir_document_types = %w(news_article)
   document_types_with_no_index = %w(case_study)
   normal_document_types = [
     "world_location_news_article",
@@ -38,7 +38,7 @@ class DocumentLocaleParamCanonicalisationTest < ActionDispatch::IntegrationTest
     end
   end
 
-  # speeches, news articles and fatality notices redirect to announcements
+  # news articles and fatality notices redirect to announcements
   # index, instead of serving their own
   test 'visiting the announcements index with a spurious locale=en param will redirect to remove it' do
     canonical_path = announcements_path
