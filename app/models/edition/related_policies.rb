@@ -42,7 +42,7 @@ module Edition::RelatedPolicies
 
     content_ids.each do |policy_content_id|
       begin
-        link_response = publishing_api.get_links(policy_content_id)
+        link_response = Services.publishing_api.get_links(policy_content_id)
       rescue GdsApi::HTTPNotFound
         next
       end
@@ -53,10 +53,6 @@ module Edition::RelatedPolicies
     end
 
     parent_ids
-  end
-
-  def publishing_api
-    @publishing_api ||= Whitehall.publishing_api_v2_client
   end
 
   def policies

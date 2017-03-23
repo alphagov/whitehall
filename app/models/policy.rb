@@ -43,7 +43,7 @@ private
 
   def self.linkables
     Rails.cache.fetch('policy.linkables', expires_in: 5.minutes) do
-      publishing_api.get_linkables(document_type: "policy").to_a
+      publishing_api_with_low_timeout.get_linkables(document_type: "policy").to_a
     end
   rescue GdsApi::TimedOutException, GdsApi::HTTPServerError
     # This call normally takes ~20ms. If it takes longer than a second, fetch a stale value from
@@ -60,9 +60,11 @@ private
     linkables.find { |p| p["content_id"] == content_id }
   end
 
-  def self.publishing_api
-    @publishing_api ||= Whitehall.publishing_api_v2_client.dup.tap do |client|
-      client.options[:timeout] = 1
+  def self.publishing_api_with_low_timeout
+    @publishing_api_with_low_timeout ||= begin
+      Services.publishing_api.dup.tap do |client|
+        client.options[:timeout] = 1
+      end
     end
   end
 end

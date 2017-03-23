@@ -4,7 +4,7 @@ module SyncChecker
   class DraftTopicContentIds
     def self.fetch
       @draft_content_ids ||= begin
-        Whitehall.publishing_api_v2_client
+        Services.publishing_api
           .get_linkables(document_type: 'topic')
           .map(&:with_indifferent_access)
           .select { |linkable| linkable[:publication_state] == 'draft' }

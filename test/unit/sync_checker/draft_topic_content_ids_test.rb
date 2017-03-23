@@ -7,7 +7,7 @@ require_relative '../../../lib/sync_checker/draft_topic_content_ids'
 module SyncChecker
   class TestDraftTopicContentIds < Minitest::Test
     def test_it_returns_an_array_of_published_content_ids
-      Whitehall.expects(:publishing_api_v2_client).returns(
+      Services.expects(:publishing_api).returns(
         mock('client').tap do |client|
           client.expects(:get_linkables)
             .with(document_type: 'topic')

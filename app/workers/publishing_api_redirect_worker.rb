@@ -1,6 +1,6 @@
 class PublishingApiRedirectWorker < PublishingApiWorker
   def perform(content_id, destination, locale, allow_draft = false)
-    Whitehall.publishing_api_v2_client.unpublish(
+    Services.publishing_api.unpublish(
       content_id,
       type: "redirect",
       locale: locale,

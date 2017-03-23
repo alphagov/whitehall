@@ -4,8 +4,8 @@ module Taxonomy
 
   def self.drafts
     DRAFT_CONTENT_IDS.map do |content_id|
-      content_item = Whitehall.publishing_api_v2_client.get_content(content_id)
-      expanded_links = Whitehall.publishing_api_v2_client.get_expanded_links(content_id, with_drafts: true)
+      content_item = Services.publishing_api.get_content(content_id)
+      expanded_links = Services.publishing_api.get_expanded_links(content_id, with_drafts: true)
 
       parser = PublishingApiLinkedEditionParser.new(content_item)
       parser.add_expanded_links(expanded_links)
@@ -14,8 +14,8 @@ module Taxonomy
   end
 
   def self.education
-    content_item = Whitehall.publishing_api_v2_client.get_content(EDUCATION_CONTENT_ID)
-    expanded_links = Whitehall.publishing_api_v2_client.get_expanded_links(EDUCATION_CONTENT_ID, with_drafts: false)
+    content_item = Services.publishing_api.get_content(EDUCATION_CONTENT_ID)
+    expanded_links = Services.publishing_api.get_expanded_links(EDUCATION_CONTENT_ID, with_drafts: false)
 
     parser = PublishingApiLinkedEditionParser.new(content_item)
     parser.add_expanded_links(expanded_links)

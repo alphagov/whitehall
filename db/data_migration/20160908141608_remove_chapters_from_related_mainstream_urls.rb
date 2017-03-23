@@ -13,7 +13,7 @@ require 'gds-api-adapters'
 def validate_url_content_id(url)
   url = url.chomp
   base_path = url[18..-1] if url.length > 17
-  content_id = Whitehall.publishing_api_v2_client.lookup_content_id(base_path: base_path) if base_path
+  content_id = Services.publishing_api.lookup_content_id(base_path: base_path) if base_path
   content_id
 end
 

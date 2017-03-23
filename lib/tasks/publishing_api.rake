@@ -5,7 +5,7 @@ namespace :publishing_api do
   task publish_special_routes: :environment do
     publisher = GdsApi::PublishingApi::SpecialRoutePublisher.new(
       logger: Logger.new(STDOUT),
-      publishing_api: Whitehall.publishing_api_v2_client
+      publishing_api: Services.publishing_api
     )
 
     [

@@ -40,7 +40,7 @@ end
 slugs_to_fix.each do |slug|
   document = Document.find_by(slug: slug)
   base_path = Whitehall.url_maker.public_document_path(document.published_edition)
-  correct_content_id = Whitehall.publishing_api_v2_client.lookup_content_id(base_path: base_path)
+  correct_content_id = Services.publishing_api.lookup_content_id(base_path: base_path)
   if correct_content_id.blank?
     raise ArgumentError, "no content id found for #{base_path}"
   end

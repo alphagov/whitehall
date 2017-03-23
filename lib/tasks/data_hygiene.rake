@@ -15,7 +15,7 @@ namespace :data_hygiene do
 
     published_guides.find_each do |guide|
       puts "--> Checking #{guide.content_id}"
-      content_item = Whitehall.publishing_api_v2_client.get_content(guide.content_id)
+      content_item = Services.publishing_api.get_content(guide.content_id)
       if content_item.present?
         puts "...found: #{content_item.base_path}"
       else
