@@ -61,9 +61,12 @@ module SyncChecker
         }.compact
       end
 
-      def top_level_fields_hash(corporate_information_page, _)
+      def top_level_fields_hash(corporate_information_page, locale)
         super.tap do |fields|
-          fields[:document_type] = corporate_information_page.display_type_key
+          I18n.with_locale(locale) do
+            fields[:document_type] = corporate_information_page.display_type_key
+            fields[:title] = corporate_information_page.title
+          end
         end
       end
 
