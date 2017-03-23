@@ -7,7 +7,7 @@ class PublishingApiWithdrawalWorker < PublishingApiWorker
       .pluck(:updated_at)
       .first
 
-    Whitehall.publishing_api_v2_client.unpublish(
+    Services.publishing_api.unpublish(
       content_id,
       type: "withdrawal",
       locale: locale,

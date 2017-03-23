@@ -5,9 +5,7 @@ class EditionTaxonomyTagForm
 
   def self.load(content_id)
     begin
-      content_item = Whitehall
-        .publishing_api_v2_client
-        .get_links(content_id)
+      content_item = Services.publishing_api.get_links(content_id)
 
       selected_taxons = content_item["links"]["taxons"] || []
       previous_version = content_item["version"] || 0
@@ -27,8 +25,8 @@ class EditionTaxonomyTagForm
   end
 
   def publish!
-    Whitehall
-      .publishing_api_v2_client
+    Services
+      .publishing_api
       .patch_links(
         edition_content_id,
         links: { taxons: most_specific_taxons },

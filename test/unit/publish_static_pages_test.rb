@@ -20,7 +20,7 @@ class PublishStaticPagesTest < ActiveSupport::TestCase
 
   def expect_publishing(pages)
     pages.each do |page|
-      Whitehall.publishing_api_v2_client.expects(:put_content)
+      Services.publishing_api.expects(:put_content)
         .with(
           page[:content_id],
           has_entries(
@@ -31,7 +31,7 @@ class PublishStaticPagesTest < ActiveSupport::TestCase
           )
         )
 
-      Whitehall.publishing_api_v2_client.expects(:publish)
+      Services.publishing_api.expects(:publish)
         .with(page[:content_id], 'minor', locale: "en")
     end
   end

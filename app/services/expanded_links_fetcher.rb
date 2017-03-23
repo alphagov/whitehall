@@ -7,7 +7,7 @@ class ExpandedLinksFetcher
 
   def fetch
     ExpandedLinks.new(
-      Whitehall.publishing_api_v2_client.get_expanded_links(content_id)
+      Services.publishing_api.get_expanded_links(content_id)
     )
 
   rescue GdsApi::HTTPNotFound

@@ -134,7 +134,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
 
 
   test "related_mainstream_found raises two errors for two incorrect related mainstream paths" do
-    Whitehall.publishing_api_v2_client.stubs(:lookup_content_ids).with(base_paths: ["/content-missing-from-publishing-api", "/another-content-missing-from-publishing-api"]).returns({})
+    Services.publishing_api.stubs(:lookup_content_ids).with(base_paths: ["/content-missing-from-publishing-api", "/another-content-missing-from-publishing-api"]).returns({})
 
     detailed_guide = build(
       :detailed_guide,

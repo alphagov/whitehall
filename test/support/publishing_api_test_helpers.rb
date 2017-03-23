@@ -15,31 +15,31 @@ module PublishingApiTestHelpers
 
   def expect_publishing(*editions, content_entries: {})
     editions.each do |edition|
-      Whitehall.publishing_api_v2_client.expects(:put_content)
+      Services.publishing_api.expects(:put_content)
         .with(edition.content_id,
           has_entries({publishing_app: 'whitehall'}.merge(content_entries)))
-      Whitehall.publishing_api_v2_client.stubs(:patch_links)
+      Services.publishing_api.stubs(:patch_links)
         .with(edition.content_id, has_entries(links: anything))
-      Whitehall.publishing_api_v2_client.expects(:publish)
+      Services.publishing_api.expects(:publish)
         .with(edition.content_id, 'major', locale: "en")
     end
   end
 
   def expect_republishing(*editions, content_entries: {})
     editions.each do |edition|
-      Whitehall.publishing_api_v2_client.expects(:put_content)
+      Services.publishing_api.expects(:put_content)
         .with(edition.content_id,
           has_entries({publishing_app: 'whitehall'}.merge(content_entries)))
-      Whitehall.publishing_api_v2_client.stubs(:patch_links)
+      Services.publishing_api.stubs(:patch_links)
         .with(edition.content_id, has_entries(links: anything))
-      Whitehall.publishing_api_v2_client.expects(:publish)
+      Services.publishing_api.expects(:publish)
         .with(edition.content_id, 'republish', locale: "en")
     end
   end
 
   def expect_no_republishing(*editions)
     editions.each do |edition|
-      Whitehall.publishing_api_v2_client.expects(:put_content)
+      Services.publishing_api.expects(:put_content)
         .with(content_id: edition.content_id).never
     end
   end

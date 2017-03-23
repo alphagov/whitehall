@@ -15,7 +15,7 @@ module PublishingApi
     end
 
     def content_id
-      @content_id ||= Whitehall.publishing_api_v2_client.lookup_content_id(
+      @content_id ||= Services.publishing_api.lookup_content_id(
         base_path: base_path
       ) || SecureRandom.uuid
     end

@@ -5,13 +5,13 @@ class PublishStaticPages
       index.add(present_for_rummager(page))
 
       payload = present_for_publishing_api(page)
-      publishing_api.put_content(payload[:content_id], payload[:content])
-      publishing_api.publish(payload[:content_id], "minor", locale: "en")
+      Services.publishing_api.put_content(payload[:content_id], payload[:content])
+      Services.publishing_api.publish(payload[:content_id], "minor", locale: "en")
     end
   end
 
   def patch_links(content_id, links)
-    publishing_api.patch_links(content_id, links)
+    Services.publishing_api.patch_links(content_id, links)
   end
 
   def pages
@@ -163,10 +163,6 @@ class PublishStaticPages
   end
 
 private
-
-  def publishing_api
-    @publishing_api ||= Whitehall.publishing_api_v2_client
-  end
 
   class TemplateContent
     include ActionView::Helpers::SanitizeHelper

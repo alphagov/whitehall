@@ -16,7 +16,6 @@ module Whitehall
   mattr_accessor :maslow
   mattr_accessor :need_api
   mattr_accessor :publishing_api_client
-  mattr_accessor :publishing_api_v2_client
   mattr_accessor :search_backend
   mattr_accessor :search_client
   mattr_accessor :skip_safe_html_validation
