@@ -617,5 +617,23 @@ module PublishingApi::ConsultationPresenterTest
 
       assert_equal expected_content_ids, presented_links[:ministers]
     end
+
+    test "people" do
+      expected_content_ids = consultation
+        .role_appointments
+        .map(&:person)
+        .map(&:content_id)
+
+      assert_equal expected_content_ids, presented_links[:people]
+    end
+
+    test "roles" do
+      expected_content_ids = consultation
+        .role_appointments
+        .map(&:role)
+        .map(&:content_id)
+
+      assert_equal expected_content_ids, presented_links[:roles]
+    end
   end
 end
