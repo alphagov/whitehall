@@ -8,7 +8,7 @@ class EmailSignup
 
   def initialize(attributes = {})
     @attributes = attributes
-    @feed = local_government ? add_local_government(attributes[:feed]) : attributes[:feed]
+    @feed = attributes[:feed]
   end
 
   def save
@@ -16,10 +16,6 @@ class EmailSignup
       ensure_govdelivery_topic_exists
       true
     end
-  end
-
-  def local_government
-    ActiveRecord::Type::Boolean.new.type_cast_from_database(@attributes[:local_government])
   end
 
   def ensure_govdelivery_topic_exists
@@ -47,10 +43,5 @@ protected
 
   def feed_url_validator
     @feed_url_validator ||= Whitehall::GovUkDelivery::FeedUrlValidator.new(feed)
-  end
-
-  def add_local_government(feed)
-    param_character = feed.include?('?') ? '&' : '?'
-    "#{feed}#{param_character}relevant_to_local_government=1"
   end
 end
