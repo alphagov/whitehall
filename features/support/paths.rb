@@ -53,7 +53,7 @@ module NavigationHelpers
     case edition
     when Publication
       visit publications_path
-    when NewsArticle, Speech
+    when Speech
       visit announcements_path
     when Consultation
       visit consultations_path
