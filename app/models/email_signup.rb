@@ -14,12 +14,17 @@ class EmailSignup
   def save
     if valid?
       ensure_govdelivery_topic_exists
+      EmailAlertApiSignupWorker.perform_async(topic_id, @feed)
       true
     end
   end
 
   def ensure_govdelivery_topic_exists
-    Whitehall.govuk_delivery_client.topic(feed, description)
+    @ensure_govdelivery_topic_exists ||= Whitehall.govuk_delivery_client.topic(feed, description)
+  end
+
+  def topic_id
+    ensure_govdelivery_topic_exists.parsed_content['partner_id']
   end
 
   def govdelivery_url

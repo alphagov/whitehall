@@ -3,6 +3,7 @@ Feature: Email signup for people and roles
   Background:
     Given I am a GDS editor
     And govuk delivery exists
+    And email alert api exists
     And "Marty McFly" is the "Minister of Anachronisms" for the "Department of Temporal Affairs"
     And a published news article "News from Marty McFly" associated with "Marty McFly"
 

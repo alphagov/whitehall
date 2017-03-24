@@ -3,11 +3,24 @@ require 'test_helper'
 class EmailSignupTest < ActiveSupport::TestCase
   test "#save ensures that a relevant topic exists in GovDelivery using the feed and the signup description" do
     email_signup = EmailSignup.new(feed: feed_url)
-
+    response = mock('Response', parsed_content: { 'partner_id' => 'TOPIC-123', 'success' => true })
+    Whitehall.govuk_delivery_client.stubs(:topic).returns(response)
     Whitehall.govuk_delivery_client.expects(:topic).with(feed_url, email_signup.description)
+    EmailAlertApiSignupWorker.stubs(:perform_async).with('TOPIC-123', feed_url)
 
     assert email_signup.save
   end
+
+  test "#save triggers the email alert api signup worker" do
+    response = mock('Response', parsed_content: { 'partner_id' => 'TOPIC-123', 'success' => true })
+    Whitehall.govuk_delivery_client.stubs(:topic).returns(response)
+    EmailAlertApiSignupWorker.expects(:perform_async).with('TOPIC-123', feed_url)
+
+    email_signup = EmailSignup.new(feed: feed_url)
+
+    assert email_signup.save
+  end
+
 
   test "#save does not create a GovDelivery topic if the feed is missing" do
     Whitehall.govuk_delivery_client.expects(:topic).never
