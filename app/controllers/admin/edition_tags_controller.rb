@@ -2,7 +2,6 @@ class Admin::EditionTagsController < Admin::BaseController
   before_filter :find_edition
   before_filter :enforce_permissions!
   before_filter :limit_edition_access!
-  before_action :redirect_back, unless: :tagging_taxonomy_enabled?
 
   def edit
     @edition_tag_form = EditionTaxonomyTagForm.load(@edition.content_id)
