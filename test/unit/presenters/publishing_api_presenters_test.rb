@@ -37,9 +37,6 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
   test ".presenter_for returns a Generic Edition presenter for all models without a presenter class" do
     assert_equal PublishingApi::GenericEditionPresenter,
       PublishingApiPresenters.presenter_for(GenericEdition.new).class
-
-    assert_equal PublishingApi::GenericEditionPresenter,
-      PublishingApiPresenters.presenter_for(CorporateInformationPage.new).class
   end
 
   test ".presenter_for returns a Placeholder presenter for an organisation" do
@@ -132,5 +129,37 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
   test ".presenter_for returns a NewsArticlePresenter for a NewsArticle" do
     presenter = PublishingApiPresenters.presenter_for(build(:news_article))
     assert_equal PublishingApi::NewsArticlePresenter, presenter.class
+  end
+
+  test ".presenter_for returns a CorporateInformationPagePresenter for a " +
+    "CorporateInformationPage belonging to an Organisation" do
+    presenter = PublishingApiPresenters
+      .presenter_for(
+        build(
+          :corporate_information_page,
+          organisation: build(:organisation),
+        ),
+      )
+
+    assert_equal(
+      PublishingApi::CorporateInformationPagePresenter,
+      presenter.class,
+    )
+  end
+
+  test ".presenter_for returns a GenericEditionPresenter for a " +
+    "CorporateInformationPage belonging to an WorldwideOrganisation" do
+    presenter = PublishingApiPresenters
+      .presenter_for(
+        build(
+          :corporate_information_page,
+          worldwide_organisation: build(:worldwide_organisation),
+        ),
+      )
+
+    assert_equal(
+      PublishingApi::GenericEditionPresenter,
+      presenter.class,
+    )
   end
 end

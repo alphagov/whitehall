@@ -7,6 +7,9 @@ module PublishingApiPresenters
   end
 
 private
+
+  FALLBACK_EDITION_PRESENTER = PublishingApi::GenericEditionPresenter
+
   def self.presenter_class_for(model)
     case model
     when ::Edition
@@ -50,6 +53,12 @@ private
       PublishingApi::CaseStudyPresenter
     when Consultation
       PublishingApi::ConsultationPresenter
+    when CorporateInformationPage
+      if edition.worldwide_organisation.present?
+        FALLBACK_EDITION_PRESENTER
+      else
+        PublishingApi::CorporateInformationPagePresenter
+      end
     when ::DocumentCollection
       PublishingApi::DocumentCollectionPresenter
     when ::DetailedGuide
@@ -67,11 +76,9 @@ private
     when WorldLocationNewsArticle
       PublishingApi::WorldLocationNewsArticlePresenter
     else
-      # This is a catch-all clause for the following classes:
-      # - CorporateInformationPage
       # The presenter implementation for all of these models is identical and
       # the structure of the presented payload is the same.
-      PublishingApi::GenericEditionPresenter
+      FALLBACK_EDITION_PRESENTER
     end
   end
 end
