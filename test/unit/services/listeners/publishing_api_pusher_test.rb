@@ -2,8 +2,22 @@ require 'test_helper'
 
 module ServiceListeners
   class PublishingApiPusherTest < ActiveSupport::TestCase
+    def stub_corporate_information_pages_pusher(edition, event)
+      PublishingApiCorporateInformationPagesWorker
+        .any_instance
+        .expects(:perform)
+        .with(edition.id, event)
+    end
+
     def stub_html_attachment_pusher(edition, event)
       PublishingApiHtmlAttachmentsWorker
+        .any_instance
+        .expects(:perform)
+        .with(edition.id, event)
+    end
+
+    def stub_publications_pusher(edition, event)
+      PublishingApiPublicationsWorker
         .any_instance
         .expects(:perform)
         .with(edition.id, event)
@@ -13,6 +27,7 @@ module ServiceListeners
       edition = build(:draft_publication, document: build(:document))
       Whitehall::PublishingApi.expects(:save_draft_async).with(edition)
       stub_html_attachment_pusher(edition, "update_draft")
+      stub_publications_pusher(edition, "update_draft")
       PublishingApiPusher.new(edition).push(event: "update_draft")
     end
 
@@ -24,6 +39,7 @@ module ServiceListeners
       )
       Whitehall::PublishingApi.expects(:save_draft_async).with(edition)
       stub_html_attachment_pusher(edition, "update_draft")
+      stub_publications_pusher(edition, "update_draft")
       PublishingApiPusher.new(edition).push(event: "update_draft")
     end
 
@@ -31,6 +47,7 @@ module ServiceListeners
       edition = build(:publication, document: build(:document))
       Whitehall::PublishingApi.expects(:publish_async).with(edition)
       stub_html_attachment_pusher(edition, "publish")
+      stub_publications_pusher(edition, "publish")
       PublishingApiPusher.new(edition).push(event: "publish")
     end
 
@@ -38,6 +55,7 @@ module ServiceListeners
       edition = build(:publication, document: build(:document))
       Whitehall::PublishingApi.expects(:publish_async).with(edition)
       stub_html_attachment_pusher(edition, "force_publish")
+      stub_publications_pusher(edition, "force_publish")
       PublishingApiPusher.new(edition).push(event: "force_publish")
     end
 
@@ -45,6 +63,7 @@ module ServiceListeners
       edition = build(:publication, document: build(:document))
       Whitehall::PublishingApi.expects(:save_draft_translation_async).with(edition, 'en')
       stub_html_attachment_pusher(edition, "update_draft_translation")
+      stub_publications_pusher(edition, "update_draft_translation")
       PublishingApiPusher.new(edition).push(event: "update_draft_translation", options: { locale: "en" })
     end
 
@@ -57,6 +76,7 @@ module ServiceListeners
       Whitehall::PublishingApi.expects(:publish_withdrawal_async)
         .with(edition.document.content_id, edition.unpublishing.explanation, edition.primary_locale)
       stub_html_attachment_pusher(edition, "withdraw")
+      stub_publications_pusher(edition, "withdraw")
 
       PublishingApiPusher.new(edition).push(event: "withdraw")
     end
@@ -65,6 +85,7 @@ module ServiceListeners
       edition = create(:unpublished_publication)
       Whitehall::PublishingApi.expects(:unpublish_async).with(edition.unpublishing)
       stub_html_attachment_pusher(edition, "unpublish")
+      stub_publications_pusher(edition, "unpublish")
       PublishingApiPusher.new(edition).push(event: "unpublish")
     end
 
@@ -72,6 +93,7 @@ module ServiceListeners
       edition = build(:publication, document: build(:document))
       Whitehall::PublishingApi.expects(:schedule_async).with(edition)
       stub_html_attachment_pusher(edition, "force_schedule")
+      stub_publications_pusher(edition, "force_schedule")
       PublishingApiPusher.new(edition).push(event: "force_schedule")
     end
 
@@ -79,6 +101,7 @@ module ServiceListeners
       edition = build(:publication, document: build(:document))
       Whitehall::PublishingApi.expects(:schedule_async).with(edition)
       stub_html_attachment_pusher(edition, "schedule")
+      stub_publications_pusher(edition, "schedule")
       PublishingApiPusher.new(edition).push(event: "schedule")
     end
 
@@ -86,6 +109,7 @@ module ServiceListeners
       edition = build(:publication, document: build(:document))
       Whitehall::PublishingApi.expects(:unschedule_async).with(edition)
       stub_html_attachment_pusher(edition, "unschedule")
+      stub_publications_pusher(edition, "unschedule")
       PublishingApiPusher.new(edition).push(event: "unschedule")
     end
 
@@ -93,6 +117,7 @@ module ServiceListeners
       edition = build(:publication, document: build(:document))
       Whitehall::PublishingApi.expects(:discard_draft_async).with(edition)
       stub_html_attachment_pusher(edition, "delete")
+      stub_publications_pusher(edition, "delete")
       PublishingApiPusher.new(edition).push(event: "delete")
     end
 
@@ -138,6 +163,24 @@ module ServiceListeners
       )
 
       PublishingApiPusher.new(new_edition).push(event: "publish")
+    end
+
+    test 'handles corporate information pages' do
+      edition = build(:corporate_information_page, document: build(:document))
+
+      stub_corporate_information_pages_pusher(edition, 'update_draft')
+      stub_html_attachment_pusher(edition, 'update_draft')
+
+      PublishingApiPusher.new(edition).push(event: 'update_draft')
+    end
+
+    test 'handles publications' do
+      edition = build(:publication, document: build(:document))
+
+      stub_publications_pusher(edition, 'update_draft')
+      stub_html_attachment_pusher(edition, 'update_draft')
+
+      PublishingApiPusher.new(edition).push(event: 'update_draft')
     end
   end
 end

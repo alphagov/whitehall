@@ -923,4 +923,41 @@ class OrganisationTest < ActiveSupport::TestCase
 
     assert_equal sport.description_for_search, "The home of Department for Culture and Sports on GOV.UK. A summary."
   end
+
+  test "#save triggers organisation with a changed chart url to republish about page" do
+    organisation = create(
+      :organisation,
+      organisation_chart_url: 'http://www.example.com/path/to/chart',
+    )
+
+    about_page = create(
+      :about_corporate_information_page,
+      organisation: organisation,
+    )
+
+    PublishingApiDocumentRepublishingWorker
+      .expects(:perform_async)
+      .with(about_page.document.id)
+
+    organisation.update_attribute(
+      :organisation_chart_url,
+      'http://www.example.com/path/to/new_chart',
+    )
+  end
+
+  test "#save does not trigger organisation with a changed chart url to republish about page if it does not exist" do
+    organisation = create(
+      :organisation,
+      organisation_chart_url: 'http://www.example.com/path/to/chart',
+    )
+
+    PublishingApiDocumentRepublishingWorker
+      .expects(:perform_async)
+      .never
+
+    organisation.update_attribute(
+      :organisation_chart_url,
+      'http://www.example.com/path/to/new_chart',
+    )
+  end
 end
