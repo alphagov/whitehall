@@ -52,7 +52,8 @@ module PublishingApi
         logo: {
           formatted_title: formatted_title,
           crest: crest,
-        },
+          image: image,
+        }.compact,
       }
     end
 
@@ -67,6 +68,17 @@ module PublishingApi
 
     def formatted_title
       format_with_html_line_breaks(item.logo_formatted_name)
+    end
+
+    def image
+      return unless item.custom_logo_selected?
+
+      {
+        url: ActionController::Base.helpers.image_url(
+          item.logo.url, host: Whitehall.public_asset_host
+        ),
+        alt_text: item.name,
+      }
     end
 
     def brand
