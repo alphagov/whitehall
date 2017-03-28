@@ -51,6 +51,27 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     assert_valid_against_schema(presented_item.content, 'placeholder')
   end
 
+  test 'presents an organisation’s custom logo' do
+    organisation = create(
+      :organisation,
+      name: 'Organisation of Things',
+      organisation_logo_type_id: 14,
+      logo: fixture_file_upload('images/960x640_jpeg.jpg', 'image/jpeg')
+    )
+    presented_item = present(organisation)
+
+    expected_image_url = 'https://static.test.alphagov.co.uk' +
+      '/government/uploads/system/uploads/organisation/logo/1/960x640_jpeg.jpg'
+
+    assert_equal(
+      presented_item.content[:details][:logo][:image],
+      {
+        url: expected_image_url,
+        alt_text: 'Organisation of Things',
+      }
+    )
+  end
+
   test 'presents an organisation with a custom logo with a nil crest' do
     organisation = create(
       :organisation,
