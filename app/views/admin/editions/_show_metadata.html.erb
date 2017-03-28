@@ -45,7 +45,7 @@
 
 <%= render_partial_if_exists 'extra_metadata' %>
 
-<% if @edition.can_be_tagged_to_taxonomy? && tagging_taxonomy_enabled? %>
+<% if @edition.can_be_tagged_to_taxonomy? %>
   <section class="taxonomy-topics" id="topic-new-taxonomy">
     <h2>Topics (new taxonomy)
       <%= link_to edit_admin_edition_tags_path(@edition.id), class:"btn btn-default pull-right" do %>

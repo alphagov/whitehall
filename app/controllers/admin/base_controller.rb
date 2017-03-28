@@ -7,11 +7,6 @@ class Admin::BaseController < ApplicationController
   prepend_before_filter :authenticate_user!
   before_filter :require_signin_permission!
 
-  def tagging_taxonomy_enabled?
-    ENV['ENABLE_TAGGING_TO_NEW_TAXONOMY'] == 'yes'
-  end
-  helper_method :tagging_taxonomy_enabled?
-
   def limit_edition_access!
     enforce_permission!(:see, @edition)
   end
