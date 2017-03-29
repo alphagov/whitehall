@@ -62,6 +62,15 @@ class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
   test "it presents the first_published_at in UTC" do
     assert_equal @first_published_at.utc, @presented_content[:first_published_at]
   end
+
+  test "it presents edition links" do
+    expected_links = {
+      organisations:  [],
+      policy_areas:   [],
+      field_of_operation: [@fatality_notice.operational_field.content_id]
+    }
+    assert_equal expected_links, @presented_content[:links]
+  end
 end
 
 class PublishingApi::FatalityNoticePresenterWithPublicTimestampTest < ActiveSupport::TestCase

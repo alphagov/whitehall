@@ -24,6 +24,7 @@ module PublishingApi
           rendering_app: item.rendering_app,
           schema_name: "fatality_notice",
           details: details,
+          links: links,
         )
         content.merge!(PayloadBuilder::AccessLimitation.for(item))
         content.merge!(PayloadBuilder::FirstPublishedAt.for(item))
