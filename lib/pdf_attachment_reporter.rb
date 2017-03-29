@@ -17,6 +17,7 @@
 #  guess.
 
 require 'csv'
+require 'ruby-progressbar'
 
 class PDFAttachmentReporter
   POLICY_GROUPS = 'Policy Groups'.freeze
@@ -37,6 +38,9 @@ class PDFAttachmentReporter
     live_organisation_published_pdfs_since_first_period_counts_hash = Hash[live_organisation_names.map { |o| [o, 0] }]
     live_organisation_published_pdfs_since_second_period_counts_hash = Hash[live_organisation_names.map { |o| [o, 0] }]
 
+    progress_bar.total = unique_pdf_count
+    progress_bar.start
+
     unique_published_pdf_attachments.find_each do |attachment|
       pdf_attachment_data = find_pdf_attachment_data(attachment)
 
@@ -51,7 +55,10 @@ class PDFAttachmentReporter
           live_organisation_published_pdfs_since_first_period_counts_hash[pdf_attachment_data.owning_organisation_name] += 1
         end
       end
+
+      progress_bar.increment
     end
+    progress_bar.finish
 
     CSV.open(csv_file_path, 'wb') do |csv|
       csv << [
@@ -156,12 +163,25 @@ private
 
   def unique_published_pdf_attachments
     Attachment.joins(:attachment_data)
-        .where(attachment_data: { content_type: AttachmentUploader::PDF_CONTENT_TYPE })
-        .group('attachment_data.id')
-        .includes(:attachment_data)
+      .where(attachment_data: { content_type: AttachmentUploader::PDF_CONTENT_TYPE })
+      .group('attachment_data.id')
+      .includes(:attachment_data)
+  end
+
+  def unique_pdf_count
+    AttachmentData.joins(:attachments)
+      .where(content_type: AttachmentUploader::PDF_CONTENT_TYPE)
+      .uniq.count
   end
 
   def csv_file_path
     File.join(@data_path, "pdf-attachments-report-#{Time.zone.now.strftime('%y%m%d-%H%M%S')}.csv")
+  end
+
+  def progress_bar
+    @progress ||= ProgressBar.create(
+      autostart: false,
+      format: "%e [%b>%i] [%c/%C]"
+    )
   end
 end
