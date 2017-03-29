@@ -49,11 +49,6 @@ When /^I draft a new publication "([^"]*)" that does not apply to the nations:$/
   add_external_attachment
 end
 
-When /^I visit the list of publications$/ do
-  visit homepage
-  click_link "Publications"
-end
-
 When /^I draft a new publication "([^"]*)" relating it to the policies "([^"]*)" and "([^"]*)"$/ do |title, first_policy, second_policy|
   begin_drafting_publication(title)
   select first_policy, from: "Policies"
@@ -156,12 +151,6 @@ end
 Given /^a published publication "([^"]*)" with type "([^"]*)"$/ do |publication_title, publication_type|
   type_id = PublicationType.all.select {|pt| pt.singular_name == publication_type }.first.id
   create(:published_publication, title: publication_title, publication_type_id: type_id)
-end
-
-When /^I filter the publications list by "([^"]*)"$/ do |publication_filter|
-  visit publications_path
-  select publication_filter, from: "Publication type"
-  click_on "Refresh results"
 end
 
 Then /^I should see "([^"]*)" in the result list$/ do |title|

@@ -30,39 +30,13 @@ Feature: Filtering Documents
 
     - c.f. world-location-news.feature
 
-  Scenario: Filtering publications
-    Given there are some published publications
-    When I visit the publications index page
-    Then I should be able to filter publications by keyword, publication type, topic, department, official document status, world location, and publication date
-
   Scenario: Filtering announcements
     Given there are some published announcements
     When I visit the announcements index page
     Then I should be able to filter announcements by keyword, announcement type, topic, department, world location and publication date
-
-  @javascript
-  Scenario: Filtering publications in a javascript-enabled browser
-    Given there are some published publications
-    When I visit the publications index page
-    When I select a filter option without clicking any button
-    Then the filtered publications refresh automatically
 
   Scenario: Filtering translated announcments
     Given there are some published announcments including a few in French
     When I visit the announcments index in French
     Then I should see only announcements which have French translations
     And I should be able to filter them by country (or 'Pays' in French)
-
-  Scenario: User filters by "Statistics" which returns Official Statistics and National statistics
-    Given a published publication "Road accidents" with type "Official Statistics"
-    And a published publication "National road accidents" with type "National Statistics"
-    When I filter the publications list by "Statistics"
-    Then I should see "Road accidents" in the result list
-    And I should see "National road accidents" in the result list
-
-  @javascript
-  Scenario: User filters by "Statistics" which returns Official Statistics and National statistics
-    Given a published publication "Road accidents" with type "Official Statistics"
-    When I visit the publications index page
-    When I select the Statistics publication type option without clicking any button
-    Then I should be notified that statistics have moved

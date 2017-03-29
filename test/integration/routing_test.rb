@@ -6,11 +6,6 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_redirected_to "#{Whitehall.router_prefix}/topics"
   end
 
-  test "assets are served under the #{Whitehall.router_prefix} prefix" do
-    get publications_path
-    assert_select "script[src=?]", "#{Whitehall.router_prefix}/assets/application.js"
-  end
-
   test "visiting #{Whitehall.router_prefix} when not in frontend redirects to /" do
     get "#{Whitehall.router_prefix}"
     assert_redirected_to "/"

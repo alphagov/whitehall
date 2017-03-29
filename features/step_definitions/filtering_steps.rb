@@ -47,10 +47,6 @@ Given(/^there are some published publications$/) do
   create :published_publication, title: "Publication published within date range", first_published_at: "2013-02-01"
 end
 
-When(/^I visit the publications index page$/) do
-  visit publications_path
-end
-
 Then(/^I should be able to filter publications by keyword, publication type, topic, department, official document status, world location, and publication date$/) do
   fill_in_filter "Contains", "keyword"
 

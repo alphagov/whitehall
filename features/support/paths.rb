@@ -51,8 +51,6 @@ module NavigationHelpers
 
   def visit_public_index_for(edition)
     case edition
-    when Publication
-      visit publications_path
     when Speech
       visit announcements_path
     when Consultation
