@@ -108,6 +108,17 @@ module PublishingApi::ConsultationPresenterTest
       assert_equal actual_links, expected_links
     end
 
+    test 'edition links' do
+      expected_links = {
+        organisations: consultation.organisations.map(&:content_id),
+        parent: [],
+        policy_areas: consultation.topics.map(&:content_id),
+        related_policies: [],
+        topics: []
+      }
+      assert_equal presented_content[:links], expected_links
+    end
+
     test 'body details' do
       body_double = Object.new
 
