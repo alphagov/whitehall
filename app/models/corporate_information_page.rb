@@ -116,6 +116,10 @@ class CorporateInformationPage < Edition
     corporate_information_page_type.try(:slug) == 'about'
   end
 
+  def rendering_app
+    Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+  end
+
   private
 
   def string_for_slug

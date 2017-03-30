@@ -150,7 +150,7 @@ module PublishingApi::CorporateInformationPagePresenterTest
     end
 
     test 'rendering app' do
-      assert_attribute :rendering_app, 'whitehall-frontend'
+      assert_attribute :rendering_app, 'government-frontend'
     end
 
     test 'schema name' do

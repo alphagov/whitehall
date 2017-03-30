@@ -25,7 +25,7 @@ module PublishingApi
           details: details,
           document_type: display_type_key,
           public_updated_at: public_updated_at,
-          rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
+          rendering_app: corporate_information_page.rendering_app,
           schema_name: SCHEMA_NAME,
         )
     end
