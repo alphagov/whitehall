@@ -3,6 +3,7 @@ Feature: Email signup for organisations
   Background:
     Given I am a GDS editor
     And govuk delivery exists
+    And email alert api exists
     And the organisation "Sledgehamster extermination inc." exists with a featured article
 
   Scenario: Signing up to organisation alerts

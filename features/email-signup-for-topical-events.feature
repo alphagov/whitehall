@@ -3,6 +3,7 @@ Feature: Email signup for topical events
   Background:
     Given I am a GDS editor
     And govuk delivery exists
+    And email alert api exists
     And a topical event called "Wombat management" exists with featured documents
 
   Scenario: Signing up to topical event alerts

@@ -3,6 +3,7 @@ Feature: Email signup for documents
   Background:
     Given I am a GDS editor
     And govuk delivery exists
+    And email alert api exists
     And a list of publications exists
 
   Scenario: Signing up to unfiltered publications alerts

@@ -2,6 +2,10 @@ Given(/^govuk delivery exists$/) do
   mock_govuk_delivery_client
 end
 
+Given(/^email alert api exists$/) do
+  mock_email_alert_api
+end
+
 When(/^I sign up for emails$/) do
   within '.feeds' do
     click_on 'email'
@@ -89,12 +93,20 @@ end
 
 def mock_govuk_delivery_client
   @mock_client ||= RetrospectiveStub.new.tap { |mock_client|
-    mock_client.stub :topic
+    mock_client.stub :topic, returns: mock(parsed_content: { 'topic_id' => 'TOPIC_123', 'success' => true })
     mock_client.stub :signup_url, returns: 'http://govdelivery.url'
     mock_client.stub :notify
     Whitehall.stubs(govuk_delivery_client: mock_client)
   }
 end
+
+def mock_email_alert_api
+  @email_mock_client ||= RetrospectiveStub.new.tap { |mock_client|
+    mock_client.stub :find_or_create_subscriber_list, returns: { 'subscriber_list' => { 'topic_id' => 'TOPIC_123'} }
+    EmailAlertApiSignupWorker.any_instance.stubs(email_alert_api: mock_client)
+  }
+end
+
 
 def assert_signed_up_to_mailing_list(feed_path, description)
   @feed_signed_up_to = public_url(feed_path)

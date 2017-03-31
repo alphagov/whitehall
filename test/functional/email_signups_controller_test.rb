@@ -20,7 +20,11 @@ class EmailSignupsControllerTest < ActionController::TestCase
   end
 
   test 'POST :create with a valid email signup redirects to the govdelivery URL' do
+    response = mock('Response', parsed_content: { 'partner_id' => 'TOPIC-123', 'success' => true })
+    Whitehall.govuk_delivery_client.stubs(:topic).returns(response)
     Whitehall.govuk_delivery_client.stubs(:signup_url).returns('http://govdelivery_signup_url')
+    EmailAlertApiSignupWorker.stubs(:perform_async)
+
     topic = create(:topic)
     post :create, email_signup: { feed: atom_feed_url_for(topic) }
 

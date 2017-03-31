@@ -3,6 +3,7 @@ Feature: Email signup for topics
   Background:
     Given I am a GDS editor
     And govuk delivery exists
+    And email alert api exists
     And a topic called "Wombat management" exists with featured documents
 
   Scenario: Signing up to topic alerts

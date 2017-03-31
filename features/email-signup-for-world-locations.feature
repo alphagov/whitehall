@@ -3,6 +3,7 @@ Feature: Email signup for world locations
   Background:
     Given I am a GDS editor
     And govuk delivery exists
+    And email alert api exists
     And a world location "Best City" exists
 
   Scenario: Signing up to world location alerts

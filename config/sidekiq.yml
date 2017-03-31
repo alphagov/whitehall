@@ -10,3 +10,4 @@
   - publishing_api
   - bulk_republishing
   - sync_checks
+  - email_alert_api_signup
