@@ -24,10 +24,17 @@ module SyncChecker
         '/government/consultations/'
       end
 
+      def checks_for_draft(_locale)
+        super << Checks::LinksCheck.new(
+          "ministers",
+          expected_minister_content_ids(edition_expected_in_draft)
+        )
+      end
+
       def checks_for_live(_locale)
         super << Checks::LinksCheck.new(
           "ministers",
-          expected_minister_content_ids
+          expected_minister_content_ids(edition_expected_in_live)
         )
       end
 
@@ -198,8 +205,8 @@ module SyncChecker
         end
       end
 
-      def expected_minister_content_ids
-        edition_expected_in_live
+      def expected_minister_content_ids(edition)
+        edition
           .role_appointments
           .try(:collect, &:person)
           .try(:collect, &:content_id)
