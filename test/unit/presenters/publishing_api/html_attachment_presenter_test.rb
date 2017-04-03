@@ -84,4 +84,15 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
       assert_equal Time.zone.now, present(html_attachment).content[:details][:public_timestamp]
     end
   end
+
+  test "HtmlAttachment presents unique organisation content_ids" do
+    create(:publication, :with_html_attachment, :published)
+
+    html_attachment = HtmlAttachment.last
+    # if an organisation has multiple translations, pluck returns
+    # duplicate content_ids because it constructs a left outer join
+    html_attachment.attachable.organisations.expects(:pluck).with(:content_id).returns(%w(abcdef abcdef))
+
+    assert_equal ["abcdef"], present(html_attachment).links[:organisations]
+  end
 end

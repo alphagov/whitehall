@@ -36,7 +36,7 @@ module PublishingApi
     def links
       {
         parent: parent_content_ids, # please use the breadcrumb component when migrating document_type to government-frontend
-        organisations: parent.organisations.pluck(:content_id),
+        organisations: parent.organisations.pluck(:content_id).uniq,
       }
     end
 
