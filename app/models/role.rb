@@ -1,5 +1,6 @@
 # @abstract
 class Role < ActiveRecord::Base
+  include HasContentId
   HISTORIC_ROLE_PARAM_MAPPINGS = { 'past-prime-ministers' => 'prime-minister',
                                    'past-chancellors'     => 'chancellor-of-the-exchequer',
                                    'past-foreign-secretaries' => 'foreign-secretary' }
