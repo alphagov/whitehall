@@ -38,10 +38,14 @@ class PDFAttachmentReporter
     live_organisation_published_pdfs_since_first_period_counts_hash = Hash[live_organisation_names.map { |o| [o, 0] }]
     live_organisation_published_pdfs_since_second_period_counts_hash = Hash[live_organisation_names.map { |o| [o, 0] }]
 
-    progress_bar.total = unique_pdf_count
+    attachment_ids = unique_published_pdf_attachments.pluck(:id)
+
+    progress_bar.total = attachment_ids.size
     progress_bar.start
 
-    unique_published_pdf_attachments.find_each do |attachment|
+    Attachment.where(id: attachment_ids).find_each do |attachment|
+      progress_bar.log("Processing Attachment ##{attachment.id}...")
+
       pdf_attachment_data = find_pdf_attachment_data(attachment)
 
       if pdf_attachment_data
