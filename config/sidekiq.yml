@@ -8,6 +8,6 @@
   - scheduled_publishing
   - default
   - publishing_api
+  - email_alert_api_signup
   - bulk_republishing
   - sync_checks
-  - email_alert_api_signup
