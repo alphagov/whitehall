@@ -38,6 +38,20 @@ namespace :publishing do
       end
       puts ""
     end
+
+    desc "Finds editions that were meant to be published between 23:15 yesterday and 01:00 today"
+    task :find_bst_possible_failures => :environment do
+      yesterday = Date.today - 1
+      today = Date.today
+
+      time_from = Time.new(yesterday.year, yesterday.month, yesterday.day, 23,0,0)
+      time_to = Time.new(today.year, today.month, today.day, 1,0,0)
+
+      editions = Edition.where("scheduled_publication between ? and ? and political = true", time_from, time_to)
+      editions.each do |edition|
+        puts "#{edition.id}, #{Whitehall.url_maker.polymorphic_path(edition)}"
+      end
+    end
   end
 
   namespace :overdue do
