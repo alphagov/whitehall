@@ -14,7 +14,7 @@ class Government < ActiveRecord::Base
   end
 
   def self.on_date(date)
-    return if date.to_date > Date.today
+    return if date.to_date > Time.zone.today
 
     where('start_date <= ?', date).order(start_date: :asc).last
   end
