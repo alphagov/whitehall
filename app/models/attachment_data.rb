@@ -53,13 +53,17 @@ class AttachmentData < ActiveRecord::Base
   end
 
   def virus_status
-    if File.exists?(infected_path)
+    if File.exist?(infected_path)
       :infected
-    elsif File.exists?(clean_path)
+    elsif File.exist?(clean_path) || skip_virus_check?
       :clean
     else
       :pending
     end
+  end
+
+  def skip_virus_check?
+    Rails.env.development? && !File.exist?(path)
   end
 
   # Newly instantiated AttachmentData will report the file path as in the incoming
