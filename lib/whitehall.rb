@@ -13,6 +13,7 @@ module Whitehall
   mattr_accessor :document_collections_cache_max_age
   mattr_accessor :government_search_client
   mattr_accessor :govuk_delivery_client
+  mattr_accessor :link_checker_api_client
   mattr_accessor :maslow
   mattr_accessor :need_api
   mattr_accessor :publishing_api_client
