@@ -1,6 +1,10 @@
 class ImageUploader < WhitehallUploader
   include CarrierWave::MiniMagick
 
+  configure do |config|
+    config.remove_previously_stored_files_after_update = false
+  end
+
   def extension_white_list
     %w(jpg jpeg gif png)
   end
