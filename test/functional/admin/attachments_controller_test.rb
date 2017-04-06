@@ -111,11 +111,11 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_equal 'Some **govspeak** body', @edition.attachments.first.govspeak_content_body
   end
 
-  test 'POST :create saves a draft html attachment to the Publishing API' do
-    stub_any_publishing_api_put_content
-    post :create, edition_id: @edition.id, type: 'html', attachment: valid_html_attachment_params
-    attachment_content_id = HtmlAttachment.pluck(:content_id).last
-    assert_publishing_api_put_content(attachment_content_id)
+  test 'POST :create saves an attachment on the draft edition' do
+    attachment = valid_html_attachment_params.merge(title: SecureRandom.uuid)
+
+    post :create, edition_id: @edition.id, type: 'html', attachment: attachment
+    refute_nil(Attachment.find_by title: attachment[:title])
   end
 
   test 'POST :create ignores html attachments when attachable does not allow them' do
@@ -246,15 +246,16 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_equal 'New body', attachment.reload.govspeak_content_body
   end
 
-  test "PUT :update for HTML attachments sends a draft to the Publishing API" do
-    stub_any_publishing_api_put_content
+  test 'PUT :updates an attachment on the draft edition' do
     attachment = create(:html_attachment, attachable: @edition)
+    title = SecureRandom.uuid
 
     put :update, edition_id: @edition, id: attachment.id, attachment: {
-      title: 'New title',
+      title: title,
       govspeak_content_attributes: { body: 'New body', id: attachment.govspeak_content.id }
     }
-    assert_publishing_api_put_content(attachment.content_id)
+
+    refute_nil(Attachment.find_by title: title)
   end
 
   test "PUT :update with empty file payload changes attachment metadata, but not the attachment data" do

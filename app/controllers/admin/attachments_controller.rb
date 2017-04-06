@@ -16,7 +16,7 @@ class Admin::AttachmentsController < Admin::BaseController
   def new; end
 
   def create
-    if save_attachment
+    if attachment.save
       redirect_to attachable_attachments_path(attachable), notice: "Attachment '#{attachment.title}' uploaded"
     else
       render :new
@@ -25,7 +25,7 @@ class Admin::AttachmentsController < Admin::BaseController
 
   def update
     attachment.attributes = attachment_params
-    if save_attachment
+    if attachment.save
       message = "Attachment '#{attachment.title}' updated"
       redirect_to attachable_attachments_path(attachable), notice: message
     else
@@ -172,14 +172,6 @@ private
       redirect_to attachable_attachments_path(attachable), notice: "Attachment '#{attachment.title}' uploaded"
     else
       raise
-    end
-  end
-
-  def save_attachment
-    if attachment.respond_to?(:save_and_update_publishing_api)
-      attachment.save_and_update_publishing_api
-    else
-      attachment.save
     end
   end
 end
