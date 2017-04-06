@@ -401,6 +401,7 @@ Whitehall::Application.routes.draw do
         end
 
         resources :sitewide_settings
+        post "/link-checker-api-callback" => "link_checker_api#callback"
       end
     end
 
