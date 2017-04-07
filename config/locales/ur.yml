@@ -72,6 +72,9 @@ ur:
       international_treaty:
         one:
         other:
+      manual:
+        one:
+        other:
       map:
         one: "نقشہ"
         other: "نقشے"

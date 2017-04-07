@@ -72,6 +72,9 @@ de:
       international_treaty:
         one:
         other:
+      manual:
+        one:
+        other:
       map:
         one: Karte
         other: Karten

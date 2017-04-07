@@ -72,6 +72,9 @@ bg:
       international_treaty:
         one:
         other:
+      manual:
+        one:
+        other:
       map:
         one: "Карта"
         other: "Карти"

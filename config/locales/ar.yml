@@ -160,6 +160,13 @@ ar:
         few:
         many:
         other:
+      manual:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       map:
         zero:
         one: "خريطة"

@@ -186,6 +186,9 @@ ko:
       international_treaty:
         one:
         other:
+      manual:
+        one:
+        other:
       map:
         one: "지도"
         other: "지도"

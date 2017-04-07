@@ -72,6 +72,9 @@ si:
       international_treaty:
         one:
         other:
+      manual:
+        one:
+        other:
       map:
         one: "සිතියම"
         other: "සිතියම්"

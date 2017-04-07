@@ -186,6 +186,9 @@ ja:
       international_treaty:
         one:
         other:
+      manual:
+        one:
+        other:
       map:
         one: "地図"
         other: "地図"

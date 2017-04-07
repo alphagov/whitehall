@@ -72,6 +72,9 @@ ta:
       international_treaty:
         one:
         other:
+      manual:
+        one:
+        other:
       map:
         one: "வரைபடம்"
         other: "வரைபடங்கள்"

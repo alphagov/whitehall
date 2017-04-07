@@ -72,6 +72,9 @@ uz:
       international_treaty:
         one:
         other:
+      manual:
+        one:
+        other:
       map:
         one: Xarita
         other: Xaritalar

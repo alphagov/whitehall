@@ -187,6 +187,9 @@ tr:
       international_treaty:
         one:
         other:
+      manual:
+        one:
+        other:
       map:
         one: Harita
         other: Haritalar

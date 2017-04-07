@@ -161,6 +161,9 @@ en:
       international_treaty:
         one: International treaty
         other: International treaties
+      manual:
+        one: Manual
+        other: Manuals
       map:
         one: Map
         other: Maps

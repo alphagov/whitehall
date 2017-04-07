@@ -90,6 +90,11 @@ class OffsiteLinkTest < ActiveSupport::TestCase
     assert offsite_link.valid?
   end
 
+  test 'should be valid if the type is manual' do
+    offsite_link = build(:offsite_link, link_type: 'manual')
+    assert offsite_link.valid?
+  end
+
   test 'should be valid if the type is service' do
     offsite_link = build(:offsite_link, link_type: 'service')
     assert offsite_link.valid?

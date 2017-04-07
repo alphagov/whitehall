@@ -187,6 +187,9 @@ vi:
       international_treaty:
         one:
         other:
+      manual:
+        one:
+        other:
       map:
         one: Bản đồ
         other: Các bản đồ

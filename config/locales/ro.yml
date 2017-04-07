@@ -94,6 +94,10 @@ ro:
         one:
         few:
         other:
+      manual:
+        one:
+        few:
+        other:
       map:
         one: Hartă
         few:

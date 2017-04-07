@@ -72,6 +72,9 @@ et:
       international_treaty:
         one: Rahvusvaheline leping
         other: Rahvusvahelised lepingud
+      manual:
+        one: Rahvusvaheline leping
+        other: Rahvusvahelised lepingud
       map:
         one: Kaart
         other: Kaardid
