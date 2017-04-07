@@ -38,7 +38,7 @@
           <%= render "govspeak_help", hide_inline_attachments_help: !@edition.allows_inline_attachments?,
                                       show_attachments_tab_help: true,
                                       govspeak_link_errors: force_publisher.govspeak_link_errors,
-                                      links_report: @edition.links_reports.last %>
+                                      link_check_report: LinkCheckerApiService.has_links?(@edition) ? @edition.link_check_reports.last : nil %>
 
           <%= render "words_to_avoid_guidance" %>
           <h3 class="style-title">Style</h3>
