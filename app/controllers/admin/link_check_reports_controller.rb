@@ -1,8 +1,11 @@
-class Admin::LinksReportsController < Admin::BaseController
-  before_action :find_reportable
+class Admin::LinkCheckReportsController < Admin::BaseController
+  before_filter :find_reportable
 
   def create
-    @links_report = LinksReport.queue_for!(@reportable)
+    @report = LinkCheckerApiService.check_links(
+      @reportable,
+      admin_link_checker_api_callback_url
+    )
 
     respond_to do |format|
       format.js
@@ -11,7 +14,7 @@ class Admin::LinksReportsController < Admin::BaseController
   end
 
   def show
-    @links_report = @reportable.links_reports.find(params[:id])
+    @report = LinkCheckerApiReport.find(params[:id])
     respond_to do |format|
       format.js
       format.html { redirect_to [:admin, @reportable] }

@@ -37,6 +37,7 @@ class Edition < ApplicationRecord
   has_many :authors, through: :edition_authors, source: :user
   has_many :classification_featurings, inverse_of: :edition
   has_many :links_reports, as: :link_reportable
+  has_many :link_check_reports, as: :link_reportable, class_name: LinkCheckerApiReport
 
   has_many :edition_dependencies, dependent: :destroy
   has_many :depended_upon_contacts, through: :edition_dependencies, source: :dependable, source_type: 'Contact'

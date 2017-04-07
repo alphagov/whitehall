@@ -103,8 +103,8 @@ class Admin::EditionsController < Admin::BaseController
     if updater.can_perform? && @edition.save_as(current_user)
       updater.perform!
 
-      if @edition.links_reports.last
-        LinksReport.queue_for!(@edition)
+      if @edition.link_check_reports.last && LinkCheckerApiService.has_links?(@edition)
+        LinkCheckerApiService.check_links(@edition, admin_link_checker_api_callback_url)
       end
 
       @edition.convert_to_draft! if params[:speed_save_convert]

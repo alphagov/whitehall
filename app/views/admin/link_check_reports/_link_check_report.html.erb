@@ -1,33 +1,33 @@
 <div class="broken-links-report">
-  <% if links_report.new_record? %>
+  <% if report.new_record? %>
     <section class="alert alert-info">
       <p>Check this document for broken links. The report will take a few moments to complete.</p>
-      <%= render 'admin/links_reports/form', reportable: links_report.link_reportable, button_text: 'Check for broken links' %>
+      <%= render 'admin/link_check_reports/form', reportable: report.link_reportable, button_text: 'Check for broken links' %>
     </section>
-  <% elsif links_report.in_progress? %>
+  <% elsif report.in_progress? %>
     <section class="alert alert-info">
       <%= image_tag('admin/ajax_loader_blue_32.gif', width: 24, height: 24, class: 'pull-left add-right-margin') %>
       Broken link report in progress.<br />Please wait.
       <%= link_to "Refresh",
-                  admin_edition_links_report_path(links_report.link_reportable, links_report),
+                  admin_edition_link_check_report_path(report.link_reportable, report),
                   class: 'js-broken-links-refresh js-hidden',
                   remote: true %>
     </section>
-  <% elsif links_report.broken_links? %>
+  <% elsif report.broken_links.present? %>
     <section class="alert alert-warning">
       <h3 class="remove-top-margin">Broken links</h3>
       <p>We’ve found links in this document that may be broken:</p>
       <ul>
-        <% links_report.broken_links.each do |link| %>
-          <li><%= link_to link.truncate(50), link, title: link, class: 'link-inherit' %></li>
+        <% report.broken_links.each do |link| %>
+          <li><%= link_to link.uri.truncate(50), link.uri, title: link.uri, class: 'link-inherit' %></li>
         <% end %>
       </ul>
-      <%= render 'admin/links_reports/form', reportable: links_report.link_reportable, button_text: 'Check again' %>
+      <%= render 'admin/link_check_reports/form', reportable: report.link_reportable, button_text: 'Check again' %>
     </section>
   <% else %>
     <section class='alert alert-success'>
       <p><span class="glyphicon glyphicon-ok add-right-margin"></span> This document contains no broken links.</p>
-      <%= render 'admin/links_reports/form', reportable: links_report.link_reportable, button_text: 'Check again' %>
+      <%= render 'admin/link_check_reports/form', reportable: report.link_reportable, button_text: 'Check again' %>
     </section>
   <% end %>
 </div>
