@@ -4,6 +4,14 @@ class LinkCheckerApiReport < ActiveRecord::Base
            -> { order(ordering: :asc) },
            class_name: LinkCheckerApiReport::Link
 
+  def self.create_from_batch_report(batch_report, link_reportable)
+    CreateFromBatchReport.new(batch_report, link_reportable).create
+  end
+
+  def update_from_batch_report(batch_report)
+    UpdateFromBatchReport.new(self, batch_report).update
+  end
+
   def completed?
     status == "completed"
   end
