@@ -186,6 +186,9 @@ th:
       international_treaty:
         one:
         other:
+      manual:
+        one:
+        other:
       map:
         one: "แผนที่"
         other: "แผนที่"

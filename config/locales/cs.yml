@@ -94,6 +94,10 @@ cs:
         one:
         few:
         other:
+      manual:
+        one:
+        few:
+        other:
       map:
         one: Mapa
         few:

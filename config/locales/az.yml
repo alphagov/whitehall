@@ -185,6 +185,9 @@ az:
       international_treaty:
         one:
         other:
+      manual:
+        one:
+        other:
       map:
         one: Xəritə
         other: xəritələr

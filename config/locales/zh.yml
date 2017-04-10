@@ -185,6 +185,9 @@ zh:
       international_treaty:
         one:
         other:
+      manual:
+        one:
+        other:
       map:
         one: "地图"
         other: "地图"

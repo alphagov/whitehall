@@ -72,6 +72,9 @@ hi:
       international_treaty:
         one:
         other:
+      manual:
+        one:
+        other:
       map:
         one: "मानचित्र"
         other: "मानचित्रों"

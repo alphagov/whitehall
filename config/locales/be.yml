@@ -116,6 +116,11 @@ be:
         few:
         many:
         other:
+      manual:
+        one:
+        few:
+        many:
+        other:
       map:
         one: "Карта"
         few:

@@ -187,6 +187,9 @@ id:
       international_treaty:
         one:
         other:
+      manual:
+        one:
+        other:
       map:
         one: Peta
         other: Peta-peta

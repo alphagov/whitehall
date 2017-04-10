@@ -72,6 +72,9 @@ so:
       international_treaty:
         one:
         other:
+      manual:
+        one:
+        other:
       map:
         one: Khariidad
         other: Khariidado
