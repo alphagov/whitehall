@@ -96,5 +96,15 @@ Whitehall::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  config.action_mailer.delivery_method = :ses
+  # Send emails via SMTP if SMTP_PORT is set, otherwise send via SES
+  # This is mainly used for sending emails to MailHog in the training
+  # environment
+  if ENV['SMTP_PORT']
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      port: ENV['SMTP_PORT']
+    }
+  else
+    config.action_mailer.delivery_method = :ses
+  end
 end

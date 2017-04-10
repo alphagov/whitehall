@@ -16,6 +16,12 @@ Whitehall::Application.configure do
   config.action_controller.perform_caching = false
   config.action_controller.action_on_unpermitted_parameters = :raise
 
+  # Send emails to the local MailHog instance
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    port: 1025
+  }
+
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
 
