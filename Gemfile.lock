@@ -530,7 +530,7 @@ DEPENDENCIES
   factory_girl
   faraday
   friendly_id (~> 5.2.1)
-  gds-api-adapters
+  gds-api-adapters (~> 49.2.0)
   gds-sso (~> 13.2)
   globalize (= 5.1.0.beta2)
   govspeak (~> 5.1.0)
@@ -603,4 +603,4 @@ DEPENDENCIES
   whenever (~> 0.9.7)
 
 BUNDLED WITH
-   1.15.1
+   1.15.3
