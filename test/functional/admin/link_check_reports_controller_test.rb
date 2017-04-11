@@ -20,7 +20,6 @@ class Admin::LinkCheckReportsControllerTest < ActionController::TestCase
         status: 202,
         headers: { "Content-Type": "application/json" },
       )
-
   end
 
   should_be_an_admin_controller
@@ -31,7 +30,7 @@ class Admin::LinkCheckReportsControllerTest < ActionController::TestCase
     assert_response :success
     assert_template :create
 
-    assert link_check_report = @publication.link_check_reports.last
+    assert @publication.link_check_reports.last
   end
 
   test "POST :create saves a LinksReport and redirects back to the edition" do
@@ -39,7 +38,7 @@ class Admin::LinkCheckReportsControllerTest < ActionController::TestCase
 
     assert_redirected_to admin_publication_url(@publication)
 
-    assert link_check_report = @publication.link_check_reports.last
+    assert @publication.link_check_reports.last
   end
 
   test "AJAX GET :show renders assigns the LinksReport and renders the template" do
