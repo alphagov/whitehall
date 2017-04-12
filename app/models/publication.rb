@@ -53,13 +53,7 @@ class Publication < Publicationesque
   end
 
   def rendering_app
-    #TODO: This format is being rendered by government-frontend
-    #but this has been switched in the presenter
-    #as preview needs to be done by Whitehall until
-    #draft links are available in publishing api.
-    #Preview is switched dependent on the return value of this method
-    #in app/helpers/public_document_routes_helper.rb:49
-    Whitehall::RenderingApp::WHITEHALL_FRONTEND
+    Whitehall::RenderingApp::GOVERNMENT_FRONTEND
   end
 
   def allows_inline_attachments?
