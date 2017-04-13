@@ -2,7 +2,7 @@ require 'test_helper'
 
 class RummageableTest < ActiveSupport::TestCase
   def rummager_url
-    'http://search.dev.gov.uk'
+    'http://search.test.gov.uk'
   end
 
   def index_name

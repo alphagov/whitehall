@@ -24,7 +24,7 @@ class SyncChecker::RequestQueueTest < Minitest::Test
     result_set = []
     queued_request = SyncChecker::RequestQueue.new(document_check, result_set)
     response = Typhoeus::Response.new(code: 200, body: "{'content_id', 'booyah'}")
-    Typhoeus.stub("https://draft-content-store.test.alphagov.co.uk/content/one").and_return(response)
+    Typhoeus.stub("https://draft-content-store.test.gov.uk/content/one").and_return(response)
 
     document_check.expects(:check_draft).with(response, :en)
     queued_request.requests.map(&:run)
@@ -39,7 +39,7 @@ class SyncChecker::RequestQueueTest < Minitest::Test
     result_set = []
     queued_request = SyncChecker::RequestQueue.new(document_check, result_set)
     response = Typhoeus::Response.new(code: 200, body: "{'content_id', 'booyah'}")
-    Typhoeus.stub("https://content-store.test.alphagov.co.uk/content/one").and_return(response)
+    Typhoeus.stub("https://content-store.test.gov.uk/content/one").and_return(response)
 
     document_check.expects(:check_live).with(response, :en)
     queued_request.requests.map(&:run)
@@ -54,7 +54,7 @@ class SyncChecker::RequestQueueTest < Minitest::Test
     result_set = []
     queued_request = SyncChecker::RequestQueue.new(document_check, result_set)
     response = Typhoeus::Response.new(code: 200, body: "{'content_id', 'booyah'}")
-    Typhoeus.stub("https://content-store.test.alphagov.co.uk/content/one").and_return(response)
+    Typhoeus.stub("https://content-store.test.gov.uk/content/one").and_return(response)
 
     document_check.expects(:check_live).with(response, :en).returns(check_result = stub)
     queued_request.requests.map(&:run)
@@ -71,7 +71,7 @@ class SyncChecker::RequestQueueTest < Minitest::Test
     result_set = []
     queued_request = SyncChecker::RequestQueue.new(document_check, result_set)
     response = Typhoeus::Response.new(code: 200, body: "{'content_id', 'booyah'}")
-    Typhoeus.stub("https://draft-content-store.test.alphagov.co.uk/content/one").and_return(response)
+    Typhoeus.stub("https://draft-content-store.test.gov.uk/content/one").and_return(response)
 
     document_check.expects(:check_draft).with(response, :en).returns(check_result = stub)
     queued_request.requests.map(&:run)
@@ -87,10 +87,10 @@ class SyncChecker::RequestQueueTest < Minitest::Test
     document_check = stub(id: 1, base_paths: base_paths)
     result_set = []
     Typhoeus::Request.expects(:new).with(
-      "https://draft-content-store.test.alphagov.co.uk/content/one",
+      "https://draft-content-store.test.gov.uk/content/one",
     ).returns(draft_request = stub(:on_complete))
     Typhoeus::Request.expects(:new).with(
-      "https://content-store.test.alphagov.co.uk/content/two",
+      "https://content-store.test.gov.uk/content/two",
     ).returns(live_request = stub(:on_complete))
 
     queued_request = SyncChecker::RequestQueue.new(document_check, result_set)

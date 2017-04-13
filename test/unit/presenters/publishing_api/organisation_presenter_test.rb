@@ -60,7 +60,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     )
     presented_item = present(organisation)
 
-    expected_image_url = 'https://static.test.alphagov.co.uk' +
+    expected_image_url = 'https://static.test.gov.uk' +
       '/government/uploads/system/uploads/organisation/logo/1/960x640_jpeg.jpg'
 
     assert_equal(
