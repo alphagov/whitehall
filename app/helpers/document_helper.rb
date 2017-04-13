@@ -138,7 +138,7 @@ module DocumentHelper
       image_tag('pub-cover-html.png', alt: '')
     elsif %w{doc docx odt}.include? attachment.file_extension
       image_tag('pub-cover-doc.png', alt: '')
-    elsif %w{xls xlsx ods csv}.include? attachment.file_extension
+    elsif %w{xls xlsx ods csv}.include? attachment.file_extension.downcase
       image_tag('pub-cover-spreadsheet.png', alt: '')
     else
       image_tag('pub-cover.png', alt: '')

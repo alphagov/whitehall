@@ -73,6 +73,11 @@ class DocumentHelperTest < ActionView::TestCase
     assert_match /pub-cover-spreadsheet\.png/, attachment_thumbnail(attachment)
   end
 
+  test "should return spreadsheet specific thumbnail for spreadsheet files with any case file extension" do
+    attachment = create(:file_attachment, file: fixture_file_upload('sample_case.CSV', 'text/csv'))
+    assert_match(/pub-cover-spreadsheet\.png/, attachment_thumbnail(attachment))
+  end
+
   test "should return HTML specific thumbnail for HTML attachments" do
     publication = create(:published_publication, :with_html_attachment)
     assert_match /pub-cover-html\.png/, attachment_thumbnail(publication.attachments.first)
