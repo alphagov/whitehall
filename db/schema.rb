@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170223180546) do
+ActiveRecord::Schema.define(version: 20170411161614) do
 
   create_table "about_pages", force: :cascade do |t|
     t.integer  "topical_event_id",    limit: 4
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 20170223180546) do
     t.string   "content_id",                      limit: 255
     t.boolean  "deleted",                                     default: false, null: false
     t.string   "print_meta_data_contact_address", limit: 255
+    t.string   "web_isbn",                        limit: 255
   end
 
   add_index "attachments", ["attachable_id", "attachable_type"], name: "index_attachments_on_attachable_id_and_attachable_type", using: :btree

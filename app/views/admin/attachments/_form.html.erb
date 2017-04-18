@@ -8,7 +8,7 @@
   <% end %>
 
   <% if attachable.allows_attachment_references? %>
-    <%= render 'reference_fields', attachable: attachable, form: form %>
+    <%= render 'reference_fields', attachable: attachable, form: form, attachment: attachment %>
   <% end %>
 
   <% if attachment.is_a?(HtmlAttachment) %>
