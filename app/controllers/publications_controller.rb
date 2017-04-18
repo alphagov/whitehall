@@ -9,9 +9,6 @@ class PublicationsController < DocumentsController
     @filter.publications_search
 
     respond_to do |format|
-      format.html do
-        @filter = DocumentFilterPresenter.new(@filter, view_context, PublicationesquePresenter)
-      end
       format.json do
         render json: PublicationFilterJsonPresenter.new(@filter, view_context, PublicationesquePresenter)
       end
@@ -24,11 +21,6 @@ class PublicationsController < DocumentsController
         )
       end
     end
-  end
-
-  def show
-    @related_policies = document_related_policies
-    set_meta_description(@document.summary)
   end
 
 private

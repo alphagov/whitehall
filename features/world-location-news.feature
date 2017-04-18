@@ -72,12 +72,6 @@ Feature: World location news for people local to countries
     When I view the world location "British Antarctic Territory"
     Then I should see the news article "Larsen ice sheet disintegrates"
 
-  Scenario: The publication is about a world location
-    Given a world location "British Antarctic Territory" exists
-    And a published publication "Penguins have rights too" exists that is about "British Antarctic Territory"
-    When I view the world location "British Antarctic Territory"
-    Then I should see the publication "Penguins have rights too"
-
   Scenario: Inactive world locations are listed but not linked
     Given the world location "Democratic People's Republic of South London" is inactive
     When I visit the world locations page

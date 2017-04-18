@@ -9,7 +9,6 @@ Scenario: Force-publishing a submitted edition
   When I force publish the publication "Ban Beards"
   Then the publication "Ban Beards" should have a force publish reason
   And I should see the publication "Ban Beards" in the list of published documents
-  And the publication "Ban Beards" should be visible to the public
 
 Scenario: Retrospective second-pair of eyes
   Given I draft a new publication "Ban Beards"
