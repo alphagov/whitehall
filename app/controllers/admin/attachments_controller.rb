@@ -103,7 +103,7 @@ private
 
   def attachment_params
     params.fetch(:attachment, {}).permit(
-      :title, :locale, :isbn, :unique_reference,
+      :title, :locale, :isbn, :web_isbn, :unique_reference,
       :command_paper_number, :unnumbered_command_paper, :hoc_paper_number,
       :unnumbered_hoc_paper, :parliamentary_session, :order_url, :price, :accessible,
       :external_url, :print_meta_data_contact_address,

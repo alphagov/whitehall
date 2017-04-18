@@ -59,8 +59,8 @@ Feature: Managing attachments on editions
     Given I am an writer
     And I start drafting a new publication "Standard Beard Lengths"
     When I start editing the attachments from the publication page
-    And I upload an html attachment with the title "Beard Length Graphs 2012" and the isbn "9781474127783" and the contact address "Address 1"
+    And I upload an html attachment with the title "Beard Length Graphs 2012" and the isbn "9781474127783" and the web isbn "978-1-78246-569-0" and the contact address "Address 1"
     And I publish the draft edition for publication "Standard Beard Lengths"
     And I preview "Standard Beard Lengths"
-    Then previewing the html attachment "Beard Length Graphs 2012" in print mode includes the contact address "Address 1" and the isbn "9781474127783"
+    Then previewing the html attachment "Beard Length Graphs 2012" in print mode includes the contact address "Address 1" and the isbn "9781474127783" and the web isbn "978-1-78246-569-0"
 

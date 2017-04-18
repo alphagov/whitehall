@@ -28,6 +28,12 @@
 
 <% unless @html_attachment.isbn.blank? %>
   <p>
-    Web ISBN: <%= @html_attachment.isbn %>
+    Print ISBN: <%= @html_attachment.isbn %>
   </p>
+<% end %>
+
+<% unless @html_attachment.web_isbn.blank? %>
+    <p>
+      Web ISBN: <%= @html_attachment.web_isbn %>
+    </p>
 <% end %>

@@ -4,8 +4,11 @@
   <%= form.select :locale, options_for_locales(attachable.translated_locales), include_blank: 'All languages' %>
 <% end %>
 
-<%= form.text_field :isbn, label_text: "ISBN (web version)" %>
-<%= form.text_area :print_meta_data_contact_address, rows: 5, label_text: "Organisation's Contact Details", placeholder: "This can contain the address, email, or telephone number" %>
+<%= form.text_field :isbn, label_text: "Print ISBN" %>
+<% if attachment.is_a?(HtmlAttachment) %>
+  <%= form.text_field :web_isbn, label_text: "Web ISBN" %>
+  <%= form.text_area :print_meta_data_contact_address, rows: 5, label_text: "Organisation's Contact Details", placeholder: "This can contain the address, email, or telephone number" %>
+<% end %>
 
 <%= form.text_field :unique_reference %>
 <div class="paper-number">
