@@ -1,5 +1,5 @@
 <%= render :layout => 'layouts/frontend_base', locals: {extra_body_class: 'html-publication', stylesheet: 'html-publication'} do %>
-  <main id="content" role="main" class="whitehall-content">
+  <main id="content" role="main" class="whitehall-content" lang="<%= I18n.locale %>">
     <div id="page" class="<%= content_for?(:page_class) ? yield(:page_class) : '' %>" >
       <%= yield %>
     </div>
