@@ -69,7 +69,7 @@ serve results.
 
 See the [search setup guide](docs/search_setup_guide.md)
 
-## How to publish a finder in whitehall?
+## How to publish a finder in whitehall?
 
 - You will need to create a JSON file in the whitehall repository, under [whitehall/lib/finders][finders-folder]
 - You can base it on one of the existing files in that folder
