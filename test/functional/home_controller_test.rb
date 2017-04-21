@@ -69,6 +69,13 @@ class HomeControllerTest < ActionController::TestCase
     assert_select '.prime-minister p a', 'Firstname Lastname'
   end
 
+  view_test "how government works does not fail when there is no prime minister" do
+    RoleAppointment.delete_all
+    get :how_government_works
+
+    assert_select '.prime-minister p a', 'Prime Minister'
+  end
+
   view_test "how government works page shows a count of cabinet ministers, other ministers and total ministers" do
     philip_hammond = create(:person, forename: 'Philip', surname: 'Hammond')
     mark_prisk = create(:person, forename: 'Mark', surname: 'Prisk')

@@ -18,7 +18,11 @@
       <div class="halves-width-section prime-minister">
         <div class="one-half">
           <div class="inner-block">
-            <%= image_tag @prime_minister.image_url(:s465), { alt: @prime_minister.name } %>
+            <% if @prime_minister.present? %>
+              <%= image_tag @prime_minister.image_url(:s465), { alt: @prime_minister.name } %>
+            <% else %>
+              <%= image_tag 'how-gov-works/10_Downing_Street.jpg', alt: 'Number 10, Downing Street' %>
+            <% end %>
           </div>
         </div>
         <div class="one-half">
@@ -30,7 +34,9 @@
               <li>appoint members of the government</li>
               <li>are the principal government figure in the House of Commons</li>
             </ul>
-            <p>The Prime Minister is <%= link_to @prime_minister.name, url_for(@prime_minister) %>.</p>
+            <% if @prime_minister.present? %>
+              <p>The Prime Minister is <%= link_to @prime_minister.name, url_for(@prime_minister) %>.</p>
+            <% end %>
             <p><a href="/government/organisations/prime-ministers-office-10-downing-street">Read more about the Prime Minister's Office, 10 Downing Street</a></p>
           </div>
         </div>
