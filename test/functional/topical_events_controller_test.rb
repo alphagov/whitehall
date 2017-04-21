@@ -58,8 +58,8 @@ class TopicalEventsControllerTest < ActionController::TestCase
     assert_select '.bbc'
     assert_select '.british-library'
     assert_select '.commonwealth-war-graves-commission'
-    assert_select '.english-heritage'
     assert_select '.heritage-lottery-fund'
+    assert_select '.historic-england'
     assert_select '.imperial-war-museums'
     assert_select '.war-memorials-trust'
   end
@@ -74,8 +74,8 @@ class TopicalEventsControllerTest < ActionController::TestCase
     refute_select '.bbc'
     refute_select '.british-library'
     refute_select '.commonwealth-war-graves-commission'
-    refute_select '.english-heritage'
     refute_select '.heritage-lottery-fund'
+    refute_select '.historic-england'
     refute_select '.imperial-war-museums'
     refute_select '.war-memorials-trust'
   end
