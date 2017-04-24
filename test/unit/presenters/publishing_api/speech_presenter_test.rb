@@ -146,4 +146,53 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
       end
     end
   end
+
+  describe "image" do
+    let(:person) do
+      create(
+        :person,
+        forename: "Tony",
+        image: File.open(
+          Rails.root.join("test", "fixtures", "images", "960x640_gif.gif"))
+      )
+    end
+
+    let(:speech) do
+      create(
+        :speech,
+        title: "Speech title",
+        summary: "The description",
+        body: "# Woo!\nSome content",
+        role_appointment: role_appointment
+      )
+    end
+
+
+    context "with featured image" do
+      let!(:feature) do
+        create(
+          :feature,
+          document: speech.document,
+          image: File.open(
+            Rails.root.join("test", "fixtures", "images", "960x640_gif.gif")
+          ),
+          alt_text: "featured image"
+        )
+      end
+
+      it "presents the featured image" do
+        details = presented.content[:details]
+        assert_equal("featured image", details[:image][:alt_text])
+        assert_match(/960x640_gif.gif$/, details[:image][:url])
+      end
+    end
+
+    context "with speaker with image" do
+      it "presents the speaker image" do
+        details = presented.content[:details]
+        assert_equal("Tony", details[:image][:alt_text])
+        assert_match(/960x640_gif.gif$/, details[:image][:url])
+      end
+    end
+  end
 end
