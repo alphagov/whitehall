@@ -54,7 +54,7 @@ class UrlToSubscriberListMigrationTest < ActiveSupport::TestCase
     csv_data = [
       { topic_id: 'TOPIC_123', url: "http://test.com/government/publications.atom?topic[]=energy", created: Time.zone.now },
     ]
-    stub_request(:get, %r{email-alert-api.test.alphagov.co.uk/subscriber-lists}).to_return(
+    stub_request(:get, %r{email-alert-api.test.gov.uk/subscriber-lists}).to_return(
       body: {'subscriber_list' => { 'gov_delivery_id' => 'TOPIC_123' } }.to_json
     )
     static_data = mock('StaticData', content_id: "a1234")
@@ -78,7 +78,7 @@ class UrlToSubscriberListMigrationTest < ActiveSupport::TestCase
     csv_data = [
       { topic_id: 'TOPIC_123', url: "http://test.com/government/publications.atom?topic[]=energy", created: Time.zone.now },
     ]
-    stub_request(:get, %r{email-alert-api.test.alphagov.co.uk/subscriber-lists}).to_return(
+    stub_request(:get, %r{email-alert-api.test.gov.uk/subscriber-lists}).to_return(
       body: {'subscriber_list' => { 'gov_delivery_id' => 'OTHER_TOPIC' } }.to_json
     )
     static_data = mock('StaticData', content_id: "a1234")
@@ -104,7 +104,7 @@ class UrlToSubscriberListMigrationTest < ActiveSupport::TestCase
     csv_data = [
       { topic_id: 'TOPIC_123', url: "http://test.com/government/publications.atom?topic[]=energy", created: Time.zone.now },
     ]
-    stub_request(:get, %r{email-alert-api.test.alphagov.co.uk/subscriber-lists}).to_return(
+    stub_request(:get, %r{email-alert-api.test.gov.uk/subscriber-lists}).to_return(
       body: {'subscriber_list' => { 'gov_delivery_id' => 'TOPIC_123', updated_at: '2011-11-11' } }.to_json
     )
     static_data = mock('StaticData', content_id: "a1234")
@@ -146,7 +146,7 @@ class UrlToSubscriberListMigrationTest < ActiveSupport::TestCase
       { body: {'subscriber_list' => { 'gov_delivery_id' => row[:topic_id], updated_at: '2011-11-11' } }.to_json }
     end
 
-    stub_request(:get, %r{email-alert-api.test.alphagov.co.uk/subscriber-lists}).to_return(*responses)
+    stub_request(:get, %r{email-alert-api.test.gov.uk/subscriber-lists}).to_return(*responses)
 
     organisation = create(:organisation, slug: 'academy-for-justice-commissioning')
     world_location = create(:world_location, slug: 'united-kingdom')

@@ -122,13 +122,13 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
   test "Creates a preview URL with cachebust and edition parameters" do
     edition = create(:corporate_information_page)
     preview_url = preview_document_url(edition)
-    assert_equal "http://draft-origin.test.alphagov.co.uk/government/organisations/#{edition.organisation.slug}/about/publication-scheme", preview_url
+    assert_equal "http://draft-origin.test.gov.uk/government/organisations/#{edition.organisation.slug}/about/publication-scheme", preview_url
   end
 
   test "Creates a preview URL without parameters for edition formats that have migrated" do
     edition = create(:draft_case_study)
     preview_url = preview_document_url(edition)
-    assert_equal "http://draft-origin.test.alphagov.co.uk/government/case-studies/#{edition.slug}", preview_url
+    assert_equal "http://draft-origin.test.gov.uk/government/case-studies/#{edition.slug}", preview_url
   end
 
   test "organisations have the correct path generated" do

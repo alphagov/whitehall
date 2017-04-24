@@ -9,8 +9,8 @@ the Whitehall repository, or the location must be specified explicitly via the
 
 Two other environment variables can also be (optionally) set up, typically:
 
-    GOVUK_APP_DOMAIN=dev.gov.uk
-    GOVUK_ASSET_ROOT=http://static.dev.gov.uk
+    GOVUK_APP_DOMAIN=test.gov.uk
+    GOVUK_ASSET_ROOT=https://static.test.gov.uk
 
 Then run
 

@@ -41,7 +41,7 @@ class UnpublishingTest < ActiveSupport::TestCase
   test 'alternative_url cannot be the same url as the edition' do
     document = create(:document, slug: 'document-path')
     edition = create(:detailed_guide, document: document)
-    unpublishing = build(:unpublishing, redirect: true, alternative_url: 'https://www.dev.gov.uk/guidance/document-path', edition: edition)
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: 'https://www.test.gov.uk/guidance/document-path', edition: edition)
 
     refute unpublishing.valid?
     assert unpublishing.errors[:alternative_url].include?("cannot redirect to itself")
@@ -63,7 +63,7 @@ class UnpublishingTest < ActiveSupport::TestCase
   end
 
   test 'alternative_path returns the path of alternative_url' do
-    unpublishing = build(:unpublishing, redirect: true, alternative_url: 'https://www.dev.gov.uk/guidance/document-path')
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: 'https://www.test.gov.uk/guidance/document-path')
     assert_equal "/guidance/document-path", unpublishing.alternative_path
   end
 

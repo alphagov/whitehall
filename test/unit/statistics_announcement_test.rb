@@ -29,7 +29,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     announcement = build(:unpublished_statistics_announcement, redirect_url: "https://www.youtube.com")
     refute announcement.valid?
 
-    assert_match %r{must be in the form of https://www.test.alphagov.co.uk/example}, announcement.errors[:redirect_url].first
+    assert_match %r{must be in the form of https://www.test.gov.uk/example}, announcement.errors[:redirect_url].first
   end
 
   test 'when unpublished, it cannot redirect to itself' do
@@ -41,7 +41,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   end
 
   test 'when unpublished, is valid with a GOV.UK redirect_url' do
-    announcement = build(:unpublished_statistics_announcement, redirect_url: "https://www.test.alphagov.co.uk/government/statistics")
+    announcement = build(:unpublished_statistics_announcement, redirect_url: "https://www.test.gov.uk/government/statistics")
     assert announcement.valid?
   end
 

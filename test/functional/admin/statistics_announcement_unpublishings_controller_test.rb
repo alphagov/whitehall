@@ -32,7 +32,7 @@ class Admin::StatisticsAnnouncementUnpublishingsControllerTest < ActionControlle
   end
 
   test "POST :create with valid params unpublishes the announcement" do
-    redirect_url = 'https://www.test.alphagov.co.uk/example'
+    redirect_url = 'https://www.test.gov.uk/example'
 
     stub_publishing_api_destroy_intent(@announcement.base_path)
 

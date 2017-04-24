@@ -82,7 +82,7 @@ node {
       if (params.IS_SCHEMA_TEST) {
         echo "Skipping precompile step because this is a schema test"
       } else {
-        sh("RAILS_ENV=production GOVUK_ASSET_ROOT=http://static.test.alphagov.co.uk bundle exec rake assets:precompile --trace")
+        sh("RAILS_ENV=production GOVUK_APP_DOMAIN=test.gov.uk GOVUK_ASSET_ROOT=https://static.test.gov.uk bundle exec rake assets:precompile --trace")
       }
     }
 

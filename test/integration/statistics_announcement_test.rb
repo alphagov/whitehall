@@ -96,7 +96,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   test "it deletes the publish intent when unpublished" do
     statistics_announcement = create(:statistics_announcement)
     statistics_announcement.update_attributes!(publishing_state: "unpublished",
-                                               redirect_url: "https://www.test.alphagov.co.uk/example")
+                                               redirect_url: "https://www.test.gov.uk/example")
 
     assert_publishing_api_delete_intent(statistics_announcement.base_path)
   end
@@ -132,7 +132,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     Whitehall::SearchIndex.stubs(:add)
     Whitehall::SearchIndex.stubs(:delete)
     statistics_announcement = create(:statistics_announcement,
-                                     redirect_url: "https://www.test.alphagov.co.uk/example")
+                                     redirect_url: "https://www.test.gov.uk/example")
 
     Whitehall::SearchIndex.expects(:delete).with(statistics_announcement)
     statistics_announcement.update_attributes!(publishing_state: "unpublished")
@@ -184,11 +184,11 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     statistics_announcement = create(:statistics_announcement)
 
     Whitehall::PublishingApi.expects(:publish_redirect_async)
-      .with(statistics_announcement.content_id, "https://www.test.alphagov.co.uk/government/something-else")
+      .with(statistics_announcement.content_id, "https://www.test.gov.uk/government/something-else")
 
     statistics_announcement.update_attributes!(
       publishing_state: "unpublished",
-      redirect_url: "https://www.test.alphagov.co.uk/government/something-else"
+      redirect_url: "https://www.test.gov.uk/government/something-else"
     )
   end
 end
