@@ -2,3 +2,4 @@ document = Document.find_by(slug: "ww1-south-african-vc-recipient-henry-harry-gr
 
 document.update_attributes(slug: "ww1-vc-recipient-henry-harry-greenwood")
 
+PublishingApiDocumentRepublishingWorker.perform_async(document.id)
