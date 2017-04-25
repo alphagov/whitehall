@@ -27,4 +27,22 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
 
     assert_equal Time.zone.now, feature.ended_at
   end
+
+  test "post :feature creates a feature and republishes the document" do
+    organisation = create(:organisation)
+    feature_list = create(:feature_list, featurable: organisation, locale: :en)
+    edition = create(:published_speech)
+
+    params = {
+      document_id: edition.document_id,
+      image: fixture_file_upload("images/960x640_gif.gif"),
+      alt_text: "some text",
+    }
+
+    PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(edition.document_id)
+
+    post :create, feature_list_id: feature_list.id, feature: params
+
+    assert_equal edition.document_id, Feature.last.document_id
+  end
 end
