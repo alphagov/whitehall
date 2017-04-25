@@ -8,15 +8,26 @@ class Edition::ImagesTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
   test "editions can be created with multiple images" do
-    edition = EditionWithImages.create!(valid_edition_attributes.merge(
-      images_attributes: [
-      {alt_text: "Something about this image",
-       caption: "Text to be visible along with the image",
-       image_data_attributes: {file: fixture_file_upload('minister-of-funk.960x640.jpg')}},
-      {alt_text: "alt-text-2",
-       caption: "caption-2",
-       image_data_attributes: {file: fixture_file_upload('minister-of-funk.960x640.jpg')}}
-    ]))
+    edition = EditionWithImages.create!(
+      valid_edition_attributes.merge(
+        images_attributes: [
+          {
+            alt_text: "Something about this image",
+            caption: "Text to be visible along with the image",
+            image_data_attributes: {
+              file: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
+            }
+          },
+          {
+            alt_text: "alt-text-2",
+            caption: "caption-2",
+            image_data_attributes: {
+              file: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
+            }
+          }
+        ]
+      )
+    )
 
     assert_equal 2, edition.images.count
     assert_equal "Something about this image", edition.images[0].alt_text
@@ -71,7 +82,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
         alt_text: "image smaller than 960x640",
         caption: "some-caption",
         image_data_attributes: {
-          file: fixture_file_upload('horrible-image.64x96.jpg')
+          file: fixture_file_upload('horrible-image.64x96.jpg', 'image/jpg')
         }
       }]
     ))
@@ -94,7 +105,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
         alt_text: "alt-text",
         caption: "original-caption",
         image_data_attributes: {
-          file: fixture_file_upload('minister-of-funk.960x640.jpg')
+          file: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
         }
       }]
     ))

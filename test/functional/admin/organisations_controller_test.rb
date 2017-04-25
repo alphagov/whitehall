@@ -83,7 +83,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   test 'POST :create can set a custom logo' do
     post :create, organisation: example_organisation_attributes.merge(
       organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
-      logo: fixture_file_upload('logo.png')
+      logo: fixture_file_upload('logo.png', 'image/png')
     )
     assert_match /logo.png/, Organisation.last.logo.file.filename
   end

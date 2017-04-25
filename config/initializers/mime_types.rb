@@ -28,3 +28,5 @@ Mime::Type.register "application/rdf+xml", :rdf
 Mime::Type.register "application/dxf", :dxf
 
 Mime::Type.register "application/gml+xml", :gml
+
+Mime::Type.register "image/svg+xml", :svg

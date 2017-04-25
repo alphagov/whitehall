@@ -36,7 +36,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
 
     model = stub("AR Model", id: 1)
     uploader = AttachmentUploader.new(model, "mounted-as")
-    uploader.store!(fixture_file_upload('minister-of-funk.960x640.jpg'))
+    uploader.store!(fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg'))
 
     assert_nil uploader.thumbnail.path
 

@@ -11,9 +11,9 @@ class ImageUploaderTest < ActiveSupport::TestCase
     ImageUploader.enable_processing = false
   end
 
-  test "should only allow JPG, GIF or PNG images" do
+  test "should only allow JPG, GIF, PNG or SVG images" do
     uploader = ImageUploader.new
-    assert_equal %w(jpg jpeg gif png), uploader.extension_white_list
+    assert_equal %w(jpg jpeg gif png svg), uploader.extension_white_list
   end
 
   test "should store uploads in a directory that persists across deploys" do
@@ -22,11 +22,11 @@ class ImageUploaderTest < ActiveSupport::TestCase
     assert_match /^system/, uploader.store_dir
   end
 
-  test "should create resized versions of the image" do
+  test "should create resized versions of a bitmap image" do
     model = stub("AR Model", id: 1)
     @uploader = ImageUploader.new(model, "mounted-as")
 
-    @uploader.store!(fixture_file_upload('minister-of-funk.960x640.jpg'))
+    @uploader.store!(fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg'))
 
     [[712, 480], [630, 420], [465, 310], [300, 195], [216, 140]].each do |(width, height)|
       assert_image_size [width, height], @uploader.send(:"s#{width}")
