@@ -1,5 +1,5 @@
 module Taxonomy
-  class LinkedEdition
+  class Taxon
     extend Forwardable
     attr_reader :name, :content_id, :base_path
     attr_accessor :parent_node

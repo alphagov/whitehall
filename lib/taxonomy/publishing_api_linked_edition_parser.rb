@@ -3,7 +3,7 @@ module Taxonomy
     attr_accessor :linked_edition
 
     def initialize(edition_response, name_field: "title")
-      @linked_edition = LinkedEdition.new(
+      @linked_edition = Taxon.new(
         name: edition_response[name_field],
         content_id: edition_response["content_id"],
         base_path: edition_response["base_path"]
@@ -27,7 +27,7 @@ module Taxonomy
     attr_reader :name_field
 
     def parse_nested_item(nested_item)
-      nested_linked_edition = LinkedEdition.new(
+      nested_linked_edition = Taxon.new(
         name: nested_item[name_field],
         content_id: nested_item["content_id"],
         base_path: nested_item["base_path"]

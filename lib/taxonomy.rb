@@ -1,4 +1,4 @@
-require 'taxonomy/linked_edition'
+require 'taxonomy/taxon'
 require 'taxonomy/publishing_api_linked_edition_parser'
 
 module Taxonomy
