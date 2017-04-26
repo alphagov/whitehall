@@ -36,7 +36,7 @@ module PublishingApi
         delivered_on: item.delivered_on.iso8601,
         change_history: item.change_history.as_json,
       }
-      details.merge!(image_payload) if speaker_has_image?
+      details.merge!(image_payload) if has_image?
       details.merge!(PayloadBuilder::PoliticalDetails.for(item))
       details.merge!(PayloadBuilder::FirstPublicAt.for(item))
     end
@@ -72,8 +72,8 @@ module PublishingApi
     def image_payload
       {
         image: {
-          alt_text: speaker.name,
-          url: speaker.image.url,
+          alt_text: alt_text,
+          url: image.url
         }
       }
     end
@@ -93,6 +93,38 @@ module PublishingApi
 
     def speaker_has_image?
       speaker && speaker.image && speaker.image.url
+    end
+
+    def speaker_image
+      speaker_has_image? ? speaker.image : nil
+    end
+
+    def has_featured_image?
+      !!(feature && feature.image)
+    end
+
+    def featured_image
+      has_featured_image? ? feature.image : nil
+    end
+
+    def feature
+      @feature ||= Feature.find_by(document_id: item.document_id)
+    end
+
+    def image
+      featured_image || speaker_image
+    end
+
+    def has_image?
+      !!image
+    end
+
+    def alt_text
+      if has_featured_image?
+        feature.alt_text
+      else
+        speaker.name
+      end
     end
   end
 end
