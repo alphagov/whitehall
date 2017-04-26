@@ -13,7 +13,7 @@
         var id = parseInt($(referenceInput).attr("id").match(/_(\d+)_/)[1]);
         var newId = id + 1;
         clone.find(".field_with_errors *").unwrap();
-        clone.children("label").each(function(i, el) {
+        clone.find("label").each(function(i, el) {
           $(el).attr("for", $(el).attr("for").replace("_"+id+"_", "_"+newId+"_"));
         });
         clone.find("input,textarea").each(function(i, el) {
@@ -22,8 +22,8 @@
           }
           $(el).attr("name", $(el).attr("name").replace("["+id+"]", "["+newId+"]"));
         });
-        clone.children("input").val("");
-        clone.children(".already_uploaded").text("");
+        clone.find("input").val("");
+        clone.find(".already_uploaded").text("");
         $(this).parents(".file_upload").after(clone);
       });
     })
