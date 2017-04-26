@@ -3,7 +3,8 @@
 # - This is part of the work performed by Finding Things team.
 
 organisations_in_tagging_beta:
-  - "b9fc8528-81d1-419b-8748-6c00be71044b" # Education Funding Agency
+  - "71381a6e-aa5c-43ae-a982-be9bfd46ea5b" # Education & Skills Funding Agency
+  - "b9fc8528-81d1-419b-8748-6c00be71044b" # Education Funding Agency (replaced by Education & Skills Funding Agency in April 2017)
   - "ebd15ade-73b2-4eaf-b1c3-43034a42eb37" # Department for Education
   - "60de9b00-a982-4449-a995-f2353e86fb95" # Higher Education Statistics Agency
   - "a081cd5b-c41d-4389-ac65-982e7570680d" # Institute for Apprenticeships
@@ -11,6 +12,6 @@ organisations_in_tagging_beta:
   - "e7f33769-a539-4fb4-b24f-f6c1cabc3f59" # Office of the Schools Adjudicator
   - "83f6e93f-bb2c-46ab-9b02-394f972b7030" # Ofqual
   - "ad5f6169-ac7b-4382-9eb6-e58af71a2f00" # Ofsted
-  - "3e5a6924-b369-4eb3-8b06-3c0814701de4" # Skills Funding Agency
+  - "3e5a6924-b369-4eb3-8b06-3c0814701de4" # Skills Funding Agency (replaced by Education & Skills Funding Agency in April 2017)
   - "863ffacd-d313-49c1-b856-58fe0799fd41" # Standards and Testing Agency
   - "9a9111aa-1db8-4025-8dd2-e08ec3175e72" # Student Loans Company
