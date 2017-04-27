@@ -33,7 +33,18 @@ class ImageUploaderTest < ActiveSupport::TestCase
     end
   end
 
-  private
+  test "stores the original svg only" do
+    model = stub("AR Model", id: 1)
+    @uploader = ImageUploader.new(model, "mounted-as")
+
+    @uploader.store!(fixture_file_upload('images/test-svg.svg', 'image/svg+xml'))
+
+    [[712, 480], [630, 420], [465, 310], [300, 195], [216, 140]].each do |(width, _height)|
+      assert_nil @uploader.send(:url, :"s#{width}")
+    end
+  end
+
+private
 
   def assert_image_size(dimensions, uploader_version)
     width, height = dimensions
