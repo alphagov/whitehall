@@ -34,18 +34,43 @@ class Taxonomy::PublishingApiRootTaxonParserTest < ActiveSupport::TestCase
   end
 
   test ".parse_taxons parses a single child_taxon" do
+    single_root_node = {
+      "expanded_links" => {
+        "child_taxons" => [
+          node
+        ]
+      }
+    }
+
     result = parsed_result(single_root_node)
     assert is_an_array_of_taxons(result)
     assert result.length == 1
   end
 
   test ".parse_taxons parses two child_taxons" do
+    two_root_nodes = {
+      "expanded_links" => {
+        "child_taxons" => [
+          node,
+          node
+        ]
+      }
+    }
+
     result = parsed_result(two_root_nodes)
     assert is_an_array_of_taxons(result)
     assert result.length == 2
   end
 
   test ".parse_taxons parses descendants of root node" do
+    single_root_with_descendant = {
+      "expanded_links" => {
+        "child_taxons" => [
+          node([node])
+        ]
+      }
+    }
+
     result = parsed_result(single_root_with_descendant)
     assert result.length == 1
     assert is_an_array_of_taxons(result.first.children)
@@ -54,37 +79,6 @@ class Taxonomy::PublishingApiRootTaxonParserTest < ActiveSupport::TestCase
 
   def is_an_array_of_taxons(arr)
     arr.is_a?(Array) && arr.all? { |el| el.is_a? Taxonomy::Taxon }
-  end
-
-  def single_root_node
-    {
-      "expanded_links" => {
-        "child_taxons" => [
-          node
-        ]
-      }
-    }
-  end
-
-  def two_root_nodes
-    {
-      "expanded_links" => {
-        "child_taxons" => [
-          node,
-          node
-        ]
-      }
-    }
-  end
-
-  def single_root_with_descendant
-    {
-      "expanded_links" => {
-        "child_taxons" => [
-          node([node])
-        ]
-      }
-    }
   end
 
   def node(children = [])
