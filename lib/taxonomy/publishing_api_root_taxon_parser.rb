@@ -13,7 +13,7 @@ module Taxonomy
     end
 
     private_class_method def self.child_nodes(item_hash, key)
-      item_hash[key].fetch("child_taxons", [])
+      item_hash.fetch(key, {}).fetch("child_taxons", [])
     end
 
     private_class_method def self.build_taxon(item_hash)
