@@ -23,6 +23,7 @@
           $(el).attr("name", $(el).attr("name").replace("["+id+"]", "["+newId+"]"));
         });
         clone.find("input").val("");
+        clone.find("textarea").val("");
         clone.find(".already_uploaded").text("");
         $(this).parents(".file_upload").after(clone);
       });

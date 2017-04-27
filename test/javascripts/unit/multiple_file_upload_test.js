@@ -111,6 +111,12 @@ test("should make the value of the text input blank for each set of new inputs a
   equal(latest_input.val(), "");
 });
 
+test("should make the value of the caption textarea blank for each set of new inputs added", function() {
+  this.fieldset.find('#edition_images_attributes_0_caption').append("not-blank")
+  fireClickEventOnLastFileInputOf(this.fieldset);
+  equal($('#edition_images_attributes_1_caption').val(), "");
+});
+
 test("should set the value of the hidden cache input to blank for each new input added", function() {
   $("input[type=hidden]:last").val("not-blank");
   fireClickEventOnLastFileInputOf(this.fieldset);
