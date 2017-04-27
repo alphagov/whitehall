@@ -5,7 +5,7 @@ module Taxonomy
         taxon = build_taxon(child)
 
         parse_taxons(child, key: 'links').each do |child_taxon|
-          taxon << child_taxon
+          taxon.children << child_taxon
         end
 
         taxon

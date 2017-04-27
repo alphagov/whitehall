@@ -17,7 +17,7 @@ module Taxonomy
 
       if child_taxons.present?
         child_taxons.each do |child|
-          linked_edition << parse_nested_item(child)
+          linked_edition.children << parse_nested_item(child)
         end
       end
     end
@@ -37,7 +37,7 @@ module Taxonomy
 
       if child_taxons.present?
         child_taxons.each do |child|
-          nested_linked_edition << parse_nested_item(child)
+          nested_linked_edition.children << parse_nested_item(child)
         end
       end
 

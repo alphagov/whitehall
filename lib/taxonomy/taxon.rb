@@ -2,7 +2,7 @@ module Taxonomy
   class Taxon
     extend Forwardable
     attr_reader :name, :content_id, :base_path
-    attr_accessor :parent_node
+    attr_accessor :parent_node, :children
     def_delegators :tree, :map, :each
 
     def initialize(name:, base_path:, content_id:)
@@ -10,15 +10,6 @@ module Taxonomy
       @content_id = content_id
       @base_path = base_path
       @children = []
-    end
-
-    def children
-      @children.sort_by(&:name)
-    end
-
-    def <<(child_node)
-      child_node.parent_node = self
-      @children << child_node
     end
 
     def tree
