@@ -9,7 +9,7 @@
   <div class="topics">
     <% if taxon.children.present? %>
       <%= render partial: "taxonomy",
-            locals: { form: form, taxons: taxon.children.sort_by(&:name) } %>
+            locals: { form: form, taxons: taxon.children } %>
     <% end %>
   </div>
 <% end %>

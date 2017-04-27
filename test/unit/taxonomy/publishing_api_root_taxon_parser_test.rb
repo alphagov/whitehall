@@ -77,6 +77,25 @@ class Taxonomy::PublishingApiRootTaxonParserTest < ActiveSupport::TestCase
     assert result.first.children.length == 1
   end
 
+  test ".parse_taxons sorts the taxon list alphabetically" do
+    taxons = {
+      "expanded_links" => {
+        "child_taxons" => [
+          node,
+          node
+        ]
+      }
+    }
+
+    taxons["expanded_links"]["child_taxons"][0]["title"] = "zaphod"
+    taxons["expanded_links"]["child_taxons"][1]["title"] = "allen"
+
+    result = parsed_result(taxons)
+
+    assert result.first.name == "allen"
+    assert result.second.name == "zaphod"
+  end
+
   def is_an_array_of_taxons(arr)
     arr.is_a?(Array) && arr.all? { |el| el.is_a? Taxonomy::Taxon }
   end

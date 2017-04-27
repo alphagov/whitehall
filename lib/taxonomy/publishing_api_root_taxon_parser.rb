@@ -13,14 +13,17 @@ module Taxonomy
     end
 
     private_class_method def self.child_nodes(item_hash, key)
-      item_hash.fetch(key, {}).fetch("child_taxons", [])
+      item_hash
+        .fetch(key, {})
+        .fetch('child_taxons', [])
+        .sort_by { |hsh| hsh.fetch('title') }
     end
 
     private_class_method def self.build_taxon(item_hash)
       Taxon.new(
-        name: item_hash["title"],
-        content_id: item_hash["content_id"],
-        base_path: item_hash["base_path"]
+        name: item_hash['title'],
+        content_id: item_hash['content_id'],
+        base_path: item_hash['base_path']
       )
     end
   end
