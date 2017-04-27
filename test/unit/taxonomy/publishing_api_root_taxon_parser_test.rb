@@ -31,7 +31,7 @@ class Taxonomy::PublishingApiRootTaxonParserTest < ActiveSupport::TestCase
 
   test ".parse_taxons returns an empty array when there are no child taxons" do
     assert parsed_result({ "expanded_links" => {} }).empty?
-   end
+  end
 
   test ".parse_taxons parses a single child_taxon" do
     result = parsed_result(single_root_node)
