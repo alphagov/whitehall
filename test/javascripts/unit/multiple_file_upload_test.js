@@ -1,20 +1,26 @@
 module("Uploading multiple files", {
   setup: function() {
-    this.fieldset = $('<fieldset id="attachment_fields" class="multiple_file_uploads"></fieldset>');
-    var file_upload = $('<div class="file_upload well"></div>');
-    this.first_input = $('<input id="edition_edition_attachments_attributes_0_attachment_attributes_file" name="edition[edition_attachments_attributes][0][attachment_attributes][file]" type="file" class="js-upload-image-input" />');
+    this.fieldset = $('\
+      <fieldset id="image_fields" class="images multiple_file_uploads">\
+        <div class="file_upload well">\
+          <div class="form-group">\
+            <label for="edition_images_attributes_0_image_data_attributes_file">File</label>\
+            <input id="edition_images_attributes_0_image_data_attributes_file" name="edition[images_attributes][0][image_data_attributes][file]" type="file" class="js-upload-image-input" />\
+            <input id="edition_images_attributes_0_image_data_attributes_file_cache" name="edition[images_attributes][0][image_data_attributes][file_cache]" type="hidden" />\
+          </div>\
+          <div class="form-group">\
+            <label for="edition_images_attributes_0_alt_text">Alt text</label>\
+            <input id="edition_images_attributes_0_alt_text" name="edition[images_attributes][0][alt_text]" type="text" />\
+          </div>\
+          <div class="form-group">\
+            <label for="edition_images_attributes_0_caption">Caption</label>\
+            <textarea id="edition_images_attributes_0_caption" name="edition[images_attributes][0][caption]"></textarea>\
+          </div>\
+        </div>\
+      </fieldset>')
 
-    file_upload.append('<label for="edition_edition_attachments_attributes_0_attachment_attributes_title">Title</label>');
-    file_upload.append('<input id="edition_edition_attachments_attributes_0_attachment_attributes_title" name="edition[edition_attachments_attributes][0][attachment_attributes][title]" size="30" type="text" />');
-    file_upload.append('<label for="edition_edition_attachments_attributes_0_attachment_attributes_caption">Caption</label>');
-    file_upload.append('<textarea id="edition_edition_attachments_attributes_0_attachment_attributes_caption" name="edition[edition_attachments_attributes][0][attachment_attributes][caption]"></textarea>');
-    file_upload.append('<label for="edition_edition_attachments_attributes_0_attachment_attributes_file">File</label>');
-    file_upload.append(this.first_input);
-    file_upload.append('<label for="edition_edition_attachments_attributes_0_attachment_attributes_accessible"><input id="edition_edition_attachments_attributes_0_attachment_attributes_accessible" name="edition[edition_attachments_attributes][0][attachment_attributes][accessible]" type="checkbox" value="1"> Acccessible</label>');
-    file_upload.append('<input id="edition_edition_attachments_attributes_0_attachment_attributes_file_cache" name="edition[edition_attachments_attributes][0][attachment_attributes][file_cache]" type="hidden" />');
-
-    this.fieldset.append(file_upload);
     $('#qunit-fixture').append(this.fieldset);
+    this.first_file_input = $("#edition_images_attributes_0_image_data_attributes_file")
     this.fieldset.enableMultipleFileUploads();
   }
 });
@@ -24,13 +30,13 @@ var fireClickEventOnLastFileInputOf = function(fieldset) {
 }
 
 test("should add a new file input when a file is selected", function() {
-  this.first_input.click();
+  this.first_file_input.click();
   equal(this.fieldset.children(".file_upload").length, 2);
 });
 
 test("should not add a new file input when a selected file is clicked", function() {
-  this.first_input.click();
-  this.first_input.click();
+  this.first_file_input.click();
+  this.first_file_input.click();
   equal(this.fieldset.children(".file_upload").length, 2);
 });
 
@@ -44,84 +50,58 @@ test("should continue adding new inputs as new files are selected", function() {
   equal(this.fieldset.children(".file_upload").length, 12);
 });
 
-test("should increment the referenced ID of the title label for each new set of inputs added", function() {
+test("should increment the ID and name of the alt text input for each set of new inputs added", function() {
   fireClickEventOnLastFileInputOf(this.fieldset);
-  var latest_input = this.fieldset.find("label:contains('Title'):last");
-  equal(latest_input.attr('for'), "edition_edition_attachments_attributes_1_attachment_attributes_title");
+  ok($('#edition_images_attributes_1_alt_text')[0], "input with id not found")
+  ok($("input[name='edition[images_attributes][1][alt_text]']")[0], 'input with name not found')
 
   fireClickEventOnLastFileInputOf(this.fieldset);
-  latest_input = this.fieldset.find("label:contains('Title'):last");
-  equal(latest_input.attr('for'), "edition_edition_attachments_attributes_2_attachment_attributes_title");
+  ok($('#edition_images_attributes_2_alt_text')[0], "input with id not found")
+  ok($("input[name='edition[images_attributes][2][alt_text]']")[0], 'input with name not found')
 });
 
-test("should increment the ID and name of the text input for each set of new inputs added", function() {
+test("should increment the ID and name of the caption textarea for each set of new inputs added", function() {
   fireClickEventOnLastFileInputOf(this.fieldset);
-  var latest_input = this.fieldset.find("input[type=text]:last")[0];
-  equal(latest_input.id, "edition_edition_attachments_attributes_1_attachment_attributes_title");
-  equal(latest_input.name, "edition[edition_attachments_attributes][1][attachment_attributes][title]");
+  ok($('#edition_images_attributes_1_caption')[0], "textarea with id not found")
+  ok($("textarea[name='edition[images_attributes][1][caption]']")[0], 'textarea with name not found')
 
   fireClickEventOnLastFileInputOf(this.fieldset);
-  latest_input = this.fieldset.find("input[type=text]:last")[0];
-  equal(latest_input.id, "edition_edition_attachments_attributes_2_attachment_attributes_title");
-  equal(latest_input.name, "edition[edition_attachments_attributes][2][attachment_attributes][title]");
-});
-
-test("should increment the ID and name of the textareas for each set of new inputs added", function() {
-  fireClickEventOnLastFileInputOf(this.fieldset);
-  var latest_input = this.fieldset.find("textarea:last")[0];
-  equal(latest_input.id, "edition_edition_attachments_attributes_1_attachment_attributes_caption");
-  equal(latest_input.name, "edition[edition_attachments_attributes][1][attachment_attributes][caption]");
-
-  fireClickEventOnLastFileInputOf(this.fieldset);
-  latest_input = this.fieldset.find("textarea:last")[0];
-  equal(latest_input.id, "edition_edition_attachments_attributes_2_attachment_attributes_caption");
-  equal(latest_input.name, "edition[edition_attachments_attributes][2][attachment_attributes][caption]");
-});
-
-test("should increment the ID and name of the checkboxes for each set of new inputs added", function() {
-  fireClickEventOnLastFileInputOf(this.fieldset);
-  var latest_input = this.fieldset.find("input[type=checkbox]:last")[0];
-  equal(latest_input.id, "edition_edition_attachments_attributes_1_attachment_attributes_accessible");
-  equal(latest_input.name, "edition[edition_attachments_attributes][1][attachment_attributes][accessible]");
-
-  fireClickEventOnLastFileInputOf(this.fieldset);
-  latest_input = this.fieldset.find("input[type=checkbox]:last")[0];
-  equal(latest_input.id, "edition_edition_attachments_attributes_2_attachment_attributes_accessible");
-  equal(latest_input.name, "edition[edition_attachments_attributes][2][attachment_attributes][accessible]");
+  ok($('#edition_images_attributes_2_caption')[0], "textarea with id not found")
+  ok($("textarea[name='edition[images_attributes][2][caption]']")[0], 'textarea with name not found')
 });
 
 test("should increment the referenced ID of the file label for each set of new inputs added", function() {
   fireClickEventOnLastFileInputOf(this.fieldset);
   var latest_input = this.fieldset.find("label:contains('File'):last");
-  equal(latest_input.attr('for'), "edition_edition_attachments_attributes_1_attachment_attributes_file");
+  equal(latest_input.attr('for'), "edition_images_attributes_1_image_data_attributes_file");
 
   fireClickEventOnLastFileInputOf(this.fieldset);
   latest_input = this.fieldset.find("label:contains('File'):last");
-  equal(latest_input.attr('for'), "edition_edition_attachments_attributes_2_attachment_attributes_file");
+  equal(latest_input.attr('for'), "edition_images_attributes_2_image_data_attributes_file");
 });
 
 test("should increment the ID and name of the file input for each set of new inputs added", function() {
   fireClickEventOnLastFileInputOf(this.fieldset);
   var latest_input = this.fieldset.find("input[type=file]:last")[0];
-  equal(latest_input.id, "edition_edition_attachments_attributes_1_attachment_attributes_file");
-  equal(latest_input.name, "edition[edition_attachments_attributes][1][attachment_attributes][file]");
+  equal(latest_input.id, "edition_images_attributes_1_image_data_attributes_file");
+  equal(latest_input.name, "edition[images_attributes][1][image_data_attributes][file]");
 
   fireClickEventOnLastFileInputOf(this.fieldset);
   latest_input = this.fieldset.find("input[type=file]:last")[0];
-  equal(latest_input.id, "edition_edition_attachments_attributes_2_attachment_attributes_file");
-  equal(latest_input.name, "edition[edition_attachments_attributes][2][attachment_attributes][file]");
+  equal(latest_input.id, "edition_images_attributes_2_image_data_attributes_file");
+  equal(latest_input.name, "edition[images_attributes][2][image_data_attributes][file]");
 });
 
 test("should increment the ID and name of the hidden cache input for each set of new inputs added", function() {
   fireClickEventOnLastFileInputOf(this.fieldset);
   var latest_input = this.fieldset.find("input[type=hidden]:last")[0];
-  equal(latest_input.id, "edition_edition_attachments_attributes_1_attachment_attributes_file_cache");
-  equal(latest_input.name, "edition[edition_attachments_attributes][1][attachment_attributes][file_cache]");
+  equal(latest_input.id, "edition_images_attributes_1_image_data_attributes_file_cache");
+  equal(latest_input.name, "edition[images_attributes][1][image_data_attributes][file_cache]");
 
   fireClickEventOnLastFileInputOf(this.fieldset);
   latest_input = this.fieldset.find("input[type=hidden]:last")[0];
-  equal(latest_input.id, "edition_edition_attachments_attributes_2_attachment_attributes_file_cache");
-  equal(latest_input.name, "edition[edition_attachments_attributes][2][attachment_attributes][file_cache]");
+  equal(latest_input.id, "edition_images_attributes_2_image_data_attributes_file_cache");
+  equal(latest_input.name, "edition[images_attributes][2][image_data_attributes][file_cache]");
 });
 
 test("should make the value of the text input blank for each set of new inputs added", function() {
@@ -129,6 +109,12 @@ test("should make the value of the text input blank for each set of new inputs a
   fireClickEventOnLastFileInputOf(this.fieldset);
   var latest_input = this.fieldset.find("input[type=text]:last");
   equal(latest_input.val(), "");
+});
+
+test("should make the value of the caption textarea blank for each set of new inputs added", function() {
+  this.fieldset.find('#edition_images_attributes_0_caption').append("not-blank")
+  fireClickEventOnLastFileInputOf(this.fieldset);
+  equal($('#edition_images_attributes_1_caption').val(), "");
 });
 
 test("should set the value of the hidden cache input to blank for each new input added", function() {
@@ -149,17 +135,15 @@ test("should set the text of the already_uploaded element to blank for each new 
 module("Uploading multiple files after file field validation error", {
   setup: function() {
     this.fieldset = $('\
-      <fieldset id="attachment_fields" class="multiple_file_uploads">\
+      <fieldset id="image_fields" class="images multiple_file_uploads">\
         <div class="file_upload well">\
-          <label for="edition_edition_attachments_attributes_0_attachment_attributes_title">Title</label>\
-          <input id="edition_edition_attachments_attributes_0_attachment_attributes_title"\ name="edition[edition_attachments_attributes][0][attachment_attributes][title]" size="30" type="text" value="something" />\
           <div class="field_with_errors">\
-            <label for="edition_edition_attachments_attributes_0_attachment_attributes_file">File</label>\
+            <label for="edition_images_attributes_0_image_data_attributes_file">File</label>\
           </div>\
           <div class="field_with_errors">\
-            <input id="edition_edition_attachments_attributes_0_attachment_attributes_file"\ name="edition[edition_attachments_attributes][0][attachment_attributes][file]" type="file" class="js-upload-image-input" />\
+            <input id="edition_images_attributes_0_image_data_attributes_file"\ name="edition[images_attributes][0][image_data_attributes][file]" type="file" class="js-upload-image-input" />\
           </div>\
-          <input id="edition_edition_attachments_attributes_0_attachment_attributes_file_cache"\ name="edition[edition_attachments_attributes][0][attachment_attributes][file_cache]" type="hidden" />\
+          <input id="edition_images_attributes_0_image_data_attributes_file_cache"\ name="edition[images_attributes][0][image_data_attributes][file_cache]" type="hidden" />\
         </div>\
       </fieldset>\
     ');
