@@ -15,7 +15,7 @@
     <% @world_locations.each do |type, locations| %>
       <section id="<%= type.name.pluralize.parameterize %>" class="world-location-type js-filter-block">
         <header class="type-heading">
-          <h1><%= type.name %></h1>
+          <h1><%= type.name.pluralize %></h1>
           <p><span class="js-filter-count"><%= locations.length %></span> <span class="visuallyhidden">locations</span></p>
         </header>
         <div class="content">
