@@ -36,6 +36,10 @@ e.g `bundle exec rails runner script/run_sync_checks -i 1234,1235,1236 Publicati
 not be used for large numbers of documents as it is synchronous and will
 timeout from time to time making results unreliable.
 
+`-b` allows a range of document ids to be specified. e.g. `-b 1000,2000` will check documents
+with ids between 1000 and 2000. This can also be used in conjunction with `-r` to
+republish those documents.
+
 ## On integration/staging/production
 
 To run on an environment other than the dev VM the correct env needs to be
