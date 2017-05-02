@@ -52,7 +52,8 @@ while to complete for the larger formats.
 
 ## Automatically queued checks
 
-All content that is sent to publishing API now queues a check to run 5 minutes
-after the changes are saved. The results of these checks are saved in the
-`sync_check_results` table and will be used in the future for ongoing
-monitoring.
+There is functionality to automatically queue a check to run 5 minutes
+after the changes are saved for each document that is sent to publishing API. 
+The results of these checks are saved in the `sync_check_results` table and will 
+be used in the future for ongoing monitoring. This is currently disabled from [this
+PR](https://github.com/alphagov/whitehall/pull/2940) until such time as we get the tests more stable.
