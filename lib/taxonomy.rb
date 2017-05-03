@@ -17,7 +17,12 @@ module Taxonomy
   end
 
   def self.root_taxons
-    expanded_links = Services.publishing_api.get_expanded_links(HOMEPAGE_CONTENT_ID, with_drafts: false)
-    PublishingApiRootTaxonParser.parse_taxons(expanded_links.to_h)
+    @_root_taxons ||= begin
+      Services.publishing_api
+        .get_expanded_links(HOMEPAGE_CONTENT_ID, with_drafts: false)
+        .to_h['expanded_links']
+        .fetch('root_taxons', [])
+        .map { |taxon_hash| Taxon.new(taxon_hash.symbolize_keys) }
+    end
   end
 end

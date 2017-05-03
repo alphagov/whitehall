@@ -2,13 +2,8 @@ module Taxonomy
   class PublishingApiLinkedEditionParser
     attr_accessor :linked_edition
 
-    def initialize(edition_response, name_field: "title")
-      @linked_edition = Taxon.new(
-        name: edition_response[name_field],
-        content_id: edition_response["content_id"],
-        base_path: edition_response["base_path"]
-      )
-
+    def initialize(edition_response)
+      @linked_edition = Taxon.new(edition_response.to_h.symbolize_keys)
       @name_field = name_field
     end
 
@@ -27,11 +22,7 @@ module Taxonomy
     attr_reader :name_field
 
     def parse_nested_item(nested_item)
-      nested_linked_edition = Taxon.new(
-        name: nested_item[name_field],
-        content_id: nested_item["content_id"],
-        base_path: nested_item["base_path"]
-      )
+      nested_linked_edition = Taxon.new(nested_item.symbolize_keys)
 
       child_taxons = nested_item["links"]["child_taxons"]
 

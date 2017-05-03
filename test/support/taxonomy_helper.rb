@@ -4,7 +4,7 @@ module TaxonomyHelper
   end
 
   def root_taxon_content_id
-    "a"
+    "root"
   end
 
   def draft_taxon_content_ids
@@ -12,22 +12,22 @@ module TaxonomyHelper
   end
 
   def parent_taxon_content_id
-    "d"
+    "parent"
   end
 
   def child_taxon_content_id
-    "e"
+    "child"
   end
 
   def grandparent_taxon_content_id
-    "f"
+    "grandparent"
   end
 
   def stub_taxonomy_with_draft_expanded_links
     homepage_links = {
       content_id: homepage_content_id,
       expanded_links: {
-        "child_taxons" => [
+        "root_taxons" => [
           root_taxon
         ]
       }
@@ -59,6 +59,7 @@ module TaxonomyHelper
       }
     }
 
+    publishing_api_has_expanded_links(root_taxon, with_drafts: false)
     publishing_api_has_expanded_links(homepage_links, with_drafts: false)
     publishing_api_has_expanded_links(draft_taxon_1, with_drafts: true)
     publishing_api_has_expanded_links(draft_taxon_2, with_drafts: true)
@@ -104,7 +105,7 @@ private
       "title" => "Education",
       "base_path" => "/education",
       "content_id" => root_taxon_content_id,
-      "links" => {
+      "expanded_links" => {
         "child_taxons" => [grandparent_taxon]
       }
     }

@@ -5,8 +5,8 @@ module Taxonomy
     attr_accessor :parent_node, :children
     def_delegators :tree, :map, :each
 
-    def initialize(name:, base_path:, content_id:)
-      @name = name
+    def initialize(title:, base_path:, content_id:, **_args)
+      @name = title
       @content_id = content_id
       @base_path = base_path
       @children = []

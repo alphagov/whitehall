@@ -1,8 +1,20 @@
 require 'test_helper'
 
-class Taxonomy::PublishingApiRootTaxonParserTest < ActiveSupport::TestCase
-  def parsed_result(expanded_links)
-    Taxonomy::PublishingApiRootTaxonParser.parse_taxons(expanded_links)
+class Taxonomy::TreeTest < ActiveSupport::TestCase
+  setup do
+    Services.publishing_api
+      .stubs(:get_expanded_links)
+      .returns(api_response)
+
+    @root_taxon_id = :id
+  end
+
+  test ".new fetches data from publishing-api" do
+    Services.publishing_api
+      .expects(:get_expanded_links)
+      .with(@root_taxon_id, with_drafts: false)
+
+    Taxonomy::Tree.new(root_taxon)
   end
 
   # Example of expanded links hash:
@@ -94,6 +106,18 @@ class Taxonomy::PublishingApiRootTaxonParserTest < ActiveSupport::TestCase
 
     assert result.first.name == "allen"
     assert result.second.name == "zaphod"
+  end
+
+  def root_taxon
+    @_root_taxon ||= stub(content_id: @root_taxon_id, 'children=': [])
+  end
+
+  def api_response
+    @_api_response ||= stub(to_h: {})
+  end
+
+  def parsed_result(expanded_links)
+    Taxonomy::Tree.new(root_taxon).parse_taxons(expanded_links)
   end
 
   def is_an_array_of_taxons(arr)
