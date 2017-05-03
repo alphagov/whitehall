@@ -301,7 +301,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test 'creating an edition should attach image' do
-        image = fixture_file_upload('minister-of-funk.960x640.jpg')
+        image = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
         attributes = controller_attributes_for(edition_type)
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text", caption: "longer-caption-for-image",
@@ -318,7 +318,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test "creating an edition should result in a single instance of the uploaded image file being cached" do
-        image = fixture_file_upload('minister-of-funk.960x640.jpg')
+        image = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
         attributes = controller_attributes_for(edition_type)
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
@@ -341,7 +341,7 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "creating an edition with invalid data should only allow a single image to be selected for upload" do
-        image = fixture_file_upload('minister-of-funk.960x640.jpg')
+        image = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
         attributes = controller_attributes_for(edition_type, title: "")
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
@@ -356,7 +356,7 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test "creating an edition with invalid data but valid image data should still display the image data" do
-        image = fixture_file_upload('minister-of-funk.960x640.jpg')
+        image = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
         attributes = controller_attributes_for(edition_type, title: "")
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
@@ -373,7 +373,7 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test 'creating an edition with invalid data should not show any existing image info' do
-        image = fixture_file_upload('minister-of-funk.960x640.jpg')
+        image = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
         attributes = controller_attributes_for(edition_type, title: "")
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
@@ -386,7 +386,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test "creating an edition with multiple images should attach all files" do
-        image = fixture_file_upload('minister-of-funk.960x640.jpg')
+        image = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
         attributes = controller_attributes_for(edition_type)
         attributes[:images_attributes] = {
           "0" => {alt_text: "some-alt-text",
@@ -407,7 +407,7 @@ module AdminEditionControllerTestHelpers
 
       view_test 'creating an edition with an invalid image should show an error' do
         attributes = controller_attributes_for(edition_type)
-        invalid_image = fixture_file_upload('horrible-image.64x96.jpg')
+        invalid_image = fixture_file_upload('horrible-image.64x96.jpg', 'image/jpg')
 
         post :create, edition: attributes.merge(
           images_attributes: {
@@ -419,7 +419,7 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test 'edit displays edition image fields' do
-        image = fixture_file_upload('minister-of-funk.960x640.jpg')
+        image = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
         edition = create(edition_type)
         image = create(:image, alt_text: "blah", edition: edition,
                        image_data_attributes: attributes_for(:image_data, file: image))
@@ -490,7 +490,7 @@ module AdminEditionControllerTestHelpers
 
       test 'updating an edition should attach multiple images' do
         edition = create(edition_type)
-        image = fixture_file_upload('minister-of-funk.960x640.jpg')
+        image = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
         attributes = { images_attributes: {
           "0" => {alt_text: "some-alt-text",
                   image_data_attributes: attributes_for(:image_data, file: image)},

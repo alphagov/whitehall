@@ -42,6 +42,11 @@ class ImageValidatorTest < ActiveSupport::TestCase
     }
   end
 
+  test "it allows SVG" do
+    subject = ImageValidator.new(size: [960, 640])
+    assert_validates_as_valid(subject, "test-svg.svg")
+  end
+
   private
 
   def assert_validates_as_valid(validator, image_file_name)
@@ -59,10 +64,25 @@ class ImageValidatorTest < ActiveSupport::TestCase
   def build_example(file_name)
     if file_name.present?
       File.open(File.join(Rails.root, 'test/fixtures/images', file_name)) do |file|
-        EXAMPLE_MODEL.new(file: file)
+        EXAMPLE_MODEL.new(file: file).tap do |image_data|
+          carrierwave_file = image_data.file.file
+          carrierwave_file.content_type = content_type(file_name)
+        end
       end
     else
       EXAMPLE_MODEL.new
+    end
+  end
+
+  def content_type(file_name)
+    extension = File.extname(file_name)
+    case extension
+    when ".jpg"
+      "image/jpg"
+    when ".svg"
+      "image/svg+xml"
+    when ".gif"
+      "image/gif"
     end
   end
 end
