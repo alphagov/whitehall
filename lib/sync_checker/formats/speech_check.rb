@@ -24,6 +24,11 @@ module SyncChecker
           )
         end
 
+        # This is only necessary while we still add LinksCheck
+        # for related_policies as part of EditionBase#checks_for_live
+        checks.reject! { |chk|
+          chk.is_a?(Checks::LinksCheck) && chk.links_key == "related_policies" }
+
         checks
       end
 
