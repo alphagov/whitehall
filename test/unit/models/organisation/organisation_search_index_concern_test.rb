@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CorporateInformationPageSearchIndexObserverTest < ActiveSupport::TestCase
+class OrganisationSearchIndexConcernTest < ActiveSupport::TestCase
   test 'should add corp info page to search index when its organisation goes live' do
     org = create(:organisation, govuk_status: 'joining')
     corp_page = create(:corporate_information_page, :published, organisation: org)

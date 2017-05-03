@@ -24,15 +24,6 @@ module Whitehall
       #{config.root}/lib
     )
 
-    # Only load the plugins named here, in the order given (default is alphabetical).
-    # :all can be used as a placeholder for all plugins not explicitly named.
-    # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
-
-    config.active_record.observers = [
-      :ministerial_role_search_index_observer,
-      :corporate_information_page_search_index_observer
-    ]
-
     # Opt in to new transaction callback error handling behaviour to get rid of
     # deprecation warnings.
     #

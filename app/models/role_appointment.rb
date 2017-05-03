@@ -1,4 +1,6 @@
 class RoleAppointment < ActiveRecord::Base
+  include MinisterialRole::MinisterialRoleReindexingConcern
+
   CURRENT_CONDITION = {ended_at: nil}
 
   has_many :edition_role_appointments

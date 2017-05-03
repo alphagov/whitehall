@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
+class MinisterialRoleReindexingConcernTest < ActiveSupport::TestCase
   test 'should reindex all ministerial roles when a person is updated' do
     person = create(:person)
 
@@ -17,17 +17,6 @@ class MinisterialRoleSearchIndexObserverTest < ActiveSupport::TestCase
 
     organisation.name = 'Ministry of Funk'
     organisation.save
-  end
-
-  test 'should not reindex all ministerial roles when an organisation is updated if observer is disabled' do
-    organisation = create(:organisation)
-
-    MinisterialRole.expects(:reindex_all).never
-
-    organisation.name = 'Ministry of Funk'
-    MinisterialRoleSearchIndexObserver.while_disabled do
-      organisation.save
-    end
   end
 
   test 'should reindex all ministerial roles when a role appointment is created' do

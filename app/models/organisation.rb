@@ -1,6 +1,8 @@
 class Organisation < ActiveRecord::Base
   include PublishesToPublishingApi
   include Searchable
+  include MinisterialRole::MinisterialRoleReindexingConcern
+  include Organisation::OrganisationSearchIndexConcern
   include Organisation::OrganisationTypeConcern
   include HasCorporateInformationPages
 
