@@ -58,6 +58,10 @@ class NewsArticle < Newsesque
     world_locations.any?
   end
 
+  def locale_can_be_changed?
+    new_record?
+  end
+
   #-----------------------
 
   private
