@@ -1,7 +1,6 @@
 require 'whitehall/authority/rules/object_rules'
 require 'whitehall/authority/rules/edition_rules'
 require 'whitehall/authority/rules/fatality_notice_rules'
-require 'whitehall/authority/rules/world_edition_rules'
 require 'whitehall/authority/rules/document_rules'
 require 'whitehall/authority/rules/ministerial_role_rules'
 require 'whitehall/authority/rules/policy_group_rules'
@@ -41,7 +40,6 @@ module Whitehall::Authority
     'Document' => Rules::DocumentRules,
     'Edition' => Rules::EditionRules,
     'FatalityNotice' => Rules::FatalityNoticeRules,
-    'WorldLocationNewsArticle' => Rules::WorldEditionRules,
     'MinisterialRole' => Rules::MinisterialRoleRules,
     'PolicyGroup' => Rules::PolicyGroupRules,
     'Organisation' => Rules::OrganisationRules,
