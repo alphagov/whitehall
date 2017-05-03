@@ -35,7 +35,15 @@ class EditionTaxonomyTagForm
   end
 
   def education_taxons
-    Taxonomy.education
+    @education_taxons ||= Taxonomy.education
+  end
+
+  def live_education_taxons
+    education_taxons.children.reject(&:draft)
+  end
+
+  def draft_education_taxons
+    education_taxons.children.select(&:draft)
   end
 
   def draft_taxons
