@@ -1,6 +1,7 @@
 class Person < ActiveRecord::Base
   include PublishesToPublishingApi
   include Searchable
+  include MinisterialRole::MinisterialRoleReindexingConcern
 
   mount_uploader :image, ImageUploader, mount_on: :carrierwave_image
 
