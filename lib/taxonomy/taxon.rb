@@ -13,9 +13,7 @@ module Taxonomy
     end
 
     def tree
-      return [self] if @children.empty?
-
-      @children.each_with_object([self]) do |child, tree|
+      children.each_with_object([self]) do |child, tree|
         tree.concat(child.tree)
       end
     end
