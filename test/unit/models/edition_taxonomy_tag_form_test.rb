@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class EditionTaxonomyTagFormTest < ActiveSupport::TestCase
-  include EducationTaxonomyHelper
+  include TaxonomyHelper
 
   test "#load when publishing-api returns 404, selected_taxons should be '[]'" do
     content_id = "64aadc14-9bca-40d9-abb4-4f21f9792a05"
@@ -43,7 +43,7 @@ class EditionTaxonomyTagFormTest < ActiveSupport::TestCase
   end
 
   test '#most_specific_taxons ignores taxons if there is a more specific one' do
-    stub_education_taxonomy_with_draft_expanded_links
+    stub_taxonomy_with_draft_expanded_links
 
     selected_taxons = [
       grandparent_taxon_content_id,
@@ -51,14 +51,12 @@ class EditionTaxonomyTagFormTest < ActiveSupport::TestCase
       child_taxon_content_id
     ]
 
-    expected_taxons = [child_taxon_content_id]
-
     form = EditionTaxonomyTagForm.new(
       selected_taxons: selected_taxons,
       edition_content_id: "abc",
       previous_version: 1
     )
 
-    assert_equal form.most_specific_taxons, expected_taxons
+    assert_equal [child_taxon_content_id], form.most_specific_taxons
   end
 end

@@ -35,7 +35,7 @@ class EditionTaxonomyTagForm
   end
 
   def education_taxons
-    Taxonomy.education
+    Taxonomy::Tree.new(Taxonomy.root_taxons.first).root_taxon
   end
 
   def draft_taxons

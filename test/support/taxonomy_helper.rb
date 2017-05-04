@@ -1,6 +1,10 @@
-module EducationTaxonomyHelper
+module TaxonomyHelper
+  def homepage_content_id
+    Taxonomy::HOMEPAGE_CONTENT_ID
+  end
+
   def root_taxon_content_id
-    Taxonomy::EDUCATION_CONTENT_ID
+    "root"
   end
 
   def draft_taxon_content_ids
@@ -8,29 +12,23 @@ module EducationTaxonomyHelper
   end
 
   def parent_taxon_content_id
-    "904cfd73-2707-47b8-8754-5765ec5a5b68"
+    "parent"
   end
 
   def child_taxon_content_id
-    "07fdd985-f3ec-4f4e-a316-3f4fd491bd64"
+    "child"
   end
 
   def grandparent_taxon_content_id
-    "7c75c541-403f-4cb1-9b34-4ddde816a80d"
+    "grandparent"
   end
 
-  def stub_education_taxonomy_with_draft_expanded_links
-    publishing_api_has_item({
-      "title" => "Education",
-      "base_path" => "/education",
-      "content_id" => root_taxon_content_id
-    })
-
-    live_links = {
-      content_id: root_taxon_content_id,
+  def stub_taxonomy_with_draft_expanded_links
+    homepage_links = {
+      content_id: homepage_content_id,
       expanded_links: {
-        "child_taxons" => [
-          grandparent_taxon
+        "root_taxons" => [
+          root_taxon
         ]
       }
     }
@@ -61,7 +59,8 @@ module EducationTaxonomyHelper
       }
     }
 
-    publishing_api_has_expanded_links(live_links, with_drafts: false)
+    publishing_api_has_expanded_links(root_taxon, with_drafts: false)
+    publishing_api_has_expanded_links(homepage_links, with_drafts: false)
     publishing_api_has_expanded_links(draft_taxon_1, with_drafts: true)
     publishing_api_has_expanded_links(draft_taxon_2, with_drafts: true)
   end
@@ -97,6 +96,17 @@ private
       "title" => "School Curriculum",
       "links" => {
         "child_taxons" => [parent_taxon]
+      }
+    }
+  end
+
+  def root_taxon
+    {
+      "title" => "Education",
+      "base_path" => "/education",
+      "content_id" => root_taxon_content_id,
+      "expanded_links" => {
+        "child_taxons" => [grandparent_taxon]
       }
     }
   end
