@@ -52,6 +52,10 @@ class NewsArticle < Newsesque
     Whitehall::RenderingApp::GOVERNMENT_FRONTEND
   end
 
+  def locale_can_be_changed?
+    new_record?
+  end
+
   private
 
   def only_news_article_allowed_invalid_data_can_be_awaiting_type
