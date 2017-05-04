@@ -181,13 +181,6 @@ ar:
         few:
         many:
         other: "إحصائيات - إحصائيات محلية"
-      nhs_content:
-        zero:
-        one:
-        two:
-        few:
-        many:
-        other:
       news_article:
         zero:
         one: "مقال إخباري"
@@ -202,6 +195,13 @@ ar:
         few:
         many:
         other: "قصص إخبارية"
+      nhs_content:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       notice:
         zero:
         one:
@@ -321,6 +321,13 @@ ar:
         few:
         many:
         other: "بيانات تتعلق بالشفافية"
+      worldwide_news_story:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       written_statement:
         zero:
         one: "تصريح خطي"
@@ -474,6 +481,8 @@ ar:
     email: "بريد إلكتروني"
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:

@@ -70,6 +70,8 @@ zh:
     email: "邮件"
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:
@@ -194,15 +196,15 @@ zh:
       national_statistics:
         one: "统计数据 - 国家数据"
         other: "统计数据 - 国家数据"
-      nhs_content:
-        one:
-        other:
       news_article:
         one: "新闻文章"
         other: "新闻文章"
       news_story:
         one: "新闻报道"
         other: "新闻报道"
+      nhs_content:
+        one:
+        other:
       notice:
         one:
         other:
@@ -254,6 +256,9 @@ zh:
       transparency:
         one: "透明化数据"
         other: "透明化数据"
+      worldwide_news_story:
+        one:
+        other:
       written_statement:
         one: "对议会的书面声明"
         other: "对议会的书面声明"

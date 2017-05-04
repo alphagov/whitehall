@@ -131,11 +131,6 @@ uk:
         few:
         many:
         other: "Статистика - національна статистика"
-      nhs_content:
-        one:
-        few:
-        many:
-        other:
       news_article:
         one: "Стаття"
         few:
@@ -146,6 +141,11 @@ uk:
         few:
         many:
         other: "Новини"
+      nhs_content:
+        one:
+        few:
+        many:
+        other:
       notice:
         one:
         few:
@@ -231,6 +231,11 @@ uk:
         few:
         many:
         other: "Прозорість інформації"
+      worldwide_news_story:
+        one:
+        few:
+        many:
+        other:
       written_statement:
         one: "Письмова заява у парламенті"
         few:
@@ -374,6 +379,8 @@ uk:
     email: "Електронна пошта"
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:

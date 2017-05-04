@@ -131,11 +131,6 @@ pl:
         few:
         many:
         other: Statystyki - statystyki narodowe
-      nhs_content:
-        one:
-        few:
-        many:
-        other:
       news_article:
         one: Artykuł prasowy
         few:
@@ -146,6 +141,11 @@ pl:
         few:
         many:
         other: Aktualności
+      nhs_content:
+        one:
+        few:
+        many:
+        other:
       notice:
         one:
         few:
@@ -231,6 +231,11 @@ pl:
         few:
         many:
         other: Dane o transparentności
+      worldwide_news_story:
+        one:
+        few:
+        many:
+        other:
       written_statement:
         one: Pisemne oświadczenie przed parlamentem
         few:
@@ -376,6 +381,8 @@ pl:
     email: Email
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:

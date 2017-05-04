@@ -81,15 +81,15 @@ si:
       national_statistics:
         one: "සංඛ්යාන - ජාතික සංඛ්යාන"
         other: "සංඛ්යාන - ජාතික සංඛ්යාන"
-      nhs_content:
-        one:
-        other:
       news_article:
         one: "පුවත් ලිපිය"
         other: "පුවත් ලිපි"
       news_story:
         one: "පුවත් වාර්තාව"
         other: "පුවත් වාර්තා"
+      nhs_content:
+        one:
+        other:
       notice:
         one:
         other:
@@ -141,6 +141,9 @@ si:
       transparency:
         one: "විනිවිධභාවයේ දත්ත"
         other: "විනිවිධභාවයේ දත්ත"
+      worldwide_news_story:
+        one:
+        other:
       written_statement:
         one: "පාර්ලිමේන්තුවට කල ලිඛිත ප්‍රකාශය"
         other: "පාර්ලිමේන්තුවට කල ලිඛිත ප්‍රකාශ"
@@ -274,6 +277,8 @@ si:
     email: "විද්‍යුත් තැපැල්"
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:

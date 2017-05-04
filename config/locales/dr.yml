@@ -81,15 +81,15 @@ dr:
       national_statistics:
         one: "احصایه ها - احصایه های ملی"
         other: "احصایه ها - احصایه های ملی"
-      nhs_content:
-        one:
-        other:
       news_article:
         one: "مقاله جدید"
         other: "مقاله خبری"
       news_story:
         one: "گزارش خبری"
         other: "گزارش های خبری"
+      nhs_content:
+        one:
+        other:
       notice:
         one:
         other:
@@ -141,6 +141,9 @@ dr:
       transparency:
         one: "ارقام شفافیت"
         other: "ارقام شفافیت"
+      worldwide_news_story:
+        one:
+        other:
       written_statement:
         one: "بیانیه تحریری به پارلمان"
         other: "بیانیه های تحریری به پارلمان"
@@ -274,6 +277,8 @@ dr:
     email: "ایمیل"
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:

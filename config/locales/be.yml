@@ -16,16 +16,16 @@ be:
         few:
         many:
         other: "Аб'явы"
-      blog_post:
-        one:
-        few:
-        many:
-        other:
       authored_article:
         one: "Аўтарскі артыкул"
         few:
         many:
         other: "Аўтарскія артыкулы"
+      blog_post:
+        one:
+        few:
+        many:
+        other:
       case_study:
         one: "Тэматычнае даследаванне"
         few:
@@ -131,11 +131,6 @@ be:
         few:
         many:
         other: "Статыстыка - нацыянальная статыстыка"
-      nhs_content:
-        one:
-        few:
-        many:
-        other:
       news_article:
         one: "Артыкул"
         few:
@@ -146,6 +141,11 @@ be:
         few:
         many:
         other: "Навіны"
+      nhs_content:
+        one:
+        few:
+        many:
+        other:
       notice:
         one:
         few:
@@ -231,6 +231,11 @@ be:
         few:
         many:
         other: "Адкрытыя дадзеныя"
+      worldwide_news_story:
+        one:
+        few:
+        many:
+        other:
       written_statement:
         one: "Пісьмовая заява ў парламенце"
         few:
@@ -374,6 +379,8 @@ be:
     email: "Электронная пошта"
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:

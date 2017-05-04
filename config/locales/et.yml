@@ -81,15 +81,15 @@ et:
       national_statistics:
         one: Statistika - rahvuslikud statistikaandmed
         other: Statistika - rahvuslikud statistikaandmed
-      nhs_content:
-        one:
-        other:
       news_article:
         one: Artikkel
         other: Artiklid
       news_story:
         one: Uudis
         other: Uudised
+      nhs_content:
+        one:
+        other:
       notice:
         one: Teade
         other: Teated
@@ -141,6 +141,9 @@ et:
       transparency:
         one: Läbipaistvusteave
         other: Läbipaistvusteave
+      worldwide_news_story:
+        one:
+        other:
       written_statement:
         one: Kirjalik avaldus parlamendile
         other: Kirjalikud avaldused parlamendile
@@ -276,6 +279,8 @@ et:
     email: E-post
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about: Meist
         about_our_services: Meie teenustest

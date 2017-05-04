@@ -72,6 +72,8 @@ fa:
     email: "ایمیل"
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:
@@ -196,15 +198,15 @@ fa:
       national_statistics:
         one: "آمار - آمار ملی"
         other: "آمار - آمار ملی"
-      nhs_content:
-        one:
-        other:
       news_article:
         one: "مقاله ی خبری"
         other: "مقالات خبری"
       news_story:
         one: "خبر"
         other: "اخبار"
+      nhs_content:
+        one:
+        other:
       notice:
         one:
         other:
@@ -256,6 +258,9 @@ fa:
       transparency:
         one: "داده های شفاف سازی"
         other: "داده های شفاف سازی"
+      worldwide_news_story:
+        one:
+        other:
       written_statement:
         one: "گزارش کتبی به پارلمان"
         other: "گزارش های کتبی به پارلمان"

@@ -81,15 +81,15 @@ so:
       national_statistics:
         one: Istaatistik - istaatistik qaran
         other: Istaatistik - istaatistik qaran
-      nhs_content:
-        one:
-        other:
       news_article:
         one: Maqaal wareed
         other: Maqaallo wareed
       news_story:
         one: Sheeko wareed
         other: Sheekooyin wareed
+      nhs_content:
+        one:
+        other:
       notice:
         one:
         other:
@@ -141,6 +141,9 @@ so:
       transparency:
         one: Xog daahfurnaan
         other: Xog daahfurnaan
+      worldwide_news_story:
+        one:
+        other:
       written_statement:
         one: Hadal qoran oo loo gudbiyo baarlamaanka
         other: Hadallo qoran oo loo gudbiyo baarlamaanka
@@ -276,6 +279,8 @@ so:
     email: E-mail
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:

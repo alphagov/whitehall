@@ -81,15 +81,15 @@ ur:
       national_statistics:
         one: "شماریات- قومی اعدادوشمار"
         other: "شماریات- قومی اعدادوشمار"
-      nhs_content:
-        one:
-        other:
       news_article:
         one: "نیوزآرٹیکل"
         other: "نیوزآرٹیکلز"
       news_story:
         one: "نیوز اسٹوری"
         other: "نیوزاسٹوریز"
+      nhs_content:
+        one:
+        other:
       notice:
         one:
         other:
@@ -141,6 +141,9 @@ ur:
       transparency:
         one: "ٹرانسپیرنسی ڈیٹا"
         other: "ٹرانسپیرنسی ڈیٹا"
+      worldwide_news_story:
+        one:
+        other:
       written_statement:
         one: "پارلیمنٹ میں تحریری بیان"
         other: "پارلیمنٹ میں تحریری بیانات"
@@ -275,6 +278,8 @@ ur:
     email: "ای میل"
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:

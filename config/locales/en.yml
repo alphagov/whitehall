@@ -236,6 +236,9 @@ en:
       written_statement:
         one: Written statement to Parliament
         other: Written statements to Parliament
+      worldwide_news_story:
+        one: Worldwide news story
+        other: Worldwide news stories
       authored_article:
         one: Authored article
         other: Authored articles

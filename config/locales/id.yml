@@ -72,6 +72,8 @@ id:
     email: Email
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:
@@ -196,15 +198,15 @@ id:
       national_statistics:
         one: Statistik-statistik nasional
         other: Statistik-statistik nasional
-      nhs_content:
-        one:
-        other:
       news_article:
         one: Artikel berita
         other: Artikel-artikel berita
       news_story:
         one: Berita
         other: Berita-berita
+      nhs_content:
+        one:
+        other:
       notice:
         one:
         other:
@@ -256,6 +258,9 @@ id:
       transparency:
         one: Transparansi data
         other: Transparansi data
+      worldwide_news_story:
+        one:
+        other:
       written_statement:
         one: Pernyataan tertulis kepada parlemen
         other: Pernyataan-pernyatan tertulis kepada parlemen

@@ -81,15 +81,15 @@ hi:
       national_statistics:
         one: "सांख्यिकी - राष्ट्रीय सांख्यिकी"
         other: "सांख्यिकी - राष्ट्रीय सांख्यिकी"
-      nhs_content:
-        one:
-        other:
       news_article:
         one: "समाचार लेख"
         other: "समाचार लेख"
       news_story:
         one: "समाचार कथा"
         other: "समाचार कथाएं"
+      nhs_content:
+        one:
+        other:
       notice:
         one:
         other:
@@ -141,6 +141,9 @@ hi:
       transparency:
         one: "पारदर्शिता आंकड़े"
         other: "पारदर्शिता आंकड़े"
+      worldwide_news_story:
+        one:
+        other:
       written_statement:
         one: "संसद में लिखित बयान"
         other: "संसद में लिखित बयान"
@@ -275,6 +278,8 @@ hi:
     email: "ईमेल"
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:

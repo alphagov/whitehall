@@ -106,10 +106,6 @@ cs:
         one: Statistiky - národní statistiky
         few:
         other: Statistiky - národní statistiky
-      nhs_content:
-        one:
-        few:
-        other:
       news_article:
         one: Nový článek
         few:
@@ -118,6 +114,10 @@ cs:
         one: Zpráva
         few:
         other: Zprávy
+      nhs_content:
+        one:
+        few:
+        other:
       notice:
         one:
         few:
@@ -186,6 +186,10 @@ cs:
         one: Transparenost
         few:
         other: Transparentnost
+      worldwide_news_story:
+        one:
+        few:
+        other:
       written_statement:
         one: Písemná prohlášení do parlamentu
         few:
@@ -326,6 +330,8 @@ cs:
     email: Email
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:

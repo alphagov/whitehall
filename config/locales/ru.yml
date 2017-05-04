@@ -131,11 +131,6 @@ ru:
         few:
         many:
         other: "Статистика - национальная статистика"
-      nhs_content:
-        one:
-        few:
-        many:
-        other:
       news_article:
         one: "Новостная статья"
         few:
@@ -146,6 +141,11 @@ ru:
         few:
         many:
         other: "Новостные заметки"
+      nhs_content:
+        one:
+        few:
+        many:
+        other:
       notice:
         one:
         few:
@@ -231,6 +231,11 @@ ru:
         few:
         many:
         other: "Прозрачность данных"
+      worldwide_news_story:
+        one:
+        few:
+        many:
+        other:
       written_statement:
         one: "Письменное заявление парламенту"
         few:
@@ -373,6 +378,8 @@ ru:
     email: "Электронный адрес"
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:

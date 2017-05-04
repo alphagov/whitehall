@@ -70,6 +70,8 @@ az:
     email: elektron poçt
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:
@@ -194,15 +196,15 @@ az:
       national_statistics:
         one: Statistika - milli statistika
         other: Statistika - milli statistika
-      nhs_content:
-        one:
-        other:
       news_article:
         one: məqalə
         other: məqalələr
       news_story:
         one: Xəbərlər
         other: Xəbərlər
+      nhs_content:
+        one:
+        other:
       notice:
         one:
         other:
@@ -254,6 +256,9 @@ az:
       transparency:
         one: "Şəffaf məlumat"
         other: "Şəffaf məlumat"
+      worldwide_news_story:
+        one:
+        other:
       written_statement:
         one: Parlamentə yazılı müraciət
         other: Parlamentə yazılı müraciət

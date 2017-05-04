@@ -81,15 +81,15 @@ de:
       national_statistics:
         one: Statistik - Nationale Statistik
         other: Statistik - Nationale Statistik
-      nhs_content:
-        one:
-        other:
       news_article:
         one: Artikel
         other: Artikel
       news_story:
         one: Meldung
         other: Meldungen
+      nhs_content:
+        one:
+        other:
       notice:
         one:
         other:
@@ -141,6 +141,9 @@ de:
       transparency:
         one: Transparenz-Daten
         other: Transparenz-Daten
+      worldwide_news_story:
+        one:
+        other:
       written_statement:
         one: Schriftliche Erklärung vor dem Parlament
         other: Schriftliche Erklärungen vor dem Parlament
@@ -275,6 +278,8 @@ de:
     email: E-Mail
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:
