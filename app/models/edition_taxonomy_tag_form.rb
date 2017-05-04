@@ -34,16 +34,12 @@ class EditionTaxonomyTagForm
       )
   end
 
-  def education_taxons
-    Taxonomy::Tree.new(Taxonomy.root_taxons.first).root_taxon
-  end
-
   def draft_taxons
     Taxonomy.drafts
   end
 
   def all_taxons
-    education_taxons.tree + draft_taxons.flat_map(&:tree)
+    Taxonomy.all_taxonomy_trees.flat_map(&:tree) + draft_taxons.flat_map(&:tree)
   end
 
   # Ignore any taxons that already have a more specific taxon selected

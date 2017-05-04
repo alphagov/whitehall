@@ -5,6 +5,7 @@ class Admin::EditionTagsController < Admin::BaseController
 
   def edit
     @edition_tag_form = EditionTaxonomyTagForm.load(@edition.content_id)
+    @published_taxonomies = Taxonomy.all_taxonomy_trees
   end
 
   def update

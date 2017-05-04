@@ -1,4 +1,14 @@
 .topic-tree {
+  summary {
+    margin-bottom: 10px;
+    display: inline;
+    @extend a;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
   label {
     font-size: 16px;
     font-weight: normal;

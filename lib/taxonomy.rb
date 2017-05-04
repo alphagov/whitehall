@@ -25,4 +25,8 @@ module Taxonomy
         .map { |taxon_hash| Taxon.new(taxon_hash.symbolize_keys) }
     end
   end
+
+  def self.all_taxonomy_trees
+    root_taxons.map { |root_taxon| Taxonomy::Tree.new(root_taxon).root_taxon }
+  end
 end
