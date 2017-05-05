@@ -21,11 +21,19 @@
         data-content-public-path="<%= public_document_path(@edition) %>">
 
         <% @published_taxonomies.each do |root_taxon| %>
-          <details class="topic-tree">
-            <summary class="bold-taxon-name"><%= root_taxon.name %></summary>
+          <% toggle_classes = ["taxon-name"] %>
+          <% toggle_classes << "collapsed" unless @published_taxonomies.size == 1 %>
 
-            <%= render partial: "taxonomy", locals: {form: @edition_tag_form, taxons: root_taxon.children } %>
-          </details>
+          <% tree_classes = ["collapse"] %>
+          <% tree_classes << "in" if @published_taxonomies.size == 1 %>
+
+          <div class="topic-tree">
+            <a class="<%= toggle_classes.join(" ") %>" data-toggle="collapse" href="#<%= root_taxon.content_id %>"><span class='icon'>&nbsp;</span><%= root_taxon.name %></a>
+
+            <div class="<%= tree_classes.join(" ") %>" id="<%= root_taxon.content_id %>">
+              <%= render partial: "taxonomy", locals: {form: @edition_tag_form, taxons: root_taxon.children } %>
+            </div>
+          </div>
         <% end %>
       </div>
 

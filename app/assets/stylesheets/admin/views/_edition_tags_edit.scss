@@ -1,36 +1,44 @@
 .topic-tree {
-  summary {
-    margin-bottom: 10px;
-    display: inline;
-    @extend a;
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
-  label {
-    font-size: 16px;
-    font-weight: normal;
-    input[type="checkbox"] {
-      margin-right: 10px;
-    }
-
-    input[type="checkbox"]:checked + span {
-      font-weight: bold;
-    }
-  }
-
-  p.bold-taxon-name {
+  .taxon-name {
     font-size: 16px;
     font-weight: bold;
-  }
-}
+    margin-bottom: 10px;
+    display: inline-block;
 
-.topics {
-  padding-left: 36px;
-  border-left: 1px solid #aaa;
-  margin-left: 6px;
+    &:hover, &:focus {
+      text-decoration: none;
+    }
+
+    .icon {
+      &:before {
+        font-family: 'Glyphicons Halflings';
+        content: '\e159'; // .glyphicon-collapse-down
+      }
+    }
+  }
+  .taxon-name.collapsed .icon {
+    &:before {
+      content: '\e158'; // .glyphicon-expand
+    }
+  }
+
+  .topics {
+    padding-left: 36px;
+    border-left: 1px solid #aaa;
+    margin-left: 6px;
+
+    label {
+      font-size: 16px;
+      font-weight: normal;
+      input[type="checkbox"] {
+        margin-right: 10px;
+      }
+
+      input[type="checkbox"]:checked + span {
+        font-weight: bold;
+      }
+    }
+  }
 }
 
 .feedback-link {
