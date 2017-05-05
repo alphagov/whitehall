@@ -90,6 +90,17 @@ class CsvPreviewTest < ActiveSupport::TestCase
     end
   end
 
+  test 'handles files with a newline embedded in a cell in the first row that is not the same as the newlines used to separate the rows' do
+    mixed_newlines_preview = CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/mixed-newlines.csv'))
+
+    assert_equal ['this', 'header row', "has an embedded new\nline but", 'it is different to', 'the row separator'],
+      mixed_newlines_preview.headings
+
+    expected_data = [['this', 'is', 'the', 'second', 'line in the file']]
+
+    assert_csv_data(expected_data, mixed_newlines_preview)
+  end
+
 private
 
   def assert_csv_data(expected_data, preview)

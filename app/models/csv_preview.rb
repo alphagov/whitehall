@@ -10,7 +10,7 @@ class CsvPreview
     @maximum_rows = maximum_rows
     @maximum_columns = maximum_columns
     @file_path = file_path
-    @csv = CSV.open(file_path, encoding: encoding)
+    @csv = open_csv
     @headings = @csv.shift
     if @headings.size > maximum_columns
       @truncated_columns = true
@@ -55,6 +55,26 @@ class CsvPreview
   end
 
 private
+
+  def open_csv
+    original_error = nil
+    row_sep = :auto
+    csv = nil
+    begin
+      csv = CSV.open(file_path, encoding: encoding, row_sep: row_sep)
+      csv.shift
+      csv.rewind
+    rescue CSV::MalformedCSVError => e
+      if original_error.nil?
+        original_error = e
+        row_sep = "\r\n"
+        retry
+      else
+        raise original_error
+      end
+    end
+    csv
+  end
 
   def preview_rows
     @preview ||= File.foreach(file_path).take(maximum_rows + 1).join
