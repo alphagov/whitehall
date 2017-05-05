@@ -1,15 +1,16 @@
 <% page_title "Edit topics: " + @edition.title %>
 
 <div class="row">
-  <div class="col-md-9">
-    <h1>Edit topics</h1>
-    <p class="lead add-top-margin add-bottom-margin">
-      <strong><%= @edition.title %></strong>
-    </p>
-  </div>
+  <h1><%= @edition.title %></h1>
 </div>
 <div class="row">
   <div class="col-md-12">
+    <h2>Topics (new taxonomy)</h2>
+    <p>
+      <%= link_to "Send feedback about the new taxonomy", Whitehall.support_url, class: "feedback-link" %>
+    </p>
+    <hr>
+
     <%= form_for @edition_tag_form, url: admin_edition_tags_path(@edition), method: :put do |form| %>
       <%= form.hidden_field :previous_version %>
 
@@ -19,14 +20,15 @@
         data-content-format="<%= @edition.content_store_document_type %>"
         data-content-public-path="<%= public_document_path(@edition) %>">
 
-        <div class="topic-tree">
+        <% @published_taxonomies.each do |root_taxon| %>
+          <div class="topic-tree">
+            <a class="<%= root_taxon.toggle_classes %>" data-toggle="collapse" href="#<%= root_taxon.content_id %>"><span class='icon'>&nbsp;</span><%= root_taxon.name %></a>
 
-          <p class="bold-taxon-name">
-            <%= @edition_tag_form.education_taxons.name %>
-          </p>
-
-          <%= render partial: "taxonomy", locals: {form: @edition_tag_form, taxons: @edition_tag_form.education_taxons.children } %>
-        </div>
+            <div class="<%= root_taxon.tree_classes %>" id="<%= root_taxon.content_id %>">
+              <%= render partial: "taxonomy", locals: {form: @edition_tag_form, taxons: root_taxon.children } %>
+            </div>
+          </div>
+        <% end %>
       </div>
 
       <h2>Draft topics</h2>

@@ -1,3 +1,4 @@
+<div class="topics">
 <% taxons.each do |taxon| %>
   <p>
     <label>
@@ -6,10 +7,9 @@
     </label>
   </p>
 
-  <div class="topics">
-    <% if taxon.children.present? %>
-      <%= render partial: "taxonomy",
-            locals: { form: form, taxons: taxon.children } %>
-    <% end %>
-  </div>
+  <% if taxon.children.present? %>
+    <%= render partial: "taxonomy",
+          locals: { form: form, taxons: taxon.children } %>
+  <% end %>
 <% end %>
+</div>
