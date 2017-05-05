@@ -23,6 +23,10 @@ Whitehall.edition_services.tap do |coordinator|
       .new(edition)
       .populate!
 
+    ServiceListeners::AttachmentDependencyPopulator
+      .new(edition)
+      .populate!
+
     ServiceListeners::AnnouncementClearer
       .new(edition)
       .clear!
