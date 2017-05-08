@@ -1,7 +1,7 @@
 class Admin::ContactsController < Admin::BaseController
-  before_filter :find_contactable
-  before_filter :find_contact, only: [:edit, :update, :destroy, :remove_from_home_page, :add_to_home_page]
-  before_filter :destroy_blank_contact_numbers, only: [:create, :update]
+  before_action :find_contactable
+  before_action :find_contact, only: [:edit, :update, :destroy, :remove_from_home_page, :add_to_home_page]
+  before_action :destroy_blank_contact_numbers, only: [:create, :update]
 
   def index
   end

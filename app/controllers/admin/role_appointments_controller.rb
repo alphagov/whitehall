@@ -1,5 +1,5 @@
 class Admin::RoleAppointmentsController < Admin::BaseController
-  before_filter :load_role_appointment, only: [:edit, :update, :destroy]
+  before_action :load_role_appointment, only: [:edit, :update, :destroy]
 
   def new
     role = Role.find(params[:role_id])

@@ -8,13 +8,13 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  before_filter :set_slimmer_application_name
-  before_filter :set_slimmer_show_organisations_filter
-  before_filter :set_audit_trail_whodunnit
-  before_filter :set_authenticated_user_header
+  before_action :set_slimmer_application_name
+  before_action :set_slimmer_show_organisations_filter
+  before_action :set_audit_trail_whodunnit
+  before_action :set_authenticated_user_header
 
   layout 'frontend'
-  after_filter :set_slimmer_template
+  after_action :set_slimmer_template
 
   private
 

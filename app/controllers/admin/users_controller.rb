@@ -1,5 +1,5 @@
 class Admin::UsersController < Admin::BaseController
-  before_filter :load_user, only: [:show, :edit, :update]
+  before_action :load_user, only: [:show, :edit, :update]
 
   def index
     @users = User.enabled.includes(organisation: [:translations]).sort_by { |u| u.fuzzy_last_name.downcase }

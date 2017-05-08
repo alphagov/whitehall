@@ -2,10 +2,10 @@ class OrganisationsController < PublicFacingController
   include CacheControlHelper
 
   enable_request_formats show: [:atom]
-  before_filter :load_organisation, only: [:show]
-  before_filter :set_organisation_slimmer_headers, only: [:show]
-  skip_before_filter :set_cache_control_headers, only: [:show]
-  before_filter :set_cache_max_age, only: [:show]
+  before_action :load_organisation, only: [:show]
+  before_action :set_organisation_slimmer_headers, only: [:show]
+  skip_before_action :set_cache_control_headers, only: [:show]
+  before_action :set_cache_max_age, only: [:show]
 
   def index
     @content_item = Whitehall.content_store.content_item("/government/organisations")

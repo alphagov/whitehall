@@ -4,8 +4,8 @@ class HtmlAttachmentsController < PublicFacingController
 
   layout 'html_attachments'
 
-  before_filter :find_edition, :redirect_if_unpublished, :find_html_attachment
-  around_filter :set_locale_from_attachment
+  before_action :find_edition, :redirect_if_unpublished, :find_html_attachment
+  around_action :set_locale_from_attachment
 
   def show
     set_meta_description(@edition.summary)

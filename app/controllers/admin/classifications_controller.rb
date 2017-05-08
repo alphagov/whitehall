@@ -1,9 +1,9 @@
 class Admin::ClassificationsController < Admin::BaseController
   helper_method :model_class, :model_name, :human_friendly_model_name
 
-  before_filter :build_object, only: [:new]
-  before_filter :load_object, only: [:show, :edit]
-  before_filter :remove_blank_parameters, only: [:create, :update]
+  before_action :build_object, only: [:new]
+  before_action :load_object, only: [:show, :edit]
+  before_action :remove_blank_parameters, only: [:create, :update]
 
   def index
     @classifications = model_class.includes(:related_classifications).order(:name)

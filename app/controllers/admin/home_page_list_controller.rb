@@ -60,7 +60,7 @@ module Admin::HomePageListController
           compact
       end
     end
-    self.before_filter :extract_show_on_home_page_param, only: [:create, :update]
+    self.before_action :extract_show_on_home_page_param, only: [:create, :update]
     include home_page_list_controller_methods
   end
 end

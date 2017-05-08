@@ -3,9 +3,9 @@ class DocumentsController < PublicFacingController
   include PermissionsChecker
   include PublicDocumentRoutesHelper
 
-  before_filter :redirect_to_canonical_url
-  before_filter :find_document, only: [:show]
-  before_filter :set_slimmer_headers_for_document, only: [:show]
+  before_action :redirect_to_canonical_url
+  before_action :find_document, only: [:show]
+  before_action :set_slimmer_headers_for_document, only: [:show]
 
 private
 

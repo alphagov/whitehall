@@ -2,8 +2,8 @@ module TranslationControllerConcern
   extend ActiveSupport::Concern
 
   included do
-    before_filter :load_translatable_item
-    before_filter :load_translated_models, except: [:index]
+    before_action :load_translatable_item
+    before_action :load_translated_models, except: [:index]
     helper_method :translation_locale
   end
 

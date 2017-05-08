@@ -1,13 +1,13 @@
 class Admin::EditionWorkflowController < Admin::BaseController
   include PublicDocumentRoutesHelper
 
-  before_filter :find_edition
-  before_filter :enforce_permissions!
-  before_filter :limit_edition_access!
-  before_filter :lock_edition
-  before_filter :set_change_note
-  before_filter :set_minor_change_flag
-  before_filter :ensure_reason_given_for_force_publishing, only: :force_publish
+  before_action :find_edition
+  before_action :enforce_permissions!
+  before_action :limit_edition_access!
+  before_action :lock_edition
+  before_action :set_change_note
+  before_action :set_minor_change_flag
+  before_action :ensure_reason_given_for_force_publishing, only: :force_publish
 
   rescue_from ActiveRecord::StaleObjectError do
     redirect_to admin_edition_path(@edition), alert: "This document has been edited since you viewed it; you are now viewing the latest version"

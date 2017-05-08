@@ -1,6 +1,6 @@
 class Admin::PreviewController < Admin::BaseController
-  before_filter :find_attachments
-  before_filter :limit_attachment_access!
+  before_action :find_attachments
+  before_action :limit_attachment_access!
 
   def preview
     if Govspeak::HtmlValidator.new(params[:body]).valid?

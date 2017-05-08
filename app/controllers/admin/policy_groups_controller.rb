@@ -1,5 +1,5 @@
 class Admin::PolicyGroupsController < Admin::BaseController
-  before_filter :enforce_permissions!, only: [:destroy]
+  before_action :enforce_permissions!, only: [:destroy]
 
   def index
     @policy_groups = PolicyGroup.order(:name)

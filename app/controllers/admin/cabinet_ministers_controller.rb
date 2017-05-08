@@ -1,6 +1,6 @@
 class Admin::CabinetMinistersController < Admin::BaseController
 
-  before_filter :enforce_permissions!
+  before_action :enforce_permissions!
 
   def show
     @cabinet_minister_roles = MinisterialRole.includes(:translations).where(cabinet_member: true).order(:seniority)

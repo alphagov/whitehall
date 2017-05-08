@@ -1,7 +1,7 @@
 class Admin::PromotionalFeatureItemsController < Admin::BaseController
-  before_filter :load_organisation
-  before_filter :load_promotional_feature
-  before_filter :load_promotional_feature_item, only: [:edit, :update, :destroy]
+  before_action :load_organisation
+  before_action :load_promotional_feature
+  before_action :load_promotional_feature_item, only: [:edit, :update, :destroy]
 
   def new
     @promotional_feature_item = @promotional_feature.promotional_feature_items.build

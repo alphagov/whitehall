@@ -1,7 +1,7 @@
 class StatisticsController < DocumentsController
   enable_request_formats index: [:json, :atom]
-  before_filter :inject_statistics_publication_filter_option_param, only: :index
-  before_filter :expire_cache_when_next_publication_published
+  before_action :inject_statistics_publication_filter_option_param, only: :index
+  before_action :expire_cache_when_next_publication_published
 
   def index
     @filter = build_document_filter

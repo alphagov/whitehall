@@ -1,7 +1,7 @@
 class Admin::EditionTagsController < Admin::BaseController
-  before_filter :find_edition
-  before_filter :enforce_permissions!
-  before_filter :limit_edition_access!
+  before_action :find_edition
+  before_action :enforce_permissions!
+  before_action :limit_edition_access!
 
   def edit
     @edition_tag_form = EditionTaxonomyTagForm.load(@edition.content_id)

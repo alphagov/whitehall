@@ -1,6 +1,6 @@
 class Admin::TopicalEventsController < Admin::ClassificationsController
-  before_filter :build_associated_objects, only: [:new, :edit]
-  before_filter :destroy_blank_social_media_accounts, only: [:create, :update]
+  before_action :build_associated_objects, only: [:new, :edit]
+  before_action :destroy_blank_social_media_accounts, only: [:create, :update]
 
   def update
     @classification = TopicalEvent.friendly.find(params[:id])

@@ -1,21 +1,21 @@
 class Admin::EditionsController < Admin::BaseController
-  before_filter :remove_blank_parameters
-  before_filter :clean_edition_parameters, only: [:create, :update]
-  before_filter :build_array_out_of_need_ids_string, only: [:create, :update]
-  before_filter :clear_scheduled_publication_if_not_activated, only: [:create, :update]
-  before_filter :find_edition, only: [:show, :edit, :update, :submit, :revise, :diff, :reject, :destroy]
-  before_filter :prevent_modification_of_unmodifiable_edition, only: [:edit, :update]
-  before_filter :delete_absent_edition_organisations, only: [:create, :update]
-  before_filter :build_edition, only: [:new, :create]
-  before_filter :detect_other_active_editors, only: [:edit]
-  before_filter :set_edition_defaults, only: :new
-  before_filter :build_blank_image, only: [:new, :edit]
-  before_filter :enforce_permissions!
-  before_filter :limit_edition_access!, only: [:show, :edit, :update, :submit, :revise, :diff, :reject, :destroy]
-  before_filter :redirect_to_controller_for_type, only: [:show]
-  before_filter :deduplicate_specialist_sectors, only: [:create, :update]
-  before_filter :trigger_previously_published_validations, only: [:create], if: :document_can_be_previously_published
-  before_filter :forbid_editing_of_historic_content!, only: [:create, :edit, :update, :submit, :destory, :revise]
+  before_action :remove_blank_parameters
+  before_action :clean_edition_parameters, only: [:create, :update]
+  before_action :build_array_out_of_need_ids_string, only: [:create, :update]
+  before_action :clear_scheduled_publication_if_not_activated, only: [:create, :update]
+  before_action :find_edition, only: [:show, :edit, :update, :submit, :revise, :diff, :reject, :destroy]
+  before_action :prevent_modification_of_unmodifiable_edition, only: [:edit, :update]
+  before_action :delete_absent_edition_organisations, only: [:create, :update]
+  before_action :build_edition, only: [:new, :create]
+  before_action :detect_other_active_editors, only: [:edit]
+  before_action :set_edition_defaults, only: :new
+  before_action :build_blank_image, only: [:new, :edit]
+  before_action :enforce_permissions!
+  before_action :limit_edition_access!, only: [:show, :edit, :update, :submit, :revise, :diff, :reject, :destroy]
+  before_action :redirect_to_controller_for_type, only: [:show]
+  before_action :deduplicate_specialist_sectors, only: [:create, :update]
+  before_action :trigger_previously_published_validations, only: [:create], if: :document_can_be_previously_published
+  before_action :forbid_editing_of_historic_content!, only: [:create, :edit, :update, :submit, :destory, :revise]
 
   def forbid_editing_of_historic_content!
     unless can?(:modify, @edition)

@@ -1,6 +1,6 @@
 class Admin::ClassificationFeaturingsController < Admin::BaseController
-  before_filter :load_classification
-  before_filter :load_featuring, only: [:edit, :destroy]
+  before_action :load_classification
+  before_action :load_featuring, only: [:edit, :destroy]
 
   def index
     filter_params = params.slice(:page, :type, :author, :organisation, :title).

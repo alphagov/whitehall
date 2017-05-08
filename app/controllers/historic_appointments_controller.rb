@@ -1,5 +1,5 @@
 class HistoricAppointmentsController < PublicFacingController
-  before_filter :load_role, except: [:past_chancellors]
+  before_action :load_role, except: [:past_chancellors]
   helper_method :previous_appointments_with_unique_people
 
   def index

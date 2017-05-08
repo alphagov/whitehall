@@ -1,5 +1,5 @@
 class Admin::GovernmentsController < Admin::BaseController
-  before_filter :enforce_permissions!, except: :index
+  before_action :enforce_permissions!, except: :index
 
   def index
     @governments = Government.order(start_date: :desc)

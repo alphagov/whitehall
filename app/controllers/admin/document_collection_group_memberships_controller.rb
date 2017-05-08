@@ -1,7 +1,7 @@
 class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseController
-  before_filter :load_document_collection
-  before_filter :load_document_collection_group
-  before_filter :find_document, only: :create
+  before_action :load_document_collection
+  before_action :load_document_collection_group
+  before_action :find_document, only: :create
 
   def create
     membership = DocumentCollectionGroupMembership.new(document: @document, document_collection_group: @group)
