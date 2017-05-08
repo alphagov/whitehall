@@ -8,15 +8,15 @@ class RoleAppointment < ApplicationRecord
 
   # All this nonsense is because of all the intermediary associations
   has_many :consultations,
-            ->  { where("editions.type" => Consultation) },
+            -> { where("editions.type" => "Consultation") },
             through: :edition_role_appointments,
             source: :edition
   has_many :publications,
-            ->  { where("editions.type" => Publication) },
+            -> { where("editions.type" => "Publication") },
             through: :edition_role_appointments,
             source: :edition
   has_many :news_articles,
-            ->  { where("editions.type" => NewsArticle) },
+            -> { where("editions.type" => "NewsArticle") },
             through: :edition_role_appointments,
             source: :edition
 

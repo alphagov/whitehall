@@ -115,7 +115,7 @@ module Attachable
   end
 
   def next_ordering
-    max = Attachment.where(attachable_id: id, attachable_type: self.class.base_class).maximum(:ordering)
+    max = Attachment.where(attachable_id: id, attachable_type: self.class.base_class.to_s).maximum(:ordering)
     max ? max + 1 : 0
   end
 

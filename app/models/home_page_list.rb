@@ -20,7 +20,7 @@ class HomePageList < ApplicationRecord
     name = opts[:called]
     build_if_missing = opts.has_key?(:build_if_missing) ? opts[:build_if_missing] : true
     raise ArgumentError, "Must supply owned_by: and called: options" if (owner.nil? || name.nil?)
-    scoping = where(owner_id: owner.id, owner_type: owner.class, name: name)
+    scoping = where(owner_id: owner.id, owner_type: owner.class.to_s, name: name)
     if list = scoping.first
       list
     elsif build_if_missing
@@ -43,7 +43,7 @@ class HomePageList < ApplicationRecord
 
   def remove_item(item)
     persist_if_required
-    home_page_list_items.where(item_id: item.id, item_type: item.class).destroy_all
+    home_page_list_items.where(item_id: item.id, item_type: item.class.to_s).destroy_all
   end
 
   def reorder_items!(items_in_order)
