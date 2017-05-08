@@ -1,4 +1,4 @@
-class OrganisationRole < ActiveRecord::Base
+class OrganisationRole < ApplicationRecord
   include MinisterialRole::MinisterialRoleReindexingConcern
 
   belongs_to :organisation, inverse_of: :organisation_roles

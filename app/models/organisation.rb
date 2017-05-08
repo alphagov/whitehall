@@ -1,4 +1,4 @@
-class Organisation < ActiveRecord::Base
+class Organisation < ApplicationRecord
   include PublishesToPublishingApi
   include Searchable
   include MinisterialRole::MinisterialRoleReindexingConcern

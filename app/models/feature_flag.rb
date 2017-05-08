@@ -1,4 +1,4 @@
-class FeatureFlag < ActiveRecord::Base
+class FeatureFlag < ApplicationRecord
   def self.set(key, value)
     flag = find_by!(key: key)
     flag.update(enabled: value)

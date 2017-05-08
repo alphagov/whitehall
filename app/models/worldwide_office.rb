@@ -1,4 +1,4 @@
-class WorldwideOffice < ActiveRecord::Base
+class WorldwideOffice < ApplicationRecord
   has_one :contact, as: :contactable, dependent: :destroy
   belongs_to :worldwide_organisation
   has_many :worldwide_office_worldwide_services, dependent: :destroy, inverse_of: :worldwide_office

@@ -1,4 +1,4 @@
-class SocialMediaAccount < ActiveRecord::Base
+class SocialMediaAccount < ApplicationRecord
   belongs_to :socialable, polymorphic: true
   belongs_to :social_media_service
 

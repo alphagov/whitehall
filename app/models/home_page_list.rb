@@ -1,4 +1,4 @@
-class HomePageList < ActiveRecord::Base
+class HomePageList < ApplicationRecord
   belongs_to :owner,
              polymorphic: true
   validates :owner, presence: true

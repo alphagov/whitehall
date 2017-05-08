@@ -4,7 +4,7 @@ class SearchableTest < ActiveSupport::TestCase
   # re-using an existing table to make these tests much clearer
   # as all the searchable definition is in one place (and it doesn't
   # lend itself to redefinition)
-  class SearchableTestTopic < ActiveRecord::Base
+  class SearchableTestTopic < ApplicationRecord
     self.table_name = 'classifications'
 
     include Searchable

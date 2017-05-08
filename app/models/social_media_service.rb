@@ -1,3 +1,3 @@
-class SocialMediaService < ActiveRecord::Base
+class SocialMediaService < ApplicationRecord
   validates :name, presence: true, uniqueness: true
 end

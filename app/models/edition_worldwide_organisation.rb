@@ -1,4 +1,4 @@
-class EditionWorldwideOrganisation < ActiveRecord::Base
+class EditionWorldwideOrganisation < ApplicationRecord
   belongs_to :edition
   belongs_to :worldwide_organisation, inverse_of: :edition_worldwide_organisations
 

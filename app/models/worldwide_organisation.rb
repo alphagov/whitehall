@@ -1,4 +1,4 @@
-class WorldwideOrganisation < ActiveRecord::Base
+class WorldwideOrganisation < ApplicationRecord
   include HasCorporateInformationPages
 
   PRIMARY_ROLES = [AmbassadorRole, HighCommissionerRole, GovernorRole]

@@ -1,4 +1,4 @@
-class FactCheckRequest < ActiveRecord::Base
+class FactCheckRequest < ApplicationRecord
   include Whitehall::RandomKey
   self.random_key_length = 16
 

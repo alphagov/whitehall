@@ -1,4 +1,4 @@
-class SyncCheckResult < ActiveRecord::Base
+class SyncCheckResult < ApplicationRecord
   # Used to store results of Sync Checks when running migrations. The check_class
   # will be one from the `SyncChecker::Formats` namespace. This is a developer-only
   # model, and will be used to drive a dashboard that measures the progress of

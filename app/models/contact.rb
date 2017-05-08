@@ -1,4 +1,4 @@
-class Contact < ActiveRecord::Base
+class Contact < ApplicationRecord
   include Dependable
   include PublishesToPublishingApi
 

@@ -1,4 +1,4 @@
-class WorldwideOrganisationRole < ActiveRecord::Base
+class WorldwideOrganisationRole < ApplicationRecord
   belongs_to :worldwide_organisation
   belongs_to :role
 

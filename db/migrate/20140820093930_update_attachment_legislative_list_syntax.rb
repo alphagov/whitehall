@@ -1,5 +1,5 @@
 class UpdateAttachmentLegislativeListSyntax < ActiveRecord::Migration
-  class Attachment < ActiveRecord::Base; end
+  class Attachment < ApplicationRecord; end
 
   def self.fix_attachment(attachment)
     # This regex is the one used for matching legislative lists in the previous

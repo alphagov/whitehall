@@ -1,4 +1,4 @@
-class Government < ActiveRecord::Base
+class Government < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :slug, presence: true, uniqueness: true
   validates :start_date, presence: true

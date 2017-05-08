@@ -1,4 +1,4 @@
-class PromotionalFeatureItem < ActiveRecord::Base
+class PromotionalFeatureItem < ApplicationRecord
   belongs_to :promotional_feature, inverse_of: :promotional_feature_items
   has_one :organisation, through: :promotional_feature
   has_many :links, class_name: 'PromotionalFeatureLink', dependent: :destroy, inverse_of: :promotional_feature_item

@@ -1,4 +1,4 @@
-class OrganisationClassification < ActiveRecord::Base
+class OrganisationClassification < ApplicationRecord
   belongs_to :organisation
 
   # DID YOU MEAN: Policy Area?

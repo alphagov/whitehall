@@ -1,6 +1,6 @@
 require 'pdf-reader'
 
-class AttachmentData < ActiveRecord::Base
+class AttachmentData < ApplicationRecord
   mount_uploader :file, AttachmentUploader, mount_on: :carrierwave_file
 
   has_many :attachments, inverse_of: :attachment_data

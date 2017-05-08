@@ -1,4 +1,4 @@
-class Version < ActiveRecord::Base
+class Version < ApplicationRecord
   belongs_to :item, polymorphic: true
   validates_presence_of :event
   belongs_to :user, foreign_key: 'whodunnit'

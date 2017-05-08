@@ -1,4 +1,4 @@
-class RoleAppointment < ActiveRecord::Base
+class RoleAppointment < ApplicationRecord
   include MinisterialRole::MinisterialRoleReindexingConcern
 
   CURRENT_CONDITION = {ended_at: nil}

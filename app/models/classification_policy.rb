@@ -1,3 +1,3 @@
-class ClassificationPolicy < ActiveRecord::Base
+class ClassificationPolicy < ApplicationRecord
   belongs_to :classification
 end

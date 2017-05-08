@@ -1,4 +1,4 @@
-class OperationalField < ActiveRecord::Base
+class OperationalField < ApplicationRecord
   include PublishesToPublishingApi
   include Searchable
 

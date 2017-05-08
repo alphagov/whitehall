@@ -1,4 +1,4 @@
-class ConsultationResponseForm < ActiveRecord::Base
+class ConsultationResponseForm < ApplicationRecord
   has_one :consultation_participation
   belongs_to :consultation_response_form_data
 

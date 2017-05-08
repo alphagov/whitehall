@@ -1,4 +1,4 @@
-class AccessAndOpeningTimes < ActiveRecord::Base
+class AccessAndOpeningTimes < ApplicationRecord
   belongs_to :accessible, polymorphic: true
 
   validates_with SafeHtmlValidator

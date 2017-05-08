@@ -1,4 +1,4 @@
-class LinksReport < ActiveRecord::Base
+class LinksReport < ApplicationRecord
   serialize :links, Array
   serialize :broken_links, Array
 

@@ -1,4 +1,4 @@
-class WorldwideService < ActiveRecord::Base
+class WorldwideService < ApplicationRecord
 
   validates :name, :service_type_id, presence: true
   has_many :worldwide_office_worldwide_services, dependent: :destroy, inverse_of: :worldwide_service

@@ -1,4 +1,4 @@
-class HistoricalAccount < ActiveRecord::Base
+class HistoricalAccount < ApplicationRecord
   belongs_to :person, inverse_of: :historical_accounts
   has_many   :historical_account_roles
   has_many   :roles, through: :historical_account_roles

@@ -1,4 +1,4 @@
-class TakePartPage < ActiveRecord::Base
+class TakePartPage < ApplicationRecord
 
   validates_with SafeHtmlValidator
   validates :title, :summary, presence: true, length: { maximum: 255 }

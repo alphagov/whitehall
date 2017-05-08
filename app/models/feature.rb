@@ -1,4 +1,4 @@
-class Feature < ActiveRecord::Base
+class Feature < ApplicationRecord
   belongs_to :document
   belongs_to :topical_event
   belongs_to :offsite_link

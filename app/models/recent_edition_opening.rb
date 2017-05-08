@@ -1,4 +1,4 @@
-class RecentEditionOpening < ActiveRecord::Base
+class RecentEditionOpening < ApplicationRecord
   belongs_to :edition
   belongs_to :editor, class_name: "User"
 

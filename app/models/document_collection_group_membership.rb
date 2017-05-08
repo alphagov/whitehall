@@ -1,4 +1,4 @@
-class DocumentCollectionGroupMembership < ActiveRecord::Base
+class DocumentCollectionGroupMembership < ApplicationRecord
   BANNED_DOCUMENT_TYPES = ["DocumentCollection"]
 
   belongs_to :document, inverse_of: :document_collection_group_memberships
