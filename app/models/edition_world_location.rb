@@ -1,4 +1,4 @@
-class EditionWorldLocation < ActiveRecord::Base
+class EditionWorldLocation < ApplicationRecord
   belongs_to :edition
   belongs_to :world_location, inverse_of: :edition_world_locations
 

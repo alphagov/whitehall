@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   # This stops the attr_accessible call in the SSO module messing things up
   extend AttrAccessibleNoop
   include GDS::SSO::User

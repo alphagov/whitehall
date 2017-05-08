@@ -1,4 +1,4 @@
-class Image < ActiveRecord::Base
+class Image < ApplicationRecord
   belongs_to :image_data
   belongs_to :edition
 

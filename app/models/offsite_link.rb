@@ -1,4 +1,4 @@
-class OffsiteLink < ActiveRecord::Base
+class OffsiteLink < ApplicationRecord
   module LinkTypes
     def self.all
       @types ||= %w(alert blog_post campaign careers manual nhs_content service)

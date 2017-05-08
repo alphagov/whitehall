@@ -10,7 +10,7 @@
 # the index page is still rendered from Whitehall.
 #
 # Statistics announcements are not versioned/editioned.
-class StatisticsAnnouncement < ActiveRecord::Base
+class StatisticsAnnouncement < ApplicationRecord
   extend FriendlyId
   friendly_id :title
   include PublishesToPublishingApi

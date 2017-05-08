@@ -1,4 +1,4 @@
-class EditionDependency < ActiveRecord::Base
+class EditionDependency < ApplicationRecord
   belongs_to :edition
   belongs_to :dependable, polymorphic: true
 end

@@ -3,7 +3,7 @@
 # (https://www.gov.uk/government/topics)
 # "Topic" is the newer name for "specialist sector"
 # (https://www.gov.uk/topic)
-class SpecialistSector < ActiveRecord::Base
+class SpecialistSector < ApplicationRecord
   belongs_to :edition
 
   validates :edition, presence: true

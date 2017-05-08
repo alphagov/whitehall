@@ -1,6 +1,6 @@
 # The base class for almost all editoral content.
 # @abstract Using STI should not create editions directly.
-class Edition < ActiveRecord::Base
+class Edition < ApplicationRecord
   include Edition::Traits
 
   include Edition::NullImages

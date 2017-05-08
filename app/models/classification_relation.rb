@@ -1,4 +1,4 @@
-class ClassificationRelation < ActiveRecord::Base
+class ClassificationRelation < ApplicationRecord
   belongs_to :classification, inverse_of: :classification_relations
   belongs_to :related_classification, foreign_key: :related_classification_id, class_name: "Classification"
 

@@ -1,4 +1,4 @@
-class StatisticsAnnouncementTopic < ActiveRecord::Base
+class StatisticsAnnouncementTopic < ApplicationRecord
   belongs_to :statistics_announcement, inverse_of: :statistics_announcement_topics
 
   # DID YOU MEAN: Policy Area?

@@ -1,4 +1,4 @@
-class FeaturedLink < ActiveRecord::Base
+class FeaturedLink < ApplicationRecord
   extend ActiveSupport::Concern
 
   DEFAULT_SET_SIZE = 5

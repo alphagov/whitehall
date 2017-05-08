@@ -1,4 +1,4 @@
-class ClassificationFeaturing < ActiveRecord::Base
+class ClassificationFeaturing < ApplicationRecord
   belongs_to :edition, inverse_of: :classification_featurings
   belongs_to :offsite_link
   belongs_to :classification, inverse_of: :classification_featurings

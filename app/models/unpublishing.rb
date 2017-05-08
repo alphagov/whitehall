@@ -1,6 +1,6 @@
 require "securerandom"
 
-class Unpublishing < ActiveRecord::Base
+class Unpublishing < ApplicationRecord
   belongs_to :edition
 
   validates :edition, :unpublishing_reason, :document_type, :slug, presence: true

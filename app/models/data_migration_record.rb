@@ -1,2 +1,2 @@
-class DataMigrationRecord < ActiveRecord::Base
+class DataMigrationRecord < ApplicationRecord
 end

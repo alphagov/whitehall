@@ -1,4 +1,4 @@
-class EditorialRemark < ActiveRecord::Base
+class EditorialRemark < ApplicationRecord
   belongs_to :edition
   belongs_to :author, class_name: "User"
 

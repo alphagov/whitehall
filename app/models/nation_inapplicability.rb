@@ -1,4 +1,4 @@
-class NationInapplicability < ActiveRecord::Base
+class NationInapplicability < ApplicationRecord
   delegate :name, to: :nation
 
   belongs_to :edition

@@ -1,4 +1,4 @@
-class EditionStatisticalDataSet < ActiveRecord::Base
+class EditionStatisticalDataSet < ApplicationRecord
   belongs_to :edition
   belongs_to :document
 end

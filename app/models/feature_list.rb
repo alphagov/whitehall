@@ -1,4 +1,4 @@
-class FeatureList < ActiveRecord::Base
+class FeatureList < ApplicationRecord
   has_many :features, -> { order(:ordering) }, dependent: :destroy, before_add: :ensure_ordering!
   belongs_to :featurable, polymorphic: true
 

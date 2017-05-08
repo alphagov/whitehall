@@ -1,4 +1,4 @@
-class AboutPage < ActiveRecord::Base
+class AboutPage < ApplicationRecord
   include Searchable
   include PublishesToPublishingApi
 

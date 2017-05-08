@@ -1,2 +1,2 @@
-class EditionPolicy < ActiveRecord::Base
+class EditionPolicy < ApplicationRecord
 end

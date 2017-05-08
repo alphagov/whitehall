@@ -1,4 +1,4 @@
-class GovspeakContent < ActiveRecord::Base
+class GovspeakContent < ApplicationRecord
   belongs_to :html_attachment, inverse_of: :govspeak_content
 
   validates :body, :html_attachment, presence: true

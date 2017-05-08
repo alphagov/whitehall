@@ -1,6 +1,6 @@
 require 'mini_magick'
 
-class ImageData < ActiveRecord::Base
+class ImageData < ApplicationRecord
   has_many :images
 
   mount_uploader :file, ImageUploader, mount_on: :carrierwave_image

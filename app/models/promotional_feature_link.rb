@@ -1,4 +1,4 @@
-class PromotionalFeatureLink < ActiveRecord::Base
+class PromotionalFeatureLink < ApplicationRecord
   belongs_to :promotional_feature_item, inverse_of: :links
 
   validates :url, presence: true, uri: true

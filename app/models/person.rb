@@ -1,4 +1,4 @@
-class Person < ActiveRecord::Base
+class Person < ApplicationRecord
   include PublishesToPublishingApi
   include Searchable
   include MinisterialRole::MinisterialRoleReindexingConcern

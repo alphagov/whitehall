@@ -1,4 +1,4 @@
-class FeaturedPolicy < ActiveRecord::Base
+class FeaturedPolicy < ApplicationRecord
   extend ActiveSupport::Concern
 
   belongs_to :organisation, inverse_of: :featured_policies, touch: true

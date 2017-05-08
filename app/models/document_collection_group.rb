@@ -1,4 +1,4 @@
-class DocumentCollectionGroup < ActiveRecord::Base
+class DocumentCollectionGroup < ApplicationRecord
   belongs_to :document_collection, inverse_of: :groups, touch: true
   has_many :memberships,
            -> { order('document_collection_group_memberships.ordering') } ,

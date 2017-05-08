@@ -1,4 +1,4 @@
-class PolicyGroup < ActiveRecord::Base
+class PolicyGroup < ApplicationRecord
   include Searchable
   include ::Attachable
   include PublishesToPublishingApi

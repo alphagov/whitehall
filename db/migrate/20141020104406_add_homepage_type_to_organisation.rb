@@ -1,5 +1,5 @@
 class AddHomepageTypeToOrganisation < ActiveRecord::Migration
-  class FeaturedServicesAndGuidance < ActiveRecord::Base
+  class FeaturedServicesAndGuidance < ApplicationRecord
     self.table_name = :featured_services_and_guidance
   end
 

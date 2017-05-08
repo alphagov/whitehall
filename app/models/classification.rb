@@ -1,5 +1,5 @@
 # @abstract
-class Classification < ActiveRecord::Base
+class Classification < ApplicationRecord
   include Searchable
   include SimpleWorkflow
   include PublishesToPublishingApi

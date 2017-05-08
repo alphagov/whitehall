@@ -1,4 +1,4 @@
-class FinancialReport < ActiveRecord::Base
+class FinancialReport < ApplicationRecord
   belongs_to :organisation
   validates_associated :organisation
 
