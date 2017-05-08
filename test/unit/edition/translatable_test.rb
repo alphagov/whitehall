@@ -32,7 +32,7 @@ class Edition::TranslatableTest < ActiveSupport::TestCase
   end
 
   test 'locale_can_be_changed? returns false for other edition types' do
-    Edition.concrete_descendants.reject {|k| k == WorldLocationNewsArticle }.each do |klass|
+    Edition.concrete_descendants.reject {|k| [WorldLocationNewsArticle, NewsArticle].include?(k) }.each do |klass|
       refute klass.new.locale_can_be_changed?, "Instance of #{klass} should not allow the changing of primary locale"
     end
   end
