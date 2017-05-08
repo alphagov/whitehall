@@ -212,7 +212,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
     if params[:lock_version]
       @edition.lock_version = params[:lock_version]
     else
-      render text: 'All workflow actions require a lock version', status: 422
+      render plain: 'All workflow actions require a lock version', status: 422
     end
   end
 

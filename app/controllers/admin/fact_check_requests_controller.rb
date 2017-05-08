@@ -68,7 +68,7 @@ private
     if @fact_check_request
       @edition = Edition.unscoped.find(@fact_check_request.edition_id)
     else
-      render text: "Not found", status: :not_found
+      render plain: "Not found", status: :not_found
     end
   end
 

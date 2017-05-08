@@ -3,7 +3,7 @@ require 'test_helper'
 class CsrfTest < ActionController::TestCase
   class TestAdminController < Admin::BaseController
     def create
-      render text: 'OK'
+      render plain: 'OK'
     end
   end
   tests TestAdminController

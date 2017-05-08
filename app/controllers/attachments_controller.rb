@@ -83,6 +83,6 @@ private
   end
 
   def reject_non_previewable_attachments
-    render(text: "Not found", status: :not_found) unless attachment_data.csv?
+    render(plain: "Not found", status: :not_found) unless attachment_data.csv?
   end
 end

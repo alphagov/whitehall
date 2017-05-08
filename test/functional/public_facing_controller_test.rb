@@ -5,25 +5,25 @@ class PublicFacingControllerTest < ActionController::TestCase
     enable_request_formats json: :json, js_or_atom: [:js, :atom]
 
     def test
-      render text: 'ok'
+      render html: 'ok'
     end
 
     def locale
-      render text: I18n.locale.to_s
+      render html: I18n.locale.to_s
     end
 
     def json
       respond_to do |format|
-        format.html { render text: 'html' }
-        format.json { render text: '{}' }
+        format.html { render html: 'html' }
+        format.json { render html: '{}' }
       end
     end
 
     def js_or_atom
       respond_to do |format|
-        format.html  { render text: 'html' }
-        format.js    { render text: 'javascript' }
-        format.atom  { render text: 'atom' }
+        format.html  { render html: 'html' }
+        format.js    { render html: 'javascript' }
+        format.atom  { render html: 'atom' }
       end
     end
 

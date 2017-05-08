@@ -5,7 +5,7 @@ class PastForeignSecretariesController < PublicFacingController
     if valid_names.include?(params[:id])
       render template: "past_foreign_secretaries/#{params[:id].underscore}"
     else
-      render text: "Not found", status: :not_found
+      render plain: "Not found", status: :not_found
     end
   end
 
