@@ -428,7 +428,7 @@ end
 Then /^the featured links for the organisation "([^"]*)" should be visible on the public site$/ do |organisation_name|
   visit_organisation organisation_name
   within ".featured-links" do
-    assert page.has_css?("a[href='https://www.gov.uk/mainstream/tool-alpha']", "Tool Alpha")
+    assert page.has_css?("a[href='https://www.gov.uk/mainstream/tool-alpha']", text: "Tool Alpha")
   end
 end
 
@@ -447,7 +447,7 @@ end
 Then /^the featured services and guidance for the organisation "([^"]*)" should be visible on the public site$/ do |organisation_name|
   visit_organisation organisation_name
   within ".featured-links" do
-    assert page.has_css?("a[href='https://www.gov.uk/example/service']", "Example Service")
+    assert page.has_css?("a[href='https://www.gov.uk/example/service']", text: "Example Service")
   end
 end
 

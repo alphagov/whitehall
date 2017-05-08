@@ -50,7 +50,7 @@ end
 
 Then /^I should see that the minister is associated with the "([^"]*)"$/ do |organisation_name|
   organisation = Organisation.find_by!(name: organisation_name)
-  assert page.has_css?('.meta', /organisation was missing/)
+  assert page.has_css?('.meta', text: organisation_name)
 end
 
 Then /^I should see that the minister has responsibilities "([^"]*)"$/ do |responsibilities|

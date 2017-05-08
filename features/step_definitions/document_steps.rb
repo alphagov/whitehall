@@ -209,33 +209,33 @@ end
 
 Then /^I should see in the preview that "([^"]*)" should be in the "([^"]*)" and "([^"]*)" topics$/ do |title, first_topic, second_topic|
   visit_document_preview title
-  assert has_css?(".meta a", text: first_topic, exact: false)
-  assert has_css?(".meta a", text: second_topic, exact: false)
+  assert has_css?(".meta a", text: first_topic)
+  assert has_css?(".meta a", text: second_topic)
 end
 
 Then /^I should see in the preview that "([^"]*)" was produced by the "([^"]*)" and "([^"]*)" organisations$/ do |title, first_org, second_org|
   visit_document_preview title
-  assert has_css?(".meta a", text: first_org, exact: false)
-  assert has_css?(".meta a", text: second_org, exact: false)
+  assert has_css?(".meta a", text: first_org)
+  assert has_css?(".meta a", text: second_org)
 end
 
 Then /^I should see in the preview that "([^"]*)" is associated with "([^"]*)" and "([^"]*)"$/ do |title, minister_1, minister_2|
   visit_document_preview title
-  assert has_css?(".meta a", text: minister_1, exact: false)
-  assert has_css?(".meta a", text: minister_2, exact: false)
+  assert has_css?(".meta a", text: minister_1)
+  assert has_css?(".meta a", text: minister_2)
 end
 
 Then /^I should see in the preview that "([^"]*)" does not apply to the nations:$/ do |title, nation_names|
   visit_document_preview title
   nation_names.raw.flatten.each do |nation_name|
-    assert has_css?(".meta", text: nation_name, exact: false)
+    assert has_css?(".meta", text: nation_name)
   end
 end
 
 Then /^I should see in the preview that "([^"]*)" should related to "([^"]*)" and "([^"]*)" policies$/ do |title, related_policy_1, related_policy_2|
   visit_document_preview title
-  assert has_css?(".meta a", text: related_policy_1, exact: false)
-  assert has_css?(".meta a", text: related_policy_2, exact: false)
+  assert has_css?(".meta a", text: related_policy_1)
+  assert has_css?(".meta a", text: related_policy_2)
 end
 
 Then /^I should see the conflict between the (publication|policy|news article|consultation|speech) titles "([^"]*)" and "([^"]*)"$/ do |document_type, new_title, latest_title|

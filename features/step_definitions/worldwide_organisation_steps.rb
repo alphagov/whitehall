@@ -35,7 +35,7 @@ Then /^the "([^"]*)" logo should show correctly with the HMG crest$/ do |name|
 end
 
 Then /^I should see that it is part of the "([^"]*)"$/ do |sponsoring_organisation|
-  assert page.has_css?(".sponsoring-organisation", sponsoring_organisation)
+  assert page.has_css?(".sponsoring-organisation", text: sponsoring_organisation)
 end
 
 Then /^I should see the worldwide organisation listed on the page$/ do
