@@ -236,7 +236,7 @@ end
 Then /^the featured links for the topic "([^"]*)" should be visible on the public site$/ do |topic_name|
   visit_topic topic_name
   within ".featured-links" do
-    assert page.has_css?("a[href='https://www.gov.uk/mainstream/tool-alpha']", "Tool Alpha")
+    assert page.has_css?("a[href='https://www.gov.uk/mainstream/tool-alpha']", text: "Tool Alpha")
   end
 end
 

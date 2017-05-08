@@ -29,7 +29,7 @@ end
 
 Then /^I can see a link back to the topical event page$/ do
   topical_event_page = topical_event_path(@topical_event)
-  assert page.has_link?(@topical_event.name, topical_event_page)
+  assert page.has_link?(@topical_event.name, href: topical_event_page)
 end
 
 Then /^I can see links to get alerts$/ do

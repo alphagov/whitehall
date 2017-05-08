@@ -72,7 +72,7 @@ Then /^I should see in the preview that "([^"]*)" is taken from the live data in
   publish(force: true)
   click_on title
   click_on "View on website"
-  assert has_css?(".meta a", text: data_set_name, exact: false)
+  assert has_css?(".meta a", text: data_set_name)
 end
 
 Then /^I should see a link to the PDF attachment$/ do
@@ -85,12 +85,12 @@ end
 
 Then /^I should see the summary of the publication "([^"]*)"$/ do |publication_title|
   publication = Publication.published.find_by!(title: publication_title)
-  assert has_css?("#{record_css_selector(publication)} h3", publication.title)
+  assert has_css?("#{record_css_selector(publication)} h3", text: publication.title)
 end
 
 Then /^I should see the summary of the draft publication "([^"]*)"$/ do |publication_title|
   publication = Publication.find_by!(title: publication_title)
-  assert has_css?("h1", publication.title)
+  assert has_css?("h1", text: publication.title)
 end
 
 Then /^I should see "([^"]*)" is a corporate publication of the "([^"]*)"$/ do |title, organisation|

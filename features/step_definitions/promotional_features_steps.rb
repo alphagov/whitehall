@@ -109,7 +109,7 @@ Then /^I should see the promotional feature on the executive office page$/ do
 
   within record_css_selector(@executive_office) do
     within 'section.features' do
-      assert page.has_css?('.promotional_feature h2', @promotional_feature.title)
+      assert page.has_css?('.promotional_feature h2', text: @promotional_feature.title)
 
       within record_css_selector(@promotional_feature) do
         @promotional_feature.items.each do |item|
