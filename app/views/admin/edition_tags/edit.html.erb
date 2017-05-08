@@ -22,7 +22,7 @@
 
         <% @published_taxonomies.each do |root_taxon| %>
           <div class="topic-tree">
-            <a class="<%= root_taxon.toggle_classes %>" data-toggle="collapse" href="#<%= root_taxon.content_id %>"><span class='icon'>&nbsp;</span><%= root_taxon.name %></a>
+            <a class="<%= root_taxon.toggle_classes %>" data-toggle="collapse" href="#<%= root_taxon.content_id %>"><span class='icon'></span><%= root_taxon.name %></a>
 
             <div class="<%= root_taxon.tree_classes %>" id="<%= root_taxon.content_id %>">
               <%= render partial: "taxonomy", locals: {form: @edition_tag_form, taxons: root_taxon.children } %>
