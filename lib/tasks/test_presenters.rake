@@ -1,3 +1,5 @@
+require 'rake/testtask'
+
 namespace :test do
   Rake::TestTask.new(:presenters => "test:prepare") do |t|
     t.libs << 'test'
