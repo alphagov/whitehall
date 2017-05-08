@@ -10,15 +10,17 @@
     }
 
     .icon {
+      display: inline-block;
+      width: 15px;
+
       &:before {
-        font-family: 'Glyphicons Halflings';
-        content: '\e159'; // .glyphicon-collapse-down
+        content: '\25BE';
       }
     }
   }
   .taxon-name.collapsed .icon {
     &:before {
-      content: '\e158'; // .glyphicon-expand
+      content: '\25B8';
     }
   }
 
