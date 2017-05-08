@@ -1,5 +1,5 @@
 class Admin::LinksReportsController < Admin::BaseController
-  before_filter :find_reportable
+  before_action :find_reportable
 
   def create
     @links_report = LinksReport.queue_for!(@reportable)

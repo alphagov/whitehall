@@ -1,5 +1,5 @@
 class Api::WorldwideOrganisationsController < PublicFacingController
-  skip_before_filter :restrict_request_formats
+  skip_before_action :restrict_request_formats
   respond_to :json
 
   self.responder = Api::Responder

@@ -1,5 +1,5 @@
 class Admin::AccessAndOpeningTimesController < Admin::BaseController
-  before_filter :load_accessible
+  before_action :load_accessible
   helper_method :accessible_path
 
   def edit

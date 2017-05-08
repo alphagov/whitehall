@@ -1,5 +1,5 @@
 class Admin::FeatureListsController < Admin::BaseController
-  before_filter :find_feature_list
+  before_action :find_feature_list
 
   def show
     redirect_to feature_list_path(@feature_list)

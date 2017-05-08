@@ -1,6 +1,6 @@
 class Admin::StatisticsAnnouncementUnpublishingsController < Admin::BaseController
-  before_filter :find_statistics_announcement
-  before_filter :enforce_permissions!
+  before_action :find_statistics_announcement
+  before_action :enforce_permissions!
 
   def new
   end

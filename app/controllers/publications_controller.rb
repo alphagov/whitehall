@@ -1,8 +1,8 @@
 class PublicationsController < DocumentsController
   enable_request_formats index: [:json, :atom]
-  before_filter :expire_cache_when_next_publication_published
-  before_filter :redirect_statistics_filtering, only: [:index]
-  before_filter :redirect_statistics_documents, only: [:show]
+  before_action :expire_cache_when_next_publication_published
+  before_action :redirect_statistics_filtering, only: [:index]
+  before_action :redirect_statistics_documents, only: [:show]
 
   def index
     @filter = build_document_filter

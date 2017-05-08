@@ -1,6 +1,6 @@
 class Admin::PromotionalFeaturesController < Admin::BaseController
-  before_filter :load_organisation
-  before_filter :load_promotional_feature, only: [:show, :edit, :update, :destroy]
+  before_action :load_organisation
+  before_action :load_promotional_feature, only: [:show, :edit, :update, :destroy]
 
   def index
     @promotional_features = @organisation.promotional_features

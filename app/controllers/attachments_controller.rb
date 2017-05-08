@@ -1,7 +1,7 @@
 class AttachmentsController < PublicUploadsController
   include PublicDocumentRoutesHelper
 
-  before_filter :reject_non_previewable_attachments, only: :preview
+  before_action :reject_non_previewable_attachments, only: :preview
 
   def preview
     if attachment_visible? && attachment_visibility.visible_edition

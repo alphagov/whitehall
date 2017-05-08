@@ -1,6 +1,6 @@
 class Admin::DocumentSourcesController < Admin::BaseController
-  before_filter :require_import_permission!
-  before_filter :find_edition
+  before_action :require_import_permission!
+  before_action :find_edition
 
   def update
     @document_sources = params[:document_sources]

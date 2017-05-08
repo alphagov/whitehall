@@ -1,5 +1,5 @@
 class Admin::SitewideSettingsController <  Admin::BaseController
-  before_filter :enforce_permissions!
+  before_action :enforce_permissions!
 
   def enforce_permissions!
     enforce_permission!(:administer, :sitewide_settings_section)

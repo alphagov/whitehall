@@ -1,5 +1,5 @@
 class Admin::WorldLocationsController < Admin::BaseController
-  before_filter :load_world_location, only: [:edit, :update, :show, :features]
+  before_action :load_world_location, only: [:edit, :update, :show, :features]
 
   def index
     @active_world_locations, @inactive_world_locations = WorldLocation.ordered_by_name.partition { |wl| wl.active? }

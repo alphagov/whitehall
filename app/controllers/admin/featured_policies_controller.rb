@@ -1,5 +1,5 @@
 class Admin::FeaturedPoliciesController < Admin::BaseController
-  before_filter :load_organisation
+  before_action :load_organisation
 
   def index
     @featured_policies = @organisation.featured_policies.order(:ordering)

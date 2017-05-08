@@ -1,6 +1,6 @@
 class Admin::AttachmentsController < Admin::BaseController
-  before_filter :limit_attachable_access, if: :attachable_is_an_edition?
-  before_filter :check_attachable_allows_attachment_type
+  before_action :limit_attachable_access, if: :attachable_is_an_edition?
+  before_action :check_attachable_allows_attachment_type
 
   rescue_from Mysql2::Error, with: :handle_duplicate_key_errors_caused_by_double_create_requests
 

@@ -1,8 +1,8 @@
 class Admin::BulkUploadsController < Admin::BaseController
-  before_filter :find_edition
-  before_filter :limit_edition_access!
-  before_filter :enforce_permissions!
-  before_filter :prevent_modification_of_unmodifiable_edition
+  before_action :find_edition
+  before_action :limit_edition_access!
+  before_action :enforce_permissions!
+  before_action :prevent_modification_of_unmodifiable_edition
 
   def new
     @zip_file = BulkUpload::ZipFile.new

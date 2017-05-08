@@ -1,7 +1,7 @@
 class Admin::FeaturesController < Admin::BaseController
-  before_filter :find_feature_list
-  before_filter :build_feature
-  before_filter :find_edition, :find_topical_event, :find_offsite_link, only: [:new]
+  before_action :find_feature_list
+  before_action :build_feature
+  before_action :find_edition, :find_topical_event, :find_offsite_link, only: [:new]
 
   def new
   end

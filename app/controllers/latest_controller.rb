@@ -1,7 +1,7 @@
 class LatestController < PublicFacingController
   include CacheControlHelper
 
-  before_filter :redirect_unless_subject
+  before_action :redirect_unless_subject
 
   def index
   end

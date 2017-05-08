@@ -1,7 +1,7 @@
 class WorldwideOrganisationsController < PublicFacingController
   include CacheControlHelper
   enable_request_formats show: :json
-  before_filter :load_worldwide_organisation
+  before_action :load_worldwide_organisation
 
   respond_to :html, :json
 

@@ -1,6 +1,6 @@
 class Admin::DocumentCollectionGroupsController < Admin::BaseController
-  before_filter :load_document_collection
-  before_filter :load_document_collection_group, only: [:delete, :destroy, :edit, :update]
+  before_action :load_document_collection
+  before_action :load_document_collection_group, only: [:delete, :destroy, :edit, :update]
 
   def index
     @groups = @collection.groups

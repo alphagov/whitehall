@@ -1,5 +1,5 @@
 class Admin::RolesController < Admin::BaseController
-  before_filter :load_role, only: [:edit, :update, :destroy]
+  before_action :load_role, only: [:edit, :update, :destroy]
 
   def index
     @roles = Role.includes(:role_appointments, :current_people, :translations, organisations: [:translations]).

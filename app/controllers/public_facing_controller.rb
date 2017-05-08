@@ -1,11 +1,11 @@
 class PublicFacingController < ApplicationController
   helper :all
 
-  before_filter :set_cache_control_headers
-  before_filter :restrict_request_formats
-  before_filter :set_x_frame_options
+  before_action :set_cache_control_headers
+  before_action :restrict_request_formats
+  before_action :set_x_frame_options
 
-  around_filter :set_locale
+  around_action :set_locale
 
   include LocalisedUrlPathHelper
 

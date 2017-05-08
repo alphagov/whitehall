@@ -1,6 +1,6 @@
 class Admin::OffsiteLinksController < Admin::BaseController
-  before_filter :load_parent
-  before_filter :load_offsite_link, except: [:new, :create]
+  before_action :load_parent
+  before_action :load_offsite_link, except: [:new, :create]
 
   def new
     @offsite_link = OffsiteLink.new

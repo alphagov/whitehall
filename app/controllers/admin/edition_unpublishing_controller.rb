@@ -1,6 +1,6 @@
 class Admin::EditionUnpublishingController < Admin::BaseController
-  before_filter :load_unpublishing
-  before_filter :enforce_permissions!
+  before_action :load_unpublishing
+  before_action :enforce_permissions!
 
   def update
     services = Whitehall.edition_services

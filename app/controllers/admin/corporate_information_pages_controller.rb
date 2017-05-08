@@ -1,5 +1,5 @@
 class Admin::CorporateInformationPagesController < Admin::EditionsController
-  prepend_before_filter :find_organisation
+  prepend_before_action :find_organisation
 
   class FakeEditionFilter < Struct.new(:editions, :page_title, :show_stats, :hide_type)
   end
