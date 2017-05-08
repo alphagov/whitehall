@@ -72,7 +72,7 @@ class OrganisationHelperTest < ActionView::TestCase
 
   test 'organisation_count_paragraph includes the number of orgs in a filterable container' do
     orgs = [build(:organisation), build(:organisation)]
-    render text: organisation_count_paragraph(orgs)
+    render plain: organisation_count_paragraph(orgs)
     assert_select '.js-filter-count', text: '2'
   end
 

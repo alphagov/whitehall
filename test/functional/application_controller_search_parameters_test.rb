@@ -7,13 +7,13 @@ class ApplicationControllerSearchParametersTest < ActionController::TestCase
     def test_scoped
       org = Organisation.new("org1", true, "o1")
       set_slimmer_page_owner_header(org)
-      render text: "ok"
+      render plain: "ok"
     end
 
     def test_unscoped
       org = Organisation.new("org2", false, "o2")
       set_slimmer_page_owner_header(org)
-      render text: "ok"
+      render plain: "ok"
     end
   end
 

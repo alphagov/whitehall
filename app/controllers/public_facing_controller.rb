@@ -42,14 +42,14 @@ class PublicFacingController < ApplicationController
   end
 
   def render_not_found
-    render text: "Not found", status: :not_found
+    render plain: "Not found", status: :not_found
   end
 
   private
 
   def log_error_and_render_500(exception)
     logger.error "\n#{exception.class} (#{exception.message}):\n#{exception.backtrace.join("\n")}\n\n"
-    render text: 'API Timed Out', status: :internal_server_error
+    render plain: 'API Timed Out', status: :internal_server_error
   end
 
   def set_locale(&block)
@@ -62,7 +62,7 @@ class PublicFacingController < ApplicationController
 
   def restrict_request_formats
     unless can_handle_format?(request.format)
-      render status: :not_acceptable, text: "Request format #{request.format} not handled."
+      render status: :not_acceptable, plain: "Request format #{request.format} not handled."
     end
   end
 

@@ -8,7 +8,7 @@ class Admin::PreviewController < Admin::BaseController
       @alternative_format_contact_email = alternative_format_contact_email
       render layout: false
     else
-      render text: "Content contains possible XSS exploits", status: :forbidden
+      render plain: "Content contains possible XSS exploits", status: :forbidden
     end
   end
 

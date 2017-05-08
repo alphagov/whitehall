@@ -44,7 +44,7 @@ private
         end
       else
         expires_in 5.minutes, public: true
-        render text: "Not found", status: :not_found
+        render plain: "Not found", status: :not_found
       end
     end
   end

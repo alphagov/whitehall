@@ -8,12 +8,12 @@ class ApplicationControllerAnalyticsTest < ActionController::TestCase
     def test_organisations
       orgs = [Organisation.new("D1"), Organisation.new("D2")]
       set_slimmer_organisations_header(orgs)
-      render text: "ok"
+      render plain: "ok"
     end
 
     def test_format
       set_slimmer_format_header("format_name")
-      render text: "ok"
+      render plain: "ok"
     end
   end
 

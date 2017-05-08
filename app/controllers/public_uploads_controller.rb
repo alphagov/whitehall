@@ -19,7 +19,7 @@ class PublicUploadsController < ApplicationController
       if incoming_upload_exists? upload_path
         redirect_to_placeholder
       else
-        render text: "Not found", status: :not_found
+        render plain: "Not found", status: :not_found
       end
     end
   end
