@@ -170,7 +170,7 @@ class Edition < ApplicationRecord
 
   # used by Admin::EditionFilter
   def self.by_type(type)
-    where(type: type)
+    where(type: type.to_s)
   end
 
   # used by Admin::EditionFilter

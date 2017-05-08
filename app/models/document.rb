@@ -57,6 +57,7 @@ class Document < ApplicationRecord
   end
 
   def self.at_slug(document_types, slug)
+    document_types = Array(document_types).map(&:to_s)
     where(document_type: document_types, slug: slug).first
   end
 

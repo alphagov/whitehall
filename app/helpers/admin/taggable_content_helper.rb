@@ -163,7 +163,7 @@ module Admin::TaggableContentHelper
     @_taggable_ministerial_role_appointments_cache_digest ||= begin
       calculate_digest(RoleAppointment.
                         joins(:role).
-                        where(roles: { type: MinisterialRole}).
+                        where(roles: { type: "MinisterialRole" }).
                         order("role_appointments.id"), 'ministerial-role-appointments')
     end
   end
@@ -185,19 +185,19 @@ module Admin::TaggableContentHelper
   # Returns an MD5 digest representing all the detailed guides. This wil change
   # if any detailed guides are added or updated.
   def taggable_detailed_guides_cache_digest
-    @_taggable_detailed_guides_cache_digest ||= calculate_digest(Document.where(document_type: DetailedGuide).order(:id), 'detailed-guides')
+    @_taggable_detailed_guides_cache_digest ||= calculate_digest(Document.where(document_type: "DetailedGuide").order(:id), 'detailed-guides')
   end
 
   # Returns an MD5 digest representing the taggable statistical data sets. This
   # will change if any statistical data set is added or updated.
   def taggable_statistical_data_sets_cache_digest
-    @_taggable_statistical_data_sets_cache_digest ||= calculate_digest(Document.where(document_type: StatisticalDataSet).order(:id), 'statistical-data-sets')
+    @_taggable_statistical_data_sets_cache_digest ||= calculate_digest(Document.where(document_type: "StatisticalDataSet").order(:id), 'statistical-data-sets')
   end
 
   # Returns an MD5 digest representing the taggable policies. This will change
   # if any policies are added or updated.
   def taggable_policies_cache_digest
-    @_taggable_policies_cache_digest ||= calculate_digest(Document.where(document_type: Policy).order(:id), 'policies')
+    @_taggable_policies_cache_digest ||= calculate_digest(Document.where(document_type: "Policy").order(:id), 'policies')
   end
 
   # Returns an MD5 digest representing the taggable world locations. This will
@@ -217,7 +217,7 @@ module Admin::TaggableContentHelper
   # groups. This will change if any document collection or group within
   # the collection is changed or any new ones are added.
   def taggable_document_collection_groups_cache_digest
-    @_taggable_document_collection_groups_cache_digest ||= calculate_digest(Document.where(document_type: DocumentCollection).order(:id), 'document-collection-groups')
+    @_taggable_document_collection_groups_cache_digest ||= calculate_digest(Document.where(document_type: "DocumentCollection").order(:id), 'document-collection-groups')
   end
 
   # Returns an MD5 digest representing the taggable worldwide organisations.
