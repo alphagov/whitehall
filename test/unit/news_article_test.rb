@@ -77,7 +77,7 @@ class NewsArticleTest < ActiveSupport::TestCase
     refute build(:news_article, primary_locale: :es).translatable?
   end
 
-  test "#world_news_story returns false" do
+  test "#world_news_story? returns false" do
     article = build(:news_article)
 
     refute article.world_news_story?
@@ -88,19 +88,46 @@ class NewsArticleTest < ActiveSupport::TestCase
 
     assert article.can_be_related_to_policies?
   end
+
+  test "can associate news articles with worldwide organisations" do
+    news_article = create(:news_article)
+    assert news_article.can_be_associated_with_worldwide_organisations?
+    assert news_article.worldwide_organisations.create(name: "Zimbabwean Embassy")
+  end
+
+  test "is invalid when associating a worldwide organisation to a non-World-news-story news article type" do
+    non_world_news_story_news_article_types = [
+      NewsArticleType::NewsStory,
+      NewsArticleType::PressRelease,
+      NewsArticleType::GovernmentResponse,
+    ]
+
+    non_world_news_story_news_article_types.each do |news_article_type|
+      news_article = build(:news_article, news_article_type: news_article_type)
+      news_article.worldwide_organisations.build(name: "Zimbabwean Embassy")
+      refute news_article.valid?
+      assert news_article.errors[:worldwide_organisations].include?("must be blank")
+    end
+  end
 end
 
 class WorldNewsStoryTypeNewsArticleTest < ActiveSupport::TestCase
+  test "#world_news_story? returns true" do
+    article = build(:news_article_world_news_story)
+    assert article.world_news_story?
+  end
+
   test "non-English primary locale should be valid" do
     news_article = build(:news_article_world_news_story)
     news_article.primary_locale = 'fr'
     assert news_article.valid?
   end
 
-  test "#world_news_story returns true" do
-    article = build(:news_article_world_news_story)
-
-    assert article.world_news_story?
+  test "is invalid when not associating a worldwide organisation" do
+    news_article = build(:news_article_world_news_story)
+    news_article.worldwide_organisations = []
+    refute news_article.valid?
+    assert news_article.errors[:worldwide_organisations].include?("at least one required")
   end
 
   test "can't be related to policies" do

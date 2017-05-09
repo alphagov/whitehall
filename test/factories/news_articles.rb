@@ -44,5 +44,9 @@ FactoryGirl.define do
 
   factory :news_article_world_news_story, parent: :news_article do
     news_article_type_id { NewsArticleType::WorldNewsStory.id }
+
+    after :build do |news_article, evaluator|
+      news_article.worldwide_organisations = [FactoryGirl.build(:worldwide_organisation)] unless evaluator.worldwide_organisations.any?
+    end
   end
 end

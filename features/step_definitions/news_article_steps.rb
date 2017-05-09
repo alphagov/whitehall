@@ -106,10 +106,14 @@ When(/^I filter the announcements list by "(.*?)"$/) do |announcement_type|
   click_on "Refresh results"
 end
 
-When(/^I draft a French\-only news article of type "([^"]*)" associated with "([^"]*)"$/) do |announcement_type, location_name|
+When(/^I draft a French\-only "World news story" news article associated with "([^"]*)"$/) do |location_name|
+  create(:worldwide_organisation, name: "French embassy")
+
   begin_drafting_news_article title: "French-only news article", body: 'test-body', summary: 'test-summary', announcement_type: "World news story"
   select "Français", from: "Document language"
   select location_name, from: "Select the world locations this news article is about"
+  select "French embassy", from: "Select the worldwide organisations associated with this news article"
+
   click_button "Save"
   @news_article = find_news_article_in_locale!(:fr, 'French-only news article')
 end
@@ -142,10 +146,29 @@ Then(/^I should only see the news article on the French version of the public "(
 end
 
 When(/^I draft a valid news article of type "([^"]*)" with title "([^"]*)"$/) do |news_type, title|
-  begin_drafting_news_article(title: title, first_published: Date.today.to_s, announcement_type: news_type)
+  if news_type == "World news story"
+    create(:worldwide_organisation, name: "Afghanistan embassy")
+    begin_drafting_news_article(title: title, first_published: Date.today.to_s, announcement_type: news_type)
+    select "Afghanistan embassy", from: "Select the worldwide organisations associated with this news article"
+  else
+    begin_drafting_news_article(title: title, first_published: Date.today.to_s, announcement_type: news_type)
+  end
+
   click_button "Save"
 end
 
 Then(/^the news article "([^"]*)" should have been created$/) do |title|
   refute NewsArticle.find_by(title: title).nil?
+end
+
+When(/^I draft a valid "(.*?)" news article with title "(.*?)" associated to "(.*?)"$/) do |announcement_type, title, worldwide_org|
+  begin_drafting_news_article(title: title, announcement_type: announcement_type)
+  select worldwide_org, from: "edition_worldwide_organisation_ids"
+
+  click_button "Save"
+end
+
+Then(/^the worldwide organisation "(.*?)" should be associated to the news article "(.*?)"$/) do |world_org_name, title|
+  news_article = NewsArticle.find_by(title: title)
+  assert news_article.worldwide_organisations.map(&:name).include?(world_org_name)
 end
