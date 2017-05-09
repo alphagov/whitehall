@@ -6,6 +6,7 @@ class Admin::EditionTagsController < Admin::BaseController
   def edit
     @edition_tag_form = EditionTaxonomyTagForm.load(@edition.content_id)
     @published_taxonomies = published_taxonomies
+    @draft_taxonomies = draft_taxonomies
   end
 
   def update
@@ -47,7 +48,14 @@ private
   end
 
   def published_taxonomies
-    taxonomies = Taxonomy.all_taxonomy_trees
+    taxonomies = Taxonomy.load_taxonomy_trees(Taxonomy.root_taxons)
+    taxonomies.map do |root_taxon|
+      TopicTreePresenter.new(root_taxon, taxonomies.count)
+    end
+  end
+
+  def draft_taxonomies
+    taxonomies = Taxonomy.load_taxonomy_trees(Taxonomy.draft_taxons)
     taxonomies.map do |root_taxon|
       TopicTreePresenter.new(root_taxon, taxonomies.count)
     end

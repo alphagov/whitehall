@@ -34,12 +34,9 @@ class EditionTaxonomyTagForm
       )
   end
 
-  def draft_taxons
-    Taxonomy.drafts
-  end
-
   def all_taxons
-    Taxonomy.all_taxonomy_trees.flat_map(&:tree) + draft_taxons.flat_map(&:tree)
+    Taxonomy.load_taxonomy_trees(Taxonomy.root_taxons).flat_map(&:tree) +
+      Taxonomy.load_taxonomy_trees(Taxonomy.draft_taxons).flat_map(&:tree)
   end
 
   # Ignore any taxons that already have a more specific taxon selected
