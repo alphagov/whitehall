@@ -70,6 +70,8 @@ zh-hk:
     email: "電子郵件"
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:
@@ -194,15 +196,15 @@ zh-hk:
       national_statistics:
         one: "國家統計數據"
         other: "其他國家統計數據"
-      nhs_content:
-        one:
-        other:
       news_article:
         one: "新聞"
         other: "其他新聞"
       news_story:
         one: "新聞"
         other: "其他新聞"
+      nhs_content:
+        one:
+        other:
       notice:
         one:
         other:
@@ -254,6 +256,9 @@ zh-hk:
       transparency:
         one: "透明化數據"
         other: "其他透明化數據"
+      worldwide_news_story:
+        one:
+        other:
       written_statement:
         one: "提交國會的書面聲明"
         other: "提交國會的其他書面聲明"

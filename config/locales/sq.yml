@@ -81,15 +81,15 @@ sq:
       national_statistics:
         one: Statistika - statistika kombetare
         other: Statistika - statistika kombetare
-      nhs_content:
-        one:
-        other:
       news_article:
         one: Artikull lajm
         other: Artikuj lajme
       news_story:
         one: Ngjarje
         other: Ngjarje
+      nhs_content:
+        one:
+        other:
       notice:
         one:
         other:
@@ -141,6 +141,9 @@ sq:
       transparency:
         one: Te dhena per transparencen
         other: Te dhena per transparencen
+      worldwide_news_story:
+        one:
+        other:
       written_statement:
         one: Deklarate me shkrim per Parlamentin
         other: Deklarata me shkrim per Parlamentin
@@ -275,6 +278,8 @@ sq:
     email: Email
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:

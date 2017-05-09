@@ -131,10 +131,6 @@ sr:
         few:
         many:
         other: statistika - nacionalna statistika
-      nhs_content:
-        one:
-        few:
-        other:
       news_article:
         one: Vest
         few:
@@ -145,6 +141,11 @@ sr:
         few:
         many:
         other: Vesti
+      nhs_content:
+        one:
+        few:
+        many:
+        other:
       notice:
         one:
         few:
@@ -230,6 +231,11 @@ sr:
         few:
         many:
         other: podaci o transparentnosti
+      worldwide_news_story:
+        one:
+        few:
+        many:
+        other:
       written_statement:
         one: Pisana predstavka Parlamentu
         few:
@@ -374,6 +380,8 @@ sr:
     email: e-mail
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:

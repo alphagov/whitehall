@@ -71,6 +71,8 @@ th:
     email: "อีเมล์"
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:
@@ -195,15 +197,15 @@ th:
       national_statistics:
         one: "สถิติ-สถิติแห่งชาน"
         other: "สถิติ-สถิติแห่งชาติ"
-      nhs_content:
-        one:
-        other:
       news_article:
         one: "บทความข่าว"
         other: "บทความข่าว"
       news_story:
         one: "ข่าว"
         other: "ข่าว"
+      nhs_content:
+        one:
+        other:
       notice:
         one:
         other:
@@ -255,6 +257,9 @@ th:
       transparency:
         one: "ข้อมูลโปร่งใส"
         other: "ข้อมูลโปร่งใส"
+      worldwide_news_story:
+        one:
+        other:
       written_statement:
         one: "แถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา "
         other: "แถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา "

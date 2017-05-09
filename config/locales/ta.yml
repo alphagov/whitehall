@@ -81,15 +81,15 @@ ta:
       national_statistics:
         one: "புள்ளிவிபரம் - தேசிய புள்ளிவிபரம்"
         other: "புள்ளிவிபரம் - தேசிய புள்ளிவிபரம்"
-      nhs_content:
-        one:
-        other:
       news_article:
         one: "செய்திக் கட்டுரை"
         other: "செய்திக் கட்டுரைகள்"
       news_story:
         one: "செய்திக் கதை"
         other: "செய்திக் கதைகள்"
+      nhs_content:
+        one:
+        other:
       notice:
         one:
         other:
@@ -141,6 +141,9 @@ ta:
       transparency:
         one: "வெளிப்படையான தரவு"
         other: "வெளிப்படையான தரவு"
+      worldwide_news_story:
+        one:
+        other:
       written_statement:
         one: "பாராளுமன்றத்துக்கான எழுத்து மூலமான அறிக்கை"
         other: "பாராளுமன்றத்துக்கான எழுத்து மூலமான அறிக்கைகள்"
@@ -276,6 +279,8 @@ ta:
     email: "மின்னஞ்சல்"
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:

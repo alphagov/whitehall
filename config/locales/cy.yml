@@ -181,13 +181,6 @@ cy:
         few:
         many:
         other: Ystadegau - ystadegau gwladol
-      nhs_content:
-        zero:
-        one:
-        two:
-        few:
-        many:
-        other:
       news_article:
         zero:
         one: Erthygl newyddion
@@ -202,6 +195,13 @@ cy:
         few:
         many:
         other: Straeon newyddion
+      nhs_content:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       notice:
         zero:
         one:
@@ -321,6 +321,13 @@ cy:
         few:
         many:
         other: Data tryloywder
+      worldwide_news_story:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       written_statement:
         zero:
         one: Datganiad ysgrifenedig i'r Senedd
@@ -475,6 +482,8 @@ cy:
     email: E-bost
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme: gyhoeddi yn y Gymraeg
       title:
         about: Amdanom ni
         about_our_services: Gwybodaeth am ein gwasanaethau
@@ -496,8 +505,6 @@ cy:
         statistics: Ystadegau yn %{organisation_name}
         terms_of_reference: Cylch gorchwyl
         welsh_language_scheme: Cynllun iaith Gymraeg
-      link_text:
-        welsh_language_scheme: gyhoeddi yn y Gymraeg
   date:
     formats:
       default: "%d %B %Y"

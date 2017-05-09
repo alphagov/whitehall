@@ -72,6 +72,8 @@ tr:
     email: E-posta
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:
@@ -196,15 +198,15 @@ tr:
       national_statistics:
         one: "İstatistikler - ulusal istatistikler"
         other: "İstatistikler - ulusal istatistikler"
-      nhs_content:
-        one:
-        other:
       news_article:
         one: Makale
         other: Makaleler
       news_story:
         one: Haber
         other: Haberler
+      nhs_content:
+        one:
+        other:
       notice:
         one:
         other:
@@ -256,6 +258,9 @@ tr:
       transparency:
         one: Veri saydamlığı
         other: Veri saydamlığı
+      worldwide_news_story:
+        one:
+        other:
       written_statement:
         one: Parlamento'ya yapılan yazılı açıklama
         other: Parlamento'ya yapılan yazılı açıklamalar

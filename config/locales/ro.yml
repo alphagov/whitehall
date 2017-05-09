@@ -106,10 +106,6 @@ ro:
         one: Statistici - statistici naționale
         few:
         other: Statistici - statistici naționale
-      nhs_content:
-        one:
-        few:
-        other:
       news_article:
         one: "Știre"
         few:
@@ -118,6 +114,10 @@ ro:
         one: "Știre"
         few:
         other: "Știri"
+      nhs_content:
+        one:
+        few:
+        other:
       notice:
         one:
         few:
@@ -183,6 +183,10 @@ ro:
         few:
         other: Transcrieri
       transparency:
+        one:
+        few:
+        other:
+      worldwide_news_story:
         one:
         few:
         other:
@@ -324,6 +328,8 @@ ro:
     email: Email
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:

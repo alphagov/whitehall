@@ -81,15 +81,15 @@ ps:
       national_statistics:
         one: "شمیرنه - ملی شمیرنې"
         other: "شمیرنه - ملی شمیرنې"
-      nhs_content:
-        one:
-        other:
       news_article:
         one: "خبری مقاله"
         other: "خبری مقالی"
       news_story:
         one: "خبری راپور"
         other: "خبری راپورونه"
+      nhs_content:
+        one:
+        other:
       notice:
         one:
         other:
@@ -141,6 +141,9 @@ ps:
       transparency:
         one: "د روڼوالې اطلاعات"
         other: "د روڼوالي اطلاعات"
+      worldwide_news_story:
+        one:
+        other:
       written_statement:
         one: "پارلمان ته لیکلې اعلامیه"
         other: "پارلمان ته لیکلې اعلامیې"
@@ -274,6 +277,8 @@ ps:
     email: "برښنالیک"
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:

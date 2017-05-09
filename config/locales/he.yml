@@ -131,11 +131,6 @@ he:
         two:
         many:
         other: "סטטיסטיקות- סטטסטיקה לאומית"
-      nhs_content:
-        one:
-        two:
-        many:
-        other:
       news_article:
         one: "מאמר חדשות"
         two:
@@ -146,6 +141,11 @@ he:
         two:
         many:
         other: "חדשות"
+      nhs_content:
+        one:
+        two:
+        many:
+        other:
       notice:
         one:
         two:
@@ -231,6 +231,11 @@ he:
         two:
         many:
         other: "שקיפות מידע"
+      worldwide_news_story:
+        one:
+        two:
+        many:
+        other:
       written_statement:
         one: "הצהרה בכתב לפרלמנט"
         two:
@@ -375,6 +380,8 @@ he:
     email: "דואר אלקטרוני"
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:

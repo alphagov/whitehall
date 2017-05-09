@@ -72,6 +72,8 @@ vi:
     email: Email
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:
@@ -196,15 +198,15 @@ vi:
       national_statistics:
         one: Thống kê - Thống kê quốc gia
         other: Thống kê - Thống kê quốc gia
-      nhs_content:
-        one:
-        other:
       news_article:
         one: Tin tức
         other: Tin tức
       news_story:
         one: Câu chuyện tin tức
         other: Câu chuyện tin tức
+      nhs_content:
+        one:
+        other:
       notice:
         one:
         other:
@@ -256,6 +258,9 @@ vi:
       transparency:
         one: Dữ liệu kịch bản
         other: Dữ liệu kịch bản
+      worldwide_news_story:
+        one:
+        other:
       written_statement:
         one: Tuyên bố bằng văn bản tới quốc hội
         other: Các Tuyên bố bằng văn bản tới quốc hội

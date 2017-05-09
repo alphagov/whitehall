@@ -81,15 +81,15 @@ es-419:
       national_statistics:
         one: Estadísticas - cifras nacionales
         other: Estadísticas - cifras nacionales
-      nhs_content:
-        one:
-        other:
       news_article:
         one: Artículo
         other: Artículos
       news_story:
         one: Noticia
         other: Noticias
+      nhs_content:
+        one:
+        other:
       notice:
         one:
         other:
@@ -141,6 +141,9 @@ es-419:
       transparency:
         one: Datos sobre transparencia
         other: Datos sobre transparencia
+      worldwide_news_story:
+        one:
+        other:
       written_statement:
         one: Declaración escrita al Parlamento
         other: Declaraciones escritas al Parlamento
@@ -275,6 +278,8 @@ es-419:
     email: Correo electrónico
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:

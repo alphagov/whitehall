@@ -81,15 +81,15 @@ lv:
       national_statistics:
         one: Statistika - valsts dati
         other: Statistika - valsts dati
-      nhs_content:
-        one:
-        other:
       news_article:
         one: Raksts
         other: Raksti
       news_story:
         one: Ziņa
         other: Ziņas
+      nhs_content:
+        one:
+        other:
       notice:
         one:
         other:
@@ -141,6 +141,9 @@ lv:
       transparency:
         one: Atklātības dati
         other: Atklātības dati
+      worldwide_news_story:
+        one:
+        other:
       written_statement:
         one: Rakstisks ziņojums parlamentam
         other: Rakstiski ziņojumi parlamentam
@@ -274,6 +277,8 @@ lv:
     email: E-pasts
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:

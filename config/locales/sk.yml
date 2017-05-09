@@ -106,15 +106,15 @@ sk:
         one:
         few:
         other:
-      nhs_content:
-        one:
-        few:
-        other:
       news_article:
         one:
         few:
         other:
       news_story:
+        one:
+        few:
+        other:
+      nhs_content:
         one:
         few:
         other:
@@ -183,6 +183,10 @@ sk:
         few:
         other:
       transparency:
+        one:
+        few:
+        other:
+      worldwide_news_story:
         one:
         few:
         other:
@@ -322,6 +326,8 @@ sk:
     email:
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:

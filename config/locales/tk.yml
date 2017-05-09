@@ -81,13 +81,13 @@ tk:
       national_statistics:
         one:
         other:
-      nhs_content:
-        one:
-        other:
       news_article:
         one:
         other:
       news_story:
+        one:
+        other:
+      nhs_content:
         one:
         other:
       notice:
@@ -139,6 +139,9 @@ tk:
         one:
         other:
       transparency:
+        one:
+        other:
+      worldwide_news_story:
         one:
         other:
       written_statement:
@@ -272,6 +275,8 @@ tk:
     email:
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:

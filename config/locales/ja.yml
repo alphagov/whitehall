@@ -71,6 +71,8 @@ ja:
     email: Email
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:
@@ -195,15 +197,15 @@ ja:
       national_statistics:
         one: "国家統計"
         other: "国家統計"
-      nhs_content:
-        one:
-        other:
       news_article:
         one: "ニュース"
         other: "ニュース"
       news_story:
         one: "ニュース"
         other: "ニュース"
+      nhs_content:
+        one:
+        other:
       notice:
         one:
         other:
@@ -255,6 +257,9 @@ ja:
       transparency:
         one: "透明性データ"
         other: "透明性データ"
+      worldwide_news_story:
+        one:
+        other:
       written_statement:
         one: "閣僚声明文"
         other: "閣僚声明文"

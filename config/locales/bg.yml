@@ -81,15 +81,15 @@ bg:
       national_statistics:
         one: "Статистика- национална статистика"
         other: "Статистики- национални статистики"
-      nhs_content:
-        one:
-        other:
       news_article:
         one: "Новинарска статия"
         other: "Новинарски статии"
       news_story:
         one: "Новина"
         other: "Новини"
+      nhs_content:
+        one:
+        other:
       notice:
         one:
         other:
@@ -141,6 +141,9 @@ bg:
       transparency:
         one: "Информация за прозрачността"
         other: "Информация за прозрачността"
+      worldwide_news_story:
+        one:
+        other:
       written_statement:
         one: "Писмено изявление до парламента"
         other: "Писмени изявления до парламента"
@@ -278,6 +281,8 @@ bg:
     email: "И-мейл"
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:

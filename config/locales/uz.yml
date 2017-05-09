@@ -81,15 +81,15 @@ uz:
       national_statistics:
         one: Statistika - milliy statistika
         other: Statistika - milliy statistika
-      nhs_content:
-        one:
-        other:
       news_article:
         one: Yangi maqola
         other: Yangi maqolalar
       news_story:
         one: Yangilik
         other: Yangiliklar
+      nhs_content:
+        one:
+        other:
       notice:
         one:
         other:
@@ -141,6 +141,9 @@ uz:
       transparency:
         one: Ochiqlikka oid ma'lumotlar
         other: Ochiqlikka oid ma'lumotlar
+      worldwide_news_story:
+        one:
+        other:
       written_statement:
         one: Parlament uchun yozma hisobot
         other: Parlament uchun yozma hisobotlar
@@ -274,6 +277,8 @@ uz:
     email: Elektron manzil
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:

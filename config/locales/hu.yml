@@ -73,6 +73,8 @@ hu:
     email: E-mail
   corporate_information_page:
     type:
+      link_text:
+        welsh_language_scheme:
       title:
         about:
         about_our_services:
@@ -197,15 +199,15 @@ hu:
       national_statistics:
         one: Statisztikák - nemzeti adatok
         other: Statisztikák - nemzeti adatok
-      nhs_content:
-        one:
-        other:
       news_article:
         one: Cikk
         other: Cikkek
       news_story:
         one: Hír
         other: Hírek
+      nhs_content:
+        one:
+        other:
       notice:
         one:
         other:
@@ -257,6 +259,9 @@ hu:
       transparency:
         one: "Átláthatósági adatok"
         other: "Átláthatósági adatok"
+      worldwide_news_story:
+        one:
+        other:
       written_statement:
         one: "Írásbeli parlamenti nyilatkozat"
         other: "Írásbeli parlamenti nyilatkozatok"
