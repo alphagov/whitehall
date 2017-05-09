@@ -115,8 +115,8 @@ class ContactTest < ActiveSupport::TestCase
     contact = create(:contact)
     news_article = create(:published_news_article, body: "For more information, get in touch at: [Contact:#{contact.id}]")
     corp_info_page = create(:published_corporate_information_page, body: "For free advice, please visit our office: [Contact:#{contact.id}]")
-    EditionDependenciesPopulator.new(news_article).populate!
-    EditionDependenciesPopulator.new(corp_info_page).populate!
+    ServiceListeners::EditionDependenciesPopulator.new(news_article).populate!
+    ServiceListeners::EditionDependenciesPopulator.new(corp_info_page).populate!
 
     expect_publishing(contact)
     expect_republishing(news_article, corp_info_page)
