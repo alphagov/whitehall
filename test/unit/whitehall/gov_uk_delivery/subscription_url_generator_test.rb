@@ -209,7 +209,7 @@ class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::Te
     topic = create(:topic)
     organisation = create(:ministerial_department)
     @edition = create(:news_article, organisations: [organisation])
-    @edition.stubs(:news_article_type).returns(NewsArticleType::ImportedAwaitingType)
+    @edition.stubs(:news_article_type).returns(NewsArticleType::WorldwideNewsStory)
     @edition.stubs(:topics).returns [topic]
 
     refute urls_for(@edition).any? { |feed_url| feed_url =~ /announcement_filter_option\=/ }

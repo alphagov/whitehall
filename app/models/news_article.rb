@@ -6,7 +6,6 @@ class NewsArticle < Newsesque
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
 
   validates :news_article_type_id, presence: true
-  validate :only_news_article_allowed_invalid_data_can_be_awaiting_type
 
   def self.subtypes
     NewsArticleType.all
@@ -50,13 +49,5 @@ class NewsArticle < Newsesque
 
   def rendering_app
     Whitehall::RenderingApp::GOVERNMENT_FRONTEND
-  end
-
-  private
-
-  def only_news_article_allowed_invalid_data_can_be_awaiting_type
-    unless self.can_have_some_invalid_data?
-      errors.add(:news_article_type, 'must be changed') if NewsArticleType.migration.include?(self.news_article_type)
-    end
   end
 end
