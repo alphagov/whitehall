@@ -2,11 +2,12 @@ module Taxonomy
   class Tree
     attr_reader :root_taxon
 
-    def initialize(root_taxon)
+    def initialize(root_taxon, expanded_links_hash)
       @root_taxon = root_taxon
-      expanded_links = Services.publishing_api.get_expanded_links(root_taxon.content_id, with_drafts: false)
-      root_taxon.children = parse_taxons(expanded_links.to_h)
+      root_taxon.children = parse_taxons(expanded_links_hash)
     end
+
+  private
 
     def parse_taxons(item_hash, key: 'expanded_links')
       child_nodes(item_hash, key).map do |child|
@@ -15,8 +16,6 @@ module Taxonomy
         taxon
       end
     end
-
-  private
 
     def child_nodes(item_hash, key)
       item_hash

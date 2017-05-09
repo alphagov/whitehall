@@ -17,16 +17,23 @@ module Taxonomy
   end
 
   def self.root_taxons
-    @_root_taxons ||= begin
-      Services.publishing_api
-        .get_expanded_links(HOMEPAGE_CONTENT_ID, with_drafts: false)
-        .to_h['expanded_links']
-        .fetch('root_taxons', [])
-        .map { |taxon_hash| Taxon.new(taxon_hash.symbolize_keys) }
+    homepage_taxons = Rails.cache.fetch("homepage-root-taxons", expires_in: 24.hours) do
+      Services.publishing_api.get_expanded_links(HOMEPAGE_CONTENT_ID, with_drafts: false).to_h
     end
+
+    homepage_taxons
+      .fetch('expanded_links', {})
+      .fetch('root_taxons', [])
+      .map { |taxon_hash| Taxon.new(taxon_hash.symbolize_keys) }
   end
 
   def self.all_taxonomy_trees
-    root_taxons.map { |root_taxon| Taxonomy::Tree.new(root_taxon).root_taxon }
+    root_taxons.map do |root_taxon|
+      expanded_links_hash = Rails.cache.fetch("taxonomy-tree-root-#{root_taxon.content_id}", expires_in: 1.hour) do
+        Services.publishing_api.get_expanded_links(root_taxon.content_id, with_drafts: false).to_h
+      end
+
+      Taxonomy::Tree.new(root_taxon, expanded_links_hash).root_taxon
+    end
   end
 end
