@@ -11,7 +11,6 @@ class NewsArticleType
     3 => "<p>Government statements in response to media coverage, such as rebuttals and ‘myth busters’.</p><p>Do <em>not</em> use for: statements to Parliament. Use the “Speech” format for those.</p>",
     4 => "<p>Announcements specific to one or more world location. Don’t duplicate news published by another department.</p>",
     999 => "<p>DO NOT USE. This is a legacy category for content created before sub-types existed.</p>",
-    1000 => "<p>DO NOT USE. This is a holding category for content that has been imported automatically.</p>",
   }.to_json.freeze
 
   attr_accessor :id, :singular_name, :plural_name, :prevalence, :key
@@ -85,14 +84,6 @@ class NewsArticleType
     key: "announcement",
     singular_name: "Announcement",
     plural_name: "Announcements",
-    prevalence: :migration
-  )
-  # For imported news with a blank news_article_type field
-  ImportedAwaitingType = create(
-    id: 1000,
-    key: "imported",
-    singular_name: "Imported - awaiting type",
-    plural_name: "Imported - awaiting type",
     prevalence: :migration
   )
 end
