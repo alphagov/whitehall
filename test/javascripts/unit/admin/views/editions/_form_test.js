@@ -2,15 +2,23 @@ module("admin-edition-form: ", {
   setup: function() {
     $('#qunit-fixture').append(
       '<form id="non-english" class="js-supports-non-english">' +
-        '<fieldset class="js-hidden">' +
-          '<label for="edition_primary_locale">Document language</label>' +
-          '<select id="edition_primary_locale" name="edition[primary_locale]">' +
-            '<option value="" selected="selected">Choose foreign language</option>' +
-            '<option value="en" selected="selected">English (English)</option>' +
-            '<option value="ar">العربية (Arabic)</option>' +
-            '<option value="cy">Cymraeg (Welsh)</option>' +
-          '</select>' +
-          '<p class="warning">Warning: Foreign language documents do not support translations.</p>' +
+        '<fieldset>' +
+          '<div class="checkbox">' +
+            '<label class="checkbox" for="create_foreign_language_only">' +
+              '<input type="checkbox" name="create_foreign_language_only" id="create_foreign_language_only" value="1" /> Create a foreign language only news article' +
+            '</label>' +
+          '</div>' +
+          '<div class="form-group foreign-language-select js-hidden">' +
+            '<label for="edition_primary_locale">Document language</label>' +
+            '<div class="form-inline add-label-margin">' +
+              '<select class="form-control input-md-6" name="edition[primary_locale]" id="edition_primary_locale">' +
+                '<option value="">Choose foreign language...</option>' +
+                '<option value="ar">العربية (Arabic)</option>' +
+                '<option value="cy">Cymraeg (Welsh)</option>' +
+              '</select>' +
+            '</div>' +
+            '<p class="warning">Warning: Foreign language only documents do not allow additional translations.</p>' +
+          '</div>' +
         '</fieldset>' +
         '<fieldset>' +
           '<label for="edition_title">Title</label>' +
@@ -73,38 +81,33 @@ module("admin-edition-form: ", {
   }
 });
 
-test("the fieldset containing the locale input fields should initially be hidden", function () {
-  ok($('form#non-english:first-child fieldset').is(':hidden'), 'fieldset containing locale inputs is not hidden');
+test("the div containing the locale input fields should initially be hidden", function () {
+  ok($('div.foreign-language-select').is(':hidden'), 'div containing locale inputs is not hidden');
 });
 
-test("all other fieldsets should be visible", function () {
-  ok($('form#non-english:not(:first-child fieldset)').is(':visible'), 'other fieldsets should still be visible');
+test("checking 'Create a foreign language only news article' reveals the locale input fields", function () {
+  $('input#create_foreign_language_only').click()
+
+  ok($('div.foreign-language-select').is(':visible'), 'div containing locale inputs becomes visible');
 });
 
-test("inserts a link that reveals the locale input fields when clicked", function () {
-  equal($('form#non-english a.foreign-language-only').length, 1, "A link exists for foreign-language only documents");
-
-  $('a.foreign-language-only').click();
-  ok($('form#non-english:first-child fieldset').is(':visible'), 'fieldset containing locale inputs becomes visible');
-  ok($('form#non-english:not(:first-child fieldset)').is(':visible'), 'other fieldsets should still be visible');
-});
-
-test("cancelling foreign language only document hides and resets the locale fields", function () {
-  $('a.foreign-language-only').click();
+test("unchecking 'Create a foreign language only news article' hides and resets the locale fields", function () {
+  $('input#create_foreign_language_only').click()
+  ok($('div.foreign-language-select').is(':visible'), 'div containing locale inputs has become visible');
 
   // choose another language
   $('#edition_primary_locale').val('cy').change();
   equal($('#edition_primary_locale option:selected').val(), 'cy', 'foreign-language selected');
 
   // reset the form
-  $('a.cancel-foreign-language-only').click();
+  $('input#create_foreign_language_only').click()
 
   equal($('#edition_primary_locale option:selected').val(), '', 'locale reset back to English');
-  ok($('form#non-english:first-child fieldset').is(':hidden'), 'fieldset containing locale inputs has become hidden');
+  ok($('div.foreign-language-select').is(':hidden'), 'div containing locale inputs has become hidden');
 });
 
 test("selecting and deselecting right-to-left languages applies the appropriate classes to the fieldsets", function () {
-  $('a.foreign-language-only').click();
+  $('input#create_foreign_language_only').click()
 
   $('#edition_primary_locale').val('ar').change();
   ok($('form#non-english fieldset').hasClass('right-to-left'), 'form fieldsets have "right-to-left" class');
@@ -115,7 +118,7 @@ test("selecting and deselecting right-to-left languages applies the appropriate 
   // also resets on cancel
   $('#edition_primary_locale').val('ar').change();
   ok($('form#non-english fieldset').hasClass('right-to-left'), 'form fieldsets have "right-to-left" class');
-  $('a.cancel-foreign-language-only').click();
+  $('input#create_foreign_language_only').click()
   ok(!$('form#non-english fieldset').hasClass('right-to-left'), 'form fieldsets no longer have "right-to-left" class');
 });
 

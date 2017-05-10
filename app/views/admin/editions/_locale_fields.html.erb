@@ -1,6 +1,11 @@
 <% if edition.locale_can_be_changed? %>
-  <fieldset class="js-hidden">
-    <div class="form-group">
+  <fieldset>
+    <div class="checkbox">
+      <%= label_tag :create_foreign_language_only, nil, class: [:checkbox, "js-toggle-scheduled-publication-date-picker"] do %>
+        <%= check_box_tag :create_foreign_language_only, "1", form.object.primary_locale != "en" %> Create a foreign language only news article
+      <% end %>
+    </div>
+    <div class="form-group foreign-language-select js-hidden">
       <%= form.label :primary_locale, 'Document language' %>
       <div class="form-inline add-label-margin">
         <%= form.select :primary_locale, options_for_foreign_language_locale(edition), {}, {class: 'form-control input-md-6'} %>
