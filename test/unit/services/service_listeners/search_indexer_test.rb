@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class ServiceListeners::SearchIndexerTest < ActiveSupport::TestCase
-
   test '#index! indexes published edition' do
     edition = create(:published_news_article)
 

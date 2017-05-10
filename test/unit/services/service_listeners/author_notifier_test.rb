@@ -13,11 +13,11 @@ class ServiceListeners::AuthorNotifierTest < ActiveSupport::TestCase
 
     first_notification = ActionMailer::Base.deliveries.first
     assert_equal creator.email, first_notification.to[0]
-    assert_match /\'#{edition.title}\' has been published/, first_notification.subject
+    assert_match(/\'#{edition.title}\' has been published/, first_notification.subject)
 
     second_notification = ActionMailer::Base.deliveries.last
     assert_equal second_author.email, second_notification.to[0]
-    assert_match /\'#{edition.title}\' has been published/, second_notification.subject
+    assert_match(/\'#{edition.title}\' has been published/, second_notification.subject)
   end
 
   test 'skips any users that are passed in' do
@@ -32,7 +32,7 @@ class ServiceListeners::AuthorNotifierTest < ActiveSupport::TestCase
 
     first_notification = ActionMailer::Base.deliveries.first
     assert_equal creator.email, first_notification.to[0]
-    assert_match /\'#{edition.title}\' has been published/, first_notification.subject
+    assert_match(/\'#{edition.title}\' has been published/, first_notification.subject)
   end
 
   test 'sets a suitable "from" including a quoted display name' do

@@ -19,7 +19,7 @@ Whitehall.edition_services.tap do |coordinator|
   coordinator.subscribe(/^(force_publish|publish|unwithdraw)$/) do |_event, edition, options|
     # handling edition's dependency on other content
     edition.republish_dependent_editions
-    EditionDependenciesPopulator
+    ServiceListeners::EditionDependenciesPopulator
       .new(edition)
       .populate!
 
