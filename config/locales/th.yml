@@ -257,7 +257,7 @@ th:
       transparency:
         one: "ข้อมูลโปร่งใส"
         other: "ข้อมูลโปร่งใส"
-      worldwide_news_story:
+      world_news_story:
         one:
         other:
       written_statement:

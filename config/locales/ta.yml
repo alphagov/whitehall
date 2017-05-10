@@ -141,7 +141,7 @@ ta:
       transparency:
         one: "வெளிப்படையான தரவு"
         other: "வெளிப்படையான தரவு"
-      worldwide_news_story:
+      world_news_story:
         one:
         other:
       written_statement:

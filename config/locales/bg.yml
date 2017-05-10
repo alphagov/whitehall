@@ -141,7 +141,7 @@ bg:
       transparency:
         one: "Информация за прозрачността"
         other: "Информация за прозрачността"
-      worldwide_news_story:
+      world_news_story:
         one:
         other:
       written_statement:

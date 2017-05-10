@@ -141,7 +141,7 @@ hy:
       transparency:
         one: "Բաց տեղեկատվություն"
         other: "Բաց տեղեկատվություններ"
-      worldwide_news_story:
+      world_news_story:
         one:
         other:
       written_statement:
