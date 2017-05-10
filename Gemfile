@@ -104,7 +104,6 @@ group :test do
   gem 'webmock', '~> 2.1', require: false
   gem 'ci_reporter_minitest'
   gem 'database_cleaner', '1.4.0'
-  gem 'test_track', '~> 0.1.0', git: 'https://github.com/alphagov/test_track'
   gem 'govuk-content-schema-test-helpers', '1.4.0'
   gem 'minitest-fail-fast'
   gem 'maxitest'
