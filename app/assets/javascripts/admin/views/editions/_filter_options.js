@@ -32,15 +32,36 @@
   };
 
   FilterOptions.prototype.updateResults = function updateResults(skipAntiRepeat) {
-    this.$searchResults.fadeTo(0.4, 0.6);
+    // ### HACK ###
+    // This section is a temporary solution to avoid querying for "All organisations" 
+    // without a title or a slug. This query leads to a server timeout.
+    // https://trello.com/c/NE2xfVo8/539-bad-gateway-error-for-featured-documents-in-whitehall-admin-1-day
 
-    if ( this.activeRequest ) this.activeRequest.abort();
-    this.activeRequest = $.ajax({
-      method: 'get',
-      url: this.getPath,
-      data: this.$filterForm.serialize(),
-      success: this.renderResults
-    });
+    var formData = this.$filterForm.serializeArray();
+
+    if(typeof(formData[2]) !== 'undefined'){
+      var title = formData[0]['value'];
+      var organisation = formData[2]['value'];
+
+      var allOrganisationsSelected = !organisation
+      var noTitleSpecified = !title
+    }
+
+    if (noTitleSpecified && allOrganisationsSelected) {
+      $('#title_filter').append("<p class=\'warning\'>You need to specify a title or a slug when searching in All Organisations</p>");
+    } else {
+      $('#title_filter .warning').remove();
+      // ### END HACK ###
+      this.$searchResults.fadeTo(0.4, 0.6);
+      if ( this.activeRequest ) this.activeRequest.abort();
+      this.activeRequest = $.ajax({
+        method: 'get',
+        url: this.getPath,
+        data: this.$filterForm.serialize(),
+        success: this.renderResults
+      });
+    };
+
   };
 
   FilterOptions.prototype.renderResults = function renderResults(resultHtml) {
