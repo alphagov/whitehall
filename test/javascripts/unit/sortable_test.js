@@ -15,7 +15,7 @@ module("Sorting options", {
 test("should build a list from the contents of the labels", function() {
   this.container.enableSortable();
   var list = this.container.siblings("ul")
-  equals("one other thing: two other thing: ", list.text()); // I would compare arrays, but Javascript can't do that easily. GAH.
+  equal("one other thing: two other thing: ", list.text()); // I would compare arrays, but Javascript can't do that easily. GAH.
 })
 
 test("should hide the input fields", function() {

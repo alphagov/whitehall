@@ -43,8 +43,8 @@ test("should post the textarea value to the preview controller", function() {
   sinon.assert.calledOnce(ajax);
   if (jQuery.ajax.getCall(0)) {
     var callParams = jQuery.ajax.getCall(0).args[0];
-    equals(callParams.url, "/government/admin/preview");
-    equals(callParams.data.body, "# preview this");
+    equal(callParams.url, "/government/admin/preview");
+    equal(callParams.data.body, "# preview this");
   }
 });
 
@@ -54,7 +54,7 @@ test("should include the authenticity token in the posted data", function() {
   })
 
   var callParams = jQuery.ajax.getCall(0).args[0];
-  equals(callParams.data.authenticity_token, $("meta[name-csrf-token]").val());
+  equal(callParams.data.authenticity_token, $("meta[name-csrf-token]").val());
 })
 
 test("should include ids of any persisted images", function() {
@@ -63,7 +63,7 @@ test("should include ids of any persisted images", function() {
   })
 
   var callParams = jQuery.ajax.getCall(0).args[0];
-  same(callParams.data.image_ids, ["1", "2"]);
+  deepEqual(callParams.data.image_ids, ["1", "2"]);
 });
 
 test("should include ids of any persisted attachments", function() {
@@ -72,7 +72,7 @@ test("should include ids of any persisted attachments", function() {
   })
 
   var callParams = jQuery.ajax.getCall(0).args[0];
-  same(callParams.data.attachment_ids, ["276"]);
+  deepEqual(callParams.data.attachment_ids, ["276"]);
 });
 
 test("should include alternative_format_provider_id", function() {
@@ -81,7 +81,7 @@ test("should include alternative_format_provider_id", function() {
   })
 
   var callParams = jQuery.ajax.getCall(0).args[0];
-  same(callParams.data.alternative_format_provider_id, "2");
+  deepEqual(callParams.data.alternative_format_provider_id, "2");
 });
 
 test("should indicate that the preview is loading", function() {
@@ -124,7 +124,7 @@ test("should show the rendered preview when the server responds", function() {
   });
 
   var previewForTextArea = $("#blah_preview");
-  equals(previewForTextArea.html(), "<h1>preview this</h1>");
+  equal(previewForTextArea.html(), "<h1>preview this</h1>");
 })
 
 test("should hide the preview contents when clicking edit again", function() {
@@ -161,6 +161,6 @@ test("should show an alert if the response was not 200", function() {
   $("a.show-preview").click();
   server.respond();
 
-  equals(1, alertStub.callCount, "showing preview should have invoked alert one time");
-  equals("Some error message", alertStub.getCall(0).args[0], "alert should have shown error from server");
+  equal(1, alertStub.callCount, "showing preview should have invoked alert one time");
+  equal("Some error message", alertStub.getCall(0).args[0], "alert should have shown error from server");
 })
