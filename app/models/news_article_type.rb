@@ -72,11 +72,11 @@ class NewsArticleType
     plural_name: "Government responses",
     prevalence: :primary
   )
-  WorldwideNewsStory = create(
+  WorldNewsStory = create(
     id: 4,
-    key: "worldwide_news_story",
-    singular_name: "Worldwide news story",
-    plural_name: "Worldwide news stories",
+    key: "world_news_story",
+    singular_name: "World news story",
+    plural_name: "World news stories",
     prevalence: :primary
   )
   Unknown = create(

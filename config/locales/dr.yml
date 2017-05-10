@@ -141,7 +141,7 @@ dr:
       transparency:
         one: "ارقام شفافیت"
         other: "ارقام شفافیت"
-      worldwide_news_story:
+      world_news_story:
         one:
         other:
       written_statement:

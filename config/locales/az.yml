@@ -256,7 +256,7 @@ az:
       transparency:
         one: "Şəffaf məlumat"
         other: "Şəffaf məlumat"
-      worldwide_news_story:
+      world_news_story:
         one:
         other:
       written_statement:

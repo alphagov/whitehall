@@ -258,7 +258,7 @@ id:
       transparency:
         one: Transparansi data
         other: Transparansi data
-      worldwide_news_story:
+      world_news_story:
         one:
         other:
       written_statement:
