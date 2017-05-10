@@ -147,6 +147,7 @@ test("should send filter form parameters in ajax request", function() {
 
 test("should render results based on successful ajax response", function() {
   this.filterForm.enableDocumentFilter();
+  GOVUK.analytics = { trackPageview: function() {} };
 
   var server = this.sandbox.useFakeServer();
   server.respondWith(JSON.stringify(this.ajaxData));
