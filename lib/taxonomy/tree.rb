@@ -1,17 +1,22 @@
+# Recursive parser for publishing-api Taxon data
 module Taxonomy
   class Tree
     attr_reader :root_taxon
 
-    def initialize(root_taxon, expanded_links_hash)
-      @root_taxon = root_taxon
-      root_taxon.children = parse_taxons(expanded_links_hash)
+    def initialize(expanded_root_taxon_hash)
+      @root_taxon = build_taxon(expanded_root_taxon_hash)
+      root_taxon.children = parse_taxons(expanded_root_taxon_hash['expanded_links_hash'])
     end
 
   private
 
+    def build_taxon(taxon_hash)
+      Taxon.new taxon_hash.symbolize_keys.slice(:title, :base_path, :content_id)
+    end
+
     def parse_taxons(item_hash, key: 'expanded_links')
       child_nodes(item_hash, key).map do |child|
-        taxon = Taxon.new(child.symbolize_keys)
+        taxon = build_taxon(child)
         taxon.children = parse_taxons(child, key: 'links')
         taxon
       end

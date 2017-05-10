@@ -1,14 +1,10 @@
 module TaxonomyHelper
   def homepage_content_id
-    Taxonomy::HOMEPAGE_CONTENT_ID
+    Taxonomy::GovukTaxonomy::HOMEPAGE_CONTENT_ID
   end
 
   def root_taxon_content_id
     "root"
-  end
-
-  def draft_taxon_content_ids
-    Taxonomy::DRAFT_CONTENT_IDS
   end
 
   def parent_taxon_content_id
@@ -33,34 +29,21 @@ module TaxonomyHelper
       }
     }
 
-    publishing_api_has_item({
-      "title" => "About your organisation",
-      "base_path" => "/about-your-organisation",
-      "content_id" => draft_taxon_content_ids.first
-    })
-
-    draft_taxon_1 = {
-      content_id: draft_taxon_content_ids.first,
-      expanded_links: {
-        "child_taxons" => []
-      }
-    }
-
-    publishing_api_has_item({
-      "title" => "Parenting",
-      "base_path" => "/childcare-parenting",
-      "content_id" => draft_taxon_content_ids.last
-    })
-
-    draft_taxon_2 = {
-      content_id: draft_taxon_content_ids.last,
-      expanded_links: {
-        "child_taxons" => []
-      }
-    }
-
-    publishing_api_has_expanded_links(root_taxon, with_drafts: false)
     publishing_api_has_expanded_links(homepage_links, with_drafts: false)
+    publishing_api_has_expanded_links(root_taxon, with_drafts: false)
+
+    homepage_links_with_drafts = {
+      content_id: homepage_content_id,
+      expanded_links: {
+        "root_taxons" => [
+          root_taxon,
+          draft_taxon_1,
+          draft_taxon_2
+        ]
+      }
+    }
+
+    publishing_api_has_expanded_links(homepage_links_with_drafts, with_drafts: true)
     publishing_api_has_expanded_links(draft_taxon_1, with_drafts: true)
     publishing_api_has_expanded_links(draft_taxon_2, with_drafts: true)
   end
@@ -107,6 +90,28 @@ private
       "content_id" => root_taxon_content_id,
       "expanded_links" => {
         "child_taxons" => [grandparent_taxon]
+      }
+    }
+  end
+
+  def draft_taxon_1
+    {
+      "title" => "About your organisation",
+      "base_path" => "/about-your-organisation",
+      "content_id" => "draft_taxon_1",
+      "expanded_links" => {
+        "child_taxons" => []
+      }
+    }
+  end
+
+  def draft_taxon_2
+    {
+      "title" => "Parenting",
+      "base_path" => "/childcare-parenting",
+      "content_id" => "draft_taxon_2",
+      "expanded_links" => {
+        "child_taxons" => []
       }
     }
   end

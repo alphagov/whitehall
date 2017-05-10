@@ -1,7 +1,7 @@
 class EditionTaxonomyTagForm
   include ActiveModel::Model
 
-  attr_accessor :selected_taxons, :edition_content_id, :previous_version
+  attr_accessor :selected_taxons, :all_taxons, :edition_content_id, :previous_version
 
   def self.load(content_id)
     begin
@@ -32,11 +32,6 @@ class EditionTaxonomyTagForm
         links: { taxons: most_specific_taxons },
         previous_version: previous_version
       )
-  end
-
-  def all_taxons
-    Taxonomy.load_taxonomy_trees(Taxonomy.root_taxons).flat_map(&:tree) +
-      Taxonomy.load_taxonomy_trees(Taxonomy.draft_taxons).flat_map(&:tree)
   end
 
   # Ignore any taxons that already have a more specific taxon selected

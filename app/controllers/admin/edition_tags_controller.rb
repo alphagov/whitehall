@@ -4,16 +4,16 @@ class Admin::EditionTagsController < Admin::BaseController
   before_action :limit_edition_access!
 
   def edit
+    @govuk_taxonomy = Taxonomy::GovukTaxonomy.new
     @edition_tag_form = EditionTaxonomyTagForm.load(@edition.content_id)
-    @published_taxonomies = published_taxonomies
-    @draft_taxonomies = draft_taxonomies
   end
 
   def update
     @edition_tag_form = EditionTaxonomyTagForm.new(
       edition_content_id: @edition.content_id,
       selected_taxons: params["edition_taxonomy_tag_form"].fetch("taxons", []).reject(&:blank?),
-      previous_version: params["edition_taxonomy_tag_form"]["previous_version"]
+      previous_version: params["edition_taxonomy_tag_form"]["previous_version"],
+      all_taxons: Taxonomy::GovukTaxonomy.new.all_taxons
     )
 
     @edition_tag_form.publish!
@@ -45,19 +45,5 @@ private
   def find_edition
     edition = Edition.find(params[:edition_id])
     @edition = LocalisedModel.new(edition, edition.primary_locale)
-  end
-
-  def published_taxonomies
-    taxonomies = Taxonomy.load_taxonomy_trees(Taxonomy.root_taxons)
-    taxonomies.map do |root_taxon|
-      TopicTreePresenter.new(root_taxon, taxonomies.count)
-    end
-  end
-
-  def draft_taxonomies
-    taxonomies = Taxonomy.load_taxonomy_trees(Taxonomy.draft_taxons)
-    taxonomies.map do |root_taxon|
-      TopicTreePresenter.new(root_taxon, taxonomies.count)
-    end
   end
 end

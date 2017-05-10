@@ -54,7 +54,8 @@ class EditionTaxonomyTagFormTest < ActiveSupport::TestCase
     form = EditionTaxonomyTagForm.new(
       selected_taxons: selected_taxons,
       edition_content_id: "abc",
-      previous_version: 1
+      previous_version: 1,
+      all_taxons: Taxonomy::GovukTaxonomy.new.all_taxons
     )
 
     assert_equal [child_taxon_content_id], form.most_specific_taxons

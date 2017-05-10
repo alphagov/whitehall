@@ -2,8 +2,8 @@ require 'test_helper'
 
 class Taxonomy::TreeTest < ActiveSupport::TestCase
   test ".new sets the root_taxon property" do
-    subject = Taxonomy::Tree.new(root_taxon, {})
-    assert_equal root_taxon, subject.root_taxon
+    subject = Taxonomy::Tree.new(expanded_root_taxon_hash)
+    assert subject.root_taxon.class == Taxonomy::Taxon
   end
 
   # Example of expanded links hash:
@@ -92,16 +92,18 @@ class Taxonomy::TreeTest < ActiveSupport::TestCase
     assert result(taxons).second.name == "zaphod"
   end
 
-  def root_taxon
-    @_root_taxon ||= Taxonomy::Taxon.new(
-      title: 'root',
-      base_path: '/root',
-      content_id: 'root_id'
-    )
+  def expanded_root_taxon_hash(expanded_links = {})
+    @_root_taxon_hash ||= {
+      'title' => 'root',
+      'base_path' => '/root',
+      'content_id' => 'root_id',
+      'expanded_links_hash' => expanded_links
+    }
   end
 
   def result(expanded_links = {})
-    Taxonomy::Tree.new(root_taxon, expanded_links).root_taxon.children
+    taxon_hash = expanded_root_taxon_hash(expanded_links)
+    Taxonomy::Tree.new(taxon_hash).root_taxon.children
   end
 
   def is_an_array_of_taxons(arr)
