@@ -20,23 +20,13 @@
         data-content-format="<%= @edition.content_store_document_type %>"
         data-content-public-path="<%= public_document_path(@edition) %>">
 
-        <% @published_taxonomies.each do |root_taxon| %>
-          <div class="topic-tree">
-            <a class="<%= root_taxon.toggle_classes %>" data-toggle="collapse" href="#<%= root_taxon.content_id %>"><span class='icon'></span><%= root_taxon.name %></a>
+        <%= render partial: "taxonomy", locals: { form: @edition_tag_form, root_taxons: @govuk_taxonomy.children } %>
 
-            <div class="<%= root_taxon.tree_classes %>" id="<%= root_taxon.content_id %>">
-              <%= render partial: "taxonomy", locals: {form: @edition_tag_form, taxons: root_taxon.children } %>
-            </div>
-          </div>
-        <% end %>
-      </div>
+        <h2>Draft topics</h2>
 
-      <h2>Draft topics</h2>
+        <p>These topic pages are in development, and are not shown on GOV.UK</p>
 
-      <p>These topic pages are in development, and are not shown on GOV.UK</p>
-
-      <div class="topic-tree">
-        <%= render partial: "taxonomy", locals: {form: @edition_tag_form, taxons: @edition_tag_form.draft_taxons} %>
+        <%= render partial: "taxonomy", locals: { form: @edition_tag_form, root_taxons: @govuk_taxonomy.draft_child_taxons } %>
       </div>
 
       <p>
