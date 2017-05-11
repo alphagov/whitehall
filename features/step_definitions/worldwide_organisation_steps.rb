@@ -90,19 +90,11 @@ Given /^a worldwide organisation "([^"]*)" exists for the world location "([^"]*
   create(:worldwide_organisation, name: name, world_locations: [country])
 end
 
-When /^I add an "([^"]*)" office for the home page with address, phone number, and some services$/ do |description|
-  service1 = create(:worldwide_service, name: 'Dance lessons')
-  service2 = create(:worldwide_service, name: 'Courses in advanced sword fighting')
-  service3 = create(:worldwide_service, name: 'Beard grooming')
-
+When /^I add an "([^"]*)" office for the home page with address and phone number$/ do |description|
   visit admin_worldwide_organisation_worldwide_offices_path(WorldwideOrganisation.last)
   click_link "Add"
   fill_in_contact_details(title: description, feature_on_home_page: 'yes')
   select WorldwideOfficeType.all.sample.name, from: 'Office type'
-
-  check service1.name
-  check service3.name
-
   click_on "Save"
 end
 
@@ -118,16 +110,6 @@ Then /^the "([^"]*)" office details should be shown on the public website$/ do |
     end
     assert page.has_css?('.tel', text: worldwide_office.contact.contact_numbers.first.number)
   end
-end
-
-Then(/^I should be able to remove all services from the "(.*?)" office$/) do |description|
-  worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: description }).first
-  visit edit_admin_worldwide_organisation_worldwide_office_path(worldwide_organisation_id: WorldwideOrganisation.last.id, id: worldwide_office.id)
-  available_services = worldwide_office.services.each { |service| uncheck "worldwide_office_service_ids_#{service.id}" }
-  click_on "Save"
-
-  visit edit_admin_worldwide_organisation_worldwide_office_path(worldwide_organisation_id: WorldwideOrganisation.last.id, id: worldwide_office.id)
-  available_services.each { |service| assert page.has_unchecked_field? "worldwide_office_service_ids_#{service.id}" }
 end
 
 Given /^that the world location "([^"]*)" exists$/ do |country_name|

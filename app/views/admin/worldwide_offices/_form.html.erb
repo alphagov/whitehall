@@ -26,28 +26,6 @@
           <%= office_form.labelled_radio_button('no', :show_on_home_page, '0', checked: !worldwide_organisation.office_shown_on_home_page?(office_form.object)) %>
         <% end %>
       </div>
-
-      <fieldset class="services">
-        <legend>Services</legend>
-        <% # without this hidden field, once a service has been selected and saved, all services cannot be de-selected.
-           # http://api.rubyonrails.org/classes/ActionView/Helpers/FormHelper.html#method-i-check_box-label-Gotcha %>
-        <%= hidden_field_tag 'worldwide_office[service_ids][]', nil %>
-        <% WorldwideService.all.group_by{|ws| ws.service_type}.each do |service_type, services| %>
-          <div class="form-group">
-            <p class="bold add-label-margin"><%= service_type.name %></p>
-            <% services.each do |service| %>
-              <div class="checkbox">
-                <%= label_tag "worldwide_office_service_ids_#{service.id}" do %>
-                  <%= check_box_tag 'worldwide_office[service_ids][]', service.id,
-                    office_form.object.services.include?(service), id: "worldwide_office_service_ids_#{service.id}" %>
-                  <%= service.name %>
-                <% end %>
-              </div>
-            <% end %>
-          </div>
-        <% end %>
-      </fieldset>
-
       <%= render partial: 'admin/contacts/form_fields', locals: { contact_form: contact_form } %>
     <% end %>
   </fieldset>
