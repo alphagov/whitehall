@@ -2,114 +2,110 @@ require 'test_helper'
 
 class Taxonomy::GovukTaxonomyTest < ActiveSupport::TestCase
   setup do
-    @tree = stub(root_taxon: :root_taxon)
-    @tree_class = Taxonomy::Tree = stub(new: @tree)
+    @tree_builder_class = stub
+    @test_adapter = stub
 
-    @published_taxon_a = taxon(1)
-    @published_taxon_b = taxon(2)
-    @visible_draft_taxon = visible_draft_taxon(3)
-    @draft_taxon = taxon(4)
+    @subject = Taxonomy::GovukTaxonomy.new(adapter: @test_adapter, tree_builder_class: @tree_builder_class)
   end
 
   test "#children" do
-    published_taxons = [@published_taxon_a, @published_taxon_b]
-    stub_publishing_api(published_taxons, [])
+    tree_instance = stub(root_taxon: :root_taxon)
+    setup_test_doubles_for_two_published_taxons(tree_instance)
 
-    @tree_class.expects(:new).with(expanded_links_hash_for_taxon_1).returns(@tree)
-    @tree_class.expects(:new).with(expanded_links_hash_for_taxon_2).returns(@tree)
-
-    result = subject.children
+    result = @subject.children
     assert_equal [:root_taxon, :root_taxon], result
   end
 
   test "#draft_child_taxons" do
-    published_taxons = [@published_taxon_a]
-    draft_taxons = [@visible_draft_taxon, @draft_taxon]
-    stub_publishing_api(published_taxons, draft_taxons)
+    tree_instance = stub(root_taxon: :root_taxon)
+    setup_test_doubles_including_one_visible_draft_taxon(tree_instance)
 
-    @tree_class.expects(:new).with(expanded_links_hash_for_taxon_3).returns(@tree)
-
-    result = subject.draft_child_taxons
+    result = @subject.draft_child_taxons
     assert_equal [:root_taxon], result
   end
 
   test "#all_taxons" do
-    tree = stub(root_taxon: stub(tree: [:sub_taxon]))
+    tree_instance = stub(root_taxon: stub(tree: [:sub_taxon]))
+    setup_test_doubles_with_one_published_and_one_visible_draft(tree_instance)
 
-    draft_taxons = [@visible_draft_taxon]
-    published_taxons = [@published_taxon_a]
-
-    stub_publishing_api(published_taxons, draft_taxons)
-
-    @tree_class.expects(:new).with(expanded_links_hash_for_taxon_1).returns(tree)
-    @tree_class.expects(:new).with(expanded_links_hash_for_taxon_3).returns(tree)
-
-    result = subject.all_taxons
+    result = @subject.all_taxons
     assert_equal [:sub_taxon, :sub_taxon], result
   end
 
-  def subject
-    Taxonomy::GovukTaxonomy.new
+  class TestTaxon
+    attr_reader :id
+
+    def initialize
+      @id = 5.times.map { |_| ('a'..'z').to_a.sample }.join
+    end
+
+    def to_h
+      { "content_id" => id }
+    end
+
+    def tree
+      "dummy_taxonomy_tree"
+    end
+
+    def expanded_links
+      taxon_hash = self.to_h
+      taxon_hash["expanded_links_hash"] = tree
+      taxon_hash
+    end
   end
 
-  def stub_publishing_api(published_taxons, draft_taxons)
+  class VisibleDraftTaxon < TestTaxon
+    def to_h
+      {
+        "content_id" => id,
+        "details" => {
+          "visible_to_departmental_editors" => true
+        }
+      }
+    end
+  end
+
+  def setup_test_doubles_with_one_published_and_one_visible_draft(tree_instance)
+    published_taxons = [TestTaxon.new]
+    draft_taxons = [VisibleDraftTaxon.new]
+    stub_test_adapter(published_taxons, draft_taxons, tree_instance)
+  end
+
+  def setup_test_doubles_including_one_visible_draft_taxon(tree_instance)
+    published_taxons = [TestTaxon.new, TestTaxon.new]
+    draft_taxons = [VisibleDraftTaxon.new, TestTaxon.new]
+    stub_test_adapter(published_taxons, draft_taxons, tree_instance)
+  end
+
+  def setup_test_doubles_for_two_published_taxons(tree_instance)
+    published_taxons = [TestTaxon.new, TestTaxon.new]
+    draft_taxons = []
+    stub_test_adapter(published_taxons, draft_taxons, tree_instance)
+  end
+
+  def stub_test_adapter(published_taxons, draft_taxons, tree_instance)
     setup_draft_taxons(draft_taxons)
     setup_published_taxons(published_taxons)
 
-    draft_taxons.each { |taxon| setup_expanded_taxon_data(taxon) }
-    published_taxons.each { |taxon| setup_expanded_taxon_data(taxon) }
-  end
+    draft_taxons.each { |taxon| setup_tree_data(taxon) }
+    published_taxons.each { |taxon| setup_tree_data(taxon) }
 
-  def taxon(id)
-    { "content_id" => id.to_s }
-  end
-
-  def expanded_links_hash(taxon)
-    taxon.merge("expanded_links_hash" => taxon)
-  end
-
-  def expanded_links_hash_for_taxon_1
-    expanded_links_hash(@published_taxon_a)
-  end
-
-  def expanded_links_hash_for_taxon_2
-    expanded_links_hash(@published_taxon_b)
-  end
-
-  def expanded_links_hash_for_taxon_3
-    expanded_links_hash(@visible_draft_taxon)
-  end
-
-  def visible_draft_taxon(id)
-    {
-      "content_id" => id.to_s,
-      "details" => {
-        "visible_to_departmental_editors" => true
-      }
-    }
+    (published_taxons + draft_taxons).each do |taxon|
+      @tree_builder_class.stubs(:new).with(taxon.expanded_links).returns(tree_instance)
+    end
   end
 
   def setup_published_taxons(root_taxons)
-    homepage_expanded_links = {
-      content_id: Taxonomy::GovukTaxonomy::HOMEPAGE_CONTENT_ID,
-      expanded_links: {
-        root_taxons: root_taxons
-      }
-    }
-    publishing_api_has_expanded_links(homepage_expanded_links, with_drafts: false)
+    result = root_taxons.map(&:to_h)
+    @test_adapter.stubs(:published_taxon_data).returns(result)
   end
 
   def setup_draft_taxons(root_taxons)
-    homepage_expanded_links = {
-      content_id: Taxonomy::GovukTaxonomy::HOMEPAGE_CONTENT_ID,
-      expanded_links: {
-        root_taxons: root_taxons
-      }
-    }
-    publishing_api_has_expanded_links(homepage_expanded_links, with_drafts: true)
+    result = root_taxons.map(&:to_h)
+    @test_adapter.stubs(:draft_taxon_data).returns(result)
   end
 
-  def setup_expanded_taxon_data(taxon)
-    publishing_api_has_expanded_links(taxon, with_drafts: false)
+  def setup_tree_data(dummy_taxon)
+    @test_adapter.stubs(:tree_data).with(dummy_taxon.id).returns(dummy_taxon.tree)
   end
 end

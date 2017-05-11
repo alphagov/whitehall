@@ -1,6 +1,6 @@
 module TaxonomyHelper
   def homepage_content_id
-    Taxonomy::GovukTaxonomy::HOMEPAGE_CONTENT_ID
+    Taxonomy::PublishingApiAdapter::HOMEPAGE_CONTENT_ID
   end
 
   def root_taxon_content_id
