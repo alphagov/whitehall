@@ -19,7 +19,7 @@ class Admin::ClassificationFeaturingsControllerTest < ActionController::TestCase
     tagged_editions = assigns(:tagged_editions)
     assert_equal [news_article_2, news_article_1], tagged_editions
     assert_equal 1, tagged_editions.current_page
-    assert_equal 1, tagged_editions.num_pages
+    assert_equal 1, tagged_editions.total_pages
     assert_equal 25, tagged_editions.limit_value
   end
 
