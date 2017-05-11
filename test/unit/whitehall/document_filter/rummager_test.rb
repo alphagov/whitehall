@@ -16,15 +16,26 @@ module Whitehall::DocumentFilter
           has_entry({ search_format_types: format_types }))
     end
 
-    test 'announcements_search looks for NewsArticles, FatalityNotices and Speeches by default' do
+    test 'announcements_search looks for all announcements exluding world types by default' do
       rummager = Rummager.new({})
-      expect_search_by_format_types(format_types(FatalityNotice, NewsArticle, Speech))
+      expected_types = [
+        "fatality-notice",
+        "speech",
+        "news-article-news-story",
+        "news-article-press-release",
+        "news-article-government-response",
+        "news-article-announcement"
+      ]
+      expect_search_by_format_types(expected_types)
       rummager.announcements_search
     end
 
     test 'announcements_search looks for all Announcements if we need to include world location news' do
       rummager = Rummager.new({include_world_location_news: '1'})
-      expect_search_by_format_types(format_types(Announcement))
+      expected_types = [
+        "announcement"
+      ]
+      expect_search_by_format_types(expected_types)
       rummager.announcements_search
     end
 
