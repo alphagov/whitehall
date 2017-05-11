@@ -20,7 +20,7 @@ module("Hide department children", {
 
 test("should create toggle link before department list", function() {
   GOVUK.hideDepartmentChildren.init();
-  equals(this.$departments.find('.view-all').length, 1);
+  equal(this.$departments.find('.view-all').length, 1);
 });
 
 test("should toggle class when clicking view all link", function() {

@@ -5,7 +5,7 @@ gem 'rails', '4.2.8'
 gem 'rack', '~> 1.6.2'
 gem 'statsd-ruby', '~> 1.2.1', require: 'statsd'
 gem 'mysql2'
-gem 'jquery-ui-rails'
+gem 'jquery-ui-rails', '~> 4.1.1'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
 gem 'carrierwave', '0.9.0'
 gem 'validates_email_format_of'
@@ -23,9 +23,9 @@ gem 'govuk_admin_template', '4.2.0'
 gem 'bootstrap-kaminari-views', '0.0.5'
 gem 'mime-types', '1.25.1'
 gem 'whenever', '0.9.4', require: false
-gem 'mini_magick'
+gem 'mini_magick', '~> 3.8.1'
 gem 'shared_mustache', '~> 0.2.1'
-gem 'rails-i18n'
+gem 'rails-i18n', '~> 0.7.3'
 gem 'link_header'
 gem 'logstasher', '0.6.2'
 gem 'chronic'
@@ -80,10 +80,10 @@ gem 'uglifier'
 
 group :development, :test do
   gem 'parallel_tests'
-  gem 'test-queue', '0.2.11'
+  gem 'test-queue', '~> 0.2.13'
   gem 'ruby-prof'
   gem 'pry-byebug'
-  gem 'govuk-lint', '~> 0.5.1'
+  gem 'govuk-lint'
   gem 'dotenv-rails'
 end
 
@@ -97,15 +97,15 @@ group :development do
 end
 
 group :test do
-  gem 'rack-test', '~> 0.6.3'
+  gem 'rack-test'
   gem 'factory_girl'
-  gem 'mocha', '1.1.0', require: false
+  gem 'mocha', require: false
   gem 'timecop'
-  gem 'webmock', '~> 2.1', require: false
+  gem 'webmock', require: false
   gem 'ci_reporter_minitest'
-  gem 'database_cleaner', '1.4.0'
+  gem 'database_cleaner'
   gem 'test_track', '~> 0.1.0', git: 'https://github.com/alphagov/test_track'
-  gem 'govuk-content-schema-test-helpers', '1.4.0'
+  gem 'govuk-content-schema-test-helpers'
   gem 'minitest-fail-fast'
   gem 'maxitest'
 end
@@ -116,8 +116,8 @@ group :test_coverage do
 end
 
 group :cucumber, :test do
-  gem 'cucumber-rails', '~> 1.4.2', require: false
-  gem 'launchy', '~> 2.4.3'
-  gem 'capybara', '~> 2.4.4'
-  gem 'poltergeist', '~> 1.5.1'
+  gem 'cucumber-rails', require: false
+  gem 'launchy'
+  gem 'capybara'
+  gem 'poltergeist'
 end
