@@ -6,6 +6,7 @@ class NewsArticle < Newsesque
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
 
   validates :news_article_type_id, presence: true
+  validate :non_english_primary_locale_only_for_world_news_story
 
   def self.subtypes
     NewsArticleType.all
@@ -53,5 +54,11 @@ class NewsArticle < Newsesque
 
   def locale_can_be_changed?
     new_record?
+  end
+
+  def non_english_primary_locale_only_for_world_news_story
+    if non_english_edition? && news_article_type != NewsArticleType::WorldNewsStory
+      errors.add(:foreign_language, 'is not allowed')
+    end
   end
 end

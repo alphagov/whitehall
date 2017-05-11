@@ -34,6 +34,26 @@ class NewsArticleTest < ActiveSupport::TestCase
     assert news_article.valid?
   end
 
+  test "non-English should be invalid for non-world-news-story types" do
+    non_foreign_language_news_types = [
+      NewsArticleType::NewsStory,
+      NewsArticleType::PressRelease,
+      NewsArticleType::GovernmentResponse,
+    ]
+
+    non_foreign_language_news_types.each do |news_type|
+      news_article = build(:news_article, news_article_type: news_type)
+      news_article.primary_locale = 'fr'
+      refute news_article.valid?
+    end
+  end
+
+  test "non-English should be valid for world news story type" do
+    news_article = build(:news_article, news_article_type: NewsArticleType::WorldNewsStory)
+    news_article.primary_locale = 'fr'
+    assert news_article.valid?
+  end
+
   test "search_index should include people" do
     news_article = create(:news_article, role_appointments: [create(:role_appointment), create(:role_appointment)])
     assert_equal news_article.role_appointments.map(&:slug), news_article.search_index["people"]
