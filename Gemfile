@@ -27,26 +27,26 @@ gem 'mini_magick', '~> 3.8.1'
 gem 'shared_mustache', '~> 0.2.1'
 gem 'rails-i18n', '~> 0.7.3'
 gem 'link_header'
-gem 'logstasher', '0.6.2'
+gem 'logstasher', '~> 1.2.1'
 gem 'chronic'
 gem 'jbuilder'
 gem 'rack_strip_client_ip', '0.0.1'
 gem 'invalid_utf8_rejector', '~> 0.0.3'
 gem 'govuk_sidekiq', '0.0.4'
 gem 'redis-namespace'
-gem 'raindrops', '0.15.0'
+gem 'raindrops', '0.18.0'
 gem 'airbrake', '4.1.0'
-gem 'pdf-reader', '1.3.3'
+gem 'pdf-reader', '~> 2.0'
 gem 'typhoeus', '~> 1.1'
 gem 'dalli'
-gem 'rails_translation_manager', '0.0.1'
+gem 'rails_translation_manager', '~> 0.0.2'
 gem 'sprockets', '~> 3.0'
 gem 'sprockets-rails', '2.3.3'
 gem 'rinku', require: 'rails_rinku'
-gem 'parallel', '1.4.1'
-gem 'responders', '~> 2.0'
+gem 'parallel', '~> 1.11.1'
+gem 'responders', '~> 2.4'
 gem 'ruby-progressbar', require: false
-gem 'equivalent-xml', '0.5.1', require: false
+gem 'equivalent-xml', '~> 0.6.0', require: false
 gem 'govuk_ab_testing', '~> 2.2.0'
 
 gem 'deprecated_columns', '0.1.1'
@@ -54,7 +54,7 @@ gem 'deprecated_columns', '0.1.1'
 if ENV['GDS_API_ADAPTERS_DEV']
   gem 'gds-api-adapters', path: '../gds-api-adapters'
 else
-  gem 'gds-api-adapters', '~> 41.2.0'
+  gem 'gds-api-adapters', '~> 45.0.0'
 end
 
 if ENV['GLOBALIZE_DEV']
@@ -75,8 +75,8 @@ else
   gem 'govuk_frontend_toolkit', '5.0.3'
 end
 
-gem 'sass', '3.4.9'
-gem 'sassc-rails'
+gem 'sass', '~> 3.4.23'
+gem 'sassc-rails', '~> 1.3.0'
 gem 'uglifier'
 
 group :development, :test do
