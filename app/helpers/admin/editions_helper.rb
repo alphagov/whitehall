@@ -131,7 +131,6 @@ module Admin::EditionsHelper
     form_classes << 'js-supports-non-english' if edition.locale_can_be_changed?
 
     form_for form_url_for_edition(edition), as: :edition, html: { class: form_classes } do |form|
-      concat render('locale_fields', form: form, edition: edition)
       concat edition_information(@information) if @information
       concat form.errors
       concat render("standard_fields", form: form, edition: edition)

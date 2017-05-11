@@ -50,4 +50,8 @@ class NewsArticle < Newsesque
   def rendering_app
     Whitehall::RenderingApp::GOVERNMENT_FRONTEND
   end
+
+  def locale_can_be_changed?
+    new_record?
+  end
 end
