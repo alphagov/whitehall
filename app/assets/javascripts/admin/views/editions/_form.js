@@ -10,6 +10,7 @@
       this.showChangeNotesIfMajorChange();
       this.showFormatAdviceForSelectedSubtype();
       this.toggleLanguageSelect();
+      this.toggleNonEnglishSupport();
       this.toggleFirstPublishedDate();
 
       GOVUK.formChangeProtection.init($('#edit_edition'), 'You have unsaved changes that will be lost if you leave this page.');
@@ -52,6 +53,38 @@
           $container.append(adviceHTML);
         }
       }).change();
+    },
+
+    toggleNonEnglishSupport: function toggleNonEnglishSupport() {
+      if ( !this.$form.hasClass('js-supports-non-english') ) return;
+      // only toggle foreign language fields when news article type is editable
+      if ( $( "select#edition_news_article_type_id" ).length == 0 ) return;
+
+      var $form = this.$form;
+
+      $().ready(function() {
+        var $newsTypeSelect = $('select#edition_news_article_type_id')
+        var $foreignLanguageFieldset = $(this).find('fieldset.foreign-language');
+        var $foreignLanguageToggle = $('input#create_foreign_language_only')
+        var $localeInput = $(this).find('#edition_primary_locale');
+        var worldNewsStoryType = 4
+
+        var toggleVisibility = function() {
+          if ($newsTypeSelect.val() == worldNewsStoryType) {
+            $foreignLanguageFieldset.show();
+          } else {
+            $foreignLanguageFieldset.hide();
+
+            // reset foreign language options
+            $foreignLanguageToggle.prop("checked", false)
+            $localeInput.val('');
+            $form.find('fieldset').removeClass('right-to-left');
+          }
+        }
+
+        $newsTypeSelect.change(toggleVisibility)
+        toggleVisibility();
+      })
     },
 
     toggleLanguageSelect: function toggleLanguageSelect() {

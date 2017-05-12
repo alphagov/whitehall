@@ -1,5 +1,5 @@
 <% if edition.locale_can_be_changed? %>
-  <fieldset>
+  <fieldset class="foreign-language">
     <div class="checkbox">
       <%= label_tag :create_foreign_language_only, nil, class: [:checkbox, "js-toggle-scheduled-publication-date-picker"] do %>
         <%= check_box_tag :create_foreign_language_only, "1", form.object.primary_locale != "en" %> Create a foreign language only news article

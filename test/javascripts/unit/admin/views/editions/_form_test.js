@@ -1,6 +1,27 @@
 var form =
   '<form id="non-english" class="js-supports-non-english"></form>'
 
+var newsArticleTypeSelect =
+  '<div class="form-group">' +
+    '<label class="required" for="edition_news_article_type_id">News article type</label>' +
+    '<select class="chzn-select form-control subtype"' +
+            'data-placeholder="Choose News article type…"' +
+            'data-format-advice="' +
+              '{&quot;1&quot;:&quot;<p>News written exclusively for GOV.UK which users need, can act on and can’t get from other sources. Avoid duplicating press releases.</p>&quot;,' +
+              '&quot;2&quot;:&quot;<p>Unedited press releases as sent to the media, and official statements from the organisation or a minister.</p><p>Do <em>not</em> use for: statements to Parliament. Use the “Speech” format for those.</p>&quot;,' +
+              '&quot;3&quot;:&quot;<p>Government statements in response to media coverage, such as rebuttals and ‘myth busters’.</p><p>Do <em>not</em> use for: statements to Parliament. Use the “Speech” format for those.</p>&quot;,' +
+              '&quot;4&quot;:&quot;<p>Announcements specific to one or more world location. Don’t duplicate news published by another department.</p>&quot;,&quot;999&quot;:&quot;<p>DO NOT USE. This is a legacy category for content created before sub-types existed.</p>&quot;}"' +
+            'name="edition[news_article_type_id]"' +
+            'id="edition_news_article_type_id">' +
+      '<optgroup label="Common types">' +
+        '<option value="1">News story</option>' +
+        '<option value="2">Press release</option>' +
+        '<option value="3">Government response</option>' +
+        '<option value="4">World news story</option>' +
+      '</optgroup>' +
+    '</select>' +
+  '</div>'
+
 var foreignLanguageFieldset =
   '<fieldset class="foreign-language">' +
     '<div class="checkbox">' +
@@ -129,6 +150,59 @@ test("selecting and deselecting right-to-left languages applies the appropriate 
   ok($('form#non-english fieldset').hasClass('right-to-left'), 'form fieldsets have "right-to-left" class');
   $('input#create_foreign_language_only').click()
   ok(!$('form#non-english fieldset').hasClass('right-to-left'), 'form fieldsets no longer have "right-to-left" class');
+});
+
+module("admin-edition-form-foreign-language-for-news-articles: ", {
+  setup: function() {
+    $('#qunit-fixture').append(form)
+    $('form').append(newsArticleTypeSelect)
+    $('form').append(foreignLanguageFieldset)
+    $('form').append(titleFieldset)
+
+    GOVUK.adminEditionsForm.init({
+      selector: 'form#non-english',
+      right_to_left_locales:["ar"]
+    });
+    $('.js-hidden').hide();
+  }
+});
+
+test("the foreign language fieldset should initially be hidden", function () {
+  ok($('fieldset.foreign-language').is(':hidden'), 'fieldset containing foreign language options is not hidden');
+});
+
+test("the foreign language fieldset should only be visible when selecting the 'World news story' News Article type", function () {
+  $select = $('select#edition_news_article_type_id')
+
+  $select.find("option:contains(News story)").prop('selected', true).change();
+  ok($('fieldset.foreign-language').is(':hidden'), 'fieldset containing foreign language options is not hidden');
+
+  $select.find("option:contains(Press release)").prop('selected', true).change();
+  ok($('fieldset.foreign-language').is(':hidden'), 'fieldset containing foreign language options is not hidden');
+
+  $select.find("option:contains(Government response)").prop('selected', true).change();
+  ok($('fieldset.foreign-language').is(':hidden'), 'fieldset containing foreign language options is not hidden');
+
+  $select.find("option:contains(World news story)").prop('selected', true).change();
+  ok($('fieldset.foreign-language').is(':visible'), 'fieldset containing foreign language options is not visible');
+});
+
+test("unselecting 'World news story' hides and resets the locale fields", function () {
+  $select = $('select#edition_news_article_type_id')
+
+  $select.find("option:contains(World news story)").prop('selected', true).change();
+  ok($('fieldset.foreign-language').is(':visible'), 'fieldset containing foreign language options is not visible');
+
+  $('input#create_foreign_language_only').click()
+  ok($('div.foreign-language-select').is(':visible'), 'div containing locale inputs has become visible');
+
+  $('#edition_primary_locale').val('cy').change();
+  equal($('#edition_primary_locale option:selected').val(), 'cy', 'foreign-language selected');
+
+  $select.find("option:contains(News story)").prop('selected', true).change();
+
+  equal($('#edition_primary_locale option:selected').val(), '', 'locale reset back to English');
+  ok($('fieldset.foreign-language').is(':hidden'), 'fieldset containing foreign language options is not hidden');
 });
 
 module("admin-edition-form-first-published-at: ", {
