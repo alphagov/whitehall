@@ -43,6 +43,10 @@ class NewsArticleType
     by_prevalence[:migration]
   end
 
+  def self.search_format_types
+    all.map(&:search_format_types).flatten
+  end
+
   def search_format_types
     ['news-article-' + self.key.gsub('_', ' ').parameterize]
   end
