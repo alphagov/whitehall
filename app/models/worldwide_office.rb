@@ -1,8 +1,6 @@
 class WorldwideOffice < ApplicationRecord
   has_one :contact, as: :contactable, dependent: :destroy
   belongs_to :worldwide_organisation
-  has_many :worldwide_office_worldwide_services, dependent: :destroy, inverse_of: :worldwide_office
-  has_many :services, through: :worldwide_office_worldwide_services, source: :worldwide_service
   has_one  :access_and_opening_times, as: :accessible, dependent: :destroy
   has_one :default_access_and_opening_times, through: :worldwide_organisation, source: :access_and_opening_times
   validates :worldwide_organisation, :contact, :worldwide_office_type_id, presence: true
