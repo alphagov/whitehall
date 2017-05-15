@@ -10,7 +10,7 @@
       <div class="form-inline add-label-margin">
         <%= form.select :primary_locale, options_for_foreign_language_locale(edition), {}, {class: 'form-control input-md-6'} %>
       </div>
-      <p class="warning">Warning: Foreign language only documents do not allow additional translations.</p>
+      <p class="warning">Warning: News stories without an English version cannot have other translations.</p>
     </div>
   </fieldset>
 <% end %>

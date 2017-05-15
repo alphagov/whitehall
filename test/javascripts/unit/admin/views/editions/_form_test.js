@@ -38,7 +38,7 @@ var foreignLanguageFieldset =
           '<option value="cy">Cymraeg (Welsh)</option>' +
         '</select>' +
       '</div>' +
-      '<p class="warning">Warning: Foreign language only documents do not allow additional translations.</p>' +
+      '<p class="warning">Warning: News stories without an English version cannot have other translations.</p>' +
     '</div>' +
   '</fieldset>'
 
