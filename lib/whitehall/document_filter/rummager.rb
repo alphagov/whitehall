@@ -113,7 +113,7 @@ module Whitehall::DocumentFilter
         elsif include_world_location_news
           [Announcement.search_format_type]
         else
-          Announcement.concrete_descendant_search_format_types - [WorldLocationNewsArticle.search_format_type]
+          non_world_announcement_types
         end
       {search_format_types: announcement_types}
     end
@@ -130,6 +130,21 @@ module Whitehall::DocumentFilter
 
     def documents
       @documents ||= ResultSet.new(@results, @page, @per_page).paginated
+    end
+
+  private
+
+    def all_announcement_types
+      all_descendants = Announcement.concrete_descendant_search_format_types
+      descendants_without_news = all_descendants - [NewsArticle.search_format_type]
+      news_article_subtypes = NewsArticleType.search_format_types
+      descendants_without_news + news_article_subtypes
+    end
+
+    def non_world_announcement_types
+      types = all_announcement_types
+      types = types - NewsArticleType::WorldNewsStory.search_format_types
+      types - [WorldLocationNewsArticle.search_format_type]
     end
   end
 end

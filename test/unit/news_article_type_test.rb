@@ -20,4 +20,15 @@ class NewsArticleTypeTest < ActiveSupport::TestCase
       assert news_article_type.search_format_types.include?('news-article-' + news_article_type.key.gsub('_', ' ').parameterize)
     end
   end
+
+  test "NewsArticleType.search_format_types returns all of the type #search_format_types" do
+    expected = [
+      "news-article-news-story",
+      "news-article-press-release",
+      "news-article-government-response",
+      "news-article-world-news-story",
+      "news-article-announcement",
+    ]
+    assert_equal expected, NewsArticleType.search_format_types
+  end
 end
