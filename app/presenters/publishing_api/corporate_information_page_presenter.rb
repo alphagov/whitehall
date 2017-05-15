@@ -27,19 +27,17 @@ module PublishingApi
           public_updated_at: public_updated_at,
           rendering_app: corporate_information_page.rendering_app,
           schema_name: SCHEMA_NAME,
+          links: links,
         )
     end
 
     def links
-      LinksPresenter
-        .new(corporate_information_page)
-        .extract(
-          %i(
-            organisations
-            parent
-          )
+      links_presenter.extract(
+        %i(
+          organisations
+          parent
         )
-        .merge(CorporateInformationPages.for(corporate_information_page))
+      ).merge(CorporateInformationPages.for(corporate_information_page))
     end
 
   private
@@ -66,6 +64,10 @@ module PublishingApi
         .merge(CorporateInformationGroups.for(corporate_information_page))
         .merge(Organisation.for(corporate_information_page))
         .merge(PayloadBuilder::TagDetails.for(corporate_information_page))
+    end
+
+    def links_presenter
+      @links_presenter ||= LinksPresenter.new(corporate_information_page)
     end
 
     def public_updated_at
