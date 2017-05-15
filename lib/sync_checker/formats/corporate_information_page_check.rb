@@ -23,13 +23,18 @@ module SyncChecker
         'government/organisations'
       end
 
+      def checks_for_draft(_locale)
+        super.tap do |checks|
+          if edition_expected_in_draft.about_page?
+            checks << links_checks
+          end
+        end
+      end
+
       def checks_for_live(_locale)
         super.tap do |checks|
           if edition_expected_in_live.about_page?
-            checks << Checks::LinksCheck.new(
-              'corporate_information_pages',
-              expected_corporate_information_page_content_ids
-            )
+            checks << links_checks
           end
         end
       end
@@ -43,6 +48,13 @@ module SyncChecker
       end
 
     private
+
+      def links_checks
+        Checks::LinksCheck.new(
+          'corporate_information_pages',
+          expected_corporate_information_page_content_ids
+        )
+      end
 
       def expected_corporate_information_page_content_ids
         pages = edition_expected_in_live
