@@ -109,6 +109,7 @@ module PublishingApi::CorporateInformationPagePresenterTest
       assert_equal actual_links, expected_links
     end
 
+
     test 'body details' do
       body_double = Object.new
 
@@ -134,6 +135,35 @@ module PublishingApi::CorporateInformationPagePresenterTest
 
     test 'document type' do
       assert_attribute :document_type, 'publication_scheme'
+    end
+
+    test 'links' do
+      expected_link_keys = %i(
+        organisations
+        parent
+      )
+
+      links_double = {
+        link_one: 'link_one',
+        link_two: 'link_two',
+        link_three: 'link_three',
+      }
+
+      PublishingApi::LinksPresenter
+        .stubs(:new)
+        .with(corporate_information_page)
+        .returns(
+          mock('PublishingApi::LinksPresenter') {
+            stubs(:extract)
+              .with(expected_link_keys)
+              .returns(links_double)
+          }
+        )
+
+      actual_links = presented_links
+      expected_links = actual_links.merge(links_double)
+
+      assert_attribute :links, expected_links
     end
 
     test 'organisation details' do
