@@ -88,6 +88,7 @@ module PublishingApi::NewsArticlePresenterTest
         related_policies
         topics
         world_locations
+        worldwide_organisations
       )
 
       links_double = {
