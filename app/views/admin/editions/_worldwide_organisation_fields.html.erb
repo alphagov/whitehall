@@ -1,11 +1,13 @@
 <% required = false unless defined?(required) %>
 
-<%= form.label :worldwide_organisation_ids, "Select the worldwide organisations associated with this #{edition.format_name.titleize.downcase}", required: required %>
-<% cache_if edition.worldwide_organisation_ids.empty?, taggable_worldwide_organisations_cache_digest do %>
-  <%= form.select :worldwide_organisation_ids,
-                  options_for_select(taggable_worldwide_organisations_container, edition.worldwide_organisation_ids),
-                  { include_blank: true },
-                  multiple: true,
-                  class: 'chzn-select form-control',
-                  data: { placeholder: "Worldwide organisations…"} %>
-<% end %>
+<fieldset class="worldwide-organisations">
+  <%= form.label :worldwide_organisation_ids, "Select the worldwide organisations associated with this #{edition.format_name.titleize.downcase}", required: required %>
+  <% cache_if edition.worldwide_organisation_ids.empty?, taggable_worldwide_organisations_cache_digest do %>
+    <%= form.select :worldwide_organisation_ids,
+                    options_for_select(taggable_worldwide_organisations_container, edition.worldwide_organisation_ids),
+                    { include_blank: true },
+                    multiple: true,
+                    class: 'chzn-select form-control',
+                    data: { placeholder: "Worldwide organisations…"} %>
+  <% end %>
+</fieldset>
