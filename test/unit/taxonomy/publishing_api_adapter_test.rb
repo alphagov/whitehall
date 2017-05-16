@@ -46,6 +46,6 @@ class Taxonomy::PublishingApiAdapterTest < ActiveSupport::TestCase
   end
 
   def setup_expanded_taxon_data(taxon)
-    publishing_api_has_expanded_links(taxon, with_drafts: false)
+    publishing_api_has_expanded_links(taxon, with_drafts: true)
   end
 end
