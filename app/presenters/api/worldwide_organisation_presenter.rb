@@ -56,7 +56,8 @@ class Api::WorldwideOrganisationPresenter < Api::BasePresenter
         type: office_worldwide_organisation.worldwide_office_type.name
       }
     }.merge(office_addresss_as_json(office_worldwide_organisation)).
-      merge(office_contact_numbers_as_json(office_worldwide_organisation))
+      merge(office_contact_numbers_as_json(office_worldwide_organisation)).
+      merge(office_services_as_json(office_worldwide_organisation))
   end
 
   def office_access_and_opening_times_as_json(office_worldwide_organisation)
@@ -77,6 +78,17 @@ class Api::WorldwideOrganisationPresenter < Api::BasePresenter
         {
           label: contact_number.label,
           number: contact_number.number
+        }
+      end
+    }
+  end
+
+  def office_services_as_json(office_worldwide_organisation)
+    {
+      services: office_worldwide_organisation.services.map do |service|
+        {
+          title: service.name,
+          type: service.service_type.name
         }
       end
     }

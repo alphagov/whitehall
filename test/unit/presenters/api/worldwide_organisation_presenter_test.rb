@@ -5,6 +5,7 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
     @access_times = stub_record(:access_and_opening_times, body: 'never')
     @main_sponsor = stub_translatable_record(:organisation)
     @office = stub_record(:worldwide_office, contact: stub_translatable_record(:contact, contact_numbers: []),
+                                             services: [],
                                              worldwide_organisation: nil,
                                              access_and_opening_times: @access_times)
     @world_org = stub_translatable_record(:worldwide_organisation, sponsoring_organisations: [@main_sponsor],
@@ -125,9 +126,11 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
 
   test 'json includes main and other offices in offices with separate keys' do
     office1 = stub_record(:worldwide_office, contact: stub_translatable_record(:contact, title: 'best-office', contact_numbers: []),
+                                             services: [],
                                              worldwide_organisation: nil,
                                              access_and_opening_times: @access_times)
     office2 = stub_record(:worldwide_office, contact: stub_translatable_record(:contact, title: 'worst-office', contact_numbers: []),
+                                             services: [],
                                              worldwide_organisation: nil,
                                              access_and_opening_times: @access_times)
 
@@ -152,6 +155,18 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
     assert_equal expected_contact_num_json, office_as_json[:contact_numbers][0]
     expected_contact_num_json = {label: 'contact-number-two', number: '5678'}
     assert_equal expected_contact_num_json, office_as_json[:contact_numbers][1]
+  end
+
+  test 'json includes office services in offices array as services' do
+    services = [stub_record(:worldwide_service, name: 'service-one', service_type: WorldwideServiceType::AssistanceServices),
+                stub_record(:worldwide_service, name: 'service-two', service_type: WorldwideServiceType::OtherServices)]
+    @office.stubs(:services).returns services
+    office_as_json = @presenter.as_json[:offices][:main]
+    assert_equal 2, office_as_json[:services].size
+    expected_service_json = { title: 'service-one', type: WorldwideServiceType::AssistanceServices.name }
+    assert_equal expected_service_json, office_as_json[:services][0]
+    expected_service_json = { title: 'service-two', type: WorldwideServiceType::OtherServices.name }
+    assert_equal expected_service_json, office_as_json[:services][1]
   end
 
   test 'json includes office contact address in offices array' do
