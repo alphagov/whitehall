@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170511082208) do
+ActiveRecord::Schema.define(version: 20170411161614) do
 
   create_table "about_pages", force: :cascade do |t|
     t.integer  "topical_event_id",    limit: 4
@@ -1206,6 +1206,13 @@ ActiveRecord::Schema.define(version: 20170511082208) do
   add_index "world_locations", ["slug"], name: "index_world_locations_on_slug", using: :btree
   add_index "world_locations", ["world_location_type_id"], name: "index_world_locations_on_world_location_type_id", using: :btree
 
+  create_table "worldwide_office_worldwide_services", force: :cascade do |t|
+    t.integer  "worldwide_office_id",  limit: 4, null: false
+    t.integer  "worldwide_service_id", limit: 4, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "worldwide_offices", force: :cascade do |t|
     t.integer  "worldwide_organisation_id", limit: 4
     t.datetime "created_at"
@@ -1263,6 +1270,13 @@ ActiveRecord::Schema.define(version: 20170511082208) do
 
   add_index "worldwide_organisations", ["default_news_organisation_image_data_id"], name: "index_worldwide_organisations_on_image_data_id", using: :btree
   add_index "worldwide_organisations", ["slug"], name: "index_worldwide_organisations_on_slug", unique: true, using: :btree
+
+  create_table "worldwide_services", force: :cascade do |t|
+    t.string   "name",            limit: 255, null: false
+    t.integer  "service_type_id", limit: 4,   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   add_foreign_key "related_mainstreams", "editions"
 end
