@@ -20,7 +20,7 @@ class NewsArticleTest < ActiveSupport::TestCase
   end
 
   test "should allow setting of news article type" do
-    news_article = build(:news_article, news_article_type: NewsArticleType::PressRelease)
+    news_article = build(:news_article_press_release)
     assert news_article.valid?
   end
 
@@ -29,7 +29,7 @@ class NewsArticleTest < ActiveSupport::TestCase
     refute news_article.valid?
   end
 
-  test 'superseded news articles are valid with the "unknown" news_article_type' do
+  test "superseded news articles are valid with the 'unknown' news_article_type" do
     news_article = build(:superseded_news_article, news_article_type: NewsArticleType::Unknown)
     assert news_article.valid?
   end
@@ -48,24 +48,18 @@ class NewsArticleTest < ActiveSupport::TestCase
     end
   end
 
-  test "non-English should be valid for world news story type" do
-    news_article = build(:news_article, news_article_type: NewsArticleType::WorldNewsStory)
-    news_article.primary_locale = 'fr'
-    assert news_article.valid?
-  end
-
   test "search_index should include people" do
     news_article = create(:news_article, role_appointments: [create(:role_appointment), create(:role_appointment)])
     assert_equal news_article.role_appointments.map(&:slug), news_article.search_index["people"]
   end
 
-  test 'search_format_types tags the news article as a news-article and announcement' do
+  test "search_format_types tags the news article as a news-article and announcement" do
     news_article = build(:news_article)
     assert news_article.search_format_types.include?('news-article')
     assert news_article.search_format_types.include?('announcement')
   end
 
-  test 'search_format_types includes search_format_types of the speech_type' do
+  test "search_format_types includes search_format_types of the speech_type" do
     news_article_type = mock
     news_article_type.responds_like(NewsArticleType.new)
     news_article_type.stubs(:search_format_types).returns (['stuff-innit', 'other-thing'])
@@ -91,11 +85,14 @@ class NewsArticleTest < ActiveSupport::TestCase
 end
 
 class WorldNewsStoryTypeNewsArticleTest < ActiveSupport::TestCase
+  test "non-English primary locale should be valid" do
+    news_article = build(:news_article_world_news_story)
+    news_article.primary_locale = 'fr'
+    assert news_article.valid?
+  end
+
   test "#world_news_story returns true" do
-    article = build(
-      :news_article,
-      news_article_type: NewsArticleType::WorldNewsStory
-    )
+    article = build(:news_article_world_news_story)
 
     assert article.world_news_story?
   end
