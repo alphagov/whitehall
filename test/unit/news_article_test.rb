@@ -104,18 +104,16 @@ class WorldNewsStoryTypeNewsArticleTest < ActiveSupport::TestCase
   end
 
   test "can't be related to policies" do
-    article = build(
-      :news_article,
-      news_article_type: NewsArticleType::WorldNewsStory
-    )
+    article = build(:news_article_world_news_story)
 
     refute article.can_be_related_to_policies?
   end
 
   test "is invalid if a policy is associated" do
-    article = build(
-      :news_article,
-      news_article_type: NewsArticleType::WorldNewsStory
-    )
+    article = build(:news_article_world_news_story)
+    article.stubs(:edition_policies).returns([Policy.new({})])
+
+    refute article.valid?
+    assert_equal ["You can't tag a world news story to policies, please remove policy"], article.errors[:base]
   end
 end
