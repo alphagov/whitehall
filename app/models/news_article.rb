@@ -5,9 +5,9 @@ class NewsArticle < Newsesque
   include Edition::AlternativeFormatProvider
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
 
+  validate :ministers_are_not_associated, if: :world_news_story?
   validates :news_article_type_id, presence: true
   validate :non_english_primary_locale_only_for_world_news_story
-
   validate :policies_are_not_associated, unless: :can_be_related_to_policies?
 
   def self.subtypes
@@ -77,6 +77,12 @@ private
   def policies_are_not_associated
     unless edition_policies.empty?
       errors.add(:base, "You can't tag a world news story to policies, please remove policy")
+    end
+  end
+
+  def ministers_are_not_associated
+    if is_associated_with_a_minister?
+      errors.add(:base, "You can't tag a world news story to ministers, please remove minister")
     end
   end
 end
