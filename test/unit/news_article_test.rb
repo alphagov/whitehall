@@ -29,7 +29,7 @@ class NewsArticleTest < ActiveSupport::TestCase
     refute news_article.valid?
   end
 
-  test 'superseded news articles are valid with the "unknown" news_article_type' do
+  test "superseded news articles are valid with the 'unknown' news_article_type" do
     news_article = build(:superseded_news_article, news_article_type: NewsArticleType::Unknown)
     assert news_article.valid?
   end
@@ -53,13 +53,13 @@ class NewsArticleTest < ActiveSupport::TestCase
     assert_equal news_article.role_appointments.map(&:slug), news_article.search_index["people"]
   end
 
-  test 'search_format_types tags the news article as a news-article and announcement' do
+  test "search_format_types tags the news article as a news-article and announcement" do
     news_article = build(:news_article)
     assert news_article.search_format_types.include?('news-article')
     assert news_article.search_format_types.include?('announcement')
   end
 
-  test 'search_format_types includes search_format_types of the speech_type' do
+  test "search_format_types includes search_format_types of the speech_type" do
     news_article_type = mock
     news_article_type.responds_like(NewsArticleType.new)
     news_article_type.stubs(:search_format_types).returns (['stuff-innit', 'other-thing'])
