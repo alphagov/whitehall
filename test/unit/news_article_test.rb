@@ -152,4 +152,19 @@ class WorldNewsStoryTypeNewsArticleTest < ActiveSupport::TestCase
     assert_equal ["You can't tag a world news story to ministers, please remove minister"],
       article.errors[:base]
   end
+
+  test "is valid when not associating an organisation" do
+    news_article = build(:news_article_world_news_story)
+    news_article.organisations = []
+    assert news_article.valid?
+  end
+
+  test "is invalid when associating an organisation" do
+    news_article = build(:news_article_world_news_story)
+    news_article.edition_organisations.build(organisation: FactoryGirl.build(:organisation))
+
+    refute news_article.valid?
+    assert_equal ["You can't tag a world news story to organisations, please remove organisation"],
+      news_article.errors[:base]
+  end
 end

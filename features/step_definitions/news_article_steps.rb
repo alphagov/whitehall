@@ -113,6 +113,7 @@ When(/^I draft a French\-only "World news story" news article associated with "(
   select "Français", from: "Document language"
   select location_name, from: "Select the world locations this news article is about"
   select "French embassy", from: "Select the worldwide organisations associated with this news article"
+  select "", from: "edition_lead_organisation_ids_1"
 
   click_button "Save"
   @news_article = find_news_article_in_locale!(:fr, 'French-only news article')
@@ -150,6 +151,7 @@ When(/^I draft a valid news article of type "([^"]*)" with title "([^"]*)"$/) do
     create(:worldwide_organisation, name: "Afghanistan embassy")
     begin_drafting_news_article(title: title, first_published: Date.today.to_s, announcement_type: news_type)
     select "Afghanistan embassy", from: "Select the worldwide organisations associated with this news article"
+    select "", from: "edition_lead_organisation_ids_1"
   else
     begin_drafting_news_article(title: title, first_published: Date.today.to_s, announcement_type: news_type)
   end
@@ -161,9 +163,10 @@ Then(/^the news article "([^"]*)" should have been created$/) do |title|
   refute NewsArticle.find_by(title: title).nil?
 end
 
-When(/^I draft a valid "(.*?)" news article with title "(.*?)" associated to "(.*?)"$/) do |announcement_type, title, worldwide_org|
-  begin_drafting_news_article(title: title, announcement_type: announcement_type)
+When(/^I draft a valid "World news story" news article with title "(.*?)" associated to "(.*?)"$/) do |title, worldwide_org|
+  begin_drafting_news_article(title: title, announcement_type: "World news story")
   select worldwide_org, from: "edition_worldwide_organisation_ids"
+  select "", from: "edition_lead_organisation_ids_1"
 
   click_button "Save"
 end
