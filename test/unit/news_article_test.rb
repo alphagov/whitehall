@@ -82,4 +82,21 @@ class NewsArticleTest < ActiveSupport::TestCase
   test "is not translatable when non-English" do
     refute build(:news_article, primary_locale: :es).translatable?
   end
+
+  test "#world_news_story returns false" do
+    article = build(:news_article)
+
+    refute article.world_news_story?
+  end
+end
+
+class WorldNewsStoryTypeNewsArticleTest < ActiveSupport::TestCase
+  test "#world_news_story returns true" do
+    article = build(
+      :news_article,
+      news_article_type: NewsArticleType::WorldNewsStory
+    )
+
+    assert article.world_news_story?
+  end
 end

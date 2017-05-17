@@ -61,4 +61,8 @@ class NewsArticle < Newsesque
       errors.add(:foreign_language, 'is not allowed')
     end
   end
+
+  def world_news_story?
+    news_article_type == NewsArticleType::WorldNewsStory
+  end
 end
