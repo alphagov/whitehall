@@ -65,4 +65,8 @@ class NewsArticle < Newsesque
   def world_news_story?
     news_article_type == NewsArticleType::WorldNewsStory
   end
+
+  def can_be_related_to_policies?
+    !world_news_story?
+  end
 end
