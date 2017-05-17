@@ -8,6 +8,8 @@ class NewsArticle < Newsesque
   validates :news_article_type_id, presence: true
   validate :non_english_primary_locale_only_for_world_news_story
 
+  validate :policies_are_not_associated, unless: :can_be_related_to_policies?
+
   def self.subtypes
     NewsArticleType.all
   end
@@ -64,5 +66,17 @@ class NewsArticle < Newsesque
 
   def world_news_story?
     news_article_type == NewsArticleType::WorldNewsStory
+  end
+
+  def can_be_related_to_policies?
+    !world_news_story?
+  end
+
+private
+
+  def policies_are_not_associated
+    unless edition_policies.empty?
+      errors.add(:base, "You can't tag a world news story to policies, please remove policy")
+    end
   end
 end
