@@ -30,7 +30,7 @@ module TaxonomyHelper
     }
 
     publishing_api_has_expanded_links(homepage_links, with_drafts: false)
-    publishing_api_has_expanded_links(root_taxon, with_drafts: false)
+    publishing_api_has_expanded_links(root_taxon, with_drafts: true)
 
     homepage_links_with_drafts = {
       content_id: homepage_content_id,
