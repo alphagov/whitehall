@@ -9,7 +9,8 @@
 
       this.showChangeNotesIfMajorChange();
       this.showFormatAdviceForSelectedSubtype();
-      this.setupNonEnglishSupport();
+      this.toggleLanguageSelect();
+      this.toggleNonEnglishSupport();
       this.toggleFirstPublishedDate();
 
       GOVUK.formChangeProtection.init($('#edit_edition'), 'You have unsaved changes that will be lost if you leave this page.');
@@ -54,39 +55,62 @@
       }).change();
     },
 
-    setupNonEnglishSupport: function setupNonEnglishSupport() {
+    toggleNonEnglishSupport: function toggleNonEnglishSupport() {
+      if ( !this.$form.hasClass('js-supports-non-english') ) return;
+      // only toggle foreign language fields when news article type is editable
+      if ( $( "select#edition_news_article_type_id" ).length == 0 ) return;
+
+      var $form = this.$form;
+
+      $().ready(function() {
+        var $newsTypeSelect = $('select#edition_news_article_type_id')
+        var $foreignLanguageFieldset = $(this).find('fieldset.foreign-language');
+        var $foreignLanguageToggle = $('input#create_foreign_language_only')
+        var $localeInput = $(this).find('#edition_primary_locale');
+        var worldNewsStoryType = 4
+
+        var toggleVisibility = function() {
+          if ($newsTypeSelect.val() == worldNewsStoryType) {
+            $foreignLanguageFieldset.show();
+          } else {
+            $foreignLanguageFieldset.hide();
+
+            // reset foreign language options
+            $foreignLanguageToggle.prop("checked", false)
+            $localeInput.val('');
+            $form.find('fieldset').removeClass('right-to-left');
+          }
+        }
+
+        $newsTypeSelect.change(toggleVisibility)
+        toggleVisibility();
+      })
+    },
+
+    toggleLanguageSelect: function toggleLanguageSelect() {
       if ( !this.$form.hasClass('js-supports-non-english') ) return;
 
       var $form = this.$form;
 
       $().ready(function() {
-        // hide locale fieldsets
         var $localeInput = $(this).find('#edition_primary_locale');
-        var $fieldset = $localeInput.parents('fieldset');
 
-        // add link for changing the default locale
-        var $revealLink = $('<p><a href="#" class="foreign-language-only">Designate as a foreign language only document</a></p>');
-        $revealLink.insertBefore($fieldset);
-        $revealLink.on('click', 'a', function (evt) {
-          // reveal the locale selector
-          $revealLink.hide();
-          $fieldset.show();
-          evt.preventDefault();
-        });
+        var toggleVisibility = function() {
+          if ($('input#create_foreign_language_only').prop('checked')) {
+            $('.foreign-language-select').show();
+          } else {
+            $('.foreign-language-select').hide();
 
-        // add link to cancel and reset back to the default locale
-        var $resetLink = $('<a href="#" class="add-left-margin cancel-foreign-language-only">Cancel</a>');
-        $resetLink.insertAfter($localeInput);
-        $resetLink.on('click', function (evt) {
-          // hide the fieldset and reset the locale selector
-          $fieldset.hide();
-          $revealLink.show();
-          $localeInput.val('');
-          $form.find('fieldset').removeClass('right-to-left');
-          evt.preventDefault();
-        });
+            // reset back to the default locale
+            $localeInput.val('');
+            $form.find('fieldset').removeClass('right-to-left');
+          }
+        }
 
-        // setup observer to apply right-to-left classes as appropriate
+        $('input#create_foreign_language_only').change(toggleVisibility)
+        toggleVisibility();
+
+        // setup observer to apply right-to-left classes to all form fieldsets
         $('#edition_primary_locale').change(function () {
           if ( $.inArray($(this).val(), GOVUK.adminEditionsForm.rightToLeftLocales) > -1) {
             $form.find('fieldset').addClass('right-to-left');
@@ -95,7 +119,6 @@
           }
         });
       })
-
     },
 
     toggleFirstPublishedDate: function toggleFirstPublishedDate() {
