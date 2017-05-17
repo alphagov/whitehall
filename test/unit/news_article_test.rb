@@ -20,7 +20,7 @@ class NewsArticleTest < ActiveSupport::TestCase
   end
 
   test "should allow setting of news article type" do
-    news_article = build(:news_article, news_article_type: NewsArticleType::PressRelease)
+    news_article = build(:news_article_press_release)
     assert news_article.valid?
   end
 
@@ -46,12 +46,6 @@ class NewsArticleTest < ActiveSupport::TestCase
       news_article.primary_locale = 'fr'
       refute news_article.valid?
     end
-  end
-
-  test "non-English should be valid for world news story type" do
-    news_article = build(:news_article, news_article_type: NewsArticleType::WorldNewsStory)
-    news_article.primary_locale = 'fr'
-    assert news_article.valid?
   end
 
   test "search_index should include people" do
@@ -91,11 +85,14 @@ class NewsArticleTest < ActiveSupport::TestCase
 end
 
 class WorldNewsStoryTypeNewsArticleTest < ActiveSupport::TestCase
+  test "non-English primary locale should be valid" do
+    news_article = build(:news_article_world_news_story)
+    news_article.primary_locale = 'fr'
+    assert news_article.valid?
+  end
+
   test "#world_news_story returns true" do
-    article = build(
-      :news_article,
-      news_article_type: NewsArticleType::WorldNewsStory
-    )
+    article = build(:news_article_world_news_story)
 
     assert article.world_news_story?
   end
