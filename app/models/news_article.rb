@@ -83,6 +83,10 @@ class NewsArticle < Newsesque
     !world_news_story?
   end
 
+  def skip_world_location_validation?
+    !world_news_story?
+  end
+
 private
 
   def organisations_are_not_associated

@@ -167,4 +167,13 @@ class WorldNewsStoryTypeNewsArticleTest < ActiveSupport::TestCase
     assert_equal ["You can't tag a world news story to organisations, please remove organisation"],
       news_article.errors[:base]
   end
+
+  test "is invalid without a world_location" do
+    article = build(:news_article_world_news_story)
+    article.world_locations.clear
+
+    refute article.valid?
+    assert_equal ["at least one required"],
+      article.errors[:world_locations]
+  end
 end

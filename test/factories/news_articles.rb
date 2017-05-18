@@ -52,5 +52,11 @@ FactoryGirl.define do
     after :build do |news_article, evaluator|
       news_article.worldwide_organisations = [FactoryGirl.build(:worldwide_organisation)] unless evaluator.worldwide_organisations.any?
     end
+
+    after :build do |object, evaluator|
+      if evaluator.world_locations.empty?
+        object.world_locations << build(:world_location)
+      end
+    end
   end
 end
