@@ -7,7 +7,7 @@ class NewsArticleTest < ActiveSupport::TestCase
   should_have_first_image_pulled_out
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
 
-  test "should be able to relate to other editions" do
+  test "can be related to other editions" do
     article = build(:news_article)
     assert article.can_be_related_to_policies?
   end
@@ -19,12 +19,12 @@ class NewsArticleTest < ActiveSupport::TestCase
     assert_equal [news_article], topical_event.news_articles
   end
 
-  test "should allow setting of news article type" do
+  test "allows setting of news article type" do
     news_article = build(:news_article_press_release)
     assert news_article.valid?
   end
 
-  test "should be invalid without a news article type" do
+  test "is invalid without a news article type" do
     news_article = build(:news_article, news_article_type: nil)
     refute news_article.valid?
   end
@@ -34,7 +34,7 @@ class NewsArticleTest < ActiveSupport::TestCase
     assert news_article.valid?
   end
 
-  test "non-English should be invalid for non-world-news-story types" do
+  test "non-English locale is invalid for non-world-news-story types" do
     non_foreign_language_news_types = [
       NewsArticleType::NewsStory,
       NewsArticleType::PressRelease,
@@ -48,7 +48,7 @@ class NewsArticleTest < ActiveSupport::TestCase
     end
   end
 
-  test "search_index should include people" do
+  test "search_index includes people" do
     news_article = create(:news_article, role_appointments: [create(:role_appointment), create(:role_appointment)])
     assert_equal news_article.role_appointments.map(&:slug), news_article.search_index["people"]
   end
@@ -69,7 +69,7 @@ class NewsArticleTest < ActiveSupport::TestCase
     assert news_article.search_format_types.include?('other-thing')
   end
 
-  test "should be translatable" do
+  test "is translatable" do
     assert build(:news_article).translatable?
   end
 
@@ -117,7 +117,7 @@ class WorldNewsStoryTypeNewsArticleTest < ActiveSupport::TestCase
     assert article.world_news_story?
   end
 
-  test "non-English primary locale should be valid" do
+  test "non-English primary locale is valid" do
     news_article = build(:news_article_world_news_story)
     news_article.primary_locale = 'fr'
     assert news_article.valid?
