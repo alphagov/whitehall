@@ -116,4 +116,13 @@ class WorldNewsStoryTypeNewsArticleTest < ActiveSupport::TestCase
     refute article.valid?
     assert_equal ["You can't tag a world news story to policies, please remove policy"], article.errors[:base]
   end
+
+  test "are invalid if associated with a minister" do
+    article = build(:news_article_world_news_story)
+    article.role_appointments << build(:ministerial_role_appointment)
+
+    refute article.valid?
+    assert_equal ["You can't tag a world news story to ministers, please remove minister"],
+      article.errors[:base]
+  end
 end
