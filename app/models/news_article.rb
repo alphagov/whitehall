@@ -4,10 +4,13 @@ class NewsArticle < Newsesque
   include ::Attachable
   include Edition::AlternativeFormatProvider
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
+  include Edition::WorldwideOrganisations
 
   validate :ministers_are_not_associated, if: :world_news_story?
   validates :news_article_type_id, presence: true
+  validates :worldwide_organisations, absence: true, unless: :world_news_story?
   validate :non_english_primary_locale_only_for_world_news_story
+  validate :organisations_are_not_associated, if: :world_news_story?
   validate :policies_are_not_associated, unless: :can_be_related_to_policies?
 
   def self.subtypes
@@ -58,14 +61,22 @@ class NewsArticle < Newsesque
     new_record?
   end
 
+  def world_news_story?
+    news_article_type == NewsArticleType::WorldNewsStory
+  end
+
   def non_english_primary_locale_only_for_world_news_story
-    if non_english_edition? && news_article_type != NewsArticleType::WorldNewsStory
+    if non_english_edition? && !world_news_story?
       errors.add(:foreign_language, 'is not allowed')
     end
   end
 
-  def world_news_story?
-    news_article_type == NewsArticleType::WorldNewsStory
+  def skip_worldwide_organisations_validation?
+    !world_news_story?
+  end
+
+  def skip_organisation_validation?
+    world_news_story?
   end
 
   def can_be_related_to_policies?
@@ -73,6 +84,12 @@ class NewsArticle < Newsesque
   end
 
 private
+
+  def organisations_are_not_associated
+    unless edition_organisations.empty?
+      errors.add(:base, "You can't tag a world news story to organisations, please remove organisation")
+    end
+  end
 
   def policies_are_not_associated
     unless edition_policies.empty?

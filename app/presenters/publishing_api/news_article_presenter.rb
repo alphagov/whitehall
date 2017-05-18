@@ -39,6 +39,7 @@ module PublishingApi
         related_policies
         topics
         world_locations
+        worldwide_organisations
       )
 
       LinksPresenter

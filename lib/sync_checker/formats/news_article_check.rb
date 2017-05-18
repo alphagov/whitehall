@@ -15,6 +15,10 @@ module SyncChecker
         super.tap do |checks|
           checks << Checks::LinksCheck.new('ministers',
                                            expected_minister_content_ids)
+          checks << Checks::LinksCheck.new(
+            'worldwide_organisations',
+            expected_worldwide_organisation_content_ids,
+          )
         end
       end
 
@@ -120,6 +124,10 @@ module SyncChecker
             'topics' => topics.compact,
           }
         }
+      end
+
+      def expected_worldwide_organisation_content_ids
+        edition_expected_in_live.worldwide_organisations.map(&:content_id)
       end
     end
   end
