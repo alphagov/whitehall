@@ -24,9 +24,3 @@ Feature: News articles
     Then I should see the news article listed in admin with an indication that it is in French
     When I publish the French-only news article
     Then I should only see the news article on the French version of the public "France" location page
-
-  Scenario: Associate a news article of type worldwide news story with a worldwide organisation
-    Given the worldwide organisation "Spanish Department" exists
-    When I draft a valid "World news story" news article with title "Spanish News" associated to "Spanish Department"
-    And I force publish the news article "Spanish News"
-    Then the worldwide organisation "Spanish Department" should be associated to the news article "Spanish News"
