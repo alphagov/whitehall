@@ -8,9 +8,14 @@ FactoryGirl.define do
       relevant_to_local_government { false }
     end
 
-    after(:build) do |object, evaluator|
+    after(:build) do |news_article, evaluator|
       if evaluator.relevant_to_local_government
-        object.related_documents = [FactoryGirl.create(:published_policy, :with_document, relevant_to_local_government: true)].map(&:document)
+        document = create(
+          :published_policy,
+          :with_document,
+          relevant_to_local_government: true
+        ).document
+        news_article.related_documents << document
       end
     end
   end
@@ -50,12 +55,14 @@ FactoryGirl.define do
     end
 
     after :build do |news_article, evaluator|
-      news_article.worldwide_organisations = [FactoryGirl.build(:worldwide_organisation)] unless evaluator.worldwide_organisations.any?
+      if evaluator.worldwide_organisations.empty?
+        news_article.worldwide_organisations << build(:worldwide_organisation)
+      end
     end
 
-    after :build do |object, evaluator|
+    after :build do |news_article, evaluator|
       if evaluator.world_locations.empty?
-        object.world_locations << build(:world_location)
+        news_article.world_locations << build(:world_location)
       end
     end
   end
