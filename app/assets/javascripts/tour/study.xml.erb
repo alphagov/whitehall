@@ -1,0 +1,28 @@
+<krpano version="1.0.8.14">
+
+	<include url="<%= asset_path("tour/skin/defaultskin.xml") %>" />
+
+	<view hlookat="0" vlookat="0" maxpixelzoom="1.0" limitview="auto" />
+  <view fisheye="0" limitview="range" hlookatmin="-180" hlookatmax="180" vlookatmin="-90" vlookatmax="90" maxpixelzoom="1.0" fovmax="90" fov="60" hlookat="80" vlookat="1"/>
+
+	<preview url="<%= Whitehall.public_asset_host %>/government/uploads/uploaded/number10/study.tiles/preview.jpg" />
+
+	<image type="CUBE" multires="true" tilesize="579" progressive="false">
+		<level tiledimagewidth="3183" tiledimageheight="3183">
+			<cube url="<%= Whitehall.public_asset_host %>/government/uploads/uploaded/number10/study.tiles/l3_%s_%0v_%0h.jpg" />
+		</level>
+		<level tiledimagewidth="1592" tiledimageheight="1592">
+			<cube url="<%= Whitehall.public_asset_host %>/government/uploads/uploaded/number10/study.tiles/l2_%s_%0v_%0h.jpg" />
+		</level>
+		<level tiledimagewidth="796" tiledimageheight="796">
+			<cube url="<%= Whitehall.public_asset_host %>/government/uploads/uploaded/number10/study.tiles/l1_%s_%0v_%0h.jpg" />
+		</level>
+		<mobile>
+			<cube url="<%= Whitehall.public_asset_host %>/government/uploads/uploaded/number10/study.tiles/mobile_%s.jpg" />
+		</mobile>
+		<tablet>
+			<cube url="<%= Whitehall.public_asset_host %>/government/uploads/uploaded/number10/study.tiles/tablet_%s.jpg" />
+		</tablet>
+	</image>
+
+</krpano>

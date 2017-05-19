@@ -40,7 +40,7 @@
     },
     loadTour: function(newTour){
       tour.$player.html('');
-      embedpano({swf:"/government/assets/tour/tour_pano.swf", xml: "/government/assets/tour/"+newTour.xml, target: "tour-player"});
+      embedpano({swf:"<%= asset_path("tour/tour_pano.swf") %>", xml: newTour.xml, target: "tour-player"});
 
       tour.$tour.find('.js-visible').not(newTour.$el).removeClass('js-visible');
       newTour.$el.addClass('js-visible');

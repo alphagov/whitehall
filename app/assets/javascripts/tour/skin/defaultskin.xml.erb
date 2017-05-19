@@ -28,11 +28,11 @@
 	           origin="cursor" edge="bottom" xoffset="15" yoffset="-5" showtime="0.1" fadeintime="0.1" fadetime="0.1"
 	           />
 
-	<style name="button" url="%SWFPATH%/skin/buttons.png" keep="true" />
+	<style name="button" url="<%= asset_url("tour/skin/buttons.png") %>" keep="true" />
 
 
-    <plugin name="openfs" devices="desktop|tablet" url="%SWFPATH%/skin/enter_fullscreen.png" keep="true" align="lefttop" x="10" y="10" width="180" onhover="showtext(Fullscreen, buttonstyle);"      onclick="set(fullscreen,true);"  visible="true"/>
-    <plugin name="closefs" devices="desktop|tablet" url="%SWFPATH%/skin/exit-fullscreen.png" keep="true" align="lefttop" x="10" y="10" width="180"  onhover="showtext(Exit Fullscreen,buttonstyle);"  onclick="set(fullscreen,false);" visible="false"/>
+    <plugin name="openfs" devices="desktop|tablet" url="<%= asset_url("tour/skin/enter_fullscreen.png") %>" keep="true" align="lefttop" x="10" y="10" width="180" onhover="showtext(Fullscreen, buttonstyle);"      onclick="set(fullscreen,true);"  visible="true"/>
+    <plugin name="closefs" devices="desktop|tablet" url="<%= asset_url("tour/skin/exit-fullscreen.png") %>" keep="true" align="lefttop" x="10" y="10" width="180"  onhover="showtext(Exit Fullscreen,buttonstyle);"  onclick="set(fullscreen,false);" visible="false"/>
 
 
 
@@ -65,7 +65,7 @@
 		set(plugin[dragmode].visible, false);
 		set(plugin[movemode].visible, true);
 		set(control.mousetype, drag2D);
-		set(cursors.url, %SWFPATH%/skin/drag-cursors.png);
+		set(cursors.url, <%= asset_url("tour/skin/drag-cursors.png") %>);
 		set(cursors.type, drag);
 		set(cursors.move,  2|0|30|32);
 		set(cursors.drag, 37|0|30|32);
@@ -75,7 +75,7 @@
 		set(plugin[dragmode].visible, true);
 		set(plugin[movemode].visible, false);
 		set(control.mousetype, moveto);
-		set(cursors.url, %SWFPATH%/skin/qtvr-cursors.png);
+		set(cursors.url, <%= asset_url("tour/skin/qtvr-cursors.png") %>);
 		set(cursors.type, 8way);
 		set(cursors.move,       0|0|16|16);
 		set(cursors.drag,      16|0|16|16);

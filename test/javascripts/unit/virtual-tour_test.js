@@ -53,7 +53,7 @@ test('calls for tour switch based on event', function(){
 
 test('loads new tour with tour object', function(){
   var mock = sinon.mock(window);
-  mock.expects("embedpano").once().withArgs({ swf: "/government/assets/tour/tour_pano.swf", xml: "/government/assets/tour/two.xml", target: "tour-player"});
+  mock.expects("embedpano").once().withArgs({ swf: "/government/assets/tour/tour_pano.swf", xml: "two.xml", target: "tour-player"});
   GOVUK.virtualTour.$player = $('<div id="tour-player"></div>');
   this.$tour.prepend(GOVUK.virtualTour.$player);
 
@@ -66,7 +66,7 @@ test('loads new tour with tour object', function(){
 
 test('hides old tour info', function(){
   var mock = sinon.mock(window);
-  mock.expects("embedpano").once().withArgs({ swf: "/government/assets/tour/tour_pano.swf", xml: "/government/assets/tour/two.xml", target: "tour-player"});
+  mock.expects("embedpano").once();
   GOVUK.virtualTour.$player = $('<div id="tour-player"></div>');
   this.$tour.prepend(GOVUK.virtualTour.$player);
 
