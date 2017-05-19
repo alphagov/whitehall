@@ -176,4 +176,15 @@ class WorldNewsStoryTypeNewsArticleTest < ActiveSupport::TestCase
     assert_equal ["at least one required"],
       article.errors[:world_locations]
   end
+
+  test "is valid when removing an organisation after changing type" do
+    news_article = create(:news_article_news_story)
+
+    news_article.news_article_type = NewsArticleType::WorldNewsStory
+    news_article.worldwide_organisations.build(name: "Zimbabwean Embassy")
+    news_article.world_locations << build(:world_location)
+    news_article.lead_organisation_ids = []
+
+    assert news_article.valid?
+  end
 end

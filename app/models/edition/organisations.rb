@@ -13,7 +13,7 @@ module Edition::Organisations
     has_many :edition_organisations, foreign_key: :edition_id, dependent: :destroy, autosave: true
     has_many :organisations, -> { includes(:translations) }, through: :edition_organisations
 
-    before_save :mark_for_destruction_all_edition_organisations_for_destruction
+    before_validation :mark_for_destruction_all_edition_organisations_for_destruction
     after_save :clear_edition_organisations_touched_or_destroyed_by_lead_or_supporting_organisations_setters
 
     validate :at_least_one_lead_organisation

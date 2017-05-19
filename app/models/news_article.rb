@@ -90,9 +90,13 @@ class NewsArticle < Newsesque
 private
 
   def organisations_are_not_associated
-    unless edition_organisations.empty?
+    if edition_organisations.present? && !all_edition_organisations_marked_for_destruction?
       errors.add(:base, "You can't tag a world news story to organisations, please remove organisation")
     end
+  end
+
+  def all_edition_organisations_marked_for_destruction?
+    edition_organisations.reject(&:marked_for_destruction?).blank?
   end
 
   def policies_are_not_associated
