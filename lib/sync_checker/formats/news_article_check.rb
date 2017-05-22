@@ -120,7 +120,7 @@ module SyncChecker
         {
           'tags' => {
             'browse_pages' => [],
-            'policies' => policies.compact,
+            'policies' => (policies || []).compact,
             'topics' => topics.compact,
           }
         }
