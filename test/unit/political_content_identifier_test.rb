@@ -23,6 +23,12 @@ class PoliticalContentIdentifierTest < ActiveSupport::TestCase
     assert political?(world_location_news_article)
   end
 
+  test 'world-news-story news articles are always political' do
+    world_news_story = create(:news_article_world_news_story)
+
+    assert political?(world_news_story)
+  end
+
   test 'political formats associated with a political orgs are political' do
     political_organisation = create(:organisation, :political)
     edition = create(:consultation, lead_organisations: [political_organisation])

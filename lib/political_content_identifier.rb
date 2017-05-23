@@ -60,10 +60,15 @@ private
   end
 
   def always_political_format?
-    ALWAYS_POLITICAL_FORMATS.include?(edition.class)
+    ALWAYS_POLITICAL_FORMATS.include?(edition.class) ||
+      edition_is_a_world_news_story?
   end
 
   def never_political_format?
     edition.is_a?(FatalityNotice) || stats_publication?
+  end
+
+  def edition_is_a_world_news_story?
+    edition.is_a?(NewsArticle) && edition.world_news_story?
   end
 end
