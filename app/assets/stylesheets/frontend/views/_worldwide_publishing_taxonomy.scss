@@ -1,0 +1,265 @@
+.taxon-page {
+
+  .grid-row {
+    margin: 0 -15px;
+
+    .column-two-thirds {
+      padding: 0 15px;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+  }
+
+  @media (min-width: 641px) {
+    .grid-row {
+      .column-two-thirds {
+        float: left;
+        width: 66.66667%;
+      }
+    }
+  }
+
+  h1 {
+    box-sizing: border-box;
+    display: block;
+
+    +p {
+      @include core-24;
+    }
+  }
+
+  h2 {
+    @include bold-19;
+    @include media (tablet) {
+      padding-bottom: $gutter-one-third;
+    }
+
+    &.subsection-title {
+      @include bold-24;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  p {
+    @include core-19;
+    margin-top: $gutter-one-third / 2;
+    margin-bottom: $gutter-two-thirds;
+  }
+
+  a {
+    margin: -3px;
+    padding: 3px;
+    outline-color: transparent;
+    display: block;
+  }
+
+  .page-header {
+    margin-top: $gutter * 3;
+
+    h1 {
+      padding-top: 0;
+    }
+  }
+
+  .child-topics-list {
+    ol {
+      list-style-type: none;
+      padding-bottom: $gutter-half;
+      @extend %grid-row;
+
+      li {
+        @include grid-column(1 / 3);
+        padding-bottom: $gutter;
+
+        @include media (tablet) {
+          padding-bottom: $gutter * 1.5;
+          min-height: (5 * $gutter);
+        }
+      }
+    }
+
+    p {
+      margin: 5px 0 20px 0;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .leftmost-row-cell-clear-float {
+      clear: left;
+    }
+  }
+
+  .parent-topic-contents {
+    .topic-content {
+      padding-bottom: $gutter;
+
+      ol {
+        list-style-type: none;
+        padding-bottom: $gutter-one-third;
+      }
+
+      h2 {
+        padding-bottom: 0;
+      }
+
+    }
+  }
+
+  .child-topic-contents {
+    .topic-content {
+      ol {
+        list-style-type: none;
+      }
+
+      li {
+        margin-bottom: $gutter-one-third;
+      }
+    }
+  }
+
+  .subsection {
+    width: 100%;
+
+    .subsection-description {
+      @include core-19;
+      margin-bottom: $gutter;
+
+      @include media(tablet) {
+        margin-bottom: $gutter-half;
+      }
+    }
+
+    .subsection-list {
+      @include core-19;
+      padding-left: 0;
+      list-style-type: none;
+    }
+  }
+
+// Most of this is taken from the service manual and at some point needs to be
+// separated out into a component.  We are currently holding off on this until
+// it is tested more within the current navigation changes.
+
+   // When JavaScript is enabled, create accordion
+  .js-accordion-with-descriptions {
+    padding-bottom: $gutter;
+
+    // Wrapper for 'expand all / close all' button
+    .subsection-controls {
+      @extend %contain-floats;
+
+      button {
+        float: right;
+
+        @include core-16;
+        cursor: pointer;
+        background: none;
+        border: none;
+        color: $link-colour;
+        padding: 0.5em 0;
+      }
+    }
+
+    // Wrapper for subsections
+    .subsection-wrapper {
+      @extend %contain-floats;
+      border-bottom: 1px solid $border-colour;
+    }
+
+    .subsection-title {
+      button {
+        color: $govuk-blue;
+        cursor: pointer;
+
+        @include bold-24;
+        background: none;
+        border: 0;
+        padding-left: 0;
+        text-align: left;
+      }
+
+      margin-bottom: 0;
+    }
+
+    .subsection-title-link {
+      text-decoration: none;
+      display: inline-block;
+      margin-right: $gutter * 1.5;
+    }
+
+    .subsection-header {
+      position: relative;
+      padding-top: 14px;
+      padding-bottom: 12px;
+      border-top: 1px solid $border-colour;
+
+      // Change the background of the header on hover
+      &:hover {
+        cursor: pointer;
+        background: $highlight-colour;
+      }
+    }
+
+    .subsection-description {
+      margin-bottom: 0;
+      margin-right: $gutter * 1.5;
+    }
+
+    .subsection-icon {
+      position: absolute;
+      top: 50%;
+      right: 0;
+
+      @include media (tablet) {
+        right: 15px;
+      }
+
+      height: 16px;
+      width: 16px;
+      margin-top: -8px;
+
+      // PNG fallback for SVG
+      background-image: image-url('icons-plus-minus.png');
+      // SVG sprite
+      background: image-url("icons-plus-minus.svg"), linear-gradient(transparent, transparent);
+      background-repeat: no-repeat;
+      background-position: 0 -16px;
+    }
+
+    .subsection-is-open {
+      .subsection-icon {
+        background-position: 0 0;
+      }
+
+      .subsection-content {
+        @include media(tablet) {
+          padding-top: 10px;
+          padding-bottom: $gutter;
+        }
+      }
+    }
+
+    .subsection-content {
+      padding-top: 5px;
+      padding-bottom: $gutter-half;
+    }
+
+    .subsection {
+      margin-bottom: 0;
+
+      @include media(tablet) {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .subsection-list-item {
+    a {
+      font-weight: bold;
+    }
+  }
+}

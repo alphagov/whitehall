@@ -10,6 +10,9 @@
 //= require vendor/sorttable
 //= require vendor/object-create-polyfill
 //
+//= require modules/current-location
+//= require modules/accordion-with-descriptions
+//
 //= require govuk_toolkit
 //= require shared_mustache
 //= require templates
