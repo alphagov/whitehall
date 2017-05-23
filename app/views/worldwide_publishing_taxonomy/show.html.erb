@@ -1,0 +1,79 @@
+<% page_title @world_location.title, "UK and the world" %>
+
+<div class="block world-locations">
+  <div class="inner-block">
+    <%=
+      render(
+        partial: 'govuk_component/beta_label',
+        locals: {
+          message: 'This is a test version of the layout of this page.'
+        }
+      )
+    %>
+    <%= render partial: 'govuk_component/breadcrumbs',
+      locals: {
+        breadcrumbs: [
+          {
+            title: "Home",
+            url: "/",
+            is_page_parent: false
+          },
+          {
+            title: "World",
+            url: "/world",
+            is_page_parent: true
+          },
+          {
+            title: @world_location.name,
+            is_current_page: true
+          }
+        ],
+        collapse_on_mobile: true
+      }
+    %>
+    <div class="taxon-page">
+      <div class="grid-row">
+        <div class="column-two-thirds">
+          <div class="govuk-title length-long">
+            <h1>
+              <%= parent_taxon[:title] %>
+            </h1>
+            <p><%= parent_taxon[:description] %></p>
+          </div>
+        </div>
+      </div>
+      <% if accordion_content.present? %>
+        <div class="grid-row child-topic-contents">
+          <div class="column-two-thirds">
+            <div class="topic-content">
+              <div data-module="accordion-with-descriptions" class="js-hidden">
+                <div class="subsection-wrapper">
+                  <% accordion_content.each_with_index do |taxon, section_index| %>
+                    <div class="subsection js-subsection" id="<%= taxon[:base_path] %>" data-track-count="accordionSection">
+                      <div class="subsection-header js-subsection-header">
+                        <h2 class="subsection-title js-subsection-title"><%= taxon[:title] %></h2>
+                        <% if taxon[:description].present? %>
+                          <p class="subsection-description"><%= taxon[:description] %></p>
+                        <% end %>
+                      </div>
+                      <div class="subsection-content js-subsection-content" id="subsection_content_<%= section_index + 1 %>">
+                        <ol class="subsection-list">
+                          <% taxon[:tagged_content].each_with_index do |content_item, content_index| %>
+                            <li class="subsection-list-item">
+                              <%= link_to(content_item[:title], content_item[:base_path]) %>
+                              <p><%= content_item[:description] %></p>
+                            </li>
+                          <% end %>
+                        </ol>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
