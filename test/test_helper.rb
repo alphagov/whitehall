@@ -30,7 +30,7 @@ GovukContentSchemaTestHelpers.configure do |config|
 end
 
 GovukAbTesting.configure do |config|
-  config.acceptance_test_framework = :capybara
+  config.acceptance_test_framework = :active_support
 end
 
 class ActiveSupport::TestCase
