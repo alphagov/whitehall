@@ -4,6 +4,7 @@ require "test_helper"
 class WorldLocationsControllerTest < ActionController::TestCase
   include FilterRoutesHelper
   include FeedHelper
+  include GovukAbTesting::MinitestHelpers
 
   should_be_a_public_facing_controller
 
@@ -341,6 +342,29 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
     assert_select '.featured-links' do
       assert_select "a[href='#{featured_link.url}']", text: featured_link.title
+    end
+  end
+
+  view_test "should use the world location template if the user is in the 'A' cohort" do
+    with_variant WorldwidePublishingTaxonomy: "A", assert_meta_tag: false do
+      world_location = create(:world_location)
+      get :show, id: world_location
+
+      assert_select '.world_location'
+      refute_select '.taxon-page'
+    end
+  end
+
+  view_test "should use the taxonomy template if the user is in the 'B' cohort" do
+    with_variant WorldwidePublishingTaxonomy: "B", assert_meta_tag: false do
+      # Use the 'sample' slug since it is defined in
+      # `worldwide_publishing_taxonomy_ab_test_content.yml` and will therefore
+      # display the taxonomy page
+      world_location = create(:world_location, slug: 'sample')
+      get :show, id: world_location
+
+      assert_select '.taxon-page'
+      refute_select '.world_location'
     end
   end
 end

@@ -13,6 +13,10 @@
     <%= render partial: 'govuk_component/analytics_meta_tags',
       locals: { content_item: @content_item } %>
 
+    <% if @requested_variant.present? %>
+      <%= @requested_variant.analytics_meta_tag.html_safe %>
+    <% end %>
+
     <title><%= page_title %></title>
     <%-
       stylesheet_base = local_assigns[:stylesheet] || "base"
