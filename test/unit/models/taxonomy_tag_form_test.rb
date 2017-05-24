@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class EditionTaxonomyTagFormTest < ActiveSupport::TestCase
+class TaxonomyTagFormTest < ActiveSupport::TestCase
   include TaxonomyHelper
 
   test "#load when publishing-api returns 404, selected_taxons should be '[]'" do
@@ -16,7 +16,7 @@ class EditionTaxonomyTagFormTest < ActiveSupport::TestCase
     stub_request(:get, %r{.*/v2/links/#{content_id}.*})
       .to_return(body: body, status: 404)
 
-    form = EditionTaxonomyTagForm.load(content_id)
+    form = TaxonomyTagForm.load(content_id)
 
     assert_equal form.selected_taxons, []
   end
@@ -35,9 +35,9 @@ class EditionTaxonomyTagFormTest < ActiveSupport::TestCase
       }
     )
 
-    form = EditionTaxonomyTagForm.load(content_id)
+    form = TaxonomyTagForm.load(content_id)
 
-    assert_equal(form.edition_content_id, content_id)
+    assert_equal(form.content_id, content_id)
     assert_equal(form.selected_taxons, taxons)
     assert_equal(form.previous_version, 1)
   end
@@ -51,9 +51,9 @@ class EditionTaxonomyTagFormTest < ActiveSupport::TestCase
       child_taxon_content_id
     ]
 
-    form = EditionTaxonomyTagForm.new(
+    form = TaxonomyTagForm.new(
       selected_taxons: selected_taxons,
-      edition_content_id: "abc",
+      content_id: "abc",
       previous_version: 1,
       all_taxons: Taxonomy::GovukTaxonomy.new.all_taxons
     )

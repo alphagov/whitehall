@@ -29,7 +29,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
     publishing_api_patch_request = stub_request(:patch, "#{@publishing_api_endpoint}/links/#{@edition.content_id}")
       .to_return(status: 409)
 
-    put :update, edition_id: @edition, edition_taxonomy_tag_form: { previous_version: 1, taxons: [child_taxon_content_id] }
+    put :update, edition_id: @edition, taxonomy_tag_form: { previous_version: 1, taxons: [child_taxon_content_id] }
 
     assert_requested publishing_api_patch_request
     assert_redirected_to edit_admin_edition_tags_path(@edition)
@@ -39,7 +39,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
   test 'should post taxons to publishing-api' do
     stub_publishing_api_links_with_taxons(@edition.content_id, [])
 
-    put :update, edition_id: @edition, edition_taxonomy_tag_form: { taxons: [child_taxon_content_id], previous_version: 1 }
+    put :update, edition_id: @edition, taxonomy_tag_form: { taxons: [child_taxon_content_id], previous_version: 1 }
 
     assert_publishing_api_patch_links(
       @edition.content_id,
@@ -53,7 +53,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
   test 'should post empty array to publishing api if no taxons are selected' do
     stub_publishing_api_links_with_taxons(@edition.content_id, [])
 
-    put :update, edition_id: @edition, edition_taxonomy_tag_form: { previous_version: 1 }
+    put :update, edition_id: @edition, taxonomy_tag_form: { previous_version: 1 }
 
     assert_publishing_api_patch_links(@edition.content_id, links: { taxons: [] }, previous_version: "1")
   end

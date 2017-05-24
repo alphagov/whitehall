@@ -33,7 +33,7 @@
         $(element).removeClass("no-content").removeClass("no-content-bordered");
 
         $(element).mustache(
-          'admin/edition_tags/_breadcrumb_list',
+          'admin/shared/tagging/_breadcrumb_list',
           { breadcrumbs: breadcrumbsToDisplay }
         );
       }

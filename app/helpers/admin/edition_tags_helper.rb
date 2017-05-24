@@ -5,7 +5,7 @@ module Admin::EditionTagsHelper
     end
 
     check_box_tag(
-      "edition_taxonomy_tag_form[taxons][]",
+      "taxonomy_tag_form[taxons][]",
       taxon.content_id,
       checked,
       id: taxon.content_id,

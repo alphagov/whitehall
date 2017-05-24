@@ -11,7 +11,7 @@
     </p>
     <hr>
 
-    <%= form_for @edition_tag_form, url: admin_edition_tags_path(@edition), method: :put do |form| %>
+    <%= form_for @tag_form, url: admin_edition_tags_path(@edition), method: :put do |form| %>
       <%= form.hidden_field :previous_version %>
 
       <div class="form-group"
@@ -20,13 +20,13 @@
         data-content-format="<%= @edition.content_store_document_type %>"
         data-content-public-path="<%= public_document_path(@edition) %>">
 
-        <%= render partial: "taxonomy", locals: { form: @edition_tag_form, root_taxons: @govuk_taxonomy.children } %>
+        <%= render partial: "/admin/shared/tagging/taxonomy", locals: { form: @tag_form, root_taxons: @govuk_taxonomy.children } %>
 
         <h2>Draft topics</h2>
 
         <p>These topic pages are in development, and are not shown on GOV.UK</p>
 
-        <%= render partial: "taxonomy", locals: { form: @edition_tag_form, root_taxons: @govuk_taxonomy.draft_child_taxons } %>
+        <%= render partial: "/admin/shared/tagging/taxonomy", locals: { form: @tag_form, root_taxons: @govuk_taxonomy.draft_child_taxons } %>
       </div>
 
       <p>

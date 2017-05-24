@@ -5,18 +5,18 @@ class Admin::EditionTagsController < Admin::BaseController
 
   def edit
     @govuk_taxonomy = Taxonomy::GovukTaxonomy.new
-    @edition_tag_form = EditionTaxonomyTagForm.load(@edition.content_id)
+    @tag_form = TaxonomyTagForm.load(@edition.content_id)
   end
 
   def update
-    @edition_tag_form = EditionTaxonomyTagForm.new(
-      edition_content_id: @edition.content_id,
-      selected_taxons: params["edition_taxonomy_tag_form"].fetch("taxons", []).reject(&:blank?),
-      previous_version: params["edition_taxonomy_tag_form"]["previous_version"],
+    @tag_form = TaxonomyTagForm.new(
+      content_id: @edition.content_id,
+      selected_taxons: params["taxonomy_tag_form"].fetch("taxons", []).reject(&:blank?),
+      previous_version: params["taxonomy_tag_form"]["previous_version"],
       all_taxons: Taxonomy::GovukTaxonomy.new.all_taxons
     )
 
-    @edition_tag_form.publish!
+    @tag_form.publish!
     redirect_to admin_edition_path(@edition),
       notice: "The tags have been updated."
   rescue GdsApi::HTTPConflict
@@ -25,14 +25,6 @@ class Admin::EditionTagsController < Admin::BaseController
   end
 
 private
-
-  def redirect_back
-    if request.env["HTTP_REFERER"].blank?
-      redirect_to admin_root_path
-    else
-      redirect_to :back
-    end
-  end
 
   def enforce_permissions!
     unless @edition.can_be_tagged_to_taxonomy?
