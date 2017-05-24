@@ -10,4 +10,21 @@ namespace :election do
       puts "changed to #{person.name}"
     end
   end
+
+  task republish_political_content: :environment do
+    political_document_ids = Edition
+      .where(political: true)
+      .pluck(:document_id)
+      .uniq
+
+    puts "Republishing #{political_document_ids.count} documents"
+
+    political_document_ids.each do |document_id|
+      print "."
+      PublishingApiDocumentRepublishingWorker.perform_async_in_queue(
+        "bulk_republishing",
+        document_id
+      )
+    end
+  end
 end
