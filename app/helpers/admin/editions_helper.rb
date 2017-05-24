@@ -44,7 +44,6 @@ module Admin::EditionsHelper
         organisations = [current_user.organisation] + (organisations - [current_user.organisation])
     end
 
-    options_for_select([["All organisations", ""]], selected_organisation) +
     grouped_options_for_select(
       [
         ["Live organisations", organisations.map { |o| [o.select_name, o.id] }],
