@@ -97,6 +97,84 @@ var firstPublishedAtFieldset =
     '</div>' +
   '</fieldset>'
 
+var policiesFieldset =
+'  <fieldset class="policies">' +
+'    <label for="edition_policy_content_ids">Policies</label>' +
+'    <input name="edition[policy_content_ids][]" type="hidden" value="" />' +
+'    <select multiple="multiple" class="chzn-select form-control" data-placeholder="Choose policies…" name="edition[policy_content_ids][]" id="edition_policy_content_ids">' +
+'      <option value=""></option>' +
+'      <option value="17e4ab26-ee1f-4383-a345-d165c0b75fbf">School and college funding </option>' +
+'      <option value="26e3144d-b07f-4329-9401-54f503349cd1">Civil contingencies and resilience</option>' +
+'      <option value="2dcb5926-db6e-4347-b6d8-64fa9d5779a5">Brexit</option>' +
+'    </select>' +
+'  </fieldset>'
+
+var roleAppointmentFieldset =
+'  <fieldset class="role-appointments">' +
+'    <label for="edition_role_appointment_ids">Ministers</label>' +
+'    <input name="edition[role_appointment_ids][]" type="hidden" value="" />' +
+'    <select multiple="multiple" class="chzn-select form-control" data-placeholder="Choose ministers…" name="edition[role_appointment_ids][]" id="edition_role_appointment_ids">' +
+'      <option value=""></option>' +
+'      <option value="3850">Lord O&#39;Shaughnessy, Parliamentary Under Secretary of State for Health, Department of Health</option>' +
+'      <option value="3849">Lord O&#39;Shaughnessy, Lord in Waiting (Government Whip), Office of the Leader of the House of Lords</option>' +
+'      <option value="1148">Henry Addington 1st Viscount Sidmouth, Prime Minister (17 March 1801 to 10 May 1804), Cabinet Office and Prime Minister&#39;s Office, 10 Downing Street</option>' +
+'    </select>' +
+'  </fieldset>'
+
+var worldwideOrganisationFieldset =
+'  <fieldset class="worldwide-organisations">' +
+'    <label class="required" for="edition_worldwide_organisation_ids">' +
+'      Select the worldwide organisations associated with this news article' +
+'    </label>' +
+'    <input name="edition[worldwide_organisation_ids][]" type="hidden" value="" />' +
+'    <select multiple="multiple" class="chzn-select form-control" data-placeholder="Worldwide organisations…" name="edition[worldwide_organisation_ids][]" id="edition_worldwide_organisation_ids">' +
+'      <option value=""></option>' +
+'      <option value="1">British High Commission Port of Spain</option>' +
+'      <option value="2">British Embassy Lima</option>' +
+'      <option value="3">British High Commission Kingston</option>' +
+'    </select>' +
+'  </fieldset>'
+
+var organisationsFieldset =
+'  <fieldset class="named organisations">' +
+'    <div class="row">' +
+'      <fieldset class="named col-md-6 lead-organisations">' +
+'        <legend>Lead organisations</legend>' +
+'        <div class="form-group">' +
+'          <label for="edition_edition[lead_organisation_ids][]">' +
+'            <div class="add-label-margin">' +
+'              Organisation 1' +
+'            </div>' +
+'            <div class="normal">' +
+'              <select name="edition[lead_organisation_ids][]" id="edition_lead_organisation_ids_1" class="chzn-select-non-ie form-control" data-placeholder="Choose a lead organisation which produced this document…">' +
+'                <option value=""></option>' +
+'                <option value="1212"> Northern Ireland Housing Executive  (NIHE)</option>' +
+'                <option value="1025">Academy for Justice Commissioning</option>' +
+'              </select>' +
+'            </div>' +
+'          </label>' +
+'        </div>' +
+'      </fieldset>' +
+'      <fieldset class="named col-md-6 supporting-organisations">' +
+'        <legend>Supporting organisations</legend>' +
+'        <div class="form-group">' +
+'          <label for="edition_edition[supporting_organisation_ids][]">' +
+'            <div class="add-label-margin">' +
+'              Organisation 1' +
+'            </div>' +
+'            <div class="normal">' +
+'              <select name="edition[supporting_organisation_ids][]" id="edition_supporting_organisation_ids_1" class="chzn-select-non-ie form-control" data-placeholder="Choose a supporting organisation which produced this document…">' +
+'                <option value=""></option>' +
+'                <option value="1212"> Northern Ireland Housing Executive  (NIHE)</option>' +
+'                <option value="1025">Academy for Justice Commissioning</option>' +
+'              </select>' +
+'            </div>' +
+'          </label>' +
+'        </div>' +
+'      </fieldset>' +
+'    </div>' +
+'  </fieldset>'
+
 module("admin-edition-form-foreign-language: ", {
   setup: function() {
     $('#qunit-fixture').append(form)
@@ -240,4 +318,167 @@ test("previously_published radio buttons toggle visibility of first_published da
 
   $('#edition_previously_published_false').click();
   ok($('.js-show-first-published').is(':hidden'), 'date selector hidden when "document is new" selected');
+});
+
+module("admin-edition-form-policies-news-articles: ", {
+  setup: function() {
+    $('#qunit-fixture').append(form)
+    $('form').append(newsArticleTypeSelect)
+    $('form').append(titleFieldset)
+    $('form').append(policiesFieldset)
+
+    GOVUK.adminEditionsForm.init({
+      selector: 'form#non-english',
+      right_to_left_locales:["ar"]
+    });
+    $('.js-hidden').hide();
+  }
+});
+
+test("the policies fieldset should initially be visible", function () {
+  ok($('fieldset.policies').is(':visible'), 'fieldset containing policies field is not visible');
+});
+
+test("selecting the 'World news story' News Article type hides the policies fieldset and resets the policies", function () {
+  $select = $('select#edition_news_article_type_id')
+
+  $('#edition_policy_content_ids').val('17e4ab26-ee1f-4383-a345-d165c0b75fbf').change();
+
+  $select.find("option:contains(World news story)").prop('selected', true).change();
+  ok($('fieldset.policies').is(':hidden'), 'policies fieldset is visible');
+
+  equal($('#edition_policy_content_ids option:selected').val(), undefined, 'no policy selected');
+});
+
+test("unselecting 'World news story' shows the policies fieldset", function () {
+  $select = $('select#edition_news_article_type_id')
+
+  $select.find("option:contains(News story)").prop('selected', true).change();
+  ok($('fieldset.policies').is(':visible'), 'policies fieldset is hidden');
+});
+
+module("admin-edition-form-role-appointments-news-articles: ", {
+  setup: function() {
+    $('#qunit-fixture').append(form)
+    $('form').append(newsArticleTypeSelect)
+    $('form').append(titleFieldset)
+    $('form').append(roleAppointmentFieldset)
+
+    GOVUK.adminEditionsForm.init({
+      selector: 'form#non-english',
+      right_to_left_locales:["ar"]
+    });
+    $('.js-hidden').hide();
+  }
+});
+
+test("the role-appointments fieldset should initially be visible", function () {
+  ok($('fieldset.role-appointments').is(':visible'), 'fieldset containing role-appointments field is not visible');
+});
+
+test("selecting the 'World news story' News Article type hides the role-appointments fieldset and resets the role-appointments", function () {
+  $select = $('select#edition_news_article_type_id')
+
+  $('#edition_role_appointment_ids').val('3850').change();
+
+  $select.find("option:contains(World news story)").prop('selected', true).change();
+  ok($('fieldset.role-appointments').is(':hidden'), 'role-appointments fieldset is visible');
+
+  equal($('#edition_role_appointment_ids option:selected').val(), undefined, 'no policy selected');
+});
+
+test("unselecting 'World news story' shows the role-appointments fieldset", function () {
+  $select = $('select#edition_news_article_type_id')
+
+  $select.find("option:contains(News story)").prop('selected', true).change();
+  ok($('fieldset.role-appointments').is(':visible'), 'role-appointments fieldset is hidden');
+});
+
+module("admin-edition-form-worldwide-organisations-news-articles: ", {
+  setup: function() {
+    $('#qunit-fixture').append(form)
+    $('form').append(newsArticleTypeSelect)
+    $('form').append(titleFieldset)
+    $('form').append(worldwideOrganisationFieldset)
+
+    GOVUK.adminEditionsForm.init({
+      selector: 'form#non-english',
+      right_to_left_locales:["ar"]
+    });
+    $('.js-hidden').hide();
+  }
+});
+
+test("the worldwide organisation fieldset should initially be hidden", function () {
+  ok($('fieldset.worldwide-organisations').is(':hidden'), 'fieldset containing worldwide organisation field is not hidden');
+});
+
+test("the worldwide organisation fieldset should only be visible when selecting the 'World news story' News Article type", function () {
+  $select = $('select#edition_news_article_type_id')
+
+  $select.find("option:contains(News story)").prop('selected', true).change();
+  ok($('fieldset.worldwide-organisations').is(':hidden'), 'fieldset containing foreign language options is not hidden');
+
+  $select.find("option:contains(Press release)").prop('selected', true).change();
+  ok($('fieldset.worldwide-organisations').is(':hidden'), 'fieldset containing foreign language options is not hidden');
+
+  $select.find("option:contains(Government response)").prop('selected', true).change();
+  ok($('fieldset.worldwide-organisations').is(':hidden'), 'fieldset containing foreign language options is not hidden');
+
+  $select.find("option:contains(World news story)").prop('selected', true).change();
+  ok($('fieldset.worldwide-organisations').is(':visible'), 'fieldset containing foreign language options is not visible');
+});
+
+test("unselecting 'World news story' hides and resets the worldwide organisation fields", function () {
+  $select = $('select#edition_news_article_type_id')
+
+  $select.find("option:contains(World news story)").prop('selected', true).change();
+  ok($('fieldset.worldwide-organisations').is(':visible'), 'fieldset containing foreign language options is not visible');
+
+  $('#edition_worldwide_organisation_ids').val('2').change();
+  equal($('#edition_worldwide_organisation_ids option:selected').val(), '2', 'worldwide organisation selected');
+
+  $select.find("option:contains(News story)").prop('selected', true).change();
+
+  equal($('#edition_worldwide_organisation_ids option:selected').val(), undefined, 'no worldwide organisation selected');
+  ok($('fieldset.worldwide-organisations').is(':hidden'), 'fieldset containing foreign language options is not visible');
+});
+
+module("admin-edition-form-organisations-news-articles: ", {
+  setup: function() {
+    $('#qunit-fixture').append(form)
+    $('form').append(newsArticleTypeSelect)
+    $('form').append(titleFieldset)
+    $('form').append(organisationsFieldset)
+
+    GOVUK.adminEditionsForm.init({
+      selector: 'form#non-english',
+      right_to_left_locales:["ar"]
+    });
+    $('.js-hidden').hide();
+  }
+});
+
+test("the organisations fieldset should initially be visible", function () {
+  ok($('fieldset.organisations').is(':visible'), 'fieldset containing organisation field is not visible');
+});
+
+test("selecting the 'World news story' News Article type hides the organisation fieldset and resets the organisations", function () {
+  $select = $('select#edition_news_article_type_id')
+
+  $('#edition_lead_organisation_ids_1').val('1212').change();
+  $('#edition_supporting_organisation_ids_1').val('1025').change();
+
+  $select.find("option:contains(World news story)").prop('selected', true).change();
+  ok($('fieldset.organisations').is(':hidden'), 'organisations fieldset is visible');
+
+  equal($('#edition_lead_organisation_ids_1 option:selected').val(), '', 'no organisation selected');
+  equal($('#edition_supporting_organisation_ids_1 option:selected').val(), '', 'no organisation selected');
+});
+
+test("unselecting 'World news story' shows the organisation fieldset", function () {
+  $select = $('select#edition_news_article_type_id')
+
+  $select.find("option:contains(News story)").prop('selected', true).change();
+  ok($('fieldset.organisations').is(':visible'), 'organisations fieldset is hidden');
 });

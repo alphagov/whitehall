@@ -6,11 +6,13 @@
     init: function init(params) {
       this.$form = $(params.selector);
       this.rightToLeftLocales = params.right_to_left_locales;
+      this.$newsTypeSelect = $('select#edition_news_article_type_id')
 
       this.showChangeNotesIfMajorChange();
       this.showFormatAdviceForSelectedSubtype();
       this.toggleLanguageSelect();
-      this.toggleNonEnglishSupport();
+      this.toggleWorldNewsStoryVisibility();
+      this.resetWorldNewsStoryFields();
       this.toggleFirstPublishedDate();
 
       GOVUK.formChangeProtection.init($('#edit_edition'), 'You have unsaved changes that will be lost if you leave this page.');
@@ -55,38 +57,6 @@
       }).change();
     },
 
-    toggleNonEnglishSupport: function toggleNonEnglishSupport() {
-      if ( !this.$form.hasClass('js-supports-non-english') ) return;
-      // only toggle foreign language fields when news article type is editable
-      if ( $( "select#edition_news_article_type_id" ).length == 0 ) return;
-
-      var $form = this.$form;
-
-      $().ready(function() {
-        var $newsTypeSelect = $('select#edition_news_article_type_id')
-        var $foreignLanguageFieldset = $(this).find('fieldset.foreign-language');
-        var $foreignLanguageToggle = $('input#create_foreign_language_only')
-        var $localeInput = $(this).find('#edition_primary_locale');
-        var worldNewsStoryType = 4
-
-        var toggleVisibility = function() {
-          if ($newsTypeSelect.val() == worldNewsStoryType) {
-            $foreignLanguageFieldset.show();
-          } else {
-            $foreignLanguageFieldset.hide();
-
-            // reset foreign language options
-            $foreignLanguageToggle.prop("checked", false)
-            $localeInput.val('');
-            $form.find('fieldset').removeClass('right-to-left');
-          }
-        }
-
-        $newsTypeSelect.change(toggleVisibility)
-        toggleVisibility();
-      })
-    },
-
     toggleLanguageSelect: function toggleLanguageSelect() {
       if ( !this.$form.hasClass('js-supports-non-english') ) return;
 
@@ -119,6 +89,147 @@
           }
         });
       })
+    },
+
+    toggleWorldNewsStoryVisibility: function toggleWorldNewsStoryVisibility() {
+      // only toggle fields when news article type is editable
+      if ( $( "select#edition_news_article_type_id" ).length == 0 ) return;
+
+      var $nonWorldNewsStoryFieldsets = this.findFieldsets(this.nonWorldNewsStoryFieldSelectors())
+      var $worldNewsStoryFieldsets = this.findFieldsets(this.worldNewsStoryFieldSelectors())
+
+      var _this = this
+      $().ready(function() {
+        var toggleFields = function() {
+          if (_this.isWorldNewsStorySelected()){
+            _this.hideFieldsets($nonWorldNewsStoryFieldsets)
+            _this.showFieldsets($worldNewsStoryFieldsets)
+          } else {
+            _this.hideFieldsets($worldNewsStoryFieldsets)
+            _this.showFieldsets($nonWorldNewsStoryFieldsets)
+          }
+        }
+
+        _this.$newsTypeSelect.change(toggleFields)
+        toggleFields()
+      })
+    },
+
+    findFieldsets: function (fieldSelectors) {
+      return $.map(fieldSelectors, function(fieldSelector) {
+        return $("fieldset." + fieldSelector)
+      })
+    },
+
+    nonWorldNewsStoryFieldSelectors: function() {
+      return [
+        'policies',
+        'role-appointments',
+        'organisations',
+      ]
+    },
+
+    worldNewsStoryFieldSelectors: function() {
+      return [
+        'foreign-language',
+        'worldwide-organisations',
+      ]
+    },
+
+    isWorldNewsStorySelected: function() {
+      var worldNewsStoryTypeValue = 4
+
+      return this.$newsTypeSelect.val() == worldNewsStoryTypeValue
+    },
+
+    hideFieldsets: function (fieldsets) {
+      $.each(fieldsets, function(index, fieldset) {
+        fieldset.hide()
+      })
+    },
+
+    showFieldsets: function (fieldsets) {
+      $.each(fieldsets, function(index, fieldset) {
+        fieldset.show()
+      })
+    },
+
+    resetWorldNewsStoryFields: function resetWorldNewsStoryFields() {
+      // only toggle fields when news article type is editable
+      if ( $( "select#edition_news_article_type_id" ).length == 0 ) return;
+
+      var $nonWorldNewsStoryMultipleSelectInputs = this.findSelectInputs(this.nonWorldNewsStoryMultipleSelectInputSelectors())
+      var $nonWorldNewsStorySelectInputs = this.findSelectInputs(this.nonWorldNewsStorySelectInputSelectors())
+      var $worldNewsStoryMultipleSelectInputs = this.findSelectInputs(this.worldNewsStorySelectInputSelectors())
+
+      var _this = this
+      var resetFields = function() {
+        if (_this.isWorldNewsStorySelected()){
+          _this.resetMultipleSelectInputs($nonWorldNewsStoryMultipleSelectInputs)
+          _this.resetSelectInputs($nonWorldNewsStorySelectInputs)
+        } else {
+          _this.resetForeignLanguageFields()
+          _this.resetMultipleSelectInputs($worldNewsStoryMultipleSelectInputs)
+        }
+      }
+
+      this.$newsTypeSelect.change(resetFields)
+      resetFields()
+    },
+
+    findSelectInputs: function(fieldSelectors) {
+      var $fieldSets = this.findFieldsets(fieldSelectors)
+
+      return $.map($fieldSets, function(fieldSet) {
+        return fieldSet.find('select')
+      })
+    },
+
+    nonWorldNewsStoryMultipleSelectInputSelectors: function() {
+      return [
+        'policies',
+        'role-appointments',
+      ]
+    },
+
+    nonWorldNewsStorySelectInputSelectors: function() {
+      return [
+        'organisations',
+      ]
+    },
+
+    worldNewsStorySelectInputSelectors: function() {
+      return [
+        'worldwide-organisations',
+      ]
+    },
+
+    resetMultipleSelectInputs: function(selectInputs) {
+      $.each(selectInputs, function(index, selectInput) {
+        if (selectInput.val()) {
+          selectInput.val([]).trigger('chosen:updated')
+        }
+      })
+    },
+
+    resetSelectInputs: function(selectInputs) {
+      $.each(selectInputs, function(index, selectInput) {
+        if (selectInput.val() != "") {
+          selectInput.val('').trigger('chosen:updated')
+        }
+      })
+    },
+
+    resetForeignLanguageFields: function() {
+      var $form = this.$form;
+      var $foreignLanguageFieldset = $form.find('fieldset.foreign-language')
+      var $foreignLanguageToggle = $form.find('input#create_foreign_language_only')
+      var $localeInput = $foreignLanguageFieldset.find('#edition_primary_locale');
+      var $allFormFieldsets = $form.find('fieldset')
+
+      $foreignLanguageToggle.prop("checked", false)
+      $localeInput.val('');
+      $allFormFieldsets.removeClass('right-to-left');
     },
 
     toggleFirstPublishedDate: function toggleFirstPublishedDate() {
