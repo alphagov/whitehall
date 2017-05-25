@@ -361,7 +361,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
       # `worldwide_publishing_taxonomy_ab_test_content.yml` and will therefore
       # display the taxonomy page
       world_location = create(:world_location, slug: 'sample')
-      get :show, id: world_location
+      get :show, id: world_location, locale: 'en'
 
       assert_select '.taxon-page'
       refute_select '.world_location'
