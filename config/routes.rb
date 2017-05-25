@@ -150,6 +150,7 @@ Whitehall::Application.routes.draw do
 
     resources :world_locations, path: 'world', only: [:index, :show], localised: true do
       resources :world_location_news, path: 'news', only: [:index]
+      resources :worldwide_organisations, path: '', only: [:show], to: 'worldwide_organisations#show_b_variant'
     end
 
     constraints(AdminRequest) do

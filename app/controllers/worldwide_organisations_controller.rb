@@ -23,6 +23,10 @@ class WorldwideOrganisationsController < PublicFacingController
     end
   end
 
+  def show_b_variant
+    render template: 'embassies/show'
+  end
+
 private
 
   def redirect_if_required_for_ab_test
