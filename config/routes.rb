@@ -148,7 +148,9 @@ Whitehall::Application.routes.draw do
 
     resources :embassies, path: 'world/embassies', only: [:index]
 
-    resources :world_locations, path: 'world', only: [:index, :show], localised: true
+    resources :world_locations, path: 'world', only: [:index, :show], localised: true do
+      resources :world_location_news, path: 'news', only: [:index]
+    end
 
     constraints(AdminRequest) do
       namespace :admin do

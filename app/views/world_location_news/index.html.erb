@@ -1,0 +1,40 @@
+<% page_title @world_location.title, "UK and the world" %>
+<% page_class "world-locations-show" %>
+<% atom_discovery_link_tag atom_feed_url_for(@world_location), t("feeds.latest_activity") %>
+
+<%= content_tag_for(:article, @world_location) do %>
+  <header class="block headings-block">
+    <div class="inner-block floated-children">
+      <%= render partial: 'shared/heading',
+                locals: { type: "World location news",
+                          heading: @world_location.title,
+                          extra: true, big: true } %>
+      <aside class="heading-extra">
+        <div class="inner-heading">
+          <%= render 'shared/available_languages', object: @world_location %>
+          <%= render 'shared/featured_links', links: @world_location.featured_links.only_the_initial_set %>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <div class="block news-block">
+    <div class="inner-block">
+      <section class="featured-news items-<%= @feature_list.current_feature_count %>" id="featured-documents">
+        <% if @feature_list.any_current_features? %>
+          <%= render partial: 'shared/featured',
+                     collection: @feature_list.current_featured,
+                     as: :feature,
+                     locals: { show_meta: true,
+                               extra_class: "secondary" } %>
+        <% end %>
+
+        <%= render partial: 'shared/recently_updated',
+                  locals: { recently_updated: @recently_updated,
+                            atom_url: atom_feed_url_for(@world_location),
+                            extra_class: 'panel',
+                            see_all_link: latest_path(world_locations: [@world_location])} %>
+      </section>
+    </div>
+  </div>
+<% end %>
