@@ -30,14 +30,17 @@ class WorldLocationsController < PublicFacingController
         set_meta_description("What the UK government is doing in #{@world_location.name}.")
         set_slimmer_world_locations_header([@world_location])
         set_slimmer_organisations_header(@world_location.worldwide_organisations_with_sponsoring_organisations)
-        # Display the "B" variant of this page for users in the "B" bucket
+        # Display the "B" variant of this page if:
+        # * User is in the "B" bucket
+        # * User is requesting a page for which we have hardcoded content
+        # * User is requesting the English language version of the page
         ab_test = GovukAbTesting::AbTest.new("WorldwidePublishingTaxonomy", dimension: 45)
         @requested_variant = ab_test.requested_variant(request.headers)
         @requested_variant.configure_response(response)
-        if @requested_variant.variant_b? && accordion_content.present?
+        if render_b_variant?
           render "worldwide_publishing_taxonomy/show", locals: {
             parent_taxon: parent_taxon,
-            accordion_content: accordion_content
+            b_variant_page_content: b_variant_page_content
           }
         end
       end
@@ -56,6 +59,10 @@ class WorldLocationsController < PublicFacingController
     @world_location = WorldLocation.with_translations(I18n.locale).find(params[:id])
   end
 
+  def render_b_variant?
+    @requested_variant.variant_b? && b_variant_page_content.present? && params[:locale] == "en"
+  end
+
   def parent_taxon
     {
       title: @world_location.title,
@@ -63,7 +70,7 @@ class WorldLocationsController < PublicFacingController
     }
   end
 
-  def accordion_content
+  def b_variant_page_content
     @worldwide_publishing_taxonomy_ab_test_content ||= YAML.load_file(Rails.root + "config/worldwide_publishing_taxonomy_ab_test_content.yml")[@world_location.slug]
   end
 

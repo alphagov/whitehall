@@ -41,39 +41,51 @@
             <p><%= parent_taxon[:description] %></p>
           </div>
         </div>
+        <% if b_variant_page_content[:translations].present? %>
+        <div class="column-one-third">
+          <div class="available-languages">
+            <ul>
+              <li class="translation">
+                <span>English</span>
+              </li>
+              <% b_variant_page_content[:translations].each_with_index do |translation, index| %>
+                <li class="translation <%= "last" if index == b_variant_page_content[:translations].size - 1 %>">
+                  <a lang="<%= translation[:code] %>" href="/government/world/<%= @world_location.slug %>.<%= translation[:code] %>?ABTest-WorldwidePublishingTaxonomy=A"><%= translation[:name] %></a>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+        <% end %>
       </div>
-      <% if accordion_content.present? %>
-        <div class="grid-row child-topic-contents">
-          <div class="column-two-thirds">
-            <div class="topic-content">
-              <div data-module="accordion-with-descriptions" class="js-hidden">
-                <div class="subsection-wrapper">
-                  <% accordion_content.each_with_index do |taxon, section_index| %>
-                    <div class="subsection js-subsection" id="<%= taxon[:base_path] %>" data-track-count="accordionSection">
-                      <div class="subsection-header js-subsection-header">
-                        <h2 class="subsection-title js-subsection-title"><%= taxon[:title] %></h2>
-                        <% if taxon[:description].present? %>
-                          <p class="subsection-description"><%= taxon[:description] %></p>
-                        <% end %>
-                      </div>
-                      <div class="subsection-content js-subsection-content" id="subsection_content_<%= section_index + 1 %>">
-                        <ol class="subsection-list">
-                          <% taxon[:tagged_content].each_with_index do |content_item, content_index| %>
-                            <li class="subsection-list-item">
-                              <%= link_to(content_item[:title], content_item[:base_path]) %>
-                              <p><%= content_item[:description] %></p>
-                            </li>
-                          <% end %>
-                        </ol>
-                      </div>
+      <div class="grid-row child-topic-contents">
+        <div class="column-two-thirds">
+          <div class="topic-content">
+            <div data-module="accordion-with-descriptions" class="js-hidden">
+              <div class="subsection-wrapper">
+                <% b_variant_page_content[:taxonomy].each_with_index do |taxon, section_index| %>
+                  <div class="subsection js-subsection" id="<%= taxon[:base_path] %>" data-track-count="accordionSection">
+                    <div class="subsection-header js-subsection-header">
+                      <h2 class="subsection-title js-subsection-title"><%= taxon[:title] %></h2>
+                      <p class="subsection-description"><%= taxon[:description] %></p>
                     </div>
-                  <% end %>
-                </div>
+                    <div class="subsection-content js-subsection-content" id="subsection_content_<%= section_index + 1 %>">
+                      <ol class="subsection-list">
+                        <% taxon[:tagged_content].each_with_index do |content_item, content_index| %>
+                          <li class="subsection-list-item">
+                            <%= link_to(content_item[:title], content_item[:base_path]) %>
+                            <p><%= content_item[:description] %></p>
+                          </li>
+                        <% end %>
+                      </ol>
+                    </div>
+                  </div>
+                <% end %>
               </div>
             </div>
           </div>
         </div>
-      <% end %>
+      </div>
     </div>
   </div>
 </div>
