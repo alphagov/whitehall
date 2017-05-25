@@ -6,6 +6,7 @@ class WorldwideOrganisationsController < PublicFacingController
   respond_to :html, :json
 
   def show
+    redirect_if_required_for_ab_test
     respond_to do |format|
       format.html do
         set_expiry 5.minutes
@@ -22,7 +23,22 @@ class WorldwideOrganisationsController < PublicFacingController
     end
   end
 
-  private
+private
+
+  def redirect_if_required_for_ab_test
+    ab_test = GovukAbTesting::AbTest.new("WorldwidePublishingTaxonomy", dimension: 45)
+    requested_variant = ab_test.requested_variant(request.headers)
+    requested_variant.configure_response(response)
+
+    if requested_variant.variant_b? &&
+        worldwide_test_helper.is_under_test?(@worldwide_organisation)
+      redirect_to worldwide_test_helper.location_for(@worldwide_organisation)
+    end
+  end
+
+  def worldwide_test_helper
+    @helper ||= WorldwideAbTestHelper.new
+  end
 
   def load_worldwide_organisation
     @worldwide_organisation = WorldwideOrganisation.with_translations(I18n.locale).find(params[:id])

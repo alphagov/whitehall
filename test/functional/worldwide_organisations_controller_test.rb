@@ -1,6 +1,7 @@
 require "test_helper"
 
 class WorldwideOrganisationsControllerTest < ActionController::TestCase
+  include GovukAbTesting::MinitestHelpers
   should_be_a_public_facing_controller
 
   test "shows worldwide organisation information" do
@@ -64,4 +65,32 @@ class WorldwideOrganisationsControllerTest < ActionController::TestCase
     refute worldwide_organisation.has_home_page_offices_list?
   end
 
+  test "show redirects users in the b group to /government/world/<location>" do
+    location_under_test_slug = "india"
+    world_location = create(:world_location, slug: location_under_test_slug)
+    worldwide_organisation = create(:worldwide_organisation, world_locations: [world_location])
+    with_variant WorldwidePublishingTaxonomy: "B", assert_meta_tag: false do
+      get :show, id: worldwide_organisation
+      assert_redirected_to world_location_path(world_location)
+    end
+  end
+
+  test "show doesn't redirect A group users" do
+    world_location = create(:world_location)
+    worldwide_organisation = create(:worldwide_organisation, world_locations: [world_location])
+    with_variant WorldwidePublishingTaxonomy: "A", assert_meta_tag: false do
+      get :show, id: worldwide_organisation
+      assert_response :ok
+    end
+  end
+
+  test "show doesn't redirect B group users for countries that aren't in the test" do
+    location_not_under_test_slug = "germany"
+    world_location = create(:world_location, slug: location_not_under_test_slug)
+    worldwide_organisation = create(:worldwide_organisation, world_locations: [world_location])
+    with_variant WorldwidePublishingTaxonomy: "B", assert_meta_tag: false do
+      get :show, id: worldwide_organisation
+      assert_response :ok
+    end
+  end
 end
