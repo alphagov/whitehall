@@ -65,7 +65,7 @@ class WorldLocationsController < PublicFacingController
 
   def parent_taxon
     {
-      title: @world_location.title,
+      title: "#{@world_location.name} and the UK",
       description: "Accessing UK services from #{@world_location.name}, advice for travelling to the UK, and help with trading between the UK and #{@world_location.name}."
     }
   end
