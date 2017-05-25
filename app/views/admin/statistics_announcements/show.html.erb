@@ -69,6 +69,33 @@
         <%= link_to "Cancel statistics release", [:cancel, :admin, @statistics_announcement], class: "btn btn-default pull-right" %>
       <% end %>
     </div>
+
+    <% if @statistics_announcement.can_be_tagged_to_taxonomy? %>
+      <section class="taxonomy-topics" id="topic-new-taxonomy">
+        <h2>Topics (new taxonomy)
+          <%= link_to edit_admin_statistics_announcement_tags_path(@statistics_announcement.id), class:"btn btn-default pull-right" do %>
+            <% if @expanded_links.selected_taxon_paths.any? %>
+              <span class="glyphicon glyphicon-edit"></span> Change topics
+            <% else %>
+              <span class="glyphicon glyphicon-plus-sign"></span> Add topic
+            <% end %>
+          <% end %>
+        </h2>
+        <% if @expanded_links.selected_taxon_paths.any? %>
+          <div class="content content-bordered">
+            <% @expanded_links.selected_taxon_paths.each do |path| %>
+              <%= render partial: '/admin/shared/tagging/taxon_breadcrumb', locals: {
+                breadcrumbs: path
+              } %>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="no-content no-content-bordered">
+            No topics - please add a topic
+          </div>
+        <% end %>
+      </section>
+    <% end %>
   </div>
 
   <div class="col-md-4">

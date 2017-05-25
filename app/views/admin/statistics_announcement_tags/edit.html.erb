@@ -1,0 +1,49 @@
+<% page_title "Edit topics: " + @statistics_announcement.title %>
+
+<div class="row">
+  <h1><%= @statistics_announcement.title %></h1>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <h2>Topics (new taxonomy)</h2>
+    <p>
+      <%= link_to "Send feedback about the new taxonomy", Whitehall.support_url, class: "feedback-link" %>
+    </p>
+    <hr>
+
+    <%= form_for @tag_form, url: admin_statistics_announcement_tags_path(@statistics_announcement), method: :put do |form| %>
+      <%= form.hidden_field :previous_version %>
+
+      <div class="form-group"
+        data-module="taxonomy-tree-checkboxes"
+        data-content-id="<%= @statistics_announcement.content_id %>"
+        data-content-format="statistics_announcement"
+        data-content-public-path="<%= @statistics_announcement.public_path %>">
+
+        <%= render partial: "/admin/shared/tagging/taxonomy", locals: { form: @tag_form, root_taxons: @govuk_taxonomy.children } %>
+
+        <h2>Draft topics</h2>
+
+        <p>These topic pages are in development, and are not shown on GOV.UK</p>
+
+        <%= render partial: "/admin/shared/tagging/taxonomy", locals: { form: @tag_form, root_taxons: @govuk_taxonomy.draft_child_taxons } %>
+      </div>
+
+      <p>
+        <%= link_to "Report a missing topic", Whitehall.support_url, class: "feedback-link" %>
+      </p>
+
+      <h2>Selected topics</h2>
+      <div class="content content-bordered hidden" data-module="breadcrumb-preview">
+      </div>
+
+      <p class="warning">
+        Warning: topic changes to published content appear instantly on the live site.
+      </p>
+
+      <div class="publishing-controls well">
+        <%= form.form_actions(buttons: { save: 'Save topic changes' }, cancel: admin_statistics_announcement_path(@statistics_announcement)) %>
+      </div>
+    <% end %>
+  </div>
+</div>

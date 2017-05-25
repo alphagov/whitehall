@@ -26,13 +26,11 @@ class TaxonomyTagFormTest < ActiveSupport::TestCase
     taxons = ["c58fdadd-7743-46d6-9629-90bb3ccc4ef0"]
 
     publishing_api_has_links(
-      {
-        "content_id" => "64aadc14-9bca-40d9-abb6-4f21f9792a05",
-        "links" => {
-          "taxons" => taxons,
-        },
-        "version" => 1
-      }
+      "content_id" => "64aadc14-9bca-40d9-abb6-4f21f9792a05",
+      "links" => {
+        "taxons" => taxons,
+      },
+      "version" => 1
     )
 
     form = TaxonomyTagForm.load(content_id)

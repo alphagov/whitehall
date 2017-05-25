@@ -8,6 +8,10 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     @statistics_announcements = @filter.statistics_announcements
   end
 
+  def show
+    fetch_expanded_links if @statistics_announcement.can_be_tagged_to_taxonomy?
+  end
+
   def new
     @statistics_announcement = build_statistics_announcement(organisation_ids: [current_user.organisation.try(:id)])
     @statistics_announcement.build_current_release_date(precision: StatisticsAnnouncementDate::PRECISION[:two_month])
@@ -98,5 +102,9 @@ private
 
   def unlinked_announcements_filter
     @unlinked_announcements_filter ||= Admin::StatisticsAnnouncementFilter.new(dates: 'imminent', unlinked_only: '1', organisation_id: filter_params[:organisation_id])
+  end
+
+  def fetch_expanded_links
+    @expanded_links = ExpandedLinksFetcher.new(@statistics_announcement.content_id).fetch
   end
 end

@@ -121,4 +121,94 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
           statistics_announcement: { cancellation_reason: "Reason" }
     assert_redirected_to [:admin, announcement]
   end
+
+  view_test "when announcement is not from an organisation with tagging enabled, don't show a button to tag to the new taxonomy" do
+    draft_announcement = create(:statistics_announcement)
+
+    announcement_has_no_expanded_links(draft_announcement.content_id)
+    get :show, id: draft_announcement
+
+    refute_select '.taxonomy-topics'
+  end
+
+  view_test "when announcement is from an organisation with tagging enabled, show a button to tag to the new taxonomy" do
+    dfe_organisation = create(:organisation, content_id: "ebd15ade-73b2-4eaf-b1c3-43034a42eb37")
+
+    announcement = create(
+      :statistics_announcement,
+      organisations: [dfe_organisation]
+    )
+
+    login_as(create(:user, organisation: dfe_organisation))
+
+    announcement_has_no_expanded_links(announcement.content_id)
+    get :show, id: announcement
+
+    assert_select '.taxonomy-topics .btn', "Add topic"
+  end
+
+  view_test "when announcement is not tagged to the new taxonomy" do
+    sfa_organisation = create(:organisation, content_id: "3e5a6924-b369-4eb3-8b06-3c0814701de4")
+
+    announcement = create(
+      :statistics_announcement,
+      organisations: [sfa_organisation]
+    )
+
+    login_as(create(:user, organisation: sfa_organisation))
+
+    announcement_has_no_expanded_links(announcement.content_id)
+    get :show, id: announcement
+
+    refute_select '.taxonomy-topics .content'
+    assert_select '.taxonomy-topics .no-content', "No topics - please add a topic"
+  end
+
+  view_test "when announcement is tagged to the new taxonomy" do
+    sfa_organisation = create(:organisation, content_id: "3e5a6924-b369-4eb3-8b06-3c0814701de4")
+
+    announcement = create(
+      :statistics_announcement,
+      organisations: [sfa_organisation]
+    )
+
+    login_as(create(:user, organisation: sfa_organisation))
+
+    announcement_has_expanded_links(announcement.content_id)
+    get :show, id: announcement
+
+    refute_select '.taxonomy-topics .no-content'
+    assert_select '.taxonomy-topics .content li', "Education, Training and Skills"
+    assert_select '.taxonomy-topics .content li', "Primary Education"
+  end
+
+private
+
+  def announcement_has_no_expanded_links(content_id)
+    publishing_api_has_expanded_links(
+      content_id:  content_id,
+      expanded_links:  {}
+    )
+  end
+
+  def announcement_has_expanded_links(content_id)
+    publishing_api_has_expanded_links(
+      content_id:  content_id,
+      expanded_links:  {
+        "taxons" => [
+          {
+            "title" => "Primary Education",
+            "links" => {
+              "parent_taxons" => [
+                {
+                  "title" => "Education, Training and Skills",
+                  "links" => {}
+                }
+              ]
+            }
+          }
+        ]
+      }
+    )
+  end
 end
