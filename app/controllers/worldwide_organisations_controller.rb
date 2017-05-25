@@ -2,6 +2,7 @@ class WorldwideOrganisationsController < PublicFacingController
   include CacheControlHelper
   enable_request_formats show: :json
   before_action :load_worldwide_organisation
+  before_action :setup_a_b_test
 
   respond_to :html, :json
 
@@ -24,17 +25,25 @@ class WorldwideOrganisationsController < PublicFacingController
   end
 
   def show_b_variant
-    render template: 'embassies/show'
+    @world_location = WorldLocation.with_translations(I18n.locale).find(params[:world_location_id])
+    @embassy_data = embassy_test_data(params[:id])
+    @primary_role = primary_role
+    @other_roles = ([secondary_role] + office_roles).compact
+
+    set_meta_description(@worldwide_organisation.summary)
+    set_slimmer_organisations_header([@worldwide_organisation] + @worldwide_organisation.sponsoring_organisations)
+
+    if b_variant? && @embassy_data
+      render template: 'embassies/show'
+    else
+      redirect_to @worldwide_organisation
+    end
   end
 
 private
 
   def redirect_if_required_for_ab_test
-    ab_test = GovukAbTesting::AbTest.new("WorldwidePublishingTaxonomy", dimension: 45)
-    requested_variant = ab_test.requested_variant(request.headers)
-    requested_variant.configure_response(response)
-
-    if requested_variant.variant_b? &&
+    if b_variant? &&
         worldwide_test_helper.is_under_test?(@worldwide_organisation) &&
         locale_is_en?
       redirect_to worldwide_test_helper.location_for(@worldwide_organisation)
@@ -63,5 +72,27 @@ private
 
   def office_roles
     @worldwide_organisation.office_staff_roles.map { |office_staff| RolePresenter.new(office_staff, view_context) }
+  end
+
+  def test_helper_content
+    worldwide_test_helper.content_for(@world_location.slug) if worldwide_test_helper.has_content_for?(@world_location.slug)
+  end
+
+  def embassies_test_data
+    test_helper_content["embassies"] if test_helper_content
+  end
+
+  def embassy_test_data(embassy)
+    embassies_test_data[embassy][0] if embassies_test_data
+  end
+
+  def setup_a_b_test
+    ab_test = GovukAbTesting::AbTest.new("WorldwidePublishingTaxonomy", dimension: 45)
+    @requested_variant = ab_test.requested_variant(request.headers)
+    @requested_variant.configure_response(response)
+  end
+
+  def b_variant?
+    @requested_variant.variant_b?
   end
 end

@@ -1,0 +1,107 @@
+<% page_title @worldwide_organisation.name %>
+<% page_class "worldwide-organisations-show" %>
+
+<div class="block world-locations">
+  <div class="inner-block">
+    <%=
+      render(
+        partial: 'govuk_component/beta_label',
+        locals: {
+          message: 'This is a test version of the layout of this page.'
+        }
+      )
+    %>
+    <%=
+      render(
+        partial: 'govuk_component/breadcrumbs',
+        locals: {
+          breadcrumbs: [
+            {
+              title: "Home",
+              url: "/",
+              is_page_parent: false
+            },
+            {
+              title: "World",
+              url: "/government/world",
+              is_page_parent: true
+            },
+            {
+              title: @world_location,
+              url: "/government/world/#{@world_location}",
+              is_current_page: false
+            },
+            {
+              title: @embassy_data[:title],
+              is_current_page: true
+            }
+            ],
+            collapse_on_mobile: true
+        }
+      )
+    %>
+  </div>
+</div>
+
+<%= render partial: 'header', locals: { organisation: @worldwide_organisation, world_locations: @world_locations } %>
+
+<section class="block about-block" id="about-us">
+  <div class="inner-block floated-children">
+    <div class="about-us">
+      <div class="content">
+        <p class="summary"><%= @embassy_data[:summary] %></p>
+        <div class="description">
+          <%= @embassy_data[:body] %>
+        </div>
+      </div>
+    </div>
+    <% if @worldwide_organisation.social_media_accounts.any? %>
+      <aside class="social-media-links">
+        <div class="content">
+          <h1><%= t('worldwide_organisation.headings.follow_us') %></h1>
+            <%= render 'shared/social_media_accounts', socialable: @worldwide_organisation, followus: true %>
+        </div>
+      </aside>
+    <% end %>
+  </div>
+</section>
+
+<% if ([@primary_role]+@other_roles).compact.any?(&:has_appointment?) %>
+  <section class="block people" id="people">
+    <div class="inner-block floated-children">
+      <h1 class="keyline-header"><%= t('worldwide_organisation.headings.our_people' ) %></h1>
+      <%= render( partial: 'people/person',
+                  locals: {
+                    person: @primary_role.current_person,
+                    roles: [@primary_role],
+                    hlevel: 'h2',
+                    wrapping_element: :div }) if @primary_role %>
+      <ul class="people-list">
+        <% clear_person = 0 %>
+        <% @other_roles.each do |role| %>
+          <%= render( partial: 'people/person',
+                      locals: {
+                        person: role.current_person,
+                        roles: [role],
+                        hlevel: 'h2',
+                        hide_image: true,
+                        extra_class: ((clear_person += 1) % 3 == 1 ? 'clear-person' : '')}) %>
+        <% end %>
+      </ul>
+    </div>
+  </section>
+<% end %>
+
+<% if @main_office %>
+  <section class="block contact-us" id="contact-us">
+    <div class="inner-block floated-children">
+      <h1 class="keyline-header"><%= t('worldwide_organisation.headings.contact_us' ) %></h1>
+      <%= render partial: 'contacts/contact', locals: {contact: @main_office, is_main: true} %>
+      <%= render partial: 'contacts/contact', collection: @home_page_offices %>
+    </div>
+  </section>
+<% end %>
+
+<% if @worldwide_organisation.corporate_information_pages.any? %>
+  <%= render partial: 'corporate_information', locals: { organisation: @worldwide_organisation } %>
+<% end %>

@@ -3,6 +3,7 @@ require "test_helper"
 class WorldwideOrganisationsControllerTest < ActionController::TestCase
   include GovukAbTesting::MinitestHelpers
   should_be_a_public_facing_controller
+  include GovukAbTesting::MinitestHelpers
 
   test "shows worldwide organisation information" do
     organisation = create(:worldwide_organisation)
@@ -151,6 +152,29 @@ class WorldwideOrganisationsControllerTest < ActionController::TestCase
         get :show, id: worldwide_organisation
         assert_redirected_to world_location_path(hard_coded_location)
       end
+    end
+  end
+
+  test "should redirect to the worldwide_organisation if the user is in the 'A' cohort" do
+    with_variant WorldwidePublishingTaxonomy: "A", assert_meta_tag: false do
+      organisation = create(:worldwide_organisation)
+      world_location = create(:world_location)
+
+      get :show_b_variant, id: organisation.id, world_location_id: world_location.id
+
+      assert_redirected_to worldwide_organisation_path(organisation)
+    end
+  end
+
+  test "should redirect to the worldwide_organisation page if the user is in the B cohort but the world_location is not in the test data" do
+    with_variant WorldwidePublishingTaxonomy: "B", assert_meta_tag: false do
+      organisation = create(:worldwide_organisation)
+      world_location = create(:world_location)
+      WorldwideAbTestHelper.any_instance.expects(:has_content_for?).returns(nil)
+
+      get :show_b_variant, id: organisation.id, world_location_id: world_location.id
+
+      assert_redirected_to worldwide_organisation_path(organisation)
     end
   end
 end
