@@ -1,6 +1,7 @@
 <% page_title @organisation.name %>
 <% page_class "organisations-show-promotional" %>
 <% atom_discovery_link_tag atom_feed_url_for(@organisation), "Latest activity" %>
+<meta name="govuk:user-journey-stage" content="finding" />
 
 <%= organisation_wrapper(@organisation) do %>
   <% if @organisation.type.executive_office? %>

@@ -2,6 +2,7 @@
 <% page_class "organisations-show" %>
 <% atom_discovery_link_tag atom_feed_url_for(@organisation), "Latest activity" %>
 <%= api_link_tag api_organisation_url(@organisation) %>
+<meta name="govuk:user-journey-stage" content="finding" />
 
 <%= organisation_wrapper(@organisation) do %>
 <% if @organisation.court_or_hmcts_tribunal? %>
