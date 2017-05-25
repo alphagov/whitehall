@@ -93,4 +93,33 @@ class WorldwideOrganisationsControllerTest < ActionController::TestCase
       assert_response :ok
     end
   end
+
+  test "show redirects B group users to their hardcoded location page if present" do
+    world_location = create(:world_location)
+
+    hard_coded_redirects = {
+      "british-high-commission-pretoria" => "south-africa",
+      "british-consulate-general-los-angeles" => "usa",
+      "did-south-africa" => "south-africa",
+      "british-deputy-high-commission-kolkata" => "india",
+      "uk-science-and-innovation-network" => "australia",
+    }
+
+    hard_coded_redirects.each do |organisation_slug, location_slug|
+      hard_coded_location = create(:world_location, slug: location_slug)
+      worldwide_organisation = create(
+        :worldwide_organisation,
+        slug: organisation_slug,
+        world_locations: [
+          world_location,
+          hard_coded_location,
+        ]
+      )
+
+      with_variant WorldwidePublishingTaxonomy: "B", assert_meta_tag: false do
+        get :show, id: worldwide_organisation
+        assert_redirected_to world_location_path(hard_coded_location)
+      end
+    end
+  end
 end
