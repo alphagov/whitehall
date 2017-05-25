@@ -40,7 +40,7 @@ class WorldLocationsController < PublicFacingController
         if render_b_variant?
           render "worldwide_publishing_taxonomy/show", locals: {
             parent_taxon: parent_taxon,
-            b_variant_page_content: b_variant_page_content
+            b_variant_page_content: worldwide_test_helper.content_for(@world_location.slug)
           }
         end
       end
@@ -60,7 +60,17 @@ class WorldLocationsController < PublicFacingController
   end
 
   def render_b_variant?
-    @requested_variant.variant_b? && b_variant_page_content.present? && params[:locale] == "en"
+    @requested_variant.variant_b? &&
+      worldwide_test_helper.is_under_test?(@world_location) &&
+      locale_is_english?
+  end
+
+  def worldwide_test_helper
+    @_helper ||= WorldwideAbTestHelper.new
+  end
+
+  def locale_is_english?
+    locale == :en
   end
 
   def parent_taxon
@@ -69,9 +79,4 @@ class WorldLocationsController < PublicFacingController
       description: "Accessing UK services from #{@world_location.name}, advice for travelling to the UK, and help with trading between the UK and #{@world_location.name}."
     }
   end
-
-  def b_variant_page_content
-    @worldwide_publishing_taxonomy_ab_test_content ||= YAML.load_file(Rails.root + "config/worldwide_publishing_taxonomy_ab_test_content.yml")[@world_location.slug]
-  end
-
 end
