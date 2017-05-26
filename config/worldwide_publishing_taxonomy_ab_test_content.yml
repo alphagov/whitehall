@@ -14,3 +14,176 @@ sample:
         - title: Get emergency UK travel documents
           description: If you're abroad, need to travel and can't get a passport in time.
           base_path: /emergency-travel-document
+australia:
+  taxonomy:
+    - title: Help for British nationals in Australia
+      description: Travel documents and help with emergencies.
+      base_path: help-for-british-nationals
+      tagged_content:
+        - title: Get a new or replacement UK passport
+          description: Forms, prices and application details you need if you're a British national and you want to renew or apply for a British passport.
+          base_path: /apply-renew-passport
+        - title: Get emergency UK travel documents
+          description: If you're abroad, need to travel and can't get a passport in time.
+          base_path: /emergency-travel-document
+  embassies:
+    british-high-commission-canberra:
+      - title: British High Commission Canberra
+        summary: The summary
+        body: |
+          The High Commission in Canberra represents the UK government and provides services to British nationals in Australia.
+          We help sustain and develop the important relationship between the UK and Australia.
+          You can access UK government services while in [Australia](https://www.gov.uk/government/world/australia)
+          ##Urgent assistance
+          If you’re in Australia and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +41 (12) 345 6789. If you’re in the UK and worried about a British national in Sample, call 020 7008 1500.
+          [Contact the High Commission](#contact-us) for information about our other services.
+brazil:
+  translations:
+    - name: Portugese
+      code: pt
+  taxonomy:
+    - title: Help for British nationals in Brazil
+      description: Travel documents and help with emergencies.
+      base_path: help-for-british-nationals
+      tagged_content:
+        - title: Get a new or replacement UK passport
+          description: Forms, prices and application details you need if you're a British national and you want to renew or apply for a British passport.
+          base_path: /apply-renew-passport
+        - title: Get emergency UK travel documents
+          description: If you're abroad, need to travel and can't get a passport in time.
+          base_path: /emergency-travel-document
+  embassies:
+    british-embassy-brazil:
+      - title: British Embassy Brasilia
+        summary: The summary
+        body: |
+          The Embassy in Brasilia represents the UK government and provides services to British nationals in Brazil.
+          We help sustain and develop the important relationship between the UK and Brazil.
+          You can access UK government services while in [Brazil](https://www.gov.uk/government/world/brazil)
+          ##Urgent assistance
+          If you’re in Brazil and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +41 (12) 345 6789. If you’re in the UK and worried about a British national in Sample, call 020 7008 1500.
+          [Contact the Embassy](#contact-us) for information about our other services.
+india:
+  translations:
+    - name: Hindi
+      code: hi
+  taxonomy:
+    - title: Help for British nationals in India
+      description: Travel documents and help with emergencies.
+      base_path: help-for-british-nationals
+      tagged_content:
+        - title: Get a new or replacement UK passport
+          description: Forms, prices and application details you need if you're a British national and you want to renew or apply for a British passport.
+          base_path: /apply-renew-passport
+        - title: Get emergency UK travel documents
+          description: If you're abroad, need to travel and can't get a passport in time.
+          base_path: /emergency-travel-document
+  embassies:
+    british-high-commission-new-delhi:
+      - title: British High Commission New Delhi
+        summary: The summary
+        body: |
+          The British High Commission in New Delhi represents the UK government and provides services to British nationals in India.
+          We help sustain and develop the important relationship between the UK and India.
+          You can access UK government services while in [India](https://www.gov.uk/government/world/india)
+          ##Urgent assistance
+          If you’re in India and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +41 (12) 345 6789. If you’re in the UK and worried about a British national in Sample, call 020 7008 1500.
+          [Contact the High Commission](#contact-us) for information about our other services.
+south-africa:
+  taxonomy:
+    - title: Help for British nationals in South Africa
+      description: Travel documents and help with emergencies.
+      base_path: help-for-british-nationals
+      tagged_content:
+        - title: Get a new or replacement UK passport
+          description: Forms, prices and application details you need if you're a British national and you want to renew or apply for a British passport.
+          base_path: /apply-renew-passport
+        - title: Get emergency UK travel documents
+          description: If you're abroad, need to travel and can't get a passport in time.
+          base_path: /emergency-travel-document
+  embassies:
+    british-high-commission-pretoria:
+      - title: British High Commission Pretoria
+        summary: The summary
+        body: |
+          The British High Commission in Pretoria represents the UK government and provides services to British nationals in South Africa.
+          We help sustain and develop the important relationship between the UK and South Africa.
+          You can access UK government services while in [South Africa](https://www.gov.uk/government/world/south-africa)
+          ##Urgent assistance
+          If you’re in South Africa and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +41 (12) 345 6789. If you’re in the UK and worried about a British national in Sample, call 020 7008 1500.
+          [Contact the High Commission](#contact-us) for information about our other services.
+thailand:
+  translations:
+    - name: Thai
+      code: th
+  taxonomy:
+    - title: Help for British nationals in Thailand
+      description: Travel documents and help with emergencies.
+      base_path: help-for-british-nationals
+      tagged_content:
+        - title: Get a new or replacement UK passport
+          description: Forms, prices and application details you need if you're a British national and you want to renew or apply for a British passport.
+          base_path: /apply-renew-passport
+        - title: Get emergency UK travel documents
+          description: If you're abroad, need to travel and can't get a passport in time.
+          base_path: /emergency-travel-document
+  embassies:
+    british-embassy-bangkok:
+      - title: British Embassy Bangkok
+        summary: The summary
+        body: |
+          The British Embassy in Bangkok represents the UK government and provides services to British nationals in Thailand.
+          We help sustain and develop the important relationship between the UK and Thailand.
+          You can access UK government services while in [Thailand](https://www.gov.uk/government/world/thailand)
+          ##Urgent assistance
+          If you’re in Thailand and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +41 (12) 345 6789. If you’re in the UK and worried about a British national in Sample, call 020 7008 1500.
+          [Contact the Embassy](#contact-us) for information about our other services.
+turkey:
+  translations:
+    - name: Turkish
+      code: tr
+  taxonomy:
+    - title: Help for British nationals in Turkey
+      description: Travel documents and help with emergencies.
+      base_path: help-for-british-nationals
+      tagged_content:
+        - title: Get a new or replacement UK passport
+          description: Forms, prices and application details you need if you're a British national and you want to renew or apply for a British passport.
+          base_path: /apply-renew-passport
+        - title: Get emergency UK travel documents
+          description: If you're abroad, need to travel and can't get a passport in time.
+          base_path: /emergency-travel-document
+  embassies:
+    british-embassy-bangkok:
+      - title: British Embassy Ankara
+        summary: The summary
+        body: |
+          The British Embassy in Ankara represents the UK government and provides services to British nationals in Turkey.
+          We help sustain and develop the important relationship between the UK and Turkey.
+          You can access UK government services while in [Turkey](https://www.gov.uk/government/world/turkey)
+          ##Urgent assistance
+          If you’re in Turkey and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +41 (12) 345 6789. If you’re in the UK and worried about a British national in Sample, call 020 7008 1500.
+          [Contact the Embassy](#contact-us) for information about our other services.
+usa:
+  taxonomy:
+    - title: Help for British nationals in USA
+      description: Travel documents and help with emergencies.
+      base_path: help-for-british-nationals
+      tagged_content:
+        - title: Get a new or replacement UK passport
+          description: Forms, prices and application details you need if you're a British national and you want to renew or apply for a British passport.
+          base_path: /apply-renew-passport
+        - title: Get emergency UK travel documents
+          description: If you're abroad, need to travel and can't get a passport in time.
+          base_path: /emergency-travel-document
+  embassies:
+    british-embassy-washington:
+      - title: British Embassy Washington
+        summary: The summary
+        body: |
+          The British Embassy in Ankara represents the UK government and provides services to British nationals in the USA.
+          We help sustain and develop the important relationship between the UK and the USA.
+          You can access UK government services while in the [USA](https://www.gov.uk/government/world/usa)
+          ##Urgent assistance
+          If you’re in the USA and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +41 (12) 345 6789. If you’re in the UK and worried about a British national in Sample, call 020 7008 1500.
+          [Contact the Embassy](#contact-us) for information about our other services.
