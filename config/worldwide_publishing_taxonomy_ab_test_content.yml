@@ -1,8 +1,5 @@
 --- !map:HashWithIndifferentAccess
 sample:
-  translations:
-    - name: Samplese
-      code: zz
   taxonomy:
     - title: Help for British nationals in Sample
       description: Travel documents and help with emergencies.
@@ -38,9 +35,6 @@ australia:
           If you’re in Australia and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +41 (12) 345 6789. If you’re in the UK and worried about a British national in Sample, call 020 7008 1500.
           [Contact the High Commission](#contact-us) for information about our other services.
 brazil:
-  translations:
-    - name: Portugese
-      code: pt
   taxonomy:
     - title: Help for British nationals in Brazil
       description: Travel documents and help with emergencies.
@@ -64,9 +58,6 @@ brazil:
           If you’re in Brazil and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +41 (12) 345 6789. If you’re in the UK and worried about a British national in Sample, call 020 7008 1500.
           [Contact the Embassy](#contact-us) for information about our other services.
 india:
-  translations:
-    - name: Hindi
-      code: hi
   taxonomy:
     - title: Help for British nationals in India
       description: Travel documents and help with emergencies.
@@ -113,9 +104,6 @@ south-africa:
           If you’re in South Africa and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +41 (12) 345 6789. If you’re in the UK and worried about a British national in Sample, call 020 7008 1500.
           [Contact the High Commission](#contact-us) for information about our other services.
 thailand:
-  translations:
-    - name: Thai
-      code: th
   taxonomy:
     - title: Help for British nationals in Thailand
       description: Travel documents and help with emergencies.
@@ -139,9 +127,6 @@ thailand:
           If you’re in Thailand and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +41 (12) 345 6789. If you’re in the UK and worried about a British national in Sample, call 020 7008 1500.
           [Contact the Embassy](#contact-us) for information about our other services.
 turkey:
-  translations:
-    - name: Turkish
-      code: tr
   taxonomy:
     - title: Help for British nationals in Turkey
       description: Travel documents and help with emergencies.
