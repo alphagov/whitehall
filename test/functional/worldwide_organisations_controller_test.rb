@@ -1,6 +1,7 @@
 require "test_helper"
 
 class WorldwideOrganisationsControllerTest < ActionController::TestCase
+  include GovukAbTesting::MinitestHelpers
   should_be_a_public_facing_controller
 
   test "shows worldwide organisation information" do
@@ -64,4 +65,75 @@ class WorldwideOrganisationsControllerTest < ActionController::TestCase
     refute worldwide_organisation.has_home_page_offices_list?
   end
 
+  test "show redirects users in the b group to /government/world/<location>" do
+    location_under_test_slug = "india"
+    world_location = create(:world_location, slug: location_under_test_slug)
+    worldwide_organisation = create(:worldwide_organisation, world_locations: [world_location])
+    with_variant WorldwidePublishingTaxonomy: "B", assert_meta_tag: false do
+      get :show, id: worldwide_organisation
+      assert_redirected_to world_location_path(world_location)
+    end
+  end
+
+  test "show doesn't redirect A group users" do
+    world_location = create(:world_location)
+    worldwide_organisation = create(:worldwide_organisation, world_locations: [world_location])
+    with_variant WorldwidePublishingTaxonomy: "A", assert_meta_tag: false do
+      get :show, id: worldwide_organisation
+      assert_response :ok
+    end
+  end
+
+  test "show doesn't redirect B group users for countries that aren't in the test" do
+    location_not_under_test_slug = "germany"
+    world_location = create(:world_location, slug: location_not_under_test_slug)
+    worldwide_organisation = create(:worldwide_organisation, world_locations: [world_location])
+    with_variant WorldwidePublishingTaxonomy: "B", assert_meta_tag: false do
+      get :show, id: worldwide_organisation
+      assert_response :ok
+    end
+  end
+
+  test "show doesn't redirect B group users if they are viewing a non-en locale" do
+    location_under_test_slug = "india"
+    world_location = create(:world_location, slug: location_under_test_slug)
+    worldwide_organisation = create(:worldwide_organisation, world_locations: [world_location])
+
+    LocalisedModel.new(worldwide_organisation, :fr)
+      .update_attributes(name: "Le embassy de india")
+
+    with_variant WorldwidePublishingTaxonomy: "B", assert_meta_tag: false do
+      get :show, id: worldwide_organisation, locale: "fr"
+      assert_response :ok
+    end
+  end
+
+  test "show redirects B group users to their hardcoded location page if present" do
+    world_location = create(:world_location)
+
+    hard_coded_redirects = {
+      "british-high-commission-pretoria" => "south-africa",
+      "british-consulate-general-los-angeles" => "usa",
+      "did-south-africa" => "south-africa",
+      "british-deputy-high-commission-kolkata" => "india",
+      "uk-science-and-innovation-network" => "australia",
+    }
+
+    hard_coded_redirects.each do |organisation_slug, location_slug|
+      hard_coded_location = create(:world_location, slug: location_slug)
+      worldwide_organisation = create(
+        :worldwide_organisation,
+        slug: organisation_slug,
+        world_locations: [
+          world_location,
+          hard_coded_location,
+        ]
+      )
+
+      with_variant WorldwidePublishingTaxonomy: "B", assert_meta_tag: false do
+        get :show, id: worldwide_organisation
+        assert_redirected_to world_location_path(hard_coded_location)
+      end
+    end
+  end
 end
