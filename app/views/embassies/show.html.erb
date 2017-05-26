@@ -51,7 +51,7 @@
       <div class="content">
         <p class="summary"><%= @embassy_data[:summary] %></p>
         <div class="description">
-          <%= @embassy_data[:body] %>
+          <%= govspeak_to_html @embassy_data[:body] %>
         </div>
       </div>
     </div>
