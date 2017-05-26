@@ -2,11 +2,11 @@
   <div class="worldwide-organisation-detail">
     <div class="content">
       <% worldwide_organisation.sponsoring_organisations.each do |organisation| %>
-        <%= content_tag_for(:div, organisation, :class => 'sponsoring-organisation') do %>
+        <div class="organisation sponsoring-organisation">
           <span class="<%= logo_classes(class_name: 'single-identity', size: 'medium', stacked: false) %>">
             <%= organisation.name %>
           </span>
-        <% end %>
+        </div>
       <% end %>
       <h2 class="name"><%= link_to worldwide_organisation.name, worldwide_organisation %></h2>
       <p><%= worldwide_organisation.summary %></p>
