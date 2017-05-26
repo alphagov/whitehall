@@ -177,4 +177,32 @@ class WorldwideOrganisationsControllerTest < ActionController::TestCase
       assert_redirected_to worldwide_organisation_path(organisation)
     end
   end
+
+  test "should return 200 if in the B cohort and there is data" do
+    with_variant WorldwidePublishingTaxonomy: "B", assert_meta_tag: false do
+      worldwide_organisation = create(:worldwide_organisation)
+      world_location = create(:world_location)
+
+      data = sample_yaml(worldwide_organisation)
+      WorldwideAbTestHelper.any_instance.stubs(:has_content_for?).returns(true)
+      WorldwideAbTestHelper.any_instance.expects(:content_for).with(world_location.slug).at_least_once.returns(data)
+      get :show_b_variant, id: worldwide_organisation.slug, world_location_id: world_location.slug
+
+      assert_response 200
+    end
+  end
+
+  def sample_yaml(worldwide_organisation)
+    {
+      "embassies" => {
+        worldwide_organisation.slug => [
+          {
+            "title" => "British High Commission Sample City",
+            "summary" => "Summary",
+            "body" => "The Body"
+          }
+        ]
+      }
+    }
+  end
 end
