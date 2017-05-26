@@ -192,6 +192,26 @@ class WorldwideOrganisationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "redirects out of the B cohort if the request for an embassy page is non en" do
+    with_variant WorldwidePublishingTaxonomy: "B", assert_meta_tag: false do
+      worldwide_organisation = create(:worldwide_organisation)
+      LocalisedModel.new(worldwide_organisation, "fr").update_attributes(name: "Le nom de Org")
+      world_location = create(:world_location)
+      LocalisedModel.new(world_location, "fr").update_attributes(name: "Le location")
+
+      data = sample_yaml(worldwide_organisation)
+      WorldwideAbTestHelper.any_instance.stubs(:has_content_for?).returns(true)
+      WorldwideAbTestHelper.any_instance.expects(:content_for).with(world_location.slug).at_least_once.returns(data)
+      get :show_b_variant, id: worldwide_organisation.slug, world_location_id: world_location.slug, locale: :fr
+
+      assert_redirected_to worldwide_organisation_path(
+        worldwide_organisation,
+        "ABTest-WorldwidePublishingTaxonomy" => "A",
+        locale: :fr,
+      )
+    end
+  end
+
   def sample_yaml(worldwide_organisation)
     {
       "embassies" => {

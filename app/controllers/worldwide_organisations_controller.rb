@@ -34,13 +34,25 @@ class WorldwideOrganisationsController < PublicFacingController
     set_slimmer_organisations_header([@worldwide_organisation] + @worldwide_organisation.sponsoring_organisations)
 
     if b_variant? && @embassy_data
-      render template: 'embassies/show'
+      if locale_is_en?
+        render template: 'embassies/show'
+      else
+        redirect_and_exit_group_if_non_en_locale
+      end
     else
       redirect_to @worldwide_organisation
     end
   end
 
 private
+
+  def redirect_and_exit_group_if_non_en_locale
+    redirect_to worldwide_organisation_path(
+      @worldwide_organisation,
+      "ABTest-WorldwidePublishingTaxonomy" => "A",
+      locale: I18n.locale
+    )
+  end
 
   def redirect_if_required_for_ab_test
     if b_variant? &&
