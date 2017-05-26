@@ -1,8 +1,8 @@
 class WorldwideAbTestHelper
   attr_reader :content
 
-  def initialize
-    @content = YAML.load_file(file_path)
+  def initialize(content_file_path = nil)
+    @content = YAML.load_file(content_file_path || file_path)
   end
 
   def has_content_for?(location_slug)
