@@ -31,13 +31,18 @@ private
     requested_variant.configure_response(response)
 
     if requested_variant.variant_b? &&
-        worldwide_test_helper.is_under_test?(@worldwide_organisation)
+        worldwide_test_helper.is_under_test?(@worldwide_organisation) &&
+        locale_is_en?
       redirect_to worldwide_test_helper.location_for(@worldwide_organisation)
     end
   end
 
   def worldwide_test_helper
     @helper ||= WorldwideAbTestHelper.new
+  end
+
+  def locale_is_en?
+    I18n.locale == :en
   end
 
   def load_worldwide_organisation

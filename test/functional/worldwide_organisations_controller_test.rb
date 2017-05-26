@@ -94,6 +94,20 @@ class WorldwideOrganisationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "show doesn't redirect B group users if they are viewing a non-en locale" do
+    location_under_test_slug = "india"
+    world_location = create(:world_location, slug: location_under_test_slug)
+    worldwide_organisation = create(:worldwide_organisation, world_locations: [world_location])
+
+    LocalisedModel.new(worldwide_organisation, :fr)
+      .update_attributes(name: "Le embassy de india")
+
+    with_variant WorldwidePublishingTaxonomy: "B", assert_meta_tag: false do
+      get :show, id: worldwide_organisation, locale: "fr"
+      assert_response :ok
+    end
+  end
+
   test "show redirects B group users to their hardcoded location page if present" do
     world_location = create(:world_location)
 
