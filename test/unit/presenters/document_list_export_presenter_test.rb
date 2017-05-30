@@ -76,4 +76,34 @@ class DocumentListExportPresenterTest < ActiveSupport::TestCase
     presenter = DocumentListExportPresenter.new(unpublished_edition)
     assert_equal "unpublished", presenter.state
   end
+
+  test '#primary_language returns the language of the main edition' do
+    french_edition = create(:edition, primary_locale: 'fr')
+    presenter = DocumentListExportPresenter.new(french_edition)
+    assert_equal 'French', presenter.primary_language
+  end
+
+  test '#translations_available returns "none" when a document is only available in english' do
+    edition = create(:edition)
+    presenter = DocumentListExportPresenter.new(edition)
+    assert_equal 'none', presenter.translations_available
+  end
+
+  test '#translations_available returns "none" when a document is only available in a foreign language' do
+    french_edition = with_locale(:fr) { create(:edition, primary_locale: 'fr') }
+    presenter = DocumentListExportPresenter.new(french_edition)
+    assert_equal 'none', presenter.translations_available
+  end
+
+  test '#translations_available returns the language name of a documents translation' do
+    edition_also_available_in_welsh = create(:edition, :translated, primary_locale: 'en', translated_into: 'cy')
+    presenter = DocumentListExportPresenter.new(edition_also_available_in_welsh)
+    assert_equal %w(Welsh), presenter.translations_available
+  end
+
+  test '#translations_available returns a list of all the language names of a documents translation, sorted by language code' do
+    edition_translated_many_times = create(:edition, :translated, primary_locale: 'en', translated_into: %w(ms ar cy))
+    presenter = DocumentListExportPresenter.new(edition_translated_many_times)
+    assert_equal %w(Arabic Welsh Malay), presenter.translations_available
+  end
 end
