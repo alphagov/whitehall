@@ -1556,27 +1556,192 @@ south-africa:
           - [Pretoria](/government/world/south-africa/british-high-commission-pretoria)
 thailand:
   taxonomy:
-    - title: Help for British nationals in Thailand
-      description: Travel documents and help with emergencies.
-      base_path: help-for-british-nationals
-      tagged_content:
-        - title: Get a new or replacement UK passport
-          description: Forms, prices and application details you need if you're a British national and you want to renew or apply for a British passport.
-          base_path: /apply-renew-passport
-        - title: Get emergency UK travel documents
-          description: If you're abroad, need to travel and can't get a passport in time.
+    - title: Emergency help for British nationals
+      description: Get help if you're the victim of crime or you've been arrested. 
+      tagged_content: 
+        - title: Compensation for victims of terrorist attacks abroad
+          description: Compensation for terrorist attacks abroad - eligibility, acts of terrorism covered, application form, helpline.
+          base_path: /compensation-victim-terrorist-attack
+        - title: Compensation if you're a victim of crime abroad
+          description: If you're a UK resident and have been injured because of a violent crime abroad, you can usually apply for compensation.
+          base_path: /compensation-victim-crime-abroad
+        - title: Contact the British Embassy Bangkok
+          description: Contact details if you need urgent help.
+          base_path: /government/world/thailand/british-embassy-bangkok
+        - title: Get an emergency travel document
+          description: Apply for an emergency travel document if you're outside the UK and haven't got a valid British passport - apply online, how to apply, fee, timings.
           base_path: /emergency-travel-document
+        - title: Get help if you're the victim of crime abroad
+          description: Contact the nearest British embassy, commission or consulate to get help if you're the victim of crime abroad.
+          base_path: /victim-crime-abroad
+        - title: Get help if you've been arrested abroad
+          description: Find out what the Foreign and Commonwealth Office can do to help if you or someone you know is arrested abroad.
+          base_path: /help-if-you-are-arrested-abroad
+        - title: "Rape and sexual assault abroad: returning to the UK"
+          description: Information for British nationals affected by rape or sexual assault abroad and returning to the UK, including how to access medical treatment and legal advice in the UK.
+          base_path: /government/publications/rape-and-sexual-assault-abroad-returning-to-the-uk
+        - title: What to do if you’re affected by a crisis abroad
+          description: Advice for British nationals affected by crises abroad, including terrorist attacks, natural disasters and major political unrest, and information on what help the Foreign and Commonwealth Office (FCO) can provide.
+          base_path: /guidance/how-to-deal-with-a-crisis-overseas
+    - title: Living abroad
+      description: Includes how to renew your passport, claim your pension and access healthcare.
+      tagged_content: 
+        - title: Apply for or renew a British passport if you're visiting the UK
+          description: You can apply for or renew a British passport while you're visiting the UK - as long as you expect to be in the UK for long enough.
+          base_path: /passport-application-while-visiting-uk
+        - title: Bereavement support
+          description: Information to help you deal with practical arrangements following the death of a British national.
+          base_path: /government/publications/information-relating-to-deaths-in-thailand
+        - title: Check if a document can be legalised
+          description: Find out which documents the Legalisation Office can legalise - confirming the signature, seal or stamp on a document is genuine.
+          base_path: /legalisation-document-checker
+        - title: Get a document legalised
+          description: Use the online service to get a UK document legalised.
+          base_path: /get-document-legalised
+        - title: Get married abroad
+          description: Requirements, paperwork and processes for weddings and civil partnerships overseas - registration, restrictions, fees.
+          base_path: /marriage-abroad
+        - title: Get or renew a passport
+          description: Renew, replace or apply for an adult or child British passport if you’re living abroad or working overseas - forms, prices, how long it takes.
+          base_path: /overseas-passports
+        - title: Lists of lawyers, translators and interpreters
+          description: 
+          base_path: /government/publications/thailand-list-of-lawyers
+        - title: List of medical facilities
+          description: 
+          base_path: /government/publications/thailand-list-of-medical-facilitiespractitioners
+        - title: Living in Thailand
+          description: Advice for British people living in Thailand, including information on health, education, benefits, residence requirements and more. 
+          base_path: /guidance/living-in-thailand
+        - title: Moving or retiring abroad
+          description: What you need to know if you move or retire abroad - tax, pensions, voting and contacting your local council.
+          base_path: /moving-or-retiring-abroad
+        - title: Notarial and documentary services
+          description: 
+          base_path: /guidance/notarial-and-documentary-services-guide-for-thailand
+        - title: Register a birth
+          description: Parents must register the birth in the country where the child was born - find out if you can also register the birth in the UK.
+          base_path: /register-a-birth
+        - title: Register a death
+          description: Find out how to register a death abroad.
+          base_path: /after-a-death/death-abroad
+        - title: Voting when you're abroad
+          description: How to vote if you're going to be abroad temporarily on election day, and what to do if you're moving overseas long term.
+          base_path: /voting-when-abroad
+    - title: Tax, benefits, pensions and working abroad
+      description: Includes how to pay tax, claim State Pension and get tax credits abroad. 
+      tagged_content: 
+        - title: Claiming benefits if you live, move or travel abroad
+          description: Benefits you can claim if you go abroad and countries with social security arrangements with the UK.
+          base_path: /claim-benefits-abroad
+        - title: National Insurance if you go abroad
+          description: Contact HM Revenue and Customs (HMRC) to find out if you need to pay National Insurance when you work abroad.
+          base_path: /national-insurance-if-you-go-abroad
+        - title: Tax credits if you leave or move to the UK
+          description: Tax credits if you live abroad, go travelling, are a cross-border worker or subject to immigration control.
+          base_path: /tax-credits-if-moving-country-or-travelling
+        - title: Tax on foreign income
+          description: Find out whether you need to pay UK tax on foreign income - residence and ‘non-dom’ status, tax returns, claiming relief if you’re taxed twice (including certificates of residence).
+          base_path: /tax-foreign-income
+        - title: Tax on your UK income if you live abroad
+          description: Find out whether you need to pay tax on your UK income while you're living abroad - non-resident landlord scheme, tax returns, claiming relief if you’re taxed twice, personal allowance of tax-free income, form R43.
+          base_path: /tax-uk-income-live-abroad
+        - title: State Pension if you retire abroad
+          description: How to claim State Pension if you're overseas - payment, tax, change of circumstances - contact the International Pension Centre.
+          base_path: /state-pension-if-you-retire-abroad
+        - title: Work in another EU country
+          description: UK citizens can work in any European Economic Area country and Switzerland without a work permit - where you can work, your rights, protection for posted workers and National Insurance payments.
+          base_path: /working-abroad
+    - title: Coming to the UK
+      description: Get a visa to study, work or visit the UK.
+      tagged_content: 
+        - title: Check if you need a UK visa
+          description: You may need a visa to come to the UK to visit, study or work.
+          base_path: /check-uk-visa
+        - title: Chevening Scholarships
+          description: Chevening Scholarships are one-year Masters’ degrees for graduates from eligible countries who could be future leaders. Find out about eligibility and how to apply.
+          base_path: /guidance/chevening-scholarships-for-students-from-overseas
+        - title: Contact UK Visas and Immigration from outside the UK
+          description: Contact UKVI via email or telephone if you're outside the UK.
+          base_path: /contact-ukvi-outside-uk
+        - title: Get your visa, immigration or citizenship documents back
+          description: Get your documents returned if you've made a UK visa, immigration or citizenship application but need them back urgently.
+          base_path: /visa-documents-returned
+    - title: Travelling to Thailand
+      description: Includes travel advice and how to get married abroad.
+      tagged_content: 
+        - title: Driving abroad
+          description: You'll need a Great Britain or Northern Ireland licence to drive abroad and an International Driving Permit in some non-EU countries.
+          base_path: /driving-abroad
+        - title: Foreign travel advice for people with mental health needs
+          description: Advice for British nationals with mental health needs to prepare for travelling and living abroad, and how the FCO can help.
+          base_path: /guidance/foreign-travel-advice-for-people-with-mental-health-issues
+        - title: Get married abroad
+          description: Requirements, paperwork and processes for weddings and civil partnerships overseas - registration, restrictions, fees.
+          base_path: /marriage-abroad
+        - title: How to reduce your risk of terrorism abroad
+          description: How to minimise your risk and what to do in the event of a terrorist attack.
+          base_path: /guidance/reduce-your-risk-from-terrorism-while-abroad
+        - title: Taking a vehicle out of the UK
+          description: Taking your car out of the UK - when VAT is not payable on a car you are exporting, procedures, registration and vehicle tax.
+          base_path: /taking-vehicles-out-of-uk
+        - title: Thailand travel advice
+          description: Latest travel advice including safety and security, entry requirements, travel warnings and health.
+          base_path: /foreign-travel-advice/thailand
+    - title: Trade and invest in the UK
+      description: Find out how to set up a business in the UK, invest in the UK and what support you can get.
+      tagged_content: 
+        - title: "Business investment in the UK: Guidance for overseas businesses"
+          description: Guidance on why overseas companies should set up and locate their businesses in the UK. Includes information on UK business investment and Foreign Direct Investment (FDI) opportunities.
+          base_path: /government/collections/investment-in-the-uk-guidance-for-overseas-businesses
+        - title: Department for International Trade in Thailand
+          description: 
+          base_path: /government/world/organisations/department-for-international-trade-thailand
+        - title: Exporting and doing business abroad
+          description: What to do within or outside the EU, including checking if you need a licence.
+          base_path: /starting-to-export
+        - title: International treaties
+          description: 
+          base_path: /government/publications?keywords=&publication_filter_option=international-treaties&topics%5B%5D=all&departments%5B%5D=all&official_document_status=all&world_locations%5B%5D=all&from_date=&to_date=
+        - title: Set up a business 
+          description: "What you need to do to start a business: choose a legal structure, see if you need licences and insurance, learn about reliefs and benefits."
+          base_path: /set-up-business
+    - title: Diplomacy and development
+      description: Find out what the UK government is doing in Thailand, includes news and events.
+      tagged_content: 
+        - title: News and events in Thailand
+          description: What is the UK government doing in Thailand.
+          base_path: /government/world/thailand/news
+    - title: British Embassy
+      description: Includes contact details, opening hours and consular fees.
+      tagged_content: 
+        - title: British Embassy Bangkok
+          description: 
+          base_path: /government/world/thailand/british-embassy-bangkok
   embassies:
     british-embassy-bangkok:
       - title: British Embassy Bangkok
-        summary: The summary
+        summary: The British Embassy in Bangkok represents the UK government and provides services to British nationals in Thailand.
         body: |
-          The British Embassy in Bangkok represents the UK government and provides services to British nationals in Thailand.
-          We help sustain and develop the important relationship between the UK and Thailand.
-          You can access UK government services while in [Thailand](https://www.gov.uk/government/world/thailand)
-          ##Urgent assistance
-          If you’re in Thailand and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +41 (12) 345 6789. If you’re in the UK and worried about a British national in Sample, call 020 7008 1500.
-          [Contact the Embassy](#contact-us) for information about our other services.
+          We help sustain and develop the important relationship between the UK and Thailand. 
+           
+          You can [access UK government services while in Thailand](/government/world/thailand).
+           
+          #Urgent assistance
+           
+          If you’re in Thailand and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +66(0)2 305 8333. If you’re in the UK and worried about a British national in Thailand, call 020 7008 1500. 
+           
+          [Contact the embassy](#contact-us) for information about our other services. 
+           
+          #Other consular services
+           
+          Consular staff in Bangkok can:
+           
+          - administer an oath, affirmation or affidavit
+          - witness a signature
+          - make a certified copy of a document
+
+          See the [full list of services](https://www.gov.uk/government/collections/notarial-services). You might have to [pay a fee](https://www.gov.uk/government/publications/thailand-consular-fees). 
 turkey:
   taxonomy:
     - title: Help for British nationals in Turkey
