@@ -134,7 +134,6 @@ class WorldwideOrganisationsControllerTest < ActionController::TestCase
       "british-consulate-general-los-angeles" => "usa",
       "did-south-africa" => "south-africa",
       "british-deputy-high-commission-kolkata" => "india",
-      "uk-science-and-innovation-network" => "australia",
     }
 
     hard_coded_redirects.each do |organisation_slug, location_slug|
