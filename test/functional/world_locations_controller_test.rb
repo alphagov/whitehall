@@ -357,10 +357,10 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
   view_test "should use the taxonomy template if the user is in the 'B' cohort" do
     with_variant WorldwidePublishingTaxonomy: "B", assert_meta_tag: false do
-      # Use the 'sample' slug since it is defined in
+      # 'india' is one of the test world locations in
       # `worldwide_publishing_taxonomy_ab_test_content.yml` and will therefore
       # display the taxonomy page
-      world_location = create(:world_location, slug: 'sample')
+      world_location = create(:world_location, slug: 'india')
       get :show, id: world_location, locale: 'en'
 
       assert_select '.taxon-page'

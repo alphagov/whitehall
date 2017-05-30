@@ -1,16 +1,4 @@
 --- !map:HashWithIndifferentAccess
-sample:
-  taxonomy:
-    - title: Help for British nationals in Sample
-      description: Travel documents and help with emergencies.
-      base_path: help-for-british-nationals
-      tagged_content:
-        - title: Get a new or replacement UK passport
-          description: Forms, prices and application details you need if you're a British national and you want to renew or apply for a British passport.
-          base_path: /apply-renew-passport
-        - title: Get emergency UK travel documents
-          description: If you're abroad, need to travel and can't get a passport in time.
-          base_path: /emergency-travel-document
 australia:
   taxonomy:
     - title: Help for British nationals in Australia
