@@ -65,7 +65,7 @@
             <div data-module="accordion-with-descriptions" class="js-hidden">
               <div class="subsection-wrapper">
                 <% b_variant_page_content[:taxonomy].each_with_index do |taxon, section_index| %>
-                  <div class="subsection js-subsection" id="<%= taxon[:base_path] %>" data-track-count="accordionSection">
+                  <div class="subsection js-subsection" id="section_content_<%= section_index + 1 %>" data-track-count="accordionSection">
                     <div class="subsection-header js-subsection-header">
                       <h2 class="subsection-title js-subsection-title"><%= taxon[:title] %></h2>
                       <p class="subsection-description"><%= taxon[:description] %></p>
