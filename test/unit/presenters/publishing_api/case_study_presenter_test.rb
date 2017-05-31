@@ -144,7 +144,7 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
     }
 
     assert_valid_against_links_schema({ links: presented_item.links }, 'case_study')
-    assert_equal expected_links_hash, presented_item.links
+    assert_hash_includes presented_item.links, expected_links_hash
   end
 
   test "details hash includes full document history" do

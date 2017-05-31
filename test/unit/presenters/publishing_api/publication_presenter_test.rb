@@ -62,6 +62,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     expected_links = {
       topics: [],
       parent: [],
+      primary_publishing_organisation: publication.lead_organisations.map(&:content_id),
       organisations: publication.lead_organisations.map(&:content_id),
       ministers: [minister.person.content_id],
       related_statistical_data_sets: [statistical_data_set.content_id],
@@ -116,21 +117,14 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
                         lead_organisations: [lead_org_1, lead_org_2],
                         supporting_organisations: [supporting_org])
     presented_item = present(publication)
+
     expected_links_hash = {
-      topics: [],
-      parent: [],
       organisations: [lead_org_1.content_id, lead_org_2.content_id, supporting_org.content_id],
-      world_locations: [],
-      ministers: [],
-      related_statistical_data_sets: [],
-      topical_events: [],
-      policy_areas: publication.topics.map(&:content_id),
-      related_policies: []
     }
 
     assert_valid_against_links_schema({ links: presented_item.links }, 'publication')
-    assert_equal expected_links_hash, presented_item.links
-    assert_equal expected_links_hash, presented_item.content[:links]
+    assert_hash_includes presented_item.links, expected_links_hash
+    assert_hash_includes presented_item.content[:links], expected_links_hash
   end
 
   test "details hash includes full document history" do
