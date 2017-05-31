@@ -8,7 +8,9 @@
     <div class="logo">
       <h1>
         <% if link_to_organisation %>
-          <%= link_to content_tag(:span, organisation_logo_name(organisation)), organisation, class: logo_classes(class_name: 'single-identity', size: 'large', stacked: true) %>
+          <%= link_to content_tag(:span, organisation_logo_name(organisation)),
+                worldwide_organisation_link_for_ab_test(organisation),
+                class: logo_classes(class_name: 'single-identity', size: 'large', stacked: true) %>
         <% else %>
           <%= content_tag :span, content_tag(:span, organisation_logo_name(organisation)), class: logo_classes(class_name: 'single-identity', size: 'large', stacked: true) %>
         <% end %>
