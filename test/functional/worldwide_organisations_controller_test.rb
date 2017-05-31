@@ -178,6 +178,22 @@ class WorldwideOrganisationsControllerTest < ActionController::TestCase
     end
   end
 
+  test "should redirect to the worldwide_organisation page for B cohort but the world_organisation is not in the test data" do
+    with_variant WorldwidePublishingTaxonomy: "B", assert_meta_tag: false do
+      worldwide_organisation = create(:worldwide_organisation, slug: "not-an-embassy")
+      world_location = create(:world_location)
+
+      data = {
+        "embassies" => {}
+      }
+      WorldwideAbTestHelper.any_instance.stubs(:has_content_for?).returns(true)
+      WorldwideAbTestHelper.any_instance.expects(:content_for).with(world_location.slug).at_least_once.returns(data)
+      get :show_b_variant, id: worldwide_organisation.slug, world_location_id: world_location.slug
+
+      assert_redirected_to worldwide_organisation_path(worldwide_organisation)
+    end
+  end
+
   test "should return 200 if in the B cohort and there is data" do
     with_variant WorldwidePublishingTaxonomy: "B", assert_meta_tag: false do
       worldwide_organisation = create(:worldwide_organisation)
