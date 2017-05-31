@@ -34,6 +34,11 @@ australia:
           ##Urgent assistance
           If you’re in Australia and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +41 (12) 345 6789. If you’re in the UK and worried about a British national in Sample, call 020 7008 1500.
           [Contact the High Commission](#contact-us) for information about our other services.
+    uk-science-and-innovation-network:
+      - title: Uk Science and Innovation Network
+        summary: The summary
+        body: |
+          Uk Science and Innovation Network
 brazil:
   taxonomy:
     - title: Help for British nationals in Brazil
@@ -80,6 +85,16 @@ india:
           ##Urgent assistance
           If you’re in India and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +41 (12) 345 6789. If you’re in the UK and worried about a British national in Sample, call 020 7008 1500.
           [Contact the High Commission](#contact-us) for information about our other services.
+    british-deputy-high-commission-kolkata:
+      - title: British Deputy High Commission Kolkata
+        summary: The summary
+        body: |
+          The British Deputy High Commission in Kolkata represents the UK government and provides services to British nationals in India.
+          We help sustain and develop the important relationship between the UK and India.
+          You can access UK government services while in [India](https://www.gov.uk/government/world/india)
+          ##Urgent assistance
+          If you’re in India and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +41 (12) 345 6789. If you’re in the UK and worried about a British national in Sample, call 020 7008 1500.
+          [Contact the High Commission](#contact-us) for information about our other services.
 south-africa:
   taxonomy:
     - title: Help for British nationals in South Africa
@@ -103,6 +118,11 @@ south-africa:
           ##Urgent assistance
           If you’re in South Africa and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +41 (12) 345 6789. If you’re in the UK and worried about a British national in Sample, call 020 7008 1500.
           [Contact the High Commission](#contact-us) for information about our other services.
+    did-south-africa:
+      - title: Department of International Development in South Africa
+        summary: The summary
+        body: |
+          Department of International Development in South Africa
 thailand:
   taxonomy:
     - title: Help for British nationals in Thailand
@@ -167,6 +187,16 @@ usa:
         summary: The summary
         body: |
           The British Embassy in Ankara represents the UK government and provides services to British nationals in the USA.
+          We help sustain and develop the important relationship between the UK and the USA.
+          You can access UK government services while in the [USA](https://www.gov.uk/government/world/usa)
+          ##Urgent assistance
+          If you’re in the USA and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +41 (12) 345 6789. If you’re in the UK and worried about a British national in Sample, call 020 7008 1500.
+          [Contact the Embassy](#contact-us) for information about our other services.
+    british-consulate-general-los-angeles:
+      - title: British Consulate General Los Angeles
+        summary: The summary
+        body: |
+          The British Consulate in Los Angeles represents the UK government and provides services to British nationals in the USA.
           We help sustain and develop the important relationship between the UK and the USA.
           You can access UK government services while in the [USA](https://www.gov.uk/government/world/usa)
           ##Urgent assistance

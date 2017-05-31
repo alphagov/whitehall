@@ -9,6 +9,12 @@ class WorldwideAbTestHelper
     !!content_for(location_slug)
   end
 
+  def has_embassy_content_for?(location_slug, embassy_slug)
+    return false unless has_content_for?(location_slug)
+
+    !!content_for(location_slug)["embassies"][embassy_slug]
+  end
+
   def content_for(location_slug)
     content[location_slug]
   end
@@ -22,6 +28,8 @@ class WorldwideAbTestHelper
     location = testable_object
     if testable_object.respond_to?(:world_locations)
       location = location_for(testable_object)
+
+      return false unless has_embassy_content_for?(location.slug, testable_object.slug)
     end
     has_content_for?(location.slug)
   end
