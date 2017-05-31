@@ -3,6 +3,7 @@ require "test_helper"
 class WorldwideOrganisationsControllerTest < ActionController::TestCase
   include GovukAbTesting::MinitestHelpers
   should_be_a_public_facing_controller
+  include GovukAbTesting::MinitestHelpers
 
   test "shows worldwide organisation information" do
     organisation = create(:worldwide_organisation)
@@ -152,5 +153,76 @@ class WorldwideOrganisationsControllerTest < ActionController::TestCase
         assert_redirected_to world_location_path(hard_coded_location)
       end
     end
+  end
+
+  test "should redirect to the worldwide_organisation if the user is in the 'A' cohort" do
+    with_variant WorldwidePublishingTaxonomy: "A", assert_meta_tag: false do
+      organisation = create(:worldwide_organisation)
+      world_location = create(:world_location)
+
+      get :show_b_variant, id: organisation.id, world_location_id: world_location.id
+
+      assert_redirected_to worldwide_organisation_path(organisation)
+    end
+  end
+
+  test "should redirect to the worldwide_organisation page if the user is in the B cohort but the world_location is not in the test data" do
+    with_variant WorldwidePublishingTaxonomy: "B", assert_meta_tag: false do
+      organisation = create(:worldwide_organisation)
+      world_location = create(:world_location)
+      WorldwideAbTestHelper.any_instance.expects(:has_content_for?).returns(nil)
+
+      get :show_b_variant, id: organisation.id, world_location_id: world_location.id
+
+      assert_redirected_to worldwide_organisation_path(organisation)
+    end
+  end
+
+  test "should return 200 if in the B cohort and there is data" do
+    with_variant WorldwidePublishingTaxonomy: "B", assert_meta_tag: false do
+      worldwide_organisation = create(:worldwide_organisation)
+      world_location = create(:world_location)
+
+      data = sample_yaml(worldwide_organisation)
+      WorldwideAbTestHelper.any_instance.stubs(:has_content_for?).returns(true)
+      WorldwideAbTestHelper.any_instance.expects(:content_for).with(world_location.slug).at_least_once.returns(data)
+      get :show_b_variant, id: worldwide_organisation.slug, world_location_id: world_location.slug
+
+      assert_response 200
+    end
+  end
+
+  test "redirects out of the B cohort if the request for an embassy page is non en" do
+    with_variant WorldwidePublishingTaxonomy: "B", assert_meta_tag: false do
+      worldwide_organisation = create(:worldwide_organisation)
+      LocalisedModel.new(worldwide_organisation, "fr").update_attributes(name: "Le nom de Org")
+      world_location = create(:world_location)
+      LocalisedModel.new(world_location, "fr").update_attributes(name: "Le location")
+
+      data = sample_yaml(worldwide_organisation)
+      WorldwideAbTestHelper.any_instance.stubs(:has_content_for?).returns(true)
+      WorldwideAbTestHelper.any_instance.expects(:content_for).with(world_location.slug).at_least_once.returns(data)
+      get :show_b_variant, id: worldwide_organisation.slug, world_location_id: world_location.slug, locale: :fr
+
+      assert_redirected_to worldwide_organisation_path(
+        worldwide_organisation,
+        "ABTest-WorldwidePublishingTaxonomy" => "A",
+        locale: :fr,
+      )
+    end
+  end
+
+  def sample_yaml(worldwide_organisation)
+    {
+      "embassies" => {
+        worldwide_organisation.slug => [
+          {
+            "title" => "British High Commission Sample City",
+            "summary" => "Summary",
+            "body" => "The Body"
+          }
+        ]
+      }
+    }
   end
 end
