@@ -42,21 +42,23 @@
           </div>
         </div>
         <div class="column-one-third">
-          <div class="available-languages">
-            <ul>
-              <% sorted_locales(@world_location.translated_locales).each.with_index do |locale, i| %>
-                <li class="translation<%= ' last' if i == @world_location.translated_locales.length-1 %>">
-                  <% if locale == I18n.locale %>
-                    <span><%= native_language_name_for(locale) %></span>
-                  <% else %>
-                    <a lang="<%= locale %>" href="/government/world/<%= @world_location.slug %>.<%= locale %>?ABTest-WorldwidePublishingTaxonomy=A">
-                      <%= native_language_name_for(locale) %>
-                    </a>
-                  <% end %>
-                </li>
-              <% end %>
-            </ul>
-          </div>
+          <% if @world_location.available_in_multiple_languages? %>
+            <div class="available-languages">
+              <ul>
+                <% sorted_locales(@world_location.translated_locales).each.with_index do |locale, i| %>
+                  <li class="translation<%= ' last' if i == @world_location.translated_locales.length-1 %>">
+                    <% if locale == I18n.locale %>
+                      <span><%= native_language_name_for(locale) %></span>
+                    <% else %>
+                      <a lang="<%= locale %>" href="/government/world/<%= @world_location.slug %>.<%= locale %>?ABTest-WorldwidePublishingTaxonomy=A">
+                        <%= native_language_name_for(locale) %>
+                      </a>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
         </div>
       </div>
       <div class="grid-row child-topic-contents">
