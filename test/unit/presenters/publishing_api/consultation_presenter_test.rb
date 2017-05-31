@@ -116,7 +116,8 @@ module PublishingApi::ConsultationPresenterTest
         related_policies: [],
         topics: []
       }
-      assert_equal presented_content[:links], expected_links
+
+      assert_hash_includes presented_content[:links], expected_links
     end
 
     test 'body details' do

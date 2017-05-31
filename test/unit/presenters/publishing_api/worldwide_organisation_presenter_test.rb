@@ -30,7 +30,7 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
     presented_item = present(worldwide_org)
 
     assert_equal expected_hash, presented_item.content
-    assert_equal expected_links, presented_item.links
+    assert_hash_includes presented_item.links, expected_links
     assert_equal "major", presented_item.update_type
     assert_equal worldwide_org.content_id, presented_item.content_id
 

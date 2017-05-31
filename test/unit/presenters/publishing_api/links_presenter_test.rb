@@ -21,7 +21,15 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
 
     links = links_for(edition, [:topics, :parent, :organisations])
 
-    assert_equal({ topics: %w(content_id_1), parent: [], organisations: [] }, links)
+    assert_equal(
+      {
+        topics: %w(content_id_1),
+        parent: [],
+        organisations: [],
+        primary_publishing_organisation: []
+      },
+      links
+    )
   end
 
   test 'it treats the primary specialist sector of the item as the parent' do
@@ -36,6 +44,7 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
         topics: %w(content_id_1 content_id_2),
         parent: %w(content_id_1),
         organisations: [],
+        primary_publishing_organisation: [],
       },
       links
     )
@@ -50,6 +59,22 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
         topics: [],
         parent: [],
         organisations: [],
+        primary_publishing_organisation: [],
+      },
+      links
+    )
+  end
+
+  test "adds primary publishing organisation" do
+    organisation = create(:organisation)
+    edition = create(:detailed_guide, lead_organisations: [organisation])
+
+    links = links_for(edition, [:organisations])
+
+    assert_equal(
+      {
+        organisations: [organisation.content_id],
+        primary_publishing_organisation: [organisation.content_id],
       },
       links
     )

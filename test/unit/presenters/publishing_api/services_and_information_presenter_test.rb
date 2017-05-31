@@ -37,7 +37,7 @@ class PublishingApi::ServicesAndInformationPresenterTest < ActionView::TestCase
     presented_item = present(organisation)
 
     assert_equal expected_hash, presented_item.content
-    assert_equal expected_links, presented_item.links
+    assert_hash_includes presented_item.links, expected_links
     assert_equal expected_update_type, presented_item.update_type
 
     assert_valid_against_schema(presented_item.content, "generic")

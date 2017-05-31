@@ -2,6 +2,7 @@ module PublishingApi
   class LinksPresenter
     LINK_NAMES_TO_METHODS_MAP = {
       organisations: :organisation_ids,
+      primary_publishing_organisation: :primary_publishing_organisation_id,
       policy_areas: :policy_area_ids,
       related_policies: :related_policy_ids,
       statistical_data_set_documents: :statistical_data_set_ids,
@@ -16,6 +17,10 @@ module PublishingApi
     end
 
     def extract(filter_links)
+      if filter_links.include?(:organisations)
+        filter_links << :primary_publishing_organisation
+      end
+
       filter_links.reduce(Hash.new) do |links, link_name|
         private_method_name = LINK_NAMES_TO_METHODS_MAP[link_name]
         links[link_name] = send(private_method_name)
@@ -41,6 +46,11 @@ module PublishingApi
 
     def organisation_ids
       (item.try(:organisations) || []).map(&:content_id)
+    end
+
+    def primary_publishing_organisation_id
+      lead_organisations = item.try(:lead_organisations) || []
+      [lead_organisations.map(&:content_id).first].compact
     end
 
     def world_location_ids

@@ -83,7 +83,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     assert_equal expected_content.except(:details), presented_item.content.except(:details)
     assert_equivalent_html expected_content[:details].delete(:body), presented_item.content[:details].delete(:body)
     assert_equal expected_content[:details], presented_item.content[:details].except(:body)
-    assert_equal expected_links, presented_item.links
+    assert_hash_includes presented_item.links, expected_links
     assert_equal detailed_guide.document.content_id, presented_item.content_id
   end
 
