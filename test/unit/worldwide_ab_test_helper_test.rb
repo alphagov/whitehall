@@ -23,6 +23,27 @@ class WorldwideAbHelperTest < ActiveSupport::TestCase
               - title: Get emergency UK travel documents
                 description: If you're abroad, need to travel and can't get a passport in time.
                 base_path: /emergency-travel-document
+        embassies:
+          british-high-commission-new-delhi:
+            - title: British High Commission New Delhi
+              summary: The summary
+              body: |
+                The British High Commission in New Delhi represents the UK government and provides services to British nationals in India.
+                We help sustain and develop the important relationship between the UK and India.
+                You can access UK government services while in [India](https://www.gov.uk/government/world/india)
+                ##Urgent assistance
+                If you’re in India and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +41 (12) 345 6789. If you’re in the UK and worried about a British national in Sample, call 020 7008 1500.
+                [Contact the High Commission](#contact-us) for information about our other services.
+          british-deputy-high-commission-kolkata:
+            - title: British Deputy High Commission Kolkata
+              summary: The summary
+              body: |
+                The British High Commission in Kolkata represents the UK government and provides services to British nationals in India.
+                We help sustain and develop the important relationship between the UK and India.
+                You can access UK government services while in [India](https://www.gov.uk/government/world/india)
+                ##Urgent assistance
+                If you’re in India and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +41 (12) 345 6789. If you’re in the UK and worried about a British national in Sample, call 020 7008 1500.
+                [Contact the High Commission](#contact-us) for information about our other services.
 
     CONTENT
 
@@ -99,7 +120,7 @@ class WorldwideAbHelperTest < ActiveSupport::TestCase
     with_fixture_file do |file_path|
       location = stub(slug: "india")
       organisation = stub(
-        slug: "british-deputy-high-commission-indialand",
+        slug: "british-high-commission-new-delhi",
         world_locations: [location]
       )
 
@@ -143,6 +164,18 @@ class WorldwideAbHelperTest < ActiveSupport::TestCase
     with_fixture_file do |file_path|
       location = WorldLocation.new(slug: "germany")
       refute subject(file_path).is_under_test?(location)
+    end
+  end
+
+  test "is_under_test? returns false if the organisation is not listed under the location under test" do
+    with_fixture_file do |file_path|
+      location = stub(slug: "india")
+      organisation = stub(
+        slug: "organisation-which-is-not-listed-in-the-yml",
+        world_locations: [location]
+      )
+
+      refute subject(file_path).is_under_test?(organisation)
     end
   end
 end

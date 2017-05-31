@@ -68,7 +68,9 @@ class WorldwideOrganisationsControllerTest < ActionController::TestCase
   test "show redirects users in the b group to /government/world/<location>" do
     location_under_test_slug = "india"
     world_location = create(:world_location, slug: location_under_test_slug)
-    worldwide_organisation = create(:worldwide_organisation, world_locations: [world_location])
+    worldwide_organisation = create(:worldwide_organisation,
+                                    slug: "british-high-commission-new-delhi",
+                                    world_locations: [world_location])
     with_variant WorldwidePublishingTaxonomy: "B", assert_meta_tag: false do
       get :show, id: worldwide_organisation
       assert_redirected_to world_location_path(world_location)
@@ -88,6 +90,21 @@ class WorldwideOrganisationsControllerTest < ActionController::TestCase
     location_not_under_test_slug = "germany"
     world_location = create(:world_location, slug: location_not_under_test_slug)
     worldwide_organisation = create(:worldwide_organisation, world_locations: [world_location])
+    with_variant WorldwidePublishingTaxonomy: "B", assert_meta_tag: false do
+      get :show, id: worldwide_organisation
+      assert_response :ok
+    end
+  end
+
+  test "show doesn't redirect B group users for organisations that aren't in the test" do
+    location_under_test_slug = "usa"
+    world_location = create(:world_location, slug: location_under_test_slug)
+
+    org_not_under_test_slug = "emerging-risks-directorate"
+    worldwide_organisation = create(:worldwide_organisation,
+                                    slug: org_not_under_test_slug,
+                                    world_locations: [world_location])
+
     with_variant WorldwidePublishingTaxonomy: "B", assert_meta_tag: false do
       get :show, id: worldwide_organisation
       assert_response :ok
