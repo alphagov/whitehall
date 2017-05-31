@@ -74,6 +74,10 @@ class ActiveSupport::TestCase
     assert_equal array1.to_set, array2.to_set, "Different elements in #{array1.inspect} and #{array2}.inspect"
   end
 
+  def assert_hash_includes(hash, should_exist)
+    assert should_exist.to_a.all? { |e| hash.to_a.include?(e) }, "#{hash} doesn't include #{should_exist}"
+  end
+
   def assert_all_requested(array)
     array.each { |request| assert_requested request }
   end
