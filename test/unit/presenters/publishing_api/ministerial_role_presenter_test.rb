@@ -31,7 +31,7 @@ class PublishingApi::MinisterialRolePresenterTest < ActiveSupport::TestCase
     presented_item = present(ministerial_role)
 
     assert_equal expected_hash, presented_item.content
-    assert_equal expected_links, presented_item.links
+    assert_hash_includes presented_item.links, expected_links
     assert_equal "major", presented_item.update_type
     assert_equal ministerial_role.content_id, presented_item.content_id
 

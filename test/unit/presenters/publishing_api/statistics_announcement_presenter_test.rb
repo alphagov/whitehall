@@ -47,7 +47,7 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
       presented_content[:details].delete(:body)
 
     assert_equal expected_content, presented_content
-    assert_equal expected_links, presented_item.links
+    assert_hash_includes presented_item.links, expected_links
   end
 
   test "a cancelled statistics announcement presents the correct values" do
@@ -94,7 +94,7 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
       presented_content[:details].delete(:body)
 
     assert_equal expected_content, presented_content
-    assert_equal expected_links, presented_item.links
+    assert_hash_includes presented_item.links, expected_links
   end
 
   test "a statistics announcement with a date change presents both dates and a notice" do
@@ -143,6 +143,6 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
       presented_content[:details].delete(:body)
 
     assert_equal expected_content, presented_content
-    assert_equal expected_links, presented_item.links
+    assert_hash_includes presented_item.links, expected_links
   end
 end
