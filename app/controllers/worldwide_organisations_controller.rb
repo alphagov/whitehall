@@ -95,7 +95,7 @@ private
   end
 
   def embassy_test_data(embassy)
-    embassies_test_data[embassy][0] if embassies_test_data
+    embassies_test_data[embassy].first if embassies_test_data && embassies_test_data[embassy]
   end
 
   def setup_a_b_test
