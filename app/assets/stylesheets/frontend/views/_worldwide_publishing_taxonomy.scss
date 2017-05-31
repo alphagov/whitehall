@@ -56,7 +56,8 @@
 
   a {
     margin: -3px;
-    padding: 3px;
+    padding-right: 3px;
+    padding-left: 3px;
     outline-color: transparent;
     display: block;
   }
@@ -123,6 +124,11 @@
 
       li {
         margin-bottom: $gutter-one-third;
+      }
+
+      a {
+        padding-top: 3px;
+        padding-bottom: 3px;
       }
     }
   }
