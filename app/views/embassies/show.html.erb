@@ -97,7 +97,6 @@
     <div class="inner-block floated-children">
       <h1 class="keyline-header"><%= t('worldwide_organisation.headings.contact_us' ) %></h1>
       <%= render partial: 'contacts/contact', locals: {contact: @main_office, is_main: true} %>
-      <%= render partial: 'contacts/contact', collection: @home_page_offices %>
     </div>
   </section>
 <% end %>
