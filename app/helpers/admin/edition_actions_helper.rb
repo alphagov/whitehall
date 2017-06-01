@@ -91,10 +91,18 @@ module Admin::EditionActionsHelper
       role: 'menu',
       'aria-labelledby' => 'new-document-label'
     ) do
-      [Consultation, Publication, NewsArticle,
-        Speech, DetailedGuide, DocumentCollection, FatalityNotice,
-        CaseStudy, StatisticalDataSet,
-        WorldLocationNewsArticle].map do |edition_type|
+      edition_types = [
+        Consultation,
+        Publication,
+        NewsArticle,
+        Speech,
+        DetailedGuide,
+        DocumentCollection,
+        FatalityNotice,
+        CaseStudy,
+        StatisticalDataSet,
+      ]
+      edition_types.map do |edition_type|
         content_tag(:li, class: 'masthead-menu-item') do
           link_to(edition_type.model_name.human,
             polymorphic_path([:new, :admin, edition_type.name.underscore]),

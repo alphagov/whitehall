@@ -5,7 +5,9 @@ Feature: World location news for people local to countries
 
   ---
 
-  A way of creating a 'world location specific' news article
+  World Location News Articles are being replaced by News Articles of type
+  'World news story' and it is not possible to create these anymore. They can
+  still be viewed though.
 
   Include these on the location page's list of recent announcements,
   latest feed etc, and allow them to be featured on a world location
@@ -29,34 +31,6 @@ Feature: World location news for people local to countries
 
   Background:
     Given I am an GDS editor
-
-  Scenario: Create a world location news article
-    When I draft a valid world location news article "Beirut News"
-    Then the world location news article "Beirut News" should have been created
-
-  Scenario: Associate a world location news article with a worldwide organisation
-    Given the worldwide organisation "Spanish Department" exists
-    When I draft a valid world location news article "Spanish News"
-    Then I should be able to associate "Spanish News" with the worldwide organisation "Spanish Department"
-    When I force publish the world location news article "Spanish News"
-    Then the worldwide organisation "Spanish Department" is listed as a producing org on the world location news article "Spanish News"
-
-  Scenario: Associate a world location news article with a topical event
-    Given the topical event "French Topical Event" exists
-    When I draft a valid world location news article "French News"
-    Then I should be able to associate "French News" with the topical event "French Topical Event"
-    When I force publish the world location news article "French News"
-    Then the topical event "French Topical Event" is listed as a topical event on the world location news article "French News"
-
-  @not-quite-as-fake-search
-  Scenario: Associate a world location news article with a world location
-    Given a world location "Indonesia" exists
-    When I draft a valid world location news article "Indonesian Beer"
-    Then I should be able to associate "Indonesian Beer" with the world location "Indonesia"
-    When I force publish the world location news article "Indonesian Beer"
-    Then the world location news article "Indonesian Beer" appears on the world location "Indonesia"
-    When I click through to see all the announcements for world location "Indonesia"
-    Then I should see the world location news article "Indonesian Beer"
 
   @not-quite-as-fake-search
   Scenario: World location news on the announcements index
