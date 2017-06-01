@@ -25,10 +25,11 @@ class WorldwideAbTestHelper
   end
 
   def is_under_test?(testable_object)
+    return false unless valid_testable_object?(testable_object)
     location = testable_object
     if testable_object.respond_to?(:world_locations)
       location = location_for(testable_object)
-
+      return false unless valid_testable_object?(location)
       return false unless has_embassy_content_for?(location.slug, testable_object.slug)
     end
     has_content_for?(location.slug)
@@ -63,5 +64,9 @@ private
     locations.find do |location|
       location.slug == hard_coded_value
     end
+  end
+
+  def valid_testable_object?(object_to_validate)
+    object_to_validate.respond_to?(:slug)
   end
 end
