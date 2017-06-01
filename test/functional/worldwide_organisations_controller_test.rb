@@ -132,9 +132,7 @@ class WorldwideOrganisationsControllerTest < ActionController::TestCase
     hard_coded_redirects = {
       "british-high-commission-pretoria" => "south-africa",
       "british-consulate-general-los-angeles" => "usa",
-      "did-south-africa" => "south-africa",
       "british-deputy-high-commission-kolkata" => "india",
-      "uk-science-and-innovation-network" => "australia",
     }
 
     hard_coded_redirects.each do |organisation_slug, location_slug|
