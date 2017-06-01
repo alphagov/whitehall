@@ -64,4 +64,26 @@ class WorldwideOrganisationsHelperTest < ActionView::TestCase
       worldwide_organisation_url(org)
     )
   end
+
+  test "path appends locale if supplied for non test organisations" do
+    location = create(:world_location, slug: "india")
+    org = create(
+      :worldwide_organisation,
+      slug: "none-test-slug",
+      world_locations: [
+        location
+      ]
+    )
+
+    #the LocalisedUrlPathHelper module that has the 'super'
+    #implementation of `worldwide_organisation_path`
+    #only appends the locale to the path if this method
+    #returns true
+    org.stubs(:available_in_locale?).returns(true)
+
+    assert_equal(
+      "/government/world/organisations/none-test-slug.fr",
+      worldwide_organisation_path(org, locale: "fr")
+    )
+  end
 end

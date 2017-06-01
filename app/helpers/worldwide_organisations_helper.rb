@@ -1,9 +1,17 @@
+require "localised_url_path_helper"
+
 module WorldwideOrganisationsHelper
+  include LocalisedUrlPathHelper
+
   def worldwide_organisation_path(worldwide_organisation, options = {})
-    worldwide_organisation_url(
-      worldwide_organisation,
-      options.merge(only_path: true)
-    )
+    if ab_test_helper.is_under_test?(worldwide_organisation)
+      worldwide_organisation_url(
+        worldwide_organisation,
+        options.merge(only_path: true)
+      )
+    else
+      super
+    end
   end
 
   def worldwide_organisation_url(worldwide_organisation, options = {})
