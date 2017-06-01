@@ -1809,7 +1809,7 @@ turkey:
           base_path: /marriage-abroad 
         - title: Get or renew a passport
           description: Renew, replace or apply for an adult or child British passport if you’re living abroad or working overseas - forms, prices, how long it takes.
-          base_path: /overseas-passports"
+          base_path: /overseas-passports
         - title: List of funeral directors
           description: 
           base_path: /government/publications/turkey-list-of-funeral-directors
@@ -1958,7 +1958,7 @@ turkey:
         body: |
           We help sustain and develop the important relationship between the UK and Turkey. 
            
-          You can [access UK government services while in Turkey](/government/world/turkey)
+          You can [access UK government services while in Turkey](/government/world/turkey).
            
           #Urgent assistance
            
@@ -2045,6 +2045,7 @@ turkey:
           We also provide services in:
            
           - [Ankara](/government/world/turkey/british-embassy-ankara)
+          - [Antalya](/government/world/turkey/british-vice-consulate-antalya)
           - [Fethiye](/government/world/turkey/british-honorary-consulate-fethiye)
           - [Istanbul](/government/world/turkey/british-consulate-general-istanbul)
           - [Izmir](/government/world/turkey/british-consulate-izmir)
@@ -2076,6 +2077,7 @@ turkey:
           We also provide services in:
            
           - [Ankara](/government/world/turkey/british-embassy-ankara)
+          - [Antalya](/government/world/turkey/british-vice-consulate-antalya)
           - [Bodrum](/government/world/turkey/british-honorary-consulate-bodrum)
           - [Istanbul](/government/world/turkey/british-consulate-general-istanbul)
           - [Izmir](/government/world/turkey/british-consulate-izmir)
@@ -2107,6 +2109,7 @@ turkey:
           We also provide services in:
            
           - [Ankara](/government/world/turkey/british-embassy-ankara)
+          - [Antalya](/government/world/turkey/british-vice-consulate-antalya)
           - [Bodrum](/government/world/turkey/british-honorary-consulate-bodrum)
           - [Fethiye](/government/world/turkey/british-honorary-consulate-fethiye)
           - [Izmir](/government/world/turkey/british-consulate-izmir)
@@ -2117,7 +2120,7 @@ turkey:
         body: |
           We help sustain and develop the important relationship between the UK and Izmir.
            
-          You can [access UK government services while in Izmir](/government/world/turkey).
+          You can [access UK government services while in Turkey](/government/world/turkey).
            
           #Urgent assistance
            
@@ -2138,6 +2141,7 @@ turkey:
           We also provide services in:
            
           - [Ankara](/government/world/turkey/british-embassy-ankara)
+          - [Antalya](/government/world/turkey/british-vice-consulate-antalya)
           - [Bodrum](/government/world/turkey/british-honorary-consulate-bodrum)
           - [Fethiye](/government/world/turkey/british-honorary-consulate-fethiye)
           - [Istanbul](/government/world/turkey/british-consulate-general-istanbul)
@@ -2148,7 +2152,7 @@ turkey:
         body: |
           We help sustain and develop the important relationship between the UK and Turkey.
            
-          You can [access UK government services while in Turkey](ADD LINK TO NAV PAGE).
+          You can [access UK government services while in Turkey](/government/world/turkey).
            
           #Urgent assistance
            
@@ -2169,6 +2173,7 @@ turkey:
           We also provide services in:
            
           - [Ankara](/government/world/turkey/british-embassy-ankara)
+          - [Antalya](/government/world/turkey/british-vice-consulate-antalya)
           - [Bodrum](/government/world/turkey/british-honorary-consulate-bodrum)
           - [Fethiye](/government/world/turkey/british-honorary-consulate-fethiye)
           - [Istanbul](/government/world/turkey/british-consulate-general-istanbul)
