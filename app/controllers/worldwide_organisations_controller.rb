@@ -26,8 +26,6 @@ class WorldwideOrganisationsController < PublicFacingController
 
   def show_b_variant
     @world_location = WorldLocation.with_translations(I18n.locale).find(params[:world_location_id])
-    @main_office = @worldwide_organisation.main_office if @worldwide_organisation.main_office
-    @home_page_offices = @worldwide_organisation.home_page_offices
     @embassy_data = embassy_test_data(params[:id])
     @primary_role = primary_role
     @other_roles = ([secondary_role] + office_roles).compact
