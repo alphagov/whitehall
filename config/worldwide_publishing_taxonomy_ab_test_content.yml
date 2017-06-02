@@ -2,7 +2,7 @@
 australia:
   taxonomy:
     - title: Emergency help for British nationals
-      description: Get help if you're the victim of crime or you've been arrested. 
+      description: Get help if you're the victim of crime or you've been arrested.
       tagged_content:
         - title: Compensation for victims of terrorist attacks abroad
           description: Compensation for terrorist attacks abroad - eligibility, acts of terrorism covered, application form, helpline.
@@ -62,16 +62,16 @@ australia:
           description: Renew, replace or apply for an adult or child British passport if you’re living abroad or working overseas - forms, prices, how long it takes.
           base_path: /overseas-passports
         - title: List of funeral directors
-          description: 
+          description:
           base_path: /government/publications/australia-list-of-funeral-directors
         - title: List of lawyers
-          description: 
+          description:
           base_path: /government/publications/australia-list-of-lawyers
         - title: List of medical facilities and practitioners
-          description: 
+          description:
           base_path: /government/publications/australia-list-of-medical-facilitiespractitioners
         - title: Living in Australia
-          description: Advice for British people living in Australia, including information on health, education, benefits, residence requirements and more. 
+          description: Advice for British people living in Australia, including information on health, education, benefits, residence requirements and more.
           base_path: /guidance/living-in-australia
         - title: Moving or retiring abroad
           description: What you need to know if you move or retire abroad - tax, pensions, voting and contacting your local council.
@@ -86,7 +86,7 @@ australia:
           description: How to vote if you're going to be abroad temporarily on election day, and what to do if you're moving overseas long term.
           base_path: /voting-when-abroad
     - title: Tax, benefits, pensions and working abroad
-      description: Includes how to pay tax, claim State Pension and get tax credits abroad. 
+      description: Includes how to pay tax, claim State Pension and get tax credits abroad.
       tagged_content:
         - title: Claiming benefits if you live, move or travel abroad
           description: Benefits you can claim if you go abroad and countries with social security arrangements with the UK.
@@ -120,7 +120,7 @@ australia:
           base_path: /guidance/chevening-scholarships-for-students-from-overseas
         - title: Contact UK Visas and Immigration from outside the UK
           description: Contact UKVI via email or telephone if you're outside the UK.
-          base_path: /contact-ukvi-outside-uk 
+          base_path: /contact-ukvi-outside-uk
         - title: Get your visa, immigration or citizenship documents back
           description: Get your documents returned if you've made a UK visa, immigration or citizenship application but need them back urgently.
           base_path: /visa-documents-returned
@@ -141,7 +141,7 @@ australia:
           base_path: /marriage-abroad
         - title: How to reduce your risk of terrorism abroad
           description: How to minimise your risk and what to do in the event of a terrorist attack.
-          base_path: /guidance/reduce-your-risk-from-terrorism-while-abroad 
+          base_path: /guidance/reduce-your-risk-from-terrorism-while-abroad
         - title: Taking a vehicle out of the UK
           description: Taking your car out of the UK - when VAT is not payable on a car you are exporting, procedures, registration and vehicle tax.
           base_path: /taking-vehicles-out-of-uk
@@ -152,19 +152,19 @@ australia:
           description: Guidance on why overseas companies should set up and locate their businesses in the UK. Includes information on UK business investment and Foreign Direct Investment (FDI) opportunities.
           base_path: /government/collections/investment-in-the-uk-guidance-for-overseas-businesses
         - title: Department for International Trade in Australia
-          description: 
+          description:
           base_path: /government/world/organisations/uk-trade-investment-australia
         - title: Exporting and doing business abroad
           description: What to do within or outside the EU, including checking if you need a licence.
           base_path: /starting-to-export
         - title: International treaties
-          description: 
+          description:
           base_path: /government/publications?keywords=&publication_filter_option=international-treaties&topics%5B%5D=all&departments%5B%5D=all&official_document_status=all&world_locations%5B%5D=all&from_date=&to_date=
-        - title: Set up a business 
+        - title: Set up a business
           description: "What you need to do to start a business: choose a legal structure, see if you need licences and insurance, learn about reliefs and benefits."
           base_path: /set-up-business
         - title: UK Science and Innovation Network in Australia
-          description: 
+          description:
           base_path: /government/world/organisations/uk-science-and-innovation-network-in-australia
     - title: Diplomacy and development
       description: Find out what the UK government is doing in Australia, includes news and events.
@@ -176,46 +176,46 @@ australia:
       description: Includes contact details, opening hours and consular fees.
       tagged_content:
         - title: Contact the British Consulate Brisbane
-          description: 
+          description:
           base_path: /government/world/australia/british-consulate-brisbane
         - title: Contact the British Consulate General Melbourne
-          description: 
+          description:
           base_path: /government/world/australia/british-consulate-general-melbourne
         - title: Contact the British Consulate General Sydney
-          description: 
+          description:
           base_path: /government/world/australia/british-consulate-general-sydney
         - title: Contact the British Consulate Perth
-          description: 
+          description:
           base_path: /government/world/australia/british-consulate-perth
         - title: Contact the British High Commission Canberra
-          description: 
+          description:
           base_path: /government/world/australia/british-high-commission-canberra
   embassies:
     british-high-commission-canberra:
       - title: British High Commission Canberra
         summary: The British High Commission in Canberra represents the UK government and provides services to British nationals in Australia.
         body: |
-          We help sustain and develop the important relationship between the UK and Australia. 
-           
+          We help sustain and develop the important relationship between the UK and Australia.
+
           You can [access UK government services while in Australia](/government/world/australia).
-           
+
           #Urgent assistance
-           
-          If you’re in Canberra and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call the nearest British Consulate. If you’re in the UK and worried about a British national in Australia, call 020 7008 1500. 
-           
-          [Contact the British High Commission](#contact-us) for information about our other services. 
-           
+
+          If you’re in Canberra and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call the nearest British Consulate. If you’re in the UK and worried about a British national in Australia, call 020 7008 1500.
+
+          [Contact the British High Commission](#contact-us) for information about our other services.
+
           #Other consular services
-           
-          ##Registering a same-sex marriage 
 
-          We register same-sex marriages at all our consulates in Australia. 
+          ##Registering a same-sex marriage
 
-          Find out how to register using the ['Getting married abroad' tool](/marriage-abroad). 
+          We register same-sex marriages at all our consulates in Australia.
+
+          Find out how to register using the ['Getting married abroad' tool](/marriage-abroad).
 
           We no longer register new civil partnerships in our consulates.
 
-          ##Convert a civil partnership into a marriage 
+          ##Convert a civil partnership into a marriage
 
           We can convert an existing civil partnership into a marriage. You must have been living in Australia for 28 days. There is a [fee](/government/publications/australia-consular-fees--3).
 
@@ -229,43 +229,43 @@ australia:
 
           ##Notarial services
 
-          Our consulates around Australia cannot carry out notarial acts under the Commissioner of Oaths Act 1889, and on instruction from the Foreign and Commonwealth Office in London. This includes certifying documents as true copies of originals, administering oaths or taking affidavits. 
+          Our consulates around Australia cannot carry out notarial acts under the Commissioner of Oaths Act 1889, and on instruction from the Foreign and Commonwealth Office in London. This includes certifying documents as true copies of originals, administering oaths or taking affidavits.
 
           For these or other notarial acts, or the legalising of documents, please [contact a notary public](http://www.notarylocator.com.au/).
-           
+
           We also provide services in:
-           
+
           - [Brisbane](/government/world/australia/british-consulate-brisbane)
           - [Melbourne](/government/world/australia/british-consulate-general-melbourne)
           - [Perth](/government/world/australia/british-consulate-perth)
-          - [Sydney](/government/world/australia/british-consulate-general-sydney) 
-           
-          We also have a network of honorary consuls in Adelaide, Alice Springs, Cairns, Darwin and Hobart who we call on to provide urgent assistance when needed. 
+          - [Sydney](/government/world/australia/british-consulate-general-sydney)
+
+          We also have a network of honorary consuls in Adelaide, Alice Springs, Cairns, Darwin and Hobart who we call on to provide urgent assistance when needed.
     british-consulate-brisbane:
       - title: British Consulate Brisbane
         summary: The British Consulate in Brisbane represents the UK government and provides services to British nationals in Queensland and Northern Territory.
         body: |
-          We help sustain and develop the important relationship between the UK and Australia. 
-           
+          We help sustain and develop the important relationship between the UK and Australia.
+
           You can [access UK government services while in Australia](/government/world/australia).
-           
+
           #Urgent assistance
-           
-          If you’re in Queensland or Northern Territory and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +61 (0)7 3223 3200. If you’re in the UK and worried about a British national in Australia, call 020 7008 1500. 
-           
-          [Contact the British Consulate](#contact-us) for information about our other services. 
-           
+
+          If you’re in Queensland or Northern Territory and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +61 (0)7 3223 3200. If you’re in the UK and worried about a British national in Australia, call 020 7008 1500.
+
+          [Contact the British Consulate](#contact-us) for information about our other services.
+
           #Other consular services
-           
-          ##Registering a same-sex marriage 
 
-          We register same-sex marriages at all our consulates in Australia. 
+          ##Registering a same-sex marriage
 
-          Find out how to register using the ['Getting married abroad' tool](/marriage-abroad). 
+          We register same-sex marriages at all our consulates in Australia.
+
+          Find out how to register using the ['Getting married abroad' tool](/marriage-abroad).
 
           We no longer register new civil partnerships in our consulates.
 
-          ##Convert a civil partnership into a marriage 
+          ##Convert a civil partnership into a marriage
 
           We can convert an existing civil partnership into a marriage. You must have been living in Australia for 28 days. There is a [fee](/government/publications/australia-consular-fees--3).
 
@@ -279,41 +279,41 @@ australia:
 
           ##Notarial services
 
-          Our consulates around Australia cannot carry out notarial acts under the Commissioner of Oaths Act 1889, and on instruction from the Foreign and Commonwealth Office in London. This includes certifying documents as true copies of originals, administering oaths or taking affidavits. 
+          Our consulates around Australia cannot carry out notarial acts under the Commissioner of Oaths Act 1889, and on instruction from the Foreign and Commonwealth Office in London. This includes certifying documents as true copies of originals, administering oaths or taking affidavits.
 
           For these or other notarial acts, or the legalising of documents, please [contact a notary public](http://www.notarylocator.com.au/).
-           
+
           We also provide services in:
-           
+
           - [Canberra](/government/world/australia/british-high-commission-canberra)
           - [Melbourne](/government/world/australia/british-consulate-general-melbourne)
           - [Perth](/government/world/australia/british-consulate-perth)
-          - [Sydney](/government/world/australia/british-consulate-general-sydney) 
+          - [Sydney](/government/world/australia/british-consulate-general-sydney)
     british-consulate-perth:
       - title: British Consulate Perth
         summary: The British Consulate in Perth represents the UK government and provides services to British nationals in Western Australia.
         body: |
-          We help sustain and develop the important relationship between the UK and Australia. 
-           
+          We help sustain and develop the important relationship between the UK and Australia.
+
           You can [access UK government services while in Australia](/government/world/australia).
-           
+
           #Urgent assistance
-           
-          If you’re in Western Australia and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +61 (0)8 9224 4700. If you’re in the UK and worried about a British national in Australia, call 020 7008 1500. 
-           
-          [Contact the British Consulate](#contact-us) for information about our other services. 
-           
+
+          If you’re in Western Australia and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +61 (0)8 9224 4700. If you’re in the UK and worried about a British national in Australia, call 020 7008 1500.
+
+          [Contact the British Consulate](#contact-us) for information about our other services.
+
           #Other consular services
-           
-          ##Registering a same-sex marriage 
 
-          We register same-sex marriages at all our consulates in Australia. 
+          ##Registering a same-sex marriage
 
-          Find out how to register using the ['Getting married abroad' tool](/marriage-abroad). 
+          We register same-sex marriages at all our consulates in Australia.
+
+          Find out how to register using the ['Getting married abroad' tool](/marriage-abroad).
 
           We no longer register new civil partnerships in our consulates.
 
-          ##Convert a civil partnership into a marriage 
+          ##Convert a civil partnership into a marriage
 
           We can convert an existing civil partnership into a marriage. You must have been living in Australia for 28 days. There is a [fee](/government/publications/australia-consular-fees--3).
 
@@ -327,41 +327,41 @@ australia:
 
           ##Notarial services
 
-          Our consulates around Australia cannot carry out notarial acts under the Commissioner of Oaths Act 1889, and on instruction from the Foreign and Commonwealth Office in London. This includes certifying documents as true copies of originals, administering oaths or taking affidavits. 
+          Our consulates around Australia cannot carry out notarial acts under the Commissioner of Oaths Act 1889, and on instruction from the Foreign and Commonwealth Office in London. This includes certifying documents as true copies of originals, administering oaths or taking affidavits.
 
           For these or other notarial acts, or the legalising of documents, please [contact a notary public](http://www.notarylocator.com.au/).
-           
+
           We also provide services in:
-           
+
           - [Brisbane](/government/world/australia/british-consulate-brisbane)
           - [Canberra](/government/world/australia/british-high-commission-canberra)
           - [Melbourne](/government/world/australia/british-consulate-general-melbourne)
-          - [Sydney](/government/world/australia/british-consulate-general-sydney) 
+          - [Sydney](/government/world/australia/british-consulate-general-sydney)
     british-consulate-general-melbourne:
       - title: British Consulate General Melbourne
         summary: The British Consulate General in Melbourne represents the UK government and provides services to British nationals in South Australia, Tasmania and Victoria.
         body: |
-          We help sustain and develop the important relationship between the UK and Australia. 
-           
+          We help sustain and develop the important relationship between the UK and Australia.
+
           You can [access UK government services while in Australia](/government/world/australia).
-           
+
           #Urgent assistance
-           
-          If you’re in South Australia, Tasmania or Victoria and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +61 (0)3 9652 1600. If you’re in the UK and worried about a British national in Australia, call 020 7008 1500. 
-           
-          [Contact the British Consulate General](#contact-us) for information about our other services. 
-           
+
+          If you’re in South Australia, Tasmania or Victoria and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +61 (0)3 9652 1600. If you’re in the UK and worried about a British national in Australia, call 020 7008 1500.
+
+          [Contact the British Consulate General](#contact-us) for information about our other services.
+
           #Other consular services
-           
-          ##Registering a same-sex marriage 
 
-          We register same-sex marriages at all our consulates in Australia. 
+          ##Registering a same-sex marriage
 
-          Find out how to register using the ['Getting married abroad' tool](/marriage-abroad). 
+          We register same-sex marriages at all our consulates in Australia.
+
+          Find out how to register using the ['Getting married abroad' tool](/marriage-abroad).
 
           We no longer register new civil partnerships in our consulates.
 
-          ##Convert a civil partnership into a marriage 
+          ##Convert a civil partnership into a marriage
 
           We can convert an existing civil partnership into a marriage. You must have been living in Australia for 28 days. There is a [fee](/government/publications/australia-consular-fees--3).
 
@@ -375,12 +375,12 @@ australia:
 
           ##Notarial services
 
-          Our consulates around Australia cannot carry out notarial acts under the Commissioner of Oaths Act 1889, and on instruction from the Foreign and Commonwealth Office in London. This includes certifying documents as true copies of originals, administering oaths or taking affidavits. 
+          Our consulates around Australia cannot carry out notarial acts under the Commissioner of Oaths Act 1889, and on instruction from the Foreign and Commonwealth Office in London. This includes certifying documents as true copies of originals, administering oaths or taking affidavits.
 
           For these or other notarial acts, or the legalising of documents, please [contact a notary public](http://www.notarylocator.com.au/).
-           
+
           We also provide services in:
-           
+
           - [Brisbane](/government/world/australia/british-consulate-brisbane)
           - [Canberra](/government/world/australia/british-high-commission-canberra)
           - [Perth](/government/world/australia/british-consulate-perth)
@@ -389,27 +389,27 @@ australia:
       - title: British Consulate General Sydney
         summary: The British Consulate General in Sydney represents the UK government and provides services to British nationals in New South Wales.
         body: |
-          We help sustain and develop the important relationship between the UK and Australia. 
-           
+          We help sustain and develop the important relationship between the UK and Australia.
+
           You can [access UK government services while in Australia](/government/world/australia).
-           
+
           #Urgent assistance
-           
-          If you’re in New South Wales and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +61 (0)2 9247 7521. If you’re in the UK and worried about a British national in Australia, call 020 7008 1500. 
-           
-          [Contact the British Consulate General](#contact-us) for information about our other services. 
-           
+
+          If you’re in New South Wales and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +61 (0)2 9247 7521. If you’re in the UK and worried about a British national in Australia, call 020 7008 1500.
+
+          [Contact the British Consulate General](#contact-us) for information about our other services.
+
           #Other consular services
-           
-          ##Registering a same-sex marriage 
 
-          We register same-sex marriages at all our consulates in Australia. 
+          ##Registering a same-sex marriage
 
-          Find out how to register using the ['Getting married abroad' tool](/marriage-abroad). 
+          We register same-sex marriages at all our consulates in Australia.
+
+          Find out how to register using the ['Getting married abroad' tool](/marriage-abroad).
 
           We no longer register new civil partnerships in our consulates.
 
-          ##Convert a civil partnership into a marriage 
+          ##Convert a civil partnership into a marriage
 
           We can convert an existing civil partnership into a marriage. You must have been living in Australia for 28 days. There is a [fee](/government/publications/australia-consular-fees--3).
 
@@ -423,21 +423,21 @@ australia:
 
           ##Notarial services
 
-          Our consulates around Australia cannot carry out notarial acts under the Commissioner of Oaths Act 1889, and on instruction from the Foreign and Commonwealth Office in London. This includes certifying documents as true copies of originals, administering oaths or taking affidavits. 
+          Our consulates around Australia cannot carry out notarial acts under the Commissioner of Oaths Act 1889, and on instruction from the Foreign and Commonwealth Office in London. This includes certifying documents as true copies of originals, administering oaths or taking affidavits.
 
           For these or other notarial acts, or the legalising of documents, please [contact a notary public](http://www.notarylocator.com.au/).
-           
+
           We also provide services in:
-           
+
           - [Brisbane](/government/world/australia/british-consulate-brisbane)
           - [Canberra](/government/world/australia/british-high-commission-canberra)
           - [Perth](/government/world/australia/british-consulate-perth)
-          - [Melbourne](/government/world/australia/british-consulate-general-melbourne) 
+          - [Melbourne](/government/world/australia/british-consulate-general-melbourne)
 brazil:
   taxonomy:
     - title: Emergency help for British nationals
-      description: Get help if you're the victim of crime or you've been arrested. 
-      tagged_content: 
+      description: Get help if you're the victim of crime or you've been arrested.
+      tagged_content:
         - title: Compensation if you're a victim of crime abroad
           description: If you're a UK resident and have been injured because of a violent crime abroad, you can usually apply for compensation.
           base_path: /compensation-victim-crime-abroad
@@ -476,7 +476,7 @@ brazil:
           base_path: /guidance/how-to-deal-with-a-crisis-overseas
     - title: Living abroad
       description: Includes how to renew your passport, claim your pension and access healthcare.
-      tagged_content: 
+      tagged_content:
         - title: Apply for or renew a British passport if you're visiting the UK
           description: You can apply for or renew a British passport while you're visiting the UK - as long as you expect to be in the UK for long enough.
           base_path: /passport-application-while-visiting-uk
@@ -496,25 +496,25 @@ brazil:
           description: Renew, replace or apply for an adult or child British passport if you’re living abroad or working overseas - forms, prices, how long it takes.
           base_path: /overseas-passports
         - title: Living in Brazil
-          description: Advice for British people living in Brazil, including information on health, education, benefits, residence requirements and more. 
+          description: Advice for British people living in Brazil, including information on health, education, benefits, residence requirements and more.
           base_path: /guidance/living-in-brazil
         - title: List of funeral directors
-          description: 
+          description:
           base_path: /government/publications/brazil-list-of-funeral-directors-brazil
-        - title: Lists of lawyers 
-          description: 
+        - title: Lists of lawyers
+          description:
           base_path: /government/publications/brazil-list-of-lawyers
         - title: List of medical facilities and practitioners
-          description: 
+          description:
           base_path: /government/publications/list-of-doctors--2
         - title: Lists of translators and interpreters
-          description: 
+          description:
           base_path: /government/publications/brazil-list-of-lawyers
         - title: Moving or retiring abroad
           description: What you need to know if you move or retire abroad - tax, pensions, voting and contacting your local council.
           base_path: /moving-or-retiring-abroad
         - title: Notarial and documentary services
-          description: 
+          description:
           base_path: /guidance/notarial-and-documentary-services-guide-for-brazil
         - title: Register a birth
           description: Parents must register the birth in the country where the child was born - find out if you can also register the birth in the UK.
@@ -526,8 +526,8 @@ brazil:
           description: How to vote if you're going to be abroad temporarily on election day, and what to do if you're moving overseas long term.
           base_path: /voting-when-abroad
     - title: Tax, benefits, pensions and working abroad
-      description: Includes how to pay tax, claim State Pension and get tax credits abroad. 
-      tagged_content: 
+      description: Includes how to pay tax, claim State Pension and get tax credits abroad.
+      tagged_content:
         - title: Claiming benefits if you live, move or travel abroad
           description: Benefits you can claim if you go abroad and countries with social security arrangements with the UK.
           base_path: /claim-benefits-abroad
@@ -551,7 +551,7 @@ brazil:
           base_path: /working-abroad
     - title: Coming to the UK
       description: Get a visa to study, work or visit the UK.
-      tagged_content: 
+      tagged_content:
         - title: Check if you need a UK visa
           description: You may need a visa to come to the UK to visit, study or work.
           base_path: /check-uk-visa
@@ -566,7 +566,7 @@ brazil:
           base_path: /visa-documents-returned
     - title: Travelling to Brazil
       description: Includes travel advice and how to get married abroad.
-      tagged_content: 
+      tagged_content:
         - title: Brazil travel advice
           description: Latest travel advice including safety and security, entry requirements, travel warnings and health.
           base_path: /foreign-travel-advice/brazil
@@ -587,51 +587,51 @@ brazil:
           base_path: /taking-vehicles-out-of-uk
     - title: Trade and invest in the UK
       description: Find out how to set up a business in the UK, invest in the UK and what support you can get.
-      tagged_content: 
+      tagged_content:
         - title: "Business investment in the UK: Guidance for overseas businesses"
           description: Guidance on why overseas companies should set up and locate their businesses in the UK. Includes information on UK business investment and Foreign Direct Investment (FDI) opportunities.
           base_path: /government/collections/investment-in-the-uk-guidance-for-overseas-businesses
         - title: Department for International Trade in Brazil
-          description: 
+          description:
           base_path: /government/world/organisations/department-for-international-trade-brazil
         - title: Exporting and doing business abroad
           description: What to do within or outside the EU, including checking if you need a licence.
           base_path: /starting-to-export
         - title: International treaties
-          description: 
+          description:
           base_path: /government/publications?keywords=&publication_filter_option=international-treaties&topics%5B%5D=all&departments%5B%5D=all&official_document_status=all&world_locations%5B%5D=all&from_date=&to_date=
-        - title: Set up a business 
+        - title: Set up a business
           description: "What you need to do to start a business: choose a legal structure, see if you need licences and insurance, learn about reliefs and benefits."
           base_path: /set-up-business
         - title: UK Science and Innovation Network in Brazil
-          description: 
-          base_path: /government/world/organisations/uk-science-innovation-network-in-brazil  
+          description:
+          base_path: /government/world/organisations/uk-science-innovation-network-in-brazil
     - title: Diplomacy and development
       description: Find out what the UK government is doing in Brazil, includes news and events.
-      tagged_content: 
+      tagged_content:
         - title: Department for International Development in Brazil
-          description: 
+          description:
           base_path: /government/world/organisations/dfid-brazil
         - title: News and events in Brazil
           description: What is the UK government doing in Brazil.
           base_path: /government/world/brazil/news
     - title: British Embassy
       description: Includes contact details, opening hours and consular fees.
-      tagged_content: 
+      tagged_content:
         - title: British Consulate-General Belo Horizonte
-          description: 
-          base_path: /government/world/brazil/british-consulate-general-belo-horizonte 
+          description:
+          base_path: /government/world/brazil/british-consulate-general-belo-horizonte
         - title: British Consulate-General Recife
-          description: 
+          description:
           base_path: /government/world/brazil/british-consulate-general-recife
         - title: British Consulate-General Rio de Janeiro
-          description: 
+          description:
           base_path: /government/world/brazil/british-consulate-general-rio-de-janeiro
         - title: British Consulate-General São Paulo
-          description: 
+          description:
           base_path: /government/world/brazil/british-consulate-general-sao-paulo
         - title: British Embassy Brasilia
-          description: 
+          description:
           base_path: /government/world/brazil/british-embassy-brazil
   embassies:
     british-consulate-general-belo-horizonte:
@@ -639,27 +639,27 @@ brazil:
         summary: The British Consulate General in Belo Horizonte represents the UK government and provides services to British nationals in Minas Gerais.
         body: |
           We help sustain and develop the important relationship between the UK and Brazil.
-           
+
           You can [access UK government services while in Minas Gerais](/government/world/brazil).
-           
+
           #Urgent assistance
-           
+
           If you’re in Minas Gerais and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +55 21 2555 9600. If you’re in the UK and worried about a British national in Brazil, call 020 7008 1500.
-           
+
           [Contact the British Consulate General](#contact-us) for information about our other services.
-           
+
           #Other consular services
-           
+
           Consular staff in Belo Horizonte can:
-           
+
           - administer an oath, affirmation or affidavit
           - witness a signature
           - make a certified copy of a document
-           
+
           See the [full list of services](https://www.gov.uk/government/collections/notarial-services). You might have to [pay a fee](/government/publications/brazil-consular-fees).
-           
+
           We also provide services in:
-           
+
           - [Brasilia](/government/world/brazil/british-embassy-brazil)
           - [Recife](/government/world/brazil/british-consulate-general-recife)
           - [Rio de Janeiro](/government/world/brazil/british-consulate-general-rio-de-janeiro)
@@ -669,57 +669,57 @@ brazil:
         summary: The British Consulate-General in Rio de Janeiro represents the UK government and provides services to British nationals in Rio de Janeiro.
         body: |
           We help sustain and develop the important relationship between the UK and Brazil.
-           
+
           You can [access UK government services while in Rio de Janeiro](/government/world/brazil).
-           
+
           #Urgent assistance
-           
+
           If you’re in Rio de Janeiro and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +55 21 2555 9600. If you’re in the UK and worried about a British national in Brazil, call 020 7008 1500.
-           
+
           [Contact the British Consulate-General](#contact-us) for information about our other services.
-           
+
           #Other consular services
-           
+
           Consular staff in Rio de Janeiro can:
-           
+
           - administer an oath, affirmation or affidavit
           - witness a signature
           - make a certified copy of a document
-           
+
           See the [full list of services](https://www.gov.uk/government/collections/notarial-services). You might have to [pay a fee](/government/publications/brazil-consular-fees).
-           
+
           We also provide services in:
-           
+
           - [Belo Horizonte](/government/world/brazil/british-consulate-general-belo-horizonte)
           - [Brasilia](/government/world/brazil/british-embassy-brazil)
           - [Recife](/government/world/brazil/british-consulate-general-recife)
           - [São Paulo](/government/world/brazil/british-consulate-general-sao-paulo)
     british-consulate-general-sao-paulo:
-      - title: British Consulate São Paulo 
+      - title: British Consulate São Paulo
         summary: The British Consulate in São Paulo represents the UK government and provides services to British nationals in São Paulo.
         body: |
           We help sustain and develop the important relationship between the UK and Brazil.
-           
+
           You can [access UK government services while in São Paulo](/government/world/brazil).
-           
+
           #Urgent assistance
-           
+
           If you’re in São Paulo and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +55 11 3094 2700. If you’re in the UK and worried about a British national in Brazil, call 020 7008 1500.
-           
+
           [Contact the British Consulate](#contact-us) for information about our other services.
-           
+
           #Other consular services
-           
+
           Consular staff in São Paulo can:
-           
+
           - administer an oath, affirmation or affidavit
           - witness a signature
           - make a certified copy of a document
-           
+
           See the [full list of services](https://www.gov.uk/government/collections/notarial-services). You might have to [pay a fee](/government/publications/brazil-consular-fees).
-           
+
           We also provide services in:
-           
+
           - [Belo Horizonte](/government/world/brazil/british-consulate-general-belo-horizonte)
           - [Brasilia](/government/world/brazil/british-embassy-brazil)
           - [Recife](/government/world/brazil/british-consulate-general-recife)
@@ -729,27 +729,27 @@ brazil:
         summary: The British Consulate-General in Recife represents the UK government and provides services to British nationals in Brazil.
         body: |
           We help sustain and develop the important relationship between the UK and Brazil.
-           
+
           You can [access UK government services while in Brazil](/government/world/brazil).
-           
+
           #Urgent assistance
-           
+
           If you’re in Recife and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +55 81 2127 0200. If you’re in the UK and worried about a British national in Brazil, call 020 7008 1500.
-           
+
           [Contact the British Consulate-General](#contact-us) for information about our other services.
-           
+
           #Other consular services
-           
+
           Consular staff in Recife can:
-           
+
           - administer an oath, affirmation or affidavit
           - witness a signature
           - make a certified copy of a document
-           
+
           See the [full list of services](https://www.gov.uk/government/collections/notarial-services). You might have to [pay a fee](/government/publications/brazil-consular-fees).
-           
+
           We also provide services in:
-           
+
           - [Belo Horizonte](/government/world/brazil/british-consulate-general-belo-horizonte)
           - [Brasilia](/government/world/brazil/british-embassy-brazil)
           - [Rio de Janeiro](/government/world/brazil/british-consulate-general-rio-de-janeiro)
@@ -759,27 +759,27 @@ brazil:
         summary: The British Embassy in Brasilia represents the UK government and provides services to British nationals in Brazil.
         body: |
           We help sustain and develop the important relationship between the UK and Brazil.
-           
+
           You can [access UK government services while in Brazil](/government/world/brazil).
-           
+
           #Urgent assistance
-           
+
           If you’re in Brasilia and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +55 61 3329 2300. If you’re in the UK and worried about a British national in Brazil, call 020 7008 1500.
-           
+
           [Contact the British Embassy](#contact-us) for information about our other services.
-           
+
           #Other consular services
-           
+
           Consular staff in Brasilia can:
-           
+
           - administer an oath, affirmation or affidavit
           - witness a signature
           - make a certified copy of a document
-           
+
           See the [full list of services](https://www.gov.uk/government/collections/notarial-services). You might have to [pay a fee](/government/publications/brazil-consular-fees).
-           
+
           We also provide services in:
-           
+
           - [Belo Horizonte](/government/world/brazil/british-consulate-general-belo-horizonte)
           - [Recife](/government/world/brazil/british-consulate-general-recife)
           - [Rio de Janeiro](/government/world/brazil/british-consulate-general-rio-de-janeiro)
@@ -787,8 +787,8 @@ brazil:
 india:
   taxonomy:
     - title: Emergency help for British nationals
-      description: Get help if you're the victim of crime or you've been arrested. 
-      tagged_content: 
+      description: Get help if you're the victim of crime or you've been arrested.
+      tagged_content:
         - title: Compensation for victims of terrorist attacks abroad
           description: Compensation for terrorist attacks abroad - eligibility, acts of terrorism covered, application form, helpline.
           base_path: /compensation-victim-terrorist-attack
@@ -833,13 +833,13 @@ india:
           base_path: /help-if-you-are-arrested-abroad
         - title: "Rape and sexual assault abroad: returning to the UK"
           description: Information for British nationals affected by rape or sexual assault abroad and returning to the UK, including how to access medical treatment and legal advice in the UK.
-          base_path: /government/publications/rape-and-sexual-assault-abroad-returning-to-the-uk 
+          base_path: /government/publications/rape-and-sexual-assault-abroad-returning-to-the-uk
         - title: What to do if you’re affected by a crisis abroad
           description: Advice for British nationals affected by crises abroad, including terrorist attacks, natural disasters and major political unrest, and information on what help the Foreign and Commonwealth Office (FCO) can provide.
           base_path: /guidance/how-to-deal-with-a-crisis-overseas
     - title: Living abroad
       description: Includes how to renew your passport, claim your pension and access healthcare.
-      tagged_content: 
+      tagged_content:
         - title: Apply for or renew a British passport if you're visiting the UK
           description: You can apply for or renew a British passport while you're visiting the UK - as long as you expect to be in the UK for long enough.
           base_path: /passport-application-while-visiting-uk
@@ -854,21 +854,21 @@ india:
           base_path: /get-document-legalised
         - title: Get married abroad
           description: Requirements, paperwork and processes for weddings and civil partnerships overseas - registration, restrictions, fees.
-          base_path: /marriage-abroad 
+          base_path: /marriage-abroad
         - title: Get or renew a passport
           description: Renew, replace or apply for an adult or child British passport if you’re living abroad or working overseas - forms, prices, how long it takes.
           base_path: /overseas-passports
         - title: Hospitals in India
-          description: 
+          description:
           base_path: /government/publications/india-list-of-hospitals
         - title: List of funeral directors
-          description: 
+          description:
           base_path: /government/publications/india-list-of-funeral-directors
         - title: Lists of lawyers
-          description: 
+          description:
           base_path: /government/publications/india-list-of-lawyers
         - title: Lists of translators and interpreters abroad
-          description: 
+          description:
           base_path: /government/publications/india-list-of-translators-and-interpreters
         - title: Living in India
           description: Advice for British people living in India, including information on health, education, benefits, residence requirements and more.
@@ -877,7 +877,7 @@ india:
           description: What you need to know if you move or retire abroad - tax, pensions, voting and contacting your local council.
           base_path: /moving-or-retiring-abroad
         - title: Notarial and documentary services
-          description: 
+          description:
           base_path: /guidance/notarial-and-documentary-services-guide-for-india
         - title: Register a birth
           description: Parents must register the birth in the country where the child was born - find out if you can also register the birth in the UK.
@@ -889,8 +889,8 @@ india:
           description: How to vote if you're going to be abroad temporarily on election day, and what to do if you're moving overseas long term.
           base_path: /voting-when-abroad
     - title: Tax, benefits, pensions and working abroad
-      description: Includes how to pay tax, claim State Pension and get tax credits abroad. 
-      tagged_content: 
+      description: Includes how to pay tax, claim State Pension and get tax credits abroad.
+      tagged_content:
         - title: Claiming benefits if you live, move or travel abroad
           description: Benefits you can claim if you go abroad and countries with social security arrangements with the UK.
           base_path: /claim-benefits-abroad
@@ -914,7 +914,7 @@ india:
           base_path: /working-abroad
     - title: Coming to the UK
       description: Get a visa to study, work or visit the UK.
-      tagged_content: 
+      tagged_content:
         - title: Check if you need a UK visa
           description: You may need a visa to come to the UK to visit, study or work.
           base_path: /check-uk-visa
@@ -929,7 +929,7 @@ india:
           base_path: /visa-documents-returned
     - title: Travelling to India
       description: Includes travel advice and how to get married abroad.
-      tagged_content: 
+      tagged_content:
         - title: Driving abroad
           description: You'll need a Great Britain or Northern Ireland licence to drive abroad and an International Driving Permit in some non-EU countries.
           base_path: /driving-abroad
@@ -950,79 +950,79 @@ india:
           base_path: /taking-vehicles-out-of-uk
     - title: Trade and invest in the UK
       description: Find out how to set up a business in the UK, invest in the UK and what support you can get.
-      tagged_content: 
+      tagged_content:
         - title: "Business investment in the UK: Guidance for overseas businesses"
           description: Guidance on why overseas companies should set up and locate their businesses in the UK. Includes information on UK business investment and Foreign Direct Investment (FDI) opportunities.
           base_path: /government/collections/investment-in-the-uk-guidance-for-overseas-businesses
         - title: Department for International Trade in India
-          description: 
+          description:
           base_path: /government/world/organisations/department-for-international-trade-india
         - title: Exporting and doing business abroad
           description: What to do within or outside the EU, including checking if you need a licence.
           base_path: /starting-to-export
         - title: International treaties
-          description: 
+          description:
           base_path: /government/publications?keywords=&publication_filter_option=international-treaties&topics%5B%5D=all&departments%5B%5D=all&official_document_status=all&world_locations%5B%5D=all&from_date=&to_date=
-        - title: Set up a business 
+        - title: Set up a business
           description: "What you need to do to start a business: choose a legal structure, see if you need licences and insurance, learn about reliefs and benefits."
           base_path: /set-up-business
         - title: UK Science and Innovation Network in India
-          description: 
+          description:
           base_path: /government/world/organisations/uk-science-innovation-network-in-india
     - title: Diplomacy and development
       description: Find out what the UK government is doing in India, includes news and events.
-      tagged_content: 
+      tagged_content:
         - title: Department for International Development in India
-          description: 
+          description:
           base_path: /government/world/organisations/dfid-india
         - title: News and events in India
           description: What is the UK government doing in India.
           base_path: /government/world/india/news
     - title: British Embassy
       description: Includes contact details, opening hours and consular fees.
-      tagged_content: 
+      tagged_content:
         - title: British Deputy High Commission Ahmedabad
-          description: 
+          description:
           base_path: /government/world/india/british-deputy-high-commission-ahmedabad
         - title: British Deputy High Commission Bengaluru
-          description: 
+          description:
           base_path: /government/world/india/british-deputy-high-commission-bangalore
         - title: British Deputy High Commission Chandigarh
-          description: 
+          description:
           base_path: /government/world/india/british-deputy-high-commission-chandigarh
         - title: British Deputy High Commission Chennai
-          description: 
+          description:
           base_path: /government/world/india/british-deputy-high-commissioner-chennai
         - title: British Deputy High Commission Hyderabad
-          description: 
+          description:
           base_path: /government/world/india/british-deputy-high-commission-hyderabad
         - title: British Deputy High Commission Kolkata
-          description: 
+          description:
           base_path: /government/world/india/british-deputy-high-commission-kolkata
         - title: British Deputy High Commission Mumbai
-          description: 
+          description:
           base_path: /government/world/india/british-deputy-high-commission-mumbai
         - title: British High Commission New Delhi
-          description: 
+          description:
           base_path: /government/world/india/british-high-commission-new-delhi
         - title: British Nationals Assistance Office Goa
-          description: 
+          description:
           base_path: /government/world/india/british-nationals-assistance-office-goa
   embassies:
     british-high-commission-new-delhi:
       - title: British High Commission New Delhi
         summary: The High Commission in New Delhi represents the UK government and provides services to British nationals in India.
         body: |
-          We help sustain and develop the important relationship between the UK and India. 
-           
+          We help sustain and develop the important relationship between the UK and India.
+
           You can [access UK government services while in India](/government/world/india)
-           
+
           ##Urgent assistance
-          
-          If you’re in New Delhi and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +91 (11) 2419 2100. If you’re in the UK and worried about a British national in India, call 020 7008 1500 . 
-           
-          [Contact the High Commission](#contact-us) for information about our other services. 
-           
+
+          If you’re in New Delhi and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +91 (11) 2419 2100. If you’re in the UK and worried about a British national in India, call 020 7008 1500 .
+
+          [Contact the High Commission](#contact-us) for information about our other services.
+
           #Other consular services
 
           ##Notarial and documentary services
@@ -1032,7 +1032,7 @@ india:
           See the full list of [documentary services](https://www.gov.uk/guidance/notarial-and-documentary-services-guide-for-india) we provide in India.
 
           We also provide services in:
-           
+
           - [Ahmedabad](/government/world/india/british-deputy-high-commission-ahmedabad)
           - [Bengaluru](/government/world/india/british-deputy-high-commission-bangalore)
           - [Chandigarh](/government/world/india/british-deputy-high-commission-chandigarh)
@@ -1047,18 +1047,18 @@ india:
           We charge fees for some of our services. If you are paying in Indian Rupees we can only accept notes that are legal tender, not 500 and 1000 rupee notes that have been withdrawn from circulation. See the [full list of consular fees in India](https://www.gov.uk/government/publications/india-consular-fees).
     british-deputy-high-commission-ahmedabad:
       - title: British Deputy High Commission Ahmedabad
-        summary: The Deputy High Commission in Ahmedabad represents the UK government and provides services to British nationals in India. 
+        summary: The Deputy High Commission in Ahmedabad represents the UK government and provides services to British nationals in India.
         body: |
-          We help sustain and develop the important relationship between the UK and India. 
-           
+          We help sustain and develop the important relationship between the UK and India.
+
           You can [access UK government services while in India](/government/world/india)
-           
+
           #Urgent assistance
-           
-          If you’re in Ahmedabad and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +91 (11) 2419 2100. If you’re in the UK and worried about a British national in Ahmedabad, call 020 7008 1500. 
-           
-          [Contact the Deputy High Commission](#contact-us) for information about our other services. 
-           
+
+          If you’re in Ahmedabad and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +91 (11) 2419 2100. If you’re in the UK and worried about a British national in Ahmedabad, call 020 7008 1500.
+
+          [Contact the Deputy High Commission](#contact-us) for information about our other services.
+
           #Other consular services
 
           ##Notarial and documentary services
@@ -1068,7 +1068,7 @@ india:
           See the full list of [documentary services](https://www.gov.uk/guidance/notarial-and-documentary-services-guide-for-india) we provide in India.
 
           We also provide services in:
-           
+
           - [Bengaluru](/government/world/india/british-deputy-high-commission-bangalore)
           - [Chandigarh](/government/world/india/british-deputy-high-commission-chandigarh)
           - [Chennai](/government/world/india/british-deputy-high-commissioner-chennai)
@@ -1083,18 +1083,18 @@ india:
           We charge fees for some of our services. If you are paying in Indian Rupees we can only accept notes that are legal tender, not 500 and 1000 rupee notes that have been withdrawn from circulation. See the [full list of consular fees in India](https://www.gov.uk/government/publications/india-consular-fees).
     british-deputy-high-commission-bangalore:
       - title: British Deputy High Commission Bangaluru
-        summary: The Deputy High Commission in Bangaluru represents the UK government and provides services to British nationals in India. 
+        summary: The Deputy High Commission in Bangaluru represents the UK government and provides services to British nationals in India.
         body: |
-          We help sustain and develop the important relationship between the UK and India. 
-           
+          We help sustain and develop the important relationship between the UK and India.
+
           You can [access UK government services while in India](/government/world/india)
-           
+
           #Urgent assistance
-           
-          If you’re in Bangaluru and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +91 (11) 2419 2100. If you’re in the UK and worried about a British national in India, call 020 7008 1500. 
-           
-          [Contact the Deputy High Commission](#contact-us) for information about our other services. 
-           
+
+          If you’re in Bangaluru and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +91 (11) 2419 2100. If you’re in the UK and worried about a British national in India, call 020 7008 1500.
+
+          [Contact the Deputy High Commission](#contact-us) for information about our other services.
+
           #Other consular services
 
           ##Notarial and documentary services
@@ -1104,7 +1104,7 @@ india:
           See the full list of [documentary services](https://www.gov.uk/guidance/notarial-and-documentary-services-guide-for-india) we provide in India.
 
           We also provide services in:
-           
+
           - [Ahmedabad](/government/world/india/british-deputy-high-commission-ahmedabad)
           - [Chandigarh](/government/world/india/british-deputy-high-commission-chandigarh)
           - [Chennai](/government/world/india/british-deputy-high-commissioner-chennai)
@@ -1119,18 +1119,18 @@ india:
           We charge fees for some of our services. If you are paying in Indian Rupees we can only accept notes that are legal tender, not 500 and 1000 rupee notes that have been withdrawn from circulation. See the [full list of consular fees in India](https://www.gov.uk/government/publications/india-consular-fees).
     british-deputy-high-commissioner-chennai:
       - title: Deputy High Commission Chennai
-        summary: The Deputy High Commission in Chennai represents the UK government and provides services to British nationals in India. 
+        summary: The Deputy High Commission in Chennai represents the UK government and provides services to British nationals in India.
         body: |
-          We help sustain and develop the important relationship between the UK and India. 
-           
+          We help sustain and develop the important relationship between the UK and India.
+
           You can [access UK government services while in India](/government/world/india)
-           
+
           #Urgent assistance
-           
-          If you’re in Chennai and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +91 (11) 2419 2100. If you’re in the UK and worried about a British national in India, call 020 7008 1500. 
-           
-          [Contact the Deputy High Commission](#contact-us) for information about our other services. 
-           
+
+          If you’re in Chennai and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +91 (11) 2419 2100. If you’re in the UK and worried about a British national in India, call 020 7008 1500.
+
+          [Contact the Deputy High Commission](#contact-us) for information about our other services.
+
           #Other consular services
 
           ##Notarial and documentary services
@@ -1140,7 +1140,7 @@ india:
           See the full list of [documentary services](https://www.gov.uk/guidance/notarial-and-documentary-services-guide-for-india) we provide in India.
 
           We also provide services in:
-           
+
           - [Ahmedabad](/government/world/india/british-deputy-high-commission-ahmedabad)
           - [Bengaluru](/government/world/india/british-deputy-high-commission-bangalore)
           - [Chandigarh](/government/world/india/british-deputy-high-commission-chandigarh)
@@ -1157,16 +1157,16 @@ india:
       - title: Deputy High Commission Goa
         summary: The British Nationals Assistance Office Goa represents the UK government and provides services to British nationals.
         body: |
-          We help sustain and develop the important relationship between the UK and India. 
-           
+          We help sustain and develop the important relationship between the UK and India.
+
           You can [access UK government services while in India](/government/world/india)
-           
+
           #Urgent assistance
-           
+
           If you’re in Goa and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +91 (832) 6636 777. If you’re in the UK and worried about a British national in India, call 020 7008 1500.
-           
-          [Contact the Deputy High Commission](#contact-us) for information about our other services. 
-           
+
+          [Contact the Deputy High Commission](#contact-us) for information about our other services.
+
           #Other consular services
 
           ##Notarial and documentary services
@@ -1176,7 +1176,7 @@ india:
           See the full list of [documentary services](https://www.gov.uk/guidance/notarial-and-documentary-services-guide-for-india) we provide in India.
 
           We also provide services in:
-           
+
           - [Ahmedabad](/government/world/india/british-deputy-high-commission-ahmedabad)
           - [Bengaluru](/government/world/india/british-deputy-high-commission-bangalore)
           - [Chandigarh](/government/world/india/british-deputy-high-commission-chandigarh)
@@ -1193,16 +1193,16 @@ india:
       - title: British Deputy High Commission Chandigarh
         summary: The Deputy High Commission in Chandigarh represents the UK government and provides services to British nationals in India.
         body: |
-          We help sustain and develop the important relationship between the UK and India. 
-           
+          We help sustain and develop the important relationship between the UK and India.
+
           You can [access UK government services while in India](/government/world/india)
-           
+
           #Urgent assistance
-           
-          If you’re in Chandigarh and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +91 (11) 2419 2100. If you’re in the UK and worried about a British national in India, call 020 7008 1500. 
-           
-          [Contact the Deputy High Commission](#contact-us) for information about our other services. 
-           
+
+          If you’re in Chandigarh and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +91 (11) 2419 2100. If you’re in the UK and worried about a British national in India, call 020 7008 1500.
+
+          [Contact the Deputy High Commission](#contact-us) for information about our other services.
+
           #Other consular services
 
           ##Notarial and documentary services
@@ -1212,7 +1212,7 @@ india:
           See the full list of [documentary services](https://www.gov.uk/guidance/notarial-and-documentary-services-guide-for-india) we provide in India.
 
           We also provide services in:
-           
+
           - [Ahmedabad](/government/world/india/british-deputy-high-commission-ahmedabad)
           - [Bengaluru](/government/world/india/british-deputy-high-commission-bangalore)
           - [Chennai](/government/world/india/british-deputy-high-commissioner-chennai)
@@ -1229,16 +1229,16 @@ india:
       - title: British Deputy High Commission Hyderabad
         summary: The Deputy High Commission in Hyderabad represents the UK government and provides services to British nationals in India.
         body: |
-          We help sustain and develop the important relationship between the UK and India. 
-           
+          We help sustain and develop the important relationship between the UK and India.
+
           You can [access UK government services while in India](/government/world/india)
-           
+
           #Urgent assistance
-           
+
           If you’re in Hyderabad and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +91 (11) 2419 2100. If you’re in the UK and worried about a British national in India, call 020 7008 1500.
-           
-          [Contact the Deputy High Commission](#contact-us) for information about our other services. 
-           
+
+          [Contact the Deputy High Commission](#contact-us) for information about our other services.
+
           #Other consular services
 
           ##Notarial and documentary services
@@ -1248,7 +1248,7 @@ india:
           See the full list of [documentary services](https://www.gov.uk/guidance/notarial-and-documentary-services-guide-for-india) we provide in India.
 
           We also provide services in:
-           
+
           - [Ahmedabad](/government/world/india/british-deputy-high-commission-ahmedabad)
           - [Bengaluru](/government/world/india/british-deputy-high-commission-bangalore)
           - [Chandigarh](/government/world/india/british-deputy-high-commission-chandigarh)
@@ -1265,16 +1265,16 @@ india:
       - title: British Deputy High Commission Kolkata
         summary: The Deputy High Commission in Kolkata represents the UK government and provides services to British nationals in India.
         body: |
-          We help sustain and develop the important relationship between the UK and India. 
-           
+          We help sustain and develop the important relationship between the UK and India.
+
           You can [access UK government services while in India](/government/world/india)
-           
+
           #Urgent assistance
-           
-          If you’re in Kolkata and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +91 (11) 2419 2100. If you’re in the UK and worried about a British national in India, call 020 7008 1500. 
-           
-          [Contact the Deputy High Commision](#contact-us) for information about our other services. 
-           
+
+          If you’re in Kolkata and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +91 (11) 2419 2100. If you’re in the UK and worried about a British national in India, call 020 7008 1500.
+
+          [Contact the Deputy High Commision](#contact-us) for information about our other services.
+
           #Other consular services
 
           ##Notarial and documentary services
@@ -1284,7 +1284,7 @@ india:
           See the full list of [documentary services](https://www.gov.uk/guidance/notarial-and-documentary-services-guide-for-india) we provide in India.
 
           We also provide services in:
-           
+
           - [Bengaluru](/government/world/india/british-deputy-high-commission-bangalore)
           - [Chandigarh](/government/world/india/british-deputy-high-commission-chandigarh)
           - [Chennai](/government/world/india/british-deputy-high-commissioner-chennai)
@@ -1301,16 +1301,16 @@ india:
       - title: British Deputy High Commission Mumbai
         summary: The Deputy High Commission in Mumbai represents the UK government and provides services to British nationals in India.
         body: |
-          We help sustain and develop the important relationship between the UK and India. 
-           
+          We help sustain and develop the important relationship between the UK and India.
+
           You can [access UK government services while in India](/government/world/india)
-           
+
           #Urgent assistance
-           
-          If you’re in Mumbai and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +91 (11) 2419 2100. If you’re in the UK and worried about a British national in India, call 020 7008 1500. 
-           
-          [Contact the Deputy High Commission](#contact-us) for information about our other services. 
-           
+
+          If you’re in Mumbai and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +91 (11) 2419 2100. If you’re in the UK and worried about a British national in India, call 020 7008 1500.
+
+          [Contact the Deputy High Commission](#contact-us) for information about our other services.
+
           #Other consular services
 
           ##Notarial and documentary services
@@ -1320,7 +1320,7 @@ india:
           See the full list of [documentary services](https://www.gov.uk/guidance/notarial-and-documentary-services-guide-for-india) we provide in India.
 
           We also provide services in:
-           
+
           - [Ahmedabad](/government/world/india/british-deputy-high-commission-ahmedabad)
           - [Bengaluru](/government/world/india/british-deputy-high-commission-bangalore)
           - [Chandigarh](/government/world/india/british-deputy-high-commission-chandigarh)
@@ -1336,8 +1336,8 @@ india:
 south-africa:
   taxonomy:
     - title: Emergency help for British nationals
-      description: Get help if you're the victim of crime or you've been arrested. 
-      tagged_content: 
+      description: Get help if you're the victim of crime or you've been arrested.
+      tagged_content:
         - title: Compensation for victims of terrorist attacks abroad
           description: Compensation for terrorist attacks abroad - eligibility, acts of terrorism covered, application form, helpline.
           base_path: /compensation-victim-terrorist-attack
@@ -1367,7 +1367,7 @@ south-africa:
           base_path: /guidance/how-to-deal-with-a-crisis-overseas
     - title: Living abroad
       description: Includes how to renew your passport, claim your pension and access healthcare.
-      tagged_content: 
+      tagged_content:
         - title: Apply for or renew a British passport if you're visiting the UK
           description: You can apply for or renew a British passport while you're visiting the UK - as long as you expect to be in the UK for long enough.
           base_path: /passport-application-while-visiting-uk
@@ -1387,25 +1387,25 @@ south-africa:
           description: Renew, replace or apply for an adult or child British passport if you’re living abroad or working overseas - forms, prices, how long it takes.
           base_path: /overseas-passports
         - title: List of funeral directors
-          description: 
+          description:
           base_path: /government/publications/list-of-funeral-directors-south-africa
         - title: Lists of lawyers
-          description: 
+          description:
           base_path: /government/publications/south-africa-list-of-lawyers
         - title: List of medical facilities
-          description: 
+          description:
           base_path: /government/publications/south-africa-list-of-medical-facilities
         - title: Lists of translators and interpreters
-          description: 
+          description:
           base_path: /government/publications/south-africa-list-of-translators
         - title: Living in South Africa
-          description: Advice for British people living in South Africa, including information on health, education, benefits, residence requirements and more. 
+          description: Advice for British people living in South Africa, including information on health, education, benefits, residence requirements and more.
           base_path: /guidance/living-in-south-africa
         - title: Moving or retiring abroad
           description: What you need to know if you move or retire abroad - tax, pensions, voting and contacting your local council.
           base_path: /moving-or-retiring-abroad
         - title: Notarial and documentary services
-          description: 
+          description:
           base_path: /guidance/notarial-and-documentary-services-guide-for-south-africa
         - title: Register a birth
           description: Parents must register the birth in the country where the child was born - find out if you can also register the birth in the UK.
@@ -1417,8 +1417,8 @@ south-africa:
           description: How to vote if you're going to be abroad temporarily on election day, and what to do if you're moving overseas long term.
           base_path: /voting-when-abroad
     - title: Tax, benefits, pensions and working abroad
-      description: Includes how to pay tax, claim State Pension and get tax credits abroad. 
-      tagged_content: 
+      description: Includes how to pay tax, claim State Pension and get tax credits abroad.
+      tagged_content:
         - title: Claiming benefits if you live, move or travel abroad
           description: Benefits you can claim if you go abroad and countries with social security arrangements with the UK.
           base_path: /claim-benefits-abroad
@@ -1442,7 +1442,7 @@ south-africa:
           base_path: /working-abroad
     - title: Coming to the UK
       description: Get a visa to study, work or visit the UK.
-      tagged_content: 
+      tagged_content:
         - title: Check if you need a UK visa
           description: You may need a visa to come to the UK to visit, study or work.
           base_path: /check-uk-visa
@@ -1457,7 +1457,7 @@ south-africa:
           base_path: /visa-documents-returned
     - title: Travelling to South Africa
       description: Includes travel advice and how to get married abroad.
-      tagged_content: 
+      tagged_content:
         - title: Driving abroad
           description: You'll need a Great Britain or Northern Ireland licence to drive abroad and an International Driving Permit in some non-EU countries.
           base_path: /driving-abroad
@@ -1478,52 +1478,52 @@ south-africa:
           base_path: /taking-vehicles-out-of-uk
     - title: Trade and invest in the UK
       description: Find out how to set up a business in the UK, invest in the UK and what support you can get.
-      tagged_content: 
+      tagged_content:
         - title: "Business investment in the UK: Guidance for overseas businesses"
           description: Guidance on why overseas companies should set up and locate their businesses in the UK. Includes information on UK business investment and Foreign Direct Investment (FDI) opportunities.
           base_path: /government/collections/investment-in-the-uk-guidance-for-overseas-businesses
         - title: Department for International Trade in South Africa
-          description: 
+          description:
           base_path: /government/world/organisations/department-for-international-trade-south-africa
         - title: Exporting and doing business abroad
           description: What to do within or outside the EU, including checking if you need a licence.
           base_path: /starting-to-export
         - title: International treaties
-          description: 
+          description:
           base_path: /government/publications?keywords=&publication_filter_option=international-treaties&topics%5B%5D=all&departments%5B%5D=all&official_document_status=all&world_locations%5B%5D=all&from_date=&to_date=
-        - title: Set up a business 
+        - title: Set up a business
           description: "What you need to do to start a business: choose a legal structure, see if you need licences and insurance, learn about reliefs and benefits."
           base_path: /set-up-business
         - title: UK Science and Innovation Network in South Africa
-          description: 
+          description:
           base_path: /government/world/organisations/uk-science-innovation-network-in-south-africa
     - title: Diplomacy and development
       description: Find out what the UK government is doing in South Africa, includes news and events.
-      tagged_content: 
+      tagged_content:
         - title: Department for International Development in South Africa
-          description: 
+          description:
           base_path: /government/world/organisations/dfid-south-africa
         - title: News and events in South Africa
           description: What is the UK government doing in South Africa.
           base_path: /government/world/south-africa/news
     - title: British Embassy
       description: Includes contact details, opening hours and consular fees.
-      tagged_content: 
+      tagged_content:
         - title: British Consulate-General Cape Town
-          description: 
+          description:
           base_path: /government/world/south-africa/british-consulate-general-cape-town
         - title: British High Commission Pretoria
-          description: 
+          description:
           base_path: /government/world/south-africa/british-high-commission-pretoria
   embassies:
     british-high-commission-pretoria:
       - title: British High Commission Pretoria
         summary: The British High Commission in Pretoria represents the UK government and provides services to British nationals in South Africa, Lesotho and Swaziland.
         body: |
-          We help sustain and develop the important relationship between the UK and South Africa. 
-           
+          We help sustain and develop the important relationship between the UK and South Africa.
+
           You can [access UK government services while in South Africa](/government/world/south-africa).
-           
+
           #Urgent assistance
 
           If you’re in Pretoria and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +27 12 421 7500. If you’re in the UK and worried about a British national in South Africa, call 020 7008 1500.
@@ -1547,10 +1547,10 @@ south-africa:
       - title: British Consulate Cape Town
         summary: The British Consulate General in Cape Town represents the UK government and provides services to British nationals in South Africa’s parliamentary capital, and the 3 Cape Provinces.
         body: |
-          We help sustain and develop the important relationship between the UK and South Africa. 
-           
+          We help sustain and develop the important relationship between the UK and South Africa.
+
           You can [access UK government services while in South Africa](/government/world/south-africa).
-           
+
           #Urgent assistance
 
           If you’re in Cape Town and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +27 21 405 2400. If you’re in the UK and worried about a British national in South Africa, call 020 7008 1500.
@@ -1573,8 +1573,8 @@ south-africa:
 thailand:
   taxonomy:
     - title: Emergency help for British nationals
-      description: Get help if you're the victim of crime or you've been arrested. 
-      tagged_content: 
+      description: Get help if you're the victim of crime or you've been arrested.
+      tagged_content:
         - title: Compensation for victims of terrorist attacks abroad
           description: Compensation for terrorist attacks abroad - eligibility, acts of terrorism covered, application form, helpline.
           base_path: /compensation-victim-terrorist-attack
@@ -1601,7 +1601,7 @@ thailand:
           base_path: /guidance/how-to-deal-with-a-crisis-overseas
     - title: Living abroad
       description: Includes how to renew your passport, claim your pension and access healthcare.
-      tagged_content: 
+      tagged_content:
         - title: Apply for or renew a British passport if you're visiting the UK
           description: You can apply for or renew a British passport while you're visiting the UK - as long as you expect to be in the UK for long enough.
           base_path: /passport-application-while-visiting-uk
@@ -1621,19 +1621,19 @@ thailand:
           description: Renew, replace or apply for an adult or child British passport if you’re living abroad or working overseas - forms, prices, how long it takes.
           base_path: /overseas-passports
         - title: Lists of lawyers, translators and interpreters
-          description: 
+          description:
           base_path: /government/publications/thailand-list-of-lawyers
         - title: List of medical facilities
-          description: 
+          description:
           base_path: /government/publications/thailand-list-of-medical-facilitiespractitioners
         - title: Living in Thailand
-          description: Advice for British people living in Thailand, including information on health, education, benefits, residence requirements and more. 
+          description: Advice for British people living in Thailand, including information on health, education, benefits, residence requirements and more.
           base_path: /guidance/living-in-thailand
         - title: Moving or retiring abroad
           description: What you need to know if you move or retire abroad - tax, pensions, voting and contacting your local council.
           base_path: /moving-or-retiring-abroad
         - title: Notarial and documentary services
-          description: 
+          description:
           base_path: /guidance/notarial-and-documentary-services-guide-for-thailand
         - title: Register a birth
           description: Parents must register the birth in the country where the child was born - find out if you can also register the birth in the UK.
@@ -1645,8 +1645,8 @@ thailand:
           description: How to vote if you're going to be abroad temporarily on election day, and what to do if you're moving overseas long term.
           base_path: /voting-when-abroad
     - title: Tax, benefits, pensions and working abroad
-      description: Includes how to pay tax, claim State Pension and get tax credits abroad. 
-      tagged_content: 
+      description: Includes how to pay tax, claim State Pension and get tax credits abroad.
+      tagged_content:
         - title: Claiming benefits if you live, move or travel abroad
           description: Benefits you can claim if you go abroad and countries with social security arrangements with the UK.
           base_path: /claim-benefits-abroad
@@ -1670,7 +1670,7 @@ thailand:
           base_path: /working-abroad
     - title: Coming to the UK
       description: Get a visa to study, work or visit the UK.
-      tagged_content: 
+      tagged_content:
         - title: Check if you need a UK visa
           description: You may need a visa to come to the UK to visit, study or work.
           base_path: /check-uk-visa
@@ -1685,7 +1685,7 @@ thailand:
           base_path: /visa-documents-returned
     - title: Travelling to Thailand
       description: Includes travel advice and how to get married abroad.
-      tagged_content: 
+      tagged_content:
         - title: Driving abroad
           description: You'll need a Great Britain or Northern Ireland licence to drive abroad and an International Driving Permit in some non-EU countries.
           base_path: /driving-abroad
@@ -1706,63 +1706,63 @@ thailand:
           base_path: /foreign-travel-advice/thailand
     - title: Trade and invest in the UK
       description: Find out how to set up a business in the UK, invest in the UK and what support you can get.
-      tagged_content: 
+      tagged_content:
         - title: "Business investment in the UK: Guidance for overseas businesses"
           description: Guidance on why overseas companies should set up and locate their businesses in the UK. Includes information on UK business investment and Foreign Direct Investment (FDI) opportunities.
           base_path: /government/collections/investment-in-the-uk-guidance-for-overseas-businesses
         - title: Department for International Trade in Thailand
-          description: 
+          description:
           base_path: /government/world/organisations/department-for-international-trade-thailand
         - title: Exporting and doing business abroad
           description: What to do within or outside the EU, including checking if you need a licence.
           base_path: /starting-to-export
         - title: International treaties
-          description: 
+          description:
           base_path: /government/publications?keywords=&publication_filter_option=international-treaties&topics%5B%5D=all&departments%5B%5D=all&official_document_status=all&world_locations%5B%5D=all&from_date=&to_date=
-        - title: Set up a business 
+        - title: Set up a business
           description: "What you need to do to start a business: choose a legal structure, see if you need licences and insurance, learn about reliefs and benefits."
           base_path: /set-up-business
     - title: Diplomacy and development
       description: Find out what the UK government is doing in Thailand, includes news and events.
-      tagged_content: 
+      tagged_content:
         - title: News and events in Thailand
           description: What is the UK government doing in Thailand.
           base_path: /government/world/thailand/news
     - title: British Embassy
       description: Includes contact details, opening hours and consular fees.
-      tagged_content: 
+      tagged_content:
         - title: British Embassy Bangkok
-          description: 
+          description:
           base_path: /government/world/thailand/british-embassy-bangkok
   embassies:
     british-embassy-bangkok:
       - title: British Embassy Bangkok
         summary: The British Embassy in Bangkok represents the UK government and provides services to British nationals in Thailand.
         body: |
-          We help sustain and develop the important relationship between the UK and Thailand. 
-           
+          We help sustain and develop the important relationship between the UK and Thailand.
+
           You can [access UK government services while in Thailand](/government/world/thailand).
-           
+
           #Urgent assistance
-           
-          If you’re in Thailand and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +66(0)2 305 8333. If you’re in the UK and worried about a British national in Thailand, call 020 7008 1500. 
-           
-          [Contact the embassy](#contact-us) for information about our other services. 
-           
+
+          If you’re in Thailand and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +66(0)2 305 8333. If you’re in the UK and worried about a British national in Thailand, call 020 7008 1500.
+
+          [Contact the embassy](#contact-us) for information about our other services.
+
           #Other consular services
-           
+
           Consular staff in Bangkok can:
-           
+
           - administer an oath, affirmation or affidavit
           - witness a signature
           - make a certified copy of a document
 
-          See the [full list of services](https://www.gov.uk/government/collections/notarial-services). You might have to [pay a fee](https://www.gov.uk/government/publications/thailand-consular-fees). 
+          See the [full list of services](https://www.gov.uk/government/collections/notarial-services). You might have to [pay a fee](https://www.gov.uk/government/publications/thailand-consular-fees).
 turkey:
   taxonomy:
     - title: Emergency help for British nationals
-      description: Get help if you're the victim of crime or you've been arrested. 
-      tagged_content: 
+      description: Get help if you're the victim of crime or you've been arrested.
+      tagged_content:
         - title: Compensation for victims of terrorist attacks abroad
           description: Compensation for terrorist attacks abroad - eligibility, acts of terrorism covered, application form, helpline.
           base_path: /compensation-victim-terrorist-attack
@@ -1807,7 +1807,7 @@ turkey:
           base_path: /guidance/how-to-deal-with-a-crisis-overseas
     - title: Living abroad
       description: Includes how to renew your passport, claim your pension and access healthcare.
-      tagged_content: 
+      tagged_content:
         - title: Apply for or renew a British passport if you're visiting the UK
           description: You can apply for or renew a British passport while you're visiting the UK - as long as you expect to be in the UK for long enough.
           base_path: /passport-application-while-visiting-uk
@@ -1822,30 +1822,30 @@ turkey:
           base_path: /get-document-legalised
         - title: Get married abroad
           description: Requirements, paperwork and processes for weddings and civil partnerships overseas - registration, restrictions, fees.
-          base_path: /marriage-abroad 
+          base_path: /marriage-abroad
         - title: Get or renew a passport
           description: Renew, replace or apply for an adult or child British passport if you’re living abroad or working overseas - forms, prices, how long it takes.
           base_path: /overseas-passports
         - title: List of funeral directors
-          description: 
+          description:
           base_path: /government/publications/turkey-list-of-funeral-directors
         - title: List of medical practitioners
-          description: 
+          description:
           base_path: /government/publications/turkey-list-of-medical-practitioners
         - title: Lists of lawyers
-          description: 
+          description:
           base_path: /government/publications/turkey-list-of-lawyers
         - title: Lists of translators and interpreters
-          description: 
+          description:
           base_path: /government/publications/turkey-list-of-translators-and-interpreters
         - title: Living in Turkey
-          description: Advice for British people living in Turkey, including information on health, education, benefits, residence requirements and more. 
+          description: Advice for British people living in Turkey, including information on health, education, benefits, residence requirements and more.
           base_path: /guidance/living-in-turkey
         - title: Moving or retiring abroad
           description: What you need to know if you move or retire abroad - tax, pensions, voting and contacting your local council.
           base_path: /moving-or-retiring-abroad
         - title: Notarial and documentary services
-          description: 
+          description:
           base_path: /guidance/notarial-and-documentary-services-guide-for-turkey
         - title: Register a birth
           description: Parents must register the birth in the country where the child was born - find out if you can also register the birth in the UK.
@@ -1857,8 +1857,8 @@ turkey:
           description: How to vote if you're going to be abroad temporarily on election day, and what to do if you're moving overseas long term.
           base_path: /voting-when-abroad
     - title: Tax, benefits, pensions and working abroad
-      description: Includes how to pay tax, claim State Pension and get tax credits abroad. 
-      tagged_content: 
+      description: Includes how to pay tax, claim State Pension and get tax credits abroad.
+      tagged_content:
         - title: Claiming benefits if you live, move or travel abroad
           description: Benefits you can claim if you go abroad and countries with social security arrangements with the UK.
           base_path: /claim-benefits-abroad
@@ -1882,7 +1882,7 @@ turkey:
           base_path: /working-abroad
     - title: Coming to the UK
       description: Get a visa to study, work or visit the UK.
-      tagged_content: 
+      tagged_content:
         - title: Check if you need a UK visa
           description: You may need a visa to come to the UK to visit, study or work.
           base_path: /check-uk-visa
@@ -1897,7 +1897,7 @@ turkey:
           base_path: /visa-documents-returned
     - title: Travelling to Turkey
       description: Includes travel advice and how to get married abroad.
-      tagged_content: 
+      tagged_content:
         - title: Driving abroad
           description: You'll need a Great Britain or Northern Ireland licence to drive abroad and an International Driving Permit in some non-EU countries.
           base_path: /driving-abroad
@@ -1918,84 +1918,84 @@ turkey:
           base_path: /foreign-travel-advice/turkey
     - title: Trade and invest in the UK
       description: Find out how to set up a business in the UK, invest in the UK and what support you can get.
-      tagged_content: 
+      tagged_content:
         - title: "Business investment in the UK: Guidance for overseas businesses"
           description: Guidance on why overseas companies should set up and locate their businesses in the UK. Includes information on UK business investment and Foreign Direct Investment (FDI) opportunities.
           base_path: /government/collections/investment-in-the-uk-guidance-for-overseas-businesses
         - title: Department for International Trade in Turkey
-          description: 
+          description:
           base_path: /government/world/organisations/department-for-international-trade-turkey
         - title: Exporting and doing business abroad
           description: What to do within or outside the EU, including checking if you need a licence.
           base_path: /starting-to-export
         - title: International treaties
-          description: 
+          description:
           base_path: /government/publications?keywords=&publication_filter_option=international-treaties&topics%5B%5D=all&departments%5B%5D=all&official_document_status=all&world_locations%5B%5D=all&from_date=&to_date=
-        - title: Set up a business 
+        - title: Set up a business
           description: "What you need to do to start a business: choose a legal structure, see if you need licences and insurance, learn about reliefs and benefits."
           base_path: /set-up-business
         - title: UK Science and Innovation Network in Turkey
-          description: 
+          description:
           base_path: /government/world/organisations/uk-science-and-innovation-network-in-turkey
     - title: Diplomacy and development
       description: Find out what the UK government is doing in Turkey, includes news and events.
-      tagged_content: 
+      tagged_content:
         - title: News and events in Turkey
           description: What is the UK government doing in Turkey.
           base_path: /government/world/turkey/news
     - title: British Embassy
       description: Includes contact details, opening hours and consular fees.
-      tagged_content: 
+      tagged_content:
         - title: British Consulate General Istanbul
-          description: 
+          description:
           base_path: /government/world/turkey/british-consulate-general-istanbul
         - title: British Consulate Izmir
-          description: 
+          description:
           base_path: /government/world/turkey/british-consulate-izmir
         - title: British Embassy Ankara
-          description: 
+          description:
           base_path: /government/world/turkey/british-embassy-ankara
         - title: British Honorary Consulate Bodrum
-          description: 
+          description:
           base_path: /government/world/turkey/british-honorary-consulate-bodrum
         - title: British Honorary Consulate Fethiye
-          description: 
+          description:
           base_path: /government/world/turkey/british-honorary-consulate-fethiye
         - title: British Honorary Consulate Marmaris
-          description: 
+          description:
           base_path: /government/world/turkey/british-honorary-consulate-marmaris
         - title: British Vice Consulate Antalya
-          description: 
+          description:
           base_path: /government/world/turkey/british-vice-consulate-antalya
   embassies:
     british-embassy-ankara:
       - title: British Embassy Ankara
         summary: The British Embassy in Ankara represents the UK government and provides services to British nationals in Turkey.
         body: |
-          We help sustain and develop the important relationship between the UK and Turkey. 
-           
+          We help sustain and develop the important relationship between the UK and Turkey.
+
           You can [access UK government services while in Turkey](/government/world/turkey).
-           
+
           #Urgent assistance
-           
-          If you’re in Ankara and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +90 312 455 3344. If you’re in the UK and worried about a British national in Turkey, call 020 7008 1500. 
-           
-          [Contact the British Embassy](#contact-us) for information about our other services. 
-           
+
+          If you’re in Ankara and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +90 312 455 3344. If you’re in the UK and worried about a British national in Turkey, call 020 7008 1500.
+
+          [Contact the British Embassy](#contact-us) for information about our other services.
+
           #Other consular services
-           
+
           Consular staff in Ankara can:
-           
+
           - administer an oath, affirmation or affidavit
           - witness a signature
           - make a certified copy of a document
-           
+
           See the [full list of services](https://www.gov.uk/government/collections/notarial-services). You might have to [pay a fee](/government/publications/turkey-consular-fees).
-           
+
           We also run a regional visa hub for entry to the UK.
-           
+
           We also provide services in:
-           
+
           - [Antalya](/government/world/turkey/british-vice-consulate-antalya)
           - [Bodrum](/government/world/turkey/british-honorary-consulate-bodrum)
           - [Fethiye](/government/world/turkey/british-honorary-consulate-fethiye)
@@ -2004,30 +2004,30 @@ turkey:
           - [Marmaris](/government/world/turkey/british-honorary-consulate-marmaris)
     british-vice-consulate-antalya:
       - title: British Vice Consulate Antalya
-        summary: The British Vice Consulate in Antalya represents the UK government and provides services to British nationals in Antalya. 
+        summary: The British Vice Consulate in Antalya represents the UK government and provides services to British nationals in Antalya.
         body: |
-          We help sustain and develop the important relationship between the UK and Turkey. 
-           
+          We help sustain and develop the important relationship between the UK and Turkey.
+
           You can [access UK government services while in Turkey](/government/world/turkey)
-           
+
           #Urgent assistance
-           
-          If you’re in Antalya and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +90 242 228 28 11. If you’re in the UK and worried about a British national in Turkey, call 020 7008 1500. 
-           
-          [Contact the British Vice Consulate](#contact-us) for information about our other services. 
-           
+
+          If you’re in Antalya and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +90 242 228 28 11. If you’re in the UK and worried about a British national in Turkey, call 020 7008 1500.
+
+          [Contact the British Vice Consulate](#contact-us) for information about our other services.
+
           #Other consular services
-           
+
           Consular staff in Antalya can:
-           
+
           - administer an oath, affirmation or affidavit
           - witness a signature
           - make a certified copy of a document
-           
+
           See the [full list of services](https://www.gov.uk/government/collections/notarial-services). You might have to [pay a fee](/government/publications/turkey-consular-fees).
-           
+
           We also provide services in:
-           
+
           - [Ankara](/government/world/turkey/british-embassy-ankara)
           - [Bodrum](/government/world/turkey/british-honorary-consulate-bodrum)
           - [Fethiye](/government/world/turkey/british-honorary-consulate-fethiye)
@@ -2039,27 +2039,27 @@ turkey:
         summary: The British Honorary Consulate in Bodrum represents the UK government and provides services to British nationals in Bodrum.
         body: |
           We help sustain and develop the important relationship between the UK and Turkey.
-           
+
           You can [access UK government services while in Turkey](/government/world/turkey).
-           
+
           #Urgent assistance
-           
+
           If you’re in Bodrum and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +90 252 412 64 88. If you’re in the UK and worried about a British national in Bodrum, call 020 7008 1500.
-           
+
           [Contact the British Honorary Consulate](#contact-us) for information about our other services.
-           
+
           #Other consular services
-           
+
           Consular staff in Bodrum can:
-           
+
           - administer an oath, affirmation or affidavit
           - witness a signature
           - make a certified copy of a document
-           
+
           See the [full list of services](https://www.gov.uk/government/collections/notarial-services). You might have to [pay a fee](https://www.gov.uk/government/publications/turkey-consular-fees).
-           
+
           We also provide services in:
-           
+
           - [Ankara](/government/world/turkey/british-embassy-ankara)
           - [Antalya](/government/world/turkey/british-vice-consulate-antalya)
           - [Fethiye](/government/world/turkey/british-honorary-consulate-fethiye)
@@ -2071,27 +2071,27 @@ turkey:
         summary: The British Honorary Consulate in Fethiye represents the UK government and provides services to British nationals in Fethiye.
         body: |
           We help sustain and develop the important relationship between the UK and Turkey.
-           
+
           You can [access UK government services while in Turkey](/government/world/turkey).
-           
+
           #Urgent assistance
-           
+
           If you’re in Fethiye and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +90 252 614 63 02. If you’re in the UK and worried about a British national in Fethiye, call 020 7008 1500.
-           
+
           [Contact the British Honorary Consulate](#contact-us) for information about our other services.
-           
+
           #Other consular services
-           
+
           Consular staff in Fethiye can:
-           
+
           - administer an oath, affirmation or affidavit
           - witness a signature
           - make a certified copy of a document
-           
+
           See the [full list of services](https://www.gov.uk/government/collections/notarial-services). You might have to [pay a fee](https://www.gov.uk/government/publications/turkey-consular-fees).
-           
+
           We also provide services in:
-           
+
           - [Ankara](/government/world/turkey/british-embassy-ankara)
           - [Antalya](/government/world/turkey/british-vice-consulate-antalya)
           - [Bodrum](/government/world/turkey/british-honorary-consulate-bodrum)
@@ -2103,27 +2103,27 @@ turkey:
         summary: The British Consulate General in Istanbul represents the UK government and provides services to British nationals in Istanbul.
         body: |
           We help sustain and develop the important relationship between the UK and Turkey.
-           
+
           You can [access UK government services while in Turkey](/government/world/turkey).
-           
+
           #Urgent assistance
-           
+
           If you’re in Istanbul and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +90 212 334 64 00. If you’re in the UK and worried about a British national in Turkey, call 020 7008 1500.
-           
+
           [Contact the British Consulate General](#contact-us) for information about our other services.
-           
+
           #Other consular services
-           
+
           Consular staff in Istanbul can:
-           
+
           - administer an oath, affirmation or affidavit
           - witness a signature
           - make a certified copy of a document
-           
+
           See the [full list of services](https://www.gov.uk/government/collections/notarial-services). You might have to [pay a fee](https://www.gov.uk/government/publications/turkey-consular-fees).
-           
+
           We also provide services in:
-           
+
           - [Ankara](/government/world/turkey/british-embassy-ankara)
           - [Antalya](/government/world/turkey/british-vice-consulate-antalya)
           - [Bodrum](/government/world/turkey/british-honorary-consulate-bodrum)
@@ -2135,27 +2135,27 @@ turkey:
         summary: The British Consulate General in Izmir represents the UK government and provides services to British nationals in Izmir.
         body: |
           We help sustain and develop the important relationship between the UK and Izmir.
-           
+
           You can [access UK government services while in Turkey](/government/world/turkey).
-           
+
           #Urgent assistance
-           
+
           If you’re in Izmir and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +90 232 463 51 51. If you’re in the UK and worried about a British national in Izmir, call 020 7008 1500.
-           
+
           [Contact the British Consulate General](#contact-us) for information about our other services.
-           
+
           #Other consular services
-           
+
           Consular staff in Izmir can:
-           
+
           - administer an oath, affirmation or affidavit
           - witness a signature
           - make a certified copy of a document
-           
+
           See the [full list of services](https://www.gov.uk/government/collections/notarial-services). You might have to [pay a fee](https://www.gov.uk/government/publications/turkey-consular-fees).
-           
+
           We also provide services in:
-           
+
           - [Ankara](/government/world/turkey/british-embassy-ankara)
           - [Antalya](/government/world/turkey/british-vice-consulate-antalya)
           - [Bodrum](/government/world/turkey/british-honorary-consulate-bodrum)
@@ -2167,27 +2167,27 @@ turkey:
         summary: The British Honorary Consulate in Marmaris represents the UK government and provides services to British nationals in Marmaris.
         body: |
           We help sustain and develop the important relationship between the UK and Turkey.
-           
+
           You can [access UK government services while in Turkey](/government/world/turkey).
-           
+
           #Urgent assistance
-           
+
           If you’re in Marmaris and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +90 252 412 64 88. If you’re in the UK and worried about a British national in Marmaris, call 020 7008 1500.
-           
+
           [Contact the British Honorary Consulate](#contact-us) for information about our other services.
-           
+
           #Other consular services
-           
+
           Consular staff in Marmaris can:
-           
+
           - administer an oath, affirmation or affidavit
           - witness a signature
           - make a certified copy of a document
-           
+
           See the [full list of services](https://www.gov.uk/government/collections/notarial-services). You might have to [pay a fee](https://www.gov.uk/government/publications/turkey-consular-fees).
-           
+
           We also provide services in:
-           
+
           - [Ankara](/government/world/turkey/british-embassy-ankara)
           - [Antalya](/government/world/turkey/british-vice-consulate-antalya)
           - [Bodrum](/government/world/turkey/british-honorary-consulate-bodrum)
@@ -2197,8 +2197,8 @@ turkey:
 usa:
   taxonomy:
     - title: Emergency help for British nationals
-      description: Get help if you're the victim of crime or you've been arrested. 
-      tagged_content: 
+      description: Get help if you're the victim of crime or you've been arrested.
+      tagged_content:
         - title: Compensation for victims of terrorist attacks abroad
           description: Compensation for terrorist attacks abroad - eligibility, acts of terrorism covered, application form, helpline.
           base_path: /compensation-victim-terrorist-attack
@@ -2249,7 +2249,7 @@ usa:
           base_path: /guidance/support-if-youre-affected-by-a-crisis-abroad
     - title: Living abroad
       description: Includes how to renew your passport, claim your pension and access healthcare.
-      tagged_content: 
+      tagged_content:
         - title: Apply for or renew a British passport if you're visiting the UK
           description: You can apply for or renew a British passport while you're visiting the UK - as long as you expect to be in the UK for long enough.
           base_path: /passport-application-while-visiting-uk
@@ -2264,21 +2264,21 @@ usa:
           base_path: /get-document-legalised
         - title: Get married abroad
           description: Requirements, paperwork and processes for weddings and civil partnerships overseas - registration, restrictions, fees.
-          base_path: /marriage-abroad 
+          base_path: /marriage-abroad
         - title: Get or renew a passport
           description: Renew, replace or apply for an adult or child British passport if you’re living abroad or working overseas - forms, prices, how long it takes.
           base_path: /overseas-passports
         - title: Lists of lawyers
-          description: 
+          description:
           base_path: /government/publications/usa-list-of-lawyers
         - title: Living in the USA
-          description: Advice for British people living in USA, including information on health, education, benefits, residence requirements and more. 
+          description: Advice for British people living in USA, including information on health, education, benefits, residence requirements and more.
           base_path: /guidance/living-in-the-usa
         - title: Moving or retiring abroad
           description: What you need to know if you move or retire abroad - tax, pensions, voting and contacting your local council.
           base_path: /moving-or-retiring-abroad
         - title: Notarial and documentary services
-          description: 
+          description:
           base_path: /guidance/notarial-and-documentary-services-guide-for-the-usa
         - title: Register a birth
           description: Parents must register the birth in the country where the child was born - find out if you can also register the birth in the UK.
@@ -2290,8 +2290,8 @@ usa:
           description: How to vote if you're going to be abroad temporarily on election day, and what to do if you're moving overseas long term.
           base_path: /voting-when-abroad
     - title: Tax, benefits, pensions and working abroad
-      description: Includes how to pay tax, claim State Pension and get tax credits abroad. 
-      tagged_content: 
+      description: Includes how to pay tax, claim State Pension and get tax credits abroad.
+      tagged_content:
         - title: Claiming benefits if you live, move or travel abroad
           description: Benefits you can claim if you go abroad and countries with social security arrangements with the UK.
           base_path: /claim-benefits-abroad
@@ -2315,7 +2315,7 @@ usa:
           base_path: /working-abroad
     - title: Coming to the UK
       description: Get a visa to study, work or visit the UK.
-      tagged_content: 
+      tagged_content:
         - title: Check if you need a UK visa
           description: You may need a visa to come to the UK to visit, study or work.
           base_path: /check-uk-visa
@@ -2330,7 +2330,7 @@ usa:
           base_path: /visa-documents-returned
     - title: Travelling to the USA
       description: Includes travel advice and how to get married abroad.
-      tagged_content: 
+      tagged_content:
         - title: Driving abroad
           description: You'll need a Great Britain or Northern Ireland licence to drive abroad and an International Driving Permit in some non-EU countries.
           base_path: /driving-abroad
@@ -2351,141 +2351,141 @@ usa:
           base_path: /foreign-travel-advice/usa
     - title: Trade and invest in the UK
       description: Find out how to set up a business in the UK, invest in the UK and what support you can get.
-      tagged_content: 
+      tagged_content:
         - title: "Business investment in the UK: Guidance for overseas businesses"
           description: Guidance on why overseas companies should set up and locate their businesses in the UK. Includes information on UK business investment and Foreign Direct Investment (FDI) opportunities.
           base_path: /government/collections/investment-in-the-uk-guidance-for-overseas-businesses
         - title: Department for International Trade in the USA
-          description: 
+          description:
           base_path: /government/world/organisations/department-for-international-trade-in-the-usa
         - title: Exporting and doing business abroad
           description: What to do within or outside the EU, including checking if you need a licence.
           base_path: /starting-to-export
         - title: International treaties
-          description: 
+          description:
           base_path: /government/publications?keywords=&publication_filter_option=international-treaties&topics%5B%5D=all&departments%5B%5D=all&official_document_status=all&world_locations%5B%5D=all&from_date=&to_date=
-        - title: Set up a business 
+        - title: Set up a business
           description: "What you need to do to start a business: choose a legal structure, see if you need licences and insurance, learn about reliefs and benefits."
           base_path: /set-up-business
         - title: UK Science and Innovation Network in the USA
-          description: 
+          description:
           base_path: /government/world/organisations/uk-science-and-innovation-network-in-the-usa
     - title: Diplomacy and development
       description: Find out what the UK government is doing in the USA, includes news and events.
-      tagged_content: 
+      tagged_content:
         - title: News and events in the USA
           description: What is the UK government doing in the USA.
           base_path: /government/world/usa/news
     - title: British Embassy
       description: Includes contact details, opening hours and consular fees.
-      tagged_content: 
+      tagged_content:
         - title: British Consulate General Atlanta
-          description: 
+          description:
           base_path: /government/world/usa/british-consulate-general-atlanta
         - title: British Consulate General Boston
-          description: 
+          description:
           base_path: /government/world/usa/british-consulate-general-boston
         - title: British Consulate General Chicago
-          description: 
+          description:
           base_path: /government/world/usa/british-consulate-general-chicago
         - title: British Consulate General Houston
-          description: 
+          description:
           base_path: /government/world/usa/british-consulate-general-houston
         - title: British Consulate General Los Angeles
-          description: 
+          description:
           base_path: /government/world/usa/british-consulate-general-los-angeles
         - title: British Consulate General Miami
-          description: 
+          description:
           base_path: /government/world/usa/british-consulate-general-miami
         - title: British Consulate General New York
-          description: 
+          description:
           base_path: /government/world/usa/british-consulate-general-new-york
         - title: British Consulate General San Francisco
-          description: 
+          description:
           base_path: /government/world/usa/british-consulate-general-san-francisco
         - title: British Embassy Washington
-          description: 
+          description:
           base_path: /government/world/usa/british-embassy-washington
         - title: British defence staff in the USA
-          description: 
+          description:
           base_path: /government/world/organisations/british-defence-staff-in-the-usa
   embassies:
     british-consulate-general-atlanta:
       - title: British Consulate General Atlanta
         summary: The Consulate General in Atlanta represents the UK government and provides services to British nationals in Alabama, Georgia, Mississippi, North Carolina, South Carolina, and Tennessee.
         body: |
-          We help sustain and develop the important relationship between the UK and USA. 
-           
+          We help sustain and develop the important relationship between the UK and USA.
+
           You can [access UK government services while in the USA](/government/world/usa).
-           
+
           #Urgent assistance
-           
-          If you’re in Alabama, Georgia, Mississippi, North Carolina, South Carolina, and Tennessee and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +1 404 954 7700. If you’re in the UK and worried about a British national in USA, call 020 7008 1500. 
-           
-          [Contact the Consulate General](#contact-us) for information about our other services. 
-           
+
+          If you’re in Alabama, Georgia, Mississippi, North Carolina, South Carolina, and Tennessee and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +1 404 954 7700. If you’re in the UK and worried about a British national in USA, call 020 7008 1500.
+
+          [Contact the Consulate General](#contact-us) for information about our other services.
+
           #Other consular services
-           
+
           Consular staff in Atlanta can:
-           
+
           - administer an oath, affirmation or affidavit
           - witness a signature
           - make a certified copy of a document
-           
+
           See the [full list of services](https://www.gov.uk/government/collections/notarial-services). You might have to [pay a fee](/government/publications/usa-consular-fees).
-           
+
           We also provide services in:
 
-          - [Boston](/government/world/usa/british-consulate-general-boston) 
-          - [Chicago](/government/world/usa/british-consulate-general-chicago) 
+          - [Boston](/government/world/usa/british-consulate-general-boston)
+          - [Chicago](/government/world/usa/british-consulate-general-chicago)
           - [Houston](/government/world/usa/british-consulate-general-houston)
           - [Los Angeles](/government/world/usa/british-consulate-general-los-angeles)
           - [Miami](/government/world/usa/british-consulate-general-miami)
-          - [New York](/government/world/usa/british-consulate-general-new-york) 
+          - [New York](/government/world/usa/british-consulate-general-new-york)
           - [San Francisco](/government/world/usa/british-consulate-general-san-francisco)
-          - [Washington DC](/government/world/usa/british-embassy-washington) 
+          - [Washington DC](/government/world/usa/british-embassy-washington)
     british-consulate-general-boston:
       - title: British Consulate General Boston
-        summary: The Consulate General in Boston represents the UK government and provides services to British nationals in Massachusetts, Maine, New Hampshire, Vermont, Rhode Island, and Connecticut (except Fairfield County). 
+        summary: The Consulate General in Boston represents the UK government and provides services to British nationals in Massachusetts, Maine, New Hampshire, Vermont, Rhode Island, and Connecticut (except Fairfield County).
         body: |
-          We help sustain and develop the important relationship between the UK and USA. 
-           
+          We help sustain and develop the important relationship between the UK and USA.
+
           You can [access UK government services while in the USA](/government/world/usa).
-           
+
           #Urgent assistance
-           
-          If you’re in Massachusetts, Maine, New Hampshire, Vermont, Rhode Island, and Connecticut (except Fairfield County) and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +1 617 245 4500. If you’re in the UK and worried about a British national in USA, call 020 7008 1500. 
-           
-          [Contact the Consulate General](#contact-us) for information about our other services. 
-           
+
+          If you’re in Massachusetts, Maine, New Hampshire, Vermont, Rhode Island, and Connecticut (except Fairfield County) and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +1 617 245 4500. If you’re in the UK and worried about a British national in USA, call 020 7008 1500.
+
+          [Contact the Consulate General](#contact-us) for information about our other services.
+
           #Other consular services
-           
+
           Consular staff in Boston can:
-           
+
           - administer an oath, affirmation or affidavit
           - witness a signature
           - make a certified copy of a document
-           
+
           See the [full list of services](https://www.gov.uk/government/collections/notarial-services). You might have to [pay a fee](/government/publications/usa-consular-fees).
-           
+
           We also provide services in:
-           
-          - [Atlanta](/government/world/usa/british-consulate-general-atlanta) 
-          - [Chicago](/government/world/usa/british-consulate-general-chicago) 
+
+          - [Atlanta](/government/world/usa/british-consulate-general-atlanta)
+          - [Chicago](/government/world/usa/british-consulate-general-chicago)
           - [Houston](/government/world/usa/british-consulate-general-houston)
           - [Los Angeles](/government/world/usa/british-consulate-general-los-angeles)
           - [Miami](/government/world/usa/british-consulate-general-miami)
-          - [New York](/government/world/usa/british-consulate-general-new-york) 
+          - [New York](/government/world/usa/british-consulate-general-new-york)
           - [San Francisco](/government/world/usa/british-consulate-general-san-francisco)
-          - [Washington DC](/government/world/usa/british-embassy-washington) 
+          - [Washington DC](/government/world/usa/british-embassy-washington)
     british-consulate-general-chicago:
       - title: British Consulate General Chicago
         summary: The Consulate General in Chicago represents the UK government and provides services to British nationals in Illinois, Indiana, Iowa, Kansas, Kentucky, Michigan, Minnesota, Missouri, Nebraska, North Dakota, Ohio, South Dakota, and Wisconsin.
         body: |
-          We help sustain and develop the important relationship between the UK and USA. 
-           
+          We help sustain and develop the important relationship between the UK and USA.
+
           You can [access UK government services while in the USA](/government/world/usa).
-           
+
           #Urgent assistance
 
           If you’re in Illinois, Indiana, Iowa, Kansas, Kentucky, Michigan, Minnesota, Missouri, Nebraska, North Dakota, Ohio, South Dakota, and Wisconsin. and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +1 312 970 3800. If you’re in the UK and worried about a British national in USA, call 020 7008 1500.
@@ -2499,47 +2499,47 @@ usa:
           - administer an oath, affirmation or affidavit
           - witness a signature
           - make a certified copy of a document
-           
+
           See the [full list of services](https://www.gov.uk/government/collections/notarial-services). You might have to [pay a fee](/government/publications/usa-consular-fees).
-           
+
           We also provide services in:
-           
-          - [Atlanta](/government/world/usa/british-consulate-general-atlanta) 
-          - [Boston](/government/world/usa/british-consulate-general-boston) 
+
+          - [Atlanta](/government/world/usa/british-consulate-general-atlanta)
+          - [Boston](/government/world/usa/british-consulate-general-boston)
           - [Houston](/government/world/usa/british-consulate-general-houston)
           - [Los Angeles](/government/world/usa/british-consulate-general-los-angeles)
           - [Miami](/government/world/usa/british-consulate-general-miami)
-          - [New York](/government/world/usa/british-consulate-general-new-york) 
+          - [New York](/government/world/usa/british-consulate-general-new-york)
           - [San Francisco](/government/world/usa/british-consulate-general-san-francisco)
-          - [Washington DC](/government/world/usa/british-embassy-washington) 
+          - [Washington DC](/government/world/usa/british-embassy-washington)
     british-consulate-general-houston:
       - title: British Consulate General Houston
         summary: The British Consulate General in Houston represents the UK government and provides services to British nationals in Texas, Arkansas, Colorado, Louisiana, New Mexico and Oklahoma.
         body: |
           We help sustain and develop the important relationship between the UK and the USA.
-           
+
           You can [access UK government services while in the USA](/government/world/usa).
-           
+
           #Urgent assistance
-           
-          If you’re in Texas, Arkansas, Colorado, Louisiana, New Mexico or Oklahoma and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +1 713 210 4000. 
-           
+
+          If you’re in Texas, Arkansas, Colorado, Louisiana, New Mexico or Oklahoma and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +1 713 210 4000.
+
           If you’re in the UK and worried about a British national in Texas, Arkansas, Colorado, Louisiana, New Mexico or Oklahoma, call 020 7008 1500.
-           
+
           [Contact the British Consulate General](#contact-us) for information about our other services.
-           
+
           #Other consular services
-           
+
           Consular staff in Houston can:
-           
+
           - administer an oath, affirmation or affidavit
           - witness a signature
           - make a certified copy of a document
-           
+
           See the [full list of services](https://www.gov.uk/government/collections/notarial-services). You might have to [pay a fee](https://www.gov.uk/government/publications/usa-consular-fees).
-           
+
           We also provide services in:
-           
+
           - [Atlanta](/government/world/usa/british-consulate-general-atlanta)
           - [Boston](/government/world/usa/british-consulate-general-boston)
           - [Chicago](/government/world/usa/british-consulate-general-chicago)
@@ -2553,29 +2553,29 @@ usa:
         summary: The British Consulate General in Los Angeles represents the UK government and provides services to British nationals in southern California, Nevada, Arizona, Hawaii, Utah, Guam, Northern Mariana Islands, and American Samoa.
         body: |
           We help sustain and develop the important relationship between the UK and the USA.
-           
+
           You can [access UK government services while in the USA](/government/world/usa).
-           
+
           #Urgent assistance
-           
+
           If you’re in southern California, Nevada, Arizona, Hawaii, Utah, Guam, Northern Mariana Islands or American Samoa and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +1 310 789 0031.
-           
+
           If you’re in the UK and worried about a British national in southern California, Nevada, Arizona, Hawaii, Utah, Guam, Northern Mariana Islands or American Samoa, call 020 7008 1500.
-           
+
           [Contact the British Consulate General](#contact-us) for information about our other services.
-           
+
           #Other consular services
-           
+
           Consular staff in Los Angeles can:
-           
+
           - administer an oath, affirmation or affidavit
           - witness a signature
           - make a certified copy of a document
-           
+
           See the [full list of services](https://www.gov.uk/government/collections/notarial-services). You might have to [pay a fee](https://www.gov.uk/government/publications/usa-consular-fees).
-           
+
           We also provide services in:
-           
+
           - [Atlanta](/government/world/usa/british-consulate-general-atlanta)
           - [Boston](/government/world/usa/british-consulate-general-boston)
           - [Chicago](/government/world/usa/british-consulate-general-chicago)
@@ -2589,27 +2589,27 @@ usa:
         summary: The British Consulate General in Miami represents the UK government and provides services to British nationals in Florida, Puerto Rico and the US Virgin Islands.
         body: |
           We help sustain and develop the important relationship between the UK and the USA.
-           
+
           You can [access UK government services while in USA](/government/world/usa).
-           
+
           #Urgent assistance
-           
+
           If you’re in Florida, Puerto Rico and the US Virgin Islands and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +1 305 400 6400. If you’re in the UK and worried about a British national in Florida, Puerto Rico and the US Virgin Islands, call 020 7008 1500.
-           
+
           [Contact the British Consulate General](#contact-us) for information about our other services.
-           
+
           #Other consular services
-           
+
           Consular staff in Miami can:
-           
+
           - administer an oath, affirmation or affidavit
           - witness a signature
           - make a certified copy of a document
-           
+
           See the [full list of services](https://www.gov.uk/government/collections/notarial-services). You might have to [pay a fee](https://www.gov.uk/government/publications/usa-consular-fees).
-           
+
           We also provide services in:
-           
+
           - [Atlanta](/government/world/usa/british-consulate-general-atlanta)
           - [Boston](/government/world/usa/british-consulate-general-boston)
           - [Chicago](/government/world/usa/british-consulate-general-chicago)
@@ -2622,10 +2622,10 @@ usa:
       - title: British Consulate General New York
         summary: The British Consulate General in New York represents the UK government and provides services to British nationals in New York, New Jersey, Pennsylvania, and Fairfield County in Connecticut.
         body: |
-          We help sustain and develop the important relationship between the UK and USA. 
-           
+          We help sustain and develop the important relationship between the UK and USA.
+
           You can [access UK government services while in the USA](/government/world/usa).
-           
+
           #Urgent assistance
 
           If you’re in New York and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +1 212 745 0200. If you’re in the UK and worried about a British national in USA, call 020 7008 1500.
@@ -2639,14 +2639,14 @@ usa:
           - administer an oath, affirmation or affidavit
           - witness a signature
           - make a certified copy of a document
-           
+
           See the [full list of services](https://www.gov.uk/government/collections/notarial-services). You might have to [pay a fee](/government/publications/usa-consular-fees).
-           
+
           We also provide services in:
-           
-          - [Atlanta](/government/world/usa/british-consulate-general-atlanta) 
-          - [Boston](/government/world/usa/british-consulate-general-boston) 
-          - [Chicago](/government/world/usa/british-consulate-general-chicago) 
+
+          - [Atlanta](/government/world/usa/british-consulate-general-atlanta)
+          - [Boston](/government/world/usa/british-consulate-general-boston)
+          - [Chicago](/government/world/usa/british-consulate-general-chicago)
           - [Houston](/government/world/usa/british-consulate-general-houston)
           - [Los Angeles](/government/world/usa/british-consulate-general-los-angeles)
           - [Miami](/government/world/usa/british-consulate-general-miami)
@@ -2657,29 +2657,29 @@ usa:
         summary: The British Consulate General in San Francisco represents the UK government and provides services to British nationals in northern California, Alaska, Idaho, Montana, Oregon, Washington, and Wyoming.
         body: |
           We help sustain and develop the important relationship between the UK and the USA.
-           
+
           You can [access UK government services while in the USA](/government/world/usa).
-           
+
           #Urgent assistance
-           
+
           If you’re in northern California, Alaska, Idaho, Montana, Oregon, Washington, and Wyoming and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +1 415 617 1300.
-           
+
           If you’re in the UK and worried about a British national in northern California, Alaska, Idaho, Montana, Oregon, Washington, and Wyoming, call 020 7008 1500.
-           
+
           [Contact the British Consulate General](#contact-us) for information about our other services.
-           
+
           #Other consular services
-           
+
           Consular staff in San Francisco can:
-           
+
           - administer an oath, affirmation or affidavit
           - witness a signature
           - make a certified copy of a document
-           
+
           See the [full list of services](https://www.gov.uk/government/collections/notarial-services). You might have to [pay a fee](https://www.gov.uk/government/publications/usa-consular-fees).
-           
+
           We also provide services in:
-           
+
           - [Atlanta](/government/world/usa/british-consulate-general-atlanta)
           - [Boston](/government/world/usa/british-consulate-general-boston)
           - [Chicago](/government/world/usa/british-consulate-general-chicago)
@@ -2690,35 +2690,35 @@ usa:
           - [Washington DC](/government/world/usa/british-embassy-washington)
     british-embassy-washington:
       - title: British Embassy Washington
-        summary: The Embassy in Washington represents the UK government and provides services to British nationals in USA. 
+        summary: The Embassy in Washington represents the UK government and provides services to British nationals in USA.
         body: |
-          We help sustain and develop the important relationship between the UK and USA. 
-           
+          We help sustain and develop the important relationship between the UK and USA.
+
           You can [access UK government services while in the USA](/government/world/usa).
-           
+
           #Urgent assistance
-           
-          If you’re in Washington and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +1 202 588 6500. If you’re in the UK and worried about a British national in USA, call 020 7008 1500. 
-           
-          [Contact the Embassy](#contact-us) for information about our other services. 
-           
+
+          If you’re in Washington and you need urgent help (for example, you’ve been attacked, arrested or someone has died), call +1 202 588 6500. If you’re in the UK and worried about a British national in USA, call 020 7008 1500.
+
+          [Contact the Embassy](#contact-us) for information about our other services.
+
           #Other consular services
-           
+
           Consular staff in Washington can:
-           
+
           - administer an oath, affirmation or affidavit
           - witness a signature
           - make a certified copy of a document
-           
+
           See the [full list of services](https://www.gov.uk/government/collections/notarial-services). You might have to [pay a fee](/government/publications/usa-consular-fees).
-           
+
           We also provide services in:
-           
-          - [Atlanta](/government/world/usa/british-consulate-general-atlanta) 
-          - [Boston](/government/world/usa/british-consulate-general-boston) 
-          - [Chicago](/government/world/usa/british-consulate-general-chicago) 
+
+          - [Atlanta](/government/world/usa/british-consulate-general-atlanta)
+          - [Boston](/government/world/usa/british-consulate-general-boston)
+          - [Chicago](/government/world/usa/british-consulate-general-chicago)
           - [Houston](/government/world/usa/british-consulate-general-houston)
           - [Los Angeles](/government/world/usa/british-consulate-general-los-angeles)
           - [Miami](/government/world/usa/british-consulate-general-miami)
-          - [New York](/government/world/usa/british-consulate-general-new-york) 
+          - [New York](/government/world/usa/british-consulate-general-new-york)
           - [San Francisco](/government/world/usa/british-consulate-general-san-francisco)
