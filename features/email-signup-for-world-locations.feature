@@ -10,3 +10,6 @@ Feature: Email signup for world locations
     Given I view the world location "Best City"
     When I sign up for emails
     Then I should be signed up for the "Best City" world location mailing list
+
+    When I publish a news article "More news" for "Best City"
+    Then a govuk_delivery notification should have been sent to the mailing list I signed up for

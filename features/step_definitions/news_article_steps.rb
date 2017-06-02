@@ -125,7 +125,7 @@ When(/^I publish the French-only news article$/) do
 end
 
 When(/^I publish a news article "(.*?)" for "(.*?)"$/) do |title, location_name|
-  begin_drafting_news_article(title: title)
+  begin_drafting_news_article(title: title, first_published: Time.zone.today.to_s)
   select location_name, from: "Select the world locations this news article is about"
   click_button "Save"
   publish(force: true)
