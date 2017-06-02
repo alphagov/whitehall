@@ -76,7 +76,7 @@ private
   def parent_taxon
     {
       title: "#{@world_location.name} and the UK",
-      description: "Services if you're living, studying, working or visiting #{@world_location.name}. Includes information about trading with and doing business in the UK."
+      description: "Services if you're visiting, studying, working or living in #{@world_location.name}. Includes information about trading with and doing business in the UK."
     }
   end
 end
