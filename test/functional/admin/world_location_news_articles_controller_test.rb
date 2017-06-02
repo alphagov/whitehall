@@ -9,52 +9,6 @@ class Admin::WorldLocationNewsArticlesControllerTest < ActionController::TestCas
 
   should_be_an_admin_controller
 
-  test 'POST :create for a non-English edition saves it as a non-English edition' do
-    post :create, edition: {  lock_version: 0,
-                              title: 'French title',
-                              summary: 'Summary',
-                              body: 'Body',
-                              primary_locale: 'fr',
-                              world_location_ids: [@world_location.id],
-                              worldwide_organisation_ids: [@worldwide_organisation.id],
-                              topic_ids: [create(:topic).id],
-                              previously_published: false
-                            }
-    edition = Edition.last
-    assert_redirected_to admin_world_location_news_article_path(edition)
-
-    assert_equal 'fr', edition.primary_locale
-    assert edition.available_in_locale?(:fr)
-    refute edition.available_in_locale?(:en)
-    assert_equal edition.document.id.to_s, edition.document.slug
-
-    translation = edition.translation_for(:fr)
-    assert_equal 'French title', translation.title
-    assert_equal 'Summary', translation.summary
-    assert_equal 'Body', translation.body
-  end
-
-  test 'POST :create with a blank locale will create a standard English edition' do
-
-    post :create, edition: {  lock_version: 0,
-                              title: 'Article title',
-                              summary: 'Summary',
-                              body: 'Body',
-                              primary_locale: '',
-                              world_location_ids: [@world_location.id],
-                              worldwide_organisation_ids: [@worldwide_organisation.id],
-                              topic_ids: [create(:topic).id],
-                              previously_published: false
-                            }
-
-    assert edition = Edition.find_by(title: 'Article title')
-    assert_redirected_to admin_world_location_news_article_path(edition)
-
-    assert_equal 'en', edition.primary_locale
-    assert edition.available_in_locale?(:en)
-    assert_equal 'article-title', edition.document.slug
-  end
-
   test 'PUT :update for non-English edition does not save any additional translations' do
     edition = I18n.with_locale(:fr) { create(:world_location_news_article, title: 'French Title', body: 'French Body', primary_locale: :fr) }
 
