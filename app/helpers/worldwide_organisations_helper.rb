@@ -27,6 +27,16 @@ module WorldwideOrganisationsHelper
     end
   end
 
+  # LocalliseUrlPathHelper rewrites many helpers to look into
+  # params[:locale] before deciding what url to produce, we need this to
+  # make sure we can cope with that.
+  # Copied somewhat from lib/whitehall/url_maker.rb
+  unless defined?(params)
+    define_method(:params) do
+      {}
+    end
+  end
+
 private
 
   def ab_test_helper
