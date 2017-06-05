@@ -3,6 +3,7 @@ module Whitehall
     include Rails.application.routes.url_helpers
     include PublicDocumentRoutesHelper
     include FilterRoutesHelper
+    include WorldwideOrganisationsHelper
     include Admin::EditionRoutesHelper
     include LocalisedUrlPathHelper
 

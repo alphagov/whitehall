@@ -1,7 +1,5 @@
-require "localised_url_path_helper"
-
 module WorldwideOrganisationsHelper
-  include LocalisedUrlPathHelper
+  include ActionDispatch::Routing::PolymorphicRoutes
 
   def worldwide_organisation_path(worldwide_organisation, options = {})
     if ab_test_helper.is_under_test?(worldwide_organisation)
@@ -24,16 +22,6 @@ module WorldwideOrganisationsHelper
       File.join(location_path_or_url, worldwide_organisation.slug)
     else
       super
-    end
-  end
-
-  # LocalliseUrlPathHelper rewrites many helpers to look into
-  # params[:locale] before deciding what url to produce, we need this to
-  # make sure we can cope with that.
-  # Copied somewhat from lib/whitehall/url_maker.rb
-  unless defined?(params)
-    define_method(:params) do
-      {}
     end
   end
 
