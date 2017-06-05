@@ -172,8 +172,8 @@ australia:
         - title: News and events in Australia
           description: What is the UK government doing in Australia.
           base_path: /government/world/australia/news
-    - title: British Embassy
-      description: Includes contact details, opening hours and consular fees.
+    - title: Consular services
+      description: Includes contact details, opening hours and fees for services at British embassies, consulates or high commissions.
       tagged_content:
         - title: Contact the British Consulate Brisbane
           description:
@@ -615,8 +615,8 @@ brazil:
         - title: News and events in Brazil
           description: What is the UK government doing in Brazil.
           base_path: /government/world/brazil/news
-    - title: British Embassy
-      description: Includes contact details, opening hours and consular fees.
+    - title: Consular services
+      description: Includes contact details, opening hours and fees for services at British embassies, consulates or high commissions.
       tagged_content:
         - title: British Consulate-General Belo Horizonte
           description:
@@ -978,8 +978,8 @@ india:
         - title: News and events in India
           description: What is the UK government doing in India.
           base_path: /government/world/india/news
-    - title: British Embassy
-      description: Includes contact details, opening hours and consular fees.
+    - title: Consular services
+      description: Includes contact details, opening hours and fees for services at British embassies, consulates or high commissions.
       tagged_content:
         - title: British Deputy High Commission Ahmedabad
           description:
@@ -1506,8 +1506,8 @@ south-africa:
         - title: News and events in South Africa
           description: What is the UK government doing in South Africa.
           base_path: /government/world/south-africa/news
-    - title: British Embassy
-      description: Includes contact details, opening hours and consular fees.
+    - title: Consular services
+      description: Includes contact details, opening hours and fees for services at British embassies, consulates or high commissions.
       tagged_content:
         - title: British Consulate-General Cape Town
           description:
@@ -1728,8 +1728,8 @@ thailand:
         - title: News and events in Thailand
           description: What is the UK government doing in Thailand.
           base_path: /government/world/thailand/news
-    - title: British Embassy
-      description: Includes contact details, opening hours and consular fees.
+    - title: Consular services
+      description: Includes contact details, opening hours and fees for services at British embassies, consulates or high commissions.
       tagged_content:
         - title: British Embassy Bangkok
           description:
@@ -1943,8 +1943,8 @@ turkey:
         - title: News and events in Turkey
           description: What is the UK government doing in Turkey.
           base_path: /government/world/turkey/news
-    - title: British Embassy
-      description: Includes contact details, opening hours and consular fees.
+    - title: Consular services
+      description: Includes contact details, opening hours and fees for services at British embassies, consulates or high commissions.
       tagged_content:
         - title: British Consulate General Istanbul
           description:
@@ -2376,8 +2376,8 @@ usa:
         - title: News and events in the USA
           description: What is the UK government doing in the USA.
           base_path: /government/world/usa/news
-    - title: British Embassy
-      description: Includes contact details, opening hours and consular fees.
+    - title: Consular services
+      description: Includes contact details, opening hours and fees for services at British embassies, consulates or high commissions.
       tagged_content:
         - title: British Consulate General Atlanta
           description:
