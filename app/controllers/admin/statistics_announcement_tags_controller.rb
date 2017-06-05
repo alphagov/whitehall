@@ -10,7 +10,7 @@ class Admin::StatisticsAnnouncementTagsController < Admin::BaseController
   def update
     @tag_form = TaxonomyTagForm.new(
       content_id: @statistics_announcement.content_id,
-      selected_taxons: params["taxonomy_tag_form"].fetch("taxons", []).reject(&:blank?),
+      selected_taxons: selected_taxons,
       previous_version: params["taxonomy_tag_form"]["previous_version"],
       all_taxons: Taxonomy::GovukTaxonomy.new.all_taxons
     )
@@ -35,5 +35,9 @@ private
 
   def find_statistics_announcement
     @statistics_announcement = StatisticsAnnouncement.friendly.find(params[:statistics_announcement_id])
+  end
+
+  def selected_taxons
+    params["taxonomy_tag_form"].fetch("taxons", []).reject(&:blank?)
   end
 end

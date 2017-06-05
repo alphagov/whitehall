@@ -11,7 +11,7 @@ class Admin::EditionTagsController < Admin::BaseController
   def update
     @tag_form = TaxonomyTagForm.new(
       content_id: @edition.content_id,
-      selected_taxons: params["taxonomy_tag_form"].fetch("taxons", []).reject(&:blank?),
+      selected_taxons: selected_taxons,
       previous_version: params["taxonomy_tag_form"]["previous_version"],
       all_taxons: Taxonomy::GovukTaxonomy.new.all_taxons
     )
@@ -37,5 +37,9 @@ private
   def find_edition
     edition = Edition.find(params[:edition_id])
     @edition = LocalisedModel.new(edition, edition.primary_locale)
+  end
+
+  def selected_taxons
+    params["taxonomy_tag_form"].fetch("taxons", []).reject(&:blank?)
   end
 end
