@@ -2,6 +2,7 @@
   world_locations ||= organisation.world_locations
   link_to_organisation ||= false
   object_for_translation ||= organisation
+  user_is_in_b_test_group ||= false
 %>
 <header class="block worldwide-organisation-header">
   <div class="inner-block floated-children">
@@ -9,7 +10,7 @@
       <h1>
         <% if link_to_organisation %>
           <%= link_to content_tag(:span, organisation_logo_name(organisation)),
-                worldwide_organisation_link_for_ab_test(organisation),
+                worldwide_organisation_link_for_ab_test(organisation, user_is_in_b_test_group),
                 class: logo_classes(class_name: 'single-identity', size: 'large', stacked: true) %>
         <% else %>
           <%= content_tag :span, content_tag(:span, organisation_logo_name(organisation)), class: logo_classes(class_name: 'single-identity', size: 'large', stacked: true) %>

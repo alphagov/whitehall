@@ -4,6 +4,7 @@ class CorporateInformationPagesController < DocumentsController
 
   def show
     @corporate_information_page = @document
+    @user_is_in_b_test_group = user_is_in_b_test_group?
 
     if @organisation.is_a? WorldwideOrganisation
       render 'show_worldwide_organisation'
@@ -56,5 +57,11 @@ private
       else
         raise ActiveRecord::RecordNotFound
       end
+  end
+
+  def user_is_in_b_test_group?
+    ab_test = GovukAbTesting::AbTest.new("WorldwidePublishingTaxonomy", dimension: 45)
+    requested_variant = ab_test.requested_variant(request.headers)
+    requested_variant.variant_b?
   end
 end

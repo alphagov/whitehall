@@ -1,9 +1,9 @@
 module WorldwideOrganisationsHelper
-  def worldwide_organisation_link_for_ab_test(worldwide_organisation)
-    if ab_test_helper.is_under_test?(worldwide_organisation)
+  def worldwide_organisation_link_for_ab_test(worldwide_organisation, user_is_in_b_test_group)
+    if ab_test_helper.is_under_test?(worldwide_organisation) && user_is_in_b_test_group
       b_url(worldwide_organisation)
     else
-      worldwide_organisation_url
+      worldwide_organisation_path(worldwide_organisation)
     end
   end
 
