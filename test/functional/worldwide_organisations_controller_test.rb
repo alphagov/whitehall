@@ -3,7 +3,6 @@ require "test_helper"
 class WorldwideOrganisationsControllerTest < ActionController::TestCase
   include GovukAbTesting::MinitestHelpers
   should_be_a_public_facing_controller
-  include GovukAbTesting::MinitestHelpers
 
   test "shows worldwide organisation information" do
     organisation = create(:worldwide_organisation)
