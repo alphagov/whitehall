@@ -93,7 +93,7 @@ class SpecialistTagFinderTest < ActiveSupport::TestCase
 
     content_store_has_item(edition_base_path, edition_content_item)
 
-    assert_equal nil, SpecialistTagFinder.new(edition_base_path).top_level_topic
+    assert_nil SpecialistTagFinder.new(edition_base_path).top_level_topic
   end
 
   test "#top_level_topic returns nil if no content item found" do
@@ -102,6 +102,6 @@ class SpecialistTagFinderTest < ActiveSupport::TestCase
 
     content_store_does_not_have_item(edition_base_path)
 
-    assert_equal nil, SpecialistTagFinder.new(edition_base_path).top_level_topic
+    assert_nil SpecialistTagFinder.new(edition_base_path).top_level_topic
   end
 end

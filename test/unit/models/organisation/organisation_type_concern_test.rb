@@ -12,7 +12,7 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
   end
 
   test "organisation_type should not fall over if organisation doesn't have an organisation_type_key" do
-    assert_equal nil, build(:organisation, organisation_type_key: nil).organisation_type
+    assert_nil build(:organisation, organisation_type_key: nil).organisation_type
   end
 
   test "should implement organisation_type= which sets organisation_type_key to the OrganisationTyps's key." do

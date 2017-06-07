@@ -69,7 +69,7 @@ class UnpublishingTest < ActiveSupport::TestCase
 
   test 'alternative_path returns nil if alternative_url is nil' do
     unpublishing = build(:unpublishing, redirect: true, alternative_url: nil)
-    assert_equal nil, unpublishing.alternative_path
+    assert_nil unpublishing.alternative_path
   end
 
   test 'returns an unpublishing reason' do
