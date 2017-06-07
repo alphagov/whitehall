@@ -178,4 +178,12 @@ class WorldwideAbHelperTest < ActiveSupport::TestCase
       refute subject(file_path).is_under_test?(organisation)
     end
   end
+
+  test "is_under_test? returns false if the testable_object is nil" do
+    refute subject.is_under_test?(nil)
+  end
+
+  test "is_under_test? returns false if the testable_object is a string" do
+    refute subject.is_under_test?("world-location-test-string-1")
+  end
 end
