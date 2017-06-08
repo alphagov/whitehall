@@ -29,7 +29,9 @@ module Searchable
     :people,
     :public_timestamp,
     :publication_type,
+    :publishing_app,
     :release_timestamp,
+    :rendering_app,
     :search_format_types,
     :slug,
     :speech_type,
@@ -69,6 +71,9 @@ module Searchable
       self.searchable_options = options.reverse_merge \
         format:         -> (o) { o.class.model_name.element },
         content_id:     -> (o) { o.try(:content_id) },
+        rendering_app: :content_store_rendering_app,
+        publishing_app: :content_store_publishing_app,
+        content_store_document_type: :content_store_document_type,
         index_after:    :save,
         unindex_after:  :destroy,
         only:           :all,
@@ -128,6 +133,24 @@ module Searchable
 
     def rummager_index
       :government
+    end
+
+    def content_store_document_type
+      publishing_api_presenter.fetch(:document_type)
+    end
+
+    def content_store_rendering_app
+      publishing_api_presenter.fetch(:rendering_app)
+    end
+
+    def content_store_publishing_app
+      publishing_api_presenter.fetch(:publishing_app)
+    end
+
+  private
+
+    def publishing_api_presenter
+      @publishing_api_presenter ||= PublishingApiPresenters.presenter_for(self).content
     end
 
     module ClassMethods
