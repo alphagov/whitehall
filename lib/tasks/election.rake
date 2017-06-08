@@ -27,4 +27,32 @@ namespace :election do
       )
     end
   end
+
+  desc "
+  Removes all current ministerial appointments with the exception
+  of the prime minister
+  Usage
+    rake election:end_ministerial_appointments
+
+    or to specify an end date other than today
+
+    rake election:end_ministerial_appointments[2017-06-09]
+  "
+  task :end_ministerial_appointments, [:end_date] => :environment do |_t, args|
+    appointments = RoleAppointment.current.for_ministerial_roles
+    end_date = Date.today
+    prime_ministerial_role_id = 1
+    begin
+      if args[:end_date]
+        end_date = Date.parse(args[:end_date])
+      end
+      appointments.each do |appointment|
+        next if appointment.role_id == prime_ministerial_role_id
+        print "."
+        appointment.update_attribute(:ended_at, end_date)
+      end
+    rescue StandardError => ex
+      puts ex.message
+    end
+  end
 end
