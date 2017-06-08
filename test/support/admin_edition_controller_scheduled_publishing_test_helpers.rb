@@ -76,7 +76,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         post :create, {scheduled_publication_active: "0", edition: edition_attributes}
 
         created_edition = document_type_class.last
-        assert_equal nil, created_edition.scheduled_publication
+        assert_nil created_edition.scheduled_publication
       end
 
       test "create should set scheduled_publication if scheduled_publication_active is checked" do
@@ -135,7 +135,7 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         put :update, id: edition, edition: edition_attributes, scheduled_publication_active: "0"
 
         saved_edition = edition.reload
-        assert_equal nil, saved_edition.scheduled_publication
+        assert_nil saved_edition.scheduled_publication
       end
 
       test "update should set scheduled_publication if scheduled_publication_active checked" do

@@ -88,14 +88,14 @@ class DocumentTest < ActiveSupport::TestCase
     document = create(:document)
     relationship = create(:edition_relation, document: document)
     document.destroy
-    assert_equal nil, EditionRelation.find_by(id: relationship.id)
+    assert_nil EditionRelation.find_by(id: relationship.id)
   end
 
   test "#destroy also destroys document sources" do
     document = create(:document)
     document_source = create(:document_source, document: document)
     document.destroy
-    assert_equal nil, DocumentSource.find_by(id: document_source.id)
+    assert_nil DocumentSource.find_by(id: document_source.id)
   end
 
   test "#destroy also destroys document collection group memberships" do

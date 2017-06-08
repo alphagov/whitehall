@@ -66,6 +66,6 @@ class Edition::SpecialistSectorsTest < ActiveSupport::TestCase
       primary_specialist_sector_tag: nil
     })
 
-    assert_equal nil, publication.primary_specialist_sector_tag
+    assert_nil publication.primary_specialist_sector_tag
   end
 end

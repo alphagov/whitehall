@@ -137,19 +137,19 @@ class AttachmentTest < ActiveSupport::TestCase
     attachment.price = ''
     attachment.save!
     attachment.reload
-    assert_equal nil, attachment.price_in_pence
+    assert_nil attachment.price_in_pence
   end
 
   test "should not save a nil price as a zero price_in_pence" do
     attachment = create(:file_attachment, price: nil)
     attachment.reload
-    assert_equal nil, attachment.price_in_pence
+    assert_nil attachment.price_in_pence
   end
 
   test "should not save a blank price as a zero price_in_pence" do
     attachment = create(:file_attachment, price: '')
     attachment.reload
-    assert_equal nil, attachment.price_in_pence
+    assert_nil attachment.price_in_pence
   end
 
   test "should prefer the memoized price over price_in_pence" do

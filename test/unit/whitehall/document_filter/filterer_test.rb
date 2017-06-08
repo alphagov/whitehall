@@ -12,11 +12,11 @@ module Whitehall::DocumentFilter
     end
 
     test "invalid date params are ignored" do
-      assert_equal nil, build_filter(from_date: "invalid-date").from_date
+      assert_nil build_filter(from_date: "invalid-date").from_date
     end
 
     test "dates before 1900 are ignored" do
-      assert_equal nil, build_filter(from_date: "2 February 200").from_date
+      assert_nil build_filter(from_date: "2 February 200").from_date
     end
 
     test "page defaults to the first page" do

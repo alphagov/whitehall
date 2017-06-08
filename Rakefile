@@ -7,6 +7,6 @@
 ENV["LOG_LEVEL"] = "warn"
 
 require File.expand_path('../config/application', __FILE__)
-require 'ci/reporter/rake/minitest' if Rails.env.development? or Rails.env.test?
+require 'ci/reporter/rake/minitest' if Rails.env.test?
 
 Whitehall::Application.load_tasks

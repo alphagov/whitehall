@@ -305,7 +305,7 @@ class EditionTest < ActiveSupport::TestCase
         acting_as(robot) { Whitehall.edition_services.scheduled_publisher(publication).perform! }
         acting_as(editor) do
           new_draft = publication.create_draft(editor)
-          assert_equal nil, new_draft.scheduled_by
+          assert_nil new_draft.scheduled_by
         end
       end
     end
