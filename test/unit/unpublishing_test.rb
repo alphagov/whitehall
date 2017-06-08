@@ -2,7 +2,7 @@ require 'test_helper'
 
 class UnpublishingTest < ActiveSupport::TestCase
   test 'is not valid without an unpublishing reason' do
-    unpublishing = build(:unpublishing, unpublishing_reason_id: nil)
+    unpublishing = build(:unpublishing, unpublishing_reason: nil)
     refute unpublishing.valid?
   end
 
@@ -73,12 +73,12 @@ class UnpublishingTest < ActiveSupport::TestCase
   end
 
   test 'returns an unpublishing reason' do
-    unpublishing = build(:unpublishing, unpublishing_reason_id: reason.id)
+    unpublishing = build(:unpublishing, unpublishing_reason: reason)
     assert_equal reason, unpublishing.unpublishing_reason
   end
 
   test 'returns the unpublishing reason as a sentence' do
-    assert_equal reason.as_sentence, build(:unpublishing, unpublishing_reason_id: reason.id).reason_as_sentence
+    assert_equal reason.as_sentence, build(:unpublishing, unpublishing_reason: reason).reason_as_sentence
   end
 
   test 'can be retrieved by slug and document type' do
@@ -100,18 +100,18 @@ class UnpublishingTest < ActiveSupport::TestCase
   end
 
   test 'alternative_url is required if the reason is Consolidated' do
-    unpublishing = build(:unpublishing, unpublishing_reason_id: UnpublishingReason::Consolidated.id, alternative_url: nil)
+    unpublishing = build(:unpublishing, unpublishing_reason: UnpublishingReason::Consolidated, alternative_url: nil)
     refute unpublishing.valid?
     assert_equal ['must be provided to redirect the document'], unpublishing.errors[:alternative_url]
   end
 
   test 'always redirects if the reason is Consolidated' do
-    unpublishing = Unpublishing.new(unpublishing_reason_id: UnpublishingReason::Consolidated.id)
+    unpublishing = Unpublishing.new(unpublishing_reason: UnpublishingReason::Consolidated)
     assert unpublishing.redirect?
   end
 
   test 'explanation is required if the reason is Withdrawn' do
-    unpublishing = build(:unpublishing, unpublishing_reason_id: UnpublishingReason::Withdrawn.id, explanation: nil)
+    unpublishing = build(:unpublishing, unpublishing_reason: UnpublishingReason::Withdrawn, explanation: nil)
     refute unpublishing.valid?
     assert_equal ['must be provided when withdrawing'], unpublishing.errors[:explanation]
   end
@@ -120,7 +120,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     edition = create(:detailed_guide, :draft)
     original_path = Whitehall.url_maker.public_document_path(edition)
     unpublishing = create(:unpublishing, edition: edition,
-                          unpublishing_reason_id: UnpublishingReason::PublishedInError.id)
+                          unpublishing_reason: UnpublishingReason::PublishedInError)
 
     assert_equal original_path, unpublishing.document_path
   end
@@ -129,7 +129,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     edition = create(:detailed_guide)
     original_path = Whitehall.url_maker.public_document_path(edition)
     unpublishing = create(:unpublishing, edition: edition,
-                          unpublishing_reason_id: UnpublishingReason::PublishedInError.id)
+                          unpublishing_reason: UnpublishingReason::PublishedInError)
 
 
     EditionDeleter.new(edition).perform!

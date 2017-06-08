@@ -34,6 +34,10 @@ class Unpublishing < ApplicationRecord
     UnpublishingReason.find_by_id unpublishing_reason_id
   end
 
+  def unpublishing_reason=(new_unpublishing_reason)
+    self.unpublishing_reason_id = new_unpublishing_reason.try(:id)
+  end
+
   def reason_as_sentence
     unpublishing_reason.as_sentence
   end
