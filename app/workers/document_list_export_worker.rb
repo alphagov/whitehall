@@ -17,7 +17,7 @@ private
   end
 
   def generate_csv(filter)
-    CSV.generate do |csv|
+    CSV.generate(col_sep: "|") do |csv|
       csv << DocumentListExportPresenter.header_row
       filter.each_edition_for_csv do |edition|
         presenter = DocumentListExportPresenter.new(edition)
