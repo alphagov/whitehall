@@ -144,7 +144,7 @@ class DocumentListExportPresenter
     data.map do |elem|
       case elem
       when Array
-        elem.join(', ')
+        elem.join(' | ')
       when Time
         # YYYY-MM-DD hh:mm:ss, which seems to be best understood by spreadsheets.
         elem.to_formatted_s(:db)
