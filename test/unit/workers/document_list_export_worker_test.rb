@@ -30,16 +30,4 @@ class DocumentListExportWorkerTest < ActiveSupport::TestCase
     Notifications.expects(:document_list).with(csv, @user.email, title).returns(stub(:deliver_now))
     @worker.perform({"state" =>"draft"}, @user.id)
   end
-
-  test 'generates CSV with custom separator' do
-    edition  = stub(page_title: "title")
-    editions = [edition].to_enum
-    filter = mock
-    filter.expects(:each_edition_for_csv).multiple_yields(editions)
-    @worker.stubs(:create_filter).returns(filter)
-    DocumentListExportPresenter.expects(:header_row).returns(%w(this is my header))
-    DocumentListExportPresenter.expects(:new).with(edition).returns(stub(row: %w(this is my edition)))
-    csv = @worker.send(:generate_csv, filter)
-    assert_equal csv, "this|is|my|header\nthis|is|my|edition\n"
-  end
 end
