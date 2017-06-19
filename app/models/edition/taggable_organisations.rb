@@ -8,6 +8,12 @@ module Edition::TaggableOrganisations
     PublicationType::Form,
   ].freeze
 
+  # Only Education based organisations have validation to prevent publishing if
+  # they have not been tagged
+  def must_be_tagged_to_taxonomy?
+    education_taggable?
+  end
+
   def can_be_tagged_to_taxonomy?
     education_taggable? || world_taggable?
   end
