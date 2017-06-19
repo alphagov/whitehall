@@ -8,14 +8,20 @@ class Taxonomy::PublishingApiAdapterTest < ActiveSupport::TestCase
   test "#published_taxon_data" do
     setup_published_taxons([published_taxon])
     result = subject.published_taxon_data
-    assert result == [published_taxon]
+    assert_equal result, [published_taxon_tree]
   end
 
   test "#draft_taxon_data" do
     setup_published_taxons([published_taxon])
     setup_draft_taxons([visible_draft_taxon, draft_taxon])
     result = subject.draft_taxon_data
-    assert_equal [visible_draft_taxon], result
+    assert_equal [visible_draft_taxon_tree], result
+  end
+
+  def published_taxon_tree
+    published_taxon.tap do |taxon|
+      taxon['expanded_links_hash'] = published_taxon
+    end
   end
 
   def published_taxon
@@ -24,6 +30,12 @@ class Taxonomy::PublishingApiAdapterTest < ActiveSupport::TestCase
 
   def draft_taxon
     { "content_id" => "draft" }
+  end
+
+  def visible_draft_taxon_tree
+    visible_draft_taxon.tap do |taxon|
+      taxon['expanded_links_hash'] = visible_draft_taxon
+    end
   end
 
   def visible_draft_taxon
