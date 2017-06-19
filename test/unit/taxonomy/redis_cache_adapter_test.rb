@@ -2,7 +2,10 @@ require 'test_helper'
 
 class Taxonomy::RedisCacheAdapterTest < ActiveSupport::TestCase
   def subject
-    Taxonomy::RedisCacheAdapter.new(redis_client, publishing_api_adapter)
+    Taxonomy::RedisCacheAdapter.new(
+      redis_client: redis_client,
+      adapter: publishing_api_adapter
+    )
   end
 
   def redis_client
