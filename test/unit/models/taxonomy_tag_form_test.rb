@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class EditionTaxonomyTagFormTest < ActiveSupport::TestCase
+class TaxonomyTagFormTest < ActiveSupport::TestCase
   include TaxonomyHelper
 
   test "#load when publishing-api returns 404, selected_taxons should be '[]'" do
@@ -16,7 +16,7 @@ class EditionTaxonomyTagFormTest < ActiveSupport::TestCase
     stub_request(:get, %r{.*/v2/links/#{content_id}.*})
       .to_return(body: body, status: 404)
 
-    form = EditionTaxonomyTagForm.load(content_id)
+    form = TaxonomyTagForm.load(content_id)
 
     assert_equal form.selected_taxons, []
   end
@@ -26,18 +26,16 @@ class EditionTaxonomyTagFormTest < ActiveSupport::TestCase
     taxons = ["c58fdadd-7743-46d6-9629-90bb3ccc4ef0"]
 
     publishing_api_has_links(
-      {
-        "content_id" => "64aadc14-9bca-40d9-abb6-4f21f9792a05",
-        "links" => {
-          "taxons" => taxons,
-        },
-        "version" => 1
-      }
+      "content_id" => "64aadc14-9bca-40d9-abb6-4f21f9792a05",
+      "links" => {
+        "taxons" => taxons,
+      },
+      "version" => 1
     )
 
-    form = EditionTaxonomyTagForm.load(content_id)
+    form = TaxonomyTagForm.load(content_id)
 
-    assert_equal(form.edition_content_id, content_id)
+    assert_equal(form.content_id, content_id)
     assert_equal(form.selected_taxons, taxons)
     assert_equal(form.previous_version, 1)
   end
@@ -51,9 +49,9 @@ class EditionTaxonomyTagFormTest < ActiveSupport::TestCase
       child_taxon_content_id
     ]
 
-    form = EditionTaxonomyTagForm.new(
+    form = TaxonomyTagForm.new(
       selected_taxons: selected_taxons,
-      edition_content_id: "abc",
+      content_id: "abc",
       previous_version: 1,
       all_taxons: Taxonomy::GovukTaxonomy.new.all_taxons
     )

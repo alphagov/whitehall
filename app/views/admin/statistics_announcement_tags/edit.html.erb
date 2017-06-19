@@ -1,7 +1,7 @@
-<% page_title "Edit topics: " + @edition.title %>
+<% page_title "Edit topics: " + @statistics_announcement.title %>
 
 <div class="row">
-  <h1><%= @edition.title %></h1>
+  <h1><%= @statistics_announcement.title %></h1>
 </div>
 <div class="row">
   <div class="col-md-12">
@@ -11,14 +11,14 @@
     </p>
     <hr>
 
-    <%= form_for @tag_form, url: admin_edition_tags_path(@edition), method: :put do |form| %>
+    <%= form_for @tag_form, url: admin_statistics_announcement_tags_path(@statistics_announcement), method: :put do |form| %>
       <%= form.hidden_field :previous_version %>
 
       <div class="form-group"
         data-module="taxonomy-tree-checkboxes"
-        data-content-id="<%= @edition.content_id %>"
-        data-content-format="<%= @edition.content_store_document_type %>"
-        data-content-public-path="<%= public_document_path(@edition) %>">
+        data-content-id="<%= @statistics_announcement.content_id %>"
+        data-content-format="statistics_announcement"
+        data-content-public-path="<%= @statistics_announcement.public_path %>">
 
         <%= render partial: "/admin/shared/tagging/taxonomy", locals: { form: @tag_form, root_taxons: @govuk_taxonomy.children } %>
 
@@ -42,7 +42,7 @@
       </p>
 
       <div class="publishing-controls well">
-        <%= form.form_actions(buttons: { save: 'Save topic changes' }, cancel: admin_edition_path(@edition)) %>
+        <%= form.form_actions(buttons: { save: 'Save topic changes' }, cancel: admin_statistics_announcement_path(@statistics_announcement)) %>
       </div>
     <% end %>
   </div>

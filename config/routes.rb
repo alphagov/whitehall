@@ -303,6 +303,7 @@ Whitehall::Application.routes.draw do
             get :cancel_reason
             post :publish_cancellation
           end
+          resource :tags, only: [:edit, :update], controller: :statistics_announcement_tags
           resources :statistics_announcement_date_changes, as: 'changes', path: 'changes'
           resource :statistics_announcement_unpublishings, as: 'unpublish', path: 'unpublish', only: [:new, :create]
         end

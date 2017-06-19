@@ -10,12 +10,6 @@ module Edition::TaggableOrganisations
 private
 
   def organisations_in_education_tagging_beta?(org_content_ids)
-    return false if org_content_ids.empty?
-
-    organisations_in_tagging_beta = Whitehall.organisations_in_tagging_beta["education_related"]
-
-    org_content_ids.any? do |id|
-      organisations_in_tagging_beta.include?(id)
-    end
+    (org_content_ids & Whitehall.organisations_in_tagging_beta["education_related"]).present?
   end
 end

@@ -8,6 +8,12 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     @statistics_announcements = @filter.statistics_announcements
   end
 
+  def show
+    if @statistics_announcement.can_be_tagged_to_taxonomy?
+      @expanded_links = ExpandedLinksFetcher.new(@statistics_announcement.content_id).fetch
+    end
+  end
+
   def new
     @statistics_announcement = build_statistics_announcement(organisation_ids: [current_user.organisation.try(:id)])
     @statistics_announcement.build_current_release_date(precision: StatisticsAnnouncementDate::PRECISION[:two_month])
