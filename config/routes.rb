@@ -314,7 +314,7 @@ Whitehall::Application.routes.draw do
         get "/policies/:policy_id/topics" => "policies#topics"
 
         resources :news_articles, path: 'news', except: [:index]
-        resources :world_location_news_articles, path: 'world-location-news', except: [:index]
+        resources :world_location_news_articles, path: 'world-location-news', except: [:index, :new, :create]
         resources :fatality_notices, path: 'fatalities', except: [:index]
         resources :consultations, except: [:index] do
           resource :outcome, controller: 'responses', type: 'ConsultationOutcome', except: [:new, :destroy]
