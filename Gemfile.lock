@@ -246,6 +246,8 @@ GEM
     minitest (5.10.2)
     minitest-fail-fast (0.1.0)
       minitest (~> 5)
+    mlanett-redis-lock (0.2.7)
+      redis
     mocha (1.2.1)
       metaclass (~> 0.0.1)
     multi_json (1.12.1)
@@ -504,6 +506,7 @@ DEPENDENCIES
   mime-types (= 1.25.1)
   mini_magick (~> 3.8.1)
   minitest-fail-fast
+  mlanett-redis-lock
   mocha
   mysql2
   newrelic_rpm

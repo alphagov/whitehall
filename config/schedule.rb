@@ -11,3 +11,7 @@ end
 every :hour, roles: [:backend] do
   rake "rummager:index:consultations"
 end
+
+every :hour, roles: [:backend] do
+  rake "taxonomy:rebuild_cache"
+end
