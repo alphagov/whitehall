@@ -45,7 +45,15 @@ module Taxonomy
     end
 
     def get_expanded_links_hash(content_id, with_drafts:)
-      Services.publishing_api.get_expanded_links(content_id, with_drafts: with_drafts).to_h
+      publishing_api_with_huge_timeout.get_expanded_links(content_id, with_drafts: with_drafts).to_h
+    end
+
+    def publishing_api_with_huge_timeout
+      @publishing_api_with_huge_timeout ||= begin
+        Services.publishing_api.dup.tap do |client|
+          client.options[:timeout] = 60
+        end
+      end
     end
   end
 end
