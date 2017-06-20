@@ -6,23 +6,45 @@ class Taxonomy::PublishingApiAdapterTest < ActiveSupport::TestCase
   end
 
   test "#published_taxon_data" do
-    setup_published_taxons(["published_taxon"])
+    setup_published_taxons([published_taxon])
     result = subject.published_taxon_data
-    assert result == ["published_taxon"]
-  end
-
-  test "#tree_data" do
-    taxon_data = { "content_id" => "123" }
-    setup_expanded_taxon_data(taxon_data)
-    result = subject.tree_data("123")
-    assert_equal taxon_data, result
+    assert_equal result, [published_taxon_tree]
   end
 
   test "#draft_taxon_data" do
-    setup_published_taxons(["published"])
-    setup_draft_taxons(["draft"])
+    setup_published_taxons([published_taxon])
+    setup_draft_taxons([visible_draft_taxon, draft_taxon])
     result = subject.draft_taxon_data
-    assert_equal ["draft"], result
+    assert_equal [visible_draft_taxon_tree], result
+  end
+
+  def published_taxon_tree
+    published_taxon.tap do |taxon|
+      taxon['expanded_links_hash'] = published_taxon
+    end
+  end
+
+  def published_taxon
+    { "content_id" => "published" }
+  end
+
+  def draft_taxon
+    { "content_id" => "draft" }
+  end
+
+  def visible_draft_taxon_tree
+    visible_draft_taxon.tap do |taxon|
+      taxon['expanded_links_hash'] = visible_draft_taxon
+    end
+  end
+
+  def visible_draft_taxon
+    {
+      "content_id" => "visible_and_draft",
+      "details" => {
+        "visible_to_departmental_editors" => true
+      }
+    }
   end
 
   def setup_published_taxons(root_taxons)
@@ -33,6 +55,10 @@ class Taxonomy::PublishingApiAdapterTest < ActiveSupport::TestCase
       }
     }
     publishing_api_has_expanded_links(homepage_expanded_links, with_drafts: false)
+
+    root_taxons.each do |taxon|
+      publishing_api_has_expanded_links(taxon, with_drafts: true)
+    end
   end
 
   def setup_draft_taxons(root_taxons)
@@ -43,9 +69,9 @@ class Taxonomy::PublishingApiAdapterTest < ActiveSupport::TestCase
       }
     }
     publishing_api_has_expanded_links(homepage_expanded_links, with_drafts: true)
-  end
 
-  def setup_expanded_taxon_data(taxon)
-    publishing_api_has_expanded_links(taxon, with_drafts: true)
+    root_taxons.each do |taxon|
+      publishing_api_has_expanded_links(taxon, with_drafts: true)
+    end
   end
 end
