@@ -7,19 +7,16 @@ class PublishingApi::WorldLocationPresenterTest < ActiveSupport::TestCase
 
   test 'presents a World Location ready for adding to the publishing API' do
     world_location = create(:world_location, name: 'Locationia', analytics_identifier: 'WL123')
-    public_path = Whitehall.url_maker.world_location_path(world_location)
 
     expected_hash = {
-      base_path: public_path,
       title: "Locationia",
       description: nil,
-      schema_name: "placeholder",
+      schema_name: "world_location",
       document_type: "world_location",
       locale: 'en',
       publishing_app: 'whitehall',
       rendering_app: 'whitehall-frontend',
       public_updated_at: world_location.updated_at,
-      routes: [{ path: public_path, type: "exact" }],
       redirects: [],
       need_ids: [],
       details: {},
@@ -34,6 +31,6 @@ class PublishingApi::WorldLocationPresenterTest < ActiveSupport::TestCase
     assert_equal "major", presented_item.update_type
     assert_equal world_location.content_id, presented_item.content_id
 
-    assert_valid_against_schema(presented_item.content, 'placeholder')
+    assert_valid_against_schema(presented_item.content, 'world_location')
   end
 end
