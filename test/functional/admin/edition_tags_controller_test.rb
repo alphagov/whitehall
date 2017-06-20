@@ -10,7 +10,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
     organisation = create(:organisation, content_id: "ebd15ade-73b2-4eaf-b1c3-43034a42eb37")
     @edition = create(:publication, organisations: [organisation])
 
-    stub_taxonomy_with_draft_expanded_links
+    stub_taxonomy_with_all_taxons
   end
 
   def stub_publishing_api_links_with_taxons(content_id, taxons)

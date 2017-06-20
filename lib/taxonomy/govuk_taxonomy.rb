@@ -1,6 +1,6 @@
 module Taxonomy
   class GovukTaxonomy
-    def initialize(adapter: PublishingApiAdapter.new, tree_builder_class: Tree)
+    def initialize(adapter: RedisCacheAdapter.new, tree_builder_class: Tree)
       @adapter = adapter
       @tree_builder_class = tree_builder_class
     end

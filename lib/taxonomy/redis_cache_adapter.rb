@@ -3,9 +3,17 @@ module Taxonomy
     DRAFT_TAXONS_CACHE_KEY = "govuk_taxonomy_draft_taxons".freeze
     PUBLISHED_TAXONS_CACHE_KEY = "govuk_taxonomy_published_taxons".freeze
 
-    def initialize(redis_client = Redis.new, adapter = PublishingApiAdapter.new)
+    def initialize(redis_client: Redis.current, adapter: PublishingApiAdapter.new)
       @redis_client = redis_client
       @adapter = adapter
+    end
+
+    def draft_taxon_data
+      JSON.parse redis_client.get(DRAFT_TAXONS_CACHE_KEY)
+    end
+
+    def published_taxon_data
+      JSON.parse redis_client.get(PUBLISHED_TAXONS_CACHE_KEY)
     end
 
     def rebuild_caches

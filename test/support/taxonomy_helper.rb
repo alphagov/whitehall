@@ -19,36 +19,30 @@ module TaxonomyHelper
     "grandparent"
   end
 
-  def stub_taxonomy_with_draft_expanded_links
-    homepage_links = {
-      content_id: homepage_content_id,
-      expanded_links: {
-        "root_taxons" => [
-          root_taxon
-        ]
-      }
-    }
+  def stub_taxonomy_with_all_taxons
+    redis_cache_has_published_taxons [root_taxon]
+    redis_cache_has_draft_taxons [draft_taxon_1, draft_taxon_2]
+  end
 
-    publishing_api_has_expanded_links(homepage_links, with_drafts: false)
-    publishing_api_has_expanded_links(root_taxon, with_drafts: true)
+  def redis_cache_has_published_taxons(taxons)
+    redis_client
+      .stubs(:get)
+      .with(Taxonomy::RedisCacheAdapter::PUBLISHED_TAXONS_CACHE_KEY)
+      .returns(JSON.dump(taxons))
+  end
 
-    homepage_links_with_drafts = {
-      content_id: homepage_content_id,
-      expanded_links: {
-        "root_taxons" => [
-          root_taxon,
-          draft_taxon_1,
-          draft_taxon_2
-        ]
-      }
-    }
-
-    publishing_api_has_expanded_links(homepage_links_with_drafts, with_drafts: true)
-    publishing_api_has_expanded_links(draft_taxon_1, with_drafts: true)
-    publishing_api_has_expanded_links(draft_taxon_2, with_drafts: true)
+  def redis_cache_has_draft_taxons(taxons)
+    redis_client
+      .stubs(:get)
+      .with(Taxonomy::RedisCacheAdapter::DRAFT_TAXONS_CACHE_KEY)
+      .returns(JSON.dump(taxons))
   end
 
 private
+
+  def redis_client
+    @_redis ||= Redis.current = stub
+  end
 
   def child_taxon
     {
@@ -88,8 +82,10 @@ private
       "title" => "Education",
       "base_path" => "/education",
       "content_id" => root_taxon_content_id,
-      "expanded_links" => {
-        "child_taxons" => [grandparent_taxon]
+      "expanded_links_hash" => {
+        "expanded_links" => {
+          "child_taxons" => [grandparent_taxon]
+        }
       }
     }
   end
@@ -99,8 +95,10 @@ private
       "title" => "About your organisation",
       "base_path" => "/about-your-organisation",
       "content_id" => "draft_taxon_1",
-      "expanded_links" => {
-        "child_taxons" => []
+      "expanded_links_hash" => {
+        "expanded_links" => {
+          "child_taxons" => []
+        }
       }
     }
   end
@@ -110,8 +108,10 @@ private
       "title" => "Parenting",
       "base_path" => "/childcare-parenting",
       "content_id" => "draft_taxon_2",
-      "expanded_links" => {
-        "child_taxons" => []
+      "expanded_links_hash" => {
+        "expanded_links" => {
+          "child_taxons" => []
+        }
       }
     }
   end
