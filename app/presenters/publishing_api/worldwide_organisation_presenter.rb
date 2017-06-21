@@ -20,7 +20,7 @@ module PublishingApi
       ).base_attributes
 
       content.merge!(
-        description: nil,
+        description: description,
         details: {},
         document_type: item.class.name.underscore,
         public_updated_at: item.updated_at,
@@ -33,6 +33,10 @@ module PublishingApi
 
     def links
       {}
+    end
+
+    def description
+      item.summary
     end
   end
 end

@@ -59,6 +59,7 @@ class WorldwideOrganisation < ApplicationRecord
 
   include Searchable
   searchable title: :name,
+             description: :summary,
              link: :search_link,
              content: :summary,
              format: 'worldwide_organisation'

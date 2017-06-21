@@ -213,7 +213,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
                   'link' => '/government/world/organisations/british-embassy-to-hat-land',
                   'indexable_content' => 'Providing assistance to uk residents in hat land',
                   'format' => 'worldwide_organisation',
-                  'description' => ''}, worldwide_organisation.search_index)
+                  'description' => 'Providing assistance to uk residents in hat land' }, worldwide_organisation.search_index)
   end
 
   test 'knows if a given office is on its home page' do
