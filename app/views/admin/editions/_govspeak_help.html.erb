@@ -32,7 +32,7 @@
 <% end %>
 
 <h3>Formatting</h3>
-<p>For details, see <a href="https://www.gov.uk/guidance/how-to-publish-on-gov-uk/markdown">Using govspeak on GOV.UK</a></p>
+<p>For details, read the <a href="https://www.gov.uk/guidance/how-to-publish-on-gov-uk/markdown">guide to using Markdown</a></p>
 <h3><a data-toggle="collapse" href="#govspeak-headings">Headings</a></h3>
 <div class="collapse" id="govspeak-headings">
   <pre>## Top level heading – H2
@@ -196,12 +196,13 @@ $CTA</pre>
 
 <h3><a data-toggle="collapse" href="#govspeak-acronyms">Abbreviations and acronyms</a></h3>
 <div class="collapse" id="govspeak-acronyms">
-  <pre>Example content containing DWP and EU acronyms.
+  <p>The first time you use an abbreviation or acroynm, write it out in full.</p>
+  <p>Add the <a href="https://www.gov.uk/guidance/how-to-publish-on-gov-uk/markdown#acronyms">acronym Markdown</a> at the end of the body copy leaving one empty line space above it, as in the following example.</p>
+  <pre>Example content that includes a three-letter acronym (TLA).
 
-*[EU]: European Union
-*[DWP]: Department for Work and Pensions</pre>
-  <p>Text found in content which matches what’s in the brackets <code>[ ]</code> (eg DWP), will have the full text (Department for Work and Pensions) available to screenreaders and when hovering: <abbr title="Department for Work and Pensions">DWP</abbr>. The markdown code will not be displayed.</p>
-  <p>List abbreviation markdown at the end.</p>
+*[TLA]: three-letter acronym</pre>
+  <p>When a user hovers their mouse over a <abbr title="three-letter acronym">TLA</abbr>, they will see it written in full.</p>
+  
 </div>
 
 <h3><a data-toggle="collapse" href="#govspeak-blockquotes">Blockquotes</a></h3>
