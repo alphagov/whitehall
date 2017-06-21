@@ -191,7 +191,7 @@ GEM
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (0.8.4)
-    invalid_utf8_rejector (0.0.3)
+    invalid_utf8_rejector (0.0.4)
     isbn_validation (1.2.2)
       activerecord (>= 3)
     jbuilder (2.7.0)
@@ -492,7 +492,7 @@ DEPENDENCIES
   govuk_frontend_toolkit (= 5.0.3)
   govuk_sidekiq (= 0.0.4)
   graphviz_transitions
-  invalid_utf8_rejector (~> 0.0.3)
+  invalid_utf8_rejector (~> 0.0.4)
   isbn_validation
   jbuilder
   jquery-ui-rails (~> 4.1.1)
