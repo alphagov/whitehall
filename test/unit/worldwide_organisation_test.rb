@@ -210,7 +210,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
 
     assert_equal({'title' => worldwide_organisation.name,
                   'content_id' => '7d58b5d8-6d91-4dbb-b3e1-c2a27f131046',
-                  'link' => '/government/world/organisations/british-embassy-to-hat-land',
+                  'link' => '/world/organisations/british-embassy-to-hat-land',
                   'indexable_content' => 'Providing assistance to uk residents in hat land',
                   'format' => 'worldwide_organisation',
                   'description' => 'Providing assistance to uk residents in hat land' }, worldwide_organisation.search_index)

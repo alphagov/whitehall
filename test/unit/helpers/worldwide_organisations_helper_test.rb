@@ -1,7 +1,7 @@
 require "test_helper"
 
 class WorldwideOrganisationsHelperTest < ActionView::TestCase
-  test "path returns /government/world/organisations/<slug> for a non test org" do
+  test "path returns /world/organisations/<slug> for a non test org" do
     location = create(:world_location, slug: "india")
     org = create(
       :worldwide_organisation,
@@ -12,12 +12,12 @@ class WorldwideOrganisationsHelperTest < ActionView::TestCase
     )
 
     assert_equal(
-      "/government/world/organisations/none-test-slug",
+      "/world/organisations/none-test-slug",
       worldwide_organisation_path(org)
     )
   end
 
-  test "url returns <host>/government/world/organisations/slug for a non test org" do
+  test "url returns <host>/world/organisations/slug for a non test org" do
     location = create(:world_location, slug: "india")
     org = create(
       :worldwide_organisation,
@@ -28,7 +28,7 @@ class WorldwideOrganisationsHelperTest < ActionView::TestCase
     )
 
     assert_equal(
-      "http://test.host/government/world/organisations/none-test-slug",
+      "http://test.host/world/organisations/none-test-slug",
       worldwide_organisation_url(org)
     )
   end
@@ -44,12 +44,12 @@ class WorldwideOrganisationsHelperTest < ActionView::TestCase
     )
 
     assert_equal(
-      "/government/world/organisations/british-high-commission-new-delhi",
+      "/world/organisations/british-high-commission-new-delhi",
       worldwide_organisation_link_for_ab_test(org, false)
     )
   end
 
-  test "link for ab test returns /government/world/<location>/<slug> for an org under A/B test with user in B cohort" do
+  test "link for ab test returns /world/<location>/<slug> for an org under A/B test with user in B cohort" do
     location = create(:world_location, slug: "india")
     org = create(
       :worldwide_organisation,
@@ -60,7 +60,7 @@ class WorldwideOrganisationsHelperTest < ActionView::TestCase
     )
 
     assert_equal(
-      "http://test.host/government/world/india/british-high-commission-new-delhi",
+      "http://test.host/world/india/british-high-commission-new-delhi",
       worldwide_organisation_link_for_ab_test(org, true)
     )
   end
@@ -82,7 +82,7 @@ class WorldwideOrganisationsHelperTest < ActionView::TestCase
     org.stubs(:available_in_locale?).returns(true)
 
     assert_equal(
-      "/government/world/organisations/none-test-slug.fr",
+      "/world/organisations/none-test-slug.fr",
       worldwide_organisation_path(org, locale: "fr")
     )
   end

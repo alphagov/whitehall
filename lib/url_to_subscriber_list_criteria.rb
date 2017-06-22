@@ -38,8 +38,6 @@ class UrlToSubscriberListCriteria
                  { "links" => from_params, EMAIL_SUPERTYPE => "publications" }
                elsif @url.path.match(%r{^/government/announcements\.atom$})
                  { "links" => from_params, EMAIL_SUPERTYPE => "announcements" }
-               elsif (path_match = @url.path.match(%r{^/government/world/(.*)\.atom$}))
-                 { "links" => from_params.merge("world_locations" => [path_match[1]]) }
                elsif (path_match = @url.path.match(%r{^/government/people/(.*)\.atom$}))
                  { "links" => from_params.merge("people" => [path_match[1]]) }
                elsif (path_match = @url.path.match(%r{^/government/ministers/(.*)\.atom$}))
@@ -50,6 +48,8 @@ class UrlToSubscriberListCriteria
                  { "links" => from_params.merge("topical_events" => [path_match[1]]) }
                elsif (path_match = @url.path.match(%r{^/government/topics/(.*)\.atom$}))
                  { "links" => from_params.merge(topic_map([path_match[1]]) => [path_match[1]]) }
+               elsif (path_match = @url.path.match(%r{^/world/(.*)\.atom$}))
+                 { "links" => from_params.merge("world_locations" => [path_match[1]]) }
                elsif @url.path =~ %r{/government/feed}
                  { 'links' => from_params }
 

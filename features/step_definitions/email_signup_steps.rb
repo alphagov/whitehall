@@ -64,7 +64,7 @@ end
 
 Then(/^I should be signed up for the "(.*?)" world location mailing list$/) do |world_location_name|
   world_location_slug = WorldLocation.find_by!(name: world_location_name).slug
-  assert_signed_up_to_mailing_list("/government/world/#{world_location_slug}.atom", world_location_name)
+  assert_signed_up_to_mailing_list("/world/#{world_location_slug}.atom", world_location_name)
 end
 
 Then(/^a govuk_delivery notification should have been sent to the mailing list I signed up for$/) do

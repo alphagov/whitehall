@@ -97,7 +97,7 @@ module OrganisationResluggerTest
     end
 
     def base_path
-      "/government/world/organisations"
+      "/world/organisations"
     end
   end
 end

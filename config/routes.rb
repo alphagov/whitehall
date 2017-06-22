@@ -22,12 +22,6 @@ Whitehall::Application.routes.draw do
     ::Whitehall.admin_host == request.host
   }
 
-  # Redirect everything under /world to /government/world
-  # It may look like we're redirecting back to the same page but the
-  # destination is automatically prefixed with /government by Rails.
-  get '/world' => redirect('/world')
-  get '/world/*page' => redirect('/world/%{page}')
-
   get '/government/ministers/minister-of-state--11' => redirect('/government/people/kris-hopkins', prefix: '')
 
   namespace 'api' do
@@ -37,6 +31,22 @@ Whitehall::Application.routes.draw do
       resources :worldwide_organisations, path: 'organisations', only: [:index], defaults: { format: :json }
     end
     resources :worldwide_organisations, path: 'worldwide-organisations', only: [:show], defaults: { format: :json }
+  end
+
+  # World locations and Worldwide organisations
+  get '/world/organisations/:organisation_id/office' => redirect('/world/organisations/%{organisation_id}', prefix: '')
+  get '/world/organisations/:organisation_id/about' => redirect('/world/organisations/%{organisation_id}', prefix: '')
+  resources :worldwide_organisations, path: 'world/organisations', only: [:show], localised: true do
+    resources :corporate_information_pages, only: [:show], path: 'about', localised: true
+    # Dummy path for the sake of polymorphic_path: will always be directed above.
+    get :about
+    resources :worldwide_offices, path: 'office', only: [:show]
+  end
+
+  resources :embassies, path: 'world/embassies', only: [:index]
+
+  resources :world_locations, path: 'world', only: [:index, :show], localised: true do
+    resources :world_location_news, path: 'news', only: [:index]
   end
 
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
@@ -143,21 +153,12 @@ Whitehall::Application.routes.draw do
     # TODO: Remove `:show` when policy group paths can be otherwise generated
     resources :policy_groups, path: 'groups', only: [:show]
     resources :operational_fields, path: 'fields-of-operation', only: [:index, :show]
-    get 'world/organisations/:organisation_id/office' => redirect('/world/organisations/%{organisation_id}')
-    get 'world/organisations/:organisation_id/about' => redirect('/world/organisations/%{organisation_id}')
-    resources :worldwide_organisations, path: 'world/organisations', only: [:show], localised: true do
-      resources :corporate_information_pages, only: [:show], path: 'about', localised: true
-      # Dummy path for the sake of polymorphic_path: will always be directed above.
-      get :about
-      resources :worldwide_offices, path: 'office', only: [:show]
-    end
 
-    resources :embassies, path: 'world/embassies', only: [:index]
-
-    resources :world_locations, path: 'world', only: [:index, :show], localised: true do
-      resources :world_location_news, path: 'news', only: [:index]
-      resources :worldwide_organisations, path: '', only: [:show], to: 'worldwide_organisations#show_b_variant'
-    end
+    # Redirect everything under /government/world to /world
+    # It may look like we're redirecting back to the same page but the
+    # source is automatically prefixed with /government by Rails.
+    get '/world' => redirect('/world', prefix: '')
+    get '/world/*page' => redirect('/world/%{page}', prefix: '')
 
     constraints(AdminRequest) do
       namespace :admin do

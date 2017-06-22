@@ -12,7 +12,7 @@ class PublishingApi::WorldLocationNewsPagePresenterTest < ActiveSupport::TestCas
   test 'presents an item for rummager' do
     expected_hash = {
       content_id: "a_guid",
-      link: "/government/world/aardistan/news",
+      link: "/world/aardistan/news",
       format: "world_location_news_page",
       title: "Aardistan and the Uk",
       description: "Updates, news and events from the UK government in Aardistan",
@@ -41,8 +41,8 @@ class PublishingApi::WorldLocationNewsPagePresenterTest < ActiveSupport::TestCas
       public_updated_at: world_location.updated_at,
       rendering_app: "whitehall-frontend",
       schema_name: "placeholder",
-      base_path: "/government/world/aardistan/news",
-      routes: [{ path:  "/government/world/aardistan/news", type: "exact" }],
+      base_path: "/world/aardistan/news",
+      routes: [{ path:  "/world/aardistan/news", type: "exact" }],
       analytics_identifier: "WL1",
     }
 
@@ -69,12 +69,12 @@ class PublishingApi::WorldLocationNewsPagePresenterTest < ActiveSupport::TestCas
       public_updated_at: world_location.updated_at,
       rendering_app: "whitehall-frontend",
       schema_name: "placeholder",
-      base_path: "/government/world/aardistan/news",
-      routes: [{ path: "/government/world/aardistan/news", type: "exact" }],
+      base_path: "/world/aardistan/news",
+      routes: [{ path: "/world/aardistan/news", type: "exact" }],
       analytics_identifier: "WL1",
     }
 
-    Services.publishing_api.stubs(:lookup_content_ids).returns("/government/world/aardistan/news" => "aguid")
+    Services.publishing_api.stubs(:lookup_content_ids).returns("/world/aardistan/news" => "aguid")
 
     presented_item = present(world_location)
 

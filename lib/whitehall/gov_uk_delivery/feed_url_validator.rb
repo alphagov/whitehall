@@ -87,15 +87,18 @@ module Whitehall
       end
 
       def parse_feed_url
+        @feed_object_slug = uri.path.match(/([^\/]*)\.atom$/)[1]
+
         if uri.path == url_maker.publications_path
           @feed_type = 'publications'
         elsif uri.path == url_maker.announcements_path
           @feed_type = 'announcements'
         elsif uri.path == url_maker.statistics_path
           @feed_type = 'statistics'
+        elsif uri.path.split('/')[1] == 'world'
+          @feed_type = 'world_location'
         else
           path_root_fragment = uri.path.split('/')[2];
-          @feed_object_slug = uri.path.match(/([^\/]*)\.atom$/)[1]
 
           case path_root_fragment
           when 'organisations'
@@ -104,8 +107,6 @@ module Whitehall
             @feed_type = 'topic'
           when 'topical-events'
             @feed_type = 'topical_event'
-          when 'world'
-            @feed_type = 'world_location'
           when 'people'
             @feed_type = 'person'
           when 'ministers'

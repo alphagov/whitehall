@@ -7,6 +7,10 @@ class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::Te
     "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/#{url_fragment}"
   end
 
+  def feed_url_without_government_prefix(url_fragment)
+    "#{Whitehall.public_protocol}://#{Whitehall.public_host}/#{url_fragment}"
+  end
+
   def urls_for(edition)
     Whitehall::GovUkDelivery::SubscriptionUrlGenerator.new(edition).subscription_urls
   end
@@ -15,6 +19,13 @@ class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::Te
     actual_subscription_urls = urls_for(@edition)
     url_fragments.each do |url_fragment|
       assert_includes actual_subscription_urls, feed_url(url_fragment)
+    end
+  end
+
+  def assert_prefixless_subscription_urls_for_edition_include(*url_fragments)
+    actual_subscription_urls = urls_for(@edition)
+    url_fragments.each do |url_fragment|
+      assert_includes actual_subscription_urls, feed_url_without_government_prefix(url_fragment)
     end
   end
 
@@ -267,7 +278,7 @@ class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::Te
     world_location = create(:world_location)
     @edition = create(:world_location_news_article, world_locations: [world_location])
 
-    assert_subscription_urls_for_edition_include("world/#{world_location.slug}.atom")
+    assert_prefixless_subscription_urls_for_edition_include("world/#{world_location.slug}.atom")
   end
 
   test "#subscription_urls for an edition related to an organisation includes the atom feed for both the generic feed and the specific organisation's feed" do
