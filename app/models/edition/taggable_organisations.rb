@@ -43,10 +43,18 @@ private
   end
 
   def organisations_in_world_tagging?
-    (organisations_content_ids & Whitehall.organisations_in_tagging_beta["worldwide_related"]).present?
+    (organisations_content_ids & worldwide_taggable_organisation_ids).present?
   end
 
   def organisations_in_education_tagging_beta?
-    (organisations_content_ids & Whitehall.organisations_in_tagging_beta["education_related"]).present?
+    (organisations_content_ids & education_taggable_organisation_ids).present?
+  end
+
+  def worldwide_taggable_organisation_ids
+    Whitehall.organisations_in_tagging_beta["worldwide_related"].to_a
+  end
+
+  def education_taggable_organisation_ids
+    Whitehall.organisations_in_tagging_beta["education_related"].to_a
   end
 end
