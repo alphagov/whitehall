@@ -309,7 +309,7 @@ GEM
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
-    rack_strip_client_ip (0.0.1)
+    rack_strip_client_ip (0.0.2)
     rails (4.2.8)
       actionmailer (= 4.2.8)
       actionpack (= 4.2.8)
@@ -520,7 +520,7 @@ DEPENDENCIES
   quiet_assets
   rack (~> 1.6.2)
   rack-test
-  rack_strip_client_ip (= 0.0.1)
+  rack_strip_client_ip (= 0.0.2)
   rails (= 4.2.8)
   rails-i18n (~> 0.7.3)
   rails_translation_manager (~> 0.0.2)
