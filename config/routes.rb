@@ -25,6 +25,7 @@ Whitehall::Application.routes.draw do
   # Redirect everything under /world to /government/world
   # It may look like we're redirecting back to the same page but the
   # destination is automatically prefixed with /government by Rails.
+  get '/world' => redirect('/world')
   get '/world/*page' => redirect('/world/%{page}')
 
   get '/government/ministers/minister-of-state--11' => redirect('/government/people/kris-hopkins', prefix: '')
