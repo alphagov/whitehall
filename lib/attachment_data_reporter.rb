@@ -7,7 +7,7 @@ class AttachmentDataReporter
   attr_reader :data_path, :start_date, :end_date
 
   def initialize(opts={})
-    @data_path  = opts.fetch(:data_path, ENV['HOME'])
+    @data_path  = opts.fetch(:data_path, Rails.root)
     @start_date = Date.parse(opts.fetch(:start_date, 1.month.ago.to_s))
     @end_date   = Date.parse(opts.fetch(:end_date,   1.day.since.to_s))
   end
