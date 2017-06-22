@@ -113,7 +113,7 @@ class StatisticsAnnouncement < ApplicationRecord
   def self.without_published_publication
     includes(:publication).
       references(:editions).
-      where("publication_id IS NULL || editions.state NOT IN (?)", Edition::POST_PUBLICATION_STATES)
+      where("editions.id IS NULL || editions.state NOT IN (?)", Edition::POST_PUBLICATION_STATES)
   end
 
   def self.with_topics(topic_ids)
