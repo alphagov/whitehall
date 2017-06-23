@@ -1,7 +1,7 @@
 module Edition::TaggableOrganisations
   extend ActiveSupport::Concern
 
-  WORLD_TAGGABLE_DOCUMENT_TYPES = %w(Publication DetailedGuide).freeze
+  WORLD_TAGGABLE_DOCUMENT_TYPES = %w(Publication DetailedGuide DocumentCollection).freeze
 
   WORLD_TAGGABLE_PUBLICATION_TYPES = [
     PublicationType::Guidance,
