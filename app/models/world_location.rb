@@ -23,6 +23,8 @@ class WorldLocation < ApplicationRecord
   accepts_nested_attributes_for :edition_world_locations
   accepts_nested_attributes_for :offsite_links
 
+  after_update :send_news_page_to_publishing_api_and_rummager
+
   include AnalyticsIdentifierPopulator
   self.analytics_prefix = 'WL'
 
@@ -118,4 +120,8 @@ class WorldLocation < ApplicationRecord
 
   extend FriendlyId
   friendly_id
+
+  def send_news_page_to_publishing_api_and_rummager
+    WorldLocationNewsPageWorker.new.perform(self)
+  end
 end
