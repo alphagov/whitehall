@@ -85,6 +85,12 @@ class EditionTaggableOrganisationTestForWorldOrganisations < ActiveSupport::Test
     assert edition.can_be_tagged_to_taxonomy?
   end
 
+  test '#can_be_tagged_to_taxonomy? is true for DocumentCollection' do
+    edition = create(:document_collection, organisations: [@lead_org])
+
+    assert edition.can_be_tagged_to_taxonomy?
+  end
+
   # method will return `false` for all other edition types, we choose NewsArticle as example
   test '#can_be_tagged_to_taxonomy? is false for NewsArticle' do
     edition = create(:news_article, organisations: [@lead_org])
