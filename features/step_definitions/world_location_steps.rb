@@ -195,11 +195,6 @@ When(/^I stop featuring the offsite link "(.*?)" for the world location "(.*?)"$
   end
 end
 
-Then /^I should see no featured items on the french version of the "([^"]*)" page$/ do |world_location_name|
-  view_world_location_in_locale(world_location_name, "Français")
-  assert page.has_no_css?('.feature'), "Feature was unexpectedly present"
-end
-
 Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" world location page$/) do |title, world_location_name|
   world_location = WorldLocation.find_by!(name: world_location_name)
   offsite_link = OffsiteLink.find_by!(title: title)
@@ -207,48 +202,9 @@ Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" world location 
   page.has_link?(title, href: edit_admin_world_location_offsite_link_path(world_location.id, offsite_link.id))
 end
 
-Given /^a world location "([^"]*)" exists in both english and french$/ do |name|
-  WorldLocationNewsPageWorker.any_instance.stubs(:perform).returns(true)
-  location = create(:world_location, name: name)
-  add_translation_to_world_location(location, locale: "French", name: 'Unimportant', mission_statement: 'Unimportant')
-end
-
-Given /^there is a news article "([^"]*)" in english \("([^"]*)" in french\) related to the world location$/ do |english_title, french_title|
-  world_location = WorldLocation.last
-  create(:published_news_article, title: english_title, world_locations: [world_location], translated_into: {
-    fr: {
-      title: french_title
-    }
-  })
-end
-
-When /^I feature "([^"]*)" on the french "([^"]*)" page$/ do |news_article_title, world_location_name|
-  feature_news_article_in_world_location(news_article_title, world_location_name, nil, "Français")
-end
-
-Then /^I should see "([^"]*)" as the title of the feature on the french "([^"]*)" page$/ do |expected_title, world_location_name|
-  view_world_location_in_locale(world_location_name, "Français")
-  assert page.has_css?('.feature h2', text: expected_title)
-end
-
 Then /^I should see "([^"]*)" featured on the public facing "([^"]*)" page$/ do |expected_title, name|
   visit world_location_path(WorldLocation.find_by!(name: name))
   assert page.has_css?('.feature h2', text: expected_title)
-end
-
-Then /^I should see "([^"]*)" as the title of the featured item on the french "([^"]*)" admin page$/ do |expected_title, world_location_name|
-  world_location = WorldLocation.find_by!(name: world_location_name)
-  visit admin_world_location_path(world_location)
-  click_link "Features (Français)"
-  assert has_css?('.title', text: expected_title)
-end
-
-Then /^I cannot feature "([^"]*)" on the french "([^"]*)" page due to the lack of a translation$/ do |title, world_location_name|
-  world_location = WorldLocation.find_by!(name: world_location_name)
-  visit admin_world_location_path(world_location)
-  click_link "Features (Français)"
-  fill_in 'title', with: title.split.first
-  assert page.has_no_css?("a.btn", text: "Feature")
 end
 
 Then(/^there should be nothing featured on the home page of world location "(.*?)"$/) do |name|
