@@ -8,6 +8,10 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
   should_be_a_public_facing_controller
 
+  def setup
+    WorldLocationNewsPageWorker.any_instance.stubs(:perform).returns(true)
+  end
+
   def assert_featured_editions(editions)
     assert_equal editions, assigns(:feature_list).current_featured.map(&:edition)
   end
