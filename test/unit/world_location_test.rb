@@ -3,6 +3,10 @@ require 'test_helper'
 class WorldLocationTest < ActiveSupport::TestCase
   should_protect_against_xss_and_content_attacks_on :name, :mission_statement
 
+  def setup
+    WorldLocationNewsPageWorker.any_instance.stubs(:perform).returns(true)
+  end
+
   test 'should be invalid without a name' do
     world_location = build(:world_location, name: nil)
     refute world_location.valid?
@@ -271,5 +275,11 @@ class WorldLocationTest < ActiveSupport::TestCase
     assert_raise ActiveRecord::RecordInvalid do
       FeatureList.create!(featurable: world_location2, locale: :en)
     end
+  end
+
+  test "should call perform on World Location News Page Worker when saving a World Location" do
+    world_location = create(:world_location, slug: 'india')
+    WorldLocationNewsPageWorker.any_instance.expects(:perform).at_least_once.with(world_location)
+    world_location.save
   end
 end

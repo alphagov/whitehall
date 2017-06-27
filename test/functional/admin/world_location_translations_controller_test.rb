@@ -9,6 +9,8 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
     Locale.stubs(:non_english).returns([
       Locale.new(:fr), Locale.new(:es)
     ])
+
+    WorldLocationNewsPageWorker.any_instance.stubs(:perform).returns(true)
   end
 
   should_be_an_admin_controller

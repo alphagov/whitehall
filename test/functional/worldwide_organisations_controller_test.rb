@@ -207,6 +207,7 @@ class WorldwideOrganisationsControllerTest < ActionController::TestCase
 
   test "redirects out of the B cohort if the request for an embassy page is non en" do
     with_variant WorldwidePublishingTaxonomy: "B", assert_meta_tag: false do
+      WorldLocationNewsPageWorker.any_instance.stubs(:perform).returns(true)
       worldwide_organisation = create(:worldwide_organisation)
       LocalisedModel.new(worldwide_organisation, "fr").update_attributes(name: "Le nom de Org")
       world_location = create(:world_location)

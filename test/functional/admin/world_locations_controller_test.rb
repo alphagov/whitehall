@@ -3,6 +3,7 @@ require "test_helper"
 class Admin::WorldLocationsControllerTest < ActionController::TestCase
   setup do
     login_as :writer
+    WorldLocationNewsPageWorker.any_instance.stubs(:perform).returns(true)
   end
 
   should_be_an_admin_controller
