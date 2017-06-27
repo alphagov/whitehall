@@ -23,4 +23,35 @@ namespace :worldwide_taxonomy do
       end
     end
   end
+
+  task republish_the_world: :environment do
+    worldwide_organisations = WorldwideOrganisation.all
+    corporate_information_pages = CorporateInformationPage
+      .joins(:edition_organisation)
+      .where(
+        "edition_organisations.organisation_id IN (?)",
+        worldwide_organisations.map(&:id)
+      )
+
+    world_locations = WorldLocation.all
+
+    world_locations.each do |world_location|
+      WorldLocationNewsPageWorker.perform_async(world_location)
+    end
+
+    [worldwide_organisations, world_locations].each do |collection|
+      DataHygiene::PublishingApiRepublisher.new(collection).perform
+    end
+
+    corporate_information_page_document_ids = corporate_information_pages.
+      pluck(:document_id).uniq
+    puts "Queueing #{corporate_information_page_document_ids.count} corporate information pages for republishing"
+    corporate_information_page_document_ids.each do |document_id|
+      PublishingApiDocumentRepublishingWorker.perform_async_in_queue(
+        "bulk_republishing",
+        document_id
+      )
+      print "."
+    end
+  end
 end
