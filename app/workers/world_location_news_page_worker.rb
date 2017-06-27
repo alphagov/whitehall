@@ -1,4 +1,4 @@
-class WorldLocationNewsPageWorker
+class WorldLocationNewsPageWorker < WorkerBase
   attr_accessor :world_location
 
   def perform(world_location)
