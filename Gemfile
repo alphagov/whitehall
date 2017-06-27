@@ -50,6 +50,7 @@ gem 'equivalent-xml', '~> 0.6.0', require: false
 gem 'govuk_ab_testing', '~> 2.2.0'
 gem 'mlanett-redis-lock'
 gem 'deprecated_columns', '0.1.1'
+gem 'faraday'
 
 if ENV['GDS_API_ADAPTERS_DEV']
   gem 'gds-api-adapters', path: '../gds-api-adapters'

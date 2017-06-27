@@ -482,6 +482,7 @@ DEPENDENCIES
   dotenv-rails
   equivalent-xml (~> 0.6.0)
   factory_girl
+  faraday
   friendly_id (~> 5.2.1)
   gds-api-adapters (~> 45.0.0)
   gds-sso (~> 13.2)
