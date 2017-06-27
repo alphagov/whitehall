@@ -36,7 +36,7 @@ namespace :worldwide_taxonomy do
     world_locations = WorldLocation.all
 
     world_locations.each do |world_location|
-      WorldLocationNewsPageWorker.perform_async(world_location)
+      WorldLocationNewsPageWorker.perform_async(world_location.id)
     end
 
     [worldwide_organisations, world_locations].each do |collection|

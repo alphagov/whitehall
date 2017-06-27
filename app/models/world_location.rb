@@ -135,6 +135,6 @@ class WorldLocation < ApplicationRecord
   friendly_id
 
   def send_news_page_to_publishing_api_and_rummager
-    WorldLocationNewsPageWorker.new.perform(self)
+    WorldLocationNewsPageWorker.new.perform(id)
   end
 end
