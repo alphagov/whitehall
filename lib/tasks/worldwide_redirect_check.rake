@@ -62,12 +62,15 @@ namespace :worldwide_redirect_check do
   task check_non_english_world_locations: :environment do
     world_location_redirects_for_other_locales = []
     WorldLocation.all.each do |wl|
-      wl.non_english_translated_locales.each do |twl|
-        expectation = {
-          url: "/government/world/#{wl.slug}.#{twl.code}",
-          redirect_url: "/world/#{wl.slug}",
-        }
-        world_location_redirects_for_other_locales.push(expectation)
+      if wl.respond_to?(:original_available_locales)
+        translated_locales = wl.original_available_locales - [:en]
+        translated_locales.each do |twl_locale|
+          expectation = {
+            url: "/government/world/#{wl.slug}.#{twl_locale.code}",
+            redirect_url: "/world/#{wl.slug}",
+          }
+          world_location_redirects_for_other_locales.push(expectation)
+        end
       end
     end
     WorldwideRedirectChecker.new(world_location_redirects_for_other_locales).call
