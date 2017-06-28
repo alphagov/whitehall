@@ -111,7 +111,7 @@ class PublishStaticPages
       {
         content_id: "430df081-f28e-4a1f-b812-8977fdac6e9a",
         title: "Find a British embassy, high commission or consulate",
-        base_path: "/government/world/embassies",
+        base_path: "/world/embassies",
         document_type: "finder",
         description: "Contact details of British embassies, consulates, high commissions around the world for help with visas, passports and more.",
         indexable_content: "Contact details of British embassies, consulates, high commissions around the world for help with visas, passports and more.",
