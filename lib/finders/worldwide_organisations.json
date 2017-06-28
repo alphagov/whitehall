@@ -1,5 +1,5 @@
 {
-  "base_path": "/government/world/organisations",
+  "base_path": "/world/organisations",
   "title": "Worldwide organisations",
   "description": "A list of British organisations worldwide.",
   "locale": "en",
@@ -19,11 +19,11 @@
   "routes": [
     {
       "type": "exact",
-      "path": "/government/world/organisations"
+      "path": "/world/organisations"
     },
     {
       "type": "exact",
-      "path": "/government/world/organisations.json"
+      "path": "/world/organisations.json"
     }
   ]
 }
