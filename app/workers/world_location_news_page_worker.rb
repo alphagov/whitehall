@@ -1,8 +1,8 @@
-class WorldLocationNewsPageWorker
+class WorldLocationNewsPageWorker < WorkerBase
   attr_accessor :world_location
 
-  def perform(world_location)
-    @world_location = world_location
+  def perform(world_location_id)
+    @world_location = WorldLocation.find(world_location_id)
     send_news_page_to_publishing_api
     send_news_page_to_rummager
   end

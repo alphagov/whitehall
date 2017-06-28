@@ -41,6 +41,6 @@ class WorldLocationNewsPageWorkerTest < ActiveSupport::TestCase
         locale: "en"
     )
 
-    WorldLocationNewsPageWorker.new.perform(wl)
+    WorldLocationNewsPageWorker.new.perform(wl.id)
   end
 end
