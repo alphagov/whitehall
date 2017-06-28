@@ -157,7 +157,7 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
 
   test "POST #update_memberships should cope with duplicate documents in group" do
     given_two_groups_with_documents
-    post :update_memberships, {
+    post :update_memberships,
       document_collection_id: @collection.id,
       groups: {
         0 => {
@@ -169,7 +169,6 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
           order: 0
         }
       }
-    }
     assert_equal [@doc_1_1], @group_1.reload.documents
   end
 

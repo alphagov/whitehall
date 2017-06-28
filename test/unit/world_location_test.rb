@@ -257,7 +257,7 @@ class WorldLocationTest < ActiveSupport::TestCase
     location = build(:world_location, name: 'hat land', slug: 'hat-land', mission_statement: 'helping people in hat land find out about other clothing')
 
     assert_equal({'title' => 'hat land',
-                  'link' => '/government/world/hat-land',
+                  'link' => '/world/hat-land',
                   'indexable_content' => 'helping people in hat land find out about other clothing',
                   'format' => 'world_location',
                   'description' => '',
@@ -269,7 +269,7 @@ class WorldLocationTest < ActiveSupport::TestCase
     active_location = create(:world_location, name: 'sheep land', mission_statement: 'helping people in sheep land find out about other animals', active: false)
 
     assert_equal 1, WorldLocation.search_index.to_a.length
-    assert_equal ['/government/world/hat-land'], WorldLocation.search_index.map {|search_data| search_data['link']}
+    assert_equal ['/world/hat-land'], WorldLocation.search_index.map { |search_data| search_data['link'] }
   end
 
   test 'only one feature list per language per world location' do

@@ -70,7 +70,7 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
                 worldwide_organisation: world_org,
                 corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id)
 
-    assert_equal "/government/world/organisations/#{world_org.slug}/about", public_document_path(cip)
+    assert_equal "/world/organisations/#{world_org.slug}/about", public_document_path(cip)
   end
 
   test 'returns the document URL using Whitehall public_host and protocol' do

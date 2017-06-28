@@ -1,4 +1,8 @@
 namespace :worldwide_taxonomy do
+  task republish_world_locations: :environment do
+    DataHygiene::PublishingApiRepublisher.new(WorldLocation.all).perform
+  end
+
   task redirect_world_location_translations_to_en: :environment do
     base_path_prefix = "/government/world"
     world_locations = WorldLocation.all
