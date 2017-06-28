@@ -260,14 +260,7 @@ Then /^when viewing the worldwide organisation "([^"]*)" with the locale "([^"]*
   worldwide_organisation = WorldwideOrganisation.find_by!(name: name)
   translation = table.rows_hash
 
-  visit world_location_path(worldwide_organisation.world_locations.first)
-  click_link locale
-
-  within record_css_selector(worldwide_organisation) do
-    assert page.has_css?('.name', text: translation["name"]), "Name wasn't present on associated world location page"
-  end
-
-  click_link translation["name"]
+  visit worldwide_organisation_path(worldwide_organisation, locale: locale)
 
   assert page.has_css?('.summary', text: translation["summary"]), "Summary wasn't present"
   assert page.has_css?('.description', text: translation["description"]), "Description wasn't present"
@@ -276,7 +269,7 @@ end
 
 Given /^a worldwide organisation "([^"]*)" exists with a translation for the locale "([^"]*)"$/ do |name, native_locale_name|
   locale_code = Locale.find_by_language_name(native_locale_name).code
-  country = create(:world_location, world_location_type: WorldLocationType::WorldLocation, translated_into: [locale_code])
+  country = create(:world_location, world_location_type: WorldLocationType::WorldLocation)
   create(:worldwide_organisation, name: name, world_locations: [country], translated_into: [locale_code])
 end
 
