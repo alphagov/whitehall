@@ -29,10 +29,6 @@ GovukContentSchemaTestHelpers.configure do |config|
   config.project_root = Rails.root
 end
 
-GovukAbTesting.configure do |config|
-  config.acceptance_test_framework = :active_support
-end
-
 class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
   include ModelHelpers

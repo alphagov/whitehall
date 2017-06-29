@@ -166,7 +166,6 @@ GEM
     govuk-lint (2.1.0)
       rubocop (~> 0.43.0)
       scss_lint
-    govuk_ab_testing (2.2.0)
     govuk_admin_template (6.2.0)
       bootstrap-sass (= 3.3.5.1)
       jquery-rails (~> 4.3.1)
@@ -490,7 +489,6 @@ DEPENDENCIES
   govspeak (~> 3.6.2)
   govuk-content-schema-test-helpers
   govuk-lint
-  govuk_ab_testing (~> 2.2.0)
   govuk_admin_template (~> 6.2)
   govuk_frontend_toolkit (= 5.0.3)
   govuk_sidekiq (= 0.0.4)

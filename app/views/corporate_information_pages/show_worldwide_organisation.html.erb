@@ -1,7 +1,7 @@
 <% page_title @corporate_information_page.title %>
 <% page_class "corporate-information-pages-show-worldwide-organisation" %>
 
-<%= render partial: 'worldwide_organisations/header', locals: { organisation: @organisation, link_to_organisation: true, object_for_translation: @corporate_information_page, user_is_in_b_test_group: @user_is_in_b_test_group } %>
+<%= render partial: 'worldwide_organisations/header', locals: { organisation: @organisation, link_to_organisation: true, object_for_translation: @corporate_information_page } %>
 <article class="block article">
   <div class="inner-block floated-children">
     <% headers = govspeak_headers(@corporate_information_page.body) %>
