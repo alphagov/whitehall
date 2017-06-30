@@ -9,7 +9,7 @@ class WorldLocationsController < PublicFacingController
       end
       format.any do
         @world_locations = WorldLocation.all_by_type
-        set_meta_description("What is the UK government doing in a country?")
+        set_meta_description("Help and services in a country")
       end
     end
   end
@@ -25,7 +25,7 @@ class WorldLocationsController < PublicFacingController
         @announcements = latest_presenters(Announcement.published.in_world_location(@world_location), translated: true, count: 2)
         @feature_list = FeatureListPresenter.new(@world_location.feature_list_for_locale(I18n.locale), view_context).limit_to(5)
         @worldwide_organisations = @world_location.worldwide_organisations
-        set_meta_description("What the UK government is doing in #{@world_location.name}.")
+        set_meta_description("Help and services in #{@world_location.name}.")
         set_slimmer_world_locations_header([@world_location])
         set_slimmer_organisations_header(@world_location.worldwide_organisations_with_sponsoring_organisations)
       end
