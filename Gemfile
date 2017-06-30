@@ -47,7 +47,6 @@ gem 'parallel', '~> 1.11.1'
 gem 'responders', '~> 2.4'
 gem 'ruby-progressbar', require: false
 gem 'equivalent-xml', '~> 0.6.0', require: false
-gem 'govuk_ab_testing', '~> 2.2.0'
 gem 'mlanett-redis-lock'
 gem 'deprecated_columns', '0.1.1'
 gem 'faraday'

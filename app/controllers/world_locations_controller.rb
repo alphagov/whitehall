@@ -1,5 +1,3 @@
-require 'yaml'
-
 class WorldLocationsController < PublicFacingController
   enable_request_formats index: [:json], show: [:atom, :json]
   before_action :load_world_location, only: :show
@@ -30,19 +28,6 @@ class WorldLocationsController < PublicFacingController
         set_meta_description("What the UK government is doing in #{@world_location.name}.")
         set_slimmer_world_locations_header([@world_location])
         set_slimmer_organisations_header(@world_location.worldwide_organisations_with_sponsoring_organisations)
-        # Display the "B" variant of this page if:
-        # * User is in the "B" bucket
-        # * User is requesting a page for which we have hardcoded content
-        # * User is requesting the English language version of the page
-        ab_test = GovukAbTesting::AbTest.new("WorldwidePublishingTaxonomy", dimension: 45)
-        @requested_variant = ab_test.requested_variant(request.headers)
-        @requested_variant.configure_response(response)
-        if render_b_variant?
-          render "worldwide_publishing_taxonomy/show", locals: {
-            parent_taxon: parent_taxon,
-            b_variant_page_content: worldwide_test_helper.content_for(@world_location.slug)
-          }
-        end
       end
       format.json do
         redirect_to api_world_location_path(@world_location, format: :json)
@@ -57,26 +42,5 @@ private
 
   def load_world_location
     @world_location = WorldLocation.with_translations(I18n.locale).find(params[:id])
-  end
-
-  def render_b_variant?
-    @requested_variant.variant_b? &&
-      worldwide_test_helper.is_under_test?(@world_location) &&
-      locale_is_english?
-  end
-
-  def worldwide_test_helper
-    @_helper ||= WorldwideAbTestHelper.new
-  end
-
-  def locale_is_english?
-    locale == :en
-  end
-
-  def parent_taxon
-    {
-      title: "#{@world_location.name} and the UK",
-      description: "Services if you're visiting, studying, working or living in #{@world_location.name}. Includes information about trading with and doing business in the UK."
-    }
   end
 end
