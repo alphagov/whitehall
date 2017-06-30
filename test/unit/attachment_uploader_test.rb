@@ -150,6 +150,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
       london.sbn
       london.sbx
       london.shp.xml
+      london.shp_rxl
     )
   end
 

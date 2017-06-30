@@ -130,7 +130,7 @@ class AttachmentUploader < WhitehallUploader
 
     class ArcGISShapefileExaminer < Examiner
       REQUIRED_EXTS = %w(shp shx dbf)
-      OPTIONAL_EXTS = %w(aih ain atx avl cpg fbn fbx ixs mxs prj sbn sbx shp.xml)
+      OPTIONAL_EXTS = %w(aih ain atx avl cpg fbn fbx ixs mxs prj sbn sbx shp.xml shp_rxl).freeze
       ALLOWED_EXTS = REQUIRED_EXTS + OPTIONAL_EXTS
       EXT_MATCHER = /\.(#{ALLOWED_EXTS.map { |e| Regexp.escape(e)}.join('|') })\Z/
 
