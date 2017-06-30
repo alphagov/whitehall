@@ -40,6 +40,15 @@ class WorldLocation < ApplicationRecord
              slug: :slug
   include PublishesToPublishingApi
 
+  def publish_to_publishing_api
+    self.class.send(:define_method, "available_locales") { [:en] }
+    self.class.send(:define_method, "translated_locales") { [:en] }
+
+    run_callbacks :published do
+      Whitehall::PublishingApi.publish_async(self)
+    end
+  end
+
   def search_link
     Whitehall.url_maker.world_location_path(slug)
   end
