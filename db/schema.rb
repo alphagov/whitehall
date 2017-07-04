@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170411161614) do
+ActiveRecord::Schema.define(version: 20170704073821) do
 
   create_table "about_pages", force: :cascade do |t|
     t.integer  "topical_event_id",    limit: 4
@@ -713,6 +713,8 @@ ActiveRecord::Schema.define(version: 20170411161614) do
     t.integer  "ordering",                   limit: 4,     null: false
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
+    t.text     "problem_summary",            limit: 65535
+    t.text     "suggested_fix",              limit: 65535
   end
 
   add_index "link_checker_api_report_links", ["link_checker_api_report_id"], name: "index_link_checker_api_report_id", using: :btree
