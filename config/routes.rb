@@ -156,8 +156,9 @@ Whitehall::Application.routes.draw do
 
     # Redirect everything under /government/world to /world
     # It may look like we're redirecting back to the same page but the
-    # source is automatically prefixed with /government by Rails.
+    # source is prefixed with /government.
     get '/world' => redirect('/world', prefix: '')
+    get '/world/*page.:format' => redirect('/world/%{page}.%{format}', prefix: '')
     get '/world/*page' => redirect('/world/%{page}', prefix: '')
 
     constraints(AdminRequest) do
