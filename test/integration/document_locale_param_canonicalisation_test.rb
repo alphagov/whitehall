@@ -10,7 +10,7 @@ class DocumentLocaleParamCanonicalisationTest < ActionDispatch::IntegrationTest
     u.to_s
   end
 
-  %w{world_location_news_article publication consultation}.each do |doc_type|
+  %w{world_location_news_article publication}.each do |doc_type|
     test "visiting a #{doc_type} with a spurious locale=en param will redirect to remove it" do
       canonical_path = send("#{doc_type}_path", "a-#{doc_type}")
       extra_path = with_locale_param(canonical_path, 'en')

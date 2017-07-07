@@ -17,27 +17,20 @@ Scenario: Publishing a submitted consultation
   And a submitted consultation "Beard Length Review" exists
   When I publish the consultation "Beard Length Review"
   Then I should see the consultation "Beard Length Review" in the list of published documents
-  And the consultation "Beard Length Review" should be visible to the public
-
-Scenario: Viewing an unopened consultation
-  Given I am an editor
-  And an unopened consultation exists
-  When I visit the consultation
-  Then the date the consultation opens should be viewable
 
 Scenario: Adding an outcome to a closed consultation
   Given I am an editor
   And a closed consultation exists
   When I add an outcome to the consultation
   And I save and publish the amended consultation
-  Then the consultation outcome should be viewable
+  Then I can see that the consultation has been published
 
 Scenario: Adding public feedback to a closed consultation
   Given I am an editor
   And a closed consultation exists
   When I add public feedback to the consultation
   And I save and publish the amended consultation
-  Then the public feedback should be viewable
+  Then I can see that the consultation has been published
 
 @javascript
 Scenario: Associating an offsite consultation with topical events
