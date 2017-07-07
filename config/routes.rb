@@ -97,10 +97,11 @@ Whitehall::Application.routes.draw do
     resources :publications, only: [:index, :show], localised: true
     get "/publications/:publication_id/:id" => 'html_attachments#show', as: 'publication_html_attachment'
 
+    # TODO: Remove when paths can be generated without a routes entry
     resources :case_studies, path: 'case-studies', only: [:show], localised: true
     resources :speeches, only: [:show], localised: true
-    # TODO: Remove when paths can be generated without a routes entry
     resources :statistical_data_sets, path: 'statistical-data-sets', only: [:show]
+
     get "/speeches" => redirect("/announcements")
 
     # Controller removed for stats announce show. Whitehall frontend no longer serves these
