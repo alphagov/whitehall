@@ -67,10 +67,7 @@ class Consultation < Publicationesque
   end
 
   def rendering_app
-    # TODO rendered by Whitehall::RenderingApp::GOVERNMENT_FRONTEND
-    # but we need to return WHITEHALL_FRONTEND here to continue to use
-    # Whitehall for preview until draft links are implemented
-    Whitehall::RenderingApp::WHITEHALL_FRONTEND
+    Whitehall::RenderingApp::GOVERNMENT_FRONTEND
   end
 
   def allows_inline_attachments?
