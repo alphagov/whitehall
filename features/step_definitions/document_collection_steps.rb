@@ -64,14 +64,13 @@ When(/^I move "(.*?)" before "(.*?)" in the document collection$/) do |doc_title
   assert page.has_no_css?(".loading-spinner")
 end
 
-Then(/^I (?:can )?preview the document collection$/) do
+Then(/^I (?:can )?view the document collection in the admin$/) do
   refute @document_collection.nil?, "No document collection to act on."
 
-  visit preview_document_path(@document_collection)
-
+  visit admin_document_collection_path(@document_collection)
+  click_on "Edit draft"
+  click_on "Collection documents"
   assert page.has_selector?("h1", text: @document_collection.title)
-  assert page.has_content? @document_collection.summary
-  assert page.has_content? @document_collection.body
 end
 
 Then(/^I see that the document "(.*?)" is not part of the document collection$/) do |document_title|
@@ -84,16 +83,22 @@ Then(/^I should see links back to the collection$/) do
 end
 
 When(/^I visit the old document series url "(.*?)"$/) do |url|
-  visit url
+  begin
+    visit url
+  rescue ActionController::RoutingError => @no_collection_controller_error
+  end
 end
 
 Then(/^I should be redirected to the "(.*?)" document collection$/) do |title|
   dc = DocumentCollection.find_by(title: title)
-  assert_path public_document_path(dc)
+  assert_equal current_path, public_document_path(dc)
 end
 
-Then(/^I can see in the preview that "(.*?)" is part of the document collection$/) do |document_title|
-  visit preview_document_path(@document_collection)
+Then(/^I can see in the admin that "(.*?)" is part of the document collection$/) do |document_title|
+  visit admin_document_collection_path(@document_collection)
+  click_on "Edit draft"
+  click_on "Collection documents"
+
   assert_document_is_part_of_document_collection(document_title)
 end
 
@@ -116,8 +121,7 @@ When(/^I redraft the document collection and remove "(.*?)" from it$/) do |docum
   click_on "Remove"
 end
 
-Then(/^I can see in the preview that "(.*?)" does not appear$/) do |document_title|
-  visit preview_document_path(@document_collection)
+Then(/^I can see in the admin that "(.*?)" does not appear$/) do |document_title|
   refute_document_is_part_of_document_collection(document_title)
 end
 
