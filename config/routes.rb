@@ -129,6 +129,7 @@ Whitehall::Application.routes.draw do
       resource :about_pages, path: "about", only: [:show]
     end
 
+    # TODO: Remove when paths can be generated without a routes entry
     resources :document_collections, only: [:show], path: 'collections'
     get '/collections' => redirect("/publications")
     resources :organisations, only: [:index], localised: false
