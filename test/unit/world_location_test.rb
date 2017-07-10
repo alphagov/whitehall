@@ -165,21 +165,6 @@ class WorldLocationTest < ActiveSupport::TestCase
     assert_equal [link_6, link_2, link_1, link_4, link_3], world_location.featured_links.only_the_initial_set
   end
 
-  test "translated world locations appear to only have :en translated locales" do
-    world_location = create(:world_location, translated_into: [:fr, :en])
-    assert_equal [:en], world_location.translated_locales
-  end
-
-  test "translated world locations appear to only have :en available locales" do
-    world_location = create(:world_location, translated_into: [:fr, :en])
-    assert_equal [:en], world_location.available_locales
-  end
-
-  test "translated world locations still have all locales exposed" do
-    world_location = create(:world_location, translated_into: [:fr, :en])
-    assert_equal [:en, :fr], world_location.original_available_locales
-  end
-
   test 'we can find those that are countries' do
     world_location = create(:world_location)
     international_delegation = create(:international_delegation)
@@ -287,5 +272,22 @@ class WorldLocationTest < ActiveSupport::TestCase
     world_location = create(:world_location, slug: 'india')
     WorldLocationNewsPageWorker.any_instance.expects(:perform).at_least_once.with(world_location.id)
     world_location.save
+  end
+
+  test "only sends en version to the publishing api" do
+    world_location = create(:world_location, name: 'Neverland')
+
+    I18n.with_locale(:fr) do
+      world_location.name = 'Pays imaginaire'; world_location.save
+    end
+
+    PublishingApiWorker.expects(:perform_async).with(
+      "WorldLocation",
+      world_location.id,
+      nil,
+      "en"
+    )
+    world_location.name = "Test"
+    world_location.send(:run_callbacks, :commit)
   end
 end

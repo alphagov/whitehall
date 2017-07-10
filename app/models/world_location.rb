@@ -40,18 +40,20 @@ class WorldLocation < ApplicationRecord
              slug: :slug
   include PublishesToPublishingApi
 
-  #TODO Remove this once all of the translated
-  #world locations have been redirected
-  original_available_locales = instance_method(:available_locales)
-  define_method(:original_available_locales) do
-    original_available_locales.bind(self).()
+  def publish_to_publishing_api
+    #WorldLocations no longer support translations
+    #but the current world news pages use the world location object
+    #to build their featured articles lists so we need to keep
+    #the translations but not publish them.
+    run_callbacks :published do
+      PublishingApiWorker.perform_async(
+        self.class.name,
+        id,
+        nil,
+        "en"
+      )
+    end
   end
-
-  def available_locales
-    [:en]
-  end
-  alias_method :translated_locales, :available_locales
-  ######################################################
 
   def search_link
     Whitehall.url_maker.world_location_path(slug)
