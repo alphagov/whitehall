@@ -165,19 +165,12 @@ class WorldLocationTest < ActiveSupport::TestCase
     assert_equal [link_6, link_2, link_1, link_4, link_3], world_location.featured_links.only_the_initial_set
   end
 
-  test "translated world locations appear to only have :en translated locales" do
-    world_location = create(:world_location, translated_into: [:fr, :en])
-    assert_equal [:en], world_location.translated_locales
-  end
-
-  test "translated world locations appear to only have :en available locales" do
-    world_location = create(:world_location, translated_into: [:fr, :en])
-    assert_equal [:en], world_location.available_locales
-  end
-
-  test "translated world locations still have all locales exposed" do
-    world_location = create(:world_location, translated_into: [:fr, :en])
-    assert_equal [:en, :fr], world_location.original_available_locales
+  test "has removeable translations" do
+    stub_any_publishing_api_call
+    world_location = create(:world_location, translated_into: [:fr, :es])
+    world_location.remove_translations_for(:fr)
+    refute world_location.translated_locales.include?(:fr)
+    assert world_location.translated_locales.include?(:es)
   end
 
   test 'we can find those that are countries' do
