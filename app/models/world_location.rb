@@ -40,6 +40,21 @@ class WorldLocation < ApplicationRecord
              slug: :slug
   include PublishesToPublishingApi
 
+  def publish_to_publishing_api
+    #WorldLocations no longer support translations
+    #but the current world news pages use the world location object
+    #to build their featured articles lists so we need to keep
+    #the translations but not publish them.
+    run_callbacks :published do
+      PublishingApiWorker.perform_async(
+        self.class.name,
+        id,
+        nil,
+        "en"
+      )
+    end
+  end
+
   def search_link
     Whitehall.url_maker.world_location_path(slug)
   end

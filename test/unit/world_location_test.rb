@@ -273,4 +273,21 @@ class WorldLocationTest < ActiveSupport::TestCase
     WorldLocationNewsPageWorker.any_instance.expects(:perform).at_least_once.with(world_location.id)
     world_location.save
   end
+
+  test "only sends en version to the publishing api" do
+    world_location = create(:world_location, name: 'Neverland')
+
+    I18n.with_locale(:fr) do
+      world_location.name = 'Pays imaginaire'; world_location.save
+    end
+
+    PublishingApiWorker.expects(:perform_async).with(
+      "WorldLocation",
+      world_location.id,
+      nil,
+      "en"
+    )
+    world_location.name = "Test"
+    world_location.send(:run_callbacks, :commit)
+  end
 end
