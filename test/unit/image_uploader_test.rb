@@ -13,7 +13,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
 
   test "should only allow JPG, GIF, PNG or SVG images" do
     uploader = ImageUploader.new
-    assert_equal %w(jpg jpeg gif png svg), uploader.extension_white_list
+    assert_equal %w(jpg jpeg gif png svg), uploader.extension_whitelist
   end
 
   test "should store uploads in a directory that persists across deploys" do

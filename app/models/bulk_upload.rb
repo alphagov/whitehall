@@ -161,7 +161,7 @@ class BulkUpload
     def contains_disallowed_file_types?
       extracted_file_paths.any? do |path|
         extension = File.extname(path).sub(/^\./, '')
-        !AttachmentUploader::EXTENSION_WHITE_LIST.include?(extension)
+        !AttachmentUploader::EXTENSION_WHITELIST.include?(extension)
       end
     end
   end

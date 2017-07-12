@@ -12,7 +12,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
     templates = %w(dot xlt xslt)
 
     allowed_attachments = graphics + documents + spreadsheets + markup + containers + templates
-    assert_equal allowed_attachments.sort, AttachmentUploader.new.extension_white_list.sort
+    assert_equal allowed_attachments.sort, AttachmentUploader.new.extension_whitelist.sort
   end
 
   test 'non-whitelisted file extensions are rejected' do

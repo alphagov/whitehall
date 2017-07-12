@@ -1,20 +1,15 @@
 # encoding: utf-8
 
 require 'open3'
-require 'carrierwave/processing/mime_types'
 
 class AttachmentUploader < WhitehallUploader
-  include CarrierWave::MimeTypes
-
   PDF_CONTENT_TYPE = 'application/pdf'
   INDEXABLE_TYPES = %w(csv doc docx ods odp odt pdf ppt pptx rdf rtf txt xls xlsx xml)
 
   THUMBNAIL_GENERATION_TIMEOUT = 10.seconds
   FALLBACK_PDF_THUMBNAIL = File.expand_path("../../assets/images/pub-cover.png", __FILE__)
-  EXTENSION_WHITE_LIST = %w(chm csv diff doc docx dot dxf eps gif gml ics jpg kml odp ods odt pdf png ppt pptx ps rdf rtf sch txt wsdl xls xlsm xlsx xlt xml xsd xslt zip)
+  EXTENSION_WHITELIST = %w(chm csv diff doc docx dot dxf eps gif gml ics jpg kml odp ods odt pdf png ppt pptx ps rdf rtf sch txt wsdl xls xlsm xlsx xlt xml xsd xslt zip).freeze
 
-  process :set_content_type
-  after :retrieve_from_cache, :set_content_type
   before :cache, :validate_zipfile_contents!
 
   version :thumbnail, if: :pdf? do
@@ -59,8 +54,8 @@ class AttachmentUploader < WhitehallUploader
     %{gs -o #{path} -sDEVICE=pngalpha -dLastPage=1 -r72 -dDEVICEWIDTHPOINTS=#{width} -dDEVICEHEIGHTPOINTS=#{height} -dPDFFitPage #{path} 2>&1}
   end
 
-  def extension_white_list
-    EXTENSION_WHITE_LIST
+  def extension_whitelist
+    EXTENSION_WHITELIST
   end
 
   class ZipFile
@@ -213,7 +208,7 @@ class AttachmentUploader < WhitehallUploader
     examiners = [
       ZipFile::UTF8FilenamesExaminer.new(zip_file),
       ZipFile::AnyValidExaminer.new(zip_file, [
-        ZipFile::WhitelistedExtensionsExaminer.new(zip_file, extension_white_list - ['zip']),
+        ZipFile::WhitelistedExtensionsExaminer.new(zip_file, extension_whitelist - ['zip']),
         ZipFile::ArcGISShapefileExaminer.new(zip_file)
       ])
     ]
