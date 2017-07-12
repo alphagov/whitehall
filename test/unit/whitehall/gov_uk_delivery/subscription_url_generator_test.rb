@@ -65,6 +65,13 @@ class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::Te
     assert_subscription_urls_for_edition_include("publications.atom?departments%5B%5D=#{organisation.slug}")
   end
 
+  test '#subscription_urls includes urls for organisations when there are no topics' do
+    organisation = create(:ministerial_department)
+    @edition = create(:publication, topics: [], organisations: [organisation])
+
+    assert_subscription_urls_for_edition_include("publications.atom?departments%5B%5D=#{organisation.slug}")
+  end
+
   test '#subscription_urls for a publication returns an atom feed url that does not include departments' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
@@ -281,6 +288,15 @@ class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::Te
     assert_prefixless_subscription_urls_for_edition_include("world/#{world_location.slug}.atom")
   end
 
+  test '#subscription_urls for an edition related to a world location includes a url with the world_locations parameter' do
+    world_location = create(:world_location)
+    @edition = create(:publication, world_locations: [world_location])
+
+    assert_subscription_urls_for_edition_include(
+      "publications.atom?world_locations%5B%5D=#{world_location.slug}",
+    )
+  end
+
   test "#subscription_urls for an edition related to an organisation includes the atom feed for both the generic feed and the specific organisation's feed" do
     organisation = create(:organisation)
     @edition = create(:news_article, organisations: [organisation])
@@ -322,5 +338,61 @@ class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::Te
       "statistics.atom",
       "statistics.atom?publication_filter_option=statistics",
     )
+  end
+
+  class ProductTest < ActiveSupport::TestCase
+    def subject
+      Whitehall::GovUkDelivery::SubscriptionUrlGenerator::Product
+    end
+
+    test "computes the cartesian product of some arrays" do
+      result = subject.for([[:a, :b], [1, 2]])
+      assert_equal [[:a, 1], [:a, 2], [:b, 1], [:b, 2]], result
+    end
+
+    test "supports a 'default' value" do
+      result = subject.for([[:a, :b], []], default: "x")
+      assert_equal [[:a, "x"], [:b, "x"]], result
+
+      result = subject.for([[:a], [], [1, 2]], default: nil)
+      assert_equal [[:a, nil, 1], [:a, nil, 2]], result
+
+      result = subject.for([[:a], []])
+      assert_empty result
+
+      result = subject.for([[:a], [], [1, 2]])
+      assert_empty result
+    end
+  end
+
+  class PowersetTest < ActiveSupport::TestCase
+    def subject
+      Whitehall::GovUkDelivery::SubscriptionUrlGenerator::Powerset
+    end
+
+    test "computes the power set of an array" do
+      result = subject.for([])
+      assert_equal [[]], result
+
+      result = subject.for([1])
+      assert_equal [[], [1]], result
+
+      result = subject.for([1, 2])
+      assert_equal [[], [1], [2], [1, 2]], result
+
+      result = subject.for([1, 2, 3])
+      assert_equal [[], [1], [2], [3], [1, 2], [1, 3], [2, 3], [1, 2, 3]], result
+    end
+
+    test "supports hashes" do
+      result = subject.for({})
+      assert_equal [{}], result
+
+      result = subject.for(a: 1)
+      assert_equal [{}, { a: 1 }], result
+
+      result = subject.for(a: 1, b: 2)
+      assert_equal [{}, { a: 1 }, { b: 2 }, { a: 1, b: 2 }], result
+    end
   end
 end
