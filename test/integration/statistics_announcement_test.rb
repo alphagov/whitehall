@@ -2,7 +2,7 @@ require "test_helper"
 require "gds_api/test_helpers/publishing_api_v2"
 
 class StatisticsAnnouncementTest < ActiveSupport::TestCase
-  self.use_transactional_fixtures = false
+  self.use_transactional_tests = false
 
   # Similar methods to these exist in `gds_api/test_helpers/publishing_api`.
   # To avoid clashes between v1 and v2 helpers, we've reimplemented them here,

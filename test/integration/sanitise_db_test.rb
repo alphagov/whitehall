@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class SanitiseDBTest < ActiveSupport::TestCase
-  self.use_transactional_fixtures = false
+  self.use_transactional_tests = false
 
   setup do
     DatabaseCleaner.clean_with :truncation

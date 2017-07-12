@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class MinisterialRoleResluggerTest < ActiveSupport::TestCase
-  self.use_transactional_fixtures = false
+  self.use_transactional_tests = false
 
   setup do
     stub_any_publishing_api_call

@@ -3,7 +3,7 @@ require 'gds_api/test_helpers/rummager'
 
 class PersonSlugChangerTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::Rummager
-  self.use_transactional_fixtures = false
+  self.use_transactional_tests = false
 
   setup do
     stub_any_publishing_api_call

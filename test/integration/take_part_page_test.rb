@@ -3,7 +3,7 @@ require "gds_api/test_helpers/publishing_api_v2"
 
 class TakePartPageTest < ActiveSupport::TestCase
   #api calls happen in after commit so we need to disable transactions
-  self.use_transactional_fixtures = false
+  self.use_transactional_tests = false
 
   setup do
     DatabaseCleaner.clean_with :truncation
