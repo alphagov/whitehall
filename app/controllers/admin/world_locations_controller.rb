@@ -17,7 +17,7 @@ class Admin::WorldLocationsController < Admin::BaseController
     @feature_list = @world_location.load_or_create_feature_list(params[:locale])
 
     filter_params = default_filter_params
-      .merge(params.slice(:page, :type, :world_location, :title).symbolize_keys)
+      .merge(params.permit!.to_h.slice(:page, :type, :world_location, :title).symbolize_keys)
       .merge(state: 'published')
     @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
     @featurable_topical_events = TopicalEvent.active

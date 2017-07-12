@@ -19,7 +19,7 @@ module Admin::AuditTrailHelper
   end
 
   def paginated_audit_trail_url(page)
-    url_for(params.merge(controller: 'admin/edition_audit_trail', action: 'index', page: ((page <= 1) ? nil : page)))
+    url_for(params.permit!.except(:host, :controller, :action).merge(controller: 'admin/edition_audit_trail', action: 'index', page: (page <= 1 ? nil : page)))
   end
 
   def render_editorial_remarks_in_sidebar(remarks, edition)

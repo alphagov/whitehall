@@ -38,7 +38,7 @@ class DocumentFilterPresenter < Struct.new(:filter, :context, :document_decorato
   end
 
   def url(override_params)
-    context.url_for(context.params.merge(override_params).merge("_" => nil).except(:format))
+    context.url_for(context.params.permit!.merge(override_params).merge("_" => nil))
   end
 
   def date_from

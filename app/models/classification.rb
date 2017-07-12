@@ -143,7 +143,7 @@ class Classification < ApplicationRecord
   end
 
   def feature(featuring_params)
-    classification_featurings.create({ordering: next_ordering}.merge(featuring_params))
+    classification_featurings.create({ ordering: next_ordering }.merge(featuring_params.to_h))
   end
 
   def next_ordering

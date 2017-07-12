@@ -14,7 +14,7 @@ private
   end
 
   def cleaned_document_filter_params
-    Whitehall::DocumentFilter::CleanedParams.new(params.except(:format, :commit, :_))
+    Whitehall::DocumentFilter::CleanedParams.new(params.except(:constraints, :format, :commit, :_))
   end
 
   def preview?

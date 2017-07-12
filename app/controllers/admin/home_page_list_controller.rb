@@ -49,7 +49,7 @@ module Admin::HomePageListController
       end
 
       define_method(:extract_items_from_ordering_params) do |ids_and_orderings|
-        ids_and_orderings.
+        ids_and_orderings.permit!.to_h.
           # convert to useful forms
           map {|item_id, ordering| [item_type.find_by(id: item_id), ordering.to_i] }.
           # sort by ordering

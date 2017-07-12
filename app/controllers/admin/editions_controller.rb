@@ -297,7 +297,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def params_filters
-    params.slice(:type, :state, :organisation, :author, :page, :title, :world_location, :from_date, :to_date).to_hash
+    params.permit!.to_h.slice(:type, :state, :organisation, :author, :page, :title, :world_location, :from_date, :to_date)
   end
 
   def params_filters_with_default_state

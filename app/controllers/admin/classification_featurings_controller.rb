@@ -3,7 +3,7 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
   before_action :load_featuring, only: [:edit, :destroy]
 
   def index
-    filter_params = params.slice(:page, :type, :author, :organisation, :title).
+    filter_params = params.permit!.to_h.slice(:page, :type, :author, :organisation, :title).
       merge(state: 'published', classification: @classification.to_param)
     @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
 
@@ -87,6 +87,6 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
   end
 
   def filter_values_set?
-    params.slice(:type, :author, :organisation, :title).length > 0
+    !params.permit!.to_h.slice(:type, :author, :organisation, :title).empty?
   end
 end
