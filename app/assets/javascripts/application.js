@@ -5,7 +5,7 @@
 // the compiled file.
 //
 //= require jquery_ujs
-//= require vendor/jquery/jquery-ui-1.10.2.custom
+//= require jquery.ui.all
 //= require vendor/jquery/magna-charta.min
 //= require vendor/sorttable
 //= require vendor/object-create-polyfill
