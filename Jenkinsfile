@@ -62,6 +62,13 @@ node {
       govuk.rubyLinter('app test lib')
     }
 
+    stage("Configure environment") {
+      govuk.setEnvar("DISABLE_DATABASE_ENVIRONMENT_CHECK", "1")
+      govuk.setEnvar("RAILS_ENV", "test")
+      govuk.setEnvar("RACK_ENV", "test")
+      govuk.setEnvar("DISPLAY", ":99")
+    }
+
     lock ("whitehall-$NODE_NAME-test") {
       stage("Set up the DB") {
         sh("RAILS_ENV=test bundle exec rake db:drop db:create db:schema:load")
