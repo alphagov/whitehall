@@ -32,7 +32,6 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
       details: {
         body: Whitehall::GovspeakRenderer.new
           .govspeak_to_html(html_attachment.govspeak_content.body),
-        headings: html_attachment.govspeak_content.computed_headers_html,
         public_timestamp: edition.public_timestamp,
         first_published_version: html_attachment.attachable.first_published_version?,
       },
@@ -71,7 +70,6 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
     html_attachment = HtmlAttachment.last
 
     assert_equal "", present(html_attachment).content[:details][:body]
-    assert_equal "", present(html_attachment).content[:details][:headings]
   end
 
   test "HtmlAttachment presentations sends the parent updated_at if it has no public_timestamp" do

@@ -53,7 +53,6 @@ module PublishingApi
     def details
       {
         body: body,
-        headings: headings,
         public_timestamp: public_timestamp,
         first_published_version: first_published_version?
       }
@@ -61,10 +60,6 @@ module PublishingApi
 
     def body
       govspeak_content.try(:computed_body_html) || ""
-    end
-
-    def headings
-      govspeak_content.try(:computed_headers_html) || ""
     end
 
     def first_published_version?
