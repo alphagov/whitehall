@@ -67,7 +67,7 @@ class PublishingApiHtmlAttachmentsWorker
   end
 
   def delete
-    discard_drafts(current_html_attachments)
+    discard_drafts(current_html_attachments + deleted_html_attachments)
   end
 
 private
