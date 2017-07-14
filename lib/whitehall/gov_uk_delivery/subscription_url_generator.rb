@@ -94,16 +94,6 @@ module Whitehall
         } if Whitehall::PublicationFilterOption.find_by_search_format_types(edition.search_format_types)
       end
 
-      def all_combinations_of_args(args)
-        # turn [1,2,3] into [[], [1], [2], [3], [1,2], [1,3], [2,3], [1,2,3]]
-        # then, given 1 is really {a: 1} and 2 is {b: 2} etc...
-        # turn that into [{}, {a:1}, {b: 2}, {c: 3}, {a:1, b:2}, {a:1, c:3}, ...]
-        0.upto(args.size)
-          .map { |s| args.combination(s) }
-          .flat_map(&:to_a)
-          .map { |c| c.inject({}) { |h, a| h.merge(a) } }
-      end
-
       def topic_slugs
         edition.can_be_associated_with_topics? ? edition.topics.map(&:slug) : []
       end
@@ -137,15 +127,20 @@ module Whitehall
       end
 
       def filter_urls
-        department_and_topic_combos = [department_slugs, topic_slugs].inject(&:product)
-        department_and_topic_combos.map do |(org, topic)|
-          combinatorial_args = [{departments: [org]}, {topics: [topic]}]
-          combinatorial_args << filter_option if filter_option
-          combinatorial_args << { relevant_to_local_government: 1 } if relevant_to_local_government?
+        filterable_slugs = [department_slugs, topic_slugs, world_location_slugs]
+        slug_combinations = Product.for(filterable_slugs, default: nil)
 
-          all_combinations_of_args(combinatorial_args).map do |combined_args|
-            url_args = combined_args.merge(format: :atom)
-            url_helpers.map { |helper| helper.call(url_args) }
+        slug_combinations.map do |department_slug, topic_slug, location_slug|
+          filters = {}
+
+          filters[:departments] = [department_slug] if department_slug
+          filters[:topics] = [topic_slug] if topic_slug
+          filters[:world_locations] = [location_slug] if location_slug
+          filters[:relevant_to_local_government] = 1 if relevant_to_local_government?
+          filters.merge!(filter_option) if filter_option
+
+          Powerset.for(filters).map do |params|
+            url_helpers.map { |h| h.call(params.merge(format: :atom)) }
           end
         end
       end
@@ -164,6 +159,35 @@ module Whitehall
         appointments.each_with_object([]) do |appointment, urls|
           urls << generate_urls(url_maker.method(:person_url), [appointment.person]) if appointment.person
           urls << generate_urls(url_maker.method(:ministerial_role_url), [appointment.role]) if appointment.role
+        end
+      end
+
+      # https://en.wikipedia.org/wiki/Cartesian_product
+      module Product
+        def self.for(arrays, options = {})
+          if options.key?(:default)
+            default = options.fetch(:default)
+            arrays = arrays.map { |arr| arr.empty? ? [default] : arr }
+          end
+
+          arrays.first.product(*arrays.drop(1))
+        end
+      end
+
+      # https://en.wikipedia.org/wiki/Power_set
+      module Powerset
+        def self.for(collection)
+          array = collection.to_a
+
+          powerset = 0.upto(array.size).flat_map do |n|
+            array.combination(n).to_a
+          end
+
+          if collection.is_a?(Hash)
+            powerset.map(&:to_h)
+          else
+            powerset
+          end
         end
       end
     end
