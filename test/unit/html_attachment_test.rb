@@ -147,6 +147,72 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal content_id, new_attachment.content_id
   end
 
+  test "attachment with the same title but different base_path does not retain
+    the content_id" do
+    deleted_attachment = create(
+      :html_attachment,
+      title: "original title",
+      attachable: build(:published_publication)
+    )
+    #this will have slug `original-title`
+    deleted_attachment.update_attributes(title: "new title")
+
+    first_edition = deleted_attachment.attachable
+    deleted_attachment.destroy
+
+    new_draft = first_edition.create_draft(first_edition.creator)
+    #this will have slug `new-title`
+    new_attachment = create(
+      :html_attachment,
+      title: "new title",
+      attachable: new_draft
+    )
+
+    assert_not_equal new_attachment.content_id, deleted_attachment.content_id
+  end
+
+  test "translations with the same title retain the same content_id" do
+    content_id = "97660b60-d4cd-4bfe-b9f5-d95d20e78449"
+    first_attachment = create(
+      :html_attachment,
+      title: "Le Boeuf",
+      locale: "fr",
+      content_id: content_id
+    )
+
+    edition = first_attachment.attachable
+    first_attachment.destroy
+    second_attachment = create(
+      :html_attachment,
+      title: "Le Boeuf",
+      locale: "fr",
+      attachable: edition
+    )
+
+    assert_equal content_id, second_attachment.content_id
+  end
+
+  test "translations with the different titles get different content_id" do
+    content_id = "97660b60-d4cd-4bfe-b9f5-d95d20e78449"
+    first_attachment = create(
+      :html_attachment,
+      title: "Le Boeuf",
+      locale: "fr",
+      content_id: content_id
+    )
+
+    edition = first_attachment.attachable
+    first_attachment.destroy
+    second_attachment = create(
+      :html_attachment,
+      title: "Les Oeufs",
+      locale: "fr",
+      attachable: edition
+    )
+
+    assert_not_equal content_id, second_attachment.content_id
+  end
+
   test "attachment with an unused base path gets a new content_id" do
     first_attachment = create(
       :html_attachment,
