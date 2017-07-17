@@ -93,10 +93,6 @@ class HtmlAttachment < Attachment
     'HTML'
   end
 
-  def save_and_update_publishing_api
-    save && Whitehall.edition_services.draft_updater(attachable).perform!
-  end
-
   def translated_locales
     [locale || I18n.default_locale.to_s]
   end
