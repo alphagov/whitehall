@@ -2,6 +2,8 @@ class HtmlAttachment < Attachment
   extend FriendlyId
   friendly_id :title, use: :scoped, scope: :attachable
 
+  include HasContentId
+
   has_one :govspeak_content,
     autosave: true, inverse_of: :html_attachment, dependent: :destroy
 
@@ -124,9 +126,18 @@ private
   def fetch_previously_published_content_ids
     document_id = attachable.document_id
     edition_ids = Edition.unscoped.where(document_id: document_id).pluck(:id)
-    HtmlAttachment.where(
+    params = {
       attachable_id: edition_ids,
-      title: title
+      slug: slug
+    }
+
+    if !sluggable_locale? #translations don't have slugs
+      params.delete(:slug)
+      params[:title] = title
+    end
+
+    HtmlAttachment.where(
+      params
     ).pluck(:content_id)
   end
 end

@@ -1,4 +1,6 @@
 class ExternalAttachment < Attachment
+  include HasContentId
+
   validates :external_url, presence: true, uri: true, length: { maximum: 255 }
 
   def accessible?
