@@ -14,6 +14,7 @@ class DocumentListExportPresenter
       'Public URL',
       'Admin URL',
       'Title',
+      'Summary',
       'Lead organisations',
       'Supporting organisations',
       'First published',
@@ -31,7 +32,6 @@ class DocumentListExportPresenter
       'History-mode applied',
       'Primary language',
       'Translations available',
-      'Summary',
     ]
   end
 
@@ -40,6 +40,7 @@ class DocumentListExportPresenter
       public_url,
       admin_url,
       edition.title,
+      edition.summary,
       lead_organisations,
       supporting_organisations,
       edition.first_published_at,
@@ -57,7 +58,6 @@ class DocumentListExportPresenter
       edition.historic?,
       primary_language,
       translations_available,
-      edition.summary,
     ]
   end
 
