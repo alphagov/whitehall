@@ -106,4 +106,10 @@ class DocumentListExportPresenterTest < ActiveSupport::TestCase
     presenter = DocumentListExportPresenter.new(edition_translated_many_times)
     assert_equal %w(Arabic Welsh Malay), presenter.translations_available
   end
+
+  test '#row returns a summary' do
+    edition = create(:detailed_guide)
+    presenter = DocumentListExportPresenter.new(edition)
+    assert presenter.row.include?(edition.summary)
+  end
 end

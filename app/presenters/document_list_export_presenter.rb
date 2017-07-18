@@ -31,6 +31,7 @@ class DocumentListExportPresenter
       'History-mode applied',
       'Primary language',
       'Translations available',
+      'Summary',
     ]
   end
 
@@ -56,6 +57,7 @@ class DocumentListExportPresenter
       edition.historic?,
       primary_language,
       translations_available,
+      edition.summary,
     ]
   end
 
