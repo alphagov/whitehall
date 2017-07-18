@@ -2,7 +2,14 @@
 <% page_class "topics-show" %>
 <% atom_discovery_link_tag atom_feed_url_for(@classification), "Latest activity on #{@classification.name}" %>
 
-<%= content_tag_for(:div, @classification, class: "classification #{@classification.class.name.underscore}") do %>
+<%= content_tag_for(
+  :div,
+  @classification,
+  class: "classification #{@classification.class.name.underscore}",
+  data: {
+    module: 'track-click'
+  }
+) do %>
 
   <header class="block headings-block">
     <div class="inner-block floated-children">
@@ -75,14 +82,44 @@
           <h1 class="label">Detailed guides</h1>
           <div class="content">
             <ol class="collection-list one-column">
-              <% @detailed_guides.each do |detailed_guide| %>
+              <% @detailed_guides.each_with_index do |detailed_guide, detailed_guide_index| %>
                 <%= content_tag_for(:li, detailed_guide, class: 'topic collection-item') do %>
                   <div class="container">
-                    <h2><%= link_to detailed_guide.title, public_document_path(detailed_guide) %></h2>
+                    <h2>
+                      <%=
+                        link_to(
+                          detailed_guide.title,
+                          public_document_path(detailed_guide) ,
+                          data: {
+                            track_category: 'navPolicyAreaLinkClicked',
+                            track_action: "DetailedGuides.#{detailed_guide_index + 1}",
+                            track_label: public_document_path(detailed_guide),
+                            track_options: {
+                              dimension28: @detailed_guides.count.to_s,
+                              dimension29: detailed_guide.title
+                            }
+                          }
+                        )
+                      %>
+                    </h2>
                     <div class="summary">
                       <p>
                         <%= detailed_guide.summary %>
-                        <%= link_to "Read more", public_document_path(detailed_guide) %>
+                        <%=
+                          link_to(
+                            "Read more",
+                            public_document_path(detailed_guide),
+                            data: {
+                            track_category: 'navPolicyAreaLinkClicked',
+                              track_action: "DetailedGuides.#{detailed_guide_index + 1}",
+                              track_label: public_document_path(detailed_guide),
+                              track_options: {
+                                dimension28: @detailed_guides.count.to_s,
+                                dimension29: detailed_guide.title
+                              }
+                            }
+                          )
+                        %>
                       </p>
                     </div>
                   </div>

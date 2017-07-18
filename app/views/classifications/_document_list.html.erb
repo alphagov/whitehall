@@ -5,9 +5,30 @@
 <section id="<%= heading.downcase %>" class="document-block documents-<%= document_block_counter %>">
   <h1 class="label"><%= heading %></h1>
   <div class="content">
-    <%= render partial: "shared/list_description", locals: { editions: documents } %>
+    <%= render partial: "shared/list_description", locals: { heading: heading, editions: documents } %>
     <p class="see-all">
-      <%= link_to "See all #{heading.downcase}", public_send("#{type}_filter_path", @classification, publication_filter_option: filter_option) %>
+    <%-
+      see_more_url = public_send(
+        "#{type}_filter_path",
+        @classification,
+        publication_filter_option: filter_option
+      )
+    %>
+    <%=
+      link_to(
+        "See all #{heading.downcase}",
+        see_more_url,
+        data: {
+          track_category: 'navPolicyAreaLinkClicked',
+          track_action: "#{heading}.#{documents.count + 1}",
+          track_label: see_more_url,
+          track_options: {
+            dimension28: documents.count.to_s,
+            dimension29: "See all #{heading.downcase}"
+          }
+        }
+      )
+    %>
     </p>
   </div>
 </section>
