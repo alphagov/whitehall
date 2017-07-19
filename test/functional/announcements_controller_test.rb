@@ -262,4 +262,54 @@ class AnnouncementsControllerTest < ActionController::TestCase
     get :index, locale: 'fr'
     refute_select '.filter-results-summary'
   end
+
+  view_test 'index includes tracking details on all links' do
+    news_article = create(:published_news_article)
+
+    get :index
+
+    assert_select_object(news_article) do
+      results_list = css_select('ol.document-list').first
+
+      assert_equal(
+        'track-click',
+        results_list.attributes['data-module'].value,
+        "Expected the document list to have the 'track-click' module"
+      )
+
+      article_link = css_select('li.document-row a').first
+
+      assert_equal(
+        'navAnnouncementLinkClicked',
+        article_link.attributes['data-category'].value,
+        "Expected the data category attribute to be 'navAnnouncementLinkClicked'"
+      )
+
+      assert_equal(
+        '1',
+        article_link.attributes['data-action'].value,
+        "Expected the data action attribute to be the 1st position on the list"
+      )
+
+      assert_equal(
+        public_document_path(news_article),
+        article_link.attributes['data-label'].value,
+        "Expected the data label attribute to be the link of the news article"
+      )
+
+      options = JSON.parse(article_link.attributes['data-options'].value)
+
+      assert_equal(
+        '1',
+        options['dimension28'],
+        "Expected the custom dimension 28 to have the total number of articles"
+      )
+
+      assert_equal(
+        news_article.title,
+        options['dimension29'],
+        "Expected the custom dimension 29 to have the title of the article"
+      )
+    end
+  end
 end

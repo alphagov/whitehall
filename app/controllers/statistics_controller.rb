@@ -9,7 +9,9 @@ class StatisticsController < DocumentsController
 
     respond_to do |format|
       format.html do
-        @filter = DocumentFilterPresenter.new(@filter, view_context, PublicationesquePresenter)
+        @filter = StatisticsFilterJsonPresenter.new(
+          @filter, view_context, PublicationesquePresenter
+        )
       end
       format.json do
         render json: StatisticsFilterJsonPresenter.new(@filter, view_context, PublicationesquePresenter)
