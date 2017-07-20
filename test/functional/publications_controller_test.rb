@@ -331,7 +331,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     results = ActiveSupport::JSON.decode(response.body)["results"]
     assert_equal 1, results.length
-    json = results.first
+    json = results.first['result']
     assert_equal "publication", json["type"]
     assert_equal "publication-title", json["title"]
     assert_equal publication.id, json["id"]
@@ -354,7 +354,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     results = ActiveSupport::JSON.decode(response.body)["results"]
     assert_equal 1, results.length
-    json = results.first
+    json = results.first['result']
     assert_equal "consultation", json["type"]
     assert_equal "consultation-title", json["title"]
     assert_equal consultation.id, json["id"]
@@ -587,7 +587,7 @@ class PublicationsControllerTest < ActionController::TestCase
     get :index, format: :json
 
     json = ActiveSupport::JSON.decode(response.body)
-    result = json['results'].first
+    result = json['results'].first['result']
 
     path = public_document_path(collection)
     link = %Q{<a href="#{path}">#{collection.title}</a>}
@@ -744,4 +744,53 @@ class PublicationsControllerTest < ActionController::TestCase
     create(:published_publication, topics: [topics])
   end
 
+  view_test 'index includes tracking details on all links' do
+    published_publication = create(:published_publication)
+
+    get :index
+
+    assert_select_object(published_publication) do
+      results_list = css_select('ol.document-list').first
+
+      assert_equal(
+        'track-click',
+        results_list.attributes['data-module'].value,
+        "Expected the document list to have the 'track-click' module"
+      )
+
+      publication_link = css_select('li.document-row a').first
+
+      assert_equal(
+        'navPublicationLinkClicked',
+        publication_link.attributes['data-category'].value,
+        "Expected the data category attribute to be 'navPublicationLinkClicked'"
+      )
+
+      assert_equal(
+        '1',
+        publication_link.attributes['data-action'].value,
+        "Expected the data action attribute to be the 1st position on the list"
+      )
+
+      assert_equal(
+        public_document_path(published_publication),
+        publication_link.attributes['data-label'].value,
+        "Expected the data label attribute to be the link of the publication"
+      )
+
+      options = JSON.parse(publication_link.attributes['data-options'].value)
+
+      assert_equal(
+        '1',
+        options['dimension28'],
+        "Expected the custom dimension 28 to have the total number of publications"
+      )
+
+      assert_equal(
+        published_publication.title,
+        options['dimension29'],
+        "Expected the custom dimension 29 to have the title of the publication"
+      )
+    end
+  end
 end

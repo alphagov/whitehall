@@ -44,21 +44,27 @@ module("Document filter", {
       "result_type": "publication",
       "results": [
         {
-          "id": 1,
-          "type": "document-type",
-          "title": "document-title",
-          "url": "/document-path",
-          "organisations": "organisation-name-1, organisation-name-2",
-          "topics": "topic-name-1, topic-name-2",
-          "field_of_operation": "place-of-war"
+          "result": {
+            "id": 1,
+            "type": "document-type",
+            "title": "document-title",
+            "url": "/document-path",
+            "organisations": "organisation-name-1, organisation-name-2",
+            "topics": "topic-name-1, topic-name-2",
+            "field_of_operation": "place-of-war"
+          },
+          "index": 1
         },
         {
-          "id": 2,
-          "type": "document-type-2",
-          "title": "document-title-2",
-          "url": "/document-path-2",
-          "organisations": "organisation-name-2, organisation-name-3",
-          "publication_collections": "collection-1"
+          "result": {
+            "id": 2,
+            "type": "document-type-2",
+            "title": "document-title-2",
+            "url": "/document-path-2",
+            "organisations": "organisation-name-2, organisation-name-3",
+            "publication_collections": "collection-1"
+          },
+          "index": 2
         }
       ]
     };

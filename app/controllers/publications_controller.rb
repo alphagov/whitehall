@@ -10,7 +10,9 @@ class PublicationsController < DocumentsController
 
     respond_to do |format|
       format.html do
-        @filter = DocumentFilterPresenter.new(@filter, view_context, PublicationesquePresenter)
+        @filter = PublicationFilterJsonPresenter.new(
+          @filter, view_context, PublicationesquePresenter
+        )
       end
       format.json do
         render json: PublicationFilterJsonPresenter.new(@filter, view_context, PublicationesquePresenter)

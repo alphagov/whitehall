@@ -11,4 +11,18 @@ class PublicationFilterJsonPresenterTest < PresenterTestCase
     json = JSON.parse(PublicationFilterJsonPresenter.new(@filter, @view_context).to_json)
     assert_equal Whitehall.atom_feed_maker.publications_url, json['atom_feed_url']
   end
+
+  test 'includes the category of documents being presented' do
+    presenter = JSON.parse(
+      PublicationFilterJsonPresenter.new(
+        @filter, @view_context, PublicationesquePresenter
+      ).to_json
+    )
+
+    assert_equal(
+      'Publication',
+      presenter['category'],
+      'It should have a category attribute of "Publication"'
+    )
+  end
 end

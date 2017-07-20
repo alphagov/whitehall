@@ -1,29 +1,37 @@
 {{#results_any?}}
-  <ol class="js-document-list document-list">
+  <ol class="js-document-list document-list" data-module="track-click">
     {{#results}}
-      <li id="{{type}}_{{id}}" class="document-row">
-        <h3><a href="{{url}}">{{title}}</a></h3>
+      <li id="{{result.type}}_{{result.id}}" class="document-row">
+        <h3>
+          <a
+            href="{{result.url}}"
+            data-category="nav{{category}}LinkClicked"
+            data-action="{{index}}"
+            data-label="{{result.url}}"
+            data-options='{"dimension28":"{{count}}","dimension29":"{{result.title}}"}'
+            >{{result.title}}</a>
+        </h3>
         <ul class="attributes">
-          <li>{{{display_date_microformat}}}</li>
-          <li class="organisations">{{{organisations}}}</li>
-          <li class="display-type">{{display_type}}</li>
-          {{#field_of_operation}}
-            <li class="field-of-operation">{{{field_of_operation}}}</li>
-          {{/field_of_operation}}
-          {{#topics}}
-            <li class="topics">{{{topics}}}</li>
-          {{/topics}}
-          {{#publication_collections}}
-            <li class="document-collections">{{{publication_collections}}}</li>
-          {{/publication_collections}}
+          <li>{{{result.display_date_microformat}}}</li>
+          <li class="organisations">{{{result.organisations}}}</li>
+          <li class="display-type">{{result.display_type}}</li>
+          {{#result.field_of_operation}}
+            <li class="field-of-operation">{{{result.field_of_operation}}}</li>
+          {{/result.field_of_operation}}
+          {{#result.topics}}
+            <li class="topics">{{{result.topics}}}</li>
+          {{/result.topics}}
+          {{#result.publication_collections}}
+            <li class="document-collections">{{{result.publication_collections}}}</li>
+          {{/result.publication_collections}}
         </ul>
-        {{#historic?}}
-          {{#government_name}}
+        {{#result.historic?}}
+          {{#result.government_name}}
             <p class="historic">
-            First published during the {{government_name}}
+            First published during the {{result.government_name}}
             </p>
-          {{/government_name}}
-        {{/historic?}}
+          {{/result.government_name}}
+        {{/result.historic?}}
       </li>
     {{/results}}
   </ol>

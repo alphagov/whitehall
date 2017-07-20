@@ -127,7 +127,7 @@ class StatisticsControllerTest < ActionController::TestCase
 
     results = ActiveSupport::JSON.decode(response.body)["results"]
     assert_equal 1, results.length
-    json = results.first
+    json = results.first['result']
     assert_equal "statistics-title", json["title"]
     assert_equal statistics_publication.id, json["id"]
     assert_equal statistic_path(statistics_publication.document), json["url"]
@@ -164,7 +164,7 @@ class StatisticsControllerTest < ActionController::TestCase
     get :index, format: :json
 
     json = ActiveSupport::JSON.decode(response.body)
-    result = json['results'].first
+    result = json['results'].first['result']
 
     path = public_document_path(collection)
     link = %Q{<a href="#{path}">#{collection.title}</a>}
@@ -197,5 +197,55 @@ class StatisticsControllerTest < ActionController::TestCase
     get :show, id: publication.document
 
     refute_match /National Statistics/, response.body
+  end
+
+  view_test 'index includes tracking details on all links' do
+    published_statistics = create(:published_statistics)
+
+    get :index
+
+    assert_select_object(published_statistics) do
+      results_list = css_select('ol.document-list').first
+
+      assert_equal(
+        'track-click',
+        results_list.attributes['data-module'].value,
+        "Expected the document list to have the 'track-click' module"
+      )
+
+      statistics_link = css_select('li.document-row a').first
+
+      assert_equal(
+        'navStatisticLinkClicked',
+        statistics_link.attributes['data-category'].value,
+        "Expected the data category attribute to be 'navStatisticLinkClicked'"
+      )
+
+      assert_equal(
+        '1',
+        statistics_link.attributes['data-action'].value,
+        "Expected the data action attribute to be the 1st position on the list"
+      )
+
+      assert_equal(
+        public_document_path(published_statistics),
+        statistics_link.attributes['data-label'].value,
+        "Expected the data label attribute to be the link of the published statistic"
+      )
+
+      options = JSON.parse(statistics_link.attributes['data-options'].value)
+
+      assert_equal(
+        '1',
+        options['dimension28'],
+        "Expected the custom dimension 28 to have the total number of published statistics"
+      )
+
+      assert_equal(
+        published_statistics.title,
+        options['dimension29'],
+        "Expected the custom dimension 29 to have the title of the published statistic"
+      )
+    end
   end
 end
