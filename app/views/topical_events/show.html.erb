@@ -15,8 +15,7 @@
   <header class="block headings-block">
     <div class="inner-block floated-children">
       <%= render partial: 'shared/heading',
-                locals: { type: 'Topic',
-                          heading: "#{h(@classification.name)}#{' <span class="archived">(Archived)</span>' if @classification.archived?}".html_safe,
+                locals: { heading: "#{h(@classification.name)}#{' <span class="archived">(Archived)</span>' if @classification.archived?}".html_safe,
                           big: true, extra: true } %>
       <% if @classification.logo_url.present? %>
         <div class="heading-extra topical-event-logo">
