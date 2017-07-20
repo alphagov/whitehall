@@ -30,6 +30,14 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     assert_select 'h1', topic.name
   end
 
+  view_test "GET :show as JSON lists the topic's classification policies" do
+    topic = create(:topic, :with_classification_policies)
+    get :show, id: topic, format: :json
+
+    assert_response :success
+    assert json_response['classification_policies']
+  end
+
   ### Describing :new ###
 
   view_test "GET :new displays topic form" do
