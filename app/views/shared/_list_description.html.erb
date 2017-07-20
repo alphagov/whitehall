@@ -1,7 +1,23 @@
 <ol class="document-list">
-  <% editions.each do |edition| %>
+  <% editions.each_with_index do |edition, edition_index| %>
     <%= content_tag_for(:li, edition, class: 'document-row') do %>
-      <h2><%= link_to edition.title, public_document_path(edition) %></h2>
+      <h2>
+        <%=
+          link_to(
+            edition.title,
+            public_document_path(edition),
+            data: {
+              track_category: 'navPolicyAreaLinkClicked',
+              track_action: "#{local_assigns.has_key?(:heading) ? heading : "Unknown"}.#{edition_index + 1}",
+              track_label: public_document_path(edition),
+              track_options: {
+                dimension28: editions.count.to_s,
+                dimension29: edition.title
+              }
+            }
+          )
+        %>
+      </h2>
       <ul class="attributes">
         <li class="publication-date"><%= edition.display_date_microformat %></li>
         <li class="document-type"><%= t_display_type(edition) %></li>

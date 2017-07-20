@@ -26,7 +26,14 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select "a[href=?]", organisation_path(organisation_2)
   end
 
-  view_test "GET :show lists published publications and links to more" do
+  view_test "GET :show includes the data tracking module" do
+    topic = create_topic_and_stub_content_store
+    get :show, id: topic
+
+    assert_select(".topic[data-module='track-click']")
+  end
+
+  view_test "GET :show lists published publications and links to more with tracking attributes" do
     topic = create_topic_and_stub_content_store
     published = []
     4.times do |i|
@@ -38,7 +45,19 @@ class TopicsControllerTest < ActionController::TestCase
     get :show, id: topic
 
     assert_select "#publications" do
-      published.take(3).each do |edition|
+      published.take(3).each_with_index do |edition, edition_index|
+        data_attributes = build_data_attributes_for(
+          'Publications',
+          edition,
+          edition_index
+        )
+
+        assert_select(
+          "a#{data_attributes}",
+          text: edition.title,
+          href: public_document_path(edition)
+        )
+
         assert_select_object(edition) do
           assert_select "h2", text: edition.title
         end
@@ -47,7 +66,7 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "GET :show lists published consultations and links to more" do
+  view_test "GET :show lists published consultations and links to more with tracking attributes" do
     topic = create_topic_and_stub_content_store
     published = []
     4.times do |i|
@@ -59,14 +78,24 @@ class TopicsControllerTest < ActionController::TestCase
     get :show, id: topic
 
     assert_select "#consultations" do
-      published.take(3).each do |edition|
-        assert_select "a", text: edition.title, href: public_document_path(edition)
+      published.take(3).each_with_index do |edition, edition_index|
+        data_attributes = build_data_attributes_for(
+          'Consultations',
+          edition,
+          edition_index
+        )
+
+        assert_select(
+          "a#{data_attributes}",
+          text: edition.title,
+          href: public_document_path(edition)
+        )
       end
       refute_select "a", text: published[3].title
     end
   end
 
-  view_test "GET :show lists published statistical publications and links to more" do
+  view_test "GET :show lists published statistical publications and links to more with tracking attributes" do
     topic = create_topic_and_stub_content_store
     published = []
     4.times do |i|
@@ -78,14 +107,24 @@ class TopicsControllerTest < ActionController::TestCase
     get :show, id: topic
 
     assert_select "#statistics" do
-      published.take(3).each do |edition|
-        assert_select "a", text: edition.title, href: public_document_path(edition)
+      published.take(3).each_with_index do |edition, edition_index|
+        data_attributes = build_data_attributes_for(
+          'Statistics',
+          edition,
+          edition_index
+        )
+
+        assert_select(
+          "a#{data_attributes}",
+          text: edition.title,
+          href: public_document_path(edition)
+        )
       end
       refute_select "a", text: published[3].title
     end
   end
 
-  view_test "GET :show lists published announcements and links to more" do
+  view_test "GET :show lists published announcements and links to more with tracking attributes" do
     topic = create_topic_and_stub_content_store
     published = []
     4.times do |i|
@@ -97,7 +136,19 @@ class TopicsControllerTest < ActionController::TestCase
     get :show, id: topic
 
     assert_select "#announcements" do
-      published.take(3).each do |edition|
+      published.take(3).each_with_index do |edition, edition_index|
+        data_attributes = build_data_attributes_for(
+          'Announcements',
+          edition,
+          edition_index
+        )
+
+        assert_select(
+          "a#{data_attributes}",
+          text: edition.title,
+          href: public_document_path(edition)
+        )
+
         assert_select_object(edition) do
           assert_select "h2", text: edition.title
         end
@@ -106,7 +157,7 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "GET :show lists 5 published detailed guides and links to more" do
+  view_test "GET :show lists 5 published detailed guides and links to more with tracking attributes" do
     published_detailed_guides = []
     6.times do |i|
       published_detailed_guides << create(:published_detailed_guide, title: "detailed-guide-title-#{i}")
@@ -116,10 +167,23 @@ class TopicsControllerTest < ActionController::TestCase
     get :show, id: topic
 
     assert_select ".detailed-guidance" do
-      published_detailed_guides.take(5).each do |guide|
+      published_detailed_guides.take(5).each_with_index do |guide, guide_index|
         assert_select_object(guide) do
           assert_select "h2", text: guide.title
         end
+
+        data_attributes = build_data_attributes_for(
+          'DetailedGuides',
+          guide,
+          guide_index,
+          total: '5'
+        )
+
+        assert_select(
+          "a#{data_attributes}",
+          text: guide.title,
+          href: public_document_path(guide)
+        )
       end
       refute_select_object(published_detailed_guides[5])
     end
@@ -197,5 +261,16 @@ class TopicsControllerTest < ActionController::TestCase
     content_store_has_item(topic.base_path, payload)
 
     topic
+  end
+
+  def build_data_attributes_for(type, edition, edition_index, total: '3')
+    track_options = { dimension28: total, dimension29: edition.title }
+
+    [
+      "[data-track-category='navPolicyAreaLinkClicked']",
+      "[data-track-action='#{type}.#{edition_index + 1}']",
+      "[data-track-label='#{public_document_path(edition)}']",
+      "[data-track-options='#{JSON.dump(track_options)}']"
+    ].join('')
   end
 end
