@@ -7,11 +7,15 @@ module SyncChecker
       def call(response)
         failures = []
         if response.response_code == 200
-          @content_item = JSON.parse(response.body)
-          if run_check?
-            expected_details.each do |k, v|
-              failures << check_key(k, v)
+          begin
+            @content_item = JSON.parse(response.body)
+            if run_check?
+              expected_details.each do |k, v|
+                failures << check_key(k, v)
+              end
             end
+          rescue JSON::ParserError
+            failures << "response.body not valid JSON. Likely not present in the content store"
           end
         end
         failures.compact

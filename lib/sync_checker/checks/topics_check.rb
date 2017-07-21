@@ -11,10 +11,14 @@ module SyncChecker
       def call(response)
         failures = []
         if response.response_code == 200
-          @content_item = JSON.parse(response.body)
-          if run_check?
-            failures << check_parent
-            failures << check_topics
+          begin
+            @content_item = JSON.parse(response.body)
+            if run_check?
+              failures << check_parent
+              failures << check_topics
+            end
+          rescue JSON::ParserError
+            failures << "response.body not valid JSON. Likely not present in the content store"
           end
         end
         failures.flatten.compact

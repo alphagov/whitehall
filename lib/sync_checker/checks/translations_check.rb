@@ -6,21 +6,25 @@ module SyncChecker
         stringified_locales = expected_locales.map(&:to_s)
         failures = []
         if response.response_code == 200
-          @content_item = JSON.parse(response.body)
-          #FIXME we're ignore withdrawn items for now due to a bug in
-          #publishing api causing them not to have an `available_translations`
-          #links element
-          return [] if withdrawn?
-          available_translations = content_item["links"]["available_translations"]
-          if run_check?
-            if available_translations
-              locales_present = available_translations.map { |translation| translation["locale"] }
-              if locales_present.sort != stringified_locales.sort
-                failures << "expected #{stringified_locales} translations but got #{locales_present}"
+          begin
+            @content_item = JSON.parse(response.body)
+            #FIXME we're ignore withdrawn items for now due to a bug in
+            #publishing api causing them not to have an `available_translations`
+            #links element
+            return [] if withdrawn?
+            available_translations = content_item["links"]["available_translations"]
+            if run_check?
+              if available_translations
+                locales_present = available_translations.map { |translation| translation["locale"] }
+                if locales_present.sort != stringified_locales.sort
+                  failures << "expected #{stringified_locales} translations but got #{locales_present}"
+                end
+              else
+                failures << "available_translations element not present"
               end
-            else
-              failures << "available_translations element not present"
             end
+          rescue JSON::ParserErrror
+            failures << "response.body not valid JSON. Likely not present in the content store"
           end
         end
         failures

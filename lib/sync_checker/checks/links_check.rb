@@ -6,14 +6,18 @@ module SyncChecker
       def call(response)
         failures = []
         if response.response_code == 200
-          @content_item = JSON.parse(response.body)
-          if run_check?
-            if key_should_be_present? && object_at_key.nil?
-              failures << "the links key '#{links_key}' is not present"
-            else
-              failures += check_for_missing_content_ids
-              failures += check_for_unexpected_content_ids
+          begin
+            @content_item = JSON.parse(response.body)
+            if run_check?
+              if key_should_be_present? && object_at_key.nil?
+                failures << "the links key '#{links_key}' is not present"
+              else
+                failures += check_for_missing_content_ids
+                failures += check_for_unexpected_content_ids
+              end
             end
+          rescue
+            failures << "response.body not valid JSON. Likely not present in the content store"
           end
         end
         failures.flatten.compact
