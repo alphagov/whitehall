@@ -3,6 +3,6 @@
 
 UK_WORLD_LOCATION_ID = 202
 
-EditionWorldLocation.where(world_location_id: UK_WORLD_LOCATION_ID).destroy
+EditionWorldLocation.where(world_location_id: UK_WORLD_LOCATION_ID).destroy_all
 
 WorldLocation.find(UK_WORLD_LOCATION_ID).destroy
