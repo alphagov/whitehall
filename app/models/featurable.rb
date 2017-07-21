@@ -9,7 +9,8 @@ module Featurable
     feature_lists.find_by(locale: locale) || feature_lists.build(locale: locale)
   end
 
-  def load_or_create_feature_list(locale)
-    feature_lists.find_by(locale: locale) || feature_lists.create(locale: locale)
+  def load_or_create_feature_list(locale = nil)
+    locale = I18n.default_locale if locale.blank?
+    feature_lists.find_by(locale: locale) || feature_lists.create!(locale: locale)
   end
 end
