@@ -1,4 +1,6 @@
 module Assertions
+  include LocalisedUrlPathHelper
+
   def assert_current_url(url, message = nil)
     uri = Addressable::URI.parse(url)
     current_uri = Addressable::URI.parse(current_url)

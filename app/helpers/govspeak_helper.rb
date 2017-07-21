@@ -3,6 +3,7 @@ require 'delegate'
 module GovspeakHelper
   include ::Govspeak::ContactsExtractorHelpers
   include Rails.application.routes.url_helpers
+  include LocalisedUrlPathHelper
 
   BARCHART_REGEXP = /{barchart(.*?)}/
   SORTABLE_REGEXP = /{sortable}/
