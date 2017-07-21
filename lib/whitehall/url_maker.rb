@@ -12,7 +12,7 @@ module Whitehall
       end
     end
 
-    # LocalliseUrlPathHelper rewrites many helpers to look into
+    # LocalisedUrlPathHelper rewrites many helpers to look into
     # params[:locale] before deciding what url to produce, we need this to
     # make sure we can cope with that.
     def params
