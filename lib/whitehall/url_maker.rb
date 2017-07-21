@@ -11,12 +11,5 @@ module Whitehall
         self.default_url_options = UrlMaker.default_url_options.merge(default_options)
       end
     end
-
-    # LocalisedUrlPathHelper rewrites many helpers to look into
-    # params[:locale] before deciding what url to produce, we need this to
-    # make sure we can cope with that.
-    def params
-      {}
-    end
   end
 end
