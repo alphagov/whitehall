@@ -1,12 +1,14 @@
 module LocalisedUrlPathHelper
-  routes = Rails.application.routes.routes
-  localised = routes.select { |r| r.parts.include?(:locale) }
-  names = localised.map(&:name).compact
+  def self.included(klass)
+    routes = Rails.application.routes.routes
+    localised = routes.select { |r| r.parts.include?(:locale) }
+    names = localised.map(&:name).compact
 
-  # Override *_path and *_url methods for routes that take a locale param.
-  names.each do |name|
-    define_method(:"#{name}_path") { |*args| super(*localise(args)) }
-    define_method(:"#{name}_url") { |*args| super(*localise(args)) }
+    # Override *_path and *_url methods for routes that take a locale param.
+    names.each do |name|
+      klass.send(:define_method, "#{name}_path", -> (*args) { super(*localise(args)) })
+      klass.send(:define_method, "#{name}_url", -> (*args) { super(*localise(args)) })
+    end
   end
 
   # Set the locale based on the current locale serving the request. We don't do
