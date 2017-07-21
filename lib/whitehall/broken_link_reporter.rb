@@ -1,12 +1,13 @@
 # Generates CSV reports of all public documents containing broken links.
 module Whitehall
   class BrokenLinkReporter
-    attr_reader :csv_reports, :logger
+    attr_reader :csv_reports, :logger, :organisation
 
-    def initialize(csv_reports_dir, logger = Rails.logger)
+    def initialize(csv_reports_dir, logger = Rails.logger, organisation = nil)
       @csv_reports_dir = csv_reports_dir
       @csv_reports = {}
       @logger = logger
+      @organisation = organisation
     end
 
     def generate_reports
@@ -27,7 +28,11 @@ module Whitehall
   private
 
     def public_editions
-      Edition.publicly_visible.with_translations
+      if organisation.nil?
+        Edition.publicly_visible.with_translations
+      else
+        Edition.publicly_visible.with_translations.in_organisation(organisation)
+      end
     end
 
     def csv_row_for(checker)
@@ -100,7 +105,7 @@ module Whitehall
 
     private
 
-      # These hosts are hardcoded because we run this on preview but want the
+      # These hosts are hardcoded because we run this on integration but want the
       # generated URLs to be production ones.
       def public_host
         "www.gov.uk"
