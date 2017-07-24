@@ -41,7 +41,7 @@ class ContactTest < ActiveSupport::TestCase
     assert_equal ["can't be blank"], contact.errors[:street_address]
   end
 
-  test "should be invalid with only street address but no country" do
+  test "should be valid with only street address" do
     contact = build(:contact,
       recipient: "",
       street_address: "123 Acacia Avenue",
@@ -49,8 +49,7 @@ class ContactTest < ActiveSupport::TestCase
       region: "",
       postal_code: "",
       country_id: "")
-    refute contact.valid?
-    assert_equal ["can't be blank"], contact.errors[:country_id]
+    assert contact.valid?
   end
 
   test "should be valid with only street address and country" do
