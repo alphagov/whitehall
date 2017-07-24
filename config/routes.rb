@@ -289,7 +289,7 @@ Whitehall::Application.routes.draw do
             post :convert_to_draft, to: 'edition_workflow#convert_to_draft'
             get :audit_trail, to: 'edition_audit_trail#index'
           end
-          resources :links_reports
+          resources :link_check_reports
           resource :unpublishing, controller: 'edition_unpublishing', only: [:edit, :update]
           resources :translations, controller: "edition_translations", except: [:index, :show]
           resources :editorial_remarks, only: [:new, :create], shallow: true
@@ -386,6 +386,7 @@ Whitehall::Application.routes.draw do
         end
 
         resources :sitewide_settings
+        post "/link_checker_api_callback" => "link_checker_api#callback"
       end
     end
 
