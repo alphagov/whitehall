@@ -31,6 +31,26 @@ namespace :publishing_api do
         public_updated_at: Time.zone.now.iso8601,
       ))
     end
+
+    [
+      {
+        base_path: "/government/uploads",
+        content_id: "b12da705-0100-4e01-b79f-f5eed28caa1a",
+        title: "Government uploads",
+        description: "The prefix route under which government uploads are published.",
+      },
+    ].each do |route|
+      publisher.publish(
+        route.merge(
+          format: "special_route",
+          publishing_app: "whitehall",
+          rendering_app: Whitehall::RenderingApp::WHITEHALL_ADMIN,
+          update_type: "major",
+          type: "prefix",
+          public_updated_at: Time.zone.now.iso8601,
+        )
+      )
+    end
   end
 
   desc "Send published item links to Publishing API."
