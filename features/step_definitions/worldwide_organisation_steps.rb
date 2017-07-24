@@ -86,7 +86,7 @@ Given /^a worldwide organisation "([^"]*)"$/ do |name|
 end
 
 Given /^a worldwide organisation "([^"]*)" exists for the world location "([^"]*)" with translations into "([^"]*)"$/ do |name, country_name, translation|
-  country = create(:world_location, translated_into: [translation])
+  country = create(:world_location, active: true, translated_into: [translation])
   create(:worldwide_organisation, name: name, world_locations: [country])
 end
 
@@ -131,7 +131,7 @@ Then(/^I should be able to remove all services from the "(.*?)" office$/) do |de
 end
 
 Given /^that the world location "([^"]*)" exists$/ do |country_name|
-  create(:world_location, name: country_name)
+  create(:world_location, name: country_name, active: true)
 end
 
 Given /^the worldwide organisation "([^"]*)" exists$/ do |worldwide_organisation_name|
@@ -269,7 +269,7 @@ end
 
 Given /^a worldwide organisation "([^"]*)" exists with a translation for the locale "([^"]*)"$/ do |name, native_locale_name|
   locale_code = Locale.find_by_language_name(native_locale_name).code
-  country = create(:world_location, world_location_type: WorldLocationType::WorldLocation)
+  country = create(:world_location, active: true, world_location_type: WorldLocationType::WorldLocation)
   create(:worldwide_organisation, name: name, world_locations: [country], translated_into: [locale_code])
 end
 

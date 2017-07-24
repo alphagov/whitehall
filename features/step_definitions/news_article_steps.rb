@@ -149,7 +149,7 @@ end
 When(/^I draft a valid news article of type "([^"]*)" with title "([^"]*)"$/) do |news_type, title|
   if news_type == "World news story"
     create(:worldwide_organisation, name: "Afghanistan embassy")
-    create(:world_location, name: "Afghanistan")
+    create(:world_location, name: "Afghanistan", active: true)
     begin_drafting_news_article(title: title, first_published: Date.today.to_s, announcement_type: news_type)
     select "Afghanistan embassy", from: "Select the worldwide organisations associated with this news article"
     select "Afghanistan", from: "Select the world locations this news article is about"
