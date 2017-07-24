@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 Given /^a worldwide organisation that is translated exists$/ do
-  world_location = create(:world_location)
+  world_location = create(:world_location, active: true)
   worldwide_organisation = create(:worldwide_organisation,
     world_locations: [world_location],
     name: "en-organisation",
@@ -44,7 +44,7 @@ end
 
 Given(/^the organisation "(.*?)" is translated into Welsh and has a contact "(.*?)"$/) do |organisation_name, contact_title|
   organisation = create(:organisation, name: organisation_name, translated_into: :cy)
-  contact = create(:contact, title: contact_title, country: create(:world_location),
+  contact = create(:contact, title: contact_title, country: create(:world_location, active: true),
                    street_address: '123 The Avenue', contactable: organisation)
   create(:contact_number, contact: contact,
          label: 'English phone', number: '0123456789')
@@ -73,7 +73,7 @@ end
 
 Given(/^the world organisation "(.*?)" is translated into French and has an office "(.*?)"$/) do |organisation_name, office_name|
   organisation = create(:worldwide_organisation, name: organisation_name, translated_into: :fr)
-  contact = create(:contact, title: office_name, country: create(:world_location),
+  contact = create(:contact, title: office_name, country: create(:world_location, active: true),
                    street_address: "123 The Avenue")
   create(:contact_number, contact: contact, label: "English phone", number: "0123456789")
   office = create(:worldwide_office, worldwide_organisation: organisation, contact: contact)

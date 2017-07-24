@@ -33,7 +33,7 @@ end
 Given(/^there are some published publications$/) do
   topic = create :topic, name: "A Topic"
   department = create(:ministerial_department, name: "A Department")
-  world_location = create(:world_location, name: "A World Location")
+  world_location = create(:world_location, name: "A World Location", active: true)
 
   create :published_publication, title: "Publication with keyword"
   create :published_guidance, title: "Guidance publication"
@@ -132,7 +132,7 @@ end
 Given(/^there are some published announcements$/) do
   topic = create :topic, name: "A Topic"
   department = create(:ministerial_department, name: "A Department")
-  world_location = create(:world_location, name: "A World Location")
+  world_location = create(:world_location, name: "A World Location", active: true)
 
   create :published_news_story, title: "News Article with keyword, topic, department, world location published within date range",
          first_published_at: "2013-02-01",

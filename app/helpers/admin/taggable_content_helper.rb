@@ -101,7 +101,7 @@ module Admin::TaggableContentHelper
   # of the array consists of two values: the location name and its ID
   def taggable_world_locations_container
     Rails.cache.fetch(taggable_world_locations_cache_digest, expires_in: 1.day) do
-      WorldLocation.ordered_by_name.map {|w| [w.name, w.id] }
+      WorldLocation.ordered_by_name.where(active: true).map { |w| [w.name, w.id] }
     end
   end
 

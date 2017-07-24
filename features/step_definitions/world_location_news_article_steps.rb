@@ -25,7 +25,7 @@ Then /^I should only be able to view the world location news article article in 
 end
 
 When /^I draft a valid world location news article "([^"]*)"$/ do |title|
-  world_location = create(:world_location, name: "Afganistan")
+  world_location = create(:world_location, name: "Afganistan", active: true)
   worldwide_organisation = create(:worldwide_organisation, name: "Afganistan embassy")
 
   begin_drafting_world_location_news_article title: title, body: 'test-body', summary: 'test-summary'

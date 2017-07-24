@@ -147,13 +147,14 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     ], taggable_statistical_data_sets_container
   end
 
-  test '#taggable_world_locations_container returns an array of label/ID pairs for all world locations' do
-    location_a = create(:world_location, name: 'Andora')
-    location_c = create(:world_location, name: 'Croatia')
-    location_b = create(:world_location, name: 'Brazil')
+  test '#taggable_world_locations_container returns an array of label/ID pairs for all active world locations' do
+    location_a = create(:world_location, name: 'Andorra', active: true)
+    location_c = create(:world_location, name: 'Croatia', active: true)
+    location_b = create(:world_location, name: 'Brazil', active: true)
+    create(:world_location, name: 'United Kingdom', active: false)
 
     assert_equal [
-      ['Andora', location_a.id],
+      ['Andorra', location_a.id],
       ['Brazil', location_b.id],
       ['Croatia', location_c.id],
       ], taggable_world_locations_container
