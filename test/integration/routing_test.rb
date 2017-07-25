@@ -72,6 +72,12 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_redirected_to organisation_path(organisation)
   end
 
+  test "redirects organisation groups show URL to organisation page" do
+    organisation = create(:organisation)
+    get "/government/organisations/#{organisation.to_param}/groups/some-group"
+    assert_redirected_to organisation_path(organisation)
+  end
+
   test "redirects organisation chiefs-of-staff URL to organisation page" do
     organisation = create(:organisation)
     get "/government/organisations/#{organisation.to_param}/chiefs-of-staff"

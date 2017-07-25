@@ -30,7 +30,6 @@ class Organisation < ApplicationRecord
 
   has_many :organisation_roles, inverse_of: :organisation
   has_many :roles, through: :organisation_roles
-  has_many :groups
   has_many :ministerial_roles,
             -> { where("roles.whip_organisation_id IS null") },
             class_name: 'MinisterialRole',

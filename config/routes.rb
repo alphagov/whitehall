@@ -151,9 +151,9 @@ Whitehall::Application.routes.draw do
       get '/series(.:locale)' => redirect("/publications"), constraints: { locale: VALID_LOCALES_REGEX }
       get '/about(.:locale)', as: 'corporate_information_pages', to: 'corporate_information_pages#index', constraints: { locale: VALID_LOCALES_REGEX }
       get '/about/:id(.:locale)', as: 'corporate_information_page', to: 'corporate_information_pages#show', constraints: { locale: VALID_LOCALES_REGEX }
-      get '/groups/:id(.:locale)', as: 'group', to: 'groups#show', constraints: { locale: VALID_LOCALES_REGEX }
     end
     get "/organisations/:organisation_id/groups" => redirect("/organisations/%{organisation_id}")
+    get "/organisations/:organisation_id/groups/:id" => redirect("/organisations/%{organisation_id}")
     get "/organisations/:organisation_id/consultations" => redirect("/organisations/%{organisation_id}")
     get "/organisations/:organisation_id/chiefs-of-staff" => redirect("/organisations/%{organisation_id}")
     get "/organisations/:organisation_slug/email-signup" => 'email_signup_information#show',
