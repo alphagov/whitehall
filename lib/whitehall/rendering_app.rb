@@ -1,7 +1,7 @@
 module Whitehall
   module RenderingApp
-    WHITEHALL_ADMIN = 'whitehall-admin'
-    WHITEHALL_FRONTEND = 'whitehall-frontend'
-    GOVERNMENT_FRONTEND = 'government-frontend'
+    WHITEHALL_ADMIN = 'whitehall-admin'.freeze
+    WHITEHALL_FRONTEND = 'whitehall-frontend'.freeze
+    GOVERNMENT_FRONTEND = 'government-frontend'.freeze
   end
 end
