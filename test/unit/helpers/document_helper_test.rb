@@ -129,14 +129,25 @@ class DocumentHelperTest < ActionView::TestCase
   end
 
   test "#link_to_translation should generate a link based on the current controller action with the given locale" do
-    controller.stubs(:url_options).returns({
+    controller.stubs(:url_options).returns(
       action: "show",
       controller: "world_locations",
       locale: "it",
       id: "a-world-location"
-    })
-    assert_dom_equal %(<a lang="de" href="#{world_location_path('a-world-location', :de)}">Deutsch</a>),
+    )
+    assert_dom_equal %(<a lang="de" href="/world/a-world-location.de">Deutsch</a>),
       link_to_translation(:de)
+  end
+
+  test "#link_to_translation should not suffix URLs with 'en'" do
+    controller.stubs(:url_options).returns(
+      action: "show",
+      controller: "world_locations",
+      locale: "it",
+      id: "a-world-location"
+    )
+    assert_dom_equal %(<a lang="en" href="/world/a-world-location">English</a>),
+      link_to_translation(:en)
   end
 
   test "part_of_metadata does not have any links for a simple document" do

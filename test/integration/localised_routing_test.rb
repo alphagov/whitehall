@@ -38,7 +38,7 @@ class RoutingLocaleTest < ActionDispatch::IntegrationTest
   end
 
   test "#show with non-english locale includes the locale in the path" do
-    ministerial_role = create(:ministerial_role)
+    ministerial_role = I18n.with_locale(:dr) { create(:ministerial_role) }
     assert_equal "/government/ministers/#{ministerial_role.slug}.dr",
       ministerial_role_path(ministerial_role, locale: 'dr')
   end
@@ -56,7 +56,7 @@ class RoutingLocaleTest < ActionDispatch::IntegrationTest
   end
 
   test "#show with a non-english locale and a format includes the locale and format in the path" do
-    ministerial_role = create(:ministerial_role)
+    ministerial_role = I18n.with_locale(:cy) { create(:ministerial_role) }
     assert_equal "/government/ministers/#{ministerial_role.slug}.cy.json",
       ministerial_role_path(ministerial_role, locale: 'cy', format: 'json')
   end

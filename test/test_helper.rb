@@ -179,6 +179,7 @@ class ActionController::TestCase
 
   include PublicDocumentRoutesHelper
   include Admin::EditionRoutesHelper
+  include LocalisedUrlPathHelper
 
   attr_reader :current_user
 
@@ -217,6 +218,8 @@ class ActionController::TestCase
 end
 
 class ActionDispatch::IntegrationTest
+  include LocalisedUrlPathHelper
+
   def login_as(user)
     GDS::SSO.test_user = user
   end
@@ -242,6 +245,8 @@ class ActionMailer::TestCase
 end
 
 class ActionView::TestCase
+  include LocalisedUrlPathHelper
+
   def setup_view_context
     @view_context = @controller.view_context
   end

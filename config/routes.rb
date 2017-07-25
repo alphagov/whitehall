@@ -9,6 +9,8 @@ class AdminRequest
 end
 
 Whitehall::Application.routes.draw do
+  VALID_LOCALES_REGEX = Regexp.compile(Locale.non_english.map(&:code).join("|"))
+
   def redirect(path, options = {prefix: Whitehall.router_prefix})
     super(options[:prefix] + path)
   end
@@ -36,18 +38,21 @@ Whitehall::Application.routes.draw do
   # World locations and Worldwide organisations
   get '/world/organisations/:organisation_id/office' => redirect('/world/organisations/%{organisation_id}', prefix: '')
   get '/world/organisations/:organisation_id/about' => redirect('/world/organisations/%{organisation_id}', prefix: '')
-  resources :worldwide_organisations, path: 'world/organisations', only: [:show], localised: true do
-    resources :corporate_information_pages, only: [:show], path: 'about', localised: true
+  get '/world/organisations/:id(.:locale)', as: "worldwide_organisation", to: "worldwide_organisations#show", constraints: { locale: VALID_LOCALES_REGEX }
+
+  resources :worldwide_organisations, path: 'world/organisations', only: [] do
+    get '/about/:id(.:locale)', as: 'corporate_information_page', to: 'corporate_information_pages#show', constraints: { locale: VALID_LOCALES_REGEX }
     # Dummy path for the sake of polymorphic_path: will always be directed above.
-    get :about
-    resources :worldwide_offices, path: 'office', only: [:show]
+    get '/about(.:locale)', as: 'about', to: '_#_', constraints: { locale: VALID_LOCALES_REGEX }
+
+    get '/office/:id(.:locale)', to: "worldwide_offices#show", as: :worldwide_office, constraints: { locale: VALID_LOCALES_REGEX }
   end
 
   resources :embassies, path: 'world/embassies', only: [:index]
 
-  resources :world_locations, path: 'world', only: [:index, :show], localised: true do
-    resources :world_location_news, path: 'news', only: [:index]
-  end
+  get '/world(.:locale)', as: 'world_locations', to: 'world_locations#index', constraints: { locale: VALID_LOCALES_REGEX }
+  get '/world/:id(.:locale)', as: 'world_location', to: 'world_locations#show', constraints: { locale: VALID_LOCALES_REGEX }
+  get '/world/news(.:locale)', as: 'world_location_news_index', to: 'world_location_news#index', constraints: { locale: VALID_LOCALES_REGEX }
 
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
     external_redirect '/organisations/ministry-of-defence-police-and-guarding-agency',
@@ -86,20 +91,21 @@ Whitehall::Application.routes.draw do
     get '/feed' => 'home#feed', defaults: { format: :atom }, constraints: { format: :atom }, as: :atom_feed
     get '/tour' => redirect("/tour", prefix: "")
 
-    resources :announcements, only: [:index], path: 'announcements', localised: true
-    resources :news_articles, path: 'news', only: [:show], localised: true
+    get '/announcements(.:locale)', as: 'announcements', to: 'announcements#index', constraints: { locale: VALID_LOCALES_REGEX }
+    get '/news/:id(.:locale)', as: 'news_article', to: 'news_articles#show', constraints: { locale: VALID_LOCALES_REGEX }
     resources :fatality_notices, path: 'fatalities', only: [:show]
     get "/news" => redirect("/announcements"), as: 'news_articles'
     get "/fatalities" => redirect("/announcements"), as: 'fatality_notices'
 
     get "/latest" => 'latest#index', as: 'latest'
 
-    resources :publications, only: [:index, :show], localised: true
+    get '/publications(.:locale)', as: 'publications', to: 'publications#index', constraints: { locale: VALID_LOCALES_REGEX }
+    get '/publications/:id(.:locale)', as: 'publication', to: 'publications#show', constraints: { locale: VALID_LOCALES_REGEX }
     get "/publications/:publication_id/:id" => 'html_attachments#show', as: 'publication_html_attachment'
 
     # TODO: Remove when paths can be generated without a routes entry
-    resources :case_studies, path: 'case-studies', only: [:show], localised: true
-    resources :speeches, only: [:show], localised: true
+    get '/case-studies/:id(.:locale)', as: 'case_study', to: 'case_studies#show', constraints: { locale: VALID_LOCALES_REGEX }
+    get '/speeches/:id(.:locale)', as: 'speech', to: 'speeches#show', constraints: { locale: VALID_LOCALES_REGEX }
     resources :statistical_data_sets, path: 'statistical-data-sets', only: [:show]
 
     get "/speeches" => redirect("/announcements")
@@ -109,8 +115,10 @@ Whitehall::Application.routes.draw do
     # helper methods.
     # TODO: Remove `:show` when stats announcement paths can be otherwise generated
     resources :statistics_announcements, path: 'statistics/announcements', only: [:index, :show]
-    resources :statistics, only: [:index, :show], localised: true
-    resources :world_location_news_articles, path: 'world-location-news', only: [:index, :show], localised: true
+    get '/statistics(.:locale)', as: 'statistics', to: 'statistics#index', constraints: { locale: VALID_LOCALES_REGEX }
+    get '/statistics/:id(.:locale)', as: 'statistic', to: 'statistics#show', constraints: { locale: VALID_LOCALES_REGEX }
+    get '/world-location-news(.:locale)', as: 'world_location_news_articles', to: 'world_location_news_articles#index', constraints: { locale: VALID_LOCALES_REGEX }
+    get '/world-location-news/:id(.:locale)', as: 'world_location_news_article', to: 'world_location_news_articles#show', constraints: { locale: VALID_LOCALES_REGEX }
 
     resources :consultations, only: [:index, :show] do
       collection do
@@ -133,24 +141,29 @@ Whitehall::Application.routes.draw do
     # TODO: Remove when paths can be generated without a routes entry
     resources :document_collections, only: [:show], path: 'collections'
     get '/collections' => redirect("/publications")
-    resources :organisations, only: [:index], localised: false
-    resources :organisations, only: [:show], localised: true do
-      get '/series/:slug' => redirect("/collections/%{slug}")
-      get '/series' => redirect("/publications")
+
+    get '/organisations/:id(.:locale)', as: 'organisation', to: 'organisations#show', constraints: { locale: VALID_LOCALES_REGEX }
+    resources :organisations, only: [:index] do
+      # No need to forward the locale as collections aren't localised.
+      get '/series/:slug(.:locale)' => redirect("/collections/%{slug}"), constraints: { locale: VALID_LOCALES_REGEX }
+      get '/series(.:locale)' => redirect("/publications%{('.' + locale) if locale}"), constraints: { locale: VALID_LOCALES_REGEX }
 
       member do
-        get :consultations
-        get :chiefs_of_staff, path: 'chiefs-of-staff'
+        get 'consultations(.:locale)', as: 'consultations', to: 'organisations#consultations', constraints: { locale: VALID_LOCALES_REGEX }
+        get 'chiefs-of-staff(.:locale)', as: 'chiefs_of_staff', to: 'organisations#chiefs_of_staff', constraints: { locale: VALID_LOCALES_REGEX }
       end
-      resources :corporate_information_pages, only: [:show, :index], path: 'about', localised: true
-      resources :groups, only: [:show]
+
+      get '/about(.:locale)', as: 'corporate_information_pages', to: 'corporate_information_pages#index', constraints: { locale: VALID_LOCALES_REGEX }
+      get '/about/:id(.:locale)', as: 'corporate_information_page', to: 'corporate_information_pages#show', constraints: { locale: VALID_LOCALES_REGEX }
+      get '/groups/:id(.:locale)', as: 'group', to: 'groups#show', constraints: { locale: VALID_LOCALES_REGEX }
     end
     get "/organisations/:organisation_id/groups" => redirect("/organisations/%{organisation_id}")
     get "/organisations/:organisation_slug/email-signup" => 'email_signup_information#show',
       as: :organisation_email_signup_information
 
-    resources :ministerial_roles, path: 'ministers', only: [:index, :show], localised: true
-    resources :people, only: :show, localised: true
+    get '/ministers(.:locale)', as: 'ministerial_roles', to: 'ministerial_roles#index', constraints: { locale: VALID_LOCALES_REGEX }
+    get '/ministers/:id(.:locale)', as: 'ministerial_role', to: 'ministerial_roles#show', constraints: { locale: VALID_LOCALES_REGEX }
+    get '/people/:id(.:locale)', as: 'person', to: 'people#show', constraints: { locale: VALID_LOCALES_REGEX }
 
     # TODO: Remove `:show` when policy group paths can be otherwise generated
     resources :policy_groups, path: 'groups', only: [:show]
@@ -206,7 +219,7 @@ Whitehall::Application.routes.draw do
             resources :promotional_feature_items, as: :items, path: 'items', except: [:index]
           end
           member do
-            get :features, localised: true
+            get '/features(.:locale)', as: 'features', to: 'organisations#features', constraints: { locale: VALID_LOCALES_REGEX }
             get :people
           end
           resources :financial_reports, except: [:show]
@@ -351,7 +364,7 @@ Whitehall::Application.routes.draw do
         end
         resources :world_locations, only: [:index, :edit, :update, :show] do
           member do
-            get :features, localised: true
+            get '/features(.:locale)', as: 'features', to: 'world_locations#features', constraints: { locale: VALID_LOCALES_REGEX }
           end
           resources :translations, controller: 'world_location_translations'
           resources :offsite_links
@@ -394,14 +407,14 @@ Whitehall::Application.routes.draw do
     get '/placeholder' => 'placeholder#show', as: :placeholder
   end
 
-  resources :organisations, only: [:index, :show], path: 'courts-tribunals', localised: true,
-    as: :courts, courts_only: true
+  get '/courts-tribunals(.:locale)', as: 'courts', to: 'organisations#index', courts_only: true, constraints: { locale: VALID_LOCALES_REGEX }
+  get '/courts-tribunals/:id(.:locale)', as: 'court', to: 'organisations#show', courts_only: true, constraints: { locale: VALID_LOCALES_REGEX }
 
   get 'healthcheck' => 'healthcheck#check'
   get 'healthcheck/overdue' => 'healthcheck#overdue'
 
   # TODO: Remove when paths for new content can be generated without a route helper
-  get '/guidance/:id' => 'detailed_guides#show', constraints: {id: /[A-z0-9\-]+/}, as: 'detailed_guide', localised: true
+  get '/guidance/:id(.:locale)', as: 'detailed_guide', to: 'detailed_guides#show', constraints: { id: /[A-z0-9\-]+/, locale: VALID_LOCALES_REGEX }
 
   get '/government/uploads/system/uploads/consultation_response_form/*path.:extension' => LongLifeRedirect.new('/government/uploads/system/uploads/consultation_response_form_data/')
   get '/government/uploads/system/uploads/attachment_data/file/:id/*file.:extension' => "attachments#show"
