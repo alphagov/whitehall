@@ -143,12 +143,12 @@ Whitehall::Application.routes.draw do
     get '/collections' => redirect("/publications")
 
     get '/organisations/:id(.:locale)', as: 'organisation', to: 'organisations#show', constraints: { locale: VALID_LOCALES_REGEX }
-    resources :organisations, only: [:index] do
+    resources :organisations, only: [:index]
+
+    resources :organisations, only: [] do
       # No need to forward the locale as collections aren't localised.
       get '/series/:slug(.:locale)' => redirect("/collections/%{slug}"), constraints: { locale: VALID_LOCALES_REGEX }
-      get '/series(.:locale)' => redirect("/publications%{('.' + locale) if locale}"), constraints: { locale: VALID_LOCALES_REGEX }
-
-
+      get '/series(.:locale)' => redirect("/publications"), constraints: { locale: VALID_LOCALES_REGEX }
       get '/about(.:locale)', as: 'corporate_information_pages', to: 'corporate_information_pages#index', constraints: { locale: VALID_LOCALES_REGEX }
       get '/about/:id(.:locale)', as: 'corporate_information_page', to: 'corporate_information_pages#show', constraints: { locale: VALID_LOCALES_REGEX }
       get '/groups/:id(.:locale)', as: 'group', to: 'groups#show', constraints: { locale: VALID_LOCALES_REGEX }
