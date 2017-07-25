@@ -62,7 +62,7 @@ module TestsForNationalApplicability
       post :create, params: {
         edition: attributes.merge(
           title: ''
-              ).merge(nation_inapplicabilities_attributes_for(Nation.scotland => "http://www.scotland.com/"))
+        ).merge(nation_inapplicabilities_attributes_for(Nation.scotland => "http://www.scotland.com/"))
       }
 
       assert_nation_inapplicability_fields_exist

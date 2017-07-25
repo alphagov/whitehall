@@ -4,7 +4,7 @@
 # can be found in the Wiki - https://gov-uk.atlassian.net/wiki/display/GOVUK/Statistics.
 #
 # Once the statistics are published, the statistics announcement will redirect and
-# dissapear from search.
+# disappear from search.
 #
 # Statistics Announcements pages are rendered by the `government-frontend` app,
 # the index page is still rendered from Whitehall.
