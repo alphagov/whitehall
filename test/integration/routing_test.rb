@@ -72,6 +72,18 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_redirected_to organisation_path(organisation)
   end
 
+  test "redirects organisation chiefs-of-staff URL to organisation page" do
+    organisation = create(:organisation)
+    get "/government/organisations/#{organisation.to_param}/chiefs-of-staff"
+    assert_redirected_to organisation_path(organisation)
+  end
+
+  test "redirects organisation consultations URL to organisation page" do
+    organisation = create(:organisation)
+    get "/government/organisations/#{organisation.to_param}/consultations"
+    assert_redirected_to organisation_path(organisation)
+  end
+
   test "atom feed responds with atom to both /government/feed and /government/feed.atom requests" do
     get "/government/feed"
     assert_equal 200, response.status

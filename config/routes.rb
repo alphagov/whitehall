@@ -148,16 +148,14 @@ Whitehall::Application.routes.draw do
       get '/series/:slug(.:locale)' => redirect("/collections/%{slug}"), constraints: { locale: VALID_LOCALES_REGEX }
       get '/series(.:locale)' => redirect("/publications%{('.' + locale) if locale}"), constraints: { locale: VALID_LOCALES_REGEX }
 
-      member do
-        get 'consultations(.:locale)', as: 'consultations', to: 'organisations#consultations', constraints: { locale: VALID_LOCALES_REGEX }
-        get 'chiefs-of-staff(.:locale)', as: 'chiefs_of_staff', to: 'organisations#chiefs_of_staff', constraints: { locale: VALID_LOCALES_REGEX }
-      end
 
       get '/about(.:locale)', as: 'corporate_information_pages', to: 'corporate_information_pages#index', constraints: { locale: VALID_LOCALES_REGEX }
       get '/about/:id(.:locale)', as: 'corporate_information_page', to: 'corporate_information_pages#show', constraints: { locale: VALID_LOCALES_REGEX }
       get '/groups/:id(.:locale)', as: 'group', to: 'groups#show', constraints: { locale: VALID_LOCALES_REGEX }
     end
     get "/organisations/:organisation_id/groups" => redirect("/organisations/%{organisation_id}")
+    get "/organisations/:organisation_id/consultations" => redirect("/organisations/%{organisation_id}")
+    get "/organisations/:organisation_id/chiefs-of-staff" => redirect("/organisations/%{organisation_id}")
     get "/organisations/:organisation_slug/email-signup" => 'email_signup_information#show',
       as: :organisation_email_signup_information
 

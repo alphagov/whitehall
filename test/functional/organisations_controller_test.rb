@@ -182,7 +182,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select "nav" do
       refute_select "a[href=?]", announcements_path(departments: [organisation])
       refute_select "a[href=?]", publications_path(departments: [organisation])
-      refute_select "a[href=?]", consultations_organisation_path(organisation)
     end
   end
 
