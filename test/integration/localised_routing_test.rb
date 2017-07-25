@@ -25,6 +25,20 @@ class RoutingLocaleTest < ActionDispatch::IntegrationTest
     assert_equal '/government/ministers.dk.atom', ministerial_roles_path(locale: 'dk', format: 'atom')
   end
 
+  test "#index with a non-english I18n.locale" do
+    I18n.with_locale(:fr) do
+      assert_equal '/government/ministers.fr', ministerial_roles_path
+    end
+  end
+
+  test "#index with a non-english I18n.locale and an overridden locale" do
+    I18n.with_locale(:fr) do
+      assert_equal '/government/ministers.de', ministerial_roles_path(locale: "de")
+      assert_equal '/government/ministers', ministerial_roles_path(locale: "en")
+      assert_equal '/government/ministers', ministerial_roles_path(locale: "")
+    end
+  end
+
   test "#show with no locale" do
     ministerial_role = create(:ministerial_role)
     assert_equal "/government/ministers/#{ministerial_role.slug}",

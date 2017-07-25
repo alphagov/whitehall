@@ -24,7 +24,7 @@ module Admin::OrganisationHelper
       tabs["Promotional features"] = admin_organisation_promotional_features_path(organisation)
     end
 
-    tabs["Features"] = features_admin_organisation_path(organisation, locale: nil)
+    tabs["Features"] = features_admin_organisation_path(organisation, locale: I18n.default_locale)
     organisation.non_english_translated_locales.each do |locale|
       tabs["Features (#{locale.native_language_name})"] = features_admin_organisation_path(organisation, locale: locale.code)
     end

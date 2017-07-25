@@ -80,4 +80,12 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
 
     refute FeaturedLink.exists?(featured_link.id)
   end
+
+  view_test "the 'View on website' link on /features goes to the English world location page" do
+    world_location = create(:world_location, slug: "france", translated_into: [:fr])
+    get :features, id: world_location, locale: "fr"
+
+    assert response.body.include?("gov.uk/world/france")
+    refute response.body.include?("gov.uk/world/france.fr")
+  end
 end

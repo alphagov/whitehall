@@ -1,7 +1,7 @@
 <% page_title @organisation.name %>
 <div class="organisation-header">
   <h1><%= @organisation.name %></h1>
-  <%= view_on_website_link_for @organisation %>
+  <%= view_on_website_link_for @organisation, url: { locale: I18n.default_locale } %>
 </div>
 <section class="organisation-details">
   <%= tab_navigation_for(@organisation) do %>
