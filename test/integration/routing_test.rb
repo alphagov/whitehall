@@ -94,4 +94,11 @@ class RoutingTest < ActionDispatch::IntegrationTest
     get "/government/admin/editions/#{publication.id}"
     assert_redirected_to "/government/admin/publications/#{publication.id}"
   end
+
+  test "routing to world location news" do
+    create(:world_location, slug: "france", translated_into: [:fr])
+
+    get "/world/france/news.fr"
+    assert_response :success
+  end
 end

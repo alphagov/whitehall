@@ -52,7 +52,7 @@ Whitehall::Application.routes.draw do
 
   get '/world(.:locale)', as: 'world_locations', to: 'world_locations#index', constraints: { locale: VALID_LOCALES_REGEX }
   get '/world/:id(.:locale)', as: 'world_location', to: 'world_locations#show', constraints: { locale: VALID_LOCALES_REGEX }
-  get '/world/news(.:locale)', as: 'world_location_news_index', to: 'world_location_news#index', constraints: { locale: VALID_LOCALES_REGEX }
+  get '/world/:world_location_id/news(.:locale)', as: 'world_location_news_index', to: 'world_location_news#index', constraints: { locale: VALID_LOCALES_REGEX }
 
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
     external_redirect '/organisations/ministry-of-defence-police-and-guarding-agency',
