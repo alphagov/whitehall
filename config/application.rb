@@ -48,5 +48,9 @@ module Whitehall
       generate.assets false
       generate.test_framework :test_unit, fixture: false
     end
+
+    # Raise an exception when parameters are used without filtering
+    # This will be mandatory in Rails 5.1
+    config.action_controller.raise_on_unfiltered_parameters = true
   end
 end

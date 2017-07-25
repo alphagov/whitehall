@@ -9,10 +9,12 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     # TODO: investigate removing stubbing of publishing api calls from standard test setup
     WebMock.reset!
 
-    # In the case of unpublishings, we trigger a job to save the draft edition.
-    # That job runs inline because we're in test mode, so we need to stub it.
+    # Stub all publishing-api endpoints because creating a model makes the calls
+    # before we have a chance to stub inside each test. Individual tests still
+    # check for calls to publishing-api with test-specific data.
     stub_any_publishing_api_put_content
     stub_any_publishing_api_patch_links
+    stub_any_publishing_api_publish
   end
 
   test ".publish_async publishes an Edition with the Publishing API" do
