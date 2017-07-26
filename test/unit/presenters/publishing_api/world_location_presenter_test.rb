@@ -21,6 +21,7 @@ class PublishingApi::WorldLocationPresenterTest < ActiveSupport::TestCase
       need_ids: [],
       details: {},
       analytics_identifier: "WL123",
+      update_type: "major",
     }
     expected_links = {}
 

@@ -23,6 +23,7 @@ class PublishingApi::MinisterialRolePresenterTest < ActiveSupport::TestCase
       redirects: [],
       need_ids: [],
       details: {},
+      update_type: "major",
     }
     expected_links = {
       organisations: ministerial_role.organisations.map(&:content_id)

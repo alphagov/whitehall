@@ -29,6 +29,7 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
         { path: html_attachment.url, type: 'exact' }
       ],
       redirects: [],
+      update_type: "major",
       details: {
         body: Whitehall::GovspeakRenderer.new
           .govspeak_to_html(html_attachment.govspeak_content.body),

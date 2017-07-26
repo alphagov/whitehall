@@ -21,7 +21,7 @@ private
       content_id,
       finder_content_item
     )
-    Services.publishing_api.publish(content_id, "major")
+    Services.publishing_api.publish(content_id)
   end
 
   def send_to_rummager

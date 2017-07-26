@@ -23,6 +23,7 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
       redirects: [],
       need_ids: [],
       details: {},
+      update_type: "major",
     }
     expected_links = {}
 

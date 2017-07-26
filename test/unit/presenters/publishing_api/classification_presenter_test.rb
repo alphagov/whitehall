@@ -23,7 +23,8 @@ class PublishingApi::ClassificationTest < ActiveSupport::TestCase
       ],
       redirects: [],
       public_updated_at: topic.updated_at,
-      details: {}
+      update_type: "major",
+      details: {},
     }
 
     presenter = ::PublishingApiPresenters.presenter_for(topic)

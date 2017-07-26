@@ -25,6 +25,7 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
         { path: public_path, type: 'exact' }
       ],
       redirects: [],
+      update_type: "major",
       details: {
         display_date: statistics_announcement.current_release_date.display_date,
         state: statistics_announcement.state,
@@ -70,6 +71,7 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
         { path: public_path, type: 'exact' }
       ],
       redirects: [],
+      update_type: "major",
       details: {
         display_date: statistics_announcement.current_release_date.display_date,
         state: statistics_announcement.state,
@@ -119,6 +121,7 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
         { path: public_path, type: 'exact' }
       ],
       redirects: [],
+      update_type: "major",
       details: {
         display_date: statistics_announcement.current_release_date.display_date,
         previous_display_date: 7.days.from_now.to_s(:date_with_time),

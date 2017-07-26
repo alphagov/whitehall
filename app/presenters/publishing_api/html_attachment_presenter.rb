@@ -18,6 +18,7 @@ module PublishingApi
         item,
         need_ids: [],
         locale: locale,
+        update_type: update_type,
       ).base_attributes
 
       content.merge!(

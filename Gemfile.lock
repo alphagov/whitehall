@@ -134,7 +134,7 @@ GEM
     ffi (1.9.18)
     friendly_id (5.2.1)
       activerecord (>= 4.0.0)
-    gds-api-adapters (45.0.0)
+    gds-api-adapters (47.2.0)
       link_header
       lrucache (~> 0.1.1)
       null_logger
@@ -301,7 +301,7 @@ GEM
       pry (~> 0.10)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
-    rack (1.6.6)
+    rack (1.6.8)
     rack-cache (1.7.0)
       rack (>= 0.4)
     rack-protection (2.0.0)
@@ -483,7 +483,7 @@ DEPENDENCIES
   factory_girl
   faraday
   friendly_id (~> 5.2.1)
-  gds-api-adapters (~> 45.0.0)
+  gds-api-adapters (~> 47.2)
   gds-sso (~> 13.2)
   globalize (~> 5.0.0)
   govspeak (~> 3.6.2)
@@ -552,4 +552,4 @@ DEPENDENCIES
   whenever (~> 0.9.7)
 
 BUNDLED WITH
-   1.14.5
+   1.15.1

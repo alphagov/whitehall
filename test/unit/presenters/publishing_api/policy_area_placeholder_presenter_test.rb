@@ -23,6 +23,7 @@ class PublishingApi::PolicyAreaPlaceholderPresenterTest < ActionView::TestCase
       redirects: [],
       need_ids: [],
       details: {},
+      update_type: "major",
     }
     expected_links = {organisations: []}
 

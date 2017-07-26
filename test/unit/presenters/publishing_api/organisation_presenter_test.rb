@@ -30,6 +30,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       routes: [{ path: public_path, type: "exact" }],
       redirects: [],
       need_ids: [],
+      update_type: "major",
       details: {
         brand: nil,
         logo: {

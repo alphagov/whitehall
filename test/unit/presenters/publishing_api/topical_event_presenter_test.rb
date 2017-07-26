@@ -21,6 +21,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
           type: 'exact'
         }
       ],
+      update_type: "major",
       redirects: [],
       public_updated_at: topical_event.updated_at,
       details: {
@@ -55,6 +56,7 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
           type: 'exact'
         }
       ],
+      update_type: "major",
       redirects: [],
       public_updated_at: topical_event.updated_at,
       details: {}

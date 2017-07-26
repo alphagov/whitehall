@@ -15,7 +15,7 @@ module PublishingApi
 
     def content
       {}.tap { |content|
-        content.merge!(BaseItemPresenter.new(item).base_attributes)
+        content.merge!(BaseItemPresenter.new(item, update_type: update_type).base_attributes)
         content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
         content.merge!(
           description: item.summary,

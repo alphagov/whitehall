@@ -31,7 +31,8 @@ class PublishingApi::TakePartPresenterTest < ActiveSupport::TestCase
           alt_text: "Image alt text"
         }
       },
-      need_ids: []
+      need_ids: [],
+      update_type: "major",
     }
 
     presented_item = present(take_part_page)

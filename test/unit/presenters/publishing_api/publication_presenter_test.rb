@@ -31,6 +31,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       ],
       redirects: [],
       first_published_at: publication.first_public_at,
+      update_type: "major",
       details: {
         body: "<div class=\"govspeak\"><p>Some content</p></div>",
         tags: {

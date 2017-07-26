@@ -27,12 +27,13 @@ class PublishStaticPagesTest < ActiveSupport::TestCase
             document_type: page[:document_type],
             schema_name: "placeholder",
             base_path: page[:base_path],
-            title: page[:title]
+            title: page[:title],
+            update_type: "minor",
           )
         )
 
       Services.publishing_api.expects(:publish)
-        .with(page[:content_id], 'minor', locale: "en")
+        .with(page[:content_id], nil, locale: "en")
     end
   end
 

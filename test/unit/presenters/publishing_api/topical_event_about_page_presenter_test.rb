@@ -23,6 +23,7 @@ class PublishingApi::TopicalEventAboutPagePresenterTest < ActiveSupport::TestCas
         { path: topical_event_about_page.search_link, type: 'exact' }
       ],
       redirects: [],
+      update_type: "major",
       details: {
         body: "<div class=\"govspeak\"><p>Body</p></div>",
         read_more: 'Read more'

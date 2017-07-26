@@ -31,13 +31,13 @@ class WorldLocationNewsPageWorkerTest < ActiveSupport::TestCase
     Services.publishing_api.expects(:put_content)
       .with(
         "a_guid",
-        Hash.new(title: "title", description: "description")
+        Hash.new(title: "title", description: "description", update_type: "major")
     )
 
     Services.publishing_api.expects(:publish)
       .with(
         "a_guid",
-        "major",
+        nil,
         locale: "en"
     )
 
