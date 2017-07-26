@@ -7,6 +7,7 @@
   "schema_name": "finder",
   "publishing_app": "whitehall",
   "rendering_app": "finder-frontend",
+  "update_type": "major",
   "details": {
     "document_noun": "data set",
     "facets": [

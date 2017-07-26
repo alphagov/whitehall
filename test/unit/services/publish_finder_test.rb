@@ -11,7 +11,7 @@ class PublishFinderTest < ActiveSupport::TestCase
     PublishFinder.call(people_finder)
 
     assert_publishing_api_put_content('a-content-id', people_finder)
-    assert_publishing_api_publish('a-content-id', update_type: 'major')
+    assert_publishing_api_publish('a-content-id')
   end
 
   test 'it uses the existing content id when publishing' do
@@ -23,6 +23,6 @@ class PublishFinderTest < ActiveSupport::TestCase
     PublishFinder.call(people_finder)
 
     assert_publishing_api_put_content('existing-content-id', people_finder)
-    assert_publishing_api_publish('existing-content-id', update_type: 'major')
+    assert_publishing_api_publish('existing-content-id')
   end
 end
