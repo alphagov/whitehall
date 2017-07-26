@@ -4,6 +4,7 @@ When /^I create a fatality notice titled "([^"]*)" in the field "([^"]*)"$/ do |
 end
 
 Then /^the fatality notice is shown on the Announcements page$/ do
+  stub_content_item_from_content_store_for(announcements_path)
   visit homepage
   click_link "Announcements"
   assert page.has_content?(FatalityNotice.last.title)

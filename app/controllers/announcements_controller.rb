@@ -8,6 +8,11 @@ class AnnouncementsController < DocumentsController
 
     respond_to do |format|
       format.html do
+        @content_item = Whitehall
+          .content_store
+          .content_item("/government/announcements")
+          .to_hash
+
         @filter = AnnouncementFilterJsonPresenter.new(
           @filter, view_context, AnnouncementPresenter
         )

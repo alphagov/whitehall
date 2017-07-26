@@ -197,12 +197,16 @@ Then /^I should see (#{THE_DOCUMENT}) in the list of published documents$/ do |e
 end
 
 Then(/^(#{THE_DOCUMENT}) should no longer be listed on the public site$/) do |edition|
+  public_edition_path = public_path_for(edition)
+  stub_content_item_from_content_store_for(public_edition_path)
   visit_public_index_for(edition)
   css_selector = edition.is_a?(DetailedGuide) ? 'h1.page_title' : record_css_selector(edition)
   assert page.has_no_content?(edition.title)
 end
 
 Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |edition|
+  public_edition_path = public_path_for(edition)
+  stub_content_item_from_content_store_for(public_edition_path)
   visit_public_index_for(edition)
   assert page.has_css?(record_css_selector(edition), text: edition.title)
 end

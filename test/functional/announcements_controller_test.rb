@@ -1,13 +1,23 @@
 require "test_helper"
+require "gds_api/test_helpers/content_store"
 
 class AnnouncementsControllerTest < ActionController::TestCase
   include ActionView::Helpers::DateHelper
   include DocumentFilterHelpers
+  include GdsApi::TestHelpers::ContentStore
 
   with_not_quite_as_fake_search
   should_be_a_public_facing_controller
   should_return_json_suitable_for_the_document_filter :news_article
   should_return_json_suitable_for_the_document_filter :speech
+
+  setup do
+    @content_item = content_item_for_base_path(
+      '/government/announcements'
+    )
+
+    content_store_has_item(@content_item['base_path'], @content_item)
+  end
 
   view_test "index shows a mix of news and speeches" do
     announced_today = [create(:published_news_article), create(:published_speech)]
@@ -261,6 +271,20 @@ class AnnouncementsControllerTest < ActionController::TestCase
   view_test 'index for non-english locales skips results summary' do
     get :index, locale: 'fr'
     refute_select '.filter-results-summary'
+  end
+
+  view_test 'includes the analytics component' do
+    get :index
+
+    analytics_component = css_select(
+      'test-govuk-component[data-template=govuk_component-analytics_meta_tags]'
+    )
+
+    assert_match(
+      @content_item['title'],
+      analytics_component.text,
+      'Expected the analytics meta tag component to be initialized with the content item'
+    )
   end
 
   view_test 'index includes tracking details on all links' do

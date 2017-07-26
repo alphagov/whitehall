@@ -9,6 +9,11 @@ class StatisticsController < DocumentsController
 
     respond_to do |format|
       format.html do
+        @content_item = Whitehall
+          .content_store
+          .content_item("/government/statistics")
+          .to_hash
+
         @filter = StatisticsFilterJsonPresenter.new(
           @filter, view_context, PublicationesquePresenter
         )

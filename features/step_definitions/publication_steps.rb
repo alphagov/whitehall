@@ -50,6 +50,7 @@ When /^I draft a new publication "([^"]*)" that does not apply to the nations:$/
 end
 
 When /^I visit the list of publications$/ do
+  stub_content_item_from_content_store_for(publications_path)
   visit homepage
   click_link "Publications"
 end
@@ -159,6 +160,13 @@ Given /^a published publication "([^"]*)" with type "([^"]*)"$/ do |publication_
 end
 
 When /^I filter the publications list by "([^"]*)"$/ do |publication_filter|
+  stub_content_item_from_content_store_for(publications_path)
+  filter_path_name = (publication_filter.to_s.underscore + "_path").to_sym
+
+  if respond_to?(filter_path_name)
+    stub_content_item_from_content_store_for(send(filter_path_name))
+  end
+
   visit publications_path
   select publication_filter, from: "Publication type"
   click_on "Refresh results"

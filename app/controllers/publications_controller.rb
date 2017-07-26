@@ -10,6 +10,11 @@ class PublicationsController < DocumentsController
 
     respond_to do |format|
       format.html do
+        @content_item = Whitehall
+          .content_store
+          .content_item("/government/publications")
+          .to_hash
+
         @filter = PublicationFilterJsonPresenter.new(
           @filter, view_context, PublicationesquePresenter
         )

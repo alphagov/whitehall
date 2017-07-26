@@ -49,19 +49,23 @@ module NavigationHelpers
     visit topic_path(Topic.find_by!(name: name))
   end
 
-  def visit_public_index_for(edition)
+  def public_path_for(edition)
     case edition
     when Publication
-      visit publications_path
+      publications_path
     when Speech
-      visit announcements_path
+      announcements_path
     when Consultation
-      visit consultations_path
+      consultations_path
     when DetailedGuide
-      visit detailed_guide_path(edition.document)
+      detailed_guide_path(edition.document)
     else
       raise "Don't know where to go for #{edition.class.name}s"
     end
+  end
+
+  def visit_public_index_for(edition)
+    visit public_path_for(edition)
   end
 end
 

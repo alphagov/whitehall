@@ -17,6 +17,7 @@ Given(/^there are some statistics$/) do
 end
 
 When(/^I visit the statistics index page$/) do
+  stub_content_item_from_content_store_for(statistics_path)
   visit statistics_path
 end
 
