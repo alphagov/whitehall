@@ -52,7 +52,7 @@ Whitehall::Application.routes.draw do
 
   get '/world(.:locale)', as: 'world_locations', to: 'world_locations#index', constraints: { locale: VALID_LOCALES_REGEX }
   get '/world/:id(.:locale)', as: 'world_location', to: 'world_locations#show', constraints: { locale: VALID_LOCALES_REGEX }
-  get '/world/news(.:locale)', as: 'world_location_news_index', to: 'world_location_news#index', constraints: { locale: VALID_LOCALES_REGEX }
+  get '/world/:world_location_id/news(.:locale)', as: 'world_location_news_index', to: 'world_location_news#index', constraints: { locale: VALID_LOCALES_REGEX }
 
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
     external_redirect '/organisations/ministry-of-defence-police-and-guarding-agency',
@@ -143,21 +143,19 @@ Whitehall::Application.routes.draw do
     get '/collections' => redirect("/publications")
 
     get '/organisations/:id(.:locale)', as: 'organisation', to: 'organisations#show', constraints: { locale: VALID_LOCALES_REGEX }
-    resources :organisations, only: [:index] do
+    resources :organisations, only: [:index]
+
+    resources :organisations, only: [] do
       # No need to forward the locale as collections aren't localised.
       get '/series/:slug(.:locale)' => redirect("/collections/%{slug}"), constraints: { locale: VALID_LOCALES_REGEX }
-      get '/series(.:locale)' => redirect("/publications%{('.' + locale) if locale}"), constraints: { locale: VALID_LOCALES_REGEX }
-
-      member do
-        get 'consultations(.:locale)', as: 'consultations', to: 'organisations#consultations', constraints: { locale: VALID_LOCALES_REGEX }
-        get 'chiefs-of-staff(.:locale)', as: 'chiefs_of_staff', to: 'organisations#chiefs_of_staff', constraints: { locale: VALID_LOCALES_REGEX }
-      end
-
+      get '/series(.:locale)' => redirect("/publications"), constraints: { locale: VALID_LOCALES_REGEX }
       get '/about(.:locale)', as: 'corporate_information_pages', to: 'corporate_information_pages#index', constraints: { locale: VALID_LOCALES_REGEX }
       get '/about/:id(.:locale)', as: 'corporate_information_page', to: 'corporate_information_pages#show', constraints: { locale: VALID_LOCALES_REGEX }
-      get '/groups/:id(.:locale)', as: 'group', to: 'groups#show', constraints: { locale: VALID_LOCALES_REGEX }
     end
     get "/organisations/:organisation_id/groups" => redirect("/organisations/%{organisation_id}")
+    get "/organisations/:organisation_id/groups/:id" => redirect("/organisations/%{organisation_id}")
+    get "/organisations/:organisation_id/consultations" => redirect("/organisations/%{organisation_id}")
+    get "/organisations/:organisation_id/chiefs-of-staff" => redirect("/organisations/%{organisation_id}")
     get "/organisations/:organisation_slug/email-signup" => 'email_signup_information#show',
       as: :organisation_email_signup_information
 

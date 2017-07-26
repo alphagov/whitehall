@@ -72,6 +72,30 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_redirected_to organisation_path(organisation)
   end
 
+  test "redirects organisation groups show URL to organisation page" do
+    organisation = create(:organisation)
+    get "/government/organisations/#{organisation.to_param}/groups/some-group"
+    assert_redirected_to organisation_path(organisation)
+  end
+
+  test "redirects organisation chiefs-of-staff URL to organisation page" do
+    organisation = create(:organisation)
+    get "/government/organisations/#{organisation.to_param}/chiefs-of-staff"
+    assert_redirected_to organisation_path(organisation)
+  end
+
+  test "redirects organisation consultations URL to organisation page" do
+    organisation = create(:organisation)
+    get "/government/organisations/#{organisation.to_param}/consultations"
+    assert_redirected_to organisation_path(organisation)
+  end
+
+  test "redirects organisation series URL to publications page" do
+    organisation = create(:organisation)
+    get "/government/organisations/#{organisation.to_param}/series"
+    assert_redirected_to publications_path
+  end
+
   test "atom feed responds with atom to both /government/feed and /government/feed.atom requests" do
     get "/government/feed"
     assert_equal 200, response.status
@@ -93,5 +117,12 @@ class RoutingTest < ActionDispatch::IntegrationTest
     publication = create(:publication)
     get "/government/admin/editions/#{publication.id}"
     assert_redirected_to "/government/admin/publications/#{publication.id}"
+  end
+
+  test "routing to world location news" do
+    create(:world_location, slug: "france", translated_into: [:fr])
+
+    get "/world/france/news.fr"
+    assert_response :success
   end
 end

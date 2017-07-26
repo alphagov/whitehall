@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PublicDocumentRoutesHelperTest < ActionView::TestCase
+class PublicDocumentRoutesHelperTest < LocalisedUrlTestCase
   test 'uses the document to generate the route' do
     publication = create(:publication)
     assert_equal publication_path(publication.document), public_document_path(publication)
