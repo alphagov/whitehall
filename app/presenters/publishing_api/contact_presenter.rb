@@ -21,6 +21,7 @@ module PublishingApi
         publishing_app: "whitehall",
         details: details,
         phase: phase,
+        update_type: update_type,
       }
     end
 

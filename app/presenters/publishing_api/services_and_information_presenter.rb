@@ -25,6 +25,7 @@ module PublishingApi
         organisation,
         title: "Services and information - #{organisation.name}",
         need_ids: [],
+        update_type: update_type,
       ).base_attributes
 
       content.merge!(

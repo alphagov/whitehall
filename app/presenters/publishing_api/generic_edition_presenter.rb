@@ -15,7 +15,7 @@ module PublishingApi
     end
 
     def content
-      content = BaseItemPresenter.new(item).base_attributes
+      content = BaseItemPresenter.new(item, update_type: update_type).base_attributes
       content.merge!(
         description: item.summary,
         details: PayloadBuilder::TagDetails.for(item),

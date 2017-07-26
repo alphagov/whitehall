@@ -16,7 +16,7 @@ module PublishingApi
 
     def content
       BaseItemPresenter
-        .new(news_article)
+        .new(news_article, update_type: update_type)
         .base_attributes
         .merge(PayloadBuilder::AccessLimitation.for(news_article))
         .merge(PayloadBuilder::FirstPublishedAt.for(news_article))

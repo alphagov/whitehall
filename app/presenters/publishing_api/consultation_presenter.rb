@@ -15,7 +15,7 @@ module PublishingApi
 
     def content
       BaseItemPresenter
-        .new(consultation)
+        .new(consultation, update_type: update_type)
         .base_attributes
         .merge(PayloadBuilder::AccessLimitation.for(consultation))
         .merge(PayloadBuilder::PublicDocumentPath.for(consultation))

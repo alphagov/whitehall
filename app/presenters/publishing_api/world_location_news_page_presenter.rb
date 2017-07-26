@@ -17,6 +17,7 @@ module PublishingApi
         world_location,
         title: title,
         need_ids: [],
+        update_type: update_type,
       ).base_attributes
 
       content.merge!(

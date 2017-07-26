@@ -158,6 +158,7 @@ class PublishStaticPages
           },
         ],
         public_updated_at: Time.zone.now.iso8601,
+        update_type: "minor",
       }
     }
   end

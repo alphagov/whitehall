@@ -32,6 +32,7 @@ module PublishingApi
         item,
         title: 'Coming soon',
         need_ids: [],
+        update_type: update_type,
       ).base_attributes
 
       content.merge!(

@@ -19,6 +19,7 @@ module PublishingApi
         item,
         title: item.name,
         need_ids: [],
+        update_type: update_type,
       ).base_attributes
 
       content.merge!(
