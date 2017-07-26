@@ -15,7 +15,7 @@ private
 
   def send_news_page_to_publishing_api
     Services.publishing_api.put_content(news_page_presenter.content_id, news_page_presenter.content)
-    Services.publishing_api.publish(news_page_presenter.content_id, news_page_presenter.update_type, locale: "en")
+    Services.publishing_api.publish(news_page_presenter.content_id, nil, locale: "en")
   end
 
   def send_news_page_to_rummager

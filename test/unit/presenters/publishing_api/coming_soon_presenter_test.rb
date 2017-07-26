@@ -30,6 +30,7 @@ class PublishingApi::ComingSoonPresenterTest < ActiveSupport::TestCase
       routes: [{ path: public_path, type: 'exact' }],
       redirects: [],
       public_updated_at: @edition.updated_at,
+      update_type: "major",
     }
 
     presenter = PublishingApi::ComingSoonPresenter.new(@edition)

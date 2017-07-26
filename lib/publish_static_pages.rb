@@ -6,7 +6,7 @@ class PublishStaticPages
 
       payload = present_for_publishing_api(page)
       Services.publishing_api.put_content(payload[:content_id], payload[:content])
-      Services.publishing_api.publish(payload[:content_id], "minor", locale: "en")
+      Services.publishing_api.publish(payload[:content_id], nil, locale: "en")
     end
   end
 

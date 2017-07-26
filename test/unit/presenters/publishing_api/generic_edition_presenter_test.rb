@@ -34,6 +34,7 @@ module PublishingApi
           { path: public_path, type: 'exact' }
         ],
         redirects: [],
+        update_type: "major",
         details: {
           tags: {
             browse_pages: [],

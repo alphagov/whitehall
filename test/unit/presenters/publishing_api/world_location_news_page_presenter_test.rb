@@ -44,6 +44,7 @@ class PublishingApi::WorldLocationNewsPagePresenterTest < ActiveSupport::TestCas
       base_path: "/world/aardistan/news",
       routes: [{ path:  "/world/aardistan/news", type: "exact" }],
       analytics_identifier: "WL1",
+      update_type: "major",
     }
 
     Services.publishing_api.stubs(:lookup_content_ids).returns({})
@@ -72,6 +73,7 @@ class PublishingApi::WorldLocationNewsPagePresenterTest < ActiveSupport::TestCas
       base_path: "/world/aardistan/news",
       routes: [{ path: "/world/aardistan/news", type: "exact" }],
       analytics_identifier: "WL1",
+      update_type: "major",
     }
 
     Services.publishing_api.stubs(:lookup_content_ids).returns("/world/aardistan/news" => "aguid")

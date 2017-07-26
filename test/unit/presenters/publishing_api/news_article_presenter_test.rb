@@ -71,7 +71,7 @@ module PublishingApi::NewsArticlePresenterTest
 
       PublishingApi::BaseItemPresenter
         .expects(:new)
-        .with(news_article)
+        .with(news_article, update_type: 'major')
         .returns(stub(base_attributes: attributes_double))
 
       actual_content = presented_content

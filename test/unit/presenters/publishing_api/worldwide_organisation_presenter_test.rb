@@ -24,6 +24,7 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
       need_ids: [],
       details: {},
       analytics_identifier: "WO123",
+      update_type: "major",
     }
     expected_links = {}
 

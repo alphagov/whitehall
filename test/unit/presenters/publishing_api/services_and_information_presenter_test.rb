@@ -23,6 +23,7 @@ class PublishingApi::ServicesAndInformationPresenterTest < ActionView::TestCase
       redirects: [],
       need_ids: [],
       details: {},
+      update_type: "minor",
     }
     expected_links = {
       parent: [

@@ -71,7 +71,7 @@ module PublishingApi::CorporateInformationPagePresenterTest
 
       PublishingApi::BaseItemPresenter
         .expects(:new)
-        .with(corporate_information_page)
+        .with(corporate_information_page, update_type: "major")
         .returns(stub(base_attributes: attributes_double))
 
       actual_content = presented_content

@@ -28,6 +28,7 @@ class PublishingApi::WorkingGroupPresenterTest < ActiveSupport::TestCase
       ],
       redirects: [],
       public_updated_at: group.updated_at,
+      update_type: "major",
       details: {
         email: "group-1@example.com",
         body: "<div class=\"govspeak\"><p>This is some <em>Govspeak</em> in the description field</p>\n</div>", # This is deliberately the 'wrong' way around

@@ -31,6 +31,7 @@ class PublishingApiComingSoonWorkerTest < ActiveSupport::TestCase
       routes: [ { path: base_path, type: 'exact' } ],
       redirects: [],
       public_updated_at: edition.updated_at,
+      update_type: "major",
     }
 
     expected_links = PublishingApi::ComingSoonPresenter.new(edition).links

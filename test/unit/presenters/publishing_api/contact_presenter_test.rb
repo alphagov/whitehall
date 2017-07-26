@@ -35,6 +35,7 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
       phase: "live",
       public_updated_at: @updated_at,
       publishing_app: "whitehall",
+      update_type: "major",
       details: {
         description: nil,
         title: "Government Digital Service",

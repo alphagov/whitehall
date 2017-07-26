@@ -67,7 +67,7 @@ module PublishingApi::ConsultationPresenterTest
 
       PublishingApi::BaseItemPresenter
         .expects(:new)
-        .with(consultation)
+        .with(consultation, update_type: "major")
         .returns(stub(base_attributes: attributes_double))
 
       actual_content = presented_content
