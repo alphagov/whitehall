@@ -245,11 +245,13 @@ class ActionMailer::TestCase
 end
 
 class ActionView::TestCase
-  include LocalisedUrlPathHelper
-
   def setup_view_context
     @view_context = @controller.view_context
   end
+end
+
+class LocalisedUrlTestCase < ActionView::TestCase
+  include LocalisedUrlPathHelper
 end
 
 class PresenterTestCase < ActionView::TestCase
