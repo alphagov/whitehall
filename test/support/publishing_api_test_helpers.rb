@@ -4,6 +4,10 @@ require "gds_api/test_helpers/publishing_api_v2"
 module PublishingApiTestHelpers
   include GdsApi::TestHelpers::PublishingApiV2
 
+  def stub_publishing_api_publish_intent
+    stub_request(:any, %r{\A#{Plek.current.find('publishing-api')}/publish-intent\/.+})
+  end
+
   def stub_publishing_api_registration_for(editions)
     Array(editions).each do |edition|
       presenter = PublishingApiPresenters.presenter_for(edition)

@@ -23,8 +23,6 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   setup do
     DatabaseCleaner.clean_with :truncation
     stub_any_publishing_api_call
-    # Additionally, stub v1 requests, while we need to support `publish_intents`.
-    stub_request(:any, %r{\A#{PUBLISHING_API_V1_ENDPOINT}})
   end
 
   test "it gets published to the Publishing API when saved" do
