@@ -5,6 +5,7 @@ Given /^I can navigate to the list of announcements$/ do
 end
 
 When /^I visit the list of announcements$/ do
+  stub_content_item_from_content_store_for(announcements_path)
   visit homepage
   click_link "Announcements"
 end

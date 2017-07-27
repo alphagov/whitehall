@@ -91,6 +91,7 @@ Then(/^I should be informed I shouldn't use this image in the markdown$/) do
 end
 
 When(/^I browse to the announcements index$/) do
+  stub_content_item_from_content_store_for(announcements_path)
   visit announcements_path
 end
 
@@ -101,6 +102,7 @@ When(/^I publish a new news article of the type "(.*?)" called "(.*?)"$/) do |an
 end
 
 When(/^I filter the announcements list by "(.*?)"$/) do |announcement_type|
+  stub_content_item_from_content_store_for(announcements_path)
   visit announcements_path
   select announcement_type, from: "Announcement type"
   click_on "Refresh results"

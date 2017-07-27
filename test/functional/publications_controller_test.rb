@@ -1,8 +1,11 @@
 # encoding: utf-8
 
 require "test_helper"
+require "gds_api/test_helpers/content_store"
 
 class PublicationsControllerTest < ActionController::TestCase
+  include GdsApi::TestHelpers::ContentStore
+
   with_not_quite_as_fake_search
   should_be_a_public_facing_controller
   should_display_attachments_for :publication
@@ -24,6 +27,14 @@ class PublicationsControllerTest < ActionController::TestCase
   def assert_publication_order(expected_order)
     actual_order = assigns(:publications).map(&:model).map(&:id)
     assert_equal expected_order.map(&:id), actual_order
+  end
+
+  setup do
+    @content_item = content_item_for_base_path(
+      '/government/publications'
+    )
+
+    content_store_has_item(@content_item['base_path'], @content_item)
   end
 
   test '#show displays published publications' do
@@ -792,5 +803,19 @@ class PublicationsControllerTest < ActionController::TestCase
         "Expected the custom dimension 29 to have the title of the publication"
       )
     end
+  end
+
+  view_test 'includes the analytics component' do
+    get :index
+
+    analytics_component = css_select(
+      'test-govuk-component[data-template=govuk_component-analytics_meta_tags]'
+    )
+
+    assert_match(
+      @content_item['title'],
+      analytics_component.text,
+      'Expected the analytics meta tag component to be initialized with the content item'
+    )
   end
 end

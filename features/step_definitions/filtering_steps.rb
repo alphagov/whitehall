@@ -48,6 +48,7 @@ Given(/^there are some published publications$/) do
 end
 
 When(/^I visit the publications index page$/) do
+  stub_content_item_from_content_store_for(publications_path)
   visit publications_path
 end
 
@@ -169,6 +170,7 @@ Given(/^there are some published announcements$/) do
 end
 
 When(/^I visit the announcements index page$/) do
+  stub_content_item_from_content_store_for(announcements_path)
   visit announcements_path
 end
 
@@ -198,6 +200,7 @@ Given(/^there are some published announcments including a few in French$/) do
 end
 
 When(/^I visit the announcments index in French$/) do
+  stub_content_item_from_content_store_for(announcements_path)
   visit announcements_path + '.fr'
 end
 
