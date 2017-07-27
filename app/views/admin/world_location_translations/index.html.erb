@@ -24,7 +24,7 @@
           <% @world_location.non_english_translated_locales.each do |locale| %>
             <tr>
               <td class="locale">
-                <%= link_to locale.native_language_name, edit_admin_world_location_translation_path(@world_location, locale.code) %> (<%= link_to "view", world_location_path(@world_location, locale: locale) %>)
+                <%= link_to locale.native_language_name, edit_admin_world_location_translation_path(@world_location, locale.code) %> (<%= link_to "view", world_location_news_index_path(@world_location, locale: locale) %>)
               </td>
               <td class="actions">
                 <%= button_to 'Delete',
