@@ -33,11 +33,21 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal attachment.content_id, clone.content_id
   end
 
-  test '#url returns absolute path' do
+  test '#url returns absolute path to the draft stack when previewing' do
     edition = create(:published_publication, :with_html_attachment)
     attachment = edition.attachments.first
-    expected = "/government/publications/#{edition.slug}/#{attachment.slug}"
-    assert_equal expected, attachment.url
+
+    expected = "https://draft-origin.test.gov.uk/government/publications/"
+    expected += "#{edition.slug}/#{attachment.slug}?preview=#{attachment.id}"
+    actual = attachment.url(preview: true)
+
+    assert_equal expected, actual
+  end
+
+  test '#url returns relative path when not previewing' do
+    edition = create(:published_publication, :with_html_attachment)
+    attachment = edition.attachments.first
+    assert_equal "/government/publications/#{edition.slug}/#{attachment.slug}", attachment.url
   end
 
   test "slug is copied from previous edition's attachment" do
