@@ -33,6 +33,20 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test 'GET #index shows a warning if > 50 documents in collection' do
+    @group.documents = create_list(:document, 51)
+    get :index, document_collection_id: @collection
+    assert_response :ok
+    assert_select '.alert-info', text: /it may be slow or impossible to update/
+  end
+
+  view_test 'GET #index does not show a warning if <= 50 documents in collection' do
+    @group.documents = create_list(:document, 50)
+    get :index, document_collection_id: @collection
+    assert_response :ok
+    assert_select '.alert-info', false, text: /it may be slow or impossible to update/
+  end
+
   view_test 'GET #new renders successfully' do
     get :new, document_collection_id: @collection
     assert_response :ok

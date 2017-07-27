@@ -1,0 +1,5 @@
+<% if @collection.documents.count > 50 %>
+  <div class="alert alert-info">
+    If your collection contains over 50 documents it may be slow or impossible to update. Consider splitting the collection or using another format.
+  </div>
+<% end %>
