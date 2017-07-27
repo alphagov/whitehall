@@ -9,6 +9,7 @@
 <%= edition_editing_tabs(@collection) do %>
   <%= form_tag admin_document_collection_new_member_path(@collection), class: 'document-finder' do %>
     <h2>Add document to a group</h2>
+    <%= render partial: 'collection_size_warning' %>
     <div id="document-finder" class="form-inline well remove-top-margin">
       <label for="title">Add</label>
       <div class="document-finder-fields">
