@@ -101,7 +101,7 @@ Whitehall::Application.routes.draw do
 
     get '/publications(.:locale)', as: 'publications', to: 'publications#index', constraints: { locale: VALID_LOCALES_REGEX }
     get '/publications/:id(.:locale)', as: 'publication', to: '_#_', constraints: { locale: VALID_LOCALES_REGEX }
-    get "/publications/:publication_id/:id" => 'html_attachments#show', as: 'publication_html_attachment'
+    get "/publications/:publication_id/:id" => '_#_', as: 'publication_html_attachment'
 
     # TODO: Remove when paths can be generated without a routes entry
     get '/case-studies/:id(.:locale)', as: 'case_study', to: 'case_studies#show', constraints: { locale: VALID_LOCALES_REGEX }
@@ -127,7 +127,7 @@ Whitehall::Application.routes.draw do
         get :upcoming
       end
     end
-    get "/consultations/:consultation_id/:id" => 'html_attachments#show', as: 'consultation_html_attachment'
+    get "/consultations/:consultation_id/:id" => '_#_', as: 'consultation_html_attachment'
 
     resources :topics, path: "topics", only: [:show]
     resources :topical_events, path: "topical-events", only: [:show] do
