@@ -84,18 +84,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select "span.count.js-filter-count"
   end
 
-  view_test "does not show a beta banner on organisations index" do
-    get :index
-
-    refute_select "test-govuk-component[data-template=govuk_component-beta_label]"
-  end
-
-  view_test "shows a beta banner on courts index" do
-    get :index, courts_only: true
-
-    assert_select "test-govuk-component[data-template=govuk_component-beta_label]"
-  end
-
   ### Describing :show ###
 
   view_test "showing an organisation without a list of contacts doesn't try to create one" do
@@ -816,24 +804,6 @@ class OrganisationsControllerTest < ActionController::TestCase
       organisation = create_org_and_stub_content_store(:organisation)
       get :show, id: organisation, courts_only: true
     end
-  end
-
-  view_test "shows a beta banner for courts" do
-    court = create_org_and_stub_content_store(:court)
-    get :show, id: court, courts_only: true
-    assert_select "test-govuk-component[data-template=govuk_component-beta_label]"
-  end
-
-  view_test "shows a beta banner for HMCTS tribunals" do
-    hmcts_tribunal = create_org_and_stub_content_store(:hmcts_tribunal)
-    get :show, id: hmcts_tribunal, courts_only: true
-    assert_select "test-govuk-component[data-template=govuk_component-beta_label]"
-  end
-
-  view_test "does not show a beta banner for organisations" do
-    organisation = create_org_and_stub_content_store(:organisation)
-    get :show, id: organisation
-    refute_select "test-govuk-component[data-template=govuk_component-beta_label]"
   end
 
   view_test "organisations show the 'About Us' summary and link to page under 'What we do'" do
