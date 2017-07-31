@@ -12,11 +12,15 @@ module SyncChecker
         return failures unless attachable.unpublishing.present?
 
         if there_is_an_item_in_the_content_store?
-          @content_item = JSON.parse(response.body)
-          if attachable_has_been_withdrawn?
-            failures << check_for_withdrawn_notice
-          elsif attachable_has_been_unpublished?
-            failures << check_redirected
+          begin
+            @content_item = JSON.parse(response.body)
+            if attachable_has_been_withdrawn?
+              failures << check_for_withdrawn_notice
+            elsif attachable_has_been_unpublished?
+              failures << check_redirected
+            end
+          rescue JSON::ParserError
+            failures << "response.body not valid JSON. Likely not present in the content store"
           end
         else
           failures << "attachable has been unpublished but the attachment has nothing in the content store"

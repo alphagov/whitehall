@@ -11,29 +11,33 @@ module SyncChecker
         return [] unless there_is_an_unpublishing?
 
         if there_is_an_item_in_the_content_store?
-          @content_item = JSON.parse(response.body)
-          if published_edition_has_unpublishing?
-            #withdraw
-            unpublishing = document.published_edition.unpublishing
-            failures << check_for_withdrawn_notice(unpublishing)
-            failures << check_withdrawn_at(unpublishing)
-          elsif pre_publication_has_unpublishing?
-            unpublishing = document.pre_publication_edition.unpublishing
-            if unpublishing.unpublishing_reason_id == 1
-              #in error
-              if unpublishing.redirect?
-                #with redirect
-                failures << check_for_redirect
+          begin
+            @content_item = JSON.parse(response.body)
+            if published_edition_has_unpublishing?
+              #withdraw
+              unpublishing = document.published_edition.unpublishing
+              failures << check_for_withdrawn_notice(unpublishing)
+              failures << check_withdrawn_at(unpublishing)
+            elsif pre_publication_has_unpublishing?
+              unpublishing = document.pre_publication_edition.unpublishing
+              if unpublishing.unpublishing_reason_id == 1
+                #in error
+                if unpublishing.redirect?
+                  #with redirect
+                  failures << check_for_redirect
+                else
+                  #without
+                  failures << check_explanation(unpublishing)
+                  failures << check_alternative_path(unpublishing)
+                  failures << check_for_gone
+                end
               else
-                #without
-                failures << check_explanation(unpublishing)
-                failures << check_alternative_path(unpublishing)
-                failures << check_for_gone
+                #consolidated
+                failures << check_for_redirect
               end
-            else
-              #consolidated
-              failures << check_for_redirect
             end
+          rescue JSON::ParserError
+            failures << "response.body not valid JSON. Likely not present in the content store"
           end
         else
           failures << "item is unpublished but there is no item in the content store"

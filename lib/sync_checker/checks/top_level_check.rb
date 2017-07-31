@@ -5,13 +5,17 @@ module SyncChecker
       def call(response)
         failures = []
         if response.response_code == 200
-          @content_item = JSON.parse(response.body)
-          if run_check?
-            expected.each do |k, v|
-              if expected[k] != content_item[k.to_s]
-                failures << "expected #{k}: '#{v}', got '#{content_item[k.to_s]}'"
+          begin
+            @content_item = JSON.parse(response.body)
+            if run_check?
+              expected.each do |k, v|
+                if expected[k] != content_item[k.to_s]
+                  failures << "expected #{k}: '#{v}', got '#{content_item[k.to_s]}'"
+                end
               end
             end
+          rescue JSON::ParserError
+            failures << "response.body not valid JSON. Likely not present in the content store"
           end
         end
         failures
