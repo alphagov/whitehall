@@ -16,7 +16,11 @@ class CorporateInformationPageType
   end
 
   def title(organisation)
-    organisation_name = (organisation.respond_to?(:acronym) && organisation.acronym || "#{organisation.name}")
+    organisation_name = if organisation.respond_to?(:acronym) && organisation.acronym.present?
+                          organisation.acronym
+                        else
+                          organisation.name
+                        end
     translation_key = slug.gsub('-', '_')
     I18n.t("corporate_information_page.type.title.#{translation_key}", organisation_name: organisation_name)
   end
