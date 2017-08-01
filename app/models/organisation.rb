@@ -189,12 +189,25 @@ class Organisation < ApplicationRecord
   before_destroy { |r| r.destroyable? }
   after_save :ensure_analytics_identifier
 
-  # If the organisation has an about us page and the chart URL changes we need
-  # to republish the about us page as it contains the chart URL.
   after_save do
+    # If the organisation has an about us page and the chart URL changes we need
+    # to republish the about us page as it contains the chart URL.
     if organisation_chart_url_changed? && about_us.present?
       PublishingApiDocumentRepublishingWorker
         .perform_async(about_us.document_id)
+    end
+
+    # If the default news organisation image changes we need to republish all
+    # news articles belonging to the organisation
+    if default_news_organisation_image_data_id_changed?
+      DataHygiene::PublishingApiRepublisher
+        .new(
+          NewsArticle
+            .in_organisation(self)
+            .includes(:images)
+            .where(images: { id: nil })
+        )
+        .perform
     end
   end
 

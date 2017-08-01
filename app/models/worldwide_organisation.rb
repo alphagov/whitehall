@@ -37,6 +37,21 @@ class WorldwideOrganisation < ApplicationRecord
   extend FriendlyId
   friendly_id
 
+  after_save do
+    # If the default news organisation image changes we need to republish all
+    # news articles belonging to the worldwide organisation
+    if default_news_organisation_image_data_id_changed?
+      DataHygiene::PublishingApiRepublisher
+        .new(
+          NewsArticle
+            .in_worldwide_organisation(self)
+            .includes(:images)
+            .where(images: { id: nil })
+        )
+        .perform
+    end
+  end
+
   # I'm trying to use a domain centric design rather than a persistence
   # centric design, so I do not want to expose a has_many :home_page_lists
   # and all that this implies. I really only want to expose a list of

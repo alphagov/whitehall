@@ -960,4 +960,23 @@ class OrganisationTest < ActiveSupport::TestCase
       'http://www.example.com/path/to/new_chart',
     )
   end
+
+  test "#save triggers organisation with a changed default news organisation image to republish news articles" do
+    organisation = create(:organisation)
+
+    DataHygiene::PublishingApiRepublisher
+      .expects(:new)
+      .with(
+        NewsArticle
+          .in_organisation(organisation)
+          .includes(:images)
+          .where(images: { id: nil })
+      )
+      .returns(stub(:perform))
+
+    organisation.update_attribute(
+      :default_news_image,
+      create(:default_news_organisation_image_data),
+    )
+  end
 end
