@@ -47,10 +47,14 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
   test "updates an existing objects with new values" do
     organisation = create(:worldwide_organisation)
     put :update, id: organisation.id, worldwide_organisation: {
-      name: "New name"
+      name: "New name",
+      default_news_image_attributes: {
+        file: fixture_file_upload('minister-of-funk.960x640.jpg')
+      },
     }
     worldwide_organisation = WorldwideOrganisation.last
     assert_equal "New name", worldwide_organisation.name
+    assert_equal 'minister-of-funk.960x640.jpg', worldwide_organisation.default_news_image.file.file.filename
     assert_redirected_to admin_worldwide_organisation_path(worldwide_organisation)
   end
 

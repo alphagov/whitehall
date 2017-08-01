@@ -60,7 +60,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
       :name, :logo_formatted_name,
       world_location_ids: [],
       sponsoring_organisation_ids: [],
-      default_news_image_attributes: [:file_cache]
+      default_news_image_attributes: [:file, :file_cache]
     )
   end
 end
