@@ -30,6 +30,7 @@ class Edition < ApplicationRecord
   serialize :need_ids, Array
 
   extend Edition::FindableByOrganisation
+  extend Edition::FindableByWorldwideOrganisation
 
   include Searchable
 

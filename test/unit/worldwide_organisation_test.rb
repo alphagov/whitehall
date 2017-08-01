@@ -301,4 +301,23 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     world_organisation.destroy
     refute HomePageList.exists?(h.id)
   end
+
+  test "#save triggers organisation with a changed default news organisation image to republish news articles" do
+    world_organisation = create(:worldwide_organisation)
+
+    DataHygiene::PublishingApiRepublisher
+      .expects(:new)
+      .with(
+        NewsArticle
+          .in_worldwide_organisation(world_organisation)
+          .includes(:images)
+          .where(images: { id: nil })
+      )
+      .returns(stub(:perform))
+
+    world_organisation.update_attribute(
+      :default_news_image,
+      create(:default_news_organisation_image_data),
+    )
+  end
 end
