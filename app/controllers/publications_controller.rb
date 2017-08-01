@@ -33,11 +33,6 @@ class PublicationsController < DocumentsController
     end
   end
 
-  def show
-    @related_policies = document_related_policies
-    set_meta_description(@document.summary)
-  end
-
 private
   def expire_cache_when_next_publication_published
     expire_on_next_scheduled_publication(Publicationesque.scheduled.order("scheduled_publication asc"))
@@ -53,9 +48,5 @@ private
     if @document.statistics?
       redirect_to public_document_path(@document), status: :moved_permanently
     end
-  end
-
-  def document_class
-    Publication
   end
 end

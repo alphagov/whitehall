@@ -32,10 +32,6 @@ class StatisticsController < DocumentsController
     end
   end
 
-  def show
-    set_meta_description(@document.summary)
-  end
-
 private
 
   def inject_statistics_publication_filter_option_param
@@ -45,9 +41,4 @@ private
   def expire_cache_when_next_publication_published
     expire_on_next_scheduled_publication(Publicationesque.scheduled.order("scheduled_publication asc"))
   end
-
-  def document_class
-    Publication
-  end
-
 end

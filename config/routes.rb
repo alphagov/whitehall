@@ -100,7 +100,7 @@ Whitehall::Application.routes.draw do
     get "/latest" => 'latest#index', as: 'latest'
 
     get '/publications(.:locale)', as: 'publications', to: 'publications#index', constraints: { locale: VALID_LOCALES_REGEX }
-    get '/publications/:id(.:locale)', as: 'publication', to: 'publications#show', constraints: { locale: VALID_LOCALES_REGEX }
+    get '/publications/:id(.:locale)', as: 'publication', to: '_#_', constraints: { locale: VALID_LOCALES_REGEX }
     get "/publications/:publication_id/:id" => 'html_attachments#show', as: 'publication_html_attachment'
 
     # TODO: Remove when paths can be generated without a routes entry
@@ -116,7 +116,7 @@ Whitehall::Application.routes.draw do
     # TODO: Remove `:show` when stats announcement paths can be otherwise generated
     resources :statistics_announcements, path: 'statistics/announcements', only: [:index, :show]
     get '/statistics(.:locale)', as: 'statistics', to: 'statistics#index', constraints: { locale: VALID_LOCALES_REGEX }
-    get '/statistics/:id(.:locale)', as: 'statistic', to: 'statistics#show', constraints: { locale: VALID_LOCALES_REGEX }
+    get '/statistics/:id(.:locale)', as: 'statistic', to: '_#_', constraints: { locale: VALID_LOCALES_REGEX }
     get '/world-location-news(.:locale)', as: 'world_location_news_articles', to: 'world_location_news_articles#index', constraints: { locale: VALID_LOCALES_REGEX }
     get '/world-location-news/:id(.:locale)', as: 'world_location_news_article', to: 'world_location_news_articles#show', constraints: { locale: VALID_LOCALES_REGEX }
 
