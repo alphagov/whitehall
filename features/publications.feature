@@ -70,9 +70,3 @@ Scenario: Publishing a publication that has a PDF attachment
   When I visit the publication "Standard Beard Lengths"
   Then I should see a link to the PDF attachment
   And I should see a thumbnail of the first page of the PDF
-
-Scenario: The publication is about a country
-  Given a world location "British Antarctic Territory" exists
-  And a published publication "Penguins have rights too" exists that is about "British Antarctic Territory"
-  When I visit the publication "Penguins have rights too"
-  Then I should see that the publication is about "British Antarctic Territory"
