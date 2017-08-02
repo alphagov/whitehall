@@ -10,22 +10,28 @@ class DocumentLocaleParamCanonicalisationTest < ActionDispatch::IntegrationTest
     u.to_s
   end
 
-  %w{world_location_news_article publication}.each do |doc_type|
-    test "visiting a #{doc_type} with a spurious locale=en param will redirect to remove it" do
-      canonical_path = send("#{doc_type}_path", "a-#{doc_type}")
-      extra_path = with_locale_param(canonical_path, 'en')
-      get extra_path
+  test "visiting a world_location_news_article with a spurious locale=en param will redirect to remove it" do
+    canonical_path = send("world_location_news_article_path", "a-world_location_news_article")
+    extra_path = with_locale_param(canonical_path, 'en')
+    get extra_path
 
-      assert_redirected_to canonical_path
-    end
+    assert_redirected_to canonical_path
+  end
 
-    test "visiting the #{doc_type} index with a spurious locale=en param will redirect to remove it" do
-      canonical_path = send("#{doc_type.pluralize}_path")
-      extra_path = with_locale_param(canonical_path, 'en')
-      get extra_path
+  test "visiting the world_location_news_article index with a spurious locale=en param will redirect to remove it" do
+    canonical_path = send("world_location_news_articles_path")
+    extra_path = with_locale_param(canonical_path, 'en')
+    get extra_path
 
-      assert_redirected_to canonical_path
-    end
+    assert_redirected_to canonical_path
+  end
+
+  test "visiting the publication index with a spurious locale=en param will redirect to remove it" do
+    canonical_path = send("publications_path")
+    extra_path = with_locale_param(canonical_path, 'en')
+    get extra_path
+
+    assert_redirected_to canonical_path
   end
 
   # news articles and fatality notices redirect to announcements

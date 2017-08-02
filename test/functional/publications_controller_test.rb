@@ -8,21 +8,10 @@ class PublicationsControllerTest < ActionController::TestCase
 
   with_not_quite_as_fake_search
   should_be_a_public_facing_controller
-  should_display_attachments_for :publication
-  should_display_localised_attachments
-  should_show_the_world_locations_associated_with :publication
-  should_display_inline_images_for :publication
-  should_show_inapplicable_nations :publication
-  should_show_related_policies_for :publication
-  should_be_previewable :publication
   should_paginate :publication, timestamp_key: :first_published_at
   should_paginate :consultation, timestamp_key: :opening_at
   should_return_json_suitable_for_the_document_filter :publication
   should_return_json_suitable_for_the_document_filter :consultation
-  should_set_meta_description_for :publication
-  should_set_slimmer_analytics_headers_for :publication
-  should_set_the_article_id_for_the_edition_for :publication
-  should_not_show_share_links_for :publication
 
   def assert_publication_order(expected_order)
     actual_order = assigns(:publications).map(&:model).map(&:id)
@@ -30,92 +19,8 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   setup do
-    @content_item = content_item_for_base_path(
-      '/government/publications'
-    )
-
+    @content_item = content_item_for_base_path('/government/publications')
     content_store_has_item(@content_item['base_path'], @content_item)
-  end
-
-  test '#show displays published publications' do
-    published_publication = create(:published_publication)
-    get :show, id: published_publication.document
-    assert_response :success
-  end
-
-  view_test "renders the publication summary from plain text" do
-    publication = create(:published_publication, summary: 'plain *text* & so on')
-    get :show, id: publication.document
-
-    assert_select ".document-page .summary", text: "plain *text* & so on"
-  end
-
-  view_test "#show renders the publication body using govspeak" do
-    publication = create(:published_publication, body: "body-in-govspeak")
-    govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
-      get :show, id: publication.document
-    end
-
-    assert_select ".body", text: "body-in-html"
-  end
-
-  view_test "#show should not explicitly say that publication applies to the whole of the UK" do
-    published_publication = create(:published_publication)
-
-    get :show, id: published_publication.document
-
-    refute_select inapplicable_nations_selector
-  end
-
-  view_test "#show should display publication metadata" do
-    publication = create(:published_publication,
-      first_published_at: Date.parse("1916-05-31"),
-      publication_type_id: PublicationType::Form.id
-    )
-
-    get :show, id: publication.document
-
-    assert_select ".type", text: /Form/
-    assert_select ".meta .date", text: "31 May 1916"
-  end
-
-  view_test "#show should not render empty sector metadata" do
-    publication = create(:published_publication,
-      first_published_at: Date.parse("1916-05-31"),
-      publication_type_id: PublicationType::Form.id
-    )
-
-    get :show, id: publication.document
-
-    refute_select ".document-sectors"
-  end
-
-  def assert_featured(doc)
-    assert_select "#{record_css_selector(doc)}.featured"
-  end
-
-  view_test "#show should show ministers linked to publications" do
-    appointment = create(:ministerial_role_appointment)
-    publication = create(:published_publication, role_appointments: [appointment])
-    get :show, id: publication.document
-
-    assert_select '.meta a', text: appointment.person.name
-  end
-
-  view_test "#show not link ministers to National Statistics publications" do
-    appointment = create(:ministerial_role_appointment)
-    publication = create(:published_publication, publication_type_id: PublicationType::NationalStatistics.id, role_appointments: [appointment])
-    get :show, id: publication.document
-
-    refute_select '.meta a', text: appointment.person.name
-  end
-
-  view_test "#show not link ministers to general statistics publications" do
-    appointment = create(:ministerial_role_appointment)
-    publication = create(:published_publication, publication_type_id: PublicationType::OfficialStatistics.id, role_appointments: [appointment])
-    get :show, id: publication.document
-
-    refute_select '.meta a', text: appointment.person.name
   end
 
   view_test "#index only displays *published* publications" do
@@ -307,12 +212,6 @@ class PublicationsControllerTest < ActionController::TestCase
   view_test '#index for non-english locales skips results summary' do
     get :index, locale: 'fr'
     refute_select '.filter-results-summary'
-  end
-
-  test '#show for statistics document type redirect to statistic#show' do
-    publication = create(:published_publication, publication_type_id: PublicationType::OfficialStatistics.id)
-    get :show, id: publication.document
-    assert_redirected_to statistic_path(publication.slug)
   end
 
   test '#index for statistics document type redirect to statistics index' do
@@ -603,129 +502,6 @@ class PublicationsControllerTest < ActionController::TestCase
     path = public_document_path(collection)
     link = %Q{<a href="#{path}">#{collection.title}</a>}
     assert_equal %Q{Part of a collection: #{link}}, result['publication_collections']
-  end
-
-  view_test "#show displays the ISBN of the attached document" do
-    edition = publication_with_attachment(isbn: '0099532816')
-    get :show, id: edition.document
-    assert_select_object(edition.attachments.first) do
-      assert_select ".isbn", "0099532816"
-    end
-  end
-
-  view_test "#show displays the Unique Reference Number of the attached document" do
-    edition = publication_with_attachment(unique_reference: 'unique-reference')
-    get :show, id: edition.document
-    assert_select_object(edition.attachments.first) do
-      assert_select ".unique_reference", "unique-reference"
-    end
-  end
-
-  view_test "#show displays the Command Paper number of the attached document" do
-    edition = publication_with_attachment(command_paper_number: 'Cm. 1234')
-    get :show, id: edition.document
-    assert_select_object(edition.attachments.first) do
-      assert_select ".command_paper_number", "Cm. 1234"
-    end
-  end
-
-  view_test "#show links to the url that the attachment can be ordered from" do
-    edition = publication_with_attachment(order_url: 'http://example.com/order-path')
-    get :show, id: edition.document
-    assert_select_object(edition.attachments.first) do
-      assert_select ".order_url", /order a copy/i
-    end
-  end
-
-  view_test "#show displays the price of the purchasable attachment" do
-    edition = publication_with_attachment(price: "1.23", order_url: 'http://example.com')
-    get :show, id: edition.document
-    assert_select_object(edition.attachments.first) do
-      assert_select ".price", text: "£1.23"
-    end
-  end
-
-  view_test '#show displays House of Commons paper metadata' do
-    edition = publication_with_attachment(hoc_paper_number: '1234-i',
-                                          parliamentary_session: '2009-10')
-    get :show, id: edition.document
-    assert_select_object(edition.attachments.first) do
-      assert_select '.house_of_commons_paper_number', text: 'HC 1234-i'
-      assert_select '.parliamentary_session', text: '2009-10'
-    end
-  end
-
-  view_test '#show indicates when a command paper is unnumbered' do
-    edition = publication_with_attachment(unnumbered_command_paper: true)
-    get :show, id: edition.document
-    assert_select_object(edition.attachments.first) do
-      assert_select '.unnumbered-paper', text: 'Unnumbered command paper'
-    end
-  end
-
-  view_test '#show indicates when a House of Commons paper is unnumbered' do
-    edition = publication_with_attachment(unnumbered_hoc_paper: true)
-    get :show, id: edition.document
-    assert_select_object(edition.attachments.first) do
-      assert_select '.unnumbered-paper', text: 'Unnumbered act paper'
-    end
-  end
-
-  view_test '#show links to external attachments' do
-    edition = publication_with_attachment(type: :external)
-    get :show, id: edition.document
-    assert_select_object(edition.attachments.first) do
-      assert_select 'a[rel=external]', href: 'http://www.google.com'
-    end
-  end
-
-  view_test '#show has political state and government for historic documents' do
-    current_government = create(:current_government)
-    previous_government = create(:previous_government)
-    edition = create(:published_publication, political: true, first_published_at: previous_government.start_date)
-    get :show, id: edition.document
-    assert_has_meta_tag 'govuk:political-status', 'historic'
-    assert_has_meta_tag 'govuk:publishing-government', previous_government.slug
-  end
-
-  view_test '#show has political state and government for political documents' do
-    previous_government = create(:previous_government)
-    edition = create(:published_publication, political: true, first_published_at: previous_government.start_date)
-    get :show, id: edition.document
-    assert_has_meta_tag 'govuk:political-status', 'political'
-    assert_has_meta_tag 'govuk:publishing-government', previous_government.slug
-  end
-
-  view_test '#show has political state and government for non-political documents' do
-    current_government = create(:current_government)
-    edition = create(:published_publication, political: false, first_published_at: current_government.start_date)
-    get :show, id: edition.document
-    assert_has_meta_tag 'govuk:political-status', 'non-political'
-    assert_has_meta_tag 'govuk:publishing-government', current_government.slug
-  end
-
-  view_test "should show links to other available translations of the edition" do
-    edition = build(:draft_publication)
-    with_locale(:es) do
-      edition.assign_attributes(attributes_for(:draft_edition, title: 'spanish-title'))
-    end
-    edition.save!
-    force_publish(edition)
-
-    get :show, id: edition.document
-
-    assert_select ".translation", text: "English"
-    refute_select "a[href=?]", public_document_path(edition, locale: :en), text: 'English'
-    assert_select "a[href=?]", public_document_path(edition, locale: :es), text: 'Español'
-  end
-
-  view_test "should not show any links to translations when the edition is only available in one language" do
-    edition = create(:draft_publication)
-    force_publish(edition)
-
-    get :show, id: edition.document
-
-    refute_select ".translations"
   end
 
   private
