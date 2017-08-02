@@ -37,18 +37,6 @@ Given /^"([^"]*)" drafts a new publication "([^"]*)"$/ do |user_name, title|
   end
 end
 
-When /^I draft a new publication "([^"]*)" that does not apply to the nations:$/ do |title, nations|
-  begin_drafting_publication(title)
-  nations.raw.flatten.each do |nation_name|
-    within record_css_selector(Nation.find_by_name!(nation_name)) do
-      check nation_name
-      fill_in "Alternative url", with: "http://www.#{nation_name}.com/"
-    end
-  end
-  click_button "Save"
-  add_external_attachment
-end
-
 When /^I visit the list of publications$/ do
   stub_content_item_from_content_store_for(publications_path)
   visit homepage

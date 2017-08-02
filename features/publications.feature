@@ -14,12 +14,6 @@ Scenario: Creating a new draft publication related to multiple policies
   When I draft a new publication "Healthy Eating" relating it to the policies "Policy 1" and "Policy 2"
   Then the publication should be related to "Policy 1" and "Policy 2" policies
 
-Scenario: Creating a new draft publication that applies to multiple nations
-  Given I draft a new publication "Standard Beard Lengths" that does not apply to the nations:
-    | Scotland | Wales |
-  Then I should see in the preview that "Standard Beard Lengths" does not apply to the nations:
-    | Scotland | Wales |
-
 Scenario: Creating a new draft publication that references statistical data sets
     Given I am an editor
     Given a published statistical data set "Historical Beard Lengths"
