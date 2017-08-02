@@ -12,7 +12,7 @@ Scenario: Creating a new draft publication
 
 Scenario: Creating a new draft publication related to multiple policies
   When I draft a new publication "Healthy Eating" relating it to the policies "Policy 1" and "Policy 2"
-  Then I should see in the preview that "Healthy Eating" should related to "Policy 1" and "Policy 2" policies
+  Then the publication should be related to "Policy 1" and "Policy 2" policies
 
 Scenario: Creating a new draft publication that applies to multiple nations
   Given I draft a new publication "Standard Beard Lengths" that does not apply to the nations:
