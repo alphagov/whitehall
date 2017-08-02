@@ -57,13 +57,6 @@ When /^I draft a new publication "([^"]*)" referencing the data set "([^"]*)"$/ 
   add_external_attachment
 end
 
-Then /^I should see in the preview that "([^"]*)" is taken from the live data in "([^"]*)"$/ do |title, data_set_name|
-  publish(force: true)
-  click_on title
-  click_on "View on website"
-  assert has_css?(".meta a", text: data_set_name)
-end
-
 Then /^I should see a link to the PDF attachment$/ do
   assert page.has_css?("a[href*='#{@attachment.filename}']")
 end

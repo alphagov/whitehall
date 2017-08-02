@@ -19,11 +19,6 @@ Feature: Grouping documents into a collection
     When I redraft the document collection and remove "May 2012 Update" from it
     Then I can see in the admin that "May 2012 Update" does not appear
 
-  Scenario: Documents should link back to their collection
-    Given a published publication called "May 2012 Update" in the document collection "Monthly Updates"
-    When I visit the publication "May 2012 Update"
-    Then I should see links back to the collection
-
   Scenario: Legacy document series urls are redirected to the new document collection urls
     Given a published document collection "Rail statistics" exists
     When I visit the old document series url "/government/organisations/government-department/series/rail-statistics"

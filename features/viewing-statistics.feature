@@ -15,10 +15,3 @@ Feature: Viewing statistics
     When I visit the statistics index page
     And I filter the statistics by department and topic
     Then I should only see statistics for the selected departments and topics
-
-  Scenario: Citizen views the details of statistics
-    Given there is a statistics publication
-    When I visit the statistics index page
-    And I click on the first statistics publication
-    Then I should see the details for that statistics publication
-    And I should see from the url that I am still in the statistics section of the site
