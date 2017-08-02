@@ -14,12 +14,6 @@ Scenario: Creating a new draft publication related to multiple policies
   When I draft a new publication "Healthy Eating" relating it to the policies "Policy 1" and "Policy 2"
   Then the publication should be related to "Policy 1" and "Policy 2" policies
 
-Scenario: Creating a new draft publication that references statistical data sets
-    Given I am an editor
-    Given a published statistical data set "Historical Beard Lengths"
-    When I draft a new publication "Beard Lengths 2012" referencing the data set "Historical Beard Lengths"
-    Then I should see in the preview that "Beard Lengths 2012" is taken from the live data in "Historical Beard Lengths"
-
 Scenario: Submitting a draft publication to a second pair of eyes
   Given a draft publication "Standard Beard Lengths" exists
   When I submit the publication "Standard Beard Lengths"
