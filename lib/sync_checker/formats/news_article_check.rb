@@ -62,6 +62,7 @@ module SyncChecker
         images = news_article.images
         lead_organisations = news_article.lead_organisations
         organisations = news_article.organisations
+        worldwide_organisations = news_article.worldwide_organisations
 
         first_image = images.first
         first_lead_organisation = lead_organisations.first
@@ -81,6 +82,8 @@ module SyncChecker
                        first_lead_organisation.default_news_image.file.url(IMAGE_FORMAT)
                      elsif organisations.any? && first_organisation.default_news_image
                        first_organisation.default_news_image.file.url(IMAGE_FORMAT)
+                     elsif worldwide_organisations.any? && worldwide_organisations.first.default_news_image
+                       worldwide_organisations.first.default_news_image
                      else
                        IMAGE_PLACEHOLDER
                      end
