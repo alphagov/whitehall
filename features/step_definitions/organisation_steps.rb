@@ -395,8 +395,12 @@ def navigate_to_organisation(page_name)
   end
 end
 
-Then /^I should see a mailto link for the alternative format contact email "([^"]*)"$/ do |email|
-  assert page.has_css?("a[href^=\"mailto:#{email}\"]")
+
+Then /^the alternative format contact email is "([^"]*)"$/ do |email|
+  publication = Publication.last
+  actual = publication.alternative_format_contact_email
+
+  assert_equal email, actual
 end
 
 Then /^I cannot see links to Transparency data on the "([^"]*)" about page$/ do |name|
