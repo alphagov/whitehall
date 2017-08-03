@@ -58,19 +58,21 @@ class HtmlAttachment < Attachment
 
   def url(options = {})
     preview = options.delete(:preview)
+    full_url = options.delete(:full_url)
 
     if preview
       options[:preview] = id
       options[:host] = Plek.find_uri("draft-origin").host
+    else
+      options[:host] = Plek.find_uri("www-origin").host
     end
 
     type = :publication
     type = :consultation if attachable.is_a?(Consultation)
 
-    suffix = :path
-    suffix = :url if preview
+    path_or_url = full_url ? :url : :path
 
-    path_helper = "#{type}_html_attachment_#{suffix}"
+    path_helper = "#{type}_html_attachment_#{path_or_url}"
 
     Whitehall.url_maker.public_send(path_helper, attachable.slug, self, options)
   end

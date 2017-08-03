@@ -84,7 +84,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     assert_equal expected_content.except(:details),
       presented_item.content.except(:details)
 
-    # We test for HTML equivlance rather than string equality to get around
+    # We test for HTML equivalence rather than string equality to get around
     # inconsistencies with line breaks between different XML libraries
     assert_equivalent_html expected_content[:details].delete(:body),
       presented_item.content[:details].delete(:body)

@@ -34,17 +34,28 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
   end
 
   test '#url returns absolute path to the draft stack when previewing' do
-    edition = create(:published_publication, :with_html_attachment)
+    edition = create(:draft_publication, :with_html_attachment)
     attachment = edition.attachments.first
 
     expected = "https://draft-origin.test.gov.uk/government/publications/"
     expected += "#{edition.slug}/#{attachment.slug}?preview=#{attachment.id}"
-    actual = attachment.url(preview: true)
+    actual = attachment.url(preview: true, full_url: true)
 
     assert_equal expected, actual
   end
 
-  test '#url returns relative path when not previewing' do
+  test '#url returns absolute path to the live site when not previewing' do
+    edition = create(:published_publication, :with_html_attachment)
+    attachment = edition.attachments.first
+
+    expected = "https://www-origin.test.gov.uk/government/publications/"
+    expected += "#{edition.slug}/#{attachment.slug}"
+    actual = attachment.url(full_url: true)
+
+    assert_equal expected, actual
+  end
+
+  test '#url returns relative path by default' do
     edition = create(:published_publication, :with_html_attachment)
     attachment = edition.attachments.first
     assert_equal "/government/publications/#{edition.slug}/#{attachment.slug}", attachment.url
