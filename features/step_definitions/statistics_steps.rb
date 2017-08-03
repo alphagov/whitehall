@@ -108,12 +108,3 @@ When(/^I click on the first statistics publication$/) do
     click_on page.all('h3').first.text
   end
 end
-
-Then(/^I should see the details for that statistics publication$/) do
-  assert page.has_content?(@statistics_publication.title)
-  assert page.has_content?(@statistics_publication.summary)
-end
-
-Then(/^I should see from the url that I am still in the statistics section of the site$/) do
-  assert page.current_path.include? statistics_path
-end

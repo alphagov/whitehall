@@ -72,8 +72,7 @@ Scenario: Defining the order of featured news on an organisation page
 Scenario: Requesting publications in alternative format
   And I set the alternative format contact email of "Ministry of Pop" to "alternative.format@ministry-of-pop.gov.uk"
   And a published publication "Charleston styles today" with a PDF attachment and alternative format provider "Ministry of Pop"
-  When I visit the publication "Charleston styles today"
-  Then I should see a mailto link for the alternative format contact email "alternative.format@ministry-of-pop.gov.uk"
+  Then the alternative format contact email is "alternative.format@ministry-of-pop.gov.uk"
 
 Scenario: Adding featured links
   Given I am a GDS editor in the organisation "Ministry of Pop"

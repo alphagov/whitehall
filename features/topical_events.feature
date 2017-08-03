@@ -27,7 +27,6 @@ Scenario: Associating a publication with a topical event
   When I draft a new publication "A speech" relating it to topical event "An Event"
   And I force publish the publication "A speech"
   Then I should see the publication "A speech" in the publications section of the topical event "An Event"
-  And the publication "A speech" shows it is related to the topical event "An Event" on its public page
 
 Scenario: Associating a consultation with a topical event
   Given a topical event called "An Event" with description "A topical event"

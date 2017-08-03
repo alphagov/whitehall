@@ -37,18 +37,6 @@ Given /^"([^"]*)" drafts a new publication "([^"]*)"$/ do |user_name, title|
   end
 end
 
-When /^I draft a new publication "([^"]*)" that does not apply to the nations:$/ do |title, nations|
-  begin_drafting_publication(title)
-  nations.raw.flatten.each do |nation_name|
-    within record_css_selector(Nation.find_by_name!(nation_name)) do
-      check nation_name
-      fill_in "Alternative url", with: "http://www.#{nation_name}.com/"
-    end
-  end
-  click_button "Save"
-  add_external_attachment
-end
-
 When /^I visit the list of publications$/ do
   stub_content_item_from_content_store_for(publications_path)
   visit homepage
@@ -67,13 +55,6 @@ When /^I draft a new publication "([^"]*)" referencing the data set "([^"]*)"$/ 
   select data_set_name, from: "Related statistical data sets"
   click_button "Save"
   add_external_attachment
-end
-
-Then /^I should see in the preview that "([^"]*)" is taken from the live data in "([^"]*)"$/ do |title, data_set_name|
-  publish(force: true)
-  click_on title
-  click_on "View on website"
-  assert has_css?(".meta a", text: data_set_name)
 end
 
 Then /^I should see a link to the PDF attachment$/ do
@@ -108,11 +89,8 @@ Then /^I should get a "([^"]*)" error$/ do |error_code|
 end
 
 When /^I replace the data file of the attachment in a new draft of the publication$/ do
-  old_edition = Publication.last
-  visit edit_admin_publication_path(old_edition)
-  @old_attachment_data = old_edition.attachments.first.attachment_data
-  new_file = pdf_attachment
-  @new_attachment_filename = File.basename(new_file)
+  @old_edition = Publication.last
+  visit edit_admin_publication_path(@old_edition)
   click_button "Create new edition"
   @new_edition = Publication.last
   click_on 'Attachments'
@@ -120,7 +98,8 @@ When /^I replace the data file of the attachment in a new draft of the publicati
   within record_css_selector(@new_edition.attachments.first.becomes(Attachment)) do
     click_on 'Edit'
   end
-  attach_file 'Replace file', new_file
+  @new_file = pdf_attachment
+  attach_file 'Replace file', @new_file
   click_on 'Save'
 
   ensure_path edit_admin_publication_path(@new_edition)
@@ -128,14 +107,16 @@ When /^I replace the data file of the attachment in a new draft of the publicati
   click_button "Save"
 end
 
-Then /^the new data file should not be public$/ do
-  @new_attachment_data = @new_edition.attachments.first.attachment_data
-  assert_not_equal @old_attachment_data, @new_attachment_data
-  assert_equal @new_attachment_filename, @new_attachment_data.filename
+Then /^the new data file should not have replaced the old data file$/ do
+  assert_equal 1, @new_edition.attachments.count
 
-  visit public_document_path(@new_edition)
-  assert page.has_css?(".attachment a[href*='#{@old_attachment_data.url}']", text: @attachment.title)
-  assert page.has_no_css?(".attachment a[href*='#{@new_attachment_data.url}']")
+  new_attachment_data = @new_edition.attachments.first.attachment_data
+  old_attachment_data = @old_edition.reload.attachments.first.attachment_data
+
+  assert_not_equal old_attachment_data, new_attachment_data
+
+  new_attachment_filename = File.basename(@new_file)
+  assert_equal new_attachment_filename, new_attachment_data.filename
 end
 
 When(/^I published the draft edition$/) do
@@ -143,15 +124,11 @@ When(/^I published the draft edition$/) do
   publish(force: true)
 end
 
-Then(/^the new data file should be public$/) do
-  visit public_document_path(@new_edition)
-
-  assert page.has_no_css?(".attachment a[href*='#{@old_attachment_data.url}']")
-  assert page.has_css?(".attachment a[href*='#{@new_attachment_data.url}']", text: @attachment.title)
-end
-
 Then /^the old data file should redirect to the new data file$/ do
-  assert_final_path(@old_attachment_data.url, @new_attachment_data.url)
+  new_attachment_data = @new_edition.attachments.first.attachment_data
+  old_attachment_data = @old_edition.reload.attachments.first.attachment_data
+
+  assert_final_path(old_attachment_data.url, new_attachment_data.url)
 end
 
 Given /^a published publication "([^"]*)" with type "([^"]*)"$/ do |publication_title, publication_type|

@@ -211,35 +211,11 @@ Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |edition|
   assert page.has_css?(record_css_selector(edition), text: edition.title)
 end
 
-Then /^I should see in the preview that "([^"]*)" should be in the "([^"]*)" and "([^"]*)" topics$/ do |title, first_topic, second_topic|
-  visit_document_preview title
-  assert has_css?(".meta a", text: first_topic)
-  assert has_css?(".meta a", text: second_topic)
-end
+Then /^the publication should be related to "([^"]*)" and "([^"]*)" policies$/ do |related_policy_1, related_policy_2|
+  policies_titles = Publication.last.policies.map(&:title)
 
-Then /^I should see in the preview that "([^"]*)" was produced by the "([^"]*)" and "([^"]*)" organisations$/ do |title, first_org, second_org|
-  visit_document_preview title
-  assert has_css?(".meta a", text: first_org)
-  assert has_css?(".meta a", text: second_org)
-end
-
-Then /^I should see in the preview that "([^"]*)" is associated with "([^"]*)" and "([^"]*)"$/ do |title, minister_1, minister_2|
-  visit_document_preview title
-  assert has_css?(".meta a", text: minister_1)
-  assert has_css?(".meta a", text: minister_2)
-end
-
-Then /^I should see in the preview that "([^"]*)" does not apply to the nations:$/ do |title, nation_names|
-  visit_document_preview title
-  nation_names.raw.flatten.each do |nation_name|
-    assert has_css?(".meta", text: nation_name)
-  end
-end
-
-Then /^I should see in the preview that "([^"]*)" should related to "([^"]*)" and "([^"]*)" policies$/ do |title, related_policy_1, related_policy_2|
-  visit_document_preview title
-  assert has_css?(".meta a", text: related_policy_1)
-  assert has_css?(".meta a", text: related_policy_2)
+  assert policies_titles.include?(related_policy_1)
+  assert policies_titles.include?(related_policy_2)
 end
 
 Then /^I should see the conflict between the (publication|policy|news article|consultation|speech) titles "([^"]*)" and "([^"]*)"$/ do |document_type, new_title, latest_title|

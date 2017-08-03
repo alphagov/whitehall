@@ -12,19 +12,7 @@ Scenario: Creating a new draft publication
 
 Scenario: Creating a new draft publication related to multiple policies
   When I draft a new publication "Healthy Eating" relating it to the policies "Policy 1" and "Policy 2"
-  Then I should see in the preview that "Healthy Eating" should related to "Policy 1" and "Policy 2" policies
-
-Scenario: Creating a new draft publication that applies to multiple nations
-  Given I draft a new publication "Standard Beard Lengths" that does not apply to the nations:
-    | Scotland | Wales |
-  Then I should see in the preview that "Standard Beard Lengths" does not apply to the nations:
-    | Scotland | Wales |
-
-Scenario: Creating a new draft publication that references statistical data sets
-    Given I am an editor
-    Given a published statistical data set "Historical Beard Lengths"
-    When I draft a new publication "Beard Lengths 2012" referencing the data set "Historical Beard Lengths"
-    Then I should see in the preview that "Beard Lengths 2012" is taken from the live data in "Historical Beard Lengths"
+  Then the publication should be related to "Policy 1" and "Policy 2" policies
 
 Scenario: Submitting a draft publication to a second pair of eyes
   Given a draft publication "Standard Beard Lengths" exists
@@ -76,15 +64,3 @@ Scenario: Viewing published publications
   When I visit the list of publications
   Then I should see the publication "Lamb chops on baker's faces"
   And I should see the summary of the publication "Lamb chops on baker's faces"
-
-Scenario: Publishing a publication that has a PDF attachment
-  Given a published publication "Standard Beard Lengths" with a PDF attachment
-  When I visit the publication "Standard Beard Lengths"
-  Then I should see a link to the PDF attachment
-  And I should see a thumbnail of the first page of the PDF
-
-Scenario: The publication is about a country
-  Given a world location "British Antarctic Territory" exists
-  And a published publication "Penguins have rights too" exists that is about "British Antarctic Territory"
-  When I visit the publication "Penguins have rights too"
-  Then I should see that the publication is about "British Antarctic Territory"

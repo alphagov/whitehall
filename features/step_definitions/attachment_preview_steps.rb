@@ -6,11 +6,11 @@ Given(/^there is a publicly visible CSV attachment on the site$/) do
 end
 
 When(/^I preview the contents of the attachment$/) do
-  visit publication_path(@publication.document)
-
-  within record_css_selector(@attachment.becomes(Attachment)) do
-    click_link "View online"
-  end
+  visit preview_attachment_path(
+    id: @attachment.attachment_data.id,
+    file: @attachment.filename_without_extension,
+    extension: @attachment.file_extension,
+  )
 end
 
 Then(/^I should see the CSV data previewed on the page$/) do

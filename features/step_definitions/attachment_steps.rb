@@ -140,11 +140,11 @@ When(/^I publish the draft edition for publication "(.*?)"$/) do |publication_ti
   publication.update!(state: 'published', major_change_published_at: Date.today)
 end
 
-Then /^previewing the html attachment "(.*?)" in print mode includes the contact address "(.*?)" and the isbn "(.*?)" and the web isbn "(.*?)"$/ do |attachment_title, contact_address, isbn, web_isbn|
+Then /^the html attachment "(.*?)" includes the contact address "(.*?)" and the isbn "(.*?)" and the web isbn "(.*?)"$/ do |attachment_title, contact_address, isbn, web_isbn|
   html_attachment = HtmlAttachment.find_by title: attachment_title
-  publication = html_attachment.attachable
-  visit publication_html_attachment_path publication_id: publication.slug, id: html_attachment.slug, medium: "print"
-  assert page.has_content? contact_address
-  assert page.has_content? isbn
-  assert page.has_content? web_isbn
+
+  assert_equal attachment_title, html_attachment.title
+  assert_equal contact_address, html_attachment.print_meta_data_contact_address
+  assert_equal isbn, html_attachment.isbn
+  assert_equal web_isbn, html_attachment.web_isbn
 end

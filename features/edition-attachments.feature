@@ -28,10 +28,9 @@ Feature: Managing attachments on editions
     And the attachment has been virus-checked
     When I replace the data file of the attachment in a new draft of the publication
     And the attachment has been virus-checked
-    Then the new data file should not be public
+    Then the new data file should not have replaced the old data file
     When I published the draft edition
     And I log out
-    Then the new data file should be public
     And the old data file should redirect to the new data file
 
   Scenario: Adding attachments on consultation responses
@@ -40,14 +39,6 @@ Feature: Managing attachments on editions
     When I go to the outcome for the consultation "Should We Ban Beards"
     And I upload a file attachment with the title "Beard Length Statistics 2014" and the file "dft_statistical_data_set_sample.csv"
     Then the outcome for the consultation should have the attachment "Beard Length Statistics 2014"
-
-  Scenario: Previewing HTML attachments on draft publication
-    Given I am a writer
-    And a draft publication "Standard Beard Lengths" exists
-    And the publication "Standard Beard Lengths" has an html attachment "Beard Length Graphs 2012" with the body "Example Govspeak body"
-    When I preview "Standard Beard Lengths"
-    And I preview the attachment "Beard Length Graphs 2012"
-    Then I should see the html attachment body "Example Govspeak body"
 
   Scenario: Attempting to save attachment after validation failure
     Given I am a writer
@@ -61,6 +52,4 @@ Feature: Managing attachments on editions
     When I start editing the attachments from the publication page
     And I upload an html attachment with the title "Beard Length Graphs 2012" and the isbn "9781474127783" and the web isbn "978-1-78246-569-0" and the contact address "Address 1"
     And I publish the draft edition for publication "Standard Beard Lengths"
-    And I preview "Standard Beard Lengths"
-    Then previewing the html attachment "Beard Length Graphs 2012" in print mode includes the contact address "Address 1" and the isbn "9781474127783" and the web isbn "978-1-78246-569-0"
-
+    Then the html attachment "Beard Length Graphs 2012" includes the contact address "Address 1" and the isbn "9781474127783" and the web isbn "978-1-78246-569-0"
