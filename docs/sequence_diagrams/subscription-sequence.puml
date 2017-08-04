@@ -1,0 +1,47 @@
+@startuml
+
+skinparam dpi 300
+title The sequence of events when a user subscribes to receive email notifications from a Whitehall listing page on GOV.UK
+
+actor user
+user -> "listing page" as list
+list -> "email_signups_controller" as controller : subscribe to email alerts
+controller -> "govuk-delivery" as govukdelivery : feed url
+database "mongo" as govukdeliverydb
+govukdelivery -> govukdeliverydb : find
+govukdeliverydb -> govukdelivery : topic or nil
+
+group if nil
+	participant govdelivery #LightBlue
+	govukdelivery -> govdelivery : create new topic
+	govdelivery -> govukdelivery : topic
+	govukdelivery -> govukdeliverydb : store
+end
+
+govukdelivery -> controller : topic
+controller -> "email_signup_worker" as worker : enqueue job with topic, feed url
+controller -> user : provide signup url
+user -> govdelivery : hand off for rest of journey
+
+group sidekiq
+	worker -> "url_to_subscriber_list_criteria" as criteria : feed url
+	criteria -> worker : links hash
+	worker -> "email-alert-api" as emailalertapi : find_or_create with topic, links hash
+	database "postgres" as emailalertapidb
+	emailalertapi -> emailalertapidb : find
+	emailalertapidb -> emailalertapi : topic or nil
+
+	note left
+		does not speak to govdelivery
+		because a topic is provided
+		in the request
+	end note
+
+  group if nil
+    emailalertapi -> emailalertapidb : store
+  end group
+
+	emailalertapi -> worker : acknowledge
+end
+
+@enduml
