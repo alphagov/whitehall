@@ -74,18 +74,18 @@ module Admin
     end
 
     def from_date
-      @from_date ||= Chronic.parse(options[:from_date], endian_precedence: :little) if options[:from_date]
+      @from_date ||= Chronic.parse(options[:from_date], endian_precedence: :little, guess: :begin) if options[:from_date]
     end
 
     def to_date
-      @to_date ||= Chronic.parse(options[:to_date], endian_precedence: :little) if options[:to_date]
+      @to_date ||= Chronic.parse(options[:to_date], endian_precedence: :little, guess: :begin) if options[:to_date]
     end
 
     def date_range_string
       if from_date && to_date
         "from #{from_date.to_date.to_s(:uk_short)} to #{to_date.to_date.to_s(:uk_short)}"
       elsif from_date
-        "after #{from_date.to_date.to_s(:uk_short)}"
+        "from #{from_date.to_date.to_s(:uk_short)}"
       elsif to_date
         "before #{to_date.to_date.to_s(:uk_short)}"
       end
