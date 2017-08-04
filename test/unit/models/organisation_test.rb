@@ -964,14 +964,15 @@ class OrganisationTest < ActiveSupport::TestCase
   test "#save triggers organisation with a changed default news organisation image to republish news articles" do
     organisation = create(:organisation)
 
+    document_ids = NewsArticle
+      .in_organisation(organisation)
+      .includes(:images)
+      .where(images: { id: nil })
+      .map(&:document_id)
+
     DataHygiene::PublishingApiRepublisher
       .expects(:new)
-      .with(
-        NewsArticle
-          .in_organisation(organisation)
-          .includes(:images)
-          .where(images: { id: nil })
-      )
+      .with(Document.where(id: document_ids))
       .returns(stub(:perform))
 
     organisation.update_attribute(
