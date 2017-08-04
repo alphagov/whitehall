@@ -116,8 +116,8 @@ Given(/^the publication "(.*?)" has an html attachment "(.*?)" with the body "(.
   create :html_attachment, attachable: publication, title: attachment_title, body: attachment_body
 end
 
-When(/^I preview the attachment "(.*?)"$/) do |attachment_title|
-  click_on attachment_title
+Then(/^I can see the preview link to the attachment "(.*?)"$/) do |attachment_title|
+  assert page.has_link?("a", href: /draft-origin/, text: attachment_title)
 end
 
 Then(/^I should see the html attachment body "(.*?)"$/) do |attachment_body|

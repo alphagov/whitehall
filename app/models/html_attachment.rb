@@ -57,15 +57,24 @@ class HtmlAttachment < Attachment
   end
 
   def url(options = {})
-    options[:preview] = id if options.delete(:preview)
+    preview = options.delete(:preview)
+    full_url = options.delete(:full_url)
 
-    path_helper = case attachable
-                  when Consultation
-                    :consultation_html_attachment_path
-                  else
-                    :publication_html_attachment_path
-                  end
-    Rails.application.routes.url_helpers.send(path_helper, attachable.slug, self, options)
+    if preview
+      options[:preview] = id
+      options[:host] = Plek.find_uri("draft-origin").host
+    else
+      options[:host] = Plek.find_uri("www-origin").host
+    end
+
+    type = :publication
+    type = :consultation if attachable.is_a?(Consultation)
+
+    path_or_url = full_url ? :url : :path
+
+    path_helper = "#{type}_html_attachment_#{path_or_url}"
+
+    Whitehall.url_maker.public_send(path_helper, attachable.slug, self, options)
   end
 
   def extracted_text
