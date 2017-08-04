@@ -59,17 +59,28 @@ class Unpublishing < ApplicationRecord
   end
 
   def alternative_path
-    return if alternative_url.nil?
-    Addressable::URI.parse(alternative_url).path
-  rescue URI::InvalidURIError
-    nil
+    return if alternative_uri.nil?
+
+    path = alternative_uri.path
+    path << "##{alternative_uri.fragment}" if alternative_uri.fragment.present?
+    path
   end
 
 private
 
+  def alternative_uri
+    @_uri ||= begin
+      return if alternative_url.nil?
+
+      Addressable::URI.parse(alternative_url)
+    rescue URI::InvalidURIError
+      nil
+    end
+  end
+
   def redirect_not_circular
-    if alternative_url.present?
-      if document_path == alternative_path
+    if alternative_uri.present?
+      if document_path == alternative_uri.path
         errors.add(:alternative_url, "cannot redirect to itself")
       end
     end

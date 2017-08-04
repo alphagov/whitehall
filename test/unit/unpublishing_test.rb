@@ -72,6 +72,11 @@ class UnpublishingTest < ActiveSupport::TestCase
     assert_nil unpublishing.alternative_path
   end
 
+  test 'alternative_path returns the fragment of alternative_url' do
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: 'https://www.test.gov.uk/guidance/document-path#part-one')
+    assert_includes unpublishing.alternative_path, "#part-one"
+  end
+
   test 'returns an unpublishing reason' do
     unpublishing = build(:unpublishing, unpublishing_reason: reason)
     assert_equal reason, unpublishing.unpublishing_reason
