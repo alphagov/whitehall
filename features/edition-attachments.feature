@@ -22,6 +22,15 @@ Feature: Managing attachments on editions
       | Beard Length Statistics 2014 |
       | Beard Length Illustrations   |
 
+  Scenario: Previewing HTML attachment
+    Given I am an writer
+    And I start drafting a new publication "Standard Beard Lengths"
+    When I start editing the attachments from the publication page
+    And I upload an html attachment with the title "Beard Length Graphs 2012" and the body "Example text"
+    When I visit the attachments page
+    Then I can see the attachment title "Beard Length Graphs 2012"
+    And I can see the preview link to the attachment "HTML attachment"
+
   Scenario: Replacing data on an attachment
     Given I am an editor
     And a published publication "Standard Beard Lengths" with a PDF attachment

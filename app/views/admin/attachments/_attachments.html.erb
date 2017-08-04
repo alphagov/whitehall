@@ -13,7 +13,7 @@
       <%= content_tag_for(:li, attachment.becomes(Attachment), class: "well") do %>
         <strong><%= attachment.title %></strong>
         <span class="file">
-          <%= attachment.is_a?(ExternalAttachment) ? 'Link' : 'File' %>: <%= link_to_attachment(attachment, preview: true) %>
+          <%= attachment.is_a?(ExternalAttachment) ? 'Link' : 'File' %>: <%= link_to_attachment(attachment, preview: true, full_url: true) %>
         </span>
         <%= attachment_virus_status(attachment) %>
         <%= attachment_metadata_tag(attachment) %>

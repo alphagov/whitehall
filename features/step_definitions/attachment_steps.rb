@@ -1,37 +1,18 @@
-When(/^I make unsaved changes to the news article$/) do
-  @news_article = NewsArticle.last
-  visit edit_admin_news_article_path(@news_article)
-  fill_in 'Title', with: 'An unsaved change'
-end
-
-When(/^I attempt to visit the attachments page$/) do
+When(/^I visit the attachments page$/) do
   first(:link, 'Attachments').click
 end
 
-Then(/^I should stay on the edit screen for the news article$/) do
-  assert_path edit_admin_news_article_path(@news_article)
-end
-
-When(/^I save my changes$/) do
-  click_on 'Save and continue editing'
-end
-
-Then(/^I can visit the attachments page$/) do
-  first(:link, 'Attachments').click
-  assert_path admin_edition_attachments_path(@news_article)
-end
-
-When /^the (?:attachment|image)s? (?:has|have) been virus\-checked$/ do
+When(/^the (?:attachment|image)s? (?:has|have) been virus\-checked$/) do
   FileUtils.cp_r(Whitehall.incoming_uploads_root + '/.', Whitehall.clean_uploads_root + "/")
   FileUtils.rm_rf(Whitehall.incoming_uploads_root)
   FileUtils.mkdir(Whitehall.incoming_uploads_root)
 end
 
-Then /^the image will be quarantined for virus checking$/ do
+Then(/^the image will be quarantined for virus checking$/) do
   assert_final_path(person_image_path, "thumbnail-placeholder.png")
 end
 
-Then /^the virus checked image will be available for viewing$/ do
+Then(/^the virus checked image will be available for viewing$/) do
   assert_final_path(person_image_path, person_image_path)
 end
 
@@ -111,17 +92,12 @@ Then(/^the outcome for the consultation should have the attachment "(.*?)"$/) do
   assert page.has_content?(attachment_title)
 end
 
-Given(/^the publication "(.*?)" has an html attachment "(.*?)" with the body "(.*?)"$/) do |publication_title, attachment_title, attachment_body|
-  publication = Publication.find_by(title: publication_title)
-  create :html_attachment, attachable: publication, title: attachment_title, body: attachment_body
+Then(/^I can see the attachment title "([^"]*)"$/) do |text|
+  assert page.has_css?('li.attachment', text: text)
 end
 
 Then(/^I can see the preview link to the attachment "(.*?)"$/) do |attachment_title|
   assert page.has_link?("a", href: /draft-origin/, text: attachment_title)
-end
-
-Then(/^I should see the html attachment body "(.*?)"$/) do |attachment_body|
-  assert page.has_content?(attachment_body)
 end
 
 When(/^I upload an html attachment with the title "(.*?)" and the isbn "(.*?)" and the web isbn "(.*?)" and the contact address "(.*?)"$/) do |title, isbn, web_isbn, contact_address|
@@ -140,7 +116,7 @@ When(/^I publish the draft edition for publication "(.*?)"$/) do |publication_ti
   publication.update!(state: 'published', major_change_published_at: Date.today)
 end
 
-Then /^the html attachment "(.*?)" includes the contact address "(.*?)" and the isbn "(.*?)" and the web isbn "(.*?)"$/ do |attachment_title, contact_address, isbn, web_isbn|
+Then(/^the html attachment "(.*?)" includes the contact address "(.*?)" and the isbn "(.*?)" and the web isbn "(.*?)"$/) do |attachment_title, contact_address, isbn, web_isbn|
   html_attachment = HtmlAttachment.find_by title: attachment_title
 
   assert_equal attachment_title, html_attachment.title
