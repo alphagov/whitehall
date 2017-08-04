@@ -237,7 +237,7 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
 
   test "should generate page title for from date" do
     filter = Admin::EditionFilter.new(Edition, build(:user), from_date: '09/11/2011')
-    assert_equal "Everyone’s documents after 09/11/2011", filter.page_title
+    assert_equal "Everyone’s documents from 09/11/2011", filter.page_title
   end
 
   test "should generate page title for to date" do
