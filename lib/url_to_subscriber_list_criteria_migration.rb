@@ -80,7 +80,7 @@ class UrlToSubscriberListCriteriaMigration
 
     begin
       criteria = parser.convert.merge('gov_delivery_id' => row['topic_id'])
-      response = email_alert_api.send(:search_subscriber_list, criteria)
+      response = email_alert_api.find_subscriber_list(criteria)
       puts "******* EmailAlertApi details"
       pp response['subscriber_list']
     rescue GdsApi::HTTPNotFound
