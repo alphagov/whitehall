@@ -5,9 +5,7 @@ class EmailTopicCheckerTest < ActiveSupport::TestCase
     response = mock("Response", to_str: "http://example.com?topic_id=TOPIC_123")
     Whitehall.govuk_delivery_client.stubs(:signup_url).returns(response)
 
-    mock_client = mock("EmailAlertApi", find_subscriber_list: {
-      "subscriber_list" => { "gov_delivery_id" => "TOPIC_456" }
-    });
+    mock_client = mock("EmailAlertApi", topic_matches: { "topics" => ["TOPIC_456"] })
     EmailTopicChecker.any_instance.stubs(email_alert_api: mock_client)
 
     edition = create(:edition, :published)

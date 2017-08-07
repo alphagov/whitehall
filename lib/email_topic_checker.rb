@@ -24,8 +24,9 @@ class EmailTopicChecker
 
     feed_urls = feed_urls(edition)
     govuk_topics = feed_urls.map { |url| govuk_delivery_topic(url) }.compact.sort
-    links_hashes = feed_urls.map { |url| links_hash(url) }
-    email_topics = links_hashes.map { |hash| email_alert_api_topic(hash) }.compact.sort
+
+    presented_edition = PublishingApiPresenters.presenter_for(edition)
+    email_topics = email_alert_api_topics(presented_edition)
 
     puts "\ngovuk-delivery topics:"
     puts govuk_topics
@@ -56,9 +57,20 @@ class EmailTopicChecker
     nil
   end
 
-  def email_alert_api_topic(links_hash)
-    response = email_alert_api.find_subscriber_list(links_hash)
-    response["subscriber_list"]["gov_delivery_id"]
+  def email_alert_api_topics(presented_edition)
+    content = presented_edition.content
+    links = presented_edition.links
+    details = content[:details]
+    tags = details[:tags] if details
+
+    params = {
+      links: strip_empty_arrays(links),
+      tags: strip_empty_arrays(tags),
+      document_type: content[:document_type],
+    }
+
+    response = email_alert_api.topic_matches(params)
+    response.to_h.fetch("topics")
   rescue GdsApi::HTTPNotFound
     nil
   end
@@ -70,5 +82,9 @@ class EmailTopicChecker
 
   def links_hash(feed_url)
     UrlToSubscriberListCriteria.new(feed_url).convert
+  end
+
+  def strip_empty_arrays(hash)
+    hash.reject { |_, values| values.empty? }
   end
 end
