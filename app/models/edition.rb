@@ -626,7 +626,7 @@ class Edition < ApplicationRecord
   end
 
   def get_user_needs_from_publishing_api
-    response = Whitehall.publishing_api_v2_client.get_links(
+    response = Services.publishing_api.get_links(
       document.content_id
     )
 
@@ -645,7 +645,7 @@ class Edition < ApplicationRecord
     # database, and this line can be removed.
     return if @need_ids.is_a? String
 
-    Whitehall.publishing_api_v2_client.patch_links(
+    Services.publishing_api.patch_links(
       content_id,
       links: { meets_user_needs: @need_ids.reject(&:empty?) }
     )
@@ -653,7 +653,7 @@ class Edition < ApplicationRecord
 
   def associated_needs
     return [] unless need_ids.try(:any?)
-    response = Whitehall.publishing_api_v2_client.get_expanded_links(
+    response = Services.publishing_api.get_expanded_links(
       document.content_id
     )
 

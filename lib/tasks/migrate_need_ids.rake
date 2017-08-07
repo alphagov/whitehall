@@ -34,7 +34,7 @@ WHERE need_ids IS NOT NULL;")
 
     need_content_ids = need_content_ids.compact
 
-    Whitehall.publishing_api_v2_client.patch_links(
+    Services.publishing_api.patch_links(
       content_id,
       links: { meets_user_needs: need_content_ids }
     )
