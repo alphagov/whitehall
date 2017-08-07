@@ -86,6 +86,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'govuk-lint'
   gem 'dotenv-rails'
+  gem 'teaspoon-qunit'
 end
 
 group :development do
@@ -105,7 +106,6 @@ group :test do
   gem 'webmock', require: false
   gem 'ci_reporter_minitest'
   gem 'database_cleaner'
-  gem 'test_track', '~> 0.1.0', git: 'https://github.com/alphagov/test_track'
   gem 'govuk-content-schema-test-helpers'
   gem 'minitest-fail-fast'
   gem 'maxitest'
