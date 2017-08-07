@@ -34,6 +34,7 @@ module PublishingApi
         body: body,
         political: item.political,
         delivered_on: item.delivered_on.iso8601,
+        speech_type_explanation: speech_type_explanation,
         change_history: item.change_history.as_json,
       }
       details.merge!(image_payload) if has_image?
@@ -125,6 +126,10 @@ module PublishingApi
       else
         speaker.name
       end
+    end
+
+    def speech_type_explanation
+      item.speech_type ? item.speech_type.explanation : nil
     end
   end
 end

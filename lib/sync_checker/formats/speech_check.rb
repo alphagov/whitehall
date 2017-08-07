@@ -30,6 +30,7 @@ module SyncChecker
       def expected_details_hash(speech, _locale)
         super.tap do |details|
           details.merge!(expected_delivered_on(speech))
+          details.merge!(expected_speech_type_explanation(speech))
           details.merge!(expected_government(speech))
           details.merge!(expected_image(speech))
           details.merge!(expected_political(speech))
@@ -57,6 +58,10 @@ module SyncChecker
 
       def expected_delivered_on(speech)
         { "delivered_on" => speech.delivered_on.iso8601 }
+      end
+
+      def expected_speech_type_explanation(speech)
+        { "speech_type_explanation" => speech.speech_type.explanation }
       end
 
       def expected_government(speech)
