@@ -178,8 +178,8 @@ var organisationsFieldset =
 module("admin-edition-form-foreign-language: ", {
   setup: function() {
     $('#qunit-fixture').append(form)
-    $('form').append(foreignLanguageFieldset)
-    $('form').append(titleFieldset)
+    $('#qunit-fixture form').append(foreignLanguageFieldset)
+    $('#qunit-fixture form').append(titleFieldset)
 
     GOVUK.adminEditionsForm.init({
       selector: 'form#non-english',
@@ -233,9 +233,9 @@ test("selecting and deselecting right-to-left languages applies the appropriate 
 module("admin-edition-form-foreign-language-for-news-articles: ", {
   setup: function() {
     $('#qunit-fixture').append(form)
-    $('form').append(newsArticleTypeSelect)
-    $('form').append(foreignLanguageFieldset)
-    $('form').append(titleFieldset)
+    $('#qunit-fixture form').append(newsArticleTypeSelect)
+    $('#qunit-fixture form').append(foreignLanguageFieldset)
+    $('#qunit-fixture form').append(titleFieldset)
 
     GOVUK.adminEditionsForm.init({
       selector: 'form#non-english',
@@ -286,7 +286,7 @@ test("unselecting 'World news story' hides and resets the locale fields", functi
 module("admin-edition-form-first-published-at: ", {
   setup: function() {
     $('#qunit-fixture').append(form)
-    $('form').append(firstPublishedAtFieldset)
+    $('#qunit-fixture form').append(firstPublishedAtFieldset)
 
     GOVUK.adminEditionsForm.init({
       selector: 'form#non-english',
@@ -323,9 +323,9 @@ test("previously_published radio buttons toggle visibility of first_published da
 module("admin-edition-form-policies-news-articles: ", {
   setup: function() {
     $('#qunit-fixture').append(form)
-    $('form').append(newsArticleTypeSelect)
-    $('form').append(titleFieldset)
-    $('form').append(policiesFieldset)
+    $('#qunit-fixture form').append(newsArticleTypeSelect)
+    $('#qunit-fixture form').append(titleFieldset)
+    $('#qunit-fixture form').append(policiesFieldset)
 
     GOVUK.adminEditionsForm.init({
       selector: 'form#non-english',
@@ -360,9 +360,9 @@ test("unselecting 'World news story' shows the policies fieldset", function () {
 module("admin-edition-form-role-appointments-news-articles: ", {
   setup: function() {
     $('#qunit-fixture').append(form)
-    $('form').append(newsArticleTypeSelect)
-    $('form').append(titleFieldset)
-    $('form').append(roleAppointmentFieldset)
+    $('#qunit-fixture form').append(newsArticleTypeSelect)
+    $('#qunit-fixture form').append(titleFieldset)
+    $('#qunit-fixture form').append(roleAppointmentFieldset)
 
     GOVUK.adminEditionsForm.init({
       selector: 'form#non-english',
@@ -397,9 +397,9 @@ test("unselecting 'World news story' shows the role-appointments fieldset", func
 module("admin-edition-form-worldwide-organisations-news-articles: ", {
   setup: function() {
     $('#qunit-fixture').append(form)
-    $('form').append(newsArticleTypeSelect)
-    $('form').append(titleFieldset)
-    $('form').append(worldwideOrganisationFieldset)
+    $('#qunit-fixture form').append(newsArticleTypeSelect)
+    $('#qunit-fixture form').append(titleFieldset)
+    $('#qunit-fixture form').append(worldwideOrganisationFieldset)
 
     GOVUK.adminEditionsForm.init({
       selector: 'form#non-english',
@@ -447,9 +447,9 @@ test("unselecting 'World news story' hides and resets the worldwide organisation
 module("admin-edition-form-organisations-news-articles: ", {
   setup: function() {
     $('#qunit-fixture').append(form)
-    $('form').append(newsArticleTypeSelect)
-    $('form').append(titleFieldset)
-    $('form').append(organisationsFieldset)
+    $('#qunit-fixture form').append(newsArticleTypeSelect)
+    $('#qunit-fixture form').append(titleFieldset)
+    $('#qunit-fixture form').append(organisationsFieldset)
 
     GOVUK.adminEditionsForm.init({
       selector: 'form#non-english',
