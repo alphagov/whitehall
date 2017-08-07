@@ -6,7 +6,7 @@ class PublicationType
   include ActiveRecordLikeInterface
 
   FORMAT_ADVICE = {
-    1 => "<p>Publications that relate to the setting and delivery of government policy. Includes white papers, strategies, operational plans, action plans, implementation plans (excludes consultations, research and impact assessments, or internal procedural “policies”).</p>",
+    1 => "<p>A policy paper explains the government's position on something. It doesn’t include instructions on how to carry out a task, only the policy itself and how it’ll be implemented.</p><p>Read the <a href=\"https://www.gov.uk/guidance/content-design/content-types#policy-paper\" target=\"_blank\">policy papers guidance</a> in full.</p>",
     2 => "<p>Cost-benefit analyses and other assessments of the impact of proposed initiatives, or changes to regulations or legislation.</p>",
     3 => "<p>Non-statutory guidance publications. Includes: manuals, handbooks and other documents that offer advice.</p><p>Do <em>not</em> use for: statutory guidance (use the “statutory guidance” publication type) or guidance about completing a form (attach to same publication as the form itself).</p>",
     4 => "<p>Pro-forma or form documents that need to be completed by the user. Can include guidance on how to fill in forms (ie no need to create a separate “guidance” publication for form instructions).</p>",
