@@ -66,6 +66,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
       refute(details[:political])
       assert_equal(expected_body,     details[:body])
       assert_match(iso8601_regex,     details[:delivered_on])
+      assert_equal("Transcript of the speech, exactly as it was delivered", details[:speech_type_explanation])
 
       assert_equal("The Government",  details[:government][:title])
       assert_equal("the-government",  details[:government][:slug])
