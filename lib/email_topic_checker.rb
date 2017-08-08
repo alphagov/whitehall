@@ -82,8 +82,8 @@ class EmailTopicChecker
     tags = details[:tags] if details
 
     params = {
-      links: strip_empty_arrays(links),
-      tags: strip_empty_arrays(tags),
+      links: strip_empty_arrays(links || {}),
+      tags: strip_empty_arrays(tags || {}),
       document_type: content[:document_type],
     }.merge(supertypes)
 
