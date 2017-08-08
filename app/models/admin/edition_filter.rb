@@ -38,7 +38,7 @@ module Admin
     end
 
     def default_page_size
-      50
+      Kaminari.config.default_per_page
     end
 
     def hide_type
