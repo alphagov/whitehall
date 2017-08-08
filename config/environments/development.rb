@@ -27,6 +27,16 @@ Whitehall::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = ENV['DISABLE_ASSETS_DEBUG'].nil?
+
+  # Asset digests allow you to set far-future HTTP expiration dates on all assets,
+  # yet still be able to expire them through the digest params.
+  config.assets.digest = true
+
+  # Adds additional error checking when serving assets at runtime.
+  # Checks for improperly declared sprockets dependencies.
+  # Raises helpful error messages.
+  config.assets.raise_runtime_errors = true
+
   config.assets.cache_store = :null_store
   config.sass.cache = false
 

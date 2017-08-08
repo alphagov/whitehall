@@ -46,15 +46,8 @@ module Whitehall
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
-    # Enable the asset pipeline
-    config.assets.initialize_on_precompile = true
-
     config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
-    # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.0'
-
-    config.assets.prefix = Whitehall.router_prefix + config.assets.prefix
     config.slimmer.wrapper_id = "whitehall-wrapper"
 
     config.action_dispatch.ignore_accept_header = true
