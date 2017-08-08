@@ -40,7 +40,7 @@ module Admin::UrlHelper
   end
 
   def admin_world_locations_header_menu_link
-    admin_header_menu_link "World locations", admin_world_locations_path
+    admin_header_menu_link "World location news", admin_world_locations_path
   end
 
   def admin_policy_groups_header_menu_link
