@@ -2,6 +2,7 @@ require "gds_api/helpers"
 
 class EmailTopicChecker
   include GdsApi::Helpers
+  attr_reader :verbose_output
 
   # The govuk-delivery mongo db stores absolute paths for feed_urls in its
   # db.topics collection. This environment variable lets us swap out the feed
@@ -15,13 +16,18 @@ class EmailTopicChecker
   IGNORE_SUPERTYPES = ENV["IGNORE_SUPERTYPES"].present?
 
   def self.check(content_id)
+    new(content_id, true).check
+  end
+
+  def self.check_and_return_failed_content_ids(content_id)
     new(content_id).check
   end
 
   attr_accessor :document
 
-  def initialize(content_id)
+  def initialize(content_id, verbose = false)
     self.document = Document.find_by!(content_id: content_id)
+    @verbose = verbose
   end
 
   def check
@@ -35,22 +41,26 @@ class EmailTopicChecker
     supertypes = content_store_supertypes(presented_edition)
     email_topics = email_alert_api_topics(presented_edition, supertypes)
 
-    puts "\ngovuk-delivery feed urls:"
-    puts feed_urls
+    if verbose_output
+      puts "\ngovuk-delivery feed urls:"
+      puts feed_urls
 
-    puts "\ngovuk-delivery topics:"
-    puts govuk_topics
+      puts "\ngovuk-delivery topics:"
+      puts govuk_topics
 
-    puts "\nemail-alert-api topics:"
-    puts email_topics
+      puts "\nemail-alert-api topics:"
+      puts email_topics
 
-    additional_govuk = (govuk_topics - email_topics).presence || "None"
-    puts "\nadditional govuk-delivery topics:"
-    puts additional_govuk
+      additional_govuk = (govuk_topics - email_topics).presence || "None"
+      puts "\nadditional govuk-delivery topics:"
+      puts additional_govuk
 
-    additional_email = (email_topics - govuk_topics).presence || "None"
-    puts "\nadditional email-alert-api topics:"
-    puts additional_email
+      additional_email = (email_topics - govuk_topics).presence || "None"
+      puts "\nadditional email-alert-api topics:"
+      puts additional_email
+    end
+
+    document.content_id if (govuk_topics - email_topics).any?
   end
 
   def govuk_delivery_topic(feed_url)
@@ -72,6 +82,9 @@ class EmailTopicChecker
 
     base_path = presented_edition.content.to_h.fetch(:base_path)
     content = Whitehall.content_store.content_item(base_path).to_h
+    if content["content_id"] != document.content_id
+      raise "content store returned different content item"
+    end
     content.slice("email_document_supertype", "government_document_supertype").symbolize_keys
   end
 
@@ -87,8 +100,10 @@ class EmailTopicChecker
       document_type: content[:document_type],
     }.merge(supertypes)
 
+    if verbose_output
     puts "\nemail-alert-api params:"
     puts params.inspect
+    end
 
     response = email_alert_api.topic_matches(params)
     response.to_h.fetch("topics")
