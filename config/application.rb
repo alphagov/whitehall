@@ -46,8 +46,6 @@ module Whitehall
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
-    config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
-
     config.slimmer.wrapper_id = "whitehall-wrapper"
 
     config.action_dispatch.ignore_accept_header = true
