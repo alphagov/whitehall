@@ -34,9 +34,9 @@ module PublishingApi
         body: body,
         political: item.political,
         delivered_on: item.delivered_on.iso8601,
-        speech_type_explanation: speech_type_explanation,
         change_history: item.change_history.as_json,
       }
+      details.merge!(speech_type_explanation)
       details.merge!(image_payload) if has_image?
       details.merge!(PayloadBuilder::PoliticalDetails.for(item))
       details.merge!(PayloadBuilder::FirstPublicAt.for(item))
@@ -68,6 +68,13 @@ module PublishingApi
 
     def body
       Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item)
+    end
+
+    def speech_type_explanation
+      return {} unless item.speech_type
+      return {} unless item.speech_type.explanation.present?
+
+      { speech_type_explanation: item.speech_type.explanation }
     end
 
     def image_payload
@@ -126,10 +133,6 @@ module PublishingApi
       else
         speaker.name
       end
-    end
-
-    def speech_type_explanation
-      item.speech_type ? item.speech_type.explanation : nil
     end
   end
 end
