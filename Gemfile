@@ -87,6 +87,9 @@ group :development, :test do
   gem 'govuk-lint'
   gem 'dotenv-rails'
   gem 'teaspoon-qunit'
+  # teaspoon has coffee assets that mean we need coffee script in order
+  # to be able to run things
+  gem 'coffee-rails', '~> 4.1.0'
 end
 
 group :development do
