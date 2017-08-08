@@ -61,6 +61,8 @@ module SyncChecker
       end
 
       def expected_speech_type_explanation(speech)
+        return {} unless speech.speech_type.explanation.present?
+
         { "speech_type_explanation" => speech.speech_type.explanation }
       end
 
