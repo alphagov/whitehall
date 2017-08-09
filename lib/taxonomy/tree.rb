@@ -1,3 +1,6 @@
+# This has been copied into Content Tagger, pending a decision on where it should live.
+# If you're changing it, please consider handling the common case.
+
 # Recursive parser for publishing-api Taxon data
 module Taxonomy
   class Tree
