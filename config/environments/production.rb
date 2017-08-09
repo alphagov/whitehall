@@ -37,7 +37,7 @@ Whitehall::Application.configure do
 
   # Specifies the header that your server uses for sending files
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
-  # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
+  config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
@@ -53,37 +53,6 @@ Whitehall::Application.configure do
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   config.action_controller.asset_host = Whitehall.asset_root
-
-  # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w(
-    admin.css
-    admin-ie8.css
-    admin-ie7.css
-    admin-ie6.css
-    frontend/base.css
-    frontend/base-ie9.css
-    frontend/base-ie8.css
-    frontend/base-ie7.css
-    frontend/base-ie6.css
-    frontend/base-rtl.css
-    frontend/base-rtl-ie9.css
-    frontend/base-rtl-ie8.css
-    frontend/base-rtl-ie7.css
-    frontend/base-rtl-ie6.css
-    frontend/html-publication.css
-    frontend/html-publication-ie9.css
-    frontend/html-publication-ie8.css
-    frontend/html-publication-ie7.css
-    frontend/html-publication-ie6.css
-    frontend/html-publication-rtl.css
-    frontend/html-publication-rtl-ie9.css
-    frontend/html-publication-rtl-ie8.css
-    frontend/html-publication-rtl-ie7.css
-    frontend/html-publication-rtl-ie6.css
-    frontend/print.css
-    admin.js
-    tour/tour_pano.js
-  )
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false

@@ -5,8 +5,8 @@ module("Enhance youbute videos test", {
   }
 });
 
-test("should replace tiny youtube links", function() {
-  var stub = sinon.stub($.fn, "player");
+test("should replace tiny youtube links", sinon.test(function() {
+  var stub = this.stub($.fn, "player");
   stub.returns(true);
 
   this.container.find('a').attr('href', 'http://youtu.be/tinyVideo');
@@ -15,11 +15,10 @@ test("should replace tiny youtube links", function() {
 
   var playerArgs = stub.getCall(0).args[0];
   equal('tinyVideo', playerArgs.media);
-  stub.restore();
-});
+}));
 
-test("should replace short youtube links", function() {
-  var stub = sinon.stub($.fn, "player");
+test("should replace short youtube links", sinon.test(function() {
+  var stub = this.stub($.fn, "player");
   stub.returns(true);
 
   this.container.find('a').attr('href', 'http://youtube.com/watch?v=shortVideo');
@@ -28,10 +27,10 @@ test("should replace short youtube links", function() {
 
   var playerArgs = stub.getCall(0).args[0];
   equal('shortVideo', playerArgs.media);
-  stub.restore();
-});
-test("should replace medium youtube links", function() {
-  var stub = sinon.stub($.fn, "player");
+}));
+
+test("should replace medium youtube links", sinon.test(function() {
+  var stub = this.stub($.fn, "player");
   stub.returns(true);
 
   this.container.find('a').attr('href', 'http://youtube.com/watch?v=mediumVideo&source=twitter');
@@ -40,10 +39,10 @@ test("should replace medium youtube links", function() {
 
   var playerArgs = stub.getCall(0).args[0];
   equal('mediumVideo', playerArgs.media);
-  stub.restore();
-});
-test("should do nothing if no video id found", function() {
-  var stub = sinon.stub($.fn, "player");
+}));
+
+test("should do nothing if no video id found", sinon.test(function() {
+  var stub = this.stub($.fn, "player");
   stub.returns(true);
 
   this.container.find('a').attr('href', 'http://youtube.com/watch?wrong=parameter');
@@ -53,5 +52,4 @@ test("should do nothing if no video id found", function() {
   $('#wrap').enhanceYoutubeVideoLinks();
 
   equal(0, stub.callCount);
-  stub.restore();
-});
+}));

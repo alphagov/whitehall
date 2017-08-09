@@ -41,7 +41,7 @@ gem 'typhoeus', '~> 1.1'
 gem 'dalli'
 gem 'rails_translation_manager', '~> 0.0.2'
 gem 'sprockets', '~> 3.0'
-gem 'sprockets-rails', '2.3.3'
+gem 'sprockets-rails'
 gem 'rinku', require: 'rails_rinku'
 gem 'parallel', '~> 1.11.1'
 gem 'responders', '~> 2.4'
@@ -86,6 +86,10 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'govuk-lint'
   gem 'dotenv-rails'
+  gem 'teaspoon-qunit'
+  # teaspoon has coffee assets that mean we need coffee script in order
+  # to be able to run things
+  gem 'coffee-rails', '~> 4.1.0'
 end
 
 group :development do
@@ -105,7 +109,6 @@ group :test do
   gem 'webmock', require: false
   gem 'ci_reporter_minitest'
   gem 'database_cleaner'
-  gem 'test_track', '~> 0.1.0', git: 'https://github.com/alphagov/test_track'
   gem 'govuk-content-schema-test-helpers'
   gem 'minitest-fail-fast'
   gem 'maxitest'

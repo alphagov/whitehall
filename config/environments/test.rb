@@ -48,6 +48,9 @@ Whitehall::Application.configure do
   # Allow pass debug_assets=true as a query parameter to load pages with unpackaged assets
   config.assets.allow_debugging = true
 
+  # Don't use digests in assets during tests
+  config.assets.digest = false
+
   config.slimmer.asset_host = "http://tests-should-not-depend-on-external-host.com"
 
   # These environment variables are required for Plek. Conditionally setting
@@ -59,6 +62,5 @@ Whitehall::Application.configure do
 end
 
 require Rails.root.join("test/support/skip_slimmer")
-TestTrack.application_manifest = "all"
 
 Whitehall.skip_safe_html_validation = true

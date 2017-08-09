@@ -75,15 +75,14 @@ module("Document filter", {
   }
 });
 
-test("should render mustache template from ajax data", function() {
-  var stub = sinon.stub($.fn, "mustache");
+test("should render mustache template from ajax data", sinon.test(function() {
+  var stub = this.stub($.fn, "mustache");
   stub.returns(true);
 
   GOVUK.documentFilter.renderTable(this.ajaxData);
 
   equal(stub.getCall(0).args[1], this.ajaxData);
-  stub.restore();
-});
+}));
 
 test("should show message when ajax data is empty", function() {
   GOVUK.documentFilter.renderTable({ 'results_any?': false });
@@ -108,7 +107,7 @@ test("should update the email signup url", function() {
   equal(this.feedLinks.find('a[href="/email-signups"]').length, 1);
 });
 
-test("should make an ajax request on form submission to obtain filtered results", function() {
+test("should make an ajax request on form submission to obtain filtered results", sinon.test(function() {
   this.filterForm.enableDocumentFilter();
 
   var ajax = this.spy(jQuery, "ajax");
@@ -118,9 +117,9 @@ test("should make an ajax request on form submission to obtain filtered results"
   server.respond();
 
   sinon.assert.calledOnce(ajax);
-});
+}));
 
-test("should send ajax request using json form of url in form action", function() {
+test("should send ajax request using json form of url in form action", sinon.test(function() {
   this.filterForm.enableDocumentFilter();
 
   var ajax = this.spy(jQuery, "ajax");
@@ -133,9 +132,9 @@ test("should send ajax request using json form of url in form action", function(
 
   var url = jQuery.ajax.getCall(0).args[0];
   equal(url, "/specialist.json");
-});
+}));
 
-test("should send filter form parameters in ajax request", function() {
+test("should send filter form parameters in ajax request", sinon.test(function() {
   this.filterForm.enableDocumentFilter();
 
   var ajax = this.spy(jQuery, "ajax");
@@ -149,9 +148,9 @@ test("should send filter form parameters in ajax request", function() {
   var settings = jQuery.ajax.getCall(0).args[1];
   equal(settings["data"][0]["name"], "foo");
   equal(settings["data"][0]["value"], "bar");
-});
+}));
 
-test("should render results based on successful ajax response", function() {
+test("should render results based on successful ajax response", sinon.test(function() {
   this.filterForm.enableDocumentFilter();
   GOVUK.analytics = { trackPageview: function() {} };
 
@@ -165,9 +164,9 @@ test("should render results based on successful ajax response", function() {
   equal(this.filterResults.find(".document-row .document-collections").text(), 'collection-1');
   equal(this.filterResults.find(".document-row .topics").text(), 'topic-name-1, topic-name-2');
   equal(this.filterResults.find(".document-row .field-of-operation").text(), 'place-of-war');
-});
+}));
 
-test("should fire analytics on successful ajax response", function() {
+test("should fire analytics on successful ajax response", sinon.test(function() {
   this.filterForm.enableDocumentFilter();
   GOVUK.analytics = { trackPageview: function() {} };
 
@@ -179,9 +178,9 @@ test("should fire analytics on successful ajax response", function() {
   server.respond();
 
   sinon.assert.callCount(analytics, 1);
-});
+}));
 
-test("should apply hide class to feed on ajax call", function() {
+test("should apply hide class to feed on ajax call", sinon.test(function() {
   var removeClass = this.spy(GOVUK.documentFilter, 'updateFeeds');
   this.filterForm.enableDocumentFilter();
 
@@ -192,7 +191,7 @@ test("should apply hide class to feed on ajax call", function() {
   ok(this.feedLinks.is('.js-hidden'));
   server.respond();
   ok(! this.feedLinks.is('.js-hidden'));
-});
+}));
 
 test("currentPageState should include the current results", function() {
   this.filterForm.enableDocumentFilter();
@@ -235,7 +234,7 @@ test("onPopState should restore the state as specified in the event", function()
   ok(this.filterForm.find('#direction_before:checked'), "date 'before' radio checked");
 });
 
-test("should record initial page state in browser history", function() {
+test("should record initial page state in browser history", sinon.test(function() {
   var oldPageState = window.GOVUK.documentFilter.currentPageState;
   window.GOVUK.documentFilter.currentPageState = function() { return "INITIALSTATE"; }
 
@@ -246,9 +245,9 @@ test("should record initial page state in browser history", function() {
   equal(data, "INITIALSTATE", "Initial state is stored in history data");
 
   window.GOVUK.documentFilter.currentPageState = oldPageState;
-});
+}));
 
-test("should update browser location on successful ajax response", function() {
+test("should update browser location on successful ajax response", sinon.test(function() {
   this.filterForm.enableDocumentFilter();
 
   var oldPageState = window.GOVUK.documentFilter.currentPageState;
@@ -274,9 +273,9 @@ test("should update browser location on successful ajax response", function() {
   equal(path, "/specialist?foo=bar", "Bookmarkable URL path");
 
   window.GOVUK.documentFilter.currentPageState = oldPageState;
-});
+}));
 
-test("should store new table html on successful ajax response", function() {
+test("should store new table html on successful ajax response", sinon.test(function() {
   this.filterForm.enableDocumentFilter();
 
   var historyPushState = this.spy(history, "pushState");
@@ -288,9 +287,9 @@ test("should store new table html on successful ajax response", function() {
 
   var data = historyPushState.getCall(0).args[0];
   ok(!!data.html.match('document-title'), "Current state is stored in history data");
-});
+}));
 
-test("should not enable ajax filtering if browser does not support HTML5 History API", function() {
+test("should not enable ajax filtering if browser does not support HTML5 History API", sinon.test(function() {
   var oldHistory = window.GOVUK.support.history;
   window.GOVUK.support.history = function() {return false;}
 
@@ -305,7 +304,7 @@ test("should not enable ajax filtering if browser does not support HTML5 History
 
   sinon.assert.callCount(ajax, 0);
   window.GOVUK.support.history = oldHistory;
-});
+}));
 
 test("should create live count value", function(){
   window.GOVUK.documentFilter.$form = this.filterForm;
@@ -316,7 +315,7 @@ test("should create live count value", function(){
   ok(this.resultsSummary.text().indexOf('1,337 results') > -1, 'should display 1,337 results');
 });
 
-test("should update selections to match filters", function(){
+test("should update selections to match filters", sinon.test(function(){
   window.GOVUK.documentFilter.$form = this.filterForm;
 
   var data = { total_count: 1337 },
@@ -342,7 +341,7 @@ test("should update selections to match filters", function(){
         ]
       };
 
-  var stub = sinon.stub(GOVUK.documentFilter, "currentPageState");
+  var stub = this.stub(GOVUK.documentFilter, "currentPageState");
   stub.returns(formStatus);
 
   window.GOVUK.documentFilter.liveResultSummary(data, formStatus);
@@ -351,13 +350,12 @@ test("should update selections to match filters", function(){
   equal(this.resultsSummary.find('.topics-selections a').attr('data-val'), 'my-value');
   equal(this.resultsSummary.text().match(/after.from-date/).length, 1, 'not from my-date');
   equal(this.resultsSummary.text().match(/before.to-date/).length, 1, 'not to my-date');
-  stub.restore();
-});
+}));
 
-test("should request removal from document filters", function(){
+test("should request removal from document filters", sinon.test(function(){
   this.resultsSummary.append('<a href="#" data-field="topics" data-val="something">hello</a>');
 
-  var stub = sinon.stub(GOVUK.documentFilter, "removeFilters");
+  var stub = this.stub(GOVUK.documentFilter, "removeFilters");
 
   this.filterForm.enableDocumentFilter();
 
@@ -369,8 +367,7 @@ test("should request removal from document filters", function(){
   } else {
     ok(stub.getCall(0), "stub not called");
   }
-  stub.restore();
-});
+}));
 
 test("should remove selection from apropriate filter", function(){
   this.filterForm.find('option[value="dept1"]').attr('selected', 'selected');
