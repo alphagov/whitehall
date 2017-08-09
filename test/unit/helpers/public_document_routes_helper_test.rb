@@ -43,34 +43,34 @@ class PublicDocumentRoutesHelperTest < LocalisedUrlTestCase
     assert_equal statistical_data_set_path(statistical_data_set.document), public_document_path(statistical_data_set)
   end
 
-  test 'returns the correct path for CorporateInformationPage instances' do
-    cip = create(:corporate_information_page)
-    assert_equal organisation_corporate_information_page_path(cip.organisation, cip.slug), public_document_path(cip)
+  test 'returns the correct path for CorporateInformationPage for organisations' do
+    org = create(:organisation)
+    cip = create(:corporate_information_page, organisation: org, translated_into: [:fr])
+
+    cip.corporate_information_page_type = CorporateInformationPageType::Research
+    assert_equal "/government/organisations/#{org.slug}/about/research", public_document_path(cip)
+    assert_equal "/government/organisations/#{org.slug}/about/research.fr", public_document_path(cip, locale: :fr)
 
     cip.corporate_information_page_type = CorporateInformationPageType::AboutUs
-    assert_equal organisation_corporate_information_pages_path(cip.organisation), public_document_path(cip)
+    assert_equal "/government/organisations/#{org.slug}/about", public_document_path(cip)
+    assert_equal "/government/organisations/#{org.slug}/about.fr", public_document_path(cip, locale: :fr)
 
     cip.organisation.organisation_type = OrganisationType::sub_organisation
-    assert_equal organisation_corporate_information_pages_path(cip.organisation), public_document_path(cip)
-  end
-
-  test 'returns correct path for organisation About Us pages' do
-    org = build(:organisation, slug: 'an-organisation')
-    cip = build(:corporate_information_page,
-                organisation: org,
-                corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id)
-
     assert_equal "/government/organisations/#{org.slug}/about", public_document_path(cip)
+    assert_equal "/government/organisations/#{org.slug}/about.fr", public_document_path(cip, locale: :fr)
   end
 
-  test 'returns correct path for world organisation About Us pages' do
-    world_org = build(:worldwide_organisation, slug: 'a-worldwide-org')
-    cip = build(:corporate_information_page,
-                organisation: nil,
-                worldwide_organisation: world_org,
-                corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id)
+  test 'returns the correct path for CorporateInformationPage for worldwide organisations' do
+    org = create(:worldwide_organisation)
+    cip = create(:corporate_information_page, organisation: nil, worldwide_organisation: org, translated_into: [:fr])
 
-    assert_equal "/world/organisations/#{world_org.slug}/about", public_document_path(cip)
+    cip.corporate_information_page_type = CorporateInformationPageType::Research
+    assert_equal "/world/organisations/#{org.slug}/about/research", public_document_path(cip)
+    assert_equal "/world/organisations/#{org.slug}/about/research.fr", public_document_path(cip, locale: :fr)
+
+    cip.corporate_information_page_type = CorporateInformationPageType::AboutUs
+    assert_equal "/world/organisations/#{org.slug}/about/about", public_document_path(cip)
+    assert_equal "/world/organisations/#{org.slug}/about/about.fr", public_document_path(cip, locale: :fr)
   end
 
   test 'returns the document URL using Whitehall public_host and protocol' do
