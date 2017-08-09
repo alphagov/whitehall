@@ -8,7 +8,7 @@
 <% end %>
 
 <% content_for :head do %>
-  <!--[if gt IE 8]><!--><%= stylesheet_link_tag "admin.css" %><!--<![endif]-->
+  <!--[if gt IE 8]><!--><%= stylesheet_link_tag "admin.css", integrity: true, crossorigin: 'anonymous' %><!--<![endif]-->
   <!--[if IE 7]><%= stylesheet_link_tag "admin-ie7.css" %><script>var ieVersion = 7;</script><![endif]-->
   <!--[if IE 8]><%= stylesheet_link_tag "admin-ie8.css" %><script>var ieVersion = 8;</script><![endif]-->
   <%= csrf_meta_tags %>
@@ -109,7 +109,7 @@
 <% end %>
 
 <% content_for :body_end do %>
-  <%= javascript_include_tag "admin" %>
+  <%= javascript_include_tag "admin", integrity: true, crossorigin: 'anonymous' %>
   <%= render_mustache_templates if Rails.env.development? %>
   <% initialise_script "GOVUK.adminGlobalInitialiser" %>
   <%= javascript_tag(yield :javascript_initialisers) %>

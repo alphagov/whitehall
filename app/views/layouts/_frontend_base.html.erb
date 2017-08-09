@@ -18,12 +18,12 @@
       stylesheet_base = local_assigns[:stylesheet] || "base"
       stylesheet_base += "-rtl" if right_to_left?
     -%>
-    <!--[if gt IE 9]><!--><%= stylesheet_link_tag "frontend/#{stylesheet_base}.css" %><!--<![endif]-->
+    <!--[if gt IE 9]><!--><%= stylesheet_link_tag "frontend/#{stylesheet_base}.css", integrity: true, crossorigin: 'anonymous' %><!--<![endif]-->
     <!--[if IE 6]><%= stylesheet_link_tag "frontend/#{stylesheet_base}-ie6.css" %><script>var ieVersion = 6;</script><![endif]-->
     <!--[if IE 7]><%= stylesheet_link_tag "frontend/#{stylesheet_base}-ie7.css" %><script>var ieVersion = 7;</script><![endif]-->
     <!--[if IE 8]><%= stylesheet_link_tag "frontend/#{stylesheet_base}-ie8.css" %><script>var ieVersion = 8;</script><![endif]-->
     <!--[if IE 9]><%= stylesheet_link_tag "frontend/#{stylesheet_base}-ie9.css" %><script>var ieVersion = 9;</script><![endif]-->
-    <%= stylesheet_link_tag "frontend/print.css", media: "print" %>
+    <%= stylesheet_link_tag "frontend/print.css", media: "print", integrity: true, crossorigin: 'anonymous' %>
     <%= csrf_meta_tags %>
     <%= atom_discovery_link_tag %>
   </head>
@@ -32,7 +32,7 @@
     <div id="whitehall-wrapper">
       <%= yield %>
     </div>
-    <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag "application", integrity: true, crossorigin: 'anonymous' %>
     <%= javascript_tag(yield :javascript_initialisers) %>
   </body>
 </html>
