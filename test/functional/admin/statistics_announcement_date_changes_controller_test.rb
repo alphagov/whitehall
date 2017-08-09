@@ -11,7 +11,7 @@ class Admin::StatisticsAnnouncementDateChangesControllerTest < ActionController:
   end
 
   view_test "GET :new renders a pre-filled announcement form" do
-    get :new, statistics_announcement_id: @announcement
+    get :new, params: { statistics_announcement_id: @announcement }
 
     assert_response :success
     assert_select "input[name='statistics_announcement_date_change[precision]'][value='1']" do |element|
@@ -40,13 +40,13 @@ class Admin::StatisticsAnnouncementDateChangesControllerTest < ActionController:
   end
 
   view_test "GET :new only shows change notes field when the release date is confirmed" do
-    get :new, statistics_announcement_id: @announcement
+    get :new, params: { statistics_announcement_id: @announcement }
 
     assert_response :success
     refute_select('textarea#statistics_announcement_date_change_change_note')
 
     @announcement.current_release_date.update_attribute(:confirmed, true)
-    get :new, statistics_announcement_id: @announcement
+    get :new, params: { statistics_announcement_id: @announcement }
 
     assert_response :success
     assert_select('textarea#statistics_announcement_date_change_change_note')
@@ -54,11 +54,11 @@ class Admin::StatisticsAnnouncementDateChangesControllerTest < ActionController:
 
   test "POST :create with valid params saves the date change and redirects to the announcement" do
     new_date = Time.zone.local(2013, 05, 11, 9, 30)
-    post :create, statistics_announcement_id: @announcement, statistics_announcement_date_change: {
+    post :create, params: { statistics_announcement_id: @announcement, statistics_announcement_date_change: {
       release_date: new_date,
       confirmed: '1',
       precision: StatisticsAnnouncementDate::PRECISION[:exact]
-    }
+    } }
 
     @announcement.reload
     assert_redirected_to admin_statistics_announcement_url(@announcement)

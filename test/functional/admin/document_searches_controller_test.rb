@@ -13,7 +13,7 @@ class Admin::DocumentSearchesControllerTest < ActionController::TestCase
 
   view_test 'GET #show returns filter results as JSON' do
     publication = create(:publication, title: 'search term')
-    get :show, title: 'search term', format: :json
+    get :show, params: { title: 'search term' }, format: :json
     assert_response :success
     assert_equal true, json_response['results_any?']
     assert_equal 1, json_response['results'].size
@@ -30,7 +30,7 @@ class Admin::DocumentSearchesControllerTest < ActionController::TestCase
     guidance = create(:publication, title: 'search term', publication_type: PublicationType::Guidance)
     form = create(:publication, title: 'search term', publication_type: PublicationType::Form)
 
-    get :show, title: 'search term', type: 'publication', subtypes: [PublicationType::Guidance.id], format: :json
+    get :show, params: { title: 'search term', type: 'publication', subtypes: [PublicationType::Guidance.id] }, format: :json
 
     assert_response :success
     assert_equal true, json_response['results_any?']

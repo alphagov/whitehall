@@ -16,19 +16,19 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
   test 'POST #create adds a document to a group and redirects' do
     document = create(:publication).document
     assert_difference '@group.reload.documents.size' do
-      post :create, id_params.merge(document_id: document.id)
+      post :create, params: id_params.merge(document_id: document.id)
     end
     assert_redirected_to admin_document_collection_groups_path(@collection)
   end
 
   test 'POST #create warns user when document not found' do
-    post :create, id_params.merge(document_id: 1234, title: 'blah')
+    post :create, params: id_params.merge(document_id: 1234, title: 'blah')
     assert_match /couldn't find.*blah/, flash[:alert]
   end
 
   test 'POST #create handles invalid DocumentCollectionGroupMemberships' do
     collection_document = create(:document, document_type: 'DocumentCollection')
-    post :create, id_params.merge(document_id: collection_document.id)
+    post :create, params: id_params.merge(document_id: collection_document.id)
     assert_match /Document cannot be a document collection/, flash[:alert]
   end
 
@@ -44,14 +44,14 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
     documents = [create(:publication), create(:publication)].map(&:document)
     @group.documents << documents
     assert_difference '@group.reload.documents.size', -1 do
-      delete :destroy, remove_params.merge(documents: [documents.first.id])
+      delete :destroy, params: remove_params.merge(documents: [documents.first.id])
     end
     assert_redirected_to admin_document_collection_groups_path(@collection)
     assert_match /1 document removed/, flash[:notice]
   end
 
   test 'DELETE #destroy sets flash message if no documents selected' do
-    delete :destroy, remove_params
+    delete :destroy, params: remove_params
     assert_match /select one or more documents/i, flash[:alert]
   end
 
@@ -62,7 +62,7 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
     @collection.groups << new_group
     assert_difference 'new_group.reload.documents.size', 1 do
       assert_difference '@group.reload.documents.size', -1 do
-        delete :destroy, move_params.merge(
+        delete :destroy, params: move_params.merge(
           documents: [documents.first.id],
           new_group_id: new_group.id
         )

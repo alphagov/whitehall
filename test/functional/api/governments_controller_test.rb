@@ -36,7 +36,7 @@ class Api::GovernmentsControllerTest < ActionController::TestCase
     presenter.stubs(:as_json).returns(foo: :bar)
     Api::GovernmentPresenter.stubs(:new).with(government, anything).returns(presenter)
 
-    get :show, id: government.slug, format: 'json'
+    get :show, params: { id: government.slug }, format: 'json'
     assert_equal 'bar', json_response['foo']
   end
 
@@ -48,13 +48,13 @@ class Api::GovernmentsControllerTest < ActionController::TestCase
     presenter.stubs(:as_json).returns(foo: :bar)
     Api::GovernmentPresenter.stubs(:new).with(government, anything).returns(presenter)
 
-    get :show, id: government.slug, format: 'json'
+    get :show, params: { id: government.slug }, format: 'json'
     assert_equal 'ok', json_response['_response_info']['status']
   end
 
   view_test "show responds with 404 if government is not found" do
     Government.stubs(:find_by).with(slug: 'unknown').returns nil
-    get :show, id: 'unknown', format: 'json'
+    get :show, params: { id: 'unknown' }, format: 'json'
     assert_response :not_found
     assert_equal 'not found', json_response['_response_info']['status']
   end

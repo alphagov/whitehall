@@ -35,7 +35,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
   view_test "show renders the summary" do
     draft_news_article = create(:draft_news_article, summary: "a-simple-summary")
 
-    get :show, id: draft_news_article
+    get :show, params: { id: draft_news_article }
 
     assert_select ".page-header .lead", text: "a-simple-summary"
   end

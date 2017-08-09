@@ -14,7 +14,7 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   view_test 'index shows a form to create missing translations' do
-    get :index, organisation_id: @organisation
+    get :index, params: { organisation_id: @organisation }
     translations_path = admin_organisation_translations_path(@organisation)
     assert_select "form[action=?]", translations_path do
       assert_select "select[name=translation_locale]" do
@@ -28,7 +28,7 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
 
   view_test 'index omits existing translations from create select' do
     organisation = create(:organisation, translated_into: [:fr])
-    get :index, organisation_id: organisation
+    get :index, params: { organisation_id: organisation }
     assert_select "select[name=translation_locale]" do
       assert_select "option[value=fr]", count: 0
     end
@@ -36,13 +36,13 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
 
   view_test 'index omits create form if no missing translations' do
     organisation = create(:organisation, translated_into: [:fr, :es])
-    get :index, organisation_id: organisation
+    get :index, params: { organisation_id: organisation }
     assert_select "select[name=translation_locale]", count: 0
   end
 
   view_test 'index lists existing translations' do
     organisation = create(:organisation, translated_into: [:fr])
-    get :index, organisation_id: organisation
+    get :index, params: { organisation_id: organisation }
     edit_translation_path = edit_admin_organisation_translation_path(organisation, 'fr')
     view_organisation_path = organisation_path(organisation, locale: 'fr')
     assert_select "a[href=?]", edit_translation_path, text: 'Français'
@@ -50,27 +50,27 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
   end
 
   view_test 'index does not list the english translation' do
-    get :index, organisation_id: @organisation
+    get :index, params: { organisation_id: @organisation }
     edit_translation_path = edit_admin_organisation_translation_path(@organisation, 'en')
     assert_select "a[href=?]", edit_translation_path, text: 'en', count: 0
   end
 
   view_test 'index displays delete button for a translation' do
     organisation = create(:organisation, translated_into: [:fr])
-    get :index, organisation_id: organisation
+    get :index, params: { organisation_id: organisation }
     assert_select "form[action=?]", admin_organisation_translation_path(organisation, :fr) do
       assert_select "input[type='submit'][value=?]", "Delete"
     end
   end
 
   test 'create redirects to edit for the chosen language' do
-    post :create, organisation_id: @organisation, translation_locale: 'fr'
+    post :create, params: { organisation_id: @organisation, translation_locale: 'fr' }
     assert_redirected_to edit_admin_organisation_translation_path(@organisation, id: 'fr')
   end
 
   view_test 'edit indicates which language is being translated to' do
     organisation = create(:organisation, translated_into: [:fr])
-    get :edit, organisation_id: @organisation, id: 'fr'
+    get :edit, params: { organisation_id: @organisation, id: 'fr' }
     assert_select "h1", text: /Edit ‘Français \(French\)’ translation/
   end
 
@@ -82,7 +82,7 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
           }
     })
 
-    get :edit, organisation_id: organisation, id: 'fr'
+    get :edit, params: { organisation_id: organisation, id: 'fr' }
 
     translation_path = admin_organisation_translation_path(organisation, 'fr')
 
@@ -97,7 +97,7 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
   view_test 'edit form adds right-to-left class and dir attribute for text field and areas in right-to-left languages' do
     organisation = create(:organisation, translated_into: {ar: {name: 'الناس'}})
 
-    get :edit, organisation_id: organisation, id: 'ar'
+    get :edit, params: { organisation_id: organisation, id: 'ar' }
 
     translation_path = admin_organisation_translation_path(organisation, 'ar')
 
@@ -110,12 +110,11 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
   end
 
   test 'update updates translation and redirects back to the index' do
-    put :update, organisation_id: @organisation, id: 'fr',
-      organisation: {
+    put :update, params: { organisation_id: @organisation, id: 'fr', organisation: {
         name: 'Afrolasie Bureau',
         acronym: 'AFRO',
         logo_formatted_name: 'Afrolasie Bureau',
-      }
+      } }
 
     @organisation.reload
 
@@ -129,11 +128,10 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
   end
 
   view_test 'update re-renders form if translation is invalid' do
-    put :update, organisation_id: @organisation, id: 'fr',
-      organisation: {
+    put :update, params: { organisation_id: @organisation, id: 'fr', organisation: {
         name: 'Afrolasie Bureau',
         logo_formatted_name: '',
-      }
+      } }
 
     refute @organisation.available_in_locale?('fr')
     translation_path = admin_organisation_translation_path(@organisation, 'fr')
@@ -143,7 +141,7 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
   test 'destroy removes translation and redirects to list of translations' do
     organisation = create(:organisation, translated_into: [:fr])
 
-    delete :destroy, organisation_id: organisation, id: 'fr'
+    delete :destroy, params: { organisation_id: organisation, id: 'fr' }
 
     organisation.reload
     refute organisation.translated_locales.include?(:fr)

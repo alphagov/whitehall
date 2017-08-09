@@ -11,25 +11,25 @@ class Admin::ResponsesControllerTest < ActionController::TestCase
   test 'Actions are unavailable if consultation is unmodifiable' do
     edition = create(:published_consultation)
 
-    get :show, consultation_id: edition, type: 'ConsultationOutcome'
+    get :show, params: { consultation_id: edition, type: 'ConsultationOutcome' }
     assert_response :redirect
   end
 
   test 'Access is forbidden to users who do not have access to the consultation' do
     login_as :world_editor
-    get :show, consultation_id: @consultation, type: 'ConsultationOutcome'
+    get :show, params: { consultation_id: @consultation, type: 'ConsultationOutcome' }
     assert_response :forbidden
   end
 
   view_test "GET :show renders a form for outcome when one does not exist" do
-    get :show, consultation_id: @consultation, type: 'ConsultationOutcome'
+    get :show, params: { consultation_id: @consultation, type: 'ConsultationOutcome' }
 
     assert_response :success
     assert_select "textarea[name='consultation_outcome[summary]']"
   end
 
   view_test "GET :show renders a form for feedback when one does not exist" do
-    get :show, consultation_id: @consultation, type: 'ConsultationPublicFeedback'
+    get :show, params: { consultation_id: @consultation, type: 'ConsultationPublicFeedback' }
 
     assert_response :success
     assert_select "textarea[name='consultation_public_feedback[summary]']"
@@ -37,7 +37,7 @@ class Admin::ResponsesControllerTest < ActionController::TestCase
 
   view_test "GET :show when consultation has an outcome shows the outcome details and includes an edit link" do
     outcome = create_outcome
-    get :show, consultation_id: @consultation, type: 'ConsultationOutcome'
+    get :show, params: { consultation_id: @consultation, type: 'ConsultationOutcome' }
 
     assert_response :success
     assert_select 'p', text: 'A summary of the outcome'
@@ -46,7 +46,7 @@ class Admin::ResponsesControllerTest < ActionController::TestCase
 
   view_test "GET :show when consultation has public feedback shows the feedback details and includes an edit link" do
     feedback = create_feedback
-    get :show, consultation_id: @consultation, type: 'ConsultationPublicFeedback'
+    get :show, params: { consultation_id: @consultation, type: 'ConsultationPublicFeedback' }
 
     assert_response :success
     assert_select 'p', text: 'A summary of the public feedback'
@@ -54,7 +54,7 @@ class Admin::ResponsesControllerTest < ActionController::TestCase
   end
 
   test "POST :create with valid outcome params saves the outcome and redirects" do
-    post :create, consultation_id: @consultation, consultation_outcome: { summary: 'Outcome summary', published_on: Date.today }, type: 'ConsultationOutcome'
+    post :create, params: { consultation_id: @consultation, consultation_outcome: { summary: 'Outcome summary', published_on: Date.today }, type: 'ConsultationOutcome' }
 
     assert_response :redirect
     assert outcome = @consultation.outcome
@@ -62,7 +62,7 @@ class Admin::ResponsesControllerTest < ActionController::TestCase
   end
 
   test "POST :create with valid feedback params saves the feedback and redirects" do
-    post :create, consultation_id: @consultation, consultation_public_feedback: { summary: 'Feedback summary', published_on: Date.today }, type: 'ConsultationPublicFeedback'
+    post :create, params: { consultation_id: @consultation, consultation_public_feedback: { summary: 'Feedback summary', published_on: Date.today }, type: 'ConsultationPublicFeedback' }
 
     assert_response :redirect
     assert public_feedback = @consultation.public_feedback
@@ -70,7 +70,7 @@ class Admin::ResponsesControllerTest < ActionController::TestCase
   end
 
   view_test "POST :create with invalid params re-renders the form" do
-    post :create, consultation_id: @consultation, consultation_outcome: { summary: '', published_on: Date.today }, type: 'ConsultationOutcome'
+    post :create, params: { consultation_id: @consultation, consultation_outcome: { summary: '', published_on: Date.today }, type: 'ConsultationOutcome' }
 
     assert_response :success
     assert_select "textarea[name='consultation_outcome[summary]']"
@@ -78,26 +78,26 @@ class Admin::ResponsesControllerTest < ActionController::TestCase
 
   view_test "GET :edit renders the edit form for an outcome" do
     outcome = create_outcome
-    get :edit, consultation_id: @consultation, type: 'ConsultationOutcome'
+    get :edit, params: { consultation_id: @consultation, type: 'ConsultationOutcome' }
     assert_select "textarea[name='consultation_outcome[summary]']", text: outcome.summary
   end
 
   view_test "GET :edit renders the edit form for public feedback" do
     feedback = create_feedback
-    get :edit, consultation_id: @consultation, type: 'ConsultationPublicFeedback'
+    get :edit, params: { consultation_id: @consultation, type: 'ConsultationPublicFeedback' }
     assert_select "textarea[name='consultation_public_feedback[summary]']", text: feedback.summary
   end
 
   test "PUT :update with valid outcome params saves the changes to the outcome" do
     outcome = create_outcome
-    put :update, consultation_id: @consultation, consultation_outcome: { summary: 'New summary', published_on: Date.today }, type: 'ConsultationOutcome'
+    put :update, params: { consultation_id: @consultation, consultation_outcome: { summary: 'New summary', published_on: Date.today }, type: 'ConsultationOutcome' }
     assert_response :redirect
     assert_equal 'New summary', outcome.reload.summary
   end
 
   test "PUT :update with valid feedback params saves the changes to the feedback" do
     feedback = create_feedback
-    put :update, consultation_id: @consultation, consultation_public_feedback: { summary: 'New summary', published_on: Date.today }, type: 'ConsultationPublicFeedback'
+    put :update, params: { consultation_id: @consultation, consultation_public_feedback: { summary: 'New summary', published_on: Date.today }, type: 'ConsultationPublicFeedback' }
     assert_response :redirect
     assert_equal 'New summary', feedback.reload.summary
   end

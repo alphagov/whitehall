@@ -12,14 +12,14 @@ class Admin::GenericEditionsController::PolticalDocumentsTest < ActionController
     login_as :managing_editor
     published_edition = create(:published_news_article, first_published_at: 2.days.ago)
     new_draft = create(:news_article, document: published_edition.document, first_published_at: 2.days.ago)
-    get :edit, id: new_draft
+    get :edit, params: { id: new_draft }
     assert_select '.political-status', count: 1
   end
 
   view_test "doesn't display the political checkbox for non-privileged users " do
     published_edition = create(:published_news_article)
     new_draft = create(:news_article, document: published_edition.document)
-    get :edit, id: new_draft
+    get :edit, params: { id: new_draft }
     assert_select '.political-status', count: 0
   end
 
@@ -38,7 +38,7 @@ class Admin::GenericEditionsController::PolticalDocumentsTest < ActionController
     published_edition = create(:published_news_article, first_published_at: 3.years.ago)
     new_draft = create(:news_article, political: true, first_published_at: 3.years.ago, document: published_edition.document)
 
-    get :edit, id: new_draft
+    get :edit, params: { id: new_draft }
 
     assert_response :redirect
   end
@@ -52,7 +52,7 @@ class Admin::GenericEditionsController::PolticalDocumentsTest < ActionController
     published_edition = create(:published_news_article)
     new_draft = create(:news_article, political: true, first_published_at: 3.years.ago, document: published_edition.document)
 
-    get :edit, id: new_draft
+    get :edit, params: { id: new_draft }
 
     assert_response :success
   end

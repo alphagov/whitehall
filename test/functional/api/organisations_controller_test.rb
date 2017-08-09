@@ -16,7 +16,7 @@ class Api::OrganisationsControllerTest < ActionController::TestCase
     presenter.stubs(:as_json).returns(foo: :bar)
     Api::OrganisationPresenter.stubs(:new).with(organisation, anything).returns(presenter)
 
-    get :show, id: organisation.slug, format: 'json'
+    get :show, params: { id: organisation.slug }, format: 'json'
     assert_equal 'bar', json_response['foo']
   end
 
@@ -30,7 +30,7 @@ class Api::OrganisationsControllerTest < ActionController::TestCase
     presenter.stubs(:as_json).returns(foo: :bar)
     Api::OrganisationPresenter.stubs(:new).with(organisation, anything).returns(presenter)
 
-    get :show, id: organisation.slug, format: 'json'
+    get :show, params: { id: organisation.slug }, format: 'json'
     assert_equal 'ok', json_response['_response_info']['status']
   end
 
@@ -38,7 +38,7 @@ class Api::OrganisationsControllerTest < ActionController::TestCase
     friendly = stub
     Organisation.stubs(:friendly).returns(friendly)
     friendly.stubs(:find).with('unknown').returns(nil)
-    get :show, id: 'unknown', format: 'json'
+    get :show, params: { id: 'unknown' }, format: 'json'
     assert_response :not_found
     assert_equal 'not found', json_response['_response_info']['status']
   end

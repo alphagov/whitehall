@@ -10,7 +10,7 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
     feature_list = create(:feature_list, featurable: world_location, locale: :en)
     edition = create(:published_speech, world_locations: [world_location])
 
-    get :new, feature_list_id: feature_list, edition_id: edition.id
+    get :new, params: { feature_list_id: feature_list, edition_id: edition.id }
 
     assert_equal edition.document, assigns[:feature].document
   end
@@ -21,7 +21,7 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
     edition = create(:published_speech)
     feature = create(:feature, document: edition.document, feature_list: feature_list)
 
-    post :unfeature, feature_list_id: feature_list, id: feature
+    post :unfeature, params: { feature_list_id: feature_list, id: feature }
 
     feature.reload
 
@@ -41,7 +41,7 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
 
     PublishingApiDocumentRepublishingWorker.expects(:perform_async).with(edition.document_id)
 
-    post :create, feature_list_id: feature_list.id, feature: params
+    post :create, params: { feature_list_id: feature_list.id, feature: params }
 
     assert_equal edition.document_id, Feature.last.document_id
   end

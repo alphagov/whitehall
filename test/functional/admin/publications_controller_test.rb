@@ -35,7 +35,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
   test 'GET :new pre-fills the pubication when a statistics announcement id is provided' do
     statistics_announcement = create(:statistics_announcement)
-    get :new, statistics_announcement_id: statistics_announcement.id
+    get :new, params: { statistics_announcement_id: statistics_announcement.id }
 
     assert_equal statistics_announcement.id, assigns(:edition).statistics_announcement_id
     assert_equal statistics_announcement.title, assigns(:edition).title
@@ -47,11 +47,13 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
   test 'POST :create with an statistics announcement id assigns the publication to the announcement' do
     statistics_announcement = create(:statistics_announcement)
-    post :create, edition: controller_attributes_for(:publication,
+    post :create, params: {
+edition: controller_attributes_for(:publication,
       publication_type_id: PublicationType::OfficialStatistics.id,
       lead_organisation_ids: [@organisation.id],
       statistics_announcement_id: statistics_announcement.id
     )
+}
 
     publication = Publication.last
     assert publication.present?, assigns(:edition).errors.full_messages.inspect
@@ -60,10 +62,12 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   end
 
   test "create should create a new publication" do
-    post :create, edition: controller_attributes_for(:publication,
+    post :create, params: {
+edition: controller_attributes_for(:publication,
       first_published_at: Time.zone.parse("2001-10-21 00:00:00"),
       publication_type_id: PublicationType::ResearchAndAnalysis.id
     )
+}
 
     created_publication = Publication.last
     assert_equal Time.zone.parse("2001-10-21 00:00:00"), created_publication.first_published_at
@@ -71,19 +75,19 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   end
 
   test "should validate previously_published field on create" do
-    post :create, edition: controller_attributes_for(:publication).except(:previously_published)
+    post :create, params: { edition: controller_attributes_for(:publication).except(:previously_published) }
     assert_equal "You must specify whether the document has been published before", assigns(:edition).errors.full_messages.last
   end
 
   test "should validate first_published_at field on create if previously_published is true" do
-    post :create, edition: (controller_attributes_for(:publication).merge(previously_published: 'true'))
+    post :create, params: { edition: controller_attributes_for(:publication).merge(previously_published: 'true') }
     assert_equal "First published at can't be blank", assigns(:edition).errors.full_messages.last
   end
 
   view_test "edit displays publication fields" do
     publication = create(:publication)
 
-    get :edit, id: publication
+    get :edit, params: { id: publication }
 
     assert_select "form#edit_edition" do
       assert_select "select[name='edition[publication_type_id]']"
@@ -94,9 +98,9 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   test "update should save modified publication attributes" do
     publication = create(:publication)
 
-    put :update, id: publication, edition: {
+    put :update, params: { id: publication, edition: {
       first_published_at: Time.zone.parse("2001-06-18 00:00:00")
-    }
+    } }
 
     saved_publication = publication.reload
     assert_equal Time.zone.parse("2001-06-18 00:00:00"), saved_publication.first_published_at
@@ -112,7 +116,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       publisher.any_instance.stubs(:failure_reasons).returns(["This edition is not dope enough"])
     end
 
-    get :show, id: publication.id
+    get :show, params: { id: publication.id }
 
     assert_response :success
     refute_select ".publish"
@@ -124,16 +128,16 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     login_as(create(:user, organisation: my_organisation))
     inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
 
-    get :show, id: inaccessible
+    get :show, params: { id: inaccessible }
     assert_response :forbidden
 
-    get :edit, id: inaccessible
+    get :edit, params: { id: inaccessible }
     assert_response :forbidden
 
-    put :update, id: inaccessible, edition: { summary: "new-summary" }
+    put :update, params: { id: inaccessible, edition: { summary: "new-summary" } }
     assert_response :forbidden
 
-    delete :destroy, id: inaccessible
+    delete :destroy, params: { id: inaccessible }
     assert_response :forbidden
   end
 
@@ -141,7 +145,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     draft_edition = create(:draft_publication)
 
     publication_has_no_expanded_links(draft_edition.content_id)
-    get :show, id: draft_edition
+    get :show, params: { id: draft_edition }
 
     refute_select '.taxonomy-topics'
   end
@@ -157,7 +161,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     login_as(create(:user, organisation: dfe_organisation))
 
     publication_has_no_expanded_links(publication.content_id)
-    get :show, id: publication
+    get :show, params: { id: publication }
 
     assert_select '.taxonomy-topics .btn', "Add topic"
   end
@@ -173,7 +177,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     login_as(create(:user, organisation: sfa_organisation))
 
     publication_has_no_expanded_links(publication.content_id)
-    get :show, id: publication
+    get :show, params: { id: publication }
 
     assert_select '.taxonomy-topics .btn', "Add topic"
   end
@@ -189,7 +193,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     login_as(create(:user, organisation: sfa_organisation))
 
     publication_has_no_expanded_links(publication.content_id)
-    get :show, id: publication
+    get :show, params: { id: publication }
 
     refute_select '.taxonomy-topics .content'
     assert_select '.taxonomy-topics .no-content', "No topics - please add a topic before publishing"
@@ -206,7 +210,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     login_as(create(:user, organisation: sfa_organisation))
 
     publication_has_expanded_links(publication.content_id)
-    get :show, id: publication
+    get :show, params: { id: publication }
 
     refute_select '.taxonomy-topics .no-content'
     assert_select '.taxonomy-topics .content li', "Education, Training and Skills"

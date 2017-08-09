@@ -11,7 +11,7 @@ class Admin::LinksReportsControllerTest < ActionController::TestCase
 
   test "AJAX POST :create saves a LinksReport and queues it for processing" do
     Sidekiq::Testing.fake! do
-      xhr :post, :create, links_report: {}, edition_id: @publication.id
+      xhr :post, :create, params: { links_report: {}, edition_id: @publication.id }
 
       assert_response :success
       assert_template :create
@@ -24,7 +24,7 @@ class Admin::LinksReportsControllerTest < ActionController::TestCase
 
   test "POST :create queues a LinksReport and redirects back to the edition" do
     Sidekiq::Testing.fake! do
-      post :create, edition_id: @publication.id
+      post :create, params: { edition_id: @publication.id }
 
       assert_redirected_to admin_publication_url(@publication)
 
@@ -36,7 +36,7 @@ class Admin::LinksReportsControllerTest < ActionController::TestCase
 
   test "AJAX GET :show renders assigns the LinksReport and renders the template" do
     links_report = create(:links_report, link_reportable: @publication)
-    xhr :get, :show, id: links_report, edition_id: @publication
+    xhr :get, :show, params: { id: links_report, edition_id: @publication }
 
     assert_response :success
     assert_template :show
@@ -46,7 +46,7 @@ class Admin::LinksReportsControllerTest < ActionController::TestCase
 
   test "GET :show redirects back to the edition" do
     links_report = create(:links_report, link_reportable: @publication)
-    get :show, id: links_report, edition_id: @publication
+    get :show, params: { id: links_report, edition_id: @publication }
 
     assert_redirected_to admin_publication_url(@publication)
   end

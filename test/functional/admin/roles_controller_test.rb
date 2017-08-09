@@ -177,11 +177,13 @@ class Admin::RolesControllerTest < ActionController::TestCase
   test "create should create a new ministerial role with a content_id" do
     org_one, org_two = create(:organisation), create(:organisation)
 
-    post :create, role: attributes_for(:ministerial_role,
+    post :create, params: {
+role: attributes_for(:ministerial_role,
       name: "role-name",
       role_type: "minister",
       organisation_ids: [org_one.id, org_two.id]
     )
+}
 
     assert role = MinisterialRole.last
     assert_equal "role-name", role.name
@@ -190,51 +192,59 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   test "create should create a new board level manager role" do
-    post :create, role: attributes_for(:board_member_role,
+    post :create, params: {
+role: attributes_for(:board_member_role,
       role_type: "board_level_manager",
     )
+}
 
     assert role = BoardMemberRole.last
   end
 
   test "create should create a new military role" do
-    post :create, role: attributes_for(:military_role,
+    post :create, params: {
+role: attributes_for(:military_role,
       role_type: "chief_of_staff",
     )
+}
 
     assert role = MilitaryRole.last
   end
 
   test "create should create a new special representative role" do
-    post :create, role: attributes_for(:special_representative_role,
+    post :create, params: {
+role: attributes_for(:special_representative_role,
       role_type: "special_representative",
     )
+}
 
     assert role = SpecialRepresentativeRole.last
   end
 
   test "create should create a new chief professional officer role" do
-    post :create, role: attributes_for(:chief_professional_officer_role,
+    post :create, params: {
+role: attributes_for(:chief_professional_officer_role,
       role_type: "chief_professional_officer",
     )
+}
 
     assert role = ChiefProfessionalOfficerRole.last
   end
 
   test "create redirects to the index on success" do
-    post :create, role: attributes_for(:role)
+    post :create, params: { role: attributes_for(:role) }
 
     assert_redirected_to admin_roles_path
   end
 
   test "create should inform the user when a role is created successfully" do
-    post :create, role: attributes_for(:role, name: "role-name")
+    post :create, params: { role: attributes_for(:role, name: "role-name") }
 
     assert_equal %{"role-name" created.}, flash[:notice]
   end
 
   view_test "create with invalid data should display errors" do
-    post :create, role: attributes_for(:role, name: nil)
+    post :create, params: { role: attributes_for(:role, name: nil) }
 
     assert_select ".form-errors"
   end
@@ -243,7 +253,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     org = create(:organisation, name: "org-name")
     role = create(:board_member_role, name: "role-name", permanent_secretary: true, organisations: [org])
 
-    get :edit, id: role
+    get :edit, params: { id: role }
 
     assert_select "form[action='#{admin_role_path(role)}']" do
       assert_select "input[name='role[name]'][value='role-name']"
@@ -261,11 +271,11 @@ class Admin::RolesControllerTest < ActionController::TestCase
     org_one, org_two = create(:organisation), create(:organisation)
     role = create(:ministerial_role, name: "role-name", cabinet_member: false, permanent_secretary: false, organisations: [org_one])
 
-    put :update, id: role, role: {
+    put :update, params: { id: role, role: {
       name: "new-name",
       role_type: "permanent_secretary",
       organisation_ids: [org_two.id]
-    }
+    } }
 
     role = Role.find(role.id)
     assert_equal BoardMemberRole, role.class
@@ -277,7 +287,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   test "update redirects to the index on success" do
     role = create(:role)
 
-    put :update, id: role, role: attributes_for(:role)
+    put :update, params: { id: role, role: attributes_for(:role) }
 
     assert_redirected_to admin_roles_path
   end
@@ -285,7 +295,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   test "update should inform the user when a role is updated successfully" do
     role = create(:role)
 
-    put :update, id: role, role: attributes_for(:role, name: "role-name")
+    put :update, params: { id: role, role: attributes_for(:role, name: "role-name") }
 
     assert_equal %{"role-name" updated.}, flash[:notice]
   end
@@ -293,7 +303,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   view_test "update with invalid data should display errors" do
     role = create(:role)
 
-    put :update, id: role, role: attributes_for(:role, name: nil)
+    put :update, params: { id: role, role: attributes_for(:role, name: nil) }
 
     assert_select ".form-errors"
   end
@@ -301,7 +311,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   test "should be able to destroy a destroyable role" do
     role = create(:role_without_organisations, name: "Prime Minister")
 
-    delete :destroy, id: role.id
+    delete :destroy, params: { id: role.id }
 
     assert_redirected_to admin_roles_path
     refute Role.find_by(id: role.id)
@@ -312,7 +322,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     role = create(:role)
     create(:role_appointment, role: role)
 
-    delete :destroy, id: role.id
+    delete :destroy, params: { id: role.id }
 
     assert_redirected_to admin_roles_path
     assert Role.find_by(id: role.id)

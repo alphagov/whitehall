@@ -9,7 +9,7 @@ class Admin::HistoricalAccountsControllerTest < ActionController::TestCase
   end
 
   test "GET on :index assigns the person, their historical accounts and renders the :index template" do
-    get :index, person_id: @person
+    get :index, params: { person_id: @person }
 
     assert_response :success
     assert_template :index
@@ -18,7 +18,7 @@ class Admin::HistoricalAccountsControllerTest < ActionController::TestCase
   end
 
   test "GET on :new assigns the person, a fresh historical account and renders the :new template" do
-    get :new, person_id: @person
+    get :new, params: { person_id: @person }
 
     assert_response :success
     assert_template :new
@@ -38,7 +38,7 @@ class Admin::HistoricalAccountsControllerTest < ActionController::TestCase
     }
 
     assert_difference('@person.historical_accounts.count') do
-      post :create, person_id: @person, historical_account: historical_account_params
+      post :create, params: { person_id: @person, historical_account: historical_account_params }
     end
 
     assert_redirected_to admin_person_historical_accounts_path(@person)
@@ -54,14 +54,14 @@ class Admin::HistoricalAccountsControllerTest < ActionController::TestCase
 
   test "POST on :create with invalid paramters re-renders :new template" do
     assert_no_difference('@person.historical_accounts.count') do
-      post :create, person_id: @person, historical_account: { summary: 'Only summary' }
+      post :create, params: { person_id: @person, historical_account: { summary: 'Only summary' } }
     end
     assert_template :new
     assert_equal 'Only summary', assigns(:historical_account).summary
   end
 
   test "GET on :edit loads the historical account and renders the :edit template" do
-    get :edit, person_id: @person, id: @historical_account
+    get :edit, params: { person_id: @person, id: @historical_account }
 
     assert_response :success
     assert_template :edit
@@ -70,7 +70,7 @@ class Admin::HistoricalAccountsControllerTest < ActionController::TestCase
   end
 
   test "PUT on :update updates the details of the historical account" do
-    put :update, person_id: @person, id: @historical_account, historical_account: { summary: 'New summary' }
+    put :update, params: { person_id: @person, id: @historical_account, historical_account: { summary: 'New summary' } }
 
     assert_redirected_to admin_person_historical_accounts_path(@person)
     assert_equal 'New summary', @historical_account.reload.summary
@@ -78,14 +78,14 @@ class Admin::HistoricalAccountsControllerTest < ActionController::TestCase
 
   test "PUT on :update with invalid paramters re-renders the :edit template" do
     summary_before = @historical_account.summary
-    put :update, person_id: @person, id: @historical_account, historical_account: { summary: '' }
+    put :update, params: { person_id: @person, id: @historical_account, historical_account: { summary: '' } }
     assert_template :edit
     assert_equal summary_before, @historical_account.reload.summary
     assert_equal '', assigns(:historical_account).summary
   end
 
   test "Delete on :destroy destroys the historical account" do
-    delete :destroy, person_id: @person, id: @historical_account
+    delete :destroy, params: { person_id: @person, id: @historical_account }
     refute HistoricalAccount.exists?(@historical_account.id)
     assert_redirected_to admin_person_historical_accounts_path(@person)
   end

@@ -7,7 +7,7 @@ class Admin::GenericEditionsController::UnpublishingTest < ActionController::Tes
 
   view_test "displays unpublish button for unpublishable editions" do
     edition = create(:published_edition)
-    get :show, id: edition
+    get :show, params: { id: edition }
 
     assert_select "a", text: "Withdraw or unpublish"
   end
@@ -15,7 +15,7 @@ class Admin::GenericEditionsController::UnpublishingTest < ActionController::Tes
   view_test "does not display unpublish button if edition is not unpublishable" do
     login_as :managing_editor
     edition = create(:draft_edition)
-    get :show, id: edition
+    get :show, params: { id: edition }
 
     refute_select "a", text: "Withdraw or unpublish"
   end
