@@ -19,7 +19,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
   end
 
   def get_via_nginx(path)
-    get path, {}, {
+    get path, params: {}, headers: {
       "HTTP_X_SENDFILE_TYPE" => "X-Accel-Redirect",
       "HTTP_X_ACCEL_MAPPING" => "#{Whitehall.clean_uploads_root}/=/clean-uploads/"
     }
@@ -52,7 +52,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
 
     get_via_nginx upload
 
-    assert_sent_public_upload upload, Mime::JPG
+    assert_sent_public_upload upload, Mime[:jpg]
   end
 
   test 'recognises files with uppercase names (as well as lowercase)' do
@@ -61,7 +61,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
 
     get_via_nginx upload
 
-    assert_sent_public_upload upload, Mime::JPG
+    assert_sent_public_upload upload, Mime[:jpg]
   end
 
   test 'redirects requests for unknown uploaded images to the placeholder image' do
@@ -79,7 +79,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
 
     get_via_nginx attachment.url
 
-    assert_sent_public_upload attachment.url, Mime::PDF
+    assert_sent_public_upload attachment.url, Mime[:pdf]
   end
 
   test 'allows everyone access to thumbnails of attachments of published editions' do
@@ -93,7 +93,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
 
     get_via_nginx attachment.url + ".png"
 
-    assert_sent_public_upload attachment.url + ".png", Mime::PNG
+    assert_sent_public_upload attachment.url + ".png", Mime[:png]
   end
 
   test 'blocks general access to attachments of unpublished editions' do
@@ -120,7 +120,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
 
     get_via_nginx attachment.url
 
-    assert_sent_public_upload attachment.url, Mime::PDF
+    assert_sent_public_upload attachment.url, Mime[:pdf]
   end
 
   test 'blocks general access to attachments of unpublished consultation responses' do
@@ -149,7 +149,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
 
     get_via_nginx attachment.url
 
-    assert_sent_private_upload attachment.url, Mime::PDF
+    assert_sent_private_upload attachment.url, Mime[:pdf]
   end
 
   test 'blocks authenticated users without permission from accessing attachments of limited access documents' do
@@ -185,7 +185,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
 
     get_via_nginx attachment.url
 
-    assert_sent_private_upload attachment.url, Mime::PDF
+    assert_sent_private_upload attachment.url, Mime[:pdf]
   end
 
   test 'allows everyone access to attachments of corporate information pages' do
@@ -196,7 +196,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
 
     get_via_nginx attachment.url
 
-    assert_sent_public_upload attachment.url, Mime::PDF
+    assert_sent_public_upload attachment.url, Mime[:pdf]
   end
 
   test 'redirects requests for old consultation response form uploads to their new location as consultation response form data uploads' do

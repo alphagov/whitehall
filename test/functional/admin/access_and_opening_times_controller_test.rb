@@ -9,7 +9,7 @@ class Admin::AccessAndOpeningTimesControllerTest < ActionController::TestCase
 
   test "GET on :edit assigns a new instance if one does not already exist" do
     worldwide_organisation = create(:worldwide_organisation)
-    get :edit, worldwide_organisation_id: worldwide_organisation
+    get :edit, params: { worldwide_organisation_id: worldwide_organisation }
 
     assert_response :success
     assert_template :edit
@@ -22,7 +22,7 @@ class Admin::AccessAndOpeningTimesControllerTest < ActionController::TestCase
   test "GET on :edit loads the access and opening times if one exists" do
     worldwide_organisation = create(:worldwide_organisation)
     access_and_opening_times = create(:access_and_opening_times, accessible: worldwide_organisation)
-    get :edit, worldwide_organisation_id: worldwide_organisation
+    get :edit, params: { worldwide_organisation_id: worldwide_organisation }
 
     assert_response :success
     assert_template :edit
@@ -33,7 +33,7 @@ class Admin::AccessAndOpeningTimesControllerTest < ActionController::TestCase
   test "GET on :edit loads the office as accessible if worldwide_office_id is supplied" do
     worldwide_organisation = create(:worldwide_organisation)
     worldwide_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
-    get :edit, worldwide_organisation_id: worldwide_organisation, worldwide_office_id: worldwide_office
+    get :edit, params: { worldwide_organisation_id: worldwide_organisation, worldwide_office_id: worldwide_office }
 
     assert_response :success
     assert_template :edit
@@ -48,7 +48,7 @@ class Admin::AccessAndOpeningTimesControllerTest < ActionController::TestCase
     worldwide_organisation = create(:worldwide_organisation)
     access_and_opening_times = create(:access_and_opening_times, accessible: worldwide_organisation, body: 'default from org')
     worldwide_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
-    get :edit, worldwide_organisation_id: worldwide_organisation, worldwide_office_id: worldwide_office
+    get :edit, params: { worldwide_organisation_id: worldwide_organisation, worldwide_office_id: worldwide_office }
 
     assert_response :success
     assert_equal worldwide_office, assigns(:accessible)
@@ -61,7 +61,7 @@ class Admin::AccessAndOpeningTimesControllerTest < ActionController::TestCase
     worldwide_organisation = create(:worldwide_organisation)
     access_and_opening_times = create(:access_and_opening_times, accessible: worldwide_organisation)
     worldwide_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
-    get :edit, worldwide_organisation_id: worldwide_organisation, worldwide_office_id: worldwide_office
+    get :edit, params: { worldwide_organisation_id: worldwide_organisation, worldwide_office_id: worldwide_office }
 
     assert_response :success
     assert_template :edit
@@ -73,7 +73,7 @@ class Admin::AccessAndOpeningTimesControllerTest < ActionController::TestCase
 
   test "POST on :create saves the access and opening times details to the organisation" do
     worldwide_organisation = create(:worldwide_organisation)
-    post :create, worldwide_organisation_id: worldwide_organisation, access_and_opening_times: { body: 'body text' }
+    post :create, params: { worldwide_organisation_id: worldwide_organisation, access_and_opening_times: { body: 'body text' } }
 
     assert access_and_opening_times = worldwide_organisation.access_and_opening_times
     assert_equal 'body text', access_and_opening_times.body
@@ -83,7 +83,7 @@ class Admin::AccessAndOpeningTimesControllerTest < ActionController::TestCase
   test "POST on :create saves access info to an office and redirects to the offices page for the organisation" do
     worldwide_organisation = create(:worldwide_organisation)
     worldwide_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
-    post :create, worldwide_organisation_id: worldwide_organisation, worldwide_office_id: worldwide_office, access_and_opening_times: { body: 'custom body text' }
+    post :create, params: { worldwide_organisation_id: worldwide_organisation, worldwide_office_id: worldwide_office, access_and_opening_times: { body: 'custom body text' } }
 
     assert access_and_opening_times = worldwide_office.access_and_opening_times
     assert_equal 'custom body text', access_and_opening_times.body
@@ -92,7 +92,7 @@ class Admin::AccessAndOpeningTimesControllerTest < ActionController::TestCase
 
   view_test "POST on :create displays errors if access and opening times info is invalid" do
     worldwide_organisation = create(:worldwide_organisation)
-    post :create, worldwide_organisation_id: worldwide_organisation, access_and_opening_times: { body: '' }
+    post :create, params: { worldwide_organisation_id: worldwide_organisation, access_and_opening_times: { body: '' } }
 
     assert_nil worldwide_organisation.access_and_opening_times
     assert_template :edit
@@ -104,7 +104,7 @@ class Admin::AccessAndOpeningTimesControllerTest < ActionController::TestCase
   test 'PUT on :update updates the access and opening times details' do
     worldwide_organisation = create(:worldwide_organisation)
     access_and_opening_times = create(:access_and_opening_times, accessible: worldwide_organisation)
-    put :update, worldwide_organisation_id: worldwide_organisation, access_and_opening_times: { body: 'new body' }
+    put :update, params: { worldwide_organisation_id: worldwide_organisation, access_and_opening_times: { body: 'new body' } }
 
     assert_equal 'new body', access_and_opening_times.reload.body
     assert_redirected_to access_info_admin_worldwide_organisation_path(worldwide_organisation)
@@ -115,7 +115,7 @@ class Admin::AccessAndOpeningTimesControllerTest < ActionController::TestCase
     worldwide_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
     default_access_and_opening_times = create(:access_and_opening_times, accessible: worldwide_organisation, body: 'default body')
     access_and_opening_times = create(:access_and_opening_times, accessible: worldwide_office)
-    put :update, worldwide_organisation_id: worldwide_organisation, worldwide_office_id: worldwide_office, access_and_opening_times: { body: 'custom new body' }
+    put :update, params: { worldwide_organisation_id: worldwide_organisation, worldwide_office_id: worldwide_office, access_and_opening_times: { body: 'custom new body' } }
 
     assert_equal 'custom new body', access_and_opening_times.reload.body
     assert_equal 'default body', default_access_and_opening_times.body
@@ -125,7 +125,7 @@ class Admin::AccessAndOpeningTimesControllerTest < ActionController::TestCase
   view_test "PUT on :update displays errors if access and opening times info is invalid" do
     worldwide_organisation = create(:worldwide_organisation)
     access_and_opening_times = create(:access_and_opening_times, accessible: worldwide_organisation, body: 'old body')
-    put :update, worldwide_organisation_id: worldwide_organisation, access_and_opening_times: { body: '' }
+    put :update, params: { worldwide_organisation_id: worldwide_organisation, access_and_opening_times: { body: '' } }
 
     assert_equal 'old body', access_and_opening_times.reload.body
     assert_template :edit
@@ -139,15 +139,15 @@ class Admin::AccessAndOpeningTimesControllerTest < ActionController::TestCase
     office_for_other_org = create(:worldwide_office)
 
     assert_raise ActiveRecord::RecordNotFound do
-      get :edit, worldwide_organisation_id: worldwide_organisation, worldwide_office_id: office_for_other_org
+      get :edit, params: { worldwide_organisation_id: worldwide_organisation, worldwide_office_id: office_for_other_org }
     end
 
     assert_raise ActiveRecord::RecordNotFound do
-      post :create, worldwide_organisation_id: worldwide_organisation, worldwide_office_id: office_for_other_org, access_and_opening_times: { body: 'body' }
+      post :create, params: { worldwide_organisation_id: worldwide_organisation, worldwide_office_id: office_for_other_org, access_and_opening_times: { body: 'body' } }
     end
 
     assert_raise ActiveRecord::RecordNotFound do
-      put :update, worldwide_organisation_id: worldwide_organisation, worldwide_office_id: office_for_other_org, access_and_opening_times: { body: 'body' }
+      put :update, params: { worldwide_organisation_id: worldwide_organisation, worldwide_office_id: office_for_other_org, access_and_opening_times: { body: 'body' } }
     end
   end
 end

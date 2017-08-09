@@ -20,7 +20,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   end
 
   view_test "index displays world location title and mission-statement" do
-    get :index, world_location_id: @world_location
+    get :index, params: { world_location_id: @world_location }
     assert_select "title", text: "UK and India - GOV.UK"
     assert_select "p.type", text: "World location news"
     assert_select "h1", text: "UK and India"
@@ -29,23 +29,23 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
 
   test "index responds with not found if appropriate translation doesn't exist" do
     assert_raise(ActiveRecord::RecordNotFound) do
-      get :index, world_location_id: @world_location, locale: 'fr'
+      get :index, params: { world_location_id: @world_location, locale: 'fr' }
     end
   end
 
   test "index when asked for json should redirect to the api controller" do
-    get :index, world_location_id: @world_location, format: :json
+    get :index, params: { world_location_id: @world_location }, format: :json
     assert_redirected_to api_world_location_path(@world_location, format: :json)
   end
 
   view_test 'index has atom feed autodiscovery link' do
-    get :index, world_location_id: @world_location
+    get :index, params: { world_location_id: @world_location }
 
     assert_select_autodiscovery_link atom_feed_url_for(@world_location)
   end
 
   view_test 'index includes a link to the atom feed' do
-    get :index, world_location_id: @world_location
+    get :index, params: { world_location_id: @world_location }
 
     assert_select "a.feed[href=?]", atom_feed_url_for(@world_location)
   end
@@ -54,7 +54,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     pub = create(:published_publication, world_locations: [@world_location], first_published_at: 1.week.ago.to_date)
     news = create(:published_news_article, world_locations: [@world_location], first_published_at: 1.day.ago)
 
-    get :index, world_location_id: @world_location, format: :atom
+    get :index, params: { world_location_id: @world_location }, format: :atom
 
     assert_select_atom_feed do
       assert_select_atom_entries([news, pub])
@@ -69,7 +69,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     feature_list = create(:feature_list, featurable: @world_location, locale: :en)
     create(:feature, feature_list: feature_list, document: news.document)
 
-    get :index, world_location_id: @world_location
+    get :index, params: { world_location_id: @world_location }
 
     assert_featured_editions [news]
   end
@@ -87,10 +87,10 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     create(:feature, feature_list: french, ordering: 1, document: less_recent_news_article.document)
     create(:feature, feature_list: french, ordering: 2, document: more_recent_news_article.document)
 
-    get :index, world_location_id: @world_location, locale: :fr
+    get :index, params: { world_location_id: @world_location, locale: :fr }
     assert_featured_editions [less_recent_news_article, more_recent_news_article]
 
-    get :index, world_location_id: @world_location, locale: :en
+    get :index, params: { world_location_id: @world_location, locale: :en }
     assert_featured_editions [less_recent_news_article]
   end
 
@@ -99,7 +99,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     feature_list = create(:feature_list, featurable: @world_location, locale: :en)
     create(:feature, feature_list: feature_list, document: news.document, started_at: 2.days.ago, ended_at: 1.day.ago)
 
-    get :index, world_location_id: @world_location
+    get :index, params: { world_location_id: @world_location }
     assert_featured_editions []
   end
 
@@ -110,13 +110,13 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
       create(:feature, feature_list: english, document: news_article.document)
     end
 
-    get :index, world_location_id: @world_location
+    get :index, params: { world_location_id: @world_location }
 
     assert_equal 5, assigns(:feature_list).current_feature_count
   end
 
   test "should set world location slimmer headers" do
-    get :index, world_location_id: @world_location.id
+    get :index, params: { world_location_id: @world_location.id }
 
     assert_equal "<#{@world_location.analytics_identifier}>", response.headers["X-Slimmer-World-Locations"]
   end
@@ -126,7 +126,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     announcement1 = create(:published_news_article, world_locations: [@world_location], first_published_at: 1.day.ago)
     create(:published_speech, world_locations: [@world_location], first_published_at: 3.days.ago)
 
-    get :index, world_location_id: @world_location
+    get :index, params: { world_location_id: @world_location }
 
     assert_equal [announcement1, announcement2], assigns[:announcements].object
   end
@@ -136,7 +136,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     announcement3 = create(:published_speech, world_locations: [@world_location], first_published_at: 3.days.ago)
     announcement1 = create(:published_news_article, world_locations: [@world_location], first_published_at: 1.day.ago)
 
-    get :index, world_location_id: @world_location
+    get :index, params: { world_location_id: @world_location }
 
     assert_select "#announcements" do
       assert_select_object announcement1 do
@@ -158,7 +158,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
 
     create(:published_statistics, world_locations: [@world_location], first_published_at: 1.day.ago)
 
-    get :index, world_location_id: @world_location
+    get :index, params: { world_location_id: @world_location }
 
     assert_equal [publication1, publication2], assigns[:non_statistics_publications].object
   end
@@ -168,7 +168,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     publication3 = create(:published_policy_paper, world_locations: [@world_location], first_published_at: 3.days.ago.to_date)
     publication1 = create(:published_statistics, world_locations: [@world_location], first_published_at: 1.day.ago.to_date)
 
-    get :index, world_location_id: @world_location
+    get :index, params: { world_location_id: @world_location }
 
     assert_select "#publications" do
       assert_select_object publication2 do
@@ -186,7 +186,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     publication1 = create(:published_national_statistics, world_locations: [@world_location], first_published_at: 1.day.ago)
     create(:published_statistics, world_locations: [@world_location], first_published_at: 3.days.ago)
 
-    get :index, world_location_id: @world_location
+    get :index, params: { world_location_id: @world_location }
     assert_equal [publication1, publication2], assigns[:statistics_publications].object
   end
 
@@ -195,7 +195,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     publication3 = create(:published_statistics, world_locations: [@world_location], first_published_at: 3.days.ago.to_date)
     publication1 = create(:published_national_statistics, world_locations: [@world_location], first_published_at: 1.day.ago.to_date)
 
-    get :index, world_location_id: @world_location
+    get :index, params: { world_location_id: @world_location }
 
     assert_select "#statistics-publications" do
       assert_select_object publication1 do
@@ -212,7 +212,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     create(:published_publication, world_locations: [@translated_world_location], translated_into: [:fr])
     create(:published_news_article, world_locations: [@translated_world_location], translated_into: [:fr])
 
-    get :index, world_location_id: @translated_world_location, locale: 'fr'
+    get :index, params: { world_location_id: @translated_world_location, locale: 'fr' }
 
     assert_select ".type", "World location news"
     assert_select "#publications .see-all a", /Voir toutes nos publications/
@@ -222,7 +222,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     translated_speech = create(:published_speech, world_locations: [@translated_world_location], translated_into: [:fr])
     create(:published_speech, world_locations: [@translated_world_location])
 
-    get :index, world_location_id: @translated_world_location, locale: 'fr'
+    get :index, params: { world_location_id: @translated_world_location, locale: 'fr' }
 
     assert_equal [translated_speech], assigns(:announcements).object
   end
@@ -231,7 +231,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     translated_publication = create(:published_publication, world_locations: [@translated_world_location], translated_into: [:fr])
     create(:published_publication, world_locations: [@translated_world_location])
 
-    get :index, world_location_id: @translated_world_location, locale: 'fr'
+    get :index, params: { world_location_id: @translated_world_location, locale: 'fr' }
 
     assert_equal [translated_publication], assigns(:non_statistics_publications).object
   end
@@ -240,7 +240,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     translated_statistics = create(:published_statistics, world_locations: [@translated_world_location], translated_into: [:fr])
     create(:published_statistics, world_locations: [@translated_world_location])
 
-    get :index, world_location_id: @translated_world_location, locale: 'fr'
+    get :index, params: { world_location_id: @translated_world_location, locale: 'fr' }
 
     assert_equal [translated_statistics], assigns(:statistics_publications).object
   end
@@ -249,7 +249,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     translated_publication = create(:published_publication, world_locations: [@translated_world_location], translated_into: [:fr])
     create(:published_publication, world_locations: [@translated_world_location])
 
-    get :index, world_location_id: @translated_world_location, locale: 'fr'
+    get :index, params: { world_location_id: @translated_world_location, locale: 'fr' }
 
     assert_equal [translated_publication], assigns(:recently_updated)
   end
@@ -258,7 +258,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     translated_edition = create(:published_publication, world_locations: [@translated_world_location], translated_into: [:fr])
     create(:published_publication, world_locations: [@translated_world_location])
 
-    get :index, world_location_id: @translated_world_location.id, format: :atom, locale: 'fr'
+    get :index, params: { world_location_id: @translated_world_location.id, locale: 'fr' }, format: :atom
 
     assert_select_atom_feed do
       with_locale :fr do
@@ -270,7 +270,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   view_test "should show featured links if there are some" do
     featured_link = create(:featured_link, linkable: @world_location)
 
-    get :index, world_location_id: @world_location
+    get :index, params: { world_location_id: @world_location }
 
     assert_select '.featured-links' do
       assert_select "a[href='#{featured_link.url}']", text: featured_link.title

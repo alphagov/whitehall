@@ -19,7 +19,7 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
       summary: "the summary"
     )
 
-    get :show, id: collection
+    get :show, params: { id: collection }
 
     assert_select "h1", "collection-title"
     assert_select ".page-header .lead", "the summary"
@@ -36,14 +36,16 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
   end
 
   test "POST #create saves the document collection" do
-    post :create, edition: {
-          title: "collection-title",
-          summary: "collection-summary",
-          body: "collection-body",
-          lead_organisation_ids: [@organisation.id],
-          topic_ids: [@topic.id],
-          previously_published: false
-        }
+    post :create, params: {
+          edition: {
+                title: "collection-title",
+                summary: "collection-summary",
+                body: "collection-body",
+                lead_organisation_ids: [@organisation.id],
+                topic_ids: [@topic.id],
+                previously_published: false
+              }
+    }
 
     assert_equal 1, DocumentCollection.count
     document_collection = DocumentCollection.first
@@ -54,7 +56,7 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
   end
 
   view_test "POST #create with invalid params re-renders form the with errors" do
-    post :create, edition: { title: "" }
+    post :create, params: { edition: { title: "" } }
 
     assert_response :success
     assert_equal 0, DocumentCollection.count
@@ -65,7 +67,7 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
   view_test "GET #edit renders the edit form for the document collection" do
     document_collection = create(:document_collection)
 
-    get :edit, id: document_collection
+    get :edit, params: { id: document_collection }
 
     assert_select "form[action=?]", admin_document_collection_path(document_collection) do
       assert_select "input[name='edition[slug]'][value=?]", document_collection.slug
@@ -78,7 +80,7 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
   test "PUT #update updates the document collection" do
     document_collection = create(:document_collection, title: "old-title")
 
-    put :update, id: document_collection, edition: { title: "new-title" }
+    put :update, params: { id: document_collection, edition: { title: "new-title" } }
 
     assert_equal "new-title", document_collection.reload.title
     assert_response :redirect
@@ -86,7 +88,7 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
 
   view_test "PUT #update with invalid params re-renders the form with errors" do
     document_collection = create(:document_collection, title: "old-title")
-    put :update, id: document_collection, edition: {title: ""}
+    put :update, params: { id: document_collection, edition: { title: "" } }
 
     assert_equal "old-title", document_collection.reload.title
 
@@ -97,7 +99,7 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
 
   test "DELETE #destroy deletes the document collection" do
     document_collection = create(:document_collection)
-    delete :destroy, id: document_collection
+    delete :destroy, params: { id: document_collection }
 
     refute DocumentCollection.exists?(document_collection.id)
     assert_response :redirect

@@ -13,7 +13,7 @@ task :describe_filters, [:topic_list_csv] => :environment do |t, args|
   def parse_params(line)
     uri = Addressable::URI.parse(line.gsub(';', "%#{';'.ord.to_s(16).upcase}"))
 
-    params = HashWithIndifferentAccess.new(Rack::Utils.parse_nested_query(uri.query))
+    params = ActiveSupport::HashWithIndifferentAccess.new(Rack::Utils.parse_nested_query(uri.query))
     params['topics'] = params['topics'].map {|t| t.split(";")}.flatten
     params[:action] = "index"
     params[:controller] = case uri.path

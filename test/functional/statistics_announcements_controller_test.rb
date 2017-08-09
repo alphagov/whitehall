@@ -7,11 +7,13 @@ class StatisticsAnnouncementsControllerTest < ActionController::TestCase
     organisation = create :organisation
     topic = create :topic
 
-    get :index, keywords: "wombats",
-                from_date: "2050-02-02",
-                to_date: "2055-01-01",
-                organisations: [organisation.slug],
-                topics: [topic.slug]
+    get :index, params: {
+                  keywords: "wombats",
+                  from_date: "2050-02-02",
+                  to_date: "2055-01-01",
+                  organisations: [organisation.slug],
+                  topics: [topic.slug]
+                }
 
     assert assigns(:filter).is_a? Frontend::StatisticsAnnouncementsFilter
     assert_equal "wombats", assigns(:filter).keywords
@@ -61,7 +63,7 @@ class StatisticsAnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "#index with dodgy params" do
-    get :index, topics: [{ hax: 1 }]
+    get :index, params: { topics: [{ hax: 1 }] }
     assert_response :success
   end
 
@@ -88,7 +90,7 @@ class StatisticsAnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "#index responds to xhr requests, rendering only the filter_results partial in response" do
-    xhr :get, :index
+    get :index, xhr: true
 
     assert_response :success
     assert_template layout: nil, partial: 'statistics_announcements/_filter_results'

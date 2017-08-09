@@ -10,7 +10,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   test 'GET :new loads the organisation and feature and instantiates a new item and link' do
-    get :new, organisation_id: @organisation, promotional_feature_id: @promotional_feature
+    get :new, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature }
 
     assert_response :success
     assert_template :new
@@ -22,12 +22,14 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
 
   test 'POST :create saves the new promotional item to the feature' do
     post :create,
-      organisation_id: @organisation,
-      promotional_feature_id: @promotional_feature,
-      promotional_feature_item: {
-        summary: 'Summary text',
-        image_alt_text: 'Alt text',
-        image: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
+      params: {
+        organisation_id: @organisation,
+        promotional_feature_id: @promotional_feature,
+        promotional_feature_item: {
+          summary: 'Summary text',
+          image_alt_text: 'Alt text',
+          image: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
+        }
       }
 
     assert promotional_feature_item = @promotional_feature.reload.promotional_feature_items.first
@@ -41,7 +43,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
   test 'GET :edit loads the item and its links renders the template' do
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature)
     link = create(:promotional_feature_link, promotional_feature_item: promotional_feature_item)
-    get :edit, organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item
+    get :edit, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item }
 
     assert_response :success
     assert_template :edit
@@ -53,7 +55,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
 
   test 'GET :edit assigns a blank link if the item does not already have one' do
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature)
-    get :edit, organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item
+    get :edit, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item }
 
     assert_response :success
     assert_template :edit
@@ -66,11 +68,10 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     link = create(:promotional_feature_link)
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature, links: [link])
 
-    put :update, organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item,
-                  promotional_feature_item: {
+    put :update, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item, promotional_feature_item: {
                     summary: 'Updated summary',
                     links_attributes: { '0' => { url: link.url, text: link.text, id: link.id, _destroy: false } }
-                  }
+                  } }
 
     assert_equal 'Updated summary', promotional_feature_item.reload.summary
     assert_redirected_to admin_organisation_promotional_feature_url(@organisation, @promotional_feature)
@@ -79,8 +80,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
 
   test 'PUT :update re-renders edit if the feature item does not save' do
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature, summary: 'Old summary')
-    put :update, organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item,
-                  promotional_feature_item: { summary: ''}
+    put :update, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item, promotional_feature_item: { summary: '' } }
 
     assert_template :edit
     assert_equal 'Old summary', promotional_feature_item.reload.summary
@@ -88,7 +88,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
 
   test 'DELETE :destroy deletes the promotional item' do
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature)
-    delete :destroy, organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item
+    delete :destroy, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item }
 
     assert_redirected_to admin_organisation_promotional_feature_url(@organisation, @promotional_feature)
     refute PromotionalFeatureItem.exists?(promotional_feature_item.id)

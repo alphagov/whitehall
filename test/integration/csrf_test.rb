@@ -28,7 +28,7 @@ class CsrfTest < ActionController::TestCase
   test "does not raise an exception with a valid CSRF token" do
     with_test_routes do
       session["_csrf_token"] = SecureRandom.base64(32)
-      post :create, authenticity_token: session["_csrf_token"]
+      post :create, params: { authenticity_token: session["_csrf_token"] }
     end
   end
 

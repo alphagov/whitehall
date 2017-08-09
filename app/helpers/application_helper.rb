@@ -33,7 +33,7 @@ module ApplicationHelper
   end
 
   def api_link_tag(path)
-    tag :link, href: path, rel: 'alternate', type: Mime::JSON
+    tag :link, href: path, rel: 'alternate', type: Mime[:json]
   end
 
   def format_in_paragraphs(string)

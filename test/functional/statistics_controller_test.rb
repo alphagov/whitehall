@@ -47,7 +47,7 @@ class StatisticsControllerTest < ActionController::TestCase
   view_test "#index highlights selected topic filter options" do
     given_two_statistics_publications_in_two_topics
 
-    get :index, topics: [@topic_1, @topic_2]
+    get :index, params: { topics: [@topic_1, @topic_2] }
 
     assert_select "select#topics[name='topics[]']" do
       assert_select "option[selected='selected']", text: @topic_1.name
@@ -58,7 +58,7 @@ class StatisticsControllerTest < ActionController::TestCase
   view_test "#index highlights selected organisation filter options" do
     given_two_statistics_publications_in_two_organisations
 
-    get :index, departments: [@organisation_1, @organisation_2]
+    get :index, params: { departments: [@organisation_1, @organisation_2] }
 
     assert_select "select#departments[name='departments[]']" do
       assert_select "option[selected]", text: @organisation_1.name
@@ -79,13 +79,13 @@ class StatisticsControllerTest < ActionController::TestCase
   end
 
   view_test "#index displays filter keywords" do
-    get :index, keywords: "olympics 2012"
+    get :index, params: { keywords: "olympics 2012" }
 
     assert_select "input[name='keywords'][value=?]", "olympics 2012"
   end
 
   view_test "#index displays date filter" do
-    get :index, from_date: "01/01/2011", to_date: "01/02/2012"
+    get :index, params: { from_date: "01/01/2011", to_date: "01/02/2012" }
 
     assert_select "input#from_date[name='from_date'][value='01/01/2011']"
     assert_select "input#to_date[name='to_date'][value='01/02/2012']"
@@ -110,20 +110,20 @@ class StatisticsControllerTest < ActionController::TestCase
     english_publication = create(:published_statistics)
     french_publication = create(:published_statistics, translated_into: [:fr])
 
-    get :index, locale: 'fr'
+    get :index, params: { locale: 'fr' }
 
     assert_select_object french_publication
     refute_select_object english_publication
   end
 
   view_test '#index for non-english locales does not allow any filtering' do
-    get :index, locale: 'fr'
+    get :index, params: { locale: 'fr' }
 
     refute_select '.filter'
   end
 
   view_test '#index for non-english locales skips results summary' do
-    get :index, locale: 'fr'
+    get :index, params: { locale: 'fr' }
     refute_select '.filter-results-summary'
   end
 
@@ -189,7 +189,7 @@ class StatisticsControllerTest < ActionController::TestCase
                                                            organisations: [org, org2],
                                                            first_published_at: Date.parse("2012-03-14"))
 
-    get :index, format: :atom, departments: [org.to_param]
+    get :index, params: { departments: [org.to_param] }, format: :atom
 
     assert_select_atom_feed do
       assert_select_atom_entries([statistics_publication])

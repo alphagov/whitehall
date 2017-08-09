@@ -1,11 +1,6 @@
 require 'test_helper'
 
 class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
-  setup do
-    # Assert we don't make calls other than those we specify in tests
-    WebMock.reset!
-  end
-
   def call(edition)
     event = self.class.name.demodulize.underscore
     PublishingApiHtmlAttachmentsWorker.new.perform(edition.id, event)

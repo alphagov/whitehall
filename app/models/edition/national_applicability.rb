@@ -20,7 +20,7 @@ module Edition::NationalApplicability
     attributes.each do |index, params|
       existing = nation_inapplicabilities.detect { |ni| ni.nation_id == params[:nation_id].to_i }
 
-      if ActiveRecord::Type::Boolean.new.type_cast_from_database(params[:excluded])
+      if ActiveRecord::Type::Boolean.new.deserialize(params[:excluded])
         if existing
           existing.attributes = params.except(:excluded, :id)
         else

@@ -73,7 +73,7 @@ class PublicFacingControllerTest < ActionController::TestCase
         @request.env['HTTP_ACCEPT'] = type
         get :test
         assert_equal 200, response.status, "mime type #{type} should be acceptable"
-        assert_equal Mime::HTML, response.content_type
+        assert_equal Mime[:html], response.content_type
       end
     end
   end
@@ -92,12 +92,12 @@ class PublicFacingControllerTest < ActionController::TestCase
     with_routing_for_test_controller do
       get :json
       assert_response :success
-      assert_equal Mime::HTML, response.content_type
+      assert_equal Mime[:html], response.content_type
       assert_equal 'html', response.body
 
       get :json, format: :json
       assert_response :success
-      assert_equal Mime::JSON, response.content_type
+      assert_equal Mime[:json], response.content_type
       assert_equal '{}', response.body
 
       get :json, format: :atom
@@ -109,10 +109,10 @@ class PublicFacingControllerTest < ActionController::TestCase
     with_routing_for_test_controller do
       get :js_or_atom
       assert_response :success
-      assert_equal Mime::HTML, response.content_type
+      assert_equal Mime[:html], response.content_type
       assert_equal 'html', response.body
 
-      xhr :get, :js_or_atom
+      get :js_or_atom, xhr: true
       assert_response :success
       assert_equal Mime::JS, response.content_type
       assert_equal 'javascript', response.body
@@ -145,7 +145,7 @@ class PublicFacingControllerTest < ActionController::TestCase
   test "all public facing requests with a locale should use the given locale" do
     with_routing_for_test_controller do
       I18n.default_locale = :tr
-      get :locale, locale: 'fr'
+      get :locale, params: { locale: 'fr' }
       assert_equal 'fr', response.body
     end
   end
@@ -153,7 +153,7 @@ class PublicFacingControllerTest < ActionController::TestCase
   test "all public facing requests with a locale should reset locale back to its original value after completion" do
     with_routing_for_test_controller do
       I18n.locale = :dr
-      get :locale, locale: 'fr'
+      get :locale, params: { locale: 'fr' }
       assert_equal :dr, I18n.locale
     end
   end
@@ -190,7 +190,9 @@ class PublicFacingControllerTest < ActionController::TestCase
   def with_routing_for_test_controller(&block)
     with_routing do |map|
       map.draw do
-        get '/test/:action(.:format)', controller: 'public_facing_controller_test/test'
+        %w(test json js_or_atom locale api_timeout api_bad_gateway api_error).each do |action|
+          get "/test/#{action}(.:format)", controller: 'public_facing_controller_test/test'
+        end
       end
       yield
     end

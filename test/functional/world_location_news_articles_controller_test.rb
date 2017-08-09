@@ -10,7 +10,7 @@ class WorldLocationNewsArticlesControllerTest < ActionController::TestCase
 
   test "shows published world location news article" do
     world_news_article = create(:published_world_location_news_article)
-    get :show, id: world_news_article.document
+    get :show, params: { id: world_news_article.document }
     assert_response :success
   end
 
@@ -21,7 +21,7 @@ class WorldLocationNewsArticlesControllerTest < ActionController::TestCase
 
   view_test "renders the world location news article summary from plain text" do
     world_news_article = create(:published_world_location_news_article, summary: 'plain *text* & so on')
-    get :show, id: world_news_article.document
+    get :show, params: { id: world_news_article.document }
 
     assert_select ".summary", text: "plain *text* & so on"
   end
@@ -29,7 +29,7 @@ class WorldLocationNewsArticlesControllerTest < ActionController::TestCase
   view_test "renders the world location news article body using govspeak" do
     world_news_article = create(:published_world_location_news_article, body: "body-in-govspeak")
     govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
-      get :show, id: world_news_article.document
+      get :show, params: { id: world_news_article.document }
     end
 
     assert_select ".body", text: "body-in-html"
@@ -43,7 +43,7 @@ class WorldLocationNewsArticlesControllerTest < ActionController::TestCase
     updated_world_news_article.change_note = "change-note"
     force_publish(updated_world_news_article)
 
-    get :show, id: updated_world_news_article.document
+    get :show, params: { id: updated_world_news_article.document }
 
     assert_select ".meta" do
       assert_select ".date[datetime='#{world_news_article.first_published_at.iso8601}']"
@@ -54,7 +54,7 @@ class WorldLocationNewsArticlesControllerTest < ActionController::TestCase
   test "the format name is being set to news" do
     world_news_article = create(:published_world_location_news_article)
 
-    get :show, id: world_news_article.document
+    get :show, params: { id: world_news_article.document }
 
     assert_equal "news", response.headers["X-Slimmer-Format"]
   end

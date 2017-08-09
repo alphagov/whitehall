@@ -4,7 +4,6 @@ class FormObject
   include ActiveModel::Validations
 
   def initialize(attrs = {})
-    attrs = Hash(attrs)
     attrs.each do |key, value|
       self.send("#{key}=", value)
     end

@@ -11,7 +11,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     create(:classification_policy, policy_content_id: policy_content_id, classification: topics.first)
     create(:classification_policy, policy_content_id: policy_content_id, classification: topics.second)
 
-    get :topics, policy_id: policy_content_id, format: :json
+    get :topics, params: { policy_id: policy_content_id }, format: :json
     assert_equal topics.first.id, json_response['topics'].first
     assert_equal topics.second.id, json_response['topics'].second
   end

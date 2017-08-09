@@ -16,7 +16,7 @@ class AttachableEditionTest < ActionController::TestCase
 
   view_test 'GET :edit displays "Document" and "Attachments" tabs' do
     edition = create(:news_article)
-    get :edit, id: edition
+    get :edit, params: { id: edition }
     assert_tab 'Document', edit_admin_news_article_path(edition)
     assert_tab 'Attachments', admin_edition_attachments_path(edition)
   end
@@ -29,7 +29,7 @@ class AttachableEditionsWithInlineSupportTest < ActionController::TestCase
 
   view_test 'GET :edit lists the attachments with markdown hint for editions that support inline attachments' do
     edition = create(:news_article, :with_file_attachment)
-    get :edit, id: edition
+    get :edit, params: { id: edition }
     attachment = edition.attachments.first
 
     assert_select "#govspeak_help", text: /Attachments/
@@ -45,7 +45,7 @@ class AttachableEditionWithoutInlineSupportTest < ActionController::TestCase
 
   view_test 'GET :edit does not list the attachments for editions that do not support inline attachments' do
     edition = create(:publication, :with_file_attachment)
-    get :edit, id: edition
+    get :edit, params: { id: edition }
     attachment = edition.attachments.first
 
     assert_select 'li', text: %r(#{attachment.title}), count: 0

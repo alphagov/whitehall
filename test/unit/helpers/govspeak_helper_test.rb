@@ -349,7 +349,7 @@ class GovspeakHelperTest < ActionView::TestCase
     input = '[Contact:1]'
     contact_html = render('contacts/contact', contact: contact, heading_tag: 'h3')
     @controller.lookup_context.formats = ['atom']
-    assert_nothing_raised(ActionView::MissingTemplate) do
+    assert_nothing_raised do
       assert_equivalent_html "<div class=\"govspeak\">#{contact_html}</div>", govspeak_to_html(input)
     end
   end

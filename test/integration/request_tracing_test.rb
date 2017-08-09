@@ -14,10 +14,11 @@ class RequestTracingTest < ActionDispatch::IntegrationTest
   end
 
   def force_publish(edition, headers = {})
-    post_via_redirect("/government/admin/editions/#{edition.id}/force_publish", {
+    post "/government/admin/editions/#{edition.id}/force_publish", params: {
       reason: "Test",
       lock_version: 0,
-    }, headers)
+    }, headers: headers
+    follow_redirect!
   end
 
   test "govuk_request_id is passed downstream across the worker boundary on publish" do

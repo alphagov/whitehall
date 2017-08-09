@@ -35,12 +35,14 @@ class RoutingTest < ActionDispatch::IntegrationTest
 
   test "should allow access to admin URLs for non-single-domain requests" do
     login_as_admin
-    get_via_redirect "/government/admin"
+    get "/government/admin"
+    follow_redirect!
     assert_response :success
   end
 
   test "should allow access to non-admin URLs for requests through the single domain router" do
-    get_via_redirect "/government/history/king-charles-street", {}, "HTTP_X_GOVUK_ROUTER_REQUEST" => true
+    get "/government/history/king-charles-street", params: {}, headers: { "HTTP_X_GOVUK_ROUTER_REQUEST" => true }
+    follow_redirect!
     assert_response :success
   end
 
@@ -104,11 +106,11 @@ class RoutingTest < ActionDispatch::IntegrationTest
   test "atom feed responds with atom to both /government/feed and /government/feed.atom requests" do
     get "/government/feed"
     assert_equal 200, response.status
-    assert_equal Mime::ATOM, response.content_type
+    assert_equal Mime[:atom], response.content_type
 
     get "/government/feed.atom"
     assert_equal 200, response.status
-    assert_equal Mime::ATOM, response.content_type
+    assert_equal Mime[:atom], response.content_type
   end
 
   test "atom feed returns 404s for other content types" do

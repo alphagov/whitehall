@@ -61,7 +61,7 @@ class HomePageList < ApplicationRecord
   end
 
   def self.remove_from_all_lists(item)
-    HomePageListItem.where(item_id: item.id, item_type: item.class).destroy_all
+    HomePageListItem.where(item_id: item.id, item_type: item.class.to_s).destroy_all
   end
 
   protected

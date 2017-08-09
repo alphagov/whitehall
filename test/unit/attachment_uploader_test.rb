@@ -59,7 +59,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   test "zip file containing SHOUTED whitelisted format files should not be rejected" do
     uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(['README.TXT', 'ImportantDocument.PDF', 'dIRE-sTRAITS.jPG'])
-    assert_nothing_raised CarrierWave::IntegrityError do
+    assert_nothing_raised do
       uploader.store!(fixture_file_upload('sample_attachment.zip'))
     end
     assert uploader.file.present?
@@ -83,7 +83,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   test 'zip file that looks like a minimal ArcGIS file should be allowed' do
     uploader = AttachmentUploader.new(stub("AR Model", id: 1), 'mounted-as')
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(required_arcgis_file_list)
-    assert_nothing_raised CarrierWave::IntegrityError do
+    assert_nothing_raised do
       uploader.store!(fixture_file_upload('sample_attachment.zip'))
     end
     assert uploader.file.present?
@@ -92,7 +92,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   test 'zip file that looks like a comprehensive ArcGIS file should be allowed' do
     uploader = AttachmentUploader.new(stub("AR Model", id: 1), 'mounted-as')
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(comprehensive_arcgis_file_list)
-    assert_nothing_raised CarrierWave::IntegrityError do
+    assert_nothing_raised do
       uploader.store!(fixture_file_upload('sample_attachment.zip'))
     end
     assert uploader.file.present?
@@ -117,7 +117,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   test 'zip file that looks like an ArcGIS file with multiple sets of shapes is allowed' do
     uploader = AttachmentUploader.new(stub("AR Model", id: 1), 'mounted-as')
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(multiple_shape_arcgis_file_list)
-    assert_nothing_raised CarrierWave::IntegrityError do
+    assert_nothing_raised do
       uploader.store!(fixture_file_upload('sample_attachment.zip'))
     end
     assert uploader.file.present?

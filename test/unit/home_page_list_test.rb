@@ -74,7 +74,7 @@ class HomePageListTest < ActiveSupport::TestCase
     contact = create(:contact)
     list.add_item(contact)
 
-    assert list.home_page_list_items.where(item_id: contact.id, item_type: contact.class).any?
+    assert list.home_page_list_items.where(item_id: contact.id, item_type: contact.class.to_s).any?
   end
 
   test '#add_item will not duplicate an item that is already on the list' do
@@ -83,7 +83,7 @@ class HomePageListTest < ActiveSupport::TestCase
     list.home_page_list_items << build(:home_page_list_item, item: contact)
     list.add_item(contact)
 
-    assert_equal 1, list.home_page_list_items.where(item_id: contact.id, item_type: contact.class).length
+    assert_equal 1, list.home_page_list_items.where(item_id: contact.id, item_type: contact.class.to_s).length
   end
 
   test '#add_item will persist the list' do
@@ -100,7 +100,7 @@ class HomePageListTest < ActiveSupport::TestCase
     list.home_page_list_items << build(:home_page_list_item, item: contact)
     list.remove_item(contact)
 
-    refute list.home_page_list_items.where(item_id: contact.id, item_type: contact.class).any?
+    refute list.home_page_list_items.where(item_id: contact.id, item_type: contact.class.to_s).any?
   end
 
   test '#remove_item won\'t complain if the supplied item isn\'t already on the list' do
