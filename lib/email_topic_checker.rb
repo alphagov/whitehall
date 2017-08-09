@@ -2,7 +2,8 @@ require "gds_api/helpers"
 
 class EmailTopicChecker
   include GdsApi::Helpers
-  attr_reader :verbose_output
+  attr_reader :verbose_output, :presented_edition, :edition
+  attr_accessor :params
 
   # The govuk-delivery mongo db stores absolute paths for feed_urls in its
   # db.topics collection. This environment variable lets us swap out the feed
@@ -15,52 +16,56 @@ class EmailTopicChecker
   # have any data in your local content store and still want the code to run.
   IGNORE_SUPERTYPES = ENV["IGNORE_SUPERTYPES"].present?
 
-  def self.check(content_id)
-    new(content_id, true).check
+  def self.check(document, verbose = true)
+    published_edition = document.published_edition
+    presented_edition = published_edition &&
+      PublishingApiPresenters.presenter_for(published_edition)
+    new(presented_edition, published_edition, verbose).check
   end
 
-  def self.check_and_return_failed_content_ids(content_id)
-    new(content_id).check
+  def self.check_presented_edition(presented_edition, edition, verbose = true)
+    new(presented_edition, verbose).check
   end
 
-  attr_accessor :document
-
-  def initialize(content_id, verbose = false)
-    self.document = Document.find_by!(content_id: content_id)
-    @verbose = verbose
+  def initialize(presented_edition, edition, verbose = true)
+    @edition = edition
+    @presented_edition = presented_edition
+    @verbose_output = verbose
   end
 
   def check
-    edition = document.published_edition
-    raise "No published edition" unless edition
-
     feed_urls = feed_urls(edition)
     govuk_topics = feed_urls.map { |url| govuk_delivery_topic(url) }.compact.sort
 
-    presented_edition = PublishingApiPresenters.presenter_for(edition)
     supertypes = content_store_supertypes(presented_edition)
     email_topics = email_alert_api_topics(presented_edition, supertypes)
 
+    additional_govuk = (govuk_topics - email_topics)
+    additional_email = (email_topics - govuk_topics)
+
     if verbose_output
-      puts "\ngovuk-delivery feed urls:"
-      puts feed_urls
+      <<-OUTPUT.strip_heredoc
+      email-alert-api params:
+      #{params.inspect}
 
-      puts "\ngovuk-delivery topics:"
-      puts govuk_topics
+      govuk-delivery feed urls:
+      #{feed_urls.join("\n")}
 
-      puts "\nemail-alert-api topics:"
-      puts email_topics
+      govuk-delivery topics:
+      #{govuk_topics.join("\n")}
 
-      additional_govuk = (govuk_topics - email_topics).presence || "None"
-      puts "\nadditional govuk-delivery topics:"
-      puts additional_govuk
+      email-alert-api topics:
+      #{email_topics.join("\n")}
 
-      additional_email = (email_topics - govuk_topics).presence || "None"
-      puts "\nadditional email-alert-api topics:"
-      puts additional_email
+      additional govuk-delivery topics:
+      #{additional_govuk.any? ? additional_govuk.join("\n") : 'None'}
+
+      additional email-alert-api topics:
+      #{additional_email.any? ? additional_email.join("\n") : 'None'}
+      OUTPUT
+    elsif additional_govuk.any?
+      presented_edition.content_id
     end
-
-    document.content_id if (govuk_topics - email_topics).any?
   end
 
   def govuk_delivery_topic(feed_url)
@@ -82,7 +87,7 @@ class EmailTopicChecker
 
     base_path = presented_edition.content.to_h.fetch(:base_path)
     content = Whitehall.content_store.content_item(base_path).to_h
-    if content["content_id"] != document.content_id
+    if content["content_id"] != presented_edition.content_id
       raise "content store returned different content item"
     end
     content.slice("email_document_supertype", "government_document_supertype").symbolize_keys
@@ -94,16 +99,11 @@ class EmailTopicChecker
     details = content[:details]
     tags = details[:tags] if details
 
-    params = {
+    self.params = {
       links: strip_empty_arrays(links || {}),
       tags: strip_empty_arrays(tags || {}),
       document_type: content[:document_type],
     }.merge(supertypes)
-
-    if verbose_output
-    puts "\nemail-alert-api params:"
-    puts params.inspect
-    end
 
     response = email_alert_api.topic_matches(params)
     response.to_h.fetch("topics")
