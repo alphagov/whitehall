@@ -19,6 +19,6 @@ class WorldLocationType
     [WorldLocation]
   end
 
-  WorldLocation = create(id: 1, key: "world_location", name: "World location news", sort_order: 0)
+  WorldLocation = create(id: 1, key: "world_location", name: "World location", sort_order: 0)
   InternationalDelegation = create(id: 3, key: "international_delegation", name: "International delegation", sort_order: 2)
 end
