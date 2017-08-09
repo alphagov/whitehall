@@ -27,7 +27,7 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
   view_test 'should allow modification of existing world location data' do
     world_location = create(:world_location)
 
-    get :edit, id: world_location
+    get :edit, params: { id: world_location }
 
     assert_template 'world_locations/edit'
     assert_select "input[name='world_location[title]']"
@@ -37,7 +37,7 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
   test 'updating should modify the world location' do
     world_location = create(:world_location)
 
-    put :update, id: world_location, world_location: { mission_statement: 'country-mission-statement' }
+    put :update, params: { id: world_location, world_location: { mission_statement: 'country-mission-statement' } }
 
     world_location.reload
     assert_equal 'country-mission-statement', world_location.mission_statement
@@ -46,7 +46,7 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
   test 'after updating redirects to world location show page' do
     world_location = create(:world_location)
 
-    put :update, id: world_location, world_location: { mission_statement: 'country-mission-statement' }
+    put :update, params: { id: world_location, world_location: { mission_statement: 'country-mission-statement' } }
 
     assert_redirected_to [:admin, world_location]
   end
@@ -54,12 +54,12 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
   test "updating should be able to create a new featured link" do
     world_location = create(:world_location)
 
-    post :update, id: world_location, world_location: {
+    post :update, params: { id: world_location, world_location: {
       featured_links_attributes: {"0" => {
         url: "http://www.gov.uk/mainstream/something",
         title: "Something on mainstream"
       }}
-    }
+    } }
 
     assert world_location = WorldLocation.last
     assert featured_link = world_location.featured_links.last
@@ -71,12 +71,12 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
     world_location = create(:world_location)
     featured_link = create(:featured_link, linkable: world_location)
 
-    post :update, id: world_location, world_location: {
+    post :update, params: { id: world_location, world_location: {
       featured_links_attributes: {"0" => {
         id: featured_link.id,
         _destroy: "1"
       }}
-    }
+    } }
 
     refute FeaturedLink.exists?(featured_link.id)
   end

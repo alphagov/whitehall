@@ -61,7 +61,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
   view_test 'should check a child taxon and its parents when only a child taxon is returned' do
     stub_publishing_api_links_with_taxons(@edition.content_id, [child_taxon_content_id])
 
-    get :edit, edition_id: @edition
+    get :edit, params: { edition_id: @edition }
 
     assert_select "input[value='#{parent_taxon_content_id}'][checked='checked']"
     assert_select "input[value='#{child_taxon_content_id}'][checked='checked']"
@@ -70,7 +70,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
   view_test 'should check a parent taxon but not its children when only a parent taxon is returned' do
     stub_publishing_api_links_with_taxons(@edition.content_id, [parent_taxon_content_id])
 
-    get :edit, edition_id: @edition
+    get :edit, params: { edition_id: @edition }
 
     assert_select "input[value='#{parent_taxon_content_id}'][checked='checked']"
     refute_select "input[value='#{child_taxon_content_id}'][checked='checked']"

@@ -5,14 +5,14 @@ class EmailSignupsControllerTest < ActionController::TestCase
 
   view_test 'GET :new with a valid field displays the subscription form' do
     topic = create(:topic)
-    get :new, email_signup: { feed: atom_feed_url_for(topic) }
+    get :new, params: { email_signup: { feed: atom_feed_url_for(topic) } }
 
     assert_response :success
     assert_select "input[name='email_signup[feed]'][value='#{atom_feed_url_for(topic)}']"
   end
 
   view_test 'GET :new with an invalid feed shows an error message' do
-    get :new, email_signup: { feed: 'http://nonse-feed.atom' }
+    get :new, params: { email_signup: { feed: 'http://nonse-feed.atom' } }
 
     assert_response :success
     refute_select "input[name='email_signup[feed]']"
@@ -26,7 +26,7 @@ class EmailSignupsControllerTest < ActionController::TestCase
     EmailAlertApiSignupWorker.stubs(:perform_async)
 
     topic = create(:topic)
-    post :create, email_signup: { feed: atom_feed_url_for(topic) }
+    post :create, params: { email_signup: { feed: atom_feed_url_for(topic) } }
 
     assert_response :redirect
     assert_redirected_to 'http://govdelivery_signup_url'
@@ -34,7 +34,7 @@ class EmailSignupsControllerTest < ActionController::TestCase
 
   view_test 'POST :create with an invalid email signup shows an error message' do
     Whitehall.govuk_delivery_client.expects(:topic).never
-    post :create, email_signup: { feed: 'http://gov.uk/invalid/feed.atom'}
+    post :create, params: { email_signup: { feed: 'http://gov.uk/invalid/feed.atom' } }
 
     assert_response :success
     assert_select "p", text: /we could not find a valid email alerts feed/

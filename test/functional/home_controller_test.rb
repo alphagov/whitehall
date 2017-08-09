@@ -50,7 +50,7 @@ class HomeControllerTest < ActionController::TestCase
     version_2.change_note = 'My new version'
     force_publish(version_2)
 
-    get :feed, format: :atom, govdelivery_version: 'yes'
+    get :feed, params: { govdelivery_version: 'yes' }, format: :atom
 
     assert_select_atom_feed do
       assert_select_atom_entries([version_2], true)

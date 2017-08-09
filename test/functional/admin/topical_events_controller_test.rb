@@ -9,7 +9,7 @@ class Admin::TopicalEventsControllerTest < ActionController::TestCase
 
   view_test "GET :show lists the topical event details" do
     topical_event = create(:topical_event)
-    get :show, id: topical_event
+    get :show, params: { id: topical_event }
 
     assert_response :success
     assert_select 'h1', topical_event.name
@@ -24,7 +24,7 @@ class Admin::TopicalEventsControllerTest < ActionController::TestCase
 
   test 'POST :create saves the topical event' do
     assert_difference("TopicalEvent.count") do
-      post :create, topical_event: { name: 'Event', description: 'Event description' }
+      post :create, params: { topical_event: { name: 'Event', description: 'Event description' } }
     end
 
     assert_response :redirect
@@ -47,7 +47,7 @@ class Admin::TopicalEventsControllerTest < ActionController::TestCase
 
   view_test 'GET :edit renders the topical event form' do
     topical_event = create(:topical_event)
-    get :edit, id: topical_event
+    get :edit, params: { id: topical_event }
 
     assert_response :success
     assert_select "input[name='topical_event[name]'][value='#{topical_event.name}']"
@@ -55,7 +55,7 @@ class Admin::TopicalEventsControllerTest < ActionController::TestCase
 
   test 'PUT :update saves changes to the topical event' do
     topical_event = create(:topical_event)
-    put :update, id: topical_event, topical_event: { name: 'New name' }
+    put :update, params: { id: topical_event, topical_event: { name: 'New name' } }
 
     assert_response :redirect
     assert_equal 'New name', topical_event.reload.name
@@ -63,7 +63,7 @@ class Admin::TopicalEventsControllerTest < ActionController::TestCase
 
   test 'DELETE :destroy deletes the topical event' do
     topical_event = create(:topical_event)
-    delete :destroy, id: topical_event
+    delete :destroy, params: { id: topical_event }
 
     assert_response :redirect
     assert topical_event.reload.deleted?

@@ -10,12 +10,12 @@ module DocumentControllerTestHelpers
         english_attachment = create(:file_attachment, locale: :en, attachable: edition)
         french_attachment = create(:file_attachment, locale: :fr, attachable: edition)
 
-        get :show, id: edition.document
+        get :show, params: { id: edition.document }
         assert_select_object(attachment)
         assert_select_object(english_attachment)
         refute_select_object(french_attachment)
 
-        get :show, id: edition.document, locale: :fr
+        get :show, params: { id: edition.document, locale: :fr }
         assert_select_object(attachment)
         refute_select_object(english_attachment)
         assert_select_object(french_attachment)
@@ -28,12 +28,12 @@ module DocumentControllerTestHelpers
         english_attachment = create(:html_attachment, locale: :en, attachable: edition)
         french_attachment = create(:html_attachment, locale: :fr, attachable: edition)
 
-        get :show, id: edition.document
+        get :show, params: { id: edition.document }
         assert_select_object(attachment)
         assert_select_object(english_attachment)
         refute_select_object(french_attachment)
 
-        get :show, id: edition.document, locale: :fr
+        get :show, params: { id: edition.document, locale: :fr }
         assert_select_object(attachment)
         refute_select_object(english_attachment)
         assert_select_object(french_attachment)
@@ -47,7 +47,7 @@ module DocumentControllerTestHelpers
           attachment_2 = build(:file_attachment, file: fixture_file_upload('sample.rtf', 'text/rtf'))
         ])
 
-        get :show, id: edition.document
+        get :show, params: { id: edition.document }
 
         assert_select_object(attachment_1) do
           assert_select '.title', text: attachment_1.title
@@ -62,7 +62,7 @@ module DocumentControllerTestHelpers
       view_test 'show displays HTML attachments' do
         edition = create("published_#{document_type}", :with_alternative_format_provider, :with_html_attachment, body: '!@1')
         attachment = edition.attachments.first
-        get :show, id: edition.document
+        get :show, params: { id: edition.document }
         assert_select_object(attachment) do
           assert_select '.title', text: attachment.title
           assert_select 'img[src$=?]', 'pub-cover-html.png', message: 'should use HTML thumbnail for HTML attachments'
@@ -75,7 +75,7 @@ module DocumentControllerTestHelpers
           attachment_2 = build(:file_attachment, file: fixture_file_upload('sample.rtf', 'text/rtf'))
         ])
 
-        get :show, id: edition.document
+        get :show, params: { id: edition.document }
 
         assert_select_object(attachment_1) do
           refute_select '.accessibility-warning'
@@ -93,7 +93,7 @@ module DocumentControllerTestHelpers
           attachment_1 = build(:file_attachment, file: fixture_file_upload('greenpaper.pdf', 'application/pdf'), accessible: false)
         ], alternative_format_provider: organisation)
 
-        get :show, id: edition.document
+        get :show, params: { id: edition.document }
 
         assert_select_object(attachment_1) do
           assert_select '.accessibility-warning' do
@@ -108,7 +108,7 @@ module DocumentControllerTestHelpers
           attachment = build(:file_attachment, file: greenpaper_pdf)
         ])
 
-        get :show, id: edition.document
+        get :show, params: { id: edition.document }
 
         assert_select_object(attachment) do
           assert_select ".type", /PDF/
@@ -123,7 +123,7 @@ module DocumentControllerTestHelpers
           attachment = build(:file_attachment, file: csv)
         ])
 
-        get :show, id: edition.document
+        get :show, params: { id: edition.document }
 
         assert_select_object(attachment) do
           assert_select ".type", /RTF/
@@ -138,7 +138,7 @@ module DocumentControllerTestHelpers
         images = [create(:image), create(:image)]
         edition = create("published_#{document_type}", body: "!!2", images: images)
 
-        get :show, id: edition.document
+        get :show, params: { id: edition.document }
 
         assert_select 'article figure.image.embedded img'
       end
@@ -147,26 +147,26 @@ module DocumentControllerTestHelpers
     def should_show_related_policies_for(document_type)
       view_test "show displays related published policies for #{document_type}" do
         edition = create("published_#{document_type}", policy_content_ids: [policy_1['content_id'], policy_2['content_id']])
-        get :show, id: edition.document
+        get :show, params: { id: edition.document }
         assert_select '.meta a', text: "Policy 1"
       end
 
       view_test "should not display an empty list of related policies for #{document_type}" do
         edition = create("published_#{document_type}", policy_content_ids: [])
-        get :show, id: edition.document
+        get :show, params: { id: edition.document }
         refute_select "#related-policies"
       end
 
       view_test "should render related policies on #{document_type} pages" do
         edition = create("published_#{document_type}", policy_content_ids: [policy_1["content_id"]])
-        get :show, id: edition.document
+        get :show, params: { id: edition.document }
         assert_select ".meta a", text: policy_1["title"]
       end
 
       view_test "shows no policies if publishing api is unavailable" do
         edition = create("published_#{document_type}", policy_content_ids: [policy_1["content_id"]])
         publishing_api_isnt_available
-        get :show, id: edition.document
+        get :show, params: { id: edition.document }
         refute_select ".meta a", text: policy_1["title"]
       end
     end
@@ -178,7 +178,7 @@ module DocumentControllerTestHelpers
         third_location = create(:international_delegation)
         edition = create("published_#{document_type}", world_locations: [first_location, second_location])
 
-        get :show, id: edition.document
+        get :show, params: { id: edition.document }
 
         assert_select "a", text: first_location.name
         assert_select "a", text: second_location.name
@@ -193,7 +193,7 @@ module DocumentControllerTestHelpers
         draft_edition = create("draft_#{singular}")
         model = create(model_name, editions: [published_edition, draft_edition])
 
-        get :show, id: model
+        get :show, params: { id: model }
 
         assert_select "##{has_many_association.to_s.gsub('_', '-')}" do
           assert_select_object(published_edition)
@@ -206,7 +206,7 @@ module DocumentControllerTestHelpers
         another_published_edition = create("published_#{singular}")
         model = create(model_name, editions: [published_edition])
 
-        get :show, id: model
+        get :show, params: { id: model }
 
         assert_select "##{has_many_association.to_s.gsub('_', '-')}" do
           assert_select_object(published_edition)
@@ -219,7 +219,7 @@ module DocumentControllerTestHelpers
         earlier_edition = create("published_#{singular}", timestamp_key => 2.hours.ago)
         model = create(model_name, editions: [earlier_edition, later_edition])
 
-        get :show, id: model
+        get :show, params: { id: model }
 
         assert_equal [later_edition, earlier_edition], assigns(has_many_association).object
       end
@@ -227,7 +227,7 @@ module DocumentControllerTestHelpers
       view_test "should not display an empty published #{has_many_association.to_s.humanize.downcase} section" do
         model = create(model_name, editions: [])
 
-        get :show, id: model
+        get :show, params: { id: model }
 
         refute_select "##{has_many_association.to_s.gsub('_', '-')}"
       end
@@ -236,7 +236,7 @@ module DocumentControllerTestHelpers
     def should_set_expiry_headers(document_type)
       test "#{document_type} should set an expiry of 30 minutes" do
         edition = create("published_#{document_type}")
-        get :show, id: edition.document
+        get :show, params: { id: edition.document }
         Whitehall.stubs(:default_cache_max_age).returns(30.minutes)
         assert_equal 'max-age=1800, public', response.headers['Cache-Control']
       end
@@ -252,7 +252,7 @@ module DocumentControllerTestHelpers
                                access_limited: false)
 
         login_as create(:departmental_editor)
-        get :show, id: document.id, preview: draft_edition.id
+        get :show, params: { id: document.id, preview: draft_edition.id }
         assert_response 200
         assert_cache_control 'no-cache'
       end
@@ -265,7 +265,7 @@ module DocumentControllerTestHelpers
                                body: "Draft information",
                                access_limited: false)
 
-        get :show, id: document.id, preview: draft_edition.id
+        get :show, params: { id: document.id, preview: draft_edition.id }
         assert_response 404
       end
 
@@ -273,7 +273,7 @@ module DocumentControllerTestHelpers
         draft = create(document_type, :published, access_limited: true)
 
         login_as(create(:departmental_editor, organisation: draft.organisations.first))
-        get :show, id: draft.document.id, preview: draft.id
+        get :show, params: { id: draft.document.id, preview: draft.id }
 
         assert_response 200
         assert_cache_control 'no-cache'
@@ -283,7 +283,7 @@ module DocumentControllerTestHelpers
         draft = create(document_type, :published, access_limited: true)
 
         login_as(create(:departmental_editor))
-        get :show, id: draft.document.id, preview: draft.id
+        get :show, params: { id: draft.document.id, preview: draft.id }
 
         assert_response 404
       end
@@ -295,7 +295,7 @@ module DocumentControllerTestHelpers
         northern_ireland_inapplicability = published_document.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://northern-ireland.com/")
         scotland_inapplicability = published_document.nation_inapplicabilities.create!(nation: Nation.scotland)
 
-        get :show, id: published_document.document
+        get :show, params: { id: published_document.document }
 
         assert_select inapplicable_nations_selector, "England and Wales (see #{published_document.format_name} for Northern Ireland)" do
           assert_select_object northern_ireland_inapplicability do
@@ -327,7 +327,7 @@ module DocumentControllerTestHelpers
         documents.sort_by!(&options[:sort_by]) if options[:sort_by]
 
         with_number_of_documents_per_page(3) do
-          get :index, page: 2
+          get :index, params: { page: 2 }
         end
 
         (0..2).to_a.each { |i| refute_filtered_documents_include documents[i] }
@@ -358,7 +358,7 @@ module DocumentControllerTestHelpers
         documents = (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
 
         with_number_of_documents_per_page(3) do
-          get :index, page: 2
+          get :index, params: { page: 2 }
         end
 
         assert_select "#show-more-documents" do
@@ -371,7 +371,7 @@ module DocumentControllerTestHelpers
         documents = (1..7).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
 
         with_number_of_documents_per_page(3) do
-          get :index, page: 2
+          get :index, params: { page: 2 }
         end
 
         assert_select "#show-more-documents" do
@@ -414,7 +414,7 @@ module DocumentControllerTestHelpers
       test "#{document_type} should set a meaningful meta description" do
         edition = create("published_#{document_type}", summary: "My **first** #{document_type}")
 
-        get :show, id: edition.document
+        get :show, params: { id: edition.document }
 
         assert_equal "My first #{document_type}", assigns(:meta_description)
       end
@@ -425,7 +425,7 @@ module DocumentControllerTestHelpers
         organisation = create(:organisation)
         lead_organisation = create(:organisation, acronym: "ABC")
         edition = create("published_#{document_type}", supporting_organisations: [organisation], lead_organisations: [lead_organisation])
-        get :show, id: edition.document
+        get :show, params: { id: edition.document }
 
         assert_equal "<#{lead_organisation.analytics_identifier}><#{organisation.analytics_identifier}>", response.headers["X-Slimmer-Organisations"]
         assert_equal lead_organisation.acronym.downcase, response.headers["X-Slimmer-Page-Owner"]
@@ -435,7 +435,7 @@ module DocumentControllerTestHelpers
     def should_set_the_article_id_for_the_edition_for(document_type)
       view_test "#{document_type} should set the article ID to the edition type/ID" do
         edition = create("published_#{document_type}")
-        get :show, id: edition.document
+        get :show, params: { id: edition.document }
 
         assert_select "article##{document_type}_#{edition.id}"
       end
@@ -444,7 +444,7 @@ module DocumentControllerTestHelpers
     def should_show_share_links_for(document_type)
       view_test "#{document_type} should show share links" do
         edition = create("published_#{document_type}")
-        get :show, id: edition.document
+        get :show, params: { id: edition.document }
         assert_select ".document-share-links"
       end
     end
@@ -452,7 +452,7 @@ module DocumentControllerTestHelpers
     def should_not_show_share_links_for(document_type)
       view_test "#{document_type} should not show share links" do
         edition = create("published_#{document_type}")
-        get :show, id: edition.document
+        get :show, params: { id: edition.document }
         refute_select ".document-share-links"
       end
     end

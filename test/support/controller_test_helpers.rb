@@ -19,7 +19,7 @@ module ControllerTestHelpers
         edition = create(edition_type)
         login_as :writer
         actions.each do |action|
-          get action, id: edition.id
+          get action, params: { id: edition.id }
           assert_response 403
         end
       end

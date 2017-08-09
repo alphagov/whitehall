@@ -19,7 +19,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
   end
 
   def get_via_nginx(path)
-    get path, {}, {
+    get path, params: {}, headers: {
       "HTTP_X_SENDFILE_TYPE" => "X-Accel-Redirect",
       "HTTP_X_ACCEL_MAPPING" => "#{Whitehall.clean_uploads_root}/=/clean-uploads/"
     }

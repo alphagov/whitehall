@@ -7,7 +7,7 @@ class DocumentsControllerWorldwideSlimmerHeadersInclusionTest < ActionController
     edition = create(:world_location_news_article)
     force_publish(edition)
 
-    get :show, id: edition.document
+    get :show, params: { id: edition.document }
 
     assert_response :success
     expected_header_value = "<#{edition.world_locations.first.analytics_identifier}>"
@@ -18,7 +18,7 @@ class DocumentsControllerWorldwideSlimmerHeadersInclusionTest < ActionController
     edition = create(:world_location_news_article)
     force_publish(edition)
 
-    get :show, id: edition.document
+    get :show, params: { id: edition.document }
 
     assert_response :success
     expected_header_value = "<#{edition.worldwide_organisations.first.analytics_identifier}>"

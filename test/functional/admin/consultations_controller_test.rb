@@ -47,7 +47,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       }
     )
 
-    post :create, edition: attributes
+    post :create, params: { edition: attributes }
 
     consultation = Consultation.last
     response_form = consultation.consultation_participation.consultation_response_form
@@ -76,7 +76,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       }
     )
 
-    post :create, edition: attributes
+    post :create, params: { edition: attributes }
 
     consultation = Consultation.last
     assert_nil consultation.consultation_participation
@@ -96,7 +96,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       }
     )
 
-    post :create, edition: attributes
+    post :create, params: { edition: attributes }
 
     assert_select "form#new_edition" do
       assert_select "input[name='edition[consultation_participation_attributes][consultation_response_form_attributes][consultation_response_form_data_attributes][file_cache]'][value$='two-pages.pdf']"
@@ -106,7 +106,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
   view_test "show renders the summary" do
     draft_consultation = create(:draft_consultation, summary: "a-simple-summary")
-    get :show, id: draft_consultation
+    get :show, params: { id: draft_consultation }
     assert_select ".page-header .lead", text: "a-simple-summary"
   end
 
@@ -115,7 +115,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     participation = create(:consultation_participation, consultation_response_form: response_form)
     consultation = create(:consultation, consultation_participation: participation)
 
-    get :edit, id: consultation
+    get :edit, params: { id: consultation }
 
     assert_select "form#edit_edition" do
       assert_select "textarea[name='edition[summary]']"
@@ -134,7 +134,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   test "update should save modified consultation attributes" do
     consultation = create(:consultation)
 
-    put :update, id: consultation, edition: {
+    put :update, params: { id: consultation, edition: {
       summary: "new-summary",
       opening_at: 1.day.ago,
       closing_at: 50.days.from_now,
@@ -142,7 +142,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
         link_url: "http://consult.com",
         email: "tell-us-what-you-think@gov.uk"
       }
-    }
+    } }
 
     consultation.reload
     assert_equal "new-summary", consultation.summary
@@ -155,12 +155,12 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   test "update should save consultation without consultation participation if participation fields are all blank" do
     consultation = create(:consultation)
 
-    put :update, id: consultation, edition: {
+    put :update, params: { id: consultation, edition: {
       consultation_participation_attributes: {
         link_url: nil,
         email: nil
       }
-    }
+    } }
 
     consultation.reload
     assert_nil consultation.consultation_participation
@@ -171,7 +171,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     participation = create(:consultation_participation, consultation_response_form: response_form)
     consultation = create(:consultation, consultation_participation: participation)
 
-    put :update, id: consultation, edition: {
+    put :update, params: { id: consultation, edition: {
       consultation_participation_attributes: {
         id: participation.id,
         consultation_response_form_attributes: {
@@ -179,7 +179,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
           _destroy: '1'
         }
       }
-    }
+    } }
 
     refute_select ".errors"
     consultation.reload
@@ -194,7 +194,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     participation = create(:consultation_participation, consultation_response_form: response_form)
     consultation = create(:consultation, consultation_participation: participation)
 
-    put :update, id: consultation, edition: {
+    put :update, params: { id: consultation, edition: {
       consultation_participation_attributes: {
         id: participation.id,
         consultation_response_form_attributes: {
@@ -207,7 +207,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
           }
         }
       }
-    }
+    } }
 
     refute_select ".errors"
     consultation.reload
@@ -220,7 +220,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     participation = create(:consultation_participation, consultation_response_form: response_form)
     consultation = create(:consultation, consultation_participation: participation)
 
-    put :update, id: consultation, edition: {
+    put :update, params: { id: consultation, edition: {
       consultation_participation_attributes: {
         id: participation.id,
         consultation_response_form_attributes: {
@@ -228,7 +228,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
           attachment_action: 'remove'
         }
       }
-    }
+    } }
 
     refute_select ".errors"
     consultation.reload
@@ -249,7 +249,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     participation = create(:consultation_participation, consultation_response_form: response_form)
     consultation = create(:consultation, consultation_participation: participation)
 
-    put :update, id: consultation, edition: {
+    put :update, params: { id: consultation, edition: {
       consultation_participation_attributes: {
         id: participation.id,
         consultation_response_form_attributes: {
@@ -262,7 +262,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
           }
         }
       }
-    }
+    } }
 
     refute_select ".errors"
     consultation.reload

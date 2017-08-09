@@ -20,8 +20,10 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
   end
 
   test "creates a worldwide organisation" do
-    post :create, worldwide_organisation: {
-      name: "Organisation",
+    post :create, params: {
+      worldwide_organisation: {
+        name: "Organisation",
+      }
     }
 
     worldwide_organisation = WorldwideOrganisation.last
@@ -32,8 +34,10 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "shows validation errors on invalid worldwide organisation" do
-    post :create, worldwide_organisation: {
-      name: "",
+    post :create, params: {
+      worldwide_organisation: {
+        name: "",
+      }
     }
 
     assert_select 'form#new_worldwide_organisation .errors'
@@ -41,16 +45,18 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
 
   test "shows an edit page for an existing worldwide organisation" do
     organisation = create(:worldwide_organisation)
-    get :edit, id: organisation.id
+    get :edit, params: { id: organisation.id }
   end
 
   test "updates an existing objects with new values" do
     organisation = create(:worldwide_organisation)
-    put :update, id: organisation.id, worldwide_organisation: {
-      name: "New name",
-      default_news_image_attributes: {
-        file: fixture_file_upload('minister-of-funk.960x640.jpg')
-      },
+    put :update, params: {
+      id: organisation.id, worldwide_organisation: {
+        name: "New name",
+        default_news_image_attributes: {
+          file: fixture_file_upload('minister-of-funk.960x640.jpg')
+        },
+      }
     }
     worldwide_organisation = WorldwideOrganisation.last
     assert_equal "New name", worldwide_organisation.name
@@ -61,7 +67,7 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
   test "setting the main office" do
     offices = [create(:worldwide_office), create(:worldwide_office)]
     worldwide_organisation = create(:worldwide_organisation, offices: offices)
-    put :set_main_office, id: worldwide_organisation.id, worldwide_organisation: { main_office_id: offices.last.id }
+    put :set_main_office, params: { id: worldwide_organisation.id, worldwide_organisation: { main_office_id: offices.last.id } }
 
     assert_equal offices.last, worldwide_organisation.reload.main_office
     assert_equal "Main office updated successfully", flash[:notice]
@@ -70,7 +76,7 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
 
   test "viewing office access details with no default assigns a new one" do
     worldwide_organisation = create(:worldwide_organisation)
-    get :access_info, id: worldwide_organisation
+    get :access_info, params: { id: worldwide_organisation }
 
     assert_response :success
     assert_template :access_info
@@ -90,7 +96,7 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
            document: page.document)
 
     count = WorldwideOrganisation.count
-    delete :destroy, id: organisation.id
+    delete :destroy, params: { id: organisation.id }
     assert_equal count - 1, WorldwideOrganisation.count
   end
 
@@ -101,7 +107,7 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
                       summary: "We have a nice organisation in madrid",
                       body: "# Organisation\nOur organisation is on the main road\n")
 
-    get :show, id: organisation
+    get :show, params: { id: organisation }
 
     assert_select_object organisation do
       assert_select "h1", organisation.name

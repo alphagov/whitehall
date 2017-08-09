@@ -107,13 +107,13 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index shows selected announcement type filter option in the title" do
-    get :index, announcement_filter_option: 'news-stories'
+    get :index, params: { announcement_filter_option: 'news-stories' }
 
     assert_select 'h1 span', ': news stories'
   end
 
   view_test "index indicates selected announcement type filter option in the filter selector" do
-    get :index, announcement_filter_option: 'news-stories'
+    get :index, params: { announcement_filter_option: 'news-stories' }
 
     assert_select "select[name='announcement_filter_option']" do
       assert_select "option[selected='selected']", text: Whitehall::AnnouncementFilterOption::NewsStory.label
@@ -127,7 +127,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
     create(:published_news_article, world_locations: [wl1, wl2, wl3])
 
-    get :index, {world_locations: [wl1.slug, wl3.slug]}
+    get :index, params: { world_locations: [wl1.slug, wl3.slug] }
 
     assert_select "select[name='world_locations[]']" do
       assert_select "option[selected='selected']", count: 2
@@ -160,7 +160,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     speeches = (4..6).map { |n| create(:published_speech, first_published_at: n.days.ago) }
 
     with_number_of_documents_per_page(4) do
-      get :index, page: 2
+      get :index, params: { page: 2 }
     end
 
     assert_documents_appear_in_order_within(".filter-results", speeches[1..2])
@@ -178,7 +178,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     topic = create(:topic)
     organisation = create(:organisation)
 
-    get :index, topics: [topic], departments: [organisation]
+    get :index, params: { topics: [topic], departments: [organisation] }
 
     assert_select_autodiscovery_link announcements_url(format: "atom", topics: [topic], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
   end
@@ -186,7 +186,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   view_test "index generates an atom feed for the current filter" do
     org = create(:organisation, name: "org-name")
 
-    get :index, format: :atom, departments: [org.to_param]
+    get :index, params: { departments: [org.to_param] }, format: :atom
 
     assert_select_atom_feed do
       assert_select 'feed > id', 1
@@ -205,7 +205,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     news = create(:published_news_article, organisations: [org], first_published_at: 1.week.ago)
     speech = create(:published_speech, organisations: [other_org], delivered_on: 3.days.ago)
 
-    get :index, format: :atom, departments: [org.to_param]
+    get :index, params: { departments: [org.to_param] }, format: :atom
 
     assert_select_atom_feed do
       assert_select_atom_entries([news])
@@ -216,7 +216,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     news = create(:published_news_story, first_published_at: 1.week.ago)
     speech = create(:published_speech, delivered_on: 3.days.ago)
 
-    get :index, format: :atom, announcement_type_option: 'news-stories'
+    get :index, params: { announcement_type_option: 'news-stories' }, format: :atom
 
     assert_select_atom_feed do
       assert_select_atom_entries([news])
@@ -236,7 +236,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     topic = create(:topic)
     organisation = create(:organisation)
 
-    get :index, format: :json, to_date: "2012-01-01", topics: [topic.slug], departments: [organisation.slug]
+    get :index, params: { to_date: "2012-01-01", topics: [topic.slug], departments: [organisation.slug] }, format: :json
 
     json = ActiveSupport::JSON.decode(response.body)
     atom_url = announcements_url(format: "atom", topics: [topic.slug], departments: [organisation.slug], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
@@ -247,7 +247,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   view_test 'index only lists documents in the given locale' do
     english_article = create(:published_news_article)
     spanish_article = create(:published_news_article, translated_into: [:fr])
-    get :index, locale: 'fr'
+    get :index, params: { locale: 'fr' }
 
     assert_select_object spanish_article
     refute_select_object english_article
@@ -256,20 +256,20 @@ class AnnouncementsControllerTest < ActionController::TestCase
   view_test 'index for non-english locale copes when a nil page is specified' do
     english_article = create(:published_news_article)
     spanish_article = create(:published_news_article, translated_into: [:fr])
-    get :index, locale: 'fr', page: nil
+    get :index, params: { locale: 'fr', page: nil }
 
     assert_response :success
   end
 
   view_test 'index for non-english locales only allows filtering by world location' do
-    get :index, locale: 'fr'
+    get :index, params: { locale: 'fr' }
 
     assert_select '.filter', count: 1
     assert_select "select#world_locations"
   end
 
   view_test 'index for non-english locales skips results summary' do
-    get :index, locale: 'fr'
+    get :index, params: { locale: 'fr' }
     refute_select '.filter-results-summary'
   end
 

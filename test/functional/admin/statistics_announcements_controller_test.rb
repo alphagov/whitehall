@@ -36,18 +36,20 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "POST :create saves the announcement to the database and redirects to the dashboard" do
-    post :create, statistics_announcement: {
-                    title: 'Beard stats 2014',
-                    summary: 'Summary text',
-                    publication_type_id: PublicationType::OfficialStatistics.id,
-                    organisation_ids: [@organisation.id],
-                    topic_ids: [@topic.id],
-                    current_release_date_attributes: {
-                      release_date: 1.year.from_now,
-                      precision: StatisticsAnnouncementDate::PRECISION[:one_month],
-                      confirmed: '0'
-                    }
-                  }
+    post :create, params: {
+                    statistics_announcement: {
+                                    title: 'Beard stats 2014',
+                                    summary: 'Summary text',
+                                    publication_type_id: PublicationType::OfficialStatistics.id,
+                                    organisation_ids: [@organisation.id],
+                                    topic_ids: [@topic.id],
+                                    current_release_date_attributes: {
+                                      release_date: 1.year.from_now,
+                                      precision: StatisticsAnnouncementDate::PRECISION[:one_month],
+                                      confirmed: '0'
+                                    }
+                                  }
+    }
 
     assert_response :redirect
     assert announcement = StatisticsAnnouncement.last
@@ -59,7 +61,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "POST :create re-renders the form if the announcement is invalid" do
-    post :create, statistics_announcement: { title: '', summary: 'Summary text' }
+    post :create, params: { statistics_announcement: { title: '', summary: 'Summary text' } }
 
     assert_response :success
     assert_select "ul.errors li", text: "Title can't be blank"
@@ -68,7 +70,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
 
   view_test "GET :show renders the details of the announcement" do
     announcement = create(:statistics_announcement)
-    get :show, id: announcement
+    get :show, params: { id: announcement }
 
     assert_response :success
     assert_select 'h1 .stats-heading', text: announcement.title
@@ -76,7 +78,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
 
   view_test "GET :edit renders the edit form for the  announcement" do
     announcement = create(:statistics_announcement)
-    get :edit, id: announcement.id
+    get :edit, params: { id: announcement.id }
 
     assert_response :success
     assert_select "input[name='statistics_announcement[title]'][value='#{announcement.title}']"
@@ -84,7 +86,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
 
   test "PUT :update saves changes to the announcement" do
     announcement = create(:statistics_announcement)
-    put :update, id: announcement.id, statistics_announcement: { title: "New announcement title" }
+    put :update, params: { id: announcement.id, statistics_announcement: { title: "New announcement title" } }
 
     assert_response :redirect
     assert_equal 'New announcement title', announcement.reload.title
@@ -92,7 +94,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
 
   view_test "PUT :update re-renders edit form if changes are not valid" do
     announcement = create(:statistics_announcement)
-    put :update, id: announcement.id, statistics_announcement: { title: '' }
+    put :update, params: { id: announcement.id, statistics_announcement: { title: '' } }
 
     assert_response :success
     assert_select "ul.errors li", text: "Title can't be blank"
@@ -101,8 +103,10 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
   test "POST :publish_cancellation cancels the announcement" do
     announcement = create(:statistics_announcement)
     post :publish_cancellation,
-          id: announcement.id,
-          statistics_announcement: { cancellation_reason: "Reason" }
+          params: {
+            id: announcement.id,
+            statistics_announcement: { cancellation_reason: "Reason" }
+          }
 
     assert_redirected_to [:admin, announcement]
     assert announcement.reload.cancelled?
@@ -113,12 +117,14 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
   test "cancelled announcements cannot be cancelled" do
     announcement = create(:cancelled_statistics_announcement)
 
-    get :cancel, id: announcement
+    get :cancel, params: { id: announcement }
     assert_redirected_to [:admin, announcement]
 
     post :publish_cancellation,
-          id: announcement.id,
-          statistics_announcement: { cancellation_reason: "Reason" }
+          params: {
+            id: announcement.id,
+            statistics_announcement: { cancellation_reason: "Reason" }
+          }
     assert_redirected_to [:admin, announcement]
   end
 

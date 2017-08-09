@@ -23,7 +23,7 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
   view_test "show renders the summary" do
     draft_fatality_notice = create(:draft_fatality_notice, summary: "a-simple-summary")
 
-    get :show, id: draft_fatality_notice
+    get :show, params: { id: draft_fatality_notice }
 
     assert_select ".page-header .lead", text: "a-simple-summary"
   end
@@ -40,7 +40,7 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
     field = create(:operational_field)
     edition = create(:fatality_notice, operational_field: field)
 
-    get :edit, id: edition
+    get :edit, params: { id: edition }
 
     assert_select "form#edit_edition" do
       assert_select "select[name='edition[operational_field_id]']"
@@ -62,7 +62,7 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
       }}
     )
 
-    post :create, edition: attributes
+    post :create, params: { edition: attributes }
     assert fatality_notice = FatalityNotice.last
     assert fatality_notice_casuality = fatality_notice.fatality_notice_casualties.last
     assert_equal "Personal details", fatality_notice_casuality.personal_details

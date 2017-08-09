@@ -2,7 +2,7 @@ require "test_helper"
 
 class AttachmentsControllerTest < ActionController::TestCase
   def get_show(attachment_data)
-    get :show, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
+    get :show, params: { id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension }
   end
 
   def basename(attachment_data)
@@ -95,7 +95,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     )
     VirusScanHelpers.simulate_virus_scan(attachment_data.file)
     create_thumbnail_for_upload(attachment_data.file)
-    get :show, id: attachment_data.to_param, file: attachment_data.filename, extension: 'png'
+    get :show, params: { id: attachment_data.to_param, file: attachment_data.filename, extension: 'png' }
 
     assert_response :success
     assert_match "#{attachment_data.filename}.png", response.headers['Content-Disposition']
@@ -125,7 +125,7 @@ class AttachmentsControllerTest < ActionController::TestCase
 
   test "an invalid filename returns a not found response" do
     attachment_data = create(:attachment_data)
-    get :show, id: attachment_data.to_param, file: basename(attachment_data), extension: "#{attachment_data.file_extension}missing"
+    get :show, params: { id: attachment_data.to_param, file: basename(attachment_data), extension: "#{attachment_data.file_extension}missing" }
     assert_response :not_found
   end
 
@@ -136,7 +136,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     VirusScanHelpers.simulate_virus_scan(attachment_data.file)
 
     login_as(:writer)
-    get :show, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
+    get :show, params: { id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension }
 
     assert_response :success
     assert_cache_control 'no-cache'
@@ -150,7 +150,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     ])
     attachment_data = attachment.attachment_data
 
-    get :preview, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
+    get :preview, params: { id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension }
 
     assert_equal visible_edition, assigns(:edition)
     assert_equal attachment, assigns(:attachment)
@@ -168,7 +168,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     ], organisations: [org_1, org_2, org_3])
     attachment_data = attachment.attachment_data
 
-    get :preview, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
+    get :preview, params: { id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension }
 
     assert_select 'a[href=?]', organisation_path(org_1)
     assert_select 'a[href=?]', organisation_path(org_2)
@@ -179,7 +179,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     unpublished_edition = create(:draft_publication, :with_file_attachment, attachments: [build(:csv_attachment)])
     attachment_data = unpublished_edition.attachments.first.attachment_data
 
-    get :preview, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
+    get :preview, params: { id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension }
 
     assert_response :not_found
   end
@@ -188,7 +188,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     visible_edition = create(:published_publication, :with_file_attachment, attachments: [build(:file_attachment)])
     attachment_data = visible_edition.attachments.first.attachment_data
 
-    get :preview, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
+    get :preview, params: { id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension }
 
     assert_response :not_found
   end
@@ -197,7 +197,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     unpublished_publication = create(:draft_publication, :unpublished, :with_file_attachment, attachments: [build(:csv_attachment)])
     attachment_data = unpublished_publication.attachments.first.attachment_data
 
-    get :preview, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
+    get :preview, params: { id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension }
 
     assert_redirected_to publication_url(unpublished_publication.unpublishing.slug)
   end
@@ -210,7 +210,7 @@ class AttachmentsControllerTest < ActionController::TestCase
 
     CsvPreview.expects(:new).raises(CsvPreview::FileEncodingError)
 
-    get :preview, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
+    get :preview, params: { id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension }
 
     assert_equal visible_edition, assigns(:edition)
     assert_equal attachment, assigns(:attachment)
@@ -224,7 +224,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     ])
     attachment_data = attachment.attachment_data
 
-    get :preview, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
+    get :preview, params: { id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension }
 
     assert_response :success
     assert_select 'p.preview-error', text: /This file could not be previewed/
@@ -235,7 +235,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     attachment_data = attachment.attachment_data
     VirusScanHelpers.simulate_virus_scan(attachment_data.file)
 
-    get :preview, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
+    get :preview, params: { id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension }
 
     assert_response :not_found
   end
@@ -246,7 +246,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     attachment_data = attachment.attachment_data
     VirusScanHelpers.simulate_virus_scan(attachment_data.file)
 
-    get :preview, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
+    get :preview, params: { id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension }
 
     assert_response :success
     assert_select 'div.csv-preview td', text: "Office for Facial Hair Studies"
@@ -263,7 +263,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     VirusScanHelpers.simulate_virus_scan(attachment_data.file)
     attachment.update_column(:deleted, true)
 
-    get :show, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
+    get :show, params: { id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension }
 
     assert_response :not_found
   end

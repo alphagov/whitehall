@@ -10,7 +10,7 @@ class OperationalFieldsControllerTest < ActionController::TestCase
   view_test "show displays name" do
     operational_field = create(:operational_field)
 
-    get :show, id: operational_field
+    get :show, params: { id: operational_field }
 
     assert_select "h1", text: %r{#{operational_field.name}}
   end
@@ -18,7 +18,7 @@ class OperationalFieldsControllerTest < ActionController::TestCase
   view_test "shows description using govspeak" do
     operational_field = create(:operational_field, description: "description [with link](http://example.com).")
 
-    get :show, id: operational_field
+    get :show, params: { id: operational_field }
 
     assert_select ".description" do
       assert_select "a[href='http://example.com']", "with link"
@@ -26,7 +26,7 @@ class OperationalFieldsControllerTest < ActionController::TestCase
   end
 
   test "shows the first organisation found which handles fatalities" do
-    get :show, id: create(:operational_field)
+    get :show, params: { id: create(:operational_field) }
     assert_equal @organisation, assigns(:organisation)
   end
 
@@ -39,7 +39,7 @@ class OperationalFieldsControllerTest < ActionController::TestCase
 
     uk_fatality = create(:fatality_notice, operational_field: uk)
 
-    get :show, id: iraq
+    get :show, params: { id: iraq }
     assert_equal [FatalityNoticePresenter.new(iraq_fatality)], assigns(:fatality_notices)
   end
 
@@ -54,7 +54,7 @@ class OperationalFieldsControllerTest < ActionController::TestCase
     new_iraq_fatality.update_column(:first_published_at, 5.days.ago)
     new_iraq_fatality.update_column(:public_timestamp, 3.days.ago)
 
-    get :show, id: iraq
+    get :show, params: { id: iraq }
     assert_equal [
       FatalityNoticePresenter.new(new_iraq_fatality),
       FatalityNoticePresenter.new(old_iraq_fatality)
@@ -66,7 +66,7 @@ class OperationalFieldsControllerTest < ActionController::TestCase
     fatality_notice = create(:published_fatality_notice, operational_field: iraq)
     casualty = create(:fatality_notice_casualty, fatality_notice: fatality_notice)
 
-    get :show, id: iraq
+    get :show, params: { id: iraq }
 
     assert_select_object casualty
   end
@@ -93,7 +93,7 @@ class OperationalFieldsControllerTest < ActionController::TestCase
   test "should set Google Analytics organisation headers" do
     operational_field = create(:operational_field)
 
-    get :show, id: operational_field
+    get :show, params: { id: operational_field }
 
     assert_equal "<#{@organisation.analytics_identifier}>", response.headers["X-Slimmer-Organisations"]
     assert_equal @organisation.acronym.downcase, response.headers["X-Slimmer-Page-Owner"]

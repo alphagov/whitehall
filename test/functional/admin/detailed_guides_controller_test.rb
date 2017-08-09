@@ -28,7 +28,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
   test "associate user needs with a guide" do
     attributes = controller_attributes_for(:detailed_guide, need_ids: "123456, 789012")
 
-    post :create, edition: attributes
+    post :create, params: { edition: attributes }
 
     assert_equal ["123456", "789012"], DetailedGuide.last.need_ids
   end
@@ -51,7 +51,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
 
     detailed_guide = create(:detailed_guide, need_ids: ["123456", "456789"])
 
-    get :show, id: detailed_guide.id
+    get :show, params: { id: detailed_guide.id }
 
     assert_select "#user-needs-section" do |section|
       assert_select "#user-need-id-123456" do

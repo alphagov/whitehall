@@ -14,7 +14,7 @@ class Api::WorldwideOrganisationsControllerTest < ActionController::TestCase
     presenter.stubs(:as_json).returns(worldwide_organisation: :representation)
     Api::WorldwideOrganisationPresenter.stubs(:new).with(worldwide_organisation, anything).returns(presenter)
 
-    get :show, id: worldwide_organisation.slug, format: 'json'
+    get :show, params: { id: worldwide_organisation.slug }, format: 'json'
     assert_equal 'representation', json_response['worldwide_organisation']
   end
 
@@ -29,7 +29,7 @@ class Api::WorldwideOrganisationsControllerTest < ActionController::TestCase
     presenter.stubs(:as_json).returns(worldwide_organisation: :representation)
     Api::WorldwideOrganisationPresenter.stubs(:new).with(worldwide_organisation, anything).returns(presenter)
 
-    get :show, id: worldwide_organisation.slug, format: 'json'
+    get :show, params: { id: worldwide_organisation.slug }, format: 'json'
     assert_equal 'ok', json_response['_response_info']['status']
   end
 
@@ -38,7 +38,7 @@ class Api::WorldwideOrganisationsControllerTest < ActionController::TestCase
     WorldwideOrganisation.stubs(:friendly).returns(friendly)
     friendly.stubs(:find).with('unknown').returns(nil)
 
-    get :show, id: 'unknown', format: 'json'
+    get :show, params: { id: 'unknown' }, format: 'json'
     assert_response :not_found
     assert_equal 'not found', json_response['_response_info']['status']
   end
@@ -52,7 +52,7 @@ class Api::WorldwideOrganisationsControllerTest < ActionController::TestCase
     presenter.stubs(:as_json).returns(paged: :representation)
     Api::WorldwideOrganisationPresenter.stubs(:paginate).with(world_location.worldwide_organisations, anything).returns(presenter)
 
-    get :index, world_location_id: world_location.slug, format: 'json'
+    get :index, params: { world_location_id: world_location.slug }, format: 'json'
 
     assert_equal 'representation', json_response['paged']
   end
@@ -66,14 +66,14 @@ class Api::WorldwideOrganisationsControllerTest < ActionController::TestCase
     presenter.stubs(:as_json).returns(paged: :representation)
     Api::WorldwideOrganisationPresenter.stubs(:paginate).with(world_location.worldwide_organisations, anything).returns(presenter)
 
-    get :index, world_location_id: world_location.slug, format: 'json'
+    get :index, params: { world_location_id: world_location.slug }, format: 'json'
 
     assert_equal 'ok', json_response['_response_info']['status']
   end
 
   view_test "index responds with 404 if location not found" do
     WorldLocation.stubs(:find_by).with(slug: 'unknown').returns nil
-    get :index, world_location_id: 'unknown', format: 'json'
+    get :index, params: { world_location_id: 'unknown' }, format: 'json'
     assert_response :not_found
     assert_equal 'not found', json_response['_response_info']['status']
   end
