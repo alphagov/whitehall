@@ -1,0 +1,2 @@
+republisher = DataHygiene::PublishingApiDocumentRepublisher.new(CorporateInformationPage)
+republisher.perform
