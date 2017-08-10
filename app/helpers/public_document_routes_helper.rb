@@ -84,17 +84,13 @@ module PublicDocumentRoutesHelper
 
   def build_url_for_corporate_information_page(edition, options)
     org = edition.owning_organisation
+
+    decorator = CorporateInfoPageDecorator.new(edition)
+    url = polymorphic_url([org, decorator], options)
+
     # About pages are actually shown on the CIP index for an Organisation.
     # We generate a unique path for them anyway, but this is always redirected.
-    if edition.about_page?
-      if org.is_a?(WorldwideOrganisation)
-        polymorphic_url([org, edition.slug], options)
-      else
-        polymorphic_url([org, CorporateInformationPage], options)
-      end
-    else
-      polymorphic_url([org, 'corporate_information_page'], options.merge(id: edition.slug))
-    end
+    org.is_a?(Organisation) ? url.gsub("about/about", "about") : url
   end
 
   def best_locale_for_edition(edition)
@@ -102,6 +98,20 @@ module PublicDocumentRoutesHelper
       I18n.locale
     else
       I18n.default_locale
+    end
+  end
+
+  # Override #to_s on corporate information pages to return a slug.
+  # We could set the FriendlyId in the model, but this would affect admin.
+  CorporateInfoPageDecorator = Struct.new(:edition) do
+    delegate :slug, :persisted?, :model_name, to: :edition
+
+    def to_s
+      slug
+    end
+
+    def to_model
+      self
     end
   end
 end
