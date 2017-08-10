@@ -22,28 +22,28 @@ class EmailTopicCheckerTest < ActiveSupport::TestCase
   test "lists govuk-delivery topics" do
     assert_match(
       /^govuk-delivery topics:\nTOPIC_123/,
-      EmailTopicChecker.check(@document)
+      EmailTopicChecker.new(@document).check
     )
   end
 
   test "lists email-alert-api topics" do
     assert_match(
       /^email-alert-api topics:\nTOPIC_456/,
-      EmailTopicChecker.check(@document)
+      EmailTopicChecker.new(@document).check
     )
   end
 
   test "lists additional govuk-delivery topics" do
     assert_match(
       /additional govuk-delivery topics:\nTOPIC_123/,
-      EmailTopicChecker.check(@document)
+      EmailTopicChecker.new(@document).check
     )
   end
 
   test "lists additional email-alert-api topics" do
     assert_match(
       /additional email-alert-api topics:\nTOPIC_456/,
-      EmailTopicChecker.check(@document)
+      EmailTopicChecker.new(@document).check
     )
   end
 
@@ -58,7 +58,7 @@ class EmailTopicCheckerTest < ActiveSupport::TestCase
 
     assert_match(
       /^email-alert-api params:\n#{expected.to_s}/m,
-      EmailTopicChecker.check(@document)
+      EmailTopicChecker.new(@document).check
     )
   end
 
@@ -66,14 +66,14 @@ class EmailTopicCheckerTest < ActiveSupport::TestCase
     expected = "https://www.test.gov.uk/government/feed"
     assert_match(
       /^govuk-delivery feed urls:\n#{expected}/m,
-      EmailTopicChecker.check(@document)
+      EmailTopicChecker.new(@document).check
     )
   end
 
   test "raises if content store returns an item with a different content id" do
     @document.content_id = SecureRandom.uuid
     assert_raises do
-      EmailTopicChecker.check(@document)
+      EmailTopicChecker.new(@document).check
     end
   end
 end

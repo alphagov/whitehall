@@ -2,8 +2,6 @@ require "gds_api/helpers"
 
 class EmailTopicChecker
   include GdsApi::Helpers
-  attr_reader :verbose_output, :presented_edition, :edition
-  attr_accessor :params
 
   # The govuk-delivery mongo db stores absolute paths for feed_urls in its
   # db.topics collection. This environment variable lets us swap out the feed
@@ -16,40 +14,45 @@ class EmailTopicChecker
   # have any data in your local content store and still want the code to run.
   IGNORE_SUPERTYPES = ENV["IGNORE_SUPERTYPES"].present?
 
-  def self.check(document, verbose = true)
-    published_edition = document.published_edition
-    presented_edition = published_edition &&
-      PublishingApiPresenters.presenter_for(published_edition)
-    new(presented_edition, published_edition, verbose).check
-  end
+  attr_accessor(
+    :document,
+    :edition,
+    :presenter,
+    :content,
+    :links,
+    :verbose,
+    :feed_urls,
+    :params,
+  )
 
-  def self.check_presented_edition(presented_edition, edition, verbose = true)
-    new(presented_edition, verbose).check
-  end
+  def initialize(document, verbose: true)
+    self.edition = edition = document.published_edition
+    raise "No published edition" unless edition
 
-  def initialize(presented_edition, edition, verbose = true)
-    @edition = edition
-    @presented_edition = presented_edition
-    @verbose_output = verbose
+    # Force pre-evaluation so we don't make database calls in rake task threads.
+    self.feed_urls = generate_feed_urls(edition)
+    self.presenter = PublishingApiPresenters.presenter_for(edition)
+    self.content = presenter.content
+    self.links = presenter.links
+    self.verbose = verbose
   end
 
   def check
-    feed_urls = feed_urls(edition)
-    govuk_topics = feed_urls.map { |url| govuk_delivery_topic(url) }.compact.sort
+    supertypes = content_store_supertypes
 
-    supertypes = content_store_supertypes(presented_edition)
-    email_topics = email_alert_api_topics(presented_edition, supertypes)
+    govuk_topics = feed_urls.map { |url| govuk_delivery_topic(url) }.compact.sort
+    email_topics = email_alert_api_topics(supertypes)
 
     additional_govuk = (govuk_topics - email_topics)
     additional_email = (email_topics - govuk_topics)
 
-    if verbose_output
+    if verbose
       <<-OUTPUT.strip_heredoc
-      email-alert-api params:
-      #{params.inspect}
-
       govuk-delivery feed urls:
       #{feed_urls.join("\n")}
+
+      email-alert-api params:
+      #{params.inspect}
 
       govuk-delivery topics:
       #{govuk_topics.join("\n")}
@@ -64,7 +67,7 @@ class EmailTopicChecker
       #{additional_email.any? ? additional_email.join("\n") : 'None'}
       OUTPUT
     elsif additional_govuk.any?
-      presented_edition.content_id
+      edition.content_id
     end
   end
 
@@ -82,20 +85,18 @@ class EmailTopicChecker
     nil
   end
 
-  def content_store_supertypes(presented_edition)
+  def content_store_supertypes
     return {} if IGNORE_SUPERTYPES
 
-    base_path = presented_edition.content.to_h.fetch(:base_path)
+    base_path = content.to_h.fetch(:base_path)
     content = Whitehall.content_store.content_item(base_path).to_h
-    if content["content_id"] != presented_edition.content_id
+    if content["content_id"] != presenter.content_id
       raise "content store returned different content item"
     end
     content.slice("email_document_supertype", "government_document_supertype").symbolize_keys
   end
 
-  def email_alert_api_topics(presented_edition, supertypes)
-    content = presented_edition.content
-    links = presented_edition.links
+  def email_alert_api_topics(supertypes)
     details = content[:details]
     tags = details[:tags] if details
 
@@ -111,13 +112,9 @@ class EmailTopicChecker
     nil
   end
 
-  def feed_urls(edition)
+  def generate_feed_urls(edition)
     generator = Whitehall::GovUkDelivery::SubscriptionUrlGenerator.new(edition)
     generator.subscription_urls
-  end
-
-  def links_hash(feed_url)
-    UrlToSubscriberListCriteria.new(feed_url).convert
   end
 
   def strip_empty_arrays(hash)
