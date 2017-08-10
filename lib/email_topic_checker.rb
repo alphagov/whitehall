@@ -14,43 +14,61 @@ class EmailTopicChecker
   # have any data in your local content store and still want the code to run.
   IGNORE_SUPERTYPES = ENV["IGNORE_SUPERTYPES"].present?
 
-  def self.check(content_id)
-    new(content_id).check
-  end
+  attr_accessor(
+    :document,
+    :edition,
+    :presenter,
+    :content,
+    :links,
+    :verbose,
+    :feed_urls,
+    :params,
+  )
 
-  attr_accessor :document
+  def initialize(document, verbose: true)
+    self.edition = edition = document.published_edition
+    raise "No published edition" unless edition
 
-  def initialize(content_id)
-    self.document = Document.find_by!(content_id: content_id)
+    # Force pre-evaluation so we don't make database calls in rake task threads.
+    self.feed_urls = generate_feed_urls(edition)
+    self.presenter = PublishingApiPresenters.presenter_for(edition)
+    self.content = presenter.content
+    self.links = presenter.links
+    self.verbose = verbose
   end
 
   def check
-    edition = document.published_edition
-    raise "No published edition" unless edition
+    supertypes = content_store_supertypes
 
-    feed_urls = feed_urls(edition)
     govuk_topics = feed_urls.map { |url| govuk_delivery_topic(url) }.compact.sort
+    email_topics = email_alert_api_topics(supertypes)
 
-    presented_edition = PublishingApiPresenters.presenter_for(edition)
-    supertypes = content_store_supertypes(presented_edition)
-    email_topics = email_alert_api_topics(presented_edition, supertypes)
+    additional_govuk = (govuk_topics - email_topics)
+    additional_email = (email_topics - govuk_topics)
 
-    puts "\ngovuk-delivery feed urls:"
-    puts feed_urls
+    if verbose
+      <<-OUTPUT.strip_heredoc
+      govuk-delivery feed urls:
+      #{feed_urls.join("\n")}
 
-    puts "\ngovuk-delivery topics:"
-    puts govuk_topics
+      email-alert-api params:
+      #{params.inspect}
 
-    puts "\nemail-alert-api topics:"
-    puts email_topics
+      govuk-delivery topics:
+      #{govuk_topics.join("\n")}
 
-    additional_govuk = (govuk_topics - email_topics).presence || "None"
-    puts "\nadditional govuk-delivery topics:"
-    puts additional_govuk
+      email-alert-api topics:
+      #{email_topics.join("\n")}
 
-    additional_email = (email_topics - govuk_topics).presence || "None"
-    puts "\nadditional email-alert-api topics:"
-    puts additional_email
+      additional govuk-delivery topics:
+      #{additional_govuk.any? ? additional_govuk.join("\n") : 'None'}
+
+      additional email-alert-api topics:
+      #{additional_email.any? ? additional_email.join("\n") : 'None'}
+      OUTPUT
+    elsif additional_govuk.any?
+      edition.content_id
+    end
   end
 
   def govuk_delivery_topic(feed_url)
@@ -67,28 +85,26 @@ class EmailTopicChecker
     nil
   end
 
-  def content_store_supertypes(presented_edition)
+  def content_store_supertypes
     return {} if IGNORE_SUPERTYPES
 
-    base_path = presented_edition.content.to_h.fetch(:base_path)
+    base_path = content.to_h.fetch(:base_path)
     content = Whitehall.content_store.content_item(base_path).to_h
+    if content["content_id"] != presenter.content_id
+      raise "content store returned different content item"
+    end
     content.slice("email_document_supertype", "government_document_supertype").symbolize_keys
   end
 
-  def email_alert_api_topics(presented_edition, supertypes)
-    content = presented_edition.content
-    links = presented_edition.links
+  def email_alert_api_topics(supertypes)
     details = content[:details]
     tags = details[:tags] if details
 
-    params = {
+    self.params = {
       links: strip_empty_arrays(links || {}),
       tags: strip_empty_arrays(tags || {}),
       document_type: content[:document_type],
     }.merge(supertypes)
-
-    puts "\nemail-alert-api params:"
-    puts params.inspect
 
     response = email_alert_api.topic_matches(params)
     response.to_h.fetch("topics")
@@ -96,13 +112,9 @@ class EmailTopicChecker
     nil
   end
 
-  def feed_urls(edition)
+  def generate_feed_urls(edition)
     generator = Whitehall::GovUkDelivery::SubscriptionUrlGenerator.new(edition)
     generator.subscription_urls
-  end
-
-  def links_hash(feed_url)
-    UrlToSubscriberListCriteria.new(feed_url).convert
   end
 
   def strip_empty_arrays(hash)
