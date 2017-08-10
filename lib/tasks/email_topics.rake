@@ -1,7 +1,7 @@
 namespace :email_topics do
   task :check, [:content_id] => :environment do |_task, args|
     document = Document.find_by!(content_id: args.content_id)
-    EmailTopicChecker.new(document).check
+    puts EmailTopicChecker.new(document).check
   end
 
   task check_all_documents: :environment do
