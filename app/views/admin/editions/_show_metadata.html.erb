@@ -186,13 +186,32 @@
   </section>
 <% end %>
 
-<% if @edition.associated_needs.any? %>
+<% if @edition.document.associated_needs.any? %>
   <section id="user-needs-section">
-    <h2>Associated user needs</h2>
+    <h2>Associated user needs
+      <% if @edition.id == @edition.document.latest_edition.id %>
+        <span class="pull-right">
+          <%= link_to admin_edit_needs_path(content_id: @edition.document.content_id), title: "Add/remove needs of #{@edition.title}", class: "btn btn-default" do %>
+            <i class="glyphicon glyphicon-edit"></i> Add/remove needs
+          <% end %>
+        </span>
+      <% end %>
+    </h2>
     <table class="table table-bordered">
       <tbody>
-        <%= render partial: 'need', collection: @edition.associated_needs %>
+        <%= render partial: 'need', collection: @edition.document.associated_needs %>
       </tbody>
     </table>
   </section>
+<% else %>
+    <section id="user-needs-section">
+      <h2>Associated user needs</h2>
+      <% if @edition.id == @edition.document.latest_edition.id %>
+        <span>
+          <%= link_to admin_edit_needs_path(content_id: @edition.document.content_id), title: "Add/remove needs of #{@edition.title}", class: "btn btn-default" do %>
+            <i class="glyphicon glyphicon-edit"></i> Add/remove needs
+          <% end %>
+        </span>
+      <% end %>
+    </section>
 <% end %>

@@ -181,6 +181,8 @@ Whitehall::Application.routes.draw do
         get 'find-in-admin-bookmarklet' => 'find_in_admin_bookmarklet#index', as: :find_in_admin_bookmarklet_instructions_index
         get 'find-in-admin-bookmarklet/:browser' => 'find_in_admin_bookmarklet#show', as: :find_in_admin_bookmarklet_instructions
         get 'by-content-id/:content_id' => 'documents#by_content_id'
+        get '/:content_id/needs' => 'needs#edit', as: :edit_needs
+        patch '/:content_id/needs' => 'needs#update', as: :update_needs
 
         resources :users, only: [:index, :show, :edit, :update]
 
@@ -298,7 +300,7 @@ Whitehall::Application.routes.draw do
             post :force_schedule, to: 'edition_workflow#force_schedule'
             post :unschedule, to: 'edition_workflow#unschedule'
             post :convert_to_draft, to: 'edition_workflow#convert_to_draft'
-            get :audit_trail, to: 'edition_audit_trail#index'
+            get  :audit_trail, to: 'edition_audit_trail#index'
           end
           resources :links_reports
           resource :unpublishing, controller: 'edition_unpublishing', only: [:edit, :update]

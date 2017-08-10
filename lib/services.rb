@@ -8,4 +8,12 @@ module Services
       timeout: 20,
     )
   end
+
+  def self.publishing_api_with_low_timeout
+    @publishing_api_with_low_timeout ||= begin
+      publishing_api.dup.tap do |client|
+        client.options[:timeout] = 1
+      end
+    end
+  end
 end

@@ -214,8 +214,7 @@ class Admin::EditionsController < Admin::BaseController
       nation_inapplicabilities_attributes: [
         :id, :nation_id, :alternative_url, :excluded
       ],
-      fatality_notice_casualties_attributes: [:id, :personal_details, :_destroy],
-      need_ids: []
+      fatality_notice_casualties_attributes: [:id, :personal_details, :_destroy]
     ]
   end
 

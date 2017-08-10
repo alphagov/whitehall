@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'gds_api/test_helpers/need_api'
 
 class Admin::DetailedGuidesControllerTest < ActionController::TestCase
   include GdsApi::TestHelpers::PublishingApiV2
@@ -29,19 +28,6 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
   should_allow_scheduled_publication_of :detailed_guide
   should_allow_overriding_of_first_published_at_for :detailed_guide
   should_allow_access_limiting_of :detailed_guide
-
-  test "associate user needs with a guide" do
-    need_content_ids = [SecureRandom.uuid, SecureRandom.uuid]
-    attributes = controller_attributes_for(:detailed_guide, need_ids: need_content_ids)
-    patch_links_request = stub_request(
-      :patch,
-      %r{\A#{Plek.find('publishing-api')}/v2/links}
-    ).with(body: { links: { meets_user_needs: need_content_ids } })
-
-    post :create, edition: attributes
-
-    assert_requested patch_links_request
-  end
 
   view_test "user needs associated with a detailed guide" do
     content_id_a = SecureRandom.uuid

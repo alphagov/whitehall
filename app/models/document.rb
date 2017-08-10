@@ -3,6 +3,8 @@
 class Document < ApplicationRecord
   extend FriendlyId
 
+  include Document::Needs
+
   friendly_id :sluggable_string, use: :scoped, scope: :document_type
 
   after_destroy :destroy_all_editions

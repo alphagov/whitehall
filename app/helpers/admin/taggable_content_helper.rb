@@ -57,11 +57,7 @@ module Admin::TaggableContentHelper
 
   def taggable_needs_container
     Rails.cache.fetch("need.linkables", expires_in: 1.minute) do
-      publishing_api_with_low_timeout = Services.publishing_api.dup.tap do |client|
-        client.options[:timeout] = 1
-      end
-
-      publishing_api_with_low_timeout.get_linkables(document_type: "need").to_a.map do |need|
+      Services.publishing_api_with_low_timeout.get_linkables(document_type: "need").to_a.map do |need|
         need.values_at("title", "content_id")
       end
     end

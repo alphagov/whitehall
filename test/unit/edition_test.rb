@@ -773,52 +773,6 @@ class EditionTest < ActiveSupport::TestCase
 
   should_not_accept_footnotes_in :body
 
-  test 'should have no associated needs when there are no need ids' do
-    edition = create(:edition)
-    publishing_api_has_links(content_id: edition.document.content_id, links: {})
-    assert_equal [], edition.associated_needs
-  end
-
-  test 'should have associated needs when need ids are present' do
-    edition = create(:detailed_guide)
-
-    needs = [
-      {
-        content_id: SecureRandom.uuid,
-        details: {
-          role: "a",
-          goal: "b",
-          benefit: "c",
-        }
-      },
-      {
-        content_id: SecureRandom.uuid,
-        details: {
-          role: "d",
-          goal: "e",
-          benefit: "f",
-        }
-      }
-    ]
-    publishing_api_has_links(
-      content_id: edition.document.content_id,
-      links: {
-        meets_user_needs: needs.map { |need| need[:content_id] }
-      }
-    )
-    publishing_api_has_expanded_links(
-      content_id: edition.document.content_id,
-      expanded_links: {
-        meets_user_needs: needs
-      }
-    )
-
-    puts edition.document.content_id
-
-    assert_equal needs.first[:content_id], edition.associated_needs.first["content_id"]
-    assert_equal needs.last[:content_id], edition.associated_needs.last["content_id"]
-  end
-
   test 'previously_published returns nil for new edition' do
     edition = build(:edition, previously_published: nil)
     assert_nil edition.previously_published
