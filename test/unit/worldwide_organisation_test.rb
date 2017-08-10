@@ -305,16 +305,15 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
   test "#save triggers organisation with a changed default news organisation image to republish news articles" do
     world_organisation = create(:worldwide_organisation)
 
-    document_ids = NewsArticle
+    documents = NewsArticle
       .in_worldwide_organisation(world_organisation)
       .includes(:images)
       .where(images: { id: nil })
-      .map(&:document_id)
+      .map(&:documents)
 
-    DataHygiene::PublishingApiRepublisher
-      .expects(:new)
-      .with(Document.where(ids: document_ids))
-      .returns(stub(:perform))
+    documents.each do |d|
+      Whitehall::PublishingApi.expects(:republish_document_async).with(d)
+    end
 
     world_organisation.update_attribute(
       :default_news_image,

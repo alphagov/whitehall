@@ -41,15 +41,13 @@ class WorldwideOrganisation < ApplicationRecord
     # If the default news organisation image changes we need to republish all
     # news articles belonging to the worldwide organisation
     if default_news_organisation_image_data_id_changed?
-      document_ids = NewsArticle
+      documents = NewsArticle
         .in_worldwide_organisation(self)
         .includes(:images)
         .where(images: { id: nil })
-        .map(&:document_id)
+        .map(&:document)
 
-      DataHygiene::PublishingApiRepublisher
-        .new(Document.where(id: document_ids))
-        .perform
+      documents.each { |d| Whitehall::PublishingApi.republish_document_async(d) }
     end
   end
 
