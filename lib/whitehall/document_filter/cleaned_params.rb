@@ -50,9 +50,7 @@ module Whitehall::DocumentFilter
     # Use this when the expected filter value can have multiple values.
     # This method converts a nested hash to a hash with just the values
     def clean_malformed_array_params(key)
-      if unsafe_params[key].kind_of?(Hash)
-        params[key] = params[key].values
-      end
+      params[key] = params[key].values if unsafe_params[key].is_a?(Hash)
     end
   end
 end
