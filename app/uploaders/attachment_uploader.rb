@@ -12,6 +12,14 @@ class AttachmentUploader < WhitehallUploader
 
   before :cache, :validate_zipfile_contents!
 
+  process :set_content_type
+  def set_content_type
+    content_type = MIME::Types.type_for(full_filename(file.file)).first.content_type
+    content_type = "text/csv" if content_type == "text/comma-separated-values"
+    content_type = "application/pdf" if content_type == "application/octet-stream"
+    file.content_type = content_type
+  end
+
   version :thumbnail, if: :pdf? do
     def full_filename(for_file)
       super + ".png"
@@ -216,10 +224,9 @@ class AttachmentUploader < WhitehallUploader
     raise CarrierWave::IntegrityError, problem.failure_message if problem
   end
 
-  private
+private
 
   def use_fallback_pdf_thumbnail
     FileUtils.cp(FALLBACK_PDF_THUMBNAIL, path)
   end
-
 end
