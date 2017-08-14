@@ -114,7 +114,16 @@ class EmailTopicChecker
 
   def generate_feed_urls(edition)
     generator = Whitehall::GovUkDelivery::SubscriptionUrlGenerator.new(edition)
-    generator.subscription_urls
+    urls = generator.subscription_urls
+
+    # Ignore an issue with consultations that we've already captured:
+    # https://trello.com/c/CF0yJf2F
+    # https://trello.com/c/qv1l3WBy
+    if ENV["IGNORE_CONSULTATIONS_ISSUE"]
+      urls = urls.reject { |url| url.include?("publication_filter_option=consultations") }
+    end
+
+    urls
   end
 
   def strip_empty_arrays(hash)
