@@ -32,9 +32,9 @@ class WorldLocation < ApplicationRecord
   translates :name, :title, :mission_statement
 
   include Searchable
-  searchable title: :name,
+  searchable title: :title,
              link: :search_link,
-             content: :mission_statement,
+             description: :search_description,
              only: :active,
              format: 'world_location',
              slug: :slug
@@ -57,6 +57,10 @@ class WorldLocation < ApplicationRecord
 
   def search_link
     Whitehall.url_maker.world_location_path(slug)
+  end
+
+  def search_description
+    "Services if you're visiting, studying, working or living in #{name}. Includes information about trading with and doing business in the UK and #{name}."
   end
 
   after_update :remove_from_index_if_became_inactive
