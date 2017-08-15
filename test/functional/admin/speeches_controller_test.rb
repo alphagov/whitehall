@@ -82,7 +82,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   def controller_attributes_for(edition_type, attributes = {})
     super.except(:role_appointment, :speech_type).reverse_merge(
       role_appointment_id: create(:role_appointment).id,
-      speech_type_id: SpeechType::Transcript
+      speech_type_id: SpeechType::Transcript.id
     )
   end
 end
