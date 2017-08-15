@@ -25,9 +25,17 @@ class Admin::StatisticsAnnouncementTagsControllerTest < ActionController::TestCa
 
   test 'should return an error on a version conflict' do
     publishing_api_patch_request = stub_request(:patch, "#{@publishing_api_endpoint}/links/#{@announcement.content_id}")
-      .to_return(status: 409)
+      .with(
+        body: {
+          links: { taxons: ["child"] },
+          previous_version: "1"
+        }
+      ).to_return(status: 409)
 
-    put :update, statistics_announcement_id: @announcement, taxonomy_tag_form: { previous_version: 1, taxons: [child_taxon_content_id] }
+    put :update, params: {
+      statistics_announcement_id: @announcement,
+      taxonomy_tag_form: { previous_version: 1, taxons: [child_taxon_content_id] }
+    }
 
     assert_requested publishing_api_patch_request
     assert_redirected_to edit_admin_statistics_announcement_tags_path(@announcement)
@@ -37,7 +45,10 @@ class Admin::StatisticsAnnouncementTagsControllerTest < ActionController::TestCa
   test 'should post taxons to publishing-api' do
     stub_publishing_api_links_with_taxons(@announcement.content_id, [])
 
-    put :update, statistics_announcement_id: @announcement, taxonomy_tag_form: { taxons: [child_taxon_content_id], previous_version: 1 }
+    put :update, params: {
+      statistics_announcement_id: @announcement,
+      taxonomy_tag_form: { taxons: [child_taxon_content_id], previous_version: 1 }
+    }
 
     assert_publishing_api_patch_links(
       @announcement.content_id,
@@ -51,7 +62,10 @@ class Admin::StatisticsAnnouncementTagsControllerTest < ActionController::TestCa
   test 'should post empty array to publishing api if no taxons are selected' do
     stub_publishing_api_links_with_taxons(@announcement.content_id, [])
 
-    put :update, statistics_announcement_id: @announcement, taxonomy_tag_form: { previous_version: 1 }
+    put :update, params: {
+      statistics_announcement_id: @announcement,
+      taxonomy_tag_form: { previous_version: 1 }
+    }
 
     assert_publishing_api_patch_links(@announcement.content_id, links: { taxons: [] }, previous_version: "1")
   end
@@ -59,7 +73,7 @@ class Admin::StatisticsAnnouncementTagsControllerTest < ActionController::TestCa
   view_test 'should check a child taxon and its parents when only a child taxon is returned' do
     stub_publishing_api_links_with_taxons(@announcement.content_id, [child_taxon_content_id])
 
-    get :edit, statistics_announcement_id: @announcement
+    get :edit, params: { statistics_announcement_id: @announcement }
 
     assert_select "input[value='#{parent_taxon_content_id}'][checked='checked']"
     assert_select "input[value='#{child_taxon_content_id}'][checked='checked']"
@@ -68,7 +82,7 @@ class Admin::StatisticsAnnouncementTagsControllerTest < ActionController::TestCa
   view_test 'should check a parent taxon but not its children when only a parent taxon is returned' do
     stub_publishing_api_links_with_taxons(@announcement.content_id, [parent_taxon_content_id])
 
-    get :edit, statistics_announcement_id: @announcement
+    get :edit, params: { statistics_announcement_id: @announcement }
 
     assert_select "input[value='#{parent_taxon_content_id}'][checked='checked']"
     refute_select "input[value='#{child_taxon_content_id}'][checked='checked']"
