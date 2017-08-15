@@ -15,15 +15,15 @@ class PublicFacingControllerTest < ActionController::TestCase
     def json
       respond_to do |format|
         format.html { render html: 'html' }
-        format.json { render html: '{}' }
+        format.json { render json: '{}' }
       end
     end
 
     def js_or_atom
       respond_to do |format|
         format.html  { render html: 'html' }
-        format.js    { render html: 'javascript' }
-        format.atom  { render html: 'atom' }
+        format.js    { render js: 'javascript' }
+        format.atom  { render xml: 'atom' }
       end
     end
 
@@ -92,12 +92,12 @@ class PublicFacingControllerTest < ActionController::TestCase
     with_routing_for_test_controller do
       get :json
       assert_response :success
-      assert_equal Mime[:html], response.content_type
+      assert_equal Mime[:html].to_s, response.content_type
       assert_equal 'html', response.body
 
       get :json, format: :json
       assert_response :success
-      assert_equal Mime[:json], response.content_type
+      assert_equal Mime[:json].to_s, response.content_type
       assert_equal '{}', response.body
 
       get :json, format: :atom
@@ -109,17 +109,17 @@ class PublicFacingControllerTest < ActionController::TestCase
     with_routing_for_test_controller do
       get :js_or_atom
       assert_response :success
-      assert_equal Mime[:html], response.content_type
+      assert_equal Mime[:html].to_s, response.content_type
       assert_equal 'html', response.body
 
       get :js_or_atom, xhr: true
       assert_response :success
-      assert_equal Mime::JS, response.content_type
+      assert_equal Mime[:js].to_s, response.content_type
       assert_equal 'javascript', response.body
 
       get :js_or_atom, format: :atom
       assert_response :success
-      assert_equal Mime::ATOM, response.content_type
+      assert_equal Mime[:atom].to_s, response.content_type
       assert_equal 'atom', response.body
 
       get :js_or_atom, format: :json
@@ -191,7 +191,7 @@ class PublicFacingControllerTest < ActionController::TestCase
     with_routing do |map|
       map.draw do
         %w(test json js_or_atom locale api_timeout api_bad_gateway api_error).each do |action|
-          get "/test/#{action}(.:format)", controller: 'public_facing_controller_test/test'
+          get "/test/#{action}.{.:format}", to: "public_facing_controller_test/test##{action}"
         end
       end
       yield
