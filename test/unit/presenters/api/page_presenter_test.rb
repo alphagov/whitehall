@@ -3,10 +3,10 @@ require 'test_helper'
 class Api::PagePresenterTest < PresenterTestCase
   setup do
     stubs_helper_method(:params).returns(
-       ActionController::Parameters.new(
-         action: "index",
-         controller: "api/organisations"
-       )
+      ActionController::Parameters.new(
+        action: "index",
+        controller: "api/organisations"
+      )
     )
     @first_result = "a"
     @second_result = "b"
