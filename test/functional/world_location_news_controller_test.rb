@@ -21,6 +21,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
 
   view_test "index displays world location title and mission-statement" do
     get :index, world_location_id: @world_location
+    assert_select "title", text: "UK and India - GOV.UK"
     assert_select "p.type", text: "World location news"
     assert_select "h1", text: "UK and India"
     assert_select ".mission_statement", text: "country-mission-statement"
