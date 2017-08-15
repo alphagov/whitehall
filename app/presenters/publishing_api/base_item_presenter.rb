@@ -2,12 +2,11 @@ module PublishingApi
   class BaseItemPresenter
     include UpdateTypeHelper
 
-    attr_accessor :item, :title, :need_ids, :locale, :update_type
+    attr_accessor :item, :title, :locale, :update_type
 
-    def initialize(item, title: nil, need_ids: nil, locale: I18n.locale.to_s, update_type: nil)
+    def initialize(item, title: nil, locale: I18n.locale.to_s, update_type: nil)
       self.item = item
       self.title = title || item.title
-      self.need_ids = need_ids || item.need_ids
       self.locale = locale
       self.update_type = update_type || default_update_type(item)
     end
@@ -16,7 +15,6 @@ module PublishingApi
       {
         title: title,
         locale: locale,
-        need_ids: need_ids,
         publishing_app: "whitehall",
         redirects: [],
         update_type: update_type,

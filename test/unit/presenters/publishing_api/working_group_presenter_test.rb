@@ -19,7 +19,6 @@ class PublishingApi::WorkingGroupPresenterTest < ActiveSupport::TestCase
       title: "Government Digital Service",
       description: "This is some plaintext in the summary field", # This is deliberately the 'wrong' way around
       locale: "en",
-      need_ids: [],
       routes: [
         {
           path: public_path,

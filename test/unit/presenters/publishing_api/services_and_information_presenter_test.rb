@@ -21,7 +21,6 @@ class PublishingApi::ServicesAndInformationPresenterTest < ActionView::TestCase
       public_updated_at: organisation.updated_at,
       routes: [{ path: public_path, type: "exact" }],
       redirects: [],
-      need_ids: [],
       details: {},
       update_type: "minor",
     }

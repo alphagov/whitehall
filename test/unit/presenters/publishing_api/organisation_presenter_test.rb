@@ -29,7 +29,6 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       public_updated_at: organisation.updated_at,
       routes: [{ path: public_path, type: "exact" }],
       redirects: [],
-      need_ids: [],
       update_type: "major",
       details: {
         brand: nil,

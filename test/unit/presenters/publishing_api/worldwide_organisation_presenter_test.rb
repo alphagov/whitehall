@@ -21,7 +21,6 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
       public_updated_at: worldwide_org.updated_at,
       routes: [{ path: public_path, type: "exact" }],
       redirects: [],
-      need_ids: [],
       details: {},
       analytics_identifier: "WO123",
       update_type: "major",

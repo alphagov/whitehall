@@ -21,7 +21,6 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
       public_updated_at: person.updated_at,
       routes: [{ path: public_path, type: "exact" }],
       redirects: [],
-      need_ids: [],
       details: {},
       update_type: "major",
     }

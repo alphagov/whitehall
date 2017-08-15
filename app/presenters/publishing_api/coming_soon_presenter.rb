@@ -31,7 +31,6 @@ module PublishingApi
       content = BaseItemPresenter.new(
         item,
         title: 'Coming soon',
-        need_ids: [],
         update_type: update_type,
       ).base_attributes
 

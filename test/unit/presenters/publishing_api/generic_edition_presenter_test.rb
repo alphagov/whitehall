@@ -26,7 +26,6 @@ module PublishingApi
         schema_name: 'placeholder_news_article',
         document_type: 'press_release',
         locale: 'en',
-        need_ids: [],
         public_updated_at: edition.updated_at,
         publishing_app: 'whitehall',
         rendering_app: 'government-frontend',

@@ -32,7 +32,6 @@ class PublishingApi::WorldLocationNewsPagePresenterTest < ActiveSupport::TestCas
     expected_hash = {
       title: "Aardistan and the Uk",
       locale: "en",
-      need_ids: [],
       publishing_app: "whitehall",
       redirects: [],
       description: "Updates, news and events from the UK government in Aardistan",
@@ -61,7 +60,6 @@ class PublishingApi::WorldLocationNewsPagePresenterTest < ActiveSupport::TestCas
     expected_hash = {
       title: "Aardistan and the Uk",
       locale: "en",
-      need_ids: [],
       publishing_app: "whitehall",
       redirects: [],
       description: "Updates, news and events from the UK government in Aardistan",

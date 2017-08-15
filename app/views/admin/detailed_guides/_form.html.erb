@@ -10,8 +10,6 @@
       <%= render 'admin/shared/policy_fields', form: form %>
       <%= render partial: 'topic_fields', locals: { form: form, edition: edition } %>
 
-      <%= form.text_field :need_ids, label_text: 'Maslow Need IDs (enter a comma-separated list)', placeholder: "Enter a comma-separated list of Maslow Need IDs", value: edition.need_ids.join(", ") %>
-
       <%= render partial: 'specialist_sector_fields', locals: { form: form, edition: edition } %>
 
       <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>

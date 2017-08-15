@@ -42,7 +42,6 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
       schema_name: "detailed_guide",
       document_type: "detailed_guide",
       locale: "en",
-      need_ids: [],
       publishing_app: "whitehall",
       rendering_app: "government-frontend",
       routes: [

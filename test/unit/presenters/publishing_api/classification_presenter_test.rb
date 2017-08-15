@@ -14,7 +14,6 @@ class PublishingApi::ClassificationTest < ActiveSupport::TestCase
       title: "Defence and armed forces",
       description: nil,
       locale: "en",
-      need_ids: [],
       routes: [
         {
           path: public_path,

@@ -240,7 +240,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_equal publication, assigns(:edition)
   end
 
-  test 'unpublish is forbidden to non-Managing editors editors' do
+  test 'unpublish is forbidden to non-Managing editors' do
     post :unpublish, id: published_edition, lock_version: published_edition.lock_version
     assert_response :forbidden
   end

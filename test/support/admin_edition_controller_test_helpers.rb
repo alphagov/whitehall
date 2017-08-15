@@ -623,6 +623,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test "creating should create a new document with related policies" do
+        stub_publishing_api_policies
         attributes = controller_attributes_for(document_type)
 
         post :create, edition: attributes.merge(
@@ -649,6 +650,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test "updating should save modified edition attributes with related policies" do
+        stub_publishing_api_policies
         edition = create(document_type, policy_content_ids: [policy_1['content_id']])
 
         put :update, id: edition, edition: {policy_content_ids: [policy_2['content_id']]}

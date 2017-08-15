@@ -14,7 +14,6 @@ class PublishingApi::TopicalEventAboutPagePresenterTest < ActiveSupport::TestCas
       description: 'Summary',
       schema_name: 'topical_event_about_page',
       document_type: 'topical_event_about_page',
-      need_ids: [],
       locale: 'en',
       public_updated_at: topical_event_about_page.updated_at,
       publishing_app: 'whitehall',

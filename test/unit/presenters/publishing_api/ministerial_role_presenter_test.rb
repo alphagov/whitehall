@@ -21,7 +21,6 @@ class PublishingApi::MinisterialRolePresenterTest < ActiveSupport::TestCase
       public_updated_at: ministerial_role.updated_at,
       routes: [{ path: public_path, type: "exact" }],
       redirects: [],
-      need_ids: [],
       details: {},
       update_type: "major",
     }
