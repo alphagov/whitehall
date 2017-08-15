@@ -7,9 +7,17 @@ namespace :email_topics do
 
   desc "check the email topics for all documents"
   task check_all_documents: :environment do
-    Document.published.find_in_batches(batch_size: 20).each do |documents|
+    offset = ENV.fetch("OFFSET", 0)
+    puts "Continuing from offset #{offset}"
+
+    Document.published.offset(offset).find_in_batches(batch_size: 20).each do |documents|
       threads = documents.map do |document|
-        checker = EmailTopicChecker.new(document, verbose: false)
+        begin
+          checker = EmailTopicChecker.new(document, verbose: false)
+        rescue StandardError => ex
+          puts "#{document.content_id} raised #{ex.message}"
+          next
+        end
 
         Thread.new do
           begin
@@ -22,7 +30,7 @@ namespace :email_topics do
         end
       end
 
-      threads.each(&:join)
+      threads.compact.each(&:join)
     end
   end
 
