@@ -22,7 +22,7 @@ class ApplicationControllerSearchParametersTest < ActionController::TestCase
   test "sets filter_organisations search parameter header for orgs with scoped search" do
     with_routing do |map|
       map.draw do
-        get '/test_scoped', params: { to: 'application_controller_search_parameters_test/test#test_scoped' }
+        get '/test_scoped', to: 'application_controller_search_parameters_test/test#test_scoped'
       end
       get :test_scoped
     end
@@ -32,7 +32,7 @@ class ApplicationControllerSearchParametersTest < ActionController::TestCase
   test "doesn't set filter_organisations search parameter header for orgs without scoped search" do
     with_routing do |map|
       map.draw do
-        get '/test_unscoped', params: { to: 'application_controller_search_parameters_test/test#test_unscoped' }
+        get '/test_unscoped', to: 'application_controller_search_parameters_test/test#test_unscoped'
       end
       get :test_unscoped
     end
