@@ -2,7 +2,12 @@ require 'test_helper'
 
 class Api::PagePresenterTest < PresenterTestCase
   setup do
-    stubs_helper_method(:params).returns(action: "index", controller: "api/organisations")
+    stubs_helper_method(:params).returns(
+       ActionController::Parameters.new(
+         action: "index",
+         controller: "api/organisations"
+       )
+    )
     @first_result = "a"
     @second_result = "b"
     @page = Kaminari.paginate_array([@first_result, @second_result]).page(1).per(10)
