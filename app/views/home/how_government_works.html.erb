@@ -18,7 +18,7 @@
       <div class="halves-width-section prime-minister">
         <div class="one-half">
           <div class="inner-block">
-            <% if @prime_minister.present? %>
+            <% if @prime_minister.present? && @prime_minister.image_url(:s465).present? %>
               <%= image_tag @prime_minister.image_url(:s465), { alt: @prime_minister.name } %>
             <% else %>
               <%= image_tag 'how-gov-works/10_Downing_Street.jpg', alt: 'Number 10, Downing Street' %>
