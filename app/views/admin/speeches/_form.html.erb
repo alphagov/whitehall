@@ -18,10 +18,6 @@
       <%= render 'topical_event_fields', form: form, edition: edition %>
       <%= render 'world_location_fields', form: form, edition: edition %>
       <%= render 'organisation_fields', form: form, edition: edition %>
-      <% if edition.imported? %>
-        <p>This document contains temporary organisation associations to allow for import. These fields will be overwritten once the deliverer of the speech is chosen.</p>
-        <hr>
-      <% end %>
       <%= render 'specialist_sector_fields', form: form, edition: edition %>
     </fieldset>
   <% end %>

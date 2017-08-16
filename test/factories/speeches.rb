@@ -17,7 +17,6 @@ FactoryGirl.define do
     end
   end
 
-  factory :imported_speech, parent: :speech, traits: [:imported]
   factory :draft_speech, parent: :speech, traits: [:draft]
   factory :submitted_speech, parent: :speech, traits: [:submitted]
   factory :rejected_speech, parent: :speech, traits: [:rejected]

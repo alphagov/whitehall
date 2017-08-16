@@ -8,7 +8,6 @@ class SpeechType
     4 => "<p>Very significant written statements given to Parliament by a minister.</p>",
     5 => "<p>Very significant oral statements given to Parliament by a minister.</p>",
     6 => "<p>Bylined articles written in the name of a minister or official (usually re-published from elsewhere).</p>",
-    1000 => "<p>DO NOT USE. This is a holding category for content that has been imported automatically.</p>"
   }.to_json.freeze
 
   attr_accessor :id, :singular_name, :plural_name, :explanation, :key, :owner_key_group, :published_externally_key, :location_relevant, :prevalence, :use_key_as_display_key
@@ -38,11 +37,7 @@ class SpeechType
   end
 
   def self.primary
-    all - use_discouraged
-  end
-
-  def self.use_discouraged
-    [ImportedAwaitingType]
+    all
   end
 
   def statement_to_parliament?
@@ -103,9 +98,5 @@ class SpeechType
     id: 6, key: "authored_article", singular_name: "Authored article",
     owner_key_group: "author_title", published_externally_key: "written_on", location_relevant: false,
     plural_name: "Authored article", use_key_as_display_key: true
-  )
-
-  ImportedAwaitingType = create(
-    id: 1000, key: "imported", singular_name: "Imported - Awaiting Type", plural_name: "Imported"
   )
 end
