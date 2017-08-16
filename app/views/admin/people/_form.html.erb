@@ -15,7 +15,7 @@
   </fieldset>
   <fieldset class="image">
     <%= person_form.label :image, 'Image' %>
-    <% if person.image %>
+    <% if person.image_url %>
       <%= image_tag person.image_url %>
     <% end %>
     <div class="form-group">
