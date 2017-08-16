@@ -106,6 +106,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
   test ".republish_async publishes to the Publishing API as a 'republish' update_type" do
     take_part_page = create(:take_part_page)
     presenter = PublishingApiPresenters.presenter_for(take_part_page, update_type: 'republish')
+    WebMock.reset!
+
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
@@ -156,6 +158,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
   test ".bulk_republish_async publishes to the Publishing API as a 'republish'" do
     take_part_page = create(:take_part_page)
     presenter = PublishingApiPresenters.presenter_for(take_part_page, update_type: 'republish')
+    WebMock.reset!
+
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
