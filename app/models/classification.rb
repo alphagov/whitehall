@@ -2,7 +2,6 @@
 class Classification < ApplicationRecord
   include Searchable
   include SimpleWorkflow
-  include PublishesToPublishingApi
 
   # DID YOU MEAN: Policy Area?
   # "Policy area" is the newer name for "topic"
