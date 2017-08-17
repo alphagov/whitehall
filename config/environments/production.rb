@@ -52,7 +52,17 @@ Whitehall::Application.configure do
   config.cache_store = :dalli_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = Whitehall.asset_root
+  # Make sure we always use the public_asest_host for uploads as these are
+  # currently served by the whitehall backend machines so any asset urls need
+  # to use the public asset host because our CORS settings disallow the admin
+  # asset host from serve assets to the public pages
+  config.action_controller.asset_host = proc do |_source, request|
+    if request && request.path =~ %r{system/uploads}
+      Whitehall.public_asset_host
+    else
+      Whitehall.asset_root
+    end
+  end
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
