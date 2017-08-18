@@ -86,7 +86,7 @@ module ApplicationHelper
   def news_article_type_options
     [
       ["", [""]],
-      ["Common types", NewsArticleType.primary.map { |type|
+      ["Common types", NewsArticleType.all.map { |type|
         [type.singular_name, type.id]
       }]
     ]
