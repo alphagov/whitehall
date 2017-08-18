@@ -5,8 +5,10 @@ class SchedulingTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApi
 
   setup do
-    @submitted_edition = create(:submitted_publication,
-                                scheduled_publication: 1.day.from_now)
+    disable_publishes_to_publishing_api do
+      @submitted_edition = create(:submitted_publication,
+                                  scheduled_publication: 1.day.from_now)
+    end
     stub_legacy_sidekiq_scheduling
     stub_any_publishing_api_call
     stub_default_publishing_api_put_intent
@@ -24,16 +26,24 @@ class SchedulingTest < ActiveSupport::TestCase
   end
 
   test "scheduling a subsequent edition publishes a publish intent to the Publishing API" do
-    published_edition = create(:published_publication)
-    new_draft = published_edition.create_draft(published_edition.creator)
-    new_draft.change_note = 'changed'
-    new_draft.scheduled_publication = 1.day.from_now
-    new_draft.save!
-    new_draft.submit!
+    published_edition = nil
+    new_draft = nil
+    user = nil
+
+    disable_publishes_to_publishing_api do
+      published_edition = create(:published_publication)
+      new_draft = published_edition.create_draft(published_edition.creator)
+      new_draft.change_note = 'changed'
+      new_draft.scheduled_publication = 1.day.from_now
+      new_draft.save!
+      new_draft.submit!
+
+      user = create(:user)
+    end
 
     path = Whitehall.url_maker.public_document_path(new_draft)
 
-    acting_as(create(:user)) { schedule(new_draft) }
+    acting_as(user) { schedule(new_draft) }
 
     assert_not_requested(:put, %r{#{PUBLISHING_API_V2_ENDPOINT}/content.*})
     assert_publishing_api_put_intent(path, publish_time: new_draft.scheduled_publication.as_json)
