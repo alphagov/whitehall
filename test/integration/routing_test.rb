@@ -33,19 +33,6 @@ class RoutingTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "should allow access to admin URLs for non-single-domain requests" do
-    login_as_admin
-    get "/government/admin"
-    follow_redirect!
-    assert_response :success
-  end
-
-  test "should allow access to non-admin URLs for requests through the single domain router" do
-    get "/government/history/king-charles-street", params: {}, headers: { "HTTP_X_GOVUK_ROUTER_REQUEST" => true }
-    follow_redirect!
-    assert_response :success
-  end
-
   test "should redirect from old tour page to mainstream tour page in case the URL has escaped into the wild" do
     get "/government/tour"
     assert_redirected_to "/tour"
