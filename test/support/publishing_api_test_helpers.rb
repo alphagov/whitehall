@@ -47,4 +47,19 @@ module PublishingApiTestHelpers
         .with(content_id: edition.content_id).never
     end
   end
+
+  def disable_publishes_to_publishing_api
+    all_classes = ObjectSpace.each_object(Class).select { |c| c.included_modules.include? PublishesToPublishingApi }
+    all_classes.each do |klass|
+      klass.any_instance.stubs(:publish_to_publishing_api)
+      klass.any_instance.stubs(:publish_gone_to_publishing_api)
+    end
+
+    yield
+
+    all_classes.each do |klass|
+      klass.any_instance.unstub(:publish_to_publishing_api)
+      klass.any_instance.unstub(:publish_gone_to_publishing_api)
+    end
+  end
 end
