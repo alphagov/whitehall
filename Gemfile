@@ -44,7 +44,7 @@ gem 'rails_translation_manager', '~> 0.0.2'
 gem 'sprockets', '~> 3.7'
 gem 'sprockets-rails'
 gem 'rinku', require: 'rails_rinku'
-gem 'parallel', '~> 1.11'
+gem 'parallel'
 gem 'responders', '~> 2.4'
 gem 'ruby-progressbar', require: false
 gem 'equivalent-xml', '~> 0.6.0', require: false
