@@ -27,7 +27,7 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
   end
 
   def create
-    @classification_featuring = @classification.feature(params[:classification_featuring])
+    @classification_featuring = @classification.feature(classification_featuring_params)
     if @classification_featuring.valid?
       if featuring_a_document?
         flash[:notice] = "#{@classification_featuring.edition.title} has been featured on #{@classification.name}"
@@ -88,5 +88,14 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
 
   def filter_values_set?
     !params.permit!.to_h.slice(:type, :author, :organisation, :title).empty?
+  end
+
+  def classification_featuring_params
+    params.require(:classification_featuring).permit(
+      :alt_text,
+      :edition_id,
+      :offsite_link_id,
+      image_attributes: [:file, :file_cache]
+    )
   end
 end
