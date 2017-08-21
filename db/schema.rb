@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170411161614) do
+ActiveRecord::Schema.define(version: 20170821152429) do
 
   create_table "about_pages", force: :cascade do |t|
     t.integer  "topical_event_id",    limit: 4
@@ -432,7 +432,6 @@ ActiveRecord::Schema.define(version: 20170411161614) do
     t.datetime "opening_at"
     t.datetime "closing_at"
     t.integer  "corporate_information_page_type_id",          limit: 4
-    t.string   "need_ids",                                    limit: 255
     t.string   "primary_locale",                              limit: 255,   default: "en",    null: false
     t.boolean  "political",                                                 default: false
     t.string   "logo_url",                                    limit: 255
