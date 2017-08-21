@@ -2,8 +2,10 @@ begin
   # Update NewsArticles in Whitehall
   unknown_news_articles = NewsArticle.by_subtype(NewsArticleType::Unknown)
   document_ids = unknown_news_articles.map { |n| n.document_id }.uniq
-  press_releases = unknown_news_articles.includes(:document).select { |n| n.slug.include?("press-release") }
-  news_stories = unknown_news_articles - press_releases
+
+  # We want to return an ActiveRecord relations here, so that `update_all` works
+  press_releases = unknown_news_articles.joins(:document).where("documents.slug REGEXP ?", 'press-release')
+  news_stories = NewsArticle.find(unknown_news_articles - press_releases)
 
   press_releases.update_all(news_article_type_id: NewsArticleType::PressRelease.id)
   press_releases.where(minor_change: false, change_note: nil).update_all(change_note: "This news article was converted to a press release")
