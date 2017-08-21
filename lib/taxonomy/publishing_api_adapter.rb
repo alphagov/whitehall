@@ -4,8 +4,7 @@ module Taxonomy
 
     def draft_taxon_data
       @_draft_data ||= begin
-        taxons = all_taxon_data_including_draft - published_taxon_data
-        expand_taxon_array only_visible_taxons(taxons)
+        expand_taxon_array only_visible_taxons(draft_taxons_data)
       end
     end
 
@@ -36,6 +35,16 @@ module Taxonomy
 
     def all_taxon_data_including_draft
       @_all_data ||= get_root_taxons(with_drafts: true)
+    end
+
+    def draft_taxons_data
+      published_taxon_content_ids = published_taxon_data.map do |taxon|
+        taxon['content_id']
+      end
+
+      all_taxon_data_including_draft.reject do |taxon|
+        published_taxon_content_ids.include? taxon['content_id']
+      end
     end
 
     def get_root_taxons(with_drafts:)
