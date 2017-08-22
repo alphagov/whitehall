@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/alphagov/govuk_app_config.git
-  revision: 33a5e3746787a2ec4815a28b74726a8adc444a00
+  revision: 33b0d93cdcad77686734f379b99a5b5fcfc6b041
   branch: add-sentry
   specs:
     govuk_app_config (0.1.0)
