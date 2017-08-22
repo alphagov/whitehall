@@ -34,6 +34,13 @@ API](https://github.com/alphagov/publishing-api) and
 * xpdf (first download [XQuartz](http://www.xquartz.org/))
 * PhantomJS (for running the Javascript tests)
 
+## Dependencies on Whitehall
+
+The following applications have dependencies on Whitehall APIs:
+
+* [alphagov/smart-answers](https://github.com/alphagov/smart-answers) uses the Worldwide
+  Locations and Worldwide Organisations endpoints
+
 ## Running the application
 
 The application can be started with
