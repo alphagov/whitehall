@@ -34,6 +34,6 @@ class PublishingApiWorker < WorkerBase
 
   def handle_client_error(error)
     explanation = "The error code indicates that retrying this request will not help. This job is being aborted and will not be retried."
-    Airbrake.notify_or_ignore(error, parameters: { explanation: explanation })
+    GOVUK::Error.notify(error, parameters: { explanation: explanation })
   end
 end
