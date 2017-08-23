@@ -29,11 +29,6 @@ class NewsArticleTest < ActiveSupport::TestCase
     refute news_article.valid?
   end
 
-  test "superseded news articles are valid with the 'unknown' news_article_type" do
-    news_article = build(:superseded_news_article, news_article_type: NewsArticleType::Unknown)
-    assert news_article.valid?
-  end
-
   test "non-English locale is invalid for non-world-news-story types" do
     non_foreign_language_news_types = [
       NewsArticleType::NewsStory,

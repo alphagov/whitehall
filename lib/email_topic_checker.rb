@@ -123,12 +123,6 @@ class EmailTopicChecker
       urls = urls.reject { |url| url.include?("publication_filter_option=consultations") }
     end
 
-    # Ignore an issue with documents that have an 'unknown' news article type:
-    # https://trello.com/c/K1OAcdZ1
-    if ENV["IGNORE_UNKNOWN_ISSUE"]
-      urls = urls.reject { |url| url.include?("announcement_filter_option=press-releases") }
-    end
-
     urls
   end
 
