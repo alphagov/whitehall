@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/alphagov/govuk_app_config.git
+  revision: 33b0d93cdcad77686734f379b99a5b5fcfc6b041
+  branch: add-sentry
+  specs:
+    govuk_app_config (0.1.0)
+      sentry-raven (~> 2.6.3)
+      statsd-ruby (~> 1.4.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -39,9 +48,6 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.8)
     afm (0.2.2)
-    airbrake (4.1.0)
-      builder
-      multi_json
     arel (6.0.4)
     asset_bom_removal-rails (1.0.2)
       rails (>= 4.2)
@@ -176,11 +182,10 @@ GEM
     govuk_frontend_toolkit (5.0.3)
       rails (>= 3.1.0)
       sass (>= 3.2.0)
-    govuk_sidekiq (0.0.4)
-      airbrake (>= 3.1.0)
+    govuk_sidekiq (2.0.0)
       gds-api-adapters (>= 19.1.0)
       redis-namespace (~> 1.5.2)
-      sidekiq (~> 4.1)
+      sidekiq (~> 4.2.8)
       sidekiq-logging-json (~> 0.0)
       sidekiq-statsd (~> 0.1)
     graphviz_transitions (0.1.2)
@@ -385,6 +390,8 @@ GEM
     scss_lint (0.53.0)
       rake (>= 0.9, < 13)
       sass (~> 3.4.20)
+    sentry-raven (2.6.3)
+      faraday (>= 0.7.6, < 1.0)
     shared_mustache (1.0.1)
       execjs (>= 1.2.4)
       mustache (~> 1.0.2)
@@ -393,8 +400,8 @@ GEM
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (~> 3.2, >= 3.2.1)
-    sidekiq-logging-json (0.0.16)
-      sidekiq (>= 3, < 5)
+    sidekiq-logging-json (0.0.18)
+      sidekiq (>= 3)
     sidekiq-statsd (0.1.5)
       activesupport
       sidekiq (>= 2.6)
@@ -472,7 +479,6 @@ PLATFORMS
 
 DEPENDENCIES
   addressable (>= 2.3.7)
-  airbrake (= 4.1.0)
   asset_bom_removal-rails (~> 1.0.0)
   babosa (= 1.0.2)
   better_errors
@@ -499,8 +505,9 @@ DEPENDENCIES
   govuk-content-schema-test-helpers
   govuk-lint
   govuk_admin_template (~> 6.2)
+  govuk_app_config!
   govuk_frontend_toolkit (= 5.0.3)
-  govuk_sidekiq (= 0.0.4)
+  govuk_sidekiq (~> 2.0)
   graphviz_transitions
   invalid_utf8_rejector (~> 0.0.3)
   isbn_validation
@@ -548,7 +555,6 @@ DEPENDENCIES
   sprockets (~> 3.0)
   sprockets-rails
   stackprof
-  statsd-ruby (~> 1.4.0)
   teaspoon-qunit
   test-queue (~> 0.2.13)
   timecop
