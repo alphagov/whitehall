@@ -6,7 +6,7 @@
       <span class="name"><%= @world_location.name %></span>
       &ldquo;<span class="title"><%= @world_location.title %></span>&rdquo;
     </h1>
-    <p><%= view_on_website_link_for @world_location, url: { locale: I18n.default_locale } %></p>
+    <p><%= link_to "View on website", world_location_news_index_path(@world_location, {locale: params[:locale]}.merge(cachebust_url_options)) %></p>
   </div>
   <section class="world-location-details">
     <%= tab_navigation_for(@world_location) %>
