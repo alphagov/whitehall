@@ -62,7 +62,7 @@ module Whitehall::DocumentFilter
 
     def selected_people_option
       @people_ids.reject! { |l| l == "all" }
-      People.where(id: @people_ids)
+      Person.where(slug: @people_ids)
     end
 
     def selected_locations
