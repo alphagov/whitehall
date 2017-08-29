@@ -192,7 +192,7 @@ GEM
     htmlentities (4.3.4)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    i18n (0.8.1)
+    i18n (0.8.6)
     invalid_utf8_rejector (0.0.3)
     isbn_validation (1.2.2)
       activerecord (>= 3)
@@ -245,7 +245,7 @@ GEM
     mini_magick (3.8.1)
       subexec (~> 0.2.1)
     mini_portile2 (2.1.0)
-    minitest (5.10.2)
+    minitest (5.10.3)
     minitest-fail-fast (0.1.0)
       minitest (~> 5)
     mlanett-redis-lock (0.2.7)
@@ -406,7 +406,7 @@ GEM
     simplecov-html (0.10.0)
     simplecov-rcov (0.2.3)
       simplecov (>= 0.4.1)
-    slimmer (11.0.0)
+    slimmer (11.0.2)
       activesupport
       json
       nokogiri (~> 1.7)
