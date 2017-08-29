@@ -118,6 +118,19 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     refute_nil(Attachment.find_by title: attachment[:title])
   end
 
+  test 'POST :create updates the edition of the attachment' do
+    attachment = valid_html_attachment_params
+
+    Whitehall.edition_services
+      .expects(:draft_updater)
+      .with(@edition)
+      .returns(updater = stub)
+
+    updater.expects(:perform!)
+
+    post :create, edition_id: @edition.id, type: 'html', attachment: attachment
+  end
+
   test 'POST :create ignores html attachments when attachable does not allow them' do
     attachable = create(:statistical_data_set, access_limited: false)
 
