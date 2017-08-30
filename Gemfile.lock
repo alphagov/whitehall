@@ -1,3 +1,13 @@
+GIT
+  remote: git://github.com/alphagov/airbrake.git
+  revision: ad9c926a56535c48f95c33824a76e10bc8f91179
+  branch: silence-dep-warnings-for-rails-5
+  specs:
+    airbrake (4.3.8)
+      builder
+      multi_json
+      rails (>= 5.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -47,9 +57,6 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.8)
     afm (0.2.2)
-    airbrake (6.2.1)
-      airbrake-ruby (~> 2.3, >= 2.3.1)
-    airbrake-ruby (2.3.2)
     arel (7.1.4)
     asset_bom_removal-rails (1.0.2)
       rails (>= 4.2)
@@ -508,7 +515,7 @@ PLATFORMS
 DEPENDENCIES
   activemodel-serializers-xml
   addressable (>= 2.3.7)
-  airbrake (~> 6.2)
+  airbrake!
   asset_bom_removal-rails (~> 1.0.0)
   babosa (= 1.0.2)
   better_errors
