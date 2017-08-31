@@ -203,7 +203,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
       $filterSummary.mustache('documents/_filter_selections', context);
     },
     removeFilters: function(field, removed){
-      var selects = ['topics', 'departments', 'world_locations', 'official_document_status'],
+      var selects = ['topics', 'departments', 'world_locations', 'official_document_status', 'people'],
           inputs = ['keywords', 'from_date', 'to_date'];
 
       if($.inArray(field, selects) > -1){
