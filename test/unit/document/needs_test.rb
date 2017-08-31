@@ -63,4 +63,14 @@ class Document::NeedsTest < ActiveSupport::TestCase
 
     assert_equal document.patch_meets_user_needs_links, "Links updated"
   end
+
+  test "#get_user_needs_from_publishing_api returns an empty array for a 404 response" do
+    document = create(:document)
+
+    Services.publishing_api.expects(:get_links)
+    .with(document.content_id)
+    .raises(GdsApi::HTTPNotFound.new(404))
+
+    assert_equal document.get_user_needs_from_publishing_api, []
+  end
 end
