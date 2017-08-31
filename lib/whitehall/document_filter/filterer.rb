@@ -1,6 +1,6 @@
 module Whitehall::DocumentFilter
   class Filterer
-    attr_reader :page, :per_page, :from_date, :to_date, :keywords, :people_ids, :locale
+    attr_reader :page, :per_page, :from_date, :to_date, :keywords, :people, :locale
     class << self
       attr_accessor :number_of_documents_per_page
     end
@@ -19,7 +19,7 @@ module Whitehall::DocumentFilter
 
       @topics          = Array(@params[:topics])
       @departments     = Array(@params[:departments])
-      @people_ids      = Array(@params[:people_id])
+      @people          = Array(@params[:people])
       @world_locations = Array(@params[:world_locations])
 
       @official_document_status = @params[:official_document_status]
@@ -61,8 +61,8 @@ module Whitehall::DocumentFilter
     end
 
     def selected_people_option
-      @people_ids.reject! { |l| l == "all" }
-      Person.where(slug: @people_ids)
+      @people.reject! { |l| l == "all" }
+      Person.where(slug: @people)
     end
 
     def selected_locations
