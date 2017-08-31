@@ -16,6 +16,11 @@ module Whitehall::DocumentFilter
           has_entry({ search_format_types: format_types }))
     end
 
+    def expect_search_by_people(people_ids)
+      Whitehall.government_search_client.expects(:advanced_search).with(
+        has_entry(people: people_ids))
+    end
+
     test 'announcements_search looks for all announcements excluding world types by default' do
       rummager = Rummager.new({})
       expected_types = [
@@ -41,6 +46,12 @@ module Whitehall::DocumentFilter
     test 'announcements_search looks for a specific announcement sub type if we use the announcement_type option' do
       rummager = Rummager.new({announcement_type: 'government-responses'})
       expect_search_by_format_types(NewsArticleType::GovernmentResponse.search_format_types)
+      rummager.announcements_search
+    end
+
+    test 'announcements_search looks for announcements that are associated with a person if we use the people_ids option' do
+      rummager = Rummager.new(people_ids: 'jane-doe')
+      expect_search_by_people(["jane-doe"])
       rummager.announcements_search
     end
 
