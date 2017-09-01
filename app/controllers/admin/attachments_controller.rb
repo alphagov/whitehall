@@ -176,10 +176,10 @@ private
   end
 
   def save_attachment
-    if attachable_is_an_edition?
-      attachment.save && Whitehall.edition_services.draft_updater(attachable).perform!
-    else
-      attachment.save
+    attachment.save.tap do |result|
+      if result && attachment.is_a?(HtmlAttachment)
+        Whitehall::PublishingApi.save_draft_async(attachment)
+      end
     end
   end
 end
