@@ -1,4 +1,4 @@
-# Whitehall Testing Guidlines
+# Whitehall Testing Guidelines
 
 All contributions to the Whitehall codebase should have appropriate tests. We
 have a pragmatic approach to testing:- every test should pull its weight.
