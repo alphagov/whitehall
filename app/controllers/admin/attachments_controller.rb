@@ -16,7 +16,7 @@ class Admin::AttachmentsController < Admin::BaseController
   def new; end
 
   def create
-    if attachment.save
+    if save_attachment
       redirect_to attachable_attachments_path(attachable), notice: "Attachment '#{attachment.title}' uploaded"
     else
       render :new
@@ -25,7 +25,7 @@ class Admin::AttachmentsController < Admin::BaseController
 
   def update
     attachment.attributes = attachment_params
-    if attachment.save
+    if save_attachment
       message = "Attachment '#{attachment.title}' updated"
       redirect_to attachable_attachments_path(attachable), notice: message
     else
@@ -172,6 +172,14 @@ private
       redirect_to attachable_attachments_path(attachable), notice: "Attachment '#{attachment.title}' uploaded"
     else
       raise
+    end
+  end
+
+  def save_attachment
+    if attachable_is_an_edition?
+      attachment.save && Whitehall.edition_services.draft_updater(attachable).perform!
+    else
+      attachment.save
     end
   end
 end
