@@ -30,7 +30,7 @@ module Whitehall
         announcement_type: 'announcement_filter_option',
         official_documents: 'official_document_status',
         locations: 'world_locations',
-        people: 'person',
+        people: 'people_ids',
       }.freeze
 
       def valid_option_name?(option_name)
