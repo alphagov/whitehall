@@ -90,7 +90,12 @@ module PublicDocumentRoutesHelper
 
     # About pages are actually shown on the CIP index for an Organisation.
     # We generate a unique path for them anyway, but this is always redirected.
-    org.is_a?(Organisation) ? url.gsub("about/about", "about") : url
+    case org
+    when Organisation
+      url.gsub("/about/about", "/about")
+    when WorldwideOrganisation
+      url.gsub("/about/about", "")
+    end
   end
 
   def best_locale_for_edition(edition)
