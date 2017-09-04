@@ -12,7 +12,6 @@ module Whitehall
 
       def as_json
         {
-          content_id: SecureRandom.uuid,
           base_path: base_path,
           document_type: "redirect",
           schema_name: "redirect",
