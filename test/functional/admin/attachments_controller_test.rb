@@ -118,17 +118,24 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     refute_nil(Attachment.find_by title: attachment[:title])
   end
 
-  test 'POST :create updates the edition of the attachment' do
+  test 'POST :create for an HtmlAttachment updates the publishing api' do
     attachment = valid_html_attachment_params
 
-    Whitehall.edition_services
-      .expects(:draft_updater)
-      .with(@edition)
-      .returns(updater = stub)
-
-    updater.expects(:perform!)
+    Whitehall::PublishingApi
+      .expects(:save_draft_async)
+      .with(instance_of(HtmlAttachment))
 
     post :create, edition_id: @edition.id, type: 'html', attachment: attachment
+  end
+
+  test 'POST :create for a FileAttachnment doesnt update the publishing api' do
+    attachment = valid_file_attachment_params
+
+    Whitehall::PublishingApi
+      .expects(:save_draft_async)
+      .never
+
+    post :create, edition_id: @edition.id, type: 'file', attachment: attachment
   end
 
   test 'POST :create ignores html attachments when attachable does not allow them' do
@@ -257,6 +264,31 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     }
     assert_equal 'New title', attachment.reload.title
     assert_equal 'New body', attachment.reload.govspeak_content_body
+  end
+
+  test "PUT :update for HTML attachment updates the publishing api" do
+    attachment = create(:html_attachment, attachable: @edition)
+
+    Whitehall::PublishingApi
+      .expects(:save_draft_async)
+      .with(attachment)
+
+    put :update, edition_id: @edition, id: attachment.id, attachment: {
+      title: 'New title',
+      govspeak_content_attributes: { body: 'New body', id: attachment.govspeak_content.id }
+    }
+  end
+
+  test "PUT :update for file attachment doesn't update the publishing api" do
+    attachment = create(:file_attachment, attachable: @edition)
+
+    Whitehall::PublishingApi
+      .expects(:save_draft_async)
+      .never
+
+    put :update, edition_id: @edition, id: attachment.id, attachment: {
+      title: 'New title'
+    }
   end
 
   test 'PUT :updates an attachment on the draft edition' do
