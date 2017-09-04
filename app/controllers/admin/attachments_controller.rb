@@ -7,7 +7,7 @@ class Admin::AttachmentsController < Admin::BaseController
   def index; end
 
   def order
-    attachment_ids = params[:ordering].sort_by { |_, ordering| ordering.to_i }.map { |id, _| id }
+    attachment_ids = params.permit!.to_h[:ordering].sort_by { |_, ordering| ordering.to_i }.map { |id, _| id }
     attachable.reorder_attachments(attachment_ids)
 
     redirect_to attachable_attachments_path(attachable), notice: 'Attachments re-ordered'

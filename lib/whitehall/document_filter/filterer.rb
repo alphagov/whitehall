@@ -8,14 +8,14 @@ module Whitehall::DocumentFilter
 
     def initialize(params = {})
       @params          = params
-      @per_page        = params[:per_page] || Whitehall::DocumentFilter::Filterer.number_of_documents_per_page
-      @page            = params[:page] || 1
-      @from_date       = parse_date(params[:from_date])
-      @to_date         = parse_date(params[:to_date])
-      @keywords        = params[:keywords]
-      @locale          = params[:locale]
+      @per_page        = @params[:per_page] || Whitehall::DocumentFilter::Filterer.number_of_documents_per_page
+      @page            = @params[:page] || 1
+      @from_date       = parse_date(@params[:from_date])
+      @to_date         = parse_date(@params[:to_date])
+      @keywords        = @params[:keywords]
+      @locale          = @params[:locale]
 
-      @include_world_location_news  = params[:include_world_location_news]
+      @include_world_location_news = @params[:include_world_location_news]
 
       @topics          = Array(@params[:topics])
       @departments     = Array(@params[:departments])

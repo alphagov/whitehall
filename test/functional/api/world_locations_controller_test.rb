@@ -12,7 +12,7 @@ class Api::WorldLocationsControllerTest < ActionController::TestCase
     presenter.stubs(:as_json).returns(location: :representation)
     Api::WorldLocationPresenter.stubs(:new).with(world_location, anything).returns(presenter)
 
-    get :show, id: world_location.slug, format: 'json'
+    get :show, params: { id: world_location.slug }, format: 'json'
     assert_equal 'representation', json_response['location']
   end
 
@@ -24,13 +24,13 @@ class Api::WorldLocationsControllerTest < ActionController::TestCase
     presenter.stubs(:as_json).returns(location: :representation)
     Api::WorldLocationPresenter.stubs(:new).with(world_location, anything).returns(presenter)
 
-    get :show, id: world_location.slug, format: 'json'
+    get :show, params: { id: world_location.slug }, format: 'json'
     assert_equal 'ok', json_response['_response_info']['status']
   end
 
   view_test "show responds with 404 if world location is not found" do
     WorldLocation.stubs(:find_by).with(slug: 'unknown').returns nil
-    get :show, id: 'unknown', format: 'json'
+    get :show, params: { id: 'unknown' }, format: 'json'
     assert_response :not_found
     assert_equal 'not found', json_response['_response_info']['status']
   end

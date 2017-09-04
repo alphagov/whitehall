@@ -1,14 +1,9 @@
-require File.expand_path('../boot', __FILE__)
+require_relative 'boot'
 
-require "rails"
-require 'active_record'
+require 'rails/all'
 
-require "active_record/railtie"
-require "action_controller/railtie"
-require "action_mailer/railtie"
-require "rails/test_unit/railtie"
-require "sprockets/railtie"
-
+# Require the gems listed in Gemfile, including any gems
+# you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
 module Whitehall
@@ -20,15 +15,9 @@ module Whitehall
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
-    config.autoload_paths += %W(
+    config.eager_load_paths += %W(
       #{config.root}/lib
     )
-
-    # Opt in to new transaction callback error handling behaviour to get rid of
-    # deprecation warnings.
-    #
-    # See http://guides.rubyonrails.org/upgrading_ruby_on_rails.html#error-handling-in-transaction-callbacks
-    config.active_record.raise_in_transactional_callbacks = true
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
@@ -59,5 +48,9 @@ module Whitehall
       generate.assets false
       generate.test_framework :test_unit, fixture: false
     end
+
+    # Raise an exception when parameters are used without filtering
+    # This will be mandatory in Rails 5.1
+    config.action_controller.raise_on_unfiltered_parameters = true
   end
 end

@@ -12,7 +12,7 @@ class Admin::ContactTranslationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     contact = create(:contact, contactable: organisation)
 
-    post :create, organisation_id: organisation, contact_id: contact, translation_locale: "fr"
+    post :create, params: { organisation_id: organisation, contact_id: contact, translation_locale: "fr" }
 
     assert_redirected_to edit_admin_organisation_contact_translation_path(organisation, contact, id: "fr")
   end
@@ -21,7 +21,7 @@ class Admin::ContactTranslationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     contact = create(:contact, contactable: organisation, title: "english-title")
 
-    get :edit, organisation_id: organisation, contact_id: contact, id: "fr"
+    get :edit, params: { organisation_id: organisation, contact_id: contact, id: "fr" }
 
     assert_select "h1", text: "Edit ‘Français (French)’ translation for: english-title"
   end
@@ -31,7 +31,7 @@ class Admin::ContactTranslationsControllerTest < ActionController::TestCase
     contact = create(:contact, contactable: organisation, title: "english-title")
     contact_number = create(:contact_number, contact: contact, number: "123456789 english-number")
 
-    get :edit, organisation_id: organisation, contact_id: contact, id: "fr"
+    get :edit, params: { organisation_id: organisation, contact_id: contact, id: "fr" }
 
     assert_select "input", value: "123456789 english-number"
   end
@@ -40,11 +40,10 @@ class Admin::ContactTranslationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     contact = create(:contact, contactable: organisation, title: "english-title")
 
-    put :update, organisation_id: organisation, contact_id: contact, id: "fr",
-      contact: {
+    put :update, params: { organisation_id: organisation, contact_id: contact, id: "fr", contact: {
         title: "Afrolasie Bureau",
         comments: "Enseigner aux gens comment infuser le thé"
-      }
+      } }
 
     contact.reload
 
@@ -60,7 +59,7 @@ class Admin::ContactTranslationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     contact = create(:contact, contactable: organisation, translated_into: [:fr])
 
-    delete :destroy, organisation_id: organisation, contact_id: contact, id: "fr"
+    delete :destroy, params: { organisation_id: organisation, contact_id: contact, id: "fr" }
 
     contact.reload
     refute contact.translated_locales.include?(:fr)

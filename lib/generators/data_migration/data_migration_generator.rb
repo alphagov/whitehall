@@ -1,3 +1,5 @@
+require 'rails/generators'
+
 class DataMigrationGenerator < Rails::Generators::NamedBase
   include Rails::Generators::Migration
   source_root File.expand_path('../templates', __FILE__)

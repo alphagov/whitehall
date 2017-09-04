@@ -50,4 +50,11 @@ class PublishingApi::WorkingGroupPresenterTest < ActiveSupport::TestCase
     assert_match %r{#{presenter.content[:details][:email]}}, body.at_css("a[href^='mailto']"), "expect to see email in a mailto link"
     assert_match %r{#{group.attachments.first.title}}, body.at_css("section.attachment")
   end
+
+  test "handles empty description" do
+    group = create(:policy_group, :with_file_attachment, description: nil)
+    assert_nothing_raised do
+      PublishingApi::WorkingGroupPresenter.new(group).content
+    end
+  end
 end

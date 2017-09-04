@@ -51,6 +51,7 @@ class ActiveSupport::TestCase
     fake_whodunnit.stubs(:persisted?).returns(true)
     Edition::AuditTrail.whodunnit = fake_whodunnit
     stub_any_publishing_api_call
+    stub_publishing_api_publish_intent
     stub_publishing_api_policies
     SyncCheckWorker.stubs(:enqueue)
     stub_static_locales

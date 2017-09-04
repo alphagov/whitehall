@@ -87,7 +87,7 @@ module Edition::Organisations
   def at_least_one_lead_organisation
     unless skip_organisation_validation?
       unless edition_organisations.detect { |eo| eo.lead? }
-        errors[:lead_organisations] = "at least one required"
+        self.errors.add(:lead_organisations, "at least one required")
       end
     end
   end

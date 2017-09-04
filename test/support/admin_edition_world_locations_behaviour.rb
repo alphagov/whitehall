@@ -18,9 +18,11 @@ module AdminEditionWorldLocationsBehaviour
         world_location2 = create(:world_location)
         attributes = controller_attributes_for(document_type)
 
-        post :create, edition: attributes.merge(
-          world_location_ids: [world_location.id, world_location2.id]
-        )
+        post :create, params: {
+          edition: attributes.merge(
+            world_location_ids: [world_location.id, world_location2.id]
+          )
+        }
 
         assert document = edition_class.last
         assert_equal [world_location, world_location2], document.world_locations
@@ -31,9 +33,9 @@ module AdminEditionWorldLocationsBehaviour
         world_location2 = create(:world_location)
         document = create(document_type, world_locations: [world_location2])
 
-        put :update, id: document, edition: {
+        put :update, params: { id: document, edition: {
           world_location_ids: [world_location.id]
-        }
+        } }
 
         document = document.reload
         assert_equal [world_location], document.world_locations
@@ -44,7 +46,7 @@ module AdminEditionWorldLocationsBehaviour
         lock_version = document.lock_version
         document.touch
 
-        put :update, id: document, edition: {lock_version: lock_version}
+        put :update, params: { id: document, edition: { lock_version: lock_version } }
 
         assert_select ".document.conflict" do
           assert_select "h1", "World locations"

@@ -12,13 +12,13 @@ class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
     organisation = create(:ministerial_department)
 
     assert_raise ActiveRecord::RecordNotFound do
-      get :index, organisation_id: organisation
+      get :index, params: { organisation_id: organisation }
     end
   end
 
   test "GET :index loads the promotional organisation and renders the index template" do
     create(:promotional_feature, organisation: @organisation)
-    get :index, organisation_id: @organisation
+    get :index, params: { organisation_id: @organisation }
 
     assert_response :success
     assert_equal @organisation, assigns(:organisation)
@@ -27,7 +27,7 @@ class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
   end
 
   test "GET :new prepares a promotional feature" do
-    get :new, organisation_id: @organisation
+    get :new, params: { organisation_id: @organisation }
 
     assert_response :success
     assert_equal @organisation, assigns(:organisation)
@@ -35,7 +35,7 @@ class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
   end
 
   test "POST :create saves the new promotional feature and redirects to the show page" do
-    post :create, organisation_id: @organisation, promotional_feature: { title: 'Promotional feature title'}
+    post :create, params: { organisation_id: @organisation, promotional_feature: { title: 'Promotional feature title' } }
 
     assert promotional_feature = @organisation.reload.promotional_features.last
     assert_equal 'Promotional feature title', promotional_feature.title
@@ -44,7 +44,7 @@ class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
 
   test "GET :show loads the promotional feature belonging to the organisation" do
     promotional_feature = create(:promotional_feature, organisation: @organisation)
-    get :show, organisation_id: @organisation, id: promotional_feature
+    get :show, params: { organisation_id: @organisation, id: promotional_feature }
 
     assert_response :success
     assert_template :show
@@ -53,7 +53,7 @@ class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
 
   test "GET :edit loads the promotional feature and renders the template" do
     promotional_feature = create(:promotional_feature, organisation: @organisation)
-    get :edit, organisation_id: @organisation, id: promotional_feature
+    get :edit, params: { organisation_id: @organisation, id: promotional_feature }
 
     assert_response :success
     assert_template :edit
@@ -62,7 +62,7 @@ class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
 
   test "PUT :update saves the promotional feature and redirects to the show page" do
     promotional_feature = create(:promotional_feature, organisation: @organisation)
-    put :update, organisation_id: @organisation, id: promotional_feature, promotional_feature: { title: 'New title' }
+    put :update, params: { organisation_id: @organisation, id: promotional_feature, promotional_feature: { title: 'New title' } }
 
     assert_redirected_to admin_organisation_promotional_feature_url(@organisation, promotional_feature)
     assert_equal 'New title', promotional_feature.reload.title
@@ -70,7 +70,7 @@ class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
 
   test "DELETE :destroy deletes the promotional feature" do
     promotional_feature = create(:promotional_feature, organisation: @organisation)
-    delete :destroy, organisation_id: @organisation, id: promotional_feature
+    delete :destroy, params: { organisation_id: @organisation, id: promotional_feature }
 
     assert_redirected_to admin_organisation_promotional_features_url(@organisation)
     refute PromotionalFeature.exists?(promotional_feature.id)

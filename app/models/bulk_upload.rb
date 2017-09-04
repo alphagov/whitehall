@@ -39,7 +39,7 @@ class BulkUpload
   end
 
   def attachments_attributes=(attributes)
-    @attachments = attributes.map do |index, params|
+    @attachments = attributes.to_h.map do |_index, params|
       attachment_attrs = params.except(:attachment_data_attrs)
       data_attrs = params.fetch(:attachment_data_attributes, {})
       find_and_update_existing_attachment(attachment_attrs, data_attrs) || FileAttachment.new(params)
@@ -161,7 +161,7 @@ class BulkUpload
     def contains_disallowed_file_types?
       extracted_file_paths.any? do |path|
         extension = File.extname(path).sub(/^\./, '')
-        !AttachmentUploader::EXTENSION_WHITE_LIST.include?(extension)
+        !AttachmentUploader::EXTENSION_WHITELIST.include?(extension)
       end
     end
   end

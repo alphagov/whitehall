@@ -53,10 +53,9 @@ class EditionDeleterTest < ActiveSupport::TestCase
   end
 
   test '#perform! soft-deletes any attachments that the edition has' do
-    publication = create(:draft_publication, :with_file_attachment, attachments: [
-      attachment_1 = build(:file_attachment, ordering: 0),
-      attachment_2 = build(:html_attachment, title: "Test HTML attachment", ordering: 1),
-    ])
+    publication = create(:draft_publication)
+    publication.attachments << attachment_1 = build(:file_attachment)
+    publication.attachments << attachment_2 = build(:html_attachment)
 
     assert EditionDeleter.new(publication).perform!
 

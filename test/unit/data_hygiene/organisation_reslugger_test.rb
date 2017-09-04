@@ -7,7 +7,7 @@ module OrganisationResluggerTest
     extend ActiveSupport::Testing::Declarative
 
     def self.included(klass)
-      klass.use_transactional_fixtures = false
+      klass.use_transactional_tests = false
     end
 
     def setup

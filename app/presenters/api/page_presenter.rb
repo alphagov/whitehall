@@ -37,10 +37,16 @@ class Api::PagePresenter < Struct.new(:page, :context)
     # current_page and start_index start at 1, not 0
     (page.current_page - 1) * page.limit_value + 1
   end
-  private
+
+private
 
   def url(override_params)
-    context.url_for(context.params.merge(
+    context.url_for(context.params.permit(
+      :controller,
+      :format,
+      :action,
+      :world_location_id
+    ).merge(
       override_params.merge(only_path: false)
     ))
   end

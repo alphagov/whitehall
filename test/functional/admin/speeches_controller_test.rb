@@ -35,7 +35,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     speech_type = SpeechType::Transcript
     attributes = controller_attributes_for(:speech, speech_type: speech_type, role_appointment_id: role_appointment.id)
 
-    post :create, edition: attributes
+    post :create, params: { edition: attributes }
 
     assert speech = Speech.last
     assert_equal speech_type, speech.speech_type
@@ -48,7 +48,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     speech_type = SpeechType::Transcript
     attributes = controller_attributes_for(:speech, speech_type: speech_type, person_override: "The Queen")
 
-    post :create, edition: attributes
+    post :create, params: { edition: attributes }
 
     assert speech = Speech.last
     assert_equal speech_type, speech.speech_type
@@ -63,12 +63,12 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     new_delivered_on = speech.delivered_on + 1
     new_speech_type = SpeechType::Transcript
 
-    put :update, id: speech.id, edition: {
+    put :update, params: { id: speech.id, edition: {
       role_appointment_id: new_role_appointment.id,
       speech_type_id: new_speech_type.id,
       delivered_on: new_delivered_on,
       location: "new-location"
-    }
+    } }
 
     speech = Speech.last
     assert_equal new_speech_type, speech.speech_type
@@ -82,7 +82,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
   def controller_attributes_for(edition_type, attributes = {})
     super.except(:role_appointment, :speech_type).reverse_merge(
       role_appointment_id: create(:role_appointment).id,
-      speech_type_id: SpeechType::Transcript
+      speech_type_id: SpeechType::Transcript.id
     )
   end
 end

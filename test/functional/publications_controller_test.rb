@@ -60,7 +60,7 @@ class PublicationsControllerTest < ActionController::TestCase
     create(:published_publication, world_locations: [@world_location_1])
     create(:published_publication, world_locations: [@world_location_2])
 
-    get :index, world_locations: [@world_location_1, @world_location_2]
+    get :index, params: { world_locations: [@world_location_1, @world_location_2] }
 
     assert_select "select#world_locations[name='world_locations[]']" do
       assert_select "option[selected='selected']", text: @world_location_1.name
@@ -71,7 +71,7 @@ class PublicationsControllerTest < ActionController::TestCase
   view_test "#index highlights selected topic filter options" do
     given_two_documents_in_two_topics
 
-    get :index, topics: [@topic_1, @topic_2]
+    get :index, params: { topics: [@topic_1, @topic_2] }
 
     assert_select "select#topics[name='topics[]']" do
       assert_select "option[selected='selected']", text: @topic_1.name
@@ -82,7 +82,7 @@ class PublicationsControllerTest < ActionController::TestCase
   view_test "#index highlights selected organisation filter options" do
     given_two_documents_in_two_organisations
 
-    get :index, departments: [@organisation_1, @organisation_2]
+    get :index, params: { departments: [@organisation_1, @organisation_2] }
 
     assert_select "select#departments[name='departments[]']" do
       assert_select "option[selected]", text: @organisation_1.name
@@ -91,19 +91,19 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "#index shows selected publication_filter_option in the title " do
-    get :index, publication_filter_option: 'consultations'
+    get :index, params: { publication_filter_option: 'consultations' }
 
     assert_select 'h1 span', ': all consultations'
   end
 
   view_test "#index capitalises FOI in the title correctly" do
-    get :index, publication_filter_option: 'foi-releases'
+    get :index, params: { publication_filter_option: 'foi-releases' }
 
     assert_select 'h1', html: 'Publications<span>: FOI releases</span>'
   end
 
   view_test "#index highlights selected publication type filter options" do
-    get :index, publication_filter_option: "forms"
+    get :index, params: { publication_filter_option: "forms" }
 
     assert_select "select[name='publication_filter_option']" do
       assert_select "option[selected='selected']", text: Whitehall::PublicationFilterOption::Form.label
@@ -111,13 +111,13 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "#index displays filter keywords" do
-    get :index, keywords: "olympics 2012"
+    get :index, params: { keywords: "olympics 2012" }
 
     assert_select "input[name='keywords'][value=?]", "olympics 2012"
   end
 
   view_test "#index displays date filter" do
-    get :index, from_date: "01/01/2011", to_date: "01/02/2012"
+    get :index, params: { from_date: "01/01/2011", to_date: "01/02/2012" }
 
     assert_select "input#from_date[name='from_date'][value='01/01/2011']"
     assert_select "input#to_date[name='to_date'][value='01/02/2012']"
@@ -196,26 +196,26 @@ class PublicationsControllerTest < ActionController::TestCase
     english_publication = create(:published_publication)
     french_publication = create(:published_publication, translated_into: [:fr])
 
-    get :index, locale: 'fr'
+    get :index, params: { locale: 'fr' }
 
     assert_select_object french_publication
     refute_select_object english_publication
   end
 
   view_test '#index for non-english locales only allows filtering by world location' do
-    get :index, locale: 'fr'
+    get :index, params: { locale: 'fr' }
 
     assert_select '.filter', count: 1
     assert_select '.filter #world_locations'
   end
 
   view_test '#index for non-english locales skips results summary' do
-    get :index, locale: 'fr'
+    get :index, params: { locale: 'fr' }
     refute_select '.filter-results-summary'
   end
 
   test '#index for statistics document type redirect to statistics index' do
-    get :index, publication_filter_option: 'statistics', keywords: 'wombles'
+    get :index, params: { publication_filter_option: 'statistics', keywords: 'wombles' }
     assert_redirected_to statistics_path(keywords: 'wombles')
   end
 
@@ -223,7 +223,7 @@ class PublicationsControllerTest < ActionController::TestCase
     regulation = create(:published_publication, publication_type_id: PublicationType::Regulation.id)
     guidance = create(:published_publication, publication_type_id: PublicationType::Guidance.id)
 
-    get :index, publication_filter_option: 'regulations'
+    get :index, params: { publication_filter_option: 'regulations' }
 
     assert_select_object(regulation)
     refute_select_object(guidance)
@@ -278,7 +278,7 @@ class PublicationsControllerTest < ActionController::TestCase
     create(:topic, name: "topic-1")
     create(:organisation, name: "organisation-1")
 
-    get :index, format: :json, topics: ["topic-1"], departments: ["organisation-1"]
+    get :index, params: { topics: ["topic-1"], departments: ["organisation-1"] }, format: :json
 
     json = ActiveSupport::JSON.decode(response.body)
 
@@ -288,7 +288,7 @@ class PublicationsControllerTest < ActionController::TestCase
   view_test "#index requested as JSON includes atom feed URL without date parameters" do
     create(:topic, name: "topic-1")
 
-    get :index, format: :json, from_date: "2012-01-01", topics: ["topic-1"]
+    get :index, params: { from_date: "2012-01-01", topics: ["topic-1"] }, format: :json
 
     json = ActiveSupport::JSON.decode(response.body)
 
@@ -296,7 +296,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "#index requested as JSON includes email signup path without date parameters" do
-    get :index, format: :json, to_date: "2012-01-01"
+    get :index, params: { to_date: "2012-01-01" }, format: :json
 
     json = ActiveSupport::JSON.decode(response.body)
 
@@ -309,7 +309,7 @@ class PublicationsControllerTest < ActionController::TestCase
     topic = create(:topic)
     organisation = create(:organisation)
 
-    get :index, format: :json, from_date: "2012-01-01", topics: [topic.slug], departments: [organisation.slug]
+    get :index, params: { from_date: "2012-01-01", topics: [topic.slug], departments: [organisation.slug] }, format: :json
 
     json = ActiveSupport::JSON.decode(response.body)
     atom_url = publications_url(format: "atom", topics: [topic.slug], departments: [organisation.slug], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
@@ -326,7 +326,7 @@ class PublicationsControllerTest < ActionController::TestCase
     topic = create(:topic)
     organisation = create(:organisation)
 
-    get :index, topics: [topic], departments: [organisation]
+    get :index, params: { topics: [topic], departments: [organisation] }
 
     assert_select_autodiscovery_link publications_url(format: "atom", topics: [topic], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
   end
@@ -334,7 +334,7 @@ class PublicationsControllerTest < ActionController::TestCase
   view_test '#index atom feed autodiscovery link does not include date filter' do
     topic = create(:topic)
 
-    get :index, topics: [topic], to_date: "2012-01-01"
+    get :index, params: { topics: [topic], to_date: "2012-01-01" }
 
     assert_select_autodiscovery_link publications_url(format: "atom", topics: [topic], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
   end
@@ -343,7 +343,7 @@ class PublicationsControllerTest < ActionController::TestCase
     topic = create(:topic)
     organisation = create(:organisation)
 
-    get :index, topics: [topic], departments: [organisation]
+    get :index, params: { topics: [topic], departments: [organisation] }
 
     feed_url = publications_url(format: "atom", topics: [topic], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
     assert_select "a.feed[href=?]", feed_url
@@ -352,7 +352,7 @@ class PublicationsControllerTest < ActionController::TestCase
   view_test '#index shows a link to the atom feed without any date filters' do
     organisation = create(:organisation)
 
-    get :index, from_date: "2012-01-01", departments: [organisation]
+    get :index, params: { from_date: "2012-01-01", departments: [organisation] }
 
     feed_url = publications_url(format: "atom", departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
     assert_select "a.feed[href=?]", feed_url
@@ -361,7 +361,7 @@ class PublicationsControllerTest < ActionController::TestCase
   view_test "#index generates an atom feed for the current filter" do
     org = create(:organisation, name: "org-name")
 
-    get :index, format: :atom, departments: [org.to_param]
+    get :index, params: { departments: [org.to_param] }, format: :atom
 
     assert_select_atom_feed do
       assert_select 'feed > id', 1
@@ -381,7 +381,7 @@ class PublicationsControllerTest < ActionController::TestCase
     c1 = create(:published_consultation, organisations: [org], opening_at: 1.day.ago)
     p2 = create(:published_publication, organisations: [other_org])
 
-    get :index, format: :atom, departments: [org.to_param]
+    get :index, params: { departments: [org.to_param] }, format: :atom
 
     assert_select_atom_feed do
       assert_select_atom_entries([c1, p1])
@@ -394,7 +394,7 @@ class PublicationsControllerTest < ActionController::TestCase
     document = create(:published_consultation, organisations: [org], opening_at: Date.parse('2001-12-12'))
     create(:published_consultation, organisations: [other_org])
 
-    get :index, format: :atom, departments: [org.to_param]
+    get :index, params: { departments: [org.to_param] }, format: :atom
 
     assert_select_atom_feed do
       assert_select_atom_entries([document])

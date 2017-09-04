@@ -86,7 +86,7 @@ class Document < ApplicationRecord
   end
 
   def published?
-    published_edition(true).present?
+    reload_published_edition.present?
   end
 
   def first_published_date
@@ -116,7 +116,7 @@ class Document < ApplicationRecord
   private
 
   def destroy_all_editions
-    Edition.unscoped.destroy_all(document_id: self.id)
+    Edition.unscoped.where(document_id: self.id).destroy_all
   end
 
   def ensure_document_has_a_slug

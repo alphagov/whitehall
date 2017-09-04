@@ -2,7 +2,6 @@
 class Classification < ApplicationRecord
   include Searchable
   include SimpleWorkflow
-  include PublishesToPublishingApi
 
   # DID YOU MEAN: Policy Area?
   # "Policy area" is the newer name for "topic"
@@ -143,7 +142,7 @@ class Classification < ApplicationRecord
   end
 
   def feature(featuring_params)
-    classification_featurings.create({ordering: next_ordering}.merge(featuring_params))
+    classification_featurings.create({ ordering: next_ordering }.merge(featuring_params.to_h))
   end
 
   def next_ordering

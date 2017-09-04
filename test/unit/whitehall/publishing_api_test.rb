@@ -9,10 +9,12 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     # TODO: investigate removing stubbing of publishing api calls from standard test setup
     WebMock.reset!
 
-    # In the case of unpublishings, we trigger a job to save the draft edition.
-    # That job runs inline because we're in test mode, so we need to stub it.
+    # Stub all publishing-api endpoints because creating a model makes the calls
+    # before we have a chance to stub inside each test. Individual tests still
+    # check for calls to publishing-api with test-specific data.
     stub_any_publishing_api_put_content
     stub_any_publishing_api_patch_links
+    stub_any_publishing_api_publish
   end
 
   test ".publish_async publishes an Edition with the Publishing API" do
@@ -104,6 +106,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
   test ".republish_async publishes to the Publishing API as a 'republish' update_type" do
     take_part_page = create(:take_part_page)
     presenter = PublishingApiPresenters.presenter_for(take_part_page, update_type: 'republish')
+    WebMock.reset!
+
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
@@ -154,6 +158,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
   test ".bulk_republish_async publishes to the Publishing API as a 'republish'" do
     take_part_page = create(:take_part_page)
     presenter = PublishingApiPresenters.presenter_for(take_part_page, update_type: 'republish')
+    WebMock.reset!
+
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),

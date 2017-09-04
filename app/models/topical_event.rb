@@ -1,4 +1,6 @@
 class TopicalEvent < Classification
+  include PublishesToPublishingApi
+
   searchable title: :name,
              link: :search_link,
              content: :description,

@@ -4,7 +4,7 @@
 # can be found in the Wiki - https://gov-uk.atlassian.net/wiki/display/GOVUK/Statistics.
 #
 # Once the statistics are published, the statistics announcement will redirect and
-# dissapear from search.
+# disappear from search.
 #
 # Statistics Announcements pages are rendered by the `government-frontend` app,
 # the index page is still rendered from Whitehall.
@@ -128,7 +128,7 @@ class StatisticsAnnouncement < ApplicationRecord
   def previous_display_date
     if last_major_change
       major_change_index = statistics_announcement_dates.order(:created_at).index(last_major_change)
-      statistics_announcement_dates.at(major_change_index - 1).try(:display_date)
+      statistics_announcement_dates.to_a.at(major_change_index - 1).try(:display_date)
     end
   end
 

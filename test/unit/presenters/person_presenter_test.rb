@@ -23,7 +23,7 @@ class PersonPresenterTest < ActionView::TestCase
 
   test 'image is nil if person has no associated image' do
     @person.stubs(:image_url).returns(nil)
-    assert_equal @presenter.image, nil
+    assert_nil @presenter.image
   end
 
   test 'biography generates html from the original govspeak' do

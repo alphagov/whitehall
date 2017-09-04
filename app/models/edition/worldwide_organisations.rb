@@ -29,7 +29,7 @@ module Edition::WorldwideOrganisations
   def at_least_one_worldwide_organisations
     unless skip_worldwide_organisations_validation?
       if worldwide_organisations.empty?
-        errors[:worldwide_organisations] = "at least one required"
+        self.errors.add(:worldwide_organisations, "at least one required")
       end
     end
   end

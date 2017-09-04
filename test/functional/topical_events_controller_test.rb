@@ -14,7 +14,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
     news_article_featuring = create(:classification_featuring, classification: topical_event, edition: news_article, ordering: 0)
     publication_featuring = create(:classification_featuring, classification: topical_event, edition: publication, ordering: 1)
 
-    get :show, id: topical_event
+    get :show, params: { id: topical_event }
 
     assert_equal [news_article_featuring, publication_featuring], assigns(:featurings)
   end
@@ -27,7 +27,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
       editions << create(:classification_featuring, edition: edition, classification: topical_event, ordering: i)
     end
 
-    get :show, id: topical_event
+    get :show, params: { id: topical_event }
     parsed_response = Nokogiri::HTML::Document.parse(response.body)
     assert_equal 5, parsed_response.css('.featured-news .feature').length
   end
@@ -35,7 +35,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
   view_test 'show has a link to the atom feed' do
     event = create_topical_event_and_stub_in_content_store
 
-    get :show, id: event
+    get :show, params: { id: event }
 
     assert_select "a.feed[href=?]", atom_feed_url_for(event)
   end
@@ -43,7 +43,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
   view_test 'show has a link to email signup page' do
     event = create_topical_event_and_stub_in_content_store
 
-    get :show, id: event
+    get :show, params: { id: event }
 
     assert_select ".govdelivery[href='#{new_email_signups_path(email_signup: { feed: atom_feed_url_for(event) })}']"
   end
@@ -52,7 +52,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
     topical_event = create_topical_event_and_stub_in_content_store(name: 'First World War Centenary')
     create(:organisation_classification, lead: true, classification: topical_event)
 
-    get :show, id: topical_event
+    get :show, params: { id: topical_event }
 
     assert_select '.arts-council-england'
     assert_select '.bbc'
@@ -68,7 +68,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
     topical_event = create_topical_event_and_stub_in_content_store(name: 'Something exciting')
     create(:organisation_classification, lead: true, classification: topical_event)
 
-    get :show, id: topical_event
+    get :show, params: { id: topical_event }
 
     refute_select '.arts-council-england'
     refute_select '.bbc'
@@ -83,7 +83,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
   test "sets a meta description" do
     topical_event = create_topical_event_and_stub_in_content_store(description: 'my description')
 
-    get :show, id: topical_event
+    get :show, params: { id: topical_event }
 
     assert_equal 'my description', assigns(:meta_description)
   end
@@ -92,7 +92,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
     topical_event = create_topical_event_and_stub_in_content_store
     publication = create(:published_publication, topical_events: [topical_event])
 
-    get :show, id: topical_event, format: :atom
+    get :show, params: { id: topical_event }, format: :atom
 
     assert_select_atom_feed do
       assert_select 'feed > id', 1

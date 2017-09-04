@@ -12,7 +12,7 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
   test "should not attempt to set document type if document is not present" do
     publication = build(:publication)
     publication.stubs(:document).returns(nil)
-    assert_nothing_raised(NoMethodError) { publication.valid? }
+    assert_nothing_raised { publication.valid? }
   end
 
   test "should generate a content_id for the document of a new draft" do

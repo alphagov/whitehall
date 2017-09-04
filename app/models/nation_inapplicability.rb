@@ -13,7 +13,7 @@ class NationInapplicability < ApplicationRecord
   attr_accessor :excluded
 
   def excluded?
-    @excluded.present? ? ActiveRecord::Type::Boolean.new.type_cast_from_database(@excluded) : persisted?
+    @excluded.present? ? ActiveRecord::Type::Boolean.new.deserialize(@excluded) : persisted?
   end
 
   def nation

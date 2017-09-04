@@ -764,8 +764,7 @@ class EditionTest < ActiveSupport::TestCase
     topic_1 = create(:topic)
     topic_2 = create(:topic)
     news_article = create(:news_article, topics: [topic_1])
-    publication       = create(:publication, topics: [topic_1, topic_2])
-    speech       = create(:speech)
+    publication = create(:publication, topics: [topic_1, topic_2])
 
     assert_equal [news_article, publication], Edition.with_classification(topic_1)
     assert_equal [publication], Edition.with_classification(topic_2)

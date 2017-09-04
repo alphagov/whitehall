@@ -40,7 +40,9 @@ private
 
   def redirect_statistics_filtering
     if !request.xhr? and params[:publication_filter_option] == 'statistics'
-      redirect_to statistics_path(params.except(:publication_filter_option, :controller, :action)), status: :moved_permanently
+      redirect_to statistics_path(
+        params.permit!.except(:publication_filter_option, :controller, :action, :host).to_h
+      ), status: :moved_permanently
     end
   end
 

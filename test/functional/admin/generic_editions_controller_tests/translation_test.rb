@@ -15,7 +15,7 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
   view_test 'show displays a form to create missing translations' do
     edition = create(:draft_edition)
 
-    get :show, id: edition
+    get :show, params: { id: edition }
 
     assert_select "form[action=?]", admin_edition_translations_path(edition) do
       assert_select "select[name=translation_locale]"
@@ -27,7 +27,7 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
     edition = create(:draft_edition)
     with_locale(:es) { edition.update_attributes!(attributes_for("draft_edition")) }
 
-    get :show, id: edition
+    get :show, params: { id: edition }
 
     assert_select "select[name=translation_locale]" do
       assert_select "option[value=es]", count: 0
@@ -39,7 +39,7 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
     with_locale(:es) { edition.update_attributes!(attributes_for("draft_edition")) }
     Locale.stubs(:non_english).returns([Locale.new(:es)])
 
-    get :show, id: edition
+    get :show, params: { id: edition }
 
     assert_select "select[name=translation_locale]", count: 0
   end
@@ -48,7 +48,7 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
     edition = create(:published_edition)
     refute edition.editable?
 
-    get :show, id: edition
+    get :show, params: { id: edition }
 
     assert_select "select[name=translation_locale]", count: 0
   end
@@ -57,7 +57,7 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
     edition = create(:draft_edition, title: 'english-title', summary: 'english-summary', body: 'english-body')
     with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body') }
 
-    get :show, id: edition
+    get :show, params: { id: edition }
 
     assert_select "a[href='#{edit_admin_edition_translation_path(edition, 'fr')}']", text: 'Edit'
   end
@@ -66,7 +66,7 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
     edition = create(:draft_edition, title: 'english-title', summary: 'english-summary', body: 'english-body')
     with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body') }
 
-    get :show, id: edition
+    get :show, params: { id: edition }
 
     assert_select "form[action=?]", admin_edition_translation_path(edition, 'fr') do
       assert_select "input[type='submit'][value=?]", "Delete"
@@ -80,7 +80,7 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
     end
     edition.save!
 
-    get :show, id: edition
+    get :show, params: { id: edition }
 
     assert_select "#translations" do
       assert_select "td", text: 'French'
@@ -92,7 +92,7 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
     with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body') }
     force_publish(edition)
 
-    get :show, id: edition
+    get :show, params: { id: edition }
 
     assert_select "#translations a[href='#{edit_admin_edition_translation_path(edition, 'fr')}']", count: 0
   end
@@ -102,7 +102,7 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
     with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body') }
     force_publish(edition)
 
-    get :show, id: edition
+    get :show, params: { id: edition }
 
     assert_select "#translations form[action=?]", admin_edition_translation_path(edition, 'fr'), count: 0
   end
@@ -116,7 +116,7 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
       "french-body-in-govspeak" => "french-body-in-html"
     }
     govspeak_transformation_fixture(transformation) do
-      get :show, id: edition
+      get :show, params: { id: edition }
     end
 
     assert_select "#translations" do

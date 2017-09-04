@@ -3,12 +3,6 @@ require 'test_helper'
 class ClassificationTest < ActiveSupport::TestCase
   should_protect_against_xss_and_content_attacks_on :name, :description
 
-  test "publishes to the publishing API" do
-    topic = create(:classification)
-    Whitehall::PublishingApi.expects(publish_async: topic).once
-    topic.publish_to_publishing_api
-  end
-
   test "should default to the 'current' state" do
     topic = Classification.new
     assert topic.current?

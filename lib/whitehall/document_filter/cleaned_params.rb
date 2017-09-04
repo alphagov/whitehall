@@ -42,13 +42,15 @@ module Whitehall::DocumentFilter
       @params
     end
 
+    def unsafe_params
+      @params.to_unsafe_h
+    end
+
     # Facebook referer changes the Rails array syntax in URLs.
     # Use this when the expected filter value can have multiple values.
     # This method converts a nested hash to a hash with just the values
     def clean_malformed_array_params(key)
-      if params[key].kind_of?(Hash)
-        params[key] = params[key].values
-      end
+      params[key] = params[key].values if unsafe_params[key].is_a?(Hash)
     end
   end
 end

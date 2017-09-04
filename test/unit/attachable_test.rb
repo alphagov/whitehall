@@ -24,7 +24,7 @@ class AttachableTest < ActiveSupport::TestCase
     attachment_3 = FileAttachment.new(title: 'Title', attachment_data: build(:attachment_data, file: file_fixture('sample.rtf')))
     publication.attachments << attachment_3
 
-    assert_equal [attachment_1, attachment_2, attachment_3], publication.attachments(true)
+    assert_equal [attachment_1, attachment_2, attachment_3], publication.attachments.reload
   end
 
   test "creating a new attachable thing with multiple attachments sets the correct ordering" do
@@ -189,7 +189,7 @@ class AttachableTest < ActiveSupport::TestCase
     attachment_3 = build(:html_attachment, title: 'Title', body: "Testing")
     publication.attachments << attachment_3
 
-    assert_equal [attachment_2, attachment_3], publication.html_attachments(true)
+    assert_equal [attachment_2, attachment_3], publication.html_attachments.reload
   end
 
   test 'attachment association excludes soft-deleted Attachments' do
@@ -198,7 +198,7 @@ class AttachableTest < ActiveSupport::TestCase
       build(:html_attachment, title: "HTML attachment", deleted: true),
     ])
 
-    assert_equal [attachment_1], publication.attachments(true)
+    assert_equal [attachment_1], publication.attachments.reload
   end
 
   test 'html_attachment association excludes soft-deleted HtmlAttachments' do
@@ -207,7 +207,7 @@ class AttachableTest < ActiveSupport::TestCase
       build(:html_attachment, title: "Another HTML attachment", deleted: true),
     ])
 
-    assert_equal [attachment_1], publication.html_attachments(true)
+    assert_equal [attachment_1], publication.html_attachments.reload
   end
 
   test '#has_command_paper? is true if an attachment is a command paper' do
@@ -262,10 +262,10 @@ class AttachableTest < ActiveSupport::TestCase
   end
 
   test '#delete_all_attachments soft-deletes any attachments that the edition has' do
-    publication = create(:draft_publication, :with_file_attachment, attachments: [
-      attachment_1 = build(:file_attachment, ordering: 0),
-      attachment_2 = build(:html_attachment, title: "Test HTML attachment", ordering: 1),
-    ])
+    publication = create(:draft_publication)
+
+    publication.attachments << attachment_1 = build(:file_attachment)
+    publication.attachments << attachment_2 = build(:html_attachment)
 
     publication.delete_all_attachments
 

@@ -35,11 +35,6 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
     assert_equal [], build(organisations: nil).organisations
   end
 
-  test "organisations= ignores any shenanigans" do
-    filter = build(organisations: [{ hax: '1'}])
-    assert_equal [], filter.organisations
-  end
-
   test "organisation_slugs returns slugs of organisations" do
     organisation = create(:organisation)
     assert_equal [organisation.slug], build(organisations: [organisation.slug]).organisation_slugs
@@ -52,11 +47,6 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
 
   test "topics= handles nil" do
     assert_equal [], build(topics: nil).topics
-  end
-
-  test "topics= ignores any shenanigans" do
-    filter = build(topics: [{ hax: '1'}])
-    assert_equal [], filter.topics
   end
 
   test "policy_area_slugs returns slugs of topics" do

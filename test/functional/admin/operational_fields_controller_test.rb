@@ -43,7 +43,7 @@ class Admin::OperationalFieldsControllerTest < ActionController::TestCase
   end
 
   test "create should create a new operational field" do
-    post :create, operational_field: { name: "field-a", description: "desc" }
+    post :create, params: { operational_field: { name: "field-a", description: "desc" } }
 
     operational_field = OperationalField.last
     refute_nil operational_field
@@ -52,7 +52,7 @@ class Admin::OperationalFieldsControllerTest < ActionController::TestCase
   end
 
   test "create should redirect to operational field list on success" do
-    post :create, operational_field: { name: "field-a" }
+    post :create, params: { operational_field: { name: "field-a" } }
 
     assert_redirected_to admin_operational_fields_path
   end
@@ -60,7 +60,7 @@ class Admin::OperationalFieldsControllerTest < ActionController::TestCase
   view_test "create should re-render form with errors on failure" do
     create(:operational_field, name: "field-a")
 
-    post :create, operational_field: { name: "field-a" }
+    post :create, params: { operational_field: { name: "field-a" } }
 
     assert_template "new"
     assert_select ".errors"
@@ -69,7 +69,7 @@ class Admin::OperationalFieldsControllerTest < ActionController::TestCase
   view_test "edit should display operational field form" do
     operational_field = create(:operational_field, name: "field-a", description: "description of field")
 
-    get :edit, id: operational_field
+    get :edit, params: { id: operational_field }
 
     assert_select "form[action=?]", admin_operational_field_path(operational_field) do
       assert_select "input[name='operational_field[name]'][value='field-a']"
@@ -80,7 +80,7 @@ class Admin::OperationalFieldsControllerTest < ActionController::TestCase
   test "udpate should modify operational field" do
     operational_field = create(:operational_field, name: "original")
 
-    put :update, id: operational_field, operational_field: { name: "new", description: "new desc" }
+    put :update, params: { id: operational_field, operational_field: { name: "new", description: "new desc" } }
 
     operational_field.reload
     assert_equal "new", operational_field.name

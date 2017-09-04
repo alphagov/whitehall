@@ -1,6 +1,11 @@
 require 'test_helper'
 
 class Edition::TopicalEventsTest < ActiveSupport::TestCase
+  test "includes PublishesToPublishingApi" do
+    topical_event = TopicalEvent.new
+    assert topical_event.is_a?(PublishesToPublishingApi)
+  end
+
   test "#destroy should also remove the classification memebership relationship" do
     topical_event = create(:topical_event)
     edition = create(:published_news_article, topical_events: [topical_event])

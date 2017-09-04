@@ -25,7 +25,7 @@ class PeopleControllerTest < ActionController::TestCase
   view_test "#show displays the details of the person and their roles" do
     first_appointment = create(:ministerial_role_appointment, person: @person)
     second_appointment = create(:ministerial_role_appointment, person: @person)
-    get :show, id: @person
+    get :show, params: { id: @person }
 
     assert_select "h1", text: @person.name
     assert_select ".biography", text: @person.biography
@@ -41,20 +41,20 @@ class PeopleControllerTest < ActionController::TestCase
   end
 
   view_test 'show has atom feed autodiscovery link' do
-    get :show, id: @person
+    get :show, params: { id: @person }
     assert_select_autodiscovery_link atom_feed_url_for(@person)
   end
 
   test "GET :show sets the slimmer header for the person's organisation" do
     role_appointment = create(:role_appointment, person: @person)
     organisation = role_appointment.organisations.first
-    get :show, id: @person
+    get :show, params: { id: @person }
 
     assert_equal "<#{organisation.analytics_identifier}>", response.headers["X-Slimmer-Organisations"]
   end
 
   test 'GET :show does not set the organisations slimmer header if the person is not associated with one' do
-    get :show, id: @person
+    get :show, params: { id: @person }
 
     assert_nil response.headers["X-Slimmer-Organisations"]
   end
@@ -67,7 +67,7 @@ class PeopleControllerTest < ActionController::TestCase
       create(:published_speech, role_appointment: role_appointment, delivered_on: 2.day.ago.to_date)
     ]
 
-    get :show, format: :atom, id: person
+    get :show, params: { id: person }, format: :atom
 
     assert_select_atom_feed do
       assert_select_atom_entries(expected_entries)
@@ -78,7 +78,7 @@ class PeopleControllerTest < ActionController::TestCase
     create(:ministerial_role_appointment, person: @person)
     rummager_has_policies_for_every_type
 
-    get :show, id: @person
+    get :show, params: { id: @person }
 
     assert_select "#policy" do
       assert_select "a[href='/government/policies/welfare-reform']", text: "Welfare reform"

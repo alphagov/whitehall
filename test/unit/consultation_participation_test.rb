@@ -83,7 +83,7 @@ class ConsultationParticipationTest < ActiveSupport::TestCase
 
     participation.destroy
 
-    assert_nothing_raised(ActiveRecord::RecordNotFound) do
+    assert_nothing_raised do
       form.reload
     end
   end

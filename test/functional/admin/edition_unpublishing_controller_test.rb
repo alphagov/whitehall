@@ -11,7 +11,7 @@ class Admin::EditionUnpublishingControllerTest < ActionController::TestCase
 
   test "#edit loads the unpublishing and renders the unpublish edit template" do
     unpublishing = @edition.unpublishing
-    get :edit, edition_id: @edition.id
+    get :edit, params: { edition_id: @edition.id }
 
     assert_response :success
     assert_template :edit
@@ -27,7 +27,7 @@ class Admin::EditionUnpublishingControllerTest < ActionController::TestCase
     withdrawer.expects(:perform!)
 
 
-    put :update, edition_id: @edition.id, unpublishing: { explanation: "this used to say withdrawn" }
+    put :update, params: { edition_id: @edition.id, unpublishing: { explanation: "this used to say withdrawn" } }
 
     assert_redirected_to admin_edition_path(@edition)
     assert_equal "The public explanation was updated", flash[:notice]
@@ -44,7 +44,7 @@ class Admin::EditionUnpublishingControllerTest < ActionController::TestCase
 
     unpublisher.expects(:perform!)
 
-    put :update, edition_id: @unpublished_edition.id, unpublishing: { explanation: "this used to say unpublished" }
+    put :update, params: { edition_id: @unpublished_edition.id, unpublishing: { explanation: "this used to say unpublished" } }
 
     assert_redirected_to admin_edition_path(@unpublished_edition)
     assert_equal "The public explanation was updated", flash[:notice]
@@ -54,7 +54,7 @@ class Admin::EditionUnpublishingControllerTest < ActionController::TestCase
   test "#update shows form with error if the update was not possible" do
     unpublishing = @edition.unpublishing
     original_explanation = unpublishing.explanation
-    put :update, edition_id: @edition, unpublishing: { explanation: nil }
+    put :update, params: { edition_id: @edition, unpublishing: { explanation: nil } }
 
     assert_template :edit
     assert_equal "The public explanation could not be updated", flash[:alert]

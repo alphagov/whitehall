@@ -11,11 +11,13 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
 
   test "POST on :create creates social media account" do
     worldwide_organisation = create(:worldwide_organisation)
-    post :create, social_media_account: {
-      social_media_service_id: @social_media_service.id,
-      url: "http://foo"
-      },
-      worldwide_organisation_id: worldwide_organisation
+    post :create, params: {
+              social_media_account: {
+          social_media_service_id: @social_media_service.id,
+          url: "http://foo"
+          },
+          worldwide_organisation_id: worldwide_organisation
+    }
 
     assert_redirected_to admin_worldwide_organisation_social_media_accounts_url(worldwide_organisation)
     assert_equal "#{@social_media_service.name} account created successfully", flash[:notice]
@@ -28,11 +30,13 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
     social_media_account = worldwide_organisation.social_media_accounts.create(social_media_service_id: @social_media_service.id, url: "http://foo")
 
     put :update,
-        id: social_media_account,
-        worldwide_organisation_id: worldwide_organisation,
-        social_media_account: {
-          social_media_service_id: @social_media_service.id,
-          url: "http://bar"
+        params: {
+          id: social_media_account,
+          worldwide_organisation_id: worldwide_organisation,
+          social_media_account: {
+            social_media_service_id: @social_media_service.id,
+            url: "http://bar"
+          }
         }
 
     assert_redirected_to admin_worldwide_organisation_social_media_accounts_url(worldwide_organisation)
@@ -42,15 +46,15 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
 
   test ":create and :update strip whitespace from urls" do
     worldwide_organisation = create(:worldwide_organisation)
-    post :create, worldwide_organisation_id: worldwide_organisation, social_media_account: {
+    post :create, params: { worldwide_organisation_id: worldwide_organisation, social_media_account: {
       social_media_service_id: @social_media_service.id,
       url: "http://foo "
-    }
+    } }
 
     social_media_account = worldwide_organisation.social_media_accounts.first
     assert_equal "http://foo", social_media_account.url
 
-    post :update, {
+    post :update, params: {
       id: social_media_account,
       worldwide_organisation_id: worldwide_organisation,
       social_media_account: {
@@ -65,7 +69,7 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
     organisation = create(:worldwide_organisation)
     social_media_account = create(:social_media_account, socialable: organisation)
 
-    delete :destroy, worldwide_organisation_id: organisation, id: social_media_account
+    delete :destroy, params: { worldwide_organisation_id: organisation, id: social_media_account }
 
     assert_redirected_to admin_worldwide_organisation_social_media_accounts_url(organisation)
     assert_equal "#{social_media_account.service_name} account deleted successfully", flash[:notice]

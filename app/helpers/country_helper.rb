@@ -4,7 +4,7 @@ module CountryHelper
   end
 
   def current_world_location_navigation_path(params)
-    url_for params.slice(:controller, :action, :id).merge(only_path: true)
+    url_for params.permit!.to_h.slice(:controller, :action, :id).merge(only_path: true)
   end
 
   def array_of_links_to_world_locations(world_locations)

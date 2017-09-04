@@ -2,7 +2,7 @@ require "test_helper"
 require "gds_api/test_helpers/publishing_api_v2"
 
 class StatisticsAnnouncementTest < ActiveSupport::TestCase
-  self.use_transactional_fixtures = false
+  self.use_transactional_tests = false
 
   # Similar methods to these exist in `gds_api/test_helpers/publishing_api`.
   # To avoid clashes between v1 and v2 helpers, we've reimplemented them here,
@@ -23,8 +23,6 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   setup do
     DatabaseCleaner.clean_with :truncation
     stub_any_publishing_api_call
-    # Additionally, stub v1 requests, while we need to support `publish_intents`.
-    stub_request(:any, %r{\A#{PUBLISHING_API_V1_ENDPOINT}})
   end
 
   test "it gets published to the Publishing API when saved" do

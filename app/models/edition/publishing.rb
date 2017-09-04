@@ -50,7 +50,7 @@ module Edition::Publishing
 
   def change_note_present!
     if change_note.blank? && !minor_change
-      errors[:change_note] = "can't be blank"
+      errors.add(:change_note, "can't be blank")
     end
   end
 

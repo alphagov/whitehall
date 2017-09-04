@@ -4,6 +4,10 @@ require "gds_api/test_helpers/publishing_api_v2"
 module PublishingApiTestHelpers
   include GdsApi::TestHelpers::PublishingApiV2
 
+  def stub_publishing_api_publish_intent
+    stub_request(:any, %r{\A#{Plek.current.find('publishing-api')}/publish-intent\/.+})
+  end
+
   def stub_publishing_api_registration_for(editions)
     Array(editions).each do |edition|
       presenter = PublishingApiPresenters.presenter_for(edition)
@@ -41,6 +45,21 @@ module PublishingApiTestHelpers
     editions.each do |edition|
       Services.publishing_api.expects(:put_content)
         .with(content_id: edition.content_id).never
+    end
+  end
+
+  def disable_publishes_to_publishing_api
+    all_classes = ObjectSpace.each_object(Class).select { |c| c.included_modules.include? PublishesToPublishingApi }
+    all_classes.each do |klass|
+      klass.any_instance.stubs(:publish_to_publishing_api)
+      klass.any_instance.stubs(:publish_gone_to_publishing_api)
+    end
+
+    yield
+
+    all_classes.each do |klass|
+      klass.any_instance.unstub(:publish_to_publishing_api)
+      klass.any_instance.unstub(:publish_gone_to_publishing_api)
     end
   end
 end

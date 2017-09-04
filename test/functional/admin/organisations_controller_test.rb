@@ -29,7 +29,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
   test "POST on :create denied if not a gds admin" do
     login_as :writer
-    post :create, organisation: {}
+    post :create, params: { organisation: {} }
     assert_response :forbidden
   end
 
@@ -51,7 +51,8 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     parent_org_2 = create(:organisation)
     topic_ids = [create(:topic), create(:topic)].map(&:id)
 
-    post :create, organisation: attributes.merge(
+    post :create, params: {
+organisation: attributes.merge(
       organisation_classifications_attributes: [
         { classification_id: topic_ids[0], ordering: 1 },
         { classification_id: topic_ids[1], ordering: 2 }
@@ -66,6 +67,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
         }
       }
     )
+}
 
     assert_redirected_to admin_organisations_path
     assert organisation = Organisation.last
@@ -81,17 +83,21 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   end
 
   test 'POST :create can set a custom logo' do
-    post :create, organisation: example_organisation_attributes.merge(
+    post :create, params: {
+organisation: example_organisation_attributes.merge(
       organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
       logo: fixture_file_upload('logo.png', 'image/png')
     )
+}
     assert_match /logo.png/, Organisation.last.logo.file.filename
   end
 
   test 'POST create can set number of important board members' do
-    post :create, organisation: example_organisation_attributes.merge(
+    post :create, params: {
+organisation: example_organisation_attributes.merge(
       important_board_members: 1,
     )
+}
     assert_equal 1, Organisation.last.important_board_members
   end
 
@@ -99,7 +105,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     attributes = example_organisation_attributes
 
     assert_no_difference('Organisation.count') do
-      post :create, organisation: attributes.merge(name: '')
+      post :create, params: { organisation: attributes.merge(name: '') }
     end
     assert_response :success
     assert_template :new
@@ -107,7 +113,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
   test "GET on :show loads the organisation and renders the show template" do
     organisation = create(:organisation)
-    get :show, id: organisation
+    get :show, params: { id: organisation }
 
     assert_response :success
     assert_template :show
@@ -115,7 +121,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
   test "GET on :edit loads the organisation and renders the edit template" do
     organisation = create(:organisation)
-    get :edit, id: organisation
+    get :edit, params: { id: organisation }
 
     assert_response :success
     assert_template :edit
@@ -138,7 +144,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation_chief_professional_officer_role = create(:organisation_role, organisation: organisation, role: chief_professional_officer_role)
     organisation_military_role = create(:organisation_role, organisation: organisation, role: military_role)
 
-    get :people, id: organisation
+    get :people, params: { id: organisation }
 
     assert_select "#minister_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_ministerial_role.id}']"
     refute_select "#minister_ordering input[type='hidden'][name^='organisation[organisation_roles_attributes]'][value='#{organisation_board_member_role.id}']"
@@ -174,7 +180,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     create(:role_appointment, person: person, role: ministerial_role, started_at: 1.day.ago)
     organisation = create(:organisation, roles: [ministerial_role])
 
-    get :people, id: organisation
+    get :people, params: { id: organisation }
 
     assert_select "#minister_ordering label", text: /Prime Minister/i
     assert_select "#minister_ordering label", text: /John Doe/i
@@ -187,7 +193,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation_junior_ministerial_role = create(:organisation_role, organisation: organisation, role: junior_ministerial_role, ordering: 2)
     organisation_senior_ministerial_role = create(:organisation_role, organisation: organisation, role: senior_ministerial_role, ordering: 1)
 
-    get :people, id: organisation
+    get :people, params: { id: organisation }
 
     assert_equal [organisation_senior_ministerial_role, organisation_junior_ministerial_role], assigns(:ministerial_organisation_roles)
   end
@@ -202,7 +208,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation_junior_board_member_role = create(:organisation_role, organisation: organisation, role: junior_board_member_role, ordering: 3)
     organisation_senior_board_member_role = create(:organisation_role, organisation: organisation, role: senior_board_member_role, ordering: 1)
 
-    get :people, id: organisation
+    get :people, params: { id: organisation }
 
     assert_equal [
       organisation_senior_board_member_role,
@@ -218,7 +224,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation_junior_traffic_commissioner_role = create(:organisation_role, organisation: organisation, role: junior_traffic_commissioner_role, ordering: 2)
     organisation_senior_traffic_commissioner_role = create(:organisation_role, organisation: organisation, role: senior_traffic_commissioner_role, ordering: 1)
 
-    get :people, id: organisation
+    get :people, params: { id: organisation }
 
     assert_equal [organisation_senior_traffic_commissioner_role, organisation_junior_traffic_commissioner_role], assigns(:traffic_commissioner_organisation_roles)
   end
@@ -230,7 +236,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation_junior_chief_professional_officer_role = create(:organisation_role, organisation: organisation, role: junior_chief_professional_officer_role, ordering: 2)
     organisation_senior_chief_professional_officer_role = create(:organisation_role, organisation: organisation, role: senior_chief_professional_officer_role, ordering: 1)
 
-    get :people, id: organisation
+    get :people, params: { id: organisation }
 
     assert_equal [organisation_senior_chief_professional_officer_role, organisation_junior_chief_professional_officer_role], assigns(:chief_professional_officer_roles)
   end
@@ -242,20 +248,20 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation_junior_representative_role = create(:organisation_role, organisation: organisation, role: junior_representative_role, ordering: 2)
     organisation_senior_representative_role = create(:organisation_role, organisation: organisation, role: senior_representative_role, ordering: 1)
 
-    get :people, id: organisation
+    get :people, params: { id: organisation }
 
     assert_equal [organisation_senior_representative_role, organisation_junior_representative_role], assigns(:special_representative_organisation_roles)
   end
 
   view_test "GET on :people does not display an empty ministerial roles section" do
     organisation = create(:organisation)
-    get :people, id: organisation
+    get :people, params: { id: organisation }
     refute_select "#minister_ordering"
   end
 
   view_test "GET on :people contains the relevant dom classes to facilitate the javascript ordering functionality" do
     organisation = create(:organisation, roles: [create(:ministerial_role)])
-    get :people, id: organisation
+    get :people, params: { id: organisation }
     assert_select "fieldset#minister_ordering.sortable input.ordering[name^='organisation[organisation_roles_attributes]']"
   end
 
@@ -269,7 +275,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation_senior_board_member_role = create(:organisation_role, organisation: organisation, role: senior_board_member_role)
     organisation_junior_board_member_role = create(:organisation_role, organisation: organisation, role: junior_board_member_role)
 
-    get :edit, id: organisation
+    get :edit, params: { id: organisation }
 
     assert_select 'select#organisation_important_board_members option', count: 2
   end
@@ -279,29 +285,29 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     ministerial_role = create(:ministerial_role)
     organisation_role = create(:organisation_role, organisation: organisation, role: ministerial_role, ordering: 1)
 
-    put :update, id: organisation.id, organisation: {organisation_roles_attributes: {
+    put :update, params: { id: organisation.id, organisation: { organisation_roles_attributes: {
       "0" => {id: organisation_role.id, ordering: "2"}
-    }}
+    } } }
 
     assert_equal 2, organisation_role.reload.ordering
   end
 
   test 'PUT :update can set a custom logo' do
     organisation = create(:organisation)
-    put :update, id: organisation, organisation: {
+    put :update, params: { id: organisation, organisation: {
       organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
       logo: fixture_file_upload('logo.png')
-    }
+    } }
     assert_match /logo.png/, organisation.reload.logo.file.filename
   end
 
   test 'PUT :update can set default news image' do
     organisation = create(:organisation)
-    put :update, id: organisation, organisation: {
+    put :update, params: { id: organisation, organisation: {
       default_news_image_attributes: {
         file: fixture_file_upload('minister-of-funk.960x640.jpg')
       }
-    }
+    } }
     assert_equal 'minister-of-funk.960x640.jpg', organisation.reload.default_news_image.file.file.filename
   end
 
@@ -310,7 +316,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation, name: 'org name')
     create(:organisation_role, organisation: organisation, role: ministerial_role)
 
-    put :update, id: organisation, organisation: {name: ""}
+    put :update, params: { id: organisation, organisation: { name: "" } }
 
     assert_response :success
     assert_template :edit
@@ -324,7 +330,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
       name: "Ministry of Noise",
     }
 
-    put :update, id: organisation, organisation: organisation_attributes
+    put :update, params: { id: organisation, organisation: organisation_attributes }
 
     organisation.reload
     assert_equal "Ministry of Noise", organisation.name
@@ -333,12 +339,12 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   test "PUT on :update handles non-departmental public body information" do
     organisation = create(:organisation)
 
-    put :update, id: organisation, organisation: {
+    put :update, params: { id: organisation, organisation: {
       ocpa_regulated: 'false',
       public_meetings: 'true',
       public_minutes: 'true',
       regulatory_function: 'false'
-    }
+    } }
 
     organisation.reload
 
@@ -353,12 +359,12 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     featured_link = create(:featured_link, linkable: organisation)
 
-    put :update, id: organisation, organisation: { featured_links_attributes: { '0' => {
+    put :update, params: { id: organisation, organisation: { featured_links_attributes: { '0' => {
       id: featured_link.id,
       title: 'New title',
       url: featured_link.url,
       _destroy: 'false'
-    } } }
+    } } } }
 
     assert_response :redirect
     assert_equal 'New title', featured_link.reload.title
@@ -369,17 +375,17 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     writer = create(:writer, organisation: organisation)
     login_as(writer)
 
-    get :edit, id: organisation
+    get :edit, params: { id: organisation }
     refute_select ".homepage-priority"
 
     managing_editor = create(:managing_editor, organisation: organisation)
     login_as(managing_editor)
-    get :edit, id: organisation
+    get :edit, params: { id: organisation }
     assert_select ".homepage-priority"
 
     gds_editor = create(:gds_editor, organisation: organisation)
     login_as(gds_editor)
-    get :edit, id: organisation
+    get :edit, params: { id: organisation }
     assert_select ".homepage-priority"
   end
 
@@ -388,15 +394,15 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     gds_editor = create(:gds_editor, organisation: organisation)
     login_as(gds_editor)
 
-    get :edit, id: organisation
+    get :edit, params: { id: organisation }
     assert_response :success
 
     organisation2 = create(:organisation)
-    get :edit, id: organisation2
+    get :edit, params: { id: organisation2 }
     assert_response 403
 
     organisation2.parent_organisations << organisation
-    get :edit, id: organisation2
+    get :edit, params: { id: organisation2 }
     assert_response :success
   end
 
@@ -409,14 +415,14 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
                                   alt_text: 'Image alternative text')
 
 
-    get :features, id: organisation, locale: 'en'
+    get :features, params: { id: organisation, locale: 'en' }
     assert_response :success
   end
 
   view_test "GET :features without an organisation defaults to the user organisation" do
     organisation = create(:organisation)
 
-    get :features, id: organisation, locale: 'en'
+    get :features, params: { id: organisation, locale: 'en' }
     assert_response :success
 
     selected_organisation = css_select('#organisation option[selected="selected"]')
@@ -428,17 +434,17 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     writer = create(:writer, organisation: organisation)
     login_as(writer)
 
-    get :edit, id: organisation
+    get :edit, params: { id: organisation }
     refute_select ".political-status"
 
     managing_editor = create(:managing_editor, organisation: organisation)
     login_as(managing_editor)
-    get :edit, id: organisation
+    get :edit, params: { id: organisation }
     refute_select ".political-status"
 
     gds_editor = create(:gds_editor, organisation: organisation)
     login_as(gds_editor)
-    get :edit, id: organisation
+    get :edit, params: { id: organisation }
     assert_select ".political-status"
   end
 end

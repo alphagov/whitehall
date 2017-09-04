@@ -52,8 +52,8 @@ class StatisticsAnnouncementDateChangeTest < ActiveSupport::TestCase
   end
 
   test "saving a date change updates the announcement" do
-    Timecop.return
     announcement = create(:statistics_announcement)
+    Timecop.return
 
     new_date = announcement.build_statistics_announcement_date_change
     new_date.save!

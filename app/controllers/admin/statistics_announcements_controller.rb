@@ -78,8 +78,9 @@ private
   end
 
   def filter_params
-    params.slice(:title, :page, :per_page, :organisation_id, :dates, :unlinked_only).
-      reverse_merge(filter_defaults)
+    params.permit!.to_h
+      .slice(:title, :page, :per_page, :organisation_id, :dates, :unlinked_only)
+      .reverse_merge(filter_defaults)
   end
 
   def filter_defaults

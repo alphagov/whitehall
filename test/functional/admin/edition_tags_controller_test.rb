@@ -29,7 +29,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
     publishing_api_patch_request = stub_request(:patch, "#{@publishing_api_endpoint}/links/#{@edition.content_id}")
       .to_return(status: 409)
 
-    put :update, edition_id: @edition, taxonomy_tag_form: { previous_version: 1, taxons: [child_taxon_content_id] }
+    put :update, params: { edition_id: @edition, taxonomy_tag_form: { previous_version: 1, taxons: [child_taxon_content_id] } }
 
     assert_requested publishing_api_patch_request
     assert_redirected_to edit_admin_edition_tags_path(@edition)
@@ -39,7 +39,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
   test 'should post taxons to publishing-api' do
     stub_publishing_api_links_with_taxons(@edition.content_id, [])
 
-    put :update, edition_id: @edition, taxonomy_tag_form: { taxons: [child_taxon_content_id], previous_version: 1 }
+    put :update, params: { edition_id: @edition, taxonomy_tag_form: { taxons: [child_taxon_content_id], previous_version: 1 } }
 
     assert_publishing_api_patch_links(
       @edition.content_id,
@@ -53,7 +53,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
   test 'should post empty array to publishing api if no taxons are selected' do
     stub_publishing_api_links_with_taxons(@edition.content_id, [])
 
-    put :update, edition_id: @edition, taxonomy_tag_form: { previous_version: 1 }
+    put :update, params: { edition_id: @edition, taxonomy_tag_form: { previous_version: 1 } }
 
     assert_publishing_api_patch_links(@edition.content_id, links: { taxons: [] }, previous_version: "1")
   end
@@ -61,7 +61,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
   view_test 'should check a child taxon and its parents when only a child taxon is returned' do
     stub_publishing_api_links_with_taxons(@edition.content_id, [child_taxon_content_id])
 
-    get :edit, edition_id: @edition
+    get :edit, params: { edition_id: @edition }
 
     assert_select "input[value='#{parent_taxon_content_id}'][checked='checked']"
     assert_select "input[value='#{child_taxon_content_id}'][checked='checked']"
@@ -70,7 +70,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
   view_test 'should check a parent taxon but not its children when only a parent taxon is returned' do
     stub_publishing_api_links_with_taxons(@edition.content_id, [parent_taxon_content_id])
 
-    get :edit, edition_id: @edition
+    get :edit, params: { edition_id: @edition }
 
     assert_select "input[value='#{parent_taxon_content_id}'][checked='checked']"
     refute_select "input[value='#{child_taxon_content_id}'][checked='checked']"

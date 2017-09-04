@@ -12,21 +12,21 @@ class Admin::StatisticsAnnouncementUnpublishingsControllerTest < ActionControlle
 
   test "GDS Editor permission required to unpublish" do
     login_as :departmental_editor
-    get :new, statistics_announcement_id: @announcement.id
+    get :new, params: { statistics_announcement_id: @announcement.id }
     assert_response 403
   end
 
   view_test "GET :new renders a form" do
-    get :new, statistics_announcement_id: @announcement
+    get :new, params: { statistics_announcement_id: @announcement }
 
     assert_response :success
     assert_select "input[name='statistics_announcement[redirect_url]']"
   end
 
   test "POST :create with invalid params rerenders the form" do
-    post :create, statistics_announcement_id: @announcement, statistics_announcement: {
+    post :create, params: { statistics_announcement_id: @announcement, statistics_announcement: {
       redirect_url: 'https://youtube.com'
-    }
+    } }
 
     assert_template :new
   end
@@ -36,9 +36,9 @@ class Admin::StatisticsAnnouncementUnpublishingsControllerTest < ActionControlle
 
     stub_publishing_api_destroy_intent(@announcement.base_path)
 
-    post :create, statistics_announcement_id: @announcement, statistics_announcement: {
+    post :create, params: { statistics_announcement_id: @announcement, statistics_announcement: {
       redirect_url: redirect_url
-    }
+    } }
 
     @announcement.reload
     assert_redirected_to admin_statistics_announcements_path

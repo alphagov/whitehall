@@ -9,7 +9,7 @@ class Admin::FeatureListsControllerTest < ActionController::TestCase
     world_location = create(:world_location)
     feature_list = create(:feature_list, featurable: world_location, locale: :fr)
 
-    get :show, id: feature_list
+    get :show, params: { id: feature_list }
 
     assert_redirected_to features_admin_world_location_path(feature_list.featurable, locale: feature_list.locale)
   end
@@ -20,10 +20,10 @@ class Admin::FeatureListsControllerTest < ActionController::TestCase
     feature1 = create(:feature, feature_list: feature_list, ordering: 1)
     feature2 = create(:feature, feature_list: feature_list, ordering: 2)
 
-    post :reorder, id: feature_list, ordering: {
+    post :reorder, params: { id: feature_list, ordering: {
       feature2.id.to_s => "1",
       feature1.id.to_s => "2"
-    }
+    } }
 
     assert_equal [feature2, feature1], feature_list.reload.features
   end
@@ -32,7 +32,7 @@ class Admin::FeatureListsControllerTest < ActionController::TestCase
     world_location = create(:world_location)
     feature_list = create(:feature_list, featurable: world_location, locale: :fr)
 
-    post :reorder, id: feature_list
+    post :reorder, params: { id: feature_list }
 
     assert_redirected_to features_admin_world_location_path(feature_list.featurable, locale: feature_list.locale)
   end

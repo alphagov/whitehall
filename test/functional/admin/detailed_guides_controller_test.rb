@@ -64,7 +64,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
       }
     )
 
-    get :show, id: detailed_guide.id
+    get :show, params: { id: detailed_guide.id }
 
     assert_select "#user-needs-section" do |section|
       assert_select "#user-need-id-#{content_id_a}" do

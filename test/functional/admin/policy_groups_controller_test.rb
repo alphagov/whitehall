@@ -23,7 +23,7 @@ class Admin::PolicyGroupsControllerTest < ActionController::TestCase
   end
 
   test "POST :create" do
-    post :create, policy_group: { name: 'Policy Forum' }
+    post :create, params: { policy_group: { name: 'Policy Forum' } }
 
     assert_response :redirect
     assert_redirected_to admin_policy_groups_path
@@ -33,7 +33,7 @@ class Admin::PolicyGroupsControllerTest < ActionController::TestCase
   view_test "GET :edit" do
     group = create(:policy_group)
 
-    get :edit, id: group
+    get :edit, params: { id: group }
 
     assert_response :success
     assert_equal group, assigns(:policy_group)
@@ -42,7 +42,7 @@ class Admin::PolicyGroupsControllerTest < ActionController::TestCase
   test "PUT :update" do
     group = create(:policy_group, name: 'Policy Forum')
 
-    put :update, id: group, policy_group: { name: 'Policy Board' }
+    put :update, params: { id: group, policy_group: { name: 'Policy Board' } }
 
     assert_response :redirect
     assert_redirected_to admin_policy_groups_path
@@ -52,7 +52,7 @@ class Admin::PolicyGroupsControllerTest < ActionController::TestCase
   test "DELETE :destroy is forbidden for writers" do
     group = create(:policy_group)
 
-    delete :destroy, id: group
+    delete :destroy, params: { id: group }
 
     assert_response :forbidden
     assert PolicyGroup.exists?(group.id)
@@ -62,7 +62,7 @@ class Admin::PolicyGroupsControllerTest < ActionController::TestCase
     group = create(:policy_group)
 
     login_as :gds_editor
-    delete :destroy, id: group
+    delete :destroy, params: { id: group }
 
     assert_response :redirect
     assert_redirected_to admin_policy_groups_path

@@ -29,7 +29,7 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
     eighteenth_century_pm = create(:ministerial_role_appointment, role: pm_role, started_at: DateTime.civil(1701), ended_at: DateTime.civil(1704))
 
     chancellor_account =  create(:historical_account, roles: [chancellor_role])
-    get :index, role: 'past-prime-ministers'
+    get :index, params: { role: 'past-prime-ministers' }
 
     assert_response :success
     assert_template :index
@@ -50,7 +50,7 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
   test "GET on :show loads the person, appointment and historical account for previous Prime Ministers" do
     pm_account = create(:historical_account, roles: [pm_role])
     create(:role_appointment, person: pm_account.person, role: pm_role)
-    get :show, role: 'past-prime-ministers', person_id: pm_account.person.slug
+    get :show, params: { role: 'past-prime-ministers', person_id: pm_account.person.slug }
 
     assert_response :success
     assert_template :show
@@ -62,7 +62,7 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
   test "GET on :show loads the person, appointment and historical account for previous Chanellors" do
     chancellor_account = create(:historical_account, roles: [chancellor_role])
     create(:role_appointment, person: chancellor_account.person, role: chancellor_role)
-    get :show, role: 'past-chancellors', person_id: chancellor_account.person.slug
+    get :show, params: { role: 'past-chancellors', person_id: chancellor_account.person.slug }
 
     assert_response :success
     assert_template :show
@@ -75,7 +75,7 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
     chancellor_account = create(:historical_account, roles: [chancellor_role])
 
     assert_raise ActiveRecord::RecordNotFound do
-      get :show, role: 'past-prime-ministers', person_id: chancellor_account.person.slug
+      get :show, params: { role: 'past-prime-ministers', person_id: chancellor_account.person.slug }
     end
   end
 

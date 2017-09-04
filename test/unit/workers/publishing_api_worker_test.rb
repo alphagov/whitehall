@@ -34,18 +34,20 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
   end
 
   test "registers an organisation with the publishing api" do
-    organisation = create(:organisation)
-    presenter = PublishingApiPresenters.presenter_for(organisation)
+    disable_publishes_to_publishing_api do
+      organisation = create(:organisation)
+      presenter = PublishingApiPresenters.presenter_for(organisation)
 
-    requests = [
-      stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, update_type: "major", locale: "en")
-    ]
+      requests = [
+        stub_publishing_api_put_content(presenter.content_id, presenter.content),
+        stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
+        stub_publishing_api_publish(presenter.content_id, update_type: "major", locale: "en")
+      ]
 
-    PublishingApiWorker.new.perform(organisation.class.name, organisation.id)
+      PublishingApiWorker.new.perform(organisation.class.name, organisation.id)
 
-    requests.each { |request| assert_requested request }
+      requests.each { |request| assert_requested request }
+    end
   end
 
   test "fails gracefully if the model cannot be found" do
@@ -71,23 +73,25 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
   end
 
   test "allows the locale to be overridden" do
-    organisation = create(:organisation)
-    presenter = PublishingApiPresenters.presenter_for(organisation)
+    disable_publishes_to_publishing_api do
+      organisation = create(:organisation)
+      presenter = PublishingApiPresenters.presenter_for(organisation)
 
-    requests = I18n.with_locale(:es) do
-      organisation.name = "Spanish name"
-      organisation.save!
+      requests = I18n.with_locale(:es) do
+        organisation.name = "Spanish name"
+        organisation.save!
 
-      [
-        stub_publishing_api_put_content(presenter.content_id, presenter.content),
-        stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-        stub_publishing_api_publish(presenter.content_id, { locale: "es", update_type: "major" })
-      ]
+        [
+          stub_publishing_api_put_content(presenter.content_id, presenter.content),
+          stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
+          stub_publishing_api_publish(presenter.content_id, locale: "es", update_type: "major")
+        ]
+      end
+
+      PublishingApiWorker.new.perform(organisation.class.name, organisation.id, nil, 'es')
+
+      assert_all_requested requests
     end
-
-    PublishingApiWorker.new.perform(organisation.class.name, organisation.id, nil, 'es')
-
-    assert_all_requested requests
   end
 
   test "only raises >= 500 errors" do
@@ -106,7 +110,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
 
     stub_any_publishing_api_put_content.and_raise(error)
 
-    Airbrake.expects(:notify_or_ignore)
+    Airbrake.expects(:notify)
       .with(error, parameters: { explanation: "The error code indicates that retrying this request will not help. This job is being aborted and will not be retried." })
     PublishingApiWorker.new.perform(organisation.class.name, organisation.id, nil, 'en')
   end

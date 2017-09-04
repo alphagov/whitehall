@@ -9,6 +9,10 @@ class Edition::TopicsTest < ActiveSupport::TestCase
     @topic = create(:topic)
   end
 
+  test "includes PublishesToPublishingApi" do
+    assert Topic.new.is_a?(PublishesToPublishingApi)
+  end
+
   test "#destroy should also remove the classification membership relationship" do
     edition = create(:draft_publication, topics: [@topic])
     relation = edition.classification_memberships.first
@@ -27,7 +31,7 @@ class Edition::TopicsTest < ActiveSupport::TestCase
     edition = EditionWithTopics.new(attributes_for_edition)
 
     refute edition.valid?, "Edition should not be valid"
-    assert_match /at least one required/, edition.errors[:policy_area].first
+    assert_match(/at least one required/, edition.errors[:policy_area].first)
   end
 
   test "imported editions are valid without any topics" do
@@ -47,6 +51,7 @@ class Edition::TopicsTest < ActiveSupport::TestCase
   end
 
 private
+
   def attributes_for_edition
     attributes_for(:edition).merge(creator: build(:creator))
   end

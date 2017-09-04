@@ -5,7 +5,7 @@
 // the compiled file.
 //
 //= require govuk-admin-template
-//= require vendor/jquery/jquery-ui-1.10.2.custom
+//= require jquery.ui.all
 //= require vendor/jquery/jquery.player.min
 //= require vendor/google-diff-match-patch.js
 //

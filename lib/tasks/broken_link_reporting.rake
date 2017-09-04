@@ -24,7 +24,7 @@ task :generate_broken_link_reports, [:reports_dir, :email_address, :organisation
     Notifications.broken_link_reports(report_zip_path, email_address).deliver_now
     logger.info("Email sent.")
   rescue => e
-    Airbrake.notify_or_ignore(e,
+    Airbrake.notify(e,
       error_message: "Exception raised during broken link report generation: '#{e.message}'")
     raise
   end
