@@ -13,9 +13,11 @@ private
   # Further work is required to make the notification bus more robust.
   rescue => e
     if Rails.env.production?
-      Airbrake.notify(e,
-        error_message: "Exception raised during scheduled publishing attempt: '#{e.message}'",
-        parameters: { edition_id: edition.id }
+      GovukError.notify(e,
+        extra: {
+          error_message: "Exception raised during scheduled publishing attempt: '#{e.message}'",
+          edition_id: edition.id
+        }
       )
     else
       raise e

@@ -110,8 +110,8 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
 
     stub_any_publishing_api_put_content.and_raise(error)
 
-    Airbrake.expects(:notify)
-      .with(error, parameters: { explanation: "The error code indicates that retrying this request will not help. This job is being aborted and will not be retried." })
+    GovukError.expects(:notify)
+      .with(error, extra: { explanation: "The error code indicates that retrying this request will not help. This job is being aborted and will not be retried." })
     PublishingApiWorker.new.perform(organisation.class.name, organisation.id, nil, 'en')
   end
 end

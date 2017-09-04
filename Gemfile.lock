@@ -1,13 +1,3 @@
-GIT
-  remote: git://github.com/alphagov/airbrake.git
-  revision: ad9c926a56535c48f95c33824a76e10bc8f91179
-  branch: silence-dep-warnings-for-rails-5
-  specs:
-    airbrake (4.3.8)
-      builder
-      multi_json
-      rails (>= 5.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -41,9 +31,8 @@ GEM
       globalid (>= 0.3.6)
     activemodel (5.0.4)
       activesupport (= 5.0.4)
-    activemodel-serializers-xml (1.0.1)
+    activemodel-serializers-xml (1.0.2)
       activemodel (> 5.x)
-      activerecord (> 5.x)
       activesupport (> 5.x)
       builder (~> 3.1)
     activerecord (5.0.4)
@@ -64,7 +53,7 @@ GEM
     ast (2.3.0)
     astrolabe (1.3.1)
       parser (~> 2.2)
-    autoprefixer-rails (7.1.2.4)
+    autoprefixer-rails (7.1.3)
       execjs
     babosa (1.0.2)
     better_errors (2.3.0)
@@ -80,7 +69,7 @@ GEM
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.3.0)
     builder (3.2.3)
-    byebug (9.0.6)
+    byebug (9.1.0)
     capybara (2.15.1)
       addressable
       mini_mime (>= 0.1.3)
@@ -100,7 +89,7 @@ GEM
       ci_reporter (~> 2.0)
       minitest (~> 5.0)
     cliver (0.3.2)
-    coderay (1.1.1)
+    coderay (1.1.2)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.1.x)
@@ -158,7 +147,7 @@ GEM
     ffi (1.9.18)
     friendly_id (5.2.1)
       activerecord (>= 4.0.0)
-    gds-api-adapters (47.8.0)
+    gds-api-adapters (47.9.1)
       link_header
       lrucache (~> 0.1.1)
       null_logger
@@ -199,11 +188,13 @@ GEM
       bootstrap-sass (= 3.3.5.1)
       jquery-rails (~> 4.3.1)
       rails (>= 3.2.0)
+    govuk_app_config (0.2.0)
+      sentry-raven (~> 2.6.3)
+      statsd-ruby (~> 1.4.0)
     govuk_frontend_toolkit (7.0.1)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
-    govuk_sidekiq (1.0.3)
-      airbrake (>= 3.1.0)
+    govuk_sidekiq (2.0.0)
       gds-api-adapters (>= 19.1.0)
       redis-namespace (~> 1.5.2)
       sidekiq (~> 4.2.8)
@@ -212,7 +203,7 @@ GEM
     graphviz_transitions (0.1.2)
       ruby-graphviz
       transitions
-    hashdiff (0.3.5)
+    hashdiff (0.3.6)
     hashery (2.1.2)
     hashie (3.5.6)
     highline (1.7.8)
@@ -280,7 +271,7 @@ GEM
       minitest (~> 5)
     mlanett-redis-lock (0.2.7)
       redis
-    mocha (1.2.1)
+    mocha (1.3.0)
       metaclass (~> 0.0.1)
     money (6.9.0)
       i18n (>= 0.6.4, < 0.9)
@@ -291,7 +282,7 @@ GEM
     mustache (1.0.5)
     mysql2 (0.4.9)
     netrc (0.11.0)
-    newrelic_rpm (4.3.0.335)
+    newrelic_rpm (4.4.0.336)
     nio4r (2.1.0)
     nokogiri (1.8.0)
       mini_portile2 (~> 2.2.0)
@@ -312,7 +303,7 @@ GEM
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     parallel (1.12.0)
-    parallel_tests (2.14.3)
+    parallel_tests (2.15.0)
       parallel
     parser (2.4.0.0)
       ast (~> 2.2)
@@ -332,8 +323,8 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    pry-byebug (3.4.2)
-      byebug (~> 9.0)
+    pry-byebug (3.5.0)
+      byebug (~> 9.1)
       pry (~> 0.10)
     rack (2.0.3)
     rack-cache (1.7.0)
@@ -396,7 +387,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
-    rinku (2.0.2)
+    rinku (2.0.3)
     rubocop (0.35.1)
       astrolabe (~> 1.3)
       parser (>= 2.2.3.0, < 3.0)
@@ -427,6 +418,8 @@ GEM
       sprockets (> 2.11)
       sprockets-rails
       tilt
+    sentry-raven (2.6.3)
+      faraday (>= 0.7.6, < 1.0)
     shared_mustache (1.0.1)
       execjs (>= 1.2.4)
       mustache (~> 1.0.2)
@@ -460,7 +453,7 @@ GEM
     sprockets (3.7.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
-    sprockets-rails (3.2.0)
+    sprockets-rails (3.2.1)
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
@@ -472,14 +465,14 @@ GEM
     teaspoon-qunit (1.20.0)
       teaspoon (>= 1.0.0)
     test-queue (0.2.13)
-    thor (0.19.4)
+    thor (0.20.0)
     thread_safe (0.3.6)
     tilt (2.0.8)
     timecop (0.9.1)
     tins (1.6.0)
     transitions (1.2.1)
     ttfunk (1.5.1)
-    typhoeus (1.1.2)
+    typhoeus (1.3.0)
       ethon (>= 0.9.0)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
@@ -515,7 +508,6 @@ PLATFORMS
 DEPENDENCIES
   activemodel-serializers-xml
   addressable (>= 2.3.7)
-  airbrake!
   asset_bom_removal-rails (~> 1.0.0)
   babosa (= 1.0.2)
   better_errors
@@ -536,7 +528,7 @@ DEPENDENCIES
   factory_girl
   faraday
   friendly_id (~> 5.2.1)
-  gds-api-adapters (~> 47.8)
+  gds-api-adapters (~> 47.9)
   gds-sso (~> 13.2)
   globalize (= 5.1.0.beta2)
   govspeak (~> 5.0.3)
@@ -544,8 +536,9 @@ DEPENDENCIES
   govuk-lint
   govuk_ab_testing (~> 2.4x)
   govuk_admin_template (~> 6.2)
+  govuk_app_config (~> 0.2.0)
   govuk_frontend_toolkit (= 7.0.1)
-  govuk_sidekiq (= 1.0.3)
+  govuk_sidekiq (= 2.0.0)
   graphviz_transitions
   invalid_utf8_rejector (~> 0.0.4)
   isbn_validation
