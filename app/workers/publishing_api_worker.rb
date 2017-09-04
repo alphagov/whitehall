@@ -34,6 +34,6 @@ class PublishingApiWorker < WorkerBase
 
   def handle_client_error(error)
     explanation = "The error code indicates that retrying this request will not help. This job is being aborted and will not be retried."
-    Airbrake.notify(error, parameters: { explanation: explanation })
+    GovukError.notify(error, extra: { explanation: explanation })
   end
 end

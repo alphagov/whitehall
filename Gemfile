@@ -33,10 +33,10 @@ gem 'chronic'
 gem 'jbuilder'
 gem 'rack_strip_client_ip', '~> 0.0.2'
 gem 'invalid_utf8_rejector', '~> 0.0.4'
-gem 'govuk_sidekiq', '1.0.3'
+gem 'govuk_sidekiq', '2.0.0'
 gem 'redis-namespace'
 gem 'raindrops', '0.18.0'
-gem 'airbrake', github: 'alphagov/airbrake', branch: 'silence-dep-warnings-for-rails-5'
+gem 'govuk_app_config', '~> 0.2.0'
 gem 'pdf-reader', '~> 2.0'
 gem 'typhoeus', '~> 1.1'
 gem 'dalli', '~> 2.7'
@@ -59,7 +59,7 @@ gem 'govuk_ab_testing', '~> 2.4x'
 if ENV['GDS_API_ADAPTERS_DEV']
   gem 'gds-api-adapters', path: '../gds-api-adapters'
 else
-  gem 'gds-api-adapters', '~> 47.8'
+  gem 'gds-api-adapters', '~> 47.9'
 end
 
 if ENV['GOVSPEAK_DEV']
