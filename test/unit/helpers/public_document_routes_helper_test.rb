@@ -69,8 +69,8 @@ class PublicDocumentRoutesHelperTest < LocalisedUrlTestCase
     assert_equal "/world/organisations/#{org.slug}/about/research.fr", public_document_path(cip, locale: :fr)
 
     cip.corporate_information_page_type = CorporateInformationPageType::AboutUs
-    assert_equal "/world/organisations/#{org.slug}/about/about", public_document_path(cip)
-    assert_equal "/world/organisations/#{org.slug}/about/about.fr", public_document_path(cip, locale: :fr)
+    assert_equal "/world/organisations/#{org.slug}", public_document_path(cip)
+    assert_equal "/world/organisations/#{org.slug}.fr", public_document_path(cip, locale: :fr)
   end
 
   test 'returns the document URL using Whitehall public_host and protocol' do
