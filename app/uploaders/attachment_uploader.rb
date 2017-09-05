@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-require 'open3'
-
 class AttachmentUploader < WhitehallUploader
   PDF_CONTENT_TYPE = 'application/pdf'
   INDEXABLE_TYPES = %w(csv doc docx ods odp odt pdf ppt pptx rdf rtf txt xls xlsx xml)
@@ -46,15 +44,29 @@ class AttachmentUploader < WhitehallUploader
   end
 
   def get_first_page_as_png(width, height)
-    output, status = Timeout.timeout(THUMBNAIL_GENERATION_TIMEOUT) do
-      Open3.capture2e(pdf_thumbnail_command(width, height))
+    output, exit_status = Timeout.timeout(THUMBNAIL_GENERATION_TIMEOUT) do
+      [
+        `#{pdf_thumbnail_command(width, height)}`,
+        $?.exitstatus,
+      ]
     end
-    unless status.success?
-      Rails.logger.warn "Error thumbnailing PDF. Exit status: #{status.exitstatus}; Output: #{output}"
+
+    unless exit_status == 0
+      Rails.logger.warn "Error thumbnailing PDF. Exit status: #{exit_status}; Output: #{output}"
       use_fallback_pdf_thumbnail
     end
   rescue Timeout::Error => e
-    Rails.logger.warn "PDF thumbnail generation took longer than #{THUMBNAIL_GENERATION_TIMEOUT} seconds. Using fallback pdf thumbnail: #{FALLBACK_PDF_THUMBNAIL}."
+    message = "PDF thumbnail generation took longer than #{THUMBNAIL_GENERATION_TIMEOUT} seconds. Using fallback pdf thumbnail: #{FALLBACK_PDF_THUMBNAIL}."
+    Rails.logger.warn message
+
+    GovukError.notify(
+      e,
+      extra: {
+        error_message: message,
+        path: relative_path,
+      },
+    )
+
     use_fallback_pdf_thumbnail
   end
 
