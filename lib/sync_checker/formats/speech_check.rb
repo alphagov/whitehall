@@ -12,7 +12,11 @@ module SyncChecker
               .joins(:classification_memberships)
               .where(classification_memberships: {edition_id: edition_expected_in_live.id})
               .pluck(:content_id)
-          )
+          ),
+          Checks::LinksCheck.new(
+            "world_locations",
+            expected_world_location_content_ids,
+          ),
         ]
 
         if edition_expected_in_live.role_appointment
@@ -88,6 +92,10 @@ module SyncChecker
             "url" => speaker.image.url,
           }
         }
+      end
+
+      def expected_world_location_content_ids
+        edition_expected_in_live.world_locations.map(&:content_id)
       end
     end
   end

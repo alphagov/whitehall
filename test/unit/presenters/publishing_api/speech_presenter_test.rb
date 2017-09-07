@@ -80,10 +80,12 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
   describe "links" do
     let(:policy_content_id) { SecureRandom.uuid }
     let(:topical_event) { create(:topical_event) }
+    let(:world_location) { create(:world_location) }
 
     before do
       speech.add_policy(policy_content_id)
       speech.topical_events << topical_event
+      speech.world_locations << world_location
     end
 
     it "contains the expected keys and values" do
@@ -93,6 +95,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
       assert_includes(presented.links.keys, :topical_events)
       assert_includes(presented.links.keys, :people)
       assert_includes(presented.links.keys, :roles)
+      assert_includes(presented.links.keys, :world_locations)
 
       assert_includes(presented.links[:organisations], speech.organisations.first.content_id)
       assert_includes(presented.links[:related_policies], policy_content_id)
@@ -100,6 +103,7 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
       assert_includes(presented.links[:topical_events], topical_event.content_id)
       assert_includes(presented.links[:roles], speech.role_appointment.role.content_id)
       assert_includes(presented.links[:people], person.content_id)
+      assert_includes(presented.links[:world_locations], world_location.content_id)
     end
 
     context "no role appointment (no speaker)" do

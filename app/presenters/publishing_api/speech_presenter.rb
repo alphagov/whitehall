@@ -47,7 +47,8 @@ module PublishingApi
         [
           :organisations,
           :policy_areas,
-          :related_policies
+          :related_policies,
+          :world_locations,
         ]
       )
       links.merge!(links_for_speaker)
