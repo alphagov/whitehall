@@ -121,6 +121,8 @@ class EmailTopicChecker
     # https://trello.com/c/qv1l3WBy
     if ENV["IGNORE_CONSULTATIONS_ISSUE"]
       urls = urls.reject { |url| url.include?("publication_filter_option=consultations") }
+      urls = urls.reject { |url| url.include?("publication_filter_option=open-consultations") }
+      urls = urls.reject { |url| url.include?("publication_filter_option=closed-consultations") }
     end
 
     urls
