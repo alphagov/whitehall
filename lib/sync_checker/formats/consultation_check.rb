@@ -25,17 +25,31 @@ module SyncChecker
       end
 
       def checks_for_draft(_locale)
-        super << Checks::LinksCheck.new(
-          "ministers",
-          expected_minister_content_ids(edition_expected_in_draft)
-        )
+        super.tap do |checks|
+          checks << Checks::LinksCheck.new(
+            "ministers",
+            expected_minister_content_ids(edition_expected_in_draft)
+          )
+
+          checks << Checks::LinksCheck.new(
+            "topical_events",
+            expected_topical_event_content_ids(edition_expected_in_draft)
+          )
+        end
       end
 
       def checks_for_live(_locale)
-        super << Checks::LinksCheck.new(
-          "ministers",
-          expected_minister_content_ids(edition_expected_in_live)
-        )
+        super.tap do |checks|
+          checks << Checks::LinksCheck.new(
+            "ministers",
+            expected_minister_content_ids(edition_expected_in_live)
+          )
+
+          checks << Checks::LinksCheck.new(
+            "topical_events",
+            expected_topical_event_content_ids(edition_expected_in_live)
+          )
+        end
       end
 
     private
@@ -210,6 +224,11 @@ module SyncChecker
           .role_appointments
           .try(:collect, &:person)
           .try(:collect, &:content_id)
+      end
+
+
+      def expected_topical_event_content_ids(edition)
+        edition.topical_events.pluck(:content_id)
       end
     end
   end

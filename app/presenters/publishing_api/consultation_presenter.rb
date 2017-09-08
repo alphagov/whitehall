@@ -37,6 +37,7 @@ module PublishingApi
         .merge(PayloadBuilder::People.for(consultation, :ministers))
         .merge(PayloadBuilder::People.for(consultation, :people))
         .merge(PayloadBuilder::Roles.for(consultation))
+        .merge(PayloadBuilder::TopicalEvents.for(consultation))
     end
 
   private
