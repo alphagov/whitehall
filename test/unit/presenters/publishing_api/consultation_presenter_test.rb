@@ -617,7 +617,8 @@ module PublishingApi::ConsultationPresenterTest
     setup do
       self.consultation = create(
         :consultation,
-        role_appointments: create_list(:ministerial_role_appointment, 2)
+        role_appointments: create_list(:ministerial_role_appointment, 2),
+        topical_events: create_list(:topical_event, 2),
       )
     end
 
@@ -627,6 +628,7 @@ module PublishingApi::ConsultationPresenterTest
         .map(&:person)
         .map(&:content_id)
 
+      assert expected_content_ids.present?
       assert_equal expected_content_ids, presented_links[:ministers]
     end
 
@@ -636,6 +638,7 @@ module PublishingApi::ConsultationPresenterTest
         .map(&:person)
         .map(&:content_id)
 
+      assert expected_content_ids.present?
       assert_equal expected_content_ids, presented_links[:people]
     end
 
@@ -645,7 +648,17 @@ module PublishingApi::ConsultationPresenterTest
         .map(&:role)
         .map(&:content_id)
 
+      assert expected_content_ids.present?
       assert_equal expected_content_ids, presented_links[:roles]
+    end
+
+    test "topical events" do
+      expected_content_ids = consultation
+        .topical_events
+        .map(&:content_id)
+
+      assert expected_content_ids.present?
+      assert_equal expected_content_ids, presented_links[:topical_events]
     end
   end
 end
