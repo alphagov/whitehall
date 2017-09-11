@@ -1,9 +1,7 @@
 require "test_helper"
-require 'gds_api/test_helpers/need_api'
 
 class EditionTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
-  include GdsApi::TestHelpers::NeedApi
 
   test "returns downcased humanized class name as format name" do
     assert_equal 'case study', CaseStudy.format_name
