@@ -14,6 +14,7 @@
 
     &.next {
       float: right;
+      direction: ltr;
       text-align: right;
 
       a {
@@ -30,6 +31,9 @@
       }
     }
     &.previous {
+      direction: ltr;
+      text-align: left;
+
       a {
           padding: $gutter-half 0 $gutter-half $gutter+5px;
       }
