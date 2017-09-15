@@ -5,14 +5,12 @@ module Whitehall
   autoload :Uploader, 'whitehall/uploader'
   autoload :UrlMaker, 'whitehall/url_maker'
   autoload :ExtraQuoteRemover, 'whitehall/extra_quote_remover'
-  autoload :GovUkDelivery, 'whitehall/gov_uk_delivery'
   autoload :GovspeakRenderer, 'whitehall/govspeak_renderer'
 
   mattr_accessor :content_store
   mattr_accessor :default_cache_max_age
   mattr_accessor :document_collections_cache_max_age
   mattr_accessor :government_search_client
-  mattr_accessor :govuk_delivery_client
   mattr_accessor :maslow
   mattr_accessor :publishing_api_client
   mattr_accessor :search_backend
