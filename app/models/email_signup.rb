@@ -1,7 +1,14 @@
+require 'gds_api/helpers'
+
 class EmailSignup
   include ActiveModel::Conversion
   extend ActiveModel::Naming
   include ActiveModel::Validations
+  extend GdsApi::Helpers
+
+  def self.client
+    email_alert_api
+  end
 
   attr_reader :feed
   validates_presence_of :feed
@@ -14,21 +21,24 @@ class EmailSignup
   def save
     if valid?
       ensure_govdelivery_topic_exists
-      EmailAlertApiSignupWorker.perform_async(topic_id, @feed)
       true
     end
   end
 
   def ensure_govdelivery_topic_exists
-    @ensure_govdelivery_topic_exists ||= Whitehall.govuk_delivery_client.topic(feed, description)
+    @ensure_govdelivery_topic_exists ||= self.class.client.find_or_create_subscriber_list(criteria)
+  end
+
+  def criteria
+    UrlToSubscriberListCriteria.new(feed).convert.merge("title" => description)
   end
 
   def topic_id
-    ensure_govdelivery_topic_exists.parsed_content['partner_id']
+    ensure_govdelivery_topic_exists['subscriber_list']['gov_delivery_id']
   end
 
   def govdelivery_url
-    Whitehall.govuk_delivery_client.signup_url(feed)
+    ensure_govdelivery_topic_exists['subscriber_list']['subscription_url']
   end
 
   def description
@@ -47,6 +57,6 @@ class EmailSignup
 protected
 
   def feed_url_validator
-    @feed_url_validator ||= Whitehall::GovUkDelivery::FeedUrlValidator.new(feed)
+    @feed_url_validator ||= FeedUrlValidator.new(feed)
   end
 end
