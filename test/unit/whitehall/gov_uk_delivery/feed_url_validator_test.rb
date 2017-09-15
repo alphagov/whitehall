@@ -39,17 +39,19 @@ class Whitehall::GovUkDelivery::FeedUrlValidatorTest < ActiveSupport::TestCase
     create(:topic, slug: 'arts-and-culture', name: 'Arts and culture')
     create(:ministerial_department, :with_published_edition, name: 'The Cabinet Office')
     create(:world_location, slug: 'afghanistan', name: 'Afghanistan')
+    create(:person, slug: 'jane-doe', forename: 'Jane', surname: 'Doe')
 
     feed_url = feed_url_for(
       document_type: "announcements",
       topics: ["arts-and-culture"],
       departments: ["the-cabinet-office"],
-      world_locations: ["afghanistan"]
+      world_locations: ["afghanistan"],
+      people: ["jane-doe"]
     )
     validator = FeedUrlValidator.new(feed_url)
 
     assert validator.valid?
-    assert_equal "announcements related to The Cabinet Office, Arts and culture and Afghanistan", validator.description
+    assert_equal "announcements related to The Cabinet Office, Jane Doe, Arts and culture and Afghanistan", validator.description
   end
 
   test 'validates and describes a statistics filter feed url with filter options' do

@@ -11,6 +11,11 @@ module DocumentFilterHelper
     unsorted_grouped_options_for_select(filter_options.for(:organisations).grouped, selected_values)
   end
 
+  def people_filter_options(selected_people = [])
+    selected_value = selected_people ? selected_people.map(&:slug) : ["all"]
+    filter_option_html(filter_options.for(:people), selected_value)
+  end
+
   def publication_type_filter_options(selected_publication_filter_option = nil)
     selected_value = selected_publication_filter_option ? selected_publication_filter_option.slug : "all"
     filter_option_html(filter_options.for(:publication_type), selected_value)

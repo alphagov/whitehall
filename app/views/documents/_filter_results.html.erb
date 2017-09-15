@@ -4,6 +4,7 @@
     pluralized_result_type: result_type.pluralize(filter.documents.total_count),
     departments: filter_results_selections(filter.selected_organisations, 'departments'),
     topics: filter_results_selections(filter.selected_topics, 'topics'),
+    people: filter_results_selections(filter.selected_people_option, 'people'),
     world_locations_any?: filter.selected_locations.any?,
     world_locations: filter_results_selections(filter.selected_locations, 'world_locations'),
     keywords: filter_results_keywords(filter.keywords),

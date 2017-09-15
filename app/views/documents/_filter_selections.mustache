@@ -9,6 +9,11 @@
     by <strong>{{name}}</strong> <a href="{{url}}" data-field="departments" data-val="{{value}}" title="Remove {{name}} filter">&times;</a> {{joining}}
   {{/departments}}
 </span>
+<span class="people-selections">
+  {{#people}}
+  by <strong>{{name}}</strong> <a href="{{url}}" data-field="people" data-val="{{value}}" title="Remove {{name}} filter">&times;</a> {{joining}}
+  {{/people}}
+</span>
 {{#world_locations_any?}}
 from
 <span class="locations-selections">

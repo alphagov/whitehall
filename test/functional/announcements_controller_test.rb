@@ -134,6 +134,16 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "index indicates selected people in the filter selector" do
+    a_person = create(:person, forename: "Jane", surname: "Doe")
+
+    get :index, params: { people: [a_person.slug] }
+
+    assert_select "select[name='people[]']" do
+      assert_select "option[selected='selected']", text: "Jane Doe"
+    end
+  end
+
   def assert_documents_appear_in_order_within(containing_selector, expected_documents)
     articles = css_select "#{containing_selector} li.document-row"
     expected_document_ids = expected_documents.map { |doc| dom_id(doc) }

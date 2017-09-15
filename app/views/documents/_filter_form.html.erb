@@ -42,6 +42,13 @@
           </div>
         <% end %>
 
+        <% if filters.include? :people %>
+          <div class="filter">
+            <%= label_tag "people", "Person" %>
+            <%= select_tag "people[]", people_filter_options(@filter.selected_people_option), class: "single-row-select", id: "people" %>
+          </div>
+        <% end %>
+
         <% if filters.include? :official_document_status %>
           <div class="filter">
             <%= label_tag :official_document_status, "Official document status" %>
