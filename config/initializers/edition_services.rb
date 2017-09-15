@@ -34,10 +34,6 @@ Whitehall.edition_services.tap do |coordinator|
     ServiceListeners::AuthorNotifier
       .new(edition, options[:user])
       .notify!
-
-    Whitehall::GovUkDelivery::Notifier
-      .new(edition)
-      .edition_published!
   end
 
   coordinator.subscribe(/^(force_publish|publish|withdraw|unwithdraw)$/) do |_event, edition, _options|

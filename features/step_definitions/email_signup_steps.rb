@@ -1,9 +1,5 @@
-Given(/^govuk delivery exists$/) do
-  mock_govuk_delivery_client
-end
-
 Given(/^email alert api exists$/) do
-  mock_email_alert_api
+  EmailSignup.stubs(client: mock_email_alert_api)
 end
 
 When(/^I sign up for emails$/) do
@@ -67,16 +63,6 @@ Then(/^I should be signed up for the "(.*?)" world location mailing list$/) do |
   assert_signed_up_to_mailing_list("/world/#{world_location_slug}.atom", world_location_name)
 end
 
-Then(/^a govuk_delivery notification should have been sent to the mailing list I signed up for$/) do
-  mock_govuk_delivery_client.assert_method_called(:notify, with: ->(feed_urls, _subject, _body, logging_params) {
-    feed_urls.include?(@feed_signed_up_to)
-  })
-end
-
-Then(/^no govuk_delivery notifications should have been sent yet$/) do
-  mock_govuk_delivery_client.refute_method_called(:notify)
-end
-
 When(/^click the link for the latest email alerts$/) do
   within '.feeds' do
     click_on 'email'
@@ -91,25 +77,26 @@ Then(/^I should see email signup information for "(.*?)"$/) do |organisation_nam
   )
 end
 
-def mock_govuk_delivery_client
-  @mock_client ||= RetrospectiveStub.new.tap { |mock_client|
-    mock_client.stub :topic, returns: mock(parsed_content: { 'topic_id' => 'TOPIC_123', 'success' => true })
-    mock_client.stub :signup_url, returns: 'http://govdelivery.url'
-    mock_client.stub :notify
-    Whitehall.stubs(govuk_delivery_client: mock_client)
-  }
-end
-
 def mock_email_alert_api
-  @email_mock_client ||= RetrospectiveStub.new.tap { |mock_client|
-    mock_client.stub :find_or_create_subscriber_list, returns: { 'subscriber_list' => { 'topic_id' => 'TOPIC_123'} }
-    EmailAlertApiSignupWorker.any_instance.stubs(email_alert_api: mock_client)
-  }
+  @email_mock_client ||= RetrospectiveStub.new.tap do |mock|
+    mock.stub(
+      :find_or_create_subscriber_list,
+      returns: {
+        'subscriber_list' => {
+          'topic_id' => 'TOPIC_123',
+          'subscription_url' => 'http://example.com',
+        },
+      },
+    )
+  end
 end
 
+def assert_signed_up_to_mailing_list(feed_path, expected_title)
+  feed_signed_up_to = public_url(feed_path)
+  expected_links = UrlToSubscriberListCriteria.new(feed_signed_up_to).convert
 
-def assert_signed_up_to_mailing_list(feed_path, description)
-  @feed_signed_up_to = public_url(feed_path)
-  mock_govuk_delivery_client.assert_method_called(:topic, with: [@feed_signed_up_to, description])
-  mock_govuk_delivery_client.assert_method_called(:signup_url, with: [@feed_signed_up_to])
+  expected_call = lambda do |args|
+    assert_equal expected_links, args.fetch("links")
+    assert_equal expected_title, args.fetch("title")
+  end
 end
