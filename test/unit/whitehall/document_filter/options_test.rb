@@ -60,6 +60,7 @@ module Whitehall
           announcement_type
           official_documents
           locations
+          people
         }
 
         valid_option_names.each do |option_name|
@@ -77,6 +78,7 @@ module Whitehall
           announcement_filter_option
           official_document_status
           world_locations
+          people_ids
         }
 
         valid_filter_keys.each do |filter_key|
@@ -151,6 +153,20 @@ module Whitehall
         assert_equal ["All policy areas", "all"], options.all
         assert_equal expected_grouped_options, options.grouped
         assert_equal [], options.ungrouped
+      end
+
+      test "can get a list of options for people" do
+        one = create(:person)
+        another = create(:person)
+        options = filter_options.for(:people)
+
+        expected_ungrouped_options = [
+          [one.name, one.slug],
+          [another.name, another.slug],
+        ]
+
+        assert_equal ["All people", "all"], options.all
+        assert_equal expected_ungrouped_options, options.ungrouped
       end
 
       test "can get the list of options for official documents" do

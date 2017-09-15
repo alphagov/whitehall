@@ -19,7 +19,7 @@ module Whitehall::DocumentFilter
 
       @topics          = Array(@params[:topics])
       @departments     = Array(@params[:departments])
-      @people_ids      = Array(@params[:people_id])
+      @people_ids      = Array(@params[:people_ids])
       @world_locations = Array(@params[:world_locations])
 
       @official_document_status = @params[:official_document_status]
@@ -62,7 +62,7 @@ module Whitehall::DocumentFilter
 
     def selected_people_option
       @people_ids.reject! { |l| l == "all" }
-      People.where(id: @people_ids)
+      Person.where(slug: @people_ids)
     end
 
     def selected_locations

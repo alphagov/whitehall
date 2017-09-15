@@ -41,7 +41,7 @@ module Whitehall::DocumentFilter
 
     def filter_by_people
       if @people_ids.present? && @people_ids != ["all"]
-        {people: @people.map(&:slug)}
+        { people: @people_ids }
       else
         {}
       end

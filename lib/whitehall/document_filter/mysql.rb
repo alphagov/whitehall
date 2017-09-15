@@ -24,6 +24,7 @@ module Whitehall::DocumentFilter
       filter_by_announcement_filter_option!
       filter_by_include_world_location_news_option!
       filter_by_location!
+      filter_by_people!
       apply_sort_direction!
       paginate!
     end
@@ -110,12 +111,55 @@ INNER JOIN `world_locations` ON `world_locations`.`id` = `edition_world_location
       end
     end
 
+    # Whitehall has two ways to associate people with editions.
+    #  1. For Speech types:
+    #   by adding an id to the role_appointment_id field in the editions table (for Speech types)
+    #  2. For NewsArticle, Consultation, Publication, FatalityNotice:
+    #   by adding one or more entries to the edition_role_appointments table
+    # Since filtering with a `where` clause by, for example, `role_appointment_id` on the editions table
+    # could potentially filter out some editions that have the many to many through edition_role_appointments
+    # (and vice versa), we cannot simply chain the filtering of each of these against the @documents ActiveRecord
+    # relation.
+    # As such, we end up with this monstrosity which essentially runs two queries to get the list
+    # of document ids that are associated with a role appointment, and then filters @documents against that
+    # list of ids.
+    def filter_by_people!
+      if selected_people_option.any?
+        people = Person.where(slug: @people_ids)
+
+        @documents = @documents.where(id: document_ids_associated_with_people(people))
+      end
+    end
+
     def paginate!
       @documents = @documents.page(page).per(per_page)
     end
 
     def apply_sort_direction!
       @documents = @documents.in_reverse_chronological_order
+    end
+
+    def document_ids_associated_with_people(people)
+      document_ids_with_role_appointments(people) + document_ids_with_a_role_appointment(people)
+    end
+
+    def document_ids_with_role_appointments(people)
+      @documents
+        .joins("INNER JOIN `edition_role_appointments` ON `edition_role_appointments`.`edition_id` = `editions`.`id`")
+        .where(edition_role_appointments: { role_appointment_id: role_appointment_ids_for(people) })
+        .pluck(:id)
+    end
+
+    def document_ids_with_a_role_appointment(people)
+      @documents
+        .where(role_appointment_id: role_appointment_ids_for(people))
+        .pluck(:id)
+    end
+
+    def role_appointment_ids_for(record_set)
+      record_set.collect do |record|
+        record.role_appointments.flat_map(&:id)
+      end
     end
   end
 end

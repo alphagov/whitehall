@@ -30,6 +30,7 @@ module Whitehall
         announcement_type: 'announcement_filter_option',
         official_documents: 'official_document_status',
         locations: 'world_locations',
+        people: 'people_ids',
       }.freeze
 
       def valid_option_name?(option_name)
@@ -74,6 +75,13 @@ module Whitehall
 
       def options_for_topics
         @options_for_topics ||= StructuredOptions.new(all_label: "All policy areas", grouped: Classification.grouped_by_type)
+      end
+
+      def options_for_people
+        @options_for_people ||= StructuredOptions.new(
+          all_label: "All people",
+          ungrouped: Person.all.sort_by(&:name).map { |o| [o.name, o.slug] }
+        )
       end
 
       def options_for_document_type

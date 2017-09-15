@@ -207,6 +207,52 @@ module Whitehall::DocumentFilter
       assert_equal [statement.id], filter.documents.map(&:id)
     end
 
+    # whitehall has two different concepts for attaching a person to an edition
+    #  - role appointments (plural through edition_role_appointments) - attach many people to an edition
+    #  - role appointment (singular through role_appointment_id field on editions table) - attach sing person to speech
+    test "can filter announcements by role appointments" do
+      a_person = create(:person, forename: "Jane", surname: "Doe", slug: "jane-doe")
+      ministerial_role_appointment = create(:ministerial_role_appointment, person: a_person)
+
+      news_article = create(:published_news_article, news_article_type: NewsArticleType::NewsStory, role_appointments: [ministerial_role_appointment])
+      another_news_article = create(:published_news_article, news_article_type: NewsArticleType::NewsStory, role_appointments: [ministerial_role_appointment])
+      create(:published_speech, speech_type: SpeechType::Transcript)
+
+      filter = create_filter(Announcement.published, people_ids: ["jane-doe"])
+
+      assert_equal 2, filter.documents.count
+      assert_equal [news_article.id, another_news_article.id].sort, filter.documents.map(&:id).sort
+    end
+
+    test "can filter announcements by role appointment" do
+      a_person = create(:person, forename: "Anony", surname: "Mous", slug: "anony-mous")
+      person_not_in_filter = create(:person, forename: "Notin", surname: "Searchresults", slug: "not-in-search-results")
+      ministerial_role_appointment = create(:ministerial_role_appointment, person: a_person)
+      role_appointment_not_in_filter = create(:ministerial_role_appointment, person: person_not_in_filter)
+
+      create(:published_news_article, news_article_type: NewsArticleType::NewsStory)
+      speech = create(:published_speech, speech_type: SpeechType::Transcript, role_appointment: ministerial_role_appointment)
+      create(:published_speech, speech_type: SpeechType::Transcript, role_appointment: role_appointment_not_in_filter)
+
+      filter = create_filter(Announcement.published, people_ids: ["anony-mous"])
+      assert_equal [speech.id], filter.documents.map(&:id)
+    end
+
+    test "can filter announcements by both role appointment and role appointments" do
+      a_person = create(:person, forename: "Anony", surname: "Mous", slug: "anony-mous")
+      person_not_in_filter = create(:person, forename: "Notin", surname: "Searchresults", slug: "not-in-search-results")
+      ministerial_role_appointment = create(:ministerial_role_appointment, person: a_person)
+      role_appointment_not_in_filter = create(:ministerial_role_appointment, person: person_not_in_filter)
+
+      news_article = create(:published_news_article, news_article_type: NewsArticleType::NewsStory, role_appointments: [ministerial_role_appointment])
+      create(:published_news_article, news_article_type: NewsArticleType::NewsStory, role_appointments: [role_appointment_not_in_filter])
+      create(:published_fatality_notice)
+      speech = create(:published_speech, speech_type: SpeechType::Transcript, role_appointment: ministerial_role_appointment)
+
+      filter = create_filter(Announcement.published, people_ids: ["anony-mous"])
+      assert_equal [news_article.id, speech.id].sort, filter.documents.map(&:id).sort
+    end
+
     test "if page param given, returns a page of documents using page size of 20" do
       document_scope.expects(:page).with(3).returns(document_scope)
       document_scope.expects(:per).with(20).returns(document_scope)
