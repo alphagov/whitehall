@@ -58,6 +58,7 @@ end
 Given /^another user edits the (publication|news article|consultation|speech) "([^"]*)" changing the title to "([^"]*)"$/ do |document_type, original_title, new_title|
   edition = document_class(document_type).find_by!(title: original_title)
   edition.update_attributes!(title: new_title)
+  puts "LOCK VERSION (cucumber step): #{edition.lock_version}"
 end
 
 Given /^a published (publication|news article|consultation|speech) "([^"]*)" that's the responsibility of:$/ do |document_type, title, table|
