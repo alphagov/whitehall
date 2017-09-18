@@ -100,6 +100,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def update
     @edition.assign_attributes(edition_params)
+    puts "LOCK VERSION (controller): #{@edition.lock_version}"
     if updater.can_perform? && @edition.save_as(current_user)
       updater.perform!
 
