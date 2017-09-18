@@ -1,7 +1,9 @@
 require 'test_helper'
+require 'gds_api/test_helpers/email_alert_api'
 
 class EmailSignupsControllerTest < ActionController::TestCase
   include FeedHelper
+  include GdsApi::TestHelpers::EmailAlertApi
 
   view_test 'GET :new with a valid field displays the subscription form' do
     topic = create(:topic)
@@ -20,12 +22,13 @@ class EmailSignupsControllerTest < ActionController::TestCase
   end
 
   test 'POST :create with a valid email signup redirects to the govdelivery URL' do
-    response = mock('Response', parsed_content: { 'partner_id' => 'TOPIC-123', 'success' => true })
-    Whitehall.govuk_delivery_client.stubs(:topic).returns(response)
-    Whitehall.govuk_delivery_client.stubs(:signup_url).returns('http://govdelivery_signup_url')
-    EmailAlertApiSignupWorker.stubs(:perform_async)
-
     topic = create(:topic)
+
+    email_alert_api_has_subscriber_list(
+      "links" => { "policy_areas" => [topic.content_id] },
+      "subscription_url" => "http://govdelivery_signup_url",
+    )
+
     post :create, params: { email_signup: { feed: atom_feed_url_for(topic) } }
 
     assert_response :redirect
@@ -33,10 +36,10 @@ class EmailSignupsControllerTest < ActionController::TestCase
   end
 
   view_test 'POST :create with an invalid email signup shows an error message' do
-    Whitehall.govuk_delivery_client.expects(:topic).never
     post :create, params: { email_signup: { feed: 'http://gov.uk/invalid/feed.atom' } }
 
     assert_response :success
     assert_select "p", text: /we could not find a valid email alerts feed/
+    assert_not_requested(stub_any_email_alert_api_call)
   end
 end

@@ -6,11 +6,6 @@ class RequestTracingTest < ActionDispatch::IntegrationTest
     @draft_edition = create(:draft_publication)
     @presenter = PublishingApiPresenters.presenter_for(@draft_edition)
     login_as(create(:gds_admin))
-
-    # Use the real GovUkDelivery client
-    Whitehall.govuk_delivery_client = GdsApi::GovUkDelivery.new(Plek.find('govuk-delivery'))
-
-    stub_request(:post, /govuk-delivery/)
   end
 
   def force_publish(edition, headers = {})
@@ -45,8 +40,6 @@ class RequestTracingTest < ActionDispatch::IntegrationTest
     onward_headers = {
       "GOVUK-Request-Id" => @govuk_request_id
     }
-
-    assert_requested(:post, /govuk-delivery/, headers: onward_headers)
 
     # Main document
     content_id = @draft_edition.content_id
