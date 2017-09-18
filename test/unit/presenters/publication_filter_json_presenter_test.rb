@@ -25,4 +25,24 @@ class PublicationFilterJsonPresenterTest < PresenterTestCase
       'It should have a category attribute of "Publication"'
     )
   end
+
+  test "an atom feed containing 'open-consultations' returns the path with 'consultations'" do
+    @view_context.stubs(:filter_atom_feed_url).returns("open-consultations")
+
+    presenter = PublicationFilterJsonPresenter.new(@filter, @view_context)
+    email_signup_url = JSON.parse(presenter.to_json)["email_signup_url"]
+
+    refute email_signup_url.include?("open-consultations")
+    assert email_signup_url.include?("consultations")
+  end
+
+  test "an atom feed containing 'closed-consultations' returns the path with 'consultations'" do
+    @view_context.stubs(:filter_atom_feed_url).returns("closed-consultations")
+
+    presenter = PublicationFilterJsonPresenter.new(@filter, @view_context)
+    email_signup_url = JSON.parse(presenter.to_json)["email_signup_url"]
+
+    refute email_signup_url.include?("closed-consultations")
+    assert email_signup_url.include?("consultations")
+  end
 end
