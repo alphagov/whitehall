@@ -10,13 +10,13 @@ module EmailSignupHelper
     end
   end
 
-private
-
-  def generalise_consultations(atom_feed_url)
-    atom_feed_url
+  def generalise_consultations(url)
+    url
       .gsub("open-consultations", "consultations")
       .gsub("closed-consultations", "consultations")
   end
+
+private
 
   def organisation_email_signup_information_path_from_atom_feed(atom_feed_url)
     organisation_email_signup_information_path extract_slug_from_atom_feed(atom_feed_url)
