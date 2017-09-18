@@ -15,6 +15,8 @@ class PublishingApiCorporateInformationPagesWorker
     PublishingApiDocumentRepublishingWorker.perform_async(
       about_us_page.document_id,
     )
+
+    organisation.save! if organisation
   end
 
   alias :delete :publish

@@ -1,10 +1,14 @@
 require 'test_helper'
 
 class PublishingApiCorporateInformationPagesWorkerTest < ActiveSupport::TestCase
-  def assert_document_republished(document_id)
+  def assert_document_and_organisation_republished(document_id)
     PublishingApiDocumentRepublishingWorker
       .expects(:perform_async)
       .with(document_id)
+
+    Whitehall::PublishingApi
+      .expects(:publish_async)
+      .with(organisation)
 
     event = self.class.name.demodulize.underscore
 
@@ -32,56 +36,56 @@ class PublishingApiCorporateInformationPagesWorkerTest < ActiveSupport::TestCase
   end
 
   class Delete < PublishingApiCorporateInformationPagesWorkerTest
-    test 'it republishes the corresponding about page' do
-      assert_document_republished about_page.document_id
+    test 'it republishes the corresponding about page and organisation' do
+      assert_document_and_organisation_republished(about_page.document_id)
     end
   end
 
   class ForcePublish < PublishingApiCorporateInformationPagesWorkerTest
-    test 'it republishes the corresponding about page' do
-      assert_document_republished about_page.document_id
+    test 'it republishes the corresponding about page and organisation' do
+      assert_document_and_organisation_republished(about_page.document_id)
     end
   end
 
   class Publish < PublishingApiCorporateInformationPagesWorkerTest
-    test 'it republishes the corresponding about page' do
-      assert_document_republished about_page.document_id
+    test 'it republishes the corresponding about page and organisation' do
+      assert_document_and_organisation_republished(about_page.document_id)
     end
   end
 
   class Republish < PublishingApiCorporateInformationPagesWorkerTest
-    test 'it republishes the corresponding about page' do
-      assert_document_republished about_page.document_id
+    test 'it republishes the corresponding about page and organisation' do
+      assert_document_and_organisation_republished(about_page.document_id)
     end
   end
 
   class Unpublish < PublishingApiCorporateInformationPagesWorkerTest
-    test 'it republishes the corresponding about page' do
-      assert_document_republished about_page.document_id
+    test 'it republishes the corresponding about page and organisation' do
+      assert_document_and_organisation_republished(about_page.document_id)
     end
   end
 
   class Unwithdraw < PublishingApiCorporateInformationPagesWorkerTest
-    test 'it republishes the corresponding about page' do
-      assert_document_republished about_page.document_id
+    test 'it republishes the corresponding about page and organisation' do
+      assert_document_and_organisation_republished(about_page.document_id)
     end
   end
 
   class UpdateDraft < PublishingApiCorporateInformationPagesWorkerTest
-    test 'it republishes the corresponding about page' do
-      assert_document_republished about_page.document_id
+    test 'it republishes the corresponding about page and organisation' do
+      assert_document_and_organisation_republished(about_page.document_id)
     end
   end
 
   class UpdateDraftTranslation < PublishingApiCorporateInformationPagesWorkerTest
-    test 'it republishes the corresponding about page' do
-      assert_document_republished about_page.document_id
+    test 'it republishes the corresponding about page and organisation' do
+      assert_document_and_organisation_republished(about_page.document_id)
     end
   end
 
   class Withdraw < PublishingApiCorporateInformationPagesWorkerTest
-    test 'it republishes the corresponding about page' do
-      assert_document_republished about_page.document_id
+    test 'it republishes the corresponding about page and organisation' do
+      assert_document_and_organisation_republished(about_page.document_id)
     end
   end
 end
