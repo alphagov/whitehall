@@ -200,4 +200,50 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     Whitehall::SearchIndex.expects(:add).with(corp_page).never
     corp_page.update_in_search_index
   end
+
+  test "re-indexes the organisation after the 'About Us' CIP is saved" do
+    org = create(:organisation, govuk_status: 'live')
+    corp_page = create(
+      :corporate_information_page,
+      :published,
+      organisation: org,
+      corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id,
+    )
+
+    Whitehall::SearchIndex.expects(:add).with(org).once
+    corp_page.save!
+  end
+
+  test "re-indexes the worldwide organisation after the 'About Us' CIP is saved" do
+    worldwide_org = create(:worldwide_organisation)
+    about_us = create(
+      :corporate_information_page,
+      :published,
+      organisation: nil,
+      worldwide_organisation: worldwide_org,
+      corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id,
+    )
+
+    Whitehall::SearchIndex.expects(:add).with(worldwide_org).once
+    about_us.save!
+  end
+
+  test "does not re-index organisation for other types of corporate info page" do
+    org = create(:organisation, govuk_status: 'live')
+    other_page = create(:corporate_information_page, :published, organisation: org)
+    Whitehall::SearchIndex.expects(:add).with(org).never
+    other_page.save!
+  end
+
+  test "does not re-index worldwide organisation for other types of corporate info page" do
+    worldwide_org = create(:worldwide_organisation)
+    other_page = create(
+      :corporate_information_page,
+      :published,
+      organisation: nil,
+      worldwide_organisation: worldwide_org,
+    )
+    Whitehall::SearchIndex.expects(:add).with(worldwide_org).never
+    other_page.save!
+  end
 end
