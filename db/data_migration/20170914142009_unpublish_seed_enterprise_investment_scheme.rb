@@ -15,4 +15,4 @@ if detailed_guide.published_edition
   unpublisher.perform!
 
   PublishingApiDocumentRepublishingWorker.new.perform(document_id)
-)
+end
