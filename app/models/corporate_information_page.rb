@@ -2,6 +2,8 @@ class CorporateInformationPage < Edition
   include ::Attachable
   include Searchable
 
+  after_save :reindex_organisation_in_search_index, if: :about_page?
+
   has_one :edition_organisation, foreign_key: :edition_id, dependent: :destroy
   has_one :organisation, -> { includes(:translations) }, through: :edition_organisation, autosave: false
   has_one :edition_worldwide_organisation, foreign_key: :edition_id, inverse_of: :edition, dependent: :destroy
@@ -23,6 +25,10 @@ class CorporateInformationPage < Edition
 
   validates :corporate_information_page_type_id, presence: true
   validate :only_one_organisation_or_worldwide_organisation
+
+  def reindex_organisation_in_search_index
+    owning_organisation.update_in_search_index
+  end
 
   def body_required?
     !about_page?
