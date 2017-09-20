@@ -36,6 +36,6 @@ module Document::Needs
       content_id
     )
 
-    response["expanded_links"]["meets_user_needs"]
+    response["expanded_links"]["meets_user_needs"] || Array.new
   end
 end

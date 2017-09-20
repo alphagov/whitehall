@@ -73,4 +73,26 @@ class Document::NeedsTest < ActiveSupport::TestCase
 
     assert_equal document.get_user_needs_from_publishing_api, []
   end
+
+  # This can happen when a document is associated with a need_id that is unpublished.
+  # Then publishing_ap.get_links will have ["links"]["meets_user_needs"], but
+  # publishing_api.get_expanded_links will not have ["expanded_links"]["meets_user_needs"]
+  test "#associated_needs returns empty array when ['expanded_links']['meets_user_needs'] is nil" do
+    document = create(:document)
+
+    document.stubs(:get_user_needs_from_publishing_api)
+      .returns(["f5f42227-b7c6-4543-bb30-68379f29aa40"])
+
+    Services.publishing_api.stubs(:get_expanded_links)
+      .with(document.content_id)
+      .returns(
+        "expanded_links" =>
+          { "an_expanded_link" =>
+            [{ "key" => "value" }]
+          }
+      )
+
+    expected_array = Array.new
+    assert_equal expected_array, document.associated_needs
+  end
 end
