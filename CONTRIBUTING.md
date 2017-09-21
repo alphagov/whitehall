@@ -7,32 +7,32 @@ s](https://github.com/alphagov/whitehall/tree/master/docs/testing.md).
 
 Frontend code should follow the [css](https://github.com/alphagov/whitehall/tree/master/docs/css.md) and [javascript](https://github.com/alphagov/whitehall/tree/master/docs/javascript.md) guidelines.
 
-## Git workflow ##
+## Git workflow
 
 - Make a branch
 - Work in any way you like
 - Rebase your branch into logical commits before sending a pull request -
   follow our [Git styleguide](https://github.com/alphagov/styleguides/blob/master/git.md)
-- If you're working off the [Pivotal backlog](https://www.pivotaltracker.com/s/projects/1008986),
-  include the ticket number in the pull request details
-- Pull requests are automatically integration tested using [Jenkins](https://ci-new.alphagov.co.uk/job/govuk_whitehall/),
+- If you're working off the Trello backlog,
+  include a link to the card in the pull request details
+- Pull requests are automatically integration tested using [Jenkins](https://ci.integration.publishing.service.gov.uk/job/whitehall/),
   which will report back on whether the tests still pass on your
   branch
 - You *may* rebase your branch after feedback if it's to include include relevant updates to the master branch. We prefer a rebase here to a merge commit as we prefer a clean and straight history on master with discrete merge commits for features
 
-#### Before merging:
+### Before merging:
 
-1. Someone must review your code and give you a "thumbs up"
-2. Someone else must product/design review your changes and give you another "thumbs up"
+1. Someone must review your code and approve it
+2. Someone else must product/design review your changes
 3. Merge your PR and delete the branch
 
-## Copy ##
+## Copy
 
 - Titles and navigation links should only capitalise first letter, not every word.
 - URLs should use hyphens, not underscores.
 - Follow the [style guide](https://www.gov.uk/guidance/style-guide).
 
-## Code ##
+## Code
 
 - Don't commit additional whitespace
 - Use ruby 1.9.2 hash syntax wherever possible
