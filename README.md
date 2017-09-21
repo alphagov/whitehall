@@ -14,7 +14,7 @@ used throughout 'Whitehall' as the general publishing format
 
 ## Technical Documentation
 
-Whitehall is a Rails 4 app built on a MySQL database. It is deployed
+Whitehall is a Rails 5 app built on a MySQL database. It is deployed
 in two modes, 'admin' for publishers to create and manage content and
 'frontend' for rendering content under https://www.gov.uk/government. In addition to
 storing and managing its own content database Whitehall also updates
