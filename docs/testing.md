@@ -47,8 +47,7 @@ and view logic.
 It's also possible to use mocking/stubbing to isolate the test subject to just
 the controller.
 
-The [view rendering](https://github.com/alphag
-ov/whitehall/blob/master/test/support/view_rendering.rb) helper allows you to
+The [view rendering](https://github.com/alphagov/whitehall/blob/master/test/support/view_rendering.rb) helper allows you to
 choose whether or not rails views are rendered in your functional test:
 
     view_test "Should display the organisation contact details" do

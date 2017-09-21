@@ -1,4 +1,4 @@
-#Search setup guide
+# Search setup guide
 
 ## Setup search locally
 
@@ -75,4 +75,3 @@ is defined in `Searchable.searchable_options`, where the `index_after` is set to
 To trigger indexing for an instance of these classes in unit/integration tests,
 create an instance in a valid publishing state ('submitted', 'rejected') and
 call `save!` on it.
-

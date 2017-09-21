@@ -1,6 +1,6 @@
-#￼Inside Government i18n notes
+#￼ Inside Government i18n notes
 
-These are notes about the i18n work. Some of this may have been superceded, but it's here for a reference in case it's useful.
+These are notes about the i18n work. Some of this may have been superseded, but it's here for a reference in case it's useful.
 
 ## User experience
 
