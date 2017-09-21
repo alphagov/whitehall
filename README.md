@@ -1,5 +1,3 @@
-[![Code Climate](https://codeclimate.com/github/alphagov/whitehall.png)](https://codeclimate.com/github/alphagov/whitehall)
-
 # Whitehall App
 
 "Whitehall" is the code name for the
@@ -28,13 +26,13 @@ API](https://github.com/alphagov/publishing-api) and
 * Xcode (for the Command Line Tools `xcode-select --install`)
 * Ruby 2.2.3
 * Rubygems and Bundler
-* Mysql
+* MySQL
 * Imagemagick and Ghostscript (for generating thumbnails of uploaded
   PDFs)
 * xpdf (first download [XQuartz](http://www.xquartz.org/))
 * PhantomJS (for running the Javascript tests)
 
-## Dependencies on Whitehall
+## Dependencies on Whitehall APIs
 
 The following applications have dependencies on Whitehall APIs:
 
@@ -76,7 +74,7 @@ serve results.
 
 See the [search setup guide](docs/search_setup_guide.md)
 
-## How to publish a finder in whitehall?
+## How to publish a finder in whitehall
 
 - You will need to create a JSON file in the whitehall repository, under [whitehall/lib/finders][finders-folder]
 - You can base it on one of the existing files in that folder
@@ -90,13 +88,11 @@ See the [search setup guide](docs/search_setup_guide.md)
 
 ## Other guides
 
+[Contributing guide](CONTRIBUTING.md)
+
 [Timestamps](docs/timestamps.md)
 
 [Internationalisation](docs/internationalisation_guide.md)
-
-[Creating new users](docs/creating_new_users.md)
-
-[Contributing guide](CONTRIBUTING.md)
 
 [Migration sync checks](docs/migration_sync_checks.md)
 
