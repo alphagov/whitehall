@@ -50,7 +50,7 @@ module PublishingApi
   private
 
     def path_for_news_page
-      Whitehall.url_maker.polymorphic_path(world_location) + "/news"
+      Whitehall.url_maker.world_location_news_index_path(world_location)
     end
 
     def description

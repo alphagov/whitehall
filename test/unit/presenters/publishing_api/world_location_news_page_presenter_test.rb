@@ -81,4 +81,13 @@ class PublishingApi::WorldLocationNewsPagePresenterTest < ActiveSupport::TestCas
     assert_equal expected_hash, presented_item.content
     assert_equal "aguid", presented_item.content_id
   end
+
+  test 'it builds localised base paths correctly' do
+    I18n.with_locale(:fr) do
+      presented_item = present(world_location)
+      base_path = presented_item.content[:base_path]
+
+      assert_equal "/world/aardistan/news.fr", base_path
+    end
+  end
 end
