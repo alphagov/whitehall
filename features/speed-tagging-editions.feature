@@ -27,15 +27,9 @@ Feature: Speed tagging editions
     And I should be able to tag the publication with "Joe Bloggs"
     And I should not be able to tag the publication with "Jane Smith"
 
-  Scenario: Speed tagging shows speech required fields
-    When I go to speed tag a newly imported speech "Written statement on Beards"
-    Then I should have to select the speech type
-    And I should have to select the deliverer of the speech
-    And I should be able to set the delivered date of the speech
-
   Scenario: Speed tagging shows world locations when relevant
     Given a world location "Uganda" exists
-    When I go to speed tag a newly imported speech "Speech about Uganda"
+    When I go to speed tag a newly imported news article "News article about Uganda"
     Then I should be able to select the world location "Uganda"
 
   Scenario: Speed tagging news articles allows relevant appointments to be set
@@ -54,7 +48,7 @@ Feature: Speed tagging editions
     When I go to speed tag a newly imported news article "Beards are more costly this year"
     Then I should be able to set the first published date
 
-  Scenario: Speed tagging a consulation shows the required fields
+  Scenario: Speed tagging a consultation shows the required fields
     When I go to speed tag a newly imported consultation "Review of the Ministry of Beards 2012"
     Then I should be able to set the consultation dates
 

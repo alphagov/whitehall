@@ -98,12 +98,13 @@ module Admin::EditionsHelper
       })
     end
 
-    imported_type = SpeechType.find_by_name('Imported - Awaiting Type')
+    # copy default values from Transcript SpeechType for '' select option
+    default_type = SpeechType.find_by_name('Transcript')
     label_data.merge('' => {
-        ownerGroup: I18n.t("document.speech.#{imported_type.owner_key_group}"),
-        publishedExternallyLabel: t_delivered_on(imported_type),
-        locationRelevant: imported_type.location_relevant
-      })
+      ownerGroup: I18n.t("document.speech.#{default_type.owner_key_group}"),
+      publishedExternallyLabel: t_delivered_on(default_type),
+      locationRelevant: default_type.location_relevant
+    })
   end
 
   # Because of the unusual way lead organisations and supporting organisations

@@ -15,12 +15,7 @@ class SpeechTest < ActiveSupport::TestCase
     refute speech.valid?
   end
 
-  [:imported, :deleted].each do |state|
-    test "#{state} editions are valid when the type is 'imported-awaiting-type'" do
-      speech = build(:speech, state: state, speech_type: SpeechType.find_by_slug('imported-awaiting-type'))
-      assert speech.valid?
-    end
-
+  [:deleted, :superseded].each do |state|
     test "#{state} editions are valid without a delivered on date" do
       speech = build(:speech, state: state, delivered_on: nil)
       assert speech.valid?
@@ -33,11 +28,6 @@ class SpeechTest < ActiveSupport::TestCase
   end
 
   [:draft, :scheduled, :published, :submitted, :rejected].each do |state|
-    test "#{state} editions are not valid when the publication type is 'imported-awaiting-type'" do
-      edition = build(:speech, state: state, speech_type: SpeechType.find_by_slug('imported-awaiting-type'))
-      refute edition.valid?
-    end
-
     test "#{state} editions are not valid without a delivered on date" do
       edition = build(:speech, state: state, delivered_on: nil)
       refute edition.valid?
@@ -180,13 +170,13 @@ class SpeechTest < ActiveSupport::TestCase
 
   test '#government returns the current government for an speech delivered at an unspecified time' do
     current_government = create(:current_government)
-    speech = create(:imported_speech, delivered_on: nil)
+    speech = create(:deleted_speech, delivered_on: nil)
     assert_equal current_government, speech.government
   end
 
   test '#government returns the current government for an speech in the future' do
     current_government = create(:current_government)
-    speech = create(:imported_speech, delivered_on: 2.weeks.from_now)
+    speech = create(:speech, delivered_on: 2.weeks.from_now)
     assert_equal current_government, speech.government
   end
 

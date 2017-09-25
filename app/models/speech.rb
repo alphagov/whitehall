@@ -7,7 +7,6 @@ class Speech < Announcement
   validates :delivered_on, presence: true, unless: ->(speech) { speech.can_have_some_invalid_data? }
 
   delegate :display_type_key, :explanation, to: :speech_type
-  validate :only_speeches_allowed_invalid_data_can_be_awaiting_type
 
   def self.subtypes
     SpeechType.all
@@ -65,11 +64,5 @@ private
 
   def skip_organisation_validation?
     can_have_some_invalid_data? || person_override.present?
-  end
-
-  def only_speeches_allowed_invalid_data_can_be_awaiting_type
-    unless self.can_have_some_invalid_data?
-      errors.add(:speech_type, 'must be changed') if SpeechType::ImportedAwaitingType == self.speech_type
-    end
   end
 end
