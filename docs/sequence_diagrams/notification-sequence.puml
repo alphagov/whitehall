@@ -6,37 +6,15 @@ title The sequence of events that cause email notifications to be sent for White
 actor editor
 editor -> controller : publish
 controller -> edition_services : send publish event
-edition_services -> govuk_delivery_worker : enqueue job with edition id
 edition_services -> publishing_api_worker : enqueue job with edition id
-participant subscription_url_generator
 database mysql
 participant publishing_api
-participant "email-alert-service" as emailalertservice
 database rabbitmq
+participant "email-alert-service" as emailalertservice
 participant "email-alert-api" as emailalertapi
 participant notification_worker
 database postgres
 controller -> editor : render page
-
-group sidekiq
-  govuk_delivery_worker -> mysql : edition id
-  mysql -> govuk_delivery_worker : edition
-  govuk_delivery_worker -> subscription_url_generator : edition
-  subscription_url_generator -> govuk_delivery_worker : feed urls
-  govuk_delivery_worker -> "govuk-delivery" as govukdelivery : notify with feed urls, email, content id, request id
-  database mongo
-  govukdelivery -> mongo : feed urls
-  mongo -> govukdelivery : enabled/disabled topics
-  govukdelivery -> "email-alert-api" as emailalertapi : log
-  emailalertapi -> postgres : store
-  govukdelivery -> "celery worker" as worker : enqueue job with enabled topics, email
-  govukdelivery -> govuk_delivery_worker : acknowledge
-end group
-
-group celery
-	participant govdelivery #LightBlue
-  worker -> govdelivery : send email to topics
-end group
 
 group sidekiq
   publishing_api_worker -> mysql : edition id
@@ -53,9 +31,9 @@ end group
 
 group sidekiq
   notification_worker -> postgres : links hash
-  postgres -> notification_worker : enabled/disabled topics
+  postgres -> notification_worker : govdelivery topics
   notification_worker -> postgres : log notification
-  notification_worker -> govdelivery : send email to enabled topics
+  notification_worker -> govdelivery : send email to topics
 end group
 
 @enduml
