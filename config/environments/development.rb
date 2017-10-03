@@ -84,15 +84,15 @@ Whitehall::Application.configure do
   config.assets.cache_store = :null_store
   config.sass.cache = false
   config.slimmer.asset_host = ENV['STATIC_DEV'] || Plek.find('static')
-  config.asset_host = Whitehall.admin_root
 
   if ENV['SHOW_PRODUCTION_IMAGES']
+    orig_host = config.asset_host
     config.asset_host = Proc.new do |source|
       local_file = File.join(Whitehall.clean_uploads_root, source.sub('/government/uploads', ''))
       if !File.exist?(local_file) && source =~ %r{system/uploads}
         "https://assets.publishing.service.gov.uk"
       else
-        Whitehall.admin_root
+        orig_host
       end
     end
   end
