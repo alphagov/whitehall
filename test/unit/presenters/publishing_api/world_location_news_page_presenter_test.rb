@@ -82,12 +82,15 @@ class PublishingApi::WorldLocationNewsPagePresenterTest < ActiveSupport::TestCas
     assert_equal "aguid", presented_item.content_id
   end
 
-  test 'it builds localised base paths correctly' do
+  test 'it only presents news pages in English' do
     I18n.with_locale(:fr) do
       presented_item = present(world_location)
-      base_path = presented_item.content[:base_path]
 
-      assert_equal "/world/aardistan/news.fr", base_path
+      base_path = presented_item.content[:base_path]
+      locale = presented_item.content[:locale]
+
+      assert_equal "/world/aardistan/news", base_path
+      assert_equal "en", locale
     end
   end
 end

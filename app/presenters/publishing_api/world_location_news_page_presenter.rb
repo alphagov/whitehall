@@ -13,23 +13,25 @@ module PublishingApi
     end
 
     def content
-      content = BaseItemPresenter.new(
-        world_location,
-        title: title,
-        update_type: update_type,
-      ).base_attributes
+      I18n.with_locale(:en) do
+        content = BaseItemPresenter.new(
+          world_location,
+          title: title,
+          update_type: update_type,
+        ).base_attributes
 
-      content.merge!(
-        description: description,
-        details: {},
-        document_type: "placeholder_world_location_news_page",
-        public_updated_at: world_location.updated_at,
-        rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
-        schema_name: "placeholder",
-        base_path: path_for_news_page,
-      )
-      content.merge!(PayloadBuilder::Routes.for(path_for_news_page))
-      content.merge!(PayloadBuilder::AnalyticsIdentifier.for(world_location))
+        content.merge!(
+          description: description,
+          details: {},
+          document_type: "placeholder_world_location_news_page",
+          public_updated_at: world_location.updated_at,
+          rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
+          schema_name: "placeholder",
+          base_path: path_for_news_page,
+        )
+        content.merge!(PayloadBuilder::Routes.for(path_for_news_page))
+        content.merge!(PayloadBuilder::AnalyticsIdentifier.for(world_location))
+      end
     end
 
     def links
