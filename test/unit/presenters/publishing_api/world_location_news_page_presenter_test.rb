@@ -51,4 +51,13 @@ class PublishingApi::WorldLocationNewsPagePresenterTest < ActiveSupport::TestCas
       assert_equal "/world/aardistan/news.fr", base_path
     end
   end
+
+  test "it doesn't localise the rummager payload" do
+    I18n.with_locale(:fr) do
+      presented_item = present(world_location)
+      base_path = presented_item.content_for_rummager("id-123")[:link]
+
+      assert_equal "/world/aardistan/news", base_path
+    end
+  end
 end

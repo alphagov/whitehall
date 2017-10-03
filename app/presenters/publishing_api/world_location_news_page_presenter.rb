@@ -33,14 +33,16 @@ module PublishingApi
     end
 
     def content_for_rummager(content_id)
-      {
-        content_id: content_id,
-        link: path_for_news_page,
-        format: "world_location_news_page", # Used for the rummager document type
-        title: title,
-        description: description,
-        indexable_content: description,
-      }
+      I18n.with_locale(:en) do
+        {
+          content_id: content_id,
+          link: path_for_news_page,
+          format: "world_location_news_page", # Used for the rummager document type
+          title: title,
+          description: description,
+          indexable_content: description,
+        }
+      end
     end
 
   private
