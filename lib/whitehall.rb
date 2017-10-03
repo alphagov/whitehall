@@ -19,11 +19,6 @@ module Whitehall
   mattr_accessor :statistics_announcement_search_client
   mattr_accessor :uploads_cache_max_age
 
-  asset_host_override = Rails.root.join("config/initializers/asset_host.rb")
-  if File.exist?(asset_host_override)
-    load asset_host_override
-  end
-
   class NoConfigurationError < StandardError; end
 
   def self.public_protocol
