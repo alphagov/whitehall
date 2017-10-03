@@ -55,6 +55,7 @@ class ActiveSupport::TestCase
     stub_publishing_api_policies
     SyncCheckWorker.stubs(:enqueue)
     stub_static_locales
+    Services.stubs(:asset_manager).returns(stub_everything('asset-manager'))
   end
 
   teardown do

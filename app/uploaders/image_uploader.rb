@@ -1,6 +1,8 @@
 class ImageUploader < WhitehallUploader
   include CarrierWave::MiniMagick
 
+  storage :asset_manager_and_file_system
+
   configure do |config|
     config.remove_previously_stored_files_after_update = false
   end
