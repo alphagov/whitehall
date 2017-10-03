@@ -84,6 +84,7 @@ group :development, :test do
   gem 'test-queue', '~> 0.2.13'
   gem 'ruby-prof'
   gem 'pry-byebug'
+  gem 'pry-rails'
   gem 'govuk-lint'
   gem 'dotenv-rails'
   gem 'teaspoon-qunit'
