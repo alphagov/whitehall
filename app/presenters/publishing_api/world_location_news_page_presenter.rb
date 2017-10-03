@@ -8,10 +8,6 @@ module PublishingApi
       self.update_type = update_type || "major"
     end
 
-    def content_id
-      find_or_create_content_id
-    end
-
     def content
       content = BaseItemPresenter.new(
         world_location,
@@ -36,15 +32,17 @@ module PublishingApi
       {}
     end
 
-    def content_for_rummager
-      {
-        content_id: content_id,
-        link: path_for_news_page,
-        format: "world_location_news_page", # Used for the rummager document type
-        title: title,
-        description: description,
-        indexable_content: description,
-      }
+    def content_for_rummager(content_id)
+      I18n.with_locale(:en) do
+        {
+          content_id: content_id,
+          link: path_for_news_page,
+          format: "world_location_news_page", # Used for the rummager document type
+          title: title,
+          description: description,
+          indexable_content: description,
+        }
+      end
     end
 
   private
@@ -59,14 +57,6 @@ module PublishingApi
 
     def title
       world_location.title
-    end
-
-    def content_id_from_publishing_api
-      Services.publishing_api.lookup_content_ids(base_paths: path_for_news_page)[path_for_news_page]
-    end
-
-    def find_or_create_content_id
-      @content_id ||= (content_id_from_publishing_api || SecureRandom.uuid)
     end
   end
 end
