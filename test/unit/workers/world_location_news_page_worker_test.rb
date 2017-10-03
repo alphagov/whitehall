@@ -1,46 +1,24 @@
 require "test_helper"
 
 class WorldLocationNewsPageWorkerTest < ActiveSupport::TestCase
-  MockNewsPagePresenter = Struct.new("NewsPagePresenter") do
-    def content_id
-      "a_guid"
-    end
+  setup do
+    Services.publishing_api.stubs(:lookup_content_ids).returns(Hash.new("id-123"))
 
-    def content
-      Hash.new(title: "title", description: "description")
-    end
-
-    def update_type
-      "major"
-    end
-
-    def content_for_rummager
-      Hash.new(title: "title", link: "link")
-    end
+    @world_location = FactoryGirl.create(:world_location)
+    @presenter = PublishingApi::WorldLocationNewsPagePresenter.new(@world_location)
   end
 
-  test "sends to the publishing api and rummager" do
-    wl = create(:world_location, name: "Aardistan", title: "Aardistan and the Uk")
+  test "sends to the publishing api" do
+    Services.publishing_api.expects(:put_content).with("id-123", @presenter.content)
+    Services.publishing_api.expects(:publish).with("id-123", nil, locale: "en")
 
-    mock_news_page_presenter = MockNewsPagePresenter.new
+    WorldLocationNewsPageWorker.new.perform(@world_location.id)
+  end
 
-    WorldLocationNewsPageWorker.any_instance.stubs(:news_page_presenter).returns(mock_news_page_presenter)
+  test "sends to rummager" do
+    Whitehall::FakeRummageableIndex.any_instance.expects(:add)
+      .with(@presenter.content_for_rummager)
 
-    Whitehall::FakeRummageableIndex.any_instance.expects(:add).at_least_once.with(kind_of(Hash))
-
-    Services.publishing_api.expects(:put_content)
-      .with(
-        "a_guid",
-        Hash.new(title: "title", description: "description", update_type: "major")
-    )
-
-    Services.publishing_api.expects(:publish)
-      .with(
-        "a_guid",
-        nil,
-        locale: "en"
-    )
-
-    WorldLocationNewsPageWorker.new.perform(wl.id)
+    WorldLocationNewsPageWorker.new.perform(@world_location.id)
   end
 end
