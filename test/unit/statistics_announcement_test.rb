@@ -272,6 +272,19 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     refute statistics_announcement.requires_redirect?
   end
 
+  test 'publishes to publishing api with a minor update type' do
+    edition = create(:statistics_announcement)
+
+    presenter = PublishingApiPresenters.presenter_for(edition)
+    requests = [
+      stub_publishing_api_put_content(presenter.content_id, presenter.content),
+      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
+      stub_publishing_api_publish(presenter.content_id, update_type: "minor", locale: "en")
+    ]
+
+    requests.each { |request| assert_requested request }
+  end
+
 private
 
   def create_announcement_with_changes

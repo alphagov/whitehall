@@ -43,7 +43,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_publishing_api_put_content(statistics_announcement.content_id,
                                       expected)
     assert_publishing_api_publish(statistics_announcement.content_id,
-                                  { update_type: "major", locale: "en" }, 1)
+                                  { update_type: "minor", locale: "en" }, 1)
     assert_publishing_api_put_intent(
       statistics_announcement.base_path,
       expected_intent.as_json
@@ -83,7 +83,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_publishing_api_put_content(statistics_announcement.content_id,
                                       expected)
     assert_publishing_api_publish(statistics_announcement.content_id,
-                                  { update_type: "major", locale: "en" }, 2)
+                                  { update_type: "minor", locale: "en" }, 2)
     assert_publishing_api_put_intent(
       statistics_announcement.base_path,
       expected_intent.as_json,
@@ -160,7 +160,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_publishing_api_put_content(statistics_announcement.content_id,
                                       request_json_includes(expected))
     assert_publishing_api_publish(statistics_announcement.content_id,
-                                  { update_type: "major", locale: "en" }, 2)
+                                  { update_type: "minor", locale: "en" }, 2)
     assert_publishing_api_put_intent(
       statistics_announcement.base_path,
       expected_intent.as_json,
