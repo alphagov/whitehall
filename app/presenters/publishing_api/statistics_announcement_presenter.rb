@@ -5,7 +5,7 @@ module PublishingApi
 
     def initialize(item, update_type: nil)
       self.item = item
-      self.update_type = update_type || "major"
+      self.update_type = "minor"
     end
 
     def content_id
