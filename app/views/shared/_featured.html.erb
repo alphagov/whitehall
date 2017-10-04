@@ -36,7 +36,7 @@
       <% end %>
       <h2><%= link_to feature.title, feature.public_path, ({rel: 'external'} if is_external?(feature.public_path)) %></h2>
       <% unless feature.summary.blank? %>
-        <p class="summary"><%= truncate(feature.summary, length: 150, separator: ' ') %></p>
+        <p class="summary"><%= truncate(feature.summary, length: 160, separator: ' ') %></p>
       <% end %>
     </div>
   </div>
