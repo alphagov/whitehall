@@ -38,7 +38,7 @@
   .publication-header {
     @extend %contain-floats;
     @include white-links;
-    background: $light-blue;
+    background: $govuk-blue;
     padding: $gutter-one-third $gutter-half;
     margin: 0 (-$gutter-half);
     @include media(tablet) {
