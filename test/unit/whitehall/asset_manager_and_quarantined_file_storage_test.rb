@@ -12,7 +12,7 @@ class Whitehall::AssetManagerAndQuarantinedFileStorageTest < ActiveSupport::Test
     @quarantined_file_storage = stub('quarantined-file-storage')
     Whitehall::QuarantinedFileStorage.stubs(:new).returns(@quarantined_file_storage)
 
-    Whitehall.use_asset_manager = true
+    Whitehall.stubs(:use_asset_manager).returns(true)
   end
 
   test 'stores the file using the asset manager storage engine' do
@@ -23,7 +23,7 @@ class Whitehall::AssetManagerAndQuarantinedFileStorageTest < ActiveSupport::Test
   end
 
   test 'does not store the file using the asset manager storage engine when feature flag is off' do
-    Whitehall.use_asset_manager = false
+    Whitehall.stubs(:use_asset_manager).returns(false)
 
     @asset_manager_storage.expects(:store!).never
     @quarantined_file_storage.stubs(:store!)
