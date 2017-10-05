@@ -326,6 +326,8 @@ GEM
     pry-byebug (3.5.0)
       byebug (~> 9.1)
       pry (~> 0.10)
+    pry-rails (0.3.5)
+      pry (>= 0.9.10)
     rack (2.0.3)
     rack-cache (1.7.1)
       rack (>= 0.4)
@@ -563,6 +565,7 @@ DEPENDENCIES
   plek (~> 2.0)
   poltergeist
   pry-byebug
+  pry-rails
   rack (~> 2.0)
   rack-test
   rack_strip_client_ip (~> 0.0.2)
