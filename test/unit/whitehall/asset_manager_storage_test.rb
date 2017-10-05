@@ -9,8 +9,6 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
   setup do
     @file = Tempfile.new('asset')
     @uploader = AssetManagerUploader.new
-    @worker = mock('asset-manager-worker')
-    AssetManagerWorker.stubs(:new).returns(@worker)
     FileUtils.mkdir_p(Whitehall.asset_manager_tmp_dir)
   end
 
@@ -19,7 +17,7 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
   end
 
   test "creates a sidekiq job using the location of the file in the asset manager tmp directory" do
-    @worker.expects(:perform).with do |actual_path, _|
+    AssetManagerWorker.expects(:perform_async).with do |actual_path, _|
       uploaded_file_name = File.basename(@file.path)
       expected_path = %r{#{Whitehall.asset_manager_tmp_dir}/[a-z0-9\-]+/#{uploaded_file_name}}
       actual_path =~ expected_path
@@ -33,13 +31,13 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
 
     expected_filename = File.basename(@file.path)
     expected_path = File.join('/government/uploads/store-dir', expected_filename)
-    @worker.expects(:perform).with(anything, expected_path)
+    AssetManagerWorker.expects(:perform_async).with(anything, expected_path)
 
     @uploader.store!(@file)
   end
 
   test 'returns the sanitized file' do
-    @worker.stubs(:perform)
+    AssetManagerWorker.stubs(:perform_async)
 
     storage = Whitehall::AssetManagerStorage.new(@uploader)
     file = CarrierWave::SanitizedFile.new(@file)
