@@ -11,6 +11,7 @@
 .rbenv-version
 /coverage
 /test/reports
+/asset-manager-tmp
 /incoming-uploads
 /infected-uploads
 /carrierwave-tmp
