@@ -13,15 +13,11 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
     AssetManagerWorker.stubs(:new).returns(@worker)
   end
 
-  test 'creates a sidekiq job using the file passed to the uploader' do
-    @worker.expects(:perform).with(&same_content_as(@file))
-
-    @uploader.store!(@file)
-  end
-
-  test 'creates a sidekiq job using an instance of a file object' do
-    @worker.expects(:perform).with do |file, _|
-      file.is_a?(File)
+  test "creates a sidekiq job using the location of the file in the uploader's cache directory" do
+    @worker.expects(:perform).with do |actual_path, _|
+      uploaded_file_name = File.basename(@file.path)
+      expected_path = %r{#{@uploader.cache_dir}/[0-9\-]+/#{uploaded_file_name}}
+      actual_path =~ expected_path
     end
 
     @uploader.store!(@file)
@@ -50,13 +46,5 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
     assert_raises RuntimeError do
       storage.retrieve!('identifier')
     end
-  end
-
-private
-
-  def same_content_as(expected_file)
-    -> (actual_file, _) {
-      actual_file.read == expected_file.read
-    }
   end
 end
