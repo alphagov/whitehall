@@ -127,12 +127,14 @@ module Whitehall::Authority::Rules
     end
 
     def can_see?
-      if world_actor? && (subject.world_locations & actor.world_locations).empty?
-        false
-      elsif subject.access_limited?
+      if subject.access_limited?
         organisations = subject.organisations
         organisations += subject.edition_organisations.map(&:organisation) if subject.respond_to?(:edition_organisations)
         organisations.include?(actor.organisation)
+      elsif actor.gds_admin? || actor.gds_editor?
+        true
+      elsif world_actor? && (subject.world_locations & actor.world_locations).empty?
+        false
       else
         true
       end

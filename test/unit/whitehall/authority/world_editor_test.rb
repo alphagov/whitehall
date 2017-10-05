@@ -2,8 +2,8 @@ require 'unit/whitehall/authority/authority_test_helper'
 require 'ostruct'
 
 class WorldEditorTest < ActiveSupport::TestCase
-  def world_editor(world_locations, id = 1)
-    OpenStruct.new(id: id, gds_editor?: false,
+  def world_editor(world_locations, id = 1, gds_editor = false)
+    OpenStruct.new(id: id, gds_editor?: gds_editor,
                    departmental_editor?: false, world_editor?: true,
                    organisation: nil, can_force_publish_anything?: false,
                    world_locations: world_locations || [])
@@ -47,6 +47,12 @@ class WorldEditorTest < ActiveSupport::TestCase
     user = world_editor(['tie land'])
     edition = with_locations(normal_edition, ['shirt land'])
     refute enforcer_for(user, edition).can?(:see)
+  end
+
+  test 'can see an edition that is not about their location if they are a gds editor' do
+    user = world_editor(['tie land'], 1, true)
+    edition = with_locations(normal_edition, ['shirt land'])
+    assert enforcer_for(user, edition).can?(:see)
   end
 
   test 'cannot do anything to an edition they are not allowed to see' do
