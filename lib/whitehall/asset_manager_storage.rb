@@ -1,8 +1,10 @@
 class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
   def store!(file)
-    carrrierwave_file_path = file.to_file.path
+    original_file = file.to_file
+    temporary_location = File.join(Whitehall.asset_manager_tmp_dir, File.basename(original_file))
+    FileUtils.cp(original_file, temporary_location)
     legacy_url_path = File.join('/government/uploads', uploader.store_path)
-    AssetManagerWorker.new.perform(carrrierwave_file_path, legacy_url_path)
+    AssetManagerWorker.new.perform(temporary_location, legacy_url_path)
     file
   end
 

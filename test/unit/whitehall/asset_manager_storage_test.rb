@@ -11,12 +11,17 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
     @uploader = AssetManagerUploader.new
     @worker = mock('asset-manager-worker')
     AssetManagerWorker.stubs(:new).returns(@worker)
+    FileUtils.mkdir_p(Whitehall.asset_manager_tmp_dir)
   end
 
-  test "creates a sidekiq job using the location of the file in the uploader's cache directory" do
+  teardown do
+    FileUtils.remove_dir(Whitehall.asset_manager_tmp_dir, true)
+  end
+
+  test "creates a sidekiq job using the location of the file in the asset manager tmp directory" do
     @worker.expects(:perform).with do |actual_path, _|
       uploaded_file_name = File.basename(@file.path)
-      expected_path = %r{#{@uploader.cache_dir}/[0-9\-]+/#{uploaded_file_name}}
+      expected_path = %r{#{Whitehall.asset_manager_tmp_dir}/#{uploaded_file_name}}
       actual_path =~ expected_path
     end
 
