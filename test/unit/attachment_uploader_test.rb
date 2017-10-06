@@ -43,6 +43,16 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
     AttachmentUploader.enable_processing = false
   end
 
+  test "should be able to attach a xsd file" do
+    AttachmentUploader.enable_processing = true
+
+    uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
+    uploader.store!(fixture_file_upload("sample.xsd"))
+    assert uploader.file.present?
+
+    AttachmentUploader.enable_processing = false
+  end
+
   test "should be able to attach a zip file" do
     uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
     uploader.store!(fixture_file_upload('sample_attachment.zip'))

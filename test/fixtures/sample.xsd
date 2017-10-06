@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<xs:element name="department">
+  <xs:complexType>
+    <xs:element name="name" type="xs:string"/>
+    <xs:element name="budget" type="xs:positiveInteger" />
+  </xs:complexType>
+</xs:element>
+
+</xs:schema>

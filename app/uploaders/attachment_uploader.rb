@@ -12,7 +12,10 @@ class AttachmentUploader < WhitehallUploader
 
   process :set_content_type
   def set_content_type
-    content_type = MIME::Types.type_for(full_filename(file.file)).first.content_type
+    filename = full_filename(file.file)
+    types = MIME::Types.type_for(filename)
+    content_type = types.first.content_type if types.any?
+    content_type = "text/xml" if filename.end_with?(".xsd")
     content_type = "text/csv" if content_type == "text/comma-separated-values"
     content_type = "application/pdf" if content_type == "application/octet-stream"
     file.content_type = content_type
