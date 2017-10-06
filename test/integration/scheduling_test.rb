@@ -15,12 +15,10 @@ class SchedulingTest < ActiveSupport::TestCase
   end
 
   test "scheduling a first-edition publishes a publish intent and 'coming_soon' content item to the Publishing API" do
-    coming_soon_uuid = SecureRandom.uuid
-    SecureRandom.stubs(uuid: coming_soon_uuid)
 
     path = Whitehall.url_maker.public_document_path(@submitted_edition)
     schedule(@submitted_edition)
-    assert_publishing_api_put_content(coming_soon_uuid,
+    assert_publishing_api_put_content(@submitted_edition.content_id,
                                       request_json_includes(schema_name: 'coming_soon'))
     assert_publishing_api_put_intent(path, publish_time: @submitted_edition.scheduled_publication.as_json)
   end
