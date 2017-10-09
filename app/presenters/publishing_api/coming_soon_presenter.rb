@@ -24,7 +24,7 @@ module PublishingApi
     def initialize(item, update_type: nil)
       self.item = item
       self.update_type = update_type || "major"
-      @content_id = SecureRandom.uuid
+      @content_id = item.content_id
     end
 
     def content
