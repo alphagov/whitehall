@@ -106,6 +106,10 @@ module Whitehall
     File.join(uploads_root, 'infected-uploads')
   end
 
+  def self.asset_manager_tmp_dir
+    File.join(uploads_root, 'asset-manager-tmp')
+  end
+
   def self.edition_classes
     [
       CaseStudy,

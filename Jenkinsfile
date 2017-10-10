@@ -47,6 +47,7 @@ node {
       sh ("mkdir -p ./clean-uploads")
       sh ("mkdir -p ./infected-uploads")
       sh ("mkdir -p ./attachment-cache")
+      sh ("mkdir -p ./asset-manager-tmp")
     }
 
     stage("Set up content schema dependency") {
