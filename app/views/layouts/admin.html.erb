@@ -109,7 +109,7 @@
 <% end %>
 
 <% content_for :body_end do %>
-  <%= javascript_include_tag "admin", integrity: true, crossorigin: 'anonymous' %>
+  <%= javascript_include_tag "admin" %>
   <%= render_mustache_templates if Rails.env.development? %>
   <% initialise_script "GOVUK.adminGlobalInitialiser" %>
   <%= javascript_tag(yield :javascript_initialisers) %>
