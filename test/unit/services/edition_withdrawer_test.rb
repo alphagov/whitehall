@@ -54,6 +54,16 @@ class EditionWithdrawerTest < ActiveSupport::TestCase
     assert edition.reload.withdrawn?
   end
 
+  test 'adds user to authors if passed' do
+    edition = create(:published_edition)
+    edition.build_unpublishing(unpublishing_params)
+    user = create(:user)
+
+    unpublisher = EditionWithdrawer.new(edition, user: user)
+    unpublisher.perform!
+    assert_includes edition.authors, user
+  end
+
   test 'cannot withdraw a published editions if a newer draft exists' do
     edition = create(:published_edition)
     edition.create_draft(create(:writer))

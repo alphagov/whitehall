@@ -6,7 +6,7 @@ class Admin::EditionUnpublishingController < Admin::BaseController
     services = Whitehall.edition_services
     if @unpublishing.update_attributes(explanation: params[:unpublishing][:explanation])
       if withdrawing?
-        services.withdrawer(@unpublishing.edition).perform!
+        services.withdrawer(@unpublishing.edition, user: current_user).perform!
       else
         services.unpublisher(@unpublishing.edition).perform!
       end

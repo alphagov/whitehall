@@ -5,7 +5,8 @@ class Admin::EditionUnpublishingControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   def setup
-    login_as(create(:managing_editor))
+    @user = create(:managing_editor)
+    login_as(@user)
     @edition = create(:withdrawn_edition)
   end
 
@@ -21,7 +22,7 @@ class Admin::EditionUnpublishingControllerTest < ActionController::TestCase
   test "#update updates the withdrawal and redirects to admin policy page" do
     Whitehall.edition_services
       .expects(:withdrawer)
-      .with(@edition)
+      .with(@edition, user: @user)
       .returns(withdrawer = stub)
 
     withdrawer.expects(:perform!)
@@ -60,5 +61,4 @@ class Admin::EditionUnpublishingControllerTest < ActionController::TestCase
     assert_equal "The public explanation could not be updated", flash[:alert]
     assert_equal original_explanation, unpublishing.reload.explanation
   end
-
 end
