@@ -156,8 +156,8 @@ module Whitehall
       end
 
       test "can get a list of options for people" do
-        one = create(:person)
-        another = create(:person)
+        one = create(:person, forename: "Dave")
+        another = create(:person, forename: "Elouise")
         options = filter_options.for(:people)
 
         expected_ungrouped_options = [
