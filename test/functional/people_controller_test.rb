@@ -84,4 +84,18 @@ class PeopleControllerTest < ActionController::TestCase
       assert_select "a[href='/government/policies/welfare-reform']", text: "Welfare reform"
     end
   end
+
+  view_test "should display a link to view all announcements for a person" do
+    organisation = create(:organisation)
+    ministerial_role = create(:ministerial_role, organisations: [organisation])
+    person = create(:person)
+    role_appointment = create(:role_appointment, role: ministerial_role, person: person)
+    create(:published_speech, role_appointment: role_appointment)
+
+    get :show, params: { id: person }
+
+    assert_select "#announcements" do
+      assert_select "a[href='/government/announcements?people%5B%5D=#{person.slug}']", text: "View all announcements"
+    end
+  end
 end

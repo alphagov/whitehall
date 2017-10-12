@@ -19,7 +19,7 @@
     </ol>
 
     <div class="read-more">
-      <%= link_to t('announcements.view_all'), :announcements %>
+      <%= link_to t('announcements.view_all'), announcements_path("people[]": announcer.slug) %>
     </div>
   </section>
 <% end %>
