@@ -9,7 +9,7 @@
     <table class="table">
       <tr><th>Type</th><td><%= @organisation.organisation_type.name %></td></tr>
       <tr><th>Acronym</th><td><%= @organisation.acronym %></td></tr>
-      <tr><th>URL</th><td><%= link_to @organisation.url %></td></tr>
+      <tr><th>URL</th><td><%= link_to @organisation.url, @organisation.url %></td></tr>
       <tr><th>Status on GOV.UK</th><td><%= @organisation.govuk_status.titleize %></td></tr>
       <% if @organisation.closed? %>
         <% if @organisation.closed_at.present? %>
