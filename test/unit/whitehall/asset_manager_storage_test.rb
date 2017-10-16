@@ -44,10 +44,36 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
     assert_equal file, storage.store!(file)
   end
 
-  test 'fails fast when trying to retrieve an existing file' do
+  test 'instantiates an asset manager file with the location of the file on disk' do
     storage = Whitehall::AssetManagerStorage.new(@uploader)
-    assert_raises RuntimeError do
-      storage.retrieve!('identifier')
-    end
+    @uploader.stubs(:store_path).with('identifier').returns('asset-path')
+
+    Whitehall::AssetManagerStorage::File.expects(:new).with('asset-path')
+
+    storage.retrieve!('identifier')
+  end
+
+  test 'returns an asset manager file' do
+    file = stub(:asset_manager_file)
+    Whitehall::AssetManagerStorage::File.stubs(:new).returns(file)
+
+    storage = Whitehall::AssetManagerStorage.new(@uploader)
+    assert_equal file, storage.retrieve!('identifier')
+  end
+end
+
+class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
+  test 'deletes file from asset manager' do
+    file = Whitehall::AssetManagerStorage::File.new('path/to/asset.png')
+
+    json_response = {
+      id: 'http://asset-manager/assets/asset-id'
+    }.to_json
+    http_response = stub('http_response', body: json_response)
+    gds_api_response = GdsApi::Response.new(http_response)
+    Services.asset_manager.stubs(:whitehall_asset).with('/government/uploads/path/to/asset.png').returns(gds_api_response)
+    Services.asset_manager.expects(:delete_asset).with('asset-id')
+
+    file.delete
   end
 end
