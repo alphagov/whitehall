@@ -1,10 +1,10 @@
 require 'test_helper'
 
-class AssetManagerWorkerTest < ActiveSupport::TestCase
+class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
   setup do
     @file = Tempfile.new('asset')
     @legacy_url_path = 'legacy-url-path'
-    @worker = AssetManagerWorker.new
+    @worker = AssetManagerCreateWhitehallAssetWorker.new
   end
 
   test 'creates a whitehall asset using a file object at the correct path' do
