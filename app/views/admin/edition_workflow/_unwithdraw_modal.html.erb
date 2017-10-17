@@ -9,7 +9,7 @@
           <h3 class="modal-title">Are you sure you want to unwithdraw this?</h3>
         </div>
         <div class="modal-body">
-          <p>This will create a new edition and immediately publish it. This will not trigger email alerts.</p>
+          <p>This will create a new edition and publish it immediately. It won’t send an email alert to users.</p>
         </div>
         <%= form_tag unwithdraw_admin_edition_path(@edition, lock_version: @edition.lock_version), class: 'unwithdraw-form' do %>
           <div class="modal-footer">
@@ -22,7 +22,7 @@
 <% else %>
   <h1>Are you sure you want to unwithdraw this?</h1>
   <%= form_tag unwithdraw_admin_edition_path(@edition, lock_version: @edition.lock_version), class: 'unwithdraw-form' do %>
-    <p>This will create a new edition and immediately publish it. This will not trigger email alerts.</p>
+    <p>This will create a new edition and publish it immediately. It won’t send an email alert to users.</p>
     <%= submit_tag 'Unwithdraw', class: "btn btn-danger" %> <%= link_to 'Cancel', [:admin, @edition], class: 'btn btn-default add-left-margin' %>
   <% end %>
 <% end %>
