@@ -63,16 +63,10 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
 end
 
 class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
-  test 'deletes file from asset manager' do
+  test 'queues the call to delete the asset from asset manager' do
     file = Whitehall::AssetManagerStorage::File.new('path/to/asset.png')
 
-    json_response = {
-      id: 'http://asset-manager/assets/asset-id'
-    }.to_json
-    http_response = stub('http_response', body: json_response)
-    gds_api_response = GdsApi::Response.new(http_response)
-    Services.asset_manager.stubs(:whitehall_asset).with('/government/uploads/path/to/asset.png').returns(gds_api_response)
-    Services.asset_manager.expects(:delete_asset).with('asset-id')
+    AssetManagerDeleteAssetWorker.expects(:perform_async).with('/government/uploads/path/to/asset.png')
 
     file.delete
   end
