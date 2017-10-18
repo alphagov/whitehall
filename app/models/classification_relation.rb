@@ -19,7 +19,7 @@ class ClassificationRelation < ApplicationRecord
   class Validator < ActiveModel::Validator
     def validate(record)
       if record && record.classification_id && record.classification_id == record.related_classification_id
-        record.errors[:classification] = "cannot relate to itself"
+        record.errors.add(:classification, "cannot relate to itself")
       end
     end
   end
