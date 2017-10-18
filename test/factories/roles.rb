@@ -13,4 +13,16 @@ FactoryGirl.define do
   factory :historic_role, parent: :ministerial_role do
     supports_historical_accounts true
   end
+
+  trait :occupied do
+    after :build do |role, _|
+      role.role_appointments = [FactoryGirl.build(:role_appointment)]
+    end
+  end
+
+  trait :vacant do
+    after :build do |role, _|
+      role.role_appointments = [FactoryGirl.build(:role_appointment, :ended)]
+    end
+  end
 end
