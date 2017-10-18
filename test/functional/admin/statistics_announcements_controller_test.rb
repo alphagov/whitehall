@@ -132,7 +132,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     draft_announcement = create(:statistics_announcement)
 
     announcement_has_no_expanded_links(draft_announcement.content_id)
-    get :show, id: draft_announcement
+    get :show, params: { id: draft_announcement }
 
     refute_select '.taxonomy-topics'
   end
@@ -148,7 +148,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     login_as(create(:user, organisation: dfe_organisation))
 
     announcement_has_no_expanded_links(announcement.content_id)
-    get :show, id: announcement
+    get :show, params: { id: announcement }
 
     assert_select '.taxonomy-topics .btn', "Add topic"
   end
@@ -164,7 +164,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     login_as(create(:user, organisation: sfa_organisation))
 
     announcement_has_no_expanded_links(announcement.content_id)
-    get :show, id: announcement
+    get :show, params: { id: announcement }
 
     refute_select '.taxonomy-topics .content'
     assert_select '.taxonomy-topics .no-content', "No topics - please add a topic"
@@ -181,7 +181,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     login_as(create(:user, organisation: sfa_organisation))
 
     announcement_has_expanded_links(announcement.content_id)
-    get :show, id: announcement
+    get :show, params: { id: announcement }
 
     refute_select '.taxonomy-topics .no-content'
     assert_select '.taxonomy-topics .content li', "Education, Training and Skills"

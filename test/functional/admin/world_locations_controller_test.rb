@@ -83,7 +83,7 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
 
   view_test "the 'View on website' link on the show page goes to the news page" do
     world_location = create(:world_location, slug: "germany")
-    get :show, id: world_location
+    get :show, params: { id: world_location }
     assert_select 'a' do |links|
       view_links = links.select { |link| link.text =~ /View on website/ }
       assert_match(/\/world\/germany\/news/, view_links.first["href"])
@@ -92,7 +92,7 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
 
   view_test "the 'View on website' link on /features goes to the English France news page" do
     world_location = create(:world_location, slug: "france", translated_into: [:fr])
-    get :features, id: world_location
+    get :features, params: { id: world_location }
 
     assert_select 'a' do |links|
       view_links = links.select { |link| link.text =~ /View on website/ }
@@ -102,7 +102,7 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
 
   view_test "the 'View on website' link on /features.fr goes to the French world location page" do
     world_location = create(:world_location, slug: "france", translated_into: [:fr])
-    get :features, id: world_location, locale: "fr"
+    get :features, params: { id: world_location, locale: "fr" }
 
     assert_select 'a' do |links|
       view_links = links.select { |link| link.text =~ /View on website/ }
