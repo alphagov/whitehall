@@ -38,7 +38,7 @@ class SyncCheckWorkerTest < ActiveSupport::TestCase
 
     assert_equal 1, SyncCheckResult.where(
       failures: nil,
-      check_class: SyncChecker::Formats::CaseStudyCheck,
+      check_class: 'SyncChecker::Formats::CaseStudyCheck',
       item_id: case_study.document_id
     ).count
   end

@@ -10,7 +10,7 @@ class SyncCheckResult < ApplicationRecord
   serialize :failures
 
   def self.record(check_class, item_id, failures)
-    record = find_or_initialize_by(check_class: check_class, item_id: item_id)
+    record = find_or_initialize_by(check_class: check_class.to_s, item_id: item_id)
     record.failures = failures
     record.save!
   end
