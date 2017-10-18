@@ -179,6 +179,14 @@ class RoleTest < ActiveSupport::TestCase
     assert_equal [role], Role.also_attends_cabinet
   end
 
+  test "should be able to scope roles by whether they are occupied" do
+    occupied = create(:role, :occupied)
+    vacant = create(:role, :vacant)
+
+    assert_includes Role.occupied, occupied
+    refute_includes Role.occupied, vacant
+  end
+
   test "has removeable translations" do
     stub_any_publishing_api_call
 

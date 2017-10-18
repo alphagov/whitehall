@@ -36,4 +36,8 @@ FactoryGirl.define do
   factory :judge_role_appointment, parent: :role_appointment do
     association :role, factory: :judge_role
   end
+
+  trait :ended do
+    ended_at { 1.day.ago }
+  end
 end

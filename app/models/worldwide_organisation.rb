@@ -2,6 +2,8 @@ class WorldwideOrganisation < ApplicationRecord
   include HasCorporateInformationPages
 
   PRIMARY_ROLES = [AmbassadorRole, HighCommissionerRole, GovernorRole]
+  SECONDARY_ROLES = [DeputyHeadOfMissionRole]
+  OFFICE_ROLES = [WorldwideOfficeStaffRole]
 
   has_many :worldwide_organisation_world_locations, dependent: :destroy
   has_many :world_locations, through: :worldwide_organisation_world_locations
@@ -103,15 +105,14 @@ class WorldwideOrganisation < ApplicationRecord
   end
 
   def primary_role
-    roles.where(type: PRIMARY_ROLES.map(&:name)).first
+    roles.occupied.where(type: PRIMARY_ROLES.map(&:name)).first
   end
 
   def secondary_role
-    roles.where(type: DeputyHeadOfMissionRole.name).first
+    roles.occupied.where(type: SECONDARY_ROLES.map(&:name)).first
   end
 
   def office_staff_roles
-    roles.where(type: WorldwideOfficeStaffRole.name)
+    roles.occupied.where(type: OFFICE_ROLES.map(&:name))
   end
-
 end

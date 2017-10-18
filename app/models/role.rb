@@ -37,6 +37,7 @@ class Role < ApplicationRecord
   scope :military,                   -> { where(type: 'MilitaryRole') }
   scope :special_representative,     -> { where(type: 'SpecialRepresentativeRole') }
   scope :chief_professional_officer, -> { where(type: 'ChiefProfessionalOfficerRole') }
+  scope :occupied,                   -> { where(id: RoleAppointment.current.pluck(:role_id)) }
 
   validates :name, presence: true
   validates :type, presence: true
