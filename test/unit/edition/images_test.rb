@@ -37,7 +37,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
   end
 
   test "#create_draft should include copies of image attributes" do
-    image = create(:image)
+    image = create(:image, caption: 'image-caption')
     published_edition = EditionWithImages.create!(valid_edition_attributes.merge(
       state: 'published',
       major_change_published_at: Time.zone.now,
