@@ -36,7 +36,7 @@ class RolePresenterTest < ActionView::TestCase
 
   test 'current_person returns a UnassignedPersonPresenter if there is no current appointee' do
     @role.stubs(:current_person).returns(nil)
-    assert_equal @presenter.current_person, RolePresenter::UnassignedPersonPresenter.new(nil, @view_context)
+    assert @presenter.current_person == RolePresenter::UnassignedPersonPresenter.new(nil, @view_context)
   end
 
   test 'responsibilities generates html from the original govspeak' do
