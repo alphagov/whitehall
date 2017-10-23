@@ -3,8 +3,6 @@ require 'test_helper'
 class AssetManagerIntegrationTest
   class CreatingAnOrganisationLogo < ActiveSupport::TestCase
     setup do
-      Whitehall.stubs(:use_asset_manager).returns(true)
-
       @filename = '960x640_jpeg.jpg'
       @organisation = FactoryGirl.build(
         :organisation,
@@ -31,8 +29,6 @@ class AssetManagerIntegrationTest
 
   class RemovingAnOrganisationLogo < ActiveSupport::TestCase
     setup do
-      Whitehall.stubs(:use_asset_manager).returns(true)
-
       @organisation = FactoryGirl.create(
         :organisation,
         organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
