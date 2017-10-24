@@ -11,8 +11,4 @@ class ConsultationResponseFormUploaderTest < ActiveSupport::TestCase
     uploader = ConsultationResponseFormUploader.new(model, "mounted-as")
     assert_match /^system/, uploader.store_dir
   end
-
-  test 'uses the asset manager and file system storage engine' do
-    assert_equal Whitehall::AssetManagerAndQuarantinedFileStorage, ConsultationResponseFormUploader.storage
-  end
 end

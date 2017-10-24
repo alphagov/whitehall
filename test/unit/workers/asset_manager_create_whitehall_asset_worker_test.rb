@@ -1,10 +1,10 @@
 require 'test_helper'
 
-class AssetManagerWorkerTest < ActiveSupport::TestCase
+class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
   setup do
-    @file = Tempfile.new('asset')
+    @file = Tempfile.new('asset', Dir.mktmpdir)
     @legacy_url_path = 'legacy-url-path'
-    @worker = AssetManagerWorker.new
+    @worker = AssetManagerCreateWhitehallAssetWorker.new
   end
 
   test 'creates a whitehall asset using a file object at the correct path' do
@@ -24,5 +24,10 @@ class AssetManagerWorkerTest < ActiveSupport::TestCase
   test 'removes the file after it has been successfully uploaded' do
     @worker.perform(@file.path, @legacy_url_path)
     refute File.exist?(@file.path)
+  end
+
+  test 'removes the directory after it has been successfully uploaded' do
+    @worker.perform(@file.path, @legacy_url_path)
+    refute Dir.exist?(File.dirname(@file))
   end
 end
