@@ -5,13 +5,19 @@ class MigrateAssetsToAssetManager
 
   def perform
     @files.each do |file|
-      Services.asset_manager.create_whitehall_asset(
-        file: file,
-        legacy_url_path: file.legacy_url_path,
-        legacy_last_modified: file.legacy_last_modified,
-        legacy_etag: file.legacy_etag
-      )
+      create_whitehall_asset(file)
     end
+  end
+
+  private
+
+  def create_whitehall_asset(file)
+    Services.asset_manager.create_whitehall_asset(
+      file: file,
+      legacy_url_path: file.legacy_url_path,
+      legacy_last_modified: file.legacy_last_modified,
+      legacy_etag: file.legacy_etag
+    )
   end
 
   class OrganisationLogoFiles
