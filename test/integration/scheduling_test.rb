@@ -63,7 +63,7 @@ class SchedulingTest < ActiveSupport::TestCase
     assert_publishing_api_put_intent(french_path, publish_time: publish_time)
   end
 
-  test "unscheduling a scheduled first-edition removes the publish intent and replaces the 'coming_soon' with a 'gone' item" do
+  test "unscheduling a scheduled first-edition removes the publish intent and deletes the 'coming_soon' item" do
     gone_uuid = SecureRandom.uuid
     SecureRandom.stubs(uuid: gone_uuid)
     scheduled_edition = create(:scheduled_case_study)
@@ -74,9 +74,8 @@ class SchedulingTest < ActiveSupport::TestCase
     gone_request = stub_publishing_api_unpublish(
       scheduled_edition.content_id,
       body: {
-        type: "gone",
+        type: "vanish",
         locale: "en",
-        discard_drafts: true,
       }
     )
 
@@ -86,7 +85,7 @@ class SchedulingTest < ActiveSupport::TestCase
     assert_requested gone_request
   end
 
-  test "unscheduling a scheduled subsequent edition removes the publish intent but doesn't publish a 'gone' item" do
+  test "unscheduling a scheduled subsequent edition removes the publish intent but doesn't delete the original item" do
     published_edition = create(:published_case_study)
     scheduled_edition = create(:scheduled_case_study, document: published_edition.document)
 
