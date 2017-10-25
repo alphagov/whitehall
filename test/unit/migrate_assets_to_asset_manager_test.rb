@@ -9,6 +9,8 @@ class MigrateAssetsToAssetManagerTest < ActiveSupport::TestCase
     dummy_asset_path = Rails.root.join('test', 'fixtures', 'images', '960x640_jpeg.jpg')
     FileUtils.cp(dummy_asset_path, @organisation_logo_path)
 
+    @organisation_logo_file = File.open(@organisation_logo_path)
+
     @subject = MigrateAssetsToAssetManager.new
   end
 
@@ -21,6 +23,16 @@ class MigrateAssetsToAssetManagerTest < ActiveSupport::TestCase
   test 'it calls create_whitehall_asset with the legacy file path' do
     Services.asset_manager.expects(:create_whitehall_asset).with(
       has_entry(:legacy_url_path, '/government/uploads/system/uploads/organisation/logo/1/logo.jpg')
+    )
+
+    @subject.perform
+  end
+
+  test 'it calls create_whitehall_asset with the legacy last modified time' do
+    expected_last_modified = File.stat(@organisation_logo_file.path).mtime
+
+    Services.asset_manager.expects(:create_whitehall_asset).with(
+      has_entry(:legacy_last_modified, expected_last_modified)
     )
 
     @subject.perform
