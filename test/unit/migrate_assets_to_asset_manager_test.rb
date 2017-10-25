@@ -37,6 +37,16 @@ class MigrateAssetsToAssetManagerTest < ActiveSupport::TestCase
 
     @subject.perform
   end
+
+  test 'it calls create_whitehall_asset with the legacy etag' do
+    expected_etag = Digest::MD5.hexdigest(@organisation_logo_file.read)
+
+    Services.asset_manager.expects(:create_whitehall_asset).with(
+      has_entry(:legacy_etag, expected_etag)
+    )
+
+    @subject.perform
+  end
 end
 
 class OrganisationLogoFilesTest < ActiveSupport::TestCase

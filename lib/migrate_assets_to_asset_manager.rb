@@ -8,7 +8,8 @@ class MigrateAssetsToAssetManager
       Services.asset_manager.create_whitehall_asset(
         file: file,
         legacy_url_path: file.legacy_url_path,
-        legacy_last_modified: file.legacy_last_modified
+        legacy_last_modified: file.legacy_last_modified,
+        legacy_etag: file.legacy_etag
       )
     end
   end
@@ -42,6 +43,10 @@ class MigrateAssetsToAssetManager
 
     def legacy_last_modified
       File.stat(path).mtime
+    end
+
+    def legacy_etag
+      Digest::MD5.hexdigest(read)
     end
   end
 end
