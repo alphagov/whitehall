@@ -5,7 +5,10 @@ class MigrateAssetsToAssetManager
 
   def perform
     @files.each do |file|
-      Services.asset_manager.create_whitehall_asset(file: file)
+      Services.asset_manager.create_whitehall_asset(
+        file: file,
+        legacy_url_path: file.path.gsub(Whitehall.clean_uploads_root, '/government/uploads')
+      )
     end
   end
 

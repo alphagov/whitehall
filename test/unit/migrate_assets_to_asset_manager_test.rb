@@ -17,6 +17,14 @@ class MigrateAssetsToAssetManagerTest < ActiveSupport::TestCase
 
     @subject.perform
   end
+
+  test 'it calls create_whitehall_asset with the legacy file path' do
+    Services.asset_manager.expects(:create_whitehall_asset).with(
+      has_entry(:legacy_url_path, '/government/uploads/system/uploads/organisation/logo/1/logo.jpg')
+    )
+
+    @subject.perform
+  end
 end
 
 class OrganisationLogoFilesTest < ActiveSupport::TestCase
