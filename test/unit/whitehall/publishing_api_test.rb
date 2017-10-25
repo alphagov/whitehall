@@ -265,7 +265,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     end
   end
 
-  test ".unschedule_async for a first edition served from the content store queues jobs to remove publish intents and publish 'gone' items" do
+  test ".unschedule_async for a first edition served from the content store queues jobs to remove publish intents and delete 'coming_soon' items" do
     edition = create(:scheduled_publication)
 
     I18n.with_locale(:de) do
@@ -282,12 +282,12 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       assert_equal german_path, PublishingApiUnscheduleWorker.jobs[0]['args'].first
       assert_equal english_path, PublishingApiUnscheduleWorker.jobs[1]['args'].first
 
-      assert_equal [edition.content_id, nil, nil, "de"], PublishingApiGoneWorker.jobs[0]["args"][0..3]
-      assert_equal [edition.content_id, nil, nil, "en"], PublishingApiGoneWorker.jobs[1]["args"][0..3]
+      assert_equal [edition.content_id, "de"], PublishingApiVanishWorker.jobs[0]["args"][0..1]
+      assert_equal [edition.content_id, "en"], PublishingApiVanishWorker.jobs[1]["args"][0..1]
     end
   end
 
-  test ".unschedule_async for a subsequent edition served from the content store queues jobs to remove publish intents, but not to publish 'gone' items" do
+  test ".unschedule_async for a subsequent edition served from the content store queues jobs to remove publish intents, but not to delete original items" do
     existing_edition = create(:published_publication)
     updated_edition = create(:scheduled_publication, document: existing_edition.document)
 
@@ -305,7 +305,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       assert_equal german_path, PublishingApiUnscheduleWorker.jobs[0]['args'].first
       assert_equal english_path, PublishingApiUnscheduleWorker.jobs[1]['args'].first
 
-      assert_equal [], PublishingApiGoneWorker.jobs
+      assert_equal [], PublishingApiVanishWorker.jobs
     end
   end
 
