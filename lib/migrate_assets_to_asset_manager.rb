@@ -7,7 +7,7 @@ class MigrateAssetsToAssetManager
     @files.each do |file|
       Services.asset_manager.create_whitehall_asset(
         file: file,
-        legacy_url_path: file.path.gsub(Whitehall.clean_uploads_root, '/government/uploads')
+        legacy_url_path: file.legacy_url_path
       )
     end
   end
@@ -16,7 +16,7 @@ class MigrateAssetsToAssetManager
     delegate :each, to: :files
 
     def files
-      file_paths.map { |f| File.open(f) }
+      file_paths.map { |f| OrganisationLogoFile.open(f) }
     end
 
     private
@@ -31,6 +31,12 @@ class MigrateAssetsToAssetManager
 
     def target_dir
       File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'organisation', 'logo')
+    end
+  end
+
+  class OrganisationLogoFile < File
+    def legacy_url_path
+      path.gsub(Whitehall.clean_uploads_root, '/government/uploads')
     end
   end
 end
