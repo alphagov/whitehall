@@ -1,0 +1,33 @@
+class MigrateAssetsToAssetManager
+  def initialize(files = OrganisationLogoFiles.new)
+    @files = files
+  end
+
+  def perform
+    @files.each do |file|
+      Services.asset_manager.create_whitehall_asset(file: file)
+    end
+  end
+
+  class OrganisationLogoFiles
+    delegate :each, to: :files
+
+    def files
+      file_paths.map { |f| File.open(f) }
+    end
+
+    private
+
+    def file_paths
+      all_paths_under_target_directory.reject { |f| File.directory?(f) }
+    end
+
+    def all_paths_under_target_directory
+      Dir.glob(File.join(target_dir, '**', '*'))
+    end
+
+    def target_dir
+      File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'organisation', 'logo')
+    end
+  end
+end
