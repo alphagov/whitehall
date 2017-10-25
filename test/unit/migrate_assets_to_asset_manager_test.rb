@@ -2,6 +2,8 @@ require "test_helper"
 
 class MigrateAssetsToAssetManagerTest < ActiveSupport::TestCase
   setup do
+    Services.asset_manager.stubs(:whitehall_asset).raises(GdsApi::HTTPNotFound.new(404))
+
     organisation_logo_dir = File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'organisation', 'logo', '1')
     FileUtils.mkdir_p(organisation_logo_dir)
 
@@ -44,6 +46,13 @@ class MigrateAssetsToAssetManagerTest < ActiveSupport::TestCase
     Services.asset_manager.expects(:create_whitehall_asset).with(
       has_entry(:legacy_etag, expected_etag)
     )
+
+    @subject.perform
+  end
+
+  test 'it does not call create_whitehall_asset if the asset already exists in asset manager' do
+    Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
+    Services.asset_manager.expects(:create_whitehall_asset).never
 
     @subject.perform
   end

@@ -5,7 +5,7 @@ class MigrateAssetsToAssetManager
 
   def perform
     @files.each do |file|
-      create_whitehall_asset(file)
+      create_whitehall_asset(file) unless asset_exists?(file)
     end
   end
 
@@ -18,6 +18,12 @@ class MigrateAssetsToAssetManager
       legacy_last_modified: file.legacy_last_modified,
       legacy_etag: file.legacy_etag
     )
+  end
+
+  def asset_exists?(file)
+    Services.asset_manager.whitehall_asset(file.legacy_url_path)
+  rescue GdsApi::HTTPNotFound
+    false
   end
 
   class OrganisationLogoFiles
