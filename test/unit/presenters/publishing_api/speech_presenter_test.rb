@@ -185,9 +185,20 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
         )
       end
 
-      it "presents the featured image" do
+      let!(:feature_two) do
+        create(
+          :feature,
+          document: speech.document,
+          image: File.open(
+            Rails.root.join("test", "fixtures", "images", "960x640_gif.gif")
+          ),
+          alt_text: "featured image two"
+        )
+      end
+
+      it "presents the most recent featured image" do
         details = presented.content[:details]
-        assert_equal("featured image", details[:image][:alt_text])
+        assert_equal("featured image two", details[:image][:alt_text])
         assert_match(/960x640_gif.gif$/, details[:image][:url])
       end
     end

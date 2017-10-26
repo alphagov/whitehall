@@ -117,7 +117,7 @@ module PublishingApi
     end
 
     def feature
-      @feature ||= Feature.find_by(document_id: item.document_id)
+      @feature ||= Feature.where(document_id: item.document_id).last
     end
 
     def image
