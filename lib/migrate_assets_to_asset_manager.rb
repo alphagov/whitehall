@@ -1,10 +1,11 @@
 class MigrateAssetsToAssetManager
-  def initialize(files = OrganisationLogoFiles.new)
-    @files = files
+  def initialize(file_paths = OrganisationLogoFilePaths.new)
+    @file_paths = file_paths
   end
 
   def perform
-    @files.each do |file|
+    @file_paths.each do |file_path|
+      file = OrganisationLogoFile.open(file_path)
       create_whitehall_asset(file) unless asset_exists?(file)
     end
   end
@@ -26,18 +27,14 @@ class MigrateAssetsToAssetManager
     false
   end
 
-  class OrganisationLogoFiles
-    delegate :each, to: :files
-
-    def files
-      file_paths.map { |f| OrganisationLogoFile.open(f) }
-    end
-
-    private
+  class OrganisationLogoFilePaths
+    delegate :each, to: :file_paths
 
     def file_paths
       all_paths_under_target_directory.reject { |f| File.directory?(f) }
     end
+
+  private
 
     def all_paths_under_target_directory
       Dir.glob(File.join(target_dir, '**', '*'))

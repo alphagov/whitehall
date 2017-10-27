@@ -58,7 +58,7 @@ class MigrateAssetsToAssetManagerTest < ActiveSupport::TestCase
   end
 end
 
-class OrganisationLogoFilesTest < ActiveSupport::TestCase
+class OrganisationLogoFilePathsTest < ActiveSupport::TestCase
   setup do
     organisation_logo_dir = File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'organisation', 'logo', '1')
     other_asset_dir = File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'other')
@@ -76,20 +76,20 @@ class OrganisationLogoFilesTest < ActiveSupport::TestCase
     @organisation_logo = File.open(organisation_logo_path)
     @other_asset = File.open(other_asset_path)
 
-    @subject = MigrateAssetsToAssetManager::OrganisationLogoFiles.new
+    @subject = MigrateAssetsToAssetManager::OrganisationLogoFilePaths.new
   end
 
-  test 'delegates each to files' do
+  test 'delegates each to file_paths' do
     assert @subject.respond_to?(:each)
   end
 
   test '#files includes only organistation logos' do
-    assert_equal 1, @subject.files.size
+    assert_equal 1, @subject.file_paths.size
   end
 
   test '#files does not includes directories' do
-    @subject.files.each do |file|
-      refute File.directory?(file)
+    @subject.file_paths.each do |file_path|
+      refute File.directory?(file_path)
     end
   end
 end
