@@ -5,26 +5,34 @@ class MigrateAssetsToAssetManager
 
   def perform
     @file_paths.each do |file_path|
-      file = OrganisationLogoFile.open(file_path)
-      create_whitehall_asset(file) unless asset_exists?(file)
+      Worker.perform_async(file_path)
     end
   end
 
+  class Worker < WorkerBase
+    sidekiq_options queue: :asset_migration
+
+    def perform(file_path)
+      file = OrganisationLogoFile.open(file_path)
+      create_whitehall_asset(file) unless asset_exists?(file)
+    end
+
   private
 
-  def create_whitehall_asset(file)
-    Services.asset_manager.create_whitehall_asset(
-      file: file,
-      legacy_url_path: file.legacy_url_path,
-      legacy_last_modified: file.legacy_last_modified,
-      legacy_etag: file.legacy_etag
-    )
-  end
+    def create_whitehall_asset(file)
+      Services.asset_manager.create_whitehall_asset(
+        file: file,
+        legacy_url_path: file.legacy_url_path,
+        legacy_last_modified: file.legacy_last_modified,
+        legacy_etag: file.legacy_etag
+      )
+    end
 
-  def asset_exists?(file)
-    Services.asset_manager.whitehall_asset(file.legacy_url_path)
-  rescue GdsApi::HTTPNotFound
-    false
+    def asset_exists?(file)
+      Services.asset_manager.whitehall_asset(file.legacy_url_path)
+    rescue GdsApi::HTTPNotFound
+      false
+    end
   end
 
   class OrganisationLogoFilePaths
