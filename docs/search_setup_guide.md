@@ -36,7 +36,7 @@ Steps:
 following task from the rummager repo:
 
     ```
-    RUMMAGER_INDEX=government bundle exec rake rummager:migrate_index
+    RUMMAGER_INDEX=government bundle exec rake rummager:migrate_schema
     ```
 
 2. Run the bulk export and load:
