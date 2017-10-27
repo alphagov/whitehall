@@ -70,4 +70,12 @@ class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
 
     file.delete
   end
+
+  test 'uses the asset-manager api to return the url of the file' do
+    asset_url = 'http://asset-host/asset.png'
+    Services.asset_manager.stubs(:whitehall_asset).with('/government/uploads/path/to/asset.png').returns('file_url' => asset_url)
+
+    file = Whitehall::AssetManagerStorage::File.new('path/to/asset.png')
+    assert_equal asset_url, file.url
+  end
 end
