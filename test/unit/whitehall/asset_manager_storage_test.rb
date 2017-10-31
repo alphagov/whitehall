@@ -63,11 +63,22 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
 end
 
 class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
+  setup do
+    asset_path = 'path/to/asset.png'
+    @asset_url_path = "/government/uploads/#{asset_path}"
+    @file = Whitehall::AssetManagerStorage::File.new(asset_path)
+  end
+
   test 'queues the call to delete the asset from asset manager' do
-    file = Whitehall::AssetManagerStorage::File.new('path/to/asset.png')
+    AssetManagerDeleteAssetWorker.expects(:perform_async).with(@asset_url_path)
 
-    AssetManagerDeleteAssetWorker.expects(:perform_async).with('/government/uploads/path/to/asset.png')
+    @file.delete
+  end
 
-    file.delete
+  test 'uses the asset-manager api to return the url of the file' do
+    asset_url = 'http://asset-host/asset.png'
+    Services.asset_manager.stubs(:whitehall_asset).with(@asset_url_path).returns('file_url' => asset_url)
+
+    assert_equal asset_url, @file.url
   end
 end
