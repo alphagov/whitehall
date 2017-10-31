@@ -17,7 +17,8 @@ class MigrateAssetsToAssetManagerTest < ActiveSupport::TestCase
   end
 
   test 'it calls create_whitehall_asset for each file in the list' do
-    Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(:file, responds_with(:path, @organisation_logo_path)))
+    Services.asset_manager.expects(:create_whitehall_asset)
+      .with(has_entry(:file, responds_with(:read, File.read(@organisation_logo_path))))
 
     @subject.perform
   end

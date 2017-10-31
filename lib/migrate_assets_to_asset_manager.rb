@@ -63,7 +63,9 @@ class MigrateAssetsToAssetManager
     end
 
     def legacy_etag
-      Digest::MD5.hexdigest(read)
+      etag = Digest::MD5.hexdigest(read)
+      rewind
+      etag
     end
   end
 end
