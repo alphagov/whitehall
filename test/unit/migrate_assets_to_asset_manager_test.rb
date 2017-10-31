@@ -42,7 +42,10 @@ class MigrateAssetsToAssetManagerTest < ActiveSupport::TestCase
   end
 
   test 'it calls create_whitehall_asset with the legacy etag' do
-    expected_etag = Digest::MD5.hexdigest(@organisation_logo_file.read)
+    expected_etag = [
+      File.stat(@organisation_logo_path).mtime.to_i.to_s(16),
+      File.stat(@organisation_logo_path).size.to_i.to_s(16),
+    ].join('-')
 
     Services.asset_manager.expects(:create_whitehall_asset).with(
       has_entry(:legacy_etag, expected_etag)
@@ -92,5 +95,31 @@ class OrganisationLogoFilePathsTest < ActiveSupport::TestCase
     @subject.file_paths.each do |file_path|
       refute File.directory?(file_path)
     end
+  end
+end
+
+class OrganisationLogoFileTest < ActiveSupport::TestCase
+  setup do
+    @path = Rails.root.join('test/fixtures/logo.png')
+    file = MigrateAssetsToAssetManager::OrganisationLogoFile.open(@path)
+    @parts = file.legacy_etag.split('-')
+  end
+
+  test 'returns string made up of 2 parts separated by a hyphen' do
+    assert_equal 2, @parts.length
+  end
+
+  test "has 1st part as file mtime (unix time in seconds written in lowercase hex)" do
+    last_modified_hex = @parts.first
+    last_modified = last_modified_hex.to_i(16)
+
+    assert_equal File.stat(@path).mtime.to_i, last_modified
+  end
+
+  test "has 2nd part as file size (number of bytes written in lowercase hex)" do
+    size_hex = @parts.last
+    size = size_hex.to_i(16)
+
+    assert_equal File.stat(@path).size, size
   end
 end
