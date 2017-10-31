@@ -63,7 +63,7 @@ class MigrateAssetsToAssetManager
     end
 
     def legacy_etag
-      Digest::MD5.hexdigest(read)
+      '%x-%x' % [legacy_last_modified, size]
     end
   end
 end
