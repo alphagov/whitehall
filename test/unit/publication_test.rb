@@ -229,4 +229,11 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
     statistics_announcement.expects(:touch).never
     publication.save!
   end
+
+  test "it doesn't touch the statistics_announcement if it's superseded" do
+    statistics_announcement = create(:statistics_announcement)
+    publication = build(:superseded_statistics, statistics_announcement: statistics_announcement)
+    statistics_announcement.expects(:touch).never
+    publication.save!
+  end
 end
