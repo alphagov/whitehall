@@ -27,7 +27,7 @@ class Publication < Publicationesque
 
   after_save :touch_statistics_announcement
   def touch_statistics_announcement
-    unless draft?
+    if published?
       statistics_announcement.touch unless statistics_announcement.nil?
     end
   end
