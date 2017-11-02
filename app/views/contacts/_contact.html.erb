@@ -45,7 +45,7 @@
       <% end %>
 
       <% if contact.is_a?(WorldwideOffice) && contact.access_and_opening_times_body.present? %>
-        <%= link_to'Access and opening times', [contact.worldwide_organisation, contact] %>
+        <%= link_to 'Access and opening times', [contact.worldwide_organisation, contact], class: "url" %>
       <% end %>
     </div>
   </div>
