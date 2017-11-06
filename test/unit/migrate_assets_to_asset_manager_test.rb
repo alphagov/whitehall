@@ -13,7 +13,9 @@ class MigrateAssetsToAssetManagerTest < ActiveSupport::TestCase
 
     @organisation_logo_file = File.open(@organisation_logo_path)
 
-    @subject = MigrateAssetsToAssetManager.new
+    @subject = MigrateAssetsToAssetManager.new(
+      MigrateAssetsToAssetManager::AssetFilePaths.new('system/uploads/organisation/logo')
+    )
   end
 
   test 'it calls create_whitehall_asset for each file in the list' do
@@ -80,14 +82,14 @@ class AssetFilePathsTest < ActiveSupport::TestCase
     @organisation_logo = File.open(organisation_logo_path)
     @other_asset = File.open(other_asset_path)
 
-    @subject = MigrateAssetsToAssetManager::AssetFilePaths.new
+    @subject = MigrateAssetsToAssetManager::AssetFilePaths.new('system/uploads/organisation/logo')
   end
 
   test 'delegates each to file_paths' do
     assert @subject.respond_to?(:each)
   end
 
-  test '#files includes only organistation logos' do
+  test '#files includes only organisation logos' do
     assert_equal 1, @subject.file_paths.size
   end
 
@@ -95,6 +97,11 @@ class AssetFilePathsTest < ActiveSupport::TestCase
     @subject.file_paths.each do |file_path|
       refute File.directory?(file_path)
     end
+  end
+
+  test '#files includes all files when initialised with a top level target directory' do
+    subject = MigrateAssetsToAssetManager::AssetFilePaths.new('system/uploads')
+    assert_equal 2, subject.file_paths.size
   end
 end
 
