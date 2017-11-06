@@ -13,7 +13,7 @@ class MigrateAssetsToAssetManager
     sidekiq_options queue: :asset_migration
 
     def perform(file_path)
-      file = OrganisationLogoFile.open(file_path)
+      file = AssetFile.open(file_path)
       create_whitehall_asset(file) unless asset_exists?(file)
     end
 
@@ -53,7 +53,7 @@ class MigrateAssetsToAssetManager
     end
   end
 
-  class OrganisationLogoFile < File
+  class AssetFile < File
     def legacy_url_path
       path.gsub(Whitehall.clean_uploads_root, '/government/uploads')
     end

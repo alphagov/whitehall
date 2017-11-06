@@ -98,10 +98,10 @@ class AssetFilePathsTest < ActiveSupport::TestCase
   end
 end
 
-class OrganisationLogoFileTest < ActiveSupport::TestCase
+class AssetFileTest < ActiveSupport::TestCase
   setup do
     @path = Rails.root.join('test/fixtures/logo.png')
-    file = MigrateAssetsToAssetManager::OrganisationLogoFile.open(@path)
+    file = MigrateAssetsToAssetManager::AssetFile.open(@path)
     @parts = file.legacy_etag.split('-')
   end
 
