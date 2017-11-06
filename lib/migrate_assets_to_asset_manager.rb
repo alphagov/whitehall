@@ -1,6 +1,6 @@
 class MigrateAssetsToAssetManager
-  def initialize(file_paths = AssetFilePaths.new)
-    @file_paths = file_paths
+  def initialize(target_dir)
+    @file_paths = AssetFilePaths.new(target_dir)
   end
 
   def perform

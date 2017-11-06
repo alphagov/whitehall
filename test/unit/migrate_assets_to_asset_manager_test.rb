@@ -13,9 +13,7 @@ class MigrateAssetsToAssetManagerTest < ActiveSupport::TestCase
 
     @organisation_logo_file = File.open(@organisation_logo_path)
 
-    @subject = MigrateAssetsToAssetManager.new(
-      MigrateAssetsToAssetManager::AssetFilePaths.new('system/uploads/organisation/logo')
-    )
+    @subject = MigrateAssetsToAssetManager.new('system/uploads/organisation/logo')
   end
 
   test 'it calls create_whitehall_asset for each file in the list' do
