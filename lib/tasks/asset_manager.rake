@@ -2,7 +2,9 @@ namespace :asset_manager do
   desc "Migrates Assets to Asset Manager."
   task :migrate_assets, [:target_dir] => :environment do |_, args|
     abort(usage_string) unless args[:target_dir]
-    MigrateAssetsToAssetManager.new(args[:target_dir]).perform
+    migrator = MigrateAssetsToAssetManager.new(args[:target_dir])
+    puts migrator
+    migrator.perform
   end
 
   private

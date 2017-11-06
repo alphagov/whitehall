@@ -9,6 +9,10 @@ class MigrateAssetsToAssetManager
     end
   end
 
+  def to_s
+    @file_paths.join("\n")
+  end
+
   class Worker < WorkerBase
     sidekiq_options queue: :asset_migration
 
@@ -36,7 +40,7 @@ class MigrateAssetsToAssetManager
   end
 
   class AssetFilePaths
-    delegate :each, to: :file_paths
+    delegate :each, :join, to: :file_paths
 
     def initialize(target_dir)
       @target_dir = target_dir

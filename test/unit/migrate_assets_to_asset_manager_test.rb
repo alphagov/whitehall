@@ -60,6 +60,10 @@ class MigrateAssetsToAssetManagerTest < ActiveSupport::TestCase
 
     @subject.perform
   end
+
+  test 'to_s is a string of asset file paths to be migrated' do
+    assert_equal @organisation_logo_path, @subject.to_s
+  end
 end
 
 class AssetFilePathsTest < ActiveSupport::TestCase
@@ -85,6 +89,10 @@ class AssetFilePathsTest < ActiveSupport::TestCase
 
   test 'delegates each to file_paths' do
     assert @subject.respond_to?(:each)
+  end
+
+  test 'delegates join to file_paths' do
+    assert @subject.respond_to?(:join)
   end
 
   test '#files includes only organisation logos' do
