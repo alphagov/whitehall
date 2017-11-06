@@ -1,5 +1,5 @@
 class MigrateAssetsToAssetManager
-  def initialize(file_paths = OrganisationLogoFilePaths.new)
+  def initialize(file_paths = AssetFilePaths.new)
     @file_paths = file_paths
   end
 
@@ -35,7 +35,7 @@ class MigrateAssetsToAssetManager
     end
   end
 
-  class OrganisationLogoFilePaths
+  class AssetFilePaths
     delegate :each, to: :file_paths
 
     def file_paths

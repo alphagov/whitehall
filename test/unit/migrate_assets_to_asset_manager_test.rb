@@ -62,7 +62,7 @@ class MigrateAssetsToAssetManagerTest < ActiveSupport::TestCase
   end
 end
 
-class OrganisationLogoFilePathsTest < ActiveSupport::TestCase
+class AssetFilePathsTest < ActiveSupport::TestCase
   setup do
     organisation_logo_dir = File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'organisation', 'logo', '1')
     other_asset_dir = File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'other')
@@ -80,7 +80,7 @@ class OrganisationLogoFilePathsTest < ActiveSupport::TestCase
     @organisation_logo = File.open(organisation_logo_path)
     @other_asset = File.open(other_asset_path)
 
-    @subject = MigrateAssetsToAssetManager::OrganisationLogoFilePaths.new
+    @subject = MigrateAssetsToAssetManager::AssetFilePaths.new
   end
 
   test 'delegates each to file_paths' do
