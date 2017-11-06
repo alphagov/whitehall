@@ -36,12 +36,13 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
     @uploader.store!(@file)
   end
 
-  test 'returns the sanitized file' do
+  test 'store! returns an asset manager file' do
     AssetManagerCreateWhitehallAssetWorker.stubs(:perform_async)
 
     storage = Whitehall::AssetManagerStorage.new(@uploader)
     file = CarrierWave::SanitizedFile.new(@file)
-    assert_equal file, storage.store!(file)
+
+    assert_equal Whitehall::AssetManagerStorage::File, storage.store!(file).class
   end
 
   test 'instantiates an asset manager file with the location of the file on disk' do

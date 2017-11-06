@@ -11,7 +11,7 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
     FileUtils.cp(original_file, temporary_location)
     legacy_url_path = ::File.join('/government/uploads', uploader.store_path)
     AssetManagerCreateWhitehallAssetWorker.perform_async(temporary_location, legacy_url_path)
-    file
+    File.new(uploader.store_path)
   end
 
   def retrieve!(identifier)
@@ -30,6 +30,10 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
 
     def url
       URI.join(Plek.new.public_asset_host, @legacy_url_path).to_s
+    end
+
+    def filename
+      @legacy_url_path
     end
   end
 end
