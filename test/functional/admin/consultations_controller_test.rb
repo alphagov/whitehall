@@ -242,6 +242,9 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   end
 
   view_test 'updating should respect the attachment_action for response forms to replace it' do
+    Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
+    Services.asset_manager.stubs(:delete_asset)
+
     two_pages_pdf = fixture_file_upload('two-pages.pdf')
     greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
