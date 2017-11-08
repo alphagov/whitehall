@@ -11,12 +11,8 @@ class PublicFacingController < ApplicationController
     log_error_and_render_500 exception
   end
 
-  rescue_from GdsApi::HTTPErrorResponse do |exception|
-    if exception.code == 502
-      log_error_and_render_500 exception
-    else
-      raise
-    end
+  rescue_from GdsApi::HTTPServerError do |exception|
+    log_error_and_render_500 exception
   end
 
   # Allows additional request formats to be enabled.
