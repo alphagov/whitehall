@@ -32,11 +32,11 @@ class PublicFacingControllerTest < ActionController::TestCase
     end
 
     def api_bad_gateway
-      raise GdsApi::HTTPErrorResponse.new(502, 'Bad Gateway')
+      raise GdsApi::HTTPBadGateway.new('Bad Gateway')
     end
 
-    def api_error
-      raise GdsApi::HTTPErrorResponse.new(500, 'Something went wrong')
+    def api_not_found
+      raise GdsApi::HTTPNotFound.new('Not found')
     end
   end
 
@@ -165,17 +165,17 @@ class PublicFacingControllerTest < ActionController::TestCase
     end
   end
 
-  test "public facing controllers catch 502 errors from GDS API and renders a 500 response" do
+  test "public facing controllers catch server errors from GDS API and renders a 500 response" do
     with_routing_for_test_controller do
       get :api_bad_gateway
       assert_response :internal_server_error
     end
   end
 
-  test "public facing controllers do not catch other GDS API errors" do
+  test "public facing controllers do not catch client GDS API errors" do
     with_routing_for_test_controller do
       assert_raise GdsApi::HTTPErrorResponse do
-        get :api_error
+        get :api_not_found
       end
     end
   end
@@ -190,7 +190,7 @@ class PublicFacingControllerTest < ActionController::TestCase
   def with_routing_for_test_controller(&block)
     with_routing do |map|
       map.draw do
-        %w(test json js_or_atom locale api_timeout api_bad_gateway api_error).each do |action|
+        %w(test json js_or_atom locale api_timeout api_bad_gateway api_not_found).each do |action|
           get "/test/#{action}.{.:format}", to: "public_facing_controller_test/test##{action}"
         end
       end
