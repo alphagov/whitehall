@@ -13,7 +13,7 @@ class MigrateAssetsToAssetManagerTest < ActiveSupport::TestCase
 
     @organisation_logo_file = File.open(@organisation_logo_path)
 
-    @subject = MigrateAssetsToAssetManager.new
+    @subject = MigrateAssetsToAssetManager.new('system/uploads/organisation/logo')
   end
 
   test 'it calls create_whitehall_asset for each file in the list' do
@@ -60,9 +60,13 @@ class MigrateAssetsToAssetManagerTest < ActiveSupport::TestCase
 
     @subject.perform
   end
+
+  test 'to_s is a string of asset file paths to be migrated' do
+    assert_equal @organisation_logo_path, @subject.to_s
+  end
 end
 
-class OrganisationLogoFilePathsTest < ActiveSupport::TestCase
+class AssetFilePathsTest < ActiveSupport::TestCase
   setup do
     organisation_logo_dir = File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'organisation', 'logo', '1')
     other_asset_dir = File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'other')
@@ -80,14 +84,18 @@ class OrganisationLogoFilePathsTest < ActiveSupport::TestCase
     @organisation_logo = File.open(organisation_logo_path)
     @other_asset = File.open(other_asset_path)
 
-    @subject = MigrateAssetsToAssetManager::OrganisationLogoFilePaths.new
+    @subject = MigrateAssetsToAssetManager::AssetFilePaths.new('system/uploads/organisation/logo')
   end
 
   test 'delegates each to file_paths' do
     assert @subject.respond_to?(:each)
   end
 
-  test '#files includes only organistation logos' do
+  test 'delegates join to file_paths' do
+    assert @subject.respond_to?(:join)
+  end
+
+  test '#files includes only organisation logos' do
     assert_equal 1, @subject.file_paths.size
   end
 
@@ -96,12 +104,17 @@ class OrganisationLogoFilePathsTest < ActiveSupport::TestCase
       refute File.directory?(file_path)
     end
   end
+
+  test '#files includes all files when initialised with a top level target directory' do
+    subject = MigrateAssetsToAssetManager::AssetFilePaths.new('system/uploads')
+    assert_equal 2, subject.file_paths.size
+  end
 end
 
-class OrganisationLogoFileTest < ActiveSupport::TestCase
+class AssetFileTest < ActiveSupport::TestCase
   setup do
     @path = Rails.root.join('test/fixtures/logo.png')
-    file = MigrateAssetsToAssetManager::OrganisationLogoFile.open(@path)
+    file = MigrateAssetsToAssetManager::AssetFile.open(@path)
     @parts = file.legacy_etag.split('-')
   end
 

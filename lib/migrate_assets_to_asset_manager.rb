@@ -1,6 +1,6 @@
 class MigrateAssetsToAssetManager
-  def initialize(file_paths = OrganisationLogoFilePaths.new)
-    @file_paths = file_paths
+  def initialize(target_dir)
+    @file_paths = AssetFilePaths.new(target_dir)
   end
 
   def perform
@@ -9,11 +9,15 @@ class MigrateAssetsToAssetManager
     end
   end
 
+  def to_s
+    @file_paths.join("\n")
+  end
+
   class Worker < WorkerBase
     sidekiq_options queue: :asset_migration
 
     def perform(file_path)
-      file = OrganisationLogoFile.open(file_path)
+      file = AssetFile.open(file_path)
       create_whitehall_asset(file) unless asset_exists?(file)
     end
 
@@ -35,8 +39,12 @@ class MigrateAssetsToAssetManager
     end
   end
 
-  class OrganisationLogoFilePaths
-    delegate :each, to: :file_paths
+  class AssetFilePaths
+    delegate :each, :join, to: :file_paths
+
+    def initialize(target_dir)
+      @target_dir = target_dir
+    end
 
     def file_paths
       all_paths_under_target_directory.reject { |f| File.directory?(f) }
@@ -45,15 +53,15 @@ class MigrateAssetsToAssetManager
   private
 
     def all_paths_under_target_directory
-      Dir.glob(File.join(target_dir, '**', '*'))
+      Dir.glob(File.join(full_target_dir, '**', '*'))
     end
 
-    def target_dir
-      File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'organisation', 'logo')
+    def full_target_dir
+      File.join(Whitehall.clean_uploads_root, @target_dir)
     end
   end
 
-  class OrganisationLogoFile < File
+  class AssetFile < File
     def legacy_url_path
       path.gsub(Whitehall.clean_uploads_root, '/government/uploads')
     end
