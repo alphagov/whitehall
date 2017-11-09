@@ -6,7 +6,7 @@ class AttachmentUploader < WhitehallUploader
 
   THUMBNAIL_GENERATION_TIMEOUT = 10.seconds
   FALLBACK_PDF_THUMBNAIL = File.expand_path("../../assets/images/pub-cover.png", __FILE__)
-  EXTENSION_WHITELIST = %w(chm csv diff doc docx dot dxf eps gif gml ics jpg kml odp ods odt pdf png ppt pptx ps rdf rtf sch txt wsdl xls xlsm xlsx xlt xml xsd xslt zip).freeze
+  EXTENSION_WHITELIST = %w(chm csv diff doc docx dot dxf eps gif gml ics jpg kml odp ods odt pdf png ppt pptx ps rdf ris rtf sch txt wsdl xls xlsm xlsx xlt xml xsd xslt zip).freeze
 
   before :cache, :validate_zipfile_contents!
 
