@@ -75,10 +75,11 @@ class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
     @file.delete
   end
 
-  test 'uses the asset-manager api to return the url of the file' do
-    asset_url = 'http://asset-host/asset.png'
-    Services.asset_manager.stubs(:whitehall_asset).with(@asset_url_path).returns('file_url' => asset_url)
+  test 'constructs the url of the file using the public asset host and legacy url path' do
+    Plek.stubs(:new).returns(stub('plek', public_asset_host: 'http://assets-host'))
 
-    assert_equal asset_url, @file.url
+    expected_asset_url = URI.join('http://assets-host', @asset_url_path).to_s
+
+    assert_equal expected_asset_url, @file.url
   end
 end
