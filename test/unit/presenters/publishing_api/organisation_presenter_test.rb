@@ -64,11 +64,11 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       '/government/uploads/system/uploads/organisation/logo/1/960x640_jpeg.jpg'
 
     assert_equal(
-      presented_item.content[:details][:logo][:image],
       {
         url: expected_image_url,
         alt_text: 'Organisation of Things',
-      }
+      },
+      presented_item.content[:details][:logo][:image]
     )
   end
 
