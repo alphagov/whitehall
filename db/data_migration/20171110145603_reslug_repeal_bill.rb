@@ -7,6 +7,6 @@ edition = document.editions.published.last
 Whitehall::SearchIndex.delete(edition)
 
 document.update_attributes!(slug: new_slug)
-PublishingApiDocumentRepublishingWorker.perform(document.id)
+PublishingApiDocumentRepublishingWorker.new.perform(document.id)
 
 puts "#{old_slug} -> #{new_slug}"
