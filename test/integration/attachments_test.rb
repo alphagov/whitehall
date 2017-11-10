@@ -22,7 +22,17 @@ class AttachmentsTest < ActionDispatch::IntegrationTest
     visit "/government/admin/editions/#{publication.id}/attachments"
 
     within ".qa-helper-copy" do
-      assert_text "will appear automatically"
+      assert_text "publication will appear automatically"
+    end
+  end
+
+  test 'displays "will appear automatically" for consultations' do
+    consultation = create(:consultation)
+    visit "/government/admin/editions/#{consultation.id}/attachments"
+
+    within ".qa-helper-copy" do
+      assert_text "consultation will appear automatically"
+      assert_no_text "need to be referenced"
     end
   end
 end
