@@ -53,7 +53,7 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
     storage.retrieve!('identifier')
   end
 
-  test 'returns an asset manager file' do
+  test 'retrieve! returns an asset manager file' do
     file = stub(:asset_manager_file)
     Whitehall::AssetManagerStorage::File.stubs(:new).returns(file)
 
