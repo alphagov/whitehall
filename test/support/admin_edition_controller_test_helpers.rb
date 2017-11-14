@@ -1,5 +1,6 @@
 module AdminEditionControllerTestHelpers
   extend ActiveSupport::Concern
+  include ActionMailer::TestHelper
 
   module ClassMethods
     def should_have_summary(edition_type)
@@ -78,6 +79,26 @@ module AdminEditionControllerTestHelpers
         admin_edition_path = send("admin_#{edition_type}_path", edition_class.last)
         assert_redirected_to admin_edition_path
         assert_equal 'The document has been saved', flash[:notice]
+      end
+
+      test "create should email content second line if the user is monitored" do
+        Edition.any_instance.stubs(:should_alert_for?).returns(true)
+
+        assert_emails 1 do
+          post :create, params: {
+            edition: controller_attributes_for(edition_type)
+          }
+        end
+      end
+
+      test "create should not email content second line if the user is not monitored" do
+        Edition.any_instance.stubs(:should_alert_for?).returns(false)
+
+        assert_no_emails do
+          post :create, params: {
+            edition: controller_attributes_for(edition_type)
+          }
+        end
       end
 
       test "create with invalid data should leave the writer in the document editor" do
