@@ -36,12 +36,13 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
     @uploader.store!(@file)
   end
 
-  test 'returns the sanitized file' do
+  test 'store! returns an asset manager file' do
     AssetManagerCreateWhitehallAssetWorker.stubs(:perform_async)
 
     storage = Whitehall::AssetManagerStorage.new(@uploader)
     file = CarrierWave::SanitizedFile.new(@file)
-    assert_equal file, storage.store!(file)
+
+    assert_equal Whitehall::AssetManagerStorage::File, storage.store!(file).class
   end
 
   test 'instantiates an asset manager file with the location of the file on disk' do
@@ -53,7 +54,7 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
     storage.retrieve!('identifier')
   end
 
-  test 'returns an asset manager file' do
+  test 'retrieve! returns an asset manager file' do
     file = stub(:asset_manager_file)
     Whitehall::AssetManagerStorage::File.stubs(:new).returns(file)
 
@@ -75,10 +76,11 @@ class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
     @file.delete
   end
 
-  test 'uses the asset-manager api to return the url of the file' do
-    asset_url = 'http://asset-host/asset.png'
-    Services.asset_manager.stubs(:whitehall_asset).with(@asset_url_path).returns('file_url' => asset_url)
+  test 'constructs the url of the file using the public asset host and legacy url path' do
+    Plek.stubs(:new).returns(stub('plek', public_asset_host: 'http://assets-host'))
 
-    assert_equal asset_url, @file.url
+    expected_asset_url = URI.join('http://assets-host', @asset_url_path).to_s
+
+    assert_equal expected_asset_url, @file.url
   end
 end

@@ -191,7 +191,7 @@ class OrganisationsControllerTest < ActionController::TestCase
       organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
       logo: fixture_file_upload('logo.png')
     )
-    VirusScanHelpers.simulate_virus_scan(organisation.logo)
+
     get :show, params: { id: organisation }
     assert_select %Q{img[alt="#{organisation.name}"][src*="logo.png"]}
   end

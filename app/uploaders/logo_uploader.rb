@@ -1,5 +1,5 @@
 class LogoUploader < WhitehallUploader
-  storage :asset_manager_and_quarantined_file_storage
+  storage :asset_manager
 
   def extension_whitelist
     %w(jpg jpeg gif png)
