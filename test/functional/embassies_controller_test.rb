@@ -31,8 +31,8 @@ class EmbassiesControllerTest < ActionController::TestCase
     assert_select "ol[class='locations'] h2", "Aruba"
     assert_select "ol[class='locations'] h2", "Sealand"
     assert_select "ol[class='locations'] ul a", /The British Embassy Kabul/
-    assert_select "ol[class='locations'] li p", /There are no consular services available in Aruba. British nationals should contact the British Consulate General Amsterdam in Netherlands/
-    assert_select "ol[class='locations'] li p", /There are no consular services available in Sealand. British nationals should contact the local authorities/
+    assert_select "ol[class='locations'] li p", /British nationals should contact the British Consulate General Amsterdam in Netherlands/
+    assert_select "ol[class='locations'] li p", /British nationals should contact the local authorities/
   end
 
   view_test "UK doesn't appear in the page" do
@@ -54,7 +54,6 @@ class EmbassiesControllerTest < ActionController::TestCase
       get :index
 
       assert_select "ol[class='locations'] h2", name
-      assert_select "ol[class='locations'] li p", /^There are no consular services available in #{name}/
       assert_select "ol[class='locations'] li p", /British nationals should contact the #{building} in #{building_location}/
       assert_select "ol[class='locations'] li a", building
     end
