@@ -42,6 +42,12 @@ class Notifications < ActionMailer::Base
     mail from: no_reply_email_address, to: @author.email, subject: subject
   end
 
+  def edition_published_by_monitored_user(user)
+    @user = user
+    subject = "Account holder #{@user.name} (#{user.email}) has published to live"
+    mail from: no_reply_email_address, to: content_second_line_email_address, subject: subject
+  end
+
   def broken_link_reports(zip_path, recipient_address)
     filename = File.basename(zip_path)
     attachments[filename] = File.read(zip_path)
@@ -66,5 +72,9 @@ class Notifications < ActionMailer::Base
     address = Mail::Address.new("inside-government@digital.cabinet-office.gov.uk")
     address.display_name = name
     address.format
+  end
+
+  def content_second_line_email_address
+    "second-line-content@digital.cabinet-office.gov.uk"
   end
 end

@@ -28,16 +28,32 @@ module Edition::AuditTrail
   end
 
   def record_create
-    versions.create event: 'create', user: Edition::AuditTrail.whodunnit, state: state
+    user = Edition::AuditTrail.whodunnit
+    versions.create event: 'create', user: user, state: state
+    alert!(user)
   end
   private :record_create
 
   def record_update
     if changed.any?
-      versions.build event: 'update', user: Edition::AuditTrail.whodunnit, state: state
+      user = Edition::AuditTrail.whodunnit
+      versions.build event: 'update', user: user, state: state
+      alert!(user)
     end
   end
   private :record_update
+
+  def alert!(user)
+    if user && should_alert_for?(user)
+      Notifications.edition_published_by_monitored_user(user).deliver_now
+    end
+  end
+  private :alert!
+
+  def should_alert_for?(user)
+    user.email == ENV['CO_NSS_WATCHKEEPER_EMAIL_ADDRESS']
+  end
+  private :should_alert_for?
 
   def edition_audit_trail(edition_serial_number = 0)
     versions = edition_version_trail(edition_serial_number)

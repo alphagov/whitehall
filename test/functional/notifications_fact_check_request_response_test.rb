@@ -6,7 +6,8 @@ class NotificationsFactCheckRequestTest < ActionMailer::TestCase
   setup do
     @publication = build(:publication, title: "<publication-title>")
     @requestor = build(:fact_check_requestor, name: "<requestor-name>")
-    @request = build(:fact_check_request,
+    @request = build(
+      :fact_check_request,
       email_address: 'fact-checker@example.com',
       edition: @publication,
       requestor: @requestor
@@ -59,11 +60,13 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
 
   setup do
     @publication = build(:publication, title: "<publication-title>")
-    @requestor = build(:fact_check_requestor,
+    @requestor = build(
+      :fact_check_requestor,
       name: "<requestor-name>",
       email: "fact-check-requestor@example.com"
     )
-    @request = build(:fact_check_request,
+    @request = build(
+      :fact_check_request,
       email_address: 'fact-checker@example.com',
       edition: @publication,
       requestor: @requestor
