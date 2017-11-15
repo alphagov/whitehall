@@ -6,11 +6,11 @@ class EmbassyPresenter < SimpleDelegator
 
   def text
     if SPECIAL_CASES.keys.include?(name)
-      "There are no consular services available in #{name}. British nationals should contact the #{SPECIAL_CASES[name][:building]} in #{SPECIAL_CASES[name][:location]}."
+      "British nationals should contact the #{SPECIAL_CASES[name][:building]} in #{SPECIAL_CASES[name][:location]}."
     elsif offices.empty?
-      "There are no consular services available in #{name}. British nationals should contact the local authorities."
+      "British nationals should contact the local authorities."
     elsif has_remote_service?
-      "There are no consular services available in #{name}. British nationals should contact the #{organisation.name} in #{remote_services_country}."
+      "British nationals should contact the #{organisation.name} in #{remote_services_country}."
     end
   end
 

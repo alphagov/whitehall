@@ -7,5 +7,7 @@ class EmbassiesController < ApplicationController
 
         EmbassyPresenter.new(Embassy.new(location))
       }.reject(&:blank?)
+
+    set_meta_description("Contact details of British embassies, consulates, and high commissions around the world.")
   end
 end
