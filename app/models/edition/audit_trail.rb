@@ -51,7 +51,8 @@ module Edition::AuditTrail
   private :alert!
 
   def should_alert_for?(user)
-    user.email == ENV['CO_NSS_WATCHKEEPER_EMAIL_ADDRESS']
+    ENV['CO_NSS_WATCHKEEPER_EMAIL_ADDRESS'].present? &&
+      user.email == ENV['CO_NSS_WATCHKEEPER_EMAIL_ADDRESS']
   end
   private :should_alert_for?
 
