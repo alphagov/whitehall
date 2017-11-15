@@ -102,11 +102,6 @@ private
       location: "Lebanon",
       base_path: "/government/world/organisations/british-embassy-beirut",
     },
-    "Taiwan" => {
-      building: "British Office Taipei",
-      location: "Taiwan",
-      base_path: "/government/world/organisations/british-office-taipei",
-    },
     "Timor Leste" => {
       building: "British Embassy Jakarta",
       location: "Indonesia",
