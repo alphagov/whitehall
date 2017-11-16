@@ -1,36 +1,51 @@
 require 'test_helper'
 
 class EmbassyTest < ActiveSupport::TestCase
-
   setup do
-    @narnia = create(:world_location, :with_worldwide_organisations, name: "Narnia")
-    @narnia_org = @narnia.worldwide_organisations.first
-    contact = create(:contact, street_address: "The woods", country: @narnia)
-    @narnia_org.main_office = create(:worldwide_office,
-                                    title: "British Embassy Narnia",
-                                    contact: contact,
-                                    worldwide_organisation: @narnia_org,
-                                    worldwide_office_type: WorldwideOfficeType::Embassy)
+    @location = create(:world_location, :with_worldwide_organisations, name: "Narnia")
+    @organisation = @location.worldwide_organisations.first
+
+    @organisation.main_office = create(
+      :worldwide_office,
+      title: "British Embassy Narnia",
+      worldwide_organisation: @organisation,
+      worldwide_office_type: WorldwideOfficeType::Embassy,
+      contact: create(:contact, street_address: "The woods", country: @location),
+    )
   end
 
-  test "initialization and method delegation" do
-    location = Embassy.new(@narnia)
-    assert_equal "Narnia", location.name
+  test "it delegates to the world location" do
+    embassy = Embassy.new(@location)
+    assert_equal "Narnia", embassy.name
   end
 
-  test "offices" do
-    @narnia_org.offices << create(:worldwide_office,
-                                 title: "UK Trade Narnia",
-                                 worldwide_organisation: @narnia_org,
-                                 worldwide_office_type: WorldwideOfficeType::Other)
+  test "#offices returns the organisation's embassy" do
+    embassy = Embassy.new(@location)
+    assert_equal [@organisation.main_office], embassy.offices
+  end
 
-    legoland = create(:world_location, :with_worldwide_organisations, name: "Legoland")
+  test "#offices returns an empty array if there is no embassy" do
+    location = create(:world_location, :with_worldwide_organisations, name: "Legoland")
 
-    location = Embassy.new(@narnia)
+    embassy = Embassy.new(location)
+    assert [], embassy.offices
+  end
 
-    assert Embassy.new(@narnia).offices.any?
-    assert_equal [@narnia_org.main_office], location.offices
-    assert Embassy.new(legoland).offices.empty?
+  test "#offices treats other types of offices as embassies" do
+    embassy = Embassy.new(@location)
+    t = WorldwideOfficeType
+
+    @organisation.main_office.update!(worldwide_office_type: t::BritishTradeACulturalOffice)
+    assert [@organisation.main_office], embassy.offices
+
+    @organisation.main_office.update!(worldwide_office_type: t::Consulate)
+    assert [@organisation.main_office], embassy.offices
+
+    @organisation.main_office.update!(worldwide_office_type: t::HighCommission)
+    assert [@organisation.main_office], embassy.offices
+
+    @organisation.main_office.update!(worldwide_office_type: t::Other)
+    assert [], embassy.offices
   end
 
   test "remote_services_office and remote_services_country" do
