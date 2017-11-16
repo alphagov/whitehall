@@ -33,6 +33,11 @@ class Embassy
   private
 
   def self.embassy_high_commission_or_consulate?(office)
-    ["Embassy", "Consulate", "High Commission"].include?(office.worldwide_office_type.name)
+    [
+      "British Trade and Cultural Office",
+      "Consulate",
+      "Embassy",
+      "High Commission",
+    ].include?(office.worldwide_office_type.name)
   end
 end
