@@ -9,7 +9,7 @@ class Embassy
   def_delegator :@world_location, :name
 
   def self.filter_offices(worldwide_organisation)
-    worldwide_organisation.offices.select { |o| embassy_high_commission_or_consulate?(o) }
+    worldwide_organisation.offices.select { |o| embassy_office?(o) }
   end
 
   def offices
@@ -30,9 +30,7 @@ class Embassy
     end
   end
 
-  private
-
-  def self.embassy_high_commission_or_consulate?(office)
+  def self.embassy_office?(office)
     [
       "British Trade and Cultural Office",
       "Consulate",
