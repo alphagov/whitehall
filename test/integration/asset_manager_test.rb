@@ -46,14 +46,18 @@ class AssetManagerIntegrationTest
 
   class RemovingAnOrganisationLogo < ActiveSupport::TestCase
     test 'removing an organisation logo removes it from asset manager' do
+      logo_filename = '960x640_jpeg.jpg'
       organisation = FactoryGirl.create(
         :organisation,
         organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
-        logo: File.open(Rails.root.join('test', 'fixtures', 'images', '960x640_jpeg.jpg'))
+        logo: File.open(Rails.root.join('test', 'fixtures', 'images', logo_filename))
       )
-      Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
+      logo_asset_id = 'asset-id'
+      Services.asset_manager.stubs(:whitehall_asset)
+        .with(regexp_matches(/#{logo_filename}/))
+        .returns('id' => "http://asset-manager/assets/#{logo_asset_id}")
 
-      Services.asset_manager.expects(:delete_asset)
+      Services.asset_manager.expects(:delete_asset).with(logo_asset_id)
 
       organisation.remove_logo!
     end
