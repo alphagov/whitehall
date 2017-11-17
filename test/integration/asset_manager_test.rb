@@ -2,16 +2,14 @@ require 'test_helper'
 
 class AssetManagerIntegrationTest
   class CreatingAnOrganisationLogo < ActiveSupport::TestCase
-    setup do
+    test 'sends the logo to Asset Manager' do
       @filename = '960x640_jpeg.jpg'
       @organisation = FactoryGirl.build(
         :organisation,
         organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
         logo: File.open(Rails.root.join('test', 'fixtures', 'images', @filename))
       )
-    end
 
-    test 'sends the logo to Asset Manager' do
       Services.asset_manager.expects(:create_whitehall_asset).with do |args|
         args[:file].is_a?(File) &&
           args[:legacy_url_path] =~ /#{@filename}/
@@ -46,7 +44,7 @@ class AssetManagerIntegrationTest
   end
 
   class RemovingAnOrganisationLogo < ActiveSupport::TestCase
-    setup do
+    test 'removing an organisation logo removes it from asset manager' do
       @organisation = FactoryGirl.create(
         :organisation,
         organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
@@ -57,9 +55,7 @@ class AssetManagerIntegrationTest
 
       Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
       Services.asset_manager.stubs(:delete_asset)
-    end
 
-    test 'removing an organisation logo removes it from asset manager' do
       Services.asset_manager.expects(:delete_asset)
 
       @organisation.remove_logo!
@@ -67,7 +63,7 @@ class AssetManagerIntegrationTest
   end
 
   class ReplacingAnOrganisationLogo < ActiveSupport::TestCase
-    setup do
+    test 'replacing an organisation logo removes the old logo from asset manager' do
       @old_logo_filename = '960x640_jpeg.jpg'
       @organisation = FactoryGirl.create(
         :organisation,
@@ -76,9 +72,7 @@ class AssetManagerIntegrationTest
       )
 
       @organisation.reload
-    end
 
-    test 'replacing an organisation logo removes the old logo from asset manager' do
       old_logo_asset_id = 'asset-id'
       Services.asset_manager.stubs(:whitehall_asset)
         .with(regexp_matches(/#{@old_logo_filename}/))
