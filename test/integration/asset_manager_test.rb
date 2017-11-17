@@ -14,6 +14,7 @@ class AssetManagerIntegrationTest
         args[:file].is_a?(File) &&
           args[:legacy_url_path] =~ /#{filename}/
       end
+
       organisation.save!
     end
   end
@@ -50,11 +51,7 @@ class AssetManagerIntegrationTest
         organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
         logo: File.open(Rails.root.join('test', 'fixtures', 'images', '960x640_jpeg.jpg'))
       )
-
-      organisation.reload
-
       Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
-      Services.asset_manager.stubs(:delete_asset)
 
       Services.asset_manager.expects(:delete_asset)
 
@@ -70,13 +67,11 @@ class AssetManagerIntegrationTest
         organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
         logo: File.open(Rails.root.join('test', 'fixtures', 'images', old_logo_filename))
       )
-
-      organisation.reload
-
       old_logo_asset_id = 'asset-id'
       Services.asset_manager.stubs(:whitehall_asset)
         .with(regexp_matches(/#{old_logo_filename}/))
         .returns('id' => "http://asset-manager/assets/#{old_logo_asset_id}")
+
       Services.asset_manager.expects(:delete_asset).with(old_logo_asset_id)
 
       organisation.logo = File.open(Rails.root.join('test', 'fixtures', 'images', '960x640_gif.gif'))
