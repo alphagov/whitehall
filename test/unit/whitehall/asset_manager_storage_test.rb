@@ -83,4 +83,8 @@ class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
 
     assert_equal expected_asset_url, @file.url
   end
+
+  test 'returns the legacy filename as the path' do
+    assert_equal @asset_url_path, @file.path
+  end
 end

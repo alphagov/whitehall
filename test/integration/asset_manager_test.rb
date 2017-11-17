@@ -66,6 +66,30 @@ class AssetManagerIntegrationTest
     end
   end
 
+  class ReplacingAnOrganisationLogo < ActiveSupport::TestCase
+    setup do
+      @old_logo_filename = '960x640_jpeg.jpg'
+      @organisation = FactoryGirl.create(
+        :organisation,
+        organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
+        logo: File.open(Rails.root.join('test', 'fixtures', 'images', @old_logo_filename))
+      )
+
+      @organisation.reload
+    end
+
+    test 'replacing an organisation logo removes the old logo from asset manager' do
+      old_logo_asset_id = 'asset-id'
+      Services.asset_manager.stubs(:whitehall_asset)
+        .with(regexp_matches(/#{@old_logo_filename}/))
+        .returns('id' => "http://asset-manager/assets/#{old_logo_asset_id}")
+      Services.asset_manager.expects(:delete_asset).with(old_logo_asset_id)
+
+      @organisation.logo = File.open(Rails.root.join('test', 'fixtures', 'images', '960x640_gif.gif'))
+      @organisation.save!
+    end
+  end
+
   class RemovingAConsultationResponseFormData < ActiveSupport::TestCase
     setup do
       @consultation_response_form_data = FactoryGirl.create(
