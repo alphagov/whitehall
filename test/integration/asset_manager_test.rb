@@ -19,31 +19,6 @@ class AssetManagerIntegrationTest
     end
   end
 
-  class CreatingAConsultationResponseFormData < ActiveSupport::TestCase
-    setup do
-      @filename = 'greenpaper.pdf'
-      @consultation_response_form_data = FactoryGirl.build(
-        :consultation_response_form_data,
-        file: File.open(Rails.root.join('test', 'fixtures', @filename))
-      )
-    end
-
-    test 'sends the consultation response form data file to Asset Manager' do
-      Services.asset_manager.expects(:create_whitehall_asset).with do |args|
-        args[:file].is_a?(File) &&
-          args[:legacy_url_path] =~ /#{@filename}/
-      end
-
-      @consultation_response_form_data.save!
-    end
-
-    test 'saves the consultation response form data file to the file system' do
-      @consultation_response_form_data.save!
-
-      assert File.exist?(@consultation_response_form_data.file.path)
-    end
-  end
-
   class RemovingAnOrganisationLogo < ActiveSupport::TestCase
     test 'removing an organisation logo removes it from asset manager' do
       logo_filename = '960x640_jpeg.jpg'
@@ -80,6 +55,31 @@ class AssetManagerIntegrationTest
 
       organisation.logo = File.open(Rails.root.join('test', 'fixtures', 'images', '960x640_gif.gif'))
       organisation.save!
+    end
+  end
+
+  class CreatingAConsultationResponseFormData < ActiveSupport::TestCase
+    setup do
+      @filename = 'greenpaper.pdf'
+      @consultation_response_form_data = FactoryGirl.build(
+        :consultation_response_form_data,
+        file: File.open(Rails.root.join('test', 'fixtures', @filename))
+      )
+    end
+
+    test 'sends the consultation response form data file to Asset Manager' do
+      Services.asset_manager.expects(:create_whitehall_asset).with do |args|
+        args[:file].is_a?(File) &&
+          args[:legacy_url_path] =~ /#{@filename}/
+      end
+
+      @consultation_response_form_data.save!
+    end
+
+    test 'saves the consultation response form data file to the file system' do
+      @consultation_response_form_data.save!
+
+      assert File.exist?(@consultation_response_form_data.file.path)
     end
   end
 
