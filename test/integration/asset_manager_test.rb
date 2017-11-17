@@ -7,7 +7,7 @@ class AssetManagerIntegrationTest
       organisation = FactoryGirl.build(
         :organisation,
         organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
-        logo: File.open(Rails.root.join('test', 'fixtures', 'images', filename))
+        logo: File.open(fixture_path.join('images', filename))
       )
 
       Services.asset_manager.expects(:create_whitehall_asset).with do |args|
@@ -25,7 +25,7 @@ class AssetManagerIntegrationTest
       organisation = FactoryGirl.create(
         :organisation,
         organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
-        logo: File.open(Rails.root.join('test', 'fixtures', 'images', logo_filename))
+        logo: File.open(fixture_path.join('images', logo_filename))
       )
       logo_asset_id = 'asset-id'
       Services.asset_manager.stubs(:whitehall_asset)
@@ -44,7 +44,7 @@ class AssetManagerIntegrationTest
       organisation = FactoryGirl.create(
         :organisation,
         organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
-        logo: File.open(Rails.root.join('test', 'fixtures', 'images', old_logo_filename))
+        logo: File.open(fixture_path.join('images', old_logo_filename))
       )
       old_logo_asset_id = 'asset-id'
       Services.asset_manager.stubs(:whitehall_asset)
@@ -53,7 +53,7 @@ class AssetManagerIntegrationTest
 
       Services.asset_manager.expects(:delete_asset).with(old_logo_asset_id)
 
-      organisation.logo = File.open(Rails.root.join('test', 'fixtures', 'images', '960x640_gif.gif'))
+      organisation.logo = File.open(fixture_path.join('images', '960x640_gif.gif'))
       organisation.save!
     end
   end
@@ -63,7 +63,7 @@ class AssetManagerIntegrationTest
       @filename = 'greenpaper.pdf'
       @consultation_response_form_data = FactoryGirl.build(
         :consultation_response_form_data,
-        file: File.open(Rails.root.join('test', 'fixtures', @filename))
+        file: File.open(fixture_path.join(@filename))
       )
     end
 
@@ -89,7 +89,7 @@ class AssetManagerIntegrationTest
       @consultation_response_form_asset_id = 'asset-id'
       @consultation_response_form_data = FactoryGirl.create(
         :consultation_response_form_data,
-        file: File.open(Rails.root.join('test', 'fixtures', filename))
+        file: File.open(fixture_path.join(filename))
       )
       VirusScanHelpers.simulate_virus_scan(@consultation_response_form_data.file)
       @consultation_response_form_data.reload
@@ -123,7 +123,7 @@ class AssetManagerIntegrationTest
       @consultation_response_form_asset_id = 'asset-id'
       @consultation_response_form_data = FactoryGirl.create(
         :consultation_response_form_data,
-        file: File.open(Rails.root.join('test', 'fixtures', filename))
+        file: File.open(fixture_path.join(filename))
       )
       VirusScanHelpers.simulate_virus_scan(@consultation_response_form_data.file)
       @consultation_response_form_data.reload
@@ -138,7 +138,7 @@ class AssetManagerIntegrationTest
     test 'replacing a consultation response form data file removes the old file from the file system' do
       assert File.exist?(@file_path)
 
-      @consultation_response_form_data.file = File.open(Rails.root.join('test', 'fixtures', 'whitepaper.pdf'))
+      @consultation_response_form_data.file = File.open(fixture_path.join('whitepaper.pdf'))
       @consultation_response_form_data.save!
 
       refute File.exist?(@file_path)
@@ -148,7 +148,7 @@ class AssetManagerIntegrationTest
       Services.asset_manager.expects(:delete_asset)
         .with(@consultation_response_form_asset_id)
 
-      @consultation_response_form_data.file = File.open(Rails.root.join('test', 'fixtures', 'whitepaper.pdf'))
+      @consultation_response_form_data.file = File.open(fixture_path.join('whitepaper.pdf'))
       @consultation_response_form_data.save!
     end
   end
