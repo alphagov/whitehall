@@ -85,15 +85,19 @@ class AssetManagerIntegrationTest
 
   class RemovingAConsultationResponseFormData < ActiveSupport::TestCase
     setup do
+      filename = 'greenpaper.pdf'
+      @consultation_response_form_asset_id = 'asset-id'
       @consultation_response_form_data = FactoryGirl.create(
         :consultation_response_form_data,
-        file: File.open(Rails.root.join('test', 'fixtures', 'greenpaper.pdf'))
+        file: File.open(Rails.root.join('test', 'fixtures', filename))
       )
       VirusScanHelpers.simulate_virus_scan(@consultation_response_form_data.file)
       @consultation_response_form_data.reload
       @file_path = @consultation_response_form_data.file.path
 
-      Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
+      Services.asset_manager.stubs(:whitehall_asset)
+        .with(regexp_matches(/#{filename}/))
+        .returns('id' => "http://asset-manager/assets/#{@consultation_response_form_asset_id}")
       Services.asset_manager.stubs(:delete_asset)
     end
 
@@ -107,6 +111,7 @@ class AssetManagerIntegrationTest
 
     test 'removing a consultation response form data file removes it from asset manager' do
       Services.asset_manager.expects(:delete_asset)
+        .with(@consultation_response_form_asset_id)
 
       @consultation_response_form_data.remove_file!
     end
