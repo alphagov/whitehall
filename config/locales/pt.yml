@@ -321,7 +321,7 @@ pt:
     get_updates_to_this_list:
     latest_activity: "Últimas atividades"
   i18n:
-    direction: Itr
+    direction: ltr
   language_names:
     pt: Português
   latest_feed:

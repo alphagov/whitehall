@@ -282,7 +282,7 @@ tr:
     get_updates_to_this_list:
     latest_activity: Son etkinlik
   i18n:
-    direction: Itr
+    direction: ltr
   language_names:
     tr: Türkçe
   latest_feed:

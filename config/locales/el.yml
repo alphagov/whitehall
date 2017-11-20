@@ -322,7 +322,7 @@ el:
     get_updates_to_this_list:
     latest_activity: "Πρόσφατες ενημερώσεις"
   i18n:
-    direction:
+    direction: ltr
   language_names:
     el: "Ελληνικά "
   latest_feed:

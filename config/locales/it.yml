@@ -321,7 +321,7 @@ it:
     get_updates_to_this_list:
     latest_activity: Attività recente
   i18n:
-    direction: Itr
+    direction: ltr
   language_names:
     it: Italiano
   latest_feed:

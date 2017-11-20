@@ -422,7 +422,7 @@ ru:
     get_updates_to_this_list:
     latest_activity: "Реестр активности"
   i18n:
-    direction: "письмо"
+    direction: ltr
   language_names:
     ru: "Русский"
   latest_feed:

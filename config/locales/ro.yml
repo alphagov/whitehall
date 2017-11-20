@@ -371,7 +371,7 @@ ro:
     get_updates_to_this_list:
     latest_activity: Activiţăti recente
   i18n:
-    direction:
+    direction: ltr
   language_names:
     ro: Română
   latest_feed:
