@@ -15,6 +15,9 @@ class WorldLocationsController < PublicFacingController
   end
 
   def show
+    # Don't serve world locations unless they're international delegations
+    # All other world locations are served by collections
+    raise ActiveRecord::RecordNotFound unless @world_location.world_location_type == WorldLocationType::InternationalDelegation
     recently_updated_source = @world_location.published_editions.with_translations(I18n.locale).in_reverse_chronological_order
     respond_to do |format|
       format.html do

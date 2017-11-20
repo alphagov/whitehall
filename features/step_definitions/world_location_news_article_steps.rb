@@ -56,7 +56,7 @@ Then /^the topical event "([^"]+)" is listed as a topical event on the world loc
   end
 end
 
-Then /^the world location news article "([^"]+)" appears on the world location "([^"]+)"$/ do |world_news_title, world_location_name|
+Then /^the world location news article "([^"]+)" appears on the (?:world location|international delegation) "([^"]+)"$/ do |world_news_title, world_location_name|
   visit world_location_path(WorldLocation.find_by(name: world_location_name))
   world_location_news_article = WorldLocationNewsArticle.find_by(title: world_news_title)
   within record_css_selector(world_location_news_article) do
