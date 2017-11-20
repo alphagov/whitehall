@@ -33,7 +33,7 @@ private
     Unpublishing.joins(
       'JOIN edition_organisations ON edition_organisations.edition_id = unpublishings.edition_id'
     ).where(
-      edition_organisations: {organisation_id: @organisation.id}, slug: params[:id], document_type: document_class.to_s
+      edition_organisations: { organisation_id: @organisation.id }, slug: params[:id], document_type: document_class.to_s
     ).first
   end
 
