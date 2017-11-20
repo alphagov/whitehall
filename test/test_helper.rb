@@ -163,6 +163,10 @@ class ActiveSupport::TestCase
       raise "Could not force publish edition: #{publisher.failure_reason}"
     end
   end
+
+  def fixture_path
+    Pathname.new(Rails.root.join('test', 'fixtures'))
+  end
 end
 
 class ActionController::TestCase
