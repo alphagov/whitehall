@@ -45,7 +45,6 @@ Feature: Administering worldwide organisation
   Scenario: Creating a worldwide organisation in a particular world location
     Given that the world location "France" exists
     When I create a new worldwide organisation "Department of Beards in France" in "France"
-    Then I should see the worldwide organisation "Department of Beards in France" on the "France" world location page
     Then I should see the worldwide location name "France" on the worldwide organisation page
 
   Scenario: Choosing the main office for a worldwide organisation with multiple offices
@@ -54,13 +53,6 @@ Feature: Administering worldwide organisation
     Then the "Branch office" should be shown as the main office on the public website
     When I choose "Head office" to be the main office
     Then the "Head office" should be shown as the main office on the public website
-
-  Scenario: Creating a worldwide organisation in particular world location with a sponsor
-    Given the organisation "Department of Beards" exists
-    Given that the world location "France" exists
-    When I create a new worldwide organisation "Department of Beards in France" in  "France" sponsored by the "Department of Beards"
-    Then I should see the worldwide organisation "Department of Beards in France" on the "France" world location page
-    And I should see that it is part of the "Department of Beards"
 
   Scenario: Adding default access information to a worldwide organisation
     Given a worldwide organisation "Department of Beards in France" with offices "Head office" and "Branch office"

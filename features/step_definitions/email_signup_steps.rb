@@ -58,7 +58,7 @@ Then(/^I should be signed up for the "(.*?)" topic mailing list$/) do |topic_nam
   assert_signed_up_to_mailing_list("/government/topics/#{topic_slug}.atom", topic_name)
 end
 
-Then(/^I should be signed up for the "(.*?)" world location mailing list$/) do |world_location_name|
+Then(/^I should be signed up for the "(.*?)" international delegation mailing list$/) do |world_location_name|
   world_location_slug = WorldLocation.find_by!(name: world_location_name).slug
   assert_signed_up_to_mailing_list("/world/#{world_location_slug}.atom", world_location_name)
 end

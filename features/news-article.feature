@@ -19,8 +19,8 @@ Feature: News articles
     Then the news article "A thing happened in X" should have been created
 
   Scenario: Create a News article of type 'world news story' in a non-English language
-    Given a world location "France" exists with a translation for the locale "Français"
-    When I draft a French-only "World news story" news article associated with "France"
+    Given an international delegation "UK and the World Government" exists with a translation for the locale "Français"
+    When I draft a French-only "World news story" news article associated with "UK and the World Government"
     Then I should see the news article listed in admin with an indication that it is in French
     When I publish the French-only news article
-    Then I should only see the news article on the French version of the public "France" location page
+    Then I should only see the news article on the French version of the public "UK and the World Government" location page

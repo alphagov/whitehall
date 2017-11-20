@@ -40,7 +40,7 @@ Given /^an? (world location|international delegation) "([^"]*)" exists with a tr
   translation.save!
 end
 
-Given(/^I have an offsite link "(.*?)" for the world location "(.*?)"$/) do |title, world_location_name|
+Given /^I have an offsite link "(.*?)" for the (?:world location|international delegation) "(.*?)"$/ do |title, world_location_name|
   world_location = WorldLocation.find_by(name: world_location_name)
   @offsite_link = create :offsite_link, title: title, parent: world_location
 end
@@ -77,7 +77,7 @@ When /^I feature the news article "([^"]*)" for (?:world location|international 
   feature_news_article_in_world_location(news_article_title, world_location_name, image_filename)
 end
 
-When(/^I feature the offsite link "(.*?)" for  world location "(.*?)" with image "(.*?)"$/) do |offsite_link_title, world_location_name, image_filename|
+When /^I feature the offsite link "(.*?)" for (?:world location|international delegation) "(.*?)" with image "(.*?)"$/ do |offsite_link_title, world_location_name, image_filename|
   world_location = WorldLocation.find_by!(name: world_location_name)
   visit admin_world_location_path(world_location)
   click_link "Features"
@@ -90,7 +90,7 @@ When(/^I feature the offsite link "(.*?)" for  world location "(.*?)" with image
   click_button "Save"
 end
 
-When(/^I add the offsite link "(.*?)" of type "(.*?)" to the world location "(.*?)"$/) do |title, type, location_name|
+When /^I add the offsite link "(.*?)" of type "(.*?)" to the (?:world location|international delegation) "(.*?)"$/ do |title, type, location_name|
   world_location = WorldLocation.find_by!(name: location_name)
   visit admin_world_location_path(world_location)
   click_link "Features (English)"
@@ -108,7 +108,7 @@ When /^I order the featured items of the (?:world location|international delegat
   order_features_from(table)
 end
 
-When /^I add a new translation to the world location "([^"]*)" with:$/ do |name, table|
+When /^I add a new translation to the (?:world location|international delegation) "([^"]*)" with:$/ do |name, table|
   world_location = WorldLocation.find_by!(name: name)
   add_translation_to_world_location(world_location, table.rows_hash)
 end
@@ -177,7 +177,7 @@ When /^I click through to see all the announcements for (?:international delegat
   end
 end
 
-Given /^an english news article called "([^"]*)" related to the world location$/ do |title|
+Given /^an english news article called "([^"]*)" related to the (world location|international delegation)$/ do |title|
   world_location = WorldLocation.last
   create(:published_news_article, title: title, world_locations: [world_location])
 end
@@ -186,7 +186,7 @@ When /^I feature "([^"]*)" on the english "([^"]*)" page$/ do |title, overseas_t
   feature_news_article_in_world_location(title, overseas_territory_name)
 end
 
-When(/^I stop featuring the offsite link "(.*?)" for the world location "(.*?)"$/) do |offsite_link_name, world_location_name|
+When /^I stop featuring the offsite link "(.*?)" for the (?:world location|international delegation) "(.*?)"$/ do |offsite_link_name, world_location_name|
   world_location = WorldLocation.find_by!(name: world_location_name)
   visit features_admin_world_location_path(world_location)
   offsite_link = OffsiteLink.find_by!(title: offsite_link_name)
@@ -195,7 +195,7 @@ When(/^I stop featuring the offsite link "(.*?)" for the world location "(.*?)"$
   end
 end
 
-Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" world location page$/) do |title, world_location_name|
+Then /^I should see the edit offsite link "(.*?)" on the "(.*?)" (?:world location|international delegation) page$/ do |title, world_location_name|
   world_location = WorldLocation.find_by!(name: world_location_name)
   offsite_link = OffsiteLink.find_by!(title: title)
   visit world_location_path(world_location)
@@ -207,14 +207,20 @@ Then /^I should see "([^"]*)" featured on the public facing "([^"]*)" page$/ do 
   assert page.has_css?('.feature h2', text: expected_title)
 end
 
-Then(/^there should be nothing featured on the home page of world location "(.*?)"$/) do |name|
+Then /^there should be nothing featured on the home page of (?:world location|international delegation) "(.*?)"$/ do |name|
   visit world_location_path(name)
   rows = find(featured_documents_selector).all('.feature')
   assert rows.empty?
 end
 
-Then(/^I should see the following world locations grouped under "(.*?)" in order:$/) do |letter, ordered_locations|
+Then /^I should see the following world locations grouped under "(.*?)" in order:$/ do |letter, ordered_locations|
   within :xpath, ".//*#{xpath_class_selector('world-locations')}//*#{xpath_class_selector('js-filter-block')}[./h2[text()='#{letter}']]" do
     assert_equal ordered_locations.raw.map(&:first), page.all('.world_location').map(&:text)
+  end
+end
+
+Then /^I should see the following international delegations in order:$/ do |ordered_delegations|
+  within :xpath, ".//*#{xpath_class_selector('world-locations')}//section[@id='international-delegations']" do
+    assert_equal ordered_delegations.raw.map(&:first), page.all('.world_location').map(&:text)
   end
 end
