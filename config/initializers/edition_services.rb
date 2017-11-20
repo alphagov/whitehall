@@ -47,4 +47,8 @@ Whitehall.edition_services.tap do |coordinator|
       .new(edition, options[:user], options[:remark])
       .save_remark!
   end
+
+  coordinator.subscribe(/^(force_publish|publish|unwithdraw)$/) do |_event, edition, _options|
+    EditionCreateLinkMonitorWorker.perform_async(edition.id)
+  end
 end
