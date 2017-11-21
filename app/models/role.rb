@@ -159,7 +159,7 @@ class Role < ApplicationRecord
   private
 
   def prevent_destruction_unless_destroyable
-    return false unless destroyable?
+    throw :abort unless destroyable?
   end
 
   def default_person_name

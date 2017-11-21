@@ -81,7 +81,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     )
     presented_item = present(organisation)
 
-    assert_equal presented_item.content[:details][:logo][:crest], nil
+    assert_nil presented_item.content[:details][:logo][:crest]
   end
 
   test 'presents an organisation with no identity with a nil crest' do
@@ -92,6 +92,6 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     )
     presented_item = present(organisation)
 
-    assert_equal presented_item.content[:details][:logo][:crest], nil
+    assert_nil presented_item.content[:details][:logo][:crest]
   end
 end

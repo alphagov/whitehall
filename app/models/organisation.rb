@@ -186,7 +186,7 @@ class Organisation < ApplicationRecord
   extend FriendlyId
   friendly_id
 
-  before_destroy { |r| r.destroyable? }
+  before_destroy { |r| throw :abort unless r.destroyable? }
   after_save :ensure_analytics_identifier
 
   after_save do

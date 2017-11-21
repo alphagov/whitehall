@@ -133,7 +133,7 @@ class Person < ApplicationRecord
   end
 
   def prevent_destruction_if_appointed
-    return false unless destroyable?
+    throw :abort unless destroyable?
   end
 
   # Whenever a person is updated, we want touch the updated_at timestamps of

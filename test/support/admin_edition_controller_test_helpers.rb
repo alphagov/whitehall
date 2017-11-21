@@ -210,7 +210,7 @@ module AdminEditionControllerTestHelpers
           }
         }
 
-        assert_equal current_user, edition.edition_authors(true).last.user
+        assert_equal current_user, edition.edition_authors.reload.last.user
       end
 
       test "update with invalid data should not save the edition" do

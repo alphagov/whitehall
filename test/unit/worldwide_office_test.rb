@@ -19,7 +19,8 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
                       street_address: "29 Acacier Road",
                       locality: "Dandytown",
                       region: "Dandyville",
-                      postal_code: "D12 4CY", contact_numbers: [create(:contact_number)])
+                      postal_code: "D12 4CY", contact_numbers: [create(:contact_number)],
+                      country: create(:world_location, iso2: 'GB'))
     office = create(:worldwide_office, contact: contact)
 
     # attributes

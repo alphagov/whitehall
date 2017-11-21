@@ -155,6 +155,6 @@ class RoleAppointment < ApplicationRecord
   end
 
   def prevent_destruction_unless_destroyable
-    return false unless destroyable?
+    throw :abort unless destroyable?
   end
 end

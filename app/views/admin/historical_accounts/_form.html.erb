@@ -6,7 +6,7 @@
       <fieldset>
         <div class="form-group">
           <%= form.label :role_ids, 'Role(s)' %>
-          <%= form.select :role_ids, options_from_collection_for_select(person.roles.where(supports_historical_accounts: true).uniq, :id, :name, historical_account.role_ids),
+          <%= form.select :role_ids, options_from_collection_for_select(person.roles.where(supports_historical_accounts: true).distinct, :id, :name, historical_account.role_ids),
                         { include_blank: true },
                         multiple: true,
                         class: 'chzn-select form-control',

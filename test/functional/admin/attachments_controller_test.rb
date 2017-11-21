@@ -125,7 +125,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       .expects(:save_draft_async)
       .with(instance_of(HtmlAttachment))
 
-    post :create, edition_id: @edition.id, type: 'html', attachment: attachment
+    post :create, params: { edition_id: @edition.id, type: 'html', attachment: attachment }
   end
 
   test 'POST :create for a FileAttachnment doesnt update the publishing api' do
@@ -135,7 +135,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       .expects(:save_draft_async)
       .never
 
-    post :create, edition_id: @edition.id, type: 'file', attachment: attachment
+    post :create, params: { edition_id: @edition.id, type: 'file', attachment: attachment }
   end
 
   test 'POST :create ignores html attachments when attachable does not allow them' do
@@ -273,9 +273,11 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       .expects(:save_draft_async)
       .with(attachment)
 
-    put :update, edition_id: @edition, id: attachment.id, attachment: {
-      title: 'New title',
-      govspeak_content_attributes: { body: 'New body', id: attachment.govspeak_content.id }
+    put :update, params: { edition_id: @edition, id: attachment.id,
+      attachment: {
+        title: 'New title',
+        govspeak_content_attributes: { body: 'New body', id: attachment.govspeak_content.id }
+      }
     }
   end
 
@@ -286,8 +288,10 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       .expects(:save_draft_async)
       .never
 
-    put :update, edition_id: @edition, id: attachment.id, attachment: {
-      title: 'New title'
+    put :update, params: { edition_id: @edition, id: attachment.id,
+      attachment: {
+        title: 'New title'
+      }
     }
   end
 

@@ -42,7 +42,7 @@ class Admin::NeedsControllerTest < ActionController::TestCase
         %r{\A#{Plek.find('publishing-api')}/v2/links}
     ).with(body: { links: { meets_user_needs: need_content_ids } })
 
-    post :update, content_id: document.content_id, edition_id: edition.id, need_ids: need_content_ids
+    post :update, params: { content_id: document.content_id, edition_id: edition.id, need_ids: need_content_ids }
 
     assert_requested patch_links_request
   end
@@ -51,7 +51,7 @@ class Admin::NeedsControllerTest < ActionController::TestCase
     edition = create(:edition_with_document)
     document = edition.document
 
-    get :edit, content_id: document.content_id, edition_id: edition.id
+    get :edit, params: { content_id: document.content_id, edition_id: edition.id }
 
     assert_select "form[action='#{admin_update_needs_path(content_id: document.content_id)}']"
     assert_select 'select#need_ids' do
