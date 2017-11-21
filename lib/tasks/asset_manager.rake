@@ -9,7 +9,8 @@ namespace :asset_manager do
 
   desc "Removes all organisation logos."
   task remove_organisation_logos: :environment do
-    AssetRemover.new.remove_organisation_logos
+    files = AssetRemover.new.remove_organisation_logos
+    puts files
   end
 
   private
