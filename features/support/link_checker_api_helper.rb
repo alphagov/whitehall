@@ -23,7 +23,7 @@ module LinkCheckerApiHelper
     header "X-LinkCheckerApi-Signature", generate_signature(body.to_json, Rails.application.secrets.link_checker_api_secret_token)
     header "Content-Type", "application/json"
 
-    post "/government/admin/link_checker_api_callback", body.to_json
+    post "/government/admin/link-checker-api-callback", body.to_json
   end
 
   private

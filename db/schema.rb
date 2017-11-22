@@ -665,8 +665,8 @@ ActiveRecord::Schema.define(version: 20170821152429) do
     t.integer  "ordering",                                 null: false
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
-    t.text     "problem_summary",            limit: 65535, null: false
-    t.text     "suggested_fix",              limit: 65535, null: false
+    t.text     "problem_summary",            limit: 65535
+    t.text     "suggested_fix",              limit: 65535
     t.index ["link_checker_api_report_id"], name: "index_link_checker_api_report_id", using: :btree
   end
 
