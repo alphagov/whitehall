@@ -20,6 +20,7 @@ When(/^I check the document for broken links$/) do
 
   # Wait until the check is in progress
   page.has_content?("Please wait")
+
   link_checker_api_call_webhook(
     id: 1,
     links: [
