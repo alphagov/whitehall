@@ -656,6 +656,30 @@ ActiveRecord::Schema.define(version: 20170821152429) do
     t.integer  "organisation_id"
   end
 
+  create_table "link_checker_api_report_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "link_checker_api_report_id"
+    t.string   "uri",                                      null: false
+    t.string   "status",                                   null: false
+    t.datetime "checked"
+    t.text     "check_warnings",             limit: 65535
+    t.text     "check_errors",               limit: 65535
+    t.integer  "ordering",                                 null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.index ["link_checker_api_report_id"], name: "index_link_checker_api_report_id", using: :btree
+  end
+
+  create_table "link_checker_api_reports", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "batch_id",             null: false
+    t.string   "status",               null: false
+    t.string   "link_reportable_type"
+    t.integer  "link_reportable_id"
+    t.datetime "completed_at"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.index ["batch_id"], name: "index_link_checker_api_reports_on_batch_id", unique: true, using: :btree
+  end
+
   create_table "links_reports", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text     "links",                limit: 16777215
     t.text     "broken_links",         limit: 65535
@@ -1189,5 +1213,6 @@ ActiveRecord::Schema.define(version: 20170821152429) do
     t.datetime "updated_at"
   end
 
+  add_foreign_key "link_checker_api_report_links", "link_checker_api_reports"
   add_foreign_key "related_mainstreams", "editions"
 end
