@@ -28,12 +28,29 @@
 </div>
 
 <div class="row">
-  <div class="col-md-6 draft-documents">
+  <div class="col-md-4 draft-documents">
     <h2>My draft documents</h2>
     <%= render partial: 'document_table', locals: { documents: @draft_documents, title: 'draft documents' } %>
   </div>
+  <div class="col-md-4">
+    <h2>Documents to review</h2>
+    <ol class="document-list list-unstyled">
+      <% @reviewables.each do |reviewable| %>
+        <li class="document-row">
+          <h3 class="add-label-margin">
+            <%= link_to reviewable.title, admin_edition_path(reviewable.edition, review_by: reviewable.review_by) %>
+          </h3>
+          <ul class="attributes list-unstyled list-inline text-muted">
+            <li class="type">
+              Expiring: <%= reviewable.review_by.to_date.to_s(:rfc822) %>
+            </li>
+          </ul>
+        </li>
+      <% end %>
+    </ol>
+  </div>
   <% if current_user.organisation %>
-    <div class="col-md-6 force-published-documents">
+    <div class="col-md-4 force-published-documents">
       <h2>
         <%= organisation_acronym_or_name(current_user.organisation) %>’s
         force-published documents

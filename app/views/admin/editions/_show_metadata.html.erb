@@ -26,6 +26,7 @@
 <%= render partial: "rejected_by", locals: { edition: @edition } %>
 <%= render partial: 'alerts', locals: {edition: @edition}  %>
 
+<%= render partial: 'review_date' %>
 <%= render 'edition_view_edit_buttons' %>
 
 <% if @edition.change_note_required? %>
