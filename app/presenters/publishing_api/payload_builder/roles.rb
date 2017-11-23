@@ -24,6 +24,7 @@ module PublishingApi
           roles: role_appointments
             .map(&:role)
             .collect(&:content_id)
+            .uniq
         }
       end
 
