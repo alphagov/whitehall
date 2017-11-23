@@ -172,6 +172,21 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     assert_equal('test', @presented_content[:details][:first_public_at])
   end
 
+  test "duplicate roles are only presented once" do
+    role = create(:ministerial_role)
+    current_minister = create(:ministerial_role_appointment, role: role)
+    former_minister = create(
+      :ministerial_role_appointment,
+      role: role, started_at: 2.years.ago, ended_at: 1.year.ago
+    )
+    publication = create(:publication,
+                         role_appointments: [current_minister, former_minister])
+    presented_publication = PublishingApi::PublicationPresenter.new(publication)
+    presented_links = presented_publication.content[:links]
+    assert_equal(2, presented_links[:people].count)
+    assert_equal(1, presented_links[:roles].count)
+  end
+
   test "specific locale attachments are presented for that locale" do
     #this factory creates an nil locale attachment
     publication = create(:published_publication)
