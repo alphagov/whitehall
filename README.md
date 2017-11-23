@@ -1,104 +1,56 @@
-# Whitehall App
+# whitehall
 
-"Whitehall" is the code name for the
-[Inside Government](https://www.gov.uk/government/) project, which
-aims to bring Government departments online in a consistent and
-user-friendly manner. Documentation can be found on [rdoc](http://rdoc.info/github/alphagov/whitehall/frames).
+whitehall is a Ruby on Rails content management application for content published by government departments and agencies.
 
 ## Nomenclature
 
-* *Govspeak* A variation of [Markdown](https://daringfireball.net/projects/markdown)
-used throughout 'Whitehall' as the general publishing format
+- *Govspeak* A variation of [Markdown](https://daringfireball.net/projects/markdown) used throughout whitehall as the general publishing format
 
-## Technical Documentation
+## Technical documentation
 
-Whitehall is a Rails 5 app built on a MySQL database. It is deployed
-in two modes, 'admin' for publishers to create and manage content and
-'frontend' for rendering content under https://www.gov.uk/government. In addition to
-storing and managing its own content database Whitehall also updates
-various other APIs including search and is currently being migrated
-towards a new publishing model utilising [Publishing
-API](https://github.com/alphagov/publishing-api) and
-[Content Store](https://github.com/alphagov/content-store).
+whitehall is a Ruby on Rails app built on a MySQL database. It is deployed in two modes: 'admin' for publishers to create and manage content and 'frontend' for rendering some content under https://www.gov.uk/government and https://www.gov.uk/world. whitehall also sends most content to the Publishing Platform and search.
+
+Assets are currently handled by whitehall. It handles uploads, virus scanning and serving of assets. There is a current project to migrate whitehall to use [Asset Manager](http://github.com/alphagov/asset-manager).
 
 ## Dependencies
 
-* Xcode (for the Command Line Tools `xcode-select --install`)
-* Ruby 2.2.3
-* Rubygems and Bundler
-* MySQL
-* Imagemagick and Ghostscript (for generating thumbnails of uploaded
-  PDFs)
-* xpdf (first download [XQuartz](http://www.xquartz.org/))
-* PhantomJS (for running the Javascript tests)
-
-## Dependencies on Whitehall APIs
-
-The following applications have dependencies on Whitehall APIs:
-
-* [alphagov/smart-answers](https://github.com/alphagov/smart-answers) uses the Worldwide
-  Locations and Worldwide Organisations endpoints
+- [alphagov/asset-manager](http://github.com/alphagov/asset-manager): provides uploading for static files (migration in progress)
+- [alphagov/rummager](http://github.com/alphagov/rummager): allows documents to be indexed for searching in both Finders and site search
+- [alphagov/publishing-api](http://github.com/alphagov/publishing-api): documents are sent here, persisted and then requested.
 
 ## Running the application
 
-The application can be started with
-
 ```
-bundle exec rails s
+$ ./startup.sh
 ```
+If you are using the [GDS development virtual machine](https://docs.publishing.service.gov.uk/manual/get-started.html#4-boot-your-vm) then the application will be available on the host at http://whitehall-admin.dev.gov.uk/
 
-Note that the application itself will respond to requests on the root URL `/` with a
-routing error. To check that it works, try visiting `/government/admin` and `/government/organisations`.
-
-Further setup instructions are available in the [detailed setup guide](docs/detailed_setup_guide.md)
+Further setup instructions are available in the [detailed setup guide](docs/detailed_setup_guide.md).
 
 ## Running the test suite
 
-See the [testing guide](docs/testing_guide.md)
+```
+$ bundle exec rake
+```
 
-## Assets
-
-GOV.UK shares assets (eg stylesheets and JavaScript) across apps using the
-[`slimmer` gem](https://github.com/alphagov/slimmer) and the [`static`
-app](https://github.com/alphagov/static).
-
-See the [local asset setup guide](docs/local_asset_setup_guide.md)
-
-## Search
-
-The Whitehall app relies on
-[Rummager](https://github.com/alphagov/rummager) for document
-indexing, and the
-[GOV.UK frontend application](https://github.com/alphagov/frontend) to
-serve results.
-
-See the [search setup guide](docs/search_setup_guide.md)
-
-## How to publish a finder in whitehall
-
-- You will need to create a JSON file in the whitehall repository, under [whitehall/lib/finders][finders-folder]
-- You can base it on one of the existing files in that folder
-- Double-check the filter format and document noun - the filter format is used for rummager to return the data, while the document noun is displayed to the user
-- The default_documents_per_page key can be used to paginate very long finders (see [whitehall/lib/finders/case_studies.json][case-studies] for an example)
-- Running the [finders:publish rake task][rake-task] will publish your new finder to the [publishing-api](https://github.com/alphagov/publishing-api), the the route defined in the JSON will be taken over by [finder-frontend](https://github.com/alphagov/finder-frontend)
-
-[finders-folder]: https://github.com/alphagov/whitehall/tree/master/lib/finders
-[case-studies]: https://github.com/alphagov/whitehall/blob/master/lib/finders/case_studies.json
-[rake-task]: https://github.com/alphagov/whitehall/blob/master/lib/tasks/publish_finders.rake
-
-## Other guides
+## Other documentation
 
 [Contributing guide](CONTRIBUTING.md)
-
+[CSS](docs/css.md)
+[Draft assets](docs/draft-assets.md)
+[Edition workflow](docs/edition_workflow.md)
+[How to publish a finder in whitehall](docs/finders.md)
+[Internationalisation](docs/internationalisation_guide.md)
+[JavaScript](docs/javascript.md)
+[Local assets](docs/local_asset_setup_guide.md)
+[Migration sync checks](docs/migration_sync_checks.md)
+[Search setup guide](docs/search_setup_guide.md)
+[Testing guide](docs/testing_guide.md)
 [Timestamps](docs/timestamps.md)
 
-[Internationalisation](docs/internationalisation_guide.md)
+## Generating technical documentation
 
-[Migration sync checks](docs/migration_sync_checks.md)
-
-## Generating the documentation
-
-We use [YARD](https://github.com/lsegal/yard) for the documentation. You can generate a local copy with:
+We use [YARD](https://github.com/lsegal/yard) for the technical documentation. You can generate a local copy with:
 
     yard server --reload
 
