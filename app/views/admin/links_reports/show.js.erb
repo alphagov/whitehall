@@ -1,3 +1,0 @@
-<% if @links_report.completed? %>
-  $('.broken-links-report').replaceWith('<%=escape_javascript render("links_report", links_report: @links_report ) %>');
-<% end %>
