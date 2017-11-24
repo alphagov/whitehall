@@ -59,4 +59,21 @@ class PublishingApiGoneWorkerTest < ActiveSupport::TestCase
 
     assert_requested request
   end
+
+  test "sends an error to sentry if there is a problem with the request" do
+    govukerror_notify = MiniTest::Mock.new
+    govukerror_notify.expect :call, nil, [GdsApi::HTTPUnprocessableEntity]
+
+    publishing_api = MiniTest::Mock.new
+    def publishing_api.unpublish(_content_id, _options)
+      raise GdsApi::HTTPUnprocessableEntity, "test"
+    end
+
+    Services.stub :publishing_api, publishing_api do
+      GovukError.stub :notify, govukerror_notify do
+        PublishingApiGoneWorker.new.perform(@uuid, "alternative_path", "*why?*", "de")
+        assert_mock govukerror_notify
+      end
+    end
+  end
 end
