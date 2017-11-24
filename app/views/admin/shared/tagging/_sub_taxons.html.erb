@@ -2,14 +2,14 @@
 <% taxons.each do |taxon| %>
   <p>
     <label>
-      <%= checkbox_for_taxonomy(@tag_form.selected_taxons, taxon) %>
+      <%= checkbox_for_taxonomy(selected_taxons, taxon) %>
       <span><%= taxon.name %></span>
     </label>
   </p>
 
   <% if taxon.children.present? %>
     <%= render partial: "/admin/shared/tagging/sub_taxons",
-          locals: { form: form, taxons: taxon.children } %>
+          locals: { selected_taxons: selected_taxons, taxons: taxon.children } %>
   <% end %>
 <% end %>
 </div>

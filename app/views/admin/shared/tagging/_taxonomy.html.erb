@@ -2,13 +2,13 @@
   <% root_taxon = TopicTreePresenter.new(root_taxon, collapsed: root_taxons.size > 1) %>
 
   <% if root_taxon.children.empty? %>
-    <%= render partial: "/admin/shared/tagging/sub_taxons", locals: { form: @tag_form, taxons: [root_taxon] } %>
+    <%= render partial: "/admin/shared/tagging/sub_taxons", locals: { selected_taxons: selected_taxons, taxons: [root_taxon] } %>
   <% else %>
     <div class="topic-tree">
       <a class="<%= root_taxon.toggle_classes %>" data-toggle="collapse" href="#<%= root_taxon.content_id %>"><span class='icon'></span><%= root_taxon.name %></a>
 
       <div class="<%= root_taxon.tree_classes %>" id="<%= root_taxon.content_id %>">
-        <%= render partial: "/admin/shared/tagging/sub_taxons", locals: {form: @tag_form, taxons: root_taxon.children } %>
+        <%= render partial: "/admin/shared/tagging/sub_taxons", locals: {selected_taxons: selected_taxons, taxons: root_taxon.children } %>
       </div>
     </div>
   <% end %>
