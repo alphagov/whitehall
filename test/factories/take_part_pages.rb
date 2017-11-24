@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :take_part_page do
     title 'A take part page title'
     summary 'Summary text'

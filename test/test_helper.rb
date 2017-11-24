@@ -30,7 +30,7 @@ GovukContentSchemaTestHelpers.configure do |config|
 end
 
 class ActiveSupport::TestCase
-  include FactoryGirl::Syntax::Methods
+  include FactoryBot::Syntax::Methods
   include ModelHelpers
   include ModelStubbingHelpers
   include HtmlAssertions
@@ -46,7 +46,7 @@ class ActiveSupport::TestCase
     Whitehall.search_backend = Whitehall::DocumentFilter::FakeSearch
     VirusScanHelpers.erase_test_files
     Sidekiq::Worker.clear_all
-    fake_whodunnit = FactoryGirl.build(:user)
+    fake_whodunnit = FactoryBot.build(:user)
     fake_whodunnit.stubs(:id).returns(1000)
     fake_whodunnit.stubs(:persisted?).returns(true)
     Edition::AuditTrail.whodunnit = fake_whodunnit

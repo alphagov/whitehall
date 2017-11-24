@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :news_article, class: NewsArticle, parent: :edition, traits: [:with_organisations, :with_topics] do
     title "news-title"
     summary "news-summary"

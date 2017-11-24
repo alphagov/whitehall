@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :historical_account do
     association :person
     summary "Some summary text"

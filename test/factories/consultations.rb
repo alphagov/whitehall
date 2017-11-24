@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :consultation, class: Consultation, parent: :edition, traits: [:with_organisations, :with_topics] do
     title "consultation-title"
     body  "consultation-body"

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :topic do
     sequence(:name) { |index| "topic-#{index}" }
     description 'Topic description'

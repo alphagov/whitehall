@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :organisation, traits: [:translated] do
     sequence(:name) { |index| "organisation-#{index}" }
     logo_formatted_name { name.to_s.split.join("\n") }
@@ -13,7 +13,7 @@ FactoryGirl.define do
 
     trait(:with_published_edition) {
       after :create do |organisation, evaluator|
-        FactoryGirl.create(:published_publication, lead_organisations: [organisation])
+        FactoryBot.create(:published_publication, lead_organisations: [organisation])
       end
     }
 

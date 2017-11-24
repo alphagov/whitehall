@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :offsite_link do
     title 'Summary text'
     link_type 'alert'

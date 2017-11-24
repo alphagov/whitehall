@@ -1,6 +1,6 @@
 require_relative '../support/generic_edition'
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :edition, class: GenericEdition, traits: [:translated] do
     creator
     sequence(:title) { |index| "edition-title-#{index}" }
@@ -23,7 +23,7 @@ FactoryGirl.define do
       after :build do |edition, evaluator|
         if evaluator.lead_organisations.empty? && evaluator.create_default_organisation
           edition.edition_organisations.build(edition: edition,
-                                              organisation: FactoryGirl.build(:organisation),
+                                              organisation: FactoryBot.build(:organisation),
                                               lead_ordering: 1,
                                               lead: true)
         end
@@ -111,7 +111,7 @@ FactoryGirl.define do
 
     trait(:with_file_attachment) do
       association :alternative_format_provider, factory: :organisation_with_alternative_format_contact_email
-      attachments { FactoryGirl.build_list :file_attachment, 1 }
+      attachments { FactoryBot.build_list :file_attachment, 1 }
       after :create do |edition, evaluator|
         VirusScanHelpers.simulate_virus_scan(edition.attachments.first.attachment_data.file)
       end
@@ -119,12 +119,12 @@ FactoryGirl.define do
 
     trait(:with_html_attachment) do
       association :alternative_format_provider, factory: :organisation_with_alternative_format_contact_email
-      attachments { FactoryGirl.build_list :html_attachment, 1 }
+      attachments { FactoryBot.build_list :html_attachment, 1 }
     end
 
     trait(:with_file_attachment_not_scanned) do
       association :alternative_format_provider, factory: :organisation_with_alternative_format_contact_email
-      attachments { FactoryGirl.build_list :file_attachment, 1 }
+      attachments { FactoryBot.build_list :file_attachment, 1 }
     end
 
     trait(:with_document) do

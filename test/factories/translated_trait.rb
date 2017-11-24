@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   trait :translated do
     transient do
       translated_into nil

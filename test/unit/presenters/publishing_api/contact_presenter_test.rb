@@ -5,11 +5,11 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
     @organisation_content_id = SecureRandom.uuid
     @world_location_content_id = SecureRandom.uuid
 
-    world_location = FactoryGirl.build(:world_location,
+    world_location = FactoryBot.build(:world_location,
                                        content_id: @world_location_content_id,
                                        title: "United Kingdom")
 
-    @contact = FactoryGirl.build(:contact,
+    @contact = FactoryBot.build(:contact,
                                  title: "Government Digital Service",
                                  recipient: "GDS mail room",
                                  street_address: "Aviation House, 125 Kingsway",
@@ -22,7 +22,7 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
 
     @updated_at = Time.zone.parse("2016-06-23 10:32:00")
     @contact.translation.updated_at = @updated_at
-    @contact.contactable = FactoryGirl.build(:organisation, content_id: @organisation_content_id)
+    @contact.contactable = FactoryBot.build(:organisation, content_id: @organisation_content_id)
     @presented = PublishingApi::ContactPresenter.new(@contact, {})
   end
 

@@ -103,7 +103,7 @@ end
 
 group :test do
   gem 'rack-test'
-  gem 'factory_girl'
+  gem 'factory_bot'
   gem 'mocha', require: false
   gem 'timecop'
   gem 'webmock', require: false

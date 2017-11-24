@@ -1,12 +1,12 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :world_location_news_article, class: WorldLocationNewsArticle, parent: :edition, traits: [:with_topics] do
     title "world-location-news-title"
     summary "world-location-news-summary"
     body  "world-location-news-body"
 
     after :build do |news, evaluator|
-      news.world_locations = [FactoryGirl.build(:world_location)] unless evaluator.world_locations.any?
-      news.worldwide_organisations = [FactoryGirl.build(:worldwide_organisation)] unless evaluator.worldwide_organisations.any?
+      news.world_locations = [FactoryBot.build(:world_location)] unless evaluator.world_locations.any?
+      news.worldwide_organisations = [FactoryBot.build(:worldwide_organisation)] unless evaluator.worldwide_organisations.any?
     end
 
   end

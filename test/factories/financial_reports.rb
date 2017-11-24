@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   sequence :year do |n|
     Time.zone.now.year + n
   end

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :classification_featuring do
     association :edition, factory: :published_edition
     classification

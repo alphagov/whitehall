@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :case_study, class: CaseStudy, parent: :edition_with_organisations do
     title "case-study-title"
     summary "case-study-summary"

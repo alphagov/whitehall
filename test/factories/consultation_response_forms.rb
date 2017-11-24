@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :consultation_response_form do
     transient do
       file { File.open(File.join(Rails.root, 'test', 'fixtures', 'two-pages.pdf')) }

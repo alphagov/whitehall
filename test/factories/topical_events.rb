@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :topical_event do
     sequence(:name) { |index| "topical-event-#{index}" }
     description 'Topical event description'

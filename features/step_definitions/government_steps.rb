@@ -19,11 +19,11 @@ Then(/^there should be a government called "(.*?)" between dates "(.*?)" and "(.
 end
 
 Given(/^a government exists called "(.*?)" between dates "(.*?)" and "(.*?)"$/) do |government_name, start_date, end_date|
-  FactoryGirl.create(:government, name: government_name, start_date: start_date, end_date: end_date)
+  FactoryBot.create(:government, name: government_name, start_date: start_date, end_date: end_date)
 end
 
 Given(/^a government exists called "(.*?)" starting on "(.*?)"$/) do |government_name, start_date|
-  FactoryGirl.create(:government, name: government_name, start_date: start_date)
+  FactoryBot.create(:government, name: government_name, start_date: start_date)
 end
 
 When(/^I edit the government called "(.*?)" to have dates "(.*?)" and "(.*?)"$/) do |government_name, start_date, end_date|
@@ -34,7 +34,7 @@ When(/^I edit the government called "(.*?)" to have dates "(.*?)" and "(.*?)"$/)
 end
 
 Given(/^there is a current government$/) do
-  FactoryGirl.create(:current_government)
+  FactoryBot.create(:current_government)
 end
 
 When(/^I close the current government$/) do

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Admin::GovernmentsControllerTest < ActionController::TestCase
   setup do
-    @government = FactoryGirl.create(:government)
+    @government = FactoryBot.create(:government)
   end
 
   should_be_an_admin_controller

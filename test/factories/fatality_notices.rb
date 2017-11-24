@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :fatality_notice, class: FatalityNotice, parent: :edition, traits: [:with_organisations, :with_topics] do
     title "fatality-title"
     summary "fatality-summary"
