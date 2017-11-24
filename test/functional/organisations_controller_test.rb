@@ -143,9 +143,9 @@ class OrganisationsControllerTest < ActionController::TestCase
   sets_cache_control_max_age_to_time_of_next_scheduled(:publication)
   sets_cache_control_max_age_to_time_of_next_scheduled(:consultation)
   sets_cache_control_max_age_to_time_of_next_scheduled(:speech) do |organisation|
-    ministerial_role = FactoryGirl.create(:ministerial_role, organisations: [organisation])
-    role_appointment = FactoryGirl.create(:role_appointment, role: ministerial_role)
-    FactoryGirl.create(:speech, :draft,
+    ministerial_role = FactoryBot.create(:ministerial_role, organisations: [organisation])
+    role_appointment = FactoryBot.create(:role_appointment, role: ministerial_role)
+    FactoryBot.create(:speech, :draft,
       scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2,
       role_appointment: role_appointment)
   end

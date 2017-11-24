@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :unpublishing do
     unpublishing_reason_id UnpublishingReason::PUBLISHED_IN_ERROR_ID
     edition { create(:published_case_study, state: 'draft', first_published_at: 2.days.ago) }

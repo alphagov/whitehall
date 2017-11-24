@@ -2,8 +2,8 @@ require 'test_helper'
 
 class EditionUnwithdrawerTest < ActiveSupport::TestCase
   setup do
-    @edition = FactoryGirl.create(:published_edition, state: 'withdrawn')
-    @user = FactoryGirl.create(:user)
+    @edition = FactoryBot.create(:published_edition, state: 'withdrawn')
+    @user = FactoryBot.create(:user)
     stub_any_publishing_api_call
   end
 
@@ -41,7 +41,7 @@ class EditionUnwithdrawerTest < ActiveSupport::TestCase
   end
 
   test "unwithdraw handles legacy withdrawn editions" do
-    edition = FactoryGirl.create(:published_edition, state: 'withdrawn')
+    edition = FactoryBot.create(:published_edition, state: 'withdrawn')
 
     unwithdrawn_edition = unwithdraw(edition)
 

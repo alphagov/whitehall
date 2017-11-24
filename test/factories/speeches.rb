@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :speech, class: Speech, parent: :edition, traits: [:with_organisations, :with_topics] do
     title "speech-title"
     body  "speech-body"
@@ -12,7 +12,7 @@ FactoryGirl.define do
 
     after(:build) do |object, evaluator|
       if evaluator.relevant_to_local_government
-        object.related_policy_ids = [FactoryGirl.create(:published_policy, relevant_to_local_government: true)].map(&:id)
+        object.related_policy_ids = [FactoryBot.create(:published_policy, relevant_to_local_government: true)].map(&:id)
       end
     end
   end

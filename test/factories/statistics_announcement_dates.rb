@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :statistics_announcement_date do
     release_date { Time.zone.today + 1.month + 9.hours + 30.minutes }
     precision    StatisticsAnnouncementDate::PRECISION[:one_month]

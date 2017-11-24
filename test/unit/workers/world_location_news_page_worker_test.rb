@@ -7,7 +7,7 @@ class WorldLocationNewsPageWorkerTest < ActiveSupport::TestCase
   end
 
   test "sends to the publishing api" do
-    world_location = FactoryGirl.create(:world_location, name: "France")
+    world_location = FactoryBot.create(:world_location, name: "France")
     presenter = PublishingApi::WorldLocationNewsPagePresenter.new(world_location)
 
     Services.publishing_api.expects(:put_content).with("id-123", presenter.content)
@@ -17,7 +17,7 @@ class WorldLocationNewsPageWorkerTest < ActiveSupport::TestCase
   end
 
   test "sends to rummager" do
-    world_location = FactoryGirl.create(:world_location, name: "France")
+    world_location = FactoryBot.create(:world_location, name: "France")
     presenter = PublishingApi::WorldLocationNewsPagePresenter.new(world_location)
 
     Whitehall::FakeRummageableIndex.any_instance.expects(:add)
@@ -27,7 +27,7 @@ class WorldLocationNewsPageWorkerTest < ActiveSupport::TestCase
   end
 
   test "sends translations to the publishing api under the same content_id" do
-    world_location = FactoryGirl.create(:world_location, name: "France", translated_into: [:fr])
+    world_location = FactoryBot.create(:world_location, name: "France", translated_into: [:fr])
 
     I18n.with_locale(:en) do
       @english = PublishingApi::WorldLocationNewsPagePresenter.new(world_location).content

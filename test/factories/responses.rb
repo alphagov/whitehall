@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   trait :response do
     consultation
     published_on { Date.today }
@@ -10,7 +10,7 @@ FactoryGirl.define do
     end
 
     trait(:with_file_attachment) do
-      attachments { FactoryGirl.build_list :file_attachment, 1 }
+      attachments { FactoryBot.build_list :file_attachment, 1 }
 
       after :create do |consultation_outcome, _|
         VirusScanHelpers.simulate_virus_scan(
@@ -26,7 +26,7 @@ FactoryGirl.define do
     end
 
     trait(:with_file_attachment) do
-      attachments { FactoryGirl.build_list :file_attachment, 1 }
+      attachments { FactoryBot.build_list :file_attachment, 1 }
 
       after :create do |consultation_outcome, _|
         VirusScanHelpers.simulate_virus_scan(

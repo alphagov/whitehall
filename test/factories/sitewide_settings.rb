@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :sitewide_setting do
     sequence(:key) { |index| "sitewide_setting_key-#{index}" }
     description "Sitewide setting description"

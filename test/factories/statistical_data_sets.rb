@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :statistical_data_set, class: StatisticalDataSet, parent: :edition, traits: [:with_organisations, :with_topics] do
     title   "statistical-data-set-title"
     body    "statistical-data-set-body"

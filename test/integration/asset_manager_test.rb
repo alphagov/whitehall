@@ -4,7 +4,7 @@ class AssetManagerIntegrationTest
   class CreatingAnOrganisationLogo < ActiveSupport::TestCase
     test 'sends the logo to Asset Manager' do
       filename = '960x640_jpeg.jpg'
-      organisation = FactoryGirl.build(
+      organisation = FactoryBot.build(
         :organisation,
         organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
         logo: File.open(fixture_path.join('images', filename))
@@ -22,7 +22,7 @@ class AssetManagerIntegrationTest
   class RemovingAnOrganisationLogo < ActiveSupport::TestCase
     test 'removing an organisation logo removes it from asset manager' do
       logo_filename = '960x640_jpeg.jpg'
-      organisation = FactoryGirl.create(
+      organisation = FactoryBot.create(
         :organisation,
         organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
         logo: File.open(fixture_path.join('images', logo_filename))
@@ -41,7 +41,7 @@ class AssetManagerIntegrationTest
   class ReplacingAnOrganisationLogo < ActiveSupport::TestCase
     test 'replacing an organisation logo removes the old logo from asset manager' do
       old_logo_filename = '960x640_jpeg.jpg'
-      organisation = FactoryGirl.create(
+      organisation = FactoryBot.create(
         :organisation,
         organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
         logo: File.open(fixture_path.join('images', old_logo_filename))
@@ -61,7 +61,7 @@ class AssetManagerIntegrationTest
   class CreatingAConsultationResponseFormData < ActiveSupport::TestCase
     setup do
       @filename = 'greenpaper.pdf'
-      @consultation_response_form_data = FactoryGirl.build(
+      @consultation_response_form_data = FactoryBot.build(
         :consultation_response_form_data,
         file: File.open(fixture_path.join(@filename))
       )
@@ -87,7 +87,7 @@ class AssetManagerIntegrationTest
     setup do
       filename = 'greenpaper.pdf'
       @consultation_response_form_asset_id = 'asset-id'
-      @consultation_response_form_data = FactoryGirl.create(
+      @consultation_response_form_data = FactoryBot.create(
         :consultation_response_form_data,
         file: File.open(fixture_path.join(filename))
       )
@@ -121,7 +121,7 @@ class AssetManagerIntegrationTest
     setup do
       filename = 'greenpaper.pdf'
       @consultation_response_form_asset_id = 'asset-id'
-      @consultation_response_form_data = FactoryGirl.create(
+      @consultation_response_form_data = FactoryBot.create(
         :consultation_response_form_data,
         file: File.open(fixture_path.join(filename))
       )

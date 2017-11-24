@@ -1,7 +1,7 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :role, parent: :role_without_organisations do
     after :build do |role, evaluator|
-      role.organisations = [FactoryGirl.build(:organisation)] unless evaluator.organisations.any?
+      role.organisations = [FactoryBot.build(:organisation)] unless evaluator.organisations.any?
     end
   end
 
@@ -16,13 +16,13 @@ FactoryGirl.define do
 
   trait :occupied do
     after :build do |role, _|
-      role.role_appointments = [FactoryGirl.build(:role_appointment)]
+      role.role_appointments = [FactoryBot.build(:role_appointment)]
     end
   end
 
   trait :vacant do
     after :build do |role, _|
-      role.role_appointments = [FactoryGirl.build(:role_appointment, :ended)]
+      role.role_appointments = [FactoryBot.build(:role_appointment, :ended)]
     end
   end
 end

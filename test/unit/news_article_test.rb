@@ -156,7 +156,7 @@ class WorldNewsStoryTypeNewsArticleTest < ActiveSupport::TestCase
 
   test "is invalid when associating an organisation" do
     news_article = build(:news_article_world_news_story)
-    news_article.edition_organisations.build(organisation: FactoryGirl.build(:organisation))
+    news_article.edition_organisations.build(organisation: FactoryBot.build(:organisation))
 
     refute news_article.valid?
     assert_equal ["You can't tag a world news story to organisations, please remove organisation"],

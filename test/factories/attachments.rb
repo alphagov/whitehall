@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   sequence(:attachment_ordering)
 
   trait :abstract_attachment do

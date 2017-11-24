@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :promotional_feature_item do
     association :promotional_feature
     summary 'Summary text'

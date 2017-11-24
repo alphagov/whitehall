@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :edition_worldwide_organisation do
     edition
     worldwide_organisation

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :statistics_announcement do
     transient do
       release_date nil
@@ -9,9 +9,9 @@ FactoryGirl.define do
     sequence(:title) { |index| "Stats announcement #{index}" }
     summary "Summary of announcement"
     publication_type_id PublicationType::OfficialStatistics.id
-    organisations { FactoryGirl.build_list :organisation, 1 }
+    organisations { FactoryBot.build_list :organisation, 1 }
 
-    topics { FactoryGirl.build_list :topic, 1 }
+    topics { FactoryBot.build_list :topic, 1 }
     association :creator, factory: :writer
     association :current_release_date, factory: :statistics_announcement_date
 

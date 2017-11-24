@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :worldwide_office do
     transient do
       title { 'Contact title' }

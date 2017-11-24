@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :contact, traits: [:translated] do
     title "Contact description"
     contact_type { ContactType::General }
