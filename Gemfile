@@ -85,7 +85,7 @@ group :development, :test do
   gem 'ruby-prof'
   gem 'pry-byebug'
   gem 'pry-rails'
-  gem 'govuk-lint'
+  gem 'govuk-lint', '~> 3.3.1'
   gem 'dotenv-rails'
   gem 'teaspoon-qunit'
   # teaspoon has coffee assets that mean we need coffee script in order
@@ -122,6 +122,7 @@ end
 
 group :cucumber, :test do
   gem 'cucumber-rails', require: false
+  gem 'cucumber', '~> 2.4.0'
   gem 'launchy'
   gem 'capybara'
   gem 'poltergeist'
