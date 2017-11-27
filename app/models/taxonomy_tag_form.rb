@@ -24,6 +24,18 @@ class TaxonomyTagForm
     )
   end
 
+  def published_taxons
+    govuk_taxonomy.matching_against_published_taxons(selected_taxons)
+  end
+
+  def visible_draft_taxons
+    govuk_taxonomy.matching_against_visible_draft_taxons(selected_taxons)
+  end
+
+  def invisible_draft_taxons
+    selected_taxons - (published_taxons + visible_draft_taxons)
+  end
+
   def publish!
     Services
       .publishing_api
@@ -48,5 +60,11 @@ class TaxonomyTagForm
         list_of_taxons << content_id if selected_taxons.include?(content_id)
       end
     end
+  end
+
+private
+
+  def govuk_taxonomy
+    @_taxonomy ||= Taxonomy::GovukTaxonomy.new
   end
 end

@@ -58,4 +58,67 @@ class TaxonomyTagFormTest < ActiveSupport::TestCase
 
     assert_equal [child_taxon_content_id], form.most_specific_taxons
   end
+
+  test '#published_taxons returns all published taxons tagged to the content item' do
+    content_id = "64aadc14-9bca-40d9-abb6-4f21f9792a05"
+
+    publishing_api_has_links(
+      "content_id" => content_id,
+      "links" => {
+        "taxons" => %w[bbbb cccc]
+      },
+      "version" => 1
+    )
+
+    Taxonomy::GovukTaxonomy
+      .any_instance.stubs(:matching_against_published_taxons)
+      .with(%w[bbbb cccc])
+      .returns(['bbbb'])
+
+    form = TaxonomyTagForm.load(content_id)
+    assert_equal ['bbbb'], form.published_taxons
+  end
+
+  test '#visible_draft_taxons returns all draft taxons tagged to the content item' do
+    content_id = "64aadc14-9bca-40d9-abb6-4f21f9792a05"
+
+    publishing_api_has_links(
+      "content_id" => content_id,
+      "links" => {
+        "taxons" => %w[bbbb cccc]
+      },
+      "version" => 1
+    )
+
+    Taxonomy::GovukTaxonomy
+      .any_instance.stubs(:matching_against_visible_draft_taxons)
+      .with(%w[bbbb cccc])
+      .returns(['cccc'])
+
+    form = TaxonomyTagForm.load(content_id)
+    assert_equal ['cccc'], form.visible_draft_taxons
+  end
+
+  test '#invisible_draft_taxons returns all invisible draft taxons tagged to the content item' do
+    content_id = "64aadc14-9bca-40d9-abb6-4f21f9792a05"
+
+    publishing_api_has_links(
+      "content_id" => content_id,
+      "links" => {
+        "taxons" => [
+          'published-taxon',
+          'draft-taxon',
+          'invisible-draft-taxon',
+        ]
+      },
+      "version" => 1
+    )
+
+    form = TaxonomyTagForm.load(content_id)
+
+    form.stubs(:published_taxons).returns(["published-taxon"])
+    form.stubs(:visible_draft_taxons).returns(["draft-taxon"])
+
+    assert_equal ['invisible-draft-taxon'], form.invisible_draft_taxons
+  end
 end
