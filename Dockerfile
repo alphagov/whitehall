@@ -5,6 +5,7 @@ RUN apt-get install -y build-essential nodejs && apt-get clean
 
 ENV GOVUK_APP_NAME whitehall
 ENV PORT 3020
+ENV REDIS_HOST redis
 ENV RAILS_ENV development
 
 ENV APP_HOME /app
