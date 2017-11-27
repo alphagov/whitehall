@@ -9,15 +9,13 @@ class Admin::EditionTagsController < Admin::BaseController
   end
 
   def update
-    @tag_form = TaxonomyTagForm.new(
+    EditionTaxonLinkPatcher.new.call(
       content_id: @edition.content_id,
       selected_taxons: selected_taxons,
       invisible_taxons: invisible_taxons,
       previous_version: params["taxonomy_tag_form"]["previous_version"],
-      all_taxons: Taxonomy::GovukTaxonomy.new.all_taxons
     )
 
-    @tag_form.publish!
     redirect_to admin_edition_path(@edition),
       notice: "The tags have been updated."
   rescue GdsApi::HTTPConflict

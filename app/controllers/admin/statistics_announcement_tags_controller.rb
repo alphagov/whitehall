@@ -8,14 +8,13 @@ class Admin::StatisticsAnnouncementTagsController < Admin::BaseController
   end
 
   def update
-    @tag_form = TaxonomyTagForm.new(
+    EditionTaxonLinkPatcher.new.call(
       content_id: @statistics_announcement.content_id,
       selected_taxons: selected_taxons,
+      invisible_taxons: invisible_taxons,
       previous_version: params["taxonomy_tag_form"]["previous_version"],
-      all_taxons: Taxonomy::GovukTaxonomy.new.all_taxons
     )
 
-    @tag_form.publish!
     redirect_to admin_statistics_announcement_path(@statistics_announcement),
       notice: "The tags have been updated."
   rescue GdsApi::HTTPConflict
@@ -39,5 +38,9 @@ private
 
   def selected_taxons
     params["taxonomy_tag_form"].fetch("taxons", []).reject(&:blank?)
+  end
+
+  def invisible_taxons
+    params["taxonomy_tag_form"].fetch("invisible_draft_taxons", "").split(",")
   end
 end

@@ -36,32 +36,6 @@ class TaxonomyTagForm
     selected_taxons - (published_taxons + visible_draft_taxons)
   end
 
-  def publish!
-    Services
-      .publishing_api
-      .patch_links(
-        content_id,
-        links: { taxons: most_specific_taxons + invisible_taxons },
-        previous_version: previous_version
-      )
-  end
-
-  # Ignore any taxons that already have a more specific taxon selected
-  def most_specific_taxons
-    all_taxons.each_with_object([]) do |taxon, list_of_taxons|
-      content_ids = taxon.descendants.map(&:content_id)
-
-      any_descendants_selected = selected_taxons.any? do |selected_taxon|
-        content_ids.include?(selected_taxon)
-      end
-
-      unless any_descendants_selected
-        content_id = taxon.content_id
-        list_of_taxons << content_id if selected_taxons.include?(content_id)
-      end
-    end
-  end
-
 private
 
   def govuk_taxonomy

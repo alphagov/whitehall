@@ -40,25 +40,6 @@ class TaxonomyTagFormTest < ActiveSupport::TestCase
     assert_equal(form.previous_version, 1)
   end
 
-  test '#most_specific_taxons ignores taxons if there is a more specific one' do
-    stub_taxonomy_with_all_taxons
-
-    selected_taxons = [
-      grandparent_taxon_content_id,
-      parent_taxon_content_id,
-      child_taxon_content_id
-    ]
-
-    form = TaxonomyTagForm.new(
-      selected_taxons: selected_taxons,
-      content_id: "abc",
-      previous_version: 1,
-      all_taxons: Taxonomy::GovukTaxonomy.new.all_taxons
-    )
-
-    assert_equal [child_taxon_content_id], form.most_specific_taxons
-  end
-
   test '#published_taxons returns all published taxons tagged to the content item' do
     content_id = "64aadc14-9bca-40d9-abb6-4f21f9792a05"
 
