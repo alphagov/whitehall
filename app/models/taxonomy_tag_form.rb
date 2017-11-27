@@ -1,7 +1,7 @@
 class TaxonomyTagForm
   include ActiveModel::Model
 
-  attr_accessor :selected_taxons, :all_taxons, :content_id, :previous_version
+  attr_accessor :selected_taxons, :invisible_taxons, :all_taxons, :content_id, :previous_version
 
   def self.load(content_id)
     begin
@@ -41,7 +41,7 @@ class TaxonomyTagForm
       .publishing_api
       .patch_links(
         content_id,
-        links: { taxons: most_specific_taxons },
+        links: { taxons: most_specific_taxons + invisible_taxons },
         previous_version: previous_version
       )
   end
