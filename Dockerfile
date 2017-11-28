@@ -8,8 +8,8 @@ ENV GOVUK_CONTENT_SCHEMAS_PATH /govuk-content-schemas
 ENV PORT 3020
 ENV REDIS_HOST redis
 ENV RAILS_ENV development
-ENV DATABASE_URL: mysql2://root:root@mysql/whitehall_development
-ENV TEST_DATABASE_URL: mysql2://root:root@mysql/whitehall_test
+ENV DATABASE_URL mysql2://root:root@mysql/whitehall_development
+ENV TEST_DATABASE_URL mysql2://root:root@mysql/whitehall_test
 
 ENV APP_HOME /app
 RUN mkdir $APP_HOME
