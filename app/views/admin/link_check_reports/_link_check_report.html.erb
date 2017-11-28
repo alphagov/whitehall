@@ -19,7 +19,7 @@
       <p>We’ve found links in this document that may be broken:</p>
       <ul>
         <% report.broken_links.each do |link| %>
-          <li><%= link_to link.uri.truncate(50), link.uri, title: link.uri, class: 'link-inherit' %></li>
+          <li><%= link_to link.uri.truncate(50), link.uri, title: link.suggested_fix, class: 'link-inherit' %></li>
         <% end %>
       </ul>
       <%= render 'admin/link_check_reports/form', reportable: report.link_reportable, button_text: 'Check again' %>
