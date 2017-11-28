@@ -3,7 +3,7 @@
   show_attachments_tab_help ||= false
   show_footnote_help ||= false
   show_stat_headline_help ||= false
-  links_report ||= nil
+  link_check_report ||= nil
   govspeak_link_errors ||= []
 %>
 
@@ -27,8 +27,8 @@
   <% initialise_script "GOVUK.govspeakLinkErrors", selector: '#link-errors' %>
 <% end %>
 
-<% if links_report.present? %>
-  <%= render 'admin/links_reports/links_report', links_report: links_report %>
+<% if link_check_report.present? %>
+  <%= render 'admin/link_check_reports/link_check_report', report: link_check_report %>
 <% end %>
 
 <h3>Formatting</h3>
