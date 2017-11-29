@@ -38,11 +38,13 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
         "taxons" => [
           {
             "title" => title,
-            "links" => {}
+            "content_id" => "aaaa",
+            "links" => {},
           }
         ]
       }
     )
+    stub_govuk_taxonomy_matching_published_taxons(['aaaa'], ['aaaa'])
 
     links_fetcher = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05")
     assert_equal links_fetcher.fetch.selected_taxon_paths, [[{ title: title }]]
@@ -58,10 +60,12 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
         "taxons" => [
           {
             "title" => title,
+            "content_id" => "aaaa",
             "links" => {
               "parent_taxons" => [
                 {
                   "title" => parent_title,
+                  "content_id" => "bbbb",
                   "links" => {}
                 }
               ]
@@ -70,6 +74,7 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
         ]
       }
     )
+    stub_govuk_taxonomy_matching_published_taxons(['aaaa'], ['aaaa'])
 
     links_fetcher = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05")
     assert_equal links_fetcher.fetch.selected_taxon_paths, [[{ title: parent_title }, { title: title }]]
@@ -86,13 +91,16 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
         "taxons" => [
           {
             "title" => title,
+            "content_id" => "aaaa",
             "links" => {
               "parent_taxons" => [
                 {
                   "title" => parent_title,
+                  "content_id" => "bbbb",
                   "links" => {
                     "parent_taxons" => [
                       "title" => grandparent_title,
+                      "content_id" => "cccc",
                       "links" => {}
                     ]
                   }
@@ -103,39 +111,44 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
         ]
       }
     )
+    stub_govuk_taxonomy_matching_published_taxons(['aaaa'], ['aaaa'])
 
     links_fetcher = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05")
     assert_equal links_fetcher.fetch.selected_taxon_paths, [[{ title: grandparent_title }, { title: parent_title }, { title: title }]]
   end
 
   test "it returns paths for multiple taxons" do
-    parent_title_1 = "Education, training and skills"
-    title_1 = "Further Education"
+    parent_education_title = "Education, training and skills"
+    education_title = "Further Education"
 
-    parent_title_2 = "Money"
-    title_2 = "Paying taxes"
+    parent_taxes_title = "Money"
+    taxes_title = "Paying taxes"
 
     publishing_api_has_expanded_links(
       content_id:  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
       expanded_links:  {
         "taxons" => [
           {
-            "title" => title_1,
+            "title" => education_title,
+            "content_id" => "aaaa",
             "links" => {
               "parent_taxons" => [
                 {
-                  "title" => parent_title_1,
+                  "title" => parent_education_title,
+                  "content_id" => "bbbb",
                   "links" => {}
                 }
               ]
             }
           },
           {
-            "title" => title_2,
+            "title" => taxes_title,
+            "content_id" => "cccc",
             "links" => {
               "parent_taxons" => [
                 {
-                  "title" => parent_title_2,
+                  "title" => parent_taxes_title,
+                  "content_id" => "dddd",
                   "links" => {}
                 }
               ]
@@ -144,36 +157,40 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
         ]
       }
     )
+    stub_govuk_taxonomy_matching_published_taxons(%w[aaaa cccc], %w[aaaa cccc])
 
     links_fetcher = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05")
     assert_equal(
       links_fetcher.fetch.selected_taxon_paths,
       [
-        [{ title: parent_title_1 }, { title: title_1 }],
-        [{ title: parent_title_2 }, { title: title_2 }],
+        [{ title: parent_education_title }, { title: education_title }],
+        [{ title: parent_taxes_title }, { title: taxes_title }],
       ]
     )
   end
 
   test "it uses the first taxon if there are multiple parents" do
-    parent_title_1 = "Education, training and skills"
-    parent_title_2 = "Work and pensions"
-    title = "Further Education"
+    parent_education_title = "Education, training and skills"
+    parent_work_title = "Work and pensions"
+    education_title = "Further Education"
 
     publishing_api_has_expanded_links(
       content_id:  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
       expanded_links:  {
         "taxons" => [
           {
-            "title" => title,
+            "title" => education_title,
+            "content_id" => "aaaa",
             "links" => {
               "parent_taxons" => [
                 {
-                  "title" => parent_title_1,
+                  "title" => parent_education_title,
+                  "content_id" => "bbbb",
                   "links" => {}
                 },
                 {
-                  "title" => parent_title_2,
+                  "title" => parent_work_title,
+                  "content_id" => "cccc",
                   "links" => {}
                 },
               ]
@@ -182,8 +199,91 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
         ]
       }
     )
+    stub_govuk_taxonomy_matching_published_taxons(['aaaa'], ['aaaa'])
 
     links_fetcher = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05")
-    assert_equal links_fetcher.fetch.selected_taxon_paths, [[{ title: parent_title_1 }, { title: title }]]
+    assert_equal links_fetcher.fetch.selected_taxon_paths, [[{ title: parent_education_title }, { title: education_title }]]
+  end
+
+  test "it only returns published or visible draft taxons" do
+    published_title = "I am the published taxon"
+    parent_published_title = "I am the parent of the published taxon"
+
+    visible_draft_title = "I am the visible draft taxon"
+    parent_visible_draft_title = "I am the parent of the visible draft taxon"
+
+    invisible_draft_title = "I am the invisible draft taxon"
+    parent_invisible_draft_title = "I am the parent of the invisible draft taxon"
+
+    publishing_api_has_expanded_links(
+      content_id:  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+      expanded_links:  {
+        "taxons" => [
+          {
+            "title" => published_title,
+            "content_id" => "aaaa",
+            "links" => {
+              "parent_taxons" => [
+                {
+                  "title" => parent_published_title,
+                  "content_id" => "bbbb",
+                  "links" => {}
+                },
+              ]
+            }
+          },
+          {
+            "title" => visible_draft_title,
+            "content_id" => "cccc",
+            "links" => {
+              "parent_taxons" => [
+                {
+                  "title" => parent_visible_draft_title,
+                  "content_id" => "dddd",
+                  "links" => {}
+                },
+              ]
+            }
+          },
+          {
+            "title" => invisible_draft_title,
+            "content_id" => "eeee",
+            "links" => {
+              "parent_taxons" => [
+                {
+                  "title" => parent_invisible_draft_title,
+                  "content_id" => "ffff",
+                  "links" => {}
+                },
+              ]
+            }
+          }
+        ]
+      }
+    )
+    stub_govuk_taxonomy_matching_published_taxons(%w[aaaa cccc eeee], ["aaaa"])
+    stub_govuk_taxonomy_matching_visible_draft_taxons(%w[aaaa cccc eeee], ["cccc"])
+
+    links_fetcher = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05")
+    expected_taxon_paths = [
+      [{ title: parent_published_title }, { title: published_title }],
+      [{ title: parent_visible_draft_title }, { title: visible_draft_title }],
+    ]
+
+    assert_equal expected_taxon_paths, links_fetcher.fetch.selected_taxon_paths
+  end
+
+  def stub_govuk_taxonomy_matching_published_taxons(taxon_content_ids, matched_taxon_content_ids)
+    Taxonomy::GovukTaxonomy
+      .any_instance.stubs(:matching_against_published_taxons)
+      .with(taxon_content_ids)
+      .returns(matched_taxon_content_ids)
+  end
+
+  def stub_govuk_taxonomy_matching_visible_draft_taxons(taxon_content_ids, matched_taxon_content_ids)
+    Taxonomy::GovukTaxonomy
+      .any_instance.stubs(:matching_against_visible_draft_taxons)
+      .with(taxon_content_ids)
+      .returns(matched_taxon_content_ids)
   end
 end

@@ -48,12 +48,11 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   test 'POST :create with an statistics announcement id assigns the publication to the announcement' do
     statistics_announcement = create(:statistics_announcement)
     post :create, params: {
-edition: controller_attributes_for(:publication,
-      publication_type_id: PublicationType::OfficialStatistics.id,
-      lead_organisation_ids: [@organisation.id],
-      statistics_announcement_id: statistics_announcement.id
-    )
-}
+      edition: controller_attributes_for(:publication,
+        publication_type_id: PublicationType::OfficialStatistics.id,
+        lead_organisation_ids: [@organisation.id],
+        statistics_announcement_id: statistics_announcement.id)
+    }
 
     publication = Publication.last
     assert publication.present?, assigns(:edition).errors.full_messages.inspect
@@ -63,11 +62,10 @@ edition: controller_attributes_for(:publication,
 
   test "create should create a new publication" do
     post :create, params: {
-edition: controller_attributes_for(:publication,
-      first_published_at: Time.zone.parse("2001-10-21 00:00:00"),
-      publication_type_id: PublicationType::ResearchAndAnalysis.id
-    )
-}
+      edition: controller_attributes_for(:publication,
+        first_published_at: Time.zone.parse("2001-10-21 00:00:00"),
+        publication_type_id: PublicationType::ResearchAndAnalysis.id)
+    }
 
     created_publication = Publication.last
     assert_equal Time.zone.parse("2001-10-21 00:00:00"), created_publication.first_published_at
@@ -210,6 +208,12 @@ edition: controller_attributes_for(:publication,
     login_as(create(:user, organisation: sfa_organisation))
 
     publication_has_expanded_links(publication.content_id)
+
+    Taxonomy::GovukTaxonomy
+      .any_instance.stubs(:matching_against_published_taxons)
+      .with(["aaaa"])
+      .returns(["aaaa"])
+
     get :show, params: { id: publication }
 
     refute_select '.taxonomy-topics .no-content'
@@ -233,10 +237,12 @@ edition: controller_attributes_for(:publication,
         "taxons" => [
           {
             "title" => "Primary Education",
+            "content_id" => "aaaa",
             "links" => {
               "parent_taxons" => [
                 {
                   "title" => "Education, Training and Skills",
+                  "content_id" => "bbbb",
                   "links" => {}
                 }
               ]

@@ -181,6 +181,12 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     login_as(create(:user, organisation: sfa_organisation))
 
     announcement_has_expanded_links(announcement.content_id)
+
+    Taxonomy::GovukTaxonomy
+      .any_instance.stubs(:matching_against_published_taxons)
+      .with(["aaaa"])
+      .returns(["aaaa"])
+
     get :show, params: { id: announcement }
 
     refute_select '.taxonomy-topics .no-content'
@@ -204,10 +210,12 @@ private
         "taxons" => [
           {
             "title" => "Primary Education",
+            "content_id" => "aaaa",
             "links" => {
               "parent_taxons" => [
                 {
                   "title" => "Education, Training and Skills",
+                  "content_id" => "bbbb",
                   "links" => {}
                 }
               ]
