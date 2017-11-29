@@ -2,6 +2,6 @@
   <%= form_tag admin_content_review_path(content_id: @edition.content_id), method: :patch, remote: true do %>
       <%= label_tag :review_by, "Set review by date:" %>
       <%= select_date @review_by_date.present? ? @review_by_date : Date.parse(params[:review_by]), prefix: :review_by %>
-      <%= submit_tag "Update review date", id: "update-review" %>
+      <%= submit_tag "Update review date", id: "update-review", class: "btn btn-default btn-lg add-left-margin" %>
   <% end %>
 </div>
