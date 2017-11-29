@@ -15,6 +15,10 @@ module TaxonomyHelper
     "child"
   end
 
+  def draft_taxon_1_content_id
+    "draft_taxon_1"
+  end
+
   def grandparent_taxon_content_id
     "grandparent"
   end
@@ -94,7 +98,7 @@ private
     {
       "title" => "About your organisation",
       "base_path" => "/about-your-organisation",
-      "content_id" => "draft_taxon_1",
+      "content_id" => draft_taxon_1_content_id,
       "expanded_links_hash" => {
         "expanded_links" => {
           "child_taxons" => []
