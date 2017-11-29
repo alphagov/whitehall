@@ -42,6 +42,20 @@ module TaxonomyHelper
       .returns(JSON.dump(taxons))
   end
 
+  def stub_govuk_taxonomy_matching_published_taxons(taxon_content_ids, matched_taxon_content_ids)
+    Taxonomy::GovukTaxonomy
+      .any_instance.stubs(:matching_against_published_taxons)
+      .with(taxon_content_ids)
+      .returns(matched_taxon_content_ids)
+  end
+
+  def stub_govuk_taxonomy_matching_visible_draft_taxons(taxon_content_ids, matched_taxon_content_ids)
+    Taxonomy::GovukTaxonomy
+      .any_instance.stubs(:matching_against_visible_draft_taxons)
+      .with(taxon_content_ids)
+      .returns(matched_taxon_content_ids)
+  end
+
 private
 
   def redis_client

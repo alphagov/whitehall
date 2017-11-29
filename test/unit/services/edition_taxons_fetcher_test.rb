@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class EditionTaxonsFetcherTest < ActiveSupport::TestCase
+  include TaxonomyHelper
+
   test "it returns '[]' if there are no expanded_links" do
     content_id = "64aadc14-9bca-40d9-abb4-4f21f9792a05"
 
@@ -271,19 +273,5 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
     ]
 
     assert_equal expected_taxon_paths, links_fetcher.fetch.selected_taxon_paths
-  end
-
-  def stub_govuk_taxonomy_matching_published_taxons(taxon_content_ids, matched_taxon_content_ids)
-    Taxonomy::GovukTaxonomy
-      .any_instance.stubs(:matching_against_published_taxons)
-      .with(taxon_content_ids)
-      .returns(matched_taxon_content_ids)
-  end
-
-  def stub_govuk_taxonomy_matching_visible_draft_taxons(taxon_content_ids, matched_taxon_content_ids)
-    Taxonomy::GovukTaxonomy
-      .any_instance.stubs(:matching_against_visible_draft_taxons)
-      .with(taxon_content_ids)
-      .returns(matched_taxon_content_ids)
   end
 end

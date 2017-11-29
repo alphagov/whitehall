@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class Admin::PublicationsControllerTest < ActionController::TestCase
+  include TaxonomyHelper
+
   setup do
     @organisation = create(:organisation)
     @user = create(:writer, organisation: @organisation)
@@ -208,11 +210,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     login_as(create(:user, organisation: sfa_organisation))
 
     publication_has_expanded_links(publication.content_id)
-
-    Taxonomy::GovukTaxonomy
-      .any_instance.stubs(:matching_against_published_taxons)
-      .with(["aaaa"])
-      .returns(["aaaa"])
+    stub_govuk_taxonomy_matching_published_taxons(["aaaa"], ["aaaa"])
 
     get :show, params: { id: publication }
 

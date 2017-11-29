@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
+  include TaxonomyHelper
+
   setup do
     @organisation = create(:organisation)
     @user = login_as create(:gds_editor, organisation: @organisation)
@@ -181,11 +183,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     login_as(create(:user, organisation: sfa_organisation))
 
     announcement_has_expanded_links(announcement.content_id)
-
-    Taxonomy::GovukTaxonomy
-      .any_instance.stubs(:matching_against_published_taxons)
-      .with(["aaaa"])
-      .returns(["aaaa"])
+    stub_govuk_taxonomy_matching_published_taxons(["aaaa"], ["aaaa"])
 
     get :show, params: { id: announcement }
 
