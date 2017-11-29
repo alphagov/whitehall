@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ExpandedLinksFetcherTest < ActiveSupport::TestCase
+class EditionTaxonsFetcherTest < ActiveSupport::TestCase
   test "it returns '[]' if there are no expanded_links" do
     content_id = "64aadc14-9bca-40d9-abb4-4f21f9792a05"
 
@@ -14,7 +14,7 @@ class ExpandedLinksFetcherTest < ActiveSupport::TestCase
     stub_request(:get, %r{.*/v2/expanded-links/#{content_id}.*})
       .to_return(body: body, status: 404)
 
-    links_fetcher = ExpandedLinksFetcher.new(content_id)
+    links_fetcher = EditionTaxonsFetcher.new(content_id)
 
     assert_equal links_fetcher.fetch.selected_taxon_paths, []
   end
@@ -25,7 +25,7 @@ class ExpandedLinksFetcherTest < ActiveSupport::TestCase
       expanded_links:  {}
     )
 
-    links_fetcher = ExpandedLinksFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05")
+    links_fetcher = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05")
     assert_equal links_fetcher.fetch.selected_taxon_paths, []
   end
 
@@ -44,7 +44,7 @@ class ExpandedLinksFetcherTest < ActiveSupport::TestCase
       }
     )
 
-    links_fetcher = ExpandedLinksFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05")
+    links_fetcher = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05")
     assert_equal links_fetcher.fetch.selected_taxon_paths, [[{ title: title }]]
   end
 
@@ -71,7 +71,7 @@ class ExpandedLinksFetcherTest < ActiveSupport::TestCase
       }
     )
 
-    links_fetcher = ExpandedLinksFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05")
+    links_fetcher = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05")
     assert_equal links_fetcher.fetch.selected_taxon_paths, [[{ title: parent_title }, { title: title }]]
   end
 
@@ -104,7 +104,7 @@ class ExpandedLinksFetcherTest < ActiveSupport::TestCase
       }
     )
 
-    links_fetcher = ExpandedLinksFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05")
+    links_fetcher = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05")
     assert_equal links_fetcher.fetch.selected_taxon_paths, [[{ title: grandparent_title }, { title: parent_title }, { title: title }]]
   end
 
@@ -145,7 +145,7 @@ class ExpandedLinksFetcherTest < ActiveSupport::TestCase
       }
     )
 
-    links_fetcher = ExpandedLinksFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05")
+    links_fetcher = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05")
     assert_equal(
       links_fetcher.fetch.selected_taxon_paths,
       [
@@ -183,7 +183,7 @@ class ExpandedLinksFetcherTest < ActiveSupport::TestCase
       }
     )
 
-    links_fetcher = ExpandedLinksFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05")
+    links_fetcher = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05")
     assert_equal links_fetcher.fetch.selected_taxon_paths, [[{ title: parent_title_1 }, { title: title }]]
   end
 end

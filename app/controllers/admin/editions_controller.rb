@@ -73,7 +73,7 @@ class Admin::EditionsController < Admin::BaseController
     fetch_version_and_remark_trails
 
     if @edition.can_be_tagged_to_taxonomy?
-      @expanded_links = ExpandedLinksFetcher.new(@edition.content_id).fetch
+      @edition_taxon_links = EditionTaxonsFetcher.new(@edition.content_id).fetch
     end
   end
 

@@ -1,4 +1,4 @@
-class ExpandedLinksFetcher
+class EditionTaxonsFetcher
   attr_accessor :content_id
 
   def initialize(content_id)
