@@ -10,7 +10,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
 
   def show
     if @statistics_announcement.can_be_tagged_to_taxonomy?
-      @expanded_links = ExpandedLinksFetcher.new(@statistics_announcement.content_id).fetch
+      @edition_taxon_links = EditionTaxonsFetcher.new(@statistics_announcement.content_id).fetch
     end
   end
 

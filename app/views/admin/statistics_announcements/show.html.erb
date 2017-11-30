@@ -73,7 +73,7 @@
     <% if @statistics_announcement.can_be_tagged_to_taxonomy? %>
       <%= render partial: '/admin/shared/tagging/show_topics_box', locals: {
         path_to_edit_tags: edit_admin_statistics_announcement_tags_path(@statistics_announcement.id),
-        selected_taxon_paths: @expanded_links.selected_taxon_paths,
+        selected_taxon_paths: @edition_taxon_links.selected_taxon_paths,
         no_topics_message: 'No topics - please add a topic'
       } %>
     <% end %>

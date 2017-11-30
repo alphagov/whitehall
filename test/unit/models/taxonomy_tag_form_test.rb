@@ -50,11 +50,7 @@ class TaxonomyTagFormTest < ActiveSupport::TestCase
       },
       "version" => 1
     )
-
-    Taxonomy::GovukTaxonomy
-      .any_instance.stubs(:matching_against_published_taxons)
-      .with(%w[bbbb cccc])
-      .returns(['bbbb'])
+    stub_govuk_taxonomy_matching_published_taxons(%w[bbbb cccc], ['bbbb'])
 
     form = TaxonomyTagForm.load(content_id)
     assert_equal ['bbbb'], form.published_taxons
@@ -70,11 +66,7 @@ class TaxonomyTagFormTest < ActiveSupport::TestCase
       },
       "version" => 1
     )
-
-    Taxonomy::GovukTaxonomy
-      .any_instance.stubs(:matching_against_visible_draft_taxons)
-      .with(%w[bbbb cccc])
-      .returns(['cccc'])
+    stub_govuk_taxonomy_matching_visible_draft_taxons(%w[bbbb cccc], ['cccc'])
 
     form = TaxonomyTagForm.load(content_id)
     assert_equal ['cccc'], form.visible_draft_taxons
