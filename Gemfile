@@ -55,6 +55,7 @@ gem 'activemodel-serializers-xml'
 gem 'deprecated_columns', '~> 0.1.1'
 gem 'record_tag_helper', '~> 1.0'
 gem 'govuk_ab_testing', '~> 2.4x'
+gem 'rest-client'
 
 if ENV['GDS_API_ADAPTERS_DEV']
   gem 'gds-api-adapters', path: '../gds-api-adapters'

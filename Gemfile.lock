@@ -585,6 +585,7 @@ DEPENDENCIES
   record_tag_helper (~> 1.0)
   redis-namespace
   responders (~> 2.4)
+  rest-client
   rinku
   ruby-prof
   ruby-progressbar
@@ -610,4 +611,4 @@ DEPENDENCIES
   whenever (~> 0.9.7)
 
 BUNDLED WITH
-   1.15.1
+   1.15.4

@@ -336,6 +336,7 @@ Whitehall::Application.routes.draw do
         resources :suggestions, only: [:index]
 
         resources :publications, except: [:index]
+        resources :content_reviews
 
         get "/policies/:policy_id/topics" => "policies#topics"
 
