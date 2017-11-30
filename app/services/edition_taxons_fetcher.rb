@@ -28,18 +28,35 @@ class EditionTaxonsFetcher
     end
 
     def selected_taxon_paths
-      visible_taxon_links.map { |taxon_hash| taxon_path(taxon_hash) }
+      visible_taxons.map(&:full_path)
     end
 
   private
 
     attr_reader :response
 
-    def visible_taxon_links
-      taxon_links.select do |taxon_link|
-        published_taxon_content_ids.include?(taxon_link["content_id"]) ||
-          visible_draft_taxon_content_ids.include?(taxon_link["content_id"])
+    def visible_taxons
+      taxons.select do |taxon|
+        published_taxon_content_ids.include?(taxon.content_id) ||
+          visible_draft_taxon_content_ids.include?(taxon.content_id)
       end
+    end
+
+    def taxons
+      @_taxons ||= taxon_links.map { |taxon_link| build_taxon(taxon_link) }
+    end
+
+    def build_taxon(taxon_link)
+      taxon = Taxonomy::Taxon.new(taxon_link.symbolize_keys.slice(:title, :base_path, :content_id))
+
+      parent_taxons = taxon_link.fetch("links", {}).fetch("parent_taxons", [])
+      if parent_taxons.present?
+        # There should not be more than one parent for a taxon. If there is,
+        # pick the first one.
+        taxon.parent_node = build_taxon(parent_taxons.first)
+      end
+
+      taxon
     end
 
     def taxon_links
@@ -60,23 +77,6 @@ class EditionTaxonsFetcher
 
     def govuk_taxonomy
       Taxonomy::GovukTaxonomy.new
-    end
-
-    def taxon_path(taxon_hash)
-      parents = [{ title: taxon_hash["title"] }]
-
-      direct_parents = taxon_hash["links"]["parent_taxons"]
-      while direct_parents
-        # There should not be more than one parent for a taxon. If there is,
-        # make an arbitrary choice.
-        direct_parent = direct_parents.first
-
-        parents << { title: direct_parent["title"] }
-
-        direct_parents = direct_parent["links"]["parent_taxons"]
-      end
-
-      parents.reverse
     end
   end
 end

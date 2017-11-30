@@ -41,6 +41,7 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
           {
             "title" => title,
             "content_id" => "aaaa",
+            "base_path" => "/i-am-a-taxon",
             "links" => {},
           }
         ]
@@ -63,11 +64,13 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
           {
             "title" => title,
             "content_id" => "aaaa",
+            "base_path" => "/i-am-a-taxon",
             "links" => {
               "parent_taxons" => [
                 {
                   "title" => parent_title,
                   "content_id" => "bbbb",
+                  "base_path" => "/i-am-a-parent-taxon",
                   "links" => {}
                 }
               ]
@@ -94,15 +97,18 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
           {
             "title" => title,
             "content_id" => "aaaa",
+            "base_path" => "/i-am-a-taxon",
             "links" => {
               "parent_taxons" => [
                 {
                   "title" => parent_title,
                   "content_id" => "bbbb",
+                  "base_path" => "/i-am-a-parent-taxon",
                   "links" => {
                     "parent_taxons" => [
                       "title" => grandparent_title,
                       "content_id" => "cccc",
+                      "base_path" => "/i-am-a-grand-parent-taxon",
                       "links" => {}
                     ]
                   }
@@ -133,11 +139,13 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
           {
             "title" => education_title,
             "content_id" => "aaaa",
+            "base_path" => "/i-am-a-taxon",
             "links" => {
               "parent_taxons" => [
                 {
                   "title" => parent_education_title,
                   "content_id" => "bbbb",
+                  "base_path" => "/i-am-a-parent-taxon",
                   "links" => {}
                 }
               ]
@@ -146,11 +154,13 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
           {
             "title" => taxes_title,
             "content_id" => "cccc",
+            "base_path" => "/i-am-another-taxon",
             "links" => {
               "parent_taxons" => [
                 {
                   "title" => parent_taxes_title,
                   "content_id" => "dddd",
+                  "base_path" => "/i-am-another-parent-taxon",
                   "links" => {}
                 }
               ]
@@ -183,16 +193,19 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
           {
             "title" => education_title,
             "content_id" => "aaaa",
+            "base_path" => "/i-am-a-taxon",
             "links" => {
               "parent_taxons" => [
                 {
                   "title" => parent_education_title,
                   "content_id" => "bbbb",
+                  "base_path" => "/i-am-a-parent-taxon",
                   "links" => {}
                 },
                 {
                   "title" => parent_work_title,
                   "content_id" => "cccc",
+                  "base_path" => "/i-am-another-parent-taxon",
                   "links" => {}
                 },
               ]
@@ -224,11 +237,13 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
           {
             "title" => published_title,
             "content_id" => "aaaa",
+            "base_path" => "/i-am-a-taxon",
             "links" => {
               "parent_taxons" => [
                 {
                   "title" => parent_published_title,
                   "content_id" => "bbbb",
+                  "base_path" => "/i-am-a-parent-taxon",
                   "links" => {}
                 },
               ]
@@ -237,11 +252,13 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
           {
             "title" => visible_draft_title,
             "content_id" => "cccc",
+            "base_path" => "/i-am-another-taxon",
             "links" => {
               "parent_taxons" => [
                 {
                   "title" => parent_visible_draft_title,
                   "content_id" => "dddd",
+                  "base_path" => "/i-am-another-parent-taxon",
                   "links" => {}
                 },
               ]
@@ -250,11 +267,13 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
           {
             "title" => invisible_draft_title,
             "content_id" => "eeee",
+            "base_path" => "/i-am-yet-another-taxon",
             "links" => {
               "parent_taxons" => [
                 {
                   "title" => parent_invisible_draft_title,
                   "content_id" => "ffff",
+                  "base_path" => "/i-am-yet-another-parent-taxon",
                   "links" => {}
                 },
               ]
