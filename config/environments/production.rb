@@ -86,8 +86,7 @@ Whitehall::Application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Send emails via SMTP if SMTP_PORT is set, otherwise send via SES
-  # This is mainly used for sending emails to MailHog in the training
-  # environment
+  # This is mainly used for sending emails to MailHog in the dev VM
   if ENV['SMTP_PORT']
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
