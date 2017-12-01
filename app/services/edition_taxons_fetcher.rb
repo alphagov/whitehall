@@ -6,20 +6,10 @@ class EditionTaxonsFetcher
   end
 
   def fetch
-    ExpandedLinks.new(
-      Services.publishing_api.get_expanded_links(content_id)
-    )
+    response =  Services.publishing_api.get_expanded_links(content_id)
+    ExpandedLinks.new(response).visible_taxons
   rescue GdsApi::HTTPNotFound
-    MissingExpandedLinks.new
-  end
-
-  # TODO: This is a workaround, because Publishing API
-  # returns 404 when the document exists but there are no links
-  # This can be removed when that changes.
-  class MissingExpandedLinks
-    def selected_taxon_paths
-      []
-    end
+    []
   end
 
   class ExpandedLinks
@@ -27,20 +17,16 @@ class EditionTaxonsFetcher
       @response = publishing_api_response
     end
 
-    def selected_taxon_paths
-      visible_taxons.map(&:full_path)
-    end
-
-  private
-
-    attr_reader :response
-
     def visible_taxons
       taxons.select do |taxon|
         published_taxon_content_ids.include?(taxon.content_id) ||
           visible_draft_taxon_content_ids.include?(taxon.content_id)
       end
     end
+
+  private
+
+    attr_reader :response
 
     def taxons
       @_taxons ||= taxon_links.map { |taxon_link| build_taxon(taxon_link) }
