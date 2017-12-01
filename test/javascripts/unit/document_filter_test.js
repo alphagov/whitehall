@@ -32,8 +32,10 @@ module("Document filter", {
       "next_page?": true,
       "next_page": 2,
       "next_page_url": '/next-page-url',
+      "next_page_web_url": '/next-page-url',
 
       "prev_page_url": '/prev-page-url',
+      "prev_page_web_url": '/prev-page-url',
       "more_pages?": true,
       "total_pages": 5,
 
