@@ -5,6 +5,7 @@ class DocumentFilterPresenterTest < PresenterTestCase
     @filter = Whitehall::DocumentFilter::FakeSearch.new
     @view_context.params[:action] = :index
     @view_context.params[:controller] = :publications
+    @view_context.params[:format] = :json
   end
 
   def stub_publication
@@ -44,8 +45,10 @@ class DocumentFilterPresenterTest < PresenterTestCase
     assert_equal 3, json['total_pages']
     assert_equal 3, json['next_page']
     assert_equal 1, json['prev_page']
-    assert_equal "/government/publications?page=3", json['next_page_url']
-    assert_equal "/government/publications?page=1", json['prev_page_url']
+    assert_equal "/government/publications.json?page=3", json['next_page_url']
+    assert_equal "/government/publications.json?page=1", json['prev_page_url']
+    assert_equal "/government/publications?page=3", json['next_page_web_url']
+    assert_equal "/government/publications?page=1", json['prev_page_web_url']
   end
 
   test 'next_page omitted if last page' do
@@ -53,6 +56,7 @@ class DocumentFilterPresenterTest < PresenterTestCase
     json = JSON.parse(DocumentFilterPresenter.new(@filter, @view_context).to_json)
     refute json.has_key?("next_page")
     refute json.has_key?("next_page_url")
+    refute json.has_key?("next_page_web_url")
   end
 
   test 'prev_page omitted if first page' do
@@ -60,6 +64,7 @@ class DocumentFilterPresenterTest < PresenterTestCase
     json = JSON.parse(DocumentFilterPresenter.new(@filter, @view_context).to_json)
     refute json.has_key?("prev_page")
     refute json.has_key?("prev_page_url")
+    refute json.has_key?("prev_page_web_url")
   end
 
   test 'json provides a list of documents with their positions' do

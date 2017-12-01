@@ -28,11 +28,13 @@ class DocumentFilterPresenter < Struct.new(:filter, :context, :document_decorato
       data[:next_page?] = true
       data[:next_page] = documents.current_page + 1
       data[:next_page_url] = url(page: documents.current_page + 1)
+      data[:next_page_web_url] = url(page: documents.current_page + 1, format: nil)
     end
     unless documents.first_page?
       data[:prev_page?] = true
       data[:prev_page] = documents.current_page - 1
       data[:prev_page_url] = url(page: documents.current_page - 1)
+      data[:prev_page_web_url] = url(page: documents.current_page - 1, format: nil)
     end
     data
   end
