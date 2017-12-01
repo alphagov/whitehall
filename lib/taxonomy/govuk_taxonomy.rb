@@ -22,11 +22,11 @@ module Taxonomy
     end
 
     def matching_against_published_taxons(taxons)
-      @_published_taxons ||= matching_against_taxonomy_branches(taxons, children)
+      matching_against_taxonomy_branches(taxons, children)
     end
 
     def matching_against_visible_draft_taxons(taxons)
-      @_draft_visible_taxons ||= matching_against_taxonomy_branches(taxons, draft_child_taxons)
+      matching_against_taxonomy_branches(taxons, draft_child_taxons)
     end
 
   private

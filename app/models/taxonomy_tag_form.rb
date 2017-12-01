@@ -25,11 +25,11 @@ class TaxonomyTagForm
   end
 
   def published_taxons
-    govuk_taxonomy.matching_against_published_taxons(selected_taxons)
+    @_published_ids ||= govuk_taxonomy.matching_against_published_taxons(selected_taxons)
   end
 
   def visible_draft_taxons
-    govuk_taxonomy.matching_against_visible_draft_taxons(selected_taxons)
+    @_visible_draft_ids ||= govuk_taxonomy.matching_against_visible_draft_taxons(selected_taxons)
   end
 
   def invisible_draft_taxons
