@@ -217,9 +217,9 @@ module Whitehall
         document = document.stringify_keys
         document.each_with_object({}) do |(k, v), memo|
           memo[k] = case v
-          when String, Array, Fixnum, TrueClass, FalseClass then v
-          else v.to_s
-          end
+                    when String, Array, Integer, TrueClass, FalseClass then v
+                    else v.to_s
+                    end
         end
       end
     end
