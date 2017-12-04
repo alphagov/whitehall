@@ -1,23 +1,22 @@
 require "test_helper"
 require "gds_api/test_helpers/link_checker_api"
 
-class CheckAllEditionsLinksWorkerTest < ActiveSupport::TestCase
+class CheckAllOrganisationsLinksWorkerTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::LinkCheckerApi
 
   enable_url_helpers
 
   setup do
-    @hmrc = create(:organisation, name: "HM Revenue & Customs")
-    embassy_paris = create(:worldwide_organisation, name: "British Embassy Paris")
+    hmrc = create(:organisation, name: "HM Revenue & Customs")
+    dft = create(:organisation, name: "DfT")
 
-    @published_publication = create(:published_publication,
-                                    lead_organisations: [@hmrc],
-                                    body: "[A broken page](https://www.gov.uk/bad-link)\n[A good link](https://www.gov.uk/another-good-link)")
+    create(:published_publication,
+            lead_organisations: [hmrc],
+            body: "[A broken page](https://www.gov.uk/bad-link)\n[A good link](https://www.gov.uk/another-good-link)")
 
-    @news_article = create(:world_location_news_article,
-                            :withdrawn,
-                            worldwide_organisations: [embassy_paris],
-                            body: "[Good link](https://www.gov.uk/good-link)\n[Missing page](https://www.gov.uk/missing-link)")
+    create(:published_publication,
+            lead_organisations: [dft],
+            body: "[Good link](https://www.gov.uk/good-link)\n[Missing page](https://www.gov.uk/missing-link)")
 
     @link_checker_endpoint = "#{Plek.find('link-checker-api')}/batch"
   end
@@ -26,17 +25,9 @@ class CheckAllEditionsLinksWorkerTest < ActiveSupport::TestCase
     stub_published_publication
     stub_news_article
 
-    CheckAllEditionsLinksWorker.new.perform
+    CheckAllOrganisationsLinksWorker.new.perform
 
     assert_equal 2, LinkCheckerApiReport.count
-  end
-
-  test "when given an organisation it only calls LinkCheckerApiService with editions for that organisation" do
-    stub_published_publication
-
-    CheckAllEditionsLinksWorker.new.perform(@hmrc.id)
-
-    assert_equal 1, LinkCheckerApiReport.count
   end
 
 private
@@ -72,7 +63,7 @@ private
 
     {
       uris: uris,
-      webhook_uri: admin_link_checker_api_callback_url,
+      webhook_uri: admin_link_checker_api_callback_url(host: Plek.find('whitehall-admin')),
       webhook_secret_token: Rails.application.secrets.link_checker_api_secret_token
     }
   end
