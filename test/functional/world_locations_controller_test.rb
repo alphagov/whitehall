@@ -104,7 +104,20 @@ class WorldLocationsControllerTest < ActionController::TestCase
     assert_select "a.feed[href=?]", atom_feed_url_for(world_location)
   end
 
-  view_test "show generates an atom feed with entries for latest activity" do
+  view_test "show world location generates an atom feed with entries for latest activity" do
+    world_location = create(
+      :world_location,
+      world_location_type: WorldLocationType::WorldLocation
+    )
+    pub = create(:published_publication, world_locations: [world_location], first_published_at: 1.week.ago.to_date)
+    news = create(:published_news_article, world_locations: [world_location], first_published_at: 1.day.ago)
+    get :show, params: { id: world_location }, format: :atom
+    assert_select_atom_feed do
+      assert_select_atom_entries([news, pub])
+    end
+  end
+
+  view_test "show international delegation generates an atom feed with entries for latest activity" do
     world_location = create(
       :world_location,
       world_location_type: WorldLocationType::InternationalDelegation
