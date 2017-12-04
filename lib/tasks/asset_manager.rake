@@ -7,6 +7,12 @@ namespace :asset_manager do
     migrator.perform
   end
 
+  desc "Removes all organisation logos."
+  task remove_organisation_logos: :environment do
+    files = AssetRemover.new.remove_organisation_logos
+    puts files
+  end
+
   private
 
   def usage_string
