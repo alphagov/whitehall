@@ -269,6 +269,12 @@ et:
       help_html: See fail on <a rel="external" href="https://en.wikipedia.org/wiki/OpenDocument_software">OpenDocument</a>
         formaadis
     see_more: 'Loe lähemalt: %{document_type}'
+  broken_links:
+    broken:
+      subheading:
+    caution:
+      subheading:
+    title:
   change_notes:
     page_history: Ajalugu
     published_at: Esmane publikatsioon
