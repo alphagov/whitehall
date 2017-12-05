@@ -39,6 +39,7 @@ class ActiveSupport::TestCase
   include PolicyTaggingHelpers
   include GovukContentSchemaTestHelpers::TestUnit
   include StaticStubHelpers
+  include UrlHelpers
   extend GovspeakValidationTestHelper
 
   setup do
@@ -109,14 +110,6 @@ class ActiveSupport::TestCase
     end
     teardown do
       ActiveRecord::Base.connection.unstub(:select)
-    end
-  end
-
-  def self.enable_url_helpers
-    include Rails.application.routes.url_helpers
-    Rails.application.routes.default_url_options[:host] = "example.com"
-    def default_url_options
-      Rails.application.routes.default_url_options
     end
   end
 
