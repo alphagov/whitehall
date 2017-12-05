@@ -5,3 +5,45 @@
     }
   }
 }
+
+.broken-links-report {
+  .issue-summary {
+    font-weight: normal;
+  }
+
+  .issue-list {
+    list-style: none;
+    padding-left: 0;
+
+    li {
+      margin-top: 5px;
+    }
+  }
+
+  .issue-status-description {
+    margin-top: 10px;
+  }
+
+  .issue-list + .issue-status-description {
+    margin: 15px 0;
+  }
+
+  .display-issue-details {
+    display: block;
+    font-weight: bold;
+    padding-top: 5px;
+  }
+
+  .display-issue-details::-webkit-details-marker {
+    display: none;
+  }
+
+  .display-issue-details::before {
+    content: '\25B6';
+    padding-right: 3px;  
+  }
+
+  details[open] > .display-issue-details::before {
+    content: '\25BC';
+  }
+}

@@ -13,15 +13,27 @@
                   class: 'js-broken-links-refresh js-hidden',
                   remote: true %>
     </section>
-  <% elsif report.broken_links.present? %>
+  <% elsif report.broken_links.any? || report.caution_links.any? %>
     <section class="alert alert-warning">
-      <h3 class="remove-top-margin">Broken links</h3>
-      <p>We’ve found links in this document that may be broken:</p>
-      <ul>
-        <% report.broken_links.each do |link| %>
-          <li><%= link_to link.uri.truncate(50), link.uri, title: link.uri, class: 'link-inherit' %></li>
-        <% end %>
-      </ul>
+      <h3 class="remove-top-margin"><%= t "broken_links.title" %></h3>
+      <% report.links.sort_by(&:status).group_by(&:status).each do |status, links| %>
+        <% next unless %w(broken caution).include? status %>
+        <p class="issue-status-description"><%= t "broken_links.#{status}.subheading" %></p>
+        <ul class="issue-list">
+          <% links.each do |link| %>
+            <li>
+              <%= link_to link.uri.truncate(50), link.uri, title: link.uri, class: 'link-inherit' %>
+              <details>
+                <summary class="display-issue-details">See more details about this link</summary>
+                <p class="issue-summary"><%= link.problem_summary %></p>
+                <% if link.suggested_fix %>
+                  <p class="issue-summary">Suggested fix: <%= link.suggested_fix %></p>
+                <% end %>
+              </details>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
       <%= render 'admin/link_check_reports/form', reportable: report.link_reportable, button_text: 'Check again' %>
     </section>
   <% else %>
