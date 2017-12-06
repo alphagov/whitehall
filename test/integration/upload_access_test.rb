@@ -30,7 +30,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
   end
 
   def assert_redirected_to_placeholder_image
-    assert_redirected_to "http://www.example.com/government/assets/thumbnail-placeholder.png"
+    assert_redirected_to "/government/assets/thumbnail-placeholder.png"
   end
 
   def assert_sent_public_upload(upload, content_type)
@@ -44,6 +44,11 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
     assert_equal 200, response.status
     assert_equal content_type, response.content_type
     assert_cache_control "no-cache"
+  end
+
+  setup do
+    asset_host = URI.parse(Plek.new.public_asset_host).host
+    host! asset_host
   end
 
   test 'allows everyone access to general uploads' do
