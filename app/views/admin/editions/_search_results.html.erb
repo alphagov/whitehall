@@ -66,6 +66,13 @@
             <% if edition.access_limited? %>
               <span class="access_limited label label-danger">limited access</span>
             <% end %>
+            <% if edition.link_check_reports.any? %>
+              <% if edition.link_check_reports.last.broken_links %>
+                <span class="has-broken-links label label-primary">has broken links</span>
+              <% elsif edition.link_check_reports.last.caution_links %>
+                <span class="has-link-warnings label label-info">has link warnings</span>
+              <% end %>
+            <% end %>
           </td>
           <td class="author"><%= linked_author(edition.last_author) %></td>
           <td class="updated"><span title="<%= edition.updated_at %>"><%= time_ago_in_words edition.updated_at %> ago</span></td>
