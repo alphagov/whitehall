@@ -2,7 +2,7 @@ class PublishStaticPages
   def publish
     index = Whitehall::SearchIndex.for(:government)
     pages.each do |page|
-      index.add(present_for_rummager(page))
+      index.add(present_for_rummager(page)) unless page[:document_type] == "finder"
 
       payload = present_for_publishing_api(page)
       Services.publishing_api.put_content(payload[:content_id], payload[:content])
@@ -81,7 +81,6 @@ class PublishStaticPages
         title: "All publications",
         document_type: "finder",
         description: "Find publications from across government including policy papers, consultations, statistics, research, transparency data and Freedom of Information responses.",
-        indexable_content: "Find publications from across government including policy papers, consultations, statistics, research, transparency data and Freedom of Information responses.",
         base_path: "/government/publications",
       },
       {
@@ -89,7 +88,6 @@ class PublishStaticPages
         title: "Statistics",
         document_type: "finder",
         description: "Find statistics publications from across government, including statistical releases, live data tables, and National Statistics.",
-        indexable_content: "Find statistics publications from across government, including statistical releases, live data tables, and National Statistics. statistics, live tables, live table, statistical release, stats",
         base_path: "/government/statistics",
       },
       {
@@ -97,7 +95,6 @@ class PublishStaticPages
         title: "Government announcements",
         document_type: "finder",
         description: "Find news articles, speeches and statements from government organisations",
-        indexable_content: "Find news articles, speeches and statements from government organisations news, press release, speech, press notice, statement, wms, oms",
         base_path: "/government/announcements",
       },
       {
@@ -105,7 +102,6 @@ class PublishStaticPages
         title: "Ministers",
         document_type: "finder",
         description: "Read biographies and responsibilities of Cabinet ministers and all ministers by department, as well as the whips who help co-ordinate parliamentary business",
-        indexable_content: "Read biographies and responsibilities of Cabinet ministers and all ministers by department, as well as the whips who help co-ordinate parliamentary business government, parliament, parliamentary, minister, ministers, mp, rt hon, right honourable, secretary of state, westminster, whitehall, house of commons, house of lords",
         base_path: "/government/ministers",
       },
       {
@@ -114,7 +110,6 @@ class PublishStaticPages
         base_path: "/world/embassies",
         document_type: "finder",
         description: "Contact details of British embassies, consulates, high commissions around the world for help with visas, passports and more.",
-        indexable_content: "Contact details of British embassies, consulates, high commissions around the world for help with visas, passports and more.",
       },
       {
         content_id: "fde62e52-dfb6-42ae-b336-2c4faf068101",
@@ -122,7 +117,6 @@ class PublishStaticPages
         base_path: "/government/organisations",
         document_type: "finder",
         description: "Information from government departments, agencies and public bodies, including news, campaigns, policies and contact details.",
-        indexable_content: "Information from government departments, agencies and public bodies, including news, campaigns, policies and contact details.",
       },
     ]
   end

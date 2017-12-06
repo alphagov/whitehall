@@ -6,7 +6,6 @@ class PublishFinderTest < ActiveSupport::TestCase
 
     publishing_api_has_lookups({})
     SecureRandom.stubs(:uuid).returns('a-content-id')
-    Whitehall::FakeRummageableIndex.any_instance.expects(:add).at_least_once.with(kind_of(Hash))
 
     PublishFinder.call(people_finder)
 
@@ -18,7 +17,6 @@ class PublishFinderTest < ActiveSupport::TestCase
     people_finder = JSON.parse(File.read("lib/finders/people.json"))
 
     publishing_api_has_lookups('/government/people' => 'existing-content-id')
-    Whitehall::FakeRummageableIndex.any_instance.expects(:add).at_least_once.with(kind_of(Hash))
 
     PublishFinder.call(people_finder)
 
