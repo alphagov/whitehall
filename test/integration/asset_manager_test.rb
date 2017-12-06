@@ -58,6 +58,52 @@ class AssetManagerIntegrationTest
     end
   end
 
+  class CreatingAPersonImage < ActiveSupport::TestCase
+    setup do
+      @filename = 'minister-of-funk.960x640.jpg'
+      @person = FactoryBot.build(
+        :person,
+        image: File.open(fixture_path.join(@filename))
+      )
+
+      Services.asset_manager.stubs(:create_whitehall_asset)
+    end
+
+    test 'sends the person image to Asset Manager' do
+      Services.asset_manager.expects(:create_whitehall_asset).with do |args|
+        args[:file].is_a?(File) &&
+          args[:legacy_url_path] =~ /#{@filename}/
+      end
+
+      @person.save!
+    end
+
+    test 'sends each version of the person image to Asset Manager' do
+      ImageUploader.versions.each_key do |version_prefix|
+        Services.asset_manager.expects(:create_whitehall_asset).with do |args|
+          args[:file].is_a?(File) &&
+            args[:legacy_url_path] =~ /#{version_prefix}_#{@filename}/
+        end
+      end
+
+      @person.save!
+    end
+
+    test 'saves the person image to the file system' do
+      @person.save!
+
+      assert File.exist?(@person.image.path)
+    end
+
+    test 'saves each version of the person image to the file system' do
+      @person.save!
+
+      @person.image.versions.each_pair do |_, image|
+        assert File.exist?(image.file.path)
+      end
+    end
+  end
+
   class CreatingAConsultationResponseFormData < ActiveSupport::TestCase
     setup do
       @filename = 'greenpaper.pdf'
