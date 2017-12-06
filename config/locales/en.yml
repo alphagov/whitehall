@@ -486,3 +486,9 @@ en:
     transparency: See all our transparency data
     written_statement: See all our written statements to Parliament
     authored_article: See all our authored articles
+  broken_links:
+    title: Broken links
+    broken: 
+      subheading: We’ve found links in this document that may be broken
+    caution:
+      subheading: We’ve found some issues with links that may indicate problems, you should apply caution in linking to them
