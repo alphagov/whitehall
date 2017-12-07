@@ -39,6 +39,7 @@ class ActiveSupport::TestCase
   include PolicyTaggingHelpers
   include GovukContentSchemaTestHelpers::TestUnit
   include StaticStubHelpers
+  include UrlHelpers
   extend GovspeakValidationTestHelper
 
   setup do
@@ -241,14 +242,7 @@ class ActionDispatch::IntegrationTest
 end
 
 class ActionMailer::TestCase
-  def self.enable_url_helpers
-    # See http://jakegoulding.com/blog/2011/02/26/using-named-routes-in-actionmailer-tests-with-rails-3/
-    include Rails.application.routes.url_helpers
-    Rails.application.routes.default_url_options[:host] = "example.com"
-    def default_url_options
-      Rails.application.routes.default_url_options
-    end
-  end
+  include UrlHelpers
 end
 
 class ActionView::TestCase
