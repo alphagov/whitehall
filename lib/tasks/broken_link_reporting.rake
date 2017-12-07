@@ -10,7 +10,7 @@ task :generate_broken_link_reports, [:reports_dir, :email_address, :organisation
 
     logger.info("Cleaning up any existing reports.")
     FileUtils.mkpath reports_dir
-    FileUtils.rm Dir.glob(reports_dir + '/*_broken_links.csv')
+    FileUtils.rm Dir.glob(reports_dir + '/*_links_report.csv')
     FileUtils.rm(report_zip_path) if File.exists?(report_zip_path)
 
     logger.info("Generating broken link reports...")
@@ -18,7 +18,7 @@ task :generate_broken_link_reports, [:reports_dir, :email_address, :organisation
     LinkReporterCsvService.new(reports_dir: reports_dir, organisation: organisation).generate
 
     logger.info("Reports generated. Zipping...")
-    system "zip #{report_zip_path} #{reports_dir}/*_broken_links.csv --junk-paths"
+    system "zip #{report_zip_path} #{reports_dir}/*_links_report.csv --junk-paths"
 
     logger.info("Reports zipped. Emailing to #{email_address}")
     Notifications.broken_link_reports(report_zip_path, email_address).deliver_now
