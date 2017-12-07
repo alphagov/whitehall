@@ -15,7 +15,7 @@ task :generate_broken_link_reports, [:reports_dir, :email_address, :organisation
 
     logger.info("Generating broken link reports...")
     organisation = Organisation.where(slug: organisation_slug).first if organisation_slug
-    Whitehall::BrokenLinkReporter.new(reports_dir, logger, organisation).generate_reports
+    LinkReporterCsvService.new(reports_dir: reports_dir, organisation: organisation).generate
 
     logger.info("Reports generated. Zipping...")
     system "zip #{report_zip_path} #{reports_dir}/*_broken_links.csv --junk-paths"
