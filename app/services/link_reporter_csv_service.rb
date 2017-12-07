@@ -22,7 +22,7 @@ private
   end
 
   def file_path
-    reports_dir.join("#{@organisation.slug}_links_report.csv")
+    Pathname.new(reports_dir).join("#{@organisation.slug}_links_report.csv")
   end
 
   def headings
