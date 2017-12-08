@@ -145,6 +145,20 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     assert_equal [tagged_news], filter.editions
   end
 
+  test "should filter by broken links" do
+    edition_with_broken_links = create(:published_publication,
+                                       body: "[A broken page](https://www.gov.uk/another-bad-link)\n[A bad link](https://www.gov.uk/bad-link)")
+    edition = create(:published_publication,
+                     body: "[Good](https://www.gov.uk/good-link)")
+    good_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/good-link", status: "ok")
+    bad_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/bad-link", status: "broken")
+    another_bad_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/another-bad-link", status: "broken")
+    create(:link_checker_api_report, batch_id: 1, link_reportable: edition_with_broken_links, links: [bad_link, another_bad_link])
+    create(:link_checker_api_report, batch_id: 2, link_reportable: edition, links: [good_link])
+
+    assert_equal [edition_with_broken_links], Admin::EditionFilter.new(Edition, @current_user, only_broken_links: true).editions
+  end
+
   test "should return the editions ordered by most recent first" do
     older_news_article = create(:draft_news_article, updated_at: 3.days.ago)
     newer_news_article = create(:draft_news_article, updated_at: 1.minute.ago)
