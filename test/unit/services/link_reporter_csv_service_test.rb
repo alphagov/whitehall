@@ -7,7 +7,7 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
 
   teardown do
     if File.directory?(reports_dir)
-      FileUtils.rm Dir.glob(reports_dir.join("*_links_report.csv"))
+      FileUtils.rm Dir.glob(reports_dir_pathname.join("*_links_report.csv"))
     end
   end
 
@@ -15,7 +15,7 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
     hmrc = create(:organisation, name: "HM Revenue & Customs")
     LinkReporterCsvService.new(reports_dir: reports_dir, organisation: hmrc).generate
 
-    csv_test_file_path = reports_dir.join("hm-revenue-customs_links_report.csv")
+    csv_test_file_path = reports_dir_pathname.join("hm-revenue-customs_links_report.csv")
     assert File.exist?(csv_test_file_path)
 
     expected_response = ["page", "admin link", "public timestamp", "format", "broken link count", "broken links"]
@@ -42,7 +42,7 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
     create(:link_checker_api_report_completed, batch_id: 2, link_reportable: publication, links: [another_good_link, another_bad_link])
 
     LinkReporterCsvService.new(reports_dir: reports_dir, organisation: hmrc).generate
-    hmrc_csv = CSV.read(reports_dir.join("hm-revenue-customs_links_report.csv"))
+    hmrc_csv = CSV.read(reports_dir_pathname.join("hm-revenue-customs_links_report.csv"))
     assert_equal 3, hmrc_csv.size
     assert_equal ["https://www.gov.uk#{Whitehall.url_maker.detailed_guide_path(detailed_guide.slug)}",
                   "https://whitehall-admin.publishing.service.gov.uk#{Whitehall.url_maker.admin_detailed_guide_path(detailed_guide)}",
@@ -83,8 +83,8 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
     create(:link_checker_api_report, batch_id: 3, link_reportable: news_article, links: [good_link, missing_link], status: "completed")
 
     LinkReporterCsvService.new(reports_dir: reports_dir, organisation: hmrc).generate
-    hmrc_csv = CSV.read(reports_dir.join("hm-revenue-customs_links_report.csv"))
-    refute File.file?(reports_dir.join("british-embassy-paris_links_report.csv"))
+    hmrc_csv = CSV.read(reports_dir_pathname.join("hm-revenue-customs_links_report.csv"))
+    refute File.file?(reports_dir_pathname.join("british-embassy-paris_links_report.csv"))
     assert_equal 3, hmrc_csv.size
   end
 
@@ -105,7 +105,7 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
     # create(:link_checker_api_report_completed, batch_id: 2, link_reportable: publication, links: [another_good_link, another_bad_link])
 
     LinkReporterCsvService.new(reports_dir: reports_dir, organisation: hmrc).generate
-    hmrc_csv = CSV.read(reports_dir.join("hm-revenue-customs_links_report.csv"))
+    hmrc_csv = CSV.read(reports_dir_pathname.join("hm-revenue-customs_links_report.csv"))
     assert_equal 2, hmrc_csv.size
     assert_equal ["https://www.gov.uk#{Whitehall.url_maker.detailed_guide_path(detailed_guide.slug)}",
                   "https://whitehall-admin.publishing.service.gov.uk#{Whitehall.url_maker.admin_detailed_guide_path(detailed_guide)}",
@@ -122,6 +122,10 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
   end
 
 private
+
+  def reports_dir_pathname
+    Pathname.new(reports_dir)
+  end
 
   def reports_dir
     Rails.root.join("tmp/broken_link_reports")
