@@ -13,7 +13,3 @@
   - sync_checks
   - asset_migration
   - link_checks
-:schedule:
-  check_all_organisations_links_worker:
-    cron: '0 2 * * *' # Runs 2 a.m.
-    class: CheckAllOrganisationsLinksWorker
