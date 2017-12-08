@@ -42,6 +42,10 @@ module Taxonomy
       ancestors + [self]
     end
 
+    def full_path
+      breadcrumb_trail.map { |t| { title: t.name } }
+    end
+
     def count
       tree.count
     end

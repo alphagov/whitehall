@@ -209,11 +209,13 @@ private
           {
             "title" => "Primary Education",
             "content_id" => "aaaa",
+            "base_path" => "i-am-a-taxon",
             "links" => {
               "parent_taxons" => [
                 {
                   "title" => "Education, Training and Skills",
                   "content_id" => "bbbb",
+                  "base_path" => "i-am-a-parent-taxon",
                   "links" => {}
                 }
               ]
