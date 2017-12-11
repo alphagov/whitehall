@@ -18,7 +18,7 @@ gem 'plek', '~> 2.0'
 gem 'isbn_validation'
 gem 'gds-sso', '~> 13.2'
 gem 'addressable', ">= 2.3.7"
-gem 'unicorn', '5.3.0'
+gem 'unicorn', '5.3.1'
 gem 'kaminari', '~> 1.0.1'
 gem 'govuk_admin_template', '~> 6.2'
 gem 'bootstrap-kaminari-views', '0.0.5'
