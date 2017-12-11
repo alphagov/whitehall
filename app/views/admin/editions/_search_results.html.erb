@@ -67,9 +67,9 @@
               <span class="access_limited label label-danger">limited access</span>
             <% end %>
             <% if edition.link_check_reports.any? && edition.link_check_reports.last.completed? %>
-              <% if edition.link_check_reports.last.broken_links %>
+              <% if edition.link_check_reports.last.broken_links.any? %>
                 <span class="has-broken-links label label-primary">has broken links</span>
-              <% elsif edition.link_check_reports.last.caution_links %>
+              <% elsif edition.link_check_reports.last.caution_links.any? %>
                 <span class="has-link-warnings label label-info">has link warnings</span>
               <% end %>
             <% end %>
