@@ -58,6 +58,164 @@ class AssetManagerIntegrationTest
     end
   end
 
+  class CreatingAPersonImage < ActiveSupport::TestCase
+    setup do
+      @filename = 'minister-of-funk.960x640.jpg'
+      @person = FactoryBot.build(
+        :person,
+        image: File.open(fixture_path.join(@filename))
+      )
+
+      Services.asset_manager.stubs(:create_whitehall_asset)
+    end
+
+    test 'sends the person image to Asset Manager' do
+      Services.asset_manager.expects(:create_whitehall_asset).with do |args|
+        args[:file].is_a?(File) &&
+          args[:legacy_url_path] =~ /#{@filename}/
+      end
+
+      @person.save!
+    end
+
+    test 'sends each version of the person image to Asset Manager' do
+      ImageUploader.versions.each_key do |version_prefix|
+        Services.asset_manager.expects(:create_whitehall_asset).with do |args|
+          args[:file].is_a?(File) &&
+            args[:legacy_url_path] =~ /#{version_prefix}_#{@filename}/
+        end
+      end
+
+      @person.save!
+    end
+
+    test 'saves the person image to the file system' do
+      @person.save!
+
+      assert File.exist?(@person.image.path)
+    end
+
+    test 'saves each version of the person image to the file system' do
+      @person.save!
+
+      @person.image.versions.each_pair do |_, image|
+        assert File.exist?(image.file.path)
+      end
+    end
+  end
+
+  class RemovingAPersonImage < ActiveSupport::TestCase
+    setup do
+      @filename = 'minister-of-funk.960x640.jpg'
+      @person = FactoryBot.create(
+        :person,
+        image: File.open(fixture_path.join(@filename))
+      )
+
+      VirusScanHelpers.simulate_virus_scan(@person.image, include_versions: true)
+      @person.reload
+
+      @asset_id = 'asset-id'
+      Services.asset_manager.stubs(:whitehall_asset).returns('id' => "http://asset-manager/assets/#{@asset_id}")
+    end
+
+    test 'removes the person image and all its versions from asset manager' do
+      # Creating a person creates one entry in asset manager for the
+      # uploaded asset and one entry for each of the versions defined
+      # in ImageUploader
+      expected_number_of_versions = @person.image.versions.size + 1
+      Services.asset_manager.expects(:delete_asset).with(@asset_id).times(expected_number_of_versions)
+
+      @person.remove_image!
+    end
+
+    test 'removes the person image from the file system' do
+      image_path = @person.image.path
+
+      assert File.exist?(image_path)
+
+      @person.remove_image!
+
+      refute File.exist?(image_path)
+    end
+
+    test 'removes each version of the person image from the file system' do
+      file_paths = @person.image.versions.map { |_, image| image.file.path }
+
+      file_paths.each { |path| assert File.exist?(path) }
+
+      @person.remove_image!
+
+      file_paths.each { |path| refute File.exist?(path) }
+    end
+  end
+
+  class ReplacingAPersonImage < ActiveSupport::TestCase
+    setup do
+      @filename = 'minister-of-funk.960x640.jpg'
+      @person = FactoryBot.create(
+        :person,
+        image: File.open(fixture_path.join(@filename))
+      )
+
+      VirusScanHelpers.simulate_virus_scan(@person.image, include_versions: true)
+      @person.reload
+    end
+
+    test 'sends the new image and its versions to asset manager' do
+      expected_number_of_versions = @person.image.versions.size + 1
+      Services.asset_manager.expects(:create_whitehall_asset).times(expected_number_of_versions)
+
+      @person.image = File.open(fixture_path.join('big-cheese.960x640.jpg'))
+      @person.save!
+    end
+
+    test 'saves the person image to the file system' do
+      @person.image = File.open(fixture_path.join('big-cheese.960x640.jpg'))
+      @person.save!
+
+      assert File.exist?(@person.image.path)
+    end
+
+    test 'saves each version of the person image to the file system' do
+      @person.image = File.open(fixture_path.join('big-cheese.960x640.jpg'))
+      @person.save!
+
+      @person.image.versions.each_pair do |_, image|
+        assert File.exist?(image.file.path)
+      end
+    end
+
+    test 'does not remove the original image from the file system' do
+      image_path = @person.image.path
+
+      assert File.exist?(image_path)
+
+      @person.image = File.open(fixture_path.join('big-cheese.960x640.jpg'))
+      @person.save!
+
+      assert File.exist?(image_path)
+    end
+
+    test 'does not remove each version of the original person image from the file system' do
+      file_paths = @person.image.versions.map { |_, image| image.file.path }
+
+      file_paths.each { |path| assert File.exist?(path) }
+
+      @person.image = File.open(fixture_path.join('big-cheese.960x640.jpg'))
+      @person.save!
+
+      file_paths.each { |path| assert File.exist?(path) }
+    end
+
+    test 'does not remove the original images from asset manager' do
+      Services.asset_manager.expects(:delete_asset).never
+
+      @person.image = File.open(fixture_path.join('big-cheese.960x640.jpg'))
+      @person.save!
+    end
+  end
+
   class CreatingAConsultationResponseFormData < ActiveSupport::TestCase
     setup do
       @filename = 'greenpaper.pdf'
