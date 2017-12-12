@@ -16,7 +16,7 @@ gem 'nokogiri', '~> 1.8.0'
 gem 'slimmer', '~> 11.0'
 gem 'plek', '~> 2.0'
 gem 'isbn_validation'
-gem 'gds-sso', '~> 13.2'
+gem 'gds-sso', '~> 13.4'
 gem 'addressable', ">= 2.3.7"
 gem 'unicorn', '5.3.0'
 gem 'kaminari', '~> 1.0.1'
