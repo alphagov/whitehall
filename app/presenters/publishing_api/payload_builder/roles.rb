@@ -18,8 +18,6 @@ module PublishingApi
     private
 
       def roles
-        return {} unless role_appointments.present?
-
         {
           roles: role_appointments
             .map(&:role)

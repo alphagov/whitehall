@@ -115,12 +115,12 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
         refute(presented.links.has_key?(:speaker))
       end
 
-      it "doesn't present a roles link" do
-        refute(presented.links.has_key?(:roles))
+      it "presents an empty roles link" do
+        assert_empty(presented.links[:roles])
       end
 
-      it "doesn't present a people link" do
-        refute(presented.links.has_key?(:people))
+      it "presents an empty people link" do
+        assert_empty(presented.links[:people])
       end
     end
   end

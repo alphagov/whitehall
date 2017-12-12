@@ -19,8 +19,6 @@ module PublishingApi
     private
 
       def people
-        return {} unless role_appointments.present?
-
         {
           key => role_appointments
             .map(&:person)

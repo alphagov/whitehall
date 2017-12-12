@@ -65,10 +65,13 @@ class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
 
   test "it presents edition links" do
     expected_links = {
-      organisations:  [],
+      field_of_operation: [@fatality_notice.operational_field.content_id],
+      ministers: [],
+      organisations: [],
+      people: [],
+      policy_areas: [],
       primary_publishing_organisation: [],
-      policy_areas:   [],
-      field_of_operation: [@fatality_notice.operational_field.content_id]
+      roles: [],
     }
     assert_equal expected_links, @presented_content[:links]
   end

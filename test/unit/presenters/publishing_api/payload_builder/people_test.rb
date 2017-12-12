@@ -3,18 +3,18 @@ require "test_helper"
 module PublishingApi
   module PayloadBuilder
     class PayloadBuilderPeopleTest < ActiveSupport::TestCase
-      test "returns empty hash if no role_appointment or edition_role_appointments" do
+      test "returns empty array of people if no role_appointment or edition_role_appointments" do
         edition_with_no_roles_or_people = Object.new
 
-        expected_hash = {}
+        expected_hash = { people: [] }
 
         assert_equal expected_hash, People.for(edition_with_no_roles_or_people, :people)
       end
 
-      test "returns empty hash if role_appointment is nil" do
+      test "returns empty array of people if role_appointment is nil" do
         stubbed_edition = stub(role_appointment: nil)
 
-        expected_hash = {}
+        expected_hash = { people: [] }
 
         assert_equal expected_hash, People.for(stubbed_edition, :people)
       end
@@ -29,10 +29,10 @@ module PublishingApi
         assert_equal expected_hash, People.for(stubbed_edition, :people)
       end
 
-      test "returns an empty hash if role_appointments are nil" do
+      test "returns an empty array of people if role_appointments are nil" do
         stubbed_edition = stub(role_appointments: nil)
 
-        expected_hash = {}
+        expected_hash = { people: [] }
 
         assert_equal expected_hash, People.for(stubbed_edition, :people)
       end
