@@ -30,6 +30,7 @@ GovukContentSchemaTestHelpers.configure do |config|
 end
 
 class ActiveSupport::TestCase
+  include AssetManagerTestHelpers
   include FactoryBot::Syntax::Methods
   include ModelHelpers
   include ModelStubbingHelpers
