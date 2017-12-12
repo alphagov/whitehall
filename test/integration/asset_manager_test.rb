@@ -10,10 +10,11 @@ class AssetManagerIntegrationTest
         logo: File.open(fixture_path.join('images', filename))
       )
 
-      Services.asset_manager.expects(:create_whitehall_asset).with do |args|
-        args[:file].is_a?(File) &&
-          args[:legacy_url_path] =~ /#{filename}/
-      end
+      Services.asset_manager.expects(:create_whitehall_asset).with(
+        all_of(
+          has_entry(:file, instance_of(File)),
+          has_entry(:legacy_url_path, regexp_matches(/#{filename}/)))
+      )
 
       organisation.save!
     end
@@ -70,20 +71,22 @@ class AssetManagerIntegrationTest
     end
 
     test 'sends the person image to Asset Manager' do
-      Services.asset_manager.expects(:create_whitehall_asset).with do |args|
-        args[:file].is_a?(File) &&
-          args[:legacy_url_path] =~ /#{@filename}/
-      end
+      Services.asset_manager.expects(:create_whitehall_asset).with(
+        all_of(
+          has_entry(:file, instance_of(File)),
+          has_entry(:legacy_url_path, regexp_matches(/#{@filename}/)))
+      )
 
       @person.save!
     end
 
     test 'sends each version of the person image to Asset Manager' do
       ImageUploader.versions.each_key do |version_prefix|
-        Services.asset_manager.expects(:create_whitehall_asset).with do |args|
-          args[:file].is_a?(File) &&
-            args[:legacy_url_path] =~ /#{version_prefix}_#{@filename}/
-        end
+        Services.asset_manager.expects(:create_whitehall_asset).with(
+          all_of(
+            has_entry(:file, instance_of(File)),
+            has_entry(:legacy_url_path, regexp_matches(/#{version_prefix}_#{@filename}/)))
+        )
       end
 
       @person.save!
@@ -226,10 +229,11 @@ class AssetManagerIntegrationTest
     end
 
     test 'sends the consultation response form data file to Asset Manager' do
-      Services.asset_manager.expects(:create_whitehall_asset).with do |args|
-        args[:file].is_a?(File) &&
-          args[:legacy_url_path] =~ /#{@filename}/
-      end
+      Services.asset_manager.expects(:create_whitehall_asset).with(
+        all_of(
+          has_entry(:file, instance_of(File)),
+          has_entry(:legacy_url_path, regexp_matches(/#{@filename}/)))
+      )
 
       @consultation_response_form_data.save!
     end
