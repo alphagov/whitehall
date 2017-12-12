@@ -10,11 +10,7 @@ class AssetManagerIntegrationTest
         logo: File.open(fixture_path.join('images', filename))
       )
 
-      Services.asset_manager.expects(:create_whitehall_asset).with(
-        all_of(
-          has_entry(:file, instance_of(File)),
-          has_entry(:legacy_url_path, regexp_matches(/#{filename}/)))
-      )
+      Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/#{filename}/))
 
       organisation.save!
     end
@@ -71,11 +67,7 @@ class AssetManagerIntegrationTest
     end
 
     test 'sends the person image to Asset Manager' do
-      Services.asset_manager.expects(:create_whitehall_asset).with(
-        all_of(
-          has_entry(:file, instance_of(File)),
-          has_entry(:legacy_url_path, regexp_matches(/#{@filename}/)))
-      )
+      Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/#{@filename}/))
 
       @person.save!
     end
@@ -83,9 +75,7 @@ class AssetManagerIntegrationTest
     test 'sends each version of the person image to Asset Manager' do
       ImageUploader.versions.each_key do |version_prefix|
         Services.asset_manager.expects(:create_whitehall_asset).with(
-          all_of(
-            has_entry(:file, instance_of(File)),
-            has_entry(:legacy_url_path, regexp_matches(/#{version_prefix}_#{@filename}/)))
+          file_and_legacy_url_path_matching(/#{version_prefix}_#{@filename}/)
         )
       end
 
@@ -230,9 +220,7 @@ class AssetManagerIntegrationTest
 
     test 'sends the consultation response form data file to Asset Manager' do
       Services.asset_manager.expects(:create_whitehall_asset).with(
-        all_of(
-          has_entry(:file, instance_of(File)),
-          has_entry(:legacy_url_path, regexp_matches(/#{@filename}/)))
+        file_and_legacy_url_path_matching(/#{@filename}/)
       )
 
       @consultation_response_form_data.save!
