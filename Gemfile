@@ -82,7 +82,7 @@ gem 'uglifier', '~> 3.2'
 
 group :development, :test do
   gem 'parallel_tests'
-  gem 'test-queue', '~> 0.2.13'
+  gem 'test-queue', '~> 0.4.2'
   gem 'ruby-prof'
   gem 'pry-byebug'
   gem 'pry-rails'
