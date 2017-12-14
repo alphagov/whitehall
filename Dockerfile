@@ -21,4 +21,7 @@ RUN bundle install
 
 ADD . $APP_HOME
 
+ARG COMPILE_ASSETS=false
+RUN if [ "$COMPILE_ASSETS" = "true" ] ; then bundle exec rails assets:precompile ; fi
+
 CMD bash -c "bundle exec rails s -p $PORT -b '0.0.0.0'"
