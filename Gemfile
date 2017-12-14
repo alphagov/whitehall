@@ -24,7 +24,7 @@ gem 'govuk_admin_template', '~> 6.2'
 gem 'bootstrap-kaminari-views', '0.0.5'
 gem 'mime-types', '~> 3.1'
 gem 'whenever', '~> 0.9.7', require: false
-gem 'mini_magick', '~> 3.8.1'
+gem 'mini_magick', '~> 4.8.0'
 gem 'shared_mustache', '~> 1.0.0'
 gem 'rails-i18n', '~> 5.0'
 gem 'link_header'
