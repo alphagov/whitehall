@@ -123,7 +123,7 @@ end
 
 group :cucumber, :test do
   gem 'cucumber-rails', require: false
-  gem 'cucumber', '~> 2.4.0'
+  gem 'cucumber', '~> 3.1.0'
   gem 'launchy'
   gem 'capybara'
   gem 'poltergeist'
