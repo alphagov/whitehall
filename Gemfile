@@ -78,7 +78,7 @@ end
 gem 'asset_bom_removal-rails', '~> 1.0.0'
 gem 'sass', '~> 3.5'
 gem 'sassc-rails', '~> 1.3'
-gem 'uglifier', '~> 3.2'
+gem 'uglifier', '~> 4.0'
 
 group :development, :test do
   gem 'parallel_tests'
