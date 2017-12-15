@@ -1,14 +1,7 @@
-require 'gds_api/helpers'
-
 class EmailSignup
   include ActiveModel::Conversion
   extend ActiveModel::Naming
   include ActiveModel::Validations
-  extend GdsApi::Helpers
-
-  def self.client
-    email_alert_api
-  end
 
   attr_reader :feed
   validates_presence_of :feed
@@ -26,7 +19,8 @@ class EmailSignup
   end
 
   def ensure_govdelivery_topic_exists
-    @ensure_govdelivery_topic_exists ||= self.class.client.find_or_create_subscriber_list(criteria)
+    @ensure_govdelivery_topic_exists ||=
+      Services.email_alert_api.find_or_create_subscriber_list(criteria)
   end
 
   def criteria
