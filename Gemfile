@@ -86,7 +86,7 @@ group :development, :test do
   gem 'ruby-prof'
   gem 'pry-byebug'
   gem 'pry-rails'
-  gem 'govuk-lint', '~> 3.3.1'
+  gem 'govuk-lint', '~> 3.4.0'
   gem 'dotenv-rails'
   gem 'teaspoon-qunit'
   # teaspoon has coffee assets that mean we need coffee script in order
