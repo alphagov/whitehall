@@ -91,7 +91,7 @@ group :development, :test do
   gem 'teaspoon-qunit'
   # teaspoon has coffee assets that mean we need coffee script in order
   # to be able to run things
-  gem 'coffee-rails', '~> 4.1.0'
+  gem 'coffee-rails', '~> 4.2.2'
 end
 
 group :development do
