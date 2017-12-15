@@ -170,7 +170,7 @@ GEM
       activemodel (>= 4.2, < 5.2)
       activerecord (>= 4.2, < 5.2)
       request_store (~> 1.0)
-    govspeak (5.1.0)
+    govspeak (5.2.2)
       actionview (>= 4.1, < 6)
       addressable (>= 2.3.8, < 3)
       commander (~> 4.4)
@@ -549,7 +549,7 @@ DEPENDENCIES
   gds-api-adapters
   gds-sso (~> 13.2)
   globalize (= 5.1.0.beta2)
-  govspeak (~> 5.1.0)
+  govspeak (~> 5.2.2)
   govuk-content-schema-test-helpers
   govuk-lint (~> 3.3.1)
   govuk_ab_testing (~> 2.4x)
