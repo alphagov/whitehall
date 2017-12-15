@@ -191,7 +191,7 @@ GEM
       bootstrap-sass (= 3.3.5.1)
       jquery-rails (~> 4.3.1)
       rails (>= 3.2.0)
-    govuk_app_config (0.2.0)
+    govuk_app_config (0.3.0)
       sentry-raven (~> 2.6.3)
       statsd-ruby (~> 1.4.0)
     govuk_frontend_toolkit (7.0.1)
@@ -554,7 +554,7 @@ DEPENDENCIES
   govuk-lint (~> 3.3.1)
   govuk_ab_testing (~> 2.4x)
   govuk_admin_template (~> 6.2)
-  govuk_app_config (~> 0.2.0)
+  govuk_app_config (~> 0.3.0)
   govuk_frontend_toolkit (= 7.0.1)
   govuk_sidekiq (= 2.0.0)
   graphviz_transitions
