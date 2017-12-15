@@ -75,7 +75,7 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    carrierwave (1.1.0)
+    carrierwave (1.2.1)
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
       mime-types (>= 1.16)
@@ -531,7 +531,7 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-kaminari-views (= 0.0.5)
   capybara
-  carrierwave (~> 1.1.0)
+  carrierwave (~> 1.2.1)
   carrierwave-i18n
   chronic
   ci_reporter_minitest
