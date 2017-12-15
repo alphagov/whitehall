@@ -1,4 +1,6 @@
 class MigrateAssetsToAssetManager
+  include ActionView::Helpers::TextHelper
+
   def initialize(target_dir)
     @file_paths = AssetFilePaths.new(target_dir)
   end
@@ -10,7 +12,7 @@ class MigrateAssetsToAssetManager
   end
 
   def to_s
-    @file_paths.join("\n")
+    "Migrating #{pluralize(@file_paths.size, 'file')}"
   end
 
   class Worker < WorkerBase
@@ -40,7 +42,7 @@ class MigrateAssetsToAssetManager
   end
 
   class AssetFilePaths
-    delegate :each, :join, to: :file_paths
+    delegate :each, :size, to: :file_paths
 
     def initialize(target_dir)
       @target_dir = target_dir
