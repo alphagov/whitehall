@@ -4,18 +4,23 @@ class AttachmentsController < PublicUploadsController
   before_action :reject_non_previewable_attachments, only: :preview
 
   def preview
-    if attachment_visible? && attachment_visibility.visible_edition
-      expires_headers
-      @edition = attachment_visibility.visible_edition
-      @attachment = attachment_visibility.visible_attachment
-      @csv_preview = CsvPreview.new(upload_path)
-      render layout: 'html_attachments'
-    else
-      fail
+    respond_to do |format|
+      format.html do
+        if attachment_visible? && attachment_visibility.visible_edition
+          expires_headers
+          @edition = attachment_visibility.visible_edition
+          @attachment = attachment_visibility.visible_attachment
+          @csv_preview = CsvPreview.new(upload_path)
+          render layout: 'html_attachments'
+        else
+          fail
+        end
+      end
     end
-
   rescue CsvPreview::FileEncodingError, CSV::MalformedCSVError
     render layout: 'html_attachments'
+  rescue ActionController::UnknownFormat
+    render status: :not_acceptable, plain: "Request format #{request.format} not handled."
   end
 
   def show
