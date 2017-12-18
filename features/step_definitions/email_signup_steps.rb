@@ -1,5 +1,5 @@
 Given(/^email alert api exists$/) do
-  EmailSignup.stubs(client: mock_email_alert_api)
+  Services.stubs(:email_alert_api).returns(mock_email_alert_api)
 end
 
 When(/^I sign up for emails$/) do
