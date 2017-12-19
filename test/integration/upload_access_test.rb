@@ -25,10 +25,6 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
     }
   end
 
-  def assert_redirected_to_placeholder_page
-    assert_redirected_to "http://www.example.com/government/placeholder"
-  end
-
   def assert_redirected_to_placeholder_image
     assert_redirected_to "/government/assets/thumbnail-placeholder.png"
   end
