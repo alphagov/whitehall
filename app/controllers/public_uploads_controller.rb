@@ -52,7 +52,7 @@ class PublicUploadsController < ApplicationController
   end
 
   def upload_path
-    basename = [params[:path], params[:extension], params[:format]].compact.join('.')
+    basename = [params[:path], params[:format]].compact.join('.')
     File.join(Whitehall.clean_uploads_root, basename)
   end
 
