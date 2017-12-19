@@ -195,6 +195,14 @@ class Edition < ApplicationRecord
     where("editions.updated_at <= ?", date)
   end
 
+  # used by Admin::EditionFilter
+  def self.only_broken_links
+    joins("INNER JOIN link_checker_api_reports ON link_checker_api_reports.link_reportable_id = editions.id")
+    .joins("INNER JOIN link_checker_api_report_links ON link_checker_api_report_links.link_checker_api_report_id = link_checker_api_reports.id")
+    .where("link_checker_api_reports.link_reportable_type = 'Edition' AND link_checker_api_report_links.status != 'ok'")
+    .distinct
+  end
+
   def self.latest_edition
     where("NOT EXISTS (
       SELECT 1

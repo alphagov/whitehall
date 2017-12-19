@@ -108,6 +108,7 @@ module Admin
       editions = editions.in_world_location(selected_world_locations) if selected_world_locations.any?
       editions = editions.from_date(from_date) if from_date
       editions = editions.to_date(to_date) if to_date
+      editions = editions.only_broken_links if only_broken_links
 
       @unpaginated_editions = editions
     end
@@ -219,6 +220,10 @@ module Admin
         sentence = selected_world_locations.map { |l| WorldLocation.friendly.find(l).name }.to_sentence
         " about #{sentence}"
       end
+    end
+
+    def only_broken_links
+      options[:only_broken_links].present?
     end
   end
 end

@@ -1,6 +1,6 @@
 <% initialise_script "GOVUK.FilterOptions", filter_form: '.js-editions-filter-form', search_results: '#search_results' %>
 <%
-  filter_by ||= [:title, :author, :organisation, :world_location, :type, :state, :date]
+  filter_by ||= [:title, :author, :organisation, :world_location, :type, :state, :date, :only_broken_links]
   raise "filter action required" unless defined?(filter_action)
 %>
 <form class="filter-options js-editions-filter-form" method="get" action="<%= filter_action %>">
@@ -72,6 +72,13 @@
       </div>
     </div>
   <% end %>
+  <% if filter_by.include?(:only_broken_links) %>
+    <div class="filter-grouping checkbox-filter">
+      <%= check_box_tag :only_broken_links, "1", false %>
+      <%= label_tag "only_broken_links", "Only broken links" %>
+    </div>
+  <% end %>
+
   <%= submit_tag "Search", class: 'btn btn-default add-bottom-margin' %>
   <p><a href="?state=active">Reset all fields</a></p>
 </form>
