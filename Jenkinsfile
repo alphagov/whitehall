@@ -86,6 +86,14 @@ node {
       }
     }
 
+    stage("Build Docker image") {
+      govuk.buildDockerImage(REPOSITORY, env.BRANCH_NAME)
+    }
+
+    stage("Push Docker image") {
+      govuk.pushDockerImage(REPOSITORY, env.BRANCH_NAME)
+    }
+
     stage("Precompile assets") {
       if (params.IS_SCHEMA_TEST) {
         echo "Skipping precompile step because this is a schema test"
