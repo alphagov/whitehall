@@ -310,7 +310,7 @@ module PublishingApi
 
         path = File.join(dirname, basename)
 
-        url_helpers.public_upload_url(path, extension: extension.delete('.'))
+        url_helpers.public_upload_url(path, format: extension.delete('.'))
       end
 
       def email
