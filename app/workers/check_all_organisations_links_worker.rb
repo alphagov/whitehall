@@ -5,8 +5,9 @@ class CheckAllOrganisationsLinksWorker
   include Sidekiq::Worker
 
   def perform
-    organisations.each do |organisation|
-      CheckOrganisationLinksWorker.perform_async(organisation.id)
+    organisations.each_with_index do |organisation, index|
+      offset = (index * 60).seconds
+      CheckOrganisationLinksWorker.perform_in(offset, organisation.id)
     end
   end
 
