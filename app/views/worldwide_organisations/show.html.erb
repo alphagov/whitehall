@@ -9,7 +9,11 @@
       <div class="content">
         <p class="summary"><%= @worldwide_organisation.summary %></p>
         <div class="description">
+          <% if @draft %>
+          <%= govspeak_edition_to_html @worldwide_organisation.draft_about_us %>
+          <% else %>
           <%= govspeak_edition_to_html @worldwide_organisation.about_us %>
+          <% end %>
         </div>
       </div>
     </div>

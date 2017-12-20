@@ -9,8 +9,13 @@ FactoryBot.define do
   end
 
   factory :published_corporate_information_page, parent: :corporate_information_page, traits: [:published]
+  factory :draft_corporate_information_page, parent: :corporate_information_page, traits: [:draft]
 
   factory :about_corporate_information_page, parent: :published_corporate_information_page do
+    corporate_information_page_type_id CorporateInformationPageType::AboutUs.id
+  end
+
+  factory :draft_about_corporate_information_page, parent: :draft_corporate_information_page do
     corporate_information_page_type_id CorporateInformationPageType::AboutUs.id
   end
 
