@@ -72,7 +72,7 @@ end
 if ENV['FRONTEND_TOOLKIT_DEV']
   gem 'govuk_frontend_toolkit', path: '../govuk_frontend_toolkit_gem'
 else
-  gem 'govuk_frontend_toolkit', '7.0.1'
+  gem 'govuk_frontend_toolkit', '7.2.0'
 end
 
 gem 'asset_bom_removal-rails', '~> 1.0.0'
