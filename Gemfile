@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rake', '12.3.0'
-gem 'rails', '5.0.6'
+gem 'rails', '5.1.4'
 gem 'rack', '~> 2.0'
 gem 'statsd-ruby', '~> 1.4.0', require: 'statsd'
 gem 'mysql2'
