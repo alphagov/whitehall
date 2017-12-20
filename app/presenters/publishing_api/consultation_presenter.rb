@@ -310,7 +310,8 @@ module PublishingApi
 
         path = File.join(dirname, basename)
 
-        url_helpers.public_upload_url(path, format: extension.delete('.'))
+        asset_host = URI.parse(Plek.new.public_asset_host).host
+        url_helpers.public_upload_url(path, format: extension.delete('.'), host: asset_host)
       end
 
       def email
