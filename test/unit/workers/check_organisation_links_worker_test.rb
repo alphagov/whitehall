@@ -23,14 +23,57 @@ class CheckOrganisationLinksWorkerTest < ActiveSupport::TestCase
   end
 
   test "when given an organisation it only calls LinkCheckerApiService with editions for that organisation" do
-    stub_published_publication
+    new_edition = stub_published_publication
 
     CheckOrganisationLinksWorker.new.perform(@hmrc.id)
 
     assert_equal 1, LinkCheckerApiReport.count
+    assert_requested new_edition
+  end
+
+  test "when an organisation contains more new editions than the limit" do
+    new_edition = stub_published_publication
+    existing_edition = create_and_stub_an_edition_with_checks(@hmrc)
+    another_existing_edition = create_and_stub_an_edition(@hmrc)
+
+    assert_report_count_increased
+
+    assert_requested new_edition
+    assert_requested another_existing_edition
+    assert_not_requested existing_edition
+  end
+
+  test "when an organisation contains new and old editions" do
+    new_edition = stub_published_publication
+    existing_edition = create_and_stub_an_edition_with_checks(@hmrc)
+
+    assert_report_count_increased
+
+    assert_requested new_edition
+    assert_requested existing_edition
+  end
+
+  test "when an organisation contains new and multiple old editions the one with the oldest check will be sent to be checked" do
+    new_edition = stub_published_publication
+    existing_edition = create_and_stub_an_edition_with_checks(@hmrc)
+    another_existing_edition = create_and_stub_edition_with_historic_checks(@hmrc)
+
+    assert_report_count_increased
+
+    assert_requested new_edition
+    assert_requested another_existing_edition
+    assert_not_requested existing_edition
   end
 
 private
+
+  def assert_report_count_increased
+    stub_organisation_edition_limit(2) do
+      assert_difference 'LinkCheckerApiReport.count', 2 do
+        CheckOrganisationLinksWorker.new.perform(@hmrc.id)
+      end
+    end
+  end
 
   def stub_published_publication
     links = [
@@ -40,9 +83,68 @@ private
 
     body = link_checker_api_batch_report_hash(id: 6, links: links)
 
+    stub_post_request(links, body)
+  end
+
+  def create_and_stub_an_edition(organisation)
+    links = [
+      { uri: "https://www.gov.uk/very-bad-link" },
+      { uri: "https://www.gov.uk/yet-another-good-link" }
+    ]
+
+    create_published_publication(organisation, links)
+
+    body = link_checker_api_batch_report_hash(id: 7, links: links)
+
+    stub_post_request(links, body)
+  end
+
+  def create_and_stub_an_edition_with_checks(organisation)
+    links = [
+      { uri: "https://www.gov.uk/very-bad-link-1" },
+      { uri: "https://www.gov.uk/yet-another-good-link-1" }
+    ]
+
+    publication = create_published_publication(organisation, links)
+
+    create(:link_checker_api_report_completed, link_reportable: publication)
+
+    body = link_checker_api_batch_report_hash(id: 8, links: links)
+
+    stub_post_request(links, body)
+  end
+
+  def create_and_stub_edition_with_historic_checks(organisation)
+    links = [
+      { uri: "https://www.gov.uk/very-old-link" },
+      { uri: "https://www.gov.uk/yet-another-old-link" }
+    ]
+
+    publication = create_published_publication(organisation, links)
+
+    create(:link_checker_api_report_completed, batch_id: 2, link_reportable: publication, updated_at: 2.weeks.ago)
+
+    body = link_checker_api_batch_report_hash(id: 9, links: links)
+
+    stub_post_request(links, body)
+  end
+
+  def stub_organisation_edition_limit(limit)
+    CheckOrganisationLinksWorker.stub_const(:ORGANISATION_EDITION_LIMIT, limit) do
+      yield
+    end
+  end
+
+  def stub_post_request(links, body)
     stub_request(:post, %r{\A#{@link_checker_endpoint}})
       .with(body: request_body(links))
       .to_return(response_body(body))
+  end
+
+  def create_published_publication(organisation, links)
+    create(:published_publication,
+           lead_organisations: [organisation],
+           body: links.map { |link| "[a link](#{link[:uri]})" }.join(' '))
   end
 
   def request_body(links)

@@ -112,6 +112,7 @@ group :test do
   gem 'database_cleaner'
   gem 'govuk-content-schema-test-helpers'
   gem 'minitest-fail-fast'
+  gem 'minitest-stub-const'
   gem 'maxitest'
   gem 'rails-controller-testing'
 end
