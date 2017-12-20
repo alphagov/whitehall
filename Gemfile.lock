@@ -268,8 +268,7 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
-    mini_magick (3.8.1)
-      subexec (~> 0.2.1)
+    mini_magick (4.8.0)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.10.3)
@@ -478,7 +477,6 @@ GEM
       sprockets (>= 3.0.0)
     stackprof (0.2.11)
     statsd-ruby (1.4.0)
-    subexec (0.2.3)
     teaspoon (1.1.5)
       railties (>= 3.2.5, < 6)
     teaspoon-qunit (1.20.0)
@@ -570,7 +568,7 @@ DEPENDENCIES
   logstasher (~> 1.2.1)
   maxitest
   mime-types (~> 3.1)
-  mini_magick (~> 3.8.1)
+  mini_magick (~> 4.8.0)
   minitest-fail-fast
   mlanett-redis-lock
   mocha
