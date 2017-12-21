@@ -79,9 +79,15 @@ class PublicUploadsController < ApplicationController
   end
 
   def redirect_to_asset_host
+    return if request_for_an_hmrc_asset?
+
     asset_host = URI.parse(Plek.new.public_asset_host).host
     unless request.host == asset_host
       redirect_to host: asset_host
     end
+  end
+
+  def request_for_an_hmrc_asset?
+    request.path.match?(%r(^/government/uploads/uploaded/hmrc/))
   end
 end
