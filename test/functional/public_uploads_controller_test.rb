@@ -15,6 +15,7 @@ class PublicUploadsControllerTest < ActionController::TestCase
 
   test 'does not redirect asset requests that are made via the asset host' do
     asset_filesystem_path = File.join(Whitehall.clean_uploads_root, 'asset.txt')
+    FileUtils.makedirs(Whitehall.clean_uploads_root)
     FileUtils.touch(asset_filesystem_path)
 
     request.host = 'asset-host.com'
