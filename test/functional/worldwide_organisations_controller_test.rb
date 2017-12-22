@@ -63,4 +63,32 @@ class WorldwideOrganisationsControllerTest < ActionController::TestCase
     worldwide_organisation.reload
     refute worldwide_organisation.has_home_page_offices_list?
   end
+
+  view_test "showing a preview of draft content when requested and a user is logged in" do
+    login_as :gds_editor
+
+    worldwide_organisation = create(:worldwide_organisation)
+    create(:about_corporate_information_page, organisation: nil, worldwide_organisation: worldwide_organisation, body: 'pre-edit body')
+    get :show, params: { id: worldwide_organisation }
+    assert_select ".description", text: "pre-edit body"
+
+    draft_cip = create(:draft_about_corporate_information_page, organisation: nil, worldwide_organisation: worldwide_organisation, body: 'post-edit body')
+
+    get :show, params: { id: worldwide_organisation }
+    assert_select ".description", text: "pre-edit body"
+
+    get :show, params: { id: worldwide_organisation, preview: draft_cip.id }
+    assert_select ".description", text: "post-edit body"
+  end
+
+  view_test "not showing a preview of draft content when requested and a user is not logged in" do
+    worldwide_organisation = create(:worldwide_organisation)
+    create(:about_corporate_information_page, organisation: nil, worldwide_organisation: worldwide_organisation, body: 'pre-edit body')
+    get :show, params: { id: worldwide_organisation }
+    assert_select ".description", text: "pre-edit body"
+
+    draft_cip = create(:draft_about_corporate_information_page, organisation: nil, worldwide_organisation: worldwide_organisation, body: 'post-edit body')
+    get :show, params: { id: worldwide_organisation, preview: draft_cip.id }
+    assert_select ".description", text: "pre-edit body"
+  end
 end
