@@ -5,7 +5,6 @@ class Admin::BaseController < ApplicationController
   layout 'admin'
   prepend_before_action :skip_slimmer
   prepend_before_action :authenticate_user!
-  before_action :require_signin_permission!
 
   def limit_edition_access!
     enforce_permission!(:see, @edition)

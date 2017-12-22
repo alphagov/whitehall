@@ -5,7 +5,6 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   before_action :limit_edition_access!, only: [:create]
   before_action :check_edition_availability, only: %i[show edit]
   skip_before_action :authenticate_user!, except: [:create]
-  skip_before_action :require_signin_permission!, except: [:create]
 
   def show; end
 
