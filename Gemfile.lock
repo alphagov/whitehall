@@ -232,18 +232,18 @@ GEM
     json-schema (2.8.0)
       addressable (>= 2.4)
     jwt (1.5.6)
-    kaminari (1.0.1)
+    kaminari (1.1.1)
       activesupport (>= 4.1.0)
-      kaminari-actionview (= 1.0.1)
-      kaminari-activerecord (= 1.0.1)
-      kaminari-core (= 1.0.1)
-    kaminari-actionview (1.0.1)
+      kaminari-actionview (= 1.1.1)
+      kaminari-activerecord (= 1.1.1)
+      kaminari-core (= 1.1.1)
+    kaminari-actionview (1.1.1)
       actionview
-      kaminari-core (= 1.0.1)
-    kaminari-activerecord (1.0.1)
+      kaminari-core (= 1.1.1)
+    kaminari-activerecord (1.1.1)
       activerecord
-      kaminari-core (= 1.0.1)
-    kaminari-core (1.0.1)
+      kaminari-core (= 1.1.1)
+    kaminari-core (1.1.1)
     kgio (2.11.1)
     kramdown (1.15.0)
     launchy (2.4.3)
@@ -565,7 +565,7 @@ DEPENDENCIES
   isbn_validation
   jbuilder
   jquery-ui-rails (~> 4.2.1)
-  kaminari (~> 1.0.1)
+  kaminari (~> 1.1.1)
   launchy
   link_header
   logstasher (~> 1.2.1)
