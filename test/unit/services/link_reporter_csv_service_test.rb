@@ -121,6 +121,33 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
                   ""], hmrc_csv[2]
   end
 
+  test "creates a new csv file even if no organisation passed to it" do
+    speech = create(:published_speech,
+                     person_override: "The Queen",
+                     body: "[Good link](https://www.gov.uk/good-link)\n[Missing page](https://www.gov.uk/missing-link)",
+                     role_appointment: nil,
+                     create_default_organisation: false)
+    missing_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/missing-link", status: "broken")
+    good_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/good-link", status: "ok")
+
+    create(:link_checker_api_report_completed, batch_id: 1, link_reportable: speech, links: [missing_link, good_link])
+
+    LinkReporterCsvService.new(reports_dir: reports_dir).generate
+
+    csv = CSV.read(reports_dir_pathname.join("no-organisation_links_report.csv"))
+
+    csv_test_file_path = reports_dir_pathname.join("no-organisation_links_report.csv")
+    assert File.exist?(csv_test_file_path)
+    assert_equal 2, csv.size
+    assert_equal ['page', 'admin link', 'public timestamp', 'format', 'broken link count', 'broken links'], csv[0]
+    assert_equal ["https://www.gov.uk#{Whitehall.url_maker.speech_path(speech.slug)}",
+                  "https://whitehall-admin.publishing.service.gov.uk#{Whitehall.url_maker.admin_speech_path(speech)}",
+                  speech.public_timestamp.to_s,
+                  'Speech',
+                  '1',
+                  'https://www.gov.uk/missing-link'], csv[1]
+  end
+
 private
 
   def reports_dir_pathname

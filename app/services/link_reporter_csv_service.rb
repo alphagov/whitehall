@@ -1,5 +1,5 @@
 class LinkReporterCsvService
-  def initialize(reports_dir:, organisation:)
+  def initialize(reports_dir:, organisation: nil)
     @organisation = organisation
     @reports_dir = reports_dir
   end
@@ -18,11 +18,16 @@ private
   attr_reader :organisation, :reports_dir
 
   def public_editions
-    Edition.publicly_visible.with_translations.in_organisation(organisation)
+    if organisation.nil?
+      Edition.publicly_visible.with_translations
+    else
+      Edition.publicly_visible.with_translations.in_organisation(organisation)
+    end
   end
 
   def file_path
-    Pathname.new(reports_dir).join("#{@organisation.slug}_links_report.csv")
+    slug = @organisation.try(:slug) || 'no-organisation'
+    Pathname.new(reports_dir).join("#{slug}_links_report.csv")
   end
 
   def headings
