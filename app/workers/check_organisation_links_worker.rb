@@ -1,7 +1,7 @@
 # Calls the Link Checker API to verify all links in public editions, either per organisation or not
 class CheckOrganisationLinksWorker
   include Sidekiq::Worker
-  ORGANISATION_EDITION_LIMIT = 1000
+  ORGANISATION_EDITION_LIMIT = 500
 
   sidekiq_options queue: "link_checks"
 
