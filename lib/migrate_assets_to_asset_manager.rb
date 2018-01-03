@@ -56,7 +56,7 @@ class MigrateAssetsToAssetManager
   private
 
     def all_paths_under_target_directory
-      Dir.glob(File.join(full_target_dir, '**', '*'))
+      Dir.glob(File.join(full_target_dir, '**', '*'), File::FNM_DOTMATCH)
     end
 
     def full_target_dir

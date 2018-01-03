@@ -117,6 +117,13 @@ class AssetFilePathsTest < ActiveSupport::TestCase
     assert_equal 2, subject.file_paths.size
   end
 
+  test '#files includes hidden files' do
+    hidden_path = File.join(organisation_logo_dir, '.hidden.jpg')
+    FileUtils.cp(dummy_asset_path, hidden_path)
+
+    assert_equal 2, @subject.file_paths.size
+  end
+
 private
 
   def organisation_logo_dir
