@@ -7,8 +7,6 @@ class MigrateAssetsToAssetManagerTest < ActiveSupport::TestCase
     FileUtils.mkdir_p(organisation_logo_dir)
     FileUtils.cp(dummy_asset_path, organisation_logo_path)
 
-    @organisation_logo_file = File.open(organisation_logo_path)
-
     @subject = MigrateAssetsToAssetManager.new('system/uploads/organisation/logo')
   end
 
@@ -32,7 +30,7 @@ class MigrateAssetsToAssetManagerTest < ActiveSupport::TestCase
   end
 
   test 'it calls create_whitehall_asset with the legacy last modified time' do
-    expected_last_modified = File.stat(@organisation_logo_file.path).mtime
+    expected_last_modified = File.stat(organisation_logo_path).mtime
 
     Services.asset_manager.expects(:create_whitehall_asset).with(
       has_entry(:legacy_last_modified, expected_last_modified)
