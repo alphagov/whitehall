@@ -88,9 +88,6 @@ class AssetFilePathsTest < ActiveSupport::TestCase
     FileUtils.cp(dummy_asset_path, organisation_logo_path)
     FileUtils.cp(dummy_asset_path, other_asset_path)
 
-    @organisation_logo = File.open(organisation_logo_path)
-    @other_asset = File.open(other_asset_path)
-
     @subject = MigrateAssetsToAssetManager::AssetFilePaths.new('system/uploads/organisation/logo')
   end
 
