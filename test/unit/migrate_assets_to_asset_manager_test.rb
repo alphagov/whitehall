@@ -12,6 +12,10 @@ class MigrateAssetsToAssetManagerTest < ActiveSupport::TestCase
     @subject = MigrateAssetsToAssetManager.new('system/uploads/organisation/logo')
   end
 
+  teardown do
+    FileUtils.rm_rf(organisation_logo_dir)
+  end
+
   test 'it calls create_whitehall_asset for each file in the list' do
     Services.asset_manager.expects(:create_whitehall_asset)
       .with(has_entry(:file, responds_with(:read, File.read(organisation_logo_path))))
@@ -88,6 +92,11 @@ class AssetFilePathsTest < ActiveSupport::TestCase
     @other_asset = File.open(other_asset_path)
 
     @subject = MigrateAssetsToAssetManager::AssetFilePaths.new('system/uploads/organisation/logo')
+  end
+
+  teardown do
+    FileUtils.rm_rf(organisation_logo_dir)
+    FileUtils.rm_rf(other_asset_dir)
   end
 
   test 'delegates each to file_paths' do
