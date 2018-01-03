@@ -1,12 +1,15 @@
 old_slug = "letter-from-julian-ashby-to-chairs-and-chief-executives-of-large-housing-providers"
 new_slug = "letter-from-julian-ashby-to-chairs-and-chief-executives-of-social-housing-providers"
 
-document = Document.find_by!(slug: old_slug)
-edition = document.editions.published.last
+document = Document.find_by(slug: old_slug)
 
-Whitehall::SearchIndex.delete(edition)
+if document
+  edition = document.editions.published.last
 
-document.update_attributes!(slug: new_slug)
-PublishingApiDocumentRepublishingWorker.new.perform(document.id)
+  Whitehall::SearchIndex.delete(edition)
 
-puts "#{old_slug} -> #{new_slug}"
+  document.update_attributes!(slug: new_slug)
+  PublishingApiDocumentRepublishingWorker.new.perform(document.id)
+
+  puts "#{old_slug} -> #{new_slug}"
+end
