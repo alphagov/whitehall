@@ -143,8 +143,9 @@ end
 class AssetFileTest < ActiveSupport::TestCase
   setup do
     @path = Rails.root.join('test/fixtures/logo.png')
-    file = MigrateAssetsToAssetManager::AssetFile.open(@path)
-    @parts = file.legacy_etag.split('-')
+    MigrateAssetsToAssetManager::AssetFile.open(@path) do |file|
+      @parts = file.legacy_etag.split('-')
+    end
   end
 
   test 'returns string made up of 2 parts separated by a hyphen' do

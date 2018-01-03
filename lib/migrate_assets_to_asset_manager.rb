@@ -19,8 +19,9 @@ class MigrateAssetsToAssetManager
     sidekiq_options queue: :asset_migration
 
     def perform(file_path)
-      file = AssetFile.open(file_path)
-      create_whitehall_asset(file) unless asset_exists?(file)
+      AssetFile.open(file_path) do |file|
+        create_whitehall_asset(file) unless asset_exists?(file)
+      end
     end
 
   private
