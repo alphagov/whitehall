@@ -7,7 +7,7 @@ gem 'statsd-ruby', '~> 1.4.0', require: 'statsd'
 gem 'mysql2'
 gem 'jquery-ui-rails', '~> 4.2.1'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
-gem 'carrierwave', '~> 1.2.1'
+gem 'carrierwave', '~> 1.2.2'
 gem 'carrierwave-i18n'
 gem 'validates_email_format_of'
 gem 'friendly_id', '~> 5.2.1'
