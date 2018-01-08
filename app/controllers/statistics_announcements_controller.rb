@@ -20,7 +20,7 @@ private
   end
 
   def expire_cache_for_index_on_next_announcement_expiry(announcements)
-    time_to_releases = announcements.map {|ann| ann.release_date - Time.zone.now }.reject {|time_span| time_span <= 0 }
+    time_to_releases = announcements.map { |ann| ann.release_date - Time.zone.now }.reject { |time_span| time_span <= 0 }
     expires_in((time_to_releases << Whitehall.default_cache_max_age).min)
   end
 end

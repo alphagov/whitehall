@@ -27,7 +27,7 @@ namespace :public_bodies do
   desc "Import Public Bodies report data from CSV"
   task :import, [:filename, :year] => :environment do |_, args|
     csv = CSV.open(args[:filename], { :headers => :first_row })
-      .map { |body| body}
+      .map { |body| body }
 
     Organisation.all.each do |organisation|
       if organisation.type.non_departmental_public_body?

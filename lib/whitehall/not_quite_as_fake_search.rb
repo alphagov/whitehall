@@ -125,7 +125,7 @@ module Whitehall
         end
 
         def sort(documents)
-          documents.sort {|l, r| compare(l, r)}
+          documents.sort { |l, r| compare(l, r) }
         end
 
         def validate_ordering!
@@ -140,7 +140,7 @@ module Whitehall
       def filter_by_keywords(keywords, document_hashes)
         keywords_regexp = /(#{keywords.split(/\s+/).map { |k| Regexp.escape(k) }.join('|')})/
         document_hashes.select do |document_hash|
-          %w{title indexable_content description}.any? {|field| document_hash[field] =~ keywords_regexp}
+          %w{title indexable_content description}.any? { |field| document_hash[field] =~ keywords_regexp }
         end
       end
 

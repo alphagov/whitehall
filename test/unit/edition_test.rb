@@ -478,7 +478,7 @@ class EditionTest < ActiveSupport::TestCase
 
     results = Edition.search_index.to_a
 
-    assert_equal ['news_article-title', 'publication-title'], results.map {|r| r['title']}
+    assert_equal ['news_article-title', 'publication-title'], results.map { |r| r['title'] }
   end
 
   test "#destroy should also remove the relationship to any authors" do

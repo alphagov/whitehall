@@ -10,10 +10,10 @@ module DataHygiene
       "Documents with all/some attachments not referenced by inline tags:\n\n" +
         ("%-30s %-11s %-11s" % ["", "Published", "Other"]) + "\n" +
         ("%-30s %5s %5s %5s %5s" % ["", "All--", "Some-", "All--", "Some-"]) + "\n" +
-        editions_with_orphaned_attachments.group_by {|e| e[:edition].class.name }.map do |class_name, batch|
-          published, other = batch.partition {|r| r[:state] == "published" }
-          all_missing_published, some_missing_published = published.partition {|r| r[:actual].size == 0 }
-          all_missing_other, some_missing_other = other.partition {|r| r[:actual].size == 0 }
+        editions_with_orphaned_attachments.group_by { |e| e[:edition].class.name }.map do |class_name, batch|
+          published, other = batch.partition { |r| r[:state] == "published" }
+          all_missing_published, some_missing_published = published.partition { |r| r[:actual].size == 0 }
+          all_missing_other, some_missing_other = other.partition { |r| r[:actual].size == 0 }
           ("%-30s %5s %5s %5s %5s" % [class_name, all_missing_published.size, some_missing_published.size, all_missing_other.size, some_missing_other.size])
         end.join("\n")
     end
@@ -61,7 +61,7 @@ module DataHygiene
           next if state == 'superseded'
           num_attachments = edition.attachments.count
           actual_placeholders = edition.body.scan(/!@[1-9][0-9]*/).sort
-          expected_placeholders = 1.upto(num_attachments).map {|n| "!@#{n}"}
+          expected_placeholders = 1.upto(num_attachments).map { |n| "!@#{n}" }
           missing = expected_placeholders - actual_placeholders
           if missing.any?
             editions_with_orphaned_attachments << {

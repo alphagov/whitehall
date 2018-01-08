@@ -70,6 +70,6 @@ private
       "nhs.uk",
     ]
 
-    whitelisted_hosts.any? { |whitelisted_host| host =~ /(?:^|\.)#{whitelisted_host}$/}
+    whitelisted_hosts.any? { |whitelisted_host| host =~ /(?:^|\.)#{whitelisted_host}$/ }
   end
 end

@@ -131,7 +131,7 @@ When /^I add a new organisation called "([^"]*)"$/ do |organisation_name|
   visit new_admin_organisation_path
 
   fill_in 'Name', with: organisation_name
-  fill_in 'Acronym', with: organisation_name.split(' ').collect {|word| word.chars.first }.join
+  fill_in 'Acronym', with: organisation_name.split(' ').collect { |word| word.chars.first }.join
   fill_in 'Logo formatted name', with: organisation_name
   select 'Ministerial department', from: 'Organisation type'
   select 'Jazz Bizniz', from: 'organisation_topic_ids_0'

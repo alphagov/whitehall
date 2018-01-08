@@ -45,11 +45,11 @@ class OrganisationType
   end
 
   def self.all
-    DATA.keys.map {|key| get(key)}
+    DATA.keys.map { |key| get(key) }
   end
 
   def self.in_listing_order
-    LISTING_ORDER.map {|key| get(key)}
+    LISTING_ORDER.map { |key| get(key) }
   end
 
   def self.valid_keys
@@ -57,7 +57,7 @@ class OrganisationType
   end
 
   def self.allowed_promotional_keys
-    DATA.select {|_, attributes| attributes[:allowed_promotional] }.keys
+    DATA.select { |_, attributes| attributes[:allowed_promotional] }.keys
   end
 
   def self.executive_office

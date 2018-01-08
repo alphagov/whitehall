@@ -25,7 +25,7 @@ module Whitehall::DocumentFilter
       end
 
       super params.permit(*PERMITTED_SCALAR_PARAMETER_KEYS +
-                           PERMITTED_ARRAY_PARAMETER_KEYS.map {|key| { key => [] }})
+                           PERMITTED_ARRAY_PARAMETER_KEYS.map { |key| { key => [] } })
     end
 
     def unpermitted_keys

@@ -124,7 +124,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "#index orders publications by publication date by default" do
-    publications = 5.times.map {|i| create(:published_publication, first_published_at: (10 - i).days.ago) }
+    publications = 5.times.map { |i| create(:published_publication, first_published_at: (10 - i).days.ago) }
 
     get :index
 
@@ -133,7 +133,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "#index orders consultations by first_published_at date by default" do
-    consultations = 5.times.map {|i| create(:published_consultation, first_published_at: (10 - i).days.ago) }
+    consultations = 5.times.map { |i| create(:published_consultation, first_published_at: (10 - i).days.ago) }
 
     get :index
 

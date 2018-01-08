@@ -4,7 +4,7 @@ class EmailSignupPagesFinderTest < ActiveSupport::TestCase
   test 'EmailSignupPagesFinder.find returns a data structure representing the email signup pages for the MHRA' do
     signup_page = EmailSignupPagesFinder.find(mhra)
 
-    assert_equal signup_page.map {|p| p[:text] },
+    assert_equal signup_page.map { |p| p[:text] },
       [
         'Drug alerts and medical device alerts',
         'Drug Safety Update',

@@ -95,8 +95,8 @@ class FeatureListTest < ActiveSupport::TestCase
     feature_list.features << build(:feature, document: published.document)
     feature_list.features << build(:feature, document: draft.document)
 
-    assert_equal [[published], [draft]], feature_list.features.map {|f| f.document.editions }
-    assert_equal [[published]], feature_list.published_features.map {|f| f.document.editions }
+    assert_equal [[published], [draft]], feature_list.features.map { |f| f.document.editions }
+    assert_equal [[published]], feature_list.published_features.map { |f| f.document.editions }
   end
 
   test '#published_features only excludes features which have ended' do
@@ -105,6 +105,6 @@ class FeatureListTest < ActiveSupport::TestCase
     feature_list = create(:feature_list, locale: :en)
     feature_list.features << build(:feature, document: published.document, ended_at: Time.zone.now)
 
-    assert_equal [], feature_list.published_features.map {|f| f.document.editions }
+    assert_equal [], feature_list.published_features.map { |f| f.document.editions }
   end
 end

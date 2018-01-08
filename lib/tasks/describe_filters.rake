@@ -14,7 +14,7 @@ task :describe_filters, [:topic_list_csv] => :environment do |t, args|
     uri = Addressable::URI.parse(line.gsub(';', "%#{';'.ord.to_s(16).upcase}"))
 
     params = ActiveSupport::HashWithIndifferentAccess.new(Rack::Utils.parse_nested_query(uri.query))
-    params['topics'] = params['topics'].map {|t| t.split(";")}.flatten
+    params['topics'] = params['topics'].map { |t| t.split(";") }.flatten
     params[:action] = "index"
     params[:controller] = case uri.path
                           when "/government/publications.atom"
@@ -34,9 +34,9 @@ task :describe_filters, [:topic_list_csv] => :environment do |t, args|
 
     {
       type: params[:controller],
-      departments: h.filter_results_selections(filter.selected_organisations, 'departments').map {|h| h[:name]},
-      topics: h.filter_results_selections(filter.selected_topics, 'topics').map {|h| h[:name]},
-      world_locations: h.filter_results_selections(filter.selected_locations, 'world_locations').map {|h| h[:name]},
+      departments: h.filter_results_selections(filter.selected_organisations, 'departments').map { |h| h[:name] },
+      topics: h.filter_results_selections(filter.selected_topics, 'topics').map { |h| h[:name] },
+      world_locations: h.filter_results_selections(filter.selected_locations, 'world_locations').map { |h| h[:name] },
       keywords: h.filter_results_keywords(filter.keywords),
       include_world_location_news: filter.include_world_location_news ? "including location-specific news" : ""
     }

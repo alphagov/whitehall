@@ -49,7 +49,7 @@ class DocumentFilterHelperTest < ActionView::TestCase
   test "#organisation_filter_options makes option tags with organsation name as text and slug as value" do
     org = create(:ministerial_department, :with_published_edition, name: "Some organisation")
     option_set = Nokogiri::HTML::DocumentFragment.parse(organisation_filter_options)
-    option_set.at_css('optgroup option').tap {|option|
+    option_set.at_css('optgroup option').tap { |option|
       assert_equal org.name, option.text
       assert_equal org.slug, option["value"]
     }
@@ -57,7 +57,7 @@ class DocumentFilterHelperTest < ActionView::TestCase
 
   test "#organisation_filter_options makes an 'All departments' option tag" do
     option_set = Nokogiri::HTML::DocumentFragment.parse(organisation_filter_options)
-    option_set.at_css('option').tap {|option|
+    option_set.at_css('option').tap { |option|
       assert_equal 'All departments', option.text
       assert_equal 'all', option["value"]
     }
@@ -79,7 +79,7 @@ class DocumentFilterHelperTest < ActionView::TestCase
     ], option_set.css('optgroup').map { |optgroup|
       [
         optgroup["label"],
-        optgroup.css("option").map {|option| option.text}
+        optgroup.css("option").map { |option| option.text }
       ]
     }
   end

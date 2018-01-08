@@ -150,7 +150,7 @@ class AttachmentUploader < WhitehallUploader
       REQUIRED_EXTS = %w(shp shx dbf)
       OPTIONAL_EXTS = %w(aih ain atx avl cpg fbn fbx ixs mxs prj sbn sbx shp.xml shp_rxl).freeze
       ALLOWED_EXTS = REQUIRED_EXTS + OPTIONAL_EXTS
-      EXT_MATCHER = /\.(#{ALLOWED_EXTS.map { |e| Regexp.escape(e)}.join('|') })\Z/
+      EXT_MATCHER = /\.(#{ALLOWED_EXTS.map { |e| Regexp.escape(e) }.join('|') })\Z/
 
       def files_with_extensions
         @files_with_extensions ||=
@@ -168,7 +168,7 @@ class AttachmentUploader < WhitehallUploader
           Hash[
             files_with_extensions.
               reject { |file, ext| ext.nil? }.
-              group_by { |file, ext| file.gsub(/\.#{Regexp.escape(ext)}\Z/, '')}.
+              group_by { |file, ext| file.gsub(/\.#{Regexp.escape(ext)}\Z/, '') }.
               map { |shape, files|
                 [shape, files.group_by { |file, ext| ext }]
               }

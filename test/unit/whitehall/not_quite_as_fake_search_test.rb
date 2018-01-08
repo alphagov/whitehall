@@ -127,7 +127,7 @@ module Whitehall
       end
 
       test "advanced search can be paginated" do
-        documents = build_documents(*(1.upto(20).map {|n| "doc-#{n}"}))
+        documents = build_documents(*(1.upto(20).map { |n| "doc-#{n}" }))
         @index.add_batch(documents)
         assert_search_returns_documents %w{doc-1 doc-2 doc-3}, page: 1, per_page: 3
         assert_search_returns_documents %w{doc-4 doc-5 doc-6}, page: 2, per_page: 3
@@ -150,7 +150,7 @@ module Whitehall
 
       def assert_search_returns_documents(expected_document_titles, search_params)
         actual_results = GdsApiRummager.new("government", @store).advanced_search(default_search_params.merge(search_params))
-        assert_equal expected_document_titles, actual_results["results"].map {|r| r['title']}
+        assert_equal expected_document_titles, actual_results["results"].map { |r| r['title'] }
       end
 
       def assert_search_total(expected_total, search_params)

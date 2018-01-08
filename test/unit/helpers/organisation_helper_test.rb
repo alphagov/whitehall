@@ -31,14 +31,14 @@ class OrganisationHelperTest < ActionView::TestCase
 
   test 'organisation_wrapper should place org specific class onto the div' do
     organisation = build(:organisation, slug: "organisation-slug-yeah", name: "Building Law and Hygiene")
-    html = organisation_wrapper(organisation) { }
+    html = organisation_wrapper(organisation) {}
     div = Nokogiri::HTML.fragment(html) / 'div'
     assert_match /organisation-slug-yeah/, div.attr('class').value
   end
 
   test 'organisation_wrapper should place brand colour class onto the div' do
     organisation = build(:organisation, organisation_brand_colour_id: OrganisationBrandColour::HMGovernment.id)
-    html = organisation_wrapper(organisation) { }
+    html = organisation_wrapper(organisation) {}
     div = Nokogiri::HTML.fragment(html) / 'div'
     assert_match /hm-government-brand-colour/, div.attr('class').value
   end

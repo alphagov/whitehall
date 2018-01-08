@@ -93,7 +93,7 @@ module Admin::TaggableContentHelper
   # and its ID.
   def taggable_detailed_guides_container
     Rails.cache.fetch(taggable_detailed_guides_cache_digest, expires_in: 1.day) do
-      DetailedGuide.alphabetical.latest_edition.active.map {|d| [d.title, d.id] }
+      DetailedGuide.alphabetical.latest_edition.active.map { |d| [d.title, d.id] }
     end
   end
 
@@ -143,7 +143,7 @@ module Admin::TaggableContentHelper
   # organisation and its ID.
   def taggable_worldwide_organisations_container
     Rails.cache.fetch(taggable_worldwide_organisations_cache_digest, expires_in: 1.day) do
-      WorldwideOrganisation.with_translations(:en).map {|wo| [wo.name, wo.id] }
+      WorldwideOrganisation.with_translations(:en).map { |wo| [wo.name, wo.id] }
     end
   end
 

@@ -41,7 +41,7 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     create(:published_speech, role_appointment: appointment)
     create(:draft_speech, role_appointment: appointment)
 
-    assert appointment.role.published_speeches.all? {|s| s.published?}
+    assert appointment.role.published_speeches.all? { |s| s.published? }
     assert_equal 1, appointment.role.published_speeches.count
   end
 

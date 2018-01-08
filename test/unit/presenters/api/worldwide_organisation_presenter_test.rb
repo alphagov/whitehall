@@ -31,7 +31,7 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
   end
 
   test 'links has a self link, pointing to the request-relative api worldwide organisations url' do
-    self_link = @presenter.links.detect { |(url, attrs)| attrs['rel'] == 'self'}
+    self_link = @presenter.links.detect { |(url, attrs)| attrs['rel'] == 'self' }
     assert self_link
     url, attrs = *self_link
     assert_equal api_worldwide_organisation_url(@world_org), url

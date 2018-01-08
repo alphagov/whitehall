@@ -57,7 +57,7 @@ class DetailedGuide < Edition
   def related_detailed_guide_ids=(detailed_guide_ids)
     detailed_guide_ids        = Array.wrap(detailed_guide_ids).reject(&:blank?)
     other_related_documents   = self.related_documents.reject { |document| document.document_type == 'DetailedGuide' }
-    detailed_guide_documents  = DetailedGuide.find(detailed_guide_ids).map {|guide| guide.document }
+    detailed_guide_documents  = DetailedGuide.find(detailed_guide_ids).map { |guide| guide.document }
 
     self.related_documents = other_related_documents + detailed_guide_documents
   end

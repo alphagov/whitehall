@@ -175,12 +175,12 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
 
   def multiple_shape_arcgis_file_list
     comprehensive_arcgis_file_list +
-      comprehensive_arcgis_file_list.map {|f| f.gsub('london', 'paris')}
+      comprehensive_arcgis_file_list.map { |f| f.gsub('london', 'paris') }
   end
 
   def complete_and_broken_shape_arcgis_file_list
     broken_arcgis_file_list +
-      comprehensive_arcgis_file_list.map {|f| f.gsub('london', 'paris')}
+      comprehensive_arcgis_file_list.map { |f| f.gsub('london', 'paris') }
   end
 end
 

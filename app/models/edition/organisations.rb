@@ -100,7 +100,7 @@ private
     # something on the edition itself.
     all_organisations = edition_organisations
       .reject { |eo| eo.marked_for_destruction? || __edition_organisations_for_destruction_on_save.include?(eo) }
-      .map {|eo| eo.organisation_id }
+      .map { |eo| eo.organisation_id }
 
     if all_organisations.uniq.size != all_organisations.size
       errors.add(:organisations, 'must be unique')

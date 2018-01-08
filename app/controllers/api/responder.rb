@@ -32,7 +32,7 @@ private
     links = resource.links if resource.respond_to?(:links)
     links ||= []
     links |= (@options[:links] || [])
-    links_for_link_header = links.map {|(url, attrs)| [url, attrs.to_a]}
+    links_for_link_header = links.map { |(url, attrs)| [url, attrs.to_a] }
     LinkHeader.new(links_for_link_header)
   end
 

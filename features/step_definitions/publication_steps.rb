@@ -132,7 +132,7 @@ Then /^the old data file should redirect to the new data file$/ do
 end
 
 Given /^a published publication "([^"]*)" with type "([^"]*)"$/ do |publication_title, publication_type|
-  type_id = PublicationType.all.select {|pt| pt.singular_name == publication_type }.first.id
+  type_id = PublicationType.all.select { |pt| pt.singular_name == publication_type }.first.id
   create(:published_publication, title: publication_title, publication_type_id: type_id)
 end
 

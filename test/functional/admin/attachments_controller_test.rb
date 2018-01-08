@@ -360,7 +360,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     attachments = @edition.reload.attachments
 
     # append '_' to every attachment title in the collection
-    new_data = attachments.map {|a| [a.id.to_s, { title: a.title + '_' }] }
+    new_data = attachments.map { |a| [a.id.to_s, { title: a.title + '_' }] }
     put :update_many, params: { edition_id: @edition, attachments: Hash[new_data] }
 
     @edition.reload.attachments.each do |attachment|

@@ -4,7 +4,7 @@ module AdminBrokenLinksReportingHelper
   end
 
   def build_links(links)
-    links.each_with_index.map { |link, i| "[Link #{i}](#{link})"}
+    links.each_with_index.map { |link, i| "[Link #{i}](#{link})" }
   end
 end
 

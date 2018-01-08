@@ -92,7 +92,7 @@ class StatisticsControllerTest < ActionController::TestCase
   end
 
   view_test "#index orders statistics by publication date by default" do
-    statistics = 5.times.map {|i| create(:published_statistics, first_published_at: (10 - i).days.ago) }
+    statistics = 5.times.map { |i| create(:published_statistics, first_published_at: (10 - i).days.ago) }
 
     get :index
 

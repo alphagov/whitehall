@@ -14,7 +14,7 @@ class PersonPresenter < Whitehall::Decorators::Decorator
   end
 
   def current_role_appointments
-    model.current_role_appointments.map {|ra| RoleAppointmentPresenter.new(ra, context) }
+    model.current_role_appointments.map { |ra| RoleAppointmentPresenter.new(ra, context) }
   end
 
   def previous_role_appointments

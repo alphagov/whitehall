@@ -2,10 +2,10 @@ module CacheControlTestHelpers
   def assert_cache_control(expected_directive)
     cache_control_header = response.headers['Cache-Control']
     assert cache_control_header, "No Cache-Control header set in response"
-    assignments, directives = cache_control_header.split(/, */).partition {|stmt| stmt.include?("=")}
+    assignments, directives = cache_control_header.split(/, */).partition { |stmt| stmt.include?("=") }
     if expected_directive.include?("=")
       expected_name, expected_value = expected_directive.split("=")
-      assignments = Hash[assignments.map {|a| a.split("=")}]
+      assignments = Hash[assignments.map { |a| a.split("=") }]
       assert assignments.has_key?(expected_name), "No #{expected_name} directive found in #{cache_control_header}"
       assert_equal expected_value, assignments[expected_name]
     else
