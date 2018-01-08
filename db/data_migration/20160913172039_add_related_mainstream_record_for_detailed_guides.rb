@@ -14,7 +14,7 @@ additional_related_mainstream_not_found = []
 
 guides_count = guides.count
 guides.find_each.with_index do |guide, i|
-  puts "#{i+1}/#{guides_count}"
+  puts "#{i + 1}/#{guides_count}"
   guide.valid?
 
   if guide.errors[:related_mainstream_content_url].any? || guide.errors[:additional_related_mainstream_content_url].any?

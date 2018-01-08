@@ -16,7 +16,7 @@ class PublicationType
     8 => "<p>Ministerial or departmental responses (eg to campaign letters), announcements, or statements;regularly issued circulars or bulletins (eg fire service circulars), official correspondence to professionals (eg “Dear chief planning officer” letters);letters to individuals or organisations that are published to share with a wider audience than their original recipient;online versions of e-bulletins or newsletters.</p><p>Do <em>not</em> use for: minutes, agendas or other meeting papers. Attach them to relevant “policy detail”, “team” or “our governance” pages instead.</p>",
     10 => "<p>Information made available about departmental operations with the intent of making government more transparent.Includes organisation charts, staff survey results, departmental spending, salaries, contracts, meetings with ministers, etc.</p><p>Do <em>not</em> use for: FOI responses.</p>",
     12 => "<p>Responses to Freedom of Information requests. Ensure the title describes specifically what the request is about.</p>",
-    13 =>"<p>Leaflets, posters, fact sheets and marketing collateral.</p>",
+    13 => "<p>Leaflets, posters, fact sheets and marketing collateral.</p>",
     14 => "<p>Reviews, inquiries and other reports commissioned from or conducted by independent (ie non-governmental) bodies for consideration by the government.</p>",
     15 => "<p>Official Statistics that have been produced in accordance with the Code of Practice for Official Statistics, which is indicated using the National Statistics quality mark.</p>",
     17 => "<p>Drawn maps and geographical data.</p>",

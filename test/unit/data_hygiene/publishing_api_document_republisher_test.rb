@@ -30,7 +30,7 @@ class DataHygiene::PublishingApiDocumentRepublisherTest < ActiveSupport::TestCas
   end
 
   test "unpublishes if the document is unpublished" do
-    document  = create(:document, content_id: SecureRandom.uuid)
+    document = create(:document, content_id: SecureRandom.uuid)
     edition = create(:unpublished_edition, title: "Unpublished edition", document: document)
     unpublishing = edition.unpublishing
 

@@ -14,6 +14,6 @@ SLUGS.each do |slug|
   begin
     Whitehall.government_search_client.delete_content! base_path
   rescue GdsApi::HTTPNotFound => e 
-    puts "\n" + "="*25 + "\nURL not found error:\n#{e}"
+    puts "\n" + "=" * 25 + "\nURL not found error:\n#{e}"
   end
 end

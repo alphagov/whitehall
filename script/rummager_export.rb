@@ -43,7 +43,7 @@ def export_classes(classes_to_index, id_groups, &block)
     export_directory.mkpath
 
     Parallel.each_with_index(id_groups) do |(klass, id_group), index|
-      file_path = export_directory+"#{klass.name.downcase}-#{index}.esdump"
+      file_path = export_directory + "#{klass.name.downcase}-#{index}.esdump"
       logger.info "Exporting #{klass.name.downcase}-#{index}.esdump"
       File.open(file_path.to_s, "w") do |output|
         block.call(klass, output, id_group)

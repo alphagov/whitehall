@@ -56,7 +56,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
   end
 
   test "it pushes all locales for the published document" do
-    document  = create(:document, content_id: SecureRandom.uuid)
+    document = create(:document, content_id: SecureRandom.uuid)
     edition = build(:published_edition, title: "Published edition", document: document)
     with_locale(:es) { edition.title = "spanish-title" }
     edition.save!
@@ -80,7 +80,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
   end
 
   test "it runs the PublishingApiUnpublishingWorker if the latest edition has an unpublishing" do
-    document  = create(:document, content_id: SecureRandom.uuid)
+    document = create(:document, content_id: SecureRandom.uuid)
     edition = create(:unpublished_edition, title: "Unpublished edition", document: document)
     unpublishing = edition.unpublishing
 

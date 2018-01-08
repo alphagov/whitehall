@@ -14,7 +14,7 @@ documents = Document.where(content_id: content_ids)
 
 documents.each do |document|
   first_edition = document.editions.first
-  first_edition.state="published"
+  first_edition.state = "published"
   first_edition.save
 
   unpublisher = EditionUnpublisher.new(
