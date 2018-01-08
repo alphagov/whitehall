@@ -1,4 +1,5 @@
-edition = Edition.where(id: 644875).first
+edition_id = 644875
+edition = Edition.where(id: edition_id).first
 
 if edition.present?
   edition.minor_change = true
@@ -7,5 +8,5 @@ if edition.present?
   # have their minor_change field modified.
   edition.save(validate: false)
 else
-  "Edition #{644875} not found."
+  "Edition #{edition_id} not found."
 end
