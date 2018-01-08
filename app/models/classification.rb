@@ -30,10 +30,12 @@ class Classification < ApplicationRecord
             }
 
   has_many :classification_featurings,
-            -> { where("editions.state = 'published' or classification_featurings.edition_id is null").
-                 references(:edition).
-                 includes(edition: :translations).
-                 order("classification_featurings.ordering asc") },
+            -> {
+              where("editions.state = 'published' or classification_featurings.edition_id is null").
+                references(:edition).
+                includes(edition: :translations).
+                order("classification_featurings.ordering asc")
+            },
             foreign_key: :classification_id,
             inverse_of: :classification
 

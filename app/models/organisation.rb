@@ -240,8 +240,10 @@ class Organisation < ApplicationRecord
 
   scope :excluding_govuk_status_closed, -> { where("govuk_status != 'closed'") }
   scope :closed, -> { where(govuk_status: "closed") }
-  scope :with_statistics_announcements, -> { joins(:statistics_announcement_organisations)
-                                              .group('statistics_announcement_organisations.organisation_id') }
+  scope :with_statistics_announcements, -> {
+    joins(:statistics_announcement_organisations)
+      .group('statistics_announcement_organisations.organisation_id')
+  }
 
   def self.grouped_by_type(locale = I18n.locale)
     Rails.cache.fetch("filter_options/organisations/#{locale}", expires_in: 30.minutes) do

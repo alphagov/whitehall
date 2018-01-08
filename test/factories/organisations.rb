@@ -63,7 +63,8 @@ FactoryBot.define do
     organisation_logo_type_id { OrganisationLogoType::NoIdentity.id }
     logo_formatted_name { name }
     parent_organisations { [Organisation.find_by(slug: "hm-courts-and-tribunals-service") ||
-      build(:organisation, slug: "hm-courts-and-tribunals-service", name: "HMCTS")] }
+      build(:organisation, slug: "hm-courts-and-tribunals-service", name: "HMCTS")]
+    }
   end
 
   factory :hmcts_tribunal, parent: :organisation do
@@ -71,6 +72,7 @@ FactoryBot.define do
     organisation_logo_type_id { OrganisationLogoType::NoIdentity.id }
     logo_formatted_name { name }
     parent_organisations { [Organisation.find_by(slug: "hm-courts-and-tribunals-service") ||
-      build(:organisation, slug: "hm-courts-and-tribunals-service", name: "HMCTS")] }
+      build(:organisation, slug: "hm-courts-and-tribunals-service", name: "HMCTS")]
+    }
   end
 end
