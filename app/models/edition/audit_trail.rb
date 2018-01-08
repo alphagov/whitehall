@@ -109,7 +109,7 @@ module Edition::AuditTrail
   end
 
   def publication_audit_entry
-    document_version_trail.detect { | audit_entry | audit_entry.version.state == 'published' }
+    document_version_trail.detect { |audit_entry| audit_entry.version.state == 'published' }
   end
 
   class AuditEntry

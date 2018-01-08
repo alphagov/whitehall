@@ -8,7 +8,7 @@ module Frontend
   private
 
     def self.build_collection(release_announcement_hashes)
-      Array(release_announcement_hashes).map { | release_announcement_hash | build_from_rummager_hash(release_announcement_hash) }
+      Array(release_announcement_hashes).map { |release_announcement_hash| build_from_rummager_hash(release_announcement_hash) }
     end
 
     def self.build_from_rummager_hash(rummager_hash)

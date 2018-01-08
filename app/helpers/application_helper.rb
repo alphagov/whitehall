@@ -131,7 +131,7 @@ module ApplicationHelper
   def full_width_tabs(tab_data)
     content_tag(:nav, class: "activity-navigation") {
       content_tag(:ul) {
-        tab_data.map { | tab |
+        tab_data.map { |tab|
           content_tag :li do
             if tab[:current_when]
               link_to tab[:label], tab[:link_to], class: ('current' if tab[:current_when])
