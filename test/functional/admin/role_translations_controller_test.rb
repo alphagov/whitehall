@@ -7,9 +7,7 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
     login_as :writer
     @role = create(:ambassador_role, responsibilities: "responsibilities")
 
-    Locale.stubs(:non_english).returns([
-      Locale.new(:fr), Locale.new(:es)
-    ])
+    Locale.stubs(:non_english).returns([Locale.new(:fr), Locale.new(:es)])
   end
 
   should_be_an_admin_controller
@@ -100,9 +98,14 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
   end
 
   view_test 'edit form adds right-to-left class and dir attribute for text field and areas in right-to-left languages' do
-    role = create(:role, translated_into: {
-      ar: { name: 'دور اسم', responsibilities: 'المسؤوليات' }}
-    )
+    role = create(:role,
+                  translated_into: {
+                    ar: {
+                      name: 'دور اسم',
+                      responsibilities: 'المسؤوليات',
+                    },
+                  },
+                  )
 
     get :edit, params: { role_id: role, id: 'ar' }
 

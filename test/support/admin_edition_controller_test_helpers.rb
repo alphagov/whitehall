@@ -649,9 +649,12 @@ module AdminEditionControllerTestHelpers
         image = fixture_file_upload('minister-of-funk.960x640.jpg')
         attributes = {
           title: "",
-          images_attributes: { "0" => {
-            alt_text: "some-alt-text",
-            image_data_attributes: attributes_for(:image_data, file: image) } }
+          images_attributes: {
+            "0" => {
+              alt_text: "some-alt-text",
+              image_data_attributes: attributes_for(:image_data, file: image),
+            },
+          },
         }
 
         put :update, params: { id: edition, edition: attributes }
@@ -666,9 +669,12 @@ module AdminEditionControllerTestHelpers
         image = fixture_file_upload('minister-of-funk.960x640.jpg')
         attributes = {
           title: "",
-          images_attributes: { "0" => {
-            alt_text: "some-alt-text",
-            image_data_attributes: attributes_for(:image_data, file: image) } }
+          images_attributes: {
+            "0" => {
+              alt_text: "some-alt-text",
+              image_data_attributes: attributes_for(:image_data, file: image),
+            },
+          },
         }
 
         put :update, params: { id: edition, edition: attributes }

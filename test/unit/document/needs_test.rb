@@ -83,13 +83,18 @@ class Document::NeedsTest < ActiveSupport::TestCase
     document.stubs(:get_user_needs_from_publishing_api)
       .returns(["f5f42227-b7c6-4543-bb30-68379f29aa40"])
 
-    Services.publishing_api.stubs(:get_expanded_links)
+    Services
+      .publishing_api
+      .stubs(:get_expanded_links)
       .with(document.content_id)
       .returns(
-        "expanded_links" =>
-          { "an_expanded_link" =>
-            [{ "key" => "value" }]
-          }
+        "expanded_links" => {
+          "an_expanded_link" => [
+            {
+              "key" => "value",
+            },
+          ],
+        }
       )
 
     expected_array = Array.new

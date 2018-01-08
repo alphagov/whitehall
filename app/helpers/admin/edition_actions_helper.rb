@@ -13,7 +13,8 @@ module Admin::EditionActionsHelper
       capture do
         form_for [:admin, edition], {
           url: approve_retrospectively_admin_edition_path(edition, lock_version: edition.lock_version),
-          method: :post} do |form|
+          method: :post,
+        } do |form|
           concat(form.submit "Looks good", data: { confirm: confirmation_prompt }, class: "btn btn-success")
         end
       end

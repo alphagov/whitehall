@@ -7,9 +7,7 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
     login_as :writer
     @person = create(:person, biography: "She was born. She lived. She died.")
 
-    Locale.stubs(:non_english).returns([
-      Locale.new(:fr), Locale.new(:es)
-    ])
+    Locale.stubs(:non_english).returns([Locale.new(:fr), Locale.new(:es)])
   end
 
   should_be_an_admin_controller
@@ -30,11 +28,13 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
 
   view_test 'index omits existing translations from create select' do
     person = create(:person,
-      biography: "She was born. She lived. She died.",
-      translated_into: {
-        fr: { biography: "Elle est née. Elle a vécu. Elle est morte." }
-      }
-    )
+                    biography: "She was born. She lived. She died.",
+                    translated_into: {
+                      fr: {
+                        biography: "Elle est née. Elle a vécu. Elle est morte.",
+                      },
+                    },
+                    )
 
     get :index, params: { person_id: person }
 
@@ -45,12 +45,16 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
 
   view_test 'index omits create form if no missing translations' do
     person = create(:person,
-      biography: "She was born. She lived. She died.",
-      translated_into: {
-        fr: { biography: "Elle est née. Elle a vécu. Elle est morte." },
-        es: { biography: "Ella nació. Ella vivía. Ella murió." },
-      }
-    )
+                    biography: "She was born. She lived. She died.",
+                    translated_into: {
+                      fr: {
+                        biography: "Elle est née. Elle a vécu. Elle est morte.",
+                      },
+                      es: {
+                        biography: "Ella nació. Ella vivía. Ella murió.",
+                      },
+                    },
+                    )
 
     get :index, params: { person_id: person }
 
@@ -59,11 +63,13 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
 
   view_test 'index lists existing translations' do
     person = create(:person,
-      biography: "She was born. She lived. She died.",
-      translated_into: {
-        fr: { biography: "Elle est née. Elle a vécu. Elle est morte." }
-      }
-    )
+                    biography: "She was born. She lived. She died.",
+                    translated_into: {
+                      fr: {
+                        biography: "Elle est née. Elle a vécu. Elle est morte.",
+                      },
+                    },
+                    )
 
     get :index, params: { person_id: person }
 
@@ -82,11 +88,13 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
 
   view_test 'index displays delete button for a translation' do
     person = create(:person,
-      biography: "She was born. She lived. She died.",
-      translated_into: {
-        fr: { biography: "Elle est née. Elle a vécu. Elle est morte." }
-      }
-    )
+                    biography: "She was born. She lived. She died.",
+                    translated_into: {
+                      fr: {
+                        biography: "Elle est née. Elle a vécu. Elle est morte.",
+                      },
+                    },
+                    )
 
     get :index, params: { person_id: person }
 
@@ -108,9 +116,13 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
   end
 
   view_test 'edit presents a form to update an existing translation' do
-    person = create(:person, translated_into: {
-      fr: { biography: 'Elle est née. Elle a vécu. Elle est morte.' }
-    })
+    person = create(:person,
+                    translated_into: {
+                      fr: {
+                        biography: 'Elle est née. Elle a vécu. Elle est morte.'
+                      },
+                    },
+                    )
 
     get :edit, params: { person_id: person, id: 'fr' }
 
@@ -122,9 +134,13 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
   end
 
   view_test 'edit form adds right-to-left class and dir attribute for text field and areas in right-to-left languages' do
-    person = create(:person, translated_into: {
-      ar: { biography: 'ولدت. عاشت. توفيت.' }}
-    )
+    person = create(:person,
+                    translated_into: {
+                      ar: {
+                        biography: 'ولدت. عاشت. توفيت.',
+                      },
+                    },
+                    )
 
     get :edit, params: { person_id: person, id: 'ar' }
 
@@ -138,9 +154,13 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
   end
 
   view_test 'update updates translation and redirects back to the index' do
-    put :update, params: { person_id: @person, id: 'fr', person: {
-      biography: 'Elle est née. Elle a vécu. Elle est morte.'
-    } }
+    put :update, params: {
+      person_id: @person,
+      id: 'fr',
+      person: {
+        biography: 'Elle est née. Elle a vécu. Elle est morte.',
+      },
+    }
 
     @person.reload
     with_locale :fr do
@@ -150,9 +170,13 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
   end
 
   test 'destroy removes translation and redirects to list of translations' do
-    person = create(:person, translated_into: {
-      fr: { biography: 'Elle est née. Elle a vécu. Elle est morte.' }
-    })
+    person = create(:person,
+                    translated_into: {
+                      fr: {
+                        biography: 'Elle est née. Elle a vécu. Elle est morte.',
+                      },
+                    },
+                    )
 
     delete :destroy, params: { person_id: person, id: 'fr' }
 

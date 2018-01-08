@@ -106,12 +106,13 @@ class AddressFormatter::HCardTest < ActiveSupport::TestCase
   end
 
   def addr_fields
-    { 'fn' => 'Recipient',
+    {
+      'fn' => 'Recipient',
       'street-address' => 'Street',
       'postal-code' => 'Postcode',
       'locality' => 'Locality',
       'region' => 'Region',
-      'country-name' => 'Country'
+      'country-name' => 'Country',
     }
   end
 

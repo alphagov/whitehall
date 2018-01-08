@@ -157,13 +157,14 @@ class StatisticsAnnouncement < ApplicationRecord
   end
 
   def search_metadata
-    { confirmed: confirmed?,
+    {
+      confirmed: confirmed?,
       display_date: display_date,
       change_note: last_change_note,
       previous_display_date: previous_display_date,
       cancelled_at: cancelled_at,
       cancellation_reason: cancellation_reason,
-     }
+    }
   end
 
   def build_statistics_announcement_date_change(attributes = {})

@@ -76,12 +76,15 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
   end
 
   view_test 'edit presents a form to update an existing translation' do
-    organisation = create(:organisation, translated_into: {
-      fr: { name: 'Afrolasie',
-            acronym: 'AFRO',
-            logo_formatted_name: 'Afrolasie',
-          }
-    })
+    organisation = create(:organisation,
+                          translated_into: {
+                            fr: {
+                              name: 'Afrolasie',
+                              acronym: 'AFRO',
+                              logo_formatted_name: 'Afrolasie',
+                            },
+                          },
+                          )
 
     get :edit, params: { organisation_id: organisation, id: 'fr' }
 
@@ -111,11 +114,15 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
   end
 
   test 'update updates translation and redirects back to the index' do
-    put :update, params: { organisation_id: @organisation, id: 'fr', organisation: {
+    put :update, params: {
+      organisation_id: @organisation,
+      id: 'fr',
+      organisation: {
         name: 'Afrolasie Bureau',
         acronym: 'AFRO',
         logo_formatted_name: 'Afrolasie Bureau',
-      } }
+      }
+    }
 
     @organisation.reload
 
@@ -129,10 +136,14 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
   end
 
   view_test 'update re-renders form if translation is invalid' do
-    put :update, params: { organisation_id: @organisation, id: 'fr', organisation: {
+    put :update, params: {
+      organisation_id: @organisation,
+      id: 'fr',
+      organisation: {
         name: 'Afrolasie Bureau',
         logo_formatted_name: '',
-      } }
+      }
+    }
 
     refute @organisation.available_in_locale?('fr')
     translation_path = admin_organisation_translation_path(@organisation, 'fr')
