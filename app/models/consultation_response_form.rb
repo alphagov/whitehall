@@ -17,5 +17,4 @@ private
       consultation_response_form_data.destroy
     end
   end
-
 end

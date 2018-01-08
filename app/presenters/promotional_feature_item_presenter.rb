@@ -1,5 +1,4 @@
 class PromotionalFeatureItemPresenter < Whitehall::Decorators::Decorator
-
   delegate_instance_methods_of PromotionalFeatureItem
 
   def css_classes

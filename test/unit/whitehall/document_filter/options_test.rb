@@ -3,7 +3,6 @@ require 'test_helper'
 module Whitehall
   module DocumentFilter
     class OptionsTest < ActiveSupport::TestCase
-
       def filter_options
         @filter_options ||= Options.new
       end

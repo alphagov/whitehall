@@ -11,5 +11,4 @@ class SitewideSetting < ApplicationRecord
   def name
     key.humanize
   end
-
 end

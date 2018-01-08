@@ -97,5 +97,4 @@ class Api::PagePresenterTest < PresenterTestCase
     previous_link = @presenter.links.detect {|(url, attrs)| attrs['rel'] == 'previous'}
     refute previous_link
   end
-
 end

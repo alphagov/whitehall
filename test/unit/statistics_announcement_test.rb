@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class StatisticsAnnouncementTest < ActiveSupport::TestCase
-
   test 'can set publication type using an ID' do
     announcement = StatisticsAnnouncement.new(publication_type_id: PublicationType::OfficialStatistics.id)
 

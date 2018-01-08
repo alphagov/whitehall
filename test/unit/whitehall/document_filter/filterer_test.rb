@@ -2,7 +2,6 @@ require 'test_helper'
 
 module Whitehall::DocumentFilter
   class FiltererTest < ActiveSupport::TestCase
-
     test "parses a valid from_date" do
       assert_equal Date.new(2008, 2, 28), build_filter(from_date: '28th February 2008').from_date
     end

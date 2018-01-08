@@ -1,5 +1,4 @@
 class EmailCurationQueueItemNotifier < Whitehall::GovUkDelivery::Notifier
-
   def initialize(edition, email_curation_queue_item)
     super(edition)
     @email_curation_queue_item = email_curation_queue_item
@@ -22,7 +21,6 @@ class EmailCurationQueueItemNotifier < Whitehall::GovUkDelivery::Notifier
 
     ActiveRecord::Base.connection.execute("DELETE FROM email_curation_queue_items WHERE id=#{@email_curation_queue_item['id']};")
   end
-
 end
 
 puts "Sending notifications to subscribers for email curation queue items and deleting them"

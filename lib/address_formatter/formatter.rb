@@ -57,6 +57,5 @@ module AddressFormatter
     def default_format_string
       Formatter.address_formats['gb']
     end
-
   end
 end

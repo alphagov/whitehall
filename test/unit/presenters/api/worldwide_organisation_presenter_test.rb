@@ -182,5 +182,4 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
     @office.stubs(:worldwide_office_type).returns WorldwideOfficeType::Embassy
     assert_equal WorldwideOfficeType::Embassy.name, @presenter.as_json[:offices][:main][:details][:type]
   end
-
 end

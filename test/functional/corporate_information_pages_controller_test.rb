@@ -125,5 +125,4 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
     get :show, params: { organisation_id: organisation_2, id: cip.slug }
     assert_response 404
   end
-
 end

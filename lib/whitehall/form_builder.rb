@@ -1,6 +1,5 @@
 module Whitehall
   class FormBuilder < ActionView::Helpers::FormBuilder
-
     def label(method, text = nil, options = {}, &block)
       if calculate_required(method, options)
         unless !options[:required].nil? && options[:required] == false

@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class WaitTest < ActiveSupport::TestCase
-
   setup do
     # reset global Timecop.freeze call in test_helper
     Timecop.return

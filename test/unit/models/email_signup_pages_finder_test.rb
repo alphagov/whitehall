@@ -1,7 +1,6 @@
 require "test_helper"
 
 class EmailSignupPagesFinderTest < ActiveSupport::TestCase
-
   test 'EmailSignupPagesFinder.find returns a data structure representing the email signup pages for the MHRA' do
     signup_page = EmailSignupPagesFinder.find(mhra)
 

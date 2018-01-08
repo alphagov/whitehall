@@ -63,7 +63,6 @@ private
 end
 
 class ErrorsInEnglish < ::ActiveModel::Errors
-
   def generate_message(*args)
     ::I18n.with_locale(:en) do
       super

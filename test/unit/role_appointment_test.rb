@@ -1,7 +1,6 @@
 require "test_helper"
 
 class RoleAppointmentTest < ActiveSupport::TestCase
-
   test "should should remove person from index when added as a minister" do
     person = create(:person)
     Whitehall::SearchIndex.expects(:delete).with(person)

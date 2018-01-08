@@ -1,5 +1,4 @@
 class EmailSignupInformationPresenter
-
   def initialize(dependencies = {})
     @organisation = dependencies.fetch(:organisation)
     @email_signup_pages = dependencies.fetch(:email_signup_pages)

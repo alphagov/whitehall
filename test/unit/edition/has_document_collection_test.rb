@@ -1,7 +1,6 @@
 require "test_helper"
 
 class Edition::HasDocumentCollectionsTest < ActiveSupport::TestCase
-
   test "includes published document collection slugs in the search index data" do
     edition = create(:published_statistical_data_set)
     collection = create(:published_document_collection, :with_group)

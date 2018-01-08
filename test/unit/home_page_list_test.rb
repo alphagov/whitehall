@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class HomePageListTest < ActiveSupport::TestCase
-
   test "is invalid without an owner" do
     list = build(:home_page_list, owner: nil)
     refute list.valid?

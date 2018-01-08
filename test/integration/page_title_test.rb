@@ -1,7 +1,6 @@
 require "test_helper"
 
 class PageTitleTest < ActiveSupport::TestCase
-
   EXCLUDED_TEMPLATES = %w(
     authentications/failure.html.erb
     admin/about_pages/edit.html.erb

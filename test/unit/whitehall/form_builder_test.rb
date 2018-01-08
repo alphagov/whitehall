@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class FormBuilderTest < ActionView::TestCase
-
   setup do
     @object = PromotionalFeatureItem.new
     @builder = Whitehall::FormBuilder.new(:promotional_feature_item, @object, self, {})

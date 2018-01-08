@@ -206,5 +206,4 @@ private
     person = create(:person, forename: attributes.delete(:forename), surname: attributes.delete(:surname))
     create(:role_appointment, attributes.merge(role: role, person: person))
   end
-
 end

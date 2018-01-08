@@ -1,7 +1,6 @@
 require "test_helper"
 
 class SimpleWorkflowTest < ActiveSupport::TestCase
-
   test 'should be current when newly created' do
     assert_equal :current, create(:topic).current_state
   end

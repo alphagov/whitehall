@@ -24,5 +24,4 @@ class DocumentsControllerWorldwideSlimmerHeadersInclusionTest < ActionController
     expected_header_value = "<#{edition.worldwide_organisations.first.analytics_identifier}>"
     assert_equal expected_header_value, response.headers["X-Slimmer-Organisations"]
   end
-
 end

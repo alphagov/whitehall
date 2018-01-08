@@ -45,5 +45,4 @@ class FilterRoutesHelperTest < ActionView::TestCase
     stubs(:params).returns(action: "index", controller: "publications", utf8: "✓", _: "jquerycache")
     assert_equal filter_json_url, "/government/publications.json"
   end
-
 end

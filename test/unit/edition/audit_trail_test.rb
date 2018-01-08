@@ -171,5 +171,4 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     published_audit = new_edition.publication_audit_entry
     assert_equal publication_date, published_audit.created_at
   end
-
 end

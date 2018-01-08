@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class BulkUploadTest < ActiveSupport::TestCase
-
   def attachments_params(*pairs)
     {}.tap do |params|
       pairs.each_with_index do |pair, i|

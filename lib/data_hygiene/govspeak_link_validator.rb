@@ -2,7 +2,6 @@ require 'addressable/uri'
 
 module DataHygiene
   class GovspeakLinkValidator
-
     def initialize(string)
       @string = string
     end

@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class Admin::TaggableContentHelperTest < ActionView::TestCase
-
   test '#taggable_topics_container returns an array of name/ID pairs for all Topics' do
     topic_b = create(:topic, name: 'Topic B')
     topic_a = create(:topic, name: 'Topic A')

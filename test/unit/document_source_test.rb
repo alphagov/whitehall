@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class DocumentSourceTest < ActiveSupport::TestCase
-
   test 'should be invalid without a url' do
     document_source = build(:document_source, url: nil)
     refute document_source.valid?
@@ -12,5 +11,4 @@ class DocumentSourceTest < ActiveSupport::TestCase
     new_source = build(:document_source, url: existing_source.url)
     refute new_source.valid?
   end
-
 end

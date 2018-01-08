@@ -1,5 +1,4 @@
 class PromotionalFeaturesPresenter < Whitehall::Decorators::CollectionDecorator
-
   def initialize(source, context)
     super(source, PromotionalFeaturePresenter, context)
   end

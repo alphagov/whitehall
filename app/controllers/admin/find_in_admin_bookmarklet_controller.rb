@@ -7,5 +7,4 @@ class Admin::FindInAdminBookmarkletController < Admin::BaseController
       render plain: "Not found", status: :not_found
     end
   end
-
 end

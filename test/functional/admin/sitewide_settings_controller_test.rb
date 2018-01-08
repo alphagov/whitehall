@@ -29,5 +29,4 @@ class Admin::SitewideSettingsControllerTest < ActionController::TestCase
     assert_equal true, sitewide_setting.reload.on
     assert_redirected_to admin_sitewide_settings_path
   end
-
 end

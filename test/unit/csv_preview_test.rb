@@ -3,7 +3,6 @@
 require "test_helper"
 
 class CsvPreviewTest < ActiveSupport::TestCase
-
   def csv_preview
     @csv_preview ||= CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/utf-8.csv'))
   end

@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class EditionWithdrawerTest < ActiveSupport::TestCase
-
   test '#perform! with a published edition that has a valid Unpublishing transitions the edition to an "withdrawn" state' do
     edition = create(:published_edition)
     edition.build_unpublishing(explanation: 'Old policy', unpublishing_reason_id: UnpublishingReason::Withdrawn.id)

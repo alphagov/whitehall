@@ -1,5 +1,4 @@
 class DraftEditionUpdater < EditionService
-
   def perform!
     if can_perform?
       notify!

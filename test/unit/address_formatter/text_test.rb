@@ -6,7 +6,6 @@ require 'active_support/core_ext/string' # for strip_heredoc
 require 'ostruct'
 
 class AddressFormatter::TextTest < ActiveSupport::TestCase
-
   setup do
     @old_formats = AddressFormatter::Formatter.address_formats
     AddressFormatter::Formatter.address_formats = YAML.load(%{
@@ -169,5 +168,4 @@ class AddressFormatter::TextTest < ActiveSupport::TestCase
     Postcode
     EOF
   end
-
 end

@@ -1,5 +1,4 @@
 class PersonPresenter < Whitehall::Decorators::Decorator
-
   delegate_instance_methods_of Person
 
   def available_in_multiple_languages?

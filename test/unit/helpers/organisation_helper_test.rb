@@ -380,5 +380,4 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     assert description.include? 'Other Organisation Name'
     refute description.include? 'is an other'
   end
-
 end

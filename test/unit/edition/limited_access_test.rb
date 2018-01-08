@@ -1,7 +1,6 @@
 require "test_helper"
 
 class Edition::LimitedAccessTest < ActiveSupport::TestCase
-
   class LimitedAccessEdition < Edition
     include Edition::LimitedAccess
     include Edition::Organisations
@@ -75,5 +74,4 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
       refute Edition.accessible_to(user).include?(edition), "doc #{i} should not be accessible"
     end
   end
-
 end

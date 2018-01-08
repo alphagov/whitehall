@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class NewsArticlePresenterTest < ActionView::TestCase
-
   setup do
     @organisation = create(:organisation)
     @news_article = create(:news_article, organisations: [@organisation])

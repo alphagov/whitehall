@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class PromotionalFeatureItemTest < ActiveSupport::TestCase
-
   test "invalid without a summary" do
     refute build(:promotional_feature_item, summary: nil).valid?
   end

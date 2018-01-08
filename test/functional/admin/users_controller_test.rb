@@ -1,7 +1,6 @@
 require "test_helper"
 
 class Admin::UsersControllerTest < ActionController::TestCase
-
   setup do
     @user = create(:user, name: "user-name", email: "user@example.com")
     login_as(@user)

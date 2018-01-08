@@ -1,7 +1,6 @@
 require 'csv'
 
 class AttachmentDataReporter
-
   include ActionView::Helpers::NumberHelper
 
   attr_reader :data_path, :start_date, :end_date

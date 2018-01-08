@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class SearchIndexAddWorkerTest < ActiveSupport::TestCase
-
   test '#perform raises an exception if the class is not searchable' do
     class NonSearchableClass; end
 

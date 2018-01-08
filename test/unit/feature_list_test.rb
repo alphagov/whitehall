@@ -107,5 +107,4 @@ class FeatureListTest < ActiveSupport::TestCase
 
     assert_equal [], feature_list.published_features.map {|f| f.document.editions }
   end
-
 end

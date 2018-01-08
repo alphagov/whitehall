@@ -67,5 +67,4 @@ class EmbassyTest < ActiveSupport::TestCase
     assert_equal "Legoland", location.remote_services_country.name
     assert_equal "British Embassy Legoland", location.offices.first.title
   end
-
 end

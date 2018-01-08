@@ -161,5 +161,4 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     edition.supporting_organisations = [o1]
     assert edition.valid?
   end
-
 end

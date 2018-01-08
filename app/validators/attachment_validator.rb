@@ -1,5 +1,4 @@
 class AttachmentValidator < ActiveModel::Validator
-
   def validate(attachment)
     check_unnumbered_command_papers_dont_have_numbers(attachment)
     check_unnumbered_hoc_papers_dont_have_numbers(attachment)

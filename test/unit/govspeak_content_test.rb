@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class GovspeakContentTest < ActiveSupport::TestCase
-
   test 'queues a job to compute the HTML on creation' do
     Sidekiq::Testing.fake! do
       govspeak_content = create(:html_attachment).govspeak_content

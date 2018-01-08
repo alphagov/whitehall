@@ -1,5 +1,4 @@
 class Embassy
-
   extend Forwardable
 
   def initialize(world_location)

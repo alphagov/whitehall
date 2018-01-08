@@ -14,5 +14,4 @@ class ClassificationFeaturingTest < ActiveSupport::TestCase
 
     assert_match /minister-of-funk/, classification_featuring.image.file.url
   end
-
 end

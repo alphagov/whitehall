@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class EditionUnpublisherTest < ActiveSupport::TestCase
-
   test '#perform! with a published edition returns the edition to draft, resets the version numbers and saves the unpublishing details' do
     edition = create(:published_edition)
     unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)

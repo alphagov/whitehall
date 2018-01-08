@@ -39,5 +39,4 @@ private
     attrs.except(:consultation_response_form_data_attributes, :_destroy).values.all?(&:blank?) &&
       (attrs[:consultation_response_form_data_attributes] || {}).values.all?(&:blank?)
   end
-
 end

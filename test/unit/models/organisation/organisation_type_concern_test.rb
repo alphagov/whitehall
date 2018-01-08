@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class OrganisationTypeConcernTest < ActiveSupport::TestCase
-
   ### Describing organisation type getters and setters ###
   test "should ensure that organisation_type_key is always returned as a symbol" do
     assert_equal :executive_office, build(:organisation, organisation_type_key: 'executive_office').organisation_type_key

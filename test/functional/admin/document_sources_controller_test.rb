@@ -58,5 +58,4 @@ http://woo.example.com} }
     assert_equal ["http://www.example.com", "http://woo.example.com"], edition.document.document_sources.map(&:url)
     assert_redirected_to admin_publication_path(edition, anchor: 'document-sources')
   end
-
 end

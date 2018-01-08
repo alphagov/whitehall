@@ -179,5 +179,4 @@ class ManagingEditorTest < ActiveSupport::TestCase
     test 'cannot modify historic editions' do
     refute enforcer_for(managing_editor, historic_edition).can?(:modify)
   end
-
 end

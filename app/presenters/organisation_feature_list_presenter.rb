@@ -1,5 +1,4 @@
 class OrganisationFeatureListPresenter < FeatureListPresenter
-
   delegate_instance_methods_of FeatureList
 
   def initialize(organisation, view_context)

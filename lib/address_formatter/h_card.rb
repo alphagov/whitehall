@@ -4,7 +4,6 @@ require 'address_formatter/formatter'
 
 module AddressFormatter
   class HCard < Formatter
-
     def render
       "<p class=\"adr\">\n#{interpolate_address_template}\n</p>\n".html_safe
     end

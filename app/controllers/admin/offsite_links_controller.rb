@@ -71,5 +71,4 @@ private
     params.require(:offsite_link)
     .permit(:title, :summary, :link_type, :url, :date)
   end
-
 end

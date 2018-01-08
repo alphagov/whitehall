@@ -14,7 +14,6 @@ module Whitehall
     end
 
     class GdsApiRummager
-
       def initialize(index_name, store, field_mappings = nil)
         @index_name = index_name
         @field_mappings = field_mappings || default_field_mappings

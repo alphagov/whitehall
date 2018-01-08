@@ -1,5 +1,4 @@
 class RoleTypePresenter
-
   class RoleType < Struct.new(:type, :cabinet_member, :permanent_secretary, :chief_of_the_defence_staff)
     def attributes
       { type: type,

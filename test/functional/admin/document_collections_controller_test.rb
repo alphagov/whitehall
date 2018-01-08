@@ -104,5 +104,4 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
     refute DocumentCollection.exists?(document_collection.id)
     assert_response :redirect
   end
-
 end

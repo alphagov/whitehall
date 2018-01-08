@@ -1,7 +1,6 @@
 require "test_helper"
 
 class Edition::AccessControlTest < ActiveSupport::TestCase
-
   [:imported, :draft, :submitted, :rejected].each do |state|
     test "should be editable if #{state}" do
       edition = build("#{state}_edition")

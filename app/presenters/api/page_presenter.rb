@@ -1,5 +1,4 @@
 class Api::PagePresenter < Struct.new(:page, :context)
-
   def as_json(options = {})
     {
       results: page.map(&:as_json),

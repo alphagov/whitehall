@@ -2,7 +2,6 @@ require 'test_helper'
 
 module Whitehall::DocumentFilter
   class RummagerTest < ActiveSupport::TestCase
-
     setup do
       Whitehall.government_search_client.stubs(:advanced_search).returns {}
     end

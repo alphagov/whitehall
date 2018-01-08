@@ -71,5 +71,4 @@ class Contact < ApplicationRecord
   def missing_translations
     super & contactable.non_english_translated_locales
   end
-
 end

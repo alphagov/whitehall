@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class EditionSchedulerTest < ActiveSupport::TestCase
-
   test '#perform! with a valid (submitted) schedulable edition transitions the edition and queues a publish job' do
     edition = create(:submitted_edition, scheduled_publication: 1.day.from_now)
 

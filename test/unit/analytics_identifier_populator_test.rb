@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class AnalyticsIdentifierPopulatorTest < ActiveSupport::TestCase
-
   class TestEdition
     def self.after_create(callback); end # behave like ActiveRecord class
 
@@ -17,5 +16,4 @@ class AnalyticsIdentifierPopulatorTest < ActiveSupport::TestCase
       TestEdition.new.ensure_analytics_identifier
     end
   end
-
 end

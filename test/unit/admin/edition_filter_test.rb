@@ -273,5 +273,4 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     filter.each_edition_for_csv { |unused| count += 1}
     assert_equal 3, count
   end
-
 end

@@ -90,5 +90,4 @@ class FeaturePresenter < Struct.new(:feature)
       edition.summary
     end
   end
-
 end

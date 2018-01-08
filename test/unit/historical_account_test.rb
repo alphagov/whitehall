@@ -1,7 +1,6 @@
 require_relative '../test_helper'
 
 class HistoricalAccountTest < ActiveSupport::TestCase
-
   test "is invalid without a summary, body, political party or person" do
     %w(summary body person political_parties).each do |attribute|
       refute build(:historical_account, attribute => nil).valid?

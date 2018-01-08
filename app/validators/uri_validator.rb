@@ -3,7 +3,6 @@ require 'addressable/uri'
 
 #Accepts options[:message] and options[:allowed_protocols]
 class UriValidator < ActiveModel::EachValidator
-
   def validate_each(record, attribute, value)
     uri = parse_uri(value)
     if !uri
@@ -27,5 +26,4 @@ private
     Addressable::URI.parse(value)
   rescue Addressable::URI::InvalidURIError
   end
-
 end

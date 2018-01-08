@@ -53,5 +53,4 @@ private
   def find_offsite_link
     @feature.offsite_link = OffsiteLink.find(params[:offsite_link_id]) if params[:offsite_link_id]
   end
-
 end

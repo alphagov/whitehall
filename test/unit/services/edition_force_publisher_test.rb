@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class EditionForcePublisherTest < ActiveSupport::TestCase
-
   test '#perform! with a valid submitted edition force publishes the edition, setting timestamps' do
     edition   = create(:draft_edition)
     publisher = EditionForcePublisher.new(edition)

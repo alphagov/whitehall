@@ -1,7 +1,6 @@
 require "test_helper"
 
 class FileAttachmentTest < ActiveSupport::TestCase
-
   def attachment
     @attachment ||= build(:file_attachment)
   end

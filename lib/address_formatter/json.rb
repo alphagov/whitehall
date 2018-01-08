@@ -3,7 +3,6 @@ require 'address_formatter/text'
 
 module AddressFormatter
   class Json < Formatter
-
     def render(type = nil)
       {
         'address' => {

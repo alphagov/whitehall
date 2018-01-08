@@ -1,7 +1,6 @@
 require "test_helper"
 
 class Edition::ActiveEditorsTest < ActiveSupport::TestCase
-
   test "can record editing intent" do
     user = create(:writer)
     edition = create(:edition)

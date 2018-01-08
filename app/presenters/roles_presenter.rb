@@ -1,5 +1,4 @@
 class RolesPresenter < Whitehall::Decorators::CollectionDecorator
-
   def initialize(object, context)
     super(object, RolePresenter, context)
   end

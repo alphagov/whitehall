@@ -68,6 +68,5 @@ module Whitehall::DocumentFilter
         end
       end
     end
-
   end
 end

@@ -180,5 +180,4 @@ class GDSEditorTest < ActiveSupport::TestCase
   test 'can modify historic editions' do
     assert enforcer_for(gds_editor, historic_edition).can?(:modify)
   end
-
 end

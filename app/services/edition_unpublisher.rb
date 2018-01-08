@@ -1,5 +1,4 @@
 class EditionUnpublisher < EditionService
-
   def initialize(edition, options = {})
     super
     @edition.build_unpublishing(options[:unpublishing]) if options[:unpublishing]

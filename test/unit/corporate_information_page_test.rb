@@ -1,7 +1,6 @@
 require "test_helper"
 
 class CorporateInformationPageTest < ActiveSupport::TestCase
-
   def self.should_be_invalid_without(type, attribute_name)
     test "#{type} should be invalid without #{attribute_name}" do
       document = build(type, attribute_name => nil)
