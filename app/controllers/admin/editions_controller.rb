@@ -265,7 +265,7 @@ private
   end
 
   def set_default_edition_locations
-    if current_user.world_locations.any? && !@edition.world_locations.any?
+    if current_user.world_locations.any? && @edition.world_locations.none?
       @edition.world_locations = current_user.world_locations
     end
   end
