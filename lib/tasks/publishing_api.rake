@@ -22,14 +22,16 @@ namespace :publishing_api do
         description: "The prefix route under which pages for courts and tribunals are published.",
       },
     ].each do |route|
-      publisher.publish(route.merge(
-        format: "special_route",
-        publishing_app: "whitehall",
-        rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
-        update_type: "major",
-        type: "prefix",
-        public_updated_at: Time.zone.now.iso8601,
-      ))
+      publisher.publish(
+        route.merge(
+          format: "special_route",
+          publishing_app: "whitehall",
+          rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
+          update_type: "major",
+          type: "prefix",
+          public_updated_at: Time.zone.now.iso8601,
+          )
+      )
     end
   end
 

@@ -29,12 +29,15 @@ class Admin::TakePartPagesControllerTest < ActionController::TestCase
   end
 
   test 'POST :create saves a new instance with the supplied valid params' do
-    attrs = attributes_for(:take_part_page, title: 'Wear a monocle!')
-    post :create, params: {
-take_part_page: attrs.merge(
-      image: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
-    )
-}
+    take_part_page_attrs = attributes_for(:take_part_page, title: 'Wear a monocle!')
+                             .merge(
+                               image: fixture_file_upload(
+                                 'minister-of-funk.960x640.jpg',
+                                 'image/jpg',
+                               )
+                             )
+
+    post :create, params: { take_part_page: take_part_page_attrs }
 
     puts assigns(:take_part_page).errors.full_messages
     assert assigns(:take_part_page).persisted?

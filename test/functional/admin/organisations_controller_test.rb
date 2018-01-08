@@ -52,22 +52,23 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     topic_ids = [create(:topic), create(:topic)].map(&:id)
 
     post :create, params: {
-organisation: attributes.merge(
-      organisation_classifications_attributes: [
-        { classification_id: topic_ids[0], ordering: 1 },
-        { classification_id: topic_ids[1], ordering: 2 }
-      ],
-      parent_organisation_ids: [parent_org_1.id, parent_org_2.id],
-      organisation_type_key: :executive_agency,
-      govuk_status: 'exempt',
-      featured_links_attributes: {
-        "0" => {
-          url: "http://www.gov.uk/mainstream/something",
-          title: "Something on mainstream"
-        }
-      }
-    )
-}
+      organisation: attributes
+                      .merge(
+                        organisation_classifications_attributes: [
+                          { classification_id: topic_ids[0], ordering: 1 },
+                          { classification_id: topic_ids[1], ordering: 2 },
+                        ],
+                        parent_organisation_ids: [parent_org_1.id, parent_org_2.id],
+                        organisation_type_key: :executive_agency,
+                        govuk_status: 'exempt',
+                        featured_links_attributes: {
+                          "0" => {
+                            url: "http://www.gov.uk/mainstream/something",
+                            title: "Something on mainstream",
+                          }
+                        }
+                      )
+    }
 
     assert_redirected_to admin_organisations_path
     assert organisation = Organisation.last
@@ -84,20 +85,22 @@ organisation: attributes.merge(
 
   test 'POST :create can set a custom logo' do
     post :create, params: {
-organisation: example_organisation_attributes.merge(
-      organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
-      logo: fixture_file_upload('logo.png', 'image/png')
-    )
-}
+      organisation: example_organisation_attributes
+                      .merge(
+                        organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
+                        logo: fixture_file_upload('logo.png', 'image/png')
+                      )
+    }
+
     assert_match /logo.png/, Organisation.last.logo.file.filename
   end
 
   test 'POST create can set number of important board members' do
     post :create, params: {
-organisation: example_organisation_attributes.merge(
-      important_board_members: 1,
-    )
-}
+      organisation: example_organisation_attributes
+                      .merge(important_board_members: 1)
+    }
+
     assert_equal 1, Organisation.last.important_board_members
   end
 

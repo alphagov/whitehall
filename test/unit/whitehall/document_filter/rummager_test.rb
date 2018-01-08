@@ -11,8 +11,14 @@ module Whitehall::DocumentFilter
     end
 
     def expect_search_by_format_types(format_types)
-      Whitehall.government_search_client.expects(:advanced_search).with(
-          has_entry({ search_format_types: format_types }))
+      Whitehall
+        .government_search_client
+        .expects(:advanced_search)
+        .with(
+          has_entry(
+            { search_format_types: format_types }
+          )
+        )
     end
 
     def expect_search_by_people(people)

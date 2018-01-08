@@ -26,15 +26,11 @@ Before do
       "base_path" => "/government/needs/need-2",
       "links" => {}
   }
-  stub_request(
-      :get,
-      %r{\A#{Plek.find('publishing-api')}/v2/links}
-  ).to_return(body: { links: { meets_user_needs: [need1, need2] } }.to_json)
+  stub_request(:get, %r{\A#{Plek.find('publishing-api')}/v2/links})
+    .to_return(body: { links: { meets_user_needs: [need1, need2] } }.to_json)
 
-  stub_request(
-      :get,
-      %r{\A#{Plek.find('publishing-api')}/v2/expanded-links}
-  ).to_return(body: {
+  stub_request(:get, %r{\A#{Plek.find('publishing-api')}/v2/expanded-links})
+    .to_return(body: {
       expanded_links: {
         meets_user_needs: [{
                               title: need1["title"],

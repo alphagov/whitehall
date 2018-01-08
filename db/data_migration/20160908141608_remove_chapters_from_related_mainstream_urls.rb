@@ -42,14 +42,18 @@ def clean_the_url(url)
   clean_url
 end
 
-related_mainstream_content_urls = DetailedGuide.select(
-                                    :id,
-                                    :related_mainstream_content_url
-                                  ).where([
-                                    "related_mainstream_content_url IS NOT NULL
-                                    AND related_mainstream_content_url != ''
-                                    AND state != 'superseded'"
-                                  ])
+related_mainstream_content_urls = DetailedGuide
+                                    .select(
+                                      :id,
+                                      :related_mainstream_content_url,
+                                    )
+                                    .where(
+                                      [
+                                        "related_mainstream_content_url IS NOT NULL " \
+                                        "AND related_mainstream_content_url != '' " \
+                                        "AND state != 'superseded'"
+                                      ]
+                                    )
 puts "#{related_mainstream_content_urls.length} Related mainstream content urls"
 related_mainstream_content_urls.each do |detailed_guide|
   next if detailed_guide?(detailed_guide[:id], detailed_guide[:related_mainstream_content_url])
@@ -62,14 +66,18 @@ related_mainstream_content_urls.each do |detailed_guide|
   puts "Content item not found: #{detailed_guide[:id]}, #{detailed_guide[:related_mainstream_content_url]}" if content_id.nil?
 end
 
-additional_related_mainstream_content_urls = DetailedGuide.select(
-                                    :id,
-                                    :additional_related_mainstream_content_url
-                                  ).where([
-                                    "additional_related_mainstream_content_url IS NOT NULL
-                                    AND additional_related_mainstream_content_url != ''
-                                    AND state != 'superseded'"
-                                  ])
+additional_related_mainstream_content_urls = DetailedGuide
+                                               .select(
+                                                 :id,
+                                                 :additional_related_mainstream_content_url
+                                               )
+                                               .where(
+                                                 [
+                                                   "additional_related_mainstream_content_url IS NOT NULL " \
+                                                   "AND additional_related_mainstream_content_url != ''" \
+                                                   "AND state != 'superseded'"
+                                                 ]
+                                               )
 puts "\n#{additional_related_mainstream_content_urls.length} Additional related mainstream content urls"
 
 additional_related_mainstream_content_urls.each do |detailed_guide|

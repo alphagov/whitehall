@@ -4,7 +4,7 @@ statistics_announcements_to_republish = StatisticsAnnouncement
   .where(publication_id: publication_ids_published_since_april)
 
 republisher = DataHygiene::PublishingApiRepublisher.new(
-    statistics_announcements_to_republish
+  statistics_announcements_to_republish
   )
 
 republisher.perform

@@ -11,7 +11,7 @@ module AdminEditionControllerTestHelpers
 
         post :create, params: {
           edition: attributes.merge(
-          summary: "my summary",
+            summary: "my summary",
           )
         }
 
