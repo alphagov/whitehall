@@ -40,7 +40,7 @@ class AttachmentData < ApplicationRecord
   end
 
   def csv?
-    file_extension.downcase == "csv"
+    file_extension.casecmp("csv").zero?
   end
 
   # Is in OpenDocument format? (see https://en.wikipedia.org/wiki/OpenDocument)
