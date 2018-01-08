@@ -17,13 +17,13 @@ task :describe_filters, [:topic_list_csv] => :environment do |t, args|
     params['topics'] = params['topics'].map {|t| t.split(";")}.flatten
     params[:action] = "index"
     params[:controller] = case uri.path
-    when "/government/publications.atom"
-      "publications"
-    when "/government/announcements.atom"
-      "announcements"
-    else
-      raise "Unexpected uri: #{uri}"
-    end
+                          when "/government/publications.atom"
+                            "publications"
+                          when "/government/announcements.atom"
+                            "announcements"
+                          else
+                            raise "Unexpected uri: #{uri}"
+                          end
 
     params
   end
