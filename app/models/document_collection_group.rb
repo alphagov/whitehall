@@ -1,7 +1,7 @@
 class DocumentCollectionGroup < ApplicationRecord
   belongs_to :document_collection, inverse_of: :groups, touch: true
   has_many :memberships,
-           -> { order('document_collection_group_memberships.ordering') } ,
+           -> { order('document_collection_group_memberships.ordering') },
            class_name: 'DocumentCollectionGroupMembership',
            inverse_of: :document_collection_group,
            dependent: :destroy

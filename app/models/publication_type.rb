@@ -111,7 +111,7 @@ class PublicationType
   Decision               = create(id: 21, key: "decision", singular_name: "Decision", plural_name: "Decisions", prevalence: :less_common)
 
   # Use is discouraged
-  Correspondence         = create(id: 8 , key: "correspondence", singular_name: "Correspondence", plural_name: "Correspondence", prevalence: :discouraged)
+  Correspondence         = create(id: 8, key: "correspondence", singular_name: "Correspondence", plural_name: "Correspondence", prevalence: :discouraged)
   PromotionalMaterial    = create(id: 13, key: "promotional", singular_name: "Promotional material", plural_name: "Promotional material", prevalence: :discouraged)
   Regulation             = create(id: 22, key: "regulation", singular_name: "Regulation", plural_name: "Regulations", prevalence: :discouraged)
 

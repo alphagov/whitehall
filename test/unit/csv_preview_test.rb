@@ -12,7 +12,7 @@ class CsvPreviewTest < ActiveSupport::TestCase
   end
 
   test "yields the data, row by row" do
-    expected_data = [['Office for Facial Hair Studies', '£12000000' , '£10000000'],
+    expected_data = [['Office for Facial Hair Studies', '£12000000', '£10000000'],
                      ['Department of Grooming', '£15000000', '£15600000']]
 
     assert_csv_data expected_data, csv_preview
@@ -60,7 +60,7 @@ class CsvPreviewTest < ActiveSupport::TestCase
 
   test 'the size of the preview can be overridden' do
     preview       = CsvPreview.new(File.open(Rails.root.join('test/fixtures/csv_encodings/utf-8.csv')), 1)
-    expected_data = [['Office for Facial Hair Studies', '£12000000' , '£10000000']]
+    expected_data = [['Office for Facial Hair Studies', '£12000000', '£10000000']]
 
     assert_csv_data(expected_data, preview)
   end
