@@ -43,7 +43,7 @@ check.add_expectation("locale") do |content_store_payload, record|
   content_store_payload["locale"] == (record.locale || "en")
 end
 
-check.add_expectation("has parent") do |content_store_payload, record|
+check.add_expectation("has parent") do |content_store_payload, _record|
   content_store_payload["links"]["parent"].present?
 end
 

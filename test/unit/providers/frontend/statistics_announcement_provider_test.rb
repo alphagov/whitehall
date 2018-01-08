@@ -85,7 +85,7 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
   end
 
   test "#search: results are returned in a CollectionPage with the correct total, page and per_page values" do
-    @mock_source.stubs(:advanced_search).returns('total' => 30, 'results' => 10.times.map { |n| { "title" => "A title", "metadata" => {} } })
+    @mock_source.stubs(:advanced_search).returns('total' => 30, 'results' => Array.new(10, { "title" => "A title", "metadata" => {} }))
 
     results = Frontend::StatisticsAnnouncementProvider.search(page: 2, per_page: 10)
 

@@ -85,7 +85,7 @@ Given /^a worldwide organisation "([^"]*)"$/ do |name|
   worg.main_office = create(:worldwide_office, worldwide_organisation: worg, title: "Main office for #{name}")
 end
 
-Given /^a worldwide organisation "([^"]*)" exists for the world location "([^"]*)" with translations into "([^"]*)"$/ do |name, country_name, translation|
+Given /^a worldwide organisation "([^"]*)" exists for the world location "([^"]*)" with translations into "([^"]*)"$/ do |name, _country_name, translation|
   country = create(:world_location, active: true, translated_into: [translation])
   create(:worldwide_organisation, name: name, world_locations: [country])
 end

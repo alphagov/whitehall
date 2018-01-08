@@ -49,7 +49,7 @@ class RoleTypePresenter
 
   def self.options
     options = GROUPS_VS_NAMES_VS_TYPES.map do |group, names_vs_types|
-      [group, names_vs_types.map { |name, type| [name.humanize, name] }]
+      [group, names_vs_types.map { |name, _type| [name.humanize, name] }]
     end
     # Put ministers at the end of the list.
     ministerial = options.find_index { |opt| opt[0] == 'Ministerial' }

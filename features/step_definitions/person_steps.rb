@@ -105,7 +105,7 @@ Then /^when viewing the person "([^"]*)" with the locale "([^"]*)" I should see:
   assert page.has_css?('.biography', text: translation["biography"]), "Biography wasn't present"
 end
 
-Then(/^I should see limited information about the person "(.*?)"$/) do |name|
+Then(/^I should see limited information about the person "(.*?)"$/) do |_name|
   assert page.has_css?('.biography', text: "This is the first paragraph of the biography."), "Biography wasn't present"
   assert page.has_no_content?("This is the second paragraph.")
   assert page.has_no_css?('a[href="#current-roles"]')

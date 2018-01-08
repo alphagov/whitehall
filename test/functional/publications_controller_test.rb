@@ -507,7 +507,7 @@ class PublicationsControllerTest < ActionController::TestCase
 private
 
   def publication_with_attachment(params = {})
-    type = params.delete(:type) { |key| :file }
+    type = params.delete(:type) { |_key| :file }
     trait = "with_#{type}_attachment".to_sym
     create(:published_publication, trait, body: "!@1").tap do |publication|
       attachment = publication.attachments.first

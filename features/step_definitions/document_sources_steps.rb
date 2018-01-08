@@ -32,7 +32,7 @@ When /^I change the legacy url "([^"]*)" to "([^"]*)" on the "([^"]*)" publicati
   click_button 'Save'
 end
 
-When /^I remove the legacy url "([^"]*)" on the "([^"]*)" publication$/ do |old_url, title|
+When /^I remove the legacy url "([^"]*)" on the "([^"]*)" publication$/ do |_old_url, title|
   publication = Publication.find_by!(title: title)
   visit admin_edition_path(publication)
   fill_in "document_sources", with: ''

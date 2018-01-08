@@ -35,7 +35,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_equal [prime_minister, deputy_prime_minister, first_sec_of_state, defence_minister, culture_minister], assigns(:cabinet_ministerial_roles).map { |person, role| role.first.model }
+    assert_equal [prime_minister, deputy_prime_minister, first_sec_of_state, defence_minister, culture_minister], assigns(:cabinet_ministerial_roles).map { |_person, role| role.first.model }
   end
 
   test "shows ministers by organisation with the organisations in the cms-defined order" do
@@ -115,7 +115,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_equal [role_3], assigns(:also_attends_cabinet).map { |person, role| role.first.model }
+    assert_equal [role_3], assigns(:also_attends_cabinet).map { |_person, role| role.first.model }
   end
 
   test "shows whips separately" do

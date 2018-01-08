@@ -55,7 +55,7 @@ url_maker = Whitehall.url_maker
 CSV.open(output_filename, 'w') do |csv|
   csv << ["URL", "Organisation", "First published on GOV.UK", "Format", "Status", "Timestamp of last state change"]
   Organisation.ordered_by_name_ignoring_prefix.each do |org|
-    org.editions.alphabetical.group_by(&:document_id).each do |document_id, editions|
+    org.editions.alphabetical.group_by(&:document_id).each do |_document_id, editions|
       sorted_editions = editions.sort_by &:lock_version
       latest_edition = sorted_editions.last
       csv << [

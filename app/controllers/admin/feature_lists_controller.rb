@@ -6,7 +6,7 @@ class Admin::FeatureListsController < Admin::BaseController
   end
 
   def reorder
-    new_order = (params[:ordering] || []).sort_by { |k, v| v.to_i }.map(&:first)
+    new_order = (params[:ordering] || []).sort_by { |_k, v| v.to_i }.map(&:first)
     if @feature_list.reorder!(new_order)
       message = { notice: "Feature order updated" }
     else

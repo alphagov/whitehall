@@ -108,7 +108,7 @@ When(/^I feature the offsite link "(.*?)" for topical event "(.*?)" with image "
   click_button "Save"
 end
 
-Then /^I should see the featured (documents|offsite links) in the "([^"]*)" topical event are:$/ do |type, name, expected_table|
+Then /^I should see the featured (documents|offsite links) in the "([^"]*)" topical event are:$/ do |_type, name, expected_table|
   visit topical_event_path(TopicalEvent.find_by!(name: name))
   rows = find('.featured-news').all('.feature')
   table = rows.collect do |row|

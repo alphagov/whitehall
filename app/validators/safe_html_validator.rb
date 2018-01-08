@@ -4,7 +4,7 @@ class SafeHtmlValidator < ActiveModel::Validator
 
     return if Whitehall.skip_safe_html_validation || @record.marked_for_destruction?
 
-    @record.changes.each do |attribute_name, (old_value, new_value)|
+    @record.changes.each do |attribute_name, (_old_value, new_value)|
       check_attribute_for_safety(attribute_name, new_value)
     end
   end

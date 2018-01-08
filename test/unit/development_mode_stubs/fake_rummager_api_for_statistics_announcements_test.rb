@@ -130,7 +130,7 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
   end
 
   test "#advanced_search doesn't return duplicate results when announcement has 2 or more announcement dates" do
-    announcement = create :statistics_announcement, title: "stats announcement", statistics_announcement_dates: 2.times.map { |n| build :statistics_announcement_date }
+    announcement = create :statistics_announcement, title: "stats announcement", statistics_announcement_dates: 2.times.map { |_n| build :statistics_announcement_date }
     assert_equal ['stats announcement'], matched_titles(page: '1', per_page: '10')
   end
 

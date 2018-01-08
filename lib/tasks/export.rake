@@ -63,7 +63,7 @@ namespace :export do
   end
 
   desc "Export list of published editions for orgs export:published_editions ORGS=org-slug"
-  task :published_editions, [:orgs] => :environment do |t, args|
+  task :published_editions, [:orgs] => :environment do |_t, _args|
     if ENV['ORGS']
       orgs = Organisation.where(slug: ENV['ORGS'].split(',')).all
     else
@@ -134,7 +134,7 @@ namespace :export do
   end
 
   desc "Exports HTML attachments for a particular publication as JSON"
-  task :html_attachments, [:slug] => :environment do |t, args|
+  task :html_attachments, [:slug] => :environment do |_t, args|
     edition = Document.find_by(slug: args[:slug]).published_edition
 
     result = edition.html_attachments.map do |a|

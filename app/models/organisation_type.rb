@@ -121,7 +121,7 @@ class OrganisationType
   end
 
   def self.agencies_and_public_bodies
-    DATA.select { |k, v| v[:agency_or_public_body] }
+    DATA.select { |_k, v| v[:agency_or_public_body] }
   end
 
   attr_reader :key, :name, :analytics_prefix, :agency_or_public_body, :non_departmental_public_body

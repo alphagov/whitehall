@@ -26,7 +26,7 @@ Then /^I can click through to the most recent version of document "([^"]*)"$/ do
   assert_path admin_edition_path(Edition.find_by(title: title).latest_edition)
 end
 
-Then /^I cannot click through to the most recent version of document "([^"]*)"$/ do |arg1|
+Then /^I cannot click through to the most recent version of document "([^"]*)"$/ do |_title|
   assert page.has_css?('.alert.access-limited-latest-edition')
   assert page.has_no_content?('Go to draft')
 end

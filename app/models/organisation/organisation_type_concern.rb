@@ -81,7 +81,7 @@ module Organisation::OrganisationTypeConcern
   def supporting_bodies_grouped_by_type
     supporting_bodies.
       group_by(&:organisation_type).
-      sort_by { |type, department| type.listing_position }
+      sort_by { |type, _department| type.listing_position }
   end
 
   def hmcts_tribunal?

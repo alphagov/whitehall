@@ -27,7 +27,7 @@ private
 
   def destroy_blank_social_media_accounts
     if params[:topical_event][:social_media_accounts_attributes]
-      params[:topical_event][:social_media_accounts_attributes].each do |index, account|
+      params[:topical_event][:social_media_accounts_attributes].each do |_index, account|
         if account[:social_media_service_id].blank? && account[:url].blank?
           account[:_destroy] = "1"
         end

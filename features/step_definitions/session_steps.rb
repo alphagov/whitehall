@@ -46,7 +46,7 @@ When /^I log out$/ do
   log_out
 end
 
-Around("@use_real_sso") do |scenario, block|
+Around("@use_real_sso") do |_scenario, block|
   current_sso_env = ENV['GDS_SSO_MOCK_INVALID']
   ENV['GDS_SSO_MOCK_INVALID'] = "1"
   block.call

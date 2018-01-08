@@ -12,14 +12,14 @@ class JavascriptHelperTest < ActionView::TestCase
   end
 
   test "initialise_script should pass params down to script initialisation as json" do
-    self.stubs(:content_for).with() { |yield_block, script|
+    self.stubs(:content_for).with() { |_yield_block, script|
       assert script.include?('{"foo":"bar"}'), "expected #{script} to include '{\"foo\":\"bar\"}'"
     }
     initialise_script "GOVUK.SomeObject", foo: "bar"
   end
 
   test "initialise_script should return a string marked as html_safe" do
-    self.stubs(:content_for).with() { |yield_block, script|
+    self.stubs(:content_for).with() { |_yield_block, script|
       assert script.html_safe?
     }
     initialise_script "GOVUK.SomeObject"

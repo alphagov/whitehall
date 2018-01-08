@@ -10,7 +10,7 @@ Given(/^a published news article "([^"]*)" associated with "([^"]*)"$/) do |titl
   create(:published_news_article, title: title, role_appointments: [appointment])
 end
 
-Given(/^a published news article "([^"]*)" which isn't explicitly associated with "([^"]*)"$/) do |title, thing|
+Given(/^a published news article "([^"]*)" which isn't explicitly associated with "([^"]*)"$/) do |title, _thing|
   create(:published_news_article, title: title)
 end
 

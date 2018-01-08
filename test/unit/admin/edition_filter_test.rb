@@ -270,7 +270,7 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     3.times { create(:news_article) }
     filter = Admin::EditionFilter.new(Edition, build(:user), per_page: 2)
     count = 0
-    filter.each_edition_for_csv { |unused| count += 1 }
+    filter.each_edition_for_csv { |_unused| count += 1 }
     assert_equal 3, count
   end
 end

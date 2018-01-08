@@ -31,7 +31,7 @@ module DataHygiene
     def dump
       CSV.generate do |csv|
         csv << ["type", "title", "admin url", "state", "missing placeholders"]
-        by_document.each do |document_id, records|
+        by_document.each do |_document_id, records|
           records.each do |record|
             edition = record[:edition]
             csv << [

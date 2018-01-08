@@ -4,7 +4,7 @@ FactoryBot.define do
     world_location_type WorldLocationType::WorldLocation
 
     trait(:with_worldwide_organisations) {
-      after :create do |world_location, evaluator|
+      after :create do |world_location, _evaluator|
         world_location.worldwide_organisations << FactoryBot.create(:worldwide_organisation, :with_sponsorships)
       end
     }

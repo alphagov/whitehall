@@ -193,7 +193,7 @@ module OrganisationHelper
   end
 
   def organisations_grouped_by_type(organisations)
-    organisations.group_by(&:organisation_type).sort_by { |type, department| type.listing_position }
+    organisations.group_by(&:organisation_type).sort_by { |type, _department| type.listing_position }
   end
 
   def extra_board_member_class(organisation, i)

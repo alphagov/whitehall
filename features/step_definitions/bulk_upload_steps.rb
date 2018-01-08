@@ -21,7 +21,7 @@ Then(/^I should see that the news article has attachments$/) do
   assert_equal 'greenpaper.pdf', @edition.attachments[1].filename
 end
 
-When(/^I upload a zip file that contains a file "(.*?)"$/) do |arg1|
+When(/^I upload a zip file that contains a file "(.*?)"$/) do |_file|
   @old_attachment_data = @attachment.attachment_data
   visit admin_edition_attachments_path(@edition)
   click_link 'Bulk upload from Zip file'
