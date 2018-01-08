@@ -194,7 +194,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     )
 
     get :show, params: { id: organisation }
-    assert_select %Q{img[alt="#{organisation.name}"][src*="logo.png"]}
+    assert_select %{img[alt="#{organisation.name}"][src*="logo.png"]}
   end
 
   view_test "#show includes the parent organisations for sub-organisations in the header" do

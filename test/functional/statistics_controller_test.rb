@@ -178,8 +178,8 @@ class StatisticsControllerTest < ActionController::TestCase
     result = json['results'].first['result']
 
     path = public_document_path(collection)
-    link = %Q{<a href="#{path}">#{collection.title}</a>}
-    assert_equal %Q{Part of a collection: #{link}}, result['publication_collections']
+    link = %{<a href="#{path}">#{collection.title}</a>}
+    assert_equal %{Part of a collection: #{link}}, result['publication_collections']
   end
 
   view_test "index generates an atom feed with entries for statistics matching the current filter" do

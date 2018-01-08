@@ -71,7 +71,7 @@ def output_es_line(obj, output)
     end
   end
 
-  output.puts %Q[{"index": {"_type": "edition", "_id": "#{search_index['link']}"}}]
+  output.puts %[{"index": {"_type": "edition", "_id": "#{search_index['link']}"}}]
   output.puts search_index.to_json
 end
 

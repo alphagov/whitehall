@@ -46,7 +46,7 @@ When(/^I move "(.*?)" before "(.*?)" in the document collection$/) do |doc_title
   click_on "Collection documents"
 
   #Simulate drag-droping document.
-  page.execute_script %Q{
+  page.execute_script %{
     (function($) {
       var doc_1_li = $('.document-list li:contains(#{doc_title_1})');
       if(doc_1_li.length == 0) throw("Couldn't find li for document '#{doc_title_1}' in .document-list.");
