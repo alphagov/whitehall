@@ -13,8 +13,7 @@ class PolicyTagger
   def initialize(slug:,
                  policies_to_remove:,
                  policies_to_add:,
-                 logger: Logger.new(nil)
-                )
+                 logger: Logger.new(nil))
     @slug = slug
     @policies_to_remove = policies_to_remove
     @policies_to_add = policies_to_add
