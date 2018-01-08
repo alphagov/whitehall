@@ -1,5 +1,5 @@
 enabled = if ENV.has_key?("HIGHLIGHT_WORDS_TO_AVOID")
-            "true" == ENV["HIGHLIGHT_WORDS_TO_AVOID"]
+            ENV["HIGHLIGHT_WORDS_TO_AVOID"] == "true"
           else
             !Rails.env.production?
           end
