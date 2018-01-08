@@ -26,7 +26,7 @@ private
     return unless params.include?(key)
     params[key].keys.each do |id|
       Role.where(id: id).update_all(
-        column => params[key]["#{id}"]["ordering"],
+        column => params[key][id.to_s]["ordering"],
       )
     end
   end

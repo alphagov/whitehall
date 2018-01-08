@@ -677,7 +677,7 @@ end
 
 Then(/^I can see that the organisation is closed and has been superseded by the other$/) do
   assert page.has_content?("#{@organisation.name} was replaced by")
-  assert page.has_content?("#{@superseding_organisation.name}")
+  assert page.has_content?(@superseding_organisation.name)
 end
 
 Then(/^I can see the documents associated with that organisation$/) do

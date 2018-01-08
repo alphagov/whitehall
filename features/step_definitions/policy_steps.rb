@@ -19,8 +19,8 @@ Then /^I should see that "([^"]*)" is the policy body$/ do |policy_body|
 end
 
 Then /^I should see that the policy only applies to:$/ do |nation_names|
-  message = "#{nation_names.raw.flatten.sort.to_sentence}"
-  assert page.has_css?("#{inapplicable_nations_selector}", text: message)
+  message = nation_names.raw.flatten.sort.to_sentence
+  assert page.has_css?(inapplicable_nations_selector, text: message)
 end
 
 Then /^I can see links to the related published policies "([^"]*)" and "([^"]*)"$/ do |policy_title_1, policy_title_2|

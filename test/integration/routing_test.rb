@@ -17,7 +17,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   test "visiting #{Whitehall.router_prefix} when not in frontend redirects to /" do
-    get "#{Whitehall.router_prefix}"
+    get Whitehall.router_prefix
     assert_redirected_to "/"
   end
 

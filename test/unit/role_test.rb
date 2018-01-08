@@ -160,7 +160,7 @@ class RoleTest < ActiveSupport::TestCase
 
   test "footnotes should display only payment when option not set" do
     role = create(:role, attends_cabinet_type_id: 2, role_payment_type_id: 1)
-    footnote = "#{role.role_payment_type.name}"
+    footnote = role.role_payment_type.name
     assert_equal footnote, role.footnotes
   end
 
