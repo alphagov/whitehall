@@ -28,7 +28,6 @@ class AttachmentDataReporter
       csv << []
       csv << ["Total attachments from #{start_date} to #{end_date}", total, ""]
     end
-
   end
 
   def report
