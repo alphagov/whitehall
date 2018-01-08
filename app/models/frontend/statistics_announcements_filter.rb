@@ -34,8 +34,6 @@ class Frontend::StatisticsAnnouncementsFilter < FormObject
     date = Chronic.parse(date, guess: :end, endian_precedence: :little) if date.is_a? String
     @to_date = if date.present?
                  (date - 1.seconds).to_date
-               else
-                 nil
                end
   end
 
@@ -43,8 +41,6 @@ class Frontend::StatisticsAnnouncementsFilter < FormObject
     date = Chronic.parse(date, guess: :begin, endian_precedence: :little) if date.is_a? String
     @from_date = if date.present?
                    date.to_date
-                 else
-                   nil
                  end
   end
 

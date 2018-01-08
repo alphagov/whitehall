@@ -30,9 +30,10 @@ module SyncChecker
 
       def edition_expected_in_live
         return nil if latest_edition_is_rejected?(document)
-        if document.published_edition
+        case
+        when document.published_edition
           document.published_edition
-        elsif document.pre_publication_edition && document.pre_publication_edition.unpublishing
+        when document.pre_publication_edition && document.pre_publication_edition.unpublishing
           document.pre_publication_edition
         end
       end

@@ -119,8 +119,6 @@ class Publication < Publicationesque
     # us, so returning nil is ok even though it would break the SQL insert
     if self.publication_type.present?
       self.publication_type.access_limited_by_default?
-    else
-      nil
     end
   end
 

@@ -102,8 +102,6 @@ class AttachmentUploader < WhitehallUploader
       filenames.map do |f|
         if match = f.match(/\.([^\.]+)\Z/)
           match[1].downcase
-        else
-          nil
         end
       end.compact
     end
