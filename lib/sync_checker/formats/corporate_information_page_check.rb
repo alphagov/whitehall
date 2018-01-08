@@ -165,7 +165,6 @@ module SyncChecker
         corporate_information_page.organisation.organisation_chart_url.present?
       end
 
-
       def organisation_has_transparency_data_publications?(corporate_information_page)
         return unless corporate_information_page.organisation.present?
 

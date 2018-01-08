@@ -31,7 +31,6 @@ module PublishingApi
       content.merge!(PayloadBuilder::PolymorphicPath.for(item))
     end
 
-
     def links
       LinksPresenter.new(item).extract([:organisations])
     end

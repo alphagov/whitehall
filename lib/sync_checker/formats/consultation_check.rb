@@ -226,7 +226,6 @@ module SyncChecker
           .try(:collect, &:content_id)
       end
 
-
       def expected_topical_event_content_ids(edition)
         edition.topical_events.pluck(:content_id)
       end

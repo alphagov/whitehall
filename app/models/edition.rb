@@ -497,7 +497,6 @@ class Edition < ApplicationRecord
     most_recent_submission_audit_entry.try(:actor)
   end
 
-
   def title_with_state
     "#{title} (#{state})"
   end

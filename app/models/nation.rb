@@ -8,10 +8,21 @@ class Nation
   Wales = create(id: 3, name: "Wales")
   NorthernIreland = create(id: 4, name: "Northern Ireland")
 
-  def self.england; England; end
-  def self.scotland; Scotland; end
-  def self.wales; Wales; end
-  def self.northern_ireland; NorthernIreland; end
+  def self.england
+    England
+  end
+
+  def self.scotland
+    Scotland
+  end
+
+  def self.wales
+    Wales
+  end
+
+  def self.northern_ireland
+    NorthernIreland
+  end
 
   def self.potentially_inapplicable
     [Scotland, Wales, NorthernIreland]

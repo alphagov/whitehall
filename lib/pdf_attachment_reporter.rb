@@ -28,7 +28,6 @@ class PDFAttachmentReporter
     @last_time_period_days = opts.fetch(:last_time_period_days, 30)
   end
 
-
   def pdfs_by_organisation
     second_time_period_date = @last_time_period_days.days.ago.to_date
 

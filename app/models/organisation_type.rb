@@ -63,48 +63,63 @@ class OrganisationType
   def self.executive_office
     get :executive_office
   end
+
   def self.ministerial_department
     get :ministerial_department
   end
+
   def self.non_ministerial_department
     get :non_ministerial_department
   end
+
   def self.executive_agency
     get :executive_agency
   end
+
   def self.executive_ndpb
     get :executive_ndpb
   end
+
   def self.advisory_ndpb
     get :advisory_ndpb
   end
+
   def self.tribunal_ndpb
     get :tribunal_ndpb
   end
+
   def self.public_corporation
     get :public_corporation
   end
+
   def self.independent_monitoring_body
     get :independent_monitoring_body
   end
+
   def self.adhoc_advisory_group
     get :adhoc_advisory_group
   end
+
   def self.devolved_administration
     get :devolved_administration
   end
+
   def self.sub_organisation
     get :sub_organisation
   end
+
   def self.other
     get :other
   end
+
   def self.civil_service
     get :civil_service
   end
+
   def self.court
     get :court
   end
+
   def self.agencies_and_public_bodies
     DATA.select { |k, v| v[:agency_or_public_body] }
   end

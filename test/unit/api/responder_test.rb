@@ -169,6 +169,7 @@ class Api::ResponderTest < ActiveSupport::TestCase
     def controller.render(options)
       @rendered_json = options[:json]
     end
+
     def controller.rendered_json
       @rendered_json
     end
