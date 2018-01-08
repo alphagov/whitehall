@@ -39,14 +39,14 @@ end
 
 Given(/^a (topic|topical event) called "(.*?)" exists with featured documents$/) do |type, name|
   classification = if type == 'topic'
-    topic = create(:topic, name: name)
-    stub_topic_in_content_store(name)
-    topic
-  else
-    topical_event = create(:topical_event, name: name)
-    stub_topical_event_in_content_store(name)
-    topical_event
-  end
+                     topic = create(:topic, name: name)
+                     stub_topic_in_content_store(name)
+                     topic
+                   else
+                     topical_event = create(:topical_event, name: name)
+                     stub_topical_event_in_content_store(name)
+                     topical_event
+                   end
 
   create(:classification_featuring, classification: classification)
 end
@@ -76,10 +76,10 @@ end
 
 When /^I visit the "([^"]*)" (topic|topical event)$/ do |name, type|
   classification = if type == 'topic'
-    Topic.find_by!(name: name)
-  else
-    TopicalEvent.find_by!(name: name)
-  end
+                     Topic.find_by!(name: name)
+                   else
+                     TopicalEvent.find_by!(name: name)
+                   end
 
   visit polymorphic_path(classification)
 end

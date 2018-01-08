@@ -125,12 +125,12 @@ class OrganisationsControllerTest < ActionController::TestCase
     test "#show sets Cache-Control: max-age to the time of the next scheduled #{edition_type}" do
       organisation = create_org_and_stub_content_store(:ministerial_department)
       edition = if block_given?
-        yield organisation
-      else
-        create(edition_type, :scheduled,
-          scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2,
-          organisations: [organisation])
-      end
+                  yield organisation
+                else
+                  create(edition_type, :scheduled,
+                    scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2,
+                    organisations: [organisation])
+                end
 
       Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
         get :show, params: { id: organisation }

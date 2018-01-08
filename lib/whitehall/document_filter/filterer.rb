@@ -91,10 +91,10 @@ module Whitehall::DocumentFilter
     def find_by_slug(klass, slugs)
       @selected ||= {}
       @selected[klass] ||= if slugs.present? && !slugs.include?("all")
-        klass.where(slug: slugs)
-      else
-        []
-      end
+                             klass.where(slug: slugs)
+                           else
+                             []
+                           end
     end
 
     def parse_date(date)

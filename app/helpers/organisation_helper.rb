@@ -95,21 +95,21 @@ module OrganisationHelper
     parents = organisation.parent_organisations.map { |parent| organisation_relationship_html(parent) }
 
     description = if parents.any?
-      case type_name
-      when 'other'
-        "#{name} works with #{parents.to_sentence}."
-      when 'non-ministerial department'
-        "#{name} is #{relationship}."
-      when 'sub-organisation'
-        "#{name} is part of #{parents.to_sentence}."
-      when 'executive non-departmental public body', 'advisory non-departmental public body', 'tribunal non-departmental public body', 'executive agency'
-        "#{name} is #{relationship}, sponsored by #{parents.to_sentence}."
-      else
-        "#{name} is #{relationship} of #{parents.to_sentence}."
-      end
-    else
-      (type_name != 'other') ? "#{name} is #{relationship}." : "#{name}"
-    end
+                    case type_name
+                    when 'other'
+                      "#{name} works with #{parents.to_sentence}."
+                    when 'non-ministerial department'
+                      "#{name} is #{relationship}."
+                    when 'sub-organisation'
+                      "#{name} is part of #{parents.to_sentence}."
+                    when 'executive non-departmental public body', 'advisory non-departmental public body', 'tribunal non-departmental public body', 'executive agency'
+                      "#{name} is #{relationship}, sponsored by #{parents.to_sentence}."
+                    else
+                      "#{name} is #{relationship} of #{parents.to_sentence}."
+                    end
+                  else
+                    (type_name != 'other') ? "#{name} is #{relationship}." : "#{name}"
+                  end
 
     description.html_safe
   end

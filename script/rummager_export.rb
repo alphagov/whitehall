@@ -17,10 +17,10 @@ require 'config/environment'
 logger.info "Booted"
 
 classes_to_index = if ARGV.include?("--detailed")
-  [DetailedGuide]
-else
-  RummagerPresenters.searchable_classes_for_government_index
-end
+                     [DetailedGuide]
+                   else
+                     RummagerPresenters.searchable_classes_for_government_index
+                   end
 
 id_groups = []
 classes_to_index.each do |klass|
