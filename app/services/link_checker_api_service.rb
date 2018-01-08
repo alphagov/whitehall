@@ -4,7 +4,7 @@ class LinkCheckerApiService
   end
 
   def self.extract_links(reportable)
-    Govspeak::LinkExtractor.new(reportable.body).links
+    Govspeak::LinkExtractor.new(reportable.body).call
   end
 
   def self.check_links(reportable, webhook_uri)
