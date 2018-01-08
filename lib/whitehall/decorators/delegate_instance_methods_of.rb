@@ -48,7 +48,7 @@ module Whitehall
           end
         end
 
-        methods = model_classes.map { |mc| mc.instance_methods }.flatten.uniq
+        methods = model_classes.map(&:instance_methods).flatten.uniq
         without_methods_of = delegate_options.delete(:without_methods_of)
         Array.wrap(without_methods_of).each { |without| methods -= without.instance_methods }
         methods += DEFAULT_METHODS_TO_ALWAYS_DELEGATE if delegate_options.delete(:with_default_methods)

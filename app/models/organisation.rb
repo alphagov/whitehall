@@ -288,7 +288,7 @@ class Organisation < ApplicationRecord
   end
 
   def self.ordered_by_name_ignoring_prefix
-    all.sort_by { |o| o.name_without_prefix }
+    all.sort_by(&:name_without_prefix)
   end
 
   def self.with_published_editions
@@ -375,7 +375,7 @@ class Organisation < ApplicationRecord
   end
 
   def display_name
-    [acronym, name].detect { |s| s.present? }
+    [acronym, name].detect(&:present?)
   end
 
   def select_name

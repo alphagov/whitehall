@@ -106,13 +106,13 @@ end
 
 Then /^I should see "([^"]*)", "([^"]*)" in that order on the ministers page$/ do |person1, person2|
   visit ministers_page
-  actual = all(".person .current-appointee").map { |elem| elem.text }
+  actual = all(".person .current-appointee").map(&:text)
   assert_equal [person1, person2], actual
 end
 
 Then /^I should see "([^"]*)", "([^"]*)" in that order on the whips section of the ministers page$/ do |person1, person2|
   visit ministers_page
-  actual = all(".whips .current-appointee").map { |elem| elem.text }
+  actual = all(".whips .current-appointee").map(&:text)
   assert_equal [person1, person2], actual
 end
 

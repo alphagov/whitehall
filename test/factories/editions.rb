@@ -87,9 +87,7 @@ FactoryBot.define do
       force_published { false }
       published_major_version 1
       published_minor_version 0
-      after :create do |edition|
-        edition.refresh_index_if_required
-      end
+      after :create, &:refresh_index_if_required
     end
 
     trait(:deleted) { state "deleted" }

@@ -1,3 +1,1 @@
-PolicyGroup.all.each do |policy_group|
-  policy_group.publish_to_publishing_api
-end
+PolicyGroup.all.each(&:publish_to_publishing_api)

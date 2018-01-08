@@ -212,11 +212,11 @@ class AttachmentUploader < WhitehallUploader
       end
 
       def valid?
-        @others.any? { |other| other.valid? }
+        @others.any?(&:valid?)
       end
 
       def failure_message
-        "The contents of your zip file did not meet any of our constraints: #{@others.map { |o| o.failure_message }.join(' or: ')}"
+        "The contents of your zip file did not meet any of our constraints: #{@others.map(&:failure_message).join(' or: ')}"
       end
     end
   end

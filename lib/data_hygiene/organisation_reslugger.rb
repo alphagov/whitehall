@@ -42,9 +42,7 @@ module DataHygiene
     end
 
     def update_editions
-      organisation.editions.published.each do |edition|
-        edition.update_in_search_index
-      end
+      organisation.editions.published.each(&:update_in_search_index)
     end
 
     def new_base_path

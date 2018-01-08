@@ -24,7 +24,7 @@ class Publicationesque < Edition
   include ::Attachable
 
   def self.sti_names
-    ([self] + descendants).map { |model| model.sti_name }
+    ([self] + descendants).map(&:sti_name)
   end
 
   def self.published_with_eager_loading(ids)

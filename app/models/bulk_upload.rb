@@ -65,7 +65,7 @@ class BulkUpload
   end
 
   def attachments_must_be_valid
-    unless attachments.all? { |attachment| attachment.valid? }
+    unless attachments.all?(&:valid?)
       errors[:base] << 'Please enter missing fields for each attachment'
     end
   end
@@ -118,7 +118,7 @@ private
 
     def extracted_file_paths
       if @extracted_files_paths.nil?
-        lines = extract_contents.split(/[\r\n]+/).map { |line| line.strip }
+        lines = extract_contents.split(/[\r\n]+/).map(&:strip)
         lines = lines
           .reject { |line| line =~ /\A(Archive|creating):/ }
           .reject { |line| line =~ /\/__MACOSX\// }

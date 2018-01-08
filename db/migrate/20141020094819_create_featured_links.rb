@@ -14,7 +14,7 @@ class CreateFeaturedLinks < ActiveRecord::Migration
       t.timestamps
     end
 
-    orgs_with_featured_services_and_guidance = FeaturedServicesAndGuidance.where("linkable_type='Organisation'").group('linkable_id').map { |link| link.linkable_id }
+    orgs_with_featured_services_and_guidance = FeaturedServicesAndGuidance.where("linkable_type='Organisation'").group('linkable_id').map(&:linkable_id)
 
     TopTasks.all.each do |top_task|
       if top_task.linkable_type == 'Organisation' && orgs_with_featured_services_and_guidance.include?(top_task.linkable_id)

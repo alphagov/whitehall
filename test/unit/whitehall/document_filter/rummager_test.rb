@@ -7,7 +7,7 @@ module Whitehall::DocumentFilter
     end
 
     def format_types(*classes)
-      classes.map { |cls| cls.search_format_type }
+      classes.map(&:search_format_type)
     end
 
     def expect_search_by_format_types(format_types)

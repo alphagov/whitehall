@@ -36,7 +36,7 @@ class PublicationType
   end
 
   def self.by_prevalence
-    all.group_by { |type| type.prevalence }
+    all.group_by(&:prevalence)
   end
 
   def self.ordered_by_prevalence

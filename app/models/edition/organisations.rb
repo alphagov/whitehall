@@ -86,7 +86,7 @@ private
 
   def at_least_one_lead_organisation
     unless skip_organisation_validation?
-      unless edition_organisations.detect { |eo| eo.lead? }
+      unless edition_organisations.detect(&:lead?)
         self.errors.add(:lead_organisations, "at least one required")
       end
     end
@@ -100,7 +100,7 @@ private
     # something on the edition itself.
     all_organisations = edition_organisations
       .reject { |eo| eo.marked_for_destruction? || __edition_organisations_for_destruction_on_save.include?(eo) }
-      .map { |eo| eo.organisation_id }
+      .map(&:organisation_id)
 
     if all_organisations.uniq.size != all_organisations.size
       errors.add(:organisations, 'must be unique')
@@ -162,7 +162,7 @@ private
   end
 
   def mark_for_destruction_all_edition_organisations_for_destruction
-    __edition_organisations_for_destruction_on_save.each { |eo| eo.mark_for_destruction }
+    __edition_organisations_for_destruction_on_save.each(&:mark_for_destruction)
   end
 
   def clear_edition_organisations_touched_or_destroyed_by_lead_or_supporting_organisations_setters

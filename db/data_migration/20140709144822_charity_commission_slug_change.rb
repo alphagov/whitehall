@@ -27,9 +27,7 @@ if (org = Organisation.find_by(slug: old_slug))
                             "/government/organisations/#{new_slug}")
 
   puts "Re-registering #{new_slug} published editions in search"
-  org.editions.published.each do |edition|
-    edition.update_in_search_index
-  end
+  org.editions.published.each(&:update_in_search_index)
 else
   puts "No organisation found with slug #{old_slug}.  Skipping..."
 end

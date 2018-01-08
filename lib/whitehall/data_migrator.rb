@@ -25,9 +25,7 @@ module Whitehall
     def run
       if due.any?
         @logger.info "Running #{due.size} data migrations..."
-        due.sort_by(&:version).each do |migration|
-          migration.run
-        end
+        due.sort_by(&:version).each(&:run)
       else
         @logger.info "No data migrations pending."
       end

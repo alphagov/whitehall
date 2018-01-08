@@ -14,7 +14,7 @@ class RolesPresenter < Whitehall::Decorators::CollectionDecorator
   end
 
   def unique_people
-    @unique_people ||= object.map { |role| role.current_person }.compact.uniq
+    @unique_people ||= object.map(&:current_person).compact.uniq
   end
 
   def roles_for(person)

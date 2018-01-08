@@ -41,7 +41,7 @@ class HistoricalAccount < ApplicationRecord
 private
 
   def roles_support_historical_accounts
-    unless roles.all? { |role| role.supports_historical_accounts? }
+    unless roles.all?(&:supports_historical_accounts?)
       errors.add(:base, 'The selected role(s) do not all support historical accounts')
     end
   end

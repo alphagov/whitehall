@@ -79,7 +79,7 @@ class DocumentFilterHelperTest < ActionView::TestCase
     ], option_set.css('optgroup').map { |optgroup|
       [
         optgroup["label"],
-        optgroup.css("option").map { |option| option.text }
+        optgroup.css("option").map(&:text)
       ]
     }
   end
