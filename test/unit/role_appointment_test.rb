@@ -147,7 +147,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
   # '*'s have no significance other than a way of visually indicating when an example
   # starts, ends or includes the start or end date of the existing appointment.
   # Examples indicate appointments which have no end date using '...'
-  existing, *positive_examples = %q{
+  existing, *positive_examples = '
      *====*    This appointment exists in the database.
 
       ====...  This and subsequent appointments are expected to overlap with the existing one.
@@ -162,9 +162,9 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     =*====*
     =*====
       ====*=
-  }.split("\n").reject(&:blank?)
+  '.split("\n").reject(&:blank?)
 
-  existing_continuing, *positive_continuing_examples = %q{
+  existing_continuing, *positive_continuing_examples = '
      *====...    (existing appointment)
 
       ====       (expected to overlap with existing appointment)
@@ -173,10 +173,10 @@ class RoleAppointmentTest < ActiveSupport::TestCase
       ====...
     =*====...
      *====...
-  }.split("\n").reject(&:blank?)
+  '.split("\n").reject(&:blank?)
 
   # The negative examples are cases not expected to overlap with the existing appointment
-  _, *negative_examples = %q{
+  _, *negative_examples = '
      *====*      (existing appointment)
 
           *====  (not expected to overlap, ended_at is not inclusive)
@@ -185,13 +185,13 @@ class RoleAppointmentTest < ActiveSupport::TestCase
            ====...
   ===*
   ===
-  }.split("\n").reject(&:blank?)
+  '.split("\n").reject(&:blank?)
 
-  _, *negative_continuing_examples = %q{
+  _, *negative_continuing_examples = '
      *====...     (existing appointment)
 
    ==             (not expected to overlap)
-  }.split("\n").reject(&:blank?)
+  '.split("\n").reject(&:blank?)
 
   def dates_from_example(example)
     reference_date = 100.days.ago
@@ -276,16 +276,16 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     assert_equal [role], bob.current_roles, "bob should be the minister"
   end
 
-  existing, *positive_before_examples = %q{
+  existing, *positive_before_examples = '
      *====*    This appointment exists in the database.
 
     =*====     This and subsequent appointments are expected to be before it
      *====
     =*====...
      *====...
-  }.split("\n").reject(&:blank?)
+  '.split("\n").reject(&:blank?)
 
-  _, *negative_before_examples = %q{
+  _, *negative_before_examples = '
      *====*    This appointment exists in the database.
 
       ====     This and subsequent appointments are expected to not be before it
@@ -298,7 +298,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
            ===
           *==...
            ===...
-  }.split("\n").reject(&:blank?)
+  '.split("\n").reject(&:blank?)
 
   positive_before_examples.each do |example|
     test "should detect that #{example} is before #{existing}" do
