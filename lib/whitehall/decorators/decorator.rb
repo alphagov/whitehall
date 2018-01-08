@@ -11,13 +11,13 @@ module Whitehall
       end
 
       def ==(other)
-        if other.respond_to? :model
-          model == other.model
-        elsif other.respond_to? :to_model
-          model == other.to_model
-        else
-          model == other
-        end
+        model == if other.respond_to? :model
+                   other.model
+                 elsif other.respond_to? :to_model
+                   other.to_model
+                 else
+                   other
+                 end
       end
     end
   end

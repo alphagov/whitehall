@@ -1,8 +1,8 @@
-if ENV.has_key?("HIGHLIGHT_WORDS_TO_AVOID")
-  enabled = "true" == ENV["HIGHLIGHT_WORDS_TO_AVOID"]
-else
-  enabled = !Rails.env.production?
-end
+enabled = if ENV.has_key?("HIGHLIGHT_WORDS_TO_AVOID")
+            "true" == ENV["HIGHLIGHT_WORDS_TO_AVOID"]
+          else
+            !Rails.env.production?
+          end
 
 # Typically this isn't enabled in production
 # It is primarily used as a training feature.

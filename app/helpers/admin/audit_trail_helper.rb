@@ -9,11 +9,11 @@ module Admin::AuditTrailHelper
              content_tag(:span, entry.action.capitalize, class: "action") + " by"
            end
     html << " ".html_safe
-    if actor
-      html << content_tag(:span, class: "actor") { linked_author(actor) }
-    else
-      html << "User (removed)"
-    end
+    html << if actor
+              content_tag(:span, class: "actor") { linked_author(actor) }
+            else
+              "User (removed)"
+            end
     html << " ".html_safe
     html << absolute_time(entry.created_at, class: "created_at")
   end

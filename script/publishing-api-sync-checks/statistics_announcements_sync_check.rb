@@ -14,11 +14,11 @@ check.add_expectation("base_path") do |content_store_payload, model|
 end
 
 check.add_expectation("format") do |content_store_payload, model|
-  if has_been_redirected?(model)
-    content_store_payload["format"] == "redirect"
-  else
-    content_store_payload["format"] == "statistics_announcement"
-  end
+  content_store_payload["format"] == if has_been_redirected?(model)
+                                       "redirect"
+                                     else
+                                       "statistics_announcement"
+                                     end
 end
 
 check.add_expectation("title") do |content_store_payload, model|

@@ -83,11 +83,11 @@ module Whitehall
       end
 
       def ==(other)
-        if other.respond_to? :object
-          @object == other.object
-        else
-          @object == other
-        end
+        @object == if other.respond_to? :object
+                     other.object
+                   else
+                     other
+                   end
       end
     end
   end

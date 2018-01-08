@@ -606,11 +606,11 @@ class Edition < ApplicationRecord
   end
 
   def set_public_timestamp
-    if first_published_version?
-      self.public_timestamp = first_public_at
-    else
-      self.public_timestamp = major_change_published_at
-    end
+    self.public_timestamp = if first_published_version?
+                              first_public_at
+                            else
+                              major_change_published_at
+                            end
   end
 
   def title_required?

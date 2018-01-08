@@ -4,13 +4,10 @@ require "csv"
 
 def clean_money(raw_money)
   if raw_money == '0'
-    money = 0
+    0
   elsif /£[0-9,]+/.match(raw_money)
-    money = raw_money.gsub(/[£,]/, '').to_i
-  else
-    money = nil
+    raw_money.gsub(/[£,]/, '').to_i
   end
-  return money
 end
 
 def clean_yes_no(raw_boolean)

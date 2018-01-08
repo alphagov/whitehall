@@ -29,11 +29,11 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
   def create
     @classification_featuring = @classification.feature(classification_featuring_params)
     if @classification_featuring.valid?
-      if featuring_a_document?
-        flash[:notice] = "#{@classification_featuring.edition.title} has been featured on #{@classification.name}"
-      else
-        flash[:notice] = "#{@classification_featuring.offsite_link.title} has been featured on #{@classification.name}"
-      end
+      flash[:notice] = if featuring_a_document?
+                         "#{@classification_featuring.edition.title} has been featured on #{@classification.name}"
+                       else
+                         "#{@classification_featuring.offsite_link.title} has been featured on #{@classification.name}"
+                       end
       redirect_to polymorphic_path([:admin, @classification, :classification_featurings])
     else
       render :new

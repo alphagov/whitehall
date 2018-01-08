@@ -44,11 +44,11 @@ private
 
   def generate_govspeak
     options = govspeak_options
-    if html_attachment.attachable.respond_to?(:images)
-      images = html_attachment.attachable.images
-    else
-      images = []
-    end
+    images = if html_attachment.attachable.respond_to?(:images)
+               html_attachment.attachable.images
+             else
+               []
+             end
 
     renderer.govspeak_to_html(body, images, options)
   end

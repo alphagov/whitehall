@@ -12,11 +12,11 @@ class DocumentHistory
     @default_first_published_note = default_first_published_note
     @document = document
 
-    if first_public_edition.present?
-      @changes = document_changes
-    else
-      @changes = []
-    end
+    @changes = if first_public_edition.present?
+                 document_changes
+               else
+                 []
+               end
   end
 
   def each(&block)

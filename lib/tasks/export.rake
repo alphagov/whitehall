@@ -64,11 +64,11 @@ namespace :export do
 
   desc "Export list of published editions for orgs export:published_editions ORGS=org-slug"
   task :published_editions, [:orgs] => :environment do |_t, _args|
-    if ENV['ORGS']
-      orgs = Organisation.where(slug: ENV['ORGS'].split(',')).all
-    else
-      orgs = Organisation.all
-    end
+    orgs = if ENV['ORGS']
+             Organisation.where(slug: ENV['ORGS'].split(',')).all
+           else
+             Organisation.all
+           end
     puts "Processing #{orgs.map(&:display_name)}"
     path = "tmp/published_editions-#{Time.now.to_i}.csv"
     puts "generating csv in #{path}"
