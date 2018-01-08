@@ -44,7 +44,7 @@ module HtmlAssertions
   end
 
   def assert_has_link(expected_text, expected_href, html_fragment)
-    assert html_fragment.at_xpath(".//a[.='#{expected_text}'][@href='#{expected_href}']").present?, "Expected\n#{html_fragment.to_s} to include a link with text \"#{expected_text}\" and href \"#{expected_href}\"."
+    assert html_fragment.at_xpath(".//a[.='#{expected_text}'][@href='#{expected_href}']").present?, "Expected\n#{html_fragment} to include a link with text \"#{expected_text}\" and href \"#{expected_href}\"."
   end
 
   def assert_has_meta_tag(name, content)

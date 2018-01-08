@@ -19,7 +19,7 @@ class ScheduledEditionPublisherTest < ActiveSupport::TestCase
     refute publisher.perform!
     refute edition.published?
 
-    expected_reason = "This edition is scheduled for publication on #{edition.scheduled_publication.to_s}, and may not be published before"
+    expected_reason = "This edition is scheduled for publication on #{edition.scheduled_publication}, and may not be published before"
     assert_equal expected_reason, publisher.failure_reason
   end
 

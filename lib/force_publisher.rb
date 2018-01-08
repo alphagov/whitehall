@@ -52,7 +52,7 @@ class ForcePublisher
   end
 
   def failure(edition, reason)
-    puts "ERR: #{edition.id unless edition.nil?}: #{reason.to_s}"
+    puts "ERR: #{edition.id unless edition.nil?}: #{reason}"
     @failures << [edition, reason]
   end
 
