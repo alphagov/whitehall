@@ -44,7 +44,7 @@ module Admin::TabbedNavHelper
 
   def tab_dropdown(label, menu_items)
     content_tag(:li, class: 'dropdown') do
-      content_tag(:a, class: 'dropdown-toggle', :'data-toggle' => 'dropdown', href: '#') do
+      content_tag(:a, class: 'dropdown-toggle', 'data-toggle': 'dropdown', href: '#') do
         (label + " " + content_tag(:b, '', class: 'caret')).html_safe
       end +
         content_tag(:ul, class: 'dropdown-menu') do

@@ -15,7 +15,7 @@ if (org = Organisation.find_by(slug: old_slug))
     org.slug = new_slug
     org.save!
 
-    User.where(:organisation_slug => old_slug).update_all(:organisation_slug => new_slug)
+    User.where(organisation_slug: old_slug).update_all(organisation_slug: new_slug)
   end
 
   # Index at new slug.

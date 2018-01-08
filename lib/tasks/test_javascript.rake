@@ -1,6 +1,6 @@
 namespace :test do
   desc "Run javascript tests"
-  task :javascript => :environment do
+  task javascript: :environment do
     puts "Compiling the mustache templates"
     Rake::Task["shared_mustache:compile"].invoke
 
@@ -13,4 +13,4 @@ namespace :test do
   end
 end
 
-task :default => "test:javascript"
+task default: "test:javascript"

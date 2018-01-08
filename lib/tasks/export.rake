@@ -7,7 +7,7 @@ namespace :export do
   end
 
   desc "Export mappings (for eg the Transition app to consume)"
-  task :mappings => :environment do
+  task mappings: :environment do
     # Read off the MySQL slave - we want performance here and
     # non-contention as this job runs for up to 45 minutes.
     if Rails.env.production?
@@ -27,7 +27,7 @@ namespace :export do
   end
 
   desc "Export list of documents"
-  task :document_list => :environment do
+  task document_list: :environment do
     path = "tmp/document_list-#{Time.now.to_i}.csv"
     puts "generating csv in #{path}"
     CSV.open(path, "w") do |csv|
@@ -109,7 +109,7 @@ namespace :export do
   end
 
   desc "Exports mappings between organisations and analytics keys"
-  task :organisation_analytics => :environment do
+  task organisation_analytics: :environment do
     puts 'Mappings orgs to analytics keys...'
     path = 'tmp/organisation-analytics.csv'
     puts "Generating CSV in #{path}"
