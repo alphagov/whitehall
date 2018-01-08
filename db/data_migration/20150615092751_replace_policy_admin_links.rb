@@ -2,7 +2,7 @@ require "policy_admin_url_replacer"
 
 puts "Building ID/slug to URL mapping"
 
-policies_and_supporting_pages = Edition.unscoped.where(type: ["Policy", "SupportingPage"])
+policies_and_supporting_pages = Edition.unscoped.where(type: %w[Policy SupportingPage])
 
 id_to_url_mapping = policies_and_supporting_pages.inject({}) { |hash, edition|
   url = Whitehall.url_maker.public_document_url(edition, {}, include_deleted_documents: true)

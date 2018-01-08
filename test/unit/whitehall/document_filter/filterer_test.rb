@@ -30,7 +30,7 @@ module Whitehall::DocumentFilter
 
     test "parses keywords, stripping leading and trailing spaces" do
       filter = build_filter(keywords: " alpha   beta ")
-      assert_equal ['alpha', 'beta'], filter.keywords
+      assert_equal %w[alpha beta], filter.keywords
     end
 
     test "publication_filter_option param sets the filter option with a slug" do

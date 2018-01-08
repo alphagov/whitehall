@@ -63,13 +63,13 @@ module Admin::EditionsHelper
     [
       ["All states", 'active'],
       ["Imported (pre-draft)", 'imported'],
-      ["Draft", 'draft'],
-      ["Submitted", 'submitted'],
-      ["Rejected", 'rejected'],
-      ["Scheduled", 'scheduled'],
-      ["Published", 'published'],
+      %w[Draft draft],
+      %w[Submitted submitted],
+      %w[Rejected rejected],
+      %w[Scheduled scheduled],
+      %w[Published published],
       ["Force published (not reviewed)", 'force_published'],
-      ['Withdrawn', 'withdrawn']
+      %w[Withdrawn withdrawn]
     ]
   end
 

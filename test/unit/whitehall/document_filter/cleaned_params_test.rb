@@ -46,7 +46,7 @@ module Whitehall::DocumentFilter
       raw_params       = build_unclean_params('action' => 'show', 'page' => '3', 'stuff' => 'things', 'hax' => 'haha!')
       cleaned_params   = CleanedParams.new(raw_params)
 
-      assert_same_elements ['stuff', 'hax'], cleaned_params.unpermitted_keys
+      assert_same_elements %w[stuff hax], cleaned_params.unpermitted_keys
     end
 
   private

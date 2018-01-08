@@ -96,7 +96,7 @@ class Admin::TakePartPagesControllerTest < ActionController::TestCase
   end
 
   test 'POST :reorder asks TakePartPage to reorder using the supplied ordering params' do
-    TakePartPage.expects(:reorder!).with(['1', '5', '20', '9'])
+    TakePartPage.expects(:reorder!).with(%w[1 5 20 9])
 
     post :reorder, params: { ordering: { '1' => '1', '20' => '4', '9' => '12', '5' => '3' } }
 

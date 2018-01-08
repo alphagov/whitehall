@@ -17,7 +17,7 @@ module Whitehall
     test "with :document_type as publications and other params it generate a publications atom feed url with the given params as query string" do
       filter_params = {
         document_type: 'publications',
-        departments: ['1', '2'],
+        departments: %w[1 2],
         official_document_status: "command_and_act_papers"
       }
 

@@ -115,9 +115,9 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
       create :statistics_announcement, title: n, current_release_date: build(:statistics_announcement_date, release_date: (n + 1).days.from_now)
     end
 
-    assert_equal ['0', '1'],      matched_titles(page: '1', per_page: '2')
-    assert_equal ['2', '3'],      matched_titles(page: '2', per_page: '2')
-    assert_equal ['0', '1', '2'], matched_titles(page: '1', per_page: '3')
+    assert_equal %w[0 1], matched_titles(page: '1', per_page: '2')
+    assert_equal %w[2 3], matched_titles(page: '2', per_page: '2')
+    assert_equal %w[0 1 2], matched_titles(page: '1', per_page: '3')
   end
 
   test "#advanced_search requires :page and :per_page params to be provided" do

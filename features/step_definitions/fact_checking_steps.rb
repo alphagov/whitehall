@@ -25,7 +25,7 @@ end
 
 When /^"([^"]*)" clicks the email link to the draft publication$/ do |email_address|
   email = unread_emails_for(email_address).last
-  links = URI.extract(email.body.to_s, ["http", "https"])
+  links = URI.extract(email.body.to_s, %w[http https])
   visit links.first
 end
 

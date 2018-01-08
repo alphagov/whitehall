@@ -8,7 +8,7 @@ class Role < ApplicationRecord
   def self.columns
     # This is here to enable us to gracefully remove the biography column
     # in a future commit, *after* this change has been deployed
-    super.reject { |column| ['name', 'responsibilities'].include?(column.name) }
+    super.reject { |column| %w[name responsibilities].include?(column.name) }
   end
 
   has_many :role_appointments, -> { order(started_at: :desc) }

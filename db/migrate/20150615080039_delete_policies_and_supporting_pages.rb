@@ -1,11 +1,12 @@
 class DeletePoliciesAndSupportingPages < ActiveRecord::Migration
   def up
-    document_ids = Document.where(document_type: [
-      "SupportingPage",
-      "Policy",
-    ]).pluck(:id)
+    document_ids = Document
+                     .where(document_type: %w[SupportingPage Policy])
+                     .pluck(:id)
 
-    edition_ids = Edition.where(document_id: document_ids).pluck(:id)
+    edition_ids = Edition
+                    .where(document_id: document_ids)
+                    .pluck(:id)
 
     puts "Deleting data (but not tables) for #{edition_ids.count} policy and supporting page editions and #{document_ids.count} documents"
 

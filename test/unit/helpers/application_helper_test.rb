@@ -16,7 +16,7 @@ class ApplicationHelperTest < ActionView::TestCase
       policies_finder_path(organisations: ['slug'])
 
     assert_equal "/government/policies?organisations%5B%5D=slug1&organisations%5B%5D=slug2",
-      policies_finder_path(organisations: ['slug1', 'slug2'])
+      policies_finder_path(organisations: %w[slug1 slug2])
 
     assert_equal "/government/policies?keywords=word&organisations%5B%5D=slug1",
       policies_finder_path(keywords: 'word', organisations: ['slug1'])

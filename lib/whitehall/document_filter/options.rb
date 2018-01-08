@@ -88,9 +88,9 @@ module Whitehall
         @options_for_document_type ||= StructuredOptions.new(
           all_label: "All document types",
           ungrouped: [
-            ['Announcements', 'announcements'],
-            ['Policies', 'policies'],
-            ['Publications', 'publications']
+            %w[Announcements announcements],
+            %w[Policies policies],
+            %w[Publications publications]
           ]
         )
       end
