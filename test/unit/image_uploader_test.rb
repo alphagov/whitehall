@@ -53,7 +53,7 @@ private
   def assert_image_size(dimensions, uploader_version)
     width, height = dimensions
     image = MiniMagick::Image.open(uploader_version.path)
-    assert_equal width, image[:width], "#{dimensions.join("x")} image version should be #{width}px wide, but was #{image[:width]}"
-    assert_equal height, image[:height], "#{dimensions.join("x")} image version should be #{height}px high, but was #{image[:height]}"
+    assert_equal width, image[:width], "#{dimensions.join('x')} image version should be #{width}px wide, but was #{image[:width]}"
+    assert_equal height, image[:height], "#{dimensions.join('x')} image version should be #{height}px high, but was #{image[:height]}"
   end
 end

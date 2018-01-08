@@ -140,7 +140,7 @@ class AttachmentUploader < WhitehallUploader
       end
 
       def failure_message
-        "You are not allowed to upload a zip file containing #{illegal_extensions.join(", ")} files, allowed types: #{@whitelist.inspect}"
+        "You are not allowed to upload a zip file containing #{illegal_extensions.join(', ')} files, allowed types: #{@whitelist.inspect}"
       end
     end
 
