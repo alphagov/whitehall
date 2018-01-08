@@ -157,7 +157,7 @@ module Whitehall
     end
 
     def required_by_validators?(method)
-      (attribute_validators(method)).any? { |v| v.kind == :presence && valid_validator?(v) }
+      attribute_validators(method).any? { |v| v.kind == :presence && valid_validator?(v) }
     end
 
     def attribute_validators(method)

@@ -139,7 +139,7 @@ private
     end
 
     def must_be_a_zip_file
-      if @zip_file.present? && (!is_a_zip?)
+      if @zip_file.present? && !is_a_zip?
         errors.add(:zip_file, 'not a zip file')
       end
     end

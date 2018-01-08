@@ -37,7 +37,7 @@ When /^I reorder the contacts to highlight my new contact$/ do
   click_on 'Order on home page'
 
   within '#on-home-page' do
-    @the_ordered_contacts = [@the_ordered_contacts[-1], *(@the_ordered_contacts[1..-2].shuffle), @the_ordered_contacts[0]]
+    @the_ordered_contacts = [@the_ordered_contacts[-1], *@the_ordered_contacts[1..-2].shuffle, @the_ordered_contacts[0]]
     @the_ordered_contacts.each_with_index do |contact, index|
       fill_in contact.title, with: index + 2
     end
@@ -97,7 +97,7 @@ When /^I reorder the offices to highlight my new office$/ do
   click_on 'Order on home page'
 
   within '#on-home-page' do
-    @the_ordered_offices = [@the_ordered_offices[-1], *(@the_ordered_offices[1..-2].shuffle), @the_ordered_offices[0]]
+    @the_ordered_offices = [@the_ordered_offices[-1], *@the_ordered_offices[1..-2].shuffle, @the_ordered_offices[0]]
     @the_ordered_offices.each_with_index do |office, index|
       fill_in office.title, with: index + 2
     end

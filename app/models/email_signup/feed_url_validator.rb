@@ -133,9 +133,9 @@ class EmailSignup
     def parameter_fragments
       return unless resource_filter_params.any?
 
-      "related to " + (resource_filter_params.map { |param_key, _|
+      "related to " + resource_filter_params.map { |param_key, _|
         fragment_for_filter_option(param_key)
-      }.to_sentence)
+      }.to_sentence
     end
 
     def command_and_act_fragment

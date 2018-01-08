@@ -57,7 +57,7 @@ class NewsArticleTest < ActiveSupport::TestCase
   test "search_format_types includes search_format_types of the speech_type" do
     news_article_type = mock
     news_article_type.responds_like(NewsArticleType.new)
-    news_article_type.stubs(:search_format_types).returns (['stuff-innit', 'other-thing'])
+    news_article_type.stubs(:search_format_types).returns(['stuff-innit', 'other-thing'])
     news_article = build(:news_article)
     news_article.stubs(:news_article_type).returns(news_article_type)
     assert news_article.search_format_types.include?('stuff-innit')

@@ -469,7 +469,7 @@ class Organisation < ApplicationRecord
   end
 
   def requires_alternative_format?
-    (!closed?) && provides_alternative_formats?
+    !closed? && provides_alternative_formats?
   end
 
   def has_published_publications_of_type?(publication_type)

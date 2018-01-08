@@ -129,7 +129,7 @@ When /^I specify an order for those ministers$/ do
   visit people_admin_organisation_path(@the_ministerial_organisation)
   # .shuffle on it's own isn't enough to guarantee a new ordering, so we
   # swap the first and last, and shuffle the middle
-  @the_ordered_ministers = [@the_ministers[-1], *(@the_ministers[1..-2].shuffle), @the_ministers[0]]
+  @the_ordered_ministers = [@the_ministers[-1], *@the_ministers[1..-2].shuffle, @the_ministers[0]]
   @the_ordered_ministers.each_with_index do |role_appointment, index|
     fill_in "#{role_appointment.role.name}#{role_appointment.person.name}", with: index
   end
