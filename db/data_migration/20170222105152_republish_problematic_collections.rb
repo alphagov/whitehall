@@ -22,5 +22,5 @@ slugs = [
 
 Document.where(slug: slugs, document_type: "Collection").each do |doc|
   puts "Republishing Document ##{doc.slug}..."
-  PublishingApiDocumentRepublishingWorker.perform_async(doc.id) 
+  PublishingApiDocumentRepublishingWorker.perform_async(doc.id)
 end

@@ -13,7 +13,7 @@ SLUGS.each do |slug|
   base_path = BASE_PATH_ROOT + slug
   begin
     Whitehall.government_search_client.delete_content! base_path
-  rescue GdsApi::HTTPNotFound => e 
+  rescue GdsApi::HTTPNotFound => e
     puts "\n" + "=" * 25 + "\nURL not found error:\n#{e}"
   end
 end

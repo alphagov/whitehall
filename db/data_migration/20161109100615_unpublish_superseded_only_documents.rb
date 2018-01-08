@@ -6,7 +6,7 @@
 # To fix this we are going to manually set the state to `published` and then
 # send them throuh the EditionUnpublisher to unpublish them with a PublishedInError
 # id and reason. We have to first set the state to `published` because Edition
-# workflow only allows certain state transitions. 
+# workflow only allows certain state transitions.
 #
 # We also send them through the PublishingApi to resync data in the content store
 content_ids = ['5f5299be-7631-11e4-a3cb-005056011aef', '5d8ff850-7631-11e4-a3cb-005056011aef']
