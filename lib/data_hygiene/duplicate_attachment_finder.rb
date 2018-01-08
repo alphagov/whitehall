@@ -2,7 +2,7 @@ require 'csv'
 
 module DataHygiene
   class DuplicateAttachmentFinder
-    DUP_EDITION_ATTACHMENT_SQL = <<-HEREDOC
+    DUP_EDITION_ATTACHMENT_SQL = <<-HEREDOC.freeze
       SELECT attachable_id as id, attachment_data.carrierwave_file as filename FROM attachments
       JOIN attachment_data on attachments.attachment_data_id = attachment_data.id
       JOIN editions on attachable_id = editions.id
@@ -12,7 +12,7 @@ module DataHygiene
       HAVING count(*) > 1;
     HEREDOC
 
-    DUP_NON_EDITION_ATTACHMENT_SQL = <<-HEREDOC
+    DUP_NON_EDITION_ATTACHMENT_SQL = <<-HEREDOC.freeze
       SELECT attachable_type, attachable_id as id FROM attachments
       JOIN attachment_data on attachments.attachment_data_id = attachment_data.id
       WHERE attachable_type != "Edition"

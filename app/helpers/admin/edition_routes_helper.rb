@@ -4,7 +4,7 @@ module Admin::EditionRoutesHelper
   EDITION_TYPES = [Publication, NewsArticle, Consultation, Speech,
                    DetailedGuide, CaseStudy,
                    StatisticalDataSet, FatalityNotice, WorldLocationNewsArticle,
-                   CorporateInformationPage]
+                   CorporateInformationPage].freeze
 
   def self.edition_instance_route(name)
     EDITION_TYPES.each do |type|

@@ -3,7 +3,7 @@ class Role < ApplicationRecord
   include HasContentId
   HISTORIC_ROLE_PARAM_MAPPINGS = { 'past-prime-ministers' => 'prime-minister',
                                    'past-chancellors'     => 'chancellor-of-the-exchequer',
-                                   'past-foreign-secretaries' => 'foreign-secretary' }
+                                   'past-foreign-secretaries' => 'foreign-secretary' }.freeze
 
   def self.columns
     # This is here to enable us to gracefully remove the biography column

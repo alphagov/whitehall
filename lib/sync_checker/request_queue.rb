@@ -1,6 +1,6 @@
 module SyncChecker
-  DRAFT_CONTENT_STORE = 'draft-content-store'
-  LIVE_CONTENT_STORE = 'content-store'
+  DRAFT_CONTENT_STORE = 'draft-content-store'.freeze
+  LIVE_CONTENT_STORE = 'content-store'.freeze
 
   class RequestQueue
     attr_reader :request_type, :requests

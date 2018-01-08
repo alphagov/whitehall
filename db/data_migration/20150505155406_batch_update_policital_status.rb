@@ -1,6 +1,6 @@
 require "csv"
 
-PUBLISHED_AND_PUBLISHABLE_STATES = %w(published draft archived submitted rejected scheduled)
+PUBLISHED_AND_PUBLISHABLE_STATES = %w(published draft archived submitted rejected scheduled).freeze
 
 csv_file = File.join(File.dirname(__FILE__), "20150505155406_batch_update_policital_status.csv")
 csv = CSV.parse(File.open(csv_file), headers: true)

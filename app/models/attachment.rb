@@ -9,7 +9,7 @@ class Attachment < ApplicationRecord
   before_save :nilify_locale_if_blank
   before_save :prevent_saving_of_abstract_base_class
 
-  VALID_COMMAND_PAPER_NUMBER_PREFIXES = ['C.', 'Cd.', 'Cmd.', 'Cmnd.', 'Cm.']
+  VALID_COMMAND_PAPER_NUMBER_PREFIXES = ['C.', 'Cd.', 'Cmd.', 'Cmnd.', 'Cm.'].freeze
 
   validates_with AttachmentValidator
   validates :attachable, presence: true

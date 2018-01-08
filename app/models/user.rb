@@ -16,16 +16,16 @@ class User < ApplicationRecord
   scope :enabled, -> { where(disabled: false) }
 
   module Permissions
-    SIGNIN = 'signin'
-    DEPARTMENTAL_EDITOR = 'Editor'
-    MANAGING_EDITOR = 'Managing Editor'
-    GDS_EDITOR = 'GDS Editor'
-    PUBLISH_SCHEDULED_EDITIONS = 'Publish scheduled editions'
-    IMPORT = 'Import CSVs'
-    WORLD_WRITER = 'World Writer'
-    WORLD_EDITOR = 'World Editor'
-    FORCE_PUBLISH_ANYTHING = 'Force publish anything'
-    GDS_ADMIN = 'GDS Admin'
+    SIGNIN = 'signin'.freeze
+    DEPARTMENTAL_EDITOR = 'Editor'.freeze
+    MANAGING_EDITOR = 'Managing Editor'.freeze
+    GDS_EDITOR = 'GDS Editor'.freeze
+    PUBLISH_SCHEDULED_EDITIONS = 'Publish scheduled editions'.freeze
+    IMPORT = 'Import CSVs'.freeze
+    WORLD_WRITER = 'World Writer'.freeze
+    WORLD_EDITOR = 'World Editor'.freeze
+    FORCE_PUBLISH_ANYTHING = 'Force publish anything'.freeze
+    GDS_ADMIN = 'GDS Admin'.freeze
   end
 
   def role

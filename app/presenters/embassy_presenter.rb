@@ -107,5 +107,5 @@ private
       location: "Indonesia",
       base_path: "/government/world/organisations/british-embassy-jakarta",
     },
-  }
+  }.freeze
 end

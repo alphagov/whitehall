@@ -721,7 +721,7 @@ BASE_PATHS = [
   "/government/priority/working-with-the-un-for-stronger-international-human-rights-institutions",
   "/government/priority/working-with-ukraine-to-safeguard-britain-s-national-security",
   "/government/priority/working-with-uruguay-on-international-issues",
-]
+].freeze
 
 BASE_PATHS.each do |base_path|
   begin

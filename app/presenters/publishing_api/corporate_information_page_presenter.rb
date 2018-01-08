@@ -3,7 +3,7 @@ module PublishingApi
     extend Forwardable
     include UpdateTypeHelper
 
-    SCHEMA_NAME = 'corporate_information_page'
+    SCHEMA_NAME = 'corporate_information_page'.freeze
 
     attr_reader :update_type
 

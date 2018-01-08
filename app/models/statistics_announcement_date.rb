@@ -1,5 +1,5 @@
 class StatisticsAnnouncementDate < ApplicationRecord
-  PRECISION = { exact: 0, one_month: 1, two_month: 2 }
+  PRECISION = { exact: 0, one_month: 1, two_month: 2 }.freeze
 
   belongs_to :statistics_announcement, touch: true
   belongs_to :creator, class_name: 'User'

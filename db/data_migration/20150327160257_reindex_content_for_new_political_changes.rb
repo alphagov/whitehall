@@ -1,7 +1,7 @@
 POLITICAL_ORG_SLUGS = %w[
   office-for-disability-issues
   uk-export-finance
-]
+].freeze
 
 puts "Setting political flag on the following organisations:"
 POLITICAL_ORG_SLUGS.each do |slug|
@@ -13,7 +13,7 @@ end
 APOLITICAL_ORG_SLUGS = %w[
   standards-and-testing-agency
   third-party-campaigning-review
-]
+].freeze
 
 puts "Unsetting political flag on the following organisations:"
 APOLITICAL_ORG_SLUGS.each do |slug|
@@ -24,7 +24,7 @@ end
 
 index = 0
 
-PUBLISHED_AND_PUBLISHABLE_STATES = %w(published draft archived submitted rejected scheduled)
+PUBLISHED_AND_PUBLISHABLE_STATES = %w(published draft archived submitted rejected scheduled).freeze
 edition_scope = Edition.where(state: PUBLISHED_AND_PUBLISHABLE_STATES)
 edition_count = edition_scope.count
 

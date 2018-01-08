@@ -1,6 +1,6 @@
 index = 0
 
-PUBLISHED_AND_PUBLISHABLE_STATES = %w(published draft archived submitted rejected scheduled)
+PUBLISHED_AND_PUBLISHABLE_STATES = %w(published draft archived submitted rejected scheduled).freeze
 edition_scope = Edition.where(state: PUBLISHED_AND_PUBLISHABLE_STATES, type: WorldLocationNewsArticle)
 edition_count = edition_scope.count
 

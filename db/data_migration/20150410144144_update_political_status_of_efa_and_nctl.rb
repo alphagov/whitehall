@@ -1,9 +1,9 @@
 POLITICAL_ORG_SLUGS = %w[
   education-funding-agency
   national-college-for-teaching-and-leadership
-]
+].freeze
 
-PUBLISHED_AND_PUBLISHABLE_STATES = %w(published draft archived submitted rejected scheduled)
+PUBLISHED_AND_PUBLISHABLE_STATES = %w(published draft archived submitted rejected scheduled).freeze
 
 POLITICAL_ORG_SLUGS.each do |slug|
   organsation = Organisation.find_by(slug: slug)

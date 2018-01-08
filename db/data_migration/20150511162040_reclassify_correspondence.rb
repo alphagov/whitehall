@@ -1,4 +1,4 @@
-PUBLISHED_AND_PUBLISHABLE_STATES = %w(published draft archived submitted rejected scheduled)
+PUBLISHED_AND_PUBLISHABLE_STATES = %w(published draft archived submitted rejected scheduled).freeze
 
 correspondence_scope = Publication.
   where(state: PUBLISHED_AND_PUBLISHABLE_STATES).

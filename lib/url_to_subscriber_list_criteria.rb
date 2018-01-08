@@ -1,9 +1,9 @@
 require 'uri'
 
 class UrlToSubscriberListCriteria
-  MISSING_LOOKUP = "*** MISSING KEY ***"
-  EMAIL_SUPERTYPE = "email_document_supertype"
-  GOVERNMENT_SUPERTYPE = "government_document_supertype"
+  MISSING_LOOKUP = "*** MISSING KEY ***".freeze
+  EMAIL_SUPERTYPE = "email_document_supertype".freeze
+  GOVERNMENT_SUPERTYPE = "government_document_supertype".freeze
   class UnprocessableUrl < StandardError; end
 
   def initialize(url, static_data = StaticData)

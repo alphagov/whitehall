@@ -56,7 +56,7 @@ module Searchable
     :specialist_sectors,
 
     :world_locations,
-  ]
+  ].freeze
 
   included do
     class_attribute :searchable_options
@@ -106,7 +106,7 @@ module Searchable
 
     KEY_MAPPING = {
       content: 'indexable_content',
-    }
+    }.freeze
 
     # Build the payload to pass to the search index
     def search_index

@@ -15,7 +15,7 @@ class OrganisationType
     other:                       { name: "Other",                                  analytics_prefix: "OT", agency_or_public_body: true,  non_departmental_public_body: false, allowed_promotional: false },
     civil_service:               { name: "Civil Service",                          analytics_prefix: "CS", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: true },
     court:                       { name: "Court",                                  analytics_prefix: "CO", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: false },
-  }
+  }.freeze
 
   LISTING_ORDER = [
     :executive_office,
@@ -33,7 +33,7 @@ class OrganisationType
     :other,
     :civil_service,
     :court,
-  ]
+  ].freeze
 
   @@instances = {}
 

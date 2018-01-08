@@ -3,7 +3,7 @@ class ImageValidator < ActiveModel::Validator
     "image/jpeg" => /(\.jpeg|\.jpg)$/,
     "image/gif"  => /\.gif$/,
     "image/png"  => /\.png$/
-  }
+  }.freeze
 
   def initialize(options = {})
     super

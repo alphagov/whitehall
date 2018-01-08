@@ -1,8 +1,8 @@
 # encoding: utf-8
 
 class AttachmentUploader < WhitehallUploader
-  PDF_CONTENT_TYPE = 'application/pdf'
-  INDEXABLE_TYPES = %w(csv doc docx ods odp odt pdf ppt pptx rdf rtf txt xls xlsx xml)
+  PDF_CONTENT_TYPE = 'application/pdf'.freeze
+  INDEXABLE_TYPES = %w(csv doc docx ods odp odt pdf ppt pptx rdf rtf txt xls xlsx xml).freeze
 
   THUMBNAIL_GENERATION_TIMEOUT = 10.seconds
   FALLBACK_PDF_THUMBNAIL = File.expand_path("../../assets/images/pub-cover.png", __FILE__)
@@ -145,7 +145,7 @@ class AttachmentUploader < WhitehallUploader
     end
 
     class ArcGISShapefileExaminer < Examiner
-      REQUIRED_EXTS = %w(shp shx dbf)
+      REQUIRED_EXTS = %w(shp shx dbf).freeze
       OPTIONAL_EXTS = %w(aih ain atx avl cpg fbn fbx ixs mxs prj sbn sbx shp.xml shp_rxl).freeze
       ALLOWED_EXTS = REQUIRED_EXTS + OPTIONAL_EXTS
       EXT_MATCHER = /\.(#{ALLOWED_EXTS.map { |e| Regexp.escape(e) }.join('|') })\Z/

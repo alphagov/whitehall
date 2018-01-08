@@ -1,9 +1,9 @@
 class WorldwideOrganisation < ApplicationRecord
   include HasCorporateInformationPages
 
-  PRIMARY_ROLES = [AmbassadorRole, HighCommissionerRole, GovernorRole]
-  SECONDARY_ROLES = [DeputyHeadOfMissionRole]
-  OFFICE_ROLES = [WorldwideOfficeStaffRole]
+  PRIMARY_ROLES = [AmbassadorRole, HighCommissionerRole, GovernorRole].freeze
+  SECONDARY_ROLES = [DeputyHeadOfMissionRole].freeze
+  OFFICE_ROLES = [WorldwideOfficeStaffRole].freeze
 
   has_many :worldwide_organisation_world_locations, dependent: :destroy
   has_many :world_locations, through: :worldwide_organisation_world_locations

@@ -1,5 +1,5 @@
 class DocumentCollectionGroupMembership < ApplicationRecord
-  BANNED_DOCUMENT_TYPES = ["DocumentCollection"]
+  BANNED_DOCUMENT_TYPES = ["DocumentCollection"].freeze
 
   belongs_to :document, inverse_of: :document_collection_group_memberships
   belongs_to :document_collection_group, inverse_of: :memberships

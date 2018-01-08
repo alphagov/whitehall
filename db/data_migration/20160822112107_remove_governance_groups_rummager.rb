@@ -1,4 +1,4 @@
-BASE_PATH_ROOT = "/government/organisations/"
+BASE_PATH_ROOT = "/government/organisations/".freeze
 
 SLUGS = [
   "national-security/groups/intelligence-and-security-committee",
@@ -7,7 +7,7 @@ SLUGS = [
   "national-security/groups/national-security-council",
   "civil-service/groups/civil-service-board",
   "cabinet-office/groups/cabinet-office-board"
-]
+].freeze
 
 SLUGS.each do |slug|
   base_path = BASE_PATH_ROOT + slug

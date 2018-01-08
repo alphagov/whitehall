@@ -1,7 +1,7 @@
 require 'gds_api/router'
 router_api = GdsApi::Router.new(Plek.find('router-api'))
 
-REDIRECT_TO = "/international-development-funding"
+REDIRECT_TO = "/international-development-funding".freeze
 
 categories = MainstreamCategory.where(parent_tag: "citizenship/international-development")
 
