@@ -157,7 +157,7 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
   end
 
   test "should create a fact check request" do
-    @attributes.merge!(email_address: "fact-checker@example.com")
+    @attributes[:email_address] = "fact-checker@example.com"
     post :create, params: { edition_id: @edition.id, fact_check_request: @attributes }
 
     assert fact_check_request = @edition.fact_check_requests.last
@@ -213,28 +213,28 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
   end
 
   test "should not send an email if the fact checker's email address is missing" do
-    @attributes.merge!(email_address: "")
+    @attributes[:email_address] = ""
     post :create, params: { edition_id: @edition.id, fact_check_request: @attributes }
 
     assert_equal 0, ActionMailer::Base.deliveries.length
   end
 
   test "should display a warning if the fact checker's email address is missing" do
-    @attributes.merge!(email_address: "")
+    @attributes[:email_address] = ""
     post :create, params: { edition_id: @edition.id, fact_check_request: @attributes }
 
     assert_equal "There was a problem: Email address can't be blank", flash[:alert]
   end
 
   test "redirect back to the edition preview if the fact checker's email address is missing" do
-    @attributes.merge!(email_address: "")
+    @attributes[:email_address] = ""
     post :create, params: { edition_id: @edition.id, fact_check_request: @attributes }
 
     assert_redirected_to admin_publication_path(@edition)
   end
 
   test "should reject invalid email addresses" do
-    @attributes.merge!(email_address: "not-an-email")
+    @attributes[:email_address] = "not-an-email"
     post :create, params: { edition_id: @edition.id, fact_check_request: @attributes }
 
     assert_match "There was a problem: Email address does not appear to be a valid e-mail address", flash[:alert]

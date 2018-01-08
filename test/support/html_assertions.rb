@@ -7,7 +7,7 @@ module HtmlAssertions
 
   def refute_select(selector, *args)
     options = args.last.is_a?(Hash) ? args.pop : {}
-    options.merge!(count: 0)
+    options[:count] = 0
     args.push(options)
     assert_select selector, *args
   end

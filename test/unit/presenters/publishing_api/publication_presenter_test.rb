@@ -73,7 +73,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       roles: publication.role_appointments.map(&:role).collect(&:content_id),
       people: publication.role_appointments.map(&:person).collect(&:content_id)
     }
-    expected_content.merge!(links: expected_links)
+    expected_content[:links] = expected_links
 
     presented_item = present(publication)
 

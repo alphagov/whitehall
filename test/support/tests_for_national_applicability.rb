@@ -192,7 +192,8 @@ private
         nation_id: nation
       }
       if existing = existing_applicabilities.detect { |ea| ea.nation_id == nation.id }
-        h.merge!(id: existing.id, alternative_url: existing.alternative_url)
+        h[:id] = existing.id
+        h[:alternative_url] = existing.alternative_url
       end
       if nations_vs_urls[nation]
         h.merge!(alternative_url: nations_vs_urls[nation])

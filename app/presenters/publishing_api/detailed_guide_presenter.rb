@@ -15,18 +15,20 @@ module PublishingApi
     end
 
     def content
-      content = BaseItemPresenter.new(item, update_type: update_type).base_attributes
-      content.merge!(
-        description: item.summary,
-        details: details,
-        document_type: "detailed_guide",
-        public_updated_at: item.public_timestamp || item.updated_at,
-        rendering_app: item.rendering_app,
-        schema_name: "detailed_guide",
-      )
-      content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
-      content.merge!(PayloadBuilder::AccessLimitation.for(item))
-      content.merge!(PayloadBuilder::FirstPublishedAt.for(item))
+      content = BaseItemPresenter
+                  .new(item, update_type: update_type)
+                  .base_attributes
+                  .merge(
+                    description: item.summary,
+                    details: details,
+                    document_type: "detailed_guide",
+                    public_updated_at: item.public_timestamp || item.updated_at,
+                    rendering_app: item.rendering_app,
+                    schema_name: "detailed_guide",
+                    )
+                  .merge(PayloadBuilder::PublicDocumentPath.for(item))
+                  .merge(PayloadBuilder::AccessLimitation.for(item))
+                  .merge(PayloadBuilder::FirstPublishedAt.for(item))
     end
 
     def links
@@ -59,7 +61,7 @@ module PublishingApi
         related_mainstream_content: related_mainstream_content_ids,
       }
       details_hash = maybe_add_national_applicability(details_hash)
-      details_hash.merge!(image: { url: item.logo_url }) if item.logo_url.present?
+      details_hash[:image] = { url: item.logo_url } if item.logo_url.present?
       details_hash.merge!(PayloadBuilder::PoliticalDetails.for(item))
       details_hash.merge!(PayloadBuilder::TagDetails.for(item))
       details_hash.merge!(PayloadBuilder::FirstPublicAt.for(item))

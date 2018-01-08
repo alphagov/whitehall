@@ -19,7 +19,7 @@ class UrlToSubscriberListCriteria
         links = hash["links"].each_with_object({}) do |(key, values), result|
           result[key] = values.map { |value| lookup_content_id(key, value) }
         end
-        hash.merge!("links" => links)
+        hash["links"] = links
       end
       hash
     end

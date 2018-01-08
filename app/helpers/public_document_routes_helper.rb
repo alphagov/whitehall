@@ -48,7 +48,8 @@ module PublicDocumentRoutesHelper
     if edition.rendering_app == Whitehall::RenderingApp::GOVERNMENT_FRONTEND
       options[:host] = Plek.find_uri("draft-origin").host
     else
-      options.merge!(preview: edition.latest_edition.id, cachebust: Time.zone.now.getutc.to_i)
+      options[:preview] = edition.latest_edition.id
+      options[:cachebust] = Time.zone.now.getutc.to_i
     end
 
     document_url(edition, options)

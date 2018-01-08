@@ -1,7 +1,7 @@
 Given /^a draft (document|publication|news article|consultation|speech) "([^"]*)"(?: with summary "([^"]*)")? exists$/ do |document_type, title, summary|
   document_type = 'publication' if document_type == 'document'
   attributes = { title: title }
-  attributes.merge!(summary: summary) if summary
+  attributes[:summary] = summary if summary
   create("draft_#{document_class(document_type).name.underscore}".to_sym, attributes)
 end
 
