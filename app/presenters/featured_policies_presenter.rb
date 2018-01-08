@@ -15,7 +15,7 @@ class FeaturedPoliciesPresenter
   end
 
   def each(&block)
-    policies.each { |policy| block.call(policy) }
+    policies.each { |policy| yield(policy) }
   end
 
 private

@@ -46,12 +46,12 @@ def export_classes(classes_to_index, id_groups, &block)
       file_path = export_directory + "#{klass.name.downcase}-#{index}.esdump"
       logger.info "Exporting #{klass.name.downcase}-#{index}.esdump"
       File.open(file_path.to_s, "w") do |output|
-        block.call(klass, output, id_group)
+        yield(klass, output, id_group)
       end
     end
   else
     classes_to_index.each do |klass|
-      block.call(klass, STDOUT)
+      yield(klass, STDOUT)
     end
   end
 end

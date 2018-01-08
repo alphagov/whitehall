@@ -21,7 +21,7 @@ class DocumentHistory
 
   def each(&block)
     changes.each do |change|
-      block.call(change)
+      yield(change)
     end
   end
 

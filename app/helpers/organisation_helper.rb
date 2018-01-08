@@ -159,7 +159,7 @@ module OrganisationHelper
     classes = [organisation.slug, organisation_brand_colour_class(organisation)]
     classes << organisation.organisation_type.name.parameterize if organisation.respond_to?(:organisation_type)
     content_tag_for :div, organisation, class: classes.join(" ") do
-      block.call
+      yield
     end
   end
 

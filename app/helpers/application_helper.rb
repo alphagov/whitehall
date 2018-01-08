@@ -117,7 +117,7 @@ module ApplicationHelper
     content_tag(:ul, class: class_name) do
       roles.each do |role|
         li = content_tag_for(:li, role) do
-          block.call(RolePresenter.new(role, self)).html_safe
+          yield(RolePresenter.new(role, self)).html_safe
         end.html_safe
         concat li
       end
