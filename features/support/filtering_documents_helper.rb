@@ -1,5 +1,4 @@
 module FilteringDocumentsHelper
-
   def assert_listed_document_count(expected_number)
     selector = 'ol.document-list li.document-row'
 

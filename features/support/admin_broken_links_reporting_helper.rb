@@ -1,5 +1,4 @@
 module AdminBrokenLinksReportingHelper
-
   def govspeak_with_links(*links)
     "Some content with links: ##{build_links(links).join(' ')}"
   end

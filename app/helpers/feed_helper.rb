@@ -1,5 +1,4 @@
 module FeedHelper
-
   def atom_feed_url_for(resource)
     Whitehall.atom_feed_maker.url_for(resource)
   end

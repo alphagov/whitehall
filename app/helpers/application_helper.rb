@@ -1,5 +1,4 @@
 module ApplicationHelper
-
   def policies_path
     "/government/policies"
   end

@@ -24,7 +24,6 @@ module ControllerTestHelpers
         end
       end
     end
-
   end
 
   def govspeak_transformation_fixture(transformation, &block)
@@ -47,5 +46,4 @@ module ControllerTestHelpers
       end
     end
   end
-
 end

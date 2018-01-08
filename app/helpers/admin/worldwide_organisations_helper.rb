@@ -1,5 +1,4 @@
 module Admin::WorldwideOrganisationsHelper
-
   def worldwide_organisation_tabs(worldwide_organisation)
     {
       "Details" => admin_worldwide_organisation_path(worldwide_organisation),

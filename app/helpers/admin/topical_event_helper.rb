@@ -1,5 +1,4 @@
 module Admin::TopicalEventHelper
-
   def topical_event_tabs(topical_event)
     {
       "Details" => url_for([:admin, topical_event]),

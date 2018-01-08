@@ -1,7 +1,6 @@
 # A bunch of helpers for efficiently generating select options for taggable
 # content, e.g. topics, organisations, etc.
 module Admin::TaggableContentHelper
-
   # Returns an Array that represents the curret set of taggable (new-world)
   # policies. Each element of the array consists of two values: the name and
   # the content id of the policy
