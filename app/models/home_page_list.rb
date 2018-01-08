@@ -65,6 +65,7 @@ class HomePageList < ApplicationRecord
   end
 
 protected
+
   def next_ordering
     (home_page_list_items.map(&:ordering).max || 0) + 1
   end
@@ -74,6 +75,7 @@ protected
   end
 
 public
+
   module Container
     # Given:
     #   has_home_page_list_of :contacts
@@ -93,11 +95,15 @@ public
       plural_name = list_type.to_s
       list_name = list_type.to_s
       home_page_list_methods = Module.new do
+
       protected
+
         define_method(:"home_page_#{plural_name}_list") do
           HomePageList.get(owned_by: self, called: list_name)
         end
+
       public
+
         define_method(:"has_home_page_#{plural_name}_list?") do
           HomePageList.get(owned_by: self, called: list_name, build_if_missing: false).present?
         end

@@ -22,6 +22,7 @@ module Whitehall
       end
 
     private
+
       attr_reader :redirects
     end
   end

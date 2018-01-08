@@ -49,6 +49,7 @@ module AddressFormatter
     end
 
   private
+
     def address_template
       (Formatter.address_formats[country_code.to_s.downcase] || default_format_string).dup
     end

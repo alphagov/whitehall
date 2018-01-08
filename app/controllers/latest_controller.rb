@@ -7,6 +7,7 @@ class LatestController < PublicFacingController
   end
 
 private
+
   def subject
     case subject_param
     when 'departments'

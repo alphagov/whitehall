@@ -12,6 +12,7 @@ class EditionDeleter < EditionService
   end
 
 private
+
   def fire_transition!
     edition.public_send(verb)
     edition.save(validate: false)

@@ -47,6 +47,7 @@ module DataHygiene
     end
 
   private
+
     def find
       editions_with_orphaned_attachments = []
       [StatisticalDataSet, CorporateInformationPage, DetailedGuide].each do |klass|

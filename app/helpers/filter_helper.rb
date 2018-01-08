@@ -36,6 +36,7 @@ module FilterHelper
     end
 
   private
+
     def count_fragment
       [
         content_tag(:span, number_with_delimiter(filter.result_count), class: 'count'),

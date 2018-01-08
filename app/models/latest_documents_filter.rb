@@ -22,6 +22,7 @@ class LatestDocumentsFilter
   end
 
 private
+
   def documents_source
     raise NotImplementedError, 'you must provide #documents_source implementation in your LatestDocumentsFilter subclass'
   end
@@ -36,6 +37,7 @@ private
 
   class OrganisationFilter < LatestDocumentsFilter
   private
+
     def documents_source
       subject.published_editions
              .in_reverse_chronological_order
@@ -46,6 +48,7 @@ private
 
   class ClassificationFilter < LatestDocumentsFilter
   private
+
     def documents_source
       subject.published_editions
              .in_reverse_chronological_order
@@ -56,6 +59,7 @@ private
 
   class WorldLocationFilter < LatestDocumentsFilter
   private
+
     def documents_source
       subject.published_editions
              .in_reverse_chronological_order

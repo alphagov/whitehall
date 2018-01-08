@@ -16,5 +16,6 @@ class EmailSignupInformationPresenter
   end
 
 private
+
   attr_reader :organisation
 end

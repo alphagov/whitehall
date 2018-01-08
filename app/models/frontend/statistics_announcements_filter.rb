@@ -113,6 +113,7 @@ class Frontend::StatisticsAnnouncementsFilter < FormObject
   end
 
 private
+
   def get_results
     results = provider.search(valid_filter_params.merge(page: page, per_page: RESULTS_PER_PAGE))
     if should_include_cancellations_within_preceding_month?

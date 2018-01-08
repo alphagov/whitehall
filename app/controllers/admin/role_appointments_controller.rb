@@ -39,6 +39,7 @@ class Admin::RoleAppointmentsController < Admin::BaseController
   end
 
 private
+
   def load_role_appointment
     @role_appointment = RoleAppointment.find(params[:id])
   end

@@ -43,6 +43,7 @@ class Admin::AboutPagesController < Admin::BaseController
   end
 
 private
+
   def find_topical_event
     @topical_event = TopicalEvent.friendly.find(params[:topical_event_id])
   end

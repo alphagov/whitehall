@@ -25,6 +25,7 @@ class MinisterialRolesController < PublicFacingController
   end
 
 private
+
   def decorated_people_and_their_roles(people_and_roles)
     people_and_roles.map do |person, roles|
       [

@@ -36,6 +36,7 @@ class Publicationesque < Edition
   end
 
 protected
+
   def search_format_types
     super + [Publicationesque.search_format_type]
   end

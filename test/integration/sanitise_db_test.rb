@@ -81,6 +81,7 @@ class SanitiseDBTest < ActiveSupport::TestCase
   end
 
 private
+
   def run_script
     database, username, password = %w(database username password).map do |key|
       ActiveRecord::Base.configurations[Rails.env][key]

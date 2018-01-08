@@ -3,6 +3,7 @@ require 'test_helper'
 class LatestDocumentsFilterTest < ActiveSupport::TestCase
   class FauxFilter < LatestDocumentsFilter
   private
+
     def documents_source
       subject.published_editions
     end
@@ -81,6 +82,7 @@ class OrganisationFilterTest < ActiveSupport::TestCase
   end
 
 private
+
   def organisation
     @organisation ||= create(:organisation)
   end
@@ -106,6 +108,7 @@ class WorldLocationFilterTest < ActiveSupport::TestCase
   end
 
 private
+
   def world_location
     @world_location ||= create(:world_location)
   end
@@ -138,6 +141,7 @@ class ClassificationFilterTest < ActiveSupport::TestCase
   end
 
 private
+
   def topic
     @topic ||= create(:topic)
   end

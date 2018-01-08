@@ -26,6 +26,7 @@ module Admin::HomePageListController
       end
 
     protected
+
       define_method(:home_page_list_item) do
         instance_variable_get("@#{single_name}")
       end

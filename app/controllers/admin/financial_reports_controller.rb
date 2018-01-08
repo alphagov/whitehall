@@ -29,6 +29,7 @@ class Admin::FinancialReportsController < Admin::BaseController
   end
 
 private
+
   def load_financial_report
     @financial_report ||= @organisation.financial_reports.find(params[:id])
   end

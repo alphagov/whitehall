@@ -18,6 +18,7 @@ class Admin::CabinetMinistersController < Admin::BaseController
   end
 
 private
+
   def enforce_permissions!
     enforce_permission!(:reorder_cabinet_ministers, MinisterialRole)
   end

@@ -34,6 +34,7 @@ class PublicationsController < DocumentsController
   end
 
 private
+
   def expire_cache_when_next_publication_published
     expire_on_next_scheduled_publication(Publicationesque.scheduled.order("scheduled_publication asc"))
   end

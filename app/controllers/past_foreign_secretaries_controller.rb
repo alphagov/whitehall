@@ -10,6 +10,7 @@ class PastForeignSecretariesController < PublicFacingController
   end
 
 private
+
   def valid_names
     %w(
       edward-wood

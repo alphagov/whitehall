@@ -164,6 +164,7 @@ module TestsForNationalApplicability
     end
 
   end
+
 private
 
   def attributes_for_edition(attributes = {})

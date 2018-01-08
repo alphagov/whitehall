@@ -111,6 +111,7 @@ class GovspeakContentTest < ActiveSupport::TestCase
     HTML
     assert_equivalent_html expected_body_html, govspeak_content.computed_body_html
   end
+
 private
 
   def compute_govspeak(govspeak_content)

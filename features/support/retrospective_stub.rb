@@ -61,6 +61,7 @@ class RetrospectiveStub
   end
 
 private
+
   def get_matching_stub(method, args)
     stub = stubs.find { |stub|
       stub[:method] == method && (

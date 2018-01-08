@@ -27,6 +27,7 @@ module Whitehall::Authority
     end
 
   protected
+
     def find_ruleset_for_instance_or_closest_ancestor(subject)
       classes_to_look_at = subject.is_a?(Class) ? subject.ancestors : subject.class.ancestors
       classname_with_rules = classes_to_look_at.map(&:name).detect { |class_name| RULESMAP.has_key?(class_name) }

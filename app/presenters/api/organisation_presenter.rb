@@ -29,6 +29,7 @@ class Api::OrganisationPresenter < Api::BasePresenter
   end
 
 private
+
   def parent_organisations
     model.parent_organisations.map do |parent|
       {

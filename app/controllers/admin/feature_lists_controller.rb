@@ -16,6 +16,7 @@ class Admin::FeatureListsController < Admin::BaseController
   end
 
 private
+
   def find_feature_list
     @feature_list = FeatureList.find(params[:id] || params[:feature_list_id])
   end

@@ -50,6 +50,7 @@ module Whitehall::DocumentFilter
     end
 
   private
+
     def fetch_from_cache(type, slug)
       Rails.cache.fetch("#{type}-#{slug}", namespace: "results", expires_in: 30.minutes, race_condition_ttl: 1.second) do
         case type

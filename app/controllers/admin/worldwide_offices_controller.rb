@@ -55,6 +55,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
   end
 
 private
+
   def find_worldwide_organisation
     @worldwide_organisation ||= WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])
   end

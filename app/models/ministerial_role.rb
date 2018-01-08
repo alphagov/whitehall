@@ -63,6 +63,7 @@ class MinisterialRole < Role
   end
 
 private
+
   def default_person_name
     name
   end

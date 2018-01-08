@@ -74,6 +74,7 @@ module Whitehall
     end
 
   private
+
       def store
         self.class.store
       end

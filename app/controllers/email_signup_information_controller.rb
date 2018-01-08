@@ -12,6 +12,7 @@ class EmailSignupInformationController < PublicFacingController
   end
 
 private
+
   def organisation
     Organisation.friendly.find(organisation_slug)
   end

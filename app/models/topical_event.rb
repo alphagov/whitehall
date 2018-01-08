@@ -71,6 +71,7 @@ class TopicalEvent < Classification
   end
 
 private
+
   def start_and_end_dates
     if start_date && end_date
       if more_than_a_year(start_date, end_date)

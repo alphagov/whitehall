@@ -191,6 +191,7 @@ class Classification < ApplicationRecord
   end
 
 private
+
   def logo_changed?
     changes["carrierwave_image"].present?
   end

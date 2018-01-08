@@ -19,6 +19,7 @@ class LatestDocumentPresenter < Whitehall::Decorators::Decorator
   end
 
 private
+
   def has_document_collections?
     model.respond_to?(:published_document_collections) &&
       model.published_document_collections.any?

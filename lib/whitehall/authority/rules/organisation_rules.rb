@@ -14,6 +14,7 @@ module Whitehall::Authority::Rules
     end
 
   private
+
     def actor_is_from_organisation_or_parent?(actor, organisation)
       actor.organisation == organisation || actor.organisation.try(:has_child_organisation?, organisation)
     end

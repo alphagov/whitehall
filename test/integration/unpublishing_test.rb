@@ -89,6 +89,7 @@ class UnpublishingTest < ActiveSupport::TestCase
   end
 
 private
+
   def unpublish(edition, params)
     Whitehall.edition_services.unpublisher(edition, unpublishing: params).perform!
   end

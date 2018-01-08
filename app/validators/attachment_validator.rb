@@ -11,6 +11,7 @@ class AttachmentValidator < ActiveModel::Validator
   end
 
 private
+
   def check_unnumbered_command_papers_dont_have_numbers(attachment)
     if attachment.unnumbered_command_paper? && attachment.command_paper_number.present?
       attachment.errors[:command_paper_number] << 'cannot be set on an unnumbered paper'

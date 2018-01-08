@@ -47,6 +47,7 @@ class Admin::TakePartPagesController < Admin::BaseController
   end
 
 private
+
   def take_part_page_params
     params.require(:take_part_page).permit(
       :title, :summary, :body, :image, :image_alt_text, :image_cache

@@ -17,6 +17,7 @@ module Whitehall
     end
 
   private
+
     def abbr_tags
       Nokogiri::HTML(edition_html).css("abbr")
     end

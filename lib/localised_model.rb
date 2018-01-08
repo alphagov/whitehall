@@ -35,6 +35,7 @@ class LocalisedModel < BasicObject
   end
 
 private
+
   def translatable_association?(method, response)
     return false unless @model.class.respond_to?(:reflect_on_association)
 

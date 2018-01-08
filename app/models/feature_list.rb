@@ -46,6 +46,7 @@ class FeatureList < ApplicationRecord
   end
 
 private
+
   def next_ordering
     (features.map(&:ordering).max || 0) + 1
   end

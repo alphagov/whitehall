@@ -33,6 +33,7 @@ module DevelopmentModeStubs
     end
 
   private
+
     def self.raise_unless_values_are_strings(param_hash)
       param_hash.each do |key, value|
         if value.is_a? Hash

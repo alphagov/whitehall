@@ -107,6 +107,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
   end
 
 private
+
   def corporate_information_page_attributes(overrides = {})
     {
       body: "This is the body",

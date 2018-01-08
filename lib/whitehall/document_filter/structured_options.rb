@@ -31,6 +31,7 @@ module Whitehall
       end
 
     protected
+
       attr_reader :all_label
     end
   end

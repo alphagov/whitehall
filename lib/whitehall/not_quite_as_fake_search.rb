@@ -42,6 +42,7 @@ module Whitehall
       end
 
     private
+
       def default_field_mappings
         {
           simple: %w{
@@ -213,6 +214,7 @@ module Whitehall
       end
 
     private
+
       def normalize(document)
         document = document.stringify_keys
         document.each_with_object({}) do |(k, v), memo|

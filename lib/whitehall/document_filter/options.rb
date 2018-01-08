@@ -64,6 +64,7 @@ module Whitehall
       class UnknownFilterKey < StandardError; end
 
     protected
+
       def option_name_for_filter_key(filter_key)
         raise UnknownFilterKey.new("Unknown filter key #{filter_key}") unless valid_filter_key?(filter_key)
         OPTION_NAMES_TO_FILTER_KEYS.key(filter_key)

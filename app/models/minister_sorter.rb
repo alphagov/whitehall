@@ -25,6 +25,7 @@ class MinisterSorter
   end
 
 private
+
   def expanded_roles_and_people
     @roles.map { |role|
       role.current_people.map { |person| [role, person] }
