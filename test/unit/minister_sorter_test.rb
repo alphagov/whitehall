@@ -6,13 +6,13 @@ class MinisterSorterTest < ActiveSupport::TestCase
       self.cabinet_member
     end
 
-    def inspect(*args)
+    def inspect(*_args)
       "<role #{name}, seniority=#{seniority}, #{cabinet_member? ? "cabinet" : "other"}>"
     end
   end
 
   class MockPerson < Struct.new(:sort_key)
-    def inspect(*args)
+    def inspect(*_args)
       "<person #{sort_key}>"
     end
   end

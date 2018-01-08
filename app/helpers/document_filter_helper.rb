@@ -26,7 +26,7 @@ module DocumentFilterHelper
     filter_option_html(filter_options.for(:announcement_type), selected_value)
   end
 
-  def locations_options(document_type, selected_locations = [])
+  def locations_options(_document_type, selected_locations = [])
     selected_values = selected_locations.any? ? selected_locations.map(&:slug) : ["all"]
     filter_option_html(filter_options.for(:locations), selected_values)
   end

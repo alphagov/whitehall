@@ -94,7 +94,7 @@ class ActiveSupport::TestCase
     ActiveSupport::Notifications.unsubscribe(subscriber)
   end
 
-  def with_service(service_name, service, &block)
+  def with_service(service_name, service)
     original_service = Whitehall.send(service_name)
     Whitehall.send(:"#{service_name}=", service)
     yield

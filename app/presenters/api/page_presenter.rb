@@ -1,5 +1,5 @@
 class Api::PagePresenter < Struct.new(:page, :context)
-  def as_json(options = {})
+  def as_json(_options = {})
     {
       results: page.map(&:as_json),
       previous_page_url: previous_page_url,

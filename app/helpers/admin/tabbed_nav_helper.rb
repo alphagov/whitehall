@@ -31,7 +31,7 @@ module Admin::TabbedNavHelper
     }
   end
 
-  def tab_navigation(tabs, *extra_classes, &block)
+  def tab_navigation(tabs, *extra_classes)
     tabs = tab_navigation_header(tabs)
     content_tag(:div, class: ['tabbable', *extra_classes]) do
       if block_given?

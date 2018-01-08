@@ -1,5 +1,5 @@
 module Admin::CabinetMinistersHelper
-  def ministers_role_ordering_fields(form, cabinet_minister_roles, key)
+  def ministers_role_ordering_fields(_form, cabinet_minister_roles, key)
     cabinet_minister_roles.map do |role|
       label = role.name
       if role.current_person

@@ -17,7 +17,7 @@ def validate_url_content_id(url)
   content_id
 end
 
-def detailed_guide?(id, url)
+def detailed_guide?(_id, url)
   url.start_with?("https://www.gov.uk/guidance/")
 end
 

@@ -132,7 +132,7 @@ module DataHygiene
 
   private
 
-    def queue_check(content_store, whitehall_model, output)
+    def queue_check(content_store, whitehall_model, _output)
       url = Plek.find(content_store) + "/content" + base_path_for(whitehall_model)
       request = Typhoeus::Request.new(url)
       request.on_complete do |response|

@@ -187,7 +187,7 @@ class PublicFacingControllerTest < ActionController::TestCase
     end
   end
 
-  def with_routing_for_test_controller(&block)
+  def with_routing_for_test_controller()
     with_routing do |map|
       map.draw do
         %w(test json js_or_atom locale api_timeout api_bad_gateway api_not_found).each do |action|

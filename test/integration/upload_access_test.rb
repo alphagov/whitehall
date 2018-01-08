@@ -36,7 +36,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
     assert_equal "max-age=#{Whitehall.uploads_cache_max_age}, public", response.header['Cache-Control']
   end
 
-  def assert_sent_private_upload(upload, content_type)
+  def assert_sent_private_upload(_upload, content_type)
     assert_equal 200, response.status
     assert_equal content_type, response.content_type
     assert_cache_control "no-cache"

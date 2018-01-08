@@ -1,5 +1,5 @@
 module Admin::DefinitionListHelper
-  def dd(value, default = nil, &block)
+  def dd(value, default = nil)
     value = if value.present?
               if block_given?
                 capture do

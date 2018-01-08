@@ -244,7 +244,7 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
     assert_fallback_thumbnail_used(@uploader)
   end
 
-  def assert_fallback_thumbnail_used(uploader)
+  def assert_fallback_thumbnail_used(_uploader)
     assert @uploader.thumbnail.path.ends_with?(".png"), "should be a png"
     generic_thumbnail_path = File.expand_path("app/assets/images/pub-cover.png")
     assert_equal File.binread(generic_thumbnail_path),

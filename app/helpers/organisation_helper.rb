@@ -155,7 +155,7 @@ module OrganisationHelper
     'aeiou'.include?(word_or_phrase.downcase[0])
   end
 
-  def organisation_wrapper(organisation, options = {}, &block)
+  def organisation_wrapper(organisation, _options = {}, &block)
     classes = [organisation.slug, organisation_brand_colour_class(organisation)]
     classes << organisation.organisation_type.name.parameterize if organisation.respond_to?(:organisation_type)
     content_tag_for :div, organisation, class: classes.join(" ") do

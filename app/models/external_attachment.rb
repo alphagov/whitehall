@@ -44,7 +44,7 @@ class ExternalAttachment < Attachment
     'text/html'
   end
 
-  def url(options = {})
+  def url(_options = {})
     external_url
   end
 

@@ -14,7 +14,7 @@ module PublicDocumentRoutesHelper
     document_path(edition, options.merge(query))
   end
 
-  def document_url(edition, options = {}, builder_options = {})
+  def document_url(edition, options = {}, _builder_options = {})
     if edition.non_english_edition?
       options[:locale] = edition.primary_locale
     elsif edition.translatable?

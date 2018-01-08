@@ -33,7 +33,7 @@ class AttachmentUploader < WhitehallUploader
     process :generate_thumbnail
     before :store, :set_correct_content_type
 
-    def set_correct_content_type(ignore_argument)
+    def set_correct_content_type(_ignore_argument)
       @file.content_type = "image/png"
     end
   end

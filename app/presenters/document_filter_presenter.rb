@@ -6,7 +6,7 @@ class DocumentFilterPresenter < Struct.new(:filter, :context, :document_decorato
     as_hash(options)
   end
 
-  def as_hash(options = nil)
+  def as_hash(_options = nil)
     data = {
       count: documents.count,
       current_page: documents.current_page,

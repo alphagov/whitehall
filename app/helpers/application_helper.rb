@@ -290,7 +290,7 @@ module ApplicationHelper
     Locale.new(I18n.locale).rtl?
   end
 
-  def content_tag_if_not_empty(name, options = nil, &block)
+  def content_tag_if_not_empty(name, options = nil)
     content = capture do
       yield
     end

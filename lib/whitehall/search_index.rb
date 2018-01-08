@@ -69,7 +69,7 @@ module Whitehall
       store.delete(link, @index_name) if store.present?
     end
 
-    def make_request(method, *args)
+    def make_request(_method, *_args)
       raise RuntimeError.new("Use the in memory index (rather than rummager) in tests")
     end
 

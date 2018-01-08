@@ -174,7 +174,7 @@ private
     end
   end
 
-  def withdrawer_or_unpublisher_for(edition)
+  def withdrawer_or_unpublisher_for(_edition)
     if withdrawing?
       Whitehall.edition_services.withdrawer(@edition, user: current_user, remark: "Withdrawn", unpublishing: unpublishing_params)
     else

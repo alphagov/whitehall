@@ -14,7 +14,7 @@ module Admin::SidebarHelper
     end
   end
 
-  def edition_tabs(edition, options = {})
+  def edition_tabs(_edition, options = {})
     options = { editing: false, history_count: 0, remarks_count: 0 }.merge(options)
     {}.tap do |tabs|
       if options[:editing]
@@ -28,7 +28,7 @@ module Admin::SidebarHelper
     end
   end
 
-  def sidebar_tabs(tabs, options = {}, &block)
+  def sidebar_tabs(tabs, options = {})
     tab_tags = tabs.map.with_index do |(id, tab_content), index|
       link_content = case tab_content
                      when String
