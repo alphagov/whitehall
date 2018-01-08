@@ -32,11 +32,11 @@ class UrlToSubscriberListCriteria
 
   def map_url_to_hash
     @map_url_to_hash ||= begin
-      result = if @url.path.match(%r{^/government/statistics\.atom$})
+      result = if @url.path =~ %r{^/government/statistics\.atom$}
                  { "links" => from_params, EMAIL_SUPERTYPE => "publications", GOVERNMENT_SUPERTYPE => "statistics" }
-               elsif @url.path.match(%r{^/government/publications\.atom$})
+               elsif @url.path =~ %r{^/government/publications\.atom$}
                  { "links" => from_params, EMAIL_SUPERTYPE => "publications" }
-               elsif @url.path.match(%r{^/government/announcements\.atom$})
+               elsif @url.path =~ %r{^/government/announcements\.atom$}
                  { "links" => from_params, EMAIL_SUPERTYPE => "announcements" }
                elsif (path_match = @url.path.match(%r{^/government/people/(.*)\.atom$}))
                  { "links" => from_params.merge("people" => [path_match[1]]) }
