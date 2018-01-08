@@ -66,7 +66,7 @@ class Api::PagePresenterTest < PresenterTestCase
   test 'links include a rel=self url pointing to the current page' do
     self_link = @presenter.links.detect { |(_url, attrs)| attrs['rel'] == 'self' }
     assert self_link
-    self_url, _ = *self_link
+    self_url, = *self_link
     assert_equal api_organisations_url(page: 2), self_url
   end
 
@@ -74,7 +74,7 @@ class Api::PagePresenterTest < PresenterTestCase
     @page.stubs(:last_page?).returns false
     next_link = @presenter.links.detect { |(_url, attrs)| attrs['rel'] == 'next' }
     assert next_link
-    next_url, _ = *next_link
+    next_url, = *next_link
     assert_equal api_organisations_url(page: 3), next_url
   end
 
@@ -88,7 +88,7 @@ class Api::PagePresenterTest < PresenterTestCase
     @page.stubs(:first_page?).returns false
     previous_link = @presenter.links.detect { |(_url, attrs)| attrs['rel'] == 'previous' }
     assert previous_link
-    previous_url, _ = *previous_link
+    previous_url, = *previous_link
     assert_equal api_organisations_url(page: 1), previous_url
   end
 

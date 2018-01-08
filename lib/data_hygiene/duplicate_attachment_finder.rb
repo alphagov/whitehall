@@ -35,7 +35,7 @@ module DataHygiene
       CSV.generate do |csv|
         csv << %w(TYPE ID DEPARTMENT ADMIN_URL PUBLIC_URL FILENAME IDENTICAL?)
         duplicate_edition_results.each do |duplicate_info|
-          id, filename, _       = duplicate_info
+          id, filename,         = duplicate_info
           edition               = Edition.find(id)
           duplicate_attachments = edition.attachments.includes(:attachment_data).where(attachment_data: { carrierwave_file: filename })
           attachment_ids        = duplicate_attachments.map(&:id)
