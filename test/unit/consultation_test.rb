@@ -67,8 +67,8 @@ class ConsultationTest < ActiveSupport::TestCase
   test "should build a draft copy of the existing consultation with inapplicable nations" do
     published_consultation = create(:published_consultation, nation_inapplicabilities: [
       create(:nation_inapplicability, nation_id: Nation.wales.id, alternative_url: "http://wales.gov.uk"),
-      create(:nation_inapplicability, nation_id: Nation.scotland.id, alternative_url: "http://scot.gov.uk")]
-    )
+      create(:nation_inapplicability, nation_id: Nation.scotland.id, alternative_url: "http://scot.gov.uk")
+    ])
 
     draft_consultation = published_consultation.create_draft(create(:writer))
 

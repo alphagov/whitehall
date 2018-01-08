@@ -89,8 +89,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
                               image_data_attributes: {
                                 file: fixture_file_upload('horrible-image.64x96.jpg', 'image/jpg')
                               }
-                            }
-        ]
+                            }]
       )
     )
     published_edition.save(validate: false)
@@ -115,8 +114,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
                               image_data_attributes: {
                                 file: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
                               }
-                            }
-        ]
+                            }]
       )
     )
     VirusScanHelpers.simulate_virus_scan

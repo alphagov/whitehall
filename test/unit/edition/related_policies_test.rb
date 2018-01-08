@@ -101,8 +101,7 @@ class Edition::RelatedPoliciesTest < ActiveSupport::TestCase
    :consultation,
    :publication,
    :detailed_guide,
-   :speech,
-  ].each do |document_with_policies|
+   :speech].each do |document_with_policies|
     test "can add a policy by content id to a #{document_with_policies}" do
       edition = create(document_with_policies, policy_content_ids: [policy_area_1.fetch("content_id")])
 
