@@ -13,6 +13,14 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
 
   test "creates a new csv file with the correct headers" do
     hmrc = create(:organisation, name: "HM Revenue & Customs")
+    detailed_guide = create(:published_detailed_guide,
+                            lead_organisations: [hmrc],
+                            body: "[Good](https://www.gov.uk/good-link)\n[broken link](https://www.gov.uk/bad-link)\n[Missing page](https://www.gov.uk/missing-link)")
+    missing_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/missing-link", status: "broken")
+    good_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/good-link", status: "ok")
+    bad_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/bad-link", status: "broken")
+    create(:link_checker_api_report_completed, batch_id: 1, link_reportable: detailed_guide, links: [bad_link, missing_link, good_link])
+
     LinkReporterCsvService.new(reports_dir: reports_dir, organisation: hmrc).generate
 
     csv_test_file_path = reports_dir_pathname.join("hm-revenue-customs_links_report.csv")
@@ -102,7 +110,6 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
     good_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/good-link", status: "ok")
 
     create(:link_checker_api_report_completed, batch_id: 1, link_reportable: detailed_guide, links: [bad_link, missing_link, good_link])
-    # create(:link_checker_api_report_completed, batch_id: 2, link_reportable: publication, links: [another_good_link, another_bad_link])
 
     LinkReporterCsvService.new(reports_dir: reports_dir, organisation: hmrc).generate
     hmrc_csv = CSV.read(reports_dir_pathname.join("hm-revenue-customs_links_report.csv"))
@@ -146,6 +153,35 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
                   'Speech',
                   '1',
                   'https://www.gov.uk/missing-link'], csv[1]
+  end
+
+  test "adds editions to the relevant organisation's csv file if no organisation passed to it" do
+    hmrc = create(:organisation, name: "HM Revenue & Customs")
+    not_hmrc = create(:organisation, name: "NOT HM Revenue & Customs")
+
+    detailed_guide = create(:published_detailed_guide,
+                            lead_organisations: [hmrc],
+                            body: "[Good](https://www.gov.uk/good-link)\n[broken link](https://www.gov.uk/bad-link)\n[Missing page](https://www.gov.uk/missing-link)")
+    publication = create(:published_publication,
+                         lead_organisations: [not_hmrc],
+                         body: "[A broken page](https://www.gov.uk/another-bad-link)\n[A good link](https://www.gov.uk/another-good-link)")
+
+    bad_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/bad-link", status: "broken")
+    another_bad_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/another-bad-link", status: "broken")
+    missing_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/missing-link", status: "broken")
+    good_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/good-link", status: "ok")
+    another_good_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/another-good-link", status: "ok")
+
+    create(:link_checker_api_report, batch_id: 1, link_reportable: detailed_guide, links: [bad_link, missing_link, good_link], status: "completed")
+    create(:link_checker_api_report, batch_id: 2, link_reportable: publication, links: [another_good_link, another_bad_link], status: "completed")
+
+    LinkReporterCsvService.new(reports_dir: reports_dir).generate
+
+    hmrc_csv = CSV.read(reports_dir_pathname.join("hm-revenue-customs_links_report.csv"))
+    not_hmrc_csv = CSV.read(reports_dir_pathname.join("not-hm-revenue-customs_links_report.csv"))
+
+    assert_equal 2, hmrc_csv.size
+    assert_equal 2, not_hmrc_csv.size
   end
 
 private
