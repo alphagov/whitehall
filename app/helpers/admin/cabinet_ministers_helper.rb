@@ -7,7 +7,7 @@ module Admin::CabinetMinistersHelper
       end
       content_tag(:div,
         [label_tag("#{key}[#{role.id}][ordering]", link_to(label, [:edit, :admin, role.becomes(Role)])),
-        text_field_tag("#{key}[#{role.id}][ordering]", yield(role), class: "ordering")].join.html_safe, class: "well"
+         text_field_tag("#{key}[#{role.id}][ordering]", yield(role), class: "ordering")].join.html_safe, class: "well"
       )
     end.join.html_safe
   end

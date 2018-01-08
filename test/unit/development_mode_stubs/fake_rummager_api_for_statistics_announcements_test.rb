@@ -30,11 +30,11 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
                                                                  precision: StatisticsAnnouncementDate::PRECISION[:two_month],
                                                                  confirmed: false,
                                                                  change_note: nil),
-                                                           build(:statistics_announcement_date,
-                                                                 release_date:  Time.zone.parse("2050-01-01 09:30"),
-                                                                 precision: StatisticsAnnouncementDate::PRECISION[:exact],
-                                                                 confirmed: true,
-                                                                 change_note: 'The change note')]
+                                                          build(:statistics_announcement_date,
+                                                                release_date:  Time.zone.parse("2050-01-01 09:30"),
+                                                                precision: StatisticsAnnouncementDate::PRECISION[:exact],
+                                                                confirmed: true,
+                                                                change_note: 'The change note')]
 
     returned_announcement_hash = subject.advanced_search(page: '1', per_page: '100')['results'].first
 

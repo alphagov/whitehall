@@ -1,8 +1,8 @@
 module Whitehall::DocumentFilter
   class Result
     ACCESSORS = %w{title description indexable_content attachments
-      format display_type link id search_format_types
-      relevant_to_local_government}
+                   format display_type link id search_format_types
+                   relevant_to_local_government}
     ACCESSORS.each do |attribute_name|
       define_method attribute_name.to_sym do
         @doc[attribute_name.to_s]
