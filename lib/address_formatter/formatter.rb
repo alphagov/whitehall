@@ -21,12 +21,8 @@ module AddressFormatter
       ['fn', 'street-address', 'postal-code', 'locality', 'region', 'country-name']
     end
 
-    def self.address_formats
-      @address_formats
-    end
-
-    def self.address_formats=(new_address_formats)
-      @address_formats = new_address_formats
+    class << self
+      attr_accessor :address_formats
     end
 
     attr_reader :properties, :country_code

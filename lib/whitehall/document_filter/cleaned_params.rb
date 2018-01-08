@@ -38,9 +38,7 @@ module Whitehall::DocumentFilter
       PERMITTED_SCALAR_PARAMETER_KEYS + PERMITTED_ARRAY_PARAMETER_KEYS + ActionController::Parameters.always_permitted_parameters
     end
 
-    def params
-      @params
-    end
+    attr_reader :params
 
     def unsafe_params
       @params.to_unsafe_h
