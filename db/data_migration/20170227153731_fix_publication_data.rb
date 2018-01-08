@@ -12,4 +12,3 @@ stuck_draft_editions.each do |edition_id|
 
   PublishingApiDocumentRepublishingWorker.perform_async(stuck_draft.document_id)
 end
-

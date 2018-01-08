@@ -11,4 +11,3 @@ csv.each do |row|
   router_api.add_redirect_route(row["Source"], 'exact', row["Destination"], 'temporary', skip_commit: true)
 end
 router_api.commit_routes
-

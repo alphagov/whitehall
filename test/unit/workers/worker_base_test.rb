@@ -36,4 +36,3 @@ class WorkerBaseTest < ActiveSupport::TestCase
     MyWorker.perform_async_in_queue(nil, example_arg)
   end
 end
-

@@ -9,5 +9,3 @@ attachment_datas_to_delete = all_attachment_datas_on_deleted_attachments.reject 
 end
 
 attachment_datas_to_delete.each(&:destroy)
-
-

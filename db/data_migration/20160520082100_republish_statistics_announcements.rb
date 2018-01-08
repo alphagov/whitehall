@@ -8,4 +8,3 @@ republisher = DataHygiene::PublishingApiRepublisher.new(
   )
 
 republisher.perform
-

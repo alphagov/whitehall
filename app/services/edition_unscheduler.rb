@@ -23,4 +23,3 @@ private
     ScheduledPublishingWorker.dequeue(edition)
   end
 end
-
