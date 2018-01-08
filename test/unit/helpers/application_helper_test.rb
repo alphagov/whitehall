@@ -67,7 +67,7 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   test "should render a list of ministerial roles" do
-    roles = [build(:ministerial_role, name: "Jack"), build(:ministerial_role,  name: "Jill")]
+    roles = [build(:ministerial_role, name: "Jack"), build(:ministerial_role, name: "Jill")]
     html = render_list_of_ministerial_roles(roles) { |ministerial_role| "<p>#{ministerial_role.name}</p>" }
     assert_select_within_html(html, 'ul li p', text: "Jack")
     assert_select_within_html(html, 'ul li p', text: "Jill")

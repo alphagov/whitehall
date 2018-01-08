@@ -53,7 +53,7 @@ related_mainstream_content_urls = DetailedGuide.select(
 puts "#{related_mainstream_content_urls.length} Related mainstream content urls"
 related_mainstream_content_urls.each do |detailed_guide|
   next if detailed_guide?(detailed_guide[:id], detailed_guide[:related_mainstream_content_url])
-  content_id =  validate_url_content_id(detailed_guide[:related_mainstream_content_url])
+  content_id = validate_url_content_id(detailed_guide[:related_mainstream_content_url])
   if content_id.nil?
     chopped_url = clean_the_url(detailed_guide[:related_mainstream_content_url])
     content_id = validate_url_content_id(chopped_url) if chopped_url

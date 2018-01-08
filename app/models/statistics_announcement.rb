@@ -49,7 +49,7 @@ class StatisticsAnnouncement < ApplicationRecord
   validates :redirect_url, uri: true, allow_blank: true
   validates :redirect_url, gov_uk_url: true, allow_blank: true
   validates :title, :summary, :organisations, :topics, :creator, :current_release_date, presence: true
-  validates :cancellation_reason, presence: {  message: "must be provided when cancelling an announcement" }, if: :cancelled?
+  validates :cancellation_reason, presence: { message: "must be provided when cancelling an announcement" }, if: :cancelled?
   validates :publication_type_id,
               inclusion: {
                 in: PublicationType.statistical.map(&:id),
@@ -84,7 +84,7 @@ class StatisticsAnnouncement < ApplicationRecord
               index_after: [],
               unindex_after: []
 
-  delegate  :release_date, :display_date, :confirmed?,
+  delegate :release_date, :display_date, :confirmed?,
               to: :current_release_date, allow_nil: true
 
   after_touch :publish_redirect_to_publication, if: :publication_has_been_published?

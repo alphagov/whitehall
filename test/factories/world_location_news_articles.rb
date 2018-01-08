@@ -15,7 +15,7 @@ FactoryBot.define do
   factory :submitted_world_location_news_article, parent: :world_location_news_article, traits: [:submitted]
   factory :rejected_world_location_news_article, parent: :world_location_news_article, traits: [:rejected]
   factory :published_world_location_news_article, parent: :world_location_news_article, traits: [:published] do
-    first_published_at  { 2.days.ago }
+    first_published_at { 2.days.ago }
   end
   factory :deleted_world_location_news_article, parent: :world_location_news_article, traits: [:deleted]
   factory :superseded_world_location_news_article, parent: :world_location_news_article, traits: [:superseded]

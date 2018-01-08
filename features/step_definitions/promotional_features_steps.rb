@@ -28,7 +28,7 @@ When /^I add a new promotional feature with a single item$/ do
     fill_in 'Summary',                      with: 'The Big Cheese is coming.'
     fill_in 'Item title (optional)',        with: 'The Big Cheese'
     fill_in 'Item title url (optional)',    with: 'http://big-cheese.co'
-    attach_file :image,    Rails.root.join('test/fixtures/big-cheese.960x640.jpg')
+    attach_file :image, Rails.root.join('test/fixtures/big-cheese.960x640.jpg')
     fill_in 'Image description (alt text)', with: 'The Big Cheese'
   end
 
@@ -115,7 +115,7 @@ Then /^I should see the promotional feature on the executive office page$/ do
         @promotional_feature.items.each do |item|
           assert page.has_content?(item.summary)
           assert page.has_css?("img[src='#{item.image.s300.url}'][alt='#{item.image_alt_text}']")
-          item.links.each { |link| assert page.has_link(link.text, href: link.url)  }
+          item.links.each { |link| assert page.has_link(link.text, href: link.url) }
         end
       end
     end

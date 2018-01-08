@@ -50,7 +50,7 @@ class FilterHelperTest::FilterDescriptionTest < ActionView::TestCase
   end
 
   test "It describes the total count correctly" do
-    assert_string_includes "12,345 documents", rendered_description(build_filter(filter_type: "document",  result_count: 12345)).text
+    assert_string_includes "12,345 documents", rendered_description(build_filter(filter_type: "document", result_count: 12345)).text
     assert_string_includes "1 document", rendered_description(build_filter(filter_type: "document", result_count: 1)).text
   end
 

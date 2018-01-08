@@ -5,6 +5,6 @@ class RolePaymentType
 
   attr_accessor :id, :name
 
-  Unpaied  = create(id: 1, name: "Unpaid")
+  Unpaied = create(id: 1, name: "Unpaid")
   ParliamentarySecretary = create(id: 2, name: "Paid as a Parliamentary Secretary")
 end

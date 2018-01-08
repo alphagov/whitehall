@@ -1,5 +1,5 @@
 Given(/^a draft document with broken links exists$/) do
-  @broken_link   = 'http://broken-link.com/404'
+  @broken_link = 'http://broken-link.com/404'
   @working_link = 'http://example.com/some/page'
 
   link_checker_api_stub_create_batch(

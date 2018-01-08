@@ -25,20 +25,21 @@ end
 
 
 Given(/^there are statistics announcements by my organisation that are unlinked to a publication$/) do
-  @past_announcement    = create(:statistics_announcement,
-                            organisation_ids: [@user.organisation.id],
-                            current_release_date: create(:statistics_announcement_date, release_date: 1.day.ago))
+  @past_announcement = create(:statistics_announcement,
+                              organisation_ids: [@user.organisation.id],
+                              current_release_date: create(:statistics_announcement_date, release_date: 1.day.ago))
 
-  @tomorrow_announcement  = create(:statistics_announcement,
-                              organisation_ids: [@user.organisation.id],
-                              current_release_date: create(:statistics_announcement_date, release_date: 1.day.from_now))
+  @tomorrow_announcement = create(:statistics_announcement,
+                                  organisation_ids: [@user.organisation.id],
+                                  current_release_date: create(:statistics_announcement_date, release_date: 1.day.from_now))
+
   @next_week_announcement = create(:statistics_announcement,
-                              organisation_ids: [@user.organisation.id],
-                              current_release_date: create(:statistics_announcement_date, release_date: 1.week.from_now))
+                                   organisation_ids: [@user.organisation.id],
+                                   current_release_date: create(:statistics_announcement_date, release_date: 1.week.from_now))
 
   @next_year_announcement = create(:statistics_announcement,
-                              organisation_ids: [@user.organisation.id],
-                              current_release_date: create(:statistics_announcement_date, release_date: 1.year.from_now))
+                                   organisation_ids: [@user.organisation.id],
+                                   current_release_date: create(:statistics_announcement_date, release_date: 1.year.from_now))
 end
 
 When(/^I view the statistics announcements index page$/) do

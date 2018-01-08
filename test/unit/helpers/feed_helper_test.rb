@@ -117,7 +117,7 @@ class FeedHelperTest < ActionView::TestCase
     document = Edition.new(title: 'A thing!', summary: 'A thing has happened')
     builder = mock('builder')
     builder.expects(:title).with "#{document.display_type}: #{document.title}"
-    builder.expects(:category).with(label:  document.display_type, term: document.display_type)
+    builder.expects(:category).with(label: document.display_type, term: document.display_type)
     builder.expects(:summary).with document.summary
     expects(:govspeak_edition_to_html).with(document).returns('govspoken content')
     builder.expects(:content).with('govspoken content', type: 'html')
@@ -139,7 +139,7 @@ class FeedHelperTest < ActionView::TestCase
     document = Edition.new(title: 'A thing!', summary: 'A thing has happened', published_major_version: 2, change_note: 'note')
     builder = mock('builder')
     builder.stubs(:title)
-    builder.expects(:category).with(label:  document.display_type, term: document.display_type)
+    builder.expects(:category).with(label: document.display_type, term: document.display_type)
     builder.expects(:summary).with "[Updated: note] #{document.summary}"
     expects(:govspeak_edition_to_html).with(document).returns('govspoken content')
     builder.expects(:content).with('<p><em>Updated:</em> note</p>govspoken content', type: 'html')

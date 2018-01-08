@@ -32,7 +32,7 @@ Given(/^there is a document tagged to specialist sectors$/) do
           }
         }
       ],
-      "topics" => [{ "title" => "Topic 1" }, { "title" => "Topic 2"  }]
+      "topics" => [{ "title" => "Topic 1" }, { "title" => "Topic 2" }]
     }
   })
 

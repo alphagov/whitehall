@@ -6,7 +6,7 @@ class CreateFeaturedLinks < ActiveRecord::Migration
   end
 
   def up
-    create_table :featured_links  do |t|
+    create_table :featured_links do |t|
       t.string :url
       t.string :title
       t.references :linkable

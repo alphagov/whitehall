@@ -84,6 +84,6 @@ private
   end
 
   def more_than_a_year(from_time, to_time = 0)
-    to_time > from_time + 1.year + 1.day  # allow 1 day's leeway
+    to_time > from_time + 1.year + 1.day # allow 1 day's leeway
   end
 end

@@ -90,9 +90,9 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     clinton = create(:person, surname: 'Clinton', forename: 'George')
     richard = create(:person, surname: 'Richard', forename: 'Little')
 
-    minister_appointment      = create(:role_appointment, role: minister, person: brown)
+    minister_appointment     = create(:role_appointment, role: minister, person: brown)
     board_member_appointment = create(:role_appointment, role: board_member, person: clinton)
-    old_minister_appointment  = create(:role_appointment,
+    old_minister_appointment = create(:role_appointment,
                                           role: minister,
                                           person: richard,
                                           started_at: Date.new(1932, 12, 5),

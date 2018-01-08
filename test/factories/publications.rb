@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :publication, class: Publication, parent: :edition, traits: [:with_organisations, :with_topics] do
     sequence(:title) { |index| "publication-title-#{index}" }
-    body  "publication-body"
+    body "publication-body"
     summary "publication-summary"
     publication_type_id { PublicationType::PolicyPaper.id }
     attachments { FactoryBot.build_list :html_attachment, 1 }

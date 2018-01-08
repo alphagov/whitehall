@@ -309,7 +309,7 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "leaves heading numbers not occuring at the start of the heading text alone when using manual heading numbering" do
     input = "## Number 8"
-    result =  Nokogiri::HTML::DocumentFragment.parse(govspeak_to_html(input, [], heading_numbering: :manual))
+    result = Nokogiri::HTML::DocumentFragment.parse(govspeak_to_html(input, [], heading_numbering: :manual))
     assert_equal "Number 8", result.css('h2').first.text
   end
 

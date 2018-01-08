@@ -329,7 +329,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
     refute_equal old_data, attachment.attachment_data
     assert_equal attachment.attachment_data, old_data.replaced_by
-    assert_equal 'whitepaper.pdf',  attachment.filename
+    assert_equal 'whitepaper.pdf', attachment.filename
   end
 
   test "PUT :update_many changes attributes of multiple attachments" do

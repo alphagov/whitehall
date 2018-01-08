@@ -23,12 +23,12 @@ class Frontend::StatisticsAnnouncementTest < ActiveSupport::TestCase
   end
 
   test "#display_date_with_status appends (provisional) to unconfirmed announcements" do
-    announcement =  build_announcement(display_date: "March 12 2015", state: "provisional")
+    announcement = build_announcement(display_date: "March 12 2015", state: "provisional")
     assert_equal "March 12 2015 (provisional)", announcement.display_date_with_status
   end
 
   test "#disply_date_with_status appends (cancelled) to cancelled announcements" do
-    announcement =  build_announcement(display_date: "March 12 2015", state: "cancelled")
+    announcement = build_announcement(display_date: "March 12 2015", state: "cancelled")
     assert_equal "March 12 2015 (cancelled)", announcement.display_date_with_status
   end
 

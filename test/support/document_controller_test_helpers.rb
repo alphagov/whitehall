@@ -323,7 +323,7 @@ module DocumentControllerTestHelpers
       end
 
       test "index should fetch the correct page for #{edition_type}" do
-        documents = (1..6).to_a.map { |i| create("published_#{edition_type}", title:   "keyword-#{i}-window-pagination", options[:timestamp_key] => i.days.ago) }
+        documents = (1..6).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}-window-pagination", options[:timestamp_key] => i.days.ago) }
         documents.sort_by!(&options[:sort_by]) if options[:sort_by]
 
         with_number_of_documents_per_page(3) do

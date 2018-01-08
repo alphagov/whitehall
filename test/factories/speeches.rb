@@ -21,7 +21,7 @@ FactoryBot.define do
   factory :submitted_speech, parent: :speech, traits: [:submitted]
   factory :rejected_speech, parent: :speech, traits: [:rejected]
   factory :published_speech, parent: :speech, traits: [:published] do
-    first_published_at  { 2.days.ago }
+    first_published_at { 2.days.ago }
   end
   factory :deleted_speech, parent: :speech, traits: [:deleted]
   factory :superseded_speech, parent: :speech, traits: [:superseded]

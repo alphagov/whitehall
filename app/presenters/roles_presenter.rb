@@ -10,7 +10,7 @@ class RolesPresenter < Whitehall::Decorators::CollectionDecorator
 
   def with_unique_people
     people = unique_people.dup
-    @with_unique_people ||= decorated_collection.select  { |role| people.delete(role.model.current_person) }
+    @with_unique_people ||= decorated_collection.select { |role| people.delete(role.model.current_person) }
   end
 
   def unique_people
