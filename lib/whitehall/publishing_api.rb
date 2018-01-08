@@ -134,7 +134,7 @@ module Whitehall
     end
 
     def self.assert_public_edition!(instance)
-      if instance.kind_of?(Edition) && !instance.publicly_visible?
+      if instance.is_a?(Edition) && !instance.publicly_visible?
         raise UnpublishableInstanceError, "#{instance.class} with ID #{instance.id} is not publishable"
       end
     end

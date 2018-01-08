@@ -13,7 +13,7 @@ module HtmlAssertions
   end
 
   def assert_select_object(object, *args, &block)
-    object = object.kind_of?(Attachment) ? object.becomes(Attachment) : object
+    object = object.is_a?(Attachment) ? object.becomes(Attachment) : object
     assert_select record_css_selector(object), *args, &block
   end
 

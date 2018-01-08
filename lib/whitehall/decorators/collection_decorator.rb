@@ -65,7 +65,7 @@ module Whitehall
       end
 
       def kind_of?(klass)
-        decorated_collection.kind_of?(klass) || super
+        decorated_collection.is_a?(klass) || super
       end
       alias_method :is_a?, :kind_of?
 
