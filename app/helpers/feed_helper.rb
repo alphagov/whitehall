@@ -40,7 +40,7 @@ module FeedHelper
   end
 
   def feed_display_type_for(document)
-    return "News story" if (document.is_a?(WorldLocationNewsArticle))
+    return "News story" if document.is_a?(WorldLocationNewsArticle)
     document.display_type
   end
 
