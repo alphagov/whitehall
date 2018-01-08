@@ -28,12 +28,12 @@ class TopicalEventsController < ClassificationsController
 
 private
 
-    def fetch_associated(type, presenter_class)
-      editions = @classification
-        .send(type)
-        .in_reverse_chronological_order
-        .includes(:translations, :document)
-        .limit(3)
-      decorate_collection(editions, presenter_class)
-    end
+  def fetch_associated(type, presenter_class)
+    editions = @classification
+      .send(type)
+      .in_reverse_chronological_order
+      .includes(:translations, :document)
+      .limit(3)
+    decorate_collection(editions, presenter_class)
+  end
 end

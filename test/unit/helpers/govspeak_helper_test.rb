@@ -356,46 +356,47 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   test 'will add a barchart class to a marked table' do
-    input = '
-|col|
-|---|
-|val|
-{barchart}
-'
+    input = <<~INPUT
+      |col|
+      |---|
+      |val|
+      {barchart}
+    INPUT
     html = govspeak_to_html(input)
     assert_select_within_html html, "table.js-barchart-table"
   end
 
   test 'will add a stacked, compact, negative barchart class to a marked table' do
-        input = '
-|col|
-|---|
-|val|
-{barchart stacked compact negative}
-'
+    input = <<~INPUT
+      |col|
+      |---|
+      |val|
+      {barchart stacked compact negative}
+    INPUT
     html = govspeak_to_html(input)
     assert_select_within_html html, "table.mc-stacked.js-barchart-table.mc-negative.compact"
   end
 
   test 'will make a marked table sortable' do
-    input = '
-|col|
-|---|
-|val|
-{sortable}
-    '
+    input = <<~INPUT
+      |col|
+      |---|
+      |val|
+      {sortable}
+    INPUT
     html = govspeak_to_html(input)
     assert_select_within_html html, "table.sortable"
   end
 
   test 'will make a marked table sortable and a barchart' do
-    input = '
-|col|
-|---|
-|val|
-{sortable}
-{barchart}
-    '
+    input = <<~INPUT
+      |col|
+      |---|
+      |val|
+      {sortable}
+      {barchart}
+    INPUT
+
     html = govspeak_to_html(input)
     assert_select_within_html html, "table.sortable.js-barchart-table"
   end

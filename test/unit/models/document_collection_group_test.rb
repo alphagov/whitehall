@@ -12,9 +12,12 @@ class DocumentSeriesGroupTest < ActiveSupport::TestCase
         membership's ordering to the position of the document id in the passed in array" do
     group = build(:document_collection_group)
 
-    group.documents << doc_1 = create(:document)
-    group.documents << doc_2 = create(:document)
-                       doc_3 = create(:document)
+    doc_1 = create(:document)
+    doc_2 = create(:document)
+    doc_3 = create(:document)
+
+    group.documents << doc_1
+    group.documents << doc_2
 
     group.set_document_ids_in_order! [doc_3.id, doc_1.id]
 
