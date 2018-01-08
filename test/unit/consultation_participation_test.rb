@@ -59,7 +59,7 @@ class ConsultationParticipationTest < ActiveSupport::TestCase
     form = create(:consultation_response_form)
     participation = create(:consultation_participation, consultation_response_form: form)
 
-    participation.update_attributes(consultation_response_form_attributes: {id: form.id, "_destroy" => "1"})
+    participation.update_attributes(consultation_response_form_attributes: { id: form.id, "_destroy" => "1" })
 
     participation.reload
     refute participation.consultation_response_form.present?

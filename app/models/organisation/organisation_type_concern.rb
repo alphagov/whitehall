@@ -8,7 +8,7 @@ module Organisation::OrganisationTypeConcern
               length: { minimum: 1, message: "must not be empty for sub-organisations" },
               if: lambda { organisation_type_key == :sub_organisation }
     validates :govuk_status,
-              inclusion: {in: ['exempt'], message: "must be 'exempt' for devolved administrations"},
+              inclusion: { in: ['exempt'], message: "must be 'exempt' for devolved administrations" },
               if: lambda { organisation_type_key == :devolved_administration }
 
     # Creates a scope for each department type. (eg. Organisation.ministerial_departments)

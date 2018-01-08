@@ -8,9 +8,9 @@ class Admin::FeatureListsController < Admin::BaseController
   def reorder
     new_order = (params[:ordering] || []).sort_by { |k, v| v.to_i }.map(&:first)
     if @feature_list.reorder!(new_order)
-      message = {notice: "Feature order updated"}
+      message = { notice: "Feature order updated" }
     else
-      message = {alert: "Unable to reorder features because #{@feature_list.errors.full_messages.to_sentence}"}
+      message = { alert: "Unable to reorder features because #{@feature_list.errors.full_messages.to_sentence}" }
     end
     redirect_to feature_list_path(@feature_list), message
   end

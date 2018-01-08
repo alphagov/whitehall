@@ -18,8 +18,8 @@ class Admin::SuggestionsControllerTest < ActionController::TestCase
     get :index, format: :json
 
     assert_equal [
-      { id: contact_1.id, title: contact_1.title, summary: 'org-name'},
-      { id: contact_2.id, title: contact_2.title, summary: 'world-name'}
+      { id: contact_1.id, title: contact_1.title, summary: 'org-name' },
+      { id: contact_2.id, title: contact_2.title, summary: 'world-name' }
     ], assigns(:contacts)
   end
 end

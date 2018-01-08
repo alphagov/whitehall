@@ -11,7 +11,7 @@ end
 Whitehall::Application.routes.draw do
   VALID_LOCALES_REGEX = Regexp.compile(Locale.non_english.map(&:code).join("|"))
 
-  def redirect(path, options = {prefix: Whitehall.router_prefix})
+  def redirect(path, options = { prefix: Whitehall.router_prefix })
     super(options[:prefix] + path)
   end
 
@@ -312,7 +312,7 @@ Whitehall::Application.routes.draw do
           resource :document_sources, path: "document-sources", except: [:show]
           resources :attachments, except: [:show] do
             put :order, on: :collection
-            put :update_many, on: :collection, constraints: {format: "json"}
+            put :update_many, on: :collection, constraints: { format: "json" }
           end
           resources :bulk_uploads, except: [:show, :edit, :update] do
             post :upload_zip, on: :collection

@@ -13,8 +13,7 @@ module Admin::EditionActionsHelper
       capture do
         form_for [:admin, edition], {
           url: approve_retrospectively_admin_edition_path(edition, lock_version: edition.lock_version),
-          method: :post,
-        } do |form|
+          method: :post } do |form|
           concat(form.submit "Looks good", data: { confirm: confirmation_prompt }, class: "btn btn-success")
         end
       end
@@ -31,7 +30,7 @@ module Admin::EditionActionsHelper
 
   def convert_to_draft_edition_form(edition)
     url = convert_to_draft_admin_edition_path(edition, lock_version: edition.lock_version)
-    options = { title: "Convert to draft #{edition.title}", class: 'btn btn-success'}
+    options = { title: "Convert to draft #{edition.title}", class: 'btn btn-success' }
     options.merge!(disabled: 'disabled') unless edition.valid_as_draft?
     button_to 'Convert to draft', url, options
   end

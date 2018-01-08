@@ -52,7 +52,7 @@ class SpecialistTagFinderTest < ActiveSupport::TestCase
           {
             "base_path" => parent_base_path,
             "links" => {
-              "parent" => [{ "base_path" => "/grandpa", links: {}}],
+              "parent" => [{ "base_path" => "/grandpa", links: {} }],
             }
           }
         ]
@@ -73,7 +73,7 @@ class SpecialistTagFinderTest < ActiveSupport::TestCase
           {
             "base_path" => parent_base_path,
             "expanded_links" => {
-              "parent" => [{ "base_path" => "/grandpa", links: {}}],
+              "parent" => [{ "base_path" => "/grandpa", links: {} }],
             }
           }
         ]
@@ -88,7 +88,7 @@ class SpecialistTagFinderTest < ActiveSupport::TestCase
     edition = create(:edition_with_document)
     edition_base_path = Whitehall.url_maker.public_document_path(edition)
     edition_content_item = content_item_for_base_path(edition_base_path).merge!({
-      "links" => { }
+      "links" => {}
     })
 
     content_store_has_item(edition_base_path, edition_content_item)

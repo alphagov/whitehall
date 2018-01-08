@@ -124,10 +124,10 @@ class WorldLocationTest < ActiveSupport::TestCase
   test "should be creatable with featured link data" do
     params = {
       featured_links_attributes: [
-        {url: "https://www.gov.uk/blah/blah",
-         title: "Blah blah"},
-        {url: "https://www.gov.uk/wah/wah",
-         title: "Wah wah"},
+        { url: "https://www.gov.uk/blah/blah",
+         title: "Blah blah" },
+        { url: "https://www.gov.uk/wah/wah",
+         title: "Wah wah" },
       ]
     }
 
@@ -144,8 +144,8 @@ class WorldLocationTest < ActiveSupport::TestCase
   test 'should ignore blank featured link attributes' do
     params = {
       featured_links_attributes: [
-        {url: "",
-         title: ""}
+        { url: "",
+         title: "" }
       ]
     }
     world_location = build(:world_location, params)

@@ -20,7 +20,7 @@ class Api::WorldLocationPresenter < Api::BasePresenter
 
   def links
     [
-      [context.api_world_location_url(model), {'rel' => 'self'}]
+      [context.api_world_location_url(model), { 'rel' => 'self' }]
     ]
   end
 end

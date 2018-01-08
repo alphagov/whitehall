@@ -16,9 +16,9 @@ class Api::PagePresenterTest < PresenterTestCase
   end
 
   test "json includes each result in page" do
-    @first_result.stubs(:as_json).returns({first: :result})
-    @second_result.stubs(:as_json).returns({second: :result})
-    assert_equal [{first: :result}, {second: :result}], @presenter.as_json[:results]
+    @first_result.stubs(:as_json).returns({ first: :result })
+    @second_result.stubs(:as_json).returns({ second: :result })
+    assert_equal [{ first: :result }, { second: :result }], @presenter.as_json[:results]
   end
 
   test "json includes next page url if next page available" do

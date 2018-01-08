@@ -213,7 +213,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
   end
 
   def appointment_attributes_from_dates(dates, role)
-    attributes = {role: role, started_at: dates.first, ended_at: dates.last}
+    attributes = { role: role, started_at: dates.first, ended_at: dates.last }
     if dates.last.nil?
       attributes.merge(make_current: true)
     else

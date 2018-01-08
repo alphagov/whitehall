@@ -24,7 +24,7 @@ class Admin::WorldLocationsController < Admin::BaseController
     @featurable_offsite_links = @world_location.offsite_links
 
     if request.xhr?
-      render partial: "admin/feature_lists/search_results", locals: {feature_list: @feature_list}
+      render partial: "admin/feature_lists/search_results", locals: { feature_list: @feature_list }
     else
       render :features
     end

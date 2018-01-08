@@ -102,7 +102,7 @@ class EditionPublisherTest < ActiveSupport::TestCase
 
   test '#perform! notifies on successful publishing' do
     edition  = create(:submitted_edition)
-    options  = { one: 1, two: 2}
+    options  = { one: 1, two: 2 }
     notifier = mock
     notifier.expects(:publish).with('publish', edition, options)
     publisher = EditionPublisher.new(edition, options.merge(notifier: notifier))
@@ -114,7 +114,7 @@ class EditionPublisherTest < ActiveSupport::TestCase
     edition  = build(:imported_edition)
     notifier = mock
     notifier.expects(:publish).never
-    publisher = EditionPublisher.new(edition, {notifier: notifier})
+    publisher = EditionPublisher.new(edition, { notifier: notifier })
 
     refute publisher.perform!
   end

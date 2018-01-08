@@ -43,9 +43,9 @@ class Admin::AttachmentsController < Admin::BaseController
     end
 
     if errors.empty?
-      render json: {result: :success}
+      render json: { result: :success }
     else
-      render json: {result: :failure, errors: errors }, status: :unprocessable_entity
+      render json: { result: :failure, errors: errors }, status: :unprocessable_entity
     end
   end
 

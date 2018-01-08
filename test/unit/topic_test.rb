@@ -138,10 +138,10 @@ class TopicTest < ActiveSupport::TestCase
   test 'should be creatable with featured link data' do
     params = {
       featured_links_attributes: [
-        {url: "https://www.gov.uk/blah/blah",
-         title: "Blah blah"},
-        {url: "https://www.gov.uk/wah/wah",
-         title: "Wah wah"},
+        { url: "https://www.gov.uk/blah/blah",
+         title: "Blah blah" },
+        { url: "https://www.gov.uk/wah/wah",
+         title: "Wah wah" },
       ]
     }
     topic = create(:topic, params)
@@ -169,8 +169,8 @@ class TopicTest < ActiveSupport::TestCase
   test 'should ignore blank featured link attributes' do
     params = {
       featured_links_attributes: [
-        {url: "",
-         title: ""}
+        { url: "",
+         title: "" }
       ]
     }
     topic = build(:topic, params)

@@ -44,7 +44,7 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
     end
     respond_to do |format|
       format.html { render :index }
-      format.json { render json: {result: :success} }
+      format.json { render json: { result: :success } }
     end
   end
 

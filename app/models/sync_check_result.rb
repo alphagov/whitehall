@@ -5,7 +5,7 @@ class SyncCheckResult < ApplicationRecord
   # migration.
 
   validates :check_class, presence: true
-  validates :item_id, uniqueness: {scope: :check_class}
+  validates :item_id, uniqueness: { scope: :check_class }
 
   serialize :failures
 

@@ -6,7 +6,7 @@ class GovspeakContentTest < ActiveSupport::TestCase
       govspeak_content = create(:html_attachment).govspeak_content
 
       assert job = GovspeakContentWorker.jobs.last
-      assert_equal [govspeak_content.id, {"authenticated_user" => nil, "request_id" => nil}], job['args']
+      assert_equal [govspeak_content.id, { "authenticated_user" => nil, "request_id" => nil }], job['args']
     end
   end
 
@@ -23,7 +23,7 @@ class GovspeakContentTest < ActiveSupport::TestCase
       assert_nil govspeak_content.computed_headers_html
 
       assert job = GovspeakContentWorker.jobs.last
-      assert_equal [govspeak_content.id, {"authenticated_user" => nil, "request_id" => nil}], job['args']
+      assert_equal [govspeak_content.id, { "authenticated_user" => nil, "request_id" => nil }], job['args']
     end
   end
 
@@ -56,7 +56,7 @@ class GovspeakContentTest < ActiveSupport::TestCase
       assert_nil govspeak_content.computed_headers_html
 
       assert job = GovspeakContentWorker.jobs.last
-      assert_equal [govspeak_content.id, {"authenticated_user" => nil, "request_id" => nil}], job['args']
+      assert_equal [govspeak_content.id, { "authenticated_user" => nil, "request_id" => nil }], job['args']
     end
   end
 

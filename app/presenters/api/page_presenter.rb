@@ -14,9 +14,9 @@ class Api::PagePresenter < Struct.new(:page, :context)
 
   def links
     links = []
-    links << [previous_page_url, {'rel' => 'previous'}] if previous_page_url
-    links << [next_page_url, {'rel' => 'next'}] if next_page_url
-    links << [url(page: page.current_page), {'rel' => 'self'}]
+    links << [previous_page_url, { 'rel' => 'previous' }] if previous_page_url
+    links << [next_page_url, { 'rel' => 'next' }] if next_page_url
+    links << [url(page: page.current_page), { 'rel' => 'self' }]
     links
   end
 

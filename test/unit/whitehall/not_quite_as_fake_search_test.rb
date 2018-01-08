@@ -94,7 +94,7 @@ module Whitehall
       end
 
       test "advanced search raises if date filter is not a pure date" do
-        assert_invalid_search(public_timestamp: {before: "2013-01-31 00:00:00"})
+        assert_invalid_search(public_timestamp: { before: "2013-01-31 00:00:00" })
       end
 
       test "advanced search can select documents using a date filter" do
@@ -103,9 +103,9 @@ module Whitehall
         documents[1]['public_timestamp'] = Time.zone.parse("2011-02-02 02:02:02")
         documents[2]['public_timestamp'] = Time.zone.parse("2011-03-03 02:02:02")
         @index.add_batch(documents)
-        assert_search_returns_documents %w{Foo}, public_timestamp: {to: "2011-01-31"}
-        assert_search_returns_documents %w{Qux Bar}, public_timestamp: {from: "2011-01-31"}
-        assert_search_returns_documents %w{Bar}, public_timestamp: {from: "2011-01-31", to: "2011-02-28"}
+        assert_search_returns_documents %w{Foo}, public_timestamp: { to: "2011-01-31" }
+        assert_search_returns_documents %w{Qux Bar}, public_timestamp: { from: "2011-01-31" }
+        assert_search_returns_documents %w{Bar}, public_timestamp: { from: "2011-01-31", to: "2011-02-28" }
       end
 
       test "advanced search can order documents explicitly" do
@@ -114,16 +114,16 @@ module Whitehall
         documents[1]['public_timestamp'] = Time.zone.parse("2011-03-03 02:02:02")
         documents[2]['public_timestamp'] = Time.zone.parse("2011-01-01 01:01:01")
         @index.add_batch(documents)
-        assert_search_returns_documents %w{Bar Foo Qux}, order: {title: "asc"}
-        assert_search_returns_documents %w{Qux Foo Bar}, order: {title: "desc"}
-        assert_search_returns_documents %w{Foo Qux Bar}, order: {public_timestamp: "asc", title: "asc"}
+        assert_search_returns_documents %w{Bar Foo Qux}, order: { title: "asc" }
+        assert_search_returns_documents %w{Qux Foo Bar}, order: { title: "desc" }
+        assert_search_returns_documents %w{Foo Qux Bar}, order: { public_timestamp: "asc", title: "asc" }
       end
 
       test "advanced search raises if order direction is not asc or desc" do
-        assert_invalid_search(order: {title: 'up'})
-        assert_invalid_search(order: {title: 'down'})
-        assert_invalid_search(order: {title: 'description'})
-        assert_invalid_search(order: {public_timestamp: 'asc', title: 'description'})
+        assert_invalid_search(order: { title: 'up' })
+        assert_invalid_search(order: { title: 'down' })
+        assert_invalid_search(order: { title: 'description' })
+        assert_invalid_search(order: { public_timestamp: 'asc', title: 'description' })
       end
 
       test "advanced search can be paginated" do
@@ -165,7 +165,7 @@ module Whitehall
       end
 
       def default_search_params
-        {per_page: "10", page: "1"}
+        { per_page: "10", page: "1" }
       end
 
       def build_documents(*titles)

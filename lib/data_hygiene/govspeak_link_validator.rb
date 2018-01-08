@@ -24,7 +24,7 @@ module DataHygiene
                 end
               end
 
-        {link: link, start: match.begin(0), end: match.end(0), fix: fix} if fix
+        { link: link, start: match.begin(0), end: match.end(0), fix: fix } if fix
       end
     end
 

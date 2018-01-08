@@ -288,10 +288,10 @@ class OrganisationTest < ActiveSupport::TestCase
   test 'should be creatable with featured link data' do
     params = {
       featured_links_attributes: [
-        {url: "https://www.gov.uk/blah/blah",
-         title: "Blah blah"},
-        {url: "https://www.gov.uk/wah/wah",
-         title: "Wah wah"},
+        { url: "https://www.gov.uk/blah/blah",
+         title: "Blah blah" },
+        { url: "https://www.gov.uk/wah/wah",
+         title: "Wah wah" },
       ]
     }
     organisation = create(:organisation, params)
@@ -320,8 +320,8 @@ class OrganisationTest < ActiveSupport::TestCase
   test 'should ignore blank featured link attributes' do
     params = {
       featured_links_attributes: [
-        {url: "",
-         title: ""}
+        { url: "",
+         title: "" }
       ]
     }
     organisation = build(:organisation, params)
@@ -476,7 +476,7 @@ class OrganisationTest < ActiveSupport::TestCase
     results = Organisation.search_index.to_a
 
     assert_equal 6, results.length
-    assert_equal({'title' => 'Closed organisation: Department for Culture and Sports',
+    assert_equal({ 'title' => 'Closed organisation: Department for Culture and Sports',
                   'content_id' => sport.content_id,
                   'link' => '/government/organisations/department-for-culture-and-sports',
                   'slug' => 'department-for-culture-and-sports',
@@ -485,8 +485,8 @@ class OrganisationTest < ActiveSupport::TestCase
                   'description' => 'Sporty.',
                   'organisations' => [],
                   'organisation_type' => :other,
-                  'organisation_state' => 'closed'}, results[0])
-    assert_equal({'title' => 'Department of Education',
+                  'organisation_state' => 'closed' }, results[0])
+    assert_equal({ 'title' => 'Department of Education',
                   'content_id' => ed.content_id,
                   'link' => '/government/organisations/department-of-education',
                   'slug' => 'department-of-education',
@@ -495,8 +495,8 @@ class OrganisationTest < ActiveSupport::TestCase
                   'description' => 'The home of Department of Education on GOV.UK. Bookish.',
                   'organisations' => [],
                   'organisation_type' => :other,
-                  'organisation_state' => 'live'}, results[1])
-    assert_equal({'title' => 'HMRC',
+                  'organisation_state' => 'live' }, results[1])
+    assert_equal({ 'title' => 'HMRC',
                   'content_id' => hmrc.content_id,
                   'acronym' => 'hmrc',
                   'link' => '/government/organisations/hmrc',
@@ -507,8 +507,8 @@ class OrganisationTest < ActiveSupport::TestCase
                   'description' => 'The home of HMRC on GOV.UK. Taxing.',
                   'organisations' => [],
                   'organisation_type' => :other,
-                  'organisation_state' => 'live'}, results[2])
-    assert_equal({'title' => 'Ministry of Defence',
+                  'organisation_state' => 'live' }, results[2])
+    assert_equal({ 'title' => 'Ministry of Defence',
                   'content_id' => mod.content_id,
                   'acronym' => 'mod',
                   'link' => '/government/organisations/ministry-of-defence',
@@ -519,8 +519,8 @@ class OrganisationTest < ActiveSupport::TestCase
                   'description' => 'The home of Ministry of Defence on GOV.UK. Defensive.',
                   'organisations' => [],
                   'organisation_type' => :other,
-                  'organisation_state' => 'live'}, results[3])
-    assert_equal({'title' => 'Closed organisation: Devolved organisation',
+                  'organisation_state' => 'live' }, results[3])
+    assert_equal({ 'title' => 'Closed organisation: Devolved organisation',
                   'content_id' => devolved.content_id,
                   'acronym' => 'dev',
                   'link' => '/government/organisations/devolved-organisation',
@@ -531,7 +531,7 @@ class OrganisationTest < ActiveSupport::TestCase
                   'format' => 'organisation',
                   'boost_phrases' => 'dev',
                   'organisation_type' => :other,
-                  'organisation_state' => 'devolved'}, results[5])
+                  'organisation_state' => 'devolved' }, results[5])
   end
 
   test '#published_announcements returns published news or speeches' do

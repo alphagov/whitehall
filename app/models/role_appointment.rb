@@ -1,7 +1,7 @@
 class RoleAppointment < ApplicationRecord
   include MinisterialRole::MinisterialRoleReindexingConcern
 
-  CURRENT_CONDITION = {ended_at: nil}
+  CURRENT_CONDITION = { ended_at: nil }
 
   has_many :edition_role_appointments
   has_many :editions, through: :edition_role_appointments

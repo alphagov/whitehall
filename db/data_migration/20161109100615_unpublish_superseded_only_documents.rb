@@ -19,7 +19,7 @@ documents.each do |document|
 
   unpublisher = EditionUnpublisher.new(
     first_edition,
-    unpublishing: {unpublishing_reason_id: UnpublishingReason::PublishedInError.id, explanation: 'Published in error'}
+    unpublishing: { unpublishing_reason_id: UnpublishingReason::PublishedInError.id, explanation: 'Published in error' }
   )
   puts "about to unpublish #{document.content_id}"
   unpublisher.perform!

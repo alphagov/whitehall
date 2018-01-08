@@ -39,7 +39,7 @@ module SyncChecker
       end
 
       def base_paths
-        @base_paths ||= {draft: {}, live: {}}.tap do |paths|
+        @base_paths ||= { draft: {}, live: {} }.tap do |paths|
           if edition_expected_in_draft
             edition_expected_in_draft.translated_locales.each do |locale|
               paths[:draft][locale] = get_path(edition_expected_in_draft, locale)

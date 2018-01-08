@@ -110,7 +110,7 @@ private
   def __mange_edition_organisations(new_organisation_ids, args = {})
     # try to avoid common AR pitfalls by reusing objects instead of
     # destroying & creating new.
-    args = {for_lead: true}.merge(args)
+    args = { for_lead: true }.merge(args)
     for_lead = args[:for_lead]
     existing_edition_organisations = edition_organisations.to_a.dup
 

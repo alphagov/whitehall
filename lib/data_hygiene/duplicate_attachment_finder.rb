@@ -37,7 +37,7 @@ module DataHygiene
         duplicate_edition_results.each do |duplicate_info|
           id, filename, _       = duplicate_info
           edition               = Edition.find(id)
-          duplicate_attachments = edition.attachments.includes(:attachment_data).where(attachment_data: {carrierwave_file: filename})
+          duplicate_attachments = edition.attachments.includes(:attachment_data).where(attachment_data: { carrierwave_file: filename })
           attachment_ids        = duplicate_attachments.map(&:id)
           file_sizes            = duplicate_attachments.map(&:file_size)
           all_the_same          = file_sizes.uniq.size == 1

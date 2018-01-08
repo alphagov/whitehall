@@ -151,9 +151,9 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
 
     office_as_json = @presenter.as_json[:offices][:main]
     assert_equal 2, office_as_json[:contact_numbers].size
-    expected_contact_num_json = {label: 'contact-number-one', number: '1234'}
+    expected_contact_num_json = { label: 'contact-number-one', number: '1234' }
     assert_equal expected_contact_num_json, office_as_json[:contact_numbers][0]
-    expected_contact_num_json = {label: 'contact-number-two', number: '5678'}
+    expected_contact_num_json = { label: 'contact-number-two', number: '5678' }
     assert_equal expected_contact_num_json, office_as_json[:contact_numbers][1]
   end
 
@@ -170,7 +170,7 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
   end
 
   test 'json includes office contact address in offices array' do
-    json_formatted_address = {'address' => 'as-json'}
+    json_formatted_address = { 'address' => 'as-json' }
     formatter = mock
     formatter.stubs(:render).returns(json_formatted_address)
     AddressFormatter::Json.stubs(:from_contact).returns(formatter)

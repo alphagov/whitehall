@@ -100,42 +100,42 @@ class RoleTypePresenterTest < PresenterTestCase
   end
 
   test "should generate attributes for cabinet minister" do
-    expected = {type: "MinisterialRole", cabinet_member: true, permanent_secretary: false, chief_of_the_defence_staff: false}
+    expected = { type: "MinisterialRole", cabinet_member: true, permanent_secretary: false, chief_of_the_defence_staff: false }
     assert_equal expected, RoleTypePresenter.role_attributes_from("cabinet_minister")
   end
 
   test "should generate attributes for minister" do
-    expected = {type: "MinisterialRole", cabinet_member: false, permanent_secretary: false, chief_of_the_defence_staff: false}
+    expected = { type: "MinisterialRole", cabinet_member: false, permanent_secretary: false, chief_of_the_defence_staff: false }
     assert_equal expected, RoleTypePresenter.role_attributes_from("minister")
   end
 
   test "should generate attributes for permanent secretary" do
-    expected = {type: "BoardMemberRole", cabinet_member: false, permanent_secretary: true, chief_of_the_defence_staff: false}
+    expected = { type: "BoardMemberRole", cabinet_member: false, permanent_secretary: true, chief_of_the_defence_staff: false }
     assert_equal expected, RoleTypePresenter.role_attributes_from("permanent_secretary")
   end
 
   test "should generate attributes for board member" do
-    expected = {type: "BoardMemberRole", cabinet_member: false, permanent_secretary: false, chief_of_the_defence_staff: false}
+    expected = { type: "BoardMemberRole", cabinet_member: false, permanent_secretary: false, chief_of_the_defence_staff: false }
     assert_equal expected, RoleTypePresenter.role_attributes_from("board_level_manager")
   end
 
   test "should generate attributes for chief of the defence staff" do
-    expected = {type: "MilitaryRole", cabinet_member: false, permanent_secretary: false, chief_of_the_defence_staff: true}
+    expected = { type: "MilitaryRole", cabinet_member: false, permanent_secretary: false, chief_of_the_defence_staff: true }
     assert_equal expected, RoleTypePresenter.role_attributes_from("chief_of_the_defence_staff")
   end
 
   test "should generate attributes for chief of staff" do
-    expected = {type: "MilitaryRole", cabinet_member: false, permanent_secretary: false, chief_of_the_defence_staff: false}
+    expected = { type: "MilitaryRole", cabinet_member: false, permanent_secretary: false, chief_of_the_defence_staff: false }
     assert_equal expected, RoleTypePresenter.role_attributes_from("chief_of_staff")
   end
 
   test "should generate attributes for chief professional officers" do
-    expected = {type: "ChiefProfessionalOfficerRole", cabinet_member: false, permanent_secretary: false, chief_of_the_defence_staff: false}
+    expected = { type: "ChiefProfessionalOfficerRole", cabinet_member: false, permanent_secretary: false, chief_of_the_defence_staff: false }
     assert_equal expected, RoleTypePresenter.role_attributes_from("chief_professional_officer")
   end
 
   test "should generate attributes for FCO special representative" do
-    expected = {type: "SpecialRepresentativeRole", cabinet_member: false, permanent_secretary: false, chief_of_the_defence_staff: false}
+    expected = { type: "SpecialRepresentativeRole", cabinet_member: false, permanent_secretary: false, chief_of_the_defence_staff: false }
     assert_equal expected, RoleTypePresenter.role_attributes_from("special_representative")
   end
 

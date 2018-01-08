@@ -119,7 +119,7 @@ class StatisticsAnnouncement < ApplicationRecord
 
   def self.with_topics(topic_ids)
     joins(:statistics_announcement_topics).
-    where(statistics_announcement_topics: { topic_id: topic_ids})
+    where(statistics_announcement_topics: { topic_id: topic_ids })
   end
 
   def last_change_note

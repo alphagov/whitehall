@@ -13,7 +13,7 @@ class Api::GovernmentPresenter < Api::BasePresenter
 
   def links
     [
-      [context.api_government_url(model.slug), {'rel' => 'self'}]
+      [context.api_government_url(model.slug), { 'rel' => 'self' }]
     ]
   end
 end

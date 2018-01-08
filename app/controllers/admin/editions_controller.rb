@@ -289,7 +289,7 @@ private
   end
 
   def default_filters
-    {organisation: current_user.organisation.try(:id), state: :active}
+    { organisation: current_user.organisation.try(:id), state: :active }
   end
 
   def session_filters

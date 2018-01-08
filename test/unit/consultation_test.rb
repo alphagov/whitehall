@@ -144,7 +144,7 @@ class ConsultationTest < ActiveSupport::TestCase
   end
 
   test "should not create a participation if all participation fields are blank" do
-    attributes = {link_url: nil, consultation_response_form_attributes: {title: nil, file: nil}}
+    attributes = { link_url: nil, consultation_response_form_attributes: { title: nil, file: nil } }
     consultation = create(:consultation, consultation_participation_attributes: attributes)
     assert consultation.consultation_participation.blank?
   end

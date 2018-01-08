@@ -33,7 +33,7 @@ module Whitehall::DocumentFilter
 
     def filter_by_keywords
       if @keywords.present?
-        {keywords: @keywords.to_s}
+        { keywords: @keywords.to_s }
       else
         {}
       end
@@ -59,7 +59,7 @@ module Whitehall::DocumentFilter
 
     def filter_by_organisations
       if selected_organisations.any?
-        {organisations: selected_organisations.map(&:slug)}
+        { organisations: selected_organisations.map(&:slug) }
       else
         {}
       end
@@ -67,7 +67,7 @@ module Whitehall::DocumentFilter
 
     def filter_by_locations
       if selected_locations.any?
-        {world_locations: selected_locations.map(&:slug)}
+        { world_locations: selected_locations.map(&:slug) }
       else
         {}
       end
@@ -76,11 +76,11 @@ module Whitehall::DocumentFilter
     def filter_by_official_document_status
       case selected_official_document_status
       when "command_and_act_papers"
-        {has_official_document: "1"}
+        { has_official_document: "1" }
       when "command_papers_only"
-        {has_command_paper: "1"}
+        { has_command_paper: "1" }
       when "act_papers_only"
-        {has_act_paper: "1"}
+        { has_act_paper: "1" }
       else
         {}
       end
@@ -94,13 +94,13 @@ module Whitehall::DocumentFilter
       if dates_hash.empty?
         {}
       else
-        {public_timestamp: dates_hash}
+        { public_timestamp: dates_hash }
       end
     end
 
     def sort
       if @keywords.blank?
-        {order: { public_timestamp: "desc" } }
+        { order: { public_timestamp: "desc" } }
       else
         {}
       end
@@ -115,7 +115,7 @@ module Whitehall::DocumentFilter
         else
           non_world_announcement_types
         end
-      {search_format_types: announcement_types}
+      { search_format_types: announcement_types }
     end
 
     def filter_by_publication_type
@@ -125,7 +125,7 @@ module Whitehall::DocumentFilter
         else
           Publicationesque.concrete_descendant_search_format_types
         end
-      {search_format_types: publication_types}
+      { search_format_types: publication_types }
     end
 
     def documents

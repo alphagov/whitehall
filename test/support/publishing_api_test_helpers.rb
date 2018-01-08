@@ -21,7 +21,7 @@ module PublishingApiTestHelpers
     editions.each do |edition|
       Services.publishing_api.expects(:put_content)
         .with(edition.content_id,
-          has_entries({publishing_app: 'whitehall'}.merge(content_entries)))
+          has_entries({ publishing_app: 'whitehall' }.merge(content_entries)))
       Services.publishing_api.stubs(:patch_links)
         .with(edition.content_id, has_entries(links: anything))
       Services.publishing_api.expects(:publish)
@@ -33,7 +33,7 @@ module PublishingApiTestHelpers
     editions.each do |edition|
       Services.publishing_api.expects(:put_content)
         .with(edition.content_id,
-          has_entries({publishing_app: 'whitehall'}.merge(content_entries)))
+          has_entries({ publishing_app: 'whitehall' }.merge(content_entries)))
       Services.publishing_api.stubs(:patch_links)
         .with(edition.content_id, has_entries(links: anything))
       Services.publishing_api.expects(:publish)

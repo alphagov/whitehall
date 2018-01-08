@@ -289,7 +289,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation_role = create(:organisation_role, organisation: organisation, role: ministerial_role, ordering: 1)
 
     put :update, params: { id: organisation.id, organisation: { organisation_roles_attributes: {
-      "0" => {id: organisation_role.id, ordering: "2"}
+      "0" => { id: organisation_role.id, ordering: "2" }
     } } }
 
     assert_equal 2, organisation_role.reload.ordering

@@ -8,7 +8,7 @@ class AbbreviationExtractorTest < ActiveSupport::TestCase
 
     abbreviations = Whitehall::AbbreviationExtractor.new(edition).extract
 
-    assert_equal [{terms: ["Driver and Vehicle Licensing Agency", "DVLA"], type: "abbreviation"}], abbreviations
+    assert_equal [{ terms: ["Driver and Vehicle Licensing Agency", "DVLA"], type: "abbreviation" }], abbreviations
   end
 
   test "extracts multiple abbreviation couples from an edition" do
@@ -21,8 +21,8 @@ class AbbreviationExtractorTest < ActiveSupport::TestCase
     abbreviations = Whitehall::AbbreviationExtractor.new(edition).extract
 
     assert_equal [
-      {terms: ["Ministry of Defence", "MOD"], type: "abbreviation"},
-      {terms: ["Ministry of Justice", "MOJ"], type: "abbreviation"}
+      { terms: ["Ministry of Defence", "MOD"], type: "abbreviation" },
+      { terms: ["Ministry of Justice", "MOJ"], type: "abbreviation" }
     ], abbreviations
   end
 
@@ -35,7 +35,7 @@ class AbbreviationExtractorTest < ActiveSupport::TestCase
     abbreviations = Whitehall::AbbreviationExtractor.new(edition).extract
 
     assert_equal [
-      {terms: ["Ministry of Defence", "MOD"], type: "abbreviation"}
+      { terms: ["Ministry of Defence", "MOD"], type: "abbreviation" }
     ], abbreviations
   end
 end

@@ -3,14 +3,14 @@ require 'test_helper'
 class Api::ResponderTest < ActiveSupport::TestCase
   test 'to_json asks the resource to become json' do
     resource = mock()
-    resource.expects(:as_json).returns({'meh' => 1})
+    resource.expects(:as_json).returns({ 'meh' => 1 })
     responder = make_responder_for_resource(resource)
 
     responder.to_json
   end
 
   test 'to_json sends the json-ified resource to display' do
-    resource = {meh: 1}
+    resource = { meh: 1 }
     responder = make_responder_for_resource(resource)
 
     responder.to_json
@@ -52,7 +52,7 @@ class Api::ResponderTest < ActiveSupport::TestCase
 
   test 'providing links in the options will include them in the _response_info json' do
     resource = {}
-    responder = make_responder_for_resource(resource, links: [['http://example.com/woo', {'rel' => 'self'}]])
+    responder = make_responder_for_resource(resource, links: [['http://example.com/woo', { 'rel' => 'self' }]])
 
     responder.to_json
     response_info = responder.displayed_json[:_response_info]
@@ -65,7 +65,7 @@ class Api::ResponderTest < ActiveSupport::TestCase
 
   test 'providing links in the options sets the Link http header with them' do
     resource = {}
-    responder = make_responder_for_resource(resource, links: [['http://example.com/woo', {'rel' => 'self'}]])
+    responder = make_responder_for_resource(resource, links: [['http://example.com/woo', { 'rel' => 'self' }]])
     headers = {}
     responder.controller.expects(:headers).returns(headers)
     responder.to_json
@@ -77,7 +77,7 @@ class Api::ResponderTest < ActiveSupport::TestCase
   test 'providing links via the resource will include them in the _response_info json' do
     resource = stub
     resource.stubs(:as_json).returns({})
-    resource.stubs(:links).returns([['http://example.com/woo', {'rel' => 'self'}]])
+    resource.stubs(:links).returns([['http://example.com/woo', { 'rel' => 'self' }]])
     responder = make_responder_for_resource(resource)
 
     responder.to_json
@@ -92,7 +92,7 @@ class Api::ResponderTest < ActiveSupport::TestCase
   test 'providing links via the resource sets the Link http header with them' do
     resource = stub
     resource.stubs(:as_json).returns({})
-    resource.stubs(:links).returns([['http://example.com/woo', {'rel' => 'self'}]])
+    resource.stubs(:links).returns([['http://example.com/woo', { 'rel' => 'self' }]])
     responder = make_responder_for_resource(resource)
     headers = {}
     responder.controller.expects(:headers).returns(headers)
@@ -105,8 +105,8 @@ class Api::ResponderTest < ActiveSupport::TestCase
   test 'providing links via the resource and options will include them both in the _response_info json' do
     resource = stub
     resource.stubs(:as_json).returns({})
-    resource.stubs(:links).returns([['http://example.com/woo', {'rel' => 'self'}]])
-    responder = make_responder_for_resource(resource, links: [['http://example.com/foo', {'rel' => 'next'}]])
+    resource.stubs(:links).returns([['http://example.com/woo', { 'rel' => 'self' }]])
+    responder = make_responder_for_resource(resource, links: [['http://example.com/foo', { 'rel' => 'next' }]])
 
     responder.to_json
     response_info = responder.displayed_json[:_response_info]
@@ -125,8 +125,8 @@ class Api::ResponderTest < ActiveSupport::TestCase
   test 'providing links via the resource and options sets the Link http header with them all' do
     resource = stub
     resource.stubs(:as_json).returns({})
-    resource.stubs(:links).returns([['http://example.com/woo', {'rel' => 'self'}]])
-    responder = make_responder_for_resource(resource, links: [['http://example.com/foo', {'rel' => 'next'}]])
+    resource.stubs(:links).returns([['http://example.com/woo', { 'rel' => 'self' }]])
+    responder = make_responder_for_resource(resource, links: [['http://example.com/foo', { 'rel' => 'next' }]])
     headers = {}
     responder.controller.expects(:headers).returns(headers)
     responder.to_json
@@ -138,8 +138,8 @@ class Api::ResponderTest < ActiveSupport::TestCase
   test 'providing the same links via the resource and options will not create duplicates in the json' do
     resource = stub
     resource.stubs(:as_json).returns({})
-    resource.stubs(:links).returns([['http://example.com/woo', {'rel' => 'self'}]])
-    responder = make_responder_for_resource(resource, links: [['http://example.com/woo', {'rel' => 'self'}]])
+    resource.stubs(:links).returns([['http://example.com/woo', { 'rel' => 'self' }]])
+    responder = make_responder_for_resource(resource, links: [['http://example.com/woo', { 'rel' => 'self' }]])
 
     responder.to_json
     response_info = responder.displayed_json[:_response_info]
@@ -154,8 +154,8 @@ class Api::ResponderTest < ActiveSupport::TestCase
   test 'providing the same links via the resource and options will not create duplicates in the Link header' do
     resource = stub
     resource.stubs(:as_json).returns({})
-    resource.stubs(:links).returns([['http://example.com/woo', {'rel' => 'self'}]])
-    responder = make_responder_for_resource(resource, links: [['http://example.com/woo', {'rel' => 'self'}]])
+    resource.stubs(:links).returns([['http://example.com/woo', { 'rel' => 'self' }]])
+    responder = make_responder_for_resource(resource, links: [['http://example.com/woo', { 'rel' => 'self' }]])
     headers = {}
     responder.controller.expects(:headers).returns(headers)
     responder.to_json

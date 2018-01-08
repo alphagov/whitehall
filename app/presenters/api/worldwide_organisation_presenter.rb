@@ -17,7 +17,7 @@ class Api::WorldwideOrganisationPresenter < Api::BasePresenter
 
   def links
     [
-      [context.api_worldwide_organisation_url(model), {'rel' => 'self'}]
+      [context.api_worldwide_organisation_url(model), { 'rel' => 'self' }]
     ]
   end
 

@@ -47,7 +47,7 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
   end
 
   view_test 'edit presents a form to update an existing translation' do
-    location = create(:world_location, translated_into: {fr: {name: 'Afrolasie', mission_statement: 'Enseigner aux gens comment infuser le thé'}})
+    location = create(:world_location, translated_into: { fr: { name: 'Afrolasie', mission_statement: 'Enseigner aux gens comment infuser le thé' } })
 
     get :edit, params: { world_location_id: location, id: 'fr' }
 
@@ -61,7 +61,7 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
   end
 
   view_test 'edit form adds right-to-left class and dir attribute for text field and areas in right-to-left languages' do
-    location = create(:world_location, translated_into: {ar: {name: 'الناس', mission_statement: 'تعليم الناس كيفية تحضير الشاي'}})
+    location = create(:world_location, translated_into: { ar: { name: 'الناس', mission_statement: 'تعليم الناس كيفية تحضير الشاي' } })
 
     get :edit, params: { world_location_id: location, id: 'ar' }
 

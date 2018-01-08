@@ -20,7 +20,7 @@ class OffsiteLink < ApplicationRecord
   belongs_to :parent, polymorphic: true
   validates :title, :summary, :link_type, :url, presence: true, length: { maximum: 255 }
   validate :check_url_is_allowed
-  validates :link_type, presence: true, inclusion: {in: LinkTypes.all}
+  validates :link_type, presence: true, inclusion: { in: LinkTypes.all }
 
   def check_url_is_allowed
     begin

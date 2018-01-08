@@ -48,6 +48,6 @@ class PromotionalFeatureItemPresenter < Whitehall::Decorators::Decorator
   end
 
   def title_link
-    context.link_to(model.title, model.title_url, ({rel: 'external'} if context.is_external?(model.title_url)))
+    context.link_to(model.title, model.title_url, ({ rel: 'external' } if context.is_external?(model.title_url)))
   end
 end

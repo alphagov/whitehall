@@ -41,7 +41,7 @@ class TopicalEvent < Classification
 
   scope :active, -> { where("end_date > ?", Date.today) }
   scope :order_by_start_date, -> { order("start_date DESC") }
-  scope :for_edition, ->(id) { joins(:classification_memberships).where(classification_memberships: {edition_id: id}) }
+  scope :for_edition, ->(id) { joins(:classification_memberships).where(classification_memberships: { edition_id: id }) }
 
   validate :start_and_end_dates
   validates :start_date, presence: true, if: ->topical_event { topical_event.end_date }

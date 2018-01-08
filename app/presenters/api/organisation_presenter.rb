@@ -24,7 +24,7 @@ class Api::OrganisationPresenter < Api::BasePresenter
 
   def links
     [
-      [context.api_organisation_url(model), {'rel' => 'self'}]
+      [context.api_organisation_url(model), { 'rel' => 'self' }]
     ]
   end
 

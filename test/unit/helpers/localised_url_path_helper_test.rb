@@ -40,7 +40,7 @@ class LocalisedUrlPathHelperTest < ActiveSupport::TestCase
 
     object.expects(:available_in_locale?).with(:fr).returns(true)
     I18n.with_locale :fr do
-      controller.expects(:news_article_path_was_called).with(object, {locale: :fr})
+      controller.expects(:news_article_path_was_called).with(object, { locale: :fr })
       controller.news_article_path(object)
     end
 

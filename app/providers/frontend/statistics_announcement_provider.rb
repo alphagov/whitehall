@@ -50,7 +50,7 @@ module Frontend
       params[:per_page] = params[:per_page].to_s
 
       params[:format] = "statistics_announcement"
-      params[:order] = {release_timestamp: "asc"}
+      params[:order] = { release_timestamp: "asc" }
 
       params
     end

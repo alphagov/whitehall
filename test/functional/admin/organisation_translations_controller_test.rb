@@ -100,7 +100,7 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
   end
 
   view_test 'edit form adds right-to-left class and dir attribute for text field and areas in right-to-left languages' do
-    organisation = create(:organisation, translated_into: {ar: {name: 'الناس'}})
+    organisation = create(:organisation, translated_into: { ar: { name: 'الناس' } })
 
     get :edit, params: { organisation_id: organisation, id: 'ar' }
 

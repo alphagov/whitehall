@@ -103,7 +103,7 @@ class Classification < ApplicationRecord
   end
 
   def lead_organisations
-    organisations.where(organisation_classifications: {lead: true}).reorder("organisation_classifications.lead_ordering")
+    organisations.where(organisation_classifications: { lead: true }).reorder("organisation_classifications.lead_ordering")
   end
 
   def lead_organisation_classifications

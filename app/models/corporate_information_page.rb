@@ -44,7 +44,7 @@ class CorporateInformationPage < Edition
 
   def self.search_only
     # Ensure only CIPs associated with a live Organisation are indexed in search.
-    super.joins(:organisation).where(organisations: {govuk_status: "live"})
+    super.joins(:organisation).where(organisations: { govuk_status: "live" })
   end
 
   def title_required?

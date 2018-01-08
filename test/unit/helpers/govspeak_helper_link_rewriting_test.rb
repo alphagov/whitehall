@@ -87,7 +87,7 @@ private
 
   def assert_rewrites_link(options = {})
     html = govspeak_to_html("this and [that](#{options[:from]}) yeah?")
-    assert_select_within_html html, "a[href=?]", options[:to], {text: "that"}, html
+    assert_select_within_html html, "a[href=?]", options[:to], { text: "that" }, html
   end
 
   def create_superseded_document_with_published_edition

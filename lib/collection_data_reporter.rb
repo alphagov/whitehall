@@ -53,7 +53,7 @@ private
       .in_default_locale
       .includes(:document)
       .joins(:editions)
-      .where(:organisations => {id: organisation.id})
+      .where(:organisations => { id: organisation.id })
       .where('editions_editions.state IN (?)', Edition::PUBLICLY_VISIBLE_STATES)
       .having('num_withdrawn > 0 OR num_political > 0')
       .group(:id)

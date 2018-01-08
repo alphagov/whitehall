@@ -118,7 +118,7 @@ module TestsForNationalApplicability
       scotland_inapplicability = edition.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://www.scotland.com/")
       wales_inapplicability = edition.nation_inapplicabilities.create!(nation: Nation.wales, alternative_url: "http://www.wales.com/")
 
-      attributes = nation_inapplicabilities_attributes_for({Nation.northern_ireland => "http://www.northernireland.com/"}, scotland_inapplicability, wales_inapplicability).merge(title: '')
+      attributes = nation_inapplicabilities_attributes_for({ Nation.northern_ireland => "http://www.northernireland.com/" }, scotland_inapplicability, wales_inapplicability).merge(title: '')
 
       put :update, params: { id: edition, edition: attributes }
 
@@ -135,7 +135,7 @@ module TestsForNationalApplicability
       wales_inapplicability = edition.nation_inapplicabilities.create!(nation: Nation.wales, alternative_url: "http://www.wales.com/")
 
       put :update, params: { id: edition, edition: nation_inapplicabilities_attributes_for(
-        {Nation.northern_ireland => "invalid-url"},
+        { Nation.northern_ireland => "invalid-url" },
         scotland_inapplicability,
         wales_inapplicability
       ) }
@@ -153,7 +153,7 @@ module TestsForNationalApplicability
       lock_version = edition.lock_version
       edition.update_attributes!(title: "new title", change_note: "foo")
 
-      attributes = nation_inapplicabilities_attributes_for({Nation.northern_ireland => "http://www.northernireland.com/"}, scotland_inapplicability, wales_inapplicability).merge(lock_version: lock_version)
+      attributes = nation_inapplicabilities_attributes_for({ Nation.northern_ireland => "http://www.northernireland.com/" }, scotland_inapplicability, wales_inapplicability).merge(lock_version: lock_version)
 
       put :update, params: { id: edition, edition: attributes }
 
@@ -198,7 +198,7 @@ private
         h.merge!(alternative_url: nations_vs_urls[nation])
       end
     end
-    {nation_inapplicabilities_attributes: result}
+    { nation_inapplicabilities_attributes: result }
   end
 
   def assert_nation_inapplicability_fields_set_as(attributes)

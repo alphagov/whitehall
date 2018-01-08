@@ -71,7 +71,7 @@ class Person < ApplicationRecord
   def role_appointments_at(date)
     role_appointments.where([
       ":date >= started_at AND (:date <= ended_at OR ended_at IS NULL)",
-      {date: date}
+      { date: date }
     ])
   end
 

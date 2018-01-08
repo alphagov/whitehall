@@ -23,7 +23,7 @@ module HasCorporateInformationPages
   def build_corporate_information_page(params)
     # The standard corporate_info_pages.build method does not correctly set the
     # organisation|worldwide_organisation in the linking table.
-    CorporateInformationPage.new(params.merge({self.class.name.underscore => self}))
+    CorporateInformationPage.new(params.merge({ self.class.name.underscore => self }))
   end
 
   def published_corporate_information_pages

@@ -174,18 +174,18 @@ class TakePartPageTest < ActiveSupport::TestCase
     results = TakePartPage.search_index.to_a
 
     assert_equal 2, results.length
-    assert_equal({'title' => 'Build a new polling station',
+    assert_equal({ 'title' => 'Build a new polling station',
                   'content_id' => "845593d6-273d-4440-b44a-8c44ab530c9e",
                   'link' => "/government/get-involved/take-part/build-a-new-polling-station",
                   'indexable_content' => 'Everyone can build a building.',
                   'format' => 'take_part',
-                  'description' => 'Help people vote!'}, results[0])
-    assert_equal({'title' => 'Stand for election',
+                  'description' => 'Help people vote!' }, results[0])
+    assert_equal({ 'title' => 'Stand for election',
                   'content_id' => "a7a3a7f3-f967-4723-8de3-1e2d8f9fb4cb",
                   'link' => "/government/get-involved/take-part/stand-for-election",
                   'indexable_content' => 'Maybe you can change the system from within?',
                   'format' => 'take_part',
-                  'description' => 'Help govern this country!'}, results[1])
+                  'description' => 'Help govern this country!' }, results[1])
   end
 
   should_not_accept_footnotes_in :body

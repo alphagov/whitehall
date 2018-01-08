@@ -316,7 +316,7 @@ module Whitehall::DocumentFilter
     end
 
     def stub_publication_type(slug, attributes = {})
-      publication_type = stub("publication-type-#{slug}", {id: slug, slug: slug, pluralized_name: slug.humanize.pluralize}.merge(attributes))
+      publication_type = stub("publication-type-#{slug}", { id: slug, slug: slug, pluralized_name: slug.humanize.pluralize }.merge(attributes))
       PublicationType.stubs(:find_by_slug).with(slug).returns(publication_type)
       publication_type
     end

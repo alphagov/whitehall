@@ -13,7 +13,7 @@ module LinkCheckerApiHelper
       .to_return(
         body: body,
         status: status,
-        headers: { "Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
       )
   end
 

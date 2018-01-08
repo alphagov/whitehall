@@ -75,7 +75,7 @@ module GovspeakHelper
     headers = []
     govspeak_headers(govspeak, 2..3).each do |header|
       if header.level == 2
-        headers << {header: header, children: []}
+        headers << { header: header, children: [] }
       elsif header.level == 3
         raise OrphanedHeadingError.new(header.text) if headers.none?
         headers.last[:children] << header
@@ -227,7 +227,7 @@ private
   def govspeak_with_attachments_and_alt_format_information(govspeak, attachments = [], alternative_format_contact_email = nil)
     govspeak = govspeak.gsub(/\n{0,2}^!@([0-9]+)\s*/) do
       if attachment = attachments[$1.to_i - 1]
-        "\n\n" + render(partial: "documents/attachment", formats: :html, object: attachment, locals: {alternative_format_contact_email: alternative_format_contact_email}) + "\n\n"
+        "\n\n" + render(partial: "documents/attachment", formats: :html, object: attachment, locals: { alternative_format_contact_email: alternative_format_contact_email }) + "\n\n"
       else
         "\n\n"
       end

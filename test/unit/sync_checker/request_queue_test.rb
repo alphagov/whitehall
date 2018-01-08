@@ -17,7 +17,7 @@ class SyncChecker::RequestQueueTest < Minitest::Test
 
   def test_draft_requests_sets_document_check_draft_when_run
     base_paths = {
-      draft: {en: "/one"},
+      draft: { en: "/one" },
       live: {}
     }
     document_check = stub(id: 1, base_paths: base_paths)
@@ -33,7 +33,7 @@ class SyncChecker::RequestQueueTest < Minitest::Test
   def test_live_requests_sets_document_check_live_when_run
     base_paths = {
       draft: {},
-      live: {en: "/one"}
+      live: { en: "/one" }
     }
     document_check = stub(id: 1, base_paths: base_paths)
     result_set = []
@@ -48,7 +48,7 @@ class SyncChecker::RequestQueueTest < Minitest::Test
   def test_adds_live_results_to_the_result_set
     base_paths = {
       draft: {},
-      live: {en: "/one"}
+      live: { en: "/one" }
     }
     document_check = stub(id: 1, base_paths: base_paths)
     result_set = []
@@ -64,7 +64,7 @@ class SyncChecker::RequestQueueTest < Minitest::Test
 
   def test_adds_draft_results_to_the_result_set
     base_paths = {
-      draft: {en: "/one"},
+      draft: { en: "/one" },
       live: {}
     }
     document_check = stub(id: 1, base_paths: base_paths)
@@ -81,8 +81,8 @@ class SyncChecker::RequestQueueTest < Minitest::Test
 
   def test_requests_returns_live_and_draft_requests
     base_paths = {
-      draft: {en: "/one"},
-      live: {en: "/two"}
+      draft: { en: "/one" },
+      live: { en: "/two" }
     }
     document_check = stub(id: 1, base_paths: base_paths)
     result_set = []

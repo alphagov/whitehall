@@ -15,7 +15,7 @@ module Admin::SidebarHelper
   end
 
   def edition_tabs(edition, options = {})
-    options = {editing: false, history_count: 0, remarks_count: 0}.merge(options)
+    options = { editing: false, history_count: 0, remarks_count: 0 }.merge(options)
     {}.tap do |tabs|
       if options[:editing]
         tabs[:govspeak_help] = "Help"

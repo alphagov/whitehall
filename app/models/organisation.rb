@@ -134,7 +134,7 @@ class Organisation < ApplicationRecord
 
   has_many :featured_links, -> { order(:created_at) }, as: :linkable, dependent: :destroy
   accepts_nested_attributes_for :featured_links, reject_if: ->attributes { attributes['url'].blank? }, allow_destroy: true
-  validates :homepage_type, inclusion: {in: %w{news service}}
+  validates :homepage_type, inclusion: { in: %w{news service} }
 
   accepts_nested_attributes_for :default_news_image, reject_if: :all_blank
   accepts_nested_attributes_for :organisation_roles
@@ -148,13 +148,13 @@ class Organisation < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :logo_formatted_name, presence: true
   validates :url, :organisation_chart_url, :custom_jobs_url, uri: true, allow_blank: true
-  validates :alternative_format_contact_email, email_format: {allow_blank: true}
+  validates :alternative_format_contact_email, email_format: { allow_blank: true }
   validates :alternative_format_contact_email, presence: {
     if: :requires_alternative_format?,
     message: "can't be blank as there are editions which use this organisation as the alternative format provider",
   }
-  validates :govuk_status, inclusion: {in: %w{live joining exempt transitioning closed}}
-  validates :govuk_closed_status, inclusion: {in: %w{no_longer_exists replaced split merged changed_name left_gov devolved}}, presence: true, if: :closed?
+  validates :govuk_status, inclusion: { in: %w{live joining exempt transitioning closed} }
+  validates :govuk_closed_status, inclusion: { in: %w{no_longer_exists replaced split merged changed_name left_gov devolved} }, presence: true, if: :closed?
   validates :organisation_logo_type_id, presence: true
   validates :logo, presence: true, if: :custom_logo_selected?
 

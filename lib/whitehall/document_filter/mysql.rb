@@ -124,7 +124,7 @@ module Whitehall::DocumentFilter
         # Publication does), so we have to do this join manually.
         @documents = @documents.joins("INNER JOIN `edition_world_locations` ON `edition_world_locations`.`edition_id` = `editions`.`id`
 INNER JOIN `world_locations` ON `world_locations`.`id` = `edition_world_locations`.`world_location_id`")
-        @documents = @documents.where(world_locations: {id: selected_locations.map(&:id)})
+        @documents = @documents.where(world_locations: { id: selected_locations.map(&:id) })
       end
     end
 

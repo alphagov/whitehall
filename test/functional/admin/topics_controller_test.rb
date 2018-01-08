@@ -112,7 +112,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     association = topic.classification_memberships.first
 
     put :update, params: { id: topic.id, topic: { name: "Blah", description: "Blah", classification_memberships_attributes: {
-      "0" => {id: association.id, ordering: "4"}
+      "0" => { id: association.id, ordering: "4" }
     } } }
 
     assert_equal 4, association.reload.ordering

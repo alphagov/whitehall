@@ -24,7 +24,7 @@ class PublishingApi::PolicyAreaPlaceholderPresenterTest < ActionView::TestCase
       details: {},
       update_type: "major",
     }
-    expected_links = {organisations: []}
+    expected_links = { organisations: [] }
 
     presented_item = present(policy_area)
 
