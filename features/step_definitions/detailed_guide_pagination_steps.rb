@@ -3,26 +3,26 @@ Given /^a detailed guide with section headings$/ do
          title: "Detailed guide with pages",
          summary: "Here's the summary of the guide",
          topics: [create(:topic)],
-         body: <<-EOS
-## Page 1
+         body: <<~EOS
+           ## Page 1
 
-Here's the content for page one
+           Here's the content for page one
 
-## Page 2
+           ## Page 2
 
-Here's some content for page two
+           Here's some content for page two
 
-### Page 2, Section 1
+           ### Page 2, Section 1
 
-A subsection! Well I never.
+           A subsection! Well I never.
 
-### Page 2, Section 2
+           ### Page 2, Section 2
 
-And another! How rare.
+           And another! How rare.
 
-## Page 3
+           ## Page 3
 
-You were expecting something a bit more tabloid? Shame on you.
+           You were expecting something a bit more tabloid? Shame on you.
 EOS
 )
 end
