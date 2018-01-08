@@ -29,12 +29,11 @@ class User < ApplicationRecord
   end
 
   def role
-    case
-    when gds_editor? then "GDS Editor"
-    when departmental_editor? then "Departmental Editor"
-    when managing_editor? then "Managing Editor"
-    when world_editor? then 'World Editor'
-    when world_writer? then 'World Writer'
+    if gds_editor? then "GDS Editor"
+    elsif departmental_editor? then "Departmental Editor"
+    elsif managing_editor? then "Managing Editor"
+    elsif world_editor? then 'World Editor'
+    elsif world_writer? then 'World Writer'
     else "Writer"
     end
   end
