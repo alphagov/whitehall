@@ -16,7 +16,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   rescue_from ActiveRecord::RecordInvalid do
     redirect_to admin_edition_path(@edition),
       alert: "Unable to #{action_name_as_human_interaction(params[:action])} because it is invalid (#{@edition.errors.full_messages.to_sentence}). " +
-             "Please edit it and try again."
+        "Please edit it and try again."
   end
 
   rescue_from Transitions::InvalidTransition do

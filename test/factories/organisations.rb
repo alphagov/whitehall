@@ -64,7 +64,7 @@ FactoryBot.define do
     logo_formatted_name { name }
     parent_organisations {
       [Organisation.find_by(slug: "hm-courts-and-tribunals-service") ||
-      build(:organisation, slug: "hm-courts-and-tribunals-service", name: "HMCTS")]
+        build(:organisation, slug: "hm-courts-and-tribunals-service", name: "HMCTS")]
     }
   end
 
@@ -74,7 +74,7 @@ FactoryBot.define do
     logo_formatted_name { name }
     parent_organisations {
       [Organisation.find_by(slug: "hm-courts-and-tribunals-service") ||
-      build(:organisation, slug: "hm-courts-and-tribunals-service", name: "HMCTS")]
+        build(:organisation, slug: "hm-courts-and-tribunals-service", name: "HMCTS")]
     }
   end
 end

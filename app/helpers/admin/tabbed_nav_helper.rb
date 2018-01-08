@@ -47,11 +47,11 @@ module Admin::TabbedNavHelper
       content_tag(:a, class: 'dropdown-toggle', :'data-toggle' => 'dropdown', href: '#') do
         (label + " " + content_tag(:b, '', class: 'caret')).html_safe
       end +
-      content_tag(:ul, class: 'dropdown-menu') do
-        menu_items.map { |sub_label, sub_content|
-          content_tag(:li, link_to(sub_label, sub_content), class: class_for_tab(sub_content))
-        }.join.html_safe
-      end
+        content_tag(:ul, class: 'dropdown-menu') do
+          menu_items.map { |sub_label, sub_content|
+            content_tag(:li, link_to(sub_label, sub_content), class: class_for_tab(sub_content))
+          }.join.html_safe
+        end
     end
   end
 

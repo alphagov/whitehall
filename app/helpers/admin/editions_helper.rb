@@ -44,13 +44,13 @@ module Admin::EditionsHelper
     end
 
     options_for_select([["All organisations", ""]], selected_organisation) +
-    grouped_options_for_select(
-      [
-        ["Live organisations", organisations.map { |o| [o.select_name, o.id] }],
-        ["Closed organisations", closed_organisations.map { |o| [o.select_name, o.id] }]
-      ],
-      selected_organisation
-    )
+      grouped_options_for_select(
+        [
+          ["Live organisations", organisations.map { |o| [o.select_name, o.id] }],
+          ["Closed organisations", closed_organisations.map { |o| [o.select_name, o.id] }]
+        ],
+        selected_organisation
+      )
   end
 
   def admin_author_filter_options(current_user)

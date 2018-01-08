@@ -51,9 +51,9 @@ module Admin::SidebarHelper
       content_tag(:ul, class: "nav nav-tabs add-bottom-margin") do
         tab_tags.join.html_safe
       end +
-      content_tag(:div, class: "tab-content") do
-        yield TabPaneState.new(self)
-      end
+        content_tag(:div, class: "tab-content") do
+          yield TabPaneState.new(self)
+        end
     end
   end
 end

@@ -10,7 +10,7 @@ Before('@javascript') do
 
     if File.zero?(Rails.root + "app/assets/javascripts/templates.js")
       puts "ERROR: Scenarios tagged @javascript require mustache templates to be compiled first." +
-      " Execute 'rake shared_mustache:compile' before running these scenarios."
+        " Execute 'rake shared_mustache:compile' before running these scenarios."
 
       exit 1
     end

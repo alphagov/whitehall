@@ -131,9 +131,9 @@ module Edition::AuditTrail
 
     def ==(other)
       other.class == self.class &&
-      other.edition_serial_number == edition_serial_number &&
-      other.edition == edition &&
-      other.object == object
+        other.edition_serial_number == edition_serial_number &&
+        other.edition == edition &&
+        other.object == object
     end
 
     def first_edition?

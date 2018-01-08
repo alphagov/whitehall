@@ -126,7 +126,7 @@ private
 
   def delete_absent_organisation_classifications
     return unless params[:organisation] &&
-                  params[:organisation][:organisation_classifications_attributes]
+        params[:organisation][:organisation_classifications_attributes]
     params[:organisation][:organisation_classifications_attributes].each do |p|
       if p[:classification_id].blank?
         p["_destroy"] = true

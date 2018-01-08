@@ -30,7 +30,7 @@ private
 
   def destroy_form_if_required
     if has_response_form? &&
-      ConsultationParticipation.where(consultation_response_form_id: consultation_response_form.id).empty?
+        ConsultationParticipation.where(consultation_response_form_id: consultation_response_form.id).empty?
       consultation_response_form.destroy
     end
   end

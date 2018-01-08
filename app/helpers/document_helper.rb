@@ -125,7 +125,7 @@ module DocumentHelper
     end
     if attachment.hoc_paper_number.present?
       ref << content_tag(:span, "HC #{attachment.hoc_paper_number}", class: 'house_of_commons_paper_number') + ' ' +
-          content_tag(:span, attachment.parliamentary_session, class: 'parliamentary_session')
+        content_tag(:span, attachment.parliamentary_session, class: 'parliamentary_session')
     end
 
     ref.join(', ').html_safe

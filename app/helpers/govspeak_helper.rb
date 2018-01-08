@@ -86,8 +86,8 @@ module GovspeakHelper
 
   def inline_attachment_code_tags(number)
     content_tag(:code, "!@#{number}") <<
-    ' or '.html_safe <<
-    content_tag(:code, "[InlineAttachment:#{number}]")
+      ' or '.html_safe <<
+      content_tag(:code, "[InlineAttachment:#{number}]")
   end
 
   def fraction_image(numerator, denominator)
