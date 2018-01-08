@@ -16,7 +16,7 @@ class PublishingApiWorker < WorkerBase
     end
   end
 
-  private
+private
 
   def class_for(model_name)
     model_name.constantize

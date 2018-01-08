@@ -102,7 +102,7 @@ module GovspeakHelper
     { heading_numbering: numbering_method, contact_heading_tag: 'h4' }
   end
 
-  private
+private
 
   def remove_extra_quotes_from_blockquotes(govspeak)
     Whitehall::ExtraQuoteRemover.new.remove(govspeak)

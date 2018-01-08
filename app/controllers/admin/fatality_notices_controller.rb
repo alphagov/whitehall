@@ -2,7 +2,7 @@ class Admin::FatalityNoticesController < Admin::EditionsController
   before_action :require_fatality_handling_permission!, except: :show
   before_action :build_fatality_notice_casualties, only: [:new, :edit]
 
-  private
+private
 
   def edition_class
     FatalityNotice

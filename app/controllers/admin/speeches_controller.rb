@@ -1,7 +1,7 @@
 class Admin::SpeechesController < Admin::EditionsController
   before_action :clear_role_appointment_param_on_override, only: [:update, :create]
 
-  private
+private
 
   def edition_class
     Speech

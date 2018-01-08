@@ -875,7 +875,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select "a", text: "Jobs"
   end
 
-  private
+private
 
   def assert_disclaimer_present(organisation)
     assert_select "#organisation_disclaimer" do

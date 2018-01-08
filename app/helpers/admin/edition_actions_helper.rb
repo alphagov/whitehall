@@ -118,7 +118,7 @@ module Admin::EditionActionsHelper
     options_for_select([["All types", ""]]) + edition_type_options_for_select(user, selected) + edition_sub_type_options_for_select(selected)
   end
 
-  private
+private
 
   def edition_type_options_for_select(user, selected)
     type_options_container = Whitehall.edition_classes.map do |edition_type|

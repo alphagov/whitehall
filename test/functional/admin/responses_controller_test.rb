@@ -102,7 +102,7 @@ class Admin::ResponsesControllerTest < ActionController::TestCase
     assert_equal 'New summary', feedback.reload.summary
   end
 
-  private
+private
 
   def create_outcome
     create(:consultation_outcome, summary: 'A summary of the outcome', consultation: @consultation)

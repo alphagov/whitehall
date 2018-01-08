@@ -82,7 +82,7 @@ module Edition::Organisations
     super.merge("organisations" => organisations.map(&:slug))
   end
 
-  private
+private
 
   def at_least_one_lead_organisation
     unless skip_organisation_validation?

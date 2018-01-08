@@ -40,7 +40,7 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
     redirect_to [:admin, @organisation, PromotionalFeature], notice: 'Promotional feature deleted.'
   end
 
-  private
+private
 
   def load_organisation
     @organisation = Organisation.allowed_promotional.find(params[:organisation_id])

@@ -126,7 +126,7 @@ class Attachment < ApplicationRecord
     callbacks_result ? self : false
   end
 
-  private
+private
 
   def store_price_in_pence
     self.price_in_pence = if price && price.to_s.empty?

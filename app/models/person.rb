@@ -115,7 +115,7 @@ class Person < ApplicationRecord
     [name, role_name, organisation].compact.join(' – ')
   end
 
-  private
+private
 
   def name_as_words(*elements)
     elements.select { |word|

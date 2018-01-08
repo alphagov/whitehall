@@ -11,7 +11,7 @@ class WorldLocationNewsArticlesController < DocumentsController
     redirect_to announcements_path(include_world_location_news: "1")
   end
 
-  private
+private
 
   def document_class
     WorldLocationNewsArticle

@@ -41,7 +41,7 @@ class Admin::RolesController < Admin::BaseController
     end
   end
 
-  private
+private
 
   def index_or_edit_path
     if params[:save_and_continue].present?

@@ -28,7 +28,7 @@ class PageTitleTest < ActiveSupport::TestCase
     end
   end
 
-  private
+private
 
   def tested_templates
     Dir[Rails.root + "app/views/**/*.html.erb"].reject do |template|

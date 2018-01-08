@@ -130,7 +130,7 @@ class CorporateInformationPage < Edition
     end
   end
 
-  private
+private
 
   def string_for_slug
     nil

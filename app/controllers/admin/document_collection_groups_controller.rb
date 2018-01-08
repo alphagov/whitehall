@@ -48,7 +48,7 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
     end
   end
 
-  private
+private
   def load_document_collection
     @collection = DocumentCollection.find(params[:document_collection_id])
   end

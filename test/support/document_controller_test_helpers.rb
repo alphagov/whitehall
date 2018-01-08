@@ -458,7 +458,7 @@ module DocumentControllerTestHelpers
     end
   end
 
-  private
+private
 
   def assert_filtered_documents_include(edition)
     assert_includes assigns(:filter).documents.map(&:id), edition.id

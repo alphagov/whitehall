@@ -15,7 +15,7 @@ class Image < ApplicationRecord
     image_data.file_url(*args)
   end
 
-  private
+private
 
   def destroy_image_data_if_required
     if image_data && Image.where(image_data_id: image_data.id).empty?

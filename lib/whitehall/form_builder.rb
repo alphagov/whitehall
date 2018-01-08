@@ -135,7 +135,7 @@ module Whitehall
       end
     end
 
-    private
+  private
 
     def add_class_to_options(options, name)
       options[:class] ||= ""

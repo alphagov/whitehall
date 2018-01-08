@@ -30,7 +30,7 @@ class Admin::BulkUploadsController < Admin::BaseController
     end
   end
 
-  private
+private
 
   def find_edition
     @edition = Edition.find(params[:edition_id])

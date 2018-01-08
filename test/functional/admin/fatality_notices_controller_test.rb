@@ -68,7 +68,7 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
     assert_equal "Personal details", fatality_notice_casuality.personal_details
   end
 
-  private
+private
 
   def controller_attributes_for(edition_type, attributes = {})
     super.merge(operational_field_id: create(:operational_field).id)

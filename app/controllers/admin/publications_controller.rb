@@ -1,7 +1,7 @@
 class Admin::PublicationsController < Admin::EditionsController
   before_action :pre_fill_edition_from_statistics_announcement, only: :new, if: :statistics_announcement
 
-  private
+private
 
   def edition_class
     Publication

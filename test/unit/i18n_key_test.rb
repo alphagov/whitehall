@@ -50,7 +50,7 @@ class I18nKeyTest < ActiveSupport::TestCase
     assert_translation CaseStudy.new, "document.type"
   end
 
-  private
+private
 
   def assert_translations(type_class, translation_prefix)
     failed_types = []

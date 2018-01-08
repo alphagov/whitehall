@@ -64,7 +64,7 @@ class Admin::ClassificationsController < Admin::BaseController
     model_class.name.underscore
   end
 
-  private
+private
 
   def object_params
     params.require(model_name).permit(

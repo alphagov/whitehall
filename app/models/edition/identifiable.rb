@@ -45,7 +45,7 @@ module Edition::Identifiable
     end
   end
 
-  private
+private
 
   def string_for_slug
     non_english_edition? ? nil : title(:en)

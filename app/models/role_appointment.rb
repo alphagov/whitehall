@@ -143,7 +143,7 @@ class RoleAppointment < ApplicationRecord
     historical_account.present?
   end
 
-  private
+private
 
   def make_other_current_appointments_non_current
     return unless make_current

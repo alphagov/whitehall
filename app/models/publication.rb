@@ -150,7 +150,7 @@ class Publication < Publicationesque
     end
   end
 
-  private
+private
 
   def attachment_required_before_moving_out_of_draft
     if %w(submitted scheduled published).include?(state) && !has_attachments?

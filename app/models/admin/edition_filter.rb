@@ -91,7 +91,7 @@ module Admin
       end
     end
 
-    private
+  private
 
     def unpaginated_editions
       return @unpaginated_editions if @unpaginated_editions

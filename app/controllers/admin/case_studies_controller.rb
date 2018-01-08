@@ -1,6 +1,6 @@
 class Admin::CaseStudiesController < Admin::EditionsController
 
-  private
+private
 
   def edition_class
     CaseStudy

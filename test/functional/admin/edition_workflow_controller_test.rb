@@ -332,7 +332,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  private
+private
 
   def submitted_edition(options = {})
     @submitted_edition ||= create(:submitted_publication, options)

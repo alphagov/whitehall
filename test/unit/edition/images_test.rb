@@ -128,7 +128,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
     assert EditionWithImages.new.allows_image_attachments?
   end
 
-  private
+private
 
   def valid_edition_attributes
     {

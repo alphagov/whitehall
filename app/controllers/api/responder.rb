@@ -8,7 +8,7 @@ class Api::Responder < ActionController::Responder
     super
   end
 
-  private
+private
 
   def response_info
     response_info = { status: status_for_response_info }

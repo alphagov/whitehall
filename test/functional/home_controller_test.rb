@@ -165,7 +165,7 @@ class HomeControllerTest < ActionController::TestCase
     assert_equal [page_1, page_2, page_3], assigns(:take_part_pages)
   end
 
-  private
+private
 
   def create_published_documents
     2.downto(1) do |x|

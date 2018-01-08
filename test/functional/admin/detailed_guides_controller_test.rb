@@ -79,7 +79,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
     end
   end
 
-  private
+private
 
   def controller_attributes_for(edition_type, attributes = {})
     super.except(:alternative_format_provider).reverse_merge(

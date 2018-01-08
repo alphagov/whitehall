@@ -18,7 +18,7 @@ module AddressFormatter
       value.present? ? "<span class=\"#{property_name}\">#{ERB::Util.html_escape(value)}</span>" : ""
     end
 
-    private
+  private
 
     def replace_newlines_with_break_tags(string)
       string.

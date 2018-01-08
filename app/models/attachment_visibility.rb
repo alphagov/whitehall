@@ -70,7 +70,7 @@ class AttachmentVisibility
     visible_policy_group_scope.last
   end
 
-  private
+private
 
   def id
     attachment_data.id

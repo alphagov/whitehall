@@ -26,7 +26,7 @@ class PromotionalFeaturesPresenterTest < ActionView::TestCase
     assert_equal expected_collection, collection.to_a
   end
 
-  private
+private
 
   def feature_presenter(feature, position)
     PromotionalFeaturePresenter.new(feature, position, @view_context)

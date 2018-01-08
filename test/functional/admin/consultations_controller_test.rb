@@ -273,7 +273,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     assert_equal 'greenpaper.pdf', consultation.consultation_participation.consultation_response_form.consultation_response_form_data.carrierwave_file
   end
 
-  private
+private
 
   def controller_attributes_for(edition_type, attributes = {})
     super.except(:alternative_format_provider).reverse_merge(

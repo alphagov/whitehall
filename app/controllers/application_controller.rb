@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   layout 'frontend'
   after_action :set_slimmer_template
 
-  private
+private
 
   def set_audit_trail_whodunnit
     Edition::AuditTrail.whodunnit = current_user

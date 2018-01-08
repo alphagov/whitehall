@@ -162,7 +162,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
       notice: "The imported document #{@edition.title} has been converted into a draft"
   end
 
-  private
+private
 
   def force_publish_reason
     "Force published: #{params[:reason]}"

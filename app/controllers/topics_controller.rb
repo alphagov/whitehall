@@ -31,7 +31,7 @@ class TopicsController < ClassificationsController
     end
   end
 
-  private
+private
 
   def set_cache_max_age
     @cache_max_age = 5.minutes

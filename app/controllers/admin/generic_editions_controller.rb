@@ -1,5 +1,5 @@
 class Admin::GenericEditionsController < Admin::EditionsController
-  private
+private
 
   def edition_class
     GenericEdition

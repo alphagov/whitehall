@@ -26,7 +26,7 @@ class ConsultationParticipation < ApplicationRecord
 
   after_destroy :destroy_form_if_required
 
-  private
+private
 
   def destroy_form_if_required
     if has_response_form? &&

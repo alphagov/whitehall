@@ -26,7 +26,7 @@ class ImageValidator < ActiveModel::Validator
     end
   end
 
-  private
+private
 
   def validate_mime_type(record, image)
     if @mime_types[image.mime_type].nil?

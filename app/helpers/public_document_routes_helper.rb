@@ -80,7 +80,7 @@ module PublicDocumentRoutesHelper
     organisation_url(organisation_or_court_or_slug, options.merge(only_path: true))
   end
 
-  private
+private
 
   def build_url_for_corporate_information_page(edition, options)
     org = edition.owning_organisation

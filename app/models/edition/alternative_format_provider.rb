@@ -24,7 +24,7 @@ module Edition::AlternativeFormatProvider
     "govuk-feedback@digital.cabinet-office.gov.uk"
   end
 
-  private
+private
 
   def alternative_format_provider_has_contact_email
     if alternative_format_provider

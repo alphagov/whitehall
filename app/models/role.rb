@@ -156,7 +156,7 @@ class Role < ApplicationRecord
     HISTORIC_ROLE_PARAM_MAPPINGS.invert[slug]
   end
 
-  private
+private
 
   def prevent_destruction_unless_destroyable
     throw :abort unless destroyable?

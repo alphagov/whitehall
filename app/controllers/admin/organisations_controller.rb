@@ -79,7 +79,7 @@ class Admin::OrganisationsController < Admin::BaseController
     redirect_to admin_organisations_path
   end
 
-  private
+private
 
   def enforce_permissions!
     case action_name

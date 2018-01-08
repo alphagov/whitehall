@@ -48,7 +48,7 @@ module AddressFormatter
       properties[property_name].present? ? properties[property_name] : ''
     end
 
-    private
+  private
     def address_template
       (Formatter.address_formats[country_code.to_s.downcase] || default_format_string).dup
     end

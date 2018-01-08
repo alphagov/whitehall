@@ -504,7 +504,7 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal %Q{Part of a collection: #{link}}, result['publication_collections']
   end
 
-  private
+private
 
   def publication_with_attachment(params = {})
     type = params.delete(:type) { |key| :file }

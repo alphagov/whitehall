@@ -157,7 +157,7 @@ class Consultation < Publicationesque
     true
   end
 
-  private
+private
 
   def validate_closes_after_opens
     if closing_at && opening_at && closing_at.to_date <= opening_at.to_date

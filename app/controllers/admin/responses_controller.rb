@@ -30,7 +30,7 @@ class Admin::ResponsesController < Admin::BaseController
     end
   end
 
-  private
+private
 
   def find_consultation
     @edition = Consultation.find(params[:consultation_id])

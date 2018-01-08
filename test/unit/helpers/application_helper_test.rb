@@ -196,7 +196,7 @@ class ApplicationHelperTest < ActionView::TestCase
     assert rendered.at_xpath(".//a[.='Document tabs']")[:class].to_s.include? 'current'
   end
 
-  private
+private
 
   def appoint_minister(attributes = {})
     organisation_name = attributes.delete(:organisation)

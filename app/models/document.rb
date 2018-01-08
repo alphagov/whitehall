@@ -113,7 +113,7 @@ class Document < ApplicationRecord
     document_type.underscore.gsub('_', ' ')
   end
 
-  private
+private
 
   def destroy_all_editions
     Edition.unscoped.where(document_id: self.id).destroy_all

@@ -65,7 +65,7 @@ class DocumentCollection < Edition
     Whitehall::RenderingApp::GOVERNMENT_FRONTEND
   end
 
-  private
+private
 
   def create_default_group
     if groups.empty?

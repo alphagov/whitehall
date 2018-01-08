@@ -12,7 +12,7 @@ class Admin::DocumentSourcesController < Admin::BaseController
     redirect_to admin_edition_path(@edition, anchor: 'document-sources')
   end
 
-  private
+private
 
   def find_edition
     @edition = Edition.find(params[:edition_id])

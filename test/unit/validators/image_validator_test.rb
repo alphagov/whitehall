@@ -47,7 +47,7 @@ class ImageValidatorTest < ActiveSupport::TestCase
     assert_validates_as_valid(subject, "test-svg.svg")
   end
 
-  private
+private
 
   def assert_validates_as_valid(validator, image_file_name)
     example = build_example(image_file_name)

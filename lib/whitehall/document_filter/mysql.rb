@@ -28,7 +28,7 @@ module Whitehall::DocumentFilter
       paginate!
     end
 
-    private
+  private
 
     def filter_by_locale!
       @documents = @documents.with_translations(locale) if locale

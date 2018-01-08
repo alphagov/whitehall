@@ -35,7 +35,7 @@ class Admin::HistoricalAccountsController < Admin::BaseController
     redirect_to admin_person_historical_accounts_url(@person), notice: 'Historical account deleted'
   end
 
-  private
+private
 
   def load_person
     @person = Person.friendly.find(params[:person_id])

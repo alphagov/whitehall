@@ -304,7 +304,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     assert_equal expected_results, assigns(:ministers_by_organisation)
   end
 
-  private
+private
 
   def assert_minister_photo_links_to_the_person(person)
     assert_select ".image_holder a[href='#{person_path(person)}'] img[src='#{person.image_url}']"

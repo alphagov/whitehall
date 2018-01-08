@@ -86,7 +86,7 @@ module Whitehall::DocumentFilter
       @include_world_location_news.to_s == '1'
     end
 
-    private
+  private
 
     def find_by_slug(klass, slugs)
       @selected ||= {}

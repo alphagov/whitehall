@@ -39,7 +39,7 @@ class PublicFacingController < ApplicationController
     render plain: "Not found", status: :not_found
   end
 
-  private
+private
 
   def log_error_and_render_500(exception)
     logger.error "\n#{exception.class} (#{exception.message}):\n#{exception.backtrace.join("\n")}\n\n"

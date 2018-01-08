@@ -73,7 +73,7 @@ module Whitehall
       raise RuntimeError.new("Use the in memory index (rather than rummager) in tests")
     end
 
-    private
+  private
       def store
         self.class.store
       end

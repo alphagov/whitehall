@@ -30,7 +30,7 @@ module Whitehall::Authority::Rules
       EditionRules.actions.include?(action)
     end
 
-    private
+  private
 
     def can_with_an_instance?(action)
       if actor.can_force_publish_anything? && action == :force_publish

@@ -31,7 +31,7 @@ module Govspeak
       end
     end
 
-    private
+  private
 
     def convert_link_for_corporate_information_page(anchor, organisation_slug, slug, &block)
       organisation = Organisation.find_by(slug: organisation_slug)

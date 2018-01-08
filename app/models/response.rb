@@ -16,7 +16,7 @@ class Response < ApplicationRecord
     true
   end
 
-  private
+private
 
   def has_attachments
     attachments.any?

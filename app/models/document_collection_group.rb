@@ -57,7 +57,7 @@ class DocumentCollectionGroup < ApplicationRecord
     heading.parameterize
   end
 
-  private
+private
 
   def assign_ordering
     peers = document_collection.present? ? document_collection.groups.maximum(:ordering).to_i : 0

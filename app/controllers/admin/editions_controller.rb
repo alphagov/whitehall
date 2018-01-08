@@ -152,7 +152,7 @@ class Admin::EditionsController < Admin::BaseController
     end
   end
 
-  private
+private
 
   def speed_tagging?
     params[:speed_save_convert] || params[:speed_save]

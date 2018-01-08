@@ -17,7 +17,7 @@ class HistoricAppointmentsController < PublicFacingController
     raise(ActiveRecord::RecordNotFound, "Couldn't find HistoricalAccount for #{@person.inspect}  and #{@role.inspect}") unless @historical_account
   end
 
-  private
+private
 
   def load_role
     @role = Role.friendly.find(role_id)

@@ -219,7 +219,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select '.taxonomy-topics .content li', "Primary Education"
   end
 
-  private
+private
 
   def publication_has_no_expanded_links(content_id)
     publishing_api_has_expanded_links(
