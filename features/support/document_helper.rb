@@ -47,7 +47,6 @@ module DocumentHelper
       when true
         choose 'has previously been published on another website.'
       end
-
     end
   end
 

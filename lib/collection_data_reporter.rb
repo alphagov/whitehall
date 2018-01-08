@@ -14,7 +14,6 @@ class CollectionDataReporter
 
   def report
     organisations_with_collections.each do |org|
-
       collections = collections_for_organisation(org)
       next if collections.to_a.empty?
 

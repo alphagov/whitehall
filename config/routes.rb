@@ -372,7 +372,6 @@ Whitehall::Application.routes.draw do
           resources :offsite_links
         end
         resources :feature_lists, only: [:show] do
-
           post :reorder, on: :member
 
           resources :features, only: [:new, :create] do

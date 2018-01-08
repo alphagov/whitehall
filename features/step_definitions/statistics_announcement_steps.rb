@@ -41,7 +41,6 @@ Given(/^there are some statistics announcements for various departments and topi
   create :statistics_announcement, title: "Announcement for both department and topic", organisation_ids: [@department.id], topics: [@topic]
   create :statistics_announcement, title: "Announcement for department", organisation_ids: [@department.id]
   create :statistics_announcement, title: "Announcement for topic", topics: [@topic]
-
 end
 
 Given(/^there is a statistics announcement$/) do

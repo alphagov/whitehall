@@ -7,7 +7,6 @@ module Edition::Appointment
     delegate :role, to: :role_appointment
 
     validates :role_appointment, presence: true, unless: ->(edition) { edition.can_have_some_invalid_data? || edition.person_override? }
-
   end
 
   def is_associated_with_a_minister?

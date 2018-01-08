@@ -20,7 +20,6 @@ class ApplicationControllerAnalyticsTest < ActionController::TestCase
   tests TestController
 
   test "sets google analytics organisation header to the passed in org list" do
-
     with_routing do |map|
       map.draw do
         get '/test_organisations', to: 'application_controller_analytics_test/test#test_organisations'

@@ -64,7 +64,6 @@ namespace :export do
 
   desc "Export list of published editions for orgs export:published_editions ORGS=org-slug"
   task :published_editions, [:orgs] => :environment do |t, args|
-
     if ENV['ORGS']
       orgs = Organisation.where(slug: ENV['ORGS'].split(',')).all
     else
@@ -75,7 +74,6 @@ namespace :export do
     puts "generating csv in #{path}"
 
     CSV.open(path, "w") do |csv|
-
       csv << [
         "Org",
         "URL",

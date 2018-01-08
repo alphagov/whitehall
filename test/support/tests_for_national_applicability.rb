@@ -162,7 +162,6 @@ module TestsForNationalApplicability
       assert_nation_inapplicability_fields_set_as(index: 1, checked: false, alternative_url: "http://www.wales.com/")
       assert_nation_inapplicability_fields_set_as(index: 2, checked: true, alternative_url: "http://www.northernireland.com/")
     end
-
   end
 
 private

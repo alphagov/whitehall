@@ -49,7 +49,6 @@ class PersonSlugChangerTest < ActiveSupport::TestCase
   test "deletes the old slug from the search index" do
     Whitehall::SearchIndex.expects(:delete).with { |person| person.slug == 'old-slug' }
     @reslugger.run!
-
   end
 
   test "adds the new slug from the search index" do

@@ -113,7 +113,6 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
   test "#advanced_search supports pagination" do
     announcements = 4.times.map do |n|
       create :statistics_announcement, title: n, current_release_date: build(:statistics_announcement_date, release_date: (n + 1).days.from_now)
-
     end
 
     assert_equal ['0', '1'],      matched_titles(page: '1', per_page: '2')

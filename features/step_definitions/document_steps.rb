@@ -46,7 +46,6 @@ Given /^a published (publication|news article|consultation) "([^"]*)" exists rel
 end
 
 Given /^a published (publication|news article|consultation) "([^"]*)" exists relating to the (?:world location|international delegation) "([^"]*)" produced (\d+) days ago$/ do |document_type, title, world_location_name, days_ago|
-
   world_location = WorldLocation.find_by!(name: world_location_name)
   create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, first_published_at: days_ago.to_i.days.ago, world_locations: [world_location])
 end
