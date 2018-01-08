@@ -34,15 +34,15 @@ module Whitehall::Authority::Rules
 
     def can_with_an_instance?(action)
       if actor.can_force_publish_anything? && action == :force_publish
-        return true
+        true
       elsif !can_see?
-        return false
+        false
       elsif action == :unpublish && actor.managing_editor?
-        return true
+        true
       elsif action == :unwithdraw && actor.managing_editor?
-        return true
+        true
       elsif action == :modify && @subject.historic?
-        return actor.gds_editor? || actor.gds_admin?
+        actor.gds_editor? || actor.gds_admin?
       else
         if actor.gds_admin?
           gds_admin_can?(action)

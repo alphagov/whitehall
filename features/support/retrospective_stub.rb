@@ -84,7 +84,7 @@ private
 
   def inspect_args(args)
     if args.is_a? Proc
-      return "matching block: #{args.source}"
+      "matching block: #{args.source}"
     else
       "with: #{args.inspect}"
     end

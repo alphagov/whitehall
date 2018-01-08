@@ -12,11 +12,11 @@ end
 
 def clean_yes_no(raw_boolean)
   if raw_boolean.casecmp('yes').zero?
-    return true
+    true
   elsif raw_boolean.casecmp('no').zero?
-    return false
+    false
   else
-    return nil
+    nil
   end
 end
 
