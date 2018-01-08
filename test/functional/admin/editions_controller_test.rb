@@ -234,7 +234,8 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   view_test "index should not display limited access editions which I don't have access to" do
-    my_organisation, other_organisation = create(:organisation), create(:organisation)
+    my_organisation = create(:organisation)
+    other_organisation = create(:organisation)
     login_as(create(:user, organisation: my_organisation))
     accessible = [
       create(:draft_publication),
@@ -264,7 +265,8 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test "prevents revising of access-limited editions" do
-    my_organisation, other_organisation = create(:organisation), create(:organisation)
+    my_organisation = create(:organisation)
+    other_organisation = create(:organisation)
     login_as(create(:user, organisation: my_organisation))
     inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
 

@@ -13,7 +13,8 @@ slugs.each do |slug|
   new_slug = slug.gsub("mercantile", "commercial-circuit")
   document.update_attributes!(slug: new_slug)
 
-  queue, id = "bulk_republishing", document.id
+  queue = "bulk_republishing"
+  id = document.id
   PublishingApiDocumentRepublishingWorker.perform_async_in_queue(queue, id)
 
   puts "#{slug} -> #{new_slug}"

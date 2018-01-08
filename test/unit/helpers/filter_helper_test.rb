@@ -2,7 +2,9 @@ require 'test_helper'
 
 class FilterHelperTest < ActionView::TestCase
   test "#organisation_options_for_statistics_announcement_filter renders select options for all organisations with an associated release announcement in alphabetical order selecting passed in organisation" do
-    org_1, org_2, org_3 = create(:organisation, name: "B org"), create(:organisation, name: "C org"), create(:organisation, name: "A org")
+    org_1 = create(:organisation, name: "B org")
+    org_2 = create(:organisation, name: "C org")
+    org_3 = create(:organisation, name: "A org")
 
     create :statistics_announcement, organisation_ids: [org_2.id]
     create :statistics_announcement, organisation_ids: [org_3.id]
@@ -16,7 +18,9 @@ class FilterHelperTest < ActionView::TestCase
   end
 
   test "#topic_options_for_statistics_announcement_filter renders select options for all topics with an associated release announcement in alphabetical order selecting passed in topic" do
-    topic_1, topic_2, topic_3 = create(:topic, name: "B topic"), create(:topic, name: "C topic"), create(:topic, name: "A topic")
+    topic_1 = create(:topic, name: "B topic")
+    topic_2 = create(:topic, name: "C topic")
+    topic_3 = create(:topic, name: "A topic")
 
     create :statistics_announcement, topics: [topic_2]
     create :statistics_announcement, topics: [topic_3]

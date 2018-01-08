@@ -6,7 +6,8 @@ module Edition::AuditTrail
   end
 
   def self.acting_as(actor)
-    original_actor, Edition::AuditTrail.whodunnit = Edition::AuditTrail.whodunnit, actor
+    original_actor = Edition::AuditTrail.whodunnit
+    Edition::AuditTrail.whodunnit = actor
     yield
   ensure
     Edition::AuditTrail.whodunnit = original_actor

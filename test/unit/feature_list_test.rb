@@ -54,7 +54,9 @@ class FeatureListTest < ActiveSupport::TestCase
   end
 
   test "reordering fails if features which are not part of the feature list are referenced when re-ordering" do
-    f1, f2, f3 = [create(:feature), create(:feature), create(:feature)]
+    f1 = create(:feature)
+    f2 = create(:feature)
+    f3 = create(:feature)
 
     feature_list_1 = create(:feature_list, locale: :en, features: [f1, f2])
     feature_list_2 = create(:feature_list, locale: :fr, features: [f3])

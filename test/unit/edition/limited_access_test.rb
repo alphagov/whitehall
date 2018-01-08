@@ -35,7 +35,8 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   end
 
   test "can select all editions accessible to a particular user" do
-    my_organisation, other_organisation = create(:organisation), create(:organisation)
+    my_organisation = create(:organisation)
+    other_organisation = create(:organisation)
     user = create(:user, organisation: my_organisation)
     accessible = [
       create(:draft_news_article),
@@ -52,8 +53,10 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   end
 
   test "can select all editions accessible to a particular world user, respecting access_limit, org and location" do
-    my_organisation, other_organisation = create(:organisation), create(:organisation)
-    my_location, other_location = create(:world_location), create(:world_location)
+    my_organisation = create(:organisation)
+    other_organisation = create(:organisation)
+    my_location = create(:world_location)
+    other_location = create(:world_location)
     user = create(:world_writer, organisation: my_organisation, world_locations: [my_location])
     accessible = [
       create(:draft_publication, access_limited: false, world_locations: [my_location]),

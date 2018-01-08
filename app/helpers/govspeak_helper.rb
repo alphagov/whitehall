@@ -192,7 +192,8 @@ private
   end
 
   def add_heading_numbers(nokogiri_doc)
-    h2_depth, h3_depth = 0, 0
+    h2_depth = 0
+    h3_depth = 0
     nokogiri_doc.css('h2, h3').each do |el|
       if el.name == 'h2'
         h3_depth = 0

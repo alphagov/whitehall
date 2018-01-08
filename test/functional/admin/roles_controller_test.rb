@@ -175,7 +175,8 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   test "create should create a new ministerial role with a content_id" do
-    org_one, org_two = create(:organisation), create(:organisation)
+    org_one = create(:organisation)
+    org_two = create(:organisation)
 
     post :create, params: {
       role: attributes_for(
@@ -265,7 +266,8 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   test "update should modify existing role" do
-    org_one, org_two = create(:organisation), create(:organisation)
+    org_one = create(:organisation)
+    org_two = create(:organisation)
     role = create(:ministerial_role, name: "role-name", cabinet_member: false, permanent_secretary: false, organisations: [org_one])
 
     put :update, params: { id: role, role: {

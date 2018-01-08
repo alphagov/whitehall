@@ -56,7 +56,8 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "#index highlights selected world filter options" do
-    @world_location_1, @world_location_2 = create(:world_location), create(:world_location)
+    @world_location_1 = create(:world_location)
+    @world_location_2 = create(:world_location)
     create(:published_publication, world_locations: [@world_location_1])
     create(:published_publication, world_locations: [@world_location_2])
 
@@ -516,13 +517,15 @@ private
   end
 
   def given_two_documents_in_two_organisations
-    @organisation_1, @organisation_2 = create(:organisation, type: OrganisationType.ministerial_department), create(:organisation, type: OrganisationType.ministerial_department)
+    @organisation_1 = create(:organisation, type: OrganisationType.ministerial_department)
+    @organisation_2 = create(:organisation, type: OrganisationType.ministerial_department)
     create(:published_publication, organisations: [@organisation_1])
     create(:published_consultation, organisations: [@organisation_2])
   end
 
   def given_two_documents_in_two_topics
-    @topic_1, @topic_2 = create(:topic), create(:topic)
+    @topic_1 = create(:topic)
+    @topic_2 = create(:topic)
     create(:published_publication, topics: [@topic_1])
     create(:published_consultation, topics: [@topic_2])
   end

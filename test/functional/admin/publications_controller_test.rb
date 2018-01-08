@@ -124,7 +124,8 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   end
 
   test "prevents CRUD operations on access-limited publications" do
-    my_organisation, other_organisation = create(:organisation), create(:organisation)
+    my_organisation = create(:organisation)
+    other_organisation = create(:organisation)
     login_as(create(:user, organisation: my_organisation))
     inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
 

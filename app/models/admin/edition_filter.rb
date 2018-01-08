@@ -10,7 +10,9 @@ module Admin
     attr_reader :options
 
     def initialize(source, current_user, options = {})
-      @source, @current_user, @options = source, current_user, options
+      @source = source
+      @current_user = current_user
+      @options = options
     end
 
     def editions(locale = nil)
