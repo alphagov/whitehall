@@ -133,13 +133,13 @@ class Organisation < ApplicationRecord
   has_many :promotional_features
 
   has_many :featured_links, -> { order(:created_at) }, as: :linkable, dependent: :destroy
-  accepts_nested_attributes_for :featured_links, reject_if: ->attributes { attributes['url'].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :featured_links, reject_if: ->(attributes) { attributes['url'].blank? }, allow_destroy: true
   validates :homepage_type, inclusion: { in: %w{news service} }
 
   accepts_nested_attributes_for :default_news_image, reject_if: :all_blank
   accepts_nested_attributes_for :organisation_roles
   accepts_nested_attributes_for :edition_organisations
-  accepts_nested_attributes_for :organisation_classifications, reject_if: ->attributes { attributes['classification_id'].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :organisation_classifications, reject_if: ->(attributes) { attributes['classification_id'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :offsite_links
   accepts_nested_attributes_for :featured_policies
 

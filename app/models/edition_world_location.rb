@@ -4,5 +4,5 @@ class EditionWorldLocation < ApplicationRecord
 
   validates :edition, :world_location, presence: true
 
-  scope :with_translations, ->*locales { joins(edition: :translations).merge(Edition.with_locales(*locales)) }
+  scope :with_translations, ->(*locales) { joins(edition: :translations).merge(Edition.with_locales(*locales)) }
 end

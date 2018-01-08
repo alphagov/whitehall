@@ -9,7 +9,7 @@ class CaseStudy < Edition
   include Edition::WorldLocations
   include Edition::WorldwideOrganisations
 
-  validates :first_published_at, presence: true, if: ->e { e.trying_to_convert_to_draft == true }
+  validates :first_published_at, presence: true, if: ->(e) { e.trying_to_convert_to_draft == true }
 
   def rendering_app
     Whitehall::RenderingApp::GOVERNMENT_FRONTEND

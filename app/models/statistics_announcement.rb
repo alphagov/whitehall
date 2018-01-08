@@ -58,11 +58,11 @@ class StatisticsAnnouncement < ApplicationRecord
 
   accepts_nested_attributes_for :current_release_date, reject_if: :persisted?
 
-  scope :with_title_containing, ->*keywords {
+  scope :with_title_containing, ->(*keywords) {
     pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
     where("statistics_announcements.title REGEXP :pattern OR statistics_announcements.slug = :slug", pattern: pattern, slug: keywords)
   }
-  scope :in_organisations, ->organisation_ids {
+  scope :in_organisations, ->(organisation_ids) {
     joins(:statistics_announcement_organisations)
       .where(statistics_announcement_organisations: { organisation_id: organisation_ids })
   }

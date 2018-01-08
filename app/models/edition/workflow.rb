@@ -40,7 +40,7 @@ module Edition::Workflow
       end
 
       event :convert_to_draft do
-        transitions from: :imported, to: :draft, guard: ->edition { edition.valid_as_draft? }
+        transitions from: :imported, to: :draft, guard: ->(edition) { edition.valid_as_draft? }
       end
 
       event :delete do

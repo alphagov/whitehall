@@ -23,7 +23,7 @@ class Attachment < ApplicationRecord
   validates :order_url, uri: true, allow_blank: true
   validates :order_url, presence: {
     message: "must be entered as you've entered a price",
-    if: ->publication { publication.price.present? }
+    if: ->(publication) { publication.price.present? }
   }
   validates :price, numericality: {
     allow_blank: true, greater_than: 0

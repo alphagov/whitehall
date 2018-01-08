@@ -44,7 +44,7 @@ class TopicalEvent < Classification
   scope :for_edition, ->(id) { joins(:classification_memberships).where(classification_memberships: { edition_id: id }) }
 
   validate :start_and_end_dates
-  validates :start_date, presence: true, if: ->topical_event { topical_event.end_date }
+  validates :start_date, presence: true, if: ->(topical_event) { topical_event.end_date }
 
   accepts_nested_attributes_for :social_media_accounts, allow_destroy: true
 
