@@ -1,5 +1,5 @@
 module PublishingApiPresenters
-  def self.presenter_for(model, options={})
+  def self.presenter_for(model, options = {})
     presenter_class_for(model).new(model, options)
   end
 

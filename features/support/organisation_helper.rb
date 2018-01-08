@@ -13,7 +13,7 @@ module OrganisationHelper
     organisation
   end
 
-  def stub_organisation_in_content_store(name, base_path, locale=nil)
+  def stub_organisation_in_content_store(name, base_path, locale = nil)
     content_item = {
       format: "organisation",
       title: name,

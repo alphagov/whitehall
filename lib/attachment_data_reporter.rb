@@ -5,7 +5,7 @@ class AttachmentDataReporter
 
   attr_reader :data_path, :start_date, :end_date
 
-  def initialize(opts={})
+  def initialize(opts = {})
     @data_path  = opts.fetch(:data_path, Rails.root)
     @start_date = Date.parse(opts.fetch(:start_date, 1.month.ago.to_s))
     @end_date   = Date.parse(opts.fetch(:end_date,   1.day.since.to_s))
@@ -91,7 +91,7 @@ private
     number_to_percentage((number.to_f / total) * 100)
   end
 
-  def csv_file_path(report_type='report')
+  def csv_file_path(report_type = 'report')
     File.join(data_path, "attachments-#{report_type}-#{Time.zone.now.strftime("%y%m%d-%H%M%S")}.csv")
   end
 end

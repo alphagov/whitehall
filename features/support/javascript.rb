@@ -54,7 +54,7 @@ end
 class Capybara::Poltergeist::WebSocketServer
   alias_method :_send, :send
 
-  def send(cmd_id, message, accept_timeout=nil)
+  def send(cmd_id, message, accept_timeout = nil)
     _send(cmd_id, message, accept_timeout)
   rescue Capybara::Poltergeist::TimeoutError => e
     log_network_traffic
