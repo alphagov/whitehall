@@ -33,8 +33,8 @@ class Admin::RoleAppointmentsController < Admin::BaseController
       @role_appointment.destroy
       redirect_to edit_admin_role_path(@role_appointment.role), notice: "Appointment has been deleted"
     else
-     flash.now[:alert] = "Appointment can not be deleted"
-     render :edit
+      flash.now[:alert] = "Appointment can not be deleted"
+      render :edit
     end
   end
 

@@ -6,8 +6,8 @@ class FileAttachmentTest < ActiveSupport::TestCase
   end
 
   def assert_delegated attachment, method
-     attachment.attachment_data.expects(method).returns(method.to_s)
-     assert_equal method.to_s, attachment.send(method)
+    attachment.attachment_data.expects(method).returns(method.to_s)
+    assert_equal method.to_s, attachment.send(method)
   end
 
   test "asks data for file specific information" do

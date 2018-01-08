@@ -3,6 +3,6 @@
 #during migration.
 
 DetailedGuide.where(id: [629523, 516694, 437572]).each do | detailed_guide |
- detailed_guide.state = "draft"
- detailed_guide.save!
+  detailed_guide.state = "draft"
+  detailed_guide.save!
 end

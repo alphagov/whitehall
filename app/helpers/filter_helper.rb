@@ -74,13 +74,13 @@ module FilterHelper
 
     def to_date_fragment
       @to_date_fragment ||= if filter.respond_to?(:to_date) && filter.to_date.present?
-        "<strong>before #{filter.to_date.to_s(:long_ordinal)}</strong> #{remove_field_link(:to_date, filter.to_date, "#{date_prefix_text} before date")}"
+                              "<strong>before #{filter.to_date.to_s(:long_ordinal)}</strong> #{remove_field_link(:to_date, filter.to_date, "#{date_prefix_text} before date")}"
       end
     end
 
     def from_date_fragment
       @from_date_fragment ||= if filter.respond_to?(:from_date) && filter.from_date.present?
-        "<strong>after #{filter.from_date.to_s(:long_ordinal)}</strong> #{remove_field_link(:from_date, filter.from_date, "#{date_prefix_text} after date")}"
+                                "<strong>after #{filter.from_date.to_s(:long_ordinal)}</strong> #{remove_field_link(:from_date, filter.from_date, "#{date_prefix_text} after date")}"
       end
     end
 

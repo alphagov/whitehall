@@ -26,7 +26,7 @@ module Whitehall
     end
 
     def errors
-       return unless object.errors.any?
+      return unless object.errors.any?
        @template.content_tag(:div, "class" => "alert alert-danger form-errors") do
          @template.concat @template.content_tag(:p, "To save the #{object.class.name.demodulize.underscore.humanize.downcase} please fix the following issues:")
          @template.concat error_list
@@ -88,7 +88,7 @@ module Whitehall
       label_text = options.delete(:label_text)
 
       @template.content_tag(:div, class: 'form-group') do
-          label(method, label_text, label_options) + super
+        label(method, label_text, label_options) + super
       end
     end
 

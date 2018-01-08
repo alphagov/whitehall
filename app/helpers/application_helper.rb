@@ -196,7 +196,7 @@ module ApplicationHelper
       if parameters[:action] == 'home'
         root_path
       elsif parameters[:action] == 'get_involved'
-          get_involved_path
+        get_involved_path
       else
         how_government_works_path
       end

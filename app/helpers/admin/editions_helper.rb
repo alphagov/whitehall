@@ -40,7 +40,7 @@ module Admin::EditionsHelper
     organisations = Organisation.with_translations(:en).order(:name).excluding_govuk_status_closed || []
     closed_organisations = Organisation.with_translations(:en).closed || []
     if current_user.organisation
-        organisations = [current_user.organisation] + (organisations - [current_user.organisation])
+      organisations = [current_user.organisation] + (organisations - [current_user.organisation])
     end
 
     options_for_select([["All organisations", ""]], selected_organisation) +

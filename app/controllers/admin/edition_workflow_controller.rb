@@ -97,7 +97,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
     @service_object = withdrawer_or_unpublisher_for(@edition)
 
     if @service_object.perform!
-     redirect_to admin_edition_path(@edition), notice: unpublish_success_notice
+      redirect_to admin_edition_path(@edition), notice: unpublish_success_notice
     else
       @unpublishing = @edition.unpublishing
       flash.now[:alert] = @service_object.failure_reason
