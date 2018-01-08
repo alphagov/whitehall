@@ -21,7 +21,7 @@ class CorporateInformationPageType
                         else
                           organisation.name
                         end
-    translation_key = slug.gsub('-', '_')
+    translation_key = slug.tr('-', '_')
     I18n.t("corporate_information_page.type.title.#{translation_key}", organisation_name: organisation_name)
   end
 
@@ -30,7 +30,7 @@ class CorporateInformationPageType
   end
 
   def display_type_key
-    slug.gsub("-", "_")
+    slug.tr("-", "_")
   end
 
   PersonalInformationCharter = create(

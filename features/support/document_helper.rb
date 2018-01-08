@@ -5,7 +5,7 @@ end
 module DocumentHelper
   def document_class(type)
     type = 'edition' if type == 'document'
-    type.gsub(" ", "_").classify.constantize
+    type.tr(" ", "_").classify.constantize
   end
 
   def set_lead_organisation_on_document(organisation, order = 1)

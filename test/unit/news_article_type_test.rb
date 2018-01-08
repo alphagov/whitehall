@@ -17,7 +17,7 @@ class NewsArticleTypeTest < ActiveSupport::TestCase
 
   test 'search_format_types tags the type with the key, prefixed with news-article-' do
     NewsArticleType.all.each do |news_article_type|
-      assert news_article_type.search_format_types.include?('news-article-' + news_article_type.key.gsub('_', ' ').parameterize)
+      assert news_article_type.search_format_types.include?('news-article-' + news_article_type.key.tr('_', ' ').parameterize)
     end
   end
 

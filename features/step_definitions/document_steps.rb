@@ -238,7 +238,7 @@ Then /^my attempt to save it should fail with error "([^"]*)"/ do |error_message
 end
 
 When(/^I am on the edit page for (.*?) "(.*?)"$/) do |document_type, title|
-  document_type = document_type.gsub(' ', '_')
+  document_type = document_type.tr(' ', '_')
   document = document_type.classify.constantize.find_by(title: title)
   visit send("edit_admin_#{document_type}_path", document)
 end

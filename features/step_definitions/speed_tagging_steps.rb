@@ -2,7 +2,7 @@ When /^I go to speed tag a newly imported (publication|speech|news article|consu
   organisations = []
   organisations << find_or_create_organisation(organisation1_name) if organisation1_name
   organisations << find_or_create_organisation(organisation2_name) if organisation2_name
-  @edition = create("imported_#{edition_type.gsub(' ', '_')}", organisations: organisations, title: title || "default title")
+  @edition = create("imported_#{edition_type.tr(' ', '_')}", organisations: organisations, title: title || "default title")
   visit admin_edition_path(@edition)
 end
 

@@ -28,7 +28,7 @@ class AttachmentData < ApplicationRecord
   end
 
   def file_extension
-    File.extname(url).gsub(/\./, "") if url.present?
+    File.extname(url).delete('.') if url.present?
   end
 
   def pdf?

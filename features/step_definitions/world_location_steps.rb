@@ -15,23 +15,23 @@ end
 
 Given /^an? (world location|international delegation) "([^"]*)" exists$/ do |world_location_type, name|
   WorldLocationNewsPageWorker.any_instance.stubs(:perform).returns(true)
-  create(world_location_type.gsub(' ', '_').to_sym, name: name, active: true)
+  create(world_location_type.tr(' ', '_').to_sym, name: name, active: true)
 end
 
 Given /^an? (world location|international delegation) "([^"]*)" exists with the mission statement "([^"]*)"$/ do |world_location_type, name, mission_statement|
   WorldLocationNewsPageWorker.any_instance.stubs(:perform).returns(true)
-  create(world_location_type.gsub(' ', '_').to_sym, name: name, active: true, mission_statement: mission_statement)
+  create(world_location_type.tr(' ', '_').to_sym, name: name, active: true, mission_statement: mission_statement)
 end
 
 Given /^the (world location|international delegation) "([^"]*)" is inactive/ do |world_location_type, name|
   WorldLocationNewsPageWorker.any_instance.stubs(:perform).returns(true)
-  world_location = WorldLocation.find_by(name: name) || create(world_location_type.gsub(' ', '_').to_sym, name: name, active: true)
+  world_location = WorldLocation.find_by(name: name) || create(world_location_type.tr(' ', '_').to_sym, name: name, active: true)
   world_location.update_column(:active, false)
 end
 
 Given /^an? (world location|international delegation) "([^"]*)" exists with a translation for the locale "([^"]*)"$/ do |world_location_type, name, locale|
   WorldLocationNewsPageWorker.any_instance.stubs(:perform).returns(true)
-  location = create(world_location_type.gsub(' ', '_').to_sym, name: name, active: true)
+  location = create(world_location_type.tr(' ', '_').to_sym, name: name, active: true)
   locale = Locale.find_by_language_name(locale)
 
   translation = LocalisedModel.new(location, locale.code)

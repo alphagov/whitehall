@@ -110,7 +110,7 @@ class Document < ApplicationRecord
   end
 
   def humanized_document_type
-    document_type.underscore.gsub('_', ' ')
+    document_type.underscore.tr('_', ' ')
   end
 
 private
