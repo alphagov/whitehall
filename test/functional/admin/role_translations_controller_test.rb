@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 require "test_helper"
 
 class Admin::RoleTranslationsControllerTest < ActionController::TestCase

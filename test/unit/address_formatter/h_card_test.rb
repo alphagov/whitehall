@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 require 'fast_test_helper'
 require 'address_formatter/h_card'
 require 'active_support/core_ext/string' # for strip_heredoc

@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 require "test_helper"
 
 class CsvPreviewTest < ActiveSupport::TestCase

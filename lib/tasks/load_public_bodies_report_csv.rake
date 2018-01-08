@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 require "csv"
 
 def clean_money(raw_money)
