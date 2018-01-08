@@ -5,7 +5,7 @@ class LinksReport < ApplicationRecord
   belongs_to :link_reportable, polymorphic: true
 
   def self.queue_for!(record)
-    links = Govspeak::LinkExtractor.new(record.body).links
+    links = Govspeak::LinkExtractor.new(record.body).call
 
     create!(link_reportable: record, links: links).tap do |links_report|
       LinksReportWorker.perform_async(links_report.id)
