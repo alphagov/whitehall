@@ -108,7 +108,7 @@ module OrganisationHelper
                       "#{name} is #{relationship} of #{parents.to_sentence}."
                     end
                   else
-                    (type_name != 'other') ? "#{name} is #{relationship}." : "#{name}"
+                    type_name != 'other' ? "#{name} is #{relationship}." : "#{name}"
                   end
 
     description.html_safe
@@ -120,10 +120,10 @@ module OrganisationHelper
 
     if child_organisations.any?
       organisation_name.chomp!('.')
-      organisation_name += (organisation_type_name(organisation) != 'other') ? ", supported by " : " is supported by "
+      organisation_name += organisation_type_name(organisation) != 'other' ? ", supported by " : " is supported by "
 
       child_relationships_link_text = "#{child_organisations.size}"
-      child_relationships_link_text += (child_organisations.size == 1) ? " public body" : " agencies and public bodies"
+      child_relationships_link_text += child_organisations.size == 1 ? " public body" : " agencies and public bodies"
 
       organisation_name += link_to(child_relationships_link_text, organisations_path(anchor: organisation.slug))
       organisation_name += "."
@@ -201,7 +201,7 @@ module OrganisationHelper
     if organisation.important_board_members > 1
       clear_number = 4
     end
-    (i % clear_number == 0) ? 'clear-person' : ''
+    i % clear_number == 0 ? 'clear-person' : ''
   end
 
   def array_of_links_to_organisations(organisations)
