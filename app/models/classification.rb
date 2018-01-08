@@ -25,7 +25,7 @@ class Classification < ApplicationRecord
   has_many :classification_relations, inverse_of: :classification
   has_many :related_classifications,
             through: :classification_relations,
-            before_remove: -> pa, rpa {
+            before_remove: ->pa, rpa {
               ClassificationRelation.relation_for(pa.id, rpa.id).destroy_inverse_relation
             }
 

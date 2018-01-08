@@ -59,7 +59,7 @@ class Edition < ApplicationRecord
   POST_PUBLICATION_STATES = %w(published superseded withdrawn).freeze
   PUBLICLY_VISIBLE_STATES = %w(published withdrawn).freeze
 
-  scope :with_title_or_summary_containing, -> (*keywords) {
+  scope :with_title_or_summary_containing, ->(*keywords) {
     pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
     in_default_locale.where("edition_translations.title REGEXP :pattern OR edition_translations.summary REGEXP :pattern", pattern: pattern)
   }
@@ -265,7 +265,7 @@ class Edition < ApplicationRecord
     id: :id,
     title: :search_title,
     link: :search_link,
-    format: -> (d) { d.format_name.tr(" ", "_") },
+    format: ->(d) { d.format_name.tr(" ", "_") },
     content: :indexable_content,
     description: :summary,
     people: nil,

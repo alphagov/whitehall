@@ -54,9 +54,9 @@ class RoleAppointment < ApplicationRecord
   validates :role_id, :person_id, :started_at, presence: true
   validates_with Validator
 
-  scope :for_role, -> role { where(role_id: role.id) }
-  scope :for_person, -> person { where(person_id: person.id) }
-  scope :excluding, -> *ids { where("id NOT IN (?)", ids) }
+  scope :for_role, ->role { where(role_id: role.id) }
+  scope :for_person, ->person { where(person_id: person.id) }
+  scope :excluding, ->*ids { where("id NOT IN (?)", ids) }
   scope :current, -> {where(CURRENT_CONDITION) }
   scope :for_ministerial_roles, -> { includes(role: :organisations).merge(Role.ministerial).references(:roles) }
   scope :alphabetical_by_person, -> { includes(:person).order('people.surname', 'people.forename') }
