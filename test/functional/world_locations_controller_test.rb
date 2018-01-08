@@ -37,8 +37,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     world_location = create(:world_location,
       title: "UK in country-name",
       world_location_type: WorldLocationType::WorldLocation,
-      mission_statement: "country-mission-statement"
-    )
+      mission_statement: "country-mission-statement")
     assert_raise ActiveRecord::RecordNotFound do
       get :show, params: { id: world_location }
     end

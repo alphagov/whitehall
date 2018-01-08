@@ -18,7 +18,8 @@ class OrganisationsControllerTest < ActionController::TestCase
     content_store_has_item(
       "/government/organisations",
       format: "finder",
-      title: "Title of organisations homepage")
+      title: "Title of organisations homepage"
+    )
   end
 
   ### Describing :index ###

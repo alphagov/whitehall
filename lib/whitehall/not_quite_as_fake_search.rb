@@ -5,7 +5,8 @@ module Whitehall
       store = Whitehall::NotQuiteAsFakeSearch::Store.new
       SearchIndex.indexer_class.store = store
       Whitehall.government_search_client = Whitehall::NotQuiteAsFakeSearch::GdsApiRummager.new(
-        SearchIndex.government_search_index_path, store)
+        SearchIndex.government_search_index_path, store
+      )
       Whitehall.search_backend = Whitehall::DocumentFilter::Rummager
     end
 

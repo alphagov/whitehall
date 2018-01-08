@@ -44,9 +44,11 @@ class StatisticsAnnouncementDateChangeTest < ActiveSupport::TestCase
 
   test "improving the precision of provisional date is valid and ignores the change note" do
     announcement = create(:statistics_announcement)
-    new_date = announcement.build_statistics_announcement_date_change(
-      precision: StatisticsAnnouncementDate::PRECISION[:exact],
-      release_date: announcement.release_date + 2.months)
+    new_date = announcement
+                 .build_statistics_announcement_date_change(
+                   precision: StatisticsAnnouncementDate::PRECISION[:exact],
+                   release_date: announcement.release_date + 2.months
+                 )
 
     assert new_date.save
     assert_nil new_date.reload.change_note

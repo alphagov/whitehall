@@ -17,8 +17,7 @@ module OrganisationControllerTestHelpers
 
       view_test "#{org_type}:shows organisation name" do
         organisation = create_org_and_stub_content_store(org_type,
-          logo_formatted_name: "unformatted name"
-        )
+          logo_formatted_name: "unformatted name")
         get :show, params: { id: organisation }
         assert_select ".organisation h1", text: "unformatted name"
       end

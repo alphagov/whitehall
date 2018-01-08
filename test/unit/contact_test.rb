@@ -23,8 +23,7 @@ class ContactTest < ActiveSupport::TestCase
       locality: "",
       region: "",
       postal_code: "",
-      country_id: ""
-    )
+      country_id: "")
     assert contact.valid?
   end
 

@@ -62,19 +62,32 @@ module Whitehall
       draft = create(:corporate_information_page, organisation: @organisation,
                     corporate_information_page_type_id: CorporateInformationPageType::Research.id)
 
-      @router.expects(:add_redirect_route).with(
-        "/government/organisations/#{@organisation.slug}/about",
-        "exact",
-        "/government/organisations/#{@new_slug}/about")
-      @router.expects(:add_redirect_route).with(
-        "/government/organisations/#{@organisation.slug}/about/#{cip1.slug}",
-        "exact",
-        "/government/organisations/#{@new_slug}/about/#{cip1.slug}")
-      @router.expects(:add_redirect_route).with(
-        "/government/organisations/#{@organisation.slug}/about/#{cip2.slug}",
-        "exact",
-        "/government/organisations/#{@new_slug}/about/#{cip2.slug}")
-      @router.expects(:add_redirect_route)
+      @router
+        .expects(:add_redirect_route)
+        .with(
+          "/government/organisations/#{@organisation.slug}/about",
+          "exact",
+          "/government/organisations/#{@new_slug}/about"
+        )
+
+      @router
+        .expects(:add_redirect_route)
+        .with(
+          "/government/organisations/#{@organisation.slug}/about/#{cip1.slug}",
+          "exact",
+          "/government/organisations/#{@new_slug}/about/#{cip1.slug}"
+        )
+
+      @router
+        .expects(:add_redirect_route)
+        .with(
+          "/government/organisations/#{@organisation.slug}/about/#{cip2.slug}",
+          "exact",
+          "/government/organisations/#{@new_slug}/about/#{cip2.slug}"
+        )
+
+      @router
+        .expects(:add_redirect_route)
         .with("/government/organisations/#{@organisation.slug}/about/#{draft.slug}", any_parameters)
         .never
 

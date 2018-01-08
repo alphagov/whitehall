@@ -90,8 +90,7 @@ module Admin::EditionActionsHelper
       class: "masthead-menu list-unstyled js-hidden",
       id: 'new-document-menu',
       role: 'menu',
-      'aria-labelledby' => 'new-document-label'
-    ) do
+      'aria-labelledby' => 'new-document-label') do
       edition_types = [
         Consultation,
         Publication,
@@ -108,8 +107,7 @@ module Admin::EditionActionsHelper
           link_to(edition_type.model_name.human,
             polymorphic_path([:new, :admin, edition_type.name.underscore]),
             title: "Create #{edition_type.model_name.human.titleize}",
-            role: 'menuitem'
-          )
+            role: 'menuitem')
         end if can?(:create, edition_type)
       end.compact.join.html_safe
     end

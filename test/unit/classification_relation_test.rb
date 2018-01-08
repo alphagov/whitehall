@@ -15,8 +15,7 @@ class ClassificationRelationTest < ActiveSupport::TestCase
     existing_relation = create(:classification_relation)
     relation = build(:classification_relation,
       topic: existing_relation.topic,
-      related_topic: existing_relation.related_topic
-    )
+      related_topic: existing_relation.related_topic)
     refute relation.valid?
   end
 

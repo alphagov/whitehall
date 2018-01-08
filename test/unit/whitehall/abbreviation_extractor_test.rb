@@ -4,8 +4,7 @@ class AbbreviationExtractorTest < ActiveSupport::TestCase
   test "extracts a single abbreviation couple from an edition" do
     edition = create(:edition, body:
       "This is the DVLA\n\n" +
-      "*[DVLA]:Driver and Vehicle Licensing Agency"
-    )
+      "*[DVLA]:Driver and Vehicle Licensing Agency")
 
     abbreviations = Whitehall::AbbreviationExtractor.new(edition).extract
 
@@ -17,8 +16,7 @@ class AbbreviationExtractorTest < ActiveSupport::TestCase
       "This is the MOD\n\n" +
       "This is the MOJ\n\n" +
       "*[MOD]:Ministry of Defence\n" +
-      "*[MOJ]:Ministry of Justice"
-    )
+      "*[MOJ]:Ministry of Justice")
 
     abbreviations = Whitehall::AbbreviationExtractor.new(edition).extract
 
@@ -32,8 +30,7 @@ class AbbreviationExtractorTest < ActiveSupport::TestCase
     edition = create(:edition, body:
       "This is the MOD\n\n" +
       "This is the MOD\n\n" +
-      "*[MOD]:Ministry of Defence\n"
-    )
+      "*[MOD]:Ministry of Defence\n")
 
     abbreviations = Whitehall::AbbreviationExtractor.new(edition).extract
 

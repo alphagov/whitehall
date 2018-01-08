@@ -34,7 +34,8 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   end
 
   test "create should create a new consultation" do
-    attributes = controller_attributes_for(:consultation,
+    attributes = controller_attributes_for(
+      :consultation,
       consultation_participation_attributes: {
         link_url: "http://participation.com",
         email: "countmein@participation.com",
@@ -63,7 +64,8 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   end
 
   test "create should create a new consultation without consultation participation if participation fields are all blank" do
-    attributes = controller_attributes_for(:consultation,
+    attributes = controller_attributes_for(
+      :consultation,
       consultation_participation_attributes: {
         link_url: nil,
         email: nil,
@@ -83,7 +85,8 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   end
 
   view_test "creating a consultation with invalid data but valid form file should still display the cached form file" do
-    attributes = controller_attributes_for(:consultation,
+    attributes = controller_attributes_for(
+      :consultation,
       consultation_participation_attributes: {
         link_url: nil,
         email: nil,

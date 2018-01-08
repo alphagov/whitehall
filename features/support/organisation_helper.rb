@@ -8,7 +8,8 @@ module OrganisationHelper
     stub_organisation_in_content_store(
       args[1][:name],
       organisation.base_path,
-      args[1][:translated_into])
+      args[1][:translated_into]
+    )
     organisation
   end
 

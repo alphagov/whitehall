@@ -55,11 +55,14 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
 
   test "creating should be able to create a new casualty for the fatality notice" do
     field = create(:operational_field)
-    attributes = controller_attributes_for(:fatality_notice,
+    attributes = controller_attributes_for(
+      :fatality_notice,
       operational_field_id: field.id,
-      fatality_notice_casualties_attributes: {"0" => {
-        personal_details: "Personal details"
-      }}
+      fatality_notice_casualties_attributes: {
+        "0" => {
+          personal_details: "Personal details",
+        },
+      }
     )
 
     post :create, params: { edition: attributes }

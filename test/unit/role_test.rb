@@ -30,8 +30,7 @@ class RoleTest < ActiveSupport::TestCase
                   organisations: [
                     create(:organisation, name: "Department of Health"),
                     create(:organisation, name: "Department for Education"),
-                  ],
-                  )
+                  ])
     assert_equal "Treasury secretary, Department of Health and Department for Education", role.to_s
   end
 

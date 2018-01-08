@@ -81,8 +81,7 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
     worldwide_organisation = create(:worldwide_organisation,
       translated_into: {fr: {
         name: 'Département des barbes en France',
-      }}
-    )
+      }})
 
     get :edit, params: { worldwide_organisation_id: worldwide_organisation, id: 'fr' }
 

@@ -54,7 +54,8 @@ class DocumentFilterPresenter < Struct.new(:filter, :context, :document_decorato
   def documents
     if document_decorator
       Whitehall::Decorators::CollectionDecorator.new(
-        filter.documents, document_decorator, context)
+        filter.documents, document_decorator, context
+      )
     else
       filter.documents
     end

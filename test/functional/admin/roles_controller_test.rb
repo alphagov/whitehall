@@ -178,12 +178,13 @@ class Admin::RolesControllerTest < ActionController::TestCase
     org_one, org_two = create(:organisation), create(:organisation)
 
     post :create, params: {
-role: attributes_for(:ministerial_role,
-      name: "role-name",
-      role_type: "minister",
-      organisation_ids: [org_one.id, org_two.id]
-    )
-}
+      role: attributes_for(
+        :ministerial_role,
+        name: "role-name",
+        role_type: "minister",
+        organisation_ids: [org_one.id, org_two.id]
+      )
+    }
 
     assert role = MinisterialRole.last
     assert_equal "role-name", role.name
@@ -193,40 +194,36 @@ role: attributes_for(:ministerial_role,
 
   test "create should create a new board level manager role" do
     post :create, params: {
-role: attributes_for(:board_member_role,
-      role_type: "board_level_manager",
-    )
-}
+      role: attributes_for(:board_member_role,
+                           role_type: "board_level_manager")
+    }
 
     assert role = BoardMemberRole.last
   end
 
   test "create should create a new military role" do
     post :create, params: {
-role: attributes_for(:military_role,
-      role_type: "chief_of_staff",
-    )
-}
+      role: attributes_for(:military_role,
+                           role_type: "chief_of_staff")
+    }
 
     assert role = MilitaryRole.last
   end
 
   test "create should create a new special representative role" do
     post :create, params: {
-role: attributes_for(:special_representative_role,
-      role_type: "special_representative",
-    )
-}
+      role: attributes_for(:special_representative_role,
+                           role_type: "special_representative")
+    }
 
     assert role = SpecialRepresentativeRole.last
   end
 
   test "create should create a new chief professional officer role" do
     post :create, params: {
-role: attributes_for(:chief_professional_officer_role,
-      role_type: "chief_professional_officer",
-    )
-}
+      role: attributes_for(:chief_professional_officer_role,
+                           role_type: "chief_professional_officer")
+    }
 
     assert role = ChiefProfessionalOfficerRole.last
   end

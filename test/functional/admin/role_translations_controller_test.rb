@@ -98,14 +98,15 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
   end
 
   view_test 'edit form adds right-to-left class and dir attribute for text field and areas in right-to-left languages' do
-    role = create(:role,
-                  translated_into: {
-                    ar: {
-                      name: 'دور اسم',
-                      responsibilities: 'المسؤوليات',
-                    },
-                  },
-                  )
+    role = create(
+      :role,
+      translated_into: {
+        ar: {
+          name: 'دور اسم',
+          responsibilities: 'المسؤوليات',
+        },
+      }
+    )
 
     get :edit, params: { role_id: role, id: 'ar' }
 

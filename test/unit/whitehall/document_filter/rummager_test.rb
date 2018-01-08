@@ -22,8 +22,12 @@ module Whitehall::DocumentFilter
     end
 
     def expect_search_by_people(people)
-      Whitehall.government_search_client.expects(:advanced_search).with(
-        has_entry(people: people))
+      Whitehall
+        .government_search_client
+        .expects(:advanced_search)
+        .with(
+          has_entry(people: people)
+        )
     end
 
     test 'announcements_search looks for all announcements excluding world types by default' do

@@ -5,12 +5,10 @@ Given /^a worldwide organisation that is translated exists$/ do
   worldwide_organisation = create(:worldwide_organisation,
     world_locations: [world_location],
     name: "en-organisation",
-    translated_into: {fr: {name: "fr-organisation"}}
-  )
+    translated_into: {fr: {name: "fr-organisation"}})
   create(:about_corporate_information_page, organisation: nil,
          worldwide_organisation: worldwide_organisation,  summary: "en-summary",
-         translated_into: {fr: {summary: "fr-summary"}}
-  )
+         translated_into: {fr: {summary: "fr-summary"}})
 end
 
 When /^I visit the world organisation that is translated$/ do

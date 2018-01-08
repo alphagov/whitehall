@@ -315,8 +315,7 @@ module AdminEditionControllerTestHelpers
         draft_updater = stub("draft updater",
                               can_perform?: false,
                               perform!: false,
-                              failure_reason: "Unable to perform draft update"
-                            )
+                              failure_reason: "Unable to perform draft update")
 
         Whitehall.edition_services.stubs(:draft_updater).returns(draft_updater)
 
@@ -341,8 +340,7 @@ module AdminEditionControllerTestHelpers
         draft_updater = stub("draft updater",
                               can_perform?: false,
                               perform!: false,
-                              failure_reason: "Unable to perform draft update"
-                            )
+                              failure_reason: "Unable to perform draft update")
 
         Whitehall.edition_services.stubs(:draft_updater).returns(draft_updater)
 
@@ -1286,8 +1284,7 @@ module AdminEditionControllerTestHelpers
 
         edition = create(edition_type,
           related_mainstream_content_url: "https://www.gov.uk/starting-to-export",
-          additional_related_mainstream_content_url: "https://www.gov.uk/vat-rates"
-        )
+          additional_related_mainstream_content_url: "https://www.gov.uk/vat-rates")
         Services.publishing_api.stubs(:lookup_content_ids).with(base_paths: ["/fishing-licences", "/set-up-business-uk"]).returns({"/fishing-licences" => "bc46370c-2f2b-4db7-bf23-ace64b465eca", "/set-up-business-uk" => "5e5bb54d-e471-4d07-977b-291168569f26"})
 
         put :update, params: {

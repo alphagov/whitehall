@@ -10,8 +10,7 @@ class PublishingApi::ComingSoonPresenterTest < ActiveSupport::TestCase
                        title: 'Case study title',
                        summary: 'The summary',
                        body: 'Some content',
-                       scheduled_publication: @publish_timestamp,
-                     )
+                       scheduled_publication: @publish_timestamp)
   end
 
   test 'presents a valid "coming_soon" content item' do

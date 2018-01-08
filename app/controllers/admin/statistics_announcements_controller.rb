@@ -71,10 +71,13 @@ private
   end
 
   def statistics_announcement_params
-    params.require(:statistics_announcement).permit(
-      :title, :summary, :publication_type_id, :publication_id,
-      :cancellation_reason, organisation_ids: [], topic_ids: [],
-      current_release_date_attributes: [:id, :release_date, :precision, :confirmed])
+    params
+      .require(:statistics_announcement)
+      .permit(
+        :title, :summary, :publication_type_id, :publication_id,
+        :cancellation_reason, organisation_ids: [], topic_ids: [],
+        current_release_date_attributes: [:id, :release_date, :precision, :confirmed]
+      )
   end
 
   def filter_params

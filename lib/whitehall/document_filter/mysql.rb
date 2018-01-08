@@ -69,7 +69,9 @@ module Whitehall::DocumentFilter
           editions = @documents.arel_table
           @documents = @documents.where(
             editions[:publication_type_id].in(publication_ids).or(
-              editions[:type].in(edition_types)))
+              editions[:type].in(edition_types)
+            )
+          )
         else
           @documents = @documents.where(publication_type_id: publication_ids)
         end

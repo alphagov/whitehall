@@ -17,8 +17,7 @@ private
         extra: {
           error_message: "Exception raised during scheduled publishing attempt: '#{e.message}'",
           edition_id: edition.id
-        }
-      )
+        })
     else
       raise e
     end
