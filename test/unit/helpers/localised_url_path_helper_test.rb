@@ -35,7 +35,7 @@ class LocalisedUrlPathHelperTest < ActiveSupport::TestCase
   end
 
   test 'if locale is not provided to path helper, and it is not set in params, should fall back to I18n.locale' do
-    controller = FakeController.new()
+    controller = FakeController.new
     object = stub('news article')
 
     object.expects(:available_in_locale?).with(:fr).returns(true)

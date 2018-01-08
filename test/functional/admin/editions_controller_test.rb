@@ -49,8 +49,8 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     get :index, params: { state: :active }, xhr: true
     response_html = Nokogiri::HTML::DocumentFragment.parse(response.body)
 
-    assert_equal "h1", response_html.children[0].node_name()
-    assert_match "Everyone’s documents", response_html.children[0].text()
+    assert_equal "h1", response_html.children[0].node_name
+    assert_match "Everyone’s documents", response_html.children[0].text
   end
 
   view_test '#index should show unpublishing information' do

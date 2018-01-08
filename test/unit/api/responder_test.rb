@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Api::ResponderTest < ActiveSupport::TestCase
   test 'to_json asks the resource to become json' do
-    resource = mock()
+    resource = mock
     resource.expects(:as_json).returns('meh' => 1)
     responder = make_responder_for_resource(resource)
 

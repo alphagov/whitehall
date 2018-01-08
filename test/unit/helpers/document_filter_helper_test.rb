@@ -43,7 +43,7 @@ class DocumentFilterHelperTest < ActionView::TestCase
   test "filter_results_keywords gets objects ready for mustache" do
     stubs(:params).returns(controller: 'announcements', action: 'index', "keywords" => 'one two')
 
-    assert_equal({ name: 'one two', url: announcements_path() }, filter_results_keywords(%w{one two}))
+    assert_equal({ name: 'one two', url: announcements_path }, filter_results_keywords(%w{one two}))
   end
 
   test "#organisation_filter_options makes option tags with organsation name as text and slug as value" do

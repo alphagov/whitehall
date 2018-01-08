@@ -142,7 +142,7 @@ class HomePageListTest < ActiveSupport::TestCase
   end
 
   test '.get will raise ArgumentError if owned_by: and called: are not both present' do
-    assert_raise(ArgumentError) { HomePageList.get() }
+    assert_raise(ArgumentError) { HomePageList.get }
     assert_raise(ArgumentError) { HomePageList.get(owned_by: create(:organisation)) }
     assert_raise(ArgumentError) { HomePageList.get(called: 'cates') }
   end

@@ -25,7 +25,7 @@ module Whitehall::DocumentFilter
 
     test "per_page defaults to 40" do
       assert_equal 10, build_filter(per_page: 10).per_page
-      assert_equal 40, build_filter().per_page
+      assert_equal 40, build_filter.per_page
     end
 
     test "parses keywords, stripping leading and trailing spaces" do
