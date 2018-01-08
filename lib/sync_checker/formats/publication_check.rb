@@ -84,14 +84,16 @@ module SyncChecker
 
       def expected_details_hash(edition, locale)
         super.tap do |expected_details_hash|
-          expected_details_hash.merge(
-            documents: Whitehall::GovspeakRenderer.new.block_attachments(
-              filter_documents_for_locale(
-                edition,
-                locale
+          if edition.attachments.any?
+            expected_details_hash.merge(
+              documents: Whitehall::GovspeakRenderer.new.block_attachments(
+                filter_documents_for_locale(
+                  edition,
+                  locale
+                )
               )
             )
-          ) if edition.attachments.any?
+          end
         end
       end
 

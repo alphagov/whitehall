@@ -162,15 +162,19 @@ module ApplicationHelper
   end
 
   def absolute_time(time, options = {})
+    return unless time
+
     content_tag(:time, l(time, format: :long_ordinal),
                 class: [options[:class], "datetime"].compact.join(" "),
-                datetime: time.iso8601) if time
+                datetime: time.iso8601)
   end
 
   def absolute_date(time, options = {})
+    return unless time
+
     content_tag(:time, l(time.to_date, format: :long_ordinal),
                 class: [options[:class], "date"].compact.join(" "),
-                datetime: time.iso8601) if time
+                datetime: time.iso8601)
   end
 
   def main_navigation_link_to(name, path, html_options = {}, &block)

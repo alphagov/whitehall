@@ -35,9 +35,11 @@ module SyncChecker
 
       def expected_details_hash(edition, _)
         super.tap do |expected_details_hash|
-          expected_details_hash.merge(
-            national_applicability: edition.national_applicability
-          ) if edition.nation_inapplicabilities.any?
+          if edition.nation_inapplicabilities.any?
+            expected_details_hash.merge(
+              national_applicability: edition.national_applicability
+            )
+          end
 
           expected_details_hash.merge(
             related_mainstream_content: related_mainstream_content_ids(edition)

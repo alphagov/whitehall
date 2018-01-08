@@ -52,10 +52,12 @@ module PublishingApi
           d[:cancellation_reason] = item.cancellation_reason
           d[:cancelled_at] = cancelled_at
         end
-        d.merge!(
-          previous_display_date: item.previous_display_date,
-          latest_change_note: item.last_change_note
-        ) if item.previous_display_date
+        if item.previous_display_date
+          d.merge!(
+            previous_display_date: item.previous_display_date,
+            latest_change_note: item.last_change_note
+          )
+        end
       end
     end
 
