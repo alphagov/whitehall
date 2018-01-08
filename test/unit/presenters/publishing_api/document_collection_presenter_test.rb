@@ -353,7 +353,7 @@ end
 class PublishingApi::PublishedDocumentCollectionPresenterTopicalEventsLinksTest < ActiveSupport::TestCase
   setup do
     document_collection = create(:document_collection)
-    PublishingApi::PayloadBuilder::TopicalEvents.stubs(:for).with(document_collection).returns({ topical_events: ['bfa'] })
+    PublishingApi::PayloadBuilder::TopicalEvents.stubs(:for).with(document_collection).returns(topical_events: ['bfa'])
     @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(document_collection)
   end
 
@@ -487,7 +487,7 @@ class PublishingApi::DocumentCollectionAccessLimitedTest < ActiveSupport::TestCa
     PublishingApi::PayloadBuilder::AccessLimitation.expects(:for)
       .with(document_collection)
       .returns(
-        { access_limited: { users: %w(abcdef12345) } }
+        access_limited: { users: %w(abcdef12345) }
       )
     @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(
       document_collection

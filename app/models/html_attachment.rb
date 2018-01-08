@@ -87,9 +87,7 @@ class HtmlAttachment < Attachment
   end
 
   def search_index
-    super.merge({
-      content: extracted_text,
-    })
+    super.merge(content: extracted_text)
   end
 
   def deep_clone

@@ -144,13 +144,13 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
       subject.advanced_search(life_the_universe_and_everything: 42, page: '1', per_page: '1')
     }
     assert_raises(ArgumentError) {
-      subject.advanced_search({ release_timestamp: { from: Time.new }, page: '1', per_page: '1' })
+      subject.advanced_search(release_timestamp: { from: Time.new }, page: '1', per_page: '1')
     }
     assert_nothing_raised {
-      subject.advanced_search({ some_hash: { from: "some date" }, page: '1', per_page: '1' })
+      subject.advanced_search(some_hash: { from: "some date" }, page: '1', per_page: '1')
     }
     assert_nothing_raised {
-      subject.advanced_search({ some_array: ['a-slug'], page: '1', per_page: '1' })
+      subject.advanced_search(some_array: ['a-slug'], page: '1', per_page: '1')
     }
   end
 end

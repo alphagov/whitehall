@@ -37,9 +37,9 @@ module DocumentFilterHelper
 
   def remove_filter_from_params(key, value = nil)
     if value && params[key].is_a?(Array)
-      params.merge({ key => (params[key] - [value]) })
+      params.merge(key => (params[key] - [value]))
     else
-      params.merge({ key => nil })
+      params.merge(key => nil)
     end
   end
 
@@ -51,7 +51,7 @@ module DocumentFilterHelper
         value: obj.slug
       }
     end
-    results.map.with_index { |obj, i| obj.merge({ joining: (results.length - 1 == i ? '' : 'and') }) }
+    results.map.with_index { |obj, i| obj.merge(joining: (results.length - 1 == i ? '' : 'and')) }
   end
 
   def filter_results_keywords(keywords)

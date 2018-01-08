@@ -11,9 +11,7 @@ module Admin::EditionActionsHelper
     confirmation_prompt = "Are you sure you want to retrospectively approve this document?"
     content_tag(:div, class: "approve_retrospectively_button") do
       capture do
-        form_for [:admin, edition], {
-          url: approve_retrospectively_admin_edition_path(edition, lock_version: edition.lock_version),
-          method: :post } do |form|
+        form_for [:admin, edition], url: approve_retrospectively_admin_edition_path(edition, lock_version: edition.lock_version), method: :post do |form|
           concat(form.submit "Looks good", data: { confirm: confirmation_prompt }, class: "btn btn-success")
         end
       end

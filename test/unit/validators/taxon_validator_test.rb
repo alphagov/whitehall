@@ -10,13 +10,11 @@ class TaxonValidatorTest < ActiveSupport::TestCase
     edition.stubs(:must_be_tagged_to_taxonomy?).returns(true)
 
     publishing_api_has_links(
-      {
-        "content_id" => edition.content_id,
-        "links" => {
-          "organisations" => ["569a9ee5-c195-4b7f-b9dc-edc17a09113f"],
-        },
-        "version" => 1
-      }
+      "content_id" => edition.content_id,
+      "links" => {
+        "organisations" => ["569a9ee5-c195-4b7f-b9dc-edc17a09113f"],
+      },
+      "version" => 1
     )
 
     publishing_api_has_expanded_links(
@@ -38,14 +36,12 @@ class TaxonValidatorTest < ActiveSupport::TestCase
     edition.stubs(:must_be_tagged_to_taxonomy?).returns(true)
 
     publishing_api_has_links(
-      {
-        "content_id" => edition.content_id,
-        "links" => {
-          "organisations" => ["569a9ee5-c195-4b7f-b9dc-edc17a09113f"],
-          "taxons" => ["7754ae52-34aa-499e-a6dd-88f04633b8ab"]
-        },
-        "version" => 1
-      }
+      "content_id" => edition.content_id,
+      "links" => {
+        "organisations" => ["569a9ee5-c195-4b7f-b9dc-edc17a09113f"],
+        "taxons" => ["7754ae52-34aa-499e-a6dd-88f04633b8ab"]
+      },
+      "version" => 1
     )
 
     publishing_api_has_expanded_links(

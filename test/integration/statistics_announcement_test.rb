@@ -12,12 +12,12 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
 
   def assert_publishing_api_put_intent(base_path, attributes = {}, times = 1)
     intent_url = PUBLISHING_API_V1_ENDPOINT + "/publish-intent" + base_path
-    assert_requested(:put, intent_url, { times: times, body: attributes })
+    assert_requested(:put, intent_url, times: times, body: attributes)
   end
 
   def assert_publishing_api_delete_intent(base_path, times = 1)
     intent_url = PUBLISHING_API_V1_ENDPOINT + "/publish-intent" + base_path
-    assert_requested(:delete, intent_url, { times: times })
+    assert_requested(:delete, intent_url, times: times)
   end
 
   setup do

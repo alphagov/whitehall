@@ -163,8 +163,8 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
 
   test "it uses the PayloadBuilder::FirstPublishedAt helper" do
     publication = create(:publication)
-    PublishingApi::PayloadBuilder::FirstPublishedAt.stubs(:for).with(publication).returns({ first_published_at: 'test' })
-    PublishingApi::PayloadBuilder::FirstPublicAt.stubs(:for).with(publication).returns({ first_public_at: 'test' })
+    PublishingApi::PayloadBuilder::FirstPublishedAt.stubs(:for).with(publication).returns(first_published_at: 'test')
+    PublishingApi::PayloadBuilder::FirstPublicAt.stubs(:for).with(publication).returns(first_public_at: 'test')
     presented_publication = PublishingApi::PublicationPresenter.new(publication)
     @presented_content = presented_publication.content
 

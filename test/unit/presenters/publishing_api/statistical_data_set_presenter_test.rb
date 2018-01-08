@@ -292,7 +292,7 @@ class PublishingApi::StatisticalDataSetAccessLimitedTest < ActiveSupport::TestCa
     PublishingApi::PayloadBuilder::AccessLimitation.expects(:for)
       .with(statistical_data_set)
       .returns(
-        { access_limited: { users: %w(abcdef12345) } }
+        access_limited: { users: %w(abcdef12345) }
       )
     @presented_statistical_data_set = PublishingApi::StatisticalDataSetPresenter.new(
       statistical_data_set

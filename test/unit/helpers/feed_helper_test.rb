@@ -29,27 +29,27 @@ class FeedHelperTest < ActionView::TestCase
   end
 
   test 'feed_wants_govdelivery_version? is true when there is a govdelivery_version param set to "1"' do
-    stubs(:params).returns({ govdelivery_version: '1' })
+    stubs(:params).returns(govdelivery_version: '1')
     assert feed_wants_govdelivery_version?
   end
 
   test 'feed_wants_govdelivery_version? is true when there is a govdelivery_version param set to "yes"' do
-    stubs(:params).returns({ govdelivery_version: 'yes' })
+    stubs(:params).returns(govdelivery_version: 'yes')
     assert feed_wants_govdelivery_version?
   end
 
   test 'feed_wants_govdelivery_version? is true when there is a govdelivery_version param set to "true"' do
-    stubs(:params).returns({ govdelivery_version: 'true' })
+    stubs(:params).returns(govdelivery_version: 'true')
     assert feed_wants_govdelivery_version?
   end
 
   test 'feed_wants_govdelivery_version? is true when there is a govdelivery_version param set to "on"' do
-    stubs(:params).returns({ govdelivery_version: 'on' })
+    stubs(:params).returns(govdelivery_version: 'on')
     assert feed_wants_govdelivery_version?
   end
 
   test 'feed_wants_govdelivery_version? is false when there is a govdelivery_version param set to something other than "1", "yes", "true", or "on"' do
-    stubs(:params).returns({ govdelivery_version: 'monkey' })
+    stubs(:params).returns(govdelivery_version: 'monkey')
     refute feed_wants_govdelivery_version?
   end
 

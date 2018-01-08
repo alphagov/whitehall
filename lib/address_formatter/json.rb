@@ -22,9 +22,9 @@ module AddressFormatter
     end
 
     def get_addresss_as_label_value(type)
-      add_optional_type_key(type, {
-        'value' => AddressFormatter::Text.new(properties, country_code).render
-      })
+      text_address = AddressFormatter::Text.new(properties, country_code).render
+
+      add_optional_type_key(type, 'value' => text_address)
     end
 
     def add_optional_type_key(type, json)

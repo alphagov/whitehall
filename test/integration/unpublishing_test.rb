@@ -48,12 +48,10 @@ class UnpublishingTest < ActiveSupport::TestCase
     %w(en fr).each do |locale|
       assert_publishing_api_unpublish(
         @published_edition.document.content_id,
-        {
-          type: "gone",
-          explanation: "<div class=\"govspeak\"><p>Published by mistake</p>\n</div>",
-          locale: locale,
-          discard_drafts: true,
-        }
+        type: "gone",
+        explanation: "<div class=\"govspeak\"><p>Published by mistake</p>\n</div>",
+        locale: locale,
+        discard_drafts: true
       )
     end
   end
@@ -68,22 +66,23 @@ class UnpublishingTest < ActiveSupport::TestCase
       @published_edition.save!(validate: false)
     end
 
-    unpublishing_redirect_params = unpublishing_params.merge({
-      redirect: true,
-      alternative_url: Whitehall.public_root + '/government/page',
-    })
+    alternative_url = Whitehall.public_root + '/government/page'
+
+    unpublishing_redirect_params = unpublishing_params
+                                     .merge(
+                                       redirect: true,
+                                       alternative_url: alternative_url
+                                     )
 
     unpublish(@published_edition, unpublishing_redirect_params)
 
     %w(en fr).each do |locale|
       assert_publishing_api_unpublish(
         @published_edition.document.content_id,
-        {
-          type: "redirect",
-          alternative_path: "/government/page",
-          locale: locale,
-          discard_drafts: true
-        }
+        type: "redirect",
+        alternative_path: "/government/page",
+        locale: locale,
+        discard_drafts: true
       )
     end
   end

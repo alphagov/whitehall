@@ -5,20 +5,20 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
 
   test "routing constraints stop routes historic appointments routes stomping on histories routes" do
     assert_routing({ path: 'government/history/past-prime-ministers', method: :get },
-      { controller: 'historic_appointments', action: 'index', role: 'past-prime-ministers' })
+      controller: 'historic_appointments', action: 'index', role: 'past-prime-ministers')
 
     assert_routing({ path: 'government/history/king-charles-street', method: :get },
-      { controller: 'histories', action: 'show', id: 'king-charles-street' })
+      controller: 'histories', action: 'show', id: 'king-charles-street')
   end
 
   test "routing for static chancellors page" do
     assert_routing({ path: 'government/history/past-chancellors', method: :get },
-      { controller: 'historic_appointments', action: 'past_chancellors' })
+      controller: 'historic_appointments', action: 'past_chancellors')
   end
 
   test "routing for :show action" do
     assert_routing({ path: 'government/history/past-prime-ministers/barry', method: :get },
-      { controller: 'historic_appointments', action: 'show', role: 'past-prime-ministers', person_id: 'barry' })
+      controller: 'historic_appointments', action: 'show', role: 'past-prime-ministers', person_id: 'barry')
   end
 
   test "GET on :index loads the past appointments for the role and renders the index template" do

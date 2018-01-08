@@ -38,10 +38,8 @@ module ViewRendering
           "",
           template.identifier,
           EmptyTemplateHandler,
-          {
-            virtual_path: template.virtual_path,
-            format: template.formats
-          }
+          virtual_path: template.virtual_path,
+          format: template.formats
         )
       end
     end

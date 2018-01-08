@@ -146,11 +146,11 @@ class Consultation < Publicationesque
   end
 
   def search_index
-    super.merge({
+    super.merge(
       has_official_document: has_official_document? || (outcome.present? && outcome.has_official_document?),
-      has_command_paper:     has_command_paper?     || (outcome.present? && outcome.has_command_paper?),
-      has_act_paper:         has_act_paper?         || (outcome.present? && outcome.has_act_paper?)
-    })
+      has_command_paper: has_command_paper? || (outcome.present? && outcome.has_command_paper?),
+      has_act_paper: has_act_paper? || (outcome.present? && outcome.has_act_paper?)
+    )
   end
 
   def allows_html_attachments?

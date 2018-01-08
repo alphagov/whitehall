@@ -7,14 +7,14 @@ class SpecialistTagFinderTest < ActiveSupport::TestCase
   test "#topics returns all linked topics" do
     edition = create(:edition_with_document)
     edition_base_path = Whitehall.url_maker.public_document_path(edition)
-    content_item = content_item_for_base_path(edition_base_path).merge!({
-      "links" => {
-        "topics" => [
-          { "title" => "topic-1" },
-          { "title" => "topic-2" },
-        ]
-      }
-    })
+    content_item = content_item_for_base_path(edition_base_path)
+                     .merge(
+                       "links" => {
+                         "topics" => [
+                           { "title" => "topic-1" },
+                           { "title" => "topic-2" },
+                         ],
+                       })
 
     content_store_has_item(edition_base_path, content_item)
 
@@ -46,18 +46,24 @@ class SpecialistTagFinderTest < ActiveSupport::TestCase
     edition = create(:edition_with_document)
     edition_base_path = Whitehall.url_maker.public_document_path(edition)
     parent_base_path = "/parent-item"
-    edition_content_item = content_item_for_base_path(edition_base_path).merge!(
-      "links" => {
-        "parent" => [
-          {
-            "base_path" => parent_base_path,
-            "links" => {
-              "parent" => [{ "base_path" => "/grandpa", links: {} }],
-            }
-          }
-        ]
-      }
-    )
+    edition_content_item = content_item_for_base_path(edition_base_path)
+                             .merge(
+                               "links" => {
+                                 "parent" => [
+                                   {
+                                     "base_path" => parent_base_path,
+                                     "links" => {
+                                       "parent" => [
+                                         {
+                                           "base_path" => "/grandpa",
+                                           links: {},
+                                         },
+                                       ],
+                                     },
+                                   },
+                                 ],
+                               }
+                             )
     content_store_has_item(edition_base_path, edition_content_item)
 
     assert_equal "/grandpa", SpecialistTagFinder.new(edition_base_path).top_level_topic["base_path"]
@@ -87,9 +93,7 @@ class SpecialistTagFinderTest < ActiveSupport::TestCase
   test "#top_level_topic returns nil if no parents" do
     edition = create(:edition_with_document)
     edition_base_path = Whitehall.url_maker.public_document_path(edition)
-    edition_content_item = content_item_for_base_path(edition_base_path).merge!({
-      "links" => {}
-    })
+    edition_content_item = content_item_for_base_path(edition_base_path).merge!("links" => {})
 
     content_store_has_item(edition_base_path, edition_content_item)
 

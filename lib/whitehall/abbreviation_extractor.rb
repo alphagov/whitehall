@@ -26,7 +26,7 @@ module Whitehall
       helpers.govspeak_to_html(
         @edition.body,
         [],
-        { heading_numbering: :manual, contact_heading_tag: 'h4' }
+        heading_numbering: :manual, contact_heading_tag: 'h4'
       )
     end
 

@@ -4,10 +4,10 @@ class AnnouncementPresenter < Whitehall::Decorators::Decorator
   delegate_instance_methods_of *Announcement.concrete_descendants
 
   def as_hash
-    super.merge({
+    super.merge(
       field_of_operation: field_of_operation,
       publication_collections: publication_collections
-    })
+    )
   end
 
   def field_of_operation

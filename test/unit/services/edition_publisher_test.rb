@@ -114,7 +114,7 @@ class EditionPublisherTest < ActiveSupport::TestCase
     edition  = build(:imported_edition)
     notifier = mock
     notifier.expects(:publish).never
-    publisher = EditionPublisher.new(edition, { notifier: notifier })
+    publisher = EditionPublisher.new(edition, notifier: notifier)
 
     refute publisher.perform!
   end

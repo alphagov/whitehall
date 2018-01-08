@@ -179,11 +179,9 @@ module SyncChecker
                              File.join(
                                child_path.dirname,
                                child_path.basename(extension),
-                             ),
-                             {
-                               extension: extension.delete('.'),
-                             },
-                           )
+                               ),
+                             extension: extension.delete('.'),
+                             )
                          end
 
         email = participation.email if participation.has_email?

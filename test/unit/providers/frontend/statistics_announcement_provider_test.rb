@@ -12,7 +12,7 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
     @mock_source.expects(:advanced_search).with { |actual|
       actual[:page] == '2' &&
         actual[:per_page] == '10'
-    }.returns({ 'total' => 0, 'results' => [] })
+    }.returns('total' => 0, 'results' => [])
     Frontend::StatisticsAnnouncementProvider.search(page: 2, per_page: 10)
   end
 
@@ -23,21 +23,21 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
       actual[:release_timestamp] == { from: from_date.iso8601, to: to_date.iso8601 } &&
         actual[:from_date].nil? &&
         actual[:to_date].nil?
-    }.returns({ 'total' => 0, 'results' => [] })
+    }.returns('total' => 0, 'results' => [])
     Frontend::StatisticsAnnouncementProvider.search(from_date: from_date, to_date: to_date, page: 2, per_page: 10)
   end
 
   test "#search adds in the paramater format=statistics_announcement" do
     @mock_source.expects(:advanced_search).with { |actual|
       actual[:format] == "statistics_announcement"
-    }.returns({ 'total' => 0, 'results' => [] })
+    }.returns('total' => 0, 'results' => [])
     Frontend::StatisticsAnnouncementProvider.search(page: 2, per_page: 10)
   end
 
   test "#search adds in the paramater order={release_timestamp: 'asc'" do
     @mock_source.expects(:advanced_search).with { |actual|
       actual[:order][:release_timestamp] == 'asc'
-    }.returns({ 'total' => 0, 'results' => [] })
+    }.returns('total' => 0, 'results' => [])
     Frontend::StatisticsAnnouncementProvider.search(page: 2, per_page: 10)
   end
 
@@ -66,7 +66,7 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
       }
     }])
 
-    release_announcement = Frontend::StatisticsAnnouncementProvider.search({ page: 1, per_page: 10 }).first
+    release_announcement = Frontend::StatisticsAnnouncementProvider.search(page: 1, per_page: 10).first
 
     assert_equal "A title",        release_announcement.title
     assert_equal "a-slug",         release_announcement.slug
@@ -85,7 +85,7 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
   end
 
   test "#search: results are returned in a CollectionPage with the correct total, page and per_page values" do
-    @mock_source.stubs(:advanced_search).returns('total' => 30, 'results' => Array.new(10, { "title" => "A title", "metadata" => {} }))
+    @mock_source.stubs(:advanced_search).returns('total' => 30, 'results' => Array.new(10, "title" => "A title", "metadata" => {}))
 
     results = Frontend::StatisticsAnnouncementProvider.search(page: 2, per_page: 10)
 

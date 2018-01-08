@@ -536,24 +536,22 @@ module PublishingApi::ConsultationPresenterTest
 
     test 'national applicability' do
       assert_details_attribute :national_applicability,
-                               {
-                                 england: {
-                                   label: 'England',
-                                   applicable: true,
-                                 },
-                                 northern_ireland: {
-                                   label: 'Northern Ireland',
-                                   applicable: true,
-                                 },
-                                 scotland: {
-                                   label: 'Scotland',
-                                   applicable: false,
-                                   alternative_url: 'http://scotland.com'
-                                 },
-                                 wales: {
-                                   label: 'Wales',
-                                   applicable: true,
-                                 }
+                               england: {
+                                 label: 'England',
+                                 applicable: true,
+                               },
+                               northern_ireland: {
+                                 label: 'Northern Ireland',
+                                 applicable: true,
+                               },
+                               scotland: {
+                                 label: 'Scotland',
+                                 applicable: false,
+                                 alternative_url: 'http://scotland.com'
+                               },
+                               wales: {
+                                 label: 'Wales',
+                                 applicable: true,
                                }
     end
 

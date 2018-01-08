@@ -3,7 +3,7 @@ require 'capybara/poltergeist'
 # supported by our servers. Note that a future release of poltergeist will likely
 # set this as the default setting.
 Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, { phantomjs_options: ['--ssl-protocol=any'] })
+  Capybara::Poltergeist::Driver.new(app, phantomjs_options: ['--ssl-protocol=any'])
 end
 Capybara.javascript_driver = :poltergeist
 

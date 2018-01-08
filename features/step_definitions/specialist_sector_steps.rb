@@ -17,24 +17,32 @@ Given(/^there is a document tagged to specialist sectors$/) do
   document_base_path = PublishingApiPresenters.presenter_for(@document).content[:base_path]
   parent_base_path = "/parent-topic"
 
-  document_content_item = content_item_for_base_path(document_base_path).merge!({
-    "links" => {
-      "parent" => [
-        {
-          "base_path" => parent_base_path,
-          "links" => {
-            "parent" => [
-              {
-                "title" => "Top Level Topic",
-                "web_url" => "http://gov.uk/top-level-topic"
-              }
-            ]
-          }
-        }
-      ],
-      "topics" => [{ "title" => "Topic 1" }, { "title" => "Topic 2" }]
-    }
-  })
+  document_content_item = content_item_for_base_path(document_base_path)
+                            .merge(
+                              "links" => {
+                                "parent" => [
+                                  {
+                                    "base_path" => parent_base_path,
+                                    "links" => {
+                                      "parent" => [
+                                        {
+                                          "title" => "Top Level Topic",
+                                          "web_url" => "http://gov.uk/top-level-topic",
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                                "topics" => [
+                                  {
+                                    "title" => "Topic 1",
+                                  },
+                                  {
+                                    "title" => "Topic 2",
+                                  },
+                                ],
+                              },
+                              )
 
   content_store_has_item(document_base_path, document_content_item)
 end

@@ -37,9 +37,7 @@ class TopicsControllerTest < ActionController::TestCase
     topic = create_topic_and_stub_content_store
     published = []
     4.times do |i|
-      published << create(:published_publication, {
-        title: "title-#{i}", topics: [topic], first_published_at: i.days.ago
-      })
+      published << create(:published_publication, title: "title-#{i}", topics: [topic], first_published_at: i.days.ago)
     end
 
     get :show, params: { id: topic }
@@ -70,9 +68,7 @@ class TopicsControllerTest < ActionController::TestCase
     topic = create_topic_and_stub_content_store
     published = []
     4.times do |i|
-      published << create(:published_consultation, {
-        title: "title-#{i}", topics: [topic], first_published_at: i.days.ago
-      })
+      published << create(:published_consultation, title: "title-#{i}", topics: [topic], first_published_at: i.days.ago)
     end
 
     get :show, params: { id: topic }
@@ -99,9 +95,7 @@ class TopicsControllerTest < ActionController::TestCase
     topic = create_topic_and_stub_content_store
     published = []
     4.times do |i|
-      published << create(:published_statistics, {
-        title: "title-#{i}", topics: [topic], first_published_at: i.days.ago
-      })
+      published << create(:published_statistics, title: "title-#{i}", topics: [topic], first_published_at: i.days.ago)
     end
 
     get :show, params: { id: topic }
@@ -128,9 +122,7 @@ class TopicsControllerTest < ActionController::TestCase
     topic = create_topic_and_stub_content_store
     published = []
     4.times do |i|
-      published << create(:published_news_article, {
-        title: "title-#{i}", topics: [topic], first_published_at: i.days.ago
-      })
+      published << create(:published_news_article, title: "title-#{i}", topics: [topic], first_published_at: i.days.ago)
     end
 
     get :show, params: { id: topic }

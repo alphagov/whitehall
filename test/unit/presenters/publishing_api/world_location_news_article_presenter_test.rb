@@ -284,7 +284,7 @@ class PublishingApi::WorldLocationNewsArticleAccessLimitedTest < ActiveSupport::
     PublishingApi::PayloadBuilder::AccessLimitation.expects(:for)
       .with(world_location_news_article)
       .returns(
-        { access_limited: { users: %w(abcdef12345) } }
+        access_limited: { users: %w(abcdef12345) }
       )
     @presented_world_location_news_article = PublishingApi::WorldLocationNewsArticlePresenter.new(
       world_location_news_article

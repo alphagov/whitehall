@@ -12,7 +12,7 @@ module Admin::EditionsHelper
   def nested_attribute_destroy_checkbox_options(form, html_args = {})
     checked_value, unchecked_value = '0', '1'
     checked = form.object[:_destroy].present? ? (form.object[:_destroy] == checked_value) : form.object.persisted?
-    [html_args.merge({ checked: checked }), checked_value, unchecked_value]
+    [html_args.merge(checked: checked), checked_value, unchecked_value]
   end
 
   def admin_documents_header_link
