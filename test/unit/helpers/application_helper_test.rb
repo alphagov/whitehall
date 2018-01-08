@@ -170,10 +170,10 @@ class ApplicationHelperTest < ActionView::TestCase
   test "full_width_tabs should render tabs" do
     request.stubs(:path).returns("/stationary")
 
-    rendered = Nokogiri::HTML::DocumentFragment.parse(full_width_tabs [
+    rendered = Nokogiri::HTML::DocumentFragment.parse(full_width_tabs([
       { label: "Guitar tabs", link_to: "/hipster-guitars" },
       { label: "Document tabs", link_to: "/stationary" }
-    ]).children.first
+    ])).children.first
 
     assert_equal "nav", rendered.name
     assert_equal "activity-navigation", rendered[:class]
@@ -187,10 +187,10 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   test "full_width_tabs supports :current_when" do
-    rendered = Nokogiri::HTML::DocumentFragment.parse(full_width_tabs [
+    rendered = Nokogiri::HTML::DocumentFragment.parse(full_width_tabs([
       { label: "Guitar tabs", link_to: "/hipster-guitars", current_when: false },
       { label: "Document tabs", link_to: "/stationary", current_when: true }
-    ]).children.first
+    ])).children.first
 
     refute rendered.at_xpath(".//a[.='Guitar tabs']")[:class].to_s.include? 'current'
     assert rendered.at_xpath(".//a[.='Document tabs']")[:class].to_s.include? 'current'

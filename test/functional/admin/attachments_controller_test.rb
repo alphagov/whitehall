@@ -115,7 +115,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     attachment = valid_html_attachment_params.merge(title: SecureRandom.uuid)
 
     post :create, params: { edition_id: @edition.id, type: 'html', attachment: attachment }
-    refute_nil(Attachment.find_by title: attachment[:title])
+    refute_nil(Attachment.find_by(title: attachment[:title]))
   end
 
   test 'POST :create for an HtmlAttachment updates the publishing api' do
@@ -316,7 +316,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       }
     }
 
-    refute_nil(Attachment.find_by title: title)
+    refute_nil(Attachment.find_by(title: title))
   end
 
   test "PUT :update with empty file payload changes attachment metadata, but not the attachment data" do
