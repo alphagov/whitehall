@@ -29,8 +29,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     @statistics_announcement.attributes = statistics_announcement_params
@@ -41,8 +40,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     end
   end
 
-  def cancel
-  end
+  def cancel; end
 
   def publish_cancellation
     if @statistics_announcement.cancel!(params[:statistics_announcement][:cancellation_reason], current_user)

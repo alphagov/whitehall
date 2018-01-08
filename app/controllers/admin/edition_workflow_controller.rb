@@ -105,8 +105,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
     end
   end
 
-  def confirm_unwithdraw
-  end
+  def confirm_unwithdraw; end
 
   def unwithdraw
     edition_unwithdrawer = Whitehall.edition_services.unwithdrawer(@edition, user: current_user)

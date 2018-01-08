@@ -17,8 +17,7 @@ module Whitehall::RandomKey
     key
   end
 
-  def key=(value)
-  end
+  def key=(value); end
 
   module ClassMethods
     def key_used?(key)

@@ -25,8 +25,7 @@ require 'gds_api/content_store'
 module DataHygiene
   class PublishingApiSyncCheck
     class NullCSV
-      def <<(val)
-      end
+      def <<(val); end
     end
 
     class Success

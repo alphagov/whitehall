@@ -21,11 +21,9 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
     end
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @promotional_feature.update_attributes(promotional_feature_params)

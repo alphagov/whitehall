@@ -3,8 +3,7 @@ class Admin::FeaturesController < Admin::BaseController
   before_action :build_feature
   before_action :find_edition, :find_topical_event, :find_offsite_link, only: [:new]
 
-  def new
-  end
+  def new; end
 
   def create
     if @feature.save

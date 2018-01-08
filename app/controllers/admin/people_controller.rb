@@ -17,11 +17,9 @@ class Admin::PeopleController < Admin::BaseController
     end
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @person.update_attributes(person_params)

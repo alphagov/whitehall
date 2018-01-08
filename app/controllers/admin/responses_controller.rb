@@ -19,8 +19,7 @@ class Admin::ResponsesController < Admin::BaseController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @response.update_attributes(response_params)

@@ -77,8 +77,7 @@ class Admin::EditionsController < Admin::BaseController
     end
   end
 
-  def new
-  end
+  def new; end
 
   def create
     if updater.can_perform? && @edition.save

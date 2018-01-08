@@ -7,8 +7,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   skip_before_action :authenticate_user!, except: [:create]
   skip_before_action :require_signin_permission!, except: [:create]
 
-  def show
-  end
+  def show; end
 
   def create
     attributes = fact_check_request_params.merge(requestor: current_user)
@@ -25,8 +24,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @fact_check_request.update_attributes(fact_check_request_params)

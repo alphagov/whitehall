@@ -22,8 +22,7 @@ class Admin::OrganisationsController < Admin::BaseController
     end
   end
 
-  def show
-  end
+  def show; end
 
   def people
     @ministerial_organisation_roles = @organisation.organisation_roles.joins(:role).

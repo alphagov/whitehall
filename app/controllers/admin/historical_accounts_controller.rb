@@ -19,8 +19,7 @@ class Admin::HistoricalAccountsController < Admin::BaseController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @historical_account.update_attributes(historical_account_params)

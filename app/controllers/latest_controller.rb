@@ -3,8 +3,7 @@ class LatestController < PublicFacingController
 
   before_action :redirect_unless_subject
 
-  def index
-  end
+  def index; end
 
 private
 

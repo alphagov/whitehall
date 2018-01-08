@@ -9,8 +9,7 @@ class Admin::ClassificationsController < Admin::BaseController
     @classifications = model_class.includes(:related_classifications).order(:name)
   end
 
-  def new
-  end
+  def new; end
 
   def create
     @classification = model_class.new(object_params)
@@ -21,8 +20,7 @@ class Admin::ClassificationsController < Admin::BaseController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     @classification = model_class.friendly.find(params[:id])

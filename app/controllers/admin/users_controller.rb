@@ -5,8 +5,7 @@ class Admin::UsersController < Admin::BaseController
     @users = User.enabled.includes(organisation: [:translations]).sort_by { |u| u.fuzzy_last_name.downcase }
   end
 
-  def show
-  end
+  def show; end
 
   def edit
     head :forbidden unless @user.editable_by?(current_user)

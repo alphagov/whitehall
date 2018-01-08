@@ -28,8 +28,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
     respond_with :admin, @worldwide_organisation
   end
 
-  def show
-  end
+  def show; end
 
   def access_info
     @access_and_opening_times = @worldwide_organisation.access_and_opening_times ||

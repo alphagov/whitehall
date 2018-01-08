@@ -8,8 +8,7 @@ class HistoricAppointmentsController < PublicFacingController
     @eighteenth_century_appointments = previous_appointments.between(DateTime.civil(1700), DateTime.civil(1800)).map { |r| RoleAppointmentPresenter.new(r, view_context) }
   end
 
-  def past_chancellors
-  end
+  def past_chancellors; end
 
   def show
     @person = PersonPresenter.new(Person.friendly.find(params[:person_id]), view_context)

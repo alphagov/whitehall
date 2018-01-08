@@ -5,8 +5,7 @@ class PublishesToPublishingApiTest < ActiveSupport::TestCase
     include ActiveModel::Validations
     include ActiveModel::Validations::Callbacks
 
-    def self.after_commit
-    end
+    def self.after_commit; end
 
     def persisted?
       true

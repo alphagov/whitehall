@@ -11,8 +11,7 @@ class Admin::SocialMediaAccountsController < Admin::BaseController
     @social_media_account = @socialable.social_media_accounts.build
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     @social_media_account.update_attributes(social_media_account_params)

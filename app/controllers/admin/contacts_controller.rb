@@ -3,8 +3,7 @@ class Admin::ContactsController < Admin::BaseController
   before_action :find_contact, only: [:edit, :update, :destroy, :remove_from_home_page, :add_to_home_page]
   before_action :destroy_blank_contact_numbers, only: [:create, :update]
 
-  def index
-  end
+  def index; end
 
   def new
     @contact = @contactable.contacts.build

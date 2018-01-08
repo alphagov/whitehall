@@ -17,8 +17,7 @@ class Admin::OffsiteLinksController < Admin::BaseController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @offsite_link.update_attributes(offsite_link_params)
