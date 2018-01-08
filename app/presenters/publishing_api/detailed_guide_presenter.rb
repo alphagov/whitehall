@@ -33,12 +33,12 @@ module PublishingApi
 
     def links
       LinksPresenter.new(item).extract(
-        [
-          :organisations,
-          :parent,
-          :policy_areas,
-          :related_policies,
-          :topics,
+        %i[
+          organisations
+          parent
+          policy_areas
+          related_policies
+          topics
         ]
       ).merge(
         related_guides: item.related_detailed_guide_content_ids,

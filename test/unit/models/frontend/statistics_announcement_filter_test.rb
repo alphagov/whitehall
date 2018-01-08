@@ -100,8 +100,8 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
   end
 
   test "When on page 1 and no from date has been give, #results also fetches statistics announcements between one month ago and now, and prepends those results returning them in a new CollectionPage" do
-    normal_resultset = CollectionPage.new([:an_announcement, :another_announcement], total: 10, page: 1, per_page: 2)
-    cancelled_and_past_resultset = CollectionPage.new([:a_cancelled_announcement, :another_cancelled_announcement], total: 2, page: 1, per_page: 100)
+    normal_resultset = CollectionPage.new(%i[an_announcement another_announcement], total: 10, page: 1, per_page: 2)
+    cancelled_and_past_resultset = CollectionPage.new(%i[a_cancelled_announcement another_cancelled_announcement], total: 2, page: 1, per_page: 100)
 
     stub_provider = mock
     stub_provider.stubs(:search).with(page: 1, per_page: 40).returns(normal_resultset)
@@ -112,7 +112,7 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
 
     resultset = filter.results
 
-    assert_equal [:a_cancelled_announcement, :another_cancelled_announcement, :an_announcement, :another_announcement], filter.results
+    assert_equal %i[a_cancelled_announcement another_cancelled_announcement an_announcement another_announcement], filter.results
     assert_equal 12, resultset.total
     assert_equal 1, resultset.page
     assert_equal 40, resultset.per_page

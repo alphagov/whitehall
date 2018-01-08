@@ -1,7 +1,7 @@
 class Admin::WorldwideOrganisationsController < Admin::BaseController
   respond_to :html
 
-  before_action :find_worldwide_organisation, except: [:index, :new, :create]
+  before_action :find_worldwide_organisation, except: %i[index new create]
 
   def index
     respond_with @worldwide_organisations = WorldwideOrganisation.ordered_by_name
@@ -59,7 +59,7 @@ private
       :name, :logo_formatted_name,
       world_location_ids: [],
       sponsoring_organisation_ids: [],
-      default_news_image_attributes: [:file, :file_cache]
+      default_news_image_attributes: %i[file file_cache]
     )
   end
 end

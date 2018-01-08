@@ -1,6 +1,6 @@
 class Admin::PromotionalFeaturesController < Admin::BaseController
   before_action :load_organisation
-  before_action :load_promotional_feature, only: [:show, :edit, :update, :destroy]
+  before_action :load_promotional_feature, only: %i[show edit update destroy]
 
   def index
     @promotional_features = @organisation.promotional_features
@@ -54,7 +54,7 @@ private
       promotional_feature_items_attributes: [
         :summary, :image, :image_alt_text, :title, :title_url, :double_width,
         :image_cache,
-        links_attributes: [:url, :text, :_destroy]
+        links_attributes: %i[url text _destroy]
       ]
     )
   end

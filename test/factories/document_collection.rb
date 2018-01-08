@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :document_collection, class: DocumentCollection, parent: :edition, traits: [:with_organisations, :with_topics] do
+  factory :document_collection, class: DocumentCollection, parent: :edition, traits: %i[with_organisations with_topics] do
     trait(:with_group) do
       groups { FactoryBot.build_list :document_collection_group, 1 }
     end
@@ -17,5 +17,5 @@ FactoryBot.define do
   factory :deleted_document_collection, parent: :document_collection, traits: [:deleted]
   factory :superseded_document_collection, parent: :document_collection, traits: [:superseded]
   factory :scheduled_document_collection, parent: :document_collection, traits: [:scheduled]
-  factory :unpublished_document_collection, parent: :document_collection, traits: [:draft, :unpublished]
+  factory :unpublished_document_collection, parent: :document_collection, traits: %i[draft unpublished]
 end

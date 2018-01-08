@@ -1,13 +1,26 @@
 module Whitehall::Authority::Rules
   class EditionRules
     def self.actions
-      [
-        :see, :update, :create, :delete, :modify,
-        :approve, :publish, :force_publish,
-        :reject, :make_fact_check, :review_fact_check,
-        :make_editorial_remark, :review_editorial_remark,
-        :limit_access, :unpublish, :unwithdraw, :export, :confirm_export,
-        :mark_political
+      %i[
+        approve
+        confirm_export
+        create
+        delete
+        export
+        force_publish
+        limit_access
+        make_editorial_remark
+        make_fact_check
+        mark_political
+        modify
+        publish
+        reject
+        review_editorial_remark
+        review_fact_check
+        see
+        unpublish
+        unwithdraw
+        update
       ]
     end
 

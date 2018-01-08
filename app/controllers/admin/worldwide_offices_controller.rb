@@ -1,6 +1,6 @@
 class Admin::WorldwideOfficesController < Admin::BaseController
   before_action :find_worldwide_organisation
-  before_action :find_worldwide_office, only: [:edit, :update, :destroy, :add_to_home_page, :remove_from_home_page]
+  before_action :find_worldwide_office, only: %i[edit update destroy add_to_home_page remove_from_home_page]
 
   def index; end
 
@@ -71,7 +71,7 @@ private
                     :id, :title, :contact_type_id, :comments, :recipient,
                     :street_address, :locality, :region, :postal_code,
                     :country_id, :email, :contact_form_url,
-                    contact_numbers_attributes: [:id, :label, :number, :_destroy]
+                    contact_numbers_attributes: %i[id label number _destroy]
                   ])
   end
 end

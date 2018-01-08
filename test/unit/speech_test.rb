@@ -15,7 +15,7 @@ class SpeechTest < ActiveSupport::TestCase
     refute speech.valid?
   end
 
-  [:deleted, :superseded].each do |state|
+  %i[deleted superseded].each do |state|
     test "#{state} editions are valid without a delivered on date" do
       speech = build(:speech, state: state, delivered_on: nil)
       assert speech.valid?
@@ -27,7 +27,7 @@ class SpeechTest < ActiveSupport::TestCase
     end
   end
 
-  [:draft, :scheduled, :published, :submitted, :rejected].each do |state|
+  %i[draft scheduled published submitted rejected].each do |state|
     test "#{state} editions are not valid without a delivered on date" do
       edition = build(:speech, state: state, delivered_on: nil)
       refute edition.valid?

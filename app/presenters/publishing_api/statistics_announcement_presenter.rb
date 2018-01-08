@@ -30,10 +30,7 @@ module PublishingApi
     end
 
     def links
-      LinksPresenter.new(item).extract([
-        :organisations,
-        :policy_areas,
-      ])
+      LinksPresenter.new(item).extract(%i[organisations policy_areas])
     end
 
   private

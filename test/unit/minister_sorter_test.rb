@@ -7,7 +7,7 @@ class MinisterSorterTest < ActiveSupport::TestCase
     end
 
     def inspect(*_args)
-      "<role #{name}, seniority=#{seniority}, #{cabinet_member? ? 'cabinet' : 'other'}>"
+      "<role #{name}, seniority=#{seniority}, #{cabinet_member? ? "cabinet" : "other"}>"
     end
   end
 

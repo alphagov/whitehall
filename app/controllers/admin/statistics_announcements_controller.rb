@@ -1,6 +1,6 @@
 class Admin::StatisticsAnnouncementsController < Admin::BaseController
-  before_action :find_statistics_announcement, only: [:show, :edit, :update, :cancel, :publish_cancellation, :cancel_reason]
-  before_action :redirect_to_show_if_cancelled, only: [:cancel, :publish_cancellation]
+  before_action :find_statistics_announcement, only: %i[show edit update cancel publish_cancellation cancel_reason]
+  before_action :redirect_to_show_if_cancelled, only: %i[cancel publish_cancellation]
   helper_method :unlinked_announcements_count, :show_unlinked_announcements_warning?
 
   def index
@@ -74,7 +74,7 @@ private
       .permit(
         :title, :summary, :publication_type_id, :publication_id,
         :cancellation_reason, organisation_ids: [], topic_ids: [],
-        current_release_date_attributes: [:id, :release_date, :precision, :confirmed]
+        current_release_date_attributes: %i[id release_date precision confirmed]
       )
   end
 

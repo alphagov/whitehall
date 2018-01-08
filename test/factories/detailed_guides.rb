@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :detailed_guide, class: DetailedGuide, parent: :edition, traits: [:with_organisations, :with_topics] do
+  factory :detailed_guide, class: DetailedGuide, parent: :edition, traits: %i[with_organisations with_topics] do
     sequence(:title) { |index| "detailed-guide-title-#{index}" }
     body "detailed-guide-body"
   end

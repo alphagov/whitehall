@@ -7,7 +7,7 @@ class Admin::SitewideSettingsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  [:edit, :update].each do |action_method|
+  %i[edit update].each do |action_method|
     test "#{action_method} action is not permitted to non-GDS editors" do
       login_as :departmental_editor
       get action_method, params: { id: 1 }

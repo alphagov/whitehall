@@ -153,7 +153,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     end
     unpublishing = create(:unpublishing, edition: edition)
 
-    assert_equal [:en, :es], unpublishing.translated_locales
+    assert_equal %i[en es], unpublishing.translated_locales
   end
 
   test "generates its own content ID on creation" do

@@ -43,7 +43,7 @@ class RoleAppointment < ApplicationRecord
       if record.ended_at && (record.ended_at < record.started_at)
         record.errors[:ends_at] << "should not be before appointment starts"
       end
-      [:started_at, :ended_at].each do |attribute|
+      %i[started_at ended_at].each do |attribute|
         if record.send(attribute) && (record.send(attribute) > Time.zone.now)
           record.errors[attribute] << "should not be in the future"
         end

@@ -34,10 +34,10 @@ def export_classes(classes_to_index, id_groups, &block)
     export_directory = Pathname.new(export_directory).expand_path
 
     if export_directory.exist? && export_directory.children.any?
-      puts "#{ENV['EXPORT_DIRECTORY']} exists and is not empty, aborting"
+      puts "#{ENV["EXPORT_DIRECTORY"]} exists and is not empty, aborting"
       exit
     else
-      puts "Starting export of #{id_groups.count} files to #{ENV['EXPORT_DIRECTORY']}"
+      puts "Starting export of #{id_groups.count} files to #{ENV["EXPORT_DIRECTORY"]}"
     end
 
     export_directory.mkpath
@@ -78,7 +78,7 @@ end
 export_classes(classes_to_index, id_groups) do |klass, output, id_group|
   association = klass.searchable_instances
 
-  eager_loads = [:document, :organisations, :attachments, :world_locations]
+  eager_loads = %i[document organisations attachments world_locations]
   eager_loads.each do |sym|
     if klass.reflect_on_association(sym)
       association = association.includes(sym)

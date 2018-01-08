@@ -122,7 +122,7 @@ module ServiceListeners
     end
 
     def draft_edition_with_deleted_translation(type)
-      published_edition = create(type, document: build(:document), translated_into: [:es, :fr])
+      published_edition = create(type, document: build(:document), translated_into: %i[es fr])
 
       old_translations = published_edition.translations
       en = old_translations[0]

@@ -44,11 +44,11 @@ module PublishingApi
 
     def links
       links = LinksPresenter.new(item).extract(
-        [
-          :organisations,
-          :policy_areas,
-          :related_policies,
-          :world_locations,
+        %i[
+          organisations
+          policy_areas
+          related_policies
+          world_locations
         ]
       )
       links.merge!(links_for_speaker)

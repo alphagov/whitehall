@@ -1,6 +1,6 @@
 class Admin::OrganisationsController < Admin::BaseController
-  before_action :load_organisation, except: [:index, :new, :create]
-  before_action :enforce_permissions!, only: [:new, :create, :edit, :update]
+  before_action :load_organisation, except: %i[index new create]
+  before_action :enforce_permissions!, only: %i[new create edit update]
 
   def index
     @organisations = Organisation.alphabetical
@@ -99,13 +99,11 @@ private
       :regulatory_function, :important_board_members, :custom_jobs_url,
       :homepage_type, :political,
       superseding_organisation_ids: [],
-      default_news_image_attributes: [:file, :file_cache],
-      organisation_roles_attributes: [:id, :ordering],
+      default_news_image_attributes: %i[file file_cache],
+      organisation_roles_attributes: %i[id ordering],
       parent_organisation_ids: [],
-      organisation_classifications_attributes: [
-        :classification_id, :ordering, :id, :_destroy
-      ],
-      featured_links_attributes: [:title, :url, :_destroy, :id],
+      organisation_classifications_attributes: %i[classification_id ordering id _destroy],
+      featured_links_attributes: %i[title url _destroy id],
     )
   end
 

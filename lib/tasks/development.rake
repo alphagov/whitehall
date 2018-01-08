@@ -10,7 +10,7 @@ namespace :development do
     puts "#{file_paths.size} files/folders moved to clean-uploads"
   end
 
-  task :change_attachment, [:attachment_id, :path_to_file] => :environment do |_task, args|
+  task :change_attachment, %i[attachment_id path_to_file] => :environment do |_task, args|
     puts "reading file"
     file = File.open(args[:path_to_file], "rb")
     attachment_data = AttachmentData.create(file: file)

@@ -96,12 +96,14 @@ class Edition::RelatedPoliciesTest < ActiveSupport::TestCase
     assert_equal policy.title, edition.policies[0].title
   end
 
-  [:news_article,
-   :document_collection,
-   :consultation,
-   :publication,
-   :detailed_guide,
-   :speech].each do |document_with_policies|
+  %i[
+    consultation
+    detailed_guide
+    document_collection
+    news_article
+    publication
+    speech
+  ].each do |document_with_policies|
     test "can add a policy by content id to a #{document_with_policies}" do
       edition = create(document_with_policies, policy_content_ids: [policy_area_1.fetch("content_id")])
 

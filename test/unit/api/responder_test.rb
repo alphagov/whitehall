@@ -58,7 +58,7 @@ class Api::ResponderTest < ActiveSupport::TestCase
     response_info = responder.displayed_json[:_response_info]
     assert response_info.has_key?(:links)
     assert_equal 1, response_info[:links].size
-    assert_equal [:href, :rel], response_info[:links].first.keys.sort
+    assert_equal %i[href rel], response_info[:links].first.keys.sort
     assert_equal 'http://example.com/woo', response_info[:links].first[:href]
     assert_equal 'self', response_info[:links].first[:rel]
   end
@@ -84,7 +84,7 @@ class Api::ResponderTest < ActiveSupport::TestCase
     response_info = responder.displayed_json[:_response_info]
     assert response_info.has_key?(:links)
     assert_equal 1, response_info[:links].size
-    assert_equal [:href, :rel], response_info[:links].first.keys.sort
+    assert_equal %i[href rel], response_info[:links].first.keys.sort
     assert_equal 'http://example.com/woo', response_info[:links].first[:href]
     assert_equal 'self', response_info[:links].first[:rel]
   end
@@ -113,11 +113,11 @@ class Api::ResponderTest < ActiveSupport::TestCase
     assert response_info.has_key?(:links)
     assert_equal 2, response_info[:links].size
 
-    assert_equal [:href, :rel], response_info[:links][0].keys.sort
+    assert_equal %i[href rel], response_info[:links][0].keys.sort
     assert_equal 'http://example.com/woo', response_info[:links][0][:href]
     assert_equal 'self', response_info[:links][0][:rel]
 
-    assert_equal [:href, :rel], response_info[:links][1].keys.sort
+    assert_equal %i[href rel], response_info[:links][1].keys.sort
     assert_equal 'http://example.com/foo', response_info[:links][1][:href]
     assert_equal 'next', response_info[:links][1][:rel]
   end
@@ -146,7 +146,7 @@ class Api::ResponderTest < ActiveSupport::TestCase
     assert response_info.has_key?(:links)
     assert_equal 1, response_info[:links].size
 
-    assert_equal [:href, :rel], response_info[:links][0].keys.sort
+    assert_equal %i[href rel], response_info[:links][0].keys.sort
     assert_equal 'http://example.com/woo', response_info[:links][0][:href]
     assert_equal 'self', response_info[:links][0][:rel]
   end

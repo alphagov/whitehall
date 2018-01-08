@@ -1,6 +1,6 @@
 namespace :report_primary_organisation do
   desc "A one-off CSV report of how many documents were initially published by authors who don't belong to the document's primary organisation"
-  task :generate_csv, [:user_email, :start_date] => :environment do |_task, args|
+  task :generate_csv, %i[user_email start_date] => :environment do |_task, args|
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
     if args[:user_email].present? && args[:start_date].present? && args[:user_email].match(VALID_EMAIL_REGEX)

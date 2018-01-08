@@ -21,11 +21,11 @@ class TranslationHelperTest < ActionView::TestCase
   end
 
   test "sorted_locales returns other locals in alphabetically locale code order" do
-    assert_equal [:de, :es, :fr], sorted_locales([:fr, :es, I18n.default_locale, :de])[1..-1]
+    assert_equal %i[de es fr], sorted_locales([:fr, :es, I18n.default_locale, :de])[1..-1]
   end
 
   test "sorted_locales copes with the default locale not being present" do
-    assert_equal [:de, :es, :fr], sorted_locales([:fr, :de, :es])
+    assert_equal %i[de es fr], sorted_locales(%i[fr de es])
   end
 
   test "t_delivery_title returns translation of 'Minister' if document was delivered by minister" do

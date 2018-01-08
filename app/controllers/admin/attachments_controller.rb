@@ -108,8 +108,8 @@ private
       :command_paper_number, :unnumbered_command_paper, :hoc_paper_number,
       :unnumbered_hoc_paper, :parliamentary_session, :order_url, :price, :accessible,
       :external_url, :print_meta_data_contact_address,
-      govspeak_content_attributes: [:id, :body, :manually_numbered_headings],
-      attachment_data_attributes: [:file, :to_replace_id, :file_cache]
+      govspeak_content_attributes: %i[id body manually_numbered_headings],
+      attachment_data_attributes: %i[file to_replace_id file_cache]
     ).merge(attachable: attachable)
   end
 

@@ -36,7 +36,7 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
   end
 
   view_test 'index omits create form if no missing translations' do
-    organisation = create(:organisation, translated_into: [:fr, :es])
+    organisation = create(:organisation, translated_into: %i[fr es])
     get :index, params: { organisation_id: organisation }
     assert_select "select[name=translation_locale]", count: 0
   end

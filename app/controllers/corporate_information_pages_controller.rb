@@ -1,6 +1,6 @@
 class CorporateInformationPagesController < DocumentsController
   prepend_before_action :find_organisation
-  before_action :set_slimmer_headers_for_document, only: [:show, :index]
+  before_action :set_slimmer_headers_for_document, only: %i[show index]
 
   def show
     @corporate_information_page = @document

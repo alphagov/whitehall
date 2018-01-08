@@ -198,7 +198,7 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
   end
 
   test '#taggable_worldwide_organisations_container only returns worldwide organisations once even if they have more than one translation' do
-    world_org_1 = create(:worldwide_organisation, name: 'World Org 1', translated_into: [:fr, :es])
+    world_org_1 = create(:worldwide_organisation, name: 'World Org 1', translated_into: %i[fr es])
     world_org_2 = create(:worldwide_organisation, name: 'World Org 2')
 
     assert_equal [

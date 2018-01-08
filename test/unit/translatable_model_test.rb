@@ -12,7 +12,7 @@ class TranslatableModelTest < ActiveSupport::TestCase
   end
 
   test 'is available in multiple languages if available in english and one or more other languages' do
-    @model.stubs(:translated_locales).returns([:en, :fr])
+    @model.stubs(:translated_locales).returns(%i[en fr])
     assert @model.available_in_multiple_languages?
   end
 
@@ -23,13 +23,13 @@ class TranslatableModelTest < ActiveSupport::TestCase
 
   test "returns the non-english locales that this model has been translated into" do
     Locale.stubs(:non_english).returns([Locale.new(:es), Locale.new(:fr)])
-    @model.stubs(:translated_locales).returns([:en, :es])
+    @model.stubs(:translated_locales).returns(%i[en es])
     assert_equal [Locale.new(:es)], @model.non_english_translated_locales
   end
 
   test "returns the non-english locales that this model is yet to be translated into" do
     Locale.stubs(:non_english).returns([Locale.new(:es), Locale.new(:fr)])
-    @model.stubs(:translated_locales).returns([:en, :es])
+    @model.stubs(:translated_locales).returns(%i[en es])
     assert_equal [Locale.new(:fr)], @model.missing_translations
   end
 end

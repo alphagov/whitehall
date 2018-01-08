@@ -8,7 +8,7 @@ class ConsultationTest < ActiveSupport::TestCase
   should_not_allow_inline_attachments
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
 
-  [:imported, :deleted].each do |state|
+  %i[imported deleted].each do |state|
     test "#{state} editions are valid without an opening at time" do
       edition = build(:consultation, state: state, opening_at: nil)
       assert edition.valid?
@@ -36,7 +36,7 @@ class ConsultationTest < ActiveSupport::TestCase
     end
   end
 
-  [:draft, :scheduled, :published, :submitted, :rejected].each do |state|
+  %i[draft scheduled published submitted rejected].each do |state|
     test "#{state} editions are not valid without an opening at time" do
       edition = build(:consultation, state: state, opening_at: nil)
       refute edition.valid?

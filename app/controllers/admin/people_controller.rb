@@ -1,5 +1,5 @@
 class Admin::PeopleController < Admin::BaseController
-  before_action :load_person, only: [:show, :edit, :update, :destroy]
+  before_action :load_person, only: %i[show edit update destroy]
   def index
     @people = Person.order(:surname, :forename).includes(:translations)
   end

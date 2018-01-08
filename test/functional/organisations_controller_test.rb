@@ -362,7 +362,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, params: { id: organisation }
 
     assert_select "#policies" do
-      assert_select "a[href='#{policy['base_path']}']", text: "Welfare reform"
+      assert_select "a[href='#{policy["base_path"]}']", text: "Welfare reform"
 
       assert_select "a[href='#{policies_finder_path(organisations: [organisation])}']"
     end

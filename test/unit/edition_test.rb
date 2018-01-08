@@ -614,7 +614,7 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal 4.days.ago, e.public_timestamp
   end
 
-  [:draft, :scheduled, :published, :superseded, :submitted, :rejected].each do |state|
+  %i[draft scheduled published superseded submitted rejected].each do |state|
     test "valid_as_draft? is true for valid #{state} editions" do
       edition = build("#{state}_edition")
       assert edition.valid_as_draft?

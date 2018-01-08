@@ -37,7 +37,7 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
   end
 
   view_test 'index omits create form if no missing translations' do
-    role = create(:role, translated_into: [:fr, :es])
+    role = create(:role, translated_into: %i[fr es])
 
     get :index, params: { role_id: role }
 

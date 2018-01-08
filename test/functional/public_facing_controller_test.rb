@@ -2,7 +2,7 @@ require "test_helper"
 
 class PublicFacingControllerTest < ActionController::TestCase
   class TestController < PublicFacingController
-    enable_request_formats json: :json, js_or_atom: [:js, :atom]
+    enable_request_formats json: :json, js_or_atom: %i[js atom]
 
     def test
       render html: 'ok'
@@ -80,7 +80,7 @@ class PublicFacingControllerTest < ActionController::TestCase
 
   test "non-HTML requests are rejected by default" do
     with_routing_for_test_controller do
-      [:json, :xml, :atom].each do |format|
+      %i[json xml atom].each do |format|
         get :test, format: format
 
         assert_response :not_acceptable

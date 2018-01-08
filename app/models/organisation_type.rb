@@ -17,22 +17,22 @@ class OrganisationType
     court:                       { name: "Court",                                  analytics_prefix: "CO", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: false },
   }.freeze
 
-  LISTING_ORDER = [
-    :executive_office,
-    :ministerial_department,
-    :non_ministerial_department,
-    :executive_agency,
-    :executive_ndpb,
-    :advisory_ndpb,
-    :tribunal_ndpb,
-    :public_corporation,
-    :independent_monitoring_body,
-    :adhoc_advisory_group,
-    :devolved_administration,
-    :sub_organisation,
-    :other,
-    :civil_service,
-    :court,
+  LISTING_ORDER = %i[
+    executive_office
+    ministerial_department
+    non_ministerial_department
+    executive_agency
+    executive_ndpb
+    advisory_ndpb
+    tribunal_ndpb
+    public_corporation
+    independent_monitoring_body
+    adhoc_advisory_group
+    devolved_administration
+    sub_organisation
+    other
+    civil_service
+    court
   ].freeze
 
   @@instances = {}

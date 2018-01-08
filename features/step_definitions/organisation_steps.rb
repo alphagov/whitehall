@@ -258,7 +258,7 @@ Then(/^I should see the non ministerial departments including their sub\-organis
     within "#organisation_#{@non_ministerial_department_2.id}" do
       assert page.has_link?(@child_org_2.name, href: organisation_path(@child_org_2))
     end
-    org_count = Organisation.where(organisation_type_key: [:non_ministerial_department, :sub_organisation], govuk_status: 'live').count
+    org_count = Organisation.where(organisation_type_key: %i[non_ministerial_department sub_organisation], govuk_status: 'live').count
     within "header" do
       assert page.has_content? org_count
     end

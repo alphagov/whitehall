@@ -32,13 +32,13 @@ module PublishingApi
 
     def links
       LinksPresenter.new(item).extract(
-        [
-          :topics,
-          :parent,
-          :organisations,
-          :world_locations,
-          :policy_areas,
-          :related_policies,
+        %i[
+          topics
+          parent
+          organisations
+          world_locations
+          policy_areas
+          related_policies
         ]
       ).merge(
         PayloadBuilder::TopicalEvents.for(item)

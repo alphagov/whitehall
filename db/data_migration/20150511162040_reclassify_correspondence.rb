@@ -18,7 +18,7 @@ correspondence_scope.find_each do |edition|
 
   index += 1
 
-  puts "Processed #{index} of #{count} correspondence (#{sprintf '%.2f', (index.to_f / count.to_f) * 100}%)" if index % 1000 == 0
+  puts "Processed #{index} of #{count} correspondence (#{sprintf "%.2f", (index.to_f / count.to_f) * 100}%)" if index % 1000 == 0
 end
 
 puts "Re-classification complete. #{reclassified_count} correspondence out of #{count} re-classified as political"

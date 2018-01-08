@@ -95,7 +95,7 @@ class TranslationsCheckTest < Minitest::Test
       }.to_json
     )
 
-    expected = [:en, :fr]
+    expected = %i[en fr]
 
     assert_equal [], SyncChecker::Checks::TranslationsCheck.new(expected).call(response)
   end
@@ -131,7 +131,7 @@ class TranslationsCheckTest < Minitest::Test
       }.to_json
     )
 
-    expected = [:en, :fr]
+    expected = %i[en fr]
     expected_errors = []
 
     assert_equal expected_errors, SyncChecker::Checks::TranslationsCheck.new(expected).call(response)

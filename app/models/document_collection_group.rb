@@ -38,7 +38,7 @@ class DocumentCollectionGroup < ApplicationRecord
   end
 
   def latest_editions
-    associations = { latest_edition: [:organisations, :translations] }
+    associations = { latest_edition: %i[organisations translations] }
     editions = documents.includes(associations).map(&:latest_edition)
     editions.compact
   end

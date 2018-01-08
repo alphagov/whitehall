@@ -8,7 +8,7 @@
 
 module SmallInspect
   def inspect
-    "<#{self.class.name || 'An anonymous class'} is too large to inspect, supressing>"
+    "<#{self.class.name || "An anonymous class"} is too large to inspect, supressing>"
   end
 end
 

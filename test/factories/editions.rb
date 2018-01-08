@@ -163,7 +163,7 @@ FactoryBot.define do
     end
   end
 
-  factory :announcement, parent: :edition, class: Announcement, traits: [:with_organisations, :with_topics]
+  factory :announcement, parent: :edition, class: Announcement, traits: %i[with_organisations with_topics]
 
   factory :edition_with_document, parent: :edition, traits: [:with_document]
   factory :imported_edition, parent: :edition, traits: [:imported]
@@ -174,7 +174,7 @@ FactoryBot.define do
   factory :deleted_edition, parent: :edition, traits: [:deleted]
   factory :superseded_edition, parent: :edition, traits: [:superseded]
   factory :scheduled_edition, parent: :edition, traits: [:scheduled]
-  factory :unpublished_edition, parent: :edition, traits: [:draft, :unpublished]
+  factory :unpublished_edition, parent: :edition, traits: %i[draft unpublished]
   factory :withdrawn_edition, parent: :edition, traits: [:withdrawn]
   factory :protected_edition, parent: :edition, traits: [:access_limited]
   factory :edition_with_organisations, parent: :edition, traits: [:with_organisations]

@@ -44,11 +44,11 @@ module Edition::Workflow
       end
 
       event :delete do
-        transitions from: [:imported, :draft, :submitted, :rejected], to: :deleted
+        transitions from: %i[imported draft submitted rejected], to: :deleted
       end
 
       event :submit do
-        transitions from: [:draft, :rejected], to: :submitted
+        transitions from: %i[draft rejected], to: :submitted
       end
 
       event :reject do
@@ -60,7 +60,7 @@ module Edition::Workflow
       end
 
       event :force_schedule do
-        transitions from: [:draft, :submitted], to: :scheduled
+        transitions from: %i[draft submitted], to: :scheduled
       end
 
       event :unschedule do
@@ -68,15 +68,15 @@ module Edition::Workflow
       end
 
       event :publish do
-        transitions from: [:submitted, :scheduled], to: :published
+        transitions from: %i[submitted scheduled], to: :published
       end
 
       event :force_publish do
-        transitions from: [:draft, :submitted], to: :published
+        transitions from: %i[draft submitted], to: :published
       end
 
       event :unpublish do
-        transitions from: [:published, :draft], to: :draft
+        transitions from: %i[published draft], to: :draft
       end
 
       event :supersede, success: :destroy_associations_with_edition_dependencies_and_dependants do
@@ -84,7 +84,7 @@ module Edition::Workflow
       end
 
       event :withdraw do
-        transitions from: [:published, :withdrawn], to: :withdrawn
+        transitions from: %i[published withdrawn], to: :withdrawn
       end
 
       event :unwithdraw do

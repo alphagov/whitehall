@@ -42,7 +42,7 @@ private
 
   def create_params
     params.require(:bulk_upload).permit(attachments_attributes: [
-      { attachment_data_attributes: [:file_cache, :to_replace_id] },
+      { attachment_data_attributes: %i[file_cache to_replace_id] },
       :id,
       :title,
       :locale,

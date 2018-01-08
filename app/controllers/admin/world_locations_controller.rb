@@ -1,5 +1,5 @@
 class Admin::WorldLocationsController < Admin::BaseController
-  before_action :load_world_location, only: [:edit, :update, :show, :features]
+  before_action :load_world_location, only: %i[edit update show features]
 
   def index
     @active_world_locations, @inactive_world_locations = WorldLocation.ordered_by_name.partition { |wl| wl.active? }
@@ -48,7 +48,7 @@ private
       :title,
       :active,
       :mission_statement,
-      featured_links_attributes: [:url, :title, :id, :_destroy]
+      featured_links_attributes: %i[url title id _destroy]
     )
   end
 end

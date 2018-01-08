@@ -4,10 +4,20 @@ module Whitehall
       # methods added by rails to object that we probably do want to
       # delegate  .. shame these aren't collected somewhere that makes
       # them easy to detect
-      DEFAULT_METHODS_TO_ALWAYS_DELEGATE = [
-        :to_param, :to_query, :try, :with_options, :as_json,
-        :instance_values, :instance_variable_names, :in?,
-        :duplicable?, :nil?, :blank?, :present?, :presence
+      DEFAULT_METHODS_TO_ALWAYS_DELEGATE = %i[
+        as_json
+        blank?
+        duplicable?
+        in?
+        instance_values
+        instance_variable_names
+        nil?
+        presence
+        present?
+        to_param
+        to_query
+        try
+        with_options
       ].freeze
 
       # delegate instance methods of a set of classes

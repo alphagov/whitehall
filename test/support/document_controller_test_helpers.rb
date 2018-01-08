@@ -4,7 +4,7 @@ module DocumentControllerTestHelpers
   module ClassMethods
     def should_display_localised_attachments
       view_test "displays localised file attachments" do
-        edition = create("published_#{document_type}", translated_into: [:en, :fr])
+        edition = create("published_#{document_type}", translated_into: %i[en fr])
 
         attachment = create(:file_attachment, locale: nil, attachable: edition)
         english_attachment = create(:file_attachment, locale: :en, attachable: edition)
@@ -22,7 +22,7 @@ module DocumentControllerTestHelpers
       end
 
       view_test 'displays localised HTML attachments' do
-        edition = create("published_#{document_type}", translated_into: [:en, :fr])
+        edition = create("published_#{document_type}", translated_into: %i[en fr])
 
         attachment = create(:html_attachment, locale: nil, attachable: edition)
         english_attachment = create(:html_attachment, locale: :en, attachable: edition)

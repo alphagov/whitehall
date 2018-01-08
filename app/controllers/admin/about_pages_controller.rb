@@ -1,6 +1,6 @@
 class Admin::AboutPagesController < Admin::BaseController
   before_action :find_topical_event
-  before_action :find_page, except: [:new, :create]
+  before_action :find_page, except: %i[new create]
 
   helper_method :model_name, :human_friendly_model_name
 

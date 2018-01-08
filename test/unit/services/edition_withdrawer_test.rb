@@ -31,7 +31,7 @@ class EditionWithdrawerTest < ActiveSupport::TestCase
   end
 
   test 'other states cannot be withdrawn' do
-    (Edition.available_states - [:published, :withdrawn]).each do |state|
+    (Edition.available_states - %i[published withdrawn]).each do |state|
       edition = create(:edition, state: state)
       edition.build_unpublishing(unpublishing_params)
       unpublisher = EditionWithdrawer.new(edition)

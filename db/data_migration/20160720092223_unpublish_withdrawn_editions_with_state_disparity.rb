@@ -6296,7 +6296,7 @@ def unpublish(content_ids, draft)
   Document.where(
     content_id: content_ids,
   ).includes(
-    latest_edition: [:translations, :unpublishing],
+    latest_edition: %i[translations unpublishing],
   ).find_each do |document|
     edition = document.latest_edition
 

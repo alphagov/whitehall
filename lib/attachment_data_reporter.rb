@@ -92,6 +92,6 @@ private
   end
 
   def csv_file_path(report_type = 'report')
-    File.join(data_path, "attachments-#{report_type}-#{Time.zone.now.strftime('%y%m%d-%H%M%S')}.csv")
+    File.join(data_path, "attachments-#{report_type}-#{Time.zone.now.strftime("%y%m%d-%H%M%S")}.csv")
   end
 end

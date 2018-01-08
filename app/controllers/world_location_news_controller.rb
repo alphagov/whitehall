@@ -1,5 +1,5 @@
 class WorldLocationNewsController < PublicFacingController
-  enable_request_formats index: [:atom, :json]
+  enable_request_formats index: %i[atom json]
   before_action :load_world_location, only: :index
 
   def index
