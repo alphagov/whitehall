@@ -4,10 +4,10 @@
 # Mime::Type.register "text/richtext", :rtf
 
 Mime::Type.unregister :html
-Mime::Type.register "text/html", :html, %w( application/xhtml+xml application/vnd.wap.xhtml+xml), %w( xhtml )
+Mime::Type.register "text/html", :html, %w(application/xhtml+xml application/vnd.wap.xhtml+xml), %w(xhtml)
 Mime::Type.register "text/rtf", :rtf
 
-Mime::Type.register "image/jpeg", :jpg, [], %w( jpeg )
+Mime::Type.register "image/jpeg", :jpg, [], %w(jpeg)
 
 Mime::Type.register "application/msword", :doc
 Mime::Type.register "application/msword", :dot
