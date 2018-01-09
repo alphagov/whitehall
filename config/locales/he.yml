@@ -2,269 +2,173 @@ he:
   document:
     headings:
       attachments:
-        one: "מסמך"
-        two:
-        many:
-        other: "מסמכים"
-      applies_to_nations: "מתייחס ל"
+        one:
+        other:
+      applies_to_nations: מתייחס ל
       from:
       location:
       part_of:
     type:
       announcement:
-        one: "הודעה"
-        two:
-        many:
-        other: "הודעות"
+        one:
+        other:
       authored_article:
-        one: "מאמר מאושר"
-        two:
-        many:
-        other: "מאמרים מאושרים"
+        one:
+        other:
       blog_post:
         one:
-        two:
-        many:
         other:
       case_study:
-        one: "מקרה בוחן"
-        two:
-        many:
-        other: "מקרי בוחן"
+        one:
+        other:
       closed_consultation:
-        one: "דיון סגור"
-        two:
-        many:
-        other: "דיונים סגורים"
+        one:
+        other:
       consultation:
-        one: "דיון"
-        two:
-        many:
-        other: "דיונים"
+        one:
+        other:
       consultation_outcome:
-        one: "תוצאות דיון"
-        two:
-        many:
-        other: "תוצאות דיונים"
+        one:
+        other:
       corporate_report:
-        one: דו"ח משותף
-        two:
-        many:
-        other: דו"חות משותפים
+        one:
+        other:
       correspondence:
-        one: "תכתובת"
-        two:
-        many:
-        other: "תכתובות"
+        one:
+        other:
       decision:
         one:
-        two:
-        many:
         other:
       detailed_guidance:
-        one: "מדריך מפורט"
-        two:
-        many:
-        other: "מדריך מפורט"
+        one:
+        other:
       document_collection:
-        one: "סדרות"
-        two:
-        many:
+        one:
         other:
       draft_text:
-        one: "טיוטה"
-        two:
-        many:
-        other: "טיוטות"
+        one:
+        other:
       foi_release:
-        one: "פרסום חופש מידע"
-        two:
-        many:
-        other: "פרסומי חופש מידע"
+        one:
+        other:
       form:
-        one: "טופס"
-        two:
-        many:
-        other: "טפסים"
+        one:
+        other:
       government_response:
-        one: "תגובה ממשלתית"
-        two:
-        many:
-        other: "תגובות ממשלתיות"
+        one:
+        other:
       guidance:
-        one: "הדרכה"
-        two:
-        many:
-        other: "הדרכה"
+        one:
+        other:
       impact_assessment:
-        one: "הערכת השפעה"
-        two:
-        many:
-        other: "הערכת השפעות"
+        one:
+        other:
       imported:
-        one: "יבוא- המתנה לסוג"
-        two:
-        many:
-        other: "יבוא- המתנה לסוג"
+        one:
+        other:
       independent_report:
-        one: דו"ח עצמאי
-        two:
-        many:
-        other: דו"ות עצמאיים
+        one:
+        other:
       international_treaty:
         one:
-        two:
-        many:
         other:
       manual:
         one:
-        two:
-        many:
         other:
       map:
-        one: "מפה"
-        two:
-        many:
-        other: "מפות"
+        one:
+        other:
       national_statistics:
-        one: "סטטיסטיקות- סטטיסטיקה לאומית"
-        two:
-        many:
-        other: "סטטיסטיקות- סטטסטיקה לאומית"
+        one:
+        other:
       news_article:
-        one: "מאמר חדשות"
-        two:
-        many:
-        other: "מאמרי חדשות"
+        one:
+        other:
       news_story:
-        one: "חדשות"
-        two:
-        many:
-        other: "חדשות"
+        one:
+        other:
       nhs_content:
         one:
-        two:
-        many:
         other:
       notice:
         one:
-        two:
-        many:
         other:
       official_statistics:
-        one: "נתונים"
-        two:
-        many:
-        other: "נתונים"
+        one:
+        other:
       open_consultation:
-        one: "דיון פתוח"
-        two:
-        many:
-        other: "דיון פתוח"
+        one:
+        other:
       oral_statement:
-        one: "הצהרה בעל פה לפרלמנט"
-        two:
-        many:
-        other: "הצהרות בעל פה לפרלמנט"
+        one:
+        other:
       policy_paper:
-        one: "נייר מדיניות"
-        two:
-        many:
-        other: "ניירות מדיניות"
+        one:
+        other:
       press_release:
-        one: "הודעה לעיתונות"
-        two:
-        many:
-        other: "הודעות לעיתונות"
+        one:
+        other:
       promotional:
-        one: "חומר פרסומי"
-        two:
-        many:
-        other: "חומר פרסומי"
+        one:
+        other:
       publication:
-        one: "פרסום"
-        two:
-        many:
-        other: "פרסומים"
+        one:
+        other:
       regulation:
         one:
-        two:
-        many:
         other:
       research:
-        one: "מחקר וניתוח"
-        two:
-        many:
-        other: "מחקר וניתוח"
+        one:
+        other:
       speaking_notes:
-        one: "נאומים"
-        two:
-        many:
-        other: "נאומים"
+        one:
+        other:
       speech:
-        one: "נאום"
-        two:
-        many:
-        other: "נאומים"
+        one:
+        other:
       statement_to_parliament:
-        one: "הצהרה לפרלמנט"
-        two:
-        many:
-        other: "הצהרות לפרלמנט"
+        one:
+        other:
       statistical_data_set:
-        one: "מידע סטטיסטי"
-        two:
-        many:
-        other: "מידע סטטיסטי"
+        one:
+        other:
       statutory_guidance:
         one:
-        two:
-        many:
         other:
       transcript:
-        one: "תמלול"
-        two:
-        many:
-        other: "תמלולים"
+        one:
+        other:
       transparency:
-        one: "שקיפות מידע"
-        two:
-        many:
-        other: "שקיפות מידע"
+        one:
+        other:
       world_news_story:
         one:
-        two:
-        many:
         other:
       written_statement:
-        one: "הצהרה בכתב לפרלמנט"
-        two:
-        many:
-        other: "הצהרות בכתב לפרלמנט"
+        one:
+        other:
     contents:
     footer_meta:
       full_page_history:
       page_history:
       published:
       updated:
-    published: "פורסם"
-    read: "קראו את מאמר %{title}"
+    published: פורסם
+    read: קראו את מאמר %{title}
     speech:
       author_title:
-        minister: "שר"
-        speaker: "מחבר"
-      delivered_on: "נשלח ב:"
+        minister: שר
+        speaker: מחבר
+      delivered_on: 'נשלח ב:'
       delivery_title:
-        minister: "שר"
-        speaker: "דובר"
-      written_on: "נכתב על:"
-    updated: "מעודכן"
-    view: "ראה '%{title}'"
+        minister: שר
+        speaker: דובר
+      written_on: 'נכתב על:'
+    updated: מעודכן
+    view: ראה '%{title}'
   people:
     heading:
       one:
-      two:
-      many:
       other:
     biography:
     previous_roles:
@@ -273,8 +177,6 @@ he:
   roles:
     heading:
       one:
-      two:
-      many:
       other:
     headings:
       current_holder:
@@ -287,25 +189,21 @@ he:
   world_location:
     type:
       international_delegation:
-        one: "משלחת בין לאומית"
-        two:
-        many:
-        other: "משלחות בין לאומיות"
+        one:
+        other:
       world_location:
-        one: "מיקום עולמי"
-        two:
-        many:
-        other: "מיקומים עולמיים"
+        one:
+        other:
     headings:
-      announcements: "ההודעות שלנו"
-      country: "מדינה"
-      documents: "מסמכים"
-      mission: "החזון שלנו"
-      organisations: "ארגונים"
-      publications: "הפרסומים שלנו"
-      quick_links: "קישורים מהירים"
-      related_policies: "מדיניות רלוונטית"
-      statistics: "הנתונים שלנו"
+      announcements: ההודעות שלנו
+      country: מדינה
+      documents: מסמכים
+      mission: החזון שלנו
+      organisations: ארגונים
+      publications: הפרסומים שלנו
+      quick_links: קישורים מהירים
+      related_policies: מדיניות רלוונטית
+      statistics: הנתונים שלנו
   activerecord:
     attributes:
       attachment:
@@ -350,7 +248,7 @@ he:
       unique_reference:
       unnumbered_hoc_paper:
   announcements:
-    heading: "הודעות"
+    heading: הודעות
     view_all:
   attachment:
     accessibility:
@@ -358,13 +256,13 @@ he:
         כדי להזמין את המסמך בפורמט אלטרנטיבי כגון ברייל, אודיו או
         סוגי קובץ שונים אנא שלח/י אימייל %{title} עם כתובת וטלפון יחד עם שם המסמך
         המבוקש ("%{title}")%{references}.
-      heading: "הקובץ אינו תומך במשתמשי טכנולוגית סיוע"
-      request_a_different_format: "אנא בקש/י פורמט אחר"
+      heading: הקובץ אינו תומך במשתמשי טכנולוגית סיוע
+      request_a_different_format: אנא בקש/י פורמט אחר
     headings:
-      order_a_copy: "הזמן עותק"
-      order_a_copy_full: "הזמן עותק של הפרסום"
-      published: "פורסם"
-      reference: "הפניה"
+      order_a_copy: הזמן עותק
+      order_a_copy_full: הזמן עותק של הפרסום
+      published: פורסם
+      reference: הפניה
       unnumbered_command_paper:
       unnumbered_hoc_paper:
     opendocument:
@@ -382,8 +280,8 @@ he:
     see_all_updates:
     updated_at:
   contact:
-    contact_form: "טופס יצירת קשר"
-    email: "דואר אלקטרוני"
+    contact_form: טופס יצירת קשר
+    email: דואר אלקטרוני
   corporate_information_page:
     type:
       link_text:
@@ -398,43 +296,43 @@ he:
         membership:
         our_energy_use:
         our_governance:
-        personal_information_charter: "טבלת מידע אישי"
+        personal_information_charter: טבלת מידע אישי
         petitions_and_campaigns:
         procurement:
-        publication_scheme: "תכנית פרסומים"
+        publication_scheme: תכנית פרסומים
         recruitment:
         research:
-        social_media_use: "מדיה חברתית"
+        social_media_use: מדיה חברתית
         staff_update:
         statistics:
         terms_of_reference:
-        welsh_language_scheme: "תכנית שפה וולשית"
+        welsh_language_scheme: תכנית שפה וולשית
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document_filters:
-    description: "ניתן לעשות שימוש בפילטרים כדי לראות תוצאות ממוקדות"
+    description: ניתן לעשות שימוש בפילטרים כדי לראות תוצאות ממוקדות
     no_results:
-      description: "נסי/ה להרחיב את החיפוש וחפש/י שוב"
-      title: "אין מסמכים תואמים"
+      description: נסי/ה להרחיב את החיפוש וחפש/י שוב
+      title: אין מסמכים תואמים
       tna_heading:
       tna_link:
     world_locations:
-      all: "כל המיקומים"
-      label: "מיקומים גלובאליים"
+      all: כל המיקומים
+      label: מיקומים גלובאליים
   feeds:
     email:
     feed:
     get_updates_to_this_list:
-    latest_activity: "פעילות אחרונה"
+    latest_activity: פעילות אחרונה
   i18n:
     direction: rtl
   language_names:
-    he: "עברית"
+    he: עברית
   latest_feed:
-    no_updates: "אין עדכונים נוספים"
-    title: "אחרון"
+    no_updates: אין עדכונים נוספים
+    title: אחרון
   national_statistics:
     heading:
   number:
@@ -443,117 +341,117 @@ he:
         format: "%n%u"
   organisation:
     about:
-      read_more: "קרא/י עוד על פועלינו"
+      read_more: קרא/י עוד על פועלינו
     corporate_information:
-      access_our_info: "גישה למידע"
-      foi_how_to: "כיצד להגיש בקשה לחופש המידע"
-      foi_releases: "שוחרר תחת חופש המידע"
-      jobs_and_contacts: "עבודות וחוזים"
+      access_our_info: גישה למידע
+      foi_how_to: כיצד להגיש בקשה לחופש המידע
+      foi_releases: שוחרר תחת חופש המידע
+      jobs_and_contacts: עבודות וחוזים
       organisation_chart:
-      transparency: "מידע נגיש"
+      transparency: מידע נגיש
     foi_exemption_html:
     headings:
-      chief_professional_officers: "אנשי המקצוע הבכירים שלנו"
-      contact: "חוזה %{name}"
-      corporate_information: "מידע מסחרי"
+      chief_professional_officers: אנשי המקצוע הבכירים שלנו
+      contact: חוזה %{name}
+      corporate_information: מידע מסחרי
       corporate_reports: דו"חות מסחריים
       documents:
       freedom_of_information_act:
       making_foi_requests:
-      our_announcements: "ההודעות שלנו"
+      our_announcements: ההודעות שלנו
       our_consultations:
       our_judges:
-      our_management: "ההנהלה שלנו"
-      our_ministers: "השרים שלנו"
-      our_policies: "המדיניות שלנו"
-      our_publications: "הפרסומים שלנו"
-      our_senior_military_officials: "הנספחים הצבאיים שלנו"
-      our_services: "השירותים שלנו"
-      our_statistics: "הנתונים שלנו"
-      our_topics: "אנו עוסקים בנושאים הללו"
-      special_representatives: "נציגים מיוחדים"
-      traffic_commissioners: "ממונים על תעבורה"
-      what_we_do: "מה אנחנו עושים"
+      our_management: ההנהלה שלנו
+      our_ministers: השרים שלנו
+      our_policies: המדיניות שלנו
+      our_publications: הפרסומים שלנו
+      our_senior_military_officials: הנספחים הצבאיים שלנו
+      our_services: השירותים שלנו
+      our_statistics: הנתונים שלנו
+      our_topics: אנו עוסקים בנושאים הללו
+      special_representatives: נציגים מיוחדים
+      traffic_commissioners: ממונים על תעבורה
+      what_we_do: מה אנחנו עושים
       who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:
       step3_html:
   policies:
-    heading: "מדיניות"
+    heading: מדיניות
     view_all:
   publications:
-    heading: "פרסומים"
+    heading: פרסומים
     headings:
-      detail: "פרטים"
-  read_more: "קרא עוד"
+      detail: פרטים
+  read_more: קרא עוד
   see_all:
-    announcement: "ראה כל הודעות"
-    authored_article: "ראה כל מאמרים מאושרים"
-    case_study: "ראה כל מקרי בוחן"
-    closed_consultation: "ראה כל דיונים סגורים"
-    consultation: "ראה כל דיונים"
-    consultation_outcome: "ראה כל תוצאות דיונים"
+    announcement: ראה כל הודעות
+    authored_article: ראה כל מאמרים מאושרים
+    case_study: ראה כל מקרי בוחן
+    closed_consultation: ראה כל דיונים סגורים
+    consultation: ראה כל דיונים
+    consultation_outcome: ראה כל תוצאות דיונים
     corporate_report: ראה כל דו"חות משותפים
-    correspondence: "ראה כל תכתובות"
+    correspondence: ראה כל תכתובות
     decision:
-    detailed_guidance: "ראה כל מדריך מפורט"
+    detailed_guidance: ראה כל מדריך מפורט
     document_collection:
-    draft_text: "ראה כל טיוטות"
-    fatality_notice: "ראה כל הודעות פטירה"
-    foi_release: "ראה כל פרסומי חופש מידע"
-    form: "ראה כל טפסים"
-    government_response: "ראה כל תגובות ממשלתיות"
-    guidance: "ראה כל הדרכה"
-    impact_assessment: "ראה כל הערכת השפעות"
-    imported: "ראה כל יבוא- המתנה לסוג"
+    draft_text: ראה כל טיוטות
+    fatality_notice: ראה כל הודעות פטירה
+    foi_release: ראה כל פרסומי חופש מידע
+    form: ראה כל טפסים
+    government_response: ראה כל תגובות ממשלתיות
+    guidance: ראה כל הדרכה
+    impact_assessment: ראה כל הערכת השפעות
+    imported: ראה כל יבוא- המתנה לסוג
     international_treaty:
-    map: "ראה כל מפות"
-    national_statistics: "ראה כל סטטיסטיקות- סטטסטיקה לאומית"
-    news_article: "ראה כל מאמרי חדשות"
-    news_story: "ראה כל חדשות"
+    map: ראה כל מפות
+    national_statistics: ראה כל סטטיסטיקות- סטטסטיקה לאומית
+    news_article: ראה כל מאמרי חדשות
+    news_story: ראה כל חדשות
     notice:
-    open_consultation: "ראה כל דיון פתוח"
-    oral_statement: "ראה כל הצהרות בעל פה לפרלמנט"
-    policy: "ראה כל מדיניות"
-    policy_paper: "ראה כל ניירות מדיניות"
-    press_release: "ראה כל הודעות לעיתונות"
-    promotional: "ראה כל חומר פרסומי"
-    publication: "ראה כל פרסומים"
+    open_consultation: ראה כל דיון פתוח
+    oral_statement: ראה כל הצהרות בעל פה לפרלמנט
+    policy: ראה כל מדיניות
+    policy_paper: ראה כל ניירות מדיניות
+    press_release: ראה כל הודעות לעיתונות
+    promotional: ראה כל חומר פרסומי
+    publication: ראה כל פרסומים
     regulation:
-    research: "ראה כל מחקר וניתוח"
-    speaking_notes: "ראה כל נאומים"
-    speech: "ראה כל נאומים"
-    statement_to_parliament: "ראה כל הצהרות לפרלמנט"
-    statistical_data_set: "ראה כל מידע סטטיסטי"
-    statistics: "ראה כל נתונים"
+    research: ראה כל מחקר וניתוח
+    speaking_notes: ראה כל נאומים
+    speech: ראה כל נאומים
+    statement_to_parliament: ראה כל הצהרות לפרלמנט
+    statistical_data_set: ראה כל מידע סטטיסטי
+    statistics: ראה כל נתונים
     statutory_guidance:
-    transcript: "ראה כל תמלולים"
-    transparency: "ראה כל שקיפות מידע"
-    written_statement: "ראה כל הצהרות בכתב לפרלמנט"
+    transcript: ראה כל תמלולים
+    transparency: ראה כל שקיפות מידע
+    written_statement: ראה כל הצהרות בכתב לפרלמנט
   social_media:
     follow_us:
   support:
     array:
-      last_word_connector: "בנוסף"
+      last_word_connector: בנוסף
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: "ה%{link} מסביר אודות המדיניות שלנו כלפי
-        מידע פרטי"
-      publication_scheme_html: "קרא/י אודות סוגי מידע שאנחנו מפרסמים %{link}"
-      social_media_use_html: "קרא/י אודות המדיניות שלנו %{link}"
-      welsh_language_scheme_html: "מידע נוסף על המחויבות שלנו לפרסום %{link}"
-    find_out_more: "ראה/י פרופיל מלא ופרטי התקשרות"
+      personal_information_charter_html: ה%{link} מסביר אודות המדיניות שלנו כלפי מידע
+        פרטי
+      publication_scheme_html: קרא/י אודות סוגי מידע שאנחנו מפרסמים %{link}
+      social_media_use_html: קרא/י אודות המדיניות שלנו %{link}
+      welsh_language_scheme_html: מידע נוסף על המחויבות שלנו לפרסום %{link}
+    find_out_more: ראה/י פרופיל מלא ופרטי התקשרות
     headings:
-      about_us: "אודותינו"
-      contact_us: "צור קשר"
-      corporate_information: "מידע תאגידי"
-      follow_us: "עקבו אחרינו"
-      our_people: "הצוות שלנו"
-      our_services: "השירותים שלנו"
-    location: "מיקום"
-    part_of: "חלק מ"
+      about_us: אודותינו
+      contact_us: צור קשר
+      corporate_information: מידע תאגידי
+      follow_us: עקבו אחרינו
+      our_people: הצוות שלנו
+      our_services: השירותים שלנו
+    location: מיקום
+    part_of: חלק מ

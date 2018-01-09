@@ -201,7 +201,7 @@ cs:
       published:
       updated:
     published: Publikováno
-    read: "Čtěte %{title}"
+    read: Čtěte %{title}
     speech:
       author_title:
         minister: Minister
@@ -209,7 +209,7 @@ cs:
       delivered_on: Doručeno
       delivery_title:
         minister: Ministr
-        speaker: "Řečník"
+        speaker: Řečník
       written_on: Napsáno
     updated: Aktualizováno
     view: Náhled '%{title}'
@@ -309,7 +309,7 @@ cs:
         ("%{title}")%{references}.
       heading: Tento dokument nemusí být přístupný pro občany používající asistenční
         technologie
-      request_a_different_format: "Žádat o jiný formát dokumentu"
+      request_a_different_format: Žádat o jiný formát dokumentu
     headings:
       order_a_copy: Objednat kopii
       order_a_copy_full: Objednat kopii této publikace
@@ -381,7 +381,7 @@ cs:
   i18n:
     direction: ltr
   language_names:
-    cs: "Česky"
+    cs: Česky
   latest_feed:
     no_updates: Aktualizace nejsou k dispozici
     title: Nejnovější

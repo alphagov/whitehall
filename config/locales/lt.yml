@@ -99,9 +99,9 @@ lt:
         few:
         other:
       map:
-        one: "Žemėlapis"
+        one: Žemėlapis
         few:
-        other: "Žemėlapiai"
+        other: Žemėlapiai
       national_statistics:
         one: 'Statistika - nacionalinė statistika '
         few:
@@ -131,9 +131,9 @@ lt:
         few:
         other: 'Atviros konsultacijos '
       oral_statement:
-        one: "Žodinis kreipimasis į parlamentą"
+        one: Žodinis kreipimasis į parlamentą
         few:
-        other: "Žodiniai kreipimaisi į parlamentą"
+        other: Žodiniai kreipimaisi į parlamentą
       policy_paper:
         one: Strategijos dokumentas
         few:
@@ -212,7 +212,7 @@ lt:
         speaker: Pranešėjas
       written_on: Parašyta
     updated: atnaujinta
-    view: "Žiūrėkite '%{title}'"
+    view: Žiūrėkite '%{title}'
   people:
     heading:
       one:
@@ -247,7 +247,7 @@ lt:
         other: Geografinės vietos
     headings:
       announcements: Mūsų skelbimai
-      country: "Šalis"
+      country: Šalis
       documents: Dokumentai
       mission: Mūsų misija
       organisations: Organizacijos
@@ -306,7 +306,7 @@ lt:
       full_help_html: Jei norėtumėte gauti šį dokumentą kitokiu formatu (brailio,
         audio ar pan.), siųskite el. paštą %{email}, parašydami savo adresą, telefoną
         bei leidinio pavadinimą ("%{title}")%{references}.
-      heading: "Šis failas gali būti netinkamas, naudojantiems pagalbines technologijas."
+      heading: Šis failas gali būti netinkamas, naudojantiems pagalbines technologijas.
       request_a_different_format: Paprašykite kito formato
     headings:
       order_a_copy: Užsisakykite leidinį
@@ -491,8 +491,8 @@ lt:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: "Čia %{link} rasite paaiškinimą, kaip tvarkoma
-        Jūsų asmeninė informacija"
+      personal_information_charter_html: Čia %{link} rasite paaiškinimą, kaip tvarkoma
+        Jūsų asmeninė informacija
       publication_scheme_html: Sužinokite, kokią informaciją mes pastoviai pateikiame
         puslapyje %{link}.
       social_media_use_html: Perskaitykite mūsų strategiją %{link}.

@@ -2,73 +2,73 @@ ur:
   document:
     headings:
       attachments:
-        one: "دستاویز"
-        other: "دستاویزات"
-      applies_to_nations: "اطلاق ہوتا ہے"
+        one: دستاویز
+        other: دستاویزات
+      applies_to_nations: اطلاق ہوتا ہے
       from:
       location:
       part_of:
     type:
       announcement:
-        one: "اعلان"
-        other: "اعلانات"
+        one: اعلان
+        other: اعلانات
       authored_article:
-        one: "تحریر کردہ مضمون"
-        other: "تحریر کردہ مضامین"
+        one: تحریر کردہ مضمون
+        other: تحریر کردہ مضامین
       blog_post:
         one:
         other:
       case_study:
-        one: "کیس اسٹڈی"
-        other: "کیس اسٹڈیز"
+        one: کیس اسٹڈی
+        other: کیس اسٹڈیز
       closed_consultation:
-        one: "مشاورت ختم"
+        one: مشاورت ختم
         other: " مشاورت ختم"
       consultation:
-        one: "مشاورت"
-        other: "مشاورت"
+        one: مشاورت
+        other: مشاورت
       consultation_outcome:
-        one: "مشاورت کا نتیجہ"
-        other: "مشاورت کے نتائج"
+        one: مشاورت کا نتیجہ
+        other: مشاورت کے نتائج
       corporate_report:
-        one: "کارپوریٹ رپورٹ"
-        other: "کارپوریٹ رپورٹس"
+        one: کارپوریٹ رپورٹ
+        other: کارپوریٹ رپورٹس
       correspondence:
-        one: "مراسلت"
-        other: "مراسلات"
+        one: مراسلت
+        other: مراسلات
       decision:
         one:
         other:
       detailed_guidance:
-        one: "مفصل رہنمائی"
-        other: "مفصل رہنمائی"
+        one: مفصل رہنمائی
+        other: مفصل رہنمائی
       document_collection:
-        one: "سلسلہ"
+        one: سلسلہ
         other:
       draft_text:
-        one: "ڈرافٹ متن"
-        other: "ڈرافٹ متن"
+        one: ڈرافٹ متن
+        other: ڈرافٹ متن
       foi_release:
-        one: "آزادئی معلومات کی اشاعت"
-        other: "آزادئی معلومات کی اشاعت"
+        one: آزادئی معلومات کی اشاعت
+        other: آزادئی معلومات کی اشاعت
       form:
-        one: "فارم"
-        other: "فارمز"
+        one: فارم
+        other: فارمز
       government_response:
-        one: "حکومتی جوابی اقدام"
-        other: "حکومتی جوابی اقدامات"
+        one: حکومتی جوابی اقدام
+        other: حکومتی جوابی اقدامات
       guidance:
-        one: "رہنمائی"
-        other: "رہنمائی"
+        one: رہنمائی
+        other: رہنمائی
       impact_assessment:
-        one: "اثرات کا تجزیہ"
-        other: "اثرات کے تجزیے"
+        one: اثرات کا تجزیہ
+        other: اثرات کے تجزیے
       imported:
-        one: "امپورٹڈ- نوع کا انتظار"
-        other: "امپورٹڈ- نوع کا انتظار"
+        one: امپورٹڈ- نوع کا انتظار
+        other: امپورٹڈ- نوع کا انتظار
       independent_report:
-        one: "غیر جانبدار رپورٹ"
-        other: "غیر جانبداررپورٹس"
+        one: غیر جانبدار رپورٹ
+        other: غیر جانبداررپورٹس
       international_treaty:
         one:
         other:
@@ -76,17 +76,17 @@ ur:
         one:
         other:
       map:
-        one: "نقشہ"
-        other: "نقشے"
+        one: نقشہ
+        other: نقشے
       national_statistics:
-        one: "شماریات- قومی اعدادوشمار"
-        other: "شماریات- قومی اعدادوشمار"
+        one: شماریات- قومی اعدادوشمار
+        other: شماریات- قومی اعدادوشمار
       news_article:
-        one: "نیوزآرٹیکل"
-        other: "نیوزآرٹیکلز"
+        one: نیوزآرٹیکل
+        other: نیوزآرٹیکلز
       news_story:
-        one: "نیوز اسٹوری"
-        other: "نیوزاسٹوریز"
+        one: نیوز اسٹوری
+        other: نیوزاسٹوریز
       nhs_content:
         one:
         other:
@@ -94,77 +94,77 @@ ur:
         one:
         other:
       official_statistics:
-        one: "اعدادوشمار"
-        other: "اعدادو شمار"
+        one: اعدادوشمار
+        other: اعدادو شمار
       open_consultation:
-        one: "جاری مشاورت"
-        other: "جاری مشاورت"
+        one: جاری مشاورت
+        other: جاری مشاورت
       oral_statement:
-        one: "پارلیمنٹ میں زبانی بیان"
-        other: "پارلیمنٹ میں زبانی بیانات"
+        one: پارلیمنٹ میں زبانی بیان
+        other: پارلیمنٹ میں زبانی بیانات
       policy_paper:
-        one: "پالیسی پیپر"
-        other: "پالیسی پیپرز"
+        one: پالیسی پیپر
+        other: پالیسی پیپرز
       press_release:
-        one: "پریس ریلیز"
-        other: "پریس ریلیزز"
+        one: پریس ریلیز
+        other: پریس ریلیزز
       promotional:
-        one: "تشہیری مواد"
-        other: "تشہیری مواد"
+        one: تشہیری مواد
+        other: تشہیری مواد
       publication:
-        one: "مطبوعہ"
-        other: "مطبوعات"
+        one: مطبوعہ
+        other: مطبوعات
       regulation:
         one:
         other:
       research:
-        one: "تحقیق وتجزیہ"
-        other: "تحقیق وتجزیہ"
+        one: تحقیق وتجزیہ
+        other: تحقیق وتجزیہ
       speaking_notes:
-        one: "تقریری نوٹ"
-        other: "تقریری نوٹ"
+        one: تقریری نوٹ
+        other: تقریری نوٹ
       speech:
-        one: "تقریر"
-        other: "تقاریر"
+        one: تقریر
+        other: تقاریر
       statement_to_parliament:
-        one: "پارلیمنٹ میں بیان"
-        other: "پارلیمنٹ میں بیانات"
+        one: پارلیمنٹ میں بیان
+        other: پارلیمنٹ میں بیانات
       statistical_data_set:
-        one: "شماریاتی ڈیٹا سیٹ"
+        one: شماریاتی ڈیٹا سیٹ
         other: " شماریاتی ڈیٹا سیٹس"
       statutory_guidance:
         one:
         other:
       transcript:
-        one: "ٹرانسکرپٹ"
-        other: "ٹرانسکرپٹس"
+        one: ٹرانسکرپٹ
+        other: ٹرانسکرپٹس
       transparency:
-        one: "ٹرانسپیرنسی ڈیٹا"
-        other: "ٹرانسپیرنسی ڈیٹا"
+        one: ٹرانسپیرنسی ڈیٹا
+        other: ٹرانسپیرنسی ڈیٹا
       world_news_story:
         one:
         other:
       written_statement:
-        one: "پارلیمنٹ میں تحریری بیان"
-        other: "پارلیمنٹ میں تحریری بیانات"
+        one: پارلیمنٹ میں تحریری بیان
+        other: پارلیمنٹ میں تحریری بیانات
     contents:
     footer_meta:
       full_page_history:
       page_history:
       published:
       updated:
-    published: "شائع شدہ"
-    read: "پڑھئیے {title}% مضمون"
+    published: شائع شدہ
+    read: پڑھئیے {title}% مضمون
     speech:
       author_title:
-        minister: "وزیر"
-        speaker: "مصنف"
-      delivered_on: "تقریرکی تاریخ:"
+        minister: وزیر
+        speaker: مصنف
+      delivered_on: 'تقریرکی تاریخ:'
       delivery_title:
-        minister: "وزیر"
-        speaker: "مقرر"
-      written_on: "تحریر کی  تاریخ:"
-    updated: "تجدید شدہ"
+        minister: وزیر
+        speaker: مقرر
+      written_on: 'تحریر کی  تاریخ:'
+    updated: تجدید شدہ
     view: "'%{title}' دیکھئیے"
   people:
     heading:
@@ -189,21 +189,21 @@ ur:
   world_location:
     type:
       international_delegation:
-        one: "عالمی وفد"
-        other: "عالمی وفود"
+        one: عالمی وفد
+        other: عالمی وفود
       world_location:
         one: " عالمی محل وقوع"
-        other: "عالمی محل ہائے وقوع"
+        other: عالمی محل ہائے وقوع
     headings:
-      announcements: "ہمارے اعلانات"
-      country: "ملک"
-      documents: "دستاویزات"
-      mission: "ہمارا مشن"
-      organisations: "ادارے"
-      publications: "ہماری مطبوعات"
-      quick_links: "فوری لنکس"
-      related_policies: "متعلقہ پالیسیاں"
-      statistics: "ہمارے اعدادو شمار"
+      announcements: ہمارے اعلانات
+      country: ملک
+      documents: دستاویزات
+      mission: ہمارا مشن
+      organisations: ادارے
+      publications: ہماری مطبوعات
+      quick_links: فوری لنکس
+      related_policies: متعلقہ پالیسیاں
+      statistics: ہمارے اعدادو شمار
   activerecord:
     attributes:
       attachment:
@@ -248,21 +248,21 @@ ur:
       unique_reference:
       unnumbered_hoc_paper:
   announcements:
-    heading: "اعلانات"
+    heading: اعلانات
     view_all:
   attachment:
     accessibility:
       full_help_html: اس عبارت کو کسی دوسرے فارمیٹ مثلا بریل،آڈیو یا مختلف فائل ٹائپ
         میں حاصل کرنے کے لئے برائے مہربانی ایمیل %{email} کیجئیے، جس میں اپنا پتا،ٹیلیفون
         نمبراور  %{title}"(%{references}") لکھئیے
-      heading: "ممکن ہےیہ فائل  معاون ٹیکنالوجی استعمال کرنے والوں کے لئے موزوں نہ
-        ہو"
-      request_a_different_format: "مختلف فارمیٹ طلب کیجئیے"
+      heading: ممکن ہےیہ فائل  معاون ٹیکنالوجی استعمال کرنے والوں کے لئے موزوں نہ
+        ہو
+      request_a_different_format: مختلف فارمیٹ طلب کیجئیے
     headings:
-      order_a_copy: "کاپی منگائیے"
-      order_a_copy_full: "اشاعت کی کاپی طلب کیجئیے"
-      published: "شائع شدہ"
-      reference: "حوالہ"
+      order_a_copy: کاپی منگائیے
+      order_a_copy_full: اشاعت کی کاپی طلب کیجئیے
+      published: شائع شدہ
+      reference: حوالہ
       unnumbered_command_paper:
       unnumbered_hoc_paper:
     opendocument:
@@ -280,8 +280,8 @@ ur:
     see_all_updates:
     updated_at:
   contact:
-    contact_form: "کانٹیکٹ فارم"
-    email: "ای میل"
+    contact_form: کانٹیکٹ فارم
+    email: ای میل
   corporate_information_page:
     type:
       link_text:
@@ -296,13 +296,13 @@ ur:
         membership:
         our_energy_use:
         our_governance:
-        personal_information_charter: "ذاتی معلومات کاچارٹر"
+        personal_information_charter: ذاتی معلومات کاچارٹر
         petitions_and_campaigns:
         procurement:
-        publication_scheme: "اشاعتی اسکیم"
+        publication_scheme: اشاعتی اسکیم
         recruitment:
         research:
-        social_media_use: "سوشل میڈیاکااستعمال"
+        social_media_use: سوشل میڈیاکااستعمال
         staff_update:
         statistics:
         terms_of_reference:
@@ -312,28 +312,28 @@ ur:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document_filters:
-    description: "آپ صرف اپنی دلچسپی &nbsp;کے نتائج دیکھنے&nbsp;کے لئے فلٹرزاستعمال
-      کر سکتے ہیں"
+    description: آپ صرف اپنی دلچسپی &nbsp;کے نتائج دیکھنے&nbsp;کے لئے فلٹرزاستعمال
+      کر سکتے ہیں
     no_results:
-      description: "اپنی تلاش کو وسیع تر کرکے دوبارا کوشش کیجئیے "
-      title: "مطلوبہ یا ملتا جلتا مضمون نہیں ملا"
+      description: 'اپنی تلاش کو وسیع تر کرکے دوبارا کوشش کیجئیے '
+      title: مطلوبہ یا ملتا جلتا مضمون نہیں ملا
       tna_heading:
       tna_link:
     world_locations:
-      all: "تمام مقامات"
-      label: "عالمی مقامات"
+      all: تمام مقامات
+      label: عالمی مقامات
   feeds:
     email:
     feed:
     get_updates_to_this_list:
-    latest_activity: "تازہ ترین سرگرمیاں"
+    latest_activity: تازہ ترین سرگرمیاں
   i18n:
     direction: rtl
   language_names:
-    ur: "اردو"
+    ur: اردو
   latest_feed:
-    no_updates: "فی الحال کوئی تجدید نہیں"
-    title: "آخری فیڈ"
+    no_updates: فی الحال کوئی تجدید نہیں
+    title: آخری فیڈ
   national_statistics:
     heading:
   number:
@@ -342,119 +342,119 @@ ur:
         format: "%n%u"
   organisation:
     about:
-      read_more: "ہمارے کام کے بارے میں مزید پڑھئیے"
+      read_more: ہمارے کام کے بارے میں مزید پڑھئیے
     corporate_information:
-      access_our_info: "ہماری معلومات تک رسائی حاصل کیجئیے"
-      foi_how_to: "آزادئی معلومات کی درخواست کیسے کی جائے"
-      foi_releases: "آزادئی معلومات کی اشاعتیں"
-      jobs_and_contacts: "ملازمتیں اورکنٹریکٹس"
+      access_our_info: ہماری معلومات تک رسائی حاصل کیجئیے
+      foi_how_to: آزادئی معلومات کی درخواست کیسے کی جائے
+      foi_releases: آزادئی معلومات کی اشاعتیں
+      jobs_and_contacts: ملازمتیں اورکنٹریکٹس
       organisation_chart:
-      transparency: "ٹرانسپیرنسی ڈیٹا"
+      transparency: ٹرانسپیرنسی ڈیٹا
     foi_exemption_html:
     headings:
-      chief_professional_officers: "ہمارے چیف پروفیشنل افسران"
-      contact: "رابطہ %{name}"
-      corporate_information: "کارپوریٹ معلومات"
-      corporate_reports: "کارپوریٹ رپورٹس"
+      chief_professional_officers: ہمارے چیف پروفیشنل افسران
+      contact: رابطہ %{name}
+      corporate_information: کارپوریٹ معلومات
+      corporate_reports: کارپوریٹ رپورٹس
       documents:
       freedom_of_information_act:
       making_foi_requests:
-      our_announcements: "ہمارے اعلانات"
+      our_announcements: ہمارے اعلانات
       our_consultations:
       our_judges:
-      our_management: "ہماری انتظامیہ"
-      our_ministers: "ہمارے وزرا"
-      our_policies: "ہماری پالیسیاں"
-      our_publications: "ہماری اشاعتیں"
-      our_senior_military_officials: "ہمارے سینئیر فوجی اہلکار"
-      our_services: "ہماری خدمات"
-      our_statistics: "ہمارے اعدادو شمار"
-      our_topics: "ہم ان موضوعات پر کام کرتے ہیں"
-      special_representatives: "خصوصی نمائندے"
-      traffic_commissioners: "ٹریفک کمشنرز"
-      what_we_do: "ہمارے فرائض"
+      our_management: ہماری انتظامیہ
+      our_ministers: ہمارے وزرا
+      our_policies: ہماری پالیسیاں
+      our_publications: ہماری اشاعتیں
+      our_senior_military_officials: ہمارے سینئیر فوجی اہلکار
+      our_services: ہماری خدمات
+      our_statistics: ہمارے اعدادو شمار
+      our_topics: ہم ان موضوعات پر کام کرتے ہیں
+      special_representatives: خصوصی نمائندے
+      traffic_commissioners: ٹریفک کمشنرز
+      what_we_do: ہمارے فرائض
       who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:
       step3_html:
   policies:
-    heading: "پالیسیاں"
+    heading: پالیسیاں
     view_all:
   publications:
-    heading: "اشاعتیں"
+    heading: اشاعتیں
     headings:
-      detail: "تفصیل"
-  read_more: "آگے پڑھئیے"
+      detail: تفصیل
+  read_more: آگے پڑھئیے
   see_all:
-    announcement: "تما م دیکھئیے اعلانات"
-    authored_article: "تما م دیکھئیے تحریر کردہ مضامین"
-    case_study: "تما م دیکھئیے کیس اسٹڈیز"
-    closed_consultation: "تما م دیکھئیے  مشاورت ختم"
-    consultation: "تما م دیکھئیے مشاورت"
-    consultation_outcome: "تما م دیکھئیے مشاورت کے نتائج"
-    corporate_report: "تما م دیکھئیے کارپوریٹ رپورٹس"
-    correspondence: "تما م دیکھئیے مراسلات"
+    announcement: تما م دیکھئیے اعلانات
+    authored_article: تما م دیکھئیے تحریر کردہ مضامین
+    case_study: تما م دیکھئیے کیس اسٹڈیز
+    closed_consultation: تما م دیکھئیے  مشاورت ختم
+    consultation: تما م دیکھئیے مشاورت
+    consultation_outcome: تما م دیکھئیے مشاورت کے نتائج
+    corporate_report: تما م دیکھئیے کارپوریٹ رپورٹس
+    correspondence: تما م دیکھئیے مراسلات
     decision:
-    detailed_guidance: "تما م دیکھئیے مفصل رہنمائی"
+    detailed_guidance: تما م دیکھئیے مفصل رہنمائی
     document_collection:
-    draft_text: "تما م دیکھئیے ڈرافٹ متن"
-    fatality_notice: "تما م دیکھئیے وفات کی اطلاعات"
-    foi_release: "تما م دیکھئیے آزادئی معلومات کی اشاعت"
-    form: "تما م دیکھئیے فارمز"
-    government_response: "تما م دیکھئیے حکومتی جوابی اقدامات"
-    guidance: "تما م دیکھئیے رہنمائی"
-    impact_assessment: "تما م دیکھئیے اثرات کے تجزیے"
-    imported: "تما م دیکھئیے امپورٹڈ- نوع کا انتظار"
+    draft_text: تما م دیکھئیے ڈرافٹ متن
+    fatality_notice: تما م دیکھئیے وفات کی اطلاعات
+    foi_release: تما م دیکھئیے آزادئی معلومات کی اشاعت
+    form: تما م دیکھئیے فارمز
+    government_response: تما م دیکھئیے حکومتی جوابی اقدامات
+    guidance: تما م دیکھئیے رہنمائی
+    impact_assessment: تما م دیکھئیے اثرات کے تجزیے
+    imported: تما م دیکھئیے امپورٹڈ- نوع کا انتظار
     international_treaty:
-    map: "تما م دیکھئیے نقشے"
-    national_statistics: "تما م دیکھئیے شماریات- قومی اعدادوشمار"
-    news_article: "تما م دیکھئیے نیوزآرٹیکلز"
-    news_story: "تما م دیکھئیے نیوزاسٹوریز"
+    map: تما م دیکھئیے نقشے
+    national_statistics: تما م دیکھئیے شماریات- قومی اعدادوشمار
+    news_article: تما م دیکھئیے نیوزآرٹیکلز
+    news_story: تما م دیکھئیے نیوزاسٹوریز
     notice:
-    open_consultation: "تما م دیکھئیے جاری مشاورت"
-    oral_statement: "تما م دیکھئیے پارلیمنٹ میں زبانی بیانات"
-    policy: "تما م دیکھئیے پالیسیاں"
-    policy_paper: "تما م دیکھئیے پالیسی پیپرز"
-    press_release: "تما م دیکھئیے پریس ریلیزز"
-    promotional: "تما م دیکھئیے تشہیری مواد"
-    publication: "تما م دیکھئیے مطبوعات"
+    open_consultation: تما م دیکھئیے جاری مشاورت
+    oral_statement: تما م دیکھئیے پارلیمنٹ میں زبانی بیانات
+    policy: تما م دیکھئیے پالیسیاں
+    policy_paper: تما م دیکھئیے پالیسی پیپرز
+    press_release: تما م دیکھئیے پریس ریلیزز
+    promotional: تما م دیکھئیے تشہیری مواد
+    publication: تما م دیکھئیے مطبوعات
     regulation:
-    research: "تما م دیکھئیے تحقیق وتجزیہ"
-    speaking_notes: "تما م دیکھئیے تقریری نوٹ"
-    speech: "تما م دیکھئیے تقاریر"
-    statement_to_parliament: "تما م دیکھئیے پارلیمنٹ میں بیانات"
-    statistical_data_set: "تما م دیکھئیے  شماریاتی ڈیٹا سیٹس"
-    statistics: "تما م دیکھئیے اعدادو شمار"
+    research: تما م دیکھئیے تحقیق وتجزیہ
+    speaking_notes: تما م دیکھئیے تقریری نوٹ
+    speech: تما م دیکھئیے تقاریر
+    statement_to_parliament: تما م دیکھئیے پارلیمنٹ میں بیانات
+    statistical_data_set: تما م دیکھئیے  شماریاتی ڈیٹا سیٹس
+    statistics: تما م دیکھئیے اعدادو شمار
     statutory_guidance:
-    transcript: "تما م دیکھئیے ٹرانسکرپٹس"
-    transparency: "تما م دیکھئیے ٹرانسپیرنسی ڈیٹا"
-    written_statement: "تما م دیکھئیے پارلیمنٹ میں تحریری بیانات"
+    transcript: تما م دیکھئیے ٹرانسکرپٹس
+    transparency: تما م دیکھئیے ٹرانسپیرنسی ڈیٹا
+    written_statement: تما م دیکھئیے پارلیمنٹ میں تحریری بیانات
   social_media:
     follow_us:
   support:
     array:
-      last_word_connector: "اور"
+      last_word_connector: اور
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: "ہمارے %{link} واضح کرتے ہیں کہ ہم آپکی ذاتی
-        معلومات کو کیسے استعمال کرتے ہیں"
-      publication_scheme_html: "ہماری معمول کے مطابق  شائع کردہ معلومات کی نوعیت  %{link}
-        پرملاحظہ کیجئیے "
-      social_media_use_html: "ہماری پالیسی  %{link} پر ملاحظہ کیجئیے"
-      welsh_language_scheme_html: "اشاعت کے باب میں ہمارے کمٹ منٹ %{link} میں ملاحظہ
-        کیجئیے"
-    find_out_more: "مکمل پروفائل اوررابطے کی تمام تفصیلات دیکھئیے"
+      personal_information_charter_html: ہمارے %{link} واضح کرتے ہیں کہ ہم آپکی ذاتی
+        معلومات کو کیسے استعمال کرتے ہیں
+      publication_scheme_html: 'ہماری معمول کے مطابق  شائع کردہ معلومات کی نوعیت  %{link}
+        پرملاحظہ کیجئیے '
+      social_media_use_html: ہماری پالیسی  %{link} پر ملاحظہ کیجئیے
+      welsh_language_scheme_html: اشاعت کے باب میں ہمارے کمٹ منٹ %{link} میں ملاحظہ
+        کیجئیے
+    find_out_more: مکمل پروفائل اوررابطے کی تمام تفصیلات دیکھئیے
     headings:
-      about_us: "ہمارے بارے میں"
-      contact_us: "ہم سے رابطہ"
-      corporate_information: "کارپوریٹ معلومات"
-      follow_us: "ہمیں فالوکیجئیے"
-      our_people: "ہمارا عملہ"
-      our_services: "ہماری خدمات"
-    location: "مقام"
-    part_of: "حصہ"
+      about_us: ہمارے بارے میں
+      contact_us: ہم سے رابطہ
+      corporate_information: کارپوریٹ معلومات
+      follow_us: ہمیں فالوکیجئیے
+      our_people: ہمارا عملہ
+      our_services: ہماری خدمات
+    location: مقام
+    part_of: حصہ

@@ -546,8 +546,8 @@ sr:
       about_our_services_html:
       personal_information_charter_html: "%{link} daje informacije o tome kako obrađujemo
         vaše lične podatke. "
-      publication_scheme_html: "Čitajte o tipovima informacija koje redovno objavljujemo
-        u  %{link}."
+      publication_scheme_html: Čitajte o tipovima informacija koje redovno objavljujemo
+        u  %{link}.
       social_media_use_html: Pročitajte o našoj politici prema  %{link}.
       welsh_language_scheme_html: Saznajte naš stav o objavljivanju u %{link}.
     find_out_more: 'Pogledajte pun profil i sve kontakt detalje '

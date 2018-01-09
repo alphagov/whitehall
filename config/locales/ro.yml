@@ -11,9 +11,9 @@ ro:
       part_of:
     type:
       announcement:
-        one: "Știre"
+        one: Știre
         few:
-        other: "Știri"
+        other: Știri
       authored_article:
         one: 'Articol '
         few:
@@ -107,13 +107,13 @@ ro:
         few:
         other: Statistici - statistici naționale
       news_article:
-        one: "Știre"
+        one: Știre
         few:
-        other: "Știri"
+        other: Știri
       news_story:
-        one: "Știre"
+        one: Știre
         few:
-        other: "Știri"
+        other: Știri
       nhs_content:
         one:
         few:
@@ -139,9 +139,9 @@ ro:
         few:
         other:
       press_release:
-        one: "Știre"
+        one: Știre
         few:
-        other: "Știri"
+        other: Știri
       promotional:
         one: Material promoțional
         few:
@@ -246,8 +246,8 @@ ro:
         few:
         other: Localizare
     headings:
-      announcements: "Știri"
-      country: "Țară"
+      announcements: Știri
+      country: Țară
       documents: Documente
       mission: Obiectiv
       organisations: Organizații
@@ -299,12 +299,16 @@ ro:
       unique_reference:
       unnumbered_hoc_paper:
   announcements:
-    heading: "Știri"
+    heading: Știri
     view_all:
   attachment:
     accessibility:
-      full_help_html: |
-        Pentru a solicita acest document într-un format alternativ (braille, audio, etc.) vă rugăm să transmiteți o solicitare pe email către %{email}, specificând adresa de corespondență, numărul dumneavoastră  de telefon, precum și titlul publicației ("%{title}")%{references}.
+      full_help_html: 'Pentru a solicita acest document într-un format alternativ
+        (braille, audio, etc.) vă rugăm să transmiteți o solicitare pe email către
+        %{email}, specificând adresa de corespondență, numărul dumneavoastră  de telefon,
+        precum și titlul publicației ("%{title}")%{references}.
+
+'
       heading: Este posibil ca acest fișier să nu fie adecvat utilizatorilor de  tehnologii
         de asistare
       request_a_different_format: 'Solicită un format diferit '
@@ -409,7 +413,7 @@ ro:
       documents:
       freedom_of_information_act:
       making_foi_requests:
-      our_announcements: "Știri "
+      our_announcements: 'Știri '
       our_consultations:
       our_judges:
       our_management: 'Echipa ambasadei '
@@ -484,7 +488,7 @@ ro:
     follow_us:
   support:
     array:
-      last_word_connector: "și"
+      last_word_connector: și
   time:
     formats:
       long_ordinal:
@@ -506,5 +510,5 @@ ro:
       follow_us: Ne găsești și pe
       our_people: Echipa noastră
       our_services: 'Servicii '
-    location: "Țară"
+    location: Țară
     part_of: Parte din
