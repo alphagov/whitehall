@@ -1,4 +1,4 @@
-Given /^a detailed guide with section headings$/ do
+Given(/^a detailed guide with section headings$/) do
   create(:published_detailed_guide,
          title: "Detailed guide with pages",
          summary: "Here's the summary of the guide",
@@ -27,12 +27,12 @@ EOS
 )
 end
 
-When /^I view the detailed guide$/ do
+When(/^I view the detailed guide$/) do
   guide = DetailedGuide.find_by!(title: "Detailed guide with pages")
   visit detailed_guide_path(guide.document)
 end
 
-Then /^I should see all pages of the detailed guide$/ do
+Then(/^I should see all pages of the detailed guide$/) do
   {
     first: 'page-1',
     second: 'page-2',

@@ -29,7 +29,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   test "should store uploads in a directory that persists across deploys" do
     model = stub("AR Model", id: 1)
     uploader = AttachmentUploader.new(model, "mounted-as")
-    assert_match /^system/, uploader.store_dir
+    assert_match %r[^system], uploader.store_dir
   end
 
   test "should not generate thumbnail versions of non pdf files" do

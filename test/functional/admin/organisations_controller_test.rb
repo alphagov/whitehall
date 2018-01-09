@@ -92,7 +92,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
                       )
     }
 
-    assert_match /logo.png/, Organisation.last.logo.file.filename
+    assert_match %r[logo.png], Organisation.last.logo.file.filename
   end
 
   test 'POST create can set number of important board members' do
@@ -301,7 +301,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
       organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
       logo: fixture_file_upload('logo.png')
     } }
-    assert_match /logo.png/, organisation.reload.logo.file.filename
+    assert_match %r[logo.png], organisation.reload.logo.file.filename
   end
 
   test 'PUT :update can set default news image' do

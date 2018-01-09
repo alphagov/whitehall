@@ -1,4 +1,4 @@
-When /^I add an historical account to "([^"]*)" for his role as "([^"]*)"$/ do |person_name, role_name|
+When(/^I add an historical account to "([^"]*)" for his role as "([^"]*)"$/) do |person_name, role_name|
   person = find_person(person_name)
   role = Role.find_by(name: role_name)
 
@@ -14,7 +14,7 @@ When /^I add an historical account to "([^"]*)" for his role as "([^"]*)"$/ do |
   click_on 'Save'
 end
 
-Then /^I should see a historical account for him in that role$/ do
+Then(/^I should see a historical account for him in that role$/) do
   historical_account = @person.historical_accounts.last
   within record_css_selector(historical_account) do
     assert page.has_content?(historical_account.summary)

@@ -6,7 +6,7 @@ class SearchIndexAddWorkerTest < ActiveSupport::TestCase
 
     worker = SearchIndexAddWorker.new
     e = assert_raise(ArgumentError) { worker.perform('NonSearchableClass', 1) }
-    assert_match /is not a searchable class/, e.message
+    assert_match %r[is not a searchable class], e.message
   end
 
   test '#perform logs a warning if the instance does not exist' do

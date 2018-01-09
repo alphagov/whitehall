@@ -1,4 +1,4 @@
-When /^I draft a new publication "([^"]*)" that does not apply to the nations:$/ do |title, nations|
+When(/^I draft a new publication "([^"]*)" that does not apply to the nations:$/) do |title, nations|
   begin_drafting_publication(title)
   nations.raw.flatten.each do |nation_name|
     within record_css_selector(Nation.find_by_name!(nation_name)) do

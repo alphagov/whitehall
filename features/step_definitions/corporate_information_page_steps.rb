@@ -6,7 +6,7 @@ def find_corporation_information_page_type_by_title(title)
   }
 end
 
-Given /^I add a "([^"]*)" corporate information page to "([^"]*)" with body "([^"]*)"$/ do |page_type, org_name, body|
+Given(/^I add a "([^"]*)" corporate information page to "([^"]*)" with body "([^"]*)"$/) do |page_type, org_name, body|
   organisation = Organisation.find_by(name: org_name)
   visit admin_organisation_path(organisation)
   click_link "Corporate information pages"
@@ -16,7 +16,7 @@ Given /^I add a "([^"]*)" corporate information page to "([^"]*)" with body "([^
   click_button "Save"
 end
 
-Given /^I force-publish the "([^"]*)" corporate information page for the organisation "([^"]*)"$/ do |page_type, org_name|
+Given(/^I force-publish the "([^"]*)" corporate information page for the organisation "([^"]*)"$/) do |page_type, org_name|
   organisation = Organisation.find_by(name: org_name)
   visit admin_organisation_path(organisation)
   click_link "Corporate information pages"
@@ -24,15 +24,15 @@ Given /^I force-publish the "([^"]*)" corporate information page for the organis
   publish(force: true)
 end
 
-When /^I click the "([^"]*)" link$/ do |link_text|
+When(/^I click the "([^"]*)" link$/) do |link_text|
   click_link link_text
 end
 
-Then /^I should see the text "([^"]*)"$/ do |text|
+Then(/^I should see the text "([^"]*)"$/) do |text|
   assert has_css?("body", text: Regexp.new(Regexp.escape(text))), %(Expected: "#{page.text}"\nto include:\n"#{text}")
 end
 
-When /^I add a "([^"]*)" corporate information page to the worldwide organisation$/ do |page_type|
+When(/^I add a "([^"]*)" corporate information page to the worldwide organisation$/) do |page_type|
   worldwide_organisation = WorldwideOrganisation.last
   visit admin_worldwide_organisation_path(worldwide_organisation)
   click_link "Corporate information pages"
@@ -42,7 +42,7 @@ When /^I add a "([^"]*)" corporate information page to the worldwide organisatio
   click_button "Save"
 end
 
-When /^I force-publish the "([^"]*)" corporate information page for the worldwide organisation "([^"]*)"$/ do |page_type, org_name|
+When(/^I force-publish the "([^"]*)" corporate information page for the worldwide organisation "([^"]*)"$/) do |page_type, org_name|
   organisation = WorldwideOrganisation.find_by(name: org_name)
   visit admin_worldwide_organisation_path(organisation)
   click_link "Corporate information pages"
@@ -50,7 +50,7 @@ When /^I force-publish the "([^"]*)" corporate information page for the worldwid
   publish(force: true)
 end
 
-Then /^I should see the corporate information on the public worldwide organisation page$/ do
+Then(/^I should see the corporate information on the public worldwide organisation page$/) do
   worldwide_organisation = WorldwideOrganisation.last
   info_page = worldwide_organisation.corporate_information_pages.last
   visit worldwide_organisation_path(worldwide_organisation)
@@ -59,7 +59,7 @@ Then /^I should see the corporate information on the public worldwide organisati
   assert page.has_content?(info_page.body)
 end
 
-When /^I translate the "([^"]*)" corporate information page for the worldwide organisation "([^"]*)"$/ do |corp_page, worldwide_org|
+When(/^I translate the "([^"]*)" corporate information page for the worldwide organisation "([^"]*)"$/) do |corp_page, worldwide_org|
   worldwide_organisation = WorldwideOrganisation.find_by(name: worldwide_org)
   visit admin_worldwide_organisation_path(worldwide_organisation)
   click_link "Corporate information pages"
@@ -72,7 +72,7 @@ When /^I translate the "([^"]*)" corporate information page for the worldwide or
   click_on "Save"
 end
 
-Then /^I should be able to read the translated "([^"]*)" corporate information page for the worldwide organisation "([^"]*)" on the site$/ do |corp_page, worldwide_org|
+Then(/^I should be able to read the translated "([^"]*)" corporate information page for the worldwide organisation "([^"]*)" on the site$/) do |corp_page, worldwide_org|
   worldwide_organisation = WorldwideOrganisation.find_by(name: worldwide_org)
   visit worldwide_organisation_path(worldwide_organisation)
 
@@ -83,7 +83,7 @@ Then /^I should be able to read the translated "([^"]*)" corporate information p
   assert page.has_css?(".body", text: "Le body")
 end
 
-When /^I translate the "([^"]*)" corporate information page for the organisation "([^"]*)"$/ do |corp_page, organisation_name|
+When(/^I translate the "([^"]*)" corporate information page for the organisation "([^"]*)"$/) do |corp_page, organisation_name|
   organisation = Organisation.find_by(name: organisation_name)
   visit admin_organisation_path(organisation)
   click_link "Corporate information pages"
@@ -96,7 +96,7 @@ When /^I translate the "([^"]*)" corporate information page for the organisation
   click_on "Save"
 end
 
-Then /^I should be able to read the translated "([^"]*)" corporate information page for the organisation "([^"]*)" on the site$/ do |corp_page, organisation_name|
+Then(/^I should be able to read the translated "([^"]*)" corporate information page for the organisation "([^"]*)" on the site$/) do |corp_page, organisation_name|
   organisation = Organisation.find_by(name: organisation_name)
   visit organisation_path(organisation)
 
@@ -107,7 +107,7 @@ Then /^I should be able to read the translated "([^"]*)" corporate information p
   assert page.has_css?(".body", text: "Le body")
 end
 
-Given /^my organisation has a "(.*?)" corporate information page$/ do |page_title|
+Given(/^my organisation has a "(.*?)" corporate information page$/) do |page_title|
   @user.organisation ||= create(:organisation)
   stub_organisation_in_content_store("Organisation name", @user.organisation.base_path)
   page_type = find_corporation_information_page_type_by_title(page_title)
@@ -116,7 +116,7 @@ Given /^my organisation has a "(.*?)" corporate information page$/ do |page_titl
          organisation: @user.organisation)
 end
 
-Then /^I should be able to add attachments to the "(.*?)" corporate information page$/ do |page_title|
+Then(/^I should be able to add attachments to the "(.*?)" corporate information page$/) do |page_title|
   page_type = find_corporation_information_page_type_by_title(page_title)
   page = @user.organisation.corporate_information_pages.find_by_corporate_information_page_type_id(page_type.id)
   attachment = upload_pdf_to_corporate_information_page(page)

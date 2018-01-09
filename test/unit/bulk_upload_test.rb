@@ -146,7 +146,7 @@ class BulkUploadZipFileTest < ActiveSupport::TestCase
   test 'is invalid if the zip file contains illegal file types' do
     zip_file = BulkUpload::ZipFile.new(a_zip_file_with_dodgy_file_types)
     refute zip_file.valid?
-    assert_match /contains invalid files/, zip_file.errors[:zip_file][0]
+    assert_match %r[contains invalid files], zip_file.errors[:zip_file][0]
   end
 
   test 'extracted_file_paths returns extracted file paths' do

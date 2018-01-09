@@ -13,7 +13,7 @@ class StatisticsAnnouncementDateChangeTest < ActiveSupport::TestCase
                      release_date: (current_date.release_date + 1.day))
 
     refute new_date.valid?
-    assert_match /required/, new_date.errors[:change_note].first
+    assert_match %r[required], new_date.errors[:change_note].first
   end
 
   test "unconfirming a confirmed release date requires a change note" do
@@ -28,7 +28,7 @@ class StatisticsAnnouncementDateChangeTest < ActiveSupport::TestCase
                      confirmed: false)
 
     refute new_date.valid?
-    assert_match /required/, new_date.errors[:change_note].first
+    assert_match %r[required], new_date.errors[:change_note].first
   end
 
   test "a change to a provisional release date is valid and ignores the change note" do

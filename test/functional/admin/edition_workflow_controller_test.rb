@@ -202,7 +202,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     submitted_publication = create(:submitted_publication)
     post :reject, params: { id: submitted_publication, lock_version: submitted_publication.lock_version }
 
-    assert_match /\'#{submitted_publication.title}\' was rejected by/, ActionMailer::Base.deliveries.last.body.to_s
+    assert_match %r[\'#{submitted_publication.title}\' was rejected by], ActionMailer::Base.deliveries.last.body.to_s
   end
 
   test 'reject responds with 422 if missing a lock version' do
@@ -278,7 +278,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     post :unpublish, params: { id: published_edition, lock_version: published_edition.lock_version, unpublishing: unpublish_params }
     assert_response :success
     assert_template :confirm_unpublish
-    assert_match /Alternative url must be provided/, flash[:alert]
+    assert_match %r[Alternative url must be provided], flash[:alert]
     assert published_edition.reload.published?
   end
 

@@ -23,13 +23,13 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
 
   test 'POST #create warns user when document not found' do
     post :create, params: id_params.merge(document_id: 1234, title: 'blah')
-    assert_match /couldn't find.*blah/, flash[:alert]
+    assert_match %r[couldn't find.*blah], flash[:alert]
   end
 
   test 'POST #create handles invalid DocumentCollectionGroupMemberships' do
     collection_document = create(:document, document_type: 'DocumentCollection')
     post :create, params: id_params.merge(document_id: collection_document.id)
-    assert_match /Document cannot be a document collection/, flash[:alert]
+    assert_match %r[Document cannot be a document collection], flash[:alert]
   end
 
   def remove_params
@@ -47,12 +47,12 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
       delete :destroy, params: remove_params.merge(documents: [documents.first.id])
     end
     assert_redirected_to admin_document_collection_groups_path(@collection)
-    assert_match /1 document removed/, flash[:notice]
+    assert_match %r[1 document removed], flash[:notice]
   end
 
   test 'DELETE #destroy sets flash message if no documents selected' do
     delete :destroy, params: remove_params
-    assert_match /select one or more documents/i, flash[:alert]
+    assert_match %r[select one or more documents]i, flash[:alert]
   end
 
   test 'DELETE #destroy moves documents and redirects when Move clicked' do
@@ -69,6 +69,6 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
       end
     end
     assert_redirected_to admin_document_collection_groups_path(@collection)
-    assert_match /1 document moved to '#{new_group.heading}'/, flash[:notice]
+    assert_match %r[1 document moved to '#{new_group.heading}'], flash[:notice]
   end
 end

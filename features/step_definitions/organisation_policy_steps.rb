@@ -1,8 +1,8 @@
-Given /^and the policies "(.*?)" and "(.*?)" exist$/ do |policy_name_1, policy_name_2|
+Given(/^and the policies "(.*?)" and "(.*?)" exist$/) do |policy_name_1, policy_name_2|
   publishing_api_has_policies([policy_name_1, policy_name_2])
 end
 
-When /^I feature the policies "(.*?)" and "(.*?)" for "(.*?)"$/ do |policy_name_1, policy_name_2, organisation_name|
+When(/^I feature the policies "(.*?)" and "(.*?)" for "(.*?)"$/) do |policy_name_1, policy_name_2, organisation_name|
   visit_organisation_featured_policies_admin organisation_name
   feature_policies_on_organisation [policy_name_1, policy_name_2]
 end

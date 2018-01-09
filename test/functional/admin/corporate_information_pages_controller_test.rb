@@ -89,7 +89,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     corporate_information_page = create(:corporate_information_page, organisation: @organisation)
     new_attributes = { body: "", summary: "New summary" }
     put :update, params: { organisation_id: @organisation, id: corporate_information_page, edition: new_attributes }
-    assert_match /^There are some problems/, flash[:alert]
+    assert_match %r[^There are some problems], flash[:alert]
 
     assert_select "form[action='#{admin_organisation_corporate_information_page_path(@organisation, corporate_information_page)}']" do
       assert_select "textarea[name='edition[body]']", new_attributes[:body]

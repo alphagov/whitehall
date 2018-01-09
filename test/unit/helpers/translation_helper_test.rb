@@ -73,8 +73,8 @@ class TranslationHelperTest < ActionView::TestCase
 
   test "t_delivered_on returns appropriate translation depending on whether speech was written or delivered" do
     I18n.with_locale(:fr) do
-      assert_match /Prononcé le/, t_delivered_on(stub('speech_type', published_externally_key: 'delivered_on'))
-      assert_match /Ecrit le/, t_delivered_on(stub('speech_type', published_externally_key: 'written_on'))
+      assert_match %r[Prononcé le], t_delivered_on(stub('speech_type', published_externally_key: 'delivered_on'))
+      assert_match %r[Ecrit le], t_delivered_on(stub('speech_type', published_externally_key: 'written_on'))
     end
   end
 end

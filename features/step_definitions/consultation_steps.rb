@@ -6,7 +6,7 @@ Given(/^an unopened consultation exists$/) do
   create(:unopened_consultation)
 end
 
-When /^I draft a new consultation "([^"]*)"$/ do |title|
+When(/^I draft a new consultation "([^"]*)"$/) do |title|
   publishing_api_has_policies([title])
 
   begin_drafting_document type: 'consultation', title: title, summary: 'consultation-summary', alternative_format_provider: create(:alternative_format_provider)
@@ -24,12 +24,12 @@ When /^I draft a new consultation "([^"]*)"$/ do |title|
   click_button "Save"
 end
 
-Then /^I can see links to the consultations "([^"]*)" and "([^"]*)"$/ do |title_1, title_2|
+Then(/^I can see links to the consultations "([^"]*)" and "([^"]*)"$/) do |title_1, title_2|
   assert has_css?(".consultation a", text: title_1)
   assert has_css?(".consultation a", text: title_2)
 end
 
-When /^I add an outcome to the consultation$/ do
+When(/^I add an outcome to the consultation$/) do
   visit edit_admin_consultation_path(Consultation.last)
   click_button "Create new edition"
 
@@ -51,7 +51,7 @@ When(/^I add public feedback to the consultation$/) do
   upload_new_attachment(pdf_attachment, "Feedback attachment title")
 end
 
-When /^I save and publish the amended consultation$/ do
+When(/^I save and publish the amended consultation$/) do
   ensure_path edit_admin_consultation_path(Consultation.last)
   fill_in_change_note_if_required
   click_button "Save"

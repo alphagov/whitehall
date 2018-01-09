@@ -1,10 +1,10 @@
-When /^someone else creates a new edition of the published document "([^"]*)"$/ do |title|
+When(/^someone else creates a new edition of the published document "([^"]*)"$/) do |title|
   random_editor = create(:departmental_editor)
   current = Edition.find_by(title: title).latest_edition
   current.create_draft(random_editor)
 end
 
-When /^someone else creates a new edition of the published document "([^"]*)" and limits access to members of "([^"]+)"$/ do |title, organisation_name|
+When(/^someone else creates a new edition of the published document "([^"]*)" and limits access to members of "([^"]+)"$/) do |title, organisation_name|
   org = Organisation.find_by(name: organisation_name) || create(:organisation, name: organisation_name)
   random_editor = create(:departmental_editor)
   current = Edition.find_by(title: title).latest_edition
@@ -15,18 +15,18 @@ When /^someone else creates a new edition of the published document "([^"]*)" an
   new_draft.save!
 end
 
-When /^I view the old edition of document "([^"]*)"$/ do |title|
+When(/^I view the old edition of document "([^"]*)"$/) do |title|
   newest = Edition.find_by(title: title).latest_edition
   oldest = newest.document.editions.order(:id).first
   visit admin_edition_path(oldest)
 end
 
-Then /^I can click through to the most recent version of document "([^"]*)"$/ do |title|
+Then(/^I can click through to the most recent version of document "([^"]*)"$/) do |title|
   click_on 'Go to draft'
   assert_path admin_edition_path(Edition.find_by(title: title).latest_edition)
 end
 
-Then /^I cannot click through to the most recent version of document "([^"]*)"$/ do |_title|
+Then(/^I cannot click through to the most recent version of document "([^"]*)"$/) do |_title|
   assert page.has_css?('.alert.access-limited-latest-edition')
   assert page.has_no_content?('Go to draft')
 end

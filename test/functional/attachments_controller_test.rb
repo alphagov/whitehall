@@ -41,7 +41,7 @@ class AttachmentsControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_cache_control("max-age=#{Whitehall.uploads_cache_max_age}")
-    assert_match /^inline;/, response.headers['Content-Disposition']
+    assert_match %r[^inline;], response.headers['Content-Disposition']
     assert_match attachment_data.filename, response.headers['Content-Disposition']
   end
 
@@ -79,7 +79,7 @@ class AttachmentsControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_match attachment_data.filename, response.headers['Content-Disposition']
-    assert_match /^inline;/, response.headers['Content-Disposition']
+    assert_match %r[^inline;], response.headers['Content-Disposition']
   end
 
   def create_thumbnail_for_upload(uploader)
@@ -99,7 +99,7 @@ class AttachmentsControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_match "#{attachment_data.filename}.png", response.headers['Content-Disposition']
-    assert_match /^inline;/, response.headers['Content-Disposition']
+    assert_match %r[^inline;], response.headers['Content-Disposition']
   end
 
   test 'requesting an attachment that has not been virus checked redirects to the placeholder page' do
@@ -141,7 +141,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     assert_response :success
     assert_cache_control 'no-cache'
     assert_match attachment_data.filename, response.headers['Content-Disposition']
-    assert_match /^inline;/, response.headers['Content-Disposition']
+    assert_match %r[^inline;], response.headers['Content-Disposition']
   end
 
   view_test "GET #preview for a CSV attachment on a public edition renders the CSV preview" do

@@ -63,7 +63,7 @@ class ApplicationHelperTest < ActionView::TestCase
 
   test "should raise unless you supply the content of the list item" do
     e = assert_raise(ArgumentError) { render_list_of_ministerial_roles([]) }
-    assert_match /please supply the content of the list item/i, e.message
+    assert_match %r[please supply the content of the list item]i, e.message
   end
 
   test "should render a list of ministerial roles" do

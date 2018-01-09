@@ -14,14 +14,14 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     announcement = build(:statistics_announcement, publication_type_id: PublicationType::PolicyPaper.id)
     refute announcement.valid?
 
-    assert_match /must be a statistical type/, announcement.errors[:publication_type_id].first
+    assert_match %r[must be a statistical type], announcement.errors[:publication_type_id].first
   end
 
   test 'when unpublished, a redirect_url is required' do
     announcement = build(:unpublished_statistics_announcement, redirect_url: nil)
     refute announcement.valid?
 
-    assert_match /must be provided when unpublishing an announcement/, announcement.errors[:redirect_url].first
+    assert_match %r[must be provided when unpublishing an announcement], announcement.errors[:redirect_url].first
   end
 
   test 'when unpublished, a GOV.UK redirect_url is required' do
@@ -36,7 +36,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     announcement.redirect_url = announcement.public_path
     refute announcement.valid?
 
-    assert_match /cannot redirect to itself/, announcement.errors[:redirect_url].first
+    assert_match %r[cannot redirect to itself], announcement.errors[:redirect_url].first
   end
 
   test 'when unpublished, is valid with a GOV.UK redirect_url' do
@@ -186,7 +186,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     announcement = create(:statistics_announcement)
 
     refute announcement.cancel!('', announcement.creator)
-    assert_match /must be provided when cancelling an announcement/, announcement.errors[:cancellation_reason].first
+    assert_match %r[must be provided when cancelling an announcement], announcement.errors[:cancellation_reason].first
   end
 
   test "an announcement that has a publiction that is post-publishing is not indexable in search" do

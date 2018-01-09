@@ -270,7 +270,7 @@ class GovspeakHelperTest < ActionView::TestCase
     remover.expects(:remove).returns("remover return value")
     Whitehall::ExtraQuoteRemover.stubs(:new).returns(remover)
     edition = build(:published_publication, body: %{He said:\n> "I'm not sure what you mean!"\nOr so we thought.})
-    assert_match /remover return value/, govspeak_edition_to_html(edition)
+    assert_match %r[remover return value], govspeak_edition_to_html(edition)
   end
 
   test "should add class to last paragraph of blockquote" do

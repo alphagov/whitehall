@@ -56,7 +56,7 @@ class ConsultationTest < ActiveSupport::TestCase
 
     edition.external_url = 'bad.url'
     refute edition.valid?
-    assert_match /not valid/, edition.errors[:external_url].first
+    assert_match %r[not valid], edition.errors[:external_url].first
   end
 
   test "should be invalid if the opening time is after the closing time" do

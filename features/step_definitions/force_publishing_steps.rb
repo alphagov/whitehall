@@ -1,4 +1,4 @@
-When /^another editor retrospectively approves the "([^"]*)" publication$/ do |publication_title|
+When(/^another editor retrospectively approves the "([^"]*)" publication$/) do |publication_title|
   user = create(:departmental_editor, name: "Other editor")
   login_as user
   visit admin_editions_path(state: :published)
@@ -6,7 +6,7 @@ When /^another editor retrospectively approves the "([^"]*)" publication$/ do |p
   click_button "Looks good"
 end
 
-Then /^the "([^"]*)" publication should not be flagged as force\-published any more$/ do |publication_title|
+Then(/^the "([^"]*)" publication should not be flagged as force\-published any more$/) do |publication_title|
   visit admin_editions_path(state: :published)
   publication = Publication.find_by(title: publication_title)
   assert page.has_css? record_css_selector(publication)

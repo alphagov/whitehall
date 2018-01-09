@@ -34,7 +34,7 @@ class PersonPresenterTest < ActionView::TestCase
   test 'biography is truncated for people without a current role' do
     @person.stubs(:biography).returns("This is the first paragraph.\r\n\r\nThis is the second paragraph")
     @presenter.stubs(:in_current_role?).returns(false)
-    assert_no_match /This is the second paragraph./, @presenter.biography
+    assert_no_match %r[This is the second paragraph.], @presenter.biography
   end
 
   test "#announcements returns decorated published speeches and news articles available in the current locale in descending date" do

@@ -44,12 +44,18 @@ private
   end
 
   def assert_template_sets_page_title(template)
-    assert_match /<% page_title /, File.read(template),
-                 "could not locate setting of page title in #{template}"
+    assert_match(
+      /<% page_title /,
+      File.read(template),
+      "could not locate setting of page title in #{template}"
+    )
   end
 
   def assert_template_sets_page_title_or_uses_page_title_partial(template)
-    assert_match /<% page_title |<%= render partial: "page_title"/, File.read(template),
-                 "could not locate setting of page title in #{template}"
+    assert_match(
+      /<% page_title |<%= render partial: "page_title"/,
+      File.read(template),
+      "could not locate setting of page title in #{template}"
+    )
   end
 end

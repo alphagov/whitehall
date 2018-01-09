@@ -1,4 +1,4 @@
-Given /^there are previous prime ministers$/ do
+Given(/^there are previous prime ministers$/) do
   pm_role = create(:role, name: 'Prime Minister', slug: 'prime-minister', supports_historical_accounts: true)
   previous_pm1  = create(:ministerial_role_appointment, role: pm_role, started_at: 8.years.ago, ended_at: 4.years.ago)
   previous_pm2  = create(:ministerial_role_appointment, role: pm_role, started_at: 4.years.ago, ended_at: 1.day.ago)
@@ -15,11 +15,11 @@ Given /^there are previous prime ministers$/ do
   @most_recent_appointment = previous_pm2
 end
 
-When /^I view the past prime ministers page$/ do
+When(/^I view the past prime ministers page$/) do
   visit historic_appointments_path('past-prime-ministers')
 end
 
-Then /^I should see the previous prime ministers listed according the century in which they served$/ do
+Then(/^I should see the previous prime ministers listed according the century in which they served$/) do
   within '#modern-appointments' do
     @modern_previous_pm_appointments.each do |appointment|
       within record_css_selector(appointment) do
@@ -45,13 +45,13 @@ Then /^I should see the previous prime ministers listed according the century in
   end
 end
 
-When /^I view the most recent past prime minister$/ do
+When(/^I view the most recent past prime minister$/) do
   within '#modern-appointments' do
     find('a', text: @most_recent_appointment.person.name).click
   end
 end
 
-Then /^I should see the most recent past priminister's historical account on the page$/ do
+Then(/^I should see the most recent past priminister's historical account on the page$/) do
   assert has_content?(@most_recent_appointment.historical_account.summary)
   assert has_content?(@most_recent_appointment.historical_account.body)
 end

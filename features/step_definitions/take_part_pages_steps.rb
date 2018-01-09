@@ -1,4 +1,4 @@
-Given /^there are some take part pages for the get involved section$/ do
+Given(/^there are some take part pages for the get involved section$/) do
   page_1 = create(:take_part_page, title: 'Wearing a monocole', ordering: 2)
   page_2 = create(:take_part_page, title: 'Riding in a hansom cab', ordering: 3)
   page_3 = create(:take_part_page, title: 'Drinking in a gin palace', ordering: 1)
@@ -6,7 +6,7 @@ Given /^there are some take part pages for the get involved section$/ do
   @the_take_part_pages_in_order = [page_3, page_1, page_2]
 end
 
-When /^I create a new take part page called "([^"]*)"$/ do |title|
+When(/^I create a new take part page called "([^"]*)"$/) do |title|
   visit admin_get_involved_path
   click_on 'Take part pages'
   click_on 'Add new take part page'
@@ -21,7 +21,7 @@ When /^I create a new take part page called "([^"]*)"$/ do |title|
   @the_new_take_part_page = TakePartPage.last
 end
 
-When /^I reorder the take part pages to highlight my new page$/ do
+When(/^I reorder the take part pages to highlight my new page$/) do
   visit admin_take_part_pages_path
 
   @the_take_part_pages_in_order.each.with_index do |take_part_page, idx|
@@ -34,7 +34,7 @@ When /^I reorder the take part pages to highlight my new page$/ do
   click_on 'Update order'
 end
 
-Then /^I see the take part pages in my specified order including the new page on the frontend get involved section$/ do
+Then(/^I see the take part pages in my specified order including the new page on the frontend get involved section$/) do
   visit get_involved_path
 
   take_part_headings = page.all('.take-part-pages article h3').map(&:text)
@@ -43,7 +43,7 @@ Then /^I see the take part pages in my specified order including the new page on
   end
 end
 
-When /^I remove one of the take part pages because it's not something we want to promote$/ do
+When(/^I remove one of the take part pages because it's not something we want to promote$/) do
   visit admin_get_involved_path
   click_on 'Take part pages'
 
@@ -57,7 +57,7 @@ When /^I remove one of the take part pages because it's not something we want to
   @the_take_part_pages_in_order = [@the_take_part_pages_in_order[1]]
 end
 
-Then /^the removed take part page is no longer displayed on the frontend get involved section$/ do
+Then(/^the removed take part page is no longer displayed on the frontend get involved section$/) do
   visit get_involved_path
 
   within '.take-part-pages' do

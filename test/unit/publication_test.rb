@@ -27,7 +27,7 @@ class PublicationTest < ActiveSupport::TestCase
     test "A #{state} publication is not valid without an attachment" do
       publication = build("#{state}_publication", attachments: [])
       refute publication.valid?
-      assert_match /an attachment or HTML version before being #{state}/, publication.errors[:base].first
+      assert_match %r[an attachment or HTML version before being #{state}], publication.errors[:base].first
     end
   end
 

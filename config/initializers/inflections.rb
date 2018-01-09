@@ -10,8 +10,8 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.uncountable %w( fish sheep )
   inflect.acronym 'FOI'
 
-  inflect.plural /^(Minister)/, '\0s'
-  inflect.plural /^Chancellor/, '\0s'
+  inflect.plural %r[^(Minister)], '\0s'
+  inflect.plural %r[^Chancellor], '\0s'
 end
 
 # These inflection rules are supported but not enabled by default:
