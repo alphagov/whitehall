@@ -18,12 +18,14 @@ node {
       }
     },
     overrideTestTask: {
-      govuk.withStatsdTiming("test_task") {
-        if (params.IS_SCHEMA_TEST) {
-          echo "Running a subset of the tests to check the content schema changes"
-          govuk.runRakeTask("test:publishing_schemas --trace")
-        } else {
-          govuk.runRakeTask("ci:setup:minitest test:in_parallel --trace")
+      stage("Run tests") {
+        govuk.withStatsdTiming("test_task") {
+          if (params.IS_SCHEMA_TEST) {
+            echo "Running a subset of the tests to check the content schema changes"
+            govuk.runRakeTask("test:publishing_schemas --trace")
+          } else {
+            govuk.runRakeTask("ci:setup:minitest test:in_parallel --trace")
+          }
         }
       }
     }
