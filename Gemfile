@@ -61,6 +61,7 @@ gem 'unicorn', '5.4.0'
 gem 'validates_email_format_of'
 gem 'whenever', '~> 0.10.0', require: false
 
+# rubocop:disable Bundler/DuplicatedGem
 if ENV['GDS_API_ADAPTERS_DEV']
   gem 'gds-api-adapters', path: '../gds-api-adapters'
 else
@@ -78,6 +79,7 @@ if ENV['FRONTEND_TOOLKIT_DEV']
 else
   gem 'govuk_frontend_toolkit', '7.2.0'
 end
+# rubocop:enable Bundler/DuplicatedGem
 
 group :development, :test do
   gem 'dotenv-rails'
