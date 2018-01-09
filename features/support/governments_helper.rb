@@ -23,7 +23,7 @@ module GovernmentsHelper
     click_on "Save"
   end
 
-  def check_for_government(name:, start_date: nil, end_date: nil, current: false)
+  def check_for_government(name:, start_date: nil, end_date: nil, current: false) # rubocop:disable Lint/UnusedMethodArgument
     visit admin_governments_path
 
     government = Government.find_by_name(name)

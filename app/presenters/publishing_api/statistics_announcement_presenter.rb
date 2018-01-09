@@ -3,7 +3,7 @@ module PublishingApi
     attr_accessor :item
     attr_accessor :update_type
 
-    def initialize(item, update_type: nil)
+    def initialize(item, update_type: nil) # rubocop:disable Lint/UnusedMethodArgument
       self.item = item
       self.update_type = "minor"
     end
