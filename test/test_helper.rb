@@ -19,6 +19,7 @@ require 'whitehall/not_quite_as_fake_search'
 require 'whitehall/search_index'
 require 'sidekiq/testing/inline'
 require 'govuk-content-schema-test-helpers/test_unit'
+require 'parallel_tests/test/runtime_logger'
 
 Dir[Rails.root.join('test/support/*.rb')].each { |f| require f }
 
