@@ -12,7 +12,7 @@ class EditionCollectionPresenter
     @array.respond_to?(method)
   end
 
-  def each()
+  def each
     @array.each { |r| yield wrap_result(r) }
   end
 
