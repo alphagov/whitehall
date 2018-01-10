@@ -166,13 +166,16 @@ class Api::ResponderTest < ActiveSupport::TestCase
 
   def make_responder_for_resource(resource, options = {})
     controller = mock
-    def controller.render(options)
-      @rendered_json = options[:json]
+    controller.instance_eval do
+      def render(options)
+        @rendered_json = options[:json]
+      end
+
+      def rendered_json
+        @rendered_json
+      end
     end
 
-    def controller.rendered_json
-      @rendered_json
-    end
     request = mock
     controller.stubs(:request).returns(request)
     controller.stubs(:formats).returns([:json])
