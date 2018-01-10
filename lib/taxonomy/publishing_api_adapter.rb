@@ -10,7 +10,7 @@ module Taxonomy
 
     def published_taxon_data
       @_published_data ||= begin
-        taxons = get_root_taxons(with_drafts: false)
+        taxons = get_level_one_taxons(with_drafts: false)
         expand_taxon_array(taxons)
       end
     end
@@ -34,7 +34,7 @@ module Taxonomy
     end
 
     def all_taxon_data_including_draft
-      @_all_data ||= get_root_taxons(with_drafts: true)
+      @_all_data ||= get_level_one_taxons(with_drafts: true)
     end
 
     def draft_taxons_data
@@ -47,10 +47,10 @@ module Taxonomy
       end
     end
 
-    def get_root_taxons(with_drafts:)
+    def get_level_one_taxons(with_drafts:)
       get_expanded_links_hash(HOMEPAGE_CONTENT_ID, with_drafts: with_drafts)
         .fetch('expanded_links', {})
-        .fetch('root_taxons', [])
+        .fetch('level_one_taxons', [])
     end
 
     def get_expanded_links_hash(content_id, with_drafts:)

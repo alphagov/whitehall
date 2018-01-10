@@ -47,30 +47,30 @@ class Taxonomy::PublishingApiAdapterTest < ActiveSupport::TestCase
     }
   end
 
-  def setup_published_taxons(root_taxons)
+  def setup_published_taxons(level_one_taxons)
     homepage_expanded_links = {
       "content_id" => Taxonomy::PublishingApiAdapter::HOMEPAGE_CONTENT_ID,
       "expanded_links" => {
-        "root_taxons" => root_taxons
+        "level_one_taxons" => level_one_taxons
       }
     }
     publishing_api_has_expanded_links(homepage_expanded_links, with_drafts: false)
 
-    root_taxons.each do |taxon|
+    level_one_taxons.each do |taxon|
       publishing_api_has_expanded_links(taxon, with_drafts: true)
     end
   end
 
-  def setup_draft_taxons(root_taxons)
+  def setup_draft_taxons(level_one_taxons)
     homepage_expanded_links = {
       "content_id" => Taxonomy::PublishingApiAdapter::HOMEPAGE_CONTENT_ID,
       "expanded_links" => {
-        "root_taxons" => root_taxons
+        "level_one_taxons" => level_one_taxons
       }
     }
     publishing_api_has_expanded_links(homepage_expanded_links, with_drafts: true)
 
-    root_taxons.each do |taxon|
+    level_one_taxons.each do |taxon|
       publishing_api_has_expanded_links(taxon, with_drafts: true)
     end
   end
