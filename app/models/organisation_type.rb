@@ -35,13 +35,13 @@ class OrganisationType
     court
   ].freeze
 
-  @@instances = {}
+  cattr_accessor(:instances) { Hash.new }
 
   def self.get(key)
     key = key.to_sym
     raise KeyError, "#{key} is not a known organisation type." if DATA[key].nil?
 
-    @@instances[key] ||= new(key, DATA[key])
+    instances[key] ||= new(key, DATA[key])
   end
 
   def self.all
