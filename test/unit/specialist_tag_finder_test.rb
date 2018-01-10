@@ -14,7 +14,8 @@ class SpecialistTagFinderTest < ActiveSupport::TestCase
                            { "title" => "topic-1" },
                            { "title" => "topic-2" },
                          ],
-                       })
+                       }
+                     )
 
     content_store_has_item(edition_base_path, content_item)
 
