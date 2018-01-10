@@ -52,10 +52,10 @@ module GovspeakHelper
 
   def html_attachment_govspeak_headers_html(attachment)
     content_tag(:ol, class: ('unnumbered' if attachment.manually_numbered_headings?)) do
-      html_attachment_govspeak_headers(attachment).reduce('') do |html, header|
+      html_attachment_govspeak_headers(attachment).reduce('') { |html, header|
         css_class = header_contains_manual_numbering?(header) ? 'numbered' : nil
         html << content_tag(:li, link_to(header.text, "##{header.id}"), class: css_class)
-      end.html_safe
+      }.html_safe
     end
   end
 
@@ -120,16 +120,21 @@ private
     govspeak = set_classes_for_charts(govspeak)
     govspeak = set_classes_for_sortable_tables(govspeak)
 
-    markup_to_nokogiri_doc(govspeak, images).tap do |nokogiri_doc|
-      # post-processors
-      replace_internal_admin_links_in(nokogiri_doc, &block)
-      add_class_to_last_blockquote_paragraph(nokogiri_doc)
-      if options[:heading_numbering] == :auto
-        add_heading_numbers(nokogiri_doc)
-      elsif options[:heading_numbering] == :manual
-        add_manual_heading_numbers(nokogiri_doc)
-      end
-    end.to_html.html_safe
+    markup_to_nokogiri_doc(govspeak, images)
+      .tap { |nokogiri_doc|
+        # post-processors
+        replace_internal_admin_links_in(nokogiri_doc, &block)
+        add_class_to_last_blockquote_paragraph(nokogiri_doc)
+
+        case options[:heading_numbering]
+        when :auto
+          add_heading_numbers(nokogiri_doc)
+        when :manual
+          add_manual_heading_numbers(nokogiri_doc)
+        end
+      }
+      .to_html
+      .html_safe
   end
 
   def render_embedded_contacts(govspeak, heading_tag)

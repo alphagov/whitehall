@@ -99,11 +99,13 @@ class AttachmentUploader < WhitehallUploader
     end
 
     def extensions
-      filenames.map do |f|
-        if match = f.match(/\.([^\.]+)\Z/)
-          match[1].downcase
-        end
-      end.compact
+      filenames
+        .map { |f|
+          if (match = f.match(/\.([^\.]+)\Z/))
+            match[1].downcase
+          end
+        }
+        .compact
     end
 
     class Examiner < Struct.new(:zip_file); end

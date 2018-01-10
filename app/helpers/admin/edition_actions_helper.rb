@@ -99,16 +99,18 @@ module Admin::EditionActionsHelper
         CaseStudy,
         StatisticalDataSet,
       ]
-      edition_types.map do |edition_type|
-        if can?(:create, edition_type)
+      edition_types
+        .select { |edition_type| can?(:create, edition_type) }
+        .map { |edition_type|
           content_tag(:li, class: 'masthead-menu-item') do
             link_to(edition_type.model_name.human,
-              polymorphic_path([:new, :admin, edition_type.name.underscore]),
-              title: "Create #{edition_type.model_name.human.titleize}",
-              role: 'menuitem')
+                    polymorphic_path([:new, :admin, edition_type.name.underscore]),
+                    title: "Create #{edition_type.model_name.human.titleize}",
+                    role: 'menuitem')
           end
-        end
-      end.compact.join.html_safe
+        }
+        .join
+        .html_safe
     end
   end
 

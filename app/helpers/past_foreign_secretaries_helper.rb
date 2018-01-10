@@ -12,14 +12,13 @@ module PastForeignSecretariesHelper
       "charles-fox" => "Charles James Fox",
       "william-grenville" => "William Wyndham Grenville"
     }
-    people.map do |slug, name|
-      content_tag :li do
-        if slug == current_person
-          name.html_safe
-        else
-          link_to name.html_safe, past_foreign_secretary_path(id: slug)
+    people
+      .map { |slug, name|
+        content_tag(:li) do
+          link_to_if(slug == current_person, name.html_safe, past_foreign_secretary_path(id: slug))
         end
-      end
-    end.join('').html_safe
+      }
+      .join('')
+      .html_safe
   end
 end

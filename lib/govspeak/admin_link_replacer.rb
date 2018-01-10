@@ -49,9 +49,11 @@ module Govspeak
 
     def convert_link_for_edition(anchor, edition, options = {})
       new_html = if edition.present? && edition.linkable?
-                   anchor.dup.tap do |anchor|
-                     anchor['href'] = Whitehall.url_maker.public_document_url(edition, options)
-                   end.to_html.html_safe
+                   anchor
+                     .dup
+                     .tap { |anchor| anchor['href'] = Whitehall.url_maker.public_document_url(edition, options) }
+                     .to_html
+                     .html_safe
                  else
                    anchor.inner_text
                  end

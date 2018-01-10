@@ -48,12 +48,8 @@ module Admin::SidebarHelper
       content_tag(:li, link, class: (index == 0 ? "active" : nil))
     end
     content_tag(:div, class: ["sidebar tabbable", options[:class]].compact.join(' ')) do
-      content_tag(:ul, class: "nav nav-tabs add-bottom-margin") do
-        tab_tags.join.html_safe
-      end +
-        content_tag(:div, class: "tab-content") do
-          yield TabPaneState.new(self)
-        end
+      content_tag(:ul, class: "nav nav-tabs add-bottom-margin") { tab_tags.join.html_safe } +
+        content_tag(:div, class: "tab-content") { yield TabPaneState.new(self) }
     end
   end
 end

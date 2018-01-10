@@ -13,9 +13,10 @@ class ScheduledPublishingWorker < WorkerBase
   end
 
   def self.dequeue(edition)
-    Sidekiq::ScheduledSet.new.select do |joby|
-      joby['class'] == name && joby.args[0] == edition.id
-    end.map(&:delete)
+    Sidekiq::ScheduledSet
+      .new
+      .select { |joby| joby['class'] == name && joby.args[0] == edition.id }
+      .map(&:delete)
   end
 
   # Only used by the publishing:scheduled:requeue_all_jobs rake task.

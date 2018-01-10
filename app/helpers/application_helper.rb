@@ -116,9 +116,9 @@ module ApplicationHelper
     raise ArgumentError, "please supply the content of the list item" unless block_given?
     content_tag(:ul, class: class_name) do
       roles.each do |role|
-        li = content_tag_for(:li, role) do
+        li = content_tag_for(:li, role) {
           yield(RolePresenter.new(role, self)).html_safe
-        end.html_safe
+        }.html_safe
         concat li
       end
     end

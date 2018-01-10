@@ -14,10 +14,11 @@ module CsvSampleHelpers
   end
 
   def csv_sample(rows)
-    heading = CSV.generate_line(rows.first.keys, encoding: "UTF-8")
-    heading + rows.map do |row|
-      CSV.generate_line(row.values, encoding: "UTF-8")
-    end.join
+    encoding = "UTF-8"
+    heading = CSV.generate_line(rows.first.keys, encoding: encoding)
+    rows = rows.map { |row| CSV.generate_line(row.values, encoding: encoding) }
+
+    heading + rows.join
   end
 
   def minimally_valid_edition_row

@@ -115,7 +115,7 @@ private
   end
 
   def flatten_keys(hash, context)
-    hash.map do |key, value|
+    hash.flat_map do |key, value|
       if context.size == 1 && key == "language_names"
         # don't care about language names, each language should define
         # its own language name and nothing more
@@ -125,6 +125,6 @@ private
       else
         context[1..-1].join(".") << "." << key
       end
-    end.flatten
+    end
   end
 end

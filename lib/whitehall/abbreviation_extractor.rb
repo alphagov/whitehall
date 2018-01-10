@@ -5,15 +5,17 @@ module Whitehall
     end
 
     def extract
-      abbr_tags.map do |abbr_tag|
-        {
-          terms: [
-            abbr_tag.attr('title'),
-            abbr_tag.inner_text
-          ],
-          type: "abbreviation"
+      abbr_tags
+        .map { |abbr_tag|
+          {
+            terms: [
+              abbr_tag.attr('title'),
+              abbr_tag.inner_text,
+            ],
+            type: "abbreviation",
+          }
         }
-      end.uniq
+        .uniq
     end
 
   private
