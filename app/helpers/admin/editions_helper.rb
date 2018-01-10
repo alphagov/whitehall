@@ -223,7 +223,7 @@ module Admin::EditionsHelper
 
   def warn_about_lack_of_contacts_in_body?(edition)
     if edition.is_a?(NewsArticle) && edition.news_article_type == NewsArticleType::PressRelease
-      (govspeak_embedded_contacts(edition.body).size < 1)
+      govspeak_embedded_contacts(edition.body).size < 1
     else
       false
     end
