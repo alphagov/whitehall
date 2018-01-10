@@ -5,7 +5,7 @@ class TextDirectionTest < ActiveSupport::TestCase
 
   paths.each do |path|
     test "explicitly sets text direction for #{File.basename(path)}" do
-      data = YAML.load(File.read(path))
+      data = YAML.load(File.read(path)) # rubocop:disable Security/YAMLLoad
       locale = data.keys.first
 
       i18n = data[locale]["i18n"]

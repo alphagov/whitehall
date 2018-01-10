@@ -7,7 +7,7 @@ require 'active_support/core_ext/string' # for strip_heredoc
 class AddressFormatter::JsonTest < ActiveSupport::TestCase
   setup do
     @old_formats = AddressFormatter::Formatter.address_formats
-    AddressFormatter::Formatter.address_formats = YAML.load(%{
+    AddressFormatter::Formatter.address_formats = YAML.safe_load(%{
       gb: |-
           {{fn}}
           {{street-address}}
