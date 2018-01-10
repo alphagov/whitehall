@@ -9,7 +9,7 @@ module Whitehall
 
     def migrations
       files = if ENV["VERSION"]
-                Dir["#{@path}/#{ENV["VERSION"]}_*.rb"]
+                Dir["#{@path}/#{ENV['VERSION']}_*.rb"]
               else
                 Dir["#{@path}/*_*.rb"]
               end

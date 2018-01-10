@@ -122,7 +122,7 @@ module Admin::TaggableContentHelper
   def taggable_alternative_format_providers_container
     Rails.cache.fetch(taggable_alternative_format_providers_cache_digest, expires_in: 1.day) do
       Organisation.alphabetical.map do |o|
-        ["#{o.name} (#{o.alternative_format_contact_email.blank? ? "-" : o.alternative_format_contact_email})", o.id]
+        ["#{o.name} (#{o.alternative_format_contact_email.blank? ? '-' : o.alternative_format_contact_email})", o.id]
       end
     end
   end

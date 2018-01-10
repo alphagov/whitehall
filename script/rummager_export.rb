@@ -34,10 +34,10 @@ def export_classes(classes_to_index, id_groups)
     export_directory = Pathname.new(export_directory).expand_path
 
     if export_directory.exist? && export_directory.children.any?
-      puts "#{ENV["EXPORT_DIRECTORY"]} exists and is not empty, aborting"
+      puts "#{ENV['EXPORT_DIRECTORY']} exists and is not empty, aborting"
       exit
     else
-      puts "Starting export of #{id_groups.count} files to #{ENV["EXPORT_DIRECTORY"]}"
+      puts "Starting export of #{id_groups.count} files to #{ENV['EXPORT_DIRECTORY']}"
     end
 
     export_directory.mkpath
