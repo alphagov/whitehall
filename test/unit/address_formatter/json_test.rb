@@ -114,22 +114,22 @@ class AddressFormatter::JsonTest < ActiveSupport::TestCase
   end
 
   def gb_label
-    <<-EOF.strip_heredoc.chomp
+    <<-GB_LABEL.strip_heredoc.chomp
     Recipient
     Street
     Locality
     Region
     Postcode
     Country
-    EOF
+    GB_LABEL
   end
 
   def jp_label
-    <<-EOF.strip_heredoc.chomp
+    <<-JP_LABEL.strip_heredoc.chomp
     〒Postcode
     RegionLocalityStreet
     Recipient
     Country
-    EOF
+    JP_LABEL
   end
 end

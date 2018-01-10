@@ -91,25 +91,25 @@ private
   end
 
   def example_govspeak_html
-    <<-END
+    <<-HTML
       <div class="govspeak">
         <h2 id="heading"><span class="number">1. </span>Heading</h2>
         <p>Some content.</p>
       </div>
-    END
+    HTML
   end
 
   def example_govspeak_manually_numbered_html
-    <<-END
+    <<-HTML
       <div class="govspeak">
         <h2 id="heading">Heading</h2>
         <p>Some content.</p>
       </div>
-    END
+    HTML
   end
 
   def example_govspeak_with_image_html(image)
-    <<-END
+    <<-HTML
       <div class="govspeak">
         <h2 id="heading"><span class="number">1. </span>Heading</h2>
         <p>Some content.</p>
@@ -120,22 +120,22 @@ private
           </div>
         </figure>
       </div>
-    END
+    HTML
   end
 
   def example_headers_html
-    <<-END
+    <<-HTML
       <ol>
         <li><a href="#heading">Heading</a></li>
       </ol>
-    END
+    HTML
   end
 
   def example_manually_numbered_headers_html
-    <<-END
+    <<-HTML
       <ol class="unnumbered">
         <li><a href="#heading">Heading</a></li>
       </ol>
-    END
+    HTML
   end
 end

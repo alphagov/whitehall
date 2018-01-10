@@ -117,7 +117,7 @@ class AddressFormatter::HCardTest < ActiveSupport::TestCase
   end
 
   def gb_addr
-    <<-EOF.strip_heredoc
+    <<-GB_ADDR.strip_heredoc
     <p class="adr">
     <span class="fn">Recipient</span><br />
     <span class="street-address">Street</span><br />
@@ -126,33 +126,33 @@ class AddressFormatter::HCardTest < ActiveSupport::TestCase
     <span class="postal-code">Postcode</span><br />
     <span class="country-name">Country</span>
     </p>
-    EOF
+    GB_ADDR
   end
 
   def es_addr
-    <<-EOF.strip_heredoc
+    <<-ES_ADDR.strip_heredoc
     <p class="adr">
     <span class="fn">Recipient</span><br />
     <span class="street-address">Street</span><br />
     <span class="postal-code">Postcode</span> <span class="locality">Locality</span> <span class="region">Region</span><br />
     <span class="country-name">Country</span>
     </p>
-    EOF
+    ES_ADDR
   end
 
   def jp_addr
-    <<-EOF.strip_heredoc
+    <<-JP_ADDR.strip_heredoc
     <p class="adr">
     〒<span class="postal-code">Postcode</span><br />
     <span class="region">Region</span><span class="locality">Locality</span><span class="street-address">Street</span><br />
     <span class="fn">Recipient</span><br />
     <span class="country-name">Country</span>
     </p>
-    EOF
+    JP_ADDR
   end
 
   def addr_without_region
-    <<-EOF.strip_heredoc
+    <<-ADDR_WITHOUT_REGION.strip_heredoc
     <p class="adr">
     <span class="fn">Recipient</span><br />
     <span class="street-address">Street</span><br />
@@ -160,11 +160,11 @@ class AddressFormatter::HCardTest < ActiveSupport::TestCase
     <span class="postal-code">Postcode</span><br />
     <span class="country-name">Country</span>
     </p>
-    EOF
+    ADDR_WITHOUT_REGION
   end
 
   def addr_without_country
-    <<-EOF.strip_heredoc
+    <<-ADDR_WITHOUT_COUNTRY.strip_heredoc
     <p class="adr">
     <span class="fn">Recipient</span><br />
     <span class="street-address">Street</span><br />
@@ -172,6 +172,6 @@ class AddressFormatter::HCardTest < ActiveSupport::TestCase
     <span class="region">Region</span><br />
     <span class="postal-code">Postcode</span>
     </p>
-    EOF
+    ADDR_WITHOUT_COUNTRY
   end
 end
