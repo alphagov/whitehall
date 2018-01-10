@@ -3,7 +3,7 @@ task :describe_filters, [:topic_list_csv] => :environment do |_t, args|
   require 'rack'
   require 'json'
 
-  class FilterHelper < Struct.new(:params)
+  FilterHelper = Struct.new(:params) do
     include DocumentFilterHelper
     include Rails.application.routes.url_helpers
     Rails.application.routes.default_url_options[:host] = "www.gov.uk"

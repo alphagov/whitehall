@@ -1,5 +1,5 @@
 module Whitehall::Authority::Rules
-  class PolicyGroupRules < Struct.new(:actor, :subject)
+  PolicyGroupRules = Struct.new(:actor, :subject) do
     def can?(action)
       actor.gds_editor? && action == :delete
     end

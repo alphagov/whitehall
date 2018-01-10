@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class MinisterSorterTest < ActiveSupport::TestCase
-  class MockRole < Struct.new(:name, :seniority, :cabinet_member, :current_people)
+  MockRole = Struct.new(:name, :seniority, :cabinet_member, :current_people) do
     def cabinet_member?
       self.cabinet_member
     end
@@ -11,7 +11,7 @@ class MinisterSorterTest < ActiveSupport::TestCase
     end
   end
 
-  class MockPerson < Struct.new(:sort_key)
+  MockPerson = Struct.new(:sort_key) do
     def inspect(*_args)
       "<person #{sort_key}>"
     end

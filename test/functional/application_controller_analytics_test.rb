@@ -2,7 +2,7 @@ require "test_helper"
 
 class ApplicationControllerAnalyticsTest < ActionController::TestCase
   class TestController < ApplicationController
-    class Organisation < Struct.new(:analytics_identifier); end
+    Organisation = Struct.new(:analytics_identifier)
 
     def test_organisations
       orgs = [Organisation.new("D1"), Organisation.new("D2")]

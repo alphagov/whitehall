@@ -1,4 +1,4 @@
-class FeaturePresenter < Struct.new(:feature)
+FeaturePresenter = Struct.new(:feature) do
   include ActiveModel::Conversion
 
   def self.model_name

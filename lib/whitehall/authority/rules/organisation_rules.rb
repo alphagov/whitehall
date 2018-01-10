@@ -1,5 +1,5 @@
 module Whitehall::Authority::Rules
-  class OrganisationRules < Struct.new(:actor, :subject)
+  OrganisationRules = Struct.new(:actor, :subject) do
     def can?(action)
       case action
       when :create

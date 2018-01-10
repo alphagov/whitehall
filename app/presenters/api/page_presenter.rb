@@ -1,4 +1,4 @@
-class Api::PagePresenter < Struct.new(:page, :context)
+Api::PagePresenter = Struct.new(:page, :context) do
   def as_json(_options = {})
     {
       results: page.map(&:as_json),

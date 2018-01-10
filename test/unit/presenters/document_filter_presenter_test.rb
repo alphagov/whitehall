@@ -93,7 +93,7 @@ class DocumentFilterPresenterTest < PresenterTestCase
   end
 
   test 'decorates each documents with the given decorator class' do
-    class MyDecorator < Struct.new(:model, :context); end
+    MyDecorator = Struct.new(:model, :context)
 
     stub_document = stub(:document)
     @filter.stubs(:documents).returns(Kaminari.paginate_array([stub_document]).page(1))

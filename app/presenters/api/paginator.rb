@@ -1,4 +1,4 @@
-class Api::Paginator < Struct.new(:collection, :params)
+Api::Paginator = Struct.new(:collection, :params) do
   def self.paginate(collection, params)
     new(collection, params).page
   end

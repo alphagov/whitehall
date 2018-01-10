@@ -1,4 +1,4 @@
-class DocumentFilterPresenter < Struct.new(:filter, :context, :document_decorator)
+DocumentFilterPresenter = Struct.new(:filter, :context, :document_decorator) do
   extend Whitehall::Decorators::DelegateInstanceMethodsOf
   delegate_instance_methods_of Whitehall::DocumentFilter::Filterer, to: :filter
 
