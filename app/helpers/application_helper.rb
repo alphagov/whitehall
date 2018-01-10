@@ -112,7 +112,7 @@ module ApplicationHelper
     PersonPresenter.new(person, self).image
   end
 
-  def render_list_of_roles(roles, class_name = "ministerial_roles", &block)
+  def render_list_of_roles(roles, class_name = "ministerial_roles")
     raise ArgumentError, "please supply the content of the list item" unless block_given?
     content_tag(:ul, class: class_name) do
       roles.each do |role|
