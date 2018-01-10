@@ -1,14 +1,14 @@
-<% root_taxons.each do |root_taxon| %>
-  <% root_taxon = TopicTreePresenter.new(root_taxon, collapsed: root_taxons.size > 1) %>
+<% level_one_taxons.each do |taxon| %>
+  <% taxon = TopicTreePresenter.new(taxon, collapsed: level_one_taxons.size > 1) %>
 
-  <% if root_taxon.children.empty? %>
-    <%= render partial: "/admin/shared/tagging/sub_taxons", locals: { selected_taxons: selected_taxons, taxons: [root_taxon] } %>
+  <% if taxon.children.empty? %>
+    <%= render partial: "/admin/shared/tagging/sub_taxons", locals: { selected_taxons: selected_taxons, taxons: [taxon] } %>
   <% else %>
     <div class="topic-tree">
-      <a class="<%= root_taxon.toggle_classes %>" data-toggle="collapse" href="#<%= root_taxon.content_id %>"><span class='icon'></span><%= root_taxon.name %></a>
+      <a class="<%= taxon.toggle_classes %>" data-toggle="collapse" href="#<%= taxon.content_id %>"><span class='icon'></span><%= taxon.name %></a>
 
-      <div class="<%= root_taxon.tree_classes %>" id="<%= root_taxon.content_id %>">
-        <%= render partial: "/admin/shared/tagging/sub_taxons", locals: {selected_taxons: selected_taxons, taxons: root_taxon.children } %>
+      <div class="<%= taxon.tree_classes %>" id="<%= taxon.content_id %>">
+        <%= render partial: "/admin/shared/tagging/sub_taxons", locals: { selected_taxons: selected_taxons, taxons: taxon.children } %>
       </div>
     </div>
   <% end %>
