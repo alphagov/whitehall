@@ -74,7 +74,7 @@ Given(/^the world organisation "(.*?)" is translated into French and has an offi
   contact = create(:contact, title: office_name, country: create(:world_location, active: true),
                    street_address: "123 The Avenue")
   create(:contact_number, contact: contact, label: "English phone", number: "0123456789")
-  office = create(:worldwide_office, worldwide_organisation: organisation, contact: contact)
+  create(:worldwide_office, worldwide_organisation: organisation, contact: contact)
 end
 
 When(/^I add a french translation "(.*?)" to the "(.*?)" office$/) do |french_title, english_title|

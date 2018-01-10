@@ -92,7 +92,7 @@ end
 
 When(/^I add an "([^"]*)" office for the home page with address, phone number, and some services$/) do |description|
   service_1 = create(:worldwide_service, name: 'Dance lessons')
-  service_2 = create(:worldwide_service, name: 'Courses in advanced sword fighting')
+  _service_2 = create(:worldwide_service, name: 'Courses in advanced sword fighting')
   service_3 = create(:worldwide_service, name: 'Beard grooming')
 
   visit admin_worldwide_organisation_worldwide_offices_path(WorldwideOrganisation.last)

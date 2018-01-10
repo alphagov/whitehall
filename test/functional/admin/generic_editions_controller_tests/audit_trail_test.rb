@@ -5,7 +5,8 @@ class Admin::GenericEditionsController::AuditTrailTest < ActionController::TestC
 
   %i[show edit].each do |action|
     view_test "should show who created the document and when on #{action}" do
-      tom = login_as(create(:gds_editor, name: "Tom", email: "tom@example.com"))
+      login_as(create(:gds_editor, name: "Tom", email: "tom@example.com"))
+
       draft_edition = create(:draft_edition)
 
       request.env['HTTPS'] = 'on'

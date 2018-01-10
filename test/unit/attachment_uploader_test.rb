@@ -218,7 +218,7 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
 
   test "should scale the thumbnail down proportionally to A4" do
     identify_details = `identify "#{Rails.root.join("public", @uploader.thumbnail.path)}"`
-    path, type, geometry, rest = identify_details.split
+    _path, _type, geometry, _rest = identify_details.split
     width, height = geometry.split("x")
 
     assert (width == "105" || height == "140"), "geometry should be proportional scaled, but was #{geometry}"

@@ -51,7 +51,6 @@ Then(/^I should see a link to "([^"]*)" in the list of related documents$/) do |
 end
 
 Then(/^I should not see a link to "([^"]*)" in the list of related documents$/) do |title|
-  edition = Edition.find_by(title: title)
   assert page.has_no_css?("#inbound-links a", text: title), "unexpected link to '#{title}' found"
 end
 

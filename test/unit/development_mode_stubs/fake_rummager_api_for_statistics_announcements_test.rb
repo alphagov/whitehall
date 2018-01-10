@@ -55,41 +55,41 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
   end
 
   test "#advanced_search with :keywords returns release announcements matching title or summary" do
-    announcement_1 = create :statistics_announcement, title: "Wombats", summary: "Population in Wimbledon Common 2013"
-    announcement_2 = create :statistics_announcement, title: "Womble's troubles", summary: "Population of wombats in Wimbledon Common 2013"
-    announcement_3 = create :statistics_announcement, title: "Fishslice", summary: "Fishslice"
+    create :statistics_announcement, title: "Wombats", summary: "Population in Wimbledon Common 2013"
+    create :statistics_announcement, title: "Womble's troubles", summary: "Population of wombats in Wimbledon Common 2013"
+    create :statistics_announcement, title: "Fishslice", summary: "Fishslice"
 
     assert_equal ["Wombats", "Womble's troubles"], matched_titles(keywords: "wombat")
   end
 
   test "#advanced_search with statistics_announcement_state returns release announcements before the given date" do
-    announcement_1 = create :statistics_announcement, title: "Unwanted release announcement"
-    announcement_2 = create :cancelled_statistics_announcement, title: "Wanted release announcement"
+    create :statistics_announcement, title: "Unwanted release announcement"
+    create :cancelled_statistics_announcement, title: "Wanted release announcement"
 
     assert_equal ["Wanted release announcement"], matched_titles(statistics_announcement_state: 'cancelled')
   end
 
   test "#advanced_search with release_timestamp[:from] returns release announcements after the given date" do
-    announcement_1 = create :statistics_announcement, title: "Wanted release announcement",
-                                                      current_release_date: build(:statistics_announcement_date, release_date: 10.days.from_now)
-    announcement_2 = create :statistics_announcement, title: "Unwanted release announcement",
-                                                      current_release_date: build(:statistics_announcement_date, release_date: 5.days.from_now.iso8601)
+    create :statistics_announcement, title: "Wanted release announcement",
+           current_release_date: build(:statistics_announcement_date, release_date: 10.days.from_now)
+    create :statistics_announcement, title: "Unwanted release announcement",
+           current_release_date: build(:statistics_announcement_date, release_date: 5.days.from_now.iso8601)
 
     assert_equal ["Wanted release announcement"], matched_titles(release_timestamp: { from: 7.days.from_now.iso8601 })
   end
 
   test "#advanced_search with release_timestamp[:to] returns release announcements before the given date" do
-    announcement_1 = create :statistics_announcement, title: "Unwanted release announcement",
-                                                      current_release_date: build(:statistics_announcement_date, release_date: 10.days.from_now)
-    announcement_2 = create :statistics_announcement, title: "Wanted release announcement",
-                                                      current_release_date: build(:statistics_announcement_date, release_date: 5.days.from_now.iso8601)
+    create :statistics_announcement, title: "Unwanted release announcement",
+           current_release_date: build(:statistics_announcement_date, release_date: 10.days.from_now)
+    create :statistics_announcement, title: "Wanted release announcement",
+           current_release_date: build(:statistics_announcement_date, release_date: 5.days.from_now.iso8601)
 
     assert_equal ["Wanted release announcement"], matched_titles(release_timestamp: { to: 7.days.from_now.iso8601 })
   end
 
   test "#advanced_search with organisations returns results associated with the organisations" do
     announcement_1 = create :statistics_announcement
-    announcement_2 = create :statistics_announcement
+    _announcement_2 = create :statistics_announcement
 
     assert_equal [announcement_1.title], matched_titles(organisations: announcement_1.organisations_slugs)
   end
@@ -97,7 +97,7 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
   test "#advanced_search with topics returns results associated with the topics" do
     topic = create(:topic, name: 'A topic')
     announcement_1 = create :statistics_announcement, topics: [topic]
-    announcement_2 = create :statistics_announcement
+    _announcement_2 = create :statistics_announcement
 
     assert_equal [announcement_1.title], matched_titles(policy_areas: [topic.slug])
   end
@@ -111,7 +111,7 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
   end
 
   test "#advanced_search supports pagination" do
-    announcements = 4.times.map do |n|
+    4.times.map do |n|
       create :statistics_announcement, title: n, current_release_date: build(:statistics_announcement_date, release_date: (n + 1).days.from_now)
     end
 
@@ -130,7 +130,7 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
   end
 
   test "#advanced_search doesn't return duplicate results when announcement has 2 or more announcement dates" do
-    announcement = create :statistics_announcement, title: "stats announcement", statistics_announcement_dates: 2.times.map { |_n| build :statistics_announcement_date }
+    create :statistics_announcement, title: "stats announcement", statistics_announcement_dates: 2.times.map { |_n| build :statistics_announcement_date }
     assert_equal ['stats announcement'], matched_titles(page: '1', per_page: '10')
   end
 

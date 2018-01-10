@@ -4,9 +4,9 @@ class DocumentTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApiV2
 
   test "should return documents that have published editions" do
-    superseded_publication = create(:superseded_publication)
+    create(:superseded_publication)
+    create(:draft_publication)
     published_publication = create(:published_publication)
-    draft_publication = create(:draft_publication)
 
     assert_equal [published_publication.document], Document.published
   end
@@ -20,9 +20,9 @@ class DocumentTest < ActiveSupport::TestCase
     draft_publication.change_note = "change-note"
     force_publish(draft_publication)
 
-    superseded_publication = original_publication
+    _superseded_publication = original_publication
     published_publication = draft_publication
-    new_draft_publication = published_publication.create_draft(user)
+    _new_draft_publication = published_publication.create_draft(user)
 
     assert_equal published_publication, document.reload.published_edition
   end
@@ -51,7 +51,6 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "should no longer be published when it's edition is unpublished" do
     published_publication = create(:published_publication)
-    document = published_publication.document
     assert published_publication.document.published?
 
     published_publication.unpublish!
@@ -62,7 +61,7 @@ class DocumentTest < ActiveSupport::TestCase
   test "should ignore deleted editions when finding latest edition" do
     document = create(:document)
     original_edition = create(:published_edition, document: document)
-    deleted_edition = create(:deleted_edition, document: document)
+    _deleted_edition = create(:deleted_edition, document: document)
 
     assert_equal original_edition, document.latest_edition
   end
@@ -102,7 +101,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "#destroy also destroys document collection group memberships" do
     published_edition = create(:published_edition)
-    document_collection = create(:published_document_collection,
+    create(:published_document_collection,
       groups: [build(:document_collection_group, documents: [published_edition.document])])
 
     published_edition.document.destroy
@@ -149,7 +148,7 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "#similar_slug_exists? returns true if a document with a similar slug exists" do
-    existing = create(:news_article, title: "Latest news")
+    _existing = create(:news_article, title: "Latest news")
     draft = create(:news_article, title: "Latest news")
 
     assert draft.document.similar_slug_exists?
@@ -159,7 +158,7 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "#similar_slug_exists? scopes to documents of the same type" do
-    existing = create(:news_article, title: "UK prospers")
+    _existing = create(:news_article, title: "UK prospers")
     draft = create(:speech, title: "UK prospers")
 
     refute draft.document.similar_slug_exists?

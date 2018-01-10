@@ -115,7 +115,7 @@ private
 
   def calculate_number_of_pages
     PDF::Reader.new(path).page_count
-  rescue PDF::Reader::MalformedPDFError, PDF::Reader::UnsupportedFeatureError => e
+  rescue PDF::Reader::MalformedPDFError, PDF::Reader::UnsupportedFeatureError
     return nil
   end
 

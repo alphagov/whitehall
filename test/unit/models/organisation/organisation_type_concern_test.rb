@@ -128,12 +128,12 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
 
   test "supporting_bodies should exclude closed orgs, sub orgs, and courts and tribunals and be in alphabetical order" do
     parent_org_1 = create(:organisation)
-    parent_org_2 = create(:organisation)
+    _parent_org_2 = create(:organisation)
     child_org_1 = create(:organisation, parent_organisations: [parent_org_1], name: "b second")
-    child_org_2 = create(:sub_organisation, parent_organisations: [parent_org_1])
+    _child_org_2 = create(:sub_organisation, parent_organisations: [parent_org_1])
     child_org_3 = create(:organisation, parent_organisations: [parent_org_1], name: "a first")
-    child_org_4 = create(:closed_organisation, parent_organisations: [parent_org_1])
-    child_org_5 = create(:court, parent_organisations: [parent_org_1])
+    _child_org_4 = create(:closed_organisation, parent_organisations: [parent_org_1])
+    _child_org_5 = create(:court, parent_organisations: [parent_org_1])
     child_org_6 = create(:organisation, parent_organisations: [parent_org_1], name: "c third", organisation_type_key: :tribunal_ndpb)
 
     assert_equal [child_org_3, child_org_1, child_org_6], parent_org_1.supporting_bodies

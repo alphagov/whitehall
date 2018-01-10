@@ -270,13 +270,12 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
   view_test "GET on :edit allows entry of important board members only data to gds editors" do
     organisation = create(:organisation)
-    user = create(:gds_editor, organisation: organisation)
     junior_board_member_role = create(:board_member_role)
     senior_board_member_role = create(:board_member_role)
 
-    organisation = create(:organisation)
-    organisation_senior_board_member_role = create(:organisation_role, organisation: organisation, role: senior_board_member_role)
-    organisation_junior_board_member_role = create(:organisation_role, organisation: organisation, role: junior_board_member_role)
+    create(:gds_editor, organisation: organisation)
+    create(:organisation_role, organisation: organisation, role: senior_board_member_role)
+    create(:organisation_role, organisation: organisation, role: junior_board_member_role)
 
     get :edit, params: { id: organisation }
 

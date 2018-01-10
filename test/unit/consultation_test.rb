@@ -85,7 +85,7 @@ class ConsultationTest < ActiveSupport::TestCase
   end
 
   test ".closed excludes consultations closing in the future" do
-    open_consultation = create(:consultation, opening_at: 2.days.ago, closing_at: 1.minute.from_now)
+    _open_consultation = create(:consultation, opening_at: 2.days.ago, closing_at: 1.minute.from_now)
 
     assert_equal 0, Consultation.closed.count
   end
@@ -93,7 +93,7 @@ class ConsultationTest < ActiveSupport::TestCase
   test ".closed_since only includes consultations closed at or after the specified time" do
     closed_three_days_ago = create(:consultation, opening_at: 1.month.ago, closing_at: 3.days.ago)
     closed_two_days_ago = create(:consultation, opening_at: 1.month.ago, closing_at: 2.days.ago)
-    open = create(:consultation, opening_at: 1.month.ago, closing_at: 1.day.from_now)
+    _open = create(:consultation, opening_at: 1.month.ago, closing_at: 1.day.from_now)
 
     assert_same_elements [], Consultation.closed_since(1.days.ago)
     assert_same_elements [closed_two_days_ago], Consultation.closed_since(2.days.ago)
@@ -108,13 +108,13 @@ class ConsultationTest < ActiveSupport::TestCase
   end
 
   test ".open excludes consultations opening in the future" do
-    upcoming_consultation = create(:consultation, opening_at: 10.minutes.from_now, closing_at: 2.days.from_now)
+    _upcoming_consultation = create(:consultation, opening_at: 10.minutes.from_now, closing_at: 2.days.from_now)
 
     assert_equal 0, Consultation.open.count
   end
 
   test ".open excludes consultations closing in the past" do
-    closed_consultation = create(:consultation, opening_at: 2.days.ago, closing_at: 10.minutes.ago)
+    _closed_consultation = create(:consultation, opening_at: 2.days.ago, closing_at: 10.minutes.ago)
 
     assert_equal 0, Consultation.open.count
   end
@@ -137,8 +137,8 @@ class ConsultationTest < ActiveSupport::TestCase
   end
 
   test ".upcoming excludes consultations opening in the past" do
-    open_consultation = create(:consultation, opening_at: 10.minutes.ago, closing_at: 1.day.from_now)
-    closed_consultation = create(:consultation, opening_at: 2.days.ago, closing_at: 10.minutes.ago)
+    _open_consultation = create(:consultation, opening_at: 10.minutes.ago, closing_at: 1.day.from_now)
+    _closed_consultation = create(:consultation, opening_at: 2.days.ago, closing_at: 10.minutes.ago)
 
     assert_equal 0, Consultation.upcoming.count
   end
@@ -193,8 +193,8 @@ class ConsultationTest < ActiveSupport::TestCase
 
   test "should copy the outcome without falling over if the outcome has attachments but no summary" do
     consultation = create(:published_consultation)
-    outcome = create(:consultation_outcome, consultation: consultation, summary: '', attachments: [
-      attachment = build(:file_attachment, title: 'attachment-title', attachment_data_attributes: { file: fixture_file_upload('greenpaper.pdf') })
+    create(:consultation_outcome, consultation: consultation, summary: '', attachments: [
+      build(:file_attachment, title: 'attachment-title', attachment_data_attributes: { file: fixture_file_upload('greenpaper.pdf') })
     ])
 
     assert_nothing_raised {
@@ -224,7 +224,7 @@ class ConsultationTest < ActiveSupport::TestCase
 
   test "should copy public feedback without falling over if the feedback has attachments but no summary" do
     consultation = create(:published_consultation)
-    public_feedback = create(:consultation_public_feedback, consultation: consultation, summary: '', attachments: [
+    create(:consultation_public_feedback, consultation: consultation, summary: '', attachments: [
       build(:file_attachment, title: 'attachment-title', attachment_data_attributes: { file: fixture_file_upload('greenpaper.pdf') })
     ])
 
@@ -248,7 +248,7 @@ class ConsultationTest < ActiveSupport::TestCase
 
   test "should report that the outcome has been published if the consultation is closed and there is an outcome" do
     consultation = create(:consultation, opening_at: 2.days.ago, closing_at: 1.day.ago)
-    outcome = create(:consultation_outcome, consultation: consultation)
+    _outcome = create(:consultation_outcome, consultation: consultation)
 
     assert consultation.outcome_published?
   end

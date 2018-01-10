@@ -41,7 +41,7 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
   end
 
   view_test 'edit indicates which language is being translated to' do
-    location = create(:world_location, translated_into: [:fr])
+    create(:world_location, translated_into: [:fr])
     get :edit, params: { world_location_id: @location, id: 'fr' }
     assert_select "h1", text: /Edit ‘Français \(French\)’ translation/
   end

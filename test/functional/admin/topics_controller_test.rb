@@ -49,7 +49,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
 
   test "POST :create creates a new topic" do
     first_topic = create(:topic)
-    second_topic = create(:topic)
+    _second_topic = create(:topic)
     attributes = attributes_for(:topic)
 
     post :create, params: {
@@ -108,7 +108,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
 
   test "PUT :update re-orders editions" do
     topic = create(:topic)
-    publication = create(:publication, topics: [topic])
+    _publication = create(:publication, topics: [topic])
     association = topic.classification_memberships.first
 
     put :update, params: { id: topic.id, topic: { name: "Blah", description: "Blah", classification_memberships_attributes: {

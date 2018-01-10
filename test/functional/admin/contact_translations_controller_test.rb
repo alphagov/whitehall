@@ -30,7 +30,7 @@ class Admin::ContactTranslationsControllerTest < ActionController::TestCase
   view_test "edit displays translation boxes for contact numbers" do
     organisation = create(:organisation)
     contact = create(:contact, contactable: organisation, title: "english-title")
-    contact_number = create(:contact_number, contact: contact, number: "123456789 english-number")
+    create(:contact_number, contact: contact, number: "123456789 english-number")
 
     get :edit, params: { organisation_id: organisation, contact_id: contact, id: "fr" }
 

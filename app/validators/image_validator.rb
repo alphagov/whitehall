@@ -21,7 +21,7 @@ class ImageValidator < ActiveModel::Validator
       validate_mime_type(record, image)
       validate_size(record, image)
 
-    rescue MiniMagick::Error => e
+    rescue MiniMagick::Error
       record.errors.add(@method, "could not be read. The file may not be an image or may be corrupt")
     end
   end

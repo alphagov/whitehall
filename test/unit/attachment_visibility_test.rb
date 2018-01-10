@@ -101,7 +101,7 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
 
   test '#visible_attachment returns the attachment associated with a published edition' do
     edition               = create(:published_publication, :with_file_attachment)
-    new_draft             = edition.create_draft(create(:writer))
+    _new_draft            = edition.create_draft(create(:writer))
     attachment            = edition.attachments.first
     attachment_visibility = AttachmentVisibility.new(attachment.attachment_data, nil)
 
@@ -125,7 +125,7 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
   end
 
   test '#visible_attachment returns the attachment associated with a policy group' do
-    group = create(:policy_group, attachments: [
+    create(:policy_group, attachments: [
       attachment = build(:file_attachment)
     ])
     attachment_visibility = AttachmentVisibility.new(attachment.attachment_data, nil)

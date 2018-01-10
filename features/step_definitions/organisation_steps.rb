@@ -219,7 +219,6 @@ end
 When(/^I stop featuring the offsite link "([^"]*)" for "([^"]*)"$/) do |offsite_link_name, organisation_name|
   organisation = Organisation.find_by!(name: organisation_name)
   visit features_admin_organisation_path(organisation)
-  locale = Locale.find_by_language_name("English")
   offsite_link = OffsiteLink.find_by(title: offsite_link_name)
   within record_css_selector(offsite_link) do
     click_on "Unfeature"
@@ -415,7 +414,7 @@ end
 
 When(/^I associate a Transparency data publication to the "([^"]*)"$/) do |name|
   organisation = Organisation.find_by!(name: name)
-  publication = create(:published_publication, :transparency_data, organisations: [organisation])
+  create(:published_publication, :transparency_data, organisations: [organisation])
 end
 
 When(/^I add some featured links to the organisation "([^"]*)" via the admin$/) do |organisation_name|
@@ -537,7 +536,6 @@ When(/^I feature the topical event "([^"]*)" for "([^"]*)" with image "([^"]*)"$
   organisation = Organisation.find_by!(name: organisation_name)
   visit admin_organisation_path(organisation)
   click_link "Features"
-  locale = Locale.find_by_language_name("English")
   topical_event = TopicalEvent.find_by(name: topic)
   within record_css_selector(topical_event) do
     click_link "Feature"
@@ -550,7 +548,6 @@ end
 When(/^I stop featuring the topical event "([^"]*)" for "([^"]*)"$/) do |topic, organisation_name|
   organisation = Organisation.find_by!(name: organisation_name)
   visit features_admin_organisation_path(organisation)
-  locale = Locale.find_by_language_name("English")
   topical_event = TopicalEvent.find_by(name: topic)
   within record_css_selector(topical_event) do
     click_on "Unfeature"
@@ -558,7 +555,6 @@ When(/^I stop featuring the topical event "([^"]*)" for "([^"]*)"$/) do |topic, 
 end
 
 When(/^I choose "([^"]*)" as a sponsoring organisation of "([^"]*)"$/) do |supporting_org_name, supported_org_name|
-  supporting_organisation = Organisation.find_by!(name: supporting_org_name)
   supported_organisation = Organisation.find_by!(name: supported_org_name)
 
   visit admin_organisation_path(supported_organisation)
@@ -568,7 +564,6 @@ When(/^I choose "([^"]*)" as a sponsoring organisation of "([^"]*)"$/) do |suppo
 end
 
 Then(/^I should see "([^"]*)" listed as a sponsoring organisation of "([^"]*)"$/) do |supporting_org_name, supported_org_name|
-  supporting_organisation = Organisation.find_by!(name: supporting_org_name)
   supported_organisation = Organisation.find_by!(name: supported_org_name)
 
   ensure_path organisation_path(supported_organisation)

@@ -52,7 +52,7 @@ module Whitehall::DocumentFilter
   private
 
     def build_unclean_params(param_hash)
-      params = ActionController::Parameters.new(param_hash)
+      ActionController::Parameters.new(param_hash)
     end
   end
 end

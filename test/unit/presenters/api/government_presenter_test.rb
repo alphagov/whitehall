@@ -23,7 +23,7 @@ class Api::GovernmentPresenterTest < PresenterTestCase
   test 'links has a self link, pointing to the request-relative api government url' do
     self_link = @presenter.links.detect { |(_url, attrs)| attrs['rel'] == 'self' }
     assert self_link
-    url, attrs = *self_link
+    url, _attrs = *self_link
     assert_equal api_government_url(@government.slug), url
   end
 

@@ -21,14 +21,14 @@ class EditionRelationTest < ActiveSupport::TestCase
 
   test "should be valid if one edition is related to two others" do
     edition = create(:edition)
-    existing_relation = create(:edition_relation, edition: edition)
+    _existing_relation = create(:edition_relation, edition: edition)
     relation = build(:edition_relation, edition: edition)
     assert relation.valid?
   end
 
   test "should be valid if one edition is related from two others" do
     edition = create(:edition)
-    existing_relation = create(:edition_relation, document: edition.document)
+    _existing_relation = create(:edition_relation, document: edition.document)
     relation = build(:edition_relation, document: edition.document)
     assert relation.valid?
   end

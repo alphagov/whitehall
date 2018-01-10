@@ -53,12 +53,12 @@ class AttachableTest < ActiveSupport::TestCase
   end
 
   test "should be invalid if an edition has an attachment but not yet passed virus scanning" do
+    create(:departmental_editor)
     attachment = build(:file_attachment)
     attachment.stubs(:virus_status).returns :infected
     publication = create(:publication, :with_alternative_format_provider, attachments: [attachment])
     publication.skip_virus_status_check = false
     assert publication.valid?
-    user = create(:departmental_editor)
     publication.change_note = "change-note"
     assert_raise(ActiveRecord::RecordInvalid, "Validation failed: Attachments must have passed virus scanning") { force_publish(publication) }
     refute publication.published?
@@ -185,12 +185,13 @@ class AttachableTest < ActiveSupport::TestCase
   end
 
   test 'has html_attachments association to fetch only HtmlAttachments' do
-    publication = create(:publication, :with_file_attachment, attachments: [
-      attachment_1 = build(:file_attachment, ordering: 0),
-      attachment_2 = build(:html_attachment, title: "Test HTML attachment", ordering: 1),
-    ])
-
+    attachment_1 = build(:file_attachment, ordering: 0)
+    attachment_2 = build(:html_attachment, title: "Test HTML attachment", ordering: 1)
     attachment_3 = build(:html_attachment, title: 'Title', body: "Testing")
+
+    publication = create(:publication, :with_file_attachment,
+                         attachments: [attachment_1, attachment_2])
+
     publication.attachments << attachment_3
 
     assert_equal [attachment_2, attachment_3], publication.html_attachments.reload

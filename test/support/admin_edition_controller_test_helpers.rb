@@ -29,7 +29,7 @@ module AdminEditionControllerTestHelpers
           }
         }
 
-        saved_edition = edition.reload
+        edition.reload
         assert_equal "new-summary", edition.summary
       end
     end
@@ -527,8 +527,8 @@ module AdminEditionControllerTestHelpers
       view_test 'edit displays edition image fields' do
         image = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
         edition = create(edition_type)
-        image = create(:image, alt_text: "blah", edition: edition,
-                       image_data_attributes: attributes_for(:image_data, file: image))
+        create(:image, alt_text: "blah", edition: edition,
+               image_data_attributes: attributes_for(:image_data, file: image))
 
         get :edit, params: { id: edition }
 
@@ -1490,7 +1490,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test "should not populate world locations if user doesn't have any" do
-        world_location = create(:world_location)
+        create(:world_location)
         login_as create(:departmental_editor, world_locations: [])
         get :new
 

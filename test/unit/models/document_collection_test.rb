@@ -22,8 +22,8 @@ class DocumentCollectionTest < ActiveSupport::TestCase
     pub_1 = create(:publication)
     pub_2 = create(:publication)
 
-    group_1 = create(:document_collection_group, document_collection: doc_collection, documents: [pub_1.document])
-    group_2 = create(:document_collection_group, document_collection: doc_collection, documents: [pub_2.document])
+    create(:document_collection_group, document_collection: doc_collection, documents: [pub_1.document])
+    create(:document_collection_group, document_collection: doc_collection, documents: [pub_2.document])
 
     assert doc_collection.editions.include? pub_1
     assert doc_collection.editions.include? pub_2

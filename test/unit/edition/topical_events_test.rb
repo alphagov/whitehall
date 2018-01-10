@@ -28,7 +28,7 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
   test "#destroy should also remove the classification featuring relationship" do
     topical_event = create(:topical_event)
     edition = create(:published_news_article)
-    rel = topical_event.feature(edition_id: edition.id, alt_text: 'Woooo', image: create(:classification_featuring_image_data))
+    _rel = topical_event.feature(edition_id: edition.id, alt_text: 'Woooo', image: create(:classification_featuring_image_data))
     relation = edition.classification_featurings.first
     edition.destroy
     refute ClassificationFeaturing.find_by(id: relation.id)

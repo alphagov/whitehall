@@ -49,7 +49,6 @@ Then(/^I should see that "([^"]*)" is a minister in the "([^"]*)" with role "([^
 end
 
 Then(/^I should see that the minister is associated with the "([^"]*)"$/) do |organisation_name|
-  organisation = Organisation.find_by!(name: organisation_name)
   assert page.has_css?('.meta', text: organisation_name)
 end
 

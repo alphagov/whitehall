@@ -81,8 +81,8 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'returns enabled users' do
+    create(:disabled_user)
     user = create(:user)
-    disabled_user = create(:disabled_user)
 
     assert_equal 1, User.enabled.count
     assert_includes User.enabled, user

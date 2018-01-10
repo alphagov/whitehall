@@ -59,7 +59,7 @@ class FeatureListTest < ActiveSupport::TestCase
     feature_3 = create(:feature)
 
     feature_list_1 = create(:feature_list, locale: :en, features: [feature_1, feature_2])
-    feature_list_2 = create(:feature_list, locale: :fr, features: [feature_3])
+    _feature_list_2 = create(:feature_list, locale: :fr, features: [feature_3])
 
     refute_nil f3_original_ordering = feature_3.ordering
 
@@ -73,7 +73,7 @@ class FeatureListTest < ActiveSupport::TestCase
   test '#features should still return featured documents after republication' do
     world_location = create(:world_location)
 
-    item_a = create(:published_news_article, world_locations: [world_location])
+    _item_a = create(:published_news_article, world_locations: [world_location])
     item_b = create(:published_news_article, world_locations: [world_location])
 
     feature_list = create(:feature_list, featurable: world_location, locale: :en)

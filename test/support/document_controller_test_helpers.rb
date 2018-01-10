@@ -335,7 +335,7 @@ module DocumentControllerTestHelpers
       end
 
       view_test "show more button should not appear by default for #{edition_type}" do
-        documents = (1..3).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
+        (1..3).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
 
         with_number_of_documents_per_page(3) do
           get :index
@@ -345,7 +345,7 @@ module DocumentControllerTestHelpers
       end
 
       view_test "show more button should appear when there are more records for #{edition_type}" do
-        documents = (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
+        (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
 
         with_number_of_documents_per_page(3) do
           get :index
@@ -355,7 +355,7 @@ module DocumentControllerTestHelpers
       end
 
       view_test "should show previous page link when not on the first page for #{edition_type}" do
-        documents = (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
+        (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
 
         with_number_of_documents_per_page(3) do
           get :index, params: { page: 2 }
@@ -368,7 +368,7 @@ module DocumentControllerTestHelpers
       end
 
       view_test "should show progress helpers in pagination links for #{edition_type}" do
-        documents = (1..7).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
+        (1..7).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
 
         with_number_of_documents_per_page(3) do
           get :index, params: { page: 2 }

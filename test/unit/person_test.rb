@@ -73,7 +73,7 @@ class PersonTest < ActiveSupport::TestCase
 
   test '#previous_role_appointments excludes current appointments' do
     person = create(:person)
-    role_appointment = create(:ministerial_role_appointment, person: person, started_at: 1.year.ago, ended_at: nil)
+    create(:ministerial_role_appointment, person: person, started_at: 1.year.ago, ended_at: nil)
     assert_equal [], person.previous_role_appointments
   end
 
@@ -92,7 +92,7 @@ class PersonTest < ActiveSupport::TestCase
 
   test '#organisations excludes organisations linked through past ministerial roles' do
     person = create(:person)
-    role_appointment = create(:ministerial_role_appointment, person: person, started_at: 1.year.ago, ended_at: 1.day.ago)
+    create(:ministerial_role_appointment, person: person, started_at: 1.year.ago, ended_at: 1.day.ago)
     assert_equal [], person.organisations
   end
 
@@ -104,7 +104,7 @@ class PersonTest < ActiveSupport::TestCase
 
   test '#organisations excludes organisations linked through past board member roles roles' do
     person = create(:person)
-    role_appointment = create(:board_member_role_appointment, person: person, started_at: 1.year.ago, ended_at: 1.day.ago)
+    create(:board_member_role_appointment, person: person, started_at: 1.year.ago, ended_at: 1.day.ago)
     assert_equal [], person.organisations
   end
 

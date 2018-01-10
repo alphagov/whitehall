@@ -35,10 +35,12 @@ class DocumentHistoryTest < ActiveSupport::TestCase
   test "#changes returns change history for all historic editions, excluding those with minor changes" do
     original_edition = Timecop.travel(3.days.ago) { create(:superseded_edition, first_published_at: Time.zone.now, change_note: nil) }
     document         = original_edition.document
-    new_edition_1    = Timecop.travel(2.days.ago) { create(:superseded_edition, document: document, published_major_version: 2, published_minor_version: 0, major_change_published_at: Time.zone.now, change_note: "some changes") }
-    new_edition_2    = Timecop.travel(2.days.ago) { create(:published_edition,  document: document, published_major_version: 2, published_minor_version: 1, major_change_published_at: Time.zone.now, minor_change: true) }
-    new_edition_3    = Timecop.travel(1.day.ago)  { create(:published_edition,  document: document, published_major_version: 3, published_minor_version: 0, major_change_published_at: Time.zone.now, change_note: "more changes") }
-    history          = DocumentHistory.new(document)
+
+    Timecop.travel(2.days.ago) { create(:superseded_edition, document: document, published_major_version: 2, published_minor_version: 0, major_change_published_at: Time.zone.now, change_note: "some changes") }
+    Timecop.travel(2.days.ago) { create(:published_edition,  document: document, published_major_version: 2, published_minor_version: 1, major_change_published_at: Time.zone.now, minor_change: true) }
+    Timecop.travel(1.day.ago)  { create(:published_edition,  document: document, published_major_version: 3, published_minor_version: 0, major_change_published_at: Time.zone.now, change_note: "more changes") }
+
+    history = DocumentHistory.new(document)
 
     expected = [
       [1.day.ago, 'more changes'],
@@ -53,8 +55,9 @@ class DocumentHistoryTest < ActiveSupport::TestCase
     original_edition = create(:superseded_edition, first_published_at: 3.days.ago, change_note: nil)
     document         = original_edition.document
     updated_published_time = 6.days.ago
+
     Timecop.travel(1.day) do
-      new_edition_1 = create(:superseded_edition, document: document, first_published_at: updated_published_time, published_major_version: 1, published_minor_version: 1, minor_change: true)
+      create(:superseded_edition, document: document, first_published_at: updated_published_time, published_major_version: 1, published_minor_version: 1, minor_change: true)
     end
     history = DocumentHistory.new(document)
 
@@ -79,10 +82,12 @@ class DocumentHistoryTest < ActiveSupport::TestCase
   test "#most_recent change returns the timestamp of the most recently published edition" do
     original_edition = Timecop.travel(3.days.ago) { create(:superseded_edition, first_published_at: Time.zone.now, change_note: nil) }
     document         = original_edition.document
-    new_edition_1    = Timecop.travel(2.days.ago) { create(:superseded_edition, document: document, published_major_version: 2, published_minor_version: 0, major_change_published_at: Time.zone.now, change_note: "some changes") }
-    new_edition_2    = Timecop.travel(1.days.ago) { create(:published_edition,  document: document, published_major_version: 3, published_minor_version: 0, major_change_published_at: Time.zone.now, change_note: "more changes") }
-    new_edition_2    = create(:published_edition, document: document, published_major_version: 2, published_minor_version: 1, minor_change: true)
-    history          = DocumentHistory.new(document)
+
+    Timecop.travel(2.days.ago) { create(:superseded_edition, document: document, published_major_version: 2, published_minor_version: 0, major_change_published_at: Time.zone.now, change_note: "some changes") }
+    Timecop.travel(1.days.ago) { create(:published_edition,  document: document, published_major_version: 3, published_minor_version: 0, major_change_published_at: Time.zone.now, change_note: "more changes") }
+    create(:published_edition, document: document, published_major_version: 2, published_minor_version: 1, minor_change: true)
+
+    history = DocumentHistory.new(document)
 
     assert_equal 1.day.ago, history.most_recent_change
   end

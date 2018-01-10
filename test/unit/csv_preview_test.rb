@@ -86,7 +86,7 @@ class CsvPreviewTest < ActiveSupport::TestCase
 
   test 'raises CSV::MalformedCSVError early if the data cannot be handled by the CSV library' do
     assert_raise CSV::MalformedCSVError do
-      csv_with_blank_lines = CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/eof.csv'))
+      CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/eof.csv'))
     end
   end
 

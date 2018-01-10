@@ -32,7 +32,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "index from the courts route renders the court index" do
-    organisation = create(:organisation)
+    create(:organisation)
     court = create(:court)
     hmcts_tribunal = create(:hmcts_tribunal)
 
@@ -77,8 +77,8 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "does not show a count of organisations for courts and tribunals" do
-    court = create(:court)
-    hmcts_tribunal = create(:hmcts_tribunal)
+    create(:court)
+    create(:hmcts_tribunal)
 
     get :index, params: { courts_only: true }
 
@@ -98,7 +98,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   view_test "provides ids for links with fragment identifiers to jump to relevent sections" do
     management_role = create(:board_member_role)
-    management = create(:role_appointment, role: management_role, person: create(:person))
+    _management = create(:role_appointment, role: management_role, person: create(:person))
     contact = create(:contact)
     organisation = create_org_and_stub_content_store(:organisation, management_roles: [management_role])
     create(:sub_organisation, parent_organisations: [organisation])
@@ -125,13 +125,13 @@ class OrganisationsControllerTest < ActionController::TestCase
   def self.sets_cache_control_max_age_to_time_of_next_scheduled(edition_type)
     test "#show sets Cache-Control: max-age to the time of the next scheduled #{edition_type}" do
       organisation = create_org_and_stub_content_store(:ministerial_department)
-      edition = if block_given?
-                  yield organisation
-                else
-                  create(edition_type, :scheduled,
-                    scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2,
-                    organisations: [organisation])
-                end
+      if block_given?
+        yield organisation
+      else
+        create(edition_type, :scheduled,
+               scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2,
+               organisations: [organisation])
+      end
 
       Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
         get :show, params: { id: organisation }
@@ -391,7 +391,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     role = create(:ministerial_role, organisations: [organisation])
     role_appointment = create(:ministerial_role_appointment, role: role)
     announcement_1 = create(:published_news_article, organisations: [organisation], first_published_at: 2.days.ago)
-    announcement_2 = create(:published_speech, role_appointment: role_appointment, first_published_at: 3.days.ago)
+    _announcement_2 = create(:published_speech, role_appointment: role_appointment, first_published_at: 3.days.ago)
     announcement_3 = create(:published_news_article, organisations: [organisation], first_published_at: 1.days.ago)
 
     get :show, params: { id: organisation }
@@ -437,7 +437,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     consultation_3 = create(:published_consultation, organisations: [organisation], first_published_at: 5.days.ago, opening_at: 5.days.ago, closing_at: 1.days.ago)
     consultation_2 = create(:published_consultation, organisations: [organisation], first_published_at: 4.days.ago, opening_at: 4.days.ago, closing_at: 1.days.ago)
     consultation_1 = create(:published_consultation, organisations: [organisation], first_published_at: 3.days.ago, opening_at: 3.days.ago)
-    response = create(:consultation_outcome, consultation: consultation_3, attachments: [
+    create(:consultation_outcome, consultation: consultation_3, attachments: [
       build(:file_attachment)
     ])
 
@@ -460,11 +460,11 @@ class OrganisationsControllerTest < ActionController::TestCase
   test "should display organisation's latest two non-statistics and non-consultation publications in reverse chronological order" do
     organisation = create_org_and_stub_content_store(:organisation)
     publication_2 = create(:published_publication, organisations: [organisation], first_published_at: 2.days.ago)
-    publication_3 = create(:published_publication, organisations: [organisation], first_published_at: 3.days.ago)
+    _publication_3 = create(:published_publication, organisations: [organisation], first_published_at: 3.days.ago)
     publication_1 = create(:published_publication, organisations: [organisation], first_published_at: 1.day.ago)
 
-    consultation = create(:published_consultation, organisations: [organisation], opening_at: 1.days.ago)
-    statistics_publication = create(:published_publication, organisations: [organisation], first_published_at: 1.day.ago, publication_type: PublicationType::OfficialStatistics)
+    create(:published_consultation, organisations: [organisation], opening_at: 1.days.ago)
+    create(:published_publication, organisations: [organisation], first_published_at: 1.day.ago, publication_type: PublicationType::OfficialStatistics)
 
     get :show, params: { id: organisation }
 
@@ -493,7 +493,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   test "should display organisation's latest two statistics publications in reverse chronological order" do
     organisation = create_org_and_stub_content_store(:organisation)
     publication_2 = create(:published_publication, organisations: [organisation], first_published_at: 2.days.ago, publication_type: PublicationType::OfficialStatistics)
-    publication_3 = create(:published_publication, organisations: [organisation], first_published_at: 3.days.ago, publication_type: PublicationType::OfficialStatistics)
+    _publication_3 = create(:published_publication, organisations: [organisation], first_published_at: 3.days.ago, publication_type: PublicationType::OfficialStatistics)
     publication_1 = create(:published_publication, organisations: [organisation], first_published_at: 1.day.ago, publication_type: PublicationType::NationalStatistics)
     get :show, params: { id: organisation }
     assert_equal [publication_1, publication_2], assigns[:statistics_publications].object
@@ -520,7 +520,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   view_test "should exclude corporate information pages from Latest block" do
     organisation = create_org_and_stub_content_store(:organisation)
-    cip = create(:published_corporate_information_page, organisation: organisation, first_published_at: 1.day.ago.to_date)
+    _cip = create(:published_corporate_information_page, organisation: organisation, first_published_at: 1.day.ago.to_date)
     publication_1 = create(:published_publication, organisations: [organisation], first_published_at: 1.day.ago.to_date, publication_type: PublicationType::NationalStatistics)
     publication_2 = create(:published_publication, organisations: [organisation], first_published_at: 2.day.ago.to_date, publication_type: PublicationType::NationalStatistics)
     publication_3 = create(:published_publication, organisations: [organisation], first_published_at: 3.day.ago.to_date, publication_type: PublicationType::NationalStatistics)

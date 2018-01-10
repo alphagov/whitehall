@@ -94,7 +94,7 @@ def assert_signed_up_to_mailing_list(feed_path, expected_title)
   feed_signed_up_to = public_url(feed_path)
   expected_links = UrlToSubscriberListCriteria.new(feed_signed_up_to).convert
 
-  expected_call = lambda do |args|
+  lambda do |args|
     assert_equal expected_links, args.fetch("links")
     assert_equal expected_title, args.fetch("title")
   end

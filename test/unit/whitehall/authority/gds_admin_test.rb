@@ -25,7 +25,7 @@ class GDSAdminTest < ActiveSupport::TestCase
   end
 
   test 'can manage governments' do
-    government = Government.new
+    _government = Government.new
     assert enforcer_for(gds_admin, Government).can?(:manage)
 
     refute enforcer_for(non_gds_admin, Government).can?(:manage)

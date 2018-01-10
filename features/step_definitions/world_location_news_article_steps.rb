@@ -25,13 +25,13 @@ Then(/^I should only be able to view the world location news article article in 
 end
 
 When(/^I draft a valid world location news article "([^"]*)"$/) do |title|
-  world_location = create(:world_location, name: "Afganistan", active: true)
-  worldwide_organisation = create(:worldwide_organisation, name: "Afganistan embassy")
+  create(:world_location, name: "Afghanistan", active: true)
+  create(:worldwide_organisation, name: "Afghanistan embassy")
 
   begin_drafting_world_location_news_article title: title, body: 'test-body', summary: 'test-summary'
 
-  select "Afganistan", from: "Select the world locations this world location news article is about"
-  select "Afganistan embassy", from: "Select the worldwide organisations associated with this world location news article"
+  select "Afghanistan", from: "Select the world locations this world location news article is about"
+  select "Afghanistan embassy", from: "Select the worldwide organisations associated with this world location news article"
 
   click_button "Save"
 end

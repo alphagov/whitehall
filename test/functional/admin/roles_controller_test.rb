@@ -199,7 +199,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
                            role_type: "board_level_manager")
     }
 
-    assert role = BoardMemberRole.last
+    assert BoardMemberRole.last
   end
 
   test "create should create a new military role" do
@@ -208,7 +208,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
                            role_type: "chief_of_staff")
     }
 
-    assert role = MilitaryRole.last
+    assert MilitaryRole.last
   end
 
   test "create should create a new special representative role" do
@@ -217,7 +217,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
                            role_type: "special_representative")
     }
 
-    assert role = SpecialRepresentativeRole.last
+    assert SpecialRepresentativeRole.last
   end
 
   test "create should create a new chief professional officer role" do
@@ -226,7 +226,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
                            role_type: "chief_professional_officer")
     }
 
-    assert role = ChiefProfessionalOfficerRole.last
+    assert ChiefProfessionalOfficerRole.last
   end
 
   test "create redirects to the index on success" do

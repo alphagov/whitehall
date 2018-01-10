@@ -24,22 +24,22 @@ module Whitehall
       end
 
       test '#label_for downcase the "all" option for organisations but not the orgs themselves' do
-        organisation = create(:ministerial_department, :with_published_edition, name: "The National Archives", slug: "the-national-archives")
+        create(:ministerial_department, :with_published_edition, name: "The National Archives", slug: "the-national-archives")
 
         assert_equal "The National Archives", filter_options.label_for("departments", "the-national-archives")
         assert_equal "All departments", filter_options.label_for("departments", "all")
       end
 
       test '#label_for downcase the "all" option for world locations but not the locations themselves' do
-        location = create(:world_location, name: "United Kingdom", slug: "united-kingdom")
+        create(:world_location, name: "United Kingdom", slug: "united-kingdom")
 
         assert_equal "United Kingdom", filter_options.label_for("world_locations", "united-kingdom")
         assert_equal "All locations", filter_options.label_for("world_locations", "all")
       end
 
       test '#label_for downcases topics' do
-        topic = create(:topic, name: "Example Topic", slug: "example-topic")
-        topical_event = create(:topical_event, :active, name: "Example Topical Event", slug: "example-topical-event")
+        create(:topic, name: "Example Topic", slug: "example-topic")
+        create(:topical_event, :active, name: "Example Topical Event", slug: "example-topical-event")
 
         assert_equal "Example Topic", filter_options.label_for("topics", "example-topic")
         assert_equal "Example Topical Event", filter_options.label_for("topics", "example-topical-event")

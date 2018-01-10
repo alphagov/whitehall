@@ -87,7 +87,7 @@ module TestsForNationalApplicability
 
     view_test 'edit displays edition form with nation inapplicability fields and values' do
       edition = create_edition
-      northern_ireland_inapplicability = edition.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://www.discovernorthernireland.com/")
+      edition.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://www.discovernorthernireland.com/")
 
       get :edit, params: { id: edition }
 

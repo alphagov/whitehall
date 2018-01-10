@@ -43,12 +43,8 @@ class AttachmentDataReporter
 
 private
 
-  def accessible_count(attachments)
-    attachments.inject(0) { |sum, a| sum += a.accessible ? 1 : 0 }
-  end
-
   def accessible_details(attachments)
-    count = accessible_count(attachments)
+    count = attachments.count(&:accessible?)
     "#{count} (#{percentage(count, attachments.size)})"
   end
 

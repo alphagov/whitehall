@@ -65,10 +65,10 @@ class DocumentFilterHelperTest < ActionView::TestCase
 
   test "#organisation_filter_options return organisations as select options grouped into \
     'Ministerial departments', 'Other departments & public bodies' and 'Closed organisations'" do
-    ministerial_dept = create(:ministerial_department, :with_published_edition, name: "Ministerial department")
-    other_dept = create(:executive_office, :with_published_edition, name: "Other department")
-    closed_ministerial_dept = create(:ministerial_department, :with_published_edition, :closed, name: "1-Closed Ministerial department")
-    closed_other_dept = create(:executive_office, :with_published_edition, :closed, name: "2-Closed Other department")
+    _ministerial_dept = create(:ministerial_department, :with_published_edition, name: "Ministerial department")
+    _other_dept = create(:executive_office, :with_published_edition, name: "Other department")
+    _closed_ministerial_dept = create(:ministerial_department, :with_published_edition, :closed, name: "1-Closed Ministerial department")
+    _closed_other_dept = create(:executive_office, :with_published_edition, :closed, name: "2-Closed Other department")
 
     option_set = Nokogiri::HTML::DocumentFragment.parse(organisation_filter_options)
 

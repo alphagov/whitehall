@@ -30,7 +30,7 @@ class ImageTest < ActiveSupport::TestCase
   test "does not destroy image data when other images are associated with it" do
     image = create(:image)
     image_data = image.image_data
-    other_image = create(:image, image_data: image_data)
+    _other_image = create(:image, image_data: image_data)
 
     image_data.expects(:destroy).never
     image.destroy

@@ -23,7 +23,7 @@ class EmbassiesControllerTest < ActionController::TestCase
                                     worldwide_organisation: aruban_org,
                                     worldwide_office_type: WorldwideOfficeType::Embassy)
 
-    sealand = create(:world_location, name: "Sealand")
+    create(:world_location, name: "Sealand")
 
     get :index
 

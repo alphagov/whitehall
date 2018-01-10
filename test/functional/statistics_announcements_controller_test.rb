@@ -28,24 +28,33 @@ class StatisticsAnnouncementsControllerTest < ActionController::TestCase
       organisation = create :organisation, name: "Ministry of beards"
       topic = create :topic, name: "Facial hair trends"
 
-      announcement = create :statistics_announcement, title: "Average beard lengths 2015",
-                                                      publication_type_id: PublicationType::NationalStatistics.id,
-                                                      organisation_ids: [organisation.id],
-                                                      topics: [topic],
-                                                      current_release_date: build(:statistics_announcement_date,
-                                                                                  release_date: Time.zone.parse("2050-01-01 09:30:00"),
-                                                                                  precision: StatisticsAnnouncementDate::PRECISION[:exact],
-                                                                                  confirmed: true)
+      past_announcement_date = build(
+        :statistics_announcement_date,
+        release_date: Time.zone.parse("2050-01-01 09:30:00"),
+        precision: StatisticsAnnouncementDate::PRECISION[:exact],
+        confirmed: true
+      )
 
-      old_announcement = create :statistics_announcement, title: "Average moustache lengths 2013",
-                                                          publication_type_id: PublicationType::NationalStatistics.id,
-                                                          organisation_ids: [organisation.id],
-                                                          topics: [topic],
-                                                          current_release_date: build(:statistics_announcement_date,
-                                                                                      release_date: Time.zone.parse("2013-01-01 09:30:00"),
-                                                                                      precision: StatisticsAnnouncementDate::PRECISION[:exact],
-                                                                                      confirmed: true)
+      future_announcement_date = build(
+        :statistics_announcement_date,
+        release_date: Time.zone.parse("2013-01-01 09:30:00"),
+        precision: StatisticsAnnouncementDate::PRECISION[:exact],
+        confirmed: true
+      )
 
+      create(:statistics_announcement,
+             title: "Average beard lengths 2050",
+             publication_type_id: PublicationType::NationalStatistics.id,
+             organisation_ids: [organisation.id],
+             topics: [topic],
+             current_release_date: past_announcement_date)
+
+      create(:statistics_announcement,
+             title: "Average moustache lengths 2013",
+             publication_type_id: PublicationType::NationalStatistics.id,
+             organisation_ids: [organisation.id],
+             topics: [topic],
+             current_release_date: future_announcement_date)
 
       get :index
 
@@ -54,7 +63,7 @@ class StatisticsAnnouncementsControllerTest < ActionController::TestCase
       rendered = Nokogiri::HTML::Document.parse(response.body)
       list_item = rendered.css('.document-list li').first
 
-      assert_string_includes "Average beard lengths 2015", list_item.text
+      assert_string_includes "Average beard lengths 2050", list_item.text
       assert_string_includes "National Statistics", list_item.text
       assert_string_includes "1 January 2050 9:30am", list_item.text
       assert_has_link organisation.name, organisation_path(organisation), list_item

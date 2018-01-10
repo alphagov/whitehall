@@ -85,12 +85,12 @@ class PublicationTest < ActiveSupport::TestCase
 
   test ".published_before returns editions whose first_published_at is before the given date" do
     jan = create(:publication, first_published_at: Date.parse("2011-01-01"))
-    feb = create(:publication, first_published_at: Date.parse("2011-02-01"))
+    _feb = create(:publication, first_published_at: Date.parse("2011-02-01"))
     assert_equal [jan], Publication.published_before("2011-01-29").to_a
   end
 
   test ".published_after returns editions whose first_published_at is after the given date" do
-    jan = create(:publication, first_published_at: Date.parse("2011-01-01"))
+    _jan = create(:publication, first_published_at: Date.parse("2011-01-01"))
     feb = create(:publication, first_published_at: Date.parse("2011-02-01"))
     assert_equal [feb], Publication.published_after("2011-01-29").to_a
   end

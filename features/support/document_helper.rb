@@ -88,10 +88,9 @@ module DocumentHelper
     organisation = create(:ministerial_department)
     person = create_person("Colonel Mustard")
     role = create(:ministerial_role, name: "Attorney General", organisations: [organisation])
-    role_appointment = create(:role_appointment, person: person, role: role, started_at: Date.parse('2010-01-01'))
-    speech_type = SpeechType::Transcript
+    create(:role_appointment, person: person, role: role, started_at: Date.parse('2010-01-01'))
     begin_drafting_document options.merge(type: 'speech', summary: "Some summary of the content", previously_published: false)
-    select speech_type.singular_name, from: "Speech type"
+    select SpeechType::Transcript.singular_name, from: "Speech type"
     select "Colonel Mustard, Attorney General", from: "Speaker"
     select_date 1.day.ago.to_s, from: "Delivered on"
     fill_in "Location", with: "The Drawing Room"

@@ -17,10 +17,7 @@ end
 
 Given(/^a published publication called "([^"]*)" with feedback "([^"]*)" exists$/) do |title, comments|
   publication = create(:published_publication, title: title)
-  fact_check_request = create(:fact_check_request,
-                              edition: publication,
-                              email_address: "user@example.com",
-                              comments: comments)
+  create(:fact_check_request, edition: publication, email_address: "user@example.com", comments: comments)
 end
 
 When(/^"([^"]*)" clicks the email link to the draft publication$/) do |email_address|

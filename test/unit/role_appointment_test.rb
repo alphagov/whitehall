@@ -112,7 +112,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
     role = create(:ministerial_role)
 
-    original_appointment = create(:role_appointment, role: role, person: alice, started_at: 3.days.ago)
+    _original_appointment = create(:role_appointment, role: role, person: alice, started_at: 3.days.ago)
 
     assert_equal alice, role.current_person, "the minister should be alice"
     assert_equal [role], alice.current_roles, "alice should be the minister"
@@ -259,7 +259,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
     role = create(:ministerial_role)
 
-    original_appointment = create(:role_appointment, role: role, person: alice, started_at: 3.days.ago)
+    _original_appointment = create(:role_appointment, role: role, person: alice, started_at: 3.days.ago)
 
     assert_equal alice, role.current_person, "the minister should be alice"
     assert_equal [role], alice.current_roles, "alice should be the minister"
@@ -316,14 +316,14 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
   test "setting make_current should only result in a valid appointment if started_at is greater than all others" do
     role = create(:ministerial_role)
-    original_appointment = create(:role_appointment, role: role, started_at: 3.days.ago)
+    _original_appointment = create(:role_appointment, role: role, started_at: 3.days.ago)
     refute build(:role_appointment, role: role, started_at: 4.days.ago, make_current: true).valid?
   end
 
   test "should not overwrite ended_at if ended_at already set" do
     role = create(:role)
     existing_appointment = create(:role_appointment, role: role, started_at: 20.days.ago, ended_at: 10.days.ago)
-    new_appointment = create(:role_appointment, role: role, started_at: 5.days.ago, ended_at: nil, make_current: true)
+    _new_appointment = create(:role_appointment, role: role, started_at: 5.days.ago, ended_at: nil, make_current: true)
 
     existing_appointment.reload
     assert_equal 10.days.ago, existing_appointment.ended_at
@@ -332,7 +332,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
   test "should set ended_at on existing appointment to started_at on new appointment" do
     role = create(:role)
     existing_appointment = create(:role_appointment, role: role, started_at: 20.days.ago, ended_at: nil, make_current: true)
-    new_appointment = create(:role_appointment, role: role, started_at: 10.days.ago, ended_at: nil, make_current: true)
+    _new_appointment = create(:role_appointment, role: role, started_at: 10.days.ago, ended_at: nil, make_current: true)
 
     existing_appointment.reload
     assert_equal 10.days.ago, existing_appointment.ended_at
@@ -384,7 +384,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     some_other_role = create(:ambassador_role)
     first_pm_appt = create(:role_appointment, role: pm, started_at: 10.days.ago, ended_at: 9.days.ago)
     deputy_pm_appt = create(:role_appointment, role: deputy_pm, started_at: 12.days.ago)
-    other_appt = create(:role_appointment, role: some_other_role, started_at: 3.days.ago)
+    _other_appt = create(:role_appointment, role: some_other_role, started_at: 3.days.ago)
     second_pm_appt = create(:role_appointment, role: pm, started_at: 8.days.ago)
 
     assert_same_elements [first_pm_appt, deputy_pm_appt, second_pm_appt], RoleAppointment.for_ministerial_roles

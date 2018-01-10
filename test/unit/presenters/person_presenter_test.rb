@@ -40,8 +40,8 @@ class PersonPresenterTest < ActionView::TestCase
   test "#announcements returns decorated published speeches and news articles available in the current locale in descending date" do
     speech_1 = build(:published_speech, first_published_at: 1.day.ago)
     speech_2 = build(:published_speech, first_published_at: 30.days.ago, translated_into: :cy)
-    speech_3 = build(:draft_speech)
-    news_1   = build(:published_news_article, first_published_at: 4.days.ago, translated_into: :cy)
+    _speech_3 = build(:draft_speech)
+    news_1 = build(:published_news_article, first_published_at: 4.days.ago, translated_into: :cy)
     role_appointment = create(:ministerial_role_appointment, news_articles: [news_1], speeches: [speech_1, speech_2])
     presenter = PersonPresenter.new(role_appointment.person)
 

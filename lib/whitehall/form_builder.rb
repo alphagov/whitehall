@@ -9,7 +9,7 @@ module Whitehall
         end
       end
       options.delete(:required)
-      label_tag = super(method, text, options)
+      super(method, text, options)
     end
 
     def labelled_radio_button(label_text, *radio_button_args)

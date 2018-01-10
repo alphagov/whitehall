@@ -77,7 +77,9 @@ class GovspeakContentWorkerTest < ActiveSupport::TestCase
   end
 
   test "silently handles non-existant GovspeakContent" do
-    GovspeakContentWorker.new.perform(non_existant_id = 123)
+    non_existant_id = 123
+
+    GovspeakContentWorker.new.perform(non_existant_id)
   end
 
 private

@@ -13,7 +13,7 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
 
   test "filtering past releases returns them in reverse date order" do
     last_week  = statistics_announcement_for(1.week.ago)
-    future     = statistics_announcement_for(1.day.from_now)
+    _future    = statistics_announcement_for(1.day.from_now)
     last_month = statistics_announcement_for(1.month.ago)
 
     assert_equal [last_week, last_month].map(&:id),
@@ -21,10 +21,10 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
   end
 
   test "filtering future releases returns them in date order" do
-    today      = statistics_announcement_for(1.hour.from_now)
-    past       = statistics_announcement_for(1.week.ago)
-    tomorrow   = statistics_announcement_for(1.day.from_now)
-    last_month = statistics_announcement_for(1.month.ago)
+    today = statistics_announcement_for(1.hour.from_now)
+    _past = statistics_announcement_for(1.week.ago)
+    tomorrow = statistics_announcement_for(1.day.from_now)
+    _last_month = statistics_announcement_for(1.month.ago)
 
     assert_equal [today, tomorrow].map(&:id),
       filter(dates: 'future').statistics_announcements.map(&:id)
@@ -32,9 +32,9 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
 
   test "filtering for imminent announcements returns them in date order" do
     today      = statistics_announcement_for(1.hour.from_now)
-    past       = statistics_announcement_for(1.week.ago)
+    _past       = statistics_announcement_for(1.week.ago)
     tomorrow   = statistics_announcement_for(1.day.from_now)
-    one_month  = statistics_announcement_for(1.month.from_now)
+    _one_month = statistics_announcement_for(1.month.from_now)
 
     assert_equal [today, tomorrow].map(&:id),
       filter(dates: 'imminent').statistics_announcements.map(&:id)
@@ -57,8 +57,8 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
   end
 
   test "can filter by title" do
-    match    = create(:statistics_announcement, title: "MQ5 statistics")
-    no_match = create(:statistics_announcement, title: "PQ5 statistics")
+    match = create(:statistics_announcement, title: "MQ5 statistics")
+    _no_match = create(:statistics_announcement, title: "PQ5 statistics")
 
     assert_equal [match], filter(title: "mq5").statistics_announcements
   end
@@ -66,7 +66,7 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
   test "can filter by organisation" do
     organisation = create(:organisation)
     match        = create(:statistics_announcement, organisation_ids: [organisation.id])
-    no_match     = create(:statistics_announcement)
+    _no_match    = create(:statistics_announcement)
 
     assert_equal [match],
       filter(organisation_id: organisation.id).statistics_announcements
@@ -174,7 +174,7 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
 
   test "excludes unpublished announcements" do
     stub_any_publishing_api_call
-    deleted = create(:unpublished_statistics_announcement)
+    _deleted = create(:unpublished_statistics_announcement)
     published = create(:statistics_announcement)
 
     assert_equal [published.id], filter.statistics_announcements.map(&:id)

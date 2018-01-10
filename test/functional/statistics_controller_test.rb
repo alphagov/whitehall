@@ -34,8 +34,8 @@ class StatisticsControllerTest < ActionController::TestCase
   end
 
   test "#index sets Cache-Control: max-age to the time of the next scheduled publication" do
-    user = login_as(:departmental_editor)
-    publication = create(:scheduled_publication, :statistics, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
+    login_as(:departmental_editor)
+    create(:scheduled_publication, :statistics, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
 
     Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
       get :index
@@ -149,7 +149,7 @@ class StatisticsControllerTest < ActionController::TestCase
   end
 
   view_test '#index should show relevant document collection information' do
-    editor = create(:departmental_editor)
+    create(:departmental_editor)
     statistics = create(:draft_statistics)
     collection = create(:document_collection, :with_group)
     collection.groups.first.documents = [statistics.document]
@@ -165,7 +165,7 @@ class StatisticsControllerTest < ActionController::TestCase
   end
 
   view_test '#index requested as JSON includes document collection information' do
-    editor = create(:departmental_editor)
+    create(:departmental_editor)
     statistics = create(:draft_statistics)
     collection = create(:document_collection, :with_group)
     collection.groups.first.documents = [statistics.document]

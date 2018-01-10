@@ -23,13 +23,11 @@ end
 
 def update_mainstream_url(id, clean_url)
   detailed_guide = DetailedGuide.find(id)
-  incorrect_url = detailed_guide.related_mainstream_content_url
   detailed_guide.update_attribute(:related_mainstream_content_url, clean_url)
 end
 
 def update_additional_related_mainstream_url(id, clean_url)
   detailed_guide = DetailedGuide.find(id)
-  incorrect_url = detailed_guide.additional_related_mainstream_content_url
   detailed_guide.update_attribute(:additional_related_mainstream_content_url, clean_url)
 end
 

@@ -16,7 +16,7 @@ class Edition::FactCheckableTest < ActiveSupport::TestCase
       Timecop.freeze time_0
       old_complete_fcr = create(:fact_check_request, edition: old_edition, comments: "Stuff")
       Timecop.freeze time_0 + 1
-      old_incomplete_fcr = create(:fact_check_request, edition: old_edition)
+      _old_incomplete_fcr = create(:fact_check_request, edition: old_edition)
       new_edition = old_edition.create_draft(user)
       Timecop.freeze time_0 + 2
       new_complete_fcr = create(:fact_check_request, edition: new_edition, comments: "Stuff")

@@ -13,7 +13,7 @@ class CacheControlHelperTest < ActionView::TestCase
   test "sends an expiry header using the max_age for the earliest scheduled item" do
     scheduled_editions = [
       stub("edition 1", scheduled_publication: 33.seconds.from_now),
-      earliest = stub("edition 2", scheduled_publication: 5.seconds.from_now),
+      stub("edition 2", scheduled_publication: 5.seconds.from_now),
       stub("edition 3", scheduled_publication: 23.seconds.from_now),
     ]
 

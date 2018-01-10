@@ -26,7 +26,6 @@ class PersonSlugChangerTest < ActiveSupport::TestCase
 
     redirect_uuid = SecureRandom.uuid
     SecureRandom.stubs(uuid: redirect_uuid)
-    old_base_path = @person.search_link
     new_base_path = "/government/people/updated-slug"
 
     content_item = PublishingApiPresenters.presenter_for(@person)

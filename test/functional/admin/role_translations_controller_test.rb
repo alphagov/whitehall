@@ -77,7 +77,7 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
   end
 
   view_test 'edit indicates which language is being translated to' do
-    role = create(:role, translated_into: [:fr])
+    create(:role, translated_into: [:fr])
     get :edit, params: { role_id: @role, id: 'fr' }
     assert_select "h1", text: /Edit ‘Français \(French\)’ translation/
   end

@@ -10,8 +10,6 @@ id_to_url_mapping = policies_and_supporting_pages.inject({}) { |hash, edition|
   id = edition.id.to_s
   slug = edition.slug
 
-  edition = nil
-
   hash.merge(
     id => url,
     slug => url,

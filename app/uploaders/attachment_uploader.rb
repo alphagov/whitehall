@@ -94,7 +94,7 @@ class AttachmentUploader < WhitehallUploader
         @filenames = zipinfo_output.split(/[\r\n]+/)
       end
       @filenames
-    rescue ArgumentError => e
+    rescue ArgumentError
       raise NonUTF8ContentsError, "Some filenames in zip aren't UTF-8: #{zipinfo_output}"
     end
 

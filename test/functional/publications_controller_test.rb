@@ -46,7 +46,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   test "#index sets Cache-Control: max-age to the time of the next scheduled publication" do
-    publication = create(:scheduled_publication, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
+    create(:scheduled_publication, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
 
     Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
       get :index
@@ -143,7 +143,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "#index orders documents by appropriate timestamp by default" do
-    documents = [
+    [
       consultation = create(:published_consultation, first_published_at: 5.days.ago),
       publication = create(:published_publication, first_published_at: 4.days.ago)
     ]
@@ -380,7 +380,7 @@ class PublicationsControllerTest < ActionController::TestCase
     other_organisation = create(:organisation, name: "other-org")
     publication_1 = create(:published_publication, organisations: [organisation], first_published_at: 2.days.ago.to_date)
     consultation_1 = create(:published_consultation, organisations: [organisation], opening_at: 1.day.ago)
-    publication_2 = create(:published_publication, organisations: [other_organisation])
+    _publication_2 = create(:published_publication, organisations: [other_organisation])
 
     get :index, params: { departments: [organisation.to_param] }, format: :atom
 
@@ -457,7 +457,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test '#index atom feed should render fractions' do
-    publication = create(:published_publication, body: "My favourite fraction is [Fraction:1/4].")
+    create(:published_publication, body: "My favourite fraction is [Fraction:1/4].")
 
     get :index, format: :atom
 
@@ -472,7 +472,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test '#index should show relevant document collection information' do
-    editor = create(:departmental_editor)
+    create(:departmental_editor)
     publication = create(:draft_publication)
     collection = create(:document_collection, :with_group)
     collection.groups.first.documents = [publication.document]
@@ -487,7 +487,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test '#index requested as JSON includes document collection information' do
-    editor = create(:departmental_editor)
+    create(:departmental_editor)
     publication = create(:draft_publication)
     collection = create(:document_collection, :with_group)
     collection.groups.first.documents = [publication.document]

@@ -130,7 +130,6 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     }
 
     assert_equal 1, worldwide_organisation.offices.count
-    assert office = worldwide_organisation.offices.first
     assert_equal ["Main phone: 1234"], office.contact.contact_numbers.map { |cn| "#{cn.label}: #{cn.number}" }
   end
 

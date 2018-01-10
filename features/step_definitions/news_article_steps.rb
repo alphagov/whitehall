@@ -5,7 +5,6 @@ Given(/^a published news article "([^"]*)" with related published policies "([^"
 end
 
 Given(/^a published news article "([^"]*)" associated with "([^"]*)"$/) do |title, appointee|
-  person = find_person(appointee)
   appointment = find_person(appointee).current_role_appointments.last
   create(:published_news_article, title: title, role_appointments: [appointment])
 end

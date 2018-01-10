@@ -288,7 +288,7 @@ private
 
   def create_announcement_with_changes
     announcement = create(:cancelled_statistics_announcement)
-    minor_change = Timecop.travel(1.day) do
+    _first_minor_change = Timecop.travel(1.day) do
       create(:statistics_announcement_date,
               statistics_announcement: announcement,
               release_date: announcement.release_date + 1.week)
@@ -299,7 +299,7 @@ private
               release_date: announcement.release_date + 1.month,
               change_note: 'Delayed because of census')
     end
-    minor_change = Timecop.travel(3.days) do
+    _second_minor_change = Timecop.travel(3.days) do
       create(:statistics_announcement_date,
               statistics_announcement: announcement,
               release_date: major_change.release_date,

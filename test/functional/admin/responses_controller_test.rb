@@ -36,7 +36,7 @@ class Admin::ResponsesControllerTest < ActionController::TestCase
   end
 
   view_test "GET :show when consultation has an outcome shows the outcome details and includes an edit link" do
-    outcome = create_outcome
+    create_outcome
     get :show, params: { consultation_id: @consultation, type: 'ConsultationOutcome' }
 
     assert_response :success
@@ -45,7 +45,7 @@ class Admin::ResponsesControllerTest < ActionController::TestCase
   end
 
   view_test "GET :show when consultation has public feedback shows the feedback details and includes an edit link" do
-    feedback = create_feedback
+    create_feedback
     get :show, params: { consultation_id: @consultation, type: 'ConsultationPublicFeedback' }
 
     assert_response :success

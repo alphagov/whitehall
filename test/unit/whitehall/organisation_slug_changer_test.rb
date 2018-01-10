@@ -54,7 +54,7 @@ module Whitehall
       @router.unstub(:add_redirect_route) # Necessary otherwise the .never assertion below would never fail.
       @router.stubs(:add_redirect_route).with("/government/organisations/#{@organisation.slug}", any_parameters)
 
-      about = create(:about_corporate_information_page, organisation: @organisation)
+      create(:about_corporate_information_page, organisation: @organisation)
       cip_1 = create(:published_corporate_information_page, organisation: @organisation,
                     corporate_information_page_type_id: CorporateInformationPageType::PublicationScheme.id)
       cip_2 = create(:published_corporate_information_page, organisation: @organisation,

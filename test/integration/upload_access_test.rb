@@ -4,7 +4,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
   include CacheControlTestHelpers
 
   def path_to_clean_upload(path)
-    path = File.join(Whitehall.clean_uploads_root, path.from("/government/uploads".size))
+    File.join(Whitehall.clean_uploads_root, path.from("/government/uploads".size))
   end
 
   def nginx_path_to_clean_upload(path)
@@ -158,13 +158,11 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
     alternative_format_provider = create(:organisation_with_alternative_format_contact_email)
     attachment = build(:file_attachment)
 
-    limited_access_publication = create(
-      :draft_publication,
-      publication_type: PublicationType::NationalStatistics,
-      alternative_format_provider: alternative_format_provider,
-      access_limited: true,
-      attachments: [attachment]
-    )
+    create(:draft_publication,
+           publication_type: PublicationType::NationalStatistics,
+           alternative_format_provider: alternative_format_provider,
+           access_limited: true,
+           attachments: [attachment])
     VirusScanHelpers.simulate_virus_scan(attachment.attachment_data.file)
 
     AttachmentsController.any_instance.stubs(:current_user).returns(create(:user))

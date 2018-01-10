@@ -60,7 +60,7 @@ module PublicDocumentRoutesHelper
                             when String
                               Organisation.find_by(slug: slug_or_organisation)
                             when Organisation
-                              organisation_or_court = slug_or_organisation
+                              slug_or_organisation
                             else
                               raise ArgumentError.new("Must provide a slug or Organisation")
                             end

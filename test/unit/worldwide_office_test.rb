@@ -76,7 +76,7 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
   test 'returns custom access info ahead of a default one it present' do
     office = create(:worldwide_office)
     create(:access_and_opening_times, accessible: office.worldwide_organisation)
-    custom_access_and_opening_times = create(:access_and_opening_times, accessible: office, body: 'custom body')
+    create(:access_and_opening_times, accessible: office, body: 'custom body')
     assert_equal 'custom body', office.access_and_opening_times_body
   end
 

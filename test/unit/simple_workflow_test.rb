@@ -36,7 +36,7 @@ class SimpleWorkflowTest < ActiveSupport::TestCase
 
   test "should exclude deleted topics by default" do
     current_topic = create(:topic)
-    deleted_topic = create(:topic, state: "deleted")
+    _deleted_topic = create(:topic, state: "deleted")
     assert_equal [current_topic], Topic.all
   end
 end

@@ -54,7 +54,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   view_test '#index should show unpublishing information' do
-    edition = create(:unpublished_edition)
+    create(:unpublished_edition)
     get :index, params: { state: :active }, xhr: true
 
     assert_select 'td.title', text: /edition.title/
@@ -171,7 +171,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   test "index should redirect to department if logged in with no remembered filters" do
     organisation = create(:organisation)
-    editor = login_as create(:departmental_editor, organisation: organisation)
+    login_as create(:departmental_editor, organisation: organisation)
     get :index
     assert_redirected_to admin_editions_path(organisation: organisation.id, state: :active)
   end

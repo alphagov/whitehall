@@ -77,7 +77,7 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
 
   test 'cannot unpublish a published edition if a newer submitted version exists' do
     edition = create(:published_edition)
-    submitted_edition = create(:submitted_edition, document: edition.document)
+    _submitted_edition = create(:submitted_edition, document: edition.document)
     unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
 
     refute unpublisher.can_perform?

@@ -21,14 +21,14 @@ class ClassificationRelationTest < ActiveSupport::TestCase
 
   test "should be valid if one topic is related to two others" do
     topic = create(:topic)
-    existing_relation = create(:classification_relation, topic: topic)
+    _existing_relation = create(:classification_relation, topic: topic)
     relation = build(:classification_relation, topic: topic)
     assert relation.valid?
   end
 
   test "should be valid if one topic is related from two others" do
     topic = create(:topic)
-    existing_relation = create(:classification_relation, related_topic: topic)
+    _existing_relation = create(:classification_relation, related_topic: topic)
     relation = build(:classification_relation, related_topic: topic)
     assert relation.valid?
   end

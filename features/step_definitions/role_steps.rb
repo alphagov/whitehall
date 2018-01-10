@@ -11,9 +11,11 @@ Given(/^I visit the people page for "(.*?)"$/) do |name|
 end
 
 Given(/^a person called "([^"]*)" is assigned as its ambassador "([^"]*)"$/) do |person_name, role_name|
-  person = create_person(person_name)
-  role = create(:ambassador_role, name: role_name, worldwide_organisations: [WorldwideOrganisation.last])
-  role_appointment = create(:ambassador_role_appointment, role: role, person: person)
+  create(
+    :ambassador_role_appointment,
+    person: create_person(person_name),
+    role: create(:ambassador_role, name: role_name, worldwide_organisations: [WorldwideOrganisation.last])
+  )
 end
 
 Given(/^an ambassador role named "([^"]*)" in the "([^"]*)" worldwide organisation$/) do |role_name, worldwide_organisation_name|

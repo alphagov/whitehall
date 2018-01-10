@@ -53,9 +53,9 @@ class DocumentSeriesGroupTest < ActiveSupport::TestCase
 
   test '#dup should also clone document memberships' do
     group = create(:document_collection_group, documents: [
-      doc_1 = build(:document),
-      doc_2 = build(:document),
-      doc_3 = build(:document)
+      build(:document),
+      build(:document),
+      build(:document)
     ])
 
     group.memberships[0].ordering = 2

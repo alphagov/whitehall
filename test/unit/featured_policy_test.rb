@@ -5,9 +5,9 @@ class FeaturedPolicyTest < ActiveSupport::TestCase
     org_1 = create(:organisation)
     org_2 = create(:organisation)
 
-    featured_policy_1 = create(:featured_policy, organisation: org_1)
-    featured_policy_2 = create(:featured_policy, organisation: org_2)
-    featured_policy_3 = create(:featured_policy, organisation: org_2)
+    create(:featured_policy, organisation: org_1)
+    create(:featured_policy, organisation: org_2)
+    create(:featured_policy, organisation: org_2)
 
     assert_equal [0], org_1.featured_policies.map(&:ordering)
     assert_equal [0, 1], org_2.featured_policies.map(&:ordering)

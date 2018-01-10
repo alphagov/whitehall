@@ -24,11 +24,11 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
   test "GET on :index loads the past appointments for the role and renders the index template" do
     previous_pm_1 = create(:ministerial_role_appointment, role: pm_role, started_at: 8.years.ago, ended_at: 4.years.ago)
     previous_pm_2 = create(:ministerial_role_appointment, role: pm_role, started_at: 4.years.ago, ended_at: 1.day.ago)
-    current_pm    = create(:ministerial_role_appointment, role: pm_role, started_at: Time.zone.now)
+    _current_pm = create(:ministerial_role_appointment, role: pm_role, started_at: Time.zone.now)
     nineteenth_century_pm = create(:ministerial_role_appointment, role: pm_role, started_at: DateTime.civil(1801), ended_at: DateTime.civil(1804))
     eighteenth_century_pm = create(:ministerial_role_appointment, role: pm_role, started_at: DateTime.civil(1701), ended_at: DateTime.civil(1704))
 
-    chancellor_account =  create(:historical_account, roles: [chancellor_role])
+    create(:historical_account, roles: [chancellor_role])
     get :index, params: { role: 'past-prime-ministers' }
 
     assert_response :success

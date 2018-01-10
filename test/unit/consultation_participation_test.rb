@@ -79,7 +79,7 @@ class ConsultationParticipationTest < ActiveSupport::TestCase
   test "does not destroy attached file when if more participations are associated" do
     participation = create(:consultation_participation)
     form = create(:consultation_response_form, consultation_participation: participation)
-    other_participation = create(:consultation_participation, consultation_response_form: form)
+    _other_participation = create(:consultation_participation, consultation_response_form: form)
 
     participation.destroy
 

@@ -9,10 +9,10 @@ class Admin::ClassificationFeaturingsControllerTest < ActionController::TestCase
   end
 
   test "GET :index assigns tagged_editions with a paginated collection of published editions related to the topic ordered by most recently created editions first" do
-    news_article_1    = create(:published_news_article, topics: [@topic])
-    news_article_2    = Timecop.travel(10.minutes) { create(:published_news_article, topics: [@topic]) }
-    draft_article     = create(:news_article, topics: [@topic])
-    unrelated_article = create(:news_article, :with_topics)
+    news_article_1 = create(:published_news_article, topics: [@topic])
+    news_article_2 = Timecop.travel(10.minutes) { create(:published_news_article, topics: [@topic]) }
+    _draft_article = create(:news_article, topics: [@topic])
+    _unrelated_article = create(:news_article, :with_topics)
 
     get :index, params: { topic_id: @topic, page: 1 }
 
@@ -25,8 +25,8 @@ class Admin::ClassificationFeaturingsControllerTest < ActionController::TestCase
 
   test "GET :index assigns a filtered list to tagged_editions when given a title" do
     create(:published_news_article, topics: [@topic])
-    news_article      = create(:published_news_article, topics: [@topic], title: 'Specific title')
-    unrelated_article = create(:published_news_article, :with_topics, title: 'Specific title')
+    news_article = create(:published_news_article, topics: [@topic], title: 'Specific title')
+    _unrelated_article = create(:published_news_article, :with_topics, title: 'Specific title')
 
     get :index, params: { topic_id: @topic, title: 'specific' }
 
@@ -70,7 +70,6 @@ class Admin::ClassificationFeaturingsControllerTest < ActionController::TestCase
 
   view_test "GET :index contains a message when no results matching search criteria were found" do
     create(:published_news_article, topics: [@topic])
-    news_article = create(:published_news_article, topics: [@topic])
 
     get :index, params: { topic_id: create(:topic) }
 

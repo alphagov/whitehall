@@ -44,7 +44,7 @@ class FileAttachmentTest < ActiveSupport::TestCase
   test "does not destroy attachment_data when more attachments are associated" do
     saved_attachment = create(:file_attachment)
     attachment_data = saved_attachment.attachment_data
-    other_attachment = create(:file_attachment, attachment_data: attachment_data)
+    _other_attachment = create(:file_attachment, attachment_data: attachment_data)
 
     attachment_data.expects(:destroy).never
     saved_attachment.destroy

@@ -26,11 +26,16 @@ class MinisterSorterTest < ActiveSupport::TestCase
   end
 
   def test_should_list_cabinet_ministers_by_person_sort_key
-    roles = [
-      role_0 = role("r0", 0, true,  [d = person("d")]),
-      role_1 = role("r1", 0, false, [c = person("c")]),
-      role_2 = role("r2", 0, true,  [a = person("a"), b = person("b")]),
-    ]
+    a = person("a")
+    b = person("b")
+    c = person("c")
+    d = person("d")
+
+    role_0 = role("r0", 0, true, [d])
+    role_1 = role("r1", 0, false, [c])
+    role_2 = role("r2", 0, true, [a, b])
+
+    roles = [role_0, role_1, role_2]
 
     expected = [
       [a, [role_2]],
@@ -45,7 +50,7 @@ class MinisterSorterTest < ActiveSupport::TestCase
   def test_should_list_all_cabinet_ministers_roles_including_non_cabinet_roles_in_seniority_order
     roles = [
       role_0 = role("r0", 2, false, [a = person("a")]),
-      role_1 = role("r1", 1, true,  [a]),
+      role_1 = role("r1", 1, true, [a]),
       role_2 = role("r2", 3, false, [a]),
     ]
 
@@ -58,11 +63,15 @@ class MinisterSorterTest < ActiveSupport::TestCase
   end
 
   def test_should_list_ministers_with_no_cabinet_roles_by_person_sort_key
-    roles = [
-      role_0 = role("r0", 0, false, [c = person("c"), b = person("b")]),
-      role_1 = role("r1", 0, true,  [c]),
-      role_2 = role("r2", 0, false, [a = person("a")]),
-    ]
+    a = person("a")
+    b = person("b")
+    c = person("c")
+
+    role_0 = role("r0", 0, false, [c, b])
+    role_1 = role("r1", 0, true, [c])
+    role_2 = role("r2", 0, false, [a])
+
+    roles = [role_0, role_1, role_2]
 
     expected = [
       [a, [role_2]],

@@ -156,7 +156,7 @@ class DocumentHelperTest < ActionView::TestCase
   end
 
   test "part_of_metadata generates collection metadata" do
-    organisation = create(:organisation)
+    create(:organisation)
     edition = create(:published_publication)
     collection = create(:published_document_collection, :with_group)
     collection.groups.first.documents = [edition.document]

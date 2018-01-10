@@ -186,7 +186,7 @@ class OrganisationTest < ActiveSupport::TestCase
     parent_org_2 = create(:organisation)
     child_org_1 = create(:organisation, parent_organisations: [parent_org_1])
     child_org_2 = create(:organisation, parent_organisations: [parent_org_1])
-    child_org_3 = create(:organisation, parent_organisations: [parent_org_2])
+    _child_org_3 = create(:organisation, parent_organisations: [parent_org_2])
 
     assert_equal [child_org_1, child_org_2], parent_org_1.child_organisations
   end
@@ -196,7 +196,7 @@ class OrganisationTest < ActiveSupport::TestCase
     child_org_2 = create(:organisation)
     parent_org_1 = create(:organisation, child_organisations: [child_org_1])
     parent_org_2 = create(:organisation, child_organisations: [child_org_1])
-    parent_org_3 = create(:organisation, child_organisations: [child_org_2])
+    _parent_org_3 = create(:organisation, child_organisations: [child_org_2])
 
     assert_equal [parent_org_1, parent_org_2], child_org_1.parent_organisations
   end
@@ -390,7 +390,7 @@ class OrganisationTest < ActiveSupport::TestCase
       corporate_information_page_type: CorporateInformationPageType.find('about')
     }
 
-    page = create(:published_corporate_information_page, page_params)
+    create(:published_corporate_information_page, page_params)
 
     assert_equal 'The home of HMRC on GOV.UK. A text-rendered summary.', organisation.search_index['description']
   end
@@ -557,7 +557,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test 'destroy removes edition relationships' do
     organisation = create(:organisation)
-    edition = create(:published_publication, organisations: [organisation])
+    create(:published_publication, organisations: [organisation])
     organisation.destroy
     assert_equal 0, EditionOrganisation.count
   end
@@ -619,7 +619,7 @@ class OrganisationTest < ActiveSupport::TestCase
   test "should be able to list unused corporate information types" do
     organisation = create(:organisation)
     types = CorporateInformationPageType.all
-    t = create(:corporate_information_page, corporate_information_page_type: types.pop, organisation: organisation)
+    create(:corporate_information_page, corporate_information_page_type: types.pop, organisation: organisation)
     organisation.reload
     assert_equal types, organisation.unused_corporate_information_page_types
   end
@@ -676,7 +676,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test "can have associated contacts" do
     organisation = create(:organisation)
-    contact = organisation.contacts.create(title: "Main office")
+    organisation.contacts.create(title: "Main office")
   end
 
   test 'destroy deletes related contacts' do
@@ -689,7 +689,7 @@ class OrganisationTest < ActiveSupport::TestCase
   test "can have associated social media accounts" do
     service = create(:social_media_service)
     organisation = create(:organisation)
-    contact = organisation.social_media_accounts.create(social_media_service_id: service.id, url: "http://example.com")
+    organisation.social_media_accounts.create(social_media_service_id: service.id, url: "http://example.com")
   end
 
   test 'destroy deletes related social media accounts' do
@@ -815,9 +815,9 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test 'Organisation.with_published_editions returns organisations with published editions' do
     organisation_1 = create(:organisation)
-    organisation_2 = create(:organisation)
+    _organisation_2 = create(:organisation)
     organisation_3 = create(:organisation)
-    organisation_4 = create(:organisation)
+    _organisation_4 = create(:organisation)
 
     create(:published_news_article, organisations: [organisation_1])
     create(:published_publication, organisations: [organisation_3])
@@ -838,11 +838,11 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test "excluding_govuk_status_closed scopes to all organisations which don't have a govuk_state of 'closed'" do
     open_org = create(:organisation, govuk_status: 'live')
-    closed_org = create(:closed_organisation)
+    _closed_org = create(:closed_organisation)
     assert_equal [open_org], Organisation.excluding_govuk_status_closed
   end
   test "closed scopes to organisations which have a govuk_state of 'closed'" do
-    open_org = create(:organisation, govuk_status: 'live')
+    _open_org = create(:organisation, govuk_status: 'live')
     closed_org = create(:closed_organisation)
     assert_equal [closed_org], Organisation.closed
   end
@@ -850,7 +850,7 @@ class OrganisationTest < ActiveSupport::TestCase
   test "with_statistics_announcements scopes to organisations with associated statistics_announcements" do
     org_with_announcement = create(:organisation)
     create(:statistics_announcement, organisation_ids: [org_with_announcement.id])
-    org_without_announcement = create(:organisation)
+    _org_without_announcement = create(:organisation)
     assert_equal [org_with_announcement], Organisation.with_statistics_announcements
   end
 
@@ -889,7 +889,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test '#statistics_announcements returns all statistics_announcements associated with the organisation' do
     organisation = create(:organisation)
-    statistics_announcement_organisations = create_list(:statistics_announcement, 2, organisation_ids: [organisation.id])
+    create_list(:statistics_announcement, 2, organisation_ids: [organisation.id])
 
     assert_equal organisation.statistics_announcements, StatisticsAnnouncementOrganisation.all.map(&:statistics_announcement)
   end

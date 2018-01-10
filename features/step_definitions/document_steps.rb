@@ -79,7 +79,7 @@ end
 Given(/^a force published (document|publication|news article|consultation|speech) "([^"]*)" was produced by the "([^"]*)" organisation$/) do |document_type, title, organisation_name|
   organisation = Organisation.find_by!(name: organisation_name)
   document_type = 'publication' if document_type == 'document'
-  edition = create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, organisations: [organisation])
+  create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, organisations: [organisation])
   visit admin_editions_path(state: :draft)
   click_link title
   publish(force: true)
@@ -199,7 +199,6 @@ Then(/^(#{THE_DOCUMENT}) should no longer be listed on the public site$/) do |ed
   public_edition_path = public_path_for(edition)
   stub_content_item_from_content_store_for(public_edition_path)
   visit_public_index_for(edition)
-  css_selector = edition.is_a?(DetailedGuide) ? 'h1.page_title' : record_css_selector(edition)
   assert page.has_no_content?(edition.title)
 end
 
