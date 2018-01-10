@@ -1,0 +1,4 @@
+AllCops:
+  Exclude:
+    - 'db/schema.rb'
+    - 'lib/tasks/cucumber.rake'
