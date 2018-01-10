@@ -27,7 +27,7 @@ class PublishingApiComingSoonWorkerTest < ActiveSupport::TestCase
       description: 'Coming soon',
       locale: locale,
       details: { publish_time: publish_time },
-      routes: [ { path: base_path, type: 'exact' } ],
+      routes: [{ path: base_path, type: 'exact' }],
       redirects: [],
       public_updated_at: edition.updated_at,
       update_type: "major",
