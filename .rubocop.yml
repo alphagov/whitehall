@@ -5,3 +5,7 @@ AllCops:
 
 Naming/VariableNumber:
   EnforcedStyle: snake_case
+
+Style/FormatStringToken:
+  Exclude:
+    - 'config/routes.rb'
