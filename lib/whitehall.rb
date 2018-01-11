@@ -159,7 +159,7 @@ module Whitehall
   end
 
   def self.load_secrets
-    if File.exists?(secrets_path)
+    if File.exist?(secrets_path)
       YAML.load_file(secrets_path)
     else
       {}

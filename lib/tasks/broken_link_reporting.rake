@@ -11,7 +11,7 @@ task :generate_broken_link_reports, %i[reports_dir email_address organisation_sl
     logger.info("Cleaning up any existing reports.")
     FileUtils.mkpath reports_dir
     FileUtils.rm Dir.glob(reports_dir + '/*_links_report.csv')
-    FileUtils.rm(report_zip_path) if File.exists?(report_zip_path)
+    FileUtils.rm(report_zip_path) if File.exist?(report_zip_path)
 
     logger.info("Generating broken link reports...")
     organisation = Organisation.where(slug: organisation_slug).first if organisation_slug

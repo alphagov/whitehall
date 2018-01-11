@@ -6,7 +6,7 @@ namespace :development do
     file_paths.each { |file_path| puts file_path }
 
     FileUtils.cp_r(Whitehall.incoming_uploads_root + '/.', Whitehall.clean_uploads_root + "/")
-    FileUtils.rm_r(Whitehall.incoming_uploads_root + '/system') if File.exists?(Whitehall.incoming_uploads_root + '/system')
+    FileUtils.rm_r(Whitehall.incoming_uploads_root + '/system') if File.exist?(Whitehall.incoming_uploads_root + '/system')
     puts "#{file_paths.size} files/folders moved to clean-uploads"
   end
 

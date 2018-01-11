@@ -62,12 +62,12 @@ private
   end
 
   def upload_exists?(path)
-    File.exists?(path) && file_is_clean?(path)
+    File.exist?(path) && file_is_clean?(path)
   end
 
   def incoming_upload_exists?(path)
     path = path.sub(Whitehall.clean_uploads_root, Whitehall.incoming_uploads_root)
-    File.exists?(path)
+    File.exist?(path)
   end
 
   def file_is_clean?(path)
