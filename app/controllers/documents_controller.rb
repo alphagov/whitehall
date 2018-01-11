@@ -26,15 +26,15 @@ private
   end
 
   def find_document
-    if @document = find_document_or_edition
-      if scheduled_document = document_class.scheduled_for_publication_as(params[:id])
+    if (@document = find_document_or_edition)
+      if (scheduled_document = document_class.scheduled_for_publication_as(params[:id]))
         expire_on_next_scheduled_publication([scheduled_document])
       end
     else
-      if @document = document_class.scheduled_for_publication_as(params[:id])
+      if (@document = document_class.scheduled_for_publication_as(params[:id]))
         expire_on_next_scheduled_publication([@document])
         render :coming_soon
-      elsif @unpublishing = find_unpublishing
+      elsif (@unpublishing = find_unpublishing)
         if @unpublishing.redirect?
           redirect_to @unpublishing.alternative_url
         else

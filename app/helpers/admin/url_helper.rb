@@ -1,6 +1,6 @@
 module Admin::UrlHelper
   def admin_user_organisation_header_link
-    if user_signed_in? && organisation = current_user.organisation
+    if user_signed_in? && (organisation = current_user.organisation)
       admin_header_link 'Corporate information', admin_organisation_corporate_information_pages_path(organisation)
     end
   end
@@ -14,7 +14,7 @@ module Admin::UrlHelper
   end
 
   def admin_featured_header_link
-    if user_signed_in? && organisation = current_user.organisation
+    if user_signed_in? && (organisation = current_user.organisation)
       admin_header_link "Featured documents", features_admin_organisation_path(organisation, locale: nil)
     end
   end

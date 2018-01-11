@@ -41,7 +41,7 @@ module PersonHelper
 private
 
   def split_person_name(name)
-    if match = /^(\w+)\s*(.*?)$/.match(name)
+    if (match = /^(\w+)\s*(.*?)$/.match(name))
       forename, surname = match.captures
       { title: nil, forename: forename, surname: surname, letters: nil }
     else

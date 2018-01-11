@@ -21,7 +21,7 @@ class HomePageList < ApplicationRecord
     build_if_missing = opts.has_key?(:build_if_missing) ? opts[:build_if_missing] : true
     raise ArgumentError, "Must supply owned_by: and called: options" if owner.nil? || name.nil?
     scoping = where(owner_id: owner.id, owner_type: owner.class.to_s, name: name)
-    if list = scoping.first
+    if (list = scoping.first)
       list
     elsif build_if_missing
       scoping.build

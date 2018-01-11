@@ -77,7 +77,7 @@ private
   end
 
   def find_and_update_existing_attachment(attachment_attrs, data_attrs)
-    if attachment = FileAttachment.find_by(id: attachment_attrs[:id])
+    if (attachment = FileAttachment.find_by(id: attachment_attrs[:id]))
       replaced_data_id = attachment.attachment_data.id
       attachment.attributes = attachment_attrs
       attachment.attachment_data = AttachmentData.new(data_attrs)

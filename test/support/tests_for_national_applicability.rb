@@ -191,7 +191,7 @@ private
         excluded: (nations_vs_urls.keys.include?(nation) ? "1" : "0"),
         nation_id: nation
       }
-      if existing = existing_applicabilities.detect { |ea| ea.nation_id == nation.id }
+      if (existing = existing_applicabilities.detect { |ea| ea.nation_id == nation.id })
         h[:id] = existing.id
         h[:alternative_url] = existing.alternative_url
       end

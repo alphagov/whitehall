@@ -33,7 +33,7 @@ private
   end
 
   def send_file_for_mime_type
-    if mime_type = mime_type_for(upload_path)
+    if (mime_type = mime_type_for(upload_path))
       send_file real_path_for_x_accel_mapping(upload_path), type: mime_type, disposition: 'inline'
     else
       send_file real_path_for_x_accel_mapping(upload_path), disposition: 'inline'

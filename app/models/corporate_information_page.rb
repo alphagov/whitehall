@@ -82,13 +82,13 @@ class CorporateInformationPage < Edition
   end
 
   def self.for_slug(slug)
-    if type = CorporateInformationPageType.find(slug)
+    if (type = CorporateInformationPageType.find(slug))
       find_by(corporate_information_page_type_id: type.id)
     end
   end
 
   def self.for_slug!(slug)
-    if type = CorporateInformationPageType.find(slug)
+    if (type = CorporateInformationPageType.find(slug))
       find_by!(corporate_information_page_type_id: type.id)
     end
   end

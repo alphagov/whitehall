@@ -30,8 +30,8 @@ classes_to_index.each do |klass|
 end
 
 def export_classes(classes_to_index, id_groups)
-  if export_directory = ENV["EXPORT_DIRECTORY"]
-    export_directory = Pathname.new(export_directory).expand_path
+  if ENV["EXPORT_DIRECTORY"]
+    export_directory = Pathname.new(ENV["EXPORT_DIRECTORY"]).expand_path
 
     if export_directory.exist? && export_directory.children.any?
       puts "#{ENV['EXPORT_DIRECTORY']} exists and is not empty, aborting"

@@ -141,7 +141,7 @@ private
     return govspeak if govspeak.blank?
     heading_tag ||= 'h3'
     govspeak.gsub(Govspeak::EmbeddedContentPatterns::CONTACT) do
-      if contact = Contact.find_by(id: $1)
+      if (contact = Contact.find_by(id: $1))
         render(partial: 'contacts/contact', locals: { contact: contact, heading_tag: heading_tag }, formats: ["html"])
       else
         ''
@@ -212,7 +212,7 @@ private
 
   def add_manual_heading_numbers(nokogiri_doc)
     nokogiri_doc.css('h2, h3').each do |el|
-      if number = extract_number_from_heading(el)
+      if (number = extract_number_from_heading(el))
         heading_without_number = el.inner_html.gsub(number, '')
         el.inner_html = el.document.fragment(%{<span class="number">#{number} </span>#{heading_without_number}})
       end
@@ -232,14 +232,14 @@ private
 
   def govspeak_with_attachments_and_alt_format_information(govspeak, attachments = [], alternative_format_contact_email = nil)
     govspeak = govspeak.gsub(/\n{0,2}^!@([0-9]+)\s*/) do
-      if attachment = attachments[$1.to_i - 1]
+      if (attachment = attachments[$1.to_i - 1])
         "\n\n" + render(partial: "documents/attachment", formats: :html, object: attachment, locals: { alternative_format_contact_email: alternative_format_contact_email }) + "\n\n"
       else
         "\n\n"
       end
     end
     govspeak.gsub(/\[InlineAttachment:([0-9]+)\]/) do
-      if attachment = attachments[$1.to_i - 1]
+      if (attachment = attachments[$1.to_i - 1])
         render(partial: "documents/inline_attachment", formats: :html, locals: { attachment: attachment })
       else
         ""

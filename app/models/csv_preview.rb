@@ -29,7 +29,7 @@ class CsvPreview
 
   def each_row
     (0...maximum_rows).each do
-      if row = @csv.shift
+      if (row = @csv.shift)
         if row.size > maximum_columns
           @truncated_columns = true
           yield row[0..maximum_columns]

@@ -64,7 +64,7 @@ private
   end
 
   def find_document
-    unless @document = Document.where(id: params[:document_id]).first
+    unless (@document = Document.where(id: params[:document_id]).first)
       redirect_to admin_document_collection_groups_path(@collection),
         alert: "We couldn't find a document titled '#{params[:title]}'"
     end

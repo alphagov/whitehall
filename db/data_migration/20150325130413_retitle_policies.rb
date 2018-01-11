@@ -13,7 +13,7 @@ csv.each do |row|
   if url =~ %r|policies/([^/]+)$|
     slug = $1
 
-    if policy_document = Document.at_slug("Policy", slug)
+    if (policy_document = Document.at_slug("Policy", slug))
 
       [policy_document.latest_edition, policy_document.published_edition].compact.uniq.each do |policy|
         old_title = policy.title

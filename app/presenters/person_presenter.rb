@@ -60,7 +60,7 @@ class PersonPresenter < Whitehall::Decorators::Decorator
   end
 
   def image
-    if img = image_url(:s216)
+    if (img = image_url(:s216))
       context.image_tag img, alt: name
     end
   end
