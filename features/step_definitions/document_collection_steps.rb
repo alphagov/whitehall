@@ -84,7 +84,7 @@ end
 When(/^I visit the old document series url "(.*?)"$/) do |url|
   begin
     visit url
-  rescue ActionController::RoutingError => @no_collection_controller_error
+  rescue ActionController::RoutingError => @no_collection_controller_error # rubocop:disable Lint/HandleExceptions
   end
 end
 

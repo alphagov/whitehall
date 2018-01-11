@@ -12,7 +12,7 @@ When(/^I sign up for emails$/) do
   # assert that the right things have happened to generate the redirect.
   begin
     click_on 'Create subscription'
-  rescue ActionController::RoutingError
+  rescue ActionController::RoutingError # rubocop:disable Lint/HandleExceptions
   end
 end
 

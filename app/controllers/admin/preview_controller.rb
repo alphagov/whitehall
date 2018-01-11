@@ -15,8 +15,15 @@ class Admin::PreviewController < Admin::BaseController
 private
 
   def alternative_format_contact_email
-    Organisation.friendly.find(params[:alternative_format_provider_id]).alternative_format_contact_email
-  rescue ActiveRecord::RecordNotFound
+    return unless alternative_format_provider_id.present?
+
+    if (organisation = Organisation.friendly.find(alternative_format_provider_id))
+      organisation.alternative_format_contact_email
+    end
+  end
+
+  def alternative_format_provider_id
+    params[:alternative_format_provider_id]
   end
 
   def find_attachments

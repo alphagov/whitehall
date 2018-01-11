@@ -23,7 +23,7 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
   test '#acting_as will return to the previous whodunnit, even when an exception is thrown' do
     begin
       Edition::AuditTrail.acting_as(@user_2) { raise 'Boom!' }
-    rescue StandardError
+    rescue StandardError # rubocop:disable Lint/HandleExceptions
     end
 
     assert_equal @user, Edition::AuditTrail.whodunnit
