@@ -4,12 +4,7 @@ def load_file_if_exists(config, file)
 end
 load_file_if_exists(self, "/etc/govuk/unicorn.rb")
 working_directory File.dirname(File.dirname(__FILE__))
-
-if ENV.has_key?("UNICORN_WORKER_PROCESSES")
-  worker_processes = Integer(ENV["UNICORN_WORKER_PROCESSES"])
-else
-  worker_processes = 4
-end
+worker_processes Integer(ENV["UNICORN_WORKER_PROCESSES"] || 4)
 
 # Preload the entire app
 preload_app true
