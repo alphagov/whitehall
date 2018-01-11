@@ -15,8 +15,6 @@ def clean_yes_no(raw_boolean)
     true
   elsif raw_boolean.casecmp('no').zero?
     false
-  else
-    nil
   end
 end
 
