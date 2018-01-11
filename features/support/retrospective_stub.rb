@@ -15,12 +15,10 @@ class RetrospectiveStub
 
     if stub.nil?
       raise NoMethodError.new("Unexpected call - :#{method} with #{args.inspect}")
+    elsif stub[:returns].is_a? Proc
+      stub[:returns].call(*args)
     else
-      if stub[:returns].is_a? Proc
-        stub[:returns].call(*args)
-      else
-        stub[:returns]
-      end
+      stub[:returns]
     end
   end
 
@@ -53,10 +51,8 @@ class RetrospectiveStub
           opts[:with].is_a?(Proc) ? opts[:with].call(*call[:args]) : opts[:with] == call[:args]
         )
       }
-    else
-      raise UnsatisfiedAssertion.new("Expected :#{method} not to have been called\n\nCalls: \n#{inspect_calls}") if @calls.any? { |call|
-        call[:method] == method
-      }
+    elsif @calls.any? { |call| call[:method] == method }
+      raise UnsatisfiedAssertion.new("Expected :#{method} not to have been called\n\nCalls: \n#{inspect_calls}")
     end
   end
 

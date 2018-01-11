@@ -60,13 +60,11 @@ FeaturePresenter = Struct.new(:feature) do
       Whitehall.url_maker.topical_event_path(topical_event)
     elsif offsite_link
       offsite_link.url
+    elsif edition.translatable?
+      Whitehall.url_maker.public_document_path(edition, locale: feature.locale)
     else
-      if edition.translatable?
-        Whitehall.url_maker.public_document_path(edition, locale: feature.locale)
-      else
-        ::I18n.with_locale Locale::ENGLISH_LOCALE_CODE do
-          Whitehall.url_maker.public_document_path(edition)
-        end
+      ::I18n.with_locale Locale::ENGLISH_LOCALE_CODE do
+        Whitehall.url_maker.public_document_path(edition)
       end
     end
   end

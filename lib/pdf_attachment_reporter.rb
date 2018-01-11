@@ -90,15 +90,13 @@ private
     if attachment.attachable
       if attachment.attachable_type == 'PolicyGroup'
         PDFAttachmentData.new(POLICY_GROUPS, attachment.created_at)
-      else
+      elsif attachment.attachable.is_a? Response
         # Responses are only sometimes linked to organisations (via a consultation)
-        if attachment.attachable.is_a? Response
-          if attachment.attachable.consultation
-            pdf_attachment_data_from_edition(attachment.attachable.consultation, attachment.attachment_data)
-          end
-        else
-          pdf_attachment_data_from_edition(attachment.attachable, attachment.attachment_data)
+        if attachment.attachable.consultation
+          pdf_attachment_data_from_edition(attachment.attachable.consultation, attachment.attachment_data)
         end
+      else
+        pdf_attachment_data_from_edition(attachment.attachable, attachment.attachment_data)
       end
     end
   end

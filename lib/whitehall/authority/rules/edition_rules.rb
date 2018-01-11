@@ -56,24 +56,22 @@ module Whitehall::Authority::Rules
         true
       elsif action == :modify && @subject.historic?
         actor.gds_editor? || actor.gds_admin?
+      elsif actor.gds_admin?
+        gds_admin_can?(action)
+      elsif actor.gds_editor?
+        gds_editor_can?(action)
+      elsif actor.departmental_editor?
+        departmental_editor_can?(action)
+      elsif actor.managing_editor?
+        managing_editor_can?(action)
+      elsif actor.world_editor?
+        world_editor_can?(action)
+      elsif actor.world_writer?
+        world_writer_can?(action)
+      elsif actor.scheduled_publishing_robot?
+        scheduled_publishing_robot_can?(action)
       else
-        if actor.gds_admin?
-          gds_admin_can?(action)
-        elsif actor.gds_editor?
-          gds_editor_can?(action)
-        elsif actor.departmental_editor?
-          departmental_editor_can?(action)
-        elsif actor.managing_editor?
-          managing_editor_can?(action)
-        elsif actor.world_editor?
-          world_editor_can?(action)
-        elsif actor.world_writer?
-          world_writer_can?(action)
-        elsif actor.scheduled_publishing_robot?
-          scheduled_publishing_robot_can?(action)
-        else
-          departmental_writer_can?(action)
-        end
+        departmental_writer_can?(action)
       end
     end
 

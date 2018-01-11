@@ -43,8 +43,8 @@ class PersonPresenter < Whitehall::Decorators::Decorator
   def biography
     if in_current_role?
       context.govspeak_to_html model.biography
-    else
-      context.govspeak_to_html truncated_biography if model.biography
+    elsif model.biography
+      context.govspeak_to_html truncated_biography
     end
   end
 

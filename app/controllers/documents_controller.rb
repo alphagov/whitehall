@@ -30,22 +30,20 @@ private
       if (scheduled_document = document_class.scheduled_for_publication_as(params[:id]))
         expire_on_next_scheduled_publication([scheduled_document])
       end
-    else
-      if (@document = document_class.scheduled_for_publication_as(params[:id]))
-        expire_on_next_scheduled_publication([@document])
-        render :coming_soon
-      elsif (@unpublishing = find_unpublishing)
-        if @unpublishing.redirect?
-          redirect_to @unpublishing.alternative_url
-        else
-          # NOTE: We should be returning a 410 here, but because 4XX statuses get clobbered upstream,
-          # we are forced to return 200 for now.
-          render :unpublished
-        end
+    elsif (@document = document_class.scheduled_for_publication_as(params[:id]))
+      expire_on_next_scheduled_publication([@document])
+      render :coming_soon
+    elsif (@unpublishing = find_unpublishing)
+      if @unpublishing.redirect?
+        redirect_to @unpublishing.alternative_url
       else
-        expires_in 5.minutes, public: true
-        render plain: "Not found", status: :not_found
+        # NOTE: We should be returning a 410 here, but because 4XX statuses get clobbered upstream,
+        # we are forced to return 200 for now.
+        render :unpublished
       end
+    else
+      expires_in 5.minutes, public: true
+      render plain: "Not found", status: :not_found
     end
   end
 

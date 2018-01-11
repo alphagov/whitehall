@@ -16,12 +16,10 @@ private
   def fail
     if image? upload_path
       redirect_to view_context.path_to_image('thumbnail-placeholder.png')
+    elsif incoming_upload_exists? upload_path
+      redirect_to_placeholder
     else
-      if incoming_upload_exists? upload_path
-        redirect_to_placeholder
-      else
-        render plain: "Not found", status: :not_found
-      end
+      render plain: "Not found", status: :not_found
     end
   end
 

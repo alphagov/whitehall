@@ -132,6 +132,7 @@ private
     RolesPresenter.new(roles, view_context)
   end
 
+  # rubocop:disable Style/IfInsideElse
   def load_organisation
     @organisation = Organisation.with_translations(I18n.locale).find(params[:id])
     if params[:courts_only]
@@ -140,6 +141,7 @@ private
       raise ActiveRecord::RecordNotFound if @organisation.court_or_hmcts_tribunal?
     end
   end
+  # rubocop:enable Style/IfInsideElse
 
   def organisation_content
     @organisation_content ||= begin

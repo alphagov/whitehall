@@ -26,11 +26,9 @@ module Edition::NationalApplicability
         else
           nation_inapplicabilities.build(params)
         end
-      else
-        if existing
-          existing.mark_for_destruction
-          existing.excluded = params[:excluded]
-        end
+      elsif existing
+        existing.mark_for_destruction
+        existing.excluded = params[:excluded]
       end
     end
   end

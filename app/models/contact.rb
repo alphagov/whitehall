@@ -26,12 +26,10 @@ class Contact < ApplicationRecord
   def contactable_name
     if contactable.is_a? WorldwideOffice
       contactable.worldwide_organisation.name
+    elsif contactable.acronym.present?
+      contactable.acronym
     else
-      if contactable.acronym.present?
-        contactable.acronym
-      else
-        contactable.name
-      end
+      contactable.name
     end
   end
 

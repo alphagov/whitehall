@@ -74,8 +74,8 @@ class Role < ApplicationRecord
       note << attends_cabinet_type.name if attends_cabinet_type_id == 2
       note << role_payment_type.name if role_payment_type
       note.join(". ")
-    else
-      role_payment_type.name if role_payment_type
+    elsif role_payment_type
+      role_payment_type.name
     end
   end
 
