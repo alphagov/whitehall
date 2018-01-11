@@ -98,7 +98,7 @@ class PublishingApi::StatisticalDataSetBelongingToPublishedDocumentNoticePresent
     )
 
     assert_equal(
-      Date.new(2015, 04, 10),
+      Date.new(2015, 4, 10),
       presented_notice.content[:details][:first_public_at]
     )
   end

@@ -71,11 +71,11 @@ class FilterHelperTest::FilterDescriptionTest < ActionView::TestCase
   end
 
   test "It describes date range" do
-    filter = build_filter(from_date: Date.new(2040, 02, 20), to_date: Date.new(2050, 01, 10))
+    filter = build_filter(from_date: Date.new(2040, 2, 20), to_date: Date.new(2050, 1, 10))
     assert_string_includes "due after 20 February 2040", rendered_description(filter, date_prefix_text: "due").text
     assert_string_includes "and before 10 January 2050", rendered_description(filter, date_prefix_text: "due").text
 
-    filter = build_filter(from_date: Date.new(2040, 02, 20))
+    filter = build_filter(from_date: Date.new(2040, 2, 20))
     assert_string_includes "procrantinated after 20 February 2040", rendered_description(filter, date_prefix_text: "procrantinated").text
   end
 

@@ -6,16 +6,16 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
   end
 
   test "to_date= casts into Date, taking the latest possible date in its assumptions" do
-    assert_equal Date.new(2010, 01, 31), build(to_date: "Jan 2010").to_date
+    assert_equal Date.new(2010, 1, 31), build(to_date: "Jan 2010").to_date
   end
 
   test "from_date= casts into Date, taking the earliest possible date in its assumptions" do
-    assert_equal Date.new(2010, 01, 01), build(from_date: "Jan 2010").from_date
+    assert_equal Date.new(2010, 1, 1), build(from_date: "Jan 2010").from_date
   end
 
   test "to_date= and from_date= assumes english date format when ambiguous" do
-    assert_equal Date.new(2010, 06, 12), build(to_date: "12/6/2010").to_date
-    assert_equal Date.new(2010, 06, 12), build(from_date: "12/6/2010").from_date
+    assert_equal Date.new(2010, 6, 12), build(to_date: "12/6/2010").to_date
+    assert_equal Date.new(2010, 6, 12), build(from_date: "12/6/2010").from_date
   end
 
   test "#page= casts to integer" do
