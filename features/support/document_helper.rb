@@ -148,15 +148,11 @@ module DocumentHelper
         fill_in 'reason', with: "because"
         click_button 'Force publish'
       end
-      unless options[:ignore_errors]
-        refute_flash_alerts_exist
-      end
     else
       click_button "Publish"
-      unless options[:ignore_errors]
-        refute_flash_alerts_exist
-      end
     end
+
+    refute_flash_alerts_exist unless options[:ignore_errors]
   end
 
   def speed_tag_publication(title)
