@@ -38,44 +38,44 @@ module Whitehall
       end
 
       test "advanced search finds documents with the requested keywords in the title" do
-        @index.add_batch(build_documents(*%w{Foo Bar}))
+        @index.add_batch(build_documents('Foo', 'Bar'))
         assert_search_returns_documents %w{Bar}, keywords: "Bar"
       end
 
       test "advanced search finds documents with the requested keywords in the description" do
-        @index.add_batch(build_documents(*%w{Foo Bar}))
+        @index.add_batch(build_documents('Foo', 'Bar'))
         assert_search_returns_documents %w{Bar}, keywords: "Bar-description"
       end
 
       test "advanced search finds documents with the requested keywords in the indexable content" do
-        @index.add_batch(build_documents(*%w{Foo Bar}))
+        @index.add_batch(build_documents('Foo', 'Bar'))
         assert_search_returns_documents %w{Bar}, keywords: "Bar-indexable_content"
       end
 
       test "advanced search can select documents with a field matching a list of values" do
-        @index.add_batch(build_documents(*%w{Foo Bar}))
+        @index.add_batch(build_documents('Foo', 'Bar'))
         assert_search_returns_documents %w{Bar}, policy_areas: ["Bar-topic1"]
       end
 
       test "advanced search can select documents with a field matching any item from a list of values" do
-        @index.add_batch(build_documents(*%w{Foo Bar FooBar}))
+        @index.add_batch(build_documents('Foo', 'Bar', 'FooBar'))
         assert_search_returns_documents %w{Foo Bar}, policy_areas: ["Foo-topic2", "Bar-topic1"]
       end
 
       test "advanced search can select documents with a field matching a single value" do
-        @index.add_batch(build_documents(*%w{Foo Bar}))
+        @index.add_batch(build_documents('Foo', 'Bar'))
         assert_search_returns_documents %w{Bar}, policy_areas: "Bar-topic1"
       end
 
       test "advanced search for a field which is not present in a document does not return the document" do
-        documents = build_documents(*%w{Foo Bar})
+        documents = build_documents('Foo', 'Bar')
         documents[0]['world_locations'] = ["Hawaii"]
         @index.add_batch(documents)
         assert_search_returns_documents %w{Foo}, world_locations: "Hawaii"
       end
 
       test "advanced search can select documents using a boolean filter" do
-        documents = build_documents(*%w{Foo Bar})
+        documents = build_documents('Foo', 'Bar')
         documents[0]['has_official_document'] = true
         @index.add_batch(documents)
         assert_search_returns_documents %w{Foo}, has_official_document: "true"
@@ -98,7 +98,7 @@ module Whitehall
       end
 
       test "advanced search can select documents using a date filter" do
-        documents = build_documents(*%w{Foo Bar Qux})
+        documents = build_documents('Foo', 'Bar', 'Qux')
         documents[0]['public_timestamp'] = Time.zone.parse("2011-01-01 01:01:01")
         documents[1]['public_timestamp'] = Time.zone.parse("2011-02-02 02:02:02")
         documents[2]['public_timestamp'] = Time.zone.parse("2011-03-03 02:02:02")
@@ -109,7 +109,7 @@ module Whitehall
       end
 
       test "advanced search can order documents explicitly" do
-        documents = build_documents(*%w{Foo Bar Qux})
+        documents = build_documents('Foo', 'Bar', 'Qux')
         documents[0]['public_timestamp'] = Time.zone.parse("2011-01-01 01:01:01")
         documents[1]['public_timestamp'] = Time.zone.parse("2011-03-03 02:02:02")
         documents[2]['public_timestamp'] = Time.zone.parse("2011-01-01 01:01:01")

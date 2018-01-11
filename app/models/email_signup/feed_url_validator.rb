@@ -127,7 +127,7 @@ class EmailSignup
     end
 
     def resource_filter_params
-      feed_params.except(*%w(publication_filter_option announcement_filter_option official_document_status))
+      feed_params.except('publication_filter_option', 'announcement_filter_option', 'official_document_status')
     end
 
     def parameter_fragments
