@@ -33,11 +33,7 @@ When(/^I view the detailed guide$/) do
 end
 
 Then(/^I should see all pages of the detailed guide$/) do
-  {
-    first: 'page-1',
-    second: 'page-2',
-    third: 'page-3'
-  }.each do |_page_name, page_id|
+  %w(page-1 page-2 page-3).each do |page_id|
     assert page.find("h2##{page_id}").visible?, "Element h2##{page_id} is not visible"
   end
 end

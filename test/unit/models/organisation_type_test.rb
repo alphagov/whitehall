@@ -41,13 +41,13 @@ class OrganisationTypeTest < ActiveSupport::TestCase
   end
 
   test "OrganisationType should have getters for each organisation type" do
-    OrganisationType::DATA.keys.each do |key|
+    OrganisationType::DATA.each_key do |key|
       assert_equal OrganisationType.get(key), OrganisationType.send(key)
     end
   end
 
   test "OrganisationType should have boolean flags for each organisation type" do
-    OrganisationType::DATA.keys.each do |key|
+    OrganisationType::DATA.each_key do |key|
       assert OrganisationType.get(key).send("#{key}?")
     end
   end

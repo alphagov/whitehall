@@ -166,7 +166,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
       create(:corporate_information_page, organisation: organisation, corporate_information_page_type: type)
     end
 
-    by_menu_heading.keys.each do |menu_heading|
+    by_menu_heading.each_key do |menu_heading|
       assert_same_elements by_menu_heading[menu_heading], organisation.corporate_information_pages.by_menu_heading(menu_heading).map(&:corporate_information_page_type)
     end
   end

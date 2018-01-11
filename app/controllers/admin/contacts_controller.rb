@@ -60,7 +60,7 @@ private
   end
 
   def destroy_blank_contact_numbers
-    (params[:contact][:contact_numbers_attributes] || []).each do |_index, attributes|
+    (params[:contact][:contact_numbers_attributes] || {}).each_value do |attributes|
       if attributes.except(:id).values.all?(&:blank?)
         attributes[:_destroy] = "1"
       end

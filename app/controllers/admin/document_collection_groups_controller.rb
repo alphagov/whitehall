@@ -37,7 +37,7 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
   def delete; end
 
   def update_memberships
-    params[:groups].values.each do |group_params|
+    params[:groups].each_value do |group_params|
       group = @collection.groups.find(group_params[:id])
       group.ordering = group_params[:order]
       group.set_document_ids_in_order! group_params.fetch(:document_ids, []).map(&:to_i).uniq

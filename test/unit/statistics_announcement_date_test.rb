@@ -2,7 +2,7 @@ require 'test_helper'
 
 class StatisticsAnnouncementDateTest < ActiveSupport::TestCase
   test 'must have valid precision' do
-    StatisticsAnnouncementDate::PRECISION.each do |_key, value|
+    StatisticsAnnouncementDate::PRECISION.each_value do |value|
       assert build(:statistics_announcement_date, precision: value).valid?
     end
 

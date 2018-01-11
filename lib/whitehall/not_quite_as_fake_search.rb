@@ -167,7 +167,7 @@ module Whitehall
 
       def filter_by_date_field(field, date_filter_hash, document_hashes)
         date_filter_hash = ActiveSupport::HashWithIndifferentAccess.new(date_filter_hash)
-        date_filter_hash.keys.each do |k|
+        date_filter_hash.each_key do |k|
           raise GdsApi::HTTPErrorResponse, "Invalid date #{date_filter_hash[k]}" unless valid_date?(date_filter_hash[k])
         end
         date_filter_hash.each do |date_type, date|
