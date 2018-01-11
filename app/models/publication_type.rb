@@ -29,7 +29,8 @@ class PublicationType
     1000 => "<p>DO NOT USE. This is a holding category for content that has been imported automatically.</p>",
   }.to_json.freeze
 
-  attr_accessor :id, :singular_name, :plural_name, :prevalence, :access_limited_by_default, :key, :additional_search_format_types, :detailed_format
+  attr_accessor :id, :singular_name, :plural_name, :prevalence, :access_limited_by_default, :key, :detailed_format
+  attr_writer :additional_search_format_types
 
   def self.access_limitable
     all.select(&:access_limited_by_default?)
