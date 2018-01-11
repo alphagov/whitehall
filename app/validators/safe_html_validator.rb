@@ -1,4 +1,6 @@
 class SafeHtmlValidator < ActiveModel::Validator
+  cattr_reader(:cache) { ActiveSupport::Cache::MemoryStore.new }
+
   def validate(record)
     @record = record
 
@@ -23,10 +25,6 @@ private
 
   def check_string_is_safe(attribute_name, string)
     @record.errors.add(attribute_name, "cannot include invalid formatting or JavaScript") if unacceptable_govspeak?(string)
-  end
-
-  def self.cache
-    @cache ||= ActiveSupport::Cache::MemoryStore.new
   end
 
   def unacceptable_govspeak?(string)

@@ -39,31 +39,33 @@ class Policy
     @slug ||= base_path.split('/').last
   end
 
-private
+  class << self
+  private
 
-  def self.linkables
-    Rails.cache.fetch('policy.linkables', expires_in: 5.minutes) do
-      publishing_api_with_low_timeout.get_linkables(document_type: "policy").to_a
+    def linkables
+      Rails.cache.fetch('policy.linkables', expires_in: 5.minutes) do
+        publishing_api_with_low_timeout.get_linkables(document_type: "policy").to_a
+      end
+    rescue GdsApi::TimedOutException, GdsApi::HTTPServerError
+      # This call normally takes ~20ms. If it takes longer than a second, fetch a stale value from
+      # cache. Rails adds 5 minutes to the `expires_in` value above to generate the TTL it sends to
+      # memcached, so we will have 5 minutes of staleness before the key is evicted.
+      # If there's no key in the cache, raise the original error. Frontend controllers can choose to
+      # display empty data, but admin controllers will prefer to error the page.
+      stale_data = Rails.cache.fetch('policy.linkables')
+      return stale_data if stale_data
+      raise
     end
-  rescue GdsApi::TimedOutException, GdsApi::HTTPServerError
-    # This call normally takes ~20ms. If it takes longer than a second, fetch a stale value from
-    # cache. Rails adds 5 minutes to the `expires_in` value above to generate the TTL it sends to
-    # memcached, so we will have 5 minutes of staleness before the key is evicted.
-    # If there's no key in the cache, raise the original error. Frontend controllers can choose to
-    # display empty data, but admin controllers will prefer to error the page.
-    stale_data = Rails.cache.fetch('policy.linkables')
-    return stale_data if stale_data
-    raise
-  end
 
-  def self.find_policy(content_id)
-    linkables.find { |p| p["content_id"] == content_id }
-  end
+    def find_policy(content_id)
+      linkables.find { |p| p["content_id"] == content_id }
+    end
 
-  def self.publishing_api_with_low_timeout
-    @publishing_api_with_low_timeout ||= begin
-      Services.publishing_api.dup.tap do |client|
-        client.options[:timeout] = 1
+    def publishing_api_with_low_timeout
+      @publishing_api_with_low_timeout ||= begin
+        Services.publishing_api.dup.tap do |client|
+          client.options[:timeout] = 1
+        end
       end
     end
   end

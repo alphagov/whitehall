@@ -20,6 +20,10 @@ class DetailedGuide < Edition
   include Edition::RelatedPolicies
   include Edition::RelatedDocuments
 
+  def self.format_name
+    'detailed guidance'
+  end
+
   has_many :related_mainstreams, foreign_key: "edition_id", dependent: :destroy
 
   validate :related_mainstream_found, if: :related_mainstream_requested?
@@ -176,9 +180,5 @@ private
 
   def related_mainstream_requested?
     related_mainstream_content_url.present? || additional_related_mainstream_content_url.present?
-  end
-
-  def self.format_name
-    'detailed guidance'
   end
 end
