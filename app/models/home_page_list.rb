@@ -74,8 +74,6 @@ protected
     new_item.ordering = next_ordering unless new_item.ordering
   end
 
-public
-
   module Container
     # Given:
     #   has_home_page_list_of :contacts

@@ -157,8 +157,6 @@ class PublishStaticPages
     }
   end
 
-private
-
   class TemplateContent
     include ActionView::Helpers::SanitizeHelper
 
@@ -171,4 +169,6 @@ private
       strip_tags(template)
     end
   end
+
+  private_constant :TemplateContent
 end
