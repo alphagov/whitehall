@@ -23,7 +23,7 @@ task :generate_broken_link_reports, %i[reports_dir email_address organisation_sl
     logger.info("Reports zipped. Emailing to #{email_address}")
     Notifications.broken_link_reports(report_zip_path, email_address).deliver_now
     logger.info("Email sent.")
-  rescue => e
+  rescue StandardError => e
     GovukError.notify(e, extra: { error_message: "Exception raised during broken link report generation: '#{e.message}'" })
     raise
   end

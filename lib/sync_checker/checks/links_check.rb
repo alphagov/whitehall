@@ -16,7 +16,7 @@ module SyncChecker
                 failures += check_for_unexpected_content_ids
               end
             end
-          rescue
+          rescue StandardError
             failures << "response.body not valid JSON. Likely not present in the content store"
           end
         end

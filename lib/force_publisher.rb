@@ -27,7 +27,7 @@ class ForcePublisher
                 publisher.perform!
               end
               reporter.success(edition)
-            rescue => e
+            rescue StandardError => e
               reporter.failure(edition, e)
             end
           end

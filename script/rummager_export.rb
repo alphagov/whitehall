@@ -60,7 +60,7 @@ def output_es_line(obj, output)
   max_retry_count = 5
   begin
     search_index = obj.search_index
-  rescue
+  rescue StandardError
     max_retry_count -= 1
     if max_retry_count <= 0
       raise

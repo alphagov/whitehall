@@ -58,7 +58,7 @@ private
       begin
         I18n.t("#{translation_prefix}.#{type.key}", count: 1)
         I18n.t("#{translation_prefix}.#{type.key}", count: 2)
-      rescue
+      rescue StandardError
         failed_types << type
       end
     end

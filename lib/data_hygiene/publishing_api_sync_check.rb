@@ -174,7 +174,7 @@ module DataHygiene
         failed_expectations = expectations.reject do |expectation|
           begin
             expectation[:block].call(json, whitehall_model)
-          rescue => e
+          rescue StandardError => e
             Failure.new(
               record_id: whitehall_model.id,
               base_path: base_path,

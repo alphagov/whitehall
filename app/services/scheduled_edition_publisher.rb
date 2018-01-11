@@ -11,7 +11,7 @@ private
   # fail so we catch and continue if there are problems in any of the
   # registered listeners on scheduled publishing.
   # Further work is required to make the notification bus more robust.
-  rescue => e
+  rescue StandardError => e
     if Rails.env.production?
       GovukError.notify(e,
         extra: {
