@@ -31,9 +31,9 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
   end
 
   test "filtering for imminent announcements returns them in date order" do
-    today      = statistics_announcement_for(1.hour.from_now)
-    _past       = statistics_announcement_for(1.week.ago)
-    tomorrow   = statistics_announcement_for(1.day.from_now)
+    today = statistics_announcement_for(1.hour.from_now)
+    _past = statistics_announcement_for(1.week.ago)
+    tomorrow = statistics_announcement_for(1.day.from_now)
     _one_month = statistics_announcement_for(1.month.from_now)
 
     assert_equal [today, tomorrow].map(&:id),
