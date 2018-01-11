@@ -63,17 +63,17 @@ class RetrospectiveStub
 private
 
   def get_matching_stub(method, args)
-    stub = stubs.find { |stub|
+    matching_stub = stubs.find do |stub|
       stub[:method] == method && (
         stub[:with].is_a?(Proc) ? stub[:with].call(args) : (stub[:with] == args)
       )
-    }
-    if stub.nil?
-      stub = stubs.find { |stub|
-        stub[:method] == method
-      }
     end
-    stub
+
+    if matching_stub.nil?
+      matching_stub = stubs.find { |stub| stub[:method] == method }
+    end
+
+    matching_stub
   end
 
   def inspect_calls

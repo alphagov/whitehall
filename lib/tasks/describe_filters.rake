@@ -30,15 +30,33 @@ task :describe_filters, [:topic_list_csv] => :environment do |_t, args|
 
   def describe(params)
     filter = Whitehall::DocumentFilter::Filterer.new(params)
-    h = FilterHelper.new(params)
+    filter_helper = FilterHelper.new(params)
+
+    departments = filter_helper
+                    .filter_results_selections(filter.selected_organisations, 'departments')
+                    .map { |h| h[:name] }
+
+    topics = filter_helper
+               .filter_results_selections(filter.selected_topics, 'topics')
+               .map { |h| h[:name] }
+
+    world_locations = filter_helper
+                        .filter_results_selections(filter.selected_locations, 'world_locations')
+                        .map { |h| h[:name] }
+
+    keywords = filter_helper
+                 .filter_results_keywords(filter.keywords)
+
+    include_world_location_news = filter
+                                    .include_world_location_news ? "including location-specific news" : ""
 
     {
       type: params[:controller],
-      departments: h.filter_results_selections(filter.selected_organisations, 'departments').map { |h| h[:name] },
-      topics: h.filter_results_selections(filter.selected_topics, 'topics').map { |h| h[:name] },
-      world_locations: h.filter_results_selections(filter.selected_locations, 'world_locations').map { |h| h[:name] },
-      keywords: h.filter_results_keywords(filter.keywords),
-      include_world_location_news: filter.include_world_location_news ? "including location-specific news" : ""
+      departments: departments,
+      topics: topics,
+      world_locations: world_locations,
+      keywords: keywords,
+      include_world_location_news: include_world_location_news,
     }
   end
 

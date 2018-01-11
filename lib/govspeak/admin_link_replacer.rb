@@ -51,7 +51,7 @@ module Govspeak
       new_html = if edition.present? && edition.linkable?
                    anchor
                      .dup
-                     .tap { |anchor| anchor['href'] = Whitehall.url_maker.public_document_url(edition, options) }
+                     .tap { |new_anchor| new_anchor['href'] = Whitehall.url_maker.public_document_url(edition, options) }
                      .to_html
                      .html_safe
                  else
