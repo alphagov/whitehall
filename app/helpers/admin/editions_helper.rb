@@ -169,7 +169,7 @@ module Admin::EditionsHelper
   def default_edition_tabs(edition)
     { 'Document' => tab_url_for_edition(edition) }.tap do |tabs|
       if edition.allows_attachments? && edition.persisted?
-        text = if edition.attachments.count > 0
+        text = if edition.attachments.count.positive?
                  "Attachments <span class='badge'>#{edition.attachments.count}</span>".html_safe
                else
                  "Attachments"

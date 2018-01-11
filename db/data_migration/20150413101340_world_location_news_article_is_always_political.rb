@@ -8,5 +8,5 @@ edition_scope.find_each do |edition|
   edition.update_column(:political, true)
   index += 1
 
-  puts "Processed #{index} of #{edition_count} editions (#{(index.to_f / edition_count.to_f) * 100}%)" if index % 1000 == 0
+  puts "Processed #{index} of #{edition_count} editions (#{(index.to_f / edition_count.to_f) * 100}%)" if (index % 1000).zero?
 end

@@ -22,6 +22,6 @@ POLITICAL_ORG_SLUGS.each do |slug|
 
     index += 1
 
-    puts "Processed #{index} of #{edition_count} editions (#{(index.to_f / edition_count.to_f) * 100}%) from #{organsation.name}" if index % 1000 == 0
+    puts "Processed #{index} of #{edition_count} editions (#{(index.to_f / edition_count.to_f) * 100}%) from #{organsation.name}" if (index % 1000).zero?
   end
 end

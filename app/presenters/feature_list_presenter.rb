@@ -23,6 +23,6 @@ class FeatureListPresenter < Whitehall::Decorators::Decorator
   end
 
   def any_current_features?
-    current_feature_count > 0
+    current_feature_count.positive?
   end
 end

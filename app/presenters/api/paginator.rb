@@ -4,7 +4,7 @@ Api::Paginator = Struct.new(:collection, :params) do
   end
 
   def current_page
-    page_param > 0 ? page_param : 1
+    page_param.positive? ? page_param : 1
   end
 
   def page

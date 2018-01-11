@@ -13,12 +13,8 @@ module DocumentHelper
   end
 
   def begin_drafting_document(options)
-    if Organisation.count == 0
-      create(:organisation)
-    end
-    if Topic.count == 0
-      create(:topic)
-    end
+    create(:organisation) if Organisation.count.zero?
+    create(:topic) if Topic.count.zero?
     visit admin_root_path
     # Make sure the dropdown is visible first, otherwise Capybara won't see the links
     find('li.create-new a', text: 'New document').click

@@ -93,7 +93,7 @@ private
   end
 
   def show_unlinked_announcements_warning?
-    !filtering_imminent_unlinked_announcements? && unlinked_announcements_count > 0
+    !filtering_imminent_unlinked_announcements? && unlinked_announcements_count.positive?
   end
 
   def filtering_imminent_unlinked_announcements?

@@ -13,7 +13,7 @@ class SanitiseDBTest < ActiveSupport::TestCase
 
   test 'scrub script runs' do
     run_script
-    assert $?.to_i == 0, "Script exited non-zero"
+    assert Integer($?).zero?, "Script exited non-zero"
   end
 
   test "scrub script sanitises access limited editions" do

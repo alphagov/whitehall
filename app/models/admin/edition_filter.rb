@@ -60,7 +60,7 @@ module Admin
     end
 
     def force_published_percentage
-      if published_count > 0
+      if published_count.positive?
         (( force_published_count.to_f / published_count.to_f) * 100.0).round(2)
       else
         0

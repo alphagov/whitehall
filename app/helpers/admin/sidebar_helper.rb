@@ -45,7 +45,7 @@ module Admin::SidebarHelper
                        end
                      end
       link = content_tag(:a, link_content, "href" => "##{id}", "data-toggle" => "tab")
-      content_tag(:li, link, class: (index == 0 ? "active" : nil))
+      content_tag(:li, link, class: (index.zero? ? "active" : nil))
     end
     content_tag(:div, class: ["sidebar tabbable", options[:class]].compact.join(' ')) do
       content_tag(:ul, class: "nav nav-tabs add-bottom-margin") { tab_tags.join.html_safe } +

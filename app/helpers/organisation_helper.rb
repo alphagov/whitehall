@@ -201,7 +201,7 @@ module OrganisationHelper
     if organisation.important_board_members > 1
       clear_number = 4
     end
-    i % clear_number == 0 ? 'clear-person' : ''
+    (i % clear_number).zero? ? 'clear-person' : ''
   end
 
   def array_of_links_to_organisations(organisations)

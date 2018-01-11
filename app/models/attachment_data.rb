@@ -120,7 +120,7 @@ private
   end
 
   def file_is_not_empty
-    errors.add(:file, "is an empty file") if file.present? && file.file.size.to_i == 0
+    errors.add(:file, "is an empty file") if file.present? && file.file.size.to_i.zero?
   end
 
   def virus_scan_pending?

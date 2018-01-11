@@ -150,7 +150,7 @@ module Edition::AuditTrail
     end
 
     def first_edition?
-      edition_serial_number == 0
+      edition_serial_number.zero?
     end
 
     def sort_priority

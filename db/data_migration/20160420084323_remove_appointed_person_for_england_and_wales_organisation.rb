@@ -2,11 +2,11 @@ organisation = Organisation.find_by(slug: 'appointed-person-for-england-and-wale
 if organisation.present?
   # This association does have a dependent destroy, but if there are documents
   # we probably need to do some more 410/404 stuff
-  raise "Can't remove #{organisation.name} - it has editions" if organisation.editions.count > 0
+  raise "Can't remove #{organisation.name} - it has editions" if organisation.editions.count.positive?
 
   # This association doesn't have a dependent option, but isn't simple enough
   # to just destroy them all so we halt execution
-  raise "Can't remove #{organisation.name} - it has groups" if organisation.groups.count > 0
+  raise "Can't remove #{organisation.name} - it has groups" if organisation.groups.count.positive?
 
   # These associations don't have a dependent option, but are simple enough
   # that we can just destroy_all them and continue

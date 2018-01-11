@@ -306,7 +306,7 @@ private
   end
 
   def detect_other_active_editors
-    RecentEditionOpening.expunge! if rand(10) == 0
+    RecentEditionOpening.expunge! if rand(10).zero?
     @recent_openings = @edition.active_edition_openings.except_editor(current_user)
   end
 
@@ -321,7 +321,7 @@ private
   end
 
   def clear_scheduled_publication_if_not_activated
-    if params[:scheduled_publication_active] && params[:scheduled_publication_active].to_i == 0
+    if params[:scheduled_publication_active] && params[:scheduled_publication_active].to_i.zero?
       params[:edition].keys.each do |key|
         if key =~ /^scheduled_publication(\([0-9]i\))?/
           params[:edition].delete(key)

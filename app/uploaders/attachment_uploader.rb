@@ -54,7 +54,7 @@ class AttachmentUploader < WhitehallUploader
       ]
     end
 
-    unless exit_status == 0
+    unless exit_status.zero?
       Rails.logger.warn "Error thumbnailing PDF. Exit status: #{exit_status}; Output: #{output}"
       use_fallback_pdf_thumbnail
     end

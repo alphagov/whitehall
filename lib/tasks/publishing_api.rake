@@ -44,7 +44,7 @@ namespace :publishing_api do
     editions.pluck(:id).each_with_index do |item_id, i|
       PublishingApiLinksWorker.perform_async(item_id)
 
-      puts "Queuing #{i}-#{i + 99} of #{count} items" if i % 100 == 0
+      puts "Queuing #{i}-#{i + 99} of #{count} items" if (i % 100).zero?
     end
 
     puts "Finished queuing items for Publishing API"
@@ -59,7 +59,7 @@ namespace :publishing_api do
     editions.pluck(:id).each_with_index do |item_id, i|
       PublishingApiLinksWorker.perform_async(item_id)
 
-      puts "Queuing #{i}-#{i + 99} of #{count} items" if i % 100 == 0
+      puts "Queuing #{i}-#{i + 99} of #{count} items" if (i % 100).zero?
     end
 
     puts "Finished queuing items for Publishing API"
@@ -75,7 +75,7 @@ namespace :publishing_api do
     editions.pluck(:id).each_with_index do |item_id, i|
       PublishingApiLinksWorker.perform_async(item_id)
 
-      puts "Queuing #{i}-#{i + 99} of #{count} items" if i % 100 == 0
+      puts "Queuing #{i}-#{i + 99} of #{count} items" if (i % 100).zero?
     end
 
     puts "Finished queuing items for Publishing API"
