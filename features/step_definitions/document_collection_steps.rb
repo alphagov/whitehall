@@ -77,7 +77,6 @@ Then(/^I see that the document "(.*?)" is not part of the document collection$/)
 end
 
 Then(/^I should see links back to the collection$/) do
-  @document_collection
   assert page.has_css?("a[href='#{public_document_path(@document_collection)}']")
 end
 

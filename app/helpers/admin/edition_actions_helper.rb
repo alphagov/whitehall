@@ -126,7 +126,7 @@ private
         [edition_type.model_name.human.pluralize, edition_type.model_name.singular]
       end
     end
-ActiveModel::Name
+
     options_for_select(type_options_container, selected)
   end
 

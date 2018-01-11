@@ -143,10 +143,8 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "#index orders documents by appropriate timestamp by default" do
-    [
-      consultation = create(:published_consultation, first_published_at: 5.days.ago),
-      publication = create(:published_publication, first_published_at: 4.days.ago)
-    ]
+    consultation = create(:published_consultation, first_published_at: 5.days.ago)
+    publication = create(:published_publication, first_published_at: 4.days.ago)
 
     get :index
 

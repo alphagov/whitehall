@@ -27,8 +27,8 @@ check.add_expectation("content_id") do |content_store_payload, record|
 end
 
 check.add_expectation("schema_name") do |content_store_payload, _|
-  content_store_payload["schema_name"] == "html_publication"
-  content_store_payload["document_type"] == "html_publication"
+  content_store_payload["schema_name"] == "html_publication" &&
+    content_store_payload["document_type"] == "html_publication"
 end
 
 check.add_expectation("base_path") do |content_store_payload, record|
@@ -53,8 +53,8 @@ check.add_expectation("correct parent") do |content_store_payload, record|
 end
 
 check.add_expectation("content") do |content_store_payload, _|
-  content_store_payload["details"]["body"].present?
-  content_store_payload["details"]["headings"].present?
+  content_store_payload["details"]["body"].present? &&
+    content_store_payload["details"]["headings"].present?
 end
 
 check.add_expectation("rendering_app") do |content_store_payload, _|
