@@ -47,8 +47,11 @@ task :describe_filters, [:topic_list_csv] => :environment do |_t, args|
     keywords = filter_helper
                  .filter_results_keywords(filter.keywords)
 
-    include_world_location_news = filter
-                                    .include_world_location_news ? "including location-specific news" : ""
+    include_world_location_news = if filter.include_world_location_news
+                                    "including location-specific news"
+                                  else
+                                    ""
+                                  end
 
     {
       type: params[:controller],
