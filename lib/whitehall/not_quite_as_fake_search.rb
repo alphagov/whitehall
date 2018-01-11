@@ -114,15 +114,19 @@ module Whitehall
           validate_ordering!
         end
 
+        # rubocop:disable Style/MultilineBlockChain
         def compare(left, right)
-          @ordering.map do |field_name, direction|
-            if direction == "asc"
-              left.fetch(field_name) <=> right.fetch(field_name)
-            else
-              right.fetch(field_name) <=> left.fetch(field_name)
-            end
-          end.detect { |res| res != 0 } || 0
+          @ordering
+            .map { |field_name, direction|
+              if direction == "asc"
+                left.fetch(field_name) <=> right.fetch(field_name)
+              else
+                right.fetch(field_name) <=> left.fetch(field_name)
+              end
+            }
+            .detect { |res| res != 0 } || 0
         end
+        # rubocop:enable Style/MultilineBlockChain
 
         def sort(documents)
           documents.sort { |l, r| compare(l, r) }
