@@ -25,8 +25,8 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
     previous_pm_1 = create(:ministerial_role_appointment, role: pm_role, started_at: 8.years.ago, ended_at: 4.years.ago)
     previous_pm_2 = create(:ministerial_role_appointment, role: pm_role, started_at: 4.years.ago, ended_at: 1.day.ago)
     _current_pm = create(:ministerial_role_appointment, role: pm_role, started_at: Time.zone.now)
-    nineteenth_century_pm = create(:ministerial_role_appointment, role: pm_role, started_at: DateTime.civil(1801), ended_at: DateTime.civil(1804))
-    eighteenth_century_pm = create(:ministerial_role_appointment, role: pm_role, started_at: DateTime.civil(1701), ended_at: DateTime.civil(1704))
+    nineteenth_century_pm = create(:ministerial_role_appointment, role: pm_role, started_at: Date.civil(1801), ended_at: Date.civil(1804))
+    eighteenth_century_pm = create(:ministerial_role_appointment, role: pm_role, started_at: Date.civil(1701), ended_at: Date.civil(1704))
 
     create(:historical_account, roles: [chancellor_role])
     get :index, params: { role: 'past-prime-ministers' }

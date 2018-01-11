@@ -78,12 +78,12 @@ class PublishingApi::DraftStatisticalDataSetPresenter < ActiveSupport::TestCase
   test "it presents the statistical data set's parent document created_at as first_public_at" do
     presented_notice = PublishingApi::StatisticalDataSetPresenter.new(
       create(:draft_statistical_data_set) do |statistical_data_set|
-        statistical_data_set.document.stubs(:created_at).returns(DateTime.new(2015, 4, 10))
+        statistical_data_set.document.stubs(:created_at).returns(Date.new(2015, 4, 10))
       end
     )
 
     assert_equal(
-      DateTime.new(2015, 4, 10),
+      Date.new(2015, 4, 10),
       presented_notice.content[:details][:first_public_at]
     )
   end
@@ -93,12 +93,12 @@ class PublishingApi::StatisticalDataSetBelongingToPublishedDocumentNoticePresent
   test "it presents the Statistical Data Set's first_published_at as first_public_at" do
     presented_notice = PublishingApi::StatisticalDataSetPresenter.new(
       create(:published_statistical_data_set) do |statistical_data_set|
-        statistical_data_set.stubs(:first_published_at).returns(DateTime.new(2015, 4, 10))
+        statistical_data_set.stubs(:first_published_at).returns(Date.new(2015, 4, 10))
       end
     )
 
     assert_equal(
-      DateTime.new(2015, 04, 10),
+      Date.new(2015, 04, 10),
       presented_notice.content[:details][:first_public_at]
     )
   end
@@ -106,7 +106,7 @@ end
 
 class PublishingApi::PublishedStatisticalDataSetPresenterDetailsTest < ActiveSupport::TestCase
   setup do
-    @expected_first_published_at = DateTime.new(2015, 12, 25)
+    @expected_first_published_at = Time.new(2015, 12, 25)
     @statistical_data_set = create(
       :statistical_data_set,
       :published,

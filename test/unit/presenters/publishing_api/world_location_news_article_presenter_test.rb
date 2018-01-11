@@ -77,12 +77,12 @@ class PublishingApi::DraftWorldLocationNewsArticlePresenter < ActiveSupport::Tes
   test "it presents the world location news article's parent document created_at as first_public_at" do
     presented_notice = PublishingApi::WorldLocationNewsArticlePresenter.new(
       create(:draft_world_location_news_article) do |world_location_news_article|
-        world_location_news_article.document.stubs(:created_at).returns(DateTime.new(2015, 4, 10))
+        world_location_news_article.document.stubs(:created_at).returns(Date.new(2015, 4, 10))
       end
     )
 
     assert_equal(
-      DateTime.new(2015, 4, 10),
+      Date.new(2015, 4, 10),
       presented_notice.content[:details][:first_public_at]
     )
   end
@@ -92,12 +92,12 @@ class PublishingApi::WorldLocationNewsArticleBelongingToPublishedDocumentNoticeP
   test "it presents the World Location News Article's first_published_at as first_public_at" do
     presented_notice = PublishingApi::WorldLocationNewsArticlePresenter.new(
       create(:published_world_location_news_article) do |world_location_news_article|
-        world_location_news_article.stubs(:first_published_at).returns(DateTime.new(2015, 4, 10))
+        world_location_news_article.stubs(:first_published_at).returns(Date.new(2015, 4, 10))
       end
     )
 
     assert_equal(
-      DateTime.new(2015, 04, 10),
+      Date.new(2015, 04, 10),
       presented_notice.content[:details][:first_public_at]
     )
   end
@@ -105,7 +105,7 @@ end
 
 class PublishingApi::WorldLocationNewsArticlePresenterDetailsTest < ActiveSupport::TestCase
   setup do
-    @expected_first_published_at = DateTime.new(2015, 12, 25)
+    @expected_first_published_at = Time.new(2015, 12, 25)
     @world_location_news_article = create(
       :world_location_news_article,
       :published,

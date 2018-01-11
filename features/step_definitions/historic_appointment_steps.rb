@@ -5,9 +5,9 @@ Given(/^there are previous prime ministers$/) do
   _current_pm = create(:ministerial_role_appointment, role: pm_role, started_at: Time.zone.now)
   _pm1_historic_account = create(:historical_account, roles: [pm_role], person: previous_pm_1.person)
   _pm2_historic_account = create(:historical_account, roles: [pm_role], person: previous_pm_2.person)
-  nineteenth_century_pm = create(:ministerial_role_appointment, role: pm_role, started_at: DateTime.civil(1801), ended_at: DateTime.civil(1804))
-  eighteenth_century_pm_1 = create(:ministerial_role_appointment, role: pm_role, started_at: DateTime.civil(1701), ended_at: DateTime.civil(1704))
-  eighteenth_century_pm_2 = create(:ministerial_role_appointment, role: pm_role, started_at: DateTime.civil(1704), ended_at: DateTime.civil(1708))
+  nineteenth_century_pm = create(:ministerial_role_appointment, role: pm_role, started_at: Date.civil(1801), ended_at: Date.civil(1804))
+  eighteenth_century_pm_1 = create(:ministerial_role_appointment, role: pm_role, started_at: Date.civil(1701), ended_at: Date.civil(1704))
+  eighteenth_century_pm_2 = create(:ministerial_role_appointment, role: pm_role, started_at: Date.civil(1704), ended_at: Date.civil(1708))
 
   @modern_previous_pm_appointments = [previous_pm_2, previous_pm_1]
   @nineteenth_century_pm_appointments = [nineteenth_century_pm]
