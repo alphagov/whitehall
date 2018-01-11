@@ -11,6 +11,6 @@ begin
     current_unpublishing_id = unpublishing.id
     unpublishing.save!
   end
-rescue Exception => ex
-  puts "Could not save #{current_unpublishing_id}, #{ex.message}"
+rescue StandardError => e
+  puts "Could not save #{current_unpublishing_id}, #{e.message}"
 end
