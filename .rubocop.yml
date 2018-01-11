@@ -3,6 +3,9 @@ AllCops:
     - 'db/schema.rb'
     - 'lib/tasks/cucumber.rake'
 
+Metrics/BlockLength:
+  Enabled: false
+
 Naming/VariableNumber:
   EnforcedStyle: snake_case
 
