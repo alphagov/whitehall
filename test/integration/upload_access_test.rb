@@ -4,7 +4,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
   include CacheControlTestHelpers
 
   def path_to_clean_upload(path)
-    File.join(Whitehall.clean_uploads_root, path.from("/government/uploads".size))
+    File.join(Whitehall.clean_uploads_root, path.sub(%r[^/government/uploads], ''))
   end
 
   def nginx_path_to_clean_upload(path)
