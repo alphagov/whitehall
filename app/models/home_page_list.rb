@@ -93,7 +93,6 @@ protected
       plural_name = list_type.to_s
       list_name = list_type.to_s
       home_page_list_methods = Module.new do
-
       protected
 
         define_method(:"home_page_#{plural_name}_list") do
