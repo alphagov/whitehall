@@ -54,7 +54,7 @@ module Whitehall
         methods += DEFAULT_METHODS_TO_ALWAYS_DELEGATE if delegate_options.delete(:with_default_methods)
         methods += Array.wrap(delegate_options.delete(:with_extra_methods))
 
-        delegate *methods, delegate_options
+        delegate(*methods, delegate_options)
       end
     end
   end

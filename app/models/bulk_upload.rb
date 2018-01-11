@@ -58,7 +58,7 @@ class BulkUpload
     attachments.each { |attachment| attachment.attachable = edition }
 
     if valid?
-      attachments.all? &:save
+      attachments.all?(&:save)
     else
       false
     end

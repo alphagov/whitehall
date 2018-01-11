@@ -49,7 +49,7 @@ class DocumentCollectionGroup < ApplicationRecord
 
   def dup
     new_group = super
-    new_group.memberships = memberships.map &:dup
+    new_group.memberships = memberships.map(&:dup)
     new_group
   end
 

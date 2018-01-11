@@ -1,7 +1,7 @@
 class AnnouncementPresenter < Whitehall::Decorators::Decorator
   include EditionPresenterHelper
 
-  delegate_instance_methods_of *Announcement.concrete_descendants
+  delegate_instance_methods_of(*Announcement.concrete_descendants)
 
   def as_hash
     super.merge(

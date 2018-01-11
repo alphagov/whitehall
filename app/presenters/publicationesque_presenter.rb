@@ -1,7 +1,7 @@
 class PublicationesquePresenter < Whitehall::Decorators::Decorator
   include EditionPresenterHelper
 
-  delegate_instance_methods_of *Publicationesque.concrete_descendants
+  delegate_instance_methods_of(*Publicationesque.concrete_descendants)
 
   def as_hash
     super.merge(publication_collections: publication_collections)

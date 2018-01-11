@@ -21,9 +21,8 @@ class WorldwideOffice < ApplicationRecord
     %w(contact_numbers country country_code country_name has_postal_address?) -
     %w(id contactable_id contactable_type contact_id locale created_at updated_at)
 
-  delegate *contact_methods, to: :contact, allow_nil: true
-
-  delegate :non_english_translated_locales, to: :worldwide_organisation
+  delegate(*contact_methods, to: :contact, allow_nil: true)
+  delegate(:non_english_translated_locales, to: :worldwide_organisation)
 
   def access_and_opening_times_body
     (access_and_opening_times || default_access_and_opening_times).try(:body)

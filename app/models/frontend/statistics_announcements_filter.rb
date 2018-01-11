@@ -53,7 +53,7 @@ class Frontend::StatisticsAnnouncementsFilter < FormObject
   end
 
   def organisation_slugs
-    organisations.map &:slug
+    organisations.map(&:slug)
   end
 
   def topics=(topics)
