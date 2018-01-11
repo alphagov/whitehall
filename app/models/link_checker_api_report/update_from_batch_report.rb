@@ -5,10 +5,12 @@ class LinkCheckerApiReport::UpdateFromBatchReport
   end
 
   def update
-    update_report
-    links = payload.fetch("links", [])
-    delete_removed_links(links)
-    update_links(links)
+    ActiveRecord::Base.transaction do
+      update_report
+      links = payload.fetch("links", [])
+      delete_removed_links(links)
+      update_links(links)
+    end
   end
 
 private
@@ -32,11 +34,15 @@ private
     links_payload.each_with_index do |link_payload, index|
       link = report.links.find { |l| l.uri == link_payload.fetch("uri") }
 
-      attributes = LinkCheckerApiReport::Link
-        .attributes_from_link_report(link_payload)
-        .merge(ordering: index)
+      attributes = link_attributes_from_report(link_payload, index)
 
       link ? link.update!(attributes) : report.links.create!(attributes)
     end
+  end
+
+  def link_attributes_from_report(payload, index)
+    LinkCheckerApiReport::Link
+      .attributes_from_link_report(payload)
+      .merge(ordering: index)
   end
 end
