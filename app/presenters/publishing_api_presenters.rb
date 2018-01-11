@@ -36,8 +36,6 @@ module PublishingApiPresenters
         PublishingApi::WorldLocationPresenter
       when ::MinisterialRole
         PublishingApi::MinisterialRolePresenter
-      when ::WorldLocation
-        PublishingApi::WorldLocationPresenter
       when ::WorldwideOrganisation
         PublishingApi::WorldwideOrganisationPresenter
       when ::Contact
