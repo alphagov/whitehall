@@ -19,7 +19,9 @@ class SpecialistTagFinderTest < ActiveSupport::TestCase
 
     content_store_has_item(edition_base_path, content_item)
 
-    assert_equal ["topic-1", "topic-2"], SpecialistTagFinder.new(edition_base_path).topics.map { |topic| topic["title"] }
+    actual_topics = SpecialistTagFinder.new(edition_base_path).topics.map { |topic| topic["title"] }
+
+    assert_equal ["topic-1", "topic-2"], actual_topics
   end
 
   test "#topics returns empty array if no content item found" do

@@ -39,10 +39,14 @@ class Admin::ContactsControllerTest < ActionController::TestCase
             organisation_id: organisation.id
     }
 
+    contact = organisation.contacts.last
+    actual_numbers = contact
+                       .contact_numbers
+                       .map { |cn| "#{cn.label}: #{cn.number}" }
+
     assert_redirected_to admin_organisation_contacts_url(organisation)
-    assert contact = organisation.contacts.last
     assert_equal %{"#{contact.title}" created successfully}, flash[:notice]
-    assert_equal ["Main phone: 1234"], contact.contact_numbers.map { |cn| "#{cn.label}: #{cn.number}" }
+    assert_equal ["Main phone: 1234"], actual_numbers
   end
 
   test "POST on :create creates contact on the home page of the organisation if told to" do
@@ -129,9 +133,14 @@ class Admin::ContactsControllerTest < ActionController::TestCase
             id: contact
     }
 
+    actual_numbers = contact
+                       .reload
+                       .contact_numbers
+                       .map { |cn| "#{cn.label}: #{cn.number}" }
+
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert_equal %{"#{contact.reload.title}" updated successfully}, flash[:notice]
-    assert_equal ["Main phone: 5678"], contact.reload.contact_numbers.map { |cn| "#{cn.label}: #{cn.number}" }
+    assert_equal ["Main phone: 5678"], actual_numbers
   end
 
   test "PUT on :update adds contact to the home page of the organisation if told to" do

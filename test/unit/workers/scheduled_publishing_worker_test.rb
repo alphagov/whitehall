@@ -59,10 +59,10 @@ class ScheduledPublishingWorkerTest < ActiveSupport::TestCase
 
       assert_equal 1, Sidekiq::ScheduledSet.new.size
 
-      assert Sidekiq::ScheduledSet.new.detect { |job|
+      assert Sidekiq::ScheduledSet.new.detect do |job|
         control.id == job['args'].first &&
           control.scheduled_publication.to_i == job.at.to_i
-      }
+      end
     end
   end
 

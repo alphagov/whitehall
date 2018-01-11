@@ -44,7 +44,7 @@ class BulkUploadTest < ActiveSupport::TestCase
     existing = edition.attachments.first
     paths = ['whitepaper.pdf', existing.filename].map { |name| file_fixture(name).path }
     bulk_upload = BulkUpload.from_files(edition, paths)
-    assert bulk_upload.attachments.all? { |a| a.attachment_data.new_record? }
+    assert(bulk_upload.attachments.all? { |a| a.attachment_data.new_record? })
   end
 
   test '.from_files sets replaced_by on existing AttachmentData when file re-attached' do

@@ -252,8 +252,11 @@ class WorldLocationTest < ActiveSupport::TestCase
     create(:world_location, name: 'hat land', mission_statement: 'helping people in hat land find out about other clothing', active: true)
     create(:world_location, name: 'sheep land', mission_statement: 'helping people in sheep land find out about other animals', active: false)
 
-    assert_equal 1, WorldLocation.search_index.to_a.length
-    assert_equal ['/world/hat-land'], WorldLocation.search_index.map { |search_data| search_data['link'] }
+    actual_length = WorldLocation.search_index.to_a.length
+    actual_links = WorldLocation.search_index.map { |search_data| search_data['link'] }
+
+    assert_equal 1, actual_length
+    assert_equal ['/world/hat-land'], actual_links
   end
 
   test 'only one feature list per language per world location' do

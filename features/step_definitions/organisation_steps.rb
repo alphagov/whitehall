@@ -385,7 +385,7 @@ end
 Then(/^I should only see published policies belonging to the "([^"]*)" organisation$/) do |name|
   organisation = Organisation.find_by!(name: name)
   editions = records_from_elements(Edition, page.all(".document"))
-  assert editions.all? { |edition| organisation.editions.published.include?(edition) }
+  assert(editions.all? { |edition| organisation.editions.published.include?(edition) })
 end
 
 def navigate_to_organisation(page_name)

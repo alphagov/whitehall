@@ -12,7 +12,7 @@ publications = Publication
   .to_a
 
 StackProf.run(mode: :wall, out: "tmp/publishing_api_worker.dump") do
-  puts Benchmark.measure {
+  puts Benchmark.measure do
     publications.each { |publication|
       Whitehall::PublishingApi.locales_for(publication).each { |locale|
         PublishingApiWorker.new.perform('Edition', publication.id, 'republish', locale.to_s)
@@ -20,5 +20,5 @@ StackProf.run(mode: :wall, out: "tmp/publishing_api_worker.dump") do
       }
     }
     puts
-  }
+  end
 end

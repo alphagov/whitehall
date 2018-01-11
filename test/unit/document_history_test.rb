@@ -110,6 +110,6 @@ class DocumentHistoryTest < ActiveSupport::TestCase
 private
 
   def assert_history_equal(expected, history)
-    assert_equal expected, history.collect { |change| [change.public_timestamp, change.note] }
+    assert_equal(expected, history.collect { |change| [change.public_timestamp, change.note] })
   end
 end

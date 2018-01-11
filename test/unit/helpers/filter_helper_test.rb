@@ -11,9 +11,10 @@ class FilterHelperTest < ActionView::TestCase
 
     rendered = Nokogiri::HTML::DocumentFragment.parse(organisation_options_for_statistics_announcement_filter(org_3.slug))
     options = rendered.css("option")
+    option_values = options.map { |option| option[:value] }
 
     assert_equal ["All departments", org_3.name, org_2.name], options.map(&:text)
-    assert_equal ["", org_3.slug, org_2.slug], options.map { |option| option[:value] }
+    assert_equal ["", org_3.slug, org_2.slug], option_values
     assert options[1][:selected]
   end
 
@@ -27,9 +28,10 @@ class FilterHelperTest < ActionView::TestCase
 
     rendered = Nokogiri::HTML::DocumentFragment.parse(topic_options_for_statistics_announcement_filter(topic_3.slug))
     options = rendered.css("option")
+    option_values = options.map { |option| option[:value] }
 
     assert_equal ["All policy areas", topic_3.name, topic_2.name], options.map(&:text)
-    assert_equal ["", topic_3.slug, topic_2.slug], options.map { |option| option[:value] }
+    assert_equal ["", topic_3.slug, topic_2.slug], option_values
     assert options[1][:selected]
   end
 end

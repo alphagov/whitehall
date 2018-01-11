@@ -72,16 +72,17 @@ class DocumentFilterHelperTest < ActionView::TestCase
 
     option_set = Nokogiri::HTML::DocumentFragment.parse(organisation_filter_options)
 
-    assert_equal [
+    expected_options = [
       ["Ministerial departments", ["Ministerial department"]],
       ["Other departments & public bodies", ["Other department"]],
       ["Closed organisations", ["1-Closed Ministerial department", "2-Closed Other department"]],
-    ], option_set.css('optgroup').map { |optgroup|
-      [
-        optgroup["label"],
-        optgroup.css("option").map(&:text)
-      ]
-    }
+    ]
+
+    actual_options = option_set
+                       .css('optgroup')
+                       .map { |optgroup| [optgroup["label"], optgroup.css("option").map(&:text)] }
+
+    assert_equal expected_options, actual_options
   end
 
   test "#official_document_status_filter_options should return the options 'All statuses', 'Command papers' and 'Act papers'" do

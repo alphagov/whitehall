@@ -129,8 +129,15 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
             worldwide_organisation_id: worldwide_organisation.id
     }
 
+    actual_numbers = worldwide_organisation
+                       .offices
+                       .first
+                       .contact
+                       .contact_numbers
+                       .map { |cn| "#{cn.label}: #{cn.number}" }
+
     assert_equal 1, worldwide_organisation.offices.count
-    assert_equal ["Main phone: 1234"], office.contact.contact_numbers.map { |cn| "#{cn.label}: #{cn.number}" }
+    assert_equal ["Main phone: 1234"], actual_numbers
   end
 
   test "put update updates an office" do
@@ -248,7 +255,14 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
             worldwide_organisation_id: worldwide_organisation
     }
 
-    assert_equal ["Main phone: 5678"], office.contact.reload.contact_numbers.reload.map { |cn| "#{cn.label}: #{cn.number}" }
+    actual_numbers = office
+                       .contact
+                       .reload
+                       .contact_numbers
+                       .reload
+                       .map { |cn| "#{cn.label}: #{cn.number}" }
+
+    assert_equal ["Main phone: 5678"], actual_numbers
   end
 
   test "PUT :update deletes contact numbers that have only blank fields" do

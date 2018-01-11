@@ -36,7 +36,11 @@ module ApplicationHelper
   end
 
   def format_in_paragraphs(string)
-    safe_join (string || "").split(/(?:\r?\n){2}/).map { |paragraph| content_tag(:p, paragraph) }
+    safe_join(
+      String(string)
+        .split(/(?:\r?\n){2}/)
+        .map { |paragraph| content_tag(:p, paragraph) }
+    )
   end
 
   def format_with_html_line_breaks(string)

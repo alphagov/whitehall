@@ -150,7 +150,8 @@ module Whitehall
 
       def assert_search_returns_documents(expected_document_titles, search_params)
         actual_results = GdsApiRummager.new("government", @store).advanced_search(default_search_params.merge(search_params))
-        assert_equal expected_document_titles, actual_results["results"].map { |r| r['title'] }
+        actual_result_titles = actual_results["results"].map { |r| r['title'] }
+        assert_equal expected_document_titles, actual_result_titles
       end
 
       def assert_search_total(expected_total, search_params)

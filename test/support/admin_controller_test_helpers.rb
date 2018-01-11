@@ -58,8 +58,8 @@ module AdminControllerTestHelpers
 
         get :edit, params: { id: object }
 
-        assert assigns(type).social_media_accounts.all? { |o| o.is_a? SocialMediaAccount }
-        assert assigns(type).social_media_accounts.last.new_record?
+        assert(assigns(type).social_media_accounts.all? { |o| o.is_a? SocialMediaAccount })
+        assert(assigns(type).social_media_accounts.last.new_record?)
       end
 
       test "updating should create new social media account" do
