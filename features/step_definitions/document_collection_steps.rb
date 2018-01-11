@@ -33,7 +33,7 @@ When(/^I add the document "(.*?)" to the document collection$/) do |document_tit
   find('li.ui-menu-item').click
   click_on 'Add'
 
-  within ('section.group') do
+  within 'section.group' do
     assert page.has_content? doc_edition.title
   end
 end

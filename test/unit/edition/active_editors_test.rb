@@ -5,7 +5,7 @@ class Edition::ActiveEditorsTest < ActiveSupport::TestCase
     user = create(:writer)
     edition = create(:edition)
     edition.open_for_editing_as(user)
-    Timecop.travel 1.minute.from_now
+    Timecop.travel(1.minute.from_now)
     assert_equal [user], edition.recent_edition_openings.map(&:editor)
   end
 
@@ -13,7 +13,7 @@ class Edition::ActiveEditorsTest < ActiveSupport::TestCase
     user = create(:writer)
     edition = create(:edition)
     edition.open_for_editing_as(user)
-    Timecop.travel 1.minute.from_now
+    Timecop.travel(1.minute.from_now)
     assert_difference "edition.recent_edition_openings.count", 0 do
       edition.open_for_editing_as(user)
     end
@@ -25,7 +25,7 @@ class Edition::ActiveEditorsTest < ActiveSupport::TestCase
     user_1 = create(:writer)
     edition = create(:edition)
     edition.open_for_editing_as(user_1)
-    Timecop.travel 1.minute.from_now
+    Timecop.travel(1.minute.from_now)
     user_2 = create(:writer)
     edition.open_for_editing_as(user_2)
     assert_equal [user_1], edition.recent_edition_openings.except_editor(user_2).map(&:editor)
@@ -35,9 +35,9 @@ class Edition::ActiveEditorsTest < ActiveSupport::TestCase
     user = create(:writer)
     edition = create(:edition)
     edition.open_for_editing_as(user)
-    Timecop.travel (1.hour + 59.minutes).from_now
+    Timecop.travel((1.hour + 59.minutes).from_now)
     assert_equal [user], edition.active_edition_openings.map(&:editor)
-    Timecop.travel (1.minute + 1.second).from_now
+    Timecop.travel((1.minute + 1.second).from_now)
     assert_equal [], edition.active_edition_openings
   end
 
