@@ -1,6 +1,6 @@
 auto_redirects_with_non_govuk_url = Unpublishing.where(redirect: true).
                                        where("alternative_url NOT LIKE ? AND alternative_url NOT LIKE ?",
-                                        'https://www.gov.uk%', 'http://www.dev.gov.uk%' )
+                                        'https://www.gov.uk%', 'http://www.dev.gov.uk%')
 number = auto_redirects_with_non_govuk_url.count
 
 puts "Fixing auto-redirects for non-GOVUK urls"
