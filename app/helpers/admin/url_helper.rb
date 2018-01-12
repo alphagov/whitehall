@@ -93,6 +93,6 @@ module Admin::UrlHelper
   end
 
   def active_link_class(path_matcher)
-    request.path =~ path_matcher ? 'active' : ''
+    request.path.match?(path_matcher) ? 'active' : ''
   end
 end

@@ -5,7 +5,7 @@ require "csv"
 def clean_money(raw_money)
   if raw_money == '0'
     0
-  elsif /£[0-9,]+/.match(raw_money)
+  elsif /£[0-9,]+/.match?(raw_money)
     raw_money.gsub(/[£,]/, '').to_i
   end
 end

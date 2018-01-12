@@ -9,7 +9,7 @@ module ApplicationHelper
 
   def page_title(*title_parts)
     if title_parts.any?
-      title_parts.push("Admin") if params[:controller] =~ /^admin\//
+      title_parts.push("Admin") if params[:controller].match?(/^admin\//)
       title_parts.push("GOV.UK")
       @page_title = title_parts.reject(&:blank?).join(" - ")
     else
@@ -158,7 +158,7 @@ module ApplicationHelper
   end
 
   def current_link_class(path_matcher)
-    request.path =~ path_matcher ? 'current' : ''
+    request.path.match?(path_matcher) ? 'current' : ''
   end
 
   def render_datetime_microformat(object, method, &block)

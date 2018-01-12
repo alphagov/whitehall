@@ -18,7 +18,7 @@ class CsvPreview
     end
     ensure_csv_data_is_well_formed
   rescue ArgumentError => e
-    if e.message =~ /invalid byte sequence/
+    if e.message.match?(/invalid byte sequence/)
       raise_encoding_error
     else
       raise

@@ -150,9 +150,9 @@ module Whitehall
 
       def filter_by_boolean_field(field, desired_field_value, document_hashes)
         desired_boolean =
-          if desired_field_value =~ /\A(true|1)\Z/
+          if desired_field_value.match?(/\A(true|1)\Z/)
             true
-          elsif desired_field_value =~ /\A(false|0)\Z/
+          elsif desired_field_value.match?(/\A(false|0)\Z/)
             false
           else
             raise GdsApi::HTTPErrorResponse, "bad boolean value #{desired_field_value}"

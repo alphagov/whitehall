@@ -14,7 +14,7 @@ class ImageValidator < ActiveModel::Validator
 
   def validate(record)
     return unless file_for(record).present?
-    return if file_for(record).file.content_type =~ /svg/
+    return if file_for(record).file.content_type.match?(/svg/)
 
     begin
       image = MiniMagick::Image.open file_for(record).path
@@ -30,8 +30,7 @@ private
   def validate_mime_type(record, image)
     if @mime_types[image.mime_type].nil?
       record.errors.add(@method, "is not of an allowed type")
-    end
-    unless file_for(record).path.downcase =~ @mime_types[image.mime_type]
+    elsif !file_for(record).path.downcase.match?(@mime_types[image.mime_type])
       record.errors.add(@method, "is of type '#{image.mime_type}', but has the extension '.#{file_for(record).path.split('.').last}'.")
     end
   end

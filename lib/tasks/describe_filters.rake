@@ -64,7 +64,7 @@ task :describe_filters, [:topic_list_csv] => :environment do |_t, args|
   end
 
   File.open(args[:topic_list_csv]).each_line.with_index do |line, _i|
-    next unless line =~ /^http/
+    next unless line.match?(/^http/)
     params = parse_params(line)
     puts describe(params).reverse_merge(url: line.strip).to_json
   end

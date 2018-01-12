@@ -323,7 +323,7 @@ private
   def clear_scheduled_publication_if_not_activated
     if params[:scheduled_publication_active] && params[:scheduled_publication_active].to_i.zero?
       params[:edition].each_key do |key|
-        if key =~ /^scheduled_publication(\([0-9]i\))?/
+        if key.match?(/^scheduled_publication(\([0-9]i\))?/)
           params[:edition].delete(key)
         end
       end
