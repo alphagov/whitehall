@@ -12,13 +12,13 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "GET on :index assigns all organisations in alphabetical order" do
-    org2 = create(:organisation, name: "org 2")
-    org1 = create(:organisation, name: "org 1")
+    organisation_2 = create(:organisation, name: "org 2")
+    organisation_1 = create(:organisation, name: "org 1")
     get :index
 
     assert_response :success
     assert_template :index
-    assert_equal [org1, org2], assigns(:organisations)
+    assert_equal [organisation_1, organisation_2], assigns(:organisations)
   end
 
   test "GET on :new denied if not a gds admin" do
@@ -393,19 +393,19 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "Non-admins can only edit their own organisations or children" do
-    organisation = create(:organisation)
-    gds_editor = create(:gds_editor, organisation: organisation)
+    organisation_1 = create(:organisation)
+    gds_editor = create(:gds_editor, organisation: organisation_1)
     login_as(gds_editor)
 
-    get :edit, params: { id: organisation }
+    get :edit, params: { id: organisation_1 }
     assert_response :success
 
-    organisation2 = create(:organisation)
-    get :edit, params: { id: organisation2 }
+    organisation_2 = create(:organisation)
+    get :edit, params: { id: organisation_2 }
     assert_response 403
 
-    organisation2.parent_organisations << organisation
-    get :edit, params: { id: organisation2 }
+    organisation_2.parent_organisations << organisation_1
+    get :edit, params: { id: organisation_2 }
     assert_response :success
   end
 

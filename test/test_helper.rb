@@ -71,8 +71,8 @@ class ActiveSupport::TestCase
     Edition::AuditTrail.acting_as(actor, &block)
   end
 
-  def assert_same_elements(array1, array2)
-    assert_equal array1.to_set, array2.to_set, "Different elements in #{array1.inspect} and #{array2}.inspect"
+  def assert_same_elements(array_1, array_2)
+    assert_equal array_1.to_set, array_2.to_set, "Different elements in #{array_1.inspect} and #{array_2}.inspect"
   end
 
   def assert_hash_includes(hash, should_exist)
@@ -149,8 +149,8 @@ class ActiveSupport::TestCase
     File.new(Rails.root.join('test/fixtures', filename))
   end
 
-  def assert_file_content_identical(file1, file2)
-    FileUtils.compare_file(file1.path, file2.path)
+  def assert_file_content_identical(file_1, file_2)
+    FileUtils.compare_file(file_1.path, file_2.path)
   end
 
   def publish(edition)

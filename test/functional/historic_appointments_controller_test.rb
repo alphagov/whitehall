@@ -22,8 +22,8 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
   end
 
   test "GET on :index loads the past appointments for the role and renders the index template" do
-    previous_pm1  = create(:ministerial_role_appointment, role: pm_role, started_at: 8.years.ago, ended_at: 4.years.ago)
-    previous_pm2  = create(:ministerial_role_appointment, role: pm_role, started_at: 4.years.ago, ended_at: 1.day.ago)
+    previous_pm_1 = create(:ministerial_role_appointment, role: pm_role, started_at: 8.years.ago, ended_at: 4.years.ago)
+    previous_pm_2 = create(:ministerial_role_appointment, role: pm_role, started_at: 4.years.ago, ended_at: 1.day.ago)
     current_pm    = create(:ministerial_role_appointment, role: pm_role, started_at: Time.zone.now)
     nineteenth_century_pm = create(:ministerial_role_appointment, role: pm_role, started_at: DateTime.civil(1801), ended_at: DateTime.civil(1804))
     eighteenth_century_pm = create(:ministerial_role_appointment, role: pm_role, started_at: DateTime.civil(1701), ended_at: DateTime.civil(1704))
@@ -35,7 +35,7 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
     assert_template :index
     assert_equal pm_role, assigns(:role)
 
-    assert_equal_role_presenters [previous_pm2, previous_pm1], assigns(:recent_appointments)
+    assert_equal_role_presenters [previous_pm_2, previous_pm_1], assigns(:recent_appointments)
     assert_equal_role_presenters [nineteenth_century_pm], assigns(:nineteenth_century_appointments)
     assert_equal_role_presenters [eighteenth_century_pm], assigns(:eighteenth_century_appointments)
   end

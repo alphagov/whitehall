@@ -133,10 +133,10 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'can be associated to world locations' do
-    location = build(:world_location)
-    location2 = build(:world_location)
-    user = build(:user, world_locations: [location, location2])
-    assert_equal [location, location2], user.world_locations
+    location_1 = build(:world_location)
+    location_2 = build(:world_location)
+    user = build(:user, world_locations: [location_1, location_2])
+    assert_equal [location_1, location_2], user.world_locations
   end
 
   test '#fuzzy_last_name returns second word' do

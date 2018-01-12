@@ -231,10 +231,10 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "#index requested as JSON includes data for publications" do
-    org = create(:organisation, name: "org-name")
-    org2 = create(:organisation, name: "other-org")
+    org_1 = create(:organisation, name: "org-name")
+    org_2 = create(:organisation, name: "other-org")
     publication = create(:published_publication, title: "publication-title",
-                         organisations: [org, org2],
+                         organisations: [org_1, org_2],
                          first_published_at: Date.parse("2012-03-14"),
                          publication_type: PublicationType::CorporateReport)
 
@@ -253,10 +253,10 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "#index requested as JSON includes data for consultations" do
-    org = create(:organisation, name: "org-name")
-    org2 = create(:organisation, name: "other-org")
+    organisation_1 = create(:organisation, name: "org-name")
+    organisation_2 = create(:organisation, name: "other-org")
     consultation = create(:published_consultation, title: "consultation-title",
-                         organisations: [org, org2],
+                         organisations: [organisation_1, organisation_2],
                          opening_at: Time.zone.parse("2012-03-14"),
                          closing_at: Time.zone.parse("2012-03-15"),
                          first_published_at: Time.zone.parse("2012-03-10"))
@@ -360,9 +360,9 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "#index generates an atom feed for the current filter" do
-    org = create(:organisation, name: "org-name")
+    organisation = create(:organisation, name: "org-name")
 
-    get :index, params: { departments: [org.to_param] }, format: :atom
+    get :index, params: { departments: [organisation.to_param] }, format: :atom
 
     assert_select_atom_feed do
       assert_select 'feed > id', 1
@@ -370,32 +370,32 @@ class PublicationsControllerTest < ActionController::TestCase
       assert_select 'feed > author, feed > entry > author'
       assert_select 'feed > updated', 1
       assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml',
-                    publications_url(format: :atom, departments: [org.to_param]), 1
+                    publications_url(format: :atom, departments: [organisation.to_param]), 1
       assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', root_url, 1
     end
   end
 
   view_test "#index generates an atom feed entries for publications matching the current filter" do
-    org = create(:organisation, name: "org-name")
-    other_org = create(:organisation, name: "other-org")
-    p1 = create(:published_publication, organisations: [org], first_published_at: 2.days.ago.to_date)
-    c1 = create(:published_consultation, organisations: [org], opening_at: 1.day.ago)
-    p2 = create(:published_publication, organisations: [other_org])
+    organisation = create(:organisation, name: "org-name")
+    other_organisation = create(:organisation, name: "other-org")
+    publication_1 = create(:published_publication, organisations: [organisation], first_published_at: 2.days.ago.to_date)
+    consultation_1 = create(:published_consultation, organisations: [organisation], opening_at: 1.day.ago)
+    publication_2 = create(:published_publication, organisations: [other_organisation])
 
-    get :index, params: { departments: [org.to_param] }, format: :atom
+    get :index, params: { departments: [organisation.to_param] }, format: :atom
 
     assert_select_atom_feed do
-      assert_select_atom_entries([c1, p1])
+      assert_select_atom_entries([consultation_1, publication_1])
     end
   end
 
   view_test "#index generates an atom feed entries for consultations matching the current filter" do
-    org = create(:organisation, name: "org-name")
+    organisation = create(:organisation, name: "org-name")
     other_org = create(:organisation, name: "other-org")
-    document = create(:published_consultation, organisations: [org], opening_at: Date.parse('2001-12-12'))
+    document = create(:published_consultation, organisations: [organisation], opening_at: Date.parse('2001-12-12'))
     create(:published_consultation, organisations: [other_org])
 
-    get :index, params: { departments: [org.to_param] }, format: :atom
+    get :index, params: { departments: [organisation.to_param] }, format: :atom
 
     assert_select_atom_feed do
       assert_select_atom_entries([document])

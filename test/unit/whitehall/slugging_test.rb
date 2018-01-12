@@ -7,15 +7,15 @@ class SluggingTest < ActiveSupport::TestCase
   end
 
   test "should resolve a conflict" do
-    document = create(:document, sluggable_string: "Slug conflict")
-    document2 = create(:document, sluggable_string: "Slug conflict")
-    assert_equal 'slug-conflict--2', document2.slug
+    document_1 = create(:document, sluggable_string: "Slug conflict")
+    document_2 = create(:document, sluggable_string: "Slug conflict")
+    assert_equal 'slug-conflict--2', document_2.slug
   end
 
   test 'should handle document titles with numbers' do
-    document = create(:document, sluggable_string: "2010-2015 conflict")
-    document2 = create(:document, sluggable_string: "2010-2015 conflict")
-    assert_equal '2010-2015-conflict--2', document2.slug
+    document_1 = create(:document, sluggable_string: "2010-2015 conflict")
+    document_2 = create(:document, sluggable_string: "2010-2015 conflict")
+    assert_equal '2010-2015-conflict--2', document_2.slug
   end
 
   test "should strip punctuation properly" do

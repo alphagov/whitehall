@@ -2,3 +2,6 @@ AllCops:
   Exclude:
     - 'db/schema.rb'
     - 'lib/tasks/cucumber.rake'
+
+Naming/VariableNumber:
+  EnforcedStyle: snake_case

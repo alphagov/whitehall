@@ -172,16 +172,16 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
   end
 
   test '#taggable_document_collection_groups_container returns an array of label/ID pairs for document collection groups' do
-    group1 = create(:document_collection_group, heading: 'Group 1')
-    group2 = create(:document_collection_group, heading: 'Group 2')
-    group3 = create(:document_collection_group, heading: 'Group 3')
-    collection1 = create(:document_collection, title: 'Collection 1', groups: [group1])
-    collection2 = create(:document_collection, title: 'Collection 2', groups: [group2, group3])
+    group_1 = create(:document_collection_group, heading: 'Group 1')
+    group_2 = create(:document_collection_group, heading: 'Group 2')
+    group_3 = create(:document_collection_group, heading: 'Group 3')
+    collection_1 = create(:document_collection, title: 'Collection 1', groups: [group_1])
+    collection_2 = create(:document_collection, title: 'Collection 2', groups: [group_2, group_3])
 
     assert_equal [
-      ["Collection 1 (Group 1)", group1.id],
-      ["Collection 2 (Group 2)", group2.id],
-      ["Collection 2 (Group 3)", group3.id],
+      ["Collection 1 (Group 1)", group_1.id],
+      ["Collection 2 (Group 2)", group_2.id],
+      ["Collection 2 (Group 3)", group_3.id],
     ], taggable_document_collection_groups_container
   end
 

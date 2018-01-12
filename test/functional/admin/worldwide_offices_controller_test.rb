@@ -90,8 +90,8 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
   end
 
   test "post create creates worldwide office with services" do
-    service1 = create(:worldwide_service)
-    service2 = create(:worldwide_service)
+    service_1 = create(:worldwide_service)
+    service_2 = create(:worldwide_service)
     worldwide_organisation = create(:worldwide_organisation)
 
     post :create,
@@ -102,13 +102,13 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                 title: "Main office",
                 contact_type_id: ContactType::General.id
               },
-              service_ids: [service2.id, service1.id]
+              service_ids: [service_2.id, service_1.id]
             },
             worldwide_organisation_id: worldwide_organisation.id
     }
 
     assert_equal 1, worldwide_organisation.offices.count
-    assert_equal [service1, service2], worldwide_organisation.offices.first.services.sort_by(&:id)
+    assert_equal [service_1, service_2], worldwide_organisation.offices.first.services.sort_by(&:id)
   end
 
   test "post create creates associated phone numbers" do
@@ -214,20 +214,20 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
   end
 
   test "put update updates an offices services" do
-    service2 = create(:worldwide_service)
-    service3 = create(:worldwide_service)
+    service_2 = create(:worldwide_service)
+    service_3 = create(:worldwide_service)
     worldwide_organisation, office = create_worldwide_organisation_and_office
 
     put :update,
       params: {
                 worldwide_office: {
-              service_ids: [service3.id, service2.id]
+              service_ids: [service_3.id, service_2.id]
             },
             id: office,
             worldwide_organisation_id: worldwide_organisation
     }
 
-    assert_equal [service2, service3], office.reload.services.sort_by(&:id)
+    assert_equal [service_2, service_3], office.reload.services.sort_by(&:id)
   end
 
   test "put update updates associated phone numbers" do

@@ -55,9 +55,9 @@ module Whitehall
       @router.stubs(:add_redirect_route).with("/government/organisations/#{@organisation.slug}", any_parameters)
 
       about = create(:about_corporate_information_page, organisation: @organisation)
-      cip1 = create(:published_corporate_information_page, organisation: @organisation,
+      cip_1 = create(:published_corporate_information_page, organisation: @organisation,
                     corporate_information_page_type_id: CorporateInformationPageType::PublicationScheme.id)
-      cip2 = create(:published_corporate_information_page, organisation: @organisation,
+      cip_2 = create(:published_corporate_information_page, organisation: @organisation,
                     corporate_information_page_type_id: CorporateInformationPageType::ComplaintsProcedure.id)
       draft = create(:corporate_information_page, organisation: @organisation,
                     corporate_information_page_type_id: CorporateInformationPageType::Research.id)
@@ -73,17 +73,17 @@ module Whitehall
       @router
         .expects(:add_redirect_route)
         .with(
-          "/government/organisations/#{@organisation.slug}/about/#{cip1.slug}",
+          "/government/organisations/#{@organisation.slug}/about/#{cip_1.slug}",
           "exact",
-          "/government/organisations/#{@new_slug}/about/#{cip1.slug}"
+          "/government/organisations/#{@new_slug}/about/#{cip_1.slug}"
         )
 
       @router
         .expects(:add_redirect_route)
         .with(
-          "/government/organisations/#{@organisation.slug}/about/#{cip2.slug}",
+          "/government/organisations/#{@organisation.slug}/about/#{cip_2.slug}",
           "exact",
-          "/government/organisations/#{@new_slug}/about/#{cip2.slug}"
+          "/government/organisations/#{@new_slug}/about/#{cip_2.slug}"
         )
 
       @router

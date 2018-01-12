@@ -14,31 +14,31 @@ module AdminEditionWorldLocationsBehaviour
       end
 
       test "creating should create a new document with world locations" do
-        world_location = create(:world_location)
-        world_location2 = create(:world_location)
+        world_location_1 = create(:world_location)
+        world_location_2 = create(:world_location)
         attributes = controller_attributes_for(document_type)
 
         post :create, params: {
           edition: attributes.merge(
-            world_location_ids: [world_location.id, world_location2.id]
+            world_location_ids: [world_location_1.id, world_location_2.id]
           )
         }
 
         assert document = edition_class.last
-        assert_equal [world_location, world_location2], document.world_locations
+        assert_equal [world_location_1, world_location_2], document.world_locations
       end
 
       test "updating should save modified document attributes with world locations" do
-        world_location = create(:world_location)
-        world_location2 = create(:world_location)
-        document = create(document_type, world_locations: [world_location2])
+        world_location_1 = create(:world_location)
+        world_location_2 = create(:world_location)
+        document = create(document_type, world_locations: [world_location_2])
 
         put :update, params: { id: document, edition: {
-          world_location_ids: [world_location.id]
+          world_location_ids: [world_location_1.id]
         } }
 
         document = document.reload
-        assert_equal [world_location], document.world_locations
+        assert_equal [world_location_1], document.world_locations
       end
 
       view_test "updating a stale document should render edit page with conflicting document and its world locations" do

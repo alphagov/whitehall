@@ -79,18 +79,18 @@ class Admin::ClassificationFeaturingsControllerTest < ActionController::TestCase
   end
 
   test "PUT :order saves the new order of featurings" do
-    feature1 = create(:classification_featuring, classification: @topic)
-    feature2 = create(:classification_featuring, classification: @topic)
-    feature3 = create(:classification_featuring, classification: @topic)
+    feature_1 = create(:classification_featuring, classification: @topic)
+    feature_2 = create(:classification_featuring, classification: @topic)
+    feature_3 = create(:classification_featuring, classification: @topic)
 
     put :order, params: { topic_id: @topic, ordering: {
-                                        feature1.id.to_s => '1',
-                                        feature2.id.to_s => '2',
-                                        feature3.id.to_s => '0'
+                                        feature_1.id.to_s => '1',
+                                        feature_2.id.to_s => '2',
+                                        feature_3.id.to_s => '0'
                                       } }
 
     assert_response :redirect
-    assert_equal [feature3, feature1, feature2], @topic.reload.classification_featurings
+    assert_equal [feature_3, feature_1, feature_2], @topic.reload.classification_featurings
   end
 
   view_test "GET :new renders only image fields if featuring an edition" do

@@ -79,16 +79,16 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
 
     assert_nil worldwide_organisation.main_office
 
-    office1 = create(:worldwide_office)
-    worldwide_organisation.offices << office1
-    assert_equal office1, worldwide_organisation.main_office
+    office_1 = create(:worldwide_office)
+    worldwide_organisation.offices << office_1
+    assert_equal office_1, worldwide_organisation.main_office
 
-    office2 = create(:worldwide_office)
-    worldwide_organisation.offices << office2
-    assert_equal office1, worldwide_organisation.main_office
+    office_2 = create(:worldwide_office)
+    worldwide_organisation.offices << office_2
+    assert_equal office_1, worldwide_organisation.main_office
 
-    worldwide_organisation.main_office = office2
-    assert_equal office2, worldwide_organisation.main_office
+    worldwide_organisation.main_office = office_2
+    assert_equal office_2, worldwide_organisation.main_office
   end
 
   test "distinguishes between the main office and other offices" do
@@ -156,10 +156,10 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
 
     assert_equal [], worldwide_organisation.office_staff_roles
 
-    staff_role1 = create(:worldwide_office_staff_role, :occupied, worldwide_organisations: [worldwide_organisation])
-    staff_role2 = create(:worldwide_office_staff_role, :occupied, worldwide_organisations: [worldwide_organisation])
+    staff_role_1 = create(:worldwide_office_staff_role, :occupied, worldwide_organisations: [worldwide_organisation])
+    staff_role_2 = create(:worldwide_office_staff_role, :occupied, worldwide_organisations: [worldwide_organisation])
 
-    assert_equal [staff_role1, staff_role2], worldwide_organisation.office_staff_roles
+    assert_equal [staff_role_1, staff_role_2], worldwide_organisation.office_staff_roles
     assert_nil worldwide_organisation.primary_role
     assert_nil worldwide_organisation.secondary_role
   end
@@ -300,13 +300,13 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
 
   test 'can reorder the contacts on the list' do
     world_organisation = build(:worldwide_organisation)
-    office1 = build(:worldwide_office)
-    office2 = build(:worldwide_office)
+    office_1 = build(:worldwide_office)
+    office_2 = build(:worldwide_office)
     h = build(:home_page_list)
     HomePageList.stubs(:get).returns(h)
-    h.expects(:reorder_items!).with([office1, office2]).returns :a_result
+    h.expects(:reorder_items!).with([office_1, office_2]).returns :a_result
 
-    assert_equal :a_result, world_organisation.reorder_offices_on_home_page!([office1, office2])
+    assert_equal :a_result, world_organisation.reorder_offices_on_home_page!([office_1, office_2])
   end
 
   test 'maintains a home page list for storing offices' do

@@ -171,15 +171,15 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "should be able to scope roles by whips" do
-    role = create(:role, whip_organisation_id: 1)
-    role2 = create(:role)
-    assert_equal [role], Role.whip
+    role_1 = create(:role, whip_organisation_id: 1)
+    role_2 = create(:role)
+    assert_equal [role_1], Role.whip
   end
 
   test "should be able to scope roles by cabinet attendance" do
-    role = create(:role, attends_cabinet_type_id: 1)
-    role2 = create(:role)
-    assert_equal [role], Role.also_attends_cabinet
+    role_1 = create(:role, attends_cabinet_type_id: 1)
+    role_2 = create(:role)
+    assert_equal [role_1], Role.also_attends_cabinet
   end
 
   test "should be able to scope roles by whether they are occupied" do

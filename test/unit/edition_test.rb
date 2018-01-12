@@ -191,18 +191,18 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "last_author returns user who last edited the edition" do
-    user1 = create(:departmental_editor)
-    user2 = create(:user)
+    user_1 = create(:departmental_editor)
+    user_2 = create(:user)
     edition = nil
-    acting_as(user2) do
+    acting_as(user_2) do
       edition = create(:draft_news_article)
     end
-    assert_equal user2, edition.last_author, 'creating'
+    assert_equal user_2, edition.last_author, 'creating'
 
-    acting_as(user1) do
+    acting_as(user_1) do
       force_publish(edition)
     end
-    assert_equal user1, edition.reload.last_author, 'publishing'
+    assert_equal user_1, edition.reload.last_author, 'publishing'
   end
 
   test ".authored_by includes editions created by the given user" do

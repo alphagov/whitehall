@@ -257,13 +257,13 @@ class WorldLocationTest < ActiveSupport::TestCase
   end
 
   test 'only one feature list per language per world location' do
-    world_location1 = create(:world_location)
-    world_location2 = create(:world_location)
-    FeatureList.create!(featurable: world_location1, locale: :en)
-    FeatureList.create!(featurable: world_location1, locale: :fr)
-    FeatureList.create!(featurable: world_location2, locale: :en)
+    world_location_1 = create(:world_location)
+    world_location_2 = create(:world_location)
+    FeatureList.create!(featurable: world_location_1, locale: :en)
+    FeatureList.create!(featurable: world_location_1, locale: :fr)
+    FeatureList.create!(featurable: world_location_2, locale: :en)
     assert_raise ActiveRecord::RecordInvalid do
-      FeatureList.create!(featurable: world_location2, locale: :en)
+      FeatureList.create!(featurable: world_location_2, locale: :en)
     end
   end
 

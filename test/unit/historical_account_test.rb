@@ -66,11 +66,11 @@ class HistoricalAccountTest < ActiveSupport::TestCase
   end
 
   test "#role defaults to the first role when there are multiple" do
-    role1 = create(:historic_role)
-    role2 = create(:historic_role)
-    historical_account = create(:historical_account, roles: [role1, role2])
+    role_1 = create(:historic_role)
+    role_2 = create(:historic_role)
+    historical_account = create(:historical_account, roles: [role_1, role_2])
 
-    assert_equal role1, historical_account.role
+    assert_equal role_1, historical_account.role
   end
 
   should_not_accept_footnotes_in(:body)

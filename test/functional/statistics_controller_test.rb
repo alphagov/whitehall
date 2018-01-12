@@ -129,10 +129,10 @@ class StatisticsControllerTest < ActionController::TestCase
   end
 
   view_test "#index requested as JSON includes data for statistics" do
-    org = create(:organisation, name: "org-name")
-    org2 = create(:organisation, name: "other-org")
+    organisation_1 = create(:organisation, name: "org-name")
+    organisation_2 = create(:organisation, name: "other-org")
     statistics_publication = create(:published_statistics, title: "statistics-title",
-                                                           organisations: [org, org2],
+                                                           organisations: [organisation_1, organisation_2],
                                                            first_published_at: Date.parse("2012-03-14"))
 
     get :index, format: :json
@@ -184,13 +184,13 @@ class StatisticsControllerTest < ActionController::TestCase
   end
 
   view_test "index generates an atom feed with entries for statistics matching the current filter" do
-    org = create(:organisation, name: "org-name")
-    org2 = create(:organisation, name: "other-org")
+    organisation_1 = create(:organisation, name: "org-name")
+    organisation_2 = create(:organisation, name: "other-org")
     statistics_publication = create(:published_statistics, title: "statistics-title",
-                                                           organisations: [org, org2],
+                                                           organisations: [organisation_1, organisation_2],
                                                            first_published_at: Date.parse("2012-03-14"))
 
-    get :index, params: { departments: [org.to_param] }, format: :atom
+    get :index, params: { departments: [organisation_1.to_param] }, format: :atom
 
     assert_select_atom_feed do
       assert_select_atom_entries([statistics_publication])

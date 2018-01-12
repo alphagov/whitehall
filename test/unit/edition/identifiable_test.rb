@@ -125,11 +125,11 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
   end
 
   test "non-English editions do not get confused when documents exists with dodgy-nil-based slugs" do
-    edition1 = create(:world_location_news_article, title: 'Faire la fête', primary_locale: 'fr')
-    edition1.document.update_column(:slug, '--1')
+    edition_1 = create(:world_location_news_article, title: 'Faire la fête', primary_locale: 'fr')
+    edition_1.document.update_column(:slug, '--1')
 
-    edition2 = create(:world_location_news_article, title: 'Faire la fête', primary_locale: 'fr')
-    document = edition2.document
+    edition_2 = create(:world_location_news_article, title: 'Faire la fête', primary_locale: 'fr')
+    document = edition_2.document
     assert_equal document.id.to_s, document.slug
   end
 

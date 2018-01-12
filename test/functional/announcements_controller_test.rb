@@ -121,13 +121,13 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index indicates selected world location in the filter selector" do
-    wl1 = create(:world_location, name: "Afghanistan")
-    wl2 = create(:world_location, name: "Albania")
-    wl3 = create(:world_location, name: "Algeria")
+    world_location_1 = create(:world_location, name: "Afghanistan")
+    world_location_2 = create(:world_location, name: "Albania")
+    world_location_3 = create(:world_location, name: "Algeria")
 
-    create(:published_news_article, world_locations: [wl1, wl2, wl3])
+    create(:published_news_article, world_locations: [world_location_1, world_location_2, world_location_3])
 
-    get :index, params: { world_locations: [wl1.slug, wl3.slug] }
+    get :index, params: { world_locations: [world_location_1.slug, world_location_3.slug] }
 
     assert_select "select[name='world_locations[]']" do
       assert_select "option[selected='selected']", count: 2

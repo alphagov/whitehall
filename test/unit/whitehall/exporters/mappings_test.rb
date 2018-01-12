@@ -123,8 +123,8 @@ module Whitehall
 
     test "includes a row per Document Source" do
       publication = create(:published_publication)
-      source1 = create(:document_source, document: publication.document, url: 'http://oldurl1')
-      source2 = create(:document_source, document: publication.document, url: 'http://oldurl2')
+      source_1 = create(:document_source, document: publication.document, url: 'http://oldurl1')
+      source_2 = create(:document_source, document: publication.document, url: 'http://oldurl2')
       assert_csv_contains <<-EOT.strip_heredoc
         http://oldurl1,#{Whitehall.public_root}/government/publications/#{publication.slug},#{Whitehall.admin_root}/government/admin/publications/#{publication.id},published
         http://oldurl2,#{Whitehall.public_root}/government/publications/#{publication.slug},#{Whitehall.admin_root}/government/admin/publications/#{publication.id},published

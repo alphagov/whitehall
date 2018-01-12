@@ -593,13 +593,13 @@ end
 
 Given(/^an organisation and some documents exist$/) do
   @organisation = create(:ministerial_department)
-  @organisation2 = create(:ministerial_department)
-  @author1 = create(:departmental_editor)
-  @author2 = create(:departmental_editor)
+  @organisation_2 = create(:ministerial_department)
+  @author_1 = create(:departmental_editor)
+  @author_2 = create(:departmental_editor)
   @documents = [
-    create(:published_news_article, title: "DOC1", organisations: [@organisation], creator: @author1),
-    create(:published_news_article, title: "DOC2", organisations: [@organisation2], creator: @author1),
-    create(:published_consultation, title: "DOC3", organisations: [@organisation2], creator: @author2)
+    create(:published_news_article, title: "DOC1", organisations: [@organisation], creator: @author_1),
+    create(:published_news_article, title: "DOC2", organisations: [@organisation_2], creator: @author_1),
+    create(:published_consultation, title: "DOC3", organisations: [@organisation_2], creator: @author_2)
   ]
 end
 
@@ -622,13 +622,13 @@ Then(/^I can filter instantaneously the list of documents by title, author, orga
     assert page.has_no_css?(record_css_selector(@documents[1]))
     assert page.has_no_css?(record_css_selector(@documents[2]))
   end
-  select @organisation2.name, from: "organisation"
+  select @organisation_2.name, from: "organisation"
   within "#search_results" do
     assert page.has_no_css?(record_css_selector(@documents[0]))
     assert page.has_css?(record_css_selector(@documents[1]))
     assert page.has_css?(record_css_selector(@documents[2]))
   end
-  select @author2.name, from: "author"
+  select @author_2.name, from: "author"
   within "#search_results" do
     assert page.has_no_css?(record_css_selector(@documents[0]))
     assert page.has_no_css?(record_css_selector(@documents[1]))

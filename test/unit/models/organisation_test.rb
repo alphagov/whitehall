@@ -791,13 +791,13 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test 'can reorder the contacts on the list' do
     organisation = build(:organisation)
-    c1 = create(:contact)
-    c2 = create(:contact)
+    contact_1 = create(:contact)
+    contact_2 = create(:contact)
     h = build(:home_page_list)
     HomePageList.stubs(:get).returns(h)
-    h.expects(:reorder_items!).with([c1, c2]).returns :a_result
+    h.expects(:reorder_items!).with([contact_1, contact_2]).returns :a_result
 
-    assert_equal :a_result, organisation.reorder_contacts_on_home_page!([c1, c2])
+    assert_equal :a_result, organisation.reorder_contacts_on_home_page!([contact_1, contact_2])
   end
 
   test 'maintains a home page list for storing contacts' do
@@ -814,15 +814,15 @@ class OrganisationTest < ActiveSupport::TestCase
   end
 
   test 'Organisation.with_published_editions returns organisations with published editions' do
-    org1 = create(:organisation)
-    org2 = create(:organisation)
-    org3 = create(:organisation)
-    org4 = create(:organisation)
+    organisation_1 = create(:organisation)
+    organisation_2 = create(:organisation)
+    organisation_3 = create(:organisation)
+    organisation_4 = create(:organisation)
 
-    create(:published_news_article, organisations: [org1])
-    create(:published_publication, organisations: [org3])
+    create(:published_news_article, organisations: [organisation_1])
+    create(:published_publication, organisations: [organisation_3])
 
-    assert_same_elements [org1, org3], Organisation.with_published_editions
+    assert_same_elements [organisation_1, organisation_3], Organisation.with_published_editions
   end
 
   test '#organisation_brand_colour fetches the brand colour' do

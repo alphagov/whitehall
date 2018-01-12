@@ -28,9 +28,9 @@ class MinisterialRoleTest < ActiveSupport::TestCase
 
   test "should only ever get a news article once" do
     ministerial_role = create(:ministerial_role)
-    appointment1 = create(:role_appointment, role: ministerial_role, started_at: 2.days.ago, ended_at: 1.day.ago)
-    appointment2 = create(:role_appointment, role: ministerial_role)
-    editions = [create(:published_news_article, role_appointments: [appointment1, appointment2])]
+    appointment_1 = create(:role_appointment, role: ministerial_role, started_at: 2.days.ago, ended_at: 1.day.ago)
+    appointment_2 = create(:role_appointment, role: ministerial_role)
+    editions = [create(:published_news_article, role_appointments: [appointment_1, appointment_2])]
     assert_equal editions, ministerial_role.news_articles
   end
 

@@ -110,10 +110,10 @@ class PersonTest < ActiveSupport::TestCase
 
   test 'can access speeches associated via role_appointments' do
     person = create(:person)
-    speech1 = create(:draft_speech, role_appointment: create(:role_appointment, person: person))
-    speech2 = create(:draft_speech, role_appointment: create(:role_appointment, person: person))
+    speech_1 = create(:draft_speech, role_appointment: create(:role_appointment, person: person))
+    speech_2 = create(:draft_speech, role_appointment: create(:role_appointment, person: person))
 
-    assert_equal [speech1, speech2], person.speeches
+    assert_equal [speech_1, speech_2], person.speeches
   end
 
   test 'can access news_articles associated with ministerial roles of a person' do

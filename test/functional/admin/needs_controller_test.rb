@@ -9,14 +9,14 @@ class Admin::NeedsControllerTest < ActionController::TestCase
     @document = create(:edition, :with_document).document
     @url_maker = Whitehall::UrlMaker.new(host: Plek.find('whitehall'))
 
-    @need1 = {
+    @need_1 = {
         "content_id" => SecureRandom.uuid,
         "format" => "need",
         "title" => "Need #1",
         "base_path" => "/government/needs/need-1",
         "links" => {}
     }
-    @need2 = {
+    @need_2 = {
         "content_id" => SecureRandom.uuid,
         "format" => "need",
         "title" => "Need #2",
@@ -27,9 +27,9 @@ class Admin::NeedsControllerTest < ActionController::TestCase
     stub_request(
       :get,
         %r{\A#{Plek.find('publishing-api')}/v2/links}
-    ).to_return(body: { links: { meets_user_needs: [@need1, @need2] } }.to_json)
+    ).to_return(body: { links: { meets_user_needs: [@need_1, @need_2] } }.to_json)
 
-    publishing_api_has_linkables([@need1, @need2], document_type: "need")
+    publishing_api_has_linkables([@need_1, @need_2], document_type: "need")
   end
 
   test "associate user needs with a document" do

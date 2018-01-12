@@ -81,39 +81,39 @@ Then(/^I should see that "([^"]*)" also attends cabinet$/) do |minister_name|
   end
 end
 
-  create(:role_appointment, person: create(:person, forename: person1), role: create(:ministerial_role, cabinet_member: true))
-  create(:role_appointment, person: create(:person, forename: person2), role: create(:ministerial_role, cabinet_member: true))
-Given(/^two cabinet ministers "([^"]*)" and "([^"]*)"$/) do |person1, person2|
+Given(/^two cabinet ministers "([^"]*)" and "([^"]*)"$/) do |person_1, person_2|
+  create(:role_appointment, person: create(:person, forename: person_1), role: create(:ministerial_role, cabinet_member: true))
+  create(:role_appointment, person: create(:person, forename: person_2), role: create(:ministerial_role, cabinet_member: true))
 end
 
-Given(/^two whips "([^"]*)" and "([^"]*)"$/) do |person1, person2|
+Given(/^two whips "([^"]*)" and "([^"]*)"$/) do |person_1, person_2|
   whip_organisation_id = Whitehall::WhipOrganisation::WhipsHouseOfCommons.id
   create(:role_appointment,
-         person: create(:person, forename: person1),
+         person: create(:person, forename: person_1),
          role: create(:ministerial_role, whip_organisation_id: whip_organisation_id, cabinet_member: false))
   create(:role_appointment,
-         person: create(:person, forename: person2),
+         person: create(:person, forename: person_2),
          role: create(:ministerial_role, whip_organisation_id: whip_organisation_id, cabinet_member: false))
 end
 
-When(/^I order the (?:cabinet ministers|whips) "([^"]*)", "([^"]*)"$/) do |role1, role2|
+When(/^I order the (?:cabinet ministers|whips) "([^"]*)", "([^"]*)"$/) do |role_1, role_2|
   visit admin_cabinet_ministers_path
-  [role1, role2].each_with_index do |role, index|
+  [role_1, role_2].each_with_index do |role, index|
     fill_in(role, with: index)
   end
   click_button "Save"
 end
 
-Then(/^I should see "([^"]*)", "([^"]*)" in that order on the ministers page$/) do |person1, person2|
+Then(/^I should see "([^"]*)", "([^"]*)" in that order on the ministers page$/) do |person_1, person_2|
   visit ministers_page
   actual = all(".person .current-appointee").map(&:text)
-  assert_equal [person1, person2], actual
+  assert_equal [person_1, person_2], actual
 end
 
-Then(/^I should see "([^"]*)", "([^"]*)" in that order on the whips section of the ministers page$/) do |person1, person2|
+Then(/^I should see "([^"]*)", "([^"]*)" in that order on the whips section of the ministers page$/) do |person_1, person_2|
   visit ministers_page
   actual = all(".whips .current-appointee").map(&:text)
-  assert_equal [person1, person2], actual
+  assert_equal [person_1, person_2], actual
 end
 
 Given(/^there are some ministers for the "([^"]*)"$/) do |organisation_name|

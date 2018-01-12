@@ -67,12 +67,12 @@ class ScheduledPublishingWorkerTest < ActiveSupport::TestCase
   end
 
   test '.dequeue_all removes all scheduled publishing jobs' do
-    edition1 = create(:scheduled_edition)
-    edition2 = create(:scheduled_edition)
+    edition_1 = create(:scheduled_edition)
+    edition_2 = create(:scheduled_edition)
 
     with_real_sidekiq do
-      ScheduledPublishingWorker.queue(edition1)
-      ScheduledPublishingWorker.queue(edition2)
+      ScheduledPublishingWorker.queue(edition_1)
+      ScheduledPublishingWorker.queue(edition_2)
 
       assert_equal 2, Sidekiq::ScheduledSet.new.size
 

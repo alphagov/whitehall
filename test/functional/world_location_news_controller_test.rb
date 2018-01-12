@@ -122,29 +122,29 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   end
 
   test "should display world_location's latest two announcements in reverse chronological order" do
-    announcement2 = create(:published_news_article, world_locations: [@world_location], first_published_at: 2.days.ago)
-    announcement1 = create(:published_news_article, world_locations: [@world_location], first_published_at: 1.day.ago)
+    announcement_2 = create(:published_news_article, world_locations: [@world_location], first_published_at: 2.days.ago)
+    announcement_1 = create(:published_news_article, world_locations: [@world_location], first_published_at: 1.day.ago)
     create(:published_speech, world_locations: [@world_location], first_published_at: 3.days.ago)
 
     get :index, params: { world_location_id: @world_location }
 
-    assert_equal [announcement1, announcement2], assigns[:announcements].object
+    assert_equal [announcement_1, announcement_2], assigns[:announcements].object
   end
 
   view_test "should display 2 announcements with details and a link to announcements filter if there are many announcements" do
-    announcement2 = create(:published_news_article, world_locations: [@world_location], first_published_at: 2.days.ago)
-    announcement3 = create(:published_speech, world_locations: [@world_location], first_published_at: 3.days.ago)
-    announcement1 = create(:published_news_article, world_locations: [@world_location], first_published_at: 1.day.ago)
+    announcement_2 = create(:published_news_article, world_locations: [@world_location], first_published_at: 2.days.ago)
+    announcement_3 = create(:published_speech, world_locations: [@world_location], first_published_at: 3.days.ago)
+    announcement_1 = create(:published_news_article, world_locations: [@world_location], first_published_at: 1.day.ago)
 
     get :index, params: { world_location_id: @world_location }
 
     assert_select "#announcements" do
-      assert_select_object announcement1 do
+      assert_select_object announcement_1 do
         assert_select '.publication-date time[datetime=?]', 1.days.ago.iso8601
         assert_select '.document-type', "Press release"
       end
-      assert_select_object announcement2
-      refute_select_object announcement3
+      assert_select_object announcement_2
+      refute_select_object announcement_3
       # there mey be other args and we can't guarantee the order
       # so just specifiy the bits we care about
       assert_select "a[href^='#{announcements_path}'][href*='world_locations%5B%5D=#{@world_location.to_param}']"
@@ -152,58 +152,58 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   end
 
   test "should display world_location's latest two non-statistics publications in reverse chronological order" do
-    publication2 = create(:published_publication, world_locations: [@world_location], first_published_at: 2.days.ago)
-    publication1 = create(:published_publication, world_locations: [@world_location], first_published_at: 1.day.ago)
+    publication_2 = create(:published_publication, world_locations: [@world_location], first_published_at: 2.days.ago)
+    publication_1 = create(:published_publication, world_locations: [@world_location], first_published_at: 1.day.ago)
     create(:published_publication, world_locations: [@world_location], first_published_at: 3.days.ago)
 
     create(:published_statistics, world_locations: [@world_location], first_published_at: 1.day.ago)
 
     get :index, params: { world_location_id: @world_location }
 
-    assert_equal [publication1, publication2], assigns[:non_statistics_publications].object
+    assert_equal [publication_1, publication_2], assigns[:non_statistics_publications].object
   end
 
   view_test "should display 2 non-statistics publications with details and a link to publications filter if there are many publications" do
-    publication2 = create(:published_policy_paper, world_locations: [@world_location], first_published_at: 2.days.ago.to_date)
-    publication3 = create(:published_policy_paper, world_locations: [@world_location], first_published_at: 3.days.ago.to_date)
-    publication1 = create(:published_statistics, world_locations: [@world_location], first_published_at: 1.day.ago.to_date)
+    publication_2 = create(:published_policy_paper, world_locations: [@world_location], first_published_at: 2.days.ago.to_date)
+    publication_3 = create(:published_policy_paper, world_locations: [@world_location], first_published_at: 3.days.ago.to_date)
+    publication_1 = create(:published_statistics, world_locations: [@world_location], first_published_at: 1.day.ago.to_date)
 
     get :index, params: { world_location_id: @world_location }
 
     assert_select "#publications" do
-      assert_select_object publication2 do
+      assert_select_object publication_2 do
         assert_select '.publication-date time[datetime=?]', 2.days.ago.to_date.to_datetime.iso8601
         assert_select '.document-type', "Policy paper"
       end
-      assert_select_object publication3
-      refute_select_object publication1
+      assert_select_object publication_3
+      refute_select_object publication_1
       assert_select "a[href='#{publications_filter_path(@world_location)}']"
     end
   end
 
   test "should display world location's latest two statistics publications in reverse chronological order" do
-    publication2 = create(:published_statistics, world_locations: [@world_location], first_published_at: 2.days.ago)
-    publication1 = create(:published_national_statistics, world_locations: [@world_location], first_published_at: 1.day.ago)
+    publication_2 = create(:published_statistics, world_locations: [@world_location], first_published_at: 2.days.ago)
+    publication_1 = create(:published_national_statistics, world_locations: [@world_location], first_published_at: 1.day.ago)
     create(:published_statistics, world_locations: [@world_location], first_published_at: 3.days.ago)
 
     get :index, params: { world_location_id: @world_location }
-    assert_equal [publication1, publication2], assigns[:statistics_publications].object
+    assert_equal [publication_1, publication_2], assigns[:statistics_publications].object
   end
 
   view_test "should display 2 statistics publications with details and a link to publications filter if there are many publications" do
-    publication2 = create(:published_statistics, world_locations: [@world_location], first_published_at: 2.days.ago.to_date)
-    publication3 = create(:published_statistics, world_locations: [@world_location], first_published_at: 3.days.ago.to_date)
-    publication1 = create(:published_national_statistics, world_locations: [@world_location], first_published_at: 1.day.ago.to_date)
+    publication_2 = create(:published_statistics, world_locations: [@world_location], first_published_at: 2.days.ago.to_date)
+    publication_3 = create(:published_statistics, world_locations: [@world_location], first_published_at: 3.days.ago.to_date)
+    publication_1 = create(:published_national_statistics, world_locations: [@world_location], first_published_at: 1.day.ago.to_date)
 
     get :index, params: { world_location_id: @world_location }
 
     assert_select "#statistics-publications" do
-      assert_select_object publication1 do
+      assert_select_object publication_1 do
         assert_select '.publication-date time[datetime=?]', 1.days.ago.to_date.to_datetime.iso8601
         assert_select '.document-type', "National Statistics"
       end
-      assert_select_object publication2
-      refute_select_object publication3
+      assert_select_object publication_2
+      refute_select_object publication_3
       assert_select "a[href=?]", publications_filter_path(@world_location, publication_filter_option: 'statistics')
     end
   end

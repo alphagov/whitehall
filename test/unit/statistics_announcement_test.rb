@@ -224,16 +224,16 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   end
 
   test 'StatisticsAnnouncement.with_topics scope returns announcements with matching topics' do
-    topic1 = create(:topic)
-    topic2 = create(:topic)
-    announcement = create(:statistics_announcement, topics: [topic1, topic2])
-    announcement2 = create(:statistics_announcement, topics: [topic2])
+    topic_1 = create(:topic)
+    topic_2 = create(:topic)
+    announcement_1 = create(:statistics_announcement, topics: [topic_1, topic_2])
+    announcement_2 = create(:statistics_announcement, topics: [topic_2])
 
-    assert_equal [announcement], StatisticsAnnouncement.with_topics(topic1)
-    assert_equal [announcement], StatisticsAnnouncement.with_topics(topic1.id)
+    assert_equal [announcement_1], StatisticsAnnouncement.with_topics(topic_1)
+    assert_equal [announcement_1], StatisticsAnnouncement.with_topics(topic_1.id)
 
-    assert_equal [announcement, announcement2],
-      StatisticsAnnouncement.with_topics([topic2])
+    assert_equal [announcement_1, announcement_2],
+      StatisticsAnnouncement.with_topics([topic_2])
   end
 
   test 'requires_redirect? returns true when unpublished?' do

@@ -22,13 +22,13 @@ class Edition::ActiveEditorsTest < ActiveSupport::TestCase
   end
 
   test "can check exclude a given editor from the list of recent edition openings" do
-    user = create(:writer)
+    user_1 = create(:writer)
     edition = create(:edition)
-    edition.open_for_editing_as(user)
+    edition.open_for_editing_as(user_1)
     Timecop.travel 1.minute.from_now
-    user2 = create(:writer)
-    edition.open_for_editing_as(user2)
-    assert_equal [user], edition.recent_edition_openings.except_editor(user2).map(&:editor)
+    user_2 = create(:writer)
+    edition.open_for_editing_as(user_2)
+    assert_equal [user_1], edition.recent_edition_openings.except_editor(user_2).map(&:editor)
   end
 
   test "editors considered active for up to 2 hours" do
