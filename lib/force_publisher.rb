@@ -69,5 +69,5 @@ class ForcePublisher
       editions_to_publish = editions_to_publish.where("type not in (?)", excluded_types.map(&:name))
     end
     ForcePublisher.new(editions_to_publish)
-   end
+  end
 end

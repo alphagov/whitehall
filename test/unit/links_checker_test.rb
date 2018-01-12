@@ -61,7 +61,7 @@ private
 
   def gone
     'http://www.example.com/gone'
-   end
+  end
 
   def success
     'http://www.example.com/success'
