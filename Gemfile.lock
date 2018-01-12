@@ -149,7 +149,8 @@ GEM
     ffi (1.9.18)
     friendly_id (5.2.3)
       activerecord (>= 4.0.0)
-    gds-api-adapters (50.7.0)
+    gds-api-adapters (50.9.1)
+      addressable
       link_header
       lrucache (~> 0.1.1)
       null_logger
