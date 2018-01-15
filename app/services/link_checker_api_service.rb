@@ -4,7 +4,7 @@ class LinkCheckerApiService
   end
 
   def self.extract_links(reportable)
-    Govspeak::LinkExtractor.new(reportable.body).links
+    Govspeak::Document.new(reportable.body).extracted_links(website_root: website_root)
   end
 
   def self.check_links(reportable, webhook_uri)
@@ -24,5 +24,9 @@ class LinkCheckerApiService
     Rails.application.secrets.link_checker_api_secret_token
   end
 
-  private_class_method :webhook_secret_token
+  def self.website_root
+    @website_root ||= Plek.new.website_root
+  end
+
+  private_class_method :webhook_secret_token, :website_root
 end
