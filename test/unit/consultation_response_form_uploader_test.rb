@@ -13,6 +13,6 @@ class ConsultationResponseFormUploaderTest < ActiveSupport::TestCase
   end
 
   test 'uses the asset manager storage engine' do
-    assert_equal Whitehall::AssetManagerAndQuarantinedFileStorage, ConsultationResponseFormUploader.storage
+    assert_equal Whitehall::AssetManagerStorage, ConsultationResponseFormUploader.storage
   end
 end

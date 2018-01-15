@@ -219,6 +219,8 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   end
 
   view_test 'updating should respect the attachment_action for response forms to remove it' do
+    AssetManagerDeleteAssetWorker.stubs(:perform_async)
+
     response_form = create(:consultation_response_form)
     participation = create(:consultation_participation, consultation_response_form: response_form)
     consultation = create(:consultation, consultation_participation: participation)

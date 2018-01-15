@@ -291,8 +291,6 @@ module PublishingApi
 
     private
 
-      GOVERNMENT_UPLOADS_PATH = '/government/uploads/'.freeze
-
       attr_accessor :consultation, :url_helpers
       def_delegator :consultation, :consultation_participation, :participation
       def_delegator :participation, :consultation_response_form, :participation_response_form
@@ -300,18 +298,7 @@ module PublishingApi
       def attachment_url
         return unless participation.has_response_form?
 
-        absolute_path = Pathname(participation_response_form.file.url)
-        parent_path = Pathname(GOVERNMENT_UPLOADS_PATH)
-        child_path = absolute_path.relative_path_from(parent_path)
-
-        extension = child_path.extname
-        basename = child_path.basename(extension)
-        dirname = child_path.dirname
-
-        path = File.join(dirname, basename)
-
-        asset_host = URI.parse(Plek.new.public_asset_host).host
-        url_helpers.public_upload_url(path, format: extension.delete('.'), host: asset_host)
+        participation_response_form.file.url
       end
 
       def email

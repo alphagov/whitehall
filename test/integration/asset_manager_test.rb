@@ -225,12 +225,6 @@ class AssetManagerIntegrationTest
 
       @consultation_response_form_data.save!
     end
-
-    test 'saves the consultation response form data file to the file system' do
-      @consultation_response_form_data.save!
-
-      assert File.exist?(@consultation_response_form_data.file.path)
-    end
   end
 
   class RemovingAConsultationResponseFormData < ActiveSupport::TestCase
@@ -241,7 +235,6 @@ class AssetManagerIntegrationTest
         :consultation_response_form_data,
         file: File.open(fixture_path.join(filename))
       )
-      VirusScanHelpers.simulate_virus_scan(@consultation_response_form_data.file)
       @consultation_response_form_data.reload
       @file_path = @consultation_response_form_data.file.path
 
@@ -249,14 +242,6 @@ class AssetManagerIntegrationTest
         .with(regexp_matches(/#{filename}/))
         .returns('id' => "http://asset-manager/assets/#{@consultation_response_form_asset_id}")
       Services.asset_manager.stubs(:delete_asset)
-    end
-
-    test 'removing a consultation response form data file removes it from the file system' do
-      assert File.exist?(@file_path)
-
-      @consultation_response_form_data.remove_file!
-
-      refute File.exist?(@file_path)
     end
 
     test 'removing a consultation response form data file removes it from asset manager' do
@@ -275,7 +260,6 @@ class AssetManagerIntegrationTest
         :consultation_response_form_data,
         file: File.open(fixture_path.join(filename))
       )
-      VirusScanHelpers.simulate_virus_scan(@consultation_response_form_data.file)
       @consultation_response_form_data.reload
       @file_path = @consultation_response_form_data.file.path
 
@@ -283,15 +267,6 @@ class AssetManagerIntegrationTest
         .with(regexp_matches(/#{filename}/))
         .returns('id' => "http://asset-manager/assets/#{@consultation_response_form_asset_id}")
       Services.asset_manager.stubs(:delete_asset)
-    end
-
-    test 'replacing a consultation response form data file removes the old file from the file system' do
-      assert File.exist?(@file_path)
-
-      @consultation_response_form_data.file = File.open(fixture_path.join('whitepaper.pdf'))
-      @consultation_response_form_data.save!
-
-      refute File.exist?(@file_path)
     end
 
     test 'replacing a consultation response form data file removes the old file from asset manager' do
