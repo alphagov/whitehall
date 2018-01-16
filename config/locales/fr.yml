@@ -290,7 +290,7 @@ fr:
         about:
         about_our_services:
         access_and_opening:
-        complaints_procedure:
+        complaints_procedure: Procédure de recours
         equality_and_diversity:
         media_enquiries:
         membership:
@@ -300,7 +300,7 @@ fr:
         petitions_and_campaigns:
         procurement:
         publication_scheme: Régime de publication
-        recruitment: Travail pour %{organisation_name}
+        recruitment: Travailler pour %{organisation_name}
         research:
         social_media_use: 'Utilisation réseaux sociaux '
         staff_update:
@@ -452,6 +452,7 @@ fr:
     headings:
       about_us: L'ambassade
       contact_us: Contactez-nous
+      contents: Contenu
       corporate_information: Informations générales
       follow_us: Suivez-nous
       our_people: Nos responsables

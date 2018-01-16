@@ -300,6 +300,7 @@ en:
       our_services: Our services
       our_people: Our people
       contact_us: Contact us
+      contents: Contents
       corporate_information: Corporate information
     corporate_information:
       publication_scheme_html: Read about the types of information we routinely publish in our %{link}.
