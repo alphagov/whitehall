@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171206121121) do
+ActiveRecord::Schema.define(version: 20180116115825) do
 
   create_table "about_pages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "topical_event_id"
@@ -78,7 +78,6 @@ ActiveRecord::Schema.define(version: 20171206121121) do
     t.index ["attachable_id", "attachable_type"], name: "index_attachments_on_attachable_id_and_attachable_type", using: :btree
     t.index ["attachable_type", "attachable_id", "ordering"], name: "no_duplicate_attachment_orderings", unique: true, using: :btree
     t.index ["attachment_data_id"], name: "index_attachments_on_attachment_data_id", using: :btree
-    t.index ["content_id"], name: "index_attachments_on_content_id", using: :btree
     t.index ["ordering"], name: "index_attachments_on_ordering", using: :btree
   end
 
@@ -680,18 +679,6 @@ ActiveRecord::Schema.define(version: 20171206121121) do
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.index ["batch_id"], name: "index_link_checker_api_reports_on_batch_id", unique: true, using: :btree
-  end
-
-  create_table "links_reports", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text     "links",                limit: 16777215
-    t.text     "broken_links",         limit: 65535
-    t.string   "status"
-    t.string   "link_reportable_type"
-    t.integer  "link_reportable_id"
-    t.datetime "completed_at"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.index ["link_reportable_id", "link_reportable_type"], name: "link_reportable_index", using: :btree
   end
 
   create_table "nation_inapplicabilities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
