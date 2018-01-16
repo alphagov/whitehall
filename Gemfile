@@ -51,7 +51,7 @@ gem 'ruby-progressbar', require: false
 gem 'equivalent-xml', '~> 0.6.0', require: false
 gem 'mlanett-redis-lock'
 gem 'faraday'
-gem 'globalize', '5.1.0.beta2'
+gem 'globalize', '5.1.0'
 gem 'activemodel-serializers-xml'
 gem 'deprecated_columns', '~> 0.1.1'
 gem 'record_tag_helper', '~> 1.0'
