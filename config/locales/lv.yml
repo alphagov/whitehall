@@ -201,7 +201,7 @@ lv:
       mission: Misija
       organisations: Organizācijas
       publications: Publikācijas
-      quick_links: "Ātrās saites"
+      quick_links: Ātrās saites
       related_policies: Saistītās politikas jomas
       statistics: Statistikas dati
   activerecord:
@@ -368,7 +368,7 @@ lv:
       our_services: Mūsu pakalpojumi
       our_statistics: Statistika
       our_topics: Mēs strādājam ar šiem jautājumiem
-      special_representatives: "Īpašie pārstāvji"
+      special_representatives: Īpašie pārstāvji
       traffic_commissioners: Satiksmes komisāri
       what_we_do: Par mums
       who_we_are:
@@ -439,8 +439,8 @@ lv:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: "Šeit %{link} izskaidrots, kā tiks apstrādāta
-        Jūsu sniegtā personīgā informācija"
+      personal_information_charter_html: Šeit %{link} izskaidrots, kā tiks apstrādāta
+        Jūsu sniegtā personīgā informācija
       publication_scheme_html: Iepazīsties ar informāciju, kāda parasti tiek publicēta
         mūsu %{link}
       social_media_use_html: Iepazīsties ar mūsu nostāju par %{link}.

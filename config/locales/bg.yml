@@ -2,73 +2,73 @@ bg:
   document:
     headings:
       attachments:
-        one: "Документ"
-        other: "Документи"
-      applies_to_nations: "Отнася се към"
+        one: Документ
+        other: Документи
+      applies_to_nations: Отнася се към
       from:
       location:
       part_of:
     type:
       announcement:
-        one: "Съобщение"
-        other: "Съобщения"
+        one: Съобщение
+        other: Съобщения
       authored_article:
-        one: "Авторска статия"
-        other: "Авторски статии"
+        one: Авторска статия
+        other: Авторски статии
       blog_post:
         one:
         other:
       case_study:
-        one: "Казус"
-        other: "Казуси"
+        one: Казус
+        other: Казуси
       closed_consultation:
-        one: "Затворена консултация"
-        other: "Затворени консултации"
+        one: Затворена консултация
+        other: Затворени консултации
       consultation:
-        one: "Консултация"
-        other: "Консултации"
+        one: Консултация
+        other: Консултации
       consultation_outcome:
-        one: "Резултат от консултацията"
-        other: "Резултат от консултациите"
+        one: Резултат от консултацията
+        other: Резултат от консултациите
       corporate_report:
-        one: "Корпоративен доклад"
-        other: "Корпоративни доклади"
+        one: Корпоративен доклад
+        other: Корпоративни доклади
       correspondence:
-        one: "Кореспонденция"
-        other: "Кореспонденции"
+        one: Кореспонденция
+        other: Кореспонденции
       decision:
         one:
         other:
       detailed_guidance:
-        one: "Подробна насока"
-        other: "Подробни насоки"
+        one: Подробна насока
+        other: Подробни насоки
       document_collection:
-        one: "Серии"
+        one: Серии
         other:
       draft_text:
-        one: "Чернова"
-        other: "Чернови"
+        one: Чернова
+        other: Чернови
       foi_release:
-        one: "Съобщение във връзка със свободен достъп до информация"
-        other: "Съобщения във връзка със свободен достъп до информация"
+        one: Съобщение във връзка със свободен достъп до информация
+        other: Съобщения във връзка със свободен достъп до информация
       form:
-        one: "Формуляр"
-        other: "Формуляри"
+        one: Формуляр
+        other: Формуляри
       government_response:
-        one: "Отговор на правителството"
-        other: "Отговори на правителството"
+        one: Отговор на правителството
+        other: Отговори на правителството
       guidance:
-        one: "Насоки"
-        other: "Насоки"
+        one: Насоки
+        other: Насоки
       impact_assessment:
-        one: "Оценка на влиянието"
-        other: "Оценки на влиянието"
+        one: Оценка на влиянието
+        other: Оценки на влиянието
       imported:
-        one: "импортирано-очаква тип "
-        other: "импортирано-очаква тип"
+        one: 'импортирано-очаква тип '
+        other: импортирано-очаква тип
       independent_report:
-        one: "Независим доклад"
-        other: "Независими доклади"
+        one: Независим доклад
+        other: Независими доклади
       international_treaty:
         one:
         other:
@@ -76,17 +76,17 @@ bg:
         one:
         other:
       map:
-        one: "Карта"
-        other: "Карти"
+        one: Карта
+        other: Карти
       national_statistics:
-        one: "Статистика- национална статистика"
-        other: "Статистики- национални статистики"
+        one: Статистика- национална статистика
+        other: Статистики- национални статистики
       news_article:
-        one: "Новинарска статия"
-        other: "Новинарски статии"
+        one: Новинарска статия
+        other: Новинарски статии
       news_story:
-        one: "Новина"
-        other: "Новини"
+        one: Новина
+        other: Новини
       nhs_content:
         one:
         other:
@@ -94,79 +94,80 @@ bg:
         one:
         other:
       official_statistics:
-        one: "Статистики"
-        other: "Статистики"
+        one: Статистики
+        other: Статистики
       open_consultation:
-        one: "Отворена консултация"
-        other: "Отворени консултации"
+        one: Отворена консултация
+        other: Отворени консултации
       oral_statement:
-        one: "Устно изказване в Парламента"
-        other: "Устни изказвания в Парламента"
+        one: Устно изказване в Парламента
+        other: Устни изказвания в Парламента
       policy_paper:
-        one: "Документ, залагащ политика"
-        other: "Документи, залагащи политика"
+        one: Документ, залагащ политика
+        other: Документи, залагащи политика
       press_release:
-        one: "Съобщение до медиите"
-        other: "Съобщения до медиите"
+        one: Съобщение до медиите
+        other: Съобщения до медиите
       promotional:
-        one: "Промоционален материал"
-        other: "Промоционален материал"
+        one: Промоционален материал
+        other: Промоционален материал
       publication:
-        one: "Публикация"
-        other: "Публикации"
+        one: Публикация
+        other: Публикации
       regulation:
         one:
         other:
       research:
-        one: "Проучване и анализ"
-        other: "Проучване и анализи"
+        one: Проучване и анализ
+        other: Проучване и анализи
       speaking_notes:
-        one: "Устна нота"
-        other: "Устни ноти"
+        one: Устна нота
+        other: Устни ноти
       speech:
-        one: "Реч"
-        other: "Речи"
+        one: Реч
+        other: Речи
       statement_to_parliament:
-        one: "Изявление в парламента"
-        other: "Изявления в парламента"
+        one: Изявление в парламента
+        other: Изявления в парламента
       statistical_data_set:
-        one: "Набор от статистически данни"
-        other: "Набори от статистически данни"
+        one: Набор от статистически данни
+        other: Набори от статистически данни
       statutory_guidance:
         one:
         other:
       transcript:
-        one: "Препис"
-        other: "Преписи"
+        one: Препис
+        other: Преписи
       transparency:
-        one: "Информация за прозрачността"
-        other: "Информация за прозрачността"
+        one: Информация за прозрачността
+        other: Информация за прозрачността
       world_news_story:
         one:
         other:
       written_statement:
-        one: "Писмено изявление до парламента"
-        other: "Писмени изявления до парламента"
+        one: Писмено изявление до парламента
+        other: Писмени изявления до парламента
     contents:
     footer_meta:
       full_page_history:
       page_history:
       published:
       updated:
-    published: "Публикувано"
-    read: "Прочетете статията %{title} "
+    published: Публикувано
+    read: 'Прочетете статията %{title} '
     speech:
       author_title:
-        minister: "Министър"
-        speaker: "Министри"
-      delivered_on: "Представено на"
+        minister: Министър
+        speaker: Министри
+      delivered_on: Представено на
       delivery_title:
-        minister: "Министър"
-        speaker: "Говорител"
-      written_on: |
-        Написана на:
-    updated: "обновено"
-    view: "Вижте '%{title}'"
+        minister: Министър
+        speaker: Говорител
+      written_on: 'Написана на:
+
+'
+    updated: обновено
+    view: Вижте '%{title}'
   people:
     heading:
       one:
@@ -190,21 +191,21 @@ bg:
   world_location:
     type:
       international_delegation:
-        one: "Международна делегация"
-        other: "Международни делегации"
+        one: Международна делегация
+        other: Международни делегации
       world_location:
-        one: "Световно място"
-        other: "Световни места"
+        one: Световно място
+        other: Световни места
     headings:
-      announcements: "Нашите съобщения"
-      country: "Държава"
-      documents: "Документи"
-      mission: "Нашата мисия"
-      organisations: "Организации"
-      publications: "Нашите публикации"
-      quick_links: "Бързи връзки"
-      related_policies: "Свързани политики"
-      statistics: "Нашите статистики"
+      announcements: Нашите съобщения
+      country: Държава
+      documents: Документи
+      mission: Нашата мисия
+      organisations: Организации
+      publications: Нашите публикации
+      quick_links: Бързи връзки
+      related_policies: Свързани политики
+      statistics: Нашите статистики
   activerecord:
     attributes:
       attachment:
@@ -249,7 +250,7 @@ bg:
       unique_reference:
       unnumbered_hoc_paper:
   announcements:
-    heading: "Съобщения"
+    heading: Съобщения
     view_all:
   attachment:
     accessibility:
@@ -258,14 +259,15 @@ bg:
         пратете електронна поща на %{email}
         като упоменете Вашия адрес, телефон, както и заглавието на публикацията
         ("%{title}")%{references}.
-      heading: "Този файл може да не е подходящ за хора, ползващи помощни технологии"
-      request_a_different_format: |
-        Направете заявка за друг формат
+      heading: Този файл може да не е подходящ за хора, ползващи помощни технологии
+      request_a_different_format: 'Направете заявка за друг формат
+
+'
     headings:
-      order_a_copy: "Поръчайте копие"
-      order_a_copy_full: "Поръчайте копия"
-      published: "Публикувано"
-      reference: "Справка"
+      order_a_copy: Поръчайте копие
+      order_a_copy_full: Поръчайте копия
+      published: Публикувано
+      reference: Справка
       unnumbered_command_paper:
       unnumbered_hoc_paper:
     opendocument:
@@ -283,8 +285,8 @@ bg:
     see_all_updates:
     updated_at:
   contact:
-    contact_form: "Контактна форма"
-    email: "И-мейл"
+    contact_form: Контактна форма
+    email: И-мейл
   corporate_information_page:
     type:
       link_text:
@@ -299,44 +301,44 @@ bg:
         membership:
         our_energy_use:
         our_governance:
-        personal_information_charter: "Харта за персонална информация"
+        personal_information_charter: Харта за персонална информация
         petitions_and_campaigns:
         procurement:
-        publication_scheme: "Схема за публикации"
+        publication_scheme: Схема за публикации
         recruitment:
         research:
-        social_media_use: "Ползване на социални медии"
+        social_media_use: Ползване на социални медии
         staff_update:
         statistics:
         terms_of_reference:
-        welsh_language_scheme: "Уелска езикова схема"
+        welsh_language_scheme: Уелска езикова схема
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document_filters:
-    description: "Можете да използвате филтрите, за да видите резултатите, които пасват
-      на вашето търсене"
+    description: Можете да използвате филтрите, за да видите резултатите, които пасват
+      на вашето търсене
     no_results:
-      description: "Разширете търсенето си и опитайте отново"
-      title: "Няма намерени документи"
+      description: Разширете търсенето си и опитайте отново
+      title: Няма намерени документи
       tna_heading:
       tna_link:
     world_locations:
-      all: "Всички места"
-      label: "Световни места"
+      all: Всички места
+      label: Световни места
   feeds:
     email:
     feed:
     get_updates_to_this_list:
-    latest_activity: "Последна дейност"
+    latest_activity: Последна дейност
   i18n:
     direction: ltr
   language_names:
-    bg: "български"
+    bg: български
   latest_feed:
-    no_updates: "Няма нови обновления"
-    title: "Последни"
+    no_updates: Няма нови обновления
+    title: Последни
   national_statistics:
     heading:
   number:
@@ -345,119 +347,119 @@ bg:
         format: "%n%u"
   organisation:
     about:
-      read_more: "Прочетете повече за нашата дейност"
+      read_more: Прочетете повече за нашата дейност
     corporate_information:
-      access_our_info: "Получете достъп до информацията ни"
-      foi_how_to: "Как да направите запитване по закона за достъпа до информация"
-      foi_releases: "Съобщения по закона за достъп до информация"
-      jobs_and_contacts: "Работни места и договори"
+      access_our_info: Получете достъп до информацията ни
+      foi_how_to: Как да направите запитване по закона за достъпа до информация
+      foi_releases: Съобщения по закона за достъп до информация
+      jobs_and_contacts: Работни места и договори
       organisation_chart:
-      transparency: "Данни за прозрачността"
+      transparency: Данни за прозрачността
     foi_exemption_html:
     headings:
-      chief_professional_officers: "Нашите служители"
-      contact: "Свържете се с %{name}"
-      corporate_information: "Корпоративна информация"
-      corporate_reports: "Корпоративни доклади"
+      chief_professional_officers: Нашите служители
+      contact: Свържете се с %{name}
+      corporate_information: Корпоративна информация
+      corporate_reports: Корпоративни доклади
       documents:
       freedom_of_information_act:
       making_foi_requests:
-      our_announcements: "Съобщенията ни"
+      our_announcements: Съобщенията ни
       our_consultations:
       our_judges:
-      our_management: "Нашето ръководство"
-      our_ministers: "Нашите министи"
-      our_policies: "Нашите политики"
-      our_publications: "Нашите публикации"
-      our_senior_military_officials: "Нашите висши военни служители"
-      our_services: "Услуги, които извършваме"
-      our_statistics: "Нашата статистика"
-      our_topics: "Работим по тези теми"
-      special_representatives: "Специални представители"
-      traffic_commissioners: "Комисари по трафика"
-      what_we_do: "Нашата дейност"
+      our_management: Нашето ръководство
+      our_ministers: Нашите министи
+      our_policies: Нашите политики
+      our_publications: Нашите публикации
+      our_senior_military_officials: Нашите висши военни служители
+      our_services: Услуги, които извършваме
+      our_statistics: Нашата статистика
+      our_topics: Работим по тези теми
+      special_representatives: Специални представители
+      traffic_commissioners: Комисари по трафика
+      what_we_do: Нашата дейност
       who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:
       step3_html:
   policies:
-    heading: "Политики"
+    heading: Политики
     view_all:
   publications:
-    heading: "Публикации"
+    heading: Публикации
     headings:
-      detail: "Подробности"
-  read_more: "Прочетете повече"
+      detail: Подробности
+  read_more: Прочетете повече
   see_all:
-    announcement: "Вижте всички наши Съобщения"
-    authored_article: "Вижте всички наши Авторски статии"
-    case_study: "Вижте всички наши Казуси"
-    closed_consultation: "Вижте всички наши Затворени консултации"
-    consultation: "Вижте всички наши Консултации"
-    consultation_outcome: "Вижте всички наши Резултат от консултациите"
-    corporate_report: "Вижте всички наши Корпоративни доклади"
-    correspondence: "Вижте всички наши Кореспонденции"
+    announcement: Вижте всички наши Съобщения
+    authored_article: Вижте всички наши Авторски статии
+    case_study: Вижте всички наши Казуси
+    closed_consultation: Вижте всички наши Затворени консултации
+    consultation: Вижте всички наши Консултации
+    consultation_outcome: Вижте всички наши Резултат от консултациите
+    corporate_report: Вижте всички наши Корпоративни доклади
+    correspondence: Вижте всички наши Кореспонденции
     decision:
-    detailed_guidance: "Вижте всички наши Подробни насоки"
+    detailed_guidance: Вижте всички наши Подробни насоки
     document_collection:
-    draft_text: "Вижте всички наши Чернови"
-    fatality_notice: "Вижте всички наши Уведомления за кончина"
-    foi_release: "Вижте всички наши Съобщения във връзка със свободен достъп до информация"
-    form: "Вижте всички наши Формуляри"
-    government_response: "Вижте всички наши Отговори на правителството"
-    guidance: "Вижте всички наши Насоки"
-    impact_assessment: "Вижте всички наши Оценки на влиянието"
-    imported: "Вижте всички наши импортирано-очаква тип"
+    draft_text: Вижте всички наши Чернови
+    fatality_notice: Вижте всички наши Уведомления за кончина
+    foi_release: Вижте всички наши Съобщения във връзка със свободен достъп до информация
+    form: Вижте всички наши Формуляри
+    government_response: Вижте всички наши Отговори на правителството
+    guidance: Вижте всички наши Насоки
+    impact_assessment: Вижте всички наши Оценки на влиянието
+    imported: Вижте всички наши импортирано-очаква тип
     international_treaty:
-    map: "Вижте всички наши Карти"
-    national_statistics: "Вижте всички наши Статистики- национални статистики"
-    news_article: "Вижте всички наши Новинарски статии"
-    news_story: "Вижте всички наши Новини"
+    map: Вижте всички наши Карти
+    national_statistics: Вижте всички наши Статистики- национални статистики
+    news_article: Вижте всички наши Новинарски статии
+    news_story: Вижте всички наши Новини
     notice:
-    open_consultation: "Вижте всички наши Отворени консултации"
-    oral_statement: "Вижте всички наши Устни изказвания в Парламента"
-    policy: "Вижте всички наши Политики"
-    policy_paper: "Вижте всички наши Документи, залагащи политика"
-    press_release: "Вижте всички наши Съобщения до медиите"
-    promotional: "Вижте всички наши Промоционален материал"
-    publication: "Вижте всички наши Публикации"
+    open_consultation: Вижте всички наши Отворени консултации
+    oral_statement: Вижте всички наши Устни изказвания в Парламента
+    policy: Вижте всички наши Политики
+    policy_paper: Вижте всички наши Документи, залагащи политика
+    press_release: Вижте всички наши Съобщения до медиите
+    promotional: Вижте всички наши Промоционален материал
+    publication: Вижте всички наши Публикации
     regulation:
-    research: "Вижте всички наши Проучване и анализи"
-    speaking_notes: "Вижте всички наши Устни ноти"
-    speech: "Вижте всички наши Речи"
-    statement_to_parliament: "Вижте всички наши Изявления в парламента"
-    statistical_data_set: "Вижте всички наши Набори от статистически данни"
-    statistics: "Вижте всички наши Статистики"
+    research: Вижте всички наши Проучване и анализи
+    speaking_notes: Вижте всички наши Устни ноти
+    speech: Вижте всички наши Речи
+    statement_to_parliament: Вижте всички наши Изявления в парламента
+    statistical_data_set: Вижте всички наши Набори от статистически данни
+    statistics: Вижте всички наши Статистики
     statutory_guidance:
-    transcript: "Вижте всички наши Преписи"
-    transparency: "Вижте всички наши Информация за прозрачността"
-    written_statement: "Вижте всички наши Писмени изявления до парламента"
+    transcript: Вижте всички наши Преписи
+    transparency: Вижте всички наши Информация за прозрачността
+    written_statement: Вижте всички наши Писмени изявления до парламента
   social_media:
     follow_us:
   support:
     array:
-      last_word_connector: "и"
+      last_word_connector: и
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: "Нашият %{link} дава информация за начина
-        на ползване на личните Ви данни"
-      publication_scheme_html: "Прочетете какви видове информация публикуваме в нашия
-        %{link}."
-      social_media_use_html: "Вижте политиката ни по %{link}."
-      welsh_language_scheme_html: "Разберете повече за нашето задължение да публикуваме
-        в %{link}."
-    find_out_more: "Вижте пълния профил и всички контакти"
+      personal_information_charter_html: Нашият %{link} дава информация за начина
+        на ползване на личните Ви данни
+      publication_scheme_html: Прочетете какви видове информация публикуваме в нашия
+        %{link}.
+      social_media_use_html: Вижте политиката ни по %{link}.
+      welsh_language_scheme_html: Разберете повече за нашето задължение да публикуваме
+        в %{link}.
+    find_out_more: Вижте пълния профил и всички контакти
     headings:
-      about_us: "За нас"
-      contact_us: "Свържете се с нас"
-      corporate_information: "Корпоративна информация"
-      follow_us: "Следвайте ни"
-      our_people: "Нашите служители"
-      our_services: "Нашите услуги"
-    location: "Местоположение"
-    part_of: "Част от"
+      about_us: За нас
+      contact_us: Свържете се с нас
+      corporate_information: Корпоративна информация
+      follow_us: Следвайте ни
+      our_people: Нашите служители
+      our_services: Нашите услуги
+    location: Местоположение
+    part_of: Част от

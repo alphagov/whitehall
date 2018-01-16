@@ -43,18 +43,18 @@ zh-tw:
       unique_reference:
       unnumbered_hoc_paper:
   announcements:
-    heading: "公告"
+    heading: 公告
     view_all:
   attachment:
     accessibility:
-      full_help_html: "尋求另一種檔案格式：點字或音檔"
-      heading: "此檔案不適合使用科技輔助的使用者"
-      request_a_different_format: "尋求別種格式"
+      full_help_html: 尋求另一種檔案格式：點字或音檔
+      heading: 此檔案不適合使用科技輔助的使用者
+      request_a_different_format: 尋求別種格式
     headings:
-      order_a_copy: "訂購備份"
-      order_a_copy_full: "訂購發行刊物"
-      published: "發行"
-      reference: "參考"
+      order_a_copy: 訂購備份
+      order_a_copy_full: 訂購發行刊物
+      published: 發行
+      reference: 參考
       unnumbered_command_paper:
       unnumbered_hoc_paper:
     opendocument:
@@ -72,8 +72,8 @@ zh-tw:
     see_all_updates:
     updated_at:
   contact:
-    contact_form: "聯絡資料表"
-    email: "電子郵件"
+    contact_form: 聯絡資料表
+    email: 電子郵件
   corporate_information_page:
     type:
       link_text:
@@ -88,17 +88,17 @@ zh-tw:
         membership:
         our_energy_use:
         our_governance:
-        personal_information_charter: "個人資訊表"
+        personal_information_charter: 個人資訊表
         petitions_and_campaigns:
         procurement:
-        publication_scheme: "出版計畫"
+        publication_scheme: 出版計畫
         recruitment:
         research:
-        social_media_use: "社群應用"
+        social_media_use: 社群應用
         staff_update:
         statistics:
         terms_of_reference:
-        welsh_language_scheme: "威爾士語言計畫"
+        welsh_language_scheme: 威爾士語言計畫
   date:
     formats:
       default: "%d %B %Y"
@@ -111,85 +111,85 @@ zh-tw:
       published:
       updated:
     headings:
-      applies_to_nations: "應用"
+      applies_to_nations: 應用
       attachments:
-        one: "文件"
-        other: "其他文件"
+        one: 文件
+        other: 其他文件
       from:
       location:
       part_of:
-    published: "發行"
-    read: "閱讀%{title}文章"
+    published: 發行
+    read: 閱讀%{title}文章
     speech:
       author_title:
-        minister: "部長"
-        speaker: "作者"
-      delivered_on: "交付："
+        minister: 部長
+        speaker: 作者
+      delivered_on: 交付：
       delivery_title:
-        minister: "部長"
-        speaker: "發言人"
-      written_on: "撰寫於:"
+        minister: 部長
+        speaker: 發言人
+      written_on: '撰寫於:'
     type:
       announcement:
-        one: "公告"
-        other: "其他公告"
+        one: 公告
+        other: 其他公告
       authored_article:
-        one: "撰寫文章"
-        other: "撰寫其他文章"
+        one: 撰寫文章
+        other: 撰寫其他文章
       blog_post:
         one:
         other:
       case_study:
-        one: "案例研究"
-        other: "其他案例研究"
+        one: 案例研究
+        other: 其他案例研究
       closed_consultation:
-        one: "專屬諮詢"
-        other: "其他專屬諮詢"
+        one: 專屬諮詢
+        other: 其他專屬諮詢
       consultation:
-        one: "諮詢"
-        other: "其他諮詢"
+        one: 諮詢
+        other: 其他諮詢
       consultation_outcome:
-        one: "諮詢結果"
-        other: "其他諮詢結果"
+        one: 諮詢結果
+        other: 其他諮詢結果
       corporate_report:
-        one: "公司報告"
-        other: "其他公司報告"
+        one: 公司報告
+        other: 其他公司報告
       correspondence:
-        one: "對應"
-        other: "對應"
+        one: 對應
+        other: 對應
       decision:
         one:
         other:
       detailed_guidance:
-        one: "詳細指引"
-        other: "詳細指引"
+        one: 詳細指引
+        other: 詳細指引
       document_collection:
-        one: "系列"
+        one: 系列
         other:
       draft_text:
-        one: "內容"
-        other: "其他內容"
+        one: 內容
+        other: 其他內容
       foi_release:
-        one: "政府公開訊息"
-        other: "其他政府公開訊息"
+        one: 政府公開訊息
+        other: 其他政府公開訊息
       form:
-        one: "表格"
-        other: "其他表格"
+        one: 表格
+        other: 其他表格
       government_response:
-        one: "政府回應"
-        other: "政府其他回應"
+        one: 政府回應
+        other: 政府其他回應
       guidance:
-        one: "指引"
-        other: "指引"
+        one: 指引
+        other: 指引
       impact_assessment:
-        one: "影響評估"
-        other: "其他影響評估"
+        one: 影響評估
+        other: 其他影響評估
       imported:
-        one: "輸入 - 等待中"
-        other: "輸入 - 等待中"
+        one: 輸入 - 等待中
+        other: 輸入 - 等待中
       independent_report:
-        one: "獨立報告"
-        other: "其他獨立報告"
+        one: 獨立報告
+        other: 其他獨立報告
       international_treaty:
         one:
         other:
@@ -197,17 +197,17 @@ zh-tw:
         one:
         other:
       map:
-        one: "地圖"
-        other: "其他地圖"
+        one: 地圖
+        other: 其他地圖
       national_statistics:
-        one: "國家統計數據"
-        other: "國家統計數據"
+        one: 國家統計數據
+        other: 國家統計數據
       news_article:
-        one: "新聞"
-        other: "其他新聞"
+        one: 新聞
+        other: 其他新聞
       news_story:
-        one: "新聞"
-        other: "其他新聞"
+        one: 新聞
+        other: 其他新聞
       nhs_content:
         one:
         other:
@@ -215,83 +215,83 @@ zh-tw:
         one:
         other:
       official_statistics:
-        one: "統計"
-        other: "統計"
+        one: 統計
+        other: 統計
       open_consultation:
-        one: "公開諮詢"
-        other: "其他公開諮詢"
+        one: 公開諮詢
+        other: 其他公開諮詢
       oral_statement:
-        one: "議會口頭聲明"
-        other: "其他議會口頭聲明"
+        one: 議會口頭聲明
+        other: 其他議會口頭聲明
       policy_paper:
-        one: "政策報告"
-        other: "其他政策報告"
+        one: 政策報告
+        other: 其他政策報告
       press_release:
-        one: "新聞稿"
-        other: "其他新聞稿"
+        one: 新聞稿
+        other: 其他新聞稿
       promotional:
-        one: "宣傳資料"
-        other: "宣傳資料"
+        one: 宣傳資料
+        other: 宣傳資料
       publication:
-        one: "發行物"
-        other: "其他發行物"
+        one: 發行物
+        other: 其他發行物
       regulation:
         one:
         other:
       research:
-        one: "研究與分析"
-        other: "研究與分析"
+        one: 研究與分析
+        other: 研究與分析
       speaking_notes:
-        one: "演講稿"
-        other: "演講稿"
+        one: 演講稿
+        other: 演講稿
       speech:
-        one: "演講"
-        other: "其他演講"
+        one: 演講
+        other: 其他演講
       statement_to_parliament:
-        one: "議會聲明"
-        other: "議會聲明"
+        one: 議會聲明
+        other: 議會聲明
       statistical_data_set:
-        one: "統計數據資料"
-        other: "其他統計數據料"
+        one: 統計數據資料
+        other: 其他統計數據料
       statutory_guidance:
         one:
         other:
       transcript:
-        one: "談話副本"
-        other: "其他談話副本"
+        one: 談話副本
+        other: 其他談話副本
       transparency:
-        one: "透明化數據"
-        other: "透明化數據"
+        one: 透明化數據
+        other: 透明化數據
       world_news_story:
         one:
         other:
       written_statement:
-        one: "提交國會的書面聲明"
-        other: "提交國會的其他書面聲明"
-    updated: "更新"
-    view: "查看'%{title}'"
+        one: 提交國會的書面聲明
+        other: 提交國會的其他書面聲明
+    updated: 更新
+    view: 查看'%{title}'
   document_filters:
-    description: "你可以使用過濾功能顯示&nbsp;只符合你需要的&nbsp;結果。"
+    description: 你可以使用過濾功能顯示&nbsp;只符合你需要的&nbsp;結果。
     no_results:
-      description: "嘗試擴大你的搜尋範圍並且再次搜索。"
-      title: "沒有符合的文件。"
+      description: 嘗試擴大你的搜尋範圍並且再次搜索。
+      title: 沒有符合的文件。
       tna_heading:
       tna_link:
     world_locations:
-      all: "所有地區位置"
-      label: "世界地區位置"
+      all: 所有地區位置
+      label: 世界地區位置
   feeds:
     email:
     feed:
     get_updates_to_this_list:
-    latest_activity: "最新的活動"
+    latest_activity: 最新的活動
   i18n:
     direction: ltr
   language_names:
-    zh-tw: "中文"
+    zh-tw: 中文
   latest_feed:
-    no_updates: "目前暫無更新。"
-    title: "最新消息"
+    no_updates: 目前暫無更新。
+    title: 最新消息
   national_statistics:
     heading:
   number:
@@ -300,37 +300,37 @@ zh-tw:
         format: "%n%u"
   organisation:
     about:
-      read_more: "查閱更多關於我們的工作"
+      read_more: 查閱更多關於我們的工作
     corporate_information:
-      access_our_info: "閱讀我們的資訊"
-      foi_how_to: "如何進行資訊自由（FOI）申請"
-      foi_releases: "資訊自由（FOI）資訊發布"
-      jobs_and_contacts: "職位及聯絡方法"
+      access_our_info: 閱讀我們的資訊
+      foi_how_to: 如何進行資訊自由（FOI）申請
+      foi_releases: 資訊自由（FOI）資訊發布
+      jobs_and_contacts: 職位及聯絡方法
       organisation_chart:
-      transparency: "透明化數據"
+      transparency: 透明化數據
     foi_exemption_html:
     headings:
-      chief_professional_officers: "我們的首席專業官員"
-      contact: "聯繫%{name}"
-      corporate_information: "政府資訊"
-      corporate_reports: "政府報告"
+      chief_professional_officers: 我們的首席專業官員
+      contact: 聯繫%{name}
+      corporate_information: 政府資訊
+      corporate_reports: 政府報告
       documents:
       freedom_of_information_act:
       making_foi_requests:
-      our_announcements: "我們的公告"
+      our_announcements: 我們的公告
       our_consultations:
       our_judges:
-      our_management: "我們的管理層"
-      our_ministers: "我們的首相/大臣"
-      our_policies: "我們的政策"
-      our_publications: "我們的出版物"
-      our_senior_military_officials: "我們的高級軍事官員"
-      our_services: "我們的服務"
-      our_statistics: "我們的統計資料"
-      our_topics: "我們工作的領域"
-      special_representatives: "特別代表"
-      traffic_commissioners: "交通事務專員"
-      what_we_do: "我們的工作"
+      our_management: 我們的管理層
+      our_ministers: 我們的首相/大臣
+      our_policies: 我們的政策
+      our_publications: 我們的出版物
+      our_senior_military_officials: 我們的高級軍事官員
+      our_services: 我們的服務
+      our_statistics: 我們的統計資料
+      our_topics: 我們工作的領域
+      special_representatives: 特別代表
+      traffic_commissioners: 交通事務專員
+      what_we_do: 我們的工作
       who_we_are:
     making_foi_requests:
       step1_html:
@@ -345,13 +345,13 @@ zh-tw:
     previous_roles_in_government:
     read_more:
   policies:
-    heading: "政策"
+    heading: 政策
     view_all:
   publications:
-    heading: "出版物"
+    heading: 出版物
     headings:
-      detail: "詳情"
-  read_more: "閱讀更多"
+      detail: 詳情
+  read_more: 閱讀更多
   roles:
     heading:
       one:
@@ -365,89 +365,89 @@ zh-tw:
     previous_holders:
     read_more:
   see_all:
-    announcement: "查閱我們所有的其他公告"
-    authored_article: "查閱我們所有的撰寫其他文章"
-    case_study: "查閱我們所有的其他案例研究"
-    closed_consultation: "查閱我們所有的其他專屬諮詢"
-    consultation: "查閱我們所有的其他諮詢"
-    consultation_outcome: "查閱我們所有的其他諮詢結果"
-    corporate_report: "查閱我們所有的其他公司報告"
-    correspondence: "查閱我們所有的對應"
+    announcement: 查閱我們所有的其他公告
+    authored_article: 查閱我們所有的撰寫其他文章
+    case_study: 查閱我們所有的其他案例研究
+    closed_consultation: 查閱我們所有的其他專屬諮詢
+    consultation: 查閱我們所有的其他諮詢
+    consultation_outcome: 查閱我們所有的其他諮詢結果
+    corporate_report: 查閱我們所有的其他公司報告
+    correspondence: 查閱我們所有的對應
     decision:
-    detailed_guidance: "查閱我們所有的詳細指引"
+    detailed_guidance: 查閱我們所有的詳細指引
     document_collection:
-    draft_text: "查閱我們所有的其他內容"
-    fatality_notice: "查閱我們所有的安全事故通知"
-    foi_release: "查閱我們所有的其他政府公開訊息"
-    form: "查閱我們所有的其他表格"
-    government_response: "查閱我們所有的政府其他回應"
-    guidance: "查閱我們所有的指引"
-    impact_assessment: "查閱我們所有的其他影響評估"
-    imported: "查閱我們所有的輸入 - 等待中"
+    draft_text: 查閱我們所有的其他內容
+    fatality_notice: 查閱我們所有的安全事故通知
+    foi_release: 查閱我們所有的其他政府公開訊息
+    form: 查閱我們所有的其他表格
+    government_response: 查閱我們所有的政府其他回應
+    guidance: 查閱我們所有的指引
+    impact_assessment: 查閱我們所有的其他影響評估
+    imported: 查閱我們所有的輸入 - 等待中
     international_treaty:
-    map: "查閱我們所有的其他地圖"
-    national_statistics: "查閱我們所有的國家統計數據"
-    news_article: "查閱我們所有的其他新聞"
-    news_story: "查閱我們所有的其他新聞"
+    map: 查閱我們所有的其他地圖
+    national_statistics: 查閱我們所有的國家統計數據
+    news_article: 查閱我們所有的其他新聞
+    news_story: 查閱我們所有的其他新聞
     notice:
-    open_consultation: "查閱我們所有的其他公開諮詢"
-    oral_statement: "查閱我們所有的其他議會口頭聲明"
-    policy: "查閱我們所有的其他政策"
-    policy_paper: "查閱我們所有的其他政策報告"
-    press_release: "查閱我們所有的其他新聞稿"
-    promotional: "查閱我們所有的宣傳資料"
-    publication: "查閱我們所有的其他發行物"
+    open_consultation: 查閱我們所有的其他公開諮詢
+    oral_statement: 查閱我們所有的其他議會口頭聲明
+    policy: 查閱我們所有的其他政策
+    policy_paper: 查閱我們所有的其他政策報告
+    press_release: 查閱我們所有的其他新聞稿
+    promotional: 查閱我們所有的宣傳資料
+    publication: 查閱我們所有的其他發行物
     regulation:
-    research: "查閱我們所有的研究與分析"
-    speaking_notes: "查閱我們所有的演講稿"
-    speech: "查閱我們所有的其他演講"
-    statement_to_parliament: "查閱我們所有的議會聲明"
-    statistical_data_set: "查閱我們所有的其他統計數據料"
-    statistics: "查閱我們所有的統計"
+    research: 查閱我們所有的研究與分析
+    speaking_notes: 查閱我們所有的演講稿
+    speech: 查閱我們所有的其他演講
+    statement_to_parliament: 查閱我們所有的議會聲明
+    statistical_data_set: 查閱我們所有的其他統計數據料
+    statistics: 查閱我們所有的統計
     statutory_guidance:
-    transcript: "查閱我們所有的其他談話副本"
-    transparency: "查閱我們所有的透明化數據"
-    written_statement: "查閱我們所有的提交國會的其他書面聲明"
+    transcript: 查閱我們所有的其他談話副本
+    transparency: 查閱我們所有的透明化數據
+    written_statement: 查閱我們所有的提交國會的其他書面聲明
   social_media:
     follow_us:
   support:
     array:
-      last_word_connector: "和"
+      last_word_connector: 和
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   world_location:
     headings:
-      announcements: "我們的公告"
-      country: "國家"
-      documents: "文件"
-      mission: "我們的使命"
-      organisations: "組織"
-      publications: "我們的出版物"
-      quick_links: "快速連結"
-      related_policies: "相關政策"
-      statistics: "我們的統計資料"
+      announcements: 我們的公告
+      country: 國家
+      documents: 文件
+      mission: 我們的使命
+      organisations: 組織
+      publications: 我們的出版物
+      quick_links: 快速連結
+      related_policies: 相關政策
+      statistics: 我們的統計資料
     type:
       international_delegation:
-        one: "國際代表"
-        other: "其他國際代表"
+        one: 國際代表
+        other: 其他國際代表
       world_location:
-        one: "世界地區位置"
-        other: "其他世界地區位置"
+        one: 世界地區位置
+        other: 其他世界地區位置
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: "我們的%{link}解釋我們如何處理你的個人資料。"
-      publication_scheme_html: "查閱我們在%{link}定期發布的資訊。"
-      social_media_use_html: "查閱我們在%{link}的政策。"
-      welsh_language_scheme_html: "查閱我們在%{link}的發佈承諾。"
-    find_out_more: "查閱全部資訊和聯絡資料"
+      personal_information_charter_html: 我們的%{link}解釋我們如何處理你的個人資料。
+      publication_scheme_html: 查閱我們在%{link}定期發布的資訊。
+      social_media_use_html: 查閱我們在%{link}的政策。
+      welsh_language_scheme_html: 查閱我們在%{link}的發佈承諾。
+    find_out_more: 查閱全部資訊和聯絡資料
     headings:
-      about_us: "關於我們"
-      contact_us: "聯絡我們"
-      corporate_information: "詳細的資訊"
-      follow_us: "關注我們"
-      our_people: "主要館員"
-      our_services: "我們的服務"
-    location: "位置"
-    part_of: "隸屬於"
+      about_us: 關於我們
+      contact_us: 聯絡我們
+      corporate_information: 詳細的資訊
+      follow_us: 關注我們
+      our_people: 主要館員
+      our_services: 我們的服務
+    location: 位置
+    part_of: 隸屬於

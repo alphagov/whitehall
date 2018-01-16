@@ -2,73 +2,73 @@ hy:
   document:
     headings:
       attachments:
-        one: "Փաստաթուղթ"
-        other: "Փաստաթղթեր"
-      applies_to_nations: "Վերաբերվում է"
+        one: Փաստաթուղթ
+        other: Փաստաթղթեր
+      applies_to_nations: Վերաբերվում է
       from:
       location:
       part_of:
     type:
       announcement:
-        one: "Հայտարարություն"
-        other: "Հայտարարություններ"
+        one: Հայտարարություն
+        other: Հայտարարություններ
       authored_article:
-        one: "Հեղինակային հոդված"
-        other: "Հեղինակային հոդվածներ"
+        one: Հեղինակային հոդված
+        other: Հեղինակային հոդվածներ
       blog_post:
         one:
         other:
       case_study:
-        one: "Թեմատիկ ուսումնասիրություն"
-        other: "Թեմատիկ ուսումնասիրություններ"
+        one: Թեմատիկ ուսումնասիրություն
+        other: Թեմատիկ ուսումնասիրություններ
       closed_consultation:
-        one: "Փակ խորհրդատվություն"
-        other: "Փակ խորհրդատվություններ"
+        one: Փակ խորհրդատվություն
+        other: Փակ խորհրդատվություններ
       consultation:
-        one: "Խորհրդատվություն"
-        other: "Խորհրդատվություններ"
+        one: Խորհրդատվություն
+        other: Խորհրդատվություններ
       consultation_outcome:
-        one: "Խորհրդատվության արդյունք"
-        other: "Խորհրդատվության արդյունքներ"
+        one: Խորհրդատվության արդյունք
+        other: Խորհրդատվության արդյունքներ
       corporate_report:
-        one: "Կորպորատիվ հաշվետվություն"
-        other: "Կորպորատիվ հաշվետվություններ"
+        one: Կորպորատիվ հաշվետվություն
+        other: Կորպորատիվ հաշվետվություններ
       correspondence:
-        one: "Նամակագրություն"
-        other: "Նամակագրություններ"
+        one: Նամակագրություն
+        other: Նամակագրություններ
       decision:
         one:
         other:
       detailed_guidance:
-        one: "Մանրամասն ուղեցույց"
-        other: "Մանրամասն ուղեցույցեր"
+        one: Մանրամասն ուղեցույց
+        other: Մանրամասն ուղեցույցեր
       document_collection:
-        one: "Մի շարք"
+        one: Մի շարք
         other:
       draft_text:
-        one: "Սևագիր տեքստ"
-        other: "Սևագիր տեքստեր"
+        one: Սևագիր տեքստ
+        other: Սևագիր տեքստեր
       foi_release:
-        one: "Ազատ տեղեկատվության հաղորդագրություն"
-        other: "Ազատ տեղեկատվության հաղորդագրություններ"
+        one: Ազատ տեղեկատվության հաղորդագրություն
+        other: Ազատ տեղեկատվության հաղորդագրություններ
       form:
-        one: "Ձևաթուղթ"
-        other: "Ձևաթղթեր"
+        one: Ձևաթուղթ
+        other: Ձևաթղթեր
       government_response:
-        one: "Կառավարության արձագանք"
-        other: "Կառավարության արձագանքներ"
+        one: Կառավարության արձագանք
+        other: Կառավարության արձագանքներ
       guidance:
-        one: "Ուղեցույց"
-        other: "Ուղեցույցեր"
+        one: Ուղեցույց
+        other: Ուղեցույցեր
       impact_assessment:
-        one: "Ազդեցության գնահատում"
-        other: "Ազդեցության գնահատումներ"
+        one: Ազդեցության գնահատում
+        other: Ազդեցության գնահատումներ
       imported:
-        one: "Ներկրված - սպասման տեսակ"
-        other: "Ներկրված - սպասման տեսակներ"
+        one: Ներկրված - սպասման տեսակ
+        other: Ներկրված - սպասման տեսակներ
       independent_report:
-        one: "Անկախ հաշվետվություն"
-        other: "Անկախ հաշվետվություններ"
+        one: Անկախ հաշվետվություն
+        other: Անկախ հաշվետվություններ
       international_treaty:
         one:
         other:
@@ -76,17 +76,17 @@ hy:
         one:
         other:
       map:
-        one: "Քարտեզ"
-        other: "Քարտեզներ"
+        one: Քարտեզ
+        other: Քարտեզներ
       national_statistics:
-        one: "Վիճակագրություն-ազգային վիճակագրություն"
-        other: "Վիճակագրություն-ազգային վիճակագրություններ"
+        one: Վիճակագրություն-ազգային վիճակագրություն
+        other: Վիճակագրություն-ազգային վիճակագրություններ
       news_article:
-        one: "Տեղեկատվական հոդված"
-        other: "Տեղեկատվական հոդվածներ"
+        one: Տեղեկատվական հոդված
+        other: Տեղեկատվական հոդվածներ
       news_story:
-        one: "Լուր"
-        other: "Լուրեր"
+        one: Լուր
+        other: Լուրեր
       nhs_content:
         one:
         other:
@@ -94,78 +94,78 @@ hy:
         one:
         other:
       official_statistics:
-        one: "Վիճակագրություն"
-        other: "Վիճակագրություն"
+        one: Վիճակագրություն
+        other: Վիճակագրություն
       open_consultation:
-        one: "Բաց խորհրդատվություն"
-        other: "Բաց խորհրդատվություններ"
+        one: Բաց խորհրդատվություն
+        other: Բաց խորհրդատվություններ
       oral_statement:
-        one: "Բանավոր դիմում խորհրդարան"
-        other: "Բանավոր դիմումներ խորհրդարան"
+        one: Բանավոր դիմում խորհրդարան
+        other: Բանավոր դիմումներ խորհրդարան
       policy_paper:
-        one: "Ծրագրային փաստաթուղթ"
-        other: "Ծրագրային փաստաթղթեր"
+        one: Ծրագրային փաստաթուղթ
+        other: Ծրագրային փաստաթղթեր
       press_release:
-        one: "Մամլո հաղորդագրություն"
-        other: "Մամլո հաղորդագրություններ"
+        one: Մամլո հաղորդագրություն
+        other: Մամլո հաղորդագրություններ
       promotional:
-        one: "Քարոզչական նյութ"
-        other: "Քարոզչական նյութներ"
+        one: Քարոզչական նյութ
+        other: Քարոզչական նյութներ
       publication:
-        one: "Հրապարակում"
-        other: "Հրապարակումներ"
+        one: Հրապարակում
+        other: Հրապարակումներ
       regulation:
         one:
         other:
       research:
-        one: "Հետազոտություն և վերլուծություն"
-        other: "Հետազոտություններ և վերլուծություններ"
+        one: Հետազոտություն և վերլուծություն
+        other: Հետազոտություններ և վերլուծություններ
       speaking_notes:
-        one: "Խոսքի գրառում"
-        other: "Խոսքի գրառումներ"
+        one: Խոսքի գրառում
+        other: Խոսքի գրառումներ
       speech:
-        one: "Ելույթ"
-        other: "Ելույթներ"
+        one: Ելույթ
+        other: Ելույթներ
       statement_to_parliament:
-        one: "Դիմում խորհրդարան"
-        other: "Դիմումներ խորհրդարան"
+        one: Դիմում խորհրդարան
+        other: Դիմումներ խորհրդարան
       statistical_data_set:
-        one: "Վիճակագրական տվյալ"
-        other: "Վիճակագրական տվյալներ"
+        one: Վիճակագրական տվյալ
+        other: Վիճակագրական տվյալներ
       statutory_guidance:
         one:
         other:
       transcript:
-        one: "Վերծանում"
-        other: "Վերծանումներ"
+        one: Վերծանում
+        other: Վերծանումներ
       transparency:
-        one: "Բաց տեղեկատվություն"
-        other: "Բաց տեղեկատվություններ"
+        one: Բաց տեղեկատվություն
+        other: Բաց տեղեկատվություններ
       world_news_story:
         one:
         other:
       written_statement:
-        one: "Գրավոր դիմում խորհրդարան"
-        other: "Գրավոր դիմումներ խորհրդարան"
+        one: Գրավոր դիմում խորհրդարան
+        other: Գրավոր դիմումներ խորհրդարան
     contents:
     footer_meta:
       full_page_history:
       page_history:
       published:
       updated:
-    published: "հրապարակված"
-    read: "Կարդացեք  %{title} հոդվածը"
+    published: հրապարակված
+    read: Կարդացեք  %{title} հոդվածը
     speech:
       author_title:
-        minister: "Նախարար"
-        speaker: "Գրող"
-      delivered_on: "Առաքվել է"
+        minister: Նախարար
+        speaker: Գրող
+      delivered_on: Առաքվել է
       delivery_title:
-        minister: "Նախարար"
-        speaker: "Խոսնակ"
-      written_on: "Գրված է՝"
-    updated: "Թարմացված"
-    view: "Տես '%{title}'-ը"
+        minister: Նախարար
+        speaker: Խոսնակ
+      written_on: Գրված է՝
+    updated: Թարմացված
+    view: Տես '%{title}'-ը
   people:
     heading:
       one:
@@ -189,21 +189,21 @@ hy:
   world_location:
     type:
       international_delegation:
-        one: "Միջազգային պատվիրակություն"
-        other: "Միջազգային պատվիրակություններ"
+        one: Միջազգային պատվիրակություն
+        other: Միջազգային պատվիրակություններ
       world_location:
-        one: "Համաշխարհային տեղաբաշխում"
-        other: "Համաշխարհային տեղաբաշխումներ"
+        one: Համաշխարհային տեղաբաշխում
+        other: Համաշխարհային տեղաբաշխումներ
     headings:
-      announcements: "Մեր հայտարարությունները"
-      country: "Երկիր"
-      documents: "Փաստաթղթեր"
-      mission: "Մեր գործունեությունը"
-      organisations: "Կազմակերպություններ"
-      publications: "Մեր հրատարակությունները"
-      quick_links: "Հղումներ"
-      related_policies: "Համանման նյութեր"
-      statistics: "Մեր վիճակագրությունը"
+      announcements: Մեր հայտարարությունները
+      country: Երկիր
+      documents: Փաստաթղթեր
+      mission: Մեր գործունեությունը
+      organisations: Կազմակերպություններ
+      publications: Մեր հրատարակությունները
+      quick_links: Հղումներ
+      related_policies: Համանման նյութեր
+      statistics: Մեր վիճակագրությունը
   activerecord:
     attributes:
       attachment:
@@ -248,21 +248,21 @@ hy:
       unique_reference:
       unnumbered_hoc_paper:
   announcements:
-    heading: "Հայտարարություններ"
+    heading: Հայտարարություններ
     view_all:
   attachment:
     accessibility:
       full_help_html: "Այս փաստաթղթի այլ տարբերակ ստանալու համար՝ բռալյան, ձայնային
         կամ այլ, խնդրում ենք դիմել \n%{email} նշելով ձեր հասցեն, հեռախոսահամարն ու
         նյութը, որ հայցում եք (\"%{title}\")%{references}."
-      heading: "այս նյութը հավանաբար հարմար չի լինի հատուկ կարիքների տեխնոլոգիաներ
-        ունեցող օգտատերների համար"
-      request_a_different_format: "Պահանջել այլ տարբերակ"
+      heading: այս նյութը հավանաբար հարմար չի լինի հատուկ կարիքների տեխնոլոգիաներ
+        ունեցող օգտատերների համար
+      request_a_different_format: Պահանջել այլ տարբերակ
     headings:
-      order_a_copy: "Պատվիրել կրկնօրինակը"
-      order_a_copy_full: "Պատվիրել հրապարակման կրկնօրինակը"
-      published: "Հրապարակված"
-      reference: "Հղում"
+      order_a_copy: Պատվիրել կրկնօրինակը
+      order_a_copy_full: Պատվիրել հրապարակման կրկնօրինակը
+      published: Հրապարակված
+      reference: Հղում
       unnumbered_command_paper:
       unnumbered_hoc_paper:
     opendocument:
@@ -280,8 +280,8 @@ hy:
     see_all_updates:
     updated_at:
   contact:
-    contact_form: "Կապի միջոց"
-    email: "Էլելտրոնային հասցե"
+    contact_form: Կապի միջոց
+    email: Էլելտրոնային հասցե
   corporate_information_page:
     type:
       link_text:
@@ -296,44 +296,44 @@ hy:
         membership:
         our_energy_use:
         our_governance:
-        personal_information_charter: "Անձնական տվյալների կանոնադրություն"
+        personal_information_charter: Անձնական տվյալների կանոնադրություն
         petitions_and_campaigns:
         procurement:
-        publication_scheme: "Հրապարակման համակարգ"
+        publication_scheme: Հրապարակման համակարգ
         recruitment:
         research:
-        social_media_use: "Սոցիալական լրատվամիջոցի օգտագործում"
+        social_media_use: Սոցիալական լրատվամիջոցի օգտագործում
         staff_update:
         statistics:
         terms_of_reference:
-        welsh_language_scheme: "Ուելսերենի կանոնադրություն"
+        welsh_language_scheme: Ուելսերենի կանոնադրություն
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document_filters:
-    description: "Դուք կարող եք օգտագործել ֆիլտրերը պահպանելու համար միայն ձեզ հետաքրքրող
-      արդյունքները"
+    description: Դուք կարող եք օգտագործել ֆիլտրերը պահպանելու համար միայն ձեզ հետաքրքրող
+      արդյունքները
     no_results:
-      description: "Փորձեք առավել տարածական դարձնել ձեր փնտրածը և նորից փորձեք"
-      title: "Համապատասխան ինֆորմացի չի գտնվել"
+      description: Փորձեք առավել տարածական դարձնել ձեր փնտրածը և նորից փորձեք
+      title: Համապատասխան ինֆորմացի չի գտնվել
       tna_heading:
       tna_link:
     world_locations:
-      all: "Բոլոր վայրերը"
-      label: "Տեղակայված բառեր"
+      all: Բոլոր վայրերը
+      label: Տեղակայված բառեր
   feeds:
     email:
     feed:
     get_updates_to_this_list:
-    latest_activity: "Վերջին գործողություն"
+    latest_activity: Վերջին գործողություն
   i18n:
     direction: ltr
   language_names:
-    hy: "Հայերեն"
+    hy: Հայերեն
   latest_feed:
-    no_updates: "Դեռևս թարմացումներ չկան"
-    title: "Վերջին գործողություն"
+    no_updates: Դեռևս թարմացումներ չկան
+    title: Վերջին գործողություն
   national_statistics:
     heading:
   number:
@@ -342,120 +342,120 @@ hy:
         format: "%n%u"
   organisation:
     about:
-      read_more: "Կարդալ ավելին մեր գործունեության մասին"
+      read_more: Կարդալ ավելին մեր գործունեության մասին
     corporate_information:
-      access_our_info: "Տեղեկատվություն մեր մասին"
-      foi_how_to: "Ինչպես կատարել տեղեկատվության հարցում"
-      foi_releases: "Տեղեկատվության հարցում"
-      jobs_and_contacts: "Աշխատանք և պայմանագրեր"
+      access_our_info: Տեղեկատվություն մեր մասին
+      foi_how_to: Ինչպես կատարել տեղեկատվության հարցում
+      foi_releases: Տեղեկատվության հարցում
+      jobs_and_contacts: Աշխատանք և պայմանագրեր
       organisation_chart:
-      transparency: "Թափանցիկ տեղեկատվությ"
+      transparency: Թափանցիկ տեղեկատվությ
     foi_exemption_html:
     headings:
-      chief_professional_officers: "Մեր գլխավոր մասնագետները"
-      contact: "Տվյալ %{name}"
-      corporate_information: "Կորպորատիվ տեղեկատվություն"
-      corporate_reports: "Կորպորատիվ հաշվետվություններ"
+      chief_professional_officers: Մեր գլխավոր մասնագետները
+      contact: Տվյալ %{name}
+      corporate_information: Կորպորատիվ տեղեկատվություն
+      corporate_reports: Կորպորատիվ հաշվետվություններ
       documents:
       freedom_of_information_act:
       making_foi_requests:
-      our_announcements: "Մեր հայտարարությունները"
+      our_announcements: Մեր հայտարարությունները
       our_consultations:
       our_judges:
-      our_management: "Մեր ղեկավարումը"
-      our_ministers: "Մեր նաքարարներ"
-      our_policies: "Մեր քաղաքականությույնը"
-      our_publications: "Մեր հրատարակումները"
-      our_senior_military_officials: "Մեր ավագ զինվորական գծով ղեկավարները"
-      our_services: "Մեր ծառայությունները"
-      our_statistics: "Մեր ցուցանիշները"
-      our_topics: "Մենք աշքատում ենք տյալ թեմայի շուրջ"
-      special_representatives: "Հատուկ ներկայացուցիչներ"
-      traffic_commissioners: "Երթևեկության հանձնաժողով"
-      what_we_do: "Ինչ ենք մենք անում"
+      our_management: Մեր ղեկավարումը
+      our_ministers: Մեր նաքարարներ
+      our_policies: Մեր քաղաքականությույնը
+      our_publications: Մեր հրատարակումները
+      our_senior_military_officials: Մեր ավագ զինվորական գծով ղեկավարները
+      our_services: Մեր ծառայությունները
+      our_statistics: Մեր ցուցանիշները
+      our_topics: Մենք աշքատում ենք տյալ թեմայի շուրջ
+      special_representatives: Հատուկ ներկայացուցիչներ
+      traffic_commissioners: Երթևեկության հանձնաժողով
+      what_we_do: Ինչ ենք մենք անում
       who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:
       step3_html:
   policies:
-    heading: "Քաղաքականություն"
+    heading: Քաղաքականություն
     view_all:
   publications:
-    heading: "Հրապարակումներ"
+    heading: Հրապարակումներ
     headings:
-      detail: "Տվյալ"
-  read_more: "Կարդալ ավելին"
+      detail: Տվյալ
+  read_more: Կարդալ ավելին
   see_all:
-    announcement: "Տես՝ մեր բոլոր Հայտարարություններ -ը"
-    authored_article: "Տես՝ մեր բոլոր Հեղինակային հոդվածներ -ը"
-    case_study: "Տես՝ մեր բոլոր Թեմատիկ ուսումնասիրություններ -ը"
-    closed_consultation: "Տես՝ մեր բոլոր Փակ խորհրդատվություններ -ը"
-    consultation: "Տես՝ մեր բոլոր Խորհրդատվություններ -ը"
-    consultation_outcome: "Տես՝ մեր բոլոր Խորհրդատվության արդյունքներ -ը"
-    corporate_report: "Տես՝ մեր բոլոր Կորպորատիվ հաշվետվություններ -ը"
-    correspondence: "Տես՝ մեր բոլոր Նամակագրություններ -ը"
+    announcement: Տես՝ մեր բոլոր Հայտարարություններ -ը
+    authored_article: Տես՝ մեր բոլոր Հեղինակային հոդվածներ -ը
+    case_study: Տես՝ մեր բոլոր Թեմատիկ ուսումնասիրություններ -ը
+    closed_consultation: Տես՝ մեր բոլոր Փակ խորհրդատվություններ -ը
+    consultation: Տես՝ մեր բոլոր Խորհրդատվություններ -ը
+    consultation_outcome: Տես՝ մեր բոլոր Խորհրդատվության արդյունքներ -ը
+    corporate_report: Տես՝ մեր բոլոր Կորպորատիվ հաշվետվություններ -ը
+    correspondence: Տես՝ մեր բոլոր Նամակագրություններ -ը
     decision:
-    detailed_guidance: "Տես՝ մեր բոլոր Մանրամասն ուղեցույցեր -ը"
+    detailed_guidance: Տես՝ մեր բոլոր Մանրամասն ուղեցույցեր -ը
     document_collection:
-    draft_text: "Տես՝ մեր բոլոր Սևագիր տեքստեր -ը"
-    fatality_notice: "Տես՝ մեր բոլոր Մահվան ծանուցումներ -ը"
-    foi_release: "Տես՝ մեր բոլոր Ազատ տեղեկատվության հաղորդագրություններ -ը"
-    form: "Տես՝ մեր բոլոր Ձևաթղթեր -ը"
-    government_response: "Տես՝ մեր բոլոր Կառավարության արձագանքներ -ը"
-    guidance: "Տես՝ մեր բոլոր Ուղեցույցեր -ը"
-    impact_assessment: "Տես՝ մեր բոլոր Ազդեցության գնահատումներ -ը"
-    imported: "Տես՝ մեր բոլոր Ներկրված - սպասման տեսակներ -ը"
+    draft_text: Տես՝ մեր բոլոր Սևագիր տեքստեր -ը
+    fatality_notice: Տես՝ մեր բոլոր Մահվան ծանուցումներ -ը
+    foi_release: Տես՝ մեր բոլոր Ազատ տեղեկատվության հաղորդագրություններ -ը
+    form: Տես՝ մեր բոլոր Ձևաթղթեր -ը
+    government_response: Տես՝ մեր բոլոր Կառավարության արձագանքներ -ը
+    guidance: Տես՝ մեր բոլոր Ուղեցույցեր -ը
+    impact_assessment: Տես՝ մեր բոլոր Ազդեցության գնահատումներ -ը
+    imported: Տես՝ մեր բոլոր Ներկրված - սպասման տեսակներ -ը
     international_treaty:
-    map: "Տես՝ մեր բոլոր Քարտեզներ -ը"
-    national_statistics: "Տես՝ մեր բոլոր Վիճակագրություն-ազգային վիճակագրություններ
-      -ը"
-    news_article: "Տես՝ մեր բոլոր Տեղեկատվական հոդվածներ -ը"
-    news_story: "Տես՝ մեր բոլոր Լուրեր -ը"
+    map: Տես՝ մեր բոլոր Քարտեզներ -ը
+    national_statistics: Տես՝ մեր բոլոր Վիճակագրություն-ազգային վիճակագրություններ
+      -ը
+    news_article: Տես՝ մեր բոլոր Տեղեկատվական հոդվածներ -ը
+    news_story: Տես՝ մեր բոլոր Լուրեր -ը
     notice:
-    open_consultation: "Տես՝ մեր բոլոր Բաց խորհրդատվություններ -ը"
-    oral_statement: "Տես՝ մեր բոլոր Բանավոր դիմումներ խորհրդարան -ը"
-    policy: "Տես՝ մեր բոլոր Քաղաքականություններ -ը"
-    policy_paper: "Տես՝ մեր բոլոր Ծրագրային փաստաթղթեր -ը"
-    press_release: "Տես՝ մեր բոլոր Մամլո հաղորդագրություններ -ը"
-    promotional: "Տես՝ մեր բոլոր Քարոզչական նյութներ -ը"
-    publication: "Տես՝ մեր բոլոր Հրապարակումներ -ը"
+    open_consultation: Տես՝ մեր բոլոր Բաց խորհրդատվություններ -ը
+    oral_statement: Տես՝ մեր բոլոր Բանավոր դիմումներ խորհրդարան -ը
+    policy: Տես՝ մեր բոլոր Քաղաքականություններ -ը
+    policy_paper: Տես՝ մեր բոլոր Ծրագրային փաստաթղթեր -ը
+    press_release: Տես՝ մեր բոլոր Մամլո հաղորդագրություններ -ը
+    promotional: Տես՝ մեր բոլոր Քարոզչական նյութներ -ը
+    publication: Տես՝ մեր բոլոր Հրապարակումներ -ը
     regulation:
-    research: "Տես՝ մեր բոլոր Հետազոտություններ և վերլուծություններ -ը"
-    speaking_notes: "Տես՝ մեր բոլոր Խոսքի գրառումներ -ը"
-    speech: "Տես՝ մեր բոլոր Ելույթներ -ը"
-    statement_to_parliament: "Տես՝ մեր բոլոր Դիմումներ խորհրդարան -ը"
-    statistical_data_set: "Տես՝ մեր բոլոր Վիճակագրական տվյալներ -ը"
-    statistics: "Տես՝ մեր բոլոր Վիճակագրություն -ը"
+    research: Տես՝ մեր բոլոր Հետազոտություններ և վերլուծություններ -ը
+    speaking_notes: Տես՝ մեր բոլոր Խոսքի գրառումներ -ը
+    speech: Տես՝ մեր բոլոր Ելույթներ -ը
+    statement_to_parliament: Տես՝ մեր բոլոր Դիմումներ խորհրդարան -ը
+    statistical_data_set: Տես՝ մեր բոլոր Վիճակագրական տվյալներ -ը
+    statistics: Տես՝ մեր բոլոր Վիճակագրություն -ը
     statutory_guidance:
-    transcript: "Տես՝ մեր բոլոր Վերծանումներ -ը"
-    transparency: "Տես՝ մեր բոլոր Բաց տեղեկատվություններ -ը"
-    written_statement: "Տես՝ մեր բոլոր Գրավոր դիմումներ խորհրդարան -ը"
+    transcript: Տես՝ մեր բոլոր Վերծանումներ -ը
+    transparency: Տես՝ մեր բոլոր Բաց տեղեկատվություններ -ը
+    written_statement: Տես՝ մեր բոլոր Գրավոր դիմումներ խորհրդարան -ը
   social_media:
     follow_us:
   support:
     array:
-      last_word_connector: "և"
+      last_word_connector: և
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: "Մեր %{link} ը կպարզաբանի մեր մոտեցումները
-        անձնական տեղեկատվությանը "
-      publication_scheme_html: "Կարդացեք այն ամնենի մասին ինչ մենք հրապարակում ենք
-        մեր %{link} ում"
-      social_media_use_html: "Կարդացեք մեր քաղաքականության մասին"
-      welsh_language_scheme_html: "Գտեք այստեղ %{link} ում հրապարակելու մեր պարտավորության
-        մասին"
-    find_out_more: "Տես՝ մեր ամբողջական պրոֆիլն ու կոնտակտային տվյալները"
+      personal_information_charter_html: 'Մեր %{link} ը կպարզաբանի մեր մոտեցումները
+        անձնական տեղեկատվությանը '
+      publication_scheme_html: Կարդացեք այն ամնենի մասին ինչ մենք հրապարակում ենք
+        մեր %{link} ում
+      social_media_use_html: Կարդացեք մեր քաղաքականության մասին
+      welsh_language_scheme_html: Գտեք այստեղ %{link} ում հրապարակելու մեր պարտավորության
+        մասին
+    find_out_more: Տես՝ մեր ամբողջական պրոֆիլն ու կոնտակտային տվյալները
     headings:
-      about_us: "Մեր մասին"
-      contact_us: "Կապ մեզ հետ"
-      corporate_information: "Կորպորատիվ տեղեկատվություն"
-      follow_us: "Հետևեք մեզ"
-      our_people: "Մեր անձնակազմը"
-      our_services: "Մեր ծառայությունները"
-    location: "Տարածք"
-    part_of: "Մաս"
+      about_us: Մեր մասին
+      contact_us: Կապ մեզ հետ
+      corporate_information: Կորպորատիվ տեղեկատվություն
+      follow_us: Հետևեք մեզ
+      our_people: Մեր անձնակազմը
+      our_services: Մեր ծառայությունները
+    location: Տարածք
+    part_of: Մաս

@@ -43,19 +43,19 @@ ko:
       unique_reference:
       unnumbered_hoc_paper:
   announcements:
-    heading: "공지사항"
+    heading: 공지사항
     view_all:
   attachment:
     accessibility:
       full_help_html: 점자, 오디오 혹은 다른 타입의 ("%{title}")%{references} 파일을 다운로드받으시려면, 주소,
         전화번호, 요청하시는 자료의 제목을 명시하여, %{email} 로 이메일을 주십시오.
-      heading: "본 파일은 지원 기술이 필요한 분들께 적합하지 않을 수 있습니다. "
-      request_a_different_format: "다른 포맷으로 요청"
+      heading: '본 파일은 지원 기술이 필요한 분들께 적합하지 않을 수 있습니다. '
+      request_a_different_format: 다른 포맷으로 요청
     headings:
-      order_a_copy: "카피 주문하기"
-      order_a_copy_full: "본 문서의 카피 주문하기"
-      published: "퍼블리시"
-      reference: "레퍼런스"
+      order_a_copy: 카피 주문하기
+      order_a_copy_full: 본 문서의 카피 주문하기
+      published: 퍼블리시
+      reference: 레퍼런스
       unnumbered_command_paper:
       unnumbered_hoc_paper:
     opendocument:
@@ -73,8 +73,8 @@ ko:
     see_all_updates:
     updated_at:
   contact:
-    contact_form: "콘택트 폼"
-    email: "이메일"
+    contact_form: 콘택트 폼
+    email: 이메일
   corporate_information_page:
     type:
       link_text:
@@ -89,17 +89,17 @@ ko:
         membership:
         our_energy_use:
         our_governance:
-        personal_information_charter: "개인정보 규정"
+        personal_information_charter: 개인정보 규정
         petitions_and_campaigns:
         procurement:
-        publication_scheme: "발행 계획"
+        publication_scheme: 발행 계획
         recruitment:
         research:
-        social_media_use: "소셜미디어 사용"
+        social_media_use: 소셜미디어 사용
         staff_update:
         statistics:
         terms_of_reference:
-        welsh_language_scheme: "웨일스어 계획"
+        welsh_language_scheme: 웨일스어 계획
   date:
     formats:
       default: "%d %B %Y"
@@ -112,85 +112,85 @@ ko:
       published:
       updated:
     headings:
-      applies_to_nations: "적용"
+      applies_to_nations: 적용
       attachments:
-        one: "문서"
-        other: "문서"
+        one: 문서
+        other: 문서
       from:
       location:
       part_of:
-    published: "발행"
+    published: 발행
     read: "%{title} 기사를 확인하세요"
     speech:
       author_title:
-        minister: "장관"
-        speaker: "저자"
-      delivered_on: "행사일시"
+        minister: 장관
+        speaker: 저자
+      delivered_on: 행사일시
       delivery_title:
-        minister: "장관"
-        speaker: "스피커"
-      written_on: "작성일시:"
+        minister: 장관
+        speaker: 스피커
+      written_on: '작성일시:'
     type:
       announcement:
-        one: "공지"
-        other: "공지"
+        one: 공지
+        other: 공지
       authored_article:
-        one: "기사"
-        other: "기사"
+        one: 기사
+        other: 기사
       blog_post:
         one:
         other:
       case_study:
-        one: "케이스 스터디"
-        other: "케이스 스터디"
+        one: 케이스 스터디
+        other: 케이스 스터디
       closed_consultation:
-        one: "비공개 협의"
-        other: "비공개 협의"
+        one: 비공개 협의
+        other: 비공개 협의
       consultation:
-        one: "협의"
-        other: "협의"
+        one: 협의
+        other: 협의
       consultation_outcome:
-        one: "협의 결과"
-        other: "협의 결과"
+        one: 협의 결과
+        other: 협의 결과
       corporate_report:
-        one: "기업 레포트"
-        other: "기업 레포트"
+        one: 기업 레포트
+        other: 기업 레포트
       correspondence:
-        one: "서신"
-        other: "서신"
+        one: 서신
+        other: 서신
       decision:
         one:
         other:
       detailed_guidance:
-        one: "상세 안내"
-        other: "상세 안내"
+        one: 상세 안내
+        other: 상세 안내
       document_collection:
-        one: "시리즈"
+        one: 시리즈
         other:
       draft_text:
-        one: "드래프트 택스트"
-        other: "드래프트 택스트"
+        one: 드래프트 택스트
+        other: 드래프트 택스트
       foi_release:
         one: FOI 보도자료
         other: FOI 보도자료
       form:
-        one: "문서"
-        other: "문서"
+        one: 문서
+        other: 문서
       government_response:
-        one: "정부 대책"
-        other: "정부 대책"
+        one: 정부 대책
+        other: 정부 대책
       guidance:
-        one: "안내"
-        other: "안내"
+        one: 안내
+        other: 안내
       impact_assessment:
-        one: "임팩트 평가"
-        other: "임팩트 평가"
+        one: 임팩트 평가
+        other: 임팩트 평가
       imported:
-        one: "수입 - 대기"
-        other: "수입 - 대기"
+        one: 수입 - 대기
+        other: 수입 - 대기
       independent_report:
-        one: "독립 레포트"
-        other: "독립 레포트"
+        one: 독립 레포트
+        other: 독립 레포트
       international_treaty:
         one:
         other:
@@ -198,17 +198,17 @@ ko:
         one:
         other:
       map:
-        one: "지도"
-        other: "지도"
+        one: 지도
+        other: 지도
       national_statistics:
-        one: "통계 - 국가 통계"
-        other: "통계 - 국가 통계"
+        one: 통계 - 국가 통계
+        other: 통계 - 국가 통계
       news_article:
-        one: "뉴스"
-        other: "뉴스"
+        one: 뉴스
+        other: 뉴스
       news_story:
-        one: "뉴스 스토리"
-        other: "뉴스 스토리"
+        one: 뉴스 스토리
+        other: 뉴스 스토리
       nhs_content:
         one:
         other:
@@ -216,83 +216,83 @@ ko:
         one:
         other:
       official_statistics:
-        one: "통계"
-        other: "통계"
+        one: 통계
+        other: 통계
       open_consultation:
-        one: "오픈 컨설테이션"
-        other: "오픈 컨설테이션"
+        one: 오픈 컨설테이션
+        other: 오픈 컨설테이션
       oral_statement:
-        one: "의회로 구두 성명"
-        other: "의회로 구두 성명"
+        one: 의회로 구두 성명
+        other: 의회로 구두 성명
       policy_paper:
-        one: "정책 논문"
-        other: "정책 논문"
+        one: 정책 논문
+        other: 정책 논문
       press_release:
-        one: "보도자료"
-        other: "보도자료"
+        one: 보도자료
+        other: 보도자료
       promotional:
-        one: "홍보물"
-        other: "홍보물"
+        one: 홍보물
+        other: 홍보물
       publication:
-        one: "간행물"
-        other: "간행물"
+        one: 간행물
+        other: 간행물
       regulation:
         one:
         other:
       research:
-        one: "리써치 및 분석"
-        other: "리써치 및 분석"
+        one: 리써치 및 분석
+        other: 리써치 및 분석
       speaking_notes:
-        one: "요점사항"
-        other: "요점사항"
+        one: 요점사항
+        other: 요점사항
       speech:
-        one: "연설문"
-        other: "연설문"
+        one: 연설문
+        other: 연설문
       statement_to_parliament:
-        one: "의회로 성명"
-        other: "의회로 성명"
+        one: 의회로 성명
+        other: 의회로 성명
       statistical_data_set:
-        one: "통계 데이터 세트"
-        other: "통계 데이터 세트"
+        one: 통계 데이터 세트
+        other: 통계 데이터 세트
       statutory_guidance:
         one:
         other:
       transcript:
-        one: "트랜스크립트"
-        other: "트랜스크립트"
+        one: 트랜스크립트
+        other: 트랜스크립트
       transparency:
-        one: "투명성 데이타"
-        other: "투명성 데이타"
+        one: 투명성 데이타
+        other: 투명성 데이타
       world_news_story:
         one:
         other:
       written_statement:
-        one: "의회로 서면 성명"
-        other: "의회로 서면 성명"
-    updated: "업데이트"
+        one: 의회로 서면 성명
+        other: 의회로 서면 성명
+    updated: 업데이트
     view: "'%{title}' 을 확인하세요."
   document_filters:
-    description: "원하시는 내용으로 써치를 제한하는 필터를 사용하실 수 있습니다"
+    description: 원하시는 내용으로 써치를 제한하는 필터를 사용하실 수 있습니다
     no_results:
-      description: "다시 써치해주시기 바랍니다."
-      title: "매치되는 문서가 없습니다."
+      description: 다시 써치해주시기 바랍니다.
+      title: 매치되는 문서가 없습니다.
       tna_heading:
       tna_link:
     world_locations:
-      all: "모든 로케이션"
-      label: "월드 로케이션"
+      all: 모든 로케이션
+      label: 월드 로케이션
   feeds:
     email:
     feed:
     get_updates_to_this_list:
-    latest_activity: "최근 활동"
+    latest_activity: 최근 활동
   i18n:
     direction: ltr
   language_names:
-    ko: "한국어"
+    ko: 한국어
   latest_feed:
-    no_updates: "관련 내용이 아직 없습니다."
-    title: "최신"
+    no_updates: 관련 내용이 아직 없습니다.
+    title: 최신
   national_statistics:
     heading:
   number:
@@ -301,37 +301,37 @@ ko:
         format: "%n%u"
   organisation:
     about:
-      read_more: "우리 업무에 대한 자세한 내용을 확인하세요."
+      read_more: 우리 업무에 대한 자세한 내용을 확인하세요.
     corporate_information:
-      access_our_info: "정보 접근"
+      access_our_info: 정보 접근
       foi_how_to: FOI 요청하기
       foi_releases: FOI 자료
-      jobs_and_contacts: "채용 및 연락처"
+      jobs_and_contacts: 채용 및 연락처
       organisation_chart:
-      transparency: "투명성 데이터"
+      transparency: 투명성 데이터
     foi_exemption_html:
     headings:
-      chief_professional_officers: "최고책임자"
+      chief_professional_officers: 최고책임자
       contact: "%{name} 에게 연락하세요"
-      corporate_information: "대사관 정보"
-      corporate_reports: "대사관 보고서"
+      corporate_information: 대사관 정보
+      corporate_reports: 대사관 보고서
       documents:
       freedom_of_information_act:
       making_foi_requests:
-      our_announcements: "뉴스"
+      our_announcements: 뉴스
       our_consultations:
       our_judges:
-      our_management: "조직"
-      our_ministers: "장관급"
-      our_policies: "정책"
-      our_publications: "자료"
-      our_senior_military_officials: "고위 군관계자"
-      our_services: "서비스"
-      our_statistics: "통계자료"
-      our_topics: "업무 토픽"
-      special_representatives: "특별 대사"
-      traffic_commissioners: "트래픽 커미셔너"
-      what_we_do: "업무 내용"
+      our_management: 조직
+      our_ministers: 장관급
+      our_policies: 정책
+      our_publications: 자료
+      our_senior_military_officials: 고위 군관계자
+      our_services: 서비스
+      our_statistics: 통계자료
+      our_topics: 업무 토픽
+      special_representatives: 특별 대사
+      traffic_commissioners: 트래픽 커미셔너
+      what_we_do: 업무 내용
       who_we_are:
     making_foi_requests:
       step1_html:
@@ -346,13 +346,13 @@ ko:
     previous_roles_in_government:
     read_more:
   policies:
-    heading: "정책사안"
+    heading: 정책사안
     view_all:
   publications:
-    heading: "출판물"
+    heading: 출판물
     headings:
-      detail: "디테일"
-  read_more: "더 자세한 정보 알아보기"
+      detail: 디테일
+  read_more: 더 자세한 정보 알아보기
   roles:
     heading:
       one:
@@ -366,89 +366,89 @@ ko:
     previous_holders:
     read_more:
   see_all:
-    announcement: "공지 모두 둘러보기"
-    authored_article: "기사 모두 둘러보기"
-    case_study: "케이스 스터디 모두 둘러보기"
-    closed_consultation: "비공개 협의 모두 둘러보기"
-    consultation: "협의 모두 둘러보기"
-    consultation_outcome: "협의 결과 모두 둘러보기"
-    corporate_report: "기업 레포트 모두 둘러보기"
-    correspondence: "서신 모두 둘러보기"
+    announcement: 공지 모두 둘러보기
+    authored_article: 기사 모두 둘러보기
+    case_study: 케이스 스터디 모두 둘러보기
+    closed_consultation: 비공개 협의 모두 둘러보기
+    consultation: 협의 모두 둘러보기
+    consultation_outcome: 협의 결과 모두 둘러보기
+    corporate_report: 기업 레포트 모두 둘러보기
+    correspondence: 서신 모두 둘러보기
     decision:
-    detailed_guidance: "상세 안내 모두 둘러보기"
+    detailed_guidance: 상세 안내 모두 둘러보기
     document_collection:
-    draft_text: "드래프트 택스트 모두 둘러보기"
-    fatality_notice: "사상자 공지 모두 둘러보기"
+    draft_text: 드래프트 택스트 모두 둘러보기
+    fatality_notice: 사상자 공지 모두 둘러보기
     foi_release: foi 보도자료 모두 둘러보기
-    form: "문서 모두 둘러보기"
-    government_response: "정부 대책 모두 둘러보기"
-    guidance: "안내 모두 둘러보기"
-    impact_assessment: "임팩트 평가 모두 둘러보기"
-    imported: "수입 - 대기 모두 둘러보기"
+    form: 문서 모두 둘러보기
+    government_response: 정부 대책 모두 둘러보기
+    guidance: 안내 모두 둘러보기
+    impact_assessment: 임팩트 평가 모두 둘러보기
+    imported: 수입 - 대기 모두 둘러보기
     international_treaty:
-    map: "지도 모두 둘러보기"
-    national_statistics: "통계 - 국가 통계 모두 둘러보기"
-    news_article: "뉴스 모두 둘러보기"
-    news_story: "뉴스 스토리 모두 둘러보기"
+    map: 지도 모두 둘러보기
+    national_statistics: 통계 - 국가 통계 모두 둘러보기
+    news_article: 뉴스 모두 둘러보기
+    news_story: 뉴스 스토리 모두 둘러보기
     notice:
-    open_consultation: "오픈 컨설테이션 모두 둘러보기"
-    oral_statement: "의회로 구두 성명 모두 둘러보기"
-    policy: "정책 모두 둘러보기"
-    policy_paper: "정책 논문 모두 둘러보기"
-    press_release: "보도자료 모두 둘러보기"
-    promotional: "홍보물 모두 둘러보기"
-    publication: "간행물 모두 둘러보기"
+    open_consultation: 오픈 컨설테이션 모두 둘러보기
+    oral_statement: 의회로 구두 성명 모두 둘러보기
+    policy: 정책 모두 둘러보기
+    policy_paper: 정책 논문 모두 둘러보기
+    press_release: 보도자료 모두 둘러보기
+    promotional: 홍보물 모두 둘러보기
+    publication: 간행물 모두 둘러보기
     regulation:
-    research: "리써치 및 분석 모두 둘러보기"
-    speaking_notes: "요점사항 모두 둘러보기"
-    speech: "연설문 모두 둘러보기"
-    statement_to_parliament: "의회로 성명 모두 둘러보기"
-    statistical_data_set: "통계 데이터 세트 모두 둘러보기"
-    statistics: "통계 모두 둘러보기"
+    research: 리써치 및 분석 모두 둘러보기
+    speaking_notes: 요점사항 모두 둘러보기
+    speech: 연설문 모두 둘러보기
+    statement_to_parliament: 의회로 성명 모두 둘러보기
+    statistical_data_set: 통계 데이터 세트 모두 둘러보기
+    statistics: 통계 모두 둘러보기
     statutory_guidance:
-    transcript: "트랜스크립트 모두 둘러보기"
-    transparency: "투명성 데이타 모두 둘러보기"
-    written_statement: "의회로 서면 성명 모두 둘러보기"
+    transcript: 트랜스크립트 모두 둘러보기
+    transparency: 투명성 데이타 모두 둘러보기
+    written_statement: 의회로 서면 성명 모두 둘러보기
   social_media:
     follow_us:
   support:
     array:
-      last_word_connector: "그리고"
+      last_word_connector: 그리고
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   world_location:
     headings:
-      announcements: "공지사항"
-      country: "국가"
-      documents: "자료"
-      mission: "대사관 안내"
-      organisations: "조직 안내"
-      publications: "출판물"
-      quick_links: "퀵 링크"
-      related_policies: "관련 정책"
-      statistics: "통계"
+      announcements: 공지사항
+      country: 국가
+      documents: 자료
+      mission: 대사관 안내
+      organisations: 조직 안내
+      publications: 출판물
+      quick_links: 퀵 링크
+      related_policies: 관련 정책
+      statistics: 통계
     type:
       international_delegation:
-        one: "국제 사절단"
-        other: "국제 사절단"
+        one: 국제 사절단
+        other: 국제 사절단
       world_location:
-        one: "월드 로케이션"
-        other: "월드 로케이션"
+        one: 월드 로케이션
+        other: 월드 로케이션
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
       personal_information_charter_html: "%{link} 에서 개인정보 처리에 대한 안내"
-      publication_scheme_html: "정기적으로 공개되는 %{link} 정보에 대한 안내"
+      publication_scheme_html: 정기적으로 공개되는 %{link} 정보에 대한 안내
       social_media_use_html: "%{link} 에서 정책 정보 확인"
       welsh_language_scheme_html: "%{link} 에서 정보 공개에 대한 내용"
-    find_out_more: "프로필과 연락처 보기"
+    find_out_more: 프로필과 연락처 보기
     headings:
-      about_us: "대사관 안내"
-      contact_us: "연락처"
-      corporate_information: "대사관 정보"
-      follow_us: "소셜네트워크"
-      our_people: "직원"
-      our_services: "서비스"
-    location: "로케이션"
-    part_of: "파트"
+      about_us: 대사관 안내
+      contact_us: 연락처
+      corporate_information: 대사관 정보
+      follow_us: 소셜네트워크
+      our_people: 직원
+      our_services: 서비스
+    location: 로케이션
+    part_of: 파트

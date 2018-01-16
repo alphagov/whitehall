@@ -202,7 +202,7 @@ de:
       organisations: Organisationen
       publications: Unsere Veröffentlichungen
       quick_links: Quicklinks
-      related_policies: "Ähnliche Sachgebiete"
+      related_policies: Ähnliche Sachgebiete
       statistics: Unsere Statistiken
   activerecord:
     attributes:
@@ -450,7 +450,7 @@ de:
         in %{link}
     find_out_more: Vollständiges Profil und alle Kontaktdaten
     headings:
-      about_us: "Über uns"
+      about_us: Über uns
       contact_us: Schreiben Sie uns
       corporate_information: Administrative Informationen
       follow_us: Folgen Sie uns

@@ -176,8 +176,8 @@ et:
     read_more: Temast lähemalt
   roles:
     heading:
-      one: "Ülesanne"
-      other: "Ülesanded"
+      one: Ülesanne
+      other: Ülesanded
     headings:
       current_holder: Praegu sellel ametikohal
       previous_holders: Eelmised ametikoha täitjad
@@ -354,8 +354,11 @@ et:
       jobs_and_contacts: Töötajad ja kontaktid
       organisation_chart: Meie organisatsioon
       transparency: Läbipaistvusteave
-    foi_exemption_html: |
-      See organisatsioon ei kuulu Teabevabaduse seaduse (FOI) alla. Et vaadata, missugused organisatsioonid kuuluvad, vaadake: <a href="%{foi_url}">the legislation</a>.
+    foi_exemption_html: 'See organisatsioon ei kuulu Teabevabaduse seaduse (FOI) alla.
+      Et vaadata, missugused organisatsioonid kuuluvad, vaadake: <a href="%{foi_url}">the
+      legislation</a>.
+
+'
     headings:
       chief_professional_officers: Meie juhtivad ametnikud
       contact: 'Võtke ühendust: %{name}'
@@ -391,7 +394,7 @@ et:
   publications:
     heading: Publikatsioonid
     headings:
-      detail: "Üksikasjad"
+      detail: Üksikasjad
   read_more: 'Lugege lähemalt '
   see_all:
     announcement: Vaadake kõiki meie teadaandeid

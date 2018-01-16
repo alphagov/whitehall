@@ -43,19 +43,19 @@ th:
       unique_reference:
       unnumbered_hoc_paper:
   announcements:
-    heading: "ข่าวสาร"
+    heading: ข่าวสาร
     view_all:
   attachment:
     accessibility:
       full_help_html: ต้องการเอกสารในรูปแบบอื่นเช่นอักษรเบรลล์, ไฟล์เสียง หรือไฟล์ชนิดอื่น
         กรุณาอีเมล์%{email}พร้อมที่อยู่, เบอร์โทรศัพท์ และหัวข้อเอกสารที่ต้องการ("%{title}")%{references}.
-      heading: "ไฟล์นี้อาจไม่เหมาะสำหรับผู้ใช้เทคโนโลยี่อำนวยความสะดวก"
-      request_a_different_format: "ขอรูปแบบอื่น"
+      heading: ไฟล์นี้อาจไม่เหมาะสำหรับผู้ใช้เทคโนโลยี่อำนวยความสะดวก
+      request_a_different_format: ขอรูปแบบอื่น
     headings:
-      order_a_copy: "สั่งสำเนาหนึ่งชุด"
-      order_a_copy_full: "สั่งสำเนาเอกสารหนึ่งชุด"
-      published: "ตีพิมพ์"
-      reference: "อ้างอิง"
+      order_a_copy: สั่งสำเนาหนึ่งชุด
+      order_a_copy_full: สั่งสำเนาเอกสารหนึ่งชุด
+      published: ตีพิมพ์
+      reference: อ้างอิง
       unnumbered_command_paper:
       unnumbered_hoc_paper:
     opendocument:
@@ -73,8 +73,8 @@ th:
     see_all_updates:
     updated_at:
   contact:
-    contact_form: "แบบฟอร์มการติดต่อ"
-    email: "อีเมล์"
+    contact_form: แบบฟอร์มการติดต่อ
+    email: อีเมล์
   corporate_information_page:
     type:
       link_text:
@@ -89,17 +89,17 @@ th:
         membership:
         our_energy_use:
         our_governance:
-        personal_information_charter: "กฎบัตรข้อมูลส่วนบุคคล"
+        personal_information_charter: กฎบัตรข้อมูลส่วนบุคคล
         petitions_and_campaigns:
         procurement:
-        publication_scheme: "โครงการสิ่งพิม์"
+        publication_scheme: โครงการสิ่งพิม์
         recruitment:
         research:
-        social_media_use: "การใช้สื่อสังคมออนล์"
+        social_media_use: การใช้สื่อสังคมออนล์
         staff_update:
         statistics:
         terms_of_reference:
-        welsh_language_scheme: "โครงการภาษาเวลช์"
+        welsh_language_scheme: โครงการภาษาเวลช์
   date:
     formats:
       default: "%d %B %Y"
@@ -112,85 +112,85 @@ th:
       published:
       updated:
     headings:
-      applies_to_nations: "นำไปใช้กับ"
+      applies_to_nations: นำไปใช้กับ
       attachments:
-        one: "เอกสาร"
-        other: "เอกสารต่างๆ"
+        one: เอกสาร
+        other: เอกสารต่างๆ
       from:
       location:
       part_of:
-    published: "ตีพิมพ์"
-    read: "อ่าน%{title}บทความ"
+    published: ตีพิมพ์
+    read: อ่าน%{title}บทความ
     speech:
       author_title:
-        minister: "รัฐมนตรี"
-        speaker: "ผู้เขียน"
-      delivered_on: "กล่าวเมื่อ"
+        minister: รัฐมนตรี
+        speaker: ผู้เขียน
+      delivered_on: กล่าวเมื่อ
       delivery_title:
-        minister: "รัฐมนตรี"
-        speaker: "ผู้กล่าว"
-      written_on: "เขียนเมือ"
+        minister: รัฐมนตรี
+        speaker: ผู้กล่าว
+      written_on: เขียนเมือ
     type:
       announcement:
-        one: "ข่าวสาร"
-        other: "ข่าวสาร"
+        one: ข่าวสาร
+        other: ข่าวสาร
       authored_article:
-        one: "บทความที่เขียน"
-        other: "บทความที่เขียน"
+        one: บทความที่เขียน
+        other: บทความที่เขียน
       blog_post:
         one:
         other:
       case_study:
-        one: "กรณีศึกษา"
-        other: "กรณีศึกษา"
+        one: กรณีศึกษา
+        other: กรณีศึกษา
       closed_consultation:
-        one: "การศึกษาแบบปิด"
-        other: "การศึกษาแบบปิด"
+        one: การศึกษาแบบปิด
+        other: การศึกษาแบบปิด
       consultation:
-        one: "การปรึกษา"
-        other: "การปรึกษา"
+        one: การปรึกษา
+        other: การปรึกษา
       consultation_outcome:
-        one: "ผลการปรึกษา"
-        other: "ผลการปรึกษา"
+        one: ผลการปรึกษา
+        other: ผลการปรึกษา
       corporate_report:
-        one: "รายงานบริษัท"
-        other: "รายงานบริษัท"
+        one: รายงานบริษัท
+        other: รายงานบริษัท
       correspondence:
-        one: "จดหมาย"
-        other: "จดหมาย"
+        one: จดหมาย
+        other: จดหมาย
       decision:
         one:
         other:
       detailed_guidance:
-        one: "คู่มือโดยละเอียด"
-        other: "คู่มือโดยละเอียด"
+        one: คู่มือโดยละเอียด
+        other: คู่มือโดยละเอียด
       document_collection:
-        one: "ตอน"
+        one: ตอน
         other:
       draft_text:
-        one: "ร่างข้อความ"
-        other: "ร่างข้อความ"
+        one: ร่างข้อความ
+        other: ร่างข้อความ
       foi_release:
-        one: "ข้อมูลที่เปิดเผยได้"
-        other: "ข้อมูลที่เปิดเผยได้"
+        one: ข้อมูลที่เปิดเผยได้
+        other: ข้อมูลที่เปิดเผยได้
       form:
-        one: "แบบฟอร์ม"
-        other: "แบบฟอร์ม"
+        one: แบบฟอร์ม
+        other: แบบฟอร์ม
       government_response:
-        one: "การตอบสนองของรัฐบาล"
-        other: "การตอบสนองของรัฐบาล"
+        one: การตอบสนองของรัฐบาล
+        other: การตอบสนองของรัฐบาล
       guidance:
-        one: "คู่มือ"
-        other: "คู่มือ"
+        one: คู่มือ
+        other: คู่มือ
       impact_assessment:
-        one: "การประเมินผลกระทบ"
-        other: "การประเมินผลกระทบ"
+        one: การประเมินผลกระทบ
+        other: การประเมินผลกระทบ
       imported:
-        one: "ประเภทรอนำเข้า"
-        other: "ประเภทรอนำเข้า"
+        one: ประเภทรอนำเข้า
+        other: ประเภทรอนำเข้า
       independent_report:
-        one: "รายงานอิสระ"
-        other: "รายงานอิสระ"
+        one: รายงานอิสระ
+        other: รายงานอิสระ
       international_treaty:
         one:
         other:
@@ -198,17 +198,17 @@ th:
         one:
         other:
       map:
-        one: "แผนที่"
-        other: "แผนที่"
+        one: แผนที่
+        other: แผนที่
       national_statistics:
-        one: "สถิติ-สถิติแห่งชาน"
-        other: "สถิติ-สถิติแห่งชาติ"
+        one: สถิติ-สถิติแห่งชาน
+        other: สถิติ-สถิติแห่งชาติ
       news_article:
-        one: "บทความข่าว"
-        other: "บทความข่าว"
+        one: บทความข่าว
+        other: บทความข่าว
       news_story:
-        one: "ข่าว"
-        other: "ข่าว"
+        one: ข่าว
+        other: ข่าว
       nhs_content:
         one:
         other:
@@ -216,83 +216,83 @@ th:
         one:
         other:
       official_statistics:
-        one: "สถิติ"
-        other: "สถิติ"
+        one: สถิติ
+        other: สถิติ
       open_consultation:
-        one: "การให้คำปรึกษาเปิด"
-        other: "การให้คำปรึกษาเปิด"
+        one: การให้คำปรึกษาเปิด
+        other: การให้คำปรึกษาเปิด
       oral_statement:
-        one: "แถลงการณ์ด้วยวาจาต่อรัฐสภา"
-        other: "แถลงการณ์ด้วยวาจาต่อรัฐสภา"
+        one: แถลงการณ์ด้วยวาจาต่อรัฐสภา
+        other: แถลงการณ์ด้วยวาจาต่อรัฐสภา
       policy_paper:
-        one: "เอกสารนโยบาย"
-        other: "เอกสารนโยบาย"
+        one: เอกสารนโยบาย
+        other: เอกสารนโยบาย
       press_release:
-        one: "ข่าวประชาสัมพันธ์"
-        other: "ข่าวประชาสัมพันธ์"
+        one: ข่าวประชาสัมพันธ์
+        other: ข่าวประชาสัมพันธ์
       promotional:
-        one: "เอกสารเพี่อการประชาสัมพันธ์"
-        other: "เอกสารเพือการประชาสัมพันธ์"
+        one: เอกสารเพี่อการประชาสัมพันธ์
+        other: เอกสารเพือการประชาสัมพันธ์
       publication:
-        one: "สิ่งพิมพ์"
-        other: "สิ่งพิมพ์"
+        one: สิ่งพิมพ์
+        other: สิ่งพิมพ์
       regulation:
         one:
         other:
       research:
-        one: "บทวิจัยและบทวิเคราะห์"
-        other: "บทวิจัยและบทวิเคราะห์"
+        one: บทวิจัยและบทวิเคราะห์
+        other: บทวิจัยและบทวิเคราะห์
       speaking_notes:
-        one: "ประเด็นการพูด"
-        other: "ประเด็นการพูด"
+        one: ประเด็นการพูด
+        other: ประเด็นการพูด
       speech:
-        one: "สุนทรพจน์"
-        other: "สุนทรพจน์"
+        one: สุนทรพจน์
+        other: สุนทรพจน์
       statement_to_parliament:
-        one: "แถลงการณ์ต่อรัฐสภา"
-        other: "แถลงการณ์ต่อรัฐสภา"
+        one: แถลงการณ์ต่อรัฐสภา
+        other: แถลงการณ์ต่อรัฐสภา
       statistical_data_set:
-        one: "ชุดข้อมูลสถิติ"
-        other: "ชุดข้อมูลสถิติ"
+        one: ชุดข้อมูลสถิติ
+        other: ชุดข้อมูลสถิติ
       statutory_guidance:
         one:
         other:
       transcript:
-        one: "สำเนา"
-        other: "สำเนา"
+        one: สำเนา
+        other: สำเนา
       transparency:
-        one: "ข้อมูลโปร่งใส"
-        other: "ข้อมูลโปร่งใส"
+        one: ข้อมูลโปร่งใส
+        other: ข้อมูลโปร่งใส
       world_news_story:
         one:
         other:
       written_statement:
-        one: "แถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา "
-        other: "แถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา "
-    updated: "ปรับปรุง"
-    view: "ดู '%{title}'"
+        one: 'แถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา '
+        other: 'แถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา '
+    updated: ปรับปรุง
+    view: ดู '%{title}'
   document_filters:
-    description: "คุณสามารถใช้เครื่องมือค้นหาเพื่อแสดงผลเฉพาะหัวข้อที่ตรงกับความสนใจของคุณ"
+    description: คุณสามารถใช้เครื่องมือค้นหาเพื่อแสดงผลเฉพาะหัวข้อที่ตรงกับความสนใจของคุณ
     no_results:
-      description: "ลองค้นหาอีกครั้งด้วยคำค้นหาที่กว้างขึ้น"
-      title: "ไม่มีเอกสารที่ตรงตามต้องการ"
+      description: ลองค้นหาอีกครั้งด้วยคำค้นหาที่กว้างขึ้น
+      title: ไม่มีเอกสารที่ตรงตามต้องการ
       tna_heading:
       tna_link:
     world_locations:
-      all: "ที่ตั้งทั้งหมด"
-      label: "ที่ตั้งทั่วโลก"
+      all: ที่ตั้งทั้งหมด
+      label: ที่ตั้งทั่วโลก
   feeds:
     email:
     feed:
     get_updates_to_this_list:
-    latest_activity: "กิจกรรมล่าสุด"
+    latest_activity: กิจกรรมล่าสุด
   i18n:
     direction: ltr
   language_names:
-    th: "ไทย"
+    th: ไทย
   latest_feed:
-    no_updates: "ยังไม่มีการปรับปรุงข้อมูล"
-    title: "ล่าสุด"
+    no_updates: ยังไม่มีการปรับปรุงข้อมูล
+    title: ล่าสุด
   national_statistics:
     heading:
   number:
@@ -301,37 +301,37 @@ th:
         format: "%n%u"
   organisation:
     about:
-      read_more: "อ่านเพิ่มเติมเกี่ยวกับสิ่งที่เราทำ"
+      read_more: อ่านเพิ่มเติมเกี่ยวกับสิ่งที่เราทำ
     corporate_information:
-      access_our_info: "เข้าถึงข้อมูลของเรา"
-      foi_how_to: "การร้องขอเกี่ยวกับการเปิดเผยข้อมูล"
-      foi_releases: "ข้อมูลที่เปิดเผยได้"
-      jobs_and_contacts: "งานและการทำสัญญา"
+      access_our_info: เข้าถึงข้อมูลของเรา
+      foi_how_to: การร้องขอเกี่ยวกับการเปิดเผยข้อมูล
+      foi_releases: ข้อมูลที่เปิดเผยได้
+      jobs_and_contacts: งานและการทำสัญญา
       organisation_chart:
-      transparency: "ข้อมูลที่มีความโปร่งใส"
+      transparency: ข้อมูลที่มีความโปร่งใส
     foi_exemption_html:
     headings:
-      chief_professional_officers: "หัวหน้าผู้ชำนาญการ"
-      contact: "สัญญา %{name}"
-      corporate_information: "ข้อมูลบริษัท"
-      corporate_reports: "รายงานบริษัท"
+      chief_professional_officers: หัวหน้าผู้ชำนาญการ
+      contact: สัญญา %{name}
+      corporate_information: ข้อมูลบริษัท
+      corporate_reports: รายงานบริษัท
       documents:
       freedom_of_information_act:
       making_foi_requests:
-      our_announcements: "ข่าวสารของเรา"
+      our_announcements: ข่าวสารของเรา
       our_consultations:
       our_judges:
-      our_management: "การบริหารจัดการของเรา"
-      our_ministers: "รัฐมนตรีของเรา"
-      our_policies: "นโยบายของเรา"
-      our_publications: "สิ่งพิมพ์ของเรา"
-      our_senior_military_officials: "เจ้าหน้าที่ทหารอาวุโสของเรา"
-      our_services: "บริการของเรา"
-      our_statistics: "สถิติของเรา"
-      our_topics: "เราทำงานในห้วข้อเหล่านี้"
-      special_representatives: "ผู้แทนพิเศษ"
-      traffic_commissioners: "ผู้บัญชาการจราจร"
-      what_we_do: "สิ่งที่เราทำ"
+      our_management: การบริหารจัดการของเรา
+      our_ministers: รัฐมนตรีของเรา
+      our_policies: นโยบายของเรา
+      our_publications: สิ่งพิมพ์ของเรา
+      our_senior_military_officials: เจ้าหน้าที่ทหารอาวุโสของเรา
+      our_services: บริการของเรา
+      our_statistics: สถิติของเรา
+      our_topics: เราทำงานในห้วข้อเหล่านี้
+      special_representatives: ผู้แทนพิเศษ
+      traffic_commissioners: ผู้บัญชาการจราจร
+      what_we_do: สิ่งที่เราทำ
       who_we_are:
     making_foi_requests:
       step1_html:
@@ -346,13 +346,13 @@ th:
     previous_roles_in_government:
     read_more:
   policies:
-    heading: "นโยบาย"
+    heading: นโยบาย
     view_all:
   publications:
-    heading: "สิ่งพิมพ์"
+    heading: สิ่งพิมพ์
     headings:
-      detail: "รายละเอียด"
-  read_more: "อ่านเพิ่มเติม"
+      detail: รายละเอียด
+  read_more: อ่านเพิ่มเติม
   roles:
     heading:
       one:
@@ -366,90 +366,90 @@ th:
     previous_holders:
     read_more:
   see_all:
-    announcement: "ดูทั้งหมดข่าวสาร"
-    authored_article: "ดูทั้งหมดบทความที่เขียน"
-    case_study: "ดูทั้งหมดกรณีศึกษา"
-    closed_consultation: "ดูทั้งหมดการศึกษาแบบปิด"
-    consultation: "ดูทั้งหมดการปรึกษา"
-    consultation_outcome: "ดูทั้งหมดผลการปรึกษา"
-    corporate_report: "ดูทั้งหมดรายงานบริษัท"
-    correspondence: "ดูทั้งหมดจดหมาย"
+    announcement: ดูทั้งหมดข่าวสาร
+    authored_article: ดูทั้งหมดบทความที่เขียน
+    case_study: ดูทั้งหมดกรณีศึกษา
+    closed_consultation: ดูทั้งหมดการศึกษาแบบปิด
+    consultation: ดูทั้งหมดการปรึกษา
+    consultation_outcome: ดูทั้งหมดผลการปรึกษา
+    corporate_report: ดูทั้งหมดรายงานบริษัท
+    correspondence: ดูทั้งหมดจดหมาย
     decision:
-    detailed_guidance: "ดูทั้งหมดคู่มือโดยละเอียด"
+    detailed_guidance: ดูทั้งหมดคู่มือโดยละเอียด
     document_collection:
-    draft_text: "ดูทั้งหมดร่างข้อความ"
-    fatality_notice: "ดูทั้งหมดการแจ้งมรณะกรรม"
-    foi_release: "ดูทั้งหมดข้อมูลที่เปิดเผยได้"
-    form: "ดูทั้งหมดแบบฟอร์ม"
-    government_response: "ดูทั้งหมดการตอบสนองของรัฐบาล"
-    guidance: "ดูทั้งหมดคู่มือ"
-    impact_assessment: "ดูทั้งหมดการประเมินผลกระทบ"
-    imported: "ดูทั้งหมดประเภทรอนำเข้า"
+    draft_text: ดูทั้งหมดร่างข้อความ
+    fatality_notice: ดูทั้งหมดการแจ้งมรณะกรรม
+    foi_release: ดูทั้งหมดข้อมูลที่เปิดเผยได้
+    form: ดูทั้งหมดแบบฟอร์ม
+    government_response: ดูทั้งหมดการตอบสนองของรัฐบาล
+    guidance: ดูทั้งหมดคู่มือ
+    impact_assessment: ดูทั้งหมดการประเมินผลกระทบ
+    imported: ดูทั้งหมดประเภทรอนำเข้า
     international_treaty:
-    map: "ดูทั้งหมดแผนที่"
-    national_statistics: "ดูทั้งหมดสถิติ-สถิติแห่งชาติ"
-    news_article: "ดูทั้งหมดบทความข่าว"
-    news_story: "ดูทั้งหมดข่าว"
+    map: ดูทั้งหมดแผนที่
+    national_statistics: ดูทั้งหมดสถิติ-สถิติแห่งชาติ
+    news_article: ดูทั้งหมดบทความข่าว
+    news_story: ดูทั้งหมดข่าว
     notice:
-    open_consultation: "ดูทั้งหมดการให้คำปรึกษาเปิด"
-    oral_statement: "ดูทั้งหมดแถลงการณ์ด้วยวาจาต่อรัฐสภา"
-    policy: "ดูทั้งหมดนโยบาย"
-    policy_paper: "ดูทั้งหมดเอกสารนโยบาย"
-    press_release: "ดูทั้งหมดข่าวประชาสัมพันธ์"
-    promotional: "ดูทั้งหมดเอกสารเพือการประชาสัมพันธ์"
-    publication: "ดูทั้งหมดสิ่งพิมพ์"
+    open_consultation: ดูทั้งหมดการให้คำปรึกษาเปิด
+    oral_statement: ดูทั้งหมดแถลงการณ์ด้วยวาจาต่อรัฐสภา
+    policy: ดูทั้งหมดนโยบาย
+    policy_paper: ดูทั้งหมดเอกสารนโยบาย
+    press_release: ดูทั้งหมดข่าวประชาสัมพันธ์
+    promotional: ดูทั้งหมดเอกสารเพือการประชาสัมพันธ์
+    publication: ดูทั้งหมดสิ่งพิมพ์
     regulation:
-    research: "ดูทั้งหมดบทวิจัยและบทวิเคราะห์"
-    speaking_notes: "ดูทั้งหมดประเด็นการพูด"
-    speech: "ดูทั้งหมดสุนทรพจน์"
-    statement_to_parliament: "ดูทั้งหมดแถลงการณ์ต่อรัฐสภา"
-    statistical_data_set: "ดูทั้งหมดชุดข้อมูลสถิติ"
-    statistics: "ดูทั้งหมดสถิติ"
+    research: ดูทั้งหมดบทวิจัยและบทวิเคราะห์
+    speaking_notes: ดูทั้งหมดประเด็นการพูด
+    speech: ดูทั้งหมดสุนทรพจน์
+    statement_to_parliament: ดูทั้งหมดแถลงการณ์ต่อรัฐสภา
+    statistical_data_set: ดูทั้งหมดชุดข้อมูลสถิติ
+    statistics: ดูทั้งหมดสถิติ
     statutory_guidance:
-    transcript: "ดูทั้งหมดสำเนา"
-    transparency: "ดูทั้งหมดข้อมูลโปร่งใส"
-    written_statement: "ดูทั้งหมดแถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา "
+    transcript: ดูทั้งหมดสำเนา
+    transparency: ดูทั้งหมดข้อมูลโปร่งใส
+    written_statement: 'ดูทั้งหมดแถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา '
   social_media:
     follow_us:
   support:
     array:
-      last_word_connector: "และ"
+      last_word_connector: และ
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   world_location:
     headings:
-      announcements: "ข่าวสารของเรา"
-      country: "ประเทศ"
-      documents: "เอกสาร"
-      mission: "ภาระกิจของเรา"
-      organisations: "องค์กร"
-      publications: "สิ่งพิมพ์ของเรา"
-      quick_links: "ลิงค์ด่วน"
-      related_policies: "นโยบายที่เกี่ยวข้อง"
-      statistics: "สถิติของเรา"
+      announcements: ข่าวสารของเรา
+      country: ประเทศ
+      documents: เอกสาร
+      mission: ภาระกิจของเรา
+      organisations: องค์กร
+      publications: สิ่งพิมพ์ของเรา
+      quick_links: ลิงค์ด่วน
+      related_policies: นโยบายที่เกี่ยวข้อง
+      statistics: สถิติของเรา
     type:
       international_delegation:
-        one: "ผู้แทนนานาประเทศ"
-        other: "คณะผู้แทนนานาประเทศ"
+        one: ผู้แทนนานาประเทศ
+        other: คณะผู้แทนนานาประเทศ
       world_location:
-        one: "ที่ตั้ง"
-        other: "ทีตั้ง"
+        one: ที่ตั้ง
+        other: ทีตั้ง
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: "ลิงค์นี้อธิบายถึงวิธีการที่เราปฏิบัติต่อข้อมูลส่วนบุคคลของคุณ"
-      publication_scheme_html: "อ่านประเภทข้อมูลซึ่งเราเผยแพร่เป็นประจำได้ที่ %{link}"
-      social_media_use_html: "อ่านนโยบายของเราได้ที่ %{link}"
-      welsh_language_scheme_html: "ค้นหาข้อมูลเกี่ยวกับพันธสัญญาในการตีพิมพ์ของเราได้ที่
-        %{link}."
-    find_out_more: "ดูรายละเอียดและข้อมูลการติดต่อทั้งหมด"
+      personal_information_charter_html: ลิงค์นี้อธิบายถึงวิธีการที่เราปฏิบัติต่อข้อมูลส่วนบุคคลของคุณ
+      publication_scheme_html: อ่านประเภทข้อมูลซึ่งเราเผยแพร่เป็นประจำได้ที่ %{link}
+      social_media_use_html: อ่านนโยบายของเราได้ที่ %{link}
+      welsh_language_scheme_html: ค้นหาข้อมูลเกี่ยวกับพันธสัญญาในการตีพิมพ์ของเราได้ที่
+        %{link}.
+    find_out_more: ดูรายละเอียดและข้อมูลการติดต่อทั้งหมด
     headings:
-      about_us: "เกี่ยวกับเรา"
-      contact_us: "ติดต่อเรา"
-      corporate_information: "ข้อมูลองค์กร"
-      follow_us: "ติดตามเรา"
-      our_people: "เจ้าหน้าที่ของเรา"
-      our_services: "บริการของเรา"
-    location: "ที่ตั้ง"
-    part_of: "ส่วนของ"
+      about_us: เกี่ยวกับเรา
+      contact_us: ติดต่อเรา
+      corporate_information: ข้อมูลองค์กร
+      follow_us: ติดตามเรา
+      our_people: เจ้าหน้าที่ของเรา
+      our_services: บริการของเรา
+    location: ที่ตั้ง
+    part_of: ส่วนของ

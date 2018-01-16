@@ -325,14 +325,14 @@ pt:
     email:
     feed:
     get_updates_to_this_list:
-    latest_activity: "Últimas atividades"
+    latest_activity: Últimas atividades
   i18n:
     direction: ltr
   language_names:
     pt: Português
   latest_feed:
     no_updates: Ainda não há atualizações
-    title: "Últimas"
+    title: Últimas
   national_statistics:
     heading:
   number:

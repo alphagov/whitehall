@@ -3,30 +3,30 @@ ar:
     headings:
       attachments:
         zero:
-        one: "وثيقة"
+        one: وثيقة
         two:
         few:
         many:
-        other: "وثائق"
-      applies_to_nations: "ينطبق على"
+        other: وثائق
+      applies_to_nations: ينطبق على
       from:
       location:
       part_of:
     type:
       announcement:
         zero:
-        one: "إعلان"
+        one: إعلان
         two:
         few:
         many:
-        other: "إعلانات"
+        other: إعلانات
       authored_article:
         zero:
-        one: "مقال مرخص"
+        one: مقال مرخص
         two:
         few:
         many:
-        other: "مقالات مرخصة"
+        other: مقالات مرخصة
       blog_post:
         zero:
         one:
@@ -36,46 +36,46 @@ ar:
         other:
       case_study:
         zero:
-        one: "دراسة حالة"
+        one: دراسة حالة
         two:
         few:
         many:
-        other: "دراسات حالة"
+        other: دراسات حالة
       closed_consultation:
         zero:
-        one: "مشاورة منتهية"
+        one: مشاورة منتهية
         two:
         few:
         many:
-        other: "مشاورات منتهية"
+        other: مشاورات منتهية
       consultation:
         zero:
-        one: "مشاورة"
+        one: مشاورة
         two:
         few:
         many:
-        other: "مشاورات"
+        other: مشاورات
       consultation_outcome:
         zero:
-        one: "نتيجة المشاورة"
+        one: نتيجة المشاورة
         two:
         few:
         many:
-        other: "نتائج المشاورات"
+        other: نتائج المشاورات
       corporate_report:
         zero:
-        one: "تقرير الوزارة"
+        one: تقرير الوزارة
         two:
         few:
         many:
-        other: "تقارير الوزارة"
+        other: تقارير الوزارة
       correspondence:
         zero:
-        one: "مراسلة"
+        one: مراسلة
         two:
         few:
         many:
-        other: "مراسلات"
+        other: مراسلات
       decision:
         zero:
         one:
@@ -85,74 +85,74 @@ ar:
         other:
       detailed_guidance:
         zero:
-        one: "توجيه مفصل"
+        one: توجيه مفصل
         two:
         few:
         many:
-        other: "توجيهات مفصل"
+        other: توجيهات مفصل
       document_collection:
         zero:
-        one: "سلسة"
+        one: سلسة
         two:
         few:
         many:
         other:
       draft_text:
         zero:
-        one: "مسودة النص"
+        one: مسودة النص
         two:
         few:
         many:
-        other: "مسودة النصوص"
+        other: مسودة النصوص
       foi_release:
         zero:
-        one: "نشرة وفق حرية الحصول على المعلومات"
+        one: نشرة وفق حرية الحصول على المعلومات
         two:
         few:
         many:
-        other: "نشرات وفق حرية الحصول على المعلومات"
+        other: نشرات وفق حرية الحصول على المعلومات
       form:
         zero:
-        one: "نموذج"
+        one: نموذج
         two:
         few:
         many:
-        other: "نماذج"
+        other: نماذج
       government_response:
         zero:
-        one: "رد من الحكومة"
+        one: رد من الحكومة
         two:
         few:
         many:
-        other: "ردود من الحكومة"
+        other: ردود من الحكومة
       guidance:
         zero:
-        one: "توجيه"
+        one: توجيه
         two:
         few:
         many:
-        other: "توجيهات"
+        other: توجيهات
       impact_assessment:
         zero:
-        one: "تقييم التأثير"
+        one: تقييم التأثير
         two:
         few:
         many:
-        other: "تقييمات التأثير"
+        other: تقييمات التأثير
       imported:
         zero:
-        one: "استلم - بانتظار الطباعة"
+        one: استلم - بانتظار الطباعة
         two:
         few:
         many:
-        other: "استلم - بانتظار الطباعة"
+        other: استلم - بانتظار الطباعة
       independent_report:
         zero:
-        one: "تقرير مستقل"
+        one: تقرير مستقل
         two:
         few:
         many:
-        other: "تقارير مستقلة"
+        other: تقارير مستقلة
       international_treaty:
         zero:
         one:
@@ -169,32 +169,32 @@ ar:
         other:
       map:
         zero:
-        one: "خريطة"
+        one: خريطة
         two:
         few:
         many:
-        other: "خرائط"
+        other: خرائط
       national_statistics:
         zero:
-        one: "إحصائية - إحصائية محلية"
+        one: إحصائية - إحصائية محلية
         two:
         few:
         many:
-        other: "إحصائيات - إحصائيات محلية"
+        other: إحصائيات - إحصائيات محلية
       news_article:
         zero:
-        one: "مقال إخباري"
+        one: مقال إخباري
         two:
         few:
         many:
-        other: "مقالات إخبارية"
+        other: مقالات إخبارية
       news_story:
         zero:
-        one: "قصة إخبارية"
+        one: قصة إخبارية
         two:
         few:
         many:
-        other: "قصص إخبارية"
+        other: قصص إخبارية
       nhs_content:
         zero:
         one:
@@ -211,53 +211,53 @@ ar:
         other:
       official_statistics:
         zero:
-        one: "إحصائية"
+        one: إحصائية
         two:
         few:
         many:
-        other: "إحصائيات"
+        other: إحصائيات
       open_consultation:
         zero:
-        one: "مشاورة جارية"
+        one: مشاورة جارية
         two:
         few:
         many:
-        other: "مشاورات جارية"
+        other: مشاورات جارية
       oral_statement:
         zero:
-        one: "تصريح شفهي للبرلمان"
+        one: تصريح شفهي للبرلمان
         two:
         few:
         many:
-        other: "تصريحات شفهية للبرلمان"
+        other: تصريحات شفهية للبرلمان
       policy_paper:
         zero:
-        one: "ورقة عن السياسة"
+        one: ورقة عن السياسة
         two:
         few:
         many:
-        other: "ورقة عن السياسات"
+        other: ورقة عن السياسات
       press_release:
         zero:
-        one: "بيان صحفي"
+        one: بيان صحفي
         two:
         few:
         many:
-        other: "بيانات صحفية"
+        other: بيانات صحفية
       promotional:
         zero:
-        one: "مادة ترويجية"
+        one: مادة ترويجية
         two:
         few:
         many:
-        other: "مواد ترويجية"
+        other: مواد ترويجية
       publication:
         zero:
-        one: "مطبوعة"
+        one: مطبوعة
         two:
         few:
         many:
-        other: "مطبوعات"
+        other: مطبوعات
       regulation:
         zero:
         one:
@@ -267,39 +267,39 @@ ar:
         other:
       research:
         zero:
-        one: "بحث وتحليل"
+        one: بحث وتحليل
         two:
         few:
         many:
-        other: "بحوث وتحليلات"
+        other: بحوث وتحليلات
       speaking_notes:
         zero:
-        one: "مذكرات كلامية"
+        one: مذكرات كلامية
         two:
         few:
         many:
-        other: "مذكرات كلامية"
+        other: مذكرات كلامية
       speech:
         zero:
-        one: "كلمة"
+        one: كلمة
         two:
         few:
         many:
-        other: "كلمات"
+        other: كلمات
       statement_to_parliament:
         zero:
-        one: "تصريح للبرلمان"
+        one: تصريح للبرلمان
         two:
         few:
         many:
-        other: "تصريحات للبرلمان"
+        other: تصريحات للبرلمان
       statistical_data_set:
         zero:
-        one: "مجموعة بيانات إحصائية"
+        one: مجموعة بيانات إحصائية
         two:
         few:
         many:
-        other: "مجموعات بيانات إحصائية"
+        other: مجموعات بيانات إحصائية
       statutory_guidance:
         zero:
         one:
@@ -309,18 +309,18 @@ ar:
         other:
       transcript:
         zero:
-        one: "نص منسوخ"
+        one: نص منسوخ
         two:
         few:
         many:
-        other: "نصوص منسوخة"
+        other: نصوص منسوخة
       transparency:
         zero:
-        one: "بيانات تتعلق بالشفافية"
+        one: بيانات تتعلق بالشفافية
         two:
         few:
         many:
-        other: "بيانات تتعلق بالشفافية"
+        other: بيانات تتعلق بالشفافية
       world_news_story:
         zero:
         one:
@@ -330,30 +330,30 @@ ar:
         other:
       written_statement:
         zero:
-        one: "تصريح خطي"
+        one: تصريح خطي
         two:
         few:
         many:
-        other: "تصريحات خطية"
+        other: تصريحات خطية
     contents:
     footer_meta:
       full_page_history:
       page_history:
       published:
       updated:
-    published: "نشر"
-    read: "اقرأ %{title} المقال"
+    published: نشر
+    read: اقرأ %{title} المقال
     speech:
       author_title:
-        minister: "وزير"
-        speaker: "كاتب"
-      delivered_on: "تاريخ التسليم"
+        minister: وزير
+        speaker: كاتب
+      delivered_on: تاريخ التسليم
       delivery_title:
-        minister: "وزير"
-        speaker: "متحدث"
-      written_on: "كتبت في:"
-    updated: "تحديث"
-    view: "اطلع على ’%{title}‘"
+        minister: وزير
+        speaker: متحدث
+      written_on: 'كتبت في:'
+    updated: تحديث
+    view: اطلع على ’%{title}‘
   people:
     heading:
       zero:
@@ -386,28 +386,28 @@ ar:
     type:
       international_delegation:
         zero:
-        one: "وفد دولي"
+        one: وفد دولي
         two:
         few:
         many:
-        other: "وفود دولية"
+        other: وفود دولية
       world_location:
         zero:
-        one: "بعثة في الخارج"
+        one: بعثة في الخارج
         two:
         few:
         many:
-        other: "بعثات في الخارج"
+        other: بعثات في الخارج
     headings:
-      announcements: "إعلاناتنا"
-      country: "البلد"
-      documents: "وثائق"
-      mission: "مهمتنا"
-      organisations: "مؤسسات"
-      publications: "مطبوعاتنا"
-      quick_links: "وصلات سريعة"
-      related_policies: "سياسات ذات صلة"
-      statistics: "إحصائياتنا"
+      announcements: إعلاناتنا
+      country: البلد
+      documents: وثائق
+      mission: مهمتنا
+      organisations: مؤسسات
+      publications: مطبوعاتنا
+      quick_links: وصلات سريعة
+      related_policies: سياسات ذات صلة
+      statistics: إحصائياتنا
   activerecord:
     attributes:
       attachment:
@@ -452,20 +452,20 @@ ar:
       unique_reference:
       unnumbered_hoc_paper:
   announcements:
-    heading: "إعلانات"
+    heading: إعلانات
     view_all:
   attachment:
     accessibility:
       full_help_html: لاستلام وثيقة مكتوبة بشكل آخر، كلغة بريل أو وثيقة صوتية أو أي
         نوع آخر من الوثائق، يرجى إرسال رسالة إلكترونية إلى %{email} مع كتابة عنوانك
         ورقم هاتفك إلى جانب عنوان الوثيقة المطلوبة ("{title}")%{references}
-      heading: "هذا المف قد لا يكون مناسبا لمستخدمي التكنولوجيا المساعدة على القراءة"
-      request_a_different_format: "طلب الوثيقة بشكل آخر"
+      heading: هذا المف قد لا يكون مناسبا لمستخدمي التكنولوجيا المساعدة على القراءة
+      request_a_different_format: طلب الوثيقة بشكل آخر
     headings:
-      order_a_copy: "طلب نسخة"
-      order_a_copy_full: "طلب نسخة عن المطبوعة"
-      published: "تاريخ النشر"
-      reference: "إشارة"
+      order_a_copy: طلب نسخة
+      order_a_copy_full: طلب نسخة عن المطبوعة
+      published: تاريخ النشر
+      reference: إشارة
       unnumbered_command_paper:
       unnumbered_hoc_paper:
     opendocument:
@@ -483,8 +483,8 @@ ar:
     see_all_updates:
     updated_at:
   contact:
-    contact_form: "نموذج اتصال"
-    email: "بريد إلكتروني"
+    contact_form: نموذج اتصال
+    email: بريد إلكتروني
   corporate_information_page:
     type:
       link_text:
@@ -499,44 +499,44 @@ ar:
         membership:
         our_energy_use:
         our_governance:
-        personal_information_charter: "ميثاق الاحتفاظ بالمعلومات الشخصية"
+        personal_information_charter: ميثاق الاحتفاظ بالمعلومات الشخصية
         petitions_and_campaigns:
         procurement:
-        publication_scheme: "نظام المطبوعات"
+        publication_scheme: نظام المطبوعات
         recruitment:
         research:
-        social_media_use: "استخدام مواقع التواصل الاجتماعي"
+        social_media_use: استخدام مواقع التواصل الاجتماعي
         staff_update:
         statistics:
         terms_of_reference:
-        welsh_language_scheme: "برنامج لغة ويلز"
+        welsh_language_scheme: برنامج لغة ويلز
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document_filters:
-    description: "باستطاعتك استخدام الفلتر لعرض &nbsp; فقط النتائج التي تتطابق مع
-      &nbsp; اهتماماتك"
+    description: باستطاعتك استخدام الفلتر لعرض &nbsp; فقط النتائج التي تتطابق مع &nbsp;
+      اهتماماتك
     no_results:
-      description: "حاول توسيع البحث وحاول البحث مجددا"
-      title: "ليس هناك وثائق تطابق البحث"
+      description: حاول توسيع البحث وحاول البحث مجددا
+      title: ليس هناك وثائق تطابق البحث
       tna_heading:
       tna_link:
     world_locations:
-      all: "كافة المواقع"
-      label: "مواقع في العالم"
+      all: كافة المواقع
+      label: مواقع في العالم
   feeds:
     email:
     feed:
     get_updates_to_this_list:
-    latest_activity: "أحدث المستجدات"
+    latest_activity: أحدث المستجدات
   i18n:
     direction: rtl
   language_names:
-    ar: "العربية"
+    ar: العربية
   latest_feed:
-    no_updates: "لا يوجد تحديثات بعد"
-    title: "آخر التحديثات"
+    no_updates: لا يوجد تحديثات بعد
+    title: آخر التحديثات
   national_statistics:
     heading:
   number:
@@ -545,99 +545,99 @@ ar:
         format: "%n%u"
   organisation:
     about:
-      read_more: "اقرأ المزيد عن عملنا"
+      read_more: اقرأ المزيد عن عملنا
     corporate_information:
-      access_our_info: "اطلع على معلوماتنا"
-      foi_how_to: "كيفية تقديم طلب حرية الحصول على المعلومات"
-      foi_releases: "إصدارات حرية الحصول على المعلومات"
-      jobs_and_contacts: "الوظائف والعقود"
+      access_our_info: اطلع على معلوماتنا
+      foi_how_to: كيفية تقديم طلب حرية الحصول على المعلومات
+      foi_releases: إصدارات حرية الحصول على المعلومات
+      jobs_and_contacts: الوظائف والعقود
       organisation_chart:
-      transparency: "بيانات تتعلق بالشفافية"
+      transparency: بيانات تتعلق بالشفافية
     foi_exemption_html:
     headings:
-      chief_professional_officers: "كبار المسؤولين المحترفين لدينا"
-      contact: "اتصل بـ%{name}"
-      corporate_information: "معلومات عن الوزارة"
-      corporate_reports: "تقارير الوزارة"
+      chief_professional_officers: كبار المسؤولين المحترفين لدينا
+      contact: اتصل بـ%{name}
+      corporate_information: معلومات عن الوزارة
+      corporate_reports: تقارير الوزارة
       documents:
       freedom_of_information_act:
       making_foi_requests:
-      our_announcements: "إعلاناتنا"
+      our_announcements: إعلاناتنا
       our_consultations:
       our_judges:
-      our_management: "إدارتنا"
-      our_ministers: "وزراؤنا"
-      our_policies: "سياساتنا"
-      our_publications: "مطبوعاتنا"
-      our_senior_military_officials: "كبار المسؤولين العسكريين"
-      our_services: "خدماتنا"
-      our_statistics: "إحصائياتنا"
-      our_topics: "عملينا بشأن هذه المواضيع"
-      special_representatives: "الممثلون الخاصون"
-      traffic_commissioners: "مفوضو المرور"
-      what_we_do: "عملنا"
+      our_management: إدارتنا
+      our_ministers: وزراؤنا
+      our_policies: سياساتنا
+      our_publications: مطبوعاتنا
+      our_senior_military_officials: كبار المسؤولين العسكريين
+      our_services: خدماتنا
+      our_statistics: إحصائياتنا
+      our_topics: عملينا بشأن هذه المواضيع
+      special_representatives: الممثلون الخاصون
+      traffic_commissioners: مفوضو المرور
+      what_we_do: عملنا
       who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:
       step3_html:
   policies:
-    heading: "سياسات"
+    heading: سياسات
     view_all:
   publications:
-    heading: "مطبوعات"
+    heading: مطبوعات
     headings:
-      detail: "تفاصيل"
-  read_more: "اقرأ المزيد"
+      detail: تفاصيل
+  read_more: اقرأ المزيد
   see_all:
-    announcement: "اطلع على كافة إعلانات"
-    authored_article: "اطلع على كافة مقالات مرخصة"
-    case_study: "اطلع على كافة دراسات حالة"
-    closed_consultation: "اطلع على كافة مشاورات منتهية"
-    consultation: "اطلع على كافة مشاورات"
-    consultation_outcome: "اطلع على كافة نتائج المشاورات"
-    corporate_report: "اطلع على كافة تقارير الوزارة"
-    correspondence: "اطلع على كافة مراسلات"
+    announcement: اطلع على كافة إعلانات
+    authored_article: اطلع على كافة مقالات مرخصة
+    case_study: اطلع على كافة دراسات حالة
+    closed_consultation: اطلع على كافة مشاورات منتهية
+    consultation: اطلع على كافة مشاورات
+    consultation_outcome: اطلع على كافة نتائج المشاورات
+    corporate_report: اطلع على كافة تقارير الوزارة
+    correspondence: اطلع على كافة مراسلات
     decision:
-    detailed_guidance: "اطلع على كافة توجيهات مفصل"
+    detailed_guidance: اطلع على كافة توجيهات مفصل
     document_collection:
-    draft_text: "اطلع على كافة مسودة النصوص"
-    fatality_notice: "اطلع على كافة إشعارات وفاة"
-    foi_release: "اطلع على كافة نشرات وفق حرية الحصول على المعلومات"
-    form: "اطلع على كافة نماذج"
-    government_response: "اطلع على كافة ردود من الحكومة"
-    guidance: "اطلع على كافة توجيهات"
-    impact_assessment: "اطلع على كافة تقييمات التأثير"
-    imported: "اطلع على كافة استلم - بانتظار الطباعة"
+    draft_text: اطلع على كافة مسودة النصوص
+    fatality_notice: اطلع على كافة إشعارات وفاة
+    foi_release: اطلع على كافة نشرات وفق حرية الحصول على المعلومات
+    form: اطلع على كافة نماذج
+    government_response: اطلع على كافة ردود من الحكومة
+    guidance: اطلع على كافة توجيهات
+    impact_assessment: اطلع على كافة تقييمات التأثير
+    imported: اطلع على كافة استلم - بانتظار الطباعة
     international_treaty:
-    map: "اطلع على كافة خرائط"
-    national_statistics: "اطلع على كافة إحصائيات - إحصائيات محلية"
-    news_article: "اطلع على كافة مقالات إخبارية"
-    news_story: "اطلع على كافة قصص إخبارية"
+    map: اطلع على كافة خرائط
+    national_statistics: اطلع على كافة إحصائيات - إحصائيات محلية
+    news_article: اطلع على كافة مقالات إخبارية
+    news_story: اطلع على كافة قصص إخبارية
     notice:
-    open_consultation: "اطلع على كافة مشاورات جارية"
-    oral_statement: "اطلع على كافة تصريحات شفهية للبرلمان"
-    policy: "اطلع على كافة سياسات"
-    policy_paper: "اطلع على كافة ورقة عن السياسات"
-    press_release: "اطلع على كافة بيانات صحفية"
-    promotional: "اطلع على كافة مواد ترويجية"
-    publication: "اطلع على كافة مطبوعات"
+    open_consultation: اطلع على كافة مشاورات جارية
+    oral_statement: اطلع على كافة تصريحات شفهية للبرلمان
+    policy: اطلع على كافة سياسات
+    policy_paper: اطلع على كافة ورقة عن السياسات
+    press_release: اطلع على كافة بيانات صحفية
+    promotional: اطلع على كافة مواد ترويجية
+    publication: اطلع على كافة مطبوعات
     regulation:
-    research: "اطلع على كافة بحوث وتحليلات"
-    speaking_notes: "اطلع على كافة مذكرات كلامية"
-    speech: "اطلع على كافة كلمات"
-    statement_to_parliament: "اطلع على كافة تصريحات للبرلمان"
-    statistical_data_set: "اطلع على كافة مجموعات بيانات إحصائية"
-    statistics: "اطلع على كافة إحصائيات"
+    research: اطلع على كافة بحوث وتحليلات
+    speaking_notes: اطلع على كافة مذكرات كلامية
+    speech: اطلع على كافة كلمات
+    statement_to_parliament: اطلع على كافة تصريحات للبرلمان
+    statistical_data_set: اطلع على كافة مجموعات بيانات إحصائية
+    statistics: اطلع على كافة إحصائيات
     statutory_guidance:
-    transcript: "اطلع على كافة نصوص منسوخة"
-    transparency: "اطلع على كافة بيانات تتعلق بالشفافية"
-    written_statement: "اطلع على كافة تصريحات خطية"
+    transcript: اطلع على كافة نصوص منسوخة
+    transparency: اطلع على كافة بيانات تتعلق بالشفافية
+    written_statement: اطلع على كافة تصريحات خطية
   social_media:
     follow_us:
   support:
     array:
-      last_word_connector: "و"
+      last_word_connector: و
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
@@ -646,17 +646,17 @@ ar:
       about_our_services_html:
       personal_information_charter_html: "%{link} يشرح كيفية التعامل مع المعلومات
         الشخصية الخاصة بك"
-      publication_scheme_html: "إقرأ عن أنواع المعلومات التي ننشرها بشكل روتيني في
-        موقعنا %{link} الرابط."
-      social_media_use_html: "اقرأ عن سياستنا تجاه %{link}"
-      welsh_language_scheme_html: "معرفة التزامنا النشر في%{link} الرابط."
-    find_out_more: "اطلع على النبذة بالكامل وكافة تفاصيل الاتصال"
+      publication_scheme_html: إقرأ عن أنواع المعلومات التي ننشرها بشكل روتيني في
+        موقعنا %{link} الرابط.
+      social_media_use_html: اقرأ عن سياستنا تجاه %{link}
+      welsh_language_scheme_html: معرفة التزامنا النشر في%{link} الرابط.
+    find_out_more: اطلع على النبذة بالكامل وكافة تفاصيل الاتصال
     headings:
-      about_us: "معلومات عنا"
-      contact_us: "اتصل بنا"
-      corporate_information: "معلومات عن الشركة"
-      follow_us: "تابعنا"
-      our_people: "مسؤولينا"
-      our_services: "خدماتنا"
-    location: "موقع"
-    part_of: "جزء من"
+      about_us: معلومات عنا
+      contact_us: اتصل بنا
+      corporate_information: معلومات عن الشركة
+      follow_us: تابعنا
+      our_people: مسؤولينا
+      our_services: خدماتنا
+    location: موقع
+    part_of: جزء من

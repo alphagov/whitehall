@@ -3,72 +3,72 @@ ta:
     headings:
       attachments:
         one: " ஆவணம்"
-        other: "ஆவணங்கள்"
-      applies_to_nations: "பிரயோகமாகிறது"
+        other: ஆவணங்கள்
+      applies_to_nations: பிரயோகமாகிறது
       from:
       location:
       part_of:
     type:
       announcement:
-        one: "அறிவிப்பு"
-        other: "அறிவிப்புகள்"
+        one: அறிவிப்பு
+        other: அறிவிப்புகள்
       authored_article:
         one: " எழுதப்பட்ட   கட்டுரை"
-        other: "எழுதப்பட்ட கட்டுரைகள்"
+        other: எழுதப்பட்ட கட்டுரைகள்
       blog_post:
         one:
         other:
       case_study:
-        one: "சம்பவ ஆய்வுக் கற்கை"
-        other: "சம்பவ ஆய்வுக் கற்கைகள்"
+        one: சம்பவ ஆய்வுக் கற்கை
+        other: சம்பவ ஆய்வுக் கற்கைகள்
       closed_consultation:
-        one: "வரையறுக்கப்பட்ட நிலையிலான கலந்தாலோசனை"
-        other: "வரையறுக்கப்பட்ட நிலையிலான  கலந்தாலோசனைகள்"
+        one: வரையறுக்கப்பட்ட நிலையிலான கலந்தாலோசனை
+        other: வரையறுக்கப்பட்ட நிலையிலான  கலந்தாலோசனைகள்
       consultation:
-        one: "கலந்தாலோசனை"
-        other: "கலந்தாலோசனைகள்"
+        one: கலந்தாலோசனை
+        other: கலந்தாலோசனைகள்
       consultation_outcome:
-        one: "கலந்தாலோசனையின் முடிவு"
-        other: "கலந்தாலோசனைப்முடிவுகள்"
+        one: கலந்தாலோசனையின் முடிவு
+        other: கலந்தாலோசனைப்முடிவுகள்
       corporate_report:
-        one: "கூட்டாண்மை அறிக்கை"
-        other: "கூட்டாண்மை அறிக்கைகள்"
+        one: கூட்டாண்மை அறிக்கை
+        other: கூட்டாண்மை அறிக்கைகள்
       correspondence:
-        one: "தொடர்பு"
-        other: "தொடர்புகள்"
+        one: தொடர்பு
+        other: தொடர்புகள்
       decision:
         one:
         other:
       detailed_guidance:
-        one: "விளக்கமான வழிகாட்டல்"
-        other: "விளக்கமான வழிகாட்டல்"
+        one: விளக்கமான வழிகாட்டல்
+        other: விளக்கமான வழிகாட்டல்
       document_collection:
-        one: "தொடர்"
+        one: தொடர்
         other:
       draft_text:
-        one: "வரைபு உரை"
-        other: "வரைபு உரைகள்"
+        one: வரைபு உரை
+        other: வரைபு உரைகள்
       foi_release:
-        one: "தகவலின் சுதந்திரமான  வெளியிடுதல்"
-        other: "தகவல்களின் சுதந்திரமான  வெளியிடுதல்கள்"
+        one: தகவலின் சுதந்திரமான  வெளியிடுதல்
+        other: தகவல்களின் சுதந்திரமான  வெளியிடுதல்கள்
       form:
-        one: "படிவம்"
-        other: "படிவங்கள்"
+        one: படிவம்
+        other: படிவங்கள்
       government_response:
-        one: "அரசாங்க பதிலிறுப்பு"
-        other: "அரசாங்க பதிலிறுப்புகள்"
+        one: அரசாங்க பதிலிறுப்பு
+        other: அரசாங்க பதிலிறுப்புகள்
       guidance:
-        one: "வழிகாட்டல்"
-        other: "வழிகாட்டல்"
+        one: வழிகாட்டல்
+        other: வழிகாட்டல்
       impact_assessment:
-        one: "தாக்க மதிப்பீடு"
-        other: "தாக்க மதிப்பீடுகள்"
+        one: தாக்க மதிப்பீடு
+        other: தாக்க மதிப்பீடுகள்
       imported:
-        one: "இறக்குமதி செய்யப்பட்ட - எதிர்பார்க்கும் வகை"
-        other: "இறக்குமதி செய்யப்பட்ட - எதிர்பார்க்கும் வகை"
+        one: இறக்குமதி செய்யப்பட்ட - எதிர்பார்க்கும் வகை
+        other: இறக்குமதி செய்யப்பட்ட - எதிர்பார்க்கும் வகை
       independent_report:
-        one: "சுயாதீன அறிக்கை"
-        other: "சுயாதீன அறிக்கைகள்"
+        one: சுயாதீன அறிக்கை
+        other: சுயாதீன அறிக்கைகள்
       international_treaty:
         one:
         other:
@@ -76,17 +76,17 @@ ta:
         one:
         other:
       map:
-        one: "வரைபடம்"
-        other: "வரைபடங்கள்"
+        one: வரைபடம்
+        other: வரைபடங்கள்
       national_statistics:
-        one: "புள்ளிவிபரம் - தேசிய புள்ளிவிபரம்"
-        other: "புள்ளிவிபரம் - தேசிய புள்ளிவிபரம்"
+        one: புள்ளிவிபரம் - தேசிய புள்ளிவிபரம்
+        other: புள்ளிவிபரம் - தேசிய புள்ளிவிபரம்
       news_article:
-        one: "செய்திக் கட்டுரை"
-        other: "செய்திக் கட்டுரைகள்"
+        one: செய்திக் கட்டுரை
+        other: செய்திக் கட்டுரைகள்
       news_story:
-        one: "செய்திக் கதை"
-        other: "செய்திக் கதைகள்"
+        one: செய்திக் கதை
+        other: செய்திக் கதைகள்
       nhs_content:
         one:
         other:
@@ -94,78 +94,78 @@ ta:
         one:
         other:
       official_statistics:
-        one: "புள்ளிவிபரம்"
-        other: "புள்ளிவிபரம்"
+        one: புள்ளிவிபரம்
+        other: புள்ளிவிபரம்
       open_consultation:
-        one: "திறந்த கலந்தாலோசனை"
-        other: "திறந்த கலந்தாலோசனைகள்"
+        one: திறந்த கலந்தாலோசனை
+        other: திறந்த கலந்தாலோசனைகள்
       oral_statement:
-        one: "பாராளுமன்றத்துக்கு வாய் மூலமான அறிக்கை"
-        other: "பாராளுமன்றத்துக்கு வாய் மூலமான அறிக்கைகள்"
+        one: பாராளுமன்றத்துக்கு வாய் மூலமான அறிக்கை
+        other: பாராளுமன்றத்துக்கு வாய் மூலமான அறிக்கைகள்
       policy_paper:
-        one: "கொள்கைப் பத்திரம்"
-        other: "கொள்கைப் பத்திரங்கள்"
+        one: கொள்கைப் பத்திரம்
+        other: கொள்கைப் பத்திரங்கள்
       press_release:
-        one: "செய்தி வெளியீடு"
-        other: "செய்தி வெளியீடுகள்"
+        one: செய்தி வெளியீடு
+        other: செய்தி வெளியீடுகள்
       promotional:
-        one: "விளம்பர ஊக்குவிப்பு பொருள்"
-        other: "விளம்பர ஊக்குவிப்பு பொருள்"
+        one: விளம்பர ஊக்குவிப்பு பொருள்
+        other: விளம்பர ஊக்குவிப்பு பொருள்
       publication:
-        one: "பிரசுரம்"
-        other: "பிரசுரங்கள்"
+        one: பிரசுரம்
+        other: பிரசுரங்கள்
       regulation:
         one:
         other:
       research:
-        one: "ஆராய்ச்சி மற்றும் பகுப்பாய்தல்"
-        other: "ஆராய்ச்சி மற்றும் பகுப்பாய்தல்"
+        one: ஆராய்ச்சி மற்றும் பகுப்பாய்தல்
+        other: ஆராய்ச்சி மற்றும் பகுப்பாய்தல்
       speaking_notes:
-        one: "உரைக் குறிப்புகள்"
-        other: "உரைக் குறிப்புகள்"
+        one: உரைக் குறிப்புகள்
+        other: உரைக் குறிப்புகள்
       speech:
-        one: "உரை"
-        other: "உரைகள்"
+        one: உரை
+        other: உரைகள்
       statement_to_parliament:
-        one: "பாராளுமன்றத்துக்கான அறிக்கை"
-        other: "பாராளுமன்றத்துக்கான அறிக்கைகள்"
+        one: பாராளுமன்றத்துக்கான அறிக்கை
+        other: பாராளுமன்றத்துக்கான அறிக்கைகள்
       statistical_data_set:
-        one: "புள்ளிவிபர தரவுத் தொகுதி"
-        other: "புள்ளிவிபர தரவுத் தொகுதிகள்"
+        one: புள்ளிவிபர தரவுத் தொகுதி
+        other: புள்ளிவிபர தரவுத் தொகுதிகள்
       statutory_guidance:
         one:
         other:
       transcript:
-        one: "உரை வடிவம்"
-        other: "உரை வடிவங்கள்"
+        one: உரை வடிவம்
+        other: உரை வடிவங்கள்
       transparency:
-        one: "வெளிப்படையான தரவு"
-        other: "வெளிப்படையான தரவு"
+        one: வெளிப்படையான தரவு
+        other: வெளிப்படையான தரவு
       world_news_story:
         one:
         other:
       written_statement:
-        one: "பாராளுமன்றத்துக்கான எழுத்து மூலமான அறிக்கை"
-        other: "பாராளுமன்றத்துக்கான எழுத்து மூலமான அறிக்கைகள்"
+        one: பாராளுமன்றத்துக்கான எழுத்து மூலமான அறிக்கை
+        other: பாராளுமன்றத்துக்கான எழுத்து மூலமான அறிக்கைகள்
     contents:
     footer_meta:
       full_page_history:
       page_history:
       published:
       updated:
-    published: "பிரசுரிக்கப்பட்டது"
-    read: "கட்டுரையின் %{title} வாசிக்கவும்"
+    published: பிரசுரிக்கப்பட்டது
+    read: கட்டுரையின் %{title} வாசிக்கவும்
     speech:
       author_title:
-        minister: "அமைச்சர்"
-        speaker: "எழுத்தாளர்"
-      delivered_on: "அன்று விநியோகிக்கப்பட்டது:"
+        minister: அமைச்சர்
+        speaker: எழுத்தாளர்
+      delivered_on: 'அன்று விநியோகிக்கப்பட்டது:'
       delivery_title:
-        minister: "அமைச்சர்"
-        speaker: "சபாநாயகர்"
-      written_on: "அன்று எழுதப்பட்டது:"
-    updated: "இற்றைப்படுத்தப்பட்டது"
-    view: "பார்வையிடுக '%{title}'"
+        minister: அமைச்சர்
+        speaker: சபாநாயகர்
+      written_on: 'அன்று எழுதப்பட்டது:'
+    updated: இற்றைப்படுத்தப்பட்டது
+    view: பார்வையிடுக '%{title}'
   people:
     heading:
       one:
@@ -189,21 +189,21 @@ ta:
   world_location:
     type:
       international_delegation:
-        one: "சர்வதேச தூதுக்குழு"
-        other: "சர்வதேச தூதுக்குழுக்கள்"
+        one: சர்வதேச தூதுக்குழு
+        other: சர்வதேச தூதுக்குழுக்கள்
       world_location:
-        one: "உலக அமைவிடம்"
-        other: "உலக அமைவிடங்கள்"
+        one: உலக அமைவிடம்
+        other: உலக அமைவிடங்கள்
     headings:
-      announcements: "எங்களது அறிவிப்புகள்"
-      country: "நாடு"
-      documents: "ஆவணங்கள்"
-      mission: "எங்களது இலட்சியம்"
-      organisations: "ஸ்தாபனங்கள்"
-      publications: "எங்களது வெளியீடுகள்"
-      quick_links: "விரைவான இணைப்புகள்"
-      related_policies: "சம்பந்தப்பட்ட கொள்கைகள்"
-      statistics: "எங்களது புள்ளிவிபரம்"
+      announcements: எங்களது அறிவிப்புகள்
+      country: நாடு
+      documents: ஆவணங்கள்
+      mission: எங்களது இலட்சியம்
+      organisations: ஸ்தாபனங்கள்
+      publications: எங்களது வெளியீடுகள்
+      quick_links: விரைவான இணைப்புகள்
+      related_policies: சம்பந்தப்பட்ட கொள்கைகள்
+      statistics: எங்களது புள்ளிவிபரம்
   activerecord:
     attributes:
       attachment:
@@ -248,7 +248,7 @@ ta:
       unique_reference:
       unnumbered_hoc_paper:
   announcements:
-    heading: "அறிவிப்பு"
+    heading: அறிவிப்பு
     view_all:
   attachment:
     accessibility:
@@ -256,14 +256,14 @@ ta:
         மாற்று வடிவில் இந்த ஆவணத்தை  வேண்டிக் கொள்வதற்கு  வெளியீட்டின் தலைப்புடன்
         ("%{title}")%{references} உங்களது முகவரி, தொலைபேசி இலக்கம் என்பவற்றையும்  குறிப்பிட்டு
         தயவுசெய்து மின்னஞ்சல் %{email} செய்யவும்.
-      heading: "விசேட  தேவை  கொண்டவர்களுக்கான உறுதுணை  தொழில்நுட்பத்தை உபயோகிப்பவர்களுக்கு
-        இந்தக்  கோவை பொருத்தமானதாக இல்லாதிருக்கலாம்."
-      request_a_different_format: "ஓர் வேறுபட்ட வடிவத்தை  வேண்டிக்கொள்ளுதல்"
+      heading: விசேட  தேவை  கொண்டவர்களுக்கான உறுதுணை  தொழில்நுட்பத்தை உபயோகிப்பவர்களுக்கு
+        இந்தக்  கோவை பொருத்தமானதாக இல்லாதிருக்கலாம்.
+      request_a_different_format: ஓர் வேறுபட்ட வடிவத்தை  வேண்டிக்கொள்ளுதல்
     headings:
-      order_a_copy: "பிரதியொன்றுக்கு கட்டளையிடுதல்"
-      order_a_copy_full: "வெளியீடு ஒன்றின் பிரதிக்கு கட்டளையிடுதல்"
-      published: "பிரசுரிக்கப்பட்டது"
-      reference: "குறிப்புரை"
+      order_a_copy: பிரதியொன்றுக்கு கட்டளையிடுதல்
+      order_a_copy_full: வெளியீடு ஒன்றின் பிரதிக்கு கட்டளையிடுதல்
+      published: பிரசுரிக்கப்பட்டது
+      reference: குறிப்புரை
       unnumbered_command_paper:
       unnumbered_hoc_paper:
     opendocument:
@@ -281,8 +281,8 @@ ta:
     see_all_updates:
     updated_at:
   contact:
-    contact_form: "தொடர்புகொள்ளல் படிவம்"
-    email: "மின்னஞ்சல்"
+    contact_form: தொடர்புகொள்ளல் படிவம்
+    email: மின்னஞ்சல்
   corporate_information_page:
     type:
       link_text:
@@ -297,44 +297,44 @@ ta:
         membership:
         our_energy_use:
         our_governance:
-        personal_information_charter: "தனிப்பட்ட தகவல் பட்டயம்"
+        personal_information_charter: தனிப்பட்ட தகவல் பட்டயம்
         petitions_and_campaigns:
         procurement:
-        publication_scheme: "பிரசுரித்தல் திட்டம்"
+        publication_scheme: பிரசுரித்தல் திட்டம்
         recruitment:
         research:
-        social_media_use: "சமூக ஊடகப் பயன்பாடு"
+        social_media_use: சமூக ஊடகப் பயன்பாடு
         staff_update:
         statistics:
         terms_of_reference:
-        welsh_language_scheme: "வெல்ஷ் மொழித் திட்டம்"
+        welsh_language_scheme: வெல்ஷ் மொழித் திட்டம்
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document_filters:
-    description: "உங்களது &nbsp உடன் பொருந்தும் &nbsp பெறுபேறுகளைக் காண்பிப்பதற்கு
-      வடிகட்டிகளை நீங்கள் உபயோகிப்பதற்கு முடியும்."
+    description: உங்களது &nbsp உடன் பொருந்தும் &nbsp பெறுபேறுகளைக் காண்பிப்பதற்கு
+      வடிகட்டிகளை நீங்கள் உபயோகிப்பதற்கு முடியும்.
     no_results:
-      description: "உங்களது தேடல் எல்லையை நிர்ணயிப்பதற்கு முயற்சித்து மீண்டும் முயலவும்"
-      title: "பொருந்தும் வகையிலான ஆவணங்கள் அங்கில்லை"
+      description: உங்களது தேடல் எல்லையை நிர்ணயிப்பதற்கு முயற்சித்து மீண்டும் முயலவும்
+      title: பொருந்தும் வகையிலான ஆவணங்கள் அங்கில்லை
       tna_heading:
       tna_link:
     world_locations:
-      all: "அனைத்து அமைவிடங்களும்"
-      label: "உலக அமைவிடங்கள்"
+      all: அனைத்து அமைவிடங்களும்
+      label: உலக அமைவிடங்கள்
   feeds:
     email:
     feed:
     get_updates_to_this_list:
-    latest_activity: "சமீபத்தைய நடவடிக்கை"
+    latest_activity: சமீபத்தைய நடவடிக்கை
   i18n:
     direction: ltr
   language_names:
-    ta: "தமிழ்"
+    ta: தமிழ்
   latest_feed:
-    no_updates: "இதுவரை இற்றைப்படுத்தல்கள் இல்லை"
-    title: "சமீபத்தையது"
+    no_updates: இதுவரை இற்றைப்படுத்தல்கள் இல்லை
+    title: சமீபத்தையது
   national_statistics:
     heading:
   number:
@@ -343,121 +343,121 @@ ta:
         format: "%n%u"
   organisation:
     about:
-      read_more: "நாங்கள் என்ன  செய்கிறோம் என்பது பற்றி கூடுதலாக வாசிக்கவும்"
+      read_more: நாங்கள் என்ன  செய்கிறோம் என்பது பற்றி கூடுதலாக வாசிக்கவும்
     corporate_information:
-      access_our_info: "எங்களது தகவல்களை மதிப்பிடவும்"
-      foi_how_to: "தகவல் சுதந்திரத்துக்கான வேண்டுகோளை எப்படி மேற்கொள்வது"
-      foi_releases: "தகவல் சுதந்திர  வெளியிடுதல்கள்"
-      jobs_and_contacts: "வேலைகள் மற்றும் ஒப்பந்தங்கள்"
+      access_our_info: எங்களது தகவல்களை மதிப்பிடவும்
+      foi_how_to: தகவல் சுதந்திரத்துக்கான வேண்டுகோளை எப்படி மேற்கொள்வது
+      foi_releases: தகவல் சுதந்திர  வெளியிடுதல்கள்
+      jobs_and_contacts: வேலைகள் மற்றும் ஒப்பந்தங்கள்
       organisation_chart:
-      transparency: "வெளிப்படையான தரவு"
+      transparency: வெளிப்படையான தரவு
     foi_exemption_html:
     headings:
-      chief_professional_officers: "எங்களது பிரதம தொழில்சார் தகைமை அதிகாரிகள்"
-      contact: "தொடர்பு %{name}"
-      corporate_information: "கூட்டாண்மைத் தகவல்"
-      corporate_reports: "கூட்டாண்மை அறிக்கைகள்"
+      chief_professional_officers: எங்களது பிரதம தொழில்சார் தகைமை அதிகாரிகள்
+      contact: தொடர்பு %{name}
+      corporate_information: கூட்டாண்மைத் தகவல்
+      corporate_reports: கூட்டாண்மை அறிக்கைகள்
       documents:
       freedom_of_information_act:
       making_foi_requests:
-      our_announcements: "எங்களது அறிவிப்புகள்"
+      our_announcements: எங்களது அறிவிப்புகள்
       our_consultations:
       our_judges:
-      our_management: "எங்களது முகாமைத்துவம்"
-      our_ministers: "எங்களது அமைச்சர்கள்"
-      our_policies: "எங்களது கொள்கைகள்"
-      our_publications: "எங்களது  வெளியீடுகள்"
-      our_senior_military_officials: "எங்களது சிரேஷ்ட இராணுவ அதிகாரிகள்"
-      our_services: "எங்களது  சேவைகள்"
-      our_statistics: "எங்களது புள்ளிவிபரம்"
-      our_topics: "இந்த விடயங்கள் மீது நாங்கள் செயலாற்றுகிறோம்"
-      special_representatives: "விசேட பிரதிநிதிகள்"
-      traffic_commissioners: "போக்குவரத்து ஆணையாளர்கள்"
-      what_we_do: "நாங்கள் செய்வது என்ன"
+      our_management: எங்களது முகாமைத்துவம்
+      our_ministers: எங்களது அமைச்சர்கள்
+      our_policies: எங்களது கொள்கைகள்
+      our_publications: எங்களது  வெளியீடுகள்
+      our_senior_military_officials: எங்களது சிரேஷ்ட இராணுவ அதிகாரிகள்
+      our_services: எங்களது  சேவைகள்
+      our_statistics: எங்களது புள்ளிவிபரம்
+      our_topics: இந்த விடயங்கள் மீது நாங்கள் செயலாற்றுகிறோம்
+      special_representatives: விசேட பிரதிநிதிகள்
+      traffic_commissioners: போக்குவரத்து ஆணையாளர்கள்
+      what_we_do: நாங்கள் செய்வது என்ன
       who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:
       step3_html:
   policies:
-    heading: "கொள்கைகள்"
+    heading: கொள்கைகள்
     view_all:
   publications:
-    heading: "வெளியீடுகள்"
+    heading: வெளியீடுகள்
     headings:
-      detail: "விபரம்"
-  read_more: "மேலும் வாசிக்கவும்"
+      detail: விபரம்
+  read_more: மேலும் வாசிக்கவும்
   see_all:
-    announcement: "எங்களது அனைத்து அறிவிப்புகள் பார்க்கவும்"
-    authored_article: "எங்களது அனைத்து எழுதப்பட்ட கட்டுரைகள் பார்க்கவும்"
-    case_study: "எங்களது அனைத்து சம்பவ ஆய்வுக் கற்கைகள் பார்க்கவும்"
-    closed_consultation: "எங்களது அனைத்து வரையறுக்கப்பட்ட நிலையிலான  கலந்தாலோசனைகள்
-      பார்க்கவும்"
-    consultation: "எங்களது அனைத்து கலந்தாலோசனைகள் பார்க்கவும்"
-    consultation_outcome: "எங்களது அனைத்து கலந்தாலோசனைப்முடிவுகள் பார்க்கவும்"
-    corporate_report: "எங்களது அனைத்து கூட்டாண்மை அறிக்கைகள் பார்க்கவும்"
-    correspondence: "எங்களது அனைத்து தொடர்புகள் பார்க்கவும்"
+    announcement: எங்களது அனைத்து அறிவிப்புகள் பார்க்கவும்
+    authored_article: எங்களது அனைத்து எழுதப்பட்ட கட்டுரைகள் பார்க்கவும்
+    case_study: எங்களது அனைத்து சம்பவ ஆய்வுக் கற்கைகள் பார்க்கவும்
+    closed_consultation: எங்களது அனைத்து வரையறுக்கப்பட்ட நிலையிலான  கலந்தாலோசனைகள்
+      பார்க்கவும்
+    consultation: எங்களது அனைத்து கலந்தாலோசனைகள் பார்க்கவும்
+    consultation_outcome: எங்களது அனைத்து கலந்தாலோசனைப்முடிவுகள் பார்க்கவும்
+    corporate_report: எங்களது அனைத்து கூட்டாண்மை அறிக்கைகள் பார்க்கவும்
+    correspondence: எங்களது அனைத்து தொடர்புகள் பார்க்கவும்
     decision:
-    detailed_guidance: "எங்களது அனைத்து விளக்கமான வழிகாட்டல் பார்க்கவும்"
+    detailed_guidance: எங்களது அனைத்து விளக்கமான வழிகாட்டல் பார்க்கவும்
     document_collection:
-    draft_text: "எங்களது அனைத்து வரைபு உரைகள் பார்க்கவும்"
-    fatality_notice: "எங்களது அனைத்து இடர் அறிவித்தல்கள் பார்க்கவும்"
-    foi_release: "எங்களது அனைத்து தகவல்களின் சுதந்திரமான  வெளியிடுதல்கள் பார்க்கவும்"
-    form: "எங்களது அனைத்து படிவங்கள் பார்க்கவும்"
-    government_response: "எங்களது அனைத்து அரசாங்க பதிலிறுப்புகள் பார்க்கவும்"
-    guidance: "எங்களது அனைத்து வழிகாட்டல் பார்க்கவும்"
-    impact_assessment: "எங்களது அனைத்து தாக்க மதிப்பீடுகள் பார்க்கவும்"
-    imported: "எங்களது அனைத்து இறக்குமதி செய்யப்பட்ட - எதிர்பார்க்கும் வகை பார்க்கவும்"
+    draft_text: எங்களது அனைத்து வரைபு உரைகள் பார்க்கவும்
+    fatality_notice: எங்களது அனைத்து இடர் அறிவித்தல்கள் பார்க்கவும்
+    foi_release: எங்களது அனைத்து தகவல்களின் சுதந்திரமான  வெளியிடுதல்கள் பார்க்கவும்
+    form: எங்களது அனைத்து படிவங்கள் பார்க்கவும்
+    government_response: எங்களது அனைத்து அரசாங்க பதிலிறுப்புகள் பார்க்கவும்
+    guidance: எங்களது அனைத்து வழிகாட்டல் பார்க்கவும்
+    impact_assessment: எங்களது அனைத்து தாக்க மதிப்பீடுகள் பார்க்கவும்
+    imported: எங்களது அனைத்து இறக்குமதி செய்யப்பட்ட - எதிர்பார்க்கும் வகை பார்க்கவும்
     international_treaty:
-    map: "எங்களது அனைத்து வரைபடங்கள் பார்க்கவும்"
-    national_statistics: "எங்களது அனைத்து புள்ளிவிபரம் - தேசிய புள்ளிவிபரம் பார்க்கவும்"
-    news_article: "எங்களது அனைத்து செய்திக் கட்டுரைகள் பார்க்கவும்"
-    news_story: "எங்களது அனைத்து செய்திக் கதைகள் பார்க்கவும்"
+    map: எங்களது அனைத்து வரைபடங்கள் பார்க்கவும்
+    national_statistics: எங்களது அனைத்து புள்ளிவிபரம் - தேசிய புள்ளிவிபரம் பார்க்கவும்
+    news_article: எங்களது அனைத்து செய்திக் கட்டுரைகள் பார்க்கவும்
+    news_story: எங்களது அனைத்து செய்திக் கதைகள் பார்க்கவும்
     notice:
-    open_consultation: "எங்களது அனைத்து திறந்த கலந்தாலோசனைகள் பார்க்கவும்"
-    oral_statement: "எங்களது அனைத்து பாராளுமன்றத்துக்கு வாய் மூலமான அறிக்கைகள் பார்க்கவும்"
-    policy: "எங்களது அனைத்து கொள்கைகள் பார்க்கவும்"
-    policy_paper: "எங்களது அனைத்து கொள்கைப் பத்திரங்கள் பார்க்கவும்"
-    press_release: "எங்களது அனைத்து செய்தி வெளியீடுகள் பார்க்கவும்"
-    promotional: "எங்களது அனைத்து விளம்பர ஊக்குவிப்பு பொருள் பார்க்கவும்"
-    publication: "எங்களது அனைத்து பிரசுரங்கள் பார்க்கவும்"
+    open_consultation: எங்களது அனைத்து திறந்த கலந்தாலோசனைகள் பார்க்கவும்
+    oral_statement: எங்களது அனைத்து பாராளுமன்றத்துக்கு வாய் மூலமான அறிக்கைகள் பார்க்கவும்
+    policy: எங்களது அனைத்து கொள்கைகள் பார்க்கவும்
+    policy_paper: எங்களது அனைத்து கொள்கைப் பத்திரங்கள் பார்க்கவும்
+    press_release: எங்களது அனைத்து செய்தி வெளியீடுகள் பார்க்கவும்
+    promotional: எங்களது அனைத்து விளம்பர ஊக்குவிப்பு பொருள் பார்க்கவும்
+    publication: எங்களது அனைத்து பிரசுரங்கள் பார்க்கவும்
     regulation:
-    research: "எங்களது அனைத்து ஆராய்ச்சி மற்றும் பகுப்பாய்தல் பார்க்கவும்"
-    speaking_notes: "எங்களது அனைத்து உரைக் குறிப்புகள் பார்க்கவும்"
-    speech: "எங்களது அனைத்து உரைகள் பார்க்கவும்"
-    statement_to_parliament: "எங்களது அனைத்து பாராளுமன்றத்துக்கான அறிக்கைகள் பார்க்கவும்"
-    statistical_data_set: "எங்களது அனைத்து புள்ளிவிபர தரவுத் தொகுதிகள் பார்க்கவும்"
-    statistics: "எங்களது அனைத்து புள்ளிவிபரம் பார்க்கவும்"
+    research: எங்களது அனைத்து ஆராய்ச்சி மற்றும் பகுப்பாய்தல் பார்க்கவும்
+    speaking_notes: எங்களது அனைத்து உரைக் குறிப்புகள் பார்க்கவும்
+    speech: எங்களது அனைத்து உரைகள் பார்க்கவும்
+    statement_to_parliament: எங்களது அனைத்து பாராளுமன்றத்துக்கான அறிக்கைகள் பார்க்கவும்
+    statistical_data_set: எங்களது அனைத்து புள்ளிவிபர தரவுத் தொகுதிகள் பார்க்கவும்
+    statistics: எங்களது அனைத்து புள்ளிவிபரம் பார்க்கவும்
     statutory_guidance:
-    transcript: "எங்களது அனைத்து உரை வடிவங்கள் பார்க்கவும்"
-    transparency: "எங்களது அனைத்து வெளிப்படையான தரவு பார்க்கவும்"
-    written_statement: "எங்களது அனைத்து பாராளுமன்றத்துக்கான எழுத்து மூலமான அறிக்கைகள்
-      பார்க்கவும்"
+    transcript: எங்களது அனைத்து உரை வடிவங்கள் பார்க்கவும்
+    transparency: எங்களது அனைத்து வெளிப்படையான தரவு பார்க்கவும்
+    written_statement: எங்களது அனைத்து பாராளுமன்றத்துக்கான எழுத்து மூலமான அறிக்கைகள்
+      பார்க்கவும்
   social_media:
     follow_us:
   support:
     array:
-      last_word_connector: "மற்றும்"
+      last_word_connector: மற்றும்
   time:
     formats:
       long_ordinal: "%e %B %Y%H:%M"
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: "உங்களது தனிப்பட்ட தகவல்களை எப்படி நாங்கள்
-        கையாள்கிறோம் என்பதை எங்களது %{link} விளக்கும்"
-      publication_scheme_html: "எங்களது %{link} நாங்கள் வழமையாக வெளியிடும் தகவல்களின்
-        \ வகைகள் பற்றி வாசிக்கவும்"
-      social_media_use_html: "எங்களது  கொள்கையை %{link} இல் வாசிக்கவும்"
+      personal_information_charter_html: உங்களது தனிப்பட்ட தகவல்களை எப்படி நாங்கள்
+        கையாள்கிறோம் என்பதை எங்களது %{link} விளக்கும்
+      publication_scheme_html: எங்களது %{link} நாங்கள் வழமையாக வெளியிடும் தகவல்களின்  வகைகள்
+        பற்றி வாசிக்கவும்
+      social_media_use_html: எங்களது  கொள்கையை %{link} இல் வாசிக்கவும்
       welsh_language_scheme_html: "%{link} இல் பிரசுரிப்பதற்கான எங்களது பற்றுறுதி
         பற்றி கண்டறியவும்"
-    find_out_more: "முழுமையான விபரம் மற்றும்  அனைத்து தொடர்பு விபரங்களையும் காண்க"
+    find_out_more: முழுமையான விபரம் மற்றும்  அனைத்து தொடர்பு விபரங்களையும் காண்க
     headings:
-      about_us: "எங்களைப் பற்றி"
-      contact_us: "எங்களைத் தொடர்பு கொள்க"
-      corporate_information: "கூட்டாண்மைத் தகவல்"
-      follow_us: "எங்களைப் பின்பற்றுங்கள்"
-      our_people: "எங்களது மக்கள்"
-      our_services: "எங்களது சேவைகள்"
-    location: "அமைவிடம்"
-    part_of: "பகுதி"
+      about_us: எங்களைப் பற்றி
+      contact_us: எங்களைத் தொடர்பு கொள்க
+      corporate_information: கூட்டாண்மைத் தகவல்
+      follow_us: எங்களைப் பின்பற்றுங்கள்
+      our_people: எங்களது மக்கள்
+      our_services: எங்களது சேவைகள்
+    location: அமைவிடம்
+    part_of: பகுதி

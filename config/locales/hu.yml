@@ -176,14 +176,14 @@ hu:
         one: Információhoz való joggal kapcsolatos közlemény
         other: Információhoz való joggal kapcsolatos közlemények
       form:
-        one: "Űrlap"
-        other: "Űrlapok"
+        one: Űrlap
+        other: Űrlapok
       government_response:
         one: Kormányválasz
         other: Kormányválaszok
       guidance:
-        one: "Útmutató"
-        other: "Útmutató"
+        one: Útmutató
+        other: Útmutató
       impact_assessment:
         one: Hatásvizsgálat
         other: Hatásvizsgálatok
@@ -260,17 +260,17 @@ hu:
         one:
         other:
       transcript:
-        one: "Átirat"
-        other: "Átiratok"
+        one: Átirat
+        other: Átiratok
       transparency:
-        one: "Átláthatósági adatok"
-        other: "Átláthatósági adatok"
+        one: Átláthatósági adatok
+        other: Átláthatósági adatok
       world_news_story:
         one:
         other:
       written_statement:
-        one: "Írásbeli parlamenti nyilatkozat"
-        other: "Írásbeli parlamenti nyilatkozatok"
+        one: Írásbeli parlamenti nyilatkozat
+        other: Írásbeli parlamenti nyilatkozatok
     updated: 'Utolsó frissítés:'
     view: Tekintse meg a következő dokumentumot '%{title}'
   document_filters:
@@ -309,9 +309,9 @@ hu:
       access_our_info: Hozzáférés információinkhoz
       foi_how_to: Az információigénylés menete
       foi_releases: Információhoz való joggal kapcsolatos közlemények
-      jobs_and_contacts: "Állások"
+      jobs_and_contacts: Állások
       organisation_chart:
-      transparency: "Átláthatósági adatok"
+      transparency: Átláthatósági adatok
     foi_exemption_html:
     headings:
       chief_professional_officers: Szakmai vezetőink
@@ -416,7 +416,7 @@ hu:
     follow_us:
   support:
     array:
-      last_word_connector: "és"
+      last_word_connector: és
   time:
     formats:
       long_ordinal: "%Y %B %e %H:%M"

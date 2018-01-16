@@ -53,10 +53,10 @@ vi:
       heading: 'File này không phù hợp với công nghệ hỗ trợ của người dùng '
       request_a_different_format: Yêu cầu một định dạng khác
     headings:
-      order_a_copy: "Đặt một bản sao"
-      order_a_copy_full: "Đặt một bản sao của ấn phẩm truyền thông"
-      published: "Đã đăng"
-      reference: "đối với"
+      order_a_copy: Đặt một bản sao
+      order_a_copy_full: Đặt một bản sao của ấn phẩm truyền thông
+      published: Đã đăng
+      reference: đối với
       unnumbered_command_paper:
       unnumbered_hoc_paper:
     opendocument:
@@ -113,20 +113,20 @@ vi:
       published:
       updated:
     headings:
-      applies_to_nations: "Áp dụngng cho"
+      applies_to_nations: Áp dụngng cho
       attachments:
         one: Tài liệu
         other: Tài liệu
       from:
       location:
       part_of:
-    published: "Đã xuất bản"
-    read: "Đọc bài có  %{title}"
+    published: Đã xuất bản
+    read: Đọc bài có  %{title}
     speech:
       author_title:
         minister: Thứ trưởng
         speaker: Tác giả
-      delivered_on: "Đưa ra:"
+      delivered_on: 'Đưa ra:'
       delivery_title:
         minister: Thứ trưởng
         speaker: Người phát biểu
@@ -184,8 +184,8 @@ vi:
         one: hướng dẫn
         other: hướng dẫn
       impact_assessment:
-        one: "Đánh giá tác động"
-        other: "Đánh giá tác động"
+        one: Đánh giá tác động
+        other: Đánh giá tác động
       imported:
         one: Loại tài liệu đính kèm
         other: Loại tài liệu đính kèm
@@ -331,9 +331,9 @@ vi:
       our_services: Các dịch vụ của chúng tôi
       our_statistics: Thống kê
       our_topics: Những lĩnh vực chúng tôi hoạt động
-      special_representatives: "Đại diện đặc biệt"
+      special_representatives: Đại diện đặc biệt
       traffic_commissioners: Các ủy viên giao thông
-      what_we_do: "Điều chúng tôi làm"
+      what_we_do: Điều chúng tôi làm
       who_we_are:
     making_foi_requests:
       step1_html:
@@ -354,7 +354,7 @@ vi:
     heading: Tài liệu truyền thông
     headings:
       detail: Chi tiết
-  read_more: "Đọc thêm"
+  read_more: Đọc thêm
   roles:
     heading:
       one:
@@ -423,7 +423,7 @@ vi:
   world_location:
     headings:
       announcements: Các thông báo của chúng tôi
-      country: "Đất nước"
+      country: Đất nước
       documents: Tài liệu
       mission: Nhiệm vụ của chúng tôi
       organisations: Các tổ chức
@@ -436,7 +436,7 @@ vi:
         one: Phái đoàn quốc tế
         other: Các phái đoàn quốc tế
       world_location:
-        one: "Địa điểm trên thế giới"
+        one: Địa điểm trên thế giới
         other: Các địa điểm trên thế giới
   worldwide_organisation:
     corporate_information:
@@ -445,7 +445,7 @@ vi:
         tôi xử lý thông tin cá nhân của bạn"
       publication_scheme_html: Xem các loại thông tin mà chúng tôi cập nhật thường
         xuyên tại %{link}
-      social_media_use_html: "Đọc chính sách của chúng tôi tại %{link}"
+      social_media_use_html: Đọc chính sách của chúng tôi tại %{link}
       welsh_language_scheme_html: Tìm hiểu các cam kết của chúng tôi trong việc công
         bố thông tin tại %{link}
     find_out_more: Xem hồ sơ đầy đủ và tất cả các chi tiết liên hệ
@@ -456,5 +456,5 @@ vi:
       follow_us: Kết nối với chúng tôi
       our_people: Nhân viên Bộ Ngoại giao Anh
       our_services: Dịch vụ của chúng tôi
-    location: "Địa điểm"
+    location: Địa điểm
     part_of: Phần của

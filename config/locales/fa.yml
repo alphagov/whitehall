@@ -43,20 +43,20 @@ fa:
       unique_reference:
       unnumbered_hoc_paper:
   announcements:
-    heading: "اطلاعیه ها"
+    heading: اطلاعیه ها
     view_all:
   attachment:
     accessibility:
       full_help_html: برای درخواست این مقاله در ساختاری متفاوت مانند بریل، شنیداری
         و یا گونه فایلی متفاوت لطفا به آدرس %{email} با درج آدرس، شماره تلفن به همراه
         شماره کلاسه مقاله ایمیل بدهید  ("%{title}")%{references}.
-      heading: "این فایل ممکن است برای کاربران فن آوری کمکی مناسب نباشد"
-      request_a_different_format: "ساختار متفاوتی درخواست کنید"
+      heading: این فایل ممکن است برای کاربران فن آوری کمکی مناسب نباشد
+      request_a_different_format: ساختار متفاوتی درخواست کنید
     headings:
-      order_a_copy: "کپی سفارش دهید"
-      order_a_copy_full: "کپی سفارش دهید"
-      published: "منتشر شده"
-      reference: "مرجع"
+      order_a_copy: کپی سفارش دهید
+      order_a_copy_full: کپی سفارش دهید
+      published: منتشر شده
+      reference: مرجع
       unnumbered_command_paper:
       unnumbered_hoc_paper:
     opendocument:
@@ -74,8 +74,8 @@ fa:
     see_all_updates:
     updated_at:
   contact:
-    contact_form: "فرم ارتباط"
-    email: "ایمیل"
+    contact_form: فرم ارتباط
+    email: ایمیل
   corporate_information_page:
     type:
       link_text:
@@ -90,17 +90,17 @@ fa:
         membership:
         our_energy_use:
         our_governance:
-        personal_information_charter: "منشور اطلاعات شخصی"
+        personal_information_charter: منشور اطلاعات شخصی
         petitions_and_campaigns:
         procurement:
-        publication_scheme: "برنامه انتشار"
+        publication_scheme: برنامه انتشار
         recruitment:
         research:
-        social_media_use: "استفاده از رسانه اجتماعی"
+        social_media_use: استفاده از رسانه اجتماعی
         staff_update:
         statistics:
         terms_of_reference:
-        welsh_language_scheme: "برنامه زبان ولز"
+        welsh_language_scheme: برنامه زبان ولز
   date:
     formats:
       default: "%d %B %Y"
@@ -113,85 +113,85 @@ fa:
       published:
       updated:
     headings:
-      applies_to_nations: "در ارتباط با"
+      applies_to_nations: در ارتباط با
       attachments:
-        one: "مدرک"
-        other: "مدارک"
+        one: مدرک
+        other: مدارک
       from:
       location:
       part_of:
-    published: "منتشر شده"
-    read: "مقاله  %{title} را بخوانید"
+    published: منتشر شده
+    read: مقاله  %{title} را بخوانید
     speech:
       author_title:
-        minister: "معاون وزیر"
-        speaker: "نویسنده"
-      delivered_on: "ارائه شده در تاریخ:"
+        minister: معاون وزیر
+        speaker: نویسنده
+      delivered_on: 'ارائه شده در تاریخ:'
       delivery_title:
-        minister: "معاون وزیر"
-        speaker: "سخنگو"
-      written_on: "نوشته شده در:"
+        minister: معاون وزیر
+        speaker: سخنگو
+      written_on: 'نوشته شده در:'
     type:
       announcement:
-        one: "اعلامیه"
-        other: "اعلامیه ها"
+        one: اعلامیه
+        other: اعلامیه ها
       authored_article:
-        one: "مقاله"
-        other: "مقالات"
+        one: مقاله
+        other: مقالات
       blog_post:
         one:
         other:
       case_study:
-        one: "مطالعه ی موردی"
-        other: "مطالعه های موردی"
+        one: مطالعه ی موردی
+        other: مطالعه های موردی
       closed_consultation:
-        one: "رایزنی بسته"
-        other: "رایزنی های بسته"
+        one: رایزنی بسته
+        other: رایزنی های بسته
       consultation:
-        one: "رایزنی"
-        other: "رایزنی ها"
+        one: رایزنی
+        other: رایزنی ها
       consultation_outcome:
-        one: "نتیجه رایزنی"
-        other: "نتایج رایزنی"
+        one: نتیجه رایزنی
+        other: نتایج رایزنی
       corporate_report:
-        one: "گزارش سازمانی"
-        other: "گزارش های سازمانی"
+        one: گزارش سازمانی
+        other: گزارش های سازمانی
       correspondence:
-        one: "مکاتبه"
-        other: "مکاتبات"
+        one: مکاتبه
+        other: مکاتبات
       decision:
         one:
         other:
       detailed_guidance:
-        one: "راهنمای تفصیلی"
-        other: "راهنمای تفصیلی"
+        one: راهنمای تفصیلی
+        other: راهنمای تفصیلی
       document_collection:
-        one: "ردیف"
+        one: ردیف
         other:
       draft_text:
-        one: "متن پیش نویس"
-        other: "متون پیش نویس"
+        one: متن پیش نویس
+        other: متون پیش نویس
       foi_release:
-        one: "انتشار آزاد اطلاعات"
-        other: "انتشار آزاد اطلاعات"
+        one: انتشار آزاد اطلاعات
+        other: انتشار آزاد اطلاعات
       form:
-        one: "فرم"
-        other: "فرم ها"
+        one: فرم
+        other: فرم ها
       government_response:
-        one: "جوابیه دولت"
-        other: "جوابیه های دولت"
+        one: جوابیه دولت
+        other: جوابیه های دولت
       guidance:
-        one: "راهنمایی"
-        other: "راهنمایی"
+        one: راهنمایی
+        other: راهنمایی
       impact_assessment:
-        one: "ارزیابی تاثیرات"
-        other: "ارزیابی های تاثیرات"
+        one: ارزیابی تاثیرات
+        other: ارزیابی های تاثیرات
       imported:
-        one: "منتقل شده - در انتظار دسته بندی"
-        other: "منتقل شده - در انتظار دسته بندی"
+        one: منتقل شده - در انتظار دسته بندی
+        other: منتقل شده - در انتظار دسته بندی
       independent_report:
-        one: "گزارش مستقل"
-        other: "گزارش های مستقل"
+        one: گزارش مستقل
+        other: گزارش های مستقل
       international_treaty:
         one:
         other:
@@ -199,17 +199,17 @@ fa:
         one:
         other:
       map:
-        one: "نقشه"
-        other: "نقشه ها"
+        one: نقشه
+        other: نقشه ها
       national_statistics:
-        one: "آمار - آمار ملی"
-        other: "آمار - آمار ملی"
+        one: آمار - آمار ملی
+        other: آمار - آمار ملی
       news_article:
-        one: "مقاله ی خبری"
-        other: "مقالات خبری"
+        one: مقاله ی خبری
+        other: مقالات خبری
       news_story:
-        one: "خبر"
-        other: "اخبار"
+        one: خبر
+        other: اخبار
       nhs_content:
         one:
         other:
@@ -217,84 +217,84 @@ fa:
         one:
         other:
       official_statistics:
-        one: "آمار"
-        other: "آمار"
+        one: آمار
+        other: آمار
       open_consultation:
-        one: "رایزنی باز"
-        other: "رایزنی های باز"
+        one: رایزنی باز
+        other: رایزنی های باز
       oral_statement:
-        one: "گزارش شفاهی به پارلمان"
-        other: "گزارش های شفاهی به پارلمان"
+        one: گزارش شفاهی به پارلمان
+        other: گزارش های شفاهی به پارلمان
       policy_paper:
-        one: "مقاله ی سیاسی"
-        other: "مقاله های سیاسی"
+        one: مقاله ی سیاسی
+        other: مقاله های سیاسی
       press_release:
-        one: "بیانیه"
-        other: "بیانیه ها"
+        one: بیانیه
+        other: بیانیه ها
       promotional:
-        one: "مطالب تبلیغاتی"
-        other: "مطالب تبلیغاتی"
+        one: مطالب تبلیغاتی
+        other: مطالب تبلیغاتی
       publication:
-        one: "نشریه"
-        other: "نشریات"
+        one: نشریه
+        other: نشریات
       regulation:
         one:
         other:
       research:
-        one: "پژوهش و تحلیل"
-        other: "پژوهش و تحلیل"
+        one: پژوهش و تحلیل
+        other: پژوهش و تحلیل
       speaking_notes:
-        one: "موضوعات سخنرانی"
-        other: "موضوعات سخنرانی"
+        one: موضوعات سخنرانی
+        other: موضوعات سخنرانی
       speech:
-        one: "سخنرانی"
-        other: "سخنرانی ها"
+        one: سخنرانی
+        other: سخنرانی ها
       statement_to_parliament:
-        one: "گزارش به پارلمان"
-        other: "گزارش ها به پارلمان"
+        one: گزارش به پارلمان
+        other: گزارش ها به پارلمان
       statistical_data_set:
-        one: "بسته ی داده های آماری"
-        other: "بسته های داده های آماری"
+        one: بسته ی داده های آماری
+        other: بسته های داده های آماری
       statutory_guidance:
         one:
         other:
       transcript:
-        one: "رونوشت"
-        other: "رونوشت ها"
+        one: رونوشت
+        other: رونوشت ها
       transparency:
-        one: "داده های شفاف سازی"
-        other: "داده های شفاف سازی"
+        one: داده های شفاف سازی
+        other: داده های شفاف سازی
       world_news_story:
         one:
         other:
       written_statement:
-        one: "گزارش کتبی به پارلمان"
-        other: "گزارش های کتبی به پارلمان"
-    updated: "به روز رسانی شده"
-    view: "مشاهده '%{title}'"
+        one: گزارش کتبی به پارلمان
+        other: گزارش های کتبی به پارلمان
+    updated: به روز رسانی شده
+    view: مشاهده '%{title}'
   document_filters:
-    description: "با استفاده از این فیلتر ها می توانید نتایج جستجو را به سلیقه ی خود
-      محدود کنید"
+    description: با استفاده از این فیلتر ها می توانید نتایج جستجو را به سلیقه ی خود
+      محدود کنید
     no_results:
-      description: "جستجوی خود را گسترده تر و مجددا تلاش کنید"
-      title: "اسناد منطبق وجود ندارد"
+      description: جستجوی خود را گسترده تر و مجددا تلاش کنید
+      title: اسناد منطبق وجود ندارد
       tna_heading:
       tna_link:
     world_locations:
-      all: "تمام نقاط"
-      label: "موقعیت های جهانی"
+      all: تمام نقاط
+      label: موقعیت های جهانی
   feeds:
     email:
     feed:
     get_updates_to_this_list:
-    latest_activity: "آخرین تحولات"
+    latest_activity: آخرین تحولات
   i18n:
     direction: rtl
   language_names:
-    fa: "فارسی"
+    fa: فارسی
   latest_feed:
-    no_updates: "اطلاعات جدیدی در دست نیست"
-    title: "آخرین"
+    no_updates: اطلاعات جدیدی در دست نیست
+    title: آخرین
   national_statistics:
     heading:
   number:
@@ -303,37 +303,37 @@ fa:
         format:
   organisation:
     about:
-      read_more: "درباره ی فعالیت های ما بیشتر بخوانید"
+      read_more: درباره ی فعالیت های ما بیشتر بخوانید
     corporate_information:
-      access_our_info: "دسترسی به اطلاعات ما"
-      foi_how_to: "چگونه درخواست برای انتشار آزاد اطلاعات ارائه دهید"
-      foi_releases: "انتشار آزاد اطلاعات"
-      jobs_and_contacts: "مشاغل و قراردادها"
+      access_our_info: دسترسی به اطلاعات ما
+      foi_how_to: چگونه درخواست برای انتشار آزاد اطلاعات ارائه دهید
+      foi_releases: انتشار آزاد اطلاعات
+      jobs_and_contacts: مشاغل و قراردادها
       organisation_chart:
-      transparency: "داده های شفاف سازی"
+      transparency: داده های شفاف سازی
     foi_exemption_html:
     headings:
-      chief_professional_officers: "افسران ارشد حرفه ای ما"
-      contact: "تماس با %{name}"
-      corporate_information: "اطلاعات سازمانی"
-      corporate_reports: "گزارش های سازمانی"
+      chief_professional_officers: افسران ارشد حرفه ای ما
+      contact: تماس با %{name}
+      corporate_information: اطلاعات سازمانی
+      corporate_reports: گزارش های سازمانی
       documents:
       freedom_of_information_act:
       making_foi_requests:
-      our_announcements: "اطلاعیه های ما"
+      our_announcements: اطلاعیه های ما
       our_consultations:
       our_judges:
-      our_management: "مدیریت ما"
-      our_ministers: "معاونین وزیر ما"
-      our_policies: "سیاست های ما"
-      our_publications: "انتشارات ما"
-      our_senior_military_officials: "مقامات ارشد نظامی ما"
-      our_services: "خدمات ما"
-      our_statistics: "آمار ما"
-      our_topics: "ما در خصوص این موضوعات فعالیت می کنیم"
-      special_representatives: "نمایندگان ویژه"
-      traffic_commissioners: "ماموران ترافیک"
-      what_we_do: "فعالیت ما"
+      our_management: مدیریت ما
+      our_ministers: معاونین وزیر ما
+      our_policies: سیاست های ما
+      our_publications: انتشارات ما
+      our_senior_military_officials: مقامات ارشد نظامی ما
+      our_services: خدمات ما
+      our_statistics: آمار ما
+      our_topics: ما در خصوص این موضوعات فعالیت می کنیم
+      special_representatives: نمایندگان ویژه
+      traffic_commissioners: ماموران ترافیک
+      what_we_do: فعالیت ما
       who_we_are:
     making_foi_requests:
       step1_html:
@@ -348,13 +348,13 @@ fa:
     previous_roles_in_government:
     read_more:
   policies:
-    heading: "سیاست ها"
+    heading: سیاست ها
     view_all:
   publications:
-    heading: "انتشارات"
+    heading: انتشارات
     headings:
-      detail: "جزئیات"
-  read_more: "اطلاعات بیشتر"
+      detail: جزئیات
+  read_more: اطلاعات بیشتر
   roles:
     heading:
       one:
@@ -368,91 +368,91 @@ fa:
     previous_holders:
     read_more:
   see_all:
-    announcement: "تمامی اعلامیه ها ما را مشاهده کنید"
-    authored_article: "تمامی مقالات ما را مشاهده کنید"
-    case_study: "تمامی مطالعه های موردی ما را مشاهده کنید"
-    closed_consultation: "تمامی رایزنی های بسته ما را مشاهده کنید"
-    consultation: "تمامی رایزنی ها ما را مشاهده کنید"
-    consultation_outcome: "تمامی نتایج رایزنی ما را مشاهده کنید"
-    corporate_report: "تمامی گزارش های سازمانی ما را مشاهده کنید"
-    correspondence: "تمامی مکاتبات ما را مشاهده کنید"
+    announcement: تمامی اعلامیه ها ما را مشاهده کنید
+    authored_article: تمامی مقالات ما را مشاهده کنید
+    case_study: تمامی مطالعه های موردی ما را مشاهده کنید
+    closed_consultation: تمامی رایزنی های بسته ما را مشاهده کنید
+    consultation: تمامی رایزنی ها ما را مشاهده کنید
+    consultation_outcome: تمامی نتایج رایزنی ما را مشاهده کنید
+    corporate_report: تمامی گزارش های سازمانی ما را مشاهده کنید
+    correspondence: تمامی مکاتبات ما را مشاهده کنید
     decision:
-    detailed_guidance: "تمامی راهنمای تفصیلی ما را مشاهده کنید"
+    detailed_guidance: تمامی راهنمای تفصیلی ما را مشاهده کنید
     document_collection:
-    draft_text: "تمامی متون پیش نویس ما را مشاهده کنید"
-    fatality_notice: "تمامی اطلاعیه تلفات ما را مشاهده کنید"
-    foi_release: "تمامی انتشار آزاد اطلاعات ما را مشاهده کنید"
-    form: "تمامی فرم ها ما را مشاهده کنید"
-    government_response: "تمامی جوابیه های دولت ما را مشاهده کنید"
-    guidance: "تمامی راهنمایی ما را مشاهده کنید"
-    impact_assessment: "تمامی ارزیابی های تاثیرات ما را مشاهده کنید"
-    imported: "تمامی منتقل شده - در انتظار دسته بندی ما را مشاهده کنید"
+    draft_text: تمامی متون پیش نویس ما را مشاهده کنید
+    fatality_notice: تمامی اطلاعیه تلفات ما را مشاهده کنید
+    foi_release: تمامی انتشار آزاد اطلاعات ما را مشاهده کنید
+    form: تمامی فرم ها ما را مشاهده کنید
+    government_response: تمامی جوابیه های دولت ما را مشاهده کنید
+    guidance: تمامی راهنمایی ما را مشاهده کنید
+    impact_assessment: تمامی ارزیابی های تاثیرات ما را مشاهده کنید
+    imported: تمامی منتقل شده - در انتظار دسته بندی ما را مشاهده کنید
     international_treaty:
-    map: "تمامی نقشه ها ما را مشاهده کنید"
-    national_statistics: "تمامی آمار - آمار ملی ما را مشاهده کنید"
-    news_article: "تمامی مقالات خبری ما را مشاهده کنید"
-    news_story: "تمامی اخبار ما را مشاهده کنید"
+    map: تمامی نقشه ها ما را مشاهده کنید
+    national_statistics: تمامی آمار - آمار ملی ما را مشاهده کنید
+    news_article: تمامی مقالات خبری ما را مشاهده کنید
+    news_story: تمامی اخبار ما را مشاهده کنید
     notice:
-    open_consultation: "تمامی رایزنی های باز ما را مشاهده کنید"
-    oral_statement: "تمامی گزارش های شفاهی به پارلمان ما را مشاهده کنید"
-    policy: "تمامی سیاست ها ما را مشاهده کنید"
-    policy_paper: "تمامی مقاله های سیاسی ما را مشاهده کنید"
-    press_release: "تمامی بیانیه ها ما را مشاهده کنید"
-    promotional: "تمامی مطالب تبلیغاتی ما را مشاهده کنید"
-    publication: "تمامی نشریات ما را مشاهده کنید"
+    open_consultation: تمامی رایزنی های باز ما را مشاهده کنید
+    oral_statement: تمامی گزارش های شفاهی به پارلمان ما را مشاهده کنید
+    policy: تمامی سیاست ها ما را مشاهده کنید
+    policy_paper: تمامی مقاله های سیاسی ما را مشاهده کنید
+    press_release: تمامی بیانیه ها ما را مشاهده کنید
+    promotional: تمامی مطالب تبلیغاتی ما را مشاهده کنید
+    publication: تمامی نشریات ما را مشاهده کنید
     regulation:
-    research: "تمامی پژوهش و تحلیل ما را مشاهده کنید"
-    speaking_notes: "تمامی موضوعات سخنرانی ما را مشاهده کنید"
-    speech: "تمامی سخنرانی ها ما را مشاهده کنید"
-    statement_to_parliament: "تمامی گزارش ها به پارلمان ما را مشاهده کنید"
-    statistical_data_set: "تمامی بسته های داده های آماری ما را مشاهده کنید"
-    statistics: "تمامی آمار ما را مشاهده کنید"
+    research: تمامی پژوهش و تحلیل ما را مشاهده کنید
+    speaking_notes: تمامی موضوعات سخنرانی ما را مشاهده کنید
+    speech: تمامی سخنرانی ها ما را مشاهده کنید
+    statement_to_parliament: تمامی گزارش ها به پارلمان ما را مشاهده کنید
+    statistical_data_set: تمامی بسته های داده های آماری ما را مشاهده کنید
+    statistics: تمامی آمار ما را مشاهده کنید
     statutory_guidance:
-    transcript: "تمامی رونوشت ها ما را مشاهده کنید"
-    transparency: "تمامی داده های شفاف سازی ما را مشاهده کنید"
-    written_statement: "تمامی گزارش های کتبی به پارلمان ما را مشاهده کنید"
+    transcript: تمامی رونوشت ها ما را مشاهده کنید
+    transparency: تمامی داده های شفاف سازی ما را مشاهده کنید
+    written_statement: تمامی گزارش های کتبی به پارلمان ما را مشاهده کنید
   social_media:
     follow_us:
   support:
     array:
-      last_word_connector: "و"
+      last_word_connector: و
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   world_location:
     headings:
-      announcements: "اطلاعیه های ما"
-      country: "کشور"
-      documents: "مدارک"
-      mission: "هدف ما"
-      organisations: "سازمان ها"
-      publications: "انتشارات ما"
-      quick_links: "دسترسی سریع"
-      related_policies: "سیاست های مربوط"
-      statistics: "آمار ما"
+      announcements: اطلاعیه های ما
+      country: کشور
+      documents: مدارک
+      mission: هدف ما
+      organisations: سازمان ها
+      publications: انتشارات ما
+      quick_links: دسترسی سریع
+      related_policies: سیاست های مربوط
+      statistics: آمار ما
     type:
       international_delegation:
-        one: "هیأت بین المللی"
-        other: "هیأت های بین المللی"
+        one: هیأت بین المللی
+        other: هیأت های بین المللی
       world_location:
-        one: "موقعیت جهانی"
-        other: "موقعیت های جهانی"
+        one: موقعیت جهانی
+        other: موقعیت های جهانی
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
       personal_information_charter_html: "%{link} چگونگی نگهداری از اطلاعات شخصی شما
         را توضیح می دهد"
-      publication_scheme_html: "درباره نوع اطلاعاتی که ما به طور روال در %{link} منتشر
-        می کنیم بخوانید "
-      social_media_use_html: "سیاست ما را درباره  %{link} بخوانید"
-      welsh_language_scheme_html: "درباره تعهد ما به انتشار مطالب به %{link} بخوانید"
-    find_out_more: "مشاهده مشخصات کامل و تمام جزئیات تماس"
+      publication_scheme_html: 'درباره نوع اطلاعاتی که ما به طور روال در %{link} منتشر
+        می کنیم بخوانید '
+      social_media_use_html: سیاست ما را درباره  %{link} بخوانید
+      welsh_language_scheme_html: درباره تعهد ما به انتشار مطالب به %{link} بخوانید
+    find_out_more: مشاهده مشخصات کامل و تمام جزئیات تماس
     headings:
-      about_us: "درباره ما"
-      contact_us: "تماس با ما"
-      corporate_information: "اطلاعات سازمانی"
-      follow_us: "به صفحه های ما بپیوندید"
-      our_people: "کارمندان ما"
-      our_services: "خدمات ما"
-    location: "مکان"
-    part_of: "بخشی از"
+      about_us: درباره ما
+      contact_us: تماس با ما
+      corporate_information: اطلاعات سازمانی
+      follow_us: به صفحه های ما بپیوندید
+      our_people: کارمندان ما
+      our_services: خدمات ما
+    location: مکان
+    part_of: بخشی از

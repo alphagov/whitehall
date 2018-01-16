@@ -2,115 +2,115 @@ be:
   document:
     headings:
       attachments:
-        one: "Дакумент"
+        one: Дакумент
         few:
         many:
-        other: "Дакументы"
-      applies_to_nations: "У адносінах да"
+        other: Дакументы
+      applies_to_nations: У адносінах да
       from:
       location:
       part_of:
     type:
       announcement:
-        one: "Аб'ява"
+        one: Аб'ява
         few:
         many:
-        other: "Аб'явы"
+        other: Аб'явы
       authored_article:
-        one: "Аўтарскі артыкул"
+        one: Аўтарскі артыкул
         few:
         many:
-        other: "Аўтарскія артыкулы"
+        other: Аўтарскія артыкулы
       blog_post:
         one:
         few:
         many:
         other:
       case_study:
-        one: "Тэматычнае даследаванне"
+        one: Тэматычнае даследаванне
         few:
         many:
-        other: "Тэматычныя даследаванні"
+        other: Тэматычныя даследаванні
       closed_consultation:
-        one: "Закрытая кансультацыя"
+        one: Закрытая кансультацыя
         few:
         many:
-        other: "Закрытыя кансультацыі"
+        other: Закрытыя кансультацыі
       consultation:
-        one: "Кансультацыя"
+        one: Кансультацыя
         few:
         many:
-        other: "Кансультацыі"
+        other: Кансультацыі
       consultation_outcome:
-        one: "Вынік кансультацыі"
+        one: Вынік кансультацыі
         few:
         many:
-        other: "Вынікі кансультацыі"
+        other: Вынікі кансультацыі
       corporate_report:
-        one: "Карпаратыўная справаздача"
+        one: Карпаратыўная справаздача
         few:
         many:
-        other: "Карпаратыўныя справаздачы"
+        other: Карпаратыўныя справаздачы
       correspondence:
-        one: "Перапіска"
+        one: Перапіска
         few:
         many:
-        other: "Перапіска"
+        other: Перапіска
       decision:
         one:
         few:
         many:
         other:
       detailed_guidance:
-        one: "Падрабязнае кіраўніцтва"
+        one: Падрабязнае кіраўніцтва
         few:
         many:
-        other: "Падрабязнае кіраўніцтва"
+        other: Падрабязнае кіраўніцтва
       document_collection:
-        one: "Серыя"
+        one: Серыя
         few:
         many:
         other:
       draft_text:
-        one: "Чарнавік"
+        one: Чарнавік
         few:
         many:
-        other: "Чарнавікі"
+        other: Чарнавікі
       foi_release:
-        one: "Рэліз у межах Закона аб свабодзе інфармацыі"
+        one: Рэліз у межах Закона аб свабодзе інфармацыі
         few:
         many:
-        other: "Рэлізы ў межах Закона аб свабодзе інфармацыі"
+        other: Рэлізы ў межах Закона аб свабодзе інфармацыі
       form:
-        one: "Форма"
+        one: Форма
         few:
         many:
-        other: "Формы"
+        other: Формы
       government_response:
-        one: "Адказ ўрада"
+        one: Адказ ўрада
         few:
         many:
-        other: "Адказы ўрада"
+        other: Адказы ўрада
       guidance:
-        one: "Кіраўніцтва"
+        one: Кіраўніцтва
         few:
         many:
-        other: "Кіраўніцтва"
+        other: Кіраўніцтва
       impact_assessment:
-        one: "Ацэнка ўплыву"
+        one: Ацэнка ўплыву
         few:
         many:
-        other: "Ацэнкі ўплыву"
+        other: Ацэнкі ўплыву
       imported:
-        one: "імпартавана - чаканне тыпу"
+        one: імпартавана - чаканне тыпу
         few:
         many:
-        other: "імпартавана - чаканне тыпу"
+        other: імпартавана - чаканне тыпу
       independent_report:
-        one: "Незалежная справаздача"
+        one: Незалежная справаздача
         few:
         many:
-        other: "Незалежныя справаздачы"
+        other: Незалежныя справаздачы
       international_treaty:
         one:
         few:
@@ -122,25 +122,25 @@ be:
         many:
         other:
       map:
-        one: "Карта"
+        one: Карта
         few:
         many:
-        other: "Карты"
+        other: Карты
       national_statistics:
-        one: "Статыстыка - нацыянальная статыстыка"
+        one: Статыстыка - нацыянальная статыстыка
         few:
         many:
-        other: "Статыстыка - нацыянальная статыстыка"
+        other: Статыстыка - нацыянальная статыстыка
       news_article:
-        one: "Артыкул"
+        one: Артыкул
         few:
         many:
-        other: "Артыкулы"
+        other: Артыкулы
       news_story:
-        one: "Навіны"
+        one: Навіны
         few:
         many:
-        other: "Навіны"
+        other: Навіны
       nhs_content:
         one:
         few:
@@ -152,114 +152,114 @@ be:
         many:
         other:
       official_statistics:
-        one: "Статыстыка"
+        one: Статыстыка
         few:
         many:
-        other: "Статыстыка"
+        other: Статыстыка
       open_consultation:
-        one: "Адкрытая кансультацыя"
+        one: Адкрытая кансультацыя
         few:
         many:
-        other: "Адкрытыя кансультацыі"
+        other: Адкрытыя кансультацыі
       oral_statement:
-        one: "Вусны даклад у парламенце"
+        one: Вусны даклад у парламенце
         few:
         many:
-        other: "Вусныя даклады ў парламенце"
+        other: Вусныя даклады ў парламенце
       policy_paper:
-        one: "Праграмны дакумент"
+        one: Праграмны дакумент
         few:
         many:
-        other: "Праграмныя дакументы"
+        other: Праграмныя дакументы
       press_release:
-        one: "Прэс-рэліз"
+        one: Прэс-рэліз
         few:
         many:
-        other: "Прэс-рэлізы"
+        other: Прэс-рэлізы
       promotional:
-        one: "Рэкламны матэрыял"
+        one: Рэкламны матэрыял
         few:
         many:
-        other: "Рэкламныя матэрыялы"
+        other: Рэкламныя матэрыялы
       publication:
-        one: "Публікацыя"
+        one: Публікацыя
         few:
         many:
-        other: "Публікацыі"
+        other: Публікацыі
       regulation:
         one:
         few:
         many:
         other:
       research:
-        one: "Даследаванні і аналіз"
+        one: Даследаванні і аналіз
         few:
         many:
-        other: "Даследаванні і аналіз"
+        other: Даследаванні і аналіз
       speaking_notes:
-        one: "Нататкі да выступу"
+        one: Нататкі да выступу
         few:
         many:
-        other: "Нататкі да выступу"
+        other: Нататкі да выступу
       speech:
-        one: "Выступ"
+        one: Выступ
         few:
         many:
-        other: "Выступы"
+        other: Выступы
       statement_to_parliament:
-        one: "Заява ў парламенце"
+        one: Заява ў парламенце
         few:
         many:
-        other: "Заявы ў парламенце"
+        other: Заявы ў парламенце
       statistical_data_set:
-        one: "Статыстычныя дадзеныя"
+        one: Статыстычныя дадзеныя
         few:
         many:
-        other: "Статыстычныя дадзеныя"
+        other: Статыстычныя дадзеныя
       statutory_guidance:
         one:
         few:
         many:
         other:
       transcript:
-        one: "Поўны тэкст"
+        one: Поўны тэкст
         few:
         many:
-        other: "Поўны тэкст"
+        other: Поўны тэкст
       transparency:
-        one: "Адкрытыя дадзеныя"
+        one: Адкрытыя дадзеныя
         few:
         many:
-        other: "Адкрытыя дадзеныя"
+        other: Адкрытыя дадзеныя
       world_news_story:
         one:
         few:
         many:
         other:
       written_statement:
-        one: "Пісьмовая заява ў парламенце"
+        one: Пісьмовая заява ў парламенце
         few:
         many:
-        other: "Пісьмовыя заявы ў парламенце"
+        other: Пісьмовыя заявы ў парламенце
     contents:
     footer_meta:
       full_page_history:
       page_history:
       published:
       updated:
-    published: "Апублікаваны"
-    read: "Чытаць %{title} артыкул"
+    published: Апублікаваны
+    read: Чытаць %{title} артыкул
     speech:
       author_title:
-        minister: "Міністр"
-        speaker: "Аўтар"
-      delivered_on: "Зроблена:"
+        minister: Міністр
+        speaker: Аўтар
+      delivered_on: 'Зроблена:'
       delivery_title:
-        minister: "Міністр"
-        speaker: "Прамоўца"
-      written_on: "Напісана"
-    updated: "Адноўлена"
-    view: "Паглядзець '%{title}'"
+        minister: Міністр
+        speaker: Прамоўца
+      written_on: Напісана
+    updated: Адноўлена
+    view: Паглядзець '%{title}'
   people:
     heading:
       one:
@@ -287,25 +287,25 @@ be:
   world_location:
     type:
       international_delegation:
-        one: "Міжнародная дэлегацыя"
+        one: Міжнародная дэлегацыя
         few:
         many:
-        other: "Міжнародныя дэлегацыі"
+        other: Міжнародныя дэлегацыі
       world_location:
-        one: "Месцазнаходжанне ў свеце"
+        one: Месцазнаходжанне ў свеце
         few:
         many:
-        other: "Месцазнаходжання "
+        other: 'Месцазнаходжання '
     headings:
-      announcements: "Нашы аб'явы"
-      country: "Краіна"
-      documents: "Дакументы"
-      mission: "Наша місія"
-      organisations: "Арганізацыі"
-      publications: "Нашы публікацыі"
-      quick_links: "Хуткія спасылкі"
-      related_policies: "Падобныя напрамкі дзейнасці "
-      statistics: "Наша статыстыка"
+      announcements: Нашы аб'явы
+      country: Краіна
+      documents: Дакументы
+      mission: Наша місія
+      organisations: Арганізацыі
+      publications: Нашы публікацыі
+      quick_links: Хуткія спасылкі
+      related_policies: 'Падобныя напрамкі дзейнасці '
+      statistics: Наша статыстыка
   activerecord:
     attributes:
       attachment:
@@ -350,20 +350,20 @@ be:
       unique_reference:
       unnumbered_hoc_paper:
   announcements:
-    heading: "Аб'явы"
+    heading: Аб'явы
     view_all:
   attachment:
     accessibility:
       full_help_html: Каб зарасіць гэты дакумент у іншым фармаце, такім як шрыфт Брайля,
         аўдыё і інш. калі ласка, адпраўце электроннае паведамленне на %{email} з вашай
         адрэсай, тэлефонным нумарам і назвай дакумента ("%{title}")%{references}.
-      heading: "Гэты файл можа быць непрыдатным для карыстальнікаў дапаможных тэхналогій."
-      request_a_different_format: "Запрасіць файл у іншым фармаце."
+      heading: Гэты файл можа быць непрыдатным для карыстальнікаў дапаможных тэхналогій.
+      request_a_different_format: Запрасіць файл у іншым фармаце.
     headings:
-      order_a_copy: "Замовіць копію"
-      order_a_copy_full: "Замовіць копію гэтай публікацыі"
-      published: "Апублікаваны"
-      reference: "Спасылка"
+      order_a_copy: Замовіць копію
+      order_a_copy_full: Замовіць копію гэтай публікацыі
+      published: Апублікаваны
+      reference: Спасылка
       unnumbered_command_paper:
       unnumbered_hoc_paper:
     opendocument:
@@ -381,8 +381,8 @@ be:
     see_all_updates:
     updated_at:
   contact:
-    contact_form: "Кантактная форма"
-    email: "Электронная пошта"
+    contact_form: Кантактная форма
+    email: Электронная пошта
   corporate_information_page:
     type:
       link_text:
@@ -397,45 +397,45 @@ be:
         membership:
         our_energy_use:
         our_governance:
-        personal_information_charter: "Статут аб асабістай інфармацыі"
+        personal_information_charter: Статут аб асабістай інфармацыі
         petitions_and_campaigns:
         procurement:
-        publication_scheme: "Схема публікацый"
+        publication_scheme: Схема публікацый
         recruitment:
         research:
-        social_media_use: "Ужыванне сацыяльных медый"
+        social_media_use: Ужыванне сацыяльных медый
         staff_update:
         statistics:
         terms_of_reference:
-        welsh_language_scheme: "Валійская мова"
+        welsh_language_scheme: Валійская мова
   date:
     formats:
       default: "%d %B %Y"
       long_ordinal: "%e %B %Y"
   document_filters:
-    description: "Вы можаце выкарыстоўваць фільтры, каб пабачыць толькі тыя вынікі,
-      якія вас цікавяць."
+    description: Вы можаце выкарыстоўваць фільтры, каб пабачыць толькі тыя вынікі,
+      якія вас цікавяць.
     no_results:
-      description: "Паспрабуйце зрабіць ваш запыт больш шырокім і паспрабуйце яшчэ
-        раз."
-      title: "Няма адпаведных дакументаў."
+      description: Паспрабуйце зрабіць ваш запыт больш шырокім і паспрабуйце яшчэ
+        раз.
+      title: Няма адпаведных дакументаў.
       tna_heading:
       tna_link:
     world_locations:
-      all: "Усе месцазнаходжанні"
-      label: "Мы ў свеце"
+      all: Усе месцазнаходжанні
+      label: Мы ў свеце
   feeds:
     email:
     feed:
     get_updates_to_this_list:
-    latest_activity: "Апошнія аднаўленні"
+    latest_activity: Апошнія аднаўленні
   i18n:
     direction: ltr
   language_names:
-    be: "Беларуская"
+    be: Беларуская
   latest_feed:
-    no_updates: "Ніякіх абнаўленняў пакуль няма."
-    title: "Апошняе"
+    no_updates: Ніякіх абнаўленняў пакуль няма.
+    title: Апошняе
   national_statistics:
     heading:
   number:
@@ -444,119 +444,118 @@ be:
         format: "%n%u"
   organisation:
     about:
-      read_more: "Прачытайце больш пра нашу працу"
+      read_more: Прачытайце больш пра нашу працу
     corporate_information:
-      access_our_info: "Доступ да нашай інфармацыі"
-      foi_how_to: "Як зрабіць замову ў межах Закона аб свабодзе інфармацыі"
-      foi_releases: "Рэлізы ў межах Закона аб свабодзе інфармацыі"
-      jobs_and_contacts: "Праца і кантакты"
+      access_our_info: Доступ да нашай інфармацыі
+      foi_how_to: Як зрабіць замову ў межах Закона аб свабодзе інфармацыі
+      foi_releases: Рэлізы ў межах Закона аб свабодзе інфармацыі
+      jobs_and_contacts: Праца і кантакты
       organisation_chart:
-      transparency: "Адкрытыя дадзеныя"
+      transparency: Адкрытыя дадзеныя
     foi_exemption_html:
     headings:
-      chief_professional_officers: "Нашы галоўныя прафесійныя афіцэры"
-      contact: "Звязацца з %{name}"
-      corporate_information: "Карпаратыўная інфармацыя"
-      corporate_reports: "Карпаратыўныя справаздачы"
+      chief_professional_officers: Нашы галоўныя прафесійныя афіцэры
+      contact: Звязацца з %{name}
+      corporate_information: Карпаратыўная інфармацыя
+      corporate_reports: Карпаратыўныя справаздачы
       documents:
       freedom_of_information_act:
       making_foi_requests:
-      our_announcements: "Нашы абвесткі"
+      our_announcements: Нашы абвесткі
       our_consultations:
       our_judges:
-      our_management: "Наша кіраўніцтва"
-      our_ministers: "Нашы міністры"
-      our_policies: "Наша палітыка"
-      our_publications: "Нашы публікацыі"
-      our_senior_military_officials: "Нашы вышэйшыя ваенныя службоўцы"
-      our_services: "Нашы паслугі"
-      our_statistics: "Наша статыстыка"
-      our_topics: "Мы працуем па гэтым тэмам"
-      special_representatives: "Спецыяльныя прадстаўнікі"
-      traffic_commissioners: "Транспартны суд"
-      what_we_do: "Што мы робім"
+      our_management: Наша кіраўніцтва
+      our_ministers: Нашы міністры
+      our_policies: Наша палітыка
+      our_publications: Нашы публікацыі
+      our_senior_military_officials: Нашы вышэйшыя ваенныя службоўцы
+      our_services: Нашы паслугі
+      our_statistics: Наша статыстыка
+      our_topics: Мы працуем па гэтым тэмам
+      special_representatives: Спецыяльныя прадстаўнікі
+      traffic_commissioners: Транспартны суд
+      what_we_do: Што мы робім
       who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:
       step3_html:
   policies:
-    heading: "Напрамкі дзейнасці"
+    heading: Напрамкі дзейнасці
     view_all:
   publications:
-    heading: "Публікацыі"
+    heading: Публікацыі
     headings:
-      detail: "Падрабязней"
-  read_more: "Чытаць Падрабязней"
+      detail: Падрабязней
+  read_more: Чытаць Падрабязней
   see_all:
-    announcement: "Паглядзець усе Аб'явы"
-    authored_article: "Паглядзець усе Аўтарскія артыкулы"
-    case_study: "Паглядзець усе Тэматычныя даследаванні"
-    closed_consultation: "Паглядзець усе Закрытыя кансультацыі"
-    consultation: "Паглядзець усе Кансультацыі"
-    consultation_outcome: "Паглядзець усе Вынікі кансультацыі"
-    corporate_report: "Паглядзець усе Карпаратыўныя справаздачы"
-    correspondence: "Паглядзець усе Перапіска"
-    decision: "Паглядзець усе Падрабязнае кіраўніцтва"
+    announcement: Паглядзець усе Аб'явы
+    authored_article: Паглядзець усе Аўтарскія артыкулы
+    case_study: Паглядзець усе Тэматычныя даследаванні
+    closed_consultation: Паглядзець усе Закрытыя кансультацыі
+    consultation: Паглядзець усе Кансультацыі
+    consultation_outcome: Паглядзець усе Вынікі кансультацыі
+    corporate_report: Паглядзець усе Карпаратыўныя справаздачы
+    correspondence: Паглядзець усе Перапіска
+    decision: Паглядзець усе Падрабязнае кіраўніцтва
     detailed_guidance:
-    document_collection: "Паглядзець усе Чарнавікі"
+    document_collection: Паглядзець усе Чарнавікі
     draft_text:
-    fatality_notice: "Паглядзець усе Паведамленні"
-    foi_release: "Паглядзець усе Рэлізы ў межах Закона аб свабодзе інфармацыі"
-    form: "Паглядзець усе Формы"
-    government_response: "Паглядзець усе Адказы ўрада"
-    guidance: "Паглядзець усе Кіраўніцтва"
-    impact_assessment: "Паглядзець усе Ацэнкі ўплыву"
-    imported: "Паглядзець усе імпартавана - чаканне тыпу"
-    international_treaty: "Паглядзець усе Карты"
+    fatality_notice: Паглядзець усе Паведамленні
+    foi_release: Паглядзець усе Рэлізы ў межах Закона аб свабодзе інфармацыі
+    form: Паглядзець усе Формы
+    government_response: Паглядзець усе Адказы ўрада
+    guidance: Паглядзець усе Кіраўніцтва
+    impact_assessment: Паглядзець усе Ацэнкі ўплыву
+    imported: Паглядзець усе імпартавана - чаканне тыпу
+    international_treaty: Паглядзець усе Карты
     map:
-    national_statistics: "Паглядзець усе Статыстыка - нацыянальная статыстыка"
-    news_article: "Паглядзець усе Артыкулы"
-    news_story: "Паглядзець усе Навіны"
-    notice: "Паглядзець усе Адкрытыя кансультацыі"
+    national_statistics: Паглядзець усе Статыстыка - нацыянальная статыстыка
+    news_article: Паглядзець усе Артыкулы
+    news_story: Паглядзець усе Навіны
+    notice: Паглядзець усе Адкрытыя кансультацыі
     open_consultation:
-    oral_statement: "Паглядзець усе Вусныя даклады ў парламенце"
-    policy: "Паглядзець усе Напрамкі дзейнасці"
-    policy_paper: "Паглядзець усе Праграмныя дакументы"
-    press_release: "Паглядзець усе Прэс-рэлізы"
-    promotional: "Паглядзець усе Рэкламныя матэрыялы"
-    publication: "Паглядзець усе Публікацыі"
-    regulation: "Паглядзець усе Даследаванні і аналіз"
+    oral_statement: Паглядзець усе Вусныя даклады ў парламенце
+    policy: Паглядзець усе Напрамкі дзейнасці
+    policy_paper: Паглядзець усе Праграмныя дакументы
+    press_release: Паглядзець усе Прэс-рэлізы
+    promotional: Паглядзець усе Рэкламныя матэрыялы
+    publication: Паглядзець усе Публікацыі
+    regulation: Паглядзець усе Даследаванні і аналіз
     research:
-    speaking_notes: "Паглядзець усе Нататкі да выступу"
-    speech: "Паглядзець усе Выступы"
-    statement_to_parliament: "Паглядзець усе Заявы ў парламенце"
-    statistical_data_set: "Паглядзець усе Статыстычныя дадзеныя"
-    statistics: "Паглядзець усе Статыстыка"
-    statutory_guidance: "Паглядзець усе Поўны тэкст"
+    speaking_notes: Паглядзець усе Нататкі да выступу
+    speech: Паглядзець усе Выступы
+    statement_to_parliament: Паглядзець усе Заявы ў парламенце
+    statistical_data_set: Паглядзець усе Статыстычныя дадзеныя
+    statistics: Паглядзець усе Статыстыка
+    statutory_guidance: Паглядзець усе Поўны тэкст
     transcript:
-    transparency: "Паглядзець усе Адкрытыя дадзеныя"
-    written_statement: "Паглядзець усе Пісьмовыя заявы ў парламенце"
+    transparency: Паглядзець усе Адкрытыя дадзеныя
+    written_statement: Паглядзець усе Пісьмовыя заявы ў парламенце
   social_media:
     follow_us:
   support:
     array:
-      last_word_connector: "і"
+      last_word_connector: і
   time:
     formats:
       long_ordinal: "%e %B %Y %H:%M"
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: "Наша %{link}  тлумачыць, як мы ставімся
-        да Вашай асабістай інфармацыі."
-      publication_scheme_html: "Чытайце пра тыпы інфармацыі, якую мы рэгулярна публікуем,
-        у нашым %{link}."
-      social_media_use_html: "Прачытайце пра нашу палітыку датычна %{link}."
-      welsh_language_scheme_html: "Даведайцеся аб нашых абавязках да публікацыі ў
-        %{link}."
-    find_out_more: "Паглядзець усю інфармацыю і кантактныя дадзеныя"
+      personal_information_charter_html: Наша %{link}  тлумачыць, як мы ставімся да
+        Вашай асабістай інфармацыі.
+      publication_scheme_html: Чытайце пра тыпы інфармацыі, якую мы рэгулярна публікуем,
+        у нашым %{link}.
+      social_media_use_html: Прачытайце пра нашу палітыку датычна %{link}.
+      welsh_language_scheme_html: Даведайцеся аб нашых абавязках да публікацыі ў %{link}.
+    find_out_more: Паглядзець усю інфармацыю і кантактныя дадзеныя
     headings:
-      about_us: "Пра нас"
-      contact_us: "Звяжыцеся з намі"
-      corporate_information: "Карпаратыўная іфармацыя"
-      follow_us: "Сачыце за намі"
-      our_people: "Нашы людзі"
-      our_services: "Нашы паслугі"
-    location: "Месцазнаходжанне"
-    part_of: "Частка"
+      about_us: Пра нас
+      contact_us: Звяжыцеся з намі
+      corporate_information: Карпаратыўная іфармацыя
+      follow_us: Сачыце за намі
+      our_people: Нашы людзі
+      our_services: Нашы паслугі
+    location: Месцазнаходжанне
+    part_of: Частка

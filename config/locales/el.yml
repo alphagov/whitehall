@@ -2,73 +2,73 @@ el:
   document:
     headings:
       attachments:
-        one: "Έγγραφο"
-        other: "Έγγραφα"
-      applies_to_nations: "Ισχύει"
+        one: Έγγραφο
+        other: Έγγραφα
+      applies_to_nations: Ισχύει
       from:
       location:
       part_of:
     type:
       announcement:
-        one: "Ανακοίνωση"
-        other: "Ανακοινώσεις"
+        one: Ανακοίνωση
+        other: Ανακοινώσεις
       authored_article:
-        one: "Κείμενο συντάκτη"
-        other: "Κείμενα συντακτών"
+        one: Κείμενο συντάκτη
+        other: Κείμενα συντακτών
       blog_post:
         one:
         other:
       case_study:
-        one: "Παράδειγμα"
-        other: "Παραδείγματα"
+        one: Παράδειγμα
+        other: Παραδείγματα
       closed_consultation:
-        one: "Κλειστή διαβούλευση"
-        other: "Κλειστές διαβουλεύσεις"
+        one: Κλειστή διαβούλευση
+        other: Κλειστές διαβουλεύσεις
       consultation:
-        one: "Διαβούλευση"
-        other: "Διαβουλεύσεις"
+        one: Διαβούλευση
+        other: Διαβουλεύσεις
       consultation_outcome:
-        one: "Αποτέλεσμα διαβούλευσης"
-        other: "Αποτελέσματα διαβούλευσης"
+        one: Αποτέλεσμα διαβούλευσης
+        other: Αποτελέσματα διαβούλευσης
       corporate_report:
-        one: "Έκθεση Οργανισμού"
-        other: "Εκθέσεις Οργανισμού"
+        one: Έκθεση Οργανισμού
+        other: Εκθέσεις Οργανισμού
       correspondence:
-        one: "Αλληλογραφία"
-        other: "Αλληλογραφία"
+        one: Αλληλογραφία
+        other: Αλληλογραφία
       decision:
         one:
         other:
       detailed_guidance:
-        one: "Οδηγίες"
-        other: "Οδηγίες"
+        one: Οδηγίες
+        other: Οδηγίες
       document_collection:
-        one: "Σειρά"
+        one: Σειρά
         other:
       draft_text:
-        one: "Προσχέδιο"
-        other: "Προσχέδια"
+        one: Προσχέδιο
+        other: Προσχέδια
       foi_release:
-        one: "Δημοσιοποίηση"
-        other: "Δημοσιοποίηση"
+        one: Δημοσιοποίηση
+        other: Δημοσιοποίηση
       form:
-        one: "Έντυπο"
-        other: "Έντυπα"
+        one: Έντυπο
+        other: Έντυπα
       government_response:
-        one: "Η θέση της Κυβέρνησης"
-        other: "Οι θέσεις της Κυβέρνησης"
+        one: Η θέση της Κυβέρνησης
+        other: Οι θέσεις της Κυβέρνησης
       guidance:
-        one: "Οδηγίες"
-        other: "Οδηγίες"
+        one: Οδηγίες
+        other: Οδηγίες
       impact_assessment:
-        one: "Αξιολόγηση αποτελέσματος"
-        other: "Αξιολογήσεις αποτελέσματος"
+        one: Αξιολόγηση αποτελέσματος
+        other: Αξιολογήσεις αποτελέσματος
       imported:
         one: " εισηγμένο  - σε αναμονή"
-        other: "εισηγμένα - σε αναμονή"
+        other: εισηγμένα - σε αναμονή
       independent_report:
-        one: "Έκθεση ανεξάρτητης αρχής"
-        other: "Εκθέσεις ανεξάρτητων αρχών"
+        one: Έκθεση ανεξάρτητης αρχής
+        other: Εκθέσεις ανεξάρτητων αρχών
       international_treaty:
         one:
         other:
@@ -76,17 +76,17 @@ el:
         one:
         other:
       map:
-        one: "Χάρτης"
-        other: "Χάρτες"
+        one: Χάρτης
+        other: Χάρτες
       national_statistics:
-        one: "Στατιστικά στοιχεία- εθνικά στατιστικά στοιχεία"
-        other: "Στατιστικά στοιχεία- εθνικά στατιστικά στοιχεία"
+        one: Στατιστικά στοιχεία- εθνικά στατιστικά στοιχεία
+        other: Στατιστικά στοιχεία- εθνικά στατιστικά στοιχεία
       news_article:
-        one: "Είδηση"
-        other: "Ειδήσεις"
+        one: Είδηση
+        other: Ειδήσεις
       news_story:
-        one: "Νέα"
-        other: "Νέα"
+        one: Νέα
+        other: Νέα
       nhs_content:
         one:
         other:
@@ -94,78 +94,78 @@ el:
         one:
         other:
       official_statistics:
-        one: "Στατιστικά στοιχεία"
-        other: "Στατιστικά στοιχεία"
+        one: Στατιστικά στοιχεία
+        other: Στατιστικά στοιχεία
       open_consultation:
-        one: "Ανοιχτή διαβούλευση"
-        other: "Ανοιχτές διαβουλεύσεις"
+        one: Ανοιχτή διαβούλευση
+        other: Ανοιχτές διαβουλεύσεις
       oral_statement:
-        one: "Δήλωση στη Βουλή"
-        other: "Δηλώσεις στη Βουλή "
+        one: Δήλωση στη Βουλή
+        other: 'Δηλώσεις στη Βουλή '
       policy_paper:
-        one: "Κείμενο πολιτικής"
-        other: "Κείμενα πολιτικής"
+        one: Κείμενο πολιτικής
+        other: Κείμενα πολιτικής
       press_release:
-        one: "Δελτίο Τύπου"
-        other: "Δελτία Τύπου"
+        one: Δελτίο Τύπου
+        other: Δελτία Τύπου
       promotional:
-        one: "Προωθητικό υλικό"
-        other: "Προωθητικό υλικό"
+        one: Προωθητικό υλικό
+        other: Προωθητικό υλικό
       publication:
-        one: "Έκδοση"
-        other: "Εκδόσεις"
+        one: Έκδοση
+        other: Εκδόσεις
       regulation:
         one:
         other:
       research:
-        one: "Έρευνα και ανάλυση"
-        other: "Έρευνα και ανάλυση"
+        one: Έρευνα και ανάλυση
+        other: Έρευνα και ανάλυση
       speaking_notes:
-        one: "Βασικά σημεία ομιλίας"
-        other: "Βασικά σημεία ομιλίας"
+        one: Βασικά σημεία ομιλίας
+        other: Βασικά σημεία ομιλίας
       speech:
-        one: "Ομιλία"
-        other: "Ομιλίες"
+        one: Ομιλία
+        other: Ομιλίες
       statement_to_parliament:
-        one: "Δήλωση στη Βουλή"
-        other: "Δηλώσεις στη Βουλή "
+        one: Δήλωση στη Βουλή
+        other: 'Δηλώσεις στη Βουλή '
       statistical_data_set:
-        one: "Στατιστικά στοιχεία"
-        other: "Στατιστικά στοιχεία"
+        one: Στατιστικά στοιχεία
+        other: Στατιστικά στοιχεία
       statutory_guidance:
         one:
         other:
       transcript:
-        one: "Απομαγνητοφώνηση"
-        other: "Απομαγνητοφωνήσεις"
+        one: Απομαγνητοφώνηση
+        other: Απομαγνητοφωνήσεις
       transparency:
-        one: "Στοιχεία διαφάνειας"
-        other: "Στοιχεία διαφάνειας"
+        one: Στοιχεία διαφάνειας
+        other: Στοιχεία διαφάνειας
       world_news_story:
         one:
         other:
       written_statement:
-        one: "Γραπτή  δήλωση στη Βουλή"
-        other: "Γραπτές δηλώσεις στη Βουλή"
+        one: Γραπτή  δήλωση στη Βουλή
+        other: Γραπτές δηλώσεις στη Βουλή
     contents:
     footer_meta:
       full_page_history:
       page_history:
       published:
       updated:
-    published: "Δημοσιευμένο"
-    read: "Διαβάστε το άρθρο  %{title}"
+    published: Δημοσιευμένο
+    read: Διαβάστε το άρθρο  %{title}
     speech:
       author_title:
-        minister: "Υπουργός"
-        speaker: "Συγγραφέας"
-      delivered_on: "Παραδόθηκε στις:"
+        minister: Υπουργός
+        speaker: Συγγραφέας
+      delivered_on: 'Παραδόθηκε στις:'
       delivery_title:
-        minister: "Υπουργός"
-        speaker: "Ομιλητής"
-      written_on: "Γραφτηκε τη: "
-    updated: "ανανεωμένο "
-    view: "Δείτε '%{title}'"
+        minister: Υπουργός
+        speaker: Ομιλητής
+      written_on: 'Γραφτηκε τη: '
+    updated: 'ανανεωμένο '
+    view: Δείτε '%{title}'
   people:
     heading:
       one:
@@ -189,21 +189,21 @@ el:
   world_location:
     type:
       international_delegation:
-        one: "Διεθνής αντιπροσωπεία"
-        other: "Διεθνείς αντιπροσωπείες"
+        one: Διεθνής αντιπροσωπεία
+        other: Διεθνείς αντιπροσωπείες
       world_location:
-        one: "Χώρα"
-        other: "Χώρες"
+        one: Χώρα
+        other: Χώρες
     headings:
-      announcements: "Οι ανακοινώσεις μας"
-      country: "Χώρα"
-      documents: "Έγγραφα"
-      mission: "Η αποστολή μας"
-      organisations: "Οργανισμοί"
-      publications: "Οι εκδόσεις μας"
-      quick_links: "Σύντομοι σύνδεσμοι"
-      related_policies: "Σχετικές πολιτικές"
-      statistics: "Τα στατιστικά στοιχεία μας"
+      announcements: Οι ανακοινώσεις μας
+      country: Χώρα
+      documents: Έγγραφα
+      mission: Η αποστολή μας
+      organisations: Οργανισμοί
+      publications: Οι εκδόσεις μας
+      quick_links: Σύντομοι σύνδεσμοι
+      related_policies: Σχετικές πολιτικές
+      statistics: Τα στατιστικά στοιχεία μας
   activerecord:
     attributes:
       attachment:
@@ -248,7 +248,7 @@ el:
       unique_reference:
       unnumbered_hoc_paper:
   announcements:
-    heading: "Ανακοινώσεις"
+    heading: Ανακοινώσεις
     view_all:
   attachment:
     accessibility:
@@ -256,14 +256,14 @@ el:
         μπρέιλ, ηχητική μορφή ή άλλο τύπο αρχείου παρακαλούμε συμπληρώστε το email
         σας %{email} τη διευθυνσή σας, το τηλέφωνό σας και τον τίτλο του εγγράφου
         ("%{title}")%{references}.
-      heading: "Το αρχείο μπορεί να μην είναι συμβατό με προγράμματα υποστηρικτικής
-        τεχνολογίας."
-      request_a_different_format: "Εναλλακτικός τύπος αρχείου"
+      heading: Το αρχείο μπορεί να μην είναι συμβατό με προγράμματα υποστηρικτικής
+        τεχνολογίας.
+      request_a_different_format: Εναλλακτικός τύπος αρχείου
     headings:
-      order_a_copy: "Ζητήστε αντίτυπο"
-      order_a_copy_full: "Ζητήστε αντιτυπο της έκδοσης"
-      published: "Δημοσιεύτηκε"
-      reference: "Σχετικά"
+      order_a_copy: Ζητήστε αντίτυπο
+      order_a_copy_full: Ζητήστε αντιτυπο της έκδοσης
+      published: Δημοσιεύτηκε
+      reference: Σχετικά
       unnumbered_command_paper:
       unnumbered_hoc_paper:
     opendocument:
@@ -281,7 +281,7 @@ el:
     see_all_updates:
     updated_at:
   contact:
-    contact_form: "Φόρμα επικοινωνίας"
+    contact_form: Φόρμα επικοινωνίας
     email: Email
   corporate_information_page:
     type:
@@ -297,43 +297,43 @@ el:
         membership:
         our_energy_use:
         our_governance:
-        personal_information_charter: "Προστασία προσωπικών δεδομένων"
+        personal_information_charter: Προστασία προσωπικών δεδομένων
         petitions_and_campaigns:
         procurement:
-        publication_scheme: "Σχέδιο έκδοσης"
+        publication_scheme: Σχέδιο έκδοσης
         recruitment:
         research:
-        social_media_use: "Χρήση κοινωνικών δικτύων"
+        social_media_use: Χρήση κοινωνικών δικτύων
         staff_update:
         statistics:
         terms_of_reference:
-        welsh_language_scheme: "Πρόγραμμα Ουαλλικής γλώσσας"
+        welsh_language_scheme: Πρόγραμμα Ουαλλικής γλώσσας
   date:
     formats:
       default:
       long_ordinal:
   document_filters:
-    description: "Χρησιμοποιήστε τα φίλτρα για εξειδίκευση αποτελεσμάτων"
+    description: Χρησιμοποιήστε τα φίλτρα για εξειδίκευση αποτελεσμάτων
     no_results:
-      description: "Διευρύνετε την αναζήτησή σας και δοκιμάστε ξανά"
-      title: "Δεν υπάρχουν αποτελέσματα"
+      description: Διευρύνετε την αναζήτησή σας και δοκιμάστε ξανά
+      title: Δεν υπάρχουν αποτελέσματα
       tna_heading:
       tna_link:
     world_locations:
-      all: "Όλες οι τοποθεσίες"
-      label: "Παγκόσμιες τοποθεσίες"
+      all: Όλες οι τοποθεσίες
+      label: Παγκόσμιες τοποθεσίες
   feeds:
     email:
     feed:
     get_updates_to_this_list:
-    latest_activity: "Πρόσφατες ενημερώσεις"
+    latest_activity: Πρόσφατες ενημερώσεις
   i18n:
     direction: ltr
   language_names:
-    el: "Ελληνικά "
+    el: 'Ελληνικά '
   latest_feed:
-    no_updates: "Δεν υπάρχουν ανανεώσεις ακόμα"
-    title: "Πρόσφατα"
+    no_updates: Δεν υπάρχουν ανανεώσεις ακόμα
+    title: Πρόσφατα
   national_statistics:
     heading:
   number:
@@ -342,120 +342,120 @@ el:
         format:
   organisation:
     about:
-      read_more: "Περισσότερα για τις δράσεις μας"
+      read_more: Περισσότερα για τις δράσεις μας
     corporate_information:
-      access_our_info: "Πρόσβαση στις πληροφορίες μας"
-      foi_how_to: "Διαδικάσία αιτήματος για πρόσβαση στις πληροφορίες μας βάσει της
-        νομοθεσίας για ελεύθερη πρόσβαση σεμ διοικητικά έγγραφα"
-      foi_releases: "Ελεύθερη πρόσβαση σε διοικητικά έγγραφα"
-      jobs_and_contacts: "Θέσεις εργασίας και συμβάσεις"
+      access_our_info: Πρόσβαση στις πληροφορίες μας
+      foi_how_to: Διαδικάσία αιτήματος για πρόσβαση στις πληροφορίες μας βάσει της
+        νομοθεσίας για ελεύθερη πρόσβαση σεμ διοικητικά έγγραφα
+      foi_releases: Ελεύθερη πρόσβαση σε διοικητικά έγγραφα
+      jobs_and_contacts: Θέσεις εργασίας και συμβάσεις
       organisation_chart:
-      transparency: "Στοιχεία διαφάνειας"
+      transparency: Στοιχεία διαφάνειας
     foi_exemption_html:
     headings:
-      chief_professional_officers: "Τα ανώτερα στελέχη της υπηρεσίας μας"
-      contact: "Επικοινωνήστε%{name}"
-      corporate_information: "Πληροφορίες για τον Οργανισμό"
-      corporate_reports: "Εκθέσεις Οργανισμού"
+      chief_professional_officers: Τα ανώτερα στελέχη της υπηρεσίας μας
+      contact: Επικοινωνήστε%{name}
+      corporate_information: Πληροφορίες για τον Οργανισμό
+      corporate_reports: Εκθέσεις Οργανισμού
       documents:
       freedom_of_information_act:
       making_foi_requests:
-      our_announcements: "Οι ανακοινώσεις μας"
+      our_announcements: Οι ανακοινώσεις μας
       our_consultations:
       our_judges:
-      our_management: "Η ηγεσία μας"
-      our_ministers: "Οι υπουργοί μας"
-      our_policies: "Οι πολιτικές μας"
-      our_publications: "Οι εκδόσεις μας"
-      our_senior_military_officials: "Η στρατιωτική ηγεσία"
-      our_services: "Οι υπηρεσίες μας"
-      our_statistics: "Τα στατιστικά μας"
-      our_topics: "Εργαζόμαστε στους παρακάτω τομείς"
-      special_representatives: "Ειδικοί αντιπρόσωποι"
-      traffic_commissioners: "Ομάδα ρύθμισης μεταφορών "
-      what_we_do: "Οι δράσεις μας"
+      our_management: Η ηγεσία μας
+      our_ministers: Οι υπουργοί μας
+      our_policies: Οι πολιτικές μας
+      our_publications: Οι εκδόσεις μας
+      our_senior_military_officials: Η στρατιωτική ηγεσία
+      our_services: Οι υπηρεσίες μας
+      our_statistics: Τα στατιστικά μας
+      our_topics: Εργαζόμαστε στους παρακάτω τομείς
+      special_representatives: Ειδικοί αντιπρόσωποι
+      traffic_commissioners: 'Ομάδα ρύθμισης μεταφορών '
+      what_we_do: Οι δράσεις μας
       who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:
       step3_html:
   policies:
-    heading: "Πολιτικές"
+    heading: Πολιτικές
     view_all:
   publications:
-    heading: "Εκδόσεις"
+    heading: Εκδόσεις
     headings:
-      detail: "Λεπτομέρεια"
-  read_more: "Διαβάστε περισσότερα"
+      detail: Λεπτομέρεια
+  read_more: Διαβάστε περισσότερα
   see_all:
-    announcement: "Δείτε τα Ανακοινώσεις"
-    authored_article: "Δείτε τα Κείμενα συντακτών"
-    case_study: "Δείτε τα Παραδείγματα"
-    closed_consultation: "Δείτε τα Κλειστές διαβουλεύσεις"
-    consultation: "Δείτε τα Διαβουλεύσεις"
-    consultation_outcome: "Δείτε τα Αποτελέσματα διαβούλευσης"
-    corporate_report: "Δείτε τα Εκθέσεις Οργανισμού"
-    correspondence: "Δείτε τα Αλληλογραφία"
+    announcement: Δείτε τα Ανακοινώσεις
+    authored_article: Δείτε τα Κείμενα συντακτών
+    case_study: Δείτε τα Παραδείγματα
+    closed_consultation: Δείτε τα Κλειστές διαβουλεύσεις
+    consultation: Δείτε τα Διαβουλεύσεις
+    consultation_outcome: Δείτε τα Αποτελέσματα διαβούλευσης
+    corporate_report: Δείτε τα Εκθέσεις Οργανισμού
+    correspondence: Δείτε τα Αλληλογραφία
     decision:
-    detailed_guidance: "Δείτε τα Οδηγίες"
+    detailed_guidance: Δείτε τα Οδηγίες
     document_collection:
-    draft_text: "Δείτε τα Προσχέδια"
-    fatality_notice: "Δείτε τα Ανακοινώσεις θανάτων"
-    foi_release: "Δείτε τα Δημοσιοποίηση"
-    form: "Δείτε τα Έντυπα"
-    government_response: "Δείτε τα Οι θέσεις της Κυβέρνησης"
-    guidance: "Δείτε τα Οδηγίες"
-    impact_assessment: "Δείτε τα Αξιολογήσεις αποτελέσματος"
-    imported: "Δείτε τα εισηγμένα - σε αναμονή"
+    draft_text: Δείτε τα Προσχέδια
+    fatality_notice: Δείτε τα Ανακοινώσεις θανάτων
+    foi_release: Δείτε τα Δημοσιοποίηση
+    form: Δείτε τα Έντυπα
+    government_response: Δείτε τα Οι θέσεις της Κυβέρνησης
+    guidance: Δείτε τα Οδηγίες
+    impact_assessment: Δείτε τα Αξιολογήσεις αποτελέσματος
+    imported: Δείτε τα εισηγμένα - σε αναμονή
     international_treaty:
-    map: "Δείτε τα Χάρτες"
-    national_statistics: "Δείτε τα Στατιστικά στοιχεία- εθνικά στατιστικά στοιχεία"
-    news_article: "Δείτε τα Ειδήσεις"
-    news_story: "Δείτε τα Νέα"
+    map: Δείτε τα Χάρτες
+    national_statistics: Δείτε τα Στατιστικά στοιχεία- εθνικά στατιστικά στοιχεία
+    news_article: Δείτε τα Ειδήσεις
+    news_story: Δείτε τα Νέα
     notice:
-    open_consultation: "Δείτε τα Ανοιχτές διαβουλεύσεις"
-    oral_statement: "Δείτε τα Δηλώσεις στη Βουλή "
-    policy: "Δείτε τα Πολιτικές"
-    policy_paper: "Δείτε τα Κείμενα πολιτικής"
-    press_release: "Δείτε τα Δελτία Τύπου"
-    promotional: "Δείτε τα Προωθητικό υλικό"
-    publication: "Δείτε τα Εκδόσεις"
+    open_consultation: Δείτε τα Ανοιχτές διαβουλεύσεις
+    oral_statement: 'Δείτε τα Δηλώσεις στη Βουλή '
+    policy: Δείτε τα Πολιτικές
+    policy_paper: Δείτε τα Κείμενα πολιτικής
+    press_release: Δείτε τα Δελτία Τύπου
+    promotional: Δείτε τα Προωθητικό υλικό
+    publication: Δείτε τα Εκδόσεις
     regulation:
-    research: "Δείτε τα Έρευνα και ανάλυση"
-    speaking_notes: "Δείτε τα Βασικά σημεία ομιλίας"
-    speech: "Δείτε τα Ομιλίες"
-    statement_to_parliament: "Δείτε τα Δηλώσεις στη Βουλή "
-    statistical_data_set: "Δείτε τα Στατιστικά στοιχεία"
-    statistics: "Δείτε τα Στατιστικά στοιχεία"
+    research: Δείτε τα Έρευνα και ανάλυση
+    speaking_notes: Δείτε τα Βασικά σημεία ομιλίας
+    speech: Δείτε τα Ομιλίες
+    statement_to_parliament: 'Δείτε τα Δηλώσεις στη Βουλή '
+    statistical_data_set: Δείτε τα Στατιστικά στοιχεία
+    statistics: Δείτε τα Στατιστικά στοιχεία
     statutory_guidance:
-    transcript: "Δείτε τα Απομαγνητοφωνήσεις"
-    transparency: "Δείτε τα Στοιχεία διαφάνειας"
-    written_statement: "Δείτε τα Γραπτές δηλώσεις στη Βουλή"
+    transcript: Δείτε τα Απομαγνητοφωνήσεις
+    transparency: Δείτε τα Στοιχεία διαφάνειας
+    written_statement: Δείτε τα Γραπτές δηλώσεις στη Βουλή
   social_media:
     follow_us:
   support:
     array:
-      last_word_connector: "και"
+      last_word_connector: και
   time:
     formats:
       long_ordinal:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: "Το %{link} εξηγεί πώς χειριζόμαστε τα προσωπικά
-        σας δεδομένα"
-      publication_scheme_html: "Μάθετε περισσότερα για τις πληροφορίας που δημοσιεύουμε
-        συνήθως στο %{link}"
-      social_media_use_html: "Μάθετε περισσότερα για την πολιτική μας στο %{link}."
-      welsh_language_scheme_html: "Μάθετε περισσότερα για την δέσμευση μας στη δημοσίευση
-        στο %{link}."
-    find_out_more: "Πλήρες προφίλ και στοιχεία επικοινωνίας"
+      personal_information_charter_html: Το %{link} εξηγεί πώς χειριζόμαστε τα προσωπικά
+        σας δεδομένα
+      publication_scheme_html: Μάθετε περισσότερα για τις πληροφορίας που δημοσιεύουμε
+        συνήθως στο %{link}
+      social_media_use_html: Μάθετε περισσότερα για την πολιτική μας στο %{link}.
+      welsh_language_scheme_html: Μάθετε περισσότερα για την δέσμευση μας στη δημοσίευση
+        στο %{link}.
+    find_out_more: Πλήρες προφίλ και στοιχεία επικοινωνίας
     headings:
-      about_us: "Σχετικά με εμάς"
-      contact_us: "Επικοινωνήστε μαζί μας"
-      corporate_information: "Πληροφορίες για τον οργανισμό"
-      follow_us: "Ακολουθείστε μας"
-      our_people: "Τα στελέχη μας"
-      our_services: "Οι υπηρεσίες μας"
-    location: "Χώρα"
-    part_of: "Μέρος του"
+      about_us: Σχετικά με εμάς
+      contact_us: Επικοινωνήστε μαζί μας
+      corporate_information: Πληροφορίες για τον οργανισμό
+      follow_us: Ακολουθείστε μας
+      our_people: Τα στελέχη μας
+      our_services: Οι υπηρεσίες μας
+    location: Χώρα
+    part_of: Μέρος του

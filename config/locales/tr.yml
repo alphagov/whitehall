@@ -74,7 +74,7 @@ tr:
     see_all_updates:
     updated_at:
   contact:
-    contact_form: "İletişim Formu"
+    contact_form: İletişim Formu
     email: E-posta
   corporate_information_page:
     type:
@@ -142,8 +142,8 @@ tr:
         one:
         other:
       case_study:
-        one: "Örnek Olay"
-        other: "Örnek Olaylar"
+        one: Örnek Olay
+        other: Örnek Olaylar
       closed_consultation:
         one: Sona eren çalışmalar
         other: Sona eren çalışmalar
@@ -202,8 +202,8 @@ tr:
         one: Harita
         other: Haritalar
       national_statistics:
-        one: "İstatistikler - ulusal istatistikler"
-        other: "İstatistikler - ulusal istatistikler"
+        one: İstatistikler - ulusal istatistikler
+        other: İstatistikler - ulusal istatistikler
       news_article:
         one: Makale
         other: Makaleler
@@ -217,8 +217,8 @@ tr:
         one:
         other:
       official_statistics:
-        one: "İstatistikler"
-        other: "İstatistikler"
+        one: İstatistikler
+        other: İstatistikler
       open_consultation:
         one: Devam eden çalışma
         other: Devam eden çalışmalar
@@ -253,8 +253,8 @@ tr:
         one: Parlamento'ya yapılan açıklama
         other: Parlamento'ya yapılan açıklamalar
       statistical_data_set:
-        one: "İstatiksel veri setleri"
-        other: "İstatiksel veri setleri"
+        one: İstatiksel veri setleri
+        other: İstatiksel veri setleri
       statutory_guidance:
         one:
         other:
@@ -281,7 +281,7 @@ tr:
       tna_link:
     world_locations:
       all: Tüm yerler
-      label: "Ülkeler"
+      label: Ülkeler
   feeds:
     email:
     feed:
@@ -307,13 +307,13 @@ tr:
       access_our_info: Bilgilere erişim
       foi_how_to: Bilgi Edinme Hakkı nasıl kullanılır
       foi_releases: Bilgi Edinme Hakkı Raporu
-      jobs_and_contacts: "İş ve sözleşmeler"
+      jobs_and_contacts: İş ve sözleşmeler
       organisation_chart:
       transparency: Veri saydamlığı
     foi_exemption_html:
     headings:
-      chief_professional_officers: "Üst düzey uzman "
-      contact: "İletişim %{name}"
+      chief_professional_officers: 'Üst düzey uzman '
+      contact: İletişim %{name}
       corporate_information: Kurumsal bilgi
       corporate_reports: Kurumsal raporlar
       documents:
@@ -328,9 +328,9 @@ tr:
       our_publications: Yayınlarımız
       our_senior_military_officials: Kıdemli askeri görevli
       our_services: Hizmetlerimiz
-      our_statistics: "İstatistikler"
+      our_statistics: İstatistikler
       our_topics: Bu konular üzerine çalışıyoruz
-      special_representatives: "Özel temsilciler"
+      special_representatives: Özel temsilciler
       traffic_commissioners: Trafik Şube Müdürü
       what_we_do: 'Hakkımızda '
       who_we_are:
@@ -421,21 +421,21 @@ tr:
   world_location:
     headings:
       announcements: Duyurularımız
-      country: "Ülke"
+      country: Ülke
       documents: Belgeler
       mission: Misyonumuz
       organisations: Organizasyon
       publications: Yayınlarımız
       quick_links: Kısa Yollar
-      related_policies: "İlgili politikalar"
-      statistics: "İstatistiklerimiz"
+      related_policies: İlgili politikalar
+      statistics: İstatistiklerimiz
     type:
       international_delegation:
         one: Uluslararası heyet
         other: Uluslararası heyetler
       world_location:
-        one: "Ülke "
-        other: "Ülkeler"
+        one: 'Ülke '
+        other: Ülkeler
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
