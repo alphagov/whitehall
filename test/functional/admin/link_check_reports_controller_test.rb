@@ -33,7 +33,7 @@ class Admin::LinkCheckReportsControllerTest < ActionController::TestCase
     assert @publication.link_check_reports.last
   end
 
-  test "POST :create saves a LinksReport and redirects back to the edition" do
+  test "POST :create saves a LinkCheckReport and redirects back to the edition" do
     post :create, edition_id: @publication.id
 
     assert_redirected_to admin_publication_url(@publication)
@@ -41,7 +41,7 @@ class Admin::LinkCheckReportsControllerTest < ActionController::TestCase
     assert @publication.link_check_reports.last
   end
 
-  test "AJAX GET :show renders assigns the LinksReport and renders the template" do
+  test "AJAX GET :show renders assigns the LinkCheckReport and renders the template" do
     link_check_report = create(:link_checker_api_report, link_reportable: @publication)
     xhr :get, :show, id: link_check_report, edition_id: @publication
 
