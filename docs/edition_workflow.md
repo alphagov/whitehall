@@ -27,3 +27,7 @@ The `PublishingApiUnpublishingWorker` uses the above to decide what to do with a
 | `PublishedInError`                         | `gone`                           |
 | `Consolidated`                             | `redirect`                       |
 | `Withdrawn`                                | `withdrawn`                      |
+
+## LinkCheckerAPI
+
+The `link-checker-api` has been integrated on the show page for Editions. It extracts all links from within any GovSpeak fields and sends them to the `/batch` endpoint of the API. In this request it also sends across a `webhook_callback` which then populates any information about broken/warning links. More reading about the endpoints can be found [here](https://docs.publishing.service.gov.uk/apis/link-checker-api.html)
