@@ -17,7 +17,7 @@ class NoFootnotesInGovspeakValidatorTest < ActiveSupport::TestCase
   end
 
   test "it can validate multiple attributes" do
-    subject = NoFootnotesInGovspeakValidator.new(attributes: [:summary, :body])
+    subject = NoFootnotesInGovspeakValidator.new(attributes: %i[summary body])
     test_model = Edition.new(summary: 'footnotes[^1]', body: 'footnotes[^1]')
 
     subject.validate(test_model)

@@ -13,7 +13,7 @@ class SocialMediaServiceTest < ActiveSupport::TestCase
   end
 
   test "should be valid when existing service has been persisted" do
-    existing_service = create(:social_media_service)
+    _existing_service = create(:social_media_service)
     social_media_service = build(:social_media_service)
     assert social_media_service.valid?
   end

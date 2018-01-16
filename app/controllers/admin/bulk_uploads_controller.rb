@@ -30,7 +30,7 @@ class Admin::BulkUploadsController < Admin::BaseController
     end
   end
 
-  private
+private
 
   def find_edition
     @edition = Edition.find(params[:edition_id])
@@ -42,7 +42,7 @@ class Admin::BulkUploadsController < Admin::BaseController
 
   def create_params
     params.require(:bulk_upload).permit(attachments_attributes: [
-      {attachment_data_attributes: [:file_cache, :to_replace_id]},
+      { attachment_data_attributes: %i[file_cache to_replace_id] },
       :id,
       :title,
       :locale,

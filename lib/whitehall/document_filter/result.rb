@@ -1,8 +1,8 @@
 module Whitehall::DocumentFilter
   class Result
     ACCESSORS = %w{title description indexable_content attachments
-      format display_type link id search_format_types
-      relevant_to_local_government}
+                   format display_type link id search_format_types
+                   relevant_to_local_government}.freeze
     ACCESSORS.each do |attribute_name|
       define_method attribute_name.to_sym do
         @doc[attribute_name.to_s]
@@ -50,6 +50,7 @@ module Whitehall::DocumentFilter
     end
 
   private
+
     def fetch_from_cache(type, slug)
       Rails.cache.fetch("#{type}-#{slug}", namespace: "results", expires_in: 30.minutes, race_condition_ttl: 1.second) do
         case type
@@ -67,6 +68,5 @@ module Whitehall::DocumentFilter
         end
       end
     end
-
   end
 end

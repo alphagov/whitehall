@@ -50,7 +50,7 @@ class I18nKeyTest < ActiveSupport::TestCase
     assert_translation CaseStudy.new, "document.type"
   end
 
-  private
+private
 
   def assert_translations(type_class, translation_prefix)
     failed_types = []
@@ -58,7 +58,7 @@ class I18nKeyTest < ActiveSupport::TestCase
       begin
         I18n.t("#{translation_prefix}.#{type.key}", count: 1)
         I18n.t("#{translation_prefix}.#{type.key}", count: 2)
-      rescue => e
+      rescue StandardError
         failed_types << type
       end
     end
@@ -80,7 +80,7 @@ class I18nKeyTest < ActiveSupport::TestCase
   end
 
   def any_nil_values?(hash)
-    hash.detect {|k, v| v.nil? or (v.is_a?(Hash) && any_nil_values?(v)) }
+    hash.detect { |_k, v| v.nil? || (v.is_a?(Hash) && any_nil_values?(v)) }
   end
 
   def keys_in_locale_file(locale_file)
@@ -115,7 +115,7 @@ class I18nKeyTest < ActiveSupport::TestCase
   end
 
   def flatten_keys(hash, context)
-    hash.map do |key, value|
+    hash.flat_map do |key, value|
       if context.size == 1 && key == "language_names"
         # don't care about language names, each language should define
         # its own language name and nothing more
@@ -125,6 +125,6 @@ class I18nKeyTest < ActiveSupport::TestCase
       else
         context[1..-1].join(".") << "." << key
       end
-    end.flatten
+    end
   end
 end

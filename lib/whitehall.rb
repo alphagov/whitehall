@@ -77,8 +77,7 @@ module Whitehall
 
   # NOOP until alphagov-deployment is updated to not set this in the
   # public_host.rb initializer
-  def self.public_host=(_)
-  end
+  def self.public_host=(_); end
 
   def self.secrets
     @secrets ||= load_secrets
@@ -160,7 +159,7 @@ module Whitehall
   end
 
   def self.load_secrets
-    if File.exists?(secrets_path)
+    if File.exist?(secrets_path)
       YAML.load_file(secrets_path)
     else
       {}

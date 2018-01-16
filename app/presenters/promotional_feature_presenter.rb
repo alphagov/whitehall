@@ -15,7 +15,7 @@ class PromotionalFeaturePresenter < Whitehall::Decorators::Decorator
   end
 
   def width
-    promotional_feature_items.sum { |item| item.width }
+    promotional_feature_items.sum(&:width)
   end
 
   def width_class

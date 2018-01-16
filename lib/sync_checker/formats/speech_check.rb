@@ -10,7 +10,7 @@ module SyncChecker
             "topical_events",
             ::TopicalEvent
               .joins(:classification_memberships)
-              .where(classification_memberships: {edition_id: edition_expected_in_live.id})
+              .where(classification_memberships: { edition_id: edition_expected_in_live.id })
               .pluck(:content_id)
           ),
           Checks::LinksCheck.new(

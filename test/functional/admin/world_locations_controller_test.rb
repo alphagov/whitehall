@@ -55,10 +55,10 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
     world_location = create(:world_location)
 
     post :update, params: { id: world_location, world_location: {
-      featured_links_attributes: {"0" => {
+      featured_links_attributes: { "0" => {
         url: "http://www.gov.uk/mainstream/something",
         title: "Something on mainstream"
-      }}
+      } }
     } }
 
     assert world_location = WorldLocation.last
@@ -72,10 +72,10 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
     featured_link = create(:featured_link, linkable: world_location)
 
     post :update, params: { id: world_location, world_location: {
-      featured_links_attributes: {"0" => {
+      featured_links_attributes: { "0" => {
         id: featured_link.id,
         _destroy: "1"
-      }}
+      } }
     } }
 
     refute FeaturedLink.exists?(featured_link.id)

@@ -31,7 +31,7 @@ class Taxonomy::TreeTest < ActiveSupport::TestCase
   # }
 
   test "it parses an empty set of child_taxons" do
-    assert result({ "expanded_links" => {} }).empty?
+    assert result("expanded_links" => {}).empty?
   end
 
   test "it parses a single child_taxon" do

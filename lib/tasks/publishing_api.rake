@@ -22,14 +22,16 @@ namespace :publishing_api do
         description: "The prefix route under which pages for courts and tribunals are published.",
       },
     ].each do |route|
-      publisher.publish(route.merge(
-        format: "special_route",
-        publishing_app: "whitehall",
-        rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
-        update_type: "major",
-        type: "prefix",
-        public_updated_at: Time.zone.now.iso8601,
-      ))
+      publisher.publish(
+        route.merge(
+          format: "special_route",
+          publishing_app: "whitehall",
+          rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
+          update_type: "major",
+          type: "prefix",
+          public_updated_at: Time.zone.now.iso8601,
+          )
+      )
     end
   end
 
@@ -42,7 +44,7 @@ namespace :publishing_api do
     editions.pluck(:id).each_with_index do |item_id, i|
       PublishingApiLinksWorker.perform_async(item_id)
 
-      puts "Queuing #{i}-#{i + 99} of #{count} items" if i % 100 == 0
+      puts "Queuing #{i}-#{i + 99} of #{count} items" if (i % 100).zero?
     end
 
     puts "Finished queuing items for Publishing API"
@@ -57,7 +59,7 @@ namespace :publishing_api do
     editions.pluck(:id).each_with_index do |item_id, i|
       PublishingApiLinksWorker.perform_async(item_id)
 
-      puts "Queuing #{i}-#{i + 99} of #{count} items" if i % 100 == 0
+      puts "Queuing #{i}-#{i + 99} of #{count} items" if (i % 100).zero?
     end
 
     puts "Finished queuing items for Publishing API"
@@ -73,7 +75,7 @@ namespace :publishing_api do
     editions.pluck(:id).each_with_index do |item_id, i|
       PublishingApiLinksWorker.perform_async(item_id)
 
-      puts "Queuing #{i}-#{i + 99} of #{count} items" if i % 100 == 0
+      puts "Queuing #{i}-#{i + 99} of #{count} items" if (i % 100).zero?
     end
 
     puts "Finished queuing items for Publishing API"

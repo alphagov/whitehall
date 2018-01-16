@@ -346,7 +346,6 @@ module SyncChecker::Checks
         UnpublishedCheck.new(document).call(response)
     end
 
-
     def test_returns_no_error_if_the_document_is_unpublished_consolidated_and_redirect_is_returned
       document = stub(
         published_edition: nil,

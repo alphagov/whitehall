@@ -35,20 +35,22 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_equal [prime_minister, deputy_prime_minister, first_sec_of_state, defence_minister, culture_minister], assigns(:cabinet_ministerial_roles).map { |person, role| role.first.model }
+    actual_roles = assigns(:cabinet_ministerial_roles).map { |_person, role| role.first.model }
+
+    assert_equal [prime_minister, deputy_prime_minister, first_sec_of_state, defence_minister, culture_minister], actual_roles
   end
 
   test "shows ministers by organisation with the organisations in the cms-defined order" do
     organisation_1 = create(:ministerial_department, ministerial_ordering: 1)
     organisation_2 = create(:ministerial_department, ministerial_ordering: 0)
 
-    person_1 = create(:person)
-    role_1 = create(:ministerial_role, cabinet_member: true, organisations: [organisation_1], seniority: 0)
-    appointment_1 = create(:ministerial_role_appointment, role: role_1, person: person_1)
+    create(:ministerial_role_appointment,
+           person: create(:person),
+           role: create(:ministerial_role, cabinet_member: true, organisations: [organisation_1], seniority: 0))
 
-    person_2 = create(:person)
-    role_2 = create(:ministerial_role, cabinet_member: true, organisations: [organisation_2], seniority: 0)
-    appointment_2 = create(:ministerial_role_appointment, role: role_2, person: person_2)
+    create(:ministerial_role_appointment,
+           person: create(:person),
+           role: create(:ministerial_role, cabinet_member: true, organisations: [organisation_2], seniority: 0))
 
     get :index
 
@@ -57,13 +59,14 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
   test "shows ministers by organisation with the ministers in the cms-defined order" do
     organisation = create(:ministerial_department)
-    person_2 = create(:person, forename: 'Jeremy', surname: 'Hunt')
+
     person_1 = create(:person, forename: 'Nick', surname: 'Clegg')
+    person_2 = create(:person, forename: 'Jeremy', surname: 'Hunt')
     person_3 = create(:person, forename: 'George', surname: 'Foreman')
     person_4 = create(:person, forename: 'Brian', surname: 'Smith')
 
-    role_2 = create(:ministerial_role, name: 'Non-Executive Director', cabinet_member: false, organisations: [organisation], seniority: 1)
     role_1 = create(:ministerial_role, name: 'Prime Minister', cabinet_member: true, organisations: [organisation], seniority: 0)
+    role_2 = create(:ministerial_role, name: 'Non-Executive Director', cabinet_member: false, organisations: [organisation], seniority: 1)
     role_3 = create(:board_member_role, name: 'Chief Griller', organisations: [organisation], seniority: 3)
     role_4 = create(:ministerial_role, name: 'First Secretary of State', cabinet_member: true, organisations: [organisation], seniority: 2)
 
@@ -71,10 +74,10 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     organisation.organisation_roles.find_by(role_id: role_1.id).update_column(:ordering, 2)
     organisation.organisation_roles.find_by(role_id: role_4.id).update_column(:ordering, 1)
 
-    appointment_2 = create(:ministerial_role_appointment, role: role_2, person: person_2)
-    appointment_1 = create(:ministerial_role_appointment, role: role_1, person: person_1)
-    appointment_3 = create(:board_member_role_appointment, role: role_3, person: person_3)
-    appointment_4 = create(:ministerial_role_appointment, role: role_4, person: person_4)
+    create(:board_member_role_appointment, role: role_3, person: person_3)
+    create(:ministerial_role_appointment, role: role_1, person: person_1)
+    create(:ministerial_role_appointment, role: role_2, person: person_2)
+    create(:ministerial_role_appointment, role: role_4, person: person_4)
 
     get :index
 
@@ -86,12 +89,12 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     organisation_1 = create(:ministerial_department)
     person_1 = create(:person, forename: 'Tony', surname: 'Blair')
     role_1 = create(:ministerial_role, name: 'Prime Minister', cabinet_member: true, organisations: [organisation_1], seniority: 0)
-    appointment_1 = create(:ministerial_role_appointment, role: role_1, person: person_1)
+    create(:ministerial_role_appointment, role: role_1, person: person_1)
 
     organisation_2 = create(:ministerial_department, :closed)
     person_2 = create(:person, forename: 'Frank', surname: 'Underwood')
     role_2 = create(:ministerial_role, name: 'President', cabinet_member: true, organisations: [organisation_2], seniority: 0)
-    appointment = create(:ministerial_role_appointment, role: role_2, person: person_2)
+    create(:ministerial_role_appointment, role: role_2, person: person_2)
 
     get :index
 
@@ -109,13 +112,15 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     role_2 = create(:ministerial_role, name: 'Non-Executive Director', cabinet_member: false, organisations: [organisation])
     role_3 = create(:ministerial_role, name: 'Chief Whip and Parliamentary Secretary to the Treasury', organisations: [organisation], whip_organisation_id: 1, attends_cabinet_type_id: 1)
 
-    appointment_1 = create(:ministerial_role_appointment, role: role_1, person: person_1)
-    appointment_2 = create(:ministerial_role_appointment, role: role_2, person: person_2)
-    appointment_3 = create(:ministerial_role_appointment, role: role_3, person: person_3)
+    create(:ministerial_role_appointment, role: role_1, person: person_1)
+    create(:ministerial_role_appointment, role: role_2, person: person_2)
+    create(:ministerial_role_appointment, role: role_3, person: person_3)
 
     get :index
 
-    assert_equal [role_3], assigns(:also_attends_cabinet).map { |person, role| role.first.model }
+    actual_roles = assigns(:also_attends_cabinet).map { |_person, role| role.first.model }
+
+    assert_equal [role_3], actual_roles
   end
 
   test "shows whips separately" do
@@ -128,9 +133,9 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     role_2 = create(:ministerial_role, name: 'Non-Executive Director', cabinet_member: false, organisations: [organisation])
     role_3 = create(:ministerial_role, name: 'Chief Whip and Parliamentary Secretary to the Treasury', organisations: [organisation], whip_organisation_id: 1)
 
-    appointment_1 = create(:ministerial_role_appointment, role: role_1, person: person_1)
-    appointment_2 = create(:ministerial_role_appointment, role: role_2, person: person_2)
-    appointment_3 = create(:ministerial_role_appointment, role: role_3, person: person_3)
+    create(:ministerial_role_appointment, role: role_1, person: person_1)
+    create(:ministerial_role_appointment, role: role_2, person: person_2)
+    create(:ministerial_role_appointment, role: role_3, person: person_3)
 
     get :index
 
@@ -154,11 +159,11 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     role_4 = create(:ministerial_role, organisations: [organisation], whip_organisation_id: 4)
     role_5 = create(:ministerial_role, organisations: [organisation], whip_organisation_id: 5)
 
-    appointment_1 = create(:ministerial_role_appointment, role: role_1, person: person_1)
-    appointment_2 = create(:ministerial_role_appointment, role: role_2, person: person_2)
-    appointment_3 = create(:ministerial_role_appointment, role: role_3, person: person_3)
-    appointment_4 = create(:ministerial_role_appointment, role: role_4, person: person_4)
-    appointment_5 = create(:ministerial_role_appointment, role: role_5, person: person_5)
+    create(:ministerial_role_appointment, role: role_1, person: person_1)
+    create(:ministerial_role_appointment, role: role_2, person: person_2)
+    create(:ministerial_role_appointment, role: role_3, person: person_3)
+    create(:ministerial_role_appointment, role: role_4, person: person_4)
+    create(:ministerial_role_appointment, role: role_5, person: person_5)
 
     get :index
 
@@ -295,8 +300,8 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     organisation = create(:ministerial_department)
     ministerial_role = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, organisations: [organisation])
     old_role = create(:ministerial_role, name: "Pharoah", cabinet_member: true, organisations: [organisation])
-    appointment_1 = create(:role_appointment, person: person, role: ministerial_role)
-    appointment_2 = create(:role_appointment, person: person, role: old_role, started_at: 10.days.ago, ended_at: 5.days.ago)
+    create(:role_appointment, person: person, role: ministerial_role)
+    create(:role_appointment, person: person, role: old_role, started_at: 10.days.ago, ended_at: 5.days.ago)
 
     get :index
 
@@ -304,7 +309,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     assert_equal expected_results, assigns(:ministers_by_organisation)
   end
 
-  private
+private
 
   def assert_minister_photo_links_to_the_person(person)
     assert_select ".image_holder a[href='#{person_path(person)}'] img[src='#{person.image_url}']"

@@ -19,5 +19,5 @@ pages = [
 ]
 
 pages.each do |page|
-  PublishStaticPages.new.patch_links(page[:content_id], { links: page[:links] })
+  PublishStaticPages.new.patch_links(page[:content_id], links: page[:links])
 end

@@ -1,6 +1,6 @@
 class Admin::PromotionalFeaturesController < Admin::BaseController
   before_action :load_organisation
-  before_action :load_promotional_feature, only: [:show, :edit, :update, :destroy]
+  before_action :load_promotional_feature, only: %i[show edit update destroy]
 
   def index
     @promotional_features = @organisation.promotional_features
@@ -21,11 +21,9 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
     end
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @promotional_feature.update_attributes(promotional_feature_params)
@@ -40,7 +38,7 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
     redirect_to [:admin, @organisation, PromotionalFeature], notice: 'Promotional feature deleted.'
   end
 
-  private
+private
 
   def load_organisation
     @organisation = Organisation.allowed_promotional.find(params[:organisation_id])
@@ -56,7 +54,7 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
       promotional_feature_items_attributes: [
         :summary, :image, :image_alt_text, :title, :title_url, :double_width,
         :image_cache,
-        links_attributes: [:url, :text, :_destroy]
+        links_attributes: %i[url text _destroy]
       ]
     )
   end

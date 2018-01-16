@@ -40,7 +40,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     assert_select ".page-header .lead", text: "a-simple-summary"
   end
 
-  private
+private
 
   def controller_attributes_for(edition_type, attributes = {})
     super.except(:news_article_type).reverse_merge(

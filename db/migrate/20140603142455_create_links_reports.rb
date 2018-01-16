@@ -10,6 +10,6 @@ class CreateLinksReports < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :links_reports, [:link_reportable_id, :link_reportable_type], name: 'link_reportable_index'
+    add_index :links_reports, %i[link_reportable_id link_reportable_type], name: 'link_reportable_index'
   end
 end

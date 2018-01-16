@@ -7,7 +7,7 @@ class CreateSyncCheckResults < ActiveRecord::Migration
 
       t.timestamps null: false
 
-      t.index [:check_class, :item_id], unique: true
+      t.index %i[check_class item_id], unique: true
     end
   end
 end

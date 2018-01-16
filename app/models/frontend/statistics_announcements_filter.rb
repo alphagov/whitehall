@@ -1,9 +1,7 @@
 class Frontend::StatisticsAnnouncementsFilter < FormObject
   named "StatisticsAnnouncementsFilter"
-  attr_accessor :keywords,
-                :from_date, :to_date,
-                :organisations,
-                :page
+  attr_accessor :keywords
+  attr_reader :from_date, :to_date
 
   # DID YOU MEAN: Policy Area?
   # "Policy area" is the newer name for "topic"
@@ -12,7 +10,6 @@ class Frontend::StatisticsAnnouncementsFilter < FormObject
   # (https://www.gov.uk/topic)
   # You can help improve this code by renaming all usages of this field to use
   # the new terminology.
-  attr_accessor :topics
 
   RESULTS_PER_PAGE = 40
 
@@ -25,7 +22,7 @@ class Frontend::StatisticsAnnouncementsFilter < FormObject
   end
 
   def page=(page_number)
-    if page_number.to_i > 0
+    if page_number.to_i.positive?
       @page = page_number.to_i
     end
   end
@@ -33,19 +30,15 @@ class Frontend::StatisticsAnnouncementsFilter < FormObject
   def to_date=(date)
     date = Chronic.parse(date, guess: :end, endian_precedence: :little) if date.is_a? String
     @to_date = if date.present?
-      (date - 1.seconds).to_date
-    else
-      nil
-    end
+                 (date - 1.seconds).to_date
+               end
   end
 
   def from_date=(date)
     date = Chronic.parse(date, guess: :begin, endian_precedence: :little) if date.is_a? String
     @from_date = if date.present?
-      date.to_date
-    else
-      nil
-    end
+                   date.to_date
+                 end
   end
 
   def organisations=(organisations)
@@ -57,7 +50,7 @@ class Frontend::StatisticsAnnouncementsFilter < FormObject
   end
 
   def organisation_slugs
-    organisations.map &:slug
+    organisations.map(&:slug)
   end
 
   def topics=(topics)
@@ -113,6 +106,7 @@ class Frontend::StatisticsAnnouncementsFilter < FormObject
   end
 
 private
+
   def get_results
     results = provider.search(valid_filter_params.merge(page: page, per_page: RESULTS_PER_PAGE))
     if should_include_cancellations_within_preceding_month?

@@ -1,8 +1,8 @@
 edition_translation_data = {
-  698000  => ["cy", "en"],
-  665884  => ["cy", "en"],
-  641072  => ["cy", "en"],
-  647249  => ["en", "ja", "ko", "zh"],
+  698000  => %w[cy en],
+  665884  => %w[cy en],
+  641072  => %w[cy en],
+  647249  => %w[en ja ko zh],
 }
 
 edition_translation_data.each do |edition_id, locales|

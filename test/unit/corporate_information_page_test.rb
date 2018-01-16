@@ -1,7 +1,6 @@
 require "test_helper"
 
 class CorporateInformationPageTest < ActiveSupport::TestCase
-
   def self.should_be_invalid_without(type, attribute_name)
     test "#{type} should be invalid without #{attribute_name}" do
       document = build(type, attribute_name => nil)
@@ -31,36 +30,36 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
 
   test 'should be invalid if it refers to the same document of another page' do
     organisation = create(:organisation)
-    corporate_information_page = build(:corporate_information_page,
+    corporate_information_page_1 = build(:corporate_information_page,
                                        organisation: organisation,
                                        corporate_information_page_type: CorporateInformationPageType::AboutUs,
                                        state: 'published',
                                        major_change_published_at: Time.zone.now)
-    corporate_information_page.save!
+    corporate_information_page_1.save!
 
-    corporate_information_page2 = build(:corporate_information_page,
+    corporate_information_page_2 = build(:corporate_information_page,
                                        organisation: organisation,
                                        corporate_information_page_type: CorporateInformationPageType::AboutUs)
-    refute corporate_information_page2.valid?
+    refute corporate_information_page_2.valid?
 
-    assert corporate_information_page2.errors.full_messages.include?("Another 'About' page was already published for this organisation")
+    assert corporate_information_page_2.errors.full_messages.include?("Another 'About' page was already published for this organisation")
   end
 
   test 'should be valid if it is a new draft of the same document' do
     organisation = create(:organisation)
-    corporate_information_page = build(:corporate_information_page,
+    corporate_information_page_1 = build(:corporate_information_page,
                                        organisation: organisation,
                                        corporate_information_page_type: CorporateInformationPageType::AboutUs,
                                        state: 'published',
                                        major_change_published_at: Time.zone.now)
-    corporate_information_page.save!
+    corporate_information_page_1.save!
 
-    corporate_information_page2 = build(:corporate_information_page,
+    corporate_information_page_2 = build(:corporate_information_page,
                                        organisation: organisation,
                                        corporate_information_page_type: CorporateInformationPageType::AboutUs,
-                                       document_id: corporate_information_page.document_id,
+                                       document_id: corporate_information_page_1.document_id,
                                        state: 'draft')
-    assert corporate_information_page2.valid?
+    assert corporate_information_page_2.valid?
   end
 
   test 'should return search index data suitable for Rummageable' do
@@ -167,7 +166,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
       create(:corporate_information_page, organisation: organisation, corporate_information_page_type: type)
     end
 
-    by_menu_heading.keys.each do |menu_heading|
+    by_menu_heading.each_key do |menu_heading|
       assert_same_elements by_menu_heading[menu_heading], organisation.corporate_information_pages.by_menu_heading(menu_heading).map(&:corporate_information_page_type)
     end
   end
@@ -178,19 +177,19 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     transitioning_org = create(:organisation, govuk_status: 'transitioning')
     live_org = create(:organisation, govuk_status: 'live')
 
-    c1 = create(:corporate_information_page, :published, organisation: joining_org)
-    c2 = create(:corporate_information_page, :published, organisation: exempt_org)
-    c3 = create(:corporate_information_page, :published, organisation: transitioning_org)
-    c4 = create(:corporate_information_page, :published, organisation: live_org)
+    corporate_information_page_1 = create(:corporate_information_page, :published, organisation: joining_org)
+    corporate_information_page_2 = create(:corporate_information_page, :published, organisation: exempt_org)
+    corporate_information_page_3 = create(:corporate_information_page, :published, organisation: transitioning_org)
+    corporate_information_page_4 = create(:corporate_information_page, :published, organisation: live_org)
 
-    Whitehall::SearchIndex.expects(:add).with(c1).never
-    Whitehall::SearchIndex.expects(:add).with(c2).never
-    Whitehall::SearchIndex.expects(:add).with(c3).never
-    Whitehall::SearchIndex.expects(:add).with(c4).once
-    c1.update_in_search_index
-    c2.update_in_search_index
-    c3.update_in_search_index
-    c4.update_in_search_index
+    Whitehall::SearchIndex.expects(:add).with(corporate_information_page_1).never
+    Whitehall::SearchIndex.expects(:add).with(corporate_information_page_2).never
+    Whitehall::SearchIndex.expects(:add).with(corporate_information_page_3).never
+    Whitehall::SearchIndex.expects(:add).with(corporate_information_page_4).once
+    corporate_information_page_1.update_in_search_index
+    corporate_information_page_2.update_in_search_index
+    corporate_information_page_3.update_in_search_index
+    corporate_information_page_4.update_in_search_index
   end
 
   test 'until we launch worldwide will not be indexed if the org it belongs to is a worldwide org' do

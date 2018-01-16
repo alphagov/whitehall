@@ -15,7 +15,7 @@ class SpeechTest < ActiveSupport::TestCase
     refute speech.valid?
   end
 
-  [:deleted, :superseded].each do |state|
+  %i[deleted superseded].each do |state|
     test "#{state} editions are valid without a delivered on date" do
       speech = build(:speech, state: state, delivered_on: nil)
       assert speech.valid?
@@ -27,7 +27,7 @@ class SpeechTest < ActiveSupport::TestCase
     end
   end
 
-  [:draft, :scheduled, :published, :submitted, :rejected].each do |state|
+  %i[draft scheduled published submitted rejected].each do |state|
     test "#{state} editions are not valid without a delivered on date" do
       edition = build(:speech, state: state, delivered_on: nil)
       refute edition.valid?
@@ -111,7 +111,7 @@ class SpeechTest < ActiveSupport::TestCase
     person = create(:person)
     role_appointment = create(:role_appointment, role: ministerial_role, person: person, started_at: 10.days.ago, ended_at: 2.days.ago)
     speech = create(:speech, role_appointment: role_appointment)
-    subsequent_role_appointment = create(:role_appointment, role: ministerial_role, started_at: 1.day.ago)
+    _subsequent_role_appointment = create(:role_appointment, role: ministerial_role, started_at: 1.day.ago)
 
     assert_equal person, speech.person
   end
@@ -145,7 +145,7 @@ class SpeechTest < ActiveSupport::TestCase
   test 'search_format_types includes search_format_types of the speech_type' do
     speech_type = mock
     speech_type.responds_like(SpeechType.new)
-    speech_type.stubs(:search_format_types).returns (['stuff-innit', 'other-thing'])
+    speech_type.stubs(:search_format_types).returns(['stuff-innit', 'other-thing'])
     speech = build(:speech)
     speech.stubs(:speech_type).returns(speech_type)
     assert speech.search_format_types.include?('stuff-innit')

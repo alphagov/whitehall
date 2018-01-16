@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 require "test_helper"
 
 class Admin::RoleTranslationsControllerTest < ActionController::TestCase
@@ -6,9 +7,7 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
     login_as :writer
     @role = create(:ambassador_role, responsibilities: "responsibilities")
 
-    Locale.stubs(:non_english).returns([
-      Locale.new(:fr), Locale.new(:es)
-    ])
+    Locale.stubs(:non_english).returns([Locale.new(:fr), Locale.new(:es)])
   end
 
   should_be_an_admin_controller
@@ -38,7 +37,7 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
   end
 
   view_test 'index omits create form if no missing translations' do
-    role = create(:role, translated_into: [:fr, :es])
+    role = create(:role, translated_into: %i[fr es])
 
     get :index, params: { role_id: role }
 
@@ -78,7 +77,7 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
   end
 
   view_test 'edit indicates which language is being translated to' do
-    role = create(:role, translated_into: [:fr])
+    create(:role, translated_into: [:fr])
     get :edit, params: { role_id: @role, id: 'fr' }
     assert_select "h1", text: /Edit ‘Français \(French\)’ translation/
   end
@@ -99,8 +98,14 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
   end
 
   view_test 'edit form adds right-to-left class and dir attribute for text field and areas in right-to-left languages' do
-    role = create(:role, translated_into: {
-      ar: { name: 'دور اسم', responsibilities: 'المسؤوليات' }}
+    role = create(
+      :role,
+      translated_into: {
+        ar: {
+          name: 'دور اسم',
+          responsibilities: 'المسؤوليات',
+        },
+      }
     )
 
     get :edit, params: { role_id: role, id: 'ar' }
@@ -134,7 +139,7 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
     } }
 
     translation_path = admin_role_translation_path(@role, 'fr')
-    assert_select "form[action=?]",  translation_path do
+    assert_select "form[action=?]", translation_path do
       assert_select '.form-errors'
       assert_select "input[type=text][name='role[name]'][value=?]", ''
       assert_select "textarea[name='role[responsibilities]']", text: 'responsabilités'

@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class BulkUploadTest < ActiveSupport::TestCase
-
   def attachments_params(*pairs)
     {}.tap do |params|
       pairs.each_with_index do |pair, i|
@@ -45,7 +44,7 @@ class BulkUploadTest < ActiveSupport::TestCase
     existing = edition.attachments.first
     paths = ['whitepaper.pdf', existing.filename].map { |name| file_fixture(name).path }
     bulk_upload = BulkUpload.from_files(edition, paths)
-    assert bulk_upload.attachments.all? { |a| a.attachment_data.new_record? }
+    assert(bulk_upload.attachments.all? { |a| a.attachment_data.new_record? })
   end
 
   test '.from_files sets replaced_by on existing AttachmentData when file re-attached' do
@@ -147,7 +146,7 @@ class BulkUploadZipFileTest < ActiveSupport::TestCase
   test 'is invalid if the zip file contains illegal file types' do
     zip_file = BulkUpload::ZipFile.new(a_zip_file_with_dodgy_file_types)
     refute zip_file.valid?
-    assert_match /contains invalid files/, zip_file.errors[:zip_file][0]
+    assert_match %r[contains invalid files], zip_file.errors[:zip_file][0]
   end
 
   test 'extracted_file_paths returns extracted file paths' do

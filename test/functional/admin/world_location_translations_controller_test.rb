@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 require "test_helper"
 
 class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCase
@@ -40,13 +41,13 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
   end
 
   view_test 'edit indicates which language is being translated to' do
-    location = create(:world_location, translated_into: [:fr])
+    create(:world_location, translated_into: [:fr])
     get :edit, params: { world_location_id: @location, id: 'fr' }
     assert_select "h1", text: /Edit ‘Français \(French\)’ translation/
   end
 
   view_test 'edit presents a form to update an existing translation' do
-    location = create(:world_location, translated_into: {fr: {name: 'Afrolasie', mission_statement: 'Enseigner aux gens comment infuser le thé'}})
+    location = create(:world_location, translated_into: { fr: { name: 'Afrolasie', mission_statement: 'Enseigner aux gens comment infuser le thé' } })
 
     get :edit, params: { world_location_id: location, id: 'fr' }
 
@@ -60,7 +61,7 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
   end
 
   view_test 'edit form adds right-to-left class and dir attribute for text field and areas in right-to-left languages' do
-    location = create(:world_location, translated_into: {ar: {name: 'الناس', mission_statement: 'تعليم الناس كيفية تحضير الشاي'}})
+    location = create(:world_location, translated_into: { ar: { name: 'الناس', mission_statement: 'تعليم الناس كيفية تحضير الشاي' } })
 
     get :edit, params: { world_location_id: location, id: 'ar' }
 

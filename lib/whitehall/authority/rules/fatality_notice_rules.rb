@@ -1,6 +1,7 @@
 module Whitehall::Authority::Rules
   class FatalityNoticeRules < Whitehall::Authority::Rules::EditionRules
-    protected
+  protected
+
     def actor_can_handle_fatalities?
       if actor.gds_editor?
         true

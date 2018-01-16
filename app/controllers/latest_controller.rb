@@ -3,10 +3,10 @@ class LatestController < PublicFacingController
 
   before_action :redirect_unless_subject
 
-  def index
-  end
+  def index; end
 
 private
+
   def subject
     case subject_param
     when 'departments'
@@ -31,7 +31,7 @@ private
   end
 
   def page_params
-    {page: params.fetch(:page, 0)}
+    { page: params.fetch(:page, 0) }
   end
 
   def subject_id

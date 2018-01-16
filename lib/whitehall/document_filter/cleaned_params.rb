@@ -1,7 +1,7 @@
 module Whitehall::DocumentFilter
   class CleanedParams < ActiveSupport::HashWithIndifferentAccess
     # These filter parameters are expected to be an array of values
-    PERMITTED_ARRAY_PARAMETER_KEYS  = %w(topics departments people world_locations)
+    PERMITTED_ARRAY_PARAMETER_KEYS  = %w(topics departments people world_locations).freeze
     # These filter params are expected to be scalar values, as defined by the strong_parameters code
     PERMITTED_SCALAR_PARAMETER_KEYS = %w(page
                                          per_page
@@ -15,7 +15,7 @@ module Whitehall::DocumentFilter
                                          announcement_type
                                          publication_filter_option
                                          announcement_filter_option
-                                         announcement_type_option)
+                                         announcement_type_option).freeze
 
     def initialize(unclean_params)
       @params = unclean_params.clone
@@ -25,7 +25,7 @@ module Whitehall::DocumentFilter
       end
 
       super params.permit(*PERMITTED_SCALAR_PARAMETER_KEYS +
-                           PERMITTED_ARRAY_PARAMETER_KEYS.map {|key| { key => [] }})
+                           PERMITTED_ARRAY_PARAMETER_KEYS.map { |key| { key => [] } })
     end
 
     def unpermitted_keys
@@ -38,9 +38,7 @@ module Whitehall::DocumentFilter
       PERMITTED_SCALAR_PARAMETER_KEYS + PERMITTED_ARRAY_PARAMETER_KEYS + ActionController::Parameters.always_permitted_parameters
     end
 
-    def params
-      @params
-    end
+    attr_reader :params
 
     def unsafe_params
       @params.to_unsafe_h

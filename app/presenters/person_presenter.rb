@@ -1,5 +1,4 @@
 class PersonPresenter < Whitehall::Decorators::Decorator
-
   delegate_instance_methods_of Person
 
   def available_in_multiple_languages?
@@ -15,7 +14,7 @@ class PersonPresenter < Whitehall::Decorators::Decorator
   end
 
   def current_role_appointments
-    model.current_role_appointments.map {|ra| RoleAppointmentPresenter.new(ra, context) }
+    model.current_role_appointments.map { |ra| RoleAppointmentPresenter.new(ra, context) }
   end
 
   def previous_role_appointments
@@ -44,8 +43,8 @@ class PersonPresenter < Whitehall::Decorators::Decorator
   def biography
     if in_current_role?
       context.govspeak_to_html model.biography
-    else
-      context.govspeak_to_html truncated_biography if model.biography
+    elsif model.biography
+      context.govspeak_to_html truncated_biography
     end
   end
 
@@ -61,9 +60,9 @@ class PersonPresenter < Whitehall::Decorators::Decorator
   end
 
   def image
-    if img = image_url(:s216)
-     context.image_tag img, alt: name
-   end
+    if (img = image_url(:s216))
+      context.image_tag img, alt: name
+    end
   end
 
   def in_current_role?

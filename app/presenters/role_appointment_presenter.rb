@@ -1,5 +1,4 @@
 class RoleAppointmentPresenter < Whitehall::Decorators::Decorator
-
   delegate_instance_methods_of RoleAppointment
 
   def role_link

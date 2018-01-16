@@ -1,6 +1,6 @@
 class Admin::SocialMediaAccountsController < Admin::BaseController
   before_action :find_socialable
-  before_action :find_social_media_account, only: [:edit, :update, :destroy]
+  before_action :find_social_media_account, only: %i[edit update destroy]
   before_action :strip_whitespace_from_url
 
   def index
@@ -11,8 +11,7 @@ class Admin::SocialMediaAccountsController < Admin::BaseController
     @social_media_account = @socialable.social_media_accounts.build
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     @social_media_account.update_attributes(social_media_account_params)

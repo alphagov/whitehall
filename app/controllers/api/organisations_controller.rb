@@ -22,6 +22,7 @@ class Api::OrganisationsController < PublicFacingController
   end
 
 private
+
   def respond_with_not_found
     respond_with Hash.new, status: :not_found
   end

@@ -1,5 +1,4 @@
 class Admin::CabinetMinistersController < Admin::BaseController
-
   before_action :enforce_permissions!
 
   def show
@@ -18,15 +17,16 @@ class Admin::CabinetMinistersController < Admin::BaseController
   end
 
 private
+
   def enforce_permissions!
     enforce_permission!(:reorder_cabinet_ministers, MinisterialRole)
   end
 
   def update_ordering(key, column)
     return unless params.include?(key)
-    params[key].keys.each do |id|
+    params[key].each_key do |id|
       Role.where(id: id).update_all(
-        column => params[key]["#{id}"]["ordering"],
+        column => params[key][id.to_s]["ordering"],
       )
     end
   end

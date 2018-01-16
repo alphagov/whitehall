@@ -5,7 +5,7 @@ end
 module DocumentHelper
   def document_class(type)
     type = 'edition' if type == 'document'
-    type.gsub(" ", "_").classify.constantize
+    type.tr(" ", "_").classify.constantize
   end
 
   def set_lead_organisation_on_document(organisation, order = 1)
@@ -13,12 +13,8 @@ module DocumentHelper
   end
 
   def begin_drafting_document(options)
-    if Organisation.count == 0
-      create(:organisation)
-    end
-    if Topic.count == 0
-      create(:topic)
-    end
+    create(:organisation) if Organisation.count.zero?
+    create(:topic) if Topic.count.zero?
     visit admin_root_path
     # Make sure the dropdown is visible first, otherwise Capybara won't see the links
     find('li.create-new a', text: 'New document').click
@@ -47,7 +43,6 @@ module DocumentHelper
       when true
         choose 'has previously been published on another website.'
       end
-
     end
   end
 
@@ -89,10 +84,9 @@ module DocumentHelper
     organisation = create(:ministerial_department)
     person = create_person("Colonel Mustard")
     role = create(:ministerial_role, name: "Attorney General", organisations: [organisation])
-    role_appointment = create(:role_appointment, person: person, role: role, started_at: Date.parse('2010-01-01'))
-    speech_type = SpeechType::Transcript
+    create(:role_appointment, person: person, role: role, started_at: Date.parse('2010-01-01'))
     begin_drafting_document options.merge(type: 'speech', summary: "Some summary of the content", previously_published: false)
-    select speech_type.singular_name, from: "Speech type"
+    select SpeechType::Transcript.singular_name, from: "Speech type"
     select "Colonel Mustard, Attorney General", from: "Speaker"
     select_date 1.day.ago.to_s, from: "Delivered on"
     fill_in "Location", with: "The Drawing Room"
@@ -154,15 +148,11 @@ module DocumentHelper
         fill_in 'reason', with: "because"
         click_button 'Force publish'
       end
-      unless options[:ignore_errors]
-        refute_flash_alerts_exist
-      end
     else
       click_button "Publish"
-      unless options[:ignore_errors]
-        refute_flash_alerts_exist
-      end
     end
+
+    refute_flash_alerts_exist unless options[:ignore_errors]
   end
 
   def speed_tag_publication(title)

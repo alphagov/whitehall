@@ -16,7 +16,7 @@ class PublicationType
     8 => "<p>Ministerial or departmental responses (eg to campaign letters), announcements, or statements;regularly issued circulars or bulletins (eg fire service circulars), official correspondence to professionals (eg “Dear chief planning officer” letters);letters to individuals or organisations that are published to share with a wider audience than their original recipient;online versions of e-bulletins or newsletters.</p><p>Do <em>not</em> use for: minutes, agendas or other meeting papers. Attach them to relevant “policy detail”, “team” or “our governance” pages instead.</p>",
     10 => "<p>Information made available about departmental operations with the intent of making government more transparent.Includes organisation charts, staff survey results, departmental spending, salaries, contracts, meetings with ministers, etc.</p><p>Do <em>not</em> use for: FOI responses.</p>",
     12 => "<p>Responses to Freedom of Information requests. Ensure the title describes specifically what the request is about.</p>",
-    13 =>"<p>Leaflets, posters, fact sheets and marketing collateral.</p>",
+    13 => "<p>Leaflets, posters, fact sheets and marketing collateral.</p>",
     14 => "<p>Reviews, inquiries and other reports commissioned from or conducted by independent (ie non-governmental) bodies for consideration by the government.</p>",
     15 => "<p>Official Statistics that have been produced in accordance with the Code of Practice for Official Statistics, which is indicated using the National Statistics quality mark.</p>",
     17 => "<p>Drawn maps and geographical data.</p>",
@@ -29,14 +29,15 @@ class PublicationType
     1000 => "<p>DO NOT USE. This is a holding category for content that has been imported automatically.</p>",
   }.to_json.freeze
 
-  attr_accessor :id, :singular_name, :plural_name, :prevalence, :access_limited_by_default, :key, :additional_search_format_types, :detailed_format
+  attr_accessor :id, :singular_name, :plural_name, :prevalence, :access_limited_by_default, :key, :detailed_format
+  attr_writer :additional_search_format_types
 
   def self.access_limitable
     all.select(&:access_limited_by_default?)
   end
 
   def self.by_prevalence
-    all.group_by { |type| type.prevalence }
+    all.group_by(&:prevalence)
   end
 
   def self.ordered_by_prevalence
@@ -111,7 +112,7 @@ class PublicationType
   Decision               = create(id: 21, key: "decision", singular_name: "Decision", plural_name: "Decisions", prevalence: :less_common)
 
   # Use is discouraged
-  Correspondence         = create(id: 8 , key: "correspondence", singular_name: "Correspondence", plural_name: "Correspondence", prevalence: :discouraged)
+  Correspondence         = create(id: 8, key: "correspondence", singular_name: "Correspondence", plural_name: "Correspondence", prevalence: :discouraged)
   PromotionalMaterial    = create(id: 13, key: "promotional", singular_name: "Promotional material", plural_name: "Promotional material", prevalence: :discouraged)
   Regulation             = create(id: 22, key: "regulation", singular_name: "Regulation", plural_name: "Regulations", prevalence: :discouraged)
 

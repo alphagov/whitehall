@@ -21,6 +21,7 @@ class Admin::EditorialRemarksController < Admin::BaseController
   end
 
 private
+
   def find_edition
     @edition = Edition.find(params[:edition_id])
   end

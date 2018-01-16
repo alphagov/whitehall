@@ -5,7 +5,8 @@ module Whitehall
       store = Whitehall::NotQuiteAsFakeSearch::Store.new
       SearchIndex.indexer_class.store = store
       Whitehall.government_search_client = Whitehall::NotQuiteAsFakeSearch::GdsApiRummager.new(
-        SearchIndex.government_search_index_path, store)
+        SearchIndex.government_search_index_path, store
+      )
       Whitehall.search_backend = Whitehall::DocumentFilter::Rummager
     end
 
@@ -14,18 +15,17 @@ module Whitehall
     end
 
     class GdsApiRummager
-
       def initialize(index_name, store, field_mappings = nil)
         @index_name = index_name
         @field_mappings = field_mappings || default_field_mappings
         @store = store
       end
 
-      def search(*args)
+      def search(*_args)
         raise "Not implemented"
       end
 
-      def autocomplete(*args)
+      def autocomplete(*_args)
         raise "Not implemented"
       end
 
@@ -42,6 +42,7 @@ module Whitehall
       end
 
     private
+
       def default_field_mappings
         {
           simple: %w{
@@ -113,18 +114,22 @@ module Whitehall
           validate_ordering!
         end
 
+        # rubocop:disable Style/MultilineBlockChain
         def compare(left, right)
-          @ordering.map do |field_name, direction|
-            if direction == "asc"
-              left.fetch(field_name) <=> right.fetch(field_name)
-            else
-              right.fetch(field_name) <=> left.fetch(field_name)
-            end
-          end.detect { |res| res != 0 } || 0
+          @ordering
+            .map { |field_name, direction|
+              if direction == "asc"
+                left.fetch(field_name) <=> right.fetch(field_name)
+              else
+                right.fetch(field_name) <=> left.fetch(field_name)
+              end
+            }
+            .detect { |res| res != 0 } || 0
         end
+        # rubocop:enable Style/MultilineBlockChain
 
         def sort(documents)
-          documents.sort {|l, r| compare(l, r)}
+          documents.sort { |l, r| compare(l, r) }
         end
 
         def validate_ordering!
@@ -139,15 +144,15 @@ module Whitehall
       def filter_by_keywords(keywords, document_hashes)
         keywords_regexp = /(#{keywords.split(/\s+/).map { |k| Regexp.escape(k) }.join('|')})/
         document_hashes.select do |document_hash|
-          %w{title indexable_content description}.any? {|field| document_hash[field] =~ keywords_regexp}
+          %w{title indexable_content description}.any? { |field| document_hash[field] =~ keywords_regexp }
         end
       end
 
       def filter_by_boolean_field(field, desired_field_value, document_hashes)
         desired_boolean =
-          if desired_field_value =~ /\A(true|1)\Z/
+          if desired_field_value.match?(/\A(true|1)\Z/)
             true
-          elsif desired_field_value =~ /\A(false|0)\Z/
+          elsif desired_field_value.match?(/\A(false|0)\Z/)
             false
           else
             raise GdsApi::HTTPErrorResponse, "bad boolean value #{desired_field_value}"
@@ -162,7 +167,7 @@ module Whitehall
 
       def filter_by_date_field(field, date_filter_hash, document_hashes)
         date_filter_hash = ActiveSupport::HashWithIndifferentAccess.new(date_filter_hash)
-        date_filter_hash.keys.each do |k|
+        date_filter_hash.each_key do |k|
           raise GdsApi::HTTPErrorResponse, "Invalid date #{date_filter_hash[k]}" unless valid_date?(date_filter_hash[k])
         end
         date_filter_hash.each do |date_type, date|
@@ -213,6 +218,7 @@ module Whitehall
       end
 
     private
+
       def normalize(document)
         document = document.stringify_keys
         document.each_with_object({}) do |(k, v), memo|

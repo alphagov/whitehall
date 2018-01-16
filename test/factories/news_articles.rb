@@ -1,8 +1,8 @@
 FactoryBot.define do
-  factory :news_article, class: NewsArticle, parent: :edition, traits: [:with_organisations, :with_topics] do
+  factory :news_article, class: NewsArticle, parent: :edition, traits: %i[with_organisations with_topics] do
     title "news-title"
     summary "news-summary"
-    body  "news-body"
+    body "news-body"
     news_article_type_id { NewsArticleType::PressRelease.id }
     transient do
       relevant_to_local_government { false }
@@ -25,7 +25,7 @@ FactoryBot.define do
   factory :submitted_news_article, parent: :news_article, traits: [:submitted]
   factory :rejected_news_article, parent: :news_article, traits: [:rejected]
   factory :published_news_article, parent: :news_article, traits: [:published] do
-    first_published_at  { 2.days.ago }
+    first_published_at { 2.days.ago }
   end
   factory :deleted_news_article, parent: :news_article, traits: [:deleted]
   factory :superseded_news_article, parent: :news_article, traits: [:superseded]

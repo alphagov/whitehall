@@ -2,8 +2,7 @@ class Admin::StatisticsAnnouncementUnpublishingsController < Admin::BaseControll
   before_action :find_statistics_announcement
   before_action :enforce_permissions!
 
-  def new
-  end
+  def new; end
 
   def create
     if @statistics_announcement.update(statistics_announcement_params.merge(publishing_state: "unpublished"))

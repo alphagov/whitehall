@@ -25,11 +25,11 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
   view_test 'GET #index lets you move docs to another group' do
     @group.documents << create(:publication).document
     @collection.groups << build(:document_collection_group)
-    group1, group2 = @collection.groups
+    group_1, group_2 = @collection.groups
     get :index, params: { document_collection_id: @collection }
     assert_select 'section.group' do
-      assert_select "option[value='#{group1.id}']", count: 0
-      assert_select "option[value='#{group2.id}']", group2.heading
+      assert_select "option[value='#{group_1.id}']", count: 0
+      assert_select "option[value='#{group_2.id}']", group_2.heading
     end
   end
 

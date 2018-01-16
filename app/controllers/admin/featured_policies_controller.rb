@@ -26,6 +26,7 @@ class Admin::FeaturedPoliciesController < Admin::BaseController
   end
 
 private
+
   def load_organisation
     @organisation = Organisation.friendly.find(params[:organisation_id])
   end

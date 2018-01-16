@@ -81,8 +81,8 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'returns enabled users' do
+    create(:disabled_user)
     user = create(:user)
-    disabled_user = create(:disabled_user)
 
     assert_equal 1, User.enabled.count
     assert_includes User.enabled, user
@@ -133,10 +133,10 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'can be associated to world locations' do
-    location = build(:world_location)
-    location2 = build(:world_location)
-    user = build(:user, world_locations: [location, location2])
-    assert_equal [location, location2], user.world_locations
+    location_1 = build(:world_location)
+    location_2 = build(:world_location)
+    user = build(:user, world_locations: [location_1, location_2])
+    assert_equal [location_1, location_2], user.world_locations
   end
 
   test '#fuzzy_last_name returns second word' do

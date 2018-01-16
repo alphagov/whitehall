@@ -5,7 +5,7 @@ router = GdsApi::Router.new(Plek.find('router-api'))
 updated = false
 
 Document.find_by_sql("SELECT *, LENGTH(slug) AS slug_length FROM documents HAVING `slug_length` > 250;").each do |document|
-  if published = document.published_edition
+  if (published = document.published_edition)
     old_slug = document.slug
     old_path = Whitehall.url_maker.document_path(published)
     new_slug = document.normalize_friendly_id(published.title)

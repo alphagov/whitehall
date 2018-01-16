@@ -1,4 +1,5 @@
 #encoding: utf-8
+
 require "test_helper"
 
 class WorldLocationsControllerTest < ActionController::TestCase
@@ -36,8 +37,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     world_location = create(:world_location,
       title: "UK in country-name",
       world_location_type: WorldLocationType::WorldLocation,
-      mission_statement: "country-mission-statement"
-    )
+      mission_statement: "country-mission-statement")
     assert_raise ActiveRecord::RecordNotFound do
       get :show, params: { id: world_location }
     end
@@ -137,7 +137,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     )
     news = create(:published_news_article, first_published_at: 2.days.ago)
     editor = create(:departmental_editor)
-    draft = news.create_draft(editor)
+    _draft = news.create_draft(editor)
     feature_list = create(:feature_list, featurable: world_location, locale: :en)
     create(:feature, feature_list: feature_list, document: news.document)
     get :show, params: { id: world_location }
@@ -228,7 +228,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
       world_location_type: WorldLocationType::InternationalDelegation
     )
     announcement_2 = create(:published_news_article, world_locations: [world_location], first_published_at: 2.days.ago)
-    announcement_3 = create(:published_speech, world_locations: [world_location], first_published_at: 3.days.ago)
+    _announcement_3 = create(:published_speech, world_locations: [world_location], first_published_at: 3.days.ago)
     announcement_1 = create(:published_news_article, world_locations: [world_location], first_published_at: 1.day.ago)
     get :show, params: { id: world_location }
     assert_equal [announcement_1, announcement_2], assigns[:announcements].object
@@ -262,9 +262,9 @@ class WorldLocationsControllerTest < ActionController::TestCase
       world_location_type: WorldLocationType::InternationalDelegation
     )
     publication_2 = create(:published_publication, world_locations: [world_location], first_published_at: 2.days.ago)
-    publication_3 = create(:published_publication, world_locations: [world_location], first_published_at: 3.days.ago)
+    _publication_3 = create(:published_publication, world_locations: [world_location], first_published_at: 3.days.ago)
     publication_1 = create(:published_publication, world_locations: [world_location], first_published_at: 1.day.ago)
-    statistics_publication = create(:published_statistics, world_locations: [world_location], first_published_at: 1.day.ago)
+    _statistics_publication = create(:published_statistics, world_locations: [world_location], first_published_at: 1.day.ago)
     get :show, params: { id: world_location }
     assert_equal [publication_1, publication_2], assigns[:non_statistics_publications].object
   end
@@ -295,7 +295,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
       world_location_type: WorldLocationType::InternationalDelegation
     )
     publication_2 = create(:published_statistics, world_locations: [world_location], first_published_at: 2.days.ago)
-    publication_3 = create(:published_statistics, world_locations: [world_location], first_published_at: 3.days.ago)
+    _publication_3 = create(:published_statistics, world_locations: [world_location], first_published_at: 3.days.ago)
     publication_1 = create(:published_national_statistics, world_locations: [world_location], first_published_at: 1.day.ago)
     get :show, params: { id: world_location }
     assert_equal [publication_1, publication_2], assigns[:statistics_publications].object
@@ -341,7 +341,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
       translated_into: [:fr]
     )
     translated_speech = create(:published_speech, world_locations: [world_location], translated_into: [:fr])
-    untranslated_speech = create(:published_speech, world_locations: [world_location])
+    _untranslated_speech = create(:published_speech, world_locations: [world_location])
     get :show, params: { id: world_location, locale: 'fr' }
     assert_equal [translated_speech], assigns(:announcements).object
   end
@@ -353,7 +353,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
       translated_into: [:fr]
     )
     translated_publication = create(:published_publication, world_locations: [world_location], translated_into: [:fr])
-    untranslated_publication = create(:published_publication, world_locations: [world_location])
+    _untranslated_publication = create(:published_publication, world_locations: [world_location])
     get :show, params: { id: world_location, locale: 'fr' }
     assert_equal [translated_publication], assigns(:non_statistics_publications).object
   end
@@ -365,7 +365,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
       translated_into: [:fr]
     )
     translated_statistics = create(:published_statistics, world_locations: [world_location], translated_into: [:fr])
-    untranslated_statistics = create(:published_statistics, world_locations: [world_location])
+    _untranslated_statistics = create(:published_statistics, world_locations: [world_location])
     get :show, params: { id: world_location, locale: 'fr' }
     assert_equal [translated_statistics], assigns(:statistics_publications).object
   end
@@ -377,7 +377,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
       translated_into: [:fr]
     )
     translated_publication = create(:published_publication, world_locations: [world_location], translated_into: [:fr])
-    untranslated_publication = create(:published_publication, world_locations: [world_location])
+    _untranslated_publication = create(:published_publication, world_locations: [world_location])
     get :show, params: { id: world_location, locale: 'fr' }
     assert_equal [translated_publication], assigns(:recently_updated)
   end
@@ -389,7 +389,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
       translated_into: [:fr]
     )
     translated_edition = create(:published_publication, world_locations: [world_location], translated_into: [:fr])
-    untranslated_edition = create(:published_publication, world_locations: [world_location])
+    _untranslated_edition = create(:published_publication, world_locations: [world_location])
     get :show, params: { id: world_location, locale: 'fr' }, format: :atom
     assert_select_atom_feed do
       with_locale :fr do

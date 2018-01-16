@@ -53,6 +53,6 @@ class Edition::NationInapplicabilityTest < ActiveSupport::TestCase
   def nation_inapplicability_attributes_for(*attributes)
     # Turns a hash of attributes (or an array of hashes of attributes) into a hash that resembles the equivelant
     # form field params, e.g. { '0' => { param1: 'val', param2: 'val2'}, '1' => { param3: 'val'} }
-    Hash[*attributes.each_with_index.map { |attribs, i| [i.to_s, { excluded: '1' }.merge(attribs)]  }.flatten]
+    Hash[*attributes.each_with_index.map { |attribs, i| [i.to_s, { excluded: '1' }.merge(attribs)] }.flatten]
   end
 end

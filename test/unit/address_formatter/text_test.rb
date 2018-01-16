@@ -1,14 +1,14 @@
 # encoding: utf-8
+
 require 'fast_test_helper'
 require 'address_formatter/text'
 require 'active_support/core_ext/string' # for strip_heredoc
 require 'ostruct'
 
 class AddressFormatter::TextTest < ActiveSupport::TestCase
-
   setup do
     @old_formats = AddressFormatter::Formatter.address_formats
-    AddressFormatter::Formatter.address_formats = YAML.load(%{
+    AddressFormatter::Formatter.address_formats = YAML.safe_load(%{
       es: |-
           {{fn}}
           {{street-address}}
@@ -111,62 +111,62 @@ class AddressFormatter::TextTest < ActiveSupport::TestCase
   end
 
   def addr_fields
-    { 'fn' => 'Recipient',
+    {
+      'fn' => 'Recipient',
       'street-address' => 'Street',
       'postal-code' => 'Postcode',
       'locality' => 'Locality',
       'region' => 'Region',
-      'country-name' => 'Country'
+      'country-name' => 'Country',
     }
   end
 
   def gb_addr
-    <<-EOF.strip_heredoc.chomp
+    <<-GB_ADDR.strip_heredoc.chomp
     Recipient
     Street
     Locality
     Region
     Postcode
     Country
-    EOF
+    GB_ADDR
   end
 
   def es_addr
-    <<-EOF.strip_heredoc.chomp
+    <<-ES_ADDR.strip_heredoc.chomp
     Recipient
     Street
     Postcode Locality Region
     Country
-    EOF
+    ES_ADDR
   end
 
   def jp_addr
-    <<-EOF.strip_heredoc.chomp
+    <<-JP_ADDR.strip_heredoc.chomp
     〒Postcode
     RegionLocalityStreet
     Recipient
     Country
-    EOF
+    JP_ADDR
   end
 
   def addr_without_region
-    <<-EOF.strip_heredoc.chomp
+    <<-ADDR_WITHOUT_REGION.strip_heredoc.chomp
     Recipient
     Street
     Locality
     Postcode
     Country
-    EOF
+    ADDR_WITHOUT_REGION
   end
 
   def addr_without_country
-    <<-EOF.strip_heredoc.chomp
+    <<-ADDR_WITHOUT_COUNTRY.strip_heredoc.chomp
     Recipient
     Street
     Locality
     Region
     Postcode
-    EOF
+    ADDR_WITHOUT_COUNTRY
   end
-
 end

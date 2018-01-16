@@ -13,6 +13,7 @@ module ServiceListeners
     end
 
   private
+
     def reindex_collection_documents
       if edition.is_a?(DocumentCollection)
         edition.published_editions.each do |collected_edition|

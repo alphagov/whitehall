@@ -25,6 +25,7 @@ class MinisterialRolesController < PublicFacingController
   end
 
 private
+
   def decorated_people_and_their_roles(people_and_roles)
     people_and_roles.map do |person, roles|
       [
@@ -36,22 +37,35 @@ private
 
   def ministers_by_organisation
     Organisation.ministerial_departments.
-                 excluding_govuk_status_closed.
-                 with_translations.
-                 with_translations_for(:ministerial_roles).
-                 includes(ministerial_roles: [:current_people]).
-                 order('organisations.ministerial_ordering, organisation_roles.ordering').map do |organisation|
+      excluding_govuk_status_closed.
+      with_translations.
+      with_translations_for(:ministerial_roles).
+      includes(ministerial_roles: [:current_people]).
+      order('organisations.ministerial_ordering, organisation_roles.ordering').map do |organisation|
       roles_presenter = RolesPresenter.new(organisation.ministerial_roles, view_context)
       roles_presenter.remove_unfilled_roles!
       [organisation, roles_presenter]
     end
   end
 
+  # rubocop:disable Style/MultilineBlockChain
   def whips_by_organisation
-    Role.with_translations.includes(:current_people).whip.group_by(&:whip_organisation_id).map do |whip_organisation_id, roles|
-      roles_presenter = RolesPresenter.new(roles.sort_by(&:whip_ordering), view_context)
-      roles_presenter.remove_unfilled_roles!
-      [Whitehall::WhipOrganisation.find_by_id(whip_organisation_id), roles_presenter]
-    end.sort_by { |org, whips| org.sort_order }
+    Role
+      .with_translations
+      .includes(:current_people)
+      .whip
+      .group_by(&:whip_organisation_id)
+      .map { |whip_organisation_id, roles|
+        roles_presenter = RolesPresenter.new(roles.sort_by(&:whip_ordering), view_context)
+
+        roles_presenter.remove_unfilled_roles!
+
+        [
+          Whitehall::WhipOrganisation.find_by_id(whip_organisation_id),
+          roles_presenter,
+        ]
+      }
+      .sort_by { |org, _whips| org.sort_order }
   end
+  # rubocop:enable Style/MultilineBlockChain
 end

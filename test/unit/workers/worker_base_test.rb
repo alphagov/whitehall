@@ -1,8 +1,7 @@
 require 'test_helper'
 
 class WorkerBaseTest < ActiveSupport::TestCase
-  def self.worker_has_run!
-  end
+  def self.worker_has_run!; end
 
   class MyWorker < WorkerBase
     sidekiq_options queue: "my-test-queue"
@@ -36,4 +35,3 @@ class WorkerBaseTest < ActiveSupport::TestCase
     MyWorker.perform_async_in_queue(nil, example_arg)
   end
 end
-

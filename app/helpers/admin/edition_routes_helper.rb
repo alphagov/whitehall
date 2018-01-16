@@ -4,16 +4,16 @@ module Admin::EditionRoutesHelper
   EDITION_TYPES = [Publication, NewsArticle, Consultation, Speech,
                    DetailedGuide, CaseStudy,
                    StatisticalDataSet, FatalityNotice, WorldLocationNewsArticle,
-                   CorporateInformationPage]
+                   CorporateInformationPage].freeze
 
   def self.edition_instance_route(name)
     EDITION_TYPES.each do |type|
       method_name = name.to_s.gsub("admin_edition", "admin_#{type.model_name.singular}")
-      class_eval %{
+      class_eval <<~METHOD
         def #{method_name}(*args)
           #{name}(*args)
         end
-      }
+      METHOD
     end
   end
 
@@ -25,7 +25,7 @@ module Admin::EditionRoutesHelper
   end
 
   def admin_edition_url(edition, options = {})
-    default_options = {host: Whitehall.admin_host}
+    default_options = { host: Whitehall.admin_host }
     polymorphic_url([:admin, edition], default_options.merge(options))
   end
 

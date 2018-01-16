@@ -87,9 +87,7 @@ class HtmlAttachment < Attachment
   end
 
   def search_index
-    super.merge({
-      content: extracted_text,
-    })
+    super.merge(content: extracted_text)
   end
 
   def deep_clone
@@ -115,7 +113,7 @@ class HtmlAttachment < Attachment
 private
 
   def sluggable_locale?
-    locale.blank? or locale == "en"
+    locale.blank? || (locale == "en")
   end
 
   def sluggable_string
@@ -123,7 +121,7 @@ private
   end
 
   def clear_slug_if_non_english_locale
-    if locale_changed? and !sluggable_locale?
+    if locale_changed? && !sluggable_locale?
       self.slug = nil
     end
   end

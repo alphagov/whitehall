@@ -39,10 +39,10 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
 
   test "should allow the same slug to be used for a news article and a speech" do
     same_title = "same-title"
-    publication = create(:news_article, title: same_title)
-    publication = create(:speech, title: same_title)
+    news_article = create(:news_article, title: same_title)
+    speech = create(:speech, title: same_title)
 
-    assert_equal publication.document.slug, publication.document.slug
+    assert_equal news_article.document.slug, speech.document.slug
   end
 
   test "should return the edition of the correct type when matching slugs for other types exist" do
@@ -125,11 +125,11 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
   end
 
   test "non-English editions do not get confused when documents exists with dodgy-nil-based slugs" do
-    edition1 = create(:world_location_news_article, title: 'Faire la fête', primary_locale: 'fr')
-    edition1.document.update_column(:slug, '--1')
+    edition_1 = create(:world_location_news_article, title: 'Faire la fête', primary_locale: 'fr')
+    edition_1.document.update_column(:slug, '--1')
 
-    edition2 = create(:world_location_news_article, title: 'Faire la fête', primary_locale: 'fr')
-    document = edition2.document
+    edition_2 = create(:world_location_news_article, title: 'Faire la fête', primary_locale: 'fr')
+    document = edition_2.document
     assert_equal document.id.to_s, document.slug
   end
 

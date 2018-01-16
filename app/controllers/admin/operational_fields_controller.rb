@@ -32,6 +32,7 @@ class Admin::OperationalFieldsController < Admin::BaseController
   end
 
 private
+
   def operational_field_params
     params.require(:operational_field).permit(:name, :description)
   end

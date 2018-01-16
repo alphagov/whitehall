@@ -1,12 +1,11 @@
 class Admin::UsersController < Admin::BaseController
-  before_action :load_user, only: [:show, :edit, :update]
+  before_action :load_user, only: %i[show edit update]
 
   def index
     @users = User.enabled.includes(organisation: [:translations]).sort_by { |u| u.fuzzy_last_name.downcase }
   end
 
-  def show
-  end
+  def show; end
 
   def edit
     head :forbidden unless @user.editable_by?(current_user)
@@ -25,7 +24,7 @@ class Admin::UsersController < Admin::BaseController
     end
   end
 
-  private
+private
 
   def load_user
     @user = User.find(params[:id])

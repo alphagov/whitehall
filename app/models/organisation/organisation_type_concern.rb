@@ -8,7 +8,7 @@ module Organisation::OrganisationTypeConcern
               length: { minimum: 1, message: "must not be empty for sub-organisations" },
               if: lambda { organisation_type_key == :sub_organisation }
     validates :govuk_status,
-              inclusion: {in: ['exempt'], message: "must be 'exempt' for devolved administrations"},
+              inclusion: { in: ['exempt'], message: "must be 'exempt' for devolved administrations" },
               if: lambda { organisation_type_key == :devolved_administration }
 
     # Creates a scope for each department type. (eg. Organisation.ministerial_departments)
@@ -79,9 +79,9 @@ module Organisation::OrganisationTypeConcern
   end
 
   def supporting_bodies_grouped_by_type
-      supporting_bodies.
-        group_by(&:organisation_type).
-        sort_by { |type, department| type.listing_position }
+    supporting_bodies.
+      group_by(&:organisation_type).
+      sort_by { |type, _department| type.listing_position }
   end
 
   def hmcts_tribunal?

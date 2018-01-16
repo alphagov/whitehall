@@ -25,5 +25,4 @@ class DataHygiene::PublishingApiRepublisherTest < ActiveSupport::TestCase
     Whitehall::PublishingApi.expects(:bulk_republish_async).with(@organisation)
     DataHygiene::PublishingApiRepublisher.new(@scope, NullLogger.instance).perform
   end
-
 end

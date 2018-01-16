@@ -124,7 +124,8 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   end
 
   test "prevents CRUD operations on access-limited publications" do
-    my_organisation, other_organisation = create(:organisation), create(:organisation)
+    my_organisation = create(:organisation)
+    other_organisation = create(:organisation)
     login_as(create(:user, organisation: my_organisation))
     inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
 
@@ -219,7 +220,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select '.taxonomy-topics .content li', "Primary Education"
   end
 
-  private
+private
 
   def publication_has_no_expanded_links(content_id)
     publishing_api_has_expanded_links(

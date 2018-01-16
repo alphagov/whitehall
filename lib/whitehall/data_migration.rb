@@ -31,7 +31,7 @@ module Whitehall
           instance_eval File.read(@path), @path
           DataMigrationRecord.create!(version: version)
           @logger.info "Migration complete"
-        rescue => e
+        rescue StandardError => e
           @logger.error "Migration failed due to #{e}"
           @logger.error "  " + e.backtrace.join("\n  ")
           raise ActiveRecord::Rollback

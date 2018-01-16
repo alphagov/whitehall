@@ -15,12 +15,10 @@ class RetrospectiveStub
 
     if stub.nil?
       raise NoMethodError.new("Unexpected call - :#{method} with #{args.inspect}")
+    elsif stub[:returns].is_a? Proc
+      stub[:returns].call(*args)
     else
-      if stub[:returns].is_a? Proc
-        stub[:returns].call(*args)
-      else
-        stub[:returns]
-      end
+      stub[:returns]
     end
   end
 
@@ -33,12 +31,12 @@ class RetrospectiveStub
   end
 
   def assert_method_called(method, opts = {})
-    raise UnsatisfiedAssertion.new("Expected :#{method} to have been called, but wasn't\n\nCalls: \n#{inspect_calls}") unless @calls.any? { | call |
+    raise UnsatisfiedAssertion.new("Expected :#{method} to have been called, but wasn't\n\nCalls: \n#{inspect_calls}") unless @calls.any? { |call|
       call[:method] == method
     }
 
     if opts[:with].present?
-      raise UnsatisfiedAssertion.new("Expected :#{method} to have been called #{inspect_args opts[:with]}, but wasn't\n\nCalls: \n#{inspect_calls}") unless @calls.any? { | call |
+      raise UnsatisfiedAssertion.new("Expected :#{method} to have been called #{inspect_args opts[:with]}, but wasn't\n\nCalls: \n#{inspect_calls}") unless @calls.any? { |call|
         call[:method] == method && (
           opts[:with].is_a?(Proc) ? opts[:with].call(*call[:args]) : opts[:with] == call[:args]
         )
@@ -48,31 +46,30 @@ class RetrospectiveStub
 
   def refute_method_called(method, opts = {})
     if opts[:with].present?
-      raise UnsatisfiedAssertion.new("Expected :#{method} not to have been called #{inspect_args opts[:with]}\n\nCalls: \n#{inspect_calls}") if @calls.any? { | call |
+      raise UnsatisfiedAssertion.new("Expected :#{method} not to have been called #{inspect_args opts[:with]}\n\nCalls: \n#{inspect_calls}") if @calls.any? { |call|
         call[:method] == method && (
           opts[:with].is_a?(Proc) ? opts[:with].call(*call[:args]) : opts[:with] == call[:args]
         )
       }
-    else
-      raise UnsatisfiedAssertion.new("Expected :#{method} not to have been called\n\nCalls: \n#{inspect_calls}") if @calls.any? { | call |
-        call[:method] == method
-      }
+    elsif @calls.any? { |call| call[:method] == method }
+      raise UnsatisfiedAssertion.new("Expected :#{method} not to have been called\n\nCalls: \n#{inspect_calls}")
     end
   end
 
 private
+
   def get_matching_stub(method, args)
-    stub = stubs.find { |stub|
+    matching_stub = stubs.find do |stub|
       stub[:method] == method && (
         stub[:with].is_a?(Proc) ? stub[:with].call(args) : (stub[:with] == args)
       )
-    }
-    if stub.nil?
-      stub = stubs.find { |stub|
-        stub[:method] == method
-      }
     end
-    stub
+
+    if matching_stub.nil?
+      matching_stub = stubs.find { |stub| stub[:method] == method }
+    end
+
+    matching_stub
   end
 
   def inspect_calls
@@ -83,7 +80,7 @@ private
 
   def inspect_args(args)
     if args.is_a? Proc
-      return "matching block: #{args.source}"
+      "matching block: #{args.source}"
     else
       "with: #{args.inspect}"
     end

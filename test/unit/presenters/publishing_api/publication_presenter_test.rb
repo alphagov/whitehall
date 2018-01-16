@@ -73,7 +73,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       roles: publication.role_appointments.map(&:role).collect(&:content_id),
       people: publication.role_appointments.map(&:person).collect(&:content_id)
     }
-    expected_content.merge!(links: expected_links)
+    expected_content[:links] = expected_links
 
     presented_item = present(publication)
 
@@ -163,8 +163,8 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
 
   test "it uses the PayloadBuilder::FirstPublishedAt helper" do
     publication = create(:publication)
-    PublishingApi::PayloadBuilder::FirstPublishedAt.stubs(:for).with(publication).returns({ first_published_at: 'test' })
-    PublishingApi::PayloadBuilder::FirstPublicAt.stubs(:for).with(publication).returns({ first_public_at: 'test' })
+    PublishingApi::PayloadBuilder::FirstPublishedAt.stubs(:for).with(publication).returns(first_published_at: 'test')
+    PublishingApi::PayloadBuilder::FirstPublicAt.stubs(:for).with(publication).returns(first_public_at: 'test')
     presented_publication = PublishingApi::PublicationPresenter.new(publication)
     @presented_content = presented_publication.content
 

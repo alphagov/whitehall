@@ -5,8 +5,7 @@ module Whitehall
     self.use_transactional_tests = false
 
     class MyData
-      def self.migrate!
-      end
+      def self.migrate!; end
     end
 
     setup do

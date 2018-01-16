@@ -41,7 +41,7 @@ class AttachmentsControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_cache_control("max-age=#{Whitehall.uploads_cache_max_age}")
-    assert_match /^inline;/, response.headers['Content-Disposition']
+    assert_match %r[^inline;], response.headers['Content-Disposition']
     assert_match attachment_data.filename, response.headers['Content-Disposition']
   end
 
@@ -68,18 +68,16 @@ class AttachmentsControllerTest < ActionController::TestCase
 
   test 'attachments that are images are sent inline' do
     attachment_data = build(:image_attachment_data)
-    visible_edition = create(
-      :published_publication,
-      :with_file_attachment,
-      attachments: [build(:file_attachment, attachment_data: attachment_data)]
-    )
+    attachment = build(:file_attachment, attachment_data: attachment_data)
+
+    create(:published_publication, :with_file_attachment, attachments: [attachment])
 
     VirusScanHelpers.simulate_virus_scan(attachment_data.file)
     get_show attachment_data
 
     assert_response :success
     assert_match attachment_data.filename, response.headers['Content-Disposition']
-    assert_match /^inline;/, response.headers['Content-Disposition']
+    assert_match %r[^inline;], response.headers['Content-Disposition']
   end
 
   def create_thumbnail_for_upload(uploader)
@@ -88,25 +86,23 @@ class AttachmentsControllerTest < ActionController::TestCase
 
   test "requesting an attachment's thumbnail returns the thumbnail inline" do
     attachment_data = build(:attachment_data)
-    visible_edition = create(
-      :published_publication,
-      :with_file_attachment,
-      attachments: [build(:file_attachment, attachment_data: attachment_data)]
-    )
+    attachment = build(:file_attachment, attachment_data: attachment_data)
+
+    create(:published_publication, :with_file_attachment, attachments: [attachment])
     VirusScanHelpers.simulate_virus_scan(attachment_data.file)
     create_thumbnail_for_upload(attachment_data.file)
     get :show, params: { id: attachment_data.to_param, file: attachment_data.filename, extension: 'png' }
 
     assert_response :success
     assert_match "#{attachment_data.filename}.png", response.headers['Content-Disposition']
-    assert_match /^inline;/, response.headers['Content-Disposition']
+    assert_match %r[^inline;], response.headers['Content-Disposition']
   end
 
   test 'requesting an attachment that has not been virus checked redirects to the placeholder page' do
     attachment_data = build(:attachment_data)
-    visible_edition = create(:published_publication, :with_file_attachment_not_scanned, attachments: [
-      build(:file_attachment, attachment_data: attachment_data)
-    ])
+    attachment = build(:file_attachment, attachment_data: attachment_data)
+
+    create(:published_publication, :with_file_attachment_not_scanned, attachments: [attachment])
 
     get_show attachment_data
 
@@ -141,7 +137,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     assert_response :success
     assert_cache_control 'no-cache'
     assert_match attachment_data.filename, response.headers['Content-Disposition']
-    assert_match /^inline;/, response.headers['Content-Disposition']
+    assert_match %r[^inline;], response.headers['Content-Disposition']
   end
 
   view_test "GET #preview for a CSV attachment on a public edition renders the CSV preview" do
@@ -163,10 +159,11 @@ class AttachmentsControllerTest < ActionController::TestCase
     org_1 = create(:organisation)
     org_2 = create(:organisation)
     org_3 = create(:organisation)
-    visible_edition = create(:published_publication, :with_file_attachment, attachments: [
-      attachment = build(:csv_attachment)
-    ], organisations: [org_1, org_2, org_3])
+
+    attachment = build(:csv_attachment)
     attachment_data = attachment.attachment_data
+
+    create(:published_publication, :with_file_attachment, attachments: [attachment], organisations: [org_1, org_2, org_3])
 
     get :preview, params: { id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension }
 
@@ -219,10 +216,10 @@ class AttachmentsControllerTest < ActionController::TestCase
   end
 
   view_test "GET #preview handles malformed CSV" do
-    visible_edition = create(:published_publication, :with_file_attachment, attachments: [
-      attachment = build(:csv_attachment, file: fixture_file_upload('malformed.csv'))
-    ])
+    attachment = build(:csv_attachment, file: fixture_file_upload('malformed.csv'))
     attachment_data = attachment.attachment_data
+
+    create(:published_publication, :with_file_attachment, attachments: [attachment])
 
     get :preview, params: { id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension }
 

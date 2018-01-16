@@ -24,10 +24,9 @@ module ControllerTestHelpers
         end
       end
     end
-
   end
 
-  def govspeak_transformation_fixture(transformation, &block)
+  def govspeak_transformation_fixture(transformation)
     methods_to_stub = {
       GovspeakHelper => "bare_govspeak_to_html",
       Admin::AdminGovspeakHelper => "bare_govspeak_to_admin_html"
@@ -47,5 +46,4 @@ module ControllerTestHelpers
       end
     end
   end
-
 end

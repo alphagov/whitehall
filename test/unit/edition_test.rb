@@ -40,7 +40,7 @@ class EditionTest < ActiveSupport::TestCase
 
   test ".published_as returns latest published edition if several editions are part of the same document" do
     edition = create(:published_publication)
-    new_draft = create(:draft_publication, document: edition.document)
+    _new_draft = create(:draft_publication, document: edition.document)
     assert_equal edition, Publication.published_as(edition.document.to_param)
   end
 
@@ -106,7 +106,7 @@ class EditionTest < ActiveSupport::TestCase
   test "can find editions due for publication" do
     due_in_one_day = create(:edition, :scheduled, scheduled_publication: 1.day.from_now)
     due_in_two_days = create(:edition, :scheduled, scheduled_publication: 2.days.from_now)
-    already_published = create(:edition, :published, scheduled_publication: 1.day.from_now)
+    _already_published = create(:edition, :published, scheduled_publication: 1.day.from_now)
     Timecop.freeze 1.day.from_now do
       assert_equal [due_in_one_day], Edition.due_for_publication
     end
@@ -191,18 +191,18 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "last_author returns user who last edited the edition" do
-    user1 = create(:departmental_editor)
-    user2 = create(:user)
+    user_1 = create(:departmental_editor)
+    user_2 = create(:user)
     edition = nil
-    acting_as(user2) do
+    acting_as(user_2) do
       edition = create(:draft_news_article)
     end
-    assert_equal user2, edition.last_author, 'creating'
+    assert_equal user_2, edition.last_author, 'creating'
 
-    acting_as(user1) do
+    acting_as(user_1) do
       force_publish(edition)
     end
-    assert_equal user1, edition.reload.last_author, 'publishing'
+    assert_equal user_1, edition.reload.last_author, 'publishing'
   end
 
   test ".authored_by includes editions created by the given user" do
@@ -317,7 +317,7 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "should only return the submitted editions" do
-    draft_edition = create(:draft_edition)
+    _draft_edition = create(:draft_edition)
     submitted_edition = create(:submitted_edition)
     assert_equal [submitted_edition], Edition.submitted
   end
@@ -327,8 +327,8 @@ class EditionTest < ActiveSupport::TestCase
     submitted_edition = create(:submitted_edition)
     rejected_edition = create(:rejected_edition)
     published_edition = create(:published_edition)
-    deleted_edition = create(:deleted_edition)
-    superseded_edition = create(:superseded_edition)
+    _deleted_edition = create(:deleted_edition)
+    _superseded_edition = create(:superseded_edition)
     assert_same_elements [draft_edition, submitted_edition, rejected_edition, published_edition], Edition.active
   end
 
@@ -476,9 +476,9 @@ class EditionTest < ActiveSupport::TestCase
            body: "stuff and things", summary: "publication-summary")
     create(:draft_publication, title: "draft-publication-title", body: "bits and bobs")
 
-    results = Edition.search_index.to_a
+    result_titles = Edition.search_index.to_a.map { |r| r['title'] }
 
-    assert_equal ['news_article-title', 'publication-title'], results.map {|r| r['title']}
+    assert_equal ['news_article-title', 'publication-title'], result_titles
   end
 
   test "#destroy should also remove the relationship to any authors" do
@@ -548,19 +548,19 @@ class EditionTest < ActiveSupport::TestCase
 
   test ".published_before returns editions whose first_published_at is before the given date" do
     jan = create(:edition, first_published_at: Date.parse("2011-01-01"))
-    feb = create(:edition, first_published_at: Date.parse("2011-02-01"))
+    _feb = create(:edition, first_published_at: Date.parse("2011-02-01"))
     assert_equal [jan], Edition.published_before("2011-01-29").load
   end
 
   test ".published_after returns editions whose first_published_at is after the given date" do
-    jan = create(:edition, first_published_at: Date.parse("2011-01-01"))
+    _jan = create(:edition, first_published_at: Date.parse("2011-01-01"))
     feb = create(:edition, first_published_at: Date.parse("2011-02-01"))
     assert_equal [feb], Edition.published_after("2011-01-29").load
   end
 
   test "should find editions with summary containing keyword" do
     edition_with_first_keyword = create(:edition, summary: "klingons")
-    edition_without_first_keyword = create(:edition, summary: "this document is about muppets")
+    _edition_without_first_keyword = create(:edition, summary: "this document is about muppets")
     assert_equal [edition_with_first_keyword], Edition.with_title_or_summary_containing("klingons")
   end
 
@@ -571,13 +571,13 @@ class EditionTest < ActiveSupport::TestCase
 
   test "should find editions with title containing keyword" do
     edition_with_first_keyword = create(:edition, title: "klingons")
-    edition_without_first_keyword = create(:edition, title: "this document is about muppets")
+    _edition_without_first_keyword = create(:edition, title: "this document is about muppets")
     assert_equal [edition_with_first_keyword], Edition.with_title_containing("klingons")
   end
 
   test "should find editions with slug containing keyword" do
     edition_with_first_keyword = create(:edition, title: "klingons rule")
-    edition_without_first_keyword = create(:edition, title: "this document is about muppets")
+    _edition_without_first_keyword = create(:edition, title: "this document is about muppets")
     assert_equal [edition_with_first_keyword], Edition.with_title_containing("klingons-rule")
   end
 
@@ -614,7 +614,7 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal 4.days.ago, e.public_timestamp
   end
 
-  [:draft, :scheduled, :published, :superseded, :submitted, :rejected].each do |state|
+  %i[draft scheduled published superseded submitted rejected].each do |state|
     test "valid_as_draft? is true for valid #{state} editions" do
       edition = build("#{state}_edition")
       assert edition.valid_as_draft?
@@ -852,13 +852,11 @@ class EditionTest < ActiveSupport::TestCase
     edition = create(:edition)
 
     publishing_api_has_links(
-      {
-        "content_id" => edition.content_id,
-        "links" => {
-          "organisations" => ["569a9ee5-c195-4b7f-b9dc-edc17a09113f"]
-        },
-        "version" => 1
-      }
+      "content_id" => edition.content_id,
+      "links" => {
+        "organisations" => ["569a9ee5-c195-4b7f-b9dc-edc17a09113f"],
+      },
+      "version" => 1
     )
 
     refute edition.has_been_tagged?
@@ -868,14 +866,12 @@ class EditionTest < ActiveSupport::TestCase
     edition = create(:edition)
 
     publishing_api_has_links(
-      {
-        "content_id" => edition.content_id,
-        "links" => {
-          "organisations" => ["569a9ee5-c195-4b7f-b9dc-edc17a09113f"],
-          "taxons" => ["7754ae52-34aa-499e-a6dd-88f04633b8ab"]
-        },
-        "version" => 1
-      }
+      "content_id" => edition.content_id,
+      "links" => {
+        "organisations" => ["569a9ee5-c195-4b7f-b9dc-edc17a09113f"],
+        "taxons" => ["7754ae52-34aa-499e-a6dd-88f04633b8ab"]
+      },
+      "version" => 1
     )
 
     assert edition.has_been_tagged?

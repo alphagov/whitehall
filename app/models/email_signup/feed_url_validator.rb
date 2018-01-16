@@ -127,15 +127,15 @@ class EmailSignup
     end
 
     def resource_filter_params
-      feed_params.except(*%w(publication_filter_option announcement_filter_option official_document_status))
+      feed_params.except('publication_filter_option', 'announcement_filter_option', 'official_document_status')
     end
 
     def parameter_fragments
       return unless resource_filter_params.any?
 
-      "related to " + (resource_filter_params.map { |param_key, _|
+      "related to " + resource_filter_params.map { |param_key, _|
         fragment_for_filter_option(param_key)
-      }.to_sentence)
+      }.to_sentence
     end
 
     def command_and_act_fragment

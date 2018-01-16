@@ -28,7 +28,7 @@ module Whitehall::DocumentFilter
       paginate!
     end
 
-    private
+  private
 
     def filter_by_locale!
       @documents = @documents.with_translations(locale) if locale
@@ -69,7 +69,9 @@ module Whitehall::DocumentFilter
           editions = @documents.arel_table
           @documents = @documents.where(
             editions[:publication_type_id].in(publication_ids).or(
-              editions[:type].in(edition_types)))
+              editions[:type].in(edition_types)
+            )
+          )
         else
           @documents = @documents.where(publication_type_id: publication_ids)
         end
@@ -78,16 +80,32 @@ module Whitehall::DocumentFilter
 
     def filter_by_announcement_filter_option!
       if selected_announcement_filter_option
-        @documents = @documents.where(@documents.arel_table[:type].in(
-          selected_announcement_filter_option.edition_types))
+        @documents = @documents
+                       .where(
+                         @documents
+                           .arel_table[:type]
+                           .in(
+                             selected_announcement_filter_option.edition_types
+                           )
+                       )
         if selected_announcement_filter_option.speech_types.present?
-          @documents = @documents.where(
-            @documents.arel_table[:speech_type_id].in(
-              selected_announcement_filter_option.speech_types.map(&:id)))
+          @documents = @documents
+                         .where(
+                           @documents
+                             .arel_table[:speech_type_id]
+                             .in(
+                               selected_announcement_filter_option.speech_types.map(&:id)
+                             )
+                         )
         elsif selected_announcement_filter_option.news_article_types.present?
-          @documents = @documents.where(
-            @documents.arel_table[:news_article_type_id].in(
-              selected_announcement_filter_option.news_article_types.map(&:id)))
+          @documents = @documents
+                         .where(
+                           @documents
+                             .arel_table[:news_article_type_id]
+                             .in(
+                               selected_announcement_filter_option.news_article_types.map(&:id)
+                             )
+                         )
         end
       end
     end
@@ -106,7 +124,7 @@ module Whitehall::DocumentFilter
         # Publication does), so we have to do this join manually.
         @documents = @documents.joins("INNER JOIN `edition_world_locations` ON `edition_world_locations`.`edition_id` = `editions`.`id`
 INNER JOIN `world_locations` ON `world_locations`.`id` = `edition_world_locations`.`world_location_id`")
-        @documents = @documents.where(world_locations: {id: selected_locations.map(&:id)})
+        @documents = @documents.where(world_locations: { id: selected_locations.map(&:id) })
       end
     end
 

@@ -1,9 +1,9 @@
 require 'uri'
 
 class UrlToSubscriberListCriteria
-  MISSING_LOOKUP = "*** MISSING KEY ***"
-  EMAIL_SUPERTYPE = "email_document_supertype"
-  GOVERNMENT_SUPERTYPE = "government_document_supertype"
+  MISSING_LOOKUP = "*** MISSING KEY ***".freeze
+  EMAIL_SUPERTYPE = "email_document_supertype".freeze
+  GOVERNMENT_SUPERTYPE = "government_document_supertype".freeze
   class UnprocessableUrl < StandardError; end
 
   def initialize(url, static_data = StaticData)
@@ -19,7 +19,7 @@ class UrlToSubscriberListCriteria
         links = hash["links"].each_with_object({}) do |(key, values), result|
           result[key] = values.map { |value| lookup_content_id(key, value) }
         end
-        hash.merge!("links" => links)
+        hash["links"] = links
       end
       hash
     end
@@ -32,11 +32,11 @@ class UrlToSubscriberListCriteria
 
   def map_url_to_hash
     @map_url_to_hash ||= begin
-      result = if @url.path.match(%r{^/government/statistics\.atom$})
+      result = if @url.path.match?(%r{^/government/statistics\.atom$})
                  { "links" => from_params, EMAIL_SUPERTYPE => "publications", GOVERNMENT_SUPERTYPE => "statistics" }
-               elsif @url.path.match(%r{^/government/publications\.atom$})
+               elsif @url.path.match?(%r{^/government/publications\.atom$})
                  { "links" => from_params, EMAIL_SUPERTYPE => "publications" }
-               elsif @url.path.match(%r{^/government/announcements\.atom$})
+               elsif @url.path.match?(%r{^/government/announcements\.atom$})
                  { "links" => from_params, EMAIL_SUPERTYPE => "announcements" }
                elsif (path_match = @url.path.match(%r{^/government/people/(.*)\.atom$}))
                  { "links" => from_params.merge("people" => [path_match[1]]) }
@@ -50,7 +50,7 @@ class UrlToSubscriberListCriteria
                  { "links" => from_params.merge(topic_map([path_match[1]]) => [path_match[1]]) }
                elsif (path_match = @url.path.match(%r{^/world/(.*)\.atom$}))
                  { "links" => from_params.merge("world_locations" => [path_match[1]]) }
-               elsif @url.path =~ %r{/government/feed}
+               elsif @url.path.match?(%r{/government/feed})
                  { 'links' => from_params }
 
                else

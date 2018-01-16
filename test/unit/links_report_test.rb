@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class LinksReportTest < ActiveSupport::TestCase
-
   test 'LinksReport.queue_for! queues a link report job for the specified record' do
     edition = create(:edition, body: 'Some text with a [link](http://example.com) or [two](http://link.com)')
 

@@ -37,7 +37,7 @@ private
     params.require(:contact).permit(
       :title, :comments, :recipient, :street_address, :locality, :region,
       :email, :contact_form_url,
-      contact_numbers_attributes: [:id, :label, :number]
+      contact_numbers_attributes: %i[id label number]
     )
   end
 end

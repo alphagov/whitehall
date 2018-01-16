@@ -1,6 +1,6 @@
 class Admin::AboutPagesController < Admin::BaseController
   before_action :find_topical_event
-  before_action :find_page, except: [:new, :create]
+  before_action :find_page, except: %i[new create]
 
   helper_method :model_name, :human_friendly_model_name
 
@@ -43,6 +43,7 @@ class Admin::AboutPagesController < Admin::BaseController
   end
 
 private
+
   def find_topical_event
     @topical_event = TopicalEvent.friendly.find(params[:topical_event_id])
   end

@@ -115,7 +115,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     attachment = valid_html_attachment_params.merge(title: SecureRandom.uuid)
 
     post :create, params: { edition_id: @edition.id, type: 'html', attachment: attachment }
-    refute_nil(Attachment.find_by title: attachment[:title])
+    refute_nil(Attachment.find_by(title: attachment[:title]))
   end
 
   test 'POST :create for an HtmlAttachment updates the publishing api' do
@@ -258,10 +258,14 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   test "PUT :update for HTML attachment updates the attachment" do
     attachment = create(:html_attachment, attachable: @edition)
 
-    put :update, params: { edition_id: @edition, id: attachment.id, attachment: {
-      title: 'New title',
-      govspeak_content_attributes: { body: 'New body', id: attachment.govspeak_content.id }
-    } }
+    put :update, params: {
+      edition_id: @edition,
+      id: attachment.id,
+      attachment: {
+        title: 'New title',
+        govspeak_content_attributes: { body: 'New body', id: attachment.govspeak_content.id }
+      }
+    }
     assert_equal 'New title', attachment.reload.title
     assert_equal 'New body', attachment.reload.govspeak_content_body
   end
@@ -273,7 +277,9 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       .expects(:save_draft_async)
       .with(attachment)
 
-    put :update, params: { edition_id: @edition, id: attachment.id,
+    put :update, params: {
+      edition_id: @edition,
+      id: attachment.id,
       attachment: {
         title: 'New title',
         govspeak_content_attributes: { body: 'New body', id: attachment.govspeak_content.id }
@@ -288,7 +294,9 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       .expects(:save_draft_async)
       .never
 
-    put :update, params: { edition_id: @edition, id: attachment.id,
+    put :update, params: {
+      edition_id: @edition,
+      id: attachment.id,
       attachment: {
         title: 'New title'
       }
@@ -299,21 +307,29 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     attachment = create(:html_attachment, attachable: @edition)
     title = SecureRandom.uuid
 
-    put :update, params: { edition_id: @edition, id: attachment.id, attachment: {
-      title: title,
-      govspeak_content_attributes: { body: 'New body', id: attachment.govspeak_content.id }
-    } }
+    put :update, params: {
+      edition_id: @edition,
+      id: attachment.id,
+      attachment: {
+        title: title,
+        govspeak_content_attributes: { body: 'New body', id: attachment.govspeak_content.id }
+      }
+    }
 
-    refute_nil(Attachment.find_by title: title)
+    refute_nil(Attachment.find_by(title: title))
   end
 
   test "PUT :update with empty file payload changes attachment metadata, but not the attachment data" do
     attachment = create(:file_attachment, attachable: @edition)
     attachment_data = attachment.attachment_data
-    put :update, params: { edition_id: @edition, id: attachment, attachment: {
-      title: 'New title',
-      attachment_data_attributes: { file_cache: '', to_replace_id: attachment.attachment_data.id }
-    } }
+    put :update, params: {
+      edition_id: @edition,
+      id: attachment,
+      attachment: {
+        title: 'New title',
+        attachment_data_attributes: { file_cache: '', to_replace_id: attachment.attachment_data.id }
+      }
+    }
     assert_equal 'New title', attachment.reload.title
     assert_equal attachment_data, attachment.attachment_data
   end
@@ -321,15 +337,19 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   test "PUT :update with a file creates a replacement attachment data whilst leaving the original alone" do
     attachment = create(:file_attachment, attachable: @edition)
     old_data = attachment.attachment_data
-    put :update, params: { edition_id: @edition, id: attachment, attachment: {
-      attachment_data_attributes: { to_replace_id: old_data.id, file: fixture_file_upload('whitepaper.pdf') }
-    } }
+    put :update, params: {
+      edition_id: @edition,
+      id: attachment,
+      attachment: {
+        attachment_data_attributes: { to_replace_id: old_data.id, file: fixture_file_upload('whitepaper.pdf') }
+      }
+    }
     attachment.reload
     old_data.reload
 
     refute_equal old_data, attachment.attachment_data
     assert_equal attachment.attachment_data, old_data.replaced_by
-    assert_equal 'whitepaper.pdf',  attachment.filename
+    assert_equal 'whitepaper.pdf', attachment.filename
   end
 
   test "PUT :update_many changes attributes of multiple attachments" do
@@ -340,7 +360,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     attachments = @edition.reload.attachments
 
     # append '_' to every attachment title in the collection
-    new_data = attachments.map {|a| [a.id.to_s, { title: a.title + '_' }] }
+    new_data = attachments.map { |a| [a.id.to_s, { title: a.title + '_' }] }
     put :update_many, params: { edition_id: @edition, attachments: Hash[new_data] }
 
     @edition.reload.attachments.each do |attachment|

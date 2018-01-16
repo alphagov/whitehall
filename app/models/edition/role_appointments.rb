@@ -27,5 +27,4 @@ module Edition::RoleAppointments
       role_appointment.role.is_a?(MinisterialRole)
     end
   end
-
 end

@@ -15,7 +15,7 @@ For reference:
 
 https://github.com/alphagov/wiki/wiki/Changing-GOV.UK-URLs#changing-an-organisations-slug"
 
-task :change_organisation_slug, [:old_slug, :new_slug] => :environment do |_task, args|
+task :change_organisation_slug, %i[old_slug new_slug] => :environment do |_task, args|
   logger = Logger.new(STDOUT)
   organisation = Organisation.find_by(slug: args[:old_slug])
   if organisation

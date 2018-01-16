@@ -32,27 +32,27 @@ module Whitehall::DocumentFilter
       raw_params       = build_unclean_params('page' => [], 'keywords' => 'statistics')
       cleaned_params   = CleanedParams.new(raw_params)
 
-      assert_equal({ 'keywords' => 'statistics'}, cleaned_params)
+      assert_equal({ 'keywords' => 'statistics' }, cleaned_params)
     end
 
     test "permitted scaler parameters passed in as a hash are scrubbed" do
-      raw_params       = build_unclean_params('page' => {"$acunetix" => "1"}, 'keywords' => 'statistics')
+      raw_params       = build_unclean_params('page' => { "$acunetix" => "1" }, 'keywords' => 'statistics')
       cleaned_params   = CleanedParams.new(raw_params)
 
-      assert_equal({ 'keywords' => 'statistics'}, cleaned_params)
+      assert_equal({ 'keywords' => 'statistics' }, cleaned_params)
     end
 
     test "#unpermitted keys returns any param keys that are not permitted" do
       raw_params       = build_unclean_params('action' => 'show', 'page' => '3', 'stuff' => 'things', 'hax' => 'haha!')
       cleaned_params   = CleanedParams.new(raw_params)
 
-      assert_same_elements ['stuff', 'hax'], cleaned_params.unpermitted_keys
+      assert_same_elements %w[stuff hax], cleaned_params.unpermitted_keys
     end
 
   private
 
     def build_unclean_params(param_hash)
-      params = ActionController::Parameters.new(param_hash)
+      ActionController::Parameters.new(param_hash)
     end
   end
 end

@@ -3,7 +3,7 @@ require 'test_helper'
 class RoleTest < ActiveSupport::TestCase
   should_protect_against_xss_and_content_attacks_on :responsibilities
 
-  ['name', 'responsibilities'].each do |column_name|
+  %w[name responsibilities].each do |column_name|
     # These tests ensure that we're excluding the name and responsibilities columns from `Role.columns`.
     # You can safely remove the test, and Role.columns, once it's been deployed and we've subsequently removed
     # these columns for real.
@@ -24,10 +24,13 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "should return the role and all organisation names" do
-    role = create(:role, name: "Treasury secretary", people: [],
-                   organisations: [
-                     create(:organisation, name: "Department of Health"),
-                     create(:organisation, name: "Department for Education")])
+    role = create(:role,
+                  name: "Treasury secretary",
+                  people: [],
+                  organisations: [
+                    create(:organisation, name: "Department of Health"),
+                    create(:organisation, name: "Department for Education"),
+                  ])
     assert_equal "Treasury secretary, Department of Health and Department for Education", role.to_s
   end
 
@@ -157,7 +160,7 @@ class RoleTest < ActiveSupport::TestCase
 
   test "footnotes should display only payment when option not set" do
     role = create(:role, attends_cabinet_type_id: 2, role_payment_type_id: 1)
-    footnote = "#{role.role_payment_type.name}"
+    footnote = role.role_payment_type.name
     assert_equal footnote, role.footnotes
   end
 
@@ -168,15 +171,15 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "should be able to scope roles by whips" do
-    role = create(:role, whip_organisation_id: 1)
-    role2 = create(:role)
-    assert_equal [role], Role.whip
+    role_1 = create(:role, whip_organisation_id: 1)
+    _role_2 = create(:role)
+    assert_equal [role_1], Role.whip
   end
 
   test "should be able to scope roles by cabinet attendance" do
-    role = create(:role, attends_cabinet_type_id: 1)
-    role2 = create(:role)
-    assert_equal [role], Role.also_attends_cabinet
+    role_1 = create(:role, attends_cabinet_type_id: 1)
+    _role_2 = create(:role)
+    assert_equal [role_1], Role.also_attends_cabinet
   end
 
   test "should be able to scope roles by whether they are occupied" do
@@ -190,7 +193,7 @@ class RoleTest < ActiveSupport::TestCase
   test "has removeable translations" do
     stub_any_publishing_api_call
 
-    role = create(:role, translated_into: [:fr, :es])
+    role = create(:role, translated_into: %i[fr es])
     role.remove_translations_for(:fr)
     refute role.translated_locales.include?(:fr)
     assert role.translated_locales.include?(:es)

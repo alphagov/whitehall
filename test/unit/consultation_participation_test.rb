@@ -59,7 +59,7 @@ class ConsultationParticipationTest < ActiveSupport::TestCase
     form = create(:consultation_response_form)
     participation = create(:consultation_participation, consultation_response_form: form)
 
-    participation.update_attributes(consultation_response_form_attributes: {id: form.id, "_destroy" => "1"})
+    participation.update_attributes(consultation_response_form_attributes: { id: form.id, "_destroy" => "1" })
 
     participation.reload
     refute participation.consultation_response_form.present?
@@ -79,7 +79,7 @@ class ConsultationParticipationTest < ActiveSupport::TestCase
   test "does not destroy attached file when if more participations are associated" do
     participation = create(:consultation_participation)
     form = create(:consultation_response_form, consultation_participation: participation)
-    other_participation = create(:consultation_participation, consultation_response_form: form)
+    _other_participation = create(:consultation_participation, consultation_response_form: form)
 
     participation.destroy
 

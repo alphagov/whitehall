@@ -1,6 +1,6 @@
 class Admin::TopicalEventsController < Admin::ClassificationsController
-  before_action :build_associated_objects, only: [:new, :edit]
-  before_action :destroy_blank_social_media_accounts, only: [:create, :update]
+  before_action :build_associated_objects, only: %i[new edit]
+  before_action :destroy_blank_social_media_accounts, only: %i[create update]
 
   def update
     @classification = TopicalEvent.friendly.find(params[:id])
@@ -15,7 +15,7 @@ class Admin::TopicalEventsController < Admin::ClassificationsController
     end
   end
 
-  private
+private
 
   def model_class
     TopicalEvent
@@ -27,7 +27,7 @@ class Admin::TopicalEventsController < Admin::ClassificationsController
 
   def destroy_blank_social_media_accounts
     if params[:topical_event][:social_media_accounts_attributes]
-      params[:topical_event][:social_media_accounts_attributes].each do |index, account|
+      params[:topical_event][:social_media_accounts_attributes].each_value do |account|
         if account[:social_media_service_id].blank? && account[:url].blank?
           account[:_destroy] = "1"
         end

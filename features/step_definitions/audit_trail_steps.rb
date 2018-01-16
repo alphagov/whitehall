@@ -1,10 +1,10 @@
-Given /^a document that has gone through many changes$/ do
+Given(/^a document that has gone through many changes$/) do
   begin_drafting_publication('An exciting new publication')
   click_on "Save"
   assert page.has_content?('An exciting new publication')
   @the_publication = Publication.find_by(title: 'An exciting new publication')
   # fake it
-  states = ['draft', 'submitted', 'published', 'superseded']
+  states = %w[draft submitted published superseded]
   50.times do |i|
     Timecop.travel i.hours.from_now do
       @the_publication.versions.create event: 'update', whodunnit: @user, state: states.sample
@@ -12,11 +12,11 @@ Given /^a document that has gone through many changes$/ do
   end
 end
 
-When /^I visit the document to see the audit trail$/ do
+When(/^I visit the document to see the audit trail$/) do
   visit admin_publication_path(@the_publication)
 end
 
-Then /^I can traverse the audit trail with newer and older navigation$/ do
+Then(/^I can traverse the audit trail with newer and older navigation$/) do
   click_on 'History'
   within '#history' do
     assert page.has_css?('.version', count: 30)

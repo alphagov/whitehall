@@ -1,5 +1,5 @@
 class Admin::RoleAppointmentsController < Admin::BaseController
-  before_action :load_role_appointment, only: [:edit, :update, :destroy]
+  before_action :load_role_appointment, only: %i[edit update destroy]
 
   def new
     role = Role.find(params[:role_id])
@@ -17,8 +17,7 @@ class Admin::RoleAppointmentsController < Admin::BaseController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @role_appointment.update_attributes(role_appointment_params)
@@ -33,12 +32,13 @@ class Admin::RoleAppointmentsController < Admin::BaseController
       @role_appointment.destroy
       redirect_to edit_admin_role_path(@role_appointment.role), notice: "Appointment has been deleted"
     else
-     flash.now[:alert] = "Appointment can not be deleted"
-     render :edit
+      flash.now[:alert] = "Appointment can not be deleted"
+      render :edit
     end
   end
 
 private
+
   def load_role_appointment
     @role_appointment = RoleAppointment.find(params[:id])
   end

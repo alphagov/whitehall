@@ -6,7 +6,7 @@ class Organisation < ApplicationRecord
   include Organisation::OrganisationTypeConcern
   include HasCorporateInformationPages
 
-  DEFAULT_JOBS_URL = 'https://www.civilservicejobs.service.gov.uk/csr'
+  DEFAULT_JOBS_URL = 'https://www.civilservicejobs.service.gov.uk/csr'.freeze
 
   belongs_to :default_news_image, class_name: 'DefaultNewsOrganisationImageData', foreign_key: :default_news_organisation_image_data_id
 
@@ -133,13 +133,13 @@ class Organisation < ApplicationRecord
   has_many :promotional_features
 
   has_many :featured_links, -> { order(:created_at) }, as: :linkable, dependent: :destroy
-  accepts_nested_attributes_for :featured_links, reject_if: -> attributes { attributes['url'].blank? }, allow_destroy: true
-  validates :homepage_type, inclusion: {in: %w{news service}}
+  accepts_nested_attributes_for :featured_links, reject_if: ->(attributes) { attributes['url'].blank? }, allow_destroy: true
+  validates :homepage_type, inclusion: { in: %w{news service} }
 
   accepts_nested_attributes_for :default_news_image, reject_if: :all_blank
   accepts_nested_attributes_for :organisation_roles
   accepts_nested_attributes_for :edition_organisations
-  accepts_nested_attributes_for :organisation_classifications, reject_if: -> attributes { attributes['classification_id'].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :organisation_classifications, reject_if: ->(attributes) { attributes['classification_id'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :offsite_links
   accepts_nested_attributes_for :featured_policies
 
@@ -148,12 +148,13 @@ class Organisation < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :logo_formatted_name, presence: true
   validates :url, :organisation_chart_url, :custom_jobs_url, uri: true, allow_blank: true
-  validates :alternative_format_contact_email, email_format: {allow_blank: true}
+  validates :alternative_format_contact_email, email_format: { allow_blank: true }
   validates :alternative_format_contact_email, presence: {
     if: :requires_alternative_format?,
-    message: "can't be blank as there are editions which use this organisation as the alternative format provider"}
-  validates :govuk_status, inclusion: {in: %w{live joining exempt transitioning closed}}
-  validates :govuk_closed_status, inclusion: {in: %w{no_longer_exists replaced split merged changed_name left_gov devolved}}, presence: true, if: :closed?
+    message: "can't be blank as there are editions which use this organisation as the alternative format provider",
+  }
+  validates :govuk_status, inclusion: { in: %w{live joining exempt transitioning closed} }
+  validates :govuk_closed_status, inclusion: { in: %w{no_longer_exists replaced split merged changed_name left_gov devolved} }, presence: true, if: :closed?
   validates :organisation_logo_type_id, presence: true
   validates :logo, presence: true, if: :custom_logo_selected?
 
@@ -240,8 +241,10 @@ class Organisation < ApplicationRecord
 
   scope :excluding_govuk_status_closed, -> { where("govuk_status != 'closed'") }
   scope :closed, -> { where(govuk_status: "closed") }
-  scope :with_statistics_announcements, -> { joins(:statistics_announcement_organisations)
-                                              .group('statistics_announcement_organisations.organisation_id') }
+  scope :with_statistics_announcements, -> {
+    joins(:statistics_announcement_organisations)
+      .group('statistics_announcement_organisations.organisation_id')
+  }
 
   def self.grouped_by_type(locale = I18n.locale)
     Rails.cache.fetch("filter_options/organisations/#{locale}", expires_in: 30.minutes) do
@@ -285,7 +288,7 @@ class Organisation < ApplicationRecord
   end
 
   def self.ordered_by_name_ignoring_prefix
-    all.sort_by { |o| o.name_without_prefix }
+    all.sort_by(&:name_without_prefix)
   end
 
   def self.with_published_editions
@@ -372,7 +375,7 @@ class Organisation < ApplicationRecord
   end
 
   def display_name
-    [acronym, name].detect { |s| s.present? }
+    [acronym, name].detect(&:present?)
   end
 
   def select_name
@@ -466,7 +469,7 @@ class Organisation < ApplicationRecord
   end
 
   def requires_alternative_format?
-    (!closed?) && provides_alternative_formats?
+    !closed? && provides_alternative_formats?
   end
 
   def has_published_publications_of_type?(publication_type)

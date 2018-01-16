@@ -1,6 +1,6 @@
 module TranslationHelper
   def sorted_locales(locale_codes)
-    locale_codes.sort_by { |c| c.to_s }.tap do |codes|
+    locale_codes.sort_by(&:to_s).tap do |codes|
       codes.unshift(I18n.default_locale) if codes.delete(I18n.default_locale)
     end
   end

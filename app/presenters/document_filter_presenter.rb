@@ -1,4 +1,4 @@
-class DocumentFilterPresenter < Struct.new(:filter, :context, :document_decorator)
+DocumentFilterPresenter = Struct.new(:filter, :context, :document_decorator) do
   extend Whitehall::Decorators::DelegateInstanceMethodsOf
   delegate_instance_methods_of Whitehall::DocumentFilter::Filterer, to: :filter
 
@@ -6,7 +6,7 @@ class DocumentFilterPresenter < Struct.new(:filter, :context, :document_decorato
     as_hash(options)
   end
 
-  def as_hash(options = nil)
+  def as_hash(_options = nil)
     data = {
       count: documents.count,
       current_page: documents.current_page,
@@ -54,7 +54,8 @@ class DocumentFilterPresenter < Struct.new(:filter, :context, :document_decorato
   def documents
     if document_decorator
       Whitehall::Decorators::CollectionDecorator.new(
-        filter.documents, document_decorator, context)
+        filter.documents, document_decorator, context
+      )
     else
       filter.documents
     end

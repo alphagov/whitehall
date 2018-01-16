@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 # *NOTE* this file deliberately does not include test_helper
 # in order to attempt to speed up the tests
 

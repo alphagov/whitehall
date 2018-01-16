@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class AttachmentsHelperTest < ActionView::TestCase
-
   test 'CSV attachments attached to editions can be previewed' do
     csv_on_edition = create(:csv_attachment, attachable: create(:edition))
     assert previewable?(csv_on_edition)

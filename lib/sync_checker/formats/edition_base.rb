@@ -30,16 +30,15 @@ module SyncChecker
 
       def edition_expected_in_live
         return nil if latest_edition_is_rejected?(document)
-        case
-        when document.published_edition
+        if document.published_edition
           document.published_edition
-        when document.pre_publication_edition && document.pre_publication_edition.unpublishing
+        elsif document.pre_publication_edition && document.pre_publication_edition.unpublishing
           document.pre_publication_edition
         end
       end
 
       def base_paths
-        @base_paths ||= {draft: {}, live: {}}.tap do |paths|
+        @base_paths ||= { draft: {}, live: {} }.tap do |paths|
           if edition_expected_in_draft
             edition_expected_in_draft.translated_locales.each do |locale|
               paths[:draft][locale] = get_path(edition_expected_in_draft, locale)

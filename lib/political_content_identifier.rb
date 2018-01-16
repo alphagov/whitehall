@@ -7,7 +7,7 @@ class PoliticalContentIdentifier
 
   ALWAYS_POLITICAL_FORMATS = [
     WorldLocationNewsArticle,
-  ]
+  ].freeze
 
   POLITICAL_PUBLICATION_TYPES = [
     PublicationType::CorporateReport,

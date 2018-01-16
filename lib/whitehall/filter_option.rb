@@ -19,7 +19,7 @@ module Whitehall
 
     def self.find_by_search_format_types(format_types)
       all.detect do |at|
-        format_types.any? {|t| at.search_format_types.include?(t)}
+        format_types.any? { |t| at.search_format_types.include?(t) }
       end
     end
   end

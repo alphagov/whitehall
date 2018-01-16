@@ -1,6 +1,6 @@
 class Admin::StatisticsAnnouncementsController < Admin::BaseController
-  before_action :find_statistics_announcement, only: [:show, :edit, :update, :cancel, :publish_cancellation, :cancel_reason]
-  before_action :redirect_to_show_if_cancelled, only: [:cancel, :publish_cancellation]
+  before_action :find_statistics_announcement, only: %i[show edit update cancel publish_cancellation cancel_reason]
+  before_action :redirect_to_show_if_cancelled, only: %i[cancel publish_cancellation]
   helper_method :unlinked_announcements_count, :show_unlinked_announcements_warning?
 
   def index
@@ -29,8 +29,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     @statistics_announcement.attributes = statistics_announcement_params
@@ -41,8 +40,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     end
   end
 
-  def cancel
-  end
+  def cancel; end
 
   def publish_cancellation
     if @statistics_announcement.cancel!(params[:statistics_announcement][:cancellation_reason], current_user)
@@ -71,10 +69,13 @@ private
   end
 
   def statistics_announcement_params
-    params.require(:statistics_announcement).permit(
-      :title, :summary, :publication_type_id, :publication_id,
-      :cancellation_reason, organisation_ids: [], topic_ids: [],
-      current_release_date_attributes: [:id, :release_date, :precision, :confirmed])
+    params
+      .require(:statistics_announcement)
+      .permit(
+        :title, :summary, :publication_type_id, :publication_id,
+        :cancellation_reason, organisation_ids: [], topic_ids: [],
+        current_release_date_attributes: %i[id release_date precision confirmed]
+      )
   end
 
   def filter_params
@@ -92,7 +93,7 @@ private
   end
 
   def show_unlinked_announcements_warning?
-    !filtering_imminent_unlinked_announcements? && unlinked_announcements_count > 0
+    !filtering_imminent_unlinked_announcements? && unlinked_announcements_count.positive?
   end
 
   def filtering_imminent_unlinked_announcements?

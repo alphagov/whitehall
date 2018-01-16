@@ -1,7 +1,7 @@
 class Admin::PromotionalFeatureItemsController < Admin::BaseController
   before_action :load_organisation
   before_action :load_promotional_feature
-  before_action :load_promotional_feature_item, only: [:edit, :update, :destroy]
+  before_action :load_promotional_feature_item, only: %i[edit update destroy]
 
   def new
     @promotional_feature_item = @promotional_feature.promotional_feature_items.build
@@ -34,7 +34,7 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
     redirect_to_feature 'Feature item deleted.'
   end
 
-  private
+private
 
   def load_organisation
     @organisation = Organisation.allowed_promotional.find(params[:organisation_id])
@@ -56,7 +56,7 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
     params.require(:promotional_feature_item).permit(
       :summary, :image, :image_alt_text, :title, :title_url, :double_width,
       :image_cache,
-      links_attributes: [:url, :text, :_destroy, :id]
+      links_attributes: %i[url text _destroy id]
     )
   end
 end

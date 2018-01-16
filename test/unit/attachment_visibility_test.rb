@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class AttachmentVisibilityTest < ActiveSupport::TestCase
-
   test '#visible? returns true when attachment data is associated with a published edition' do
     edition = create(:published_publication, :with_file_attachment_not_scanned)
     attachment_data = edition.attachments.first.attachment_data
@@ -45,7 +44,7 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
   end
 
   test '#visible_consultation_response a published response that the attachment is associated with' do
-    response   = create(:consultation_with_outcome).outcome
+    response = create(:consultation_with_outcome).outcome
     response.attachments << attachment = build(:file_attachment)
     attachment_visibility = AttachmentVisibility.new(attachment.attachment_data, nil)
 
@@ -102,7 +101,7 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
 
   test '#visible_attachment returns the attachment associated with a published edition' do
     edition               = create(:published_publication, :with_file_attachment)
-    new_draft             = edition.create_draft(create(:writer))
+    _new_draft            = edition.create_draft(create(:writer))
     attachment            = edition.attachments.first
     attachment_visibility = AttachmentVisibility.new(attachment.attachment_data, nil)
 
@@ -118,7 +117,7 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
   end
 
   test '#visible_attachment returns the attachment associated with the response of the published consultation' do
-    response              = create(:consultation_with_outcome).outcome
+    response = create(:consultation_with_outcome).outcome
     response.attachments << attachment = build(:file_attachment)
     attachment_visibility = AttachmentVisibility.new(attachment.attachment_data, nil)
 
@@ -126,7 +125,7 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
   end
 
   test '#visible_attachment returns the attachment associated with a policy group' do
-    group  = create(:policy_group, attachments: [
+    create(:policy_group, attachments: [
       attachment = build(:file_attachment)
     ])
     attachment_visibility = AttachmentVisibility.new(attachment.attachment_data, nil)

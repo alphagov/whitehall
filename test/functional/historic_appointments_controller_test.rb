@@ -5,37 +5,37 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
 
   test "routing constraints stop routes historic appointments routes stomping on histories routes" do
     assert_routing({ path: 'government/history/past-prime-ministers', method: :get },
-      { controller: 'historic_appointments', action: 'index', role: 'past-prime-ministers' })
+      controller: 'historic_appointments', action: 'index', role: 'past-prime-ministers')
 
     assert_routing({ path: 'government/history/king-charles-street', method: :get },
-      { controller: 'histories', action: 'show', id: 'king-charles-street' })
+      controller: 'histories', action: 'show', id: 'king-charles-street')
   end
 
   test "routing for static chancellors page" do
     assert_routing({ path: 'government/history/past-chancellors', method: :get },
-      { controller: 'historic_appointments', action: 'past_chancellors' })
+      controller: 'historic_appointments', action: 'past_chancellors')
   end
 
   test "routing for :show action" do
     assert_routing({ path: 'government/history/past-prime-ministers/barry', method: :get },
-      { controller: 'historic_appointments', action: 'show', role: 'past-prime-ministers', person_id: 'barry' })
+      controller: 'historic_appointments', action: 'show', role: 'past-prime-ministers', person_id: 'barry')
   end
 
   test "GET on :index loads the past appointments for the role and renders the index template" do
-    previous_pm1  = create(:ministerial_role_appointment, role: pm_role, started_at: 8.years.ago, ended_at: 4.years.ago)
-    previous_pm2  = create(:ministerial_role_appointment, role: pm_role, started_at: 4.years.ago, ended_at: 1.day.ago)
-    current_pm    = create(:ministerial_role_appointment, role: pm_role, started_at: Time.zone.now)
-    nineteenth_century_pm = create(:ministerial_role_appointment, role: pm_role, started_at: DateTime.civil(1801), ended_at: DateTime.civil(1804))
-    eighteenth_century_pm = create(:ministerial_role_appointment, role: pm_role, started_at: DateTime.civil(1701), ended_at: DateTime.civil(1704))
+    previous_pm_1 = create(:ministerial_role_appointment, role: pm_role, started_at: 8.years.ago, ended_at: 4.years.ago)
+    previous_pm_2 = create(:ministerial_role_appointment, role: pm_role, started_at: 4.years.ago, ended_at: 1.day.ago)
+    _current_pm = create(:ministerial_role_appointment, role: pm_role, started_at: Time.zone.now)
+    nineteenth_century_pm = create(:ministerial_role_appointment, role: pm_role, started_at: Date.civil(1801), ended_at: Date.civil(1804))
+    eighteenth_century_pm = create(:ministerial_role_appointment, role: pm_role, started_at: Date.civil(1701), ended_at: Date.civil(1704))
 
-    chancellor_account =  create(:historical_account, roles: [chancellor_role])
+    create(:historical_account, roles: [chancellor_role])
     get :index, params: { role: 'past-prime-ministers' }
 
     assert_response :success
     assert_template :index
     assert_equal pm_role, assigns(:role)
 
-    assert_equal_role_presenters [previous_pm2, previous_pm1], assigns(:recent_appointments)
+    assert_equal_role_presenters [previous_pm_2, previous_pm_1], assigns(:recent_appointments)
     assert_equal_role_presenters [nineteenth_century_pm], assigns(:nineteenth_century_appointments)
     assert_equal_role_presenters [eighteenth_century_pm], assigns(:eighteenth_century_appointments)
   end
@@ -79,7 +79,7 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
     end
   end
 
-  private
+private
 
   def pm_role
     @pm_role ||= create(:historic_role, name: 'Prime Minister', slug: 'prime-minister')

@@ -59,5 +59,4 @@ class WorldWriterFatalityNoticeTest < ActiveSupport::TestCase
       refute enforcer.can?(action)
     end
   end
-
 end

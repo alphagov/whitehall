@@ -8,7 +8,6 @@ FactoryBot.define do
       news.world_locations = [FactoryBot.build(:world_location)] unless evaluator.world_locations.any?
       news.worldwide_organisations = [FactoryBot.build(:worldwide_organisation)] unless evaluator.worldwide_organisations.any?
     end
-
   end
 
   factory :imported_world_location_news_article, parent: :world_location_news_article, traits: [:imported]
@@ -16,7 +15,7 @@ FactoryBot.define do
   factory :submitted_world_location_news_article, parent: :world_location_news_article, traits: [:submitted]
   factory :rejected_world_location_news_article, parent: :world_location_news_article, traits: [:rejected]
   factory :published_world_location_news_article, parent: :world_location_news_article, traits: [:published] do
-    first_published_at  { 2.days.ago }
+    first_published_at { 2.days.ago }
   end
   factory :deleted_world_location_news_article, parent: :world_location_news_article, traits: [:deleted]
   factory :superseded_world_location_news_article, parent: :world_location_news_article, traits: [:superseded]

@@ -9,7 +9,7 @@ FactoryBot.define do
     summary 'edition-summary'
     previously_published false
 
-    after :build do |edition, evaluator|
+    after :build do |edition, _evaluator|
       edition.skip_virus_status_check = true
     end
 
@@ -71,7 +71,7 @@ FactoryBot.define do
         submitter nil
       end
       state "submitted"
-      after :create do | edition, evaluator |
+      after :create do |edition, evaluator|
         edition.versions.first.update_attributes(event: 'create', state: 'draft')
         submitter = evaluator.submitter.present? ? evaluator.submitter : edition.creator
         edition.versions.create! event: 'update', whodunnit: submitter.id, state: 'submitted'
@@ -87,9 +87,7 @@ FactoryBot.define do
       force_published { false }
       published_major_version 1
       published_minor_version 0
-      after :create do |edition|
-        edition.refresh_index_if_required
-      end
+      after :create, &:refresh_index_if_required
     end
 
     trait(:deleted) { state "deleted" }
@@ -112,7 +110,7 @@ FactoryBot.define do
     trait(:with_file_attachment) do
       association :alternative_format_provider, factory: :organisation_with_alternative_format_contact_email
       attachments { FactoryBot.build_list :file_attachment, 1 }
-      after :create do |edition, evaluator|
+      after :create do |edition, _evaluator|
         VirusScanHelpers.simulate_virus_scan(edition.attachments.first.attachment_data.file)
       end
     end
@@ -163,7 +161,7 @@ FactoryBot.define do
     end
   end
 
-  factory :announcement, parent: :edition, class: Announcement, traits: [:with_organisations, :with_topics]
+  factory :announcement, parent: :edition, class: Announcement, traits: %i[with_organisations with_topics]
 
   factory :edition_with_document, parent: :edition, traits: [:with_document]
   factory :imported_edition, parent: :edition, traits: [:imported]
@@ -174,7 +172,7 @@ FactoryBot.define do
   factory :deleted_edition, parent: :edition, traits: [:deleted]
   factory :superseded_edition, parent: :edition, traits: [:superseded]
   factory :scheduled_edition, parent: :edition, traits: [:scheduled]
-  factory :unpublished_edition, parent: :edition, traits: [:draft, :unpublished]
+  factory :unpublished_edition, parent: :edition, traits: %i[draft unpublished]
   factory :withdrawn_edition, parent: :edition, traits: [:withdrawn]
   factory :protected_edition, parent: :edition, traits: [:access_limited]
   factory :edition_with_organisations, parent: :edition, traits: [:with_organisations]

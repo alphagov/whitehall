@@ -11,10 +11,8 @@ module Admin::EditionActionsHelper
     confirmation_prompt = "Are you sure you want to retrospectively approve this document?"
     content_tag(:div, class: "approve_retrospectively_button") do
       capture do
-        form_for [:admin, edition], {
-          url: approve_retrospectively_admin_edition_path(edition, lock_version: edition.lock_version),
-          method: :post} do |form|
-          concat(form.submit "Looks good", data: { confirm: confirmation_prompt }, class: "btn btn-success")
+        form_for [:admin, edition], url: approve_retrospectively_admin_edition_path(edition, lock_version: edition.lock_version), method: :post do |form|
+          concat(form.submit("Looks good", data: { confirm: confirmation_prompt }, class: "btn btn-success"))
         end
       end
     end
@@ -30,8 +28,8 @@ module Admin::EditionActionsHelper
 
   def convert_to_draft_edition_form(edition)
     url = convert_to_draft_admin_edition_path(edition, lock_version: edition.lock_version)
-    options = { title: "Convert to draft #{edition.title}", class: 'btn btn-success'}
-    options.merge!(disabled: 'disabled') unless edition.valid_as_draft?
+    options = { title: "Convert to draft #{edition.title}", class: 'btn btn-success' }
+    options[:disabled] = 'disabled' unless edition.valid_as_draft?
     button_to 'Convert to draft', url, options
   end
 
@@ -89,8 +87,7 @@ module Admin::EditionActionsHelper
       class: "masthead-menu list-unstyled js-hidden",
       id: 'new-document-menu',
       role: 'menu',
-      'aria-labelledby' => 'new-document-label'
-    ) do
+      'aria-labelledby' => 'new-document-label') do
       edition_types = [
         Consultation,
         Publication,
@@ -102,15 +99,18 @@ module Admin::EditionActionsHelper
         CaseStudy,
         StatisticalDataSet,
       ]
-      edition_types.map do |edition_type|
-        content_tag(:li, class: 'masthead-menu-item') do
-          link_to(edition_type.model_name.human,
-            polymorphic_path([:new, :admin, edition_type.name.underscore]),
-            title: "Create #{edition_type.model_name.human.titleize}",
-            role: 'menuitem'
-          )
-        end if can?(:create, edition_type)
-      end.compact.join.html_safe
+      edition_types
+        .select { |edition_type| can?(:create, edition_type) }
+        .map { |edition_type|
+          content_tag(:li, class: 'masthead-menu-item') do
+            link_to(edition_type.model_name.human,
+                    polymorphic_path([:new, :admin, edition_type.name.underscore]),
+                    title: "Create #{edition_type.model_name.human.titleize}",
+                    role: 'menuitem')
+          end
+        }
+        .join
+        .html_safe
     end
   end
 
@@ -118,7 +118,7 @@ module Admin::EditionActionsHelper
     options_for_select([["All types", ""]]) + edition_type_options_for_select(user, selected) + edition_sub_type_options_for_select(selected)
   end
 
-  private
+private
 
   def edition_type_options_for_select(user, selected)
     type_options_container = Whitehall.edition_classes.map do |edition_type|
@@ -126,7 +126,7 @@ module Admin::EditionActionsHelper
         [edition_type.model_name.human.pluralize, edition_type.model_name.singular]
       end
     end
-ActiveModel::Name
+
     options_for_select(type_options_container, selected)
   end
 

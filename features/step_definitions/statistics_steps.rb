@@ -80,7 +80,6 @@ Given(/^there are some statisics for various departments and topics$/) do
   create :published_statistics, title: 'Wombat population levels',
                                 topics: [wombat_topic],
                                 organisations: [wombat_org]
-
 end
 
 When(/^I filter the statistics by department and topic$/) do

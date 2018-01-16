@@ -17,7 +17,7 @@ module Edition::NationalApplicability
   end
 
   def nation_inapplicabilities_attributes=(attributes)
-    attributes.each do |index, params|
+    attributes.each_value do |params|
       existing = nation_inapplicabilities.detect { |ni| ni.nation_id == params[:nation_id].to_i }
 
       if ActiveRecord::Type::Boolean.new.deserialize(params[:excluded])
@@ -26,11 +26,9 @@ module Edition::NationalApplicability
         else
           nation_inapplicabilities.build(params)
         end
-      else
-        if existing
-          existing.mark_for_destruction
-          existing.excluded = params[:excluded]
-        end
+      elsif existing
+        existing.mark_for_destruction
+        existing.excluded = params[:excluded]
       end
     end
   end

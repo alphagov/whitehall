@@ -29,7 +29,7 @@ class OrganisationsIndexPresenter < Array
     self.class.new(grouped_organisations[:high_profile_group] || [])
   end
 
-  private
+private
 
   def grouped_organisations
     @grouped_organisations ||= group_by { |org|

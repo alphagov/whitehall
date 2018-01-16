@@ -10,8 +10,7 @@ class HealthcheckControllerTest < ActionController::TestCase
 
   test 'includes an OK health check status when scheduled queue matches number of scheduled editions' do
     with_real_sidekiq do
-      edition = create(:scheduled_edition)
-      ScheduledPublishingWorker.queue(edition)
+      ScheduledPublishingWorker.queue(create(:scheduled_edition))
 
       get :check
       assert_equal 'ok', json_response['status']
@@ -21,7 +20,7 @@ class HealthcheckControllerTest < ActionController::TestCase
 
   test 'includes WARNING health check status when scheduled queue does not match the number of scheduled editions' do
     with_real_sidekiq do
-      edition = create(:scheduled_edition)
+      create(:scheduled_edition)
 
       get :check
       assert_equal 'warning', json_response['status']

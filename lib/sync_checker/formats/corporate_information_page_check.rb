@@ -6,9 +6,11 @@ module SyncChecker
           details.delete(:change_history)
           details.delete(:first_public_at)
 
-          details.merge(
-            expected_corporate_information_groups(corporate_information_page)
-          ) if corporate_information_page.about_page?
+          if corporate_information_page.about_page?
+            details.merge(
+              expected_corporate_information_groups(corporate_information_page)
+            )
+          end
 
           details.merge(expected_organisation(corporate_information_page))
           details.merge(expected_tags(corporate_information_page))
@@ -115,10 +117,12 @@ module SyncChecker
             contents: contents_for_access_our_info(corporate_information_page).compact
           }
 
-          groups << {
-            name: translation_for_group(:jobs_and_contacts),
-            contents: contents_for_jobs_and_contacts(corporate_information_page).compact
-          } unless corporate_information_page.organisation.court_or_hmcts_tribunal?
+          unless corporate_information_page.organisation.court_or_hmcts_tribunal?
+            groups << {
+              name: translation_for_group(:jobs_and_contacts),
+              contents: contents_for_jobs_and_contacts(corporate_information_page).compact
+            }
+          end
         end
       end
 
@@ -164,7 +168,6 @@ module SyncChecker
 
         corporate_information_page.organisation.organisation_chart_url.present?
       end
-
 
       def organisation_has_transparency_data_publications?(corporate_information_page)
         return unless corporate_information_page.organisation.present?

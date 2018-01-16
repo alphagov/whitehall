@@ -12,7 +12,7 @@ namespace :reslug do
   - republishes the person to Publishing API
   - publishes a redirect content item to Publishing API
   - reindexes all dependent documents in search"
-  task :person, [:old_slug, :new_slug] => :environment do |_task, args|
+  task :person, %i[old_slug new_slug] => :environment do |_task, args|
     old_slug = args[:old_slug]
     new_slug = args[:new_slug]
     person = Person.find_by!(slug: old_slug)
@@ -29,7 +29,7 @@ namespace :reslug do
   - reindexes the role for search
   - republishes the role to Publishing API
   - publishes a redirect content item to Publishing API"
-  task :role, [:old_slug, :new_slug] => :environment do |_task, args|
+  task :role, %i[old_slug new_slug] => :environment do |_task, args|
     old_slug = args[:old_slug]
     new_slug = args[:new_slug]
     role = Role.find_by!(slug: old_slug)

@@ -1,8 +1,7 @@
 class Admin::CorporateInformationPagesController < Admin::EditionsController
   prepend_before_action :find_organisation
 
-  class FakeEditionFilter < Struct.new(:editions, :page_title, :show_stats, :hide_type)
-  end
+  FakeEditionFilter = Struct.new(:editions, :page_title, :show_stats, :hide_type)
 
   def index
     params[:state] = 'active' # Ensure that state column is displayed.

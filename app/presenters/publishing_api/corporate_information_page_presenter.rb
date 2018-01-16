@@ -3,7 +3,7 @@ module PublishingApi
     extend Forwardable
     include UpdateTypeHelper
 
-    SCHEMA_NAME = 'corporate_information_page'
+    SCHEMA_NAME = 'corporate_information_page'.freeze
 
     attr_reader :update_type
 
@@ -120,10 +120,12 @@ module PublishingApi
             contents: contents_for_access_our_info.compact,
           }
 
-          groups << {
-            name: translation_for_group(:jobs_and_contacts),
-            contents: contents_for_jobs_and_contacts.compact,
-          } unless organisation.court_or_hmcts_tribunal?
+          unless organisation.court_or_hmcts_tribunal?
+            groups << {
+              name: translation_for_group(:jobs_and_contacts),
+              contents: contents_for_jobs_and_contacts.compact,
+            }
+          end
         end
       end
 

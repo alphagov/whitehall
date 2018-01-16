@@ -23,6 +23,7 @@ class Admin::DocumentSearchesController < Admin::BaseController
     end
 
   private
+
     def filters_for(params)
       filters = []
 

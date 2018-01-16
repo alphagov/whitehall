@@ -1,4 +1,4 @@
-unpublishings = Unpublishing.joins(:edition).where(editions: {state: 'published'})
+unpublishings = Unpublishing.joins(:edition).where(editions: { state: 'published' })
 
 puts "Deleting #{unpublishings.count} unpublishings"
 

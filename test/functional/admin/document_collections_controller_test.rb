@@ -16,8 +16,7 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
   view_test 'GET #show displays the document collection' do
     collection = create(:document_collection,
       title: "collection-title",
-      summary: "the summary"
-    )
+      summary: "the summary")
 
     get :show, params: { id: collection }
 
@@ -104,5 +103,4 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
     refute DocumentCollection.exists?(document_collection.id)
     assert_response :redirect
   end
-
 end

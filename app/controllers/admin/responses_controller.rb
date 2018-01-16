@@ -3,7 +3,7 @@ class Admin::ResponsesController < Admin::BaseController
   before_action :limit_edition_access!
   before_action :enforce_edition_permissions!
   before_action :prevent_modification_of_unmodifiable_edition
-  before_action :find_response, only: [:edit, :update]
+  before_action :find_response, only: %i[edit update]
 
   def show
     @response = response_class.find_by(edition_id: @edition) || response_class.new(published_on: Date.today)
@@ -19,8 +19,7 @@ class Admin::ResponsesController < Admin::BaseController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @response.update_attributes(response_params)
@@ -30,7 +29,7 @@ class Admin::ResponsesController < Admin::BaseController
     end
   end
 
-  private
+private
 
   def find_consultation
     @edition = Consultation.find(params[:consultation_id])
@@ -47,8 +46,10 @@ class Admin::ResponsesController < Admin::BaseController
 
   def response_class
     case params[:type]
-      when 'ConsultationOutcome' then ConsultationOutcome
-      when 'ConsultationPublicFeedback' then ConsultationPublicFeedback
+    when 'ConsultationOutcome' then
+      ConsultationOutcome
+    when 'ConsultationPublicFeedback' then
+      ConsultationPublicFeedback
     end
   end
 

@@ -26,7 +26,6 @@ class PersonSlugChangerTest < ActiveSupport::TestCase
 
     redirect_uuid = SecureRandom.uuid
     SecureRandom.stubs(uuid: redirect_uuid)
-    old_base_path = @person.search_link
     new_base_path = "/government/people/updated-slug"
 
     content_item = PublishingApiPresenters.presenter_for(@person)
@@ -49,7 +48,6 @@ class PersonSlugChangerTest < ActiveSupport::TestCase
   test "deletes the old slug from the search index" do
     Whitehall::SearchIndex.expects(:delete).with { |person| person.slug == 'old-slug' }
     @reslugger.run!
-
   end
 
   test "adds the new slug from the search index" do

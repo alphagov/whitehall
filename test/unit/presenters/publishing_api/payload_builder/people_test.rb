@@ -42,10 +42,10 @@ module PublishingApi
           create(:role_appointment, person: create(:person))
         end
 
-        stubbed_edition = stub(role_appointments:  role_appointments)
+        stubbed_edition = stub(role_appointments: role_appointments)
 
-        expected_hash = { people:
-          role_appointments.map do |role_appointment|
+        expected_hash = {
+          people: role_appointments.map do |role_appointment|
             role_appointment.person.content_id
           end
         }

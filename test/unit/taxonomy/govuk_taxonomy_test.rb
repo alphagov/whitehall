@@ -11,23 +11,23 @@ class Taxonomy::GovukTaxonomyTest < ActiveSupport::TestCase
   end
 
   test "#children" do
-    @test_adapter.stubs(:published_taxon_data).returns([:taxon, :taxon])
+    @test_adapter.stubs(:published_taxon_data).returns(%i[taxon taxon])
     result = @subject.children
     assert_equal result, [@taxon_tree, @taxon_tree]
   end
 
   test "#draft_child_taxons" do
-    @test_adapter.stubs(:draft_taxon_data).returns([:taxon, :taxon])
+    @test_adapter.stubs(:draft_taxon_data).returns(%i[taxon taxon])
     result = @subject.draft_child_taxons
     assert_equal result, [@taxon_tree, @taxon_tree]
   end
 
   test "#all_taxons" do
-    @test_adapter.stubs(:published_taxon_data).returns([:taxon, :taxon])
-    @test_adapter.stubs(:draft_taxon_data).returns([:taxon, :taxon])
+    @test_adapter.stubs(:published_taxon_data).returns(%i[taxon taxon])
+    @test_adapter.stubs(:draft_taxon_data).returns(%i[taxon taxon])
     @taxon_tree.stubs(:tree).returns(:root_taxon)
     result = @subject.all_taxons
-    assert_equal result, [:root_taxon, :root_taxon, :root_taxon, :root_taxon]
+    assert_equal result, %i[root_taxon root_taxon root_taxon root_taxon]
   end
 
   test "#matching_against_published_taxons returns taxon content ids found in branch" do

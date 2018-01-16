@@ -1,5 +1,4 @@
 class TakePartPage < ApplicationRecord
-
   validates_with SafeHtmlValidator
   validates :title, :summary, presence: true, length: { maximum: 255 }
   validates :body, presence: true, length: { maximum: (16.megabytes - 1) }
@@ -49,7 +48,7 @@ class TakePartPage < ApplicationRecord
     end
   end
 
-  protected
+protected
 
   def image_changed?
     changes["carrierwave_image"].present?

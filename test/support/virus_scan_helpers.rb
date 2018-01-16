@@ -36,7 +36,7 @@ module VirusScanHelpers
     uploaders.each do |uploader|
       absolute_path = File.join(Whitehall.incoming_uploads_root, uploader.relative_path)
       target_dir = File.join(Whitehall.infected_uploads_root, File.dirname(uploader.relative_path))
-      if File.exists?(absolute_path)
+      if File.exist?(absolute_path)
         FileUtils.mkdir_p(target_dir)
         FileUtils.cp(absolute_path, target_dir)
         FileUtils.rm(absolute_path)
@@ -53,7 +53,7 @@ module VirusScanHelpers
     ]
 
     folders.each do |folder|
-      next unless Dir.exists?(folder)
+      next unless Dir.exist?(folder)
       Dir.glob("#{folder}/*").each do |path|
         FileUtils.rm_rf(path)
       end

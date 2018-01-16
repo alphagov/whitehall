@@ -1,12 +1,11 @@
 module CacheControlHelper
-
   def cache_max_age(cache_max_age = Whitehall.default_cache_max_age)
     @cache_max_age ||= cache_max_age
   end
 
   def expire_on_next_scheduled_publication(scheduled_editions)
     scheduled_times = scheduled_editions.map(&:scheduled_publication)
-    if next_scheduled_time = scheduled_times.compact.min
+    if (next_scheduled_time = scheduled_times.compact.min)
       expires_in(max_age_for(next_scheduled_time), public: true)
     end
   end

@@ -721,12 +721,12 @@ BASE_PATHS = [
   "/government/priority/working-with-the-un-for-stronger-international-human-rights-institutions",
   "/government/priority/working-with-ukraine-to-safeguard-britain-s-national-security",
   "/government/priority/working-with-uruguay-on-international-issues",
-]
+].freeze
 
 BASE_PATHS.each do |base_path|
   begin
     Whitehall.search_client.delete_content! base_path
   rescue GdsApi::HTTPNotFound => e
-    puts "\n" + "="*25 + "\nURL not found error:\n#{e}"
+    puts "\n" + "=" * 25 + "\nURL not found error:\n#{e}"
   end
 end

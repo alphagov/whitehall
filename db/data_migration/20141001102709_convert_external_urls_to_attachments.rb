@@ -7,4 +7,3 @@ Publication.where(external: true).find_each do |edition|
     edition.reorder_attachments(existing_ids)
   end
 end
-

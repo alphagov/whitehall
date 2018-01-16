@@ -3,11 +3,11 @@ require 'test_helper'
 class PublishingApi::WorkingGroupPresenterTest < ActiveSupport::TestCase
   test 'presents a valid "working_group" content item' do
     group = create(:policy_group,
-      name: "Government Digital Service",
-      email: "group-1@example.com",
-      summary: "This is some plaintext in the summary field",
-      description: "This is some *Govspeak* in the description field",
-                  )
+                   name: "Government Digital Service",
+                   email: "group-1@example.com",
+                   summary: "This is some plaintext in the summary field",
+                   description: "This is some *Govspeak* in the description field")
+
     public_path = '/government/groups/government-digital-service'
 
     expected_hash = {

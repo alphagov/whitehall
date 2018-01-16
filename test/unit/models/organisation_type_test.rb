@@ -41,13 +41,13 @@ class OrganisationTypeTest < ActiveSupport::TestCase
   end
 
   test "OrganisationType should have getters for each organisation type" do
-    OrganisationType::DATA.keys.each do |key|
+    OrganisationType::DATA.each_key do |key|
       assert_equal OrganisationType.get(key), OrganisationType.send(key)
     end
   end
 
   test "OrganisationType should have boolean flags for each organisation type" do
-    OrganisationType::DATA.keys.each do |key|
+    OrganisationType::DATA.each_key do |key|
       assert OrganisationType.get(key).send("#{key}?")
     end
   end
@@ -57,23 +57,26 @@ class OrganisationTypeTest < ActiveSupport::TestCase
   end
 
   test "in_listing_order should return all types in the appropriate order" do
-    assert_equal [
-      :executive_office,
-      :ministerial_department,
-      :non_ministerial_department,
-      :executive_agency,
-      :executive_ndpb,
-      :advisory_ndpb,
-      :tribunal_ndpb,
-      :public_corporation,
-      :independent_monitoring_body,
-      :adhoc_advisory_group,
-      :devolved_administration,
-      :sub_organisation,
-      :other,
-      :civil_service,
-      :court,
-    ], OrganisationType.in_listing_order.map(&:key)
+    assert_equal(
+      %i[
+        executive_office
+        ministerial_department
+        non_ministerial_department
+        executive_agency
+        executive_ndpb
+        advisory_ndpb
+        tribunal_ndpb
+        public_corporation
+        independent_monitoring_body
+        adhoc_advisory_group
+        devolved_administration
+        sub_organisation
+        other
+        civil_service
+        court
+      ],
+      OrganisationType.in_listing_order.map(&:key)
+    )
   end
 
   test "listing_position should return the index of the type key in the listing order" do

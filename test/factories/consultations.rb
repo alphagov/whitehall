@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :consultation, class: Consultation, parent: :edition, traits: [:with_organisations, :with_topics] do
+  factory :consultation, class: Consultation, parent: :edition, traits: %i[with_organisations with_topics] do
     title "consultation-title"
     body  "consultation-body"
     opening_at { 1.day.ago }

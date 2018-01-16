@@ -25,10 +25,9 @@ def top_3_policy_results(organisation)
 end
 
 def policy_content_id(policies, policy_link)
-  policy = policies.find do |policy|
-    policy["base_path"] == policy_link
-  end
-  policy["content_id"]
+  policies
+    .find { |policy| policy["base_path"] == policy_link }
+    .fetch("content_id")
 end
 
 

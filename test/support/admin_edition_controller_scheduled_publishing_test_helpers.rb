@@ -68,10 +68,13 @@ module AdminEditionControllerScheduledPublishingTestHelpers
       end
 
       test "create should not set scheduled_publication if scheduled_publication_active is not checked" do
-        edition_attributes = controller_attributes_for(edition_type,
+        edition_attributes = controller_attributes_for(
+          edition_type,
           first_published_at: Date.parse("2010-10-21"),
           publication_type_id: PublicationType::ResearchAndAnalysis.id
-        ).merge(scheduled_publication_attributes(Time.zone.now))
+        ).merge(
+          scheduled_publication_attributes(Time.zone.now)
+        )
 
         post :create, params: { scheduled_publication_active: "0", edition: edition_attributes }
 
@@ -81,10 +84,13 @@ module AdminEditionControllerScheduledPublishingTestHelpers
 
       test "create should set scheduled_publication if scheduled_publication_active is checked" do
         selected_time = Time.zone.parse("2012-01-01 09:30")
-        edition_attributes = controller_attributes_for(edition_type,
+        edition_attributes = controller_attributes_for(
+          edition_type,
           first_published_at: Date.parse("2010-10-21"),
           publication_type_id: PublicationType::ResearchAndAnalysis.id
-        ).merge(scheduled_publication_attributes(selected_time))
+        ).merge(
+          scheduled_publication_attributes(selected_time)
+        )
 
         post :create, params: { scheduled_publication_active: "1", edition: edition_attributes }
 
@@ -129,8 +135,8 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         selected_time = 1.day.from_now
         edition = create(edition_type, scheduled_publication: selected_time)
 
-        edition_attributes = scheduled_publication_attributes(selected_time).merge(
-          first_published_at: Date.parse("2010-06-18"))
+        edition_attributes = scheduled_publication_attributes(selected_time)
+                               .merge(first_published_at: Date.parse("2010-06-18"))
 
         put :update, params: { id: edition, edition: edition_attributes, scheduled_publication_active: "0" }
 
@@ -142,14 +148,14 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         edition = create(edition_type, scheduled_publication: nil)
         selected_time = Time.zone.parse("2012-07-03 09:30")
 
-        edition_attributes = scheduled_publication_attributes(selected_time).merge(
-          first_published_at: Date.parse("2010-06-18"))
+        edition_attributes = scheduled_publication_attributes(selected_time)
+                               .merge(first_published_at: Date.parse("2010-06-18"))
 
         put :update, params: {
-            id: edition,
-            edition: edition_attributes,
-            scheduled_publication_active: "1"
-          }
+          id: edition,
+          edition: edition_attributes,
+          scheduled_publication_active: "1"
+        }
 
         saved_edition = edition.reload
         assert_equal selected_time, saved_edition.scheduled_publication

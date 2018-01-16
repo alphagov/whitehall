@@ -1,8 +1,8 @@
 # encoding: utf-8
 
 class AttachmentUploader < WhitehallUploader
-  PDF_CONTENT_TYPE = 'application/pdf'
-  INDEXABLE_TYPES = %w(csv doc docx ods odp odt pdf ppt pptx rdf rtf txt xls xlsx xml)
+  PDF_CONTENT_TYPE = 'application/pdf'.freeze
+  INDEXABLE_TYPES = %w(csv doc docx ods odp odt pdf ppt pptx rdf rtf txt xls xlsx xml).freeze
 
   THUMBNAIL_GENERATION_TIMEOUT = 10.seconds
   FALLBACK_PDF_THUMBNAIL = File.expand_path("../../assets/images/pub-cover.png", __FILE__)
@@ -33,7 +33,7 @@ class AttachmentUploader < WhitehallUploader
     process :generate_thumbnail
     before :store, :set_correct_content_type
 
-    def set_correct_content_type(ignore_argument)
+    def set_correct_content_type(_ignore_argument)
       @file.content_type = "image/png"
     end
   end
@@ -54,7 +54,7 @@ class AttachmentUploader < WhitehallUploader
       ]
     end
 
-    unless exit_status == 0
+    unless exit_status.zero?
       Rails.logger.warn "Error thumbnailing PDF. Exit status: #{exit_status}; Output: #{output}"
       use_fallback_pdf_thumbnail
     end
@@ -94,21 +94,21 @@ class AttachmentUploader < WhitehallUploader
         @filenames = zipinfo_output.split(/[\r\n]+/)
       end
       @filenames
-    rescue ArgumentError => e
+    rescue ArgumentError
       raise NonUTF8ContentsError, "Some filenames in zip aren't UTF-8: #{zipinfo_output}"
     end
 
     def extensions
-      filenames.map do |f|
-        if match = f.match(/\.([^\.]+)\Z/)
-          match[1].downcase
-        else
-          nil
-        end
-      end.compact
+      filenames
+        .map { |f|
+          if (match = f.match(/\.([^\.]+)\Z/))
+            match[1].downcase
+          end
+        }
+        .compact
     end
 
-    class Examiner < Struct.new(:zip_file); end
+    Examiner = Struct.new(:zip_file)
 
     class UTF8FilenamesExaminer < Examiner
       def valid?
@@ -142,15 +142,15 @@ class AttachmentUploader < WhitehallUploader
       end
 
       def failure_message
-        "You are not allowed to upload a zip file containing #{illegal_extensions.join(", ")} files, allowed types: #{@whitelist.inspect}"
+        "You are not allowed to upload a zip file containing #{illegal_extensions.join(', ')} files, allowed types: #{@whitelist.inspect}"
       end
     end
 
     class ArcGISShapefileExaminer < Examiner
-      REQUIRED_EXTS = %w(shp shx dbf)
+      REQUIRED_EXTS = %w(shp shx dbf).freeze
       OPTIONAL_EXTS = %w(aih ain atx avl cpg fbn fbx ixs mxs prj sbn sbx shp.xml shp_rxl).freeze
       ALLOWED_EXTS = REQUIRED_EXTS + OPTIONAL_EXTS
-      EXT_MATCHER = /\.(#{ALLOWED_EXTS.map { |e| Regexp.escape(e)}.join('|') })\Z/
+      EXT_MATCHER = /\.(#{ALLOWED_EXTS.map { |e| Regexp.escape(e) }.join('|') })\Z/
 
       def files_with_extensions
         @files_with_extensions ||=
@@ -167,31 +167,31 @@ class AttachmentUploader < WhitehallUploader
         @files_by_shape_and_allowed_extension ||=
           Hash[
             files_with_extensions.
-              reject { |file, ext| ext.nil? }.
-              group_by { |file, ext| file.gsub(/\.#{Regexp.escape(ext)}\Z/, '')}.
+              reject { |_file, ext| ext.nil? }.
+              group_by { |file, ext| file.gsub(/\.#{Regexp.escape(ext)}\Z/, '') }.
               map { |shape, files|
-                [shape, files.group_by { |file, ext| ext }]
+                [shape, files.group_by { |_file, ext| ext }]
               }
           ]
       end
 
       def has_no_extra_files?
-        files_with_extensions.select { |(f, e)| e.nil? }.empty?
+        files_with_extensions.select { |(_f, e)| e.nil? }.empty?
       end
 
       def each_shape_has_only_one_of_each_allowed_file?
-        files_by_shape_and_allowed_extension.all? do |shape, files|
-          files.
-            select { |ext, files| files.size > 1 }.
+        files_by_shape_and_allowed_extension.all? do |_shape, files_with_extensions|
+          files_with_extensions.
+            select { |_ext, files| files.size > 1 }.
             empty?
         end
       end
 
       def each_shape_has_required_files?
-        files_by_shape_and_allowed_extension.all? do |shape, files|
-          files.
-            select { |ext, files| REQUIRED_EXTS.include? ext }.
-            reject { |ext, files| files.size > 1 }.
+        files_by_shape_and_allowed_extension.all? do |_shape, files_with_extensions|
+          files_with_extensions.
+            select { |ext, _files| REQUIRED_EXTS.include? ext }.
+            reject { |_ext, files| files.size > 1 }.
             keys.sort == REQUIRED_EXTS.sort
         end
       end
@@ -214,11 +214,11 @@ class AttachmentUploader < WhitehallUploader
       end
 
       def valid?
-        @others.any? { |other| other.valid? }
+        @others.any?(&:valid?)
       end
 
       def failure_message
-        "The contents of your zip file did not meet any of our constraints: #{@others.map { |o| o.failure_message }.join(' or: ')}"
+        "The contents of your zip file did not meet any of our constraints: #{@others.map(&:failure_message).join(' or: ')}"
       end
     end
   end

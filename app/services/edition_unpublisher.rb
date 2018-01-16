@@ -1,5 +1,4 @@
 class EditionUnpublisher < EditionService
-
   def initialize(edition, options = {})
     super
     @edition.build_unpublishing(options[:unpublishing]) if options[:unpublishing]
@@ -7,14 +6,14 @@ class EditionUnpublisher < EditionService
 
   def failure_reason
     @failure_reason ||= if !can_transition?
-      "An edition that is #{edition.current_state} cannot be #{past_participle}"
-    elsif other_edition = edition.other_editions.in_pre_publication_state.first
-      "There is already a #{other_edition.state} edition of this document. You must discard it before you can #{verb} this edition."
-    elsif edition.unpublishing.blank?
-      "The reason for unpublishing must be present"
-    elsif !edition.unpublishing.valid?
-      edition.unpublishing.errors.full_messages.to_sentence
-    end
+                          "An edition that is #{edition.current_state} cannot be #{past_participle}"
+                        elsif (other_edition = edition.other_editions.in_pre_publication_state.first)
+                          "There is already a #{other_edition.state} edition of this document. You must discard it before you can #{verb} this edition."
+                        elsif edition.unpublishing.blank?
+                          "The reason for unpublishing must be present"
+                        elsif !edition.unpublishing.valid?
+                          edition.unpublishing.errors.full_messages.to_sentence
+                        end
   end
 
   def verb

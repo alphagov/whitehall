@@ -43,8 +43,8 @@ module PublishingApi
 
         stubbed_edition = stub(role_appointments: role_appointments)
 
-        expected_hash = { roles:
-          role_appointments.map do |role_appointment|
+        expected_hash = {
+          roles: role_appointments.map do |role_appointment|
             role_appointment.role.content_id
           end
         }

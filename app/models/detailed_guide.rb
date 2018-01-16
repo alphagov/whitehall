@@ -20,6 +20,10 @@ class DetailedGuide < Edition
   include Edition::RelatedPolicies
   include Edition::RelatedDocuments
 
+  def self.format_name
+    'detailed guidance'
+  end
+
   has_many :related_mainstreams, foreign_key: "edition_id", dependent: :destroy
 
   validate :related_mainstream_found, if: :related_mainstream_requested?
@@ -57,7 +61,7 @@ class DetailedGuide < Edition
   def related_detailed_guide_ids=(detailed_guide_ids)
     detailed_guide_ids        = Array.wrap(detailed_guide_ids).reject(&:blank?)
     other_related_documents   = self.related_documents.reject { |document| document.document_type == 'DetailedGuide' }
-    detailed_guide_documents  = DetailedGuide.find(detailed_guide_ids).map {|guide| guide.document }
+    detailed_guide_documents  = DetailedGuide.find(detailed_guide_ids).map(&:document)
 
     self.related_documents = other_related_documents + detailed_guide_documents
   end
@@ -109,12 +113,12 @@ class DetailedGuide < Edition
   end
 
   def related_mainstream_content_ids
-    @related_mainstream_content_ids ||= (
+    @related_mainstream_content_ids ||= begin
       base_paths = [related_mainstream_base_path, additional_related_mainstream_base_path].compact
       return [] if base_paths.empty?
       response_hash = Services.publishing_api.lookup_content_ids(base_paths: base_paths)
       response_hash.values_at(*base_paths)
-    )
+    end
   end
 
   def government
@@ -137,7 +141,7 @@ private
 
   # Returns the published edition of any detailed guide documents that this edition is related to.
   def published_outbound_related_detailed_guides
-    related_documents.published.where(document_type: 'DetailedGuide').map { |document| document.published_edition }.compact
+    related_documents.published.where(document_type: 'DetailedGuide').map(&:published_edition).compact
   end
 
   # Returns the published editions that are related to this edition's document.
@@ -176,9 +180,5 @@ private
 
   def related_mainstream_requested?
     related_mainstream_content_url.present? || additional_related_mainstream_content_url.present?
-  end
-
-  def self.format_name
-    'detailed guidance'
   end
 end

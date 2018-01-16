@@ -1,5 +1,5 @@
 module Whitehall::Authority::Rules
-  class MiscellaneousRules < Struct.new(:actor, :subject)
+  MiscellaneousRules = Struct.new(:actor, :subject) do
     def can?(action)
       if respond_to?("can_for_#{subject}?")
         __send__("can_for_#{subject}?", action)

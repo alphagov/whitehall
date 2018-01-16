@@ -20,7 +20,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
     empty_file = fixture_file_upload('empty_file.txt', 'text/plain')
     attachment = build(:attachment_data, file: empty_file)
     refute attachment.valid?
-    assert_match /empty file/, attachment.errors[:file].first
+    assert_match %r[empty file], attachment.errors[:file].first
   end
 
   test 'is still valid whilst file is being virus-scanned' do

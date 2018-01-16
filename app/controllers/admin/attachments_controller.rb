@@ -43,9 +43,9 @@ class Admin::AttachmentsController < Admin::BaseController
     end
 
     if errors.empty?
-      render json: {result: :success}
+      render json: { result: :success }
     else
-      render json: {result: :failure, errors: errors }, status: :unprocessable_entity
+      render json: { result: :failure, errors: errors }, status: :unprocessable_entity
     end
   end
 
@@ -65,6 +65,7 @@ class Admin::AttachmentsController < Admin::BaseController
   helper_method :attachable_attachments_path
 
 private
+
   def attachment
     @attachment ||= find_attachment || build_attachment
   end
@@ -107,8 +108,8 @@ private
       :command_paper_number, :unnumbered_command_paper, :hoc_paper_number,
       :unnumbered_hoc_paper, :parliamentary_session, :order_url, :price, :accessible,
       :external_url, :print_meta_data_contact_address,
-      govspeak_content_attributes: [:id, :body, :manually_numbered_headings],
-      attachment_data_attributes: [:file, :to_replace_id, :file_cache]
+      govspeak_content_attributes: %i[id body manually_numbered_headings],
+      attachment_data_attributes: %i[file to_replace_id file_cache]
     ).merge(attachable: attachable)
   end
 

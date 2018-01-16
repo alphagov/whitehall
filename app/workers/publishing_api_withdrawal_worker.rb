@@ -2,7 +2,7 @@ class PublishingApiWithdrawalWorker < PublishingApiWorker
   def perform(content_id, explanation, locale, allow_draft = false)
     unpublished_at = Edition
       .joins(:document)
-      .where(documents: {content_id: content_id})
+      .where(documents: { content_id: content_id })
       .where(state: "withdrawn")
       .pluck(:updated_at)
       .first

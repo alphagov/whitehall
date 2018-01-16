@@ -26,11 +26,11 @@ class ConsultationParticipation < ApplicationRecord
 
   after_destroy :destroy_form_if_required
 
-  private
+private
 
   def destroy_form_if_required
     if has_response_form? &&
-      ConsultationParticipation.where(consultation_response_form_id: consultation_response_form.id).empty?
+        ConsultationParticipation.where(consultation_response_form_id: consultation_response_form.id).empty?
       consultation_response_form.destroy
     end
   end
@@ -39,5 +39,4 @@ class ConsultationParticipation < ApplicationRecord
     attrs.except(:consultation_response_form_data_attributes, :_destroy).values.all?(&:blank?) &&
       (attrs[:consultation_response_form_data_attributes] || {}).values.all?(&:blank?)
   end
-
 end

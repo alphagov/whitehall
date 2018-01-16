@@ -78,12 +78,12 @@ class PublishingApi::DraftDocumentCollectionPresenter < ActiveSupport::TestCase
   test "it presents the Document Collection's parent document created_at as first_public_at" do
     presented_notice = PublishingApi::DocumentCollectionPresenter.new(
       create(:draft_document_collection) do |document_collection|
-        document_collection.document.stubs(:created_at).returns(DateTime.new(2015, 4, 10))
+        document_collection.document.stubs(:created_at).returns(Date.new(2015, 4, 10))
       end
     )
 
     assert_equal(
-      DateTime.new(2015, 4, 10),
+      Date.new(2015, 4, 10),
       presented_notice.content[:details][:first_public_at]
     )
   end
@@ -93,12 +93,12 @@ class PublishingApi::DraftDocumentCollectionBelongingToPublishedDocumentNoticePr
   test "it presents the Document Collection's first_published_at as first_public_at" do
     presented_notice = PublishingApi::DocumentCollectionPresenter.new(
       create(:published_document_collection) do |document_collection|
-        document_collection.stubs(:first_published_at).returns(DateTime.new(2015, 4, 10))
+        document_collection.stubs(:first_published_at).returns(Date.new(2015, 4, 10))
       end
     )
 
     assert_equal(
-      DateTime.new(2015, 04, 10),
+      Date.new(2015, 4, 10),
       presented_notice.content[:details][:first_public_at]
     )
   end
@@ -177,7 +177,7 @@ end
 
 class PublishingApi::PublishedDocumentCollectionPresenterDetailsTest < ActiveSupport::TestCase
   setup do
-    @expected_first_published_at = DateTime.new(2015, 12, 25)
+    @expected_first_published_at = Time.new(2015, 12, 25)
     @document_collection = create(
       :document_collection,
       :published,
@@ -353,7 +353,7 @@ end
 class PublishingApi::PublishedDocumentCollectionPresenterTopicalEventsLinksTest < ActiveSupport::TestCase
   setup do
     document_collection = create(:document_collection)
-    PublishingApi::PayloadBuilder::TopicalEvents.stubs(:for).with(document_collection).returns({ topical_events: ['bfa'] })
+    PublishingApi::PayloadBuilder::TopicalEvents.stubs(:for).with(document_collection).returns(topical_events: ['bfa'])
     @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(document_collection)
   end
 
@@ -487,7 +487,7 @@ class PublishingApi::DocumentCollectionAccessLimitedTest < ActiveSupport::TestCa
     PublishingApi::PayloadBuilder::AccessLimitation.expects(:for)
       .with(document_collection)
       .returns(
-        { access_limited: { users: %w(abcdef12345) } }
+        access_limited: { users: %w(abcdef12345) }
       )
     @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(
       document_collection

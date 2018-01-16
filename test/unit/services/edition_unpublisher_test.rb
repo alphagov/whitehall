@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class EditionUnpublisherTest < ActiveSupport::TestCase
-
   test '#perform! with a published edition returns the edition to draft, resets the version numbers and saves the unpublishing details' do
     edition = create(:published_edition)
     unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
@@ -46,7 +45,7 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
   end
 
   test 'other edition states cannot be unpublished' do
-    (Edition.available_states - [:published, :draft]).each do |state|
+    (Edition.available_states - %i[published draft]).each do |state|
       edition = create(:edition, state: state)
       unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
 
@@ -78,7 +77,7 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
 
   test 'cannot unpublish a published edition if a newer submitted version exists' do
     edition = create(:published_edition)
-    submitted_edition = create(:submitted_edition, document: edition.document)
+    _submitted_edition = create(:submitted_edition, document: edition.document)
     unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
 
     refute unpublisher.can_perform?

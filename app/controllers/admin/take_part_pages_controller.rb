@@ -15,7 +15,7 @@ class Admin::TakePartPagesController < Admin::BaseController
   def create
     @take_part_page = TakePartPage.new(take_part_page_params)
     if @take_part_page.save
-      redirect_to [:admin, TakePartPage], notice: %Q{Take part page "#{@take_part_page.title}" created!}
+      redirect_to [:admin, TakePartPage], notice: %{Take part page "#{@take_part_page.title}" created!}
     else
       render :new
     end
@@ -28,7 +28,7 @@ class Admin::TakePartPagesController < Admin::BaseController
   def update
     @take_part_page = TakePartPage.friendly.find(params[:id])
     if @take_part_page.update_attributes(take_part_page_params)
-      redirect_to [:admin, TakePartPage], notice: %Q{Take part page "#{@take_part_page.title}" updated!}
+      redirect_to [:admin, TakePartPage], notice: %{Take part page "#{@take_part_page.title}" updated!}
     else
       render :edit
     end
@@ -37,7 +37,7 @@ class Admin::TakePartPagesController < Admin::BaseController
   def destroy
     @take_part_page = TakePartPage.friendly.find(params[:id])
     @take_part_page.destroy
-    redirect_to [:admin, TakePartPage], notice: %Q{Take part page "#{@take_part_page.title}" deleted!}
+    redirect_to [:admin, TakePartPage], notice: %{Take part page "#{@take_part_page.title}" deleted!}
   end
 
   def reorder
@@ -47,6 +47,7 @@ class Admin::TakePartPagesController < Admin::BaseController
   end
 
 private
+
   def take_part_page_params
     params.require(:take_part_page).permit(
       :title, :summary, :body, :image, :image_alt_text, :image_cache

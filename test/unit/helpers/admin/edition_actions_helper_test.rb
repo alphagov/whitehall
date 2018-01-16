@@ -8,7 +8,7 @@ class Admin::EditionActionsHelperTest < ActionView::TestCase
     assert_equal publish_admin_edition_path(edition, lock_version: edition.lock_version), (fragment / "form").first["action"]
     assert_equal "Publish", (fragment / "input[type=submit]").first["value"]
     assert_equal "Publish edition-title", (fragment / "input[type=submit]").first["title"]
-    assert (fragment / "input[type=submit]").first["data-confirm"].blank?
+    assert((fragment / "input[type=submit]").first["data-confirm"].blank?)
   end
 
   test "should generate force-publish modal button" do

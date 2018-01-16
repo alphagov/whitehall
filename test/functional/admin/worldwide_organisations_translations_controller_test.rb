@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 require "test_helper"
 
 class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController::TestCase
@@ -35,7 +36,7 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
   end
 
   view_test 'index omits create form if no missing translations' do
-    worldwide_organisation = create(:worldwide_organisation, translated_into: [:fr, :es])
+    worldwide_organisation = create(:worldwide_organisation, translated_into: %i[fr es])
     get :index, params: { worldwide_organisation_id: worldwide_organisation }
     assert_select "select[name=translation_locale]", count: 0
   end
@@ -71,17 +72,16 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
   end
 
   view_test 'edit indicates which language is being translated to' do
-    worldwide_organisation = create(:worldwide_organisation, translated_into: [:fr])
+    create(:worldwide_organisation, translated_into: [:fr])
     get :edit, params: { worldwide_organisation_id: @worldwide_organisation, id: 'fr' }
     assert_select "h1", text: /Edit ‘Français \(French\)’ translation/
   end
 
   view_test 'edit presents a form to update an existing translation' do
     worldwide_organisation = create(:worldwide_organisation,
-      translated_into: {fr: {
+      translated_into: { fr: {
         name: 'Département des barbes en France',
-      }}
-    )
+      } })
 
     get :edit, params: { worldwide_organisation_id: worldwide_organisation, id: 'fr' }
 

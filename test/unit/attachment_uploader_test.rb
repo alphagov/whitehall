@@ -29,7 +29,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   test "should store uploads in a directory that persists across deploys" do
     model = stub("AR Model", id: 1)
     uploader = AttachmentUploader.new(model, "mounted-as")
-    assert_match /^system/, uploader.store_dir
+    assert_match %r[^system], uploader.store_dir
   end
 
   test "should not generate thumbnail versions of non pdf files" do
@@ -175,12 +175,12 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
 
   def multiple_shape_arcgis_file_list
     comprehensive_arcgis_file_list +
-      comprehensive_arcgis_file_list.map {|f| f.gsub('london', 'paris')}
+      comprehensive_arcgis_file_list.map { |f| f.gsub('london', 'paris') }
   end
 
   def complete_and_broken_shape_arcgis_file_list
     broken_arcgis_file_list +
-      comprehensive_arcgis_file_list.map {|f| f.gsub('london', 'paris')}
+      comprehensive_arcgis_file_list.map { |f| f.gsub('london', 'paris') }
   end
 end
 
@@ -218,7 +218,7 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
 
   test "should scale the thumbnail down proportionally to A4" do
     identify_details = `identify "#{Rails.root.join("public", @uploader.thumbnail.path)}"`
-    path, type, geometry, rest = identify_details.split
+    _path, _type, geometry, _rest = identify_details.split
     width, height = geometry.split("x")
 
     assert (width == "105" || height == "140"), "geometry should be proportional scaled, but was #{geometry}"
@@ -244,7 +244,7 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
     assert_fallback_thumbnail_used(@uploader)
   end
 
-  def assert_fallback_thumbnail_used(uploader)
+  def assert_fallback_thumbnail_used(_uploader)
     assert @uploader.thumbnail.path.ends_with?(".png"), "should be a png"
     generic_thumbnail_path = File.expand_path("app/assets/images/pub-cover.png")
     assert_equal File.binread(generic_thumbnail_path),

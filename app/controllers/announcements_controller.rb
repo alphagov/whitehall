@@ -1,5 +1,5 @@
 class AnnouncementsController < DocumentsController
-  enable_request_formats index: [:json, :atom]
+  enable_request_formats index: %i[json atom]
 
   def index
     expire_on_next_scheduled_publication(scheduled_announcements)

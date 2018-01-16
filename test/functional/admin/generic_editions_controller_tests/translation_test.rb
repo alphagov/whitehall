@@ -76,7 +76,7 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
   view_test "show displays the language of the translation on published editions" do
     edition = build(:published_edition, title: 'english-title', summary: 'english-summary', body: 'english-body')
     with_locale(:fr) do
-      edition.attributes = {title: 'french-title', summary: 'french-summary', body: 'french-body'}
+      edition.attributes = { title: 'french-title', summary: 'french-summary', body: 'french-body' }
     end
     edition.save!
 

@@ -25,15 +25,17 @@ class Classification < ApplicationRecord
   has_many :classification_relations, inverse_of: :classification
   has_many :related_classifications,
             through: :classification_relations,
-            before_remove: -> pa, rpa {
+            before_remove: ->(pa, rpa) {
               ClassificationRelation.relation_for(pa.id, rpa.id).destroy_inverse_relation
             }
 
   has_many :classification_featurings,
-            -> { where("editions.state = 'published' or classification_featurings.edition_id is null").
-                 references(:edition).
-                 includes(edition: :translations).
-                 order("classification_featurings.ordering asc") },
+            -> {
+              where("editions.state = 'published' or classification_featurings.edition_id is null").
+                references(:edition).
+                includes(edition: :translations).
+                order("classification_featurings.ordering asc")
+            },
             foreign_key: :classification_id,
             inverse_of: :classification
 
@@ -101,7 +103,7 @@ class Classification < ApplicationRecord
   end
 
   def lead_organisations
-    organisations.where(organisation_classifications: {lead: true}).reorder("organisation_classifications.lead_ordering")
+    organisations.where(organisation_classifications: { lead: true }).reorder("organisation_classifications.lead_ordering")
   end
 
   def lead_organisation_classifications
@@ -189,6 +191,7 @@ class Classification < ApplicationRecord
   end
 
 private
+
   def logo_changed?
     changes["carrierwave_image"].present?
   end

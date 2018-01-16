@@ -28,13 +28,12 @@ class HomeControllerTest < ActionController::TestCase
 
   view_test 'Atom feed shows a list of recently published documents' do
     create_published_documents
-    draft_documents = create_draft_documents
+    create_draft_documents
 
     get :feed, format: :atom
 
     documents = Edition.published.in_reverse_chronological_order
     recent_documents = documents[0...10]
-    older_documents = documents[10..-1]
 
     assert_select_atom_feed do
       assert_select 'feed > updated', text: recent_documents.first.public_timestamp.iso8601
@@ -117,7 +116,7 @@ class HomeControllerTest < ActionController::TestCase
   end
 
   test "get involved has counts of open and closed consultations" do
-    old = create(:published_consultation, opening_at: 2.years.ago, closing_at: 1.year.ago - 2.day)
+    create(:published_consultation, opening_at: 2.years.ago, closing_at: 1.year.ago - 2.day)
 
     # open
     recently_opened_consultations = [
@@ -129,7 +128,7 @@ class HomeControllerTest < ActionController::TestCase
     ]
 
     # closed
-    closed_in_past_12_months = create(:published_consultation, opening_at: 2.years.ago, closing_at: 1.year.ago + 1.day)
+    create(:published_consultation, opening_at: 2.years.ago, closing_at: 1.year.ago + 1.day)
     create(:closed_consultation, opening_at: 4.days.ago, closing_at: 2.days.ago)
     create(:closed_consultation, opening_at: 3.days.ago, closing_at: 1.day.ago)
 
@@ -165,7 +164,7 @@ class HomeControllerTest < ActionController::TestCase
     assert_equal [page_1, page_2, page_3], assigns(:take_part_pages)
   end
 
-  private
+private
 
   def create_published_documents
     2.downto(1) do |x|

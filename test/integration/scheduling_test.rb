@@ -15,7 +15,6 @@ class SchedulingTest < ActiveSupport::TestCase
   end
 
   test "scheduling a first-edition publishes a publish intent and 'coming_soon' content item to the Publishing API" do
-
     path = Whitehall.url_maker.public_document_path(@submitted_edition)
     schedule(@submitted_edition)
     assert_publishing_api_put_content(@submitted_edition.content_id,
@@ -101,6 +100,7 @@ class SchedulingTest < ActiveSupport::TestCase
   end
 
 private
+
   def schedule(edition, options = {})
     Whitehall.edition_services.scheduler(edition, options).perform!
   end

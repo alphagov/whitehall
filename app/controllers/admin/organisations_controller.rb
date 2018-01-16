@@ -1,6 +1,6 @@
 class Admin::OrganisationsController < Admin::BaseController
-  before_action :load_organisation, except: [:index, :new, :create]
-  before_action :enforce_permissions!, only: [:new, :create, :edit, :update]
+  before_action :load_organisation, except: %i[index new create]
+  before_action :enforce_permissions!, only: %i[new create edit update]
 
   def index
     @organisations = Organisation.alphabetical
@@ -22,8 +22,7 @@ class Admin::OrganisationsController < Admin::BaseController
     end
   end
 
-  def show
-  end
+  def show; end
 
   def people
     @ministerial_organisation_roles = @organisation.organisation_roles.joins(:role).
@@ -53,7 +52,7 @@ class Admin::OrganisationsController < Admin::BaseController
     @featurable_offsite_links = @organisation.offsite_links
 
     if request.xhr?
-      render partial: 'admin/feature_lists/search_results', locals: {feature_list: @feature_list}
+      render partial: 'admin/feature_lists/search_results', locals: { feature_list: @feature_list }
     else
       render :features
     end
@@ -79,7 +78,7 @@ class Admin::OrganisationsController < Admin::BaseController
     redirect_to admin_organisations_path
   end
 
-  private
+private
 
   def enforce_permissions!
     case action_name
@@ -100,13 +99,11 @@ class Admin::OrganisationsController < Admin::BaseController
       :regulatory_function, :important_board_members, :custom_jobs_url,
       :homepage_type, :political,
       superseding_organisation_ids: [],
-      default_news_image_attributes: [:file, :file_cache],
-      organisation_roles_attributes: [:id, :ordering],
+      default_news_image_attributes: %i[file file_cache],
+      organisation_roles_attributes: %i[id ordering],
       parent_organisation_ids: [],
-      organisation_classifications_attributes: [
-        :classification_id, :ordering, :id, :_destroy
-      ],
-      featured_links_attributes: [:title, :url, :_destroy, :id],
+      organisation_classifications_attributes: %i[classification_id ordering id _destroy],
+      featured_links_attributes: %i[title url _destroy id],
     )
   end
 
@@ -126,7 +123,7 @@ class Admin::OrganisationsController < Admin::BaseController
 
   def delete_absent_organisation_classifications
     return unless params[:organisation] &&
-                  params[:organisation][:organisation_classifications_attributes]
+        params[:organisation][:organisation_classifications_attributes]
     params[:organisation][:organisation_classifications_attributes].each do |p|
       if p[:classification_id].blank?
         p["_destroy"] = true

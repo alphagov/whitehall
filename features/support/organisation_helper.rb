@@ -8,11 +8,12 @@ module OrganisationHelper
     stub_organisation_in_content_store(
       args[1][:name],
       organisation.base_path,
-      args[1][:translated_into])
+      args[1][:translated_into]
+    )
     organisation
   end
 
-  def stub_organisation_in_content_store(name, base_path, locale=nil)
+  def stub_organisation_in_content_store(name, base_path, locale = nil)
     content_item = {
       format: "organisation",
       title: name,

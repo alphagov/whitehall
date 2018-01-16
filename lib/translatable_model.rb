@@ -16,7 +16,7 @@ module TranslatableModel
   end
 
   def remove_translations_for(locale)
-    translations.where(locale: locale).each { |t| t.destroy }
+    translations.where(locale: locale).each(&:destroy)
 
     if self.respond_to?(:content_id)
       Whitehall::PublishingApi.discard_translation_async(self, locale: locale)
@@ -39,7 +39,7 @@ module TranslatableModel
     Locale.new(translation.locale)
   end
 
-  private
+private
 
   def non_english_translated_locale_codes
     translated_locales - [:en]

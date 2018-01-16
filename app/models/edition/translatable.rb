@@ -51,7 +51,7 @@ module Edition::Translatable
     false
   end
 
-  private
+private
 
   def locale_is_valid
     unless I18n.available_locales.include?(primary_locale.intern)

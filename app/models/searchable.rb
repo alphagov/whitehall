@@ -56,7 +56,7 @@ module Searchable
     :specialist_sectors,
 
     :world_locations,
-  ]
+  ].freeze
 
   included do
     class_attribute :searchable_options
@@ -67,8 +67,8 @@ module Searchable
       include Searchable::Mixin
 
       self.searchable_options = options.reverse_merge \
-        format:         -> (o) { o.class.model_name.element },
-        content_id:     -> (o) { o.try(:content_id) },
+        format:         ->(o) { o.class.model_name.element },
+        content_id:     ->(o) { o.try(:content_id) },
         index_after:    :save,
         unindex_after:  :destroy,
         only:           :all,
@@ -88,7 +88,7 @@ module Searchable
             value.to_proc
           else
             # treat other objects (e.g. strings) as constants
-            -> (_) { value }
+            ->(_) { value }
           end
       end
 
@@ -106,7 +106,7 @@ module Searchable
 
     KEY_MAPPING = {
       content: 'indexable_content',
-    }
+    }.freeze
 
     # Build the payload to pass to the search index
     def search_index

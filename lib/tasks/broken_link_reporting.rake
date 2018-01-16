@@ -1,5 +1,5 @@
 desc "Generates and emails CSV reports of all public documents containing broken links."
-task :generate_broken_link_reports, [:reports_dir, :email_address, :organisation_slug] => [:environment] do |_, args|
+task :generate_broken_link_reports, %i[reports_dir email_address organisation_slug] => [:environment] do |_, args|
   begin
     reports_dir       = args[:reports_dir]
     email_address     = args[:email_address]
@@ -11,7 +11,7 @@ task :generate_broken_link_reports, [:reports_dir, :email_address, :organisation
     logger.info("Cleaning up any existing reports.")
     FileUtils.mkpath reports_dir
     FileUtils.rm Dir.glob(reports_dir + '/*_links_report.csv')
-    FileUtils.rm(report_zip_path) if File.exists?(report_zip_path)
+    FileUtils.rm(report_zip_path) if File.exist?(report_zip_path)
 
     logger.info("Generating broken link reports...")
     organisation = Organisation.where(slug: organisation_slug).first if organisation_slug
@@ -23,7 +23,7 @@ task :generate_broken_link_reports, [:reports_dir, :email_address, :organisation
     logger.info("Reports zipped. Emailing to #{email_address}")
     Notifications.broken_link_reports(report_zip_path, email_address).deliver_now
     logger.info("Email sent.")
-  rescue => e
+  rescue StandardError => e
     GovukError.notify(e, extra: { error_message: "Exception raised during broken link report generation: '#{e.message}'" })
     raise
   end

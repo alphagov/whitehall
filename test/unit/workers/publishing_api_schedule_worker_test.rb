@@ -11,7 +11,7 @@ class PublishingApiScheduleWorkerTest < ActiveSupport::TestCase
       publish_time: publish_time,
       publishing_app: 'whitehall',
       rendering_app: 'whitehall-frontend',
-      routes: [ { path: base_path, type: 'exact'} ]
+      routes: [{ path: base_path, type: 'exact' }]
     }
     expected_request = stub_publishing_api_put_intent(base_path, expected_payload)
 

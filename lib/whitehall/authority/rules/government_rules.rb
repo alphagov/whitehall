@@ -1,5 +1,5 @@
 module Whitehall::Authority::Rules
-  class GovernmentRules < Struct.new(:actor, :subject)
+  GovernmentRules = Struct.new(:actor, :subject) do
     def can?(action)
       case action
       when :manage

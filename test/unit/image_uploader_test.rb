@@ -23,7 +23,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
   test "should store uploads in a directory that persists across deploys" do
     model = stub("AR Model", id: 1)
     uploader = ImageUploader.new(model, "mounted-as")
-    assert_match /^system/, uploader.store_dir
+    assert_match %r[^system], uploader.store_dir
   end
 
   test "should create resized versions of a bitmap image" do
@@ -53,7 +53,7 @@ private
   def assert_image_size(dimensions, uploader_version)
     width, height = dimensions
     image = MiniMagick::Image.open(uploader_version.path)
-    assert_equal width, image[:width], "#{dimensions.join("x")} image version should be #{width}px wide, but was #{image[:width]}"
-    assert_equal height, image[:height], "#{dimensions.join("x")} image version should be #{height}px high, but was #{image[:height]}"
+    assert_equal width, image[:width], "#{dimensions.join('x')} image version should be #{width}px wide, but was #{image[:width]}"
+    assert_equal height, image[:height], "#{dimensions.join('x')} image version should be #{height}px high, but was #{image[:height]}"
   end
 end

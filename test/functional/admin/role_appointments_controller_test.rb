@@ -59,7 +59,7 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
 
   view_test "create should show any errors when creating the appointment" do
     role = create(:role)
-    person = create(:person)
+    _person = create(:person)
     post :create, params: { role_id: role.id, role_appointment: { started_at: 3.days.ago } }
     assert role.role_appointments.empty?
     assert_select ".field_with_errors", text: "Person*"
@@ -67,7 +67,7 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
 
   test "create should curtail previous appointments if make_current is present" do
     role = create(:role)
-    previous_appointment = create(:role_appointment, role: role, started_at: 10.days.ago)
+    _previous_appointment = create(:role_appointment, role: role, started_at: 10.days.ago)
     person = create(:person)
     post :create, params: { role_id: role.id, role_appointment: { person_id: person.id, started_at: 3.days.ago, make_current: true } }
     assert_equal person, role.current_person
@@ -138,7 +138,7 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
 
   test "delete refuses to remove an appointment that cannot be deleted" do
     appointment = create(:role_appointment)
-    speech = create(:speech, role_appointment: appointment)
+    create(:speech, role_appointment: appointment)
     delete :destroy, params: { id: appointment.id }
     assert_equal appointment, appointment.reload, "appointment should still be in the database"
     assert_equal "Appointment can not be deleted", flash[:alert]

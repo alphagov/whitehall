@@ -4,7 +4,7 @@
 # faster than parallel_test and has better logging output.
 namespace :test do
   desc "Run the entire test suite using parallel test runners"
-  task :in_parallel => :environment do
+  task in_parallel: :environment do
     ENV['CUCUMBER_FORMAT'] = 'progress'
     ENV['RAILS_ENV'] = 'test'
 

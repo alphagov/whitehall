@@ -23,8 +23,7 @@ class ContactTest < ActiveSupport::TestCase
       locality: "",
       region: "",
       postal_code: "",
-      country_id: ""
-    )
+      country_id: "")
     assert contact.valid?
   end
 
@@ -76,14 +75,14 @@ class ContactTest < ActiveSupport::TestCase
   end
 
   test "should allow creation of nested contact numbers" do
-    contact = create(:contact, contact_numbers_attributes: [{label: "Telephone", number: "123"}])
+    contact = create(:contact, contact_numbers_attributes: [{ label: "Telephone", number: "123" }])
     assert_equal 1, contact.contact_numbers.count
     assert_equal "Telephone", contact.contact_numbers[0].label
     assert_equal "123", contact.contact_numbers[0].number
   end
 
   test "should not create nested contact numbers if their attributes are blank" do
-    contact = create(:contact, contact_numbers_attributes: [{label: "", number: ""}])
+    contact = create(:contact, contact_numbers_attributes: [{ label: "", number: "" }])
     assert_equal 0, contact.contact_numbers.count
   end
 
@@ -104,10 +103,10 @@ class ContactTest < ActiveSupport::TestCase
   end
 
   test "#missing_translations should only include contactable translations" do
-    organisation = create(:organisation, translated_into: [:de, :es, :fr])
+    organisation = create(:organisation, translated_into: %i[de es fr])
     contact = create(:contact, contactable: organisation, translated_into: [:es])
 
-    expected_locales = [:de, :fr].map { |l| Locale.new(l) }
+    expected_locales = %i[de fr].map { |l| Locale.new(l) }
     assert_equal expected_locales, contact.missing_translations
   end
 

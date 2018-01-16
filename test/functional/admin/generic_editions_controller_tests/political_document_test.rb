@@ -8,7 +8,7 @@ class Admin::GenericEditionsController::PolticalDocumentsTest < ActionController
   end
 
   view_test "displays the political checkbox for privileged users " do
-    government = create(:current_government)
+    create(:current_government)
     login_as :managing_editor
     published_edition = create(:published_news_article, first_published_at: 2.days.ago)
     new_draft = create(:news_article, document: published_edition.document, first_published_at: 2.days.ago)
@@ -30,8 +30,8 @@ class Admin::GenericEditionsController::PolticalDocumentsTest < ActionController
   end
 
   view_test "doesn't let non-gds users edit historic documents" do
-    old_government = create(:previous_government, name: 'old')
-    new_government = create(:current_government, name: 'new')
+    create(:previous_government, name: 'old')
+    create(:current_government, name: 'new')
 
     login_as :managing_editor
 
@@ -44,8 +44,8 @@ class Admin::GenericEditionsController::PolticalDocumentsTest < ActionController
   end
 
   view_test "lets gds users edit historic documents" do
-    old_government = create(:previous_government, name: 'old')
-    new_government = create(:current_government, name: 'new')
+    create(:previous_government, name: 'old')
+    create(:current_government, name: 'new')
 
     login_as :gds_editor
 

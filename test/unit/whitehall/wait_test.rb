@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class WaitTest < ActiveSupport::TestCase
-
   setup do
     # reset global Timecop.freeze call in test_helper
     Timecop.return
@@ -39,7 +38,7 @@ class WaitTest < ActiveSupport::TestCase
     end
   end
 
-  private
+private
 
   def do_some_work
     Whitehall::Random.base32

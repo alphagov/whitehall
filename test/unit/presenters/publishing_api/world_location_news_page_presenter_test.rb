@@ -22,7 +22,7 @@ class PublishingApi::WorldLocationNewsPagePresenterTest < ActiveSupport::TestCas
       rendering_app: "whitehall-frontend",
       schema_name: "placeholder",
       base_path: "/world/aardistan/news",
-      routes: [{ path:  "/world/aardistan/news", type: "exact" }],
+      routes: [{ path: "/world/aardistan/news", type: "exact" }],
       analytics_identifier: "WL1",
       update_type: "major",
     }

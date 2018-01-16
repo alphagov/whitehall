@@ -6,7 +6,7 @@ class CollectionPageTest < ActiveSupport::TestCase
   end
 
   test "it should behave like an array" do
-    collection_page = build([:something, :something_else])
+    collection_page = build(%i[something something_else])
     assert_equal :something, collection_page[0]
     assert_equal :something_else, collection_page[1]
     assert collection_page.respond_to?(:each)

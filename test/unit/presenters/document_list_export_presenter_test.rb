@@ -42,17 +42,17 @@ class DocumentListExportPresenterTest < ActiveSupport::TestCase
   end
 
   test '#lead_organisations returns list of lead org names' do
-    org1 = build(:organisation, name: "Org 1")
-    org2 = build(:organisation, name: "Org 2")
+    org_1 = build(:organisation, name: "Org 1")
+    org_2 = build(:organisation, name: "Org 2")
     publication = build(:publication)
-    publication.stubs(:lead_organisations).returns([org1, org2])
+    publication.stubs(:lead_organisations).returns([org_1, org_2])
     pr = DocumentListExportPresenter.new(publication)
     assert_equal(['Org 1', 'Org 2'], pr.lead_organisations)
   end
 
   test '#lead_organisations returns owning org for Corporate Info pages' do
-    org1 = build(:organisation, name: "Org 1")
-    cip = build(:corporate_information_page, organisation: org1)
+    org_1 = build(:organisation, name: "Org 1")
+    cip = build(:corporate_information_page, organisation: org_1)
     pr = DocumentListExportPresenter.new(cip)
     assert_equal('Org 1', pr.lead_organisations)
   end

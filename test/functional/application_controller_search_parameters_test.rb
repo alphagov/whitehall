@@ -2,7 +2,7 @@ require "test_helper"
 
 class ApplicationControllerSearchParametersTest < ActionController::TestCase
   class TestController < ApplicationController
-    class Organisation < Struct.new(:slug, :"has_scoped_search?", :acronym); end
+    Organisation = Struct.new(:slug, :"has_scoped_search?", :acronym)
 
     def test_scoped
       org = Organisation.new("org1", true, "o1")

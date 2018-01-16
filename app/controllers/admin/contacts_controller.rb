@@ -1,10 +1,9 @@
 class Admin::ContactsController < Admin::BaseController
   before_action :find_contactable
-  before_action :find_contact, only: [:edit, :update, :destroy, :remove_from_home_page, :add_to_home_page]
-  before_action :destroy_blank_contact_numbers, only: [:create, :update]
+  before_action :find_contact, only: %i[edit update destroy remove_from_home_page add_to_home_page]
+  before_action :destroy_blank_contact_numbers, only: %i[create update]
 
-  def index
-  end
+  def index; end
 
   def new
     @contact = @contactable.contacts.build
@@ -48,7 +47,7 @@ class Admin::ContactsController < Admin::BaseController
   is_home_page_list_controller_for :contacts,
     item_type: Contact,
     contained_by: :contactable,
-    redirect_to: ->(container, item) { [:admin, container, Contact] }
+    redirect_to: ->(container, _item) { [:admin, container, Contact] }
 
 private
 
@@ -61,7 +60,7 @@ private
   end
 
   def destroy_blank_contact_numbers
-    (params[:contact][:contact_numbers_attributes] || []).each do |index, attributes|
+    (params[:contact][:contact_numbers_attributes] || {}).each_value do |attributes|
       if attributes.except(:id).values.all?(&:blank?)
         attributes[:_destroy] = "1"
       end
@@ -79,6 +78,6 @@ private
           .permit(:title, :comments, :recipient, :street_address, :locality,
                   :region, :postal_code, :country_id, :email,
                   :contact_form_url, :contact_type_id,
-                  contact_numbers_attributes: [:id, :label, :number, :_destroy])
+                  contact_numbers_attributes: %i[id label number _destroy])
   end
 end

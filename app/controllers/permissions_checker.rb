@@ -14,6 +14,7 @@ module PermissionsChecker
   end
 
 private
+
   def enforcer_for(subject)
     actor = current_user || User.new
     Whitehall::Authority::Enforcer.new(actor, subject)

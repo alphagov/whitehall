@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class PromotionalFeatureLinkTest < ActiveSupport::TestCase
-
   test 'is not valid without a url, text or promotional_feature_item' do
     %w(url text promotional_feature_item).each do |attribute|
       link = build(:promotional_feature_link, attribute => nil)

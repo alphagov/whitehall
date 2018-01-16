@@ -87,7 +87,7 @@ module TestsForNationalApplicability
 
     view_test 'edit displays edition form with nation inapplicability fields and values' do
       edition = create_edition
-      northern_ireland_inapplicability = edition.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://www.discovernorthernireland.com/")
+      edition.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://www.discovernorthernireland.com/")
 
       get :edit, params: { id: edition }
 
@@ -118,7 +118,7 @@ module TestsForNationalApplicability
       scotland_inapplicability = edition.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://www.scotland.com/")
       wales_inapplicability = edition.nation_inapplicabilities.create!(nation: Nation.wales, alternative_url: "http://www.wales.com/")
 
-      attributes = nation_inapplicabilities_attributes_for({Nation.northern_ireland => "http://www.northernireland.com/"}, scotland_inapplicability, wales_inapplicability).merge(title: '')
+      attributes = nation_inapplicabilities_attributes_for({ Nation.northern_ireland => "http://www.northernireland.com/" }, scotland_inapplicability, wales_inapplicability).merge(title: '')
 
       put :update, params: { id: edition, edition: attributes }
 
@@ -135,7 +135,7 @@ module TestsForNationalApplicability
       wales_inapplicability = edition.nation_inapplicabilities.create!(nation: Nation.wales, alternative_url: "http://www.wales.com/")
 
       put :update, params: { id: edition, edition: nation_inapplicabilities_attributes_for(
-        {Nation.northern_ireland => "invalid-url"},
+        { Nation.northern_ireland => "invalid-url" },
         scotland_inapplicability,
         wales_inapplicability
       ) }
@@ -153,7 +153,7 @@ module TestsForNationalApplicability
       lock_version = edition.lock_version
       edition.update_attributes!(title: "new title", change_note: "foo")
 
-      attributes = nation_inapplicabilities_attributes_for({Nation.northern_ireland => "http://www.northernireland.com/"}, scotland_inapplicability, wales_inapplicability).merge(lock_version: lock_version)
+      attributes = nation_inapplicabilities_attributes_for({ Nation.northern_ireland => "http://www.northernireland.com/" }, scotland_inapplicability, wales_inapplicability).merge(lock_version: lock_version)
 
       put :update, params: { id: edition, edition: attributes }
 
@@ -162,9 +162,9 @@ module TestsForNationalApplicability
       assert_nation_inapplicability_fields_set_as(index: 1, checked: false, alternative_url: "http://www.wales.com/")
       assert_nation_inapplicability_fields_set_as(index: 2, checked: true, alternative_url: "http://www.northernireland.com/")
     end
-
   end
-  private
+
+private
 
   def attributes_for_edition(attributes = {})
     controller_attributes_for(edition_class.name.underscore, attributes)
@@ -191,14 +191,15 @@ module TestsForNationalApplicability
         excluded: (nations_vs_urls.keys.include?(nation) ? "1" : "0"),
         nation_id: nation
       }
-      if existing = existing_applicabilities.detect { |ea| ea.nation_id == nation.id }
-        h.merge!(id: existing.id, alternative_url: existing.alternative_url)
+      if (existing = existing_applicabilities.detect { |ea| ea.nation_id == nation.id })
+        h[:id] = existing.id
+        h[:alternative_url] = existing.alternative_url
       end
       if nations_vs_urls[nation]
         h.merge!(alternative_url: nations_vs_urls[nation])
       end
     end
-    {nation_inapplicabilities_attributes: result}
+    { nation_inapplicabilities_attributes: result }
   end
 
   def assert_nation_inapplicability_fields_set_as(attributes)

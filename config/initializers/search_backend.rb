@@ -1,5 +1,5 @@
-if Rails.env.test?
-  Whitehall.search_backend = Whitehall::DocumentFilter::Mysql
-else
-  Whitehall.search_backend = Whitehall::DocumentFilter::Rummager
-end
+Whitehall.search_backend = if Rails.env.test?
+                             Whitehall::DocumentFilter::Mysql
+                           else
+                             Whitehall::DocumentFilter::Rummager
+                           end

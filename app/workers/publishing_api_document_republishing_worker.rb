@@ -29,16 +29,15 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
       send_draft_and_unpublish
     elsif the_document_has_been_withdrawn?
       send_published_and_withdraw
+    elsif there_is_only_a_draft?
+      send_draft_edition
+    elsif there_is_only_a_published_edition?
+      send_published_edition
+    elsif there_is_a_newer_draft?
+      send_published_edition
+      send_draft_edition
     else
-      if there_is_only_a_draft?
-        send_draft_edition
-      elsif there_is_only_a_published_edition?
-        send_published_edition
-      elsif there_is_a_newer_draft?
-        send_published_edition
-        send_draft_edition
-      else
-        error_message = <<-ERROR
+      error_message = <<-ERROR
           Document id: #{document.id} has an unrecognised state for republishing.
           the_document_has_been_unpublished? = #{the_document_has_been_unpublished?}
           the_document_has_been_withdrawn? = #{the_document_has_been_withdrawn?}
@@ -49,9 +48,8 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
           pre_publication_edition.id = #{pre_publication_edition.try(:id)}
           published_edition.unpublishing = #{published_edition.try(:unpublishing)}
           pre_publication_edition.unpublishing = #{pre_publication_edition.try(:unpublishing)}
-        ERROR
-        raise error_message
-      end
+      ERROR
+      raise error_message
     end
   end
 

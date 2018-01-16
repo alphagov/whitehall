@@ -1,9 +1,9 @@
 POLITICAL_ORG_SLUGS = %w[
   education-funding-agency
   national-college-for-teaching-and-leadership
-]
+].freeze
 
-PUBLISHED_AND_PUBLISHABLE_STATES = %w(published draft archived submitted rejected scheduled)
+PUBLISHED_AND_PUBLISHABLE_STATES = %w(published draft archived submitted rejected scheduled).freeze
 
 POLITICAL_ORG_SLUGS.each do |slug|
   organsation = Organisation.find_by(slug: slug)
@@ -22,6 +22,6 @@ POLITICAL_ORG_SLUGS.each do |slug|
 
     index += 1
 
-    puts "Processed #{index} of #{edition_count} editions (#{(index.to_f/edition_count.to_f)*100}%) from #{organsation.name}" if index % 1000 == 0
+    puts "Processed #{index} of #{edition_count} editions (#{(index.to_f / edition_count.to_f) * 100}%) from #{organsation.name}" if (index % 1000).zero?
   end
 end

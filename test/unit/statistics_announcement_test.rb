@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class StatisticsAnnouncementTest < ActiveSupport::TestCase
-
   test 'can set publication type using an ID' do
     announcement = StatisticsAnnouncement.new(publication_type_id: PublicationType::OfficialStatistics.id)
 
@@ -15,14 +14,14 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     announcement = build(:statistics_announcement, publication_type_id: PublicationType::PolicyPaper.id)
     refute announcement.valid?
 
-    assert_match /must be a statistical type/, announcement.errors[:publication_type_id].first
+    assert_match %r[must be a statistical type], announcement.errors[:publication_type_id].first
   end
 
   test 'when unpublished, a redirect_url is required' do
     announcement = build(:unpublished_statistics_announcement, redirect_url: nil)
     refute announcement.valid?
 
-    assert_match /must be provided when unpublishing an announcement/, announcement.errors[:redirect_url].first
+    assert_match %r[must be provided when unpublishing an announcement], announcement.errors[:redirect_url].first
   end
 
   test 'when unpublished, a GOV.UK redirect_url is required' do
@@ -37,7 +36,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     announcement.redirect_url = announcement.public_path
     refute announcement.valid?
 
-    assert_match /cannot redirect to itself/, announcement.errors[:redirect_url].first
+    assert_match %r[cannot redirect to itself], announcement.errors[:redirect_url].first
   end
 
   test 'when unpublished, is valid with a GOV.UK redirect_url' do
@@ -187,7 +186,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     announcement = create(:statistics_announcement)
 
     refute announcement.cancel!('', announcement.creator)
-    assert_match /must be provided when cancelling an announcement/, announcement.errors[:cancellation_reason].first
+    assert_match %r[must be provided when cancelling an announcement], announcement.errors[:cancellation_reason].first
   end
 
   test "an announcement that has a publiction that is post-publishing is not indexable in search" do
@@ -225,16 +224,16 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   end
 
   test 'StatisticsAnnouncement.with_topics scope returns announcements with matching topics' do
-    topic1 = create(:topic)
-    topic2 = create(:topic)
-    announcement = create(:statistics_announcement, topics: [topic1, topic2])
-    announcement2 = create(:statistics_announcement, topics: [topic2])
+    topic_1 = create(:topic)
+    topic_2 = create(:topic)
+    announcement_1 = create(:statistics_announcement, topics: [topic_1, topic_2])
+    announcement_2 = create(:statistics_announcement, topics: [topic_2])
 
-    assert_equal [announcement], StatisticsAnnouncement.with_topics(topic1)
-    assert_equal [announcement], StatisticsAnnouncement.with_topics(topic1.id)
+    assert_equal [announcement_1], StatisticsAnnouncement.with_topics(topic_1)
+    assert_equal [announcement_1], StatisticsAnnouncement.with_topics(topic_1.id)
 
-    assert_equal [announcement, announcement2],
-      StatisticsAnnouncement.with_topics([topic2])
+    assert_equal [announcement_1, announcement_2],
+      StatisticsAnnouncement.with_topics([topic_2])
   end
 
   test 'requires_redirect? returns true when unpublished?' do
@@ -289,7 +288,7 @@ private
 
   def create_announcement_with_changes
     announcement = create(:cancelled_statistics_announcement)
-    minor_change = Timecop.travel(1.day) do
+    _first_minor_change = Timecop.travel(1.day) do
       create(:statistics_announcement_date,
               statistics_announcement: announcement,
               release_date: announcement.release_date + 1.week)
@@ -300,7 +299,7 @@ private
               release_date: announcement.release_date + 1.month,
               change_note: 'Delayed because of census')
     end
-    minor_change = Timecop.travel(3.days) do
+    _second_minor_change = Timecop.travel(3.days) do
       create(:statistics_announcement_date,
               statistics_announcement: announcement,
               release_date: major_change.release_date,

@@ -1,6 +1,6 @@
 class Admin::OffsiteLinksController < Admin::BaseController
   before_action :load_parent
-  before_action :load_offsite_link, except: [:new, :create]
+  before_action :load_offsite_link, except: %i[new create]
 
   def new
     @offsite_link = OffsiteLink.new
@@ -17,8 +17,7 @@ class Admin::OffsiteLinksController < Admin::BaseController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @offsite_link.update_attributes(offsite_link_params)
@@ -71,5 +70,4 @@ private
     params.require(:offsite_link)
     .permit(:title, :summary, :link_type, :url, :date)
   end
-
 end

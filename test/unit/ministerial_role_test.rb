@@ -28,9 +28,9 @@ class MinisterialRoleTest < ActiveSupport::TestCase
 
   test "should only ever get a news article once" do
     ministerial_role = create(:ministerial_role)
-    appointment1 = create(:role_appointment, role: ministerial_role, started_at: 2.days.ago, ended_at: 1.day.ago)
-    appointment2 = create(:role_appointment, role: ministerial_role)
-    editions = [create(:published_news_article, role_appointments: [appointment1, appointment2])]
+    appointment_1 = create(:role_appointment, role: ministerial_role, started_at: 2.days.ago, ended_at: 1.day.ago)
+    appointment_2 = create(:role_appointment, role: ministerial_role)
+    editions = [create(:published_news_article, role_appointments: [appointment_1, appointment_2])]
     assert_equal editions, ministerial_role.news_articles
   end
 
@@ -41,7 +41,7 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     create(:published_speech, role_appointment: appointment)
     create(:draft_speech, role_appointment: appointment)
 
-    assert appointment.role.published_speeches.all? {|s| s.published?}
+    assert appointment.role.published_speeches.all?(&:published?)
     assert_equal 1, appointment.role.published_speeches.count
   end
 
@@ -131,30 +131,30 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     results = MinisterialRole.search_index.to_a
 
     assert_equal 4, results.length
-    assert_equal({'title' => 'Deputy Prime Minister',
+    assert_equal({ 'title' => 'Deputy Prime Minister',
                   'content_id' => deputy_prime_minister.content_id,
                   'link' => '/government/ministers/deputy-prime-minister',
                   'indexable_content' => 'Cleggy.',
                   'format' => 'minister',
-                  'description' => 'Current role holder: Nick Clegg.'}, results[0])
-    assert_equal({'title' => 'Secretary of State for Culture',
+                  'description' => 'Current role holder: Nick Clegg.' }, results[0])
+    assert_equal({ 'title' => 'Secretary of State for Culture',
                   'content_id' => culture_minister.content_id,
                   'link' => '/government/ministers/secretary-of-state-for-culture',
                   'indexable_content' => 'Hunty.',
                   'format' => 'minister',
-                  'description' => 'Current role holder: Jeremy Hunt.'}, results[1])
-    assert_equal({'title' => 'Solicitor General',
+                  'description' => 'Current role holder: Jeremy Hunt.' }, results[1])
+    assert_equal({ 'title' => 'Solicitor General',
                   'content_id' => solicitor_general.content_id,
                   'link' => '/government/ministers/solicitor-general',
                   'indexable_content' => 'Garnerian.',
                   'format' => 'minister',
-                  'description' => 'Current role holder: Edward Garnier.'}, results[2])
-    assert_equal({'title' => 'Prime Minister',
+                  'description' => 'Current role holder: Edward Garnier.' }, results[2])
+    assert_equal({ 'title' => 'Prime Minister',
                   'content_id' => prime_minister.content_id,
                   'link' => '/government/ministers/prime-minister',
                   'indexable_content' => 'Cameronian.',
                   'format' => 'minister',
-                  'description' => 'Current role holder: David Cameron.'}, results[3])
+                  'description' => 'Current role holder: David Cameron.' }, results[3])
   end
 
   test "#current_person_name should return the role name when vacant" do

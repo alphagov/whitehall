@@ -34,9 +34,10 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
   describe "base attributes and details" do
     let(:person) do
       create(:person,
-              forename: "Tony",
-              image: File.open(
-                Rails.root.join("test", "fixtures", "images", "960x640_gif.gif")))
+             forename: "Tony",
+             image: File.open(
+               Rails.root.join("test", "fixtures", "images", "960x640_gif.gif")
+             ))
     end
 
     let(:speech) do
@@ -158,7 +159,8 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
         :person,
         forename: "Tony",
         image: File.open(
-          Rails.root.join("test", "fixtures", "images", "960x640_gif.gif"))
+          Rails.root.join("test", "fixtures", "images", "960x640_gif.gif")
+        )
       )
     end
 

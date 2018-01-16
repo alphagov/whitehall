@@ -50,13 +50,13 @@ module SyncChecker
 
       def check_for_missing_topics
         expected_content_ids
-          .reject { |content_id| links_topics_content_ids.include?(content_id)}
+          .reject { |content_id| links_topics_content_ids.include?(content_id) }
           .map { |missing_content_id| "links#topics should contain '#{missing_content_id}' but doesn't" }
       end
 
       def check_for_unexpected_topics
         links_topics_content_ids
-          .reject { |content_id| expected_content_ids.include?(content_id)}
+          .reject { |content_id| expected_content_ids.include?(content_id) }
           .map { |unexpected_content_id| "links#topics contains '#{unexpected_content_id}' but shouldn't" }
       end
 

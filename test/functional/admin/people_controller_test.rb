@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 require 'test_helper'
 
 class Admin::PeopleControllerTest < ActionController::TestCase
@@ -118,9 +119,9 @@ class Admin::PeopleControllerTest < ActionController::TestCase
   end
 
   test "lists people in alphabetical name order" do
-    person_b = create(:person, forename: "B")
-    person_a = create(:person, forename: "A")
-    person_c = create(:person, forename: "C")
+    create(:person, forename: "B")
+    create(:person, forename: "A")
+    create(:person, forename: "C")
 
     get :index
 
@@ -128,7 +129,7 @@ class Admin::PeopleControllerTest < ActionController::TestCase
   end
 
   view_test "lists people displaying the first bit of their biography" do
-    person = create(:person, title: "Colonel", surname: "Hathi", biography: %{Hathi is head of the elephant troop. He is one of the oldest animals of the jungle and represents order, dignity and obedience to the Law of the Jungle. In "How Fear Came", he tells the jungle animals' creation myth and describes Tha, the Creator.})
+    create(:person, title: "Colonel", surname: "Hathi", biography: %{Hathi is head of the elephant troop. He is one of the oldest animals of the jungle and represents order, dignity and obedience to the Law of the Jungle. In "How Fear Came", he tells the jungle animals' creation myth and describes Tha, the Creator.})
 
     get :index
 

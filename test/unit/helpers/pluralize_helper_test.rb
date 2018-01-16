@@ -20,7 +20,7 @@ class PluralizeHelperTest < ActionView::TestCase
   end
 
   test "can be passed a block for formatting" do
-    expected = %q{2 - policies}
+    expected = '2 - policies'
     actual = pluralize(2, 'policy') do |count_str, suffix|
       "#{count_str} - #{suffix}"
     end

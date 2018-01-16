@@ -3,7 +3,7 @@ require "test_helper"
 class LeadImagePresenterHelperTest < ActiveSupport::TestCase
   test "should use placeholder image if none had been uploaded" do
     presenter = stub("Target", images: [], lead_organisations: [], organisations: []).extend(LeadImagePresenterHelper)
-    assert_match /placeholder/, presenter.lead_image_path
+    assert_match %r[placeholder], presenter.lead_image_path
     assert_equal 'placeholder', presenter.lead_image_alt_text
   end
 

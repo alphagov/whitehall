@@ -1,32 +1,30 @@
 # encoding: utf-8
 
-Given /^a worldwide organisation that is translated exists$/ do
+Given(/^a worldwide organisation that is translated exists$/) do
   world_location = create(:world_location, active: true)
   worldwide_organisation = create(:worldwide_organisation,
     world_locations: [world_location],
     name: "en-organisation",
-    translated_into: {fr: {name: "fr-organisation"}}
-  )
+    translated_into: { fr: { name: "fr-organisation" } })
   create(:about_corporate_information_page, organisation: nil,
          worldwide_organisation: worldwide_organisation,  summary: "en-summary",
-         translated_into: {fr: {summary: "fr-summary"}}
-  )
+         translated_into: { fr: { summary: "fr-summary" } })
 end
 
-When /^I visit the world organisation that is translated$/ do
+When(/^I visit the world organisation that is translated$/) do
   visit worldwide_organisation_path(WorldwideOrganisation.last, locale: "fr")
 end
 
-Then /^I should see the translation of that world organisation$/ do
+Then(/^I should see the translation of that world organisation$/) do
   assert page.has_css?(".summary", text: "fr-summary"), "expected to see the french summary, but didn't"
 end
 
-Given /^I have drafted a translatable document "([^"]*)"$/ do |title|
+Given(/^I have drafted a translatable document "([^"]*)"$/) do |title|
   begin_drafting_document type: "case_study", title: title, previously_published: false
   click_button "Save"
 end
 
-When /^I add a french translation "([^"]*)" to the "([^"]*)" document$/ do |french_title, english_title|
+When(/^I add a french translation "([^"]*)" to the "([^"]*)" document$/) do |french_title, english_title|
   visit admin_edition_path(Edition.find_by!(title: english_title))
   click_link "open-add-translation-modal"
   select "Français", from: "Locale"
@@ -37,7 +35,7 @@ When /^I add a french translation "([^"]*)" to the "([^"]*)" document$/ do |fren
   click_button "Save"
 end
 
-Then /^I should see on the admin edition page that "([^"]*)" has a french translation "([^"]*)"$/ do |english_title, french_title|
+Then(/^I should see on the admin edition page that "([^"]*)" has a french translation "([^"]*)"$/)do |english_title, french_title|
   visit admin_edition_path(Edition.find_by!(title: english_title))
   assert page.has_text?(french_title)
 end
@@ -76,7 +74,7 @@ Given(/^the world organisation "(.*?)" is translated into French and has an offi
   contact = create(:contact, title: office_name, country: create(:world_location, active: true),
                    street_address: "123 The Avenue")
   create(:contact_number, contact: contact, label: "English phone", number: "0123456789")
-  office = create(:worldwide_office, worldwide_organisation: organisation, contact: contact)
+  create(:worldwide_office, worldwide_organisation: organisation, contact: contact)
 end
 
 When(/^I add a french translation "(.*?)" to the "(.*?)" office$/) do |french_title, english_title|

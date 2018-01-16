@@ -1,6 +1,6 @@
 class Admin::ClassificationFeaturingsController < Admin::BaseController
   before_action :load_classification
-  before_action :load_featuring, only: [:edit, :destroy]
+  before_action :load_featuring, only: %i[edit destroy]
 
   def index
     filter_params = params.permit!.to_h.slice(:page, :type, :author, :organisation, :title).
@@ -29,11 +29,11 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
   def create
     @classification_featuring = @classification.feature(classification_featuring_params)
     if @classification_featuring.valid?
-      if featuring_a_document?
-        flash[:notice] = "#{@classification_featuring.edition.title} has been featured on #{@classification.name}"
-      else
-        flash[:notice] = "#{@classification_featuring.offsite_link.title} has been featured on #{@classification.name}"
-      end
+      flash[:notice] = if featuring_a_document?
+                         "#{@classification_featuring.edition.title} has been featured on #{@classification.name}"
+                       else
+                         "#{@classification_featuring.offsite_link.title} has been featured on #{@classification.name}"
+                       end
       redirect_to polymorphic_path([:admin, @classification, :classification_featurings])
     else
       render :new
@@ -65,7 +65,7 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
     @classification_featuring.edition.present?
   end
 
-  private
+private
 
   def load_classification
     @classification = Classification.find(params[:topical_event_id] || params[:topic_id])
@@ -95,7 +95,7 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
       :alt_text,
       :edition_id,
       :offsite_link_id,
-      image_attributes: [:file, :file_cache]
+      image_attributes: %i[file file_cache]
     )
   end
 end

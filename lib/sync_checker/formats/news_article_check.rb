@@ -25,7 +25,7 @@ module SyncChecker
     private
 
       IMAGE_FORMAT = :s300
-      IMAGE_PLACEHOLDER = 'placeholder.jpg'
+      IMAGE_PLACEHOLDER = 'placeholder.jpg'.freeze
       LENGTH_OF_FRACTIONAL_SECONDS = 3
 
       def document_type(news_article)

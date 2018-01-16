@@ -1,7 +1,7 @@
 class PublicationesquePresenter < Whitehall::Decorators::Decorator
   include EditionPresenterHelper
 
-  delegate_instance_methods_of *Publicationesque.concrete_descendants
+  delegate_instance_methods_of(*Publicationesque.concrete_descendants)
 
   def as_hash
     super.merge(publication_collections: publication_collections)
@@ -19,14 +19,14 @@ class PublicationesquePresenter < Whitehall::Decorators::Decorator
   def time_until_closure
     days_left = (model.closing_at.to_date - Time.zone.now.to_date).to_i
     case days_left
-    when ->(n) {n < 0}
+    when :negative?.to_proc
       "Closed"
-    when 0
+    when :zero?.to_proc
       "Closing today"
     when 1
       "Closes tomorrow"
     else
-      "#{days_left.to_i} days left"
+      "#{days_left} days left"
     end
   end
 end

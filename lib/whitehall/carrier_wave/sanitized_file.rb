@@ -26,7 +26,7 @@ module CarrierWave
         routing_prefix + strip_parent_folder(@path, parent_folder)
       end
 
-      private
+    private
 
       def path_in_clean_folder?
         @path.starts_with?(Whitehall.clean_uploads_root)

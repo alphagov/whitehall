@@ -1,5 +1,5 @@
 class PublicationsController < DocumentsController
-  enable_request_formats index: [:json, :atom]
+  enable_request_formats index: %i[json atom]
   before_action :expire_cache_when_next_publication_published
   before_action :redirect_statistics_filtering, only: [:index]
   before_action :redirect_statistics_documents, only: [:show]
@@ -34,12 +34,13 @@ class PublicationsController < DocumentsController
   end
 
 private
+
   def expire_cache_when_next_publication_published
     expire_on_next_scheduled_publication(Publicationesque.scheduled.order("scheduled_publication asc"))
   end
 
   def redirect_statistics_filtering
-    if !request.xhr? and params[:publication_filter_option] == 'statistics'
+    if !request.xhr? && (params[:publication_filter_option] == 'statistics')
       redirect_to statistics_path(
         params.permit!.except(:publication_filter_option, :controller, :action, :host).to_h
       ), status: :moved_permanently

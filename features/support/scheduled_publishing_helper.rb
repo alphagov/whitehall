@@ -4,7 +4,7 @@ module ScheduledPublishingHelper
   def execute_scheduled_publication_job_for(edition)
     job = scheduled_publishing_job_for(edition)
     set_govuk_headers(job)
-    
+
     worker = ScheduledPublishingWorker.new
     worker.jid = job.jid
     worker.perform(*job.args)
@@ -13,7 +13,7 @@ module ScheduledPublishingHelper
   def scheduled_publishing_job_for(edition)
     Sidekiq::ScheduledSet.new.detect do |job|
       job.args[0] == edition.id &&
-      job.klass == 'ScheduledPublishingWorker'
+        job.klass == 'ScheduledPublishingWorker'
     end
   end
 

@@ -1,4 +1,5 @@
 #encoding: UTF-8
+
 require 'test_helper'
 
 class Admin::EditionFilterTest < ActiveSupport::TestCase
@@ -15,14 +16,14 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
 
   test "should filter by edition type" do
     news_article = create(:news_article)
-    another_edition = create(:publication)
+    _another_edition = create(:publication)
 
     assert_equal [news_article], Admin::EditionFilter.new(Edition, @current_user, type: 'news_article').editions
   end
 
   test "should filter by edition state" do
     draft_edition = create(:draft_publication)
-    edition_in_other_state = create(:published_publication)
+    _edition_in_other_state = create(:published_publication)
 
     assert_equal [draft_edition], Admin::EditionFilter.new(Edition, @current_user, state: 'draft').editions
   end
@@ -30,7 +31,7 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
   test "should filter by edition author" do
     author = create(:user)
     edition = create(:publication, authors: [author])
-    edition_by_another_author = create(:publication)
+    _edition_by_another_author = create(:publication)
 
     assert_equal [edition], Admin::EditionFilter.new(Edition, @current_user, author: author.to_param).editions
   end
@@ -38,8 +39,8 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
   test "should filter by organisation" do
     organisation = create(:organisation)
     edition = create(:publication, organisations: [organisation])
-    edition_in_no_organisation = create(:publication)
-    edition_in_another_organisation = create(:publication, organisations: [create(:organisation)])
+    _edition_in_no_organisation = create(:publication)
+    _edition_in_another_organisation = create(:publication, organisations: [create(:organisation)])
 
     assert_equal [edition], Admin::EditionFilter.new(Edition, @current_user, organisation: organisation.to_param).editions
   end
@@ -47,7 +48,7 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
   test "should filter by edition type, state and author" do
     author = create(:user)
     news_article = create(:draft_news_article, authors: [author])
-    another_edition = create(:published_publication, authors: [author])
+    _another_edition = create(:published_publication, authors: [author])
 
     assert_equal [news_article], Admin::EditionFilter.new(Edition, @current_user, type: 'news_article', state: 'draft', author: author.to_param).editions
   end
@@ -55,7 +56,7 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
   test "should filter by edition type, state and organisation" do
     organisation = create(:organisation)
     news_article = create(:draft_news_article, organisations: [organisation])
-    another_edition = create(:published_news_article, organisations: [organisation])
+    _another_edition = create(:published_news_article, organisations: [organisation])
 
     assert_equal [news_article], Admin::EditionFilter.new(Edition, @current_user, type: 'news_article', state: 'draft', organisation: organisation.to_param).editions
   end
@@ -63,14 +64,14 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
   test "should filter by edition type, state and world location" do
     location = create(:world_location)
     news_article = create(:draft_news_article, world_locations: [location])
-    another_edition = create(:published_news_article, world_locations: [location])
+    _another_edition = create(:published_news_article, world_locations: [location])
 
     assert_equal [news_article], Admin::EditionFilter.new(Edition, @current_user, type: 'news_article', state: 'draft', world_location: location.id).editions
   end
 
   test "should filter by world location" do
     location = create(:world_location)
-    consultation = create(:consultation)
+    _consultation = create(:consultation)
     news_article = create(:news_article, world_locations: [location])
 
     assert_equal [news_article], Admin::EditionFilter.new(Edition, @current_user, world_location: location.id).editions
@@ -79,7 +80,7 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
   test "should filter by user's world locations" do
     location = create(:world_location)
     user = create(:user, world_locations: [location])
-    consultation = create(:consultation)
+    _consultation = create(:consultation)
     news_article = create(:news_article, world_locations: [location])
 
     assert_equal [news_article], Admin::EditionFilter.new(Edition, user, world_location: "user").editions
@@ -91,20 +92,20 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
   end
 
   test "should filter by news article sub-type" do
-    news_story    = create(:news_article, news_article_type: NewsArticleType::NewsStory)
+    _news_story   = create(:news_article, news_article_type: NewsArticleType::NewsStory)
     press_release = create(:news_article, news_article_type: NewsArticleType::PressRelease)
     assert_equal [press_release], Admin::EditionFilter.new(Edition, @current_user, type: 'news_article_2').editions
   end
 
   test "should filter by speech sub-type" do
-    transcript     = create(:speech, speech_type: SpeechType::Transcript)
+    _transcript    = create(:speech, speech_type: SpeechType::Transcript)
     speaking_notes = create(:speech, speech_type: SpeechType::SpeakingNotes)
     assert_equal [speaking_notes], Admin::EditionFilter.new(Edition, @current_user, type: 'speech_3').editions
   end
 
   test "should filter by publication sub-type" do
     guidance = create(:publication, publication_type: PublicationType::Guidance)
-    form     = create(:publication, publication_type: PublicationType::Form)
+    _form    = create(:publication, publication_type: PublicationType::Form)
     assert_equal [guidance], Admin::EditionFilter.new(Edition, @current_user, type: "publication_#{PublicationType::Guidance.id}").editions
   end
 
@@ -124,13 +125,13 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
 
   test "should filter by title" do
     detailed = create(:news_article, title: "Test mcTest")
-    news_article = create(:news_article, title: "A news_article")
+    _news_article = create(:news_article, title: "A news_article")
 
     assert_equal [detailed], Admin::EditionFilter.new(Edition, @current_user, title: "test").editions
   end
 
   test "should filter by date" do
-    older_news_article = create(:draft_news_article, updated_at: 3.days.ago)
+    _older_news_article = create(:draft_news_article, updated_at: 3.days.ago)
     newer_news_article = create(:draft_news_article, updated_at: 1.minute.ago)
 
     assert_equal [newer_news_article], Admin::EditionFilter.new(Edition, @current_user, from_date: 2.days.ago.to_date.to_s(:short)).editions
@@ -139,7 +140,7 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
   test "can filter by classifications" do
     topic       = create(:topic)
     tagged_news = create(:published_news_article, topics: [topic])
-    not_tagged  = create(:published_news_article)
+    _not_tagged = create(:published_news_article)
     filter      = Admin::EditionFilter.new(Edition, @current_user, classification: topic.to_param)
 
     assert_equal [tagged_news], filter.editions
@@ -269,8 +270,7 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     3.times { create(:news_article) }
     filter = Admin::EditionFilter.new(Edition, build(:user), per_page: 2)
     count = 0
-    filter.each_edition_for_csv { |unused| count += 1}
+    filter.each_edition_for_csv { |_unused| count += 1 }
     assert_equal 3, count
   end
-
 end

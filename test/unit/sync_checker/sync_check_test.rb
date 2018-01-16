@@ -19,7 +19,7 @@ module SyncChecker
 
     Check = Struct.new(:id) do
       def base_paths
-        {draft: [[:en, "/#{id}"]], live: [[:en, "/#{id}"]]}
+        { draft: [[:en, "/#{id}"]], live: [[:en, "/#{id}"]] }
       end
     end
 
@@ -33,7 +33,7 @@ module SyncChecker
         hydra: stub(run: nil, queue: nil, queued_requests: [])
       }
 
-      scope = FakeRelation.new([{id: 1}, {id: 2}])
+      scope = FakeRelation.new([{ id: 1 }, { id: 2 }])
 
       sync_check = SyncCheck.new(Check, scope, options)
 
@@ -48,7 +48,7 @@ module SyncChecker
     end
 
     def test_queues_the_requests
-      scope = FakeRelation.new([{id: 1}, {id: 2}])
+      scope = FakeRelation.new([{ id: 1 }, { id: 2 }])
 
       sync_check = SyncCheck.new(Check, scope, hydra: hydra = stub(queue: nil, run: nil, queued_requests: []))
 
@@ -70,7 +70,7 @@ module SyncChecker
         .with(max_concurrency: 20)
         .returns(hydra = stub(queued_requests: [], queue: nil))
       hydra.expects(:run)
-      sync_check = SyncCheck.new(Check, FakeRelation.new([{id: 1}]))
+      sync_check = SyncCheck.new(Check, FakeRelation.new([{ id: 1 }]))
       sync_check.run
     end
   end

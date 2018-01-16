@@ -25,21 +25,21 @@ class GDSEditorFatalityNoticeTest < ActiveSupport::TestCase
   end
 
   test 'cannot see a fatality notice that is access limited if it is limited an organisation they don\'t belong to' do
-    org1 = 'organisation_1'
-    org2 = 'organisation_2'
+    organisation_1 = 'organisation_1'
+    organisation_2 = 'organisation_2'
     user = gds_editor
-    user.stubs(:organisation).returns(org1)
-    edition = limited_fatality_notice([org2])
+    user.stubs(:organisation).returns(organisation_1)
+    edition = limited_fatality_notice([organisation_2])
 
     refute enforcer_for(user, edition).can?(:see)
   end
 
   test 'cannot do anything to a fatality notice they are not allowed to see' do
-    org1 = 'organisation_1'
-    org2 = 'organisation_2'
+    organisation_1 = 'organisation_1'
+    organisation_2 = 'organisation_2'
     user = gds_editor
-    user.stubs(:organisation).returns(org1)
-    edition = limited_fatality_notice([org2])
+    user.stubs(:organisation).returns(organisation_1)
+    edition = limited_fatality_notice([organisation_2])
     enforcer = enforcer_for(user, edition)
 
     Whitehall::Authority::Rules::EditionRules.actions.each do |action|

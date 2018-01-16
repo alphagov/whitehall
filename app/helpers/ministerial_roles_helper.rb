@@ -12,5 +12,4 @@ module MinisterialRolesHelper
       link_to minister.current_person_name, minister, class: 'minister-link'
     end
   end
-
 end

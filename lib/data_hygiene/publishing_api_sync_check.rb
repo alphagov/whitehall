@@ -25,8 +25,7 @@ require 'gds_api/content_store'
 module DataHygiene
   class PublishingApiSyncCheck
     class NullCSV
-      def <<(val)
-      end
+      def <<(val); end
     end
 
     class Success
@@ -132,7 +131,7 @@ module DataHygiene
 
   private
 
-    def queue_check(content_store, whitehall_model, output)
+    def queue_check(content_store, whitehall_model, _output)
       url = Plek.find(content_store) + "/content" + base_path_for(whitehall_model)
       request = Typhoeus::Request.new(url)
       request.on_complete do |response|
@@ -175,7 +174,7 @@ module DataHygiene
         failed_expectations = expectations.reject do |expectation|
           begin
             expectation[:block].call(json, whitehall_model)
-          rescue => e
+          rescue StandardError => e
             Failure.new(
               record_id: whitehall_model.id,
               base_path: base_path,

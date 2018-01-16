@@ -4,7 +4,7 @@ module DocumentControllerTestHelpers
   module ClassMethods
     def should_display_localised_attachments
       view_test "displays localised file attachments" do
-        edition = create("published_#{document_type}", translated_into: [:en, :fr])
+        edition = create("published_#{document_type}", translated_into: %i[en fr])
 
         attachment = create(:file_attachment, locale: nil, attachable: edition)
         english_attachment = create(:file_attachment, locale: :en, attachable: edition)
@@ -22,7 +22,7 @@ module DocumentControllerTestHelpers
       end
 
       view_test 'displays localised HTML attachments' do
-        edition = create("published_#{document_type}", translated_into: [:en, :fr])
+        edition = create("published_#{document_type}", translated_into: %i[en fr])
 
         attachment = create(:html_attachment, locale: nil, attachable: edition)
         english_attachment = create(:html_attachment, locale: :en, attachable: edition)
@@ -195,7 +195,7 @@ module DocumentControllerTestHelpers
 
         get :show, params: { id: model }
 
-        assert_select "##{has_many_association.to_s.gsub('_', '-')}" do
+        assert_select "##{has_many_association.to_s.tr('_', '-')}" do
           assert_select_object(published_edition)
           refute_select_object(draft_edition)
         end
@@ -208,7 +208,7 @@ module DocumentControllerTestHelpers
 
         get :show, params: { id: model }
 
-        assert_select "##{has_many_association.to_s.gsub('_', '-')}" do
+        assert_select "##{has_many_association.to_s.tr('_', '-')}" do
           assert_select_object(published_edition)
           refute_select_object(another_published_edition)
         end
@@ -229,7 +229,7 @@ module DocumentControllerTestHelpers
 
         get :show, params: { id: model }
 
-        refute_select "##{has_many_association.to_s.gsub('_', '-')}"
+        refute_select "##{has_many_association.to_s.tr('_', '-')}"
       end
     end
 
@@ -323,7 +323,7 @@ module DocumentControllerTestHelpers
       end
 
       test "index should fetch the correct page for #{edition_type}" do
-        documents = (1..6).to_a.map { |i| create("published_#{edition_type}", title:   "keyword-#{i}-window-pagination", options[:timestamp_key] => i.days.ago) }
+        documents = (1..6).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}-window-pagination", options[:timestamp_key] => i.days.ago) }
         documents.sort_by!(&options[:sort_by]) if options[:sort_by]
 
         with_number_of_documents_per_page(3) do
@@ -335,7 +335,7 @@ module DocumentControllerTestHelpers
       end
 
       view_test "show more button should not appear by default for #{edition_type}" do
-        documents = (1..3).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
+        (1..3).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
 
         with_number_of_documents_per_page(3) do
           get :index
@@ -345,7 +345,7 @@ module DocumentControllerTestHelpers
       end
 
       view_test "show more button should appear when there are more records for #{edition_type}" do
-        documents = (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
+        (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
 
         with_number_of_documents_per_page(3) do
           get :index
@@ -355,7 +355,7 @@ module DocumentControllerTestHelpers
       end
 
       view_test "should show previous page link when not on the first page for #{edition_type}" do
-        documents = (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
+        (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
 
         with_number_of_documents_per_page(3) do
           get :index, params: { page: 2 }
@@ -368,7 +368,7 @@ module DocumentControllerTestHelpers
       end
 
       view_test "should show progress helpers in pagination links for #{edition_type}" do
-        documents = (1..7).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
+        (1..7).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
 
         with_number_of_documents_per_page(3) do
           get :index, params: { page: 2 }
@@ -458,7 +458,7 @@ module DocumentControllerTestHelpers
     end
   end
 
-  private
+private
 
   def assert_filtered_documents_include(edition)
     assert_includes assigns(:filter).documents.map(&:id), edition.id

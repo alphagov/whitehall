@@ -45,7 +45,7 @@ class TakePartPageTest < ActiveSupport::TestCase
 
   test "TakePartPage is published to the Publishing API when updated" do
     @take_part_page.save!
-    @take_part_page.attributes = {title: "New Title"}
+    @take_part_page.attributes = { title: "New Title" }
     @take_part_page.save!
     presenter = PublishingApiPresenters.presenter_for(@take_part_page)
 

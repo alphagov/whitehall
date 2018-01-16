@@ -35,9 +35,8 @@ class OperationalFieldsControllerTest < ActionController::TestCase
     uk = create(:operational_field)
 
     iraq_fatality = create(:published_fatality_notice, operational_field: iraq)
-    superseded_iraq_fatality = create(:superseded_fatality_notice, operational_field: iraq)
-
-    uk_fatality = create(:fatality_notice, operational_field: uk)
+    _superseded_iraq_fatality = create(:superseded_fatality_notice, operational_field: iraq)
+    _uk_fatality = create(:fatality_notice, operational_field: uk)
 
     get :show, params: { id: iraq }
     assert_equal [FatalityNoticePresenter.new(iraq_fatality)], assigns(:fatality_notices)

@@ -68,7 +68,7 @@ module SyncChecker
 
         response = stub(
           body: {
-            withdrawn_notice: { }
+            withdrawn_notice: {}
           }.to_json
         )
 

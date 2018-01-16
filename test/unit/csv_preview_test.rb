@@ -1,8 +1,8 @@
 # encoding: UTF-8
+
 require "test_helper"
 
 class CsvPreviewTest < ActiveSupport::TestCase
-
   def csv_preview
     @csv_preview ||= CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/utf-8.csv'))
   end
@@ -12,8 +12,8 @@ class CsvPreviewTest < ActiveSupport::TestCase
   end
 
   test "yields the data, row by row" do
-    expected_data = [['Office for Facial Hair Studies', '£12000000' , '£10000000'],
-                      ['Department of Grooming', '£15000000', '£15600000']]
+    expected_data = [['Office for Facial Hair Studies', '£12000000', '£10000000'],
+                     ['Department of Grooming', '£15000000', '£15600000']]
 
     assert_csv_data expected_data, csv_preview
   end
@@ -25,7 +25,7 @@ class CsvPreviewTest < ActiveSupport::TestCase
       iso_encoded_preview.headings
 
     expected_data = [['Carbon Saving Communities', 'Carbon Saving Band 1 [1K-3K]', '3 months', '£69.10', 'YES', nil],
-                      ['Carbon Saving Communities', 'Carbon Saving Band 1 [1K-3K]', '12 months', '£62.10', 'YES', '£40.00']]
+                     ['Carbon Saving Communities', 'Carbon Saving Band 1 [1K-3K]', '12 months', '£62.10', 'YES', '£40.00']]
 
     assert_csv_data(expected_data, iso_encoded_preview)
   end
@@ -60,7 +60,7 @@ class CsvPreviewTest < ActiveSupport::TestCase
 
   test 'the size of the preview can be overridden' do
     preview       = CsvPreview.new(File.open(Rails.root.join('test/fixtures/csv_encodings/utf-8.csv')), 1)
-    expected_data = [['Office for Facial Hair Studies', '£12000000' , '£10000000']]
+    expected_data = [['Office for Facial Hair Studies', '£12000000', '£10000000']]
 
     assert_csv_data(expected_data, preview)
   end
@@ -86,7 +86,7 @@ class CsvPreviewTest < ActiveSupport::TestCase
 
   test 'raises CSV::MalformedCSVError early if the data cannot be handled by the CSV library' do
     assert_raise CSV::MalformedCSVError do
-      csv_with_blank_lines = CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/eof.csv'))
+      CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/eof.csv'))
     end
   end
 

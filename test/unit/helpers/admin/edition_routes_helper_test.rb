@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class Admin::EditionRoutesHelperTest < ActionView::TestCase
-
   test 'admin_edition_path take an edition instance and uses polymorphic routes to generate the correct path' do
     p = FactoryBot.create(:publication)
     assert_equal "/government/admin/publications/#{p.id}", admin_edition_path(p)
@@ -45,5 +44,4 @@ class Admin::EditionRoutesHelperTest < ActionView::TestCase
     p = FactoryBot.create(:publication)
     assert_equal "/government/admin/editions/#{p.id}/fact_check_requests", admin_publication_fact_check_requests_path(p)
   end
-
 end

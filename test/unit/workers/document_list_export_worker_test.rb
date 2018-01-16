@@ -7,10 +7,10 @@ class DocumentListExportWorkerTest < ActiveSupport::TestCase
   end
 
   test 'instantiates an EditionFilter with passed options converted to symbols' do
-    Admin::EditionFilter.expects(:new).with(Edition, @user, {state: "draft"})
+    Admin::EditionFilter.expects(:new).with(Edition, @user, state: "draft")
     @worker.stubs(:generate_csv)
     @worker.stubs(:send_mail)
-    @worker.perform({"state" =>"draft"}, @user.id)
+    @worker.perform({ "state" => "draft" }, @user.id)
   end
 
   test 'generate_csv calls presenter once for each edition' do
@@ -19,7 +19,7 @@ class DocumentListExportWorkerTest < ActiveSupport::TestCase
     @worker.stubs(:create_filter).returns(filter)
     @worker.stubs(:send_mail)
     DocumentListExportPresenter.expects(:new).returns(stub(row: [])).times(3)
-    @worker.perform({"state" =>"draft"}, @user.id)
+    @worker.perform({ "state" => "draft" }, @user.id)
   end
 
   test 'sends mail with CSV to user' do
@@ -28,6 +28,6 @@ class DocumentListExportWorkerTest < ActiveSupport::TestCase
     @worker.stubs(:create_filter).returns(stub(page_title: title))
     @worker.stubs(generate_csv: csv)
     Notifications.expects(:document_list).with(csv, @user.email, title).returns(stub(:deliver_now))
-    @worker.perform({"state" =>"draft"}, @user.id)
+    @worker.perform({ "state" => "draft" }, @user.id)
   end
 end

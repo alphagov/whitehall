@@ -6,16 +6,17 @@ class Admin::FeatureListsController < Admin::BaseController
   end
 
   def reorder
-    new_order = (params[:ordering] || []).sort_by { |k, v| v.to_i }.map(&:first)
-    if @feature_list.reorder!(new_order)
-      message = {notice: "Feature order updated"}
-    else
-      message = {alert: "Unable to reorder features because #{@feature_list.errors.full_messages.to_sentence}"}
-    end
+    new_order = (params[:ordering] || []).sort_by { |_k, v| v.to_i }.map(&:first)
+    message = if @feature_list.reorder!(new_order)
+                { notice: "Feature order updated" }
+              else
+                { alert: "Unable to reorder features because #{@feature_list.errors.full_messages.to_sentence}" }
+              end
     redirect_to feature_list_path(@feature_list), message
   end
 
 private
+
   def find_feature_list
     @feature_list = FeatureList.find(params[:id] || params[:feature_list_id])
   end

@@ -10,8 +10,7 @@ Given(/^a published publication called "(.*?)" in the document collection "(.*?)
   @publication = create(:published_publication, title: publication_title)
   @document_collection = create(:published_document_collection,
     title: collection_title,
-    groups: [build(:document_collection_group, documents: [@publication.document])]
-  )
+    groups: [build(:document_collection_group, documents: [@publication.document])])
   @group = @document_collection.groups.first
 end
 
@@ -34,7 +33,7 @@ When(/^I add the document "(.*?)" to the document collection$/) do |document_tit
   find('li.ui-menu-item').click
   click_on 'Add'
 
-  within ('section.group') do
+  within 'section.group' do
     assert page.has_content? doc_edition.title
   end
 end
@@ -47,7 +46,7 @@ When(/^I move "(.*?)" before "(.*?)" in the document collection$/) do |doc_title
   click_on "Collection documents"
 
   #Simulate drag-droping document.
-  page.execute_script %Q{
+  page.execute_script %{
     (function($) {
       var doc_1_li = $('.document-list li:contains(#{doc_title_1})');
       if(doc_1_li.length == 0) throw("Couldn't find li for document '#{doc_title_1}' in .document-list.");
@@ -78,14 +77,13 @@ Then(/^I see that the document "(.*?)" is not part of the document collection$/)
 end
 
 Then(/^I should see links back to the collection$/) do
-  @document_collection
   assert page.has_css?("a[href='#{public_document_path(@document_collection)}']")
 end
 
 When(/^I visit the old document series url "(.*?)"$/) do |url|
   begin
     visit url
-  rescue ActionController::RoutingError => @no_collection_controller_error
+  rescue ActionController::RoutingError => @no_collection_controller_error # rubocop:disable Lint/HandleExceptions
   end
 end
 
@@ -105,8 +103,7 @@ end
 Given(/^a published publication called "(.*?)" in a published document collection$/) do |publication_title|
   @publication = create(:published_publication, title: publication_title)
   @document_collection = create(:published_document_collection,
-    groups: [build(:document_collection_group, documents: [@publication.document])]
-  )
+    groups: [build(:document_collection_group, documents: [@publication.document])])
   @group = @document_collection.groups.first
 end
 

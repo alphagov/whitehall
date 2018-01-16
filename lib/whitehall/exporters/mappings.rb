@@ -34,6 +34,7 @@ class Whitehall::Exporters::Mappings
   end
 
 private
+
   def document_row(edition, document, document_source)
     public_url = document_url(edition, document, document_source)
     [

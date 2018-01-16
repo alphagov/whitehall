@@ -14,7 +14,6 @@ class CollectionDataReporter
 
   def report
     organisations_with_collections.each do |org|
-
       collections = collections_for_organisation(org)
       next if collections.to_a.empty?
 
@@ -43,18 +42,21 @@ private
   end
 
   def collections_for_organisation(organisation)
-    DocumentCollection.publicly_visible.joins(:organisations).
-      select(
-          'editions.*',
-          'COUNT(editions_editions.political = 1 OR NULL) AS num_political',
-          'COUNT(editions_editions.state = "withdrawn" OR NULL) AS num_withdrawn').
-      in_default_locale.
-      includes(:document).
-      joins(:editions).
-      where(:organisations => {id: organisation.id}).
-      where('editions_editions.state IN (?)', Edition::PUBLICLY_VISIBLE_STATES).
-      having('num_withdrawn > 0 OR num_political > 0').
-      group(:id)
+    DocumentCollection
+      .publicly_visible
+      .joins(:organisations)
+      .select(
+        'editions.*',
+        'COUNT(editions_editions.political = 1 OR NULL) AS num_political',
+        'COUNT(editions_editions.state = "withdrawn" OR NULL) AS num_withdrawn'
+      )
+      .in_default_locale
+      .includes(:document)
+      .joins(:editions)
+      .where(organisations: { id: organisation.id })
+      .where('editions_editions.state IN (?)', Edition::PUBLICLY_VISIBLE_STATES)
+      .having('num_withdrawn > 0 OR num_political > 0')
+      .group(:id)
   end
 
   def csv_path(organisation)

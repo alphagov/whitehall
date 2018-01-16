@@ -9,7 +9,7 @@ FactoryBot.define do
   end
 
   factory :previous_government, parent: :government do
-     start_date { 6.years.ago }
-     end_date { 2.years.ago }
+    start_date { 6.years.ago }
+    end_date { 2.years.ago }
   end
 end

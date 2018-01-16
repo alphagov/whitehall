@@ -1,6 +1,6 @@
 class Admin::DocumentCollectionGroupsController < Admin::BaseController
   before_action :load_document_collection
-  before_action :load_document_collection_group, only: [:delete, :destroy, :edit, :update]
+  before_action :load_document_collection_group, only: %i[delete destroy edit update]
 
   def index
     @groups = @collection.groups
@@ -37,18 +37,19 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
   def delete; end
 
   def update_memberships
-    params[:groups].values.each do |group_params|
+    params[:groups].each_value do |group_params|
       group = @collection.groups.find(group_params[:id])
       group.ordering = group_params[:order]
       group.set_document_ids_in_order! group_params.fetch(:document_ids, []).map(&:to_i).uniq
     end
     respond_to do |format|
       format.html { render :index }
-      format.json { render json: {result: :success} }
+      format.json { render json: { result: :success } }
     end
   end
 
-  private
+private
+
   def load_document_collection
     @collection = DocumentCollection.find(params[:document_collection_id])
   end

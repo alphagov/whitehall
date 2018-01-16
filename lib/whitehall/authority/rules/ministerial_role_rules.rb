@@ -1,5 +1,5 @@
 module Whitehall::Authority::Rules
-  class MinisterialRoleRules < Struct.new(:actor, :subject)
+  MinisterialRoleRules = Struct.new(:actor, :subject) do
     def can?(action)
       actor.gds_editor? && action == :reorder_cabinet_ministers
     end

@@ -31,9 +31,9 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
   end
 
   test 'links has a self link, pointing to the request-relative api worldwide organisations url' do
-    self_link = @presenter.links.detect { |(url, attrs)| attrs['rel'] == 'self'}
+    self_link = @presenter.links.detect { |(_url, attrs)| attrs['rel'] == 'self' }
     assert self_link
-    url, attrs = *self_link
+    url, _attrs = *self_link
     assert_equal api_worldwide_organisation_url(@world_org), url
   end
 
@@ -125,17 +125,17 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
   end
 
   test 'json includes main and other offices in offices with separate keys' do
-    office1 = stub_record(:worldwide_office, contact: stub_translatable_record(:contact, title: 'best-office', contact_numbers: []),
+    office_1 = stub_record(:worldwide_office, contact: stub_translatable_record(:contact, title: 'best-office', contact_numbers: []),
                                              services: [],
                                              worldwide_organisation: nil,
                                              access_and_opening_times: @access_times)
-    office2 = stub_record(:worldwide_office, contact: stub_translatable_record(:contact, title: 'worst-office', contact_numbers: []),
+    office_2 = stub_record(:worldwide_office, contact: stub_translatable_record(:contact, title: 'worst-office', contact_numbers: []),
                                              services: [],
                                              worldwide_organisation: nil,
                                              access_and_opening_times: @access_times)
 
-    @world_org.stubs(:main_office).returns(office1)
-    @world_org.stubs(:other_offices).returns([office2])
+    @world_org.stubs(:main_office).returns(office_1)
+    @world_org.stubs(:other_offices).returns([office_2])
     main_office_as_json = @presenter.as_json[:offices][:main]
     other_offices_as_json = @presenter.as_json[:offices][:other]
 
@@ -151,9 +151,9 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
 
     office_as_json = @presenter.as_json[:offices][:main]
     assert_equal 2, office_as_json[:contact_numbers].size
-    expected_contact_num_json = {label: 'contact-number-one', number: '1234'}
+    expected_contact_num_json = { label: 'contact-number-one', number: '1234' }
     assert_equal expected_contact_num_json, office_as_json[:contact_numbers][0]
-    expected_contact_num_json = {label: 'contact-number-two', number: '5678'}
+    expected_contact_num_json = { label: 'contact-number-two', number: '5678' }
     assert_equal expected_contact_num_json, office_as_json[:contact_numbers][1]
   end
 
@@ -170,7 +170,7 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
   end
 
   test 'json includes office contact address in offices array' do
-    json_formatted_address = {'address' => 'as-json'}
+    json_formatted_address = { 'address' => 'as-json' }
     formatter = mock
     formatter.stubs(:render).returns(json_formatted_address)
     AddressFormatter::Json.stubs(:from_contact).returns(formatter)
@@ -182,5 +182,4 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
     @office.stubs(:worldwide_office_type).returns WorldwideOfficeType::Embassy
     assert_equal WorldwideOfficeType::Embassy.name, @presenter.as_json[:offices][:main][:details][:type]
   end
-
 end

@@ -3,12 +3,12 @@ class Role < ApplicationRecord
   include HasContentId
   HISTORIC_ROLE_PARAM_MAPPINGS = { 'past-prime-ministers' => 'prime-minister',
                                    'past-chancellors'     => 'chancellor-of-the-exchequer',
-                                   'past-foreign-secretaries' => 'foreign-secretary' }
+                                   'past-foreign-secretaries' => 'foreign-secretary' }.freeze
 
   def self.columns
     # This is here to enable us to gracefully remove the biography column
     # in a future commit, *after* this change has been deployed
-    super.reject { |column| ['name', 'responsibilities'].include?(column.name) }
+    super.reject { |column| %w[name responsibilities].include?(column.name) }
   end
 
   has_many :role_appointments, -> { order(started_at: :desc) }
@@ -74,8 +74,8 @@ class Role < ApplicationRecord
       note << attends_cabinet_type.name if attends_cabinet_type_id == 2
       note << role_payment_type.name if role_payment_type
       note.join(". ")
-    else
-      role_payment_type.name if role_payment_type
+    elsif role_payment_type
+      role_payment_type.name
     end
   end
 
@@ -156,7 +156,7 @@ class Role < ApplicationRecord
     HISTORIC_ROLE_PARAM_MAPPINGS.invert[slug]
   end
 
-  private
+private
 
   def prevent_destruction_unless_destroyable
     throw :abort unless destroyable?

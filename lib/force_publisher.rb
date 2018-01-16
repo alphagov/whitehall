@@ -27,7 +27,7 @@ class ForcePublisher
                 publisher.perform!
               end
               reporter.success(edition)
-            rescue => e
+            rescue StandardError => e
               reporter.failure(edition, e)
             end
           end
@@ -52,7 +52,7 @@ class ForcePublisher
   end
 
   def failure(edition, reason)
-    puts "ERR: #{edition.id unless edition.nil?}: #{reason.to_s}"
+    puts "ERR: #{edition.id unless edition.nil?}: #{reason}"
     @failures << [edition, reason]
   end
 
@@ -69,5 +69,5 @@ class ForcePublisher
       editions_to_publish = editions_to_publish.where("type not in (?)", excluded_types.map(&:name))
     end
     ForcePublisher.new(editions_to_publish)
-   end
+  end
 end

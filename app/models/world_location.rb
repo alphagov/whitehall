@@ -16,7 +16,7 @@ class WorldLocation < ApplicationRecord
   has_many :offsite_links, as: :parent
 
   has_many :featured_links, -> { order(:created_at) }, as: :linkable, dependent: :destroy
-  accepts_nested_attributes_for :featured_links, reject_if: -> attributes { attributes['url'].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :featured_links, reject_if: ->(attributes) { attributes['url'].blank? }, allow_destroy: true
 
   include Featurable
 
@@ -123,7 +123,7 @@ class WorldLocation < ApplicationRecord
   end
 
   def self.all_by_type
-    ordered_by_name.group_by(&:world_location_type).sort_by { |type, location| type.sort_order }
+    ordered_by_name.group_by(&:world_location_type).sort_by { |type, _location| type.sort_order }
   end
 
   def self.countries

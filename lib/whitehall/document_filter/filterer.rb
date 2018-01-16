@@ -1,6 +1,6 @@
 module Whitehall::DocumentFilter
   class Filterer
-    attr_reader :page, :per_page, :from_date, :to_date, :keywords, :people, :locale
+    attr_reader :page, :per_page, :from_date, :to_date, :people, :locale
     class << self
       attr_accessor :number_of_documents_per_page
     end
@@ -86,15 +86,15 @@ module Whitehall::DocumentFilter
       @include_world_location_news.to_s == '1'
     end
 
-    private
+  private
 
     def find_by_slug(klass, slugs)
       @selected ||= {}
       @selected[klass] ||= if slugs.present? && !slugs.include?("all")
-        klass.where(slug: slugs)
-      else
-        []
-      end
+                             klass.where(slug: slugs)
+                           else
+                             []
+                           end
     end
 
     def parse_date(date)

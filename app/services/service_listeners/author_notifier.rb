@@ -17,7 +17,7 @@ module ServiceListeners
       edition.authors.uniq - excluded_authors
     end
 
-    def  edition_admin_url
+    def edition_admin_url
       Whitehall.url_maker.admin_edition_url(edition)
     end
 

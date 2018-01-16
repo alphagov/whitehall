@@ -19,7 +19,7 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
     edition = create(:edition)
     create(:specialist_sector, topic_content_id: "content_id_1", edition: edition, primary: false)
 
-    links = links_for(edition, [:topics, :parent, :organisations])
+    links = links_for(edition, %i[topics parent organisations])
 
     assert_equal(
       {
@@ -37,7 +37,7 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
     create(:specialist_sector, topic_content_id: "content_id_1", edition: edition, primary: true)
     create(:specialist_sector, topic_content_id: "content_id_2", edition: edition, primary: false)
 
-    links = links_for(edition, [:topics, :parent, :organisations])
+    links = links_for(edition, %i[topics parent organisations])
 
     assert_equal(
       {
@@ -52,7 +52,7 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
 
   test "correctly sets blank topic and parent values if no specialist sectors are specified" do
     edition = create(:edition)
-    links = links_for(edition, [:topics, :parent, :organisations])
+    links = links_for(edition, %i[topics parent organisations])
 
     assert_equal(
       {

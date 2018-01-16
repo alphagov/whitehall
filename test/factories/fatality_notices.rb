@@ -1,8 +1,8 @@
 FactoryBot.define do
-  factory :fatality_notice, class: FatalityNotice, parent: :edition, traits: [:with_organisations, :with_topics] do
+  factory :fatality_notice, class: FatalityNotice, parent: :edition, traits: %i[with_organisations with_topics] do
     title "fatality-title"
     summary "fatality-summary"
-    body  "fatality-body"
+    body "fatality-body"
     roll_call_introduction "fatality-roll-call-introduction"
     operational_field
   end

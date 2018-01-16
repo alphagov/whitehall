@@ -11,7 +11,7 @@ end
 Whitehall::Application.routes.draw do
   VALID_LOCALES_REGEX = Regexp.compile(Locale.non_english.map(&:code).join("|"))
 
-  def redirect(path, options = {prefix: Whitehall.router_prefix})
+  def redirect(path, options = { prefix: Whitehall.router_prefix })
     super(options[:prefix] + path)
   end
 
@@ -29,9 +29,9 @@ Whitehall::Application.routes.draw do
   # This API is documented here:
   # https://github.com/alphagov/whitehall/blob/master/docs/api.md
   namespace 'api' do
-    resources :governments, only: [:index, :show], defaults: { format: :json }
-    resources :organisations, only: [:index, :show], defaults: { format: :json }
-    resources :world_locations, path: 'world-locations', only: [:index, :show], defaults: { format: :json } do
+    resources :governments, only: %i[index show], defaults: { format: :json }
+    resources :organisations, only: %i[index show], defaults: { format: :json }
+    resources :world_locations, path: 'world-locations', only: %i[index show], defaults: { format: :json } do
       resources :worldwide_organisations, path: 'organisations', only: [:index], defaults: { format: :json }
     end
     resources :worldwide_organisations, path: 'worldwide-organisations', only: [:show], defaults: { format: :json }
@@ -60,7 +60,7 @@ Whitehall::Application.routes.draw do
     external_redirect '/organisations/ministry-of-defence-police-and-guarding-agency',
       "http://webarchive.nationalarchives.gov.uk/20121212174735/http://www.mod.uk/DefenceInternet/AboutDefence/WhatWeDo/SecurityandIntelligence/MDPGA/"
 
-    root to: redirect("/", { prefix: '' }), via: :get, as: :main_root
+    root to: redirect("/", prefix: ''), via: :get, as: :main_root
     get "/how-government-works" => "home#how_government_works", as: 'how_government_works'
     scope '/get-involved' do
       root to: 'home#get_involved', as: :get_involved, via: :get
@@ -75,7 +75,7 @@ Whitehall::Application.routes.draw do
 
     # Past foreign secretaries are currently hard-coded, so this
     # resource falls straight through to views.
-    resources :past_foreign_secretaries, path: "/history/past-foreign-secretaries", only: [:index, :show]
+    resources :past_foreign_secretaries, path: "/history/past-foreign-secretaries", only: %i[index show]
     # Past chancellors is also hard-coded
     get "history/past-chancellors" => 'historic_appointments#past_chancellors'
 
@@ -85,9 +85,9 @@ Whitehall::Application.routes.draw do
     # TODO: make these dynamic, they're hard-coded above.
     get "/history/:role" => "historic_appointments#index", constraints: { role: /(past-prime-ministers)|(past-chancellors)|(past-foreign-secretaries)/ }, as: 'historic_appointments'
     get "/history/:role/:person_id" => "historic_appointments#show", constraints: { role: /(past-prime-ministers)|(past-chancellors)|(past-foreign-secretaries)/ }, as: 'historic_appointment'
-    resources :histories, path: "history", only: [:index, :show]
+    resources :histories, path: "history", only: %i[index show]
 
-    resource :email_signups, path: 'email-signup', only: [:create, :new]
+    resource :email_signups, path: 'email-signup', only: %i[create new]
     get "/email-signup", to: redirect('/')
 
     get '/feed' => 'home#feed', defaults: { format: :atom }, constraints: { format: :atom }, as: :atom_feed
@@ -116,13 +116,13 @@ Whitehall::Application.routes.draw do
     # pages however the route is needed to generate path and url
     # helper methods.
     # TODO: Remove `:show` when stats announcement paths can be otherwise generated
-    resources :statistics_announcements, path: 'statistics/announcements', only: [:index, :show]
+    resources :statistics_announcements, path: 'statistics/announcements', only: %i[index show]
     get '/statistics(.:locale)', as: 'statistics', to: 'statistics#index', constraints: { locale: VALID_LOCALES_REGEX }
     get '/statistics/:id(.:locale)', as: 'statistic', to: '_#_', constraints: { locale: VALID_LOCALES_REGEX }
     get '/world-location-news(.:locale)', as: 'world_location_news_articles', to: 'world_location_news_articles#index', constraints: { locale: VALID_LOCALES_REGEX }
     get '/world-location-news/:id(.:locale)', as: 'world_location_news_article', to: 'world_location_news_articles#show', constraints: { locale: VALID_LOCALES_REGEX }
 
-    resources :consultations, only: [:index, :show] do
+    resources :consultations, only: %i[index show] do
       collection do
         get :open
         get :closed
@@ -167,7 +167,7 @@ Whitehall::Application.routes.draw do
 
     # TODO: Remove `:show` when policy group paths can be otherwise generated
     resources :policy_groups, path: 'groups', only: [:show]
-    resources :operational_fields, path: 'fields-of-operation', only: [:index, :show]
+    resources :operational_fields, path: 'fields-of-operation', only: %i[index show]
 
     # Redirect everything under /government/world to /world
     # It may look like we're redirecting back to the same page but the
@@ -186,7 +186,7 @@ Whitehall::Application.routes.draw do
         get '/:content_id/needs' => 'needs#edit', as: :edit_needs
         patch '/:content_id/needs' => 'needs#update', as: :update_needs
 
-        resources :users, only: [:index, :show, :edit, :update]
+        resources :users, only: %i[index show edit update]
 
         resources :authors, only: [:show]
         resource :document_searches, only: [:show]
@@ -208,7 +208,7 @@ Whitehall::Application.routes.draw do
             resources :translations, controller: 'corporate_information_pages_translations'
           end
           resources :contacts do
-            resources :translations, controller: 'contact_translations', only: [:create, :edit, :update, :destroy]
+            resources :translations, controller: 'contact_translations', only: %i[create edit update destroy]
             member do
               post :remove_from_home_page
               post :add_to_home_page
@@ -241,12 +241,12 @@ Whitehall::Application.routes.draw do
           end
         end
         resources :operational_fields, except: [:show]
-        resources :edition_organisations, only: [:edit, :update]
+        resources :edition_organisations, only: %i[edit update]
         resources :topics, path: "topics" do
           resources :classification_featurings, path: "featurings" do
             put :order, on: :collection
           end
-        resources :offsite_links
+          resources :offsite_links
         end
         resources :topical_events, path: "topical-events" do
           resource :about_pages, path: 'about'
@@ -261,7 +261,7 @@ Whitehall::Application.routes.draw do
             put :set_main_office
             get :access_info
           end
-          resource :access_and_opening_time, path: 'access_info', except: [:index, :show, :new]
+          resource :access_and_opening_time, path: 'access_info', except: %i[index show new]
           resources :translations, controller: 'worldwide_organisations_translations'
           resources :worldwide_offices, path: 'offices', except: [:show] do
             member do
@@ -269,8 +269,8 @@ Whitehall::Application.routes.draw do
               post :add_to_home_page
             end
             post :reorder_for_home_page, on: :collection
-            resource :access_and_opening_time, path: 'access_info', except: [:index, :show, :new]
-            resources :translations, controller: 'worldwide_office_translations', only: [:create, :edit, :update, :destroy]
+            resource :access_and_opening_time, path: 'access_info', except: %i[index show new]
+            resources :translations, controller: 'worldwide_office_translations', only: %i[create edit update destroy]
           end
           resources :corporate_information_pages do
             resources :translations, controller: 'corporate_information_pages_translations'
@@ -279,7 +279,7 @@ Whitehall::Application.routes.draw do
         end
 
         resources :editions, only: [:index] do
-          resource :tags, only: [:edit, :update], controller: :edition_tags
+          resource :tags, only: %i[edit update], controller: :edition_tags
 
           collection do
             post :export
@@ -305,16 +305,16 @@ Whitehall::Application.routes.draw do
             get  :audit_trail, to: 'edition_audit_trail#index'
           end
           resources :link_check_reports
-          resource :unpublishing, controller: 'edition_unpublishing', only: [:edit, :update]
-          resources :translations, controller: "edition_translations", except: [:index, :show]
-          resources :editorial_remarks, only: [:new, :create], shallow: true
-          resources :fact_check_requests, only: [:show, :create, :edit, :update], shallow: true
+          resource :unpublishing, controller: 'edition_unpublishing', only: %i[edit update]
+          resources :translations, controller: "edition_translations", except: %i[index show]
+          resources :editorial_remarks, only: %i[new create], shallow: true
+          resources :fact_check_requests, only: %i[show create edit update], shallow: true
           resource :document_sources, path: "document-sources", except: [:show]
           resources :attachments, except: [:show] do
             put :order, on: :collection
-            put :update_many, on: :collection, constraints: {format: "json"}
+            put :update_many, on: :collection, constraints: { format: "json" }
           end
-          resources :bulk_uploads, except: [:show, :edit, :update] do
+          resources :bulk_uploads, except: %i[show edit update] do
             post :upload_zip, on: :collection
             get :set_titles, on: :member
           end
@@ -328,9 +328,9 @@ Whitehall::Application.routes.draw do
             get :cancel_reason
             post :publish_cancellation
           end
-          resource :tags, only: [:edit, :update], controller: :statistics_announcement_tags
+          resource :tags, only: %i[edit update], controller: :statistics_announcement_tags
           resources :statistics_announcement_date_changes, as: 'changes', path: 'changes'
-          resource :statistics_announcement_unpublishings, as: 'unpublish', path: 'unpublish', only: [:new, :create]
+          resource :statistics_announcement_unpublishings, as: 'unpublish', path: 'unpublish', only: %i[new create]
         end
 
         resources :suggestions, only: [:index]
@@ -340,11 +340,11 @@ Whitehall::Application.routes.draw do
         get "/policies/:policy_id/topics" => "policies#topics"
 
         resources :news_articles, path: 'news', except: [:index]
-        resources :world_location_news_articles, path: 'world-location-news', except: [:index, :new, :create]
+        resources :world_location_news_articles, path: 'world-location-news', except: %i[index new create]
         resources :fatality_notices, path: 'fatalities', except: [:index]
         resources :consultations, except: [:index] do
-          resource :outcome, controller: 'responses', type: 'ConsultationOutcome', except: [:new, :destroy]
-          resource :public_feedback, controller: 'responses', type: 'ConsultationPublicFeedback', except: [:new, :destroy]
+          resource :outcome, controller: 'responses', type: 'ConsultationOutcome', except: %i[new destroy]
+          resource :public_feedback, controller: 'responses', type: 'ConsultationPublicFeedback', except: %i[new destroy]
         end
         resources :responses, only: :none do
           resources :attachments do
@@ -359,12 +359,12 @@ Whitehall::Application.routes.draw do
           resources :translations, controller: 'person_translations'
           resources :historical_accounts
         end
-        resource :cabinet_ministers, only: [:show, :update]
+        resource :cabinet_ministers, only: %i[show update]
         resources :roles, except: [:show] do
-          resources :role_appointments, only: [:new, :create, :edit, :update, :destroy], shallow: true
+          resources :role_appointments, only: %i[new create edit update destroy], shallow: true
           resources :translations, controller: 'role_translations'
         end
-        resources :world_locations, only: [:index, :edit, :update, :show] do
+        resources :world_locations, only: %i[index edit update show] do
           member do
             get '/features(.:locale)', as: 'features', to: 'world_locations#features', constraints: { locale: VALID_LOCALES_REGEX }
           end
@@ -372,10 +372,9 @@ Whitehall::Application.routes.draw do
           resources :offsite_links
         end
         resources :feature_lists, only: [:show] do
-
           post :reorder, on: :member
 
-          resources :features, only: [:new, :create] do
+          resources :features, only: %i[new create] do
             post :unfeature, on: :member
           end
         end

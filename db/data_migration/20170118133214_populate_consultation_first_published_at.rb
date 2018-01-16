@@ -6,7 +6,7 @@ Consultation.where(first_published_at: nil).each do |consultation|
   result = consultation.save(touch: false, validate: false)
 
   puts "Setting %s first_published_at to %s \n=> %s" %
-         [consultation.inspect, public_at, result]
+    [consultation.inspect, public_at, result]
 end
 
 Consultation.where("date(first_published_at) > date(opening_at)").each do |consultation|
@@ -17,5 +17,5 @@ Consultation.where("date(first_published_at) > date(opening_at)").each do |consu
   result = consultation.save(touch: false, validate: false)
 
   puts "Setting %s first_published_at to %s \n=> %s" %
-         [consultation.inspect, public_at, result]
+    [consultation.inspect, public_at, result]
 end

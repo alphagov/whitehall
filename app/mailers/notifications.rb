@@ -61,7 +61,7 @@ class Notifications < ActionMailer::Base
     mail from: no_reply_email_address, to: recipient_address, subject: "#{filter_title} from GOV.UK"
   end
 
-  private
+private
 
   def no_reply_email_address
     name = "GOV.UK publishing"

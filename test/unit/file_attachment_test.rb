@@ -1,14 +1,13 @@
 require "test_helper"
 
 class FileAttachmentTest < ActiveSupport::TestCase
-
   def attachment
     @attachment ||= build(:file_attachment)
   end
 
   def assert_delegated attachment, method
-     attachment.attachment_data.expects(method).returns(method.to_s)
-     assert_equal method.to_s, attachment.send(method)
+    attachment.attachment_data.expects(method).returns(method.to_s)
+    assert_equal method.to_s, attachment.send(method)
   end
 
   test "asks data for file specific information" do
@@ -28,7 +27,7 @@ class FileAttachmentTest < ActiveSupport::TestCase
 
   test "should be invalid if an attachment already exists on the attachable with the same filename" do
     attachable = create(:policy_group, attachments: [build(:file_attachment, file: file_fixture('whitepaper.pdf'))])
-    duplicate  = build(:file_attachment,  file: file_fixture('whitepaper.pdf'), attachable: attachable)
+    duplicate  = build(:file_attachment, file: file_fixture('whitepaper.pdf'), attachable: attachable)
 
     refute duplicate.valid?
     assert_match %r(This policy group already has a file called "whitepaper.pdf"), duplicate.errors[:base].first
@@ -36,7 +35,7 @@ class FileAttachmentTest < ActiveSupport::TestCase
 
   test "unique filename check does not explode if file is not present" do
     attachable = create(:policy_group, attachments: [build(:file_attachment)])
-    attachment  = build(:file_attachment, attachable: attachable, file: nil)
+    attachment = build(:file_attachment, attachable: attachable, file: nil)
 
     refute attachment.valid?
     assert_match %r(can't be blank), attachment.errors[:"attachment_data.file"].first
@@ -45,7 +44,7 @@ class FileAttachmentTest < ActiveSupport::TestCase
   test "does not destroy attachment_data when more attachments are associated" do
     saved_attachment = create(:file_attachment)
     attachment_data = saved_attachment.attachment_data
-    other_attachment = create(:file_attachment, attachment_data: attachment_data)
+    _other_attachment = create(:file_attachment, attachment_data: attachment_data)
 
     attachment_data.expects(:destroy).never
     saved_attachment.destroy

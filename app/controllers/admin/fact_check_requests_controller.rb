@@ -1,14 +1,13 @@
 class Admin::FactCheckRequestsController < Admin::BaseController
-  before_action :load_fact_check_request, only: [:show, :edit, :update]
+  before_action :load_fact_check_request, only: %i[show edit update]
   before_action :load_edition, only: [:create]
   before_action :enforce_permissions!, only: [:create]
   before_action :limit_edition_access!, only: [:create]
-  before_action :check_edition_availability, only: [:show, :edit]
+  before_action :check_edition_availability, only: %i[show edit]
   skip_before_action :authenticate_user!, except: [:create]
   skip_before_action :require_signin_permission!, except: [:create]
 
-  def show
-  end
+  def show; end
 
   def create
     attributes = fact_check_request_params.merge(requestor: current_user)
@@ -25,8 +24,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @fact_check_request.update_attributes(fact_check_request_params)

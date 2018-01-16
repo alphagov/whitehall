@@ -71,7 +71,7 @@ class Person < ApplicationRecord
   def role_appointments_at(date)
     role_appointments.where([
       ":date >= started_at AND (:date <= ended_at OR ended_at IS NULL)",
-      {date: date}
+      { date: date }
     ])
   end
 
@@ -115,12 +115,10 @@ class Person < ApplicationRecord
     [name, role_name, organisation].compact.join(' – ')
   end
 
-  private
+private
 
   def name_as_words(*elements)
-    elements.select { |word|
-      word.present?
-    }.join(' ')
+    elements.select(&:present?).join(' ')
   end
 
   def image_changed?

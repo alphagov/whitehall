@@ -48,28 +48,28 @@ class WorldLocationTest < ActiveSupport::TestCase
   test ".worldwide_organisations_with_sponsoring_organisations returns all related organisations" do
     world_location = create(:world_location, :with_worldwide_organisations)
     related_organisations = world_location.worldwide_organisations +
-                              world_location.worldwide_organisations
-                                .map { |orgs| orgs.sponsoring_organisations.to_a }.flatten
+      world_location.worldwide_organisations
+        .map { |orgs| orgs.sponsoring_organisations.to_a }.flatten
 
     assert_equal related_organisations, world_location.worldwide_organisations_with_sponsoring_organisations
   end
 
   test "#with_announcements should return the world locations with announcements" do
     world_location = create(:world_location)
-    other_world_location = create(:world_location)
+    _other_world_location = create(:world_location)
 
-    item_a = create(:published_news_article, world_locations: [world_location])
-    item_b = create(:published_news_article, world_locations: [world_location])
+    create(:published_news_article, world_locations: [world_location])
+    create(:published_news_article, world_locations: [world_location])
 
     assert_equal [world_location], WorldLocation.with_announcements
   end
 
   test "#with_publications should return the world locations with publications" do
     world_location = create(:world_location)
-    other_world_location = create(:world_location)
+    _other_world_location = create(:world_location)
 
-    item_a = create(:published_publication, world_locations: [world_location])
-    item_b = create(:published_publication, world_locations: [world_location])
+    create(:published_publication, world_locations: [world_location])
+    create(:published_publication, world_locations: [world_location])
 
     assert_same_elements [world_location], WorldLocation.with_publications
   end
@@ -105,7 +105,7 @@ class WorldLocationTest < ActiveSupport::TestCase
     location_2 = create(:world_location, world_location_type: delegation_type, name: 'Neverland')
     location_3 = create(:world_location, world_location_type: world_location_type, name: 'Middle Earth')
 
-    assert_equal [[world_location_type, [location_3, location_1]] , [delegation_type, [location_2]]], WorldLocation.all_by_type
+    assert_equal [[world_location_type, [location_3, location_1]], [delegation_type, [location_2]]], WorldLocation.all_by_type
   end
 
   test "#feature_list_for_locale should return the feature list for the given locale, or build one if not" do
@@ -124,10 +124,10 @@ class WorldLocationTest < ActiveSupport::TestCase
   test "should be creatable with featured link data" do
     params = {
       featured_links_attributes: [
-        {url: "https://www.gov.uk/blah/blah",
-         title: "Blah blah"},
-        {url: "https://www.gov.uk/wah/wah",
-         title: "Wah wah"},
+        { url: "https://www.gov.uk/blah/blah",
+         title: "Blah blah" },
+        { url: "https://www.gov.uk/wah/wah",
+         title: "Wah wah" },
       ]
     }
 
@@ -144,8 +144,8 @@ class WorldLocationTest < ActiveSupport::TestCase
   test 'should ignore blank featured link attributes' do
     params = {
       featured_links_attributes: [
-        {url: "",
-         title: ""}
+        { url: "",
+         title: "" }
       ]
     }
     world_location = build(:world_location, params)
@@ -249,21 +249,24 @@ class WorldLocationTest < ActiveSupport::TestCase
   end
 
   test 'search index includes data for all active locations' do
-    active_location = create(:world_location, name: 'hat land', mission_statement: 'helping people in hat land find out about other clothing', active: true)
-    active_location = create(:world_location, name: 'sheep land', mission_statement: 'helping people in sheep land find out about other animals', active: false)
+    create(:world_location, name: 'hat land', mission_statement: 'helping people in hat land find out about other clothing', active: true)
+    create(:world_location, name: 'sheep land', mission_statement: 'helping people in sheep land find out about other animals', active: false)
 
-    assert_equal 1, WorldLocation.search_index.to_a.length
-    assert_equal ['/world/hat-land'], WorldLocation.search_index.map { |search_data| search_data['link'] }
+    actual_length = WorldLocation.search_index.to_a.length
+    actual_links = WorldLocation.search_index.map { |search_data| search_data['link'] }
+
+    assert_equal 1, actual_length
+    assert_equal ['/world/hat-land'], actual_links
   end
 
   test 'only one feature list per language per world location' do
-    world_location1 = create(:world_location)
-    world_location2 = create(:world_location)
-    FeatureList.create!(featurable: world_location1, locale: :en)
-    FeatureList.create!(featurable: world_location1, locale: :fr)
-    FeatureList.create!(featurable: world_location2, locale: :en)
+    world_location_1 = create(:world_location)
+    world_location_2 = create(:world_location)
+    FeatureList.create!(featurable: world_location_1, locale: :en)
+    FeatureList.create!(featurable: world_location_1, locale: :fr)
+    FeatureList.create!(featurable: world_location_2, locale: :en)
     assert_raise ActiveRecord::RecordInvalid do
-      FeatureList.create!(featurable: world_location2, locale: :en)
+      FeatureList.create!(featurable: world_location_2, locale: :en)
     end
   end
 

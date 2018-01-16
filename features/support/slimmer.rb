@@ -5,4 +5,3 @@ Before do
   stub_request(:get, %r{.*static.*/templates/locales\/.+}).
     to_return(status: 400, headers: {})
 end
-

@@ -1,9 +1,8 @@
 class Admin::WorldwideOfficesController < Admin::BaseController
   before_action :find_worldwide_organisation
-  before_action :find_worldwide_office, only: [:edit, :update, :destroy, :add_to_home_page, :remove_from_home_page]
+  before_action :find_worldwide_office, only: %i[edit update destroy add_to_home_page remove_from_home_page]
 
-  def index
-  end
+  def index; end
 
   def new
     @worldwide_office = @worldwide_organisation.offices.build
@@ -48,13 +47,14 @@ class Admin::WorldwideOfficesController < Admin::BaseController
   is_home_page_list_controller_for :offices,
     item_type: WorldwideOffice,
     contained_by: :worldwide_organisation,
-    redirect_to: ->(container, item) { [:admin, container, WorldwideOffice] },
+    redirect_to: ->(container, _item) { [:admin, container, WorldwideOffice] },
     params_name: :worldwide_office
   def home_page_list_item
     @worldwide_office
   end
 
 private
+
   def find_worldwide_organisation
     @worldwide_organisation ||= WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])
   end
@@ -71,6 +71,7 @@ private
                     :id, :title, :contact_type_id, :comments, :recipient,
                     :street_address, :locality, :region, :postal_code,
                     :country_id, :email, :contact_form_url,
-                    contact_numbers_attributes: [:id, :label, :number, :_destroy]])
+                    contact_numbers_attributes: %i[id label number _destroy]
+                  ])
   end
 end

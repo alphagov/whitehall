@@ -1,8 +1,7 @@
 class DocumentHistory
   include Enumerable
 
-  class Change < Struct.new(:public_timestamp, :note)
-  end
+  Change = Struct.new(:public_timestamp, :note)
 
   attr_reader :document, :changes
 
@@ -12,16 +11,16 @@ class DocumentHistory
     @default_first_published_note = default_first_published_note
     @document = document
 
-    if first_public_edition.present?
-      @changes = document_changes
-    else
-      @changes = []
-    end
+    @changes = if first_public_edition.present?
+                 document_changes
+               else
+                 []
+               end
   end
 
-  def each(&block)
+  def each
     changes.each do |change|
-      block.call(change)
+      yield(change)
     end
   end
 
@@ -33,7 +32,7 @@ class DocumentHistory
     changes.first.public_timestamp
   end
 
-  private
+private
 
   def document_changes
     @document_changes ||= subsequent_changes + [first_change]

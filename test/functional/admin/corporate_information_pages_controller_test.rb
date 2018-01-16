@@ -76,7 +76,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
 
   test "PUT :update should update an existing corporate information page and redirect on success" do
     corporate_information_page = create(:corporate_information_page, organisation: @organisation)
-    new_attributes = {body: "New body", summary: "New summary"}
+    new_attributes = { body: "New body", summary: "New summary" }
     put :update, params: { organisation_id: @organisation, id: corporate_information_page, edition: new_attributes }
     corporate_information_page.reload
     assert_equal new_attributes[:body], corporate_information_page.body
@@ -87,9 +87,9 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
 
   view_test "PUT :update should redisplay form on failure" do
     corporate_information_page = create(:corporate_information_page, organisation: @organisation)
-    new_attributes = {body: "", summary: "New summary"}
+    new_attributes = { body: "", summary: "New summary" }
     put :update, params: { organisation_id: @organisation, id: corporate_information_page, edition: new_attributes }
-    assert_match /^There are some problems/, flash[:alert]
+    assert_match %r[^There are some problems], flash[:alert]
 
     assert_select "form[action='#{admin_organisation_corporate_information_page_path(@organisation, corporate_information_page)}']" do
       assert_select "textarea[name='edition[body]']", new_attributes[:body]
@@ -107,6 +107,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
   end
 
 private
+
   def corporate_information_page_attributes(overrides = {})
     {
       body: "This is the body",

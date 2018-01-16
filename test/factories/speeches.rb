@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :speech, class: Speech, parent: :edition, traits: [:with_organisations, :with_topics] do
+  factory :speech, class: Speech, parent: :edition, traits: %i[with_organisations with_topics] do
     title "speech-title"
     body  "speech-body"
     association :role_appointment, factory: :ministerial_role_appointment
@@ -21,7 +21,7 @@ FactoryBot.define do
   factory :submitted_speech, parent: :speech, traits: [:submitted]
   factory :rejected_speech, parent: :speech, traits: [:rejected]
   factory :published_speech, parent: :speech, traits: [:published] do
-    first_published_at  { 2.days.ago }
+    first_published_at { 2.days.ago }
   end
   factory :deleted_speech, parent: :speech, traits: [:deleted]
   factory :superseded_speech, parent: :speech, traits: [:superseded]

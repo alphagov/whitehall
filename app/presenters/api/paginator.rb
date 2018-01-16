@@ -1,10 +1,10 @@
-class Api::Paginator < Struct.new(:collection, :params)
+Api::Paginator = Struct.new(:collection, :params) do
   def self.paginate(collection, params)
     new(collection, params).page
   end
 
   def current_page
-    page_param > 0 ? page_param : 1
+    page_param.positive? ? page_param : 1
   end
 
   def page

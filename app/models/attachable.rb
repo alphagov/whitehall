@@ -134,13 +134,11 @@ module Attachable
 
       # To get around it, we check that we can start at 0 and fit all the
       # ordering values below the current lowest ordering.
-      if ordered_attachment_ids.count < attachments.unscoped.minimum(:ordering)
-        start_at = 0
-
-      # Otherwise, we start reordering at the next available number
-      else
-        start_at = next_ordering
-      end
+      start_at = if ordered_attachment_ids.count < attachments.unscoped.minimum(:ordering)
+                   0
+                 else # Otherwise, we start reordering at the next available number
+                   next_ordering
+                 end
 
       ordered_attachment_ids.each.with_index(start_at) do |attachment_id, ordering|
         attachments.find(attachment_id).update_column(:ordering, ordering)

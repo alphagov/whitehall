@@ -1,6 +1,6 @@
 document_ids = Document
   .joins(:editions)
-  .where(editions: {type: 'DetailedGuide'})
+  .where(editions: { type: 'DetailedGuide' })
   .pluck(:id)
   .uniq
 

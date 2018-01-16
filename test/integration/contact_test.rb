@@ -37,11 +37,9 @@ class ContactTest < ActiveSupport::TestCase
                                       ))
 
     assert_publishing_api_patch_links(@contact.content_id,
-                                      {
-                                        links: {
-                                          organisations: [@organisation_content_id],
-                                          world_locations: [@world_location_content_id]
-                                        }
+                                      links: {
+                                        organisations: [@organisation_content_id],
+                                        world_locations: [@world_location_content_id]
                                       })
 
     assert_publishing_api_publish(@contact.content_id)

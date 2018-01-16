@@ -21,7 +21,7 @@ class Whitehall::OrganisationSlugChanger
       organisation.slug = new_slug
       organisation.save! # saving also indexes at new slug
 
-      User.where(:organisation_slug => old_slug).update_all(:organisation_slug => new_slug)
+      User.where(organisation_slug: old_slug).update_all(organisation_slug: new_slug)
     end
 
     logger.info "Creating redirect for old org URL in router"

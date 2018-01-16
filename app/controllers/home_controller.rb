@@ -28,9 +28,7 @@ class HomeController < PublicFacingController
     @take_part_pages = TakePartPage.in_order
   end
 
-  def history_king_charles_street
-  end
+  def history_king_charles_street; end
 
-  def history_lancaster_house
-  end
+  def history_lancaster_house; end
 end

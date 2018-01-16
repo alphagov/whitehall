@@ -5,7 +5,7 @@ class Feature < ApplicationRecord
   belongs_to :feature_list
 
   mount_uploader :image, ImageUploader, mount_on: :carrierwave_image
-  validates :document, presence: true, unless: -> feature { feature.topical_event_id.present? || feature.offsite_link_id.present? }
+  validates :document, presence: true, unless: ->(feature) { feature.topical_event_id.present? || feature.offsite_link_id.present? }
   validates :started_at, presence: true
   validates :image, :alt_text, presence: true, on: :create
   validates :alt_text, length: { maximum: 255 }
@@ -46,7 +46,7 @@ class Feature < ApplicationRecord
     feature_list ? feature_list.locale : :en
   end
 
-  private
+private
 
   def set_started_at!
     self.started_at = Time.zone.now

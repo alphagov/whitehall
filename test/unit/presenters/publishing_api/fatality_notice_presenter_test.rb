@@ -96,12 +96,12 @@ class PublishingApi::DraftFatalityNoticePresenter < ActiveSupport::TestCase
   test "it presents the Fatality Notice's parent document created_at as first_public_at" do
     presented_notice = PublishingApi::FatalityNoticePresenter.new(
       create(:draft_fatality_notice) do |fatality_notice|
-        fatality_notice.document.stubs(:created_at).returns(DateTime.new(2015, 4, 10))
+        fatality_notice.document.stubs(:created_at).returns(Date.new(2015, 4, 10))
       end
     )
 
     assert_equal(
-      DateTime.new(2015, 4, 10),
+      Date.new(2015, 4, 10),
       presented_notice.content[:details][:first_public_at]
     )
   end
@@ -111,12 +111,12 @@ class PublishingApi::DraftFatalityBelongingToPublishedDocumentNoticePresenter < 
   test "it presents the Fatality Notice's first_public_at" do
     presented_notice = PublishingApi::FatalityNoticePresenter.new(
       create(:published_fatality_notice) do |fatality_notice|
-        fatality_notice.stubs(:first_published_at).returns(DateTime.new(2015, 4, 10))
+        fatality_notice.stubs(:first_published_at).returns(Date.new(2015, 4, 10))
       end
     )
 
     assert_equal(
-      DateTime.new(2015, 04, 10),
+      Date.new(2015, 4, 10),
       presented_notice.content[:details][:first_public_at]
     )
   end

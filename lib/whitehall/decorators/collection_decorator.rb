@@ -65,7 +65,7 @@ module Whitehall
       end
 
       def kind_of?(klass)
-        decorated_collection.kind_of?(klass) || super
+        decorated_collection.is_a?(klass) || super
       end
       alias_method :is_a?, :kind_of?
 
@@ -83,11 +83,11 @@ module Whitehall
       end
 
       def ==(other)
-        if other.respond_to? :object
-          @object == other.object
-        else
-          @object == other
-        end
+        @object == if other.respond_to? :object
+                     other.object
+                   else
+                     other
+                   end
       end
     end
   end

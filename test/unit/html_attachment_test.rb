@@ -63,7 +63,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
 
   test "slug is copied from previous edition's attachment" do
     edition = create(:published_publication, attachments: [
-      attachment = build(:html_attachment, title: "an-html-attachment")
+      build(:html_attachment, title: "an-html-attachment")
     ])
     draft = edition.create_draft(create(:writer))
 
@@ -71,9 +71,9 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
   end
 
   test "slug is updated when the title is changed if edition is unpublished" do
-    edition = create(:draft_publication, attachments: [
-      attachment = build(:html_attachment, title: "an-html-attachment")
-    ])
+    attachment = build(:html_attachment, title: "an-html-attachment")
+
+    create(:draft_publication, attachments: [attachment])
 
     attachment.title = "a-new-title"
     attachment.save

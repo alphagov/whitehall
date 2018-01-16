@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class LinksReportWorkerTest < ActiveSupport::TestCase
-
   test '#perform checks links and updates the report with the results' do
     links_report = create(:links_report, links: %w(good_link bad_link))
 

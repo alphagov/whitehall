@@ -76,7 +76,7 @@ class Admin::SpeechesControllerTest < ActionController::TestCase
     assert_equal "new-location", speech.location
   end
 
-  private
+private
 
   def controller_attributes_for(edition_type, attributes = {})
     super.except(:role_appointment, :speech_type).reverse_merge(

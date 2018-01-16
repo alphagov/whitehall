@@ -1,7 +1,7 @@
 class Admin::WorldwideOrganisationsController < Admin::BaseController
   respond_to :html
 
-  before_action :find_worldwide_organisation, except: [:index, :new, :create]
+  before_action :find_worldwide_organisation, except: %i[index new create]
 
   def index
     respond_with @worldwide_organisations = WorldwideOrganisation.ordered_by_name
@@ -28,12 +28,11 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
     respond_with :admin, @worldwide_organisation
   end
 
-  def show
-  end
+  def show; end
 
   def access_info
     @access_and_opening_times = @worldwide_organisation.access_and_opening_times ||
-                                @worldwide_organisation.build_access_and_opening_times
+      @worldwide_organisation.build_access_and_opening_times
   end
 
   def set_main_office
@@ -49,7 +48,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
     respond_with :admin, @worldwide_organisation
   end
 
-  private
+private
 
   def find_worldwide_organisation
     @worldwide_organisation = WorldwideOrganisation.friendly.find(params[:id])
@@ -60,7 +59,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
       :name, :logo_formatted_name,
       world_location_ids: [],
       sponsoring_organisation_ids: [],
-      default_news_image_attributes: [:file, :file_cache]
+      default_news_image_attributes: %i[file file_cache]
     )
   end
 end

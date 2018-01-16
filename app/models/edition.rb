@@ -59,7 +59,7 @@ class Edition < ApplicationRecord
   POST_PUBLICATION_STATES = %w(published superseded withdrawn).freeze
   PUBLICLY_VISIBLE_STATES = %w(published withdrawn).freeze
 
-  scope :with_title_or_summary_containing, -> (*keywords) {
+  scope :with_title_or_summary_containing, ->(*keywords) {
     pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
     in_default_locale.where("edition_translations.title REGEXP :pattern OR edition_translations.summary REGEXP :pattern", pattern: pattern)
   }
@@ -265,7 +265,7 @@ class Edition < ApplicationRecord
     id: :id,
     title: :search_title,
     link: :search_link,
-    format: -> (d) { d.format_name.tr(" ", "_") },
+    format: ->(d) { d.format_name.tr(" ", "_") },
     content: :indexable_content,
     description: :summary,
     people: nil,
@@ -453,17 +453,7 @@ class Edition < ApplicationRecord
     unless published?
       raise "Cannot create new edition based on edition in the #{state} state"
     end
-    draft_attributes = attributes.except(*%w{
-      id
-      type
-      state
-      created_at
-      updated_at
-      change_note
-      minor_change
-      force_published
-      scheduled_publication
-    })
+    draft_attributes = attributes.except('id', 'type', 'state', 'created_at', 'updated_at', 'change_note', 'minor_change', 'force_published', 'scheduled_publication')
     self.class.new(draft_attributes.merge('state' => 'draft', 'creator' => user)).tap do |draft|
       traits.each { |t| t.process_associations_before_save(draft) }
       if draft.valid? || !draft.errors.keys.include?(:base)
@@ -496,7 +486,6 @@ class Edition < ApplicationRecord
   def submitted_by
     most_recent_submission_audit_entry.try(:actor)
   end
-
 
   def title_with_state
     "#{title} (#{state})"
@@ -607,11 +596,11 @@ class Edition < ApplicationRecord
   end
 
   def set_public_timestamp
-    if first_published_version?
-      self.public_timestamp = first_public_at
-    else
-      self.public_timestamp = major_change_published_at
-    end
+    self.public_timestamp = if first_published_version?
+                              first_public_at
+                            else
+                              major_change_published_at
+                            end
   end
 
   def title_required?

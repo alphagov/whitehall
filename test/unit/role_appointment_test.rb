@@ -1,7 +1,6 @@
 require "test_helper"
 
 class RoleAppointmentTest < ActiveSupport::TestCase
-
   test "should should remove person from index when added as a minister" do
     person = create(:person)
     Whitehall::SearchIndex.expects(:delete).with(person)
@@ -55,8 +54,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
   test "should be invalid if ended_at is before started_at" do
     role_appointment = build(:role_appointment,
       started_at: Time.zone.parse("2000-12-30"),
-      ended_at: Time.zone.parse("1999-01-01")
-    )
+      ended_at: Time.zone.parse("1999-01-01"))
     refute role_appointment.valid?
   end
 
@@ -114,7 +112,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
     role = create(:ministerial_role)
 
-    original_appointment = create(:role_appointment, role: role, person: alice, started_at: 3.days.ago)
+    _original_appointment = create(:role_appointment, role: role, person: alice, started_at: 3.days.ago)
 
     assert_equal alice, role.current_person, "the minister should be alice"
     assert_equal [role], alice.current_roles, "alice should be the minister"
@@ -149,7 +147,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
   # '*'s have no significance other than a way of visually indicating when an example
   # starts, ends or includes the start or end date of the existing appointment.
   # Examples indicate appointments which have no end date using '...'
-  existing, *positive_examples = %q{
+  existing, *positive_examples = '
      *====*    This appointment exists in the database.
 
       ====...  This and subsequent appointments are expected to overlap with the existing one.
@@ -164,9 +162,9 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     =*====*
     =*====
       ====*=
-  }.split("\n").reject(&:blank?)
+  '.split("\n").reject(&:blank?)
 
-  existing_continuing, *positive_continuing_examples = %q{
+  existing_continuing, *positive_continuing_examples = '
      *====...    (existing appointment)
 
       ====       (expected to overlap with existing appointment)
@@ -175,10 +173,10 @@ class RoleAppointmentTest < ActiveSupport::TestCase
       ====...
     =*====...
      *====...
-  }.split("\n").reject(&:blank?)
+  '.split("\n").reject(&:blank?)
 
   # The negative examples are cases not expected to overlap with the existing appointment
-  _, *negative_examples = %q{
+  _, *negative_examples = '
      *====*      (existing appointment)
 
           *====  (not expected to overlap, ended_at is not inclusive)
@@ -187,13 +185,13 @@ class RoleAppointmentTest < ActiveSupport::TestCase
            ====...
   ===*
   ===
-  }.split("\n").reject(&:blank?)
+  '.split("\n").reject(&:blank?)
 
-  _, *negative_continuing_examples = %q{
+  _, *negative_continuing_examples = '
      *====...     (existing appointment)
 
    ==             (not expected to overlap)
-  }.split("\n").reject(&:blank?)
+  '.split("\n").reject(&:blank?)
 
   def dates_from_example(example)
     reference_date = 100.days.ago
@@ -215,7 +213,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
   end
 
   def appointment_attributes_from_dates(dates, role)
-    attributes = {role: role, started_at: dates.first, ended_at: dates.last}
+    attributes = { role: role, started_at: dates.first, ended_at: dates.last }
     if dates.last.nil?
       attributes.merge(make_current: true)
     else
@@ -261,7 +259,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
     role = create(:ministerial_role)
 
-    original_appointment = create(:role_appointment, role: role, person: alice, started_at: 3.days.ago)
+    _original_appointment = create(:role_appointment, role: role, person: alice, started_at: 3.days.ago)
 
     assert_equal alice, role.current_person, "the minister should be alice"
     assert_equal [role], alice.current_roles, "alice should be the minister"
@@ -278,16 +276,16 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     assert_equal [role], bob.current_roles, "bob should be the minister"
   end
 
-  existing, *positive_before_examples = %q{
+  existing, *positive_before_examples = '
      *====*    This appointment exists in the database.
 
     =*====     This and subsequent appointments are expected to be before it
      *====
     =*====...
      *====...
-  }.split("\n").reject(&:blank?)
+  '.split("\n").reject(&:blank?)
 
-  _, *negative_before_examples = %q{
+  _, *negative_before_examples = '
      *====*    This appointment exists in the database.
 
       ====     This and subsequent appointments are expected to not be before it
@@ -300,7 +298,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
            ===
           *==...
            ===...
-  }.split("\n").reject(&:blank?)
+  '.split("\n").reject(&:blank?)
 
   positive_before_examples.each do |example|
     test "should detect that #{example} is before #{existing}" do
@@ -318,14 +316,14 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
   test "setting make_current should only result in a valid appointment if started_at is greater than all others" do
     role = create(:ministerial_role)
-    original_appointment = create(:role_appointment, role: role, started_at: 3.days.ago)
+    _original_appointment = create(:role_appointment, role: role, started_at: 3.days.ago)
     refute build(:role_appointment, role: role, started_at: 4.days.ago, make_current: true).valid?
   end
 
   test "should not overwrite ended_at if ended_at already set" do
     role = create(:role)
     existing_appointment = create(:role_appointment, role: role, started_at: 20.days.ago, ended_at: 10.days.ago)
-    new_appointment = create(:role_appointment, role: role,  started_at: 5.days.ago, ended_at: nil, make_current: true)
+    _new_appointment = create(:role_appointment, role: role, started_at: 5.days.ago, ended_at: nil, make_current: true)
 
     existing_appointment.reload
     assert_equal 10.days.ago, existing_appointment.ended_at
@@ -334,7 +332,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
   test "should set ended_at on existing appointment to started_at on new appointment" do
     role = create(:role)
     existing_appointment = create(:role_appointment, role: role, started_at: 20.days.ago, ended_at: nil, make_current: true)
-    new_appointment = create(:role_appointment, role: role,  started_at: 10.days.ago, ended_at: nil, make_current: true)
+    _new_appointment = create(:role_appointment, role: role, started_at: 10.days.ago, ended_at: nil, make_current: true)
 
     existing_appointment.reload
     assert_equal 10.days.ago, existing_appointment.ended_at
@@ -386,7 +384,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     some_other_role = create(:ambassador_role)
     first_pm_appt = create(:role_appointment, role: pm, started_at: 10.days.ago, ended_at: 9.days.ago)
     deputy_pm_appt = create(:role_appointment, role: deputy_pm, started_at: 12.days.ago)
-    other_appt = create(:role_appointment, role: some_other_role, started_at: 3.days.ago)
+    _other_appt = create(:role_appointment, role: some_other_role, started_at: 3.days.ago)
     second_pm_appt = create(:role_appointment, role: pm, started_at: 8.days.ago)
 
     assert_same_elements [first_pm_appt, deputy_pm_appt, second_pm_appt], RoleAppointment.for_ministerial_roles

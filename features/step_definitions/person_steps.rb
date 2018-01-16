@@ -1,23 +1,23 @@
-Given /^a person called "([^"]*)"$/ do |name|
+Given(/^a person called "([^"]*)"$/) do |name|
   @person = create_person(name)
 end
 
-Given /^a person called "([^"]*)" exists with the biography "([^"]*)"$/ do |name, biography|
+Given(/^a person called "([^"]*)" exists with the biography "([^"]*)"$/) do |name, biography|
   create_person(name, biography: biography)
 end
 
-Given /^a person called "([^"]*)" exists with a translation for the locale "([^"]*)"$/ do |name, locale|
+Given(/^a person called "([^"]*)" exists with a translation for the locale "([^"]*)"$/) do |name, locale|
   person = create_person(name, biography: "Unimportant")
   add_translation_to_person(person, locale: locale, biography: 'Unimportant')
 end
 
-Given /^a person called "([^"]*)" exists in the role of "([^"]*)"$/ do |name, role_name|
+Given(/^a person called "([^"]*)" exists in the role of "([^"]*)"$/) do |name, role_name|
   @person = create_person(name)
   @role = create(:ministerial_role, supports_historical_accounts: true, name: role_name)
   create(:role_appointment, role: @role, person: @person)
 end
 
-Given /^"([^"]*)" is a minister with a history$/ do |name|
+Given(/^"([^"]*)" is a minister with a history$/) do |name|
   person = create_person(name, biography: "This is the first paragraph of the biography.\n\nThis is the second paragraph.")
   role = create(:ministerial_role)
   create(:ministerial_department, ministerial_roles: [role])
@@ -27,11 +27,11 @@ Given /^"([^"]*)" is a minister with a history$/ do |name|
   create(:role_appointment, role: role, person: person, started_at: 1.year.ago, ended_at: 6.months.ago)
 end
 
-When /^I visit the person page for "([^"]*)"$/ do |name|
+When(/^I visit the person page for "([^"]*)"$/) do |name|
   visit person_url(find_person(name))
 end
 
-When /^I add a new person called "([^"]*)"$/ do |name|
+When(/^I add a new person called "([^"]*)"$/) do |name|
   visit_people_admin
   click_link "Create person"
   fill_in_person_name name
@@ -40,7 +40,7 @@ When /^I add a new person called "([^"]*)"$/ do |name|
   click_button "Save"
 end
 
-When /^I update the person called "([^"]*)" to have the name "([^"]*)"$/ do |old_name, new_name|
+When(/^I update the person called "([^"]*)" to have the name "([^"]*)"$/) do |old_name, new_name|
   visit_people_admin
   click_link old_name
   click_on 'Edit'
@@ -49,18 +49,18 @@ When /^I update the person called "([^"]*)" to have the name "([^"]*)"$/ do |old
   click_button "Save"
 end
 
-When /^I remove the person "([^"]*)"$/ do |name|
+When(/^I remove the person "([^"]*)"$/) do |name|
   visit_people_admin
   click_link name
   click_button 'Delete'
 end
 
-When /^I add a new "([^"]*)" translation to the person "([^"]*)" with:$/ do |locale, name, table|
+When(/^I add a new "([^"]*)" translation to the person "([^"]*)" with:$/) do |locale, name, table|
   person = find_person(name)
   add_translation_to_person(person, table.rows_hash.merge(locale: locale))
 end
 
-When /^I edit the "([^"]*)" translation for the person called "([^"]*)" setting:$/ do |locale, name, table|
+When(/^I edit the "([^"]*)" translation for the person called "([^"]*)" setting:$/) do |locale, name, table|
   person = find_person(name)
   translation = table.rows_hash.stringify_keys
 
@@ -71,22 +71,22 @@ When /^I edit the "([^"]*)" translation for the person called "([^"]*)" setting:
   click_on "Save"
 end
 
-Then /^I should be able to see "([^"]*)" in the list of people$/ do |name|
+Then(/^I should be able to see "([^"]*)" in the list of people$/) do |name|
   visit_people_admin
   assert page.has_css?(".person .name", text: name)
 end
 
-Then /^I should not be able to see "([^"]*)" in the list of people$/ do |name|
+Then(/^I should not be able to see "([^"]*)" in the list of people$/) do |name|
   assert page.has_no_css?(".person .name", text: name)
 end
 
-Then /^I should see information about the person "([^"]*)"$/ do |name|
+Then(/^I should see information about the person "([^"]*)"$/) do |name|
   person = find_person(name)
   assert page.has_css?("h1", text: person.name)
   assert page.has_css?(".biography", text: person.biography)
 end
 
-Then /^I should see the worldwide organisation listed on his public page$/ do
+Then(/^I should see the worldwide organisation listed on his public page$/) do
   person = Person.last
   organisation = WorldwideOrganisation.last
   visit person_url(person)
@@ -97,7 +97,7 @@ Then /^I should see the worldwide organisation listed on his public page$/ do
   end
 end
 
-Then /^when viewing the person "([^"]*)" with the locale "([^"]*)" I should see:$/ do |name, locale, table|
+Then(/^when viewing the person "([^"]*)" with the locale "([^"]*)" I should see:$/) do |name, locale, table|
   person = find_person(name)
   translation = table.rows_hash
   visit person_path(person)
@@ -105,7 +105,7 @@ Then /^when viewing the person "([^"]*)" with the locale "([^"]*)" I should see:
   assert page.has_css?('.biography', text: translation["biography"]), "Biography wasn't present"
 end
 
-Then(/^I should see limited information about the person "(.*?)"$/) do |name|
+Then(/^I should see limited information about the person "(.*?)"$/) do |_name|
   assert page.has_css?('.biography', text: "This is the first paragraph of the biography."), "Biography wasn't present"
   assert page.has_no_content?("This is the second paragraph.")
   assert page.has_no_css?('a[href="#current-roles"]')

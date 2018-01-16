@@ -1,0 +1,21 @@
+AllCops:
+  Exclude:
+    - 'db/schema.rb'
+    - 'lib/tasks/cucumber.rake'
+
+Metrics/BlockLength:
+  Enabled: false
+
+Naming/VariableNumber:
+  EnforcedStyle: snake_case
+
+Style/FormatStringToken:
+  Exclude:
+    - 'config/routes.rb'
+
+Style/MethodMissing:
+  Exclude:
+    - 'app/helpers/admin/edition_routes_helper.rb'
+    - 'app/presenters/edition_collection_presenter.rb'
+    - 'features/support/retrospective_stub.rb'
+    - 'lib/localised_model.rb'

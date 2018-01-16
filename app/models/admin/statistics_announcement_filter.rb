@@ -13,8 +13,8 @@ module Admin
       scope = unfiltered_scope
       scope = scope.with_title_containing(options[:title]) if options[:title].present?
       scope = scope.in_organisations([options[:organisation_id]]) if options[:organisation_id].present?
-      scope = scope.merge( unlinked_scope ) if unlinked_only?
-      scope = scope.merge( date_and_order_scope )
+      scope = scope.merge(unlinked_scope) if unlinked_only?
+      scope = scope.merge(date_and_order_scope)
       scope
     end
 

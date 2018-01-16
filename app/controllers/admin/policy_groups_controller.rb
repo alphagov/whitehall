@@ -39,6 +39,7 @@ class Admin::PolicyGroupsController < Admin::BaseController
   end
 
 private
+
   def enforce_permissions!
     enforce_permission!(:delete, PolicyGroup)
   end

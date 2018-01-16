@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :case_study, class: CaseStudy, parent: :edition_with_organisations do
     title "case-study-title"
     summary "case-study-summary"
-    body  "case-study-body"
+    body "case-study-body"
   end
 
   factory :imported_case_study, parent: :case_study, traits: [:imported]

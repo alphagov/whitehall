@@ -18,7 +18,7 @@ class CsvPreview
     end
     ensure_csv_data_is_well_formed
   rescue ArgumentError => e
-    if e.message =~ /invalid byte sequence/
+    if e.message.match?(/invalid byte sequence/)
       raise_encoding_error
     else
       raise
@@ -29,7 +29,7 @@ class CsvPreview
 
   def each_row
     (0...maximum_rows).each do
-      if row = @csv.shift
+      if (row = @csv.shift)
         if row.size > maximum_columns
           @truncated_columns = true
           yield row[0..maximum_columns]
@@ -82,12 +82,12 @@ private
 
   def encoding
     @encoding ||= if utf_8_encoding?
-      'UTF-8'
-    elsif windows_1252_encoding?
-      'windows-1252'
-    else
-      raise FileEncodingError, 'File encoding not recognised'
-    end
+                    'UTF-8'
+                  elsif windows_1252_encoding?
+                    'windows-1252'
+                  else
+                    raise FileEncodingError, 'File encoding not recognised'
+                  end
   end
 
   def utf_8_encoding?

@@ -60,12 +60,12 @@ class LatestControllerTest < ActionController::TestCase
   test 'GET :index should accept pagination parameters' do
     organisation = create(:organisation)
 
-    policy_paper = create(:published_policy_paper,
-                          organisations: [organisation],
-                          first_published_at: 1.day.ago)
-    detailed_guide = create(:published_detailed_guide,
-                            organisations: [organisation],
-                            first_published_at: 2.days.ago)
+    create(:published_policy_paper, organisations: [organisation],
+           first_published_at: 1.day.ago)
+
+    create(:published_detailed_guide,
+           organisations: [organisation],
+           first_published_at: 2.days.ago)
 
     get :index, params: { departments: [organisation], page: 2 }
 

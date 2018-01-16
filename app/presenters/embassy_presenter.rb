@@ -17,13 +17,11 @@ class EmbassyPresenter < SimpleDelegator
   def embassy_path
     if SPECIAL_CASES.key?(name)
       link_to(SPECIAL_CASES[name][:building], SPECIAL_CASES[name][:base_path])
-    else
-      if organisation
-        link_to(
-          organisation.name,
-          worldwide_organisation_path(organisation.slug)
-        )
-      end
+    elsif organisation
+      link_to(
+        organisation.name,
+        worldwide_organisation_path(organisation.slug)
+      )
     end
   end
 
@@ -107,5 +105,5 @@ private
       location: "Indonesia",
       base_path: "/government/world/organisations/british-embassy-jakarta",
     },
-  }
+  }.freeze
 end

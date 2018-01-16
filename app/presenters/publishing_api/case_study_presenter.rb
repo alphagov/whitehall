@@ -30,13 +30,13 @@ module PublishingApi
 
     def links
       LinksPresenter.new(item).extract(
-        [
-          :organisations,
-          :parent,
-          :related_policies,
-          :topics,
-          :world_locations,
-          :worldwide_organisations,
+        %i[
+          organisations
+          parent
+          related_policies
+          topics
+          world_locations
+          worldwide_organisations
         ]
       )
     end

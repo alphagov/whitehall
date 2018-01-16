@@ -1,5 +1,4 @@
 module WorldLocationHelper
-
   def group_and_sort(locations)
     locations.
       # transliterate name for sorting once, we're going to use it twice:
@@ -34,5 +33,4 @@ module WorldLocationHelper
       end
     end
   end
-
 end

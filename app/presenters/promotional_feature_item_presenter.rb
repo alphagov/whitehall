@@ -1,5 +1,4 @@
 class PromotionalFeatureItemPresenter < Whitehall::Decorators::Decorator
-
   delegate_instance_methods_of PromotionalFeatureItem
 
   def css_classes
@@ -49,6 +48,6 @@ class PromotionalFeatureItemPresenter < Whitehall::Decorators::Decorator
   end
 
   def title_link
-    context.link_to(model.title, model.title_url, ({rel: 'external'} if context.is_external?(model.title_url)))
+    context.link_to(model.title, model.title_url, ({ rel: 'external' } if context.is_external?(model.title_url)))
   end
 end

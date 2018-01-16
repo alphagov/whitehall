@@ -1,7 +1,6 @@
 require "test_helper"
 
 class Edition::WorldwideOrganisationsTest < ActiveSupport::TestCase
-
   test "can be associated with worldwide organisations" do
     assert CaseStudy.new.can_be_associated_with_worldwide_organisations?
   end

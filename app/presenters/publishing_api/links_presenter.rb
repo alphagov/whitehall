@@ -10,7 +10,7 @@ module PublishingApi
       parent: :parent_content_ids,
       world_locations: :world_location_ids,
       worldwide_organisations: :worldwide_organisation_ids,
-    }
+    }.freeze
 
     def initialize(item)
       @item = item

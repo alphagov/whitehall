@@ -12,7 +12,6 @@ class ClassificationFeaturingTest < ActiveSupport::TestCase
 
     classification_featuring = ClassificationFeaturing.find(classification_featuring.id)
 
-    assert_match /minister-of-funk/, classification_featuring.image.file.url
+    assert_match(/minister-of-funk/, classification_featuring.image.file.url)
   end
-
 end

@@ -3,7 +3,8 @@ module SyncChecker
     class HtmlAttachmentCheck
       def self.scope
         HtmlAttachment.where(
-          attachable_id: Edition.where(state: %w(draft published withdrawn)).pluck(:id))
+          attachable_id: Edition.where(state: %w(draft published withdrawn)).pluck(:id)
+        )
       end
 
       def self.scope_with_ids(ids)

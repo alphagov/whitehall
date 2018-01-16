@@ -1,5 +1,5 @@
 namespace :wlna do
-  task :migrate_to_news_article, [:start_document_id, :end_document_id] => :environment do |_t, args|
+  task :migrate_to_news_article, %i[start_document_id end_document_id] => :environment do |_t, args|
     start_id = args[:start_document_id]
     end_id = args[:end_document_id]
     raise "start_document_id and end_document_id must be supplied" unless start_id && end_id

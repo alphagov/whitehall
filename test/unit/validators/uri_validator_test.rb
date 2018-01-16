@@ -41,7 +41,7 @@ class UriValidatorTest < ActiveSupport::TestCase
     assert_equal ['is not valid.'], feature_link.errors[:url]
   end
 
-  private
+private
 
   def validate(record)
     @validator.validate(record)

@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class PromotionalFeatureTest < ActiveSupport::TestCase
-
   test 'A feature with three items has reached its limit' do
     feature = create(:promotional_feature)
 

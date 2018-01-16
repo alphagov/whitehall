@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :statistical_data_set, class: StatisticalDataSet, parent: :edition, traits: [:with_organisations, :with_topics] do
+  factory :statistical_data_set, class: StatisticalDataSet, parent: :edition, traits: %i[with_organisations with_topics] do
     title   "statistical-data-set-title"
     body    "statistical-data-set-body"
     summary "statistical-data-set-summary"

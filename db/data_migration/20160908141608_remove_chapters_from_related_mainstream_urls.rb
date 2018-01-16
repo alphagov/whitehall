@@ -17,19 +17,17 @@ def validate_url_content_id(url)
   content_id
 end
 
-def detailed_guide?(id, url)
+def detailed_guide?(_id, url)
   url.start_with?("https://www.gov.uk/guidance/")
 end
 
 def update_mainstream_url(id, clean_url)
   detailed_guide = DetailedGuide.find(id)
-  incorrect_url = detailed_guide.related_mainstream_content_url
   detailed_guide.update_attribute(:related_mainstream_content_url, clean_url)
 end
 
 def update_additional_related_mainstream_url(id, clean_url)
   detailed_guide = DetailedGuide.find(id)
-  incorrect_url = detailed_guide.additional_related_mainstream_content_url
   detailed_guide.update_attribute(:additional_related_mainstream_content_url, clean_url)
 end
 
@@ -42,18 +40,22 @@ def clean_the_url(url)
   clean_url
 end
 
-related_mainstream_content_urls = DetailedGuide.select(
-                                    :id,
-                                    :related_mainstream_content_url
-                                  ).where([
-                                    "related_mainstream_content_url IS NOT NULL
-                                    AND related_mainstream_content_url != ''
-                                    AND state != 'superseded'"
-                                  ])
+related_mainstream_content_urls = DetailedGuide
+                                    .select(
+                                      :id,
+                                      :related_mainstream_content_url,
+                                    )
+                                    .where(
+                                      [
+                                        "related_mainstream_content_url IS NOT NULL " \
+                                        "AND related_mainstream_content_url != '' " \
+                                        "AND state != 'superseded'"
+                                      ]
+                                    )
 puts "#{related_mainstream_content_urls.length} Related mainstream content urls"
 related_mainstream_content_urls.each do |detailed_guide|
   next if detailed_guide?(detailed_guide[:id], detailed_guide[:related_mainstream_content_url])
-  content_id =  validate_url_content_id(detailed_guide[:related_mainstream_content_url])
+  content_id = validate_url_content_id(detailed_guide[:related_mainstream_content_url])
   if content_id.nil?
     chopped_url = clean_the_url(detailed_guide[:related_mainstream_content_url])
     content_id = validate_url_content_id(chopped_url) if chopped_url
@@ -62,14 +64,18 @@ related_mainstream_content_urls.each do |detailed_guide|
   puts "Content item not found: #{detailed_guide[:id]}, #{detailed_guide[:related_mainstream_content_url]}" if content_id.nil?
 end
 
-additional_related_mainstream_content_urls = DetailedGuide.select(
-                                    :id,
-                                    :additional_related_mainstream_content_url
-                                  ).where([
-                                    "additional_related_mainstream_content_url IS NOT NULL
-                                    AND additional_related_mainstream_content_url != ''
-                                    AND state != 'superseded'"
-                                  ])
+additional_related_mainstream_content_urls = DetailedGuide
+                                               .select(
+                                                 :id,
+                                                 :additional_related_mainstream_content_url
+                                               )
+                                               .where(
+                                                 [
+                                                   "additional_related_mainstream_content_url IS NOT NULL " \
+                                                   "AND additional_related_mainstream_content_url != ''" \
+                                                   "AND state != 'superseded'"
+                                                 ]
+                                               )
 puts "\n#{additional_related_mainstream_content_urls.length} Additional related mainstream content urls"
 
 additional_related_mainstream_content_urls.each do |detailed_guide|

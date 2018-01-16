@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class Admin::TaggableContentHelperTest < ActionView::TestCase
-
   test '#taggable_topics_container returns an array of name/ID pairs for all Topics' do
     topic_b = create(:topic, name: 'Topic B')
     topic_a = create(:topic, name: 'Topic A')
@@ -91,9 +90,9 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     clinton = create(:person, surname: 'Clinton', forename: 'George')
     richard = create(:person, surname: 'Richard', forename: 'Little')
 
-    minister_appointment      = create(:role_appointment, role: minister, person: brown)
+    minister_appointment     = create(:role_appointment, role: minister, person: brown)
     board_member_appointment = create(:role_appointment, role: board_member, person: clinton)
-    old_minister_appointment  = create(:role_appointment,
+    old_minister_appointment = create(:role_appointment,
                                           role: minister,
                                           person: richard,
                                           started_at: Date.new(1932, 12, 5),
@@ -125,7 +124,7 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
   test '#taggable_detailed_guides_container returns an array of label/ID pairs for all active detailed guides' do
     guide_b = create(:published_detailed_guide, title: 'Guide B')
     guide_a = create(:draft_detailed_guide, title: 'Guide A')
-    guide_x = create(:superseded_detailed_guide, title: 'Guide X')
+    _guide_x = create(:superseded_detailed_guide, title: 'Guide X')
     guide_c = create(:submitted_detailed_guide, title: 'Guide C')
 
     assert_equal [
@@ -173,16 +172,16 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
   end
 
   test '#taggable_document_collection_groups_container returns an array of label/ID pairs for document collection groups' do
-    group1 = create(:document_collection_group, heading: 'Group 1')
-    group2 = create(:document_collection_group, heading: 'Group 2')
-    group3 = create(:document_collection_group, heading: 'Group 3')
-    collection1 = create(:document_collection, title: 'Collection 1', groups: [group1])
-    collection2 = create(:document_collection, title: 'Collection 2', groups: [group2, group3])
+    group_1 = create(:document_collection_group, heading: 'Group 1')
+    group_2 = create(:document_collection_group, heading: 'Group 2')
+    group_3 = create(:document_collection_group, heading: 'Group 3')
+    create(:document_collection, title: 'Collection 1', groups: [group_1])
+    create(:document_collection, title: 'Collection 2', groups: [group_2, group_3])
 
     assert_equal [
-      ["Collection 1 (Group 1)", group1.id],
-      ["Collection 2 (Group 2)", group2.id],
-      ["Collection 2 (Group 3)", group3.id],
+      ["Collection 1 (Group 1)", group_1.id],
+      ["Collection 2 (Group 2)", group_2.id],
+      ["Collection 2 (Group 3)", group_3.id],
     ], taggable_document_collection_groups_container
   end
 
@@ -199,7 +198,7 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
   end
 
   test '#taggable_worldwide_organisations_container only returns worldwide organisations once even if they have more than one translation' do
-    world_org_1 = create(:worldwide_organisation, name: 'World Org 1', translated_into: [:fr, :es])
+    world_org_1 = create(:worldwide_organisation, name: 'World Org 1', translated_into: %i[fr es])
     world_org_2 = create(:worldwide_organisation, name: 'World Org 2')
 
     assert_equal [

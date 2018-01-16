@@ -1,19 +1,19 @@
 module Admin::EditionsHelper
-
   def edition_type(edition)
-    if (edition.is_a?(Speech) && edition.speech_type.written_article?)
-      type = edition.speech_type.singular_name
-    else
-      type = edition.type.underscore.humanize
-    end
+    type = if edition.is_a?(Speech) && edition.speech_type.written_article?
+             edition.speech_type.singular_name
+           else
+             edition.type.underscore.humanize
+           end
 
     [type, edition.display_type].compact.uniq.join(": ")
   end
 
   def nested_attribute_destroy_checkbox_options(form, html_args = {})
-    checked_value, unchecked_value = '0', '1'
+    checked_value = '0'
+    unchecked_value = '1'
     checked = form.object[:_destroy].present? ? (form.object[:_destroy] == checked_value) : form.object.persisted?
-    [html_args.merge({ checked: checked }), checked_value, unchecked_value]
+    [html_args.merge(checked: checked), checked_value, unchecked_value]
   end
 
   def admin_documents_header_link
@@ -41,17 +41,17 @@ module Admin::EditionsHelper
     organisations = Organisation.with_translations(:en).order(:name).excluding_govuk_status_closed || []
     closed_organisations = Organisation.with_translations(:en).closed || []
     if current_user.organisation
-        organisations = [current_user.organisation] + (organisations - [current_user.organisation])
+      organisations = [current_user.organisation] + (organisations - [current_user.organisation])
     end
 
     options_for_select([["All organisations", ""]], selected_organisation) +
-    grouped_options_for_select(
-      [
-        ["Live organisations", organisations.map { |o| [o.select_name, o.id] }],
-        ["Closed organisations", closed_organisations.map { |o| [o.select_name, o.id] }]
-      ],
-      selected_organisation
-    )
+      grouped_options_for_select(
+        [
+          ["Live organisations", organisations.map { |o| [o.select_name, o.id] }],
+          ["Closed organisations", closed_organisations.map { |o| [o.select_name, o.id] }]
+        ],
+        selected_organisation
+      )
   end
 
   def admin_author_filter_options(current_user)
@@ -63,13 +63,13 @@ module Admin::EditionsHelper
     [
       ["All states", 'active'],
       ["Imported (pre-draft)", 'imported'],
-      ["Draft", 'draft'],
-      ["Submitted", 'submitted'],
-      ["Rejected", 'rejected'],
-      ["Scheduled", 'scheduled'],
-      ["Published", 'published'],
+      %w[Draft draft],
+      %w[Submitted submitted],
+      %w[Rejected rejected],
+      %w[Scheduled scheduled],
+      %w[Published published],
       ["Force published (not reviewed)", 'force_published'],
-      ['Withdrawn', 'withdrawn']
+      %w[Withdrawn withdrawn]
     ]
   end
 
@@ -114,18 +114,18 @@ module Admin::EditionsHelper
   # Edition::Organisations mixin module to see why this is required.
   def lead_organisation_id_at_index(edition, index)
     edition.edition_organisations.
-            select { |eo| eo.lead? }.
-            sort_by { |eo| eo.lead_ordering }[index].try(:organisation_id)
+            select(&:lead?).
+            sort_by(&:lead_ordering)[index].try(:organisation_id)
   end
 
   # As above for the lead_organisation_id_at_index helper, this helper is
   # required to identify the selected supporting organisation at a given index
   # in the list supporting organisations for the edition.
   def supporting_organisation_id_at_index(edition, index)
-    edition.edition_organisations.reject { |eo| eo.lead? }[index].try(:organisation_id)
+    edition.edition_organisations.reject(&:lead?)[index].try(:organisation_id)
   end
 
-  def standard_edition_form(edition, &blk)
+  def standard_edition_form(edition)
     initialise_script "GOVUK.adminEditionsForm", selector: '.js-edition-form', right_to_left_locales: Locale.right_to_left.collect(&:to_param)
 
     form_classes = ["edition-form js-edition-form"]
@@ -157,23 +157,21 @@ module Admin::EditionsHelper
       else
         url_for([:edit, :admin, edition.owning_organisation, edition])
       end
+    elsif edition.new_record?
+      url_for([:new, :admin, edition.class.model_name.param_key])
     else
-      if edition.new_record?
-        url_for([:new, :admin, edition.class.model_name.param_key])
-      else
-        url_for([:edit, :admin, edition])
-      end
+      url_for([:edit, :admin, edition])
     end
   end
 
   def default_edition_tabs(edition)
     { 'Document' => tab_url_for_edition(edition) }.tap do |tabs|
       if edition.allows_attachments? && edition.persisted?
-        text = if edition.attachments.count > 0
-          "Attachments <span class='badge'>#{edition.attachments.count}</span>".html_safe
-        else
-          "Attachments"
-        end
+        text = if edition.attachments.count.positive?
+                 "Attachments <span class='badge'>#{edition.attachments.count}</span>".html_safe
+               else
+                 "Attachments"
+               end
         tabs[text] = admin_edition_attachments_path(edition)
       end
 
@@ -223,7 +221,7 @@ module Admin::EditionsHelper
 
   def warn_about_lack_of_contacts_in_body?(edition)
     if edition.is_a?(NewsArticle) && edition.news_article_type == NewsArticleType::PressRelease
-      (govspeak_embedded_contacts(edition.body).size < 1)
+      govspeak_embedded_contacts(edition.body).empty?
     else
       false
     end

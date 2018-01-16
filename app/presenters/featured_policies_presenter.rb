@@ -14,8 +14,8 @@ class FeaturedPoliciesPresenter
     @links = links || {}
   end
 
-  def each(&block)
-    policies.each { |policy| block.call(policy) }
+  def each
+    policies.each { |policy| yield(policy) }
   end
 
 private

@@ -8,7 +8,7 @@ class NoFootnotesInGovspeakValidator < ActiveModel::Validator
 
   def validate(record)
     @record = record
-    @attributes.each {|attribute_name| validate_attribute_contains_no_footnotes(attribute_name) }
+    @attributes.each { |attribute_name| validate_attribute_contains_no_footnotes(attribute_name) }
   end
 
 private

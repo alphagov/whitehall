@@ -68,7 +68,7 @@ class Admin::GenericEditionsController::DeletingDocumentsTest < ActionController
   end
 
   test "destroy notifies the publishing API of the deleted document" do
-    draft_edition = create(:draft_edition, translated_into: [:es, :fr])
+    draft_edition = create(:draft_edition, translated_into: %i[es fr])
     delete :destroy, params: { id: draft_edition }
 
     %w[en es fr].each do |locale|

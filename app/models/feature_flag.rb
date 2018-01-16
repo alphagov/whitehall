@@ -5,7 +5,7 @@ class FeatureFlag < ApplicationRecord
   end
 
   def self.enabled?(name)
-    if flag = find_by(key: name)
+    if (flag = find_by(key: name))
       flag.enabled
     else
       false
@@ -13,7 +13,7 @@ class FeatureFlag < ApplicationRecord
   end
 
   def self.destroy(key)
-    if flag = find_by(key: key)
+    if (flag = find_by(key: key))
       flag.destroy
     end
   end

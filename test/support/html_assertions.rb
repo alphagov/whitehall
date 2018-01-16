@@ -7,13 +7,13 @@ module HtmlAssertions
 
   def refute_select(selector, *args)
     options = args.last.is_a?(Hash) ? args.pop : {}
-    options.merge!(count: 0)
+    options[:count] = 0
     args.push(options)
     assert_select selector, *args
   end
 
   def assert_select_object(object, *args, &block)
-    object = object.kind_of?(Attachment) ? object.becomes(Attachment) : object
+    object = object.is_a?(Attachment) ? object.becomes(Attachment) : object
     assert_select record_css_selector(object), *args, &block
   end
 
@@ -44,7 +44,7 @@ module HtmlAssertions
   end
 
   def assert_has_link(expected_text, expected_href, html_fragment)
-    assert html_fragment.at_xpath(".//a[.='#{expected_text}'][@href='#{expected_href}']").present?, "Expected\n#{html_fragment.to_s} to include a link with text \"#{expected_text}\" and href \"#{expected_href}\"."
+    assert html_fragment.at_xpath(".//a[.='#{expected_text}'][@href='#{expected_href}']").present?, "Expected\n#{html_fragment} to include a link with text \"#{expected_text}\" and href \"#{expected_href}\"."
   end
 
   def assert_has_meta_tag(name, content)

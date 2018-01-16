@@ -72,7 +72,7 @@ class PromotionalFeatureItemPresenterTest < ActionView::TestCase
       item_presenter(title: 'Optional title with link', title_url: "http://external.com").title
   end
 
-  private
+private
 
   def item_presenter(attributes = {})
     PromotionalFeatureItemPresenter.new(build(:promotional_feature_item, attributes), @view_context)

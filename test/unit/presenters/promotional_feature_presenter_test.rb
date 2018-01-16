@@ -39,7 +39,7 @@ class PromotionalFeaturePresenterTest < ActionView::TestCase
     assert_equal 'clear-promo', feature_presenter([], 6).clear_class
   end
 
-  private
+private
 
   def feature_presenter(items = [], position = 0)
     PromotionalFeaturePresenter.new(build(:promotional_feature, promotional_feature_items: items), position, @view_context)

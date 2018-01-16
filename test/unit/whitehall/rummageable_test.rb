@@ -169,7 +169,7 @@ class RummageableTest < ActiveSupport::TestCase
     new_document = { 'title' => 'Cheese', 'indexable_content' => 'Blah' }
     stub_request(:post, link_url).with(body: new_document).to_return(status(200))
     index = Whitehall::Rummageable::Index.new(rummager_url, index_name)
-    index.amend(link, { 'title' => 'Cheese', 'indexable_content' => 'Blah' })
+    index.amend(link, 'title' => 'Cheese', 'indexable_content' => 'Blah')
     assert_requested :post, link_url, body: new_document
   end
 

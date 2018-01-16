@@ -16,7 +16,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   rescue_from ActiveRecord::RecordInvalid do
     redirect_to admin_edition_path(@edition),
       alert: "Unable to #{action_name_as_human_interaction(params[:action])} because it is invalid (#{@edition.errors.full_messages.to_sentence}). " +
-             "Please edit it and try again."
+        "Please edit it and try again."
   end
 
   rescue_from Transitions::InvalidTransition do
@@ -72,7 +72,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
 
   def confirm_force_publish
     unless @edition.valid?(:publish)
-      return redirect_to admin_edition_path(@edition), alert: @edition.errors[:base].join('. ')
+      redirect_to admin_edition_path(@edition), alert: @edition.errors[:base].join('. ')
     end
   end
 
@@ -97,7 +97,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
     @service_object = withdrawer_or_unpublisher_for(@edition)
 
     if @service_object.perform!
-     redirect_to admin_edition_path(@edition), notice: unpublish_success_notice
+      redirect_to admin_edition_path(@edition), notice: unpublish_success_notice
     else
       @unpublishing = @edition.unpublishing
       flash.now[:alert] = @service_object.failure_reason
@@ -105,8 +105,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
     end
   end
 
-  def confirm_unwithdraw
-  end
+  def confirm_unwithdraw; end
 
   def unwithdraw
     edition_unwithdrawer = Whitehall.edition_services.unwithdrawer(@edition, user: current_user)
@@ -162,7 +161,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
       notice: "The imported document #{@edition.title} has been converted into a draft"
   end
 
-  private
+private
 
   def force_publish_reason
     "Force published: #{params[:reason]}"
@@ -174,7 +173,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
     end
   end
 
-  def withdrawer_or_unpublisher_for(edition)
+  def withdrawer_or_unpublisher_for(_edition)
     if withdrawing?
       Whitehall.edition_services.withdrawer(@edition, user: current_user, remark: "Withdrawn", unpublishing: unpublishing_params)
     else

@@ -1,6 +1,6 @@
 class Admin::HistoricalAccountsController < Admin::BaseController
   before_action :load_person
-  before_action :load_historical_account, only: [:edit, :update, :destroy]
+  before_action :load_historical_account, only: %i[edit update destroy]
 
   def index
     @historical_accounts = @person.historical_accounts.includes(roles: :translations)
@@ -19,8 +19,7 @@ class Admin::HistoricalAccountsController < Admin::BaseController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @historical_account.update_attributes(historical_account_params)
@@ -35,7 +34,7 @@ class Admin::HistoricalAccountsController < Admin::BaseController
     redirect_to admin_person_historical_accounts_url(@person), notice: 'Historical account deleted'
   end
 
-  private
+private
 
   def load_person
     @person = Person.friendly.find(params[:person_id])

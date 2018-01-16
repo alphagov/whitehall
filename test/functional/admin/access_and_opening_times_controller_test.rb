@@ -46,8 +46,10 @@ class Admin::AccessAndOpeningTimesControllerTest < ActionController::TestCase
 
   test "GET on :edit sets the default body for an office if a default is available" do
     worldwide_organisation = create(:worldwide_organisation)
-    access_and_opening_times = create(:access_and_opening_times, accessible: worldwide_organisation, body: 'default from org')
     worldwide_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
+
+    create(:access_and_opening_times, accessible: worldwide_organisation, body: 'default from org')
+
     get :edit, params: { worldwide_organisation_id: worldwide_organisation, worldwide_office_id: worldwide_office }
 
     assert_response :success
@@ -59,8 +61,10 @@ class Admin::AccessAndOpeningTimesControllerTest < ActionController::TestCase
 
   test "GET on :edit builds an access and opening times instance for the office, even when the org already has one" do
     worldwide_organisation = create(:worldwide_organisation)
-    access_and_opening_times = create(:access_and_opening_times, accessible: worldwide_organisation)
     worldwide_office = create(:worldwide_office, worldwide_organisation: worldwide_organisation)
+
+    create(:access_and_opening_times, accessible: worldwide_organisation)
+
     get :edit, params: { worldwide_organisation_id: worldwide_organisation, worldwide_office_id: worldwide_office }
 
     assert_response :success

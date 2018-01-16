@@ -3,7 +3,7 @@ module PublishingApi
     attr_accessor :item
     attr_accessor :update_type
 
-    def initialize(item, update_type: nil)
+    def initialize(item, update_type: nil) # rubocop:disable Lint/UnusedMethodArgument
       self.item = item
       self.update_type = "minor"
     end
@@ -29,12 +29,8 @@ module PublishingApi
       content.merge!(PayloadBuilder::PolymorphicPath.for(item))
     end
 
-
     def links
-      LinksPresenter.new(item).extract([
-        :organisations,
-        :policy_areas,
-      ])
+      LinksPresenter.new(item).extract(%i[organisations policy_areas])
     end
 
   private
@@ -49,14 +45,16 @@ module PublishingApi
         state: item.state,
         format_sub_type: format_sub_type
       }.tap do |d|
-        d.merge!(
-          cancellation_reason: item.cancellation_reason,
-          cancelled_at: cancelled_at
-        ) if item.cancelled?
-        d.merge!(
-          previous_display_date: item.previous_display_date,
-          latest_change_note: item.last_change_note
-        ) if item.previous_display_date
+        if item.cancelled?
+          d[:cancellation_reason] = item.cancellation_reason
+          d[:cancelled_at] = cancelled_at
+        end
+        if item.previous_display_date
+          d.merge!(
+            previous_display_date: item.previous_display_date,
+            latest_change_note: item.last_change_note
+          )
+        end
       end
     end
 

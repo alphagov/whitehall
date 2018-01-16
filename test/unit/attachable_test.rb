@@ -53,12 +53,12 @@ class AttachableTest < ActiveSupport::TestCase
   end
 
   test "should be invalid if an edition has an attachment but not yet passed virus scanning" do
+    create(:departmental_editor)
     attachment = build(:file_attachment)
     attachment.stubs(:virus_status).returns :infected
     publication = create(:publication, :with_alternative_format_provider, attachments: [attachment])
     publication.skip_virus_status_check = false
     assert publication.valid?
-    user = create(:departmental_editor)
     publication.change_note = "change-note"
     assert_raise(ActiveRecord::RecordInvalid, "Validation failed: Attachments must have passed virus scanning") { force_publish(publication) }
     refute publication.published?
@@ -106,15 +106,22 @@ class AttachableTest < ActiveSupport::TestCase
   end
 
   test 'should include attachment details into the #search_index' do
-    edition = create(:publication, :with_file_attachment, attachments: [
-      attachment = build(:file_attachment, title: "The title of the attachment",
-                                           hoc_paper_number: "1234", parliamentary_session: '2013-14',
-                                           command_paper_number: "Cm. 1234", unique_reference: "w123",
-                                           isbn: "0140620222"
-      )
-    ])
+    attachment = build(:file_attachment,
+                       title: "The title of the attachment",
+                       hoc_paper_number: "1234",
+                       parliamentary_session: '2013-14',
+                       command_paper_number: "Cm. 1234",
+                       unique_reference: "w123",
+                       isbn: "0140620222")
 
-    index = edition.attachments.to_a.index { |attachment| attachment.kind_of?(FileAttachment) }
+    edition = create(:publication,
+                     :with_file_attachment,
+                     attachments: [attachment])
+
+    index = edition
+              .attachments
+              .to_a
+              .index { |edition_attachment| edition_attachment.is_a?(FileAttachment) }
 
     assert_equal "The title of the attachment", edition.search_index['attachments'][index][:title]
     assert_equal attachment.isbn, edition.search_index['attachments'][index][:isbn]
@@ -124,12 +131,12 @@ class AttachableTest < ActiveSupport::TestCase
   end
 
   test 'should include html_attachment content into the #search_index' do
-    edition = create(:publication, :with_html_attachment, attachments: [
-      build(:html_attachment, title: "The title of the HTML attachment",
-                                           unique_reference: "w123",
-                                           body: "##Test HTML attachment"
-      )
-    ])
+    attachment = build(:html_attachment,
+                       title: "The title of the HTML attachment",
+                       unique_reference: "w123",
+                       body: "##Test HTML attachment")
+
+    edition = create(:publication, :with_html_attachment, attachments: [attachment])
 
     assert_equal "The title of the HTML attachment", edition.search_index['attachments'][0][:title]
     assert_equal "w123", edition.search_index['attachments'][0][:unique_reference]
@@ -181,12 +188,13 @@ class AttachableTest < ActiveSupport::TestCase
   end
 
   test 'has html_attachments association to fetch only HtmlAttachments' do
-    publication = create(:publication, :with_file_attachment, attachments: [
-      attachment_1 = build(:file_attachment, ordering: 0),
-      attachment_2 = build(:html_attachment, title: "Test HTML attachment", ordering: 1),
-    ])
-
+    attachment_1 = build(:file_attachment, ordering: 0)
+    attachment_2 = build(:html_attachment, title: "Test HTML attachment", ordering: 1)
     attachment_3 = build(:html_attachment, title: 'Title', body: "Testing")
+
+    publication = create(:publication, :with_file_attachment,
+                         attachments: [attachment_1, attachment_2])
+
     publication.attachments << attachment_3
 
     assert_equal [attachment_2, attachment_3], publication.html_attachments.reload
@@ -213,36 +221,37 @@ class AttachableTest < ActiveSupport::TestCase
   test '#has_command_paper? is true if an attachment is a command paper' do
     pub = build(:publication)
     pub.stubs(:attachments).returns([
-      OpenStruct.new(is_command_paper?: false)
-    ])
+                                      OpenStruct.new(is_command_paper?: false)
+                                    ])
     refute pub.has_command_paper?
 
     pub.stubs(:attachments).returns([
-      OpenStruct.new(is_command_paper?: false),
-      OpenStruct.new(is_command_paper?: true)
-    ])
+                                      OpenStruct.new(is_command_paper?: false),
+                                      OpenStruct.new(is_command_paper?: true)
+                                    ])
     assert pub.has_command_paper?
   end
 
   test '#has_act_paper? is true if an attachment is an act paper' do
     pub = build(:publication)
     pub.stubs(:attachments).returns([
-      OpenStruct.new(is_act_paper?: false)
-    ])
+                                      OpenStruct.new(is_act_paper?: false)
+                                    ])
     refute pub.has_act_paper?
 
     pub.stubs(:attachments).returns([
-      OpenStruct.new(is_act_paper?: false),
-      OpenStruct.new(is_act_paper?: true)
-    ])
+                                      OpenStruct.new(is_act_paper?: false),
+                                      OpenStruct.new(is_act_paper?: true)
+                                    ])
     assert pub.has_act_paper?
   end
 
   test 're-editioned editions deep-clones attachments' do
     file_attachment = build(:file_attachment, attachable: nil, ordering: 0)
     html_attachment = build(:html_attachment, attachable: nil, ordering: 1)
-    publication = create(:published_publication, :with_alternative_format_provider,
-                    attachments: [file_attachment, html_attachment])
+    publication = create(:published_publication,
+                         :with_alternative_format_provider,
+                         attachments: [file_attachment, html_attachment])
 
     draft = publication.create_draft(create(:writer))
 

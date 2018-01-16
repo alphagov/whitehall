@@ -11,16 +11,16 @@ class EditionScheduler < EditionService
 
   def failure_reason
     @failure_reason ||= if !edition.valid?
-      "This edition is invalid: #{edition.errors.full_messages.to_sentence}"
-    elsif !can_transition?
-      "An edition that is #{edition.current_state} cannot be #{past_participle}"
-    elsif edition.scheduled_publication.blank?
-      "This edition does not have a scheduled publication date set"
-    elsif scheduled_publication_is_not_within_cache_limit?
-      "Scheduled publication date must be at least #{Whitehall.default_cache_max_age / 60} minutes from now"
-    elsif DataHygiene::GovspeakLinkValidator.new(edition.body).errors.any?
-      "This edition contains bad links"
-    end
+                          "This edition is invalid: #{edition.errors.full_messages.to_sentence}"
+                        elsif !can_transition?
+                          "An edition that is #{edition.current_state} cannot be #{past_participle}"
+                        elsif edition.scheduled_publication.blank?
+                          "This edition does not have a scheduled publication date set"
+                        elsif scheduled_publication_is_not_within_cache_limit?
+                          "Scheduled publication date must be at least #{Whitehall.default_cache_max_age / 60} minutes from now"
+                        elsif DataHygiene::GovspeakLinkValidator.new(edition.body).errors.any?
+                          "This edition contains bad links"
+                        end
   end
 
 private

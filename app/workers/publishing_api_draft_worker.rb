@@ -1,5 +1,5 @@
 class PublishingApiDraftWorker < PublishingApiWorker
-  def send_item(payload, locale = nil)
+  def send_item(payload, _locale = nil)
     save_draft(payload)
   end
 end

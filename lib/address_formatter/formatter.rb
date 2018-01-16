@@ -21,12 +21,8 @@ module AddressFormatter
       ['fn', 'street-address', 'postal-code', 'locality', 'region', 'country-name']
     end
 
-    def self.address_formats
-      @address_formats
-    end
-
-    def self.address_formats=(new_address_formats)
-      @address_formats = new_address_formats
+    class << self
+      attr_accessor :address_formats
     end
 
     attr_reader :properties, :country_code
@@ -48,7 +44,8 @@ module AddressFormatter
       properties[property_name].present? ? properties[property_name] : ''
     end
 
-    private
+  private
+
     def address_template
       (Formatter.address_formats[country_code.to_s.downcase] || default_format_string).dup
     end
@@ -56,6 +53,5 @@ module AddressFormatter
     def default_format_string
       Formatter.address_formats['gb']
     end
-
   end
 end

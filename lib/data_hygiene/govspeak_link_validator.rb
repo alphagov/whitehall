@@ -2,7 +2,6 @@ require 'addressable/uri'
 
 module DataHygiene
   class GovspeakLinkValidator
-
     def initialize(string)
       @string = string
     end
@@ -12,20 +11,18 @@ module DataHygiene
         link = match[1]
 
         fix = if link.first == '/'
-          unless self.class.is_internal_admin_link?(link)
-            'Please use either absolute paths for documents created in publisher, e.g. /government/admin/publications/3373, or full URLs for other GOV.UK links'
-          end
-        else
-          if self.class.is_internal_admin_link?("/#{link}")
-            "This is an invalid admin link.  Did you mean /#{link} instead of #{link}?"
-          elsif link !~ %r{^(?:https?://|mailto:|#)}
-            'Non-document or external links should start with http://, https://, mailto:, or # (for linking to sections on the same page, eg #actions on a policy)'
-          elsif link =~ /whitehall-admin/
-            'This links to the whitehall-admin domain. Please use paths, eg /government/admin/publications/3373, for documents created in publisher (see guidance on creating links) or full URLs for other GOV.UK links.'
-          end
-        end
+                unless self.class.is_internal_admin_link?(link)
+                  'Please use either absolute paths for documents created in publisher, e.g. /government/admin/publications/3373, or full URLs for other GOV.UK links'
+                end
+              elsif self.class.is_internal_admin_link?("/#{link}")
+                "This is an invalid admin link.  Did you mean /#{link} instead of #{link}?"
+              elsif link !~ %r{^(?:https?://|mailto:|#)}
+                'Non-document or external links should start with http://, https://, mailto:, or # (for linking to sections on the same page, eg #actions on a policy)'
+              elsif link.match?(/whitehall-admin/)
+                'This links to the whitehall-admin domain. Please use paths, eg /government/admin/publications/3373, for documents created in publisher (see guidance on creating links) or full URLs for other GOV.UK links.'
+              end
 
-        {link: link, start: match.begin(0), end: match.end(0), fix: fix} if fix
+        { link: link, start: match.begin(0), end: match.end(0), fix: fix } if fix
       end
     end
 
@@ -54,7 +51,7 @@ module DataHygiene
         start_at = match.end(0)
       end
 
-      return matches
+      matches
     end
   end
 end

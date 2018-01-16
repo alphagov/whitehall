@@ -1,9 +1,9 @@
-Given /^a topic called "([^"]*)" exists$/ do |name|
+Given(/^a topic called "([^"]*)" exists$/) do |name|
   @topic = create(:topic, name: name)
   stub_topic_in_content_store(name)
 end
 
-Given /^a topic called "([^"]*)" with description "([^"]*)"$/ do |name, description|
+Given(/^a topic called "([^"]*)" with description "([^"]*)"$/) do |name, description|
   create(:topic, name: name, description: description)
 end
 
@@ -14,24 +14,24 @@ Given(/^the publication "(.*?)" is associated with the topic "(.*?)"$/) do |publ
   publication.topics << topic
 end
 
-Given /^the topic "([^"]*)" is associated with organisation "([^"]*)"$/ do |topic_name, organisation_name|
+Given(/^the topic "([^"]*)" is associated with organisation "([^"]*)"$/) do |topic_name, organisation_name|
   topic = Topic.find_by(name: topic_name) || create(:topic, name: topic_name)
   organisation = Organisation.find_by(name: organisation_name) || create(:ministerial_department, name: organisation_name)
   organisation.topics << topic
 end
 
-Given /^the topic "([^"]*)" has "([^"]*)" as a lead organisation$/ do |topic_name, organisation_name|
+Given(/^the topic "([^"]*)" has "([^"]*)" as a lead organisation$/) do |topic_name, organisation_name|
   topic = Topic.find_by(name: topic_name) || create(:topic, name: topic_name)
   organisation = Organisation.find_by(name: organisation_name) || create(:ministerial_department, name: organisation_name)
   OrganisationClassification.create(topic: topic, organisation: organisation, lead: true)
 end
 
-Given /^two topics "([^"]*)" and "([^"]*)" exist$/ do |first_topic, second_topic|
+Given(/^two topics "([^"]*)" and "([^"]*)" exist$/) do |first_topic, second_topic|
   create(:topic, name: first_topic)
   create(:topic, name: second_topic)
 end
 
-Given /^the topic "([^"]*)" is related to the topic "([^"]*)"$/ do |name, related_name|
+Given(/^the topic "([^"]*)" is related to the topic "([^"]*)"$/) do |name, related_name|
   related_topic = create(:topic, name: related_name)
   topic = Topic.find_by(name: name)
   topic.update_attributes!(related_classifications: [related_topic])
@@ -39,14 +39,14 @@ end
 
 Given(/^a (topic|topical event) called "(.*?)" exists with featured documents$/) do |type, name|
   classification = if type == 'topic'
-    topic = create(:topic, name: name)
-    stub_topic_in_content_store(name)
-    topic
-  else
-    topical_event = create(:topical_event, name: name)
-    stub_topical_event_in_content_store(name)
-    topical_event
-  end
+                     topic = create(:topic, name: name)
+                     stub_topic_in_content_store(name)
+                     topic
+                   else
+                     topical_event = create(:topical_event, name: name)
+                     stub_topical_event_in_content_store(name)
+                     topical_event
+                   end
 
   create(:classification_featuring, classification: classification)
 end
@@ -56,16 +56,16 @@ Given(/^I have an offsite link "(.*?)" for the topic "(.*?)"$/) do |title, topic
   @offsite_link = create :offsite_link, title: title, parent: topic
 end
 
-When /^I create a new topic "([^"]*)" with description "([^"]*)"$/ do |name, description|
+When(/^I create a new topic "([^"]*)" with description "([^"]*)"$/) do |name, description|
   create_topic_and_stub_content_store(name: name, description: description)
 end
 
-When /^I create a new topic "([^"]*)" related to topic "([^"]*)"$/ do |name, related_name|
+When(/^I create a new topic "([^"]*)" related to topic "([^"]*)"$/) do |name, related_name|
   create_topic_and_stub_content_store(name: related_name)
   create_topic_and_stub_content_store(name: name, related_classifications: [related_name])
 end
 
-When /^I edit the topic "([^"]*)" to have description "([^"]*)"$/ do |name, description|
+When(/^I edit the topic "([^"]*)" to have description "([^"]*)"$/) do |name, description|
   visit admin_root_path
   click_link "Policy Areas"
   click_link name
@@ -74,17 +74,17 @@ When /^I edit the topic "([^"]*)" to have description "([^"]*)"$/ do |name, desc
   click_button "Save"
 end
 
-When /^I visit the "([^"]*)" (topic|topical event)$/ do |name, type|
+When(/^I visit the "([^"]*)" (topic|topical event)$/) do |name, type|
   classification = if type == 'topic'
-    Topic.find_by!(name: name)
-  else
-    TopicalEvent.find_by!(name: name)
-  end
+                     Topic.find_by!(name: name)
+                   else
+                     TopicalEvent.find_by!(name: name)
+                   end
 
   visit polymorphic_path(classification)
 end
 
-When /^I set the order of the policies in the "([^"]*)" topic to:$/ do |name, table|
+When(/^I set the order of the policies in the "([^"]*)" topic to:$/) do |name, table|
   topic = Topic.find_by!(name: name)
   visit edit_admin_topic_path(topic)
   table.rows.each_with_index do |(policy_name), index|
@@ -93,7 +93,7 @@ When /^I set the order of the policies in the "([^"]*)" topic to:$/ do |name, ta
   click_button "Save"
 end
 
-When /^I set the order of the lead organisations in the "([^"]*)" topic to:$/ do |topic_name, table|
+When(/^I set the order of the lead organisations in the "([^"]*)" topic to:$/) do |topic_name, table|
   topic = Topic.find_by!(name: topic_name)
   visit edit_admin_topic_path(topic)
 
@@ -110,27 +110,27 @@ When /^I set the order of the lead organisations in the "([^"]*)" topic to:$/ do
   click_button "Save"
 end
 
-Then /^I should see in the admin the "([^"]*)" topic description is "([^"]*)"$/ do |name, description|
+Then(/^I should see in the admin the "([^"]*)" topic description is "([^"]*)"$/) do |name, description|
   visit admin_topics_path
   assert page.has_css?(".name", text: name)
   assert page.has_css?(".description", text: description)
 end
 
-Then /^I should see in the admin the "([^"]*)" topic is related to topic "([^"]*)"$/ do |name, related_name|
+Then(/^I should see in the admin the "([^"]*)" topic is related to topic "([^"]*)"$/) do |name, related_name|
   visit admin_topics_path
   topic = Topic.find_by(name: name)
   related_topic = Topic.find_by(name: related_name)
   assert page.has_css?("#{record_css_selector(topic)} .related #{record_css_selector(related_topic)}")
 end
 
-Then /^I should be able to delete the topic "([^"]*)"$/ do |name|
+Then(/^I should be able to delete the topic "([^"]*)"$/) do |name|
   visit admin_topics_path
   click_link name
   click_on 'Edit'
   click_button 'Delete'
 end
 
-Then /^I should see the order of the policies in the "([^"]*)" topic is:$/ do |name, expected_table|
+Then(/^I should see the order of the policies in the "([^"]*)" topic is:$/) do |name, expected_table|
   topic = Topic.find_by!(name: name)
   visit topic_path(topic)
   rows = find("#policies").all('h2')
@@ -138,7 +138,7 @@ Then /^I should see the order of the policies in the "([^"]*)" topic is:$/ do |n
   expected_table.diff!(table)
 end
 
-Then /^I should see the order of the lead organisations in the "([^"]*)" topic is:$/ do |topic_name, expected_table|
+Then(/^I should see the order of the lead organisations in the "([^"]*)" topic is:$/) do |topic_name, expected_table|
   topic = Topic.find_by!(name: topic_name)
   visit edit_admin_topic_path(topic)
   rows = find("#lead_organisation_order").all(:xpath, './/label[./a]')
@@ -146,7 +146,7 @@ Then /^I should see the order of the lead organisations in the "([^"]*)" topic i
   expected_table.diff!(table)
 end
 
-Then /^I should see the following organisations for the "([^"]*)" topic:$/ do |topic_name, expected_table|
+Then(/^I should see the following organisations for the "([^"]*)" topic:$/) do |topic_name, expected_table|
   topic = Topic.find_by!(name: topic_name)
   visit edit_admin_topic_path(topic)
   rows = find("#organisations").all(:xpath, './/label[./a]')
@@ -154,14 +154,14 @@ Then /^I should see the following organisations for the "([^"]*)" topic:$/ do |t
   expected_table.diff!(table)
 end
 
-Then /^I should see the topics "([^"]*)" and "([^"]*)"$/ do |first_topic_name, second_topic_name|
+Then(/^I should see the topics "([^"]*)" and "([^"]*)"$/) do |first_topic_name, second_topic_name|
   first_topic = Topic.find_by!(name: first_topic_name)
   second_topic = Topic.find_by!(name: second_topic_name)
   assert page.has_css?(record_css_selector(first_topic), text: first_topic_name)
   assert page.has_css?(record_css_selector(second_topic), text: second_topic_name)
 end
 
-Then /^I should see a link to the related topic "([^"]*)"$/ do |related_name|
+Then(/^I should see a link to the related topic "([^"]*)"$/) do |related_name|
   related_topic = Topic.find_by(name: related_name)
   assert page.has_css?(".related-topics a[href='#{topic_path(related_topic)}']", text: related_name)
 end
@@ -222,7 +222,7 @@ Then(/^I should see the offsite link featured on the public topic page$/) do
   end
 end
 
-When /^I add some featured links to the topic "([^"]*)" via the admin$/ do |topic_name|
+When(/^I add some featured links to the topic "([^"]*)" via the admin$/) do |topic_name|
   topic = Topic.find_by!(name: topic_name)
   visit admin_topic_path(topic)
   click_link "Edit"
@@ -233,7 +233,7 @@ When /^I add some featured links to the topic "([^"]*)" via the admin$/ do |topi
   click_button "Save"
 end
 
-Then /^the featured links for the topic "([^"]*)" should be visible on the public site$/ do |topic_name|
+Then(/^the featured links for the topic "([^"]*)" should be visible on the public site$/) do |topic_name|
   visit_topic topic_name
   within ".featured-links" do
     assert page.has_css?("a[href='https://www.gov.uk/mainstream/tool-alpha']", text: "Tool Alpha")

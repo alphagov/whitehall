@@ -49,7 +49,7 @@ class PolicyTaggerTest < ActiveSupport::TestCase
       ).process
     end
 
-    assert_match /warning/, log_output.string
+    assert_match %r[warning], log_output.string
   end
 
   test "re-registers the published edition" do

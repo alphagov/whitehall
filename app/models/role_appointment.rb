@@ -1,7 +1,7 @@
 class RoleAppointment < ApplicationRecord
   include MinisterialRole::MinisterialRoleReindexingConcern
 
-  CURRENT_CONDITION = {ended_at: nil}
+  CURRENT_CONDITION = { ended_at: nil }.freeze
 
   has_many :edition_role_appointments
   has_many :editions, through: :edition_role_appointments
@@ -43,7 +43,7 @@ class RoleAppointment < ApplicationRecord
       if record.ended_at && (record.ended_at < record.started_at)
         record.errors[:ends_at] << "should not be before appointment starts"
       end
-      [:started_at, :ended_at].each do |attribute|
+      %i[started_at ended_at].each do |attribute|
         if record.send(attribute) && (record.send(attribute) > Time.zone.now)
           record.errors[attribute] << "should not be in the future"
         end
@@ -54,10 +54,10 @@ class RoleAppointment < ApplicationRecord
   validates :role_id, :person_id, :started_at, presence: true
   validates_with Validator
 
-  scope :for_role, -> role { where(role_id: role.id) }
-  scope :for_person, -> person { where(person_id: person.id) }
-  scope :excluding, -> *ids { where("id NOT IN (?)", ids) }
-  scope :current, -> {where(CURRENT_CONDITION) }
+  scope :for_role, ->(role) { where(role_id: role.id) }
+  scope :for_person, ->(person) { where(person_id: person.id) }
+  scope :excluding, ->(*ids) { where("id NOT IN (?)", ids) }
+  scope :current, -> { where(CURRENT_CONDITION) }
   scope :for_ministerial_roles, -> { includes(role: :organisations).merge(Role.ministerial).references(:roles) }
   scope :alphabetical_by_person, -> { includes(:person).order('people.surname', 'people.forename') }
 
@@ -143,7 +143,7 @@ class RoleAppointment < ApplicationRecord
     historical_account.present?
   end
 
-  private
+private
 
   def make_other_current_appointments_non_current
     return unless make_current

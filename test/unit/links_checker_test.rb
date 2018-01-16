@@ -10,7 +10,7 @@ class LinkCheckerTest < ActiveSupport::TestCase
   end
 
   test "returns broken links" do
-    checker   = LinksChecker.new([not_found, gone, success, success_2, failed], NullLogger.instance)
+    checker = LinksChecker.new([not_found, gone, success, success_2, failed], NullLogger.instance)
     broken_links = [not_found, gone, failed]
     checker.run
 
@@ -18,7 +18,7 @@ class LinkCheckerTest < ActiveSupport::TestCase
   end
 
   test 'broken links are only reported once' do
-    checker   = LinksChecker.new([not_found, not_found, success], NullLogger.instance)
+    checker = LinksChecker.new([not_found, not_found, success], NullLogger.instance)
     checker.run
 
     assert_same_elements [not_found], checker.broken_links
@@ -32,7 +32,7 @@ class LinkCheckerTest < ActiveSupport::TestCase
         .with(basic_auth: %w(user password))
         .to_return(status: 400)
 
-      checker   = LinksChecker.new(['http://www.requires-auth.com/authed_page'], NullLogger.instance)
+      checker = LinksChecker.new(['http://www.requires-auth.com/authed_page'], NullLogger.instance)
       checker.run
 
       assert_same_elements ['http://www.requires-auth.com/authed_page'], checker.broken_links
@@ -61,7 +61,7 @@ private
 
   def gone
     'http://www.example.com/gone'
-   end
+  end
 
   def success
     'http://www.example.com/success'

@@ -49,7 +49,7 @@ class Whitehall::GovspeakRendererTest < ActiveSupport::TestCase
 private
 
   def govspeak_with_image_html(image)
-    <<-END
+    <<-HTML
       <div class="govspeak">
         <p>Some content with an image.</p>
 
@@ -59,6 +59,6 @@ private
           </div>
         </figure>
       </div>
-    END
+    HTML
   end
 end

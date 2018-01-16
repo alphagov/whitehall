@@ -1,7 +1,6 @@
 require "fast_test_helper"
 
 class Edition::GovspeakLinkValidatorTest < ActiveSupport::TestCase
-
   test "should be valid if the input is nil" do
     validator = DataHygiene::GovspeakLinkValidator.new(nil)
     assert_equal [], validator.errors
@@ -64,5 +63,4 @@ class Edition::GovspeakLinkValidatorTest < ActiveSupport::TestCase
     validator = DataHygiene::GovspeakLinkValidator.new("[example text](#example-section)")
     assert_equal [], validator.errors
   end
-
 end

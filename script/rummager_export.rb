@@ -17,10 +17,10 @@ require 'config/environment'
 logger.info "Booted"
 
 classes_to_index = if ARGV.include?("--detailed")
-  [DetailedGuide]
-else
-  RummagerPresenters.searchable_classes_for_government_index
-end
+                     [DetailedGuide]
+                   else
+                     RummagerPresenters.searchable_classes_for_government_index
+                   end
 
 id_groups = []
 classes_to_index.each do |klass|
@@ -29,29 +29,29 @@ classes_to_index.each do |klass|
   end
 end
 
-def export_classes(classes_to_index, id_groups, &block)
-  if export_directory = ENV["EXPORT_DIRECTORY"]
-    export_directory = Pathname.new(export_directory).expand_path
+def export_classes(classes_to_index, id_groups)
+  if ENV["EXPORT_DIRECTORY"]
+    export_directory = Pathname.new(ENV["EXPORT_DIRECTORY"]).expand_path
 
     if export_directory.exist? && export_directory.children.any?
-      puts "#{ENV["EXPORT_DIRECTORY"]} exists and is not empty, aborting"
+      puts "#{ENV['EXPORT_DIRECTORY']} exists and is not empty, aborting"
       exit
     else
-      puts "Starting export of #{id_groups.count} files to #{ENV["EXPORT_DIRECTORY"]}"
+      puts "Starting export of #{id_groups.count} files to #{ENV['EXPORT_DIRECTORY']}"
     end
 
     export_directory.mkpath
 
     Parallel.each_with_index(id_groups) do |(klass, id_group), index|
-      file_path = export_directory+"#{klass.name.downcase}-#{index}.esdump"
+      file_path = export_directory + "#{klass.name.downcase}-#{index}.esdump"
       logger.info "Exporting #{klass.name.downcase}-#{index}.esdump"
       File.open(file_path.to_s, "w") do |output|
-        block.call(klass, output, id_group)
+        yield(klass, output, id_group)
       end
     end
   else
     classes_to_index.each do |klass|
-      block.call(klass, STDOUT)
+      yield(klass, STDOUT)
     end
   end
 end
@@ -60,7 +60,7 @@ def output_es_line(obj, output)
   max_retry_count = 5
   begin
     search_index = obj.search_index
-  rescue
+  rescue StandardError
     max_retry_count -= 1
     if max_retry_count <= 0
       raise
@@ -71,14 +71,14 @@ def output_es_line(obj, output)
     end
   end
 
-  output.puts %Q[{"index": {"_type": "edition", "_id": "#{search_index['link']}"}}]
+  output.puts %[{"index": {"_type": "edition", "_id": "#{search_index['link']}"}}]
   output.puts search_index.to_json
 end
 
 export_classes(classes_to_index, id_groups) do |klass, output, id_group|
   association = klass.searchable_instances
 
-  eager_loads = [:document, :organisations, :attachments, :world_locations]
+  eager_loads = %i[document organisations attachments world_locations]
   eager_loads.each do |sym|
     if klass.reflect_on_association(sym)
       association = association.includes(sym)

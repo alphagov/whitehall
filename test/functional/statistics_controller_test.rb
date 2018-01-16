@@ -34,8 +34,8 @@ class StatisticsControllerTest < ActionController::TestCase
   end
 
   test "#index sets Cache-Control: max-age to the time of the next scheduled publication" do
-    user = login_as(:departmental_editor)
-    publication = create(:scheduled_publication, :statistics, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
+    login_as(:departmental_editor)
+    create(:scheduled_publication, :statistics, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
 
     Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
       get :index
@@ -67,7 +67,8 @@ class StatisticsControllerTest < ActionController::TestCase
   end
 
   def given_two_statistics_publications_in_two_topics
-    @topic_1, @topic_2 = create(:topic), create(:topic)
+    @topic_1 = create(:topic)
+    @topic_2 = create(:topic)
     create(:published_statistics, topics: [@topic_1])
     create(:published_national_statistics, topics: [@topic_2])
   end
@@ -92,7 +93,7 @@ class StatisticsControllerTest < ActionController::TestCase
   end
 
   view_test "#index orders statistics by publication date by default" do
-    statistics = 5.times.map {|i| create(:published_statistics, first_published_at: (10 - i).days.ago) }
+    statistics = 5.times.map { |i| create(:published_statistics, first_published_at: (10 - i).days.ago) }
 
     get :index
 
@@ -128,10 +129,10 @@ class StatisticsControllerTest < ActionController::TestCase
   end
 
   view_test "#index requested as JSON includes data for statistics" do
-    org = create(:organisation, name: "org-name")
-    org2 = create(:organisation, name: "other-org")
+    organisation_1 = create(:organisation, name: "org-name")
+    organisation_2 = create(:organisation, name: "other-org")
     statistics_publication = create(:published_statistics, title: "statistics-title",
-                                                           organisations: [org, org2],
+                                                           organisations: [organisation_1, organisation_2],
                                                            first_published_at: Date.parse("2012-03-14"))
 
     get :index, format: :json
@@ -148,7 +149,7 @@ class StatisticsControllerTest < ActionController::TestCase
   end
 
   view_test '#index should show relevant document collection information' do
-    editor = create(:departmental_editor)
+    create(:departmental_editor)
     statistics = create(:draft_statistics)
     collection = create(:document_collection, :with_group)
     collection.groups.first.documents = [statistics.document]
@@ -164,7 +165,7 @@ class StatisticsControllerTest < ActionController::TestCase
   end
 
   view_test '#index requested as JSON includes document collection information' do
-    editor = create(:departmental_editor)
+    create(:departmental_editor)
     statistics = create(:draft_statistics)
     collection = create(:document_collection, :with_group)
     collection.groups.first.documents = [statistics.document]
@@ -178,18 +179,18 @@ class StatisticsControllerTest < ActionController::TestCase
     result = json['results'].first['result']
 
     path = public_document_path(collection)
-    link = %Q{<a href="#{path}">#{collection.title}</a>}
-    assert_equal %Q{Part of a collection: #{link}}, result['publication_collections']
+    link = %{<a href="#{path}">#{collection.title}</a>}
+    assert_equal %{Part of a collection: #{link}}, result['publication_collections']
   end
 
   view_test "index generates an atom feed with entries for statistics matching the current filter" do
-    org = create(:organisation, name: "org-name")
-    org2 = create(:organisation, name: "other-org")
+    organisation_1 = create(:organisation, name: "org-name")
+    organisation_2 = create(:organisation, name: "other-org")
     statistics_publication = create(:published_statistics, title: "statistics-title",
-                                                           organisations: [org, org2],
+                                                           organisations: [organisation_1, organisation_2],
                                                            first_published_at: Date.parse("2012-03-14"))
 
-    get :index, params: { departments: [org.to_param] }, format: :atom
+    get :index, params: { departments: [organisation_1.to_param] }, format: :atom
 
     assert_select_atom_feed do
       assert_select_atom_entries([statistics_publication])

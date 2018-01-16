@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class Admin::FinancialReportsControllerTest < ActionController::TestCase
-
   setup do
     login_as :departmental_editor
   end

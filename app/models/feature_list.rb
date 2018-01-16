@@ -3,7 +3,7 @@ class FeatureList < ApplicationRecord
   belongs_to :featurable, polymorphic: true
 
   validates_presence_of :locale
-  validates_uniqueness_of :locale, scope: [:featurable_id, :featurable_type]
+  validates_uniqueness_of :locale, scope: %i[featurable_id featurable_type]
 
   accepts_nested_attributes_for :features
 
@@ -46,6 +46,7 @@ class FeatureList < ApplicationRecord
   end
 
 private
+
   def next_ordering
     (features.map(&:ordering).max || 0) + 1
   end

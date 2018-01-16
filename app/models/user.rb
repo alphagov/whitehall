@@ -16,25 +16,24 @@ class User < ApplicationRecord
   scope :enabled, -> { where(disabled: false) }
 
   module Permissions
-    SIGNIN = 'signin'
-    DEPARTMENTAL_EDITOR = 'Editor'
-    MANAGING_EDITOR = 'Managing Editor'
-    GDS_EDITOR = 'GDS Editor'
-    PUBLISH_SCHEDULED_EDITIONS = 'Publish scheduled editions'
-    IMPORT = 'Import CSVs'
-    WORLD_WRITER = 'World Writer'
-    WORLD_EDITOR = 'World Editor'
-    FORCE_PUBLISH_ANYTHING = 'Force publish anything'
-    GDS_ADMIN = 'GDS Admin'
+    SIGNIN = 'signin'.freeze
+    DEPARTMENTAL_EDITOR = 'Editor'.freeze
+    MANAGING_EDITOR = 'Managing Editor'.freeze
+    GDS_EDITOR = 'GDS Editor'.freeze
+    PUBLISH_SCHEDULED_EDITIONS = 'Publish scheduled editions'.freeze
+    IMPORT = 'Import CSVs'.freeze
+    WORLD_WRITER = 'World Writer'.freeze
+    WORLD_EDITOR = 'World Editor'.freeze
+    FORCE_PUBLISH_ANYTHING = 'Force publish anything'.freeze
+    GDS_ADMIN = 'GDS Admin'.freeze
   end
 
   def role
-    case
-    when gds_editor? then "GDS Editor"
-    when departmental_editor? then "Departmental Editor"
-    when managing_editor? then "Managing Editor"
-    when world_editor? then 'World Editor'
-    when world_writer? then 'World Writer'
+    if gds_editor? then "GDS Editor"
+    elsif departmental_editor? then "Departmental Editor"
+    elsif managing_editor? then "Managing Editor"
+    elsif world_editor? then 'World Editor'
+    elsif world_writer? then 'World Writer'
     else "Writer"
     end
   end

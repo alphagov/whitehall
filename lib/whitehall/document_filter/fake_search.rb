@@ -2,7 +2,6 @@ require 'whitehall/document_filter/filterer'
 
 module Whitehall::DocumentFilter
   class FakeSearch < Filterer
-
     def announcements_search
       # Announcement.all
     end
@@ -14,6 +13,5 @@ module Whitehall::DocumentFilter
     def documents
       @documents ||= Kaminari.paginate_array([]).page(@page).per(@per_page)
     end
-
   end
 end

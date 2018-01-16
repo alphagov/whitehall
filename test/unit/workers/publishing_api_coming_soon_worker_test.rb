@@ -27,7 +27,7 @@ class PublishingApiComingSoonWorkerTest < ActiveSupport::TestCase
       description: 'Coming soon',
       locale: locale,
       details: { publish_time: publish_time },
-      routes: [ { path: base_path, type: 'exact' } ],
+      routes: [{ path: base_path, type: 'exact' }],
       redirects: [],
       public_updated_at: edition.updated_at,
       update_type: "major",
@@ -37,7 +37,7 @@ class PublishingApiComingSoonWorkerTest < ActiveSupport::TestCase
 
     requests = [
       stub_publishing_api_put_content(uuid, expected_payload),
-      stub_publishing_api_publish(uuid, { locale: "fr", update_type: "major" }),
+      stub_publishing_api_publish(uuid, locale: "fr", update_type: "major"),
       stub_publishing_api_patch_links(uuid, links: expected_links),
     ]
 

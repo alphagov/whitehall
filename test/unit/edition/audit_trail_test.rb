@@ -4,7 +4,7 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
   def setup
     @previous_whodunnit = Edition::AuditTrail.whodunnit
     @user = create(:user)
-    @user2 = create(:user)
+    @user_2 = create(:user)
     Edition::AuditTrail.whodunnit = @user
   end
 
@@ -14,16 +14,16 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
   end
 
   test '#acting_as switches to the supplied user for the duration of the block, returning to the original user afterwards' do
-    Edition::AuditTrail.acting_as(@user2) do
-      assert_equal @user2, Edition::AuditTrail.whodunnit
+    Edition::AuditTrail.acting_as(@user_2) do
+      assert_equal @user_2, Edition::AuditTrail.whodunnit
     end
     assert_equal @user, Edition::AuditTrail.whodunnit
   end
 
   test '#acting_as will return to the previous whodunnit, even when an exception is thrown' do
     begin
-      Edition::AuditTrail.acting_as(@user2) { raise 'Boom!' }
-    rescue
+      Edition::AuditTrail.acting_as(@user_2) { raise 'Boom!' }
+    rescue StandardError # rubocop:disable Lint/HandleExceptions
     end
 
     assert_equal @user, Edition::AuditTrail.whodunnit
@@ -68,27 +68,27 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
 
   test "submitting for review records the person who submitted it" do
     edition = create(:draft_edition)
-    Edition::AuditTrail.whodunnit = @user2
+    Edition::AuditTrail.whodunnit = @user_2
     edition.submit!
-    assert_equal @user2, edition.document_audit_trail.last.actor
+    assert_equal @user_2, edition.document_audit_trail.last.actor
   end
 
   test "rejecting records a rejected action" do
     edition = create(:submitted_edition)
-    Edition::AuditTrail.whodunnit = @user2
+    Edition::AuditTrail.whodunnit = @user_2
     edition.reject!
     assert_equal "rejected", edition.document_audit_trail.last.action
-    assert_equal @user2, edition.document_audit_trail.last.actor
+    assert_equal @user_2, edition.document_audit_trail.last.actor
   end
 
   test "publishing records a published action" do
     edition = create(:submitted_edition)
     edition.first_published_at = Time.zone.now
     edition.major_change_published_at = Time.zone.now
-    Edition::AuditTrail.whodunnit = @user2
+    Edition::AuditTrail.whodunnit = @user_2
     edition.publish!
     assert_equal "published", edition.document_audit_trail.last.action
-    assert_equal @user2, edition.document_audit_trail.last.actor
+    assert_equal @user_2, edition.document_audit_trail.last.actor
   end
 
   test "creating a new draft of a published edition records an edition action" do
@@ -142,17 +142,17 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
   end
 
   test "latest_version_audit_entry_for returns most recent entry in a state" do
-    edition = create(:submitted_edition, creator: @user2)
+    edition = create(:submitted_edition, creator: @user_2)
     edition.body = 'updated-body'
     edition.save!
     assert_equal @user, edition.latest_version_audit_entry_for('submitted').actor
   end
 
   test "most_recent_submission_audit_entry returns entry for submission action" do
-    edition = create(:submitted_edition, creator: @user2)
+    edition = create(:submitted_edition, creator: @user_2)
     edition.body = 'updated-body'
     edition.save!
-    assert_equal @user2, edition.most_recent_submission_audit_entry.actor
+    assert_equal @user_2, edition.most_recent_submission_audit_entry.actor
   end
 
   test "publication_audit_entry returns entry when first edition was published" do
@@ -171,5 +171,4 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     published_audit = new_edition.publication_audit_entry
     assert_equal publication_date, published_audit.created_at
   end
-
 end

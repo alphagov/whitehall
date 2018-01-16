@@ -22,6 +22,7 @@ module DataHygiene
     end
 
   private
+
     attr_reader :person, :new_slug, :old_slug
 
     def remove_from_search_index

@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class Admin::OrganisationHelperTest < ActionView::TestCase
-
   test '#topical_event_dates_string handles a topical event with a start date but no end date' do
     topical_event = create(:topical_event, start_date: Date.today)
 

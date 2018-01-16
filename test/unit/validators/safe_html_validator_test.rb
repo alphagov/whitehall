@@ -15,9 +15,9 @@ class SafeHtmlValidatorTest < ActiveSupport::TestCase
   end
 
   test "span and div elements are considered safe" do
-     test_model = GovspeakContent.new(computed_body_html: '<div class="govspeak"><span class="number">1</span></div>')
+    test_model = GovspeakContent.new(computed_body_html: '<div class="govspeak"><span class="number">1</span></div>')
 
-     SafeHtmlValidator.new({}).validate(test_model)
-     assert test_model.errors.empty?, test_model.errors.full_messages.inspect
+    SafeHtmlValidator.new({}).validate(test_model)
+    assert test_model.errors.empty?, test_model.errors.full_messages.inspect
   end
 end

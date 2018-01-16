@@ -3,7 +3,7 @@ module PublishingApi
     extend Forwardable
     include UpdateTypeHelper
 
-    SCHEMA_NAME = 'consultation'
+    SCHEMA_NAME = 'consultation'.freeze
 
     attr_reader :update_type
     def_delegator :consultation, :content_id
@@ -291,7 +291,7 @@ module PublishingApi
 
     private
 
-      GOVERNMENT_UPLOADS_PATH = '/government/uploads/'
+      GOVERNMENT_UPLOADS_PATH = '/government/uploads/'.freeze
 
       attr_accessor :consultation, :url_helpers
       def_delegator :consultation, :consultation_participation, :participation

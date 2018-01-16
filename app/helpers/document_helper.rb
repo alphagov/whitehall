@@ -23,7 +23,7 @@ module DocumentHelper
   end
 
   def edition_organisation_class(edition)
-    if organisation = edition.sorted_organisations.first
+    if (organisation = edition.sorted_organisations.first)
       organisation.slug
     else
       'unknown_organisation'
@@ -69,9 +69,9 @@ module DocumentHelper
     data_sets.map { |data_set| link_to data_set.title, public_document_path(data_set), class: 'statistical-data-set-link' }
   end
 
-  MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE = "MS Word Document"
-  MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE = "MS Excel Spreadsheet"
-  MS_POWERPOINT_PRESENTATION_HUMANIZED_CONTENT_TYPE = "MS Powerpoint Presentation"
+  MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE = "MS Word Document".freeze
+  MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE = "MS Excel Spreadsheet".freeze
+  MS_POWERPOINT_PRESENTATION_HUMANIZED_CONTENT_TYPE = "MS Powerpoint Presentation".freeze
 
   def file_abbr_tag(abbr, title)
     content_tag(:abbr, abbr, title: title)
@@ -125,7 +125,7 @@ module DocumentHelper
     end
     if attachment.hoc_paper_number.present?
       ref << content_tag(:span, "HC #{attachment.hoc_paper_number}", class: 'house_of_commons_paper_number') + ' ' +
-          content_tag(:span, attachment.parliamentary_session, class: 'parliamentary_session')
+        content_tag(:span, attachment.parliamentary_session, class: 'parliamentary_session')
     end
 
     ref.join(', ').html_safe
@@ -189,7 +189,7 @@ Please tell us:
     else
       attributes << content_tag(:span, humanized_content_type(attachment.file_extension), class: 'type')
       attributes << content_tag(:span, number_to_human_size(attachment.file_size), class: 'file-size')
-      attributes << content_tag(:span, pluralize(attachment.number_of_pages, "page") , class: 'page-length') if attachment.number_of_pages.present?
+      attributes << content_tag(:span, pluralize(attachment.number_of_pages, "page"), class: 'page-length') if attachment.number_of_pages.present?
     end
     attributes.join(', ').html_safe
   end

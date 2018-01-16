@@ -97,7 +97,7 @@ class UnpublishingTest < ActiveSupport::TestCase
 
   test 'Unpublishing.from_slug returns the most recent unpublishing' do
     case_study          = create(:published_case_study)
-    first_unpublishing  = create(:unpublishing, edition: case_study, slug: case_study.slug)
+    _first_unpublishing = create(:unpublishing, edition: case_study, slug: case_study.slug)
     new_edition         = case_study.create_draft(create(:user))
     second_unpublishing = create(:unpublishing, edition: new_edition, slug: new_edition.slug)
 
@@ -153,7 +153,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     end
     unpublishing = create(:unpublishing, edition: edition)
 
-    assert_equal [:en, :es], unpublishing.translated_locales
+    assert_equal %i[en es], unpublishing.translated_locales
   end
 
   test "generates its own content ID on creation" do

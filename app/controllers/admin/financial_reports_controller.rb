@@ -1,6 +1,6 @@
 class Admin::FinancialReportsController < Admin::BaseController
   before_action :load_organisation
-  before_action :load_financial_report, only: [:edit, :update, :destroy]
+  before_action :load_financial_report, only: %i[edit update destroy]
 
   def new
     @financial_report = @organisation.financial_reports.build(year: Time.zone.now.year)
@@ -28,7 +28,8 @@ class Admin::FinancialReportsController < Admin::BaseController
     redirect_to admin_organisation_financial_reports_path(@organisation), notice: "Deleted Successfully"
   end
 
-  private
+private
+
   def load_financial_report
     @financial_report ||= @organisation.financial_reports.find(params[:id])
   end

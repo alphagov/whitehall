@@ -80,7 +80,7 @@ end
 check.add_expectation("policy_areas") do |content_store_payload, record|
   policy_area_ids = (record.try(:topics) || []).map(&:content_id).to_set
   content_store_policy_area_ids = content_store_payload["links"]["policy_areas"]
-    .map{ |policy_area| policy_area["content_id"] }
+    .map { |policy_area| policy_area["content_id"] }
     .to_set
 
   policy_area_ids == content_store_policy_area_ids
@@ -89,7 +89,7 @@ end
 check.add_expectation("related_policies") do |content_store_payload, record|
   related_policy_ids = (record.try(:policy_content_ids) || []).to_set
   content_store_related_policy_ids = content_store_payload["links"]["related_policies"]
-    .map{ |related_policy| related_policy["content_id"] }
+    .map { |related_policy| related_policy["content_id"] }
     .to_set
 
   related_policy_ids == content_store_related_policy_ids

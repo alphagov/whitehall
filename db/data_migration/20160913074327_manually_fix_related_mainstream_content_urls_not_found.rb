@@ -15,8 +15,8 @@ def update_related_mainstream_url(field_name, current_mainstream_url, fixed_url)
   detailed_guides = DetailedGuide.where(field_name => current_mainstream_url).where.not(state: 'superseded')
 
   detailed_guides.each do |detailed_guide|
-    x = detailed_guide.update_attribute(field_name, fixed_url)
-    puts "Fixed #{detailed_guide.id}, #{field_name.to_s}, #{current_mainstream_url}, #{fixed_url}"
+    detailed_guide.update_attribute(field_name, fixed_url)
+    puts "Fixed #{detailed_guide.id}, #{field_name}, #{current_mainstream_url}, #{fixed_url}"
   end
 end
 

@@ -16,7 +16,7 @@ module SyncChecker
                 failures += check_for_unexpected_content_ids
               end
             end
-          rescue
+          rescue StandardError
             failures << "response.body not valid JSON. Likely not present in the content store"
           end
         end
@@ -44,13 +44,13 @@ module SyncChecker
 
       def check_for_missing_content_ids
         expected_content_ids
-          .reject { |content_id| response_content_ids.include?(content_id)}
+          .reject { |content_id| response_content_ids.include?(content_id) }
           .map { |missing_content_id| "#{links_key} should contain '#{missing_content_id}' but doesn't" }
       end
 
       def check_for_unexpected_content_ids
         response_content_ids
-          .reject { |content_id| expected_content_ids.include?(content_id)}
+          .reject { |content_id| expected_content_ids.include?(content_id) }
           .map { |unexpected_content_id| "#{links_key} shouldn't contain '#{unexpected_content_id}'" }
       end
     end

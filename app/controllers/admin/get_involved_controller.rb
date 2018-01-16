@@ -5,6 +5,5 @@ class Admin::GetInvolvedController < Admin::BaseController
     enforce_permission!(:administer, :get_involved_section)
   end
 
-  def index
-  end
+  def index; end
 end

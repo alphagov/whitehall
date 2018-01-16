@@ -11,7 +11,7 @@ module AdminEditionControllerTestHelpers
 
         post :create, params: {
           edition: attributes.merge(
-          summary: "my summary",
+            summary: "my summary",
           )
         }
 
@@ -29,7 +29,7 @@ module AdminEditionControllerTestHelpers
           }
         }
 
-        saved_edition = edition.reload
+        edition.reload
         assert_equal "new-summary", edition.summary
       end
     end
@@ -315,8 +315,7 @@ module AdminEditionControllerTestHelpers
         draft_updater = stub("draft updater",
                               can_perform?: false,
                               perform!: false,
-                              failure_reason: "Unable to perform draft update"
-                            )
+                              failure_reason: "Unable to perform draft update")
 
         Whitehall.edition_services.stubs(:draft_updater).returns(draft_updater)
 
@@ -341,8 +340,7 @@ module AdminEditionControllerTestHelpers
         draft_updater = stub("draft updater",
                               can_perform?: false,
                               perform!: false,
-                              failure_reason: "Unable to perform draft update"
-                            )
+                              failure_reason: "Unable to perform draft update")
 
         Whitehall.edition_services.stubs(:draft_updater).returns(draft_updater)
 
@@ -493,10 +491,10 @@ module AdminEditionControllerTestHelpers
         image = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
         attributes = controller_attributes_for(edition_type)
         attributes[:images_attributes] = {
-          "0" => {alt_text: "some-alt-text",
-                  image_data_attributes: attributes_for(:image_data, file: image)},
-          "1" => {alt_text: "more-alt-text",
-                  image_data_attributes: attributes_for(:image_data, file: image)}
+          "0" => { alt_text: "some-alt-text",
+                  image_data_attributes: attributes_for(:image_data, file: image) },
+          "1" => { alt_text: "more-alt-text",
+                  image_data_attributes: attributes_for(:image_data, file: image) }
         }
 
         post :create, params: {
@@ -529,8 +527,8 @@ module AdminEditionControllerTestHelpers
       view_test 'edit displays edition image fields' do
         image = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
         edition = create(edition_type)
-        image = create(:image, alt_text: "blah", edition: edition,
-                       image_data_attributes: attributes_for(:image_data, file: image))
+        create(:image, alt_text: "blah", edition: edition,
+               image_data_attributes: attributes_for(:image_data, file: image))
 
         get :edit, params: { id: edition }
 
@@ -614,10 +612,10 @@ module AdminEditionControllerTestHelpers
         edition = create(edition_type)
         image = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
         attributes = { images_attributes: {
-          "0" => {alt_text: "some-alt-text",
-                  image_data_attributes: attributes_for(:image_data, file: image)},
-          "1" => {alt_text: "more-alt-text",
-                  image_data_attributes: attributes_for(:image_data, file: image)}
+          "0" => { alt_text: "some-alt-text",
+                  image_data_attributes: attributes_for(:image_data, file: image) },
+          "1" => { alt_text: "more-alt-text",
+                  image_data_attributes: attributes_for(:image_data, file: image) }
         } }
 
         put :update, params: { id: edition, edition: attributes }
@@ -649,9 +647,12 @@ module AdminEditionControllerTestHelpers
         image = fixture_file_upload('minister-of-funk.960x640.jpg')
         attributes = {
           title: "",
-          images_attributes: { "0" => {
-            alt_text: "some-alt-text",
-            image_data_attributes: attributes_for(:image_data, file: image) } }
+          images_attributes: {
+            "0" => {
+              alt_text: "some-alt-text",
+              image_data_attributes: attributes_for(:image_data, file: image),
+            },
+          },
         }
 
         put :update, params: { id: edition, edition: attributes }
@@ -666,9 +667,12 @@ module AdminEditionControllerTestHelpers
         image = fixture_file_upload('minister-of-funk.960x640.jpg')
         attributes = {
           title: "",
-          images_attributes: { "0" => {
-            alt_text: "some-alt-text",
-            image_data_attributes: attributes_for(:image_data, file: image) } }
+          images_attributes: {
+            "0" => {
+              alt_text: "some-alt-text",
+              image_data_attributes: attributes_for(:image_data, file: image),
+            },
+          },
         }
 
         put :update, params: { id: edition, edition: attributes }
@@ -1261,7 +1265,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test "create should allow setting of related mainstream content urls" do
-        Services.publishing_api.stubs(:lookup_content_ids).with(base_paths: ["/starting-to-export", "/vat-rates"]).returns({"/starting-to-export" => "af70706d-1286-49a8-a597-b3715f29edb5", "/vat-rates" => "c621b246-aa0e-44ad-b320-5a9c16c1123b"})
+        Services.publishing_api.stubs(:lookup_content_ids).with(base_paths: ["/starting-to-export", "/vat-rates"]).returns("/starting-to-export" => "af70706d-1286-49a8-a597-b3715f29edb5", "/vat-rates" => "c621b246-aa0e-44ad-b320-5a9c16c1123b")
 
         post :create, params: {
           edition: controller_attributes_for(edition_type).merge(
@@ -1276,13 +1280,12 @@ module AdminEditionControllerTestHelpers
       end
 
       test "update should allow setting of a related mainstream content url" do
-        Services.publishing_api.stubs(:lookup_content_ids).with(base_paths: ["/starting-to-export", "/vat-rates"]).returns({"/starting-to-export" => "af70706d-1286-49a8-a597-b3715f29edb5", "/vat-rates" => "c621b246-aa0e-44ad-b320-5a9c16c1123b"})
+        Services.publishing_api.stubs(:lookup_content_ids).with(base_paths: ["/starting-to-export", "/vat-rates"]).returns("/starting-to-export" => "af70706d-1286-49a8-a597-b3715f29edb5", "/vat-rates" => "c621b246-aa0e-44ad-b320-5a9c16c1123b")
 
         edition = create(edition_type,
           related_mainstream_content_url: "https://www.gov.uk/starting-to-export",
-          additional_related_mainstream_content_url: "https://www.gov.uk/vat-rates"
-        )
-        Services.publishing_api.stubs(:lookup_content_ids).with(base_paths: ["/fishing-licences", "/set-up-business-uk"]).returns({"/fishing-licences" => "bc46370c-2f2b-4db7-bf23-ace64b465eca", "/set-up-business-uk" => "5e5bb54d-e471-4d07-977b-291168569f26"})
+          additional_related_mainstream_content_url: "https://www.gov.uk/vat-rates")
+        Services.publishing_api.stubs(:lookup_content_ids).with(base_paths: ["/fishing-licences", "/set-up-business-uk"]).returns("/fishing-licences" => "bc46370c-2f2b-4db7-bf23-ace64b465eca", "/set-up-business-uk" => "5e5bb54d-e471-4d07-977b-291168569f26")
 
         put :update, params: {
           id: edition,
@@ -1487,7 +1490,7 @@ module AdminEditionControllerTestHelpers
       end
 
       test "should not populate world locations if user doesn't have any" do
-        world_location = create(:world_location)
+        create(:world_location)
         login_as create(:departmental_editor, world_locations: [])
         get :new
 

@@ -1,5 +1,4 @@
 module EmailSignupHelper
-
   def email_signup_path(atom_feed_url)
     url = generalise_consultations(atom_feed_url)
 

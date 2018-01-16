@@ -21,12 +21,12 @@ class DocumentHelperTest < ActionView::TestCase
 
   test "should generate a National Statistics logo for a national statistic" do
     publication = create(:publication, publication_type_id: PublicationType::NationalStatistics.id)
-    assert_match /National Statistics/, national_statistics_logo(publication)
+    assert_match %r[National Statistics], national_statistics_logo(publication)
   end
 
   test "should generate no National Statistics logo for an edition that is not a national statistic" do
     publication = create(:publication)
-    refute_match /National Statistics/, national_statistics_logo(publication)
+    refute_match %r[National Statistics], national_statistics_logo(publication)
   end
 
   test "should generate list of links to inapplicable nations with alternative URL" do
@@ -50,7 +50,7 @@ class DocumentHelperTest < ActionView::TestCase
   test "#see_alternative_urls_for_inapplicable_nations skips nations without alternative urls" do
     publication = create(:publication, nation_inapplicabilities: [create(:nation_inapplicability, nation: Nation.scotland, alternative_url: "http://scotland.com"), create(:nation_inapplicability, nation: Nation.wales, alternative_url: "")])
     html = see_alternative_urls_for_inapplicable_nations(publication)
-    refute_match /Wales/, html
+    refute_match %r[Wales], html
   end
 
   test "#see_alternative_urls_for_inapplicable_nations returns nothing if no alternative urls exist" do
@@ -65,12 +65,12 @@ class DocumentHelperTest < ActionView::TestCase
 
   test "should return DOC specific thumbnail for DOC files" do
     attachment = create(:file_attachment, file: fixture_file_upload('sample.docx', 'application/msword'))
-    assert_match /pub-cover-doc\.png/, attachment_thumbnail(attachment)
+    assert_match %r[pub-cover-doc\.png], attachment_thumbnail(attachment)
   end
 
   test "should return spreadsheet specific thumbnail for spreadsheet files" do
     attachment = create(:file_attachment, file: fixture_file_upload('sample-from-excel.csv', 'text/csv'))
-    assert_match /pub-cover-spreadsheet\.png/, attachment_thumbnail(attachment)
+    assert_match %r[pub-cover-spreadsheet\.png], attachment_thumbnail(attachment)
   end
 
   test "should return spreadsheet specific thumbnail for spreadsheet files with any case file extension" do
@@ -80,7 +80,7 @@ class DocumentHelperTest < ActionView::TestCase
 
   test "should return HTML specific thumbnail for HTML attachments" do
     publication = create(:published_publication, :with_html_attachment)
-    assert_match /pub-cover-html\.png/, attachment_thumbnail(publication.attachments.first)
+    assert_match %r[pub-cover-html\.png], attachment_thumbnail(publication.attachments.first)
   end
 
   test "should return PDF Document for humanized content type" do
@@ -156,7 +156,7 @@ class DocumentHelperTest < ActionView::TestCase
   end
 
   test "part_of_metadata generates collection metadata" do
-    organisation = create(:organisation)
+    create(:organisation)
     edition = create(:published_publication)
     collection = create(:published_document_collection, :with_group)
     collection.groups.first.documents = [edition.document]

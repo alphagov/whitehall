@@ -20,7 +20,7 @@ class OffsiteLink < ApplicationRecord
   belongs_to :parent, polymorphic: true
   validates :title, :summary, :link_type, :url, presence: true, length: { maximum: 255 }
   validate :check_url_is_allowed
-  validates :link_type, presence: true, inclusion: {in: LinkTypes.all}
+  validates :link_type, presence: true, inclusion: { in: LinkTypes.all }
 
   def check_url_is_allowed
     begin
@@ -70,6 +70,6 @@ private
       "nhs.uk",
     ]
 
-    whitelisted_hosts.any? { |whitelisted_host| host =~ /(?:^|\.)#{whitelisted_host}$/}
+    whitelisted_hosts.any? { |whitelisted_host| host =~ /(?:^|\.)#{whitelisted_host}$/ }
   end
 end

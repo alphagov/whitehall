@@ -16,7 +16,8 @@ class OrganisationsController < PublicFacingController
       render :courts_index
     else
       @organisations = OrganisationsIndexPresenter.new(
-        Organisation.excluding_courts_and_tribunals.listable.ordered_by_name_ignoring_prefix)
+        Organisation.excluding_courts_and_tribunals.listable.ordered_by_name_ignoring_prefix
+      )
       set_meta_description("What's the latest from a department, agency or public body?")
       render :index
     end
@@ -131,6 +132,7 @@ private
     RolesPresenter.new(roles, view_context)
   end
 
+  # rubocop:disable Style/IfInsideElse
   def load_organisation
     @organisation = Organisation.with_translations(I18n.locale).find(params[:id])
     if params[:courts_only]
@@ -139,6 +141,7 @@ private
       raise ActiveRecord::RecordNotFound if @organisation.court_or_hmcts_tribunal?
     end
   end
+  # rubocop:enable Style/IfInsideElse
 
   def organisation_content
     @organisation_content ||= begin

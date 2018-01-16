@@ -2,13 +2,13 @@ module DocumentFilterHelper
   def topic_filter_options(selected_topics = [])
     selected_values = selected_topics.any? ? selected_topics.map(&:slug) : ["all"]
     options_for_select([filter_options.for(:topics).all], selected_values) +
-    unsorted_grouped_options_for_select(filter_options.for(:topics).grouped, selected_values)
+      unsorted_grouped_options_for_select(filter_options.for(:topics).grouped, selected_values)
   end
 
   def organisation_filter_options(selected_organisations = [])
     selected_values = selected_organisations.any? ? selected_organisations.map(&:slug) : ["all"]
     options_for_select([filter_options.for(:organisations).all], selected_values) +
-    unsorted_grouped_options_for_select(filter_options.for(:organisations).grouped, selected_values)
+      unsorted_grouped_options_for_select(filter_options.for(:organisations).grouped, selected_values)
   end
 
   def people_filter_options(selected_people = [])
@@ -26,7 +26,7 @@ module DocumentFilterHelper
     filter_option_html(filter_options.for(:announcement_type), selected_value)
   end
 
-  def locations_options(document_type, selected_locations = [])
+  def locations_options(_document_type, selected_locations = [])
     selected_values = selected_locations.any? ? selected_locations.map(&:slug) : ["all"]
     filter_option_html(filter_options.for(:locations), selected_values)
   end
@@ -37,9 +37,9 @@ module DocumentFilterHelper
 
   def remove_filter_from_params(key, value = nil)
     if value && params[key].is_a?(Array)
-      params.merge({ key => (params[key] - [value]) })
+      params.merge(key => (params[key] - [value]))
     else
-      params.merge({ key => nil })
+      params.merge(key => nil)
     end
   end
 
@@ -51,7 +51,7 @@ module DocumentFilterHelper
         value: obj.slug
       }
     end
-    results.map.with_index { |obj, i| obj.merge({ joining: (results.length - 1 == i ? '' : 'and') }) }
+    results.map.with_index { |obj, i| obj.merge(joining: (results.length - 1 == i ? '' : 'and')) }
   end
 
   def filter_results_keywords(keywords)
@@ -72,7 +72,7 @@ protected
   def filter_option_html(options, selected_value)
     selected_values = Array(selected_value)
     options_for_select([options.all], selected_values) +
-    grouped_options_for_select(options.grouped, selected_values) +
-    options_for_select(options.ungrouped, selected_values)
+      grouped_options_for_select(options.grouped, selected_values) +
+      options_for_select(options.ungrouped, selected_values)
   end
 end

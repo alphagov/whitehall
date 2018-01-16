@@ -1,4 +1,4 @@
-Given /^there is an organisation with some contacts on its home page$/ do
+Given(/^there is an organisation with some contacts on its home page$/) do
   @the_organisation = create_org_and_stub_content_store(:organisation, name: "Name of org with contacts")
   contact_1 = create(:contact, contactable: @the_organisation, title: 'Main office')
   contact_2 = create(:contact, contactable: @the_organisation, title: 'Summer office by the lake')
@@ -9,7 +9,7 @@ Given /^there is an organisation with some contacts on its home page$/ do
   @the_ordered_contacts = [contact_1, contact_2, contact_3]
 end
 
-Given /^there is a worldwide organisation with some offices on its home page$/ do
+Given(/^there is a worldwide organisation with some offices on its home page$/) do
   @the_organisation = create(:worldwide_organisation)
   @the_main_office = create(:worldwide_office, worldwide_organisation: @the_organisation, title: 'HQ1.0')
   office_1 = create(:worldwide_office, worldwide_organisation: @the_organisation, title: 'Main office')
@@ -21,7 +21,7 @@ Given /^there is a worldwide organisation with some offices on its home page$/ d
   @the_ordered_offices = [office_1, office_2, office_3]
 end
 
-When /^I add a new contact to be featured on the home page of the organisation$/ do
+When(/^I add a new contact to be featured on the home page of the organisation$/) do
   visit admin_organisation_path(@the_organisation)
   click_on 'Contacts'
   click_on 'All'
@@ -31,13 +31,13 @@ When /^I add a new contact to be featured on the home page of the organisation$/
   @the_new_contact = Contact.last
 end
 
-When /^I reorder the contacts to highlight my new contact$/ do
+When(/^I reorder the contacts to highlight my new contact$/) do
   visit admin_organisation_path(@the_organisation)
   click_on 'Contacts'
   click_on 'Order on home page'
 
   within '#on-home-page' do
-    @the_ordered_contacts = [@the_ordered_contacts[-1], *(@the_ordered_contacts[1..-2].shuffle), @the_ordered_contacts[0]]
+    @the_ordered_contacts = [@the_ordered_contacts[-1], *@the_ordered_contacts[1..-2].shuffle, @the_ordered_contacts[0]]
     @the_ordered_contacts.each_with_index do |contact, index|
       fill_in contact.title, with: index + 2
     end
@@ -48,7 +48,7 @@ When /^I reorder the contacts to highlight my new contact$/ do
   @the_ordered_contacts = [@the_new_contact, *@the_ordered_contacts]
 end
 
-Then /^I see the contacts in my specified order including the new one on the home page of the organisation$/ do
+Then(/^I see the contacts in my specified order including the new one on the home page of the organisation$/) do
   visit organisation_path(@the_organisation)
 
   contact_headings = page.all(".addresses div.contact h2").map(&:text)
@@ -58,7 +58,7 @@ Then /^I see the contacts in my specified order including the new one on the hom
   end
 end
 
-When /^I decide that one of the contacts no longer belongs on the home page$/ do
+When(/^I decide that one of the contacts no longer belongs on the home page$/) do
   visit admin_organisation_path(@the_organisation)
 
   click_on 'Contacts'
@@ -70,7 +70,7 @@ When /^I decide that one of the contacts no longer belongs on the home page$/ do
   end
 end
 
-Then /^that contact is no longer visible on the home page of the organisation$/ do
+Then(/^that contact is no longer visible on the home page of the organisation$/) do
   visit organisation_path(@the_organisation)
 
   within '.addresses' do
@@ -78,7 +78,7 @@ Then /^that contact is no longer visible on the home page of the organisation$/ 
   end
 end
 
-When /^I add a new office to be featured on the home page of the worldwide organisation$/ do
+When(/^I add a new office to be featured on the home page of the worldwide organisation$/) do
   visit admin_worldwide_organisation_path(@the_organisation)
   click_on 'Offices'
   click_on 'All'
@@ -91,13 +91,13 @@ When /^I add a new office to be featured on the home page of the worldwide organ
   @the_new_office = WorldwideOffice.last
 end
 
-When /^I reorder the offices to highlight my new office$/ do
+When(/^I reorder the offices to highlight my new office$/) do
   visit admin_worldwide_organisation_path(@the_organisation)
   click_on 'Offices'
   click_on 'Order on home page'
 
   within '#on-home-page' do
-    @the_ordered_offices = [@the_ordered_offices[-1], *(@the_ordered_offices[1..-2].shuffle), @the_ordered_offices[0]]
+    @the_ordered_offices = [@the_ordered_offices[-1], *@the_ordered_offices[1..-2].shuffle, @the_ordered_offices[0]]
     @the_ordered_offices.each_with_index do |office, index|
       fill_in office.title, with: index + 2
     end
@@ -108,7 +108,7 @@ When /^I reorder the offices to highlight my new office$/ do
   @the_ordered_offices = [@the_new_office, *@the_ordered_offices]
 end
 
-Then /^I see the offices in my specified order including the new one under the main office on the home page of the worldwide organisation$/ do
+Then(/^I see the offices in my specified order including the new one under the main office on the home page of the worldwide organisation$/) do
   visit worldwide_organisation_path(@the_organisation)
 
   contact_headings = page.all(".contact-us div.contact h2").map(&:text)
@@ -119,7 +119,7 @@ Then /^I see the offices in my specified order including the new one under the m
   end
 end
 
-When /^I decide that one of the offices no longer belongs on the home page$/ do
+When(/^I decide that one of the offices no longer belongs on the home page$/) do
   visit admin_worldwide_organisation_path(@the_organisation)
 
   click_on 'Offices'
@@ -131,7 +131,7 @@ When /^I decide that one of the offices no longer belongs on the home page$/ do
   end
 end
 
-Then /^that office is no longer visible on the home page of the worldwide organisation$/ do
+Then(/^that office is no longer visible on the home page of the worldwide organisation$/) do
   visit worldwide_organisation_path(@the_organisation)
 
   within '.contact-us' do
@@ -139,7 +139,7 @@ Then /^that office is no longer visible on the home page of the worldwide organi
   end
 end
 
-When /^I add a new FOI contact to the organisation without adding it to the list of contacts for the home page$/ do
+When(/^I add a new FOI contact to the organisation without adding it to the list of contacts for the home page$/) do
   visit admin_organisation_path(@the_organisation)
   click_on 'Contacts'
   click_on 'All'
@@ -153,7 +153,7 @@ When /^I add a new FOI contact to the organisation without adding it to the list
   @the_new_foi_contact = Contact.last
 end
 
-Then /^I cannot add or reorder the new FOI contact in the home page list$/ do
+Then(/^I cannot add or reorder the new FOI contact in the home page list$/) do
   visit admin_organisation_path(@the_organisation)
 
   click_on 'Contacts'
@@ -169,7 +169,7 @@ Then /^I cannot add or reorder the new FOI contact in the home page list$/ do
   assert page.has_no_field?("ordering[#{@the_new_foi_contact.id}]")
 end
 
-Then /^I see the new FOI contact listed on the home page(?: only once,)? in the FOI section$/ do
+Then(/^I see the new FOI contact listed on the home page(?: only once,)? in the FOI section$/) do
   visit organisation_path(@the_organisation)
 
   within '#org-contacts + .org-contacts' do

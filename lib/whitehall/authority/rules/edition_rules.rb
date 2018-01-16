@@ -1,13 +1,26 @@
 module Whitehall::Authority::Rules
   class EditionRules
     def self.actions
-      [
-        :see, :update, :create, :delete, :modify,
-        :approve, :publish, :force_publish,
-        :reject, :make_fact_check, :review_fact_check,
-        :make_editorial_remark, :review_editorial_remark,
-        :limit_access, :unpublish, :unwithdraw, :export, :confirm_export,
-        :mark_political
+      %i[
+        approve
+        confirm_export
+        create
+        delete
+        export
+        force_publish
+        limit_access
+        make_editorial_remark
+        make_fact_check
+        mark_political
+        modify
+        publish
+        reject
+        review_editorial_remark
+        review_fact_check
+        see
+        unpublish
+        unwithdraw
+        update
       ]
     end
 
@@ -30,37 +43,35 @@ module Whitehall::Authority::Rules
       EditionRules.actions.include?(action)
     end
 
-    private
+  private
 
     def can_with_an_instance?(action)
       if actor.can_force_publish_anything? && action == :force_publish
-        return true
+        true
       elsif !can_see?
-        return false
+        false
       elsif action == :unpublish && actor.managing_editor?
-        return true
+        true
       elsif action == :unwithdraw && actor.managing_editor?
-        return true
+        true
       elsif action == :modify && @subject.historic?
-        return actor.gds_editor? || actor.gds_admin?
+        actor.gds_editor? || actor.gds_admin?
+      elsif actor.gds_admin?
+        gds_admin_can?(action)
+      elsif actor.gds_editor?
+        gds_editor_can?(action)
+      elsif actor.departmental_editor?
+        departmental_editor_can?(action)
+      elsif actor.managing_editor?
+        managing_editor_can?(action)
+      elsif actor.world_editor?
+        world_editor_can?(action)
+      elsif actor.world_writer?
+        world_writer_can?(action)
+      elsif actor.scheduled_publishing_robot?
+        scheduled_publishing_robot_can?(action)
       else
-        if actor.gds_admin?
-          gds_admin_can?(action)
-        elsif actor.gds_editor?
-          gds_editor_can?(action)
-        elsif actor.departmental_editor?
-          departmental_editor_can?(action)
-        elsif actor.managing_editor?
-          managing_editor_can?(action)
-        elsif actor.world_editor?
-          world_editor_can?(action)
-        elsif actor.world_writer?
-          world_writer_can?(action)
-        elsif actor.scheduled_publishing_robot?
-          scheduled_publishing_robot_can?(action)
-        else
-          departmental_writer_can?(action)
-        end
+        departmental_writer_can?(action)
       end
     end
 

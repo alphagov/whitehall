@@ -56,13 +56,11 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
 
   test 'GET #confirm_force_publish redirects when edition must tagged be taxons but is not' do
     publishing_api_has_links(
-      {
-        "content_id" => draft_edition.content_id,
-        "links" => {
-          "taxons" => []
-        },
-        "version" => 1
-      }
+      "content_id" => draft_edition.content_id,
+      "links" => {
+        "taxons" => [],
+      },
+      "version" => 1
     )
 
     Publication.any_instance.stubs(:must_be_tagged_to_taxonomy?).returns(true)
@@ -204,7 +202,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     submitted_publication = create(:submitted_publication)
     post :reject, params: { id: submitted_publication, lock_version: submitted_publication.lock_version }
 
-    assert_match /\'#{submitted_publication.title}\' was rejected by/, ActionMailer::Base.deliveries.last.body.to_s
+    assert_match %r[\'#{submitted_publication.title}\' was rejected by], ActionMailer::Base.deliveries.last.body.to_s
   end
 
   test 'reject responds with 422 if missing a lock version' do
@@ -280,7 +278,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     post :unpublish, params: { id: published_edition, lock_version: published_edition.lock_version, unpublishing: unpublish_params }
     assert_response :success
     assert_template :confirm_unpublish
-    assert_match /Alternative url must be provided/, flash[:alert]
+    assert_match %r[Alternative url must be provided], flash[:alert]
     assert published_edition.reload.published?
   end
 
@@ -332,7 +330,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  private
+private
 
   def submitted_edition(options = {})
     @submitted_edition ||= create(:submitted_publication, options)

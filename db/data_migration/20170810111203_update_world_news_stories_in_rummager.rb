@@ -1,7 +1,7 @@
 world_news_story_type_id = 4
 
 editions = Edition
-  .where(state: ["withdrawn", "published"])
+  .where(state: %w[withdrawn published])
   .where(news_article_type_id: world_news_story_type_id)
 
 puts "Updating #{editions.count} editions"

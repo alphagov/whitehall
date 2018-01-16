@@ -17,15 +17,15 @@ class Admin::FeatureListsControllerTest < ActionController::TestCase
   test "post reorder reorders the feature list" do
     world_location = create(:world_location)
     feature_list = create(:feature_list, featurable: world_location, locale: :fr)
-    feature1 = create(:feature, feature_list: feature_list, ordering: 1)
-    feature2 = create(:feature, feature_list: feature_list, ordering: 2)
+    feature_1 = create(:feature, feature_list: feature_list, ordering: 1)
+    feature_2 = create(:feature, feature_list: feature_list, ordering: 2)
 
     post :reorder, params: { id: feature_list, ordering: {
-      feature2.id.to_s => "1",
-      feature1.id.to_s => "2"
+      feature_2.id.to_s => "1",
+      feature_1.id.to_s => "2"
     } }
 
-    assert_equal [feature2, feature1], feature_list.reload.features
+    assert_equal [feature_2, feature_1], feature_list.reload.features
   end
 
   test "post reorder with no ordering does nothing" do

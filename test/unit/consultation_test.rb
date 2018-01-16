@@ -8,7 +8,7 @@ class ConsultationTest < ActiveSupport::TestCase
   should_not_allow_inline_attachments
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
 
-  [:imported, :deleted].each do |state|
+  %i[imported deleted].each do |state|
     test "#{state} editions are valid without an opening at time" do
       edition = build(:consultation, state: state, opening_at: nil)
       assert edition.valid?
@@ -36,7 +36,7 @@ class ConsultationTest < ActiveSupport::TestCase
     end
   end
 
-  [:draft, :scheduled, :published, :submitted, :rejected].each do |state|
+  %i[draft scheduled published submitted rejected].each do |state|
     test "#{state} editions are not valid without an opening at time" do
       edition = build(:consultation, state: state, opening_at: nil)
       refute edition.valid?
@@ -56,7 +56,7 @@ class ConsultationTest < ActiveSupport::TestCase
 
     edition.external_url = 'bad.url'
     refute edition.valid?
-    assert_match /not valid/, edition.errors[:external_url].first
+    assert_match %r[not valid], edition.errors[:external_url].first
   end
 
   test "should be invalid if the opening time is after the closing time" do
@@ -67,8 +67,8 @@ class ConsultationTest < ActiveSupport::TestCase
   test "should build a draft copy of the existing consultation with inapplicable nations" do
     published_consultation = create(:published_consultation, nation_inapplicabilities: [
       create(:nation_inapplicability, nation_id: Nation.wales.id, alternative_url: "http://wales.gov.uk"),
-      create(:nation_inapplicability, nation_id: Nation.scotland.id, alternative_url: "http://scot.gov.uk")]
-    )
+      create(:nation_inapplicability, nation_id: Nation.scotland.id, alternative_url: "http://scot.gov.uk")
+    ])
 
     draft_consultation = published_consultation.create_draft(create(:writer))
 
@@ -85,7 +85,7 @@ class ConsultationTest < ActiveSupport::TestCase
   end
 
   test ".closed excludes consultations closing in the future" do
-    open_consultation = create(:consultation, opening_at: 2.days.ago, closing_at: 1.minute.from_now)
+    _open_consultation = create(:consultation, opening_at: 2.days.ago, closing_at: 1.minute.from_now)
 
     assert_equal 0, Consultation.closed.count
   end
@@ -93,7 +93,7 @@ class ConsultationTest < ActiveSupport::TestCase
   test ".closed_since only includes consultations closed at or after the specified time" do
     closed_three_days_ago = create(:consultation, opening_at: 1.month.ago, closing_at: 3.days.ago)
     closed_two_days_ago = create(:consultation, opening_at: 1.month.ago, closing_at: 2.days.ago)
-    open = create(:consultation, opening_at: 1.month.ago, closing_at: 1.day.from_now)
+    _open = create(:consultation, opening_at: 1.month.ago, closing_at: 1.day.from_now)
 
     assert_same_elements [], Consultation.closed_since(1.days.ago)
     assert_same_elements [closed_two_days_ago], Consultation.closed_since(2.days.ago)
@@ -108,13 +108,13 @@ class ConsultationTest < ActiveSupport::TestCase
   end
 
   test ".open excludes consultations opening in the future" do
-    upcoming_consultation = create(:consultation, opening_at: 10.minutes.from_now, closing_at: 2.days.from_now)
+    _upcoming_consultation = create(:consultation, opening_at: 10.minutes.from_now, closing_at: 2.days.from_now)
 
     assert_equal 0, Consultation.open.count
   end
 
   test ".open excludes consultations closing in the past" do
-    closed_consultation = create(:consultation, opening_at: 2.days.ago, closing_at: 10.minutes.ago)
+    _closed_consultation = create(:consultation, opening_at: 2.days.ago, closing_at: 10.minutes.ago)
 
     assert_equal 0, Consultation.open.count
   end
@@ -137,14 +137,14 @@ class ConsultationTest < ActiveSupport::TestCase
   end
 
   test ".upcoming excludes consultations opening in the past" do
-    open_consultation = create(:consultation, opening_at: 10.minutes.ago, closing_at: 1.day.from_now)
-    closed_consultation = create(:consultation, opening_at: 2.days.ago, closing_at: 10.minutes.ago)
+    _open_consultation = create(:consultation, opening_at: 10.minutes.ago, closing_at: 1.day.from_now)
+    _closed_consultation = create(:consultation, opening_at: 2.days.ago, closing_at: 10.minutes.ago)
 
     assert_equal 0, Consultation.upcoming.count
   end
 
   test "should not create a participation if all participation fields are blank" do
-    attributes = {link_url: nil, consultation_response_form_attributes: {title: nil, file: nil}}
+    attributes = { link_url: nil, consultation_response_form_attributes: { title: nil, file: nil } }
     consultation = create(:consultation, consultation_participation_attributes: attributes)
     assert consultation.consultation_participation.blank?
   end
@@ -193,8 +193,8 @@ class ConsultationTest < ActiveSupport::TestCase
 
   test "should copy the outcome without falling over if the outcome has attachments but no summary" do
     consultation = create(:published_consultation)
-    outcome = create(:consultation_outcome, consultation: consultation, summary: '', attachments: [
-      attachment = build(:file_attachment, title: 'attachment-title', attachment_data_attributes: { file: fixture_file_upload('greenpaper.pdf') })
+    create(:consultation_outcome, consultation: consultation, summary: '', attachments: [
+      build(:file_attachment, title: 'attachment-title', attachment_data_attributes: { file: fixture_file_upload('greenpaper.pdf') })
     ])
 
     assert_nothing_raised {
@@ -224,7 +224,7 @@ class ConsultationTest < ActiveSupport::TestCase
 
   test "should copy public feedback without falling over if the feedback has attachments but no summary" do
     consultation = create(:published_consultation)
-    public_feedback = create(:consultation_public_feedback, consultation: consultation, summary: '', attachments: [
+    create(:consultation_public_feedback, consultation: consultation, summary: '', attachments: [
       build(:file_attachment, title: 'attachment-title', attachment_data_attributes: { file: fixture_file_upload('greenpaper.pdf') })
     ])
 
@@ -248,7 +248,7 @@ class ConsultationTest < ActiveSupport::TestCase
 
   test "should report that the outcome has been published if the consultation is closed and there is an outcome" do
     consultation = create(:consultation, opening_at: 2.days.ago, closing_at: 1.day.ago)
-    outcome = create(:consultation_outcome, consultation: consultation)
+    _outcome = create(:consultation_outcome, consultation: consultation)
 
     assert consultation.outcome_published?
   end

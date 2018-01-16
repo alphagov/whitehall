@@ -2,15 +2,14 @@ class Admin::ClassificationsController < Admin::BaseController
   helper_method :model_class, :model_name, :human_friendly_model_name
 
   before_action :build_object, only: [:new]
-  before_action :load_object, only: [:show, :edit]
-  before_action :remove_blank_parameters, only: [:create, :update]
+  before_action :load_object, only: %i[show edit]
+  before_action :remove_blank_parameters, only: %i[create update]
 
   def index
     @classifications = model_class.includes(:related_classifications).order(:name)
   end
 
-  def new
-  end
+  def new; end
 
   def create
     @classification = model_class.new(object_params)
@@ -21,8 +20,7 @@ class Admin::ClassificationsController < Admin::BaseController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     @classification = model_class.friendly.find(params[:id])
@@ -64,7 +62,7 @@ class Admin::ClassificationsController < Admin::BaseController
     model_class.name.underscore
   end
 
-  private
+private
 
   def object_params
     params.require(model_name).permit(
@@ -72,12 +70,10 @@ class Admin::ClassificationsController < Admin::BaseController
       :start_date, :end_date,
       policy_content_ids: [],
       related_classification_ids: [],
-      classification_memberships_attributes: [:id, :ordering],
-      social_media_accounts_attributes: [
-        :social_media_service_id, :url, :_destroy, :id
-      ],
-      featured_links_attributes: [:title, :url, :_destroy, :id],
-      organisation_classifications_attributes: [:id, :lead, :lead_ordering]
+      classification_memberships_attributes: %i[id ordering],
+      social_media_accounts_attributes: %i[social_media_service_id url _destroy id],
+      featured_links_attributes: %i[title url _destroy id],
+      organisation_classifications_attributes: %i[id lead lead_ordering]
     )
   end
 

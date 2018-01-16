@@ -11,7 +11,7 @@ class Contact < ApplicationRecord
 
   validates :title, :contact_type, presence: true
   validates :contact_form_url, uri: true, allow_blank: true
-  validates :street_address, :country_id, presence: true, if: -> r { r.has_postal_address? }
+  validates :street_address, :country_id, presence: true, if: ->(r) { r.has_postal_address? }
   accepts_nested_attributes_for :contact_numbers, allow_destroy: true, reject_if: :all_blank
 
   after_update :republish_dependent_editions
@@ -26,12 +26,10 @@ class Contact < ApplicationRecord
   def contactable_name
     if contactable.is_a? WorldwideOffice
       contactable.worldwide_organisation.name
+    elsif contactable.acronym.present?
+      contactable.acronym
     else
-      if contactable.acronym.present?
-        contactable.acronym
-      else
-        contactable.name
-      end
+      contactable.name
     end
   end
 
@@ -71,5 +69,4 @@ class Contact < ApplicationRecord
   def missing_translations
     super & contactable.non_english_translated_locales
   end
-
 end

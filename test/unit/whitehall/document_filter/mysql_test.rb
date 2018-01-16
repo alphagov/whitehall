@@ -100,7 +100,7 @@ module Whitehall::DocumentFilter
     test "locale param filters content by locale" do
       filtered_scope = stub_document_scope('filtered scope')
       document_scope.expects(:with_translations).with("fr").returns(filtered_scope)
-      filter = create_filter(document_scope, locale: "fr")
+      create_filter(document_scope, locale: "fr")
     end
 
     test "locale param does not filter if no locale given" do
@@ -166,7 +166,7 @@ module Whitehall::DocumentFilter
     end
 
     test "can filter consultations" do
-      publication  = create(:published_publication)
+      _publication = create(:published_publication)
       consultation = create(:published_consultation)
       filter = Whitehall::DocumentFilter::Mysql.new(publication_filter_option: 'consultations')
       filter.publications_search
@@ -178,10 +178,10 @@ module Whitehall::DocumentFilter
       world_location = create(:world_location)
       other_world_location = create(:world_location)
 
-      news_article = create(:published_news_article, news_article_type: NewsArticleType::NewsStory, world_locations: [world_location])
-      fatality_notice = create(:published_fatality_notice, world_locations: [world_location])
-      transcript = create(:published_speech, speech_type: SpeechType::Transcript, world_locations: [world_location])
-      statement = create(:published_speech, speech_type: SpeechType::WrittenStatement, world_locations: [other_world_location])
+      create(:published_news_article, news_article_type: NewsArticleType::NewsStory, world_locations: [world_location])
+      create(:published_fatality_notice, world_locations: [world_location])
+      create(:published_speech, speech_type: SpeechType::Transcript, world_locations: [world_location])
+      create(:published_speech, speech_type: SpeechType::WrittenStatement, world_locations: [other_world_location])
 
       assert_equal 4, create_filter(Announcement.published, world_locations: [world_location.slug, other_world_location.slug]).documents.count
       assert_equal 3, create_filter(Announcement.published, world_locations: [world_location.slug]).documents.count
@@ -288,8 +288,7 @@ module Whitehall::DocumentFilter
       document_scope = stub(name,
         count: stub_everything,
         current_page: stub_everything,
-        total_pages: stub_everything
-      )
+        total_pages: stub_everything)
       document_scope.stubs(:arel_table).returns(Edition.arel_table)
       document_scope.stubs(:without_editions_of_type).returns(document_scope)
       document_scope.stubs(:in_reverse_chronological_order).returns(document_scope)
@@ -317,7 +316,7 @@ module Whitehall::DocumentFilter
     end
 
     def stub_publication_type(slug, attributes = {})
-      publication_type = stub("publication-type-#{slug}", {id: slug, slug: slug, pluralized_name: slug.humanize.pluralize}.merge(attributes))
+      publication_type = stub("publication-type-#{slug}", { id: slug, slug: slug, pluralized_name: slug.humanize.pluralize }.merge(attributes))
       PublicationType.stubs(:find_by_slug).with(slug).returns(publication_type)
       publication_type
     end

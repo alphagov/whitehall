@@ -4,7 +4,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
   include CacheControlTestHelpers
 
   def path_to_clean_upload(path)
-    path = File.join(Whitehall.clean_uploads_root, path.from("/government/uploads".size))
+    File.join(Whitehall.clean_uploads_root, path.sub(%r[^/government/uploads], ''))
   end
 
   def nginx_path_to_clean_upload(path)
@@ -36,7 +36,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
     assert_equal "max-age=#{Whitehall.uploads_cache_max_age}, public", response.header['Cache-Control']
   end
 
-  def assert_sent_private_upload(upload, content_type)
+  def assert_sent_private_upload(_upload, content_type)
     assert_equal 200, response.status
     assert_equal content_type, response.content_type
     assert_cache_control "no-cache"
@@ -71,11 +71,12 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
   end
 
   test 'allows everyone access to attachments of published editions' do
+    alternative_format_provider = create(:organisation_with_alternative_format_contact_email)
+    attachment = build(:file_attachment)
+
     create(:published_publication,
-      alternative_format_provider: create(:organisation_with_alternative_format_contact_email),
-      attachments: [
-        attachment = build(:file_attachment)
-      ])
+           alternative_format_provider: alternative_format_provider,
+           attachments: [attachment])
     VirusScanHelpers.simulate_virus_scan(attachment.attachment_data.file)
 
     get_via_nginx attachment.url
@@ -84,11 +85,12 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
   end
 
   test 'allows everyone access to thumbnails of attachments of published editions' do
+    alternative_format_provider = create(:organisation_with_alternative_format_contact_email)
+    attachment = build(:file_attachment)
+
     create(:published_publication,
-      alternative_format_provider: create(:organisation_with_alternative_format_contact_email),
-      attachments: [
-        attachment = build(:file_attachment)
-      ])
+           alternative_format_provider: alternative_format_provider,
+           attachments: [attachment])
     thumbnail_path = path_to_clean_upload(attachment.url + ".png")
     create_uploaded_file(thumbnail_path)
 
@@ -98,11 +100,12 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
   end
 
   test 'blocks general access to attachments of unpublished editions' do
-    create(:draft_publication, alternative_format_provider:
-      create(:organisation_with_alternative_format_contact_email),
-      attachments: [
-        attachment = build(:file_attachment)
-      ])
+    alternative_format_provider = create(:organisation_with_alternative_format_contact_email)
+    attachment = build(:file_attachment)
+
+    create(:draft_publication,
+           alternative_format_provider: alternative_format_provider,
+           attachments: [attachment])
     VirusScanHelpers.simulate_virus_scan(attachment.attachment_data.file)
 
     get_via_nginx attachment.url
@@ -111,12 +114,11 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
   end
 
   test 'allows everyone access to attachments of published consultation responses' do
-    create(:published_consultation,
-      outcome: create(:consultation_outcome,
-        attachments: [
-          attachment = build(:file_attachment)
-        ])
-      )
+    attachment = build(:file_attachment)
+    consultation_outcome = create(:consultation_outcome, attachments: [attachment])
+
+    create(:published_consultation, outcome: consultation_outcome)
+
     VirusScanHelpers.simulate_virus_scan(attachment.attachment_data.file)
 
     get_via_nginx attachment.url
@@ -125,12 +127,10 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
   end
 
   test 'blocks general access to attachments of unpublished consultation responses' do
-    create(:draft_consultation,
-      outcome: create(:consultation_outcome,
-        attachments: [
-          attachment = build(:file_attachment)
-        ])
-      )
+    attachment = build(:file_attachment)
+    consultation_outcome = create(:consultation_outcome, attachments: [attachment])
+
+    create(:draft_consultation, outcome: consultation_outcome)
     VirusScanHelpers.simulate_virus_scan(attachment.attachment_data.file)
 
     get_via_nginx attachment.url
@@ -139,11 +139,12 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
   end
 
   test 'allows authenticated users access to attachments of unpublished editions' do
+    alternative_format_provider = create(:organisation_with_alternative_format_contact_email)
+    attachment = build(:file_attachment)
+
     create(:draft_publication,
-      alternative_format_provider: create(:organisation_with_alternative_format_contact_email),
-      attachments: [
-        attachment = build(:file_attachment)
-      ])
+           alternative_format_provider: alternative_format_provider,
+           attachments: [attachment])
     VirusScanHelpers.simulate_virus_scan(attachment.attachment_data.file)
 
     AttachmentsController.any_instance.stubs(:current_user).returns(create(:user))
@@ -154,13 +155,14 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
   end
 
   test 'blocks authenticated users without permission from accessing attachments of limited access documents' do
-    limited_access_publication = create(:draft_publication,
-      publication_type: PublicationType::NationalStatistics,
-      alternative_format_provider: create(:organisation_with_alternative_format_contact_email),
-      access_limited: true,
-      attachments: [
-        attachment = build(:file_attachment)
-      ])
+    alternative_format_provider = create(:organisation_with_alternative_format_contact_email)
+    attachment = build(:file_attachment)
+
+    create(:draft_publication,
+           publication_type: PublicationType::NationalStatistics,
+           alternative_format_provider: alternative_format_provider,
+           access_limited: true,
+           attachments: [attachment])
     VirusScanHelpers.simulate_virus_scan(attachment.attachment_data.file)
 
     AttachmentsController.any_instance.stubs(:current_user).returns(create(:user))
@@ -171,14 +173,18 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
   end
 
   test 'allows authenticated users with permission to access attachments of limited access documents' do
-    limited_access_publication = create(:draft_publication,
+    alternative_format_provider = create(:organisation_with_alternative_format_contact_email)
+    attachment = build(:file_attachment)
+    organisation = create(:organisation)
+
+    limited_access_publication = create(
+      :draft_publication,
       publication_type: PublicationType::NationalStatistics,
-      alternative_format_provider: create(:organisation_with_alternative_format_contact_email),
-      organisations: [create(:organisation)],
+      alternative_format_provider: alternative_format_provider,
+      organisations: [organisation],
       access_limited: true,
-      attachments: [
-        attachment = build(:file_attachment)
-      ])
+      attachments: [attachment]
+    )
     VirusScanHelpers.simulate_virus_scan(attachment.attachment_data.file)
     user_with_access = create(:user, organisation: limited_access_publication.organisations.first)
 

@@ -12,7 +12,7 @@ When(/^I sign up for emails$/) do
   # assert that the right things have happened to generate the redirect.
   begin
     click_on 'Create subscription'
-  rescue ActionController::RoutingError
+  rescue ActionController::RoutingError # rubocop:disable Lint/HandleExceptions
   end
 end
 
@@ -69,12 +69,11 @@ When(/^click the link for the latest email alerts$/) do
   end
 end
 
-Then(/^I should see email signup information for "(.*?)"$/) do |organisation_name|
+Then(/^I should see email signup information for "(.*?)"$/) do |_organisation_name|
   assert(page.has_link?("MHRA's alerts and recalls for drugs and medical devices", href: "/drug-device-alerts/email-signup"))
   assert(page.has_link?("Drug Safety Update", href: "/drug-safety-update/email-signup"))
   assert(page.has_link?("MHRA's new publications, statistics, consultations and announcements",
-    href: "/government/email-signup/new?email_signup%5Bfeed%5D=https%3A%2F%2Fwww.gov.uk%2Fgovernment%2Forganisations%2Fmedicines-and-healthcare-products-regulatory-agency.atom")
-  )
+    href: "/government/email-signup/new?email_signup%5Bfeed%5D=https%3A%2F%2Fwww.gov.uk%2Fgovernment%2Forganisations%2Fmedicines-and-healthcare-products-regulatory-agency.atom"))
 end
 
 def mock_email_alert_api
@@ -95,7 +94,7 @@ def assert_signed_up_to_mailing_list(feed_path, expected_title)
   feed_signed_up_to = public_url(feed_path)
   expected_links = UrlToSubscriberListCriteria.new(feed_signed_up_to).convert
 
-  expected_call = lambda do |args|
+  lambda do |args|
     assert_equal expected_links, args.fetch("links")
     assert_equal expected_title, args.fetch("title")
   end

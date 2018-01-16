@@ -3,7 +3,7 @@ require 'gds_api/router'
 POLICY_TO_PUBLICATION_MAPPINGS = {
   389393 => 489732, # Scottish Referendum
   333505 => 489731, # Reducing corruption in international trade
-}
+}.freeze
 
 gds_user = User.find_by!(name: "GDS Inside Government Team")
 router = GdsApi::Router.new(Plek.find('router-api'))
@@ -24,7 +24,8 @@ POLICY_TO_PUBLICATION_MAPPINGS.each_pair do |policy_id, publication_id|
     publication,
     user: gds_user,
     remark: "Archived",
-    unpublishing: unpublishing_params)
+    unpublishing: unpublishing_params
+  )
 
   if archiver.perform!
     puts "\tArchived with explanation: \"#{publication.unpublishing.explanation}\""

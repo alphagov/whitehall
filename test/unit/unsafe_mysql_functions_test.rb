@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class UnsafeMySQLFunctionsTest < ActiveSupport::TestCase
-
   def unsafe_functions
     %w{
       FOUND_ROWS()

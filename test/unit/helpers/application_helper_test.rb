@@ -16,7 +16,7 @@ class ApplicationHelperTest < ActionView::TestCase
       policies_finder_path(organisations: ['slug'])
 
     assert_equal "/government/policies?organisations%5B%5D=slug1&organisations%5B%5D=slug2",
-      policies_finder_path(organisations: ['slug1', 'slug2'])
+      policies_finder_path(organisations: %w[slug1 slug2])
 
     assert_equal "/government/policies?keywords=word&organisations%5B%5D=slug1",
       policies_finder_path(keywords: 'word', organisations: ['slug1'])
@@ -63,11 +63,11 @@ class ApplicationHelperTest < ActionView::TestCase
 
   test "should raise unless you supply the content of the list item" do
     e = assert_raise(ArgumentError) { render_list_of_ministerial_roles([]) }
-    assert_match /please supply the content of the list item/i, e.message
+    assert_match %r[please supply the content of the list item]i, e.message
   end
 
   test "should render a list of ministerial roles" do
-    roles = [build(:ministerial_role, name: "Jack"), build(:ministerial_role,  name: "Jill")]
+    roles = [build(:ministerial_role, name: "Jack"), build(:ministerial_role, name: "Jill")]
     html = render_list_of_ministerial_roles(roles) { |ministerial_role| "<p>#{ministerial_role.name}</p>" }
     assert_select_within_html(html, 'ul li p', text: "Jack")
     assert_select_within_html(html, 'ul li p', text: "Jill")
@@ -170,10 +170,10 @@ class ApplicationHelperTest < ActionView::TestCase
   test "full_width_tabs should render tabs" do
     request.stubs(:path).returns("/stationary")
 
-    rendered = Nokogiri::HTML::DocumentFragment.parse(full_width_tabs [
+    rendered = Nokogiri::HTML::DocumentFragment.parse(full_width_tabs([
       { label: "Guitar tabs", link_to: "/hipster-guitars" },
       { label: "Document tabs", link_to: "/stationary" }
-    ]).children.first
+    ])).children.first
 
     assert_equal "nav", rendered.name
     assert_equal "activity-navigation", rendered[:class]
@@ -187,16 +187,16 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   test "full_width_tabs supports :current_when" do
-    rendered = Nokogiri::HTML::DocumentFragment.parse(full_width_tabs [
+    rendered = Nokogiri::HTML::DocumentFragment.parse(full_width_tabs([
       { label: "Guitar tabs", link_to: "/hipster-guitars", current_when: false },
       { label: "Document tabs", link_to: "/stationary", current_when: true }
-    ]).children.first
+    ])).children.first
 
     refute rendered.at_xpath(".//a[.='Guitar tabs']")[:class].to_s.include? 'current'
     assert rendered.at_xpath(".//a[.='Document tabs']")[:class].to_s.include? 'current'
   end
 
-  private
+private
 
   def appoint_minister(attributes = {})
     organisation_name = attributes.delete(:organisation)
@@ -206,5 +206,4 @@ class ApplicationHelperTest < ActionView::TestCase
     person = create(:person, forename: attributes.delete(:forename), surname: attributes.delete(:surname))
     create(:role_appointment, attributes.merge(role: role, person: person))
   end
-
 end

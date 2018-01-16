@@ -14,7 +14,7 @@ module PublicDocumentRoutesHelper
     document_path(edition, options.merge(query))
   end
 
-  def document_url(edition, options = {}, builder_options = {})
+  def document_url(edition, options = {}, _builder_options = {})
     if edition.non_english_edition?
       options[:locale] = edition.primary_locale
     elsif edition.translatable?
@@ -48,7 +48,8 @@ module PublicDocumentRoutesHelper
     if edition.rendering_app == Whitehall::RenderingApp::GOVERNMENT_FRONTEND
       options[:host] = Plek.find_uri("draft-origin").host
     else
-      options.merge!(preview: edition.latest_edition.id, cachebust: Time.zone.now.getutc.to_i)
+      options[:preview] = edition.latest_edition.id
+      options[:cachebust] = Time.zone.now.getutc.to_i
     end
 
     document_url(edition, options)
@@ -59,7 +60,7 @@ module PublicDocumentRoutesHelper
                             when String
                               Organisation.find_by(slug: slug_or_organisation)
                             when Organisation
-                              organisation_or_court = slug_or_organisation
+                              slug_or_organisation
                             else
                               raise ArgumentError.new("Must provide a slug or Organisation")
                             end
@@ -80,7 +81,7 @@ module PublicDocumentRoutesHelper
     organisation_url(organisation_or_court_or_slug, options.merge(only_path: true))
   end
 
-  private
+private
 
   def build_url_for_corporate_information_page(edition, options)
     org = edition.owning_organisation

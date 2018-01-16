@@ -1,7 +1,6 @@
 module Whitehall
   module DocumentFilter
     class Options
-
       def initialize(options = {})
         @locale = options[:locale] || I18n.locale
       end
@@ -64,6 +63,7 @@ module Whitehall
       class UnknownFilterKey < StandardError; end
 
     protected
+
       def option_name_for_filter_key(filter_key)
         raise UnknownFilterKey.new("Unknown filter key #{filter_key}") unless valid_filter_key?(filter_key)
         OPTION_NAMES_TO_FILTER_KEYS.key(filter_key)
@@ -88,9 +88,9 @@ module Whitehall
         @options_for_document_type ||= StructuredOptions.new(
           all_label: "All document types",
           ungrouped: [
-            ['Announcements', 'announcements'],
-            ['Policies', 'policies'],
-            ['Publications', 'publications']
+            %w[Announcements announcements],
+            %w[Policies policies],
+            %w[Publications publications]
           ]
         )
       end

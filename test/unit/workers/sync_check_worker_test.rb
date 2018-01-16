@@ -16,11 +16,11 @@ class SyncCheckWorkerTest < ActiveSupport::TestCase
     content[:content_id] = presenter.content_id
     content[:links] = {
       available_translations: [
-        {content_id: presenter.content_id, locale: "en"}
+        { content_id: presenter.content_id, locale: "en" }
       ]
     }
     presenter.links.each do |type, ids|
-      content[:links][type] = ids.map { |id| {content_id: id} }
+      content[:links][type] = ids.map { |id| { content_id: id } }
     end
 
     content

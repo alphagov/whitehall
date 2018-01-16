@@ -9,7 +9,7 @@ module Edition::AlternativeFormatProvider
   end
 
   def alternative_format_provider_required?
-    attachments.any? { |a| a.kind_of?(FileAttachment) }
+    attachments.any? { |a| a.is_a?(FileAttachment) }
   end
 
   def alternative_format_contact_email
@@ -24,7 +24,7 @@ module Edition::AlternativeFormatProvider
     "govuk-feedback@digital.cabinet-office.gov.uk"
   end
 
-  private
+private
 
   def alternative_format_provider_has_contact_email
     if alternative_format_provider

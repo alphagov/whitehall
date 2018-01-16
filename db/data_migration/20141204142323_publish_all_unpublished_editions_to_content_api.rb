@@ -2,7 +2,7 @@
 non_published_editions_with_unpublishings = Edition.unscoped.
                                               joins(:unpublishing).
                                               includes(:document).
-                                              where(state: ['draft', 'deleted'])
+                                              where(state: %w[draft deleted])
 
 # reject any editions that have subsequently been re-published
 unpublished_editions = non_published_editions_with_unpublishings.reject do |edition|

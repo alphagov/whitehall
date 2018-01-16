@@ -1,6 +1,6 @@
 begin
   unknown_news_articles = NewsArticle.by_subtype(NewsArticleType::Unknown)
-  document_ids = unknown_news_articles.map { |n| n.document_id }.uniq
+  document_ids = unknown_news_articles.map(&:document_id).uniq
   published_edition_ids = unknown_news_articles.published.map(&:id)
 
   # We want to return ActiveRecord relations here, so that `update_all` works

@@ -1,5 +1,5 @@
 class Admin::PeopleController < Admin::BaseController
-  before_action :load_person, only: [:show, :edit, :update, :destroy]
+  before_action :load_person, only: %i[show edit update destroy]
   def index
     @people = Person.order(:surname, :forename).includes(:translations)
   end
@@ -17,11 +17,9 @@ class Admin::PeopleController < Admin::BaseController
     end
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @person.update_attributes(person_params)
@@ -39,7 +37,7 @@ class Admin::PeopleController < Admin::BaseController
     end
   end
 
-  private
+private
 
   def load_person
     @person = Person.friendly.find(params[:id])

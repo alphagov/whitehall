@@ -36,9 +36,9 @@ private
   end
 
   def fail
-    if edition = attachment_visibility.unpublished_edition
+    if (edition = attachment_visibility.unpublished_edition)
       redirect_to public_document_path(edition, id: edition.unpublishing.slug)
-    elsif replacement = attachment_data.replaced_by
+    elsif (replacement = attachment_data.replaced_by)
       expires_headers
       redirect_to replacement.url, status: 301
     else
@@ -47,7 +47,7 @@ private
   end
 
   def link_rel_headers
-    if edition = attachment_visibility.visible_edition
+    if (edition = attachment_visibility.visible_edition)
       response.headers['Link'] = "<#{public_document_url(edition)}>; rel=\"up\""
     end
   end

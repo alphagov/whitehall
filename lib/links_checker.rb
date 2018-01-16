@@ -6,7 +6,7 @@ class LinksChecker
 
   attr_accessor :links, :logger
 
-  def initialize(links, logger=LOGGER)
+  def initialize(links, logger = LOGGER)
     @links = links
     @broken_links = Set.new
     @logger = logger

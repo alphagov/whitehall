@@ -29,12 +29,12 @@ class Edition::OrganisationsTest < ActiveSupport::TestCase
   end
 
   test 'reducing lead organisations from 2 to 1 (keeping the second) is ok' do
-    o1 = create(:organisation)
-    o2 = create(:organisation)
+    organisation_1 = create(:organisation)
+    organisation_2 = create(:organisation)
     edition = create(:publication, create_default_organisation: false,
-                               lead_organisations: [o1, o2],
+                               lead_organisations: [organisation_1, organisation_2],
                                supporting_organisations: [])
-    edition.lead_organisations = [o2]
+    edition.lead_organisations = [organisation_2]
     assert_nothing_raised do
       edition.save!
     end

@@ -1,8 +1,8 @@
-Given /^a social media service "([^"]*)"$/ do |name|
+Given(/^a social media service "([^"]*)"$/) do |name|
   create(:social_media_service, name: name)
 end
 
-When /^I add a "([^"]*)" social media link "([^"]*)" to the (worldwide organisation|organisation)$/ do |social_service, url, social_container|
+When(/^I add a "([^"]*)" social media link "([^"]*)" to the (worldwide organisation|organisation)$/) do |social_service, url, social_container|
   if social_container == 'worldwide organisation'
     visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
   else
@@ -15,7 +15,7 @@ When /^I add a "([^"]*)" social media link "([^"]*)" to the (worldwide organisat
   click_on "Save"
 end
 
-When /^I add a "([^"]*)" social media link "([^"]*)" with the title "([^"]+)" to the (worldwide organisation|organisation)$/ do |social_service, url, title, social_container|
+When(/^I add a "([^"]*)" social media link "([^"]*)" with the title "([^"]+)" to the (worldwide organisation|organisation)$/) do |social_service, url, title, social_container|
   if social_container == 'worldwide organisation'
     visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
   else
@@ -29,7 +29,7 @@ When /^I add a "([^"]*)" social media link "([^"]*)" with the title "([^"]+)" to
   click_on "Save"
 end
 
-Then /^the "([^"]*)" social link should be shown on the public website for the (worldwide organisation|organisation)$/ do |social_service, social_container|
+Then(/^the "([^"]*)" social link should be shown on the public website for the (worldwide organisation|organisation)$/) do |social_service, social_container|
   if social_container == 'worldwide organisation'
     social_container = WorldwideOrganisation.last
     visit worldwide_organisation_path(social_container)
@@ -40,7 +40,7 @@ Then /^the "([^"]*)" social link should be shown on the public website for the (
   assert page.has_css?(".social-media-accounts .social-media-link.#{social_service.parameterize}", text: "Connect with #{social_container.display_name} on #{social_service}")
 end
 
-Then /^the "([^"]*)" social link called "([^"]+)" should be shown on the public website for the (worldwide organisation|organisation)$/ do |social_service, title, social_container|
+Then(/^the "([^"]*)" social link called "([^"]+)" should be shown on the public website for the (worldwide organisation|organisation)$/) do |social_service, title, social_container|
   if social_container == 'worldwide organisation'
     social_container = WorldwideOrganisation.last
     visit worldwide_organisation_path(social_container)

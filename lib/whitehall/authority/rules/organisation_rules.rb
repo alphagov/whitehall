@@ -1,5 +1,5 @@
 module Whitehall::Authority::Rules
-  class OrganisationRules < Struct.new(:actor, :subject)
+  OrganisationRules = Struct.new(:actor, :subject) do
     def can?(action)
       case action
       when :create
@@ -13,7 +13,8 @@ module Whitehall::Authority::Rules
       end
     end
 
-    private
+  private
+
     def actor_is_from_organisation_or_parent?(actor, organisation)
       actor.organisation == organisation || actor.organisation.try(:has_child_organisation?, organisation)
     end

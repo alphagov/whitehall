@@ -46,7 +46,7 @@ class PublishingTest < ActiveSupport::TestCase
     assert_requested(links_request, times: 2)
   end
 
-  private
+private
 
   def perform_force_publishing_for(edition)
     Whitehall.edition_services.force_publisher(edition).perform!

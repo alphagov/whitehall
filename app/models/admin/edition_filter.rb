@@ -10,7 +10,9 @@ module Admin
     attr_reader :options
 
     def initialize(source, current_user, options = {})
-      @source, @current_user, @options = source, current_user, options
+      @source = source
+      @current_user = current_user
+      @options = options
     end
 
     def editions(locale = nil)
@@ -58,8 +60,8 @@ module Admin
     end
 
     def force_published_percentage
-      if published_count > 0
-        (( force_published_count.to_f / published_count.to_f) * 100.0).round(2)
+      if published_count.positive?
+        ((force_published_count.to_f / published_count.to_f) * 100.0).round(2)
       else
         0
       end
@@ -91,7 +93,7 @@ module Admin
       end
     end
 
-    private
+  private
 
     def unpaginated_editions
       return @unpaginated_editions if @unpaginated_editions

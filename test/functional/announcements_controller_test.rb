@@ -29,7 +29,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "index sets Cache-Control: max-age to the time of the next scheduled publication" do
-    news = create(:scheduled_news_article, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
+    create(:scheduled_news_article, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
 
     Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
       get :index
@@ -121,13 +121,13 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index indicates selected world location in the filter selector" do
-    wl1 = create(:world_location, name: "Afghanistan")
-    wl2 = create(:world_location, name: "Albania")
-    wl3 = create(:world_location, name: "Algeria")
+    world_location_1 = create(:world_location, name: "Afghanistan")
+    world_location_2 = create(:world_location, name: "Albania")
+    world_location_3 = create(:world_location, name: "Algeria")
 
-    create(:published_news_article, world_locations: [wl1, wl2, wl3])
+    create(:published_news_article, world_locations: [world_location_1, world_location_2, world_location_3])
 
-    get :index, params: { world_locations: [wl1.slug, wl3.slug] }
+    get :index, params: { world_locations: [world_location_1.slug, world_location_3.slug] }
 
     assert_select "select[name='world_locations[]']" do
       assert_select "option[selected='selected']", count: 2
@@ -213,7 +213,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     org = create(:organisation, name: "org-name")
     other_org = create(:organisation, name: "other-org")
     news = create(:published_news_article, organisations: [org], first_published_at: 1.week.ago)
-    speech = create(:published_speech, organisations: [other_org], delivered_on: 3.days.ago)
+    _speech = create(:published_speech, organisations: [other_org], delivered_on: 3.days.ago)
 
     get :index, params: { departments: [org.to_param] }, format: :atom
 
@@ -224,7 +224,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   view_test "index generates an atom feed with the legacy announcement_type_option param set" do
     news = create(:published_news_story, first_published_at: 1.week.ago)
-    speech = create(:published_speech, delivered_on: 3.days.ago)
+    _speech = create(:published_speech, delivered_on: 3.days.ago)
 
     get :index, params: { announcement_type_option: 'news-stories' }, format: :atom
 
@@ -256,16 +256,16 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   view_test 'index only lists documents in the given locale' do
     english_article = create(:published_news_article)
-    spanish_article = create(:published_news_article, translated_into: [:fr])
+    french_article = create(:published_news_article, translated_into: [:fr])
     get :index, params: { locale: 'fr' }
 
-    assert_select_object spanish_article
+    assert_select_object french_article
     refute_select_object english_article
   end
 
   view_test 'index for non-english locale copes when a nil page is specified' do
-    english_article = create(:published_news_article)
-    spanish_article = create(:published_news_article, translated_into: [:fr])
+    _english_article = create(:published_news_article)
+    _french_article = create(:published_news_article, translated_into: [:fr])
     get :index, params: { locale: 'fr', page: nil }
 
     assert_response :success

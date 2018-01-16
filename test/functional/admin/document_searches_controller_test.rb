@@ -28,7 +28,7 @@ class Admin::DocumentSearchesControllerTest < ActionController::TestCase
 
   view_test 'GET #show can filter by edition type and subtype' do
     guidance = create(:publication, title: 'search term', publication_type: PublicationType::Guidance)
-    form = create(:publication, title: 'search term', publication_type: PublicationType::Form)
+    _form = create(:publication, title: 'search term', publication_type: PublicationType::Form)
 
     get :show, params: { title: 'search term', type: 'publication', subtypes: [PublicationType::Guidance.id] }, format: :json
 

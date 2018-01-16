@@ -30,7 +30,6 @@ end
 Unpublishing.where(unpublishing_reason_id: [2, 3]).each do |unp|
   url = unp.alternative_url
   redirect = unp.redirect
-  reason = unp.unpublishing_reason_id
 
   if redirect
     if url.present? && url.match(Whitehall.public_root)

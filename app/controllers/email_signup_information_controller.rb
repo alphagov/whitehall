@@ -1,5 +1,4 @@
 class EmailSignupInformationController < PublicFacingController
-
   def show
     if email_signup_pages.nil?
       render_not_found
@@ -12,6 +11,7 @@ class EmailSignupInformationController < PublicFacingController
   end
 
 private
+
   def organisation
     Organisation.friendly.find(organisation_slug)
   end

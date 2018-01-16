@@ -1,5 +1,4 @@
 class EmailSignupsController < PublicFacingController
-
   def new
     @email_signup = EmailSignup.new(email_signup_params)
   end

@@ -1,16 +1,15 @@
 Given(/^a published news article "([^"]*)" with related published policies "([^"]*)" and "([^"]*)"$/) do |news_article_title, policy_title_1, policy_title_2|
   policies = publishing_api_has_policies([policy_title_1, policy_title_2])
 
-  create(:published_news_article, title: news_article_title, policy_content_ids: policies.map {|p| p['content_id']})
+  create(:published_news_article, title: news_article_title, policy_content_ids: policies.map { |p| p['content_id'] })
 end
 
 Given(/^a published news article "([^"]*)" associated with "([^"]*)"$/) do |title, appointee|
-  person = find_person(appointee)
   appointment = find_person(appointee).current_role_appointments.last
   create(:published_news_article, title: title, role_appointments: [appointment])
 end
 
-Given(/^a published news article "([^"]*)" which isn't explicitly associated with "([^"]*)"$/) do |title, thing|
+Given(/^a published news article "([^"]*)" which isn't explicitly associated with "([^"]*)"$/) do |title, _thing|
   create(:published_news_article, title: title)
 end
 

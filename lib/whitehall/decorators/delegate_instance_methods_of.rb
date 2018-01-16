@@ -4,10 +4,20 @@ module Whitehall
       # methods added by rails to object that we probably do want to
       # delegate  .. shame these aren't collected somewhere that makes
       # them easy to detect
-      DEFAULT_METHODS_TO_ALWAYS_DELEGATE = [
-        :to_param, :to_query, :try, :with_options, :as_json,
-        :instance_values, :instance_variable_names, :in?,
-        :duplicable?, :nil?, :blank?, :present?, :presence
+      DEFAULT_METHODS_TO_ALWAYS_DELEGATE = %i[
+        as_json
+        blank?
+        duplicable?
+        in?
+        instance_values
+        instance_variable_names
+        nil?
+        presence
+        present?
+        to_param
+        to_query
+        try
+        with_options
       ].freeze
 
       # delegate instance methods of a set of classes
@@ -38,13 +48,13 @@ module Whitehall
           end
         end
 
-        methods = model_classes.map { |mc| mc.instance_methods }.flatten.uniq
+        methods = model_classes.map(&:instance_methods).flatten.uniq
         without_methods_of = delegate_options.delete(:without_methods_of)
         Array.wrap(without_methods_of).each { |without| methods -= without.instance_methods }
         methods += DEFAULT_METHODS_TO_ALWAYS_DELEGATE if delegate_options.delete(:with_default_methods)
         methods += Array.wrap(delegate_options.delete(:with_extra_methods))
 
-        delegate *methods, delegate_options
+        delegate(*methods, delegate_options)
       end
     end
   end

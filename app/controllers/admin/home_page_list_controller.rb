@@ -25,7 +25,8 @@ module Admin::HomePageListController
         redirect_to redirect_proc.call(home_page_list_container, home_page_list_item), notice: %{#{plural_name.titleize} on home page reordered successfully}
       end
 
-      protected
+    protected # rubocop:disable Layout/AccessModifierIndentation
+
       define_method(:home_page_list_item) do
         instance_variable_get("@#{single_name}")
       end
@@ -51,16 +52,16 @@ module Admin::HomePageListController
       define_method(:extract_items_from_ordering_params) do |ids_and_orderings|
         ids_and_orderings.permit!.to_h.
           # convert to useful forms
-          map {|item_id, ordering| [item_type.find_by(id: item_id), ordering.to_i] }.
+          map { |item_id, ordering| [item_type.find_by(id: item_id), ordering.to_i] }.
           # sort by ordering
           sort_by { |_, ordering| ordering }.
           # discard ordering
-          map {|item, _| item }.
+          map { |item, _| item }.
           # reject any blank contacts
           compact
       end
     end
-    self.before_action :extract_show_on_home_page_param, only: [:create, :update]
+    self.before_action :extract_show_on_home_page_param, only: %i[create update]
     include home_page_list_controller_methods
   end
 end

@@ -14,9 +14,9 @@ class PromotionalFeature < ApplicationRecord
     items.count == 3 || has_one_small_and_one_large_item?
   end
 
-  private
+private
 
   def has_one_small_and_one_large_item?
-    items.count == 2 && items.one? { |i| i.double_width? }
+    items.count == 2 && items.one?(&:double_width?)
   end
 end

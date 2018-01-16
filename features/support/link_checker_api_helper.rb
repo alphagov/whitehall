@@ -13,7 +13,7 @@ module LinkCheckerApiHelper
       .to_return(
         body: body,
         status: status,
-        headers: { "Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
       )
   end
 
@@ -26,7 +26,7 @@ module LinkCheckerApiHelper
     post "/government/admin/link-checker-api-callback", body.to_json
   end
 
-  private
+private
 
   def generate_signature(body, key)
     OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha1"), key, body)

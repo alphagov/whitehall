@@ -46,7 +46,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   test "#index sets Cache-Control: max-age to the time of the next scheduled publication" do
-    publication = create(:scheduled_publication, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
+    create(:scheduled_publication, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
 
     Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
       get :index
@@ -56,7 +56,8 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "#index highlights selected world filter options" do
-    @world_location_1, @world_location_2 = create(:world_location), create(:world_location)
+    @world_location_1 = create(:world_location)
+    @world_location_2 = create(:world_location)
     create(:published_publication, world_locations: [@world_location_1])
     create(:published_publication, world_locations: [@world_location_2])
 
@@ -124,7 +125,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "#index orders publications by publication date by default" do
-    publications = 5.times.map {|i| create(:published_publication, first_published_at: (10 - i).days.ago) }
+    publications = 5.times.map { |i| create(:published_publication, first_published_at: (10 - i).days.ago) }
 
     get :index
 
@@ -133,7 +134,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "#index orders consultations by first_published_at date by default" do
-    consultations = 5.times.map {|i| create(:published_consultation, first_published_at: (10 - i).days.ago) }
+    consultations = 5.times.map { |i| create(:published_consultation, first_published_at: (10 - i).days.ago) }
 
     get :index
 
@@ -142,10 +143,8 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "#index orders documents by appropriate timestamp by default" do
-    documents = [
-      consultation = create(:published_consultation, first_published_at: 5.days.ago),
-      publication = create(:published_publication, first_published_at: 4.days.ago)
-    ]
+    consultation = create(:published_consultation, first_published_at: 5.days.ago)
+    publication = create(:published_publication, first_published_at: 4.days.ago)
 
     get :index
 
@@ -230,10 +229,10 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "#index requested as JSON includes data for publications" do
-    org = create(:organisation, name: "org-name")
-    org2 = create(:organisation, name: "other-org")
+    org_1 = create(:organisation, name: "org-name")
+    org_2 = create(:organisation, name: "other-org")
     publication = create(:published_publication, title: "publication-title",
-                         organisations: [org, org2],
+                         organisations: [org_1, org_2],
                          first_published_at: Date.parse("2012-03-14"),
                          publication_type: PublicationType::CorporateReport)
 
@@ -252,10 +251,10 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "#index requested as JSON includes data for consultations" do
-    org = create(:organisation, name: "org-name")
-    org2 = create(:organisation, name: "other-org")
+    organisation_1 = create(:organisation, name: "org-name")
+    organisation_2 = create(:organisation, name: "other-org")
     consultation = create(:published_consultation, title: "consultation-title",
-                         organisations: [org, org2],
+                         organisations: [organisation_1, organisation_2],
                          opening_at: Time.zone.parse("2012-03-14"),
                          closing_at: Time.zone.parse("2012-03-15"),
                          first_published_at: Time.zone.parse("2012-03-10"))
@@ -359,9 +358,9 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "#index generates an atom feed for the current filter" do
-    org = create(:organisation, name: "org-name")
+    organisation = create(:organisation, name: "org-name")
 
-    get :index, params: { departments: [org.to_param] }, format: :atom
+    get :index, params: { departments: [organisation.to_param] }, format: :atom
 
     assert_select_atom_feed do
       assert_select 'feed > id', 1
@@ -369,32 +368,32 @@ class PublicationsControllerTest < ActionController::TestCase
       assert_select 'feed > author, feed > entry > author'
       assert_select 'feed > updated', 1
       assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml',
-                    publications_url(format: :atom, departments: [org.to_param]), 1
+                    publications_url(format: :atom, departments: [organisation.to_param]), 1
       assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', root_url, 1
     end
   end
 
   view_test "#index generates an atom feed entries for publications matching the current filter" do
-    org = create(:organisation, name: "org-name")
-    other_org = create(:organisation, name: "other-org")
-    p1 = create(:published_publication, organisations: [org], first_published_at: 2.days.ago.to_date)
-    c1 = create(:published_consultation, organisations: [org], opening_at: 1.day.ago)
-    p2 = create(:published_publication, organisations: [other_org])
+    organisation = create(:organisation, name: "org-name")
+    other_organisation = create(:organisation, name: "other-org")
+    publication_1 = create(:published_publication, organisations: [organisation], first_published_at: 2.days.ago.to_date)
+    consultation_1 = create(:published_consultation, organisations: [organisation], opening_at: 1.day.ago)
+    _publication_2 = create(:published_publication, organisations: [other_organisation])
 
-    get :index, params: { departments: [org.to_param] }, format: :atom
+    get :index, params: { departments: [organisation.to_param] }, format: :atom
 
     assert_select_atom_feed do
-      assert_select_atom_entries([c1, p1])
+      assert_select_atom_entries([consultation_1, publication_1])
     end
   end
 
   view_test "#index generates an atom feed entries for consultations matching the current filter" do
-    org = create(:organisation, name: "org-name")
+    organisation = create(:organisation, name: "org-name")
     other_org = create(:organisation, name: "other-org")
-    document = create(:published_consultation, organisations: [org], opening_at: Date.parse('2001-12-12'))
+    document = create(:published_consultation, organisations: [organisation], opening_at: Date.parse('2001-12-12'))
     create(:published_consultation, organisations: [other_org])
 
-    get :index, params: { departments: [org.to_param] }, format: :atom
+    get :index, params: { departments: [organisation.to_param] }, format: :atom
 
     assert_select_atom_feed do
       assert_select_atom_entries([document])
@@ -456,7 +455,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test '#index atom feed should render fractions' do
-    publication = create(:published_publication, body: "My favourite fraction is [Fraction:1/4].")
+    create(:published_publication, body: "My favourite fraction is [Fraction:1/4].")
 
     get :index, format: :atom
 
@@ -471,7 +470,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test '#index should show relevant document collection information' do
-    editor = create(:departmental_editor)
+    create(:departmental_editor)
     publication = create(:draft_publication)
     collection = create(:document_collection, :with_group)
     collection.groups.first.documents = [publication.document]
@@ -486,7 +485,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test '#index requested as JSON includes document collection information' do
-    editor = create(:departmental_editor)
+    create(:departmental_editor)
     publication = create(:draft_publication)
     collection = create(:document_collection, :with_group)
     collection.groups.first.documents = [publication.document]
@@ -500,14 +499,14 @@ class PublicationsControllerTest < ActionController::TestCase
     result = json['results'].first['result']
 
     path = public_document_path(collection)
-    link = %Q{<a href="#{path}">#{collection.title}</a>}
-    assert_equal %Q{Part of a collection: #{link}}, result['publication_collections']
+    link = %{<a href="#{path}">#{collection.title}</a>}
+    assert_equal %{Part of a collection: #{link}}, result['publication_collections']
   end
 
-  private
+private
 
   def publication_with_attachment(params = {})
-    type = params.delete(:type) { |key| :file }
+    type = params.delete(:type) { |_key| :file }
     trait = "with_#{type}_attachment".to_sym
     create(:published_publication, trait, body: "!@1").tap do |publication|
       attachment = publication.attachments.first
@@ -516,13 +515,15 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   def given_two_documents_in_two_organisations
-    @organisation_1, @organisation_2 = create(:organisation, type: OrganisationType.ministerial_department), create(:organisation, type: OrganisationType.ministerial_department)
+    @organisation_1 = create(:organisation, type: OrganisationType.ministerial_department)
+    @organisation_2 = create(:organisation, type: OrganisationType.ministerial_department)
     create(:published_publication, organisations: [@organisation_1])
     create(:published_consultation, organisations: [@organisation_2])
   end
 
   def given_two_documents_in_two_topics
-    @topic_1, @topic_2 = create(:topic), create(:topic)
+    @topic_1 = create(:topic)
+    @topic_2 = create(:topic)
     create(:published_publication, topics: [@topic_1])
     create(:published_consultation, topics: [@topic_2])
   end

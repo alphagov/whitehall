@@ -35,6 +35,7 @@ class LocalisedModel < BasicObject
   end
 
 private
+
   def translatable_association?(method, response)
     return false unless @model.class.respond_to?(:reflect_on_association)
 
@@ -62,7 +63,6 @@ private
 end
 
 class ErrorsInEnglish < ::ActiveModel::Errors
-
   def generate_message(*args)
     ::I18n.with_locale(:en) do
       super

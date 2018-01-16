@@ -29,7 +29,7 @@ module Edition::Publishing
   end
 
   def first_published_major_version?
-    published_major_version == 1 && published_minor_version == 0
+    published_major_version == 1 && published_minor_version.zero?
   end
 
   def published_version
@@ -55,7 +55,7 @@ module Edition::Publishing
   end
 
   def virus_check_required?
-    allows_attachments? && published? && (!skip_virus_status_check)
+    allows_attachments? && published? && !skip_virus_status_check
   end
 
   def attachment_passed_virus_scan!

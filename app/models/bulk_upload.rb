@@ -58,26 +58,26 @@ class BulkUpload
     attachments.each { |attachment| attachment.attachable = edition }
 
     if valid?
-      attachments.all? &:save
+      attachments.all?(&:save)
     else
       false
     end
   end
 
   def attachments_must_be_valid
-    unless attachments.all? { |attachment| attachment.valid? }
+    unless attachments.all?(&:valid?)
       errors[:base] << 'Please enter missing fields for each attachment'
     end
   end
 
-  private
+private
 
   def find_attachment_with_file(path)
     @edition.attachments.with_filename(File.basename(path)).first
   end
 
   def find_and_update_existing_attachment(attachment_attrs, data_attrs)
-    if attachment = FileAttachment.find_by(id: attachment_attrs[:id])
+    if (attachment = FileAttachment.find_by(id: attachment_attrs[:id]))
       replaced_data_id = attachment.attachment_data.id
       attachment.attributes = attachment_attrs
       attachment.attachment_data = AttachmentData.new(data_attrs)
@@ -118,7 +118,7 @@ class BulkUpload
 
     def extracted_file_paths
       if @extracted_files_paths.nil?
-        lines = extract_contents.split(/[\r\n]+/).map { |line| line.strip }
+        lines = extract_contents.split(/[\r\n]+/).map(&:strip)
         lines = lines
           .reject { |line| line =~ /\A(Archive|creating):/ }
           .reject { |line| line =~ /\/__MACOSX\// }
@@ -139,7 +139,7 @@ class BulkUpload
     end
 
     def must_be_a_zip_file
-      if @zip_file.present? && (!is_a_zip?)
+      if @zip_file.present? && !is_a_zip?
         errors.add(:zip_file, 'not a zip file')
       end
     end
@@ -150,7 +150,7 @@ class BulkUpload
       errs.read.empty?
     end
 
-    private
+  private
 
     def contains_only_whitelisted_file_types
       if @zip_file.present? && is_a_zip? && contains_disallowed_file_types?

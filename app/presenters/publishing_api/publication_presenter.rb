@@ -32,13 +32,13 @@ module PublishingApi
 
     def links
       LinksPresenter.new(item).extract(
-        [
-          :topics,
-          :parent,
-          :organisations,
-          :world_locations,
-          :policy_areas,
-          :related_policies,
+        %i[
+          topics
+          parent
+          organisations
+          world_locations
+          policy_areas
+          related_policies
         ]
       ).merge(
         PayloadBuilder::TopicalEvents.for(item)
@@ -94,7 +94,7 @@ module PublishingApi
     end
 
     def ministers
-      item.role_appointments.collect {|a| a.person.content_id}
+      item.role_appointments.collect { |a| a.person.content_id }
     end
 
     def related_statistical_data_sets
