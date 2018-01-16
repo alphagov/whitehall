@@ -17,6 +17,7 @@ Assets are currently handled by whitehall. It handles uploads, virus scanning an
 - [alphagov/asset-manager](http://github.com/alphagov/asset-manager): provides uploading for static files (migration in progress)
 - [alphagov/publishing-api](http://github.com/alphagov/publishing-api): documents are sent here, persisted and then requested
 - [alphagov/rummager](http://github.com/alphagov/rummager): allows documents to be indexed for searching in both finders and site search
+- [alphagov/link-checker-api](https://github.com/alphagov/link-checker-api): checks all the links in an edition on request from the edition show page.
 
 ## Running the application
 
