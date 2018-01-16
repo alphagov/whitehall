@@ -1,21 +1,22 @@
 <fieldset class="js-change-notes">
-  <h3 class="remove-top-margin">To save this document please complete the following</h3>
-  <p class="remove-bottom-margin">Select an option:</p>
+  <h3 class="remove-top-margin">What sort of change are you making?</h3>
+  
   <div class="radio">
     <%= form.label :minor_change_true do %>
       <%= form.radio_button(:minor_change, true) %>
-      <strong>Update the document silently</strong> – for minor changes like fixes to typos, links, GOV.UK style or metadata
+      <strong>A typo, style change or similar</strong> (this won’t send an email to subscribed users)
     <% end %>
   </div>
   <div class="radio">
     <%= form.label :minor_change_false do %>
       <%= form.radio_button(:minor_change, false) %>
-      <strong>Alert the public to what’s changed</strong> – for important changes to the content or attached files
+      <strong>A significant edit to the page, such as a change of address</strong> (your note will be visible on the page, and emailed to subscribers)
     <% end %>
   </div>
   <div class="js-change-notes-section">
     <div class="form-group">
-      <%= form.text_area(:change_note, rows: 4, placeholder: 'Input text to display publicly on the live site and in email alerts', label_text:'Public change note', class: 'form-control') %>
+      <%= form.text_area(:change_note, rows: 4, placeholder: 'For example, 'Potatoes have been added to the banned import list.' or 'Attached new application form for 2018'', label_text:'Public change note', class: 'form-control') %>
     </div>
   </div>
+  <p>Read the <a href="https://www.gov.uk/guidance/content-design/writing-for-gov-uk#change-notes" target="_blank">guidance about change notes</a> (opens in a new tab).</p>
 </fieldset>
