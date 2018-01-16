@@ -18,8 +18,9 @@ class MigrateAssetsToAssetManager
   class Worker < WorkerBase
     sidekiq_options queue: :asset_migration
 
-    def perform(file_path)
-      AssetFile.open(file_path) do |file|
+    def perform(relative_file_path)
+      absolute_file_path = File.join(Whitehall.clean_uploads_root, relative_file_path)
+      AssetFile.open(absolute_file_path) do |file|
         create_whitehall_asset(file) unless asset_exists?(file)
       end
     end
@@ -50,10 +51,18 @@ class MigrateAssetsToAssetManager
     end
 
     def file_paths
-      all_paths_under_target_directory.reject { |f| File.directory?(f) }
+      absolute_file_paths.map { |p| path_relative_to_clean_uploads_root(p) }
     end
 
   private
+
+    def path_relative_to_clean_uploads_root(path)
+      Pathname.new(path).relative_path_from(Pathname.new(Whitehall.clean_uploads_root)).to_s
+    end
+
+    def absolute_file_paths
+      all_paths_under_target_directory.reject { |f| File.directory?(f) }
+    end
 
     def all_paths_under_target_directory
       Dir.glob(File.join(full_target_dir, '**', '*'), File::FNM_DOTMATCH)

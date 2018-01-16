@@ -103,25 +103,26 @@ class AssetFilePathsTest < ActiveSupport::TestCase
   end
 
   test '#files includes only organisation logos' do
-    assert_same_elements [organisation_logo_path], @subject.file_paths
+    assert_same_elements ['system/uploads/organisation/logo/1/logo.jpg'], @subject.file_paths
   end
 
   test '#files does not includes directories' do
     @subject.file_paths.each do |file_path|
-      refute File.directory?(file_path)
+      absolute_file_path = File.join(Whitehall.clean_uploads_root, file_path)
+      refute File.directory?(absolute_file_path)
     end
   end
 
   test '#files includes all files when initialised with a top level target directory' do
     subject = MigrateAssetsToAssetManager::AssetFilePaths.new('system/uploads')
-    assert_same_elements [organisation_logo_path, other_asset_path], subject.file_paths
+    assert_same_elements ['system/uploads/organisation/logo/1/logo.jpg', 'system/uploads/other/other_asset.png'], subject.file_paths
   end
 
   test '#files includes hidden files' do
     hidden_path = File.join(organisation_logo_dir, '.hidden.jpg')
     FileUtils.cp(dummy_asset_path, hidden_path)
 
-    assert_same_elements [organisation_logo_path, hidden_path], @subject.file_paths
+    assert_same_elements ['system/uploads/organisation/logo/1/.hidden.jpg', 'system/uploads/organisation/logo/1/logo.jpg'], @subject.file_paths
   end
 
 private
