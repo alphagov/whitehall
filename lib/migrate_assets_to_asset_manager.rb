@@ -2,17 +2,17 @@ class MigrateAssetsToAssetManager
   include ActionView::Helpers::TextHelper
 
   def initialize(target_dir)
-    @file_paths = AssetFilePaths.new(target_dir)
+    @relative_file_paths = AssetFilePaths.new(target_dir)
   end
 
   def perform
-    @file_paths.each do |file_path|
-      Worker.perform_async(file_path)
+    @relative_file_paths.each do |relative_file_path|
+      Worker.perform_async(relative_file_path)
     end
   end
 
   def to_s
-    "Migrating #{pluralize(@file_paths.size, 'file')}"
+    "Migrating #{pluralize(@relative_file_paths.size, 'file')}"
   end
 
   class Worker < WorkerBase
@@ -44,13 +44,13 @@ class MigrateAssetsToAssetManager
   end
 
   class AssetFilePaths
-    delegate :each, :size, to: :file_paths
+    delegate :each, :size, to: :relative_file_paths
 
     def initialize(target_dir)
       @target_dir = target_dir
     end
 
-    def file_paths
+    def relative_file_paths
       absolute_file_paths.map { |p| path_relative_to_clean_uploads_root(p) }
     end
 
