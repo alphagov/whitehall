@@ -255,7 +255,7 @@ module PublishingApi::ConsultationPresenterTest
     end
 
     test 'ways to respond' do
-      Plek.any_instance.stubs(:public_asset_host).returns('http://asset-host.com')
+      Plek.any_instance.stubs(:public_asset_host).returns('https://asset-host.com')
       expected_ways_to_respond = {
         attachment_url: 'https://asset-host.com/government/uploads/system/uploads/consultation_response_form_data/file/1/two-pages.pdf',
         email: 'postmaster@example.com',
