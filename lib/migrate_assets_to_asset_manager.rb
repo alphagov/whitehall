@@ -2,24 +2,25 @@ class MigrateAssetsToAssetManager
   include ActionView::Helpers::TextHelper
 
   def initialize(target_dir)
-    @file_paths = AssetFilePaths.new(target_dir)
+    @relative_file_paths = AssetFilePaths.new(target_dir)
   end
 
   def perform
-    @file_paths.each do |file_path|
-      Worker.perform_async(file_path)
+    @relative_file_paths.each do |relative_file_path|
+      Worker.perform_async(relative_file_path)
     end
   end
 
   def to_s
-    "Migrating #{pluralize(@file_paths.size, 'file')}"
+    "Migrating #{pluralize(@relative_file_paths.size, 'file')}"
   end
 
   class Worker < WorkerBase
     sidekiq_options queue: :asset_migration
 
-    def perform(file_path)
-      AssetFile.open(file_path) do |file|
+    def perform(relative_file_path)
+      absolute_file_path = File.join(Whitehall.clean_uploads_root, relative_file_path)
+      AssetFile.open(absolute_file_path) do |file|
         create_whitehall_asset(file) unless asset_exists?(file)
       end
     end
@@ -43,17 +44,25 @@ class MigrateAssetsToAssetManager
   end
 
   class AssetFilePaths
-    delegate :each, :size, to: :file_paths
+    delegate :each, :size, to: :relative_file_paths
 
     def initialize(target_dir)
       @target_dir = target_dir
     end
 
-    def file_paths
-      all_paths_under_target_directory.reject { |f| File.directory?(f) }
+    def relative_file_paths
+      absolute_file_paths.map { |p| path_relative_to_clean_uploads_root(p) }
     end
 
   private
+
+    def path_relative_to_clean_uploads_root(path)
+      Pathname.new(path).relative_path_from(Pathname.new(Whitehall.clean_uploads_root)).to_s
+    end
+
+    def absolute_file_paths
+      all_paths_under_target_directory.reject { |f| File.directory?(f) }
+    end
 
     def all_paths_under_target_directory
       Dir.glob(File.join(full_target_dir, '**', '*'), File::FNM_DOTMATCH)
