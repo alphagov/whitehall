@@ -184,7 +184,7 @@ GEM
       sanitize (~> 2.1.0)
     govuk-content-schema-test-helpers (1.6.0)
       json-schema (~> 2.8.0)
-    govuk-lint (3.5.0)
+    govuk-lint (3.6.0)
       rubocop (~> 0.51.0)
       rubocop-rspec (~> 1.19.0)
       scss_lint
@@ -558,7 +558,7 @@ DEPENDENCIES
   globalize (= 5.1.0)
   govspeak (~> 5.4.0)
   govuk-content-schema-test-helpers
-  govuk-lint (~> 3.5.0)
+  govuk-lint (~> 3.6.0)
   govuk_ab_testing (~> 2.4x)
   govuk_admin_template (~> 6.2)
   govuk_app_config (~> 1.2.0)

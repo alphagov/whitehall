@@ -83,7 +83,7 @@ end
 
 group :development, :test do
   gem 'dotenv-rails'
-  gem 'govuk-lint', '~> 3.5.0'
+  gem 'govuk-lint', '~> 3.6.0'
   gem 'parallel_tests'
   gem 'pry-byebug'
   gem 'pry-rails'
