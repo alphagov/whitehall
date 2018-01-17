@@ -89,6 +89,7 @@ class PublishStaticPages
         document_type: "finder",
         description: "Find statistics publications from across government, including statistical releases, live data tables, and National Statistics.",
         base_path: "/government/statistics",
+        locales: Locale.non_english.map(&:code),
       },
       {
         content_id: "88936763-df8a-441f-8b96-9ea0dc0758a1",
@@ -96,6 +97,7 @@ class PublishStaticPages
         document_type: "finder",
         description: "Find news articles, speeches and statements from government organisations",
         base_path: "/government/announcements",
+        locales: Locale.non_english.map(&:code),
       },
       {
         content_id: "324e4708-2285-40a0-b3aa-cb13af14ec5f",
@@ -103,6 +105,7 @@ class PublishStaticPages
         document_type: "finder",
         description: "Read biographies and responsibilities of Cabinet ministers and all ministers by department, as well as the whips who help co-ordinate parliamentary business",
         base_path: "/government/ministers",
+        locales: Locale.non_english.map(&:code),
       },
       {
         content_id: "430df081-f28e-4a1f-b812-8977fdac6e9a",
@@ -133,6 +136,17 @@ class PublishStaticPages
   end
 
   def present_for_publishing_api(page)
+    routes_for_locales = (page[:locales] || []).map do |locale|
+      { path: "#{page[:base_path]}.#{locale}", type: "exact" }
+    end
+
+    routes = [
+      {
+        path: page[:base_path],
+        type: "exact",
+      },
+    ] + routes_for_locales
+
     {
       content_id: page[:content_id],
       content: {
@@ -145,12 +159,7 @@ class PublishStaticPages
         base_path: page[:base_path],
         publishing_app: "whitehall",
         rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
-        routes: [
-          {
-            path: page[:base_path],
-            type: "exact",
-          },
-        ],
+        routes: routes,
         public_updated_at: Time.zone.now.iso8601,
         update_type: "minor",
       }
