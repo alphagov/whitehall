@@ -7,7 +7,8 @@ class Feature < ApplicationRecord
   mount_uploader :image, ImageUploader, mount_on: :carrierwave_image
   validates :document, presence: true, unless: ->(feature) { feature.topical_event_id.present? || feature.offsite_link_id.present? }
   validates :started_at, presence: true
-  validates :image, :alt_text, presence: true, on: :create
+  validates :image, presence: true, on: :create
+  validates :alt_text, presence: true, allow_blank: true, on: :create
   validates :alt_text, length: { maximum: 255 }
   validates_with ImageValidator, method: :image, size: [960, 640], if: :image_changed?
 

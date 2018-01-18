@@ -13,7 +13,7 @@ class TakePartPage < ApplicationRecord
   mount_uploader :image, ImageUploader, mount_on: :carrierwave_image
 
   validates :image, presence: true, on: :create
-  validates :image_alt_text, presence: true, length: { maximum: 255 }, on: :create
+  validates :image_alt_text, presence: true, allow_blank: true, length: { maximum: 255 }, on: :create
   validates_with ImageValidator, method: :image, size: [960, 640], if: :image_changed?
 
   include Searchable

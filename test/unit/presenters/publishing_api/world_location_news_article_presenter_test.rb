@@ -329,7 +329,7 @@ class PublishingApi::WorldLocationNewsArticlePlaceholderImageTest < ActiveSuppor
 
   test "includes a placeholder image when no image is presented" do
     expected_placeholder_image = {
-      alt_text: "placeholder",
+      alt_text: "",
       caption: nil,
       url: Whitehall.public_asset_host + "/government/assets/placeholder.jpg"
     }

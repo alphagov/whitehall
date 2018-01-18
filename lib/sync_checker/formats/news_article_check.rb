@@ -72,7 +72,7 @@ module SyncChecker
         image_alt_text = if first_image
                            first_image.alt_text.squish
                          else
-                           'placeholder'
+                           ''
                          end
 
         image_caption = first_image.try(:caption).try(:strip).presence

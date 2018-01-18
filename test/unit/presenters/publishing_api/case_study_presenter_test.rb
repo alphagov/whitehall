@@ -106,7 +106,7 @@ class PublishingApi::CaseStudyPresenterTest < ActiveSupport::TestCase
 
     expected_hash = {
       url: (Whitehall.public_asset_host + organisation_image.file.url(:s300)),
-      alt_text: 'placeholder',
+      alt_text: '',
       caption: nil
     }
     presented_item = present(case_study)
