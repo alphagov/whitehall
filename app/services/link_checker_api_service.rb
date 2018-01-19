@@ -7,12 +7,13 @@ class LinkCheckerApiService
     Govspeak::Document.new(reportable.body).extracted_links(website_root: website_root)
   end
 
-  def self.check_links(reportable, webhook_uri)
+  def self.check_links(reportable, webhook_uri, checked_within: nil)
     uris = extract_links(reportable)
     raise "Reportable has no links to check" if uris.empty?
 
     batch_report = Whitehall.link_checker_api_client.create_batch(
       uris,
+      checked_within: checked_within,
       webhook_uri: webhook_uri,
       webhook_secret_token: webhook_secret_token
     )
