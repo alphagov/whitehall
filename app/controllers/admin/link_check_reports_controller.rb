@@ -4,7 +4,8 @@ class Admin::LinkCheckReportsController < Admin::BaseController
   def create
     @report = LinkCheckerApiService.check_links(
       @reportable,
-      admin_link_checker_api_callback_url
+      admin_link_checker_api_callback_url,
+      checked_within: 1.second,
     )
 
     respond_to do |format|
