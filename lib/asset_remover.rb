@@ -1,5 +1,5 @@
 class AssetRemover
-  def remove_organisation_logos
+  def remove_organisation_logo
     target_dir = File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'organisation', 'logo')
     remove_asset_dir(target_dir)
   end

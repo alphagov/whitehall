@@ -8,8 +8,8 @@ namespace :asset_manager do
   end
 
   desc "Removes all organisation logos."
-  task remove_organisation_logos: :environment do
-    files = AssetRemover.new.remove_organisation_logos
+  task remove_organisation_logo: :environment do
+    files = AssetRemover.new.remove_organisation_logo
     puts files
   end
 
