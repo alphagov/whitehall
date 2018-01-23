@@ -70,7 +70,7 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
   view_test 'POST #create prompts for missing data if new group invalid' do
     post_create(heading: '')
     assert_response :success
-    assert_select '.errors li', text: /Heading/
+    assert_select '.errors li[data-track-action="document-collection-group-error"]', text: /Heading/
   end
 
   view_test 'GET #edit renders successfully' do

@@ -233,7 +233,7 @@ end
 
 Then(/^my attempt to save it should fail with error "([^"]*)"/) do |error_message|
   click_button "Save"
-  assert page.has_css?(".errors li", text: error_message)
+  assert page.has_css?(".errors li[data-track-category='form-error'][data-track-action$='-error'][data-track-label=\"#{error_message}\"]", text: error_message)
 end
 
 When(/^I am on the edit page for (.*?) "(.*?)"$/) do |document_type, title|
