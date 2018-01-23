@@ -13,7 +13,7 @@ gem 'deprecated_columns', '~> 0.1.1'
 gem 'equivalent-xml', '~> 0.6.0', require: false
 gem 'faraday'
 gem 'friendly_id', '~> 5.2.1'
-gem 'gds-sso', '~> 13.2'
+gem 'gds-sso', '~> 13.5'
 gem 'globalize', '5.1.0'
 gem 'govuk_ab_testing', '~> 2.4x'
 gem 'govuk_admin_template', '~> 6.2'
