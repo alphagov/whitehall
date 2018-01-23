@@ -20,7 +20,7 @@ module Govspeak
 
       AdminLinkReplacer.new(fragment).replace!
 
-      refute_select_within_html fragment.to_html, "a[href='#{public_url}']", text: "unpublished thing"
+      refute_select_within_html fragment.to_html, "a"
       assert_select_within_html fragment.to_html, "p", text: 'this is an unpublished thing'
     end
 
