@@ -16,24 +16,24 @@ class AssetRemoverTest < ActiveSupport::TestCase
     FileUtils.remove_dir(@logo_dir, true)
   end
 
-  test '#remove_organisation_logos removes all logos' do
+  test '#remove_organisation_logo removes all logos' do
     assert File.exist?(@logo_path)
 
-    @subject.remove_organisation_logos
+    @subject.remove_organisation_logo
 
     refute File.exist?(@logo_path)
   end
 
-  test '#remove_organisation_logos removes the containing directory' do
+  test '#remove_organisation_logo removes the containing directory' do
     assert Dir.exist?(@logo_dir)
 
-    @subject.remove_organisation_logos
+    @subject.remove_organisation_logo
 
     refute Dir.exist?(@logo_dir)
   end
 
-  test '#remove_organisation_logos returns an array of the files removed' do
-    files = @subject.remove_organisation_logos
+  test '#remove_organisation_logo returns an array of the files removed' do
+    files = @subject.remove_organisation_logo
 
     assert_equal [@logo_path], files
   end
