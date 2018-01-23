@@ -47,11 +47,11 @@ module Govspeak
       convert_link_for_edition(anchor, corporate_info_page, &block)
     end
 
-    def convert_link_for_edition(anchor, edition, options = {})
+    def convert_link_for_edition(anchor, edition)
       new_html = if edition.present? && edition.linkable?
                    anchor
                      .dup
-                     .tap { |new_anchor| new_anchor['href'] = Whitehall.url_maker.public_document_url(edition, options) }
+                     .tap { |new_anchor| new_anchor['href'] = Whitehall.url_maker.public_document_url(edition) }
                      .to_html
                      .html_safe
                  else
