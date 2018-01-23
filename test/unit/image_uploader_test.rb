@@ -37,6 +37,22 @@ class ImageUploaderTest < ActiveSupport::TestCase
     end
   end
 
+  test "should store all the versions of a bitmap image in asset manager" do
+    model = stub("AR Model", id: 1)
+    @uploader = ImageUploader.new(model, "mounted-as")
+
+    Services.asset_manager.stubs(:create_whitehall_asset)
+    Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/minister-of-funk.960x640.jpg/))
+    Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/s960_minister-of-funk.960x640.jpg/))
+    Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/s712_minister-of-funk.960x640.jpg/))
+    Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/s630_minister-of-funk.960x640.jpg/))
+    Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/s465_minister-of-funk.960x640.jpg/))
+    Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/s300_minister-of-funk.960x640.jpg/))
+    Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/s216_minister-of-funk.960x640.jpg/))
+
+    @uploader.store!(fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg'))
+  end
+
   test "stores the original svg only" do
     model = stub("AR Model", id: 1)
     @uploader = ImageUploader.new(model, "mounted-as")
@@ -46,6 +62,16 @@ class ImageUploaderTest < ActiveSupport::TestCase
     [[712, 480], [630, 420], [465, 310], [300, 195], [216, 140]].each do |(width, _height)|
       assert_nil @uploader.send(:url, :"s#{width}")
     end
+  end
+
+  test "should store the original version only of a svg image in asset manager" do
+    model = stub("AR Model", id: 1)
+    @uploader = ImageUploader.new(model, "mounted-as")
+
+    Services.asset_manager.stubs(:create_whitehall_asset)
+    Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/test-svg.svg/))
+
+    @uploader.store!(fixture_file_upload('images/test-svg.svg', 'image/svg+xml'))
   end
 
 private
