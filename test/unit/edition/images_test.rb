@@ -126,6 +126,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
   end
 
   test "#destroy should also remove the image" do
+    Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
     image = create(:image)
     edition = EditionWithImages.create!(valid_edition_attributes.merge(images: [image]))
     edition.destroy

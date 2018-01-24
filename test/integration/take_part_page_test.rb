@@ -27,6 +27,7 @@ class TakePartPageTest < ActiveSupport::TestCase
   end
 
   test "TakePartPage publishes gone route to the Publishing API on destroy" do
+    Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
     @take_part_page.save!
 
     gone_request = stub_publishing_api_unpublish(

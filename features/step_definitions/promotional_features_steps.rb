@@ -36,6 +36,8 @@ When(/^I add a new promotional feature with a single item$/) do
 end
 
 When(/^I delete the promotional feature$/) do
+  Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
+
   visit admin_organisation_path(@executive_office)
   click_link 'Promotional features'
 
@@ -56,6 +58,8 @@ When(/^I edit the promotional item, set the summary to "([^"]*)"$/) do |new_summ
 end
 
 When(/^I delete the promotional item$/) do
+  Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
+
   visit admin_organisation_path(@executive_office)
   click_link 'Promotional features'
   click_link @promotional_feature.title
