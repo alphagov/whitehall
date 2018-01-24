@@ -10,7 +10,10 @@ class HealthcheckController < ActionController::Base
 
   def overdue
     # Check the number of overdue editions
-    render json: { 'overdue' => Edition.due_for_publication.count }
+    render json: {
+      'overdue' => Edition.due_for_publication.count,
+      'missing_from_site' => [],
+    }
   end
 
 private

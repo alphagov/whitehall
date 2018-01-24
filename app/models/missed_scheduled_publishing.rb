@@ -1,0 +1,2 @@
+class MissedScheduledPublishing < ApplicationRecord
+end

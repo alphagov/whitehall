@@ -290,6 +290,7 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.0.0)
     mustache (1.0.5)
+    mustermann (1.0.1)
     mysql2 (0.4.10)
     netrc (0.11.0)
     newrelic_rpm (4.7.1.340)
@@ -466,6 +467,11 @@ GEM
     simplecov-html (0.10.2)
     simplecov-rcov (0.2.3)
       simplecov (>= 0.4.1)
+    sinatra (2.0.0)
+      mustermann (~> 1.0)
+      rack (~> 2.0)
+      rack-protection (= 2.0.0)
+      tilt (~> 2.0)
     slimmer (11.1.1)
       activesupport
       json
@@ -611,6 +617,7 @@ DEPENDENCIES
   sidekiq-scheduler (~> 2.2)
   simplecov
   simplecov-rcov
+  sinatra
   slimmer (~> 11.0)
   sprockets (~> 3.7)
   sprockets-rails
@@ -628,4 +635,4 @@ DEPENDENCIES
   whenever (~> 0.10.0)
 
 BUNDLED WITH
-   1.15.1
+   1.16.0
