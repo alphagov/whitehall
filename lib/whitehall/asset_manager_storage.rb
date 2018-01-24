@@ -33,7 +33,7 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
     end
 
     def filename
-      @legacy_url_path
+      ::File.basename(@legacy_url_path)
     end
 
     def path
