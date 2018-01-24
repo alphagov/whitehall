@@ -586,7 +586,8 @@ module AdminEditionControllerTestHelpers
 
       test 'updating an edition with an existing image allows image attributes to be changed' do
         edition = create(edition_type)
-        image = create(:image, edition: edition, alt_text: "old-alt-text", caption: 'old-caption')
+        image = create(:image, edition: edition, alt_text: "old-alt-text", caption: 'old-caption',
+                       image_data_attributes: attributes_for(:image_data, file: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')))
         VirusScanHelpers.simulate_virus_scan
 
         put :update, params: {
