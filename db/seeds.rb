@@ -34,3 +34,21 @@ else
     logo_formatted_name: "Test"
   )
 end
+
+if Government.where(name: "Test Government").present?
+  puts "Skipping because Test Government already exists"
+else
+  Government.create(
+    name: "Test Government",
+    start_date: Time.new(2001, 1, 1)
+  )
+end
+
+if Topic.where(name: "Test Policy Area").present?
+  puts "Skipping because Test Policy Area already exists"
+else
+  Topic.create(
+    name: "Test Policy Area",
+    description: "Test Policy Area Description"
+  )
+end
