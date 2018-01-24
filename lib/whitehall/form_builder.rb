@@ -1,5 +1,7 @@
 module Whitehall
   class FormBuilder < ActionView::Helpers::FormBuilder
+    include Admin::AnalyticsHelper
+
     def label(method, text = nil, options = {})
       if calculate_required(method, options)
         unless !options[:required].nil? && options[:required] == false
@@ -35,8 +37,9 @@ module Whitehall
 
     def error_list
       @template.content_tag(:ul, "class" => "errors disc") do
+        analytics_action = "#{object.class.name.demodulize.underscore.dasherize}-error"
         object.errors.full_messages.each do |msg|
-          @template.concat @template.content_tag(:li, msg)
+          @template.concat @template.content_tag(:li, msg, data: track_analytics_data('form-error', analytics_action, msg))
         end
       end
     end
