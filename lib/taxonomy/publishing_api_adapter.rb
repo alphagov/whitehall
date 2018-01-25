@@ -48,29 +48,9 @@ module Taxonomy
     end
 
     def get_level_one_taxons(with_drafts:)
-      ids_from_publishing_api =
-        get_expanded_links_hash(HOMEPAGE_CONTENT_ID, with_drafts: with_drafts)
-          .fetch('expanded_links', {})
-          .fetch('level_one_taxons', [])
-
-      # The World taxons were removed from the Topic taxonomy, because
-      # at least when the descision to remove them was made, they do
-      # not meet the criteria for being suitable taxons.
-      #
-      # Unfortunately the tagging interface in Whitehall depends on
-      # this link, so in the short term, add the World taxon in to
-      # Whitehall as a level one taxon. This should be fixed somehow
-      # in the future, but for now at least it's hard to tell what
-      # will happen with the World taxons and the coresponding
-      # navigation pages.
-      (
-        ids_from_publishing_api +
-        [
-          {
-            'content_id' => '91b8ef20-74e7-4552-880c-50e6d73c2ff9'
-          }
-        ]
-      ).uniq
+      get_expanded_links_hash(HOMEPAGE_CONTENT_ID, with_drafts: with_drafts)
+        .fetch('expanded_links', {})
+        .fetch('level_one_taxons', [])
     end
 
     def get_expanded_links_hash(content_id, with_drafts:)
