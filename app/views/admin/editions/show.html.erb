@@ -2,7 +2,7 @@
 <% page_class "edition-show" %>
 <% initialise_script "GOVUK.adminEditionShow" %>
 
-<div class="row">
+<div class="row" data-module="track-button-click" data-track-category="button-pressed" data-track-action="<%= @edition.format_name.parameterize(separator: '-') %>-button">
   <div class="<%= @edition.imported? ? "col-md-6" : "col-md-8" %> edition-metadata">
     <%= render partial: 'show_metadata' %>
   </div>

@@ -45,7 +45,7 @@ module Whitehall
     end
 
     def form_actions(options = {})
-      @template.content_tag(:div, "class" => "form-actions") {
+      @template.content_tag(:div, "class" => "form-actions", data: { module: 'track-button-click', 'track-category' => 'form-button', 'track-action' => "#{object.class.name.demodulize.underscore.dasherize}-button" }) {
         options[:buttons].each do |name, value|
           @template.concat submit(value, name: name, class: "btn btn-primary btn-lg")
         end
