@@ -1,10 +1,11 @@
 <%= content_tag :fieldset, id: "image_fields", class: "images multiple_file_uploads#{' right-to-left' if edition.rtl?}" do %>
-  <legend>Images</legend>
+  <legend class="add-bottom-margin">Images</legend>
   <% i = 0 %>
   <%= form.fields_for :images do |images_fields| %>
     <% if images_fields.object.new_record? %>
       <div class="file_upload well">
         <h3 class="remove-top-margin">New image</h3>
+        <p>Images must be 960px wide and 640px tall.</p>
         <%= images_fields.fields_for :image_data do |image_data_fields| %>
           <%= image_data_fields.upload :file, required: false, class: 'js-upload-image-input' %>
         <% end %>
