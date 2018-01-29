@@ -54,12 +54,6 @@ Scenario: Editing an existing translation
   Then when viewing the person "Amanda Appleford" with the locale "Français" I should see:
     | biography         | Elle est née. Elle a vécu. Elle est morte.                  |
 
-Scenario: Images are virus-checked before publication
-  When I add a new person called "Dave Cameroon"
-  Then the image will be quarantined for virus checking
-  When the image has been virus-checked
-  Then the virus checked image will be available for viewing
-
 Scenario: Viewing a person that previously had a role
   Given "Dale Cooper" is a minister with a history
   When I visit the person page for "Dale Cooper"

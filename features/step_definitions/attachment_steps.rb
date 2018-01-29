@@ -8,14 +8,6 @@ When(/^the (?:attachment|image)s? (?:has|have) been virus\-checked$/) do
   FileUtils.mkdir(Whitehall.incoming_uploads_root)
 end
 
-Then(/^the image will be quarantined for virus checking$/) do
-  assert_final_path(person_image_path, "thumbnail-placeholder.png")
-end
-
-Then(/^the virus checked image will be available for viewing$/) do
-  assert_final_path(person_image_path, person_image_path)
-end
-
 When(/^I start editing the attachments from the .*? page$/) do
   click_on 'Modify attachments'
 end

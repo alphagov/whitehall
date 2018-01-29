@@ -310,7 +310,7 @@ class PublishingApi::WorldLocationNewsArticleImageDetailsTest < ActiveSupport::T
 
   test "includes details of the world location news article image if present" do
     expected_hash = {
-      url: (Whitehall.public_asset_host + @image.url(:s300)),
+      url: @image.url(:s300),
       alt_text: @image.alt_text,
       caption: @image.caption
     }

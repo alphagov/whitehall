@@ -87,4 +87,8 @@ class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
   test 'returns the legacy filename as the path' do
     assert_equal @asset_url_path, @file.path
   end
+
+  test '#content_type returns the first element of the content type array' do
+    assert_equal 'image/png', @file.content_type
+  end
 end

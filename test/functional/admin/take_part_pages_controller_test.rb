@@ -87,6 +87,7 @@ class Admin::TakePartPagesControllerTest < ActionController::TestCase
   end
 
   test 'DELETE :destroy removes the suppliued instance' do
+    Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
     page = create(:take_part_page)
 
     delete :destroy, params: { id: page }

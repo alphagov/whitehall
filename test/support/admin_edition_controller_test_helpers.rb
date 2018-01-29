@@ -586,7 +586,8 @@ module AdminEditionControllerTestHelpers
 
       test 'updating an edition with an existing image allows image attributes to be changed' do
         edition = create(edition_type)
-        image = create(:image, edition: edition, alt_text: "old-alt-text", caption: 'old-caption')
+        image = create(:image, edition: edition, alt_text: "old-alt-text", caption: 'old-caption',
+                       image_data_attributes: attributes_for(:image_data, file: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')))
         VirusScanHelpers.simulate_virus_scan
 
         put :update, params: {
@@ -725,9 +726,14 @@ module AdminEditionControllerTestHelpers
       end
 
       view_test 'updating should allow removal of images' do
+        Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
+        image = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
+
         edition = create(edition_type)
-        image_1 = create(:image, edition: edition, alt_text: "the first image")
-        image_2 = create(:image, edition: edition, alt_text: "the second image")
+        image_1 = create(:image, edition: edition, alt_text: "the first image",
+          image_data_attributes: attributes_for(:image_data, file: image))
+        image_2 = create(:image, edition: edition, alt_text: "the second image",
+          image_data_attributes: attributes_for(:image_data, file: image))
 
         attributes = {
           images_attributes: {

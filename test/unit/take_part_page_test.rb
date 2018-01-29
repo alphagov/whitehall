@@ -160,6 +160,7 @@ class TakePartPageTest < ActiveSupport::TestCase
   end
 
   test 'removes page from search index on destroying' do
+    Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
     page = create(:take_part_page)
 
     Whitehall::SearchIndex.expects(:delete).with(page)

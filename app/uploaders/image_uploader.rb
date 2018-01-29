@@ -1,5 +1,5 @@
 class ImageUploader < WhitehallUploader
-  storage :asset_manager_and_quarantined_file_storage
+  storage :asset_manager
 
   include CarrierWave::MiniMagick
 

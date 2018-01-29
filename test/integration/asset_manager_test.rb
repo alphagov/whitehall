@@ -81,20 +81,6 @@ class AssetManagerIntegrationTest
 
       @person.save!
     end
-
-    test 'saves the person image to the file system' do
-      @person.save!
-
-      assert File.exist?(@person.image.path)
-    end
-
-    test 'saves each version of the person image to the file system' do
-      @person.save!
-
-      @person.image.versions.each_pair do |_, image|
-        assert File.exist?(image.file.path)
-      end
-    end
   end
 
   class RemovingAPersonImage < ActiveSupport::TestCase
@@ -121,26 +107,6 @@ class AssetManagerIntegrationTest
 
       @person.remove_image!
     end
-
-    test 'removes the person image from the file system' do
-      image_path = @person.image.path
-
-      assert File.exist?(image_path)
-
-      @person.remove_image!
-
-      refute File.exist?(image_path)
-    end
-
-    test 'removes each version of the person image from the file system' do
-      file_paths = @person.image.versions.map { |_, image| image.file.path }
-
-      file_paths.each { |path| assert File.exist?(path) }
-
-      @person.remove_image!
-
-      file_paths.each { |path| refute File.exist?(path) }
-    end
   end
 
   class ReplacingAPersonImage < ActiveSupport::TestCase
@@ -161,44 +127,6 @@ class AssetManagerIntegrationTest
 
       @person.image = File.open(fixture_path.join('big-cheese.960x640.jpg'))
       @person.save!
-    end
-
-    test 'saves the person image to the file system' do
-      @person.image = File.open(fixture_path.join('big-cheese.960x640.jpg'))
-      @person.save!
-
-      assert File.exist?(@person.image.path)
-    end
-
-    test 'saves each version of the person image to the file system' do
-      @person.image = File.open(fixture_path.join('big-cheese.960x640.jpg'))
-      @person.save!
-
-      @person.image.versions.each_pair do |_, image|
-        assert File.exist?(image.file.path)
-      end
-    end
-
-    test 'does not remove the original image from the file system' do
-      image_path = @person.image.path
-
-      assert File.exist?(image_path)
-
-      @person.image = File.open(fixture_path.join('big-cheese.960x640.jpg'))
-      @person.save!
-
-      assert File.exist?(image_path)
-    end
-
-    test 'does not remove each version of the original person image from the file system' do
-      file_paths = @person.image.versions.map { |_, image| image.file.path }
-
-      file_paths.each { |path| assert File.exist?(path) }
-
-      @person.image = File.open(fixture_path.join('big-cheese.960x640.jpg'))
-      @person.save!
-
-      file_paths.each { |path| assert File.exist?(path) }
     end
 
     test 'does not remove the original images from asset manager' do

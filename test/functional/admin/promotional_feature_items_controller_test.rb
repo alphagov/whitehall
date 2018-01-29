@@ -87,6 +87,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
   end
 
   test 'DELETE :destroy deletes the promotional item' do
+    Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature)
     delete :destroy, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item }
 
