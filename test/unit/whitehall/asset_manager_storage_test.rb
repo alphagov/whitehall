@@ -91,4 +91,13 @@ class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
   test '#content_type returns the first element of the content type array' do
     assert_equal 'image/png', @file.content_type
   end
+
+  test 'when the legacy_url_path contains non-ascii characters it percent-encodes' do
+    asset_path = 'path/to/ässet.png'
+    file = Whitehall::AssetManagerStorage::File.new(asset_path)
+
+    Plek.stubs(:new).returns(stub('plek', public_asset_host: 'http://assets-host'))
+
+    assert_equal 'http://assets-host/government/uploads/path/to/%C3%A4sset.png', file.url
+  end
 end
