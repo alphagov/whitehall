@@ -1,4 +1,9 @@
 class AssetRemover
+  def remove_government_uploads_system_uploads
+    target_dir = File.join(Whitehall.clean_uploads_root, 'government', 'uploads', 'system', 'uploads')
+    remove_asset_dir(target_dir)
+  end
+
   def remove_uploaded_number10
     target_dir = File.join(Whitehall.clean_uploads_root, 'uploaded', 'number10')
     remove_asset_dir(target_dir)

@@ -7,7 +7,8 @@ namespace :asset_manager do
     migrator.perform
   end
 
-  %i(remove_uploaded_number10
+  %i(remove_government_uploads_system_uploads
+     remove_uploaded_number10
      remove_organisation_logo
      remove_consultation_response_form_data_file
      remove_classification_featuring_image_data_file
