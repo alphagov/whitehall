@@ -32,9 +32,9 @@ class AssetRemoverTest < ActiveSupport::TestCase
     refute Dir.exist?(@logo_dir)
   end
 
-  test '#remove_organisation_logo returns an array of the files removed' do
+  test '#remove_organisation_logo returns an array of the files remaining after removal' do
     files = @subject.remove_organisation_logo
 
-    assert_equal [@logo_path], files
+    assert_equal [], files
   end
 end

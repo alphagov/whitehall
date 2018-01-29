@@ -21,7 +21,7 @@ namespace :asset_manager do
     desc "Calls AssetRemover##{method}."
     task method => :environment do
       files = AssetRemover.new.send(method)
-      puts "#{files.size} files removed"
+      puts "#{files.size} files remaining"
     end
   end
 

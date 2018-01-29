@@ -57,8 +57,7 @@ class AssetRemover
 private
 
   def remove_asset_dir(target_dir)
-    files = Dir.glob(File.join(target_dir, '**', '*'))
     FileUtils.remove_dir(target_dir)
-    files
+    Dir.glob(File.join(target_dir, '**', '*'))
   end
 end
