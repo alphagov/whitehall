@@ -275,7 +275,7 @@ GEM
       subexec (~> 0.2.1)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
-    minitest (5.11.2)
+    minitest (5.11.3)
     minitest-fail-fast (0.1.0)
       minitest (~> 5)
     minitest-stub-const (0.6)
