@@ -255,13 +255,7 @@ private
   def build_govspeak_document(govspeak, images = [])
     hosts = [Whitehall.admin_host, Whitehall.public_host]
     Govspeak::Document.new(govspeak, document_domains: hosts).tap do |document|
-      document.images = images.map { |i| AssetHostDecorator.new(i) }
-    end
-  end
-
-  class AssetHostDecorator < SimpleDelegator
-    def url(*args)
-      Whitehall.public_asset_host + super
+      document.images = images
     end
   end
 end

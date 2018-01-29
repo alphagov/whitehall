@@ -55,7 +55,7 @@ private
 
         <figure class="image embedded">
           <div class="img">
-            <img alt="#{image.alt_text}" src="#{Whitehall.public_asset_host}#{image.url}">
+            <img alt="#{image.alt_text}" src="#{image.url}">
           </div>
         </figure>
       </div>

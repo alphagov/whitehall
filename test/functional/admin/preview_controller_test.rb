@@ -17,7 +17,7 @@ class Admin::PreviewControllerTest < ActionController::TestCase
     image = create(:image, edition: edition)
 
     post :preview, params: { body: edition.body, image_ids: edition.images.map(&:id) }
-    assert_select ".document .body figure.image.embedded img[src=?]", Whitehall.public_asset_host + image.url
+    assert_select ".document .body figure.image.embedded img[src=?]", image.url
   end
 
   view_test "renders attached files if attachment_ids provided" do
