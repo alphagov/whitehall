@@ -30,6 +30,9 @@ GovukContentSchemaTestHelpers.configure do |config|
   config.project_root = Rails.root
 end
 
+# Start any test run with a clean database
+DatabaseCleaner.clean_with(:truncation, pre_count: true, reset_ids: false)
+
 class ActiveSupport::TestCase
   include AssetManagerTestHelpers
   include FactoryBot::Syntax::Methods
