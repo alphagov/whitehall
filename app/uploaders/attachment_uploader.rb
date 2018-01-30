@@ -12,6 +12,10 @@ class AttachmentUploader < WhitehallUploader
 
   before :cache, :validate_zipfile_contents!
 
+  def assets_protected?
+    true
+  end
+
   process :set_content_type
   def set_content_type
     filename = full_filename(file.file)

@@ -7,6 +7,10 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
     assert_equal Whitehall::AssetManagerAndQuarantinedFileStorage, AttachmentUploader.storage
   end
 
+  test 'indicates that assets are protected' do
+    assert AttachmentUploader.new.assets_protected?
+  end
+
   test 'should allow whitelisted file extensions' do
     graphics = %w(dxf eps gif jpg png ps)
     documents = %w(chm diff doc docx ics odp odt pdf ppt pptx rdf rtf txt)
