@@ -256,8 +256,9 @@ module PublishingApi::ConsultationPresenterTest
 
     test 'ways to respond' do
       Plek.any_instance.stubs(:public_asset_host).returns('https://asset-host.com')
+      expected_id = ConsultationResponseFormData.where(carrierwave_file: 'two-pages.pdf').last.id
       expected_ways_to_respond = {
-        attachment_url: 'https://asset-host.com/government/uploads/system/uploads/consultation_response_form_data/file/1/two-pages.pdf',
+        attachment_url: "https://asset-host.com/government/uploads/system/uploads/consultation_response_form_data/file/#{expected_id}/two-pages.pdf",
         email: 'postmaster@example.com',
         link_url: 'http://www.example.com',
         postal_address: <<-ADDRESS.strip_heredoc.chop
