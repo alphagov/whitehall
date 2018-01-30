@@ -93,15 +93,14 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
   end
 
   test "should allow attached images to be embedded in admin html" do
-    images = [OpenStruct.new(alt_text: "My Alt", url: "/image.jpg")]
+    images = [OpenStruct.new(alt_text: "My Alt", url: "https://some.cdn.com/image.jpg")]
     html = govspeak_to_admin_html("!!1", images)
-    assert_select_within_html html, ".govspeak figure.image.embedded img[src=?]", Whitehall.public_asset_host + "/image.jpg"
+    assert_select_within_html html, ".govspeak figure.image.embedded img[src=?]", "https://some.cdn.com/image.jpg"
   end
 
-  test "prefixes embedded image urls with asset host if present" do
-    Whitehall.stubs(:public_asset_host).returns("https://some.cdn.com")
+  test "should allow attached images to be embedded in edition body" do
     edition = build(:published_news_article, body: "!!1")
-    edition.stubs(:images).returns([OpenStruct.new(alt_text: "My Alt", url: "/image.jpg")])
+    edition.stubs(:images).returns([OpenStruct.new(alt_text: "My Alt", url: "https://some.cdn.com/image.jpg")])
     html = govspeak_edition_to_admin_html(edition)
     assert_select_within_html html, ".govspeak figure.image.embedded img[src=?]", "https://some.cdn.com/image.jpg"
   end
