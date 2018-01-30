@@ -21,6 +21,19 @@ class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
     @worker.perform(@file.path, @legacy_url_path)
   end
 
+  test 'does not mark the asset as draft by default' do
+    Services.asset_manager.expects(:create_whitehall_asset).with(Not(has_key(:draft)))
+
+    @worker.perform(@file.path, @legacy_url_path)
+  end
+
+  test 'marks the asset as draft if it is an attachment' do
+    legacy_url_path = '/path/to/attachment_data'
+    Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(draft: true))
+
+    @worker.perform(@file.path, legacy_url_path)
+  end
+
   test 'removes the file after it has been successfully uploaded' do
     @worker.perform(@file.path, @legacy_url_path)
     refute File.exist?(@file.path)
