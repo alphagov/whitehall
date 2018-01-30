@@ -7,7 +7,9 @@ namespace :asset_manager do
     migrator.perform
   end
 
-  %i(remove_organisation_logo
+  %i(remove_government_uploads_system_uploads
+     remove_uploaded_number10
+     remove_organisation_logo
      remove_consultation_response_form_data_file
      remove_classification_featuring_image_data_file
      remove_default_news_organisation_image_data_file
@@ -19,7 +21,7 @@ namespace :asset_manager do
     desc "Calls AssetRemover##{method}."
     task method => :environment do
       files = AssetRemover.new.send(method)
-      puts "#{files.size} files removed"
+      puts "#{files.size} files remaining"
     end
   end
 
