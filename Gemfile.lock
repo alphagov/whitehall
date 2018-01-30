@@ -294,7 +294,7 @@ GEM
     netrc (0.11.0)
     newrelic_rpm (4.7.1.340)
     nio4r (2.2.0)
-    nokogiri (1.8.1)
+    nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     null_logger (0.0.1)
     oauth2 (1.4.0)
@@ -582,7 +582,7 @@ DEPENDENCIES
   mocha
   mysql2
   newrelic_rpm
-  nokogiri (~> 1.8.0)
+  nokogiri (~> 1.8.2)
   parallel
   parallel_tests
   pdf-reader (~> 2.0)
