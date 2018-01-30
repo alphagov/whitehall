@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 class AttachmentUploader < WhitehallUploader
+  storage :asset_manager_and_quarantined_file_storage
+
   PDF_CONTENT_TYPE = 'application/pdf'.freeze
   INDEXABLE_TYPES = %w(csv doc docx ods odp odt pdf ppt pptx rdf rtf txt xls xlsx xml).freeze
 

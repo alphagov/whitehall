@@ -3,6 +3,10 @@ require 'test_helper'
 class AttachmentUploaderTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
+  test 'uses the asset manager and quarantined file storage engine' do
+    assert_equal Whitehall::AssetManagerAndQuarantinedFileStorage, AttachmentUploader.storage
+  end
+
   test 'should allow whitelisted file extensions' do
     graphics = %w(dxf eps gif jpg png ps)
     documents = %w(chm diff doc docx ics odp odt pdf ppt pptx rdf rtf txt)
