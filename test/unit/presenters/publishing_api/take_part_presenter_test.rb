@@ -8,7 +8,7 @@ class PublishingApi::TakePartPresenterTest < ActiveSupport::TestCase
   test "take part presentation includes the correct values" do
     take_part_page = create(:take_part_page, content_id: SecureRandom.uuid)
 
-    image_url = Whitehall.public_asset_host + take_part_page.image_url(:s300)
+    image_url = take_part_page.image_url(:s300)
 
     expected_hash = {
       base_path: take_part_page.search_link,
