@@ -24,30 +24,25 @@ class AssetManagerIntegrationTest
   end
 
   class CreatingAnOrganisationLogo < ActiveSupport::TestCase
-    test 'sends the logo to Asset Manager' do
-      filename = '960x640_jpeg.jpg'
-      organisation = FactoryBot.build(
+    setup do
+      @filename = '960x640_jpeg.jpg'
+      @organisation = FactoryBot.build(
         :organisation,
         organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
-        logo: File.open(fixture_path.join('images', filename))
+        logo: File.open(fixture_path.join('images', @filename))
       )
+    end
 
-      Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/#{filename}/))
+    test 'sends the logo to Asset Manager' do
+      Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/#{@filename}/))
 
-      organisation.save!
+      @organisation.save!
     end
 
     test 'does not mark the logo as draft in Asset Manager' do
-      filename = '960x640_jpeg.jpg'
-      organisation = FactoryBot.build(
-        :organisation,
-        organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
-        logo: File.open(fixture_path.join('images', filename))
-      )
-
       Services.asset_manager.expects(:create_whitehall_asset).with(Not(has_key(:draft)))
 
-      organisation.save!
+      @organisation.save!
     end
   end
 
