@@ -40,7 +40,8 @@ module Import
     end
 
     def self.create_attachments(attachments, publication)
-      temp_directory = "/tmp/#{SecureRandom.uuid}"
+      # TODO: Is it safe to save these straight to a whilehall machine? If so, what directory?
+      temp_directory = "/tmp/hmcts_attachments_#{SecureRandom.uuid}"
       Dir.mkdir(temp_directory)
       puts "Saving temporary files to #{temp_directory}"
 
@@ -50,12 +51,8 @@ module Import
     end
 
     def self.create_attachment(attachment, publication, temp_directory)
-      # TODO: Download attachment
       temp_file_path = "#{temp_directory}/#{attachment[:file_name]}"
-      attachment_file = File.open(temp_file_path, "w") do |file|
-        file.write("Test attachment\n")
-        file.write(attachment[:title])
-      end
+      download_attachment(attachment[:url], temp_file_path)
 
       attachment_data = AttachmentData.new(file: File.new(temp_file_path))
       file_attachment = FileAttachment.new(
@@ -66,6 +63,15 @@ module Import
       file_attachment.save!
 
       puts "Added attachment #{temp_file_path}"
+    end
+
+    def self.download_attachment(hmcts_url, file_path)
+      url = hmcts_url.sub(/^http\:/, "https:")
+      response = Faraday.get(url)
+
+      File.open(file_path, "wb") do |file|
+        file.write(response.body)
+      end
     end
   end
 end
