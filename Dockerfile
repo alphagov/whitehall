@@ -28,4 +28,4 @@ RUN GOVUK_ASSET_HOST=https://assets.publishing.service.gov.uk GOVUK_ASSET_ROOT=h
 
 HEALTHCHECK CMD curl --silent --fail localhost:$PORT/healthcheck || exit 1
 
-CMD bash -c "bundle exec rails s -p $PORT -b '0.0.0.0'"
+CMD bundle exec foreman run web
