@@ -1,56 +1,36 @@
 class AssetRemover
-  def remove_government_uploads_system_uploads
-    target_dir = File.join(Whitehall.clean_uploads_root, 'government', 'uploads', 'system', 'uploads')
+  def remove_attachment_file
+    target_dir = File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'attachment', 'file')
     remove_asset_dir(target_dir)
   end
 
-  def remove_uploaded_number10
-    target_dir = File.join(Whitehall.clean_uploads_root, 'uploaded', 'number10')
+  def remove_consultation_response_form_file
+    target_dir = File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'consultation_response_form', 'file')
     remove_asset_dir(target_dir)
   end
 
-  def remove_organisation_logo
-    target_dir = File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'organisation', 'logo')
+  def remove_edition_organisation_image_data_file
+    target_dir = File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'edition_organisation_image_data', 'file')
     remove_asset_dir(target_dir)
   end
 
-  def remove_consultation_response_form_data_file
-    target_dir = File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'consultation_response_form_data', 'file')
+  def remove_edition_world_location_image_data_file
+    target_dir = File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'edition_world_location_image_data', 'file')
     remove_asset_dir(target_dir)
   end
 
-  def remove_classification_featuring_image_data_file
-    target_dir = File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'classification_featuring_image_data', 'file')
+  def remove_news_article_featuring_image
+    target_dir = File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'news_article', 'featuring_image')
     remove_asset_dir(target_dir)
   end
 
-  def remove_default_news_organisation_image_data_file
-    target_dir = File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'default_news_organisation_image_data', 'file')
+  def remove_news_article_image
+    target_dir = File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'news_article', 'image')
     remove_asset_dir(target_dir)
   end
 
-  def remove_feature_image
-    target_dir = File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'feature', 'image')
-    remove_asset_dir(target_dir)
-  end
-
-  def remove_image_data_file
-    target_dir = File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'image_data', 'file')
-    remove_asset_dir(target_dir)
-  end
-
-  def remove_person_image
-    target_dir = File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'person', 'image')
-    remove_asset_dir(target_dir)
-  end
-
-  def remove_promotional_feature_item_image
-    target_dir = File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'promotional_feature_item', 'image')
-    remove_asset_dir(target_dir)
-  end
-
-  def remove_take_part_page_image
-    target_dir = File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'take_part_page', 'image')
+  def remove_topical_event_logo
+    target_dir = File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'topical_event', 'logo')
     remove_asset_dir(target_dir)
   end
 
