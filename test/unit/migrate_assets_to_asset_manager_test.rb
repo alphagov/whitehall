@@ -52,6 +52,24 @@ class MigrateAssetsToAssetManagerTest < ActiveSupport::TestCase
     @subject.perform
   end
 
+  test 'it calls create_whitehall_asset with the draft flag set to false by default' do
+    Services.asset_manager.expects(:create_whitehall_asset).with(
+      has_entry(:draft, false)
+    )
+
+    @subject.perform
+  end
+
+  test 'it calls create_whitehall_asset with the draft flag set to true if explicitly set' do
+    subject = MigrateAssetsToAssetManager.new('system/uploads/organisation/logo', true)
+
+    Services.asset_manager.expects(:create_whitehall_asset).with(
+      has_entry(:draft, true)
+    )
+
+    subject.perform
+  end
+
   test 'it does not call create_whitehall_asset if the asset already exists in asset manager' do
     Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
     Services.asset_manager.expects(:create_whitehall_asset).never
