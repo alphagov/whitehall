@@ -18,6 +18,8 @@ module Import
         # TODO: Handle multiple lead organisations
         publication.lead_organisations = [default_organisation]
         publication.creator = importer_user
+        # TODO: Should be HMCTS? Or another org with the email address provided in the CSV.
+        publication.alternative_format_provider = default_organisation
 
         # TODO: Populate "published before" date
         # TODO: Set "published before" to true if there is a date
@@ -26,10 +28,18 @@ module Import
         # TODO: Populate excluded nations
         # TODO: Populate access limiting flag
 
-        # TODO: Add attachments
-
         publication.save!
         puts "Created publication with ID #{publication.id}"
+
+        # TODO: Add attachments
+        attachment_data = AttachmentData.new(file: File.new("/tmp/hello.txt"))
+        file_attachment = FileAttachment.new(
+          title: "Another attachment title",
+          attachment_data: attachment_data,
+          attachable: publication)
+        file_attachment.save!
+
+        puts "Added attachments"
       end
     end
 
