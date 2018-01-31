@@ -24,7 +24,12 @@ ADD . $APP_HOME
 # TODO: GOVUK_ASSET_HOST is required to serve the Flash SWF on https://www.gov.uk/government/history/10-downing-street#take-the-tour
 # Once the flash player has been removed (https://trello.com/c/mCfPlz3z/1089-remove-flash-player) this var can also be removed
 # see: https://github.com/alphagov/whitehall/pull/3663#issuecomment-355626368
-RUN GOVUK_ASSET_HOST=https://assets.publishing.service.gov.uk GOVUK_ASSET_ROOT=https://assets.publishing.service.gov.uk GOVUK_APP_DOMAIN=www.gov.uk RAILS_ENV=production bundle exec rails assets:precompile
+RUN GOVUK_ASSET_HOST=https://assets.publishing.service.gov.uk \
+  GOVUK_ASSET_ROOT=https://assets.publishing.service.gov.uk \
+  GOVUK_APP_DOMAIN=www.gov.uk \
+  GOVUK_APP_DOMAIN_EXTERNAL=www.gov.uk \
+  RAILS_ENV=production \
+  bundle exec rails assets:precompile
 
 HEALTHCHECK CMD curl --silent --fail localhost:$PORT/healthcheck || exit 1
 
