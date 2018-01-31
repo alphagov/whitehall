@@ -11,4 +11,8 @@ class WhitehallUploader < CarrierWave::Uploader::Base
   def clean_path
     File.join(Whitehall.clean_uploads_root, relative_path)
   end
+
+  def assets_protected?
+    false
+  end
 end

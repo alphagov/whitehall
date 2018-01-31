@@ -278,6 +278,8 @@ class AttachmentsControllerTest < ActionController::TestCase
   end
 
   test 'deleted attachments policy groups return 404' do
+    Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
+
     attachment = create(:file_attachment, attachable: create(:policy_group))
     attachment_data = attachment.attachment_data
     VirusScanHelpers.simulate_virus_scan(attachment_data.file)

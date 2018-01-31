@@ -1,18 +1,48 @@
 require 'test_helper'
 
 class AssetManagerIntegrationTest
+  class CreatingAFileAttachment < ActiveSupport::TestCase
+    setup do
+      @filename = '960x640_jpeg.jpg'
+      @attachment = FactoryBot.build(
+        :file_attachment,
+        file: File.open(fixture_path.join('images', @filename))
+      )
+    end
+
+    test 'sends the attachment to Asset Manager' do
+      Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/#{@filename}/))
+
+      @attachment.save!
+    end
+
+    test 'marks the attachment as draft in Asset Manager' do
+      Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(draft: true))
+
+      @attachment.save!
+    end
+  end
+
   class CreatingAnOrganisationLogo < ActiveSupport::TestCase
-    test 'sends the logo to Asset Manager' do
-      filename = '960x640_jpeg.jpg'
-      organisation = FactoryBot.build(
+    setup do
+      @filename = '960x640_jpeg.jpg'
+      @organisation = FactoryBot.build(
         :organisation,
         organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
-        logo: File.open(fixture_path.join('images', filename))
+        logo: File.open(fixture_path.join('images', @filename))
       )
+    end
 
-      Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/#{filename}/))
+    test 'sends the logo to Asset Manager' do
+      Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/#{@filename}/))
 
-      organisation.save!
+      @organisation.save!
+    end
+
+    test 'does not mark the logo as draft in Asset Manager' do
+      Services.asset_manager.expects(:create_whitehall_asset).with(Not(has_key(:draft)))
+
+      @organisation.save!
     end
   end
 
@@ -68,6 +98,12 @@ class AssetManagerIntegrationTest
 
     test 'sends the person image to Asset Manager' do
       Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/#{@filename}/))
+
+      @person.save!
+    end
+
+    test 'does not mark the image as draft in Asset Manager' do
+      Services.asset_manager.expects(:create_whitehall_asset).with(Not(has_key(:draft)))
 
       @person.save!
     end
@@ -150,6 +186,12 @@ class AssetManagerIntegrationTest
       Services.asset_manager.expects(:create_whitehall_asset).with(
         file_and_legacy_url_path_matching(/#{@filename}/)
       )
+
+      @consultation_response_form_data.save!
+    end
+
+    test 'does not mark the consultation response form data as draft in Asset Manager' do
+      Services.asset_manager.expects(:create_whitehall_asset).with(Not(has_key(:draft)))
 
       @consultation_response_form_data.save!
     end

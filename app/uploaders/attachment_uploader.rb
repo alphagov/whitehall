@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 class AttachmentUploader < WhitehallUploader
+  storage :asset_manager_and_quarantined_file_storage
+
   PDF_CONTENT_TYPE = 'application/pdf'.freeze
   INDEXABLE_TYPES = %w(csv doc docx ods odp odt pdf ppt pptx rdf rtf txt xls xlsx xml).freeze
 
@@ -9,6 +11,10 @@ class AttachmentUploader < WhitehallUploader
   EXTENSION_WHITELIST = %w(chm csv diff doc docx dot dxf eps gif gml ics jpg kml odp ods odt pdf png ppt pptx ps rdf ris rtf sch txt wsdl xls xlsm xlsx xlt xml xsd xslt zip).freeze
 
   before :cache, :validate_zipfile_contents!
+
+  def assets_protected?
+    true
+  end
 
   process :set_content_type
   def set_content_type

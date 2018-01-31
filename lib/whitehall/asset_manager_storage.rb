@@ -10,7 +10,8 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
     FileUtils.mkdir_p(::File.dirname(temporary_location))
     FileUtils.cp(original_file, temporary_location)
     legacy_url_path = ::File.join('/government/uploads', uploader.store_path)
-    AssetManagerCreateWhitehallAssetWorker.perform_async(temporary_location, legacy_url_path)
+    draft = uploader.assets_protected?
+    AssetManagerCreateWhitehallAssetWorker.perform_async(temporary_location, legacy_url_path, draft)
     File.new(uploader.store_path)
   end
 
