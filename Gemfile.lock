@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    Ascii85 (1.0.2)
+    Ascii85 (1.0.3)
     PriorityQueue (0.1.2)
     actioncable (5.0.6)
       actionpack (= 5.0.6)
@@ -51,7 +51,7 @@ GEM
     asset_bom_removal-rails (1.0.2)
       rails (>= 4.2)
       sass (> 3.4)
-    ast (2.3.0)
+    ast (2.4.0)
     autoprefixer-rails (7.2.5)
       execjs
     babosa (1.0.2)
@@ -96,7 +96,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    commander (4.4.3)
+    commander (4.4.4)
       highline (~> 1.7.2)
     concurrent-ruby (1.0.5)
     connection_pool (2.2.1)
@@ -147,6 +147,8 @@ GEM
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
+    foreman (0.84.0)
+      thor (~> 0.19.1)
     friendly_id (5.2.3)
       activerecord (>= 4.0.0)
     gds-api-adapters (51.1.1)
@@ -294,7 +296,7 @@ GEM
     netrc (0.11.0)
     newrelic_rpm (4.7.1.340)
     nio4r (2.2.0)
-    nokogiri (1.8.1)
+    nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     null_logger (0.0.1)
     oauth2 (1.4.0)
@@ -313,7 +315,7 @@ GEM
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     parallel (1.12.1)
-    parallel_tests (2.21.0)
+    parallel_tests (2.21.1)
       parallel
     parser (2.4.0.2)
       ast (~> 2.3)
@@ -323,7 +325,7 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
-    plek (2.0.0)
+    plek (2.1.0)
     poltergeist (1.17.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -489,7 +491,7 @@ GEM
     teaspoon-qunit (1.20.0)
       teaspoon (>= 1.0.0)
     test-queue (0.2.13)
-    thor (0.20.0)
+    thor (0.19.4)
     thread_safe (0.3.6)
     tilt (2.0.8)
     timecop (0.9.1)
@@ -552,6 +554,7 @@ DEPENDENCIES
   equivalent-xml (~> 0.6.0)
   factory_bot
   faraday
+  foreman (~> 0.84)
   friendly_id (~> 5.2.1)
   gds-api-adapters
   gds-sso (~> 13.5)
@@ -628,4 +631,4 @@ DEPENDENCIES
   whenever (~> 0.10.0)
 
 BUNDLED WITH
-   1.16.0
+   1.16.1
