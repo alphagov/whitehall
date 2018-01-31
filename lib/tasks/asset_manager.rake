@@ -13,18 +13,7 @@ namespace :asset_manager do
      remove_edition_world_location_image_data_file
      remove_news_article_featuring_image
      remove_news_article_image
-     remove_topical_event_logo
-     remove_government_uploads_system_uploads
-     remove_uploaded_number10
-     remove_organisation_logo
-     remove_consultation_response_form_data_file
-     remove_classification_featuring_image_data_file
-     remove_default_news_organisation_image_data_file
-     remove_feature_image
-     remove_image_data_file
-     remove_person_image
-     remove_promotional_feature_item_image
-     remove_take_part_page_image).each do |method|
+     remove_topical_event_logo).each do |method|
     desc "Calls AssetRemover##{method}."
     task method => :environment do
       files = AssetRemover.new.send(method)
