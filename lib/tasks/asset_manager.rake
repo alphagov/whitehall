@@ -7,7 +7,14 @@ namespace :asset_manager do
     migrator.perform
   end
 
-  %i(remove_government_uploads_system_uploads
+  %i(remove_attachment_file
+     remove_consultation_response_form_file
+     remove_edition_organisation_image_data_file
+     remove_edition_world_location_image_data_file
+     remove_news_article_featuring_image
+     remove_news_article_image
+     remove_topical_event_logo
+     remove_government_uploads_system_uploads
      remove_uploaded_number10
      remove_organisation_logo
      remove_consultation_response_form_data_file
