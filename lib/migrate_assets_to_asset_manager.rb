@@ -1,6 +1,16 @@
 class MigrateAssetsToAssetManager
   include ActionView::Helpers::TextHelper
 
+  def self.migrate_attachments
+    clean_uploads_root = Pathname.new(Whitehall.clean_uploads_root)
+    attachments_parent_dir = clean_uploads_root.join('system', 'uploads', 'attachment_data', 'file')
+    Pathname.glob(attachments_parent_dir.join('*')).each do |attachment_dir|
+      relative_attachment_dir = attachment_dir.relative_path_from(clean_uploads_root)
+      migrator = MigrateAssetsToAssetManager.new(relative_attachment_dir.to_s, true)
+      migrator.perform
+    end
+  end
+
   def initialize(target_dir, draft = false)
     @relative_file_paths = AssetFilePaths.new(target_dir)
     @draft = draft

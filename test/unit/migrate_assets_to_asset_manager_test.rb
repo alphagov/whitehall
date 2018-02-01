@@ -96,6 +96,32 @@ private
   end
 end
 
+class MigrateAttachmentsToAssetManagerTest < ActiveSupport::TestCase
+  setup do
+    @attachments_parent_dir = Pathname.new(File.join(Whitehall.clean_uploads_root, 'system', 'uploads', 'attachment_data', 'file'))
+
+    FileUtils.mkdir_p(@attachments_parent_dir.join('001'))
+    FileUtils.mkdir_p(@attachments_parent_dir.join('002'))
+
+    @migrator = stub('migrator', perform: nil)
+    MigrateAssetsToAssetManager.stubs(:new).returns(@migrator)
+  end
+
+  test 'migrates attachment directory 001 and sets attachments as draft' do
+    MigrateAssetsToAssetManager.stubs(:new).with('system/uploads/attachment_data/file/001', true).returns(@migrator)
+    @migrator.expects(:perform)
+
+    MigrateAssetsToAssetManager.migrate_attachments
+  end
+
+  test 'migrates attachment directory 002 and sets attachments as draft' do
+    MigrateAssetsToAssetManager.stubs(:new).with('system/uploads/attachment_data/file/002', true).returns(@migrator)
+    @migrator.expects(:perform)
+
+    MigrateAssetsToAssetManager.migrate_attachments
+  end
+end
+
 class AssetFilePathsTest < ActiveSupport::TestCase
   setup do
     FileUtils.mkdir_p(organisation_logo_dir)

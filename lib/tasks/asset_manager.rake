@@ -7,6 +7,10 @@ namespace :asset_manager do
     migrator.perform
   end
 
+  task migrate_attachments: :environment do
+    MigrateAssetsToAssetManager.migrate_attachments
+  end
+
   %i(remove_attachment_file
      remove_consultation_response_form_file
      remove_edition_organisation_image_data_file
