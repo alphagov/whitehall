@@ -585,7 +585,7 @@ DEPENDENCIES
   mocha
   mysql2
   newrelic_rpm
-  nokogiri (~> 1.8.0)
+  nokogiri (~> 1.8.2)
   parallel
   parallel_tests
   pdf-reader (~> 2.0)
