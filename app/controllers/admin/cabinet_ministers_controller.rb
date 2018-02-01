@@ -24,7 +24,7 @@ private
 
   def update_ordering(key, column)
     return unless params.include?(key)
-    params[key].each_key do |id|
+    params[key].keys.each do |id| # rubocop:disable Performance/HashEachMethods
       Role.where(id: id).update_all(
         column => params[key][id.to_s]["ordering"],
       )
