@@ -1,5 +1,10 @@
 class EmailSignupsController < PublicFacingController
   def new
+    unless params[:email_signup].present?
+      redirect_to '/'
+      return
+    end
+
     @email_signup = EmailSignup.new(email_signup_params)
   end
 

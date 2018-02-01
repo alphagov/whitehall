@@ -5,6 +5,12 @@ class EmailSignupsControllerTest < ActionController::TestCase
   include FeedHelper
   include GdsApi::TestHelpers::EmailAlertApi
 
+  test 'GET :new without an email_signup param redirects to root' do
+    get :new
+
+    assert_redirected_to '/'
+  end
+
   view_test 'GET :new with a valid field displays the subscription form' do
     topic = create(:topic)
     get :new, params: { email_signup: { feed: atom_feed_url_for(topic) } }
