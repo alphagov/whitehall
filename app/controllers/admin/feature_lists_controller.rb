@@ -6,7 +6,7 @@ class Admin::FeatureListsController < Admin::BaseController
   end
 
   def reorder
-    new_order = (params[:ordering] || []).sort_by { |_k, v| v.to_i }.map(&:first)
+    new_order = ordering_params.to_h.sort_by { |_k, v| v.to_i }.map(&:first)
     message = if @feature_list.reorder!(new_order)
                 { notice: "Feature order updated" }
               else
@@ -16,6 +16,14 @@ class Admin::FeatureListsController < Admin::BaseController
   end
 
 private
+
+  def ordering_params
+    # keys in ordering should be the ids of objects so that means they should be
+    # integers, we can't permit them based on an allow list, but we can pick
+    # only those keys that are integers and permit the whole param object after
+    # that
+    params.fetch(:ordering, {}).select { |k, _v| k =~ /\A\d+\Z/ }.permit!
+  end
 
   def find_feature_list
     @feature_list = FeatureList.find(params[:id] || params[:feature_list_id])
