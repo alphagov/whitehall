@@ -7,7 +7,7 @@ class DocumentListExportWorkerTest < ActiveSupport::TestCase
   end
 
   test 'instantiates an EditionFilter with passed options converted to symbols' do
-    Admin::EditionFilter.expects(:new).with(Edition, @user, state: "draft")
+    Admin::EditionFilter.expects(:new).with(Edition, @user, state: "draft", include_unpublishing: true)
     @worker.stubs(:generate_csv)
     @worker.stubs(:send_mail)
     @worker.perform({ "state" => "draft" }, @user.id)
