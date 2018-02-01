@@ -167,7 +167,7 @@ private
   end
 
   def edition_params
-    params.fetch(:edition, {}).permit(*permitted_edition_attributes)
+    @edition_params ||= params.fetch(:edition, {}).permit(*permitted_edition_attributes)
   end
 
   def permitted_edition_attributes
@@ -206,7 +206,7 @@ private
       consultation_participation_attributes: [
         :id, :link_url, :email, :postal_address,
         consultation_response_form_attributes: [
-          :id, :title, :_destroy,
+          :id, :title, :_destroy, :attachment_action,
           consultation_response_form_data_attributes: %i[id file file_cache]
         ]
       ],
@@ -269,12 +269,12 @@ private
   end
 
   def delete_absent_edition_organisations
-    return unless params[:edition]
-    if params[:edition][:lead_organisation_ids]
-      params[:edition][:lead_organisation_ids] = params[:edition][:lead_organisation_ids].reject(&:blank?)
+    return if edition_params.empty?
+    if edition_params[:lead_organisation_ids]
+      edition_params[:lead_organisation_ids] = edition_params[:lead_organisation_ids].reject(&:blank?)
     end
-    if params[:edition][:supporting_organisation_ids]
-      params[:edition][:supporting_organisation_ids] = params[:edition][:supporting_organisation_ids].reject(&:blank?)
+    if edition_params[:supporting_organisation_ids]
+      edition_params[:supporting_organisation_ids] = edition_params[:supporting_organisation_ids].reject(&:blank?)
     end
   end
 
@@ -315,19 +315,20 @@ private
   end
 
   def clean_edition_parameters
-    params[:edition][:title].strip! if params[:edition] && params[:edition][:title]
-    params[:edition].delete(:primary_locale) if params[:edition] && params[:edition][:primary_locale].blank?
-    params[:edition][:policy_content_ids].reject!(&:blank?) if params[:edition] && params[:edition][:policy_content_ids]
+    return if edition_params.empty?
+    edition_params[:title].strip! if edition_params[:title]
+    edition_params.delete(:primary_locale) if edition_params[:primary_locale].blank?
+    edition_params[:policy_content_ids].reject!(&:blank?) if edition_params[:policy_content_ids]
   end
 
   def clear_scheduled_publication_if_not_activated
     if params[:scheduled_publication_active] && params[:scheduled_publication_active].to_i.zero?
-      params[:edition].each_key do |key|
+      edition_params.each_key do |key|
         if key.match?(/^scheduled_publication(\([0-9]i\))?/)
-          params[:edition].delete(key)
+          edition_params.delete(key)
         end
       end
-      params[:edition][:scheduled_publication] = nil
+      edition_params[:scheduled_publication] = nil
     end
   end
 
@@ -362,8 +363,9 @@ private
   helper_method :force_scheduler
 
   def deduplicate_specialist_sectors
-    if params[:edition] && params[:edition][:secondary_specialist_sector_tags] && params[:edition][:primary_specialist_sector_tag]
-      params[:edition][:secondary_specialist_sector_tags] -= [params[:edition][:primary_specialist_sector_tag]]
+    return if edition_params.empty?
+    if edition_params[:secondary_specialist_sector_tags] && edition_params[:primary_specialist_sector_tag]
+      edition_params[:secondary_specialist_sector_tags] -= [edition_params[:primary_specialist_sector_tag]]
     end
   end
 
