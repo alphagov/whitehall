@@ -1,13 +1,24 @@
 class MigrateAssetsToAssetManager
   include ActionView::Helpers::TextHelper
 
-  def initialize(target_dir)
+  def self.migrate_attachments
+    clean_uploads_root = Pathname.new(Whitehall.clean_uploads_root)
+    attachments_parent_dir = clean_uploads_root.join('system', 'uploads', 'attachment_data', 'file')
+    Pathname.glob(attachments_parent_dir.join('*')).each do |attachment_dir|
+      relative_attachment_dir = attachment_dir.relative_path_from(clean_uploads_root)
+      migrator = MigrateAssetsToAssetManager.new(relative_attachment_dir.to_s, true)
+      migrator.perform
+    end
+  end
+
+  def initialize(target_dir, draft = false)
     @relative_file_paths = AssetFilePaths.new(target_dir)
+    @draft = draft
   end
 
   def perform
     @relative_file_paths.each do |relative_file_path|
-      Worker.perform_async(relative_file_path)
+      Worker.perform_async(relative_file_path, @draft)
     end
   end
 
@@ -18,21 +29,22 @@ class MigrateAssetsToAssetManager
   class Worker < WorkerBase
     sidekiq_options queue: :asset_migration
 
-    def perform(relative_file_path)
+    def perform(relative_file_path, draft = false)
       absolute_file_path = File.join(Whitehall.clean_uploads_root, relative_file_path)
       AssetFile.open(absolute_file_path) do |file|
-        create_whitehall_asset(file) unless asset_exists?(file)
+        create_whitehall_asset(file, draft) unless asset_exists?(file)
       end
     end
 
   private
 
-    def create_whitehall_asset(file)
+    def create_whitehall_asset(file, draft)
       Services.asset_manager.create_whitehall_asset(
         file: file,
         legacy_url_path: file.legacy_url_path,
         legacy_last_modified: file.legacy_last_modified,
-        legacy_etag: file.legacy_etag
+        legacy_etag: file.legacy_etag,
+        draft: draft
       )
     end
 
