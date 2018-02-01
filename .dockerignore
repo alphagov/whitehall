@@ -1,0 +1,9 @@
+.git
+asset-manager-tmp
+attachment-cache
+bulk-upload-zip-file-tmp
+carrierwave-tmp
+clean-uploads
+incoming-uploads
+infected-uploads
+tmp/*
