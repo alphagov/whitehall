@@ -589,7 +589,7 @@ DEPENDENCIES
   parallel
   parallel_tests
   pdf-reader (~> 2.0)
-  plek (~> 2.0)
+  plek (~> 2.1)
   poltergeist
   pry-byebug
   pry-rails
