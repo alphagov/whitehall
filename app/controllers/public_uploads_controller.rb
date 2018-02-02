@@ -78,8 +78,6 @@ private
 
   def redirect_to_asset_host
     asset_host = URI.parse(Plek.new.public_asset_host).host
-    unless request.host == asset_host
-      redirect_to host: asset_host
-    end
+    redirect_to host: asset_host
   end
 end

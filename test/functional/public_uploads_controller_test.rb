@@ -5,23 +5,9 @@ class PublicUploadsControllerTest < ActionController::TestCase
     Plek.any_instance.stubs(:public_asset_host).returns('http://asset-host.com')
   end
 
-  test "redirects asset requests that aren't made via the asset host" do
-    request.host = 'not-asset-host.com'
-
+  test "redirects all asset requests to the asset host" do
     get :show, params: { path: 'asset', format: 'txt' }
 
     assert_redirected_to 'http://asset-host.com/government/uploads/asset.txt'
-  end
-
-  test 'does not redirect asset requests that are made via the asset host' do
-    asset_filesystem_path = File.join(Whitehall.clean_uploads_root, 'asset.txt')
-    FileUtils.makedirs(Whitehall.clean_uploads_root)
-    FileUtils.touch(asset_filesystem_path)
-
-    request.host = 'asset-host.com'
-
-    get :show, params: { path: 'asset', format: 'txt' }
-
-    assert_response 200
   end
 end
