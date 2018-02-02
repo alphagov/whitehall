@@ -302,17 +302,7 @@ private
   end
 
   def filter
-    @filter ||= Admin::EditionFilter.new(edition_class, current_user, edition_filter_options) if params_filters.any?
-  end
-
-  def edition_filter_options
-    params_filters_with_default_state.
-      symbolize_keys.
-      merge(
-        include_unpublishing: true,
-        include_link_check_reports: true,
-        include_last_author: true
-      )
+    @filter ||= Admin::EditionFilter.new(edition_class, current_user, params_filters_with_default_state.symbolize_keys) if params_filters.any?
   end
 
   def detect_other_active_editors
