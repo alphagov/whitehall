@@ -421,5 +421,6 @@ Whitehall::Application.routes.draw do
   get '/government/uploads/system/uploads/consultation_response_form/*path.:extension' => LongLifeRedirect.new('/government/uploads/system/uploads/consultation_response_form_data/')
   get '/government/uploads/system/uploads/attachment_data/file/:id/*file.:extension' => "attachments#show"
   get '/government/uploads/system/uploads/attachment_data/file/:id/*file.:extension/preview' => "attachments#preview", as: :preview_attachment
+  get '/government/uploads/uploaded/hmrc/*path' => "hmrc_assets#show", format: true
   get '/government/uploads/*path' => "public_uploads#show", as: :public_upload, format: true
 end

@@ -1,6 +1,5 @@
-class PublicUploadsController < ApplicationController
+class HmrcAssetsController < ApplicationController
   include ActionView::Helpers::AssetTagHelper
-  before_action :redirect_to_asset_host
 
   def show
     if attachment_visible?
@@ -52,7 +51,7 @@ private
 
   def upload_path
     basename = [params[:path], params[:format]].compact.join('.')
-    File.join(Whitehall.clean_uploads_root, basename)
+    File.join(Whitehall.clean_uploads_root, 'uploaded', 'hmrc', basename)
   end
 
   def attachment_visible?
@@ -74,12 +73,5 @@ private
 
   def real_path_for_x_accel_mapping(potentially_symlinked_path)
     File.realpath(potentially_symlinked_path)
-  end
-
-  def redirect_to_asset_host
-    asset_host = URI.parse(Plek.new.public_asset_host).host
-    unless request.host == asset_host
-      redirect_to host: asset_host
-    end
   end
 end
