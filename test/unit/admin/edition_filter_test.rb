@@ -7,58 +7,6 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     @current_user = build(:gds_editor)
   end
 
-  test "can preload unpublishing data if asked to" do
-    news_article = create(:news_article)
-    create(:unpublishing, edition: news_article)
-
-    editions = Admin::EditionFilter.new(Edition, @current_user, include_unpublishing: true).editions
-    assert_equal news_article, editions.first
-    assert editions.first.association(:unpublishing).loaded?
-  end
-
-  test "does not preload unpublishing data unless asked to" do
-    news_article = create(:news_article)
-    create(:unpublishing, edition: news_article)
-
-    editions = Admin::EditionFilter.new(Edition, @current_user).editions
-    assert_equal news_article, editions.first
-    refute editions.first.association(:unpublishing).loaded?
-  end
-
-  test "can preload last author data if asked to" do
-    news_article = create(:news_article)
-
-    editions = Admin::EditionFilter.new(Edition, @current_user, include_last_author: true).editions
-    assert_equal news_article, editions.first
-    assert editions.first.association(:last_author).loaded?
-  end
-
-  test "does not preload last author data unless asked to" do
-    news_article = create(:news_article)
-
-    editions = Admin::EditionFilter.new(Edition, @current_user).editions
-    assert_equal news_article, editions.first
-    refute editions.first.association(:last_author).loaded?
-  end
-
-  test "can preload link check report data if asked to" do
-    news_article = create(:news_article)
-    create(:link_checker_api_report, link_reportable: news_article)
-
-    editions = Admin::EditionFilter.new(Edition, @current_user, include_link_check_reports: true).editions
-    assert_equal news_article, editions.first
-    assert editions.first.association(:link_check_reports).loaded?
-  end
-
-  test "does not preload link check report data unless asked to" do
-    news_article = create(:news_article)
-    create(:link_checker_api_report, link_reportable: news_article)
-
-    editions = Admin::EditionFilter.new(Edition, @current_user).editions
-    assert_equal news_article, editions.first
-    refute editions.first.association(:last_author).loaded?
-  end
-
   test "ignores invalid state scopes" do
     news_article = create(:draft_news_article)
 
