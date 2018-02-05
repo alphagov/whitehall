@@ -8,7 +8,7 @@ module ServiceListeners
 
     def update!
       if edition.allows_attachments?
-        edition.attachments.each do |attachment|
+        edition.attachments.select(&:file?).each do |attachment|
           attachment_data = attachment.attachment_data
           legacy_url_path = attachment_data.file.path
           draft = !AttachmentVisibility.new(attachment_data, nil).visible?
