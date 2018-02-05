@@ -120,6 +120,19 @@ class MigrateAttachmentsToAssetManagerTest < ActiveSupport::TestCase
 
     MigrateAssetsToAssetManager.migrate_attachments
   end
+
+  test 'specifying a start and end range' do
+    MigrateAssetsToAssetManager.expects(:new).with('system/uploads/attachment_data/file/100', true).never
+    MigrateAssetsToAssetManager.expects(:new).with('system/uploads/attachment_data/file/200', true).returns(@migrator)
+    @migrator.expects(:perform)
+
+    MigrateAssetsToAssetManager.migrate_attachments(150, 250)
+  end
+
+  test '.directory_number_from_attachment_dir' do
+    attachment_dir = Pathname.new('system/uploads/attachment_data/file/100')
+    assert_equal 100, MigrateAssetsToAssetManager.directory_number_from_attachment_dir(attachment_dir)
+  end
 end
 
 class AssetFilePathsTest < ActiveSupport::TestCase
