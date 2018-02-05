@@ -1,10 +1,12 @@
 class MigrateAssetsToAssetManager
   include ActionView::Helpers::TextHelper
 
-  def self.migrate_attachments
+  def self.migrate_attachments(batch_start = 0, batch_end = Float::INFINITY)
     clean_uploads_root = Pathname.new(Whitehall.clean_uploads_root)
     attachments_parent_dir = clean_uploads_root.join('system', 'uploads', 'attachment_data', 'file')
     Pathname.glob(attachments_parent_dir.join('*')).each do |attachment_dir|
+      next unless (batch_start..batch_end).cover?(directory_number_from_attachment_dir(attachment_dir))
+
       relative_attachment_dir = attachment_dir.relative_path_from(clean_uploads_root)
       migrator = MigrateAssetsToAssetManager.new(relative_attachment_dir.to_s, true)
       migrator.perform
@@ -24,6 +26,10 @@ class MigrateAssetsToAssetManager
 
   def to_s
     "Migrating #{pluralize(@relative_file_paths.size, 'file')}"
+  end
+
+  def self.directory_number_from_attachment_dir(attachment_dir)
+    Integer(attachment_dir.each_filename.entries.last)
   end
 
   class Worker < WorkerBase
