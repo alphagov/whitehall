@@ -1,14 +1,9 @@
 class PublicUploadsController < ApplicationController
   include ActionView::Helpers::AssetTagHelper
-  before_action :redirect_to_asset_host
 
   def show
-    if attachment_visible?
-      expires_headers
-      send_file_for_mime_type
-    else
-      fail
-    end
+    asset_host = URI.parse(Plek.new.public_asset_host).host
+    redirect_to host: asset_host
   end
 
 private
@@ -74,10 +69,5 @@ private
 
   def real_path_for_x_accel_mapping(potentially_symlinked_path)
     File.realpath(potentially_symlinked_path)
-  end
-
-  def redirect_to_asset_host
-    asset_host = URI.parse(Plek.new.public_asset_host).host
-    redirect_to host: asset_host
   end
 end
