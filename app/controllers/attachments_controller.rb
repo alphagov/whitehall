@@ -1,6 +1,5 @@
-class AttachmentsController < PublicUploadsController
+class AttachmentsController < ApplicationController
   include PublicDocumentRoutesHelper
-  skip_before_action :redirect_to_asset_host
 
   before_action :reject_non_previewable_attachments, only: :preview
 
