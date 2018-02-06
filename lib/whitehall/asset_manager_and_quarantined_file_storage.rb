@@ -1,7 +1,9 @@
 class Whitehall::AssetManagerAndQuarantinedFileStorage < CarrierWave::Storage::Abstract
   def store!(file)
-    Whitehall::AssetManagerStorage.new(uploader).store!(file)
-    Whitehall::QuarantinedFileStorage.new(uploader).store!(file)
+    asset_manager_file = Whitehall::AssetManagerStorage.new(uploader).store!(file)
+    quarantined_file = Whitehall::QuarantinedFileStorage.new(uploader).store!(file)
+
+    File.new(asset_manager_file, quarantined_file)
   end
 
   def retrieve!(identifier)
@@ -21,6 +23,10 @@ class Whitehall::AssetManagerAndQuarantinedFileStorage < CarrierWave::Storage::A
 
     def url
       @quarantined_file.url
+    end
+
+    def asset_manager_path
+      @asset_manager_file.path
     end
 
     def delete

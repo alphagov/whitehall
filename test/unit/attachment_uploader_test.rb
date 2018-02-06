@@ -150,6 +150,13 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
     end
   end
 
+  test 'returns Asset Manager version of path' do
+    uploader = AttachmentUploader.new(stub('AR Model', id: 1), 'mounted-as')
+    uploader.store!(fixture_file_upload('simple.pdf'))
+    expected_path = '/government/uploads/system/uploads/mocha/mock/mounted-as/1/simple.pdf'
+    assert_equal expected_path, uploader.file.asset_manager_path
+  end
+
   def required_arcgis_file_list
     %w(london.shp london.shx london.dbf)
   end

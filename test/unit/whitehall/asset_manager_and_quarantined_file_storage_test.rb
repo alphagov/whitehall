@@ -28,17 +28,20 @@ class Whitehall::AssetManagerAndQuarantinedFileStorageTest < ActiveSupport::Test
   end
 
   test 'returns the value returned from the quarantined file store' do
-    @asset_manager_storage.stubs(:store!)
-    @quarantined_file_storage.stubs(:store!).with(@file).returns('stored-file')
+    @quarantined_file_storage.stubs(:store!).with(@file).returns('stored-quarantined-file')
+    @asset_manager_storage.stubs(:store!).with(@file).returns('stored-asset-manager-file')
 
-    assert_equal 'stored-file', @storage.store!(@file)
+    composite_file = stub('composite_file')
+    Whitehall::AssetManagerAndQuarantinedFileStorage::File.stubs(:new).with('stored-asset-manager-file', 'stored-quarantined-file').returns(composite_file)
+
+    assert_equal composite_file, @storage.store!(@file)
   end
 
   test 'returns the composite asset manager and quarantined file' do
     @quarantined_file_storage.stubs(:retrieve!).with('identifier').returns('retrieved-quarantined-file')
     @asset_manager_storage.stubs(:retrieve!).with('identifier').returns('retrieved-asset-manager-file')
 
-    composite_file = stub(:composite_file)
+    composite_file = stub('composite_file')
     Whitehall::AssetManagerAndQuarantinedFileStorage::File.stubs(:new).with('retrieved-asset-manager-file', 'retrieved-quarantined-file').returns(composite_file)
 
     assert_equal composite_file, @storage.retrieve!('identifier')
@@ -47,8 +50,8 @@ end
 
 class Whitehall::AssetManagerAndQuarantinedFileStorage::FileTest < ActiveSupport::TestCase
   setup do
-    @asset_manager_file = stub(:asset_manager_file)
-    @quarantined_file = stub(:quarantined_file)
+    @asset_manager_file = stub('asset_manager_file')
+    @quarantined_file = stub('quarantined_file')
     @file = Whitehall::AssetManagerAndQuarantinedFileStorage::File.new(@asset_manager_file, @quarantined_file)
   end
 
@@ -90,6 +93,12 @@ class Whitehall::AssetManagerAndQuarantinedFileStorage::FileTest < ActiveSupport
     @quarantined_file.stubs(:size).returns('quarantined-file-size')
 
     assert_equal 'quarantined-file-size', @file.size
+  end
+
+  test '#asset_manager_path delegates to path on asset manager file' do
+    @asset_manager_file.stubs(:path).returns('asset-manager-file-path')
+
+    assert_equal 'asset-manager-file-path', @file.asset_manager_path
   end
 
   test '#delete calls delete on both asset manager file and quarantined file' do
