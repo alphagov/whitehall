@@ -11,8 +11,6 @@ class AttachmentDraftStatusTest < ActiveSupport::TestCase
         attachable: @edition,
         file: File.open(fixture_path.join('whitepaper.pdf'))
       )
-      # ensure CarrierWave uploader returns instance of correct File class
-      @edition.reload
 
       Services.asset_manager.stubs(:whitehall_asset)
         .with(regexp_matches(%r{whitepaper\.pdf$}))
@@ -39,8 +37,6 @@ class AttachmentDraftStatusTest < ActiveSupport::TestCase
         attachable: @edition,
         file: File.open(fixture_path.join('whitepaper.pdf'))
       )
-      # ensure CarrierWave uploader returns instance of correct File class
-      @edition.reload
 
       Services.asset_manager.stubs(:whitehall_asset)
         .with(regexp_matches(%r{whitepaper\.pdf$}))
