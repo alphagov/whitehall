@@ -25,6 +25,10 @@ class Whitehall::AssetManagerAndQuarantinedFileStorage < CarrierWave::Storage::A
       @quarantined_file.url
     end
 
+    def asset_manager_path
+      @asset_manager_file.path
+    end
+
     def delete
       @quarantined_file.delete
       @asset_manager_file.delete

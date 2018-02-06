@@ -95,6 +95,12 @@ class Whitehall::AssetManagerAndQuarantinedFileStorage::FileTest < ActiveSupport
     assert_equal 'quarantined-file-size', @file.size
   end
 
+  test '#asset_manager_path delegates to path on asset manager file' do
+    @asset_manager_file.stubs(:path).returns('asset-manager-file-path')
+
+    assert_equal 'asset-manager-file-path', @file.asset_manager_path
+  end
+
   test '#delete calls delete on both asset manager file and quarantined file' do
     @asset_manager_file.expects(:delete)
     @quarantined_file.expects(:delete)
