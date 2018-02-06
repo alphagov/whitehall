@@ -31,7 +31,7 @@ class Whitehall::AssetManagerAndQuarantinedFileStorageTest < ActiveSupport::Test
     @quarantined_file_storage.stubs(:store!).with(@file).returns('stored-quarantined-file')
     @asset_manager_storage.stubs(:store!).with(@file).returns('stored-asset-manager-file')
 
-    composite_file = stub(:composite_file)
+    composite_file = stub('composite_file')
     Whitehall::AssetManagerAndQuarantinedFileStorage::File.stubs(:new).with('stored-asset-manager-file', 'stored-quarantined-file').returns(composite_file)
 
     assert_equal composite_file, @storage.store!(@file)
@@ -41,7 +41,7 @@ class Whitehall::AssetManagerAndQuarantinedFileStorageTest < ActiveSupport::Test
     @quarantined_file_storage.stubs(:retrieve!).with('identifier').returns('retrieved-quarantined-file')
     @asset_manager_storage.stubs(:retrieve!).with('identifier').returns('retrieved-asset-manager-file')
 
-    composite_file = stub(:composite_file)
+    composite_file = stub('composite_file')
     Whitehall::AssetManagerAndQuarantinedFileStorage::File.stubs(:new).with('retrieved-asset-manager-file', 'retrieved-quarantined-file').returns(composite_file)
 
     assert_equal composite_file, @storage.retrieve!('identifier')
@@ -50,8 +50,8 @@ end
 
 class Whitehall::AssetManagerAndQuarantinedFileStorage::FileTest < ActiveSupport::TestCase
   setup do
-    @asset_manager_file = stub(:asset_manager_file)
-    @quarantined_file = stub(:quarantined_file)
+    @asset_manager_file = stub('asset_manager_file')
+    @quarantined_file = stub('quarantined_file')
     @file = Whitehall::AssetManagerAndQuarantinedFileStorage::File.new(@asset_manager_file, @quarantined_file)
   end
 
