@@ -100,4 +100,44 @@ private
   def reject_non_previewable_attachments
     render(plain: "Not found", status: :not_found) unless attachment_data.csv?
   end
+
+  def file_is_clean?(path)
+    path.starts_with?(Whitehall.clean_uploads_root)
+  end
+
+  def image?(path)
+    ['.jpg', '.jpeg', '.png', '.gif'].include?(File.extname(path))
+  end
+
+  def incoming_upload_exists?(path)
+    path = path.sub(Whitehall.clean_uploads_root, Whitehall.incoming_uploads_root)
+    File.exist?(path)
+  end
+
+  def mime_type_for(path)
+    Mime::Type.lookup_by_extension(File.extname(path).from(1).downcase)
+  end
+
+  def real_path_for_x_accel_mapping(potentially_symlinked_path)
+    File.realpath(potentially_symlinked_path)
+  end
+
+  def redirect_to_placeholder
+    # Cache is explicitly 1 minute to prevent the virus redirect beng
+    # cached by CDNs.
+    expires_in(1.minute, public: true)
+    redirect_to placeholder_url
+  end
+
+  def send_file_for_mime_type
+    if (mime_type = mime_type_for(upload_path))
+      send_file real_path_for_x_accel_mapping(upload_path), type: mime_type, disposition: 'inline'
+    else
+      send_file real_path_for_x_accel_mapping(upload_path), disposition: 'inline'
+    end
+  end
+
+  def upload_exists?(path)
+    File.exist?(path) && file_is_clean?(path)
+  end
 end
