@@ -28,10 +28,13 @@ class Whitehall::AssetManagerAndQuarantinedFileStorageTest < ActiveSupport::Test
   end
 
   test 'returns the value returned from the quarantined file store' do
-    @asset_manager_storage.stubs(:store!)
-    @quarantined_file_storage.stubs(:store!).with(@file).returns('stored-file')
+    @quarantined_file_storage.stubs(:store!).with(@file).returns('stored-quarantined-file')
+    @asset_manager_storage.stubs(:store!).with(@file).returns('stored-asset-manager-file')
 
-    assert_equal 'stored-file', @storage.store!(@file)
+    composite_file = stub(:composite_file)
+    Whitehall::AssetManagerAndQuarantinedFileStorage::File.stubs(:new).with('stored-asset-manager-file', 'stored-quarantined-file').returns(composite_file)
+
+    assert_equal composite_file, @storage.store!(@file)
   end
 
   test 'returns the composite asset manager and quarantined file' do
