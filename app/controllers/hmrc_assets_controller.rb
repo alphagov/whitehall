@@ -2,7 +2,7 @@ class HmrcAssetsController < ApplicationController
   include ActionView::Helpers::AssetTagHelper
 
   def show
-    if attachment_visible?
+    if File.exist?(upload_path)
       expires_headers
       send_file_for_mime_type
     else
@@ -52,10 +52,6 @@ private
   def upload_path
     basename = [params[:path], params[:format]].compact.join('.')
     File.join(Whitehall.clean_uploads_root, 'uploaded', 'hmrc', basename)
-  end
-
-  def attachment_visible?
-    File.exist?(upload_path)
   end
 
   def incoming_upload_exists?(path)
