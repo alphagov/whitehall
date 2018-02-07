@@ -1,6 +1,4 @@
 class HmrcAssetsController < ApplicationController
-  include ActionView::Helpers::AssetTagHelper
-
   def show
     if File.exist?(upload_path)
       expires_headers
