@@ -36,7 +36,6 @@ Rails.application.config.assets.precompile += %w(
   frontend/html-publication-rtl-ie6.css
   frontend/print.css
   admin.js
-  tour/tour_pano.js
 )
 
 Rails.application.config.assets.prefix = Whitehall.router_prefix + Rails.application.config.assets.prefix
