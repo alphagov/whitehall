@@ -55,11 +55,7 @@ private
   end
 
   def attachment_visible?
-    upload_exists? upload_path
-  end
-
-  def upload_exists?(path)
-    File.exist?(path)
+    File.exist?(upload_path)
   end
 
   def incoming_upload_exists?(path)
