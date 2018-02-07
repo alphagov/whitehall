@@ -13,9 +13,7 @@ class HmrcAssetsController < ApplicationController
 private
 
   def fail
-    if image? upload_path
-      redirect_to view_context.path_to_image('thumbnail-placeholder.png')
-    elsif incoming_upload_exists? upload_path
+    if incoming_upload_exists? upload_path
       redirect_to_placeholder
     else
       render plain: "Not found", status: :not_found
@@ -35,10 +33,6 @@ private
     else
       send_file real_path_for_x_accel_mapping(upload_path), disposition: 'inline'
     end
-  end
-
-  def image?(path)
-    ['.jpg', '.jpeg', '.png', '.gif'].include?(File.extname(path))
   end
 
   def mime_type_for(path)
