@@ -59,16 +59,12 @@ private
   end
 
   def upload_exists?(path)
-    File.exist?(path) && file_is_clean?(path)
+    File.exist?(path)
   end
 
   def incoming_upload_exists?(path)
     path = path.sub(Whitehall.clean_uploads_root, Whitehall.incoming_uploads_root)
     File.exist?(path)
-  end
-
-  def file_is_clean?(path)
-    path.starts_with?(Whitehall.clean_uploads_root)
   end
 
   def real_path_for_x_accel_mapping(potentially_symlinked_path)
