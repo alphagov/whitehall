@@ -12,6 +12,9 @@ module ServiceListeners
         attachment_data = attachment.attachment_data
         draft = !visibility_for(attachment_data).visible?
         enqueue_job(attachment_data.file, draft)
+        attachment_data.file.versions.each_value do |uploader|
+          enqueue_job(uploader, draft) if uploader.present?
+        end
       end
     end
 
