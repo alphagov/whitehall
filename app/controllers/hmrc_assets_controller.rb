@@ -6,15 +6,11 @@ class HmrcAssetsController < ApplicationController
       expires_headers
       send_file_for_mime_type
     else
-      fail
+      render plain: "Not found", status: :not_found
     end
   end
 
 private
-
-  def fail
-    render plain: "Not found", status: :not_found
-  end
 
   def send_file_for_mime_type
     if (mime_type = mime_type_for(upload_path))
