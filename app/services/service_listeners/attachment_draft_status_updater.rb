@@ -12,6 +12,9 @@ module ServiceListeners
         attachment_data = attachment.attachment_data
         draft = !visibility_for(attachment_data).visible?
         enqueue_job(attachment_data.file, draft)
+        if attachment_data.pdf?
+          enqueue_job(attachment_data.file.thumbnail, draft)
+        end
       end
     end
 

@@ -15,10 +15,14 @@ class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
       Services.asset_manager.stubs(:whitehall_asset)
         .with(regexp_matches(%r{whitepaper\.pdf$}))
         .returns('id' => 'http://asset-manager/assets/asset-id', 'draft' => true)
+      Services.asset_manager.stubs(:whitehall_asset)
+        .with(regexp_matches(%r{thumbnail_whitepaper\.pdf\.png$}))
+        .returns('id' => 'http://asset-manager/assets/thumbnail-asset-id', 'draft' => true)
     end
 
-    test 'attachment is marked as published in Asset Manager' do
+    test 'attachment & its thumbnail are marked as published in Asset Manager' do
       Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => false)
+      Services.asset_manager.expects(:update_asset).with('thumbnail-asset-id', 'draft' => false)
 
       force_publisher = Whitehall.edition_services.force_publisher(@edition)
       assert force_publisher.perform!, force_publisher.failure_reason
@@ -37,10 +41,14 @@ class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
       Services.asset_manager.stubs(:whitehall_asset)
         .with(regexp_matches(%r{whitepaper\.pdf$}))
         .returns('id' => 'http://asset-manager/assets/asset-id', 'draft' => false)
+      Services.asset_manager.stubs(:whitehall_asset)
+        .with(regexp_matches(%r{thumbnail_whitepaper\.pdf\.png$}))
+        .returns('id' => 'http://asset-manager/assets/thumbnail-asset-id', 'draft' => false)
     end
 
-    test 'attachment is marked as draft in Asset Manager' do
-      Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' =>true)
+    test 'attachment & its thumbnail are marked as draft in Asset Manager' do
+      Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => true)
+      Services.asset_manager.expects(:update_asset).with('thumbnail-asset-id', 'draft' => true)
 
       unpublisher = Whitehall.edition_services.unpublisher(@edition, unpublishing: {
         unpublishing_reason: UnpublishingReason::PublishedInError

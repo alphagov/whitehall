@@ -65,9 +65,11 @@ module ServiceListeners
         edition.attachments << pdf_attachment
       end
 
-      it 'updates draft status of asset for attachment' do
+      it 'updates draft status of asset for attachment & its thumbnail' do
         AssetManagerUpdateAssetWorker.expects(:perform_async)
           .with(pdf_attachment.file.asset_manager_path, draft: true)
+        AssetManagerUpdateAssetWorker.expects(:perform_async)
+          .with(pdf_attachment.file.thumbnail.asset_manager_path, draft: true)
 
         updater.update!
       end
@@ -75,9 +77,11 @@ module ServiceListeners
       context 'and attachment should be visible, i.e. not draft' do
         let(:visible) { true }
 
-        it 'updates draft status of asset for attachment' do
+        it 'updates draft status of asset for attachment & its thumbnail' do
           AssetManagerUpdateAssetWorker.expects(:perform_async)
             .with(pdf_attachment.file.asset_manager_path, draft: false)
+          AssetManagerUpdateAssetWorker.expects(:perform_async)
+            .with(pdf_attachment.file.thumbnail.asset_manager_path, draft: false)
 
           updater.update!
         end
