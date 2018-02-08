@@ -72,7 +72,7 @@ module Whitehall
   end
 
   def self.admin_root
-    @admin_root ||= Plek.find('whitehall-admin')
+    @admin_root ||= Plek.new.external_url_for('whitehall-admin')
   end
 
   # NOOP until alphagov-deployment is updated to not set this in the
