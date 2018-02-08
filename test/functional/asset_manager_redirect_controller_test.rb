@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PublicUploadsControllerTest < ActionController::TestCase
+class AssetManagerRedirectControllerTest < ActionController::TestCase
   setup do
     Plek.any_instance.stubs(:public_asset_host).returns('http://asset-host.com')
   end
