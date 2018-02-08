@@ -6,6 +6,12 @@ Whitehall.edition_services.tap do |coordinator|
       .push(event: event, options: options)
   end
 
+  coordinator.subscribe do |_event, edition, _options|
+    ServiceListeners::AttachmentDraftStatusUpdater
+      .new(edition)
+      .update!
+  end
+
   coordinator.subscribe('unpublish') do |_event, edition, _options|
     # handling edition's dependency on other content
     edition.edition_dependencies.destroy_all
