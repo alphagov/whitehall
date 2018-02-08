@@ -12,6 +12,7 @@ class Admin::PolicyGroupsController < Admin::BaseController
   def create
     @policy_group = PolicyGroup.new(policy_group_params)
     if @policy_group.save
+      Whitehall.policy_group_notifier.publish('create', @policy_group)
       redirect_to admin_policy_groups_path, notice: %{"#{@policy_group.name}" created.}
     else
       render action: "new"
@@ -25,6 +26,7 @@ class Admin::PolicyGroupsController < Admin::BaseController
   def update
     @policy_group = PolicyGroup.friendly.find(params[:id])
     if @policy_group.update_attributes(policy_group_params)
+      Whitehall.policy_group_notifier.publish('update', @policy_group)
       redirect_to admin_policy_groups_path, notice: %{"#{@policy_group.name}" saved.}
     else
       render action: "edit"

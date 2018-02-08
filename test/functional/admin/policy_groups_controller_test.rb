@@ -30,6 +30,18 @@ class Admin::PolicyGroupsControllerTest < ActionController::TestCase
     assert_equal 'Policy Forum', PolicyGroup.last.name
   end
 
+  test "POST :create with valid params publishes event to policy_group_notifier" do
+    Whitehall.policy_group_notifier.expects(:publish).with('create', is_a(PolicyGroup))
+
+    post :create, params: { policy_group: { name: 'Policy Forum' } }
+  end
+
+  test "POST :create with invalid params does not publish event to policy_group_notifier" do
+    Whitehall.policy_group_notifier.expects(:publish).never
+
+    post :create, params: { policy_group: { name: '' } }
+  end
+
   view_test "GET :edit" do
     group = create(:policy_group)
 
@@ -47,6 +59,20 @@ class Admin::PolicyGroupsControllerTest < ActionController::TestCase
     assert_response :redirect
     assert_redirected_to admin_policy_groups_path
     assert_equal 'Policy Board', group.reload.name
+  end
+
+  test "PUT :update with valid params publishes event to policy_group_notifier" do
+    group = create(:policy_group, name: 'Policy Forum')
+    Whitehall.policy_group_notifier.expects(:publish).with('update', group)
+
+    put :update, params: { id: group, policy_group: { name: 'Policy Board' } }
+  end
+
+  test "PUT :update with invalid params does not publish event to policy_group_notifier" do
+    group = create(:policy_group, name: 'Policy Forum')
+    Whitehall.policy_group_notifier.expects(:publish).never
+
+    put :update, params: { id: group, policy_group: { name: '' } }
   end
 
   test "DELETE :destroy is forbidden for writers" do
