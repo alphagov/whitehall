@@ -324,7 +324,7 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
-    plek (2.1.0)
+    plek (2.1.1)
     poltergeist (1.17.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -587,7 +587,7 @@ DEPENDENCIES
   parallel
   parallel_tests
   pdf-reader (~> 2.0)
-  plek (~> 2.0)
+  plek (~> 2.1)
   poltergeist
   pry-byebug
   pry-rails
