@@ -110,4 +110,30 @@ class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
       assert force_publisher.perform!, force_publisher.failure_reason
     end
   end
+
+  context 'when file attachment is added to outcome belonging to published consultation' do
+    before do
+      edition = create(:published_consultation)
+      @outcome = edition.create_outcome!(FactoryBot.attributes_for(:consultation_outcome))
+
+      Services.asset_manager.stubs(:whitehall_asset)
+        .with(regexp_matches(%r{whitepaper\.pdf$}))
+        .returns('id' => 'http://asset-manager/assets/asset-id', 'draft' => true)
+      Services.asset_manager.stubs(:whitehall_asset)
+        .with(regexp_matches(%r{thumbnail_whitepaper\.pdf\.png$}))
+        .returns('id' => 'http://asset-manager/assets/thumbnail-asset-id', 'draft' => true)
+    end
+
+    test 'attachment & its thumbnail are marked as published in Asset Manager' do
+      Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => false)
+      Services.asset_manager.expects(:update_asset).with('thumbnail-asset-id', 'draft' => false)
+
+      @outcome.attachments << FactoryBot.build(
+        :file_attachment,
+        attachable: @outcome,
+        file: File.open(fixture_path.join('whitepaper.pdf'))
+      )
+      Whitehall.consultation_response_notifier.publish('update', @outcome)
+    end
+  end
 end
