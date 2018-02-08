@@ -25,10 +25,6 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
     }
   end
 
-  def assert_redirected_to_placeholder_image
-    assert_redirected_to "/government/assets/thumbnail-placeholder.png"
-  end
-
   def assert_sent_public_upload(upload, content_type)
     assert_equal 200, response.status
     assert_equal content_type, response.content_type
@@ -42,32 +38,30 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
     assert_cache_control "no-cache"
   end
 
+  def asset_host
+    URI.parse(Plek.new.public_asset_host).host
+  end
+
   setup do
-    asset_host = URI.parse(Plek.new.public_asset_host).host
     host! asset_host
   end
 
-  test 'allows everyone access to general uploads' do
+  test 'redirects all non-attachment, non-hmrc asset requests to the asset host' do
     upload = '/government/uploads/general-upload.jpg'
     create_uploaded_file(path_to_clean_upload(upload))
 
     get_via_nginx upload
 
-    assert_sent_public_upload upload, Mime[:jpg]
+    assert_redirected_to "http://#{asset_host}/government/uploads/general-upload.jpg"
   end
 
-  test 'recognises files with uppercase names (as well as lowercase)' do
+  test 'redirects requests for files with uppercase names (as well as lowercase)' do
     upload = '/government/uploads/GENERAL-UPLOAD.JPG'
     create_uploaded_file(path_to_clean_upload(upload))
 
     get_via_nginx upload
 
-    assert_sent_public_upload upload, Mime[:jpg]
-  end
-
-  test 'redirects requests for unknown uploaded images to the placeholder image' do
-    get_via_nginx '/government/uploads/any-missing-image.jpg'
-    assert_redirected_to_placeholder_image
+    assert_redirected_to "http://#{asset_host}/government/uploads/GENERAL-UPLOAD.JPG"
   end
 
   test 'allows everyone access to attachments of published editions' do
