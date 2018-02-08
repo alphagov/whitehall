@@ -10,6 +10,12 @@ Whitehall.edition_services.tap do |coordinator|
     ServiceListeners::AttachmentDraftStatusUpdater
       .new(edition)
       .update!
+
+    if edition.is_a?(Consultation) && edition.outcome.present?
+      ServiceListeners::AttachmentDraftStatusUpdater
+        .new(edition.outcome)
+        .update!
+    end
   end
 
   coordinator.subscribe('unpublish') do |_event, edition, _options|
