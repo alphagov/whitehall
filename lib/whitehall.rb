@@ -27,7 +27,7 @@ module Whitehall
   end
 
   def self.support_url
-    Plek.find('support')
+    Plek.new.external_url_for('support')
   end
 
   def self.available_locales
