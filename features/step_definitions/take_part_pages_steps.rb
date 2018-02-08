@@ -44,8 +44,6 @@ Then(/^I see the take part pages in my specified order including the new page on
 end
 
 When(/^I remove one of the take part pages because it's not something we want to promote$/) do
-  Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
-
   visit admin_get_involved_path
   click_on 'Take part pages'
 
