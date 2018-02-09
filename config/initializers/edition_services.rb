@@ -11,10 +11,17 @@ Whitehall.edition_services.tap do |coordinator|
       .new(edition)
       .update!
 
-    if edition.is_a?(Consultation) && edition.outcome.present?
-      ServiceListeners::AttachmentDraftStatusUpdater
-        .new(edition.outcome)
-        .update!
+    if edition.is_a?(Consultation)
+      if edition.outcome.present?
+        ServiceListeners::AttachmentDraftStatusUpdater
+          .new(edition.outcome)
+          .update!
+      end
+      if edition.public_feedback.present?
+        ServiceListeners::AttachmentDraftStatusUpdater
+          .new(edition.public_feedback)
+          .update!
+      end
     end
   end
 
