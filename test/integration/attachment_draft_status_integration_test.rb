@@ -13,10 +13,10 @@ class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
       )
 
       Services.asset_manager.stubs(:whitehall_asset)
-        .with(regexp_matches(%r{whitepaper\.pdf$}))
+        .with(&ends_with('whitepaper.pdf'))
         .returns('id' => 'http://asset-manager/assets/asset-id', 'draft' => true)
       Services.asset_manager.stubs(:whitehall_asset)
-        .with(regexp_matches(%r{thumbnail_whitepaper\.pdf\.png$}))
+        .with(&ends_with('thumbnail_whitepaper.pdf.png'))
         .returns('id' => 'http://asset-manager/assets/thumbnail-asset-id', 'draft' => true)
     end
 
@@ -39,10 +39,10 @@ class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
       )
 
       Services.asset_manager.stubs(:whitehall_asset)
-        .with(regexp_matches(%r{whitepaper\.pdf$}))
+        .with(&ends_with('whitepaper.pdf'))
         .returns('id' => 'http://asset-manager/assets/asset-id', 'draft' => false)
       Services.asset_manager.stubs(:whitehall_asset)
-        .with(regexp_matches(%r{thumbnail_whitepaper\.pdf\.png$}))
+        .with(&ends_with('thumbnail_whitepaper.pdf.png'))
         .returns('id' => 'http://asset-manager/assets/thumbnail-asset-id', 'draft' => false)
     end
 
@@ -68,10 +68,10 @@ class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
       )
 
       Services.asset_manager.stubs(:whitehall_asset)
-        .with(regexp_matches(%r{whitepaper\.pdf$}))
+        .with(&ends_with('whitepaper.pdf'))
         .returns('id' => 'http://asset-manager/assets/asset-id', 'draft' => true)
       Services.asset_manager.stubs(:whitehall_asset)
-        .with(regexp_matches(%r{thumbnail_whitepaper\.pdf\.png$}))
+        .with(&ends_with('thumbnail_whitepaper.pdf.png'))
         .returns('id' => 'http://asset-manager/assets/thumbnail-asset-id', 'draft' => true)
     end
 
@@ -95,10 +95,10 @@ class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
       )
 
       Services.asset_manager.stubs(:whitehall_asset)
-        .with(regexp_matches(%r{whitepaper\.pdf$}))
+        .with(&ends_with('whitepaper.pdf'))
         .returns('id' => 'http://asset-manager/assets/asset-id', 'draft' => true)
       Services.asset_manager.stubs(:whitehall_asset)
-        .with(regexp_matches(%r{thumbnail_whitepaper\.pdf\.png$}))
+        .with(&ends_with('thumbnail_whitepaper.pdf.png'))
         .returns('id' => 'http://asset-manager/assets/thumbnail-asset-id', 'draft' => true)
     end
 
@@ -117,10 +117,10 @@ class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
       @outcome = edition.create_outcome!(FactoryBot.attributes_for(:consultation_outcome))
 
       Services.asset_manager.stubs(:whitehall_asset)
-        .with(regexp_matches(%r{whitepaper\.pdf$}))
+        .with(&ends_with('whitepaper.pdf'))
         .returns('id' => 'http://asset-manager/assets/asset-id', 'draft' => true)
       Services.asset_manager.stubs(:whitehall_asset)
-        .with(regexp_matches(%r{thumbnail_whitepaper\.pdf\.png$}))
+        .with(&ends_with('thumbnail_whitepaper.pdf.png'))
         .returns('id' => 'http://asset-manager/assets/thumbnail-asset-id', 'draft' => true)
     end
 
@@ -142,10 +142,10 @@ class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
       @policy_group = create(:policy_group)
 
       Services.asset_manager.stubs(:whitehall_asset)
-        .with(regexp_matches(%r{whitepaper\.pdf$}))
+        .with(&ends_with('whitepaper.pdf'))
         .returns('id' => 'http://asset-manager/assets/asset-id', 'draft' => true)
       Services.asset_manager.stubs(:whitehall_asset)
-        .with(regexp_matches(%r{thumbnail_whitepaper\.pdf\.png$}))
+        .with(&ends_with('thumbnail_whitepaper.pdf.png'))
         .returns('id' => 'http://asset-manager/assets/thumbnail-asset-id', 'draft' => true)
     end
 
@@ -160,5 +160,11 @@ class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
       )
       Whitehall.policy_group_notifier.publish('update', @policy_group)
     end
+  end
+
+private
+
+  def ends_with(expected)
+    ->(actual) { actual.end_with?(expected) }
   end
 end
