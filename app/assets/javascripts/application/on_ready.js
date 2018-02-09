@@ -20,7 +20,6 @@ jQuery(function($) {
   GOVUK.hideDepartmentChildren.init();
   GOVUK.filterListItems.init();
   GOVUK.showHide.init();
-  GOVUK.virtualTour.init();
   GOVUK.feeds.init();
 
 });

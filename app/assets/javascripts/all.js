@@ -17,5 +17,3 @@
 //= require_tree ./common
 //= require_tree ./application
 //= require_tree ./admin
-//
-//= require tour/tour_pano
