@@ -69,6 +69,16 @@ class Admin::ResponsesControllerTest < ActionController::TestCase
     assert_equal 'Feedback summary', public_feedback.summary
   end
 
+  test "POST :create with valid params publishes event to consultation_response_notifier" do
+    Whitehall.consultation_response_notifier.expects(:publish).with('create', is_a(Response))
+    post :create, params: { consultation_id: @consultation, consultation_outcome: { summary: 'Outcome summary', published_on: Date.today }, type: 'ConsultationOutcome' }
+  end
+
+  test "POST :create with invalid params does not publish event to consultation_response_notifier" do
+    Whitehall.consultation_response_notifier.expects(:publish).never
+    post :create, params: { consultation_id: @consultation, consultation_outcome: { summary: '', published_on: Date.today }, type: 'ConsultationOutcome' }
+  end
+
   view_test "POST :create with invalid params re-renders the form" do
     post :create, params: { consultation_id: @consultation, consultation_outcome: { summary: '', published_on: Date.today }, type: 'ConsultationOutcome' }
 
@@ -100,6 +110,20 @@ class Admin::ResponsesControllerTest < ActionController::TestCase
     put :update, params: { consultation_id: @consultation, consultation_public_feedback: { summary: 'New summary', published_on: Date.today }, type: 'ConsultationPublicFeedback' }
     assert_response :redirect
     assert_equal 'New summary', feedback.reload.summary
+  end
+
+  test "PUT :update with valid params publishes event to consultation_response_notifier" do
+    outcome = create_outcome
+    Whitehall.consultation_response_notifier.expects(:publish).with('update', outcome)
+
+    put :update, params: { consultation_id: @consultation, consultation_outcome: { summary: 'New summary', published_on: Date.today }, type: 'ConsultationOutcome' }
+  end
+
+  test "PUT :update with invalid params does not publish event to consultation_response_notifier" do
+    create_outcome
+    Whitehall.consultation_response_notifier.expects(:publish).never
+
+    put :update, params: { consultation_id: @consultation, consultation_outcome: { summary: '', published_on: Date.today }, type: 'ConsultationOutcome' }
   end
 
 private
