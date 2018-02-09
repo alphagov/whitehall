@@ -25,7 +25,7 @@ class Nation
   end
 
   def self.potentially_inapplicable
-    [Scotland, Wales, NorthernIreland]
+    [England, Scotland, Wales, NorthernIreland]
   end
 
   def self.find_by_name!(name)
