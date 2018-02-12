@@ -153,6 +153,14 @@ module Whitehall
     @edition_actions ||= EditionServiceCoordinator.new
   end
 
+  def self.consultation_response_notifier
+    @consultation_response_notifier ||= ActiveSupport::Notifications::Fanout.new
+  end
+
+  def self.policy_group_notifier
+    @policy_group_notifier ||= ActiveSupport::Notifications::Fanout.new
+  end
+
   def self.organisations_in_tagging_beta
     @taggable_organisations ||=
       YAML.load_file(Rails.root + "config/organisations_in_tagging_beta.yml")["organisations_in_tagging_beta"]

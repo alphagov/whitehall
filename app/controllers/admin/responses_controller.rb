@@ -13,6 +13,7 @@ class Admin::ResponsesController < Admin::BaseController
     @response = response_class.new(response_params)
     @response.consultation = @edition
     if @response.save
+      Whitehall.consultation_response_notifier.publish('create', @response)
       redirect_to [:admin, @edition, @response.singular_routing_symbol], notice: "#{@response.friendly_name.capitalize} saved"
     else
       render :show
@@ -23,6 +24,7 @@ class Admin::ResponsesController < Admin::BaseController
 
   def update
     if @response.update_attributes(response_params)
+      Whitehall.consultation_response_notifier.publish('update', @response)
       redirect_to [:admin, @edition, @response.singular_routing_symbol], notice: "#{@response.friendly_name.capitalize} updated"
     else
       render :edit
