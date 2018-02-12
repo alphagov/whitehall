@@ -6,6 +6,14 @@ Whitehall.edition_services.tap do |coordinator|
       .push(event: event, options: options)
   end
 
+  # TODO: we could optimise this by working out which events might affect
+  # the visibility of an attachment and only subscribing to those events
+  coordinator.subscribe do |_event, edition, _options|
+    ServiceListeners::AttachmentDraftStatusUpdater
+      .new(edition)
+      .update!
+  end
+
   coordinator.subscribe('unpublish') do |_event, edition, _options|
     # handling edition's dependency on other content
     edition.edition_dependencies.destroy_all
