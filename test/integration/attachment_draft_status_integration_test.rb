@@ -12,12 +12,8 @@ class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
         file: File.open(fixture_path.join('whitepaper.pdf'))
       )
 
-      Services.asset_manager.stubs(:whitehall_asset)
-        .with(&ends_with('whitepaper.pdf'))
-        .returns('id' => 'http://asset-manager/assets/asset-id', 'draft' => true)
-      Services.asset_manager.stubs(:whitehall_asset)
-        .with(&ends_with('thumbnail_whitepaper.pdf.png'))
-        .returns('id' => 'http://asset-manager/assets/thumbnail-asset-id', 'draft' => true)
+      stub_whitehall_asset('whitepaper.pdf', id: 'asset-id', draft: true)
+      stub_whitehall_asset('thumbnail_whitepaper.pdf.png', id: 'thumbnail-asset-id', draft: true)
     end
 
     test 'attachment & its thumbnail are marked as published in Asset Manager' do
@@ -38,12 +34,8 @@ class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
         file: File.open(fixture_path.join('whitepaper.pdf'))
       )
 
-      Services.asset_manager.stubs(:whitehall_asset)
-        .with(&ends_with('whitepaper.pdf'))
-        .returns('id' => 'http://asset-manager/assets/asset-id', 'draft' => false)
-      Services.asset_manager.stubs(:whitehall_asset)
-        .with(&ends_with('thumbnail_whitepaper.pdf.png'))
-        .returns('id' => 'http://asset-manager/assets/thumbnail-asset-id', 'draft' => false)
+      stub_whitehall_asset('whitepaper.pdf', id: 'asset-id', draft: false)
+      stub_whitehall_asset('thumbnail_whitepaper.pdf.png', id: 'thumbnail-asset-id', draft: false)
     end
 
     test 'attachment & its thumbnail are marked as draft in Asset Manager' do
@@ -67,12 +59,8 @@ class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
         file: File.open(fixture_path.join('whitepaper.pdf'))
       )
 
-      Services.asset_manager.stubs(:whitehall_asset)
-        .with(&ends_with('whitepaper.pdf'))
-        .returns('id' => 'http://asset-manager/assets/asset-id', 'draft' => true)
-      Services.asset_manager.stubs(:whitehall_asset)
-        .with(&ends_with('thumbnail_whitepaper.pdf.png'))
-        .returns('id' => 'http://asset-manager/assets/thumbnail-asset-id', 'draft' => true)
+      stub_whitehall_asset('whitepaper.pdf', id: 'asset-id', draft: true)
+      stub_whitehall_asset('thumbnail_whitepaper.pdf.png', id: 'thumbnail-asset-id', draft: true)
     end
 
     test 'attachment & its thumbnail are marked as published in Asset Manager' do
@@ -94,12 +82,8 @@ class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
         file: File.open(fixture_path.join('whitepaper.pdf'))
       )
 
-      Services.asset_manager.stubs(:whitehall_asset)
-        .with(&ends_with('whitepaper.pdf'))
-        .returns('id' => 'http://asset-manager/assets/asset-id', 'draft' => true)
-      Services.asset_manager.stubs(:whitehall_asset)
-        .with(&ends_with('thumbnail_whitepaper.pdf.png'))
-        .returns('id' => 'http://asset-manager/assets/thumbnail-asset-id', 'draft' => true)
+      stub_whitehall_asset('whitepaper.pdf', id: 'asset-id', draft: true)
+      stub_whitehall_asset('thumbnail_whitepaper.pdf.png', id: 'thumbnail-asset-id', draft: true)
     end
 
     test 'attachment & its thumbnail are marked as published in Asset Manager' do
@@ -115,5 +99,11 @@ private
 
   def ends_with(expected)
     ->(actual) { actual.end_with?(expected) }
+  end
+
+  def stub_whitehall_asset(filename, id:, draft:)
+    Services.asset_manager.stubs(:whitehall_asset)
+      .with(&ends_with(filename))
+      .returns('id' => "http://asset-manager/assets/#{id}", 'draft' => draft)
   end
 end
