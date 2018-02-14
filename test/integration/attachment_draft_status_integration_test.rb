@@ -1,24 +1,37 @@
 require 'test_helper'
+require 'capybara/rails'
 
-class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
+class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
   extend Minitest::Spec::DSL
+  include Capybara::DSL
+  include Rails.application.routes.url_helpers
+
+  before do
+    login_as create(:managing_editor)
+  end
 
   context 'when draft document with file attachment is published' do
     let(:edition) { create(:news_article) }
 
     before do
+      setup_publishing_api_for(edition)
+
       add_file_attachment('whitepaper.pdf', to: edition)
+      VirusScanHelpers.simulate_virus_scan(include_versions: true)
 
       stub_whitehall_asset('whitepaper.pdf', id: 'asset-id', draft: true)
       stub_whitehall_asset('thumbnail_whitepaper.pdf.png', id: 'thumbnail-asset-id', draft: true)
     end
 
     test 'attachment & its thumbnail are marked as published in Asset Manager' do
+      visit admin_news_article_path(edition)
+      click_link 'Force publish'
+      fill_in 'Reason for force publishing', with: 'testing'
+
       Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => false)
       Services.asset_manager.expects(:update_asset).with('thumbnail-asset-id', 'draft' => false)
 
-      force_publisher = Whitehall.edition_services.force_publisher(edition)
-      assert force_publisher.perform!, force_publisher.failure_reason
+      click_button 'Force publish'
     end
   end
 
@@ -26,20 +39,25 @@ class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
     let(:edition) { create(:published_news_article) }
 
     before do
+      setup_publishing_api_for(edition)
+
       add_file_attachment('whitepaper.pdf', to: edition)
+      VirusScanHelpers.simulate_virus_scan(include_versions: true)
 
       stub_whitehall_asset('whitepaper.pdf', id: 'asset-id', draft: false)
       stub_whitehall_asset('thumbnail_whitepaper.pdf.png', id: 'thumbnail-asset-id', draft: false)
     end
 
     test 'attachment & its thumbnail are marked as draft in Asset Manager' do
+      visit admin_news_article_path(edition)
+      click_link 'Withdraw or unpublish'
+
       Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => true)
       Services.asset_manager.expects(:update_asset).with('thumbnail-asset-id', 'draft' => true)
 
-      unpublisher = Whitehall.edition_services.unpublisher(edition, unpublishing: {
-        unpublishing_reason: UnpublishingReason::PublishedInError
-      })
-      assert unpublisher.perform!, unpublisher.failure_reason
+      within '#js-published-in-error-form' do
+        click_button 'Unpublish'
+      end
     end
   end
 
@@ -49,18 +67,24 @@ class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
     let(:outcome) { edition.create_outcome!(outcome_attributes) }
 
     before do
+      setup_publishing_api_for(edition)
+
       add_file_attachment('whitepaper.pdf', to: outcome)
+      VirusScanHelpers.simulate_virus_scan(include_versions: true)
 
       stub_whitehall_asset('whitepaper.pdf', id: 'asset-id', draft: true)
       stub_whitehall_asset('thumbnail_whitepaper.pdf.png', id: 'thumbnail-asset-id', draft: true)
     end
 
     test 'attachment & its thumbnail are marked as published in Asset Manager' do
+      visit admin_consultation_path(edition)
+      click_link 'Force publish'
+      fill_in 'Reason for force publishing', with: 'testing'
+
       Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => false)
       Services.asset_manager.expects(:update_asset).with('thumbnail-asset-id', 'draft' => false)
 
-      force_publisher = Whitehall.edition_services.force_publisher(edition)
-      assert force_publisher.perform!, force_publisher.failure_reason
+      click_button 'Force publish'
     end
   end
 
@@ -70,18 +94,24 @@ class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
     let(:feedback) { edition.create_public_feedback!(feedback_attributes) }
 
     before do
+      setup_publishing_api_for(edition)
+
       add_file_attachment('whitepaper.pdf', to: feedback)
+      VirusScanHelpers.simulate_virus_scan(include_versions: true)
 
       stub_whitehall_asset('whitepaper.pdf', id: 'asset-id', draft: true)
       stub_whitehall_asset('thumbnail_whitepaper.pdf.png', id: 'thumbnail-asset-id', draft: true)
     end
 
     test 'attachment & its thumbnail are marked as published in Asset Manager' do
+      visit admin_consultation_path(edition)
+      click_link 'Force publish'
+      fill_in 'Reason for force publishing', with: 'testing'
+
       Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => false)
       Services.asset_manager.expects(:update_asset).with('thumbnail-asset-id', 'draft' => false)
 
-      force_publisher = Whitehall.edition_services.force_publisher(edition)
-      assert force_publisher.perform!, force_publisher.failure_reason
+      click_button 'Force publish'
     end
   end
 
@@ -89,6 +119,13 @@ private
 
   def ends_with(expected)
     ->(actual) { actual.end_with?(expected) }
+  end
+
+  def setup_publishing_api_for(edition)
+    publishing_api_has_links(
+      content_id: edition.document.content_id,
+      links: {}
+    )
   end
 
   def add_file_attachment(filename, to:)
