@@ -35,16 +35,14 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   end
 
   test "should store uploads in a directory that persists across deploys" do
-    model = stub("AR Model", id: 1)
-    uploader = AttachmentUploader.new(model, "mounted-as")
+    uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
     assert_match %r[^system], uploader.store_dir
   end
 
   test "should not generate thumbnail versions of non pdf files" do
     AttachmentUploader.enable_processing = true
 
-    model = stub("AR Model", id: 1)
-    uploader = AttachmentUploader.new(model, "mounted-as")
+    uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
     uploader.store!(fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg'))
 
     assert_nil uploader.thumbnail.path
@@ -204,8 +202,7 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
 
   setup do
     AttachmentUploader.enable_processing = true
-    model = stub("AR Model", id: 1)
-    @uploader = AttachmentUploader.new(model, "mounted-as")
+    @uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
 
     @uploader.store!(fixture_file_upload('two-pages-with-content.pdf'))
   end
@@ -240,8 +237,7 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
   end
 
   test "should use a generic thumbnail if conversion fails" do
-    model = stub("AR Model", id: 1)
-    @uploader = AttachmentUploader.new(model, "mounted-as")
+    @uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
     @uploader.thumbnail.stubs(:pdf_thumbnail_command).returns("false")
 
     @uploader.store!(fixture_file_upload('two-pages-with-content.pdf'))
@@ -250,8 +246,7 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
   end
 
   test "should use a generic thumbnail if conversion takes longer than 10 seconds to complete" do
-    model = stub("AR Model", id: 1)
-    @uploader = AttachmentUploader.new(model, "mounted-as")
+    @uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
     @uploader.thumbnail.stubs(:pdf_thumbnail_command).raises(Timeout::Error)
 
     @uploader.store!(fixture_file_upload('two-pages-with-content.pdf'))
