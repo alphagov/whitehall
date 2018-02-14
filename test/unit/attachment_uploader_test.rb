@@ -25,7 +25,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   end
 
   test 'non-whitelisted file extensions are rejected' do
-    uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
+    uploader = AttachmentUploader.new(AttachmentData.new(id: 1), "mounted-as")
 
     exception = assert_raise CarrierWave::IntegrityError do
       uploader.store!(fixture_file_upload('dodgy.exe'))
@@ -35,14 +35,14 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   end
 
   test "should store uploads in a directory that persists across deploys" do
-    uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
+    uploader = AttachmentUploader.new(AttachmentData.new(id: 1), "mounted-as")
     assert_match %r[^system], uploader.store_dir
   end
 
   test "should not generate thumbnail versions of non pdf files" do
     AttachmentUploader.enable_processing = true
 
-    uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
+    uploader = AttachmentUploader.new(AttachmentData.new(id: 1), "mounted-as")
     uploader.store!(fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg'))
 
     assert_nil uploader.thumbnail.path
@@ -53,7 +53,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   test "should be able to attach a xsd file" do
     AttachmentUploader.enable_processing = true
 
-    uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
+    uploader = AttachmentUploader.new(AttachmentData.new(id: 1), "mounted-as")
     uploader.store!(fixture_file_upload("sample.xsd"))
     assert uploader.file.present?
 
@@ -61,20 +61,20 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   end
 
   test "should be able to attach a zip file" do
-    uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
+    uploader = AttachmentUploader.new(AttachmentData.new(id: 1), "mounted-as")
     uploader.store!(fixture_file_upload('sample_attachment.zip'))
     assert uploader.file.present?
   end
 
   test "zip file containing a non-whitelisted format should be rejected" do
-    uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
+    uploader = AttachmentUploader.new(AttachmentData.new(id: 1), "mounted-as")
     assert_raise CarrierWave::IntegrityError do
       uploader.store!(fixture_file_upload('sample_attachment_containing_exe.zip'))
     end
   end
 
   test "zip file containing SHOUTED whitelisted format files should not be rejected" do
-    uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
+    uploader = AttachmentUploader.new(AttachmentData.new(id: 1), "mounted-as")
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(['README.TXT', 'ImportantDocument.PDF', 'dIRE-sTRAITS.jPG'])
     assert_nothing_raised do
       uploader.store!(fixture_file_upload('sample_attachment.zip'))
@@ -83,14 +83,14 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   end
 
   test "zip file containing a zip file should be rejected" do
-    uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
+    uploader = AttachmentUploader.new(AttachmentData.new(id: 1), "mounted-as")
     assert_raise CarrierWave::IntegrityError do
       uploader.store!(fixture_file_upload('sample_attachment_containing_zip.zip'))
     end
   end
 
   test "zip file containing files with non-UTF-8 filenames should be rejected" do
-    uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
+    uploader = AttachmentUploader.new(AttachmentData.new(id: 1), "mounted-as")
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).raises(AttachmentUploader::ZipFile::NonUTF8ContentsError)
     assert_raise CarrierWave::IntegrityError do
       uploader.store!(fixture_file_upload('sample_attachment.zip'))
@@ -98,7 +98,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   end
 
   test 'zip file that looks like a minimal ArcGIS file should be allowed' do
-    uploader = AttachmentUploader.new(stub("AR Model", id: 1), 'mounted-as')
+    uploader = AttachmentUploader.new(AttachmentData.new(id: 1), 'mounted-as')
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(required_arcgis_file_list)
     assert_nothing_raised do
       uploader.store!(fixture_file_upload('sample_attachment.zip'))
@@ -107,7 +107,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   end
 
   test 'zip file that looks like a comprehensive ArcGIS file should be allowed' do
-    uploader = AttachmentUploader.new(stub("AR Model", id: 1), 'mounted-as')
+    uploader = AttachmentUploader.new(AttachmentData.new(id: 1), 'mounted-as')
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(comprehensive_arcgis_file_list)
     assert_nothing_raised do
       uploader.store!(fixture_file_upload('sample_attachment.zip'))
@@ -116,7 +116,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   end
 
   test 'zip file that is missing all the required ArcGIS files is not allowed' do
-    uploader = AttachmentUploader.new(stub("AR Model", id: 1), 'mounted-as')
+    uploader = AttachmentUploader.new(AttachmentData.new(id: 1), 'mounted-as')
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(broken_arcgis_file_list)
     assert_raise CarrierWave::IntegrityError do
       uploader.store!(fixture_file_upload('sample_attachment.zip'))
@@ -124,7 +124,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   end
 
   test 'zip file that looks like an ArcGIS file, but has extra files in it is not allowed' do
-    uploader = AttachmentUploader.new(stub("AR Model", id: 1), 'mounted-as')
+    uploader = AttachmentUploader.new(AttachmentData.new(id: 1), 'mounted-as')
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(comprehensive_arcgis_file_list + ['readme.txt', 'london.jpg', 'map-printout.pdf'])
     assert_raise CarrierWave::IntegrityError do
       uploader.store!(fixture_file_upload('sample_attachment.zip'))
@@ -132,7 +132,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   end
 
   test 'zip file that looks like an ArcGIS file with multiple sets of shapes is allowed' do
-    uploader = AttachmentUploader.new(stub("AR Model", id: 1), 'mounted-as')
+    uploader = AttachmentUploader.new(AttachmentData.new(id: 1), 'mounted-as')
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(multiple_shape_arcgis_file_list)
     assert_nothing_raised do
       uploader.store!(fixture_file_upload('sample_attachment.zip'))
@@ -141,7 +141,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   end
 
   test 'zip file that looks like an ArcGIS file with multiple sets of shapes is not allowed if one set of shapes is incomplete' do
-    uploader = AttachmentUploader.new(stub("AR Model", id: 1), 'mounted-as')
+    uploader = AttachmentUploader.new(AttachmentData.new(id: 1), 'mounted-as')
     AttachmentUploader::ZipFile.any_instance.stubs(:filenames).returns(complete_and_broken_shape_arcgis_file_list)
     assert_raise CarrierWave::IntegrityError do
       uploader.store!(fixture_file_upload('sample_attachment.zip'))
@@ -149,9 +149,9 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   end
 
   test 'returns Asset Manager version of path' do
-    uploader = AttachmentUploader.new(stub('AR Model', id: 1), 'mounted-as')
+    uploader = AttachmentUploader.new(AttachmentData.new(id: 1), 'mounted-as')
     uploader.store!(fixture_file_upload('simple.pdf'))
-    expected_path = '/government/uploads/system/uploads/mocha/mock/mounted-as/1/simple.pdf'
+    expected_path = '/government/uploads/system/uploads/attachment_data/mounted-as/1/simple.pdf'
     assert_equal expected_path, uploader.file.asset_manager_path
   end
 
@@ -202,7 +202,7 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
 
   setup do
     AttachmentUploader.enable_processing = true
-    @uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
+    @uploader = AttachmentUploader.new(AttachmentData.new, "mounted-as")
 
     @uploader.store!(fixture_file_upload('two-pages-with-content.pdf'))
   end
@@ -237,7 +237,7 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
   end
 
   test "should use a generic thumbnail if conversion fails" do
-    @uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
+    @uploader = AttachmentUploader.new(AttachmentData.new(id: 1), "mounted-as")
     @uploader.thumbnail.stubs(:pdf_thumbnail_command).returns("false")
 
     @uploader.store!(fixture_file_upload('two-pages-with-content.pdf'))
@@ -246,7 +246,7 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
   end
 
   test "should use a generic thumbnail if conversion takes longer than 10 seconds to complete" do
-    @uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
+    @uploader = AttachmentUploader.new(AttachmentData.new(id: 1), "mounted-as")
     @uploader.thumbnail.stubs(:pdf_thumbnail_command).raises(Timeout::Error)
 
     @uploader.store!(fixture_file_upload('two-pages-with-content.pdf'))
