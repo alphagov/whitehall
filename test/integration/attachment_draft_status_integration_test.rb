@@ -115,6 +115,27 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
     end
   end
 
+  context 'when file attachment is added to policy group' do
+    let(:policy_group) { create(:policy_group) }
+
+    before do
+      stub_whitehall_asset('whitepaper.pdf', id: 'asset-id', draft: true)
+      stub_whitehall_asset('thumbnail_whitepaper.pdf.png', id: 'thumbnail-asset-id', draft: true)
+    end
+
+    test 'attachment & its thumbnail are marked as published in Asset Manager' do
+      visit admin_policy_group_attachments_path(policy_group)
+      click_link 'Upload new file attachment'
+      fill_in 'Title', with: 'Attachment Title'
+      attach_file 'File', path_to_attachment('whitepaper.pdf')
+
+      Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => false)
+      Services.asset_manager.expects(:update_asset).with('thumbnail-asset-id', 'draft' => false)
+
+      click_button 'Save'
+    end
+  end
+
 private
 
   def ends_with(expected)
@@ -132,8 +153,12 @@ private
     to.attachments << FactoryBot.build(
       :file_attachment,
       attachable: to,
-      file: File.open(fixture_path.join(filename))
+      file: File.open(path_to_attachment(filename))
     )
+  end
+
+  def path_to_attachment(filename)
+    fixture_path.join(filename)
   end
 
   def stub_whitehall_asset(filename, id:, draft:)
