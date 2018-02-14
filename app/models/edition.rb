@@ -248,6 +248,10 @@ class Edition < ApplicationRecord
     document && document.scheduled_edition
   end
 
+  def attachables
+    []
+  end
+
   def skip_main_validation?
     FROZEN_STATES.include?(state)
   end

@@ -301,4 +301,10 @@ class AttachableTest < ActiveSupport::TestCase
 
     assert_empty publication.deleted_html_attachments
   end
+
+  test '#attachables returns array including itself' do
+    attachable_edition = build(:edition)
+    assert attachable_edition.allows_attachments?
+    assert_equal [attachable_edition], attachable_edition.attachables
+  end
 end

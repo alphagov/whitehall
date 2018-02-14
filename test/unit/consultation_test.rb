@@ -408,4 +408,28 @@ class ConsultationTest < ActiveSupport::TestCase
 
     consultation.save
   end
+
+  test '#attachables returns array including itself' do
+    consultation = build(:consultation)
+    assert_equal [consultation], consultation.attachables
+  end
+
+  test '#attachables returns array including itself & outcome' do
+    outcome = build(:consultation_outcome)
+    consultation = build(:consultation, outcome: outcome)
+    assert_equal [consultation, outcome], consultation.attachables
+  end
+
+  test '#attachables returns array including itself & public feedback' do
+    public_feedback = build(:consultation_public_feedback)
+    consultation = build(:consultation, public_feedback: public_feedback)
+    assert_equal [consultation, public_feedback], consultation.attachables
+  end
+
+  test '#attachables returns array including itself, outcome & public feedback' do
+    outcome = build(:consultation_outcome)
+    public_feedback = build(:consultation_public_feedback)
+    consultation = build(:consultation, outcome: outcome, public_feedback: public_feedback)
+    assert_equal [consultation, outcome, public_feedback], consultation.attachables
+  end
 end

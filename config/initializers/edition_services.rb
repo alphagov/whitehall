@@ -7,29 +7,10 @@ Whitehall.edition_services.tap do |coordinator|
   end
 
   coordinator.subscribe do |_event, edition, _options|
-    if edition.allows_attachments?
-      edition.attachments.each do |attachment|
-        ServiceListeners::AttachmentDraftStatusUpdater
-          .new(attachment)
-          .update!
-      end
-    end
-
-    if edition.is_a?(Consultation)
-      if edition.outcome.present?
-        edition.outcome.attachments.each do |attachment|
-          ServiceListeners::AttachmentDraftStatusUpdater
-            .new(attachment)
-            .update!
-        end
-      end
-      if edition.public_feedback.present?
-        edition.public_feedback.attachments.each do |attachment|
-          ServiceListeners::AttachmentDraftStatusUpdater
-            .new(attachment)
-            .update!
-        end
-      end
+    edition.attachables.flat_map(&:attachments).each do |attachment|
+      ServiceListeners::AttachmentDraftStatusUpdater
+        .new(attachment)
+        .update!
     end
   end
 

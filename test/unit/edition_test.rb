@@ -876,4 +876,10 @@ class EditionTest < ActiveSupport::TestCase
 
     assert edition.has_been_tagged?
   end
+
+  test '#attachables returns empty array' do
+    non_attachable_edition = build(:announcement)
+    refute non_attachable_edition.allows_attachments?
+    assert_equal [], non_attachable_edition.attachables
+  end
 end

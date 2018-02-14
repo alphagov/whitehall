@@ -26,6 +26,10 @@ module Attachable
     end
   end
 
+  def attachables
+    [self]
+  end
+
   def build_empty_file_attachment
     attachment = FileAttachment.new
     attachment.build_attachment_data
