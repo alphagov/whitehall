@@ -4,11 +4,12 @@ class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   context 'when draft document with file attachment is published' do
+    let(:edition) { create(:news_article) }
+
     before do
-      @edition = create(:news_article)
-      @edition.attachments << FactoryBot.build(
+      edition.attachments << FactoryBot.build(
         :file_attachment,
-        attachable: @edition,
+        attachable: edition,
         file: File.open(fixture_path.join('whitepaper.pdf'))
       )
 
@@ -20,17 +21,18 @@ class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
       Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => false)
       Services.asset_manager.expects(:update_asset).with('thumbnail-asset-id', 'draft' => false)
 
-      force_publisher = Whitehall.edition_services.force_publisher(@edition)
+      force_publisher = Whitehall.edition_services.force_publisher(edition)
       assert force_publisher.perform!, force_publisher.failure_reason
     end
   end
 
   context 'when published document with file attachment is unpublished' do
+    let(:edition) { create(:published_news_article) }
+
     before do
-      @edition = create(:published_news_article)
-      @edition.attachments << FactoryBot.build(
+      edition.attachments << FactoryBot.build(
         :file_attachment,
-        attachable: @edition,
+        attachable: edition,
         file: File.open(fixture_path.join('whitepaper.pdf'))
       )
 
@@ -42,7 +44,7 @@ class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
       Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => true)
       Services.asset_manager.expects(:update_asset).with('thumbnail-asset-id', 'draft' => true)
 
-      unpublisher = Whitehall.edition_services.unpublisher(@edition, unpublishing: {
+      unpublisher = Whitehall.edition_services.unpublisher(edition, unpublishing: {
         unpublishing_reason: UnpublishingReason::PublishedInError
       })
       assert unpublisher.perform!, unpublisher.failure_reason
@@ -50,9 +52,11 @@ class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
   end
 
   context 'when draft consultation with outcome with file attachment is published' do
+    let(:edition) { create(:draft_consultation) }
+    let(:outcome_attributes) { FactoryBot.attributes_for(:consultation_outcome) }
+    let(:outcome) { edition.create_outcome!(outcome_attributes) }
+
     before do
-      @edition = create(:draft_consultation)
-      outcome = @edition.create_outcome!(FactoryBot.attributes_for(:consultation_outcome))
       outcome.attachments << FactoryBot.build(
         :file_attachment,
         attachable: outcome,
@@ -67,15 +71,17 @@ class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
       Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => false)
       Services.asset_manager.expects(:update_asset).with('thumbnail-asset-id', 'draft' => false)
 
-      force_publisher = Whitehall.edition_services.force_publisher(@edition)
+      force_publisher = Whitehall.edition_services.force_publisher(edition)
       assert force_publisher.perform!, force_publisher.failure_reason
     end
   end
 
   context 'when draft consultation with feedback with file attachment is published' do
+    let(:edition) { create(:draft_consultation) }
+    let(:feedback_attributes) { FactoryBot.attributes_for(:consultation_public_feedback) }
+    let(:feedback) { edition.create_public_feedback!(feedback_attributes) }
+
     before do
-      @edition = create(:draft_consultation)
-      feedback = @edition.create_public_feedback!(FactoryBot.attributes_for(:consultation_public_feedback))
       feedback.attachments << FactoryBot.build(
         :file_attachment,
         attachable: feedback,
@@ -90,7 +96,7 @@ class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
       Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => false)
       Services.asset_manager.expects(:update_asset).with('thumbnail-asset-id', 'draft' => false)
 
-      force_publisher = Whitehall.edition_services.force_publisher(@edition)
+      force_publisher = Whitehall.edition_services.force_publisher(edition)
       assert force_publisher.perform!, force_publisher.failure_reason
     end
   end
