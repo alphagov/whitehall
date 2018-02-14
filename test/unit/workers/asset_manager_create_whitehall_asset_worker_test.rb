@@ -42,4 +42,38 @@ class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
     @worker.perform(@file.path, @legacy_url_path)
     refute Dir.exist?(File.dirname(@file))
   end
+
+  test 'marks attachments belonging to consultations as access limited' do
+    organisation = FactoryBot.create(:organisation)
+    user = FactoryBot.create(:user, organisation: organisation, uid: 'user-uid')
+    consultation = FactoryBot.create(:consultation, organisations: [organisation], access_limited: true)
+    attachment = FactoryBot.create(:file_attachment, attachable: consultation)
+
+    Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(access_limited: [user.uid]))
+
+    @worker.perform(@file.path, @legacy_url_path, true, attachment.attachment_data.class.to_s, attachment.attachment_data.id)
+  end
+
+  test 'marks attachments belonging to consultation responses as access limited' do
+    organisation = FactoryBot.create(:organisation)
+    user = FactoryBot.create(:user, organisation: organisation, uid: 'user-uid')
+    consultation = FactoryBot.create(:consultation, organisations: [organisation], access_limited: true)
+    response = FactoryBot.create(:consultation_outcome, consultation: consultation)
+    attachment = FactoryBot.create(:file_attachment, attachable: response)
+
+    Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(access_limited: [user.uid]))
+
+    @worker.perform(@file.path, @legacy_url_path, true, attachment.attachment_data.class.to_s, attachment.attachment_data.id)
+  end
+
+  test 'does not mark attachments belonging to policy groups as access limited' do
+    organisation = FactoryBot.create(:organisation)
+    FactoryBot.create(:user, organisation: organisation, uid: 'user-uid')
+    policy_group = FactoryBot.create(:policy_group)
+    attachment = FactoryBot.create(:file_attachment, attachable: policy_group)
+
+    Services.asset_manager.expects(:create_whitehall_asset).with(Not(has_key(:access_limited)))
+
+    @worker.perform(@file.path, @legacy_url_path, true, attachment.attachment_data.class.to_s, attachment.attachment_data.id)
+  end
 end

@@ -19,6 +19,19 @@ class AttachmentData < ApplicationRecord
 
   OPENDOCUMENT_EXTENSIONS = %w(ODT ODP ODS).freeze
 
+  def attachable
+    return unless attachments.any?
+    attachments.order(:created_at).last.attachable
+  end
+
+  def attachable_is_access_limited?
+    attachable && attachable.access_limited?
+  end
+
+  def access_limited_object
+    attachable.access_limited_object
+  end
+
   def filename
     url && File.basename(url)
   end
