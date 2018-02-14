@@ -23,7 +23,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
       stub_whitehall_asset('thumbnail_whitepaper.pdf.png', id: 'thumbnail-asset-id', draft: true)
     end
 
-    test 'attachment & its thumbnail are marked as published in Asset Manager' do
+    it 'marks attachment & its thumbnail as published in Asset Manager' do
       visit admin_news_article_path(edition)
       click_link 'Force publish'
       fill_in 'Reason for force publishing', with: 'testing'
@@ -48,7 +48,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
       stub_whitehall_asset('thumbnail_whitepaper.pdf.png', id: 'thumbnail-asset-id', draft: false)
     end
 
-    test 'attachment & its thumbnail are marked as draft in Asset Manager' do
+    it 'marks attachment & its thumbnail as draft in Asset Manager' do
       visit admin_news_article_path(edition)
       click_link 'Withdraw or unpublish'
 
@@ -76,7 +76,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
       stub_whitehall_asset('thumbnail_whitepaper.pdf.png', id: 'thumbnail-asset-id', draft: true)
     end
 
-    test 'attachment & its thumbnail are marked as published in Asset Manager' do
+    it 'marks attachment & its thumbnail as published in Asset Manager' do
       visit admin_consultation_path(edition)
       click_link 'Force publish'
       fill_in 'Reason for force publishing', with: 'testing'
@@ -103,7 +103,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
       stub_whitehall_asset('thumbnail_whitepaper.pdf.png', id: 'thumbnail-asset-id', draft: true)
     end
 
-    test 'attachment & its thumbnail are marked as published in Asset Manager' do
+    it 'marks attachment & its thumbnail as published in Asset Manager' do
       visit admin_consultation_path(edition)
       click_link 'Force publish'
       fill_in 'Reason for force publishing', with: 'testing'
@@ -123,7 +123,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
       stub_whitehall_asset('thumbnail_whitepaper.pdf.png', id: 'thumbnail-asset-id', draft: true)
     end
 
-    test 'attachment & its thumbnail are marked as published in Asset Manager' do
+    it 'marks attachment & its thumbnail as published in Asset Manager' do
       visit admin_policy_group_attachments_path(policy_group)
       click_link 'Upload new file attachment'
       fill_in 'Title', with: 'Attachment Title'
