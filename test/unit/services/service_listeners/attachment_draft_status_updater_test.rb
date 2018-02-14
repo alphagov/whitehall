@@ -4,8 +4,7 @@ module ServiceListeners
   class AttachmentDraftStatusUpdaterTest < ActiveSupport::TestCase
     extend Minitest::Spec::DSL
 
-    let(:edition) { create(:news_article) }
-    let(:updater) { AttachmentDraftStatusUpdater.new(edition) }
+    let(:updater) { AttachmentDraftStatusUpdater.new(attachment) }
     let(:visibility) { stub('visibility', visible?: visible) }
     let(:visible) { false }
 
@@ -13,8 +12,8 @@ module ServiceListeners
       AttachmentVisibility.stubs(:new).returns(visibility)
     end
 
-    context 'when edition does not allow attachments' do
-      let(:edition) { create(:speech) }
+    context 'when attachment is not a file attachment' do
+      let(:attachment) { FactoryBot.create(:html_attachment) }
 
       it 'does not update draft status of any assets' do
         AssetManagerUpdateAssetWorker.expects(:perform_async).never
@@ -23,53 +22,27 @@ module ServiceListeners
       end
     end
 
-    context 'when edition has only non-file attachments' do
-      before do
-        edition.attachments << FactoryBot.build(:html_attachment)
-        edition.attachments << FactoryBot.build(:external_attachment)
-      end
-
-      it 'does not update draft status of any assets' do
-        AssetManagerUpdateAssetWorker.expects(:perform_async).never
-
-        updater.update!
-      end
-    end
-
-    context 'when edition has non-pdf attachments' do
+    context 'when attachment is not a PDF' do
       let(:sample_rtf) { File.open(fixture_path.join('sample.rtf')) }
-      let(:sample_docx) { File.open(fixture_path.join('sample.docx')) }
-      let(:rtf_attachment) { FactoryBot.build(:file_attachment, file: sample_rtf) }
-      let(:docx_attachment) { FactoryBot.build(:file_attachment, file: sample_docx) }
+      let(:attachment) { FactoryBot.create(:file_attachment, file: sample_rtf) }
 
-      before do
-        edition.attachments << rtf_attachment
-        edition.attachments << docx_attachment
-      end
-
-      it 'updates draft status of asset for each attachment' do
+      it 'updates draft status of corresponding asset' do
         AssetManagerUpdateAssetWorker.expects(:perform_async)
-          .with(rtf_attachment.file.asset_manager_path, draft: true)
-        AssetManagerUpdateAssetWorker.expects(:perform_async)
-          .with(docx_attachment.file.asset_manager_path, draft: true)
+          .with(attachment.file.asset_manager_path, draft: true)
 
         updater.update!
       end
     end
 
-    context 'when edition has pdf attachment' do
+    context 'when attachment is a PDF' do
       let(:simple_pdf) { File.open(fixture_path.join('simple.pdf')) }
-      let(:pdf_attachment) { FactoryBot.build(:file_attachment, file: simple_pdf) }
-
-      before do
-        edition.attachments << pdf_attachment
-      end
+      let(:attachment) { FactoryBot.create(:file_attachment, file: simple_pdf) }
 
       it 'updates draft status of asset for attachment & its thumbnail' do
         AssetManagerUpdateAssetWorker.expects(:perform_async)
-          .with(pdf_attachment.file.asset_manager_path, draft: true)
+          .with(attachment.file.asset_manager_path, draft: true)
         AssetManagerUpdateAssetWorker.expects(:perform_async)
-          .with(pdf_attachment.file.thumbnail.asset_manager_path, draft: true)
+          .with(attachment.file.thumbnail.asset_manager_path, draft: true)
 
         updater.update!
       end
@@ -79,9 +52,9 @@ module ServiceListeners
 
         it 'updates draft status of asset for attachment & its thumbnail' do
           AssetManagerUpdateAssetWorker.expects(:perform_async)
-            .with(pdf_attachment.file.asset_manager_path, draft: false)
+            .with(attachment.file.asset_manager_path, draft: false)
           AssetManagerUpdateAssetWorker.expects(:perform_async)
-            .with(pdf_attachment.file.thumbnail.asset_manager_path, draft: false)
+            .with(attachment.file.thumbnail.asset_manager_path, draft: false)
 
           updater.update!
         end

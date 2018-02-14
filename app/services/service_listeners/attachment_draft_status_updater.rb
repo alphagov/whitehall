@@ -1,20 +1,18 @@
 module ServiceListeners
   class AttachmentDraftStatusUpdater
-    attr_reader :attachable
+    attr_reader :attachment
 
-    def initialize(attachable)
-      @attachable = attachable
+    def initialize(attachment)
+      @attachment = attachment
     end
 
     def update!
-      return unless attachable.allows_attachments?
-      attachable.attachments.select(&:file?).each do |attachment|
-        attachment_data = attachment.attachment_data
-        draft = !visibility_for(attachment_data).visible?
-        enqueue_job(attachment_data.file, draft)
-        if attachment_data.pdf?
-          enqueue_job(attachment_data.file.thumbnail, draft)
-        end
+      return unless attachment.file?
+      attachment_data = attachment.attachment_data
+      draft = !visibility_for(attachment_data).visible?
+      enqueue_job(attachment_data.file, draft)
+      if attachment_data.pdf?
+        enqueue_job(attachment_data.file.thumbnail, draft)
       end
     end
 
