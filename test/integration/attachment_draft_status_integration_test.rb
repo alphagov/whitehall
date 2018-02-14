@@ -7,11 +7,7 @@ class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
     let(:edition) { create(:news_article) }
 
     before do
-      edition.attachments << FactoryBot.build(
-        :file_attachment,
-        attachable: edition,
-        file: File.open(fixture_path.join('whitepaper.pdf'))
-      )
+      add_file_attachment('whitepaper.pdf', to: edition)
 
       stub_whitehall_asset('whitepaper.pdf', id: 'asset-id', draft: true)
       stub_whitehall_asset('thumbnail_whitepaper.pdf.png', id: 'thumbnail-asset-id', draft: true)
@@ -30,11 +26,7 @@ class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
     let(:edition) { create(:published_news_article) }
 
     before do
-      edition.attachments << FactoryBot.build(
-        :file_attachment,
-        attachable: edition,
-        file: File.open(fixture_path.join('whitepaper.pdf'))
-      )
+      add_file_attachment('whitepaper.pdf', to: edition)
 
       stub_whitehall_asset('whitepaper.pdf', id: 'asset-id', draft: false)
       stub_whitehall_asset('thumbnail_whitepaper.pdf.png', id: 'thumbnail-asset-id', draft: false)
@@ -57,11 +49,7 @@ class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
     let(:outcome) { edition.create_outcome!(outcome_attributes) }
 
     before do
-      outcome.attachments << FactoryBot.build(
-        :file_attachment,
-        attachable: outcome,
-        file: File.open(fixture_path.join('whitepaper.pdf'))
-      )
+      add_file_attachment('whitepaper.pdf', to: outcome)
 
       stub_whitehall_asset('whitepaper.pdf', id: 'asset-id', draft: true)
       stub_whitehall_asset('thumbnail_whitepaper.pdf.png', id: 'thumbnail-asset-id', draft: true)
@@ -82,11 +70,7 @@ class AttachmentDraftStatusIntegrationTest < ActiveSupport::TestCase
     let(:feedback) { edition.create_public_feedback!(feedback_attributes) }
 
     before do
-      feedback.attachments << FactoryBot.build(
-        :file_attachment,
-        attachable: feedback,
-        file: File.open(fixture_path.join('whitepaper.pdf'))
-      )
+      add_file_attachment('whitepaper.pdf', to: feedback)
 
       stub_whitehall_asset('whitepaper.pdf', id: 'asset-id', draft: true)
       stub_whitehall_asset('thumbnail_whitepaper.pdf.png', id: 'thumbnail-asset-id', draft: true)
@@ -105,6 +89,14 @@ private
 
   def ends_with(expected)
     ->(actual) { actual.end_with?(expected) }
+  end
+
+  def add_file_attachment(filename, to:)
+    to.attachments << FactoryBot.build(
+      :file_attachment,
+      attachable: to,
+      file: File.open(fixture_path.join(filename))
+    )
   end
 
   def stub_whitehall_asset(filename, id:, draft:)
