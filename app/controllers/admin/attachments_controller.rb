@@ -17,6 +17,7 @@ class Admin::AttachmentsController < Admin::BaseController
 
   def create
     if save_attachment
+      Whitehall.attachment_notifier.publish('create', attachment)
       redirect_to attachable_attachments_path(attachable), notice: "Attachment '#{attachment.title}' uploaded"
     else
       render :new
