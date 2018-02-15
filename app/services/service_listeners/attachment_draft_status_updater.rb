@@ -9,6 +9,7 @@ module ServiceListeners
     def update!
       return unless attachment.file?
       attachment_data = attachment.attachment_data
+      return unless attachment_data.present?
       draft = !visibility_for(attachment_data).visible?
       enqueue_job(attachment_data.file, draft)
       if attachment_data.pdf?

@@ -22,6 +22,16 @@ module ServiceListeners
       end
     end
 
+    context 'when attachment has no associated attachment data' do
+      let(:attachment) { FileAttachment.new(attachment_data: nil) }
+
+      it 'does not update draft status of any assets' do
+        AssetManagerUpdateAssetWorker.expects(:perform_async).never
+
+        updater.update!
+      end
+    end
+
     context 'when attachment is not a PDF' do
       let(:sample_rtf) { File.open(fixture_path.join('sample.rtf')) }
       let(:attachment) { FactoryBot.create(:file_attachment, file: sample_rtf) }
