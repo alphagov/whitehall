@@ -66,6 +66,10 @@ class Consultation < Publicationesque
     end
   end
 
+  def attachables
+    [self, outcome, public_feedback].compact
+  end
+
   def rendering_app
     Whitehall::RenderingApp::GOVERNMENT_FRONTEND
   end
