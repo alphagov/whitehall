@@ -1,9 +1,10 @@
 module ServiceListeners
   class AttachmentDraftStatusUpdater
-    attr_reader :attachment
+    attr_reader :attachment, :queue
 
-    def initialize(attachment)
+    def initialize(attachment, queue: nil)
       @attachment = attachment
+      @queue = queue
     end
 
     def update!
@@ -25,7 +26,12 @@ module ServiceListeners
 
     def enqueue_job(uploader, draft)
       legacy_url_path = uploader.asset_manager_path
-      AssetManagerUpdateAssetWorker.perform_async(legacy_url_path, draft: draft)
+      worker.perform_async(legacy_url_path, draft: draft)
+    end
+
+    def worker
+      worker = AssetManagerUpdateAssetWorker
+      queue.present? ? worker.set(queue: queue) : worker
     end
   end
 end
