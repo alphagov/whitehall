@@ -18,6 +18,8 @@ zh-tw:
         unnumbered_hoc_paper:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         file:
+      edition:
+        nation_inapplicabilities:
       policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:

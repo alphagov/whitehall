@@ -1,4 +1,4 @@
-<fieldset class="excluded_nations">
+<fieldset class="excluded_nations <% if edition.errors[:nation_inapplicabilities].any? %>alert-danger form-errors field_with_errors<% end %>" >
   <legend>Excluded nations</legend>
 
   <% Nation.potentially_inapplicable.each do |nation| %>

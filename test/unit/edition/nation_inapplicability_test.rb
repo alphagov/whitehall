@@ -50,6 +50,22 @@ class Edition::NationInapplicabilityTest < ActiveSupport::TestCase
     refute @edition.nation_inapplicabilities[0].excluded?
   end
 
+  test "mass-assignment making all nations inapplicable is invalid" do
+    assert @edition.nation_inapplicabilities.first.excluded?
+
+    nation_inapplicabilities_attributes = nation_inapplicability_attributes_for(
+      { nation_id: '1', alternative_url: 'http://england.org' },
+      { nation_id: '2', id: @nation_inapplicability.to_param, alternative_url: 'http://scotland.org' },
+      { nation_id: '3', alternative_url: 'http://wales.org' },
+      nation_id: '4', alternative_url: 'http://northern-ireland.org'
+    )
+
+    @edition.nation_inapplicabilities_attributes = nation_inapplicabilities_attributes
+
+    refute @edition.valid?
+    assert_includes @edition.errors.full_messages, "Excluded nations can not exclude all nations"
+  end
+
   def nation_inapplicability_attributes_for(*attributes)
     # Turns a hash of attributes (or an array of hashes of attributes) into a hash that resembles the equivelant
     # form field params, e.g. { '0' => { param1: 'val', param2: 'val2'}, '1' => { param3: 'val'} }

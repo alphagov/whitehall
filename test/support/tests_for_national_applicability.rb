@@ -66,9 +66,10 @@ module TestsForNationalApplicability
       }
 
       assert_nation_inapplicability_fields_exist
-      assert_nation_inapplicability_fields_set_as(index: 0, checked: true, alternative_url: "http://www.scotland.com/")
-      assert_nation_inapplicability_fields_set_as(index: 1, checked: false)
+      assert_nation_inapplicability_fields_set_as(index: 0, checked: false)
+      assert_nation_inapplicability_fields_set_as(index: 1, checked: true, alternative_url: "http://www.scotland.com/")
       assert_nation_inapplicability_fields_set_as(index: 2, checked: false)
+      assert_nation_inapplicability_fields_set_as(index: 3, checked: false)
     end
 
     view_test 'creating with invalid nation inapplicability data should not lose the nation inapplicability fields or values' do
@@ -80,9 +81,10 @@ module TestsForNationalApplicability
       }
 
       assert_nation_inapplicability_fields_exist
-      assert_nation_inapplicability_fields_set_as(index: 0, checked: true, alternative_url: "invalid-url")
-      assert_nation_inapplicability_fields_set_as(index: 1, checked: false)
+      assert_nation_inapplicability_fields_set_as(index: 0, checked: false)
+      assert_nation_inapplicability_fields_set_as(index: 1, checked: true, alternative_url: "invalid-url")
       assert_nation_inapplicability_fields_set_as(index: 2, checked: false)
+      assert_nation_inapplicability_fields_set_as(index: 3, checked: false)
     end
 
     view_test 'edit displays edition form with nation inapplicability fields and values' do
@@ -95,7 +97,8 @@ module TestsForNationalApplicability
         assert_nation_inapplicability_fields_exist
         assert_nation_inapplicability_fields_set_as(index: 0, checked: false)
         assert_nation_inapplicability_fields_set_as(index: 1, checked: false)
-        assert_nation_inapplicability_fields_set_as(index: 2, checked: true, alternative_url: "http://www.discovernorthernireland.com/")
+        assert_nation_inapplicability_fields_set_as(index: 2, checked: false)
+        assert_nation_inapplicability_fields_set_as(index: 3, checked: true, alternative_url: "http://www.discovernorthernireland.com/")
       end
     end
 
@@ -123,9 +126,10 @@ module TestsForNationalApplicability
       put :update, params: { id: edition, edition: attributes }
 
       assert_nation_inapplicability_fields_exist
-      assert_nation_inapplicability_fields_set_as(index: 0, checked: false, alternative_url: "http://www.scotland.com/")
-      assert_nation_inapplicability_fields_set_as(index: 1, checked: false, alternative_url: "http://www.wales.com/")
-      assert_nation_inapplicability_fields_set_as(index: 2, checked: true, alternative_url: "http://www.northernireland.com/")
+      assert_nation_inapplicability_fields_set_as(index: 0, checked: false)
+      assert_nation_inapplicability_fields_set_as(index: 1, checked: false, alternative_url: "http://www.scotland.com/")
+      assert_nation_inapplicability_fields_set_as(index: 2, checked: false, alternative_url: "http://www.wales.com/")
+      assert_nation_inapplicability_fields_set_as(index: 3, checked: true, alternative_url: "http://www.northernireland.com/")
     end
 
     view_test 'updating with invalid nation inapplicability data should not lose the nation inapplicability fields or values' do
@@ -141,9 +145,10 @@ module TestsForNationalApplicability
       ) }
 
       assert_nation_inapplicability_fields_exist
-      assert_nation_inapplicability_fields_set_as(index: 0, checked: false, alternative_url: "http://www.scotland.com/")
-      assert_nation_inapplicability_fields_set_as(index: 1, checked: false, alternative_url: "http://www.wales.com/")
-      assert_nation_inapplicability_fields_set_as(index: 2, checked: true, alternative_url: "invalid-url")
+      assert_nation_inapplicability_fields_set_as(index: 0, checked: false)
+      assert_nation_inapplicability_fields_set_as(index: 1, checked: false, alternative_url: "http://www.scotland.com/")
+      assert_nation_inapplicability_fields_set_as(index: 2, checked: false, alternative_url: "http://www.wales.com/")
+      assert_nation_inapplicability_fields_set_as(index: 3, checked: true, alternative_url: "invalid-url")
     end
 
     view_test 'updating a stale edition should not lose the nation inapplicability fields or values' do
@@ -158,9 +163,10 @@ module TestsForNationalApplicability
       put :update, params: { id: edition, edition: attributes }
 
       assert_nation_inapplicability_fields_exist
-      assert_nation_inapplicability_fields_set_as(index: 0, checked: false, alternative_url: "http://www.scotland.com/")
-      assert_nation_inapplicability_fields_set_as(index: 1, checked: false, alternative_url: "http://www.wales.com/")
-      assert_nation_inapplicability_fields_set_as(index: 2, checked: true, alternative_url: "http://www.northernireland.com/")
+      assert_nation_inapplicability_fields_set_as(index: 0, checked: false)
+      assert_nation_inapplicability_fields_set_as(index: 1, checked: false, alternative_url: "http://www.scotland.com/")
+      assert_nation_inapplicability_fields_set_as(index: 2, checked: false, alternative_url: "http://www.wales.com/")
+      assert_nation_inapplicability_fields_set_as(index: 3, checked: true, alternative_url: "http://www.northernireland.com/")
     end
   end
 

@@ -75,6 +75,8 @@ en:
         <<: *nested_attachment_field_names
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         <<: *nested_attachment_data_field_names
+      edition:
+        nation_inapplicabilities: 'Excluded nations'
       policy_group/policy_group_attachments/attachment/attachment_data:
         <<: *nested_attachment_data_field_names
       response/consultation_response_attachments/attachment:
@@ -489,7 +491,7 @@ en:
     authored_article: See all our authored articles
   broken_links:
     title: Broken links
-    broken: 
+    broken:
       subheading: We’ve found links in this document that may be broken
     caution:
       subheading: We’ve found some issues with links that may indicate problems, you should apply caution in linking to them
