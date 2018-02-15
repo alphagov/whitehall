@@ -27,6 +27,20 @@ namespace :asset_manager do
     end
   end
 
+  namespace :attachments do
+    desc 'Update draft status for Asset Manager assets associated with attachments'
+    task :update_draft_status, %i(first_id last_id) => :environment do |_, args|
+      first_id = args[:first_id]
+      last_id = args[:last_id]
+      abort(update_draft_status_usage_string) unless first_id && last_id
+      options = { start: first_id, finish: last_id }
+      updater = ServiceListeners::AttachmentDraftStatusUpdater
+      Attachment.includes(:attachment_data).find_each(options) do |attachment|
+        updater.new(attachment, queue: 'asset_migration').update!
+      end
+    end
+  end
+
   private
 
   def usage_string
@@ -40,6 +54,13 @@ namespace :asset_manager do
     %{Usage: asset_manager:migrate_attachments[<batch_start>,<batch_end>]
 
       Where <batch_start> and <batch_end> are integers corresponding to the directory names under `system/uploads/attachment_data/file`. e.g. `system/uploads/attachment_data/file/100` will be migrated if <batch_start> <= 100 and <batch_end> >= 100.
+    }
+  end
+
+  def update_draft_status_usage_string
+    %{Usage: asset_manager:attachments:update_draft_status[<first_id>,<last_id>]
+
+      Where <first_id> and <last_id> are Attachment database IDs.
     }
   end
 end
