@@ -25,7 +25,7 @@ class Admin::LinkCheckReportsControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   test "AJAX POST :create saves a LinkCheckReport" do
-    xhr :post, :create, edition_id: @publication.id
+    post :create, params: { edition_id: @publication.id }, xhr: true
 
     assert_response :success
     assert_template :create
@@ -34,7 +34,7 @@ class Admin::LinkCheckReportsControllerTest < ActionController::TestCase
   end
 
   test "POST :create saves a LinkCheckReport and redirects back to the edition" do
-    post :create, edition_id: @publication.id
+    post :create, params: { edition_id: @publication.id }
 
     assert_redirected_to admin_publication_url(@publication)
 
@@ -43,7 +43,7 @@ class Admin::LinkCheckReportsControllerTest < ActionController::TestCase
 
   test "AJAX GET :show renders assigns the LinkCheckReport and renders the template" do
     link_check_report = create(:link_checker_api_report, link_reportable: @publication)
-    xhr :get, :show, id: link_check_report, edition_id: @publication
+    get :show, params: { id: link_check_report, edition_id: @publication }, xhr: true
 
     assert_response :success
     assert_template :show
@@ -53,7 +53,7 @@ class Admin::LinkCheckReportsControllerTest < ActionController::TestCase
 
   test "GET :show redirects back to the edition" do
     link_check_report = create(:link_checker_api_report, link_reportable: @publication)
-    get :show, id: link_check_report, edition_id: @publication
+    get :show, params: { id: link_check_report, edition_id: @publication }
 
     assert_redirected_to admin_publication_url(@publication)
   end

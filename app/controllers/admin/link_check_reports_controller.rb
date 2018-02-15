@@ -1,5 +1,5 @@
 class Admin::LinkCheckReportsController < Admin::BaseController
-  before_filter :find_reportable
+  before_action :find_reportable
 
   def create
     @report = LinkCheckerApiService.check_links(
