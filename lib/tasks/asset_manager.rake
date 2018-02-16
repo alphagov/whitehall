@@ -35,7 +35,7 @@ namespace :asset_manager do
       abort(update_draft_status_usage_string) unless first_id && last_id
       options = { start: first_id, finish: last_id }
       updater = ServiceListeners::AttachmentDraftStatusUpdater
-      Attachment.includes(:attachment_data).find_each(options) do |attachment|
+      FileAttachment.includes(:attachment_data).find_each(options) do |attachment|
         updater.new(attachment, queue: 'asset_migration').update!
       end
     end
