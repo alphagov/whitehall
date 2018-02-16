@@ -64,7 +64,7 @@ class HtmlAttachment < Attachment
       options[:preview] = id
       options[:host] = URI(Plek.new.external_url_for("draft-origin")).host
     else
-      options[:host] = Plek.find_uri("www-origin").host
+      options[:host] = URI(Plek.new.external_url_for("www-origin")).host
     end
 
     type = :publication
