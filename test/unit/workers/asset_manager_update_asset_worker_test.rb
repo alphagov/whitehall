@@ -9,6 +9,14 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
     @redirect_url = 'https://www.test.gov.uk/example'
   end
 
+  test 'does not update asset if no attributes are supplied' do
+    Services.asset_manager.stubs(:whitehall_asset).with(@legacy_url_path)
+      .returns('id' => @asset_url)
+    Services.asset_manager.expects(:update_asset).never
+
+    @worker.perform(@legacy_url_path)
+  end
+
   test 'marks draft asset as published' do
     Services.asset_manager.stubs(:whitehall_asset).with(@legacy_url_path)
       .returns(gds_api_response('id' => @asset_url, 'draft' => true))
@@ -65,6 +73,22 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
     Services.asset_manager.expects(:update_asset).never
 
     @worker.perform(@legacy_url_path, 'redirect_url' => @redirect_url)
+  end
+
+  test 'marks asset as access-limited' do
+    Services.asset_manager.stubs(:whitehall_asset).with(@legacy_url_path)
+      .returns('id' => @asset_url)
+    Services.asset_manager.expects(:update_asset).with(@asset_id, 'access_limited' => ['uid-1'])
+
+    @worker.perform(@legacy_url_path, 'access_limited' => ['uid-1'])
+  end
+
+  test 'does not mark asset as access-limited if already set' do
+    Services.asset_manager.stubs(:whitehall_asset).with(@legacy_url_path)
+      .returns('id' => @asset_url, 'access_limited' => ['uid-1'])
+    Services.asset_manager.expects(:update_asset).never
+
+    @worker.perform(@legacy_url_path, 'access_limited' => ['uid-1'])
   end
 
 private

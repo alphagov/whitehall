@@ -224,4 +224,28 @@ class AttachmentTest < ActiveSupport::TestCase
     attachment.destroy
     assert attachment.deleted?
   end
+
+  test '#attachable_is_access_limited? is falsey if there is no attachable' do
+    attachment = FactoryBot.build(:file_attachment, attachable: nil)
+    refute attachment.attachable_is_access_limited?
+  end
+
+  test '#attachable_is_access_limited? delegates to the attachable' do
+    attachable = FactoryBot.build(:consultation)
+    attachable.stubs(:access_limited?).returns('access-limited')
+    attachment = FactoryBot.build(:file_attachment, attachable: attachable)
+    assert_equal 'access-limited', attachment.attachable_is_access_limited?
+  end
+
+  test '#access_limited_object returns nil if there is no attachable' do
+    attachment = FactoryBot.build(:file_attachment, attachable: nil)
+    assert_nil attachment.access_limited_object
+  end
+
+  test '#access_limited_object delegates to the attachable' do
+    attachable = FactoryBot.build(:consultation)
+    attachable.stubs(:access_limited_object).returns('access-limited-object')
+    attachment = FactoryBot.build(:file_attachment, attachable: attachable)
+    assert_equal 'access-limited-object', attachment.access_limited_object
+  end
 end
