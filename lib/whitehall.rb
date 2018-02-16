@@ -27,7 +27,7 @@ module Whitehall
   end
 
   def self.support_url
-    Plek.find('support')
+    Plek.new.external_url_for('support')
   end
 
   def self.available_locales
@@ -63,6 +63,11 @@ module Whitehall
     @admin_host ||=  URI(admin_root).host
   end
 
+  def self.internal_admin_host
+    @internal_admin_host ||=
+      URI(Plek.new.find('whitehall-admin')).host
+  end
+
   def self.public_host
     @public_host ||= Plek.new.website_uri.host
   end
@@ -72,7 +77,7 @@ module Whitehall
   end
 
   def self.admin_root
-    @admin_root ||= Plek.find('whitehall-admin')
+    @admin_root ||= Plek.new.external_url_for('whitehall-admin')
   end
 
   # NOOP until alphagov-deployment is updated to not set this in the

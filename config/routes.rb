@@ -1,10 +1,12 @@
 class AdminRequest
   def self.matches?(request)
-    !invalid_admin_host?(request.host)
+    # Allow access to all routes in development, and restrict to the
+    # internal or external admin host otherwise.
+    !Rails.env.production? || valid_admin_host?(request.host)
   end
 
-  def self.invalid_admin_host?(host)
-    Rails.env.production? && Whitehall.admin_host != host
+  def self.valid_admin_host?(host)
+    [Whitehall.admin_host, Whitehall.internal_admin_host].include? host
   end
 end
 

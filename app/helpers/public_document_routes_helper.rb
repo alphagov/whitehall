@@ -46,7 +46,7 @@ module PublicDocumentRoutesHelper
 
   def preview_document_url(edition, options = {})
     if edition.rendering_app == Whitehall::RenderingApp::GOVERNMENT_FRONTEND
-      options[:host] = Plek.find_uri("draft-origin").host
+      options[:host] = URI(Plek.new.external_url_for("draft-origin")).host
     else
       options[:preview] = edition.latest_edition.id
       options[:cachebust] = Time.zone.now.getutc.to_i
