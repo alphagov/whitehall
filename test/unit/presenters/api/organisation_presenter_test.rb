@@ -5,6 +5,8 @@ class Api::OrganisationPresenterTest < PresenterTestCase
     @organisation = stub_record(:organisation, organisation_type: OrganisationType.ministerial_department)
     @organisation.stubs(:parent_organisations).returns([])
     @organisation.stubs(:child_organisations).returns([])
+    @organisation.stubs(:superseded_organisations).returns([])
+    @organisation.stubs(:superseding_organisations).returns([])
     @presenter = Api::OrganisationPresenter.new(@organisation, @view_context)
     stubs_helper_method(:params).returns(format: :json)
   end
@@ -89,5 +91,17 @@ class Api::OrganisationPresenterTest < PresenterTestCase
     @organisation.stubs(:child_organisations).returns([child])
     assert_equal api_organisation_url(child), @presenter.as_json[:child_organisations].first[:id]
     assert_equal Whitehall.url_maker.organisation_url(child), @presenter.as_json[:child_organisations].first[:web_url]
+  end
+
+  test "json includes superseding_organisations and superseded_organisations" do
+    superseded = stub_record(:organisation)
+    superseding = stub_record(:organisation)
+    @organisation.stubs(:superseded_organisations).returns([superseded])
+    @organisation.stubs(:superseding_organisations).returns([superseding])
+
+    json = @presenter.as_json
+
+    assert_equal api_organisation_url(superseded), json[:superseded_organisations].first[:id]
+    assert_equal api_organisation_url(superseding), json[:superseding_organisations].first[:id]
   end
 end
