@@ -63,6 +63,11 @@ module Whitehall
     @admin_host ||=  URI(admin_root).host
   end
 
+  def self.internal_admin_host
+    @internal_admin_host ||=
+      URI(Plek.new.find('whitehall-admin')).host
+  end
+
   def self.public_host
     @public_host ||= Plek.new.website_uri.host
   end
