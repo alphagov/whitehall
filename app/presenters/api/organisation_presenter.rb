@@ -33,35 +33,26 @@ class Api::OrganisationPresenter < Api::BasePresenter
 private
 
   def superseded_organisations
-    model.superseded_organisations.map do |organisation|
-      {
-        id: context.api_organisation_url(organisation),
-        web_url: Whitehall.url_maker.organisation_url(organisation)
-      }
+    present_organisations(model.superseded_organisations)
   end
 
   def superseding_organisations
-    model.superseding_organisations.map do |organisation|
-      {
-        id: context.api_organisation_url(organisation),
-        web_url: Whitehall.url_maker.organisation_url(organisation)
-      }
+    present_organisations(model.superseding_organisations)
   end
 
   def parent_organisations
-    model.parent_organisations.map do |parent|
-      {
-        id: context.api_organisation_url(parent),
-        web_url: Whitehall.url_maker.organisation_url(parent)
-      }
-    end
+    present_organisations(model.parent_organisations)
   end
 
   def child_organisations
-    model.child_organisations.map do |child|
+    present_organisations(model.child_organisations)
+  end
+
+  def present_organisations(organisations)
+    organisations.map do |organisation|
       {
-        id: context.api_organisation_url(child),
-        web_url: Whitehall.url_maker.organisation_url(child)
+        id: context.api_organisation_url(organisation),
+        web_url: Whitehall.url_maker.organisation_url(organisation)
       }
     end
   end
