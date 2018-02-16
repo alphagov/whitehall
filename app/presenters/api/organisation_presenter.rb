@@ -14,6 +14,7 @@ class Api::OrganisationPresenter < Api::BasePresenter
         organisation_logo_type_class_name: model.organisation_logo_type.try(:class_name),
         closed_at: model.closed_at,
         govuk_status: model.govuk_status,
+        govuk_closed_status: model.govuk_closed_status,
         content_id: model.content_id,
       },
       analytics_identifier: model.analytics_identifier,
