@@ -37,6 +37,33 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
     end
   end
 
+  context 'when an attachment is added to a draft document marked as access_limited' do
+    # the edition has to have same organisation as logged in user, otherwise it's not visible when access_limited = true
+    let(:edition) { create(:news_article, organisations: [organisation], access_limited: true) }
+
+    before do
+      setup_publishing_api_for(edition)
+
+      stub_whitehall_asset('logo.png', id: 'asset-id', draft: true)
+    end
+
+    it 'marks attachment as access limited in Asset Manager' do
+      visit admin_news_article_path(edition)
+      click_link "Modify attachments"
+      click_link "Upload new file attachment"
+      fill_in "Title", with: 'asset-title'
+      attach_file 'File', path_to_attachment('logo.png')
+
+      Services.asset_manager.expects(:create_whitehall_asset).with do |params|
+        params[:legacy_url_path] =~ /logo\.png/ &&
+          params[:access_limited] == ['user-uid']
+      end
+
+      click_button 'Save'
+      AssetManagerCreateWhitehallAssetWorker.drain
+    end
+  end
+
 private
 
   def setup_publishing_api_for(edition)
