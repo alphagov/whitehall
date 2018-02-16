@@ -12,7 +12,6 @@ gem 'dalli', '~> 2.7'
 gem 'deprecated_columns', '~> 0.1.1'
 gem 'equivalent-xml', '~> 0.6.0', require: false
 gem 'faraday'
-gem 'foreman', '~> 0.84'
 gem 'friendly_id', '~> 5.2.1'
 gem 'gds-sso', '~> 13.6'
 gem 'globalize', '5.1.0'

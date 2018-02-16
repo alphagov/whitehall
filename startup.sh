@@ -14,4 +14,4 @@ fi
 export STATIC_DEV
 echo
 bundle install
-bundle exec foreman run web
+bundle exec rails s -p 3020
