@@ -10,7 +10,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
     login_as create(:managing_editor)
   end
 
-  context 'when draft document with file attachment is published' do
+  context 'given a draft document with file attachment' do
     let(:edition) { create(:news_article) }
 
     before do
@@ -22,7 +22,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
       stub_whitehall_asset('sample.docx', id: 'asset-id', draft: true)
     end
 
-    it 'marks attachment as published in Asset Manager' do
+    it 'marks attachment as published in Asset Manager when document is published' do
       visit admin_news_article_path(edition)
       click_link 'Force publish'
       fill_in 'Reason for force publishing', with: 'testing'
@@ -33,7 +33,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
     end
   end
 
-  context 'when published document with file attachment is unpublished' do
+  context 'given a published document with file attachment' do
     let(:edition) { create(:published_news_article) }
 
     before do
@@ -45,7 +45,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
       stub_whitehall_asset('sample.docx', id: 'asset-id', draft: false)
     end
 
-    it 'marks attachment as draft in Asset Manager' do
+    it 'marks attachment as draft in Asset Manager when document is unpublished' do
       visit admin_news_article_path(edition)
       click_link 'Withdraw or unpublish'
 
@@ -57,7 +57,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
     end
   end
 
-  context 'when draft consultation with outcome with file attachment is published' do
+  context 'given a draft consultation with outcome with file attachment' do
     let(:edition) { create(:draft_consultation) }
     let(:outcome_attributes) { FactoryBot.attributes_for(:consultation_outcome) }
     let(:outcome) { edition.create_outcome!(outcome_attributes) }
@@ -71,7 +71,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
       stub_whitehall_asset('sample.docx', id: 'asset-id', draft: true)
     end
 
-    it 'marks attachment as published in Asset Manager' do
+    it 'marks attachment as published in Asset Manager when consultation is published' do
       visit admin_consultation_path(edition)
       click_link 'Force publish'
       fill_in 'Reason for force publishing', with: 'testing'
@@ -82,7 +82,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
     end
   end
 
-  context 'when draft consultation with feedback with file attachment is published' do
+  context 'given a draft consultation with feedback with file attachment' do
     let(:edition) { create(:draft_consultation) }
     let(:feedback_attributes) { FactoryBot.attributes_for(:consultation_public_feedback) }
     let(:feedback) { edition.create_public_feedback!(feedback_attributes) }
@@ -96,7 +96,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
       stub_whitehall_asset('sample.docx', id: 'asset-id', draft: true)
     end
 
-    it 'marks attachment as published in Asset Manager' do
+    it 'marks attachment as published in Asset Manager when consultation is published' do
       visit admin_consultation_path(edition)
       click_link 'Force publish'
       fill_in 'Reason for force publishing', with: 'testing'
@@ -107,14 +107,11 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
     end
   end
 
-  context 'when file attachment is added to policy group' do
+  context 'given a policy group' do
     let(:policy_group) { create(:policy_group) }
 
-    before do
+    it 'marks attachment as published in Asset Manager when added to policy group' do
       stub_whitehall_asset('sample.docx', id: 'asset-id', draft: true)
-    end
-
-    it 'marks attachment as published in Asset Manager' do
       visit admin_policy_group_attachments_path(policy_group)
       click_link 'Upload new file attachment'
       fill_in 'Title', with: 'Attachment Title'
