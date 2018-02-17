@@ -16,20 +16,18 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
     before do
       setup_publishing_api_for(edition)
 
-      add_file_attachment('whitepaper.pdf', to: edition)
-      VirusScanHelpers.simulate_virus_scan(include_versions: true)
+      add_file_attachment('sample.docx', to: edition)
+      VirusScanHelpers.simulate_virus_scan
 
-      stub_whitehall_asset('whitepaper.pdf', id: 'asset-id', draft: true)
-      stub_whitehall_asset('thumbnail_whitepaper.pdf.png', id: 'thumbnail-asset-id', draft: true)
+      stub_whitehall_asset('sample.docx', id: 'asset-id', draft: true)
     end
 
-    it 'marks attachment & its thumbnail as published in Asset Manager' do
+    it 'marks attachment as published in Asset Manager' do
       visit admin_news_article_path(edition)
       click_link 'Force publish'
       fill_in 'Reason for force publishing', with: 'testing'
 
       Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => false)
-      Services.asset_manager.expects(:update_asset).with('thumbnail-asset-id', 'draft' => false)
 
       click_button 'Force publish'
     end
@@ -41,19 +39,17 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
     before do
       setup_publishing_api_for(edition)
 
-      add_file_attachment('whitepaper.pdf', to: edition)
-      VirusScanHelpers.simulate_virus_scan(include_versions: true)
+      add_file_attachment('sample.docx', to: edition)
+      VirusScanHelpers.simulate_virus_scan
 
-      stub_whitehall_asset('whitepaper.pdf', id: 'asset-id', draft: false)
-      stub_whitehall_asset('thumbnail_whitepaper.pdf.png', id: 'thumbnail-asset-id', draft: false)
+      stub_whitehall_asset('sample.docx', id: 'asset-id', draft: false)
     end
 
-    it 'marks attachment & its thumbnail as draft in Asset Manager' do
+    it 'marks attachment as draft in Asset Manager' do
       visit admin_news_article_path(edition)
       click_link 'Withdraw or unpublish'
 
       Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => true)
-      Services.asset_manager.expects(:update_asset).with('thumbnail-asset-id', 'draft' => true)
 
       within '#js-published-in-error-form' do
         click_button 'Unpublish'
@@ -69,20 +65,18 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
     before do
       setup_publishing_api_for(edition)
 
-      add_file_attachment('whitepaper.pdf', to: outcome)
-      VirusScanHelpers.simulate_virus_scan(include_versions: true)
+      add_file_attachment('sample.docx', to: outcome)
+      VirusScanHelpers.simulate_virus_scan
 
-      stub_whitehall_asset('whitepaper.pdf', id: 'asset-id', draft: true)
-      stub_whitehall_asset('thumbnail_whitepaper.pdf.png', id: 'thumbnail-asset-id', draft: true)
+      stub_whitehall_asset('sample.docx', id: 'asset-id', draft: true)
     end
 
-    it 'marks attachment & its thumbnail as published in Asset Manager' do
+    it 'marks attachment as published in Asset Manager' do
       visit admin_consultation_path(edition)
       click_link 'Force publish'
       fill_in 'Reason for force publishing', with: 'testing'
 
       Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => false)
-      Services.asset_manager.expects(:update_asset).with('thumbnail-asset-id', 'draft' => false)
 
       click_button 'Force publish'
     end
@@ -96,20 +90,18 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
     before do
       setup_publishing_api_for(edition)
 
-      add_file_attachment('whitepaper.pdf', to: feedback)
-      VirusScanHelpers.simulate_virus_scan(include_versions: true)
+      add_file_attachment('sample.docx', to: feedback)
+      VirusScanHelpers.simulate_virus_scan
 
-      stub_whitehall_asset('whitepaper.pdf', id: 'asset-id', draft: true)
-      stub_whitehall_asset('thumbnail_whitepaper.pdf.png', id: 'thumbnail-asset-id', draft: true)
+      stub_whitehall_asset('sample.docx', id: 'asset-id', draft: true)
     end
 
-    it 'marks attachment & its thumbnail as published in Asset Manager' do
+    it 'marks attachment as published in Asset Manager' do
       visit admin_consultation_path(edition)
       click_link 'Force publish'
       fill_in 'Reason for force publishing', with: 'testing'
 
       Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => false)
-      Services.asset_manager.expects(:update_asset).with('thumbnail-asset-id', 'draft' => false)
 
       click_button 'Force publish'
     end
@@ -119,18 +111,16 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
     let(:policy_group) { create(:policy_group) }
 
     before do
-      stub_whitehall_asset('whitepaper.pdf', id: 'asset-id', draft: true)
-      stub_whitehall_asset('thumbnail_whitepaper.pdf.png', id: 'thumbnail-asset-id', draft: true)
+      stub_whitehall_asset('sample.docx', id: 'asset-id', draft: true)
     end
 
-    it 'marks attachment & its thumbnail as published in Asset Manager' do
+    it 'marks attachment as published in Asset Manager' do
       visit admin_policy_group_attachments_path(policy_group)
       click_link 'Upload new file attachment'
       fill_in 'Title', with: 'Attachment Title'
-      attach_file 'File', path_to_attachment('whitepaper.pdf')
+      attach_file 'File', path_to_attachment('sample.docx')
 
       Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => false)
-      Services.asset_manager.expects(:update_asset).with('thumbnail-asset-id', 'draft' => false)
 
       click_button 'Save'
     end
