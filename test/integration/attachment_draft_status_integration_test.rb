@@ -148,9 +148,10 @@ private
     fixture_path.join(filename)
   end
 
-  def stub_whitehall_asset(filename, id:, draft:)
+  def stub_whitehall_asset(filename, attributes = {})
+    url_id = "http://asset-manager/assets/#{attributes[:id]}"
     Services.asset_manager.stubs(:whitehall_asset)
       .with(&ends_with(filename))
-      .returns('id' => "http://asset-manager/assets/#{id}", 'draft' => draft)
+      .returns(attributes.merge(id: url_id).stringify_keys)
   end
 end
