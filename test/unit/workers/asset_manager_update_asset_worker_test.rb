@@ -6,6 +6,7 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
     @asset_url = "http://asset-manager/assets/#{@asset_id}"
     @legacy_url_path = 'legacy-url-path'
     @worker = AssetManagerUpdateAssetWorker.new
+    @redirect_url = 'https://www.test.gov.uk/example'
   end
 
   test 'marks draft asset as published' do
@@ -38,5 +39,31 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
     Services.asset_manager.expects(:update_asset).never
 
     @worker.perform(@legacy_url_path, 'draft' => true)
+  end
+
+  test 'sets redirect_url on asset if not already set' do
+    Services.asset_manager.stubs(:whitehall_asset).with(@legacy_url_path)
+      .returns('id' => @asset_url)
+    Services.asset_manager.expects(:update_asset)
+      .with(@asset_id, 'redirect_url' => @redirect_url)
+
+    @worker.perform(@legacy_url_path, 'redirect_url' => @redirect_url)
+  end
+
+  test 'sets redirect_url on asset if already set to different value' do
+    Services.asset_manager.stubs(:whitehall_asset).with(@legacy_url_path)
+      .returns('id' => @asset_url, 'redirect_url' => "#{@redirect_url}-another")
+    Services.asset_manager.expects(:update_asset)
+      .with(@asset_id, 'redirect_url' => @redirect_url)
+
+    @worker.perform(@legacy_url_path, 'redirect_url' => @redirect_url)
+  end
+
+  test 'does not set redirect_url on asset if already set' do
+    Services.asset_manager.stubs(:whitehall_asset).with(@legacy_url_path)
+      .returns('id' => @asset_url, 'redirect_url' => @redirect_url)
+    Services.asset_manager.expects(:update_asset).never
+
+    @worker.perform(@legacy_url_path, 'redirect_url' => @redirect_url)
   end
 end
