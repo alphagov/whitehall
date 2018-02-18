@@ -11,7 +11,8 @@ module ServiceListeners
       return unless attachment.file?
       attachment_data = attachment.attachment_data
       return unless attachment_data.present?
-      draft = !visibility_for(attachment_data).visible?
+      visibility = visibility_for(attachment_data)
+      draft = !(visibility.visible? || visibility.unpublished_edition)
       enqueue_job(attachment_data.file, draft)
       if attachment_data.pdf?
         enqueue_job(attachment_data.file.thumbnail, draft)
