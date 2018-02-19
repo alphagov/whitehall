@@ -159,7 +159,7 @@ GEM
       plek (>= 1.9.0)
       rack-cache
       rest-client (~> 2.0)
-    gds-sso (13.5.1)
+    gds-sso (13.6.0)
       multi_json (~> 1.0)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
@@ -219,7 +219,7 @@ GEM
     htmlentities (4.3.4)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    i18n (0.9.3)
+    i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     invalid_utf8_rejector (0.0.4)
     isbn_validation (1.2.2)
@@ -259,7 +259,7 @@ GEM
       activesupport (>= 4.0)
       logstash-event (~> 1.2.0)
       request_store
-    loofah (2.1.1)
+    loofah (2.2.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     lrucache (0.1.4)
@@ -339,7 +339,7 @@ GEM
     pry-rails (0.3.6)
       pry (>= 0.10.4)
     public_suffix (3.0.1)
-    rack (2.0.3)
+    rack (2.0.4)
     rack-cache (1.7.1)
       rack (>= 0.4)
     rack-protection (2.0.0)
@@ -498,7 +498,7 @@ GEM
     ttfunk (1.5.1)
     typhoeus (1.3.0)
       ethon (>= 0.9.0)
-    tzinfo (1.2.4)
+    tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
@@ -556,7 +556,7 @@ DEPENDENCIES
   foreman (~> 0.84)
   friendly_id (~> 5.2.1)
   gds-api-adapters
-  gds-sso (~> 13.5)
+  gds-sso (~> 13.6)
   globalize (= 5.1.0)
   govspeak (~> 5.4.0)
   govuk-content-schema-test-helpers
