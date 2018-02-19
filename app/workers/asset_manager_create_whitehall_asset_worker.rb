@@ -8,9 +8,7 @@ class AssetManagerCreateWhitehallAssetWorker < WorkerBase
       model = model_class.constantize.find(model_id)
       if model.respond_to?(:attachable_is_access_limited?)
         if model.attachable_is_access_limited?
-          object = model.access_limited_object
-          access_limited_hash = PublishingApi::PayloadBuilder::AccessLimitation.for(object)
-          authorised_user_uids = access_limited_hash[:access_limited][:users]
+          authorised_user_uids = AssetManagerAccessLimitation.for(model.access_limited_object)
           asset_options[:access_limited] = authorised_user_uids
         end
       end
