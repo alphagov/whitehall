@@ -1,7 +1,9 @@
 Whitehall.attachment_notifier.tap do |notifier|
   notifier.subscribe do |_event, attachment|
-    ServiceListeners::AttachmentDraftStatusUpdater
-      .new(attachment)
-      .update!
+    unless attachment.attachable.is_a?(Edition)
+      ServiceListeners::AttachmentDraftStatusUpdater
+        .new(attachment)
+        .update!
+    end
   end
 end
