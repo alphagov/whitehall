@@ -20,12 +20,14 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index shows a mix of news and speeches" do
-    announced_today = [create(:published_news_article), create(:published_speech)]
+    Sidekiq::Testing.inline! do
+      announced_today = [create(:published_news_article), create(:published_speech)]
 
-    get :index
+      get :index
 
-    assert_select_object announced_today[0]
-    assert_select_object announced_today[1]
+      assert_select_object announced_today[0]
+      assert_select_object announced_today[1]
+    end
   end
 
   test "index sets Cache-Control: max-age to the time of the next scheduled publication" do
@@ -39,71 +41,81 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index shows which type a record is" do
-    announced_today = [
-      create(:published_news_article, news_article_type: NewsArticleType::NewsStory),
-      create(:published_speech),
-      create(:published_speech, speech_type: SpeechType::WrittenStatement),
-    ]
+    Sidekiq::Testing.inline! do
+      announced_today = [
+        create(:published_news_article, news_article_type: NewsArticleType::NewsStory),
+        create(:published_speech),
+        create(:published_speech, speech_type: SpeechType::WrittenStatement),
+      ]
 
-    get :index
+      get :index
 
-    assert_select_object announced_today[0] do
-      assert_select ".display-type", text: "News story"
-    end
-    assert_select_object announced_today[1] do
-      assert_select ".display-type", text: "Speech"
-    end
-    assert_select_object announced_today[2] do
-      assert_select ".display-type", text: "Statement to Parliament"
+      assert_select_object announced_today[0] do
+        assert_select ".display-type", text: "News story"
+      end
+      assert_select_object announced_today[1] do
+        assert_select ".display-type", text: "Speech"
+      end
+      assert_select_object announced_today[2] do
+        assert_select ".display-type", text: "Statement to Parliament"
+      end
     end
   end
 
   view_test "index shows the date on which a speech was first published" do
     first_published_at = Date.parse("1999-12-31")
-    speech = create(:published_speech, first_published_at: first_published_at)
+    Sidekiq::Testing.inline! do
+      speech = create(:published_speech, first_published_at: first_published_at)
 
-    get :index
+      get :index
 
-    assert_select_object(speech) do
-      assert_select "time.public_timestamp[datetime=?]", first_published_at.to_datetime.iso8601
+      assert_select_object(speech) do
+        assert_select "time.public_timestamp[datetime=?]", first_published_at.to_datetime.iso8601
+      end
     end
   end
 
   view_test "index shows the time when a news article was first published" do
     first_published_at = Time.zone.parse("2001-01-01 01:01")
-    news_article = create(:published_news_article, first_published_at: first_published_at)
+    Sidekiq::Testing.inline! do
+      news_article = create(:published_news_article, first_published_at: first_published_at)
 
-    get :index
+      get :index
 
-    assert_select_object(news_article) do
-      assert_select "time.public_timestamp[datetime=?]", first_published_at.iso8601
+      assert_select_object(news_article) do
+        assert_select "time.public_timestamp[datetime=?]", first_published_at.iso8601
+      end
     end
   end
 
   view_test "index shows related organisations for each type of article" do
-    first_org = create(:organisation, name: 'first-org', acronym: "FO")
-    second_org = create(:organisation, name: 'second-org', acronym: "SO")
-    news_article = create(:published_news_article, first_published_at: 4.days.ago, organisations: [first_org, second_org])
-    speech = create(:published_speech, delivered_on: 5.days.ago, organisations: [second_org])
+    Sidekiq::Testing.inline! do
+      first_org = create(:organisation, name: 'first-org', acronym: "FO")
+      second_org = create(:organisation, name: 'second-org', acronym: "SO")
+      news_article = create(:published_news_article, first_published_at: 4.days.ago, organisations: [first_org, second_org])
+      speech = create(:published_speech, delivered_on: 5.days.ago, organisations: [second_org])
 
-    get :index
+      get :index
 
-    assert_select_object news_article do
-      assert_select ".organisations", text: "#{first_org.acronym} and #{second_org.acronym}", count: 1
-    end
+      assert_select_object news_article do
+        assert_select ".organisations", text: "#{first_org.acronym} and #{second_org.acronym}", count: 1
+      end
 
-    assert_select_object speech do
-      assert_select ".organisations", text: second_org.acronym, count: 1
+      assert_select_object speech do
+        assert_select ".organisations", text: second_org.acronym, count: 1
+      end
     end
   end
 
   view_test "index shows articles in reverse chronological order" do
-    oldest = create(:published_speech, first_published_at: 5.days.ago)
-    newest = create(:published_news_article, first_published_at: 4.days.ago)
+    Sidekiq::Testing.inline! do
+      oldest = create(:published_speech, first_published_at: 5.days.ago)
+      newest = create(:published_news_article, first_published_at: 4.days.ago)
 
-    get :index
+      get :index
 
-    assert_select "#{record_css_selector(newest)} + #{record_css_selector(oldest)}"
+      assert_select "#{record_css_selector(newest)} + #{record_css_selector(oldest)}"
+    end
   end
 
   view_test "index shows selected announcement type filter option in the title" do
@@ -152,30 +164,34 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index shows only the first page of news articles or speeches" do
-    news = (1..2).map { |n| create(:published_news_article, first_published_at: n.days.ago) }
-    speeches = (3..4).map { |n| create(:published_speech, first_published_at: n.days.ago) }
+    Sidekiq::Testing.inline! do
+      news = (1..2).map { |n| create(:published_news_article, first_published_at: n.days.ago) }
+      speeches = (3..4).map { |n| create(:published_speech, first_published_at: n.days.ago) }
 
-    with_number_of_documents_per_page(3) do
-      get :index
-    end
+      with_number_of_documents_per_page(3) do
+        get :index
+      end
 
-    assert_documents_appear_in_order_within(".filter-results", news + speeches[0..0])
-    (speeches[1..2]).each do |speech|
-      refute_select_object(speech)
+      assert_documents_appear_in_order_within(".filter-results", news + speeches[0..0])
+      (speeches[1..2]).each do |speech|
+        refute_select_object(speech)
+      end
     end
   end
 
   view_test "index shows the requested page" do
-    news = (1..3).map { |n| create(:published_news_article, first_published_at: n.days.ago) }
-    speeches = (4..6).map { |n| create(:published_speech, first_published_at: n.days.ago) }
+    Sidekiq::Testing.inline! do
+      news = (1..3).map { |n| create(:published_news_article, first_published_at: n.days.ago) }
+      speeches = (4..6).map { |n| create(:published_speech, first_published_at: n.days.ago) }
 
-    with_number_of_documents_per_page(4) do
-      get :index, params: { page: 2 }
-    end
+      with_number_of_documents_per_page(4) do
+        get :index, params: { page: 2 }
+      end
 
-    assert_documents_appear_in_order_within(".filter-results", speeches[1..2])
-    (news + speeches[0..0]).each do |speech|
-      refute_select_object(speech)
+      assert_documents_appear_in_order_within(".filter-results", speeches[1..2])
+      (news + speeches[0..0]).each do |speech|
+        refute_select_object(speech)
+      end
     end
   end
 
@@ -210,26 +226,30 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index generates an atom feed with entries for announcements matching the current filter" do
-    org = create(:organisation, name: "org-name")
-    other_org = create(:organisation, name: "other-org")
-    news = create(:published_news_article, organisations: [org], first_published_at: 1.week.ago)
-    _speech = create(:published_speech, organisations: [other_org], delivered_on: 3.days.ago)
+    Sidekiq::Testing.inline! do
+      org = create(:organisation, name: "org-name")
+      other_org = create(:organisation, name: "other-org")
+      news = create(:published_news_article, organisations: [org], first_published_at: 1.week.ago)
+      _speech = create(:published_speech, organisations: [other_org], delivered_on: 3.days.ago)
 
-    get :index, params: { departments: [org.to_param] }, format: :atom
+      get :index, params: { departments: [org.to_param] }, format: :atom
 
-    assert_select_atom_feed do
-      assert_select_atom_entries([news])
+      assert_select_atom_feed do
+        assert_select_atom_entries([news])
+      end
     end
   end
 
   view_test "index generates an atom feed with the legacy announcement_type_option param set" do
-    news = create(:published_news_story, first_published_at: 1.week.ago)
-    _speech = create(:published_speech, delivered_on: 3.days.ago)
+    Sidekiq::Testing.inline! do
+      news = create(:published_news_story, first_published_at: 1.week.ago)
+      _speech = create(:published_speech, delivered_on: 3.days.ago)
 
-    get :index, params: { announcement_type_option: 'news-stories' }, format: :atom
+      get :index, params: { announcement_type_option: 'news-stories' }, format: :atom
 
-    assert_select_atom_feed do
-      assert_select_atom_entries([news])
+      assert_select_atom_feed do
+        assert_select_atom_entries([news])
+      end
     end
   end
 
@@ -298,52 +318,54 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test 'index includes tracking details on all links' do
-    news_article = create(:published_news_article)
+    Sidekiq::Testing.inline! do
+      news_article = create(:published_news_article)
 
-    get :index
+      get :index
 
-    assert_select_object(news_article) do
-      results_list = css_select('ol.document-list').first
+      assert_select_object(news_article) do
+        results_list = css_select('ol.document-list').first
 
-      assert_equal(
-        'track-click',
-        results_list.attributes['data-module'].value,
-        "Expected the document list to have the 'track-click' module"
-      )
+        assert_equal(
+          'track-click',
+          results_list.attributes['data-module'].value,
+          "Expected the document list to have the 'track-click' module"
+        )
 
-      article_link = css_select('li.document-row a').first
+        article_link = css_select('li.document-row a').first
 
-      assert_equal(
-        'navAnnouncementLinkClicked',
-        article_link.attributes['data-category'].value,
-        "Expected the data category attribute to be 'navAnnouncementLinkClicked'"
-      )
+        assert_equal(
+          'navAnnouncementLinkClicked',
+          article_link.attributes['data-category'].value,
+          "Expected the data category attribute to be 'navAnnouncementLinkClicked'"
+        )
 
-      assert_equal(
-        '1',
-        article_link.attributes['data-action'].value,
-        "Expected the data action attribute to be the 1st position on the list"
-      )
+        assert_equal(
+          '1',
+          article_link.attributes['data-action'].value,
+          "Expected the data action attribute to be the 1st position on the list"
+        )
 
-      assert_equal(
-        public_document_path(news_article),
-        article_link.attributes['data-label'].value,
-        "Expected the data label attribute to be the link of the news article"
-      )
+        assert_equal(
+          public_document_path(news_article),
+          article_link.attributes['data-label'].value,
+          "Expected the data label attribute to be the link of the news article"
+        )
 
-      options = JSON.parse(article_link.attributes['data-options'].value)
+        options = JSON.parse(article_link.attributes['data-options'].value)
 
-      assert_equal(
-        '1',
-        options['dimension28'],
-        "Expected the custom dimension 28 to have the total number of articles"
-      )
+        assert_equal(
+          '1',
+          options['dimension28'],
+          "Expected the custom dimension 28 to have the total number of articles"
+        )
 
-      assert_equal(
-        news_article.title,
-        options['dimension29'],
-        "Expected the custom dimension 29 to have the title of the article"
-      )
+        assert_equal(
+          news_article.title,
+          options['dimension29'],
+          "Expected the custom dimension 29 to have the title of the article"
+        )
+      end
     end
   end
 end

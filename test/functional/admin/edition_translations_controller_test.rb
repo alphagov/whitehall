@@ -138,22 +138,24 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
   end
 
   view_test "#update puts the translation to the publishing API" do
-    edition = create(:draft_edition)
+    Sidekiq::Testing.inline! do
+      edition = create(:draft_edition)
 
-    put :update, params: { edition_id: edition, id: "fr", edition: {
-      title: "translated-title",
-      summary: "translated-summary",
-      body: "translated-body",
-    } }
-
-    assert_publishing_api_put_content(
-      edition.content_id,
-      request_json_includes(
+      put :update, params: { edition_id: edition, id: "fr", edition: {
         title: "translated-title",
-        description: "translated-summary",
-        locale: "fr"
+        summary: "translated-summary",
+        body: "translated-body",
+      } }
+
+      assert_publishing_api_put_content(
+        edition.content_id,
+        request_json_includes(
+          title: "translated-title",
+          description: "translated-summary",
+          locale: "fr"
+        )
       )
-    )
+    end
   end
 
   test "should limit access to translations of editions that aren't accessible to the current user" do
@@ -181,11 +183,13 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
   end
 
   test "#destroy deletes the translation from the publishing API" do
-    edition = create(:edition)
-    with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body') }
+    Sidekiq::Testing.inline! do
+      edition = create(:edition)
+      with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body') }
 
-    delete :destroy, params: { edition_id: edition, id: 'fr' }
+      delete :destroy, params: { edition_id: edition, id: 'fr' }
 
-    assert_publishing_api_discard_draft(edition.content_id, locale: 'fr')
+      assert_publishing_api_discard_draft(edition.content_id, locale: 'fr')
+    end
   end
 end
