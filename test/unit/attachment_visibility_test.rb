@@ -162,6 +162,38 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
     assert_equal deleted_edition, attachment_visibility.unpublished_edition
   end
 
+  test '#unpublished_edition returns the consultation for an attachment associated with an unpublished consultation outcome' do
+    unpublished_consultation = create(:consultation, :unpublished)
+    outcome = unpublished_consultation.create_outcome!(attributes_for(:consultation_outcome))
+    file_attachment = build(:file_attachment, attachable: outcome)
+    outcome.attachments << file_attachment
+    attachment_data = file_attachment.attachment_data
+    attachment_visibility = AttachmentVisibility.new(attachment_data, nil)
+
+    assert_equal unpublished_consultation, attachment_visibility.unpublished_edition
+  end
+
+  test '#unpublished_edition returns the consultation for an attachment associated with an unpublished consultation feedback' do
+    unpublished_consultation = create(:consultation, :unpublished)
+    feedback = unpublished_consultation.create_public_feedback!(attributes_for(:consultation_public_feedback))
+    file_attachment = build(:file_attachment, attachable: feedback)
+    feedback.attachments << file_attachment
+    attachment_data = file_attachment.attachment_data
+    attachment_visibility = AttachmentVisibility.new(attachment_data, nil)
+
+    assert_equal unpublished_consultation, attachment_visibility.unpublished_edition
+  end
+
+  test '#unpublished_edition returns nil for an attachment associated with a policy group' do
+    policy_group = create(:policy_group)
+    file_attachment = build(:file_attachment, attachable: policy_group)
+    policy_group.attachments << file_attachment
+    attachment_data = file_attachment.attachment_data
+    attachment_visibility = AttachmentVisibility.new(attachment_data, nil)
+
+    assert_nil attachment_visibility.unpublished_edition
+  end
+
   test "#visible returns false for deleted attachment on a publication" do
     Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
 

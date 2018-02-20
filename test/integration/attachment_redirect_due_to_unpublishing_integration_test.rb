@@ -53,18 +53,12 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
     let(:outcome_attributes) { attributes_for(:consultation_outcome) }
     let(:attachable) { edition.create_outcome!(outcome_attributes) }
 
-    # TODO: Remove when bug in AttachmentVisibility#unpublished_edition fixed
-    it 'does not redirect attachment requests when document is unpublished' do
-    # TODO: Uncomment when bug in AttachmentVisibility#unpublished_edition fixed
-    # it 'redirects attachment requests when document is unpublished' do
+    it 'redirects attachment requests when document is unpublished' do
       visit admin_consultation_path(edition)
       unpublish_document_published_in_error
       logout
       get attachment.url
-      # TODO: Remove when bug in AttachmentVisibility#unpublished_edition fixed
-      assert_response :not_found
-      # TODO: Uncomment when bug in AttachmentVisibility#unpublished_edition fixed
-      # assert_redirected_to redirect_url
+      assert_redirected_to redirect_url
     end
 
     it 'does not redirect attachment requests when document is withdrawn' do
@@ -81,18 +75,12 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
     let(:feedback_attributes) { attributes_for(:consultation_public_feedback) }
     let(:attachable) { edition.create_public_feedback!(feedback_attributes) }
 
-    # TODO: Remove when bug in AttachmentVisibility#unpublished_edition fixed
-    it 'does not redirect attachment requests when document is unpublished' do
-    # TODO: Uncomment when bug in AttachmentVisibility#unpublished_edition fixed
-    # it 'redirects attachment requests when document is unpublished' do
+    it 'redirects attachment requests when document is unpublished' do
       visit admin_consultation_path(edition)
       unpublish_document_published_in_error
       logout
       get attachment.url
-      # TODO: Remove when bug in AttachmentVisibility#unpublished_edition fixed
-      assert_response :not_found
-      # TODO: Uncomment when bug in AttachmentVisibility#unpublished_edition fixed
-      # assert_redirected_to redirect_url
+      assert_redirected_to redirect_url
     end
 
     it 'does not redirect attachment requests when document is withdrawn' do
