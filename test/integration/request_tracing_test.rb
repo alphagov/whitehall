@@ -2,10 +2,17 @@ require "test_helper"
 
 class RequestTracingTest < ActionDispatch::IntegrationTest
   setup do
+    @sidekiq_test_mode = Sidekiq::Testing.__test_mode
+    Sidekiq::Testing.inline!
+
     @govuk_request_id = "12345-67890"
     @draft_edition = create(:draft_publication)
     @presenter = PublishingApiPresenters.presenter_for(@draft_edition)
     login_as(create(:gds_admin))
+  end
+
+  teardown do
+    Sidekiq::Testing.__test_mode = @sidekiq_test_mode
   end
 
   def force_publish(edition, headers = {})
