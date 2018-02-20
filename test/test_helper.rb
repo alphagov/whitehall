@@ -17,7 +17,7 @@ require 'factories'
 require 'webmock/minitest'
 require 'whitehall/not_quite_as_fake_search'
 require 'whitehall/search_index'
-require 'sidekiq/testing/inline'
+require 'sidekiq/testing'
 require 'govuk-content-schema-test-helpers/test_unit'
 require 'parallel_tests/test/runtime_logger'
 
@@ -68,6 +68,7 @@ class ActiveSupport::TestCase
     Edition::AuditTrail.whodunnit = nil
     Timecop.return
     DatabaseCleaner.clean_with(:truncation, pre_count: true, reset_ids: false)
+    Sidekiq::Worker.clear_all
   end
 
   def acting_as(actor, &block)
