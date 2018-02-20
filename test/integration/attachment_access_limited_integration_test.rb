@@ -64,6 +64,36 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
     end
   end
 
+  context 'given an access-limited draft document with file attachment' do
+    let(:edition) { create(:news_article, organisations: [organisation], access_limited: true) }
+
+    before do
+      setup_publishing_api_for(edition)
+      publishing_api_has_linkables([], document_type: "topic")
+
+      add_file_attachment('logo.png', to: edition)
+      VirusScanHelpers.simulate_virus_scan(include_versions: true)
+
+      stub_whitehall_asset('logo.png', id: 'asset-id', draft: true)
+    end
+
+    it 'marks replacement attachment as access limited in Asset Manager when attachment is replaced' do
+      visit admin_news_article_path(edition)
+      click_link "Modify attachments"
+      click_link "Edit"
+      attach_file 'Replace file', path_to_attachment('big-cheese.960x640.jpg')
+
+      Services.asset_manager.expects(:create_whitehall_asset).with do |params|
+        params[:legacy_url_path] =~ /big-cheese/ &&
+          params[:access_limited] == ['user-uid']
+      end
+
+      click_button 'Save'
+
+      AssetManagerCreateWhitehallAssetWorker.drain
+    end
+  end
+
 private
 
   def setup_publishing_api_for(edition)
