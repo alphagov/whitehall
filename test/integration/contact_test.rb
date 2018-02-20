@@ -25,7 +25,9 @@ class ContactTest < ActiveSupport::TestCase
   end
 
   test "When a contact is saved, a 'contact' content item is published to the Publishing API" do
-    @contact.save!
+    Sidekiq::Testing.inline! do
+      @contact.save!
+    end
 
     assert_publishing_api_put_content(@contact.content_id,
                                       request_json_includes(

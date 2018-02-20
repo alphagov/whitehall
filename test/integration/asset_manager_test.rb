@@ -13,13 +13,17 @@ class AssetManagerIntegrationTest
     test 'sends the attachment to Asset Manager' do
       Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/#{@filename}/))
 
-      @attachment.save!
+      Sidekiq::Testing.inline! do
+        @attachment.save!
+      end
     end
 
     test 'marks the attachment as draft in Asset Manager' do
       Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(draft: true))
 
-      @attachment.save!
+      Sidekiq::Testing.inline! do
+        @attachment.save!
+      end
     end
   end
 
@@ -36,13 +40,17 @@ class AssetManagerIntegrationTest
     test 'sends the logo to Asset Manager' do
       Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/#{@filename}/))
 
-      @organisation.save!
+      Sidekiq::Testing.inline! do
+        @organisation.save!
+      end
     end
 
     test 'does not mark the logo as draft in Asset Manager' do
       Services.asset_manager.expects(:create_whitehall_asset).with(Not(has_key(:draft)))
 
-      @organisation.save!
+      Sidekiq::Testing.inline! do
+        @organisation.save!
+      end
     end
   end
 
@@ -61,7 +69,9 @@ class AssetManagerIntegrationTest
 
       Services.asset_manager.expects(:delete_asset).with(logo_asset_id)
 
-      organisation.remove_logo!
+      Sidekiq::Testing.inline! do
+        organisation.remove_logo!
+      end
     end
   end
 
@@ -81,7 +91,10 @@ class AssetManagerIntegrationTest
       Services.asset_manager.expects(:delete_asset).with(old_logo_asset_id)
 
       organisation.logo = File.open(fixture_path.join('images', '960x640_gif.gif'))
-      organisation.save!
+
+      Sidekiq::Testing.inline! do
+        organisation.save!
+      end
     end
   end
 
@@ -99,13 +112,17 @@ class AssetManagerIntegrationTest
     test 'sends the person image to Asset Manager' do
       Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/#{@filename}/))
 
-      @person.save!
+      Sidekiq::Testing.inline! do
+        @person.save!
+      end
     end
 
     test 'does not mark the image as draft in Asset Manager' do
       Services.asset_manager.expects(:create_whitehall_asset).with(Not(has_key(:draft)))
 
-      @person.save!
+      Sidekiq::Testing.inline! do
+        @person.save!
+      end
     end
 
     test 'sends each version of the person image to Asset Manager' do
@@ -115,7 +132,9 @@ class AssetManagerIntegrationTest
         )
       end
 
-      @person.save!
+      Sidekiq::Testing.inline! do
+        @person.save!
+      end
     end
   end
 
@@ -141,7 +160,9 @@ class AssetManagerIntegrationTest
       expected_number_of_versions = @person.image.versions.size + 1
       Services.asset_manager.expects(:delete_asset).with(@asset_id).times(expected_number_of_versions)
 
-      @person.remove_image!
+      Sidekiq::Testing.inline! do
+        @person.remove_image!
+      end
     end
   end
 
@@ -162,14 +183,20 @@ class AssetManagerIntegrationTest
       Services.asset_manager.expects(:create_whitehall_asset).times(expected_number_of_versions)
 
       @person.image = File.open(fixture_path.join('big-cheese.960x640.jpg'))
-      @person.save!
+
+      Sidekiq::Testing.inline! do
+        @person.save!
+      end
     end
 
     test 'does not remove the original images from asset manager' do
       Services.asset_manager.expects(:delete_asset).never
 
       @person.image = File.open(fixture_path.join('big-cheese.960x640.jpg'))
-      @person.save!
+
+      Sidekiq::Testing.inline! do
+        @person.save!
+      end
     end
   end
 
@@ -187,13 +214,17 @@ class AssetManagerIntegrationTest
         file_and_legacy_url_path_matching(/#{@filename}/)
       )
 
-      @consultation_response_form_data.save!
+      Sidekiq::Testing.inline! do
+        @consultation_response_form_data.save!
+      end
     end
 
     test 'does not mark the consultation response form data as draft in Asset Manager' do
       Services.asset_manager.expects(:create_whitehall_asset).with(Not(has_key(:draft)))
 
-      @consultation_response_form_data.save!
+      Sidekiq::Testing.inline! do
+        @consultation_response_form_data.save!
+      end
     end
   end
 
@@ -218,7 +249,9 @@ class AssetManagerIntegrationTest
       Services.asset_manager.expects(:delete_asset)
         .with(@consultation_response_form_asset_id)
 
-      @consultation_response_form_data.remove_file!
+      Sidekiq::Testing.inline! do
+        @consultation_response_form_data.remove_file!
+      end
     end
   end
 
@@ -244,7 +277,10 @@ class AssetManagerIntegrationTest
         .with(@consultation_response_form_asset_id)
 
       @consultation_response_form_data.file = File.open(fixture_path.join('whitepaper.pdf'))
-      @consultation_response_form_data.save!
+
+      Sidekiq::Testing.inline! do
+        @consultation_response_form_data.save!
+      end
     end
   end
 end

@@ -26,84 +26,94 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   end
 
   test "it gets published to the Publishing API when saved" do
-    statistics_announcement = build(:statistics_announcement)
-    presenter = PublishingApiPresenters.presenter_for(statistics_announcement)
+    Sidekiq::Testing.inline! do
+      statistics_announcement = build(:statistics_announcement)
+      presenter = PublishingApiPresenters.presenter_for(statistics_announcement)
 
-    statistics_announcement.save!
+      statistics_announcement.save!
 
-    expected = presenter.content.merge(
-      public_updated_at: Time.zone.now.as_json
-    )
+      expected = presenter.content.merge(
+        public_updated_at: Time.zone.now.as_json
+      )
 
-    expected_intent = PublishingApi::PublishIntentPresenter.new(
-      statistics_announcement.base_path,
-      statistics_announcement.statistics_announcement_dates.last.release_date
-    )
+      expected_intent = PublishingApi::PublishIntentPresenter.new(
+        statistics_announcement.base_path,
+        statistics_announcement.statistics_announcement_dates.last.release_date
+      )
 
-    assert_publishing_api_put_content(statistics_announcement.content_id,
-                                      expected)
-    assert_publishing_api_publish(statistics_announcement.content_id,
-                                  { update_type: "minor", locale: "en" }, 1)
-    assert_publishing_api_put_intent(
-      statistics_announcement.base_path,
-      expected_intent.as_json
-    )
+      assert_publishing_api_put_content(statistics_announcement.content_id,
+                                        expected)
+      assert_publishing_api_publish(statistics_announcement.content_id,
+                                    { update_type: "minor", locale: "en" }, 1)
+      assert_publishing_api_put_intent(
+        statistics_announcement.base_path,
+        expected_intent.as_json
+      )
+    end
   end
 
   test "it publishes gone on destroy" do
-    statistics_announcement = create(:statistics_announcement)
-    gone_request = stub_publishing_api_unpublish(
-      statistics_announcement.content_id,
-      body: {
-        type: "gone",
-        locale: "en",
-        discard_drafts: true,
-      }
-    )
+    Sidekiq::Testing.inline! do
+      statistics_announcement = create(:statistics_announcement)
+      gone_request = stub_publishing_api_unpublish(
+        statistics_announcement.content_id,
+        body: {
+          type: "gone",
+          locale: "en",
+          discard_drafts: true,
+        }
+      )
 
-    statistics_announcement.destroy
-    assert_requested gone_request
+      statistics_announcement.destroy
+      assert_requested gone_request
+    end
   end
 
   test "it publishes when updated" do
-    statistics_announcement = create(:statistics_announcement)
-    statistics_announcement.attributes = { title: "New Title" }
-    statistics_announcement.save!
+    Sidekiq::Testing.inline! do
+      statistics_announcement = create(:statistics_announcement)
+      statistics_announcement.attributes = { title: "New Title" }
+      statistics_announcement.save!
 
-    presenter = PublishingApiPresenters.presenter_for(statistics_announcement)
-    expected = presenter.content.merge(
-      public_updated_at: Time.zone.now.as_json
-    )
+      presenter = PublishingApiPresenters.presenter_for(statistics_announcement)
+      expected = presenter.content.merge(
+        public_updated_at: Time.zone.now.as_json
+      )
 
-    expected_intent = PublishingApi::PublishIntentPresenter.new(
-      statistics_announcement.base_path,
-      statistics_announcement.statistics_announcement_dates.last.release_date
-    )
+      expected_intent = PublishingApi::PublishIntentPresenter.new(
+        statistics_announcement.base_path,
+        statistics_announcement.statistics_announcement_dates.last.release_date
+      )
 
-    assert_publishing_api_put_content(statistics_announcement.content_id,
-                                      expected)
-    assert_publishing_api_publish(statistics_announcement.content_id,
-                                  { update_type: "minor", locale: "en" }, 2)
-    assert_publishing_api_put_intent(
-      statistics_announcement.base_path,
-      expected_intent.as_json,
-      2
-    )
+      assert_publishing_api_put_content(statistics_announcement.content_id,
+                                        expected)
+      assert_publishing_api_publish(statistics_announcement.content_id,
+                                    { update_type: "minor", locale: "en" }, 2)
+      assert_publishing_api_put_intent(
+        statistics_announcement.base_path,
+        expected_intent.as_json,
+        2
+      )
+    end
   end
 
   test "it deletes the publish intent when unpublished" do
-    statistics_announcement = create(:statistics_announcement)
-    statistics_announcement.update_attributes!(publishing_state: "unpublished",
-                                               redirect_url: "https://www.test.gov.uk/example")
+    Sidekiq::Testing.inline! do
+      statistics_announcement = create(:statistics_announcement)
+      statistics_announcement.update_attributes!(publishing_state: "unpublished",
+                                                 redirect_url: "https://www.test.gov.uk/example")
 
-    assert_publishing_api_delete_intent(statistics_announcement.base_path)
+      assert_publishing_api_delete_intent(statistics_announcement.base_path)
+    end
   end
 
   test "it deletes the publish intent when cancelled" do
-    statistics_announcement = create(:statistics_announcement)
-    statistics_announcement.cancel!("testing", User.new(id: 1))
+    Sidekiq::Testing.inline! do
+      statistics_announcement = create(:statistics_announcement)
+      statistics_announcement.cancel!("testing", User.new(id: 1))
 
-    assert_publishing_api_delete_intent(statistics_announcement.base_path)
+      assert_publishing_api_delete_intent(statistics_announcement.base_path)
+    end
   end
 
   test "it is added to the search index when created" do
@@ -137,35 +147,37 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   end
 
   test "it is republished when the date is changed" do
-    Timecop.return
-    statistics_announcement = create(:statistics_announcement)
+    Sidekiq::Testing.inline! do
+      Timecop.return
+      statistics_announcement = create(:statistics_announcement)
 
-    date_change_attrs = attributes_for(:statistics_announcement_date_change)
-    date_change = statistics_announcement.build_statistics_announcement_date_change(date_change_attrs)
-    date_change.save!
+      date_change_attrs = attributes_for(:statistics_announcement_date_change)
+      date_change = statistics_announcement.build_statistics_announcement_date_change(date_change_attrs)
+      date_change.save!
 
-    expected = {
-      details: {
-        display_date: date_change.display_date,
-        state: "confirmed",
-        format_sub_type: "official"
+      expected = {
+        details: {
+          display_date: date_change.display_date,
+          state: "confirmed",
+          format_sub_type: "official"
+        }
       }
-    }
 
-    expected_intent = PublishingApi::PublishIntentPresenter.new(
-      statistics_announcement.base_path,
-      statistics_announcement.statistics_announcement_dates.last.release_date
-    )
+      expected_intent = PublishingApi::PublishIntentPresenter.new(
+        statistics_announcement.base_path,
+        statistics_announcement.statistics_announcement_dates.last.release_date
+      )
 
-    assert_publishing_api_put_content(statistics_announcement.content_id,
-                                      request_json_includes(expected))
-    assert_publishing_api_publish(statistics_announcement.content_id,
-                                  { update_type: "minor", locale: "en" }, 2)
-    assert_publishing_api_put_intent(
-      statistics_announcement.base_path,
-      expected_intent.as_json,
-      2
-    )
+      assert_publishing_api_put_content(statistics_announcement.content_id,
+                                        request_json_includes(expected))
+      assert_publishing_api_publish(statistics_announcement.content_id,
+                                    { update_type: "minor", locale: "en" }, 2)
+      assert_publishing_api_put_intent(
+        statistics_announcement.base_path,
+        expected_intent.as_json,
+        2
+      )
+    end
   end
 
   test "it is redirected to its associated publication when the publication is published" do

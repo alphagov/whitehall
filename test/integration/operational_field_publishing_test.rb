@@ -11,18 +11,20 @@ class OperationalFieldPublishingTest < ActiveSupport::TestCase
   end
 
   test "OperationalField is published to the Publishing API on save" do
-    operational_field = build(:operational_field)
-    operational_field.save!
+    Sidekiq::Testing.inline! do
+      operational_field = build(:operational_field)
+      operational_field.save!
 
-    assert_publishing_api_put_content(
-      operational_field.content_id,
-      PublishingApiPresenters.presenter_for(operational_field).content
-    )
+      assert_publishing_api_put_content(
+        operational_field.content_id,
+        PublishingApiPresenters.presenter_for(operational_field).content
+      )
 
-    assert_publishing_api_publish(
-      operational_field.content_id,
-      { update_type: 'major', locale: 'en' },
-      1
-    )
+      assert_publishing_api_publish(
+        operational_field.content_id,
+        { update_type: 'major', locale: 'en' },
+        1
+      )
+    end
   end
 end
