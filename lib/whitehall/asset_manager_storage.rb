@@ -44,5 +44,17 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
     def content_type
       MIME::Types.type_for(filename).first.to_s
     end
+
+    def size
+      response = Services.asset_manager.whitehall_asset(path)
+      if response.has_key?('size') && !response['size'].nil?
+        Integer(response['size'])
+      else
+        false
+      end
+    rescue StandardError => e
+      GovukError.notify(e)
+      false
+    end
   end
 end

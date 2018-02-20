@@ -121,4 +121,37 @@ class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
 
     assert_equal 'http://assets-host/government/uploads/path/to/%C3%A4sset.png', file.url
   end
+
+  test '#file_size fetches the size from Asset Manager' do
+    Services.asset_manager.stubs(:whitehall_asset).with(@asset_url_path).returns('size' => 100)
+
+    assert_equal 100, @file.size
+  end
+
+  test '#file_size returns false if response lacks size key' do
+    Services.asset_manager.stubs(:whitehall_asset).with(@asset_url_path).returns({})
+
+    assert_equal false, @file.size
+  end
+
+  test '#file_size returns false if response has a nil size key' do
+    Services.asset_manager.stubs(:whitehall_asset).with(@asset_url_path).returns('size' => nil)
+
+    assert_equal false, @file.size
+  end
+
+  test '#file_size returns false if API request throws exception' do
+    Services.asset_manager.stubs(:whitehall_asset).with(@asset_url_path).raises('Error!')
+
+    assert_equal false, @file.size
+  end
+
+  test '#file_size reports if API request throws exception' do
+    Services.asset_manager.stubs(:whitehall_asset).with(@asset_url_path).raises('Error!')
+    GovukError.expects(:notify).with do |exception|
+      assert_equal 'Error!', exception.message
+    end
+
+    @file.size
+  end
 end
