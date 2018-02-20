@@ -12,7 +12,9 @@ class WorkerBaseTest < ActiveSupport::TestCase
 
   test ".perform_async runs the job" do
     self.class.expects(:worker_has_run!)
-    MyWorker.perform_async
+    Sidekiq::Testing.inline! do
+      MyWorker.perform_async
+    end
   end
 
   test ".perform_async_in_queue runs the job in the specified queue" do

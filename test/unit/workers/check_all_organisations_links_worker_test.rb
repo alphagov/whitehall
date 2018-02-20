@@ -25,7 +25,9 @@ class CheckAllOrganisationsLinksWorkerTest < ActiveSupport::TestCase
     stub_published_publication
     stub_news_article
 
-    CheckAllOrganisationsLinksWorker.new.perform
+    Sidekiq::Testing.inline! do
+      CheckAllOrganisationsLinksWorker.new.perform
+    end
 
     assert_equal 2, LinkCheckerApiReport.count
   end

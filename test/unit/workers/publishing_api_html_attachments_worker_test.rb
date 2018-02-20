@@ -187,7 +187,9 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
         "en"
       )
 
-      call(publication)
+      Sidekiq::Testing.inline! do
+        call(publication)
+      end
     end
   end
 
@@ -326,7 +328,9 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
         attachment.content_id,
         "en"
       )
-      call(publication)
+      Sidekiq::Testing.inline! do
+        call(publication)
+      end
     end
 
     test "for a withdrawn publicaton with an attachment withdraws the attachment" do

@@ -28,7 +28,9 @@ module ServiceListeners
       Whitehall::PublishingApi.expects(:save_draft_async).with(edition)
       stub_html_attachment_pusher(edition, "update_draft")
       stub_publications_pusher(edition, "update_draft")
-      PublishingApiPusher.new(edition).push(event: "update_draft")
+      Sidekiq::Testing.inline! do
+        PublishingApiPusher.new(edition).push(event: "update_draft")
+      end
     end
 
     test "saves attachments draft" do
@@ -40,7 +42,9 @@ module ServiceListeners
       Whitehall::PublishingApi.expects(:save_draft_async).with(edition)
       stub_html_attachment_pusher(edition, "update_draft")
       stub_publications_pusher(edition, "update_draft")
-      PublishingApiPusher.new(edition).push(event: "update_draft")
+      Sidekiq::Testing.inline! do
+        PublishingApiPusher.new(edition).push(event: "update_draft")
+      end
     end
 
     test "publish publishes" do
@@ -48,7 +52,9 @@ module ServiceListeners
       Whitehall::PublishingApi.expects(:publish_async).with(edition)
       stub_html_attachment_pusher(edition, "publish")
       stub_publications_pusher(edition, "publish")
-      PublishingApiPusher.new(edition).push(event: "publish")
+      Sidekiq::Testing.inline! do
+        PublishingApiPusher.new(edition).push(event: "publish")
+      end
     end
 
     test "force_publish publishes" do
@@ -56,7 +62,9 @@ module ServiceListeners
       Whitehall::PublishingApi.expects(:publish_async).with(edition)
       stub_html_attachment_pusher(edition, "force_publish")
       stub_publications_pusher(edition, "force_publish")
-      PublishingApiPusher.new(edition).push(event: "force_publish")
+      Sidekiq::Testing.inline! do
+        PublishingApiPusher.new(edition).push(event: "force_publish")
+      end
     end
 
     test "update_draft_translation saves draft translation" do
@@ -64,7 +72,9 @@ module ServiceListeners
       Whitehall::PublishingApi.expects(:save_draft_translation_async).with(edition, 'en')
       stub_html_attachment_pusher(edition, "update_draft_translation")
       stub_publications_pusher(edition, "update_draft_translation")
-      PublishingApiPusher.new(edition).push(event: "update_draft_translation", options: { locale: "en" })
+      Sidekiq::Testing.inline! do
+        PublishingApiPusher.new(edition).push(event: "update_draft_translation", options: { locale: "en" })
+      end
     end
 
     test "withdraw republishes" do
@@ -78,7 +88,9 @@ module ServiceListeners
       stub_html_attachment_pusher(edition, "withdraw")
       stub_publications_pusher(edition, "withdraw")
 
-      PublishingApiPusher.new(edition).push(event: "withdraw")
+      Sidekiq::Testing.inline! do
+        PublishingApiPusher.new(edition).push(event: "withdraw")
+      end
     end
 
     test "unpublish publishes the unpublishing" do
@@ -86,7 +98,9 @@ module ServiceListeners
       Whitehall::PublishingApi.expects(:unpublish_async).with(edition.unpublishing)
       stub_html_attachment_pusher(edition, "unpublish")
       stub_publications_pusher(edition, "unpublish")
-      PublishingApiPusher.new(edition).push(event: "unpublish")
+      Sidekiq::Testing.inline! do
+        PublishingApiPusher.new(edition).push(event: "unpublish")
+      end
     end
 
     test "force_schedule schedules the edition" do
@@ -94,7 +108,9 @@ module ServiceListeners
       Whitehall::PublishingApi.expects(:schedule_async).with(edition)
       stub_html_attachment_pusher(edition, "force_schedule")
       stub_publications_pusher(edition, "force_schedule")
-      PublishingApiPusher.new(edition).push(event: "force_schedule")
+      Sidekiq::Testing.inline! do
+        PublishingApiPusher.new(edition).push(event: "force_schedule")
+      end
     end
 
     test "schedule schedules the edition" do
@@ -102,7 +118,9 @@ module ServiceListeners
       Whitehall::PublishingApi.expects(:schedule_async).with(edition)
       stub_html_attachment_pusher(edition, "schedule")
       stub_publications_pusher(edition, "schedule")
-      PublishingApiPusher.new(edition).push(event: "schedule")
+      Sidekiq::Testing.inline! do
+        PublishingApiPusher.new(edition).push(event: "schedule")
+      end
     end
 
     test "unschedule unschedules the edition" do
@@ -110,7 +128,9 @@ module ServiceListeners
       Whitehall::PublishingApi.expects(:unschedule_async).with(edition)
       stub_html_attachment_pusher(edition, "unschedule")
       stub_publications_pusher(edition, "unschedule")
-      PublishingApiPusher.new(edition).push(event: "unschedule")
+      Sidekiq::Testing.inline! do
+        PublishingApiPusher.new(edition).push(event: "unschedule")
+      end
     end
 
     test "delete discards draft" do
@@ -118,7 +138,9 @@ module ServiceListeners
       Whitehall::PublishingApi.expects(:discard_draft_async).with(edition)
       stub_html_attachment_pusher(edition, "delete")
       stub_publications_pusher(edition, "delete")
-      PublishingApiPusher.new(edition).push(event: "delete")
+      Sidekiq::Testing.inline! do
+        PublishingApiPusher.new(edition).push(event: "delete")
+      end
     end
 
     def draft_edition_with_deleted_translation(type)
@@ -162,7 +184,9 @@ module ServiceListeners
         fr.locale
       )
 
-      PublishingApiPusher.new(new_edition).push(event: "publish")
+      Sidekiq::Testing.inline! do
+        PublishingApiPusher.new(new_edition).push(event: "publish")
+      end
     end
 
     test 'handles corporate information pages' do
@@ -171,7 +195,9 @@ module ServiceListeners
       stub_corporate_information_pages_pusher(edition, 'update_draft')
       stub_html_attachment_pusher(edition, 'update_draft')
 
-      PublishingApiPusher.new(edition).push(event: 'update_draft')
+      Sidekiq::Testing.inline! do
+        PublishingApiPusher.new(edition).push(event: 'update_draft')
+      end
     end
 
     test 'handles publications' do
@@ -180,7 +206,9 @@ module ServiceListeners
       stub_publications_pusher(edition, 'update_draft')
       stub_html_attachment_pusher(edition, 'update_draft')
 
-      PublishingApiPusher.new(edition).push(event: 'update_draft')
+      Sidekiq::Testing.inline! do
+        PublishingApiPusher.new(edition).push(event: 'update_draft')
+      end
     end
   end
 end

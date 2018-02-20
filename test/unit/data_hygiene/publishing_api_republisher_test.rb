@@ -16,7 +16,9 @@ class DataHygiene::PublishingApiRepublisherTest < ActiveSupport::TestCase
       stub_publishing_api_publish(presenter.content_id, locale: 'en', update_type: 'republish')
     ]
 
-    DataHygiene::PublishingApiRepublisher.new(@scope, NullLogger.instance).perform
+    Sidekiq::Testing.inline! do
+      DataHygiene::PublishingApiRepublisher.new(@scope, NullLogger.instance).perform
+    end
 
     assert_all_requested(expected_requests)
   end
