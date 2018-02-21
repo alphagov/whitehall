@@ -12,52 +12,58 @@ class TakePartPageTest < ActiveSupport::TestCase
   end
 
   test "TakePartPage is published to the Publishing API on save" do
-    presenter = PublishingApiPresenters.presenter_for(@take_part_page)
-    @take_part_page.save!
+    Sidekiq::Testing.inline! do
+      presenter = PublishingApiPresenters.presenter_for(@take_part_page)
+      @take_part_page.save!
 
-    expected_json = presenter.content.merge(
-      # This is to simulate what the time public timestamp will be after the
-      # page has been published
-      public_updated_at: Time.zone.now.as_json
-    )
+      expected_json = presenter.content.merge(
+        # This is to simulate what the time public timestamp will be after the
+        # page has been published
+        public_updated_at: Time.zone.now.as_json
+      )
 
-    assert_publishing_api_put_content(@take_part_page.content_id, expected_json)
-    assert_publishing_api_publish(@take_part_page.content_id, { update_type: 'major',
-                                                               locale: 'en' }, 1)
+      assert_publishing_api_put_content(@take_part_page.content_id, expected_json)
+      assert_publishing_api_publish(@take_part_page.content_id, { update_type: 'major',
+                                                                  locale: 'en' }, 1)
+    end
   end
 
   test "TakePartPage publishes gone route to the Publishing API on destroy" do
-    Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
-    @take_part_page.save!
+    Sidekiq::Testing.inline! do
+      Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
+      @take_part_page.save!
 
-    gone_request = stub_publishing_api_unpublish(
-      @take_part_page.content_id,
-      body: {
-        type: "gone",
-        locale: "en",
-        discard_drafts: true,
-      }
-    )
+      gone_request = stub_publishing_api_unpublish(
+        @take_part_page.content_id,
+        body: {
+          type: "gone",
+          locale: "en",
+          discard_drafts: true,
+        }
+      )
 
-    @take_part_page.destroy
+      @take_part_page.destroy
 
-    assert_requested gone_request
+      assert_requested gone_request
+    end
   end
 
   test "TakePartPage is published to the Publishing API when updated" do
-    @take_part_page.save!
-    @take_part_page.attributes = { title: "New Title" }
-    @take_part_page.save!
-    presenter = PublishingApiPresenters.presenter_for(@take_part_page)
+    Sidekiq::Testing.inline! do
+      @take_part_page.save!
+      @take_part_page.attributes = { title: "New Title" }
+      @take_part_page.save!
+      presenter = PublishingApiPresenters.presenter_for(@take_part_page)
 
-    expected_json = presenter.content.merge(
-      # This is to simulate what the time public timestamp will be after the
-      # page has been published
-      public_updated_at: Time.zone.now.as_json
-    )
+      expected_json = presenter.content.merge(
+        # This is to simulate what the time public timestamp will be after the
+        # page has been published
+        public_updated_at: Time.zone.now.as_json
+      )
 
-    assert_publishing_api_put_content(@take_part_page.content_id, expected_json)
-    assert_publishing_api_publish(@take_part_page.content_id, { update_type: 'major',
-                                                               locale: 'en' }, 2)
+      assert_publishing_api_put_content(@take_part_page.content_id, expected_json)
+      assert_publishing_api_publish(@take_part_page.content_id, { update_type: 'major',
+                                                                 locale: 'en' }, 2)
+    end
   end
 end

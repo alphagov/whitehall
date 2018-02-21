@@ -22,7 +22,9 @@ class UnpublishingTest < ActiveSupport::TestCase
   end
 
   test "When an edition is unpublished, it is unpublished to the Publishing API" do
-    unpublish(@published_edition, unpublishing_params)
+    Sidekiq::Testing.inline! do
+      unpublish(@published_edition, unpublishing_params)
+    end
 
     assert_publishing_api_unpublish(
       @published_edition.document.content_id,
@@ -33,7 +35,9 @@ class UnpublishingTest < ActiveSupport::TestCase
   test "When an edition is unpublished, a job is queued to republish the draft to the draft stack" do
     Whitehall::PublishingApi.expects(:save_draft_async).once
 
-    unpublish(@published_edition, unpublishing_params)
+    Sidekiq::Testing.inline! do
+      unpublish(@published_edition, unpublishing_params)
+    end
   end
 
   test "when a translated edition is unpublished, an request is made for each locale" do
@@ -43,7 +47,9 @@ class UnpublishingTest < ActiveSupport::TestCase
       @published_edition.save!(validate: false)
     end
 
-    unpublish(@published_edition, unpublishing_params)
+    Sidekiq::Testing.inline! do
+      unpublish(@published_edition, unpublishing_params)
+    end
 
     %w(en fr).each do |locale|
       assert_publishing_api_unpublish(
@@ -74,7 +80,9 @@ class UnpublishingTest < ActiveSupport::TestCase
                                        alternative_url: alternative_url
                                      )
 
-    unpublish(@published_edition, unpublishing_redirect_params)
+    Sidekiq::Testing.inline! do
+      unpublish(@published_edition, unpublishing_redirect_params)
+    end
 
     %w(en fr).each do |locale|
       assert_publishing_api_unpublish(

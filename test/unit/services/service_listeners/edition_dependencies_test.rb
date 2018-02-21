@@ -20,29 +20,33 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
     end
 
     test "#{transition}ing a depended-upon edition republishes the dependent edition" do
-      dependable_speech, dependent_article = create_article_dependent_on_speech
+      Sidekiq::Testing.inline! do
+        dependable_speech, dependent_article = create_article_dependent_on_speech
 
-      expect_publishing(dependable_speech)
-      expect_republishing(dependent_article)
+        expect_publishing(dependable_speech)
+        expect_republishing(dependent_article)
 
-      dependable_speech.major_change_published_at = Time.zone.now
-      assert Whitehall.edition_services.send(service_name, dependable_speech).perform!
+        dependable_speech.major_change_published_at = Time.zone.now
+        assert Whitehall.edition_services.send(service_name, dependable_speech).perform!
+      end
     end
 
     test "#{transition}ing a depended-upon edition's subsequent edition doesn't republish the dependent edition" do
-      dependable_speech, dependent_article = create_article_dependent_on_speech
+      Sidekiq::Testing.inline! do
+        dependable_speech, dependent_article = create_article_dependent_on_speech
 
-      dependable_speech.major_change_published_at = Time.zone.now
-      assert Whitehall.edition_services.send(service_name, dependable_speech).perform!
+        dependable_speech.major_change_published_at = Time.zone.now
+        assert Whitehall.edition_services.send(service_name, dependable_speech).perform!
 
-      subsequent_edition_of_dependable_speech = dependable_speech.create_draft(create(:departmental_editor))
-      subsequent_edition_of_dependable_speech.change_note = "change-note"
-      subsequent_edition_of_dependable_speech.submit!
+        subsequent_edition_of_dependable_speech = dependable_speech.create_draft(create(:departmental_editor))
+        subsequent_edition_of_dependable_speech.change_note = "change-note"
+        subsequent_edition_of_dependable_speech.submit!
 
-      expect_publishing(subsequent_edition_of_dependable_speech)
-      expect_no_republishing(dependent_article)
+        expect_publishing(subsequent_edition_of_dependable_speech)
+        expect_no_republishing(dependent_article)
 
-      assert Whitehall.edition_services.send(service_name, subsequent_edition_of_dependable_speech).perform!
+        assert Whitehall.edition_services.send(service_name, subsequent_edition_of_dependable_speech).perform!
+      end
     end
 
     # given a depended-upon edition is published, then unpublished.
@@ -51,25 +55,27 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
     # NOTE: this doesn't cover the case where a subsequent edition of the depended-upon
     # edition changes the title/slug, leaving an outdated slug in the dependent edition.
     test "unpublishing a depended-upon edition and #{transition}ing it again should cause dependent editions to be republished" do
-      disable_publishes_to_publishing_api do
-        dependable_speech, dependent_article = create_article_dependent_on_speech
+      Sidekiq::Testing.inline! do
+        disable_publishes_to_publishing_api do
+          dependable_speech, dependent_article = create_article_dependent_on_speech
 
-        expect_publishing(dependable_speech)
-        expect_republishing(dependent_article)
-        assert Whitehall.edition_services.send(service_name, dependable_speech).perform!
+          expect_publishing(dependable_speech)
+          expect_republishing(dependent_article)
+          assert Whitehall.edition_services.send(service_name, dependable_speech).perform!
 
-        dependable_speech.unpublishing = create(:unpublishing)
+          dependable_speech.unpublishing = create(:unpublishing)
 
-        #stub unpublishing worker to avoid the extra save draft calls
-        PublishingApiUnpublishingWorker.stubs(:perform_async)
-        assert Whitehall.edition_services.unpublisher(dependable_speech).perform!
+          #stub unpublishing worker to avoid the extra save draft calls
+          PublishingApiUnpublishingWorker.stubs(:perform_async)
+          assert Whitehall.edition_services.unpublisher(dependable_speech).perform!
 
-        dependable_speech.title = "New speech title"
-        dependable_speech.submit!
+          dependable_speech.title = "New speech title"
+          dependable_speech.submit!
 
-        expect_publishing(dependable_speech)
-        expect_republishing(dependent_article)
-        assert Whitehall.edition_services.send(service_name, dependable_speech).perform!
+          expect_publishing(dependable_speech)
+          expect_republishing(dependent_article)
+          assert Whitehall.edition_services.send(service_name, dependable_speech).perform!
+        end
       end
     end
   end

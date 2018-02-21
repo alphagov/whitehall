@@ -311,27 +311,31 @@ module DocumentControllerTestHelpers
       options.reverse_merge!(timestamp_key: :first_published_at)
 
       test "index should only fetch a certain number of #{edition_type.to_s.pluralize} by default" do
-        documents = (1..6).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}-index-default", options[:timestamp_key] => i.days.ago) }
-        documents.sort_by!(&options[:sort_by]) if options[:sort_by]
+        Sidekiq::Testing.inline! do
+          documents = (1..6).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}-index-default", options[:timestamp_key] => i.days.ago) }
+          documents.sort_by!(&options[:sort_by]) if options[:sort_by]
 
-        with_number_of_documents_per_page(3) do
-          get :index
+          with_number_of_documents_per_page(3) do
+            get :index
+          end
+
+          (0..2).to_a.each { |i| assert_filtered_documents_include documents[i] }
+          (3..5).to_a.each { |i| refute_filtered_documents_include documents[i] }
         end
-
-        (0..2).to_a.each { |i| assert_filtered_documents_include documents[i] }
-        (3..5).to_a.each { |i| refute_filtered_documents_include documents[i] }
       end
 
       test "index should fetch the correct page for #{edition_type}" do
-        documents = (1..6).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}-window-pagination", options[:timestamp_key] => i.days.ago) }
-        documents.sort_by!(&options[:sort_by]) if options[:sort_by]
+        Sidekiq::Testing.inline! do
+          documents = (1..6).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}-window-pagination", options[:timestamp_key] => i.days.ago) }
+          documents.sort_by!(&options[:sort_by]) if options[:sort_by]
 
-        with_number_of_documents_per_page(3) do
-          get :index, params: { page: 2 }
+          with_number_of_documents_per_page(3) do
+            get :index, params: { page: 2 }
+          end
+
+          (0..2).to_a.each { |i| refute_filtered_documents_include documents[i] }
+          (3..5).to_a.each { |i| assert_filtered_documents_include documents[i] }
         end
-
-        (0..2).to_a.each { |i| refute_filtered_documents_include documents[i] }
-        (3..5).to_a.each { |i| assert_filtered_documents_include documents[i] }
       end
 
       view_test "show more button should not appear by default for #{edition_type}" do
@@ -345,7 +349,9 @@ module DocumentControllerTestHelpers
       end
 
       view_test "show more button should appear when there are more records for #{edition_type}" do
-        (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
+        Sidekiq::Testing.inline! do
+          (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
+        end
 
         with_number_of_documents_per_page(3) do
           get :index
@@ -355,7 +361,9 @@ module DocumentControllerTestHelpers
       end
 
       view_test "should show previous page link when not on the first page for #{edition_type}" do
-        (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
+        Sidekiq::Testing.inline! do
+          (1..4).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
+        end
 
         with_number_of_documents_per_page(3) do
           get :index, params: { page: 2 }
@@ -368,7 +376,9 @@ module DocumentControllerTestHelpers
       end
 
       view_test "should show progress helpers in pagination links for #{edition_type}" do
-        (1..7).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
+        Sidekiq::Testing.inline! do
+          (1..7).to_a.map { |i| create("published_#{edition_type}", title: "keyword-#{i}") }
+        end
 
         with_number_of_documents_per_page(3) do
           get :index, params: { page: 2 }
@@ -385,14 +395,19 @@ module DocumentControllerTestHelpers
       include DocumentFilterHelpers
 
       view_test "index requested as JSON includes a count of #{document_type}" do
-        create(:"published_#{document_type}")
+        Sidekiq::Testing.inline! do
+          create(:"published_#{document_type}")
+        end
+
         get :index, format: :json
 
         assert_equal 1, ActiveSupport::JSON.decode(response.body)["count"]
       end
 
       view_test "index requested as JSON includes the total pages of #{document_type}" do
-        4.times { create(:"published_#{document_type}") }
+        Sidekiq::Testing.inline! do
+          4.times { create(:"published_#{document_type}") }
+        end
 
         with_number_of_documents_per_page(3) do
           get :index, format: :json

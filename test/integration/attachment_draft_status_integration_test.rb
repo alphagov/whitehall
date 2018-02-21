@@ -29,7 +29,10 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
 
       Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => false)
 
-      click_button 'Force publish'
+      Sidekiq::Testing.inline! do
+        click_button 'Force publish'
+      end
+
       assert_text "The document #{edition.title} has been published"
     end
   end
@@ -52,9 +55,12 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
 
       Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => true).never
 
-      within '#js-published-in-error-form' do
-        click_button 'Unpublish'
+      Sidekiq::Testing.inline! do
+        within '#js-published-in-error-form' do
+          click_button 'Unpublish'
+        end
       end
+
       assert_text 'This document has been unpublished'
     end
   end
@@ -80,7 +86,10 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
 
       Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => false)
 
-      click_button 'Force publish'
+      Sidekiq::Testing.inline! do
+        click_button 'Force publish'
+      end
+
       assert_text "The document #{edition.title} has been published"
     end
   end
@@ -106,7 +115,10 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
 
       Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => false)
 
-      click_button 'Force publish'
+      Sidekiq::Testing.inline! do
+        click_button 'Force publish'
+      end
+
       assert_text "The document #{edition.title} has been published"
     end
   end
@@ -123,7 +135,10 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
 
       Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => false)
 
-      click_button 'Save'
+      Sidekiq::Testing.inline! do
+        click_button 'Save'
+      end
+
       assert_text "Attachment 'Attachment Title' uploaded"
     end
   end

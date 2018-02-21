@@ -26,7 +26,9 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: presenter.update_type)
     ]
 
-    Whitehall::PublishingApi.publish_async(edition)
+    Sidekiq::Testing.inline! do
+      Whitehall::PublishingApi.publish_async(edition)
+    end
 
     assert_all_requested(requests)
   end
@@ -41,7 +43,9 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: presenter.update_type)
     ]
 
-    Whitehall::PublishingApi.publish_async(organisation)
+    Sidekiq::Testing.inline! do
+      Whitehall::PublishingApi.publish_async(organisation)
+    end
 
     assert_all_requested(requests)
   end
@@ -56,7 +60,9 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: presenter.update_type)
     ]
 
-    Whitehall::PublishingApi.publish_async(edition)
+    Sidekiq::Testing.inline! do
+      Whitehall::PublishingApi.publish_async(edition)
+    end
 
     assert_all_requested(requests)
   end
@@ -83,7 +89,9 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
     links_request = stub_publishing_api_patch_links(presenter.content_id, links: presenter.links)
 
-    Whitehall::PublishingApi.publish_async(organisation)
+    Sidekiq::Testing.inline! do
+      Whitehall::PublishingApi.publish_async(organisation)
+    end
 
     assert_all_requested(french_requests)
     assert_all_requested(english_requests)
@@ -114,7 +122,9 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: 'republish')
     ]
 
-    Whitehall::PublishingApi.republish_async(take_part_page)
+    Sidekiq::Testing.inline! do
+      Whitehall::PublishingApi.republish_async(take_part_page)
+    end
 
     assert_all_requested(requests)
   end
@@ -141,7 +151,9 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
     links_request = stub_publishing_api_patch_links(presenter.content_id, links: presenter.links)
 
-    Whitehall::PublishingApi.republish_async(organisation)
+    Sidekiq::Testing.inline! do
+      Whitehall::PublishingApi.republish_async(organisation)
+    end
 
     assert_all_requested(french_requests)
     assert_all_requested(english_requests)
@@ -166,7 +178,9 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: 'republish')
     ]
 
-    Whitehall::PublishingApi.bulk_republish_async(take_part_page)
+    Sidekiq::Testing.inline! do
+      Whitehall::PublishingApi.bulk_republish_async(take_part_page)
+    end
 
     assert_all_requested(requests)
   end
@@ -196,7 +210,9 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       stub_publishing_api_publish(html_attachment_content_id, locale: presenter.content[:locale], update_type: 'republish')
     ]
 
-    Whitehall::PublishingApi.republish_document_async(edition.document)
+    Sidekiq::Testing.inline! do
+      Whitehall::PublishingApi.republish_document_async(edition.document)
+    end
 
     assert_all_requested(requests)
   end
@@ -314,7 +330,9 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     payload = PublishingApiPresenters.presenter_for(draft_edition)
     request = stub_publishing_api_put_content(payload.content_id, payload.content)
 
-    Whitehall::PublishingApi.save_draft_async(draft_edition)
+    Sidekiq::Testing.inline! do
+      Whitehall::PublishingApi.save_draft_async(draft_edition)
+    end
 
     assert_requested request
   end
@@ -345,7 +363,9 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       }
     )
 
-    Whitehall::PublishingApi.publish_redirect_async(redirect_uuid, destination)
+    Sidekiq::Testing.inline! do
+      Whitehall::PublishingApi.publish_redirect_async(redirect_uuid, destination)
+    end
 
     assert_requested redirect_request
   end
@@ -362,7 +382,9 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       }
     )
 
-    Whitehall::PublishingApi.publish_gone_async(gone_uuid, nil, nil)
+    Sidekiq::Testing.inline! do
+      Whitehall::PublishingApi.publish_gone_async(gone_uuid, nil, nil)
+    end
 
     assert_requested gone_request
   end

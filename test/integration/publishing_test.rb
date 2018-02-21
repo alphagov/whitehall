@@ -16,7 +16,9 @@ class PublishingTest < ActiveSupport::TestCase
       stub_publishing_api_publish(@presenter.content_id, locale: 'en', update_type: 'major')
     ]
 
-    perform_force_publishing_for(@draft_edition)
+    Sidekiq::Testing.inline! do
+      perform_force_publishing_for(@draft_edition)
+    end
 
     assert_all_requested(requests)
   end
@@ -39,7 +41,9 @@ class PublishingTest < ActiveSupport::TestCase
 
     links_request = stub_publishing_api_patch_links(@presenter.content_id, links: @presenter.links)
 
-    perform_force_publishing_for(@draft_edition)
+    Sidekiq::Testing.inline! do
+      perform_force_publishing_for(@draft_edition)
+    end
 
     assert_all_requested(english_requests)
     assert_all_requested(french_requests)

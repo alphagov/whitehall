@@ -24,25 +24,29 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "#index only displays *published* publications" do
-    superseded_publication = create(:superseded_publication)
-    published_publication = create(:published_publication)
-    draft_publication = create(:draft_publication)
-    get :index
+    Sidekiq::Testing.inline! do
+      superseded_publication = create(:superseded_publication)
+      published_publication = create(:published_publication)
+      draft_publication = create(:draft_publication)
+      get :index
 
-    assert_select_object(published_publication)
-    refute_select_object(superseded_publication)
-    refute_select_object(draft_publication)
+      assert_select_object(published_publication)
+      refute_select_object(superseded_publication)
+      refute_select_object(draft_publication)
+    end
   end
 
   view_test "#index only displays *published* consultations" do
-    superseded_consultation = create(:superseded_consultation)
-    published_consultation = create(:published_consultation)
-    draft_consultation = create(:draft_consultation)
-    get :index
+    Sidekiq::Testing.inline! do
+      superseded_consultation = create(:superseded_consultation)
+      published_consultation = create(:published_consultation)
+      draft_consultation = create(:draft_consultation)
+      get :index
 
-    assert_select_object(published_consultation)
-    refute_select_object(superseded_consultation)
-    refute_select_object(draft_consultation)
+      assert_select_object(published_consultation)
+      refute_select_object(superseded_consultation)
+      refute_select_object(draft_consultation)
+    end
   end
 
   test "#index sets Cache-Control: max-age to the time of the next scheduled publication" do
@@ -125,31 +129,37 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "#index orders publications by publication date by default" do
-    publications = 5.times.map { |i| create(:published_publication, first_published_at: (10 - i).days.ago) }
+    Sidekiq::Testing.inline! do
+      publications = 5.times.map { |i| create(:published_publication, first_published_at: (10 - i).days.ago) }
 
-    get :index
+      get :index
 
-    assert_equal "publication_#{publications.last.id}", css_select(".filter-results .document-row").first['id']
-    assert_equal "publication_#{publications.first.id}", css_select(".filter-results .document-row").last['id']
+      assert_equal "publication_#{publications.last.id}", css_select(".filter-results .document-row").first['id']
+      assert_equal "publication_#{publications.first.id}", css_select(".filter-results .document-row").last['id']
+    end
   end
 
   view_test "#index orders consultations by first_published_at date by default" do
-    consultations = 5.times.map { |i| create(:published_consultation, first_published_at: (10 - i).days.ago) }
+    Sidekiq::Testing.inline! do
+      consultations = 5.times.map { |i| create(:published_consultation, first_published_at: (10 - i).days.ago) }
 
-    get :index
+      get :index
 
-    assert_equal "consultation_#{consultations.last.id}", css_select(".filter-results .document-row").first['id']
-    assert_equal "consultation_#{consultations.first.id}", css_select(".filter-results .document-row").last['id']
+      assert_equal "consultation_#{consultations.last.id}", css_select(".filter-results .document-row").first['id']
+      assert_equal "consultation_#{consultations.first.id}", css_select(".filter-results .document-row").last['id']
+    end
   end
 
   view_test "#index orders documents by appropriate timestamp by default" do
-    consultation = create(:published_consultation, first_published_at: 5.days.ago)
-    publication = create(:published_publication, first_published_at: 4.days.ago)
+    Sidekiq::Testing.inline! do
+      consultation = create(:published_consultation, first_published_at: 5.days.ago)
+      publication = create(:published_publication, first_published_at: 4.days.ago)
 
-    get :index
+      get :index
 
-    assert_equal "publication_#{publication.id}", css_select(".filter-results .document-row").first['id']
-    assert_equal "consultation_#{consultation.id}", css_select(".filter-results .document-row").last['id']
+      assert_equal "publication_#{publication.id}", css_select(".filter-results .document-row").first['id']
+      assert_equal "consultation_#{consultation.id}", css_select(".filter-results .document-row").last['id']
+    end
   end
 
   view_test "#index highlights all topics filter option by default" do
@@ -219,58 +229,64 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test '#index for regulation displays only regulation type documents' do
-    regulation = create(:published_publication, publication_type_id: PublicationType::Regulation.id)
-    guidance = create(:published_publication, publication_type_id: PublicationType::Guidance.id)
+    Sidekiq::Testing.inline! do
+      regulation = create(:published_publication, publication_type_id: PublicationType::Regulation.id)
+      guidance = create(:published_publication, publication_type_id: PublicationType::Guidance.id)
 
-    get :index, params: { publication_filter_option: 'regulations' }
+      get :index, params: { publication_filter_option: 'regulations' }
 
-    assert_select_object(regulation)
-    refute_select_object(guidance)
+      assert_select_object(regulation)
+      refute_select_object(guidance)
+    end
   end
 
   view_test "#index requested as JSON includes data for publications" do
-    org_1 = create(:organisation, name: "org-name")
-    org_2 = create(:organisation, name: "other-org")
-    publication = create(:published_publication, title: "publication-title",
-                         organisations: [org_1, org_2],
-                         first_published_at: Date.parse("2012-03-14"),
-                         publication_type: PublicationType::CorporateReport)
+    Sidekiq::Testing.inline! do
+      org_1 = create(:organisation, name: "org-name")
+      org_2 = create(:organisation, name: "other-org")
+      publication = create(:published_publication, title: "publication-title",
+                           organisations: [org_1, org_2],
+                           first_published_at: Date.parse("2012-03-14"),
+                           publication_type: PublicationType::CorporateReport)
 
-    get :index, format: :json
+      get :index, format: :json
 
-    results = ActiveSupport::JSON.decode(response.body)["results"]
-    assert_equal 1, results.length
-    json = results.first['result']
-    assert_equal "publication", json["type"]
-    assert_equal "publication-title", json["title"]
-    assert_equal publication.id, json["id"]
-    assert_equal publication_path(publication.document), json["url"]
-    assert_equal "org-name and other-org", json["organisations"]
-    assert_equal %{<time class="public_timestamp" datetime="2012-03-14T00:00:00+00:00">14 March 2012</time>}, json["display_date_microformat"]
-    assert_equal "Corporate report", json["display_type"]
+      results = ActiveSupport::JSON.decode(response.body)["results"]
+      assert_equal 1, results.length
+      json = results.first['result']
+      assert_equal "publication", json["type"]
+      assert_equal "publication-title", json["title"]
+      assert_equal publication.id, json["id"]
+      assert_equal publication_path(publication.document), json["url"]
+      assert_equal "org-name and other-org", json["organisations"]
+      assert_equal %{<time class="public_timestamp" datetime="2012-03-14T00:00:00+00:00">14 March 2012</time>}, json["display_date_microformat"]
+      assert_equal "Corporate report", json["display_type"]
+    end
   end
 
   view_test "#index requested as JSON includes data for consultations" do
-    organisation_1 = create(:organisation, name: "org-name")
-    organisation_2 = create(:organisation, name: "other-org")
-    consultation = create(:published_consultation, title: "consultation-title",
-                         organisations: [organisation_1, organisation_2],
-                         opening_at: Time.zone.parse("2012-03-14"),
-                         closing_at: Time.zone.parse("2012-03-15"),
-                         first_published_at: Time.zone.parse("2012-03-10"))
+    Sidekiq::Testing.inline! do
+      organisation_1 = create(:organisation, name: "org-name")
+      organisation_2 = create(:organisation, name: "other-org")
+      consultation = create(:published_consultation, title: "consultation-title",
+                           organisations: [organisation_1, organisation_2],
+                           opening_at: Time.zone.parse("2012-03-14"),
+                           closing_at: Time.zone.parse("2012-03-15"),
+                           first_published_at: Time.zone.parse("2012-03-10"))
 
-    get :index, format: :json
+      get :index, format: :json
 
-    results = ActiveSupport::JSON.decode(response.body)["results"]
-    assert_equal 1, results.length
-    json = results.first['result']
-    assert_equal "consultation", json["type"]
-    assert_equal "consultation-title", json["title"]
-    assert_equal consultation.id, json["id"]
-    assert_equal consultation_path(consultation.document), json["url"]
-    assert_equal "org-name and other-org", json["organisations"]
-    assert_equal %{<time class="public_timestamp" datetime="2012-03-10T00:00:00+00:00">10 March 2012</time>}, json["display_date_microformat"]
-    assert_equal "Consultation", json["display_type"]
+      results = ActiveSupport::JSON.decode(response.body)["results"]
+      assert_equal 1, results.length
+      json = results.first['result']
+      assert_equal "consultation", json["type"]
+      assert_equal "consultation-title", json["title"]
+      assert_equal consultation.id, json["id"]
+      assert_equal consultation_path(consultation.document), json["url"]
+      assert_equal "org-name and other-org", json["organisations"]
+      assert_equal %{<time class="public_timestamp" datetime="2012-03-10T00:00:00+00:00">10 March 2012</time>}, json["display_date_microformat"]
+      assert_equal "Consultation", json["display_type"]
+    end
   end
 
   view_test "#index requested as JSON includes URL to the atom feed including any filters" do
@@ -374,60 +390,70 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "#index generates an atom feed entries for publications matching the current filter" do
-    organisation = create(:organisation, name: "org-name")
-    other_organisation = create(:organisation, name: "other-org")
-    publication_1 = create(:published_publication, organisations: [organisation], first_published_at: 2.days.ago.to_date)
-    consultation_1 = create(:published_consultation, organisations: [organisation], opening_at: 1.day.ago)
-    _publication_2 = create(:published_publication, organisations: [other_organisation])
+    Sidekiq::Testing.inline! do
+      organisation = create(:organisation, name: "org-name")
+      other_organisation = create(:organisation, name: "other-org")
+      publication_1 = create(:published_publication, organisations: [organisation], first_published_at: 2.days.ago.to_date)
+      consultation_1 = create(:published_consultation, organisations: [organisation], opening_at: 1.day.ago)
+      _publication_2 = create(:published_publication, organisations: [other_organisation])
 
-    get :index, params: { departments: [organisation.to_param] }, format: :atom
+      get :index, params: { departments: [organisation.to_param] }, format: :atom
 
-    assert_select_atom_feed do
-      assert_select_atom_entries([consultation_1, publication_1])
+      assert_select_atom_feed do
+        assert_select_atom_entries([consultation_1, publication_1])
+      end
     end
   end
 
   view_test "#index generates an atom feed entries for consultations matching the current filter" do
-    organisation = create(:organisation, name: "org-name")
-    other_org = create(:organisation, name: "other-org")
-    document = create(:published_consultation, organisations: [organisation], opening_at: Date.parse('2001-12-12'))
-    create(:published_consultation, organisations: [other_org])
+    Sidekiq::Testing.inline! do
+      organisation = create(:organisation, name: "org-name")
+      other_org = create(:organisation, name: "other-org")
+      document = create(:published_consultation, organisations: [organisation], opening_at: Date.parse('2001-12-12'))
+      create(:published_consultation, organisations: [other_org])
 
-    get :index, params: { departments: [organisation.to_param] }, format: :atom
+      get :index, params: { departments: [organisation.to_param] }, format: :atom
 
-    assert_select_atom_feed do
-      assert_select_atom_entries([document])
+      assert_select_atom_feed do
+        assert_select_atom_entries([document])
+      end
     end
   end
 
   test '#index atom feed orders publications according to first_published_at (newest first)' do
-    oldest = create(:published_publication, first_published_at: 5.days.ago, title: "oldest")
-    newest = create(:published_publication, first_published_at: 1.days.ago, title: "newest")
-    middle = create(:published_publication, first_published_at: 3.days.ago, title: "middle")
+    Sidekiq::Testing.inline! do
+      oldest = create(:published_publication, first_published_at: 5.days.ago, title: "oldest")
+      newest = create(:published_publication, first_published_at: 1.days.ago, title: "newest")
+      middle = create(:published_publication, first_published_at: 3.days.ago, title: "middle")
 
-    get :index, format: :atom
+      get :index, format: :atom
 
-    assert_publication_order [newest, middle, oldest]
+      assert_publication_order [newest, middle, oldest]
+    end
   end
 
   test '#index atom feed orders consultations according to first_published_at (newest first)' do
-    oldest = create(:published_consultation, first_published_at: 5.days.ago, title: "oldest")
-    newest = create(:published_consultation, first_published_at: 1.days.ago, title: "newest")
-    middle = create(:published_consultation, first_published_at: 3.days.ago, title: "middle")
+    Sidekiq::Testing.inline! do
+      oldest = create(:published_consultation, first_published_at: 5.days.ago, title: "oldest")
+      newest = create(:published_consultation, first_published_at: 1.days.ago, title: "newest")
+      middle = create(:published_consultation, first_published_at: 3.days.ago, title: "middle")
 
-    get :index, format: :atom
+      get :index, format: :atom
 
-    assert_publication_order [newest, middle, oldest]
+      assert_publication_order [newest, middle, oldest]
+    end
   end
 
   test '#index atom feed orders mixed publications and consultations according to first_published_at or opening_at (newest first)' do
-    oldest = create(:published_publication,  first_published_at: 5.days.ago, title: "oldest")
-    newest = create(:published_consultation, opening_at: 1.days.ago, title: "newest")
-    middle = create(:published_publication,  first_published_at: 3.days.ago, title: "middle")
+    Sidekiq::Testing.inline! do
+      oldest = create(:published_publication,  first_published_at: 5.days.ago, title: "oldest")
+      newest = create(:published_consultation, opening_at: 1.days.ago, title: "newest")
+      middle = create(:published_publication,  first_published_at: 3.days.ago, title: "middle")
 
-    get :index, format: :atom
+      get :index, format: :atom
 
-    assert_publication_order [newest, middle, oldest]
+      assert_publication_order [newest, middle, oldest]
+    end
   end
 
   view_test '#index atom feed should return a valid feed if there are no matching documents' do
@@ -440,22 +466,26 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test '#index atom feed should include links to download attachments' do
-    publication = create(:published_publication, :with_file_attachment, title: "publication-title",
-                         body: "include the attachment:\n\n!@1")
+    Sidekiq::Testing.inline! do
+      publication = create(:published_publication, :with_file_attachment, title: "publication-title",
+                           body: "include the attachment:\n\n!@1")
 
-    get :index, format: :atom
+      get :index, format: :atom
 
-    assert_select_atom_feed do
-      assert_select 'feed > entry' do
-        assert_select "content" do |content|
-          assert content[0].to_s.include?(publication.attachments.first.url), "escaped publication body should include link to attachment"
+      assert_select_atom_feed do
+        assert_select 'feed > entry' do
+          assert_select "content" do |content|
+            assert content[0].to_s.include?(publication.attachments.first.url), "escaped publication body should include link to attachment"
+          end
         end
       end
     end
   end
 
   view_test '#index atom feed should render fractions' do
-    create(:published_publication, body: "My favourite fraction is [Fraction:1/4].")
+    Sidekiq::Testing.inline! do
+      create(:published_publication, body: "My favourite fraction is [Fraction:1/4].")
+    end
 
     get :index, format: :atom
 
@@ -470,37 +500,41 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test '#index should show relevant document collection information' do
-    create(:departmental_editor)
-    publication = create(:draft_publication)
-    collection = create(:document_collection, :with_group)
-    collection.groups.first.documents = [publication.document]
-    stub_publishing_api_registration_for([collection, publication])
-    Whitehall.edition_services.force_publisher(collection).perform!
-    Whitehall.edition_services.force_publisher(publication).perform!
-    get :index
+    Sidekiq::Testing.inline! do
+      create(:departmental_editor)
+      publication = create(:draft_publication)
+      collection = create(:document_collection, :with_group)
+      collection.groups.first.documents = [publication.document]
+      stub_publishing_api_registration_for([collection, publication])
+      Whitehall.edition_services.force_publisher(collection).perform!
+      Whitehall.edition_services.force_publisher(publication).perform!
+      get :index
 
-    assert_select_object(publication) do
-      assert_select ".document-collections a[href=?]", public_document_path(collection)
+      assert_select_object(publication) do
+        assert_select ".document-collections a[href=?]", public_document_path(collection)
+      end
     end
   end
 
   view_test '#index requested as JSON includes document collection information' do
-    create(:departmental_editor)
-    publication = create(:draft_publication)
-    collection = create(:document_collection, :with_group)
-    collection.groups.first.documents = [publication.document]
-    stub_publishing_api_registration_for([collection, publication])
-    Whitehall.edition_services.force_publisher(collection).perform!
-    Whitehall.edition_services.force_publisher(publication).perform!
+    Sidekiq::Testing.inline! do
+      create(:departmental_editor)
+      publication = create(:draft_publication)
+      collection = create(:document_collection, :with_group)
+      collection.groups.first.documents = [publication.document]
+      stub_publishing_api_registration_for([collection, publication])
+      Whitehall.edition_services.force_publisher(collection).perform!
+      Whitehall.edition_services.force_publisher(publication).perform!
 
-    get :index, format: :json
+      get :index, format: :json
 
-    json = ActiveSupport::JSON.decode(response.body)
-    result = json['results'].first['result']
+      json = ActiveSupport::JSON.decode(response.body)
+      result = json['results'].first['result']
 
-    path = public_document_path(collection)
-    link = %{<a href="#{path}">#{collection.title}</a>}
-    assert_equal %{Part of a collection: #{link}}, result['publication_collections']
+      path = public_document_path(collection)
+      link = %{<a href="#{path}">#{collection.title}</a>}
+      assert_equal %{Part of a collection: #{link}}, result['publication_collections']
+    end
   end
 
 private
@@ -533,52 +567,54 @@ private
   end
 
   view_test 'index includes tracking details on all links' do
-    published_publication = create(:published_publication)
+    Sidekiq::Testing.inline! do
+      published_publication = create(:published_publication)
 
-    get :index
+      get :index
 
-    assert_select_object(published_publication) do
-      results_list = css_select('ol.document-list').first
+      assert_select_object(published_publication) do
+        results_list = css_select('ol.document-list').first
 
-      assert_equal(
-        'track-click',
-        results_list.attributes['data-module'].value,
-        "Expected the document list to have the 'track-click' module"
-      )
+        assert_equal(
+          'track-click',
+          results_list.attributes['data-module'].value,
+          "Expected the document list to have the 'track-click' module"
+        )
 
-      publication_link = css_select('li.document-row a').first
+        publication_link = css_select('li.document-row a').first
 
-      assert_equal(
-        'navPublicationLinkClicked',
-        publication_link.attributes['data-category'].value,
-        "Expected the data category attribute to be 'navPublicationLinkClicked'"
-      )
+        assert_equal(
+          'navPublicationLinkClicked',
+          publication_link.attributes['data-category'].value,
+          "Expected the data category attribute to be 'navPublicationLinkClicked'"
+        )
 
-      assert_equal(
-        '1',
-        publication_link.attributes['data-action'].value,
-        "Expected the data action attribute to be the 1st position on the list"
-      )
+        assert_equal(
+          '1',
+          publication_link.attributes['data-action'].value,
+          "Expected the data action attribute to be the 1st position on the list"
+        )
 
-      assert_equal(
-        public_document_path(published_publication),
-        publication_link.attributes['data-label'].value,
-        "Expected the data label attribute to be the link of the publication"
-      )
+        assert_equal(
+          public_document_path(published_publication),
+          publication_link.attributes['data-label'].value,
+          "Expected the data label attribute to be the link of the publication"
+        )
 
-      options = JSON.parse(publication_link.attributes['data-options'].value)
+        options = JSON.parse(publication_link.attributes['data-options'].value)
 
-      assert_equal(
-        '1',
-        options['dimension28'],
-        "Expected the custom dimension 28 to have the total number of publications"
-      )
+        assert_equal(
+          '1',
+          options['dimension28'],
+          "Expected the custom dimension 28 to have the total number of publications"
+        )
 
-      assert_equal(
-        published_publication.title,
-        options['dimension29'],
-        "Expected the custom dimension 29 to have the title of the publication"
-      )
+        assert_equal(
+          published_publication.title,
+          options['dimension29'],
+          "Expected the custom dimension 29 to have the title of the publication"
+        )
+      end
     end
   end
 

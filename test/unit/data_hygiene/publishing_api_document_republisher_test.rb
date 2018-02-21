@@ -12,7 +12,9 @@ class DataHygiene::PublishingApiDocumentRepublisherTest < ActiveSupport::TestCas
       stub_publishing_api_publish(presenter.content_id, locale: 'en', update_type: 'republish')
     ]
 
-    DataHygiene::PublishingApiDocumentRepublisher.new(CaseStudy, NullLogger.instance).perform
+    Sidekiq::Testing.inline! do
+      DataHygiene::PublishingApiDocumentRepublisher.new(CaseStudy, NullLogger.instance).perform
+    end
 
     assert_all_requested(expected_requests)
   end
@@ -37,6 +39,8 @@ class DataHygiene::PublishingApiDocumentRepublisherTest < ActiveSupport::TestCas
     PublishingApiUnpublishingWorker.expects(:new).returns(worker = mock)
     worker.expects(:perform).with(unpublishing.id, true)
 
-    DataHygiene::PublishingApiDocumentRepublisher.new(edition.class, NullLogger.instance).perform
+    Sidekiq::Testing.inline! do
+      DataHygiene::PublishingApiDocumentRepublisher.new(edition.class, NullLogger.instance).perform
+    end
   end
 end

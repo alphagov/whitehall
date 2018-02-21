@@ -18,7 +18,9 @@ class MigrateAssetsToAssetManagerTest < ActiveSupport::TestCase
     Services.asset_manager.expects(:create_whitehall_asset)
       .with(has_entry(:file, responds_with(:read, File.read(organisation_logo_path))))
 
-    @subject.perform
+    Sidekiq::Testing.inline! do
+      @subject.perform
+    end
   end
 
   test 'it calls create_whitehall_asset with the legacy file path' do
@@ -26,7 +28,9 @@ class MigrateAssetsToAssetManagerTest < ActiveSupport::TestCase
       has_entry(:legacy_url_path, '/government/uploads/system/uploads/organisation/logo/1/logo.jpg')
     )
 
-    @subject.perform
+    Sidekiq::Testing.inline! do
+      @subject.perform
+    end
   end
 
   test 'it calls create_whitehall_asset with the legacy last modified time' do
@@ -36,7 +40,9 @@ class MigrateAssetsToAssetManagerTest < ActiveSupport::TestCase
       has_entry(:legacy_last_modified, expected_last_modified)
     )
 
-    @subject.perform
+    Sidekiq::Testing.inline! do
+      @subject.perform
+    end
   end
 
   test 'it calls create_whitehall_asset with the legacy etag' do
@@ -49,7 +55,9 @@ class MigrateAssetsToAssetManagerTest < ActiveSupport::TestCase
       has_entry(:legacy_etag, expected_etag)
     )
 
-    @subject.perform
+    Sidekiq::Testing.inline! do
+      @subject.perform
+    end
   end
 
   test 'it calls create_whitehall_asset with the draft flag set to false by default' do
@@ -57,7 +65,9 @@ class MigrateAssetsToAssetManagerTest < ActiveSupport::TestCase
       has_entry(:draft, false)
     )
 
-    @subject.perform
+    Sidekiq::Testing.inline! do
+      @subject.perform
+    end
   end
 
   test 'it calls create_whitehall_asset with the draft flag set to true if explicitly set' do
@@ -67,7 +77,9 @@ class MigrateAssetsToAssetManagerTest < ActiveSupport::TestCase
       has_entry(:draft, true)
     )
 
-    subject.perform
+    Sidekiq::Testing.inline! do
+      subject.perform
+    end
   end
 
   test 'it does not call create_whitehall_asset if the asset already exists in asset manager' do

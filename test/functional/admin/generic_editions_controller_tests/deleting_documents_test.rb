@@ -68,11 +68,13 @@ class Admin::GenericEditionsController::DeletingDocumentsTest < ActionController
   end
 
   test "destroy notifies the publishing API of the deleted document" do
-    draft_edition = create(:draft_edition, translated_into: %i[es fr])
-    delete :destroy, params: { id: draft_edition }
+    Sidekiq::Testing.inline! do
+      draft_edition = create(:draft_edition, translated_into: %i[es fr])
+      delete :destroy, params: { id: draft_edition }
 
-    %w[en es fr].each do |locale|
-      assert_publishing_api_discard_draft(draft_edition.content_id, locale: locale)
+      %w[en es fr].each do |locale|
+        assert_publishing_api_discard_draft(draft_edition.content_id, locale: locale)
+      end
     end
   end
 end

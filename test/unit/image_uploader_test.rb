@@ -30,7 +30,9 @@ class ImageUploaderTest < ActiveSupport::TestCase
       assert_image_has_correct_size image_path
     end
 
-    @uploader.store!(fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg'))
+    Sidekiq::Testing.inline! do
+      @uploader.store!(fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg'))
+    end
   end
 
   test "should store uploads in a directory that persists across deploys" do
@@ -52,7 +54,9 @@ class ImageUploaderTest < ActiveSupport::TestCase
     Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/s300_minister-of-funk.960x640.jpg/))
     Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/s216_minister-of-funk.960x640.jpg/))
 
-    @uploader.store!(fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg'))
+    Sidekiq::Testing.inline! do
+      @uploader.store!(fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg'))
+    end
   end
 
   test "should store the original version only of a svg image in asset manager" do
@@ -62,7 +66,9 @@ class ImageUploaderTest < ActiveSupport::TestCase
     Services.asset_manager.stubs(:create_whitehall_asset)
     Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/test-svg.svg/))
 
-    @uploader.store!(fixture_file_upload('images/test-svg.svg', 'image/svg+xml'))
+    Sidekiq::Testing.inline! do
+      @uploader.store!(fixture_file_upload('images/test-svg.svg', 'image/svg+xml'))
+    end
   end
 
 private

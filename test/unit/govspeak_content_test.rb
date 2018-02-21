@@ -28,17 +28,19 @@ class GovspeakContentTest < ActiveSupport::TestCase
   end
 
   test "doesn't clear computed values and doesn't queue a job to re-compute the HTML when the body has not changed" do
-    govspeak_content = create(:html_attachment,
-                         body: "## A heading\nSome content").govspeak_content
-    compute_govspeak(govspeak_content)
+    Sidekiq::Testing.inline! do
+      govspeak_content = create(:html_attachment,
+                           body: "## A heading\nSome content").govspeak_content
+      compute_govspeak(govspeak_content)
 
-    Sidekiq::Testing.fake! do
-      govspeak_content.save!
+      Sidekiq::Testing.fake! do
+        govspeak_content.save!
 
-      assert govspeak_content.computed_body_html.present?
-      assert govspeak_content.computed_headers_html.present?
+        assert govspeak_content.computed_body_html.present?
+        assert govspeak_content.computed_headers_html.present?
 
-      assert_empty GovspeakContentWorker.jobs
+        assert_empty GovspeakContentWorker.jobs
+      end
     end
   end
 

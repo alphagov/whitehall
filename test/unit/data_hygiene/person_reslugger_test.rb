@@ -40,7 +40,9 @@ class PersonSlugChangerTest < ActiveSupport::TestCase
       stub_publishing_api_publish(content_item.content_id, locale: 'en', update_type: 'major')
     ]
 
-    @reslugger.run!
+    Sidekiq::Testing.inline! do
+      @reslugger.run!
+    end
 
     assert_all_requested(expected_publish_requests)
   end
