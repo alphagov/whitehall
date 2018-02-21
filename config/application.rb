@@ -35,7 +35,7 @@ module Whitehall
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
-    config.slimmer.wrapper_id = "whitehall-wrapper"
+    config.slimmer.wrapper_id = "whitehall-wrapper-slimmer"
 
     config.action_dispatch.ignore_accept_header = true
 
