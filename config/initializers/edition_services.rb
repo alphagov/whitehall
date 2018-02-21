@@ -11,6 +11,9 @@ Whitehall.edition_services.tap do |coordinator|
       ServiceListeners::AttachmentDraftStatusUpdater
         .new(attachment)
         .update!
+      ServiceListeners::AttachmentRedirectUrlUpdater
+        .new(attachment)
+        .update!
     end
   end
 

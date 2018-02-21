@@ -10,6 +10,7 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
   let(:file) { File.open(path_to_attachment(filename)) }
   let(:attachment) { build(:file_attachment, attachable: attachable, file: file) }
   let(:attachable) { edition }
+  let(:asset_id) { 'asset-id' }
   let(:redirect_url) { Whitehall.url_maker.public_document_path(edition) }
 
   before do
@@ -17,34 +18,44 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
     setup_publishing_api_for(edition)
     attachable.attachments << attachment
     VirusScanHelpers.simulate_virus_scan
-    stub_whitehall_asset(filename, id: 'asset-id')
+    stub_whitehall_asset(filename, id: asset_id)
+
+    @test_mode = Sidekiq::Testing.__test_mode
+    Sidekiq::Testing.fake!
+  end
+
+  after do
+    Sidekiq::Testing.__test_mode = @test_mode
   end
 
   context 'given a published document with file attachment' do
     let(:edition) { create(:published_news_article) }
 
-    it 'redirects attachment requests when document is unpublished' do
+    it 'sets redirect URL for attachment in Asset Manager when document is unpublished' do
       visit admin_news_article_path(edition)
       unpublish_document_published_in_error
       logout
       get attachment.url
       assert_redirected_to redirect_url
+      assert_sets_redirect_url_in_asset_manager_to redirect_url
     end
 
-    it 'redirects attachment requests when document is consolidated' do
+    it 'sets redirect URL for attachment in Asset Manager when document is consolidated' do
       visit admin_news_article_path(edition)
       consolidate_document
       logout
       get attachment.url
       assert_redirected_to redirect_url
+      assert_sets_redirect_url_in_asset_manager_to redirect_url
     end
 
-    it 'does not redirect attachment requests when document is withdrawn' do
+    it 'resets redirect URI for attachment in Asset Manager when document is withdrawn' do
       visit admin_news_article_path(edition)
       withdraw_document
       logout
       get attachment.url
       assert_response :success
+      assert_sets_redirect_url_in_asset_manager_to nil
     end
   end
 
@@ -53,20 +64,22 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
     let(:outcome_attributes) { attributes_for(:consultation_outcome) }
     let(:attachable) { edition.create_outcome!(outcome_attributes) }
 
-    it 'redirects attachment requests when document is unpublished' do
+    it 'sets redirect URL for attachment in Asset Manager when document is unpublished' do
       visit admin_consultation_path(edition)
       unpublish_document_published_in_error
       logout
       get attachment.url
       assert_redirected_to redirect_url
+      assert_sets_redirect_url_in_asset_manager_to redirect_url
     end
 
-    it 'does not redirect attachment requests when document is withdrawn' do
+    it 'resets redirect URI for attachment in Asset Manager when document is withdrawn' do
       visit admin_consultation_path(edition)
       withdraw_document
       logout
       get attachment.url
       assert_response :success
+      assert_sets_redirect_url_in_asset_manager_to nil
     end
   end
 
@@ -75,32 +88,35 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
     let(:feedback_attributes) { attributes_for(:consultation_public_feedback) }
     let(:attachable) { edition.create_public_feedback!(feedback_attributes) }
 
-    it 'redirects attachment requests when document is unpublished' do
+    it 'sets redirect URL for attachment in Asset Manager when document is unpublished' do
       visit admin_consultation_path(edition)
       unpublish_document_published_in_error
       logout
       get attachment.url
       assert_redirected_to redirect_url
+      assert_sets_redirect_url_in_asset_manager_to redirect_url
     end
 
-    it 'does not redirect attachment requests when document is withdrawn' do
+    it 'resets redirect URI for attachment in Asset Manager when document is withdrawn' do
       visit admin_consultation_path(edition)
       withdraw_document
       logout
       get attachment.url
       assert_response :success
+      assert_sets_redirect_url_in_asset_manager_to nil
     end
   end
 
   context 'given an unpublished document with file attachment' do
     let(:edition) { create(:news_article, :unpublished) }
 
-    it 'does not redirect attachment requests when document is published' do
+    it 'resets redirect URI for attachment in Asset Manager when document is published' do
       visit admin_news_article_path(edition)
       force_publish_document
       logout
       get attachment.url
       assert_response :success
+      assert_sets_redirect_url_in_asset_manager_to nil
     end
   end
 
@@ -109,24 +125,26 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
     let(:outcome_attributes) { attributes_for(:consultation_outcome) }
     let(:attachable) { edition.create_outcome!(outcome_attributes) }
 
-    it 'does not redirect attachment requests when document is published' do
+    it 'resets redirect URI for attachment in Asset Manager when document is published' do
       visit admin_consultation_path(edition)
       force_publish_document
       logout
       get attachment.url
       assert_response :success
+      assert_sets_redirect_url_in_asset_manager_to nil
     end
   end
 
   context 'given a withdrawn document with file attachment' do
     let(:edition) { create(:news_article, :published, :withdrawn) }
 
-    it 'does not redirect attachment requests when document is unwithdrawn' do
+    it 'resets redirect URI for attachment in Asset Manager when document is unwithdrawn' do
       visit admin_news_article_path(edition)
       unwithdraw_document
       logout
       get attachment.url
       assert_response :success
+      assert_sets_redirect_url_in_asset_manager_to nil
     end
   end
 
@@ -135,12 +153,13 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
     let(:outcome_attributes) { attributes_for(:consultation_outcome) }
     let(:attachable) { edition.create_outcome!(outcome_attributes) }
 
-    it 'does not redirect attachment requests when document is unwithdrawn' do
+    it 'resets redirect URI for attachment in Asset Manager when document is unwithdrawn' do
       visit admin_consultation_path(edition)
       unwithdraw_document
       logout
       get attachment.url
       assert_response :success
+      assert_sets_redirect_url_in_asset_manager_to nil
     end
   end
 
@@ -166,6 +185,12 @@ private
     Services.asset_manager.stubs(:whitehall_asset)
       .with(&ends_with(filename))
       .returns(attributes.merge(id: url_id).stringify_keys)
+  end
+
+  def assert_sets_redirect_url_in_asset_manager_to redirect_url
+    Services.asset_manager.expects(:update_asset)
+      .with(asset_id, 'redirect_url' => redirect_url)
+    AssetManagerUpdateAssetWorker.drain
   end
 
   def unpublish_document_published_in_error

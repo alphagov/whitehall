@@ -46,11 +46,11 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
       stub_whitehall_asset('sample.docx', id: 'asset-id', draft: false)
     end
 
-    it 'marks attachment as draft in Asset Manager when document is unpublished' do
+    it 'does not mark attachment as draft in Asset Manager when document is unpublished' do
       visit admin_news_article_path(edition)
       click_link 'Withdraw or unpublish'
 
-      Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => true)
+      Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => true).never
 
       within '#js-published-in-error-form' do
         click_button 'Unpublish'
