@@ -151,7 +151,7 @@ GEM
       thor (~> 0.19.1)
     friendly_id (5.2.3)
       activerecord (>= 4.0.0)
-    gds-api-adapters (51.1.1)
+    gds-api-adapters (51.2.0)
       addressable
       link_header
       lrucache (~> 0.1.1)
@@ -346,7 +346,7 @@ GEM
       pry (~> 0.10)
     pry-rails (0.3.6)
       pry (>= 0.10.4)
-    public_suffix (3.0.1)
+    public_suffix (3.0.2)
     rack (2.0.4)
     rack-cache (1.7.1)
       rack (>= 0.4)
@@ -519,7 +519,7 @@ GEM
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.4)
+    unf_ext (0.0.7.5)
     unicode-display_width (1.3.0)
     unicorn (5.4.0)
       kgio (~> 2.6)
