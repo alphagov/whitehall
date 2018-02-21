@@ -17,3 +17,5 @@
 //= require govuk
 //= require_tree ./common
 //= require_tree ./application
+//
+//= require govuk_publishing_components/components/feedback

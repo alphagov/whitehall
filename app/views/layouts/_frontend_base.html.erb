@@ -29,8 +29,11 @@
   </head>
   <body class="website government<%= " #{local_assigns[:extra_body_class]}" if local_assigns[:extra_body_class] %>">
     <% unless local_assigns[:show_breadcrumbs] %><div class="header-context group"><!-- deliberately empty --></div><% end %>
-    <div id="whitehall-wrapper">
-      <%= yield %>
+    <div id="whitehall-wrapper-slimmer">
+      <div id="whitehall-wrapper">
+        <%= yield %>
+      </div>
+      <%= render 'govuk_publishing_components/components/feedback' %>
     </div>
     <%= javascript_include_tag "application", integrity: true, crossorigin: 'anonymous' %>
     <%= javascript_tag(yield :javascript_initialisers) %>

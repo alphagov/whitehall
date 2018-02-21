@@ -6,7 +6,6 @@
   padding-bottom: $gutter;
   background: transparent;
   color: $text-colour;
-  border-bottom: $gutter-one-third solid $govuk-blue;
 
   @include media(desktop) {
     padding-bottom: $gutter*2;
