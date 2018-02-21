@@ -232,13 +232,20 @@ end
 
 class ActionDispatch::IntegrationTest
   include LocalisedUrlPathHelper
+  include Warden::Test::Helpers
 
   def login_as(user)
     GDS::SSO.test_user = user
+    super
   end
 
   def login_as_admin
     login_as(create(:user, name: "user-name", email: "user@example.com"))
+  end
+
+  def logout
+    GDS::SSO.test_user = nil
+    super
   end
 
   teardown do
