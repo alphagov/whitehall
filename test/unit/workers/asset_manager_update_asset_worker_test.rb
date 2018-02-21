@@ -11,7 +11,7 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
 
   test 'marks draft asset as published' do
     Services.asset_manager.stubs(:whitehall_asset).with(@legacy_url_path)
-      .returns('id' => @asset_url, 'draft' => true)
+      .returns(gds_api_response('id' => @asset_url, 'draft' => true))
     Services.asset_manager.expects(:update_asset).with(@asset_id, 'draft' => false)
 
     @worker.perform(@legacy_url_path, 'draft' => false)
@@ -19,7 +19,7 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
 
   test 'does not mark asset as published if already published' do
     Services.asset_manager.stubs(:whitehall_asset).with(@legacy_url_path)
-      .returns('id' => @asset_url, 'draft' => false)
+      .returns(gds_api_response('id' => @asset_url, 'draft' => false))
     Services.asset_manager.expects(:update_asset).never
 
     @worker.perform(@legacy_url_path, 'draft' => false)
@@ -27,7 +27,7 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
 
   test 'mark published asset as draft' do
     Services.asset_manager.stubs(:whitehall_asset).with(@legacy_url_path)
-      .returns('id' => @asset_url, 'draft' => false)
+      .returns(gds_api_response('id' => @asset_url, 'draft' => false))
     Services.asset_manager.expects(:update_asset).with(@asset_id, 'draft' => true)
 
     @worker.perform(@legacy_url_path, 'draft' => true)
@@ -35,7 +35,7 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
 
   test 'does not mark asset as draft if already draft' do
     Services.asset_manager.stubs(:whitehall_asset).with(@legacy_url_path)
-      .returns('id' => @asset_url, 'draft' => true)
+      .returns(gds_api_response('id' => @asset_url, 'draft' => true))
     Services.asset_manager.expects(:update_asset).never
 
     @worker.perform(@legacy_url_path, 'draft' => true)
@@ -43,7 +43,7 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
 
   test 'sets redirect_url on asset if not already set' do
     Services.asset_manager.stubs(:whitehall_asset).with(@legacy_url_path)
-      .returns('id' => @asset_url)
+      .returns(gds_api_response('id' => @asset_url))
     Services.asset_manager.expects(:update_asset)
       .with(@asset_id, 'redirect_url' => @redirect_url)
 
@@ -52,7 +52,7 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
 
   test 'sets redirect_url on asset if already set to different value' do
     Services.asset_manager.stubs(:whitehall_asset).with(@legacy_url_path)
-      .returns('id' => @asset_url, 'redirect_url' => "#{@redirect_url}-another")
+      .returns(gds_api_response('id' => @asset_url, 'redirect_url' => "#{@redirect_url}-another"))
     Services.asset_manager.expects(:update_asset)
       .with(@asset_id, 'redirect_url' => @redirect_url)
 
@@ -61,9 +61,16 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
 
   test 'does not set redirect_url on asset if already set' do
     Services.asset_manager.stubs(:whitehall_asset).with(@legacy_url_path)
-      .returns('id' => @asset_url, 'redirect_url' => @redirect_url)
+      .returns(gds_api_response('id' => @asset_url, 'redirect_url' => @redirect_url))
     Services.asset_manager.expects(:update_asset).never
 
     @worker.perform(@legacy_url_path, 'redirect_url' => @redirect_url)
+  end
+
+private
+
+  def gds_api_response(attributes = {})
+    http_response = stub('http_response', body: attributes.to_json)
+    GdsApi::Response.new(http_response)
   end
 end
