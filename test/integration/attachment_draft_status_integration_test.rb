@@ -6,6 +6,8 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   include Rails.application.routes.url_helpers
 
+  let(:asset_id) { 'asset-id' }
+
   before do
     login_as create(:managing_editor)
   end
@@ -19,7 +21,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
       add_file_attachment('sample.docx', to: edition)
       VirusScanHelpers.simulate_virus_scan
 
-      stub_whitehall_asset('sample.docx', id: 'asset-id', draft: true)
+      stub_whitehall_asset('sample.docx', id: asset_id, draft: true)
     end
 
     it 'marks attachment as published in Asset Manager when document is published' do
@@ -27,7 +29,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
       click_link 'Force publish'
       fill_in 'Reason for force publishing', with: 'testing'
 
-      Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => false)
+      Services.asset_manager.expects(:update_asset).with(asset_id, 'draft' => false)
 
       Sidekiq::Testing.inline! do
         click_button 'Force publish'
@@ -46,14 +48,14 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
       add_file_attachment('sample.docx', to: edition)
       VirusScanHelpers.simulate_virus_scan
 
-      stub_whitehall_asset('sample.docx', id: 'asset-id', draft: false)
+      stub_whitehall_asset('sample.docx', id: asset_id, draft: false)
     end
 
     it 'does not mark attachment as draft in Asset Manager when document is unpublished' do
       visit admin_news_article_path(edition)
       click_link 'Withdraw or unpublish'
 
-      Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => true).never
+      Services.asset_manager.expects(:update_asset).with(asset_id, 'draft' => true).never
 
       Sidekiq::Testing.inline! do
         within '#js-published-in-error-form' do
@@ -76,7 +78,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
       add_file_attachment('sample.docx', to: outcome)
       VirusScanHelpers.simulate_virus_scan
 
-      stub_whitehall_asset('sample.docx', id: 'asset-id', draft: true)
+      stub_whitehall_asset('sample.docx', id: asset_id, draft: true)
     end
 
     it 'marks attachment as published in Asset Manager when consultation is published' do
@@ -84,7 +86,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
       click_link 'Force publish'
       fill_in 'Reason for force publishing', with: 'testing'
 
-      Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => false)
+      Services.asset_manager.expects(:update_asset).with(asset_id, 'draft' => false)
 
       Sidekiq::Testing.inline! do
         click_button 'Force publish'
@@ -105,7 +107,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
       add_file_attachment('sample.docx', to: feedback)
       VirusScanHelpers.simulate_virus_scan
 
-      stub_whitehall_asset('sample.docx', id: 'asset-id', draft: true)
+      stub_whitehall_asset('sample.docx', id: asset_id, draft: true)
     end
 
     it 'marks attachment as published in Asset Manager when consultation is published' do
@@ -113,7 +115,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
       click_link 'Force publish'
       fill_in 'Reason for force publishing', with: 'testing'
 
-      Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => false)
+      Services.asset_manager.expects(:update_asset).with(asset_id, 'draft' => false)
 
       Sidekiq::Testing.inline! do
         click_button 'Force publish'
@@ -127,13 +129,13 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
     let(:policy_group) { create(:policy_group) }
 
     it 'marks attachment as published in Asset Manager when added to policy group' do
-      stub_whitehall_asset('sample.docx', id: 'asset-id', draft: true)
+      stub_whitehall_asset('sample.docx', id: asset_id, draft: true)
       visit admin_policy_group_attachments_path(policy_group)
       click_link 'Upload new file attachment'
       fill_in 'Title', with: 'Attachment Title'
       attach_file 'File', path_to_attachment('sample.docx')
 
-      Services.asset_manager.expects(:update_asset).with('asset-id', 'draft' => false)
+      Services.asset_manager.expects(:update_asset).with(asset_id, 'draft' => false)
 
       Sidekiq::Testing.inline! do
         click_button 'Save'
