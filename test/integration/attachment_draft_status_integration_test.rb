@@ -11,6 +11,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
 
   before do
     login_as create(:managing_editor)
+    stub_whitehall_asset(filename, id: asset_id, draft: asset_initially_draft)
   end
 
   context 'given a file attachment' do
@@ -22,7 +23,6 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
       setup_publishing_api_for(edition)
       attachable.attachments << attachment
       VirusScanHelpers.simulate_virus_scan
-      stub_whitehall_asset(filename, id: asset_id, draft: asset_initially_draft)
     end
 
     context 'on a draft document' do
@@ -31,10 +31,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
 
       it 'marks attachment as published in Asset Manager when document is published' do
         visit admin_news_article_path(edition)
-        click_link 'Force publish'
-        fill_in 'Reason for force publishing', with: 'testing'
-        click_button 'Force publish'
-        assert_text "The document #{edition.title} has been published"
+        force_publish_document
         assert_sets_draft_status_in_asset_manager_to false
       end
     end
@@ -45,11 +42,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
 
       it 'does not mark attachment as draft in Asset Manager when document is unpublished' do
         visit admin_news_article_path(edition)
-        click_link 'Withdraw or unpublish'
-        within '#js-published-in-error-form' do
-          click_button 'Unpublish'
-        end
-        assert_text 'This document has been unpublished'
+        unpublish_document_published_in_error
         refute_sets_draft_status_in_asset_manager_to true
       end
     end
@@ -62,10 +55,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
 
       it 'marks attachment as published in Asset Manager when consultation is published' do
         visit admin_consultation_path(edition)
-        click_link 'Force publish'
-        fill_in 'Reason for force publishing', with: 'testing'
-        click_button 'Force publish'
-        assert_text "The document #{edition.title} has been published"
+        force_publish_document
         assert_sets_draft_status_in_asset_manager_to false
       end
     end
@@ -78,10 +68,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
 
       it 'marks attachment as published in Asset Manager when consultation is published' do
         visit admin_consultation_path(edition)
-        click_link 'Force publish'
-        fill_in 'Reason for force publishing', with: 'testing'
-        click_button 'Force publish'
-        assert_text "The document #{edition.title} has been published"
+        force_publish_document
         assert_sets_draft_status_in_asset_manager_to false
       end
     end
@@ -89,15 +76,11 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
 
   context 'given a policy group' do
     let(:policy_group) { create(:policy_group) }
+    let(:asset_initially_draft) { true }
 
     it 'marks attachment as published in Asset Manager when added to policy group' do
-      stub_whitehall_asset(filename, id: asset_id, draft: true)
       visit admin_policy_group_attachments_path(policy_group)
-      click_link 'Upload new file attachment'
-      fill_in 'Title', with: 'Attachment Title'
-      attach_file 'File', path_to_attachment(filename)
-      click_button 'Save'
-      assert_text "Attachment 'Attachment Title' uploaded"
+      add_attachment(filename)
       assert_sets_draft_status_in_asset_manager_to false
     end
   end
@@ -135,5 +118,28 @@ private
 
   def refute_sets_draft_status_in_asset_manager_to(draft)
     assert_sets_draft_status_in_asset_manager_to(draft, never: true)
+  end
+
+  def force_publish_document
+    click_link 'Force publish'
+    fill_in 'Reason for force publishing', with: 'testing'
+    click_button 'Force publish'
+    assert_text %r{The document .* has been published}
+  end
+
+  def unpublish_document_published_in_error
+    click_link 'Withdraw or unpublish'
+    within '#js-published-in-error-form' do
+      click_button 'Unpublish'
+    end
+    assert_text 'This document has been unpublished'
+  end
+
+  def add_attachment(filename)
+    click_link 'Upload new file attachment'
+    fill_in 'Title', with: 'Attachment Title'
+    attach_file 'File', path_to_attachment(filename)
+    click_button 'Save'
+    assert_text "Attachment 'Attachment Title' uploaded"
   end
 end
