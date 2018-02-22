@@ -6,6 +6,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   include Rails.application.routes.url_helpers
 
+  let(:filename) { 'sample.docx' }
   let(:asset_id) { 'asset-id' }
 
   before do
@@ -13,17 +14,20 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   context 'given a file attachment' do
+    let(:file) { File.open(path_to_attachment(filename)) }
+    let(:attachment) { build(:file_attachment, attachable: attachable, file: file) }
+    let(:attachable) { edition }
+
+    before do
+      setup_publishing_api_for(edition)
+      attachable.attachments << attachment
+      VirusScanHelpers.simulate_virus_scan
+      stub_whitehall_asset(filename, id: asset_id, draft: asset_initially_draft)
+    end
+
     context 'on a draft document' do
       let(:edition) { create(:news_article) }
-
-      before do
-        setup_publishing_api_for(edition)
-
-        add_file_attachment('sample.docx', to: edition)
-        VirusScanHelpers.simulate_virus_scan
-
-        stub_whitehall_asset('sample.docx', id: asset_id, draft: true)
-      end
+      let(:asset_initially_draft) { true }
 
       it 'marks attachment as published in Asset Manager when document is published' do
         visit admin_news_article_path(edition)
@@ -37,15 +41,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
 
     context 'on a published document' do
       let(:edition) { create(:published_news_article) }
-
-      before do
-        setup_publishing_api_for(edition)
-
-        add_file_attachment('sample.docx', to: edition)
-        VirusScanHelpers.simulate_virus_scan
-
-        stub_whitehall_asset('sample.docx', id: asset_id, draft: false)
-      end
+      let(:asset_initially_draft) { false }
 
       it 'does not mark attachment as draft in Asset Manager when document is unpublished' do
         visit admin_news_article_path(edition)
@@ -61,16 +57,8 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
     context 'on an outcome on a draft consultation' do
       let(:edition) { create(:draft_consultation) }
       let(:outcome_attributes) { FactoryBot.attributes_for(:consultation_outcome) }
-      let(:outcome) { edition.create_outcome!(outcome_attributes) }
-
-      before do
-        setup_publishing_api_for(edition)
-
-        add_file_attachment('sample.docx', to: outcome)
-        VirusScanHelpers.simulate_virus_scan
-
-        stub_whitehall_asset('sample.docx', id: asset_id, draft: true)
-      end
+      let(:attachable) { edition.create_outcome!(outcome_attributes) }
+      let(:asset_initially_draft) { true }
 
       it 'marks attachment as published in Asset Manager when consultation is published' do
         visit admin_consultation_path(edition)
@@ -85,16 +73,8 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
     context 'on a feedback on a draft consultation' do
       let(:edition) { create(:draft_consultation) }
       let(:feedback_attributes) { FactoryBot.attributes_for(:consultation_public_feedback) }
-      let(:feedback) { edition.create_public_feedback!(feedback_attributes) }
-
-      before do
-        setup_publishing_api_for(edition)
-
-        add_file_attachment('sample.docx', to: feedback)
-        VirusScanHelpers.simulate_virus_scan
-
-        stub_whitehall_asset('sample.docx', id: asset_id, draft: true)
-      end
+      let(:attachable) { edition.create_public_feedback!(feedback_attributes) }
+      let(:asset_initially_draft) { true }
 
       it 'marks attachment as published in Asset Manager when consultation is published' do
         visit admin_consultation_path(edition)
@@ -111,11 +91,11 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
     let(:policy_group) { create(:policy_group) }
 
     it 'marks attachment as published in Asset Manager when added to policy group' do
-      stub_whitehall_asset('sample.docx', id: asset_id, draft: true)
+      stub_whitehall_asset(filename, id: asset_id, draft: true)
       visit admin_policy_group_attachments_path(policy_group)
       click_link 'Upload new file attachment'
       fill_in 'Title', with: 'Attachment Title'
-      attach_file 'File', path_to_attachment('sample.docx')
+      attach_file 'File', path_to_attachment(filename)
       click_button 'Save'
       assert_text "Attachment 'Attachment Title' uploaded"
       assert_sets_draft_status_in_asset_manager_to false
@@ -132,14 +112,6 @@ private
     publishing_api_has_links(
       content_id: edition.document.content_id,
       links: {}
-    )
-  end
-
-  def add_file_attachment(filename, to:)
-    to.attachments << FactoryBot.build(
-      :file_attachment,
-      attachable: to,
-      file: File.open(path_to_attachment(filename))
     )
   end
 
