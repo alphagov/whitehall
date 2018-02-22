@@ -12,96 +12,98 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
     login_as create(:managing_editor)
   end
 
-  context 'given a draft document with file attachment' do
-    let(:edition) { create(:news_article) }
+  context 'given a file attachment' do
+    context 'on a draft document' do
+      let(:edition) { create(:news_article) }
 
-    before do
-      setup_publishing_api_for(edition)
+      before do
+        setup_publishing_api_for(edition)
 
-      add_file_attachment('sample.docx', to: edition)
-      VirusScanHelpers.simulate_virus_scan
+        add_file_attachment('sample.docx', to: edition)
+        VirusScanHelpers.simulate_virus_scan
 
-      stub_whitehall_asset('sample.docx', id: asset_id, draft: true)
-    end
-
-    it 'marks attachment as published in Asset Manager when document is published' do
-      visit admin_news_article_path(edition)
-      click_link 'Force publish'
-      fill_in 'Reason for force publishing', with: 'testing'
-      click_button 'Force publish'
-      assert_text "The document #{edition.title} has been published"
-      assert_sets_draft_status_in_asset_manager_to false
-    end
-  end
-
-  context 'given a published document with file attachment' do
-    let(:edition) { create(:published_news_article) }
-
-    before do
-      setup_publishing_api_for(edition)
-
-      add_file_attachment('sample.docx', to: edition)
-      VirusScanHelpers.simulate_virus_scan
-
-      stub_whitehall_asset('sample.docx', id: asset_id, draft: false)
-    end
-
-    it 'does not mark attachment as draft in Asset Manager when document is unpublished' do
-      visit admin_news_article_path(edition)
-      click_link 'Withdraw or unpublish'
-      within '#js-published-in-error-form' do
-        click_button 'Unpublish'
+        stub_whitehall_asset('sample.docx', id: asset_id, draft: true)
       end
-      assert_text 'This document has been unpublished'
-      refute_sets_draft_status_in_asset_manager_to true
-    end
-  end
 
-  context 'given a draft consultation with outcome with file attachment' do
-    let(:edition) { create(:draft_consultation) }
-    let(:outcome_attributes) { FactoryBot.attributes_for(:consultation_outcome) }
-    let(:outcome) { edition.create_outcome!(outcome_attributes) }
-
-    before do
-      setup_publishing_api_for(edition)
-
-      add_file_attachment('sample.docx', to: outcome)
-      VirusScanHelpers.simulate_virus_scan
-
-      stub_whitehall_asset('sample.docx', id: asset_id, draft: true)
+      it 'marks attachment as published in Asset Manager when document is published' do
+        visit admin_news_article_path(edition)
+        click_link 'Force publish'
+        fill_in 'Reason for force publishing', with: 'testing'
+        click_button 'Force publish'
+        assert_text "The document #{edition.title} has been published"
+        assert_sets_draft_status_in_asset_manager_to false
+      end
     end
 
-    it 'marks attachment as published in Asset Manager when consultation is published' do
-      visit admin_consultation_path(edition)
-      click_link 'Force publish'
-      fill_in 'Reason for force publishing', with: 'testing'
-      click_button 'Force publish'
-      assert_text "The document #{edition.title} has been published"
-      assert_sets_draft_status_in_asset_manager_to false
+    context 'on a published document' do
+      let(:edition) { create(:published_news_article) }
+
+      before do
+        setup_publishing_api_for(edition)
+
+        add_file_attachment('sample.docx', to: edition)
+        VirusScanHelpers.simulate_virus_scan
+
+        stub_whitehall_asset('sample.docx', id: asset_id, draft: false)
+      end
+
+      it 'does not mark attachment as draft in Asset Manager when document is unpublished' do
+        visit admin_news_article_path(edition)
+        click_link 'Withdraw or unpublish'
+        within '#js-published-in-error-form' do
+          click_button 'Unpublish'
+        end
+        assert_text 'This document has been unpublished'
+        refute_sets_draft_status_in_asset_manager_to true
+      end
     end
-  end
 
-  context 'given a draft consultation with feedback with file attachment' do
-    let(:edition) { create(:draft_consultation) }
-    let(:feedback_attributes) { FactoryBot.attributes_for(:consultation_public_feedback) }
-    let(:feedback) { edition.create_public_feedback!(feedback_attributes) }
+    context 'on an outcome on a draft consultation' do
+      let(:edition) { create(:draft_consultation) }
+      let(:outcome_attributes) { FactoryBot.attributes_for(:consultation_outcome) }
+      let(:outcome) { edition.create_outcome!(outcome_attributes) }
 
-    before do
-      setup_publishing_api_for(edition)
+      before do
+        setup_publishing_api_for(edition)
 
-      add_file_attachment('sample.docx', to: feedback)
-      VirusScanHelpers.simulate_virus_scan
+        add_file_attachment('sample.docx', to: outcome)
+        VirusScanHelpers.simulate_virus_scan
 
-      stub_whitehall_asset('sample.docx', id: asset_id, draft: true)
+        stub_whitehall_asset('sample.docx', id: asset_id, draft: true)
+      end
+
+      it 'marks attachment as published in Asset Manager when consultation is published' do
+        visit admin_consultation_path(edition)
+        click_link 'Force publish'
+        fill_in 'Reason for force publishing', with: 'testing'
+        click_button 'Force publish'
+        assert_text "The document #{edition.title} has been published"
+        assert_sets_draft_status_in_asset_manager_to false
+      end
     end
 
-    it 'marks attachment as published in Asset Manager when consultation is published' do
-      visit admin_consultation_path(edition)
-      click_link 'Force publish'
-      fill_in 'Reason for force publishing', with: 'testing'
-      click_button 'Force publish'
-      assert_text "The document #{edition.title} has been published"
-      assert_sets_draft_status_in_asset_manager_to false
+    context 'on a feedback on a draft consultation' do
+      let(:edition) { create(:draft_consultation) }
+      let(:feedback_attributes) { FactoryBot.attributes_for(:consultation_public_feedback) }
+      let(:feedback) { edition.create_public_feedback!(feedback_attributes) }
+
+      before do
+        setup_publishing_api_for(edition)
+
+        add_file_attachment('sample.docx', to: feedback)
+        VirusScanHelpers.simulate_virus_scan
+
+        stub_whitehall_asset('sample.docx', id: asset_id, draft: true)
+      end
+
+      it 'marks attachment as published in Asset Manager when consultation is published' do
+        visit admin_consultation_path(edition)
+        click_link 'Force publish'
+        fill_in 'Reason for force publishing', with: 'testing'
+        click_button 'Force publish'
+        assert_text "The document #{edition.title} has been published"
+        assert_sets_draft_status_in_asset_manager_to false
+      end
     end
   end
 
