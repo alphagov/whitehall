@@ -28,14 +28,9 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
       visit admin_news_article_path(edition)
       click_link 'Force publish'
       fill_in 'Reason for force publishing', with: 'testing'
-
-      Services.asset_manager.expects(:update_asset).with(asset_id, 'draft' => false)
-
-      Sidekiq::Testing.inline! do
-        click_button 'Force publish'
-      end
-
+      click_button 'Force publish'
       assert_text "The document #{edition.title} has been published"
+      assert_sets_draft_status_in_asset_manager_to false
     end
   end
 
@@ -54,16 +49,11 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
     it 'does not mark attachment as draft in Asset Manager when document is unpublished' do
       visit admin_news_article_path(edition)
       click_link 'Withdraw or unpublish'
-
-      Services.asset_manager.expects(:update_asset).with(asset_id, 'draft' => true).never
-
-      Sidekiq::Testing.inline! do
-        within '#js-published-in-error-form' do
-          click_button 'Unpublish'
-        end
+      within '#js-published-in-error-form' do
+        click_button 'Unpublish'
       end
-
       assert_text 'This document has been unpublished'
+      refute_sets_draft_status_in_asset_manager_to true
     end
   end
 
@@ -85,14 +75,9 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
       visit admin_consultation_path(edition)
       click_link 'Force publish'
       fill_in 'Reason for force publishing', with: 'testing'
-
-      Services.asset_manager.expects(:update_asset).with(asset_id, 'draft' => false)
-
-      Sidekiq::Testing.inline! do
-        click_button 'Force publish'
-      end
-
+      click_button 'Force publish'
       assert_text "The document #{edition.title} has been published"
+      assert_sets_draft_status_in_asset_manager_to false
     end
   end
 
@@ -114,14 +99,9 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
       visit admin_consultation_path(edition)
       click_link 'Force publish'
       fill_in 'Reason for force publishing', with: 'testing'
-
-      Services.asset_manager.expects(:update_asset).with(asset_id, 'draft' => false)
-
-      Sidekiq::Testing.inline! do
-        click_button 'Force publish'
-      end
-
+      click_button 'Force publish'
       assert_text "The document #{edition.title} has been published"
+      assert_sets_draft_status_in_asset_manager_to false
     end
   end
 
@@ -134,14 +114,9 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
       click_link 'Upload new file attachment'
       fill_in 'Title', with: 'Attachment Title'
       attach_file 'File', path_to_attachment('sample.docx')
-
-      Services.asset_manager.expects(:update_asset).with(asset_id, 'draft' => false)
-
-      Sidekiq::Testing.inline! do
-        click_button 'Save'
-      end
-
+      click_button 'Save'
       assert_text "Attachment 'Attachment Title' uploaded"
+      assert_sets_draft_status_in_asset_manager_to false
     end
   end
 
@@ -175,5 +150,16 @@ private
     Services.asset_manager.stubs(:whitehall_asset)
       .with(&ends_with(filename))
       .returns(attributes.merge(id: url_id).stringify_keys)
+  end
+
+  def assert_sets_draft_status_in_asset_manager_to(draft, never: false)
+    expectation = Services.asset_manager.expects(:update_asset)
+      .with(asset_id, 'draft' => draft)
+    expectation.never if never
+    AssetManagerUpdateAssetWorker.drain
+  end
+
+  def refute_sets_draft_status_in_asset_manager_to(draft)
+    assert_sets_draft_status_in_asset_manager_to(draft, never: true)
   end
 end
