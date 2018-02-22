@@ -26,6 +26,9 @@ class Admin::AttachmentsController < Admin::BaseController
 
   def update
     attachment.attributes = attachment_params
+    if attachment.is_a?(FileAttachment)
+      attachment.attachment_data.attachable = attachable
+    end
     if save_attachment
       message = "Attachment '#{attachment.title}' updated"
       redirect_to attachable_attachments_path(attachable), notice: message
@@ -100,6 +103,7 @@ private
   def build_file_attachment
     FileAttachment.new(attachment_params).tap do |file_attachment|
       file_attachment.build_attachment_data unless file_attachment.attachment_data
+      file_attachment.attachment_data.attachable = attachable
     end
   end
 

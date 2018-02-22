@@ -57,10 +57,20 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
     @uploader.store!(@file)
   end
 
-  test "creates a sidekiq job and sets model class and id based on the model associated with the uploader" do
-    @uploader.stubs(:model).returns(Consultation.new(id: 1))
+  test "creates a sidekiq job and sets model class and id based on the uploader's model's attachable if the model responds to attachable" do
+    model = AttachmentData.new(attachable: Consultation.new(id: 1))
+    @uploader.stubs(:model).returns(model)
 
     AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, anything, 'Consultation', 1)
+
+    @uploader.store!(@file)
+  end
+
+  test "creates a sidekiq job without setting model class and id if the uploader's model doesn't respond to attachable" do
+    model = ImageData.new
+    @uploader.stubs(:model).returns(model)
+
+    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, anything, nil, nil)
 
     @uploader.store!(@file)
   end

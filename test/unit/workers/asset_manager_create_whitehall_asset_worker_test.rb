@@ -48,10 +48,11 @@ class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
     user = FactoryBot.create(:user, organisation: organisation, uid: 'user-uid')
     consultation = FactoryBot.create(:consultation, organisations: [organisation], access_limited: true)
     attachment = FactoryBot.create(:file_attachment, attachable: consultation)
+    attachment.attachment_data.attachable = consultation
 
     Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(access_limited: [user.uid]))
 
-    @worker.perform(@file.path, @legacy_url_path, true, attachment.attachment_data.class.to_s, attachment.attachment_data.id)
+    @worker.perform(@file.path, @legacy_url_path, true, consultation.class.to_s, consultation.id)
   end
 
   test 'marks attachments belonging to consultation responses as access limited' do
@@ -60,10 +61,11 @@ class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
     consultation = FactoryBot.create(:consultation, organisations: [organisation], access_limited: true)
     response = FactoryBot.create(:consultation_outcome, consultation: consultation)
     attachment = FactoryBot.create(:file_attachment, attachable: response)
+    attachment.attachment_data.attachable = consultation
 
     Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(access_limited: [user.uid]))
 
-    @worker.perform(@file.path, @legacy_url_path, true, attachment.attachment_data.class.to_s, attachment.attachment_data.id)
+    @worker.perform(@file.path, @legacy_url_path, true, consultation.class.to_s, consultation.id)
   end
 
   test 'does not mark attachments belonging to policy groups as access limited' do
