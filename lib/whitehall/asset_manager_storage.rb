@@ -47,14 +47,10 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
 
     def size
       response = Services.asset_manager.whitehall_asset(path)
-      if response.has_key?('size') && !response['size'].nil?
-        Integer(response['size'])
-      else
-        false
-      end
+      response['size'].to_i
     rescue GdsApi::BaseError => e
       GovukError.notify(e)
-      false
+      0
     end
   end
 end

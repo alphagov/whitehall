@@ -128,22 +128,22 @@ class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
     assert_equal 100, @file.size
   end
 
-  test '#file_size returns false if response lacks size key' do
+  test '#file_size returns 0 if response lacks size key' do
     Services.asset_manager.stubs(:whitehall_asset).with(@asset_url_path).returns({})
 
-    assert_equal false, @file.size
+    assert_equal 0, @file.size
   end
 
-  test '#file_size returns false if response has a nil size key' do
+  test '#file_size returns 0 if response has a nil size key' do
     Services.asset_manager.stubs(:whitehall_asset).with(@asset_url_path).returns('size' => nil)
 
-    assert_equal false, @file.size
+    assert_equal 0, @file.size
   end
 
-  test '#file_size returns false if API request throws any GdsApi exception' do
+  test '#file_size returns 0 if API request throws any GdsApi exception' do
     Services.asset_manager.stubs(:whitehall_asset).with(@asset_url_path).raises(GdsApi::TimedOutException, 'Error!')
 
-    assert_equal false, @file.size
+    assert_equal 0, @file.size
   end
 
   test '#file_size reports if API request throws any GdsApi exception' do
