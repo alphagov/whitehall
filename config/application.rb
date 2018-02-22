@@ -49,6 +49,8 @@ module Whitehall
       generate.test_framework :test_unit, fixture: false
     end
 
+    config.paths["log"] = ENV["LOG_PATH"] if ENV["LOG_PATH"]
+
     # Raise an exception when parameters are used without filtering
     # This will be mandatory in Rails 5.1
     config.action_controller.raise_on_unfiltered_parameters = true
