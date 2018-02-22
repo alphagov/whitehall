@@ -15,5 +15,5 @@
   - asset_migration
 :schedule:
   check_all_organisations_links_worker:
-    cron: '0 2 * * *' # Runs 2 a.m.
+    cron: '0 1 * * *' # Runs at 1 a.m every day
     class: CheckAllOrganisationsLinksWorker
