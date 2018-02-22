@@ -19,13 +19,6 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
     attachable.attachments << attachment
     VirusScanHelpers.simulate_virus_scan
     stub_whitehall_asset(filename, id: asset_id)
-
-    @test_mode = Sidekiq::Testing.__test_mode
-    Sidekiq::Testing.fake!
-  end
-
-  after do
-    Sidekiq::Testing.__test_mode = @test_mode
   end
 
   context 'given a published document with file attachment' do
