@@ -19,13 +19,6 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
     attachable.attachments << attachment
     VirusScanHelpers.simulate_virus_scan
     stub_whitehall_asset(filename, id: asset_id)
-
-    @test_mode = Sidekiq::Testing.__test_mode
-    Sidekiq::Testing.fake!
-  end
-
-  after do
-    Sidekiq::Testing.__test_mode = @test_mode
   end
 
   context 'given a published document with file attachment' do
@@ -187,7 +180,7 @@ private
       .returns(attributes.merge(id: url_id).stringify_keys)
   end
 
-  def assert_sets_redirect_url_in_asset_manager_to redirect_url
+  def assert_sets_redirect_url_in_asset_manager_to(redirect_url)
     Services.asset_manager.expects(:update_asset)
       .with(asset_id, 'redirect_url' => redirect_url)
     AssetManagerUpdateAssetWorker.drain
