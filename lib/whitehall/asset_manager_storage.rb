@@ -44,5 +44,13 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
     def content_type
       MIME::Types.type_for(filename).first.to_s
     end
+
+    def size
+      response = Services.asset_manager.whitehall_asset(path)
+      response['size'].to_i
+    rescue GdsApi::BaseError => e
+      GovukError.notify(e)
+      0
+    end
   end
 end

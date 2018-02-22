@@ -121,4 +121,37 @@ class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
 
     assert_equal 'http://assets-host/government/uploads/path/to/%C3%A4sset.png', file.url
   end
+
+  test '#file_size fetches the size from Asset Manager' do
+    Services.asset_manager.stubs(:whitehall_asset).with(@asset_url_path).returns('size' => 100)
+
+    assert_equal 100, @file.size
+  end
+
+  test '#file_size returns 0 if response lacks size key' do
+    Services.asset_manager.stubs(:whitehall_asset).with(@asset_url_path).returns({})
+
+    assert_equal 0, @file.size
+  end
+
+  test '#file_size returns 0 if response has a nil size key' do
+    Services.asset_manager.stubs(:whitehall_asset).with(@asset_url_path).returns('size' => nil)
+
+    assert_equal 0, @file.size
+  end
+
+  test '#file_size returns 0 if API request throws any GdsApi exception' do
+    Services.asset_manager.stubs(:whitehall_asset).with(@asset_url_path).raises(GdsApi::TimedOutException, 'Error!')
+
+    assert_equal 0, @file.size
+  end
+
+  test '#file_size reports if API request throws any GdsApi exception' do
+    Services.asset_manager.stubs(:whitehall_asset).with(@asset_url_path).raises(GdsApi::TimedOutException, 'Error!')
+    GovukError.expects(:notify).with do |exception|
+      assert_equal 'Error!', exception.message
+    end
+
+    @file.size
+  end
 end
