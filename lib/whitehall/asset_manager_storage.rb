@@ -52,7 +52,7 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
       else
         false
       end
-    rescue StandardError => e
+    rescue GdsApi::BaseError => e
       GovukError.notify(e)
       false
     end

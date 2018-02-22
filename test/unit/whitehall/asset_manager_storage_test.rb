@@ -140,14 +140,14 @@ class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
     assert_equal false, @file.size
   end
 
-  test '#file_size returns false if API request throws exception' do
-    Services.asset_manager.stubs(:whitehall_asset).with(@asset_url_path).raises('Error!')
+  test '#file_size returns false if API request throws any GdsApi exception' do
+    Services.asset_manager.stubs(:whitehall_asset).with(@asset_url_path).raises(GdsApi::TimedOutException, 'Error!')
 
     assert_equal false, @file.size
   end
 
-  test '#file_size reports if API request throws exception' do
-    Services.asset_manager.stubs(:whitehall_asset).with(@asset_url_path).raises('Error!')
+  test '#file_size reports if API request throws any GdsApi exception' do
+    Services.asset_manager.stubs(:whitehall_asset).with(@asset_url_path).raises(GdsApi::TimedOutException, 'Error!')
     GovukError.expects(:notify).with do |exception|
       assert_equal 'Error!', exception.message
     end
