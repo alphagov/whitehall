@@ -33,5 +33,9 @@ class Whitehall::AssetManagerAndQuarantinedFileStorage < CarrierWave::Storage::A
       @quarantined_file.delete
       @asset_manager_file.delete
     end
+
+    def zero_size?
+      @asset_manager_file.zero_size?
+    end
   end
 end

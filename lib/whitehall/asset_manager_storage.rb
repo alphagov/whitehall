@@ -48,5 +48,9 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
     def content_type
       MIME::Types.type_for(filename).first.to_s
     end
+
+    def zero_size?
+      false
+    end
   end
 end
