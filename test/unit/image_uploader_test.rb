@@ -21,8 +21,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
   end
 
   test "should send correctly resized versions of a bitmap image to asset manager" do
-    model = stub("AR Model", id: 1)
-    @uploader = ImageUploader.new(model, "mounted-as")
+    @uploader = ImageUploader.new(FactoryBot.create(:person), "mounted-as")
 
     Services.asset_manager.stubs(:create_whitehall_asset)
     Services.asset_manager.expects(:create_whitehall_asset).with do |value|
@@ -36,14 +35,12 @@ class ImageUploaderTest < ActiveSupport::TestCase
   end
 
   test "should store uploads in a directory that persists across deploys" do
-    model = stub("AR Model", id: 1)
-    uploader = ImageUploader.new(model, "mounted-as")
+    uploader = ImageUploader.new(Person.new(id: 1), "mounted-as")
     assert_match %r[^system], uploader.store_dir
   end
 
   test "should store all the versions of a bitmap image in asset manager" do
-    model = stub("AR Model", id: 1)
-    @uploader = ImageUploader.new(model, "mounted-as")
+    @uploader = ImageUploader.new(FactoryBot.create(:person), "mounted-as")
 
     Services.asset_manager.stubs(:create_whitehall_asset)
     Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/minister-of-funk.960x640.jpg/))
@@ -60,8 +57,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
   end
 
   test "should store the original version only of a svg image in asset manager" do
-    model = stub("AR Model", id: 1)
-    @uploader = ImageUploader.new(model, "mounted-as")
+    @uploader = ImageUploader.new(FactoryBot.create(:person), "mounted-as")
 
     Services.asset_manager.stubs(:create_whitehall_asset)
     Services.asset_manager.expects(:create_whitehall_asset).with(file_and_legacy_url_path_matching(/test-svg.svg/))

@@ -48,6 +48,14 @@ class Attachment < ApplicationRecord
     end
   end
 
+  def attachable_is_access_limited?
+    attachable && attachable.access_limited?
+  end
+
+  def access_limited_object
+    attachable && attachable.access_limited_object
+  end
+
   def price
     if @price
       @price

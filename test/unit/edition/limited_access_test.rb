@@ -77,4 +77,10 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
       refute Edition.accessible_to(user).include?(edition), "doc #{i} should not be accessible"
     end
   end
+
+  test '#access_limited_object returns self' do
+    edition = LimitedAccessEdition.new
+
+    assert_equal edition, edition.access_limited_object
+  end
 end

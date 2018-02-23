@@ -49,6 +49,10 @@ module Edition::LimitedAccess
     end
   end
 
+  def access_limited_object
+    self
+  end
+
   def access_limited?
     read_attribute(:access_limited)
   end

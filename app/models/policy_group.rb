@@ -9,6 +9,14 @@ class PolicyGroup < ApplicationRecord
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :description
 
+  def access_limited_object
+    nil
+  end
+
+  def access_limited?
+    false
+  end
+
   def published_policies
     Whitehall.search_client.search(
       filter_policy_groups: [slug],

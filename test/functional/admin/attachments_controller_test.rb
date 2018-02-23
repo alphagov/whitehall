@@ -162,6 +162,14 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_equal 0, attachable.reload.attachments.size
   end
 
+  test 'POST :create triggers a job to be queued to store the attachment in Asset Manager' do
+    attachment = valid_file_attachment_params
+
+    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, anything, @edition.class.to_s, @edition.id)
+
+    post :create, params: { edition_id: @edition.id, type: 'file', attachment: attachment }
+  end
+
   test 'DELETE :destroy handles html attachments' do
     attachment = create(:html_attachment, attachable: @edition)
 
@@ -314,6 +322,22 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       id: attachment.id,
       attachment: {
         title: 'New title'
+      }
+    }
+  end
+
+  test 'PUT :update with a file triggers a job to be queued to store the attachment in Asset Manager' do
+    attachment = create(:file_attachment, attachable: @edition)
+
+    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, anything, @edition.class.to_s, @edition.id)
+
+    put :update, params: {
+      edition_id: @edition,
+      id: attachment.id,
+      attachment: {
+        attachment_data_attributes: {
+          file: fixture_file_upload('whitepaper.pdf')
+        }
       }
     }
   end

@@ -8,6 +8,14 @@ class Response < ApplicationRecord
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :summary
 
+  def access_limited_object
+    consultation
+  end
+
+  def access_limited?
+    consultation.access_limited?
+  end
+
   def alternative_format_contact_email
     consultation.alternative_format_contact_email
   end

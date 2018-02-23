@@ -36,7 +36,7 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
 
     expected_filename = File.basename(@file.path)
     expected_path = File.join('/government/uploads/store-dir', expected_filename)
-    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, expected_path, anything)
+    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, expected_path, anything, anything, anything)
 
     @uploader.store!(@file)
   end
@@ -44,7 +44,7 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
   test "creates a sidekiq job and sets draft to false if the uploader's assets_protected? returns false" do
     @uploader.assets_protected = false
 
-    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, false)
+    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, false, anything, anything)
 
     @uploader.store!(@file)
   end
@@ -52,7 +52,25 @@ class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
   test "creates a sidekiq job and sets draft to true if the uploader's assets_protected? returns true" do
     @uploader.assets_protected = true
 
-    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, true)
+    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, true, anything, anything)
+
+    @uploader.store!(@file)
+  end
+
+  test "creates a sidekiq job and sets model class and id based on the uploader's model's attachable if the model responds to attachable" do
+    model = AttachmentData.new(attachable: Consultation.new(id: 1))
+    @uploader.stubs(:model).returns(model)
+
+    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, anything, 'Consultation', 1)
+
+    @uploader.store!(@file)
+  end
+
+  test "creates a sidekiq job without setting model class and id if the uploader's model doesn't respond to attachable" do
+    model = ImageData.new
+    @uploader.stubs(:model).returns(model)
+
+    AssetManagerCreateWhitehallAssetWorker.expects(:perform_async).with(anything, anything, anything, nil, nil)
 
     @uploader.store!(@file)
   end

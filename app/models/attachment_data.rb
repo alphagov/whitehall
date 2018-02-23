@@ -19,6 +19,8 @@ class AttachmentData < ApplicationRecord
 
   OPENDOCUMENT_EXTENSIONS = %w(ODT ODP ODS).freeze
 
+  attr_accessor :attachable
+
   def filename
     url && File.basename(url)
   end
