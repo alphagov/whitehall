@@ -57,3 +57,6 @@
 // LAYOUTS
 // Styles scoped to a layout. Be careful.
 @import "layouts/html-publication";
+
+// Import the components
+@import "govuk_publishing_components/all_components";
