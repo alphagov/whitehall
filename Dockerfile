@@ -1,7 +1,7 @@
 FROM ruby:2.4.2
 RUN apt-get update -qq && apt-get upgrade -y
-
 RUN apt-get install -y build-essential nodejs && apt-get clean
+RUN gem install foreman
 
 ENV GOVUK_APP_NAME whitehall
 ENV GOVUK_CONTENT_SCHEMAS_PATH /govuk-content-schemas
@@ -29,4 +29,4 @@ RUN GOVUK_ASSET_ROOT=https://assets.publishing.service.gov.uk \
 
 HEALTHCHECK CMD curl --silent --fail localhost:$PORT/healthcheck || exit 1
 
-CMD bundle exec foreman run web
+CMD foreman run web
