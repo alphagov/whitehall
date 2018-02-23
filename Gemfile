@@ -90,7 +90,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'ruby-prof'
   gem 'teaspoon-qunit'
-  gem 'test-queue', '~> 0.2.13'
+  gem 'test-queue', '~> 0.4.2'
   # teaspoon has coffee assets that mean we need coffee script in order
   # to be able to run things
   gem 'coffee-rails', '~> 4.2.2'
