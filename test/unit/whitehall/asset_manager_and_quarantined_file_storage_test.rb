@@ -83,12 +83,6 @@ class Whitehall::AssetManagerAndQuarantinedFileStorage::FileTest < ActiveSupport
     assert_equal 'quarantined-file-content-type', @file.content_type
   end
 
-  test '#empty? delegates to the quarantined file' do
-    @quarantined_file.stubs(:empty?).returns('quarantined-file-empty?')
-
-    assert_equal 'quarantined-file-empty?', @file.empty?
-  end
-
   test '#size delegates to the quarantined file' do
     @quarantined_file.stubs(:size).returns('quarantined-file-size')
 
