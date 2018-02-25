@@ -23,12 +23,6 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert_match %r[empty file], attachment.errors[:file].first
   end
 
-  test 'is valid if the path is present' do
-    attachment_data = create(:attachment_data)
-    assert attachment_data.path.present?
-    assert AttachmentData.find(attachment_data.id).valid?
-  end
-
   test 'should return filename even after reloading' do
     attachment = create(:attachment_data)
     refute_nil attachment.filename

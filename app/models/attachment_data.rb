@@ -9,7 +9,7 @@ class AttachmentData < ApplicationRecord
 
   before_save :update_file_attributes
 
-  validates :file, presence: true, unless: :path_present?
+  validates :file, presence: true
   validate :file_is_not_empty
 
   attr_accessor :to_replace_id
@@ -190,9 +190,5 @@ private
 
   def file_is_not_empty
     errors.add(:file, "is an empty file") if file.present? && file.file.zero_size?
-  end
-
-  def path_present?
-    path.present?
   end
 end
