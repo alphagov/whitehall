@@ -23,8 +23,9 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert_match %r[empty file], attachment.errors[:file].first
   end
 
-  test 'is still valid whilst file is being virus-scanned' do
+  test 'is valid if the path is present' do
     attachment_data = create(:attachment_data)
+    assert attachment_data.path.present?
     assert AttachmentData.find(attachment_data.id).valid?
   end
 

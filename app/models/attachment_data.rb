@@ -9,7 +9,7 @@ class AttachmentData < ApplicationRecord
 
   before_save :update_file_attributes
 
-  validates :file, presence: true, unless: :virus_scan_pending?
+  validates :file, presence: true, unless: :path_present?
   validate :file_is_not_empty
 
   attr_accessor :to_replace_id
@@ -192,7 +192,7 @@ private
     errors.add(:file, "is an empty file") if file.present? && file.file.zero_size?
   end
 
-  def virus_scan_pending?
-    path.present? && true
+  def path_present?
+    path.present?
   end
 end
