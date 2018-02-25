@@ -60,10 +60,6 @@ class AttachmentData < ApplicationRecord
     :pending
   end
 
-  def skip_virus_check?
-    Rails.env.development? && !File.exist?(path)
-  end
-
   def update_file_attributes
     if carrierwave_file.present? && carrierwave_file_changed?
       self.content_type = file.file.content_type
