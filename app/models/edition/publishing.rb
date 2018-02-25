@@ -8,8 +8,6 @@ module Edition::Publishing
     validate :change_note_present!, if: :change_note_required?
     validate :attachment_uploaded_to_asset_manager!, if: :asset_manager_check_required?
 
-    attr_accessor :skip_virus_status_check
-
     scope :significant_change, -> { where(minor_change: false) }
   end
 

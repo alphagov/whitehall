@@ -9,10 +9,6 @@ FactoryBot.define do
     summary 'edition-summary'
     previously_published false
 
-    after :build do |edition, _evaluator|
-      edition.skip_virus_status_check = true
-    end
-
     trait(:with_organisations) do
       transient do
         organisations { [] }
