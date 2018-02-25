@@ -15,7 +15,7 @@ class FileAttachment < Attachment
   end
 
   def could_contain_viruses?
-    true
+    false
   end
 
   def name_for_link
