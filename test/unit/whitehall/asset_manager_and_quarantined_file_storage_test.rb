@@ -83,12 +83,6 @@ class Whitehall::AssetManagerAndQuarantinedFileStorage::FileTest < ActiveSupport
     assert_equal 'quarantined-file-content-type', @file.content_type
   end
 
-  test '#size delegates to the quarantined file' do
-    @quarantined_file.stubs(:size).returns('quarantined-file-size')
-
-    assert_equal 'quarantined-file-size', @file.size
-  end
-
   test '#asset_manager_path delegates to path on asset manager file' do
     @asset_manager_file.stubs(:path).returns('asset-manager-file-path')
 
