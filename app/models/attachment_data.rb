@@ -64,13 +64,6 @@ class AttachmentData < ApplicationRecord
     Rails.env.development? && !File.exist?(path)
   end
 
-  # Newly instantiated AttachmentData will report the file path as in the incoming
-  # directory because of the way Whitehall::QuarantinedFileStorage works. This method
-  # will return the expected clean path, regardless of what path reports.
-  def clean_path
-    path.gsub(Whitehall.incoming_uploads_root, Whitehall.clean_uploads_root)
-  end
-
   def infected_path
     clean_path.gsub(Whitehall.clean_uploads_root, Whitehall.infected_uploads_root)
   end
