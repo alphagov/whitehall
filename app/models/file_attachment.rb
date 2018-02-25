@@ -3,7 +3,7 @@ class FileAttachment < Attachment
 
   delegate :url, :content_type, :pdf?, :csv?, :opendocument?,
     :file_extension, :file_size,
-    :number_of_pages, :file, :filename, :filename_without_extension, :virus_status,
+    :number_of_pages, :file, :filename, :filename_without_extension,
     to: :attachment_data
 
   accepts_nested_attributes_for :attachment_data, reject_if: ->(attributes) { attributes[:file].blank? && attributes[:file_cache].blank? }
