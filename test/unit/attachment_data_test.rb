@@ -143,10 +143,19 @@ class AttachmentDataTest < ActiveSupport::TestCase
   test "should successfully create PNG thumbnail from the file_cache after a validation failure" do
     greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
     attachment = build(:attachment_data, file: greenpaper_pdf)
+
+    Services.asset_manager.stubs(:create_whitehall_asset)
+    Services.asset_manager.expects(:create_whitehall_asset).with do |value|
+      if value[:file].path.ends_with?('.png')
+        type = `file -b --mime-type "#{value[:file].path}"`
+        assert_equal "image/png", type.strip
+      end
+    end
+
     second_attempt_attachment = build(:attachment_data, file: nil, file_cache: attachment.file_cache)
     assert second_attempt_attachment.save
-    type = `file -b --mime-type "#{second_attempt_attachment.file.thumbnail.path}"`
-    assert_equal "image/png", type.strip
+
+    AssetManagerCreateWhitehallAssetWorker.drain
   end
 
   test "should return nil file extension when no uploader present" do

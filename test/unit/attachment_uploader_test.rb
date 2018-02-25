@@ -203,8 +203,6 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
   setup do
     AttachmentUploader.enable_processing = true
     @uploader = AttachmentUploader.new(AttachmentData.new, "mounted-as")
-
-    @uploader.store!(fixture_file_upload('two-pages-with-content.pdf'))
   end
 
   teardown do
@@ -216,50 +214,81 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
   end
 
   test "should store the thumbnail with the PNG extension" do
+    @uploader.store!(fixture_file_upload('two-pages-with-content.pdf'))
     assert @uploader.thumbnail.path.ends_with?(".png"), "should be a png"
   end
 
   test "should store an actual PNG" do
-    type = `file -b --mime-type "#{@uploader.thumbnail.path}"`
-    assert_equal "image/png", type.strip
+    expect_thumbnail_sent_to_asset_manager_to_be_an_actual_png
+
+    @uploader.store!(fixture_file_upload('two-pages-with-content.pdf'))
+    AssetManagerCreateWhitehallAssetWorker.drain
   end
 
   test "should ensure the content type of the stored thumbnail is image/png" do
+    @uploader.store!(fixture_file_upload('two-pages-with-content.pdf'))
     assert_equal "image/png", @uploader.thumbnail.file.content_type
   end
 
   test "should scale the thumbnail down proportionally to A4" do
-    identify_details = `identify "#{Rails.root.join("public", @uploader.thumbnail.path)}"`
-    _path, _type, geometry, _rest = identify_details.split
-    width, height = geometry.split("x")
+    expect_thumbnail_sent_to_asset_manager_to_be_scaled_proportionally
 
-    assert (width == "105" || height == "140"), "geometry should be proportional scaled, but was #{geometry}"
+    @uploader.store!(fixture_file_upload('two-pages-with-content.pdf'))
+    AssetManagerCreateWhitehallAssetWorker.drain
   end
 
   test "should use a generic thumbnail if conversion fails" do
-    @uploader = AttachmentUploader.new(FactoryBot.create(:attachment_data), "mounted-as")
     @uploader.thumbnail.stubs(:pdf_thumbnail_command).returns("false")
 
-    @uploader.store!(fixture_file_upload('two-pages-with-content.pdf'))
+    expect_fallback_thumbnail_to_be_uploaded_to_asset_manager
 
-    assert_fallback_thumbnail_used(@uploader)
+    @uploader.store!(fixture_file_upload('two-pages-with-content.pdf'))
+    AssetManagerCreateWhitehallAssetWorker.drain
   end
 
   test "should use a generic thumbnail if conversion takes longer than 10 seconds to complete" do
-    @uploader = AttachmentUploader.new(FactoryBot.create(:attachment_data), "mounted-as")
     @uploader.thumbnail.stubs(:pdf_thumbnail_command).raises(Timeout::Error)
 
-    @uploader.store!(fixture_file_upload('two-pages-with-content.pdf'))
+    expect_fallback_thumbnail_to_be_uploaded_to_asset_manager
 
-    assert_fallback_thumbnail_used(@uploader)
+    @uploader.store!(fixture_file_upload('two-pages-with-content.pdf'))
+    AssetManagerCreateWhitehallAssetWorker.drain
   end
 
-  def assert_fallback_thumbnail_used(_uploader)
-    assert @uploader.thumbnail.path.ends_with?(".png"), "should be a png"
-    generic_thumbnail_path = File.expand_path("app/assets/images/pub-cover.png")
-    assert_equal File.binread(generic_thumbnail_path),
-                 File.binread(@uploader.thumbnail.path),
-                 "Thumbnailing when PDF conversion fails should use default image."
+  def expect_fallback_thumbnail_to_be_uploaded_to_asset_manager
+    Services.asset_manager.stubs(:create_whitehall_asset)
+    Services.asset_manager.expects(:create_whitehall_asset).with do |value|
+      if value[:file].path.ends_with?('.png')
+        generic_thumbnail_path = File.expand_path("app/assets/images/pub-cover.png")
+        assert_equal File.binread(generic_thumbnail_path),
+                     File.binread(value[:file].path),
+                     "Thumbnailing when PDF conversion fails should use default image."
+      end
+    end
+  end
+
+  def expect_thumbnail_sent_to_asset_manager_to_be_an_actual_png
+    Services.asset_manager.stubs(:create_whitehall_asset)
+    Services.asset_manager.expects(:create_whitehall_asset).with do |value|
+      if value[:file].path.ends_with?('.png')
+        type = `file -b --mime-type "#{value[:file].path}"`
+        assert_equal "image/png", type.strip
+      end
+    end
+  end
+
+  def expect_thumbnail_sent_to_asset_manager_to_be_scaled_proportionally
+    Services.asset_manager.stubs(:create_whitehall_asset)
+    Services.asset_manager.expects(:create_whitehall_asset).with do |value|
+      if value[:file].path.ends_with?('.png')
+        identify_details = `identify "#{Rails.root.join("public", value[:file].path)}"`
+
+        _path, _type, geometry, _rest = identify_details.split
+        width, height = geometry.split("x")
+
+        assert (width == "105" || height == "140"), "geometry should be proportional scaled, but was #{geometry}"
+      end
+    end
   end
 end
 
