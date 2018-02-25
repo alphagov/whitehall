@@ -57,13 +57,7 @@ class AttachmentData < ApplicationRecord
   end
 
   def virus_status
-    if File.exist?(infected_path)
-      :infected
-    elsif File.exist?(clean_path) || skip_virus_check?
-      :clean
-    else
-      :pending
-    end
+    :pending
   end
 
   def skip_virus_check?

@@ -191,20 +191,6 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert_equal :pending, attachment.virus_status
   end
 
-  test "should return virus status as failed when in infected folder" do
-    test_pdf = fixture_file_upload('simple.pdf', 'application/pdf')
-    attachment = create(:attachment_data, file: test_pdf)
-    VirusScanHelpers.simulate_virus_scan_infected(attachment.file)
-    assert_equal :infected, attachment.virus_status
-  end
-
-  test "should return virus status as clean when in the clean folder" do
-    test_pdf = fixture_file_upload('simple.pdf', 'application/pdf')
-    attachment = create(:attachment_data, file: test_pdf)
-    VirusScanHelpers.simulate_virus_scan(attachment.file)
-    assert_equal :clean, attachment.virus_status
-  end
-
   test "should ensure instances know when they've been replaced by a new instance" do
     to_be_replaced = create(:attachment_data)
     replace_with = build(:attachment_data)
