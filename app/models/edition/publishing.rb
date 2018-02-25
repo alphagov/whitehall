@@ -6,7 +6,6 @@ module Edition::Publishing
 
     validates :major_change_published_at, presence: true, if: :published?
     validate :change_note_present!, if: :change_note_required?
-    validate :attachment_passed_virus_scan!, if: :virus_check_required?
     validate :attachment_uploaded_to_asset_manager!, if: :asset_manager_check_required?
 
     attr_accessor :skip_virus_status_check
@@ -61,10 +60,6 @@ module Edition::Publishing
 
   def asset_manager_check_required?
     allows_attachments? && published?
-  end
-
-  def attachment_passed_virus_scan!
-    errors.add(:attachments, "must have passed virus scanning.") unless true
   end
 
   def attachment_uploaded_to_asset_manager!
