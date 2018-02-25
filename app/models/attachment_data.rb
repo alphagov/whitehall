@@ -64,10 +64,6 @@ class AttachmentData < ApplicationRecord
     Rails.env.development? && !File.exist?(path)
   end
 
-  def infected_path
-    clean_path.gsub(Whitehall.clean_uploads_root, Whitehall.infected_uploads_root)
-  end
-
   def update_file_attributes
     if carrierwave_file.present? && carrierwave_file_changed?
       self.content_type = file.file.content_type
