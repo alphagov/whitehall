@@ -3,8 +3,8 @@ require 'test_helper'
 class AttachmentUploaderTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
-  test 'uses the asset manager and quarantined file storage engine' do
-    assert_equal Whitehall::AssetManagerAndQuarantinedFileStorage, AttachmentUploader.storage
+  test 'uses the asset manager storage engine' do
+    assert_equal Whitehall::AssetManagerStorage, AttachmentUploader.storage
   end
 
   test 'indicates that assets are protected' do
