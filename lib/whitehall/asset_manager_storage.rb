@@ -45,6 +45,10 @@ class Whitehall::AssetManagerStorage < CarrierWave::Storage::Abstract
       @legacy_url_path
     end
 
+    def asset_manager_path
+      path
+    end
+
     def content_type
       MIME::Types.type_for(filename).first.to_s
     end

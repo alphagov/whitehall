@@ -127,6 +127,10 @@ class Whitehall::AssetManagerStorage::FileTest < ActiveSupport::TestCase
     assert_equal @asset_url_path, @file.path
   end
 
+  test 'delegates asset_manager_path to path' do
+    assert_equal @file.path, @file.asset_manager_path
+  end
+
   test '#content_type returns the first element of the content type array' do
     assert_equal 'image/png', @file.content_type
   end
