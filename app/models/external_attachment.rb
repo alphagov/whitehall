@@ -32,10 +32,6 @@ class ExternalAttachment < Attachment
     external_url
   end
 
-  def could_contain_viruses?
-    false
-  end
-
   def external?
     true
   end

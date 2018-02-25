@@ -44,10 +44,6 @@ class HtmlAttachment < Attachment
     false
   end
 
-  def could_contain_viruses?
-    false
-  end
-
   def content_type
     'text/html'
   end

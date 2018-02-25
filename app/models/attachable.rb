@@ -67,11 +67,6 @@ module Attachable
   end
 
   def valid_virus_state?
-    attachments.each do |attachment|
-      if attachment.could_contain_viruses? && (attachment.virus_status != :clean)
-        return false
-      end
-    end
     true
   end
 
