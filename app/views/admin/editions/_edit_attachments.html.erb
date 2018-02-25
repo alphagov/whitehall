@@ -17,7 +17,6 @@
         <% end %>
       </td>
       <td class="attachment-filename"><%= link_to_attachment(attachment, preview: !@edition.published?, truncate: @edition.imported?) %></td>
-      <td class="virus-status"><%= attachment_virus_status(attachment) %></td>
       <td class="asset-manager-uploading-status"><%= attachment_uploading_status(attachment) %></td>
     </tr>
   <% end %>

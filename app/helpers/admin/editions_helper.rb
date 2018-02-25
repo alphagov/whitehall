@@ -231,9 +231,6 @@ module Admin::EditionsHelper
     end
   end
 
-  def attachment_virus_status(attachment)
-  end
-
   def attachment_uploading_status(attachment)
     return unless attachment.attachment_data
     content_tag(:p, "Uploading", class: "asset-manager-uploading") unless
