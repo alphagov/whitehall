@@ -54,10 +54,6 @@ module Edition::Publishing
     end
   end
 
-  def virus_check_required?
-    allows_attachments? && published? && !skip_virus_status_check
-  end
-
   def asset_manager_check_required?
     allows_attachments? && published?
   end
