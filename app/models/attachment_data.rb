@@ -56,10 +56,6 @@ class AttachmentData < ApplicationRecord
     AttachmentUploader::INDEXABLE_TYPES.include?(file_extension)
   end
 
-  def virus_status
-    :pending
-  end
-
   def update_file_attributes
     if carrierwave_file.present? && carrierwave_file_changed?
       self.content_type = file.file.content_type
@@ -197,6 +193,6 @@ private
   end
 
   def virus_scan_pending?
-    path.present? && virus_status == :pending
+    path.present? && true
   end
 end

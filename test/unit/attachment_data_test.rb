@@ -25,7 +25,6 @@ class AttachmentDataTest < ActiveSupport::TestCase
 
   test 'is still valid whilst file is being virus-scanned' do
     attachment_data = create(:attachment_data)
-    assert_equal :pending, attachment_data.reload.virus_status
     assert AttachmentData.find(attachment_data.id).valid?
   end
 
@@ -183,12 +182,6 @@ class AttachmentDataTest < ActiveSupport::TestCase
     greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
     attachment = build(:attachment_data, file: greenpaper_pdf)
     assert_equal "greenpaper", attachment.filename_without_extension
-  end
-
-  test "should return virus status as pending when in incoming folder" do
-    test_pdf = fixture_file_upload('simple.pdf', 'application/pdf')
-    attachment = create(:attachment_data, file: test_pdf)
-    assert_equal :pending, attachment.virus_status
   end
 
   test "should ensure instances know when they've been replaced by a new instance" do
