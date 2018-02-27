@@ -77,6 +77,16 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
       stub_whitehall_asset('logo.png', id: 'asset-id', draft: true)
     end
 
+    it 'unmarks attachment as access limited in Asset Manager when document is unmarked as access limited in Whitehall' do
+      visit edit_admin_news_article_path(edition)
+      uncheck 'Limit access to producing organisations prior to publication'
+      click_button 'Save'
+
+      Services.asset_manager.expects(:update_asset).with('asset-id', 'access_limited' => [])
+
+      AssetManagerUpdateAssetWorker.drain
+    end
+
     it 'marks replacement attachment as access limited in Asset Manager when attachment is replaced' do
       visit admin_news_article_path(edition)
       click_link "Modify attachments"
