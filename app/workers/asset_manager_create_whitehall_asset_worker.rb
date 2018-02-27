@@ -1,4 +1,6 @@
 class AssetManagerCreateWhitehallAssetWorker < WorkerBase
+  include AssetManagerWorkerHelper
+
   def perform(file_path, legacy_url_path, draft = false, model_class = nil, model_id = nil)
     file = File.open(file_path)
     asset_options = { file: file, legacy_url_path: legacy_url_path }
@@ -14,7 +16,7 @@ class AssetManagerCreateWhitehallAssetWorker < WorkerBase
       end
     end
 
-    Services.asset_manager.create_whitehall_asset(asset_options)
+    asset_manager.create_whitehall_asset(asset_options)
     FileUtils.rm(file)
     FileUtils.rmdir(File.dirname(file))
   end

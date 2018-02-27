@@ -1,16 +1,18 @@
 require 'test_helper'
 
 class AssetManagerDeleteAssetWorkerTest < ActiveSupport::TestCase
-  test 'deletes file from asset manager' do
-    json_response = {
-      id: 'http://asset-manager/assets/asset-id'
-    }.to_json
-    http_response = stub('http_response', body: json_response)
-    gds_api_response = GdsApi::Response.new(http_response)
-    Services.asset_manager.stubs(:whitehall_asset).with('/government/uploads/path/to/asset.png').returns(gds_api_response)
-    Services.asset_manager.expects(:delete_asset).with('asset-id')
+  setup do
+    @asset_id = 'asset-id'
+    @asset_url = "http://asset-manager/assets/#{@asset_id}"
+    @legacy_url_path = 'legacy-url-path'
+    @worker = AssetManagerDeleteAssetWorker.new
+  end
 
-    worker = AssetManagerDeleteAssetWorker.new
-    worker.perform('/government/uploads/path/to/asset.png')
+  test 'deletes file from asset manager' do
+    @worker.stubs(:find_asset_by).with(@legacy_url_path)
+      .returns('id' => @asset_id)
+    Services.asset_manager.expects(:delete_asset).with(@asset_id)
+
+    @worker.perform(@legacy_url_path)
   end
 end

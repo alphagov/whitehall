@@ -1,9 +1,8 @@
 class AssetManagerDeleteAssetWorker < WorkerBase
-  def perform(legacy_url_path)
-    gds_api_response = Services.asset_manager.whitehall_asset(legacy_url_path)
-    asset_url = gds_api_response['id']
-    asset_id = asset_url[/\/assets\/(.*)/, 1]
+  include AssetManagerWorkerHelper
 
-    Services.asset_manager.delete_asset(asset_id)
+  def perform(legacy_url_path)
+    attributes = find_asset_by(legacy_url_path)
+    asset_manager.delete_asset(attributes['id'])
   end
 end
