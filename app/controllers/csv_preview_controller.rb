@@ -1,12 +1,10 @@
 class CsvPreviewController < ApplicationController
   include PublicDocumentRoutesHelper
 
-  before_action :reject_non_previewable_attachments, only: :preview
-
   def preview
     respond_to do |format|
       format.html do
-        if attachment_visible? && attachment_visibility.visible_edition
+        if attachment_data.csv? && attachment_visible? && attachment_visibility.visible_edition
           expires_headers
           @edition = attachment_visibility.visible_edition
           @attachment = attachment_visibility.visible_attachment
@@ -81,10 +79,6 @@ private
 
   def attachment_visibility
     @attachment_visibility ||= AttachmentVisibility.new(attachment_data, current_user)
-  end
-
-  def reject_non_previewable_attachments
-    render(plain: "Not found", status: :not_found) unless attachment_data.csv?
   end
 
   def file_is_clean?(path)
