@@ -14,8 +14,14 @@ class AssetManagerCreateWhitehallAssetWorker < WorkerBase
       end
     end
 
-    Services.asset_manager.create_whitehall_asset(asset_options)
+    asset_manager.create_whitehall_asset(asset_options)
     FileUtils.rm(file)
     FileUtils.rmdir(File.dirname(file))
+  end
+
+private
+
+  def asset_manager
+    Services.asset_manager
   end
 end
