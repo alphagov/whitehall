@@ -374,9 +374,9 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
-    rails-i18n (5.0.4)
-      i18n (~> 0.7)
-      railties (~> 5.0)
+    rails-i18n (5.1.1)
+      i18n (>= 0.7, < 2)
+      railties (>= 5.0, < 6)
     rails_translation_manager (0.0.2)
       activesupport
       rails-i18n
@@ -609,7 +609,7 @@ DEPENDENCIES
   rack_strip_client_ip (~> 0.0.2)
   rails (= 5.0.6)
   rails-controller-testing
-  rails-i18n (~> 5.0)
+  rails-i18n (~> 5.1)
   rails_translation_manager (~> 0.0.2)
   raindrops (= 0.19.0)
   rake (= 12.3.0)
