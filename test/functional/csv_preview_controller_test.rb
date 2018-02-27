@@ -1,16 +1,8 @@
 require "test_helper"
 
 class CsvPreviewControllerTest < ActionController::TestCase
-  def get_show(attachment_data)
-    get :show, params: { id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension }
-  end
-
   def basename(attachment_data)
     File.basename(attachment_data.filename, '.' + attachment_data.file_extension)
-  end
-
-  def create_thumbnail_for_upload(uploader)
-    FileUtils.touch("#{uploader.clean_path}.png")
   end
 
   view_test "GET #preview for a CSV attachment on a public edition renders the CSV preview" do
