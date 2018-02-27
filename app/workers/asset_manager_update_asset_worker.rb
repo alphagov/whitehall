@@ -1,9 +1,9 @@
 class AssetManagerUpdateAssetWorker < WorkerBase
   def perform(legacy_url_path, new_attributes = {})
-    gds_api_response = asset_manager.whitehall_asset(legacy_url_path).to_hash
+    attributes = asset_manager.whitehall_asset(legacy_url_path).to_hash
     keys = new_attributes.keys
-    unless gds_api_response.slice(*keys) == new_attributes.slice(*keys)
-      asset_url = gds_api_response['id']
+    unless attributes.slice(*keys) == new_attributes.slice(*keys)
+      asset_url = attributes['id']
       asset_id = asset_url[/\/assets\/(.*)/, 1]
       asset_manager.update_asset(asset_id, new_attributes)
     end
