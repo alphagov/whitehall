@@ -1,6 +1,4 @@
 class CsvPreviewController < ApplicationController
-  include PublicDocumentRoutesHelper
-
   def preview
     respond_to do |format|
       format.html do
