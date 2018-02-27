@@ -78,7 +78,8 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
   test 'marks asset as access-limited' do
     @worker.stubs(:find_asset_by).with(@legacy_url_path)
       .returns('id' => @asset_id)
-    Services.asset_manager.expects(:update_asset).with(@asset_id, 'access_limited' => ['uid-1'])
+    Services.asset_manager.expects(:update_asset)
+      .with(@asset_id, 'access_limited' => ['uid-1'])
 
     @worker.perform(@legacy_url_path, 'access_limited' => ['uid-1'])
   end
@@ -89,5 +90,32 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
     Services.asset_manager.expects(:update_asset).never
 
     @worker.perform(@legacy_url_path, 'access_limited' => ['uid-1'])
+  end
+
+  test 'marks asset as replaced by another asset' do
+    replacement_legacy_url_path = 'replacement-legacy-url-path'
+    replacement_id = 'replacement-id'
+    @worker.stubs(:find_asset_by).with(@legacy_url_path)
+      .returns('id' => @asset_id)
+    @worker.stubs(:find_asset_by).with(replacement_legacy_url_path)
+      .returns('id' => replacement_id)
+    Services.asset_manager.expects(:update_asset)
+      .with(@asset_id, 'replacement_id' => replacement_id)
+
+    attributes = { 'replacement_legacy_url_path' => replacement_legacy_url_path }
+    @worker.perform(@legacy_url_path, attributes)
+  end
+
+  test 'does not mark asset as replaced if already replaced by same asset' do
+    replacement_legacy_url_path = 'replacement-legacy-url-path'
+    replacement_id = 'replacement-id'
+    @worker.stubs(:find_asset_by).with(@legacy_url_path)
+      .returns('id' => @asset_id, 'replacement_id' => replacement_id)
+    @worker.stubs(:find_asset_by).with(replacement_legacy_url_path)
+      .returns('id' => replacement_id)
+    Services.asset_manager.expects(:update_asset).never
+
+    attributes = { 'replacement_legacy_url_path' => replacement_legacy_url_path }
+    @worker.perform(@legacy_url_path, attributes)
   end
 end
