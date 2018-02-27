@@ -1,8 +1,6 @@
 class AttachmentsController < ApplicationController
   include PublicDocumentRoutesHelper
 
-  before_action :reject_non_previewable_attachments, only: :preview
-
   def show
     if attachment_visible?
       expires_headers
@@ -74,10 +72,6 @@ private
 
   def attachment_visibility
     @attachment_visibility ||= AttachmentVisibility.new(attachment_data, current_user)
-  end
-
-  def reject_non_previewable_attachments
-    render(plain: "Not found", status: :not_found) unless attachment_data.csv?
   end
 
   def file_is_clean?(path)
