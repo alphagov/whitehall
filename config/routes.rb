@@ -422,7 +422,7 @@ Whitehall::Application.routes.draw do
 
   get '/government/uploads/system/uploads/consultation_response_form/*path.:extension' => LongLifeRedirect.new('/government/uploads/system/uploads/consultation_response_form_data/')
   get '/government/uploads/system/uploads/attachment_data/file/:id/*file.:extension' => "attachments#show"
-  get '/government/uploads/system/uploads/attachment_data/file/:id/*file.:extension/preview' => "csv_preview#preview", as: :preview_attachment
+  get '/government/uploads/system/uploads/attachment_data/file/:id/*file.:extension/preview' => "csv_preview#show", as: :preview_attachment
   get '/government/uploads/uploaded/hmrc/*path' => "hmrc_assets#show", format: true
   get '/government/uploads/*path' => "asset_manager_redirect#show", as: :asset_manager_redirect, format: true
 end

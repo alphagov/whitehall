@@ -1,5 +1,5 @@
 class CsvPreviewController < ApplicationController
-  def preview
+  def show
     respond_to do |format|
       format.html do
         if attachment_data.csv? && attachment_visible? && attachment_visibility.visible_edition
