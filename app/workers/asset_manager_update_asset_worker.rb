@@ -2,12 +2,10 @@ class AssetManagerUpdateAssetWorker < WorkerBase
   include AssetManagerWorkerHelper
 
   def perform(legacy_url_path, new_attributes = {})
-    attributes = asset_manager.whitehall_asset(legacy_url_path).to_hash
+    attributes = find_asset_by(legacy_url_path)
     keys = new_attributes.keys
     unless attributes.slice(*keys) == new_attributes.slice(*keys)
-      asset_url = attributes['id']
-      asset_id = asset_url[/\/assets\/(.*)/, 1]
-      asset_manager.update_asset(asset_id, new_attributes)
+      asset_manager.update_asset(attributes['id'], new_attributes)
     end
   end
 end
