@@ -62,6 +62,27 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
       click_button 'Save'
       AssetManagerCreateWhitehallAssetWorker.drain
     end
+
+    it 'marks attachment as access limited in Asset Manager when bulk uploaded to draft document' do
+      visit admin_news_article_path(edition)
+      click_link "Modify attachments"
+      click_link "Bulk upload from Zip file"
+      attach_file 'Zip file', path_to_attachment('sample_attachment.zip')
+      click_button 'Upload zip'
+      fill_in 'Title', with: 'file-title'
+      click_button 'Save'
+
+      Services.asset_manager.expects(:create_whitehall_asset).with do |params|
+        params[:legacy_url_path] =~ /greenpaper\.pdf/ &&
+          params[:access_limited] == ['user-uid']
+      end
+      Services.asset_manager.expects(:create_whitehall_asset).with do |params|
+        params[:legacy_url_path] =~ /thumbnail_greenpaper\.pdf\.png/ &&
+          params[:access_limited] == ['user-uid']
+      end
+
+      AssetManagerCreateWhitehallAssetWorker.drain
+    end
   end
 
   context 'given an access-limited draft document with file attachment' do
