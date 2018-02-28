@@ -33,8 +33,6 @@ private
     elsif (replacement = attachment_data.replaced_by)
       expires_headers
       redirect_to replacement.url, status: 301
-    elsif image? upload_path
-      redirect_to view_context.path_to_image('thumbnail-placeholder.png')
     elsif incoming_upload_exists? upload_path
       redirect_to_placeholder
     else
@@ -83,10 +81,6 @@ private
 
   def file_is_clean?(path)
     path.starts_with?(Whitehall.clean_uploads_root)
-  end
-
-  def image?(path)
-    ['.jpg', '.jpeg', '.png', '.gif'].include?(File.extname(path))
   end
 
   def incoming_upload_exists?(path)
