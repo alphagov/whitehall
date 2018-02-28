@@ -23,16 +23,6 @@ class CsvPreviewController < ApplicationController
     render status: :not_acceptable, plain: "Request format #{request.format} not handled."
   end
 
-  def show
-    if attachment_visible?
-      expires_headers
-      send_file_for_mime_type
-    else
-      fail
-    end
-    link_rel_headers
-  end
-
 private
 
   def attachment_visible?
