@@ -9,7 +9,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     File.basename(attachment_data.filename, '.' + attachment_data.file_extension)
   end
 
-  view_test "GET #preview for a CSV attachment on a public edition renders the CSV preview" do
+  view_test "GET #show for a CSV attachment on a public edition renders the CSV preview" do
     visible_edition = create(:published_publication, :with_file_attachment, attachments: [
       attachment = build(:csv_attachment)
     ])
@@ -24,7 +24,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     assert_select '.headings h1', attachment.title
   end
 
-  view_test "GET #preview for a CSV attachment on a public edition has links to document organiastions" do
+  view_test "GET #show for a CSV attachment on a public edition has links to document organiastions" do
     org_1 = create(:organisation)
     org_2 = create(:organisation)
     org_3 = create(:organisation)
@@ -41,7 +41,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     assert_select 'a[href=?]', organisation_path(org_3)
   end
 
-  test "GET #preview for a CSV attachment on a non-public edition returns a not found response" do
+  test "GET #show for a CSV attachment on a non-public edition returns a not found response" do
     unpublished_edition = create(:draft_publication, :with_file_attachment, attachments: [build(:csv_attachment)])
     attachment_data = unpublished_edition.attachments.first.attachment_data
 
@@ -50,7 +50,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     assert_response :not_found
   end
 
-  test "GET #preview for a non-CSV file type returns a not found response" do
+  test "GET #show for a non-CSV file type returns a not found response" do
     visible_edition = create(:published_publication, :with_file_attachment, attachments: [build(:file_attachment)])
     attachment_data = visible_edition.attachments.first.attachment_data
 
@@ -59,7 +59,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     assert_response :not_found
   end
 
-  test "GET #preview for a CSV attachment on an edition that has been unpublished redirects to the edition" do
+  test "GET #show for a CSV attachment on an edition that has been unpublished redirects to the edition" do
     unpublished_publication = create(:draft_publication, :unpublished, :with_file_attachment, attachments: [build(:csv_attachment)])
     attachment_data = unpublished_publication.attachments.first.attachment_data
 
@@ -68,7 +68,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     assert_redirected_to publication_url(unpublished_publication.unpublishing.slug)
   end
 
-  view_test "GET #preview handles CsvPreview::FileEncodingError errors" do
+  view_test "GET #show handles CsvPreview::FileEncodingError errors" do
     visible_edition = create(:published_publication, :with_file_attachment, attachments: [
       attachment = build(:csv_attachment)
     ])
@@ -84,7 +84,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     assert_select 'p.preview-error', text: /This file could not be previewed/
   end
 
-  test "attachments that aren't visible and have been replaced are permanently redirected to the replacement attachment" do
+  test "GET #show for attachments that aren't visible and have been replaced permanently redirects to the replacement attachment" do
     replacement = create(:csv_attachment)
     attachment_data = create(:attachment_data, replaced_by: replacement.attachment_data)
 
@@ -96,7 +96,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     assert_cache_control("public")
   end
 
-  test 'previewing a csv that has not been virus checked redirects to the placeholder page' do
+  test 'GET #show for an attachment that has not been virus checked redirects to the placeholder page' do
     attachment_data = build(:attachment_data)
     attachment = build(:csv_attachment, attachment_data: attachment_data)
 
@@ -108,7 +108,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     assert_cache_control "max-age=#{1.minute}"
   end
 
-  view_test "GET #preview handles malformed CSV" do
+  view_test "GET #show handles malformed CSV" do
     attachment = build(:csv_attachment, file: fixture_file_upload('malformed.csv'))
     attachment_data = attachment.attachment_data
 
@@ -120,7 +120,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     assert_select 'p.preview-error', text: /This file could not be previewed/
   end
 
-  test "preview is not possible on CSV attachments on non-Editions" do
+  test "GET #show returns 404 for CSVs attached to non-Editions" do
     attachment      = create(:csv_attachment, attachable: create(:policy_group))
     attachment_data = attachment.attachment_data
     VirusScanHelpers.simulate_virus_scan(attachment_data.file)
@@ -130,7 +130,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     assert_response :not_found
   end
 
-  view_test "can preview an attachment on a corporate information page" do
+  view_test "GET #show succeeds for attachments on corporate information pages" do
     corporate_information_page = create(:corporate_information_page, :published)
     attachment = create(:csv_attachment, attachable: corporate_information_page)
     attachment_data = attachment.attachment_data
