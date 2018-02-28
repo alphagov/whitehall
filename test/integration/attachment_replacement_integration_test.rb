@@ -15,6 +15,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
     let(:asset_id) { 'asset-id' }
 
     let(:replacement_filename) { 'sample.rtf' }
+    let(:replacement_asset_id) { 'replacement-asset-id' }
 
     let(:edition) { create(:news_article) }
 
@@ -40,6 +41,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
         assert_text "Attachment 'Attachment Title' updated"
 
         VirusScanHelpers.simulate_virus_scan
+        stub_whitehall_asset(replacement_filename, id: replacement_asset_id)
       end
 
       it 'redirects requests for attachment to replacement' do
@@ -51,6 +53,12 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
 
         get @attachment_url
         assert_redirected_to replacement_url
+      end
+
+      it 'updates replacement_id for attachment in Asset Manager' do
+        Services.asset_manager.expects(:update_asset)
+          .with(asset_id, 'replacement_id' => replacement_asset_id)
+        AssetManagerUpdateAssetWorker.drain
       end
     end
   end
