@@ -92,6 +92,18 @@ class CsvPreviewControllerTest < ActionController::TestCase
     assert_cache_control("public")
   end
 
+  test 'previewing a csv that has not been virus checked redirects to the placeholder page' do
+    attachment_data = build(:attachment_data)
+    attachment = build(:csv_attachment, attachment_data: attachment_data)
+
+    create(:published_publication, :with_file_attachment_not_scanned, attachments: [attachment])
+
+    get :show, params: { id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension }
+
+    assert_redirected_to placeholder_url
+    assert_cache_control "max-age=#{1.minute}"
+  end
+
   view_test "GET #preview handles malformed CSV" do
     attachment = build(:csv_attachment, file: fixture_file_upload('malformed.csv'))
     attachment_data = attachment.attachment_data
