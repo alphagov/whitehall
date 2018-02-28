@@ -1,14 +1,22 @@
-class AttachmentsController < ApplicationController
-  include PublicDocumentRoutesHelper
-
+class CsvPreviewController < ApplicationController
   def show
-    if attachment_visible?
-      expires_headers
-      send_file_for_mime_type
-    else
-      fail
+    respond_to do |format|
+      format.html do
+        if attachment_data.csv? && attachment_visible? && attachment_visibility.visible_edition
+          expires_headers
+          @edition = attachment_visibility.visible_edition
+          @attachment = attachment_visibility.visible_attachment
+          @csv_preview = CsvPreview.new(upload_path)
+          render layout: 'html_attachments'
+        else
+          fail
+        end
+      end
     end
-    link_rel_headers
+  rescue CsvPreview::FileEncodingError, CSV::MalformedCSVError
+    render layout: 'html_attachments'
+  rescue ActionController::UnknownFormat
+    render status: :not_acceptable, plain: "Request format #{request.format} not handled."
   end
 
 private
@@ -23,8 +31,6 @@ private
     elsif (replacement = attachment_data.replaced_by)
       expires_headers
       redirect_to replacement.url, status: 301
-    elsif image? upload_path
-      redirect_to view_context.path_to_image('thumbnail-placeholder.png')
     elsif incoming_upload_exists? upload_path
       redirect_to_placeholder
     else
@@ -32,18 +38,15 @@ private
     end
   end
 
-  def link_rel_headers
-    if (edition = attachment_visibility.visible_edition)
-      response.headers['Link'] = "<#{public_document_url(edition)}>; rel=\"up\""
-    end
-  end
-
-  def analytics_format
-    @edition.type.underscore.to_sym
-  end
-
   def set_slimmer_template
     slimmer_template 'chromeless'
+  end
+
+  def redirect_to_placeholder
+    # Cache is explicitly 1 minute to prevent the virus redirect beng
+    # cached by CDNs.
+    expires_in(1.minute, public: true)
+    redirect_to placeholder_url
   end
 
   def attachment_data
@@ -78,36 +81,9 @@ private
     path.starts_with?(Whitehall.clean_uploads_root)
   end
 
-  def image?(path)
-    ['.jpg', '.jpeg', '.png', '.gif'].include?(File.extname(path))
-  end
-
   def incoming_upload_exists?(path)
     path = path.sub(Whitehall.clean_uploads_root, Whitehall.incoming_uploads_root)
     File.exist?(path)
-  end
-
-  def mime_type_for(path)
-    Mime::Type.lookup_by_extension(File.extname(path).from(1).downcase)
-  end
-
-  def real_path_for_x_accel_mapping(potentially_symlinked_path)
-    File.realpath(potentially_symlinked_path)
-  end
-
-  def redirect_to_placeholder
-    # Cache is explicitly 1 minute to prevent the virus redirect beng
-    # cached by CDNs.
-    expires_in(1.minute, public: true)
-    redirect_to placeholder_url
-  end
-
-  def send_file_for_mime_type
-    if (mime_type = mime_type_for(upload_path))
-      send_file real_path_for_x_accel_mapping(upload_path), type: mime_type, disposition: 'inline'
-    else
-      send_file real_path_for_x_accel_mapping(upload_path), disposition: 'inline'
-    end
   end
 
   def upload_exists?(path)

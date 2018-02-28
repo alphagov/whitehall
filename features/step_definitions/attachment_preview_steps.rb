@@ -7,7 +7,7 @@ Given(/^there is a publicly visible CSV attachment on the site$/) do
 end
 
 When(/^I preview the contents of the attachment$/) do
-  visit preview_attachment_path(
+  visit csv_preview_path(
     id: @attachment.attachment_data.id,
     file: @attachment.filename_without_extension,
     extension: @attachment.file_extension,
