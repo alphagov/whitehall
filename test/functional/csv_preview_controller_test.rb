@@ -80,6 +80,18 @@ class CsvPreviewControllerTest < ActionController::TestCase
     assert_select 'p.preview-error', text: /This file could not be previewed/
   end
 
+  test "attachments that aren't visible and have been replaced are permanently redirected to the replacement attachment" do
+    replacement = create(:csv_attachment)
+    attachment_data = create(:attachment_data, replaced_by: replacement.attachment_data)
+
+    get :show, params: { id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension }
+
+    assert_redirected_to replacement.url
+    assert_equal 301, response.status
+    assert_cache_control("max-age=#{Whitehall.uploads_cache_max_age}")
+    assert_cache_control("public")
+  end
+
   view_test "GET #preview handles malformed CSV" do
     attachment = build(:csv_attachment, file: fixture_file_upload('malformed.csv'))
     attachment_data = attachment.attachment_data
