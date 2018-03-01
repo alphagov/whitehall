@@ -14,6 +14,9 @@ Whitehall.edition_services.tap do |coordinator|
       ServiceListeners::AttachmentRedirectUrlUpdater
         .new(attachment)
         .update!
+      ServiceListeners::AttachmentLinkHeaderUpdater
+        .new(attachment)
+        .update!
     end
   end
 
