@@ -23,6 +23,9 @@ class Admin::BulkUploadsController < Admin::BaseController
   def create
     @bulk_upload = BulkUpload.new(@edition)
     @bulk_upload.attachments_attributes = create_params[:attachments_attributes]
+    @bulk_upload.attachments.each do |attachment|
+      attachment.attachment_data.attachable = @edition
+    end
     if @bulk_upload.save_attachments
       redirect_to admin_edition_attachments_path(@edition)
     else
