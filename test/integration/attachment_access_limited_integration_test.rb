@@ -54,10 +54,12 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
       fill_in "Title", with: 'asset-title'
       attach_file 'File', path_to_attachment('logo.png')
 
-      Services.asset_manager.expects(:create_whitehall_asset).with do |params|
-        params[:legacy_url_path] =~ /logo\.png/ &&
-          params[:access_limited] == ['user-uid']
-      end
+      Services.asset_manager.expects(:create_whitehall_asset).with(
+        has_entries(
+          legacy_url_path: regexp_matches(/logo\.png/),
+          access_limited: ['user-uid']
+        )
+      )
 
       click_button 'Save'
       AssetManagerCreateWhitehallAssetWorker.drain
@@ -72,14 +74,18 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
       fill_in 'Title', with: 'file-title'
       click_button 'Save'
 
-      Services.asset_manager.expects(:create_whitehall_asset).with do |params|
-        params[:legacy_url_path] =~ /greenpaper\.pdf/ &&
-          params[:access_limited] == ['user-uid']
-      end
-      Services.asset_manager.expects(:create_whitehall_asset).with do |params|
-        params[:legacy_url_path] =~ /thumbnail_greenpaper\.pdf\.png/ &&
-          params[:access_limited] == ['user-uid']
-      end
+      Services.asset_manager.expects(:create_whitehall_asset).with(
+        has_entries(
+          legacy_url_path: regexp_matches(/greenpaper\.pdf/),
+          access_limited: ['user-uid']
+        )
+      )
+      Services.asset_manager.expects(:create_whitehall_asset).with(
+        has_entries(
+          legacy_url_path: regexp_matches(/thumbnail_greenpaper\.pdf\.png/),
+          access_limited: ['user-uid']
+        )
+      )
 
       AssetManagerCreateWhitehallAssetWorker.drain
     end
