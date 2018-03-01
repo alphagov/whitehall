@@ -15,7 +15,7 @@ class CsvPreviewController < ApplicationController
         end
       end
     end
-  rescue CsvPreview::FileEncodingError, CSV::MalformedCSVError
+  rescue CsvPreview::FileEncodingError, CSV::MalformedCSVError, CsvFileFromPublicHost::ConnectionError
     render layout: 'html_attachments'
   rescue ActionController::UnknownFormat
     render status: :not_acceptable, plain: "Request format #{request.format} not handled."

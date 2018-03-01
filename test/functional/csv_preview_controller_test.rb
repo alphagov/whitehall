@@ -93,6 +93,22 @@ class CsvPreviewControllerTest < ActionController::TestCase
     assert_select 'p.preview-error', text: /This file could not be previewed/
   end
 
+  view_test "GET #show handles CsvFileFromPublicHost::ConnectionError errors" do
+    visible_edition = create(:published_publication, :with_file_attachment, attachments: [
+      attachment = build(:csv_attachment)
+    ])
+    attachment_data = attachment.attachment_data
+
+    CsvFileFromPublicHost.expects(:new).raises(CsvFileFromPublicHost::ConnectionError)
+
+    get_show attachment_data
+
+    assert_equal visible_edition, assigns(:edition)
+    assert_equal attachment, assigns(:attachment)
+    assert_response :success
+    assert_select 'p.preview-error', text: /This file could not be previewed/
+  end
+
   test "GET #show for attachments that aren't visible and have been replaced permanently redirects to the replacement attachment" do
     replacement = create(:csv_attachment)
     attachment_data = create(:attachment_data, replaced_by: replacement.attachment_data)
