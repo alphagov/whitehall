@@ -9,7 +9,7 @@ class Taxonomy::PublishingApiAdapterTest < ActiveSupport::TestCase
     setup_taxons([visible_published_taxon, not_visible_published_taxon], with_drafts: false)
     setup_taxons([visible_draft_taxon, not_visible_draft_taxon, visible_published_taxon, not_visible_published_taxon], with_drafts: true)
     result = subject.published_taxon_data
-    assert_same_elements result, [taxon_tree(visible_published_taxon), taxon_tree(not_visible_published_taxon)]
+    assert_same_elements result, [taxon_tree(visible_published_taxon)]
   end
 
   test "#draft_taxon_data" do
