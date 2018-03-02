@@ -1,10 +1,11 @@
 #!/usr/bin/env groovy
 
+library("govuk")
+
 REPOSITORY = 'whitehall'
 DEFAULT_SCHEMA_BRANCH = 'deployed-to-production'
 
 node {
-  def govuk = load '/var/lib/jenkins/groovy_scripts/govuk_jenkinslib.groovy'
   govuk.setEnvar("PUBLISHING_E2E_TESTS_COMMAND", "test-whitehall")
   govuk.buildProject(
     sassLint: false,
