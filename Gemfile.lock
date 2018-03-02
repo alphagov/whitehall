@@ -324,7 +324,7 @@ GEM
       parallel
     parser (2.4.0.2)
       ast (~> 2.3)
-    pdf-reader (2.0.0)
+    pdf-reader (2.1.0)
       Ascii85 (~> 1.0.0)
       afm (~> 0.2.1)
       hashery (~> 2.0)
@@ -599,7 +599,7 @@ DEPENDENCIES
   nokogiri (~> 1.8.0)
   parallel
   parallel_tests
-  pdf-reader (~> 2.0)
+  pdf-reader (~> 2.1)
   plek (~> 2.1)
   poltergeist
   pry-byebug
