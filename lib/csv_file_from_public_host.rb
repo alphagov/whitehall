@@ -16,7 +16,9 @@ class CsvFileFromPublicHost
 private
 
   def connection
-    Faraday.new(url: Whitehall.public_root)
+    conn = Faraday.new(url: Whitehall.public_root)
+    conn.basic_auth(basic_auth_user, basic_auth_password) if ENV.has_key?("BASIC_AUTH_CREDENTIALS")
+    conn
   end
 
   def response
@@ -36,5 +38,17 @@ private
 
   def temp_fn
     CGI.escape(@path)
+  end
+
+  def basic_auth_user
+    basic_auth_credentials[0]
+  end
+
+  def basic_auth_password
+    basic_auth_credentials[1]
+  end
+
+  def basic_auth_credentials
+    ENV["BASIC_AUTH_CREDENTIALS"].split(":")
   end
 end

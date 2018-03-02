@@ -29,4 +29,18 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
       assert_raises(CsvFileFromPublicHost::ConnectionError) { CsvFileFromPublicHost.new('some-path') }
     end
   end
+
+  test 'uses basic authentication if set in the environment' do
+    ENV.stubs(:[]).with('BASIC_AUTH_CREDENTIALS').returns('user:password')
+    ENV.stubs(:has_key?).with('BASIC_AUTH_CREDENTIALS').returns(true)
+    mock_response = mock('response')
+    mock_response.stubs(status: 206, body: '')
+    mock_connection = mock('connection')
+    mock_connection.stubs(get: mock_response)
+    Faraday.stubs(:new).returns(mock_connection)
+
+    mock_connection.expects(:basic_auth).at_least_once.with('user', 'password')
+
+    CsvFileFromPublicHost.new('some-path') {}
+  end
 end
