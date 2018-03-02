@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180116144233) do
+ActiveRecord::Schema.define(version: 20180302165453) do
 
   create_table "about_pages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "topical_event_id"
@@ -680,6 +680,7 @@ ActiveRecord::Schema.define(version: 20180116144233) do
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.index ["batch_id"], name: "index_link_checker_api_reports_on_batch_id", unique: true, using: :btree
+    t.index ["link_reportable_type", "link_reportable_id"], name: "index_link_checker_api_reportable", using: :btree
   end
 
   create_table "nation_inapplicabilities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
