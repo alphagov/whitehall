@@ -5,6 +5,8 @@ class AttachmentDataTest < ActiveSupport::TestCase
 
   setup do
     AttachmentUploader.enable_processing = true
+    @notifier = stub_everything('notifier')
+    Whitehall.stubs(:attachment_data_notifier).returns(@notifier)
   end
 
   teardown do
@@ -226,5 +228,14 @@ class AttachmentDataTest < ActiveSupport::TestCase
     to_be_replaced.replace_with!(replacer)
     assert_equal replacer, to_be_replaced.replaced_by
     assert_equal replacer, replaced.reload.replaced_by
+  end
+
+  test 'replace_with! published a replace event to the attachment data notifier' do
+    attachment_data = create(:attachment_data)
+    replacement = create(:attachment_data)
+
+    @notifier.expects(:publish).with('replace', attachment_data)
+
+    attachment_data.replace_with!(replacement)
   end
 end
