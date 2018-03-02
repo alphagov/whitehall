@@ -18,7 +18,11 @@ module ServiceListeners
 
       enqueue_job(attachment_data.file, replacement.file)
       if attachment_data.pdf?
-        enqueue_job(attachment_data.file.thumbnail, replacement.file.thumbnail)
+        if replacement.pdf?
+          enqueue_job(attachment_data.file.thumbnail, replacement.file.thumbnail)
+        else
+          enqueue_job(attachment_data.file.thumbnail, replacement.file)
+        end
       end
     end
 
