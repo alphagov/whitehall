@@ -1,7 +1,7 @@
 class CsvFileFromPublicHost
   class ConnectionError < StandardError; end
 
-  MAXIMUM_RANGE_BYTES = '30000'.freeze
+  MAXIMUM_RANGE_BYTES = '300000'.freeze
 
   def initialize(path)
     @path = path

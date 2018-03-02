@@ -3,7 +3,7 @@ require "test_helper"
 class CsvFileFromPublicHostTest < ActiveSupport::TestCase
   def stub_csv_request(status: 206, body: '')
     stub_request(:get, "#{Whitehall.public_root}/some-path")
-      .with(headers: { 'Range' => 'bytes=0-30000' })
+      .with(headers: { 'Range' => 'bytes=0-300000' })
       .to_return(status: status, body: body)
   end
 
