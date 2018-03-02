@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180116144233) do
+ActiveRecord::Schema.define(version: 20180228161807) do
 
   create_table "about_pages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "topical_event_id"
@@ -664,10 +664,10 @@ ActiveRecord::Schema.define(version: 20180116144233) do
     t.text     "check_warnings",             limit: 65535
     t.text     "check_errors",               limit: 65535
     t.integer  "ordering",                                 null: false
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
     t.text     "problem_summary",            limit: 65535
     t.text     "suggested_fix",              limit: 65535
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.index ["link_checker_api_report_id"], name: "index_link_checker_api_report_id", using: :btree
   end
 
@@ -680,6 +680,7 @@ ActiveRecord::Schema.define(version: 20180116144233) do
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.index ["batch_id"], name: "index_link_checker_api_reports_on_batch_id", unique: true, using: :btree
+    t.index ["link_reportable_type", "link_reportable_id"], name: "index_link_checker_api_reportable", using: :btree
   end
 
   create_table "nation_inapplicabilities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -702,6 +703,32 @@ ActiveRecord::Schema.define(version: 20180116144233) do
     t.datetime "date"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "old_link_checker_api_report_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "link_checker_api_report_id"
+    t.text     "uri",                        limit: 65535, null: false
+    t.string   "status",                                   null: false
+    t.datetime "checked"
+    t.text     "check_warnings",             limit: 65535
+    t.text     "check_errors",               limit: 65535
+    t.integer  "ordering",                                 null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.text     "problem_summary",            limit: 65535
+    t.text     "suggested_fix",              limit: 65535
+    t.index ["link_checker_api_report_id"], name: "index_link_checker_api_report_id", using: :btree
+  end
+
+  create_table "old_link_checker_api_reports", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "batch_id",             null: false
+    t.string   "status",               null: false
+    t.string   "link_reportable_type"
+    t.integer  "link_reportable_id"
+    t.datetime "completed_at"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.index ["batch_id"], name: "index_old_link_checker_api_reports_on_batch_id", unique: true, using: :btree
   end
 
   create_table "operational_fields", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -1197,12 +1224,13 @@ ActiveRecord::Schema.define(version: 20180116144233) do
   end
 
   create_table "worldwide_services", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "name",            null: false
-    t.integer  "service_type_id", null: false
+    t.string   "name",            default: "", null: false
+    t.integer  "service_type_id",              null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_foreign_key "link_checker_api_report_links", "link_checker_api_reports"
+  add_foreign_key "old_link_checker_api_report_links", "old_link_checker_api_reports", column: "link_checker_api_report_id"
   add_foreign_key "related_mainstreams", "editions"
 end
