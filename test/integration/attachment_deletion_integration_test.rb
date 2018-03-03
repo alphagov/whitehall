@@ -52,6 +52,20 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
         AssetManagerDeleteAssetWorker.drain
       end
     end
+
+    context 'when draft document is discarded' do
+      before do
+        visit admin_news_article_path(edition)
+        click_button 'Discard draft'
+      end
+
+      it 'responds with 404 Not Found for attachment URL' do
+        logout
+
+        get @attachment_url
+        assert_response :not_found
+      end
+    end
   end
 
 private
