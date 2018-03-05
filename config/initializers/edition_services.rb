@@ -14,6 +14,11 @@ Whitehall.edition_services.tap do |coordinator|
       ServiceListeners::AttachmentRedirectUrlUpdater
         .new(attachment)
         .update!
+    end
+  end
+
+  coordinator.subscribe(/^(force_publish|publish)$/) do |_event, edition, options|
+    edition.attachables.flat_map(&:attachments).each do |attachment|
       ServiceListeners::AttachmentLinkHeaderUpdater
         .new(attachment)
         .update!
