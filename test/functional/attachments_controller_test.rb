@@ -147,7 +147,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     attachment = new_edition.attachments.last
     attachment_data = attachment.attachment_data
     VirusScanHelpers.simulate_virus_scan(attachment_data.file)
-    attachment.update_column(:deleted, true)
+    attachment.destroy
 
     get :show, params: { id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension }
 
@@ -159,7 +159,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     attachment = visible_edition.attachments.first
     attachment_data = attachment.attachment_data
     VirusScanHelpers.simulate_virus_scan(attachment_data.file)
-    attachment.update_column(:deleted, true)
+    attachment.destroy
 
     get_show attachment_data
 
