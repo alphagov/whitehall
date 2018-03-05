@@ -174,8 +174,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     VirusScanHelpers.simulate_virus_scan(attachment_data.file)
     attachment.destroy
 
-    assert_raises(ActiveRecord::RecordNotFound) do
-      get_show attachment_data
-    end
+    get_show attachment_data
+    assert_response :not_found
   end
 end
