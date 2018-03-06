@@ -6,72 +6,72 @@ class Taxonomy::PublishingApiAdapterTest < ActiveSupport::TestCase
   end
 
   test "#published_taxon_data" do
-    setup_published_taxons([published_taxon])
+    setup_taxons([visible_published_taxon, not_visible_published_taxon], with_drafts: false)
+    setup_taxons([visible_draft_taxon, not_visible_draft_taxon, visible_published_taxon, not_visible_published_taxon], with_drafts: true)
     result = subject.published_taxon_data
-    assert_equal result, [published_taxon_tree]
+    assert_same_elements result, [taxon_tree(visible_published_taxon)]
   end
 
   test "#draft_taxon_data" do
-    setup_published_taxons([published_taxon])
-    setup_draft_taxons([visible_draft_taxon, draft_taxon])
+    setup_taxons([visible_published_taxon, not_visible_published_taxon], with_drafts: false)
+    setup_taxons([visible_draft_taxon, not_visible_draft_taxon, visible_published_taxon, not_visible_published_taxon], with_drafts: true)
     result = subject.draft_taxon_data
-    assert_equal [visible_draft_taxon_tree], result
+    assert_same_elements [taxon_tree(visible_draft_taxon)], result
   end
 
-  def published_taxon_tree
-    published_taxon.tap do |taxon|
-      taxon['expanded_links_hash'] = published_taxon
+  def taxon_tree(taxon)
+    taxon.tap do |t|
+      t['expanded_links_hash'] = taxon.dup
     end
   end
 
-  def published_taxon
-    { "content_id" => "published" }
-  end
-
-  def draft_taxon
-    { "content_id" => "draft" }
-  end
-
-  def visible_draft_taxon_tree
-    visible_draft_taxon.tap do |taxon|
-      taxon['expanded_links_hash'] = visible_draft_taxon
-    end
-  end
-
-  def visible_draft_taxon
+  def visible_published_taxon
     {
-      "content_id" => "visible_and_draft",
+      "content_id" => "published_visible",
       "details" => {
         "visible_to_departmental_editors" => true
       }
     }
   end
 
-  def setup_published_taxons(level_one_taxons)
-    homepage_expanded_links = {
-      "content_id" => Taxonomy::PublishingApiAdapter::HOMEPAGE_CONTENT_ID,
-      "expanded_links" => {
-        "level_one_taxons" => level_one_taxons
+  def not_visible_published_taxon
+    {
+      "content_id" => "published",
+      "details" => {
+        "visible_to_departmental_editors" => false
       }
     }
-    publishing_api_has_expanded_links(homepage_expanded_links, with_drafts: false)
-
-    level_one_taxons.each do |taxon|
-      publishing_api_has_expanded_links(taxon, with_drafts: true)
-    end
   end
 
-  def setup_draft_taxons(level_one_taxons)
+  def not_visible_draft_taxon
+    {
+      "content_id" => "draft",
+      "details" => {
+        "visible_to_departmental_editors" => false
+      }
+    }
+  end
+
+  def visible_draft_taxon
+    {
+      "content_id" => "draft_visible",
+      "details" => {
+        "visible_to_departmental_editors" => true
+      }
+    }
+  end
+
+  def setup_taxons(level_one_taxons, with_drafts: false)
     homepage_expanded_links = {
       "content_id" => Taxonomy::PublishingApiAdapter::HOMEPAGE_CONTENT_ID,
       "expanded_links" => {
         "level_one_taxons" => level_one_taxons
       }
     }
-    publishing_api_has_expanded_links(homepage_expanded_links, with_drafts: true)
+    publishing_api_has_expanded_links(homepage_expanded_links, with_drafts: with_drafts)
 
     level_one_taxons.each do |taxon|
-      publishing_api_has_expanded_links(taxon, with_drafts: true)
+      publishing_api_has_expanded_links(taxon, with_drafts: with_drafts)
     end
   end
 end

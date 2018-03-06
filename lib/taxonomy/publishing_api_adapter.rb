@@ -4,21 +4,20 @@ module Taxonomy
 
     def draft_taxon_data
       @_draft_data ||= begin
-        expand_taxon_array only_visible_taxons(draft_taxons_data)
+        expand_taxon_array draft_taxons_data
       end
     end
 
     def published_taxon_data
       @_published_data ||= begin
-        taxons = get_level_one_taxons(with_drafts: false)
-        expand_taxon_array(taxons)
+        expand_taxon_array get_level_one_taxons(with_drafts: false)
       end
     end
 
   private
 
     def only_visible_taxons(taxons)
-      taxons.select { |taxon_hash| taxon_hash.fetch('details', {})['visible_to_departmental_editors'] }
+      taxons.select { |taxon_hash| taxon_hash.dig('details', 'visible_to_departmental_editors') }
     end
 
     def expand_taxon_array(taxons)
@@ -48,9 +47,10 @@ module Taxonomy
     end
 
     def get_level_one_taxons(with_drafts:)
-      get_expanded_links_hash(HOMEPAGE_CONTENT_ID, with_drafts: with_drafts)
+      all_results = get_expanded_links_hash(HOMEPAGE_CONTENT_ID, with_drafts: with_drafts)
         .fetch('expanded_links', {})
         .fetch('level_one_taxons', [])
+      only_visible_taxons all_results
     end
 
     def get_expanded_links_hash(content_id, with_drafts:)
