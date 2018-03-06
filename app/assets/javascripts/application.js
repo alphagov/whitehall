@@ -10,7 +10,6 @@
 //= require vendor/sorttable
 //= require vendor/object-create-polyfill
 //
-//= require govuk_toolkit
 //= require shared_mustache
 //= require templates
 //
