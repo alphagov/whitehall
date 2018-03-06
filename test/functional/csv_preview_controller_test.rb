@@ -9,12 +9,19 @@ class CsvPreviewControllerTest < ActionController::TestCase
     File.basename(attachment_data.filename, '.' + attachment_data.file_extension)
   end
 
+  def stub_csv_file_from_public_host(attachment)
+    file_path = File.join(Whitehall.clean_uploads_root, attachment.attachment_data.file.store_path)
+    public_url_path = attachment.file.file.asset_manager_path
+    CsvFileFromPublicHost.stubs(:new).with(public_url_path).yields(stub(path: file_path))
+  end
+
   view_test "GET #show for a CSV attachment on a public edition renders the CSV preview" do
     visible_edition = create(:published_publication, :with_file_attachment, attachments: [
       attachment = build(:csv_attachment)
     ])
     attachment_data = attachment.attachment_data
 
+    stub_csv_file_from_public_host(attachment)
     get_show attachment_data
 
     assert_equal visible_edition, assigns(:edition)
@@ -34,6 +41,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
 
     create(:published_publication, :with_file_attachment, attachments: [attachment], organisations: [org_1, org_2, org_3])
 
+    stub_csv_file_from_public_host(attachment)
     get_show attachment_data
 
     assert_select 'a[href=?]', organisation_path(org_1)
@@ -76,6 +84,23 @@ class CsvPreviewControllerTest < ActionController::TestCase
 
     CsvPreview.expects(:new).raises(CsvPreview::FileEncodingError)
 
+    stub_csv_file_from_public_host(attachment)
+    get_show attachment_data
+
+    assert_equal visible_edition, assigns(:edition)
+    assert_equal attachment, assigns(:attachment)
+    assert_response :success
+    assert_select 'p.preview-error', text: /This file could not be previewed/
+  end
+
+  view_test "GET #show handles CsvFileFromPublicHost::ConnectionError errors" do
+    visible_edition = create(:published_publication, :with_file_attachment, attachments: [
+      attachment = build(:csv_attachment)
+    ])
+    attachment_data = attachment.attachment_data
+
+    CsvFileFromPublicHost.expects(:new).raises(CsvFileFromPublicHost::ConnectionError)
+
     get_show attachment_data
 
     assert_equal visible_edition, assigns(:edition)
@@ -114,6 +139,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
 
     create(:published_publication, :with_file_attachment, attachments: [attachment])
 
+    stub_csv_file_from_public_host(attachment)
     get_show attachment_data
 
     assert_response :success
@@ -136,6 +162,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     attachment_data = attachment.attachment_data
     VirusScanHelpers.simulate_virus_scan(attachment_data.file)
 
+    stub_csv_file_from_public_host(attachment)
     get_show attachment_data
 
     assert_response :success
