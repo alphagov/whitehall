@@ -16,4 +16,20 @@ class ResponseTest < ActiveSupport::TestCase
 
     assert_equal consultation.alternative_format_contact_email, response.alternative_format_contact_email
   end
+
+  test 'is publicly visible if its consultation is publicly visible' do
+    consultation = build(:consultation)
+    consultation.stubs(:publicly_visible?).returns(true)
+    response = build(:consultation_outcome, consultation: consultation)
+
+    assert response.publicly_visible?
+  end
+
+  test 'is not publicly visible if its consultation is not publicly visible' do
+    consultation = build(:consultation)
+    consultation.stubs(:publicly_visible?).returns(false)
+    response = build(:consultation_outcome, consultation: consultation)
+
+    refute response.publicly_visible?
+  end
 end

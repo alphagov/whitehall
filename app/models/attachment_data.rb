@@ -104,6 +104,14 @@ class AttachmentData < ApplicationRecord
     end
   end
 
+  def deleted?
+    if attachments.one? || attachments[-1].attachable.publicly_visible?
+      attachments[-1].deleted?
+    else
+      attachments[-2].deleted?
+    end
+  end
+
 private
 
   def cant_be_replaced_by_self

@@ -20,6 +20,10 @@ class Response < ApplicationRecord
     consultation.alternative_format_contact_email
   end
 
+  def publicly_visible?
+    consultation.publicly_visible?
+  end
+
   def can_order_attachments?
     true
   end
