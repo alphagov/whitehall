@@ -130,3 +130,4 @@ group :cucumber, :test do
   gem 'launchy'
   gem 'poltergeist'
 end
+gem 'rack-protection', '>= 2.0.1'

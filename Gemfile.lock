@@ -348,7 +348,7 @@ GEM
     rack (2.0.4)
     rack-cache (1.7.1)
       rack (>= 0.4)
-    rack-protection (2.0.0)
+    rack-protection (2.0.1)
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -605,6 +605,7 @@ DEPENDENCIES
   pry-byebug
   pry-rails
   rack (~> 2.0)
+  rack-protection (>= 2.0.1)
   rack-test
   rack_strip_client_ip (~> 0.0.2)
   rails (= 5.0.6)
@@ -640,6 +641,7 @@ DEPENDENCIES
   validates_email_format_of
   webmock
   whenever (~> 0.10.0)
+
 
 BUNDLED WITH
    1.16.1
