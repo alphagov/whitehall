@@ -49,4 +49,9 @@ class PolicyGroupTest < ActiveSupport::TestCase
     policy_group = FactoryBot.build(:policy_group)
     assert_nil policy_group.access_limited_object
   end
+
+  test 'is always publicly visible' do
+    policy_group = FactoryBot.build(:policy_group)
+    assert policy_group.publicly_visible?
+  end
 end

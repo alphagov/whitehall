@@ -23,6 +23,10 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
         refute attachment_data.reload.deleted?
       end
 
+      it 'is draft' do
+        assert attachment_data.reload.draft?
+      end
+
       context 'when attachment is deleted' do
         before do
           attachment.destroy!
@@ -43,6 +47,10 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
           refute attachment_data.reload.deleted?
         end
 
+        it 'is not draft' do
+          refute attachment_data.reload.draft?
+        end
+
         context 'and new edition is created' do
           let(:new_edition) { edition.create_draft(user) }
           let(:new_attachable) { new_edition }
@@ -56,6 +64,10 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
             refute attachment_data.reload.deleted?
           end
 
+          it 'is not draft' do
+            refute attachment_data.reload.draft?
+          end
+
           context 'and attachment is deleted' do
             before do
               new_attachment.destroy!
@@ -63,6 +75,10 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
             it 'is not deleted, because available on published edition' do
               refute attachment_data.reload.deleted?
+            end
+
+            it 'is not draft, because available on published edition' do
+              refute attachment_data.reload.draft?
             end
 
             context 'and new edition is published' do
@@ -91,6 +107,10 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
         refute attachment_data.reload.deleted?
       end
 
+      it 'is draft' do
+        assert attachment_data.reload.draft?
+      end
+
       context 'when attachment is deleted' do
         before do
           attachment.destroy!
@@ -111,6 +131,10 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
           refute attachment_data.reload.deleted?
         end
 
+        it 'is not draft' do
+          refute attachment_data.reload.draft?
+        end
+
         context 'and new edition is created' do
           let(:new_edition) { consultation.create_draft(user) }
           let(:new_attachable) { new_edition.outcome }
@@ -124,6 +148,10 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
             refute attachment_data.reload.deleted?
           end
 
+          it 'is not draft' do
+            refute attachment_data.reload.draft?
+          end
+
           context 'and attachment is deleted' do
             before do
               new_attachment.destroy!
@@ -131,6 +159,10 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
             it 'is not deleted, because available on published edition' do
               refute attachment_data.reload.deleted?
+            end
+
+            it 'is not draft, because available on published edition' do
+              refute attachment_data.reload.draft?
             end
 
             context 'and new edition is published' do
@@ -155,6 +187,10 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
       it 'is not deleted' do
         refute attachment_data.reload.deleted?
+      end
+
+      it 'is not draft' do
+        refute attachment_data.reload.draft?
       end
 
       context 'when attachment is deleted' do

@@ -112,6 +112,14 @@ class AttachmentData < ApplicationRecord
     end
   end
 
+  def draft?
+    if attachments.one? || attachments[-1].attachable.publicly_visible?
+      !attachments[-1].attachable.publicly_visible?
+    else
+      !attachments[-2].attachable.publicly_visible?
+    end
+  end
+
 private
 
   def cant_be_replaced_by_self
