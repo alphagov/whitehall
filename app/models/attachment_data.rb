@@ -123,6 +123,15 @@ class AttachmentData < ApplicationRecord
     end
   end
 
+  def accessible_to?(user)
+    return false if attachments.none?
+    if attachments.one? || attachments[-1].attachable.publicly_visible?
+      attachments[-1].attachable.accessible_to?(user)
+    else
+      attachments[-2].attachable.accessible_to?(user)
+    end
+  end
+
   def unpublished?
     return false if attachments.none?
     attachments[-1].attachable.unpublished?

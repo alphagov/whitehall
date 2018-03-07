@@ -21,6 +21,10 @@ class PolicyGroup < ApplicationRecord
     true
   end
 
+  def accessible_to?(*)
+    true
+  end
+
   def unpublished?
     false
   end

@@ -3,7 +3,12 @@ require 'test_helper'
 class AttachmentDataVisibilityTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
-  let(:user) { create(:writer) }
+  let(:organisation) { create(:organisation) }
+  let(:user) { create(:writer, organisation: organisation) }
+  let(:user_in_same_organisation) { create(:writer, organisation: organisation) }
+  let(:another_organisation) { create(:organisation) }
+  let(:user_in_another_organisation) { create(:writer, organisation: another_organisation) }
+  let(:anonymous_user) { nil }
 
   context 'given an attachment' do
     let(:file) { File.open(fixture_path.join('simple.pdf')) }
@@ -16,7 +21,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
     end
 
     context 'on a draft edition' do
-      let(:edition) { create(:news_article) }
+      let(:edition) { create(:news_article, organisations: [organisation]) }
       let(:attachable) { edition }
 
       it 'is not deleted' do
@@ -27,12 +32,43 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
         assert attachment_data.reload.draft?
       end
 
+      it 'is not accessible to anonymous user' do
+        refute attachment_data.reload.accessible_to?(anonymous_user)
+      end
+
+      it 'is accessible to user in same organisation' do
+        assert attachment_data.reload.accessible_to?(user_in_same_organisation)
+      end
+
+      it 'is accessible to user in another organisation' do
+        assert attachment_data.reload.accessible_to?(user_in_another_organisation)
+      end
+
       it 'is not unpublished' do
         refute attachment_data.reload.unpublished?
       end
 
       it 'is not replaced' do
         refute attachment_data.reload.replaced?
+      end
+
+      context 'edition is access-limited' do
+        before do
+          edition.access_limited = true
+          edition.save!
+        end
+
+        it 'is not accessible to anonymous user' do
+          refute attachment_data.reload.accessible_to?(anonymous_user)
+        end
+
+        it 'is accessible to user in same organisation' do
+          assert attachment_data.reload.accessible_to?(user_in_same_organisation)
+        end
+
+        it 'is not accessible to user in another organisation' do
+          refute attachment_data.reload.accessible_to?(user_in_another_organisation)
+        end
       end
 
       context 'when attachment is deleted' do
@@ -121,6 +157,26 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
           it 'is not unpublished' do
             refute attachment_data.reload.unpublished?
+          end
+
+          context 'new edition is access-limited' do
+            before do
+              new_edition.change_note = 'change-note'
+              new_edition.access_limited = true
+              new_edition.save!
+            end
+
+            it 'is not accessible to anonymous user' do
+              refute attachment_data.reload.accessible_to?(anonymous_user)
+            end
+
+            it 'is accessible to user in same organisation' do
+              assert attachment_data.reload.accessible_to?(user_in_same_organisation)
+            end
+
+            it 'is accessible to user in another organisation' do
+              assert attachment_data.reload.accessible_to?(user_in_another_organisation)
+            end
           end
 
           context 'when attachment is replaced' do
@@ -213,7 +269,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
     end
 
     context 'on a draft consultation response' do
-      let(:consultation) { create(:consultation) }
+      let(:consultation) { create(:consultation, organisations: [organisation]) }
       let(:outcome_attributes) { attributes_for(:consultation_outcome) }
       let(:outcome) { consultation.create_outcome!(outcome_attributes) }
       let(:attachable) { outcome }
@@ -226,8 +282,38 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
         assert attachment_data.reload.draft?
       end
 
+      it 'is not accessible to anonymous user' do
+        refute attachment_data.reload.accessible_to?(anonymous_user)
+      end
+
+      it 'is accessible to user in same organisation' do
+        assert attachment_data.reload.accessible_to?(user_in_same_organisation)
+      end
+
+      it 'is accessible to user in another organisation' do
+        assert attachment_data.reload.accessible_to?(user_in_another_organisation)
+      end
+
       it 'is not unpublished' do
         refute attachment_data.reload.unpublished?
+      end
+
+      context 'consultation is access-limited' do
+        before do
+          consultation.update_attributes!(access_limited: true)
+        end
+
+        it 'is not accessible to anonymous user' do
+          refute attachment_data.reload.accessible_to?(anonymous_user)
+        end
+
+        it 'is accessible to user in same organisation' do
+          assert attachment_data.reload.accessible_to?(user_in_same_organisation)
+        end
+
+        it 'is not accessible to user in another organisation' do
+          refute attachment_data.reload.accessible_to?(user_in_another_organisation)
+        end
       end
 
       context 'when attachment is deleted' do
@@ -342,6 +428,18 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
       it 'is not unpublished' do
         refute attachment_data.reload.unpublished?
+      end
+
+      it 'is accessible to anonymous user' do
+        assert attachment_data.reload.accessible_to?(anonymous_user)
+      end
+
+      it 'is accessible to user in same organisation' do
+        assert attachment_data.reload.accessible_to?(user_in_same_organisation)
+      end
+
+      it 'is accessible to user in another organisation' do
+        assert attachment_data.reload.accessible_to?(user_in_another_organisation)
       end
 
       context 'when attachment is deleted' do

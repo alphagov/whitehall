@@ -24,6 +24,10 @@ class Response < ApplicationRecord
     consultation.publicly_visible?
   end
 
+  def accessible_to?(user)
+    consultation.accessible_to?(user)
+  end
+
   def unpublished?
     consultation.unpublished?
   end
