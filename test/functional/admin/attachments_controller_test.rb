@@ -82,7 +82,6 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
       assert_response :redirect
       assert Attachment.find(attachment.id).deleted?, 'attachment should have been soft-deleted'
-      assert AttachmentData.find_by(id: attachment_data.id).nil?, 'attachment data should have been deleted'
     end
   end
 

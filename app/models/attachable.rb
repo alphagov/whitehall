@@ -124,7 +124,7 @@ module Attachable
   end
 
   def delete_all_attachments
-    attachments.each { |attachment| attachment.update(deleted: true) }
+    attachments.each(&:destroy)
   end
 
   def reorder_attachments(ordered_attachment_ids)

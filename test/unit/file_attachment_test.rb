@@ -41,23 +41,6 @@ class FileAttachmentTest < ActiveSupport::TestCase
     assert_match %r(can't be blank), attachment.errors[:"attachment_data.file"].first
   end
 
-  test "does not destroy attachment_data when more attachments are associated" do
-    saved_attachment = create(:file_attachment)
-    attachment_data = saved_attachment.attachment_data
-    _other_attachment = create(:file_attachment, attachment_data: attachment_data)
-
-    attachment_data.expects(:destroy).never
-    saved_attachment.destroy
-  end
-
-  test "destroys attachment_data when no attachments are associated" do
-    saved_attachment = create(:file_attachment)
-    attachment_data = saved_attachment.attachment_data
-
-    attachment_data.expects(:destroy)
-    saved_attachment.destroy
-  end
-
   test "update with empty nested attachment data attributes still works" do
     attachment = create(:file_attachment)
 
