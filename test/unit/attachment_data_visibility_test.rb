@@ -31,6 +31,10 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
         refute attachment_data.reload.unpublished?
       end
 
+      it 'is not replaced' do
+        refute attachment_data.reload.replaced?
+      end
+
       context 'when attachment is deleted' do
         before do
           attachment.destroy!
@@ -38,6 +42,45 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
         it 'is deleted' do
           assert attachment_data.reload.deleted?
+        end
+      end
+
+      context 'when attachment is replaced' do
+        before do
+          attributes = attributes_for(:attachment_data)
+          attributes[:to_replace_id] = attachment_data.id
+          attachment.update_attributes!(attachment_data_attributes: attributes)
+        end
+
+        it 'is not deleted' do
+          refute attachment_data.reload.deleted?
+        end
+
+        it 'is draft' do
+          assert attachment_data.reload.draft?
+        end
+
+        it 'is replaced' do
+          assert attachment_data.reload.replaced?
+        end
+
+        context 'when edition is published' do
+          before do
+            edition.major_change_published_at = Time.zone.now
+            edition.force_publish!
+          end
+
+          it 'is not deleted' do
+            refute attachment_data.reload.deleted?
+          end
+
+          it 'is draft' do
+            assert attachment_data.reload.draft?
+          end
+
+          it 'is replaced' do
+            assert attachment_data.reload.replaced?
+          end
         end
       end
 
@@ -78,6 +121,26 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
           it 'is not unpublished' do
             refute attachment_data.reload.unpublished?
+          end
+
+          context 'when attachment is replaced' do
+            before do
+              attributes = attributes_for(:attachment_data)
+              attributes[:to_replace_id] = attachment_data.id
+              new_attachment.update_attributes!(attachment_data_attributes: attributes)
+            end
+
+            it 'is not deleted' do
+              refute attachment_data.reload.deleted?
+            end
+
+            it 'is not draft, because available on published edition' do
+              refute attachment_data.reload.draft?
+            end
+
+            it 'is replaced' do
+              assert attachment_data.reload.replaced?
+            end
           end
 
           context 'and attachment is deleted' do

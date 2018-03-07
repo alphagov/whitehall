@@ -105,6 +105,7 @@ class AttachmentData < ApplicationRecord
   end
 
   def deleted?
+    return false if attachments.none?
     if attachments.one? || attachments[-1].attachable.publicly_visible?
       attachments[-1].deleted?
     else
@@ -114,6 +115,7 @@ class AttachmentData < ApplicationRecord
 
   def draft?
     return false if unpublished?
+    return true if attachments.none?
     if attachments.one? || attachments[-1].attachable.publicly_visible?
       !attachments[-1].attachable.publicly_visible?
     else
@@ -122,7 +124,12 @@ class AttachmentData < ApplicationRecord
   end
 
   def unpublished?
+    return false if attachments.none?
     attachments[-1].attachable.unpublished?
+  end
+
+  def replaced?
+    replaced_by.present?
   end
 
 private
