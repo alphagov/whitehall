@@ -47,8 +47,6 @@ class AttachmentDataTest < ActiveSupport::TestCase
   end
 
   test "should save content type and file size on update" do
-    Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
-
     greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
     whitepaper_pdf = fixture_file_upload('whitepaper.pdf', 'application/pdf')
     attachment = create(:attachment_data, file: greenpaper_pdf)
@@ -95,8 +93,6 @@ class AttachmentDataTest < ActiveSupport::TestCase
   end
 
   test "should set page count for PDF on update" do
-    Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
-
     two_pages_pdf = fixture_file_upload('two-pages.pdf')
     three_pages_pdf = fixture_file_upload('three-pages.pdf')
     attachment = create(:attachment_data, file: two_pages_pdf)

@@ -195,8 +195,6 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
   end
 
   test "#visible returns false for deleted attachment on a publication" do
-    Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
-
     publication = create(:published_publication, :with_file_attachment)
     attachment = publication.attachments.last
     attachment.destroy
@@ -219,8 +217,6 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
   end
 
   test "#visible returns false for deleted attachment on a PolicyGroup" do
-    Services.asset_manager.stubs(:whitehall_asset).returns('id' => 'http://asset-manager/assets/asset-id')
-
     policy_group = create(:policy_group, :with_file_attachment)
     attachment = policy_group.attachments.last
     attachment.destroy
