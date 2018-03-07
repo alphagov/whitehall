@@ -27,6 +27,10 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
         assert attachment_data.reload.draft?
       end
 
+      it 'is not unpublished' do
+        refute attachment_data.reload.unpublished?
+      end
+
       context 'when attachment is deleted' do
         before do
           attachment.destroy!
@@ -51,6 +55,10 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
           refute attachment_data.reload.draft?
         end
 
+        it 'is not unpublished' do
+          refute attachment_data.reload.unpublished?
+        end
+
         context 'and new edition is created' do
           let(:new_edition) { edition.create_draft(user) }
           let(:new_attachable) { new_edition }
@@ -66,6 +74,10 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
           it 'is not draft' do
             refute attachment_data.reload.draft?
+          end
+
+          it 'is not unpublished' do
+            refute attachment_data.reload.unpublished?
           end
 
           context 'and attachment is deleted' do
@@ -94,6 +106,46 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
             end
           end
         end
+
+        context 'and edition is unpublished' do
+          before do
+            attributes = attributes_for(:unpublishing, edition: edition)
+            edition.build_unpublishing(attributes)
+            edition.unpublish!
+          end
+
+          it 'is not deleted' do
+            refute attachment_data.reload.deleted?
+          end
+
+          it 'is not draft' do
+            refute attachment_data.reload.draft?
+          end
+
+          it 'is is unpublished' do
+            assert attachment_data.reload.unpublished?
+          end
+        end
+
+        context 'and edition is withdrawn' do
+          before do
+            attributes = attributes_for(:unpublishing, edition: edition)
+            edition.build_unpublishing(attributes)
+            edition.withdraw!
+          end
+
+          it 'is not deleted' do
+            refute attachment_data.reload.deleted?
+          end
+
+          it 'is not draft' do
+            refute attachment_data.reload.draft?
+          end
+
+          it 'is is not unpublished' do
+            refute attachment_data.reload.unpublished?
+          end
+        end
       end
     end
 
@@ -109,6 +161,10 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
       it 'is draft' do
         assert attachment_data.reload.draft?
+      end
+
+      it 'is not unpublished' do
+        refute attachment_data.reload.unpublished?
       end
 
       context 'when attachment is deleted' do
@@ -135,6 +191,10 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
           refute attachment_data.reload.draft?
         end
 
+        it 'is not unpublished' do
+          refute attachment_data.reload.unpublished?
+        end
+
         context 'and new edition is created' do
           let(:new_edition) { consultation.create_draft(user) }
           let(:new_attachable) { new_edition.outcome }
@@ -150,6 +210,10 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
           it 'is not draft' do
             refute attachment_data.reload.draft?
+          end
+
+          it 'is not unpublished' do
+            refute attachment_data.reload.unpublished?
           end
 
           context 'and attachment is deleted' do
@@ -178,6 +242,26 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
             end
           end
         end
+
+        context 'and consultation is unpublished' do
+          before do
+            attributes = attributes_for(:unpublishing, edition: consultation)
+            consultation.build_unpublishing(attributes)
+            consultation.unpublish!
+          end
+
+          it 'is not deleted' do
+            refute attachment_data.reload.deleted?
+          end
+
+          it 'is not draft' do
+            refute attachment_data.reload.draft?
+          end
+
+          it 'is unpublished' do
+            assert attachment_data.reload.unpublished?
+          end
+        end
       end
     end
 
@@ -191,6 +275,10 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
       it 'is not draft' do
         refute attachment_data.reload.draft?
+      end
+
+      it 'is not unpublished' do
+        refute attachment_data.reload.unpublished?
       end
 
       context 'when attachment is deleted' do

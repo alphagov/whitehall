@@ -54,4 +54,9 @@ class PolicyGroupTest < ActiveSupport::TestCase
     policy_group = FactoryBot.build(:policy_group)
     assert policy_group.publicly_visible?
   end
+
+  test 'is never unpublished' do
+    policy_group = FactoryBot.build(:policy_group)
+    refute policy_group.unpublished?
+  end
 end

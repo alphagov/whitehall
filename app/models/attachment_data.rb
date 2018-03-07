@@ -113,11 +113,16 @@ class AttachmentData < ApplicationRecord
   end
 
   def draft?
+    return false if unpublished?
     if attachments.one? || attachments[-1].attachable.publicly_visible?
       !attachments[-1].attachable.publicly_visible?
     else
       !attachments[-2].attachable.publicly_visible?
     end
+  end
+
+  def unpublished?
+    attachments[-1].attachable.unpublished?
   end
 
 private

@@ -90,4 +90,8 @@ module Edition::Publishing
     self.published_major_version = previous_edition.try(:published_major_version)
     self.published_minor_version = previous_edition.try(:published_minor_version)
   end
+
+  def unpublished?
+    !publicly_visible? && unpublishing.present?
+  end
 end

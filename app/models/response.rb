@@ -24,6 +24,10 @@ class Response < ApplicationRecord
     consultation.publicly_visible?
   end
 
+  def unpublished?
+    consultation.unpublished?
+  end
+
   def can_order_attachments?
     true
   end

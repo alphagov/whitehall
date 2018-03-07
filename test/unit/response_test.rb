@@ -32,4 +32,20 @@ class ResponseTest < ActiveSupport::TestCase
 
     refute response.publicly_visible?
   end
+
+  test 'is unpublished if its consultation is unpublished' do
+    consultation = build(:consultation)
+    consultation.stubs(:unpublished?).returns(true)
+    response = build(:consultation_outcome, consultation: consultation)
+
+    assert response.unpublished?
+  end
+
+  test 'is not unpublished if its consultation is not unpublished' do
+    consultation = build(:consultation)
+    consultation.stubs(:unpublished?).returns(false)
+    response = build(:consultation_outcome, consultation: consultation)
+
+    refute response.unpublished?
+  end
 end
