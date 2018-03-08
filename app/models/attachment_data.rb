@@ -129,6 +129,10 @@ class AttachmentData < ApplicationRecord
     replaced_by.present?
   end
 
+  def visible_to?(user)
+    !deleted? && !unpublished? && (!draft? || (draft? && accessible_to?(user)))
+  end
+
 private
 
   class NullAttachable

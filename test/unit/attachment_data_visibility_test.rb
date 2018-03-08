@@ -492,5 +492,71 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
         end
       end
     end
+
+    context 'when attachment data would otherwise be visible' do
+      let(:attachable) { build(:news_article) }
+
+      let(:deleted) { false }
+      let(:unpublished) { false }
+      let(:draft) { false }
+
+      before do
+        attachment_data.stubs(
+          deleted?: deleted,
+          unpublished?: unpublished,
+          draft?: draft
+        )
+      end
+
+      it 'is visible' do
+        assert attachment_data.visible_to?(nil)
+      end
+
+      context 'when deleted' do
+        let(:deleted) { true }
+
+        it 'is not visible' do
+          refute attachment_data.visible_to?(nil)
+        end
+      end
+
+      context 'when unpublished' do
+        let(:unpublished) { true }
+
+        it 'is not visible' do
+          refute attachment_data.visible_to?(nil)
+        end
+      end
+
+      context 'when draft' do
+        let(:draft) { true }
+
+        before do
+          attachment_data.stubs(:accessible_to?).with(anything).returns(false)
+          attachment_data.stubs(:accessible_to?).with(user).returns(accessible)
+        end
+
+        context 'and only accessible to specified user' do
+          let(:accessible) { true }
+          let(:another_user) { build(:user) }
+
+          it 'is visible to user' do
+            assert attachment_data.visible_to?(user)
+          end
+
+          it 'is not visible to another user' do
+            refute attachment_data.visible_to?(another_user)
+          end
+        end
+
+        context 'and not accessible to user' do
+          let(:accessible) { false }
+
+          it 'is not visible to user' do
+            refute attachment_data.visible_to?(user)
+          end
+        end
+      end
+    end
   end
 end
