@@ -48,4 +48,12 @@ class ResponseTest < ActiveSupport::TestCase
 
     refute response.unpublished?
   end
+
+  test 'returns unpublished edition from its consultation' do
+    consultation = build(:consultation)
+    consultation.stubs(:unpublished_edition).returns(consultation)
+    response = build(:consultation_outcome, consultation: consultation)
+
+    assert_equal consultation, response.unpublished_edition
+  end
 end

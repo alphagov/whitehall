@@ -60,6 +60,11 @@ class PolicyGroupTest < ActiveSupport::TestCase
     refute policy_group.unpublished?
   end
 
+  test 'never has unpublished edition' do
+    policy_group = FactoryBot.build(:policy_group)
+    assert_nil policy_group.unpublished_edition
+  end
+
   test 'is always accessible' do
     policy_group = FactoryBot.build(:policy_group)
     assert policy_group.accessible_to?(nil)

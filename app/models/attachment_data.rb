@@ -121,6 +121,10 @@ class AttachmentData < ApplicationRecord
     last_attachment.attachable.unpublished?
   end
 
+  def unpublished_edition
+    last_attachment.attachable.unpublished_edition
+  end
+
   def replaced?
     replaced_by.present?
   end
@@ -138,6 +142,10 @@ private
 
     def unpublished?
       false
+    end
+
+    def unpublished_edition
+      nil
     end
   end
 

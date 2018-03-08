@@ -32,6 +32,10 @@ class Response < ApplicationRecord
     consultation.unpublished?
   end
 
+  def unpublished_edition
+    consultation.unpublished_edition
+  end
+
   def can_order_attachments?
     true
   end

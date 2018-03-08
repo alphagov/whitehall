@@ -29,6 +29,10 @@ class PolicyGroup < ApplicationRecord
     false
   end
 
+  def unpublished_edition
+    nil
+  end
+
   def published_policies
     Whitehall.search_client.search(
       filter_policy_groups: [slug],

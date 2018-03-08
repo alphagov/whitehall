@@ -94,4 +94,8 @@ module Edition::Publishing
   def unpublished?
     !publicly_visible? && unpublishing.present?
   end
+
+  def unpublished_edition
+    unpublished? ? unpublishing.edition : nil
+  end
 end

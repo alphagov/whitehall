@@ -48,6 +48,10 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
         refute attachment_data.reload.unpublished?
       end
 
+      it 'has no unpublished edition' do
+        assert_nil attachment_data.reload.unpublished_edition
+      end
+
       it 'is not replaced' do
         refute attachment_data.reload.replaced?
       end
@@ -138,6 +142,10 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
           refute attachment_data.reload.unpublished?
         end
 
+        it 'has no unpublished edition' do
+          assert_nil attachment_data.reload.unpublished_edition
+        end
+
         context 'and new edition is created' do
           let(:new_edition) { edition.create_draft(user) }
           let(:new_attachable) { new_edition }
@@ -157,6 +165,10 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
           it 'is not unpublished' do
             refute attachment_data.reload.unpublished?
+          end
+
+          it 'has no unpublished edition' do
+            assert_nil attachment_data.reload.unpublished_edition
           end
 
           context 'new edition is access-limited' do
@@ -244,6 +256,10 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
           it 'is is unpublished' do
             assert attachment_data.reload.unpublished?
           end
+
+          it 'returns edition as unpublished edition' do
+            assert_equal edition, attachment_data.reload.unpublished_edition
+          end
         end
 
         context 'and edition is withdrawn' do
@@ -263,6 +279,10 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
           it 'is is not unpublished' do
             refute attachment_data.reload.unpublished?
+          end
+
+          it 'has no unpublished edition' do
+            assert_nil attachment_data.reload.unpublished_edition
           end
         end
       end
@@ -296,6 +316,10 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
       it 'is not unpublished' do
         refute attachment_data.reload.unpublished?
+      end
+
+      it 'has no unpublished edition' do
+        assert_nil attachment_data.reload.unpublished_edition
       end
 
       context 'consultation is access-limited' do
@@ -344,6 +368,10 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
           refute attachment_data.reload.unpublished?
         end
 
+        it 'has no unpublished edition' do
+          assert_nil attachment_data.reload.unpublished_edition
+        end
+
         context 'and new edition is created' do
           let(:new_edition) { consultation.create_draft(user) }
           let(:new_attachable) { new_edition.outcome }
@@ -363,6 +391,10 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
           it 'is not unpublished' do
             refute attachment_data.reload.unpublished?
+          end
+
+          it 'has no unpublished edition' do
+            assert_nil attachment_data.reload.unpublished_edition
           end
 
           context 'and attachment is deleted' do
@@ -410,6 +442,10 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
           it 'is unpublished' do
             assert attachment_data.reload.unpublished?
           end
+
+          it 'returns consultation as unpublished edition' do
+            assert_equal consultation, attachment_data.reload.unpublished_edition
+          end
         end
       end
     end
@@ -428,6 +464,10 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
       it 'is not unpublished' do
         refute attachment_data.reload.unpublished?
+      end
+
+      it 'has no unpublished edition' do
+        assert_nil attachment_data.reload.unpublished_edition
       end
 
       it 'is accessible to anonymous user' do
