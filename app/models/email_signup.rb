@@ -13,13 +13,13 @@ class EmailSignup
 
   def save
     if valid?
-      ensure_govdelivery_topic_exists
+      ensure_subscriber_list_exists
       true
     end
   end
 
-  def ensure_govdelivery_topic_exists
-    @ensure_govdelivery_topic_exists ||=
+  def ensure_subscriber_list_exists
+    @ensure_subscriber_list_exists ||=
       Services.email_alert_api.find_or_create_subscriber_list(criteria)
   end
 
@@ -28,11 +28,11 @@ class EmailSignup
   end
 
   def topic_id
-    ensure_govdelivery_topic_exists['subscriber_list']['gov_delivery_id']
+    ensure_subscriber_list_exists['subscriber_list']['gov_delivery_id']
   end
 
   def govdelivery_url
-    ensure_govdelivery_topic_exists['subscriber_list']['subscription_url']
+    ensure_subscriber_list_exists['subscriber_list']['subscription_url']
   end
 
   def description
