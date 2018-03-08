@@ -105,23 +105,19 @@ class AttachmentData < ApplicationRecord
   end
 
   def deleted?
-    return false if attachments.none?
     significant_attachment.deleted?
   end
 
   def draft?
     return false if unpublished?
-    return true if attachments.none?
     !significant_attachment.attachable.publicly_visible?
   end
 
   def accessible_to?(user)
-    return false if attachments.none?
     significant_attachment.attachable.accessible_to?(user)
   end
 
   def unpublished?
-    return false if attachments.none?
     last_attachment.attachable.unpublished?
   end
 
@@ -130,6 +126,30 @@ class AttachmentData < ApplicationRecord
   end
 
 private
+
+  class NullAttachable
+    def publicly_visible?
+      false
+    end
+
+    def accessible_to?(_user)
+      false
+    end
+
+    def unpublished?
+      false
+    end
+  end
+
+  class NullAttachment
+    def deleted?
+      false
+    end
+
+    def attachable
+      NullAttachable.new
+    end
+  end
 
   def significant_attachment
     if attachments.one? || last_attachment.attachable.publicly_visible?
@@ -140,11 +160,11 @@ private
   end
 
   def last_attachment
-    attachments[-1]
+    attachments[-1] || NullAttachment.new
   end
 
   def penultimate_attachment
-    attachments[-2]
+    attachments[-2] || NullAttachment.new
   end
 
   def cant_be_replaced_by_self
