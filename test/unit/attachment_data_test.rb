@@ -234,4 +234,16 @@ class AttachmentDataTest < ActiveSupport::TestCase
 
     attachment_data.replace_with!(replacement)
   end
+
+  test 'order attachments by attachable ID' do
+    attachment_data = create(:attachment_data)
+    edition_1 = create(:edition)
+    edition_2 = create(:edition)
+    attachment_1 = build(:file_attachment, attachable: edition_2)
+    attachment_2 = build(:file_attachment, attachable: edition_1)
+    attachment_data.attachments << attachment_1
+    attachment_data.attachments << attachment_2
+
+    assert_equal [attachment_2, attachment_1], attachment_data.attachments.to_a
+  end
 end
