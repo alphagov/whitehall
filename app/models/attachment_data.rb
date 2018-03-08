@@ -106,35 +106,23 @@ class AttachmentData < ApplicationRecord
 
   def deleted?
     return false if attachments.none?
-    if attachments.one? || attachments[-1].attachable.publicly_visible?
-      attachments[-1].deleted?
-    else
-      attachments[-2].deleted?
-    end
+    significant_attachment.deleted?
   end
 
   def draft?
     return false if unpublished?
     return true if attachments.none?
-    if attachments.one? || attachments[-1].attachable.publicly_visible?
-      !attachments[-1].attachable.publicly_visible?
-    else
-      !attachments[-2].attachable.publicly_visible?
-    end
+    !significant_attachment.attachable.publicly_visible?
   end
 
   def accessible_to?(user)
     return false if attachments.none?
-    if attachments.one? || attachments[-1].attachable.publicly_visible?
-      attachments[-1].attachable.accessible_to?(user)
-    else
-      attachments[-2].attachable.accessible_to?(user)
-    end
+    significant_attachment.attachable.accessible_to?(user)
   end
 
   def unpublished?
     return false if attachments.none?
-    attachments[-1].attachable.unpublished?
+    last_attachment.attachable.unpublished?
   end
 
   def replaced?
@@ -142,6 +130,22 @@ class AttachmentData < ApplicationRecord
   end
 
 private
+
+  def significant_attachment
+    if attachments.one? || last_attachment.attachable.publicly_visible?
+      last_attachment
+    else
+      penultimate_attachment
+    end
+  end
+
+  def last_attachment
+    attachments[-1]
+  end
+
+  def penultimate_attachment
+    attachments[-2]
+  end
 
   def cant_be_replaced_by_self
     return if replaced_by.nil?
