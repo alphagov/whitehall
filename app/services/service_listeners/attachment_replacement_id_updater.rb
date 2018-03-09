@@ -1,8 +1,5 @@
 module ServiceListeners
   class AttachmentReplacementIdUpdater
-    include Rails.application.routes.url_helpers
-    include PublicDocumentRoutesHelper
-
     attr_reader :attachment_data, :queue
 
     def initialize(attachment_data, queue: nil)
