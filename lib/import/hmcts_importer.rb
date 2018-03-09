@@ -10,7 +10,7 @@ module Import
     end
 
     def import(csv_path)
-      importer_user = User.find_by(name: "Automatic Data Importer")
+      importer_user = User.find_by!(name: "Automatic Data Importer")
       raise "Could not find 'Automatic Data Importer' user" unless importer_user
 
       publication_ids = []
