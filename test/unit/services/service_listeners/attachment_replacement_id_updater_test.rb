@@ -12,10 +12,10 @@ module ServiceListeners
     end
 
     context 'when attachment data has a replacement' do
-      let(:attachment_data) { mock('attachment_data', replaced_by: mock('replacement')) }
+      let(:attachment_data) { mock('attachment_data', id: 'attachment-data-id', replaced_by: mock('replacement')) }
 
       it 'updates replacement ID of any assets' do
-        worker.expects(:perform).with(attachment_data, nil)
+        worker.expects(:perform).with('attachment-data-id', nil)
 
         updater.update!
       end

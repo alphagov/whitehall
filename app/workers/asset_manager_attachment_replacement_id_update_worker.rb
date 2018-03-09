@@ -1,5 +1,6 @@
 class AssetManagerAttachmentReplacementIdUpdateWorker < WorkerBase
-  def perform(attachment_data, queue = nil)
+  def perform(attachment_data_id, queue = nil)
+    attachment_data = AttachmentData.find(attachment_data_id)
     replacement = attachment_data.replaced_by
 
     legacy_url_path = attachment_data.file.asset_manager_path

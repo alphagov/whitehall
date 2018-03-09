@@ -15,7 +15,7 @@ module ServiceListeners
 
       return unless attachment_data.replaced_by.present?
 
-      AssetManagerAttachmentReplacementIdUpdateWorker.new.perform(attachment_data, queue)
+      AssetManagerAttachmentReplacementIdUpdateWorker.new.perform(attachment_data.id, queue)
     end
   end
 end

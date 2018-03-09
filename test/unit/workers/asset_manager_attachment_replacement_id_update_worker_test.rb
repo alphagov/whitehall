@@ -17,7 +17,7 @@ class AssetManagerAttachmentReplacementIdUpdateWorkerTest < ActiveSupport::TestC
       AssetManagerUpdateAssetWorker.expects(:perform_async)
         .with(attachment_data.file.asset_manager_path, attributes)
 
-      worker.perform(attachment_data)
+      worker.perform(attachment_data.id)
     end
 
     context 'and queue is specified' do
@@ -30,7 +30,7 @@ class AssetManagerAttachmentReplacementIdUpdateWorkerTest < ActiveSupport::TestC
         AssetManagerUpdateAssetWorker.expects(:perform_async)
           .with(attachment_data.file.asset_manager_path, attributes)
 
-        worker.perform(attachment_data, queue)
+        worker.perform(attachment_data.id, queue)
       end
     end
   end
@@ -52,7 +52,7 @@ class AssetManagerAttachmentReplacementIdUpdateWorkerTest < ActiveSupport::TestC
       AssetManagerUpdateAssetWorker.expects(:perform_async)
         .with(attachment_data.file.thumbnail.asset_manager_path, thumbnail_attributes)
 
-      worker.perform(attachment_data)
+      worker.perform(attachment_data.id)
     end
 
     context 'but replacement is not a PDF' do
@@ -66,7 +66,7 @@ class AssetManagerAttachmentReplacementIdUpdateWorkerTest < ActiveSupport::TestC
         AssetManagerUpdateAssetWorker.expects(:perform_async)
           .with(attachment_data.file.thumbnail.asset_manager_path, thumbnail_attributes)
 
-        worker.perform(attachment_data)
+        worker.perform(attachment_data.id)
       end
     end
   end
