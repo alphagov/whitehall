@@ -5,7 +5,11 @@ module Import
       "Guidance" => "guidance",
     }.freeze
 
-    def self.import(csv_path)
+    def initialize(dry_run)
+      @dry_run = dry_run
+    end
+
+    def import(csv_path)
       importer_user = User.find_by(name: "Automatic Data Importer")
       raise "Could not find 'Automatic Data Importer' user" unless importer_user
 
@@ -33,7 +37,8 @@ module Import
           # TODO: Populate excluded nations
           # TODO: Populate access limiting flag
 
-          publication.save!
+          publication.validate!
+          publication.save! unless dry_run?
           # puts "Created publication with ID #{publication.id}"
 
           publication_data[:attachments].each do |attachment|
@@ -47,17 +52,25 @@ module Import
       end
     end
 
-    def self.default_organisation
+    def default_organisation
       @_default_organisation ||= Organisation.find_by(name: "Ministry of Justice")
     end
 
-    def self.publication_type_slug(name)
+    def publication_type_slug(name)
       PUBLICATION_TYPE_SLUGS[name] || raise("Unknown publication type '#{name}'")
     end
 
-    def self.create_attachment(attachment, publication)
+    def create_attachment(attachment, publication)
       temp_file_path = "#{temp_directory}/#{attachment[:file_name]}"
-      download_attachment(attachment[:url], temp_file_path)
+
+      if dry_run?
+        # Save as a txt because Whitehall attempts to generate a thumbnail
+        # for pdf attachments, and will fail if the file is not a real PDF
+        temp_file_path = temp_file_path + ".txt"
+        File.open(temp_file_path, "w") { |file| file.write("Placeholder content") }
+      else
+        download_attachment(attachment[:url], temp_file_path)
+      end
 
       attachment_data = AttachmentData.new(file: File.new(temp_file_path))
       file_attachment = FileAttachment.new(
@@ -65,12 +78,13 @@ module Import
         attachment_data: attachment_data,
         attachable: publication,
       )
-      file_attachment.save!
+      file_attachment.validate!
+      file_attachment.save! unless dry_run?
 
       # puts "Added attachment #{temp_file_path}"
     end
 
-    def self.download_attachment(hmcts_url, file_path)
+    def download_attachment(hmcts_url, file_path)
       url = hmcts_url.sub(/^http\:/, "https:")
       response = Faraday.get(url)
 
@@ -79,8 +93,12 @@ module Import
       end
     end
 
-    def self.temp_directory
+    def temp_directory
       @_temp_directory ||= Dir.mktmpdir
+    end
+
+    def dry_run?
+      @dry_run
     end
   end
 end
