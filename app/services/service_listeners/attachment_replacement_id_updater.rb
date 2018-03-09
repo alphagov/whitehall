@@ -15,13 +15,13 @@ module ServiceListeners
 
       return unless attachment_data.replaced_by.present?
 
-      worker.perform(attachment_data.id)
+      worker.perform_async(attachment_data.id)
     end
 
   private
 
     def worker
-      worker = AssetManagerAttachmentReplacementIdUpdateWorker.new
+      worker = AssetManagerAttachmentReplacementIdUpdateWorker
       queue.present? ? worker.set(queue: queue) : worker
     end
   end

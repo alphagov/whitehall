@@ -5,17 +5,12 @@ module ServiceListeners
     extend Minitest::Spec::DSL
 
     let(:updater) { AttachmentReplacementIdUpdater.new(attachment_data) }
-    let(:worker) { mock('worker') }
-
-    setup do
-      AssetManagerAttachmentReplacementIdUpdateWorker.stubs(:new).returns(worker)
-    end
 
     context 'when attachment data has a replacement' do
       let(:attachment_data) { mock('attachment_data', id: 'attachment-data-id', replaced_by: mock('replacement')) }
 
       it 'updates replacement ID of any assets' do
-        worker.expects(:perform).with('attachment-data-id', nil)
+        AssetManagerAttachmentReplacementIdUpdateWorker.expects(:perform_async).with('attachment-data-id', nil)
 
         updater.update!
       end
@@ -26,8 +21,8 @@ module ServiceListeners
       let(:attachment_data) { mock('attachment_data', id: 'attachment-data-id', replaced_by: mock('replacement')) }
 
       it 'sets the queue on the worker' do
-        worker.stubs(:perform)
-        worker.expects(:set).with(queue: 'a-queue').returns(worker)
+        worker = mock('worker', perform_async: nil)
+        AssetManagerAttachmentReplacementIdUpdateWorker.expects(:set).with(queue: 'a-queue').returns(worker)
 
         updater.update!
       end
@@ -37,7 +32,7 @@ module ServiceListeners
       let(:attachment_data) { nil }
 
       it 'does not update replacement ID of any assets' do
-        worker.expects(:perform).never
+        AssetManagerAttachmentReplacementIdUpdateWorker.expects(:perform_async).never
 
         updater.update!
       end
@@ -47,7 +42,7 @@ module ServiceListeners
       let(:attachment_data) { mock('attachment_data', replaced_by: nil) }
 
       it 'does not update replacement ID of any assets' do
-        worker.expects(:perform).never
+        AssetManagerAttachmentReplacementIdUpdateWorker.expects(:perform_async).never
 
         updater.update!
       end

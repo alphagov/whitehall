@@ -58,6 +58,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
       it 'updates replacement_id for attachment in Asset Manager' do
         Services.asset_manager.expects(:update_asset)
           .with(asset_id, 'replacement_id' => replacement_asset_id)
+        AssetManagerAttachmentReplacementIdUpdateWorker.drain
         AssetManagerUpdateAssetWorker.drain
       end
     end
