@@ -10,8 +10,6 @@ module ServiceListeners
     def update!
       return unless attachment_data.present?
 
-      return unless attachment_data.replaced_by.present?
-
       worker.perform_async(attachment_data.id)
     end
 

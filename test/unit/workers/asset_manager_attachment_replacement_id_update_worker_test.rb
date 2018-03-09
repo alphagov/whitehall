@@ -26,6 +26,17 @@ class AssetManagerAttachmentReplacementIdUpdateWorkerTest < ActiveSupport::TestC
     end
   end
 
+  context 'when attachment does not have a replacement' do
+    let(:sample_rtf) { File.open(fixture_path.join('sample.rtf')) }
+    let(:attachment_data) { AttachmentData.create!(file: sample_rtf) }
+
+    it 'does not update asset manager' do
+      update_worker.expects(:perform).never
+
+      worker.perform(attachment_data.id)
+    end
+  end
+
   context 'when attachment data is a PDF' do
     let(:simple_pdf) { File.open(fixture_path.join('simple.pdf')) }
     let(:whitepaper_pdf) { File.open(fixture_path.join('whitepaper.pdf')) }
