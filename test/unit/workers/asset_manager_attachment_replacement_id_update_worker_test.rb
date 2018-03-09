@@ -37,6 +37,14 @@ class AssetManagerAttachmentReplacementIdUpdateWorkerTest < ActiveSupport::TestC
     end
   end
 
+  context 'when the attachment cannot be found' do
+    it 'does not update asset manager' do
+      update_worker.expects(:perform).never
+
+      worker.perform('no-such-id')
+    end
+  end
+
   context 'when attachment data is a PDF' do
     let(:simple_pdf) { File.open(fixture_path.join('simple.pdf')) }
     let(:whitepaper_pdf) { File.open(fixture_path.join('whitepaper.pdf')) }
