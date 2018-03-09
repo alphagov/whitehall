@@ -3,18 +3,12 @@ class AssetManagerAttachmentReplacementIdUpdateWorker < WorkerBase
     attachment_data = AttachmentData.find(attachment_data_id)
     replacement = attachment_data.replaced_by
 
-    legacy_url_path = attachment_data.file.asset_manager_path
-    replacement_legacy_url_path = replacement.file.asset_manager_path
-    replace_path(legacy_url_path, replacement_legacy_url_path)
+    replace_path(attachment_data.file.asset_manager_path, replacement.file.asset_manager_path)
     if attachment_data.pdf?
       if replacement.pdf?
-        legacy_url_path = attachment_data.file.thumbnail.asset_manager_path
-        replacement_legacy_url_path = replacement.file.thumbnail.asset_manager_path
-        replace_path(legacy_url_path, replacement_legacy_url_path)
+        replace_path(attachment_data.file.thumbnail.asset_manager_path, replacement.file.thumbnail.asset_manager_path)
       else
-        legacy_url_path = attachment_data.file.thumbnail.asset_manager_path
-        replacement_legacy_url_path = replacement.file.asset_manager_path
-        replace_path(legacy_url_path, replacement_legacy_url_path)
+        replace_path(attachment_data.file.thumbnail.asset_manager_path, replacement.file.asset_manager_path)
       end
     end
   end
