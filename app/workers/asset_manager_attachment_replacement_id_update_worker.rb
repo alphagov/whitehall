@@ -14,7 +14,6 @@ class AssetManagerAttachmentReplacementIdUpdateWorker < WorkerBase
   end
 
   def replace_path(legacy_url_path, replacement_legacy_url_path)
-    worker = AssetManagerUpdateAssetWorker
-    worker.perform_async(legacy_url_path, replacement_legacy_url_path: replacement_legacy_url_path)
+    AssetManagerUpdateAssetWorker.new.perform(legacy_url_path, 'replacement_legacy_url_path' => replacement_legacy_url_path)
   end
 end
