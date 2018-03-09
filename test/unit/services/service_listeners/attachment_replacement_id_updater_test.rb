@@ -34,12 +34,11 @@ module ServiceListeners
       context 'and queue is specified' do
         let(:queue) { 'alternative_queue' }
         let(:updater) { AttachmentReplacementIdUpdater.new(attachment_data, queue: queue) }
-        let(:worker) { stub('worker') }
 
         it 'updates replacement ID of corresponding asset using specified queue' do
           AssetManagerUpdateAssetWorker.expects(:set)
-            .with(queue: queue).returns(worker)
-          worker.expects(:perform_async)
+            .with(queue: queue)
+          AssetManagerUpdateAssetWorker.expects(:perform_async)
             .with(attachment_data.file.asset_manager_path, attributes)
 
           updater.update!
