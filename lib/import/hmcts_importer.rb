@@ -84,7 +84,7 @@ module Import
           "public URL (once published)",
           "import succeeded?",
           "document title truncated?",
-          "attachments truncated with truncated titles",
+          "attachments with truncated titles",
           "import error",
         ]
 
