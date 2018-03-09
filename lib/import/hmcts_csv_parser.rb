@@ -38,15 +38,13 @@ module Import
 
         # Skip the header row
         csv[1..-1].each_with_index do |row, index|
-          if row[:publication_page_id] == page_id
-            publication_details[:attachments] << attachment_details(row)
-          else
+          unless row[:publication_page_id] == page_id
             yielder << publication_details unless page_id.nil?
 
             page_id = row[:publication_page_id]
 
             publication_details = {
-              csv_row: index + 2, # Add 1 because Google Sheets is 1-indexed, and another 1 because we skipped the header row
+
               page_id: page_id,
               publication_type: row[:publication_type],
               title: row[:publication_title],
@@ -59,10 +57,12 @@ module Import
               access_limited: (row[:access_limited] || "").strip.casecmp("yes").zero?,
               excluded_nations: parse_multiple(row, :excluded_nations),
               attachments: [],
+              csv_rows: [],
             }
-
-            publication_details[:attachments] << attachment_details(row)
           end
+
+          publication_details[:attachments] << attachment_details(row)
+          publication_details[:csv_rows] << index + 2 # Add 1 because Google Sheets is 1-indexed, and another 1 because we skipped the header row
         end
 
         yielder << publication_details

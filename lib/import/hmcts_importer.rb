@@ -13,9 +13,9 @@ module Import
       importer_user = User.find_by(name: "Automatic Data Importer")
       raise "Could not find 'Automatic Data Importer' user" unless importer_user
 
-      HmctsCsvParser.publications(csv_path).each do |publication_data|
-        # puts publication_data
+      publication_ids = []
 
+      HmctsCsvParser.publications(csv_path).each do |publication_data|
         begin
           publication = Publication.new
           publication.publication_type = PublicationType.find_by_slug(publication_type_slug(publication_data[:publication_type]))
@@ -36,18 +36,22 @@ module Import
           end
 
           publication.validate!
-          publication.save! unless dry_run?
-          # puts "Created publication with ID #{publication.id}"
+
+          unless dry_run?
+            publication.save! unless dry_run?
+            publication_ids << publication.id
+          end
 
           publication_data[:attachments].each do |attachment|
             create_attachment(attachment, publication)
           end
         rescue StandardError => error
-          # TODO: Fix row output: error may be from subsequent row because it's from a translated version
-          puts "Error for form #{publication_data[:page_id]} in row #{publication_data[:csv_row]}"
+          puts "Error for form #{publication_data[:page_id]} in rows #{publication_data[:csv_rows].join(', ')}"
           puts error
         end
       end
+
+      puts "Created #{publication_ids.count} publications with edition IDs #{publication_ids.first} to #{publication_ids.last}" unless dry_run?
     end
 
     def default_organisation
@@ -82,8 +86,6 @@ module Import
       )
       file_attachment.validate!
       file_attachment.save! unless dry_run?
-
-      # puts "Added attachment #{temp_file_path}"
     end
 
     def download_attachment(hmcts_url, file_path)
