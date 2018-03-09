@@ -18,6 +18,8 @@ module Import
         # TODO: Handle multiple lead organisations
         publication.lead_organisations = [default_organisation]
         publication.creator = importer_user
+        # TODO: Should be HMCTS? Or another org with the email address provided in the CSV.
+        publication.alternative_format_provider = default_organisation
 
         # TODO: Populate "published before" date
         # TODO: Set "published before" to true if there is a date
@@ -26,15 +28,45 @@ module Import
         # TODO: Populate excluded nations
         # TODO: Populate access limiting flag
 
-        # TODO: Add attachments
-
         publication.save!
         puts "Created publication with ID #{publication.id}"
+
+        publication_data[:attachments].each do |attachment|
+          create_attachment(attachment, publication)
+        end
       end
     end
 
     def self.default_organisation
       @_default_organisation ||= Organisation.find_by(name: "Ministry of Justice")
+    end
+
+    def self.create_attachment(attachment, publication)
+      temp_file_path = "#{temp_directory}/#{attachment[:file_name]}"
+      download_attachment(attachment[:url], temp_file_path)
+
+      attachment_data = AttachmentData.new(file: File.new(temp_file_path))
+      file_attachment = FileAttachment.new(
+        title: attachment[:title],
+        attachment_data: attachment_data,
+        attachable: publication,
+      )
+      file_attachment.save!
+
+      puts "Added attachment #{temp_file_path}"
+    end
+
+    def self.download_attachment(hmcts_url, file_path)
+      url = hmcts_url.sub(/^http\:/, "https:")
+      response = Faraday.get(url)
+
+      File.open(file_path, "wb") do |file|
+        file.write(response.body)
+      end
+    end
+
+    def temp_directory
+      @_temp_directory ||= Dir.mktmpdir
     end
   end
 end

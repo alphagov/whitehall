@@ -43,7 +43,7 @@ module Import
         # Skip the header row
         csv[1..-1].each do |row|
           if row[:publication_page_id] == page_id
-
+            publication_details[:attachments] << attachment_details(row)
           else
             yielder << publication_details unless page_id.nil?
 
@@ -54,7 +54,10 @@ module Import
               body: row[:publication_body],
               # TODO: Handle multiple policy areas. Will they comma-separate these?
               policy_area: row[:policy_areas],
+              attachments: [],
             }
+
+            publication_details[:attachments] << attachment_details(row)
 
             page_id = row[:publication_page_id]
           end
@@ -66,6 +69,14 @@ module Import
 
     def self.publication_type_slug(name)
       PUBLICATION_TYPE_SLUGS[name] || raise("Unknown publication type '#{name}'")
+    end
+
+    def self.attachment_details(row)
+      {
+        title: row[:artefact_title],
+        file_name: row[:artefact_file_name],
+        url: row[:artefact_url],
+      }
     end
   end
 end
