@@ -38,7 +38,8 @@ module Import
           publication.validate!
 
           unless dry_run?
-            publication.save! unless dry_run?
+            publication.save!
+            Whitehall.edition_services.draft_updater(publication).perform!
             publication_ids << publication.id
           end
 
