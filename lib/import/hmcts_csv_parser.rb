@@ -21,9 +21,9 @@ module Import
       policy_areas
       lead_organisations
       supporting_organisations
-      excluded_nations
       access_limited
       schedule_publishing
+      excluded_nations
       attachment_accessible
       new_publication_url
       new_attachment_url
