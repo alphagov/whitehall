@@ -40,7 +40,6 @@ module Import
 
           unless dry_run?
             publication.save!
-            Whitehall.edition_services.draft_updater(publication).perform!
             imported_details[:publication_id] = publication.id
             imported_details[:whitehall_url] = Whitehall.url_maker.admin_edition_url(publication)
             imported_details[:public_url] = Whitehall.url_maker.public_document_url(publication)
