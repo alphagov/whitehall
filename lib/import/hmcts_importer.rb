@@ -4,6 +4,7 @@ module Import
       "Form" => "forms",
       "Guidance" => "guidance",
     }.freeze
+    TITLE_MAX_LENGTH = 255
 
     def initialize(dry_run)
       @dry_run = dry_run
@@ -13,13 +14,17 @@ module Import
       importer_user = User.find_by!(name: "Automatic Data Importer")
       raise "Could not find 'Automatic Data Importer' user" unless importer_user
 
-      publication_ids = []
+      imported_publications = []
 
       HmctsCsvParser.publications(csv_path).each do |publication_data|
+        imported_details = {}
+        imported_details[:csv_rows] = publication_data[:csv_rows].join(', ')
+        imported_details[:form_id] = publication_data[:page_id]
+
         begin
           publication = Publication.new
           publication.publication_type = PublicationType.find_by_slug(publication_type_slug(publication_data[:publication_type]))
-          publication.title = publication_data[:title]
+          publication.title = format_title(publication_data[:title])
           publication.summary = publication_data[:summary]
           publication.body = publication_data[:body]
           publication.topics = publication_data[:policy_areas].map { |policy_area| Topic.find_by!(name: policy_area) }
@@ -40,19 +45,70 @@ module Import
           unless dry_run?
             publication.save!
             Whitehall.edition_services.draft_updater(publication).perform!
-            publication_ids << publication.id
+            imported_details[:publication_id] = publication.id
+            imported_details[:whitehall_url] = Whitehall.url_maker.admin_edition_url(publication)
+            imported_details[:public_url] = Whitehall.url_maker.public_document_url(publication)
           end
 
+          imported_details[:document_title_truncated] = title_too_long?(publication_data[:title])
+
+          imported_attachments = []
           publication_data[:attachments].each do |attachment|
-            create_attachment(attachment, publication)
+            imported_attachments << create_attachment(attachment, publication)
           end
+
+          imported_details[:attachments_with_truncated_titles] = imported_attachments
+            .select { |a| a[:title_truncated] }
+            .map { |a| a[:file_name] }
+            .join(", ")
+
+          imported_details[:succeeded] = true
         rescue StandardError => error
           puts "Error for form #{publication_data[:page_id]} in rows #{publication_data[:csv_rows].join(', ')}"
           puts error
+
+          imported_details[:succeeded] = false
+          imported_details[:error] = error.message
+        ensure
+          imported_publications << imported_details
         end
       end
 
-      puts "Created #{publication_ids.count} publications with edition IDs #{publication_ids.first} to #{publication_ids.last}" unless dry_run?
+      unless dry_run?
+        puts "Created #{imported_publications.count} publications with edition IDs " +
+          "#{imported_publications.first[:publication_id]} to #{imported_publications.last[:publication_id]}"
+      end
+
+      csv_path = "/tmp/hmcts_import_#{Time.new}.csv"
+      CSV.open(csv_path, "w") do |csv|
+        csv << [
+          "page ID",
+          "original CSV rows",
+          "publication whitehall ID",
+          "whitehall publisher URL",
+          "public URL (once published)",
+          "import succeeded?",
+          "document title truncated?",
+          "attachments truncated with truncated titles",
+          "import error",
+        ]
+
+        imported_publications.each do |publication|
+          csv << [
+            publication[:form_id],
+            publication[:csv_rows],
+            publication[:publication_id],
+            publication[:whitehall_url],
+            publication[:public_url],
+            publication[:succeeded],
+            publication[:document_title_truncated],
+            publication[:attachments_with_truncated_titles],
+            publication[:error],
+          ]
+        end
+      end
+
+      puts "Wrote output to #{csv_path}"
     end
 
     def default_organisation
@@ -65,6 +121,16 @@ module Import
 
     def publication_type_slug(name)
       PUBLICATION_TYPE_SLUGS[name] || raise("Unknown publication type '#{name}'")
+    end
+
+    def format_title(title)
+      return nil unless title
+      title.slice(0, TITLE_MAX_LENGTH)
+    end
+
+    def title_too_long?(title)
+      return false unless title
+      title.length > TITLE_MAX_LENGTH
     end
 
     def create_attachment(attachment, publication)
@@ -81,12 +147,17 @@ module Import
 
       attachment_data = AttachmentData.new(file: File.new(temp_file_path))
       file_attachment = FileAttachment.new(
-        title: attachment[:title],
+        title: format_title(attachment[:title]),
         attachment_data: attachment_data,
         attachable: publication,
       )
       file_attachment.validate!
       file_attachment.save! unless dry_run?
+
+      {
+        file_name: attachment[:file_name],
+        title_truncated: title_too_long?(attachment[:title]),
+      }
     end
 
     def download_attachment(hmcts_url, file_path)
