@@ -22,7 +22,7 @@ module Import
       lead_organisations
       supporting_organisations
       excluded_nations
-      access_limiting
+      access_limited
       schedule_publishing
       attachment_accessible
       new_publication_url
@@ -52,8 +52,12 @@ module Import
               title: row[:publication_title],
               summary: row[:publication_summary],
               body: row[:publication_body],
-              # TODO: Handle multiple policy areas. We've asked HMCTS to semicolon-separate these
-              policy_area: row[:policy_areas],
+              policy_areas: parse_multiple(row, :policy_areas),
+              lead_organisations: parse_multiple(row, :lead_organisations),
+              supporting_organisations: parse_multiple(row, :supporting_organisations),
+              previous_publishing_date: row[:previous_publishing_date],
+              access_limited: (row[:access_limited] || "").strip.casecmp("yes").zero?,
+              excluded_nations: parse_multiple(row, :excluded_nations),
               attachments: [],
             }
 
@@ -71,6 +75,12 @@ module Import
         file_name: row[:artefact_file_name],
         url: row[:artefact_url],
       }
+    end
+
+    def self.parse_multiple(row, field)
+      return [] unless row[field]
+
+      row[field].split(";").map(&:strip)
     end
   end
 end

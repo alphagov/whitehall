@@ -22,20 +22,18 @@ module Import
           publication.title = publication_data[:title]
           publication.summary = publication_data[:summary]
           publication.body = publication_data[:body]
-          # TODO: Handle multiple policy areas
-          publication.topics = [Topic.find_by(name: publication_data[:policy_area])]
-          # TODO: Get from spreadsheet once it is always populated
-          # TODO: Handle multiple lead organisations
+          publication.topics = publication_data[:policy_areas].map { |policy_area| Topic.find_by!(name: policy_area) }
           publication.lead_organisations = [default_organisation]
           publication.creator = importer_user
-          # TODO: Should be HMCTS? Or another org with the email address provided in the CSV.
-          publication.alternative_format_provider = default_organisation
+          publication.alternative_format_provider = hmcts_organisation
+          publication.first_published_at = Date.parse(publication_data[:previous_publishing_date])
+          publication.access_limited = publication_data[:access_limited]
 
-          # TODO: Populate "published before" date
-          # TODO: Set "published before" to true if there is a date
-          # TODO: Populate supporting organisations
-          # TODO: Populate excluded nations
-          # TODO: Populate access limiting flag
+          publication_data[:excluded_nations].each do |excluded_nation|
+            nation = Nation.find_by_name!(excluded_nation)
+            exclusion = NationInapplicability.new(nation: nation)
+            publication.nation_inapplicabilities << exclusion
+          end
 
           publication.validate!
           publication.save! unless dry_run?
@@ -53,7 +51,11 @@ module Import
     end
 
     def default_organisation
-      @_default_organisation ||= Organisation.find_by(name: "Ministry of Justice")
+      @_default_organisation ||= hmcts_organisation
+    end
+
+    def hmcts_organisation
+      @_hmcts_organisation ||= Organisation.find_by!(name: "HM Courts & Tribunals Service")
     end
 
     def publication_type_slug(name)
