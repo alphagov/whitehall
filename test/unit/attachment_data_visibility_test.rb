@@ -558,5 +558,58 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
         end
       end
     end
+
+    context '#visible_attachable_for' do
+      let(:attachable) { build(:news_article) }
+      let(:significant_attachable) { stub('significant-attachable') }
+
+      before do
+        attachment_data.stubs(:visible_to?).with(user).returns(visible)
+        attachment_data.stubs(:significant_attachable)
+          .returns(significant_attachable)
+      end
+
+      context 'when attachment data is not visible' do
+        let(:visible) { false }
+
+        it 'returns nil' do
+          assert_nil attachment_data.visible_attachable_for(user)
+        end
+      end
+
+      context 'when attachment data is visible' do
+        let(:visible) { true }
+
+        it 'returns attachable for significant attachment' do
+          result = attachment_data.visible_attachable_for(user)
+          assert_equal significant_attachable, result
+        end
+      end
+    end
+
+    context '#visible_edition_for' do
+      let(:visible_attachable) { attachable }
+
+      before do
+        attachment_data.stubs(:visible_attachable_for).with(user)
+          .returns(visible_attachable)
+      end
+
+      context 'when visible attachable is not an edition' do
+        let(:attachable) { build(:policy_group) }
+
+        it 'returns nil' do
+          assert_nil attachment_data.visible_edition_for(user)
+        end
+      end
+
+      context 'when visible attachable is an edition' do
+        let(:attachable) { build(:edition) }
+
+        it 'returns visible attachable' do
+          assert_equal visible_attachable, attachment_data.visible_edition_for(user)
+        end
+      end
+    end
   end
 end
