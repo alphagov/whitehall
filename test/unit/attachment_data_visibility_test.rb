@@ -611,5 +611,33 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
         end
       end
     end
+
+    context '#visible_attachment_for' do
+      let(:attachable) { build(:news_article) }
+      let(:significant_attachment) { stub('significant-attachment') }
+
+      before do
+        attachment_data.stubs(:visible_to?).with(user).returns(visible)
+        attachment_data.stubs(:significant_attachment)
+          .returns(significant_attachment)
+      end
+
+      context 'when attachment data is not visible' do
+        let(:visible) { false }
+
+        it 'returns nil' do
+          assert_nil attachment_data.visible_attachment_for(user)
+        end
+      end
+
+      context 'when attachment data is visible' do
+        let(:visible) { true }
+
+        it 'returns significant attachment' do
+          result = attachment_data.visible_attachment_for(user)
+          assert_equal significant_attachment, result
+        end
+      end
+    end
   end
 end
