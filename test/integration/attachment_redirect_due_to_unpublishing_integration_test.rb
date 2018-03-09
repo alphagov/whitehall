@@ -11,7 +11,8 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
   let(:attachment) { build(:file_attachment, attachable: attachable, file: file) }
   let(:attachable) { edition }
   let(:asset_id) { 'asset-id' }
-  let(:redirect_url) { Whitehall.url_maker.public_document_path(edition) }
+  let(:redirect_path) { Whitehall.url_maker.public_document_path(edition) }
+  let(:redirect_url) { Whitehall.url_maker.public_document_url(edition) }
 
   before do
     login_as create(:managing_editor)
@@ -29,7 +30,7 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
       unpublish_document_published_in_error
       logout
       get attachment.url
-      assert_redirected_to redirect_url
+      assert_redirected_to redirect_path
       assert_sets_redirect_url_in_asset_manager_to redirect_url
     end
 
@@ -38,7 +39,7 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
       consolidate_document
       logout
       get attachment.url
-      assert_redirected_to redirect_url
+      assert_redirected_to redirect_path
       assert_sets_redirect_url_in_asset_manager_to redirect_url
     end
 
@@ -62,7 +63,7 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
       unpublish_document_published_in_error
       logout
       get attachment.url
-      assert_redirected_to redirect_url
+      assert_redirected_to redirect_path
       assert_sets_redirect_url_in_asset_manager_to redirect_url
     end
 
@@ -86,7 +87,7 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
       unpublish_document_published_in_error
       logout
       get attachment.url
-      assert_redirected_to redirect_url
+      assert_redirected_to redirect_path
       assert_sets_redirect_url_in_asset_manager_to redirect_url
     end
 
