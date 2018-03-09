@@ -16,23 +16,23 @@ module ServiceListeners
       return unless attachment_data.replaced_by.present?
       replacement = attachment_data.replaced_by
 
-      enqueue_job(attachment_data.file, replacement.file)
+      legacy_url_path = attachment_data.file.asset_manager_path
+      replacement_legacy_url_path = replacement.file.asset_manager_path
+      worker.perform_async(legacy_url_path, replacement_legacy_url_path: replacement_legacy_url_path)
       if attachment_data.pdf?
         if replacement.pdf?
-          enqueue_job(attachment_data.file.thumbnail, replacement.file.thumbnail)
+          legacy_url_path = attachment_data.file.thumbnail.asset_manager_path
+          replacement_legacy_url_path = replacement.file.thumbnail.asset_manager_path
+          worker.perform_async(legacy_url_path, replacement_legacy_url_path: replacement_legacy_url_path)
         else
-          enqueue_job(attachment_data.file.thumbnail, replacement.file)
+          legacy_url_path = attachment_data.file.thumbnail.asset_manager_path
+          replacement_legacy_url_path = replacement.file.asset_manager_path
+          worker.perform_async(legacy_url_path, replacement_legacy_url_path: replacement_legacy_url_path)
         end
       end
     end
 
   private
-
-    def enqueue_job(uploader, replacement_uploader)
-      legacy_url_path = uploader.asset_manager_path
-      replacement_legacy_url_path = replacement_uploader.asset_manager_path
-      worker.perform_async(legacy_url_path, replacement_legacy_url_path: replacement_legacy_url_path)
-    end
 
     def worker
       worker = AssetManagerUpdateAssetWorker
