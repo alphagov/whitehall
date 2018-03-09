@@ -1,9 +1,5 @@
 module Import
   class HmctsImporter
-    PUBLICATION_TYPE_SLUGS = {
-      "Form" => "forms",
-      "Guidance" => "guidance",
-    }.freeze
     TITLE_MAX_LENGTH = 255
 
     def initialize(dry_run)
@@ -23,7 +19,7 @@ module Import
 
         begin
           publication = Publication.new
-          publication.publication_type = PublicationType.find_by_slug(publication_type_slug(publication_data[:publication_type]))
+          publication.publication_type = default_publication_type
           publication.title = format_title(publication_data[:title])
           publication.summary = publication_data[:summary]
           publication.body = publication_data[:body]
@@ -119,8 +115,8 @@ module Import
       @_hmcts_organisation ||= Organisation.find_by!(name: "HM Courts & Tribunals Service")
     end
 
-    def publication_type_slug(name)
-      PUBLICATION_TYPE_SLUGS[name] || raise("Unknown publication type '#{name}'")
+    def default_publication_type
+      @_publication_type ||= PublicationType.find_by_slug("forms")
     end
 
     def format_title(title)
