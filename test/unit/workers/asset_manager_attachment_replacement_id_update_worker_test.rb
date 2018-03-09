@@ -19,20 +19,6 @@ class AssetManagerAttachmentReplacementIdUpdateWorkerTest < ActiveSupport::TestC
 
       worker.perform(attachment_data.id)
     end
-
-    context 'and queue is specified' do
-      let(:queue) { 'alternative_queue' }
-      let(:updater) { AttachmentReplacementIdUpdater.new(attachment_data, queue: queue) }
-
-      it 'updates replacement ID of corresponding asset using specified queue' do
-        AssetManagerUpdateAssetWorker.expects(:set)
-          .with(queue: queue)
-        AssetManagerUpdateAssetWorker.expects(:perform_async)
-          .with(attachment_data.file.asset_manager_path, attributes)
-
-        worker.perform(attachment_data.id, queue)
-      end
-    end
   end
 
   context 'when attachment data is a PDF' do

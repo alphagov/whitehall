@@ -31,13 +31,6 @@ module ServiceListeners
 
         updater.update!
       end
-
-      it 'passes the queue to the worker' do
-        worker.expects(:perform).with('attachment-data-id', 'a-queue')
-        worker.expects(:set).with(queue: 'a-queue').returns(worker)
-
-        updater.update!
-      end
     end
 
     context 'when attachment data is nil' do

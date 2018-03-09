@@ -15,7 +15,7 @@ module ServiceListeners
 
       return unless attachment_data.replaced_by.present?
 
-      worker.perform(attachment_data.id, queue)
+      worker.perform(attachment_data.id)
     end
 
   private
