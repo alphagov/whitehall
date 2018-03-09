@@ -110,11 +110,11 @@ class AttachmentData < ApplicationRecord
 
   def draft?
     return false if unpublished?
-    !significant_attachment.attachable.publicly_visible?
+    !significant_attachable.publicly_visible?
   end
 
   def accessible_to?(user)
-    significant_attachment.attachable.accessible_to?(user)
+    significant_attachable.accessible_to?(user)
   end
 
   def unpublished?
@@ -161,6 +161,10 @@ private
     def attachable
       NullAttachable.new
     end
+  end
+
+  def significant_attachable
+    significant_attachment.attachable || NullAttachable.new
   end
 
   def significant_attachment
