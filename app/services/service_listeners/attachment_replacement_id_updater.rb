@@ -21,7 +21,8 @@ module ServiceListeners
   private
 
     def worker
-      AssetManagerAttachmentReplacementIdUpdateWorker.new
+      worker = AssetManagerAttachmentReplacementIdUpdateWorker.new
+      queue.present? ? worker.set(queue: queue) : worker
     end
   end
 end
