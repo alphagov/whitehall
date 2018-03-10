@@ -118,11 +118,11 @@ class AttachmentData < ApplicationRecord
   end
 
   def unpublished?
-    last_attachment.attachable.unpublished?
+    last_attachable.unpublished?
   end
 
   def unpublished_edition
-    last_attachment.attachable.unpublished_edition
+    last_attachable.unpublished_edition
   end
 
   def replaced?
@@ -178,6 +178,10 @@ private
 
   def significant_attachable
     significant_attachment.attachable || NullAttachable.new
+  end
+
+  def last_attachable
+    last_attachment.attachable || NullAttachable.new
   end
 
   def significant_attachment
