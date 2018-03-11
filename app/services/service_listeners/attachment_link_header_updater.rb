@@ -22,10 +22,6 @@ module ServiceListeners
 
   private
 
-    def visibility_for(attachment_data)
-      AttachmentVisibility.new(attachment_data, _anonymous_user = nil)
-    end
-
     def enqueue_job(uploader, parent_document_url)
       legacy_url_path = uploader.asset_manager_path
       worker.perform_async(legacy_url_path, parent_document_url: parent_document_url)
