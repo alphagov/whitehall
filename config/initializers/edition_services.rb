@@ -9,7 +9,7 @@ Whitehall.edition_services.tap do |coordinator|
   coordinator.subscribe do |_event, edition, _options|
     edition.attachables.flat_map(&:attachments).each do |attachment|
       ServiceListeners::AttachmentDraftStatusUpdater
-        .new(attachment)
+        .new(attachment.attachment_data)
         .update!
       ServiceListeners::AttachmentRedirectUrlUpdater
         .new(attachment)

@@ -1,14 +1,13 @@
 module ServiceListeners
   class AttachmentDraftStatusUpdater
-    attr_reader :attachment, :queue
+    attr_reader :attachment_data, :queue
 
-    def initialize(attachment, queue: nil)
-      @attachment = attachment
+    def initialize(attachment_data, queue: nil)
+      @attachment_data = attachment_data
       @queue = queue
     end
 
     def update!
-      attachment_data = attachment.attachment_data
       return unless attachment_data.present?
       visibility = visibility_for(attachment_data)
       draft = !(visibility.visible? || visibility.unpublished_edition)

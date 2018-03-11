@@ -4,7 +4,8 @@ module ServiceListeners
   class AttachmentDraftStatusUpdaterTest < ActiveSupport::TestCase
     extend Minitest::Spec::DSL
 
-    let(:updater) { AttachmentDraftStatusUpdater.new(attachment) }
+    let(:updater) { AttachmentDraftStatusUpdater.new(attachment_data) }
+    let(:attachment_data) { attachment.attachment_data }
     let(:visibility) {
       stub(
         'visibility',
@@ -42,7 +43,7 @@ module ServiceListeners
 
       context 'and queue is specified' do
         let(:queue) { 'alternative_queue' }
-        let(:updater) { AttachmentDraftStatusUpdater.new(attachment, queue: queue) }
+        let(:updater) { AttachmentDraftStatusUpdater.new(attachment_data, queue: queue) }
         let(:worker) { stub('worker') }
 
         it 'marks corresponding asset as draft using specified queue' do
