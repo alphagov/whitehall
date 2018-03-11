@@ -6,8 +6,9 @@ protected
   end
 
   def fail
-    if (edition = attachment_data.unpublished_edition)
-      redirect_to edition.unpublishing.document_path
+    if attachment_data.unpublished?
+      redirect_url = attachment_data.unpublished_edition.unpublishing.document_path
+      redirect_to redirect_url
     elsif attachment_data.replaced?
       expires_headers
       redirect_to attachment_data.replaced_by.url, status: 301
