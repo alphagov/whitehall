@@ -10,18 +10,8 @@ module ServiceListeners
     let(:edition) { FactoryBot.create(:edition) }
     let(:parent_document_url) { Whitehall.url_maker.public_document_url(edition) }
 
-    context 'when attachment is not a file attachment' do
-      let(:attachment) { FactoryBot.create(:html_attachment) }
-
-      it 'does not update draft status of any assets' do
-        AssetManagerUpdateAssetWorker.expects(:perform_async).never
-
-        updater.update!
-      end
-    end
-
     context 'when attachment has no associated attachment data' do
-      let(:attachment) { FileAttachment.new(attachment_data: nil) }
+      let(:attachment) { FactoryBot.create(:html_attachment) }
 
       it 'does not update draft status of any assets' do
         AssetManagerUpdateAssetWorker.expects(:perform_async).never

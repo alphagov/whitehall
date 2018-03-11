@@ -11,7 +11,6 @@ module ServiceListeners
     end
 
     def update!
-      return unless attachment.file?
       attachment_data = attachment.attachment_data
       return unless attachment_data.present?
       visibility = visibility_for(attachment_data)
