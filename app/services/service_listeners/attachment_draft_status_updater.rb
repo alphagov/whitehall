@@ -9,8 +9,7 @@ module ServiceListeners
 
     def update!
       return unless attachment_data.present?
-      visibility = visibility_for(attachment_data)
-      draft = !(visibility.visible? || visibility.unpublished_edition)
+      draft = attachment_data.draft?
       enqueue_job(attachment_data.file, draft)
       if attachment_data.pdf?
         enqueue_job(attachment_data.file.thumbnail, draft)
@@ -18,10 +17,6 @@ module ServiceListeners
     end
 
   private
-
-    def visibility_for(attachment_data)
-      AttachmentVisibility.new(attachment_data, _anonymous_user = nil)
-    end
 
     def enqueue_job(uploader, draft)
       legacy_url_path = uploader.asset_manager_path
