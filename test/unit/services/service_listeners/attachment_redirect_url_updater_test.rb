@@ -6,7 +6,8 @@ module ServiceListeners
     include Rails.application.routes.url_helpers
     include PublicDocumentRoutesHelper
 
-    let(:updater) { AttachmentRedirectUrlUpdater.new(attachment) }
+    let(:updater) { AttachmentRedirectUrlUpdater.new(attachment_data) }
+    let(:attachment_data) { attachment.attachment_data }
     let(:visibility) { stub('visibility', visible?: visible, unpublished_edition: edition) }
     let(:visible) { false }
     let(:edition) { FactoryBot.create(:unpublished_edition) }
@@ -39,7 +40,7 @@ module ServiceListeners
 
       context 'and queue is specified' do
         let(:queue) { 'alternative_queue' }
-        let(:updater) { AttachmentRedirectUrlUpdater.new(attachment, queue: queue) }
+        let(:updater) { AttachmentRedirectUrlUpdater.new(attachment_data, queue: queue) }
         let(:worker) { stub('worker') }
 
         it 'updates redirect URL of corresponding asset using specified queue' do

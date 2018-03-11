@@ -12,7 +12,7 @@ Whitehall.edition_services.tap do |coordinator|
         .new(attachment.attachment_data)
         .update!
       ServiceListeners::AttachmentRedirectUrlUpdater
-        .new(attachment)
+        .new(attachment.attachment_data)
         .update!
     end
   end
