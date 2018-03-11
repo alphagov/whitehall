@@ -7,7 +7,7 @@ module ServiceListeners
     include PublicDocumentRoutesHelper
 
     let(:updater) { AttachmentLinkHeaderUpdater.new(attachment) }
-    let(:edition) { FactoryBot.create(:edition) }
+    let(:edition) { FactoryBot.create(:published_edition) }
     let(:parent_document_url) { Whitehall.url_maker.public_document_url(edition) }
 
     context 'when attachment has no associated attachment data' do

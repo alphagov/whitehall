@@ -10,9 +10,11 @@ module ServiceListeners
     def update!
       attachment_data = attachment.attachment_data
       return unless attachment_data.present?
-      return unless attachment.attachable.is_a?(Edition)
 
-      parent_document_url = Whitehall.url_maker.public_document_url(attachment.attachable)
+      visible_edition = attachment_data.visible_edition_for(nil)
+      return unless visible_edition.present?
+
+      parent_document_url = Whitehall.url_maker.public_document_url(visible_edition)
 
       enqueue_job(attachment_data.file, parent_document_url)
       if attachment_data.pdf?
