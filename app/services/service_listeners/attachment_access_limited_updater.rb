@@ -12,8 +12,8 @@ module ServiceListeners
       return unless attachment_data.present?
 
       access_limited = []
-      if attachment.attachable_is_access_limited?
-        access_limited = AssetManagerAccessLimitation.for(attachment.access_limited_object)
+      if attachment_data.access_limited?
+        access_limited = AssetManagerAccessLimitation.for(attachment_data.access_limited_object)
       end
 
       enqueue_job(attachment_data.file, access_limited)

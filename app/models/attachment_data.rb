@@ -117,6 +117,14 @@ class AttachmentData < ApplicationRecord
     significant_attachable.accessible_to?(user)
   end
 
+  def access_limited?
+    last_attachable.access_limited?
+  end
+
+  def access_limited_object
+    last_attachable.access_limited_object
+  end
+
   def unpublished?
     last_attachable.unpublished?
   end
@@ -155,6 +163,14 @@ private
 
     def accessible_to?(_user)
       false
+    end
+
+    def access_limited?
+      false
+    end
+
+    def access_limited_object
+      nil
     end
 
     def unpublished?
