@@ -4,7 +4,7 @@ module ServiceListeners
   class AttachmentAccessLimitedUpdaterTest < ActiveSupport::TestCase
     extend Minitest::Spec::DSL
 
-    let(:updater) { AttachmentAccessLimitedUpdater.new(attachment, queue: queue) }
+    let(:updater) { AttachmentAccessLimitedUpdater.new(attachment_data, queue: queue) }
     let(:attachment_data) { attachment.attachment_data }
     let(:queue) { nil }
 
