@@ -12,10 +12,9 @@ module ServiceListeners
 
     def update!
       return unless attachment_data.present?
-      visibility = visibility_for(attachment_data)
       redirect_url = nil
-      if !visibility.visible? && (edition = visibility.unpublished_edition)
-        redirect_url = edition.unpublishing.document_url
+      if attachment_data.unpublished?
+        redirect_url = attachment_data.unpublished_edition.unpublishing.document_url
       end
       enqueue_job(attachment_data.file, redirect_url)
       if attachment_data.pdf?
@@ -24,10 +23,6 @@ module ServiceListeners
     end
 
   private
-
-    def visibility_for(attachment_data)
-      AttachmentVisibility.new(attachment_data, _anonymous_user = nil)
-    end
 
     def enqueue_job(uploader, redirect_url)
       legacy_url_path = uploader.asset_manager_path
