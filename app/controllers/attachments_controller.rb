@@ -38,10 +38,6 @@ private
     end
   end
 
-  def analytics_format
-    @edition.type.underscore.to_sym
-  end
-
   def set_slimmer_template
     slimmer_template 'chromeless'
   end
