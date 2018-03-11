@@ -6,7 +6,8 @@ module ServiceListeners
     include Rails.application.routes.url_helpers
     include PublicDocumentRoutesHelper
 
-    let(:updater) { AttachmentLinkHeaderUpdater.new(attachment) }
+    let(:updater) { AttachmentLinkHeaderUpdater.new(attachment_data) }
+    let(:attachment_data) { attachment.attachment_data }
     let(:edition) { FactoryBot.create(:published_edition) }
     let(:parent_document_url) { Whitehall.url_maker.public_document_url(edition) }
 
@@ -43,7 +44,7 @@ module ServiceListeners
 
       context 'and queue is specified' do
         let(:queue) { 'alternative_queue' }
-        let(:updater) { AttachmentLinkHeaderUpdater.new(attachment, queue: queue) }
+        let(:updater) { AttachmentLinkHeaderUpdater.new(attachment_data, queue: queue) }
         let(:worker) { stub('worker') }
 
         it 'sets parent_document_url of corresponding asset using specified queue' do
