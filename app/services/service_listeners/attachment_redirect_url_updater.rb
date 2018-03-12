@@ -3,11 +3,10 @@ module ServiceListeners
     include Rails.application.routes.url_helpers
     include PublicDocumentRoutesHelper
 
-    attr_reader :attachment_data, :queue
+    attr_reader :attachment_data
 
-    def initialize(attachment_data, queue: nil)
+    def initialize(attachment_data)
       @attachment_data = attachment_data
-      @queue = queue
     end
 
     def update!
@@ -30,8 +29,7 @@ module ServiceListeners
     end
 
     def worker
-      worker = AssetManagerUpdateAssetWorker
-      queue.present? ? worker.set(queue: queue) : worker
+      AssetManagerUpdateAssetWorker
     end
   end
 end
