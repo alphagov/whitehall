@@ -9,13 +9,7 @@ module ServiceListeners
     def update!
       return unless attachment_data.present?
 
-      worker.perform_async(attachment_data.id)
-    end
-
-  private
-
-    def worker
-      AssetManagerAttachmentReplacementIdUpdateWorker
+      AssetManagerAttachmentReplacementIdUpdateWorker.perform_async(attachment_data.id)
     end
   end
 end
