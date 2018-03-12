@@ -13,6 +13,8 @@ module Import
       imported_publications = []
 
       HmctsCsvParser.publications(csv_path).each do |publication_data|
+        puts "Importing form #{publication_data[:page_id]} from rows #{publication_data[:csv_rows].join(', ')}"
+
         imported_details = {}
         imported_details[:csv_rows] = publication_data[:csv_rows].join(', ')
         imported_details[:form_id] = publication_data[:page_id]
@@ -68,6 +70,9 @@ module Import
         ensure
           imported_publications << imported_details
         end
+
+        # Prevent the HMCTS import from blocking other publishing events
+        wait_for_queue_to_drain
       end
 
       unless dry_run?
@@ -85,7 +90,7 @@ module Import
           "public URL (once published)",
           "import succeeded?",
           "document title truncated?",
-          "attachments truncated with truncated titles",
+          "attachments with truncated titles",
           "import error",
         ]
 
@@ -171,6 +176,19 @@ module Import
 
     def dry_run?
       @dry_run
+    end
+
+    def wait_for_queue_to_drain
+      default_queue_size = Sidekiq::Queue.new("default").size
+      publishing_queue_size = Sidekiq::Queue.new("publishing_api").size
+
+      while default_queue_size.positive? || publishing_queue_size.positive? do
+        puts "Default queue: #{default_queue_size}, publishing queue: #{publishing_queue_size}. Waiting until queues are clear."
+        sleep(5)
+
+        default_queue_size = Sidekiq::Queue.new("default").size
+        publishing_queue_size = Sidekiq::Queue.new("publishing_api").size
+      end
     end
   end
 end
