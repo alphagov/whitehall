@@ -12,71 +12,9 @@ module Import
 
       imported_publications = []
 
-      HmctsCsvParser.publications(csv_path).each do |publication_data|
-        imported_details = {}
-        imported_details[:csv_rows] = publication_data[:csv_rows].join(', ')
-        imported_details[:form_id] = publication_data[:page_id]
-
-        begin
-          publication = Publication.new
-          publication.publication_type = default_publication_type
-          publication.title = format_title(publication_data[:title])
-          publication.summary = publication_data[:summary]
-          publication.body = publication_data[:body]
-          publication.topics = publication_data[:policy_areas].map { |policy_area| Topic.find_by!(name: policy_area) }
-          publication.lead_organisations = [default_organisation]
-          publication.creator = importer_user
-          publication.alternative_format_provider = hmcts_organisation
-          publication.first_published_at = Date.parse(publication_data[:previous_publishing_date])
-          publication.access_limited = publication_data[:access_limited]
-
-          publication_data[:excluded_nations].each do |excluded_nation|
-            nation = Nation.find_by_name!(excluded_nation)
-            exclusion = NationInapplicability.new(nation: nation)
-            publication.nation_inapplicabilities << exclusion
-          end
-
-          publication.validate!
-
-          unless dry_run?
-            publication.save!
-            Whitehall.edition_services.draft_updater(publication).perform!
-            imported_details[:publication_id] = publication.id
-            imported_details[:whitehall_url] = Whitehall.url_maker.admin_edition_url(publication)
-            imported_details[:public_url] = Whitehall.url_maker.public_document_url(publication)
-          end
-
-          imported_details[:document_title_truncated] = title_too_long?(publication_data[:title])
-
-          imported_attachments = []
-          publication_data[:attachments].each do |attachment|
-            imported_attachments << create_attachment(attachment, publication)
-          end
-
-          imported_details[:attachments_with_truncated_titles] = imported_attachments
-            .select { |a| a[:title_truncated] }
-            .map { |a| a[:file_name] }
-            .join(", ")
-
-          imported_details[:succeeded] = true
-        rescue StandardError => error
-          puts "Error for form #{publication_data[:page_id]} in rows #{publication_data[:csv_rows].join(', ')}"
-          puts error
-
-          imported_details[:succeeded] = false
-          imported_details[:error] = error.message
-        ensure
-          imported_publications << imported_details
-        end
-      end
-
-      unless dry_run?
-        puts "Created #{imported_publications.count} publications with edition IDs " +
-          "#{imported_publications.first[:publication_id]} to #{imported_publications.last[:publication_id]}"
-      end
-
-      csv_path = "/tmp/hmcts_import_#{Time.new}.csv"
-      CSV.open(csv_path, "w") do |csv|
+      output_path = "/tmp/hmcts_import_#{Time.new}.csv"
+      puts "Writing output to #{output_path}"
+      CSV.open(output_path, "w") do |csv|
         csv << [
           "page ID",
           "original CSV rows",
@@ -85,26 +23,97 @@ module Import
           "public URL (once published)",
           "import succeeded?",
           "document title truncated?",
-          "attachments truncated with truncated titles",
+          "attachments with truncated titles",
           "import error",
         ]
+      end
 
-        imported_publications.each do |publication|
-          csv << [
-            publication[:form_id],
-            publication[:csv_rows],
-            publication[:publication_id],
-            publication[:whitehall_url],
-            publication[:public_url],
-            publication[:succeeded],
-            publication[:document_title_truncated],
-            publication[:attachments_with_truncated_titles],
-            publication[:error],
-          ]
+      HmctsCsvParser.publications(csv_path).each_slice(10) do |batch|
+        batch_attachments = []
+
+        batch.each do |publication_data|
+          puts "Importing form #{publication_data[:page_id]} from rows #{publication_data[:csv_rows].join(', ')}"
+
+          imported_details = {}
+          imported_details[:csv_rows] = publication_data[:csv_rows].join(', ')
+          imported_details[:form_id] = publication_data[:page_id]
+
+          begin
+            publication = Publication.new
+            publication.publication_type = default_publication_type
+            publication.title = format_title(publication_data[:title])
+            publication.summary = publication_data[:summary]
+            publication.body = publication_data[:body]
+            publication.topics = publication_data[:policy_areas].map { |policy_area| Topic.find_by!(name: policy_area) }
+            publication.lead_organisations = [default_organisation]
+            publication.creator = importer_user
+            publication.alternative_format_provider = hmcts_organisation
+            publication.first_published_at = Date.parse(publication_data[:previous_publishing_date])
+            publication.access_limited = publication_data[:access_limited]
+
+            publication_data[:excluded_nations].each do |excluded_nation|
+              nation = Nation.find_by_name!(excluded_nation)
+              exclusion = NationInapplicability.new(nation: nation)
+              publication.nation_inapplicabilities << exclusion
+            end
+
+            publication.validate!
+
+            unless dry_run?
+              publication.save!
+              Whitehall.edition_services.draft_updater(publication).perform!
+              imported_details[:publication_id] = publication.id
+              imported_details[:whitehall_url] = Whitehall.url_maker.admin_edition_url(publication)
+              imported_details[:public_url] = Whitehall.url_maker.public_document_url(publication)
+            end
+
+            imported_details[:document_title_truncated] = title_too_long?(publication_data[:title])
+
+            imported_attachments = []
+            publication_data[:attachments].each do |attachment|
+              batch_attachments << create_attachment(attachment, publication)
+              imported_attachments << {
+                file_name: attachment[:file_name],
+                title_truncated: title_too_long?(attachment[:title]),
+              }
+            end
+
+            imported_details[:attachments_with_truncated_titles] = imported_attachments
+              .select { |a| a[:title_truncated] }
+              .map { |a| a[:file_name] }
+              .join(", ")
+
+            imported_details[:succeeded] = true
+          rescue StandardError => error
+            puts "Error for form #{publication_data[:page_id]} in rows #{publication_data[:csv_rows].join(', ')}"
+            puts error
+
+            imported_details[:succeeded] = false
+            imported_details[:error] = error.message
+          ensure
+            imported_publications << imported_details
+            update_csv(output_path, imported_details)
+          end
+
+          # Prevent the HMCTS import from blocking other publishing events
+          wait_for_queue_to_drain
+        end
+
+        pending_attachments = batch_attachments.select { |a| a.virus_status == :pending }
+        while !pending_attachments.empty? do
+          puts "Waiting for attachments to be virus scanned: #{pending_attachments.map(&:filename).join(', ')}"
+          sleep(5)
+
+          pending_attachments = batch_attachments.select { |a| a.virus_status == :pending }
         end
       end
 
-      puts "Wrote output to #{csv_path}"
+      unless dry_run?
+        puts "Created #{imported_publications.count} publications with edition IDs " +
+          "#{imported_publications.first[:publication_id]} to #{imported_publications.last[:publication_id]}"
+      end
+
+      puts "Wrote output to #{output_path}"
     end
 
     def default_organisation
@@ -150,10 +159,7 @@ module Import
       file_attachment.validate!
       file_attachment.save! unless dry_run?
 
-      {
-        file_name: attachment[:file_name],
-        title_truncated: title_too_long?(attachment[:title]),
-      }
+      file_attachment
     end
 
     def download_attachment(hmcts_url, file_path)
@@ -171,6 +177,35 @@ module Import
 
     def dry_run?
       @dry_run
+    end
+
+    def update_csv(path, publication)
+      CSV.open(path, "a") do |csv|
+        csv << [
+          publication[:form_id],
+          publication[:csv_rows],
+          publication[:publication_id],
+          publication[:whitehall_url],
+          publication[:public_url],
+          publication[:succeeded],
+          publication[:document_title_truncated],
+          publication[:attachments_with_truncated_titles],
+          publication[:error],
+        ]
+      end
+    end
+
+    def wait_for_queue_to_drain
+      default_queue_size = Sidekiq::Queue.new("default").size
+      publishing_queue_size = Sidekiq::Queue.new("publishing_api").size
+
+      while default_queue_size.positive? || publishing_queue_size.positive? do
+        puts "Default queue: #{default_queue_size}, publishing queue: #{publishing_queue_size}. Waiting until queues are clear."
+        sleep(5)
+
+        default_queue_size = Sidekiq::Queue.new("default").size
+        publishing_queue_size = Sidekiq::Queue.new("publishing_api").size
+      end
     end
   end
 end
