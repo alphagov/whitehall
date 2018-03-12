@@ -1,10 +1,9 @@
 module ServiceListeners
   class AttachmentReplacementIdUpdater
-    attr_reader :attachment_data, :queue
+    attr_reader :attachment_data
 
-    def initialize(attachment_data, queue: nil)
+    def initialize(attachment_data)
       @attachment_data = attachment_data
-      @queue = queue
     end
 
     def update!
@@ -16,8 +15,7 @@ module ServiceListeners
   private
 
     def worker
-      worker = AssetManagerAttachmentReplacementIdUpdateWorker
-      queue.present? ? worker.set(queue: queue) : worker
+      AssetManagerAttachmentReplacementIdUpdateWorker
     end
   end
 end

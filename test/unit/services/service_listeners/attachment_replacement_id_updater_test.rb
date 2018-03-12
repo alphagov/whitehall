@@ -16,18 +16,6 @@ module ServiceListeners
       end
     end
 
-    context 'when a queue is specified' do
-      let(:updater) { AttachmentReplacementIdUpdater.new(attachment_data, queue: 'a-queue') }
-      let(:attachment_data) { mock('attachment_data', id: 'attachment-data-id') }
-
-      it 'sets the queue on the worker' do
-        worker = mock('worker', perform_async: nil)
-        AssetManagerAttachmentReplacementIdUpdateWorker.expects(:set).with(queue: 'a-queue').returns(worker)
-
-        updater.update!
-      end
-    end
-
     context 'when attachment data is nil' do
       let(:attachment_data) { nil }
 
