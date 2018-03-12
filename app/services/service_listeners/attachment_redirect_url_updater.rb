@@ -17,7 +17,7 @@ module ServiceListeners
       visibility = visibility_for(attachment_data)
       redirect_url = nil
       if !visibility.visible? && (edition = visibility.unpublished_edition)
-        redirect_url = edition.unpublishing.document_path
+        redirect_url = edition.unpublishing.document_url
       end
       enqueue_job(attachment_data.file, redirect_url)
       if attachment_data.pdf?

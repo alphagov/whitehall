@@ -10,7 +10,7 @@ module ServiceListeners
     let(:visibility) { stub('visibility', visible?: visible, unpublished_edition: edition) }
     let(:visible) { false }
     let(:edition) { FactoryBot.create(:unpublished_edition) }
-    let(:redirect_url) { Whitehall.url_maker.public_document_path(edition) }
+    let(:redirect_url) { Whitehall.url_maker.public_document_url(edition) }
 
     before do
       AttachmentVisibility.stubs(:new).returns(visibility)
