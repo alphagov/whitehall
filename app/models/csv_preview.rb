@@ -98,7 +98,7 @@ private
     preview_rows.force_encoding('windows-1252')
     # This regexp checks for the presence of ASCII control characters, which
     # would indicate we have the wrong encoding.
-    preview_rows.valid_encoding? && !preview_rows.match(/[\x00-\x09\x0b\x0c\x0e-\x1f]/)
+    preview_rows.valid_encoding? && !preview_rows.match(/[\x00-\x08\x0b\x0c\x0e-\x1f]/)
   end
 
   def ensure_csv_data_is_well_formed
