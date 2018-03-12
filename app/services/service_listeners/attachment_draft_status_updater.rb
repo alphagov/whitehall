@@ -19,11 +19,7 @@ module ServiceListeners
 
     def enqueue_job(uploader, draft)
       legacy_url_path = uploader.asset_manager_path
-      worker.perform_async(legacy_url_path, draft: draft)
-    end
-
-    def worker
-      AssetManagerUpdateAssetWorker
+      AssetManagerUpdateAssetWorker.perform_async(legacy_url_path, draft: draft)
     end
   end
 end
