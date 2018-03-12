@@ -12,6 +12,22 @@ module Import
 
       imported_publications = []
 
+      output_path = "/tmp/hmcts_import_#{Time.new}.csv"
+      puts "Writing output to #{output_path}"
+      CSV.open(output_path, "w") do |csv|
+        csv << [
+          "page ID",
+          "original CSV rows",
+          "publication whitehall ID",
+          "whitehall publisher URL",
+          "public URL (once published)",
+          "import succeeded?",
+          "document title truncated?",
+          "attachments with truncated titles",
+          "import error",
+        ]
+      end
+
       HmctsCsvParser.publications(csv_path).each do |publication_data|
         puts "Importing form #{publication_data[:page_id]} from rows #{publication_data[:csv_rows].join(', ')}"
 
@@ -69,6 +85,7 @@ module Import
           imported_details[:error] = error.message
         ensure
           imported_publications << imported_details
+          update_csv(output_path, imported_details)
         end
 
         # Prevent the HMCTS import from blocking other publishing events
@@ -80,36 +97,7 @@ module Import
           "#{imported_publications.first[:publication_id]} to #{imported_publications.last[:publication_id]}"
       end
 
-      csv_path = "/tmp/hmcts_import_#{Time.new}.csv"
-      CSV.open(csv_path, "w") do |csv|
-        csv << [
-          "page ID",
-          "original CSV rows",
-          "publication whitehall ID",
-          "whitehall publisher URL",
-          "public URL (once published)",
-          "import succeeded?",
-          "document title truncated?",
-          "attachments with truncated titles",
-          "import error",
-        ]
-
-        imported_publications.each do |publication|
-          csv << [
-            publication[:form_id],
-            publication[:csv_rows],
-            publication[:publication_id],
-            publication[:whitehall_url],
-            publication[:public_url],
-            publication[:succeeded],
-            publication[:document_title_truncated],
-            publication[:attachments_with_truncated_titles],
-            publication[:error],
-          ]
-        end
-      end
-
-      puts "Wrote output to #{csv_path}"
+      puts "Wrote output to #{output_path}"
     end
 
     def default_organisation
@@ -176,6 +164,22 @@ module Import
 
     def dry_run?
       @dry_run
+    end
+
+    def update_csv(path, publication)
+      CSV.open(path, "a") do |csv|
+        csv << [
+          publication[:form_id],
+          publication[:csv_rows],
+          publication[:publication_id],
+          publication[:whitehall_url],
+          publication[:public_url],
+          publication[:succeeded],
+          publication[:document_title_truncated],
+          publication[:attachments_with_truncated_titles],
+          publication[:error],
+        ]
+      end
     end
 
     def wait_for_queue_to_drain
