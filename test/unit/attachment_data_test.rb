@@ -246,4 +246,30 @@ class AttachmentDataTest < ActiveSupport::TestCase
 
     assert_equal [attachment_2, attachment_1], attachment_data.attachments.to_a
   end
+
+  test '#access_limited? is falsey if there is no last attachable' do
+    attachment_data = build(:attachment_data)
+    attachment_data.stubs(:attachments).returns([])
+    refute attachment_data.access_limited?
+  end
+
+  test '#access_limited? delegates to the last attachable' do
+    attachable = stub('attachable', access_limited?: 'access-limited')
+    attachment_data = build(:attachment_data)
+    attachment_data.stubs(:last_attachable).returns(attachable)
+    assert_equal 'access-limited', attachment_data.access_limited?
+  end
+
+  test '#access_limited_object returns nil if there is no last attachable' do
+    attachment_data = build(:attachment_data)
+    attachment_data.stubs(:attachments).returns([])
+    assert_nil attachment_data.access_limited_object
+  end
+
+  test '#access_limited_object delegates to the last attachable' do
+    attachable = stub('attachable', access_limited_object: 'access-limited-object')
+    attachment_data = build(:attachment_data)
+    attachment_data.stubs(:last_attachable).returns(attachable)
+    assert_equal 'access-limited-object', attachment_data.access_limited_object
+  end
 end

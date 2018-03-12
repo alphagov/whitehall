@@ -1,19 +1,19 @@
 module ServiceListeners
   class AttachmentLinkHeaderUpdater
-    attr_reader :attachment, :queue
+    attr_reader :attachment_data, :queue
 
-    def initialize(attachment, queue: nil)
-      @attachment = attachment
+    def initialize(attachment_data, queue: nil)
+      @attachment_data = attachment_data
       @queue = queue
     end
 
     def update!
-      return unless attachment.file?
-      attachment_data = attachment.attachment_data
       return unless attachment_data.present?
-      return unless attachment.attachable.is_a?(Edition)
 
-      parent_document_url = Whitehall.url_maker.public_document_url(attachment.attachable)
+      visible_edition = attachment_data.visible_edition_for(nil)
+      return unless visible_edition.present?
+
+      parent_document_url = Whitehall.url_maker.public_document_url(visible_edition)
 
       enqueue_job(attachment_data.file, parent_document_url)
       if attachment_data.pdf?
@@ -22,10 +22,6 @@ module ServiceListeners
     end
 
   private
-
-    def visibility_for(attachment_data)
-      AttachmentVisibility.new(attachment_data, _anonymous_user = nil)
-    end
 
     def enqueue_job(uploader, parent_document_url)
       legacy_url_path = uploader.asset_manager_path

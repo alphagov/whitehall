@@ -4,21 +4,12 @@ module ServiceListeners
   class AttachmentAccessLimitedUpdaterTest < ActiveSupport::TestCase
     extend Minitest::Spec::DSL
 
-    let(:updater) { AttachmentAccessLimitedUpdater.new(attachment, queue: queue) }
+    let(:updater) { AttachmentAccessLimitedUpdater.new(attachment_data, queue: queue) }
+    let(:attachment_data) { attachment.attachment_data }
     let(:queue) { nil }
 
-    context 'when attachment is not a file attachment' do
-      let(:attachment) { FactoryBot.create(:html_attachment) }
-
-      it 'does not update draft status of any assets' do
-        AssetManagerUpdateAssetWorker.expects(:perform_async).never
-
-        updater.update!
-      end
-    end
-
     context 'when attachment has no associated attachment data' do
-      let(:attachment) { FileAttachment.new(attachment_data: nil) }
+      let(:attachment) { FactoryBot.create(:html_attachment) }
 
       it 'does not update draft status of any assets' do
         AssetManagerUpdateAssetWorker.expects(:perform_async).never
@@ -35,8 +26,8 @@ module ServiceListeners
         access_limited_object = stub('access-limited-object')
         AssetManagerAccessLimitation.stubs(:for).with(access_limited_object).returns(['user-uid'])
 
-        attachment.stubs(:attachable_is_access_limited?).returns(true)
-        attachment.stubs(:access_limited_object).returns(access_limited_object)
+        attachment_data.stubs(:access_limited?).returns(true)
+        attachment_data.stubs(:access_limited_object).returns(access_limited_object)
       end
 
       it 'updates the access limited state of the asset' do
@@ -55,8 +46,8 @@ module ServiceListeners
         access_limited_object = stub('access-limited-object')
         AssetManagerAccessLimitation.stubs(:for).with(access_limited_object).returns(['user-uid'])
 
-        attachment.stubs(:attachable_is_access_limited?).returns(true)
-        attachment.stubs(:access_limited_object).returns(access_limited_object)
+        attachment_data.stubs(:access_limited?).returns(true)
+        attachment_data.stubs(:access_limited_object).returns(access_limited_object)
       end
 
       it "updates the access limited state of the asset and it's thumbnail" do
@@ -74,7 +65,7 @@ module ServiceListeners
       let(:attachment) { FactoryBot.create(:file_attachment, file: sample_rtf) }
 
       before do
-        attachment.stubs(:attachable_is_access_limited?).returns(false)
+        attachment_data.stubs(:access_limited?).returns(false)
       end
 
       it 'updates the asset to have an empty access_limited array' do
@@ -90,7 +81,7 @@ module ServiceListeners
       let(:attachment) { FactoryBot.create(:file_attachment, file: simple_pdf) }
 
       before do
-        attachment.stubs(:attachable_is_access_limited?).returns(false)
+        attachment_data.stubs(:access_limited?).returns(false)
       end
 
       it 'updates the asset to have an empty access_limited array' do

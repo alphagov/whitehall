@@ -6,22 +6,13 @@ module ServiceListeners
     include Rails.application.routes.url_helpers
     include PublicDocumentRoutesHelper
 
-    let(:updater) { AttachmentLinkHeaderUpdater.new(attachment) }
-    let(:edition) { FactoryBot.create(:edition) }
+    let(:updater) { AttachmentLinkHeaderUpdater.new(attachment_data) }
+    let(:attachment_data) { attachment.attachment_data }
+    let(:edition) { FactoryBot.create(:published_edition) }
     let(:parent_document_url) { Whitehall.url_maker.public_document_url(edition) }
 
-    context 'when attachment is not a file attachment' do
-      let(:attachment) { FactoryBot.create(:html_attachment) }
-
-      it 'does not update draft status of any assets' do
-        AssetManagerUpdateAssetWorker.expects(:perform_async).never
-
-        updater.update!
-      end
-    end
-
     context 'when attachment has no associated attachment data' do
-      let(:attachment) { FileAttachment.new(attachment_data: nil) }
+      let(:attachment) { FactoryBot.create(:html_attachment) }
 
       it 'does not update draft status of any assets' do
         AssetManagerUpdateAssetWorker.expects(:perform_async).never
@@ -53,7 +44,7 @@ module ServiceListeners
 
       context 'and queue is specified' do
         let(:queue) { 'alternative_queue' }
-        let(:updater) { AttachmentLinkHeaderUpdater.new(attachment, queue: queue) }
+        let(:updater) { AttachmentLinkHeaderUpdater.new(attachment_data, queue: queue) }
         let(:worker) { stub('worker') }
 
         it 'sets parent_document_url of corresponding asset using specified queue' do

@@ -3,21 +3,18 @@ module ServiceListeners
     include Rails.application.routes.url_helpers
     include PublicDocumentRoutesHelper
 
-    attr_reader :attachment, :queue
+    attr_reader :attachment_data, :queue
 
-    def initialize(attachment, queue: nil)
-      @attachment = attachment
+    def initialize(attachment_data, queue: nil)
+      @attachment_data = attachment_data
       @queue = queue
     end
 
     def update!
-      return unless attachment.file?
-      attachment_data = attachment.attachment_data
       return unless attachment_data.present?
-      visibility = visibility_for(attachment_data)
       redirect_url = nil
-      if !visibility.visible? && (edition = visibility.unpublished_edition)
-        redirect_url = edition.unpublishing.document_url
+      if attachment_data.unpublished?
+        redirect_url = attachment_data.unpublished_edition.unpublishing.document_url
       end
       enqueue_job(attachment_data.file, redirect_url)
       if attachment_data.pdf?
@@ -26,10 +23,6 @@ module ServiceListeners
     end
 
   private
-
-    def visibility_for(attachment_data)
-      AttachmentVisibility.new(attachment_data, _anonymous_user = nil)
-    end
 
     def enqueue_job(uploader, redirect_url)
       legacy_url_path = uploader.asset_manager_path

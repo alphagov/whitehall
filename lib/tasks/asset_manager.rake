@@ -37,7 +37,7 @@ namespace :asset_manager do
       updater = ServiceListeners::AttachmentDraftStatusUpdater
       FileAttachment.includes(:attachment_data).find_each(options) do |attachment|
         if File.exist?(attachment.attachment_data.file.path)
-          updater.new(attachment, queue: 'asset_migration').update!
+          updater.new(attachment.attachment_data, queue: 'asset_migration').update!
         end
       end
     end
