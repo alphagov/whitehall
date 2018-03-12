@@ -43,7 +43,7 @@ class AttachmentVisibility
   def unpublished_edition
     attachable_ids = edition_ids + consultation_ids
     if (unpublishing = Unpublishing.where(edition_id: attachable_ids).first)
-      Edition.unscoped.find(unpublishing.edition_id)
+      Edition.find_by(id: unpublishing.edition_id)
     end
   end
 

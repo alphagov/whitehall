@@ -130,40 +130,11 @@ class UnpublishingTest < ActiveSupport::TestCase
     assert_equal original_path, unpublishing.document_path
   end
 
-  test '#document_path returns the URL path for a deleted unpublished edition' do
-    edition = create(:detailed_guide)
-    original_path = Whitehall.url_maker.public_document_path(edition)
-    unpublishing = create(:unpublishing, edition: edition,
-                          unpublishing_reason: UnpublishingReason::PublishedInError)
-
-
-    EditionDeleter.new(edition).perform!
-    # The default scope on Edition stops deleted editions being found when an
-    # unpublishing is loaded. To trigger the bug we need to reload.
-    unpublishing.reload
-
-    assert_equal original_path, unpublishing.document_path
-  end
-
   test '#document_url returns the URL for the unpublished edition' do
     edition = create(:detailed_guide, :draft)
     original_url = Whitehall.url_maker.public_document_url(edition)
     unpublishing = create(:unpublishing, edition: edition,
                           unpublishing_reason: UnpublishingReason::PublishedInError)
-
-    assert_equal original_url, unpublishing.document_url
-  end
-
-  test '#document_url returns the URL for a deleted unpublished edition' do
-    edition = create(:detailed_guide)
-    original_url = Whitehall.url_maker.public_document_url(edition)
-    unpublishing = create(:unpublishing, edition: edition,
-                          unpublishing_reason: UnpublishingReason::PublishedInError)
-
-    EditionDeleter.new(edition).perform!
-    # The default scope on Edition stops deleted editions being found when an
-    # unpublishing is loaded. To trigger the bug we need to reload.
-    unpublishing.reload
 
     assert_equal original_url, unpublishing.document_url
   end

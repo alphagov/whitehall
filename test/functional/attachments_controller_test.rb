@@ -175,4 +175,14 @@ class AttachmentsControllerTest < ActionController::TestCase
     get_show attachment_data
     assert_response :not_found
   end
+
+  test '#show responds with 404 if the edition has been unpublished and deleted' do
+    edition = create(:unpublished_publication, :with_file_attachment, :deleted)
+    attachment = edition.attachments.first
+    attachment_data = attachment.attachment_data
+    VirusScanHelpers.simulate_virus_scan(attachment_data.file)
+
+    get_show attachment_data
+    assert_response :not_found
+  end
 end

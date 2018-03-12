@@ -152,16 +152,6 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
     assert_equal unpublished_edition, attachment_visibility.unpublished_edition
   end
 
-  test '#unpublished_edition returns the edition, even if it is deleted' do
-    deleted_edition = create(:deleted_publication, :with_file_attachment)
-    create(:unpublishing, edition: deleted_edition)
-    attachment_data = deleted_edition.attachments.first.attachment_data
-    attachment_visibility = AttachmentVisibility.new(attachment_data, nil)
-
-    refute attachment_visibility.visible?
-    assert_equal deleted_edition, attachment_visibility.unpublished_edition
-  end
-
   test '#unpublished_edition returns the consultation for an attachment associated with an unpublished consultation outcome' do
     unpublished_consultation = create(:consultation, :unpublished)
     outcome = unpublished_consultation.create_outcome!(attributes_for(:consultation_outcome))
