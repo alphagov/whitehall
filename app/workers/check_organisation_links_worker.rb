@@ -6,12 +6,20 @@ class CheckOrganisationLinksWorker
   sidekiq_options queue: "link_checks"
 
   def perform(organisation_id)
-    organisation = find_organisation(organisation_id)
+    GovukStatsd.time('link-checking-debug.check-organisation-links-worker') do
+      organisation = find_organisation(organisation_id)
+      editions = public_editions(organisation)
+      logger.info("[link-checking-debug][org_#{organisation_id}][job_#{self.jid}]: Requesting link checks for #{editions.count}")
 
-    public_editions(organisation).each do |edition|
-      next unless LinkCheckerApiService.has_links?(edition)
-
-      LinkCheckerApiService.check_links(edition, callback)
+      ignored = 0
+      editions.each do |edition|
+        if LinkCheckerApiService.has_links?(edition)
+          LinkCheckerApiService.check_links(edition, callback)
+        else
+          ignored += 1
+        end
+      end
+      logger.info("[link-checking-debug][org_#{organisation_id}][job_#{self.jid}]: Done requesting link checks for #{editions.count}, ignored #{ignored} of them")
     end
   end
 

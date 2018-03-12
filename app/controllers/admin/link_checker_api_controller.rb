@@ -3,12 +3,15 @@ class Admin::LinkCheckerApiController < ApplicationController
   before_action :verify_signature
 
   def callback
-    LinkCheckerApiReport.transaction do
-      report = LinkCheckerApiReport.eager_load(:links).lock
-        .find_by(batch_id: params.require(:id))
-      report.update_from_batch_report(params) if report
+    GovukStatsd.time('link-checking-debug.link-checker-callback') do
+      logger.info("[link-checking-debug][batch_#{params[:id]}]: Updating link report")
+      LinkCheckerApiReport.transaction do
+        report = LinkCheckerApiReport.eager_load(:links).lock
+          .find_by(batch_id: params.require(:id))
+        report.update_from_batch_report(params) if report
+      end
+      logger.info("[link-checking-debug][batch_#{params[:id]}]: Done updating link report")
     end
-
     head :no_content
   end
 
