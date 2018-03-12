@@ -20,6 +20,22 @@ class Response < ApplicationRecord
     consultation.alternative_format_contact_email
   end
 
+  def publicly_visible?
+    consultation.publicly_visible?
+  end
+
+  def accessible_to?(user)
+    consultation.accessible_to?(user)
+  end
+
+  def unpublished?
+    consultation.unpublished?
+  end
+
+  def unpublished_edition
+    consultation.unpublished_edition
+  end
+
   def can_order_attachments?
     true
   end

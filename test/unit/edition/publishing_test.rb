@@ -124,4 +124,36 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     refute edition.approve_retrospectively
     assert edition.errors[:base].include?('This document has not been force-published')
   end
+
+  test '#unpublished? returns false if publicly visible' do
+    published_edition = build(:published_edition)
+
+    refute published_edition.unpublished?
+  end
+
+  test '#unpublished? returns false if no unpublishing exists' do
+    draft_edition = build(:draft_edition)
+
+    refute draft_edition.unpublished?
+  end
+
+  test '#unpublished? returns true if not publicly visible and unpublishing exists' do
+    unpublishing = build(:unpublishing)
+    draft_edition_with_unpublishing = build(:draft_edition, unpublishing: unpublishing)
+
+    assert draft_edition_with_unpublishing.unpublished?
+  end
+
+  test '#unpublished_edition returns nil if not unpublished' do
+    edition = build(:published_edition)
+
+    assert_nil edition.unpublished_edition
+  end
+
+  test '#unpublished_edition returns unpublished edition if unpublished' do
+    edition = create(:draft_edition, :with_document)
+    edition.build_unpublishing(edition: edition)
+
+    assert_equal edition, edition.unpublished_edition
+  end
 end

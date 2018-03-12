@@ -83,4 +83,36 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
 
     assert_equal edition, edition.access_limited_object
   end
+
+  test 'is not accessible if no user specified' do
+    edition = LimitedAccessEdition.new
+
+    refute edition.accessible_to?(nil)
+  end
+
+  test 'is not accessible if edition is not accessible to user' do
+    user = build(:user)
+    edition_id = 123
+    edition = LimitedAccessEdition.new(id: edition_id)
+    accessible_scope = stub('accessible-scope')
+    LimitedAccessEdition.stubs(:accessible_to).with(user)
+      .returns(accessible_scope)
+
+    accessible_scope.stubs(:where).with(id: edition_id).returns([])
+
+    refute edition.accessible_to?(user)
+  end
+
+  test 'is accessible if edition is accessible to user' do
+    user = build(:user)
+    edition_id = 123
+    edition = LimitedAccessEdition.new(id: edition_id)
+    accessible_scope = stub('accessible-scope')
+    LimitedAccessEdition.stubs(:accessible_to).with(user)
+      .returns(accessible_scope)
+
+    accessible_scope.stubs(:where).with(id: edition_id).returns([edition_id])
+
+    assert edition.accessible_to?(user)
+  end
 end

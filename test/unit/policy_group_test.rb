@@ -49,4 +49,24 @@ class PolicyGroupTest < ActiveSupport::TestCase
     policy_group = FactoryBot.build(:policy_group)
     assert_nil policy_group.access_limited_object
   end
+
+  test 'is always publicly visible' do
+    policy_group = FactoryBot.build(:policy_group)
+    assert policy_group.publicly_visible?
+  end
+
+  test 'is never unpublished' do
+    policy_group = FactoryBot.build(:policy_group)
+    refute policy_group.unpublished?
+  end
+
+  test 'never has unpublished edition' do
+    policy_group = FactoryBot.build(:policy_group)
+    assert_nil policy_group.unpublished_edition
+  end
+
+  test 'is always accessible' do
+    policy_group = FactoryBot.build(:policy_group)
+    assert policy_group.accessible_to?(nil)
+  end
 end

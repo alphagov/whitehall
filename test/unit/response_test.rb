@@ -16,4 +16,44 @@ class ResponseTest < ActiveSupport::TestCase
 
     assert_equal consultation.alternative_format_contact_email, response.alternative_format_contact_email
   end
+
+  test 'is publicly visible if its consultation is publicly visible' do
+    consultation = build(:consultation)
+    consultation.stubs(:publicly_visible?).returns(true)
+    response = build(:consultation_outcome, consultation: consultation)
+
+    assert response.publicly_visible?
+  end
+
+  test 'is not publicly visible if its consultation is not publicly visible' do
+    consultation = build(:consultation)
+    consultation.stubs(:publicly_visible?).returns(false)
+    response = build(:consultation_outcome, consultation: consultation)
+
+    refute response.publicly_visible?
+  end
+
+  test 'is unpublished if its consultation is unpublished' do
+    consultation = build(:consultation)
+    consultation.stubs(:unpublished?).returns(true)
+    response = build(:consultation_outcome, consultation: consultation)
+
+    assert response.unpublished?
+  end
+
+  test 'is not unpublished if its consultation is not unpublished' do
+    consultation = build(:consultation)
+    consultation.stubs(:unpublished?).returns(false)
+    response = build(:consultation_outcome, consultation: consultation)
+
+    refute response.unpublished?
+  end
+
+  test 'returns unpublished edition from its consultation' do
+    consultation = build(:consultation)
+    consultation.stubs(:unpublished_edition).returns(consultation)
+    response = build(:consultation_outcome, consultation: consultation)
+
+    assert_equal consultation, response.unpublished_edition
+  end
 end

@@ -66,4 +66,8 @@ module Edition::LimitedAccess
       self.access_limited = self.access_limited_by_default?
     end
   end
+
+  def accessible_to?(user)
+    user.present? && self.class.accessible_to(user).where(id: id).any?
+  end
 end

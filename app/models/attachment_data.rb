@@ -3,7 +3,7 @@ require 'pdf-reader'
 class AttachmentData < ApplicationRecord
   mount_uploader :file, AttachmentUploader, mount_on: :carrierwave_file
 
-  has_many :attachments, inverse_of: :attachment_data
+  has_many :attachments, -> { order(:attachable_id) }, inverse_of: :attachment_data
 
   delegate :url, :path, to: :file, allow_nil: true
 
@@ -104,7 +104,101 @@ class AttachmentData < ApplicationRecord
     end
   end
 
+  def deleted?
+    significant_attachment.deleted?
+  end
+
+  def draft?
+    return false if unpublished?
+    !significant_attachable.publicly_visible?
+  end
+
+  def accessible_to?(user)
+    significant_attachable.accessible_to?(user)
+  end
+
+  def unpublished?
+    last_attachable.unpublished?
+  end
+
+  def unpublished_edition
+    last_attachable.unpublished_edition
+  end
+
+  def replaced?
+    replaced_by.present?
+  end
+
+  def visible_to?(user)
+    !deleted? && !unpublished? && (!draft? || (draft? && accessible_to?(user)))
+  end
+
+  def visible_attachment_for(user)
+    visible_to?(user) ? significant_attachment : nil
+  end
+
+  def visible_attachable_for(user)
+    visible_to?(user) ? significant_attachable : nil
+  end
+
+  def visible_edition_for(user)
+    visible_attachable = visible_attachable_for(user)
+    visible_attachable.is_a?(Edition) ? visible_attachable : nil
+  end
+
 private
+
+  class NullAttachable
+    def publicly_visible?
+      false
+    end
+
+    def accessible_to?(_user)
+      false
+    end
+
+    def unpublished?
+      false
+    end
+
+    def unpublished_edition
+      nil
+    end
+  end
+
+  class NullAttachment
+    def deleted?
+      false
+    end
+
+    def attachable
+      NullAttachable.new
+    end
+  end
+
+  def significant_attachable
+    significant_attachment.attachable || NullAttachable.new
+  end
+
+  def last_attachable
+    last_attachment.attachable || NullAttachable.new
+  end
+
+  def significant_attachment
+    if attachments.one? || last_attachment.attachable.publicly_visible?
+      last_attachment
+    else
+      penultimate_attachment
+    end
+  end
+
+  def last_attachment
+    attachments[-1] || NullAttachment.new
+  end
+
+  def penultimate_attachment
+    attachments[-2] || NullAttachment.new
+  end
 
   def cant_be_replaced_by_self
     return if replaced_by.nil?
