@@ -44,6 +44,11 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
         get @attachment_url
         assert_response :not_found
       end
+
+      it 'deletes corresponding asset(s) in Asset Manager' do
+        Services.asset_manager.expects(:delete_asset).with(asset_id)
+        AssetManagerAttachmentDeleteWorker.drain
+      end
     end
 
     context 'when draft document is discarded' do
@@ -57,6 +62,11 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
 
         get @attachment_url
         assert_response :not_found
+      end
+
+      it 'deletes corresponding asset(s) in Asset Manager' do
+        Services.asset_manager.expects(:delete_asset).with(asset_id)
+        AssetManagerAttachmentDeleteWorker.drain
       end
     end
   end
