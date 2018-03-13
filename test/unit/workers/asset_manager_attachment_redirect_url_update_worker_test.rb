@@ -16,6 +16,14 @@ class AssetManagerAttachmentRedirectUrlUpdateWorkerTest < ActiveSupport::TestCas
     AssetManagerUpdateAssetWorker.stubs(:new).returns(update_worker)
   end
 
+  context 'when attachment cannot be found' do
+    it 'does not update the redirect URL' do
+      update_worker.expects(:perform).never
+
+      worker.perform('no-such-id')
+    end
+  end
+
   context 'when attachment is not a PDF' do
     let(:sample_rtf) { File.open(fixture_path.join('sample.rtf')) }
     let(:attachment) { FactoryBot.create(:file_attachment, file: sample_rtf) }
@@ -23,7 +31,7 @@ class AssetManagerAttachmentRedirectUrlUpdateWorkerTest < ActiveSupport::TestCas
     before do
       attachment_data.stubs(:unpublished?).returns(unpublished)
       attachment_data.stubs(:unpublished_edition).returns(unpublished_edition)
-      AttachmentData.stubs(:find).with(attachment_data.id).returns(attachment_data)
+      AttachmentData.stubs(:find_by).with(id: attachment_data.id).returns(attachment_data)
     end
 
     it 'updates redirect URL of corresponding asset' do
@@ -41,7 +49,7 @@ class AssetManagerAttachmentRedirectUrlUpdateWorkerTest < ActiveSupport::TestCas
     before do
       attachment_data.stubs(:unpublished?).returns(unpublished)
       attachment_data.stubs(:unpublished_edition).returns(unpublished_edition)
-      AttachmentData.stubs(:find).with(attachment_data.id).returns(attachment_data)
+      AttachmentData.stubs(:find_by).with(id: attachment_data.id).returns(attachment_data)
     end
 
     it 'updates redirect URL of asset for attachment & its thumbnail' do
