@@ -9,7 +9,7 @@ module ServiceListeners
     def update!
       return unless attachment_data.present?
 
-      AssetManagerAttachmentLinkHeaderUpdateWorker.new.perform(attachment_data)
+      AssetManagerAttachmentLinkHeaderUpdateWorker.new.perform(attachment_data.id)
     end
   end
 end

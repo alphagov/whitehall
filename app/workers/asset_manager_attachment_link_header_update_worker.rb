@@ -1,5 +1,7 @@
 class AssetManagerAttachmentLinkHeaderUpdateWorker < WorkerBase
-  def perform(attachment_data)
+  def perform(attachment_data_id)
+    attachment_data = AttachmentData.find_by(id: attachment_data_id)
+    return unless attachment_data.present?
     visible_edition = attachment_data.visible_edition_for(nil)
     return unless visible_edition.present?
 

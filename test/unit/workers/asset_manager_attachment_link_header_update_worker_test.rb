@@ -16,7 +16,15 @@ class AssetManagerAttachmentLinkHeaderUpdateWorkerTest < ActiveSupport::TestCase
     it 'does not update draft status of any assets' do
       AssetManagerUpdateAssetWorker.expects(:perform_async).never
 
-      worker.perform(attachment_data)
+      worker.perform(attachment_data.id)
+    end
+  end
+
+  context "when the attachment cannot be found" do
+    it 'does not update draft status of any assets' do
+      AssetManagerUpdateAssetWorker.expects(:perform_async).never
+
+      worker.perform('no-such-id')
     end
   end
 
@@ -28,7 +36,7 @@ class AssetManagerAttachmentLinkHeaderUpdateWorkerTest < ActiveSupport::TestCase
       AssetManagerUpdateAssetWorker.expects(:perform_async)
         .with(attachment.file.asset_manager_path, parent_document_url: parent_document_url)
 
-      worker.perform(attachment_data)
+      worker.perform(attachment_data.id)
     end
   end
 
@@ -42,7 +50,7 @@ class AssetManagerAttachmentLinkHeaderUpdateWorkerTest < ActiveSupport::TestCase
       AssetManagerUpdateAssetWorker.expects(:perform_async)
         .with(attachment.file.thumbnail.asset_manager_path, parent_document_url: parent_document_url)
 
-      worker.perform(attachment_data)
+      worker.perform(attachment_data.id)
     end
   end
 end
