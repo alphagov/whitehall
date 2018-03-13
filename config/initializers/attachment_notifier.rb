@@ -6,4 +6,9 @@ Whitehall.attachment_notifier.tap do |notifier|
         .update!
     end
   end
+  notifier.subscribe('destroy') do |_event, attachment|
+    ServiceListeners::AttachmentDeleter
+      .new(attachment.attachment_data)
+      .delete!
+  end
 end
