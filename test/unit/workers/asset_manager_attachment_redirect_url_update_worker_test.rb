@@ -18,13 +18,14 @@ class AssetManagerAttachmentRedirectUrlUpdateWorkerTest < ActiveSupport::TestCas
     before do
       attachment_data.stubs(:unpublished?).returns(unpublished)
       attachment_data.stubs(:unpublished_edition).returns(unpublished_edition)
+      AttachmentData.stubs(:find).with(attachment_data.id).returns(attachment_data)
     end
 
     it 'updates redirect URL of corresponding asset' do
       AssetManagerUpdateAssetWorker.expects(:perform_async)
         .with(attachment.file.asset_manager_path, redirect_url: redirect_url)
 
-      worker.perform(attachment_data)
+      worker.perform(attachment_data.id)
     end
   end
 
@@ -35,6 +36,7 @@ class AssetManagerAttachmentRedirectUrlUpdateWorkerTest < ActiveSupport::TestCas
     before do
       attachment_data.stubs(:unpublished?).returns(unpublished)
       attachment_data.stubs(:unpublished_edition).returns(unpublished_edition)
+      AttachmentData.stubs(:find).with(attachment_data.id).returns(attachment_data)
     end
 
     it 'updates redirect URL of asset for attachment & its thumbnail' do
@@ -43,7 +45,7 @@ class AssetManagerAttachmentRedirectUrlUpdateWorkerTest < ActiveSupport::TestCas
       AssetManagerUpdateAssetWorker.expects(:perform_async)
         .with(attachment.file.thumbnail.asset_manager_path, redirect_url: redirect_url)
 
-      worker.perform(attachment_data)
+      worker.perform(attachment_data.id)
     end
 
     context 'and attachment is not unpublished' do
@@ -56,7 +58,7 @@ class AssetManagerAttachmentRedirectUrlUpdateWorkerTest < ActiveSupport::TestCas
         AssetManagerUpdateAssetWorker.expects(:perform_async)
           .with(attachment.file.thumbnail.asset_manager_path, redirect_url: nil)
 
-        worker.perform(attachment_data)
+        worker.perform(attachment_data.id)
       end
     end
   end
