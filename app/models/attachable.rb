@@ -26,6 +26,32 @@ module Attachable
     end
   end
 
+  class Null
+    def publicly_visible?
+      false
+    end
+
+    def accessible_to?(_user)
+      false
+    end
+
+    def access_limited?
+      false
+    end
+
+    def access_limited_object
+      nil
+    end
+
+    def unpublished?
+      false
+    end
+
+    def unpublished_edition
+      nil
+    end
+  end
+
   def attachables
     [self]
   end

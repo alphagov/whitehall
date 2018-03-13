@@ -41,6 +41,16 @@ class Attachment < ApplicationRecord
   scope :not_deleted, -> { where(deleted: false) }
   scope :deleted, -> { where(deleted: true) }
 
+  class Null
+    def deleted?
+      false
+    end
+
+    def attachable
+      Attachable::Null.new
+    end
+  end
+
   def self.parliamentary_sessions
     (1951..Time.zone.now.year).to_a.reverse.map do |year|
       starts = Date.new(year).strftime('%Y')
