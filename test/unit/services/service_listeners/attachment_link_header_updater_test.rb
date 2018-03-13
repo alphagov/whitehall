@@ -22,7 +22,7 @@ module ServiceListeners
     end
 
     context "when attachment doesn't belong to an edition" do
-      let(:attachment) { FileAttachment.new(attachable: PolicyGroup.new) }
+      let(:attachment) { FactoryBot.create(:file_attachment) }
 
       it 'does not update draft status of any assets' do
         AssetManagerUpdateAssetWorker.expects(:perform_async).never
