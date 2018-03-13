@@ -184,7 +184,7 @@ private
   def assert_sets_redirect_url_in_asset_manager_to(redirect_url)
     Services.asset_manager.expects(:update_asset)
       .with(asset_id, 'redirect_url' => redirect_url)
-    AssetManagerUpdateAssetWorker.drain
+    AssetManagerAttachmentRedirectUrlUpdateWorker.drain
   end
 
   def unpublish_document_published_in_error
