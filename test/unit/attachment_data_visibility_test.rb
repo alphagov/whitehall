@@ -171,6 +171,17 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
             assert_nil attachment_data.reload.unpublished_edition
           end
 
+          context 'when new edition is discarded' do
+            before do
+              new_edition.delete
+              new_edition.save!
+            end
+
+            it 'is not deleted' do
+              refute attachment_data.reload.deleted?
+            end
+          end
+
           context 'new edition is access-limited' do
             before do
               new_edition.change_note = 'change-note'
