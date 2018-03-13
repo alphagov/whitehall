@@ -43,7 +43,7 @@ class Unpublishing < ApplicationRecord
   end
 
   def document_path
-    Whitehall.url_maker.public_document_path(edition)
+    Whitehall.url_maker.public_document_path(edition, id: slug)
   end
 
   def document_url
