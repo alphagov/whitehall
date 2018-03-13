@@ -68,36 +68,10 @@ private
       .returns(attributes.merge(id: url_id).stringify_keys)
   end
 
-  def assert_sets_draft_status_in_asset_manager_to(draft, never: false)
-    expectation = Services.asset_manager.expects(:update_asset)
-      .with(asset_id, 'draft' => draft)
-    expectation.never if never
-  end
-
-  def refute_sets_draft_status_in_asset_manager_to(draft)
-    assert_sets_draft_status_in_asset_manager_to(draft, never: true)
-  end
-
   def force_publish_document
     click_link 'Force publish'
     fill_in 'Reason for force publishing', with: 'testing'
     click_button 'Force publish'
     assert_text %r{The document .* has been published}
-  end
-
-  def unpublish_document_published_in_error
-    click_link 'Withdraw or unpublish'
-    within '#js-published-in-error-form' do
-      click_button 'Unpublish'
-    end
-    assert_text 'This document has been unpublished'
-  end
-
-  def add_attachment(filename)
-    click_link 'Upload new file attachment'
-    fill_in 'Title', with: 'Attachment Title'
-    attach_file 'File', path_to_attachment(filename)
-    click_button 'Save'
-    assert_text "Attachment 'Attachment Title' uploaded"
   end
 end
