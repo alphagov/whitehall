@@ -8,6 +8,7 @@ class Attachment < ApplicationRecord
   before_save :set_ordering, if: -> { ordering.blank? }
   before_save :nilify_locale_if_blank
   before_save :prevent_saving_of_abstract_base_class
+  after_destroy :publish_destroy_event
 
   VALID_COMMAND_PAPER_NUMBER_PREFIXES = ['C.', 'Cd.', 'Cmd.', 'Cmnd.', 'Cm.'].freeze
 
@@ -148,5 +149,9 @@ private
     if type.nil? || type == "Attachment"
       raise RuntimeError, "Attempted to save abstract base class Attachment"
     end
+  end
+
+  def publish_destroy_event
+    Whitehall.attachment_notifier.publish('destroy', self)
   end
 end

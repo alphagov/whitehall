@@ -3,6 +3,10 @@ require 'test_helper'
 class AttachmentTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
+  setup do
+    Whitehall.attachment_notifier.stubs(:publish)
+  end
+
   test 'should be invalid without an attachable' do
     refute build(:file_attachment, attachable: nil).valid?
   end
@@ -223,5 +227,12 @@ class AttachmentTest < ActiveSupport::TestCase
     attachment = create(:file_attachment)
     attachment.destroy
     assert attachment.deleted?
+  end
+
+  test 'destroy publishes destroy event to attachment notifier' do
+    attachment = create(:file_attachment)
+    Whitehall.attachment_notifier.expects(:publish).with('destroy', attachment)
+
+    attachment.destroy
   end
 end
