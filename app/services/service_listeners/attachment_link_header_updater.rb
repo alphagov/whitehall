@@ -1,10 +1,9 @@
 module ServiceListeners
   class AttachmentLinkHeaderUpdater
-    attr_reader :attachment_data, :queue
+    attr_reader :attachment_data
 
-    def initialize(attachment_data, queue: nil)
+    def initialize(attachment_data)
       @attachment_data = attachment_data
-      @queue = queue
     end
 
     def update!
@@ -25,12 +24,7 @@ module ServiceListeners
 
     def enqueue_job(uploader, parent_document_url)
       legacy_url_path = uploader.asset_manager_path
-      worker.perform_async(legacy_url_path, parent_document_url: parent_document_url)
-    end
-
-    def worker
-      worker = AssetManagerUpdateAssetWorker
-      queue.present? ? worker.set(queue: queue) : worker
+      AssetManagerUpdateAssetWorker.perform_async(legacy_url_path, parent_document_url: parent_document_url)
     end
   end
 end

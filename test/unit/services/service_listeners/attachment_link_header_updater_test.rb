@@ -41,21 +41,6 @@ module ServiceListeners
 
         updater.update!
       end
-
-      context 'and queue is specified' do
-        let(:queue) { 'alternative_queue' }
-        let(:updater) { AttachmentLinkHeaderUpdater.new(attachment_data, queue: queue) }
-        let(:worker) { stub('worker') }
-
-        it 'sets parent_document_url of corresponding asset using specified queue' do
-          AssetManagerUpdateAssetWorker.expects(:set)
-            .with(queue: queue).returns(worker)
-          worker.expects(:perform_async)
-            .with(attachment.file.asset_manager_path, parent_document_url: parent_document_url)
-
-          updater.update!
-        end
-      end
     end
 
     context 'when attachment is a PDF' do

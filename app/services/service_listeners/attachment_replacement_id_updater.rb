@@ -1,23 +1,15 @@
 module ServiceListeners
   class AttachmentReplacementIdUpdater
-    attr_reader :attachment_data, :queue
+    attr_reader :attachment_data
 
-    def initialize(attachment_data, queue: nil)
+    def initialize(attachment_data)
       @attachment_data = attachment_data
-      @queue = queue
     end
 
     def update!
       return unless attachment_data.present?
 
-      worker.perform_async(attachment_data.id)
-    end
-
-  private
-
-    def worker
-      worker = AssetManagerAttachmentReplacementIdUpdateWorker
-      queue.present? ? worker.set(queue: queue) : worker
+      AssetManagerAttachmentReplacementIdUpdateWorker.perform_async(attachment_data.id)
     end
   end
 end

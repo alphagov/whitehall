@@ -4,9 +4,8 @@ module ServiceListeners
   class AttachmentAccessLimitedUpdaterTest < ActiveSupport::TestCase
     extend Minitest::Spec::DSL
 
-    let(:updater) { AttachmentAccessLimitedUpdater.new(attachment_data, queue: queue) }
+    let(:updater) { AttachmentAccessLimitedUpdater.new(attachment_data) }
     let(:attachment_data) { attachment.attachment_data }
-    let(:queue) { nil }
 
     context 'when attachment has no associated attachment data' do
       let(:attachment) { FactoryBot.create(:html_attachment) }
@@ -89,21 +88,6 @@ module ServiceListeners
           .with(attachment.file.asset_manager_path, access_limited: [])
         AssetManagerUpdateAssetWorker.expects(:perform_async)
           .with(attachment.file.thumbnail.asset_manager_path, access_limited: [])
-
-        updater.update!
-      end
-    end
-
-    context 'when a different queue is specified' do
-      let(:queue) { 'alternative-queue' }
-      let(:worker) { stub('worker', perform_async: nil) }
-      let(:attachment) { FactoryBot.create(:file_attachment) }
-
-      it 'uses that queue' do
-        AssetManagerUpdateAssetWorker.expects(:set)
-          .with(queue: queue).at_least_once.returns(worker)
-        worker.expects(:perform_async)
-          .with(attachment.file.asset_manager_path, anything)
 
         updater.update!
       end
