@@ -13,7 +13,7 @@ class Response < ApplicationRecord
   end
 
   def access_limited?
-    consultation.access_limited?
+    parent_attachable.access_limited?
   end
 
   def alternative_format_contact_email
@@ -21,19 +21,19 @@ class Response < ApplicationRecord
   end
 
   def publicly_visible?
-    consultation.publicly_visible?
+    parent_attachable.publicly_visible?
   end
 
   def accessible_to?(user)
-    consultation.accessible_to?(user)
+    parent_attachable.accessible_to?(user)
   end
 
   def unpublished?
-    consultation.unpublished?
+    parent_attachable.unpublished?
   end
 
   def unpublished_edition
-    consultation.unpublished_edition
+    parent_attachable.unpublished_edition
   end
 
   def can_order_attachments?
@@ -44,5 +44,9 @@ private
 
   def has_attachments
     attachments.any?
+  end
+
+  def parent_attachable
+    consultation || AttachmentData::NullAttachable.new
   end
 end
