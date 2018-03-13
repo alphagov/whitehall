@@ -47,6 +47,6 @@ private
   end
 
   def parent_attachable
-    consultation || AttachmentData::NullAttachable.new
+    consultation || Attachable::Null.new
   end
 end

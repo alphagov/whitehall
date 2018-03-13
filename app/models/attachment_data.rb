@@ -156,48 +156,22 @@ class AttachmentData < ApplicationRecord
 
 private
 
-  class NullAttachable
-    def publicly_visible?
-      false
-    end
-
-    def accessible_to?(_user)
-      false
-    end
-
-    def access_limited?
-      false
-    end
-
-    def access_limited_object
-      nil
-    end
-
-    def unpublished?
-      false
-    end
-
-    def unpublished_edition
-      nil
-    end
-  end
-
   class NullAttachment
     def deleted?
       false
     end
 
     def attachable
-      NullAttachable.new
+      Attachable::Null.new
     end
   end
 
   def significant_attachable
-    significant_attachment.attachable || NullAttachable.new
+    significant_attachment.attachable || Attachable::Null.new
   end
 
   def last_attachable
-    last_attachment.attachable || NullAttachable.new
+    last_attachment.attachable || Attachable::Null.new
   end
 
   def significant_attachment
