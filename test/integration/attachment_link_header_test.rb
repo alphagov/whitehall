@@ -39,6 +39,7 @@ class AttachmentLinkHeaderIntegrationTest < ActionDispatch::IntegrationTest
         Services.asset_manager.expects(:update_asset)
           .with(asset_id, 'parent_document_url' => parent_document_url)
 
+        AssetManagerAttachmentLinkHeaderUpdateWorker.drain
         AssetManagerUpdateAssetWorker.drain
       end
     end
