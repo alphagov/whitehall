@@ -156,16 +156,6 @@ class AttachmentData < ApplicationRecord
 
 private
 
-  class NullAttachment
-    def deleted?
-      false
-    end
-
-    def attachable
-      Attachable::Null.new
-    end
-  end
-
   def significant_attachable
     significant_attachment.attachable || Attachable::Null.new
   end
@@ -183,11 +173,11 @@ private
   end
 
   def last_attachment
-    attachments[-1] || NullAttachment.new
+    attachments[-1] || Attachment::Null.new
   end
 
   def penultimate_attachment
-    attachments[-2] || NullAttachment.new
+    attachments[-2] || Attachment::Null.new
   end
 
   def cant_be_replaced_by_self
