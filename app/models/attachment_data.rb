@@ -201,7 +201,7 @@ private
   end
 
   def significant_attachment
-    if attachments.one? || last_attachment.attachable.publicly_visible?
+    if attachments.one? || last_attachable.publicly_visible?
       last_attachment
     else
       penultimate_attachment
