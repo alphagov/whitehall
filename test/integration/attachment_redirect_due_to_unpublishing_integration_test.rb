@@ -185,7 +185,6 @@ private
     Services.asset_manager.expects(:update_asset)
       .with(asset_id, 'redirect_url' => redirect_url)
     AssetManagerAttachmentRedirectUrlUpdateWorker.drain
-    AssetManagerUpdateAssetWorker.drain
   end
 
   def unpublish_document_published_in_error

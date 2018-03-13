@@ -10,6 +10,11 @@ class AssetManagerAttachmentRedirectUrlUpdateWorkerTest < ActiveSupport::TestCas
   let(:unpublished_edition) { FactoryBot.create(:unpublished_edition) }
   let(:redirect_url) { Whitehall.url_maker.public_document_url(unpublished_edition) }
   let(:unpublished) { true }
+  let(:update_worker) { mock('asset-manager-update-asset-worker') }
+
+  setup do
+    AssetManagerUpdateAssetWorker.stubs(:new).returns(update_worker)
+  end
 
   context 'when attachment is not a PDF' do
     let(:sample_rtf) { File.open(fixture_path.join('sample.rtf')) }
@@ -22,8 +27,8 @@ class AssetManagerAttachmentRedirectUrlUpdateWorkerTest < ActiveSupport::TestCas
     end
 
     it 'updates redirect URL of corresponding asset' do
-      AssetManagerUpdateAssetWorker.expects(:perform_async)
-        .with(attachment.file.asset_manager_path, redirect_url: redirect_url)
+      update_worker.expects(:perform)
+        .with(attachment.file.asset_manager_path, 'redirect_url' => redirect_url)
 
       worker.perform(attachment_data.id)
     end
@@ -40,10 +45,10 @@ class AssetManagerAttachmentRedirectUrlUpdateWorkerTest < ActiveSupport::TestCas
     end
 
     it 'updates redirect URL of asset for attachment & its thumbnail' do
-      AssetManagerUpdateAssetWorker.expects(:perform_async)
-        .with(attachment.file.asset_manager_path, redirect_url: redirect_url)
-      AssetManagerUpdateAssetWorker.expects(:perform_async)
-        .with(attachment.file.thumbnail.asset_manager_path, redirect_url: redirect_url)
+      update_worker.expects(:perform)
+        .with(attachment.file.asset_manager_path, 'redirect_url' => redirect_url)
+      update_worker.expects(:perform)
+        .with(attachment.file.thumbnail.asset_manager_path, 'redirect_url' => redirect_url)
 
       worker.perform(attachment_data.id)
     end
@@ -53,10 +58,10 @@ class AssetManagerAttachmentRedirectUrlUpdateWorkerTest < ActiveSupport::TestCas
       let(:unpublished_edition) { nil }
 
       it 'resets redirect URL of asset for attachment & its thumbnail' do
-        AssetManagerUpdateAssetWorker.expects(:perform_async)
-          .with(attachment.file.asset_manager_path, redirect_url: nil)
-        AssetManagerUpdateAssetWorker.expects(:perform_async)
-          .with(attachment.file.thumbnail.asset_manager_path, redirect_url: nil)
+        update_worker.expects(:perform)
+          .with(attachment.file.asset_manager_path, 'redirect_url' => nil)
+        update_worker.expects(:perform)
+          .with(attachment.file.thumbnail.asset_manager_path, 'redirect_url' => nil)
 
         worker.perform(attachment_data.id)
       end
