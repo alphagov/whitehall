@@ -40,7 +40,6 @@ class AttachmentLinkHeaderIntegrationTest < ActionDispatch::IntegrationTest
           .with(asset_id, 'parent_document_url' => parent_document_url)
 
         AssetManagerAttachmentLinkHeaderUpdateWorker.drain
-        AssetManagerUpdateAssetWorker.drain
       end
     end
   end
@@ -73,7 +72,6 @@ private
     expectation = Services.asset_manager.expects(:update_asset)
       .with(asset_id, 'draft' => draft)
     expectation.never if never
-    AssetManagerUpdateAssetWorker.drain
   end
 
   def refute_sets_draft_status_in_asset_manager_to(draft)
