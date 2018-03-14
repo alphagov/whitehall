@@ -105,6 +105,43 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
     end
   end
 
+  context 'given an outcome on an access-limited draft consultation' do
+    # the edition has to have same organisation as logged in user, otherwise it's not visible when access_limited = true
+    let(:edition) { create(:consultation, organisations: [organisation], access_limited: true) }
+    let(:outcome_attributes) { FactoryBot.attributes_for(:consultation_outcome) }
+    let!(:outcome) { edition.create_outcome!(outcome_attributes) }
+
+    before do
+      setup_publishing_api_for(edition)
+      publishing_api_has_linkables([], document_type: 'topic')
+
+      stub_whitehall_asset('logo.png', id: 'asset-id', draft: true)
+    end
+
+    context 'when an attachment is added to the outcome' do
+      before do
+        visit admin_consultation_path(edition)
+        click_link 'Edit draft'
+        click_link 'Final outcome'
+        click_link 'Upload new file attachment'
+        fill_in 'Title', with: 'asset-title'
+        attach_file 'File', path_to_attachment('logo.png')
+        click_button 'Save'
+        assert_text "Attachment 'asset-title' uploaded"
+      end
+
+      it 'marks attachment as access limited in Asset Manager' do
+        Services.asset_manager.expects(:create_whitehall_asset).with(
+          has_entries(
+            legacy_url_path: regexp_matches(/logo\.png/),
+            access_limited: ['user-uid']
+          )
+        )
+        AssetManagerCreateWhitehallAssetWorker.drain
+      end
+    end
+  end
+
   context 'given an access-limited draft document with file attachment' do
     let(:edition) { create(:news_article, organisations: [organisation], access_limited: true) }
 

@@ -43,6 +43,10 @@ module Attachable
       nil
     end
 
+    def organisations
+      []
+    end
+
     def unpublished?
       false
     end
