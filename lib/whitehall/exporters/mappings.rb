@@ -23,8 +23,8 @@ class Whitehall::Exporters::Mappings
         if attachment_source.attachment
           path = attachment_source.attachment.url
           attachment_url = "#{Whitehall.public_root}#{path}"
-          attachment_data = attachment_source.attachment.attachment_data
-          state = attachment_data.visible_to?(nil) ? 'published' : 'draft'
+          visibility = AttachmentVisibility.new(attachment_source.attachment.attachment_data, nil)
+          state = visibility.visible? ? 'published' : 'draft'
           target << [attachment_source.url, attachment_url, '', state]
         end
       rescue StandardError => e
