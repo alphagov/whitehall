@@ -36,13 +36,11 @@ class ScheduledPublishingWorkerTest < ActiveSupport::TestCase
   test '.queue queues a job for a scheduled edition' do
     edition = create(:scheduled_edition)
 
-    Sidekiq::Testing.fake! do
-      ScheduledPublishingWorker.queue(edition)
+    ScheduledPublishingWorker.queue(edition)
 
-      assert job = ScheduledPublishingWorker.jobs.last
-      assert_equal edition.id, job["args"].first
-      assert_equal edition.scheduled_publication.to_i, job["at"].to_i
-    end
+    assert job = ScheduledPublishingWorker.jobs.last
+    assert_equal edition.id, job["args"].first
+    assert_equal edition.scheduled_publication.to_i, job["at"].to_i
   end
 
   test '.dequeue removes a job for a scheduled edition' do

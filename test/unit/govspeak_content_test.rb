@@ -2,12 +2,10 @@ require 'test_helper'
 
 class GovspeakContentTest < ActiveSupport::TestCase
   test 'queues a job to compute the HTML on creation' do
-    Sidekiq::Testing.fake! do
-      govspeak_content = create(:html_attachment).govspeak_content
+    govspeak_content = create(:html_attachment).govspeak_content
 
-      assert job = GovspeakContentWorker.jobs.last
-      assert_equal [govspeak_content.id, { "authenticated_user" => nil, "request_id" => nil }], job['args']
-    end
+    assert job = GovspeakContentWorker.jobs.last
+    assert_equal [govspeak_content.id, { "authenticated_user" => nil, "request_id" => nil }], job['args']
   end
 
   test 'clears computed values and queues a job to re-compute the HTML when the body changes' do
@@ -15,16 +13,14 @@ class GovspeakContentTest < ActiveSupport::TestCase
                          body: "## A heading\nSome content").govspeak_content
     compute_govspeak(govspeak_content)
 
-    Sidekiq::Testing.fake! do
-      govspeak_content.body = "Updated body"
-      govspeak_content.save!
+    govspeak_content.body = "Updated body"
+    govspeak_content.save!
 
-      assert_nil govspeak_content.computed_body_html
-      assert_nil govspeak_content.computed_headers_html
+    assert_nil govspeak_content.computed_body_html
+    assert_nil govspeak_content.computed_headers_html
 
-      assert job = GovspeakContentWorker.jobs.last
-      assert_equal [govspeak_content.id, { "authenticated_user" => nil, "request_id" => nil }], job['args']
-    end
+    assert job = GovspeakContentWorker.jobs.last
+    assert_equal [govspeak_content.id, { "authenticated_user" => nil, "request_id" => nil }], job['args']
   end
 
   test "doesn't clear computed values and doesn't queue a job to re-compute the HTML when the body has not changed" do
@@ -33,14 +29,12 @@ class GovspeakContentTest < ActiveSupport::TestCase
                            body: "## A heading\nSome content").govspeak_content
       compute_govspeak(govspeak_content)
 
-      Sidekiq::Testing.fake! do
-        govspeak_content.save!
+      govspeak_content.save!
 
-        assert govspeak_content.computed_body_html.present?
-        assert govspeak_content.computed_headers_html.present?
+      assert govspeak_content.computed_body_html.present?
+      assert govspeak_content.computed_headers_html.present?
 
-        assert_empty GovspeakContentWorker.jobs
-      end
+      assert_empty GovspeakContentWorker.jobs
     end
   end
 
@@ -50,16 +44,14 @@ class GovspeakContentTest < ActiveSupport::TestCase
                         body: "## 1.0 A heading\nSome content").govspeak_content
     compute_govspeak(govspeak_content)
 
-    Sidekiq::Testing.fake! do
-      govspeak_content.manually_numbered_headings = true
-      govspeak_content.save!
+    govspeak_content.manually_numbered_headings = true
+    govspeak_content.save!
 
-      assert_nil govspeak_content.computed_body_html
-      assert_nil govspeak_content.computed_headers_html
+    assert_nil govspeak_content.computed_body_html
+    assert_nil govspeak_content.computed_headers_html
 
-      assert job = GovspeakContentWorker.jobs.last
-      assert_equal [govspeak_content.id, { "authenticated_user" => nil, "request_id" => nil }], job['args']
-    end
+    assert job = GovspeakContentWorker.jobs.last
+    assert_equal [govspeak_content.id, { "authenticated_user" => nil, "request_id" => nil }], job['args']
   end
 
   test "#render_govspeak sets computed_headers_html correctly" do

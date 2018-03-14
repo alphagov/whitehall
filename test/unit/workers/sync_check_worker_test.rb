@@ -81,23 +81,19 @@ class SyncCheckWorkerTest < ActiveSupport::TestCase
   test "it schedules the job for 5 minutes time" do
     case_study = create(:published_case_study)
 
-    Sidekiq::Testing.fake! do
-      SyncCheckWorker.enqueue(case_study)
+    SyncCheckWorker.enqueue(case_study)
 
-      assert_equal 1, SyncCheckWorker.jobs.size
+    assert_equal 1, SyncCheckWorker.jobs.size
 
-      job = SyncCheckWorker.jobs.first
-      assert_equal SyncChecker::Formats::CaseStudyCheck.name, job["args"][0]
-      assert_equal case_study.document_id, job["args"][1]
-      assert_in_delta 5.minutes, job["at"] - job["created_at"], 1
-    end
+    job = SyncCheckWorker.jobs.first
+    assert_equal SyncChecker::Formats::CaseStudyCheck.name, job["args"][0]
+    assert_equal case_study.document_id, job["args"][1]
+    assert_in_delta 5.minutes, job["at"] - job["created_at"], 1
   end
 
   test "it doesn't schedule a job that a check doesn't exist for" do
-    Sidekiq::Testing.fake! do
-      SyncCheckWorker.enqueue(create(:user))
+    SyncCheckWorker.enqueue(create(:user))
 
-      assert_empty SyncCheckWorker.jobs
-    end
+    assert_empty SyncCheckWorker.jobs
   end
 end

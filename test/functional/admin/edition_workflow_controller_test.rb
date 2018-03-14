@@ -89,13 +89,11 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   test 'schedule schedules the given edition on behalf of the current user' do
     editor = create(:departmental_editor)
     submitted_edition(submitter: editor, scheduled_publication: 1.day.from_now)
-    Sidekiq::Testing.fake! do
-      post :schedule, params: { id: submitted_edition, lock_version: submitted_edition.lock_version }
+    post :schedule, params: { id: submitted_edition, lock_version: submitted_edition.lock_version }
 
-      assert_redirected_to admin_editions_path(state: :scheduled)
-      assert submitted_edition.reload.scheduled?
-      assert_equal "The document #{submitted_edition.title} has been scheduled for publication", flash[:notice]
-    end
+    assert_redirected_to admin_editions_path(state: :scheduled)
+    assert submitted_edition.reload.scheduled?
+    assert_equal "The document #{submitted_edition.title} has been scheduled for publication", flash[:notice]
   end
 
   test 'schedule redirects back to the edition with an error message if scheduling reports a failure' do
@@ -123,24 +121,20 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'POST :force_schedule force schedules the edition' do
-    Sidekiq::Testing.fake! do
-      draft_edition.update_attribute(:scheduled_publication, 1.day.from_now)
-      post :force_schedule, params: { id: draft_edition, lock_version: draft_edition.lock_version }
+    draft_edition.update_attribute(:scheduled_publication, 1.day.from_now)
+    post :force_schedule, params: { id: draft_edition, lock_version: draft_edition.lock_version }
 
-      assert_redirected_to admin_editions_path(state: :scheduled)
-      assert draft_edition.reload.scheduled?
-      assert draft_edition.force_published?
-    end
+    assert_redirected_to admin_editions_path(state: :scheduled)
+    assert draft_edition.reload.scheduled?
+    assert draft_edition.force_published?
   end
 
   test 'unschedule unschedules the given edition on behalf of the current user' do
-    Sidekiq::Testing.fake! do
-      scheduled_edition = create(:scheduled_publication)
-      post :unschedule, params: { id: scheduled_edition, lock_version: scheduled_edition.lock_version }
+    scheduled_edition = create(:scheduled_publication)
+    post :unschedule, params: { id: scheduled_edition, lock_version: scheduled_edition.lock_version }
 
-      assert_redirected_to admin_editions_path(state: :submitted)
-      assert scheduled_edition.reload.submitted?
-    end
+    assert_redirected_to admin_editions_path(state: :submitted)
+    assert scheduled_edition.reload.submitted?
   end
 
   test 'unschedule redirects back to the edition with an error message if unscheduling reports a failure' do
