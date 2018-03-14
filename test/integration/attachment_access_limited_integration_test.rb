@@ -35,7 +35,6 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
       click_button 'Save'
 
       AssetManagerAttachmentAccessLimitedWorker.drain
-      AssetManagerUpdateAssetWorker.drain
     end
   end
 
@@ -114,7 +113,6 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
       Services.asset_manager.expects(:update_asset).with('asset-id', 'access_limited' => [])
 
       AssetManagerAttachmentAccessLimitedWorker.drain
-      AssetManagerUpdateAssetWorker.drain
     end
 
     it 'marks replacement attachment as access limited in Asset Manager when attachment is replaced' do

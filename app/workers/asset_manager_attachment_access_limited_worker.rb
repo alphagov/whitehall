@@ -17,6 +17,6 @@ private
 
   def enqueue_job(uploader, access_limited)
     legacy_url_path = uploader.asset_manager_path
-    AssetManagerUpdateAssetWorker.perform_async(legacy_url_path, access_limited: access_limited)
+    AssetManagerUpdateAssetWorker.new.perform(legacy_url_path, 'access_limited' => access_limited)
   end
 end

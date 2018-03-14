@@ -5,10 +5,15 @@ class AssetManagerAttachmentAccessLimitedWorkerTest < ActiveSupport::TestCase
 
   let(:worker) { AssetManagerAttachmentAccessLimitedWorker.new }
   let(:attachment_data) { attachment.attachment_data }
+  let(:update_worker) { mock('asset-manager-update-asset-worker') }
+
+  setup do
+    AssetManagerUpdateAssetWorker.stubs(:new).returns(update_worker)
+  end
 
   context 'when attachment cannot be found' do
     it 'does not update the access limited state' do
-      AssetManagerUpdateAssetWorker.expects(:perform_async).never
+      update_worker.expects(:perform).never
 
       worker.perform('no-such-id')
     end
@@ -29,8 +34,8 @@ class AssetManagerAttachmentAccessLimitedWorkerTest < ActiveSupport::TestCase
     end
 
     it 'updates the access limited state of the asset' do
-      AssetManagerUpdateAssetWorker.expects(:perform_async)
-        .with(attachment.file.asset_manager_path, access_limited: ['user-uid'])
+      update_worker.expects(:perform)
+        .with(attachment.file.asset_manager_path, 'access_limited' => ['user-uid'])
 
       worker.perform(attachment_data.id)
     end
@@ -51,10 +56,10 @@ class AssetManagerAttachmentAccessLimitedWorkerTest < ActiveSupport::TestCase
     end
 
     it "updates the access limited state of the asset and it's thumbnail" do
-      AssetManagerUpdateAssetWorker.expects(:perform_async)
-        .with(attachment.file.asset_manager_path, access_limited: ['user-uid'])
-      AssetManagerUpdateAssetWorker.expects(:perform_async)
-        .with(attachment.file.thumbnail.asset_manager_path, access_limited: ['user-uid'])
+      update_worker.expects(:perform)
+        .with(attachment.file.asset_manager_path, 'access_limited' => ['user-uid'])
+      update_worker.expects(:perform)
+        .with(attachment.file.thumbnail.asset_manager_path, 'access_limited' => ['user-uid'])
 
       worker.perform(attachment_data.id)
     end
@@ -69,8 +74,8 @@ class AssetManagerAttachmentAccessLimitedWorkerTest < ActiveSupport::TestCase
     end
 
     it 'updates the asset to have an empty access_limited array' do
-      AssetManagerUpdateAssetWorker.expects(:perform_async)
-        .with(attachment.file.asset_manager_path, access_limited: [])
+      update_worker.expects(:perform)
+        .with(attachment.file.asset_manager_path, 'access_limited' => [])
 
       worker.perform(attachment_data.id)
     end
@@ -85,10 +90,10 @@ class AssetManagerAttachmentAccessLimitedWorkerTest < ActiveSupport::TestCase
     end
 
     it 'updates the asset to have an empty access_limited array' do
-      AssetManagerUpdateAssetWorker.expects(:perform_async)
-        .with(attachment.file.asset_manager_path, access_limited: [])
-      AssetManagerUpdateAssetWorker.expects(:perform_async)
-        .with(attachment.file.thumbnail.asset_manager_path, access_limited: [])
+      update_worker.expects(:perform)
+        .with(attachment.file.asset_manager_path, 'access_limited' => [])
+      update_worker.expects(:perform)
+        .with(attachment.file.thumbnail.asset_manager_path, 'access_limited' => [])
 
       worker.perform(attachment_data.id)
     end
