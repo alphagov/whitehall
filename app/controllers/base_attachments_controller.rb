@@ -8,9 +8,9 @@ protected
   def fail
     if (edition = attachment_data.unpublished_edition)
       redirect_to edition.unpublishing.document_path
-    elsif attachment_data.replaced?
+    elsif (replacement = attachment_data.replaced_by)
       expires_headers
-      redirect_to attachment_data.replaced_by.url, status: 301
+      redirect_to replacement.url, status: 301
     elsif image? upload_path
       redirect_to view_context.path_to_image('thumbnail-placeholder.png')
     elsif incoming_upload_exists? upload_path
