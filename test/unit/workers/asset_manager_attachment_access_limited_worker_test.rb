@@ -6,11 +6,21 @@ class AssetManagerAttachmentAccessLimitedWorkerTest < ActiveSupport::TestCase
   let(:worker) { AssetManagerAttachmentAccessLimitedWorker.new }
   let(:attachment_data) { attachment.attachment_data }
 
+  context 'when attachment cannot be found' do
+    it 'does not update the access limited state' do
+      AssetManagerUpdateAssetWorker.expects(:perform_async).never
+
+      worker.perform('no-such-id')
+    end
+  end
+
   context "when attachment's attachable is access limited and the attachment is not a PDF" do
     let(:sample_rtf) { File.open(fixture_path.join('sample.rtf')) }
     let(:attachment) { FactoryBot.create(:file_attachment, file: sample_rtf) }
 
     before do
+      AttachmentData.stubs(:find_by).with(id: attachment_data.id).returns(attachment_data)
+
       access_limited_object = stub('access-limited-object')
       AssetManagerAccessLimitation.stubs(:for).with(access_limited_object).returns(['user-uid'])
 
@@ -22,7 +32,7 @@ class AssetManagerAttachmentAccessLimitedWorkerTest < ActiveSupport::TestCase
       AssetManagerUpdateAssetWorker.expects(:perform_async)
         .with(attachment.file.asset_manager_path, access_limited: ['user-uid'])
 
-      worker.perform(attachment_data)
+      worker.perform(attachment_data.id)
     end
   end
 
@@ -31,6 +41,8 @@ class AssetManagerAttachmentAccessLimitedWorkerTest < ActiveSupport::TestCase
     let(:attachment) { FactoryBot.create(:file_attachment, file: simple_pdf) }
 
     before do
+      AttachmentData.stubs(:find_by).with(id: attachment_data.id).returns(attachment_data)
+
       access_limited_object = stub('access-limited-object')
       AssetManagerAccessLimitation.stubs(:for).with(access_limited_object).returns(['user-uid'])
 
@@ -44,7 +56,7 @@ class AssetManagerAttachmentAccessLimitedWorkerTest < ActiveSupport::TestCase
       AssetManagerUpdateAssetWorker.expects(:perform_async)
         .with(attachment.file.thumbnail.asset_manager_path, access_limited: ['user-uid'])
 
-      worker.perform(attachment_data)
+      worker.perform(attachment_data.id)
     end
   end
 
@@ -60,7 +72,7 @@ class AssetManagerAttachmentAccessLimitedWorkerTest < ActiveSupport::TestCase
       AssetManagerUpdateAssetWorker.expects(:perform_async)
         .with(attachment.file.asset_manager_path, access_limited: [])
 
-      worker.perform(attachment_data)
+      worker.perform(attachment_data.id)
     end
   end
 
@@ -78,7 +90,7 @@ class AssetManagerAttachmentAccessLimitedWorkerTest < ActiveSupport::TestCase
       AssetManagerUpdateAssetWorker.expects(:perform_async)
         .with(attachment.file.thumbnail.asset_manager_path, access_limited: [])
 
-      worker.perform(attachment_data)
+      worker.perform(attachment_data.id)
     end
   end
 end
