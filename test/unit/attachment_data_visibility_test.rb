@@ -180,6 +180,22 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
             it 'is not deleted' do
               refute attachment_data.reload.deleted?
             end
+
+            context 'and another new edition is created' do
+              let(:another_new_edition) { edition.create_draft(user) }
+
+              before do
+                another_new_edition.reload
+              end
+
+              it 'is not deleted' do
+                refute attachment_data.reload.deleted?
+              end
+
+              it 'is not draft' do
+                refute attachment_data.reload.draft?
+              end
+            end
           end
 
           context 'new edition is access-limited' do
