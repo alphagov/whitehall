@@ -18,7 +18,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
 
     before do
       setup_publishing_api_for(edition)
-      publishing_api_has_linkables([], document_type: "topic")
+      publishing_api_has_linkables([], document_type: 'topic')
 
       add_file_attachment('logo.png', to: edition)
       VirusScanHelpers.simulate_virus_scan(include_versions: true)
@@ -54,9 +54,9 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
     context 'when an attachment is added to the draft document' do
       before do
         visit admin_news_article_path(edition)
-        click_link "Modify attachments"
-        click_link "Upload new file attachment"
-        fill_in "Title", with: 'asset-title'
+        click_link 'Modify attachments'
+        click_link 'Upload new file attachment'
+        fill_in 'Title', with: 'asset-title'
         attach_file 'File', path_to_attachment('logo.png')
         click_button 'Save'
       end
@@ -75,8 +75,8 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
     context 'when bulk uploaded to draft document' do
       before do
         visit admin_news_article_path(edition)
-        click_link "Modify attachments"
-        click_link "Bulk upload from Zip file"
+        click_link 'Modify attachments'
+        click_link 'Bulk upload from Zip file'
         attach_file 'Zip file', path_to_attachment('sample_attachment.zip')
         click_button 'Upload zip'
         fill_in 'Title', with: 'file-title'
@@ -107,7 +107,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
 
     before do
       setup_publishing_api_for(edition)
-      publishing_api_has_linkables([], document_type: "topic")
+      publishing_api_has_linkables([], document_type: 'topic')
 
       add_file_attachment('logo.png', to: edition)
       VirusScanHelpers.simulate_virus_scan(include_versions: true)
@@ -132,8 +132,8 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
     context 'when attachment is replaced' do
       before do
         visit admin_news_article_path(edition)
-        click_link "Modify attachments"
-        click_link "Edit"
+        click_link 'Modify attachments'
+        click_link 'Edit'
         attach_file 'Replace file', path_to_attachment('big-cheese.960x640.jpg')
         click_button 'Save'
       end
