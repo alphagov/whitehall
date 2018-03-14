@@ -17,7 +17,7 @@ module ServiceListeners
       let(:attachment) { FactoryBot.create(:file_attachment, file: sample_rtf) }
 
       it 'call the worker' do
-        worker.expects(:perform).with(attachment_data)
+        worker.expects(:perform).with(attachment_data.id)
 
         updater.update!
       end

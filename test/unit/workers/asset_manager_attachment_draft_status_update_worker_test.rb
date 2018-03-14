@@ -12,6 +12,7 @@ class AssetManagerAttachmentDraftStatusUpdateWorkerTest < ActiveSupport::TestCas
     let(:draft) { true }
 
     before do
+      AttachmentData.stubs(:find_by).with(id: attachment.id).returns(attachment_data)
       attachment_data.stubs(:draft?).returns(draft)
     end
 
@@ -19,7 +20,15 @@ class AssetManagerAttachmentDraftStatusUpdateWorkerTest < ActiveSupport::TestCas
       AssetManagerUpdateAssetWorker.expects(:perform_async)
         .with(attachment.file.asset_manager_path, draft: true)
 
-      worker.perform(attachment_data)
+      worker.perform(attachment_data.id)
+    end
+  end
+
+  context 'when attachment cannot be found' do
+    it 'does not mark anything as draft' do
+      AssetManagerUpdateAssetWorker.expects(:perform_async).never
+
+      worker.perform('no-such-id')
     end
   end
 
@@ -29,6 +38,7 @@ class AssetManagerAttachmentDraftStatusUpdateWorkerTest < ActiveSupport::TestCas
     let(:draft) { true }
 
     before do
+      AttachmentData.stubs(:find_by).with(id: attachment.id).returns(attachment_data)
       attachment_data.stubs(:draft?).returns(draft)
     end
 
@@ -38,7 +48,7 @@ class AssetManagerAttachmentDraftStatusUpdateWorkerTest < ActiveSupport::TestCas
       AssetManagerUpdateAssetWorker.expects(:perform_async)
         .with(attachment.file.thumbnail.asset_manager_path, draft: true)
 
-      worker.perform(attachment_data)
+      worker.perform(attachment_data.id)
     end
 
     context 'and attachment should not be draft' do
@@ -50,7 +60,7 @@ class AssetManagerAttachmentDraftStatusUpdateWorkerTest < ActiveSupport::TestCas
         AssetManagerUpdateAssetWorker.expects(:perform_async)
           .with(attachment.file.thumbnail.asset_manager_path, draft: false)
 
-        worker.perform(attachment_data)
+        worker.perform(attachment_data.id)
       end
     end
   end

@@ -1,5 +1,7 @@
 class AssetManagerAttachmentDraftStatusUpdateWorker < WorkerBase
-  def perform(attachment_data)
+  def perform(attachment_data_id)
+    attachment_data = AttachmentData.find_by(id: attachment_data_id)
+    return unless attachment_data.present?
     draft = attachment_data.draft?
     enqueue_job(attachment_data.file, draft)
     if attachment_data.pdf?
