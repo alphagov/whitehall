@@ -13,9 +13,7 @@
   - sync_checks
   - link_checks
   - asset_migration
-# Disable scheduled link checking as it uses too much CPU and affects publishers as the job is overrunning.
-#
-# :schedule:
-#   check_all_organisations_links_worker:
-#     cron: '0 1 * * *' # Runs at 1 a.m every day
-#     class: CheckAllOrganisationsLinksWorker
+:schedule:
+  check_all_organisations_links_worker:
+    cron: '0 1 * * *' # Runs at 1 a.m every day
+    class: CheckAllOrganisationsLinksWorker
