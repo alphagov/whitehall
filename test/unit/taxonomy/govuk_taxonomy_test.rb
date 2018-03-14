@@ -1,33 +1,36 @@
 require 'test_helper'
 
 class Taxonomy::GovukTaxonomyTest < ActiveSupport::TestCase
-  setup do
-    @test_adapter = stub
-    @taxon_tree = stub
-    @taxon = stub(root_taxon: @taxon_tree)
-    @tree_builder_class = stub(new: @taxon)
+  include TaxonomyHelper
 
-    @subject = Taxonomy::GovukTaxonomy.new(adapter: @test_adapter, tree_builder_class: @tree_builder_class)
+  def subject
+    Taxonomy::GovukTaxonomy.new
   end
 
-  test "#children" do
-    @test_adapter.stubs(:published_taxon_data).returns(%i[taxon taxon])
-    result = @subject.children
-    assert_equal result, [@taxon_tree, @taxon_tree]
+  test "#live" do
+    redis_cache_has_taxons([build(:taxon_hash, content_id: 'live_id', phase: 'live'),
+                            build(:taxon_hash, phase: 'alpha')])
+    assert_equal ['live_id'], subject.live.map(&:content_id)
   end
 
-  test "#draft_child_taxons" do
-    @test_adapter.stubs(:draft_taxon_data).returns(%i[taxon taxon])
-    result = @subject.draft_child_taxons
-    assert_equal result, [@taxon_tree, @taxon_tree]
+  test "#alpha_beta" do
+    redis_cache_has_taxons([build(:taxon_hash, phase: 'live'),
+                            build(:taxon_hash, content_id: 'alpha_id', phase: 'alpha'),
+                            build(:taxon_hash, content_id: 'beta_id', phase: 'beta')])
+    assert_equal %w[alpha_id beta_id], subject.alpha_beta.map(&:content_id)
   end
 
   test "#all_taxons" do
-    @test_adapter.stubs(:published_taxon_data).returns(%i[taxon taxon])
-    @test_adapter.stubs(:draft_taxon_data).returns(%i[taxon taxon])
-    @taxon_tree.stubs(:tree).returns(:root_taxon)
-    result = @subject.all_taxons
-    assert_equal result, %i[root_taxon root_taxon root_taxon root_taxon]
+    redis_cache_has_taxons([build(:taxon_hash, content_id: 'live_id', phase: 'live'),
+                            build(:taxon_hash, content_id: 'alpha_id', phase: 'alpha'),
+                            build(:taxon_hash, content_id: 'beta_id', phase: 'beta')])
+    assert_equal %w[live_id alpha_id beta_id], subject.all_taxons.map(&:content_id)
+  end
+
+  test "#visible_taxons" do
+    redis_cache_has_taxons([build(:taxon_hash, content_id: 'visible_id', visibility: true),
+                            build(:taxon_hash, content_id: 'visible_id', visibility: false),])
+    assert_equal ['visible_id'], subject.visible_taxons.map(&:content_id)
   end
 
   test "#matching_against_published_taxons returns taxon content ids found in branch" do
@@ -58,13 +61,13 @@ class Taxonomy::GovukTaxonomyTest < ActiveSupport::TestCase
       }
     }
 
-    @subject
+    subject
       .stubs(:children)
       .returns([Taxonomy::Tree.new(taxon_hash).root_taxon])
 
     taxons = ['grand-child-taxon-in-tree', 'taxon-not-in-tree']
 
-    assert_equal ['grand-child-taxon-in-tree'], @subject.matching_against_published_taxons(taxons)
+    assert_equal ['grand-child-taxon-in-tree'], subject.matching_against_published_taxons(taxons)
   end
 
   test "#matching_against_visible_draft_taxons returns taxon content ids found in branch" do
@@ -95,12 +98,12 @@ class Taxonomy::GovukTaxonomyTest < ActiveSupport::TestCase
       }
     }
 
-    @subject
+    subject
       .stubs(:draft_child_taxons)
       .returns([Taxonomy::Tree.new(taxon_hash).root_taxon])
 
     taxons = ['draft-grand-child-taxon-in-tree', 'draft-taxon-not-in-tree']
 
-    assert_equal ['draft-grand-child-taxon-in-tree'], @subject.matching_against_visible_draft_taxons(taxons)
+    assert_equal ['draft-grand-child-taxon-in-tree'], subject.matching_against_visible_draft_taxons(taxons)
   end
 end

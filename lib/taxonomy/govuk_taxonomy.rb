@@ -5,20 +5,24 @@ module Taxonomy
       @tree_builder_class = tree_builder_class
     end
 
-    def children
-      @_children ||= begin
-        @adapter.published_taxon_data.map { |taxon_hash| build_tree(taxon_hash) }
+    def live
+      @_live ||= branches.select do |level_one_taxon|
+        level_one_taxon.phase == 'live' && level_one_taxon.visible_to_departmental_editors
       end
     end
 
-    def draft_child_taxons
-      @_draft_child_taxons ||= begin
-        @adapter.draft_taxon_data.map { |taxon_hash| build_tree(taxon_hash) }
+    def alpha_beta
+      @_alpha_beta ||= branches.select do |level_one_taxon|
+        level_one_taxon.phase != 'live' && level_one_taxon.visible_to_departmental_editors
       end
     end
 
     def all_taxons
-      @_all_taxons ||= children.flat_map(&:tree) + draft_child_taxons.flat_map(&:tree)
+      @_taxon_list ||= branches.flat_map(&:taxon_list)
+    end
+
+    def visible_taxons
+      @_visible_taxons = all_taxons.select(&:visible_to_departmental_editors)
     end
 
     def matching_against_published_taxons(taxons)
@@ -29,11 +33,7 @@ module Taxonomy
       matching_against_taxonomy_branches(taxons, draft_child_taxons)
     end
 
-  private
-
-    def build_tree(taxon_hash)
-      @tree_builder_class.new(taxon_hash).root_taxon
-    end
+    private
 
     def matching_against_taxonomy_branches(taxons, taxonomy_branches)
       taxonomy_branches.flat_map do |branch|
@@ -54,5 +54,12 @@ module Taxonomy
 
       matched_taxons
     end
+
+    def branches
+      @_branches ||= @adapter.taxon_data.map do |taxon_hash|
+        @tree_builder_class.new(taxon_hash).root_taxon
+      end
+    end
+
   end
 end
