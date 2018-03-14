@@ -115,6 +115,8 @@ class Taxonomy::TreeTest < ActiveSupport::TestCase
       "base_path" => "/base-path",
       "content_id" => "content_id",
       "title" => "Taxon title",
+      "phase" => "live",
+      "details" => { "visible_to_departmental_editors" => true },
       "links" => {}
     }
 

@@ -10,30 +10,33 @@ module Taxonomy
       @root_taxon = build_taxon(expanded_root_taxon_hash)
       root_taxon.children = parse_taxons(
         root_taxon,
-        expanded_root_taxon_hash['expanded_links_hash']
+          expanded_root_taxon_hash['expanded_links_hash']
       )
     end
 
   private
 
     def build_taxon(taxon_hash)
-      Taxon.new taxon_hash.symbolize_keys.slice(:title, :base_path, :content_id)
+      Taxon.new(title: taxon_hash['title'],
+                base_path: taxon_hash['base_path'],
+                content_id: taxon_hash['content_id'],
+                phase: taxon_hash['phase'],
+                visible_to_departmental_editors: !!taxon_hash.dig('details', 'visible_to_departmental_editors'))
     end
 
-    def parse_taxons(parent, item_hash, key: 'expanded_links')
-      child_nodes(item_hash, key).map do |child|
-        taxon = build_taxon(child)
-        taxon.parent_node = parent
-        taxon.children = parse_taxons(taxon, child, key: 'links')
-        taxon
+    def parse_taxons(parent, item_hash)
+      child_nodes(item_hash).map do |child|
+        build_taxon(child).tap do |taxon|
+          taxon.parent_node = parent
+          taxon.children = parse_taxons(taxon, child)
+        end
       end
     end
 
-    def child_nodes(item_hash, key)
-      item_hash
-        .fetch(key, {})
-        .fetch('child_taxons', [])
-        .sort_by { |hsh| hsh.fetch('title') }
+    def child_nodes(item_hash)
+      children = item_hash.dig('links', 'child_taxons') ||
+        item_hash.dig('expanded_links', 'child_taxons') || []
+      children.sort_by { |hsh| hsh.fetch('title') }
     end
   end
 end
