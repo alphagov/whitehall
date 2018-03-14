@@ -8,7 +8,7 @@ module ServiceListeners
 
     def update!
       return unless attachment_data.present?
-      AssetManagerAttachmentAccessLimitedWorker.new.perform(attachment_data.id)
+      AssetManagerAttachmentAccessLimitedWorker.perform_async(attachment_data.id)
     end
   end
 end

@@ -33,6 +33,8 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
       Services.asset_manager.expects(:update_asset).with('asset-id', 'access_limited' => ['user-uid'])
 
       click_button 'Save'
+
+      AssetManagerAttachmentAccessLimitedWorker.drain
       AssetManagerUpdateAssetWorker.drain
     end
   end
@@ -111,6 +113,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
 
       Services.asset_manager.expects(:update_asset).with('asset-id', 'access_limited' => [])
 
+      AssetManagerAttachmentAccessLimitedWorker.drain
       AssetManagerUpdateAssetWorker.drain
     end
 
