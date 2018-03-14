@@ -7,87 +7,22 @@ module ServiceListeners
     let(:updater) { AttachmentAccessLimitedUpdater.new(attachment_data) }
     let(:attachment_data) { attachment.attachment_data }
 
+    context 'when the attachment has associated attachment data' do
+      let(:sample_rtf) { File.open(fixture_path.join('sample.rtf')) }
+      let(:attachment) { FactoryBot.create(:file_attachment, file: sample_rtf) }
+
+      it 'calls the worker' do
+        AssetManagerAttachmentAccessLimitedWorker.expects(:perform_async).with(attachment_data.id)
+
+        updater.update!
+      end
+    end
+
     context 'when attachment has no associated attachment data' do
       let(:attachment) { FactoryBot.create(:html_attachment) }
 
-      it 'does not update draft status of any assets' do
-        AssetManagerUpdateAssetWorker.expects(:perform_async).never
-
-        updater.update!
-      end
-    end
-
-    context "when attachment's attachable is access limited and the attachment is not a PDF" do
-      let(:sample_rtf) { File.open(fixture_path.join('sample.rtf')) }
-      let(:attachment) { FactoryBot.create(:file_attachment, file: sample_rtf) }
-
-      before do
-        access_limited_object = stub('access-limited-object')
-        AssetManagerAccessLimitation.stubs(:for).with(access_limited_object).returns(['user-uid'])
-
-        attachment_data.stubs(:access_limited?).returns(true)
-        attachment_data.stubs(:access_limited_object).returns(access_limited_object)
-      end
-
-      it 'updates the access limited state of the asset' do
-        AssetManagerUpdateAssetWorker.expects(:perform_async)
-          .with(attachment.file.asset_manager_path, access_limited: ['user-uid'])
-
-        updater.update!
-      end
-    end
-
-    context "when attachment's attachable is access limited and the attachment is a PDF" do
-      let(:simple_pdf) { File.open(fixture_path.join('simple.pdf')) }
-      let(:attachment) { FactoryBot.create(:file_attachment, file: simple_pdf) }
-
-      before do
-        access_limited_object = stub('access-limited-object')
-        AssetManagerAccessLimitation.stubs(:for).with(access_limited_object).returns(['user-uid'])
-
-        attachment_data.stubs(:access_limited?).returns(true)
-        attachment_data.stubs(:access_limited_object).returns(access_limited_object)
-      end
-
-      it "updates the access limited state of the asset and it's thumbnail" do
-        AssetManagerUpdateAssetWorker.expects(:perform_async)
-          .with(attachment.file.asset_manager_path, access_limited: ['user-uid'])
-        AssetManagerUpdateAssetWorker.expects(:perform_async)
-          .with(attachment.file.thumbnail.asset_manager_path, access_limited: ['user-uid'])
-
-        updater.update!
-      end
-    end
-
-    context "when attachment's attachable is not access limited and the attachment is not a PDF" do
-      let(:sample_rtf) { File.open(fixture_path.join('sample.rtf')) }
-      let(:attachment) { FactoryBot.create(:file_attachment, file: sample_rtf) }
-
-      before do
-        attachment_data.stubs(:access_limited?).returns(false)
-      end
-
-      it 'updates the asset to have an empty access_limited array' do
-        AssetManagerUpdateAssetWorker.expects(:perform_async)
-          .with(attachment.file.asset_manager_path, access_limited: [])
-
-        updater.update!
-      end
-    end
-
-    context "when attachment's attachable is not access limited and the attachment is a PDF" do
-      let(:simple_pdf) { File.open(fixture_path.join('simple.pdf')) }
-      let(:attachment) { FactoryBot.create(:file_attachment, file: simple_pdf) }
-
-      before do
-        attachment_data.stubs(:access_limited?).returns(false)
-      end
-
-      it 'updates the asset to have an empty access_limited array' do
-        AssetManagerUpdateAssetWorker.expects(:perform_async)
-          .with(attachment.file.asset_manager_path, access_limited: [])
-        AssetManagerUpdateAssetWorker.expects(:perform_async)
-          .with(attachment.file.thumbnail.asset_manager_path, access_limited: [])
+      it 'does not call the worker' do
+        AssetManagerAttachmentAccessLimitedWorker.expects(:perform_async).never
 
         updater.update!
       end
