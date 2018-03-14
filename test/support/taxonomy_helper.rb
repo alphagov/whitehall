@@ -63,74 +63,50 @@ private
   end
 
   def child_taxon
-    {
-      "base_path" => "/education/primary-curriculum-key-stage-1-tests",
-      "content_id" => child_taxon_content_id,
-      "title" => "Tests",
-      "links" => {}
-    }
+    FactoryBot.build(:taxon_hash,
+                     title: "Tests",
+                     base_path: "/education/primary-curriculum-key-stage-1",
+                     content_id: child_taxon_content_id,
+                     is_level_one_taxon: false)
   end
 
   def parent_taxon
-    {
-      "base_path" => "/education/primary-curriculum-key-stage-1",
-      "content_id" => parent_taxon_content_id,
-      "title": "Primary curriculum, key stage 1",
-      "links" => {
-        "child_taxons" => [
-          child_taxon
-        ]
-      }
-    }
+    FactoryBot.build(:taxon_hash,
+                     title: "Primary curriculum, key stage 1",
+                     base_path: "/education/primary-curriculum-key-stage-1",
+                     content_id: parent_taxon_content_id,
+                     is_level_one_taxon: false,
+                     children: [child_taxon])
   end
 
   def grandparent_taxon
-    {
-      "base_path" => "/education/school-curriculum",
-      "content_id" => grandparent_taxon_content_id,
-      "title" => "School Curriculum",
-      "links" => {
-        "child_taxons" => [parent_taxon]
-      }
-    }
+    FactoryBot.build(:taxon_hash,
+                     title: "School Curriculum",
+                     base_path: "/education/school-curriculum",
+                     content_id: grandparent_taxon_content_id,
+                     is_level_one_taxon: false,
+                     children: [parent_taxon])
   end
 
   def root_taxon
-    {
-      "title" => "Education",
-      "base_path" => "/education",
-      "content_id" => root_taxon_content_id,
-      "expanded_links_hash" => {
-        "expanded_links" => {
-          "child_taxons" => [grandparent_taxon]
-        }
-      }
-    }
+    FactoryBot.build(:taxon_hash,
+                     title: "Education",
+                     base_path: "/education",
+                     content_id: root_taxon_content_id,
+                     children: [grandparent_taxon])
   end
 
   def draft_taxon_1
-    {
-      "title" => "About your organisation",
-      "base_path" => "/about-your-organisation",
-      "content_id" => draft_taxon_1_content_id,
-      "expanded_links_hash" => {
-        "expanded_links" => {
-          "child_taxons" => []
-        }
-      }
-    }
+    FactoryBot.build(:taxon_hash,
+                     title: "About your organisation",
+                     base_path: "/about-your-organisation",
+                     content_id: draft_taxon_1_content_id)
   end
 
   def draft_taxon_2
-    {
-      "title" => "Parenting",
-      "base_path" => "/childcare-parenting",
-      "content_id" => "draft_taxon_2",
-      "expanded_links_hash" => {
-        "expanded_links" => {
-          "child_taxons" => []
-        }
-      }
-    }
+    FactoryBot.build(:taxon_hash,
+                     title: "Parenting",
+                     base_path: "/childcare-parenting",
+                     content_id: draft_taxon_1_content_id)
   end
 end
