@@ -31,6 +31,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
         visit edit_admin_news_article_path(edition)
         check 'Limit access to producing organisations prior to publication'
         click_button 'Save'
+        assert_text 'The document has been saved'
       end
 
       it 'marks attachment as access limited in Asset Manager' do
@@ -59,6 +60,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
         fill_in 'Title', with: 'asset-title'
         attach_file 'File', path_to_attachment('logo.png')
         click_button 'Save'
+        assert_text "Attachment 'asset-title' uploaded"
       end
 
       it 'marks attachment as access limited in Asset Manager' do
@@ -81,6 +83,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
         click_button 'Upload zip'
         fill_in 'Title', with: 'file-title'
         click_button 'Save'
+        assert find('.existing-attachments a', text: 'greenpaper.pdf')
       end
 
       it 'marks attachment as access limited in Asset Manager' do
@@ -120,6 +123,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
         visit edit_admin_news_article_path(edition)
         uncheck 'Limit access to producing organisations prior to publication'
         click_button 'Save'
+        assert_text 'The document has been saved'
       end
 
       it 'unmarks attachment as access limited in Asset Manager' do
@@ -136,6 +140,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
         click_link 'Edit'
         attach_file 'Replace file', path_to_attachment('big-cheese.960x640.jpg')
         click_button 'Save'
+        assert_text "Attachment 'logo.png' updated"
       end
 
       it 'marks replacement attachment as access limited in Asset Manager' do
@@ -162,6 +167,7 @@ private
     to.attachments << FactoryBot.build(
       :file_attachment,
       attachable: to,
+      title: filename,
       file: File.open(path_to_attachment(filename))
     )
   end
