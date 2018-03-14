@@ -24,36 +24,14 @@ module TaxonomyHelper
   end
 
   def stub_taxonomy_with_all_taxons
-    redis_cache_has_published_taxons [root_taxon]
-    redis_cache_has_draft_taxons [draft_taxon_1, draft_taxon_2]
+    redis_cache_has_taxons [root_taxon, draft_taxon_1, draft_taxon_2]
   end
 
-  def redis_cache_has_published_taxons(taxons)
+  def redis_cache_has_taxons(taxons)
     redis_client
       .stubs(:get)
-      .with(Taxonomy::RedisCacheAdapter::PUBLISHED_TAXONS_CACHE_KEY)
+      .with(Taxonomy::RedisCacheAdapter::TAXONS_CACHE_KEY)
       .returns(JSON.dump(taxons))
-  end
-
-  def redis_cache_has_draft_taxons(taxons)
-    redis_client
-      .stubs(:get)
-      .with(Taxonomy::RedisCacheAdapter::DRAFT_TAXONS_CACHE_KEY)
-      .returns(JSON.dump(taxons))
-  end
-
-  def stub_govuk_taxonomy_matching_published_taxons(taxon_content_ids, matched_taxon_content_ids)
-    Taxonomy::GovukTaxonomy
-      .any_instance.stubs(:matching_against_published_taxons)
-      .with(taxon_content_ids)
-      .returns(matched_taxon_content_ids)
-  end
-
-  def stub_govuk_taxonomy_matching_visible_draft_taxons(taxon_content_ids, matched_taxon_content_ids)
-    Taxonomy::GovukTaxonomy
-      .any_instance.stubs(:matching_against_visible_draft_taxons)
-      .with(taxon_content_ids)
-      .returns(matched_taxon_content_ids)
   end
 
 private
