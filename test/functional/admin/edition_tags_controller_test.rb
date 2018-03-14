@@ -9,7 +9,6 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
     @publishing_api_endpoint = GdsApi::TestHelpers::PublishingApiV2::PUBLISHING_API_V2_ENDPOINT
     organisation = create(:organisation, content_id: "ebd15ade-73b2-4eaf-b1c3-43034a42eb37")
     @edition = create(:publication, organisations: [organisation])
-
     stub_taxonomy_with_all_taxons
   end
 
@@ -97,7 +96,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
       edition_id: @edition,
       taxonomy_tag_form: {
         taxons: [child_taxon_content_id],
-        invisible_draft_taxons: "invisible_draft_taxon_1_content_id",
+        invisible_taxons: "invisible_draft_taxon_1_content_id",
         previous_version: 1
       }
     }

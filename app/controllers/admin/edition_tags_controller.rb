@@ -43,6 +43,6 @@ private
   end
 
   def invisible_taxons
-    params["taxonomy_tag_form"].fetch("invisible_draft_taxons", "").split(",")
+    params["taxonomy_tag_form"].fetch("invisible_taxons", "").split(",")
   end
 end
