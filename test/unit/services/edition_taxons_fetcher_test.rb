@@ -42,13 +42,12 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
             "title" => title,
             "content_id" => "aaaa",
             "base_path" => "/i-am-a-taxon",
+            "details" => { "visible_to_departmental_editors" => true },
             "links" => {},
           }
         ]
       }
     )
-    stub_govuk_taxonomy_matching_published_taxons(['aaaa'], ['aaaa'])
-
     taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch
     assert_equal 'aaaa', taxons.first.content_id
   end
@@ -62,12 +61,14 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
             "title" => "Further Education",
             "content_id" => "aaaa",
             "base_path" => "/i-am-a-taxon",
+            "details" => { "visible_to_departmental_editors" => true },
             "links" => {
               "parent_taxons" => [
                 {
                   "title" => "Education, training and skills",
                   "content_id" => "bbbb",
                   "base_path" => "/i-am-a-parent-taxon",
+                  "details" => { "visible_to_departmental_editors" => true },
                   "links" => {}
                 }
               ]
@@ -76,8 +77,6 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
         ]
       }
     )
-    stub_govuk_taxonomy_matching_published_taxons(['aaaa'], ['aaaa'])
-
     taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch
     assert_equal 'aaaa', taxons.first.content_id
     assert_equal 'bbbb', taxons.first.parent_node.content_id
@@ -92,17 +91,20 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
             "title" => "Student Finance",
             "content_id" => "aaaa",
             "base_path" => "/i-am-a-taxon",
+            "details" => { "visible_to_departmental_editors" => true },
             "links" => {
               "parent_taxons" => [
                 {
                   "title" => "Further Education",
                   "content_id" => "bbbb",
                   "base_path" => "/i-am-a-parent-taxon",
+                  "details" => { "visible_to_departmental_editors" => true },
                   "links" => {
                     "parent_taxons" => [
                       "title" => "Education, training and skills",
                       "content_id" => "cccc",
                       "base_path" => "/i-am-a-grand-parent-taxon",
+                      "details" => { "visible_to_departmental_editors" => true },
                       "links" => {}
                     ]
                   }
@@ -113,8 +115,6 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
         ]
       }
     )
-    stub_govuk_taxonomy_matching_published_taxons(['aaaa'], ['aaaa'])
-
     taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch
     assert_equal 'aaaa', taxons.first.content_id
     assert_equal 'bbbb', taxons.first.parent_node.content_id
@@ -130,12 +130,14 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
             "title" => "Further Education",
             "content_id" => "aaaa",
             "base_path" => "/i-am-a-taxon",
+            "details" => { "visible_to_departmental_editors" => true },
             "links" => {
               "parent_taxons" => [
                 {
                   "title" => "Education, training and skills",
                   "content_id" => "bbbb",
                   "base_path" => "/i-am-a-parent-taxon",
+                  "details" => { "visible_to_departmental_editors" => true },
                   "links" => {}
                 }
               ]
@@ -145,12 +147,14 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
             "title" => "Paying taxes",
             "content_id" => "cccc",
             "base_path" => "/i-am-another-taxon",
+            "details" => { "visible_to_departmental_editors" => true },
             "links" => {
               "parent_taxons" => [
                 {
                   "title" => "Money",
                   "content_id" => "dddd",
                   "base_path" => "/i-am-another-parent-taxon",
+                  "details" => { "visible_to_departmental_editors" => true },
                   "links" => {}
                 }
               ]
@@ -159,8 +163,6 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
         ]
       }
     )
-    stub_govuk_taxonomy_matching_published_taxons(%w[aaaa cccc], %w[aaaa cccc])
-
     taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch
     assert_equal 2, taxons.count
     assert_equal "aaaa", taxons.first.content_id
@@ -178,18 +180,21 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
             "title" => "Further Education",
             "content_id" => "aaaa",
             "base_path" => "/i-am-a-taxon",
+            "details" => { "visible_to_departmental_editors" => true },
             "links" => {
               "parent_taxons" => [
                 {
                   "title" => "Education, training and skills",
                   "content_id" => "bbbb",
                   "base_path" => "/i-am-a-parent-taxon",
+                  "details" => { "visible_to_departmental_editors" => true },
                   "links" => {}
                 },
                 {
                   "title" => "Work and pensions",
                   "content_id" => "cccc",
                   "base_path" => "/i-am-another-parent-taxon",
+                  "details" => { "visible_to_departmental_editors" => true },
                   "links" => {}
                 },
               ]
@@ -198,8 +203,6 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
         ]
       }
     )
-    stub_govuk_taxonomy_matching_published_taxons(['aaaa'], ['aaaa'])
-
     taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch
     assert_equal "aaaa", taxons.first.content_id
     assert_equal "bbbb", taxons.first.parent_node.content_id
@@ -214,6 +217,7 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
             "title" => "I am the published taxon",
             "content_id" => "aaaa",
             "base_path" => "/i-am-a-taxon",
+            "details" => { "visible_to_departmental_editors" => true },
             "links" => {
               "parent_taxons" => [
                 {
@@ -229,6 +233,7 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
             "title" => "I am the visible draft taxon",
             "content_id" => "cccc",
             "base_path" => "/i-am-another-taxon",
+            "details" => { "visible_to_departmental_editors" => true },
             "links" => {
               "parent_taxons" => [
                 {
@@ -258,8 +263,6 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
         ]
       }
     )
-    stub_govuk_taxonomy_matching_published_taxons(%w[aaaa cccc eeee], ["aaaa"])
-    stub_govuk_taxonomy_matching_visible_draft_taxons(%w[aaaa cccc eeee], ["cccc"])
 
     taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch
     assert_equal %w[aaaa cccc], taxons.map(&:content_id)
