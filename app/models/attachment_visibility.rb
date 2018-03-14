@@ -37,30 +37,83 @@ class AttachmentVisibility
   end
 
   def visible?
-    attachment_data.visible_to?(user)
+    visible_edition? || visible_policy_group? || visible_consultation_response?
   end
 
   def unpublished_edition
-    attachment_data.unpublished_edition
+    attachable_ids = edition_ids + consultation_ids
+    if (unpublishing = Unpublishing.where(edition_id: attachable_ids).first)
+      Edition.find_by(id: unpublishing.edition_id)
+    end
   end
 
   def visible_attachment
-    attachment_data.visible_attachment_for(user)
+    if visible_attachable
+      (visible_attachable.attachments & attachment_data.attachments).first
+    end
   end
 
   def visible_attachable
-    attachment_data.visible_attachable_for(user)
+    visible_edition || visible_consultation_response || visible_policy_group
   end
 
   def visible_edition
-    attachment_data.visible_edition_for(user)
+    visible_edition_scope.last
   end
 
   def visible_consultation_response
-    attachment_data.visible_attachable_for(user)
+    if visible_consultation_response?
+      Response.where(edition_id: consultation_ids).last
+    end
   end
 
   def visible_policy_group
-    attachment_data.visible_attachable_for(user)
+    visible_policy_group_scope.last
+  end
+
+private
+
+  def id
+    attachment_data.id
+  end
+
+  def visible_edition?
+    visible_edition_scope.exists?
+  end
+
+  def visible_policy_group?
+    visible_policy_group_scope.exists?
+  end
+
+  def visible_consultation_response?
+    visible_consultation_scope.exists?
+  end
+
+  def visible_edition_scope
+    if user
+      Edition.accessible_to(user).where(id: edition_ids)
+    else
+      Edition.publicly_visible.where(id: edition_ids)
+    end
+  end
+
+  def visible_consultation_scope
+    if user
+      Edition.accessible_to(user).where(id: consultation_ids)
+    else
+      Edition.publicly_visible.where(id: consultation_ids)
+    end
+  end
+
+  def visible_policy_group_scope
+    PolicyGroup.joins(:attachments).where(attachments: { attachment_data_id: id })
+  end
+
+  def consultation_ids
+    @consultation_ids ||= Response.joins(:attachments).where(attachments: { attachment_data_id: id }).pluck(:edition_id)
+  end
+
+  def edition_ids
+    @edition_ids ||= Attachment.not_deleted.where(attachment_data_id: id).where(attachable_type: 'Edition').pluck(:attachable_id)
   end
 end
