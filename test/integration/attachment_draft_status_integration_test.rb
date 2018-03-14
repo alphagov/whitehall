@@ -113,6 +113,7 @@ private
     expectation = Services.asset_manager.expects(:update_asset)
       .with(asset_id, 'draft' => draft)
     expectation.never if never
+    AssetManagerAttachmentDraftStatusUpdateWorker.drain
     AssetManagerUpdateAssetWorker.drain
   end
 
