@@ -27,6 +27,11 @@ namespace :asset_manager do
     end
   end
 
+  task :update_attachment_metadata, %i(batch_start batch_end) => :environment do |_, args|
+    abort(update_attachment_metadata_usage_string) unless args[:batch_start] && args[:batch_end]
+    AssetManagerAttachmentMetadataUpdater.update_range(args[:batch_start].to_i, args[:batch_end].to_i)
+  end
+
   private
 
   def usage_string
@@ -40,6 +45,16 @@ namespace :asset_manager do
     %{Usage: asset_manager:migrate_attachments[<batch_start>,<batch_end>]
 
       Where <batch_start> and <batch_end> are integers corresponding to the directory names under `system/uploads/attachment_data/file`. e.g. `system/uploads/attachment_data/file/100` will be migrated if <batch_start> <= 100 and <batch_end> >= 100.
+    }
+  end
+
+  def update_attachment_metadata_usage_string
+    lowest_id = AttachmentData.order(:id).first.id
+    highest_id = AttachmentData.order(:id).last.id
+
+    %{Usage: asset_manager:update_attachment_metadata[<batch_start>,<batch_end>]
+
+      Where <batch_start> and <batch_end> are integers between #{lowest_id} and #{highest_id} corresponding to the primary key of the AttachmentData records in the database.
     }
   end
 end
