@@ -272,4 +272,45 @@ class AttachmentDataTest < ActiveSupport::TestCase
     attachment_data.stubs(:last_attachable).returns(attachable)
     assert_equal 'access-limited-object', attachment_data.access_limited_object
   end
+
+  test '#last_publicly_visible_attachment returns publicly visible attachable' do
+    attachable = build(:edition)
+    attachable.stubs(:publicly_visible?).returns(true)
+    attachment = build(:file_attachment, attachable: attachable)
+    attachment_data = build(:attachment_data)
+    attachment_data.stubs(:attachments).returns([attachment])
+
+    assert_equal attachment, attachment_data.last_publicly_visible_attachment
+  end
+
+  test '#last_publicly_visible_attachment returns latest publicly visible attachable' do
+    earliest_attachable = build(:edition)
+    earliest_attachable.stubs(:publicly_visible?).returns(true)
+    latest_attachable = build(:edition)
+    latest_attachable.stubs(:publicly_visible?).returns(true)
+    earliest_attachment = build(:file_attachment, attachable: earliest_attachable)
+    latest_attachment = build(:file_attachment, attachable: latest_attachable)
+    attachment_data = build(:attachment_data)
+    attachment_data.stubs(:attachments).returns([earliest_attachment, latest_attachment])
+
+    assert_equal latest_attachment, attachment_data.last_publicly_visible_attachment
+  end
+
+  test '#last_publicly_visible_attachment returns nil if there are no publicly visible attachables' do
+    attachable = build(:edition)
+    attachable.stubs(:publicly_visible?).returns(false)
+    attachment = build(:file_attachment, attachable: attachable)
+    attachment_data = build(:attachment_data)
+    attachment_data.stubs(:attachments).returns([attachment])
+
+    assert_nil attachment_data.last_publicly_visible_attachment
+  end
+
+  test '#last_publicly_visible_attachment returns nil if there are no attachables' do
+    attachment = build(:file_attachment, attachable: nil)
+    attachment_data = build(:attachment_data)
+    attachment_data.stubs(:attachments).returns([attachment])
+
+    assert_nil attachment_data.last_publicly_visible_attachment
+  end
 end

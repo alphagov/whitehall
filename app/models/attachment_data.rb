@@ -154,8 +154,6 @@ class AttachmentData < ApplicationRecord
     visible_attachable.is_a?(Edition) ? visible_attachable : nil
   end
 
-private
-
   def significant_attachable
     significant_attachment.attachable || Attachable::Null.new
   end
@@ -165,20 +163,18 @@ private
   end
 
   def significant_attachment
-    if attachments.one? || last_attachable.publicly_visible?
-      last_attachment
-    else
-      penultimate_attachment
-    end
+    last_publicly_visible_attachment || last_attachment
   end
 
   def last_attachment
-    attachments[-1] || Attachment::Null.new
+    attachments.last || Attachment::Null.new
   end
 
-  def penultimate_attachment
-    attachments[-2] || Attachment::Null.new
+  def last_publicly_visible_attachment
+    attachments.reverse.detect { |a| (a.attachable || Attachable::Null.new).publicly_visible? }
   end
+
+private
 
   def cant_be_replaced_by_self
     return if replaced_by.nil?
