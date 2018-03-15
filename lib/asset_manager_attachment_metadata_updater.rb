@@ -9,7 +9,7 @@ class AssetManagerAttachmentMetadataUpdater
        AssetManagerAttachmentRedirectUrlUpdateWorker,
        AssetManagerAttachmentReplacementIdUpdateWorker
       ].each do |worker|
-        worker.perform_async(attachment_data.id)
+        worker.set(queue: 'asset_migration').perform_async(attachment_data.id)
       end
     end
   end
