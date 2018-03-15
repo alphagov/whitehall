@@ -2,10 +2,10 @@ class CsvPreviewController < BaseAttachmentsController
   def show
     respond_to do |format|
       format.html do
-        if attachment_data.csv? && attachment_visible? && attachment_data.visible_edition_for(current_user)
+        if attachment_data.csv? && attachment_visible? && attachment_visibility.visible_edition
           expires_headers
-          @edition = attachment_data.visible_edition_for(current_user)
-          @attachment = attachment_data.visible_attachment_for(current_user)
+          @edition = attachment_visibility.visible_edition
+          @attachment = attachment_visibility.visible_attachment
           CsvFileFromPublicHost.new(@attachment.file.file.asset_manager_path) do |file|
             @csv_preview = CsvPreview.new(file.path)
           end
