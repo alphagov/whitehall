@@ -105,7 +105,7 @@ class AttachmentData < ApplicationRecord
   end
 
   def deleted?
-    significant_attachment.deleted?
+    significant_attachment(include_deleted_attachables: true).deleted?
   end
 
   def draft?
@@ -162,12 +162,12 @@ class AttachmentData < ApplicationRecord
     last_attachment.attachable || Attachable::Null.new
   end
 
-  def significant_attachment
-    last_publicly_visible_attachment || last_attachment
+  def significant_attachment(**args)
+    last_publicly_visible_attachment || last_attachment(**args)
   end
 
-  def last_attachment
-    attachments.last || Attachment::Null.new
+  def last_attachment(**args)
+    filtered_attachments(**args).last || Attachment::Null.new
   end
 
   def last_publicly_visible_attachment
@@ -175,6 +175,14 @@ class AttachmentData < ApplicationRecord
   end
 
 private
+
+  def filtered_attachments(include_deleted_attachables: false)
+    if include_deleted_attachables
+      attachments
+    else
+      attachments.select { |attachment| attachment.attachable.present? }
+    end
+  end
 
   def cant_be_replaced_by_self
     return if replaced_by.nil?
