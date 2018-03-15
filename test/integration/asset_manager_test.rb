@@ -27,18 +27,16 @@ class AssetManagerIntegrationTest
     end
 
     test 'sends the user ids of authorised users to Asset Manager' do
-      Sidekiq::Testing.fake! do
-        organisation = FactoryBot.create(:organisation)
-        user = FactoryBot.create(:user, organisation: organisation, uid: 'user-uid')
-        consultation = FactoryBot.create(:consultation, access_limited: true, organisations: [organisation])
-        @attachment.attachable = consultation
-        @attachment.attachment_data.attachable = consultation
-        @attachment.save!
+      organisation = FactoryBot.create(:organisation)
+      user = FactoryBot.create(:user, organisation: organisation, uid: 'user-uid')
+      consultation = FactoryBot.create(:consultation, access_limited: true, organisations: [organisation])
+      @attachment.attachable = consultation
+      @attachment.attachment_data.attachable = consultation
+      @attachment.save!
 
-        Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(access_limited: [user.uid]))
+      Services.asset_manager.expects(:create_whitehall_asset).with(has_entry(access_limited: [user.uid]))
 
-        AssetManagerCreateWhitehallAssetWorker.drain
-      end
+      AssetManagerCreateWhitehallAssetWorker.drain
     end
   end
 

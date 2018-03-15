@@ -229,27 +229,25 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     english_path = Whitehall.url_maker.public_document_path(edition)
     french_path  = Whitehall.url_maker.public_document_path(edition, locale: :fr)
 
-    Sidekiq::Testing.fake! do
-      Whitehall::PublishingApi.schedule_async(edition)
+    Whitehall::PublishingApi.schedule_async(edition)
 
-      first_job = PublishingApiScheduleWorker.jobs[0]['args']
-      second_job = PublishingApiScheduleWorker.jobs[1]['args']
+    first_job = PublishingApiScheduleWorker.jobs[0]['args']
+    second_job = PublishingApiScheduleWorker.jobs[1]['args']
 
-      assert_equal english_path, first_job[0]
-      assert_equal timestamp, first_job[1]
+    assert_equal english_path, first_job[0]
+    assert_equal timestamp, first_job[1]
 
-      assert_equal french_path, second_job[0]
-      assert_equal timestamp, second_job[1]
+    assert_equal french_path, second_job[0]
+    assert_equal timestamp, second_job[1]
 
-      first_job = PublishingApiComingSoonWorker.jobs[0]['args']
-      second_job = PublishingApiComingSoonWorker.jobs[1]['args']
+    first_job = PublishingApiComingSoonWorker.jobs[0]['args']
+    second_job = PublishingApiComingSoonWorker.jobs[1]['args']
 
-      assert_equal edition.id, first_job[0]
-      assert_equal 'en', first_job[1]
+    assert_equal edition.id, first_job[0]
+    assert_equal 'en', first_job[1]
 
-      assert_equal edition.id, second_job[0]
-      assert_equal 'fr', second_job[1]
-    end
+    assert_equal edition.id, second_job[0]
+    assert_equal 'fr', second_job[1]
   end
 
   test ".schedule_async for a subsequent edition served from the content store queues jobs to push publish intents, but not to publish 'coming_soon' items" do
@@ -265,20 +263,18 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     english_path = Whitehall.url_maker.public_document_path(updated_edition)
     spanish_path = Whitehall.url_maker.public_document_path(updated_edition, locale: :es)
 
-    Sidekiq::Testing.fake! do
-      Whitehall::PublishingApi.schedule_async(updated_edition)
+    Whitehall::PublishingApi.schedule_async(updated_edition)
 
-      first_job = PublishingApiScheduleWorker.jobs[0]['args']
-      second_job = PublishingApiScheduleWorker.jobs[1]['args']
+    first_job = PublishingApiScheduleWorker.jobs[0]['args']
+    second_job = PublishingApiScheduleWorker.jobs[1]['args']
 
-      assert_equal english_path, first_job[0]
-      assert_equal timestamp, first_job[1]
+    assert_equal english_path, first_job[0]
+    assert_equal timestamp, first_job[1]
 
-      assert_equal spanish_path, second_job[0]
-      assert_equal timestamp, second_job[1]
+    assert_equal spanish_path, second_job[0]
+    assert_equal timestamp, second_job[1]
 
-      assert_equal [], PublishingApiComingSoonWorker.jobs
-    end
+    assert_equal [], PublishingApiComingSoonWorker.jobs
   end
 
   test ".unschedule_async for a first edition served from the content store queues jobs to remove publish intents and delete 'coming_soon' items" do
@@ -292,15 +288,13 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     english_path = Whitehall.url_maker.public_document_path(edition)
     german_path = Whitehall.url_maker.public_document_path(edition, locale: :de)
 
-    Sidekiq::Testing.fake! do
-      Whitehall::PublishingApi.unschedule_async(edition)
+    Whitehall::PublishingApi.unschedule_async(edition)
 
-      assert_equal german_path, PublishingApiUnscheduleWorker.jobs[0]['args'].first
-      assert_equal english_path, PublishingApiUnscheduleWorker.jobs[1]['args'].first
+    assert_equal german_path, PublishingApiUnscheduleWorker.jobs[0]['args'].first
+    assert_equal english_path, PublishingApiUnscheduleWorker.jobs[1]['args'].first
 
-      assert_equal [edition.content_id, "de"], PublishingApiVanishWorker.jobs[0]["args"][0..1]
-      assert_equal [edition.content_id, "en"], PublishingApiVanishWorker.jobs[1]["args"][0..1]
-    end
+    assert_equal [edition.content_id, "de"], PublishingApiVanishWorker.jobs[0]["args"][0..1]
+    assert_equal [edition.content_id, "en"], PublishingApiVanishWorker.jobs[1]["args"][0..1]
   end
 
   test ".unschedule_async for a subsequent edition served from the content store queues jobs to remove publish intents, but not to delete original items" do
@@ -315,14 +309,12 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     english_path = Whitehall.url_maker.public_document_path(updated_edition)
     german_path = Whitehall.url_maker.public_document_path(updated_edition, locale: :de)
 
-    Sidekiq::Testing.fake! do
-      Whitehall::PublishingApi.unschedule_async(updated_edition)
+    Whitehall::PublishingApi.unschedule_async(updated_edition)
 
-      assert_equal german_path, PublishingApiUnscheduleWorker.jobs[0]['args'].first
-      assert_equal english_path, PublishingApiUnscheduleWorker.jobs[1]['args'].first
+    assert_equal german_path, PublishingApiUnscheduleWorker.jobs[0]['args'].first
+    assert_equal english_path, PublishingApiUnscheduleWorker.jobs[1]['args'].first
 
-      assert_equal [], PublishingApiVanishWorker.jobs
-    end
+    assert_equal [], PublishingApiVanishWorker.jobs
   end
 
   test ".save_draft_async publishes a draft edition" do
