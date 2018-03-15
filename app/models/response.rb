@@ -16,6 +16,10 @@ class Response < ApplicationRecord
     parent_attachable.access_limited?
   end
 
+  def organisations
+    parent_attachable.organisations
+  end
+
   def alternative_format_contact_email
     consultation.alternative_format_contact_email
   end

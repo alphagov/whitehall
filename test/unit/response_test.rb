@@ -134,4 +134,18 @@ class ResponseTest < ActiveSupport::TestCase
 
     assert_nil response.access_limited_object
   end
+
+  test 'returns consultation organisations as its organisations' do
+    organisations = create_list(:organisation, 2)
+    consultation = create(:consultation, organisations: organisations)
+    response = build(:consultation_outcome, consultation: consultation)
+
+    assert_equal organisations, response.organisations
+  end
+
+  test 'returns no organisations if consultation is nil' do
+    response = build(:consultation_outcome, consultation: nil)
+
+    assert_equal [], response.organisations
+  end
 end
