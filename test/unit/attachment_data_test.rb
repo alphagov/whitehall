@@ -313,4 +313,68 @@ class AttachmentDataTest < ActiveSupport::TestCase
 
     assert_nil attachment_data.last_publicly_visible_attachment
   end
+
+  test '#last_attachment returns attachment for latest attachable' do
+    earliest_attachable = build(:edition)
+    latest_attachable = build(:edition)
+    earliest_attachment = build(:file_attachment, attachable: earliest_attachable)
+    latest_attachment = build(:file_attachment, attachable: latest_attachable)
+    attachment_data = build(:attachment_data)
+    attachment_data.stubs(:attachments).returns([earliest_attachment, latest_attachment])
+
+    assert_equal latest_attachment, attachment_data.last_attachment
+  end
+
+  test '#last_attachment ignores attachments without attachable' do
+    earliest_attachable = build(:edition)
+    earliest_attachment = build(:file_attachment, attachable: earliest_attachable)
+    latest_attachment = build(:file_attachment, attachable: nil)
+    attachment_data = build(:attachment_data)
+    attachment_data.stubs(:attachments).returns([earliest_attachment, latest_attachment])
+
+    assert_equal earliest_attachment, attachment_data.last_attachment
+  end
+
+  test '#last_attachment returns null attachment if no attachments' do
+    attachment_data = build(:attachment_data)
+    attachment_data.stubs(:attachments).returns([])
+
+    assert_instance_of Attachment::Null, attachment_data.last_attachment
+  end
+
+  test '#deleted? returns true if attachment is deleted' do
+    attachable = build(:edition)
+    attachable.stubs(:publicly_visible?).returns(false)
+    deleted_attachment = build(:file_attachment, attachable: attachable, deleted: true)
+    attachment_data = build(:attachment_data)
+    attachment_data.stubs(:attachments).returns([deleted_attachment])
+
+    assert attachment_data.deleted?
+  end
+
+  test '#deleted? returns false if attachment is not deleted' do
+    attachable = build(:edition)
+    attachable.stubs(:publicly_visible?).returns(false)
+    deleted_attachment = build(:file_attachment, attachable: attachable, deleted: false)
+    attachment_data = build(:attachment_data)
+    attachment_data.stubs(:attachments).returns([deleted_attachment])
+
+    refute attachment_data.deleted?
+  end
+
+  test '#deleted? returns true if attachment is deleted even if attachable is nil' do
+    deleted_attachment = build(:file_attachment, attachable: nil, deleted: true)
+    attachment_data = build(:attachment_data)
+    attachment_data.stubs(:attachments).returns([deleted_attachment])
+
+    assert attachment_data.deleted?
+  end
+
+  test '#deleted? returns false if attachment is not deleted even if attachable is nil' do
+    deleted_attachment = build(:file_attachment, attachable: nil, deleted: false)
+    attachment_data = build(:attachment_data)
+    attachment_data.stubs(:attachments).returns([deleted_attachment])
+
+    refute attachment_data.deleted?
+  end
 end

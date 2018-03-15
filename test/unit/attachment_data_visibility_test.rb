@@ -73,6 +73,40 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
         it 'is not accessible to user in another organisation' do
           refute attachment_data.reload.accessible_to?(user_in_another_organisation)
         end
+
+        context 'when edition is published' do
+          before do
+            edition.major_change_published_at = Time.zone.now
+            edition.force_publish!
+          end
+
+          context 'and new edition is created' do
+            let(:new_edition) { edition.create_draft(user) }
+
+            before do
+              new_edition.reload
+            end
+
+            context 'new edition is access-limited' do
+              before do
+                new_edition.change_note = 'change-note'
+                new_edition.access_limited = true
+                new_edition.save!
+              end
+
+              context 'discard new edition' do
+                before do
+                  new_edition.delete
+                  new_edition.save!
+                end
+
+                it 'is access limited' do
+                  assert attachment_data.reload.access_limited?
+                end
+              end
+            end
+          end
+        end
       end
 
       context 'when attachment is deleted' do
