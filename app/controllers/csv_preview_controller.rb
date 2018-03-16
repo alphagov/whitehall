@@ -34,7 +34,12 @@ class CsvPreviewController < BaseAttachmentsController
           return
         end
 
-        unless (!attachment_data.draft? || (attachment_data.draft? && attachment_data.accessible_to?(current_user))) && attachment_data.visible_edition_for(current_user)
+        if attachment_data.draft? && !attachment_data.accessible_to?(current_user)
+          render_not_found
+          return
+        end
+
+        unless attachment_data.visible_edition_for(current_user)
           render_not_found
           return
         end
