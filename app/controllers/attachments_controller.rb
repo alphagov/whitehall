@@ -3,7 +3,7 @@ class AttachmentsController < BaseAttachmentsController
 
   def show
     if infected? || !exists?
-      render plain: "Not found", status: :not_found
+      render_not_found
       return
     end
 
@@ -21,7 +21,7 @@ class AttachmentsController < BaseAttachmentsController
           redirect_to_placeholder
         end
       else
-        render plain: "Not found", status: :not_found
+        render_not_found
       end
       return
     end

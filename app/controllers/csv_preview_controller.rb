@@ -3,12 +3,12 @@ class CsvPreviewController < BaseAttachmentsController
     respond_to do |format|
       format.html do
         unless attachment_data.csv?
-          render plain: "Not found", status: :not_found
+          render_not_found
           return
         end
 
         if infected? || !exists?
-          render plain: "Not found", status: :not_found
+          render_not_found
           return
         end
 
@@ -22,7 +22,7 @@ class CsvPreviewController < BaseAttachmentsController
           elsif unscanned?
             redirect_to_placeholder
           else
-            render plain: "Not found", status: :not_found
+            render_not_found
           end
           return
         end

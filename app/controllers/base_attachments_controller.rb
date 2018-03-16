@@ -1,6 +1,10 @@
 class BaseAttachmentsController < ApplicationController
 protected
 
+  def render_not_found
+    render plain: "Not found", status: :not_found
+  end
+
   def set_slimmer_template
     slimmer_template 'chromeless'
   end
