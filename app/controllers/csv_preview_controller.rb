@@ -39,13 +39,13 @@ class CsvPreviewController < BaseAttachmentsController
           return
         end
 
-        unless attachment_data.visible_edition_for(current_user)
+        @edition = attachment_data.visible_edition_for(current_user)
+        unless @edition.present?
           render_not_found
           return
         end
 
         expires_headers
-        @edition = attachment_data.visible_edition_for(current_user)
         @attachment = attachment_data.visible_attachment_for(current_user)
         CsvFileFromPublicHost.new(attachment_data.file.asset_manager_path) do |file|
           @csv_preview = CsvPreview.new(file.path)
