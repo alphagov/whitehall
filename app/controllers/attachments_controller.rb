@@ -21,11 +21,14 @@ class AttachmentsController < BaseAttachmentsController
       return
     end
 
-    unless !attachment_data.unpublished? && !attachment_data.replaced? && (!attachment_data.draft? || (attachment_data.draft? && attachment_data.accessible_to?(current_user)))
-      if attachment_data.unpublished?
-        redirect_url = attachment_data.unpublished_edition.unpublishing.document_path
-        redirect_to redirect_url
-      elsif attachment_data.replaced?
+    if attachment_data.unpublished?
+      redirect_url = attachment_data.unpublished_edition.unpublishing.document_path
+      redirect_to redirect_url
+      return
+    end
+
+    unless !attachment_data.replaced? && (!attachment_data.draft? || (attachment_data.draft? && attachment_data.accessible_to?(current_user)))
+      if attachment_data.replaced?
         expires_headers
         redirect_to attachment_data.replaced_by.url, status: 301
       else
