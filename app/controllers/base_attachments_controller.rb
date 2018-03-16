@@ -12,7 +12,7 @@ protected
     elsif attachment_data.replaced?
       expires_headers
       redirect_to attachment_data.replaced_by.url, status: 301
-    elsif image? upload_path
+    elsif image?
       redirect_to view_context.path_to_image('thumbnail-placeholder.png')
     elsif incoming_upload_exists? upload_path
       redirect_to_placeholder
@@ -49,8 +49,8 @@ protected
     attachment_data.file.store_path(file_with_extensions)
   end
 
-  def image?(path)
-    ['.jpg', '.jpeg', '.png', '.gif'].include?(File.extname(path))
+  def image?
+    ['.jpg', '.jpeg', '.png', '.gif'].include?(File.extname(upload_path))
   end
 
   def incoming_upload_exists?(path)
