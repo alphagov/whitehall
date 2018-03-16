@@ -2,7 +2,7 @@ class AttachmentsController < BaseAttachmentsController
   include PublicDocumentRoutesHelper
 
   def show
-    if attachment_visible?
+    if clean? && attachment_data.visible_to?(current_user)
       expires_headers
       send_file_for_mime_type
     else

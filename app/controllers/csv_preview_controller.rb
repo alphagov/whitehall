@@ -2,7 +2,7 @@ class CsvPreviewController < BaseAttachmentsController
   def show
     respond_to do |format|
       format.html do
-        if attachment_data.csv? && attachment_visible? && attachment_data.visible_edition_for(current_user)
+        if attachment_data.csv? && clean? && attachment_data.visible_to?(current_user) && attachment_data.visible_edition_for(current_user)
           expires_headers
           @edition = attachment_data.visible_edition_for(current_user)
           @attachment = attachment_data.visible_attachment_for(current_user)

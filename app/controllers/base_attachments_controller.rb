@@ -1,10 +1,6 @@
 class BaseAttachmentsController < ApplicationController
 protected
 
-  def attachment_visible?
-    clean? && attachment_data.visible_to?(current_user)
-  end
-
   def set_slimmer_template
     slimmer_template 'chromeless'
   end
