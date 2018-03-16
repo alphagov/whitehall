@@ -45,6 +45,11 @@ protected
     File.exist?(path)
   end
 
+  def infected?
+    path = upload_path.sub(Whitehall.clean_uploads_root, Whitehall.infected_uploads_root)
+    File.exist?(path)
+  end
+
   def clean?
     File.exist?(upload_path)
   end

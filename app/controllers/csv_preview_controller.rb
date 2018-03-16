@@ -7,6 +7,11 @@ class CsvPreviewController < BaseAttachmentsController
           return
         end
 
+        if infected?
+          render plain: "Not found", status: :not_found
+          return
+        end
+
         unless clean? && attachment_data.visible_to?(current_user) && attachment_data.visible_edition_for(current_user)
           if attachment_data.unpublished?
             redirect_url = attachment_data.unpublished_edition.unpublishing.document_path
