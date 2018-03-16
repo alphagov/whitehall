@@ -12,10 +12,12 @@ protected
     elsif attachment_data.replaced?
       expires_headers
       redirect_to attachment_data.replaced_by.url, status: 301
-    elsif image? upload_path
-      redirect_to view_context.path_to_image('thumbnail-placeholder.png')
     elsif incoming_upload_exists? upload_path
-      redirect_to_placeholder
+      if image? upload_path
+        redirect_to view_context.path_to_image('thumbnail-placeholder.png')
+      else
+        redirect_to_placeholder
+      end
     else
       render plain: "Not found", status: :not_found
     end
