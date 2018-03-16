@@ -2,7 +2,7 @@ class BaseAttachmentsController < ApplicationController
 protected
 
   def attachment_visible?
-    upload_exists?(upload_path) && attachment_data.visible_to?(current_user)
+    clean?(upload_path) && attachment_data.visible_to?(current_user)
   end
 
   def fail
@@ -69,7 +69,7 @@ protected
     redirect_to placeholder_url
   end
 
-  def upload_exists?(path)
+  def clean?(path)
     File.exist?(path) && file_is_clean?(path)
   end
 end
