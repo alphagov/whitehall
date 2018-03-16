@@ -2,7 +2,7 @@ class BaseAttachmentsController < ApplicationController
 protected
 
   def attachment_visible?
-    clean?(upload_path) && attachment_data.visible_to?(current_user)
+    clean? && attachment_data.visible_to?(current_user)
   end
 
   def fail
@@ -38,7 +38,7 @@ protected
   end
 
   def upload_path
-    File.join(Whitehall.clean_uploads_root, path_to_attachment_or_thumbnail)
+    @upload_path ||= File.join(Whitehall.clean_uploads_root, path_to_attachment_or_thumbnail)
   end
 
   def file_with_extensions
@@ -69,7 +69,7 @@ protected
     redirect_to placeholder_url
   end
 
-  def clean?(path)
-    File.exist?(path) && file_is_clean?(path)
+  def clean?
+    File.exist?(upload_path) && file_is_clean?(upload_path)
   end
 end
