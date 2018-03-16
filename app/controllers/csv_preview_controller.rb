@@ -11,7 +11,19 @@ class CsvPreviewController < BaseAttachmentsController
           end
           render layout: 'html_attachments'
         else
-          fail
+          if attachment_data.unpublished?
+            redirect_url = attachment_data.unpublished_edition.unpublishing.document_path
+            redirect_to redirect_url
+          elsif attachment_data.replaced?
+            expires_headers
+            redirect_to attachment_data.replaced_by.url, status: 301
+          elsif image?
+            redirect_to view_context.path_to_image('thumbnail-placeholder.png')
+          elsif unscanned?
+            redirect_to_placeholder
+          else
+            render plain: "Not found", status: :not_found
+          end
         end
       end
     end
