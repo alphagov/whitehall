@@ -33,16 +33,16 @@ protected
     ['.jpg', '.jpeg', '.png', '.gif'].include?(File.extname(upload_path))
   end
 
-  def unscanned?
-    path = upload_path.sub(Whitehall.clean_uploads_root, Whitehall.incoming_uploads_root)
-    File.exist?(path)
-  end
-
   def redirect_to_placeholder
     # Cache is explicitly 1 minute to prevent the virus redirect beng
     # cached by CDNs.
     expires_in(1.minute, public: true)
     redirect_to placeholder_url
+  end
+
+  def unscanned?
+    path = upload_path.sub(Whitehall.clean_uploads_root, Whitehall.incoming_uploads_root)
+    File.exist?(path)
   end
 
   def clean?
