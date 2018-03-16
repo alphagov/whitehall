@@ -66,6 +66,6 @@ protected
   end
 
   def clean?
-    File.exist?(upload_path) && upload_path.starts_with?(Whitehall.clean_uploads_root)
+    File.exist?(upload_path)
   end
 end
