@@ -2,6 +2,11 @@ class AttachmentsController < BaseAttachmentsController
   include PublicDocumentRoutesHelper
 
   def show
+    if attachment_data.deleted?
+      render_not_found
+      return
+    end
+
     if infected? || !exists?
       render_not_found
       return
@@ -16,7 +21,7 @@ class AttachmentsController < BaseAttachmentsController
       return
     end
 
-    unless !attachment_data.deleted? && !attachment_data.unpublished? && !attachment_data.replaced? && (!attachment_data.draft? || (attachment_data.draft? && attachment_data.accessible_to?(current_user)))
+    unless !attachment_data.unpublished? && !attachment_data.replaced? && (!attachment_data.draft? || (attachment_data.draft? && attachment_data.accessible_to?(current_user)))
       if attachment_data.unpublished?
         redirect_url = attachment_data.unpublished_edition.unpublishing.document_path
         redirect_to redirect_url

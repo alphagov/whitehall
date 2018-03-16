@@ -2,6 +2,11 @@ class CsvPreviewController < BaseAttachmentsController
   def show
     respond_to do |format|
       format.html do
+        if attachment_data.deleted?
+          render_not_found
+          return
+        end
+
         unless attachment_data.csv?
           render_not_found
           return
@@ -17,7 +22,7 @@ class CsvPreviewController < BaseAttachmentsController
           return
         end
 
-        unless !attachment_data.deleted? && !attachment_data.unpublished? && !attachment_data.replaced? && (!attachment_data.draft? || (attachment_data.draft? && attachment_data.accessible_to?(current_user))) && attachment_data.visible_edition_for(current_user)
+        unless !attachment_data.unpublished? && !attachment_data.replaced? && (!attachment_data.draft? || (attachment_data.draft? && attachment_data.accessible_to?(current_user))) && attachment_data.visible_edition_for(current_user)
           if attachment_data.unpublished?
             redirect_url = attachment_data.unpublished_edition.unpublishing.document_path
             redirect_to redirect_url
