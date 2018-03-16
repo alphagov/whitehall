@@ -50,6 +50,16 @@ class AttachmentsControllerTest < ActionController::TestCase
     assert_response :not_found
   end
 
+  test 'responds with 404 Not Found if file is infected image' do
+    new_file = File.open(fixture_path.join('minister-of-funk.960x640.jpg'))
+    attachment_data.update!(file: new_file)
+    setup_stubs(file_state: :infected)
+
+    get :show, params: params.merge(file: 'minister-of-funk.960x640', extension: 'jpg')
+
+    assert_response :not_found
+  end
+
   test 'responds with 404 Not Found if attachment data is deleted' do
     setup_stubs(deleted?: true)
 
