@@ -27,13 +27,14 @@ class AttachmentsController < BaseAttachmentsController
       return
     end
 
-    unless !attachment_data.replaced? && (!attachment_data.draft? || (attachment_data.draft? && attachment_data.accessible_to?(current_user)))
-      if attachment_data.replaced?
-        expires_headers
-        redirect_to attachment_data.replaced_by.url, status: 301
-      else
-        render_not_found
-      end
+    if attachment_data.replaced?
+      expires_headers
+      redirect_to attachment_data.replaced_by.url, status: 301
+      return
+    end
+
+    unless (!attachment_data.draft? || (attachment_data.draft? && attachment_data.accessible_to?(current_user)))
+      render_not_found
       return
     end
 
