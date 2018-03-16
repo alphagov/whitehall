@@ -7,19 +7,22 @@ class AttachmentsController < BaseAttachmentsController
       return
     end
 
-    unless clean? && attachment_data.visible_to?(current_user)
+    if unscanned?
+      if image?
+        redirect_to view_context.path_to_image('thumbnail-placeholder.png')
+      else
+        redirect_to_placeholder
+      end
+      return
+    end
+
+    unless attachment_data.visible_to?(current_user)
       if attachment_data.unpublished?
         redirect_url = attachment_data.unpublished_edition.unpublishing.document_path
         redirect_to redirect_url
       elsif attachment_data.replaced?
         expires_headers
         redirect_to attachment_data.replaced_by.url, status: 301
-      elsif unscanned?
-        if image?
-          redirect_to view_context.path_to_image('thumbnail-placeholder.png')
-        else
-          redirect_to_placeholder
-        end
       else
         render_not_found
       end
