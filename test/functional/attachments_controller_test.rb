@@ -1,188 +1,463 @@
-require "test_helper"
+require 'test_helper'
 
 class AttachmentsControllerTest < ActionController::TestCase
-  def get_show(attachment_data)
-    get :show, params: { id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension }
+  attr_reader :view_context
+  attr_reader :attachment_data
+  attr_reader :params
+  attr_reader :edition
+
+  setup do
+    @view_context = @controller.view_context
+
+    AttachmentUploader.enable_processing = true
+    @attachment_data = create(:attachment_data)
+
+    @params = {
+      id: attachment_data,
+      file: attachment_data.filename_without_extension,
+      extension: attachment_data.file_extension
+    }
+
+    @edition = create(:publication)
+
+    controller.stubs(:attachment_data).returns(attachment_data)
   end
 
-  def basename(attachment_data)
-    File.basename(attachment_data.filename, '.' + attachment_data.file_extension)
+  teardown do
+    AttachmentUploader.enable_processing = false
   end
 
-  test "attachment documents that aren't visible and haven't been replaced are redirected to the placeholder url" do
-    get_show create(:attachment_data)
+  # Unpublished
 
-    assert_redirected_to placeholder_url
+  test 'redirects to unpublished edition if attachment data is unpublished & deleted' do
+    unpublished_edition = create(:unpublished_edition)
+    setup_stubs(deleted?: true, unpublished?: true, unpublished_edition: unpublished_edition)
+
+    get :show, params: params
+
+    assert_response :found
+    assert_redirected_to unpublished_edition.unpublishing.document_path
   end
 
-  test "attachment images that aren't visible and haven't been replaced are redirected to the placeholder image" do
-    get_show create(:image_attachment_data)
+  test 'redirects to unpublished edition if attachment data is unpublished & unscanned' do
+    unpublished_edition = create(:unpublished_edition)
+    setup_stubs(file_state: :unscanned, unpublished?: true, unpublished_edition: unpublished_edition)
 
-    assert_redirected_to @controller.view_context.path_to_image('thumbnail-placeholder.png')
+    get :show, params: params
+
+    assert_response :found
+    assert_redirected_to unpublished_edition.unpublishing.document_path
   end
 
-  test "attachments that aren't visible and have been replaced are permanently redirected to the replacement attachment" do
+  test 'redirects to unpublished edition if attachment data is unpublished & infected' do
+    unpublished_edition = create(:unpublished_edition)
+    setup_stubs(file_state: :infected, unpublished?: true, unpublished_edition: unpublished_edition)
+
+    get :show, params: params
+
+    assert_response :found
+    assert_redirected_to unpublished_edition.unpublishing.document_path
+  end
+
+  test 'redirects to unpublished edition if attachment data is unpublished & missing' do
+    unpublished_edition = create(:unpublished_edition)
+    setup_stubs(file_state: :missing, unpublished?: true, unpublished_edition: unpublished_edition)
+
+    get :show, params: params
+
+    assert_response :found
+    assert_redirected_to unpublished_edition.unpublishing.document_path
+  end
+
+  test 'redirects to unpublished edition if attachment data is unpublished, draft & not accessible' do
+    unpublished_edition = create(:unpublished_edition)
+    setup_stubs(draft?: true, accessible_to?: false, unpublished?: true, unpublished_edition: unpublished_edition)
+
+    get :show, params: params
+
+    assert_response :found
+    assert_redirected_to unpublished_edition.unpublishing.document_path
+  end
+
+  test 'redirects to unpublished edition if attachment data is unpublished, deleted & replaced' do
+    unpublished_edition = create(:unpublished_edition)
     replacement = create(:attachment_data)
-    attachment_data = create(:attachment_data, replaced_by: replacement)
-    get_show attachment_data
+    setup_stubs(deleted?: true, unpublished?: true, unpublished_edition: unpublished_edition, replaced?: true, replaced_by: replacement)
 
+    get :show, params: params
+
+    assert_response :found
+    assert_redirected_to unpublished_edition.unpublishing.document_path
+  end
+
+  # Replaced
+
+  test 'permanently redirects to replacement if attachment data is replaced & deleted' do
+    replacement = create(:attachment_data)
+    setup_stubs(deleted?: true, replaced?: true, replaced_by: replacement)
+
+    get :show, params: params
+
+    assert_response :moved_permanently
     assert_redirected_to replacement.url
-    assert_equal 301, response.status
-    assert_cache_control("max-age=#{Whitehall.uploads_cache_max_age}")
-    assert_cache_control("public")
   end
 
-  test 'document attachments that are visible are sent to the browser inline with default caching' do
-    visible_edition = create(:published_publication, :with_file_attachment)
-    attachment_data = visible_edition.attachments.first.attachment_data
+  test 'permanently redirects to replacement if attachment data is replaced & unscanned' do
+    replacement = create(:attachment_data)
+    setup_stubs(file_state: :unscanned, replaced?: true, replaced_by: replacement)
 
-    VirusScanHelpers.simulate_virus_scan(attachment_data.file)
-    get_show attachment_data
+    get :show, params: params
 
-    assert_response :success
-    assert_cache_control("max-age=#{Whitehall.uploads_cache_max_age}")
-    assert_match %r[^inline;], response.headers['Content-Disposition']
-    assert_match attachment_data.filename, response.headers['Content-Disposition']
+    assert_response :moved_permanently
+    assert_redirected_to replacement.url
   end
 
-  test 'document attachments that are visible are sent with a Link: header' do
-    visible_edition = create(:published_publication, :with_file_attachment)
-    attachment_data = visible_edition.attachments.first.attachment_data
+  test 'permanently redirects to replacement if attachment data is replaced & infected' do
+    replacement = create(:attachment_data)
+    setup_stubs(file_state: :infected, replaced?: true, replaced_by: replacement)
 
-    VirusScanHelpers.simulate_virus_scan(attachment_data.file)
-    get_show attachment_data
+    get :show, params: params
 
-    assert_match response.headers['Link'], "<#{public_document_url(visible_edition)}>; rel=\"up\""
+    assert_response :moved_permanently
+    assert_redirected_to replacement.url
   end
 
-  test 'attachments on policy groups are always visible' do
-    attachment = create(:file_attachment, attachable: create(:policy_group))
-    attachment_data = attachment.attachment_data
+  test 'permanently redirects to replacement if attachment data is replaced & missing' do
+    replacement = create(:attachment_data)
+    setup_stubs(file_state: :missing, replaced?: true, replaced_by: replacement)
 
-    VirusScanHelpers.simulate_virus_scan(attachment_data.file)
-    get_show attachment_data
+    get :show, params: params
 
-    assert_response :success
-    assert_match attachment_data.filename, response.headers['Content-Disposition']
+    assert_response :moved_permanently
+    assert_redirected_to replacement.url
   end
 
-  test 'attachments that are images are sent inline' do
-    attachment_data = build(:image_attachment_data)
-    attachment = build(:file_attachment, attachment_data: attachment_data)
+  test 'permanently redirects to replacement if attachment data is replaced, draft & not accessible' do
+    replacement = create(:attachment_data)
+    setup_stubs(draft?: true, accessible_to?: false, replaced?: true, replaced_by: replacement)
 
-    create(:published_publication, :with_file_attachment, attachments: [attachment])
+    get :show, params: params
 
-    VirusScanHelpers.simulate_virus_scan(attachment_data.file)
-    get_show attachment_data
-
-    assert_response :success
-    assert_match attachment_data.filename, response.headers['Content-Disposition']
-    assert_match %r[^inline;], response.headers['Content-Disposition']
+    assert_response :moved_permanently
+    assert_redirected_to replacement.url
   end
 
-  def create_thumbnail_for_upload(uploader)
-    FileUtils.touch("#{uploader.clean_path}.png")
-  end
+  test 'sets Cache-Control header to no-cache if redirecting to replacement' do
+    replacement = create(:attachment_data)
+    setup_stubs(deleted?: true, replaced?: true, replaced_by: replacement)
 
-  test "requesting an attachment's thumbnail returns the thumbnail inline" do
-    attachment_data = build(:attachment_data)
-    attachment = build(:file_attachment, attachment_data: attachment_data)
+    get :show, params: params
 
-    create(:published_publication, :with_file_attachment, attachments: [attachment])
-    VirusScanHelpers.simulate_virus_scan(attachment_data.file)
-    create_thumbnail_for_upload(attachment_data.file)
-    get :show, params: { id: attachment_data.to_param, file: attachment_data.filename, extension: 'png' }
-
-    assert_response :success
-    assert_match "#{attachment_data.filename}.png", response.headers['Content-Disposition']
-    assert_match %r[^inline;], response.headers['Content-Disposition']
-  end
-
-  test 'requesting an attachment that has not been virus checked redirects to the placeholder page' do
-    attachment_data = build(:attachment_data)
-    attachment = build(:file_attachment, attachment_data: attachment_data)
-
-    create(:published_publication, :with_file_attachment_not_scanned, attachments: [attachment])
-
-    get_show attachment_data
-
-    assert_redirected_to placeholder_url
-    assert_cache_control "max-age=#{1.minute}"
-  end
-
-  test "requesting an attachment on an unpublished edition redirects to the edition's unpublishing page" do
-    unpublished_edition = create(:draft_publication, :unpublished, :with_file_attachment)
-    attachment_data = unpublished_edition.attachments.first.attachment_data
-
-    get_show attachment_data
-
-    assert_redirected_to publication_url(unpublished_edition.unpublishing.slug)
-  end
-
-  test "an invalid filename returns a not found response" do
-    attachment_data = create(:attachment_data)
-    get :show, params: { id: attachment_data.to_param, file: basename(attachment_data), extension: "#{attachment_data.file_extension}missing" }
-    assert_response :not_found
-  end
-
-  test "editor previewed attachments are not cached" do
-    draft_edition = create(:draft_edition)
-    attachment = create(:file_attachment, attachable: draft_edition)
-    attachment_data = attachment.attachment_data
-    VirusScanHelpers.simulate_virus_scan(attachment_data.file)
-
-    login_as(:writer)
-    get :show, params: { id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension }
-
-    assert_response :success
     assert_cache_control 'no-cache'
-    assert_match attachment_data.filename, response.headers['Content-Disposition']
-    assert_match %r[^inline;], response.headers['Content-Disposition']
   end
 
-  test 'deleted attachments on documents that have more than one edition 404' do
-    edition = create(:draft_publication, :with_file_attachment)
-    new_edition = create(:published_publication)
-    new_edition.attachments = edition.attachments.map(&:deep_clone)
-    attachment = new_edition.attachments.last
-    attachment_data = attachment.attachment_data
-    VirusScanHelpers.simulate_virus_scan(attachment_data.file)
-    attachment.destroy
+  test 'sets Cache-Control header max-age & public directives if redirecting to replacement' do
+    replacement = create(:attachment_data)
+    setup_stubs(current_user: nil, deleted?: true, replaced?: true, replaced_by: replacement)
 
-    get :show, params: { id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension }
+    get :show, params: params
+
+    assert_cache_control 'max-age=14400'
+    assert_cache_control 'public'
+  end
+
+  # Unscanned
+
+  test 'redirects to placeholder image if file is unscanned image' do
+    new_file = File.open(fixture_path.join('minister-of-funk.960x640.jpg'))
+    attachment_data.update!(file: new_file)
+    setup_stubs(file_state: :unscanned)
+
+    get :show, params: params.merge(file: 'minister-of-funk.960x640', extension: 'jpg')
+
+    assert_response :found
+    assert_redirected_to view_context.path_to_image('thumbnail-placeholder.png')
+  end
+
+  test 'redirects to placeholder image if file is unscanned image, even if deleted' do
+    new_file = File.open(fixture_path.join('minister-of-funk.960x640.jpg'))
+    attachment_data.update!(file: new_file)
+    setup_stubs(file_state: :unscanned, deleted?: true)
+
+    get :show, params: params.merge(file: 'minister-of-funk.960x640', extension: 'jpg')
+
+    assert_response :found
+    assert_redirected_to view_context.path_to_image('thumbnail-placeholder.png')
+  end
+
+  test 'redirects to placeholder image if file is unscanned image, even if draft & not accessible' do
+    new_file = File.open(fixture_path.join('minister-of-funk.960x640.jpg'))
+    attachment_data.update!(file: new_file)
+    setup_stubs(file_state: :unscanned, draft?: true, accessible_to?: false)
+
+    get :show, params: params.merge(file: 'minister-of-funk.960x640', extension: 'jpg')
+
+    assert_response :found
+    assert_redirected_to view_context.path_to_image('thumbnail-placeholder.png')
+  end
+
+  test 'redirects to placeholder page if file is unscanned non-image' do
+    setup_stubs(file_state: :unscanned)
+
+    get :show, params: params
+
+    assert_response :found
+    assert_redirected_to placeholder_url
+  end
+
+  test 'sets Cache-Control header max-age & public directives if unscanned non-image' do
+    setup_stubs(file_state: :unscanned)
+
+    get :show, params: params
+
+    assert_cache_control 'max-age=60'
+    assert_cache_control 'public'
+  end
+
+  test 'redirects to placeholder page if file is unscanned non-image even if deleted' do
+    setup_stubs(file_state: :unscanned, deleted?: true)
+
+    get :show, params: params
+
+    assert_response :found
+    assert_redirected_to placeholder_url
+  end
+
+  test 'redirects to placeholder page if file is unscanned non-image even if draft & not accessible' do
+    setup_stubs(file_state: :unscanned, draft?: true, accessible_to?: false)
+
+    get :show, params: params
+
+    assert_response :found
+    assert_redirected_to placeholder_url
+  end
+
+  # Not found
+
+  test 'responds with 404 Not Found if attachment data does not exist' do
+    setup_stubs
+    controller.stubs(:attachment_data).raises(ActiveRecord::RecordNotFound)
+
+    assert_raises(ActiveRecord::RecordNotFound) { get :show, params: params }
+  end
+
+  test 'responds with 404 Not Found if file does not exist' do
+    setup_stubs(file_state: :missing)
+
+    get :show, params: params
 
     assert_response :not_found
   end
 
-  test 'deleted attachments on documents with one edition 404' do
-    visible_edition = create(:published_publication, :with_file_attachment)
-    attachment = visible_edition.attachments.first
-    attachment_data = attachment.attachment_data
-    VirusScanHelpers.simulate_virus_scan(attachment_data.file)
-    attachment.destroy
+  test 'responds with 404 Not Found if file is infected' do
+    setup_stubs(file_state: :infected)
 
-    get_show attachment_data
+    get :show, params: params
 
     assert_response :not_found
   end
 
-  test 'deleted attachments policy groups return 404' do
-    attachment = create(:file_attachment, attachable: create(:policy_group))
-    attachment_data = attachment.attachment_data
-    VirusScanHelpers.simulate_virus_scan(attachment_data.file)
-    attachment.destroy
+  test 'responds with 404 Not Found if attachment data is deleted' do
+    setup_stubs(deleted?: true)
 
-    get_show attachment_data
+    get :show, params: params
+
     assert_response :not_found
   end
 
-  test '#show responds with 404 if the edition has been unpublished and deleted' do
-    edition = create(:unpublished_publication, :with_file_attachment, :deleted)
-    attachment = edition.attachments.first
-    attachment_data = attachment.attachment_data
-    VirusScanHelpers.simulate_virus_scan(attachment_data.file)
+  test 'responds with 404 Not Found if attachment data is draft and not accessible to user' do
+    setup_stubs(draft?: true, accessible?: false)
 
-    get_show attachment_data
+    get :show, params: params
+
     assert_response :not_found
+  end
+
+  # OK
+
+  test 'responds with 200 OK if attachment data is draft and accessible to user' do
+    setup_stubs(draft?: true, accessible?: true)
+
+    get :show, params: params
+
+    assert_response :ok
+  end
+
+  test 'responds with 200 OK if not draft' do
+    setup_stubs
+
+    get :show, params: params
+
+    assert_response :ok
+  end
+
+  test 'responds with 200 OK if attachment data is draft & accessible, even if unpublished' do
+    unpublished_edition = create(:unpublished_edition)
+    setup_stubs(draft?: true, accessible?: true, unpublished?: true, unpublished_edition: unpublished_edition)
+
+    get :show, params: params
+
+    assert_response :ok
+  end
+
+  test 'responds with 200 OK if attachment data is not draft, even if unpublished' do
+    unpublished_edition = create(:unpublished_edition)
+    setup_stubs(draft?: false, unpublished?: true, unpublished_edition: unpublished_edition)
+
+    get :show, params: params
+
+    assert_response :ok
+  end
+
+  test 'responds with 200 OK if attachment data is draft & accessible, even if replaced' do
+    replacement = create(:attachment_data)
+    setup_stubs(draft?: true, accessible?: true, replaced?: true, replaced_by: replacement)
+
+    get :show, params: params
+
+    assert_response :ok
+  end
+
+  test 'responds with 200 OK if attachment data is not draft, even if replaced' do
+    replacement = create(:attachment_data)
+    setup_stubs(draft?: false, replaced?: true, replaced_by: replacement)
+
+    get :show, params: params
+
+    assert_response :ok
+  end
+
+  test 'responds with 200 OK for thumbnail if not draft' do
+    setup_stubs
+
+    basename = File.basename(attachment_data.file.thumbnail.path, '.png')
+    get :show, params: params.merge(file: basename, extension: 'png')
+
+    assert_response :ok
+  end
+
+  test 'sets Cache-Control header to no-cache if user is signed in' do
+    setup_stubs
+
+    get :show, params: params
+
+    assert_cache_control 'no-cache'
+  end
+
+  test 'sets Cache-Control header max-age & public directives if user is not signed in' do
+    setup_stubs(current_user: nil)
+
+    get :show, params: params
+
+    assert_cache_control 'max-age=14400'
+    assert_cache_control 'public'
+  end
+
+  test 'sets Link header to parent document URL if it is an edition' do
+    setup_stubs
+
+    get :show, params: params
+
+    link_url = public_document_url(edition)
+    assert_equal %{<#{link_url}>; rel="up"}, response.headers['Link']
+  end
+
+  test 'does not set Link header if parent document is not an edition' do
+    setup_stubs(visible_edition: nil)
+
+    get :show, params: params
+
+    assert_nil response.headers['Link']
+  end
+
+  test 'streams file to client via Rack::Sendfile' do
+    setup_stubs
+
+    get :show, params: params
+
+    assert_equal attachment_data.file.clean_path, response.stream.to_path
+  end
+
+  test 'sets Content-Disposition header type to inline' do
+    setup_stubs
+
+    get :show, params: params
+
+    disposition_type = response.headers['Content-Disposition'].split(';').first
+    assert_equal 'inline', disposition_type
+  end
+
+  test 'sets Content-Disposition header filename parameter' do
+    setup_stubs
+
+    get :show, params: params
+
+    filename = attachment_data.file.filename
+    disposition_param = response.headers['Content-Disposition'].split(';').last
+    assert_equal %{filename="#{filename}"}, disposition_param.strip
+  end
+
+  test 'sets Content-Type header based on MIME type for file extension' do
+    setup_stubs
+
+    get :show, params: params
+
+    assert_equal 'application/pdf', response.headers['Content-Type']
+  end
+
+  test 'sets Content-Type header to default value if MIME type not found' do
+    new_file = File.open(fixture_path.join('sample.chm'))
+    attachment_data.update!(file: new_file)
+    setup_stubs
+
+    get :show, params: params.merge(file: 'sample', extension: 'chm')
+
+    assert_equal 'application/octet-stream', response.headers['Content-Type']
+  end
+
+  test 'sets slimmer template to chromeless' do
+    setup_stubs
+
+    get :show, params: params
+
+    assert_equal 'chromeless', response.headers['X-Slimmer-Template']
+  end
+
+private
+
+  def setup_stubs(attributes = {})
+    file_state = attributes.fetch(:file_state, :clean)
+    attributes.delete(:file_state)
+
+    case file_state
+    when :clean
+      VirusScanHelpers.simulate_virus_scan(attachment_data.file, include_versions: true)
+    when :infected
+      VirusScanHelpers.simulate_virus_scan_infected(attachment_data.file)
+    when :missing
+      VirusScanHelpers.erase_test_files
+    end
+
+    current_user = attributes.fetch(:current_user, build(:user))
+    controller.stubs(:current_user).returns(current_user)
+    attributes.delete(:current_user)
+
+    attachment_data.stubs(:accessible_to?).with(current_user)
+      .returns(attributes.fetch(:accessible?, false))
+    attributes.delete(:accessible?)
+
+    attachment_data.stubs(:visible_edition_for).with(current_user)
+      .returns(attributes.fetch(:visible_edition, edition))
+    attributes.delete(:visible_edition)
+
+    defaults = {
+      deleted?: false,
+      unpublished?: false,
+      unpublished_edition: nil,
+      replaced?: false,
+      replaced_by: nil,
+      draft?: false,
+    }
+    attachment_data.stubs(defaults.merge(attributes))
   end
 end
