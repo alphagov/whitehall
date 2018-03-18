@@ -1,173 +1,508 @@
-require "test_helper"
+require 'test_helper'
 
 class CsvPreviewControllerTest < ActionController::TestCase
-  def get_show(attachment_data)
-    get :show, params: { id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension }
+  attr_reader :attachment_data
+  attr_reader :params
+  attr_reader :organisation_1
+  attr_reader :organisation_2
+  attr_reader :edition
+  attr_reader :attachment
+
+  setup do
+    file = File.open(fixture_path.join('sample.csv'))
+    @attachment_data = create(:attachment_data, file: file)
+
+    @params = {
+      id: attachment_data,
+      file: attachment_data.filename_without_extension,
+      extension: attachment_data.file_extension
+    }
+
+    @organisation_1 = create(:organisation)
+    @organisation_2 = create(:organisation)
+    @edition = create(:publication, organisations: [organisation_1, organisation_2])
+    @attachment = build(:file_attachment)
+
+    controller.stubs(:attachment_data).returns(attachment_data)
   end
 
-  def basename(attachment_data)
-    File.basename(attachment_data.filename, '.' + attachment_data.file_extension)
+  # Unpublished
+
+  test 'redirects to unpublished edition if attachment data is unpublished & deleted' do
+    unpublished_edition = create(:unpublished_edition)
+    setup_stubs(deleted?: true, unpublished?: true, unpublished_edition: unpublished_edition)
+
+    get :show, params: params
+
+    assert_response :found
+    assert_redirected_to unpublished_edition.unpublishing.document_path
   end
 
-  def stub_csv_file_from_public_host(attachment)
-    file_path = File.join(Whitehall.clean_uploads_root, attachment.attachment_data.file.store_path)
-    public_url_path = attachment.file.file.asset_manager_path
-    CsvFileFromPublicHost.stubs(:new).with(public_url_path).yields(stub(path: file_path))
+  test 'redirects to unpublished edition if attachment data is unpublished & unscanned' do
+    unpublished_edition = create(:unpublished_edition)
+    setup_stubs(file_state: :unscanned, unpublished?: true, unpublished_edition: unpublished_edition)
+
+    get :show, params: params
+
+    assert_response :found
+    assert_redirected_to unpublished_edition.unpublishing.document_path
   end
 
-  view_test "GET #show for a CSV attachment on a public edition renders the CSV preview" do
-    visible_edition = create(:published_publication, :with_file_attachment, attachments: [
-      attachment = build(:csv_attachment)
-    ])
-    attachment_data = attachment.attachment_data
+  test 'redirects to unpublished edition if attachment data is unpublished & infected' do
+    unpublished_edition = create(:unpublished_edition)
+    setup_stubs(file_state: :infected, unpublished?: true, unpublished_edition: unpublished_edition)
 
-    stub_csv_file_from_public_host(attachment)
-    get_show attachment_data
+    get :show, params: params
 
-    assert_equal visible_edition, assigns(:edition)
+    assert_response :found
+    assert_redirected_to unpublished_edition.unpublishing.document_path
+  end
+
+  test 'redirects to unpublished edition if attachment data is unpublished & missing' do
+    unpublished_edition = create(:unpublished_edition)
+    setup_stubs(file_state: :missing, unpublished?: true, unpublished_edition: unpublished_edition)
+
+    get :show, params: params
+
+    assert_response :found
+    assert_redirected_to unpublished_edition.unpublishing.document_path
+  end
+
+  test 'redirects to unpublished edition if attachment data is unpublished, draft & not accessible' do
+    unpublished_edition = create(:unpublished_edition)
+    setup_stubs(draft?: true, accessible_to?: false, unpublished?: true, unpublished_edition: unpublished_edition)
+
+    get :show, params: params
+
+    assert_response :found
+    assert_redirected_to unpublished_edition.unpublishing.document_path
+  end
+
+  test 'redirects to unpublished edition if attachment data is unpublished, deleted & replaced' do
+    unpublished_edition = create(:unpublished_edition)
+    replacement = create(:attachment_data)
+    setup_stubs(deleted?: true, unpublished?: true, unpublished_edition: unpublished_edition, replaced?: true, replaced_by: replacement)
+
+    get :show, params: params
+
+    assert_response :found
+    assert_redirected_to unpublished_edition.unpublishing.document_path
+  end
+
+  # Replaced
+
+  test 'permanently redirects to replacement if attachment data is replaced & deleted' do
+    replacement = create(:attachment_data)
+    setup_stubs(deleted?: true, replaced?: true, replaced_by: replacement)
+
+    get :show, params: params
+
+    assert_response :moved_permanently
+    assert_redirected_to replacement.url
+  end
+
+  test 'permanently redirects to replacement if attachment data is replaced & unscanned' do
+    replacement = create(:attachment_data)
+    setup_stubs(file_state: :unscanned, replaced?: true, replaced_by: replacement)
+
+    get :show, params: params
+
+    assert_response :moved_permanently
+    assert_redirected_to replacement.url
+  end
+
+  test 'permanently redirects to replacement if attachment data is replaced & infected' do
+    replacement = create(:attachment_data)
+    setup_stubs(file_state: :infected, replaced?: true, replaced_by: replacement)
+
+    get :show, params: params
+
+    assert_response :moved_permanently
+    assert_redirected_to replacement.url
+  end
+
+  test 'permanently redirects to replacement if attachment data is replaced & missing' do
+    replacement = create(:attachment_data)
+    setup_stubs(file_state: :missing, replaced?: true, replaced_by: replacement)
+
+    get :show, params: params
+
+    assert_response :moved_permanently
+    assert_redirected_to replacement.url
+  end
+
+  test 'permanently redirects to replacement if attachment data is replaced, draft & not accessible' do
+    replacement = create(:attachment_data)
+    setup_stubs(draft?: true, accessible_to?: false, replaced?: true, replaced_by: replacement)
+
+    get :show, params: params
+
+    assert_response :moved_permanently
+    assert_redirected_to replacement.url
+  end
+
+  test 'sets Cache-Control header to no-cache if redirecting to replacement' do
+    replacement = create(:attachment_data)
+    setup_stubs(deleted?: true, replaced?: true, replaced_by: replacement)
+
+    get :show, params: params
+
+    assert_cache_control 'no-cache'
+  end
+
+  test 'sets Cache-Control header max-age & public directives if redirecting to replacement' do
+    replacement = create(:attachment_data)
+    setup_stubs(current_user: nil, deleted?: true, replaced?: true, replaced_by: replacement)
+
+    get :show, params: params
+
+    assert_cache_control 'max-age=14400'
+    assert_cache_control 'public'
+  end
+
+  # Unscanned
+
+  test 'redirects to placeholder page if file is unscanned non-image' do
+    setup_stubs(file_state: :unscanned)
+
+    get :show, params: params
+
+    assert_response :found
+    assert_redirected_to placeholder_url
+  end
+
+  test 'sets Cache-Control header max-age & public directives if unscanned non-image' do
+    setup_stubs(file_state: :unscanned)
+
+    get :show, params: params
+
+    assert_cache_control 'max-age=60'
+    assert_cache_control 'public'
+  end
+
+  test 'redirects to placeholder page if file is unscanned non-image even if deleted' do
+    setup_stubs(file_state: :unscanned, deleted?: true)
+
+    get :show, params: params
+
+    assert_response :found
+    assert_redirected_to placeholder_url
+  end
+
+  test 'redirects to placeholder page if file is unscanned non-image even if draft & not accessible' do
+    setup_stubs(file_state: :unscanned, draft?: true, accessible_to?: false)
+
+    get :show, params: params
+
+    assert_response :found
+    assert_redirected_to placeholder_url
+  end
+
+  # Not found
+
+  test 'responds with 404 Not Found if attachment data does not exist' do
+    setup_stubs
+    controller.stubs(:attachment_data).raises(ActiveRecord::RecordNotFound)
+
+    assert_raises(ActiveRecord::RecordNotFound) { get :show, params: params }
+  end
+
+  test 'responds with 404 Not Found if file does not exist' do
+    setup_stubs(file_state: :missing)
+
+    get :show, params: params
+
+    assert_response :not_found
+  end
+
+  test 'responds with 404 Not Found if file is infected' do
+    setup_stubs(file_state: :infected)
+
+    get :show, params: params
+
+    assert_response :not_found
+  end
+
+  test 'responds with 404 Not Found if attachment data is deleted' do
+    setup_stubs(deleted?: true)
+
+    get :show, params: params
+
+    assert_response :not_found
+  end
+
+  test 'responds with 404 Not Found if attachment data is draft and not accessible to user' do
+    setup_stubs(draft?: true, accessible?: false)
+
+    get :show, params: params
+
+    assert_response :not_found
+  end
+
+  test 'responds with 404 Not Found if attachment data is not CSV' do
+    setup_stubs(csv?: false)
+
+    get :show, params: params
+
+    assert_response :not_found
+  end
+
+  test 'responds with 404 Not Found if no parent edition' do
+    setup_stubs(visible_edition: nil)
+
+    get :show, params: params
+
+    assert_response :not_found
+  end
+
+  # OK
+
+  test 'responds with 200 OK if attachment data is draft and accessible to user' do
+    setup_stubs(draft?: true, accessible?: true)
+
+    get :show, params: params
+
+    assert_response :ok
+  end
+
+  test 'responds with 200 OK if not draft' do
+    setup_stubs
+
+    get :show, params: params
+
+    assert_response :ok
+  end
+
+  test 'responds with 200 OK if attachment data is draft & accessible, even if unpublished' do
+    unpublished_edition = create(:unpublished_edition)
+    setup_stubs(draft?: true, accessible?: true, unpublished?: true, unpublished_edition: unpublished_edition)
+
+    get :show, params: params
+
+    assert_response :ok
+  end
+
+  test 'responds with 200 OK if attachment data is not draft, even if unpublished' do
+    unpublished_edition = create(:unpublished_edition)
+    setup_stubs(draft?: false, unpublished?: true, unpublished_edition: unpublished_edition)
+
+    get :show, params: params
+
+    assert_response :ok
+  end
+
+  test 'responds with 200 OK if attachment data is draft & accessible, even if replaced' do
+    replacement = create(:attachment_data)
+    setup_stubs(draft?: true, accessible?: true, replaced?: true, replaced_by: replacement)
+
+    get :show, params: params
+
+    assert_response :ok
+  end
+
+  test 'responds with 200 OK if attachment data is not draft, even if replaced' do
+    replacement = create(:attachment_data)
+    setup_stubs(draft?: false, replaced?: true, replaced_by: replacement)
+
+    get :show, params: params
+
+    assert_response :ok
+  end
+
+  test 'sets Cache-Control header to no-cache if user is signed in' do
+    setup_stubs
+
+    get :show, params: params
+
+    assert_cache_control 'no-cache'
+  end
+
+  test 'sets Cache-Control header max-age directive if user is not signed in' do
+    setup_stubs(current_user: nil)
+
+    get :show, params: params
+
+    assert_cache_control 'max-age=14400'
+  end
+
+  test 'sets Cache-Control header public directive if user is not signed in' do
+    setup_stubs(current_user: nil)
+
+    get :show, params: params
+
+    assert_cache_control 'public'
+  end
+
+  test 'sets slimmer template to chromeless' do
+    setup_stubs
+
+    get :show, params: params
+
+    assert_equal 'chromeless', response.headers['X-Slimmer-Template']
+  end
+
+  test 'renders show template with html attachments layout' do
+    setup_stubs
+
+    get :show, params: params
+
+    assert_template 'show', layout: 'html_attachments'
+  end
+
+  test 'renders template even if CsvPreview::FileEncodingError is raised' do
+    setup_stubs
+    CsvPreview.stubs(:new).raises(CsvPreview::FileEncodingError)
+
+    get :show, params: params
+
+    assert_template 'show'
+  end
+
+  test 'renders template even if CSV::MalformedCSVError is raised' do
+    setup_stubs
+    CsvPreview.stubs(:new).raises(CSV::MalformedCSVError)
+
+    get :show, params: params
+
+    assert_template 'show'
+  end
+
+  test 'renders template even if CsvFileFromPublicHost::ConnectionError is raised' do
+    setup_stubs
+    CsvFileFromPublicHost.stubs(:new).raises(CsvFileFromPublicHost::ConnectionError)
+
+    get :show, params: params
+
+    assert_template 'show'
+  end
+
+  test 'responds with 406 Not Acceptable if format is unknown' do
+    setup_stubs
+
+    get :show, params: params.merge(format: 'pdf')
+
+    assert_response :not_acceptable
+  end
+
+  test 'assigns edition for template' do
+    setup_stubs
+
+    get :show, params: params
+
+    assert_equal edition, assigns(:edition)
+  end
+
+  test 'assigns attachment for template' do
+    setup_stubs
+
+    get :show, params: params
+
     assert_equal attachment, assigns(:attachment)
-    assert assigns(:csv_preview).is_a?(CsvPreview)
-    assert_response :success
+  end
+
+  test 'assigns csv preview for template' do
+    setup_stubs
+
+    get :show, params: params
+
+    assert_instance_of CsvPreview, assigns(:csv_preview)
+  end
+
+  view_test 'renders attachment title as heading' do
+    setup_stubs
+
+    get :show, params: params
+
     assert_select '.headings h1', attachment.title
   end
 
-  view_test "GET #show for a CSV attachment on a public edition has links to document organiastions" do
-    org_1 = create(:organisation)
-    org_2 = create(:organisation)
-    org_3 = create(:organisation)
+  view_test 'renders links to edition organisations' do
+    setup_stubs
 
-    attachment = build(:csv_attachment)
-    attachment_data = attachment.attachment_data
+    get :show, params: params
 
-    create(:published_publication, :with_file_attachment, attachments: [attachment], organisations: [org_1, org_2, org_3])
-
-    stub_csv_file_from_public_host(attachment)
-    get_show attachment_data
-
-    assert_select 'a[href=?]', organisation_path(org_1)
-    assert_select 'a[href=?]', organisation_path(org_2)
-    assert_select 'a[href=?]', organisation_path(org_3)
+    assert_select 'a[href=?]', organisation_path(organisation_1)
+    assert_select 'a[href=?]', organisation_path(organisation_2)
   end
 
-  test "GET #show for a CSV attachment on a non-public edition returns a not found response" do
-    unpublished_edition = create(:draft_publication, :with_file_attachment, attachments: [build(:csv_attachment)])
-    attachment_data = unpublished_edition.attachments.first.attachment_data
+  view_test 'renders CSV column headings' do
+    setup_stubs
 
-    get_show attachment_data
+    get :show, params: params
 
-    assert_response :not_found
+    assert_select 'div.csv-preview th:nth-child(1)', text: 'Department'
+    assert_select 'div.csv-preview th:nth-child(2)', text: 'Budget'
+    assert_select 'div.csv-preview th:nth-child(3)', text: 'Amount spent'
   end
 
-  test "GET #show for a non-CSV file type returns a not found response" do
-    visible_edition = create(:published_publication, :with_file_attachment, attachments: [build(:file_attachment)])
-    attachment_data = visible_edition.attachments.first.attachment_data
+  view_test 'renders CSV cell values' do
+    setup_stubs
 
-    get_show attachment_data
+    get :show, params: params
 
-    assert_response :not_found
+    assert_select 'div.csv-preview td:nth-child(1)', text: 'Office for Facial Hair Studies'
+    assert_select 'div.csv-preview td:nth-child(2)', text: '£12000000'
+    assert_select 'div.csv-preview td:nth-child(3)', text: '£10000000'
   end
 
-  test "GET #show for a CSV attachment on an edition that has been unpublished redirects to the edition" do
-    unpublished_publication = create(:draft_publication, :unpublished, :with_file_attachment, attachments: [build(:csv_attachment)])
-    attachment_data = unpublished_publication.attachments.first.attachment_data
+  view_test 'renders error message if CSV::MalformedCSVError is raised' do
+    setup_stubs
+    CsvPreview.stubs(:new).raises(CSV::MalformedCSVError)
 
-    get_show attachment_data
+    get :show, params: params
 
-    assert_redirected_to publication_url(unpublished_publication.unpublishing.slug)
-  end
-
-  view_test "GET #show handles CsvPreview::FileEncodingError errors" do
-    visible_edition = create(:published_publication, :with_file_attachment, attachments: [
-      attachment = build(:csv_attachment)
-    ])
-    attachment_data = attachment.attachment_data
-
-    CsvPreview.expects(:new).raises(CsvPreview::FileEncodingError)
-
-    stub_csv_file_from_public_host(attachment)
-    get_show attachment_data
-
-    assert_equal visible_edition, assigns(:edition)
-    assert_equal attachment, assigns(:attachment)
-    assert_response :success
     assert_select 'p.preview-error', text: /This file could not be previewed/
   end
 
-  view_test "GET #show handles CsvFileFromPublicHost::ConnectionError errors" do
-    visible_edition = create(:published_publication, :with_file_attachment, attachments: [
-      attachment = build(:csv_attachment)
-    ])
-    attachment_data = attachment.attachment_data
+private
 
-    CsvFileFromPublicHost.expects(:new).raises(CsvFileFromPublicHost::ConnectionError)
+  def setup_stubs(attributes = {})
+    file_state = attributes.fetch(:file_state, :clean)
+    attributes.delete(:file_state)
 
-    get_show attachment_data
+    case file_state
+    when :clean
+      VirusScanHelpers.simulate_virus_scan(attachment_data.file, include_versions: true)
+    when :infected
+      VirusScanHelpers.simulate_virus_scan_infected(attachment_data.file)
+    when :missing
+      VirusScanHelpers.erase_test_files
+    end
 
-    assert_equal visible_edition, assigns(:edition)
-    assert_equal attachment, assigns(:attachment)
-    assert_response :success
-    assert_select 'p.preview-error', text: /This file could not be previewed/
+    current_user = attributes.fetch(:current_user, build(:user))
+    controller.stubs(:current_user).returns(current_user)
+    attributes.delete(:current_user)
+
+    attachment_data.stubs(:accessible_to?).with(current_user)
+      .returns(attributes.fetch(:accessible?, false))
+    attributes.delete(:accessible?)
+
+    attachment_data.stubs(:visible_edition_for).with(current_user)
+      .returns(attributes.fetch(:visible_edition, edition))
+    attributes.delete(:visible_edition)
+
+    attachment_data.stubs(:visible_attachment_for).with(current_user)
+      .returns(attributes.fetch(:visible_attachment, attachment))
+    attributes.delete(:visible_attachment)
+
+    defaults = {
+      deleted?: false,
+      unpublished?: false,
+      unpublished_edition: nil,
+      replaced?: false,
+      replaced_by: nil,
+      draft?: false,
+      csv?: true
+    }
+
+    attachment_data.stubs(defaults.merge(attributes))
+
+    stub_csv_file_from_public_host
   end
 
-  test "GET #show for attachments that aren't visible and have been replaced permanently redirects to the replacement attachment" do
-    replacement = create(:csv_attachment)
-    attachment_data = create(:attachment_data, replaced_by: replacement.attachment_data)
-
-    get_show attachment_data
-
-    assert_redirected_to replacement.url
-    assert_equal 301, response.status
-    assert_cache_control("max-age=#{Whitehall.uploads_cache_max_age}")
-    assert_cache_control("public")
-  end
-
-  test 'GET #show for an attachment that has not been virus checked redirects to the placeholder page' do
-    attachment_data = build(:attachment_data)
-    attachment = build(:csv_attachment, attachment_data: attachment_data)
-
-    create(:published_publication, :with_file_attachment_not_scanned, attachments: [attachment])
-
-    get_show attachment_data
-
-    assert_redirected_to placeholder_url
-    assert_cache_control "max-age=#{1.minute}"
-  end
-
-  view_test "GET #show handles malformed CSV" do
-    attachment = build(:csv_attachment, file: fixture_file_upload('malformed.csv'))
-    attachment_data = attachment.attachment_data
-
-    create(:published_publication, :with_file_attachment, attachments: [attachment])
-
-    stub_csv_file_from_public_host(attachment)
-    get_show attachment_data
-
-    assert_response :success
-    assert_select 'p.preview-error', text: /This file could not be previewed/
-  end
-
-  test "GET #show returns 404 for CSVs attached to non-Editions" do
-    attachment      = create(:csv_attachment, attachable: create(:policy_group))
-    attachment_data = attachment.attachment_data
-    VirusScanHelpers.simulate_virus_scan(attachment_data.file)
-
-    get_show attachment_data
-
-    assert_response :not_found
-  end
-
-  view_test "GET #show succeeds for attachments on corporate information pages" do
-    corporate_information_page = create(:corporate_information_page, :published)
-    attachment = create(:csv_attachment, attachable: corporate_information_page)
-    attachment_data = attachment.attachment_data
-    VirusScanHelpers.simulate_virus_scan(attachment_data.file)
-
-    stub_csv_file_from_public_host(attachment)
-    get_show attachment_data
-
-    assert_response :success
-    assert_select 'div.csv-preview td', text: "Office for Facial Hair Studies"
-    assert_select 'div.csv-preview td', text: "£12000000"
-    assert_select 'div.csv-preview td', text: "£10000000"
+  def stub_csv_file_from_public_host
+    CsvFileFromPublicHost.stubs(:new)
+      .with(attachment_data.file.asset_manager_path)
+      .yields(stub(path: attachment_data.clean_path))
   end
 end
