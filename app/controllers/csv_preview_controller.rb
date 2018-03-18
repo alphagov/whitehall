@@ -7,7 +7,7 @@ class CsvPreviewController < BaseAttachmentsController
           return
         end
 
-        if infected?
+        if infected? || !exists?
           render plain: "Not found", status: :not_found
           return
         end

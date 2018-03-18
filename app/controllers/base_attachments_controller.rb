@@ -53,4 +53,8 @@ protected
   def clean?
     File.exist?(upload_path)
   end
+
+  def exists?
+    unscanned? || clean? || infected?
+  end
 end

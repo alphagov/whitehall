@@ -2,7 +2,7 @@ class AttachmentsController < BaseAttachmentsController
   include PublicDocumentRoutesHelper
 
   def show
-    if infected?
+    if infected? || !exists?
       render plain: "Not found", status: :not_found
       return
     end
