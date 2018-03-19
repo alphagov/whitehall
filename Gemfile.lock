@@ -182,7 +182,7 @@ GEM
       money (~> 6.7)
       nokogiri (~> 1.5)
       sanitize (~> 2.1.0)
-    govuk-content-schema-test-helpers (1.6.0)
+    govuk-content-schema-test-helpers (1.6.1)
       json-schema (~> 2.8.0)
     govuk-lint (3.6.0)
       rubocop (~> 0.51.0)
