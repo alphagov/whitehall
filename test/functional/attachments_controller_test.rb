@@ -78,6 +78,46 @@ class AttachmentsControllerTest < ActionController::TestCase
     assert_redirected_to unpublished_edition.unpublishing.document_path
   end
 
+  test 'redirects to unpublished edition if attachment data is unpublished even if deleted' do
+    unpublished_edition = create(:unpublished_edition)
+    setup_stubs(deleted?: true, unpublished?: true, unpublished_edition: unpublished_edition)
+
+    get :show, params: params
+
+    assert_response :found
+    assert_redirected_to unpublished_edition.unpublishing.document_path
+  end
+
+  test 'redirects to unpublished edition if attachment data is unpublished even if infected' do
+    unpublished_edition = create(:unpublished_edition)
+    setup_stubs(file_state: :infected, unpublished?: true, unpublished_edition: unpublished_edition)
+
+    get :show, params: params
+
+    assert_response :found
+    assert_redirected_to unpublished_edition.unpublishing.document_path
+  end
+
+  test 'redirects to unpublished edition if attachment data is unpublished even if missing' do
+    unpublished_edition = create(:unpublished_edition)
+    setup_stubs(file_state: :missing, unpublished?: true, unpublished_edition: unpublished_edition)
+
+    get :show, params: params
+
+    assert_response :found
+    assert_redirected_to unpublished_edition.unpublishing.document_path
+  end
+
+  test 'redirects to unpublished edition if attachment data is unpublished even if draft & not accessible' do
+    unpublished_edition = create(:unpublished_edition)
+    setup_stubs(draft?: true, accessible_to?: false, unpublished?: true, unpublished_edition: unpublished_edition)
+
+    get :show, params: params
+
+    assert_response :found
+    assert_redirected_to unpublished_edition.unpublishing.document_path
+  end
+
   test 'permanently redirects to replacement if attachment data is replaced' do
     replacement = create(:attachment_data)
     setup_stubs(replaced?: true, replaced_by: replacement)
@@ -95,6 +135,46 @@ class AttachmentsControllerTest < ActionController::TestCase
     get :show, params: params
 
     assert_cache_control 'no-cache'
+  end
+
+  test 'permanently redirects to replacement if attachment data is replaced even if deleted' do
+    replacement = create(:attachment_data)
+    setup_stubs(deleted?: true, replaced?: true, replaced_by: replacement)
+
+    get :show, params: params
+
+    assert_response :moved_permanently
+    assert_redirected_to replacement.url
+  end
+
+  test 'permanently redirects to replacement if attachment data is replaced even if infected' do
+    replacement = create(:attachment_data)
+    setup_stubs(file_state: :infected, replaced?: true, replaced_by: replacement)
+
+    get :show, params: params
+
+    assert_response :moved_permanently
+    assert_redirected_to replacement.url
+  end
+
+  test 'permanently redirects to replacement if attachment data is replaced even if missing' do
+    replacement = create(:attachment_data)
+    setup_stubs(file_state: :missing, replaced?: true, replaced_by: replacement)
+
+    get :show, params: params
+
+    assert_response :moved_permanently
+    assert_redirected_to replacement.url
+  end
+
+  test 'permanently redirects to replacement if attachment data is replaced even if draft & not accessible' do
+    replacement = create(:attachment_data)
+    setup_stubs(draft?: true, accessible_to?: false, replaced?: true, replaced_by: replacement)
+
+    get :show, params: params
+
+    assert_response :moved_permanently
+    assert_redirected_to replacement.url
   end
 
   test 'sets Cache-Control header max-age & public directives if replaced and user is not signed in' do
@@ -118,6 +198,28 @@ class AttachmentsControllerTest < ActionController::TestCase
     assert_redirected_to view_context.path_to_image('thumbnail-placeholder.png')
   end
 
+  test 'redirects to placeholder image if file is unscanned image even if deleted' do
+    new_file = File.open(fixture_path.join('minister-of-funk.960x640.jpg'))
+    attachment_data.update!(file: new_file)
+    setup_stubs(file_state: :unscanned, deleted?: true)
+
+    get :show, params: params.merge(file: 'minister-of-funk.960x640', extension: 'jpg')
+
+    assert_response :found
+    assert_redirected_to view_context.path_to_image('thumbnail-placeholder.png')
+  end
+
+  test 'redirects to placeholder image if file is unscanned image even if draft & not accessible' do
+    new_file = File.open(fixture_path.join('minister-of-funk.960x640.jpg'))
+    attachment_data.update!(file: new_file)
+    setup_stubs(file_state: :unscanned, draft?: true, accessible_to?: false)
+
+    get :show, params: params.merge(file: 'minister-of-funk.960x640', extension: 'jpg')
+
+    assert_response :found
+    assert_redirected_to view_context.path_to_image('thumbnail-placeholder.png')
+  end
+
   test 'redirects to placeholder page if file is unscanned non-image' do
     setup_stubs(file_state: :unscanned)
 
@@ -134,6 +236,24 @@ class AttachmentsControllerTest < ActionController::TestCase
 
     assert_cache_control 'max-age=60'
     assert_cache_control 'public'
+  end
+
+  test 'redirects to placeholder page if file is unscanned non-image even if deleted' do
+    setup_stubs(file_state: :unscanned, deleted?: true)
+
+    get :show, params: params
+
+    assert_response :found
+    assert_redirected_to placeholder_url
+  end
+
+  test 'redirects to placeholder page if file is unscanned non-image even if draft & not accessible' do
+    setup_stubs(file_state: :unscanned, draft?: true, accessible_to?: false)
+
+    get :show, params: params
+
+    assert_response :found
+    assert_redirected_to placeholder_url
   end
 
   test 'responds with 404 Not Found if attachment data is draft and not accessible to user' do

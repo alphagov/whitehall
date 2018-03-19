@@ -2,13 +2,15 @@ class AttachmentsController < BaseAttachmentsController
   include PublicDocumentRoutesHelper
 
   def show
-    if attachment_data.deleted?
-      render_not_found
+    if attachment_data.unpublished?
+      redirect_url = attachment_data.unpublished_edition.unpublishing.document_path
+      redirect_to redirect_url
       return
     end
 
-    if infected? || !exists?
-      render_not_found
+    if attachment_data.replaced?
+      expires_headers
+      redirect_to attachment_data.replaced_by.url, status: 301
       return
     end
 
@@ -21,15 +23,13 @@ class AttachmentsController < BaseAttachmentsController
       return
     end
 
-    if attachment_data.unpublished?
-      redirect_url = attachment_data.unpublished_edition.unpublishing.document_path
-      redirect_to redirect_url
+    if attachment_data.deleted?
+      render_not_found
       return
     end
 
-    if attachment_data.replaced?
-      expires_headers
-      redirect_to attachment_data.replaced_by.url, status: 301
+    if infected? || !exists?
+      render_not_found
       return
     end
 
