@@ -2,26 +2,6 @@ class CsvPreviewController < BaseAttachmentsController
   def show
     respond_to do |format|
       format.html do
-        if attachment_data.deleted?
-          render_not_found
-          return
-        end
-
-        unless attachment_data.csv?
-          render_not_found
-          return
-        end
-
-        if infected? || !exists?
-          render_not_found
-          return
-        end
-
-        if unscanned?
-          redirect_to_placeholder
-          return
-        end
-
         if attachment_data.unpublished?
           redirect_url = attachment_data.unpublished_edition.unpublishing.document_path
           redirect_to redirect_url
@@ -31,6 +11,26 @@ class CsvPreviewController < BaseAttachmentsController
         if attachment_data.replaced?
           expires_headers
           redirect_to attachment_data.replaced_by.url, status: 301
+          return
+        end
+
+        if unscanned?
+          redirect_to_placeholder
+          return
+        end
+
+        unless attachment_data.csv?
+          render_not_found
+          return
+        end
+
+        if attachment_data.deleted?
+          render_not_found
+          return
+        end
+
+        if infected? || !exists?
+          render_not_found
           return
         end
 
