@@ -1,24 +1,8 @@
 class BaseAttachmentsController < ApplicationController
 protected
 
-  def attachment_visible?
-    upload_exists?(upload_path) && attachment_data.visible_to?(current_user)
-  end
-
-  def fail
-    if attachment_data.unpublished?
-      redirect_url = attachment_data.unpublished_edition.unpublishing.document_path
-      redirect_to redirect_url
-    elsif attachment_data.replaced?
-      expires_headers
-      redirect_to attachment_data.replaced_by.url, status: 301
-    elsif image? upload_path
-      redirect_to view_context.path_to_image('thumbnail-placeholder.png')
-    elsif incoming_upload_exists? upload_path
-      redirect_to_placeholder
-    else
-      render plain: "Not found", status: :not_found
-    end
+  def render_not_found
+    render plain: "Not found", status: :not_found
   end
 
   def set_slimmer_template
@@ -38,7 +22,7 @@ protected
   end
 
   def upload_path
-    File.join(Whitehall.clean_uploads_root, path_to_attachment_or_thumbnail)
+    @upload_path ||= File.join(Whitehall.clean_uploads_root, path_to_attachment_or_thumbnail)
   end
 
   def file_with_extensions
@@ -49,17 +33,8 @@ protected
     attachment_data.file.store_path(file_with_extensions)
   end
 
-  def file_is_clean?(path)
-    path.starts_with?(Whitehall.clean_uploads_root)
-  end
-
-  def image?(path)
-    ['.jpg', '.jpeg', '.png', '.gif'].include?(File.extname(path))
-  end
-
-  def incoming_upload_exists?(path)
-    path = path.sub(Whitehall.clean_uploads_root, Whitehall.incoming_uploads_root)
-    File.exist?(path)
+  def image?
+    ['.jpg', '.jpeg', '.png', '.gif'].include?(File.extname(upload_path))
   end
 
   def redirect_to_placeholder
@@ -69,7 +44,21 @@ protected
     redirect_to placeholder_url
   end
 
-  def upload_exists?(path)
-    File.exist?(path) && file_is_clean?(path)
+  def unscanned?
+    path = upload_path.sub(Whitehall.clean_uploads_root, Whitehall.incoming_uploads_root)
+    File.exist?(path)
+  end
+
+  def infected?
+    path = upload_path.sub(Whitehall.clean_uploads_root, Whitehall.infected_uploads_root)
+    File.exist?(path)
+  end
+
+  def clean?
+    File.exist?(upload_path)
+  end
+
+  def exists?
+    unscanned? || clean? || infected?
   end
 end
