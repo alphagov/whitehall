@@ -43,6 +43,10 @@ class AssetManagerAttachmentMetadataUpdateWorkerTest < ActiveSupport::TestCase
     subject.perform(attachment_data.id)
   end
 
+  test 'calls AssetManagerAttachmentDeleteWorker last' do
+    assert_equal AssetManagerAttachmentDeleteWorker, subject.workers.last
+  end
+
   test 'calls AssetManagerAttachmentDraftStatusUpdateWorker#perform with the attachment_data id' do
     mock_draft_status_update_worker.expects(:perform).with(attachment_data.id)
     subject.perform(attachment_data.id)

@@ -2,15 +2,19 @@ class AssetManagerAttachmentMetadataUpdateWorker < WorkerBase
   sidekiq_options queue: 'asset_migration'
 
   def perform(attachment_data_id)
+    workers.each do |worker|
+      worker.new.perform(attachment_data_id)
+    end
+  end
+
+  def workers
     [
       AssetManagerAttachmentAccessLimitedWorker,
-      AssetManagerAttachmentDeleteWorker,
       AssetManagerAttachmentDraftStatusUpdateWorker,
       AssetManagerAttachmentLinkHeaderUpdateWorker,
       AssetManagerAttachmentRedirectUrlUpdateWorker,
-      AssetManagerAttachmentReplacementIdUpdateWorker
-    ].each do |worker|
-      worker.new.perform(attachment_data_id)
-    end
+      AssetManagerAttachmentReplacementIdUpdateWorker,
+      AssetManagerAttachmentDeleteWorker
+    ]
   end
 end
