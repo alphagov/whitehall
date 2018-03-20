@@ -211,7 +211,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     login_as(create(:user, organisation: sfa_organisation))
 
     publication_has_expanded_links(publication.content_id)
-    stub_govuk_taxonomy_matching_published_taxons(["aaaa"], ["aaaa"])
 
     get :show, params: { id: publication }
 
@@ -238,12 +237,14 @@ private
             "title" => "Primary Education",
             "content_id" => "aaaa",
             "base_path" => "i-am-a-taxon",
+            "details" => { "visible_to_departmental_editors" => true },
             "links" => {
               "parent_taxons" => [
                 {
                   "title" => "Education, Training and Skills",
                   "content_id" => "bbbb",
                   "base_path" => "i-am-a-parent-taxon",
+                  "details" => { "visible_to_departmental_editors" => true },
                   "links" => {}
                 }
               ]

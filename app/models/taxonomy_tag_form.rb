@@ -1,7 +1,7 @@
 class TaxonomyTagForm
   include ActiveModel::Model
 
-  attr_accessor :selected_taxons, :invisible_taxons, :all_taxons, :content_id, :previous_version
+  attr_accessor :selected_taxons, :content_id, :previous_version
 
   def self.load(content_id)
     begin
@@ -24,16 +24,8 @@ class TaxonomyTagForm
     )
   end
 
-  def published_taxons
-    @_published_ids ||= govuk_taxonomy.matching_against_published_taxons(selected_taxons)
-  end
-
-  def visible_draft_taxons
-    @_visible_draft_ids ||= govuk_taxonomy.matching_against_visible_draft_taxons(selected_taxons)
-  end
-
-  def invisible_draft_taxons
-    selected_taxons - (published_taxons + visible_draft_taxons)
+  def invisible_taxons
+    selected_taxons - govuk_taxonomy.visible_taxons.map(&:content_id)
   end
 
 private

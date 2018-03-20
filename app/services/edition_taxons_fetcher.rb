@@ -6,7 +6,7 @@ class EditionTaxonsFetcher
   end
 
   def fetch
-    taxons.select { |t| visible?(t) }
+    taxons.select { |taxon| visible?(taxon) }
   end
 
 private
@@ -15,10 +15,20 @@ private
     @_taxons ||= taxon_links.map { |taxon_link| build_taxon(taxon_link) }
   end
 
-  def build_taxon(taxon_link)
-    taxon = Taxonomy::Taxon.new(taxon_link.symbolize_keys.slice(:title, :base_path, :content_id))
+  def visible?(taxon)
+    taxon.parent_node.nil? ? taxon.visible_to_departmental_editors : visible?(taxon.parent_node)
+  end
 
-    parent_taxons = taxon_link.fetch("links", {}).fetch("parent_taxons", [])
+  def build_taxon(taxon_link)
+    taxon = Taxonomy::Taxon.new(
+      title: taxon_link['title'],
+      base_path: taxon_link['base_path'],
+      content_id: taxon_link['content_id'],
+      phase: taxon_link['phase'],
+      visible_to_departmental_editors: !!taxon_link.dig('details', 'visible_to_departmental_editors')
+    )
+
+    parent_taxons = taxon_link.dig("links", "parent_taxons")
     if parent_taxons.present?
       # There should not be more than one parent for a taxon. If there is,
       # pick the first one.
@@ -36,23 +46,6 @@ private
 
   def response
     Services.publishing_api.get_expanded_links(content_id)
-  end
-
-  def visible?(taxon)
-    published_taxon_content_ids.include?(taxon.content_id) ||
-      visible_draft_taxon_content_ids.include?(taxon.content_id)
-  end
-
-  def published_taxon_content_ids
-    @_published_ids ||= govuk_taxonomy.matching_against_published_taxons(taxon_content_ids)
-  end
-
-  def visible_draft_taxon_content_ids
-    @_visible_draft_ids ||= govuk_taxonomy.matching_against_visible_draft_taxons(taxon_content_ids)
-  end
-
-  def taxon_content_ids
-    taxon_links.map { |t| t["content_id"] }
   end
 
   def govuk_taxonomy

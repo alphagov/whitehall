@@ -3,25 +3,27 @@
 module Taxonomy
   class Taxon
     extend Forwardable
-    attr_reader :name, :content_id, :base_path
+    attr_reader :name, :content_id, :base_path, :phase, :visible_to_departmental_editors
     attr_accessor :parent_node, :children
-    def_delegators :tree, :map, :each
+    def_delegators :taxon_list, :map, :each
 
-    def initialize(title:, base_path:, content_id:)
+    def initialize(title:, base_path:, content_id:, phase: 'live', visible_to_departmental_editors: true)
       @name = title
       @content_id = content_id
       @base_path = base_path
+      @phase = phase
+      @visible_to_departmental_editors = visible_to_departmental_editors
       @children = []
     end
 
-    def tree
-      children.each_with_object([self]) do |child, tree|
-        tree.concat(child.tree)
+    def taxon_list
+      @_taxon_list ||= children.each_with_object([self]) do |child, tree|
+        tree.concat(child.taxon_list)
       end
     end
 
     def descendants
-      tree.tap(&:shift)
+      taxon_list.tap(&:shift)
     end
 
     # Get ancestors of a taxon
@@ -47,7 +49,7 @@ module Taxonomy
     end
 
     def count
-      tree.count
+      taxon_list.count
     end
 
     def root?
