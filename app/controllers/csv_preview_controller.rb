@@ -2,55 +2,17 @@ class CsvPreviewController < BaseAttachmentsController
   def show
     respond_to do |format|
       format.html do
-        if attachment_data.unpublished?
-          redirect_url = attachment_data.unpublished_edition.unpublishing.document_path
-          redirect_to redirect_url
-          return
-        end
-
-        if attachment_data.replaced?
+        if attachment_data.csv? && attachment_visible? && attachment_data.visible_edition_for(current_user)
           expires_headers
-          redirect_to attachment_data.replaced_by.url, status: 301
-          return
+          @edition = attachment_data.visible_edition_for(current_user)
+          @attachment = attachment_data.visible_attachment_for(current_user)
+          CsvFileFromPublicHost.new(@attachment.file.file.asset_manager_path) do |file|
+            @csv_preview = CsvPreview.new(file.path)
+          end
+          render layout: 'html_attachments'
+        else
+          fail
         end
-
-        if unscanned?
-          redirect_to_placeholder
-          return
-        end
-
-        unless attachment_data.csv?
-          render_not_found
-          return
-        end
-
-        if attachment_data.deleted?
-          render_not_found
-          return
-        end
-
-        if infected? || !exists?
-          render_not_found
-          return
-        end
-
-        if attachment_data.draft? && !attachment_data.accessible_to?(current_user)
-          render_not_found
-          return
-        end
-
-        @edition = attachment_data.visible_edition_for(current_user)
-        unless @edition.present?
-          render_not_found
-          return
-        end
-
-        expires_headers
-        @attachment = attachment_data.visible_attachment_for(current_user)
-        CsvFileFromPublicHost.new(attachment_data.file.asset_manager_path) do |file|
-          @csv_preview = CsvPreview.new(file.path)
-        end
-        render layout: 'html_attachments'
       end
     end
   rescue CsvPreview::FileEncodingError, CSV::MalformedCSVError, CsvFileFromPublicHost::ConnectionError
