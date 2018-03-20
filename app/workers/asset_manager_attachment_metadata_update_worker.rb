@@ -10,7 +10,7 @@ class AssetManagerAttachmentMetadataUpdateWorker < WorkerBase
       AssetManagerAttachmentRedirectUrlUpdateWorker,
       AssetManagerAttachmentReplacementIdUpdateWorker
     ].each do |worker|
-      worker.perform_async(attachment_data_id)
+      worker.new.perform(attachment_data_id)
     end
   end
 end
