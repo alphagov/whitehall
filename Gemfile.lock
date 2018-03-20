@@ -184,7 +184,7 @@ GEM
       sanitize (~> 2.1.0)
     govuk-content-schema-test-helpers (1.6.1)
       json-schema (~> 2.8.0)
-    govuk-lint (3.6.0)
+    govuk-lint (3.7.0)
       rubocop (~> 0.51.0)
       rubocop-rspec (~> 1.19.0)
       scss_lint
@@ -322,8 +322,8 @@ GEM
     parallel (1.12.1)
     parallel_tests (2.21.1)
       parallel
-    parser (2.4.0.2)
-      ast (~> 2.3)
+    parser (2.5.0.4)
+      ast (~> 2.4.0)
     pdf-reader (2.0.0)
       Ascii85 (~> 1.0.0)
       afm (~> 0.2.1)
@@ -390,7 +390,7 @@ GEM
       rake
     raindrops (0.19.0)
     rake (12.3.0)
-    rb-fsevent (0.10.2)
+    rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
     record_tag_helper (1.0.0)
@@ -449,9 +449,9 @@ GEM
       sprockets (> 2.11)
       sprockets-rails
       tilt
-    scss_lint (0.56.0)
+    scss_lint (0.57.0)
       rake (>= 0.9, < 13)
-      sass (~> 3.5.3)
+      sass (~> 3.5.5)
     sentry-raven (2.7.2)
       faraday (>= 0.7.6, < 1.0)
     shared_mustache (1.0.1)
@@ -572,7 +572,7 @@ DEPENDENCIES
   globalize (= 5.1.0)
   govspeak (~> 5.5.0)
   govuk-content-schema-test-helpers
-  govuk-lint (~> 3.6.0)
+  govuk-lint (~> 3.7.0)
   govuk_ab_testing (~> 2.4x)
   govuk_admin_template (~> 6.5)
   govuk_app_config (~> 1.4)
