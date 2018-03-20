@@ -138,7 +138,7 @@ class AttachmentData < ApplicationRecord
   end
 
   def visible_to?(user)
-    !deleted? && !unpublished? && !replaced? && (!draft? || (draft? && accessible_to?(user)))
+    !deleted? && !unpublished? && (!draft? || (draft? && accessible_to?(user)))
   end
 
   def visible_attachment_for(user)

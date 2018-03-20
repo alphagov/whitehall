@@ -110,14 +110,8 @@ class CsvPreviewControllerTest < ActionController::TestCase
   end
 
   test "GET #show for attachments that aren't visible and have been replaced permanently redirects to the replacement attachment" do
-    attachment = create(:csv_attachment)
-    attachment_data = attachment.attachment_data
     replacement = create(:csv_attachment)
-    attachment_data.update_attributes!(replaced_by: replacement.attachment_data)
-    attachment_data.stubs(:draft?).returns(false)
-    attachment_data.stubs(:visible_edition_for).returns(build(:edition))
-    controller.stubs(:attachment_data).returns(attachment_data)
-    VirusScanHelpers.simulate_virus_scan(attachment_data.file)
+    attachment_data = create(:attachment_data, replaced_by: replacement.attachment_data)
 
     get_show attachment_data
 

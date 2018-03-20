@@ -570,14 +570,12 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
       let(:deleted) { false }
       let(:unpublished) { false }
-      let(:replaced) { false }
       let(:draft) { false }
 
       before do
         attachment_data.stubs(
           deleted?: deleted,
           unpublished?: unpublished,
-          replaced?: replaced,
           draft?: draft
         )
       end
@@ -596,14 +594,6 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
       context 'when unpublished' do
         let(:unpublished) { true }
-
-        it 'is not visible' do
-          refute attachment_data.visible_to?(nil)
-        end
-      end
-
-      context 'when replaced' do
-        let(:replaced) { true }
 
         it 'is not visible' do
           refute attachment_data.visible_to?(nil)
