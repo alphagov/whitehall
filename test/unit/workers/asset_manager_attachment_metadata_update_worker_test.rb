@@ -5,6 +5,10 @@ class AssetManagerAttachmentMetadataUpdateWorkerTest < ActiveSupport::TestCase
 
   let(:subject) { AssetManagerAttachmentMetadataUpdateWorker.new }
 
+  test 'it uses the asset_migration queue' do
+    assert_equal 'asset_migration', subject.class.queue
+  end
+
   [
     AssetManagerAttachmentAccessLimitedWorker,
     AssetManagerAttachmentDeleteWorker,
@@ -14,11 +18,6 @@ class AssetManagerAttachmentMetadataUpdateWorkerTest < ActiveSupport::TestCase
     AssetManagerAttachmentReplacementIdUpdateWorker
   ].each do |worker|
     let(:attachment_data) { FactoryBot.create(:attachment_data) }
-
-    test "sets the #{worker} queue to 'asset_migration'" do
-      worker.expects(:set).with(queue: 'asset_migration').returns(worker)
-      subject.perform(attachment_data.id)
-    end
 
     test "queues a job on the #{worker}" do
       worker.expects(:perform_async).with(attachment_data.id)
