@@ -24,10 +24,6 @@ class AttachmentsControllerTest < ActionController::TestCase
   test "attachments that aren't visible and have been replaced are permanently redirected to the replacement attachment" do
     replacement = create(:attachment_data)
     attachment_data = create(:attachment_data, replaced_by: replacement)
-    attachment_data.stubs(:draft?).returns(false)
-    controller.stubs(:attachment_data).returns(attachment_data)
-    VirusScanHelpers.simulate_virus_scan(attachment_data.file)
-
     get_show attachment_data
 
     assert_redirected_to replacement.url
