@@ -10,11 +10,11 @@ else
   )
 end
 
-if Organisation.where(name: "HMRC").present?
+if Organisation.where(name: "HM Revenue & Customs").present?
   puts "Skipping because HMRC organisation already exists"
 else
   Organisation.create!(
-    name: "HMRC",
+    name: "HM Revenue & Customs",
     slug: "hm-revenue-customs",
     acronym: "HRMC",
     organisation_type_key: :other,
