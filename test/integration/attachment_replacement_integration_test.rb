@@ -6,28 +6,27 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   include Rails.application.routes.url_helpers
 
+  let(:managing_editor) { create(:managing_editor) }
+  let(:filename) { 'sample.docx' }
+  let(:file) { File.open(path_to_attachment(filename)) }
+  let(:attachment) { build(:file_attachment, attachable: edition, file: file) }
+  let(:asset_id) { 'asset-id' }
+
+  before do
+    login_as(managing_editor)
+    edition.attachments << attachment
+    setup_publishing_api_for(edition)
+    stub_whitehall_asset(filename, id: asset_id)
+    VirusScanHelpers.simulate_virus_scan
+  end
+
   context 'given a draft document with a file attachment' do
-    let(:managing_editor) { create(:managing_editor) }
-
-    let(:filename) { 'sample.docx' }
-    let(:file) { File.open(path_to_attachment(filename)) }
-    let(:attachment) { build(:file_attachment, attachable: edition, file: file) }
-    let(:asset_id) { 'asset-id' }
-
-    let(:replacement_filename) { 'sample.rtf' }
-    let(:replacement_asset_id) { 'replacement-asset-id' }
-
     let(:edition) { create(:news_article) }
 
-    before do
-      login_as(managing_editor)
-      edition.attachments << attachment
-      setup_publishing_api_for(edition)
-      stub_whitehall_asset(filename, id: asset_id)
-      VirusScanHelpers.simulate_virus_scan
-    end
-
     context 'when attachment is replaced' do
+      let(:replacement_filename) { 'sample.rtf' }
+      let(:replacement_asset_id) { 'replacement-asset-id' }
+
       before do
         visit admin_news_article_path(edition)
         click_link 'Modify attachments'
