@@ -109,7 +109,6 @@ class AttachmentData < ApplicationRecord
   end
 
   def draft?
-    return false if unpublished?
     !significant_attachable.publicly_visible?
   end
 
@@ -138,7 +137,7 @@ class AttachmentData < ApplicationRecord
   end
 
   def visible_to?(user)
-    !deleted? && !unpublished? && (!draft? || (draft? && accessible_to?(user)))
+    !deleted? && (!draft? || (draft? && accessible_to?(user)))
   end
 
   def visible_attachment_for(user)

@@ -310,8 +310,8 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
             refute attachment_data.reload.deleted?
           end
 
-          it 'is not draft' do
-            refute attachment_data.reload.draft?
+          it 'is draft' do
+            assert attachment_data.reload.draft?
           end
 
           it 'is is unpublished' do
@@ -507,8 +507,8 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
             refute attachment_data.reload.deleted?
           end
 
-          it 'is not draft' do
-            refute attachment_data.reload.draft?
+          it 'is draft' do
+            assert attachment_data.reload.draft?
           end
 
           it 'is unpublished' do
@@ -569,13 +569,11 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
       let(:attachable) { build(:news_article) }
 
       let(:deleted) { false }
-      let(:unpublished) { false }
       let(:draft) { false }
 
       before do
         attachment_data.stubs(
           deleted?: deleted,
-          unpublished?: unpublished,
           draft?: draft
         )
       end
@@ -586,14 +584,6 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
       context 'when deleted' do
         let(:deleted) { true }
-
-        it 'is not visible' do
-          refute attachment_data.visible_to?(nil)
-        end
-      end
-
-      context 'when unpublished' do
-        let(:unpublished) { true }
 
         it 'is not visible' do
           refute attachment_data.visible_to?(nil)
