@@ -14,7 +14,7 @@ class Whitehall::AssetManagerAndQuarantinedFileStorage < CarrierWave::Storage::A
   end
 
   class File
-    delegate :empty?, :path, :content_type, :filename, :size, to: :@quarantined_file
+    delegate :path, :content_type, :filename, to: :@quarantined_file
 
     def initialize(asset_manager_file, quarantined_file)
       @asset_manager_file = asset_manager_file
@@ -32,6 +32,10 @@ class Whitehall::AssetManagerAndQuarantinedFileStorage < CarrierWave::Storage::A
     def delete
       @quarantined_file.delete
       @asset_manager_file.delete
+    end
+
+    def zero_size?
+      @asset_manager_file.zero_size?
     end
   end
 end

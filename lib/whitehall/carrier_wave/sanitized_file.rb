@@ -16,6 +16,10 @@ module CarrierWave
       CarrierWaveFilePath.new(path).to_public_path
     end
 
+    def zero_size?
+      size.to_i.zero?
+    end
+
     class CarrierWaveFilePath
       def initialize(path)
         @path = path
