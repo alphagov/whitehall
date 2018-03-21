@@ -32,19 +32,6 @@ Feature: Managing attachments on editions
     Then I can see the attachment title "Beard Length Graphs 2012"
     And I can see the preview link to the attachment "HTML attachment"
 
-  Scenario: Replacing data on an attachment
-    Given I am an editor
-    And a published publication "Standard Beard Lengths" with a PDF attachment
-    And the attachment has been virus-checked
-    And the attachment has been uploaded to the asset-manager
-    When I replace the data file of the attachment in a new draft of the publication
-    And the attachment has been virus-checked
-    And the attachment has been uploaded to the asset-manager
-    Then the new data file should not have replaced the old data file
-    When I published the draft edition
-    And I log out
-    And the old data file should redirect to the new data file
-
   Scenario: Adding attachments on consultation responses
     Given I am a writer
     And a draft closed consultation "Should We Ban Beards" with an outcome exists
