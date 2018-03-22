@@ -16,6 +16,9 @@ class CsvFileFromPublicHost
   end
 
   def initialize(path)
+    connection = Faraday.new(url: Whitehall.public_root)
+    connection.basic_auth(basic_auth_user, basic_auth_password) if ENV.has_key?("BASIC_AUTH_CREDENTIALS")
+
     response = connection.get(path) do |req|
       req.headers['Range'] = "bytes=0-#{MAXIMUM_RANGE_BYTES}"
     end
@@ -38,12 +41,6 @@ class CsvFileFromPublicHost
   end
 
 private
-
-  def connection
-    conn = Faraday.new(url: Whitehall.public_root)
-    conn.basic_auth(basic_auth_user, basic_auth_password) if ENV.has_key?("BASIC_AUTH_CREDENTIALS")
-    conn
-  end
 
   def basic_auth_user
     basic_auth_credentials[0]
