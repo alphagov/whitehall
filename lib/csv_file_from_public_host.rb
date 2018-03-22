@@ -6,12 +6,8 @@ class CsvFileFromPublicHost
   MAXIMUM_RANGE_BYTES = '300000'.freeze
 
   def self.csv_preview(path)
-    csv_preview = nil
     response = csv_response(path)
-    new(response) do |file|
-      csv_preview = CsvPreview.new(file.path)
-    end
-    csv_preview
+    csv_preview_from(response)
   rescue CsvPreview::FileEncodingError, CSV::MalformedCSVError, CsvFileFromPublicHost::ConnectionError, CsvFileFromPublicHost::FileEncodingError
     nil
   end
@@ -29,6 +25,14 @@ class CsvFileFromPublicHost
     connection.get(path) do |req|
       req.headers['Range'] = "bytes=0-#{MAXIMUM_RANGE_BYTES}"
     end
+  end
+
+  def self.csv_preview_from(response)
+    csv_preview = nil
+    new(response) do |file|
+      csv_preview = CsvPreview.new(file.path)
+    end
+    csv_preview
   end
 
   def initialize(response)
