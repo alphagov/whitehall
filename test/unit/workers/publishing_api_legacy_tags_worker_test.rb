@@ -4,7 +4,7 @@ class PublishingApiLegacyTagsWorkerTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApiV2
 
   setup do
-    @edition = create :publication
+    @model = create :publication
     @taxon_uuid = SecureRandom.uuid
     @policy_area_uuid = SecureRandom.uuid
     @policy_uuid = SecureRandom.uuid
@@ -25,31 +25,31 @@ class PublishingApiLegacyTagsWorkerTest < ActiveSupport::TestCase
     })
   end
 
-  test "patches legacy taxon links for editions" do
-    request = stub_publishing_api_patch_links(@edition.content_id, links: @patch_links)
-    PublishingApiLegacyTagsWorker.new.perform(@edition.id, [@taxon_uuid])
+  test "patches legacy taxon links for models" do
+    request = stub_publishing_api_patch_links(@model.content_id, links: @patch_links)
+    PublishingApiLegacyTagsWorker.new.perform(@model.id, [@taxon_uuid])
     assert_requested request
   end
 
   test "only patches legacy taxons if supported" do
-    @edition = create :edition
-    request = stub_publishing_api_patch_links(@edition.content_id, links: @patch_links)
-    PublishingApiLegacyTagsWorker.new.perform(@edition.id, [@taxon_uuid])
+    @model = create :edition
+    request = stub_publishing_api_patch_links(@model.content_id, links: @patch_links)
+    PublishingApiLegacyTagsWorker.new.perform(@model.id, [@taxon_uuid])
     assert_not_requested request
   end
 
   test "saves legacy taxons links in the database" do
-    PublishingApiLegacyTagsWorker.new.perform(@edition.id, [@taxon_uuid])
-    assert_equal([@policy_uuid], @edition.policy_content_ids)
-    assert_equal([@policy_area_uuid], @edition.topics.map(&:content_id))
-    assert_equal([@topic_uuid], @edition.specialist_sector_tags)
+    PublishingApiLegacyTagsWorker.new.perform(@model.id, [@taxon_uuid])
+    assert_equal([@policy_uuid], @model.policy_content_ids)
+    assert_equal([@policy_area_uuid], @model.topics.map(&:content_id))
+    assert_equal([@topic_uuid], @model.specialist_sector_tags)
   end
 
-  test "resets existing legacy taxons for editions" do
+  test "resets existing legacy taxons for models" do
     publishing_api_has_links_for_content_ids([], {})
     patch_links = { "policy_areas" => [], "topics" => [], "policies" => [] }
-    request = stub_publishing_api_patch_links(@edition.content_id, links: patch_links)
-    PublishingApiLegacyTagsWorker.new.perform(@edition.id, [])
+    request = stub_publishing_api_patch_links(@model.content_id, links: patch_links)
+    PublishingApiLegacyTagsWorker.new.perform(@model.id, [])
     assert_requested request
   end
 
@@ -65,8 +65,8 @@ class PublishingApiLegacyTagsWorkerTest < ActiveSupport::TestCase
     })
 
     publishing_api_has_links({ "content_id" => @policy_uuid, "links" => policy_links })
-    request = stub_publishing_api_patch_links(@edition.content_id, links: patch_links)
-    PublishingApiLegacyTagsWorker.new.perform(@edition.id, [@taxon_uuid])
+    request = stub_publishing_api_patch_links(@model.content_id, links: patch_links)
+    PublishingApiLegacyTagsWorker.new.perform(@model.id, [@taxon_uuid])
     assert_requested request
   end
 
@@ -85,8 +85,8 @@ class PublishingApiLegacyTagsWorkerTest < ActiveSupport::TestCase
       @taxon_uuid => { links: {} }
     })
 
-    request = stub_publishing_api_patch_links(@edition.content_id, links: @patch_links)
-    PublishingApiLegacyTagsWorker.new.perform(@edition.id, [@taxon_uuid])
+    request = stub_publishing_api_patch_links(@model.content_id, links: @patch_links)
+    PublishingApiLegacyTagsWorker.new.perform(@model.id, [@taxon_uuid])
     assert_requested request
   end
 

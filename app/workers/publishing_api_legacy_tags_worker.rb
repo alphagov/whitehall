@@ -1,4 +1,5 @@
 class PublishingApiLegacyTagsWorker
+  include Sidekiq::Worker
   API = Services.publishing_api
 
   def perform(edition_id, taxon_ids)
