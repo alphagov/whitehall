@@ -36,12 +36,11 @@ private
     @visible_edition ||= attachment_data.visible_edition_for(current_user)
   end
 
-  def incoming_upload_exists?(path)
-    path = path.sub(Whitehall.clean_uploads_root, Whitehall.incoming_uploads_root)
-    File.exist?(path)
+  def incoming_upload_exists?(*)
+    (@csv_response.status == 302) && (@csv_response.headers['Location'] == placeholder_url)
   end
 
-  def upload_exists?(path)
-    File.exist?(path) && file_is_clean?(path)
+  def upload_exists?(*)
+    @csv_response.status == 206
   end
 end

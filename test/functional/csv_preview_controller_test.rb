@@ -12,6 +12,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   setup do
     @file = File.open(fixture_path.join('sample.csv'))
     @attachment_data = create(:attachment_data, file: file)
+    FileUtils.rm(@attachment_data.file.path)
 
     @params = {
       id: attachment_data,
@@ -470,15 +471,6 @@ private
     file_state = attributes.fetch(:file_state, :clean)
     attributes.delete(:file_state)
 
-    case file_state
-    when :clean
-      VirusScanHelpers.simulate_virus_scan(attachment_data.file, include_versions: true)
-    when :infected
-      VirusScanHelpers.simulate_virus_scan_infected(attachment_data.file)
-    when :missing
-      VirusScanHelpers.erase_test_files
-    end
-
     current_user = attributes.fetch(:current_user, build(:user))
     controller.stubs(:current_user).returns(current_user)
     attributes.delete(:current_user)
@@ -497,6 +489,17 @@ private
 
     csv_preview = attributes.fetch(:csv_preview, CsvPreview.new(file))
     csv_response = stub('csv-response')
+
+    case file_state
+    when :clean
+      csv_response.stubs(:status).returns(206)
+    when :infected, :missing
+      csv_response.stubs(:status).returns(404)
+    when :unscanned
+      csv_response.stubs(:status).returns(302)
+      csv_response.stubs(:headers).returns('Location' => placeholder_url)
+    end
+
     CsvFileFromPublicHost.stubs(:csv_response)
       .with(attachment_data.file.asset_manager_path)
       .returns(csv_response)
