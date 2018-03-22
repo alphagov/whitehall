@@ -5,11 +5,6 @@ class CsvFileFromPublicHost
 
   MAXIMUM_RANGE_BYTES = '300000'.freeze
 
-  def self.csv_preview(path)
-    response = csv_response(path)
-    csv_preview_from(response)
-  end
-
   def self.csv_response(path)
     connection = Faraday.new(url: Whitehall.public_root)
 

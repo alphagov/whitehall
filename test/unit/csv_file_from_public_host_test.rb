@@ -66,62 +66,52 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
     end
   end
 
-  test '.csv_preview builds and returns a CsvPreview using response body' do
+  test '.csv_preview_from builds and returns a CsvPreview using response body' do
     response = stub('response')
-    CsvFileFromPublicHost.stubs(:csv_response).with('some-path')
-      .returns(response)
     file = stub('file', path: 'some-path')
     CsvFileFromPublicHost.stubs(:new).with(response).yields(file)
     csv_preview = stub('csv-preview')
     CsvPreview.stubs(:new).with('some-path').returns(csv_preview)
 
-    assert_equal csv_preview, CsvFileFromPublicHost.csv_preview('some-path')
+    assert_equal csv_preview, CsvFileFromPublicHost.csv_preview_from(response)
   end
 
-  test '.csv_preview returns nil if CsvPreview::FileEncodingError is raised' do
+  test '.csv_preview_from returns nil if CsvPreview::FileEncodingError is raised' do
     response = stub('response')
-    CsvFileFromPublicHost.stubs(:csv_response).with('some-path')
-      .returns(response)
     file = stub('file', path: 'some-path')
     CsvFileFromPublicHost.stubs(:new).with(response).yields(file)
     CsvPreview.stubs(:new).with('some-path').raises(CsvPreview::FileEncodingError)
 
-    assert_nil CsvFileFromPublicHost.csv_preview('some-path')
+    assert_nil CsvFileFromPublicHost.csv_preview_from(response)
   end
 
-  test '.csv_preview returns nil if CSV::MalformedCSVError is raised' do
+  test '.csv_preview_from returns nil if CSV::MalformedCSVError is raised' do
     response = stub('response')
-    CsvFileFromPublicHost.stubs(:csv_response).with('some-path')
-      .returns(response)
     file = stub('file', path: 'some-path')
     CsvFileFromPublicHost.stubs(:new).with(response).yields(file)
     CsvPreview.stubs(:new).with('some-path').raises(CSV::MalformedCSVError)
 
-    assert_nil CsvFileFromPublicHost.csv_preview('some-path')
+    assert_nil CsvFileFromPublicHost.csv_preview_from(response)
   end
 
-  test '.csv_preview returns nil if CsvFileFromPublicHost::ConnectionError is raised' do
+  test '.csv_preview_from returns nil if CsvFileFromPublicHost::ConnectionError is raised' do
     response = stub('response')
-    CsvFileFromPublicHost.stubs(:csv_response).with('some-path')
-      .returns(response)
     CsvFileFromPublicHost.stubs(:new).with(response)
       .raises(CsvFileFromPublicHost::ConnectionError)
     csv_preview = stub('csv-preview')
     CsvPreview.stubs(:new).with('some-path').returns(csv_preview)
 
-    assert_nil CsvFileFromPublicHost.csv_preview('some-path')
+    assert_nil CsvFileFromPublicHost.csv_preview_from(response)
   end
 
-  test '.csv_preview returns nil if CsvFileFromPublicHost::FileEncodingError is raised' do
+  test '.csv_preview_from returns nil if CsvFileFromPublicHost::FileEncodingError is raised' do
     response = stub('response')
-    CsvFileFromPublicHost.stubs(:csv_response).with('some-path')
-      .returns(response)
     CsvFileFromPublicHost.stubs(:new).with(response)
       .raises(CsvFileFromPublicHost::FileEncodingError)
     csv_preview = stub('csv-preview')
     CsvPreview.stubs(:new).with('some-path').returns(csv_preview)
 
-    assert_nil CsvFileFromPublicHost.csv_preview('some-path')
+    assert_nil CsvFileFromPublicHost.csv_preview_from(response)
   end
 
   test '#csv_response uses basic authentication if set in the environment' do
