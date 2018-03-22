@@ -376,6 +376,15 @@ class CsvPreviewControllerTest < ActionController::TestCase
     assert_template 'show'
   end
 
+  test 'renders template even if CsvFileFromPublicHost::FileEncodingError is raised' do
+    setup_stubs
+    CsvFileFromPublicHost.stubs(:new).raises(CsvFileFromPublicHost::FileEncodingError)
+
+    get :show, params: params
+
+    assert_template 'show'
+  end
+
   test 'responds with 406 Not Acceptable if format is unknown' do
     setup_stubs
 
