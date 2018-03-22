@@ -52,7 +52,7 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
     end
   end
 
-  test '.new yields a temporary file that contains the contents of the request body' do
+  test '.new yields a temporary file that contains the contents of the response body' do
     stub_csv_request(body: 'csv,file')
 
     CsvFileFromPublicHost.new('some-path') do |file|
@@ -60,7 +60,7 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
     end
   end
 
-  test '.new raises an exception if the request status is anything other than 206' do
+  test '.new raises an exception if the response status is anything other than 206' do
     [404, 502, 503].each do |status|
       stub_csv_request(status: status)
       assert_raises(CsvFileFromPublicHost::ConnectionError) { CsvFileFromPublicHost.new('some-path') }
