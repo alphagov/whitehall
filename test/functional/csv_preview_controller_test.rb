@@ -384,6 +384,14 @@ class CsvPreviewControllerTest < ActionController::TestCase
     assert_response :not_acceptable
   end
 
+  test 'responds with 406 Not Acceptable for XHR request if format is unknown' do
+    setup_stubs
+
+    get :show, params: params.merge(format: 'pdf'), xhr: true
+
+    assert_response :not_acceptable
+  end
+
   test 'assigns edition for template' do
     setup_stubs
 
