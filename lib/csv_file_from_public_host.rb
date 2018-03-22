@@ -16,9 +16,7 @@ class CsvFileFromPublicHost
   end
 
   def initialize(path)
-    @path = path
-
-    response = connection.get(@path) do |req|
+    response = connection.get(path) do |req|
       req.headers['Range'] = "bytes=0-#{MAXIMUM_RANGE_BYTES}"
     end
 
@@ -29,7 +27,7 @@ class CsvFileFromPublicHost
       body
     end
 
-    temp_fn = CGI.escape(@path).truncate(50)
+    temp_fn = CGI.escape(path).truncate(50)
     temp_dir = File.join(Rails.root, 'tmp')
 
     Tempfile.create(temp_fn, temp_dir, encoding: csv_file.encoding) do |tmp_file|
