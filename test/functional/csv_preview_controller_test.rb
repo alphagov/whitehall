@@ -7,6 +7,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
   attr_reader :organisation_2
   attr_reader :edition
   attr_reader :attachment
+  attr_reader :csv_preview
 
   setup do
     file = File.open(fixture_path.join('sample.csv'))
@@ -22,6 +23,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
     @organisation_2 = create(:organisation)
     @edition = create(:publication, organisations: [organisation_1, organisation_2])
     @attachment = build(:file_attachment)
+    @csv_preview = CsvPreview.new(file)
 
     controller.stubs(:attachment_data).returns(attachment_data)
   end
@@ -351,7 +353,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
 
   test 'renders template even if CsvPreview::FileEncodingError is raised' do
     setup_stubs
-    CsvPreview.stubs(:new).raises(CsvPreview::FileEncodingError)
+    CsvFileFromPublicHost.stubs(:csv_preview).raises(CsvPreview::FileEncodingError)
 
     get :show, params: params
 
@@ -360,7 +362,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
 
   test 'renders template even if CSV::MalformedCSVError is raised' do
     setup_stubs
-    CsvPreview.stubs(:new).raises(CSV::MalformedCSVError)
+    CsvFileFromPublicHost.stubs(:csv_preview).raises(CSV::MalformedCSVError)
 
     get :show, params: params
 
@@ -369,7 +371,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
 
   test 'renders template even if CsvFileFromPublicHost::ConnectionError is raised' do
     setup_stubs
-    CsvFileFromPublicHost.stubs(:new).raises(CsvFileFromPublicHost::ConnectionError)
+    CsvFileFromPublicHost.stubs(:csv_preview).raises(CsvFileFromPublicHost::ConnectionError)
 
     get :show, params: params
 
@@ -378,7 +380,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
 
   test 'renders template even if CsvFileFromPublicHost::FileEncodingError is raised' do
     setup_stubs
-    CsvFileFromPublicHost.stubs(:new).raises(CsvFileFromPublicHost::FileEncodingError)
+    CsvFileFromPublicHost.stubs(:csv_preview).raises(CsvFileFromPublicHost::FileEncodingError)
 
     get :show, params: params
 
@@ -464,7 +466,7 @@ class CsvPreviewControllerTest < ActionController::TestCase
 
   view_test 'renders error message if CSV::MalformedCSVError is raised' do
     setup_stubs
-    CsvPreview.stubs(:new).raises(CSV::MalformedCSVError)
+    CsvFileFromPublicHost.stubs(:csv_preview).raises(CSV::MalformedCSVError)
 
     get :show, params: params
 
@@ -518,8 +520,8 @@ private
   end
 
   def stub_csv_file_from_public_host
-    CsvFileFromPublicHost.stubs(:new)
+    CsvFileFromPublicHost.stubs(:csv_preview)
       .with(attachment_data.file.asset_manager_path)
-      .yields(stub(path: attachment_data.clean_path))
+      .returns(csv_preview)
   end
 end
