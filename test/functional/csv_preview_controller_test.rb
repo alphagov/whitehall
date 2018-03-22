@@ -69,6 +69,16 @@ class CsvPreviewControllerTest < ActionController::TestCase
     assert_redirected_to unpublished_edition.unpublishing.document_path
   end
 
+  test 'redirects to unpublished edition if attachment data is unpublished & not a CSV' do
+    unpublished_edition = create(:unpublished_edition)
+    setup_stubs(csv?: false, unpublished?: true, unpublished_edition: unpublished_edition)
+
+    get :show, params: params
+
+    assert_response :found
+    assert_redirected_to unpublished_edition.unpublishing.document_path
+  end
+
   test 'redirects to unpublished edition if attachment data is unpublished, draft & not accessible' do
     unpublished_edition = create(:unpublished_edition)
     setup_stubs(draft?: true, accessible_to?: false, unpublished?: true, unpublished_edition: unpublished_edition)
@@ -132,6 +142,16 @@ class CsvPreviewControllerTest < ActionController::TestCase
     assert_redirected_to replacement.url
   end
 
+  test 'permanently redirects to replacement if attachment data is replaced & not CSV' do
+    replacement = create(:attachment_data)
+    setup_stubs(csv?: false, replaced?: true, replaced_by: replacement)
+
+    get :show, params: params
+
+    assert_response :moved_permanently
+    assert_redirected_to replacement.url
+  end
+
   test 'permanently redirects to replacement if attachment data is replaced, draft & not accessible' do
     replacement = create(:attachment_data)
     setup_stubs(draft?: true, accessible_to?: false, replaced?: true, replaced_by: replacement)
@@ -183,6 +203,15 @@ class CsvPreviewControllerTest < ActionController::TestCase
 
   test 'redirects to placeholder page if file is unscanned non-image even if deleted' do
     setup_stubs(file_state: :unscanned, deleted?: true)
+
+    get :show, params: params
+
+    assert_response :found
+    assert_redirected_to placeholder_url
+  end
+
+  test 'redirects to placeholder page if file is unscanned non-image even if not CSV' do
+    setup_stubs(file_state: :unscanned, csv?: false)
 
     get :show, params: params
 
