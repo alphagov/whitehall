@@ -11,7 +11,7 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
       .to_return(status: status, body: body)
   end
 
-  test '#new yields a temporary file' do
+  test '.new yields a temporary file' do
     stub_csv_request
 
     CsvFileFromPublicHost.new('some-path') do |file|
@@ -28,7 +28,7 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
     end
   end
 
-  test '#new handles utf-8 encoding' do
+  test '.new handles utf-8 encoding' do
     stub_csv_request(body: encoding_fixture('utf-8'))
 
     CsvFileFromPublicHost.new('some-path') do |file|
@@ -36,7 +36,7 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
     end
   end
 
-  test '#new handles iso-8859-1 encoded files' do
+  test '.new handles iso-8859-1 encoded files' do
     stub_csv_request(body: encoding_fixture('iso-8859-1'))
 
     CsvFileFromPublicHost.new('some-path') do |file|
@@ -44,7 +44,7 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
     end
   end
 
-  test '#new handles windows-1252 encoded files' do
+  test '.new handles windows-1252 encoded files' do
     stub_csv_request(body: encoding_fixture('windows-1252'))
 
     CsvFileFromPublicHost.new('some-path') do |file|
@@ -52,7 +52,7 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
     end
   end
 
-  test '#new yields a temporary file that contains the contents of the request body' do
+  test '.new yields a temporary file that contains the contents of the request body' do
     stub_csv_request(body: 'csv,file')
 
     CsvFileFromPublicHost.new('some-path') do |file|
@@ -60,7 +60,7 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
     end
   end
 
-  test '#new raises an exception if the request status is anything other than 206' do
+  test '.new raises an exception if the request status is anything other than 206' do
     [404, 502, 503].each do |status|
       stub_csv_request(status: status)
       assert_raises(CsvFileFromPublicHost::ConnectionError) { CsvFileFromPublicHost.new('some-path') }
