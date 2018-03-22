@@ -1,12 +1,12 @@
 class EditionTaxonLinkPatcher
-  def call(content_id:, previous_version:, selected_taxons:, invisible_taxons:)
-    Services
-      .publishing_api
-      .patch_links(
-        content_id,
-        links: { taxons: most_specific_taxons(selected_taxons) + invisible_taxons },
-        previous_version: previous_version
-      )
+  def call(model:, previous_version:, selected_taxons:, invisible_taxons:)
+    taxons = most_specific_taxons(selected_taxons) + invisible_taxons
+
+    Services.publishing_api.patch_links(
+      model.content_id, links: { taxons: taxons }, previous_version: previous_version
+    )
+
+    PublishingApiLegacyTagsWorker.perform_async(model.id, taxons)
   end
 
 private
