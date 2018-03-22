@@ -34,4 +34,13 @@ private
   def visible_edition
     @visible_edition ||= attachment_data.visible_edition_for(current_user)
   end
+
+  def incoming_upload_exists?(path)
+    path = path.sub(Whitehall.clean_uploads_root, Whitehall.incoming_uploads_root)
+    File.exist?(path)
+  end
+
+  def upload_exists?(path)
+    File.exist?(path) && file_is_clean?(path)
+  end
 end
