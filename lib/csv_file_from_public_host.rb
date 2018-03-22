@@ -21,6 +21,10 @@ class CsvFileFromPublicHost
     temp_fn = CGI.escape(@path).truncate(50)
     temp_dir = File.join(Rails.root, 'tmp')
 
+    response = connection.get(@path) do |req|
+      req.headers['Range'] = "bytes=0-#{MAXIMUM_RANGE_BYTES}"
+    end
+
     csv_file = begin
       raise ConnectionError unless response.status == 206
       body = response.body
@@ -41,12 +45,6 @@ private
     conn = Faraday.new(url: Whitehall.public_root)
     conn.basic_auth(basic_auth_user, basic_auth_password) if ENV.has_key?("BASIC_AUTH_CREDENTIALS")
     conn
-  end
-
-  def response
-    connection.get(@path) do |req|
-      req.headers['Range'] = "bytes=0-#{MAXIMUM_RANGE_BYTES}"
-    end
   end
 
   def basic_auth_user
