@@ -14,7 +14,8 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
   test '.new yields a temporary file' do
     stub_csv_request
 
-    CsvFileFromPublicHost.new('some-path') do |file|
+    response = CsvFileFromPublicHost.csv_response('some-path')
+    CsvFileFromPublicHost.new(response) do |file|
       assert File.exist?(file.path)
     end
   end
@@ -22,7 +23,8 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
   test '.new handles utf-8 encoding' do
     stub_csv_request(body: encoding_fixture('utf-8'))
 
-    CsvFileFromPublicHost.new('some-path') do |file|
+    response = CsvFileFromPublicHost.csv_response('some-path')
+    CsvFileFromPublicHost.new(response) do |file|
       assert File.exist?(file.path)
     end
   end
@@ -30,7 +32,8 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
   test '.new handles iso-8859-1 encoded files' do
     stub_csv_request(body: encoding_fixture('iso-8859-1'))
 
-    CsvFileFromPublicHost.new('some-path') do |file|
+    response = CsvFileFromPublicHost.csv_response('some-path')
+    CsvFileFromPublicHost.new(response) do |file|
       assert File.exist?(file.path)
     end
   end
@@ -38,7 +41,8 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
   test '.new handles windows-1252 encoded files' do
     stub_csv_request(body: encoding_fixture('windows-1252'))
 
-    CsvFileFromPublicHost.new('some-path') do |file|
+    response = CsvFileFromPublicHost.csv_response('some-path')
+    CsvFileFromPublicHost.new(response) do |file|
       assert File.exist?(file.path)
     end
   end
@@ -46,7 +50,8 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
   test '.new yields a temporary file that contains the contents of the response body' do
     stub_csv_request(body: 'csv,file')
 
-    CsvFileFromPublicHost.new('some-path') do |file|
+    response = CsvFileFromPublicHost.csv_response('some-path')
+    CsvFileFromPublicHost.new(response) do |file|
       assert_equal 'csv,file', file.read
     end
   end
@@ -54,13 +59,19 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
   test '.new raises an exception if the response status is anything other than 206' do
     [404, 502, 503].each do |status|
       stub_csv_request(status: status)
-      assert_raises(CsvFileFromPublicHost::ConnectionError) { CsvFileFromPublicHost.new('some-path') }
+      assert_raises(CsvFileFromPublicHost::ConnectionError) do
+        response = CsvFileFromPublicHost.csv_response('some-path')
+        CsvFileFromPublicHost.new(response)
+      end
     end
   end
 
   test '.csv_preview builds and returns a CsvPreview using response body' do
+    response = stub('response')
+    CsvFileFromPublicHost.stubs(:csv_response).with('some-path')
+      .returns(response)
     file = stub('file', path: 'some-path')
-    CsvFileFromPublicHost.stubs(:new).with('some-path').yields(file)
+    CsvFileFromPublicHost.stubs(:new).with(response).yields(file)
     csv_preview = stub('csv-preview')
     CsvPreview.stubs(:new).with('some-path').returns(csv_preview)
 
@@ -68,23 +79,32 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
   end
 
   test '.csv_preview returns nil if CsvPreview::FileEncodingError is raised' do
+    response = stub('response')
+    CsvFileFromPublicHost.stubs(:csv_response).with('some-path')
+      .returns(response)
     file = stub('file', path: 'some-path')
-    CsvFileFromPublicHost.stubs(:new).with('some-path').yields(file)
+    CsvFileFromPublicHost.stubs(:new).with(response).yields(file)
     CsvPreview.stubs(:new).with('some-path').raises(CsvPreview::FileEncodingError)
 
     assert_nil CsvFileFromPublicHost.csv_preview('some-path')
   end
 
   test '.csv_preview returns nil if CSV::MalformedCSVError is raised' do
+    response = stub('response')
+    CsvFileFromPublicHost.stubs(:csv_response).with('some-path')
+      .returns(response)
     file = stub('file', path: 'some-path')
-    CsvFileFromPublicHost.stubs(:new).with('some-path').yields(file)
+    CsvFileFromPublicHost.stubs(:new).with(response).yields(file)
     CsvPreview.stubs(:new).with('some-path').raises(CSV::MalformedCSVError)
 
     assert_nil CsvFileFromPublicHost.csv_preview('some-path')
   end
 
   test '.csv_preview returns nil if CsvFileFromPublicHost::ConnectionError is raised' do
-    CsvFileFromPublicHost.stubs(:new).with('some-path')
+    response = stub('response')
+    CsvFileFromPublicHost.stubs(:csv_response).with('some-path')
+      .returns(response)
+    CsvFileFromPublicHost.stubs(:new).with(response)
       .raises(CsvFileFromPublicHost::ConnectionError)
     csv_preview = stub('csv-preview')
     CsvPreview.stubs(:new).with('some-path').returns(csv_preview)
@@ -93,7 +113,10 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
   end
 
   test '.csv_preview returns nil if CsvFileFromPublicHost::FileEncodingError is raised' do
-    CsvFileFromPublicHost.stubs(:new).with('some-path')
+    response = stub('response')
+    CsvFileFromPublicHost.stubs(:csv_response).with('some-path')
+      .returns(response)
+    CsvFileFromPublicHost.stubs(:new).with(response)
       .raises(CsvFileFromPublicHost::FileEncodingError)
     csv_preview = stub('csv-preview')
     CsvPreview.stubs(:new).with('some-path').returns(csv_preview)
@@ -101,7 +124,7 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
     assert_nil CsvFileFromPublicHost.csv_preview('some-path')
   end
 
-  test 'uses basic authentication if set in the environment' do
+  test '#csv_response uses basic authentication if set in the environment' do
     ENV.stubs(:[]).with('BASIC_AUTH_CREDENTIALS').returns('user:password')
     ENV.stubs(:has_key?).with('BASIC_AUTH_CREDENTIALS').returns(true)
     mock_response = mock('response')
@@ -112,6 +135,6 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
 
     mock_connection.expects(:basic_auth).at_least_once.with('user', 'password')
 
-    CsvFileFromPublicHost.new('some-path') {}
+    CsvFileFromPublicHost.csv_response('some-path')
   end
 end

@@ -7,7 +7,8 @@ class CsvFileFromPublicHost
 
   def self.csv_preview(path)
     csv_preview = nil
-    new(path) do |file|
+    response = csv_response(path)
+    new(response) do |file|
       csv_preview = CsvPreview.new(file.path)
     end
     csv_preview
@@ -15,7 +16,7 @@ class CsvFileFromPublicHost
     nil
   end
 
-  def initialize(path)
+  def self.csv_response(path)
     connection = Faraday.new(url: Whitehall.public_root)
 
     if ENV.has_key?("BASIC_AUTH_CREDENTIALS")
@@ -25,10 +26,12 @@ class CsvFileFromPublicHost
       connection.basic_auth(basic_auth_user, basic_auth_password)
     end
 
-    response = connection.get(path) do |req|
+    connection.get(path) do |req|
       req.headers['Range'] = "bytes=0-#{MAXIMUM_RANGE_BYTES}"
     end
+  end
 
+  def initialize(response)
     csv_file = begin
       raise ConnectionError unless response.status == 206
       body = response.body
