@@ -21,6 +21,13 @@ class CsvFileFromPublicHost
     temp_fn = CGI.escape(@path).truncate(50)
     temp_dir = File.join(Rails.root, 'tmp')
 
+    csv_file = begin
+      raise ConnectionError unless response.status == 206
+      body = response.body
+      set_encoding!(body)
+      body
+    end
+
     Tempfile.create(temp_fn, temp_dir, encoding: csv_file.encoding) do |tmp_file|
       tmp_file.write(csv_file)
       tmp_file.rewind
@@ -39,15 +46,6 @@ private
   def response
     connection.get(@path) do |req|
       req.headers['Range'] = "bytes=0-#{MAXIMUM_RANGE_BYTES}"
-    end
-  end
-
-  def csv_file
-    @csv_file ||= begin
-      raise ConnectionError unless response.status == 206
-      body = response.body
-      set_encoding!(body)
-      body
     end
   end
 
