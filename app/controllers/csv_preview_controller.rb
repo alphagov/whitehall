@@ -13,7 +13,5 @@ class CsvPreviewController < BaseAttachmentsController
         end
       end
     end
-  rescue ActionController::UnknownFormat
-    render status: :not_acceptable, plain: "Request format #{request.format} not handled."
   end
 end

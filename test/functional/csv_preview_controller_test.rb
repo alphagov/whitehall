@@ -350,20 +350,20 @@ class CsvPreviewControllerTest < ActionController::TestCase
     assert_template 'show', layout: 'html_attachments'
   end
 
-  test 'responds with 406 Not Acceptable if format is unknown' do
+  test 'raises ActionController::UnknownFormat if format is unknown' do
     setup_stubs
 
-    get :show, params: params.merge(format: 'pdf')
-
-    assert_response :not_acceptable
+    assert_raises(ActionController::UnknownFormat) do
+      get :show, params: params.merge(format: 'pdf')
+    end
   end
 
-  test 'responds with 406 Not Acceptable for XHR request if format is unknown' do
+  test 'raises ActionController::UnknownFormat for XHR request if format is unknown' do
     setup_stubs
 
-    get :show, params: params.merge(format: 'pdf'), xhr: true
-
-    assert_response :not_acceptable
+    assert_raises(ActionController::UnknownFormat) do
+      get :show, params: params.merge(format: 'pdf'), xhr: true
+    end
   end
 
   test 'assigns edition for template' do
