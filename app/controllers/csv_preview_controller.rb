@@ -6,10 +6,7 @@ class CsvPreviewController < BaseAttachmentsController
           expires_headers
           @edition = attachment_data.visible_edition_for(current_user)
           @attachment = attachment_data.visible_attachment_for(current_user)
-          begin
-            @csv_preview = CsvFileFromPublicHost.csv_preview(attachment_data.file.asset_manager_path)
-          rescue CsvPreview::FileEncodingError, CSV::MalformedCSVError, CsvFileFromPublicHost::ConnectionError, CsvFileFromPublicHost::FileEncodingError
-          end
+          @csv_preview = CsvFileFromPublicHost.csv_preview(attachment_data.file.asset_manager_path)
           render layout: 'html_attachments'
         else
           fail

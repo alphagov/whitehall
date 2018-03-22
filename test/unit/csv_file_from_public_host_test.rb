@@ -76,6 +76,40 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
     assert_equal csv_preview, CsvFileFromPublicHost.csv_preview('some-path')
   end
 
+  test '.csv_preview returns nil if CsvPreview::FileEncodingError is raised' do
+    file = stub('file', path: 'some-path')
+    CsvFileFromPublicHost.stubs(:new).with('some-path').yields(file)
+    CsvPreview.stubs(:new).with('some-path').raises(CsvPreview::FileEncodingError)
+
+    assert_nil CsvFileFromPublicHost.csv_preview('some-path')
+  end
+
+  test '.csv_preview returns nil if CSV::MalformedCSVError is raised' do
+    file = stub('file', path: 'some-path')
+    CsvFileFromPublicHost.stubs(:new).with('some-path').yields(file)
+    CsvPreview.stubs(:new).with('some-path').raises(CSV::MalformedCSVError)
+
+    assert_nil CsvFileFromPublicHost.csv_preview('some-path')
+  end
+
+  test '.csv_preview returns nil if CsvFileFromPublicHost::ConnectionError is raised' do
+    CsvFileFromPublicHost.stubs(:new).with('some-path')
+      .raises(CsvFileFromPublicHost::ConnectionError)
+    csv_preview = stub('csv-preview')
+    CsvPreview.stubs(:new).with('some-path').returns(csv_preview)
+
+    assert_nil CsvFileFromPublicHost.csv_preview('some-path')
+  end
+
+  test '.csv_preview returns nil if CsvFileFromPublicHost::FileEncodingError is raised' do
+    CsvFileFromPublicHost.stubs(:new).with('some-path')
+      .raises(CsvFileFromPublicHost::FileEncodingError)
+    csv_preview = stub('csv-preview')
+    CsvPreview.stubs(:new).with('some-path').returns(csv_preview)
+
+    assert_nil CsvFileFromPublicHost.csv_preview('some-path')
+  end
+
   test 'uses basic authentication if set in the environment' do
     ENV.stubs(:[]).with('BASIC_AUTH_CREDENTIALS').returns('user:password')
     ENV.stubs(:has_key?).with('BASIC_AUTH_CREDENTIALS').returns(true)

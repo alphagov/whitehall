@@ -11,6 +11,8 @@ class CsvFileFromPublicHost
       csv_preview = CsvPreview.new(file.path)
     end
     csv_preview
+  rescue CsvPreview::FileEncodingError, CSV::MalformedCSVError, CsvFileFromPublicHost::ConnectionError, CsvFileFromPublicHost::FileEncodingError
+    nil
   end
 
   def initialize(path)
