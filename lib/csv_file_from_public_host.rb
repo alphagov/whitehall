@@ -8,8 +8,6 @@ class CsvFileFromPublicHost
   def self.csv_preview(path)
     response = csv_response(path)
     csv_preview_from(response)
-  rescue CsvPreview::FileEncodingError, CSV::MalformedCSVError, CsvFileFromPublicHost::ConnectionError, CsvFileFromPublicHost::FileEncodingError
-    nil
   end
 
   def self.csv_response(path)
@@ -33,6 +31,8 @@ class CsvFileFromPublicHost
       csv_preview = CsvPreview.new(file.path)
     end
     csv_preview
+  rescue CsvPreview::FileEncodingError, CSV::MalformedCSVError, CsvFileFromPublicHost::ConnectionError, CsvFileFromPublicHost::FileEncodingError
+    nil
   end
 
   def initialize(response)
