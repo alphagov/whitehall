@@ -389,7 +389,7 @@ GEM
     rainbow (2.2.2)
       rake
     raindrops (0.19.0)
-    rake (12.3.0)
+    rake (12.3.1)
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
@@ -612,7 +612,7 @@ DEPENDENCIES
   rails-i18n (~> 5.1)
   rails_translation_manager (~> 0.0.2)
   raindrops (= 0.19.0)
-  rake (= 12.3.0)
+  rake (= 12.3.1)
   record_tag_helper (~> 1.0)
   redis-namespace
   responders (~> 2.4)
