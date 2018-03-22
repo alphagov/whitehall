@@ -19,15 +19,6 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
     end
   end
 
-  test '#new handles a very long filename' do
-    filename = 'a-long-filename' * 1000
-    stub_csv_request(path: filename)
-
-    CsvFileFromPublicHost.new(filename) do |file|
-      assert File.exist?(file.path)
-    end
-  end
-
   test '.new handles utf-8 encoding' do
     stub_csv_request(body: encoding_fixture('utf-8'))
 

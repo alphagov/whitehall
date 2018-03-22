@@ -27,7 +27,7 @@ class CsvFileFromPublicHost
       body
     end
 
-    temp_fn = CGI.escape(path).truncate(50)
+    temp_fn = 'csv-file-from-public-host'
     temp_dir = File.join(Rails.root, 'tmp')
 
     Tempfile.create(temp_fn, temp_dir, encoding: csv_file.encoding) do |tmp_file|
