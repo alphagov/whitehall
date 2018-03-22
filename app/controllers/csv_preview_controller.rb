@@ -6,9 +6,7 @@ class CsvPreviewController < BaseAttachmentsController
           expires_headers
           @edition = attachment_data.visible_edition_for(current_user)
           @attachment = attachment_data.visible_attachment_for(current_user)
-          CsvFileFromPublicHost.new(attachment_data.file.asset_manager_path) do |file|
-            @csv_preview = CsvPreview.new(file.path)
-          end
+          @csv_preview = CsvFileFromPublicHost.csv_preview(attachment_data.file.asset_manager_path)
           render layout: 'html_attachments'
         else
           fail

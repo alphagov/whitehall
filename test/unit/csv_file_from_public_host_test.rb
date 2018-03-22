@@ -67,6 +67,15 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
     end
   end
 
+  test '.csv_preview builds and returns a CsvPreview using response body' do
+    file = stub('file', path: 'some-path')
+    CsvFileFromPublicHost.stubs(:new).with('some-path').yields(file)
+    csv_preview = stub('csv-preview')
+    CsvPreview.stubs(:new).with('some-path').returns(csv_preview)
+
+    assert_equal csv_preview, CsvFileFromPublicHost.csv_preview('some-path')
+  end
+
   test 'uses basic authentication if set in the environment' do
     ENV.stubs(:[]).with('BASIC_AUTH_CREDENTIALS').returns('user:password')
     ENV.stubs(:has_key?).with('BASIC_AUTH_CREDENTIALS').returns(true)

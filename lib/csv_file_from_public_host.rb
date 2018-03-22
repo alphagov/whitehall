@@ -5,6 +5,14 @@ class CsvFileFromPublicHost
 
   MAXIMUM_RANGE_BYTES = '300000'.freeze
 
+  def self.csv_preview(path)
+    csv_preview = nil
+    new(path) do |file|
+      csv_preview = CsvPreview.new(file.path)
+    end
+    csv_preview
+  end
+
   def initialize(path)
     @path = path
 
