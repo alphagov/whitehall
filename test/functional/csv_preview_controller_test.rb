@@ -513,8 +513,12 @@ private
   end
 
   def stub_csv_file_from_public_host(csv_preview)
-    CsvFileFromPublicHost.stubs(:csv_preview)
+    csv_response = stub('csv-response')
+    CsvFileFromPublicHost.stubs(:csv_response)
       .with(attachment_data.file.asset_manager_path)
+      .returns(csv_response)
+    CsvFileFromPublicHost.stubs(:csv_preview_from)
+      .with(csv_response)
       .returns(csv_preview)
   end
 end
