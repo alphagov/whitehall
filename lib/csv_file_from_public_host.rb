@@ -18,6 +18,7 @@ class CsvFileFromPublicHost
   def initialize(path)
     @path = path
 
+    temp_fn = CGI.escape(@path).truncate(50)
     Tempfile.create(temp_fn, temp_dir, encoding: csv_file.encoding) do |tmp_file|
       tmp_file.write(csv_file)
       tmp_file.rewind
@@ -50,10 +51,6 @@ private
 
   def temp_dir
     File.join(Rails.root, 'tmp')
-  end
-
-  def temp_fn
-    CGI.escape(@path).truncate(50)
   end
 
   def basic_auth_user
