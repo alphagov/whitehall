@@ -10,22 +10,30 @@ class PublishingApiLegacyTagsWorker
       .values.flat_map { |ls| ls["links"].fetch("legacy_taxons", []) }
 
     edition = Edition.find(edition_id)
-    links = {}
+    links = { policy_areas: [], policies: [], topics: [] }
 
     if edition.respond_to?(:policy_content_ids)
-      links[:policies] = Policy.all.map(&:content_id) & legacy_ids
+      policies = Policy.all.map(&:content_id) & legacy_ids
+      links[:policies] += policies
+
+      edition.policy_content_ids = policies
+
+      parent_policies = edition.policy_content_ids - policies
+      links[:policy_areas] += parent_policies
     end
 
     if edition.respond_to?(:specialist_sector_tags)
       topics = API.get_linkables(document_type: 'topic')
         .to_a.map { |topic| topic["content_id"] } & legacy_ids
 
-      links[:topics] = topics
+      links[:topics] += topics
+      edition.primary_specialist_sector_tag = topics.first
+      edition.secondary_specialist_sector_tags = topics.drop(1)
     end
 
     if edition.respond_to?(:topics)
-      policy_areas = Topic.where(content_id: legacy_ids)
-      links[:policy_areas] = policy_areas.map(&:content_id)
+      edition.topics = Topic.where(content_id: legacy_ids)
+      links[:policy_areas] += edition.topics.map(&:content_id)
     end
 
     API.patch_links(edition.content_id, links: links)
