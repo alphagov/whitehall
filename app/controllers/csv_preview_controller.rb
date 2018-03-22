@@ -2,9 +2,9 @@ class CsvPreviewController < BaseAttachmentsController
   def show
     respond_to do |format|
       format.html do
-        if attachment_data.csv? && attachment_visible? && attachment_data.visible_edition_for(current_user)
+        if attachment_data.csv? && attachment_visible? && visible_edition
           expires_headers
-          @edition = attachment_data.visible_edition_for(current_user)
+          @edition = visible_edition
           @attachment = attachment_data.visible_attachment_for(current_user)
           @csv_preview = CsvFileFromPublicHost.csv_preview(attachment_data.file.asset_manager_path)
           render layout: 'html_attachments'
@@ -29,5 +29,9 @@ private
     else
       render plain: "Not found", status: :not_found
     end
+  end
+
+  def visible_edition
+    @visible_edition ||= attachment_data.visible_edition_for(current_user)
   end
 end
