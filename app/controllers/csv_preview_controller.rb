@@ -2,12 +2,12 @@ class CsvPreviewController < BaseAttachmentsController
   def show
     respond_to do |format|
       format.html do
+        @csv_response = CsvFileFromPublicHost.csv_response(attachment_data.file.asset_manager_path)
         if attachment_data.csv? && attachment_visible? && visible_edition
           expires_headers
           @edition = visible_edition
           @attachment = attachment_data.visible_attachment_for(current_user)
-          csv_response = CsvFileFromPublicHost.csv_response(attachment_data.file.asset_manager_path)
-          @csv_preview = CsvFileFromPublicHost.csv_preview_from(csv_response)
+          @csv_preview = CsvFileFromPublicHost.csv_preview_from(@csv_response)
           render layout: 'html_attachments'
         else
           fail
