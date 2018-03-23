@@ -115,16 +115,10 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
   end
 
   test '#csv_response uses basic authentication if set in the environment' do
-    ENV.stubs(:[]).with('BASIC_AUTH_CREDENTIALS').returns('user:password')
-    ENV.stubs(:has_key?).with('BASIC_AUTH_CREDENTIALS').returns(true)
-    mock_response = mock('response')
-    mock_response.stubs(status: 206, body: '')
-    mock_connection = mock('connection')
-    mock_connection.stubs(get: mock_response)
-    Faraday.stubs(:new).returns(mock_connection)
+    stub_csv_request.with(basic_auth: %w(user password))
+    env = { 'BASIC_AUTH_CREDENTIALS' => 'user:password' }
 
-    mock_connection.expects(:basic_auth).at_least_once.with('user', 'password')
-
-    CsvFileFromPublicHost.csv_response('some-path')
+    response = CsvFileFromPublicHost.csv_response('some-path', env: env)
+    assert_equal 206, response.status
   end
 end

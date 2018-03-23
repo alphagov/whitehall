@@ -5,11 +5,11 @@ class CsvFileFromPublicHost
 
   MAXIMUM_RANGE_BYTES = '300000'.freeze
 
-  def self.csv_response(path)
+  def self.csv_response(path, env: ENV)
     connection = Faraday.new(url: Whitehall.public_root)
 
-    if ENV.has_key?("BASIC_AUTH_CREDENTIALS")
-      basic_auth_credentials = ENV["BASIC_AUTH_CREDENTIALS"].split(":")
+    if env.has_key?("BASIC_AUTH_CREDENTIALS")
+      basic_auth_credentials = env["BASIC_AUTH_CREDENTIALS"].split(":")
       basic_auth_user = basic_auth_credentials[0]
       basic_auth_password = basic_auth_credentials[1]
       connection.basic_auth(basic_auth_user, basic_auth_password)
