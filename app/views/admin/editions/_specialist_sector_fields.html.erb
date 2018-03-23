@@ -1,23 +1,25 @@
-<fieldset class="edition-specialist-sector-fields">
-  <legend>Specialist tagging</legend>
+<% unless edition.can_be_tagged_to_taxonomy? %>
+  <fieldset class="edition-specialist-sector-fields">
+    <legend>Specialist tagging</legend>
 
-  <p>
-    <strong>Do not</strong> use these tags unless your department or agency has a specialist browse category set up.
-    <a href="https://insidegovuk.blog.gov.uk/2014/02/20/new-specialist-sector-option-in-publisher/">Read our blog post</a> for more information.
-  </p>
+    <p>
+      <strong>Do not</strong> use these tags unless your department or agency has a specialist browse category set up.
+      <a href="https://insidegovuk.blog.gov.uk/2014/02/20/new-specialist-sector-option-in-publisher/">Read our blog post</a> for more information.
+    </p>
 
-  <%= form.label :primary_specialist_sector_tag %>
-  <%= form.select :primary_specialist_sector_tag,
-                  specialist_sector_options_for_select,
-                  { include_blank: true },
-                  { class: 'chzn-select form-control',
-                    data: { placeholder: 'Choose a primary specialist sector…' } } %>
+    <%= form.label :primary_specialist_sector_tag %>
+    <%= form.select :primary_specialist_sector_tag,
+                    specialist_sector_options_for_select,
+                    { include_blank: true },
+                    { class: 'chzn-select form-control',
+                      data: { placeholder: 'Choose a primary specialist sector…' } } %>
 
-  <%= form.label :secondary_specialist_sector_tags, 'Additional specialist sectors' %>
-  <%= form.select :secondary_specialist_sector_tags,
-                  specialist_sector_options_for_select,
-                  {},
-                  { multiple: true,
-                    class: 'chzn-select form-control',
-                    data: { placeholder: 'Choose additional specialist sectors…' } } %>
-</fieldset>
+    <%= form.label :secondary_specialist_sector_tags, 'Additional specialist sectors' %>
+    <%= form.select :secondary_specialist_sector_tags,
+                    specialist_sector_options_for_select,
+                    {},
+                    { multiple: true,
+                      class: 'chzn-select form-control',
+                      data: { placeholder: 'Choose additional specialist sectors…' } } %>
+  </fieldset>
+<% end %>

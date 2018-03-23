@@ -12,7 +12,7 @@
   </fieldset>
 
   <fieldset>
-    <%= render 'admin/shared/policy_fields', form: classification_form %>
+    <%= render 'admin/shared/policy_fields', form: classification_form, edition: edition %>
 
     <%= classification_form.label :related_classification_ids, "Related policy areas" %>
     <%= classification_form.select :related_classification_ids, options_from_collection_for_select(Topic.all - [classification_form.object], 'id', 'name', classification_form.object.related_classification_ids), {}, multiple: true, class: 'chzn-select form-control', data: { placeholder: "Choose related policy areas..."} %>
