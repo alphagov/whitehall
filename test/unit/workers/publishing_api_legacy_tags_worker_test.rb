@@ -20,7 +20,7 @@ class PublishingApiLegacyTagsWorkerTest < ActiveSupport::TestCase
     publishing_api_has_expanded_links({ "content_id" => @taxon_uuid, "expanded_links" => {} })
     create :topic, content_id: @policy_area_uuid
 
-    publishing_api_has_links_for_content_ids([@taxon_uuid], {
+    publishing_api_has_links_for_content_ids({
       @taxon_uuid => { links: { legacy_taxons: @legacy_taxons } }
     })
   end
@@ -46,7 +46,7 @@ class PublishingApiLegacyTagsWorkerTest < ActiveSupport::TestCase
   end
 
   test "resets existing legacy taxons for models" do
-    publishing_api_has_links_for_content_ids([], {})
+    publishing_api_has_links_for_content_ids({})
     patch_links = { "policy_areas" => [], "topics" => [], "policies" => [] }
     request = stub_publishing_api_patch_links(@model.content_id, links: patch_links)
     PublishingApiLegacyTagsWorker.new.perform(@model.id, [])
@@ -60,7 +60,7 @@ class PublishingApiLegacyTagsWorkerTest < ActiveSupport::TestCase
     patch_links = { "policy_areas" => [policy_parent_uuid], "policies" => [@policy_uuid],
                     "topics" => [] }
 
-    publishing_api_has_links_for_content_ids([@taxon_uuid], {
+    publishing_api_has_links_for_content_ids({
       @taxon_uuid => { links: { legacy_taxons: [@policy_uuid] } }
     })
 
@@ -80,20 +80,13 @@ class PublishingApiLegacyTagsWorkerTest < ActiveSupport::TestCase
       }
     })
 
-    publishing_api_has_links_for_content_ids([@taxon_uuid, @taxon_parent_uuid], {
-      @taxon_parent_uuid => { links: { legacy_taxons: @legacy_taxons } },
-      @taxon_uuid => { links: {} }
+    publishing_api_has_links_for_content_ids({
+      @taxon_uuid => { links: {} },
+      @taxon_parent_uuid => { links: { legacy_taxons: @legacy_taxons } }
     })
 
     request = stub_publishing_api_patch_links(@model.content_id, links: @patch_links)
     PublishingApiLegacyTagsWorker.new.perform(@model.id, [@taxon_uuid])
     assert_requested request
-  end
-
-  private 
-  
-  def publishing_api_has_links_for_content_ids(content_ids, links)
-    stub_request(:post, GdsApi::TestHelpers::PublishingApiV2::PUBLISHING_API_V2_ENDPOINT + "/links/by-content-id")
-      .with(body: { content_ids: content_ids }).to_return(body: JSON.dump(links))
   end
 end
