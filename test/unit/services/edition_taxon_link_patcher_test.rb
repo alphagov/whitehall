@@ -15,7 +15,7 @@ class EditionTaxonLinkPatcherTest < ActiveSupport::TestCase
     )
 
     EditionTaxonLinkPatcher.new.call(
-      edition: @model,
+      model: @model,
       selected_taxons: [child_taxon_content_id],
       invisible_taxons: [parent_taxon_content_id],
       previous_version: "2",
