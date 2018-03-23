@@ -43,7 +43,7 @@ private
   end
 
   def temp_fn
-    CGI.escape(@path)
+    CGI.escape(@path).truncate(50)
   end
 
   def basic_auth_user
