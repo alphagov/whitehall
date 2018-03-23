@@ -15,7 +15,7 @@ class PublishingApiLegacyTagsWorker
     API.patch_links(edition.content_id, links: links)
   end
 
-  private
+private
 
   def update_topics(links, legacy_ids, edition)
     return unless edition.respond_to?(:specialist_sector_tags)
