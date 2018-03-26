@@ -38,6 +38,7 @@ module ServiceListeners
       handle_corporate_information_pages(event)
       handle_html_attachments(event)
       handle_publications(event)
+      handle_taxon_links(event)
     end
 
   private
@@ -74,6 +75,15 @@ module ServiceListeners
           )
         end
       end
+    end
+
+    def handle_taxon_links(event)
+      return unless event == "update_draft"
+
+      TaxonomyAssociationsTranslationWorker.perform_async(
+        edition.class.name,
+        edition.id
+      )
     end
 
     def api
