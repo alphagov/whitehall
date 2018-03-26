@@ -19,6 +19,8 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
   should_have_summary :fatality_notice
   should_allow_scheduled_publication_of :fatality_notice
   should_allow_access_limiting_of :fatality_notice
+  should_allow_tagging_to_taxonomy_for :fatality_notice
+  should_prevent_legacy_tagging_for :fatality_notice
 
   view_test "show renders the summary" do
     draft_fatality_notice = create(:draft_fatality_notice, summary: "a-simple-summary")

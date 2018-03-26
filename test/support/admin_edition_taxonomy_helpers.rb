@@ -13,7 +13,7 @@ module AdminEditionTaxonomyHelpers
       view_test "when edition is taggable show the taxonomy UI" do
         organisation = create(:organisation, content_id: "ebd15ade-73b2-4eaf-b1c3-43034a42eb37")
         edition = create(edition_type, organisations: [organisation])
-        login_as(create(:user, organisation: organisation))
+        login_as(create(:gds_editor, organisation: organisation))
         edition_has_no_expanded_links(edition.content_id)
         get :show, params: { id: edition }
         assert_select '.taxonomy-topics .btn', "Add topic"
@@ -22,7 +22,7 @@ module AdminEditionTaxonomyHelpers
       view_test "when edition is not tagged to the new taxonomy" do
         organisation = create(:organisation, content_id: "3e5a6924-b369-4eb3-8b06-3c0814701de4")
         edition = create(edition_type, organisations: [organisation])
-        login_as(create(:user, organisation: organisation))
+        login_as(create(:gds_editor, organisation: organisation))
         edition_has_no_expanded_links(edition.content_id)
         get :show, params: { id: edition }
         refute_select '.taxonomy-topics .content'
@@ -32,7 +32,7 @@ module AdminEditionTaxonomyHelpers
       view_test "when edition is tagged to the new taxonomy" do
         organisation = create(:organisation, content_id: "3e5a6924-b369-4eb3-8b06-3c0814701de4")
         edition = create(edition_type, organisations: [organisation])
-        login_as(create(:user, organisation: organisation))
+        login_as(create(:gds_editor, organisation: organisation))
         edition_has_expanded_links(edition.content_id)
         get :show, params: { id: edition }
         refute_select '.taxonomy-topics .no-content'
@@ -45,15 +45,18 @@ module AdminEditionTaxonomyHelpers
       view_test "when edition is not taggable show legacy UI" do
         edition = create(edition_type)
         get :new
-        assert_select '#edition_policy_content_ids'
         assert_select '#edition_topic_ids'
         assert_select '#edition_primary_specialist_sector_tag'
+
+        unless [:fatality_notice, :statistical_data_set].include?(edition_type)
+          assert_select '#edition_policy_content_ids'
+        end
       end
 
       view_test "when edition is taggable hide legacy UI" do
         organisation = create(:organisation, content_id: "3e5a6924-b369-4eb3-8b06-3c0814701de4")
         edition = create(edition_type, organisations: [organisation])
-        login_as(create(:user, organisation: organisation))
+        login_as(create(:gds_editor, organisation: organisation))
         get :new
         refute_select '#edition_policy_content_ids'
         refute_select '#edition_topic_ids'
