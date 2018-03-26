@@ -25,6 +25,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_allow_scheduled_publication_of :publication
   should_allow_access_limiting_of :publication
   should_allow_tagging_to_taxonomy_for :publication
+  should_prevent_legacy_tagging_for :publication
 
   view_test "new displays publication fields" do
     get :new

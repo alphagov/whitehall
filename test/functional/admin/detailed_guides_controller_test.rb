@@ -29,6 +29,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
   should_allow_overriding_of_first_published_at_for :detailed_guide
   should_allow_access_limiting_of :detailed_guide
   should_allow_tagging_to_taxonomy_for :detailed_guide
+  should_prevent_legacy_tagging_for :detailed_guide
 
   view_test "user needs associated with a detailed guide" do
     content_id_a = SecureRandom.uuid
