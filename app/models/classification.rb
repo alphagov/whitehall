@@ -118,6 +118,10 @@ class Classification < ApplicationRecord
     policies.empty?
   end
 
+  def can_be_tagged_to_taxonomy?
+    false
+  end
+
   def base_path
     Whitehall.url_maker.topic_path(slug)
   end

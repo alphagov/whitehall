@@ -11,7 +11,7 @@
 
     <fieldset>
       <legend>Associations</legend>
-      <%= render 'admin/shared/policy_fields', form: form, edition: edition %>
+      <%= render 'admin/shared/policy_fields', form: form, model: edition %>
       <%= render partial: 'specialist_sector_fields', locals: { form: form, edition: edition } %>
     </fieldset>
   <% end %>
