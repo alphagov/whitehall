@@ -26,6 +26,9 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
       visit admin_news_article_path(edition)
       click_link 'Modify attachments'
       @attachment_url = find('.existing-attachments a', text: filename)[:href]
+
+      asset_host = URI.parse(Plek.new.public_asset_host).host
+      host! asset_host
     end
 
     context 'when attachment is deleted' do

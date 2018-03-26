@@ -22,6 +22,9 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
     setup_publishing_api_for(edition)
     stub_whitehall_asset(filename, id: asset_id)
     VirusScanHelpers.simulate_virus_scan
+
+    asset_host = URI.parse(Plek.new.public_asset_host).host
+    host! asset_host
   end
 
   context 'given a draft document with a file attachment' do
