@@ -6,7 +6,7 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
   end
 
   def stub_csv_request(status: 206, body: '', path: 'some-path')
-    stub_request(:get, "#{Whitehall.public_root}/#{path}")
+    stub_request(:get, "#{Plek.new.public_asset_host}/#{path}")
       .with(headers: { 'Range' => 'bytes=0-300000' })
       .to_return(status: status, body: body)
   end
