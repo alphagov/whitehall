@@ -12,4 +12,8 @@ class SpecialistSector < ApplicationRecord
   def edition
     Edition.unscoped { super }
   end
+
+  def content_id
+    topic_content_id
+  end
 end
