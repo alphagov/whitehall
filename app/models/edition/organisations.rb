@@ -38,6 +38,10 @@ module Edition::Organisations
     lead_organisations.pluck(:id)
   end
 
+  def organisation_ids
+    edition_organisations.map(&:organisation_id)
+  end
+
   def sorted_organisations
     organisations.alphabetical
   end

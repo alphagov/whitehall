@@ -26,14 +26,18 @@
                   options_for_select(taggable_organisations_container, statistics_announcement.organisation_ids),
                   { }, multiple: true, class: 'chzn-select form-control' %>
   </div>
-  <div class="form-group stats-chosen-wrapper">
-    <%= form.label  :topic_ids, 'Policy Areas', required: true %>
-    <%= form.select :topic_ids,
-                  options_for_select(taggable_topics_container, statistics_announcement.topic_ids),
-                  { prompt: 'Select a topic' },
-                  multiple: true,
-                  class: 'chzn-select form-control' %>
-  </div>
+
+  <% unless statistics_announcement.can_be_tagged_to_taxonomy? %>
+    <div class="form-group stats-chosen-wrapper">
+      <%= form.label  :topic_ids, 'Policy Areas', required: true %>
+      <%= form.select :topic_ids,
+                    options_for_select(taggable_topics_container, statistics_announcement.topic_ids),
+                    { prompt: 'Select a topic' },
+                    multiple: true,
+                    class: 'chzn-select form-control' %>
+    </div>
+  <% end %>
+
   <% if statistics_announcement.new_record? %>
     <%= form.fields_for :current_release_date do |fields| %>
       <hr />

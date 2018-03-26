@@ -18,6 +18,8 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   should_allow_alternative_format_provider_for :consultation
   should_allow_scheduled_publication_of :consultation
   should_allow_access_limiting_of :consultation
+  should_allow_tagging_to_taxonomy_for :consultation
+  should_prevent_legacy_tagging_for :consultation
 
   view_test 'new displays consultation fields' do
     get :new

@@ -12,6 +12,8 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
   should_be_an_admin_controller
   should_allow_related_policies_for :document_collection
   should_allow_organisations_for :document_collection
+  should_allow_tagging_to_taxonomy_for :document_collection
+  should_prevent_legacy_tagging_for :document_collection
 
   view_test 'GET #show displays the document collection' do
     collection = create(:document_collection,
