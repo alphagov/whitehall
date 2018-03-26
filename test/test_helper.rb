@@ -182,7 +182,7 @@ class ActionController::TestCase
   include AdminEditionControllerTestHelpers
   include AdminEditionControllerScheduledPublishingTestHelpers
   include AdminEditionWorldLocationsBehaviour
-  include AdminEditionTaxonomyHelpers
+  include AdminTaxonomyHelpers
   include DocumentControllerTestHelpers
   include ControllerTestHelpers
   include ResourceTestHelpers
