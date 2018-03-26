@@ -43,14 +43,12 @@ module AdminTaxonomyHelpers
 
     def should_prevent_legacy_tagging_for(model_type)
       view_test "when #{model_type} is not taggable show legacy UI" do
-        edition = create(model_type)
         get :new
         legacy_tag_fields_for(model_type).each { |field| assert_select field }
       end
 
       view_test "when #{model_type} is taggable hide legacy UI" do
         organisation = create(:organisation, content_id: "3e5a6924-b369-4eb3-8b06-3c0814701de4")
-        edition = create(model_type, organisations: [organisation])
         login_as(create(:gds_editor, organisation: organisation))
         get :new
         legacy_tag_fields_for(model_type).each { |field| refute_select field }
