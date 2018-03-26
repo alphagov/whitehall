@@ -40,6 +40,26 @@ module AdminEditionTaxonomyHelpers
         assert_select '.taxonomy-topics .content li', "Primary Education"
       end
     end
+
+    def should_prevent_legacy_tagging_for(edition_type)
+      view_test "when edition is not taggable show legacy UI" do
+        edition = create(edition_type)
+        get :new
+        assert_select '#edition_policy_content_ids'
+        assert_select '#edition_topic_ids'
+        assert_select '#edition_primary_specialist_sector_tag'
+      end
+
+      view_test "when edition is taggable hide legacy UI" do
+        organisation = create(:organisation, content_id: "3e5a6924-b369-4eb3-8b06-3c0814701de4")
+        edition = create(edition_type, organisations: [organisation])
+        login_as(create(:user, organisation: organisation))
+        get :new
+        refute_select '#edition_policy_content_ids'
+        refute_select '#edition_topic_ids'
+        refute_select '#edition_primary_specialist_sector_tag'
+      end
+    end
   end
 
 private
