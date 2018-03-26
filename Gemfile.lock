@@ -201,7 +201,7 @@ GEM
     govuk_frontend_toolkit (7.4.2)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
-    govuk_publishing_components (5.2.3)
+    govuk_publishing_components (5.5.6)
       govspeak (>= 5.0.3)
       govuk_frontend_toolkit
       rails (>= 5.0.0.1)
@@ -300,7 +300,7 @@ GEM
     mustache (1.0.5)
     mysql2 (0.4.10)
     netrc (0.11.0)
-    nio4r (2.2.0)
+    nio4r (2.3.0)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     nokogumbo (1.5.0)
@@ -581,7 +581,7 @@ DEPENDENCIES
   govuk_admin_template (~> 6.5)
   govuk_app_config (~> 1.4)
   govuk_frontend_toolkit (= 7.4.2)
-  govuk_publishing_components (~> 5.2.3)
+  govuk_publishing_components (~> 5.5.6)
   govuk_sidekiq (= 2.0.0)
   graphviz_transitions
   invalid_utf8_rejector (~> 0.0.4)
