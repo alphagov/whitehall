@@ -62,6 +62,8 @@ private
     case model_type
     when :fatality_notice, :statistical_data_set
       %w{#edition_topic_ids #edition_primary_specialist_sector_tag}
+    when :case_study
+      %w{#edition_policy_content_ids #edition_primary_specialist_sector_tag}
     when :statistics_announcement
       %w{#statistics_announcement_topic_ids}
     else
