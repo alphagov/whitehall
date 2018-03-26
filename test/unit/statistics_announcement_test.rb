@@ -119,6 +119,18 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_equal [match], StatisticsAnnouncement.with_title_containing("mq5")
   end
 
+  test '#can_be_tagged_to_taxonomy? is true for permitted orgs' do
+    organisation = create(:organisation, content_id: "3e5a6924-b369-4eb3-8b06-3c0814701de4")
+    announcement = build(:statistics_announcement, organisations: [organisation])
+    assert announcement.can_be_tagged_to_taxonomy?
+  end
+
+  test '#can_be_tagged_to_taxonomy? is false for permitted orgs' do
+    organisation = create :organisation
+    announcement = build(:statistics_announcement, organisations: [organisation])
+    refute announcement.can_be_tagged_to_taxonomy?
+  end
+
   test '#most_recent_change_note returns the most recent change note' do
     announcement = create_announcement_with_changes
 
