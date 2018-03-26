@@ -1,4 +1,4 @@
-<% unless edition.can_be_tagged_to_taxonomy? %>
+<% unless model.can_be_tagged_to_taxonomy? %>
   <fieldset class="policies">
     <%= form.label :policy_content_ids, "Policies" %>
     <%= form.select :policy_content_ids,
