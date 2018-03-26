@@ -40,6 +40,13 @@ class Edition::TopicsTest < ActiveSupport::TestCase
     assert edition.valid?
   end
 
+  test "editions that can be tagged to the new taxonomy are valid without any topics" do
+    edition = EditionWithTopics.new(attributes_for_edition)
+    edition.stubs(:can_be_tagged_to_taxonomy?).returns(true)
+
+    assert edition.valid?
+  end
+
   test "#title_with_topics returns the title and its topics's titles" do
     edition = EditionWithTopics.new(title: 'Edition Title', topics: [build(:topic, name: 'Topic 1')])
 
