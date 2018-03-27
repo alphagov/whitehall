@@ -35,7 +35,7 @@ class AssetManagerAttachmentAccessLimitedWorkerTest < ActiveSupport::TestCase
 
     it 'updates the access limited state of the asset' do
       update_worker.expects(:perform)
-        .with(attachment.file.asset_manager_path, 'access_limited' => ['user-uid'])
+        .with(attachment_data, attachment.file.asset_manager_path, 'access_limited' => ['user-uid'])
 
       worker.perform(attachment_data.id)
     end
@@ -57,9 +57,9 @@ class AssetManagerAttachmentAccessLimitedWorkerTest < ActiveSupport::TestCase
 
     it "updates the access limited state of the asset and it's thumbnail" do
       update_worker.expects(:perform)
-        .with(attachment.file.asset_manager_path, 'access_limited' => ['user-uid'])
+        .with(attachment_data, attachment.file.asset_manager_path, 'access_limited' => ['user-uid'])
       update_worker.expects(:perform)
-        .with(attachment.file.thumbnail.asset_manager_path, 'access_limited' => ['user-uid'])
+        .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'access_limited' => ['user-uid'])
 
       worker.perform(attachment_data.id)
     end
@@ -75,7 +75,7 @@ class AssetManagerAttachmentAccessLimitedWorkerTest < ActiveSupport::TestCase
 
     it 'updates the asset to have an empty access_limited array' do
       update_worker.expects(:perform)
-        .with(attachment.file.asset_manager_path, 'access_limited' => [])
+        .with(attachment_data, attachment.file.asset_manager_path, 'access_limited' => [])
 
       worker.perform(attachment_data.id)
     end
@@ -91,9 +91,9 @@ class AssetManagerAttachmentAccessLimitedWorkerTest < ActiveSupport::TestCase
 
     it 'updates the asset to have an empty access_limited array' do
       update_worker.expects(:perform)
-        .with(attachment.file.asset_manager_path, 'access_limited' => [])
+        .with(attachment_data, attachment.file.asset_manager_path, 'access_limited' => [])
       update_worker.expects(:perform)
-        .with(attachment.file.thumbnail.asset_manager_path, 'access_limited' => [])
+        .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'access_limited' => [])
 
       worker.perform(attachment_data.id)
     end

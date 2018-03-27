@@ -6,16 +6,16 @@ class AssetManagerAttachmentRedirectUrlUpdateWorker < WorkerBase
     if attachment_data.unpublished?
       redirect_url = attachment_data.unpublished_edition.unpublishing.document_url
     end
-    enqueue_job(attachment_data.file, redirect_url)
+    enqueue_job(attachment_data, attachment_data.file, redirect_url)
     if attachment_data.pdf?
-      enqueue_job(attachment_data.file.thumbnail, redirect_url)
+      enqueue_job(attachment_data, attachment_data.file.thumbnail, redirect_url)
     end
   end
 
 private
 
-  def enqueue_job(uploader, redirect_url)
+  def enqueue_job(attachment_data, uploader, redirect_url)
     legacy_url_path = uploader.asset_manager_path
-    AssetManagerUpdateAssetWorker.new.perform(legacy_url_path, 'redirect_url' => redirect_url)
+    AssetManagerUpdateAssetWorker.new.perform(attachment_data, legacy_url_path, 'redirect_url' => redirect_url)
   end
 end

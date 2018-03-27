@@ -114,7 +114,6 @@ private
       .with(asset_id, 'draft' => draft)
     expectation.never if never
     AssetManagerAttachmentDraftStatusUpdateWorker.drain
-    AssetManagerUpdateAssetWorker.drain
   end
 
   def refute_sets_draft_status_in_asset_manager_to(draft)

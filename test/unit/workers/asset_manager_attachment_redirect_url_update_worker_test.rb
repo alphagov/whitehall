@@ -36,7 +36,7 @@ class AssetManagerAttachmentRedirectUrlUpdateWorkerTest < ActiveSupport::TestCas
 
     it 'updates redirect URL of corresponding asset' do
       update_worker.expects(:perform)
-        .with(attachment.file.asset_manager_path, 'redirect_url' => redirect_url)
+        .with(attachment_data, attachment.file.asset_manager_path, 'redirect_url' => redirect_url)
 
       worker.perform(attachment_data.id)
     end
@@ -54,9 +54,9 @@ class AssetManagerAttachmentRedirectUrlUpdateWorkerTest < ActiveSupport::TestCas
 
     it 'updates redirect URL of asset for attachment & its thumbnail' do
       update_worker.expects(:perform)
-        .with(attachment.file.asset_manager_path, 'redirect_url' => redirect_url)
+        .with(attachment_data, attachment.file.asset_manager_path, 'redirect_url' => redirect_url)
       update_worker.expects(:perform)
-        .with(attachment.file.thumbnail.asset_manager_path, 'redirect_url' => redirect_url)
+        .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'redirect_url' => redirect_url)
 
       worker.perform(attachment_data.id)
     end
@@ -67,9 +67,9 @@ class AssetManagerAttachmentRedirectUrlUpdateWorkerTest < ActiveSupport::TestCas
 
       it 'resets redirect URL of asset for attachment & its thumbnail' do
         update_worker.expects(:perform)
-          .with(attachment.file.asset_manager_path, 'redirect_url' => nil)
+          .with(attachment_data, attachment.file.asset_manager_path, 'redirect_url' => nil)
         update_worker.expects(:perform)
-          .with(attachment.file.thumbnail.asset_manager_path, 'redirect_url' => nil)
+          .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'redirect_url' => nil)
 
         worker.perform(attachment_data.id)
       end
