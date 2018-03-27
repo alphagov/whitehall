@@ -1,4 +1,4 @@
-class AssetManagerUpdateAssetWorker < WorkerBase
+class AssetManagerUpdateAssetWorker
   include AssetManagerWorkerHelper
 
   def perform(legacy_url_path, new_attributes = {})
