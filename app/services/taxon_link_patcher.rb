@@ -1,4 +1,4 @@
-class EditionTaxonLinkPatcher
+class TaxonLinkPatcher
   def call(model:, previous_version:, selected_taxons:, invisible_taxons:)
     taxons = most_specific_taxons(selected_taxons) + invisible_taxons
 

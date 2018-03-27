@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class EditionTaxonLinkPatcherTest < ActiveSupport::TestCase
+class TaxonLinkPatcherTest < ActiveSupport::TestCase
   include TaxonomyHelper
 
   setup do
@@ -14,7 +14,7 @@ class EditionTaxonLinkPatcherTest < ActiveSupport::TestCase
       @model.id, @model.class.name
     )
 
-    EditionTaxonLinkPatcher.new.call(
+    TaxonLinkPatcher.new.call(
       model: @model,
       selected_taxons: [child_taxon_content_id],
       invisible_taxons: [parent_taxon_content_id],
@@ -23,7 +23,7 @@ class EditionTaxonLinkPatcherTest < ActiveSupport::TestCase
   end
 
   test "patches topic taxon links for the model" do
-    EditionTaxonLinkPatcher.new.call(
+    TaxonLinkPatcher.new.call(
       model: @model,
       selected_taxons: [child_taxon_content_id],
       invisible_taxons: [],
@@ -38,7 +38,7 @@ class EditionTaxonLinkPatcherTest < ActiveSupport::TestCase
   end
 
   test "includes invisible links in the patch" do
-    EditionTaxonLinkPatcher.new.call(
+    TaxonLinkPatcher.new.call(
       model: @model,
       selected_taxons: [],
       invisible_taxons: [child_taxon_content_id],
@@ -53,7 +53,7 @@ class EditionTaxonLinkPatcherTest < ActiveSupport::TestCase
   end
 
   test "ignores parent taxons if a child is selected" do
-    EditionTaxonLinkPatcher.new.call(
+    TaxonLinkPatcher.new.call(
       model: @model,
       selected_taxons: [parent_taxon_content_id, child_taxon_content_id],
       invisible_taxons: [],

@@ -9,7 +9,7 @@ class Admin::EditionTagsController < Admin::BaseController
   end
 
   def update
-    EditionTaxonLinkPatcher.new.call(
+    TaxonLinkPatcher.new.call(
       model: @edition,
       selected_taxons: selected_taxons,
       invisible_taxons: invisible_taxons,

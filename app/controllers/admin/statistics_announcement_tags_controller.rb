@@ -8,7 +8,7 @@ class Admin::StatisticsAnnouncementTagsController < Admin::BaseController
   end
 
   def update
-    EditionTaxonLinkPatcher.new.call(
+    TaxonLinkPatcher.new.call(
       model: @statistics_announcement,
       selected_taxons: selected_taxons,
       invisible_taxons: invisible_taxons,
