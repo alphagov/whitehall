@@ -7,6 +7,29 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
     @legacy_url_path = 'legacy-url-path'
     @worker = AssetManagerUpdateAssetWorker.new
     @redirect_url = 'https://www.test.gov.uk/example'
+    @attachment_data = FactoryBot.build(:attachment_data)
+  end
+
+  test "no-op if the attachment_data has been deleted and we can't find the asset in asset manager" do
+    exception = GdsApi::HTTPNotFound.new(404)
+    @worker.stubs(:find_asset_by).with(@legacy_url_path).raises(exception)
+
+    @attachment_data.stubs(:deleted?).returns(true)
+
+    Services.asset_manager.expects(:update_asset).never
+
+    @worker.perform(@attachment_data, @legacy_url_path, 'draft' => false)
+  end
+
+  test "raises exception if asset can't be found and attachment_data isn't deleted" do
+    exception = GdsApi::HTTPNotFound.new(404)
+    @worker.stubs(:find_asset_by).with(@legacy_url_path).raises(exception)
+
+    @attachment_data.stubs(:deleted?).returns(false)
+
+    assert_raises(AssetManagerUpdateAssetWorker::AssetManagerAssetMissing) do
+      @worker.perform(@attachment_data, @legacy_url_path, 'draft' => false)
+    end
   end
 
   test 'does not update asset if no attributes are supplied' do
@@ -14,7 +37,7 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
       .returns('id' => @asset_url)
     Services.asset_manager.expects(:update_asset).never
 
-    @worker.perform(@legacy_url_path)
+    @worker.perform(@attachment_data, @legacy_url_path)
   end
 
   test 'marks draft asset as published' do
@@ -22,7 +45,7 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
       .returns('id' => @asset_id, 'draft' => true)
     Services.asset_manager.expects(:update_asset).with(@asset_id, 'draft' => false)
 
-    @worker.perform(@legacy_url_path, 'draft' => false)
+    @worker.perform(@attachment_data, @legacy_url_path, 'draft' => false)
   end
 
   test 'does not mark asset as published if already published' do
@@ -30,7 +53,7 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
       .returns('id' => @asset_id, 'draft' => false)
     Services.asset_manager.expects(:update_asset).never
 
-    @worker.perform(@legacy_url_path, 'draft' => false)
+    @worker.perform(@attachment_data, @legacy_url_path, 'draft' => false)
   end
 
   test 'mark published asset as draft' do
@@ -38,7 +61,7 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
       .returns('id' => @asset_id, 'draft' => false)
     Services.asset_manager.expects(:update_asset).with(@asset_id, 'draft' => true)
 
-    @worker.perform(@legacy_url_path, 'draft' => true)
+    @worker.perform(@attachment_data, @legacy_url_path, 'draft' => true)
   end
 
   test 'does not mark asset as draft if already draft' do
@@ -46,7 +69,7 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
       .returns('id' => @asset_id, 'draft' => true)
     Services.asset_manager.expects(:update_asset).never
 
-    @worker.perform(@legacy_url_path, 'draft' => true)
+    @worker.perform(@attachment_data, @legacy_url_path, 'draft' => true)
   end
 
   test 'sets redirect_url on asset if not already set' do
@@ -55,7 +78,7 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
     Services.asset_manager.expects(:update_asset)
       .with(@asset_id, 'redirect_url' => @redirect_url)
 
-    @worker.perform(@legacy_url_path, 'redirect_url' => @redirect_url)
+    @worker.perform(@attachment_data, @legacy_url_path, 'redirect_url' => @redirect_url)
   end
 
   test 'sets redirect_url on asset if already set to different value' do
@@ -64,7 +87,7 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
     Services.asset_manager.expects(:update_asset)
       .with(@asset_id, 'redirect_url' => @redirect_url)
 
-    @worker.perform(@legacy_url_path, 'redirect_url' => @redirect_url)
+    @worker.perform(@attachment_data, @legacy_url_path, 'redirect_url' => @redirect_url)
   end
 
   test 'does not set redirect_url on asset if already set' do
@@ -72,7 +95,7 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
       .returns('id' => @asset_id, 'redirect_url' => @redirect_url)
     Services.asset_manager.expects(:update_asset).never
 
-    @worker.perform(@legacy_url_path, 'redirect_url' => @redirect_url)
+    @worker.perform(@attachment_data, @legacy_url_path, 'redirect_url' => @redirect_url)
   end
 
   test 'marks asset as access-limited' do
@@ -81,7 +104,7 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
     Services.asset_manager.expects(:update_asset)
       .with(@asset_id, 'access_limited' => ['uid-1'])
 
-    @worker.perform(@legacy_url_path, 'access_limited' => ['uid-1'])
+    @worker.perform(@attachment_data, @legacy_url_path, 'access_limited' => ['uid-1'])
   end
 
   test 'does not mark asset as access-limited if already set' do
@@ -89,7 +112,7 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
       .returns('id' => @asset_id, 'access_limited' => ['uid-1'])
     Services.asset_manager.expects(:update_asset).never
 
-    @worker.perform(@legacy_url_path, 'access_limited' => ['uid-1'])
+    @worker.perform(@attachment_data, @legacy_url_path, 'access_limited' => ['uid-1'])
   end
 
   test 'marks asset as replaced by another asset' do
@@ -103,7 +126,7 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
       .with(@asset_id, 'replacement_id' => replacement_id)
 
     attributes = { 'replacement_legacy_url_path' => replacement_legacy_url_path }
-    @worker.perform(@legacy_url_path, attributes)
+    @worker.perform(@attachment_data, @legacy_url_path, attributes)
   end
 
   test 'does not mark asset as replaced if already replaced by same asset' do
@@ -116,6 +139,6 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
     Services.asset_manager.expects(:update_asset).never
 
     attributes = { 'replacement_legacy_url_path' => replacement_legacy_url_path }
-    @worker.perform(@legacy_url_path, attributes)
+    @worker.perform(@attachment_data, @legacy_url_path, attributes)
   end
 end

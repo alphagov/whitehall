@@ -1,8 +1,24 @@
 class AssetManagerUpdateAssetWorker
   include AssetManagerWorkerHelper
 
-  def perform(legacy_url_path, new_attributes = {})
-    attributes = find_asset_by(legacy_url_path)
+  class AssetManagerAssetMissing < StandardError; end
+
+  def perform(attachment_data, legacy_url_path, new_attributes = {})
+    attributes = {}
+    asset_missing = false
+
+    begin
+      attributes = find_asset_by(legacy_url_path)
+    rescue GdsApi::HTTPNotFound
+      asset_missing = true
+    end
+
+    if asset_missing && attachment_data.deleted?
+      return
+    elsif asset_missing && !attachment_data.deleted?
+      error_message = "Asset corresponding to AttachmentData ID #{attachment_data.id} and by legacy URL path #{legacy_url_path} expected to exist in Asset Manager"
+      raise AssetManagerAssetMissing.new(error_message)
+    end
 
     if (replacement_path = new_attributes.delete('replacement_legacy_url_path'))
       new_attributes['replacement_id'] = find_asset_by(replacement_path)['id']

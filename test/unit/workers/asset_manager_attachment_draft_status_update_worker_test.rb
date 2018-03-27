@@ -23,7 +23,7 @@ class AssetManagerAttachmentDraftStatusUpdateWorkerTest < ActiveSupport::TestCas
 
     it 'marks corresponding asset as draft' do
       update_worker.expects(:perform)
-        .with(attachment.file.asset_manager_path, 'draft' => true)
+        .with(attachment_data, attachment.file.asset_manager_path, 'draft' => true)
 
       worker.perform(attachment_data.id)
     end
@@ -51,9 +51,9 @@ class AssetManagerAttachmentDraftStatusUpdateWorkerTest < ActiveSupport::TestCas
 
     it 'marks asset for attachment & its thumbnail as draft' do
       update_worker.expects(:perform)
-        .with(attachment.file.asset_manager_path, 'draft' => true)
+        .with(attachment_data, attachment.file.asset_manager_path, 'draft' => true)
       update_worker.expects(:perform)
-        .with(attachment.file.thumbnail.asset_manager_path, 'draft' => true)
+        .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'draft' => true)
 
       worker.perform(attachment_data.id)
     end
@@ -63,9 +63,9 @@ class AssetManagerAttachmentDraftStatusUpdateWorkerTest < ActiveSupport::TestCas
 
       it 'marks corresponding assets as not draft' do
         update_worker.expects(:perform)
-          .with(attachment.file.asset_manager_path, 'draft' => false)
+          .with(attachment_data, attachment.file.asset_manager_path, 'draft' => false)
         update_worker.expects(:perform)
-          .with(attachment.file.thumbnail.asset_manager_path, 'draft' => false)
+          .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'draft' => false)
 
         worker.perform(attachment_data.id)
       end
@@ -76,9 +76,9 @@ class AssetManagerAttachmentDraftStatusUpdateWorkerTest < ActiveSupport::TestCas
 
       it 'marks corresponding assets as not draft even though attachment is draft' do
         update_worker.expects(:perform)
-          .with(attachment.file.asset_manager_path, 'draft' => false)
+          .with(attachment_data, attachment.file.asset_manager_path, 'draft' => false)
         update_worker.expects(:perform)
-          .with(attachment.file.thumbnail.asset_manager_path, 'draft' => false)
+          .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'draft' => false)
 
         worker.perform(attachment_data.id)
       end

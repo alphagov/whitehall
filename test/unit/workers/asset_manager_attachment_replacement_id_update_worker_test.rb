@@ -20,7 +20,7 @@ class AssetManagerAttachmentReplacementIdUpdateWorkerTest < ActiveSupport::TestC
 
     it 'updates replacement ID of corresponding asset' do
       update_worker.expects(:perform)
-        .with(attachment_data.file.asset_manager_path, attributes)
+        .with(attachment_data, attachment_data.file.asset_manager_path, attributes)
 
       worker.perform(attachment_data.id)
     end
@@ -58,9 +58,9 @@ class AssetManagerAttachmentReplacementIdUpdateWorkerTest < ActiveSupport::TestC
 
     it 'updates replacement ID of asset for attachment & its thumbnail' do
       update_worker.expects(:perform)
-        .with(attachment_data.file.asset_manager_path, attributes)
+        .with(attachment_data, attachment_data.file.asset_manager_path, attributes)
       update_worker.expects(:perform)
-        .with(attachment_data.file.thumbnail.asset_manager_path, thumbnail_attributes)
+        .with(attachment_data, attachment_data.file.thumbnail.asset_manager_path, thumbnail_attributes)
 
       worker.perform(attachment_data.id)
     end
@@ -72,9 +72,9 @@ class AssetManagerAttachmentReplacementIdUpdateWorkerTest < ActiveSupport::TestC
 
       it 'updates replacement ID of asset for attachment & its thumbnail' do
         update_worker.expects(:perform)
-          .with(attachment_data.file.asset_manager_path, attributes)
+          .with(attachment_data, attachment_data.file.asset_manager_path, attributes)
         update_worker.expects(:perform)
-          .with(attachment_data.file.thumbnail.asset_manager_path, thumbnail_attributes)
+          .with(attachment_data, attachment_data.file.thumbnail.asset_manager_path, thumbnail_attributes)
 
         worker.perform(attachment_data.id)
       end

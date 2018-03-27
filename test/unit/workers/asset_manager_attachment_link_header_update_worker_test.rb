@@ -39,7 +39,7 @@ class AssetManagerAttachmentLinkHeaderUpdateWorkerTest < ActiveSupport::TestCase
 
     it 'sets parent_document_url of corresponding asset' do
       update_worker.expects(:perform)
-        .with(attachment.file.asset_manager_path, 'parent_document_url' => parent_document_url)
+        .with(attachment_data, attachment.file.asset_manager_path, 'parent_document_url' => parent_document_url)
 
       worker.perform(attachment_data.id)
     end
@@ -51,9 +51,9 @@ class AssetManagerAttachmentLinkHeaderUpdateWorkerTest < ActiveSupport::TestCase
 
     it 'sets parent_document_url for attachment & its thumbnail' do
       update_worker.expects(:perform)
-        .with(attachment.file.asset_manager_path, 'parent_document_url' => parent_document_url)
+        .with(attachment_data, attachment.file.asset_manager_path, 'parent_document_url' => parent_document_url)
       update_worker.expects(:perform)
-        .with(attachment.file.thumbnail.asset_manager_path, 'parent_document_url' => parent_document_url)
+        .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'parent_document_url' => parent_document_url)
 
       worker.perform(attachment_data.id)
     end
