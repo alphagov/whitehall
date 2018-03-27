@@ -9,8 +9,8 @@ class Admin::EditionTagsController < Admin::BaseController
   end
 
   def update
-    EditionTaxonLinkPatcher.new.call(
-      content_id: @edition.content_id,
+    TaxonLinkPatcher.new.call(
+      model: @edition,
       selected_taxons: selected_taxons,
       invisible_taxons: invisible_taxons,
       previous_version: params["taxonomy_tag_form"]["previous_version"],
