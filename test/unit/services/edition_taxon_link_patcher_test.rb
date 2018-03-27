@@ -11,7 +11,7 @@ class EditionTaxonLinkPatcherTest < ActiveSupport::TestCase
 
   test "delegates patching links for legacy taxons" do
     PublishingApiLegacyTagsWorker.expects(:perform_async).with(
-      @model.id, [child_taxon_content_id, parent_taxon_content_id]
+      @model.id, @model.class.name
     )
 
     EditionTaxonLinkPatcher.new.call(

@@ -6,7 +6,7 @@ class EditionTaxonLinkPatcher
       model.content_id, links: { taxons: taxons }, previous_version: previous_version
     )
 
-    PublishingApiLegacyTagsWorker.perform_async(model.id, taxons)
+    PublishingApiLegacyTagsWorker.perform_async(model.id, model.class.name)
   end
 
 private

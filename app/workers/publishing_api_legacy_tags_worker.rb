@@ -2,10 +2,11 @@ class PublishingApiLegacyTagsWorker
   include Sidekiq::Worker
   API = Services.publishing_api
 
-  def perform(edition_id, taxon_ids)
+  def perform(edition_id, edition_class)
+    edition = edition_class.constantize.find(edition_id)
+    taxon_ids = get_taxon_ids(edition)
     parent_ids = taxon_ids.flat_map { |id| expand_parents(id) }
     legacy_ids = get_legacy_links(taxon_ids + parent_ids)
-    edition = Edition.find(edition_id)
 
     links = { policy_areas: [], policies: [], topics: [] }
     update_topics(links, legacy_ids, edition)
@@ -47,6 +48,10 @@ private
   def get_legacy_links(taxon_ids)
     API.get_links_for_content_ids(taxon_ids)
       .values.flat_map { |ls| ls["links"].fetch("legacy_taxons", []) }
+  end
+
+  def get_taxon_ids(edition)
+    API.get_links(edition.content_id)["links"].fetch("taxons", [])
   end
 
   def expand_parents(taxon_id)
