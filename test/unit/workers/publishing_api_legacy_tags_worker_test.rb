@@ -10,26 +10,17 @@ class PublishingApiLegacyTagsWorkerTest < ActiveSupport::TestCase
     @policy_uuid = SecureRandom.uuid
     @topic_uuid = SecureRandom.uuid
     @legacy_taxons = [@policy_area_uuid, @policy_uuid, @topic_uuid]
-
-    @patch_links = { policy_areas: [@policy_area_uuid], topics: [@topic_uuid],
-                     policies: [@policy_uuid] }
-
-    @request = stub_publishing_api_patch_links(@model.content_id,
-                                               links: @patch_links, previous_version: 1)
+    @patch_links = { policy_areas: [@policy_area_uuid], topics: [@topic_uuid], policies: [@policy_uuid] }
+    @request = stub_publishing_api_patch_links(@model.content_id, links: @patch_links, previous_version: 1)
 
     publishing_api_has_linkables([{ content_id: @policy_uuid }], document_type: 'policy')
     publishing_api_has_linkables([{ content_id: @topic_uuid }], document_type: 'topic')
     publishing_api_has_expanded_links("content_id" => @taxon_uuid, "expanded_links" => {})
     publishing_api_has_links(content_id: @policy_uuid, links: {})
+    publishing_api_has_links(content_id: @model.content_id, links: { taxons: [@taxon_uuid] }, version: 1)
+    publishing_api_has_links_for_content_ids(@taxon_uuid => { links: { legacy_taxons: @legacy_taxons } })
+
     create :topic, content_id: @policy_area_uuid
-
-    publishing_api_has_links(
-      content_id: @model.content_id, links: { taxons: [@taxon_uuid] }, version: 1
-    )
-
-    publishing_api_has_links_for_content_ids(
-      @taxon_uuid => { links: { legacy_taxons: @legacy_taxons } }
-    )
   end
 
   test "patches legacy taxon links for models" do
@@ -63,14 +54,8 @@ class PublishingApiLegacyTagsWorkerTest < ActiveSupport::TestCase
   test "adds policy areas from any legacy policies" do
     policy_parent_uuid = SecureRandom.uuid
     policy_links = { "policy_areas" => [policy_parent_uuid] }
-
-    patch_links = { "policy_areas" => [policy_parent_uuid], "policies" => [@policy_uuid],
-                    "topics" => [] }
-
-    publishing_api_has_links_for_content_ids(
-      @taxon_uuid => { links: { legacy_taxons: [@policy_uuid] } }
-    )
-
+    patch_links = { "policy_areas" => [policy_parent_uuid], "policies" => [@policy_uuid], "topics" => [] }
+    publishing_api_has_links_for_content_ids(@taxon_uuid => { links: { legacy_taxons: [@policy_uuid] } })
     publishing_api_has_links("content_id" => @policy_uuid, "links" => policy_links)
     request = stub_publishing_api_patch_links(@model.content_id, links: patch_links, previous_version: 1)
     PublishingApiLegacyTagsWorker.new.perform(@model.id, @model.class.name)
@@ -81,8 +66,7 @@ class PublishingApiLegacyTagsWorkerTest < ActiveSupport::TestCase
     @taxon_parent_uuid = SecureRandom.uuid
 
     publishing_api_has_expanded_links(
-      "content_id" => @taxon_uuid,
-      "expanded_links" => {
+      "content_id" => @taxon_uuid, "expanded_links" => {
         "parent_taxons" => [{ "content_id" => @taxon_parent_uuid, "links" => {} }]
       }
     )
