@@ -5,8 +5,41 @@ class CsvFileFromPublicHost
 
   MAXIMUM_RANGE_BYTES = '300000'.freeze
 
-  def initialize(path)
-    @path = path
+  def self.csv_response(path, env: ENV)
+    connection = Faraday.new(url: Whitehall.public_root)
+
+    if env.has_key?("BASIC_AUTH_CREDENTIALS")
+      basic_auth_credentials = env["BASIC_AUTH_CREDENTIALS"].split(":")
+      basic_auth_user = basic_auth_credentials[0]
+      basic_auth_password = basic_auth_credentials[1]
+      connection.basic_auth(basic_auth_user, basic_auth_password)
+    end
+
+    connection.get(path) do |req|
+      req.headers['Range'] = "bytes=0-#{MAXIMUM_RANGE_BYTES}"
+    end
+  end
+
+  def self.csv_preview_from(response)
+    csv_preview = nil
+    new(response) do |file|
+      csv_preview = CsvPreview.new(file.path)
+    end
+    csv_preview
+  rescue CsvPreview::FileEncodingError, CSV::MalformedCSVError, CsvFileFromPublicHost::ConnectionError, CsvFileFromPublicHost::FileEncodingError
+    nil
+  end
+
+  def initialize(response)
+    csv_file = begin
+      raise ConnectionError unless response.status == 206
+      body = response.body
+      set_encoding!(body)
+      body
+    end
+
+    temp_fn = 'csv-file-from-public-host'
+    temp_dir = File.join(Rails.root, 'tmp')
 
     Tempfile.create(temp_fn, temp_dir, encoding: csv_file.encoding) do |tmp_file|
       tmp_file.write(csv_file)
@@ -16,47 +49,6 @@ class CsvFileFromPublicHost
   end
 
 private
-
-  def connection
-    conn = Faraday.new(url: Whitehall.public_root)
-    conn.basic_auth(basic_auth_user, basic_auth_password) if ENV.has_key?("BASIC_AUTH_CREDENTIALS")
-    conn
-  end
-
-  def response
-    connection.get(@path) do |req|
-      req.headers['Range'] = "bytes=0-#{MAXIMUM_RANGE_BYTES}"
-    end
-  end
-
-  def csv_file
-    @csv_file ||= begin
-      raise ConnectionError unless response.status == 206
-      body = response.body
-      set_encoding!(body)
-      body
-    end
-  end
-
-  def temp_dir
-    File.join(Rails.root, 'tmp')
-  end
-
-  def temp_fn
-    CGI.escape(@path).truncate(50)
-  end
-
-  def basic_auth_user
-    basic_auth_credentials[0]
-  end
-
-  def basic_auth_password
-    basic_auth_credentials[1]
-  end
-
-  def basic_auth_credentials
-    ENV["BASIC_AUTH_CREDENTIALS"].split(":")
-  end
 
   def set_encoding!(body)
     if utf_8_encoding?(body)

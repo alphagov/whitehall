@@ -7,10 +7,12 @@ class CsvPreviewControllerTest < ActionController::TestCase
   attr_reader :organisation_2
   attr_reader :edition
   attr_reader :attachment
+  attr_reader :file
 
   setup do
-    file = File.open(fixture_path.join('sample.csv'))
+    @file = File.open(fixture_path.join('sample.csv'))
     @attachment_data = create(:attachment_data, file: file)
+    FileUtils.rm(@attachment_data.file.path)
 
     @params = {
       id: attachment_data,
@@ -61,6 +63,16 @@ class CsvPreviewControllerTest < ActionController::TestCase
   test 'redirects to unpublished edition if attachment data is unpublished & missing' do
     unpublished_edition = create(:unpublished_edition)
     setup_stubs(file_state: :missing, unpublished?: true, unpublished_edition: unpublished_edition)
+
+    get :show, params: params
+
+    assert_response :found
+    assert_redirected_to unpublished_edition.unpublishing.document_path
+  end
+
+  test 'redirects to unpublished edition if attachment data is unpublished & not a CSV' do
+    unpublished_edition = create(:unpublished_edition)
+    setup_stubs(csv?: false, unpublished?: true, unpublished_edition: unpublished_edition)
 
     get :show, params: params
 
@@ -131,6 +143,16 @@ class CsvPreviewControllerTest < ActionController::TestCase
     assert_redirected_to replacement.url
   end
 
+  test 'permanently redirects to replacement if attachment data is replaced & not CSV' do
+    replacement = create(:attachment_data)
+    setup_stubs(csv?: false, replaced?: true, replaced_by: replacement)
+
+    get :show, params: params
+
+    assert_response :moved_permanently
+    assert_redirected_to replacement.url
+  end
+
   test 'permanently redirects to replacement if attachment data is replaced, draft & not accessible' do
     replacement = create(:attachment_data)
     setup_stubs(draft?: true, accessible_to?: false, replaced?: true, replaced_by: replacement)
@@ -182,6 +204,15 @@ class CsvPreviewControllerTest < ActionController::TestCase
 
   test 'redirects to placeholder page if file is unscanned non-image even if deleted' do
     setup_stubs(file_state: :unscanned, deleted?: true)
+
+    get :show, params: params
+
+    assert_response :found
+    assert_redirected_to placeholder_url
+  end
+
+  test 'redirects to placeholder page if file is unscanned non-image even if not CSV' do
+    setup_stubs(file_state: :unscanned, csv?: false)
 
     get :show, params: params
 
@@ -349,39 +380,20 @@ class CsvPreviewControllerTest < ActionController::TestCase
     assert_template 'show', layout: 'html_attachments'
   end
 
-  test 'renders template even if CsvPreview::FileEncodingError is raised' do
+  test 'raises ActionController::UnknownFormat if format is unknown' do
     setup_stubs
-    CsvPreview.stubs(:new).raises(CsvPreview::FileEncodingError)
 
-    get :show, params: params
-
-    assert_template 'show'
+    assert_raises(ActionController::UnknownFormat) do
+      get :show, params: params.merge(format: 'pdf')
+    end
   end
 
-  test 'renders template even if CSV::MalformedCSVError is raised' do
-    setup_stubs
-    CsvPreview.stubs(:new).raises(CSV::MalformedCSVError)
-
-    get :show, params: params
-
-    assert_template 'show'
-  end
-
-  test 'renders template even if CsvFileFromPublicHost::ConnectionError is raised' do
-    setup_stubs
-    CsvFileFromPublicHost.stubs(:new).raises(CsvFileFromPublicHost::ConnectionError)
-
-    get :show, params: params
-
-    assert_template 'show'
-  end
-
-  test 'responds with 406 Not Acceptable if format is unknown' do
+  test 'raises ActionController::UnknownFormat for XHR request if format is unknown' do
     setup_stubs
 
-    get :show, params: params.merge(format: 'pdf')
-
-    assert_response :not_acceptable
+    assert_raises(ActionController::UnknownFormat) do
+      get :show, params: params.merge(format: 'pdf'), xhr: true
+    end
   end
 
   test 'assigns edition for template' do
@@ -445,9 +457,8 @@ class CsvPreviewControllerTest < ActionController::TestCase
     assert_select 'div.csv-preview td:nth-child(3)', text: '£10000000'
   end
 
-  view_test 'renders error message if CSV::MalformedCSVError is raised' do
-    setup_stubs
-    CsvPreview.stubs(:new).raises(CSV::MalformedCSVError)
+  view_test 'renders error message if csv_preview is nil' do
+    setup_stubs(csv_preview: nil)
 
     get :show, params: params
 
@@ -459,15 +470,6 @@ private
   def setup_stubs(attributes = {})
     file_state = attributes.fetch(:file_state, :clean)
     attributes.delete(:file_state)
-
-    case file_state
-    when :clean
-      VirusScanHelpers.simulate_virus_scan(attachment_data.file, include_versions: true)
-    when :infected
-      VirusScanHelpers.simulate_virus_scan_infected(attachment_data.file)
-    when :missing
-      VirusScanHelpers.erase_test_files
-    end
 
     current_user = attributes.fetch(:current_user, build(:user))
     controller.stubs(:current_user).returns(current_user)
@@ -485,6 +487,27 @@ private
       .returns(attributes.fetch(:visible_attachment, attachment))
     attributes.delete(:visible_attachment)
 
+    csv_preview = attributes.fetch(:csv_preview, CsvPreview.new(file))
+    csv_response = stub('csv-response')
+
+    case file_state
+    when :clean
+      csv_response.stubs(:status).returns(206)
+    when :infected, :missing
+      csv_response.stubs(:status).returns(404)
+    when :unscanned
+      csv_response.stubs(:status).returns(302)
+      csv_response.stubs(:headers).returns('Location' => 'http://www.example.com/government/placeholder')
+    end
+
+    CsvFileFromPublicHost.stubs(:csv_response)
+      .with(attachment_data.file.asset_manager_path)
+      .returns(csv_response)
+    CsvFileFromPublicHost.stubs(:csv_preview_from)
+      .with(csv_response)
+      .returns(csv_preview)
+    attributes.delete(:csv_preview)
+
     defaults = {
       deleted?: false,
       unpublished?: false,
@@ -496,13 +519,5 @@ private
     }
 
     attachment_data.stubs(defaults.merge(attributes))
-
-    stub_csv_file_from_public_host
-  end
-
-  def stub_csv_file_from_public_host
-    CsvFileFromPublicHost.stubs(:new)
-      .with(attachment_data.file.asset_manager_path)
-      .yields(stub(path: attachment_data.clean_path))
   end
 end

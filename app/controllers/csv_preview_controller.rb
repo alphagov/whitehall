@@ -2,22 +2,49 @@ class CsvPreviewController < BaseAttachmentsController
   def show
     respond_to do |format|
       format.html do
-        if attachment_data.csv? && attachment_visible? && attachment_data.visible_edition_for(current_user)
+        @csv_response = CsvFileFromPublicHost.csv_response(attachment_data.file.asset_manager_path)
+        if attachment_data.csv? && attachment_visible? && visible_edition
           expires_headers
-          @edition = attachment_data.visible_edition_for(current_user)
+          @edition = visible_edition
           @attachment = attachment_data.visible_attachment_for(current_user)
-          CsvFileFromPublicHost.new(attachment_data.file.asset_manager_path) do |file|
-            @csv_preview = CsvPreview.new(file.path)
-          end
+          @csv_preview = CsvFileFromPublicHost.csv_preview_from(@csv_response)
           render layout: 'html_attachments'
         else
           fail
         end
       end
     end
-  rescue CsvPreview::FileEncodingError, CSV::MalformedCSVError, CsvFileFromPublicHost::ConnectionError, CsvFileFromPublicHost::FileEncodingError
-    render layout: 'html_attachments'
-  rescue ActionController::UnknownFormat
-    render status: :not_acceptable, plain: "Request format #{request.format} not handled."
+  end
+
+private
+
+  def fail
+    if attachment_data.unpublished?
+      redirect_url = attachment_data.unpublished_edition.unpublishing.document_path
+      redirect_to redirect_url
+    elsif attachment_data.replaced?
+      expires_headers
+      redirect_to attachment_data.replaced_by.url, status: 301
+    elsif incoming_upload_exists? upload_path
+      redirect_to_placeholder
+    else
+      render plain: "Not found", status: :not_found
+    end
+  end
+
+  def visible_edition
+    @visible_edition ||= attachment_data.visible_edition_for(current_user)
+  end
+
+  def incoming_upload_exists?(*)
+    (@csv_response.status == 302) && redirect_path_matches_placeholder_path
+  end
+
+  def redirect_path_matches_placeholder_path
+    URI.parse(@csv_response.headers['Location']).path == placeholder_path
+  end
+
+  def upload_exists?(*)
+    @csv_response.status == 206
   end
 end
