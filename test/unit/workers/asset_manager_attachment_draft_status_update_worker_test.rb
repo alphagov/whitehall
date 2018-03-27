@@ -42,11 +42,13 @@ class AssetManagerAttachmentDraftStatusUpdateWorkerTest < ActiveSupport::TestCas
     let(:attachment) { FactoryBot.create(:file_attachment, file: simple_pdf) }
     let(:draft) { true }
     let(:unpublished) { false }
+    let(:replaced) { false }
 
     before do
       AttachmentData.stubs(:find_by).with(id: attachment.id).returns(attachment_data)
       attachment_data.stubs(:draft?).returns(draft)
       attachment_data.stubs(:unpublished?).returns(unpublished)
+      attachment_data.stubs(:replaced?).returns(replaced)
     end
 
     it 'marks asset for attachment & its thumbnail as draft' do
@@ -73,6 +75,19 @@ class AssetManagerAttachmentDraftStatusUpdateWorkerTest < ActiveSupport::TestCas
 
     context 'and attachment is unpublished' do
       let(:unpublished) { true }
+
+      it 'marks corresponding assets as not draft even though attachment is draft' do
+        update_worker.expects(:perform)
+          .with(attachment_data, attachment.file.asset_manager_path, 'draft' => false)
+        update_worker.expects(:perform)
+          .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'draft' => false)
+
+        worker.perform(attachment_data.id)
+      end
+    end
+
+    context 'and attachment is replaced' do
+      let(:replaced) { true }
 
       it 'marks corresponding assets as not draft even though attachment is draft' do
         update_worker.expects(:perform)
