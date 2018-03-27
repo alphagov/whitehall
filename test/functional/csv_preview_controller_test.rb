@@ -12,7 +12,6 @@ class CsvPreviewControllerTest < ActionController::TestCase
   setup do
     @file = File.open(fixture_path.join('sample.csv'))
     @attachment_data = create(:attachment_data, file: file)
-    FileUtils.rm(@attachment_data.file.path)
 
     @params = {
       id: attachment_data,
