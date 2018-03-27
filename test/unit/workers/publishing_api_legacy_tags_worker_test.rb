@@ -14,12 +14,18 @@ class PublishingApiLegacyTagsWorkerTest < ActiveSupport::TestCase
     @patch_links = { policy_areas: [@policy_area_uuid], topics: [@topic_uuid],
                      policies: [@policy_uuid] }
 
+    @request = stub_publishing_api_patch_links(@model.content_id,
+                                               links: @patch_links, previous_version: 1)
+
     publishing_api_has_linkables([{ content_id: @policy_uuid }], document_type: 'policy')
     publishing_api_has_linkables([{ content_id: @topic_uuid }], document_type: 'topic')
     publishing_api_has_expanded_links("content_id" => @taxon_uuid, "expanded_links" => {})
     publishing_api_has_links(content_id: @policy_uuid, links: {})
-    publishing_api_has_links(content_id: @model.content_id, links: { taxons: [@taxon_uuid] })
     create :topic, content_id: @policy_area_uuid
+
+    publishing_api_has_links(
+      content_id: @model.content_id, links: { taxons: [@taxon_uuid] }, version: 1
+    )
 
     publishing_api_has_links_for_content_ids(
       @taxon_uuid => { links: { legacy_taxons: @legacy_taxons } }
@@ -27,17 +33,15 @@ class PublishingApiLegacyTagsWorkerTest < ActiveSupport::TestCase
   end
 
   test "patches legacy taxon links for models" do
-    request = stub_publishing_api_patch_links(@model.content_id, links: @patch_links)
     PublishingApiLegacyTagsWorker.new.perform(@model.id, @model.class.name)
-    assert_requested request
+    assert_requested @request
   end
 
   test "only patches legacy taxons if supported" do
     @model = create :edition
     publishing_api_has_links(content_id: @model.content_id, links: { taxons: [@taxon_uuid] })
-    request = stub_publishing_api_patch_links(@model.content_id, links: @patch_links)
     PublishingApiLegacyTagsWorker.new.perform(@model.id, @model.class.name)
-    assert_not_requested request
+    assert_not_requested @request
   end
 
   test "saves legacy taxons links in the database" do
@@ -48,10 +52,10 @@ class PublishingApiLegacyTagsWorkerTest < ActiveSupport::TestCase
   end
 
   test "resets existing legacy taxons for models" do
-    publishing_api_has_links(content_id: @model.content_id, links: {})
+    publishing_api_has_links(content_id: @model.content_id, links: {}, version: 1)
     publishing_api_has_links_for_content_ids({})
     patch_links = { "policy_areas" => [], "topics" => [], "policies" => [] }
-    request = stub_publishing_api_patch_links(@model.content_id, links: patch_links)
+    request = stub_publishing_api_patch_links(@model.content_id, links: patch_links, previous_version: 1)
     PublishingApiLegacyTagsWorker.new.perform(@model.id, @model.class.name)
     assert_requested request
   end
@@ -68,7 +72,7 @@ class PublishingApiLegacyTagsWorkerTest < ActiveSupport::TestCase
     )
 
     publishing_api_has_links("content_id" => @policy_uuid, "links" => policy_links)
-    request = stub_publishing_api_patch_links(@model.content_id, links: patch_links)
+    request = stub_publishing_api_patch_links(@model.content_id, links: patch_links, previous_version: 1)
     PublishingApiLegacyTagsWorker.new.perform(@model.id, @model.class.name)
     assert_requested request
   end
@@ -88,8 +92,7 @@ class PublishingApiLegacyTagsWorkerTest < ActiveSupport::TestCase
       @taxon_parent_uuid => { links: { legacy_taxons: @legacy_taxons } }
     )
 
-    request = stub_publishing_api_patch_links(@model.content_id, links: @patch_links)
     PublishingApiLegacyTagsWorker.new.perform(@model.id, @model.class.name)
-    assert_requested request
+    assert_requested @request
   end
 end

@@ -4,7 +4,7 @@ class PublishingApiLegacyTagsWorker
 
   def perform(edition_id, edition_class)
     edition = edition_class.constantize.find(edition_id)
-    taxon_ids = get_taxon_ids(edition)
+    previous_version, taxon_ids = get_taxon_ids(edition)
     parent_ids = taxon_ids.flat_map { |id| expand_parents(id) }
     legacy_ids = get_legacy_links(taxon_ids + parent_ids)
 
@@ -13,7 +13,8 @@ class PublishingApiLegacyTagsWorker
     update_policies(links, legacy_ids, edition)
     update_policy_areas(links, legacy_ids, edition)
 
-    API.patch_links(edition.content_id, links: links)
+    params = { previous_version: previous_version, links: links }
+    API.patch_links(edition.content_id, params)
   end
 
 private
@@ -51,7 +52,8 @@ private
   end
 
   def get_taxon_ids(edition)
-    API.get_links(edition.content_id)["links"].fetch("taxons", [])
+    response = API.get_links(edition.content_id).to_h
+    [response["version"], response["links"].fetch("taxons", [])]
   end
 
   def expand_parents(taxon_id)
