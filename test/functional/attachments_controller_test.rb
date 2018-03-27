@@ -21,10 +21,31 @@ class AttachmentsControllerTest < ActionController::TestCase
     @edition = create(:publication)
 
     controller.stubs(:attachment_data).returns(attachment_data)
+
+    request.host = 'asset-host.com'
+    Plek.any_instance.stubs(:public_asset_host).returns('http://asset-host.com')
   end
 
   teardown do
     AttachmentUploader.enable_processing = false
+  end
+
+  test "redirects asset requests that aren't made via the asset host" do
+    request.host = 'not-asset-host.com'
+
+    get :show, params: params
+
+    assert_redirected_to "http://asset-host.com#{attachment_data.file.asset_manager_path}"
+  end
+
+  test 'does not redirect asset requests that are made via the asset host' do
+    setup_stubs
+
+    request.host = 'asset-host.com'
+
+    get :show, params: params
+
+    assert_response 200
   end
 
   # Unpublished
