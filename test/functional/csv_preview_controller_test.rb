@@ -497,7 +497,7 @@ private
       csv_response.stubs(:status).returns(404)
     when :unscanned
       csv_response.stubs(:status).returns(302)
-      csv_response.stubs(:headers).returns('Location' => placeholder_url)
+      csv_response.stubs(:headers).returns('Location' => 'http://www.example.com/government/placeholder')
     end
 
     CsvFileFromPublicHost.stubs(:csv_response)

@@ -37,7 +37,11 @@ private
   end
 
   def incoming_upload_exists?(*)
-    (@csv_response.status == 302) && (@csv_response.headers['Location'] == placeholder_url)
+    (@csv_response.status == 302) && redirect_path_matches_placeholder_path
+  end
+
+  def redirect_path_matches_placeholder_path
+    URI.parse(@csv_response.headers['Location']).path == placeholder_path
   end
 
   def upload_exists?(*)
