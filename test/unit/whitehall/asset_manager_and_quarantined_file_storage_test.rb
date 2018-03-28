@@ -71,6 +71,12 @@ class Whitehall::AssetManagerAndQuarantinedFileStorage::FileTest < ActiveSupport
     assert_equal 'quarantined-file-path', @file.path
   end
 
+  test '#read delegates to the quarantined file' do
+    @quarantined_file.stubs(:read).returns('quarantined-file-read')
+
+    assert_equal 'quarantined-file-read', @file.read
+  end
+
   test '#filename delegates to the quarantined file' do
     @quarantined_file.stubs(:filename).returns('quarantined-file-filename')
 
