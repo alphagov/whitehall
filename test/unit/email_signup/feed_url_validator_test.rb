@@ -15,7 +15,7 @@ class EmailSignup::FeedUrlValidatorTest < ActiveSupport::TestCase
     validator = klass.new(feed_url)
 
     assert validator.valid?
-    assert_equal "publications", validator.description
+    assert_equal "Publications", validator.description
   end
 
   test 'validates and describes a publication filter feed url with filter options' do
@@ -34,7 +34,7 @@ class EmailSignup::FeedUrlValidatorTest < ActiveSupport::TestCase
     validator = klass.new(feed_url)
 
     assert validator.valid?
-    assert_equal "corporate reports related to The Cabinet Office, Arts and culture and Afghanistan which are command or act papers", validator.description
+    assert_equal "Corporate reports related to The Cabinet Office, Arts and culture and Afghanistan which are command or act papers", validator.description
   end
 
   test 'validates and describes an announcements filter feed url' do
@@ -51,7 +51,7 @@ class EmailSignup::FeedUrlValidatorTest < ActiveSupport::TestCase
     validator = klass.new(feed_url)
 
     assert validator.valid?
-    assert_equal "announcements related to The Cabinet Office, Arts and culture and Afghanistan", validator.description
+    assert_equal "Announcements related to The Cabinet Office, Arts and culture and Afghanistan", validator.description
   end
 
   test 'validates and describes a statistics filter feed url with filter options' do
@@ -66,7 +66,7 @@ class EmailSignup::FeedUrlValidatorTest < ActiveSupport::TestCase
     validator = klass.new(feed_url)
 
     assert validator.valid?
-    assert_equal "statistics related to The Cabinet Office and Arts and culture", validator.description
+    assert_equal "Statistics related to The Cabinet Office and Arts and culture", validator.description
   end
 
   test 'uses the announcement_filter_option when given' do
@@ -74,7 +74,7 @@ class EmailSignup::FeedUrlValidatorTest < ActiveSupport::TestCase
     validator = klass.new(feed_url)
 
     assert validator.valid?
-    assert_equal "fatality notices", validator.description
+    assert_equal "Fatality notices", validator.description
   end
 
   test 'validates and describes an organisation feed url' do
@@ -83,7 +83,7 @@ class EmailSignup::FeedUrlValidatorTest < ActiveSupport::TestCase
     validator = klass.new(feed_url)
 
     assert validator.valid?
-    assert_equal organisation.name, validator.description
+    assert_equal organisation.name.upcase_first, validator.description
   end
 
   test 'validates and describes a topic feed url' do
@@ -92,7 +92,7 @@ class EmailSignup::FeedUrlValidatorTest < ActiveSupport::TestCase
     validator = klass.new(feed_url)
 
     assert validator.valid?
-    assert_equal topic.name, validator.description
+    assert_equal topic.name.upcase_first, validator.description
   end
 
   test 'validates and describes a topical event feed url' do
@@ -101,7 +101,7 @@ class EmailSignup::FeedUrlValidatorTest < ActiveSupport::TestCase
     validator     = klass.new(feed_url)
 
     assert validator.valid?
-    assert_equal topical_event.name, validator.description
+    assert_equal topical_event.name.upcase_first, validator.description
   end
 
   test 'validates and describes a world location feed url' do
@@ -110,7 +110,7 @@ class EmailSignup::FeedUrlValidatorTest < ActiveSupport::TestCase
     validator      = klass.new(feed_url)
 
     assert validator.valid?
-    assert_equal world_location.name, validator.description
+    assert_equal world_location.name.upcase_first, validator.description
   end
 
   test 'validates and describes a person feed url' do
@@ -128,7 +128,7 @@ class EmailSignup::FeedUrlValidatorTest < ActiveSupport::TestCase
     validator = klass.new(feed_url)
 
     assert validator.valid?
-    assert_equal role.name, validator.description
+    assert_equal role.name.upcase_first, validator.description
   end
 
   test 'does not validate a feed url for another host' do

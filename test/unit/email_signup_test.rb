@@ -10,7 +10,7 @@ class EmailSignupTest < ActiveSupport::TestCase
 
     email_alert_api_does_not_have_subscriber_list("email_document_supertype" => "publications")
     email_alert_api_creates_subscriber_list(response).with do |request|
-      assert_equal "publications", JSON.parse(request.body)["title"]
+      assert_equal "Publications", JSON.parse(request.body)["title"]
     end
 
     assert email_signup.save
@@ -40,7 +40,7 @@ class EmailSignupTest < ActiveSupport::TestCase
   test "#description provides a human-readable description of the filters being applied" do
     feed_url = feed_url("publications.atom?official_document_status=command_and_act_papers")
 
-    expected = "publications which are command or act papers"
+    expected = "Publications which are command or act papers"
     assert_equal expected, EmailSignup.new(feed: feed_url).description
   end
 
