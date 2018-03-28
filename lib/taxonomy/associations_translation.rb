@@ -1,12 +1,6 @@
 module Taxonomy::AssociationsTranslation
   def self.mapped_taxon_content_ids_for_edition(edition)
-    [
-      # This method still uses the legacy "specialist sectors" name
-      edition.specialist_sectors,
-      # topics means policy areas in this context
-      (edition.topics if edition.can_be_associated_with_topics?),
-      (edition.policies if edition.can_be_related_to_policies?)
-    ].compact.flatten.flat_map do |legacy_taxon|
+    legacy_taxon_models_for_edition(edition).flat_map do |legacy_taxon|
       content_ids = fetch_topic_taxonomy_taxons_content_ids(
         legacy_taxon.content_id
       )
@@ -15,6 +9,16 @@ module Taxonomy::AssociationsTranslation
 
       content_ids
     end
+  end
+
+  def self.legacy_taxon_models_for_edition(edition)
+    [
+      # This method still uses the legacy "specialist sectors" name
+      edition.specialist_sectors,
+      # topics means policy areas in this context
+      (edition.topics if edition.can_be_associated_with_topics?),
+      (edition.policies if edition.can_be_related_to_policies?)
+    ].compact.flatten
   end
 
   def self.mapped_taxon_content_ids_for_links(links)
