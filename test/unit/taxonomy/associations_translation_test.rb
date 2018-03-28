@@ -56,4 +56,37 @@ class Taxonomy::AssociationsTranslationTest < ActiveSupport::TestCase
       ]
     )
   end
+
+  test 'works for a statistics announcement' do
+    # topic means policy area...
+    topic = create(:topic)
+    publishing_api_has_expanded_links(
+      content_id: topic.content_id,
+      expanded_links:  {
+        topic_taxonomy_taxons: [
+          {
+            content_id: 'taxon-for-test-policy-area-content-id'
+          }
+        ]
+      }
+    )
+
+    model = build(
+      :statistics_announcement,
+      topics: [topic]
+    )
+
+    presenter = PublishingApiPresenters.presenter_for(model)
+
+    taxon_content_ids =
+      Taxonomy::AssociationsTranslation
+        .mapped_taxon_content_ids_for_links(presenter.links)
+
+    assert_same_elements(
+      taxon_content_ids,
+      [
+        'taxon-for-test-policy-area-content-id'
+      ]
+    )
+  end
 end

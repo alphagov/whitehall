@@ -17,6 +17,14 @@ module Taxonomy::AssociationsTranslation
     end
   end
 
+  def self.mapped_taxon_content_ids_for_links(links)
+    %i[policy_areas related_policies topics].flat_map do |link_type|
+      links.fetch(link_type, []).flat_map do |legacy_taxon_content_id|
+        fetch_topic_taxonomy_taxons_content_ids(legacy_taxon_content_id)
+      end
+    end
+  end
+
   def self.fetch_topic_taxonomy_taxons_content_ids(content_id)
     expanded_links = Services.publishing_api.get_expanded_links(
       content_id
