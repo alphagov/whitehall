@@ -15,7 +15,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     @params = {
       id: attachment_data,
       file: attachment_data.filename_without_extension,
-      extension: attachment_data.file_extension
+      format: attachment_data.file_extension
     }
 
     @edition = create(:publication)
@@ -189,7 +189,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     attachment_data.update!(file: new_file)
     setup_stubs(file_state: :unscanned)
 
-    get :show, params: params.merge(file: 'minister-of-funk.960x640', extension: 'jpg')
+    get :show, params: params.merge(file: 'minister-of-funk.960x640', format: 'jpg')
 
     assert_response :found
     assert_redirected_to view_context.path_to_image('thumbnail-placeholder.png')
@@ -200,7 +200,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     attachment_data.update!(file: new_file)
     setup_stubs(file_state: :unscanned, deleted?: true)
 
-    get :show, params: params.merge(file: 'minister-of-funk.960x640', extension: 'jpg')
+    get :show, params: params.merge(file: 'minister-of-funk.960x640', format: 'jpg')
 
     assert_response :found
     assert_redirected_to view_context.path_to_image('thumbnail-placeholder.png')
@@ -211,7 +211,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     attachment_data.update!(file: new_file)
     setup_stubs(file_state: :unscanned, draft?: true, accessible_to?: false)
 
-    get :show, params: params.merge(file: 'minister-of-funk.960x640', extension: 'jpg')
+    get :show, params: params.merge(file: 'minister-of-funk.960x640', format: 'jpg')
 
     assert_response :found
     assert_redirected_to view_context.path_to_image('thumbnail-placeholder.png')
@@ -283,7 +283,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     attachment_data.update!(file: new_file)
     setup_stubs(file_state: :infected)
 
-    get :show, params: params.merge(file: 'minister-of-funk.960x640', extension: 'jpg')
+    get :show, params: params.merge(file: 'minister-of-funk.960x640', format: 'jpg')
 
     assert_response :not_found
   end
@@ -362,7 +362,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     setup_stubs
 
     basename = File.basename(attachment_data.file.thumbnail.path, '.png')
-    get :show, params: params.merge(file: basename, extension: 'png')
+    get :show, params: params.merge(file: basename, format: 'png')
 
     assert_response :ok
   end
@@ -441,7 +441,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     attachment_data.update!(file: new_file)
     setup_stubs
 
-    get :show, params: params.merge(file: 'sample', extension: 'chm')
+    get :show, params: params.merge(file: 'sample', format: 'chm')
 
     assert_equal 'application/octet-stream', response.headers['Content-Type']
   end
