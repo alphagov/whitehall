@@ -13,7 +13,7 @@ class EmailSignup
 
     def description
       if valid?
-        [leading_fragment, parameter_fragments, command_and_act_fragment].compact.join " "
+        [leading_fragment, parameter_fragments, command_and_act_fragment].compact.join(" ").upcase_first
       end
     end
 
