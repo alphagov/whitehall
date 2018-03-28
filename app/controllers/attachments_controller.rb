@@ -19,6 +19,10 @@ class AttachmentsController < BaseAttachmentsController
 
 private
 
+  def file_with_extensions
+    [params[:file], params[:format]].compact.join('.')
+  end
+
   def link_rel_headers
     if (edition = attachment_data.visible_edition_for(current_user))
       response.headers['Link'] = "<#{public_document_url(edition)}>; rel=\"up\""
