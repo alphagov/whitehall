@@ -23,11 +23,19 @@ module ServiceListeners
         .with(edition.id, event)
     end
 
+    def stub_taxonomy_associations_translation_worker(edition)
+      TaxonomyAssociationsTranslationWorker
+        .any_instance
+        .expects(:perform)
+        .with(edition.class.name, edition.id)
+    end
+
     test "saves draft async for update_draft" do
       edition = build(:draft_publication, document: build(:document))
       Whitehall::PublishingApi.expects(:save_draft_async).with(edition)
       stub_html_attachment_pusher(edition, "update_draft")
       stub_publications_pusher(edition, "update_draft")
+      stub_taxonomy_associations_translation_worker(edition)
       Sidekiq::Testing.inline! do
         PublishingApiPusher.new(edition).push(event: "update_draft")
       end
@@ -42,6 +50,8 @@ module ServiceListeners
       Whitehall::PublishingApi.expects(:save_draft_async).with(edition)
       stub_html_attachment_pusher(edition, "update_draft")
       stub_publications_pusher(edition, "update_draft")
+      stub_taxonomy_associations_translation_worker(edition)
+
       Sidekiq::Testing.inline! do
         PublishingApiPusher.new(edition).push(event: "update_draft")
       end
@@ -194,6 +204,7 @@ module ServiceListeners
 
       stub_corporate_information_pages_pusher(edition, 'update_draft')
       stub_html_attachment_pusher(edition, 'update_draft')
+      stub_taxonomy_associations_translation_worker(edition)
 
       Sidekiq::Testing.inline! do
         PublishingApiPusher.new(edition).push(event: 'update_draft')
@@ -205,6 +216,7 @@ module ServiceListeners
 
       stub_publications_pusher(edition, 'update_draft')
       stub_html_attachment_pusher(edition, 'update_draft')
+      stub_taxonomy_associations_translation_worker(edition)
 
       Sidekiq::Testing.inline! do
         PublishingApiPusher.new(edition).push(event: 'update_draft')

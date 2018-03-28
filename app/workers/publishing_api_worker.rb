@@ -14,6 +14,8 @@ class PublishingApiWorker < WorkerBase
         handle_client_error(e)
       end
     end
+
+    handle_taxon_links(model_name, id)
   end
 
 private
@@ -35,5 +37,12 @@ private
   def handle_client_error(error)
     explanation = "The error code indicates that retrying this request will not help. This job is being aborted and will not be retried."
     GovukError.notify(error, extra: { explanation: explanation })
+  end
+
+  def handle_taxon_links(model_name, id)
+    TaxonomyAssociationsTranslationWorker.perform_async(
+      model_name,
+      id
+    )
   end
 end
