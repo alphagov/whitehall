@@ -17,6 +17,8 @@ class Admin::StatisticalDataSetsControllerTest < ActionController::TestCase
   should_allow_overriding_of_first_published_at_for :statistical_data_set
   should_allow_scheduled_publication_of :statistical_data_set
   should_allow_access_limiting_of :statistical_data_set
+  should_allow_tagging_to_taxonomy_for :statistical_data_set
+  should_prevent_legacy_tagging_for :statistical_data_set
 
   def controller_attributes_for(edition_type, attributes = {})
     super.except(:alternative_format_provider).reverse_merge(

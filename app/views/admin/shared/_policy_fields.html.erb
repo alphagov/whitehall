@@ -1,9 +1,11 @@
-<fieldset class="policies">
-  <%= form.label :policy_content_ids, "Policies" %>
-  <%= form.select :policy_content_ids,
-                  taggable_policy_content_ids_container,
-                  { include_blank: true },
-                  multiple: true,
-                  class: 'chzn-select form-control',
-                  data: { placeholder: "Choose policies…"} %>
-</fieldset>
+<% unless model.can_be_tagged_to_taxonomy? %>
+  <fieldset class="policies">
+    <%= form.label :policy_content_ids, "Policies" %>
+    <%= form.select :policy_content_ids,
+                    taggable_policy_content_ids_container,
+                    { include_blank: true },
+                    multiple: true,
+                    class: 'chzn-select form-control',
+                    data: { placeholder: "Choose policies…"} %>
+  </fieldset>
+<% end %>

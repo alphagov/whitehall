@@ -24,6 +24,8 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_allow_alternative_format_provider_for :publication
   should_allow_scheduled_publication_of :publication
   should_allow_access_limiting_of :publication
+  should_allow_tagging_to_taxonomy_for :publication
+  should_prevent_legacy_tagging_for :publication
 
   view_test "new displays publication fields" do
     get :new
@@ -142,118 +144,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  view_test "when edition is not from DfE or SFA dont show a button to tag to the new taxonomy" do
-    draft_edition = create(:draft_publication)
-
-    publication_has_no_expanded_links(draft_edition.content_id)
-    get :show, params: { id: draft_edition }
-
-    refute_select '.taxonomy-topics'
-  end
-
-  view_test "when edition is from DfE show a button to tag to the new taxonomy" do
-    dfe_organisation = create(:organisation, content_id: "ebd15ade-73b2-4eaf-b1c3-43034a42eb37")
-
-    publication = create(
-      :publication,
-      organisations: [dfe_organisation]
-    )
-
-    login_as(create(:user, organisation: dfe_organisation))
-
-    publication_has_no_expanded_links(publication.content_id)
-    get :show, params: { id: publication }
-
-    assert_select '.taxonomy-topics .btn', "Add topic"
-  end
-
-  view_test "when edition is from SFA show a button to tag to the new taxonomy" do
-    sfa_organisation = create(:organisation, content_id: "3e5a6924-b369-4eb3-8b06-3c0814701de4")
-
-    publication = create(
-      :publication,
-      organisations: [sfa_organisation]
-    )
-
-    login_as(create(:user, organisation: sfa_organisation))
-
-    publication_has_no_expanded_links(publication.content_id)
-    get :show, params: { id: publication }
-
-    assert_select '.taxonomy-topics .btn', "Add topic"
-  end
-
-  view_test "when edition is not tagged to the new taxonomy" do
-    sfa_organisation = create(:organisation, content_id: "3e5a6924-b369-4eb3-8b06-3c0814701de4")
-
-    publication = create(
-      :publication,
-      organisations: [sfa_organisation]
-    )
-
-    login_as(create(:user, organisation: sfa_organisation))
-
-    publication_has_no_expanded_links(publication.content_id)
-    get :show, params: { id: publication }
-
-    refute_select '.taxonomy-topics .content'
-    assert_select '.taxonomy-topics .no-content', "No topics - please add a topic before publishing"
-  end
-
-  view_test "when edition is tagged to the new taxonomy" do
-    sfa_organisation = create(:organisation, content_id: "3e5a6924-b369-4eb3-8b06-3c0814701de4")
-
-    publication = create(
-      :publication,
-      organisations: [sfa_organisation]
-    )
-
-    login_as(create(:user, organisation: sfa_organisation))
-
-    publication_has_expanded_links(publication.content_id)
-
-    get :show, params: { id: publication }
-
-    refute_select '.taxonomy-topics .no-content'
-    assert_select '.taxonomy-topics .content li', "Education, Training and Skills"
-    assert_select '.taxonomy-topics .content li', "Primary Education"
-  end
-
 private
-
-  def publication_has_no_expanded_links(content_id)
-    publishing_api_has_expanded_links(
-      content_id:  content_id,
-      expanded_links:  {}
-    )
-  end
-
-  def publication_has_expanded_links(content_id)
-    publishing_api_has_expanded_links(
-      content_id:  content_id,
-      expanded_links:  {
-        "taxons" => [
-          {
-            "title" => "Primary Education",
-            "content_id" => "aaaa",
-            "base_path" => "i-am-a-taxon",
-            "details" => { "visible_to_departmental_editors" => true },
-            "links" => {
-              "parent_taxons" => [
-                {
-                  "title" => "Education, Training and Skills",
-                  "content_id" => "bbbb",
-                  "base_path" => "i-am-a-parent-taxon",
-                  "details" => { "visible_to_departmental_editors" => true },
-                  "links" => {}
-                }
-              ]
-            }
-          }
-        ]
-      }
-    )
-  end
 
   def controller_attributes_for(edition_type, attributes = {})
     super.except(:alternative_format_provider).reverse_merge(
