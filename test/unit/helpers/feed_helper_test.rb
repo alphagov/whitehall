@@ -23,36 +23,6 @@ class FeedHelperTest < ActionView::TestCase
       atom_feed_url_for(role)
   end
 
-  test 'feed_wants_govdelivery_version? is false when there is no govdelivery_version param' do
-    stubs(:params).returns({})
-    refute feed_wants_govdelivery_version?
-  end
-
-  test 'feed_wants_govdelivery_version? is true when there is a govdelivery_version param set to "1"' do
-    stubs(:params).returns(govdelivery_version: '1')
-    assert feed_wants_govdelivery_version?
-  end
-
-  test 'feed_wants_govdelivery_version? is true when there is a govdelivery_version param set to "yes"' do
-    stubs(:params).returns(govdelivery_version: 'yes')
-    assert feed_wants_govdelivery_version?
-  end
-
-  test 'feed_wants_govdelivery_version? is true when there is a govdelivery_version param set to "true"' do
-    stubs(:params).returns(govdelivery_version: 'true')
-    assert feed_wants_govdelivery_version?
-  end
-
-  test 'feed_wants_govdelivery_version? is true when there is a govdelivery_version param set to "on"' do
-    stubs(:params).returns(govdelivery_version: 'on')
-    assert feed_wants_govdelivery_version?
-  end
-
-  test 'feed_wants_govdelivery_version? is false when there is a govdelivery_version param set to something other than "1", "yes", "true", or "on"' do
-    stubs(:params).returns(govdelivery_version: 'monkey')
-    refute feed_wants_govdelivery_version?
-  end
-
   test 'documents_as_feed_entries exposes each document as an entry and calls document_as_feed_entry on it' do
     document_1 = Publication.new
     document_1.stubs(:id).returns(12)
@@ -68,8 +38,8 @@ class FeedHelperTest < ActionView::TestCase
     builder.expects(:entry).with(document_2, id: "tag:#{host},2005:NewsArticle/14", url: '/news_article_url', published: 2.weeks.ago, updated: 13.days.ago).yields(builder).in_sequence(entries)
     builder.expects(:entry).with(document_1, id: "tag:#{host},2005:Publication/12", url: '/publication_url', published: 1.week.ago, updated: 3.days.ago).yields(builder).in_sequence(entries)
     feed_entry = sequence('feed_entry')
-    expects(:document_as_feed_entry).with(document_2, builder, false).in_sequence(feed_entry)
-    expects(:document_as_feed_entry).with(document_1, builder, false).in_sequence(feed_entry)
+    expects(:document_as_feed_entry).with(document_2, builder).in_sequence(feed_entry)
+    expects(:document_as_feed_entry).with(document_1, builder).in_sequence(feed_entry)
 
     stubs(:public_document_url).with(document_2).returns '/news_article_url'
     stubs(:public_document_url).with(document_1).returns '/publication_url'
@@ -96,8 +66,7 @@ class FeedHelperTest < ActionView::TestCase
     documents_as_feed_entries([d], builder, 'it is time')
   end
 
-  test 'documents_as_feed_entries calls document_as_feed_entry with govdelivery set to true if its true' do
-    expects(:feed_wants_govdelivery_version?).returns(true)
+  test 'documents_as_feed_entries calls document_as_feed_entry' do
     document = Publication.new
     document.stubs(:id).returns(12)
     document.stubs(:public_timestamp).returns(3.days.ago)
@@ -109,11 +78,11 @@ class FeedHelperTest < ActionView::TestCase
     builder.expects(:updated).with(3.days.ago)
     stubs(:public_document_url).with(document).returns '/publication_url'
     builder.expects(:entry).with(document, id: "tag:#{host},2005:Publication/12", url: '/publication_url', published: 1.week.ago, updated: 3.days.ago).yields(builder).in_sequence(entries)
-    expects(:document_as_feed_entry).with(document, builder, true).returns('govspoken content')
+    expects(:document_as_feed_entry).with(document, builder).returns('govspoken content')
     documents_as_feed_entries([document], builder)
   end
 
-  test 'document_as_feed_entry sets the title, category, summary, and content on the builder prefixing the title with the format_name of the document, using the govspoken version of the document as the content when govdelivery_version is false' do
+  test 'document_as_feed_entry sets the title, category, summary, and content on the builder prefixing the title with the format_name of the document, using the govspoken version of the document as the content' do
     document = Edition.new(title: 'A thing!', summary: 'A thing has happened')
     builder = mock('builder')
     builder.expects(:title).with "#{document.display_type}: #{document.title}"
@@ -121,7 +90,7 @@ class FeedHelperTest < ActionView::TestCase
     builder.expects(:summary).with document.summary
     expects(:govspeak_edition_to_html).with(document).returns('govspoken content')
     builder.expects(:content).with('govspoken content', type: 'html')
-    document_as_feed_entry(document, builder, false)
+    document_as_feed_entry(document, builder)
   end
 
   test 'document_as_feed_entry converts world location news article to "News story" in title' do
@@ -132,39 +101,7 @@ class FeedHelperTest < ActionView::TestCase
     builder.stubs(:summary)
     builder.stubs(:content)
     expects(:govspeak_edition_to_html).with(document).returns('govspoken content')
-    document_as_feed_entry(document, builder, false)
-  end
-
-  test 'document_as_feed_entry sets the title, category, summary, and content on the builder prepending the change note to the begining the summary when govdelivery_version is true' do
-    document = Edition.new(title: 'A thing!', summary: 'A thing has happened', published_major_version: 2, change_note: 'note')
-    builder = mock('builder')
-    builder.stubs(:title)
-    builder.expects(:category).with(label: document.display_type, term: document.display_type)
-    builder.expects(:summary).with "[Updated: note] #{document.summary}"
-    expects(:govspeak_edition_to_html).with(document).returns('govspoken content')
-    builder.expects(:content).with('<p><em>Updated:</em> note</p>govspoken content', type: 'html')
-    document_as_feed_entry(document, builder, true)
-  end
-
-  test 'document_as_feed_entry sets the title, category, summary, and content on the builder prefixing the title with the format_name of the document when govdelivery_version is true' do
-    document = Edition.new(title: 'A thing!', summary: 'A thing has happened')
-    builder = mock('builder')
-    builder.expects(:title).with "#{document.display_type}: #{document.title}"
-    builder.stubs(:category)
-    builder.stubs(:summary)
-    expects(:govspeak_edition_to_html).with(document).returns('govspoken content')
-    builder.expects(:content).with('govspoken content', type: 'html')
-    document_as_feed_entry(document, builder, true)
-  end
-
-  test 'entry_summary returns summary of document when govdelivery_version is false' do
-    document = Edition.new(title: 'A thing!', summary: 'A thing has happened')
-    assert_equal 'A thing has happened', entry_summary(document, false)
-  end
-
-  test 'entry_summary returns summary of document prefixed with a change note when govdelivery_version is true' do
-    document = Edition.new(title: 'A thing!', summary: 'A thing has happened', change_note: 'My change_note', minor_change: false, published_major_version: 3)
-    assert_equal '[Updated: My change_note] A thing has happened', entry_summary(document, true)
+    document_as_feed_entry(document, builder)
   end
 
   test 'entry_content returns govspoken version of document' do
