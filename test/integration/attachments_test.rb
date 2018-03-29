@@ -37,6 +37,8 @@ class AttachmentsTest < ActionDispatch::IntegrationTest
   end
 
   test "redirects asset requests that aren't made via the asset host when the filename contains multiple periods" do
+    logout
+
     Plek.any_instance.stubs(:public_asset_host).returns('http://asset-host.com')
     host! 'not-asset-host.com'
 

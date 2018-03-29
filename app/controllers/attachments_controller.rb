@@ -2,10 +2,12 @@ class AttachmentsController < BaseAttachmentsController
   include PublicDocumentRoutesHelper
 
   def show
-    asset_host = URI.parse(Plek.new.public_asset_host).host
-    unless request.host == asset_host
-      redirect_to host: asset_host
-      return
+    unless user_signed_in?
+      asset_host = URI.parse(Plek.new.public_asset_host).host
+      unless request.host == asset_host
+        redirect_to host: asset_host
+        return
+      end
     end
 
     if attachment_visible?
