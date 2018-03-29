@@ -201,7 +201,7 @@ GEM
     govuk_frontend_toolkit (7.4.2)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
-    govuk_publishing_components (6.0.0)
+    govuk_publishing_components (6.1.0)
       govspeak (>= 5.0.3)
       govuk_app_config
       govuk_frontend_toolkit
@@ -582,7 +582,7 @@ DEPENDENCIES
   govuk_admin_template (~> 6.5)
   govuk_app_config (~> 1.4)
   govuk_frontend_toolkit (= 7.4.2)
-  govuk_publishing_components (~> 6.0.0)
+  govuk_publishing_components (~> 6.1.0)
   govuk_sidekiq (= 2.0.0)
   graphviz_transitions
   invalid_utf8_rejector (~> 0.0.4)
