@@ -4,7 +4,6 @@ module FeedHelper
   end
 
   def documents_as_feed_entries(documents, builder, feed_updated_timestamp = Time.current)
-    govdelivery_version = feed_wants_govdelivery_version?
     feed_updated_timestamp =
       if documents.any?
         documents.first.public_timestamp
@@ -15,7 +14,7 @@ module FeedHelper
 
     documents.each do |document|
       builder.entry(document, id: document_id(document, builder), url: public_document_url(document), published: document.first_public_at, updated: document.public_timestamp) do |_entry|
-        document_as_feed_entry(document, builder, govdelivery_version)
+        document_as_feed_entry(document, builder)
       end
     end
   end
@@ -44,34 +43,20 @@ module FeedHelper
     document.display_type
   end
 
-  def document_as_feed_entry(document, builder, govdelivery_version = false)
+  def document_as_feed_entry(document, builder)
     builder.title "#{feed_display_type_for(document)}: #{document.title}"
     builder.category label: document.display_type, term: document.display_type
-    builder.summary entry_summary(document, govdelivery_version)
+    builder.summary entry_summary(document)
     builder.content entry_content(document), type: 'html'
   end
 
-  def entry_summary(document, govdelivery_version = false)
-    if govdelivery_version
-      change_note = document.most_recent_change_note
-      change_note = "[Updated: #{change_note}] " if change_note
-      "#{change_note}#{document.summary}"
-    else
-      document.summary
-    end
+  def entry_summary(document)
+    document.summary
   end
 
   def entry_content(document)
     change_note = document.most_recent_change_note
     change_note = "<p><em>Updated:</em> #{change_note}</p>" if change_note
     "#{change_note}#{govspeak_edition_to_html(document)}"
-  end
-
-  def feed_wants_govdelivery_version?
-    if params[:govdelivery_version].present? && params[:govdelivery_version] =~ /\A(?:true|yes|1|on)\Z/i
-      true
-    else
-      false
-    end
   end
 end

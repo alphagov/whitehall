@@ -152,7 +152,7 @@ module OrganisationControllerTestHelpers
         refute_select ".social-media-accounts"
       end
 
-      view_test "#{org_type}:show has a link to govdelivery if one exists and featured documents" do
+      view_test "#{org_type}:show has a link to sign up if one exists and featured documents" do
         organisation = create_org_and_stub_content_store(org_type)
         feature_list = organisation.load_or_create_feature_list(:en)
         edition = create(:published_news_article, first_published_at: 1.days.ago)

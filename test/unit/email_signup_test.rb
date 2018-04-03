@@ -4,7 +4,7 @@ require 'gds_api/test_helpers/email_alert_api'
 class EmailSignupTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::EmailAlertApi
 
-  test "#save ensures that a relevant topic exists in GovDelivery using the feed and the signup description" do
+  test "#save ensures that a relevant topic exists in email-alert-api using the feed and the signup description" do
     email_signup = EmailSignup.new(feed: feed_url)
     response = { "gov_delivery_id" => "TOPIC-123", "subscription_url" => "http://example.com" }
 
@@ -16,10 +16,10 @@ class EmailSignupTest < ActiveSupport::TestCase
     assert email_signup.save
 
     assert_equal "TOPIC-123", email_signup.topic_id
-    assert_equal "http://example.com", email_signup.govdelivery_url
+    assert_equal "http://example.com", email_signup.signup_url
   end
 
-  test "#save doesn't create a GovDelivery topic if one already exists" do
+  test "#save doesn't create an email-alert-api topic if one already exists" do
     email_signup = EmailSignup.new(feed: feed_url)
     email_alert_api_has_subscriber_list("email_document_supertype" => "publications")
 
@@ -27,12 +27,12 @@ class EmailSignupTest < ActiveSupport::TestCase
     assert_not_requested(email_alert_api_creates_subscriber_list({}))
   end
 
-  test "#save does not create a GovDelivery topic if the feed is missing" do
+  test "#save does not create an email-alert-api topic if the feed is missing" do
     refute EmailSignup.new.save
     assert_not_requested(stub_any_email_alert_api_call)
   end
 
-  test "#save does not create a GovDelivery topic if the feed is invalid" do
+  test "#save does not create an email-alert-api topic if the feed is invalid" do
     refute EmailSignup.new(feed: 'http://fake/feed').save
     assert_not_requested(stub_any_email_alert_api_call)
   end

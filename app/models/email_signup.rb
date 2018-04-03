@@ -31,7 +31,7 @@ class EmailSignup
     ensure_subscriber_list_exists['subscriber_list']['gov_delivery_id']
   end
 
-  def govdelivery_url
+  def signup_url
     ensure_subscriber_list_exists['subscriber_list']['subscription_url']
   end
 

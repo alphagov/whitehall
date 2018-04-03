@@ -21,18 +21,18 @@ class EmailSignupsControllerTest < ActionController::TestCase
     assert_select "p", text: /we could not find a valid email alerts feed/
   end
 
-  test 'POST :create with a valid email signup redirects to the govdelivery URL' do
+  test 'POST :create with a valid email signup redirects to the signup URL' do
     topic = create(:topic)
 
     email_alert_api_has_subscriber_list(
       "links" => { "policy_areas" => [topic.content_id] },
-      "subscription_url" => "http://govdelivery_signup_url",
+      "subscription_url" => "http://email_alert_api_signup_url",
     )
 
     post :create, params: { email_signup: { feed: atom_feed_url_for(topic) } }
 
     assert_response :redirect
-    assert_redirected_to 'http://govdelivery_signup_url'
+    assert_redirected_to 'http://email_alert_api_signup_url'
   end
 
   view_test 'POST :create with an invalid email signup shows an error message' do

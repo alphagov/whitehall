@@ -7,7 +7,7 @@ class EmailSignupsController < PublicFacingController
     @email_signup = EmailSignup.new(email_signup_params)
 
     if @email_signup.save
-      redirect_to @email_signup.govdelivery_url
+      redirect_to @email_signup.signup_url
     else
       render action: 'new'
     end

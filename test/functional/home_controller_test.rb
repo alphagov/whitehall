@@ -42,20 +42,6 @@ class HomeControllerTest < ActionController::TestCase
     end
   end
 
-  view_test 'Atom feed shows a list of recently published documents with govdelivery attributes when requested' do
-    editor = create(:departmental_editor)
-    edition = create(:published_speech)
-    version_2 = edition.create_draft(editor)
-    version_2.change_note = 'My new version'
-    force_publish(version_2)
-
-    get :feed, params: { govdelivery_version: 'yes' }, format: :atom
-
-    assert_select_atom_feed do
-      assert_select_atom_entries([version_2], true)
-    end
-  end
-
   view_test "frontend layout includes header-context element to stop breadcrumbs being inserted" do
     get :how_government_works
 
