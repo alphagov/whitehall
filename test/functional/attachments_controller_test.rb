@@ -30,12 +30,22 @@ class AttachmentsControllerTest < ActionController::TestCase
     AttachmentUploader.enable_processing = false
   end
 
-  test "redirects asset requests that aren't made via the asset host" do
+  test "redirects asset requests that aren't made via the asset host when no user is signed in" do
     request.host = 'not-asset-host.com'
 
     get :show, params: params
 
     assert_redirected_to "http://asset-host.com#{attachment_data.file.asset_manager_path}"
+  end
+
+  test 'serves asset requests when not made from asset host if there is a signed in user' do
+    setup_stubs
+    login_as :user
+    request.host = 'not-asset-host.com'
+
+    get :show, params: params
+
+    assert_response 200
   end
 
   test 'does not redirect asset requests that are made via the asset host' do
