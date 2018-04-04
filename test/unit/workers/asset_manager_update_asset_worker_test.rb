@@ -27,7 +27,7 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
 
     @attachment_data.stubs(:deleted?).returns(false)
 
-    assert_raises(AssetManagerUpdateAssetWorker::AssetManagerAssetMissing) do
+    assert_raises(AssetManagerUpdateAssetWorker::AssetManagerAssetDeleted) do
       @worker.perform(@attachment_data, @legacy_url_path, 'draft' => false)
     end
   end

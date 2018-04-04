@@ -1,7 +1,7 @@
 class AssetManagerUpdateAssetWorker
   include AssetManagerWorkerHelper
 
-  class AssetManagerAssetMissing < StandardError; end
+  class AssetManagerAssetDeleted < StandardError; end
 
   def perform(attachment_data, legacy_url_path, new_attributes = {})
     attributes = find_asset_by(legacy_url_path)
@@ -11,7 +11,7 @@ class AssetManagerUpdateAssetWorker
       return
     elsif asset_deleted && !attachment_data.deleted?
       error_message = "Asset corresponding to AttachmentData ID #{attachment_data.id} and by legacy URL path #{legacy_url_path} expected to exist in Asset Manager"
-      raise AssetManagerAssetMissing.new(error_message)
+      raise AssetManagerAssetDeleted.new(error_message)
     end
 
     if (replacement_path = new_attributes.delete('replacement_legacy_url_path'))
