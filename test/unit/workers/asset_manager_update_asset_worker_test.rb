@@ -21,9 +21,31 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
     @worker.perform(@attachment_data, @legacy_url_path, 'draft' => false)
   end
 
+  test "no-op if the attachment_data has been deleted and the asset has been deleted in asset manager" do
+    @worker.stubs(:find_asset_by).with(@legacy_url_path)
+      .returns('id' => @asset_url, 'deleted' => true)
+
+    @attachment_data.stubs(:deleted?).returns(true)
+
+    Services.asset_manager.expects(:update_asset).never
+
+    @worker.perform(@attachment_data, @legacy_url_path, 'draft' => false)
+  end
+
   test "raises exception if asset can't be found and attachment_data isn't deleted" do
     exception = GdsApi::HTTPNotFound.new(404)
     @worker.stubs(:find_asset_by).with(@legacy_url_path).raises(exception)
+
+    @attachment_data.stubs(:deleted?).returns(false)
+
+    assert_raises(AssetManagerUpdateAssetWorker::AssetManagerAssetMissing) do
+      @worker.perform(@attachment_data, @legacy_url_path, 'draft' => false)
+    end
+  end
+
+  test "raises exception if asset has been deleted in asset manager and attachment_data isn't deleted" do
+    @worker.stubs(:find_asset_by).with(@legacy_url_path)
+      .returns('id' => @asset_url, 'deleted' => true)
 
     @attachment_data.stubs(:deleted?).returns(false)
 
