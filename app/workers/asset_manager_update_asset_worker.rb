@@ -3,7 +3,7 @@ class AssetManagerUpdateAssetWorker
 
   class AssetManagerAssetDeleted < StandardError
     def initialize(attachment_data_id, legacy_url_path)
-      message = "Asset corresponding to AttachmentData ID #{attachment_data_id} and by legacy URL path #{legacy_url_path} expected to exist in Asset Manager"
+      message = "Asset corresponding to AttachmentData ID #{attachment_data_id} and legacy URL path #{legacy_url_path} expected not to be deleted in Asset Manager"
       super(message)
     end
   end
