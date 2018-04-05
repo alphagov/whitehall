@@ -10,9 +10,9 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
     @attachment_data = FactoryBot.build(:attachment_data)
   end
 
-  test "no-op if the attachment_data has been deleted and we can't find the asset in asset manager" do
-    exception = GdsApi::HTTPNotFound.new(404)
-    @worker.stubs(:find_asset_by).with(@legacy_url_path).raises(exception)
+  test "no-op if the attachment_data has been deleted and the asset has been deleted in asset manager" do
+    @worker.stubs(:find_asset_by).with(@legacy_url_path)
+      .returns('id' => @asset_url, 'deleted' => true)
 
     @attachment_data.stubs(:deleted?).returns(true)
 
@@ -21,13 +21,13 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
     @worker.perform(@attachment_data, @legacy_url_path, 'draft' => false)
   end
 
-  test "raises exception if asset can't be found and attachment_data isn't deleted" do
-    exception = GdsApi::HTTPNotFound.new(404)
-    @worker.stubs(:find_asset_by).with(@legacy_url_path).raises(exception)
+  test "raises exception if asset has been deleted in asset manager and attachment_data isn't deleted" do
+    @worker.stubs(:find_asset_by).with(@legacy_url_path)
+      .returns('id' => @asset_url, 'deleted' => true)
 
     @attachment_data.stubs(:deleted?).returns(false)
 
-    assert_raises(AssetManagerUpdateAssetWorker::AssetManagerAssetMissing) do
+    assert_raises(AssetManagerUpdateAssetWorker::AssetManagerAssetDeleted) do
       @worker.perform(@attachment_data, @legacy_url_path, 'draft' => false)
     end
   end
