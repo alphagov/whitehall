@@ -95,7 +95,7 @@ class ScheduledPublishingWorkerTest < ActiveSupport::TestCase
       ScheduledPublishingWorker.perform_at(1.day.from_now, '3')
       ScheduledPublishingWorker.perform_at(2.days.from_now, '6')
 
-      assert_equal %w[3 6], ScheduledPublishingWorker.queued_edition_ids
+      assert_same_elements %w[3 6], ScheduledPublishingWorker.queued_edition_ids
     end
   end
 end
