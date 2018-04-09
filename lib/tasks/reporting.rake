@@ -72,4 +72,11 @@ namespace :reporting do
       csv << row
     end
   end
+
+  namespace :consultations do
+    task all: :environment do
+      options = opts_from_environment(:start_date, :data_path)
+      ConsultationReporter.new(options).all_consultations
+    end
+  end
 end
