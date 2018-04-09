@@ -1,5 +1,6 @@
 require 'gds_api/publishing_api_v2'
 require_relative '../../test/support/policy_tagging_helpers'
+require_relative 'mocha'
 
 Before do
   publishing_api_v1_endpoint = File.join(
