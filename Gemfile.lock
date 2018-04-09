@@ -102,7 +102,7 @@ GEM
     connection_pool (2.2.1)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
-    crass (1.0.3)
+    crass (1.0.4)
     cucumber (2.4.0)
       builder (>= 2.1.2)
       cucumber-core (~> 1.5.0)
@@ -201,7 +201,7 @@ GEM
     govuk_frontend_toolkit (7.4.2)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
-    govuk_publishing_components (6.2.0)
+    govuk_publishing_components (6.4.0)
       govspeak (>= 5.0.3)
       govuk_app_config
       govuk_frontend_toolkit
@@ -293,8 +293,8 @@ GEM
       redis
     mocha (1.4.0)
       metaclass (~> 0.0.1)
-    money (6.10.1)
-      i18n (>= 0.6.4, < 1.0)
+    money (6.11.0)
+      i18n (>= 0.6.4, < 1.1)
     multi_json (1.13.1)
     multi_test (0.1.2)
     multi_xml (0.6.0)
@@ -583,7 +583,7 @@ DEPENDENCIES
   govuk_admin_template (~> 6.5)
   govuk_app_config (~> 1.4)
   govuk_frontend_toolkit (= 7.4.2)
-  govuk_publishing_components (~> 6.2.0)
+  govuk_publishing_components (~> 6.4.0)
   govuk_sidekiq (~> 3)
   graphviz_transitions
   invalid_utf8_rejector (~> 0.0.4)
