@@ -111,7 +111,7 @@ group :test do
   gem 'maxitest'
   gem 'minitest-fail-fast'
   gem 'minitest-stub-const'
-  gem 'mocha', require: false
+  gem 'mocha'
   gem 'rack-test'
   gem 'rails-controller-testing'
   gem 'timecop'
