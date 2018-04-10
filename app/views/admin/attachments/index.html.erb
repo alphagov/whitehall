@@ -31,10 +31,14 @@
         <% end %>
       </ul>
 
-      <p class="alert alert-warning">
-        You must upload attachments in an <a href="https://www.gov.uk/guidance/content-design/planning-content#open-formats">open standards format</a>.<br/>
-        For example, if an attachment is text-based and designed to be edited it should be uploaded to GOV.UK as an .odt (OpenDocument text) file instead of a closed format like .docx.
-      </p>
+      <div class="alert alert-warning">
+        <p>
+          You must upload attachments in an <a href="https://www.gov.uk/guidance/content-design/planning-content#open-formats">open standards format</a>.<br/>
+        </p>
+        <p>
+          For example, if an attachment is text-based and designed to be edited it should be uploaded to GOV.UK as an .odt (OpenDocument text) file instead of a closed format like .docx.
+        </p>
+      </div>
 
       <%= render('attachments', attachable: attachable) if attachable.attachments.any? %>
     <% end %>
