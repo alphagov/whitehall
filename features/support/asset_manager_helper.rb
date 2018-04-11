@@ -1,3 +1,5 @@
+require_relative 'mocha'
+
 Before do
   asset_manager = stub_everything('asset-manager')
   asset_details = { 'id' => 'http://asset-manager/assets/asset-id' }
