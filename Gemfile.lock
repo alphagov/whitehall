@@ -120,7 +120,7 @@ GEM
       nokogiri (~> 1.5)
       railties (>= 4, < 5.2)
     cucumber-wire (0.0.1)
-    dalli (2.7.7)
+    dalli (2.7.8)
     database_cleaner (1.6.2)
     debug_inspector (0.0.3)
     deprecated_columns (0.1.1)
