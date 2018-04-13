@@ -72,6 +72,8 @@ end
 if ENV['GOVSPEAK_DEV']
   gem 'govspeak', path: '../govspeak'
 else
+  # 5.5.0 only because sanitize 4.6.4 is stricter on govspeak, which makes attachments invalid
+  # See https://trello.com/c/90AjvFzy/77-whitehall-isnt-able-to-use-latest-govspeak-version
   gem 'govspeak', '~> 5.5.0'
 end
 
