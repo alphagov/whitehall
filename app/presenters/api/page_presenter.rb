@@ -44,7 +44,8 @@ private
       :controller,
       :format,
       :action,
-      :world_location_id
+      :world_location_id,
+      :page,
     ).merge(
       override_params.merge(only_path: false)
     ))
