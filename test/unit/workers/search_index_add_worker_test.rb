@@ -10,7 +10,7 @@ class SearchIndexAddWorkerTest < ActiveSupport::TestCase
   end
 
   test '#perform logs a warning if the instance does not exist' do
-    Rails.logger.expects(:warn).once
+    Sidekiq.logger.expects(:warn).once
     SearchIndexAddWorker.new.perform('Topic', 1)
   end
 
@@ -27,7 +27,7 @@ class SearchIndexAddWorkerTest < ActiveSupport::TestCase
     draft_publication = create(:draft_publication)
 
     Whitehall::SearchIndex.indexer_class.any_instance.expects(:add).never
-    Rails.logger.expects(:warn).once
+    Sidekiq.logger.expects(:warn).once
     SearchIndexAddWorker.new.perform(draft_publication.class.name, draft_publication.id)
   end
 end
