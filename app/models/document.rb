@@ -37,7 +37,7 @@ class Document < ApplicationRecord
   has_many :document_collection_group_memberships, inverse_of: :document, dependent: :delete_all
   has_many :document_collection_groups, through: :document_collection_group_memberships
   has_many :document_collections, through: :document_collection_groups
-  has_many :features, inverse_of: :document
+  has_many :features, inverse_of: :document, dependent: :destroy
 
   validates_presence_of :content_id
 

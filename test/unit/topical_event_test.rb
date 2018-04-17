@@ -59,4 +59,18 @@ class TopicalEventTest < ActiveSupport::TestCase
     assert_equal start_date, rummager_payload["start_date"]
     assert_equal end_date, rummager_payload["end_date"]
   end
+
+  test "#destroy also destroys 'featured topical event' associations" do
+    topical_event = create(:topical_event)
+    feature = create(:feature, topical_event: topical_event)
+    feature_list = create(:feature_list, features: [feature])
+
+    feature_list.reload
+    assert_equal 1, feature_list.features.size
+
+    topical_event.destroy
+
+    feature_list.reload
+    assert_equal 0, feature_list.features.size
+  end
 end

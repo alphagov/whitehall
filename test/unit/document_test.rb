@@ -108,6 +108,20 @@ class DocumentTest < ActiveSupport::TestCase
     assert_empty DocumentCollectionGroupMembership.where(document_id: published_edition.document.id)
   end
 
+  test "#destroy also destroys 'featured document' associations" do
+    document = create(:document)
+    feature = create(:feature, document: document)
+    feature_list = create(:feature_list, features: [feature])
+
+    feature_list.reload
+    assert_equal 1, feature_list.features.size
+
+    document.destroy
+
+    feature_list.reload
+    assert_equal 0, feature_list.features.size
+  end
+
   test "should list a single change history when sole published edition is marked as a minor change" do
     edition = create(:published_publication, minor_change: true, change_note: nil)
 
