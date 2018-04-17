@@ -61,6 +61,7 @@ module PublishingApi
 
     def details
       base_details
+        .merge(change_history)
         .merge(CorporateInformationGroups.for(corporate_information_page))
         .merge(Organisation.for(corporate_information_page))
         .merge(PayloadBuilder::TagDetails.for(corporate_information_page))
@@ -79,6 +80,12 @@ module PublishingApi
                           end
 
       public_updated_at.rfc3339
+    end
+
+    def change_history
+      return {} unless corporate_information_page.change_history.present?
+
+      { change_history: corporate_information_page.change_history.as_json }
     end
 
     class CorporateInformationGroups
