@@ -182,7 +182,10 @@ class Organisation < ApplicationRecord
              boost_phrases: :acronym,
              slug: :slug,
              organisation_state: :searchable_govuk_status,
-             organisation_type: :organisation_type_key
+             organisation_type: :organisation_type_key,
+             organisation_crest: :organisation_crest,
+             organisation_brand: :organisation_brand,
+             logo_formatted_title: :logo_formatted_name
 
   extend FriendlyId
   friendly_id
@@ -275,12 +278,20 @@ class Organisation < ApplicationRecord
     self.organisation_logo_type_id = organisation_logo_type && organisation_logo_type.id
   end
 
+  def organisation_crest
+    organisation_logo_type.try(:class_name)
+  end
+
   def organisation_brand_colour
     OrganisationBrandColour.find_by_id(organisation_brand_colour_id)
   end
 
   def organisation_brand_colour=(organisation_brand_colour)
     self.organisation_brand_colour_id = organisation_brand_colour && organisation_brand_colour.id
+  end
+
+  def organisation_brand
+    organisation_brand_colour.try(:class_name)
   end
 
   def self.alphabetical(locale = I18n.locale)

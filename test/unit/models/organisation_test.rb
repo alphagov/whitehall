@@ -369,7 +369,11 @@ class OrganisationTest < ActiveSupport::TestCase
   end
 
   test 'should return search index data suitable for Rummageable' do
-    organisation = create(:organisation, name: 'Ministry of Funk', acronym: 'MoF')
+    organisation = create(:organisation,
+      name: 'Ministry of Funk',
+      acronym: 'MoF',
+      organisation_logo_type_id: OrganisationLogoType::HomeOffice.id,
+      organisation_brand_colour_id: OrganisationBrandColour::HomeOffice.id)
 
     assert_equal 'Ministry of Funk', organisation.search_index['title']
     assert_equal 'MoF', organisation.search_index['acronym']
@@ -378,6 +382,9 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal 'organisation', organisation.search_index['format']
     assert_equal 'live', organisation.search_index['organisation_state']
     assert_equal 'other', organisation.search_index['organisation_type'].to_s
+    assert_equal OrganisationLogoType::HomeOffice.class_name, organisation.search_index['organisation_crest']
+    assert_equal OrganisationBrandColour::HomeOffice.class_name, organisation.search_index['organisation_brand']
+    assert_equal "Ministry\nof\nFunk", organisation.search_index['logo_formatted_title']
     assert_equal [], organisation.search_index['organisations']
   end
 
@@ -476,62 +483,82 @@ class OrganisationTest < ActiveSupport::TestCase
     results = Organisation.search_index.to_a
 
     assert_equal 6, results.length
-    assert_equal({ 'title' => 'Closed organisation: Department for Culture and Sports',
-                  'content_id' => sport.content_id,
-                  'link' => '/government/organisations/department-for-culture-and-sports',
-                  'slug' => 'department-for-culture-and-sports',
-                  'indexable_content' => 'Sporty. Some stuff',
-                  'format' => 'organisation',
-                  'description' => 'Sporty.',
-                  'organisations' => [],
-                  'organisation_type' => :other,
-                  'organisation_state' => 'closed' }, results[0])
-    assert_equal({ 'title' => 'Department of Education',
-                  'content_id' => ed.content_id,
-                  'link' => '/government/organisations/department-of-education',
-                  'slug' => 'department-of-education',
-                  'indexable_content' => 'Bookish. Some stuff',
-                  'format' => 'organisation',
-                  'description' => 'The home of Department of Education on GOV.UK. Bookish.',
-                  'organisations' => [],
-                  'organisation_type' => :other,
-                  'organisation_state' => 'live' }, results[1])
-    assert_equal({ 'title' => 'HMRC',
-                  'content_id' => hmrc.content_id,
-                  'acronym' => 'hmrc',
-                  'link' => '/government/organisations/hmrc',
-                  'slug' => 'hmrc',
-                  'indexable_content' => 'Taxing. Some stuff',
-                  'format' => 'organisation',
-                  'boost_phrases' => 'hmrc',
-                  'description' => 'The home of HMRC on GOV.UK. Taxing.',
-                  'organisations' => [],
-                  'organisation_type' => :other,
-                  'organisation_state' => 'live' }, results[2])
-    assert_equal({ 'title' => 'Ministry of Defence',
-                  'content_id' => mod.content_id,
-                  'acronym' => 'mod',
-                  'link' => '/government/organisations/ministry-of-defence',
-                  'slug' => 'ministry-of-defence',
-                  'indexable_content' => 'Defensive. Some stuff',
-                  'format' => 'organisation',
-                  'boost_phrases' => 'mod',
-                  'description' => 'The home of Ministry of Defence on GOV.UK. Defensive.',
-                  'organisations' => [],
-                  'organisation_type' => :other,
-                  'organisation_state' => 'live' }, results[3])
-    assert_equal({ 'title' => 'Closed organisation: Devolved organisation',
-                  'content_id' => devolved.content_id,
-                  'acronym' => 'dev',
-                  'link' => '/government/organisations/devolved-organisation',
-                  'slug' => 'devolved-organisation',
-                  'indexable_content' => '',
-                  'description' => '',
-                  'organisations' => [],
-                  'format' => 'organisation',
-                  'boost_phrases' => 'dev',
-                  'organisation_type' => :other,
-                  'organisation_state' => 'devolved' }, results[5])
+    assert_equal({
+      'title' => 'Closed organisation: Department for Culture and Sports',
+      'content_id' => sport.content_id,
+      'link' => '/government/organisations/department-for-culture-and-sports',
+      'slug' => 'department-for-culture-and-sports',
+      'indexable_content' => 'Sporty. Some stuff',
+      'format' => 'organisation',
+      'description' => 'Sporty.',
+      'organisations' => [],
+      'organisation_type' => :other,
+      'organisation_state' => 'closed',
+      'logo_formatted_title' => "Department\nfor\nCulture\nand\nSports",
+      'organisation_crest' => 'single-identity'
+    }, results[0])
+    assert_equal({
+      'title' => 'Department of Education',
+      'content_id' => ed.content_id,
+      'link' => '/government/organisations/department-of-education',
+      'slug' => 'department-of-education',
+      'indexable_content' => 'Bookish. Some stuff',
+      'format' => 'organisation',
+      'description' => 'The home of Department of Education on GOV.UK. Bookish.',
+      'organisations' => [],
+      'organisation_type' => :other,
+      'organisation_state' => 'live',
+      'logo_formatted_title' => "Department\nof\nEducation",
+      'organisation_crest' => 'single-identity'
+    }, results[1])
+    assert_equal({
+      'title' => 'HMRC',
+      'content_id' => hmrc.content_id,
+      'acronym' => 'hmrc',
+      'link' => '/government/organisations/hmrc',
+      'slug' => 'hmrc',
+      'indexable_content' => 'Taxing. Some stuff',
+      'format' => 'organisation',
+      'boost_phrases' => 'hmrc',
+      'description' => 'The home of HMRC on GOV.UK. Taxing.',
+      'organisations' => [],
+      'organisation_type' => :other,
+      'organisation_state' => 'live',
+      'logo_formatted_title' => 'HMRC',
+      'organisation_crest' => 'single-identity'
+    }, results[2])
+    assert_equal({
+      'title' => 'Ministry of Defence',
+      'content_id' => mod.content_id,
+      'acronym' => 'mod',
+      'link' => '/government/organisations/ministry-of-defence',
+      'slug' => 'ministry-of-defence',
+      'indexable_content' => 'Defensive. Some stuff',
+      'format' => 'organisation',
+      'boost_phrases' => 'mod',
+      'description' => 'The home of Ministry of Defence on GOV.UK. Defensive.',
+      'organisations' => [],
+      'organisation_type' => :other,
+      'organisation_state' => 'live',
+      'logo_formatted_title' => "Ministry\nof\nDefence",
+      'organisation_crest' => 'single-identity'
+    }, results[3])
+    assert_equal({
+      'title' => 'Closed organisation: Devolved organisation',
+      'content_id' => devolved.content_id,
+      'acronym' => 'dev',
+      'link' => '/government/organisations/devolved-organisation',
+      'slug' => 'devolved-organisation',
+      'indexable_content' => '',
+      'description' => '',
+      'organisations' => [],
+      'format' => 'organisation',
+      'boost_phrases' => 'dev',
+      'organisation_type' => :other,
+      'organisation_state' => 'devolved',
+      'logo_formatted_title' => "Devolved\norganisation",
+      'organisation_crest' => 'single-identity'
+    }, results[5])
   end
 
   test '#published_announcements returns published news or speeches' do
