@@ -18,6 +18,8 @@ class OffsiteLink < ApplicationRecord
   end
 
   belongs_to :parent, polymorphic: true
+  has_many :features, inverse_of: :offsite_link, dependent: :destroy
+
   validates :title, :summary, :link_type, :url, presence: true, length: { maximum: 255 }
   validate :check_url_is_allowed
   validates :link_type, presence: true, inclusion: { in: LinkTypes.all }

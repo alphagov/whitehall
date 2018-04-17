@@ -104,4 +104,18 @@ class OffsiteLinkTest < ActiveSupport::TestCase
     offsite_link = build(:offsite_link, link_type: 'nhs_content')
     assert offsite_link.valid?
   end
+
+  test "#destroy also destroys 'featured offsite link' associations" do
+    offsite_link = create(:offsite_link)
+    feature = create(:feature, offsite_link: offsite_link)
+    feature_list = create(:feature_list, features: [feature])
+
+    feature_list.reload
+    assert_equal 1, feature_list.features.size
+
+    offsite_link.destroy
+
+    feature_list.reload
+    assert_equal 0, feature_list.features.size
+  end
 end

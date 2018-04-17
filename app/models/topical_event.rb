@@ -39,6 +39,8 @@ class TopicalEvent < Classification
             class_name: "Consultation",
             source: :consultation
 
+  has_many :features, inverse_of: :topical_event, dependent: :destroy
+
   scope :active, -> { where("end_date > ?", Date.today) }
   scope :order_by_start_date, -> { order("start_date DESC") }
   scope :for_edition, ->(id) { joins(:classification_memberships).where(classification_memberships: { edition_id: id }) }
