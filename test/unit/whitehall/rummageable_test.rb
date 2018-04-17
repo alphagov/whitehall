@@ -159,7 +159,7 @@ class RummageableTest < ActiveSupport::TestCase
     Whitehall::Rummageable::Index.any_instance.stubs(:sleep)
 
     logger = stub('logger', debug: true, info: true)
-    logger.expects(:info).once.with(regexp_matches(/result: UNKNOWN/))
+    logger.expects(:info).once.with(has_entry(:result, 'UNKNOWN'))
 
     index = Whitehall::Rummageable::Index.new(rummager_url, index_name, logger: logger)
     index.add(one_document)

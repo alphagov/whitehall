@@ -69,14 +69,22 @@ module Whitehall
         end
       end
 
-      def log_request(method, url, _payload = nil)
-        @logger.info("Rummageable request: #{method.upcase} #{url}")
+      def log_request(method, url, payload = nil)
+        log("Rummageable request", method, url, payload)
       end
 
-      def log_response(method, url, call_time, response)
+      def log_response(method, call_time, response, url, payload = nil)
         time = sprintf('%.03f', call_time)
-        result = response.length.positive? ? JSON.parse(response).fetch('result', 'UNKNOWN') : "UNKNOWN"
-        @logger.info("Rummageable response: #{method.upcase} #{url} - time: #{time}s, result: #{result}")
+        result = response.length.positive? ? JSON.parse(response).fetch('result', 'UNKNOWN') : 'UNKNOWN'
+        log("Rummageable response", method, url, payload, time: time, result: result)
+      end
+
+      def log(message, method, url, payload = nil, fields = {})
+        if payload.is_a? Hash
+          @logger.info(fields.merge(msg: message, method: method.upcase, url: url, slug: payload[:slug], content_id: payload[:content_id]))
+        else
+          @logger.info(fields.merge(msg: message, method: method.upcase, url: url))
+        end
       end
 
       def make_request(method, *args)
@@ -85,7 +93,7 @@ module Whitehall
         call_time = Benchmark.realtime do
           response = RestClient.send(method, *args, content_type: :json, accept: :json)
         end
-        log_response(method, args.first, call_time, response)
+        log_response(method, call_time, response, *args)
         response
       end
 
