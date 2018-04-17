@@ -35,7 +35,7 @@ class WorldLocation < ApplicationRecord
   searchable title: :title,
              link: :search_link,
              description: :search_description,
-             only: :active,
+             only: :active_international_delegation,
              format: 'world_location',
              slug: :slug
   include PublishesToPublishingApi
@@ -72,6 +72,10 @@ class WorldLocation < ApplicationRecord
 
   def self.active
     where(active: true)
+  end
+
+  def self.active_international_delegation
+    where(active: true, world_location_type_id: WorldLocationType::InternationalDelegation.id)
   end
 
   def self.with_announcements

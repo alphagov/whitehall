@@ -183,12 +183,20 @@ class WorldLocationTest < ActiveSupport::TestCase
     refute geographic.include?(international_delegation)
   end
 
-  test 'adds world location to search index on creating if it is active' do
-    active_location = build(:world_location, active: true)
+  test 'adds world location to search index on creating if it is active and an international delegation' do
+    active_location = build(:international_delegation, active: true)
 
     Whitehall::SearchIndex.expects(:add).with(active_location)
 
     active_location.save
+  end
+
+  test 'does not add world location to search index on creating if it is active and a world location type' do
+    inactive_location = build(:world_location, active: true)
+
+    Whitehall::SearchIndex.expects(:add).with(inactive_location).never
+
+    inactive_location.save
   end
 
   test 'does not add world location to search index on creating if it is not active' do
@@ -199,8 +207,8 @@ class WorldLocationTest < ActiveSupport::TestCase
     inactive_location.save
   end
 
-  test 'adds world location to search index on updating if it is active' do
-    active_location = create(:world_location, active: true)
+  test 'adds world location to search index on updating if it is active and an international delegation' do
+    active_location = create(:international_delegation, active: true)
 
     Whitehall::SearchIndex.expects(:add).with(active_location)
 
@@ -218,7 +226,7 @@ class WorldLocationTest < ActiveSupport::TestCase
   end
 
   test 'removes world location from search index on updating if it is becoming inactive' do
-    inactive_location = create(:world_location, active: true)
+    inactive_location = create(:international_delegation, active: true)
 
     Whitehall::SearchIndex.expects(:delete).with(inactive_location)
 
@@ -227,7 +235,7 @@ class WorldLocationTest < ActiveSupport::TestCase
   end
 
   test 'removes world location role from search index on destroying if it is active' do
-    active_location = create(:world_location, active: true)
+    active_location = create(:international_delegation, active: true)
     Whitehall::SearchIndex.expects(:delete).with(active_location)
     active_location.destroy
   end
@@ -249,8 +257,8 @@ class WorldLocationTest < ActiveSupport::TestCase
   end
 
   test 'search index includes data for all active locations' do
-    create(:world_location, name: 'hat land', mission_statement: 'helping people in hat land find out about other clothing', active: true)
-    create(:world_location, name: 'sheep land', mission_statement: 'helping people in sheep land find out about other animals', active: false)
+    create(:international_delegation, name: 'hat land', mission_statement: 'helping people in hat land find out about other clothing', active: true)
+    create(:international_delegation, name: 'sheep land', mission_statement: 'helping people in sheep land find out about other animals', active: false)
 
     actual_length = WorldLocation.search_index.to_a.length
     actual_links = WorldLocation.search_index.map { |search_data| search_data['link'] }
