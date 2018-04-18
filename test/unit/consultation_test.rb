@@ -100,6 +100,14 @@ class ConsultationTest < ActiveSupport::TestCase
     assert_same_elements [closed_two_days_ago, closed_three_days_ago], Consultation.closed_at_or_after(3.days.ago)
   end
 
+
+  test ".responded includes closed consultations with an outcome" do
+    closed_with_outcome = FactoryBot.create(:consultation_with_outcome)
+    FactoryBot.create(:closed_consultation)
+    FactoryBot.create(:open_consultation)
+
+    assert_same_elements [closed_with_outcome], Consultation.responded
+  end
   test ".open includes consultations closing in the future and opening in the past" do
     open_consultation = create(:consultation, opening_at: 2.days.ago, closing_at: 10.minutes.from_now)
 
