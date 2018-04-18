@@ -90,14 +90,14 @@ class ConsultationTest < ActiveSupport::TestCase
     assert_equal 0, Consultation.closed.count
   end
 
-  test ".closed_since only includes consultations closed at or after the specified time" do
+  test ".closed_at_or_after only includes consultations closed at or after the specified time" do
     closed_three_days_ago = create(:consultation, opening_at: 1.month.ago, closing_at: 3.days.ago)
     closed_two_days_ago = create(:consultation, opening_at: 1.month.ago, closing_at: 2.days.ago)
     _open = create(:consultation, opening_at: 1.month.ago, closing_at: 1.day.from_now)
 
-    assert_same_elements [], Consultation.closed_since(1.days.ago)
-    assert_same_elements [closed_two_days_ago], Consultation.closed_since(2.days.ago)
-    assert_same_elements [closed_two_days_ago, closed_three_days_ago], Consultation.closed_since(3.days.ago)
+    assert_same_elements [], Consultation.closed_at_or_after(1.days.ago)
+    assert_same_elements [closed_two_days_ago], Consultation.closed_at_or_after(2.days.ago)
+    assert_same_elements [closed_two_days_ago, closed_three_days_ago], Consultation.closed_at_or_after(3.days.ago)
   end
 
   test ".open includes consultations closing in the future and opening in the past" do
@@ -119,14 +119,14 @@ class ConsultationTest < ActiveSupport::TestCase
     assert_equal 0, Consultation.open.count
   end
 
-  test ".open_since only includes consultations open at or after the specified time" do
+  test ".opened_at_or_after only includes consultations open at or after the specified time" do
     create(:consultation, opening_at: 1.month.ago)
     open_three_days_ago = create(:consultation, opening_at: 3.days.ago)
     open_two_days_ago = create(:consultation, opening_at: 2.days.ago)
 
-    assert_same_elements [], Consultation.open_since(1.days.ago)
-    assert_same_elements [open_two_days_ago], Consultation.open_since(2.days.ago)
-    assert_same_elements [open_two_days_ago, open_three_days_ago], Consultation.open_since(3.days.ago)
+    assert_same_elements [], Consultation.opened_at_or_after(1.days.ago)
+    assert_same_elements [open_two_days_ago], Consultation.opened_at_or_after(2.days.ago)
+    assert_same_elements [open_two_days_ago, open_three_days_ago], Consultation.opened_at_or_after(3.days.ago)
   end
 
   test ".upcoming includes consultations opening in the future" do
