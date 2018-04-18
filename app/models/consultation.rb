@@ -21,10 +21,12 @@ class Consultation < Publicationesque
 
   scope :closed, -> { where("closing_at < ?", Time.zone.now) }
   scope :closed_at_or_after, ->(time) { closed.where('closing_at >= ?', time) }
+  scope :closed_on, ->(date) { closed.where(closing_at: date.beginning_of_day..date.end_of_day) }
   scope :open, -> { where('closing_at >= ? AND opening_at <= ?', Time.zone.now, Time.zone.now) }
   scope :opened_at_or_after, ->(time) { open.where('opening_at >= ?', time) }
   scope :upcoming, -> { where('opening_at > ?', Time.zone.now) }
   scope :responded, -> { joins(:outcome) }
+  scope :awaiting_response, -> { closed.where.not(id: responded.pluck(&:id)) }
 
   add_trait do
     def process_associations_after_save(edition)

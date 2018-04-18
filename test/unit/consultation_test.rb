@@ -100,6 +100,15 @@ class ConsultationTest < ActiveSupport::TestCase
     assert_same_elements [closed_two_days_ago, closed_three_days_ago], Consultation.closed_at_or_after(3.days.ago)
   end
 
+  test ".closed_on includes consultations closed on the specified date" do
+    closed_yesterday = FactoryBot.create(:closed_consultation, closing_at: 1.day.ago)
+    closed_today = FactoryBot.create(:closed_consultation, closing_at: 5.minutes.ago)
+    FactoryBot.create(:open_consultation)
+
+    assert_same_elements [closed_yesterday], Consultation.closed_on(Date.yesterday)
+    assert_same_elements [closed_today], Consultation.closed_on(Date.today)
+    assert_same_elements [], Consultation.closed_on(Date.tomorrow)
+  end
 
   test ".responded includes closed consultations with an outcome" do
     closed_with_outcome = FactoryBot.create(:consultation_with_outcome)
@@ -108,6 +117,15 @@ class ConsultationTest < ActiveSupport::TestCase
 
     assert_same_elements [closed_with_outcome], Consultation.responded
   end
+
+  test ".awaiting_response includes closed consultations with no outcome" do
+    FactoryBot.create(:consultation_with_outcome)
+    closed_without_outcome = FactoryBot.create(:closed_consultation)
+    FactoryBot.create(:open_consultation)
+
+    assert_same_elements [closed_without_outcome], Consultation.awaiting_response
+  end
+
   test ".open includes consultations closing in the future and opening in the past" do
     open_consultation = create(:consultation, opening_at: 2.days.ago, closing_at: 10.minutes.from_now)
 
