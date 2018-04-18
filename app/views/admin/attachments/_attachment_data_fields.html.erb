@@ -5,6 +5,11 @@
   <% end %>
 
   <%= attachment_data_fields.label :file, (attachment_data_fields.object.filename ? 'Replace file' : nil), required: false %>
+
+  <p>
+    You must upload attachments in an <a href="https://www.gov.uk/guidance/content-design/planning-content#open-formats">open standards format</a>.
+  </p>
+
   <%= attachment_data_fields.file_field :file %>
 
   <%= form.check_box :accessible, label_text: "Attachment is accessible" %>

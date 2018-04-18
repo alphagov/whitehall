@@ -9,7 +9,7 @@
       <p class="qa-helper-copy">
         <strong>Note:</strong>
         <%= attachment_note(attachment.attachable_model_name) %>
-      <p>
+      </p>
       <ul class="actions list-unstyled">
         <li>
           <%= link_to 'Upload new file attachment', new_polymorphic_path([:admin, typecast_for_attachable_routing(attachable), Attachment]) %>
@@ -30,6 +30,15 @@
           </li>
         <% end %>
       </ul>
+
+      <div class="alert alert-warning">
+        <p>
+          You must upload attachments in an <a href="https://www.gov.uk/guidance/content-design/planning-content#open-formats">open standards format</a>.<br/>
+        </p>
+        <p>
+          For example, if an attachment is text-based and designed to be edited it should be uploaded to GOV.UK as an .odt (OpenDocument text) file instead of a closed format like .docx.
+        </p>
+      </div>
 
       <%= render('attachments', attachable: attachable) if attachable.attachments.any? %>
     <% end %>
