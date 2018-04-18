@@ -71,13 +71,8 @@ class RoleAppointment < ApplicationRecord
     where(started_at: start_time..end_time)
   end
 
-  #This is to prevent duplication of people by ministerial roles indexing
   def update_indexes
-    if person.current_ministerial_roles.any?
-      person.remove_from_search_index
-    else
-      person.update_in_search_index
-    end
+    person.update_in_search_index
   end
 
   attr_accessor :make_current
