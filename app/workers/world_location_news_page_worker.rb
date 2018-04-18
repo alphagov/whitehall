@@ -34,7 +34,7 @@ private
   end
 
   def search_index
-    Whitehall::SearchIndex.for(:government)
+    Whitehall::SearchIndex.for(:government, logger: logger)
   end
 
   # We use the same content_id for all locales so that Publishing API knows
