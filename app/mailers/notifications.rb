@@ -1,5 +1,6 @@
 class Notifications < ActionMailer::Base
   include ActionView::RecordIdentifier
+  include ActionView::Helpers::TextHelper
   include Admin::EditionRoutesHelper
 
   def fact_check_request(request, url_options)
@@ -59,6 +60,20 @@ class Notifications < ActionMailer::Base
     attachments['document_list.csv'] = csv
 
     mail from: no_reply_email_address, to: recipient_address, subject: "#{filter_title} from GOV.UK"
+  end
+
+  def consultation_deadline_upcoming(consultation, weeks_left:)
+    mail from: no_reply_email_address,
+      to: consultation.authors.map(&:email),
+      subject: "Consultation response due in #{pluralize(weeks_left, 'week')}",
+      body: %{Your consultation "#{consultation.title}" is closed and is due a response within #{pluralize(weeks_left, 'week')}}
+  end
+
+  def consultation_deadline_passed(consultation)
+    mail from: no_reply_email_address,
+      to: consultation.authors.map(&:email),
+      subject: "Consultation response deadline has passed",
+      body: %{The consultation response deadline for "#{consultation.title}" has passed}
   end
 
 private
