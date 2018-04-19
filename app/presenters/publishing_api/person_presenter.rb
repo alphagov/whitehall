@@ -21,17 +21,26 @@ module PublishingApi
 
       content.merge!(
         description: nil,
-        details: {},
-        document_type: item.class.name.underscore,
+        details: details,
+        document_type: "person",
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
-        schema_name: "placeholder",
+        schema_name: "person",
       )
       content.merge!(PayloadBuilder::PolymorphicPath.for(item))
     end
 
     def links
       {}
+    end
+
+    def details
+      {
+        image: {
+          url: item.image_url(:s465),
+          alt_text: item.name,
+        }
+      }
     end
   end
 end
