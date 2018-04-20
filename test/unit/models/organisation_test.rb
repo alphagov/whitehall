@@ -388,6 +388,29 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal [], organisation.search_index['organisations']
   end
 
+  test 'should return search index data suitable for Rummageable with a custom logo' do
+    organisation = build(:organisation,
+      slug: 'ministry-of-funk',
+      name: 'Ministry of Funk',
+      acronym: 'MoF',
+      logo: File.open(fixture_path.join('images', '960x640_gif.gif')),
+      organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
+      organisation_brand_colour_id: OrganisationBrandColour::HomeOffice.id)
+
+    assert_equal 'Ministry of Funk', organisation.search_index['title']
+    assert_equal 'MoF', organisation.search_index['acronym']
+    assert_equal "/government/organisations/#{organisation.slug}", organisation.search_index['link']
+    assert_equal organisation.indexable_content, organisation.search_index['indexable_content']
+    assert_equal 'organisation', organisation.search_index['format']
+    assert_equal 'live', organisation.search_index['organisation_state']
+    assert_equal 'other', organisation.search_index['organisation_type'].to_s
+    assert_equal OrganisationLogoType::CustomLogo.class_name, organisation.search_index['organisation_crest']
+    assert_equal OrganisationBrandColour::HomeOffice.class_name, organisation.search_index['organisation_brand']
+    assert_equal "Ministry\nof\nFunk", organisation.search_index['logo_formatted_title']
+    assert organisation.search_index['logo_url'].include? '960x640_gif.gif'
+    assert_equal [], organisation.search_index['organisations']
+  end
+
   test 'should return a rendered summary as description' do
     organisation = create(:organisation, name: "HMRC")
 

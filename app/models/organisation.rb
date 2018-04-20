@@ -185,7 +185,8 @@ class Organisation < ApplicationRecord
              organisation_type: :organisation_type_key,
              organisation_crest: :organisation_crest,
              organisation_brand: :organisation_brand,
-             logo_formatted_title: :logo_formatted_name
+             logo_formatted_title: :logo_formatted_name,
+             logo_url: :logo_url
 
   extend FriendlyId
   friendly_id
@@ -327,6 +328,10 @@ class Organisation < ApplicationRecord
     else
       govuk_status
     end
+  end
+
+  def logo_url
+    logo.try(:url)
   end
 
   def live?
