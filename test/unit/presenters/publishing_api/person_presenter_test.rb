@@ -42,4 +42,12 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
 
     assert_valid_against_schema(presented_item.content, 'person')
   end
+
+  test 'accepts people without an image' do
+    person = create(:person, forename: "Winston")
+
+    presented_item = present(person)
+
+    assert_valid_against_schema(presented_item.content, 'person')
+  end
 end

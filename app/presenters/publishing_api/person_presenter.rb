@@ -35,12 +35,11 @@ module PublishingApi
     end
 
     def details
-      {
-        image: {
-          url: item.image_url(:s465),
-          alt_text: item.name,
-        }
-      }
+      {}.tap do |hash|
+        if item.image_url(:s465)
+          hash[:image] = { url: item.image_url(:s465), alt_text: item.name }
+        end
+      end
     end
   end
 end
