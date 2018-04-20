@@ -127,7 +127,7 @@ end
 
 group :cucumber, :test do
   gem 'capybara'
-  gem 'cucumber', '~> 2.4.0'
+  gem 'cucumber', '~> 3.1.0'
   gem 'cucumber-rails', require: false
   gem 'launchy'
   gem 'poltergeist'
