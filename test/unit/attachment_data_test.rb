@@ -101,10 +101,16 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert_equal 3, attachment.number_of_pages
   end
 
-  test "should save attachment even if unable to count the number of pages" do
-    greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
-    AttachmentData.any_instance.stubs(:`).raises
-    assert_nothing_raised { create(:attachment_data, file: greenpaper_pdf) }
+  test "should set number of pages to nil if pdf-reader cannot count the number of pages" do
+    greenpage_pdf = fixture_file_upload('greenpaper.pdf')
+
+    errors = %w(PDF::Reader::MalformedPDFError PDF::Reader::UnsupportedFeatureError OpenSSL::Cipher::CipherError)
+    errors.each do |err|
+      PDF::Reader.any_instance.stubs(:page_count).raises(err.constantize)
+      attachment = create(:attachment_data, file: greenpage_pdf)
+      attachment.reload
+      assert_nil attachment.number_of_pages
+    end
   end
 
   test "should allow CSV file types as attachments" do
