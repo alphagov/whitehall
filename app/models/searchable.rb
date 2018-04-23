@@ -20,6 +20,7 @@ module Searchable
     :is_political,
     :latest_change_note,
     :link,
+    :logo_url,
     :logo_formatted_title,
     :metadata,
     :news_article_type,
