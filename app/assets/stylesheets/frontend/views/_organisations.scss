@@ -687,6 +687,10 @@
   #freedom-of-information {
     p {
       padding: 0 $gutter-half;
+
+      &.contact_form_url, &.tel {
+        padding: 0;
+      }
     }
 
     // dupe from static
