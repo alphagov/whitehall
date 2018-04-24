@@ -147,7 +147,7 @@ GEM
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.23)
-    friendly_id (5.2.3)
+    friendly_id (5.2.4)
       activerecord (>= 4.0.0)
     gds-api-adapters (52.5.1)
       addressable
@@ -568,7 +568,7 @@ DEPENDENCIES
   equivalent-xml (~> 0.6.0)
   factory_bot
   faraday
-  friendly_id (~> 5.2.1)
+  friendly_id (~> 5.2.4)
   gds-api-adapters
   gds-sso (~> 13.6)
   globalize (= 5.1.0)
