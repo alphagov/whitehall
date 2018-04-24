@@ -20,9 +20,15 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       base_path: public_path,
       title: "Organisation of Things",
       description: nil,
-      schema_name: 'placeholder',
+      schema_name: 'organisation',
       document_type: 'organisation',
-      links: { featured_policies: [] },
+      links: {
+        ordered_contacts: [],
+        ordered_featured_policies: [],
+        ordered_parent_organisations: [],
+        ordered_child_organisations: [],
+        ordered_successor_organisations: [],
+      },
       locale: 'en',
       publishing_app: 'whitehall',
       rendering_app: 'whitehall-frontend',
@@ -31,11 +37,42 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       redirects: [],
       update_type: "major",
       details: {
+        body: "",
         brand: nil,
         logo: {
           formatted_title: "Organisation<br/>of<br/>Things",
           crest: "single-identity",
         },
+        foi_exempt: false,
+        ordered_corporate_information_pages: [
+          {
+            title: "Corporate reports",
+            href: "/government/publications?departments%5B%5D=organisation-of-things&publication_type=corporate-reports"
+          },
+          {
+            title: "Transparency data",
+            href: "/government/publications?departments%5B%5D=organisation-of-things&publication_type=transparency-data"
+          },
+          {
+            title: "Jobs",
+            href: "https://www.civilservicejobs.service.gov.uk/csr"
+          }
+        ],
+        ordered_featured_links: [],
+        ordered_featured_documents: [],
+        ordered_ministers: [],
+        ordered_board_members: [],
+        ordered_military_personnel: [],
+        ordered_traffic_commissioners: [],
+        ordered_chief_professional_officers: [],
+        ordered_special_representatives: [],
+        organisation_featuring_priority: "news",
+        organisation_govuk_status: {
+          status: "live",
+          updated_at: nil,
+        },
+        organisation_type: "other",
+        social_media_links: [],
       },
       analytics_identifier: "O123",
     }
@@ -48,7 +85,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     assert_equal "major", presented_item.update_type
     assert_equal organisation.content_id, presented_item.content_id
 
-    assert_valid_against_schema(presented_item.content, 'placeholder')
+    assert_valid_against_schema(presented_item.content, 'organisation')
   end
 
   test 'presents an organisation’s custom logo' do
