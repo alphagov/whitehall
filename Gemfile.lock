@@ -202,7 +202,7 @@ GEM
     govuk_frontend_toolkit (7.4.2)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
-    govuk_publishing_components (6.5.0)
+    govuk_publishing_components (6.6.0)
       govspeak (>= 5.0.3)
       govuk_app_config
       govuk_frontend_toolkit
@@ -348,7 +348,7 @@ GEM
     pry-rails (0.3.6)
       pry (>= 0.10.4)
     public_suffix (3.0.2)
-    rack (2.0.4)
+    rack (2.0.5)
     rack-cache (1.7.1)
       rack (>= 0.4)
     rack-protection (2.0.1)
@@ -579,7 +579,7 @@ DEPENDENCIES
   govuk_admin_template (~> 6.6)
   govuk_app_config (~> 1.4)
   govuk_frontend_toolkit (= 7.4.2)
-  govuk_publishing_components (~> 6.5.0)
+  govuk_publishing_components (~> 6.6.0)
   govuk_sidekiq (~> 3)
   graphviz_transitions
   invalid_utf8_rejector (~> 0.0.4)
