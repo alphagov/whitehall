@@ -8,6 +8,7 @@ class AssetManagerUpdateAssetWorkerTest < ActiveSupport::TestCase
     @worker = AssetManagerUpdateAssetWorker.new
     @redirect_url = 'https://www.test.gov.uk/example'
     @attachment_data = FactoryBot.build(:attachment_data)
+    @attachment_data.stubs(:reload).returns(@attachment_data)
   end
 
   test "no-op if the attachment_data has been deleted and the asset has been deleted in asset manager" do

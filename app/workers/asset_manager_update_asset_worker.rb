@@ -12,6 +12,7 @@ class AssetManagerUpdateAssetWorker
     attributes = find_asset_by(legacy_url_path)
     asset_deleted = attributes['deleted']
 
+    attachment_data.reload
     if asset_deleted && attachment_data.deleted?
       return
     elsif asset_deleted && !attachment_data.deleted?
