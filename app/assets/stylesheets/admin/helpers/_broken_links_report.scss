@@ -40,10 +40,14 @@
 
   .display-issue-details::before {
     content: '\25B6';
-    padding-right: 3px;  
+    padding-right: 3px;
   }
 
   details[open] > .display-issue-details::before {
     content: '\25BC';
+  }
+
+  .draft-admin-links {
+    margin-top: 15px;
   }
 }

@@ -34,11 +34,17 @@
           <% end %>
         </ul>
       <% end %>
+      <% if LinkCheckerApiService.has_admin_draft_links?(report.link_reportable) %>
+        <p class="draft-admin-links">It also contains links to draft documents that weren't checked.</p>
+      <% end %>
       <%= render 'admin/link_check_reports/form', reportable: report.link_reportable, button_text: 'Check again' %>
     </section>
   <% else %>
     <section class='alert alert-success'>
       <p><span class="glyphicon glyphicon-ok add-right-margin"></span> This document contains no broken links.</p>
+      <% if LinkCheckerApiService.has_admin_draft_links?(report.link_reportable) %>
+        <p class="draft-admin-links">It also contains links to draft documents that weren't checked.</p>
+      <% end %>
       <%= render 'admin/link_check_reports/form', reportable: report.link_reportable, button_text: 'Check again' %>
     </section>
   <% end %>
