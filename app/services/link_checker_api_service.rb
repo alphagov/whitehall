@@ -9,7 +9,7 @@ class LinkCheckerApiService
 
   def self.check_links(reportable, webhook_uri, checked_within: nil)
     uris = convert_admin_links(extract_links(reportable))
-    raise "Reportable has no links to check" if uris.empty?
+    return if uris.empty?
 
     batch_report = Whitehall.link_checker_api_client.create_batch(
       uris,
@@ -22,14 +22,15 @@ class LinkCheckerApiService
   end
 
   def self.convert_admin_links(links)
-    links.map do |link|
+    converted = links.map do |link|
       edition = Whitehall::AdminLinkLookup.find_edition(link)
       if edition
-        Whitehall.url_maker.public_document_url(edition)
+        Whitehall.url_maker.public_document_url(edition) if edition.published?
       else
         link
       end
     end
+    converted.compact
   end
 
   def self.webhook_secret_token

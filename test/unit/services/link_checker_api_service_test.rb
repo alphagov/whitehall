@@ -43,11 +43,24 @@ class LinkCheckerApiServiceTest < ActiveSupport::TestCase
     assert_requested(link_check_request)
   end
 
-  test "raises error if there are no URLs in the document" do
+  test "doesn't check the links of unpublished Whitehall admin URLs" do
+    speech = create(:draft_speech)
+    expected_url = Whitehall.url_maker.public_document_url(speech)
+
+    edition = Edition.new(body: "A doc with a link to [an admin URL](/government/admin/speeches/#{speech.id})")
+
+    link_check_request = stub_request(:post, "https://link-checker-api.test.gov.uk/batch").
+      with(body: /#{expected_url}/).
+      to_return(status: 200, body: LINK_CHECKER_RESPONSE)
+
+    LinkCheckerApiService.check_links(edition, WEBHOOK_URI)
+
+    assert_not_requested(link_check_request)
+  end
+
+  test "returns nil if there are no URLs in the document" do
     edition = Edition.new(body: "Some text")
 
-    assert_raises "Reportable has no links to check" do
-      LinkCheckerApiService.check_links(edition, WEBHOOK_URI)
-    end
+    assert_nil(LinkCheckerApiService.check_links(edition, WEBHOOK_URI))
   end
 end
