@@ -1,3 +1,5 @@
+require 'ruby-progressbar'
+
 namespace :reporting do
   def opts_from_environment(*option_keys)
     {}.tap do |option_hash|
@@ -70,6 +72,44 @@ namespace :reporting do
         row += [created.size, updated.size]
       end
       csv << row
+    end
+  end
+
+  desc "A CSV report of all documents published by the given organisation"
+  task organisation_documents: :environment do
+    options = opts_from_environment(:organisation_slug)
+
+    CSV.open("#{options[:organisation_slug]}-documents.csv", 'w') do |csv|
+      csv << ['Content ID', 'Path', 'Title', 'Format', 'First Published', 'Last Updated']
+
+      # So we have the organisation association for all edition types
+      Edition.include(Edition::Organisations)
+
+      org_id = Organisation.where(slug: options[:organisation_slug]).limit(1).pluck(:id).first
+
+      scope = Edition.
+        distinct(:document_id).
+        joins(:edition_organisations, :document, :translations).
+        includes(:document, :translations).
+        where(
+          edition_organisations: { lead: 1, organisation_id: org_id },
+          state: %w{published}
+        )
+
+      progress_bar = ProgressBar.create(format: "%e [%b>%i] [%c/%C]", total: scope.count)
+
+      scope.find_each do |edition|
+        first_published = edition.document.ever_published_editions.order(:id).limit(1).pluck(:public_timestamp).first
+        csv << [
+          edition.content_id,
+          edition.search_link,
+          edition.title,
+          edition.class.name.underscore.humanize,
+          first_published.iso8601,
+          edition.public_timestamp.iso8601
+        ]
+        progress_bar.increment
+      end
     end
   end
 
