@@ -4,6 +4,15 @@ class LinkCheckerApiReport < ActiveRecord::Base
            -> { order(ordering: :asc) },
            class_name: LinkCheckerApiReport::Link
 
+  def self.create_noop_report(link_reportable)
+    create(
+      batch_id: nil,
+      completed_at: Time.zone.now,
+      link_reportable: link_reportable,
+      status: "completed",
+    )
+  end
+
   def self.create_from_batch_report(batch_report, link_reportable)
     CreateFromBatchReport.new(batch_report, link_reportable).create
   end
