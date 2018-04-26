@@ -23,12 +23,17 @@ task :generate_broken_link_reports, %i[reports_dir email_address organisation_sl
         puts "Processed #{processed_str} of #{total_str}" if (processed % 10000).zero?
       end
 
-    puts "Reports generated. Zipping..."
-    system "zip #{report_zip_path} #{reports_dir}/*_links_report.csv --junk-paths"
+    if Dir.glob("#{reports_dir}/*_links_report.csv").any?
+      puts "Reports generated. Zipping..."
+      system "zip #{report_zip_path} #{reports_dir}/*_links_report.csv --junk-paths"
 
-    puts "Reports zipped. Emailing to #{email_address}"
-    Notifications.broken_link_reports(report_zip_path, email_address).deliver_now
-    puts "Email sent."
+      puts "Reports zipped. Emailing to #{email_address}"
+      Notifications.broken_link_reports(report_zip_path, email_address).deliver_now
+      puts "Email sent."
+    else
+      puts "There are no broken link reports so hopefully this means there " \
+        "are no broken links 🎉"
+    end
   rescue StandardError => e
     GovukError.notify(e, extra: { error_message: "Exception raised during broken link report generation: '#{e.message}'" })
     raise
