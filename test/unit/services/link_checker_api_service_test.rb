@@ -4,6 +4,29 @@ class LinkCheckerApiServiceTest < ActiveSupport::TestCase
   WEBHOOK_URI = "https://example.com/webhook_uri".freeze
   LINK_CHECKER_RESPONSE = { id: 123, completed_at: nil, status: "completed" }.to_json.freeze
 
+  test "it knows whether an edition has links" do
+    edition = Edition.new(body: "A doc with a link to [an external URL](https://example.com/some-page)")
+
+    assert LinkCheckerApiService.has_links?(edition)
+  end
+
+  test "it knows whether an edition has links excluding admin links" do
+    speech = create(:draft_speech)
+
+    edition = Edition.new(body: "A doc with a link to [an admin URL](/government/admin/speeches/#{speech.id})")
+
+    assert LinkCheckerApiService.has_links?(edition, convert_admin_links: false)
+    refute LinkCheckerApiService.has_links?(edition, convert_admin_links: true)
+  end
+
+  test "it knows whether there are draft admin links" do
+    speech = create(:draft_speech)
+
+    edition = Edition.new(body: "A doc with a link to [an admin URL](/government/admin/speeches/#{speech.id})")
+
+    assert LinkCheckerApiService.has_admin_draft_links?(edition)
+  end
+
   test "checks external URL" do
     edition = Edition.new(body: "A doc with a link to [an external URL](https://example.com/some-page)")
 

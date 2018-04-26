@@ -1,6 +1,14 @@
 class LinkCheckerApiService
-  def self.has_links?(reportable)
-    !extract_links(reportable).empty?
+  def self.has_links?(reportable, convert_admin_links: true)
+    links = extract_links(reportable)
+    links = convert_admin_links(links) if convert_admin_links
+    links.any?
+  end
+
+  def self.has_admin_draft_links?(reportable)
+    links = extract_links(reportable)
+    converted = convert_admin_links(links)
+    links.count > converted.count
   end
 
   def self.extract_links(reportable)
