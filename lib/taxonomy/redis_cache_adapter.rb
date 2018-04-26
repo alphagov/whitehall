@@ -1,6 +1,6 @@
 module Taxonomy
   class RedisCacheAdapter
-    TAXONS_CACHE_KEY = "govuk_taxonomy_taxons".freeze
+    TAXONS_CACHE_KEY = "topic_taxonomy_taxons".freeze
 
     def initialize(redis_client: Redis.current, adapter: PublishingApiAdapter.new)
       @redis_client = redis_client

@@ -48,7 +48,7 @@ private
     Services.publishing_api.get_expanded_links(content_id)
   end
 
-  def govuk_taxonomy
-    Taxonomy::GovukTaxonomy.new
+  def topic_taxonomy
+    Taxonomy::TopicTaxonomy.new
   end
 end

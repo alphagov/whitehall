@@ -3,7 +3,7 @@ class Admin::StatisticsAnnouncementTagsController < Admin::BaseController
   before_action :enforce_permissions!
 
   def edit
-    @govuk_taxonomy = Taxonomy::GovukTaxonomy.new
+    @topic_taxonomy = Taxonomy::TopicTaxonomy.new
     @tag_form = TaxonomyTagForm.load(@statistics_announcement.content_id)
   end
 

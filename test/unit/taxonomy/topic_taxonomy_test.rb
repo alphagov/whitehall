@@ -1,10 +1,10 @@
 require 'test_helper'
 
-class Taxonomy::GovukTaxonomyTest < ActiveSupport::TestCase
+class Taxonomy::TopicTaxonomyTest < ActiveSupport::TestCase
   include TaxonomyHelper
 
   def subject
-    Taxonomy::GovukTaxonomy.new
+    Taxonomy::TopicTaxonomy.new
   end
 
   test "#live" do

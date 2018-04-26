@@ -25,12 +25,12 @@ class TaxonomyTagForm
   end
 
   def invisible_taxons
-    selected_taxons - govuk_taxonomy.visible_taxons.map(&:content_id)
+    selected_taxons - topic_taxonomy.visible_taxons.map(&:content_id)
   end
 
 private
 
-  def govuk_taxonomy
-    @_taxonomy ||= Taxonomy::GovukTaxonomy.new
+  def topic_taxonomy
+    @_taxonomy ||= Taxonomy::TopicTaxonomy.new
   end
 end
