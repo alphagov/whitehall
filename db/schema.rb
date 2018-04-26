@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180302165453) do
+ActiveRecord::Schema.define(version: 20180424194943) do
 
   create_table "about_pages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "topical_event_id"
@@ -672,7 +672,7 @@ ActiveRecord::Schema.define(version: 20180302165453) do
   end
 
   create_table "link_checker_api_reports", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "batch_id",             null: false
+    t.integer  "batch_id"
     t.string   "status",               null: false
     t.string   "link_reportable_type"
     t.integer  "link_reportable_id"
