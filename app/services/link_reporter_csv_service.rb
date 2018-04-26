@@ -6,9 +6,12 @@ class LinkReporterCsvService
   end
 
   def generate
-    public_editions.find_each do |edition|
-      next unless broken_links(edition).any?
-      csv_for_organisation(edition_organisation(edition)) << row_for_edition(edition)
+    total = public_editions.count
+    public_editions.find_each.with_index do |edition, index|
+      if broken_links(edition).any?
+        csv_for_organisation(edition_organisation(edition)) << row_for_edition(edition)
+      end
+      yield (index + 1), total if block_given?
     end
 
     close_reports
