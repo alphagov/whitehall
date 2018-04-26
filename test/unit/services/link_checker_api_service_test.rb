@@ -58,9 +58,14 @@ class LinkCheckerApiServiceTest < ActiveSupport::TestCase
     assert_not_requested(link_check_request)
   end
 
-  test "returns nil if there are no URLs in the document" do
+  test "returns a completed LinkCheckerApiReport if there are no URLs in the document" do
     edition = Edition.new(body: "Some text")
 
-    assert_nil(LinkCheckerApiService.check_links(edition, WEBHOOK_URI))
+    link_check_request = stub_request(:post, "https://link-checker-api.test.gov.uk/batch")
+
+    report = LinkCheckerApiService.check_links(edition, WEBHOOK_URI)
+
+    assert_not_requested(link_check_request)
+    assert(report.completed?)
   end
 end

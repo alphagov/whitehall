@@ -9,16 +9,19 @@ class LinkCheckerApiService
 
   def self.check_links(reportable, webhook_uri, checked_within: nil)
     uris = convert_admin_links(extract_links(reportable))
-    return if uris.empty?
+    if uris.empty?
+      # We'll create a noop report for the simplicity in there being a report
+      LinkCheckerApiReport.create_noop_report(reportable)
+    else
+      batch_report = Whitehall.link_checker_api_client.create_batch(
+        uris,
+        checked_within: checked_within,
+        webhook_uri: webhook_uri,
+        webhook_secret_token: webhook_secret_token
+      )
 
-    batch_report = Whitehall.link_checker_api_client.create_batch(
-      uris,
-      checked_within: checked_within,
-      webhook_uri: webhook_uri,
-      webhook_secret_token: webhook_secret_token
-    )
-
-    LinkCheckerApiReport.create_from_batch_report(batch_report, reportable)
+      LinkCheckerApiReport.create_from_batch_report(batch_report, reportable)
+    end
   end
 
   def self.convert_admin_links(links)
