@@ -55,6 +55,6 @@ class EditionSchedulerTest < ActiveSupport::TestCase
     scheduler = EditionScheduler.new(edition)
 
     refute scheduler.can_perform?
-    assert_equal "This edition contains bad links", scheduler.failure_reason
+    assert_equal "This edition contains links which violate linking guidelines", scheduler.failure_reason
   end
 end
