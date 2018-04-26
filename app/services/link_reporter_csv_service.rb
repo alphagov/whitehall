@@ -6,7 +6,7 @@ class LinkReporterCsvService
   end
 
   def generate
-    public_editions.each do |edition|
+    public_editions.find_each do |edition|
       next unless broken_links(edition).any?
       csv_for_organisation(edition_organisation(edition)) << row_for_edition(edition)
     end
