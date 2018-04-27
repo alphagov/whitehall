@@ -19,7 +19,7 @@ class EditionScheduler < EditionService
                         elsif scheduled_publication_is_not_within_cache_limit?
                           "Scheduled publication date must be at least #{Whitehall.default_cache_max_age / 60} minutes from now"
                         elsif DataHygiene::GovspeakLinkValidator.new(edition.body).errors.any?
-                          "This edition contains bad links"
+                          "This edition contains links which violate linking guidelines"
                         end
   end
 
