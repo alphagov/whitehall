@@ -4,7 +4,7 @@ class Admin::EditionTagsController < Admin::BaseController
   before_action :limit_edition_access!
 
   def edit
-    @govuk_taxonomy = Taxonomy::GovukTaxonomy.new
+    @topic_taxonomy = Taxonomy::TopicTaxonomy.new
     @tag_form = TaxonomyTagForm.load(@edition.content_id)
   end
 

@@ -19,7 +19,7 @@ class Taxonomy::RedisCacheAdapterTest < ActiveSupport::TestCase
   test "#rebuild_caches" do
     published_taxons = { 'baz' => 'qux' }
     publishing_api_adapter.stubs(:taxon_data).returns(published_taxons)
-    redis_client.expects(:set).with("govuk_taxonomy_taxons", JSON.dump(published_taxons))
+    redis_client.expects(:set).with("topic_taxonomy_taxons", JSON.dump(published_taxons))
     subject.rebuild_caches
   end
 end

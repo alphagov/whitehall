@@ -20,13 +20,13 @@
         data-content-format="statistics_announcement"
         data-content-public-path="<%= @statistics_announcement.public_path %>">
 
-        <%= render partial: "/admin/shared/tagging/taxonomy", locals: { selected_taxons: @tag_form.selected_taxons, level_one_taxons: @govuk_taxonomy.live } %>
+        <%= render partial: "/admin/shared/tagging/taxonomy", locals: { selected_taxons: @tag_form.selected_taxons, level_one_taxons: @topic_taxonomy.live } %>
 
         <h2>Draft topics</h2>
 
         <p>These topic pages are in development, and are not shown on GOV.UK</p>
 
-        <%= render partial: "/admin/shared/tagging/taxonomy", locals: { selected_taxons: @tag_form.selected_taxons, level_one_taxons: @govuk_taxonomy.alpha_beta } %>
+        <%= render partial: "/admin/shared/tagging/taxonomy", locals: { selected_taxons: @tag_form.selected_taxons, level_one_taxons: @topic_taxonomy.alpha_beta } %>
       </div>
 
       <p>

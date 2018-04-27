@@ -7,7 +7,7 @@ class Taxonomy::PublishingApiAdapterTest < ActiveSupport::TestCase
 
   test "#taxon_data, base hash" do
     setup_taxons
-    assert_equal %w[taxon1 taxon2], (subject.map { |t| t['title'] })
+    assert_equal %w[taxon1 taxon2 World], (subject.map { |t| t['title'] })
   end
 
   test "#taxon_data, expanded links" do
@@ -47,6 +47,27 @@ class Taxonomy::PublishingApiAdapterTest < ActiveSupport::TestCase
 
   def setup_taxons
     publishing_api_has_expanded_links(homepage_expanded_links, with_drafts: false)
+
+    publishing_api_has_item(
+      content_id: Taxonomy::PublishingApiAdapter::WORLD_CONTENT_ID,
+      title: "World",
+      base_path: "/world/all"
+    )
+    publishing_api_has_expanded_links(
+      {
+        content_id: Taxonomy::PublishingApiAdapter::WORLD_CONTENT_ID,
+        expanded_links: {
+          child_taxons: [
+            {
+              content_id: SecureRandom.uuid,
+              title: "A Country",
+              base_path: "/world/a-country"
+            }
+          ]
+        }
+      },
+      with_drafts: false
+    )
 
     level_one_taxons.each do |taxon|
       expanded_link_hash = expanded_link(taxon['content_id'], [taxon("child1"), taxon("child2")])

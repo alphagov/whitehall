@@ -1,9 +1,12 @@
 module Taxonomy
   class PublishingApiAdapter
     HOMEPAGE_CONTENT_ID = "f3bbdec2-0e62-4520-a7fd-6ffd5d36e03a".freeze
+    WORLD_CONTENT_ID = "91b8ef20-74e7-4552-880c-50e6d73c2ff9".freeze
 
     def taxon_data
-      @_taxon_data = expand_taxon_array level_one_taxons
+      @_taxon_data = expand_taxon_array(
+        level_one_taxons_without_world + [world_taxon]
+      )
     end
 
   private
@@ -16,8 +19,20 @@ module Taxonomy
       end
     end
 
+    def level_one_taxons_without_world
+      # TODO: This is a temporary funciton, only here so that this can
+      # be deployed with the World taxon linked to the homepage.
+      level_one_taxons.reject do |taxon|
+        taxon['content_id'] == WORLD_CONTENT_ID
+      end
+    end
+
     def level_one_taxons
       expanded_links_hash(HOMEPAGE_CONTENT_ID).dig('expanded_links', 'level_one_taxons') || []
+    end
+
+    def world_taxon
+      publishing_api_with_huge_timeout.get_content(WORLD_CONTENT_ID).to_h
     end
 
     def expanded_links_hash(content_id)

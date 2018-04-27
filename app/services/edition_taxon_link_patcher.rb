@@ -27,6 +27,6 @@ private
   end
 
   def all_taxons
-    Taxonomy::GovukTaxonomy.new.all_taxons
+    Taxonomy::TopicTaxonomy.new.all_taxons
   end
 end
