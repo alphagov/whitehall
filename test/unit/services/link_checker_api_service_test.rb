@@ -4,6 +4,29 @@ class LinkCheckerApiServiceTest < ActiveSupport::TestCase
   WEBHOOK_URI = "https://example.com/webhook_uri".freeze
   LINK_CHECKER_RESPONSE = { id: 123, completed_at: nil, status: "completed" }.to_json.freeze
 
+  test "it knows whether an edition has links" do
+    edition = Edition.new(body: "A doc with a link to [an external URL](https://example.com/some-page)")
+
+    assert LinkCheckerApiService.has_links?(edition)
+  end
+
+  test "it knows whether an edition has links excluding admin links" do
+    speech = create(:draft_speech)
+
+    edition = Edition.new(body: "A doc with a link to [an admin URL](/government/admin/speeches/#{speech.id})")
+
+    assert LinkCheckerApiService.has_links?(edition, convert_admin_links: false)
+    refute LinkCheckerApiService.has_links?(edition, convert_admin_links: true)
+  end
+
+  test "it knows whether there are draft admin links" do
+    speech = create(:draft_speech)
+
+    edition = Edition.new(body: "A doc with a link to [an admin URL](/government/admin/speeches/#{speech.id})")
+
+    assert LinkCheckerApiService.has_admin_draft_links?(edition)
+  end
+
   test "checks external URL" do
     edition = Edition.new(body: "A doc with a link to [an external URL](https://example.com/some-page)")
 
@@ -43,11 +66,29 @@ class LinkCheckerApiServiceTest < ActiveSupport::TestCase
     assert_requested(link_check_request)
   end
 
-  test "raises error if there are no URLs in the document" do
+  test "doesn't check the links of unpublished Whitehall admin URLs" do
+    speech = create(:draft_speech)
+    expected_url = Whitehall.url_maker.public_document_url(speech)
+
+    edition = Edition.new(body: "A doc with a link to [an admin URL](/government/admin/speeches/#{speech.id})")
+
+    link_check_request = stub_request(:post, "https://link-checker-api.test.gov.uk/batch").
+      with(body: /#{expected_url}/).
+      to_return(status: 200, body: LINK_CHECKER_RESPONSE)
+
+    LinkCheckerApiService.check_links(edition, WEBHOOK_URI)
+
+    assert_not_requested(link_check_request)
+  end
+
+  test "returns a completed LinkCheckerApiReport if there are no URLs in the document" do
     edition = Edition.new(body: "Some text")
 
-    assert_raises "Reportable has no links to check" do
-      LinkCheckerApiService.check_links(edition, WEBHOOK_URI)
-    end
+    link_check_request = stub_request(:post, "https://link-checker-api.test.gov.uk/batch")
+
+    report = LinkCheckerApiService.check_links(edition, WEBHOOK_URI)
+
+    assert_not_requested(link_check_request)
+    assert(report.completed?)
   end
 end
