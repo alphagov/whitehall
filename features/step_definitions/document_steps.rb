@@ -252,3 +252,9 @@ When(/^I edit the new edition$/) do
   fill_in 'Body', with: "New body"
   click_button 'Save'
 end
+
+When(/^I check "([^"]*)" adheres to the consultation principles$/) do |title|
+  edition = Edition.latest_edition.find_by!(title: title)
+  edition.read_consultation_principles = true
+  edition.save
+end

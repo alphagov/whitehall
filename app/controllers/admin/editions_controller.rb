@@ -184,6 +184,7 @@ private
       :primary_specialist_sector_tag,
       :corporate_information_page_type_id,
       :political,
+      :read_consultation_principles,
       secondary_specialist_sector_tags: [],
       lead_organisation_ids: [],
       supporting_organisation_ids: [],

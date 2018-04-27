@@ -31,6 +31,7 @@ Scenario: Associating a publication with a topical event
 Scenario: Associating a consultation with a topical event
   Given a topical event called "An Event" with description "A topical event"
   When I draft a new consultation "A Consultation" relating it to topical event "An Event"
+  And I check "A Consultation" adheres to the consultation principles
   And I force publish the consultation "A Consultation"
   Then I should see the consultation "A Consultation" in the consultations section of the topical event "An Event"
 

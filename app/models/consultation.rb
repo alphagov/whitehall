@@ -12,6 +12,7 @@ class Consultation < Publicationesque
   validates :external_url, presence: true, if: :external?
   validates :external_url, uri: true, allow_blank: true
   validate :validate_closes_after_opens
+  validate :validate_consultation_principles, unless: ->(consultation) { Edition::PRE_PUBLICATION_STATES.include? consultation.state }
 
   has_one :outcome, class_name: 'ConsultationOutcome', foreign_key: :edition_id, dependent: :destroy
   has_one :public_feedback, class_name: 'ConsultationPublicFeedback', foreign_key: :edition_id, dependent: :destroy
@@ -168,6 +169,12 @@ private
   def validate_closes_after_opens
     if closing_at && opening_at && closing_at.to_date <= opening_at.to_date
       errors.add :closing_at, "must be after the opening on date"
+    end
+  end
+
+  def validate_consultation_principles
+    unless read_consultation_principles
+      errors.add :read_consultation_principles, "must be ticked"
     end
   end
 end
