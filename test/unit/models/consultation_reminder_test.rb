@@ -62,7 +62,8 @@ class ConsultationReminderTest < ActiveSupport::TestCase
   end
 
   test "#send_all doesn't send for consultations with a response" do
-    FactoryBot.create(:consultation_with_outcome,
+    FactoryBot.create(
+      :consultation_with_outcome,
       opening_at: 10.months.ago,
       closing_at: (12.weeks + 1.day).ago,
     )
@@ -74,7 +75,8 @@ class ConsultationReminderTest < ActiveSupport::TestCase
 
   test "#send_all only notifies authors once" do
     author = FactoryBot.create(:author)
-    consultation = FactoryBot.create(:consultation,
+    consultation = FactoryBot.create(
+      :consultation,
       opening_at: 10.months.ago,
       closing_at: (12.weeks + 1.day).ago,
     )
