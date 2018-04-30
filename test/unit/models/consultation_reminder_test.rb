@@ -61,6 +61,17 @@ class ConsultationReminderTest < ActiveSupport::TestCase
     end
   end
 
+  test "#send_all doesn't send for consultations with a response" do
+    FactoryBot.create(:consultation_with_outcome,
+      opening_at: 10.months.ago,
+      closing_at: (12.weeks + 1.day).ago,
+    )
+
+    ConsultationReminder.send_all
+
+    assert ActionMailer::Base.deliveries.empty?
+  end
+
   def create_consultations(closed_at)
     FactoryBot.create(:consultation, opening_at: 10.months.ago, closing_at: closed_at + 1.day)
     FactoryBot.create(:consultation, opening_at: 10.months.ago, closing_at: closed_at - 1.day)
