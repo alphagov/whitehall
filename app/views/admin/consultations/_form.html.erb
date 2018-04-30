@@ -1,5 +1,7 @@
 <div class="format-advice">
   <p><strong>Use this format for:</strong> Consultations (officially “documents requiring collective agreement across government”, including calls for evidence).</p>
+
+  <p>Check you have read the current <a href="https://www.gov.uk/government/publications/consultation-principles-guidance">consultation principles</a>.</p>
 </div>
 
 <%= consultation_editing_tabs(edition) do %>
@@ -60,6 +62,11 @@
 
       <%= render 'organisation_fields', form: form, edition: edition %>
       <%= render 'specialist_sector_fields', form: form, edition: edition %>
+    </fieldset>
+
+    <fieldset>
+      <legend>Consultation principles</legend>
+      <%= form.check_box :read_consultation_principles, label_text: 'We have considered the <a href="https://www.gov.uk/government/publications/consultation-principles-guidance">consultation principles</a>'.html_safe %>
     </fieldset>
   <% end %>
 <% end %>

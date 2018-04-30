@@ -15,7 +15,8 @@ Scenario: Submitting a draft consultation to a second pair of eyes
 Scenario: Publishing a submitted consultation
   Given I am an editor
   And a submitted consultation "Beard Length Review" exists
-  When I publish the consultation "Beard Length Review"
+  When I check "Beard Length Review" adheres to the consultation principles
+  And I publish the consultation "Beard Length Review"
   Then I should see the consultation "Beard Length Review" in the list of published documents
 
 Scenario: Adding an outcome to a closed consultation

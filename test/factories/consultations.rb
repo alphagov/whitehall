@@ -4,6 +4,7 @@ FactoryBot.define do
     body  "consultation-body"
     opening_at { 1.day.ago }
     closing_at { 6.weeks.from_now }
+    read_consultation_principles { true }
     transient do
       relevant_to_local_government { false }
     end
