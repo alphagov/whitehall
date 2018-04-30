@@ -64,14 +64,14 @@ class Notifications < ActionMailer::Base
 
   def consultation_deadline_upcoming(consultation, weeks_left:)
     mail from: no_reply_email_address,
-      to: consultation.authors.map(&:email),
+      to: consultation.authors.uniq.map(&:email),
       subject: "Consultation response due in #{pluralize(weeks_left, 'week')}",
       body: %{Your consultation "#{consultation.title}" is closed and is due a response within #{pluralize(weeks_left, 'week')}}
   end
 
   def consultation_deadline_passed(consultation)
     mail from: no_reply_email_address,
-      to: consultation.authors.map(&:email),
+      to: consultation.authors.uniq.map(&:email),
       subject: "Consultation response deadline has passed",
       body: %{The consultation response deadline for "#{consultation.title}" has passed}
   end
