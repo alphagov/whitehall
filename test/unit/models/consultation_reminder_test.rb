@@ -61,6 +61,33 @@ class ConsultationReminderTest < ActiveSupport::TestCase
     end
   end
 
+  test "#send_all doesn't send for consultations with a response" do
+    FactoryBot.create(
+      :consultation_with_outcome,
+      opening_at: 10.months.ago,
+      closing_at: (12.weeks + 1.day).ago,
+    )
+
+    ConsultationReminder.send_all
+
+    assert ActionMailer::Base.deliveries.empty?
+  end
+
+  test "#send_all only notifies authors once" do
+    author = FactoryBot.create(:author)
+    consultation = FactoryBot.create(
+      :consultation,
+      opening_at: 10.months.ago,
+      closing_at: (12.weeks + 1.day).ago,
+    )
+    consultation.update(authors: [author, author])
+
+    ConsultationReminder.send_all
+
+    assert_equal 1, ActionMailer::Base.deliveries.size
+    assert_equal [author.email], ActionMailer::Base.deliveries.first.to
+  end
+
   def create_consultations(closed_at)
     FactoryBot.create(:consultation, opening_at: 10.months.ago, closing_at: closed_at + 1.day)
     FactoryBot.create(:consultation, opening_at: 10.months.ago, closing_at: closed_at - 1.day)
