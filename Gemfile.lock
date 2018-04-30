@@ -275,7 +275,7 @@ GEM
       PriorityQueue (~> 0.1.2)
     mail (2.7.0)
       mini_mime (>= 0.1.1)
-    maxitest (2.8.0)
+    maxitest (3.0.1)
       minitest (>= 5.0.0, < 5.12.0)
     metaclass (0.0.4)
     method_source (0.9.0)
