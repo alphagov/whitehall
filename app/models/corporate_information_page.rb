@@ -2,6 +2,8 @@ class CorporateInformationPage < Edition
   include ::Attachable
   include Searchable
 
+  after_save :republish_organisation_to_publishing_api
+  after_destroy :republish_organisation_to_publishing_api
   after_save :reindex_organisation_in_search_index, if: :about_page?
 
   has_one :edition_organisation, foreign_key: :edition_id, dependent: :destroy
@@ -25,6 +27,10 @@ class CorporateInformationPage < Edition
 
   validates :corporate_information_page_type_id, presence: true
   validate :only_one_organisation_or_worldwide_organisation
+
+  def republish_organisation_to_publishing_api
+    owning_organisation.publish_to_publishing_api if owning_organisation.is_a?(Organisation)
+  end
 
   def reindex_organisation_in_search_index
     owning_organisation.update_in_search_index

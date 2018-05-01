@@ -6,7 +6,8 @@ class MinisterialRoleResluggerTest < ActiveSupport::TestCase
   setup do
     stub_any_publishing_api_call
     DatabaseCleaner.clean_with :truncation
-    @ministerial_role = create(:ministerial_role, name: "Misspelt role")
+    @organisation = create(:organisation)
+    @ministerial_role = create(:ministerial_role, organisations: [@organisation], name: "Misspelt role")
     @reslugger = DataHygiene::RoleReslugger.new(@ministerial_role, 'corrected-slug')
   end
 
@@ -32,10 +33,15 @@ class MinisterialRoleResluggerTest < ActiveSupport::TestCase
     content[:routes][0][:path] = new_base_path
     content_item.stubs(content: content)
 
+    organisation_content_item = PublishingApiPresenters.presenter_for(@organisation)
+
     expected_publish_requests = [
       stub_publishing_api_put_content(content_item.content_id, content_item.content),
       stub_publishing_api_patch_links(content_item.content_id, links: content_item.links),
-      stub_publishing_api_publish(content_item.content_id, locale: 'en', update_type: 'major')
+      stub_publishing_api_publish(content_item.content_id, locale: 'en', update_type: 'major'),
+      stub_publishing_api_put_content(organisation_content_item.content_id, organisation_content_item.content),
+      stub_publishing_api_patch_links(organisation_content_item.content_id, links: organisation_content_item.links),
+      stub_publishing_api_publish(organisation_content_item.content_id, locale: 'en', update_type: 'major')
     ]
 
     Sidekiq::Testing.inline! do
