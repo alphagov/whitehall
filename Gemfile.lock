@@ -333,8 +333,8 @@ GEM
       ruby-rc4
       ttfunk
     plek (2.1.1)
-    poltergeist (1.17.0)
-      capybara (~> 2.1)
+    poltergeist (1.18.0)
+      capybara (>= 2.1, < 4)
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)
     powerpack (0.1.1)
