@@ -43,6 +43,7 @@ class Role < ApplicationRecord
   validates :type, presence: true
   validates_with SafeHtmlValidator
 
+  after_save :republish_organisation_to_publishing_api
   before_destroy :prevent_destruction_unless_destroyable
   after_update :touch_role_appointments
 
@@ -51,6 +52,10 @@ class Role < ApplicationRecord
 
   include TranslatableModel
   translates :name, :responsibilities
+
+  def republish_organisation_to_publishing_api
+    organisations.each(&:publish_to_publishing_api)
+  end
 
   def self.whip
     where(arel_table[:whip_organisation_id].not_eq(nil))

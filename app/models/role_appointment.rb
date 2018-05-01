@@ -64,8 +64,14 @@ class RoleAppointment < ApplicationRecord
   after_create :make_other_current_appointments_non_current
   before_destroy :prevent_destruction_unless_destroyable
 
+  after_save :republish_organisation_to_publishing_api
+  after_destroy :republish_organisation_to_publishing_api
   after_save :update_indexes
   after_destroy :update_indexes
+
+  def republish_organisation_to_publishing_api
+    organisations.each(&:publish_to_publishing_api)
+  end
 
   def self.between(start_time, end_time)
     where(started_at: start_time..end_time)
