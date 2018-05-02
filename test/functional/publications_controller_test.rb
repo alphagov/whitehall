@@ -617,18 +617,4 @@ private
       end
     end
   end
-
-  view_test 'includes the analytics component' do
-    get :index
-
-    analytics_component = css_select(
-      'test-govuk-component[data-template=govuk_component-analytics_meta_tags]'
-    )
-
-    assert_match(
-      @content_item['title'],
-      analytics_component.text,
-      'Expected the analytics meta tag component to be initialized with the content item'
-    )
-  end
 end
