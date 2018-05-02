@@ -19,6 +19,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
     create(:government)
     login_as(managing_editor)
     edition.attachments << attachment
+    publishing_api_has_linkables([], document_type: 'topic')
     setup_publishing_api_for(edition)
     stub_whitehall_asset(filename, id: asset_id)
     VirusScanHelpers.simulate_virus_scan

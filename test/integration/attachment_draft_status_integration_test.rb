@@ -11,6 +11,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
 
   before do
     login_as create(:managing_editor)
+    publishing_api_has_linkables([], document_type: 'topic')
     stub_whitehall_asset(filename, id: asset_id, draft: asset_initially_draft)
   end
 
