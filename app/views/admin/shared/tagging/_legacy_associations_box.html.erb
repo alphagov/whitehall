@@ -1,0 +1,46 @@
+<section>
+  <h2>Associations
+    <% if edition.pre_publication? %>
+      <%= link_to path_to_edit_associations, class: "btn btn-default pull-right" do %>
+        <span class="glyphicon glyphicon-edit"></span> Change Associations
+      <% end %>
+    <% end %>
+  </h2>
+  <div class="content content-bordered">
+    <% if edition.can_be_related_to_policies? && tagged_policy_names(edition.policy_content_ids).any? %>
+      <h4>Policies</h4>
+      <ul class="policies">
+        <% tagged_policy_names(edition.policy_content_ids).each do |name| %>
+          <li><%= name %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <% if edition.can_be_associated_with_topics? %>
+      <h4>Policy Areas</h4>
+      <% if edition.topics.any? %>
+        <ul class="policy-areas">
+          <% edition.topics.each do |name| %>
+            <li><%= name %></li>
+          <% end %>
+        </ul>
+
+      <% else %>
+        <p><%= no_policy_areas_message %> </p>
+      <% end %>
+    <% end %>
+    <% unless specialist_sector_name(edition.primary_specialist_sector_tag).blank? %>
+      <h4>Primary Specialist Sector</h4>
+      <ul class="primary-specialist-sector">
+        <li><%= specialist_sector_name(edition.primary_specialist_sector_tag) %></li>
+      </ul>
+    <% end %>
+    <% unless specialist_sector_names(edition.secondary_specialist_sector_tags).empty? %>
+      <h4>Secondary Specialist Sectors</h4>
+      <ul class="secondary-specialist-sectors">
+        <% specialist_sector_names(edition.secondary_specialist_sector_tags).each do |name| %>
+          <li><%= name %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+</section>

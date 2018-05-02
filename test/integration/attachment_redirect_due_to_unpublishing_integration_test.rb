@@ -15,6 +15,7 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
   let(:redirect_url) { Whitehall.url_maker.public_document_url(edition) }
 
   before do
+    publishing_api_has_linkables([], document_type: 'topic')
     login_as create(:managing_editor)
     setup_publishing_api_for(edition)
     attachable.attachments << attachment
