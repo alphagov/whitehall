@@ -16,6 +16,12 @@ module Admin::TaggableContentHelper
     }
   end
 
+  # Returns an array of policy names related to the content_ids
+  # @param {array} content_ids Array of content ids to get names for.
+  def tagged_policy_names(content_ids)
+    taggable_policy_content_ids_container.select{|t| content_ids.include? t.last}.map(&:first)
+  end
+
   # Returns an Array that represents the current set of taggable topics.
   # Each element of the array consists of two values: the name and ID of the
   # topic.

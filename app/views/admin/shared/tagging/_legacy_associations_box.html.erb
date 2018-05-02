@@ -1,0 +1,27 @@
+<section class="legacy-associations" id="legacy-associations">
+  <h2>Associations
+    <% if edition.pre_publication? %>
+      <%= link_to path_to_edit_associations, class: "btn btn-default pull-right" do %>
+        <span class="glyphicon glyphicon-edit"></span> Change Associations
+      <% end %>
+    <% end %>
+  </h2>
+  <div class="content content-bordered">
+    <% if edition.policy_content_ids.any? %>
+      <h4>Policies</h4>
+      <ul>
+      <% tagged_policy_names(edition.policy_content_ids).each do |name| %>
+        <li><%= name %></li>
+      <% end %>
+      </ul>
+    <% end %>
+    <% if edition.topics.any? %>
+      <h4>Policy Areas</h4>
+      <ul>
+        <% edition.topics.each do |name| %>
+          <li><%= name %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+</section>

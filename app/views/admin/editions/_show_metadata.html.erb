@@ -51,6 +51,11 @@
     selected_taxon_paths: @edition_taxons.map(&:full_path),
     no_topics_message: 'No topics - please add a topic before publishing'
   } %>
+<% else %>
+  <%= render partial: '/admin/shared/tagging/legacy_associations_box', locals: {
+      path_to_edit_associations: edit_admin_edition_legacy_associations_path(@edition.id),
+      edition: @edition
+  } %>
 <% end %>
 
 <% if @edition.translatable? %>
