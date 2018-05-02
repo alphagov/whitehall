@@ -1,0 +1,18 @@
+<% page_title "Edit legacy associations: " + @edition.title %>
+<div class="row">
+  <h1><%= @edition.title %></h1>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <%= form_for form_url_for_edition(@edition), as: :edition, html: { class: edition_form_classes(@edition) } do |form| %>
+    <fieldset>
+      <legend>Associations</legend>
+
+      <div class="important-associations">
+        <%= render 'admin/shared/policy_fields', form: form %>
+        <%= render 'topic_fields', form: form, edition: @edition %>
+      </div>
+    </fieldset>
+    <% end %>
+  </div>
+</div>
