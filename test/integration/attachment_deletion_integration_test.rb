@@ -18,6 +18,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
 
     before do
       login_as(managing_editor)
+      publishing_api_has_linkables([], document_type: 'topic')
       edition.attachments << attachment
       setup_publishing_api_for(edition)
       stub_whitehall_asset(filename, id: asset_id)
