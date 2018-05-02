@@ -91,6 +91,10 @@ class Person < ApplicationRecord
     name_as_words(("The Rt Hon" if privy_counsellor?), title, forename, surname, letters)
   end
 
+  def full_name
+    name_as_words(title, forename, surname, letters)
+  end
+
   def name_without_privy_counsellor_prefix
     name_as_words(title, forename, surname, letters)
   end
