@@ -194,6 +194,10 @@ class Organisation < ApplicationRecord
   before_destroy { |r| throw :abort unless r.destroyable? }
   after_save :ensure_analytics_identifier
 
+  # We only update links when a new organisation is created, since
+  # dependency resolution will take care of all updates and deletes.
+  after_create :update_organisations_index_page_links
+
   after_save do
     # If the organisation has an about us page and the chart URL changes we need
     # to republish the about us page as it contains the chart URL.
@@ -213,6 +217,10 @@ class Organisation < ApplicationRecord
 
       documents.each { |d| Whitehall::PublishingApi.republish_document_async(d) }
     end
+  end
+
+  def update_organisations_index_page_links
+    UpdateOrganisationsListWorker.perform_async
   end
 
   def custom_logo_selected?
