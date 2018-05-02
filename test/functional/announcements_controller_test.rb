@@ -303,20 +303,6 @@ class AnnouncementsControllerTest < ActionController::TestCase
     refute_select '.filter-results-summary'
   end
 
-  view_test 'includes the analytics component' do
-    get :index
-
-    analytics_component = css_select(
-      'test-govuk-component[data-template=govuk_component-analytics_meta_tags]'
-    )
-
-    assert_match(
-      @content_item['title'],
-      analytics_component.text,
-      'Expected the analytics meta tag component to be initialized with the content item'
-    )
-  end
-
   view_test 'index includes tracking details on all links' do
     Sidekiq::Testing.inline! do
       news_article = create(:published_news_article)

@@ -10,8 +10,7 @@
 
     <%= meta_description_tag %>
 
-    <%= render partial: 'govuk_component/analytics_meta_tags',
-      locals: { content_item: @content_item } %>
+    <%= render 'govuk_publishing_components/components/meta_tags', content_item: @content_item %>
 
     <title><%= page_title %></title>
     <%-
