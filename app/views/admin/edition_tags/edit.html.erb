@@ -15,10 +15,10 @@
       <%= form.hidden_field :previous_version %>
 
       <div class="form-group"
-        data-module="taxonomy-tree-checkboxes"
-        data-content-id="<%= @edition.content_id %>"
-        data-content-format="<%= @edition.content_store_document_type %>"
-        data-content-public-path="<%= public_document_path(@edition) %>">
+           data-module="taxonomy-tree-checkboxes"
+           data-content-id="<%= @edition.content_id %>"
+           data-content-format="<%= @edition.content_store_document_type %>"
+           data-content-public-path="<%= public_document_path(@edition) %>">
 
         <%= render partial: "/admin/shared/tagging/taxonomy", locals: { selected_taxons: @tag_form.selected_taxons, level_one_taxons: @topic_taxonomy.live } %>
 
@@ -34,9 +34,11 @@
         <%= link_to "Report a missing topic", Whitehall.support_url, class: "feedback-link" %>
       </p>
 
-      <p>
-        <%= link_to "Legacy Associations", edit_admin_edition_legacy_associations_path(@edition.id) %>
-      </p>
+      <% if @edition.pre_publication? %>
+        <p>
+          <%= link_to "Legacy Associations", edit_admin_edition_legacy_associations_path(@edition.id) %>
+        </p>
+      <% end %>
 
       <h2>Selected topics</h2>
       <div class="content content-bordered hidden" data-module="breadcrumb-preview">
