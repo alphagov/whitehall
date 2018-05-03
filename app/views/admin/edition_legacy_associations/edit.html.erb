@@ -15,6 +15,7 @@
           <%= render 'topic_fields', form: form, edition: @edition %>
         </div>
       </fieldset>
+      <%= render 'specialist_sector_fields', form: form, edition: @edition %>
       <div class="publishing-controls well">
         <%= form.form_actions(buttons: { save: 'Save legacy associations' }, cancel: edit_admin_edition_tags_path(@edition)) %>
       </div>
