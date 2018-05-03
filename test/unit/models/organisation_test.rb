@@ -995,6 +995,12 @@ class OrganisationTest < ActiveSupport::TestCase
     )
   end
 
+  test "#save triggers an update of the organisations index page links hash" do
+    organisation = build(:organisation)
+    UpdateOrganisationsListWorker.expects(:perform_async)
+    organisation.save!
+  end
+
   test "#save does not trigger organisation with a changed chart url to republish about page if it does not exist" do
     organisation = create(
       :organisation,

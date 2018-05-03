@@ -120,6 +120,7 @@ class PublishStaticPages
         base_path: "/government/organisations",
         document_type: "finder",
         description: "Information from government departments, agencies and public bodies, including news, campaigns, policies and contact details.",
+        schema_name: "organisations_homepage",
       },
     ]
   end
@@ -154,7 +155,7 @@ class PublishStaticPages
         title: page[:title],
         description: page[:description],
         document_type: page[:document_type],
-        schema_name: "placeholder",
+        schema_name: page.fetch("schema_name", "placeholder"),
         locale: "en",
         base_path: page[:base_path],
         publishing_app: "whitehall",
