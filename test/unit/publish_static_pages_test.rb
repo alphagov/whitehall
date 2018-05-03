@@ -10,11 +10,11 @@ class PublishStaticPagesTest < ActiveSupport::TestCase
     PublishStaticPages.new.publish
   end
 
-  test 'static pages presented to the publishing api are valid placeholders' do
+  test 'static pages presented to the publishing api are valid according to the relevant schema' do
     publisher = PublishStaticPages.new
     publisher.pages.each do |page|
       presented = publisher.present_for_publishing_api(page)
-      expect_valid_placeholder(presented[:content])
+      expect_valid_for_schema(presented[:content])
     end
   end
 
@@ -25,7 +25,7 @@ class PublishStaticPagesTest < ActiveSupport::TestCase
           page[:content_id],
           has_entries(
             document_type: page[:document_type],
-            schema_name: "placeholder",
+            schema_name: (page[:schema_name] || "placeholder"),
             base_path: page[:base_path],
             title: page[:title],
             update_type: "minor",
@@ -37,9 +37,9 @@ class PublishStaticPagesTest < ActiveSupport::TestCase
     end
   end
 
-  def expect_valid_placeholder(presented_page)
+  def expect_valid_for_schema(presented_page)
     validator = GovukContentSchemaTestHelpers::Validator.new(
-      "placeholder",
+      presented_page[:schema_name],
       "schema",
       presented_page
     )
