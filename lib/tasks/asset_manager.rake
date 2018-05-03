@@ -43,6 +43,10 @@ namespace :asset_manager do
     end
   end
 
+  task dump: :environment do
+    AssetAudit.dump
+  end
+
   task :audit, %i(sample_size) => :environment do |_, args|
     auditor = AssetAudit.new
     email = ENV.fetch("EMAIL")

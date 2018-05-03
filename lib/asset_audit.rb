@@ -3,6 +3,24 @@ class AssetAudit
     "cache_bust=#{rand(1e8)}"
   end
 
+  def self.dump
+    whitehall_base_url = Plek.new.external_url_for('assets-origin')
+    asset_manager_base_url = Plek.new.external_url_for('draft-assets')
+
+    CSV($stdout, headers: %i[whitehall asset_manager], write_headers: true) do |csv|
+      AttachmentData.find_each do |attachment_data|
+        visible = attachment_data.visible_to?(nil)
+        next unless visible
+
+        whitehall_path = attachment_data.file.url
+        asset_manager_path = attachment_data.file.asset_manager_path
+
+        csv << { whitehall: "#{whitehall_base_url}#{whitehall_path}",
+                 asset_manager: "#{asset_manager_base_url}#{asset_manager_path}" }
+      end
+    end
+  end
+
   def call(email, password, sample_size)
     signon_url = Plek.new.external_url_for('signon')
     whitehall_base_url = Plek.new.external_url_for('assets-origin')
@@ -13,10 +31,11 @@ class AssetAudit
     # mechanize.log = Logger.new($stdout)
 
     sign_in_page = mechanize.get("#{signon_url}/users/sign_in")
-    signed_in_page = sign_in_page.form_with(id: 'new_user') do |form|
+    sign_in_form = sign_in_page.form_with(id: 'new_user') do |form|
       form['user[email]'] = email
       form['user[password]'] = password
-    end.submit
+    end
+    signed_in_page = sign_in_form.submit
 
     message = (signed_in_page / '.alert-success').text
     raise 'Failed to sign in' unless message == 'Signed in successfully.'
