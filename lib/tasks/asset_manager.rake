@@ -47,11 +47,8 @@ namespace :asset_manager do
     AssetAudit.dump
   end
 
-  task :audit, %i(sample_size) => :environment do |_, args|
-    auditor = AssetAudit.new
-    email = ENV.fetch("EMAIL")
-    password = ENV.fetch("PASSWORD")
-    auditor.call(email, password, args[:sample_size].to_i)
+  task :audit_check_status, %i(email filename) => :environment do |_, args|
+    AssetAudit.check_status(args[:email], args[:filename])
   end
 
   private
