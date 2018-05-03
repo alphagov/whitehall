@@ -43,6 +43,13 @@ namespace :asset_manager do
     end
   end
 
+  task :audit, %i(sample_size) => :environment do |_, args|
+    auditor = AssetAudit.new
+    email = ENV.fetch("EMAIL")
+    password = ENV.fetch("PASSWORD")
+    auditor.call(email, password, args[:sample_size].to_i)
+  end
+
   private
 
   def usage_string
