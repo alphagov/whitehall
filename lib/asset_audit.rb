@@ -37,15 +37,21 @@ class AssetAudit
   end
 
   def ask_password
+    print "Password: "
     STDIN.noecho(&:gets).chomp
   end
 
-  def self.check_status(email, urls_filename)
-    new.check_status(email, urls_filename)
+  def self.check_status(*args)
+    new.check_status(*args)
   end
 
-  def check_status(email, urls_filename)
-    mechanize = Mechanize.new
+  def check_status(email, app_domain, urls_filename)
+    ENV["GOVUK_APP_DOMAIN"] = app_domain
+
+    mechanize = Mechanize.new { |agent|
+      agent.user_agent_alias = 'Mac Safari'
+    }
+
     mechanize.agent.allowed_error_codes = %w(404)
 
     sign_user_in(mechanize, email, ask_password)
