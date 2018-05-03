@@ -35,11 +35,16 @@ module PublishingApi
     end
 
     def details
-      {}.tap do |hash|
-        if item.image_url(:s465)
-          hash[:image] = { url: item.image_url(:s465), alt_text: item.name }
-        end
+      details_hash = {}
+
+      if item.image_url(:s465)
+        details_hash[:image] = { url: item.image_url(:s465), alt_text: item.name }
       end
+
+      details_hash.merge(
+        full_name: item.full_name,
+        privy_counsellor: item.privy_counsellor?,
+      )
     end
   end
 end

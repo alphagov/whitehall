@@ -8,12 +8,21 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
   end
 
   test 'presents a Person ready for adding to the publishing API' do
-    person = create(:person, forename: "Winston", image: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg'))
+    person = create(
+      :person,
+      title: "Sir",
+      forename: "Winston",
+      surname: "Churchill",
+      letters: "PM",
+      privy_counsellor: true,
+      image: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
+    )
+
     public_path = Whitehall.url_maker.person_path(person)
 
     expected_hash = {
       base_path: public_path,
-      title: "Winston",
+      title: "The Rt Hon Sir Winston Churchill PM",
       description: nil,
       schema_name: "person",
       document_type: "person",
@@ -24,9 +33,11 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
       routes: [{ path: public_path, type: "exact" }],
       redirects: [],
       details: {
+        full_name: "Sir Winston Churchill PM",
+        privy_counsellor: true,
         image: {
           url: person.image_url(:s465),
-          alt_text: "Winston",
+          alt_text: "The Rt Hon Sir Winston Churchill PM",
         }
       },
       update_type: "major",
@@ -44,7 +55,14 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
   end
 
   test 'accepts people without an image' do
-    person = create(:person, forename: "Winston")
+    person = create(
+      :person,
+      title: "Sir",
+      forename: "Winston",
+      surname: "Churchill",
+      letters: "PM",
+      privy_counsellor: true,
+    )
 
     presented_item = present(person)
 
