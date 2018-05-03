@@ -995,9 +995,9 @@ class OrganisationTest < ActiveSupport::TestCase
     )
   end
 
-  test "#save triggers an update of the organisations index page links hash" do
+  test "#save triggers an update of the organisations index page" do
     organisation = build(:organisation)
-    UpdateOrganisationsListWorker.expects(:perform_async)
+    UpdateOrganisationsIndexPageWorker.expects(:perform_async)
     organisation.save!
   end
 

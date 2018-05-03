@@ -193,10 +193,8 @@ class Organisation < ApplicationRecord
 
   before_destroy { |r| throw :abort unless r.destroyable? }
   after_save :ensure_analytics_identifier
-
-  # We only update links when a new organisation is created, since
-  # dependency resolution will take care of all updates and deletes.
-  after_create :update_organisations_index_page_links
+  after_save :update_organisations_index_page
+  after_destroy :update_organisations_index_page
 
   after_save do
     # If the organisation has an about us page and the chart URL changes we need
@@ -219,8 +217,8 @@ class Organisation < ApplicationRecord
     end
   end
 
-  def update_organisations_index_page_links
-    UpdateOrganisationsListWorker.perform_async
+  def update_organisations_index_page
+    UpdateOrganisationsIndexPageWorker.perform_async
   end
 
   def custom_logo_selected?

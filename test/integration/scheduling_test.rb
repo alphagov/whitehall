@@ -45,7 +45,7 @@ class SchedulingTest < ActiveSupport::TestCase
 
       acting_as(user) { schedule(new_draft) }
 
-      assert_not_requested(:put, %r{#{PUBLISHING_API_V2_ENDPOINT}/content.*})
+      assert_not_requested(:put, %r{#{PUBLISHING_API_V2_ENDPOINT}/content/#{published_edition.content_id}})
       assert_publishing_api_put_intent(path, publish_time: new_draft.scheduled_publication.as_json)
     end
   end
