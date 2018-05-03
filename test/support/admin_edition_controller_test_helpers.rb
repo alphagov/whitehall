@@ -71,13 +71,37 @@ module AdminEditionControllerTestHelpers
         assert_equal attributes[:body], edition.body
       end
 
-      test "create should take the writer to the edition page" do
+      test "create should take the writer to the topic tagging page if edition is elegible" do
+        organisation = create(:organisation)
+        taggable_org = {
+          "education_related" => [organisation.content_id]
+        }
+
+        Whitehall.stubs(:organisations_in_tagging_beta).returns(taggable_org)
+
+        attributes = controller_attributes_for(edition_type).merge(
+          publication_type_id: PublicationType::Guidance.id,
+          lead_organisation_ids: [organisation.id]
+        )
+
+        post :create, params: {
+          edition: attributes
+        }
+
+        edition = edition_class.last
+
+        assert_redirected_to edit_admin_edition_tags_path(edition.id)
+        assert_equal 'The document has been saved', flash[:notice]
+      end
+
+      test "create should take the writer to the legacy tagging page" do
         post :create, params: {
           edition: controller_attributes_for(edition_type)
         }
 
-        admin_edition_path = send("admin_#{edition_type}_path", edition_class.last)
-        assert_redirected_to admin_edition_path
+        edition = edition_class.last
+
+        assert_redirected_to admin_edition_path(edition) #<WIP>admin_edition_legacy_associations_path(edition.id)
         assert_equal 'The document has been saved', flash[:notice]
       end
 

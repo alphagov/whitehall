@@ -222,9 +222,17 @@ private
 
   def show_or_edit_path
     if params[:save_and_continue].present?
-      [:edit, :admin, @edition]
+      [:edit, :admin, @edition,]
     else
-      admin_edition_path(@edition)
+      tagging_path
+    end
+  end
+
+  def tagging_path
+    if @edition.can_be_tagged_to_taxonomy?
+      edit_admin_edition_tags_path(@edition.id)
+    else
+      admin_edition_legacy_associations_path(@edition.id)
     end
   end
 

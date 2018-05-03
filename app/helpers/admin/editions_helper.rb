@@ -215,8 +215,14 @@ module Admin::EditionsHelper
         concat render(partial: "change_notes",
                       locals: { form: form, edition: edition })
       end
-      concat form.save_or_continue_or_cancel
+
+      concat form.next_and_save
     end
+  end
+
+  def edition_tagged_to_any_taxon?(edition)
+    edition_taxons = EditionTaxonsFetcher.new(edition.content_id).fetch
+    edition_taxons.any? || edition.topics.any? || edition.policies.any? || edition.specialist_sectors.any?
   end
 
   def warn_about_lack_of_contacts_in_body?(edition)

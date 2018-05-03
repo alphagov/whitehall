@@ -70,7 +70,12 @@ module Whitehall
     end
 
     def save_or_continue_or_cancel(options = {})
-      buttons = { save: 'Save', save_and_continue: 'Save and continue editing' }
+      buttons = { save: 'Save', save_and_continue: 'Save and continue' }
+      form_actions(options.reverse_merge(buttons: buttons))
+    end
+
+    def next_and_save(options = {})
+      buttons = { next: 'Next and save', save_and_continue: 'Save' }
       form_actions(options.reverse_merge(buttons: buttons))
     end
 
