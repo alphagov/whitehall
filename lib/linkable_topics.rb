@@ -20,7 +20,7 @@ class LinkableTopics
   end
 
 private
-  
+
   def fetch_linkables_from_publishing_api(document_type:)
     Services.publishing_api.get_linkables(document_type: document_type)
   end

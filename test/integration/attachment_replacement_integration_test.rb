@@ -114,6 +114,9 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
           click_button 'Save'
           assert_text 'The document has been saved'
 
+          #'cancel' takes user back to overview edit page
+          click_link 'cancel'
+
           click_link 'Modify attachments'
           @replacement_url = find('.existing-attachments a', text: replacement_filename)[:href]
 
