@@ -94,14 +94,22 @@ module AdminEditionControllerTestHelpers
         assert_equal 'The document has been saved', flash[:notice]
       end
 
+<<<<<<< HEAD
       test "create should take the writer to the legacy tagging page if it doesn't support the taxonomy" do
+=======
+      test "create should take the writer to the legacy tagging page" do
+>>>>>>> Alter publishing flow
         post :create, params: {
           edition: controller_attributes_for(edition_type)
         }
 
         edition = edition_class.last
 
+<<<<<<< HEAD
         assert_redirected_to edit_admin_edition_legacy_associations_path(edition.id, return: 'edit')
+=======
+        assert_redirected_to edit_admin_edition_legacy_associations_path(edition.id)
+>>>>>>> Alter publishing flow
         assert_equal 'The document has been saved', flash[:notice]
       end
 
@@ -218,7 +226,11 @@ module AdminEditionControllerTestHelpers
           }
         }
 
+<<<<<<< HEAD
         assert_redirected_to edit_admin_edition_legacy_associations_path(edition.id, return: :edit)
+=======
+        assert_redirected_to edit_admin_edition_legacy_associations_path(edition.id)
+>>>>>>> Alter publishing flow
         assert_equal 'The document has been saved', flash[:notice]
       end
 
