@@ -155,7 +155,7 @@ class PublishStaticPages
         title: page[:title],
         description: page[:description],
         document_type: page[:document_type],
-        schema_name: page.fetch("schema_name", "placeholder"),
+        schema_name: page.fetch(:schema_name, "placeholder"),
         locale: "en",
         base_path: page[:base_path],
         publishing_app: "whitehall",
