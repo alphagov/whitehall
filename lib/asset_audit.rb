@@ -24,7 +24,14 @@ class AssetAudit
     @signon_url ||= Plek.new.external_url_for("signon")
   end
 
+  def check_signed_in(page)
+    message = (page / '.alert-success').text
+    raise 'Failed to sign in' unless message == 'Signed in successfully.'
+  end
+
   def sign_user_in(mechanize, email, password)
+    mechanize.request_headers = { "Accept" => "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" }
+
     sign_in_page = mechanize.get("#{signon_url}/users/sign_in")
     sign_in_form = sign_in_page.form_with(id: 'new_user') do |form|
       form['user[email]'] = email
@@ -32,11 +39,23 @@ class AssetAudit
     end
     signed_in_page = sign_in_form.submit
 
-    message = (signed_in_page / '.alert-success').text
-    raise 'Failed to sign in' unless message == 'Signed in successfully.'
+    check_signed_in(signed_in_page)
+
+    two_step_form = signed_in_page.form_with(action: "/users/two_step_verification/session")
+    return unless two_step_form
+
+    print "2FA Code: "
+    code = STDIN.gets.chomp
+    two_step_form["code"] = code
+
+    two_step_signed_in_page = two_step_form.submit
+
+    check_signed_in(two_step_signed_in_page)
   end
 
   def ask_password
+    return ENV["PASSWORD"] if ENV.include?("PASSWORD")
+
     print "Password: "
     STDIN.noecho(&:gets).chomp
   end
@@ -56,11 +75,13 @@ class AssetAudit
 
     sign_user_in(mechanize, email, ask_password)
 
+    puts "Checking assets..."
+
     CSV(
       $stdout,
       headers: %w(
         whitehall_url
-        asset_manage_url
+        asset_manager_url
         whitehall_status_code
         asset_manager_status_code
         whitehall_location
@@ -70,7 +91,10 @@ class AssetAudit
       ),
       write_headers: true,
     ) do |csv|
-      CSV.foreach(urls_filename, headers: true) do |(whitehall_url, asset_manager_url)|
+      CSV.foreach(urls_filename, headers: true) do |row|
+        whitehall_url = row[0]
+        asset_manager_url = row[1]
+
         mechanize.redirect_ok = false
         whitehall_response = mechanize.get("#{whitehall_url}?#{cache_bust}")
 
