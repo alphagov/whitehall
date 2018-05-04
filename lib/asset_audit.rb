@@ -7,7 +7,7 @@ class AssetAudit
     whitehall_base_url = Plek.new.external_url_for('assets-origin')
     asset_manager_base_url = Plek.new.external_url_for('draft-assets')
 
-    CSV.new($stdout, headers: %i[whitehall asset_manager], write_headers: true) do |csv|
+    CSV($stdout, headers: %i[whitehall asset_manager], write_headers: true) do |csv|
       AttachmentData.find_each do |attachment_data|
         next unless attachment_data.visible_to?(nil)
 
@@ -56,7 +56,7 @@ class AssetAudit
 
     sign_user_in(mechanize, email, ask_password)
 
-    csv = CSV.new(
+    CSV(
       $stdout,
       headers: %w(
         whitehall_url
@@ -69,40 +69,40 @@ class AssetAudit
         asset_manager_content_type
       ),
       write_headers: true,
-    )
+    ) do |csv|
+      CSV.foreach(urls_filename, headers: true) do |(whitehall_url, asset_manager_url)|
+        mechanize.redirect_ok = false
+        whitehall_response = mechanize.get("#{whitehall_url}?#{cache_bust}")
 
-    CSV.foreach(urls_filename, headers: true) do |(whitehall_url, asset_manager_url)|
-      mechanize.redirect_ok = false
-      whitehall_response = mechanize.get("#{whitehall_url}?#{cache_bust}")
+        # sign in through a signon redirect
+        mechanize.redirect_ok = true
+        mechanize.get("#{asset_manager_url}?#{cache_bust}")
 
-      # sign in through a signon redirect
-      mechanize.redirect_ok = true
-      mechanize.get("#{asset_manager_url}?#{cache_bust}")
+        mechanize.redirect_ok = false
+        asset_manager_response = mechanize.get("#{asset_manager_url}?#{cache_bust}")
 
-      mechanize.redirect_ok = false
-      asset_manager_response = mechanize.get("#{asset_manager_url}?#{cache_bust}")
+        whitehall_status_code = whitehall_response.code
+        asset_manager_status_code = asset_manager_response.code
+        whitehall_location = whitehall_response.header["Location"]
+        asset_manager_location = asset_manager_response.header["Location"]
+        whitehall_content_type = whitehall_response.header["Content-Type"]
+        asset_manager_content_type = asset_manager_response.header["Content-Type"]
+        whitehall_content_length = whitehall_response.header["Content-Length"]
+        asset_manager_content_length = asset_manager_response.header["Content-Length"]
 
-      whitehall_status_code = whitehall_response.code
-      asset_manager_status_code = asset_manager_response.code
-      whitehall_location = whitehall_response.header["Location"]
-      asset_manager_location = asset_manager_response.header["Location"]
-      whitehall_content_type = whitehall_response.header["Content-Type"]
-      asset_manager_content_type = asset_manager_response.header["Content-Type"]
-      whitehall_content_length = whitehall_response.header["Content-Length"]
-      asset_manager_content_length = asset_manager_response.header["Content-Length"]
+        next if whitehall_status_code == asset_manager_status_code &&
+            whitehall_location == asset_manager_location &&
+            whitehall_content_type == asset_manager_content_type &&
+            whitehall_content_length == asset_manager_content_length
 
-      next if whitehall_status_code == asset_manager_status_code &&
-          whitehall_location == asset_manager_location &&
-          whitehall_content_type == asset_manager_content_type &&
-          whitehall_content_length == asset_manager_content_length
-
-      csv << [
-        whitehall_url, asset_manager_url,
-        whitehall_status_code, asset_manager_status_code,
-        whitehall_location, asset_manager_location,
-        whitehall_content_type, asset_manager_content_type,
-        whitehall_content_length, asset_manager_content_length,
-      ]
+        csv << [
+          whitehall_url, asset_manager_url,
+          whitehall_status_code, asset_manager_status_code,
+          whitehall_location, asset_manager_location,
+          whitehall_content_type, asset_manager_content_type,
+          whitehall_content_length, asset_manager_content_length,
+        ]
+      end
     end
   end
 end
