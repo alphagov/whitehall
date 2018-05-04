@@ -114,14 +114,6 @@ class PublishStaticPages
         document_type: "finder",
         description: "Contact details of British embassies, consulates, high commissions around the world for help with visas, passports and more.",
       },
-      {
-        content_id: "fde62e52-dfb6-42ae-b336-2c4faf068101",
-        title: "Departments, agencies and public bodies",
-        base_path: "/government/organisations",
-        document_type: "finder",
-        description: "Information from government departments, agencies and public bodies, including news, campaigns, policies and contact details.",
-        schema_name: "organisations_homepage",
-      },
     ]
   end
 
@@ -155,7 +147,7 @@ class PublishStaticPages
         title: page[:title],
         description: page[:description],
         document_type: page[:document_type],
-        schema_name: page.fetch(:schema_name, "placeholder"),
+        schema_name: "placeholder",
         locale: "en",
         base_path: page[:base_path],
         publishing_app: "whitehall",
