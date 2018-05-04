@@ -100,14 +100,16 @@ class ConsultationTest < ActiveSupport::TestCase
     assert_same_elements [closed_two_days_ago, closed_three_days_ago], Consultation.closed_at_or_after(3.days.ago)
   end
 
-  test ".closed_on includes consultations closed on the specified date" do
-    closed_yesterday = FactoryBot.create(:closed_consultation, closing_at: 1.day.ago)
-    closed_today = FactoryBot.create(:closed_consultation, closing_at: 5.minutes.ago)
+  test ".closed_at_or_within_24_hours_of includes consultations closed at or in the 24 hours running up to the specified time" do
+    base_time = 1.day
+    closed_now = FactoryBot.create(:closed_consultation, closing_at: base_time.ago)
+    closed_an_hour_ago = FactoryBot.create(:closed_consultation, closing_at: (base_time + 1.hour).ago)
+    closed_less_than_24_hours_ago = FactoryBot.create(:closed_consultation, opening_at: 10.days.ago, closing_at: (base_time + 23.hours + 59.minutes + 59.seconds).ago)
+    FactoryBot.create(:closed_consultation, opening_at: 10.days.ago, closing_at: (base_time + 24.hours).ago)
+    FactoryBot.create(:closed_consultation, opening_at: 10.days.ago, closing_at: (base_time + 25.hours).ago)
     FactoryBot.create(:open_consultation)
 
-    assert_same_elements [closed_yesterday], Consultation.closed_on(Date.yesterday)
-    assert_same_elements [closed_today], Consultation.closed_on(Date.today)
-    assert_same_elements [], Consultation.closed_on(Date.tomorrow)
+    assert_same_elements [closed_now, closed_an_hour_ago, closed_less_than_24_hours_ago], Consultation.closed_at_or_within_24_hours_of(base_time.ago)
   end
 
   test ".responded includes closed consultations with an outcome" do

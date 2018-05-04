@@ -12,14 +12,14 @@ class ConsultationReminder
   private
 
     def send_deadline_reminder(weeks_left:)
-      Consultation.awaiting_response.closed_on((PUBLISH_DEADLINE - weeks_left).weeks.ago.to_date).each do |consultation|
+      Consultation.awaiting_response.closed_at_or_within_24_hours_of((PUBLISH_DEADLINE - weeks_left).weeks.ago).each do |consultation|
         log(consultation)
         Notifications.consultation_deadline_upcoming(consultation, weeks_left: weeks_left).deliver_now
       end
     end
 
     def send_deadline_passed_notification
-      Consultation.awaiting_response.closed_on((PUBLISH_DEADLINE.weeks + 1.day).ago.to_date).each do |consultation|
+      Consultation.awaiting_response.closed_at_or_within_24_hours_of(PUBLISH_DEADLINE.weeks.ago).each do |consultation|
         log(consultation)
         Notifications.consultation_deadline_passed(consultation).deliver_now
       end
