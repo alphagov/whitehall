@@ -54,7 +54,8 @@
 <% else %>
   <%= render partial: '/admin/shared/tagging/legacy_associations_box', locals: {
       path_to_edit_associations: edit_admin_edition_legacy_associations_path(@edition.id),
-      edition: @edition
+      edition: @edition,
+      no_policy_areas_message: 'No policy areas - please add a policy area before publishing'
   } %>
 <% end %>
 
