@@ -43,6 +43,14 @@ namespace :asset_manager do
     end
   end
 
+  task dump: :environment do
+    AssetAudit.dump
+  end
+
+  task :audit_check_status, %i(email app_domain filename) => :environment do |_, args|
+    AssetAudit.check_status(args[:email], args[:app_domain], args[:filename])
+  end
+
   private
 
   def usage_string
