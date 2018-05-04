@@ -78,4 +78,13 @@ class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
 
     @worker.perform(@file.path, @legacy_url_path, true, attachment.attachment_data.class.to_s, attachment.attachment_data.id)
   end
+
+  test "doesn't run if the file is missing (e.g. job ran twice)" do
+    path = @file.path
+    FileUtils.rm(@file)
+
+    Services.asset_manager.expects(:create_whitehall_asset).never
+
+    @worker.perform(path, @legacy_url_path)
+  end
 end

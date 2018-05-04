@@ -1,8 +1,7 @@
 class AssetManagerAttachmentReplacementIdUpdateWorker < WorkerBase
   def perform(attachment_data_id)
     attachment_data = AttachmentData.find_by(id: attachment_data_id)
-    return unless attachment_data.present?
-    return unless attachment_data.replaced?
+    return unless attachment_data.present? && attachment_data.replaced?
     replacement = attachment_data.replaced_by
 
     replace_path(attachment_data, attachment_data.file.asset_manager_path, replacement.file.asset_manager_path)

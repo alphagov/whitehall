@@ -2,6 +2,8 @@ class AssetManagerCreateWhitehallAssetWorker < WorkerBase
   include AssetManagerWorkerHelper
 
   def perform(file_path, legacy_url_path, draft = false, model_class = nil, model_id = nil)
+    return unless File.exist?(file_path)
+
     file = File.open(file_path)
     asset_options = { file: file, legacy_url_path: legacy_url_path }
     asset_options[:draft] = true if draft
