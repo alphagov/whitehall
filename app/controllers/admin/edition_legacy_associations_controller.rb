@@ -19,7 +19,7 @@ class Admin::EditionLegacyAssociationsController < Admin::BaseController
     redirect_to admin_edition_path(@edition), saved_confirmation_notice
   end
 
-  private
+private
 
   def saved_confirmation_notice
     { notice: "The associations have been saved" }
@@ -36,9 +36,11 @@ class Admin::EditionLegacyAssociationsController < Admin::BaseController
   end
 
   def clean_blank_values(edition_params)
-    edition_params[:policy_content_ids] ?
-      edition_params.merge(policy_content_ids: @edition_params[:policy_content_ids].reject(&:blank?)) :
+    if edition_params[:policy_content_ids]
+      edition_params.merge(policy_content_ids: @edition_params[:policy_content_ids].reject(&:blank?))
+    else
       edition_params
+    end
   end
 
   def permitted_edition_attributes
