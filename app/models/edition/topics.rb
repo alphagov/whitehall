@@ -11,7 +11,6 @@ module Edition::Topics
 
   included do
     has_many :topics, through: :classification_memberships, source: :topic
-    validate :has_at_least_one_topic, unless: :imported?
   end
 
   def can_be_associated_with_topics?

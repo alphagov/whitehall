@@ -283,7 +283,7 @@ module Admin::EditionsHelper
   end
 
   def specialist_sector_names(sector_content_ids)
-    raw_specialist_sectors.select{|pair| sector_content_ids.include? pair.last}.map(&:first)
+    raw_specialist_sectors.select { |pair| sector_content_ids.include? pair.last }.map(&:first)
   end
 
   def raw_specialist_sectors
@@ -291,7 +291,7 @@ module Admin::EditionsHelper
   end
 
   def specialist_sector_name(sector_content_id)
-    raw_specialist_sectors.select{|pair| pair.last == sector_content_id}.first.try(:first)
+    raw_specialist_sectors.select { |pair| pair.last == sector_content_id }.first.try(:first)
   end
 
   def show_similar_slugs_warning?(edition)
