@@ -80,4 +80,22 @@ class AssetManagerAttachmentReplacementIdUpdateWorkerTest < ActiveSupport::TestC
       end
     end
   end
+
+  context 'when attachment is not synced with asset manager' do
+    let(:sample_rtf) { File.open(fixture_path.join('sample.rtf')) }
+    let(:sample_docx) { File.open(fixture_path.join('sample.docx')) }
+    let(:attachment_data) { AttachmentData.create!(file: sample_rtf, replaced_by: replacement) }
+    let(:replacement) { AttachmentData.create!(file: sample_docx) }
+
+    before do
+      update_worker.expects(:perform)
+        .raises(AssetManagerWorkerHelper::AssetManagerAssetNotFound.new('asset not found'))
+    end
+
+    it 'raises a AssetNotFound error' do
+      assert_raises(AssetManagerAttachmentReplacementIdUpdateWorker::AssetNotFound) do
+        worker.perform(attachment_data.id)
+      end
+    end
+  end
 end
