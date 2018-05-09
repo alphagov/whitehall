@@ -13,7 +13,7 @@ class Admin::EditionLegacyAssociationsController < Admin::BaseController
     redirect_to admin_edition_path(@edition), saved_confirmation_notice
   end
 
-  private
+private
 
   def saved_confirmation_notice
     { notice: "The associations have been saved" }
