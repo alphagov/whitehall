@@ -36,6 +36,15 @@ class AssetManagerWorkerHelperTest < ActiveSupport::TestCase
     assert_equal 'value', attributes['key']
   end
 
+  test 'raises AssetManagerAssetNotFound when an asset is not available' do
+    Services.asset_manager.stubs(:whitehall_asset).with(@legacy_url_path)
+      .raises(GdsApi::HTTPNotFound.new(404))
+
+    assert_raises AssetManagerWorkerHelper::AssetManagerAssetNotFound do
+      @worker.send(:find_asset_by, @legacy_url_path)
+    end
+  end
+
 private
 
   def gds_api_response(attributes = {})
