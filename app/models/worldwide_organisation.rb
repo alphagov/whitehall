@@ -1,6 +1,4 @@
 class WorldwideOrganisation < ApplicationRecord
-  include HasCorporateInformationPages
-
   PRIMARY_ROLES = [AmbassadorRole, HighCommissionerRole, GovernorRole].freeze
   SECONDARY_ROLES = [DeputyHeadOfMissionRole].freeze
   OFFICE_ROLES = [WorldwideOfficeStaffRole].freeze
@@ -16,7 +14,9 @@ class WorldwideOrganisation < ApplicationRecord
   has_many :roles, through: :worldwide_organisation_roles
   has_many :people, through: :roles
   has_many :edition_worldwide_organisations, dependent: :destroy, inverse_of: :worldwide_organisation
-  has_one  :access_and_opening_times, as: :accessible, dependent: :destroy
+  # This include is dependant on the above has_many
+  include HasCorporateInformationPages
+  has_one :access_and_opening_times, as: :accessible, dependent: :destroy
   belongs_to :default_news_image, class_name: 'DefaultNewsOrganisationImageData', foreign_key: :default_news_organisation_image_data_id
 
   accepts_nested_attributes_for :default_news_image, reject_if: :all_blank
