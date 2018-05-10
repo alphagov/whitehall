@@ -5,8 +5,7 @@ class FeaturedLink < ApplicationRecord
 
   belongs_to :linkable, polymorphic: true
 
-  after_save :republish_organisation_to_publishing_api
-  after_destroy :republish_organisation_to_publishing_api
+  after_commit :republish_organisation_to_publishing_api
 
   validates :url, :title, presence: true
   validates :url, uri: true
