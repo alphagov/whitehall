@@ -112,6 +112,7 @@ group :test do
   gem 'factory_bot'
   gem 'govuk-content-schema-test-helpers'
   gem 'maxitest'
+  gem 'minitest', '5.10.3'
   gem 'minitest-fail-fast'
   gem 'minitest-stub-const'
   gem 'mocha'
