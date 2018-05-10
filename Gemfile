@@ -112,6 +112,9 @@ group :test do
   gem 'factory_bot'
   gem 'govuk-content-schema-test-helpers'
   gem 'maxitest'
+  # minitest 5.11.3 is incompatible with rails 5.0.6
+  # this is a temporary downgrade until rails is upgraded
+  gem 'minitest', '5.10.3'
   gem 'minitest-fail-fast'
   gem 'minitest-stub-const'
   gem 'mocha'
