@@ -11,7 +11,7 @@ module Whitehall
       SearchIndex.add(searchable_thing)
       job = SearchIndexAddWorker.jobs.last
 
-      assert_equal ['SearchableClass', 'id', { "authenticated_user" => nil, "request_id" => nil }], job['args']
+      assert_equal ['SearchableClass', 'id'], job['args'].take(2)
       assert_equal 10.seconds.from_now.to_i, job['at']
     end
 
