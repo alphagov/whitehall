@@ -222,7 +222,7 @@ private
 
   def show_or_edit_path
     if params[:save_and_continue].present?
-      [:edit, :admin, @edition,]
+      [:edit, :admin, @edition]
     else
       tagging_path
     end
