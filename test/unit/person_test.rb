@@ -87,25 +87,25 @@ class PersonTest < ActiveSupport::TestCase
   test '#organisations includes organisations linked through current ministerial roles' do
     person = create(:person)
     role_appointment = create(:ministerial_role_appointment, person: person, started_at: 1.year.ago, ended_at: nil)
-    assert_equal role_appointment.role.organisations, person.organisations
+    assert_equal role_appointment.role.organisations, person.reload.organisations
   end
 
   test '#organisations excludes organisations linked through past ministerial roles' do
     person = create(:person)
     create(:ministerial_role_appointment, person: person, started_at: 1.year.ago, ended_at: 1.day.ago)
-    assert_equal [], person.organisations
+    assert_equal [], person.reload.organisations
   end
 
   test '#organisations includes organisations linked through current board member roles' do
     person = create(:person)
     role_appointment = create(:board_member_role_appointment, person: person, started_at: 1.year.ago, ended_at: nil)
-    assert_equal role_appointment.role.organisations, person.organisations
+    assert_equal role_appointment.role.organisations, person.reload.organisations
   end
 
   test '#organisations excludes organisations linked through past board member roles roles' do
     person = create(:person)
     create(:board_member_role_appointment, person: person, started_at: 1.year.ago, ended_at: 1.day.ago)
-    assert_equal [], person.organisations
+    assert_equal [], person.reload.organisations
   end
 
   test 'can access speeches associated via role_appointments' do
