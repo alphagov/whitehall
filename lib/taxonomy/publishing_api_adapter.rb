@@ -5,7 +5,7 @@ module Taxonomy
 
     def taxon_data
       @_taxon_data = expand_taxon_array(
-        level_one_taxons_without_world + [world_taxon]
+        level_one_taxons + [world_taxon]
       )
     end
 
@@ -16,14 +16,6 @@ module Taxonomy
         taxon_hash.tap do |hash|
           hash['expanded_links_hash'] = expanded_links_hash(taxon_hash['content_id'])
         end
-      end
-    end
-
-    def level_one_taxons_without_world
-      # TODO: This is a temporary funciton, only here so that this can
-      # be deployed with the World taxon linked to the homepage.
-      level_one_taxons.reject do |taxon|
-        taxon['content_id'] == WORLD_CONTENT_ID
       end
     end
 
