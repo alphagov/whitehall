@@ -1,0 +1,24 @@
+<% page_title "Edit legacy associations: " + @edition.title %>
+<div class="row">
+  <h1><%= @edition.title %></h1>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <% initialise_script "GOVUK.adminEditionsForm", selector: '.js-edition-form', right_to_left_locales: Locale.right_to_left.collect(&:to_param) %>
+    <%= form_for @edition, url: admin_edition_legacy_associations_path(@edition), as: :edition, method: :put,
+        html: { class: edition_form_classes(@edition) } do |form| %>
+      <fieldset>
+        <legend>Associations</legend>
+
+        <div class="important-associations">
+          <%= render 'admin/shared/policy_fields', form: form %>
+          <%= render 'topic_fields', form: form, edition: @edition %>
+        </div>
+      </fieldset>
+      <%= render 'specialist_sector_fields', form: form, edition: @edition %>
+      <div class="publishing-controls well">
+        <%= form.form_actions(buttons: { save: 'Save legacy associations' }, cancel: edit_admin_edition_tags_path(@edition)) %>
+      </div>
+    <% end %>
+  </div>
+</div>
