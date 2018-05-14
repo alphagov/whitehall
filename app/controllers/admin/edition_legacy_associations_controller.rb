@@ -3,7 +3,6 @@ class Admin::EditionLegacyAssociationsController < Admin::BaseController
   before_action :enforce_permissions!
   before_action :limit_edition_access!
 
-
   def edit
     @cancel_path = get_cancel_path
   end
@@ -41,11 +40,17 @@ private
   end
 
   def clean_blank_values(edition_params)
+<<<<<<< HEAD
     if edition_params[:policy_content_ids]
       edition_params.merge(policy_content_ids: @edition_params[:policy_content_ids].reject(&:blank?))
     else
       edition_params
     end
+=======
+    edition_params[:policy_content_ids] ?
+      edition_params.merge(policy_content_ids: @edition_params[:policy_content_ids].reject(&:blank?)) :
+      edition_params
+>>>>>>> Create edit page for legacy associations.
   end
 
   def permitted_edition_attributes
