@@ -4,7 +4,6 @@ class Organisation < ApplicationRecord
   include MinisterialRole::MinisterialRoleReindexingConcern
   include Organisation::OrganisationSearchIndexConcern
   include Organisation::OrganisationTypeConcern
-  include HasCorporateInformationPages
 
   DEFAULT_JOBS_URL = 'https://www.civilservicejobs.service.gov.uk/csr'.freeze
 
@@ -23,6 +22,9 @@ class Organisation < ApplicationRecord
             through: :parent_organisational_relationships
 
   has_many :edition_organisations, dependent: :destroy, inverse_of: :organisation
+  # This include is dependant on the above has_many
+  include HasCorporateInformationPages
+
   has_many :editions, through: :edition_organisations
 
   has_many :statistics_announcement_organisations, inverse_of: :organisation, dependent: :destroy
