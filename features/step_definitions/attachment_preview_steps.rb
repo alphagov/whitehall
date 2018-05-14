@@ -10,9 +10,9 @@ When(/^I preview the contents of the attachment$/) do
   fn = File.join(Whitehall.clean_uploads_root, @attachment.file.store_path)
 
   asset_host = URI.parse(Plek.new.public_asset_host).host
-  stub_request(:get, "https://#{asset_host}/government/uploads/system/uploads/attachment_data/file/#{@attachment.id}/sample.csv")
-    .with(headers: {'Range'=>'bytes=0-300000'})
-    .to_return(status: 206, body: File.read(fn))
+  stub_request(:get, "https://#{asset_host}/government/uploads/system/uploads/attachment_data/file/#{@attachment.attachment_data.id}/sample.csv")
+    .with(headers: { 'Range'=>'bytes=0-300000' }).
+    to_return(status: 206, body: File.read(fn))
 
   visit csv_preview_path(
     id: @attachment.attachment_data.id,
