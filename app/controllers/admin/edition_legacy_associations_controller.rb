@@ -3,7 +3,13 @@ class Admin::EditionLegacyAssociationsController < Admin::BaseController
   before_action :enforce_permissions!
   before_action :limit_edition_access!
 
-  def edit; end
+  def edit;
+    @cancel_path = if @edition.can_be_tagged_to_taxonomy?
+      edit_admin_edition_tags_path(@edition)
+    else
+      admin_edition_path(@edition)
+    end
+  end
 
   def update
     @edition.assign_attributes(edition_params)
