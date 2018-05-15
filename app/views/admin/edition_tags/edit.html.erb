@@ -6,6 +6,7 @@
 <div class="row">
   <div class="col-md-12">
     <h2>Topics (new taxonomy)</h2>
+    <p>Topics categorise content on GOV.UK by subject area.</p>
     <p>
       <%= link_to "Send feedback about the new taxonomy", Whitehall.support_url, class: "feedback-link" %>
     </p>
@@ -35,8 +36,9 @@
       </p>
 
       <% if @edition.pre_publication? %>
+        <p>Policy areas, policies, and specialist sectors have been chosen based on the topics you selected.</p>
         <p>
-          <%= link_to "Legacy Associations", edit_admin_edition_legacy_associations_path(@edition.id) %>
+          <%= link_to "Change policy areas, policies, and specialist sectors", edit_admin_edition_legacy_associations_path(@edition.id) %>
         </p>
       <% end %>
 
