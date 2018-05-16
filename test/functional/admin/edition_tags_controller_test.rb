@@ -2,6 +2,7 @@ require 'test_helper'
 
 class Admin::EditionTagsControllerTest < ActionController::TestCase
   include TaxonomyHelper
+  include Admin::EditionRoutesHelper
   should_be_an_admin_controller
 
   setup do
@@ -19,7 +20,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
         "taxons" => taxons,
       },
       "version" => 1,
-      )
+    )
   end
 
   test 'should return an error on a version conflict' do
@@ -45,6 +46,28 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
       },
       previous_version: "1"
     )
+  end
+
+  test 'should redirect to edition admin page when "Save Topic Changes" is clicked' do
+    stub_publishing_api_links_with_taxons(@edition.content_id, [])
+
+    put :update, params: {
+      edition_id: @edition,
+      taxonomy_tag_form: { taxons: [child_taxon_content_id], previous_version: 1 },
+      save: 'Some Value' }
+
+    assert_redirected_to admin_edition_path(@edition)
+  end
+
+  test 'should redirect to legacy associations page when "Legacy tags" is clicked' do
+    stub_publishing_api_links_with_taxons(@edition.content_id, [])
+
+    put :update, params: {
+      edition_id: @edition,
+      taxonomy_tag_form: { taxons: [child_taxon_content_id], previous_version: 1 } ,
+      legacy_tags: 'Some Value' }
+
+    assert_redirected_to edit_admin_edition_legacy_associations_path(@edition)
   end
 
   test 'should post empty array to publishing api if no taxons are selected' do
