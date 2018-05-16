@@ -35,12 +35,6 @@
         <%= link_to "Report a missing topic", Whitehall.support_url, class: "feedback-link" %>
       </p>
 
-      <% if @edition.pre_publication? %>
-        <p>Policy areas, policies, and specialist sectors have been chosen based on the topics you selected.</p>
-        <p>
-          <%= link_to "Change policy areas, policies, and specialist sectors", edit_admin_edition_legacy_associations_path(@edition.id) %>
-        </p>
-      <% end %>
 
       <h2>Selected topics</h2>
       <div class="content content-bordered hidden" data-module="breadcrumb-preview">
@@ -51,7 +45,7 @@
       </p>
 
       <div class="publishing-controls well">
-        <%= form.form_actions(buttons: { save: 'Save topic changes' }, cancel: admin_edition_path(@edition)) %>
+        <%= form.form_actions(buttons: { save: 'Save topic changes', legacy_tags: 'Legacy tags' }, cancel: admin_edition_path(@edition)) %>
       </div>
     <% end %>
   </div>
