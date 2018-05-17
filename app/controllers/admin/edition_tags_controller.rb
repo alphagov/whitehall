@@ -29,9 +29,8 @@ private
     if params[:save]
       admin_edition_path(@edition)
     else
-      edit_admin_edition_legacy_associations_path(@edition)
+      edit_admin_edition_legacy_associations_path(@edition, return: :tags)
     end
-
   end
 
   def enforce_permissions!

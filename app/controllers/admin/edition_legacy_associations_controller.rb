@@ -4,11 +4,7 @@ class Admin::EditionLegacyAssociationsController < Admin::BaseController
   before_action :limit_edition_access!
 
   def edit;
-    @cancel_path = if @edition.can_be_tagged_to_taxonomy?
-      edit_admin_edition_tags_path(@edition)
-    else
-      admin_edition_path(@edition)
-    end
+    @cancel_path = get_cancel_path
   end
 
   def update
@@ -20,6 +16,14 @@ class Admin::EditionLegacyAssociationsController < Admin::BaseController
   end
 
 private
+
+  def get_cancel_path
+    paths = {
+      'edit' => edit_admin_edition_path(@edition),
+      'tags' => edit_admin_edition_tags_path(@edition)
+    }
+    paths[params[:return]] || admin_edition_path(@edition)
+  end
 
   def saved_confirmation_notice
     { notice: "The associations have been saved" }

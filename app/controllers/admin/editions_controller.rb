@@ -232,7 +232,7 @@ private
     if @edition.can_be_tagged_to_taxonomy?
       edit_admin_edition_tags_path(@edition.id)
     else
-      edit_admin_edition_legacy_associations_path(@edition.id)
+      edit_admin_edition_legacy_associations_path(@edition.id, return: :edit)
     end
   end
 

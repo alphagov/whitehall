@@ -20,7 +20,7 @@ class GovspeakContentTest < ActiveSupport::TestCase
     assert_nil govspeak_content.computed_headers_html
 
     assert job = GovspeakContentWorker.jobs.last
-    assert_equal [govspeak_content.id, { "authenticated_user" => nil, "request_id" => nil }], job['args']
+    assert_equal govspeak_content.id, job['args'].first
   end
 
   test "doesn't clear computed values and doesn't queue a job to re-compute the HTML when the body has not changed" do

@@ -38,7 +38,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     edition = Edition.last
 
     assert page = @organisation.corporate_information_pages.last
-    assert_redirected_to edit_admin_edition_legacy_associations_path(edition.id)
+    assert_redirected_to edit_admin_edition_legacy_associations_path(edition.id, return: :edit)
     assert_equal "The document has been saved", flash[:notice]
     assert_equal corporate_information_page_attributes[:body], page.body
     assert_equal corporate_information_page_attributes[:corporate_information_page_type_id], page.corporate_information_page_type_id
@@ -52,7 +52,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     edition = Edition.last
 
     assert page = organisation.corporate_information_pages.last
-    assert_redirected_to edit_admin_edition_legacy_associations_path(edition.id)
+    assert_redirected_to edit_admin_edition_legacy_associations_path(edition.id, return: :edit)
     assert_equal "The document has been saved", flash[:notice]
     assert_equal corporate_information_page_attributes[:body], page.body
     assert_equal corporate_information_page_attributes[:corporate_information_page_type_id], page.corporate_information_page_type_id
@@ -89,7 +89,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     assert_equal new_attributes[:body], corporate_information_page.body
     assert_equal new_attributes[:summary], corporate_information_page.summary
     assert_equal "The document has been saved", flash[:notice]
-    assert_redirected_to edit_admin_edition_legacy_associations_path(edition.id)
+    assert_redirected_to edit_admin_edition_legacy_associations_path(edition.id, return: :edit)
   end
 
   view_test "PUT :update should redisplay form on failure" do
