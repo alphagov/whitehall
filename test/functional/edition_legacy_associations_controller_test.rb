@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class Admin::EditionLegacyAssociationsControllerTest < ActionController::TestCase
+  include Admin::EditionRoutesHelper
+
   should_be_an_admin_controller
 
   view_test 'should render edit form correctly populated' do
@@ -13,7 +15,7 @@ class Admin::EditionLegacyAssociationsControllerTest < ActionController::TestCas
       primary_specialist_sector_tag: 'aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa',
       secondary_specialist_sector_tags: ['aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee', 'eeeeeeee-bbbb-cccc-dddd-aaaaaaaaaaaaa']
     )
-    get :edit, params: { edition_id: @edition.id}
+    get :edit, params: { edition_id: @edition.id }
     assert_select "#edition_policy_content_ids option[value='5d37821b-7631-11e4-a3cb-005056011aef'][selected='selected']"
     assert_select "#edition_topic_ids option[value='#{@topic.id}'][selected='selected']"
     # assert_select "#edition_primary_specialist_sector_tag option[value='aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa'][selected='selected']"
@@ -21,31 +23,31 @@ class Admin::EditionLegacyAssociationsControllerTest < ActionController::TestCas
 
   view_test 'should not render the policy drop-down if not supported' do
     @edition = create(:corporate_information_page, title: "corp info")
-    get :edit, params: { edition_id: @edition.id}
+    get :edit, params: { edition_id: @edition.id }
     refute_select "#edition_policy_content_ids"
   end
 
   view_test 'should not render the policy area drop-down if not supported' do
     @edition = create(:corporate_information_page, title: "corp info")
-    get :edit, params: { edition_id: @edition.id}
+    get :edit, params: { edition_id: @edition.id }
     refute_select "#edition_topic_ids"
   end
 
   view_test 'should render the cancel button back to the admin page' do
     @edition = create(:publication)
-    get :edit, params: { edition_id: @edition.id}
+    get :edit, params: { edition_id: @edition.id }
     assert_select ".form-actions a:contains('cancel')[href='#{admin_edition_path(@edition)}']"
   end
 
   view_test 'should render the cancel button back to the tags page' do
     @edition = create(:publication)
-    get :edit, params: { edition_id: @edition.id, return: 'tags'}
+    get :edit, params: { edition_id: @edition.id, return: 'tags' }
     assert_select ".form-actions a:contains('cancel')[href='#{edit_admin_edition_tags_path(@edition)}']"
   end
 
   view_test 'should render the cancel button back to the edit page' do
     @edition = create(:publication)
-    get :edit, params: { edition_id: @edition.id, return: 'edit'}
+    get :edit, params: { edition_id: @edition.id, return: 'edit' }
     assert_select ".form-actions a:contains('cancel')[href='#{edit_admin_edition_path(@edition)}']"
   end
 

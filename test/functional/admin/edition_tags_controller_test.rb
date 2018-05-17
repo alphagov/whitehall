@@ -54,7 +54,8 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
     put :update, params: {
       edition_id: @edition,
       taxonomy_tag_form: { taxons: [child_taxon_content_id], previous_version: 1 },
-      save: 'Some Value' }
+      save: 'Some Value'
+    }
 
     assert_redirected_to admin_edition_path(@edition)
   end
@@ -64,10 +65,11 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
 
     put :update, params: {
       edition_id: @edition,
-      taxonomy_tag_form: { taxons: [child_taxon_content_id], previous_version: 1 } ,
-      legacy_tags: 'Some Value' }
+      taxonomy_tag_form: { taxons: [child_taxon_content_id], previous_version: 1 },
+      legacy_tags: 'Some Value'
+    }
 
-    assert_redirected_to edit_admin_edition_legacy_associations_path(@edition)
+    assert_redirected_to edit_admin_edition_legacy_associations_path(@edition, return: :tags)
   end
 
   test 'should post empty array to publishing api if no taxons are selected' do

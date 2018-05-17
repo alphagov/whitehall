@@ -101,7 +101,7 @@ module AdminEditionControllerTestHelpers
 
         edition = edition_class.last
 
-        assert_redirected_to edit_admin_edition_legacy_associations_path(edition.id)
+        assert_redirected_to edit_admin_edition_legacy_associations_path(edition.id, return: 'edit')
         assert_equal 'The document has been saved', flash[:notice]
       end
 
@@ -218,7 +218,7 @@ module AdminEditionControllerTestHelpers
           }
         }
 
-        assert_redirected_to edit_admin_edition_legacy_associations_path(edition.id)
+        assert_redirected_to edit_admin_edition_legacy_associations_path(edition.id, return: :edit)
         assert_equal 'The document has been saved', flash[:notice]
       end
 
@@ -417,7 +417,7 @@ module AdminEditionControllerTestHelpers
 
         edition.reload
         assert_equal "draft", edition.state
-        assert_redirected_to edit_admin_edition_legacy_associations_path(edition.id)
+        assert_redirected_to edit_admin_edition_legacy_associations_path(edition.id, return: :edit)
       end
     end
 

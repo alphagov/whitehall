@@ -59,7 +59,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     publication = Publication.last
 
     assert publication.present?, assigns(:edition).errors.full_messages.inspect
-    assert_redirected_to edit_admin_edition_legacy_associations_path(publication.id)
+    assert_redirected_to edit_admin_edition_legacy_associations_path(publication.id, return: :edit)
     assert_equal publication, statistics_announcement.reload.publication
   end
 
