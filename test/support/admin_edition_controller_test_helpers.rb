@@ -809,17 +809,6 @@ module AdminEditionControllerTestHelpers
     def should_allow_related_policies_for(document_type)
       edition_class = class_for(document_type)
 
-      view_test "new displays document form with related policies field" do
-        get :new
-
-        assert_select "form#new_edition" do
-          assert_select "select[name*='edition[policy_content_ids]']" do
-            assert_select "option[value='#{policy_1['content_id']}']"
-            assert_select "option[value='#{policy_2['content_id']}']"
-          end
-        end
-      end
-
       test "creating should create a new document with related policies" do
         stub_publishing_api_policies
         attributes = controller_attributes_for(document_type)
@@ -837,16 +826,6 @@ module AdminEditionControllerTestHelpers
           policy_1['content_id'],
           policy_2['content_id'],
         ], document.policy_content_ids
-      end
-
-      view_test "edit displays document form with related policies field" do
-        document = create(document_type)
-
-        get :edit, params: { id: document }
-
-        assert_select "form#edit_edition" do
-          assert_select "select[name*='edition[policy_content_ids]']"
-        end
       end
 
       test "updating should save modified edition attributes with related policies" do
