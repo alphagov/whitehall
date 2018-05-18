@@ -7,9 +7,6 @@
 
     <fieldset>
       <legend>Associations</legend>
-      <%= render 'admin/shared/policy_fields', form: form %>
-      <%= render partial: 'topic_fields', locals: { form: form, edition: edition } %>
-      <%= render partial: 'specialist_sector_fields', locals: { form: form, edition: edition } %>
       <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
       <%= render partial: 'topical_event_fields', locals: { form: form, edition: edition } %>
     </fieldset>
