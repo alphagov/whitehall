@@ -23,7 +23,8 @@ When(/^I publish a new edition of the detailed guide "([^"]*)" with a change not
   visit admin_edition_path(guide)
   click_button "Create new edition"
   fill_in "edition_change_note", with: change_note
-  click_button "Save"
+  click_button "Next"
+  click_button "Save legacy associations"
   publish(force: true)
 end
 
