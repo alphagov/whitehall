@@ -5,14 +5,14 @@
 :concurrency: 1
 :logfile: ./log/sidekiq.json.log
 :queues:
-  - ['scheduled_publishing', 3]
-  - ['default', 2]
-  - ['publishing_api', 2]
-  - ['email_alert_api_signup', 2]
-  - ['bulk_republishing', 2]
-  - ['sync_checks', 1]
-  - ['link_checks', 1]
-  - ['asset_migration', 1]
+  - scheduled_publishing
+  - default
+  - publishing_api
+  - email_alert_api_signup
+  - bulk_republishing
+  - sync_checks
+  - link_checks
+  - asset_migration
 :schedule:
   check_all_organisations_links_worker:
     cron: '0 1 * * *' # Runs at 1 a.m every day
