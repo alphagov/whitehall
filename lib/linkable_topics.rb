@@ -1,12 +1,16 @@
 # Creates a payload for the topic (formerly specialist sector) select box.
 class LinkableTopics
   def topics
+    items = raw_topics
+    items = group_for_grouped_select(items)
+    alphabetize_by_parent(items)
+  end
+
+  def raw_topics
     items = fetch_linkables_from_publishing_api(document_type: 'topic')
     items = change_separator(items)
     items = select_only_subtopics(items)
-    items = format_for_select_input(items)
-    items = group_for_grouped_select(items)
-    alphabetize_by_parent(items)
+    format_for_select_input(items)
   end
 
   def taxons
@@ -16,6 +20,8 @@ class LinkableTopics
   end
 
 private
+
+
 
   def fetch_linkables_from_publishing_api(document_type:)
     Services.publishing_api.get_linkables(document_type: document_type)

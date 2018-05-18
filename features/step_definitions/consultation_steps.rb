@@ -54,7 +54,8 @@ end
 When(/^I save and publish the amended consultation$/) do
   ensure_path edit_admin_consultation_path(Consultation.last)
   fill_in_change_note_if_required
-  click_button "Save"
+  click_button "Next"
+  click_button "Save legacy associations"
   publish force: true
 end
 

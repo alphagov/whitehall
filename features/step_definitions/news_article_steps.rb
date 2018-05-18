@@ -117,6 +117,8 @@ When(/^I draft a French\-only "World news story" news article associated with "(
   select "", from: "edition_lead_organisation_ids_1"
 
   click_button "Save"
+  # TODO  investigate why save legacy breaks this
+  click_link "cancel"
   @news_article = find_news_article_in_locale!(:fr, 'French-only news article')
 end
 
