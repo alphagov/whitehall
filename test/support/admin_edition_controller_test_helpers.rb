@@ -1012,14 +1012,6 @@ module AdminEditionControllerTestHelpers
     def should_allow_association_with_topics(edition_type)
       edition_class = class_for(edition_type)
 
-      view_test "new should display topics field" do
-        get :new
-
-        assert_select "form#new_edition" do
-          assert_select "select[name*='edition[topic_ids]']"
-        end
-      end
-
       test "create should associate topics with the edition" do
         first_topic = create(:topic)
         second_topic = create(:topic)
@@ -1033,16 +1025,6 @@ module AdminEditionControllerTestHelpers
 
         assert edition = edition_class.last
         assert_equal [first_topic, second_topic], edition.topics
-      end
-
-      view_test "edit should display topics field" do
-        edition = create("draft_#{edition_type}")
-
-        get :edit, params: { id: edition }
-
-        assert_select "form#edit_edition" do
-          assert_select "select[name*='edition[topic_ids]']"
-        end
       end
 
       test "update should associate topics with the edition" do

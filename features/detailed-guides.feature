@@ -5,6 +5,11 @@ Scenario: Creating a new draft detailed guide
   When I draft a new detailed guide "The finer points of moustache trimming"
   Then I should see the detailed guide "The finer points of moustache trimming" in the list of draft documents
 
+Scenario: Creating a new detailed guide with policies
+  Given I am a writer in the organisation "Department of Examples"
+  When I create a new detailed guide "Moustache trimming with policies" associated with "Policy 1"
+  Then I should see the detailed guide "Moustache trimming with policies" associated with "Policy 1"
+
 @javascript
 Scenario: Adding multiple images
   Given I am a writer in the organisation "Department of Examples"
