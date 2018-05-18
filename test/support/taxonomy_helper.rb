@@ -34,6 +34,13 @@ module TaxonomyHelper
       .returns(JSON.dump(taxons))
   end
 
+  def redis_cache_has_world_taxons(world_taxons)
+    redis_client
+      .stubs(:get)
+      .with(Taxonomy::RedisCacheAdapter::WORLD_TAXONS_CACHE_KEY)
+      .returns(JSON.dump(world_taxons))
+  end
+
 private
 
   def redis_client
