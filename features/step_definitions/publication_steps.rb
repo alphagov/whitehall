@@ -24,7 +24,8 @@ end
 
 When(/^I draft a new publication "([^"]*)"$/) do |title|
   begin_drafting_publication(title)
-  click_button "Save"
+  click_button "Next"
+  click_button "Save legacy associations"
   add_external_attachment
 end
 
@@ -32,8 +33,8 @@ Given(/^"([^"]*)" drafts a new publication "([^"]*)"$/) do |user_name, title|
   user = User.find_by(name: user_name)
   as_user(user) do
     begin_drafting_publication(title)
-    click_button "Save"
-    add_external_attachment
+    click_button "Next"
+    click_button "Save legacy associations"
   end
 end
 
