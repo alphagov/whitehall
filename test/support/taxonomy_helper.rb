@@ -23,8 +23,16 @@ module TaxonomyHelper
     "grandparent"
   end
 
+  def world_taxon_content_id
+    "world"
+  end
+
   def world_child_taxon_content_id
     "world_child"
+  end
+
+  def world_grandchild_taxon_content_id
+    "world_grandchild"
   end
 
   def stub_taxonomy_with_all_taxons
@@ -103,19 +111,28 @@ private
                      content_id: draft_taxon_1_content_id)
   end
 
+  def world_grandchild_taxon
+    FactoryBot.build(:taxon_hash,
+                     title: "World Child Taxon",
+                     base_path: "/world/grand-child",
+                     content_id: world_grandchild_taxon_content_id,
+                     is_level_one_taxon: false)
+  end
+
   def world_child_taxon
     FactoryBot.build(:taxon_hash,
                      title: "World Child Taxon",
                      base_path: "/world/child",
                      content_id: world_child_taxon_content_id,
-                     is_level_one_taxon: false)
+                     is_level_one_taxon: false,
+                     children: [world_grandchild_taxon])
   end
 
   def world_taxon
     FactoryBot.build(:taxon_hash,
                      title: "World",
                      base_path: "/world/all",
-                     content_id: "world",
+                     content_id: world_taxon_content_id,
                      children: [world_child_taxon])
   end
 end
