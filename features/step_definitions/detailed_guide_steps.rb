@@ -10,6 +10,26 @@ When(/^I draft a new detailed guide "([^"]*)"$/) do |title|
   click_button "Save"
 end
 
+When(/^I create a new detailed guide "([^"]*)" associated with "([^"]*)"$/) do |title, policy|
+  policies = publishing_api_has_policies([policy])
+  create(:government)
+
+  begin_drafting_document type: 'detailed_guide', title: title, previously_published: false
+  click_button "Next"
+  select policy, from: "Policies"
+  click_button "Save legacy associations"
+end
+
+Then(/^I should see the detailed guide "([^"]*)" associated with "([^"]*)"$/) do |title, policy|
+  assert has_css?(".flash.notice", text: "The associations have been saved")
+  assert has_css?(".page-header", text: title)
+
+  click_on 'Edit draft'
+  click_on "Next"
+
+  assert has_css?(".policies option[selected]", text: policy)
+end
+
 Given(/^I start drafting a new detailed guide$/) do
   begin_drafting_document type: 'detailed_guide', title: "Detailed Guide", previously_published: false
 end
