@@ -54,7 +54,8 @@ end
 When(/^I draft a new publication "([^"]*)" referencing the data set "([^"]*)"$/) do |title, data_set_name|
   begin_drafting_publication(title)
   select data_set_name, from: "Related statistical data sets"
-  click_button "Save"
+  click_button "Next"
+  click_button "Save legacy associations"
   add_external_attachment
 end
 
