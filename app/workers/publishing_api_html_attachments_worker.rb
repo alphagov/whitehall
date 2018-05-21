@@ -4,6 +4,8 @@ class PublishingApiHtmlAttachmentsWorker
   attr_reader :edition
   private :edition
 
+  sidekiq_options queue: 'publishing_api'
+
   def perform(edition_id, event)
     @edition = Edition.unscoped.find(edition_id)
     send(event) if respond_to?(event) && edition.respond_to?(:html_attachments)

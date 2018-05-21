@@ -1,6 +1,8 @@
 class PublishingApiUnpublishingWorker
   include Sidekiq::Worker
 
+  sidekiq_options queue: 'publishing_api'
+
   def perform(unpublishing_id, allow_draft = false)
     unpublishing = Unpublishing.includes(:edition).find(unpublishing_id)
     edition = unpublishing.edition
