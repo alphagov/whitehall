@@ -5,11 +5,8 @@
 :concurrency: 1
 :logfile: ./log/sidekiq.json.log
 :queues:
-  - scheduled_publishing
   - default
-  - publishing_api
   - email_alert_api_signup
-  - bulk_republishing
   - sync_checks
   - link_checks
   - asset_migration
