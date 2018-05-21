@@ -14,6 +14,8 @@
 class PublishingApiDocumentRepublishingWorker < WorkerBase
   attr_reader :published_edition, :pre_publication_edition
 
+  sidekiq_options queue: 'publishing_api'
+
   def perform(document_id)
     document = Document.find(document_id)
     #this the latest edition in a visible state ie: withdrawn, published
