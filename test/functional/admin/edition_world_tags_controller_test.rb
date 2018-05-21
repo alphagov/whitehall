@@ -22,7 +22,19 @@ class Admin::EditionWorldTagsControllerTest < ActionController::TestCase
       )
   end
 
+  def stub_publishing_api_expanded_links_with_taxons(content_id, taxons)
+    publishing_api_has_expanded_links(
+      "content_id" => content_id,
+      "expanded_links" => {
+        "taxons" => taxons,
+      },
+      "version" => 1,
+      )
+  end
+
   test 'should return an error on a version conflict' do
+    stub_publishing_api_expanded_links_with_taxons(@edition.content_id, [world_child_taxon])
+
     publishing_api_patch_request = stub_request(:patch, "#{@publishing_api_endpoint}/links/#{@edition.content_id}")
       .to_return(status: 409)
 
@@ -34,7 +46,7 @@ class Admin::EditionWorldTagsControllerTest < ActionController::TestCase
   end
 
   test 'should post world taxons to publishing-api' do
-    stub_publishing_api_links_with_taxons(@edition.content_id, [])
+    stub_publishing_api_expanded_links_with_taxons(@edition.content_id, [])
 
     put :update, params: { edition_id: @edition, taxonomy_tag_form: { taxons: [world_child_taxon_content_id], previous_version: 1 } }
 
@@ -48,7 +60,7 @@ class Admin::EditionWorldTagsControllerTest < ActionController::TestCase
   end
 
   test 'should post empty array to publishing api if no world taxons are selected' do
-    stub_publishing_api_links_with_taxons(@edition.content_id, [])
+    stub_publishing_api_expanded_links_with_taxons(@edition.content_id, [])
 
     put :update, params: { edition_id: @edition, taxonomy_tag_form: { previous_version: 1 } }
 
@@ -71,5 +83,28 @@ class Admin::EditionWorldTagsControllerTest < ActionController::TestCase
 
     assert_select "input[value='#{world_child_taxon_content_id}'][checked='checked']"
     refute_select "input[value='#{world_grandchild_taxon_content_id}'][checked='checked']"
+  end
+
+  test 'should also post taxons tagged to the topic and world taxonomies' do
+    organisation = create(:organisation, content_id: "f323e83c-868b-4bcb-b6e2-a8f9bb40397e")
+    @world_and_topic_edition = create(:publication, publication_type: PublicationType::Guidance, organisations: [organisation])
+
+    stub_publishing_api_expanded_links_with_taxons(@world_and_topic_edition.content_id, [child_taxon])
+
+    put :update, params: {
+      edition_id: @world_and_topic_edition,
+      taxonomy_tag_form: {
+        taxons: [world_child_taxon_content_id],
+        previous_version: 1
+      }
+    }
+
+    assert_publishing_api_patch_links(
+      @world_and_topic_edition.content_id,
+      links: {
+        taxons: [world_child_taxon_content_id, child_taxon_content_id]
+      },
+      previous_version: "1"
+    )
   end
 end

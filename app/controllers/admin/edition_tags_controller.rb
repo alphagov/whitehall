@@ -12,7 +12,7 @@ class Admin::EditionTagsController < Admin::BaseController
     EditionTaxonLinkPatcher.new.call(
       content_id: @edition.content_id,
       selected_taxons: selected_taxons,
-      invisible_taxons: invisible_taxons,
+      invisible_taxons: invisible_taxons + previously_selected_world_taxons,
       previous_version: params["taxonomy_tag_form"]["previous_version"],
     )
 
@@ -44,5 +44,10 @@ private
 
   def invisible_taxons
     params["taxonomy_tag_form"].fetch("invisible_taxons", "").split(",")
+  end
+
+  def previously_selected_world_taxons
+    world_taxons = EditionTaxonsFetcher.new(@edition.content_id).fetch_world_taxons
+    world_taxons.map(&:content_id)
   end
 end
