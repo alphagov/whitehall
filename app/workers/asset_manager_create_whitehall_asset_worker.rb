@@ -1,6 +1,8 @@
 class AssetManagerCreateWhitehallAssetWorker < WorkerBase
   include AssetManagerWorkerHelper
 
+  sidekiq_options queue: 'asset_manager'
+
   def perform(file_path, legacy_url_path, draft = false, model_class = nil, model_id = nil)
     return unless File.exist?(file_path)
 
