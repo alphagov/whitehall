@@ -72,8 +72,12 @@ module DocumentHelper
   end
 
   def begin_drafting_publication(title, options = {})
-    begin_drafting_document type: 'publication', title: title, summary: "Some summary of the content", alternative_format_provider: create(:alternative_format_provider)
-    fill_in_publication_fields(options)
+    begin_drafting_document( type: 'publication',
+      title: title,
+      summary: "Some summary of the content",
+      alternative_format_provider: create(:alternative_format_provider),
+      skip_topic_selection: options[:skip_topic_selection])
+    fill_in_publication_fields(options.slice(:first_published, :publication_type))
   end
 
   def begin_drafting_statistical_data_set(options)
