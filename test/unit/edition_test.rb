@@ -793,6 +793,14 @@ class EditionTest < ActiveSupport::TestCase
     assert edition.valid?
   end
 
+  test 'first_published_at cannot be set to a future date when previously_published is true' do
+    edition = build(:edition, previously_published: 'true', first_published_at: 10.years.from_now)
+    edition.trigger_previously_published_validations
+
+    refute edition.valid?
+    assert_equal "First published at can't be set to a future date", edition.errors.full_messages.first
+  end
+
   test '#government returns the current government for a newly published edition' do
     government = create(:current_government)
     edition = create(:edition, first_published_at: Time.zone.now)

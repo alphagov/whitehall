@@ -643,7 +643,11 @@ class Edition < ApplicationRecord
       errors[:base] << 'You must specify whether the document has been published before'
       @has_first_published_error = true
     elsif previously_published == 'true' # not a real field, so isn't converted to bool
-      errors.add(:first_published_at, "can't be blank") if first_published_at.blank?
+      if first_published_at.blank?
+        errors.add(:first_published_at, "can't be blank")
+      elsif first_published_at > Time.zone.now
+        errors.add(:first_published_at, "can't be set to a future date")
+      end
       @has_first_published_error = true
     end
   end
