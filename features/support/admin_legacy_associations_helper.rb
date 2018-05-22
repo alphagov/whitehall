@@ -42,12 +42,11 @@ private
     refute has_css? ".policy-areas li", text: policy_area_2['title']
   end
 
-
   def check_policy_areas()
     topic_ids = [@pol_area_3.id]
     assert_equal topic_ids, Publication.last.topic_ids
   end
-  
+
   def tag_to_policy(policy)
     select policy["title"], from: 'Policies'
   end
