@@ -1,6 +1,6 @@
 Given(/^a document that has gone through many changes$/) do
   begin_drafting_publication('An exciting new publication')
-  click_on "Save"
+  click_on "Next"
   assert page.has_content?('An exciting new publication')
   @the_publication = Publication.find_by(title: 'An exciting new publication')
   # fake it

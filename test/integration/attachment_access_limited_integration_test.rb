@@ -11,6 +11,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
 
   before do
     login_as managing_editor
+    publishing_api_has_linkables([], document_type: 'topic')
   end
 
   context 'given a draft document with file attachment' do

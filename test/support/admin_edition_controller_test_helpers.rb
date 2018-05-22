@@ -71,13 +71,37 @@ module AdminEditionControllerTestHelpers
         assert_equal attributes[:body], edition.body
       end
 
-      test "create should take the writer to the edition page" do
+      test "create should take the writer to the topic tagging page if edition is elegible" do
+        organisation = create(:organisation)
+        taggable_org = {
+          "education_related" => [organisation.content_id]
+        }
+
+        Whitehall.stubs(:organisations_in_tagging_beta).returns(taggable_org)
+
+        attributes = controller_attributes_for(edition_type).merge(
+          publication_type_id: PublicationType::Guidance.id,
+          lead_organisation_ids: [organisation.id]
+        )
+
+        post :create, params: {
+          edition: attributes
+        }
+
+        edition = edition_class.last
+
+        assert_redirected_to edit_admin_edition_tags_path(edition.id)
+        assert_equal 'The document has been saved', flash[:notice]
+      end
+
+      test "create should take the writer to the legacy tagging page" do
         post :create, params: {
           edition: controller_attributes_for(edition_type)
         }
 
-        admin_edition_path = send("admin_#{edition_type}_path", edition_class.last)
-        assert_redirected_to admin_edition_path
+        edition = edition_class.last
+
+        assert_redirected_to edit_admin_edition_legacy_associations_path(edition.id, return: 'edit')
         assert_equal 'The document has been saved', flash[:notice]
       end
 
@@ -183,7 +207,7 @@ module AdminEditionControllerTestHelpers
         assert_equal "new-body", edition.body
       end
 
-      test "update should take the writer to the edition page" do
+      test "update should take the writer to the legacy tagging page after updating" do
         edition = create(edition_type)
 
         put :update, params: {
@@ -194,8 +218,28 @@ module AdminEditionControllerTestHelpers
           }
         }
 
-        admin_edition_path = send("admin_#{edition_type}_path", edition)
-        assert_redirected_to admin_edition_path
+        assert_redirected_to edit_admin_edition_legacy_associations_path(edition.id, return: :edit)
+        assert_equal 'The document has been saved', flash[:notice]
+      end
+
+      test "update should take the writer to the topic tagging page after updating to a taggable organisation" do
+        edition = create(edition_type)
+
+        organisation = create(:organisation)
+        taggable_org = {
+          "education_related" => [organisation.content_id]
+        }
+
+        Whitehall.stubs(:organisations_in_tagging_beta).returns(taggable_org)
+
+        put :update, params: {
+          id: edition,
+          edition: {
+            lead_organisation_ids: [organisation.id],
+          }
+        }
+
+        assert_redirected_to edit_admin_edition_tags_path(edition.id)
         assert_equal 'The document has been saved', flash[:notice]
       end
 
@@ -373,7 +417,7 @@ module AdminEditionControllerTestHelpers
 
         edition.reload
         assert_equal "draft", edition.state
-        assert_redirected_to send("admin_#{edition_type}_path", edition)
+        assert_redirected_to edit_admin_edition_legacy_associations_path(edition.id, return: :edit)
       end
     end
 
@@ -753,17 +797,6 @@ module AdminEditionControllerTestHelpers
     def should_allow_related_policies_for(document_type)
       edition_class = class_for(document_type)
 
-      view_test "new displays document form with related policies field" do
-        get :new
-
-        assert_select "form#new_edition" do
-          assert_select "select[name*='edition[policy_content_ids]']" do
-            assert_select "option[value='#{policy_1['content_id']}']"
-            assert_select "option[value='#{policy_2['content_id']}']"
-          end
-        end
-      end
-
       test "creating should create a new document with related policies" do
         stub_publishing_api_policies
         attributes = controller_attributes_for(document_type)
@@ -781,16 +814,6 @@ module AdminEditionControllerTestHelpers
           policy_1['content_id'],
           policy_2['content_id'],
         ], document.policy_content_ids
-      end
-
-      view_test "edit displays document form with related policies field" do
-        document = create(document_type)
-
-        get :edit, params: { id: document }
-
-        assert_select "form#edit_edition" do
-          assert_select "select[name*='edition[policy_content_ids]']"
-        end
       end
 
       test "updating should save modified edition attributes with related policies" do
@@ -989,14 +1012,6 @@ module AdminEditionControllerTestHelpers
     def should_allow_association_with_topics(edition_type)
       edition_class = class_for(edition_type)
 
-      view_test "new should display topics field" do
-        get :new
-
-        assert_select "form#new_edition" do
-          assert_select "select[name*='edition[topic_ids]']"
-        end
-      end
-
       test "create should associate topics with the edition" do
         first_topic = create(:topic)
         second_topic = create(:topic)
@@ -1010,16 +1025,6 @@ module AdminEditionControllerTestHelpers
 
         assert edition = edition_class.last
         assert_equal [first_topic, second_topic], edition.topics
-      end
-
-      view_test "edit should display topics field" do
-        edition = create("draft_#{edition_type}")
-
-        get :edit, params: { id: edition }
-
-        assert_select "form#edit_edition" do
-          assert_select "select[name*='edition[topic_ids]']"
-        end
       end
 
       test "update should associate topics with the edition" do

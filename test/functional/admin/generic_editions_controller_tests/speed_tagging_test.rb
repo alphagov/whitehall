@@ -14,7 +14,7 @@ class Admin::GenericEditionsController::SpeedTaggingTest < ActionController::Tes
     } }
 
     assert edition.reload.imported?
-    assert_redirected_to admin_edition_path(edition)
+    assert_redirected_to edit_admin_edition_legacy_associations_path(edition.id, return: :edit)
   end
 
   test "re-renders the show page when there are errors during speed tagging update" do

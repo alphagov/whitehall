@@ -22,15 +22,6 @@ When(/^I draft a new news article "([^"]*)"$/) do |title|
   click_button "Save"
 end
 
-When(/^I draft a new news article "([^"]*)" relating it to the policies "([^"]*)" and "([^"]*)"$/) do |title, first_policy, second_policy|
-  publishing_api_has_policies([first_policy, second_policy])
-
-  begin_drafting_news_article title: title
-  select first_policy, from: "Policies"
-  select second_policy, from: "Policies"
-  click_button "Save"
-end
-
 When(/^I publish a news article "([^"]*)" associated with "([^"]*)"$/) do |title, person_name|
   begin_drafting_news_article title: title
   fill_in_news_article_fields(first_published: Date.today.to_s)
@@ -117,6 +108,8 @@ When(/^I draft a French\-only "World news story" news article associated with "(
   select "", from: "edition_lead_organisation_ids_1"
 
   click_button "Save"
+  # TODO  investigate why save legacy breaks this
+  click_link "cancel"
   @news_article = find_news_article_in_locale!(:fr, 'French-only news article')
 end
 
@@ -162,6 +155,23 @@ When(/^I draft a valid news article of type "([^"]*)" with title "([^"]*)"$/) do
   click_button "Save"
 end
 
+When(/^I tag the article to a policy "([^"]*)"$/) do |policy|
+  policies = publishing_api_has_policies([policy])
+
+  click_button "Next"
+
+  select policy, from: "Policies"
+  click_button "Save legacy associations"
+end
+
 Then(/^the news article "([^"]*)" should have been created$/) do |title|
   refute NewsArticle.find_by(title: title).nil?
+end
+
+And(/^the news article is tagged to policy "([^"]*)"$/) do |policy|
+  assert has_css?(".flash.notice", text: "The associations have been saved")
+
+  click_on 'Edit draft'
+  click_on "Next"
+  assert has_css?(".policies option[selected]", text: policy)
 end
