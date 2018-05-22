@@ -1,5 +1,6 @@
-# This has been copied into Content Tagger, pending a decision on where it should live.
-# If you're changing it, please consider handling the common case.
+# This has been copied into Content Tagger, pending a decision on
+# where it should live.  If you're changing it, please consider
+# handling the common case.
 
 # Recursive parser for publishing-api Taxon data
 module Taxonomy
@@ -17,11 +18,15 @@ module Taxonomy
   private
 
     def build_taxon(taxon_hash)
-      Taxon.new(title: taxon_hash['title'],
-                base_path: taxon_hash['base_path'],
-                content_id: taxon_hash['content_id'],
-                phase: taxon_hash['phase'],
-                visible_to_departmental_editors: !!taxon_hash.dig('details', 'visible_to_departmental_editors'))
+      Taxon.new(
+        title: taxon_hash['title'],
+        base_path: taxon_hash['base_path'],
+        content_id: taxon_hash['content_id'],
+        phase: taxon_hash['phase'],
+        visible_to_departmental_editors: !!taxon_hash.dig(
+          'details', 'visible_to_departmental_editors'
+        )
+      )
     end
 
     def parse_taxons(parent, item_hash)
