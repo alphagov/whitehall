@@ -42,7 +42,8 @@ private
       base_path: taxon_link['base_path'],
       content_id: taxon_link['content_id'],
       phase: taxon_link['phase'],
-      visible_to_departmental_editors: !!taxon_link.dig('details', 'visible_to_departmental_editors')
+      visible_to_departmental_editors: !!taxon_link.dig('details', 'visible_to_departmental_editors'),
+      legacy_mapping: legacy_mapping(taxon_link)
     )
 
     parent_taxons = taxon_link.dig("links", "parent_taxons")
@@ -53,6 +54,12 @@ private
     end
 
     taxon
+  end
+
+  def legacy_mapping(taxon_hash)
+    (taxon_hash.dig('links', 'legacy_taxons') || []).group_by do |legacy_page|
+      legacy_page['document_type']
+    end
   end
 
   def taxon_links

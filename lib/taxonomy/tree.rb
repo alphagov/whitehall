@@ -25,8 +25,15 @@ module Taxonomy
         phase: taxon_hash['phase'],
         visible_to_departmental_editors: !!taxon_hash.dig(
           'details', 'visible_to_departmental_editors'
-        )
+        ),
+        legacy_mapping: legacy_mapping(taxon_hash)
       )
+    end
+
+    def legacy_mapping(taxon_hash)
+      (taxon_hash.dig('links', 'legacy_taxons') || []).group_by do |legacy_page|
+        legacy_page['document_type']
+      end
     end
 
     def parse_taxons(parent, item_hash)

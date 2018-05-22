@@ -3,17 +3,18 @@
 module Taxonomy
   class Taxon
     extend Forwardable
-    attr_reader :name, :content_id, :base_path, :phase, :visible_to_departmental_editors
+    attr_reader :name, :content_id, :base_path, :phase, :visible_to_departmental_editors, :legacy_mapping
     attr_accessor :parent_node, :children
     def_delegators :taxon_list, :map, :each
 
-    def initialize(title:, base_path:, content_id:, phase: 'live', visible_to_departmental_editors: true)
+    def initialize(title:, base_path:, content_id:, phase: 'live', visible_to_departmental_editors: true, legacy_mapping:)
       @name = title
       @content_id = content_id
       @base_path = base_path
       @phase = phase
       @visible_to_departmental_editors = visible_to_departmental_editors
       @children = []
+      @legacy_mapping = legacy_mapping
     end
 
     def taxon_list
