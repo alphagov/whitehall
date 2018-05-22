@@ -15,7 +15,8 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
       surname: "Churchill",
       letters: "PM",
       privy_counsellor: true,
-      image: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
+      image: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg'),
+      biography: "Sir Winston Churchill was a Prime Minister."
     )
 
     public_path = Whitehall.url_maker.person_path(person)
@@ -38,7 +39,13 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
         image: {
           url: person.image_url(:s465),
           alt_text: "The Rt Hon Sir Winston Churchill PM",
-        }
+        },
+        body: [
+          {
+            content_type: "text/html",
+            content: "Sir Winston Churchill was a Prime Minister.",
+          },
+        ],
       },
       update_type: "major",
     }
