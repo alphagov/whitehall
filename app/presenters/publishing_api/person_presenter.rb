@@ -44,7 +44,17 @@ module PublishingApi
       details_hash.merge(
         full_name: item.full_name,
         privy_counsellor: item.privy_counsellor?,
+        body: body,
       )
+    end
+
+    def body
+      [
+        {
+          content_type: "text/html",
+          content: item.biography || ""
+        }
+      ]
     end
   end
 end
