@@ -10,6 +10,7 @@ class PaginationHelperTest < ActionView::TestCase
     link_tag = rendered.at_css('a')
     assert_equal '/somewhere?page=2', link_tag[:href]
     assert_equal "Next page 2 of 10", link_tag.text
+    assert_equal "next", link_tag[:rel]
   end
 
   test "previous_page_link should build a link inside an li with the given attributes" do
@@ -21,5 +22,6 @@ class PaginationHelperTest < ActionView::TestCase
     link_tag = rendered.at_css('a')
     assert_equal '/somewhere?page=2', link_tag[:href]
     assert_equal "Previous page 2 of 10", link_tag.text
+    assert_equal "prev", link_tag[:rel]
   end
 end
