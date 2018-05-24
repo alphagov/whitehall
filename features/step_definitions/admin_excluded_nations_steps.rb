@@ -6,7 +6,8 @@ When(/^I draft a new publication "([^"]*)" that does not apply to the nations:$/
       fill_in "Alternative url", with: "http://www.#{nation_name}.com/"
     end
   end
-  click_button "Save"
+  click_button "Next"
+  click_button "Save legacy associations"
   add_external_attachment
 end
 

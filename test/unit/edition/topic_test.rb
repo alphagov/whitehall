@@ -27,19 +27,6 @@ class Edition::TopicsTest < ActiveSupport::TestCase
     assert_equal [@topic], new_edition.topics
   end
 
-  test "edition should be invalid without a topic" do
-    edition = EditionWithTopics.new(attributes_for_edition)
-
-    refute edition.valid?, "Edition should not be valid"
-    assert_match(/at least one required/, edition.errors[:policy_area].first)
-  end
-
-  test "imported editions are valid without any topics" do
-    edition = EditionWithTopics.new(attributes_for_edition.merge(state: 'imported'))
-
-    assert edition.valid?
-  end
-
   test "#title_with_topics returns the title and its topics's titles" do
     edition = EditionWithTopics.new(title: 'Edition Title', topics: [build(:topic, name: 'Topic 1')])
 

@@ -19,12 +19,14 @@ end
 
 When(/^I start drafting a new publication "([^"]*)"$/) do |title|
   begin_drafting_publication(title)
-  click_button "Save"
+  click_button "Next"
+  click_button "Save legacy associations"
 end
 
 When(/^I draft a new publication "([^"]*)"$/) do |title|
   begin_drafting_publication(title)
-  click_button "Save"
+  click_button "Next"
+  click_button "Save legacy associations"
   add_external_attachment
 end
 
@@ -32,8 +34,8 @@ Given(/^"([^"]*)" drafts a new publication "([^"]*)"$/) do |user_name, title|
   user = User.find_by(name: user_name)
   as_user(user) do
     begin_drafting_publication(title)
-    click_button "Save"
-    add_external_attachment
+    click_button "Next"
+    click_button "Save legacy associations"
   end
 end
 
@@ -53,7 +55,8 @@ end
 When(/^I draft a new publication "([^"]*)" referencing the data set "([^"]*)"$/) do |title, data_set_name|
   begin_drafting_publication(title)
   select data_set_name, from: "Related statistical data sets"
-  click_button "Save"
+  click_button "Next"
+  click_button "Save legacy associations"
   add_external_attachment
 end
 
