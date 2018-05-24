@@ -41,7 +41,7 @@ Feature: Fatalities
 
   @not-quite-as-fake-search
   Scenario: Writer creates a fatality notice
-    When I create a fatality notice titled "Death of Joe" in the field "Iraq"
+    When I create a fatality notice titled "Death of Joe" in the field "Iraq" associated with "Defence Policy"
     Then the fatality notice is shown on the Announcements page
 
   Scenario: Writer manages casualty entries for a fatality shown on the field of operation page

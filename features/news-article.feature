@@ -4,15 +4,21 @@ Feature: News articles
 
   Scenario: Create a news article of type 'News story'
     When I draft a valid news article of type "News story" with title "You will never guess"
+    When I tag the article to a policy "News Story Policy"
     Then the news article "You will never guess" should have been created
+    And the news article is tagged to policy "News Story Policy"
 
   Scenario: Create a news article of type 'Press release'
     When I draft a valid news article of type "Press release" with title "This is serious"
+    When I tag the article to a policy "Press Release Policy"
     Then the news article "This is serious" should have been created
+    And the news article is tagged to policy "Press Release Policy"
 
   Scenario: Create a news article of type 'Government response'
     When I draft a valid news article of type "Government response" with title "Yes we can"
+    When I tag the article to a policy "Government Response Policy"
     Then the news article "Yes we can" should have been created
+    And the news article is tagged to policy "Government Response Policy"
 
   Scenario: Create a news article of type 'World news story'
     When I draft a valid news article of type "World news story" with title "A thing happened in X"

@@ -47,9 +47,10 @@ end
 
 When(/^I draft a new publication "([^"]*)" relating it to the policies "([^"]*)" and "([^"]*)"$/) do |title, first_policy, second_policy|
   begin_drafting_publication(title)
+  click_button "Next"
   select first_policy, from: "Policies"
   select second_policy, from: "Policies"
-  click_button "Save"
+  click_button "Save legacy associations"
 end
 
 When(/^I draft a new publication "([^"]*)" referencing the data set "([^"]*)"$/) do |title, data_set_name|
