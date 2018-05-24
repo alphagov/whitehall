@@ -10,14 +10,24 @@
   <%= form.select :primary_specialist_sector_tag,
                   specialist_sector_options_for_select,
                   { include_blank: true },
-                  { class: 'chzn-select form-control',
-                    data: { placeholder: 'Choose a primary specialist sector…' } } %>
+                  class: 'chzn-select form-control',
+                  data: {
+                    "placeholder": 'Choose a primary specialist sector…',
+                    "module": "track-select-click",
+                    "track-category": "taxonSelectionPrimarySpecialist",
+                    "track-label": request.path
+                  } %>
 
   <%= form.label :secondary_specialist_sector_tags, 'Additional specialist sectors' %>
   <%= form.select :secondary_specialist_sector_tags,
                   specialist_sector_options_for_select,
                   {},
-                  { multiple: true,
-                    class: 'chzn-select form-control',
-                    data: { placeholder: 'Choose additional specialist sectors…' } } %>
+                  multiple: true,
+                  class: 'chzn-select form-control',
+                  data: {
+                    "placeholder": 'Choose additional specialist sectors…',
+                    "module": "track-select-click",
+                    "track-category": "taxonSelectionAdditionalSpecialist",
+                    "track-label": request.path
+                  } %>
 </fieldset>
