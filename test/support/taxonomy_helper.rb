@@ -57,6 +57,26 @@ module TaxonomyHelper
       .returns(JSON.dump(world_taxons))
   end
 
+  def stub_publishing_api_links_with_taxons(content_id, taxons)
+    publishing_api_has_links(
+      "content_id" => content_id,
+      "links" => {
+        "taxons" => taxons,
+      },
+      "version" => 1,
+      )
+  end
+
+  def stub_publishing_api_expanded_links_with_taxons(content_id, taxons)
+    publishing_api_has_expanded_links(
+      "content_id" => content_id,
+      "expanded_links" => {
+        "taxons" => taxons,
+      },
+      "version" => 1,
+      )
+  end
+
 private
 
   def redis_client
