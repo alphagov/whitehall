@@ -7,6 +7,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     @organisation = create(:organisation)
     @user = create(:writer, organisation: @organisation)
     login_as @user
+    stub_taxonomy_with_world_taxons
   end
 
   should_be_an_admin_controller
@@ -198,6 +199,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     refute_select '.taxonomy-topics .content'
     assert_select '.taxonomy-topics .no-content', "No topics - please add a topic before publishing"
+    assert_select '.taxonomy-topics .no-content', "No worldwide related topics"
   end
 
   view_test "when edition is tagged to the new taxonomy" do
