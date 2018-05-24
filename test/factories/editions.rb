@@ -59,6 +59,15 @@ FactoryBot.define do
       end
     end
 
+    trait(:with_policy_edition) do
+      transient do
+        policy_content_id ''
+      end
+      after :create do |edition, evaluator|
+        EditionPolicy.create(edition_id: edition.id, policy_content_id: evaluator.policy_content_id)
+      end
+    end
+
     trait(:imported) do
       state "imported"
       first_published_at { 1.year.ago }
