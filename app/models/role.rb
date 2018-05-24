@@ -19,6 +19,9 @@ class Role < ApplicationRecord
   has_many :current_role_appointments,
            -> { where(RoleAppointment::CURRENT_CONDITION) },
            class_name: 'RoleAppointment'
+  has_many :previous_role_appointments,
+           -> { where.not(RoleAppointment::CURRENT_CONDITION) },
+           class_name: 'RoleAppointment'
   has_many :current_people, class_name: 'Person', through: :current_role_appointments, source: :person
 
   has_many :organisation_roles, inverse_of: :role

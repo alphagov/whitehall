@@ -9,6 +9,9 @@ class Person < ApplicationRecord
   has_many :current_role_appointments,
            -> { where(RoleAppointment::CURRENT_CONDITION) },
            class_name: 'RoleAppointment'
+  has_many :previous_role_appointments,
+           -> { where.not(RoleAppointment::CURRENT_CONDITION) },
+           class_name: 'RoleAppointment'
   has_many :speeches, through: :role_appointments
   has_many :news_articles, through: :role_appointments
 
