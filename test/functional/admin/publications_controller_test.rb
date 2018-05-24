@@ -216,9 +216,30 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     get :show, params: { id: publication }
 
-    refute_select '.taxonomy-topics .no-content'
+    refute_select '.taxonomy-topics#topic-new-taxonomy .no-content'
     assert_select '.taxonomy-topics .content li', "Education, Training and Skills"
     assert_select '.taxonomy-topics .content li', "Primary Education"
+    assert_select '.taxonomy-topics#world-taxonomy .no-content'
+  end
+
+  view_test "when edition is tagged to the world taxonomy" do
+    sfa_organisation = create(:organisation, content_id: "3e5a6924-b369-4eb3-8b06-3c0814701de4")
+
+    publication = create(
+      :publication,
+      organisations: [sfa_organisation]
+    )
+
+    login_as(create(:user, organisation: sfa_organisation))
+
+    publication_has_world_expanded_links(publication.content_id)
+
+    get :show, params: { id: publication }
+
+    refute_select '.taxonomy-topics#world-taxonomy .no-content'
+    assert_select '.taxonomy-topics .content li', "World Child Taxon"
+    assert_select '.taxonomy-topics .content li', "World Grandchild Taxon"
+    assert_select '.taxonomy-topics#topic-new-taxonomy .no-content'
   end
 
 private
@@ -245,6 +266,33 @@ private
                 {
                   "title" => "Education, Training and Skills",
                   "content_id" => "bbbb",
+                  "base_path" => "i-am-a-parent-taxon",
+                  "details" => { "visible_to_departmental_editors" => true },
+                  "links" => {}
+                }
+              ]
+            }
+          }
+        ]
+      }
+    )
+  end
+
+  def publication_has_world_expanded_links(content_id)
+    publishing_api_has_expanded_links(
+      content_id:  content_id,
+      expanded_links:  {
+        "taxons" => [
+          {
+            "title" => "World Grandchild Taxon",
+            "content_id" => world_grandchild_taxon_content_id,
+            "base_path" => "i-am-a-taxon",
+            "details" => { "visible_to_departmental_editors" => true },
+            "links" => {
+              "parent_taxons" => [
+                {
+                  "title" => "World Child Taxon",
+                  "content_id" => world_child_taxon_content_id,
                   "base_path" => "i-am-a-parent-taxon",
                   "details" => { "visible_to_departmental_editors" => true },
                   "links" => {}
