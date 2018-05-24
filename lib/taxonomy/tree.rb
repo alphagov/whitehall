@@ -31,7 +31,16 @@ module Taxonomy
     end
 
     def legacy_mapping(taxon_hash)
-      (taxon_hash.dig('links', 'legacy_taxons') || []).group_by do |legacy_page|
+      legacy_taxon_links = taxon_hash.dig('links', 'legacy_taxons') || []
+
+      legacy_taxon_links.each do |legacy_page|
+        # Dealing with placeholders is a pain, so pretend everything
+        # is not a placeholder
+        legacy_page['document_type'] =
+          legacy_page['document_type'].remove("placeholder_")
+      end
+
+      legacy_taxon_links.group_by do |legacy_page|
         legacy_page['document_type']
       end
     end
