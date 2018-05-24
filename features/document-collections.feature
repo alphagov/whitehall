@@ -10,6 +10,7 @@ Feature: Grouping documents into a collection
   Scenario: Admin creates a document collection.
     Given a published document "Wombats of Wimbledon" exists
     When I draft a new document collection called "Wildlife of Wimbledon Common"
+    And I tag that document collection to the policy "Wombles"
     And I add the document "Wombats of Wimbledon" to the document collection
     Then I can see in the admin that "Wombats of Wimbledon" is part of the document collection
 
