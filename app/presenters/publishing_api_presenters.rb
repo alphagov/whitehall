@@ -34,6 +34,8 @@ module PublishingApiPresenters
         PublishingApi::PersonPresenter
       when ::Role
         PublishingApi::RolePresenter
+      when ::RoleAppointment
+        PublishingApi::RoleAppointmentPresenter
       when ::WorldLocation
         PublishingApi::WorldLocationPresenter
       when ::WorldwideOrganisation
