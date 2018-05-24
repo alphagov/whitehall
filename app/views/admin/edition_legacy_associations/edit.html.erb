@@ -15,7 +15,7 @@
             <%= render 'admin/shared/policy_fields', form: form %>
           <% end %>
           <% if @edition.can_be_associated_with_topics? %>
-            <%= render 'topic_fields', form: form, edition: @edition %>
+            <%= render 'policy_area_fields', form: form, edition: @edition %>
           <% end %>
         </div>
       </fieldset>
