@@ -32,6 +32,8 @@ module PublishingApiPresenters
         PublishingApi::HtmlAttachmentPresenter
       when ::Person
         PublishingApi::PersonPresenter
+      when ::Role
+        PublishingApi::RolePresenter
       when ::WorldLocation
         PublishingApi::WorldLocationPresenter
       when ::WorldwideOrganisation
