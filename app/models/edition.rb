@@ -670,6 +670,18 @@ class Edition < ApplicationRecord
     PublishingApiPresenters.presenter_for(self).content.fetch(:document_type)
   end
 
+  def has_legacy_tags?
+    has_policies? || has_policy_areas? || has_primary_sector? || has_secondary_sectors?
+  end
+
+  def has_policies?
+    false
+  end
+
+  def has_policy_areas?
+    false
+  end
+
 private
 
   def date_for_government
