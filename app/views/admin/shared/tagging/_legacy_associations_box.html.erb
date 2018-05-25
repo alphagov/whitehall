@@ -2,7 +2,11 @@
   <h2>Associations
     <% if edition.pre_publication? %>
       <%= link_to path_to_edit_associations, class: "btn btn-default pull-right" do %>
-        <span class="glyphicon glyphicon-edit"></span> Change Associations
+        <% if edition.has_legacy_tags? %>
+          <span class="glyphicon glyphicon-edit"></span> Change Associations
+        <% else %>
+          <span class="glyphicon glyphicon-plus-sign"></span> Add Associations
+        <% end %>
       <% end %>
     <% end %>
   </h2>
@@ -23,7 +27,6 @@
             <li><%= name %></li>
           <% end %>
         </ul>
-
       <% end %>
       <% if edition.has_primary_sector? %>
         <h4>Primary Specialist Sector</h4>
@@ -38,7 +41,12 @@
             <li><%= name %></li>
           <% end %>
         </ul>
+
       <% end %>
+    </div>
+  <% else %>
+    <div class="no-content no-content-bordered">
+      <%= no_associations_message %>
     </div>
   <% end %>
 </section>

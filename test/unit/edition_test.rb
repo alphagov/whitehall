@@ -884,13 +884,13 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test 'when policies are supported but no policies' do
-    edition = create(:publication_without_topics, policy_content_ids: [])
+    edition = create(:publication_without_policy_areas, policy_content_ids: [])
     refute edition.has_policies?
     refute edition.has_legacy_tags?
   end
 
   test 'when policies exist' do
-    edition = create(:publication_without_topics, policy_content_ids: [policy_1['content_id']])
+    edition = create(:publication_without_policy_areas, policy_content_ids: [policy_1['content_id']])
     stub_publishing_api_policies
     assert edition.has_policies?
     assert edition.has_legacy_tags?
@@ -903,7 +903,7 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test 'when policy areas supported but no policy areas' do
-    edition = create(:publication_without_topics)
+    edition = create(:publication_without_policy_areas)
     refute edition.has_policy_areas?
     refute edition.has_legacy_tags?
   end

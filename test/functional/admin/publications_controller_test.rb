@@ -240,6 +240,28 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select ".policies li", policy_1['title']
     assert_select ".policy-areas li", policy_area.name
     assert_selected_specialist_sectors_are_displayed
+    assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}']", /Change Associations/
+    assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}'] .glyphicon-edit"
+  end
+
+  view_test "shows message when edition is not tagged to any legacy associations" do
+    stub_specialist_sectors
+    organisation = create(:organisation)
+    publication = create(
+      :publication_without_policy_areas,
+      organisations: [organisation],
+    )
+
+    login_as(create(:user, organisation: organisation))
+    get :show, params: { id: publication }
+
+    refute_select '.policies'
+    refute_select '.policy-areas'
+    refute_select '.primary-specialist-sector'
+    refute_select '.secondary-specialist-sectors'
+    assert_select '.no-content.no-content-bordered', 'No associations'
+    assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}']", /Add Associations/
+    assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}'] .glyphicon-plus-sign"
   end
 
 private
