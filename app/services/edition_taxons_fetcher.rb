@@ -6,7 +6,15 @@ class EditionTaxonsFetcher
   end
 
   def fetch
-    taxons.select { |taxon| visible?(taxon) }
+    taxons.select do |taxon|
+      visible?(taxon) && topic_taxon?(taxon.content_id)
+    end
+  end
+
+  def fetch_world_taxons
+    taxons.select do |taxon|
+      visible?(taxon) && world_taxon?(taxon.content_id)
+    end
   end
 
 private
@@ -17,6 +25,15 @@ private
 
   def visible?(taxon)
     taxon.parent_node.nil? ? taxon.visible_to_departmental_editors : visible?(taxon.parent_node)
+  end
+
+  def topic_taxon?(content_id)
+    !world_taxon?(content_id)
+  end
+
+  def world_taxon?(content_id)
+    world_taxon_content_ids = all_world_taxons.map(&:content_id)
+    content_id.in?(world_taxon_content_ids)
   end
 
   def build_taxon(taxon_link)
@@ -48,7 +65,7 @@ private
     Services.publishing_api.get_expanded_links(content_id)
   end
 
-  def topic_taxonomy
-    Taxonomy::TopicTaxonomy.new
+  def all_world_taxons
+    Taxonomy::WorldTaxonomy.new.all_world_taxons.flat_map(&:taxon_list)
   end
 end

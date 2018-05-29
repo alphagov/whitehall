@@ -7,6 +7,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     @organisation = create(:organisation)
     @user = login_as create(:gds_editor, organisation: @organisation)
     @topic = create(:topic)
+    stub_taxonomy_with_world_taxons
   end
 
   view_test "GET :new renders a new announcement form" do

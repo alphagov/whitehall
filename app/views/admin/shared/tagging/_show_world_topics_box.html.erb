@@ -1,0 +1,24 @@
+<section class="taxonomy-topics" id="world-taxonomy">
+  <h2>Worldwide
+    <%= link_to path_to_edit_tags, class:"btn btn-default pull-right" do %>
+      <% if selected_taxon_paths.any? %>
+        <span class="glyphicon glyphicon-edit"></span> Change topics
+      <% else %>
+        <span class="glyphicon glyphicon-plus-sign"></span> Add topic
+      <% end %>
+    <% end %>
+  </h2>
+  <% if selected_taxon_paths.any? %>
+    <div class="content content-bordered">
+      <% selected_taxon_paths.each do |path| %>
+        <%= render partial: '/admin/shared/tagging/taxon_breadcrumb', locals: {
+          breadcrumbs: path
+        } %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="no-content no-content-bordered">
+      <%= no_topics_message %>
+    </div>
+  <% end %>
+</section>

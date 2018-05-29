@@ -10,19 +10,12 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
     organisation = create(:organisation, content_id: "ebd15ade-73b2-4eaf-b1c3-43034a42eb37")
     @edition = create(:publication, organisations: [organisation])
     stub_taxonomy_with_all_taxons
-  end
-
-  def stub_publishing_api_links_with_taxons(content_id, taxons)
-    publishing_api_has_links(
-      "content_id" => content_id,
-      "links" => {
-        "taxons" => taxons,
-      },
-      "version" => 1,
-      )
+    stub_taxonomy_with_world_taxons
   end
 
   test 'should return an error on a version conflict' do
+    stub_publishing_api_expanded_links_with_taxons(@edition.content_id, [child_taxon])
+
     publishing_api_patch_request = stub_request(:patch, "#{@publishing_api_endpoint}/links/#{@edition.content_id}")
       .to_return(status: 409)
 
@@ -34,7 +27,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
   end
 
   test 'should post taxons to publishing-api' do
-    stub_publishing_api_links_with_taxons(@edition.content_id, [])
+    stub_publishing_api_expanded_links_with_taxons(@edition.content_id, [])
 
     put :update, params: { edition_id: @edition, taxonomy_tag_form: { taxons: [child_taxon_content_id], previous_version: 1 } }
 
@@ -48,7 +41,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
   end
 
   test 'should post empty array to publishing api if no taxons are selected' do
-    stub_publishing_api_links_with_taxons(@edition.content_id, [])
+    stub_publishing_api_expanded_links_with_taxons(@edition.content_id, [])
 
     put :update, params: { edition_id: @edition, taxonomy_tag_form: { previous_version: 1 } }
 
@@ -90,7 +83,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
   end
 
   test 'should post invisible draft taxons to publishing-api' do
-    stub_publishing_api_links_with_taxons(@edition.content_id, [])
+    stub_publishing_api_expanded_links_with_taxons(@edition.content_id, [])
 
     put :update, params: {
       edition_id: @edition,
@@ -108,6 +101,29 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
           child_taxon_content_id,
           "invisible_draft_taxon_1_content_id"
         ]
+      },
+      previous_version: "1"
+    )
+  end
+
+  test 'should also post taxons tagged to the topic and world taxonomies' do
+    organisation = create(:organisation, content_id: "f323e83c-868b-4bcb-b6e2-a8f9bb40397e")
+    @world_and_topic_edition = create(:publication, publication_type: PublicationType::Guidance, organisations: [organisation])
+
+    stub_publishing_api_expanded_links_with_taxons(@world_and_topic_edition.content_id, [world_child_taxon])
+
+    put :update, params: {
+      edition_id: @world_and_topic_edition,
+      taxonomy_tag_form: {
+        taxons: [child_taxon_content_id],
+        previous_version: 1
+      }
+    }
+
+    assert_publishing_api_patch_links(
+      @world_and_topic_edition.content_id,
+      links: {
+        taxons: [child_taxon_content_id, world_child_taxon_content_id]
       },
       previous_version: "1"
     )
