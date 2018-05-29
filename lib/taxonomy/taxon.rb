@@ -17,6 +17,43 @@ module Taxonomy
       @legacy_mapping = legacy_mapping
     end
 
+    def self.from_taxon_hash(taxon_hash)
+      taxon = Taxon.new(
+        title: taxon_hash['title'],
+        base_path: taxon_hash['base_path'],
+        content_id: taxon_hash['content_id'],
+        phase: taxon_hash['phase'],
+        visible_to_departmental_editors: !!taxon_hash.dig(
+          'details', 'visible_to_departmental_editors'
+        ),
+        legacy_mapping: legacy_mapping(taxon_hash)
+      )
+
+      parent_taxons = taxon_hash.dig("links", "parent_taxons")
+      if parent_taxons.present?
+        # There should not be more than one parent for a taxon. If there is,
+        # pick the first one.
+        taxon.parent_node = from_taxon_hash(parent_taxons.first)
+      end
+
+      taxon
+    end
+
+    def self.legacy_mapping(taxon_hash)
+      legacy_taxon_links = taxon_hash.dig('links', 'legacy_taxons') || []
+
+      legacy_taxon_links.each do |legacy_page|
+        # Dealing with placeholders is a pain, so pretend everything
+        # is not a placeholder
+        legacy_page['document_type'] =
+          legacy_page['document_type'].remove("placeholder_")
+      end
+
+      legacy_taxon_links.group_by do |legacy_page|
+        legacy_page['document_type']
+      end
+    end
+
     def taxon_list
       @_taxon_list ||= children.each_with_object([self]) do |child, tree|
         tree.concat(child.taxon_list)

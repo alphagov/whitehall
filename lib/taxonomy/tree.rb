@@ -8,7 +8,7 @@ module Taxonomy
     attr_reader :root_taxon
 
     def initialize(expanded_root_taxon_hash)
-      @root_taxon = build_taxon(expanded_root_taxon_hash)
+      @root_taxon = Taxon.from_taxon_hash(expanded_root_taxon_hash)
       root_taxon.children = parse_taxons(
         root_taxon,
           expanded_root_taxon_hash['expanded_links_hash']
@@ -17,37 +17,9 @@ module Taxonomy
 
   private
 
-    def build_taxon(taxon_hash)
-      Taxon.new(
-        title: taxon_hash['title'],
-        base_path: taxon_hash['base_path'],
-        content_id: taxon_hash['content_id'],
-        phase: taxon_hash['phase'],
-        visible_to_departmental_editors: !!taxon_hash.dig(
-          'details', 'visible_to_departmental_editors'
-        ),
-        legacy_mapping: legacy_mapping(taxon_hash)
-      )
-    end
-
-    def legacy_mapping(taxon_hash)
-      legacy_taxon_links = taxon_hash.dig('links', 'legacy_taxons') || []
-
-      legacy_taxon_links.each do |legacy_page|
-        # Dealing with placeholders is a pain, so pretend everything
-        # is not a placeholder
-        legacy_page['document_type'] =
-          legacy_page['document_type'].remove("placeholder_")
-      end
-
-      legacy_taxon_links.group_by do |legacy_page|
-        legacy_page['document_type']
-      end
-    end
-
     def parse_taxons(parent, item_hash)
       child_nodes(item_hash).map do |child|
-        build_taxon(child).tap do |taxon|
+        Taxon.from_taxon_hash(child).tap do |taxon|
           taxon.parent_node = parent
           taxon.children = parse_taxons(taxon, child)
         end
