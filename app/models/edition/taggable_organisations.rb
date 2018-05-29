@@ -51,7 +51,7 @@ private
   end
 
   def worldwide_taggable_organisation_ids
-    Whitehall.organisations_in_tagging_beta["worldwide_related"].to_a
+    Whitehall.worldwide_tagging_organisations.to_a
   end
 
   def education_taggable_organisation_ids

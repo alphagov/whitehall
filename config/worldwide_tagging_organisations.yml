@@ -1,0 +1,8 @@
+# This file has a list of organisation content_id's
+# that are allowed to have their documents tagged into the worldwide taxonomy
+
+- "db994552-7644-404d-a770-a2fe659c661f" # Department for International Development
+- "9adfc4ed-9f6c-4976-a6d8-18d34356367c" # Foreign & Commonwealth Office
+- "04148522-b0c1-4137-b687-5f3c3bdd561a" # UK Visas and Immigration
+- "082092f1-656c-470e-b024-229dc6e750e9" # Department for International Trade
+- "f323e83c-868b-4bcb-b6e2-a8f9bb40397e" # Department for Exiting the European Union

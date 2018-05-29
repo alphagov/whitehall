@@ -27,11 +27,8 @@ end
 class EditionTaggableOrganisationTestForWorldOrganisations < ActiveSupport::TestCase
   def setup
     @lead_org = create(:organisation)
-    orgs_in_tagging_beta = {
-      "education_related" => [],
-      "worldwide_related" => [@lead_org.content_id]
-    }
-    Whitehall.stubs(:organisations_in_tagging_beta).returns(orgs_in_tagging_beta)
+    worldwide_tagging_orgs = [@lead_org.content_id]
+    Whitehall.stubs(:worldwide_tagging_organisations).returns(worldwide_tagging_orgs)
   end
 
   # Users are not required to tag World taggable editions in order to publish

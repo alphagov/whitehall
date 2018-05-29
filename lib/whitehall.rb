@@ -171,6 +171,11 @@ module Whitehall
       YAML.load_file(Rails.root + "config/organisations_in_tagging_beta.yml")["organisations_in_tagging_beta"]
   end
 
+  def self.worldwide_tagging_organisations
+    @worldwide_taggable_organisations ||=
+      YAML.load_file(Rails.root + "config/worldwide_tagging_organisations.yml")
+  end
+
   def self.load_secrets
     if File.exist?(secrets_path)
       YAML.load_file(secrets_path)
