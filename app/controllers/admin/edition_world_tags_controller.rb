@@ -25,7 +25,7 @@ class Admin::EditionWorldTagsController < Admin::BaseController
 private
 
   def enforce_permissions!
-    unless @edition.can_be_tagged_to_taxonomy?
+    unless @edition.can_be_tagged_to_worldwide_taxonomy?
       raise Whitehall::Authority::Errors::PermissionDenied.new(:update, @edition)
     end
 

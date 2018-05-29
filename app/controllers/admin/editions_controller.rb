@@ -74,6 +74,9 @@ class Admin::EditionsController < Admin::BaseController
 
     if @edition.can_be_tagged_to_taxonomy?
       @edition_taxons = EditionTaxonsFetcher.new(@edition.content_id).fetch
+    end
+
+    if @edition.can_be_tagged_to_worldwide_taxonomy?
       @edition_world_taxons = EditionTaxonsFetcher.new(@edition.content_id).fetch_world_taxons
     end
   end
