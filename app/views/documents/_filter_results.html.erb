@@ -19,3 +19,6 @@
 <div class="filter-results-summary">
   <%= render_mustache('documents/filter_selections', context) %>
 </div>
+
+<%# This will be hoisted into <head> by Slimmer %>
+<% tag :meta, name: 'robots', content: 'noindex' unless filter.documents.first_page? %>
