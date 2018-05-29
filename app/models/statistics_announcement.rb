@@ -218,7 +218,7 @@ class StatisticsAnnouncement < ApplicationRecord
 private
 
   def organisations_in_education_tagging_beta?(org_content_ids)
-    (org_content_ids & Whitehall.organisations_in_tagging_beta["education_related"]).present?
+    (org_content_ids & Whitehall.organisations_in_tagging_beta).present?
   end
 
   def publication_has_been_published?
