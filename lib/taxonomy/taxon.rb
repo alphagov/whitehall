@@ -49,6 +49,9 @@ module Taxonomy
           legacy_page['document_type'].remove("placeholder_")
       end
 
+      # Because the different types of legacy taxon (policy, policy
+      # area, specialist topic) need to be handled differently,
+      # separate them out by document type here
       legacy_taxon_links.group_by do |legacy_page|
         legacy_page['document_type']
       end
