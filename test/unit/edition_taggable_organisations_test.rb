@@ -3,9 +3,7 @@ require "test_helper"
 class EditionTaggableOrganisationTestForEducationOrganisations < ActiveSupport::TestCase
   def setup
     @lead_org = create(:organisation)
-    orgs_in_tagging_beta = {
-      "education_related" => [@lead_org.content_id]
-    }
+    orgs_in_tagging_beta = [@lead_org.content_id]
     Whitehall.stubs(:organisations_in_tagging_beta).returns(orgs_in_tagging_beta)
   end
 

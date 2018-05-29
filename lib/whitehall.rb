@@ -168,7 +168,7 @@ module Whitehall
 
   def self.organisations_in_tagging_beta
     @taggable_organisations ||=
-      YAML.load_file(Rails.root + "config/organisations_in_tagging_beta.yml")["organisations_in_tagging_beta"]
+      YAML.load_file(Rails.root + "config/organisations_in_tagging_beta.yml")
   end
 
   def self.worldwide_tagging_organisations

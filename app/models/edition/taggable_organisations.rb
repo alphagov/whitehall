@@ -55,6 +55,6 @@ private
   end
 
   def education_taggable_organisation_ids
-    Whitehall.organisations_in_tagging_beta["education_related"].to_a
+    Whitehall.organisations_in_tagging_beta.to_a
   end
 end
