@@ -35,27 +35,27 @@ class EditionTaggableOrganisationTestForWorldOrganisations < ActiveSupport::Test
     refute edition.must_be_tagged_to_taxonomy?
   end
 
-  test '#can_be_tagged_to_taxonomy? is true for Publication Guidance' do
+  test '#can_be_tagged_to_worldwide_taxonomy? is true for Publication Guidance' do
     edition = create(:publication,
                      :draft,
                      access_limited: false,
                      publication_type_id: PublicationType::Guidance.id,
                      organisations: [@lead_org])
 
-    assert edition.can_be_tagged_to_taxonomy?
+    assert edition.can_be_tagged_to_worldwide_taxonomy?
   end
 
-  test '#can_be_tagged_to_taxonomy? is true for Publication Form' do
+  test '#can_be_tagged_to_worldwide_taxonomy? is true for Publication Form' do
     edition = create(:publication,
                      :draft,
                      access_limited: false,
                      publication_type_id: PublicationType::Form.id,
                      organisations: [@lead_org])
 
-    assert edition.can_be_tagged_to_taxonomy?
+    assert edition.can_be_tagged_to_worldwide_taxonomy?
   end
 
-  test '#can_be_tagged_to_taxonomy? is false for other Publication types' do
+  test '#can_be_tagged_to_worldwide_taxonomy? is false for other Publication types' do
     other_publication_types = PublicationType.all.reject do |publication_type|
       [PublicationType::Guidance, PublicationType::Form].include?(publication_type) ||
         publication_type.prevalence == :migration
@@ -69,26 +69,26 @@ class EditionTaggableOrganisationTestForWorldOrganisations < ActiveSupport::Test
                        publication_type_id: publication_type.id,
                        organisations: [@lead_org])
 
-      refute edition.can_be_tagged_to_taxonomy?
+      refute edition.can_be_tagged_to_worldwide_taxonomy?
     end
   end
 
-  test '#can_be_tagged_to_taxonomy? is true for DetailedGuide' do
+  test '#can_be_tagged_to_worldwide_taxonomy? is true for DetailedGuide' do
     edition = create(:detailed_guide, organisations: [@lead_org])
 
-    assert edition.can_be_tagged_to_taxonomy?
+    assert edition.can_be_tagged_to_worldwide_taxonomy?
   end
 
-  test '#can_be_tagged_to_taxonomy? is true for DocumentCollection' do
+  test '#can_be_tagged_to_worldwide_taxonomy? is true for DocumentCollection' do
     edition = create(:document_collection, organisations: [@lead_org])
 
-    assert edition.can_be_tagged_to_taxonomy?
+    assert edition.can_be_tagged_to_worldwide_taxonomy?
   end
 
   # method will return `false` for all other edition types, we choose NewsArticle as example
-  test '#can_be_tagged_to_taxonomy? is false for NewsArticle' do
+  test '#can_be_tagged_to_worldwide_taxonomy? is false for NewsArticle' do
     edition = create(:news_article, organisations: [@lead_org])
 
-    refute edition.can_be_tagged_to_taxonomy?
+    refute edition.can_be_tagged_to_worldwide_taxonomy?
   end
 end

@@ -185,32 +185,34 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "when edition is not tagged to the new taxonomy" do
-    sfa_organisation = create(:organisation, content_id: "3e5a6924-b369-4eb3-8b06-3c0814701de4")
+    world_tagging_organisation = create(:organisation, content_id: "f323e83c-868b-4bcb-b6e2-a8f9bb40397e")
 
     publication = create(
       :publication,
-      organisations: [sfa_organisation]
+      publication_type: PublicationType::Guidance,
+      organisations: [world_tagging_organisation]
     )
 
-    login_as(create(:user, organisation: sfa_organisation))
+    login_as(create(:user, organisation: world_tagging_organisation))
 
     publication_has_no_expanded_links(publication.content_id)
     get :show, params: { id: publication }
 
     refute_select '.taxonomy-topics .content'
-    assert_select '.taxonomy-topics .no-content', "No topics - please add a topic before publishing"
-    assert_select '.taxonomy-topics .no-content', "No worldwide related topics"
+    assert_select '.taxonomy-topics#topic-new-taxonomy .no-content'
+    assert_select '.taxonomy-topics#world-taxonomy .no-content'
   end
 
   view_test "when edition is tagged to the new taxonomy" do
-    sfa_organisation = create(:organisation, content_id: "3e5a6924-b369-4eb3-8b06-3c0814701de4")
+    world_tagging_organisation = create(:organisation, content_id: "f323e83c-868b-4bcb-b6e2-a8f9bb40397e")
 
     publication = create(
       :publication,
-      organisations: [sfa_organisation]
+      publication_type: PublicationType::Guidance,
+      organisations: [world_tagging_organisation]
     )
 
-    login_as(create(:user, organisation: sfa_organisation))
+    login_as(create(:user, organisation: world_tagging_organisation))
 
     publication_has_expanded_links(publication.content_id)
 
@@ -223,14 +225,15 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "when edition is tagged to the world taxonomy" do
-    sfa_organisation = create(:organisation, content_id: "3e5a6924-b369-4eb3-8b06-3c0814701de4")
+    world_tagging_organisation = create(:organisation, content_id: "f323e83c-868b-4bcb-b6e2-a8f9bb40397e")
 
     publication = create(
       :publication,
-      organisations: [sfa_organisation]
+      publication_type: PublicationType::Guidance,
+      organisations: [world_tagging_organisation]
     )
 
-    login_as(create(:user, organisation: sfa_organisation))
+    login_as(create(:user, organisation: world_tagging_organisation))
 
     publication_has_world_expanded_links(publication.content_id)
 
