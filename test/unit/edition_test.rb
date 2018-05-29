@@ -876,4 +876,61 @@ class EditionTest < ActiveSupport::TestCase
     refute non_attachable_edition.allows_attachments?
     assert_equal [], non_attachable_edition.attachables
   end
+
+  test 'when policies not supported' do
+    edition = create(:edition)
+    refute edition.has_policies?
+    refute edition.has_legacy_tags?
+  end
+
+  test 'when policies are supported but no policies' do
+    edition = create(:publication_without_policy_areas, policy_content_ids: [])
+    refute edition.has_policies?
+    refute edition.has_legacy_tags?
+  end
+
+  test 'when policies exist' do
+    edition = create(:publication_without_policy_areas, policy_content_ids: [policy_1['content_id']])
+    stub_publishing_api_policies
+    assert edition.has_policies?
+    assert edition.has_legacy_tags?
+  end
+
+  test 'when policy areas are not supported' do
+    edition = create(:edition)
+    refute edition.has_policy_areas?
+    refute edition.has_legacy_tags?
+  end
+
+  test 'when policy areas supported but no policy areas' do
+    edition = create(:publication_without_policy_areas)
+    refute edition.has_policy_areas?
+    refute edition.has_legacy_tags?
+  end
+
+  test 'when policy areas exist' do
+    topic = create(:topic)
+    edition = create(:publication, topic_ids: [topic.id])
+    assert edition.has_policy_areas?
+    assert edition.has_legacy_tags?
+  end
+
+  test 'when no specialist sectors' do
+    edition = create(:edition)
+    refute edition.has_primary_sector?
+    refute edition.has_secondary_sectors?
+    refute edition.has_legacy_tags?
+  end
+
+  test 'when a primary specialist sector exists' do
+    edition = create(:edition, primary_specialist_sector_tag: 'primary')
+    assert edition.has_primary_sector?
+    assert edition.has_legacy_tags?
+  end
+
+  test 'when a secondary specialist sector exists' do
+    edition = create(:edition, secondary_specialist_sector_tags: ['secondary'])
+    assert edition.has_secondary_sectors?
+    assert edition.has_legacy_tags?
+  end
 end

@@ -68,4 +68,8 @@ module Edition::RelatedPolicies
   def can_be_related_to_policies?
     true
   end
+
+  def has_policies?
+    policy_content_ids.any?
+  end
 end

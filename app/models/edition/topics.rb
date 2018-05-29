@@ -17,6 +17,10 @@ module Edition::Topics
     true
   end
 
+  def has_policy_areas?
+    topics.any?
+  end
+
   def search_index
     # "Policy area" is the newer name for "topic"
     # (https://www.gov.uk/government/topics)

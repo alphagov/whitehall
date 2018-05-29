@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Admin::PublicationsControllerTest < ActionController::TestCase
   include TaxonomyHelper
-
+  include PolicyTaggingHelpers
   setup do
     @organisation = create(:organisation)
     @user = create(:writer, organisation: @organisation)
@@ -220,19 +220,97 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select '.taxonomy-topics .content li', "Primary Education"
   end
 
+  view_test "shows summary when edition is tagged to all legacy associations" do
+    stub_specialist_sectors
+    organisation = create(:organisation)
+    policy_area = create(:topic)
+    publication = create(
+      :publication,
+      organisations: [organisation],
+      policy_content_ids: [policy_1['content_id']],
+      topic_ids: [policy_area.id],
+      primary_specialist_sector_tag: 'WELLS',
+      secondary_specialist_sector_tags: %w(FIELDS OFFSHORE)
+    )
+
+    login_as(create(:user, organisation: organisation))
+
+    get :show, params: { id: publication }
+
+    assert_select ".policies li", policy_1['title']
+    assert_select ".policy-areas li", policy_area.name
+    assert_selected_specialist_sectors_are_displayed
+    assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}']", /Change Associations/
+    assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}'] .glyphicon-edit"
+  end
+
+  view_test "shows message when edition is not tagged to any legacy associations" do
+    stub_specialist_sectors
+    organisation = create(:organisation)
+    publication = create(
+      :publication_without_policy_areas,
+      organisations: [organisation],
+    )
+
+    login_as(create(:user, organisation: organisation))
+    get :show, params: { id: publication }
+
+    refute_select '.policies'
+    refute_select '.policy-areas'
+    refute_select '.primary-specialist-sector'
+    refute_select '.secondary-specialist-sectors'
+    assert_select '.no-content.no-content-bordered', 'No associations'
+    assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}']", /Add Associations/
+    assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}'] .glyphicon-plus-sign"
+  end
+
 private
+
+  def stub_specialist_sectors
+    publishing_api_has_linkables(
+      [
+        {
+          'content_id' => 'WELLS',
+          'internal_name' => 'Oil and Gas / Wells',
+          'publication_state' => 'published',
+        },
+        {
+          'content_id' => 'FIELDS',
+          'internal_name' => 'Oil and Gas / Fields',
+          'publication_state' => 'published',
+        },
+        {
+          'content_id' => 'OFFSHORE',
+          'internal_name' => 'Oil and Gas / Offshore',
+          'publication_state' => 'published',
+        },
+        {
+          'content_id' => 'DISTILL',
+          'internal_name' => 'Oil and Gas / Distillation',
+          'publication_state' => 'draft',
+        },
+      ],
+      document_type: 'topic'
+    )
+  end
+
+  def assert_selected_specialist_sectors_are_displayed
+    assert_select ".primary-specialist-sector li", 'Oil and Gas: Wells'
+    assert_select ".secondary-specialist-sectors li", 'Oil and Gas: Fields'
+    assert_select ".secondary-specialist-sectors li", 'Oil and Gas: Offshore'
+  end
 
   def publication_has_no_expanded_links(content_id)
     publishing_api_has_expanded_links(
-      content_id:  content_id,
-      expanded_links:  {}
+      content_id: content_id,
+      expanded_links: {}
     )
   end
 
   def publication_has_expanded_links(content_id)
     publishing_api_has_expanded_links(
-      content_id:  content_id,
-      expanded_links:  {
+      content_id: content_id,
+      expanded_links: {
         "taxons" => [
           {
             "title" => "Primary Education",
