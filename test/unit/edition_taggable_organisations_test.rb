@@ -4,8 +4,7 @@ class EditionTaggableOrganisationTestForEducationOrganisations < ActiveSupport::
   def setup
     @lead_org = create(:organisation)
     orgs_in_tagging_beta = {
-      "education_related" => [@lead_org.content_id],
-      "worldwide_related" => []
+      "education_related" => [@lead_org.content_id]
     }
     Whitehall.stubs(:organisations_in_tagging_beta).returns(orgs_in_tagging_beta)
   end
