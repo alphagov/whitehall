@@ -58,7 +58,8 @@ private
   end
 
   def find_edition
-    @edition = Edition.find(params[:edition_id])
+    edition = Edition.find(params[:edition_id])
+    @edition = LocalisedModel.new(edition, edition.primary_locale)
   end
 
   def enforce_permissions!
