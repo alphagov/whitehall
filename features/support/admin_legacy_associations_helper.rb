@@ -23,11 +23,28 @@ module AdminLegacyAssociationsHelper
     @pol_area_3 = create(:topic, name: policy_area_3['title'])
   end
 
+
+  def stub_policies
+    @policies = [
+      policy_1,
+      policy_2,
+      policy_3,
+    ]
+    publishing_api_has_linkables(@policies, document_type: "policy")
+
+    @policies.each do |policy|
+      publishing_api_has_links(
+        "content_id" => policy["content_id"],
+        "links" => policy["links"],
+      )
+    end
+  end
+
 private
 
   def assert_selected_policies_are_displayed
     assert has_css? ".policies li", text: policy_1['title']
-    assert has_css? ".policies li", text: policy_area_1['title'] # TODO this seems wrong
+    refute has_css? ".policies li", text: policy_area_1['title']
     refute has_css? ".policies li", text: policy_2['title']
   end
 
@@ -47,7 +64,7 @@ private
     topic_ids = [@pol_area_3.id]
     assert_equal topic_ids, Publication.last.topic_ids
   end
-  
+
   def tag_to_policy(policy)
     select policy["title"], from: 'Policies'
   end
