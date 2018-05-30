@@ -20,7 +20,7 @@ Then(/^I should be able to update the taxonomy$/) do
 end
 
 When(/^I start editing a draft document which cannot be tagged to the new taxonomy$/) do
-  stub_publishing_api_policies
+  stub_policies
   stub_topics
   stub_specialist_sectors
   create(:organisation, content_id: 'otherzzz-zzzz-zzzz-zzzz-zzzz0000zzzz', name: 'Non Taxon Org')
