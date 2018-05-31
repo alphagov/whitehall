@@ -71,11 +71,9 @@ module AdminEditionControllerTestHelpers
         assert_equal attributes[:body], edition.body
       end
 
-      test "create should take the writer to the topic tagging page if edition is elegible" do
+      test "create should take the writer to the topic tagging page if edition is eligible" do
         organisation = create(:organisation)
-        taggable_org = {
-          "education_related" => [organisation.content_id]
-        }
+        taggable_org = [organisation.content_id]
 
         Whitehall.stubs(:organisations_in_tagging_beta).returns(taggable_org)
 
@@ -226,9 +224,7 @@ module AdminEditionControllerTestHelpers
         edition = create(edition_type)
 
         organisation = create(:organisation)
-        taggable_org = {
-          "education_related" => [organisation.content_id]
-        }
+        taggable_org = [organisation.content_id]
 
         Whitehall.stubs(:organisations_in_tagging_beta).returns(taggable_org)
 

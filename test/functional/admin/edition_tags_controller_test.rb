@@ -52,7 +52,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
   end
 
   test 'should redirect to edition admin page when "Save Topic Changes" is clicked' do
-    stub_publishing_api_links_with_taxons(@edition.content_id, [])
+    stub_publishing_api_expanded_links_with_taxons(@edition.content_id, [])
 
     put :update, params: {
       edition_id: @edition,
@@ -64,7 +64,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
   end
 
   test 'should redirect to legacy associations page when "Legacy tags" is clicked' do
-    stub_publishing_api_links_with_taxons(@edition.content_id, [])
+    stub_publishing_api_expanded_links_with_taxons(@edition.content_id, [])
 
     put :update, params: {
       edition_id: @edition,
