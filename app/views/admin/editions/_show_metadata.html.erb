@@ -51,7 +51,9 @@
     selected_taxon_paths: @edition_taxons.map(&:full_path),
     no_topics_message: 'No topics - please add a topic before publishing'
   } %>
+<% end %>
 
+<% if @edition.can_be_tagged_to_worldwide_taxonomy? %>
   <%= render partial: '/admin/shared/tagging/show_world_topics_box', locals: {
     path_to_edit_tags: edit_admin_edition_world_tags_path(@edition.id),
     selected_taxon_paths: @edition_world_taxons.map(&:full_path),
