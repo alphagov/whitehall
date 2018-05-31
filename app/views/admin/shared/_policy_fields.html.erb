@@ -5,5 +5,10 @@
                   { include_blank: true },
                   multiple: true,
                   class: 'chzn-select form-control',
-                  data: { placeholder: "Choose policies…"} %>
+                  data: {
+                    "placeholder": "Choose policies…",
+                    "module": "track-select-click",
+                    "track-category": "taxonSelectionPolicies",
+                    "track-label": request.path
+                  } %>
 </fieldset>

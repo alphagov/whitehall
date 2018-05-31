@@ -5,7 +5,13 @@ module Taxonomy
 
     def taxon_data
       @_taxon_data = expand_taxon_array(
-        level_one_taxons + [world_taxon]
+        level_one_taxons
+      )
+    end
+
+    def world_taxon_data
+      @_world_taxon_data = expand_taxon_array(
+        [world_taxon]
       )
     end
 

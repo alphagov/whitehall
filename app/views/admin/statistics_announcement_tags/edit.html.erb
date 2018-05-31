@@ -6,9 +6,6 @@
 <div class="row">
   <div class="col-md-12">
     <h2>Topics (new taxonomy)</h2>
-    <p>
-      <%= link_to "Send feedback about the new taxonomy", Whitehall.support_url, class: "feedback-link" %>
-    </p>
     <hr>
 
     <%= form_for @tag_form, url: admin_statistics_announcement_tags_path(@statistics_announcement), method: :put do |form| %>
@@ -30,7 +27,15 @@
       </div>
 
       <p>
-        <%= link_to "Report a missing topic", Whitehall.support_url, class: "feedback-link" %>
+        <%= link_to "Suggest a new topic",
+          "#{Whitehall.support_url}/taxonomy_new_topic_request/new",
+          class: "feedback-link"
+        %>
+        or
+        <%= link_to "Suggest a change to a topic",
+          "#{Whitehall.support_url}/taxonomy_change_topic_request/new",
+          class: "feedback-link"
+        %>
       </p>
 
       <h2>Selected topics</h2>

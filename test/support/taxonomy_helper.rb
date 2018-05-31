@@ -23,8 +23,24 @@ module TaxonomyHelper
     "grandparent"
   end
 
+  def world_taxon_content_id
+    "world"
+  end
+
+  def world_child_taxon_content_id
+    "world_child"
+  end
+
+  def world_grandchild_taxon_content_id
+    "world_grandchild"
+  end
+
   def stub_taxonomy_with_all_taxons
     redis_cache_has_taxons [root_taxon, draft_taxon_1, draft_taxon_2]
+  end
+
+  def stub_taxonomy_with_world_taxons
+    redis_cache_has_world_taxons([world_taxon])
   end
 
   def redis_cache_has_taxons(taxons)
@@ -32,6 +48,33 @@ module TaxonomyHelper
       .stubs(:get)
       .with(Taxonomy::RedisCacheAdapter::TAXONS_CACHE_KEY)
       .returns(JSON.dump(taxons))
+  end
+
+  def redis_cache_has_world_taxons(world_taxons)
+    redis_client
+      .stubs(:get)
+      .with(Taxonomy::RedisCacheAdapter::WORLD_TAXONS_CACHE_KEY)
+      .returns(JSON.dump(world_taxons))
+  end
+
+  def stub_publishing_api_links_with_taxons(content_id, taxons)
+    publishing_api_has_links(
+      "content_id" => content_id,
+      "links" => {
+        "taxons" => taxons,
+      },
+      "version" => 1,
+      )
+  end
+
+  def stub_publishing_api_expanded_links_with_taxons(content_id, taxons)
+    publishing_api_has_expanded_links(
+      "content_id" => content_id,
+      "expanded_links" => {
+        "taxons" => taxons,
+      },
+      "version" => 1,
+      )
   end
 
 private
@@ -86,5 +129,30 @@ private
                      title: "Parenting",
                      base_path: "/childcare-parenting",
                      content_id: draft_taxon_1_content_id)
+  end
+
+  def world_grandchild_taxon
+    FactoryBot.build(:taxon_hash,
+                     title: "World Child Taxon",
+                     base_path: "/world/grand-child",
+                     content_id: world_grandchild_taxon_content_id,
+                     is_level_one_taxon: false)
+  end
+
+  def world_child_taxon
+    FactoryBot.build(:taxon_hash,
+                     title: "World Child Taxon",
+                     base_path: "/world/child",
+                     content_id: world_child_taxon_content_id,
+                     is_level_one_taxon: false,
+                     children: [world_grandchild_taxon])
+  end
+
+  def world_taxon
+    FactoryBot.build(:taxon_hash,
+                     title: "World",
+                     base_path: "/world/all",
+                     content_id: world_taxon_content_id,
+                     children: [world_child_taxon])
   end
 end

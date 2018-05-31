@@ -1,20 +1,39 @@
 require 'test_helper'
 
 class Taxonomy::PublishingApiAdapterTest < ActiveSupport::TestCase
+  extend Minitest::Spec::DSL
+
   def subject
-    Taxonomy::PublishingApiAdapter.new.taxon_data
+    Taxonomy::PublishingApiAdapter.new
   end
 
-  test "#taxon_data, base hash" do
-    setup_taxons
-    assert_equal %w[taxon1 taxon2 World], (subject.map { |t| t['title'] })
+  describe "#taxon_data" do
+    test "base hash" do
+      setup_taxons
+      assert_equal %w[taxon1 taxon2], (subject.taxon_data.map { |t| t['title'] })
+    end
+
+    test "expanded links" do
+      setup_taxons
+      assert_equal %w[child1 child2],
+                   (subject.taxon_data.first.dig('expanded_links_hash', 'expanded_links', 'child_taxons').map { |t| t['title'] })
+    end
   end
 
-  test "#taxon_data, expanded links" do
-    setup_taxons
-    assert_equal %w[child1 child2],
-                 (subject.first.dig('expanded_links_hash', 'expanded_links', 'child_taxons').map { |t| t['title'] })
+  describe "#world_taxon_data" do
+    test "base hash" do
+      setup_world_taxons
+      assert_equal %w[World], (subject.world_taxon_data.map { |t| t['title'] })
+    end
+
+    test "#expanded links" do
+      setup_world_taxons
+      assert_equal %w(country-1 country-2),
+                   (subject.world_taxon_data.first.dig('expanded_links_hash', 'expanded_links', 'child_taxons').map { |t| t['title'] })
+    end
   end
+
+private
 
   def level_one_taxons
     [taxon("taxon1"), taxon("taxon2")]
@@ -48,30 +67,22 @@ class Taxonomy::PublishingApiAdapterTest < ActiveSupport::TestCase
   def setup_taxons
     publishing_api_has_expanded_links(homepage_expanded_links, with_drafts: false)
 
+    level_one_taxons.each do |taxon|
+      expanded_link_hash = expanded_link(taxon['content_id'], [taxon("child1"), taxon("child2")])
+      publishing_api_has_expanded_links(expanded_link_hash, with_drafts: false)
+    end
+  end
+
+  def setup_world_taxons
     publishing_api_has_item(
       content_id: Taxonomy::PublishingApiAdapter::WORLD_CONTENT_ID,
       title: "World",
       base_path: "/world/all"
     )
-    publishing_api_has_expanded_links(
-      {
-        content_id: Taxonomy::PublishingApiAdapter::WORLD_CONTENT_ID,
-        expanded_links: {
-          child_taxons: [
-            {
-              content_id: SecureRandom.uuid,
-              title: "A Country",
-              base_path: "/world/a-country"
-            }
-          ]
-        }
-      },
-      with_drafts: false
-    )
 
-    level_one_taxons.each do |taxon|
-      expanded_link_hash = expanded_link(taxon['content_id'], [taxon("child1"), taxon("child2")])
-      publishing_api_has_expanded_links(expanded_link_hash, with_drafts: false)
-    end
+    world_content_id = Taxonomy::PublishingApiAdapter::WORLD_CONTENT_ID
+
+    expanded_link_hash = expanded_link(world_content_id, [taxon("country-1"), taxon("country-2")])
+    publishing_api_has_expanded_links(expanded_link_hash, with_drafts: false)
   end
 end

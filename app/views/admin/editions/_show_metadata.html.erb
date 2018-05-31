@@ -51,6 +51,12 @@
     selected_taxon_paths: @edition_taxons.map(&:full_path),
     no_topics_message: 'No topics - please add a topic before publishing'
   } %>
+
+  <%= render partial: '/admin/shared/tagging/show_world_topics_box', locals: {
+    path_to_edit_tags: edit_admin_edition_world_tags_path(@edition.id),
+    selected_taxon_paths: @edition_world_taxons.map(&:full_path),
+    no_topics_message: 'No worldwide related topics'
+  } %>
 <% else %>
   <%= render partial: '/admin/shared/tagging/legacy_associations_box', locals: {
       path_to_edit_associations: edit_admin_edition_legacy_associations_path(@edition.id),

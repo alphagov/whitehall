@@ -28,3 +28,6 @@
     </ul>
   </nav>
 <% end %>
+
+<%# This will be hoisted into <head> by Slimmer %>
+<% tag :meta, name: 'robots', content: 'noindex' if @filter.results.previous_page? %>
