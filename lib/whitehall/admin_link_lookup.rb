@@ -16,6 +16,7 @@ module Whitehall
     end
 
     def self.corporate_info_page(organisation:, corporate_info_slug:)
+      return nil unless organisation
       organisation.corporate_information_pages.find(corporate_info_slug)
     end
 
