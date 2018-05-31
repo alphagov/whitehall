@@ -44,8 +44,8 @@ class Admin::EditionLegacyAssociationsControllerTest < ActionController::TestCas
     get :edit, params: { edition_id: @edition.id }
     assert_select "#edition_policy_content_ids option[value='5d37821b-7631-11e4-a3cb-005056011aef'][selected='selected']", '2012 olympic and paralympic legacy'
     assert_select "#edition_policy_content_ids option[value='#{policy_1[:content_id]}']", policy_1[:title]
-    assert_select "#edition_policy_content_ids select[name*='edition[policy_content_ids][]'][data-track-category='taxonSelectionPolicies']"
-    assert_select "#edition_policy_content_ids select[name*='edition[policy_content_ids][]'][data-track-label='/government/admin/#{document_type}/#{@edition.id}/legacy_associations/edit']"
+    assert_select "select[name='edition[policy_content_ids][]'][data-track-category='taxonSelectionPolicies']"
+    assert_select "select[name='edition[policy_content_ids][]'][data-track-label='/government/admin/editions/#{@edition.id}/legacy_associations/edit']"
     refute_select "#edition_policy_content_ids option[value='#{policy_1[:content_id]}'][selected='selected']"
     assert_select "#edition_topic_ids option[value='#{@topic.id}'][selected='selected']", @topic.name
     assert_select "#edition_primary_specialist_sector_tag option[value='WELLS'][selected='selected']", 'Oil and Gas: Wells'
