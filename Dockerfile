@@ -1,4 +1,4 @@
-FROM ruby:2.4.4
+FROM ruby:2.5.1
 RUN apt-get update -qq && apt-get upgrade -y
 RUN apt-get install -y build-essential nodejs && apt-get clean
 RUN gem install foreman
