@@ -13,12 +13,6 @@ class EditionTaggableOrganisationTestForEducationOrganisations < ActiveSupport::
 
     assert edition.can_be_tagged_to_taxonomy?
   end
-
-  test '#must_be_tagged_to_taxonomy? is true for NewsArticle' do
-    edition = create(:news_article, organisations: [@lead_org])
-
-    assert edition.must_be_tagged_to_taxonomy?
-  end
 end
 
 class EditionTaggableOrganisationTestForWorldOrganisations < ActiveSupport::TestCase
@@ -26,13 +20,6 @@ class EditionTaggableOrganisationTestForWorldOrganisations < ActiveSupport::Test
     @lead_org = create(:organisation)
     worldwide_tagging_orgs = [@lead_org.content_id]
     Whitehall.stubs(:worldwide_tagging_organisations).returns(worldwide_tagging_orgs)
-  end
-
-  # Users are not required to tag World taggable editions in order to publish
-  test '#must_be_tagged_to_taxonomy? is false for DetailedGuide' do
-    edition = create(:detailed_guide, organisations: [@lead_org])
-
-    refute edition.must_be_tagged_to_taxonomy?
   end
 
   test '#can_be_tagged_to_worldwide_taxonomy? is true for Publication Guidance' do
