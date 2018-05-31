@@ -757,6 +757,10 @@ module AdminEditionControllerTestHelpers
         get :new
 
         assert_select "form#new_edition" do
+          if document_type == "publication"
+            assert_select "select[name*='edition[policy_content_ids]'][data-track-category='taxonSelectionPolicies']"
+            assert_select "select[name*='edition[policy_content_ids]'][data-track-label='government/admin/#{document_type}/new']"
+          end
           assert_select "select[name*='edition[policy_content_ids]']" do
             assert_select "option[value='#{policy_1['content_id']}']"
             assert_select "option[value='#{policy_2['content_id']}']"
@@ -790,6 +794,10 @@ module AdminEditionControllerTestHelpers
 
         assert_select "form#edit_edition" do
           assert_select "select[name*='edition[policy_content_ids]']"
+          if document_type == "publication"
+            assert_select "select[name*='edition[policy_content_ids]'][data-track-category='taxonSelectionPolicies']"
+            assert_select "select[name*='edition[policy_content_ids]'][data-track-label='government/admin/#{document_type}/new']"
+          end
         end
       end
 
