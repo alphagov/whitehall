@@ -9,21 +9,37 @@ module Taxonomy
     end
 
     def taxon_data
-      JSON.parse @redis_client.get(TAXONS_CACHE_KEY)
+      cached_data = @redis_client.get(TAXONS_CACHE_KEY)
+
+      if cached_data.nil?
+        rebuild_caches
+      else
+        JSON.parse cached_data
+      end
     end
 
     def world_taxon_data
-      JSON.parse @redis_client.get(WORLD_TAXONS_CACHE_KEY)
+      cached_data = @redis_client.get(WORLD_TAXONS_CACHE_KEY)
+
+      if cached_data.nil?
+        rebuild_world_taxon_caches
+      else
+        JSON.parse cached_data
+      end
     end
 
     def rebuild_caches
       data = @adapter.taxon_data
       @redis_client.set TAXONS_CACHE_KEY, JSON.dump(data)
+
+      data
     end
 
     def rebuild_world_taxon_caches
       data = @adapter.world_taxon_data
       @redis_client.set WORLD_TAXONS_CACHE_KEY, JSON.dump(data)
+
+      data
     end
   end
 end
