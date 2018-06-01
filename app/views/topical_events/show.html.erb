@@ -4,14 +4,6 @@
 
 <%= content_tag_for(:div, @classification, class: "classification #{@classification.class.name.underscore}") do %>
 
-  <% if @classification.beta? %>
-    <div class="inner-block">
-      <%= render 'govuk_component/beta_label',
-            message: "This page is in <a href='/help/beta'>beta</a>. " +
-            "We'll be updating it regularly and welcome <a href='/contact/govuk'>your feedback</a>." %>
-    </div>
-  <% end %>
-
   <header class="block headings-block">
     <div class="inner-block floated-children">
       <%= render partial: 'shared/heading',

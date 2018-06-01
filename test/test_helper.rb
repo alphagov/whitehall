@@ -43,7 +43,6 @@ class ActiveSupport::TestCase
   include PublishingApiTestHelpers
   include PolicyTaggingHelpers
   include GovukContentSchemaTestHelpers::TestUnit
-  include StaticStubHelpers
   include UrlHelpers
   extend GovspeakValidationTestHelper
 
@@ -60,7 +59,6 @@ class ActiveSupport::TestCase
     stub_publishing_api_publish_intent
     stub_publishing_api_policies
     SyncCheckWorker.stubs(:enqueue)
-    stub_static_locales
     Services.stubs(:asset_manager).returns(stub_everything('asset-manager'))
   end
 
@@ -188,7 +186,6 @@ class ActionController::TestCase
   include AtomTestHelpers
   include CacheControlTestHelpers
   include ViewRendering
-  include StaticStubHelpers
 
   include PublicDocumentRoutesHelper
   include Admin::EditionRoutesHelper
@@ -206,7 +203,6 @@ class ActionController::TestCase
     stub_request(:get, %r{.*content-store.*/content/.*}).to_return(status: 404)
     publishing_api_has_linkables([], document_type: 'topic')
 
-    stub_static_locales
     stub_request(:get, %r{\A#{Plek.find('publishing-api')}/v2/links/}).to_return(body: { links: {} }.to_json)
   end
 
