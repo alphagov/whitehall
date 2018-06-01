@@ -1,5 +1,5 @@
 module PublishingApi
-  class PersonPresenter
+  class RolePresenter
     attr_accessor :item
     attr_accessor :update_type
 
@@ -22,40 +22,54 @@ module PublishingApi
       content.merge!(
         description: nil,
         details: details,
-        document_type: "person",
+        document_type: item.class.name.underscore,
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
-        schema_name: "person",
+        schema_name: schema_name,
       )
-      content.merge!(PayloadBuilder::PolymorphicPath.for(item))
+      content.merge!(polymorphic_path)
     end
 
     def links
       {
+        ordered_parent_organisations: item.organisations.pluck(:content_id).compact,
         ordered_current_appointments: item.current_role_appointments.pluck(:content_id).compact,
         ordered_previous_appointments: item.previous_role_appointments.pluck(:content_id).compact,
       }
     end
 
-    def details
-      details_hash = {}
+  private
 
-      if item.image_url(:s465)
-        details_hash[:image] = { url: item.image_url(:s465), alt_text: item.name }
+    def schema_name
+      "role"
+    end
+
+    def polymorphic_path
+      # Roles other than ministerial roles don't have base paths
+      if item.is_a?(MinisterialRole)
+        PayloadBuilder::PolymorphicPath.for(item)
+      else
+        {
+          base_path: nil,
+          routes: [],
+        }
       end
+    end
 
-      details_hash.merge(
-        full_name: item.full_name,
-        privy_counsellor: item.privy_counsellor?,
+    def details
+      {
         body: body,
-      )
+        attends_cabinet_type: item.attends_cabinet_type,
+        role_payment_type: item.role_payment_type,
+        supports_historical_accounts: item.supports_historical_accounts,
+      }
     end
 
     def body
       [
         {
           content_type: "text/html",
-          content: item.biography || ""
+          content: item.responsibilities || ""
         }
       ]
     end

@@ -5,8 +5,10 @@ class PersonRoleTest < ActiveSupport::TestCase
     test_object = create(:organisation)
     role = create(:role, organisations: [test_object])
     person = create(:person)
+    role_appointment = build(:role_appointment, person: person, role: role)
     Whitehall::PublishingApi.expects(:publish_async).with(test_object).once
-    create(:role_appointment, person: person, role: role)
+    Whitehall::PublishingApi.expects(:publish_async).with(role_appointment).once
+    role_appointment.save!
   end
 
   test "updating an existing person republishes the linked organisation" do

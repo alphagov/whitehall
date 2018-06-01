@@ -43,7 +43,9 @@ module PublishingApi
     end
 
     def links
-      {}
+      {
+        ordered_roles: item.roles.pluck(:content_id),
+      }
     end
 
   private

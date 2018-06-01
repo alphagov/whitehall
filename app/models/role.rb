@@ -1,6 +1,8 @@
 # @abstract
 class Role < ApplicationRecord
   include HasContentId
+  include PublishesToPublishingApi
+
   HISTORIC_ROLE_PARAM_MAPPINGS = { 'past-prime-ministers' => 'prime-minister',
                                    'past-chancellors'     => 'chancellor-of-the-exchequer',
                                    'past-foreign-secretaries' => 'foreign-secretary' }.freeze
@@ -16,6 +18,9 @@ class Role < ApplicationRecord
 
   has_many :current_role_appointments,
            -> { where(RoleAppointment::CURRENT_CONDITION) },
+           class_name: 'RoleAppointment'
+  has_many :previous_role_appointments,
+           -> { where.not(RoleAppointment::CURRENT_CONDITION) },
            class_name: 'RoleAppointment'
   has_many :current_people, class_name: 'Person', through: :current_role_appointments, source: :person
 

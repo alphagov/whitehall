@@ -14,6 +14,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
 
   test 'presents an Organisation ready for adding to the publishing API' do
     organisation = create(:organisation, name: 'Organisation of Things', analytics_identifier: 'O123')
+    role = create(:role, organisations: [organisation])
     public_path = Whitehall.url_maker.organisation_path(organisation)
 
     expected_hash = {
@@ -76,7 +77,9 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       },
       analytics_identifier: "O123",
     }
-    expected_links = {}
+    expected_links = {
+      ordered_roles: [role.content_id],
+    }
 
     presented_item = present(organisation)
 
