@@ -15,3 +15,7 @@ end
 every 10.minutes, roles: [:backend] do
   rake "taxonomy:rebuild_cache"
 end
+
+every 30.minutes, roles: [:backend] do
+  rake "taxonomy:copy_brexit_policies_to_brexit_taxon"
+end
