@@ -106,7 +106,7 @@ When(/^I draft a French\-only "World news story" news article associated with "(
   select location_name, from: "Select the world locations this news article is about"
   select "French embassy", from: "Select the worldwide organisations associated with this news article"
   select "", from: "edition_lead_organisation_ids_1"
-  click_button "Next"
+  click_button "Save and continue"
   click_button "Save legacy associations"
   @news_article = find_news_article_in_locale!(:fr, 'French-only news article')
 end
@@ -156,7 +156,7 @@ end
 When(/^I tag the article to a policy "([^"]*)"$/) do |policy|
   policies = publishing_api_has_policies([policy])
 
-  click_button "Next"
+  click_button "Save and continue"
 
   select policy, from: "Policies"
   click_button "Save legacy associations"
@@ -170,6 +170,6 @@ And(/^the news article is tagged to policy "([^"]*)"$/) do |policy|
   assert has_css?(".flash.notice", text: "The associations have been saved")
 
   click_on 'Edit draft'
-  click_on "Next"
+  click_on "Save and continue"
   assert has_css?(".policies option[selected]", text: policy)
 end

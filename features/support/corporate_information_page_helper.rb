@@ -14,7 +14,7 @@ module CorporateInformationPageHelper
     click_link 'Edit draft'
     markdown = find_markdown_snippet_to_insert_attachment(attachment)
     fill_in 'Body', with: page.body.to_s + "\n\n" + markdown
-    click_button "Next"
+    click_button "Save and continue"
     click_button "Save legacy associations"
   end
 
