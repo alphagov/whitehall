@@ -48,7 +48,14 @@
       </p>
 
       <div class="publishing-controls well">
-        <%= form.form_actions(buttons: { save: 'Save topic changes', legacy_tags: 'Save and review legacy tagging' }, cancel: admin_edition_path(@edition)) %>
+        <div class="form-actions" data-module="track-button-click" data-track-category="form-button" data-track-action="taxonomy-tag-form-button">
+          <%= form.submit('Save topic changes', name: "save", class: "btn btn-lg btn-success") %>
+          <%= form.submit('Save and review legacy tagging', name: "legacy_tags", class: "btn btn-lg btn-primary") %>
+          <span class="or_cancel">
+            or
+            <%= link_to('cancel', admin_edition_path(@edition)) %>
+          </span>
+        </div>
       </div>
     <% end %>
   </div>
