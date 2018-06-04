@@ -17,7 +17,7 @@ When(/^I create a new detailed guide "([^"]*)" associated with "([^"]*)"$/) do |
   begin_drafting_document type: 'detailed_guide', title: title, previously_published: false
   click_button "Save and continue"
   select policy, from: "Policies"
-  click_button "Save legacy associations"
+  click_button "Save"
 end
 
 Then(/^I should see the detailed guide "([^"]*)" associated with "([^"]*)"$/) do |title, policy|
@@ -44,7 +44,7 @@ When(/^I publish a new edition of the detailed guide "([^"]*)" with a change not
   click_button "Create new edition"
   fill_in "edition_change_note", with: change_note
   click_button "Save and continue"
-  click_button "Save legacy associations"
+  click_button "Save"
   publish(force: true)
 end
 

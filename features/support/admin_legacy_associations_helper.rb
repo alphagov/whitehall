@@ -3,7 +3,7 @@ module AdminLegacyAssociationsHelper
     tag_to_policy(policy_1)
     tag_to_policy_area(policy_area_3)
     tag_specialist_sectors
-    click_button "Save legacy associations"
+    click_button "Save"
   end
 
   def check_associations_have_been_saved

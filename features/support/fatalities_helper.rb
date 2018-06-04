@@ -8,7 +8,7 @@ module FatalitiesHelper
     select field, from: "Field of operation"
     click_button "Save and continue"
     select policy, from: "Policies"
-    click_button "Save legacy associations"
+    click_button "Save"
   end
 end
 

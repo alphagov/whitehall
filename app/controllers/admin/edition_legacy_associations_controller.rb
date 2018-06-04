@@ -5,7 +5,7 @@ class Admin::EditionLegacyAssociationsController < Admin::BaseController
 
 
   def edit
-    @cancel_path = get_cancel_path
+    @path = get_path
   end
 
   def update
@@ -13,12 +13,12 @@ class Admin::EditionLegacyAssociationsController < Admin::BaseController
     if updater.can_perform? && @edition.save_as(current_user)
       updater.perform!
     end
-    redirect_to admin_edition_path(@edition), saved_confirmation_notice
+    redirect_to get_path, saved_confirmation_notice
   end
 
 private
 
-  def get_cancel_path
+  def get_path
     paths = {
       'edit' => edit_admin_edition_path(@edition),
       'tags' => edit_admin_edition_tags_path(@edition)

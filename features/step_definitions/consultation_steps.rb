@@ -29,7 +29,7 @@ Then(/^I tag it to the policy "([^"]*)" and "([^"]*)"$/) do |policy_1, policy_2|
   click_button "Save and continue"
   select policy_1, from: "Policies"
   select policy_2, from: "Policies"
-  click_button "Save legacy associations"
+  click_button "Save"
 end
 
 Then(/^I can see the consultation "([^"]*)" tagged to "([^"]*)" and "([^"]*)"$/) do |title, policy_1, policy_2|
@@ -73,7 +73,7 @@ When(/^I save and publish the amended consultation$/) do
   ensure_path edit_admin_consultation_path(Consultation.last)
   fill_in_change_note_if_required
   click_button "Save and continue"
-  click_button "Save legacy associations"
+  click_button "Save"
   publish force: true
 end
 
