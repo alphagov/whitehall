@@ -25,10 +25,12 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       document_type: 'organisation',
       links: {
         ordered_contacts: [],
+        ordered_foi_contacts: [],
         ordered_featured_policies: [],
         ordered_parent_organisations: [],
         ordered_child_organisations: [],
         ordered_successor_organisations: [],
+        ordered_high_profile_groups: [],
       },
       locale: 'en',
       publishing_app: 'whitehall',
