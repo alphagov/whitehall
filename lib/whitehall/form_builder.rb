@@ -74,11 +74,6 @@ module Whitehall
       form_actions(options.reverse_merge(buttons: buttons))
     end
 
-    def save_or_next(options = {})
-      buttons = { save: 'Save', next: 'Next' }
-      form_actions(options.reverse_merge(buttons: buttons))
-    end
-
     def text_field(method, options = {})
       add_class_to_options(options, 'form-control')
       label_options = { required: options.delete(:required) }

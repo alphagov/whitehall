@@ -26,7 +26,7 @@ end
 Then(/^I tag it to the policy "([^"]*)" and "([^"]*)"$/) do |policy_1, policy_2|
   policies = publishing_api_has_policies([policy_1, policy_2])
 
-  click_button "Next"
+  click_button "Save and continue"
   select policy_1, from: "Policies"
   select policy_2, from: "Policies"
   click_button "Save legacy associations"
@@ -36,7 +36,7 @@ Then(/^I can see the consultation "([^"]*)" tagged to "([^"]*)" and "([^"]*)"$/)
   assert has_css?(".flash.notice", text: "The associations have been saved")
 
   click_on 'Edit draft'
-  click_on "Next"
+  click_on "Save and continue"
 
   assert has_css?(".policies option[selected]", text: policy_1)
   assert has_css?(".policies option[selected]", text: policy_2)
@@ -72,7 +72,7 @@ end
 When(/^I save and publish the amended consultation$/) do
   ensure_path edit_admin_consultation_path(Consultation.last)
   fill_in_change_note_if_required
-  click_button "Next"
+  click_button "Save and continue"
   click_button "Save legacy associations"
   publish force: true
 end

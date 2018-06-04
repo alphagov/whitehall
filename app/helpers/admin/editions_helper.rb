@@ -219,7 +219,7 @@ module Admin::EditionsHelper
                       locals: { form: form, edition: edition })
       end
 
-      concat form.save_or_next
+      concat form.save_or_continue_or_cancel
     end
   end
 

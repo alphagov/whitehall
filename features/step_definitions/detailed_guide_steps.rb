@@ -15,7 +15,7 @@ When(/^I create a new detailed guide "([^"]*)" associated with "([^"]*)"$/) do |
   create(:government)
 
   begin_drafting_document type: 'detailed_guide', title: title, previously_published: false
-  click_button "Next"
+  click_button "Save and continue"
   select policy, from: "Policies"
   click_button "Save legacy associations"
 end
@@ -25,7 +25,7 @@ Then(/^I should see the detailed guide "([^"]*)" associated with "([^"]*)"$/) do
   assert has_css?(".page-header", text: title)
 
   click_on 'Edit draft'
-  click_on "Next"
+  click_on "Save and continue"
 
   assert has_css?(".policies option[selected]", text: policy)
 end
@@ -43,7 +43,7 @@ When(/^I publish a new edition of the detailed guide "([^"]*)" with a change not
   visit admin_edition_path(guide)
   click_button "Create new edition"
   fill_in "edition_change_note", with: change_note
-  click_button "Next"
+  click_button "Save and continue"
   click_button "Save legacy associations"
   publish(force: true)
 end
