@@ -146,7 +146,7 @@ GEM
       activesupport (>= 3.0.0)
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
-    ffi (1.9.23)
+    ffi (1.9.25)
     friendly_id (5.2.4)
       activerecord (>= 4.0.0)
     fugit (1.1.1)
@@ -205,7 +205,7 @@ GEM
     govuk_frontend_toolkit (7.5.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
-    govuk_publishing_components (9.0.0)
+    govuk_publishing_components (9.0.1)
       govspeak (>= 5.0.3)
       govuk_app_config
       govuk_frontend_toolkit
@@ -594,7 +594,7 @@ DEPENDENCIES
   govuk_admin_template (~> 6.6)
   govuk_app_config (~> 1.5)
   govuk_frontend_toolkit (= 7.5.0)
-  govuk_publishing_components (~> 9.0.0)
+  govuk_publishing_components (~> 9.0.1)
   govuk_sidekiq (~> 3)
   graphviz_transitions
   invalid_utf8_rejector (~> 0.0.4)
