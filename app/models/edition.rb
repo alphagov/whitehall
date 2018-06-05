@@ -439,6 +439,10 @@ class Edition < ApplicationRecord
     false
   end
 
+  def must_be_tagged_to_policy_area?
+    true
+  end
+
   def has_been_tagged?
     api_response = Services.publishing_api.get_links(content_id)
 

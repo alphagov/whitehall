@@ -1,6 +1,6 @@
 <% cache_if edition.topic_ids.empty?, taggable_topics_cache_digest do %>
   <fieldset class="edition-topic-fields">
-    <%= form.label :topic_ids, 'Policy Areas', required: true %>
+    <%= form.label :topic_ids, 'Policy Areas', required: edition.must_be_tagged_to_policy_area? %>
     <%= form.select :topic_ids,
                     options_for_select(taggable_topics_container, edition.topic_ids),
                     {},
