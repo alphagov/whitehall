@@ -29,10 +29,12 @@ module PublishingApi
         document_type: item.class.name.underscore,
         links: {
           ordered_contacts: contacts_links,
+          ordered_foi_contacts: foi_contacts_links,
           ordered_featured_policies: featured_policies_links,
           ordered_parent_organisations: parent_organisation_links,
           ordered_child_organisations: child_organisation_links,
           ordered_successor_organisations: successor_organisation_links,
+          ordered_high_profile_groups: high_profile_groups_links,
         },
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
@@ -43,7 +45,9 @@ module PublishingApi
     end
 
     def links
-      {}
+      {
+        ordered_roles: item.roles.pluck(:content_id),
+      }
     end
 
   private
@@ -323,6 +327,10 @@ module PublishingApi
       item.home_page_contacts.pluck(:content_id).uniq
     end
 
+    def foi_contacts_links
+      item.foi_contacts.pluck(:content_id).uniq
+    end
+
     def parent_organisation_links
       item.parent_organisations.distinct.pluck(:content_id)
     end
@@ -333,6 +341,10 @@ module PublishingApi
 
     def successor_organisation_links
       item.superseding_organisations.distinct.pluck(:content_id)
+    end
+
+    def high_profile_groups_links
+      item.sub_organisations.distinct.pluck(:content_id)
     end
 
     def featured_policies_links

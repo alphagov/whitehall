@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180427095027) do
+ActiveRecord::Schema.define(version: 20180524094758) do
 
   create_table "about_pages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer  "topical_event_id"
@@ -902,6 +902,7 @@ ActiveRecord::Schema.define(version: 20180427095027) do
     t.datetime "updated_at"
     t.datetime "started_at"
     t.datetime "ended_at"
+    t.string   "content_id"
     t.index ["ended_at"], name: "index_role_appointments_on_ended_at", using: :btree
     t.index ["person_id"], name: "index_role_appointments_on_person_id", using: :btree
     t.index ["role_id"], name: "index_role_appointments_on_role_id", using: :btree

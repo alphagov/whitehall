@@ -32,10 +32,12 @@ module PublishingApiPresenters
         PublishingApi::HtmlAttachmentPresenter
       when ::Person
         PublishingApi::PersonPresenter
+      when ::Role
+        PublishingApi::RolePresenter
+      when ::RoleAppointment
+        PublishingApi::RoleAppointmentPresenter
       when ::WorldLocation
         PublishingApi::WorldLocationPresenter
-      when ::MinisterialRole
-        PublishingApi::MinisterialRolePresenter
       when ::WorldwideOrganisation
         PublishingApi::WorldwideOrganisationPresenter
       when ::Contact

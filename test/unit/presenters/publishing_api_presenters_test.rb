@@ -53,18 +53,25 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     assert_equal PublishingApi::PersonPresenter, presenter.class
   end
 
+  test ".presenter_for returns a Role presenter for a role" do
+    role = Role.new
+    presenter = PublishingApiPresenters.presenter_for(role)
+
+    assert_equal PublishingApi::RolePresenter, presenter.class
+  end
+
+  test ".presenter_for returns a RoleAppointment presenter for a role appointment" do
+    role_appointment = RoleAppointment.new
+    presenter = PublishingApiPresenters.presenter_for(role_appointment)
+
+    assert_equal PublishingApi::RoleAppointmentPresenter, presenter.class
+  end
+
   test ".presenter_for returns a WorldLocation presenter for a world location" do
     ministerial_role = WorldLocation.new
     presenter = PublishingApiPresenters.presenter_for(ministerial_role)
 
     assert_equal PublishingApi::WorldLocationPresenter, presenter.class
-  end
-
-  test ".presenter_for returns a MinisterialRole presenter for a ministerial role" do
-    world_location = MinisterialRole.new
-    presenter = PublishingApiPresenters.presenter_for(world_location)
-
-    assert_equal PublishingApi::MinisterialRolePresenter, presenter.class
   end
 
   test ".presenter_for returns a WorldwideOrganisation presenter for a worldwide organisation" do

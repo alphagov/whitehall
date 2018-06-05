@@ -1,5 +1,5 @@
 module PublishingApi
-  class MinisterialRolePresenter
+  class RoleAppointmentPresenter
     attr_accessor :item
     attr_accessor :update_type
 
@@ -15,23 +15,31 @@ module PublishingApi
     def content
       content = BaseItemPresenter.new(
         item,
-        title: item.name,
+        title: "",
         update_type: update_type,
       ).base_attributes
 
       content.merge!(
+        base_path: nil,
         description: nil,
         details: {},
         document_type: item.class.name.underscore,
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
-        schema_name: "placeholder",
+        routes: [],
+        schema_name: 'role_appointment',
       )
-      content.merge!(PayloadBuilder::PolymorphicPath.for(item))
     end
 
     def links
-      LinksPresenter.new(item).extract([:organisations])
+      {
+        person: [
+          item.person.content_id,
+        ],
+        role: [
+          item.role.content_id,
+        ],
+      }
     end
   end
 end

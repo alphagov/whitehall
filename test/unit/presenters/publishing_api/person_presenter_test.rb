@@ -18,6 +18,21 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
       image: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg'),
       biography: "Sir Winston Churchill was a Prime Minister."
     )
+    current_role = create(:role)
+    previous_role = create(:role)
+    current_role_appointment = create(
+      :role_appointment,
+      person: person,
+      role: current_role,
+      started_at: 1.hour.ago
+    )
+    previous_role_appointment = create(
+      :role_appointment,
+      person: person,
+      role: previous_role,
+      started_at: 1.year.ago,
+      ended_at: 1.month.ago
+    )
 
     public_path = Whitehall.url_maker.person_path(person)
 
@@ -49,7 +64,10 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
       },
       update_type: "major",
     }
-    expected_links = {}
+    expected_links = {
+      ordered_current_appointments: [current_role_appointment.content_id],
+      ordered_previous_appointments: [previous_role_appointment.content_id],
+    }
 
     presented_item = present(person)
 

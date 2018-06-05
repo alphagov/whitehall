@@ -1,7 +1,8 @@
 Translations = Class.new
-Locale = Struct.new(:code) do
-  ENGLISH_LOCALE_CODE = :en
 
+ENGLISH_LOCALE_CODE = :en
+
+Locale = Struct.new(:code) do
   extend ActiveModel::Naming
   include ActiveModel::Conversion
 

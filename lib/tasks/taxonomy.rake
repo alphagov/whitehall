@@ -7,4 +7,9 @@ namespace :taxonomy do
       RebuildTaxonomyCacheWorker.perform_async
     end
   end
+
+  desc "Tags content to the new Brexit taxon if it's only tagged to the Brexit policy taxon"
+  task copy_brexit_policies_to_brexit_taxon: [:environment] do
+    Taxonomy::SyncBrexitPolicies.new.call
+  end
 end
