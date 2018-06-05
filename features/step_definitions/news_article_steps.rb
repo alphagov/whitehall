@@ -107,7 +107,7 @@ When(/^I draft a French\-only "World news story" news article associated with "(
   select "French embassy", from: "Select the worldwide organisations associated with this news article"
   select "", from: "edition_lead_organisation_ids_1"
   click_button "Save and continue"
-  click_button "Save legacy associations"
+  click_button "Save"
   @news_article = find_news_article_in_locale!(:fr, 'French-only news article')
 end
 
@@ -159,7 +159,7 @@ When(/^I tag the article to a policy "([^"]*)"$/) do |policy|
   click_button "Save and continue"
 
   select policy, from: "Policies"
-  click_button "Save legacy associations"
+  click_button "Save"
 end
 
 Then(/^the news article "([^"]*)" should have been created$/) do |title|

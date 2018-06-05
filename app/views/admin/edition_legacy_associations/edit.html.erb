@@ -1,28 +1,20 @@
 <% page_title "Edit legacy associations: " + @edition.title %>
 <div class="row">
   <h1><%= @edition.title %></h1>
+  <p>
+    Policies, policy areas and specialist sectors will continue to be supported until the topic taxonomy replaces them.
+  </p>
 </div>
 
 <% if flash[:legacy_associations_changed] %>
   <div class="row">
     <div class="alert alert-success" role="alert">
-      <strong>
-        Suggestions
-        <span class="label label-default">New</span>
-      </strong>
-
       <p>
-        Some suggestions have been made below.
+        Some suggestions have been made based on the taxonomy topics you've selected.
       </p>
 
       <p>
-        This happens automatically when tagging new content to the
-        Topic Taxonomy, to reduce the amount of manual work required
-        to tag content.
-      </p>
-
-      <p>
-        You can still edit the selections below.
+        You can edit these suggestions.
       </p>
     </div>
   </div>
@@ -47,7 +39,7 @@
       </fieldset>
       <%= render 'specialist_sector_fields', form: form, edition: @edition %>
       <div class="publishing-controls well">
-        <%= form.form_actions(buttons: { save: 'Save legacy associations' }, cancel: @cancel_path) %>
+        <%= form.form_actions(buttons: { save: 'Save' }, cancel: @path) %>
       </div>
     <% end %>
   </div>

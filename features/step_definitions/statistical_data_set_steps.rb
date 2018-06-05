@@ -3,5 +3,5 @@ When(/^I draft a new statistical data set "([^"]*)" for organisation "([^"]*)"$/
   set_lead_organisation_on_document(Organisation.find_by(name: organisation_name))
   click_button "Save and continue"
   select "Policy 1", from: "Policies"
-  click_button "Save legacy associations"
+  click_button "Save"
 end

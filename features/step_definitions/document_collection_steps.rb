@@ -131,5 +131,5 @@ And(/^I tag that document collection to the policy "(.*?)"$/) do |policy|
   policies = publishing_api_has_policies([policy])
   click_button "Save and continue"
   select policy, from: "Policies"
-  click_button "Save legacy associations"
+  click_button "Save"
 end

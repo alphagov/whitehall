@@ -165,7 +165,7 @@ When(/^I force publish (#{THE_DOCUMENT})$/) do |edition|
   click_link "Edit draft"
   fill_in_change_note_if_required
   click_button "Save and continue"
-  click_button "Save legacy associations"
+  click_button "Save"
   publish(force: true)
 end
 
