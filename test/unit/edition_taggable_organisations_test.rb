@@ -13,6 +13,12 @@ class EditionTaggableOrganisationTestForEducationOrganisations < ActiveSupport::
 
     assert edition.can_be_tagged_to_taxonomy?
   end
+
+  test '#must_be_tagged_to_policy_area? is false for NewsArticle' do
+    edition = create(:news_article, organisations: [@lead_org])
+
+    refute edition.must_be_tagged_to_policy_area?
+  end
 end
 
 class EditionTaggableOrganisationTestForWorldOrganisations < ActiveSupport::TestCase
