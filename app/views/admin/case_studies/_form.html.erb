@@ -6,15 +6,9 @@
   <%= standard_edition_form(edition) do |form| %>
     <fieldset>
       <legend>Associations</legend>
-
-      <div class="important-associations">
-        <%= render 'admin/shared/policy_fields', form: form %>
-      </div>
-
       <%= render 'worldwide_organisation_fields', form: form, edition: edition %>
       <%= render 'world_location_fields', form: form, edition: edition %>
       <%= render 'organisation_fields', form: form, edition: edition %>
-      <%= render 'specialist_sector_fields', form: form, edition: edition %>
     </fieldset>
   <% end %>
 <% end %>

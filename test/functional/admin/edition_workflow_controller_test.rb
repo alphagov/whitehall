@@ -63,7 +63,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
       "version" => 1
     )
 
-    Publication.any_instance.stubs(:must_be_tagged_to_taxonomy?).returns(true)
+    Publication.any_instance.stubs(:can_be_tagged_to_taxonomy?).returns(true)
 
     get :confirm_force_publish, params: { id: draft_edition, lock_version: draft_edition.lock_version }
 

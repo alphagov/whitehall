@@ -6,24 +6,20 @@
 <div class="row">
   <div class="col-md-12">
     <h2>Topics (new taxonomy)</h2>
+    <p>Topics categorise content on GOV.UK by subject area.</p>
     <hr>
 
     <%= form_for @tag_form, url: admin_edition_tags_path(@edition), method: :put do |form| %>
       <%= form.hidden_field :previous_version %>
 
       <div class="form-group"
-        data-module="taxonomy-tree-checkboxes"
-        data-content-id="<%= @edition.content_id %>"
-        data-content-format="<%= @edition.content_store_document_type %>"
-        data-content-public-path="<%= public_document_path(@edition) %>">
+           data-module="taxonomy-tree-checkboxes"
+           data-content-id="<%= @edition.content_id %>"
+           data-content-format="<%= @edition.content_store_document_type %>"
+           data-content-public-path="<%= public_document_path(@edition) %>">
 
-        <%= render partial: "/admin/shared/tagging/taxonomy", locals: { selected_taxons: @tag_form.selected_taxons, level_one_taxons: @topic_taxonomy.live } %>
+        <%= render partial: "/admin/shared/tagging/taxonomy", locals: { selected_taxons: @tag_form.selected_taxons, level_one_taxons: @topic_taxonomy.ordered_taxons } %>
 
-        <h2>Alpha and Beta topics</h2>
-
-        <p>These topic pages are in development, and are not shown on GOV.UK</p>
-
-        <%= render partial: "/admin/shared/tagging/taxonomy", locals: { selected_taxons: @tag_form.selected_taxons, level_one_taxons: @topic_taxonomy.alpha_beta } %>
       </div>
 
       <%= form.hidden_field "invisible_draft_taxons", value: @tag_form.invisible_taxons.join(",") %>
@@ -40,6 +36,7 @@
         %>
       </p>
 
+
       <h2>Selected topics</h2>
       <div class="content content-bordered hidden" data-module="breadcrumb-preview">
       </div>
@@ -49,7 +46,7 @@
       </p>
 
       <div class="publishing-controls well">
-        <%= form.form_actions(buttons: { save: 'Save topic changes' }, cancel: admin_edition_path(@edition)) %>
+        <%= form.form_actions(buttons: { save: 'Save topic changes', legacy_tags: 'Legacy tags' }, cancel: admin_edition_path(@edition)) %>
       </div>
     <% end %>
   </div>

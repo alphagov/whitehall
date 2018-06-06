@@ -74,6 +74,9 @@ class Admin::EditionsController < Admin::BaseController
 
     if @edition.can_be_tagged_to_taxonomy?
       @edition_taxons = EditionTaxonsFetcher.new(@edition.content_id).fetch
+    end
+
+    if @edition.can_be_tagged_to_worldwide_taxonomy?
       @edition_world_taxons = EditionTaxonsFetcher.new(@edition.content_id).fetch_world_taxons
     end
   end
@@ -222,10 +225,18 @@ private
   end
 
   def show_or_edit_path
-    if params[:save_and_continue].present?
+    if params[:save].present?
       [:edit, :admin, @edition]
     else
-      admin_edition_path(@edition)
+      tagging_path
+    end
+  end
+
+  def tagging_path
+    if @edition.can_be_tagged_to_taxonomy?
+      edit_admin_edition_tags_path(@edition.id)
+    else
+      edit_admin_edition_legacy_associations_path(@edition.id, return: :edit)
     end
   end
 

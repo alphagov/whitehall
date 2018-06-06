@@ -35,8 +35,10 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
   test "POST :create can create a corporate information page for an Organisation" do
     post :create, params: { organisation_id: @organisation, edition: corporate_information_page_attributes }
 
+    edition = Edition.last
+
     assert page = @organisation.corporate_information_pages.last
-    assert_redirected_to [:admin, @organisation, page]
+    assert_redirected_to edit_admin_edition_legacy_associations_path(edition.id, return: :edit)
     assert_equal "The document has been saved", flash[:notice]
     assert_equal corporate_information_page_attributes[:body], page.body
     assert_equal corporate_information_page_attributes[:corporate_information_page_type_id], page.corporate_information_page_type_id
@@ -47,8 +49,10 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     organisation = create(:worldwide_organisation)
     post :create, params: { worldwide_organisation_id: organisation, edition: corporate_information_page_attributes }
 
+    edition = Edition.last
+
     assert page = organisation.corporate_information_pages.last
-    assert_redirected_to [:admin, organisation, page]
+    assert_redirected_to edit_admin_edition_legacy_associations_path(edition.id, return: :edit)
     assert_equal "The document has been saved", flash[:notice]
     assert_equal corporate_information_page_attributes[:body], page.body
     assert_equal corporate_information_page_attributes[:corporate_information_page_type_id], page.corporate_information_page_type_id
@@ -79,10 +83,13 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     new_attributes = { body: "New body", summary: "New summary" }
     put :update, params: { organisation_id: @organisation, id: corporate_information_page, edition: new_attributes }
     corporate_information_page.reload
+
+    edition = Edition.last
+
     assert_equal new_attributes[:body], corporate_information_page.body
     assert_equal new_attributes[:summary], corporate_information_page.summary
     assert_equal "The document has been saved", flash[:notice]
-    assert_redirected_to admin_organisation_corporate_information_page_path(@organisation, corporate_information_page)
+    assert_redirected_to edit_admin_edition_legacy_associations_path(edition.id, return: :edit)
   end
 
   view_test "PUT :update should redisplay form on failure" do

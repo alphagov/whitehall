@@ -55,7 +55,7 @@
 
     <% if @edition.can_be_associated_with_topics? %>
       <h3>Policy Areas</h3>
-      <%= render partial: 'topic_fields', locals: { form: form, edition: @edition } %>
+      <%= render partial: 'policy_area_fields', locals: { form: form, edition: @edition } %>
     <% end %>
 
     <% if @edition.can_be_associated_with_world_locations? %>

@@ -325,4 +325,33 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
     taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch_world_taxons
     assert_equal %w[world-taxon], taxons.map(&:content_id)
   end
+
+  test "it returns legacy mappings" do
+    publishing_api_has_expanded_links(
+      content_id:  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+      expanded_links:  {
+        "taxons" => [
+          {
+            "title" => "Further Education",
+            "content_id" => "aaaa",
+            "base_path" => "/i-am-a-taxon",
+            "details" => { "visible_to_departmental_editors" => true },
+            "links" => {
+              "legacy_taxons" => [
+                {
+                  "title" => "Something",
+                  "content_id" => "bbbb",
+                  "base_path" => "/i-am-a-policy",
+                  "document_type" => "policy"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    )
+
+    taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch
+    assert_equal 'policy', taxons.first.legacy_mapping["policy"][0]["document_type"]
+  end
 end

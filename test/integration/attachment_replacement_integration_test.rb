@@ -19,6 +19,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
     create(:government)
     login_as(managing_editor)
     edition.attachments << attachment
+    publishing_api_has_linkables([], document_type: 'topic')
     setup_publishing_api_for(edition)
     stub_whitehall_asset(filename, id: asset_id)
     VirusScanHelpers.simulate_virus_scan
@@ -112,6 +113,9 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
           fill_in 'Public change note', with: 'attachment replaced'
           click_button 'Save'
           assert_text 'The document has been saved'
+
+          #'cancel' takes user back to overview edit page
+          click_link 'cancel'
 
           click_link 'Modify attachments'
           @replacement_url = find('.existing-attachments a', text: replacement_filename)[:href]

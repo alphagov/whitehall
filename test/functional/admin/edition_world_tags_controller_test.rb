@@ -7,8 +7,8 @@ class Admin::EditionWorldTagsControllerTest < ActionController::TestCase
   setup do
     @user = login_as(:departmental_editor)
     @publishing_api_endpoint = GdsApi::TestHelpers::PublishingApiV2::PUBLISHING_API_V2_ENDPOINT
-    organisation = create(:organisation, content_id: "ebd15ade-73b2-4eaf-b1c3-43034a42eb37")
-    @edition = create(:publication, publication_type: PublicationType::Guidance, organisations: [organisation])
+    @organisation = create(:organisation, content_id: "f323e83c-868b-4bcb-b6e2-a8f9bb40397e")
+    @edition = create(:publication, publication_type: PublicationType::Guidance, organisations: [@organisation])
     stub_taxonomy_with_world_taxons
   end
 
@@ -66,13 +66,10 @@ class Admin::EditionWorldTagsControllerTest < ActionController::TestCase
   end
 
   test 'should also post taxons tagged to the topic and world taxonomies' do
-    organisation = create(:organisation, content_id: "f323e83c-868b-4bcb-b6e2-a8f9bb40397e")
-    @world_and_topic_edition = create(:publication, publication_type: PublicationType::Guidance, organisations: [organisation])
-
-    stub_publishing_api_expanded_links_with_taxons(@world_and_topic_edition.content_id, [child_taxon])
+    stub_publishing_api_expanded_links_with_taxons(@edition.content_id, [child_taxon])
 
     put :update, params: {
-      edition_id: @world_and_topic_edition,
+      edition_id: @edition,
       taxonomy_tag_form: {
         taxons: [world_child_taxon_content_id],
         previous_version: 1
@@ -80,7 +77,7 @@ class Admin::EditionWorldTagsControllerTest < ActionController::TestCase
     }
 
     assert_publishing_api_patch_links(
-      @world_and_topic_edition.content_id,
+      @edition.content_id,
       links: {
         taxons: [world_child_taxon_content_id, child_taxon_content_id]
       },

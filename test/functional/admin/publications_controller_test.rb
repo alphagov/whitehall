@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Admin::PublicationsControllerTest < ActionController::TestCase
   include TaxonomyHelper
-
+  include PolicyTaggingHelpers
   setup do
     @organisation = create(:organisation)
     @user = create(:writer, organisation: @organisation)
@@ -58,8 +58,9 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     }
 
     publication = Publication.last
+
     assert publication.present?, assigns(:edition).errors.full_messages.inspect
-    assert_redirected_to admin_publication_path(publication)
+    assert_redirected_to edit_admin_edition_legacy_associations_path(publication.id, return: :edit)
     assert_equal publication, statistics_announcement.reload.publication
   end
 
@@ -185,32 +186,34 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "when edition is not tagged to the new taxonomy" do
-    sfa_organisation = create(:organisation, content_id: "3e5a6924-b369-4eb3-8b06-3c0814701de4")
+    world_tagging_organisation = create(:organisation, content_id: "f323e83c-868b-4bcb-b6e2-a8f9bb40397e")
 
     publication = create(
       :publication,
-      organisations: [sfa_organisation]
+      publication_type: PublicationType::Guidance,
+      organisations: [world_tagging_organisation]
     )
 
-    login_as(create(:user, organisation: sfa_organisation))
+    login_as(create(:user, organisation: world_tagging_organisation))
 
     publication_has_no_expanded_links(publication.content_id)
     get :show, params: { id: publication }
 
     refute_select '.taxonomy-topics .content'
-    assert_select '.taxonomy-topics .no-content', "No topics - please add a topic before publishing"
-    assert_select '.taxonomy-topics .no-content', "No worldwide related topics"
+    assert_select '.taxonomy-topics#topic-new-taxonomy .no-content'
+    assert_select '.taxonomy-topics#world-taxonomy .no-content'
   end
 
   view_test "when edition is tagged to the new taxonomy" do
-    sfa_organisation = create(:organisation, content_id: "3e5a6924-b369-4eb3-8b06-3c0814701de4")
+    world_tagging_organisation = create(:organisation, content_id: "f323e83c-868b-4bcb-b6e2-a8f9bb40397e")
 
     publication = create(
       :publication,
-      organisations: [sfa_organisation]
+      publication_type: PublicationType::Guidance,
+      organisations: [world_tagging_organisation]
     )
 
-    login_as(create(:user, organisation: sfa_organisation))
+    login_as(create(:user, organisation: world_tagging_organisation))
 
     publication_has_expanded_links(publication.content_id)
 
@@ -223,14 +226,15 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "when edition is tagged to the world taxonomy" do
-    sfa_organisation = create(:organisation, content_id: "3e5a6924-b369-4eb3-8b06-3c0814701de4")
+    world_tagging_organisation = create(:organisation, content_id: "f323e83c-868b-4bcb-b6e2-a8f9bb40397e")
 
     publication = create(
       :publication,
-      organisations: [sfa_organisation]
+      publication_type: PublicationType::Guidance,
+      organisations: [world_tagging_organisation]
     )
 
-    login_as(create(:user, organisation: sfa_organisation))
+    login_as(create(:user, organisation: world_tagging_organisation))
 
     publication_has_world_expanded_links(publication.content_id)
 
@@ -242,19 +246,97 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select '.taxonomy-topics#topic-new-taxonomy .no-content'
   end
 
+  view_test "shows summary when edition is tagged to all legacy associations" do
+    stub_specialist_sectors
+    organisation = create(:organisation)
+    policy_area = create(:topic)
+    publication = create(
+      :publication,
+      organisations: [organisation],
+      policy_content_ids: [policy_1['content_id']],
+      topic_ids: [policy_area.id],
+      primary_specialist_sector_tag: 'WELLS',
+      secondary_specialist_sector_tags: %w(FIELDS OFFSHORE)
+    )
+
+    login_as(create(:user, organisation: organisation))
+
+    get :show, params: { id: publication }
+
+    assert_select ".policies li", policy_1['title']
+    assert_select ".policy-areas li", policy_area.name
+    assert_selected_specialist_sectors_are_displayed
+    assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}']", /Change Associations/
+    assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}'] .glyphicon-edit"
+  end
+
+  view_test "shows message when edition is not tagged to any legacy associations" do
+    stub_specialist_sectors
+    organisation = create(:organisation)
+    publication = create(
+      :publication_without_policy_areas,
+      organisations: [organisation],
+    )
+
+    login_as(create(:user, organisation: organisation))
+    get :show, params: { id: publication }
+
+    refute_select '.policies'
+    refute_select '.policy-areas'
+    refute_select '.primary-specialist-sector'
+    refute_select '.secondary-specialist-sectors'
+    assert_select '.no-content.no-content-bordered', 'No associations'
+    assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}']", /Add Associations/
+    assert_select "a[href='#{edit_admin_edition_legacy_associations_path(publication)}'] .glyphicon-plus-sign"
+  end
+
 private
+
+  def stub_specialist_sectors
+    publishing_api_has_linkables(
+      [
+        {
+          'content_id' => 'WELLS',
+          'internal_name' => 'Oil and Gas / Wells',
+          'publication_state' => 'published',
+        },
+        {
+          'content_id' => 'FIELDS',
+          'internal_name' => 'Oil and Gas / Fields',
+          'publication_state' => 'published',
+        },
+        {
+          'content_id' => 'OFFSHORE',
+          'internal_name' => 'Oil and Gas / Offshore',
+          'publication_state' => 'published',
+        },
+        {
+          'content_id' => 'DISTILL',
+          'internal_name' => 'Oil and Gas / Distillation',
+          'publication_state' => 'draft',
+        },
+      ],
+      document_type: 'topic'
+    )
+  end
+
+  def assert_selected_specialist_sectors_are_displayed
+    assert_select ".primary-specialist-sector li", 'Oil and Gas: Wells'
+    assert_select ".secondary-specialist-sectors li", 'Oil and Gas: Fields'
+    assert_select ".secondary-specialist-sectors li", 'Oil and Gas: Offshore'
+  end
 
   def publication_has_no_expanded_links(content_id)
     publishing_api_has_expanded_links(
-      content_id:  content_id,
-      expanded_links:  {}
+      content_id: content_id,
+      expanded_links: {}
     )
   end
 
   def publication_has_expanded_links(content_id)
     publishing_api_has_expanded_links(
-      content_id:  content_id,
-      expanded_links:  {
+      content_id: content_id,
+      expanded_links: {
         "taxons" => [
           {
             "title" => "Primary Education",

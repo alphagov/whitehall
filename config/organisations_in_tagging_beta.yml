@@ -1,25 +1,63 @@
 # This file has a list of organisation content_id's
-# that are allowed to have their documents tagged into the taxonomy
-# - This is part of the work performed by Finding Things team.
+# that are allowed tag their documents to the topic taxonomy
 
-organisations_in_tagging_beta:
-  education_related:
-    - "71381a6e-aa5c-43ae-a982-be9bfd46ea5b" # Education & Skills Funding Agency
-    - "b9fc8528-81d1-419b-8748-6c00be71044b" # Education Funding Agency (replaced by Education & Skills Funding Agency in April 2017)
-    - "ebd15ade-73b2-4eaf-b1c3-43034a42eb37" # Department for Education
-    - "60de9b00-a982-4449-a995-f2353e86fb95" # Higher Education Statistics Agency
-    - "a081cd5b-c41d-4389-ac65-982e7570680d" # Institute for Apprenticeships
-    - "e1cbab66-b0d3-4186-917c-afd4f3fb6967" # National College for Teaching and Leadership
-    - "e7f33769-a539-4fb4-b24f-f6c1cabc3f59" # Office of the Schools Adjudicator
-    - "83f6e93f-bb2c-46ab-9b02-394f972b7030" # Ofqual
-    - "ad5f6169-ac7b-4382-9eb6-e58af71a2f00" # Ofsted
-    - "3e5a6924-b369-4eb3-8b06-3c0814701de4" # Skills Funding Agency (replaced by Education & Skills Funding Agency in April 2017)
-    - "863ffacd-d313-49c1-b856-58fe0799fd41" # Standards and Testing Agency
-    - "9a9111aa-1db8-4025-8dd2-e08ec3175e72" # Student Loans Company
-    - "30637a3a-bd24-4db6-b172-c49500bf50a5" # Schools Commissioners Group
-  worldwide_related:
-    - "db994552-7644-404d-a770-a2fe659c661f" # Department for International Development
-    - "9adfc4ed-9f6c-4976-a6d8-18d34356367c" # Foreign & Commonwealth Office
-    - "04148522-b0c1-4137-b687-5f3c3bdd561a" # UK Visas and Immigration
-    - "082092f1-656c-470e-b024-229dc6e750e9" # Department for International Trade
-    - "f323e83c-868b-4bcb-b6e2-a8f9bb40397e" # Department for Exiting the European Union
+- "71381a6e-aa5c-43ae-a982-be9bfd46ea5b" # Education & Skills Funding Agency
+- "b9fc8528-81d1-419b-8748-6c00be71044b" # Education Funding Agency (replaced by Education & Skills Funding Agency in April 2017)
+- "ebd15ade-73b2-4eaf-b1c3-43034a42eb37" # Department for Education
+- "60de9b00-a982-4449-a995-f2353e86fb95" # Higher Education Statistics Agency
+- "a081cd5b-c41d-4389-ac65-982e7570680d" # Institute for Apprenticeships
+- "e1cbab66-b0d3-4186-917c-afd4f3fb6967" # National College for Teaching and Leadership
+- "e7f33769-a539-4fb4-b24f-f6c1cabc3f59" # Office of the Schools Adjudicator
+- "83f6e93f-bb2c-46ab-9b02-394f972b7030" # Ofqual
+- "ad5f6169-ac7b-4382-9eb6-e58af71a2f00" # Ofsted
+- "3e5a6924-b369-4eb3-8b06-3c0814701de4" # Skills Funding Agency (replaced by Education & Skills Funding Agency in April 2017)
+- "863ffacd-d313-49c1-b856-58fe0799fd41" # Standards and Testing Agency
+- "9a9111aa-1db8-4025-8dd2-e08ec3175e72" # Student Loans Company
+- "30637a3a-bd24-4db6-b172-c49500bf50a5" # Schools Commissioners Group
+- "db994552-7644-404d-a770-a2fe659c661f" # Department for International Development
+- "9adfc4ed-9f6c-4976-a6d8-18d34356367c" # Foreign & Commonwealth Office
+- "04148522-b0c1-4137-b687-5f3c3bdd561a" # UK Visas and Immigration
+- "082092f1-656c-470e-b024-229dc6e750e9" # Department for International Trade
+- "f323e83c-868b-4bcb-b6e2-a8f9bb40397e" # Department for Exiting the European Union
+- "ddad017a-eb20-41d9-8386-56293be68aab" # Highways England
+- "14e2f2c2-6606-4f3f-92ed-24dedce86e3b" # Highways Agency
+- "d39237a5-678b-4bb5-a372-eb2cb036933d" # Driver and Vehicle Standards Agency
+- "304d93a6-dd72-4a52-8858-387d8d83a309" # Driving Standards Agency
+- "f3dc9b48-1119-4130-9bc4-98f5e3fd7fab" # Vehicle and Operator Services Agency
+- "4c717efc-f47b-478e-a76d-ce1ae0af1946" # Department for Transport
+- "23a24aa8-1711-42b6-bf6b-47af0f230295" # Maritime and Coastguard Agency
+- "b80fab8b-6ed4-426a-bb8d-f4b614437671" # High Speed Two (HS2) Limited
+- "78dfc32b-b1ef-44ca-924c-a2cf773e87ca" # Traffic Commissioners for Great Britain
+- "a183f1ed-c0ab-45bb-af9a-77e531520ef7" # Office of Rail and Road
+- "73f390ba-72b1-433e-9b8c-66cf628a2a86" # Office of Rail Regulation
+- "767f262c-9c80-44c2-9614-53d505ecc34b" # Office for Low Emission Vehicles
+- "5f8931ae-479b-473c-b6b8-967fed23d10a" # Airports Commission
+- "6293a5cd-80b1-4d6d-8f8d-9fb58b37d81e" # Passenger Focus
+- "0efd6cb8-0a8d-4e7f-b546-50dec25cc155" # Transport Focus
+- "e00316af-9d5b-4223-8097-8851b5ddeb81" # Centre for Connected and Autonomous Vehicles
+- "b969a617-7c4b-4d3b-97ef-41656ef688c9" # Disabled Persons Transport Advisory Committee
+- "18d0b663-f4ad-4ead-b6e0-4efab7454456" # British Transport Police Authority
+- "685a3312-e096-4fde-b6c7-c8cf324d4784" # Vehicle Certification Agency
+- "debb39a6-cc57-442e-8673-65af9bd0e624" # Directly Operated Railways Limited
+- "de9cee94-b1c6-45b4-a371-dbead4a9b6a5" # Northern Lighthouse Board
+- "d514dc11-5204-452e-9c43-1c040fdb6005" # Trinity House
+- "a183f1ed-c0ab-45bb-af9a-77e531520ef7" # Office of Rail and Road
+- "73f390ba-72b1-433e-9b8c-66cf628a2a86" # Office of Rail Regulation
+- "767f262c-9c80-44c2-9614-53d505ecc34b" # Office for Low Emission Vehicles
+- "5f8931ae-479b-473c-b6b8-967fed23d10a" # Airports Commission
+- "6293a5cd-80b1-4d6d-8f8d-9fb58b37d81e" # Passenger Focus
+- "0efd6cb8-0a8d-4e7f-b546-50dec25cc155" # Transport Focus
+- "e00316af-9d5b-4223-8097-8851b5ddeb81" # Centre for Connected and Autonomous Vehicles
+- "b969a617-7c4b-4d3b-97ef-41656ef688c9" # Disabled Persons Transport Advisory Committee
+- "18d0b663-f4ad-4ead-b6e0-4efab7454456" # British Transport Police Authority
+- "685a3312-e096-4fde-b6c7-c8cf324d4784" # Vehicle Certification Agency
+- "debb39a6-cc57-442e-8673-65af9bd0e624" # Directly Operated Railways Limited
+- "de9cee94-b1c6-45b4-a371-dbead4a9b6a5" # Northern Lighthouse Board
+- "d514dc11-5204-452e-9c43-1c040fdb6005" # Trinity House
+- "1400bcfb-c0f2-4e1c-b8fb-1135a2b83088" # Civil Aviation Authority
+- "a9a27d7f-c0d2-4a1b-9ad2-baf38f4dc1db" # London and Continental Railways Limited
+- "63dfedcf-0b7a-4890-ab98-affa70b15738" # Railway Heritage Committee
+- "06056197-bc69-4147-aa28-070bca132178" # Home Office
+- "04148522-b0c1-4137-b687-5f3c3bdd561a" # UK Visas and Immigration
+- "6667cce2-e809-4e21-ae09-cb0bdc1ddda3" # HM Revenue & Customs
+- "af07d5a5-df63-4ddc-9383-6a666845ebe9" # Government Digital Service
