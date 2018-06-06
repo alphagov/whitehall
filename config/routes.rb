@@ -426,7 +426,6 @@ Whitehall::Application.routes.draw do
   # TODO: Remove when paths for new content can be generated without a route helper
   get '/guidance/:id(.:locale)', as: 'detailed_guide', to: 'detailed_guides#show', constraints: { id: /[A-z0-9\-]+/, locale: VALID_LOCALES_REGEX }
 
-  get '/government/uploads/system/uploads/consultation_response_form/*path.:extension' => LongLifeRedirect.new('/government/uploads/system/uploads/consultation_response_form_data/')
   get '/government/uploads/system/uploads/attachment_data/file/:id/*file.:format' => "attachments#show"
   get '/government/uploads/system/uploads/attachment_data/file/:id/*file.:extension/preview' => "csv_preview#show", as: :csv_preview
   get '/government/uploads/uploaded/hmrc/*path' => "hmrc_assets#show", format: true
