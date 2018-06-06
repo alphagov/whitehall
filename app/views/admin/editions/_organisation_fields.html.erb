@@ -19,7 +19,12 @@
                                   include_blank: true,
                                   multiple: false,
                                   class: 'chzn-select-non-ie form-control',
-                                  data: { placeholder: "Choose a lead organisation which produced this document…" },
+                                  data: {
+                                      placeholder: "Choose a lead organisation which produced this document…",
+                                      module: 'track-select-click',
+                                      track_category: 'leadOrgSelection',
+                                      track_label: request.path
+                                  },
                                   id: "edition_lead_organisation_ids_#{index + 1}" %>
                 <% end %>
               </div>
@@ -44,7 +49,12 @@
                                   include_blank: true,
                                   multiple: false,
                                   class: 'chzn-select-non-ie form-control',
-                                  data: { placeholder: "Choose a supporting organisation which produced this document…" },
+                                  data: {
+                                      placeholder: "Choose a supporting organisation which produced this document…",
+                                      module: 'track-select-click',
+                                      track_category: 'supportingOrgSelection',
+                                      track_label: request.path
+                                  },
                                   id: "edition_supporting_organisation_ids_#{index + 1}" %>
                 <% end %>
               </div>

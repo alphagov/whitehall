@@ -903,12 +903,24 @@ module AdminEditionControllerTestHelpers
     def should_allow_organisations_for(edition_type)
       edition_class = class_for(edition_type)
 
-      view_test "new should display edition organisations field" do
+      view_test "new should display edition organisations fields" do
         get :new
 
         assert_select "form#new_edition" do
-          assert_select "select[name*='edition[lead_organisation_ids][]']"
-          assert_select "select[name*='edition[supporting_organisation_ids][]']"
+          (1..4).each do |i|
+            assert_select("#edition_lead_organisation_ids_#{i}") do |elements|
+              assert_equal 1, elements.length
+              assert_data_attributes_for_lead_org(element: elements.first, track_label: new_edition_path(edition_type))
+            end
+          end
+          refute_select '#edition_lead_organisation_ids_5'
+          (1..6).each do |i|
+            assert_select("#edition_supporting_organisation_ids_#{i}") do |elements|
+              assert_equal 1, elements.length
+              assert_data_attributes_for_supporting_org(element: elements.first, track_label: new_edition_path(edition_type))
+            end
+          end
+          refute_select '#edition_supporting_organisation_ids_7'
         end
       end
 
@@ -944,8 +956,20 @@ module AdminEditionControllerTestHelpers
         get :edit, params: { id: edition }
 
         assert_select "form#edit_edition" do
-          assert_select "select[name*='edition[lead_organisation_ids][]']"
-          assert_select "select[name*='edition[supporting_organisation_ids][]']"
+          (1..4).each do |i|
+            assert_select("#edition_lead_organisation_ids_#{i}") do |elements|
+              assert_equal 1, elements.length
+              assert_data_attributes_for_lead_org(element: elements.first, track_label: edit_edition_path(edition_type))
+            end
+          end
+          refute_select '#edition_lead_organisation_ids_5'
+          (1..6).each do |i|
+            assert_select("#edition_supporting_organisation_ids_#{i}") do |elements|
+              assert_equal 1, elements.length
+              assert_data_attributes_for_supporting_org(element: elements.first, track_label: edit_edition_path(edition))
+            end
+          end
+          refute_select '#edition_supporting_organisation_ids_7'
         end
       end
 
@@ -1527,5 +1551,30 @@ module AdminEditionControllerTestHelpers
         assert_equal [first_world_organisation, second_world_organisation], edition.worldwide_organisations
       end
     end
+  end
+
+private
+
+  def assert_data_attributes_for_lead_org(element:, track_label:)
+    assert_equal 'Choose a lead organisation which produced this document…', element['data-placeholder']
+    assert_equal 'track-select-click', element['data-module']
+    assert_equal 'leadOrgSelection', element['data-track-category']
+    assert_equal track_label, element['data-track-label']
+  end
+
+  def assert_data_attributes_for_supporting_org(element:, track_label:)
+    assert_equal 'Choose a supporting organisation which produced this document…', element['data-placeholder']
+    assert_equal 'track-select-click', element['data-module']
+    assert_equal 'supportingOrgSelection', element['data-track-category']
+    assert_equal track_label, element['data-track-label']
+  end
+
+  def new_edition_path(edition_type)
+    edition = build(edition_type)
+    new_polymorphic_path([:admin, edition])
+  end
+
+  def edit_edition_path(edition)
+    edit_polymorphic_path([:admin, edition])
   end
 end
