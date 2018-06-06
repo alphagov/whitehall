@@ -39,9 +39,9 @@ class MinisterialRoleResluggerTest < ActiveSupport::TestCase
       stub_publishing_api_put_content(content_item.content_id, content_item.content),
       stub_publishing_api_patch_links(content_item.content_id, links: content_item.links),
       stub_publishing_api_publish(content_item.content_id, locale: 'en', update_type: 'major'),
-      stub_publishing_api_put_content(organisation_content_item.content_id, organisation_content_item.content),
-      stub_publishing_api_patch_links(organisation_content_item.content_id, links: organisation_content_item.links),
-      stub_publishing_api_publish(organisation_content_item.content_id, locale: 'en', update_type: 'major')
+      #stub_publishing_api_put_content(organisation_content_item.content_id, organisation_content_item.content),
+      #stub_publishing_api_patch_links(organisation_content_item.content_id, links: organisation_content_item.links),
+      #stub_publishing_api_publish(organisation_content_item.content_id, locale: 'en', update_type: 'major')
     ]
 
     Sidekiq::Testing.inline! do
