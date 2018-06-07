@@ -48,7 +48,6 @@ Feature: Managing attachments on editions
   Scenario: Attempting to publish attachment which is still being uploaded to the asset manager
     Given I am an editor
     And a published publication "Standard Beard Lengths" with a PDF attachment
-    And the attachment has been virus-checked
     And the attachment has been uploaded to the asset-manager
     When I replace the data file of the attachment in a new draft of the publication
     And I try to publish the draft edition
