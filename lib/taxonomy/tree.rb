@@ -7,12 +7,9 @@ module Taxonomy
   class Tree
     attr_reader :root_taxon
 
-    def initialize(expanded_root_taxon_hash)
-      @root_taxon = Taxon.from_taxon_hash(expanded_root_taxon_hash)
-      root_taxon.children = parse_taxons(
-        root_taxon,
-          expanded_root_taxon_hash['expanded_links_hash']
-      )
+    def initialize(root_taxon_hash)
+      @root_taxon = Taxon.from_taxon_hash(root_taxon_hash)
+      root_taxon.children = parse_taxons(root_taxon, root_taxon_hash)
     end
 
   private
@@ -27,8 +24,7 @@ module Taxonomy
     end
 
     def child_nodes(item_hash)
-      children = item_hash.dig('links', 'child_taxons') ||
-        item_hash.dig('expanded_links', 'child_taxons') || []
+      children = item_hash.dig('links', 'child_taxons') || []
       children.sort_by { |hsh| hsh.fetch('title') }
     end
   end

@@ -10,17 +10,9 @@ FactoryBot.define do
     sequence("content_id") { |i| "taxon_uuid_#{i}" }
     phase 'live'
     after :build do |hash, evaluator|
-      if evaluator.is_level_one_taxon
-        hash["expanded_links_hash"] = {
-          "expanded_links" => {
-            "child_taxons" => evaluator.children
-          }
-        }
-      else
-        hash["links"] = {
-            "child_taxons" => evaluator.children
-        }
-      end
+      hash["links"] = {
+        "child_taxons" => evaluator.children
+      }
       hash["details"] = {
         "visible_to_departmental_editors" => evaluator.visibility
       }
