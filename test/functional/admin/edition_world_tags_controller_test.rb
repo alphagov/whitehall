@@ -18,7 +18,7 @@ class Admin::EditionWorldTagsControllerTest < ActionController::TestCase
     publishing_api_patch_request = stub_request(:patch, "#{@publishing_api_endpoint}/links/#{@edition.content_id}")
       .to_return(status: 409)
 
-    put :update, params: { edition_id: @edition, taxonomy_tag_form: { previous_version: 1, taxons: [world_child_taxon_content_id] } }
+    put :update, params: { edition_id: @edition, world_taxonomy_tag_form: { previous_version: 1, taxons: [world_child_taxon_content_id] } }
 
     assert_requested publishing_api_patch_request
     assert_redirected_to edit_admin_edition_world_tags_path(@edition)
@@ -28,7 +28,7 @@ class Admin::EditionWorldTagsControllerTest < ActionController::TestCase
   test 'should post world taxons to publishing-api' do
     stub_publishing_api_expanded_links_with_taxons(@edition.content_id, [])
 
-    put :update, params: { edition_id: @edition, taxonomy_tag_form: { taxons: [world_child_taxon_content_id], previous_version: 1 } }
+    put :update, params: { edition_id: @edition, world_taxonomy_tag_form: { taxons: [world_child_taxon_content_id], previous_version: 1 } }
 
     assert_publishing_api_patch_links(
       @edition.content_id,
@@ -42,7 +42,7 @@ class Admin::EditionWorldTagsControllerTest < ActionController::TestCase
   test 'should post empty array to publishing api if no world taxons are selected' do
     stub_publishing_api_expanded_links_with_taxons(@edition.content_id, [])
 
-    put :update, params: { edition_id: @edition, taxonomy_tag_form: { previous_version: 1 } }
+    put :update, params: { edition_id: @edition, world_taxonomy_tag_form: { previous_version: 1 } }
 
     assert_publishing_api_patch_links(@edition.content_id, links: { taxons: [] }, previous_version: "1")
   end
@@ -73,7 +73,7 @@ class Admin::EditionWorldTagsControllerTest < ActionController::TestCase
 
     put :update, params: {
       edition_id: @world_and_topic_edition,
-      taxonomy_tag_form: {
+      world_taxonomy_tag_form: {
         taxons: [world_child_taxon_content_id],
         previous_version: 1
       }

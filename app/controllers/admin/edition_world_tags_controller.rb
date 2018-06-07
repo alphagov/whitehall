@@ -13,7 +13,7 @@ class Admin::EditionWorldTagsController < Admin::BaseController
       content_id: @edition.content_id,
       selected_taxons: selected_taxons,
       invisible_taxons: previously_selected_topic_taxons,
-      previous_version: params["taxonomy_tag_form"]["previous_version"],
+      previous_version: params["world_taxonomy_tag_form"]["previous_version"],
     )
     redirect_to admin_edition_path(@edition),
       notice: "The tags have been updated."
@@ -38,7 +38,7 @@ private
   end
 
   def selected_taxons
-    params["taxonomy_tag_form"].fetch("taxons", []).reject(&:blank?)
+    params["world_taxonomy_tag_form"].fetch("taxons", []).reject(&:blank?)
   end
 
   def previously_selected_topic_taxons
