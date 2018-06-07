@@ -33,7 +33,6 @@ module VirusScanHelpers
     folders = [
       Whitehall.incoming_uploads_root,
       Whitehall.clean_uploads_root,
-      Whitehall.infected_uploads_root
     ]
 
     folders.each do |folder|
