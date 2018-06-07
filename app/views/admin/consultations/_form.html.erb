@@ -44,12 +44,7 @@
 
     <fieldset>
       <legend>Associations</legend>
-
-      <div class="important-associations">
-        <%= render 'admin/shared/policy_fields', form: form %>
-        <%= render 'topic_fields', form: form, edition: edition %>
-      </div>
-
+      <p>You'll be able to select policies, policy areas and specialist sectors later.</p>
       <div class="js-external-url-set">
         <%= render 'appointment_fields', form: form, edition: edition %>
       </div>
@@ -61,7 +56,6 @@
       </div>
 
       <%= render 'organisation_fields', form: form, edition: edition %>
-      <%= render 'specialist_sector_fields', form: form, edition: edition %>
     </fieldset>
 
     <fieldset>

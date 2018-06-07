@@ -2,14 +2,14 @@ require 'test_helper'
 
 class Taxonomy::TreeTest < ActiveSupport::TestCase
   test ".new sets the root_taxon property" do
-    subject = Taxonomy::Tree.new(expanded_root_taxon_hash)
+    subject = Taxonomy::Tree.new(root_taxon_hash)
     assert subject.root_taxon.class == Taxonomy::Taxon
   end
 
   # Example of expanded links hash:
   #
   # {
-  #   "expanded_links" => {
+  #   "links" => {
   #     "child_taxons" => [
   #       {
   #         "base_path" => "/root-path",
@@ -31,12 +31,12 @@ class Taxonomy::TreeTest < ActiveSupport::TestCase
   # }
 
   test "it parses an empty set of child_taxons" do
-    assert result("expanded_links" => {}).empty?
+    assert result("links" => {}).empty?
   end
 
   test "it parses a single child_taxon" do
     single_root_node = {
-      "expanded_links" => {
+      "links" => {
         "child_taxons" => [
           node
         ]
@@ -49,7 +49,7 @@ class Taxonomy::TreeTest < ActiveSupport::TestCase
 
   test "it parses two child_taxons" do
     two_root_nodes = {
-      "expanded_links" => {
+      "links" => {
         "child_taxons" => [
           node,
           node
@@ -63,7 +63,7 @@ class Taxonomy::TreeTest < ActiveSupport::TestCase
 
   test "it parses descendants of root node" do
     single_root_with_descendant = {
-      "expanded_links" => {
+      "links" => {
         "child_taxons" => [
           node([node])
         ]
@@ -77,7 +77,7 @@ class Taxonomy::TreeTest < ActiveSupport::TestCase
 
   test "it sorts the taxon list alphabetically" do
     taxons = {
-      "expanded_links" => {
+      "links" => {
         "child_taxons" => [
           node,
           node
@@ -85,24 +85,23 @@ class Taxonomy::TreeTest < ActiveSupport::TestCase
       }
     }
 
-    taxons["expanded_links"]["child_taxons"][0]["title"] = "zaphod"
-    taxons["expanded_links"]["child_taxons"][1]["title"] = "allen"
+    taxons["links"]["child_taxons"][0]["title"] = "zaphod"
+    taxons["links"]["child_taxons"][1]["title"] = "allen"
 
     assert result(taxons).first.name == "allen"
     assert result(taxons).second.name == "zaphod"
   end
 
-  def expanded_root_taxon_hash(expanded_links = {})
+  def root_taxon_hash(links = {})
     @_root_taxon_hash ||= {
       'title' => 'root',
       'base_path' => '/root',
       'content_id' => 'root_id',
-      'expanded_links_hash' => expanded_links
-    }
+    }.merge(links)
   end
 
-  def result(expanded_links = {})
-    taxon_hash = expanded_root_taxon_hash(expanded_links)
+  def result(links = {})
+    taxon_hash = root_taxon_hash(links)
     Taxonomy::Tree.new(taxon_hash).root_taxon.children
   end
 

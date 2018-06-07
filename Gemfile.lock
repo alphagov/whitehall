@@ -67,6 +67,8 @@ GEM
     bootstrap-sass (3.3.5.1)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.3.0)
+    bourne (1.6.0)
+      mocha (~> 1.1)
     builder (3.2.3)
     byebug (10.0.1)
     capybara (2.18.0)
@@ -152,7 +154,7 @@ GEM
     fugit (1.1.1)
       et-orbi (~> 1.1, >= 1.1.1)
       raabro (~> 1.1)
-    gds-api-adapters (52.5.1)
+    gds-api-adapters (52.6.0)
       addressable
       link_header
       lrucache (~> 0.1.1)
@@ -364,7 +366,7 @@ GEM
     public_suffix (3.0.2)
     raabro (1.1.5)
     rack (2.0.5)
-    rack-cache (1.7.1)
+    rack-cache (1.7.2)
       rack (>= 0.4)
     rack-protection (2.0.1)
       rack
@@ -568,6 +570,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-kaminari-views (= 0.0.5)
+  bourne
   capybara
   carrierwave (~> 1.2.2)
   carrierwave-i18n

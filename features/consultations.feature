@@ -5,6 +5,12 @@ Scenario: Creating a new draft consultation
   When I draft a new consultation "Beard Length Review"
   Then I should see the consultation "Beard Length Review" in the list of draft documents
 
+Scenario: Creating a new consultation tagged to policy
+  Given I am a writer
+  When I draft a new consultation "Beard Length Review with Policies"
+  Then I tag it to the policy "Policy 1" and "Policy 2"
+  Then I can see the consultation "Beard Length Review with Policies" tagged to "Policy 1" and "Policy 2"
+
 Scenario: Submitting a draft consultation to a second pair of eyes
   Given I am a writer
   And a draft consultation "Beard Length Review" exists

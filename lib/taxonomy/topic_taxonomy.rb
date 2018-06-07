@@ -5,18 +5,8 @@ module Taxonomy
       @tree_builder_class = tree_builder_class
     end
 
-    def live
-      @_live ||= branches.select do |level_one_taxon|
-        level_one_taxon.phase == 'live' &&
-          level_one_taxon.visible_to_departmental_editors
-      end
-    end
-
-    def alpha_beta
-      @_alpha_beta ||= branches.select do |level_one_taxon|
-        level_one_taxon.phase != 'live' &&
-          level_one_taxon.visible_to_departmental_editors
-      end
+    def ordered_taxons
+      @_ordered_taxons ||= ordered_branches.select(&:visible_to_departmental_editors)
     end
 
     def all_taxons
@@ -33,6 +23,10 @@ module Taxonomy
       @_branches ||= @adapter.taxon_data.map do |taxon_hash|
         @tree_builder_class.new(taxon_hash).root_taxon
       end
+    end
+
+    def ordered_branches
+      @_ordered_branches ||= branches.sort_by(&:name)
     end
   end
 end

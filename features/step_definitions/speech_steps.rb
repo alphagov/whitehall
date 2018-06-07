@@ -7,7 +7,8 @@ Given(/^"([^"]*)" submitted a speech "([^"]*)" with body "([^"]*)"$/) do |author
   step %{I am a writer called "#{author}"}
   visit new_admin_speech_path
   begin_drafting_speech title: title, body: body
-  click_button 'Save'
+  click_button "Save and continue"
+  click_button "Save"
   click_button 'Submit'
 end
 
@@ -61,6 +62,7 @@ end
 
 When(/^I draft a new speech "([^"]*)" relating it to the policies "([^"]*)" and "([^"]*)"$/) do |title, first_policy, second_policy|
   begin_drafting_speech title: title
+  click_button "Save and continue"
   # @policies is populated by PolicyTaggingHelpers#stub_publishing_api_policies
   select first_policy, from: "Policies"
   select second_policy, from: "Policies"

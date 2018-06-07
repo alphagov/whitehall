@@ -128,10 +128,7 @@ module Admin::EditionsHelper
   def standard_edition_form(edition)
     initialise_script "GOVUK.adminEditionsForm", selector: '.js-edition-form', right_to_left_locales: Locale.right_to_left.collect(&:to_param)
 
-    form_classes = ["edition-form js-edition-form"]
-    form_classes << 'js-supports-non-english' if edition.locale_can_be_changed?
-
-    form_for form_url_for_edition(edition), as: :edition, html: { class: form_classes } do |form|
+    form_for form_url_for_edition(edition), as: :edition, html: { class: edition_form_classes(edition) } do |form|
       concat edition_information(@information) if @information
       concat form.errors
       concat render("standard_fields", form: form, edition: edition)
@@ -140,6 +137,12 @@ module Admin::EditionsHelper
       concat render("scheduled_publication_fields", form: form, edition: edition)
       concat standard_edition_publishing_controls(form, edition)
     end
+  end
+
+  def edition_form_classes(edition)
+    form_classes = ["edition-form js-edition-form"]
+    form_classes << 'js-supports-non-english' if edition.locale_can_be_changed?
+    form_classes
   end
 
   def form_url_for_edition(edition)
@@ -215,6 +218,7 @@ module Admin::EditionsHelper
         concat render(partial: "change_notes",
                       locals: { form: form, edition: edition })
       end
+
       concat form.save_or_continue_or_cancel
     end
   end
@@ -277,6 +281,18 @@ module Admin::EditionsHelper
 
   def specialist_sector_options_for_select
     @specialist_sector_options_for_select ||= LinkableTopics.new.topics
+  end
+
+  def specialist_sector_names(sector_content_ids)
+    raw_specialist_sectors.select { |pair| sector_content_ids.include? pair.last }.map(&:first)
+  end
+
+  def raw_specialist_sectors
+    @raw_specialist_sectors ||= LinkableTopics.new.raw_topics
+  end
+
+  def specialist_sector_name(sector_content_id)
+    raw_specialist_sectors.select { |pair| pair.last == sector_content_id }.first.try(:first)
   end
 
   def show_similar_slugs_warning?(edition)

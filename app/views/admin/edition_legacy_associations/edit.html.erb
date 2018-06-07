@@ -1,0 +1,46 @@
+<% page_title "Edit legacy associations: " + @edition.title %>
+<div class="row">
+  <h1><%= @edition.title %></h1>
+  <p>
+    Policies, policy areas and specialist sectors will continue to be supported until the topic taxonomy replaces them.
+  </p>
+</div>
+
+<% if flash[:legacy_associations_changed] %>
+  <div class="row">
+    <div class="alert alert-success" role="alert">
+      <p>
+        Some suggestions have been made based on the taxonomy topics you've selected.
+      </p>
+
+      <p>
+        You can edit these suggestions.
+      </p>
+    </div>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="col-md-12">
+    <% initialise_script "GOVUK.adminEditionsForm", selector: '.js-edition-form', right_to_left_locales: Locale.right_to_left.collect(&:to_param) %>
+    <%= form_for @edition, url: admin_edition_legacy_associations_path(@edition), as: :edition, method: :put,
+        html: { class: edition_form_classes(@edition) } do |form| %>
+      <fieldset>
+        <legend>Associations</legend>
+
+        <div class="important-associations">
+          <% if @edition.can_be_related_to_policies? %>
+            <%= render 'admin/shared/policy_fields', form: form %>
+          <% end %>
+          <% if @edition.can_be_associated_with_topics? %>
+            <%= render 'policy_area_fields', form: form, edition: @edition %>
+          <% end %>
+        </div>
+      </fieldset>
+      <%= render 'specialist_sector_fields', form: form, edition: @edition %>
+      <div class="publishing-controls well">
+        <%= form.form_actions(buttons: { save: 'Save' }, cancel: @path) %>
+      </div>
+    <% end %>
+  </div>
+</div>

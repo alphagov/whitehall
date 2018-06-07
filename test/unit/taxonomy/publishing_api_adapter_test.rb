@@ -16,7 +16,7 @@ class Taxonomy::PublishingApiAdapterTest < ActiveSupport::TestCase
     test "expanded links" do
       setup_taxons
       assert_equal %w[child1 child2],
-                   (subject.taxon_data.first.dig('expanded_links_hash', 'expanded_links', 'child_taxons').map { |t| t['title'] })
+                   (subject.taxon_data.first.dig('links', 'child_taxons').map { |t| t['title'] })
     end
   end
 
@@ -29,7 +29,7 @@ class Taxonomy::PublishingApiAdapterTest < ActiveSupport::TestCase
     test "#expanded links" do
       setup_world_taxons
       assert_equal %w(country-1 country-2),
-                   (subject.world_taxon_data.first.dig('expanded_links_hash', 'expanded_links', 'child_taxons').map { |t| t['title'] })
+                   (subject.world_taxon_data.first.dig('links', 'child_taxons').map { |t| t['title'] })
     end
   end
 

@@ -10,6 +10,26 @@ When(/^I draft a new detailed guide "([^"]*)"$/) do |title|
   click_button "Save"
 end
 
+When(/^I create a new detailed guide "([^"]*)" associated with "([^"]*)"$/) do |title, policy|
+  policies = publishing_api_has_policies([policy])
+  create(:government)
+
+  begin_drafting_document type: 'detailed_guide', title: title, previously_published: false
+  click_button "Save and continue"
+  select policy, from: "Policies"
+  click_button "Save"
+end
+
+Then(/^I should see the detailed guide "([^"]*)" associated with "([^"]*)"$/) do |title, policy|
+  assert has_css?(".flash.notice", text: "The associations have been saved")
+  assert has_css?(".page-header", text: title)
+
+  click_on 'Edit draft'
+  click_on "Save and continue"
+
+  assert has_css?(".policies option[selected]", text: policy)
+end
+
 Given(/^I start drafting a new detailed guide$/) do
   begin_drafting_document type: 'detailed_guide', title: "Detailed Guide", previously_published: false
 end
@@ -23,6 +43,7 @@ When(/^I publish a new edition of the detailed guide "([^"]*)" with a change not
   visit admin_edition_path(guide)
   click_button "Create new edition"
   fill_in "edition_change_note", with: change_note
+  click_button "Save and continue"
   click_button "Save"
   publish(force: true)
 end

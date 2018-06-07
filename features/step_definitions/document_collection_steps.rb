@@ -126,3 +126,10 @@ Then(/^I see that "(.*?)" is before "(.*?)" in the document collection$/) do |do
   assert page.has_content? doc_title_1
   assert page.body.index(doc_title_1) < page.body.index(doc_title_2), "Expected #{doc_title_1} to be before #{doc_title_2}"
 end
+
+And(/^I tag that document collection to the policy "(.*?)"$/) do |policy|
+  policies = publishing_api_has_policies([policy])
+  click_button "Save and continue"
+  select policy, from: "Policies"
+  click_button "Save"
+end

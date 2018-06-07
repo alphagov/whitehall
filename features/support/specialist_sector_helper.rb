@@ -54,6 +54,7 @@ module SpecialistSectorHelper
   def assert_specialist_sectors_were_saved
     assert has_css?('.flash.notice')
     click_on 'Edit draft'
+    click_on "Save and continue"
     assert_equal 'WELLS', find_field('Primary specialist sector').value
     assert_equal %w[OFFSHORE FIELDS DISTILL].to_set,
                  find_field('Additional specialist sectors').value.to_set

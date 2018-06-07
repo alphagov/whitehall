@@ -20,7 +20,7 @@ class EditionTaxonsFetcher
 private
 
   def taxons
-    @_taxons ||= taxon_links.map { |taxon_link| build_taxon(taxon_link) }
+    @_taxons ||= taxon_links.map { |taxon_link| Taxonomy::Taxon.from_taxon_hash(taxon_link) }
   end
 
   def visible?(taxon)
@@ -36,25 +36,6 @@ private
     content_id.in?(world_taxon_content_ids)
   end
 
-  def build_taxon(taxon_link)
-    taxon = Taxonomy::Taxon.new(
-      title: taxon_link['title'],
-      base_path: taxon_link['base_path'],
-      content_id: taxon_link['content_id'],
-      phase: taxon_link['phase'],
-      visible_to_departmental_editors: !!taxon_link.dig('details', 'visible_to_departmental_editors')
-    )
-
-    parent_taxons = taxon_link.dig("links", "parent_taxons")
-    if parent_taxons.present?
-      # There should not be more than one parent for a taxon. If there is,
-      # pick the first one.
-      taxon.parent_node = build_taxon(parent_taxons.first)
-    end
-
-    taxon
-  end
-
   def taxon_links
     response["expanded_links"].fetch("taxons", [])
   rescue GdsApi::HTTPNotFound
@@ -62,7 +43,7 @@ private
   end
 
   def response
-    Services.publishing_api.get_expanded_links(content_id)
+    Services.publishing_api.get_expanded_links(content_id, generate: true)
   end
 
   def all_world_taxons

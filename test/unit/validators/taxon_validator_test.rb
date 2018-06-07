@@ -7,7 +7,7 @@ class TaxonValidatorTest < ActiveSupport::TestCase
 
   test 'is invalid when edition has not been tagged to a taxon' do
     edition = create(:draft_edition)
-    edition.stubs(:must_be_tagged_to_taxonomy?).returns(true)
+    edition.stubs(:can_be_tagged_to_taxonomy?).returns(true)
 
     publishing_api_has_links(
       "content_id" => edition.content_id,
@@ -33,7 +33,7 @@ class TaxonValidatorTest < ActiveSupport::TestCase
 
   test 'is valid when edition has been tagged to a taxon' do
     edition = create(:draft_edition)
-    edition.stubs(:must_be_tagged_to_taxonomy?).returns(true)
+    edition.stubs(:can_be_tagged_to_taxonomy?).returns(true)
 
     publishing_api_has_links(
       "content_id" => edition.content_id,

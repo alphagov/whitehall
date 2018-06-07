@@ -435,8 +435,12 @@ class Edition < ApplicationRecord
     false
   end
 
-  def must_be_tagged_to_taxonomy?
+  def can_be_tagged_to_worldwide_taxonomy?
     false
+  end
+
+  def must_be_tagged_to_policy_area?
+    true
   end
 
   def has_been_tagged?
@@ -668,6 +672,18 @@ class Edition < ApplicationRecord
 
   def content_store_document_type
     PublishingApiPresenters.presenter_for(self).content.fetch(:document_type)
+  end
+
+  def has_legacy_tags?
+    has_policies? || has_policy_areas? || has_primary_sector? || has_secondary_sectors?
+  end
+
+  def has_policies?
+    false
+  end
+
+  def has_policy_areas?
+    false
   end
 
 private

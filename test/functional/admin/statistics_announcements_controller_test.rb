@@ -195,16 +195,17 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
 private
 
   def announcement_has_no_expanded_links(content_id)
-    publishing_api_has_expanded_links(
-      content_id:  content_id,
-      expanded_links:  {}
-    )
+    expanded_links = {
+      "content_id" =>  content_id,
+      "expanded_links" => {}
+    }
+    publishing_api_has_expanded_links(expanded_links, generate: true)
   end
 
   def announcement_has_expanded_links(content_id)
-    publishing_api_has_expanded_links(
-      content_id:  content_id,
-      expanded_links:  {
+    expanded_links = {
+      "content_id" =>  content_id,
+      "expanded_links" =>  {
         "taxons" => [
           {
             "title" => "Primary Education",
@@ -225,6 +226,7 @@ private
           }
         ]
       }
-    )
+    }
+    publishing_api_has_expanded_links(expanded_links, generate: true)
   end
 end

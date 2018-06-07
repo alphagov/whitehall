@@ -1,0 +1,52 @@
+<section>
+  <h2>Associations
+    <% if edition.pre_publication? %>
+      <%= link_to path_to_edit_associations, class: "btn btn-default pull-right" do %>
+        <% if edition.has_legacy_tags? %>
+          <span class="glyphicon glyphicon-edit"></span> Change Associations
+        <% else %>
+          <span class="glyphicon glyphicon-plus-sign"></span> Add Associations
+        <% end %>
+      <% end %>
+    <% end %>
+  </h2>
+  <% if edition.has_legacy_tags? %>
+    <div class="content content-bordered">
+      <% if edition.has_policies? %>
+        <h4>Policies</h4>
+        <ul class="policies">
+          <% tagged_policy_names(edition.policy_content_ids).each do |name| %>
+            <li><%= name %></li>
+          <% end %>
+        </ul>
+      <% end %>
+      <% if edition.has_policy_areas? %>
+        <h4>Policy Areas</h4>
+        <ul class="policy-areas">
+          <% edition.topics.each do |name| %>
+            <li><%= name %></li>
+          <% end %>
+        </ul>
+      <% end %>
+      <% if edition.has_primary_sector? %>
+        <h4>Primary Specialist Sector</h4>
+        <ul class="primary-specialist-sector">
+          <li><%= specialist_sector_name(edition.primary_specialist_sector_tag) %></li>
+        </ul>
+      <% end %>
+      <% if edition.has_secondary_sectors? %>
+        <h4>Secondary Specialist Sectors</h4>
+        <ul class="secondary-specialist-sectors">
+          <% specialist_sector_names(edition.secondary_specialist_sector_tags).each do |name| %>
+            <li><%= name %></li>
+          <% end %>
+        </ul>
+
+      <% end %>
+    </div>
+  <% else %>
+    <div class="no-content no-content-bordered">
+      <%= no_associations_message %>
+    </div>
+  <% end %>
+</section>

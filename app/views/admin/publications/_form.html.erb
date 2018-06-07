@@ -11,19 +11,13 @@
 
     <fieldset>
       <legend>Associations</legend>
-
-      <div class="important-associations">
-        <%= render 'admin/shared/policy_fields', form: form %>
-        <%= render 'topic_fields', form: form, edition: edition %>
-      </div>
-
+      <p>You'll be able to select policies, policy areas and specialist sectors later.</p>
       <%= render 'appointment_fields', form: form, edition: edition %>
       <%= render 'statistical_data_set_fields', form: form, edition: edition %>
       <%= render 'topical_event_fields', form: form, edition: edition %>
       <%= render 'world_location_fields', form: form, edition: edition %>
       <%= render 'organisation_fields', form: form, edition: edition %>
       <%= render 'nation_fields', form: form, edition: edition %>
-      <%= render 'specialist_sector_fields', form: form, edition: edition %>
     </fieldset>
   <% end %>
 <% end %>

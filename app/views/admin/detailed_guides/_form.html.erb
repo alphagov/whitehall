@@ -7,11 +7,7 @@
 
     <fieldset>
       <legend>Associations</legend>
-      <%= render 'admin/shared/policy_fields', form: form %>
-      <%= render partial: 'topic_fields', locals: { form: form, edition: edition } %>
-
-      <%= render partial: 'specialist_sector_fields', locals: { form: form, edition: edition } %>
-
+      <p>You'll be able to select policies, policy areas and specialist sectors later.</p>
       <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
 
       <% cache_if edition.related_detailed_guide_ids.empty?, taggable_detailed_guides_cache_digest do %>

@@ -1,5 +1,5 @@
-When(/^I create a fatality notice titled "([^"]*)" in the field "([^"]*)"$/) do |title, field|
-  draft_fatality_notice(title, field)
+When(/^I create a fatality notice titled "([^"]*)" in the field "([^"]*)" associated with "([^"]*)"$/) do |title, field, policy|
+  draft_fatality_notice(title, field, policy)
   publish(force: true)
 end
 
@@ -40,7 +40,7 @@ Then(/^I can see the roll call introduction of the fatality notice titled "([^"]
 end
 
 Then(/^I can create a fatality notice$/) do
-  draft_fatality_notice("Fatality Notice", "Iraq")
+  draft_fatality_notice("Fatality Notice", "Iraq", "Defence Policy")
 end
 
 When(/^I add a casualty to the fatality notice$/) do
