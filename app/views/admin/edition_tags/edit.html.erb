@@ -43,10 +43,12 @@
       <div class="content content-bordered hidden" data-module="breadcrumb-preview">
       </div>
 
-      <p class="warning">
-        Warning: topic changes to published content appear instantly on the live site.
-      </p>
 
+      <div class="info alert alert-info" role="alert">
+        <strong>Info:</strong> Topics are applied to all editions of a
+        document. This means changes will be reflected on the live
+        site if there's a published edition.
+      </div>
       <div class="publishing-controls well">
         <div class="form-actions" data-module="track-button-click" data-track-category="form-button" data-track-action="taxonomy-tag-form-button">
           <%= form.submit('Save topic changes', name: "save", class: "btn btn-lg btn-success") %>
