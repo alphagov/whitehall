@@ -5,5 +5,10 @@
                   { include_blank: true },
                   multiple: true,
                   class: 'chzn-select form-control',
-                  data: { placeholder: "Choose statistical data sets…"} %>
+                  data: {
+                      placeholder: "Choose statistical data sets…",
+                      module: 'track-select-click',
+                      track_category: 'statisticalDataSetSelection',
+                      track_label: request.path
+                  } %>
 <% end %>
