@@ -1468,7 +1468,13 @@ module AdminEditionControllerTestHelpers
         get :new
 
         assert_select "form#new_edition" do
-          assert_select "select[name*='edition[topical_event_ids]']"
+          assert_select "#edition_topical_event_ids" do |elements|
+            assert_equal 1, elements.length
+            assert_data_attributes_for_topical_events(
+              element: elements.first,
+              track_label: new_edition_path(edition_type)
+            )
+          end
         end
       end
 
@@ -1493,7 +1499,13 @@ module AdminEditionControllerTestHelpers
         get :edit, params: { id: edition }
 
         assert_select "form#edit_edition" do
-          assert_select "select[name*='edition[topical_event_ids]']"
+          assert_select "#edition_topical_event_ids" do |elements|
+            assert_equal 1, elements.length
+            assert_data_attributes_for_topical_events(
+              element: elements.first,
+              track_label: edit_edition_path(edition_type)
+            )
+          end
         end
       end
 
@@ -1565,6 +1577,13 @@ private
     assert_equal 'Choose ministers…', element['data-placeholder']
     assert_equal 'track-select-click', element['data-module']
     assert_equal 'ministerSelection', element['data-track-category']
+    assert_equal track_label, element['data-track-label']
+  end
+
+  def assert_data_attributes_for_topical_events(element:, track_label:)
+    assert_equal 'Choose topical events…', element['data-placeholder']
+    assert_equal 'track-select-click', element['data-module']
+    assert_equal 'topicalEventSelection', element['data-track-category']
     assert_equal track_label, element['data-track-label']
   end
 
