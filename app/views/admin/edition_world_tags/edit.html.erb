@@ -8,7 +8,11 @@
     <h2>Worldwide</h2>
     <hr>
 
-    <%= form_for @tag_form, url: admin_edition_world_tags_path(@edition), method: :put do |form| %>
+    <%= form_for(
+      @tag_form,
+      url: admin_edition_world_tags_path(@edition),
+      method: :put
+    ) do |form| %>
       <%= form.hidden_field :previous_version %>
 
       <div class="form-group"
@@ -17,7 +21,13 @@
         data-content-format="<%= @edition.content_store_document_type %>"
         data-content-public-path="<%= public_document_path(@edition) %>">
 
-        <%= render partial: "/admin/shared/tagging/taxonomy", locals: { selected_taxons: @tag_form.selected_taxons, level_one_taxons: @world_taxonomy.all_world_taxons } %>
+        <%= render(
+          partial: "/admin/shared/tagging/taxonomy",
+          locals: {
+            selected_taxons: @tag_form.selected_taxons,
+            level_one_taxons: @world_taxonomy.all_world_taxons
+          }
+        ) %>
       </div>
 
       <h2>Selected topics</h2>
@@ -29,7 +39,10 @@
       </p>
 
       <div class="publishing-controls well">
-        <%= form.form_actions(buttons: { save: 'Save topic changes' }, cancel: admin_edition_path(@edition)) %>
+        <%= form.form_actions(
+          buttons: { save: 'Save topic changes' },
+          cancel: admin_edition_path(@edition)
+        ) %>
       </div>
     <% end %>
   </div>
