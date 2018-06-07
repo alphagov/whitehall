@@ -22,17 +22,12 @@ class PublishingApi::RoleAppointmentPresenterTest < ActionView::TestCase
     )
 
     expected_hash = {
-      base_path: nil,
-      title: "",
-      description: nil,
+      title: "#{person.name} - #{role.name}",
       schema_name: 'role_appointment',
       document_type: 'role_appointment',
       locale: 'en',
       publishing_app: 'whitehall',
-      rendering_app: 'whitehall-frontend',
       public_updated_at: role.updated_at,
-      routes: [],
-      redirects: [],
       update_type: 'major',
       details: {}
     }
