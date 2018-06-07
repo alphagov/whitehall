@@ -20,7 +20,9 @@ module Taxonomy
     def expand_taxon_array(taxons)
       taxons.map do |taxon_hash|
         taxon_hash.tap do |hash|
-          hash['expanded_links_hash'] = expanded_links_hash(taxon_hash['content_id'])
+          hash['links'] = expanded_links_hash(
+            taxon_hash['content_id']
+          )['expanded_links']
         end
       end
     end
