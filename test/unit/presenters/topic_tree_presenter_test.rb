@@ -13,12 +13,12 @@ class TopicTreePresenterTest < ActiveSupport::TestCase
 
   test ".tree_classes when collapsed is false" do
     result = TopicTreePresenter.new(nil, collapsed: false).tree_classes
-    assert_equal "collapse in", result
+    assert_equal "collapse level-one-taxon in", result
   end
 
   test ".tree_classes when collapsed is true" do
     result = TopicTreePresenter.new(nil, collapsed: true).tree_classes
-    assert_equal "collapse", result
+    assert_equal "collapse level-one-taxon", result
   end
 
   test "other method calls are delegated to the taxon" do
