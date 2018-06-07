@@ -3,8 +3,6 @@ require 'whitehall/asset_manager_storage'
 
 class Whitehall::AssetManagerStorageTest < ActiveSupport::TestCase
   class AssetManagerUploader < CarrierWave::Uploader::Base
-    storage :asset_manager
-
     attr_writer :assets_protected
     def assets_protected?
       @assets_protected
