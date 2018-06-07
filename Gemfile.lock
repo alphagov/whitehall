@@ -154,7 +154,7 @@ GEM
     fugit (1.1.1)
       et-orbi (~> 1.1, >= 1.1.1)
       raabro (~> 1.1)
-    gds-api-adapters (52.5.1)
+    gds-api-adapters (52.6.0)
       addressable
       link_header
       lrucache (~> 0.1.1)
@@ -366,7 +366,7 @@ GEM
     public_suffix (3.0.2)
     raabro (1.1.5)
     rack (2.0.5)
-    rack-cache (1.7.1)
+    rack-cache (1.7.2)
       rack (>= 0.4)
     rack-protection (2.0.1)
       rack
