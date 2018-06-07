@@ -353,9 +353,9 @@ module AdminEditionControllerTestHelpers
 
       view_test "reports an error if the updater has an error on create" do
         draft_updater = stub("draft updater",
-                              can_perform?: false,
-                              perform!: false,
-                              failure_reason: "Unable to perform draft update")
+          can_perform?: false,
+          perform!: false,
+          failure_reason: "Unable to perform draft update")
 
         Whitehall.edition_services.stubs(:draft_updater).returns(draft_updater)
 
@@ -378,9 +378,9 @@ module AdminEditionControllerTestHelpers
         edition = create("draft_#{edition_type}", title: "Original title")
 
         draft_updater = stub("draft updater",
-                              can_perform?: false,
-                              perform!: false,
-                              failure_reason: "Unable to perform draft update")
+          can_perform?: false,
+          perform!: false,
+          failure_reason: "Unable to perform draft update")
 
         Whitehall.edition_services.stubs(:draft_updater).returns(draft_updater)
 
@@ -435,7 +435,7 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type)
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text", caption: "longer-caption-for-image",
-                  image_data_attributes: attributes_for(:image_data, file: image) }
+            image_data_attributes: attributes_for(:image_data, file: image) }
         }
 
         post :create, params: {
@@ -454,7 +454,7 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type)
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
-                  image_data_attributes: attributes_for(:image_data, file: image) }
+            image_data_attributes: attributes_for(:image_data, file: image) }
         }
 
         ImageData.any_instance.expects(:file=).once
@@ -481,7 +481,7 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type, title: "")
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
-                  image_data_attributes: attributes_for(:image_data, file: image) }
+            image_data_attributes: attributes_for(:image_data, file: image) }
         }
 
         post :create, params: {
@@ -498,7 +498,7 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type, title: "")
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
-                  image_data_attributes: attributes_for(:image_data, file: image) }
+            image_data_attributes: attributes_for(:image_data, file: image) }
         }
 
         post :create, params: {
@@ -517,7 +517,7 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type, title: "")
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
-                  image_data_attributes: attributes_for(:image_data, file: image) }
+            image_data_attributes: attributes_for(:image_data, file: image) }
         }
 
         post :create, params: {
@@ -532,9 +532,9 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type)
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
-                  image_data_attributes: attributes_for(:image_data, file: image) },
+            image_data_attributes: attributes_for(:image_data, file: image) },
           "1" => { alt_text: "more-alt-text",
-                  image_data_attributes: attributes_for(:image_data, file: image) }
+            image_data_attributes: attributes_for(:image_data, file: image) }
         }
 
         post :create, params: {
@@ -568,7 +568,7 @@ module AdminEditionControllerTestHelpers
         image = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
         edition = create(edition_type)
         create(:image, alt_text: "blah", edition: edition,
-               image_data_attributes: attributes_for(:image_data, file: image))
+          image_data_attributes: attributes_for(:image_data, file: image))
 
         get :edit, params: { id: edition }
 
@@ -627,7 +627,7 @@ module AdminEditionControllerTestHelpers
       test 'updating an edition with an existing image allows image attributes to be changed' do
         edition = create(edition_type)
         image = create(:image, edition: edition, alt_text: "old-alt-text", caption: 'old-caption',
-                       image_data_attributes: attributes_for(:image_data, file: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')))
+          image_data_attributes: attributes_for(:image_data, file: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')))
         VirusScanHelpers.simulate_virus_scan
 
         put :update, params: {
@@ -654,9 +654,9 @@ module AdminEditionControllerTestHelpers
         image = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
         attributes = { images_attributes: {
           "0" => { alt_text: "some-alt-text",
-                  image_data_attributes: attributes_for(:image_data, file: image) },
+            image_data_attributes: attributes_for(:image_data, file: image) },
           "1" => { alt_text: "more-alt-text",
-                  image_data_attributes: attributes_for(:image_data, file: image) }
+            image_data_attributes: attributes_for(:image_data, file: image) }
         } }
 
         put :update, params: { id: edition, edition: attributes }
@@ -1092,7 +1092,13 @@ module AdminEditionControllerTestHelpers
         get :new
 
         assert_select "form#new_edition" do
-          assert_select "select[name*='edition[role_appointment_ids]']"
+          assert_select "#edition_role_appointment_ids" do |elements|
+            assert_equal 1, elements.length
+            assert_data_attributes_for_ministers(
+              element: elements.first,
+              track_label: new_edition_path(edition_type)
+            )
+          end
         end
       end
 
@@ -1554,6 +1560,13 @@ module AdminEditionControllerTestHelpers
   end
 
 private
+
+  def assert_data_attributes_for_ministers(element:, track_label:)
+    assert_equal 'Choose ministers…', element['data-placeholder']
+    assert_equal 'track-select-click', element['data-module']
+    assert_equal 'ministerSelection', element['data-track-category']
+    assert_equal track_label, element['data-track-label']
+  end
 
   def assert_data_attributes_for_lead_org(element:, track_label:)
     assert_equal 'Choose a lead organisation which produced this document…', element['data-placeholder']

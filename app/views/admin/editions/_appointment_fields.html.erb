@@ -6,6 +6,11 @@
                     { include_blank: true },
                     multiple: true,
                     class: 'chzn-select form-control',
-                    data: { placeholder: "Choose ministers…"} %>
+                    data: {
+                        placeholder: "Choose ministers…",
+                        module: 'track-select-click',
+                        track_category: 'ministerSelection',
+                        track_label: request.path
+                    } %>
   </fieldset>
 <% end %>
