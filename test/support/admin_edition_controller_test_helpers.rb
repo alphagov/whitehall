@@ -353,9 +353,9 @@ module AdminEditionControllerTestHelpers
 
       view_test "reports an error if the updater has an error on create" do
         draft_updater = stub("draft updater",
-                              can_perform?: false,
-                              perform!: false,
-                              failure_reason: "Unable to perform draft update")
+          can_perform?: false,
+          perform!: false,
+          failure_reason: "Unable to perform draft update")
 
         Whitehall.edition_services.stubs(:draft_updater).returns(draft_updater)
 
@@ -378,9 +378,9 @@ module AdminEditionControllerTestHelpers
         edition = create("draft_#{edition_type}", title: "Original title")
 
         draft_updater = stub("draft updater",
-                              can_perform?: false,
-                              perform!: false,
-                              failure_reason: "Unable to perform draft update")
+          can_perform?: false,
+          perform!: false,
+          failure_reason: "Unable to perform draft update")
 
         Whitehall.edition_services.stubs(:draft_updater).returns(draft_updater)
 
@@ -435,7 +435,7 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type)
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text", caption: "longer-caption-for-image",
-                  image_data_attributes: attributes_for(:image_data, file: image) }
+            image_data_attributes: attributes_for(:image_data, file: image) }
         }
 
         post :create, params: {
@@ -454,7 +454,7 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type)
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
-                  image_data_attributes: attributes_for(:image_data, file: image) }
+            image_data_attributes: attributes_for(:image_data, file: image) }
         }
 
         ImageData.any_instance.expects(:file=).once
@@ -481,7 +481,7 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type, title: "")
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
-                  image_data_attributes: attributes_for(:image_data, file: image) }
+            image_data_attributes: attributes_for(:image_data, file: image) }
         }
 
         post :create, params: {
@@ -498,7 +498,7 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type, title: "")
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
-                  image_data_attributes: attributes_for(:image_data, file: image) }
+            image_data_attributes: attributes_for(:image_data, file: image) }
         }
 
         post :create, params: {
@@ -517,7 +517,7 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type, title: "")
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
-                  image_data_attributes: attributes_for(:image_data, file: image) }
+            image_data_attributes: attributes_for(:image_data, file: image) }
         }
 
         post :create, params: {
@@ -532,9 +532,9 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type)
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
-                  image_data_attributes: attributes_for(:image_data, file: image) },
+            image_data_attributes: attributes_for(:image_data, file: image) },
           "1" => { alt_text: "more-alt-text",
-                  image_data_attributes: attributes_for(:image_data, file: image) }
+            image_data_attributes: attributes_for(:image_data, file: image) }
         }
 
         post :create, params: {
@@ -568,7 +568,7 @@ module AdminEditionControllerTestHelpers
         image = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
         edition = create(edition_type)
         create(:image, alt_text: "blah", edition: edition,
-               image_data_attributes: attributes_for(:image_data, file: image))
+          image_data_attributes: attributes_for(:image_data, file: image))
 
         get :edit, params: { id: edition }
 
@@ -627,7 +627,7 @@ module AdminEditionControllerTestHelpers
       test 'updating an edition with an existing image allows image attributes to be changed' do
         edition = create(edition_type)
         image = create(:image, edition: edition, alt_text: "old-alt-text", caption: 'old-caption',
-                       image_data_attributes: attributes_for(:image_data, file: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')))
+          image_data_attributes: attributes_for(:image_data, file: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')))
         VirusScanHelpers.simulate_virus_scan
 
         put :update, params: {
@@ -654,9 +654,9 @@ module AdminEditionControllerTestHelpers
         image = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
         attributes = { images_attributes: {
           "0" => { alt_text: "some-alt-text",
-                  image_data_attributes: attributes_for(:image_data, file: image) },
+            image_data_attributes: attributes_for(:image_data, file: image) },
           "1" => { alt_text: "more-alt-text",
-                  image_data_attributes: attributes_for(:image_data, file: image) }
+            image_data_attributes: attributes_for(:image_data, file: image) }
         } }
 
         put :update, params: { id: edition, edition: attributes }
@@ -853,7 +853,13 @@ module AdminEditionControllerTestHelpers
         get :new
 
         assert_select "form#new_edition" do
-          assert_select "select[name*='edition[statistical_data_set_document_ids]']"
+          assert_select "#edition_statistical_data_set_document_ids" do |elements|
+            assert_equal 1, elements.length
+            assert_data_attributes_for_statistical_data_sets(
+              element: elements.first,
+              track_label: new_edition_path(edition_type)
+            )
+          end
         end
       end
 
@@ -878,7 +884,13 @@ module AdminEditionControllerTestHelpers
         get :edit, params: { id: edition }
 
         assert_select "form#edit_edition" do
-          assert_select "select[name*='edition[statistical_data_set_document_ids]']"
+          assert_select "#edition_statistical_data_set_document_ids" do |elements|
+            assert_equal 1, elements.length
+            assert_data_attributes_for_statistical_data_sets(
+              element: elements.first,
+              track_label: edit_edition_path(edition_type)
+            )
+          end
         end
       end
 
@@ -903,12 +915,24 @@ module AdminEditionControllerTestHelpers
     def should_allow_organisations_for(edition_type)
       edition_class = class_for(edition_type)
 
-      view_test "new should display edition organisations field" do
+      view_test "new should display edition organisations fields" do
         get :new
 
         assert_select "form#new_edition" do
-          assert_select "select[name*='edition[lead_organisation_ids][]']"
-          assert_select "select[name*='edition[supporting_organisation_ids][]']"
+          (1..4).each do |i|
+            assert_select("#edition_lead_organisation_ids_#{i}") do |elements|
+              assert_equal 1, elements.length
+              assert_data_attributes_for_lead_org(element: elements.first, track_label: new_edition_path(edition_type))
+            end
+          end
+          refute_select '#edition_lead_organisation_ids_5'
+          (1..6).each do |i|
+            assert_select("#edition_supporting_organisation_ids_#{i}") do |elements|
+              assert_equal 1, elements.length
+              assert_data_attributes_for_supporting_org(element: elements.first, track_label: new_edition_path(edition_type))
+            end
+          end
+          refute_select '#edition_supporting_organisation_ids_7'
         end
       end
 
@@ -944,8 +968,20 @@ module AdminEditionControllerTestHelpers
         get :edit, params: { id: edition }
 
         assert_select "form#edit_edition" do
-          assert_select "select[name*='edition[lead_organisation_ids][]']"
-          assert_select "select[name*='edition[supporting_organisation_ids][]']"
+          (1..4).each do |i|
+            assert_select("#edition_lead_organisation_ids_#{i}") do |elements|
+              assert_equal 1, elements.length
+              assert_data_attributes_for_lead_org(element: elements.first, track_label: edit_edition_path(edition_type))
+            end
+          end
+          refute_select '#edition_lead_organisation_ids_5'
+          (1..6).each do |i|
+            assert_select("#edition_supporting_organisation_ids_#{i}") do |elements|
+              assert_equal 1, elements.length
+              assert_data_attributes_for_supporting_org(element: elements.first, track_label: edit_edition_path(edition))
+            end
+          end
+          refute_select '#edition_supporting_organisation_ids_7'
         end
       end
 
@@ -1068,7 +1104,13 @@ module AdminEditionControllerTestHelpers
         get :new
 
         assert_select "form#new_edition" do
-          assert_select "select[name*='edition[role_appointment_ids]']"
+          assert_select "#edition_role_appointment_ids" do |elements|
+            assert_equal 1, elements.length
+            assert_data_attributes_for_ministers(
+              element: elements.first,
+              track_label: new_edition_path(edition_type)
+            )
+          end
         end
       end
 
@@ -1438,7 +1480,13 @@ module AdminEditionControllerTestHelpers
         get :new
 
         assert_select "form#new_edition" do
-          assert_select "select[name*='edition[topical_event_ids]']"
+          assert_select "#edition_topical_event_ids" do |elements|
+            assert_equal 1, elements.length
+            assert_data_attributes_for_topical_events(
+              element: elements.first,
+              track_label: new_edition_path(edition_type)
+            )
+          end
         end
       end
 
@@ -1463,7 +1511,13 @@ module AdminEditionControllerTestHelpers
         get :edit, params: { id: edition }
 
         assert_select "form#edit_edition" do
-          assert_select "select[name*='edition[topical_event_ids]']"
+          assert_select "#edition_topical_event_ids" do |elements|
+            assert_equal 1, elements.length
+            assert_data_attributes_for_topical_events(
+              element: elements.first,
+              track_label: edit_edition_path(edition_type)
+            )
+          end
         end
       end
 
@@ -1492,7 +1546,11 @@ module AdminEditionControllerTestHelpers
         get :new
 
         assert_select "form#new_edition" do
-          assert_select "select[name*='edition[worldwide_organisation_ids]']"
+          assert_select "#edition_worldwide_organisation_ids" do |elements|
+            assert_equal 1, elements.length
+            assert_data_attributes_for_worldwide_organisations(element: elements.first,
+              track_label: new_edition_path(edition_type))
+          end
         end
       end
 
@@ -1512,6 +1570,19 @@ module AdminEditionControllerTestHelpers
         assert_equal assigns(:edition).world_locations, [world_location]
       end
 
+      view_test "edit should display worldwide organisations field" do
+        edition = create(edition_type)
+        get :edit, params: { id: edition }
+
+        assert_select "form#edit_edition" do
+          assert_select "#edition_worldwide_organisation_ids" do |elements|
+            assert_equal 1, elements.length
+            assert_data_attributes_for_worldwide_organisations(element: elements.first,
+              track_label: edit_edition_path(edition_type))
+          end
+        end
+      end
+
       test "create should associate worldwide organisations with the edition" do
         first_world_organisation = create(:worldwide_organisation)
         second_world_organisation = create(:worldwide_organisation)
@@ -1527,5 +1598,58 @@ module AdminEditionControllerTestHelpers
         assert_equal [first_world_organisation, second_world_organisation], edition.worldwide_organisations
       end
     end
+  end
+
+private
+
+  def assert_data_attributes_for_ministers(element:, track_label:)
+    assert_equal 'Choose ministers…', element['data-placeholder']
+    assert_equal 'track-select-click', element['data-module']
+    assert_equal 'ministerSelection', element['data-track-category']
+    assert_equal track_label, element['data-track-label']
+  end
+
+  def assert_data_attributes_for_worldwide_organisations(element:, track_label:)
+    assert_equal 'Worldwide organisations…', element['data-placeholder']
+    assert_equal 'track-select-click', element['data-module']
+    assert_equal 'worldwideOrganisationSelection', element['data-track-category']
+    assert_equal track_label, element['data-track-label']
+  end
+
+  def assert_data_attributes_for_statistical_data_sets(element:, track_label:)
+    assert_equal 'Choose statistical data sets…', element['data-placeholder']
+    assert_equal 'track-select-click', element['data-module']
+    assert_equal 'statisticalDataSetSelection', element['data-track-category']
+    assert_equal track_label, element['data-track-label']
+  end
+
+  def assert_data_attributes_for_topical_events(element:, track_label:)
+    assert_equal 'Choose topical events…', element['data-placeholder']
+    assert_equal 'track-select-click', element['data-module']
+    assert_equal 'topicalEventSelection', element['data-track-category']
+    assert_equal track_label, element['data-track-label']
+  end
+
+  def assert_data_attributes_for_lead_org(element:, track_label:)
+    assert_equal 'Choose a lead organisation which produced this document…', element['data-placeholder']
+    assert_equal 'track-select-click', element['data-module']
+    assert_equal 'leadOrgSelection', element['data-track-category']
+    assert_equal track_label, element['data-track-label']
+  end
+
+  def assert_data_attributes_for_supporting_org(element:, track_label:)
+    assert_equal 'Choose a supporting organisation which produced this document…', element['data-placeholder']
+    assert_equal 'track-select-click', element['data-module']
+    assert_equal 'supportingOrgSelection', element['data-track-category']
+    assert_equal track_label, element['data-track-label']
+  end
+
+  def new_edition_path(edition_type)
+    edition = build(edition_type)
+    new_polymorphic_path([:admin, edition])
+  end
+
+  def edit_edition_path(edition)
+    edit_polymorphic_path([:admin, edition])
   end
 end

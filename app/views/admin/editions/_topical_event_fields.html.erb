@@ -5,5 +5,10 @@
                   {},
                   multiple: true,
                   class: 'chzn-select form-control',
-                  data: { placeholder: "Choose topical events…"} %>
+                  data: {
+                      placeholder: "Choose topical events…",
+                      module: 'track-select-click',
+                      track_category: 'topicalEventSelection',
+                      track_label: request.path
+                  } %>
 <% end %>

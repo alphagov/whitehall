@@ -8,6 +8,11 @@
                     { include_blank: true },
                     multiple: true,
                     class: 'chzn-select form-control',
-                    data: { placeholder: "Worldwide organisations…"} %>
+                    data: {
+                        placeholder: "Worldwide organisations…",
+                        module: 'track-select-click',
+                        track_category: 'worldwideOrganisationSelection',
+                        track_label: request.path
+                    } %>
   <% end %>
 </fieldset>
