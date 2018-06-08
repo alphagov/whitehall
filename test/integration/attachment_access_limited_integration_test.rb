@@ -23,7 +23,6 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
       publishing_api_has_linkables([], document_type: 'topic')
 
       add_file_attachment('logo.png', to: edition)
-      VirusScanHelpers.simulate_virus_scan(include_versions: true)
       edition.attachments[0].attachment_data.uploaded_to_asset_manager!
       edition.save!
 
@@ -156,7 +155,6 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
       publishing_api_has_linkables([], document_type: 'topic')
 
       add_file_attachment('logo.png', to: edition)
-      VirusScanHelpers.simulate_virus_scan(include_versions: true)
       edition.attachments[0].attachment_data.uploaded_to_asset_manager!
 
       stub_whitehall_asset('logo.png', id: 'asset-id', draft: true)

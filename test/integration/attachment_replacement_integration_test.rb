@@ -23,7 +23,6 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
     publishing_api_has_linkables([], document_type: 'topic')
     setup_publishing_api_for(edition)
     stub_whitehall_asset(filename, id: asset_id)
-    VirusScanHelpers.simulate_virus_scan
 
     asset_host = URI.parse(Plek.new.public_asset_host).host
     host! asset_host
@@ -45,7 +44,6 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
         click_button 'Save'
         assert_text "Attachment 'Attachment Title' updated"
 
-        VirusScanHelpers.simulate_virus_scan
         Attachment.last.attachment_data.uploaded_to_asset_manager!
         stub_whitehall_asset(replacement_filename, id: replacement_asset_id)
       end
@@ -77,7 +75,6 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
         attach_file 'Replace file', path_to_attachment(replacement_filename)
         click_button 'Save'
         assert_text "Attachment 'attachment-title' updated"
-        VirusScanHelpers.simulate_virus_scan
         Attachment.last.attachment_data.uploaded_to_asset_manager!
         stub_whitehall_asset(replacement_filename, id: replacement_asset_id)
       end

@@ -159,7 +159,6 @@ class AssetManagerIntegrationTest
         image: File.open(fixture_path.join(@filename))
       )
 
-      VirusScanHelpers.simulate_virus_scan(@person.image, include_versions: true)
       @person.reload
 
       @asset_id = 'asset-id'
@@ -187,7 +186,6 @@ class AssetManagerIntegrationTest
         image: File.open(fixture_path.join(@filename))
       )
 
-      VirusScanHelpers.simulate_virus_scan(@person.image, include_versions: true)
       @person.reload
     end
 

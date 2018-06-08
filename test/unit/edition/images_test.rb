@@ -50,7 +50,6 @@ class Edition::ImagesTest < ActiveSupport::TestCase
         images: [image]
       )
     )
-    VirusScanHelpers.simulate_virus_scan
 
     draft_edition = published_edition.create_draft(build(:user))
     draft_edition.change_note = 'change-note'
@@ -73,7 +72,6 @@ class Edition::ImagesTest < ActiveSupport::TestCase
         images: [image]
       )
     )
-    VirusScanHelpers.simulate_virus_scan
 
     draft_edition = published_edition.create_draft(build(:user))
     new_image = draft_edition.images.last
@@ -97,7 +95,6 @@ class Edition::ImagesTest < ActiveSupport::TestCase
       )
     )
     published_edition.save(validate: false)
-    VirusScanHelpers.simulate_virus_scan
 
     new_draft = published_edition.create_draft(build(:user))
     new_draft.reload
@@ -121,7 +118,6 @@ class Edition::ImagesTest < ActiveSupport::TestCase
                             }]
       )
     )
-    VirusScanHelpers.simulate_virus_scan
 
     draft_edition = published_edition.create_draft(build(:user))
     draft_edition.images.first.update_attributes(caption: "new-caption")

@@ -21,7 +21,6 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
     login_as create(:managing_editor)
     setup_publishing_api_for(edition)
     attachable.attachments << attachment
-    VirusScanHelpers.simulate_virus_scan
     stub_whitehall_asset(filename, id: asset_id)
     attachable.save!
 

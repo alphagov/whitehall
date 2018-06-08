@@ -24,7 +24,6 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
       setup_publishing_api_for(edition)
       stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
       stub_whitehall_asset(filename, id: asset_id)
-      VirusScanHelpers.simulate_virus_scan
       attachment.attachment_data.uploaded_to_asset_manager!
       edition.save!
     end
