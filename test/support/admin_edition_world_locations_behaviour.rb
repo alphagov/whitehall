@@ -9,7 +9,13 @@ module AdminEditionWorldLocationsBehaviour
         get :new
 
         assert_select "form#new_edition" do
-          assert_select "select[name*='edition[world_location_ids]']"
+          assert_select "#edition_world_location_ids" do |elements|
+            assert_equal 1, elements.length
+            assert_data_attributes_for_world_locations(
+              element: elements.first,
+              track_label: new_edition_path(document_type)
+            )
+          end
         end
       end
 
@@ -27,6 +33,22 @@ module AdminEditionWorldLocationsBehaviour
         assert document = edition_class.last
         assert_equal [world_location_1, world_location_2], document.world_locations
       end
+
+      view_test "edit displays document form with world locations field" do
+        edition = create(document_type)
+        get :edit, params: { id: edition }
+
+        assert_select "form#edit_edition" do
+          assert_select "#edition_world_location_ids" do |elements|
+            assert_equal 1, elements.length
+            assert_data_attributes_for_world_locations(
+              element: elements.first,
+              track_label: edit_edition_path(document_type)
+            )
+          end
+        end
+      end
+
 
       test "updating should save modified document attributes with world locations" do
         world_location_1 = create(:world_location)
@@ -53,5 +75,14 @@ module AdminEditionWorldLocationsBehaviour
         end
       end
     end
+  end
+
+private
+
+  def assert_data_attributes_for_world_locations(element:, track_label:)
+    assert_equal 'World locations…', element['data-placeholder']
+    assert_equal 'track-select-click', element['data-module']
+    assert_equal 'worldLocationSelection', element['data-track-category']
+    assert_equal track_label, element['data-track-label']
   end
 end

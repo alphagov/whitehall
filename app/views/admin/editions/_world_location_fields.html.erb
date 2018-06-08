@@ -8,5 +8,10 @@
                   { include_blank: true },
                   multiple: true,
                   class: 'chzn-select form-control',
-                  data: { placeholder: "World locations…"} %>
+                  data: {
+                      placeholder: "World locations…",
+                      module: 'track-select-click',
+                      track_category: 'worldLocationSelection',
+                      track_label: request.path
+                  } %>
 <% end %>
