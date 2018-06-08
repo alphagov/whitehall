@@ -13,20 +13,6 @@ namespace :asset_manager do
     MigrateAssetsToAssetManager.migrate_attachments(args[:batch_start].to_i, args[:batch_end].to_i)
   end
 
-  %i(remove_attachment_file
-     remove_consultation_response_form_file
-     remove_edition_organisation_image_data_file
-     remove_edition_world_location_image_data_file
-     remove_news_article_featuring_image
-     remove_news_article_image
-     remove_topical_event_logo).each do |method|
-    desc "Calls AssetRemover##{method}."
-    task method => :environment do
-      files = AssetRemover.new.send(method)
-      puts "#{files.size} files remaining"
-    end
-  end
-
   task generate_missing_thumbnails: :environment do
     [332963, 310979, 199066, 318696, 311266, 321710, 199068, 326576, 69897, 417180, 371318, 501885, 418558].each do |id|
       begin
