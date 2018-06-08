@@ -25,7 +25,7 @@ private
     elsif attachment_data.replaced?
       expires_headers
       redirect_to attachment_data.replaced_by.url, status: 301
-    elsif incoming_upload_exists? upload_path
+    elsif incoming_upload_exists?
       redirect_to_placeholder
     else
       render plain: "Not found", status: :not_found
@@ -40,7 +40,7 @@ private
     @visible_edition ||= attachment_data.visible_edition_for(current_user)
   end
 
-  def incoming_upload_exists?(*)
+  def incoming_upload_exists?
     (@csv_response.status == 302) && redirect_path_matches_placeholder_path
   end
 
