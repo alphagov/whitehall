@@ -1546,7 +1546,11 @@ module AdminEditionControllerTestHelpers
         get :new
 
         assert_select "form#new_edition" do
-          assert_select "select[name*='edition[worldwide_organisation_ids]']"
+          assert_select "#edition_worldwide_organisation_ids" do |elements|
+            assert_equal 1, elements.length
+            assert_data_attributes_for_worldwide_organisations(element: elements.first,
+              track_label: new_edition_path(edition_type))
+          end
         end
       end
 
@@ -1564,6 +1568,19 @@ module AdminEditionControllerTestHelpers
         get :new
 
         assert_equal assigns(:edition).world_locations, [world_location]
+      end
+
+      view_test "edit should display worldwide organisations field" do
+        edition = create(edition_type)
+        get :edit, params: { id: edition }
+
+        assert_select "form#edit_edition" do
+          assert_select "#edition_worldwide_organisation_ids" do |elements|
+            assert_equal 1, elements.length
+            assert_data_attributes_for_worldwide_organisations(element: elements.first,
+              track_label: edit_edition_path(edition_type))
+          end
+        end
       end
 
       test "create should associate worldwide organisations with the edition" do
@@ -1589,6 +1606,13 @@ private
     assert_equal 'Choose ministers…', element['data-placeholder']
     assert_equal 'track-select-click', element['data-module']
     assert_equal 'ministerSelection', element['data-track-category']
+    assert_equal track_label, element['data-track-label']
+  end
+
+  def assert_data_attributes_for_worldwide_organisations(element:, track_label:)
+    assert_equal 'Worldwide organisations…', element['data-placeholder']
+    assert_equal 'track-select-click', element['data-module']
+    assert_equal 'worldwideOrganisationSelection', element['data-track-category']
     assert_equal track_label, element['data-track-label']
   end
 
