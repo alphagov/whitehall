@@ -88,7 +88,7 @@ module Whitehall
     @secrets ||= load_secrets
   end
 
-  # The base folder where incoming-uploads and clean-uploads live.
+  # The base folder where uploads live.
   def self.uploads_root
     (Rails.env.test? ? uploads_root_for_test_env : Rails.root).to_s
   end
@@ -96,10 +96,6 @@ module Whitehall
   def self.uploads_root_for_test_env
     env_number = ENV['TEST_ENV_NUMBER'].blank? ? '1' : ENV['TEST_ENV_NUMBER']
     Rails.root.join("tmp/test/env_#{env_number}")
-  end
-
-  def self.incoming_uploads_root
-    File.join(uploads_root, 'incoming-uploads')
   end
 
   def self.clean_uploads_root

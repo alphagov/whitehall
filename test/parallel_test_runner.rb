@@ -9,8 +9,8 @@ class ParallelTestRunner < TestQueue::Runner::MiniTest
     # Allow the app to instrospect the current test environment number
     ENV['TEST_ENV_NUMBER'] = number.to_s
 
-    # Blow away the incoming/clean test uploads for this env to avoid clashes during test run
-    [(Whitehall.incoming_uploads_root + '/system'), (Whitehall.clean_uploads_root + '/system')].each do |folder|
+    # Blow away the clean test uploads for this env to avoid clashes during test run
+    [(Whitehall.clean_uploads_root + '/system')].each do |folder|
       FileUtils.rm_rf(folder) if Dir.exist?(folder)
     end
   end
