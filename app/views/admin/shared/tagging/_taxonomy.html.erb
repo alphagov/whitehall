@@ -1,3 +1,5 @@
+<p><a id="expand_all_id" href="#">expand all</a> | <a id="collapse_all_id" href="#">collapse all</a></p>
+
 <% level_one_taxons.each do |taxon| %>
   <% taxon = TopicTreePresenter.new(taxon, collapsed: level_one_taxons.size > 1) %>
 

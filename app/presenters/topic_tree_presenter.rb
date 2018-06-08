@@ -13,7 +13,7 @@ class TopicTreePresenter < SimpleDelegator
   end
 
   def tree_classes
-    tree_classes = ["collapse"]
+    tree_classes = ["collapse", "level-one-taxon"]
     tree_classes << "in" unless collapsed
     tree_classes.join(" ")
   end

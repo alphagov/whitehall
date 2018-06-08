@@ -2,7 +2,6 @@
   "use strict";
 
   Modules.TaxonomyTreeCheckboxes = function() {
-
     var ancestors = function(element) {
       var $parents = $(element).parents('.topics,.topic-tree');
       return $parents.prev('p').find('input[type="checkbox"]');
@@ -55,11 +54,24 @@
       });
     };
 
+    var bindExpandAndCollapseAll = function() {
+        $('#expand_all_id').click(function(event) {
+            $('.level-one-taxon').collapse('show');
+            event.preventDefault()
+        });
+        $('#collapse_all_id').click(function(event) {
+            $('.level-one-taxon').collapse('hide');
+            event.preventDefault()
+        });
+    };
+
     this.start = function(element) {
       var $element = $(element);
       var publicPath = $element.data("content-public-path");
       var contentFormat = $element.data("content-format");
       var contentId = $element.data("content-id");
+
+      bindExpandAndCollapseAll();
 
       $element.on('click', 'input:checkbox', function() {
         var $checkbox = $(this);
