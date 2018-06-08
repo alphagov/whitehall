@@ -33,7 +33,7 @@ private
   end
 
   def attachment_visible?
-    upload_exists?(upload_path) && attachment_data.visible_to?(current_user)
+    upload_exists? && attachment_data.visible_to?(current_user)
   end
 
   def visible_edition
@@ -48,7 +48,7 @@ private
     URI.parse(@csv_response.headers['Location']).path == placeholder_path
   end
 
-  def upload_exists?(*)
+  def upload_exists?
     @csv_response.status == 206
   end
 end
