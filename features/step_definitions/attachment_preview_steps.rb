@@ -7,7 +7,7 @@ Given(/^there is a publicly visible CSV attachment on the site$/) do
 end
 
 When(/^I preview the contents of the attachment$/) do
-  fn = File.join(Whitehall.clean_uploads_root, @attachment.file.store_path)
+  fn = Rails.root.join('test', 'fixtures', 'sample.csv')
 
   asset_host = URI.parse(Plek.new.public_asset_host).host
   stub_request(:get, "https://#{asset_host}/government/uploads/system/uploads/attachment_data/file/#{@attachment.attachment_data.id}/sample.csv")
