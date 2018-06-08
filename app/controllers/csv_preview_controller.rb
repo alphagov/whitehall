@@ -32,6 +32,10 @@ private
     end
   end
 
+  def attachment_visible?
+    upload_exists?(upload_path) && attachment_data.visible_to?(current_user)
+  end
+
   def visible_edition
     @visible_edition ||= attachment_data.visible_edition_for(current_user)
   end
