@@ -123,7 +123,9 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test ".scheduled_for_publication_as returns edition if edition is scheduled" do
-    edition = create(:scheduled_publication, scheduled_publication: 1.day.from_now)
+    edition = build(:scheduled_publication, scheduled_publication: 1.day.from_now)
+    edition.previously_published = false
+    edition.save!
     assert_equal edition, Publication.scheduled_for_publication_as(edition.document.to_param)
   end
 
@@ -756,11 +758,6 @@ class EditionTest < ActiveSupport::TestCase
 
   should_not_accept_footnotes_in :body
 
-  test 'previously_published returns nil for new edition' do
-    edition = build(:edition, previously_published: nil)
-    assert_nil edition.previously_published
-  end
-
   test 'previously_published returns true for edition with first_published_at timestamp' do
     edition = create(:edition)
     refute edition.previously_published
@@ -770,22 +767,12 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test 'previously_published always returns true for an imported edition' do
-    edition = create(:edition, state: :imported)
+    edition = create(:edition, state: :imported, first_published_at: 1.hour.ago)
     assert edition.previously_published
   end
 
-  test 'previously_published validation depends on trigger' do
-    edition = build(:edition, previously_published: nil)
-    assert edition.valid?
-
-    edition.trigger_previously_published_validations
-    refute edition.valid?
-    assert_equal "You must specify whether the document has been published before", edition.errors.full_messages.first
-  end
-
-  test 'first_published_at required when previously_published is true' do
-    edition = build(:edition, previously_published: 'true')
-    edition.trigger_previously_published_validations
+  test 'first_published_at required when previously_published' do
+    edition = build(:edition, previously_published: true)
     refute edition.valid?
     assert_equal "First published at can't be blank", edition.errors.full_messages.first
 
@@ -794,8 +781,7 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test 'first_published_at cannot be set to a future date when previously_published is true' do
-    edition = build(:edition, previously_published: 'true', first_published_at: 10.years.from_now)
-    edition.trigger_previously_published_validations
+    edition = build(:edition, previously_published: "true", first_published_at: 10.years.from_now)
 
     refute edition.valid?
     assert_equal "First published at can't be set to a future date", edition.errors.full_messages.first

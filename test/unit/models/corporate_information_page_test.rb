@@ -21,4 +21,8 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     Whitehall::PublishingApi.expects(:publish_async).with(test_object).once
     corporate_information_page.destroy
   end
+
+  test "corporate information pages cannot be previously published" do
+    refute build(:corporate_information_page).previously_published
+  end
 end

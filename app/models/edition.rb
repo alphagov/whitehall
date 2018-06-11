@@ -51,6 +51,7 @@ class Edition < ApplicationRecord
   validates :body, presence: true, if: :body_required?, length: { maximum: 16777215 }
   validates :summary, presence: true, if: :summary_required?, length: { maximum: 65535 }
   validates :first_published_at, recent_date: true, allow_blank: true
+  validates :first_published_at, previously_published: true
 
   UNMODIFIABLE_STATES = %w(scheduled published superseded deleted).freeze
   FROZEN_STATES = %w(superseded deleted).freeze
@@ -277,7 +278,6 @@ class Edition < ApplicationRecord
     public_timestamp: :public_timestamp,
     relevant_to_local_government: :relevant_to_local_government?,
     world_locations: nil,
-
     # DID YOU MEAN: Policy Area?
     # "Policy area" is the newer name for "topic"
     # (https://www.gov.uk/government/topics)
@@ -286,7 +286,6 @@ class Edition < ApplicationRecord
     # You can help improve this code by renaming all usages of this field to use
     # the new terminology.
     topics: nil,
-
     only: :search_only,
     index_after: [],
     unindex_after: [],
@@ -460,8 +459,12 @@ class Edition < ApplicationRecord
     unless published?
       raise "Cannot create new edition based on edition in the #{state} state"
     end
-    draft_attributes = attributes.except('id', 'type', 'state', 'created_at', 'updated_at', 'change_note', 'minor_change', 'force_published', 'scheduled_publication')
-    self.class.new(draft_attributes.merge('state' => 'draft', 'creator' => user)).tap do |draft|
+    ignorable_attribute_keys = %w(id type state created_at updated_at change_note
+                                  minor_change force_published scheduled_publication)
+    draft_attributes = attributes.except(*ignorable_attribute_keys)
+      .merge('state' => 'draft', 'creator' => user, 'previously_published' => previously_published)
+
+    self.class.new(draft_attributes).tap do |draft|
       traits.each { |t| t.process_associations_before_save(draft) }
       if draft.valid? || !draft.errors.keys.include?(:base)
         if draft.save(validate: false)
@@ -618,38 +621,21 @@ class Edition < ApplicationRecord
     true
   end
 
-  attr_accessor :has_first_published_error
+  attr_accessor :has_previously_published_error
 
-  attr_writer :previously_published
+  # 'previously_published' is a transient attribute populated
+  # by request parameters, and because it's not persisted it's
+  # not converted to a boolean, hence this manual attr writer method.
+  # NOTE: This method isn't called when the user fails to select an
+  # option for this field and so the value remains nil.
+  def previously_published=(value)
+    @previously_published = value.to_s == "true"
+  end
+
   def previously_published
-    if @previously_published.present?
-      @previously_published
-    elsif imported?
-      true
-    elsif !new_record?
-      first_published_at.present?
-    end
-  end
-
-  def trigger_previously_published_validations
-    @validate_previously_published = true
-  end
-
-  validate :previously_published_documents_have_date
-
-  def previously_published_documents_have_date
-    return unless @validate_previously_published
-    if @previously_published.nil?
-      errors[:base] << 'You must specify whether the document has been published before'
-      @has_first_published_error = true
-    elsif previously_published == 'true' # not a real field, so isn't converted to bool
-      if first_published_at.blank?
-        errors.add(:first_published_at, "can't be blank")
-      elsif first_published_at > Time.zone.now
-        errors.add(:first_published_at, "can't be set to a future date")
-      end
-      @has_first_published_error = true
-    end
+    return first_published_at.present? unless new_record?
+    return true if imported?
+    @previously_published
   end
 
   def government
