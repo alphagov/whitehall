@@ -3,6 +3,10 @@ require 'test_helper'
 class Edition::ImagesTest < ActiveSupport::TestCase
   class EditionWithImages < Edition
     include ::Edition::Images
+
+    def previously_published
+      false
+    end
   end
 
   include ActionDispatch::TestProcess

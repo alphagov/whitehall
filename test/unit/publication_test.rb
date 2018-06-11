@@ -9,7 +9,9 @@ class PublicationTest < ActiveSupport::TestCase
   should_allow_external_attachments
 
   test 'imported publications are valid when the publication_type is imported-awaiting-type' do
-    publication = build(:publication, state: 'imported', publication_type: PublicationType.find_by_slug('imported-awaiting-type'))
+    publication = build(:publication, state: 'imported',
+                        publication_type: PublicationType.find_by_slug('imported-awaiting-type'),
+                        first_published_at: 1.year.ago)
     assert publication.valid?
   end
 

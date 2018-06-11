@@ -13,7 +13,6 @@ class Admin::EditionsController < Admin::BaseController
   before_action :limit_edition_access!, only: %i[show edit update submit revise diff reject destroy]
   before_action :redirect_to_controller_for_type, only: [:show]
   before_action :deduplicate_specialist_sectors, only: %i[create update]
-  before_action :trigger_previously_published_validations, only: [:create], if: :document_can_be_previously_published
   before_action :forbid_editing_of_historic_content!, only: %i[create edit update submit destory revise]
 
   def forbid_editing_of_historic_content!
@@ -390,13 +389,5 @@ private
     if edition_params[:secondary_specialist_sector_tags] && edition_params[:primary_specialist_sector_tag]
       edition_params[:secondary_specialist_sector_tags] -= [edition_params[:primary_specialist_sector_tag]]
     end
-  end
-
-  def trigger_previously_published_validations
-    @edition.trigger_previously_published_validations
-  end
-
-  def document_can_be_previously_published
-    true
   end
 end

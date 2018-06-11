@@ -50,7 +50,8 @@ class SpeechTest < ActiveSupport::TestCase
   end
 
   test "does not require an organisation or role appointment when being imported" do
-    speech = build(:speech, role_appointment: nil, create_default_organisation: false, state: 'imported')
+    speech = build(:speech, role_appointment: nil, create_default_organisation: false,
+                   state: 'imported', first_published_at: 1.year.ago)
     assert speech.valid?
   end
 
