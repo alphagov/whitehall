@@ -246,7 +246,7 @@ class PublicationsControllerTest < ActionController::TestCase
       org_2 = create(:organisation, name: "other-org")
       publication = create(:published_publication, title: "publication-title",
                            organisations: [org_1, org_2],
-                           first_published_at: Date.parse("2012-03-14"),
+                           first_published_at: Date.parse("2011-03-14"),
                            publication_type: PublicationType::CorporateReport)
 
       get :index, format: :json
@@ -259,7 +259,7 @@ class PublicationsControllerTest < ActionController::TestCase
       assert_equal publication.id, json["id"]
       assert_equal publication_path(publication.document), json["url"]
       assert_equal "org-name and other-org", json["organisations"]
-      assert_equal %{<time class="public_timestamp" datetime="2012-03-14T00:00:00+00:00">14 March 2012</time>}, json["display_date_microformat"]
+      assert_equal %{<time class="public_timestamp" datetime="2011-03-14T00:00:00+00:00">14 March 2011</time>}, json["display_date_microformat"]
       assert_equal "Corporate report", json["display_type"]
     end
   end
@@ -272,7 +272,7 @@ class PublicationsControllerTest < ActionController::TestCase
                            organisations: [organisation_1, organisation_2],
                            opening_at: Time.zone.parse("2012-03-14"),
                            closing_at: Time.zone.parse("2012-03-15"),
-                           first_published_at: Time.zone.parse("2012-03-10"))
+                           first_published_at: Time.zone.parse("2011-03-10"))
 
       get :index, format: :json
 
@@ -284,7 +284,7 @@ class PublicationsControllerTest < ActionController::TestCase
       assert_equal consultation.id, json["id"]
       assert_equal consultation_path(consultation.document), json["url"]
       assert_equal "org-name and other-org", json["organisations"]
-      assert_equal %{<time class="public_timestamp" datetime="2012-03-10T00:00:00+00:00">10 March 2012</time>}, json["display_date_microformat"]
+      assert_equal %{<time class="public_timestamp" datetime="2011-03-10T00:00:00+00:00">10 March 2011</time>}, json["display_date_microformat"]
       assert_equal "Consultation", json["display_type"]
     end
   end

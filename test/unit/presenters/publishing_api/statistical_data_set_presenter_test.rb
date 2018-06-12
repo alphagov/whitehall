@@ -106,7 +106,7 @@ end
 
 class PublishingApi::PublishedStatisticalDataSetPresenterDetailsTest < ActiveSupport::TestCase
   setup do
-    @expected_first_published_at = Time.new(2015, 12, 25)
+    @expected_first_published_at = Time.new(2011, 2, 5)
     @statistical_data_set = create(
       :statistical_data_set,
       :published,

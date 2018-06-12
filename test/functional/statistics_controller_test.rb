@@ -138,7 +138,7 @@ class StatisticsControllerTest < ActionController::TestCase
       organisation_2 = create(:organisation, name: "other-org")
       statistics_publication = create(:published_statistics, title: "statistics-title",
                                                              organisations: [organisation_1, organisation_2],
-                                                             first_published_at: Date.parse("2012-03-14"))
+                                                             first_published_at: Date.parse("2011-03-14"))
 
       get :index, format: :json
 
@@ -149,7 +149,7 @@ class StatisticsControllerTest < ActionController::TestCase
       assert_equal statistics_publication.id, json["id"]
       assert_equal statistic_path(statistics_publication.document), json["url"]
       assert_equal "org-name and other-org", json["organisations"]
-      assert_equal %{<time class="public_timestamp" datetime="2012-03-14T00:00:00+00:00">14 March 2012</time>}, json["display_date_microformat"]
+      assert_equal %{<time class="public_timestamp" datetime="2011-03-14T00:00:00+00:00">14 March 2011</time>}, json["display_date_microformat"]
       assert_equal "Official Statistics", json["display_type"]
     end
   end
@@ -199,7 +199,7 @@ class StatisticsControllerTest < ActionController::TestCase
       organisation_2 = create(:organisation, name: "other-org")
       statistics_publication = create(:published_statistics, title: "statistics-title",
                                                              organisations: [organisation_1, organisation_2],
-                                                             first_published_at: Date.parse("2012-03-14"))
+                                                             first_published_at: Date.parse("2011-03-14"))
 
       get :index, params: { departments: [organisation_1.to_param] }, format: :atom
 
