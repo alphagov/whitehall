@@ -5,7 +5,7 @@
 // that you get from static when deployed, then make sure to add it in here.
 //
 //= require govuk-admin-template
-//= require jquery.ui.all
+//= require jquery-ui/all
 //= require vendor/jquery/jquery.player.min
 //= require vendor/google-diff-match-patch.js
 //
