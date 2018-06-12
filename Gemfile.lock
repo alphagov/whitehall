@@ -500,7 +500,7 @@ GEM
     simplecov-html (0.10.2)
     simplecov-rcov (0.2.3)
       simplecov (>= 0.4.1)
-    slimmer (12.1.0)
+    slimmer (13.0.0)
       activesupport
       json
       nokogiri (~> 1.7)
@@ -648,7 +648,7 @@ DEPENDENCIES
   sidekiq-scheduler (~> 3.0)
   simplecov
   simplecov-rcov
-  slimmer (~> 12.1)
+  slimmer (~> 13.0)
   sprockets (~> 3.7)
   sprockets-rails
   stackprof
