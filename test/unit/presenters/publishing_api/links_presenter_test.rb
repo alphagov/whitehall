@@ -26,7 +26,8 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
         topics: %w(content_id_1),
         parent: [],
         organisations: [],
-        primary_publishing_organisation: []
+        primary_publishing_organisation: [],
+        original_primary_publishing_organisation: [],
       },
       links
     )
@@ -45,6 +46,7 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
         parent: %w(content_id_1),
         organisations: [],
         primary_publishing_organisation: [],
+        original_primary_publishing_organisation: [],
       },
       links
     )
@@ -60,6 +62,7 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
         parent: [],
         organisations: [],
         primary_publishing_organisation: [],
+        original_primary_publishing_organisation: [],
       },
       links
     )
@@ -75,6 +78,26 @@ class PublishingApi::LinksPresenterTest < ActionView::TestCase
       {
         organisations: [organisation.content_id],
         primary_publishing_organisation: [organisation.content_id],
+        original_primary_publishing_organisation: [organisation.content_id],
+      },
+      links
+    )
+  end
+
+  test "adds original publishing organisation with the first lead organisation assigned to the first edition" do
+    organisation = create(:organisation)
+    edition = create(:published_publication, lead_organisations: [organisation])
+
+    new_organisation = create(:organisation)
+    new_edition = create(:published_publication, document: edition.document, lead_organisations: [new_organisation])
+
+    links = links_for(new_edition, [:organisations])
+
+    assert_equal(
+      {
+        organisations: [new_organisation.content_id],
+        primary_publishing_organisation: [new_organisation.content_id],
+        original_primary_publishing_organisation: [organisation.content_id],
       },
       links
     )
