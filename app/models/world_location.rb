@@ -68,7 +68,7 @@ class WorldLocation < ApplicationRecord
     remove_from_search_index if self.active_changed? && !self.active
   end
 
-  scope :ordered_by_name, ->() { with_translations(I18n.default_locale).order('world_location_translations.name') }
+  scope :ordered_by_name, -> { with_translations(I18n.default_locale).order('world_location_translations.name') }
 
   def self.active
     where(active: true)

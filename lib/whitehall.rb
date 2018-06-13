@@ -60,7 +60,7 @@ module Whitehall
   end
 
   def self.admin_host
-    @admin_host ||=  URI(admin_root).host
+    @admin_host ||= URI(admin_root).host
   end
 
   def self.internal_admin_host
