@@ -73,6 +73,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
 
   view_test "GET :show renders the details of the announcement" do
     announcement = create(:statistics_announcement)
+    stub_publishing_api_expanded_links_with_taxons(announcement.content_id, [])
     get :show, params: { id: announcement }
 
     assert_response :success
@@ -131,16 +132,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     assert_redirected_to [:admin, announcement]
   end
 
-  view_test "when announcement is not from an organisation with tagging enabled, don't show a button to tag to the new taxonomy" do
-    draft_announcement = create(:statistics_announcement)
-
-    announcement_has_no_expanded_links(draft_announcement.content_id)
-    get :show, params: { id: draft_announcement }
-
-    refute_select '.taxonomy-topics'
-  end
-
-  view_test "when announcement is from an organisation with tagging enabled, show a button to tag to the new taxonomy" do
+  view_test "show a button to tag to the new taxonomy" do
     dfe_organisation = create(:organisation, content_id: "ebd15ade-73b2-4eaf-b1c3-43034a42eb37")
 
     announcement = create(

@@ -25,10 +25,6 @@ class Admin::StatisticsAnnouncementTagsController < Admin::BaseController
 private
 
   def enforce_permissions!
-    unless @statistics_announcement.can_be_tagged_to_taxonomy?
-      raise Whitehall::Authority::Errors::PermissionDenied.new(:update, @statistics_announcement)
-    end
-
     enforce_permission!(:update, @statistics_announcement)
   end
 
