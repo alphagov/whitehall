@@ -11,6 +11,10 @@ Metrics/BlockLength:
 Layout/EmptyLinesAroundArguments:
   Enabled: false
 
+Style/EvalWithLocation:
+  Exclude:
+    - 'app/helpers/admin/edition_routes_helper.rb'
+
 Naming/VariableNumber:
   EnforcedStyle: snake_case
 
