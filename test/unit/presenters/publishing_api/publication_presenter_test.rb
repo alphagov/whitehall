@@ -63,6 +63,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
       topics: [],
       parent: [],
       primary_publishing_organisation: publication.lead_organisations.map(&:content_id),
+      original_primary_publishing_organisation: publication.lead_organisations.map(&:content_id),
       organisations: publication.lead_organisations.map(&:content_id),
       ministers: [minister.person.content_id],
       related_statistical_data_sets: [statistical_data_set.content_id],
