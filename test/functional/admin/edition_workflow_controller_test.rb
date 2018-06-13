@@ -48,6 +48,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'GET #confirm_force_publish renders force publishing form'do
+    stub_publishing_api_links_with_taxons(draft_edition.content_id, ["a-taxon-content-id"])
     get :confirm_force_publish, params: { id: draft_edition, lock_version: draft_edition.lock_version }
 
     assert_response :success
@@ -55,15 +56,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'GET #confirm_force_publish redirects when edition must tagged be taxons but is not' do
-    publishing_api_has_links(
-      "content_id" => draft_edition.content_id,
-      "links" => {
-        "taxons" => [],
-      },
-      "version" => 1
-    )
-
-    Publication.any_instance.stubs(:can_be_tagged_to_taxonomy?).returns(true)
+    stub_publishing_api_links_with_taxons(draft_edition.content_id, [])
 
     get :confirm_force_publish, params: { id: draft_edition, lock_version: draft_edition.lock_version }
 
@@ -71,6 +64,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'POST #force_publish force publishes the edition' do
+    stub_publishing_api_links_with_taxons(draft_edition.content_id, ["a-taxon-content-id"])
     stub_publishing_api_registration_for(draft_edition)
     post :force_publish, params: { id: draft_edition, lock_version: draft_edition.lock_version, reason: 'Urgent change' }
 
