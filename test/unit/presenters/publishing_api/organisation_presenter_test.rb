@@ -13,7 +13,13 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
   end
 
   test 'presents an Organisation ready for adding to the publishing API' do
-    organisation = create(:organisation, name: 'Organisation of Things', analytics_identifier: 'O123')
+    parent_organisation = create(:organisation, name: 'Department for Stuff')
+    organisation = create(
+      :organisation,
+      name: 'Organisation of Things',
+      analytics_identifier: 'O123',
+      parent_organisations: [parent_organisation]
+    )
     role = create(:role, organisations: [organisation])
     public_path = Whitehall.url_maker.organisation_path(organisation)
 
@@ -27,7 +33,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
         ordered_contacts: [],
         ordered_foi_contacts: [],
         ordered_featured_policies: [],
-        ordered_parent_organisations: [],
+        ordered_parent_organisations: [parent_organisation.content_id],
         ordered_child_organisations: [],
         ordered_successor_organisations: [],
         ordered_high_profile_groups: [],
@@ -41,7 +47,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       update_type: "major",
       details: {
         acronym: nil,
-        body: "",
+        body: "Organisation of Things works with the <a href=\"/government/organisations/department-for-stuff\">Department for Stuff</a>.",
         brand: nil,
         logo: {
           formatted_title: "Organisation<br/>of<br/>Things",

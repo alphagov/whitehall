@@ -3,6 +3,10 @@ module PublishingApi
     include Rails.application.routes.url_helpers
     include ApplicationHelper
     include FilterRoutesHelper
+    # This is so we can get the extra text for the summary field
+    include OrganisationHelper
+    # This is a hack to get the OrganisationHelper to work in this context
+    include ActionView::Helpers::UrlHelper
 
     attr_accessor :item
     attr_accessor :update_type
@@ -88,7 +92,7 @@ module PublishingApi
     end
 
     def summary
-      item.summary || ""
+      "#{item.summary}#{organisation_display_name_including_parental_and_child_relationships(item)}"
     end
 
     def brand
