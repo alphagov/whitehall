@@ -33,7 +33,7 @@ class MinisterialRoleResluggerTest < ActiveSupport::TestCase
     content[:routes][0][:path] = new_base_path
     content_item.stubs(content: content)
 
-    organisation_content_item = PublishingApiPresenters.presenter_for(@organisation)
+    #organisation_content_item = PublishingApiPresenters.presenter_for(@organisation)
 
     expected_publish_requests = [
       stub_publishing_api_put_content(content_item.content_id, content_item.content),
