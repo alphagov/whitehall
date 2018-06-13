@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class Admin::GenericEditionsController::AuditTrailTest < ActionController::TestCase
+  include TaxonomyHelper
   tests Admin::GenericEditionsController
 
   %i[show edit].each do |action|
@@ -8,6 +9,7 @@ class Admin::GenericEditionsController::AuditTrailTest < ActionController::TestC
       login_as(create(:gds_editor, name: "Tom", email: "tom@example.com"))
 
       draft_edition = create(:draft_edition)
+      stub_publishing_api_expanded_links_with_taxons(draft_edition.content_id, [])
 
       request.env['HTTPS'] = 'on'
       get action, params: { id: draft_edition }
