@@ -8,10 +8,6 @@ module Edition::TaggableOrganisations
     PublicationType::Form,
   ].freeze
 
-  def can_be_tagged_to_taxonomy?
-    topic_taxonomy_taggable?
-  end
-
   def can_be_tagged_to_worldwide_taxonomy?
     world_taggable?
   end
