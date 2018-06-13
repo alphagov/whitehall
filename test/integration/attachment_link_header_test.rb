@@ -6,6 +6,7 @@ class AttachmentLinkHeaderIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   include Rails.application.routes.url_helpers
   include PublicDocumentRoutesHelper
+  include TaxonomyHelper
 
   let(:filename) { 'sample.docx' }
   let(:asset_id) { 'asset-id' }
@@ -20,6 +21,7 @@ class AttachmentLinkHeaderIntegrationTest < ActionDispatch::IntegrationTest
     let(:file) { File.open(path_to_attachment(filename)) }
     let(:attachment) { build(:file_attachment, attachable: attachable, file: file) }
     let(:attachable) { edition }
+    let(:topic_taxon) { build(:taxon_hash) }
 
     before do
       setup_publishing_api_for(edition)
@@ -54,10 +56,8 @@ private
   end
 
   def setup_publishing_api_for(edition)
-    publishing_api_has_links(
-      content_id: edition.document.content_id,
-      links: {}
-    )
+    stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
+    stub_publishing_api_links_with_taxons(edition.content_id, [topic_taxon["content_id"]])
   end
 
   def path_to_attachment(filename)

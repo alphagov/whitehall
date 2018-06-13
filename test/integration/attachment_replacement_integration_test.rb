@@ -5,6 +5,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
   extend Minitest::Spec::DSL
   include Capybara::DSL
   include Rails.application.routes.url_helpers
+  include TaxonomyHelper
 
   let(:managing_editor) { create(:managing_editor) }
   let(:filename) { 'sample.docx' }
@@ -33,6 +34,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
 
     context 'when attachment is replaced' do
       before do
+        stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
         visit admin_news_article_path(edition)
         click_link 'Modify attachments'
         @attachment_url = find('.existing-attachments a', text: filename)[:href]
@@ -76,6 +78,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
 
     context 'when new draft is created and attachment is replaced' do
       before do
+        stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
         publishing_api_has_linkables([], document_type: 'topic')
         visit admin_news_article_path(edition)
         click_button 'Create new edition to edit'
@@ -110,8 +113,11 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
       end
 
       context 'and draft edition is published' do
+        let(:topic_taxon) { build(:taxon_hash) }
+
         before do
-          AssetManagerAttachmentDataWorker.drain
+          stub_publishing_api_links_with_taxons(edition.content_id, [topic_taxon["content_id"]])
+          AssetManagerAttachmentReplacementIdUpdateWorker.drain
 
           click_link 'Document'
           fill_in 'Public change note', with: 'attachment replaced'

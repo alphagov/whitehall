@@ -5,6 +5,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
   extend Minitest::Spec::DSL
   include Capybara::DSL
   include Rails.application.routes.url_helpers
+  include TaxonomyHelper
 
   context 'given a draft document with a file attachment' do
     let(:managing_editor) { create(:managing_editor) }
@@ -21,6 +22,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
       publishing_api_has_linkables([], document_type: 'topic')
       edition.attachments << attachment
       setup_publishing_api_for(edition)
+      stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
       stub_whitehall_asset(filename, id: asset_id)
       VirusScanHelpers.simulate_virus_scan
       attachment.attachment_data.uploaded_to_asset_manager!
