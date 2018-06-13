@@ -73,9 +73,6 @@ module AdminEditionControllerTestHelpers
 
       test "create should take the writer to the topic tagging page" do
         organisation = create(:organisation)
-        taggable_org = [organisation.content_id]
-
-        Whitehall.stubs(:organisations_in_tagging_beta).returns(taggable_org)
 
         attributes = controller_attributes_for(edition_type).merge(
           publication_type_id: PublicationType::Guidance.id,
@@ -198,9 +195,6 @@ module AdminEditionControllerTestHelpers
         edition = create(edition_type)
 
         organisation = create(:organisation)
-        taggable_org = [organisation.content_id]
-
-        Whitehall.stubs(:organisations_in_tagging_beta).returns(taggable_org)
 
         put :update, params: {
           id: edition,
