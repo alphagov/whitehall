@@ -36,6 +36,9 @@
           'admin/shared/tagging/_breadcrumb_list',
           { breadcrumbs: breadcrumbsToDisplay }
         );
+        $('.deselect-taxon-button').each(function(idx, element){
+            (new GOVUKAdmin.Modules.DeselectTaxonClick).start($(element));
+        });
       }
     };
 
