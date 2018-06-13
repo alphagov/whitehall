@@ -43,6 +43,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
     publishing_api_has_expanded_links(
       content_id: detailed_guide.document.content_id,
       expanded_links: {
+        taxons: [],
         meets_user_needs: [
           {
             content_id: content_id_a,
@@ -61,7 +62,8 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
             }
           }
         ]
-      }
+      },
+      version: 1
     )
 
     get :show, params: { id: detailed_guide.id }

@@ -1,6 +1,9 @@
+require_relative 'taxonomy_helper'
+
 module AdminEditionControllerTestHelpers
   extend ActiveSupport::Concern
   include ActionMailer::TestHelper
+  include TaxonomyHelper
 
   module ClassMethods
     def should_have_summary(edition_type)
@@ -1205,6 +1208,7 @@ module AdminEditionControllerTestHelpers
     def should_allow_setting_first_published_at_during_speed_tagging(edition_type)
       view_test "show should display first_published_at fields when speed tagging" do
         edition = create("imported_#{edition_type}")
+        stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
 
         get :show, params: { id: edition }
 

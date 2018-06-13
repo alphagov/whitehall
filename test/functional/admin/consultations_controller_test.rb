@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class Admin::ConsultationsControllerTest < ActionController::TestCase
+  include TaxonomyHelper
+
   setup do
     login_as :writer
   end
@@ -109,6 +111,8 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
   view_test "show renders the summary" do
     draft_consultation = create(:draft_consultation, summary: "a-simple-summary")
+    stub_publishing_api_expanded_links_with_taxons(draft_consultation.content_id, [])
+
     get :show, params: { id: draft_consultation }
     assert_select ".page-header .lead", text: "a-simple-summary"
   end
