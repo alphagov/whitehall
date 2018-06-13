@@ -71,7 +71,7 @@ module AdminEditionControllerTestHelpers
         assert_equal attributes[:body], edition.body
       end
 
-      test "create should take the writer to the topic tagging page if edition is eligible" do
+      test "create should take the writer to the topic tagging page" do
         organisation = create(:organisation)
         taggable_org = [organisation.content_id]
 
@@ -89,17 +89,6 @@ module AdminEditionControllerTestHelpers
         edition = edition_class.last
 
         assert_redirected_to edit_admin_edition_tags_path(edition.id)
-        assert_equal 'The document has been saved', flash[:notice]
-      end
-
-      test "create should take the writer to the legacy tagging page if it doesn't support the taxonomy" do
-        post :create, params: {
-          edition: controller_attributes_for(edition_type)
-        }
-
-        edition = edition_class.last
-
-        assert_redirected_to edit_admin_edition_legacy_associations_path(edition.id, return: 'edit')
         assert_equal 'The document has been saved', flash[:notice]
       end
 
@@ -205,22 +194,7 @@ module AdminEditionControllerTestHelpers
         assert_equal "new-body", edition.body
       end
 
-      test "update should take the writer to the legacy tagging page after updating" do
-        edition = create(edition_type)
-
-        put :update, params: {
-          id: edition,
-          edition: {
-            title: 'new-title',
-            body: 'new-body'
-          }
-        }
-
-        assert_redirected_to edit_admin_edition_legacy_associations_path(edition.id, return: :edit)
-        assert_equal 'The document has been saved', flash[:notice]
-      end
-
-      test "update should take the writer to the topic tagging page after updating to a taggable organisation" do
+      test "update should take the writer to the topic tagging page after updating" do
         edition = create(edition_type)
 
         organisation = create(:organisation)
@@ -414,7 +388,7 @@ module AdminEditionControllerTestHelpers
 
         edition.reload
         assert_equal "draft", edition.state
-        assert_redirected_to edit_admin_edition_legacy_associations_path(edition.id, return: :edit)
+        assert_redirected_to edit_admin_edition_tags_path(edition.id)
       end
     end
 
