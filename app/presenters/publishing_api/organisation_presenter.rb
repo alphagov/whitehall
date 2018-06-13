@@ -58,6 +58,7 @@ module PublishingApi
 
     def details
       {
+        acronym: acronym,
         body: summary,
         brand: brand,
         logo: {
@@ -80,6 +81,10 @@ module PublishingApi
         organisation_type: organisation_type,
         social_media_links: social_media_links,
       }
+    end
+
+    def acronym
+      item.acronym
     end
 
     def summary

@@ -40,6 +40,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       redirects: [],
       update_type: "major",
       details: {
+        acronym: nil,
         body: "",
         brand: nil,
         logo: {
