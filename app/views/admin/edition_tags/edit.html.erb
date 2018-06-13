@@ -51,8 +51,18 @@
       </div>
       <div class="publishing-controls well">
         <div class="form-actions" data-module="track-button-click" data-track-category="form-button" data-track-action="taxonomy-tag-form-button">
-          <%= form.submit('Save topic changes', name: "save", class: "btn btn-lg btn-success") %>
-          <%= form.submit('Save and review legacy tagging', name: "legacy_tags", class: "btn btn-lg btn-primary") %>
+          <%= form.submit('Save topic changes', name: "save", class: "btn btn-lg btn-success",
+              data: {
+                  module: 'track-selected-taxons',
+                  track_category: 'taxonSelection',
+                  track_label: request.path
+              }) %>
+          <%= form.submit('Save and review legacy tagging', name: "legacy_tags", class: "btn btn-lg btn-primary",
+              data: {
+                  module: 'track-selected-taxons',
+                  track_category: 'taxonSelection',
+                  track_label: request.path
+              }) %>
           <span class="or_cancel">
             or
             <%= link_to('cancel', admin_edition_path(@edition)) %>
