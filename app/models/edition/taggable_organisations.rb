@@ -12,10 +12,6 @@ module Edition::TaggableOrganisations
     world_taggable?
   end
 
-  def must_be_tagged_to_policy_area?
-    !topic_taxonomy_taggable?
-  end
-
 private
 
   def topic_taxonomy_taggable?
