@@ -1,4 +1,4 @@
-module OrganisationHelper
+module OrganisationTestHelper
   def find_or_create_organisation(name)
     Organisation.find_by(name: name) || create(:organisation, name: name)
   end
@@ -61,4 +61,4 @@ module OrganisationHelper
   end
 end
 
-World(OrganisationHelper)
+World(OrganisationTestHelper)
