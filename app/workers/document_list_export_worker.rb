@@ -1,4 +1,6 @@
 class DocumentListExportWorker < WorkerBase
+  sidekiq_options queue: 'export_documents_list'
+
   def perform(filter_options, user_id)
     user = User.find(user_id)
     filter = create_filter(filter_options, user)
