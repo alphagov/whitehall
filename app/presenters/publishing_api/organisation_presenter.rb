@@ -31,15 +31,6 @@ module PublishingApi
         description: nil,
         details: details,
         document_type: item.class.name.underscore,
-        links: {
-          ordered_contacts: contacts_links,
-          ordered_foi_contacts: foi_contacts_links,
-          ordered_featured_policies: featured_policies_links,
-          ordered_parent_organisations: parent_organisation_links,
-          ordered_child_organisations: child_organisation_links,
-          ordered_successor_organisations: successor_organisation_links,
-          ordered_high_profile_groups: high_profile_groups_links,
-        },
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
         schema_name: schema_name,
@@ -50,7 +41,14 @@ module PublishingApi
 
     def links
       {
-        ordered_roles: item.roles.pluck(:content_id),
+        ordered_contacts: contacts_links,
+        ordered_foi_contacts: foi_contacts_links,
+        ordered_featured_policies: featured_policies_links,
+        ordered_parent_organisations: parent_organisation_links,
+        ordered_child_organisations: child_organisation_links,
+        ordered_successor_organisations: successor_organisation_links,
+        ordered_high_profile_groups: high_profile_groups_links,
+        ordered_roles: roles_links,
       }
     end
 
@@ -358,6 +356,10 @@ module PublishingApi
 
     def featured_policies_links
       item.featured_policies.order(:ordering).distinct.pluck(:policy_content_id)
+    end
+
+    def roles_links
+      item.roles.distinct.pluck(:content_id)
     end
   end
 end
