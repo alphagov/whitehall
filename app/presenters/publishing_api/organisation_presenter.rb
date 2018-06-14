@@ -234,7 +234,7 @@ module PublishingApi
           alt_text: feature.alt_text
         },
         summary: offsite_link.summary,
-        public_updated_at: nil, # We don't want a date for offsite links
+        public_updated_at: offsite_link.date,
         document_type: offsite_link.humanized_link_type
       }
     end
