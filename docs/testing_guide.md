@@ -41,7 +41,7 @@ To run individual tests or when debugging:
 
     ./script/javascript-test-server
 
-And go to http://localhost:3100/test/qunit in the browser
+And go to http://localhost:3100/teaspoon/default in the browser
 
 ### Shared mustache templates
 
