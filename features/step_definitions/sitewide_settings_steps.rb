@@ -31,3 +31,9 @@ Then(/^I should (not )?see a reshuffle warning message$/) do |negate|
     assert page.has_content?("Test minister reshuffle message")
   end
 end
+
+Then(/^I should not see the ministers and cabinet$/) do
+  refute page.has_css?("h2", text: "Cabinet ministers")
+  refute page.has_css?("h2", text: "Also attends Cabinet")
+  refute page.has_css?("h2", text: "Ministers by department")
+end
