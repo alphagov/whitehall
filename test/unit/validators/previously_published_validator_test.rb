@@ -25,13 +25,6 @@ class PreviouslyPublishedValidatorTest < ActiveSupport::TestCase
       invalid_edition.errors[:first_published_at].first
   end
 
-  test "invalid if first_published_at is in the future" do
-    invalid_edition = build(:edition, previously_published: true, first_published_at: 1.hour.since)
-    @validator.validate(invalid_edition)
-    assert_equal "can't be set to a future date",
-      invalid_edition.errors[:first_published_at].first
-  end
-
   test "valid if first_published_at is in the past" do
     valid_edition = build(:edition, previously_published: true, first_published_at: 1.hour.ago)
     @validator.validate(valid_edition)

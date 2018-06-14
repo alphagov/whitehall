@@ -780,8 +780,8 @@ class EditionTest < ActiveSupport::TestCase
     assert edition.valid?
   end
 
-  test 'first_published_at cannot be set to a future date when previously_published is true' do
-    edition = build(:edition, previously_published: "true", first_published_at: 10.years.from_now)
+  test 'first_published_at cannot be set to a future date' do
+    edition = build(:edition, first_published_at: 10.years.from_now)
 
     refute edition.valid?
     assert_equal "First published at can't be set to a future date", edition.errors.full_messages.first

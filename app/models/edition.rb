@@ -52,6 +52,9 @@ class Edition < ApplicationRecord
   validates :summary, presence: true, if: :summary_required?, length: { maximum: 65535 }
   validates :first_published_at, recent_date: true, allow_blank: true
   validates :first_published_at, previously_published: true
+  validates_each :first_published_at do |record, attr, value|
+    record.errors.add(attr, "can't be set to a future date") if value && Time.zone.now < value
+  end
 
   UNMODIFIABLE_STATES = %w(scheduled published superseded deleted).freeze
   FROZEN_STATES = %w(superseded deleted).freeze
