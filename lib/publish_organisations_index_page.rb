@@ -22,7 +22,7 @@ private
         locale: "en",
         base_path: BASE_PATH,
         publishing_app: "whitehall",
-        rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
+        rendering_app: Whitehall::RenderingApp::COLLECTIONS_FRONTEND,
         routes: [
           {
             path: BASE_PATH,
