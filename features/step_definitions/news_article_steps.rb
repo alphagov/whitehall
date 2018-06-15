@@ -157,6 +157,7 @@ When(/^I tag the article to a policy "([^"]*)"$/) do |policy|
   policies = publishing_api_has_policies([policy])
 
   click_button "Save and continue"
+  click_button "Save and review legacy tagging"
 
   select policy, from: "Policies"
   click_button "Save"
@@ -171,5 +172,6 @@ And(/^the news article is tagged to policy "([^"]*)"$/) do |policy|
 
   click_on 'Edit draft'
   click_on "Save and continue"
+  click_on "Save and review legacy tagging"
   assert has_css?(".policies option[selected]", text: policy)
 end

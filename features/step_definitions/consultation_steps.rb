@@ -27,6 +27,7 @@ Then(/^I tag it to the policy "([^"]*)" and "([^"]*)"$/) do |policy_1, policy_2|
   policies = publishing_api_has_policies([policy_1, policy_2])
 
   click_button "Save and continue"
+  click_button "Save and review legacy tagging"
   select policy_1, from: "Policies"
   select policy_2, from: "Policies"
   click_button "Save"
@@ -37,6 +38,7 @@ Then(/^I can see the consultation "([^"]*)" tagged to "([^"]*)" and "([^"]*)"$/)
 
   click_on 'Edit draft'
   click_on "Save and continue"
+  click_on "Save and review legacy tagging"
 
   assert has_css?(".policies option[selected]", text: policy_1)
   assert has_css?(".policies option[selected]", text: policy_2)

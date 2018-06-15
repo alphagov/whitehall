@@ -63,6 +63,7 @@ end
 When(/^I draft a new speech "([^"]*)" relating it to the policies "([^"]*)" and "([^"]*)"$/) do |title, first_policy, second_policy|
   begin_drafting_speech title: title
   click_button "Save and continue"
+  click_button "Save and review legacy tagging"
   # @policies is populated by PolicyTaggingHelpers#stub_publishing_api_policies
   select first_policy, from: "Policies"
   select second_policy, from: "Policies"

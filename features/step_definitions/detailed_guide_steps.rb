@@ -16,6 +16,7 @@ When(/^I create a new detailed guide "([^"]*)" associated with "([^"]*)"$/) do |
 
   begin_drafting_document type: 'detailed_guide', title: title, previously_published: false
   click_button "Save and continue"
+  click_button "Save and review legacy tagging"
   select policy, from: "Policies"
   click_button "Save"
 end
@@ -26,6 +27,7 @@ Then(/^I should see the detailed guide "([^"]*)" associated with "([^"]*)"$/) do
 
   click_on 'Edit draft'
   click_on "Save and continue"
+  click_on "Save and review legacy tagging"
 
   assert has_css?(".policies option[selected]", text: policy)
 end

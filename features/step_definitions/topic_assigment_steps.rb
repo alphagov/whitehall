@@ -6,6 +6,7 @@ end
 When(/^I assign the publicationesque to a topic$/) do
   visit edit_admin_publication_path(@edition)
   click_button "Save and continue"
+  click_button "Save and review legacy tagging"
   select @topic.name, from: 'edition_topic_ids'
   click_button "Save"
 end
