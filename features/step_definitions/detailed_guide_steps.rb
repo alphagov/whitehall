@@ -44,7 +44,7 @@ When(/^I publish a new edition of the detailed guide "([^"]*)" with a change not
   click_button "Create new edition"
   fill_in "edition_change_note", with: change_note
   click_button "Save and continue"
-  click_button "Save"
+  click_button "Save topic changes"
   publish(force: true)
 end
 

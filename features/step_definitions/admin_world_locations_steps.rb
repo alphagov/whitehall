@@ -2,7 +2,7 @@ When(/^I draft a new publication "([^"]*)" about the world location "([^"]*)"$/)
   begin_drafting_publication(title)
   select location_name, from: "Select the world locations this publication is about"
   click_button "Save and continue"
-  click_button "Save"
+  click_button "Save topic changes"
   add_external_attachment
 end
 

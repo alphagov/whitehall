@@ -73,7 +73,7 @@ When(/^I save and publish the amended consultation$/) do
   ensure_path edit_admin_consultation_path(Consultation.last)
   fill_in_change_note_if_required
   click_button "Save and continue"
-  click_button "Save"
+  click_button "Save topic changes"
   publish force: true
 end
 
