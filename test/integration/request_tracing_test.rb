@@ -1,6 +1,8 @@
 require "test_helper"
 
 class RequestTracingTest < ActionDispatch::IntegrationTest
+  include TaxonomyHelper
+
   setup do
     @sidekiq_test_mode = Sidekiq::Testing.__test_mode
     Sidekiq::Testing.inline!
@@ -27,6 +29,7 @@ class RequestTracingTest < ActionDispatch::IntegrationTest
     inbound_headers = {
       "HTTP_GOVUK_REQUEST_ID" => @govuk_request_id,
     }
+    stub_publishing_api_links_with_taxons(@draft_edition.content_id, ["a-taxon-content-id"])
 
     Sidekiq::Testing.fake! do
       force_publish(@draft_edition, inbound_headers)
