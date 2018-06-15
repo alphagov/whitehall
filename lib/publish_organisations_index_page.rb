@@ -55,6 +55,19 @@ private
         brand: organisation.organisation_brand,
         logo: organisation_logo(organisation),
         separate_website: organisation.exempt?,
+        format: organisation.type.name,
+        updated_at: organisation.updated_at,
+        slug: organisation.slug,
+        acronym: organisation.acronym,
+        closed_at: organisation.closed_at,
+        govuk_status: organisation.govuk_status,
+        govuk_closed_status: organisation.govuk_closed_status,
+        content_id: organisation.content_id,
+        analytics_identifier: organisation.analytics_identifier,
+        parent_organisations: parent_organisations(organisation),
+        child_organisations: child_organisations(organisation),
+        superseded_organisations: superseded_organisations(organisation),
+        superseding_organisations: superseding_organisations(organisation),
         works_with: organisation_works_with(organisation),
       }
     end
@@ -81,17 +94,34 @@ private
     end
   end
 
+  def parent_organisations(organisation)
+    organisation.parent_organisations.map { |o| summary_organisation(o) }
+  end
+
+  def child_organisations(organisation)
+    organisation.child_organisations.map { |o| summary_organisation(o) }
+  end
+
+  def superseded_organisations(organisation)
+    organisation.superseded_organisations.map { |o| summary_organisation(o) }
+  end
+
+  def superseding_organisations(organisation)
+    organisation.superseding_organisations.map { |o| summary_organisation(o) }
+  end
+
   def organisation_works_with(organisation)
     organisation.supporting_bodies_grouped_by_type.inject({}) do |groups, group|
-      groups[group[0].key] = group[1].map do |o|
-        {
-          title: o.name,
-          href: Whitehall.url_maker.polymorphic_path(o)
-        }
-      end
-
+      groups[group[0].key] = group[1].map { |o| summary_organisation(o) }
       groups
     end
+  end
+
+  def summary_organisation(organisation)
+    {
+      title: organisation.name,
+      href: Whitehall.url_maker.polymorphic_path(organisation)
+    }
   end
 
   def presented_organisations
