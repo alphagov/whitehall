@@ -46,7 +46,7 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
 
   test 'other edition states cannot be unpublished' do
     (Edition.available_states - %i[published draft]).each do |state|
-      edition = create(:edition, state: state)
+      edition = create(:edition, state: state, first_published_at: 1.hour.ago)
       unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
 
       refute unpublisher.perform!

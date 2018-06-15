@@ -136,6 +136,10 @@ class CorporateInformationPage < Edition
     end
   end
 
+  def previously_published
+    false
+  end
+
 private
 
   def string_for_slug

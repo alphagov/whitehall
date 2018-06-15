@@ -177,7 +177,7 @@ end
 
 class PublishingApi::PublishedDocumentCollectionPresenterDetailsTest < ActiveSupport::TestCase
   setup do
-    @expected_first_published_at = Time.new(2015, 12, 25)
+    @expected_first_published_at = Time.new(2011, 2, 5)
     @document_collection = create(
       :document_collection,
       :published,

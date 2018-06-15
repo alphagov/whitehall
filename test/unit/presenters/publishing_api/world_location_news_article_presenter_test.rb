@@ -105,7 +105,7 @@ end
 
 class PublishingApi::WorldLocationNewsArticlePresenterDetailsTest < ActiveSupport::TestCase
   setup do
-    @expected_first_published_at = Time.new(2015, 12, 25)
+    @expected_first_published_at = Time.new(2011, 2, 5)
     @world_location_news_article = create(
       :world_location_news_article,
       :published,

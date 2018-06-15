@@ -293,7 +293,8 @@ module AdminEditionControllerTestHelpers
         put :update, params: {
           id: edition,
           edition: {
-            title: '   my title    '
+            title: '   my title    ',
+            previously_published: false,
           }
         }
 

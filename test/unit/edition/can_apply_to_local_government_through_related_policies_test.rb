@@ -13,7 +13,8 @@ class Edition::CanApplyToLocalGovernmentThroughRelatedPoliciesTest < ActiveSuppo
       title:   'edition-title',
       body:    'edition-body',
       summary: 'edition-summary',
-      creator: build(:user)
+      creator: build(:user),
+      previously_published: false,
     }
   end
 

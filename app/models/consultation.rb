@@ -166,6 +166,10 @@ class Consultation < Publicationesque
     true
   end
 
+  def previously_published
+    false
+  end
+
 private
 
   def validate_closes_after_opens

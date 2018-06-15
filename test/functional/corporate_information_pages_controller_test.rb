@@ -62,9 +62,9 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
   end
 
   test "should display published corporate publications on about-us page in order published" do
-    old_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse('2012-01-01'))
-    new_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse('2012-01-03'))
-    middle_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse('2012-01-02'))
+    old_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse('2011-01-01'))
+    new_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse('2011-01-03'))
+    middle_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse('2011-01-02'))
 
     organisation = create(:organisation, editions: [
       old_published_corporate_publication,

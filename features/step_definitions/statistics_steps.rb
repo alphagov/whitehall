@@ -2,17 +2,17 @@ Given(/^there are some statistics$/) do
   # 3 Custom ones are most recent, followed by the extras - largest number most recent
 
   create :published_statistics, title: "Womble to Wombat population ratios",
-                                first_published_at: Time.zone.parse("2055-02-15 12:45:00")
+                                first_published_at: Time.zone.parse("2011-02-15 12:45:00")
 
   create :published_national_statistics, title: "2055 beard lengths",
-                                         first_published_at: Time.zone.parse("2050-05-01 12:00:00")
+                                         first_published_at: Time.zone.parse("2010-05-01 12:00:00")
 
   create :published_statistics, title: "Wombat population in Wimbledon Common 2063",
-                                first_published_at: Time.zone.parse("2045-02-15 12:45:00")
+                                first_published_at: Time.zone.parse("2005-02-15 12:45:00")
 
   (1..40).each do |n|
     create :published_statistics, title: "No. #{n} - More stats",
-                                  first_published_at: Time.zone.parse("2040-01-01") + n.days
+                                  first_published_at: Time.zone.parse("2000-01-01") + n.days
   end
 end
 
@@ -51,8 +51,8 @@ end
 When(/^I filter the statistics by keyword, from date and to date$/) do
   within '.filter-form' do
     fill_in "Contains", with: "Wombat"
-    fill_in "Published after", with: "2048-01-01"
-    fill_in "Published before", with: "2060-01-01"
+    fill_in "Published after", with: "2008-01-01"
+    fill_in "Published before", with: "2016-01-01"
     click_on "Refresh results"
   end
 end

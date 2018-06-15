@@ -460,4 +460,8 @@ class ConsultationTest < ActiveSupport::TestCase
     consultation = build(:consultation, outcome: outcome, public_feedback: public_feedback)
     assert_equal [consultation, outcome, public_feedback], consultation.attachables
   end
+
+  test "consultations cannot be previously published" do
+    refute build(:consultation).previously_published
+  end
 end

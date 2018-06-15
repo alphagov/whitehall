@@ -148,7 +148,7 @@ end
 
 class PublishingApi::PublishedFatalityNoticePresenterDetailsTest < ActiveSupport::TestCase
   setup do
-    @expected_time = Time.new(2015, 12, 25)
+    @expected_time = Time.new(2011, 2, 5)
     @fatality_notice = create(
       :fatality_notice,
       :published,

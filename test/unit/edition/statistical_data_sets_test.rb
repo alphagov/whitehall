@@ -12,7 +12,8 @@ class Edition::StatisticalDataSetsTest < ActiveSupport::TestCase
       title:   'edition-title',
       body:    'edition-body',
       summary: 'edition-summary',
-      creator: create(:user)
+      creator: create(:user),
+      previously_published: false,
     }
   end
 

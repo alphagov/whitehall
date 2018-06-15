@@ -1,5 +1,5 @@
 <% if edition.published_major_version.nil? %>
-  <fieldset class="first-published-date well <% if edition.has_first_published_error %>alert-danger form-errors field_with_errors<% end %>">
+  <fieldset class="first-published-date well <% if edition.has_previously_published_error %>alert-danger form-errors field_with_errors<% end %>">
   <p class="required">This document <span>*</span></p>
   <div class="radio">
     <%= form.label :previously_published_false, class: 'radio' do %>
