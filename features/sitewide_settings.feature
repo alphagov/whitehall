@@ -9,6 +9,7 @@ Feature: Sitewide settings
     Given we are during a reshuffle
     When I visit the ministers page
     Then I should see a reshuffle warning message
+    And I should not see the ministers and cabinet
 
   Scenario: Minister counts should be visible outside of a minister reshuffle
     Given we are not during a reshuffle
