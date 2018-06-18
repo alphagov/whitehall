@@ -76,7 +76,6 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     test "DELETE :destroy handles file attachments for #{type} as attachable" do
       attachable = create(type)
       attachment = create(:file_attachment, attachable: attachable)
-      attachment_data = attachment.attachment_data
 
       delete :destroy, params: { param_name => attachable.id, id: attachment.id }
 
@@ -394,7 +393,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   test "PUT :update_many changes attributes of multiple attachments" do
     files = Dir.glob(Rails.root.join('test', 'fixtures', '*.csv')).take(4)
     files.each_with_index do |f, i|
-      create(:file_attachment, title: "attachment_%s" % i, attachable: @edition, file: File.open(f))
+      create(:file_attachment, title: "attachment_#{i}", attachable: @edition, file: File.open(f))
     end
     attachments = @edition.reload.attachments
 

@@ -264,8 +264,7 @@ module SyncChecker
           response_code: 200,
           body: {
             links: {
-              topics: [
-              ]
+              topics: []
             }
           }.to_json
         )

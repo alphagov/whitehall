@@ -21,7 +21,7 @@ class WorldwideOrganisation < ApplicationRecord
 
   accepts_nested_attributes_for :default_news_image, reject_if: :all_blank
 
-  scope :ordered_by_name, ->() { with_translations(I18n.default_locale).order(translation_class.arel_table[:name]) }
+  scope :ordered_by_name, -> { with_translations(I18n.default_locale).order(translation_class.arel_table[:name]) }
 
   include AnalyticsIdentifierPopulator
   self.analytics_prefix = 'WO'

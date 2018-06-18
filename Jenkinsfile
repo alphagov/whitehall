@@ -9,6 +9,7 @@ node {
   govuk.setEnvar("PUBLISHING_E2E_TESTS_COMMAND", "test-whitehall")
   govuk.buildProject(
     sassLint: false,
+    rubyLintDiff: false,
     publishingE2ETests: true,
     beforeTest: {
       stage("Generate directories for upload tests") {

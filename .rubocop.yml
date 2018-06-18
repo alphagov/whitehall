@@ -6,12 +6,24 @@ AllCops:
 Metrics/BlockLength:
   Enabled: false
 
+# This doesn't pass at the moment, as there are some empty lines
+# around comments
+Layout/EmptyLinesAroundArguments:
+  Enabled: false
+
+Style/EvalWithLocation:
+  Exclude:
+    - 'app/helpers/admin/edition_routes_helper.rb'
+
 Naming/VariableNumber:
   EnforcedStyle: snake_case
 
 Style/FormatStringToken:
   Exclude:
     - 'config/routes.rb'
+    # Hopefully this file can be removed soon...
+    - 'lib/migrate_assets_to_asset_manager.rb'
+    - 'lib/tasks/scheduled_publishing.rake'
 
 Style/MethodMissing:
   Exclude:

@@ -46,10 +46,7 @@ class TaxonomyTagFormTest < ActiveSupport::TestCase
     publishing_api_has_links(
       "content_id" => content_id,
       "links" => {
-        "taxons" => [
-          "visible_id",
-          "invisible_id"
-        ]
+        "taxons" => %w[visible_id invisible_id]
       },
       "version" => 1
     )
