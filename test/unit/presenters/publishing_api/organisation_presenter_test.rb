@@ -151,4 +151,39 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
 
     assert_equal("", presented_item.content[:details][:body])
   end
+
+  test 'presents an organisation with the correct important board members' do
+    organisation = create(
+      :organisation,
+      name: 'Organisation of Things',
+      important_board_members: 2
+    )
+
+    role_1 = create(:board_member_role, organisations: [organisation])
+    board_member_1 = create(
+      :person,
+      image: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
+    )
+    create(:role_appointment, person: board_member_1, role: role_1)
+
+    role_2 = create(:board_member_role, organisations: [organisation])
+    board_member_2 = create(
+      :person,
+      image: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
+    )
+    create(:role_appointment, person: board_member_2, role: role_2)
+
+    role_3 = create(:board_member_role, organisations: [organisation])
+    board_member_3 = create(
+      :person,
+      image: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
+    )
+    create(:role_appointment, person: board_member_3, role: role_3)
+
+    presented_item = present(organisation)
+
+    refute_nil presented_item.content[:details][:ordered_board_members][0][:image]
+    refute_nil presented_item.content[:details][:ordered_board_members][1][:image]
+    assert_nil presented_item.content[:details][:ordered_board_members][2][:image]
+  end
 end
