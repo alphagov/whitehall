@@ -248,7 +248,7 @@ module PublishingApi
     end
 
     def board_members
-      people_in_role("management")
+      people_in_role("management", important_people: item.important_board_members)
     end
 
     def military_personnel
@@ -267,7 +267,7 @@ module PublishingApi
       people_in_role("special_representative")
     end
 
-    def people_in_role(role_type)
+    def people_in_role(role_type, important_people: 0)
       item.send("#{role_type}_roles")
         .order("organisation_roles.ordering")
         .reduce([]) do |ary, role|
@@ -286,7 +286,8 @@ module PublishingApi
               attends_cabinet_type: role.attends_cabinet_type&.name
             }
 
-            unless person.image.url.nil?
+            unless person.image.url.nil? ||
+                (important_people.positive? && ary.count >= important_people)
               person_object[:image] = {
                 url: person.image.url,
                 alt_text: full_name
