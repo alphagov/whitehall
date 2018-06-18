@@ -72,7 +72,9 @@ When(/^I add public feedback to the consultation$/) do
 end
 
 When(/^I save and publish the amended consultation$/) do
-  ensure_path edit_admin_consultation_path(Consultation.last)
+  consultation = Consultation.last
+  stub_publishing_api_links_with_taxons(consultation.content_id, ["a-taxon-content-id"])
+  ensure_path edit_admin_consultation_path(consultation)
   fill_in_change_note_if_required
   click_button "Save and continue"
   click_button "Save topic changes"

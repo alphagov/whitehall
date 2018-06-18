@@ -42,6 +42,7 @@ end
 
 When(/^I publish a new edition of the detailed guide "([^"]*)" with a change note "([^"]*)"$/) do |guide_title, change_note|
   guide = DetailedGuide.latest_edition.find_by!(title: guide_title)
+  stub_publishing_api_links_with_taxons(guide.content_id, ["a-taxon-content-id"])
   visit admin_edition_path(guide)
   click_button "Create new edition"
   fill_in "edition_change_note", with: change_note

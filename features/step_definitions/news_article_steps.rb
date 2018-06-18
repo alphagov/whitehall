@@ -112,6 +112,7 @@ When(/^I draft a French\-only "World news story" news article associated with "(
 end
 
 When(/^I publish the French-only news article$/) do
+  stub_publishing_api_links_with_taxons(@news_article.content_id, ["a-taxon-content-id"])
   visit admin_edition_path(@news_article)
   publish(force: true)
 end
