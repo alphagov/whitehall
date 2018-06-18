@@ -306,7 +306,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
   test 'links to parent organisation' do
     parent = create(:organisation)
     child = create(:organisation, parent_organisations: [parent])
-    assert_match %r{the <a href="/government/organisations/#{parent.to_param}">#{parent.name}</a>}, organisation_display_name_and_parental_relationship(child)
+    assert_match %r{the <a class="brand__color" href="/government/organisations/#{parent.to_param}">#{parent.name}</a>}, organisation_display_name_and_parental_relationship(child)
   end
 
   test 'relationship types are described correctly' do
