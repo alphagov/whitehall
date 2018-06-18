@@ -125,7 +125,7 @@ module OrganisationHelper
       child_relationships_link_text = child_organisations.size.to_s
       child_relationships_link_text += child_organisations.size == 1 ? " public body" : " agencies and public bodies"
 
-      organisation_name += link_to(child_relationships_link_text, organisations_path(anchor: organisation.slug))
+      organisation_name += link_to(child_relationships_link_text, organisations_path(anchor: organisation.slug), class: 'brand__color')
       organisation_name += "."
     end
 
@@ -134,7 +134,7 @@ module OrganisationHelper
 
   def organisation_relationship_html(organisation)
     prefix = needs_definite_article?(organisation.name) ? "the " : ""
-    (prefix + link_to(organisation.name, organisation_path(organisation)))
+    (prefix + link_to(organisation.name, organisation_path(organisation), class: 'brand__color'))
   end
 
   def needs_definite_article?(phrase)

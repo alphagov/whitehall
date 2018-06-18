@@ -38,7 +38,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       update_type: "major",
       details: {
         acronym: nil,
-        body: "Organisation of Things works with the <a href=\"/government/organisations/department-for-stuff\">Department for Stuff</a>.",
+        body: "\n\nOrganisation of Things works with the <a class=\"brand__color\" href=\"/government/organisations/department-for-stuff\">Department for Stuff</a>.",
         brand: nil,
         logo: {
           formatted_title: "Organisation<br/>of<br/>Things",
@@ -140,5 +140,15 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     presented_item = present(organisation)
 
     assert_nil presented_item.content[:details][:logo][:crest]
+  end
+
+  test 'presents an organisation with no parents/children without the relationship text' do
+    organisation = create(
+      :organisation,
+      name: 'Organisation of Things'
+    )
+    presented_item = present(organisation)
+
+    assert_equal("", presented_item.content[:details][:body])
   end
 end
