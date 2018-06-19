@@ -7,11 +7,11 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
 
     world_location = FactoryBot.build(:world_location,
                                        content_id: @world_location_content_id,
-                                       title: "United Kingdom")
+                                       name: "United Kingdom")
 
     @contact = FactoryBot.build(:contact,
                                  title: "Government Digital Service",
-                                 recipient: "GDS mail room",
+                                 recipient: "GDS Mail Room",
                                  street_address: "Aviation House, 125 Kingsway",
                                  postal_code: "WC2B 6NH",
                                  country: world_location,
@@ -42,16 +42,15 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
         contact_type: "General contact",
         post_addresses: [
           {
-            title: "GDS mail room",
+            title: "GDS Mail Room",
             street_address: "Aviation House, 125 Kingsway",
-            locality: nil,
             postal_code: "WC2B 6NH",
             world_location: "United Kingdom",
           }
         ],
         email_addresses: [
           {
-            title: "GDS mail room",
+            title: "GDS Mail Room",
             email: "gds-mailroom@digital.cabinet-office.gov.uk",
           }
         ],
@@ -65,6 +64,7 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
     }
 
     assert_equal expected_content, @presented.content
+    assert_valid_against_schema(@presented.content, 'contact')
   end
 
   test "links hash includes organisations" do

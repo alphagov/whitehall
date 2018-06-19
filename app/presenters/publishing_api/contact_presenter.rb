@@ -80,13 +80,16 @@ module PublishingApi
     end
 
     def post_address
-      {
+      post_address = {
         title: recipient || title,
         street_address: street_address,
-        locality: locality,
         postal_code: postal_code,
         world_location: country_name
       }
+
+      post_address[:locality] = locality unless locality.nil?
+
+      post_address
     end
 
     def phone_numbers
@@ -106,17 +109,12 @@ module PublishingApi
     end
 
     def country_name
-      country.try(:title) || ""
+      country.try(:name) || ""
     end
 
     def updated_at
       translation.updated_at
     end
-
     alias_method :public_updated_at, :updated_at
-
-    def rendering_app
-      Whitehall::RenderingApp::GOVERNMENT_FRONTEND
-    end
   end
 end
