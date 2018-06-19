@@ -18,7 +18,8 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       :organisation,
       name: 'Organisation of Things',
       analytics_identifier: 'O123',
-      parent_organisations: [parent_organisation]
+      parent_organisations: [parent_organisation],
+      url: "https://www.gov.uk/oot"
     )
     role = create(:role, organisations: [organisation])
     public_path = Whitehall.url_maker.organisation_path(organisation)
@@ -71,6 +72,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
         organisation_featuring_priority: "news",
         organisation_govuk_status: {
           status: "live",
+          url: nil,
           updated_at: nil,
         },
         organisation_type: "other",
@@ -220,5 +222,17 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     presented_item = present(organisation)
 
     assert_equal([], presented_item.content[:details][:ordered_promotional_features])
+  end
+
+  test 'presents the current/new URL for a non-live organisation' do
+    organisation = create(
+      :organisation,
+      name: 'Organisation of Things',
+      govuk_status: "exempt",
+      url: "http://www.example.com/org-of-things"
+    )
+    presented_item = present(organisation)
+
+    assert_equal("http://www.example.com/org-of-things", presented_item.content[:details][:organisation_govuk_status][:url])
   end
 end
