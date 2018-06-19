@@ -185,7 +185,7 @@ module PublishingApi
     end
 
     def featured_documents
-      item.feature_list_for_locale(I18n.locale).current.map do |feature|
+      item.feature_list_for_locale(I18n.locale).current.limit(6).map do |feature|
         if feature.document
           featured_documents_editioned(feature)
         elsif feature.topical_event
