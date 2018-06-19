@@ -30,7 +30,6 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     login_as :gds_editor
     @edition = create(:consultation)
     Whitehall.attachment_notifier.stubs(:publish)
-    Whitehall.attachment_data_notifier.stubs(:publish)
   end
 
   def self.supported_attachable_types

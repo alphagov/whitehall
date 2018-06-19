@@ -15,6 +15,14 @@ Whitehall.edition_services.tap do |coordinator|
         .new(attachment.attachment_data)
         .update!
     end
+    Attachment.where(attachable_id: edition.id).find_each do |attachment|
+      next unless attachment.attachment_data
+      AttachmentData.where(replaced_by_id: attachment.attachment_data.id).find_each do |attachment_data|
+        ServiceListeners::AttachmentReplacementIdUpdater
+          .new(attachment_data)
+          .update!
+      end
+    end
   end
 
   coordinator.subscribe(/^(force_publish|publish)$/) do |_event, edition, options|
