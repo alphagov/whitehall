@@ -10,9 +10,9 @@ module Taxonomy
     end
 
     def world_taxon_data
-      @_world_taxon_data = expand_taxon_array(
-        [world_taxon]
-      )
+      publishing_api_with_huge_timeout
+        .get_expanded_links(WORLD_CONTENT_ID, with_drafts: false)
+        .dig('expanded_links', 'child_taxons')
     end
 
   private
@@ -29,10 +29,6 @@ module Taxonomy
 
     def level_one_taxons
       expanded_links_hash(HOMEPAGE_CONTENT_ID).dig('expanded_links', 'level_one_taxons') || []
-    end
-
-    def world_taxon
-      publishing_api_with_huge_timeout.get_content(WORLD_CONTENT_ID).to_h
     end
 
     def expanded_links_hash(content_id)

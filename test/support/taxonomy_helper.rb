@@ -134,7 +134,7 @@ private
 
   def world_grandchild_taxon
     FactoryBot.build(:taxon_hash,
-                     title: "World Child Taxon",
+                     title: "World grandchild taxon",
                      base_path: "/world/grand-child",
                      content_id: world_grandchild_taxon_content_id,
                      is_level_one_taxon: false)
@@ -142,7 +142,7 @@ private
 
   def world_child_taxon
     FactoryBot.build(:taxon_hash,
-                     title: "World Child Taxon",
+                     title: "World child taxon",
                      base_path: "/world/child",
                      content_id: world_child_taxon_content_id,
                      is_level_one_taxon: false,

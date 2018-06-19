@@ -21,15 +21,10 @@ class Taxonomy::PublishingApiAdapterTest < ActiveSupport::TestCase
   end
 
   describe "#world_taxon_data" do
-    test "base hash" do
-      setup_world_taxons
-      assert_equal %w[World], (subject.world_taxon_data.map { |t| t['title'] })
-    end
-
     test "#expanded links" do
       setup_world_taxons
       assert_equal %w(country-1 country-2),
-                   (subject.world_taxon_data.first.dig('links', 'child_taxons').map { |t| t['title'] })
+                   (subject.world_taxon_data.map { |t| t['title'] })
     end
   end
 
@@ -43,24 +38,24 @@ private
     {
       "content_id" => Taxonomy::PublishingApiAdapter::HOMEPAGE_CONTENT_ID,
       "expanded_links" => {
-          "level_one_taxons" => level_one_taxons
+        "level_one_taxons" => level_one_taxons
       }
     }
   end
 
   def taxon(id)
     {
-        "content_id" => id.to_s,
-        "title" => id.to_s
+      "content_id" => id.to_s,
+      "title" => id.to_s
     }
   end
 
   def expanded_link(content_id, taxons)
     {
-        "content_id" => content_id,
-        "expanded_links" => {
-          "child_taxons" => taxons
-        }
+      "content_id" => content_id,
+      "expanded_links" => {
+        "child_taxons" => taxons
+      }
     }
   end
 
@@ -74,15 +69,9 @@ private
   end
 
   def setup_world_taxons
-    publishing_api_has_item(
-      content_id: Taxonomy::PublishingApiAdapter::WORLD_CONTENT_ID,
-      title: "World",
-      base_path: "/world/all"
-    )
-
     world_content_id = Taxonomy::PublishingApiAdapter::WORLD_CONTENT_ID
 
-    expanded_link_hash = expanded_link(world_content_id, [taxon("country-1"), taxon("country-2")])
-    publishing_api_has_expanded_links(expanded_link_hash, with_drafts: false)
+    world_expanded_link_hash = expanded_link(world_content_id, [taxon("country-1"), taxon("country-2")])
+    publishing_api_has_expanded_links(world_expanded_link_hash, with_drafts: false)
   end
 end
