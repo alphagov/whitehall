@@ -518,7 +518,8 @@ class OrganisationTest < ActiveSupport::TestCase
       'organisation_type' => :other,
       'organisation_state' => 'closed',
       'logo_formatted_title' => "Department\nfor\nCulture\nand\nSports",
-      'organisation_crest' => 'single-identity'
+      'organisation_crest' => 'single-identity',
+      'public_timestamp' => Time.zone.now
     }, results[0])
     assert_equal({
       'title' => 'Department of Education',
@@ -532,7 +533,8 @@ class OrganisationTest < ActiveSupport::TestCase
       'organisation_type' => :other,
       'organisation_state' => 'live',
       'logo_formatted_title' => "Department\nof\nEducation",
-      'organisation_crest' => 'single-identity'
+      'organisation_crest' => 'single-identity',
+      'public_timestamp' => Time.zone.now
     }, results[1])
     assert_equal({
       'title' => 'HMRC',
@@ -548,7 +550,8 @@ class OrganisationTest < ActiveSupport::TestCase
       'organisation_type' => :other,
       'organisation_state' => 'live',
       'logo_formatted_title' => 'HMRC',
-      'organisation_crest' => 'single-identity'
+      'organisation_crest' => 'single-identity',
+      'public_timestamp' => Time.zone.now
     }, results[2])
     assert_equal({
       'title' => 'Ministry of Defence',
@@ -564,7 +567,8 @@ class OrganisationTest < ActiveSupport::TestCase
       'organisation_type' => :other,
       'organisation_state' => 'live',
       'logo_formatted_title' => "Ministry\nof\nDefence",
-      'organisation_crest' => 'single-identity'
+      'organisation_crest' => 'single-identity',
+      'public_timestamp' => Time.zone.now
     }, results[3])
     assert_equal({
       'title' => 'Closed organisation: Devolved organisation',
@@ -580,7 +584,8 @@ class OrganisationTest < ActiveSupport::TestCase
       'organisation_type' => :other,
       'organisation_state' => 'devolved',
       'logo_formatted_title' => "Devolved\norganisation",
-      'organisation_crest' => 'single-identity'
+      'organisation_crest' => 'single-identity',
+      'public_timestamp' => Time.zone.now
     }, results[5])
   end
 
