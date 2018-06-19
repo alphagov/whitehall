@@ -18,7 +18,8 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
                                  contact_numbers: [
                                    ContactNumber.new(label: "Mail Room", number: "+44 12345 67890")
                                  ],
-                                 email: "gds-mailroom@digital.cabinet-office.gov.uk")
+                                 email: "gds-mailroom@digital.cabinet-office.gov.uk",
+                                 contact_form_url: "https://www.gov.uk")
 
     @updated_at = Time.zone.parse("2016-06-23 10:32:00")
     @contact.translation.updated_at = @updated_at
@@ -40,6 +41,13 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
         description: nil,
         title: "Government Digital Service",
         contact_type: "General contact",
+        contact_form_links: [
+          {
+            title: "Government Digital Service",
+            link: "https://www.gov.uk",
+            description: "",
+          }
+        ],
         post_addresses: [
           {
             title: "GDS Mail Room",
