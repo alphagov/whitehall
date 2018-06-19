@@ -337,6 +337,7 @@ module PublishingApi
     def organisation_govuk_status
       {
         status: consolidated_organisation_govuk_status,
+        url: organisation_url,
         updated_at: item.closed_at
       }
     end
@@ -347,6 +348,10 @@ module PublishingApi
       else
         item.govuk_status
       end
+    end
+
+    def organisation_url
+      item.url unless item.live?
     end
 
     def organisation_type
