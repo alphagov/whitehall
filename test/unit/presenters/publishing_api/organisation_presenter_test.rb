@@ -61,6 +61,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
         ],
         ordered_featured_links: [],
         ordered_featured_documents: [],
+        ordered_promotional_features: [],
         ordered_ministers: [],
         ordered_board_members: [],
         ordered_military_personnel: [],
@@ -185,5 +186,39 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     refute_nil presented_item.content[:details][:ordered_board_members][0][:image]
     refute_nil presented_item.content[:details][:ordered_board_members][1][:image]
     assert_nil presented_item.content[:details][:ordered_board_members][2][:image]
+  end
+
+  test 'presents an eligible organisation with promotional features' do
+    promotional_feature = create(:promotional_feature)
+    organisation = create(
+      :organisation,
+      name: 'Organisation of Things',
+      organisation_type: OrganisationType.executive_office,
+      promotional_features: [promotional_feature]
+    )
+    presented_item = present(organisation)
+
+    assert_equal(
+      [
+        {
+          title: promotional_feature.title,
+          items: []
+        }
+      ],
+      presented_item.content[:details][:ordered_promotional_features]
+    )
+  end
+
+  test 'does not present an ineligible organisation with promotional features' do
+    promotional_feature = create(:promotional_feature)
+    organisation = create(
+      :organisation,
+      name: 'Organisation of Things',
+      organisation_type: OrganisationType.ministerial_department,
+      promotional_features: [promotional_feature]
+    )
+    presented_item = present(organisation)
+
+    assert_equal([], presented_item.content[:details][:ordered_promotional_features])
   end
 end

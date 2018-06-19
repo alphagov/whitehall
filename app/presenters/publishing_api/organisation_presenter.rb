@@ -72,6 +72,7 @@ module PublishingApi
         ordered_corporate_information_pages: corporate_information_pages,
         ordered_featured_links: featured_links,
         ordered_featured_documents: featured_documents,
+        ordered_promotional_features: promotional_features,
         ordered_ministers: ministers,
         ordered_board_members: board_members,
         ordered_military_personnel: military_personnel,
@@ -241,6 +242,34 @@ module PublishingApi
         public_updated_at: offsite_link.date,
         document_type: offsite_link.humanized_link_type
       }
+    end
+
+    def promotional_features
+      return [] unless item.type.allowed_promotional?
+
+      item.promotional_features.map do |promotional_feature|
+        {
+          title: promotional_feature.title,
+          items: promotional_feature.items.map do |promotional_feature_item|
+            {
+              title: promotional_feature_item.title,
+              href: promotional_feature_item.title_url,
+              summary: promotional_feature_item.summary,
+              image: {
+                url: promotional_feature_item.image,
+                alt_text: promotional_feature_item.image_alt_text
+              },
+              double_width: promotional_feature_item.double_width,
+              links: promotional_feature_item.links.map do |link|
+                {
+                  title: link.text,
+                  href: link.url
+                }
+              end
+            }
+          end
+        }
+      end
     end
 
     def ministers
