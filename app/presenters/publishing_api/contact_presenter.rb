@@ -5,7 +5,7 @@ module PublishingApi
     def_delegators :contact,
       :contact_numbers, :content_id, :comments, :country, :email,
       :locality, :postal_code, :recipient, :street_address,
-      :title, :translation
+      :title, :contact_form_url, :translation
 
     def initialize(model, _options)
       @contact = model
@@ -72,11 +72,20 @@ module PublishingApi
 
     def details
       details = { description: description, contact_type: contact_type, title: title }
+      details[:contact_form_links] = [contact_form_links] if contact_form_url
       details[:post_addresses] = [post_address] if postal_code
       details[:email_addresses] = [email_address] if email
       details[:phone_numbers] = phone_numbers if contact_numbers.any?
 
       details
+    end
+
+    def contact_form_links
+      {
+        title: title,
+        link: contact_form_url,
+        description: ""
+      }
     end
 
     def post_address
