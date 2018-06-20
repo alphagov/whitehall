@@ -2,7 +2,45 @@
   "use strict";
 
   Modules.TaxonomyTreeCheckboxes = function() {
-    var taxonomyTreeHelper = window.GOVUK.taxonomyTreeHelper;
+    var ancestors = function(element) {
+      var $parents = $(element).parents('.topics,.topic-tree');
+      return $parents.prev('p').find('input[type="checkbox"]');
+    };
+
+    var descendants = function(element) {
+      return $(element).closest('p').next('.topics').find('input[type="checkbox"]');
+    };
+
+    /**
+     Check all ancestor topics.
+     */
+    var checkAncestors = function(element) {
+      ancestors(element).prop('checked', true);
+    };
+
+    /**
+     Uncheck all ancestor topics.
+     */
+    var uncheckAncestors = function(element) {
+      ancestors(element).prop('checked', false);
+    };
+
+    /**
+     Uncheck all descendant topics.
+     */
+    var uncheckDescendants = function(element) {
+      descendants(element).prop('checked', false);
+    };
+
+    /**
+     Check if a sibling topic (or its children) are checked.
+     If any of the siblings, children are checked we expect the sibling to be checked too.
+     */
+    var hasCheckedSiblings = function(element) {
+      var $p = $(element).closest('.topics').children('p');
+      var $checkedSiblings = $p.find('input:checked');
+      return $checkedSiblings.length > 0;
+    };
 
     var checkboxTrackClick = function(action, options) {
       var root = window;
@@ -55,13 +93,13 @@
         */
         if (checked) {
           checkboxTrackClick("checkboxClickedOn", options);
-          taxonomyTreeHelper.checkAncestors(this);
+          checkAncestors(this);
         } else {
           checkboxTrackClick("checkboxClickedOff", options);
-          taxonomyTreeHelper.uncheckDescendants(this);
+          uncheckDescendants(this);
 
-          if (!taxonomyTreeHelper.hasCheckedSiblings(this)) {
-            taxonomyTreeHelper.uncheckAncestors(this);
+          if (!hasCheckedSiblings(this)) {
+            uncheckAncestors(this);
           }
         }
       });
