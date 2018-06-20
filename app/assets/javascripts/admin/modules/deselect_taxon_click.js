@@ -7,7 +7,7 @@
       var deselectTaxonClick = function () {
         var taxon_name = $(container).closest('.taxon-breadcrumb').find('li:last').text() ;
         $("input[data-taxon-name=\"" + taxon_name + "\"]").each(function(idx, el){
-          $(el).prop('checked', false)
+          $(el).prop('checked', false);
           if (!helper.hasCheckedSiblings(el)){
             helper.uncheckAncestors(el);
           }
