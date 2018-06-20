@@ -17,14 +17,14 @@
     };
 
     var bindExpandAndCollapseAll = function() {
-        $('#expand_all_id').click(function(event) {
-            $('.level-one-taxon').collapse('show');
-            event.preventDefault()
-        });
-        $('#collapse_all_id').click(function(event) {
-            $('.level-one-taxon').collapse('hide');
-            event.preventDefault()
-        });
+      $('#expand_all_id').click(function(event) {
+        $('.level-one-taxon').collapse('show');
+        event.preventDefault()
+      });
+      $('#collapse_all_id').click(function(event) {
+        $('.level-one-taxon').collapse('hide');
+        event.preventDefault()
+      });
     };
 
     this.start = function(element) {
