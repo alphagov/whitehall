@@ -19,20 +19,20 @@
       return structure;
     };
 
-    preview.renderUpdatedBreadcrumbs = function(element) {
+    preview.renderUpdatedBreadcrumbs = function($element) {
       var checkboxes = preview.fetchCheckedCheckboxes();
       var breadcrumbsArray = preview.buildBreadcrumbsStructure(checkboxes);
       var breadcrumbsToDisplay = preview.filterBreadcrumbs(breadcrumbsArray);
 
       if (breadcrumbsToDisplay.length === 0) {
-        $(element).removeClass("content").removeClass("content-bordered");
-        $(element).addClass("no-content").addClass("no-content-bordered");
-        $(element).text("No topics - please add a topic before publishing");
+        $element.removeClass("content").removeClass("content-bordered");
+        $element.addClass("no-content").addClass("no-content-bordered");
+        $element.text("No topics - please add a topic before publishing");
       } else {
-        $(element).addClass("content").addClass("content-bordered");
-        $(element).removeClass("no-content").removeClass("no-content-bordered");
+        $element.addClass("content").addClass("content-bordered");
+        $element.removeClass("no-content").removeClass("no-content-bordered");
 
-        $(element).mustache(
+        $element.mustache(
           'admin/shared/tagging/_breadcrumb_list',
           { breadcrumbs: breadcrumbsToDisplay }
         );
@@ -69,12 +69,13 @@
     };
 
     preview.start = function(element) {
-      $(element).removeClass('hidden');
+      var $element = $(element);
+      $element.removeClass('hidden');
 
       var $topicTree = $('.topic-tree');
 
       $topicTree.on('change', function() {
-        preview.renderUpdatedBreadcrumbs(element);
+        preview.renderUpdatedBreadcrumbs($element);
       });
 
       $topicTree.trigger('change');
