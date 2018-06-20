@@ -1,5 +1,3 @@
-
-
 module("DeselectTaxonClick", {
     setup: function () {
         var form =
