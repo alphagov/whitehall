@@ -17,6 +17,7 @@ class Admin::AttachmentsController < Admin::BaseController
 
   def create
     if save_attachment
+      attachment_updater
       redirect_to attachable_attachments_path(attachable), notice: "Attachment '#{attachment.title}' uploaded"
     else
       render :new
@@ -29,6 +30,7 @@ class Admin::AttachmentsController < Admin::BaseController
       attachment.attachment_data.attachable = attachable
     end
     if save_attachment
+      attachment_updater
       message = "Attachment '#{attachment.title}' updated"
       redirect_to attachable_attachments_path(attachable), notice: message
     else
@@ -40,7 +42,9 @@ class Admin::AttachmentsController < Admin::BaseController
     errors = {}
     params[:attachments].each do |id, attributes|
       attachment = attachable.attachments.find(id)
-      if !attachment.update_attributes(attributes.permit(:title))
+      if attachment.update_attributes(attributes.permit(:title))
+        attachment_updater
+      else
         errors[id] = attachment.errors.full_messages
       end
     end
@@ -54,6 +58,7 @@ class Admin::AttachmentsController < Admin::BaseController
 
   def destroy
     attachment.destroy
+    attachment_updater
     redirect_to attachable_attachments_path(attachable), notice: 'Attachment deleted'
   end
 
@@ -186,5 +191,9 @@ private
         Whitehall::PublishingApi.save_draft_async(attachment)
       end
     end
+  end
+
+  def attachment_updater
+    ServiceListeners::AttachmentUpdater.new(attachable.reload).update!
   end
 end

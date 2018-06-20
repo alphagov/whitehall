@@ -7,45 +7,9 @@ Whitehall.edition_services.tap do |coordinator|
   end
 
   coordinator.subscribe do |_event, edition, _options|
-    edition.attachables.flat_map(&:attachments).each do |attachment|
-      ServiceListeners::AttachmentDraftStatusUpdater
-        .new(attachment.attachment_data)
-        .update!
-      ServiceListeners::AttachmentRedirectUrlUpdater
-        .new(attachment.attachment_data)
-        .update!
-    end
-    Attachment.where(attachable_id: edition.id).find_each do |attachment|
-      next unless attachment.attachment_data
-      AttachmentData.where(replaced_by_id: attachment.attachment_data.id).find_each do |attachment_data|
-        ServiceListeners::AttachmentReplacementIdUpdater
-          .new(attachment_data)
-          .update!
-      end
-    end
-    # This is not the same as `edition.attachables`, because
-    # `edition.attachables` doesn't include deleted ones.
-    Attachment.where(attachable_id: edition.id).find_each do |attachment|
-      ServiceListeners::AttachmentDeleter
-        .new(attachment.attachment_data)
-        .delete!
-    end
-  end
-
-  coordinator.subscribe(/^(force_publish|publish)$/) do |_event, edition, options|
-    edition.attachables.flat_map(&:attachments).each do |attachment|
-      ServiceListeners::AttachmentLinkHeaderUpdater
-        .new(attachment.attachment_data)
-        .update!
-    end
-  end
-
-  coordinator.subscribe('update_draft') do |_event, edition, _options|
-    edition.attachables.flat_map(&:attachments).each do |attachment|
-      ServiceListeners::AttachmentAccessLimitedUpdater
-        .new(attachment.attachment_data)
-        .update!
-    end
+    ServiceListeners::AttachmentUpdater
+      .new(edition)
+      .update!
   end
 
   coordinator.subscribe('unpublish') do |_event, edition, _options|
