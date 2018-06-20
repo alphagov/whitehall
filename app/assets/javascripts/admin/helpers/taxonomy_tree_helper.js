@@ -12,23 +12,14 @@
       return $(element).closest('p').next('.topics').find('input[type="checkbox"]');
     },
 
-    /**
-       Check all ancestor topics.
-    */
     checkAncestors: function checkAncestors(element) {
       this.ancestors(element).prop('checked', true);
     },
 
-    /**
-       Uncheck all ancestor topics.
-    */
     uncheckAncestors: function uncheckAncestors(element) {
       this.ancestors(element).prop('checked', false);
     },
 
-    /**
-       Uncheck all descendant topics.
-    */
     uncheckDescendants: function uncheckDescendants(element) {
       this.descendants(element).prop('checked', false);
     },
