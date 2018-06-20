@@ -2,7 +2,7 @@
   "use strict";
 
   Modules.TaxonomyTreeCheckboxes = function() {
-    var helper = window.GOVUK.taxonomyTreeHelper;
+    var taxonomyTreeHelper = window.GOVUK.taxonomyTreeHelper;
 
     var checkboxTrackClick = function(action, options) {
       var root = window;
@@ -55,13 +55,13 @@
         */
         if (checked) {
           checkboxTrackClick("checkboxClickedOn", options);
-          helper.checkAncestors(this);
+          taxonomyTreeHelper.checkAncestors(this);
         } else {
           checkboxTrackClick("checkboxClickedOff", options);
-          helper.uncheckDescendants(this);
+          taxonomyTreeHelper.uncheckDescendants(this);
 
-          if (!helper.hasCheckedSiblings(this)) {
-            helper.uncheckAncestors(this);
+          if (!taxonomyTreeHelper.hasCheckedSiblings(this)) {
+            taxonomyTreeHelper.uncheckAncestors(this);
           }
         }
       });
