@@ -3,8 +3,11 @@ module Searchable
 
   SEARCH_FIELDS = [
     :acronym,
+    :analytics_identifier,
     :attachments,
     :boost_phrases,
+    :child_organisations,
+    :closed_at,
     :content,
     :content_id,
     :content_store_document_type,
@@ -26,10 +29,12 @@ module Searchable
     :news_article_type,
     :operational_field,
     :organisation_brand,
+    :organisation_closed_state,
     :organisation_crest,
     :organisation_state,
     :organisation_type,
     :organisations,
+    :parent_organisations,
     :people,
     :public_timestamp,
     :publication_type,
@@ -39,6 +44,8 @@ module Searchable
     :speech_type,
     :statistics_announcement_state,
     :start_date,
+    :superseded_organisations,
+    :superseding_organisations,
     :title,
 
     # "Policy area" is the newer name for "topic"
