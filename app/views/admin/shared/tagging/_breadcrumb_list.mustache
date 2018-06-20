@@ -1,10 +1,14 @@
 {{#breadcrumbs}}
 <div class="taxon-breadcrumb">
-  <button type="button" class="close deselect-taxon-button" aria-label="Remove"><span aria-hidden="true">&times;</span></button>
   <ol>
     {{#.}}
       <li>{{.}}</li>
     {{/.}}
   </ol>
+  <button type="button"
+          class="close deselect-taxon-button"
+          aria-label="Remove">
+    <span aria-hidden="true">&times;</span>
+  </button>
 </div>
 {{/breadcrumbs}}
