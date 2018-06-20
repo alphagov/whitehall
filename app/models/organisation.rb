@@ -178,15 +178,23 @@ class Organisation < ApplicationRecord
              link: :search_link,
              content: :indexable_content,
              description: :description_for_search,
-             organisations: :search_organisations,
+             organisations: :search_parent_organisations,
+             parent_organisations: :search_parent_organisations,
+             child_organisations: :search_child_organisations,
+             superseded_organisations: :search_superseded_organisations,
+             superseding_organisations: :search_superseding_organisations,
              boost_phrases: :acronym,
              slug: :slug,
+             organisation_closed_state: :govuk_closed_status,
              organisation_state: :searchable_govuk_status,
              organisation_type: :organisation_type_key,
              organisation_crest: :organisation_crest,
              organisation_brand: :organisation_brand,
              logo_formatted_title: :logo_formatted_name,
-             logo_url: :logo_url
+             logo_url: :logo_url,
+             analytics_identifier: :analytics_identifier,
+             closed_at: :closed_at,
+             public_timestamp: :updated_at
 
   extend FriendlyId
   friendly_id
@@ -438,8 +446,20 @@ class Organisation < ApplicationRecord
     base_path
   end
 
-  def search_organisations
+  def search_parent_organisations
     parent_organisations.map(&:slug)
+  end
+
+  def search_child_organisations
+    child_organisations.map(&:slug)
+  end
+
+  def search_superseded_organisations
+    superseded_organisations.map(&:slug)
+  end
+
+  def search_superseding_organisations
+    superseding_organisations.map(&:slug)
   end
 
   def published_speeches
