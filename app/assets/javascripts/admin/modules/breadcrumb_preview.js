@@ -72,13 +72,14 @@
       var $element = $(element);
       $element.removeClass('hidden');
 
-      var $topicTree = $('.topic-tree');
+      var $topicTree = $('.topic-tree input:checkbox');
 
-      $topicTree.on('change', function() {
+      var renderUpdatedBreadcrumbsForElement = function() {
         preview.renderUpdatedBreadcrumbs($element);
-      });
+      };
 
-      $topicTree.trigger('change');
+      renderUpdatedBreadcrumbsForElement();
+      $topicTree.on('click', renderUpdatedBreadcrumbsForElement);
     };
   };
 })(window.GOVUKAdmin.Modules);
