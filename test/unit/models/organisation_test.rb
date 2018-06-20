@@ -492,7 +492,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test 'should return search index data for all organisations' do
     about_type = CorporateInformationPageType.find('about')
-    sport = create(:organisation, name: 'Department for Culture and Sports', govuk_status: 'closed', govuk_closed_status: 'no_longer_exists')
+    sport = create(:organisation, name: 'Department for Culture and Sports', govuk_status: 'closed', govuk_closed_status: 'no_longer_exists', closed_at: 10.days.ago)
     create(:published_corporate_information_page, corporate_information_page_type: about_type, summary: 'Sporty.', organisation: sport)
     ed = create(:organisation, name: 'Department of Education')
     create(:published_corporate_information_page, corporate_information_page_type: about_type, summary: 'Bookish.', organisation: ed)
@@ -514,11 +514,18 @@ class OrganisationTest < ActiveSupport::TestCase
       'indexable_content' => 'Sporty. Some stuff',
       'format' => 'organisation',
       'description' => 'Sporty.',
+      'analytics_identifier' => sport.analytics_identifier,
       'organisations' => [],
+      'parent_organisations' => [],
+      'child_organisations' => [],
+      'superseded_organisations' => [],
+      'superseding_organisations' => [],
       'organisation_type' => :other,
       'organisation_state' => 'closed',
+      'organisation_closed_state' => 'no_longer_exists',
       'logo_formatted_title' => "Department\nfor\nCulture\nand\nSports",
       'organisation_crest' => 'single-identity',
+      'closed_at' => 10.days.ago,
       'public_timestamp' => Time.zone.now
     }, results[0])
     assert_equal({
@@ -529,7 +536,12 @@ class OrganisationTest < ActiveSupport::TestCase
       'indexable_content' => 'Bookish. Some stuff',
       'format' => 'organisation',
       'description' => 'The home of Department of Education on GOV.UK. Bookish.',
+      'analytics_identifier' => ed.analytics_identifier,
       'organisations' => [],
+      'parent_organisations' => [],
+      'child_organisations' => [],
+      'superseded_organisations' => [],
+      'superseding_organisations' => [],
       'organisation_type' => :other,
       'organisation_state' => 'live',
       'logo_formatted_title' => "Department\nof\nEducation",
@@ -546,7 +558,12 @@ class OrganisationTest < ActiveSupport::TestCase
       'format' => 'organisation',
       'boost_phrases' => 'hmrc',
       'description' => 'The home of HMRC on GOV.UK. Taxing.',
+      'analytics_identifier' => hmrc.analytics_identifier,
       'organisations' => [],
+      'parent_organisations' => [],
+      'child_organisations' => [],
+      'superseded_organisations' => [],
+      'superseding_organisations' => [],
       'organisation_type' => :other,
       'organisation_state' => 'live',
       'logo_formatted_title' => 'HMRC',
@@ -563,7 +580,12 @@ class OrganisationTest < ActiveSupport::TestCase
       'format' => 'organisation',
       'boost_phrases' => 'mod',
       'description' => 'The home of Ministry of Defence on GOV.UK. Defensive.',
+      'analytics_identifier' => mod.analytics_identifier,
       'organisations' => [],
+      'parent_organisations' => [],
+      'child_organisations' => [],
+      'superseded_organisations' => [],
+      'superseding_organisations' => [],
       'organisation_type' => :other,
       'organisation_state' => 'live',
       'logo_formatted_title' => "Ministry\nof\nDefence",
@@ -578,11 +600,17 @@ class OrganisationTest < ActiveSupport::TestCase
       'slug' => 'devolved-organisation',
       'indexable_content' => '',
       'description' => '',
+      'analytics_identifier' => devolved.analytics_identifier,
       'organisations' => [],
+      'parent_organisations' => [],
+      'child_organisations' => [],
+      'superseded_organisations' => [],
+      'superseding_organisations' => ['devolved-administration'],
       'format' => 'organisation',
       'boost_phrases' => 'dev',
       'organisation_type' => :other,
       'organisation_state' => 'devolved',
+      'organisation_closed_state' => 'devolved',
       'logo_formatted_title' => "Devolved\norganisation",
       'organisation_crest' => 'single-identity',
       'public_timestamp' => Time.zone.now
