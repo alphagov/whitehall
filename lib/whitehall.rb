@@ -158,14 +158,6 @@ module Whitehall
     @edition_actions ||= EditionServiceCoordinator.new
   end
 
-  def self.attachment_notifier
-    @attachment_notifier ||= ActiveSupport::Notifications::Fanout.new
-  end
-
-  def self.attachment_data_notifier
-    @attachment_data_notifier ||= ActiveSupport::Notifications::Fanout.new
-  end
-
   def self.organisations_in_tagging_beta
     @taggable_organisations ||=
       YAML.load_file(Rails.root + "config/organisations_in_tagging_beta.yml")

@@ -29,8 +29,6 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   setup do
     login_as :gds_editor
     @edition = create(:consultation)
-    Whitehall.attachment_notifier.stubs(:publish)
-    Whitehall.attachment_data_notifier.stubs(:publish)
   end
 
   def self.supported_attachable_types
@@ -91,20 +89,6 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     post :create, params: { edition_id: attachable.id, attachment: valid_file_attachment_params }
 
     assert_redirected_to admin_edition_attachments_url(attachable)
-  end
-
-  test "POST :create publishes event to attachment notifier on success" do
-    Whitehall.attachment_notifier.expects(:publish).with('create', is_a(Attachment))
-    attachable = create(:edition)
-
-    post :create, params: { edition_id: attachable.id, attachment: valid_file_attachment_params }
-  end
-
-  test "POST :create does not publish event to attachment notifier on failure" do
-    Whitehall.attachment_notifier.expects(:publish).never
-    attachable = create(:edition)
-
-    post :create, params: { edition_id: attachable.id, attachment: {} }
   end
 
   view_test 'GET :index shows html attachments' do

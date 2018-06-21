@@ -98,7 +98,6 @@ class AttachmentData < ApplicationRecord
     cant_be_replaced_by_self
     raise ActiveRecord::RecordInvalid, self if self.errors.any?
     self.update_column(:replaced_by_id, replacement.id)
-    Whitehall.attachment_data_notifier.publish('replace', self)
     AttachmentData.where(replaced_by_id: self.id).each do |ad|
       ad.replace_with!(replacement)
     end

@@ -7,30 +7,9 @@ Whitehall.edition_services.tap do |coordinator|
   end
 
   coordinator.subscribe do |_event, edition, _options|
-    edition.attachables.flat_map(&:attachments).each do |attachment|
-      ServiceListeners::AttachmentDraftStatusUpdater
-        .new(attachment.attachment_data)
-        .update!
-      ServiceListeners::AttachmentRedirectUrlUpdater
-        .new(attachment.attachment_data)
-        .update!
-    end
-  end
-
-  coordinator.subscribe(/^(force_publish|publish)$/) do |_event, edition, options|
-    edition.attachables.flat_map(&:attachments).each do |attachment|
-      ServiceListeners::AttachmentLinkHeaderUpdater
-        .new(attachment.attachment_data)
-        .update!
-    end
-  end
-
-  coordinator.subscribe('update_draft') do |_event, edition, _options|
-    edition.attachables.flat_map(&:attachments).each do |attachment|
-      ServiceListeners::AttachmentAccessLimitedUpdater
-        .new(attachment.attachment_data)
-        .update!
-    end
+    ServiceListeners::AttachmentUpdater
+      .new(edition)
+      .update!
   end
 
   coordinator.subscribe('unpublish') do |_event, edition, _options|
