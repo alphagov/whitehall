@@ -70,6 +70,7 @@ module PublishingApi
         }.compact!,
         foi_exempt: foi_exempt,
         ordered_corporate_information_pages: corporate_information_pages,
+        secondary_corporate_information_pages: secondary_corporate_information_pages,
         ordered_featured_links: featured_links,
         ordered_featured_documents: featured_documents,
         ordered_promotional_features: promotional_features,
@@ -91,7 +92,9 @@ module PublishingApi
     end
 
     def summary
-      "#{item.summary}#{parent_child_relationships_text}"
+      Whitehall::GovspeakRenderer.new.govspeak_to_html(
+        "#{item.summary}#{parent_child_relationships_text}"
+      )
     end
 
     def parent_child_relationships_text
@@ -136,6 +139,17 @@ module PublishingApi
     def corporate_information_pages
       cips = []
 
+      if item.organisation_type.executive_office? || item.organisation_type.civil_service?
+        about_page = item.corporate_information_pages.published.for_slug("about")
+
+        if about_page.present?
+          cips << {
+            title: I18n.t('corporate_information_page.type.title.about'),
+            href: Whitehall.url_maker.public_document_path(about_page)
+          }
+        end
+      end
+
       if item.organisation_chart_url.present?
         cips << {
           title: I18n.t('organisation.corporate_information.organisation_chart'),
@@ -150,15 +164,19 @@ module PublishingApi
         }
       end
 
-      cips << {
-        title: I18n.t('organisation.headings.corporate_reports'),
-        href: publications_filter_path(item, publication_type: 'corporate-reports')
-      }
+      if item.has_published_publications_of_type?(PublicationType::CorporateReport)
+        cips << {
+          title: I18n.t('organisation.headings.corporate_reports'),
+          href: publications_filter_path(item, publication_type: 'corporate-reports')
+        }
+      end
 
-      cips << {
-        title: I18n.t('organisation.corporate_information.transparency'),
-        href: publications_filter_path(item, publication_type: 'transparency-data')
-      }
+      if item.has_published_publications_of_type?(PublicationType::TransparencyData)
+        cips << {
+          title: I18n.t('organisation.corporate_information.transparency'),
+          href: publications_filter_path(item, publication_type: 'transparency-data')
+        }
+      end
 
       item.corporate_information_pages.published.by_menu_heading(:jobs_and_contracts).each do |cip|
         cips << {
@@ -173,6 +191,54 @@ module PublishingApi
       }
 
       cips
+    end
+
+    def secondary_corporate_information_pages
+      sentences = []
+
+      if item.corporate_information_pages.published.for_slug("publication-scheme").present?
+        sentences << I18n.t("worldwide_organisation.corporate_information.publication_scheme_html",
+          link: t_corporate_information_page_link(item, "publication-scheme"))
+      end
+
+      if item.corporate_information_pages.published.for_slug("welsh-language-scheme").present?
+        sentences << I18n.t("worldwide_organisation.corporate_information.welsh_language_scheme_html",
+          link: t_corporate_information_page_link(item, "welsh-language-scheme"))
+      end
+
+      if item.corporate_information_pages.published.for_slug("personal-information-charter").present?
+        sentences << I18n.t("worldwide_organisation.corporate_information.personal_information_charter_html",
+          link: t_corporate_information_page_link(item, "personal-information-charter"))
+      end
+
+      if item.corporate_information_pages.published.for_slug("social-media-use").present?
+        sentences << I18n.t("worldwide_organisation.corporate_information.social_media_use_html",
+          link: t_corporate_information_page_link(item, "social-media-use"))
+      end
+
+      if item.corporate_information_pages.published.for_slug("about-our-services").present?
+        sentences << I18n.t("worldwide_organisation.corporate_information.about_our_services_html",
+          link: t_corporate_information_page_link(item, "about-our-services"))
+      end
+
+      sentences.join(" ")
+    end
+
+    def t_corporate_information_page_type_link_text(page)
+      if I18n.exists?("corporate_information_page.type.link_text.#{page.display_type_key}")
+        I18n.t("corporate_information_page.type.link_text.#{page.display_type_key}")
+      else
+        I18n.t("corporate_information_page.type.title.#{page.display_type_key}")
+      end
+    end
+
+    def t_corporate_information_page_link(organisation, slug)
+      page = organisation.corporate_information_pages.for_slug(slug)
+      page.extend(UseSlugAsParam)
+      link_to(
+        t_corporate_information_page_type_link_text(page),
+        Whitehall.url_maker.public_document_path(page)
+      )
     end
 
     def featured_links
@@ -256,7 +322,7 @@ module PublishingApi
               href: promotional_feature_item.title_url,
               summary: promotional_feature_item.summary,
               image: {
-                url: promotional_feature_item.image,
+                url: promotional_feature_item.image_url,
                 alt_text: promotional_feature_item.image_alt_text
               },
               double_width: promotional_feature_item.double_width,
