@@ -10,9 +10,7 @@ module Taxonomy
     end
 
     def world_taxon_data
-      publishing_api_with_huge_timeout
-        .get_expanded_links(WORLD_CONTENT_ID, with_drafts: false)
-        .dig('expanded_links', 'child_taxons')
+      expanded_links_hash(WORLD_CONTENT_ID).dig('expanded_links', 'child_taxons') || []
     end
 
   private
@@ -33,6 +31,8 @@ module Taxonomy
 
     def expanded_links_hash(content_id)
       publishing_api_with_huge_timeout.get_expanded_links(content_id, with_drafts: false).to_h
+    rescue GdsApi::HTTPNotFound
+      {}
     end
 
     def publishing_api_with_huge_timeout
