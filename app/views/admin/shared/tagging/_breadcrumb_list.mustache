@@ -1,9 +1,14 @@
 {{#breadcrumbs}}
 <div class="taxon-breadcrumb">
   <ol>
-    {{#.}}
+    {{#ancestors}}
       <li>{{.}}</li>
-    {{/.}}
+    {{/ancestors}}
   </ol>
+  <button type="button"
+          class="close deselect-taxon-button"
+          aria-label="Deselect topic">
+    <span aria-hidden="true">&times;</span>
+  </button>
 </div>
 {{/breadcrumbs}}

@@ -13,7 +13,10 @@
         var $checkbox = $(checkbox);
         var ancestors = $checkbox.data('ancestors').split('|');
 
-        return [ancestors];
+        return {
+          checkbox: checkbox,
+          ancestors: ancestors
+        };
       });
 
       return structure;
@@ -36,12 +39,18 @@
           'admin/shared/tagging/_breadcrumb_list',
           { breadcrumbs: breadcrumbsToDisplay }
         );
+        $('.deselect-taxon-button').each(function(idx, button){
+          // Toggle the state of the relevant checkbox
+          $(button).on("click", function() {
+            $(breadcrumbsToDisplay[idx].checkbox).trigger("click");
+          });
+        });
       }
     };
 
     preview.filterBreadcrumbs = function(breadcrumbs) {
       var longestFirst = breadcrumbs.sort(function (a, b) {
-        return b.length - a.length;
+        return b.ancestors.length - a.ancestors.length;
       });
 
       var breadcrumbsToDisplay = [];
@@ -50,9 +59,9 @@
         var visited = false;
 
         $.each(breadcrumbsToDisplay, function(index, visitedBreadcrumb) {
-          var breadcrumbString = JSON.stringify(breadcrumb);
+          var breadcrumbString = JSON.stringify(breadcrumb.ancestors);
           var visitedBreadcrumbString = JSON.stringify(
-            visitedBreadcrumb.slice(0, breadcrumb.length)
+            visitedBreadcrumb.ancestors.slice(0, breadcrumb.ancestors.length)
           );
 
           if (breadcrumbString === visitedBreadcrumbString) {

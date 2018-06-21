@@ -14,12 +14,20 @@ test(".filterBreadcrumbs returns an empty array", function() {
 test(".filterBreadcrumbs filters out breadcrumbs that are prefixes of other breadcrumbs", function() {
   deepEqual(
     this.subject.filterBreadcrumbs([
-      ["foo", "bar"],
-      ["foo"],
-      ["foo", "bar", "baz"]
+      {
+        ancestors: ["foo", "bar"]
+      },
+      {
+        ancestors: ["foo"]
+      },
+      {
+        ancestors: ["foo", "bar", "baz"]
+      }
     ]),
     [
-      ["foo", "bar", "baz"]
+      {
+        ancestors: ["foo", "bar", "baz"]
+      }
     ]
   )
 });

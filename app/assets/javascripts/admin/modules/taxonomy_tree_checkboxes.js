@@ -55,14 +55,14 @@
     };
 
     var bindExpandAndCollapseAll = function() {
-        $('#expand_all_id').click(function(event) {
-            $('.level-one-taxon').collapse('show');
-            event.preventDefault()
-        });
-        $('#collapse_all_id').click(function(event) {
-            $('.level-one-taxon').collapse('hide');
-            event.preventDefault()
-        });
+      $('#expand_all_id').click(function(event) {
+        $('.level-one-taxon').collapse('show');
+        event.preventDefault();
+      });
+      $('#collapse_all_id').click(function(event) {
+        $('.level-one-taxon').collapse('hide');
+        event.preventDefault();
+      });
     };
 
     this.start = function(element) {
@@ -83,7 +83,7 @@
           dimension1: publicPath,
           dimension2: contentFormat,
           dimension4: contentId
-        }
+        };
         /*
         Checking a checkbox also checks all of the ancestor taxons.
         Unchecking a checkbox also unchecks all of the ancestor taxons,
