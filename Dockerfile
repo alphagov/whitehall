@@ -25,7 +25,7 @@ RUN GOVUK_ASSET_ROOT=https://assets.publishing.service.gov.uk \
   GOVUK_APP_DOMAIN=www.gov.uk \
   GOVUK_APP_DOMAIN_EXTERNAL=www.gov.uk \
   RAILS_ENV=production \
-  bundle exec rails assets:precompile
+  bundle exec rake shared_mustache:compile assets:precompile
 
 HEALTHCHECK CMD curl --silent --fail localhost:$PORT/healthcheck || exit 1
 
