@@ -274,6 +274,18 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
+  view_test "prevents oversized exports" do
+    login_as(create(:gds_editor))
+    Admin::EditionFilter.any_instance.stubs(exportable?: false)
+    post :export, params: {
+      include_last_author: true,
+      include_link_check_reports: true,
+      include_unpublishing: true,
+      state: 'active',
+    }
+    assert_equal "The document list is too large for export", flash[:alert]
+  end
+
 private
 
   def stub_edition_filter(attributes = {})
