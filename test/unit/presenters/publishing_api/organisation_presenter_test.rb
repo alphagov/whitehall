@@ -5,6 +5,10 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     PublishingApi::OrganisationPresenter.new(model_instance, options)
   end
 
+  def govspeak_to_html(govspeak)
+    Whitehall::GovspeakRenderer.new.govspeak_to_html(govspeak)
+  end
+
   test 'presents an organisation with a brand colour' do
     organisation = create(:organisation, organisation_brand_colour_id: 1)
     presented_item = present(organisation)
@@ -39,7 +43,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       update_type: "major",
       details: {
         acronym: nil,
-        body: "\n\nOrganisation of Things works with the <a class=\"brand__color\" href=\"/government/organisations/department-for-stuff\">Department for Stuff</a>.",
+        body: govspeak_to_html("\nOrganisation of Things works with the <a class=\"brand__color\" href=\"/government/organisations/department-for-stuff\">Department for Stuff</a>."),
         brand: nil,
         logo: {
           formatted_title: "Organisation<br/>of<br/>Things",
@@ -48,18 +52,11 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
         foi_exempt: false,
         ordered_corporate_information_pages: [
           {
-            title: "Corporate reports",
-            href: "/government/publications?departments%5B%5D=organisation-of-things&publication_type=corporate-reports"
-          },
-          {
-            title: "Transparency data",
-            href: "/government/publications?departments%5B%5D=organisation-of-things&publication_type=transparency-data"
-          },
-          {
             title: "Jobs",
             href: "https://www.civilservicejobs.service.gov.uk/csr"
           }
         ],
+        secondary_corporate_information_pages: "",
         ordered_featured_links: [],
         ordered_featured_documents: [],
         ordered_promotional_features: [],
@@ -152,7 +149,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     )
     presented_item = present(organisation)
 
-    assert_equal("", presented_item.content[:details][:body])
+    assert_equal(govspeak_to_html(""), presented_item.content[:details][:body])
   end
 
   test 'presents an organisation with the correct important board members' do

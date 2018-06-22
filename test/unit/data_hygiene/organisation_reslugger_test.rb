@@ -36,12 +36,6 @@ module OrganisationResluggerTest
       content = content_item.content
       content[:base_path] = new_base_path
       content[:routes][0][:path] = new_base_path
-      unless content.dig(:details, :ordered_corporate_information_pages, 0, :href).nil?
-        content[:details][:ordered_corporate_information_pages][0][:href].sub!("old-slug", "corrected-slug")
-      end
-      unless content.dig(:details, :ordered_corporate_information_pages, 1, :href).nil?
-        content[:details][:ordered_corporate_information_pages][1][:href].sub!("old-slug", "corrected-slug")
-      end
       content_item.stubs(content: content)
 
       expected_publish_requests = [
