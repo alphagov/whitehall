@@ -11,7 +11,7 @@ class AttachmentsController < BaseAttachmentsController
       asset_host = URI.parse(asset_url).host
 
       unless request.host == asset_host
-        redirect_to host: asset_url
+        redirect_to host: asset_host
         return
       end
     end
