@@ -3,9 +3,15 @@ class AttachmentsController < BaseAttachmentsController
 
   def show
     unless user_signed_in?
-      asset_host = URI.parse(Plek.new.public_asset_host).host
+      asset_url = if request.host.start_with?('draft-')
+                    Plek.new.external_url_for('draft-assets')
+                  else
+                    Plek.new.public_asset_host
+                  end
+      asset_host = URI.parse(asset_url).host
+
       unless request.host == asset_host
-        redirect_to host: asset_host
+        redirect_to host: asset_url
         return
       end
     end
