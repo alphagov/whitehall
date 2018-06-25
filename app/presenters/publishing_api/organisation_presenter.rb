@@ -237,7 +237,8 @@ module PublishingApi
       page.extend(UseSlugAsParam)
       link_to(
         t_corporate_information_page_type_link_text(page),
-        Whitehall.url_maker.public_document_path(page)
+        Whitehall.url_maker.public_document_path(page),
+        class: "brand__color"
       )
     end
 
