@@ -24,6 +24,7 @@ class AttachmentsControllerTest < ActionController::TestCase
 
     request.host = 'asset-host.com'
     Plek.any_instance.stubs(:public_asset_host).returns('http://asset-host.com')
+    Plek.any_instance.stubs(:external_url_for).returns('http://draft-asset-host.com')
   end
 
   teardown do
@@ -42,6 +43,24 @@ class AttachmentsControllerTest < ActionController::TestCase
     setup_stubs
     login_as :user
     request.host = 'not-asset-host.com'
+
+    get :show, params: params
+
+    assert_response 200
+  end
+
+  test "redirects draft asset requests that aren't made via the draft asset host when no user is signed in" do
+    request.host = 'draft-not-asset-host.com'
+
+    get :show, params: params
+
+    assert_redirected_to "http://draft-asset-host.com#{attachment_data.file.asset_manager_path}"
+  end
+
+  test 'serves draft asset requests when not made from draft asset host if there is a signed in user' do
+    setup_stubs
+    login_as :user
+    request.host = 'draft-not-asset-host.com'
 
     get :show, params: params
 
