@@ -37,9 +37,11 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       document_type: 'organisation',
       locale: 'en',
       publishing_app: 'whitehall',
-      rendering_app: 'whitehall-frontend',
+      rendering_app: 'collections',
       public_updated_at: organisation.updated_at,
-      routes: [{ path: public_path, type: "exact" }],
+      routes: [
+        { path: public_path, type: "exact" }
+      ],
       redirects: [],
       update_type: "major",
       details: {
@@ -198,5 +200,17 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     presented_item = present(organisation)
 
     assert_equal("http://www.example.com/org-of-things", presented_item.content[:details][:organisation_govuk_status][:url])
+  end
+
+  test 'renders courts via Whitehall' do
+    organisation = create(
+      :organisation,
+      name: 'Court at mid-wicket',
+      organisation_type_key: "court",
+    )
+    presented_item = present(organisation)
+
+    assert_equal("whitehall-frontend", presented_item.content[:rendering_app])
+    assert_equal([{ path: "/courts-tribunals/court-at-mid-wicket", type: "exact" }], presented_item.content[:routes])
   end
 end
