@@ -98,8 +98,10 @@ module PublishingApi
     end
 
     def parent_child_relationships_text
-      if item.parent_organisations.any? || item.supporting_bodies.any?
-        "\n\n#{organisation_display_name_including_parental_and_child_relationships(item)}"
+      unless item.organisation_type.executive_office? || item.organisation_type.civil_service?
+        if item.parent_organisations.any? || item.supporting_bodies.any?
+          "\n\n#{organisation_display_name_including_parental_and_child_relationships(item)}"
+        end
       end
     end
 
