@@ -23,6 +23,8 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
       setup_publishing_api_for(edition)
       stub_whitehall_asset(filename, id: asset_id)
       VirusScanHelpers.simulate_virus_scan
+      attachment.attachment_data.uploaded_to_asset_manager!
+      edition.save!
 
       visit admin_news_article_path(edition)
       click_link 'Modify attachments'
@@ -50,7 +52,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
       end
 
       it 'deletes corresponding asset(s) in Asset Manager' do
-        Services.asset_manager.expects(:delete_asset).with(asset_id)
+        Services.asset_manager.expects(:delete_asset).at_least_once.with(asset_id)
         AssetManagerAttachmentDeleteWorker.drain
       end
     end
@@ -69,7 +71,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
       end
 
       it 'deletes corresponding asset(s) in Asset Manager' do
-        Services.asset_manager.expects(:delete_asset).with(asset_id)
+        Services.asset_manager.expects(:delete_asset).at_least_once.with(asset_id)
         AssetManagerAttachmentDeleteWorker.drain
       end
     end

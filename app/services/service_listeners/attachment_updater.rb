@@ -12,6 +12,8 @@ module ServiceListeners
     end
 
     def self.update_attachment_data!(attachment_data)
+      return unless attachment_data.uploaded_to_asset_manager_at
+
       draft_status_updater attachment_data
       redirect_url_updater attachment_data
       link_header_updater attachment_data
