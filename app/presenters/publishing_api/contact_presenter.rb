@@ -4,7 +4,7 @@ module PublishingApi
 
     def_delegators :contact,
       :contact_numbers, :content_id, :comments, :country, :email,
-      :locality, :postal_code, :recipient, :street_address,
+      :locality, :region, :postal_code, :recipient, :street_address,
       :title, :contact_form_url, :translation
 
     def initialize(model, _options)
@@ -90,13 +90,13 @@ module PublishingApi
 
     def post_address
       post_address = {
-        title: recipient || title,
+        title: recipient || "",
         street_address: street_address,
+        locality: locality || "",
+        region: region || "",
         postal_code: postal_code,
         world_location: country_name
       }
-
-      post_address[:locality] = locality unless locality.nil?
 
       post_address
     end
@@ -112,7 +112,7 @@ module PublishingApi
 
     def email_address
       {
-        title: recipient || title,
+        title: recipient || "",
         email: email,
       }
     end
