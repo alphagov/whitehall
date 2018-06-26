@@ -244,6 +244,12 @@ module Admin::EditionsHelper
     end
   end
 
+  def attachment_uploading_status(attachment)
+    return unless attachment.attachment_data
+    content_tag(:p, "Uploading", class: "asset-manager-uploading") unless
+      attachment.attachment_data.uploaded_to_asset_manager_at
+  end
+
   def attachment_metadata_tag(attachment)
     labels = {
       isbn: 'ISBN',
