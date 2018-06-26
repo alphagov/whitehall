@@ -24,8 +24,7 @@ class AssetManagerCreateWhitehallAssetWorker < WorkerBase
 
     if model
       Attachment.where(attachable: model.attachables).where.not(attachment_data: nil).find_each do |attachment|
-        attachment.attachment_data.uploaded_to_asset_manager_at = Time.now
-        attachment.attachment_data.save!
+        attachment.attachment_data.uploaded_to_asset_manager!
       end
     end
 
