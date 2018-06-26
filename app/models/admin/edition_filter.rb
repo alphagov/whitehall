@@ -7,6 +7,8 @@ module Admin
       lookup
     end
 
+    MAX_EXPORT_SIZE = 8000
+
     attr_reader :options
 
     def initialize(source, current_user, options = {})
@@ -91,6 +93,10 @@ module Admin
       elsif to_date
         "before #{to_date.to_date.to_s(:uk_short)}"
       end
+    end
+
+    def exportable?
+      unpaginated_editions.count <= MAX_EXPORT_SIZE
     end
 
   private

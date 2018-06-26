@@ -59,8 +59,12 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def export
-    DocumentListExportWorker.perform_async(params_filters_with_default_state, current_user.id)
-    flash[:notice] = "The document list is being exported"
+    if filter && filter.exportable?
+      DocumentListExportWorker.perform_async(params_filters_with_default_state, current_user.id)
+      flash[:notice] = "The document list is being exported"
+    else
+      flash[:alert] = "The document list is too large for export"
+    end
     redirect_to params_filters.merge(action: :index)
   end
 

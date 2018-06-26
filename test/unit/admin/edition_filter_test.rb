@@ -325,4 +325,12 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     filter.each_edition_for_csv { |_unused| count += 1 }
     assert_equal 3, count
   end
+
+  test "exportable? if number of editions is below threshold" do
+    filter = Admin::EditionFilter.new(Edition, build(:user), per_page: 2)
+    filter.stubs(:unpaginated_editions).returns(stub(count: 8000))
+    assert filter.exportable?
+    filter.stubs(:unpaginated_editions).returns(stub(count: 8001))
+    refute filter.exportable?
+  end
 end
