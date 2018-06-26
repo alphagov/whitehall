@@ -80,6 +80,7 @@ module PublishingApi
         ordered_traffic_commissioners: traffic_commissioners,
         ordered_chief_professional_officers: chief_professional_officers,
         ordered_special_representatives: special_representatives,
+        important_board_members: important_board_members,
         organisation_featuring_priority: organisation_featuring_priority,
         organisation_govuk_status: organisation_govuk_status,
         organisation_type: organisation_type,
@@ -346,7 +347,7 @@ module PublishingApi
     end
 
     def board_members
-      people_in_role("management", important_people: item.important_board_members)
+      people_in_role("management")
     end
 
     def military_personnel
@@ -365,7 +366,7 @@ module PublishingApi
       people_in_role("special_representative")
     end
 
-    def people_in_role(role_type, important_people: 0)
+    def people_in_role(role_type)
       item.send("#{role_type}_roles")
         .order("organisation_roles.ordering")
         .reduce([]) do |ary, role|
@@ -384,8 +385,7 @@ module PublishingApi
               attends_cabinet_type: role.attends_cabinet_type&.name
             }
 
-            unless person.image.url.nil? ||
-                (important_people.positive? && ary.count >= important_people)
+            unless person.image.url.nil?
               person_object[:image] = {
                 url: person.image.url,
                 alt_text: full_name
@@ -397,6 +397,10 @@ module PublishingApi
 
           ary
         end
+    end
+
+    def important_board_members
+      item.important_board_members
     end
 
     def organisation_featuring_priority
