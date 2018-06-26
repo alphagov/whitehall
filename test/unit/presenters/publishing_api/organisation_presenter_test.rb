@@ -23,7 +23,8 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       name: 'Organisation of Things',
       analytics_identifier: 'O123',
       parent_organisations: [parent_organisation],
-      url: "https://www.gov.uk/oot"
+      url: "https://www.gov.uk/oot",
+      important_board_members: 5
     )
     role = create(:role, organisations: [organisation])
     public_path = Whitehall.url_maker.organisation_path(organisation)
@@ -66,6 +67,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
         ordered_traffic_commissioners: [],
         ordered_chief_professional_officers: [],
         ordered_special_representatives: [],
+        important_board_members: 5,
         organisation_featuring_priority: "news",
         organisation_govuk_status: {
           status: "live",
@@ -150,41 +152,6 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     presented_item = present(organisation)
 
     assert_equal(govspeak_to_html(""), presented_item.content[:details][:body])
-  end
-
-  test 'presents an organisation with the correct important board members' do
-    organisation = create(
-      :organisation,
-      name: 'Organisation of Things',
-      important_board_members: 2
-    )
-
-    role_1 = create(:board_member_role, organisations: [organisation])
-    board_member_1 = create(
-      :person,
-      image: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
-    )
-    create(:role_appointment, person: board_member_1, role: role_1)
-
-    role_2 = create(:board_member_role, organisations: [organisation])
-    board_member_2 = create(
-      :person,
-      image: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
-    )
-    create(:role_appointment, person: board_member_2, role: role_2)
-
-    role_3 = create(:board_member_role, organisations: [organisation])
-    board_member_3 = create(
-      :person,
-      image: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
-    )
-    create(:role_appointment, person: board_member_3, role: role_3)
-
-    presented_item = present(organisation)
-
-    refute_nil presented_item.content[:details][:ordered_board_members][0][:image]
-    refute_nil presented_item.content[:details][:ordered_board_members][1][:image]
-    assert_nil presented_item.content[:details][:ordered_board_members][2][:image]
   end
 
   test 'presents an eligible organisation with promotional features' do
