@@ -75,6 +75,14 @@ module Attachable
     true
   end
 
+  def uploaded_to_asset_manager?
+    attachments.each do |attachment|
+      next unless attachment.attachment_data
+      return false unless attachment.attachment_data.uploaded_to_asset_manager_at
+    end
+    true
+  end
+
   def allows_attachments?
     true
   end

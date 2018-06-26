@@ -35,8 +35,10 @@ Feature: Managing attachments on editions
     Given I am an editor
     And a published publication "Standard Beard Lengths" with a PDF attachment
     And the attachment has been virus-checked
+    And the attachment has been uploaded to the asset-manager
     When I replace the data file of the attachment in a new draft of the publication
     And the attachment has been virus-checked
+    And the attachment has been uploaded to the asset-manager
     Then the new data file should not have replaced the old data file
     When I published the draft edition
     And I log out
