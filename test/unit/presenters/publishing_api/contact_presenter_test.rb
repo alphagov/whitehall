@@ -52,6 +52,8 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
           {
             title: "GDS Mail Room",
             street_address: "Aviation House, 125 Kingsway",
+            locality: "",
+            region: "",
             postal_code: "WC2B 6NH",
             world_location: "United Kingdom",
           }
