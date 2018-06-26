@@ -275,7 +275,7 @@ module PublishingApi
           url: feature.image.url,
           alt_text: feature.alt_text
         },
-        summary: edition.summary,
+        summary: Whitehall::GovspeakRenderer.new.govspeak_to_html(edition.summary),
         public_updated_at: edition.public_timestamp,
         document_type: edition.display_type
       }
@@ -291,7 +291,7 @@ module PublishingApi
           url: feature.image.url,
           alt_text: feature.alt_text
         },
-        summary: topical_event.description,
+        summary: Whitehall::GovspeakRenderer.new.govspeak_to_html(topical_event.description),
         public_updated_at: topical_event.start_date,
         document_type: nil # We don't want a type for topical events
       }
@@ -307,7 +307,7 @@ module PublishingApi
           url: feature.image.url,
           alt_text: feature.alt_text
         },
-        summary: offsite_link.summary,
+        summary: Whitehall::GovspeakRenderer.new.govspeak_to_html(offsite_link.summary),
         public_updated_at: offsite_link.date,
         document_type: offsite_link.humanized_link_type
       }
