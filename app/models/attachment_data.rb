@@ -104,7 +104,7 @@ class AttachmentData < ApplicationRecord
   end
 
   def uploaded_to_asset_manager!
-    update!(uploaded_to_asset_manager_at: Time.now)
+    update!(uploaded_to_asset_manager_at: Time.zone.now)
     ServiceListeners::AttachmentUpdater.update_attachment_data! self
   end
 
