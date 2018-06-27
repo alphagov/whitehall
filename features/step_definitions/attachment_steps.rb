@@ -119,3 +119,8 @@ Then(/^the html attachment "(.*?)" includes the contact address "(.*?)" and the 
   assert_equal isbn, html_attachment.isbn
   assert_equal web_isbn, html_attachment.web_isbn
 end
+
+Then(/^I see a validation error for uploading attachments$/) do
+  assert page.has_content?("must have finished uploading"),
+    "Uploading attachment validation message not found"
+end
