@@ -73,10 +73,11 @@ class AssetManagerCreateWhitehallAssetWorkerTest < ActiveSupport::TestCase
     FactoryBot.create(:user, organisation: organisation, uid: 'user-uid')
     policy_group = FactoryBot.create(:policy_group)
     attachment = FactoryBot.create(:file_attachment, attachable: policy_group)
+    attachment.attachment_data.attachable = policy_group
 
     Services.asset_manager.expects(:create_whitehall_asset).with(Not(has_key(:access_limited)))
 
-    @worker.perform(@file.path, @legacy_url_path, true, attachment.attachment_data.class.to_s, attachment.attachment_data.id)
+    @worker.perform(@file.path, @legacy_url_path, true, policy_group.class.to_s, policy_group.id)
   end
 
   test "doesn't run if the file is missing (e.g. job ran twice)" do

@@ -24,6 +24,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
       setup_publishing_api_for(edition)
       attachable.attachments << attachment
       VirusScanHelpers.simulate_virus_scan
+      attachable.save!
     end
 
     context 'on a draft document' do
@@ -82,6 +83,7 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
     it 'marks attachment as published in Asset Manager when added to policy group' do
       visit admin_policy_group_attachments_path(policy_group)
       add_attachment(filename)
+      Attachment.last.attachment_data.uploaded_to_asset_manager!
       assert_sets_draft_status_in_asset_manager_to false
     end
   end

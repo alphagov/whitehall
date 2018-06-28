@@ -8,6 +8,10 @@ When(/^the (?:attachment|image)s? (?:has|have) been virus\-checked$/) do
   FileUtils.mkdir(Whitehall.incoming_uploads_root)
 end
 
+When(/^the attachment has been uploaded to the asset\-manager$/) do
+  Attachment.last.attachment_data.uploaded_to_asset_manager!
+end
+
 When(/^I start editing the attachments from the .*? page$/) do
   click_on 'Modify attachments'
 end
@@ -114,4 +118,9 @@ Then(/^the html attachment "(.*?)" includes the contact address "(.*?)" and the 
   assert_equal contact_address, html_attachment.print_meta_data_contact_address
   assert_equal isbn, html_attachment.isbn
   assert_equal web_isbn, html_attachment.web_isbn
+end
+
+Then(/^I see a validation error for uploading attachments$/) do
+  assert page.has_content?("must have finished uploading"),
+    "Uploading attachment validation message not found"
 end

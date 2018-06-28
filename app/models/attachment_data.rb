@@ -103,6 +103,15 @@ class AttachmentData < ApplicationRecord
     end
   end
 
+  def uploaded_to_asset_manager!
+    update!(uploaded_to_asset_manager_at: Time.zone.now)
+    ServiceListeners::AttachmentUpdater.call(attachment_data: self)
+  end
+
+  def uploaded_to_asset_manager?
+    uploaded_to_asset_manager_at.present?
+  end
+
   def deleted?
     significant_attachment(include_deleted_attachables: true).deleted?
   end

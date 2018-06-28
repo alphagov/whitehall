@@ -35,8 +35,10 @@ Feature: Managing attachments on editions
     Given I am an editor
     And a published publication "Standard Beard Lengths" with a PDF attachment
     And the attachment has been virus-checked
+    And the attachment has been uploaded to the asset-manager
     When I replace the data file of the attachment in a new draft of the publication
     And the attachment has been virus-checked
+    And the attachment has been uploaded to the asset-manager
     Then the new data file should not have replaced the old data file
     When I published the draft edition
     And I log out
@@ -54,6 +56,15 @@ Feature: Managing attachments on editions
     And a draft publication "Standards on Beard Grooming" exists
     When I try and upload an attachment but there are validation errors
     Then I should be able to submit the attachment without re-uploading the file
+
+  Scenario: Attempting to publish attachment which is still being uploaded to the asset manager
+    Given I am an editor
+    And a published publication "Standard Beard Lengths" with a PDF attachment
+    And the attachment has been virus-checked
+    And the attachment has been uploaded to the asset-manager
+    When I replace the data file of the attachment in a new draft of the publication
+    And I try to publish the draft edition
+    Then I see a validation error for uploading attachments
 
   Scenario: Editing metadata on attachments
     Given I am an writer

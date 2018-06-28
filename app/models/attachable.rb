@@ -75,6 +75,13 @@ module Attachable
     true
   end
 
+  def uploaded_to_asset_manager?
+    attachments
+      .map(&:attachment_data)
+      .compact
+      .all?(&:uploaded_to_asset_manager?)
+  end
+
   def allows_attachments?
     true
   end

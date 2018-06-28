@@ -7,9 +7,7 @@ Whitehall.edition_services.tap do |coordinator|
   end
 
   coordinator.subscribe do |_event, edition, _options|
-    ServiceListeners::AttachmentUpdater
-      .new(edition)
-      .update!
+    ServiceListeners::AttachmentUpdater.call(attachable: edition)
   end
 
   coordinator.subscribe('unpublish') do |_event, edition, _options|

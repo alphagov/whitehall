@@ -21,6 +21,13 @@ class AssetManagerCreateWhitehallAssetWorker < WorkerBase
     end
 
     asset_manager.create_whitehall_asset(asset_options)
+
+    if model
+      Attachment.where(attachable: model.attachables).where.not(attachment_data: nil).find_each do |attachment|
+        attachment.attachment_data.uploaded_to_asset_manager!
+      end
+    end
+
     FileUtils.rm(file)
     FileUtils.rmdir(File.dirname(file))
   end

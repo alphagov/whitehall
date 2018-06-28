@@ -45,6 +45,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
         assert_text "Attachment 'Attachment Title' updated"
 
         VirusScanHelpers.simulate_virus_scan
+        Attachment.last.attachment_data.uploaded_to_asset_manager!
         stub_whitehall_asset(replacement_filename, id: replacement_asset_id)
       end
 
@@ -86,6 +87,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
         click_button 'Save'
         assert_text "Attachment 'attachment-title' updated"
         VirusScanHelpers.simulate_virus_scan
+        Attachment.last.attachment_data.uploaded_to_asset_manager!
         stub_whitehall_asset(replacement_filename, id: replacement_asset_id)
       end
 
