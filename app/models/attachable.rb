@@ -76,11 +76,10 @@ module Attachable
   end
 
   def uploaded_to_asset_manager?
-    attachments.each do |attachment|
-      next unless attachment.attachment_data
-      return false unless attachment.attachment_data.uploaded_to_asset_manager_at
-    end
-    true
+    attachments
+      .map(&:attachment_data)
+      .compact
+      .all?(&:uploaded_to_asset_manager?)
   end
 
   def allows_attachments?
