@@ -26,12 +26,10 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
   end
 
   test "it returns '[]' if there are no taxons" do
-    expanded_links = {
-      "content_id" =>  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      "expanded_links" => {}
-    }
-
-    publishing_api_has_expanded_links(expanded_links, generate: true)
+    publishing_api_has_expanded_links(
+      content_id:  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+      expanded_links:  {}
+    )
 
     links_fetcher = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05")
     assert_equal [], links_fetcher.fetch
@@ -39,9 +37,10 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
 
   test "it returns a taxon without a parent" do
     title = "Education, training and skills"
-    expanded_links = {
-      "content_id" =>  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      "expanded_links" =>  {
+
+    publishing_api_has_expanded_links(
+      content_id:  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+      expanded_links:  {
         "taxons" => [
           {
             "title" => title,
@@ -52,17 +51,15 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
           }
         ]
       }
-    }
-
-    publishing_api_has_expanded_links(expanded_links, generate: true)
+    )
     taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch
     assert_equal 'aaaa', taxons.first.content_id
   end
 
   test "it returns a taxon with a parent" do
-    expanded_links = {
-      "content_id" =>  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      "expanded_links" =>  {
+    publishing_api_has_expanded_links(
+      content_id:  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+      expanded_links:  {
         "taxons" => [
           {
             "title" => "Further Education",
@@ -83,19 +80,16 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
           }
         ]
       }
-    }
-
-    publishing_api_has_expanded_links(expanded_links, generate: true)
+    )
     taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch
     assert_equal 'aaaa', taxons.first.content_id
     assert_equal 'bbbb', taxons.first.parent_node.content_id
   end
 
   test "it returns a taxon with parent and grandparent" do
-    expanded_links =
-      {
-      "content_id" =>  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      "expanded_links" =>  {
+    publishing_api_has_expanded_links(
+      content_id:  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+      expanded_links:  {
         "taxons" => [
           {
             "title" => "Student Finance",
@@ -124,9 +118,7 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
           }
         ]
       }
-    }
-
-    publishing_api_has_expanded_links(expanded_links, generate: true)
+    )
     taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch
     assert_equal 'aaaa', taxons.first.content_id
     assert_equal 'bbbb', taxons.first.parent_node.content_id
@@ -134,9 +126,9 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
   end
 
   test "it returns paths for multiple taxons" do
-    expanded_links = {
-      "content_id" =>  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      "expanded_links" =>  {
+    publishing_api_has_expanded_links(
+      content_id:  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+      expanded_links:  {
         "taxons" => [
           {
             "title" => "Further Education",
@@ -174,9 +166,7 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
           }
         ]
       }
-    }
-
-    publishing_api_has_expanded_links(expanded_links, generate: true)
+    )
     taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch
     assert_equal 2, taxons.count
     assert_equal "aaaa", taxons.first.content_id
@@ -186,9 +176,9 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
   end
 
   test "it sets the first parent taxon if there are multiple parents" do
-    expanded_links = {
-      "content_id" =>  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      "expanded_links" =>  {
+    publishing_api_has_expanded_links(
+      content_id:  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+      expanded_links:  {
         "taxons" => [
           {
             "title" => "Further Education",
@@ -216,18 +206,16 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
           }
         ]
       }
-    }
-
-    publishing_api_has_expanded_links(expanded_links, generate: true)
+    )
     taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch
     assert_equal "aaaa", taxons.first.content_id
     assert_equal "bbbb", taxons.first.parent_node.content_id
   end
 
   test "it only returns published or visible draft taxons" do
-    expanded_links = {
-      "content_id" =>  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      "expanded_links" =>  {
+    publishing_api_has_expanded_links(
+      content_id:  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+      expanded_links:  {
         "taxons" => [
           {
             "title" => "I am the published taxon",
@@ -282,17 +270,16 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
           }
         ]
       }
-    }
+    )
 
-    publishing_api_has_expanded_links(expanded_links, generate: true)
     taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch
     assert_equal %w[aaaa cccc], taxons.map(&:content_id)
   end
 
   test "it gets world taxons tagged to the edition" do
-    expanded_links = {
-      "content_id" =>  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      "expanded_links" =>  {
+    publishing_api_has_expanded_links(
+      content_id:  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+      expanded_links:  {
         "taxons" => [
           {
             "title" => "I am the published taxon",
@@ -330,9 +317,7 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
           }
         ]
       }
-    }
-
-    publishing_api_has_expanded_links(expanded_links, generate: true)
+    )
     redis_cache_has_world_taxons([build(:taxon_hash, content_id: 'world-taxon')])
 
     redis_cache_has_world_taxons([build(:taxon_hash, content_id: 'world-taxon')])
@@ -342,9 +327,9 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
   end
 
   test "it returns legacy mappings" do
-    expanded_links = {
-      "content_id" =>  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
-      "expanded_links" =>  {
+    publishing_api_has_expanded_links(
+      content_id:  "64aadc14-9bca-40d9-abb4-4f21f9792a05",
+      expanded_links:  {
         "taxons" => [
           {
             "title" => "Further Education",
@@ -364,9 +349,8 @@ class EditionTaxonsFetcherTest < ActiveSupport::TestCase
           }
         ]
       }
-    }
+    )
 
-    publishing_api_has_expanded_links(expanded_links, generate: true)
     taxons = EditionTaxonsFetcher.new("64aadc14-9bca-40d9-abb4-4f21f9792a05").fetch
     assert_equal 'policy', taxons.first.legacy_mapping["policy"][0]["document_type"]
   end

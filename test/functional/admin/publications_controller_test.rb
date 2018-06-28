@@ -327,17 +327,16 @@ private
   end
 
   def publication_has_no_expanded_links(content_id)
-    expanded_links = {
-      "content_id" =>  content_id,
-      "expanded_links" =>  {}
-    }
-    publishing_api_has_expanded_links(expanded_links, generate: true)
+    publishing_api_has_expanded_links(
+      content_id: content_id,
+      expanded_links: {}
+    )
   end
 
   def publication_has_expanded_links(content_id)
-    expanded_links = {
-      "content_id" =>  content_id,
-      "expanded_links" =>  {
+    publishing_api_has_expanded_links(
+      content_id: content_id,
+      expanded_links: {
         "taxons" => [
           {
             "title" => "Primary Education",
@@ -358,15 +357,13 @@ private
           }
         ]
       }
-    }
-
-    publishing_api_has_expanded_links(expanded_links, generate: true)
+    )
   end
 
   def publication_has_world_expanded_links(content_id)
-    expanded_links = {
-      "content_id" =>  content_id,
-      "expanded_links" =>  {
+    publishing_api_has_expanded_links(
+      content_id:  content_id,
+      expanded_links:  {
         "taxons" => [
           {
             "title" => "World Grandchild Taxon",
@@ -387,9 +384,7 @@ private
           }
         ]
       }
-    }
-
-    publishing_api_has_expanded_links(expanded_links, generate: true)
+    )
   end
 
   def controller_attributes_for(edition_type, attributes = {})

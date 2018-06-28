@@ -43,7 +43,7 @@ private
   end
 
   def response
-    Services.publishing_api.get_expanded_links(content_id, generate: true)
+    Services.publishing_api.get_expanded_links(content_id)
   end
 
   def all_world_taxons
