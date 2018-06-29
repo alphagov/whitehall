@@ -27,39 +27,27 @@ module ServiceListeners
     end
 
     private_class_method def self.draft_status_updater(attachment_data)
-      ServiceListeners::AttachmentDraftStatusUpdater
-        .new(attachment_data)
-        .update!
+      AssetManagerAttachmentDraftStatusUpdateWorker.new.perform(attachment_data.id)
     end
 
     private_class_method def self.redirect_url_updater(attachment_data)
-      ServiceListeners::AttachmentRedirectUrlUpdater
-        .new(attachment_data)
-        .update!
+      AssetManagerAttachmentRedirectUrlUpdateWorker.new.perform(attachment_data.id)
     end
 
     private_class_method def self.link_header_updater(attachment_data)
-      ServiceListeners::AttachmentLinkHeaderUpdater
-        .new(attachment_data)
-        .update!
+      AssetManagerAttachmentLinkHeaderUpdateWorker.new.perform(attachment_data.id)
     end
 
     private_class_method def self.access_limited_updater(attachment_data)
-      ServiceListeners::AttachmentAccessLimitedUpdater
-        .new(attachment_data)
-        .update!
+      AssetManagerAttachmentAccessLimitedWorker.new.perform(attachment_data.id)
     end
 
     private_class_method def self.replacement_id_updater(attachment_data)
-      ServiceListeners::AttachmentReplacementIdUpdater
-        .new(attachment_data)
-        .update!
+      AssetManagerAttachmentReplacementIdUpdateWorker.new.perform(attachment_data.id)
     end
 
     private_class_method def self.deleter(attachment_data)
-      ServiceListeners::AttachmentDeleter
-        .new(attachment_data)
-        .delete!
+      AssetManagerAttachmentDeleteWorker.new.perform(attachment_data.id)
     end
   end
 end
