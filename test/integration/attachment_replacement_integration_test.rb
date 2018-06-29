@@ -64,8 +64,9 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
       # because the replacement is visible to the user.
       it 'updates replacement_id for attachment in Asset Manager' do
         Services.asset_manager.expects(:update_asset)
+          .at_least_once
           .with(asset_id, 'replacement_id' => replacement_asset_id)
-        AssetManagerAttachmentReplacementIdUpdateWorker.drain
+        AssetManagerAttachmentDataWorker.drain
       end
     end
   end
@@ -103,13 +104,14 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
       # visible to the user.
       it 'updates replacement_id for attachment in Asset Manager' do
         Services.asset_manager.expects(:update_asset)
+          .at_least_once
           .with(asset_id, 'replacement_id' => replacement_asset_id)
-        AssetManagerAttachmentReplacementIdUpdateWorker.drain
+        AssetManagerAttachmentDataWorker.drain
       end
 
       context 'and draft edition is published' do
         before do
-          AssetManagerAttachmentReplacementIdUpdateWorker.drain
+          AssetManagerAttachmentDataWorker.drain
 
           click_link 'Document'
           fill_in 'Public change note', with: 'attachment replaced'
