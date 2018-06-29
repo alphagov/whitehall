@@ -3,7 +3,7 @@ module PublishingApi
     include Rails.application.routes.url_helpers
     include ApplicationHelper
     include FilterRoutesHelper
-    # This is so we can get the extra text for the summary field
+    # This is so we can get the extra text for the summary field
     include OrganisationHelper
     # This is a hack to get the OrganisationHelper to work in this context
     include ActionView::Helpers::UrlHelper
@@ -32,7 +32,7 @@ module PublishingApi
         details: details,
         document_type: item.class.name.underscore,
         public_updated_at: item.updated_at,
-        rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
+        rendering_app: rendering_app,
         schema_name: schema_name,
       )
       content.merge!(PayloadBuilder::PolymorphicPath.for(item))
@@ -56,6 +56,14 @@ module PublishingApi
 
     def schema_name
       "organisation"
+    end
+
+    def rendering_app
+      if item.organisation_type.court?
+        Whitehall::RenderingApp::WHITEHALL_FRONTEND
+      else
+        Whitehall::RenderingApp::COLLECTIONS_FRONTEND
+      end
     end
 
     def details
