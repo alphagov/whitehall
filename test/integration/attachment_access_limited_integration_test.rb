@@ -23,8 +23,6 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
 
       add_file_attachment('logo.png', to: edition)
       VirusScanHelpers.simulate_virus_scan(include_versions: true)
-      edition.attachments[0].attachment_data.uploaded_to_asset_manager!
-      edition.save!
 
       stub_whitehall_asset('logo.png', id: 'asset-id', draft: true)
     end
@@ -38,7 +36,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
       end
 
       it 'marks attachment as access limited in Asset Manager' do
-        Services.asset_manager.expects(:update_asset).at_least_once.with('asset-id', 'access_limited' => ['user-uid'])
+        Services.asset_manager.expects(:update_asset).with('asset-id', 'access_limited' => ['user-uid'])
 
         AssetManagerAttachmentAccessLimitedWorker.drain
       end
@@ -154,7 +152,6 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
 
       add_file_attachment('logo.png', to: edition)
       VirusScanHelpers.simulate_virus_scan(include_versions: true)
-      edition.attachments[0].attachment_data.uploaded_to_asset_manager!
 
       stub_whitehall_asset('logo.png', id: 'asset-id', draft: true)
     end
@@ -168,7 +165,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
       end
 
       it 'unmarks attachment as access limited in Asset Manager' do
-        Services.asset_manager.expects(:update_asset).at_least_once.with('asset-id', 'access_limited' => [])
+        Services.asset_manager.expects(:update_asset).with('asset-id', 'access_limited' => [])
 
         AssetManagerAttachmentAccessLimitedWorker.drain
       end

@@ -128,11 +128,6 @@ When(/^I published the draft edition$/) do
   publish(force: true)
 end
 
-When(/^I try to publish the draft edition$/) do
-  visit admin_publication_path(@new_edition)
-  publish(force: true, ignore_errors: true)
-end
-
 Then(/^the old data file should redirect to the new data file$/) do
   new_attachment_data = @new_edition.attachments.first.attachment_data
   old_attachment_data = @old_edition.reload.attachments.first.attachment_data

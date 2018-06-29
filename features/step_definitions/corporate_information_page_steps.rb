@@ -122,7 +122,6 @@ Then(/^I should be able to add attachments to the "(.*?)" corporate information 
   attachment = upload_pdf_to_corporate_information_page(page)
   VirusScanHelpers.simulate_virus_scan(attachment.attachment_data.file)
   insert_attachment_markdown_into_corporate_information_page_body(attachment, page)
-  Attachment.last.attachment_data.uploaded_to_asset_manager!
   publish(force: true)
   check_attachment_appears_on_corporate_information_page(attachment, page)
 end

@@ -21,7 +21,6 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
     attachable.attachments << attachment
     VirusScanHelpers.simulate_virus_scan
     stub_whitehall_asset(filename, id: asset_id)
-    attachable.save!
 
     asset_host = URI.parse(Plek.new.public_asset_host).host
     host! asset_host
