@@ -1,5 +1,5 @@
 class AssetManagerAttachmentMetadataUpdateWorker < WorkerBase
-  sidekiq_options queue: 'asset_migration'
+  sidekiq_options queue: 'asset_migration', unique: :until_executing
 
   def perform(attachment_data_id)
     workers.each do |worker|
