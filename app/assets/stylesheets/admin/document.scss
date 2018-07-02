@@ -120,11 +120,6 @@ ol.existing-attachments {
       display: block;
     }
 
-    p.asset-manager-uploading {
-      color: $notice-color;
-      background: $notice-background;
-    }
-
     p.virus-scanning {
       color: $notice-color;
       background: $notice-background;
@@ -165,10 +160,6 @@ input[name="next"] {
 }
 input[name="legacy_tags"] {
   margin-left: 0.4em;
-}
-
-.asset-manager-uploading-status {
-  width: 20%;
 }
 
 .virus-status {
