@@ -1,5 +1,5 @@
 :verbose: true
-:concurrency: 2
+:concurrency: 8
 :logfile: ./log/sidekiq.json.log
 :queues:
   - scheduled_publishing
