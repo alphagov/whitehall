@@ -442,7 +442,7 @@ module PublishingApi
     end
 
     def court_or_tribunal?
-      item.organisation_type.court? || item.organisation_type.tribunal_ndpb?
+      item.court_or_hmcts_tribunal?
     end
 
     def social_media_links
