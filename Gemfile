@@ -5,7 +5,7 @@ gem 'addressable', ">= 2.3.7"
 gem 'asset_bom_removal-rails', '~> 1.0.0'
 gem 'babosa', '1.0.2'
 gem 'bootstrap-kaminari-views', '0.0.5'
-gem 'carrierwave', '~> 1.2.2'
+gem 'carrierwave', '~> 1.2.3'
 gem 'carrierwave-i18n'
 gem 'chronic'
 gem 'dalli', '~> 2.7'
