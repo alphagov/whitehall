@@ -18,6 +18,7 @@ require 'webmock/minitest'
 require 'whitehall/not_quite_as_fake_search'
 require 'whitehall/search_index'
 require 'sidekiq/testing'
+require 'sidekiq_unique_jobs/testing'
 require 'govuk-content-schema-test-helpers/test_unit'
 require 'parallel_tests/test/runtime_logger'
 
