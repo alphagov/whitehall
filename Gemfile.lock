@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/alphagov/sidekiq-unique-jobs
+  revision: 6c03e39c3ad6ba1468d567c22bb99908f6fdb317
+  branch: fix-for-upstream-195-backported-to-4-x-branch
+  specs:
+    sidekiq-unique-jobs (4.0.18)
+      sidekiq (>= 2.6)
+      thor
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -646,6 +655,7 @@ DEPENDENCIES
   sassc-rails (~> 1.3)
   shared_mustache (~> 1.0.0)
   sidekiq-scheduler (~> 3.0)
+  sidekiq-unique-jobs!
   simplecov
   simplecov-rcov
   slimmer (~> 13.0)
@@ -665,4 +675,4 @@ DEPENDENCIES
   whenever (~> 0.10.0)
 
 BUNDLED WITH
-   1.16.1
+   1.16.2
