@@ -100,7 +100,10 @@ Whitehall::Application.configure do
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
 
-  # Send deprecation notices to registered listeners.
+  # Enable threaded mode
+  # config.threadsafe!
+
+  # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
