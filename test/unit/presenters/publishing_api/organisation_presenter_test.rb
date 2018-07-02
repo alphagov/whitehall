@@ -28,6 +28,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     )
     role = create(:role, organisations: [organisation])
     public_path = Whitehall.url_maker.organisation_path(organisation)
+    public_atom_path = "#{public_path}.atom"
 
     expected_hash = {
       base_path: public_path,
@@ -40,7 +41,8 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       rendering_app: 'collections',
       public_updated_at: organisation.updated_at,
       routes: [
-        { path: public_path, type: "exact" }
+        { path: public_path, type: "exact" },
+        { path: public_atom_path, type: "exact" }
       ],
       redirects: [],
       update_type: "major",

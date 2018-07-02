@@ -35,7 +35,9 @@ module PublishingApi
         rendering_app: rendering_app,
         schema_name: schema_name,
       )
-      content.merge!(PayloadBuilder::PolymorphicPath.for(item))
+      content.merge!(
+        PayloadBuilder::PolymorphicPath.for(item, additional_routes: additional_routes)
+      )
       content.merge!(PayloadBuilder::AnalyticsIdentifier.for(item))
     end
 
@@ -64,6 +66,11 @@ module PublishingApi
       else
         Whitehall::RenderingApp::COLLECTIONS_FRONTEND
       end
+    end
+
+    def additional_routes
+      return [] if court_or_tribunal?
+      ["atom"]
     end
 
     def details

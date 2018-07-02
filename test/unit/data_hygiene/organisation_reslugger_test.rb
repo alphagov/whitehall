@@ -31,11 +31,13 @@ module OrganisationResluggerTest
 
     test "publishes to Publishing API with the new slug" do
       new_base_path = "#{base_path}/corrected-slug"
+      new_atom_base_path = "#{base_path}/corrected-slug.atom"
 
       content_item = PublishingApiPresenters.presenter_for(@organisation)
       content = content_item.content
       content[:base_path] = new_base_path
       content[:routes][0][:path] = new_base_path
+      content[:routes][1][:path] = new_atom_base_path unless content[:routes][1].nil?
       content_item.stubs(content: content)
 
       expected_publish_requests = [
