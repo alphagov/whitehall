@@ -202,7 +202,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     assert_equal("http://www.example.com/org-of-things", presented_item.content[:details][:organisation_govuk_status][:url])
   end
 
-  test 'renders courts via Whitehall' do
+  test 'renders courts and tribunals using Whitehall' do
     organisation = create(
       :organisation,
       name: 'Court at mid-wicket',

@@ -59,7 +59,7 @@ module PublishingApi
     end
 
     def rendering_app
-      if item.organisation_type.court?
+      if court_or_tribunal?
         Whitehall::RenderingApp::WHITEHALL_FRONTEND
       else
         Whitehall::RenderingApp::COLLECTIONS_FRONTEND
@@ -439,6 +439,10 @@ module PublishingApi
 
     def organisation_type
       item.organisation_type_key.to_s
+    end
+
+    def court_or_tribunal?
+      item.organisation_type.court? || item.organisation_type.tribunal_ndpb?
     end
 
     def social_media_links
