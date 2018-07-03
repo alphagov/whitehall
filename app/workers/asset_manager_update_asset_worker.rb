@@ -24,7 +24,7 @@ class AssetManagerUpdateAssetWorker
 
     keys = new_attributes.keys
     unless attributes.slice(*keys) == new_attributes.slice(*keys)
-      asset_manager.update_asset(attributes['id'], new_attributes)
+      asset_manager.update_asset_attributes(attributes['id'], new_attributes)
     end
   end
 end
