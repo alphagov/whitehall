@@ -108,9 +108,13 @@ module PublishingApi
     end
 
     def summary
-      Whitehall::GovspeakRenderer.new.govspeak_to_html(
-        "#{item.summary}#{parent_child_relationships_text}"
-      )
+      text = if item.court_or_hmcts_tribunal?
+               item.body
+             else
+               "#{item.summary}#{parent_child_relationships_text}"
+             end
+
+      Whitehall::GovspeakRenderer.new.govspeak_to_html(text)
     end
 
     def parent_child_relationships_text

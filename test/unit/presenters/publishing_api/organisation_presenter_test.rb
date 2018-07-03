@@ -204,11 +204,34 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     assert_equal("http://www.example.com/org-of-things", presented_item.content[:details][:organisation_govuk_status][:url])
   end
 
-  test 'renders courts and tribunals using Whitehall' do
+  test 'uses the about page body for courts and tribunals' do
+    organisation = create(
+      :court,
+      name: 'Court and bowled'
+      )
+    def organisation.body; "Habeus corpus"; end
+
+    presented_item = present(organisation)
+
+    assert_equal("<div class=\"govspeak\"><p>Habeus corpus</p>\n</div>", presented_item.content[:details][:body])
+  end
+
+  test 'uses the about page summary for other orgs' do
     organisation = create(
       :organisation,
-      name: 'Court at mid-wicket',
-      organisation_type_key: "court",
+      name: 'Ministry of sound'
+    )
+    def organisation.summary; "Habeus loudius noisus"; end
+
+    presented_item = present(organisation)
+
+    assert_equal("<div class=\"govspeak\"><p>Habeus loudius noisus</p>\n</div>", presented_item.content[:details][:body])
+  end
+
+  test 'renders courts and tribunals using Whitehall' do
+    organisation = create(
+      :court,
+      name: 'Court at mid-wicket'
     )
     presented_item = present(organisation)
 
