@@ -63,9 +63,7 @@ gem 'validates_email_format_of'
 gem 'whenever', '~> 0.10.0', require: false
 
 # rubocop:disable Bundler/DuplicatedGem
-if ENV['GDS_API_ADAPTERS_DEV']
-  gem 'gds-api-adapters', path: '../gds-api-adapters'
-else
+git 'https://github.com/alphagov/gds-api-adapters.git', :branch => 'msw-put-json' do
   gem 'gds-api-adapters'
 end
 

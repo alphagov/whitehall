@@ -1,3 +1,17 @@
+GIT
+  remote: https://github.com/alphagov/gds-api-adapters.git
+  revision: 5ee908c940b881702ab4f2cd4ef461a9e277c450
+  branch: msw-put-json
+  specs:
+    gds-api-adapters (52.6.0)
+      addressable
+      link_header
+      lrucache (~> 0.1.1)
+      null_logger
+      plek (>= 1.9.0)
+      rack-cache
+      rest-client (~> 2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -154,14 +168,6 @@ GEM
     fugit (1.1.1)
       et-orbi (~> 1.1, >= 1.1.1)
       raabro (~> 1.1)
-    gds-api-adapters (52.5.1)
-      addressable
-      link_header
-      lrucache (~> 0.1.1)
-      null_logger
-      plek (>= 1.9.0)
-      rack-cache
-      rest-client (~> 2.0)
     gds-sso (13.6.0)
       multi_json (~> 1.0)
       oauth2 (~> 1.0)
@@ -367,7 +373,7 @@ GEM
     public_suffix (3.0.2)
     raabro (1.1.5)
     rack (2.0.5)
-    rack-cache (1.7.1)
+    rack-cache (1.8.0)
       rack (>= 0.4)
     rack-protection (2.0.1)
       rack
@@ -588,7 +594,7 @@ DEPENDENCIES
   factory_bot
   faraday
   friendly_id (~> 5.2.4)
-  gds-api-adapters
+  gds-api-adapters!
   gds-sso (~> 13.6)
   globalize (= 5.1.0)
   govspeak (~> 5.5.0)
