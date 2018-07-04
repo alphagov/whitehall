@@ -1,5 +1,5 @@
 class AssetManagerAttachmentDataWorker < WorkerBase
-  sidekiq_options queue: 'asset_manager', unique: :until_executing
+  sidekiq_options queue: 'asset_manager'
 
   def perform(attachment_data_id)
     attachment_data = AttachmentData.find(attachment_data_id)
