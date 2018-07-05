@@ -52,7 +52,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
       end
 
       it 'deletes corresponding asset(s) in Asset Manager' do
-        Services.asset_manager.expects(:delete_asset).at_least_once.with(asset_id)
+        Services.asset_manager.expects(:delete_asset).with(asset_id)
         AssetManagerAttachmentDataWorker.drain
       end
     end
@@ -71,7 +71,7 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
       end
 
       it 'deletes corresponding asset(s) in Asset Manager' do
-        Services.asset_manager.expects(:delete_asset).at_least_once.with(asset_id)
+        Services.asset_manager.expects(:delete_asset).with(asset_id)
         AssetManagerAttachmentDataWorker.drain
       end
     end
