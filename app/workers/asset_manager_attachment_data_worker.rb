@@ -14,6 +14,11 @@ class AssetManagerAttachmentDataWorker < WorkerBase
     AttachmentData.where(replaced_by: attachment_data).find_each do |data|
       replacement_id_updater data
     end
+
+    # ideally attachment data would have a version field, and we'd
+    # record which version we sent to the asset manager
+    attachment_data.synchronised_with_asset_manager_at = attachment_data.updated_at
+    attachment_data.save!
   end
 
 private
