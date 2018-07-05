@@ -39,7 +39,6 @@ class AttachmentLinkHeaderIntegrationTest < ActionDispatch::IntegrationTest
         parent_document_url = Whitehall.url_maker.public_document_url(edition)
 
         Services.asset_manager.expects(:update_asset)
-          .at_least_once
           .with(asset_id, 'parent_document_url' => parent_document_url)
 
         AssetManagerAttachmentDataWorker.drain

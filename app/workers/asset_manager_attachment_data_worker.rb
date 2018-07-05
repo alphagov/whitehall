@@ -4,6 +4,7 @@ class AssetManagerAttachmentDataWorker < WorkerBase
   def perform(attachment_data_id)
     attachment_data = AttachmentData.find(attachment_data_id)
     return unless attachment_data.uploaded_to_asset_manager_at
+    return if attachment_data.synchronised_with_asset_manager?
 
     draft_status_updater attachment_data_id
     redirect_url_updater attachment_data_id
@@ -14,6 +15,11 @@ class AssetManagerAttachmentDataWorker < WorkerBase
     AttachmentData.where(replaced_by: attachment_data).find_each do |data|
       replacement_id_updater data
     end
+
+    # ideally attachment data would have a version field, and we'd
+    # record which version we sent to the asset manager
+    attachment_data.synchronised_with_asset_manager_at = attachment_data.updated_at
+    attachment_data.save!
   end
 
 private
