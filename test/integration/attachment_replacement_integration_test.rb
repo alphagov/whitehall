@@ -64,6 +64,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
       # because the replacement is visible to the user.
       it 'updates replacement_id for attachment in Asset Manager' do
         Services.asset_manager.expects(:update_asset)
+          .at_least_once
           .with(asset_id, 'replacement_id' => replacement_asset_id)
         AssetManagerAttachmentDataWorker.drain
       end
@@ -103,6 +104,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
       # visible to the user.
       it 'updates replacement_id for attachment in Asset Manager' do
         Services.asset_manager.expects(:update_asset)
+          .at_least_once
           .with(asset_id, 'replacement_id' => replacement_asset_id)
         AssetManagerAttachmentDataWorker.drain
       end
