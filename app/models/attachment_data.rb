@@ -112,14 +112,6 @@ class AttachmentData < ApplicationRecord
     uploaded_to_asset_manager_at.present?
   end
 
-  def synchronised_with_asset_manager?
-    if synchronised_with_asset_manager_at.present?
-      updated_at <= synchronised_with_asset_manager_at
-    else
-      false
-    end
-  end
-
   def deleted?
     significant_attachment(include_deleted_attachables: true).deleted?
   end
