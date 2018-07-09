@@ -48,8 +48,7 @@ class Person < ApplicationRecord
 
   delegate :url, to: :image, prefix: :image
 
-  # Disabled while all people are re-published
-  #after_save :republish_organisation_to_publishing_api
+  after_save :republish_organisation_to_publishing_api
   before_destroy :prevent_destruction_if_appointed
   after_update :touch_role_appointments
 
