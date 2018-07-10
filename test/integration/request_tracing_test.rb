@@ -62,28 +62,4 @@ class RequestTracingTest < ActionDispatch::IntegrationTest
       assert_requested(:patch, %r|publishing-api.*links/#{attachment_content_id}|, headers: onward_headers)
     end
   end
-
-  test "govuk_request_id is not passed downstream if the job pre-dates request tracing (e.g. scheduled publishing jobs)" do
-    Sidekiq::Testing.fake! do
-      PublishingApiWorker.perform_async(@draft_edition.class.name, @draft_edition.id)
-      PublishingApiWorker.jobs.first["args"].delete("request_id" => nil)
-
-      GdsApi::GovukHeaders.set_header(:govuk_request_id, @govuk_request_id)
-      PublishingApiWorker.perform_one
-    end
-
-    content_id = @draft_edition.content_id
-
-    assert_requested(:put, %r|publishing-api.*content/#{content_id}|) do |request|
-      assert !request.headers.key?("Govuk-Request-Id")
-    end
-
-    assert_requested(:post, %r|publishing-api.*content/#{content_id}/publish|) do |request|
-      assert !request.headers.key?("Govuk-Request-Id")
-    end
-
-    assert_requested(:patch, %r|publishing-api.*links/#{content_id}|) do |request|
-      assert !request.headers.key?("Govuk-Request-Id")
-    end
-  end
 end
