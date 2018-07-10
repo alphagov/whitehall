@@ -48,8 +48,7 @@ class Role < ApplicationRecord
   validates :type, presence: true
   validates_with SafeHtmlValidator
 
-  # Disabled while all roles are re-published
-  #after_save :republish_organisation_to_publishing_api
+  after_save :republish_organisation_to_publishing_api
   before_destroy :prevent_destruction_unless_destroyable
   after_update :touch_role_appointments
 
