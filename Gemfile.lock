@@ -154,7 +154,7 @@ GEM
     fugit (1.1.1)
       et-orbi (~> 1.1, >= 1.1.1)
       raabro (~> 1.1)
-    gds-api-adapters (52.5.1)
+    gds-api-adapters (52.6.0)
       addressable
       link_header
       lrucache (~> 0.1.1)
@@ -216,7 +216,7 @@ GEM
       rouge
       sass-rails (>= 5.0.4)
       slimmer (>= 11.1.0)
-    govuk_sidekiq (3.0.0)
+    govuk_sidekiq (3.0.2)
       gds-api-adapters (>= 19.1.0)
       govuk_app_config (>= 1.1)
       redis-namespace (~> 1.6)
@@ -367,9 +367,9 @@ GEM
     public_suffix (3.0.2)
     raabro (1.1.5)
     rack (2.0.5)
-    rack-cache (1.7.1)
+    rack-cache (1.8.0)
       rack (>= 0.4)
-    rack-protection (2.0.1)
+    rack-protection (2.0.3)
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
