@@ -28,6 +28,7 @@ production:
   encoding: utf8
   adapter: mysql2
   database: whitehall_production
+  pool: 10
 
 cucumber:
   <<: *test
