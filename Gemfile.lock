@@ -619,7 +619,7 @@ DEPENDENCIES
   mlanett-redis-lock
   mocha
   mysql2 (~> 0.4.10)
-  nokogiri (~> 1.8.3)
+  nokogiri (~> 1.8.4)
   parallel
   parallel_tests
   pdf-reader (~> 2.1)
