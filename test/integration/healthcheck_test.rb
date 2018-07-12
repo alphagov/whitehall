@@ -1,10 +1,14 @@
 require 'test_helper'
 
-class HealthcheckControllerTest < ActionController::TestCase
+class HealthcheckTest < ActionDispatch::IntegrationTest
   include SidekiqTestHelpers
 
+  def json_response
+    JSON.parse(response.body)
+  end
+
   test 'returns success on request' do
-    get :check
+    get "/healthcheck"
     assert_response :success
   end
 
@@ -12,7 +16,7 @@ class HealthcheckControllerTest < ActionController::TestCase
     with_real_sidekiq do
       ScheduledPublishingWorker.queue(create(:scheduled_edition))
 
-      get :check
+      get "/healthcheck"
       assert_equal 'ok', json_response['status']
       assert_equal 'ok', json_response['checks']['scheduled_queue']['status']
     end
@@ -22,7 +26,7 @@ class HealthcheckControllerTest < ActionController::TestCase
     with_real_sidekiq do
       create(:scheduled_edition)
 
-      get :check
+      get "/healthcheck"
       assert_equal 'warning', json_response['status']
       assert_equal 'warning', json_response['checks']['scheduled_queue']['status']
       assert_equal '1 scheduled edition(s); 0 job(s) queued', json_response['checks']['scheduled_queue']['message']
