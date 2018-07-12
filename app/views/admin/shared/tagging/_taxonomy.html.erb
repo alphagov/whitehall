@@ -1,17 +1,9 @@
 <p><a id="expand_all_id" href="#">expand all</a> | <a id="collapse_all_id" href="#">collapse all</a></p>
 
+<div class="topic-tree">
 <% level_one_taxons.each do |taxon| %>
   <% taxon = TopicTreePresenter.new(taxon, collapsed: level_one_taxons.size > 1) %>
 
-  <% if taxon.children.empty? %>
-    <%= render partial: "/admin/shared/tagging/sub_taxons", locals: { selected_taxons: selected_taxons, taxons: [taxon] } %>
-  <% else %>
-    <div class="topic-tree">
-      <a class="<%= taxon.toggle_classes %>" data-toggle="collapse" href="#<%= taxon.content_id %>"><span class='icon'></span><%= taxon.name %></a>
-
-      <div class="<%= taxon.tree_classes %>" id="<%= taxon.content_id %>">
-        <%= render partial: "/admin/shared/tagging/sub_taxons", locals: { selected_taxons: selected_taxons, taxons: taxon.children } %>
-      </div>
-    </div>
-  <% end %>
+  <%= render partial: "/admin/shared/tagging/sub_taxons", locals: { selected_taxons: selected_taxons, taxons: [taxon] } %>
 <% end %>
+</div>
