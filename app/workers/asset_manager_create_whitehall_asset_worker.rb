@@ -23,8 +23,12 @@ class AssetManagerCreateWhitehallAssetWorker < WorkerBase
     asset_manager.create_whitehall_asset(asset_options)
 
     if model
+      # sadly we can't just search for url, because it's a magic
+      # carrierwave thing not in our model
       Attachment.where(attachable: model.attachables).where.not(attachment_data: nil).find_each do |attachment|
-        attachment.attachment_data.uploaded_to_asset_manager!
+        if attachment.attachment_data.url == legacy_url_path
+          attachment.attachment_data.uploaded_to_asset_manager!
+        end
       end
     end
 
