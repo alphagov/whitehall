@@ -33,7 +33,15 @@ private
   end
 
   def handle_client_error(error)
-    explanation = "The error code indicates that retrying this request will not help. This job is being aborted and will not be retried."
-    GovukError.notify(error, extra: { explanation: explanation })
+    GovukError.notify(
+      error,
+      level: "warning",
+      extra: {
+        explanation: %{
+          The error code indicates that retrying this request will not help.
+          This job is being aborted and will not be retried.
+        },
+      },
+    )
   end
 end
