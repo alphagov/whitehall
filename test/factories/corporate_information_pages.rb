@@ -3,6 +3,13 @@ FactoryBot.define do
     corporate_information_page_type_id CorporateInformationPageType::PublicationScheme.id
     body "Some stuff"
     association :organisation, factory: :organisation
+
+    after(:create) do |corporate_information_page, _evaluator|
+      corporate_information_page.organisation
+        .try(:corporate_information_pages).try(:reload)
+      corporate_information_page.worldwide_organisation
+        .try(:corporate_information_pages).try(:reload)
+    end
   end
 
   trait :with_alternative_format_provider do
