@@ -26,7 +26,12 @@ class AssetManagerCreateWhitehallAssetWorker < WorkerBase
       # sadly we can't just search for url, because it's a magic
       # carrierwave thing not in our model
       Attachment.where(attachable: model.attachables).where.not(attachment_data: nil).find_each do |attachment|
-        if attachment.attachment_data.url == legacy_url_path
+        # 'attachment.attachment_data' can still be nil even with the
+        # check above, because if the 'attachment_data_id' is non-nil
+        # but invalid, the 'attachment_data' will be nil - and the
+        # generated SQL only checks if the 'attachment_data_id' is
+        # nil.
+        if attachment.attachment_data && attachment.attachment_data.url == legacy_url_path
           attachment.attachment_data.uploaded_to_asset_manager!
         end
       end
