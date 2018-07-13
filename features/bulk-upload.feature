@@ -1,3 +1,4 @@
+@disable-sidekiq-test-mode
 Feature: Bulk uploading attachments to editions
 
   Background:

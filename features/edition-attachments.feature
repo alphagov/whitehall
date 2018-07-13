@@ -1,3 +1,4 @@
+@disable-sidekiq-test-mode
 Feature: Managing attachments on editions
   As a writer or editor
   I want to attach files and additional HTML content to publications and consultations
