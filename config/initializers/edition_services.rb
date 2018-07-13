@@ -18,6 +18,9 @@ Whitehall.edition_services.tap do |coordinator|
     ServiceListeners::SearchIndexer
       .new(edition)
       .remove!
+
+    # Update attachment redirect urls
+    ServiceListeners::AttachmentRedirectUrlUpdater.call(attachable: edition)
   end
 
   coordinator.subscribe(/^(force_publish|publish|unwithdraw)$/) do |_event, edition, options|
@@ -38,6 +41,9 @@ Whitehall.edition_services.tap do |coordinator|
     ServiceListeners::AuthorNotifier
       .new(edition, options[:user])
       .notify!
+
+    # Update attachment redirect urls
+    ServiceListeners::AttachmentRedirectUrlUpdater.call(attachable: edition)
   end
 
   coordinator.subscribe(/^(force_publish|publish|withdraw|unwithdraw)$/) do |_event, edition, _options|
