@@ -20,6 +20,7 @@ Feature: Policy groups
   Background:
     Given I am an editor
 
+  @disable-sidekiq-test-mode
   Scenario:
     Given a policy group "Panel" exists
     Then I should be able to add attachments to the policy group "Panel"

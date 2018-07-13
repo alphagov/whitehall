@@ -25,6 +25,7 @@ Scenario: Publishing a submitted consultation
   And I publish the consultation "Beard Length Review"
   Then I should see the consultation "Beard Length Review" in the list of published documents
 
+@disable-sidekiq-test-mode
 Scenario: Adding an outcome to a closed consultation
   Given I am an editor
   And a closed consultation exists
@@ -32,6 +33,7 @@ Scenario: Adding an outcome to a closed consultation
   And I save and publish the amended consultation
   Then I can see that the consultation has been published
 
+@disable-sidekiq-test-mode
 Scenario: Adding public feedback to a closed consultation
   Given I am an editor
   And a closed consultation exists

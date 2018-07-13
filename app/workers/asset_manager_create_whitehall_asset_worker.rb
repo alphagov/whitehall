@@ -23,18 +23,10 @@ class AssetManagerCreateWhitehallAssetWorker < WorkerBase
     asset_manager.create_whitehall_asset(asset_options)
 
     if model
-      # sadly we can't just search for url, because it's a magic
-      # carrierwave thing not in our model
-      Attachment.where(attachable: model.attachables).where.not(attachment_data: nil).find_each do |attachment|
-        # 'attachment.attachment_data' can still be nil even with the
-        # check above, because if the 'attachment_data_id' is non-nil
-        # but invalid, the 'attachment_data' will be nil - and the
-        # generated SQL only checks if the 'attachment_data_id' is
-        # nil.
-        if attachment.attachment_data && attachment.attachment_data.url == legacy_url_path
-          attachment.attachment_data.uploaded_to_asset_manager!
-        end
-      end
+      # The AttachmentData we want to set the timestamp on may not
+      # exist yet, so create a worker to do it after a very short
+      # delay.  The worker will retry if it still doesn't exist.
+      SetUploadedToAssetManagerWorker.perform_in(0.5.seconds, model_class, model_id, legacy_url_path)
     end
 
     FileUtils.rm(file)

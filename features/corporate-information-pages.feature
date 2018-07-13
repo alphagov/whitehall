@@ -17,6 +17,7 @@ Scenario: Translating a corporate information page for a worldwide organisation
   And I force-publish the "Terms of reference" corporate information page for the organisation "Ministry of Pop"
   Then I should be able to read the translated "Terms of reference" corporate information page for the organisation "Ministry of Pop" on the site
 
+@disable-sidekiq-test-mode
 Scenario:
   Given I am a GDS editor
   And my organisation has a "Terms of reference" corporate information page
