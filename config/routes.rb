@@ -416,7 +416,12 @@ Whitehall::Application.routes.draw do
   get '/courts-tribunals(.:locale)', as: 'courts', to: 'organisations#index', courts_only: true, constraints: { locale: VALID_LOCALES_REGEX }
   get '/courts-tribunals/:id(.:locale)', as: 'court', to: 'organisations#show', courts_only: true, constraints: { locale: VALID_LOCALES_REGEX }
 
-  get 'healthcheck' => 'healthcheck#check'
+  get "/healthcheck", to: GovukHealthcheck.rack_response(
+    GovukHealthcheck::SidekiqRedis,
+    GovukHealthcheck::ActiveRecord,
+    Healthcheck::ScheduledPublishing,
+  )
+
   get 'healthcheck/overdue' => 'healthcheck#overdue'
 
   # TODO: Remove when paths for new content can be generated without a route helper
