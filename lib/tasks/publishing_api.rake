@@ -16,6 +16,13 @@ namespace :publishing_api do
         description: "The prefix route under which almost all government content is published.",
       },
       {
+        base_path: "/government/feed",
+        content_id: "725a346f-9e5b-486d-873d-2b050c126e09",
+        title: "Government feed",
+        description: "This route serves the feed of published content",
+        rendering_app: Whitehall::RenderingApp::COLLECTIONS_FRONTEND,
+      },
+      {
         base_path: "/courts-tribunals",
         content_id: "f990c58c-687a-4baf-b1a0-ec2d02c4d654",
         title: "Courts and tribunals",
