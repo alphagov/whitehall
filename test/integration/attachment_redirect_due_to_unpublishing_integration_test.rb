@@ -48,13 +48,13 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
       assert_sets_redirect_url_in_asset_manager_to redirect_url
     end
 
-    it 'resets redirect URI for attachment in Asset Manager when document is withdrawn' do
+    it 'does not set a redirect URI for attachment in Asset Manager when document is withdrawn' do
       visit admin_news_article_path(edition)
       withdraw_document
       logout
       get attachment.url
       assert_response :success
-      assert_sets_redirect_url_in_asset_manager_to nil
+      refute_sets_redirect_url_in_asset_manager
     end
   end
 
@@ -72,13 +72,13 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
       assert_sets_redirect_url_in_asset_manager_to redirect_url
     end
 
-    it 'resets redirect URI for attachment in Asset Manager when document is withdrawn' do
+    it 'does not set redirect URI for attachment in Asset Manager when document is withdrawn' do
       visit admin_consultation_path(edition)
       withdraw_document
       logout
       get attachment.url
       assert_response :success
-      assert_sets_redirect_url_in_asset_manager_to nil
+      refute_sets_redirect_url_in_asset_manager
     end
   end
 
@@ -96,13 +96,13 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
       assert_sets_redirect_url_in_asset_manager_to redirect_url
     end
 
-    it 'resets redirect URI for attachment in Asset Manager when document is withdrawn' do
+    it 'does not set redirect URI for attachment in Asset Manager when document is withdrawn' do
       visit admin_consultation_path(edition)
       withdraw_document
       logout
       get attachment.url
       assert_response :success
-      assert_sets_redirect_url_in_asset_manager_to nil
+      refute_sets_redirect_url_in_asset_manager
     end
   end
 
@@ -190,7 +190,14 @@ private
     Services.asset_manager.expects(:update_asset)
       .with(asset_id, 'redirect_url' => redirect_url)
       .at_least_once
-    AssetManagerAttachmentDataWorker.drain
+    AssetManagerAttachmentRedirectUrlUpdateWorker.drain
+  end
+
+  def refute_sets_redirect_url_in_asset_manager
+    Services.asset_manager.expects(:update_asset)
+      .with(asset_id, 'redirect_url' => anything)
+      .never
+    AssetManagerAttachmentRedirectUrlUpdateWorker.drain
   end
 
   def unpublish_document_published_in_error

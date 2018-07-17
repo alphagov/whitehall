@@ -6,7 +6,6 @@ class AssetManagerAttachmentDataWorker < WorkerBase
     return unless attachment_data.uploaded_to_asset_manager_at
 
     draft_status_updater attachment_data_id
-    redirect_url_updater attachment_data_id
     link_header_updater attachment_data_id
     access_limited_updater attachment_data_id
     deleter attachment_data_id
@@ -20,10 +19,6 @@ private
 
   def draft_status_updater(attachment_data_id)
     AssetManagerAttachmentDraftStatusUpdateWorker.new.perform attachment_data_id
-  end
-
-  def redirect_url_updater(attachment_data_id)
-    AssetManagerAttachmentRedirectUrlUpdateWorker.new.perform attachment_data_id
   end
 
   def link_header_updater(attachment_data_id)
