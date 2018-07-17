@@ -50,5 +50,9 @@ Whitehall.edition_services.tap do |coordinator|
     ServiceListeners::EditorialRemarker
       .new(edition, options[:user], options[:remark])
       .save_remark!
+
+    ServiceListeners::FeaturableOrganisationRepublisher
+      .new(edition)
+      .call
   end
 end
