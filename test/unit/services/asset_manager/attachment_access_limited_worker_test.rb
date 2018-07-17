@@ -1,22 +1,14 @@
 require 'test_helper'
 
-class AssetManagerAttachmentAccessLimitedWorkerTest < ActiveSupport::TestCase
+class AttachmentAccessLimitedServiceTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
-  let(:worker) { AssetManagerAttachmentAccessLimitedWorker.new }
+  let(:service) { AssetManager::AttachmentAccessLimitedService.new }
   let(:attachment_data) { attachment.attachment_data }
   let(:update_worker) { mock('asset-manager-update-asset-worker') }
 
   setup do
     AssetManagerUpdateAssetWorker.stubs(:new).returns(update_worker)
-  end
-
-  context 'when attachment cannot be found' do
-    it 'does not update the access limited state' do
-      update_worker.expects(:perform).never
-
-      worker.perform('no-such-id')
-    end
   end
 
   context "when attachment's attachable is access limited and the attachment is not a PDF" do
@@ -37,7 +29,7 @@ class AssetManagerAttachmentAccessLimitedWorkerTest < ActiveSupport::TestCase
       update_worker.expects(:perform)
         .with(attachment_data, attachment.file.asset_manager_path, 'access_limited' => ['user-uid'])
 
-      worker.perform(attachment_data.id)
+      service.call(attachment_data)
     end
   end
 
@@ -61,7 +53,7 @@ class AssetManagerAttachmentAccessLimitedWorkerTest < ActiveSupport::TestCase
       update_worker.expects(:perform)
         .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'access_limited' => ['user-uid'])
 
-      worker.perform(attachment_data.id)
+      service.call(attachment_data)
     end
   end
 
@@ -74,10 +66,10 @@ class AssetManagerAttachmentAccessLimitedWorkerTest < ActiveSupport::TestCase
     end
 
     it 'updates the asset to have an empty access_limited array' do
-      update_worker.expects(:perform)
+      update_service.expects(:perform)
         .with(attachment_data, attachment.file.asset_manager_path, 'access_limited' => [])
 
-      worker.perform(attachment_data.id)
+      service.call(attachment_data)
     end
   end
 
@@ -95,7 +87,7 @@ class AssetManagerAttachmentAccessLimitedWorkerTest < ActiveSupport::TestCase
       update_worker.expects(:perform)
         .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'access_limited' => [])
 
-      worker.perform(attachment_data.id)
+      service.call(attachment_data)
     end
   end
 end

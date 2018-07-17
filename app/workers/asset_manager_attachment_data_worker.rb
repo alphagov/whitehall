@@ -6,9 +6,14 @@ class AssetManagerAttachmentDataWorker < WorkerBase
     return unless attachment_data.uploaded_to_asset_manager_at
 
     [
+      AssetManager::AttachmentAccessLimitedService
+    ].each do |service|
+      service.call(attachment_data)
+    end
+
+    [
       AssetManagerAttachmentDraftStatusUpdateWorker,
       AssetManagerAttachmentLinkHeaderUpdateWorker,
-      AssetManagerAttachmentAccessLimitedWorker,
       AssetManagerAttachmentDeleteWorker,
     ].each do |worker|
       worker.new.perform(attachment_data_id)
