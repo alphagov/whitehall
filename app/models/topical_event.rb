@@ -1,4 +1,5 @@
 class TopicalEvent < Classification
+  extend Forwardable
   include PublishesToPublishingApi
 
   searchable title: :name,
@@ -9,6 +10,8 @@ class TopicalEvent < Classification
              slug: :slug,
              start_date: :start_date,
              end_date: :end_date
+
+  after_commit :republish_feature_organisations_to_publishing_api, if: :features?
 
   has_one :about_page
 
@@ -69,6 +72,12 @@ class TopicalEvent < Classification
   end
 
 private
+
+  def_delegator :features, :any?, :features?
+
+  def republish_feature_organisations_to_publishing_api
+    features.map(&:republish_organisation_to_publishing_api)
+  end
 
   def start_and_end_dates
     if start_date && end_date
