@@ -23,14 +23,14 @@ namespace :publishing_api do
       },
     ].each do |route|
       publisher.publish(
-        route.merge(
+        {
           format: "special_route",
           publishing_app: "whitehall",
           rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
           update_type: "major",
           type: "prefix",
           public_updated_at: Time.zone.now.iso8601,
-          )
+        }.merge(route)
       )
     end
   end
