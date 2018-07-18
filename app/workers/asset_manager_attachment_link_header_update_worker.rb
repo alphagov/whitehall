@@ -19,6 +19,6 @@ private
 
   def enqueue_job(attachment_data, uploader, parent_document_url)
     legacy_url_path = uploader.asset_manager_path
-    AssetManagerUpdateAssetWorker.new.perform(attachment_data, legacy_url_path, 'parent_document_url' => parent_document_url)
+    AssetManager::AssetUpdater.call(attachment_data, legacy_url_path, 'parent_document_url' => parent_document_url)
   end
 end

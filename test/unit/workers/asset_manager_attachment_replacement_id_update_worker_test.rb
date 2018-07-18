@@ -6,8 +6,10 @@ class AssetManagerAttachmentReplacementIdUpdateWorkerTest < ActiveSupport::TestC
   let(:worker) { AssetManagerAttachmentReplacementIdUpdateWorker.new }
   let(:update_worker) { mock('asset-manager-update-asset-worker') }
 
-  setup do
-    AssetManagerUpdateAssetWorker.stubs(:new).returns(update_worker)
+  around do |test|
+    AssetManager.stub_const(:AssetUpdater, update_worker) do
+      test.call
+    end
   end
 
   context 'when attachment data is not a PDF' do
@@ -19,7 +21,7 @@ class AssetManagerAttachmentReplacementIdUpdateWorkerTest < ActiveSupport::TestC
     let(:attributes) { { key => replacement.file.asset_manager_path } }
 
     it 'updates replacement ID of corresponding asset' do
-      update_worker.expects(:perform)
+      update_worker.expects(:call)
         .with(attachment_data, attachment_data.file.asset_manager_path, attributes)
 
       worker.perform(attachment_data.id)
@@ -31,7 +33,7 @@ class AssetManagerAttachmentReplacementIdUpdateWorkerTest < ActiveSupport::TestC
     let(:attachment_data) { AttachmentData.create!(file: sample_rtf) }
 
     it 'does not update asset manager' do
-      update_worker.expects(:perform).never
+      update_worker.expects(:call).never
 
       worker.perform(attachment_data.id)
     end
@@ -39,7 +41,7 @@ class AssetManagerAttachmentReplacementIdUpdateWorkerTest < ActiveSupport::TestC
 
   context 'when the attachment cannot be found' do
     it 'does not update asset manager' do
-      update_worker.expects(:perform).never
+      update_worker.expects(:call).never
 
       worker.perform('no-such-id')
     end
@@ -57,9 +59,9 @@ class AssetManagerAttachmentReplacementIdUpdateWorkerTest < ActiveSupport::TestC
     let(:thumbnail_attributes) { { key => replacement_thumbnail_url_path } }
 
     it 'updates replacement ID of asset for attachment & its thumbnail' do
-      update_worker.expects(:perform)
+      update_worker.expects(:call)
         .with(attachment_data, attachment_data.file.asset_manager_path, attributes)
-      update_worker.expects(:perform)
+      update_worker.expects(:call)
         .with(attachment_data, attachment_data.file.thumbnail.asset_manager_path, thumbnail_attributes)
 
       worker.perform(attachment_data.id)
@@ -71,9 +73,9 @@ class AssetManagerAttachmentReplacementIdUpdateWorkerTest < ActiveSupport::TestC
       let(:thumbnail_attributes) { { key => replacement_url_path } }
 
       it 'updates replacement ID of asset for attachment & its thumbnail' do
-        update_worker.expects(:perform)
+        update_worker.expects(:call)
           .with(attachment_data, attachment_data.file.asset_manager_path, attributes)
-        update_worker.expects(:perform)
+        update_worker.expects(:call)
           .with(attachment_data, attachment_data.file.thumbnail.asset_manager_path, thumbnail_attributes)
 
         worker.perform(attachment_data.id)
@@ -88,7 +90,7 @@ class AssetManagerAttachmentReplacementIdUpdateWorkerTest < ActiveSupport::TestC
     let(:replacement) { AttachmentData.create!(file: sample_docx) }
 
     before do
-      update_worker.expects(:perform)
+      update_worker.expects(:call)
         .raises(AssetManager::ServiceHelper::AssetNotFound.new('asset not found'))
     end
 

@@ -12,13 +12,15 @@ class AssetManagerAttachmentRedirectUrlUpdateWorkerTest < ActiveSupport::TestCas
   let(:unpublished) { true }
   let(:update_worker) { mock('asset-manager-update-asset-worker') }
 
-  setup do
-    AssetManagerUpdateAssetWorker.stubs(:new).returns(update_worker)
+  around do |test|
+    AssetManager.stub_const(:AssetUpdater, update_worker) do
+      test.call
+    end
   end
 
   context 'when attachment cannot be found' do
     it 'does not update the redirect URL' do
-      update_worker.expects(:perform).never
+      update_worker.expects(:call).never
 
       worker.perform('no-such-id')
     end
@@ -35,7 +37,7 @@ class AssetManagerAttachmentRedirectUrlUpdateWorkerTest < ActiveSupport::TestCas
     end
 
     it 'updates redirect URL of corresponding asset' do
-      update_worker.expects(:perform)
+      update_worker.expects(:call)
         .with(attachment_data, attachment.file.asset_manager_path, 'redirect_url' => redirect_url)
 
       worker.perform(attachment_data.id)
@@ -53,9 +55,9 @@ class AssetManagerAttachmentRedirectUrlUpdateWorkerTest < ActiveSupport::TestCas
     end
 
     it 'updates redirect URL of asset for attachment & its thumbnail' do
-      update_worker.expects(:perform)
+      update_worker.expects(:call)
         .with(attachment_data, attachment.file.asset_manager_path, 'redirect_url' => redirect_url)
-      update_worker.expects(:perform)
+      update_worker.expects(:call)
         .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'redirect_url' => redirect_url)
 
       worker.perform(attachment_data.id)
@@ -66,9 +68,9 @@ class AssetManagerAttachmentRedirectUrlUpdateWorkerTest < ActiveSupport::TestCas
       let(:unpublished_edition) { nil }
 
       it 'resets redirect URL of asset for attachment & its thumbnail' do
-        update_worker.expects(:perform)
+        update_worker.expects(:call)
           .with(attachment_data, attachment.file.asset_manager_path, 'redirect_url' => nil)
-        update_worker.expects(:perform)
+        update_worker.expects(:call)
           .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'redirect_url' => nil)
 
         worker.perform(attachment_data.id)
