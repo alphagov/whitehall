@@ -15,7 +15,7 @@ class AssetManagerAttachmentDataWorker < WorkerBase
     end
 
     AttachmentData.where(replaced_by: attachment_data).find_each do |replaced_attachment_data|
-      AssetManagerAttachmentReplacementIdUpdateWorker.new.perform(replaced_attachment_data.id)
+      AssetManager::AttachmentReplacementIdUpdater.call(replaced_attachment_data)
     end
   end
 end
