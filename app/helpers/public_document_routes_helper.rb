@@ -81,6 +81,10 @@ module PublicDocumentRoutesHelper
     organisation_url(organisation_or_court_or_slug, options.merge(only_path: true))
   end
 
+  def organisation_preview_url(organisation, options = {})
+    polymorphic_url(organisation, options.merge(host: URI(Plek.new.external_url_for("draft-origin")).host))
+  end
+
 private
 
   def build_url_for_corporate_information_page(edition, options)
