@@ -1,15 +1,11 @@
 require 'test_helper'
 
-class AssetManagerAttachmentDeleteWorkerTest < ActiveSupport::TestCase
+class AssetManager::AttachmentDeleterTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
-  let(:worker) { AssetManagerAttachmentDeleteWorker.new }
+  let(:worker) { AssetManager::AttachmentDeleter }
   let(:attachment_data) { nil }
   let(:delete_worker) { mock('delete-worker') }
-
-  before do
-    AttachmentData.stubs(:find_by).with(id: id).returns(attachment_data)
-  end
 
   around do |test|
     AssetManager.stub_const(:AssetDeleter, delete_worker) do
@@ -17,19 +13,8 @@ class AssetManagerAttachmentDeleteWorkerTest < ActiveSupport::TestCase
     end
   end
 
-  context 'when attachment data does not exist' do
-    let(:id) { 'no-such-id' }
-
-    it 'does not delete any assets from Asset Manager' do
-      delete_worker.expects(:call).never
-
-      worker.perform(id)
-    end
-  end
-
   context 'when attachment data exists' do
     let(:attachment_data) { create(:attachment_data, file: file) }
-    let(:id) { attachment_data.id }
 
     before do
       attachment_data.stubs(:deleted?).returns(deleted)
@@ -45,7 +30,7 @@ class AssetManagerAttachmentDeleteWorkerTest < ActiveSupport::TestCase
           delete_worker.expects(:call)
             .with(attachment_data.file.asset_manager_path)
 
-          worker.perform(id)
+          worker.call(attachment_data)
         end
       end
 
@@ -72,7 +57,7 @@ class AssetManagerAttachmentDeleteWorkerTest < ActiveSupport::TestCase
           delete_worker.expects(:call)
             .with(attachment_data.file.thumbnail.asset_manager_path)
 
-          worker.perform(id)
+          worker.call(attachment_data)
         end
       end
     end

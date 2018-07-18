@@ -6,7 +6,8 @@ class AssetManagerAttachmentDataWorker < WorkerBase
     return unless attachment_data.present? && attachment_data.uploaded_to_asset_manager_at
 
     [
-      AssetManager::AttachmentAccessLimitedUpdater
+      AssetManager::AttachmentAccessLimitedUpdater,
+      AssetManager::AttachmentDeleter,
     ].each do |task|
       task.call(attachment_data)
     end
@@ -14,7 +15,6 @@ class AssetManagerAttachmentDataWorker < WorkerBase
     [
       AssetManagerAttachmentDraftStatusUpdateWorker,
       AssetManagerAttachmentLinkHeaderUpdateWorker,
-      AssetManagerAttachmentDeleteWorker,
     ].each do |worker|
       worker.new.perform(attachment_data_id)
     end
