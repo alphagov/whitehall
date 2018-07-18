@@ -36,11 +36,11 @@ class AssetManager::ServiceHelperTest < ActiveSupport::TestCase
     assert_equal 'value', attributes['key']
   end
 
-  test 'raises AssetManagerAssetNotFound when an asset is not available' do
+  test 'raises AssetNotFound when an asset is not available' do
     Services.asset_manager.stubs(:whitehall_asset).with(@legacy_url_path)
       .raises(GdsApi::HTTPNotFound.new(404))
 
-    assert_raises AssetManager::ServiceHelper::AssetManagerAssetNotFound do
+    assert_raises AssetManager::ServiceHelper::AssetNotFound do
       @worker.send(:find_asset_by, @legacy_url_path)
     end
   end

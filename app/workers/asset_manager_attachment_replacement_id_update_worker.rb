@@ -18,7 +18,7 @@ class AssetManagerAttachmentReplacementIdUpdateWorker < WorkerBase
 
   def replace_path(attachment_data, legacy_url_path, replacement_legacy_url_path)
     AssetManagerUpdateAssetWorker.new.perform(attachment_data, legacy_url_path, 'replacement_legacy_url_path' => replacement_legacy_url_path)
-  rescue AssetManager::ServiceHelper::AssetManagerAssetNotFound
+  rescue AssetManager::ServiceHelper::AssetNotFound
     raise AssetNotFound.new('Asset unavailable, it may not have synced yet')
   end
 
