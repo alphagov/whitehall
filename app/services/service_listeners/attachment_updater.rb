@@ -13,7 +13,7 @@ module ServiceListeners
     end
 
     private_class_method def self.update_attachment_data!(attachment_data)
-      AssetManagerAttachmentDataWorker.perform_async(attachment_data.id)
+      AssetManagerAttachmentMetadataWorker.perform_async(attachment_data.id)
     end
   end
 end

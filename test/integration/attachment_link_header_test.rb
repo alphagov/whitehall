@@ -42,7 +42,7 @@ class AttachmentLinkHeaderIntegrationTest < ActionDispatch::IntegrationTest
           .at_least_once
           .with(asset_id, 'parent_document_url' => parent_document_url)
 
-        AssetManagerAttachmentDataWorker.drain
+        AssetManagerAttachmentMetadataWorker.drain
       end
     end
   end

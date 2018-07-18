@@ -1,4 +1,4 @@
-class AssetManagerAttachmentDataWorker < WorkerBase
+class AssetManagerAttachmentMetadataWorker < WorkerBase
   sidekiq_options queue: "asset_manager"
 
   def perform(attachment_data_id)

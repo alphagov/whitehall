@@ -40,7 +40,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
       it 'marks attachment as access limited in Asset Manager' do
         Services.asset_manager.expects(:update_asset).at_least_once.with('asset-id', 'access_limited' => ['user-uid'])
 
-        AssetManagerAttachmentDataWorker.drain
+        AssetManagerAttachmentMetadataWorker.drain
       end
     end
   end
@@ -170,7 +170,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
       it 'unmarks attachment as access limited in Asset Manager' do
         Services.asset_manager.expects(:update_asset).at_least_once.with('asset-id', 'access_limited' => [])
 
-        AssetManagerAttachmentDataWorker.drain
+        AssetManagerAttachmentMetadataWorker.drain
       end
     end
 
