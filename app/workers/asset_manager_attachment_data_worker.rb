@@ -1,9 +1,12 @@
 class AssetManagerAttachmentDataWorker < WorkerBase
-  sidekiq_options queue: 'asset_manager'
+  sidekiq_options queue: 'asset_manager', unique: :until_and_while_executing
 
   def perform(attachment_data_id)
     attachment_data = AttachmentData.find(attachment_data_id)
-    return unless attachment_data.uploaded_to_asset_manager_at
+
+    unless attachment_data.uploaded_to_asset_manager_at
+      raise AttachmentNotYetUploadedError
+    end
 
     [
       AssetManagerAttachmentDraftStatusUpdateWorker,
@@ -18,4 +21,7 @@ class AssetManagerAttachmentDataWorker < WorkerBase
       AssetManagerAttachmentReplacementIdUpdateWorker.new.perform(replaced_attachment_data.id)
     end
   end
+end
+
+class AttachmentNotYetUploadedError < StandardError
 end
