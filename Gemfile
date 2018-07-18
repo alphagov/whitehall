@@ -80,7 +80,7 @@ end
 if ENV['FRONTEND_TOOLKIT_DEV']
   gem 'govuk_frontend_toolkit', path: '../govuk_frontend_toolkit_gem'
 else
-  gem 'govuk_frontend_toolkit', '7.5.0'
+  gem 'govuk_frontend_toolkit', '7.6.0'
 end
 # rubocop:enable Bundler/DuplicatedGem
 
