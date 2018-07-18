@@ -87,7 +87,7 @@ class AssetManager::AttachmentReplacementIdUpdaterTest < ActiveSupport::TestCase
     end
 
     it 'raises a AssetNotFound error' do
-      assert_raises(AssetManager::AttachmentReplacementIdUpdater::AssetNotFound) do
+      assert_raises(AssetManager::ServiceHelper::AssetNotFound) do
         worker.call(attachment_data)
       end
     end
