@@ -45,9 +45,9 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
     organisation = create(:organisation, translated_into: [:fr])
     get :index, params: { organisation_id: organisation }
     edit_translation_path = edit_admin_organisation_translation_path(organisation, 'fr')
-    view_organisation_path = organisation_path(organisation, locale: 'fr')
+    view_organisation_url = organisation_preview_url(organisation, locale: 'fr')
     assert_select "a[href=?]", edit_translation_path, text: 'Français'
-    assert_select "a[href=?]", view_organisation_path, text: 'view'
+    assert_select "a[href=?]", view_organisation_url, text: 'view'
   end
 
   view_test 'index does not list the english translation' do

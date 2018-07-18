@@ -19,7 +19,8 @@
         <% @organisation.non_english_translated_locales.each do |locale| %>
           <tr>
             <td class="locale">
-              <%= link_to locale.native_language_name, edit_admin_organisation_translation_path(@organisation, locale.code) %> (<%= link_to "view", organisation_path(@organisation, locale: locale) %>)
+              <%= link_to locale.native_language_name, edit_admin_organisation_translation_path(@organisation, locale.code) %>
+              (<%= link_to "view", organisation_preview_url(@organisation, locale: locale) %>)
             </td>
             <td class="actions">
               <%= button_to 'Delete',
