@@ -1,5 +1,5 @@
 class AssetManagerDeleteAssetWorker < WorkerBase
-  include AssetManagerWorkerHelper
+  include AssetManager::ServiceHelper
 
   sidekiq_options queue: 'asset_manager'
 

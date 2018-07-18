@@ -1,4 +1,4 @@
-module AssetManagerWorkerHelper
+module AssetManager::ServiceHelper
   class AssetManagerAssetNotFound < StandardError
     def initialize(legacy_url_path)
       message = "Asset with legacy URL path #{legacy_url_path} is not on Asset Manager"

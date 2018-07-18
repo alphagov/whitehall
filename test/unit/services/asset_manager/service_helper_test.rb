@@ -1,12 +1,12 @@
 require 'test_helper'
 
-class AssetManagerWorkerHelperTest < ActiveSupport::TestCase
+class AssetManager::ServiceHelperTest < ActiveSupport::TestCase
   setup do
     @asset_id = 'asset-id'
     @asset_url = "http://asset-manager/assets/#{@asset_id}"
     @legacy_url_path = 'legacy-url-path'
     @worker = Object.new
-    @worker.extend(AssetManagerWorkerHelper)
+    @worker.extend(AssetManager::ServiceHelper)
   end
 
   test 'returns attributes including asset ID' do
@@ -40,7 +40,7 @@ class AssetManagerWorkerHelperTest < ActiveSupport::TestCase
     Services.asset_manager.stubs(:whitehall_asset).with(@legacy_url_path)
       .raises(GdsApi::HTTPNotFound.new(404))
 
-    assert_raises AssetManagerWorkerHelper::AssetManagerAssetNotFound do
+    assert_raises AssetManager::ServiceHelper::AssetManagerAssetNotFound do
       @worker.send(:find_asset_by, @legacy_url_path)
     end
   end

@@ -1,5 +1,5 @@
 class AssetManagerUpdateAssetWorker
-  include AssetManagerWorkerHelper
+  include AssetManager::ServiceHelper
 
   class AssetManagerAssetDeleted < StandardError
     def initialize(attachment_data_id, legacy_url_path)

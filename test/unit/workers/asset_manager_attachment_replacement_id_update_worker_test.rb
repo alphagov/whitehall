@@ -89,7 +89,7 @@ class AssetManagerAttachmentReplacementIdUpdateWorkerTest < ActiveSupport::TestC
 
     before do
       update_worker.expects(:perform)
-        .raises(AssetManagerWorkerHelper::AssetManagerAssetNotFound.new('asset not found'))
+        .raises(AssetManager::ServiceHelper::AssetManagerAssetNotFound.new('asset not found'))
     end
 
     it 'raises a AssetNotFound error' do
