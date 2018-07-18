@@ -77,10 +77,6 @@ module PublicDocumentRoutesHelper
     end
   end
 
-  def organisation_path(organisation_or_court_or_slug, options = {})
-    organisation_url(organisation_or_court_or_slug, options.merge(only_path: true))
-  end
-
 private
 
   def build_url_for_corporate_information_page(edition, options)
