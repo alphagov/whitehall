@@ -9,14 +9,9 @@ class AssetManagerAttachmentDataWorker < WorkerBase
       AssetManager::AttachmentAccessLimitedUpdater,
       AssetManager::AttachmentDeleter,
       AssetManager::AttachmentDraftStatusUpdater,
+      AssetManager::AttachmentLinkHeaderUpdater,
     ].each do |task|
       task.call(attachment_data)
-    end
-
-    [
-      AssetManagerAttachmentLinkHeaderUpdateWorker,
-    ].each do |worker|
-      worker.new.perform(attachment_data_id)
     end
 
     AttachmentData.where(replaced_by: attachment_data).find_each do |replaced_attachment_data|
