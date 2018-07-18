@@ -8,12 +8,12 @@ class AssetManagerAttachmentDataWorker < WorkerBase
     [
       AssetManager::AttachmentAccessLimitedUpdater,
       AssetManager::AttachmentDeleter,
+      AssetManager::AttachmentDraftStatusUpdater,
     ].each do |task|
       task.call(attachment_data)
     end
 
     [
-      AssetManagerAttachmentDraftStatusUpdateWorker,
       AssetManagerAttachmentLinkHeaderUpdateWorker,
     ].each do |worker|
       worker.new.perform(attachment_data_id)
