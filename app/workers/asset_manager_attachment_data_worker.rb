@@ -3,12 +3,17 @@ class AssetManagerAttachmentDataWorker < WorkerBase
 
   def perform(attachment_data_id)
     attachment_data = AttachmentData.find(attachment_data_id)
-    return unless attachment_data.uploaded_to_asset_manager_at
+    return unless attachment_data.present? && attachment_data.uploaded_to_asset_manager_at
+
+    [
+      AssetManager::AttachmentAccessLimitedUpdater
+    ].each do |task|
+      task.call(attachment_data)
+    end
 
     [
       AssetManagerAttachmentDraftStatusUpdateWorker,
       AssetManagerAttachmentLinkHeaderUpdateWorker,
-      AssetManagerAttachmentAccessLimitedWorker,
       AssetManagerAttachmentDeleteWorker,
     ].each do |worker|
       worker.new.perform(attachment_data_id)
