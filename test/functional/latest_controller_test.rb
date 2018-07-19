@@ -39,7 +39,7 @@ class LatestControllerTest < ActionController::TestCase
     get :index
 
     assert_response :redirect
-    assert_redirected_to atom_feed_path
+    assert_redirected_to "/government/feed"
   end
 
   test 'GET :index should expose documents for the subject' do
