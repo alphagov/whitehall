@@ -1,9 +1,9 @@
 require 'test_helper'
 
-class AssetManagerAttachmentReplacementIdUpdateWorkerTest < ActiveSupport::TestCase
+class AssetManager::AttachmentReplacementIdUpdaterTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
-  let(:worker) { AssetManagerAttachmentReplacementIdUpdateWorker.new }
+  let(:worker) { AssetManager::AttachmentReplacementIdUpdater }
   let(:update_worker) { mock('asset-manager-update-asset-worker') }
 
   around do |test|
@@ -24,7 +24,7 @@ class AssetManagerAttachmentReplacementIdUpdateWorkerTest < ActiveSupport::TestC
       update_worker.expects(:call)
         .with(attachment_data, attachment_data.file.asset_manager_path, attributes)
 
-      worker.perform(attachment_data.id)
+      worker.call(attachment_data)
     end
   end
 
@@ -35,15 +35,7 @@ class AssetManagerAttachmentReplacementIdUpdateWorkerTest < ActiveSupport::TestC
     it 'does not update asset manager' do
       update_worker.expects(:call).never
 
-      worker.perform(attachment_data.id)
-    end
-  end
-
-  context 'when the attachment cannot be found' do
-    it 'does not update asset manager' do
-      update_worker.expects(:call).never
-
-      worker.perform('no-such-id')
+      worker.call(attachment_data)
     end
   end
 
@@ -64,7 +56,7 @@ class AssetManagerAttachmentReplacementIdUpdateWorkerTest < ActiveSupport::TestC
       update_worker.expects(:call)
         .with(attachment_data, attachment_data.file.thumbnail.asset_manager_path, thumbnail_attributes)
 
-      worker.perform(attachment_data.id)
+      worker.call(attachment_data)
     end
 
     context 'but replacement is not a PDF' do
@@ -78,7 +70,7 @@ class AssetManagerAttachmentReplacementIdUpdateWorkerTest < ActiveSupport::TestC
         update_worker.expects(:call)
           .with(attachment_data, attachment_data.file.thumbnail.asset_manager_path, thumbnail_attributes)
 
-        worker.perform(attachment_data.id)
+        worker.call(attachment_data)
       end
     end
   end
@@ -95,8 +87,8 @@ class AssetManagerAttachmentReplacementIdUpdateWorkerTest < ActiveSupport::TestC
     end
 
     it 'raises a AssetNotFound error' do
-      assert_raises(AssetManagerAttachmentReplacementIdUpdateWorker::AssetNotFound) do
-        worker.perform(attachment_data.id)
+      assert_raises(AssetManager::AttachmentReplacementIdUpdater::AssetNotFound) do
+        worker.call(attachment_data)
       end
     end
   end

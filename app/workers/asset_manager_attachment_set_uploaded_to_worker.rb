@@ -1,5 +1,5 @@
 class AssetManagerAttachmentSetUploadedToWorker < WorkerBase
-  sidekiq_options queue: 'asset_manager'
+  sidekiq_options queue: "asset_manager"
 
   class AttachmentDataNotFound < StandardError
     def initialize(legacy_url_path)

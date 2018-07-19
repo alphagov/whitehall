@@ -1,11 +1,11 @@
 require 'test_helper'
 
-class AssetManagerAttachmentLinkHeaderUpdateWorkerTest < ActiveSupport::TestCase
+class AssetManager::AttachmentLinkHeaderUpdaterTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
   include Rails.application.routes.url_helpers
   include PublicDocumentRoutesHelper
 
-  let(:worker) { AssetManagerAttachmentLinkHeaderUpdateWorker.new }
+  let(:worker) { AssetManager::AttachmentLinkHeaderUpdater }
   let(:attachment_data) { attachment.attachment_data }
   let(:edition) { FactoryBot.create(:published_edition) }
   let(:parent_document_url) { Whitehall.url_maker.public_document_url(edition) }
@@ -23,15 +23,7 @@ class AssetManagerAttachmentLinkHeaderUpdateWorkerTest < ActiveSupport::TestCase
     it 'does not update draft status of any assets' do
       update_worker.expects(:call).never
 
-      worker.perform(attachment_data.id)
-    end
-  end
-
-  context "when the attachment cannot be found" do
-    it 'does not update draft status of any assets' do
-      update_worker.expects(:call).never
-
-      worker.perform('no-such-id')
+      worker.call(attachment_data)
     end
   end
 
@@ -43,7 +35,7 @@ class AssetManagerAttachmentLinkHeaderUpdateWorkerTest < ActiveSupport::TestCase
       update_worker.expects(:call)
         .with(attachment_data, attachment.file.asset_manager_path, 'parent_document_url' => parent_document_url)
 
-      worker.perform(attachment_data.id)
+      worker.call(attachment_data)
     end
   end
 
@@ -57,7 +49,7 @@ class AssetManagerAttachmentLinkHeaderUpdateWorkerTest < ActiveSupport::TestCase
       update_worker.expects(:call)
         .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'parent_document_url' => parent_document_url)
 
-      worker.perform(attachment_data.id)
+      worker.call(attachment_data)
     end
   end
 end

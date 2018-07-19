@@ -1,23 +1,15 @@
 require 'test_helper'
 
-class AssetManagerAttachmentAccessLimitedWorkerTest < ActiveSupport::TestCase
+class AssetManager::AttachmentAccessLimitedUpdaterTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
-  let(:worker) { AssetManagerAttachmentAccessLimitedWorker.new }
+  let(:worker) { AssetManager::AttachmentAccessLimitedUpdater }
   let(:attachment_data) { attachment.attachment_data }
   let(:update_worker) { mock('asset-manager-update-asset-worker') }
 
   around do |test|
     AssetManager.stub_const(:AssetUpdater, update_worker) do
       test.call
-    end
-  end
-
-  context 'when attachment cannot be found' do
-    it 'does not update the access limited state' do
-      update_worker.expects(:call).never
-
-      worker.perform('no-such-id')
     end
   end
 
@@ -39,7 +31,7 @@ class AssetManagerAttachmentAccessLimitedWorkerTest < ActiveSupport::TestCase
       update_worker.expects(:call)
         .with(attachment_data, attachment.file.asset_manager_path, 'access_limited' => ['user-uid'])
 
-      worker.perform(attachment_data.id)
+      worker.call(attachment_data)
     end
   end
 
@@ -63,7 +55,7 @@ class AssetManagerAttachmentAccessLimitedWorkerTest < ActiveSupport::TestCase
       update_worker.expects(:call)
         .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'access_limited' => ['user-uid'])
 
-      worker.perform(attachment_data.id)
+      worker.call(attachment_data)
     end
   end
 
@@ -79,7 +71,7 @@ class AssetManagerAttachmentAccessLimitedWorkerTest < ActiveSupport::TestCase
       update_worker.expects(:call)
         .with(attachment_data, attachment.file.asset_manager_path, 'access_limited' => [])
 
-      worker.perform(attachment_data.id)
+      worker.call(attachment_data)
     end
   end
 
@@ -97,7 +89,7 @@ class AssetManagerAttachmentAccessLimitedWorkerTest < ActiveSupport::TestCase
       update_worker.expects(:call)
         .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'access_limited' => [])
 
-      worker.perform(attachment_data.id)
+      worker.call(attachment_data)
     end
   end
 end

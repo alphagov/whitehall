@@ -66,7 +66,7 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
         Services.asset_manager.expects(:update_asset)
           .at_least_once
           .with(asset_id, 'replacement_id' => replacement_asset_id)
-        AssetManagerAttachmentDataWorker.drain
+        AssetManagerAttachmentMetadataWorker.drain
       end
     end
   end
@@ -106,12 +106,12 @@ class AttachmentReplacementIntegrationTest < ActionDispatch::IntegrationTest
         Services.asset_manager.expects(:update_asset)
           .at_least_once
           .with(asset_id, 'replacement_id' => replacement_asset_id)
-        AssetManagerAttachmentDataWorker.drain
+        AssetManagerAttachmentMetadataWorker.drain
       end
 
       context 'and draft edition is published' do
         before do
-          AssetManagerAttachmentDataWorker.drain
+          AssetManagerAttachmentMetadataWorker.drain
 
           click_link 'Document'
           fill_in 'Public change note', with: 'attachment replaced'
