@@ -1,21 +1,24 @@
-class AssetManagerUpdateAssetWorker
-  include AssetManagerWorkerHelper
+class AssetManager::AssetUpdater
+  include AssetManager::ServiceHelper
 
-  class AssetManagerAssetDeleted < StandardError
+  class AssetAlreadyDeleted < StandardError
     def initialize(attachment_data_id, legacy_url_path)
-      message = "Asset corresponding to AttachmentData ID #{attachment_data_id} and legacy URL path #{legacy_url_path} expected not to be deleted in Asset Manager"
-      super(message)
+      super("Asset '#{legacy_url_path}' for Attachment Data #{attachment_data_id} expected not to be deleted in Asset Manager")
     end
   end
 
-  def perform(attachment_data, legacy_url_path, new_attributes = {})
+  def self.call(*args)
+    new.call(*args)
+  end
+
+  def call(attachment_data, legacy_url_path, new_attributes = {})
     attributes = find_asset_by(legacy_url_path)
     asset_deleted = attributes['deleted']
 
     if asset_deleted && attachment_data.deleted?
       return
     elsif asset_deleted && !attachment_data.deleted?
-      raise AssetManagerAssetDeleted.new(attachment_data.id, legacy_url_path)
+      raise AssetAlreadyDeleted.new(attachment_data.id, legacy_url_path)
     end
 
     if (replacement_path = new_attributes.delete('replacement_legacy_url_path'))

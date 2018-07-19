@@ -12,6 +12,6 @@ class AssetManagerAttachmentDeleteWorker < WorkerBase
   end
 
   def delete_asset_for(uploader)
-    AssetManagerDeleteAssetWorker.new.perform(uploader.asset_manager_path)
+    AssetManager::AssetDeleter.call(uploader.asset_manager_path)
   end
 end

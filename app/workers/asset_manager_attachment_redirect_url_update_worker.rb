@@ -18,6 +18,6 @@ private
 
   def enqueue_job(attachment_data, uploader, redirect_url)
     legacy_url_path = uploader.asset_manager_path
-    AssetManagerUpdateAssetWorker.new.perform(attachment_data, legacy_url_path, 'redirect_url' => redirect_url)
+    AssetManager::AssetUpdater.call(attachment_data, legacy_url_path, 'redirect_url' => redirect_url)
   end
 end

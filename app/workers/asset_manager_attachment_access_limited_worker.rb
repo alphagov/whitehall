@@ -19,6 +19,6 @@ private
 
   def enqueue_job(attachment_data, uploader, access_limited_to_these_users)
     legacy_url_path = uploader.asset_manager_path
-    AssetManagerUpdateAssetWorker.new.perform(attachment_data, legacy_url_path, "access_limited" => access_limited_to_these_users)
+    AssetManager::AssetUpdater.call(attachment_data, legacy_url_path, "access_limited" => access_limited_to_these_users)
   end
 end
