@@ -90,22 +90,6 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_redirected_to publications_path
   end
 
-  test "atom feed responds with atom to both /government/feed and /government/feed.atom requests" do
-    get "/government/feed"
-    assert_equal 200, response.status
-    assert_equal Mime[:atom], response.content_type
-
-    get "/government/feed.atom"
-    assert_equal 200, response.status
-    assert_equal Mime[:atom], response.content_type
-  end
-
-  test "atom feed returns 404s for other content types" do
-    assert_raise ActionController::RoutingError do
-      get "/government/feed.json"
-    end
-  end
-
   test "routing to editions#show will redirect to correct edition type" do
     login_as_admin
     publication = create(:publication)

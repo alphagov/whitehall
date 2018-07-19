@@ -92,7 +92,6 @@ Whitehall::Application.routes.draw do
     resource :email_signups, path: 'email-signup', only: %i[create new]
     get "/email-signup", to: redirect('/')
 
-    get '/feed' => 'home#feed', defaults: { format: :atom }, constraints: { format: :atom }, as: :atom_feed
     get '/tour' => redirect("/tour", prefix: "")
 
     get '/announcements(.:locale)', as: 'announcements', to: 'announcements#index', constraints: { locale: VALID_LOCALES_REGEX }
