@@ -5,7 +5,7 @@ class AssetManager::AttachmentLinkHeaderUpdaterTest < ActiveSupport::TestCase
   include Rails.application.routes.url_helpers
   include PublicDocumentRoutesHelper
 
-  let(:worker) { AssetManager::AttachmentLinkHeaderUpdater }
+  let(:updater) { AssetManager::AttachmentUpdater }
   let(:attachment_data) { attachment.attachment_data }
   let(:edition) { FactoryBot.create(:published_edition) }
   let(:parent_document_url) { Whitehall.url_maker.public_document_url(edition) }
@@ -23,7 +23,7 @@ class AssetManager::AttachmentLinkHeaderUpdaterTest < ActiveSupport::TestCase
     it 'does not update draft status of any assets' do
       update_worker.expects(:call).never
 
-      worker.call(attachment_data)
+      updater.call(attachment_data, link_header: true)
     end
   end
 
@@ -35,7 +35,7 @@ class AssetManager::AttachmentLinkHeaderUpdaterTest < ActiveSupport::TestCase
       update_worker.expects(:call)
         .with(attachment_data, attachment.file.asset_manager_path, 'parent_document_url' => parent_document_url)
 
-      worker.call(attachment_data)
+      updater.call(attachment_data, link_header: true)
     end
   end
 
@@ -49,7 +49,7 @@ class AssetManager::AttachmentLinkHeaderUpdaterTest < ActiveSupport::TestCase
       update_worker.expects(:call)
         .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'parent_document_url' => parent_document_url)
 
-      worker.call(attachment_data)
+      updater.call(attachment_data, link_header: true)
     end
   end
 end

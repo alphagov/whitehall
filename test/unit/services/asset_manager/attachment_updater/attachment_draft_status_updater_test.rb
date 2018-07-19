@@ -3,7 +3,7 @@ require 'test_helper'
 class AssetManager::AttachmentDraftStatusUpdaterTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
-  let(:worker) { AssetManager::AttachmentDraftStatusUpdater }
+  let(:updater) { AssetManager::AttachmentUpdater }
   let(:attachment_data) { attachment.attachment_data }
   let(:update_worker) { mock('asset-manager-update-asset-worker') }
 
@@ -27,7 +27,7 @@ class AssetManager::AttachmentDraftStatusUpdaterTest < ActiveSupport::TestCase
       update_worker.expects(:call)
         .with(attachment_data, attachment.file.asset_manager_path, 'draft' => true)
 
-      worker.call(attachment_data)
+      updater.call(attachment_data, draft_status: true)
     end
   end
 
@@ -51,7 +51,7 @@ class AssetManager::AttachmentDraftStatusUpdaterTest < ActiveSupport::TestCase
       update_worker.expects(:call)
         .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'draft' => true)
 
-      worker.call(attachment_data)
+      updater.call(attachment_data, draft_status: true)
     end
 
     context 'and attachment is not draft' do
@@ -63,7 +63,7 @@ class AssetManager::AttachmentDraftStatusUpdaterTest < ActiveSupport::TestCase
         update_worker.expects(:call)
           .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'draft' => false)
 
-        worker.call(attachment_data)
+        updater.call(attachment_data, draft_status: true)
       end
     end
 
@@ -76,7 +76,7 @@ class AssetManager::AttachmentDraftStatusUpdaterTest < ActiveSupport::TestCase
         update_worker.expects(:call)
           .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'draft' => false)
 
-        worker.call(attachment_data)
+        updater.call(attachment_data, draft_status: true)
       end
     end
 
@@ -89,7 +89,7 @@ class AssetManager::AttachmentDraftStatusUpdaterTest < ActiveSupport::TestCase
         update_worker.expects(:call)
           .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'draft' => false)
 
-        worker.call(attachment_data)
+        updater.call(attachment_data, draft_status: true)
       end
     end
   end

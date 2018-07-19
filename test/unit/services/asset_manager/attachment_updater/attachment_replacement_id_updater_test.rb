@@ -3,7 +3,7 @@ require 'test_helper'
 class AssetManager::AttachmentReplacementIdUpdaterTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
-  let(:worker) { AssetManager::AttachmentReplacementIdUpdater }
+  let(:updater) { AssetManager::AttachmentUpdater }
   let(:update_worker) { mock('asset-manager-update-asset-worker') }
 
   around do |test|
@@ -24,7 +24,7 @@ class AssetManager::AttachmentReplacementIdUpdaterTest < ActiveSupport::TestCase
       update_worker.expects(:call)
         .with(attachment_data, attachment_data.file.asset_manager_path, attributes)
 
-      worker.call(attachment_data)
+      updater.call(attachment_data, replacement_id: true)
     end
   end
 
@@ -35,7 +35,7 @@ class AssetManager::AttachmentReplacementIdUpdaterTest < ActiveSupport::TestCase
     it 'does not update asset manager' do
       update_worker.expects(:call).never
 
-      worker.call(attachment_data)
+      updater.call(attachment_data, replacement_id: true)
     end
   end
 
@@ -56,7 +56,7 @@ class AssetManager::AttachmentReplacementIdUpdaterTest < ActiveSupport::TestCase
       update_worker.expects(:call)
         .with(attachment_data, attachment_data.file.thumbnail.asset_manager_path, thumbnail_attributes)
 
-      worker.call(attachment_data)
+      updater.call(attachment_data, replacement_id: true)
     end
 
     context 'but replacement is not a PDF' do
@@ -70,7 +70,7 @@ class AssetManager::AttachmentReplacementIdUpdaterTest < ActiveSupport::TestCase
         update_worker.expects(:call)
           .with(attachment_data, attachment_data.file.thumbnail.asset_manager_path, thumbnail_attributes)
 
-        worker.call(attachment_data)
+        updater.call(attachment_data, replacement_id: true)
       end
     end
   end
@@ -88,7 +88,7 @@ class AssetManager::AttachmentReplacementIdUpdaterTest < ActiveSupport::TestCase
 
     it 'raises a AssetNotFound error' do
       assert_raises(AssetManager::ServiceHelper::AssetNotFound) do
-        worker.call(attachment_data)
+        updater.call(attachment_data, replacement_id: true)
       end
     end
   end

@@ -3,7 +3,7 @@ require 'test_helper'
 class AssetManager::AttachmentAccessLimitedUpdaterTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
-  let(:worker) { AssetManager::AttachmentAccessLimitedUpdater }
+  let(:updater) { AssetManager::AttachmentUpdater }
   let(:attachment_data) { attachment.attachment_data }
   let(:update_worker) { mock('asset-manager-update-asset-worker') }
 
@@ -31,7 +31,7 @@ class AssetManager::AttachmentAccessLimitedUpdaterTest < ActiveSupport::TestCase
       update_worker.expects(:call)
         .with(attachment_data, attachment.file.asset_manager_path, 'access_limited' => ['user-uid'])
 
-      worker.call(attachment_data)
+      updater.call(attachment_data, access_limited: true)
     end
   end
 
@@ -55,7 +55,7 @@ class AssetManager::AttachmentAccessLimitedUpdaterTest < ActiveSupport::TestCase
       update_worker.expects(:call)
         .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'access_limited' => ['user-uid'])
 
-      worker.call(attachment_data)
+      updater.call(attachment_data, access_limited: true)
     end
   end
 
@@ -71,7 +71,7 @@ class AssetManager::AttachmentAccessLimitedUpdaterTest < ActiveSupport::TestCase
       update_worker.expects(:call)
         .with(attachment_data, attachment.file.asset_manager_path, 'access_limited' => [])
 
-      worker.call(attachment_data)
+      updater.call(attachment_data, access_limited: true)
     end
   end
 
@@ -89,7 +89,7 @@ class AssetManager::AttachmentAccessLimitedUpdaterTest < ActiveSupport::TestCase
       update_worker.expects(:call)
         .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'access_limited' => [])
 
-      worker.call(attachment_data)
+      updater.call(attachment_data, access_limited: true)
     end
   end
 end

@@ -40,7 +40,7 @@ class AttachmentLinkHeaderIntegrationTest < ActionDispatch::IntegrationTest
 
         Services.asset_manager.expects(:update_asset)
           .at_least_once
-          .with(asset_id, 'parent_document_url' => parent_document_url)
+          .with(asset_id, has_entry('parent_document_url', parent_document_url))
 
         AssetManagerAttachmentMetadataWorker.drain
       end
