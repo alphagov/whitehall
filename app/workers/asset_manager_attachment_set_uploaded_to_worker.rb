@@ -1,11 +1,21 @@
 class AssetManagerAttachmentSetUploadedToWorker < WorkerBase
   sidekiq_options queue: "asset_manager"
 
+  sidekiq_retries_exhausted do |msg, _|
+    legacy_url_path = msg["args"][2]
+    GovukError.notify AttachmentDataNotFound.new(legacy_url_path)
+  end
+
   class AttachmentDataNotFound < StandardError
     def initialize(legacy_url_path)
       super("AttachmentData for '#{legacy_url_path}' does not exist.")
     end
   end
+
+  # the "Transient" variant of the exception is not reported to
+  # Sentry, as there is a race condition here.  Only if all retries
+  # fail do we want to see the error.
+  class AttachmentDataNotFoundTransient < AttachmentDataNotFound; end
 
   def perform(model_class, model_id, legacy_url_path)
     model = model_class.constantize.find(model_id)
@@ -27,6 +37,6 @@ class AssetManagerAttachmentSetUploadedToWorker < WorkerBase
 
     # the AttachmentData should exist, so if we didn't find it try
     # again.
-    raise AttachmentDataNotFound.new(legacy_url_path) unless found
+    raise AttachmentDataNotFoundTransient.new(legacy_url_path) unless found
   end
 end
