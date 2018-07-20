@@ -114,7 +114,7 @@ private
 
   def assert_sets_draft_status_in_asset_manager_to(draft, never: false)
     expectation = Services.asset_manager.expects(:update_asset)
-      .with(asset_id, 'draft' => draft)
+      .with(asset_id, has_entry('draft', draft))
       .at_least_once
     expectation.never if never
     AssetManagerAttachmentMetadataWorker.drain

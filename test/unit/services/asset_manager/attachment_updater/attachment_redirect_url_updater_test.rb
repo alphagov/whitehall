@@ -5,7 +5,7 @@ class AssetManager::AttachmentRedirectUrlUpdaterTest < ActiveSupport::TestCase
   include Rails.application.routes.url_helpers
   include PublicDocumentRoutesHelper
 
-  let(:worker) { AssetManager::AttachmentRedirectUrlUpdater }
+  let(:updater) { AssetManager::AttachmentUpdater }
   let(:attachment_data) { attachment.attachment_data }
   let(:unpublished_edition) { FactoryBot.create(:unpublished_edition) }
   let(:redirect_url) { Whitehall.url_maker.public_document_url(unpublished_edition) }
@@ -32,7 +32,7 @@ class AssetManager::AttachmentRedirectUrlUpdaterTest < ActiveSupport::TestCase
       update_worker.expects(:call)
         .with(attachment_data, attachment.file.asset_manager_path, 'redirect_url' => redirect_url)
 
-      worker.call(attachment_data)
+      updater.call(attachment_data, redirect_url: true)
     end
   end
 
@@ -52,7 +52,7 @@ class AssetManager::AttachmentRedirectUrlUpdaterTest < ActiveSupport::TestCase
       update_worker.expects(:call)
         .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'redirect_url' => redirect_url)
 
-      worker.call(attachment_data)
+      updater.call(attachment_data, redirect_url: true)
     end
 
     context 'and attachment is not unpublished' do
@@ -65,7 +65,7 @@ class AssetManager::AttachmentRedirectUrlUpdaterTest < ActiveSupport::TestCase
         update_worker.expects(:call)
           .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'redirect_url' => nil)
 
-        worker.call(attachment_data)
+        updater.call(attachment_data, redirect_url: true)
       end
     end
   end
