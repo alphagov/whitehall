@@ -24,14 +24,21 @@ class AssetManagerAttachmentSetUploadedToWorker < WorkerBase
     # sadly we can't just search for url, because it's a magic
     # carrierwave thing not in our model
     Attachment.where(attachable: model.attachables).where.not(attachment_data: nil).find_each do |attachment|
+      attachment_data = attachment.attachment_data
       # 'attachment.attachment_data' can still be nil even with the
       # check above, because if the 'attachment_data_id' is non-nil
       # but invalid, the 'attachment_data' will be nil - and the
       # generated SQL only checks if the 'attachment_data_id' is
       # nil.
-      if attachment.attachment_data && attachment.attachment_data.url == legacy_url_path
+      next unless attachment_data
+      if attachment_data.url == legacy_url_path
         found = true
-        attachment.attachment_data.uploaded_to_asset_manager!
+        attachment_data.uploaded_to_asset_manager!
+      elsif attachment_data.pdf? && attachment_data.file.thumbnail.url == legacy_url_path
+        # don't mark the attachment_data as uploaded when the
+        # thumbnail makes it across, because we mostly care about the
+        # actual pdf
+        found = true
       end
     end
 
