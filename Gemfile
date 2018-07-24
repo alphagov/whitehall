@@ -14,7 +14,13 @@ gem 'equivalent-xml', '~> 0.6.0', require: false
 gem 'faraday'
 gem 'friendly_id', '~> 5.2.4'
 gem 'gds-sso', '~> 13.6'
-gem 'globalize', '5.1.0'
+# Use globalize 5.1, plus an unreleased change to resolve a
+# deprecation warning
+gem(
+  'globalize',
+  git: 'https://github.com/globalize/globalize.git',
+  ref: 'e946e63983d42c9ff49b39b13ffcc3ad45626dd3'
+)
 gem 'govuk_ab_testing', '~> 2.4x'
 gem 'govuk_admin_template', '~> 6.6'
 gem 'govuk_app_config', '~> 1.8'
