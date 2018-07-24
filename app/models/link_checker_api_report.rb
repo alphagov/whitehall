@@ -2,7 +2,7 @@ class LinkCheckerApiReport < ActiveRecord::Base
   belongs_to :link_reportable, polymorphic: true
   has_many :links,
            -> { order(ordering: :asc) },
-           class_name: LinkCheckerApiReport::Link
+           class_name: 'LinkCheckerApiReport::Link'
 
   def self.create_noop_report(link_reportable)
     create(
