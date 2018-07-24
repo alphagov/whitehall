@@ -53,7 +53,7 @@ class TopicsControllerTest < ActionController::TestCase
         assert_select(
           "a#{data_attributes}",
           text: edition.title,
-          href: public_document_path(edition)
+          href: routes_helper.public_document_path(edition)
         )
 
         assert_select_object(edition) do
@@ -84,7 +84,7 @@ class TopicsControllerTest < ActionController::TestCase
         assert_select(
           "a#{data_attributes}",
           text: edition.title,
-          href: public_document_path(edition)
+          href: routes_helper.public_document_path(edition)
         )
       end
       refute_select "a", text: published[3].title
@@ -111,7 +111,7 @@ class TopicsControllerTest < ActionController::TestCase
         assert_select(
           "a#{data_attributes}",
           text: edition.title,
-          href: public_document_path(edition)
+          href: routes_helper.public_document_path(edition)
         )
       end
       refute_select "a", text: published[3].title
@@ -138,7 +138,7 @@ class TopicsControllerTest < ActionController::TestCase
         assert_select(
           "a#{data_attributes}",
           text: edition.title,
-          href: public_document_path(edition)
+          href: routes_helper.public_document_path(edition)
         )
 
         assert_select_object(edition) do
@@ -174,7 +174,7 @@ class TopicsControllerTest < ActionController::TestCase
         assert_select(
           "a#{data_attributes}",
           text: guide.title,
-          href: public_document_path(guide)
+          href: routes_helper.public_document_path(guide)
         )
       end
       refute_select_object(published_detailed_guides[5])
@@ -261,7 +261,7 @@ class TopicsControllerTest < ActionController::TestCase
     [
       "[data-track-category='navPolicyAreaLinkClicked']",
       "[data-track-action='#{type}.#{edition_index + 1}']",
-      "[data-track-label='#{public_document_path(edition)}']",
+      "[data-track-label='#{routes_helper.public_document_path(edition)}']",
       "[data-track-options='#{JSON.dump(track_options)}']"
     ].join('')
   end

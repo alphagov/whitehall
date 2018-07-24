@@ -12,7 +12,7 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
   test 'create redirects to edit for the chosen language' do
     edition = create(:edition)
     post :create, params: { edition_id: edition, translation_locale: 'fr' }
-    assert_redirected_to edit_admin_edition_translation_path(edition, id: 'fr')
+    assert_redirected_to @controller.edit_admin_edition_translation_path(edition, id: 'fr')
   end
 
   view_test 'edit indicates which language we are adding a translation for' do
@@ -29,13 +29,13 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
 
     get :edit, params: { edition_id: edition, id: 'fr' }
 
-    assert_select "form[action='#{admin_edition_translation_path(edition, 'fr')}']" do
+    assert_select "form[action='#{@controller.admin_edition_translation_path(edition, 'fr')}']" do
       assert_select "input[type=text][name='edition[title]'][value='french-title']"
       assert_select "textarea[name='edition[summary]']", text: 'french-summary'
       assert_select "textarea[name='edition[body]']", 'french-body'
 
       assert_select "input[type=submit][value=Save]"
-      assert_select "a[href=?]", admin_edition_path(edition), text: 'cancel'
+      assert_select "a[href=?]", @controller.admin_edition_path(edition), text: 'cancel'
     end
   end
 
@@ -91,7 +91,7 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
       assert_equal 'translated-body', edition.body
     end
 
-    assert_redirected_to admin_edition_path(edition)
+    assert_redirected_to @controller.admin_edition_path(edition)
   end
 
   test "update creates a translation for a new draft of a previously published edition" do
@@ -179,7 +179,7 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
 
     edition.reload
     refute edition.translated_locales.include?(:fr)
-    assert_redirected_to admin_edition_path(edition)
+    assert_redirected_to @controller.admin_edition_path(edition)
   end
 
   test "#destroy deletes the translation from the publishing API" do

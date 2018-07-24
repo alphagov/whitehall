@@ -60,7 +60,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
       save: 'Some Value'
     }
 
-    assert_redirected_to admin_edition_path(@edition)
+    assert_redirected_to @controller.admin_edition_path(@edition)
   end
 
   test 'should redirect to legacy associations page when "Legacy tags" is clicked' do

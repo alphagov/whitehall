@@ -40,7 +40,7 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
   test "should not alter unicode when replacing links" do
     publication = create(:published_publication)
     html = govspeak_to_admin_html("the [☃](#{admin_publication_path(publication)})")
-    assert_select_within_html html, "a[href=?]", public_document_url(publication), text: "☃"
+    assert_select_within_html html, "a[href=?]", routes_helper.public_document_url(publication), text: "☃"
   end
 
   test "should rewrite link to deleted edition in admin preview" do
@@ -62,7 +62,7 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
   test "should rewrite link to published edition in admin preview" do
     publication = create(:published_publication)
     html = govspeak_to_admin_html("this and [that](#{admin_publication_path(publication)})")
-    assert_select_within_html html, "a[href=?]", public_document_url(publication), text: "that"
+    assert_select_within_html html, "a[href=?]", routes_helper.public_document_url(publication), text: "that"
   end
 
   test "should rewrite link to published edition with a newer draft in admin preview" do

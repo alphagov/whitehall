@@ -1619,10 +1619,10 @@ private
 
   def new_edition_path(edition_type)
     edition = build(edition_type)
-    new_polymorphic_path([:admin, edition])
+    @controller.new_polymorphic_path([:admin, edition])
   end
 
   def edit_edition_path(edition)
-    edit_polymorphic_path([:admin, edition])
+    @controller.edit_polymorphic_path([:admin, edition])
   end
 end

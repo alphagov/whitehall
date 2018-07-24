@@ -333,7 +333,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
         )
 
         assert_equal(
-          public_document_path(news_article),
+          @controller.public_document_path(news_article),
           article_link.attributes['data-label'].value,
           "Expected the data label attribute to be the link of the news article"
         )

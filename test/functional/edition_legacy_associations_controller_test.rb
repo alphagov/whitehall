@@ -70,19 +70,19 @@ class Admin::EditionLegacyAssociationsControllerTest < ActionController::TestCas
   view_test 'should render the cancel button back to the admin page' do
     @edition = create(:publication)
     get :edit, params: { edition_id: @edition.id }
-    assert_select ".form-actions a:contains('cancel')[href='#{admin_edition_path(@edition)}']"
+    assert_select ".form-actions a:contains('cancel')[href='#{@controller.admin_edition_path(@edition)}']"
   end
 
   view_test 'should render the cancel button back to the tags page' do
     @edition = create(:publication)
     get :edit, params: { edition_id: @edition.id, return: 'tags' }
-    assert_select ".form-actions a:contains('cancel')[href='#{edit_admin_edition_tags_path(@edition)}']"
+    assert_select ".form-actions a:contains('cancel')[href='#{@controller.edit_admin_edition_tags_path(@edition)}']"
   end
 
   view_test 'should render the cancel button back to the edit page' do
     @edition = create(:publication)
     get :edit, params: { edition_id: @edition.id, return: 'edit' }
-    assert_select ".form-actions a:contains('cancel')[href='#{edit_admin_edition_path(@edition)}']"
+    assert_select ".form-actions a:contains('cancel')[href='#{@controller.edit_admin_edition_path(@edition)}']"
   end
 
   test 'should update the edition with the selected legacy tags' do
