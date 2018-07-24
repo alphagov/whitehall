@@ -6,9 +6,10 @@
 <div class="row">
   <div class="col-md-12">
     <h2>Topics (new taxonomy)</h2>
-    <p>Topics categorise content on GOV.UK by subject area.</p>
-    <p>Choose the topic(s) that best describe what this content is about.</p>
+    <p>Topics group content based on what it’s about.</p>
+    <p>Choose the topic or topics that best describe what this content is about.</p>
     <p>You can use the whole taxonomy. There's no limit to the number of topics you can choose.</p>
+    <p><a href="https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#add-topic-tagging">Find out more about tagging to topics.</a></p>
     <hr>
 
     <%= form_for @tag_form, url: admin_edition_tags_path(@edition), method: :put do |form| %>
