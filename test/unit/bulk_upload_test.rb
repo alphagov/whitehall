@@ -175,7 +175,7 @@ class BulkUploadZipFileTest < ActiveSupport::TestCase
   def uploaded_file(file_fixturename, file_mime_type)
     Rack::Test::UploadedFile.new(
       File.open(Rails.root.join('test', 'fixtures', file_fixturename)),
-      content_type: file_mime_type
+      file_mime_type
     )
   end
 
@@ -186,7 +186,7 @@ class BulkUploadZipFileTest < ActiveSupport::TestCase
   def superficial_zip_file
     Rack::Test::UploadedFile.new(
       File.open(Rails.root.join('test', 'fixtures', 'greenpaper-not-a-zip.zip')),
-      content_type: 'application/zip'
+      'application/zip'
     )
   end
 
