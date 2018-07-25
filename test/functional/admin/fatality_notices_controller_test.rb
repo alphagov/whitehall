@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class Admin::FatalityNoticesControllerTest < ActionController::TestCase
+  include TaxonomyHelper
+
   setup do
     login_as :gds_editor
   end
@@ -22,6 +24,7 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
 
   view_test "show renders the summary" do
     draft_fatality_notice = create(:draft_fatality_notice, summary: "a-simple-summary")
+    stub_publishing_api_expanded_links_with_taxons(draft_fatality_notice.content_id, [])
 
     get :show, params: { id: draft_fatality_notice }
 

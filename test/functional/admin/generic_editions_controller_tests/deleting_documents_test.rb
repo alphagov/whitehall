@@ -3,6 +3,7 @@ require "gds_api/test_helpers/publishing_api_v2"
 
 class Admin::GenericEditionsController::DeletingDocumentsTest < ActionController::TestCase
   include GdsApi::TestHelpers::PublishingApiV2
+  include TaxonomyHelper
 
   tests Admin::GenericEditionsController
 
@@ -12,6 +13,7 @@ class Admin::GenericEditionsController::DeletingDocumentsTest < ActionController
 
   view_test "show displays the delete button for draft editions" do
     draft_edition = create(:draft_edition)
+    stub_publishing_api_expanded_links_with_taxons(draft_edition.content_id, [])
 
     get :show, params: { id: draft_edition }
 
@@ -23,6 +25,7 @@ class Admin::GenericEditionsController::DeletingDocumentsTest < ActionController
 
   view_test "show displays the delete button for submitted editions" do
     submitted_edition = create(:submitted_edition)
+    stub_publishing_api_expanded_links_with_taxons(submitted_edition.content_id, [])
 
     get :show, params: { id: submitted_edition }
 
@@ -34,6 +37,7 @@ class Admin::GenericEditionsController::DeletingDocumentsTest < ActionController
 
   view_test "show does not display the delete button for published editions" do
     published_edition = create(:published_edition)
+    stub_publishing_api_expanded_links_with_taxons(published_edition.content_id, [])
 
     get :show, params: { id: published_edition }
 
@@ -42,6 +46,7 @@ class Admin::GenericEditionsController::DeletingDocumentsTest < ActionController
 
   view_test "show does not display the delete button for superseded editions" do
     superseded_edition = create(:superseded_edition)
+    stub_publishing_api_expanded_links_with_taxons(superseded_edition.content_id, [])
 
     get :show, params: { id: superseded_edition }
 

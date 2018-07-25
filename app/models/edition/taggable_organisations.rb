@@ -8,23 +8,11 @@ module Edition::TaggableOrganisations
     PublicationType::Form,
   ].freeze
 
-  def can_be_tagged_to_taxonomy?
-    topic_taxonomy_taggable?
-  end
-
   def can_be_tagged_to_worldwide_taxonomy?
     world_taggable?
   end
 
-  def must_be_tagged_to_policy_area?
-    !topic_taxonomy_taggable?
-  end
-
 private
-
-  def topic_taxonomy_taggable?
-    organisations_in_topic_tagging_beta?
-  end
 
   def world_taggable?
     return unless edition_in_world_taggable_document_types?
@@ -48,15 +36,7 @@ private
     (organisations_content_ids & worldwide_taggable_organisation_ids).present?
   end
 
-  def organisations_in_topic_tagging_beta?
-    (organisations_content_ids & topic_taggable_organisation_ids).present?
-  end
-
   def worldwide_taggable_organisation_ids
     Whitehall.worldwide_tagging_organisations.to_a
-  end
-
-  def topic_taggable_organisation_ids
-    Whitehall.organisations_in_tagging_beta.to_a
   end
 end

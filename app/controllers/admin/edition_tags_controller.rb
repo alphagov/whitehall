@@ -47,10 +47,6 @@ private
   end
 
   def enforce_permissions!
-    unless @edition.can_be_tagged_to_taxonomy?
-      raise Whitehall::Authority::Errors::PermissionDenied.new(:update, @edition)
-    end
-
     enforce_permission!(:update, @edition)
   end
 

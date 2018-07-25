@@ -8,4 +8,5 @@ Feature: Tagging content with specialist sectors
     And there are some specialist sectors
     When I start editing a draft document
     And I continue to the tagging page
+    And I continue to the legacy tagging page
     Then I can tag it to some specialist sectors

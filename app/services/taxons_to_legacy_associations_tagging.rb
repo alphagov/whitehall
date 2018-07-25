@@ -54,8 +54,20 @@ private
   end
 
   def any_legacy_associations_for_edition?(edition)
-    edition.policy_content_ids.any? ||
-      edition.topic_ids.any? ||
-      edition.specialist_sectors.any?
+    tagged_to_policies?(edition) ||
+      tagged_to_policy_areas?(edition) ||
+      tagged_to_specialist_sectors?(edition)
+  end
+
+  def tagged_to_policies?(edition)
+    defined?(edition.policy_content_ids) && edition.policy_content_ids.any?
+  end
+
+  def tagged_to_policy_areas?(edition)
+    defined?(edition.topic_ids) && edition.topic_ids.any?
+  end
+
+  def tagged_to_specialist_sectors?(edition)
+    defined?(edition.specialist_sectors) && edition.specialist_sectors.any?
   end
 end

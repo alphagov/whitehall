@@ -15,7 +15,7 @@ module CorporateInformationPageHelper
     markdown = find_markdown_snippet_to_insert_attachment(attachment)
     fill_in 'Body', with: page.body.to_s + "\n\n" + markdown
     click_button "Save and continue"
-    click_button "Save"
+    click_button "Save topic changes"
   end
 
   def check_attachment_appears_on_corporate_information_page(attachment, page)

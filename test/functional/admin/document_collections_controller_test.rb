@@ -1,6 +1,8 @@
 require "test_helper"
 
 class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
+  include TaxonomyHelper
+
   setup do
     @organisation = create(:organisation)
     @topic = create(:topic)
@@ -17,6 +19,8 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
     collection = create(:document_collection,
       title: "collection-title",
       summary: "the summary")
+
+    stub_publishing_api_expanded_links_with_taxons(collection.content_id, [])
 
     get :show, params: { id: collection }
 

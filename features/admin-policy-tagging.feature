@@ -11,6 +11,7 @@ Feature: Tagging content with policies
     Given I am a writer
     When I start editing a draft document
     And I continue to the tagging page
+    And I continue to the legacy tagging page
     Then I can tag the edition to some policies
 
   Scenario: a writer can tag a topic to a policy

@@ -27,6 +27,7 @@ Then(/^I tag it to the policy "([^"]*)" and "([^"]*)"$/) do |policy_1, policy_2|
   policies = publishing_api_has_policies([policy_1, policy_2])
 
   click_button "Save and continue"
+  click_button "Save and review legacy tagging"
   select policy_1, from: "Policies"
   select policy_2, from: "Policies"
   click_button "Save"
@@ -37,6 +38,7 @@ Then(/^I can see the consultation "([^"]*)" tagged to "([^"]*)" and "([^"]*)"$/)
 
   click_on 'Edit draft'
   click_on "Save and continue"
+  click_on "Save and review legacy tagging"
 
   assert has_css?(".policies option[selected]", text: policy_1)
   assert has_css?(".policies option[selected]", text: policy_2)
@@ -70,10 +72,12 @@ When(/^I add public feedback to the consultation$/) do
 end
 
 When(/^I save and publish the amended consultation$/) do
-  ensure_path edit_admin_consultation_path(Consultation.last)
+  consultation = Consultation.last
+  stub_publishing_api_links_with_taxons(consultation.content_id, ["a-taxon-content-id"])
+  ensure_path edit_admin_consultation_path(consultation)
   fill_in_change_note_if_required
   click_button "Save and continue"
-  click_button "Save"
+  click_button "Save topic changes"
   publish force: true
 end
 

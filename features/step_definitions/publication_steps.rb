@@ -20,13 +20,13 @@ end
 When(/^I start drafting a new publication "([^"]*)"$/) do |title|
   begin_drafting_publication(title)
   click_button "Save and continue"
-  click_button "Save"
+  click_button "Save topic changes"
 end
 
 When(/^I draft a new publication "([^"]*)"$/) do |title|
   begin_drafting_publication(title)
   click_button "Save and continue"
-  click_button "Save"
+  click_button "Save topic changes"
   add_external_attachment
 end
 
@@ -35,7 +35,7 @@ Given(/^"([^"]*)" drafts a new publication "([^"]*)"$/) do |user_name, title|
   as_user(user) do
     begin_drafting_publication(title)
     click_button "Save and continue"
-    click_button "Save"
+    click_button "Save topic changes"
   end
 end
 
@@ -48,6 +48,7 @@ end
 When(/^I draft a new publication "([^"]*)" relating it to the policies "([^"]*)" and "([^"]*)"$/) do |title, first_policy, second_policy|
   begin_drafting_publication(title)
   click_button "Save and continue"
+  click_button "Save and review legacy tagging"
   select first_policy, from: "Policies"
   select second_policy, from: "Policies"
   click_button "Save"
@@ -57,7 +58,7 @@ When(/^I draft a new publication "([^"]*)" referencing the data set "([^"]*)"$/)
   begin_drafting_publication(title)
   select data_set_name, from: "Related statistical data sets"
   click_button "Save and continue"
-  click_button "Save"
+  click_button "Save topic changes"
   add_external_attachment
 end
 
@@ -124,11 +125,13 @@ Then(/^the new data file should not have replaced the old data file$/) do
 end
 
 When(/^I published the draft edition$/) do
+  stub_publishing_api_links_with_taxons(@new_edition.content_id, ["a-taxon-content-id"])
   visit admin_publication_path(@new_edition)
   publish(force: true)
 end
 
 When(/^I try to publish the draft edition$/) do
+  stub_publishing_api_links_with_taxons(@new_edition.content_id, ["a-taxon-content-id"])
   visit admin_publication_path(@new_edition)
   publish(force: true, ignore_errors: true)
 end

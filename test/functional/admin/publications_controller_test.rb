@@ -60,7 +60,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     publication = Publication.last
 
     assert publication.present?, assigns(:edition).errors.full_messages.inspect
-    assert_redirected_to edit_admin_edition_legacy_associations_path(publication.id, return: :edit)
+    assert_redirected_to edit_admin_edition_tags_path(publication.id)
     assert_equal publication, statistics_announcement.reload.publication
   end
 
@@ -113,6 +113,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     # After conversation with DH I picked publications arbitrarily.
     login_as(create(:departmental_editor))
     publication = create(:draft_publication)
+    stub_publishing_api_expanded_links_with_taxons(publication.content_id, [])
 
     [EditionPublisher, EditionForcePublisher].each do |publisher|
       publisher.any_instance.stubs(:failure_reasons).returns(["This edition is not dope enough"])
@@ -144,64 +145,13 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  view_test "when edition is not from DfE or SFA dont show a button to tag to the new taxonomy" do
-    draft_edition = create(:draft_publication)
-
-    publication_has_no_expanded_links(draft_edition.content_id)
-    get :show, params: { id: draft_edition }
-
-    refute_select '.taxonomy-topics'
-  end
-
-  view_test "when edition is from DfE show a button to tag to the new taxonomy" do
-    dfe_organisation = create(:organisation, content_id: "ebd15ade-73b2-4eaf-b1c3-43034a42eb37")
-
-    publication = create(
-      :publication,
-      organisations: [dfe_organisation]
-    )
-
-    login_as(create(:user, organisation: dfe_organisation))
+  view_test "show a button to tag to the new taxonomy" do
+    publication = create(:publication)
 
     publication_has_no_expanded_links(publication.content_id)
     get :show, params: { id: publication }
 
     assert_select '.taxonomy-topics .btn', "Add topic"
-  end
-
-  view_test "when edition is from SFA show a button to tag to the new taxonomy" do
-    sfa_organisation = create(:organisation, content_id: "3e5a6924-b369-4eb3-8b06-3c0814701de4")
-
-    publication = create(
-      :publication,
-      organisations: [sfa_organisation]
-    )
-
-    login_as(create(:user, organisation: sfa_organisation))
-
-    publication_has_no_expanded_links(publication.content_id)
-    get :show, params: { id: publication }
-
-    assert_select '.taxonomy-topics .btn', "Add topic"
-  end
-
-  view_test "when edition is not tagged to the new taxonomy" do
-    world_tagging_organisation = create(:organisation, content_id: "f323e83c-868b-4bcb-b6e2-a8f9bb40397e")
-
-    publication = create(
-      :publication,
-      publication_type: PublicationType::Guidance,
-      organisations: [world_tagging_organisation]
-    )
-
-    login_as(create(:user, organisation: world_tagging_organisation))
-
-    publication_has_no_expanded_links(publication.content_id)
-    get :show, params: { id: publication }
-
-    refute_select '.taxonomy-topics .content'
-    assert_select '.taxonomy-topics#topic-new-taxonomy .no-content'
-    assert_select '.taxonomy-topics#world-taxonomy .no-content'
   end
 
   view_test "when edition is tagged to the new taxonomy" do
@@ -259,6 +209,8 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       secondary_specialist_sector_tags: %w(FIELDS OFFSHORE)
     )
 
+    stub_publishing_api_expanded_links_with_taxons(publication.content_id, [])
+
     login_as(create(:user, organisation: organisation))
 
     get :show, params: { id: publication }
@@ -277,6 +229,8 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       :publication_without_policy_areas,
       organisations: [organisation],
     )
+
+    stub_publishing_api_expanded_links_with_taxons(publication.content_id, [])
 
     login_as(create(:user, organisation: organisation))
     get :show, params: { id: publication }

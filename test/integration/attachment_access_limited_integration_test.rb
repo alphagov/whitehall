@@ -5,6 +5,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
   extend Minitest::Spec::DSL
   include Capybara::DSL
   include Rails.application.routes.url_helpers
+  include TaxonomyHelper
 
   let(:organisation) { create(:organisation) }
   let(:managing_editor) { create(:managing_editor, organisation: organisation, uid: 'user-uid') }
@@ -206,6 +207,8 @@ private
       content_id: edition.document.content_id,
       links: {}
     )
+
+    stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
   end
 
   def add_file_attachment(filename, to:)

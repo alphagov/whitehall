@@ -1,4 +1,11 @@
 When(/^I create a fatality notice titled "([^"]*)" in the field "([^"]*)" associated with "([^"]*)"$/) do |title, field, policy|
+  links = {
+    "links" => {
+      "taxons" => ["a-taxon-content-id"]
+    }
+  }
+  Services.publishing_api.stubs(:get_links).returns(links)
+
   draft_fatality_notice(title, field, policy)
   publish(force: true)
 end

@@ -16,6 +16,7 @@ When(/^I create a new detailed guide "([^"]*)" associated with "([^"]*)"$/) do |
 
   begin_drafting_document type: 'detailed_guide', title: title, previously_published: false
   click_button "Save and continue"
+  click_button "Save and review legacy tagging"
   select policy, from: "Policies"
   click_button "Save"
 end
@@ -26,6 +27,7 @@ Then(/^I should see the detailed guide "([^"]*)" associated with "([^"]*)"$/) do
 
   click_on 'Edit draft'
   click_on "Save and continue"
+  click_on "Save and review legacy tagging"
 
   assert has_css?(".policies option[selected]", text: policy)
 end
@@ -40,11 +42,12 @@ end
 
 When(/^I publish a new edition of the detailed guide "([^"]*)" with a change note "([^"]*)"$/) do |guide_title, change_note|
   guide = DetailedGuide.latest_edition.find_by!(title: guide_title)
+  stub_publishing_api_links_with_taxons(guide.content_id, ["a-taxon-content-id"])
   visit admin_edition_path(guide)
   click_button "Create new edition"
   fill_in "edition_change_note", with: change_note
   click_button "Save and continue"
-  click_button "Save"
+  click_button "Save topic changes"
   publish(force: true)
 end
 

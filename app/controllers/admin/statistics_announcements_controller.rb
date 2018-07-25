@@ -9,9 +9,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
   end
 
   def show
-    if @statistics_announcement.can_be_tagged_to_taxonomy?
-      @edition_taxons = EditionTaxonsFetcher.new(@statistics_announcement.content_id).fetch
-    end
+    @edition_taxons = EditionTaxonsFetcher.new(@statistics_announcement.content_id).fetch
   end
 
   def new

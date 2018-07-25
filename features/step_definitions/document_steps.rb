@@ -84,7 +84,8 @@ end
 Given(/^a force published (document|publication|news article|consultation|speech) "([^"]*)" was produced by the "([^"]*)" organisation$/) do |document_type, title, organisation_name|
   organisation = Organisation.find_by!(name: organisation_name)
   document_type = 'publication' if document_type == 'document'
-  create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, organisations: [organisation])
+  edition = create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, organisations: [organisation])
+  stub_publishing_api_links_with_taxons(edition.content_id, ["a-taxon-content-id"])
   visit admin_editions_path(state: :draft)
   click_link title
   publish(force: true)
@@ -161,11 +162,12 @@ When(/^someone publishes (#{THE_DOCUMENT})$/) do |edition|
 end
 
 When(/^I force publish (#{THE_DOCUMENT})$/) do |edition|
+  stub_publishing_api_links_with_taxons(edition.content_id, ["a-taxon-content-id"])
   visit_edition_admin edition.title, :draft
   click_link "Edit draft"
   fill_in_change_note_if_required
   click_button "Save and continue"
-  click_button "Save"
+  click_button "Save topic changes"
   publish(force: true)
 end
 

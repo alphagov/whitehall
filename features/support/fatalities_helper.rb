@@ -7,6 +7,7 @@ module FatalitiesHelper
     fill_in "Introduction", with: "fatality notice roll call introduction"
     select field, from: "Field of operation"
     click_button "Save and continue"
+    click_button "Save and review legacy tagging"
     select policy, from: "Policies"
     click_button "Save"
   end

@@ -19,6 +19,7 @@ Scenario: Publication that does not support the new taxonomy
   Given I am a writer
   When I start editing a draft document which cannot be tagged to the new taxonomy
   And I continue to the tagging page
+  And I continue to the legacy tagging page
   Then I should be on the legacy tagging page
   And I should be able to update the legacy tags
 

@@ -1,26 +1,5 @@
 require "test_helper"
 
-class EditionTaggableOrganisationTestForEducationOrganisations < ActiveSupport::TestCase
-  def setup
-    @lead_org = create(:organisation)
-    orgs_in_tagging_beta = [@lead_org.content_id]
-    Whitehall.stubs(:organisations_in_tagging_beta).returns(orgs_in_tagging_beta)
-  end
-
-  # method will return `true` for all other edition types, we choose NewsArticle as example
-  test '#can_be_tagged_to_taxonomy? is true for NewsArticle' do
-    edition = create(:news_article, organisations: [@lead_org])
-
-    assert edition.can_be_tagged_to_taxonomy?
-  end
-
-  test '#must_be_tagged_to_policy_area? is false for NewsArticle' do
-    edition = create(:news_article, organisations: [@lead_org])
-
-    refute edition.must_be_tagged_to_policy_area?
-  end
-end
-
 class EditionTaggableOrganisationTestForWorldOrganisations < ActiveSupport::TestCase
   def setup
     @lead_org = create(:organisation)

@@ -107,11 +107,12 @@ When(/^I draft a French\-only "World news story" news article associated with "(
   select "French embassy", from: "Select the worldwide organisations associated with this news article"
   select "", from: "edition_lead_organisation_ids_1"
   click_button "Save and continue"
-  click_button "Save"
+  click_button "Save topic changes"
   @news_article = find_news_article_in_locale!(:fr, 'French-only news article')
 end
 
 When(/^I publish the French-only news article$/) do
+  stub_publishing_api_links_with_taxons(@news_article.content_id, ["a-taxon-content-id"])
   visit admin_edition_path(@news_article)
   publish(force: true)
 end
@@ -157,6 +158,7 @@ When(/^I tag the article to a policy "([^"]*)"$/) do |policy|
   policies = publishing_api_has_policies([policy])
 
   click_button "Save and continue"
+  click_button "Save and review legacy tagging"
 
   select policy, from: "Policies"
   click_button "Save"
@@ -171,5 +173,6 @@ And(/^the news article is tagged to policy "([^"]*)"$/) do |policy|
 
   click_on 'Edit draft'
   click_on "Save and continue"
+  click_on "Save and review legacy tagging"
   assert has_css?(".policies option[selected]", text: policy)
 end
