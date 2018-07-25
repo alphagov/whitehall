@@ -9,39 +9,6 @@ class HomeControllerTest < ActionController::TestCase
     create(:ministerial_role_appointment, role: pm_role, person: pm_person)
   end
 
-  view_test 'Atom feed has the right elements' do
-    document = create(:published_news_article)
-
-    get :feed, format: :atom
-
-    assert_select_atom_feed do
-      assert_select 'feed > id', 1
-      assert_select 'feed > title', 1
-      assert_select 'feed > author, feed > entry > author'
-      assert_select 'feed > updated', 1
-      assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml', atom_feed_url(format: :atom), 1
-      assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', root_url, 1
-
-      assert_select_atom_entries([document])
-    end
-  end
-
-  view_test 'Atom feed shows a list of recently published documents' do
-    create_published_documents
-    create_draft_documents
-
-    get :feed, format: :atom
-
-    documents = Edition.published.in_reverse_chronological_order
-    recent_documents = documents[0...10]
-
-    assert_select_atom_feed do
-      assert_select 'feed > updated', text: recent_documents.first.public_timestamp.iso8601
-
-      assert_select_atom_entries(recent_documents)
-    end
-  end
-
   view_test "frontend layout includes header-context element to stop breadcrumbs being inserted" do
     get :how_government_works
 

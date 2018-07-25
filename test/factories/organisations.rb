@@ -21,6 +21,16 @@ FactoryBot.define do
       sequence(:alternative_format_contact_email) { |n| "organisation-#{n}@example.com" }
     }
 
+    trait(:with_feature_list) do
+      transient do
+        feature_list_count 1
+      end
+
+      after(:create) do |organisation, evaluator|
+        create_list(:feature_list, evaluator.feature_list_count, featurable: organisation)
+      end
+    end
+
     trait(:political) do
       political true
     end
@@ -43,6 +53,8 @@ FactoryBot.define do
   factory :organisation_with_alternative_format_contact_email, parent: :organisation, aliases: [:alternative_format_provider] do
     alternative_format_contact_email "alternative@example.com"
   end
+
+  factory :organisation_with_feature_list, parent: :organisation, traits: [:with_feature_list]
 
   factory :sub_organisation, parent: :organisation do
     parent_organisations { [build(:organisation)] }

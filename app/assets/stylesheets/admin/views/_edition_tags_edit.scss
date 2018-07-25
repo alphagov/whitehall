@@ -1,8 +1,6 @@
 .topic-tree {
   .taxon-name {
     font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 10px;
     display: inline-block;
 
     &:hover, &:focus {
@@ -11,12 +9,20 @@
 
     .icon {
       display: inline-block;
-      width: 15px;
+      font-size: 25px;
+      text-align: center;
+      width: 28px;
+      height: 28px;
 
       &:before {
         content: '\25BE';
       }
     }
+  }
+  .no-children-icon {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
   }
   .taxon-name.collapsed .icon {
     &:before {
@@ -24,22 +30,21 @@
     }
   }
 
+  label {
+    font-size: 16px;
+    font-weight: normal;
+    input[type="checkbox"] {
+      margin-right: 10px;
+    }
+    input[type="checkbox"]:checked + span {
+      font-weight: bold;
+    }
+  }
+
   .topics {
     padding-left: 36px;
     border-left: 1px solid #aaa;
     margin-left: 6px;
-
-    label {
-      font-size: 16px;
-      font-weight: normal;
-      input[type="checkbox"] {
-        margin-right: 10px;
-      }
-
-      input[type="checkbox"]:checked + span {
-        font-weight: bold;
-      }
-    }
   }
 }
 

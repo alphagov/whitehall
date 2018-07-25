@@ -17,8 +17,8 @@ gem 'gds-sso', '~> 13.6'
 gem 'globalize', '5.1.0'
 gem 'govuk_ab_testing', '~> 2.4x'
 gem 'govuk_admin_template', '~> 6.6'
-gem 'govuk_app_config', '~> 1.6'
-gem 'govuk_publishing_components', '~> 9.5.2'
+gem 'govuk_app_config', '~> 1.7'
+gem 'govuk_publishing_components', '~> 9.6.0'
 gem 'govuk_sidekiq', '~> 3'
 gem 'invalid_utf8_rejector', '~> 0.0.4'
 gem 'isbn_validation'
@@ -80,7 +80,7 @@ end
 if ENV['FRONTEND_TOOLKIT_DEV']
   gem 'govuk_frontend_toolkit', path: '../govuk_frontend_toolkit_gem'
 else
-  gem 'govuk_frontend_toolkit', '7.5.0'
+  gem 'govuk_frontend_toolkit', '7.6.0'
 end
 # rubocop:enable Bundler/DuplicatedGem
 

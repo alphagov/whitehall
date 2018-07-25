@@ -1,15 +1,24 @@
-<div class="topics topic-tree">
 <% taxons.each do |taxon| %>
-  <p>
+  <div>
+    <% if taxon.children.present? %>
+      <a class="taxon-name collapsed"
+         data-toggle="collapse"
+         href="#topic-tree-<%= taxon.content_id %>">
+        <span class='icon'></span>
+      </a>
+    <% else %>
+      <span class='no-children-icon'></span>
+    <% end %>
     <label>
       <%= checkbox_for_taxonomy(selected_taxons, taxon) %>
       <span><%= taxon.name %></span>
     </label>
-  </p>
+  </div>
 
   <% if taxon.children.present? %>
+    <div id="topic-tree-<%= taxon.content_id %>" class="topics collapse">
     <%= render partial: "/admin/shared/tagging/sub_taxons",
           locals: { selected_taxons: selected_taxons, taxons: taxon.children } %>
+    </div>
   <% end %>
 <% end %>
-</div>

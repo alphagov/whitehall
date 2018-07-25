@@ -88,7 +88,7 @@
       };
 
       renderUpdatedBreadcrumbsForElement();
-      $topicTree.on('click', renderUpdatedBreadcrumbsForElement);
+      $topicTree.on('change', renderUpdatedBreadcrumbsForElement);
     };
   };
 })(window.GOVUKAdmin.Modules);

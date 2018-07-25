@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   include Slimmer::Headers
   include Slimmer::Template
   include LocalisedUrlPathHelper
+  include LegacyUrlHelper
 
   protect_from_forgery
 

@@ -73,4 +73,16 @@ class TopicalEventTest < ActiveSupport::TestCase
     feature_list.reload
     assert_equal 0, feature_list.features.size
   end
+
+  test '#save republishes any organisations that feature the topical event' do
+    topical_event = create(:topical_event)
+    organisation = create(:organisation, :with_feature_list)
+
+    create(:feature, feature_list: organisation.feature_lists.sample, topical_event: topical_event)
+
+    Whitehall::PublishingApi.expects(:publish_async).with(topical_event).once
+    Whitehall::PublishingApi.expects(:publish_async).with(organisation).once
+
+    topical_event.save
+  end
 end

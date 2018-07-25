@@ -1,12 +1,6 @@
 class HomeController < PublicFacingController
   layout 'frontend'
 
-  enable_request_formats feed: [:atom]
-
-  def feed
-    @recently_updated = Edition.published.in_reverse_chronological_order.includes(:document).limit(10)
-  end
-
   def how_government_works
     sitewide_setting = load_reshuffle_setting
     @is_during_reshuffle = sitewide_setting.on if sitewide_setting

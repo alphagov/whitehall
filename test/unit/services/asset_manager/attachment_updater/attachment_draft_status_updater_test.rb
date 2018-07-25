@@ -1,14 +1,16 @@
 require 'test_helper'
 
-class AssetManagerAttachmentDraftStatusUpdateWorkerTest < ActiveSupport::TestCase
+class AssetManager::AttachmentDraftStatusUpdaterTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
-  let(:worker) { AssetManagerAttachmentDraftStatusUpdateWorker.new }
+  let(:updater) { AssetManager::AttachmentUpdater }
   let(:attachment_data) { attachment.attachment_data }
   let(:update_worker) { mock('asset-manager-update-asset-worker') }
 
-  setup do
-    AssetManagerUpdateAssetWorker.stubs(:new).returns(update_worker)
+  around do |test|
+    AssetManager.stub_const(:AssetUpdater, update_worker) do
+      test.call
+    end
   end
 
   context 'when attachment is not a PDF' do
@@ -22,18 +24,10 @@ class AssetManagerAttachmentDraftStatusUpdateWorkerTest < ActiveSupport::TestCas
     end
 
     it 'marks corresponding asset as draft' do
-      update_worker.expects(:perform)
+      update_worker.expects(:call)
         .with(attachment_data, attachment.file.asset_manager_path, 'draft' => true)
 
-      worker.perform(attachment_data.id)
-    end
-  end
-
-  context 'when attachment cannot be found' do
-    it 'does not mark anything as draft' do
-      update_worker.expects(:perform).never
-
-      worker.perform('no-such-id')
+      updater.call(attachment_data, draft_status: true)
     end
   end
 
@@ -52,24 +46,24 @@ class AssetManagerAttachmentDraftStatusUpdateWorkerTest < ActiveSupport::TestCas
     end
 
     it 'marks asset for attachment & its thumbnail as draft' do
-      update_worker.expects(:perform)
+      update_worker.expects(:call)
         .with(attachment_data, attachment.file.asset_manager_path, 'draft' => true)
-      update_worker.expects(:perform)
+      update_worker.expects(:call)
         .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'draft' => true)
 
-      worker.perform(attachment_data.id)
+      updater.call(attachment_data, draft_status: true)
     end
 
     context 'and attachment is not draft' do
       let(:draft) { false }
 
       it 'marks corresponding assets as not draft' do
-        update_worker.expects(:perform)
+        update_worker.expects(:call)
           .with(attachment_data, attachment.file.asset_manager_path, 'draft' => false)
-        update_worker.expects(:perform)
+        update_worker.expects(:call)
           .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'draft' => false)
 
-        worker.perform(attachment_data.id)
+        updater.call(attachment_data, draft_status: true)
       end
     end
 
@@ -77,12 +71,12 @@ class AssetManagerAttachmentDraftStatusUpdateWorkerTest < ActiveSupport::TestCas
       let(:unpublished) { true }
 
       it 'marks corresponding assets as not draft even though attachment is draft' do
-        update_worker.expects(:perform)
+        update_worker.expects(:call)
           .with(attachment_data, attachment.file.asset_manager_path, 'draft' => false)
-        update_worker.expects(:perform)
+        update_worker.expects(:call)
           .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'draft' => false)
 
-        worker.perform(attachment_data.id)
+        updater.call(attachment_data, draft_status: true)
       end
     end
 
@@ -90,12 +84,12 @@ class AssetManagerAttachmentDraftStatusUpdateWorkerTest < ActiveSupport::TestCas
       let(:replaced) { true }
 
       it 'marks corresponding assets as not draft even though attachment is draft' do
-        update_worker.expects(:perform)
+        update_worker.expects(:call)
           .with(attachment_data, attachment.file.asset_manager_path, 'draft' => false)
-        update_worker.expects(:perform)
+        update_worker.expects(:call)
           .with(attachment_data, attachment.file.thumbnail.asset_manager_path, 'draft' => false)
 
-        worker.perform(attachment_data.id)
+        updater.call(attachment_data, draft_status: true)
       end
     end
   end
