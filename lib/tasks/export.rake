@@ -141,7 +141,7 @@ namespace :export do
       {
         title: a.title,
         body: a.govspeak_content_body,
-        issued_date: a.created_at.strftime("%Y-%m-%d"),
+        issued_date: a.created_at.strftime("%Y-%m-%d"), # rubocop:disable Style/FormatStringToken
         summary: edition.summary,
         slug: a.slug
       }
