@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180626121716) do
+ActiveRecord::Schema.define(version: 20180726082757) do
 
   create_table "about_pages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer  "topical_event_id"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20180626121716) do
     t.datetime "updated_at"
     t.integer  "replaced_by_id"
     t.datetime "uploaded_to_asset_manager_at"
+    t.boolean  "present_at_unpublish"
     t.index ["replaced_by_id"], name: "index_attachment_data_on_replaced_by_id", using: :btree
   end
 

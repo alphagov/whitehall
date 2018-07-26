@@ -1,7 +1,7 @@
 class AssetManager::AttachmentUpdater::RedirectUrlUpdates
   def self.call(attachment_data)
     redirect_url = nil
-    if attachment_data.unpublished?
+    if attachment_data.unpublished? && attachment_data.present_at_unpublish?
       redirect_url = attachment_data.unpublished_edition.unpublishing.document_url
     end
 

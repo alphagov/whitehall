@@ -19,6 +19,9 @@ Whitehall.edition_services.tap do |coordinator|
       .new(edition)
       .remove!
 
+    # Update unpublish status
+    ServiceListeners::AttachmentPresentAtUnpublishUpdater.call(attachable: edition, value: true)
+
     # Update attachment redirect urls
     ServiceListeners::AttachmentRedirectUrlUpdater.call(attachable: edition)
   end
