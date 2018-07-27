@@ -62,4 +62,21 @@ namespace :reslug do
     Whitehall::PublishingApi.republish_async(policy_group)
     Whitehall::SearchIndex.add(policy_group)
   end
+
+  desc "Change an organisation slug (DANGER!).\n
+
+  This rake task changes the slug of an organisation in whitehall.
+
+  It performs the following steps:
+  - updates the Organisation's slug
+  - republishes the org to Publishing API (which creates a redirect)
+  - reindexes the org for search
+  - reindexes all dependent documents in search"
+  task :organisation, %i[old_slug new_slug] => :environment do |_task, args|
+    old_slug = args[:old_slug]
+    new_slug = args[:new_slug]
+
+    organisation = Organisation.find_by!(slug: old_slug)
+    DataHygiene::OrganisationReslugger.new(organisation, new_slug).run!
+  end
 end
