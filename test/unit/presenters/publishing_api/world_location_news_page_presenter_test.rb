@@ -23,7 +23,7 @@ class PublishingApi::WorldLocationNewsPagePresenterTest < ActiveSupport::TestCas
       schema_name: "placeholder",
       base_path: "/world/aardistan/news",
       routes: [{ path: "/world/aardistan/news", type: "exact" }],
-      analytics_identifier: "WL1",
+      analytics_identifier: "WL#{world_location.id}",
       update_type: "major",
     }
 
