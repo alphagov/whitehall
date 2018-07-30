@@ -7,13 +7,13 @@ class PersonSlugChangerTest < ActiveSupport::TestCase
 
   setup do
     stub_any_publishing_api_call
-    DatabaseCleaner.clean_with :truncation
+    DatabaseCleaner.clean_with :truncation, pre_count: true
     @person = create(:person, forename: 'old', surname: 'slug', biography: 'Biog')
     @reslugger = DataHygiene::PersonReslugger.new(@person, 'updated-slug')
   end
 
   teardown do
-    DatabaseCleaner.clean_with :truncation
+    DatabaseCleaner.clean_with :truncation, pre_count: true
   end
 
   test "re-slugs the person" do

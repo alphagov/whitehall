@@ -6,7 +6,7 @@ class TopicalEventAboutPageTest < ActiveSupport::TestCase
   self.use_transactional_tests = false
 
   setup do
-    DatabaseCleaner.clean_with :truncation
+    DatabaseCleaner.clean_with :truncation, pre_count: true
     stub_any_publishing_api_call
     @topical_event_about_page = build(:topical_event_about_page)
   end

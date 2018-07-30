@@ -12,7 +12,7 @@ module OrganisationResluggerTest
 
     def setup
       stub_any_publishing_api_call
-      DatabaseCleaner.clean_with :truncation
+      DatabaseCleaner.clean_with :truncation, pre_count: true
       @organisation = create_org_and_stub_content_store
       WebMock.reset! # clear the Publishing API calls after org creation
       stub_any_publishing_api_call
@@ -21,7 +21,7 @@ module OrganisationResluggerTest
 
     def teardown
       WebMock.reset!
-      DatabaseCleaner.clean_with :truncation
+      DatabaseCleaner.clean_with :truncation, pre_count: true
     end
 
     test "re-slugs the organisation" do

@@ -4,11 +4,11 @@ class SanitiseDBTest < ActiveSupport::TestCase
   self.use_transactional_tests = false
 
   setup do
-    DatabaseCleaner.clean_with :truncation
+    DatabaseCleaner.clean_with :truncation, pre_count: true
   end
 
   teardown do
-    DatabaseCleaner.clean_with :truncation
+    DatabaseCleaner.clean_with :truncation, pre_count: true
   end
 
   test 'scrub script runs' do

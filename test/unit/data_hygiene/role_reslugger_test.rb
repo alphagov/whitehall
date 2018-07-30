@@ -5,14 +5,14 @@ class MinisterialRoleResluggerTest < ActiveSupport::TestCase
 
   setup do
     stub_any_publishing_api_call
-    DatabaseCleaner.clean_with :truncation
+    DatabaseCleaner.clean_with :truncation, pre_count: true
     @organisation = create(:organisation)
     @ministerial_role = create(:ministerial_role, organisations: [@organisation], name: "Misspelt role")
     @reslugger = DataHygiene::RoleReslugger.new(@ministerial_role, 'corrected-slug')
   end
 
   teardown do
-    DatabaseCleaner.clean_with :truncation
+    DatabaseCleaner.clean_with :truncation, pre_count: true
   end
 
   test "re-slugs the role" do
