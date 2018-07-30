@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
+  setup do
+    StatisticsAnnouncement.delete_all
+  end
+
   test "returns statistics announcements in reverse date order" do
     last_week  = statistics_announcement_for(1.week.ago)
     tomorrow   = statistics_announcement_for(1.day.from_now)
