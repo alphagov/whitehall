@@ -21,6 +21,8 @@ class AttachmentData < ApplicationRecord
 
   attr_accessor :attachable
 
+  attribute :present_at_unpublish, :boolean, default: false
+
   def filename
     url && File.basename(url)
   end
@@ -138,6 +140,10 @@ class AttachmentData < ApplicationRecord
 
   def unpublished_edition
     last_attachable.unpublished_edition
+  end
+
+  def present_at_unpublish?
+    self[:present_at_unpublish]
   end
 
   def replaced?
