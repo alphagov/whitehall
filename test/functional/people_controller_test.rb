@@ -61,18 +61,11 @@ class PeopleControllerTest < ActionController::TestCase
   end
 
   view_test "#show generates an atom feed of news and speeches associated with the person" do
-    person = create(:person)
-    role_appointment = create(:role_appointment, person: person)
-    expected_entries = [
-      create(:published_news_article, role_appointments: [role_appointment], first_published_at: 1.day.ago),
-      create(:published_speech, role_appointment: role_appointment, delivered_on: 2.day.ago.to_date)
-    ]
+    person = create(:person, slug: 'a-person')
 
     get :show, params: { id: person }, format: :atom
 
-    assert_select_atom_feed do
-      assert_select_atom_entries(expected_entries)
-    end
+    assert_redirected_to '/government/announcements.atom?people[]=a-person'
   end
 
   view_test "should display the person's policies with content" do
