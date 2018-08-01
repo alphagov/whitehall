@@ -80,7 +80,7 @@ class AttachmentUploader < WhitehallUploader
   end
 
   def pdf_thumbnail_command(width, height)
-    %{gs -o #{path} -sDEVICE=pngalpha -dLastPage=1 -r72 -dDEVICEWIDTHPOINTS=#{width} -dDEVICEHEIGHTPOINTS=#{height} -dPDFFitPage #{path} 2>&1}
+    %{gs -o #{path} -sDEVICE=pngalpha -dLastPage=1 -r72 -dDEVICEWIDTHPOINTS=#{width} -dDEVICEHEIGHTPOINTS=#{height} -dPDFFitPage -dUseCropBox #{path} 2>&1}
   end
 
   def extension_whitelist
