@@ -1,0 +1,46 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "21261c5d1c30f8fd170519be7dc8f833099e979a726a9342665e94246e42c00d",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/models/bulk_upload.rb",
+      "line": 149,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "Open3.popen3(\"#{Whitehall.system_binaries[:zipinfo]} -1 #{self.temp_location.shellescape} > /dev/null\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ZipFile",
+        "method": "is_a_zip?"
+      },
+      "user_input": "Whitehall.system_binaries[:zipinfo]",
+      "confidence": "Medium",
+      "note": "The system binaries are constants, and the others are built in code, there is no user input."
+    },
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "3bbe521f1296024aed2d6a49f3cb14ea53fdd0aaa221aac334d8fc89bd855e17",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/models/bulk_upload.rb",
+      "line": 138,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "`#{Whitehall.system_binaries[:unzip]} -o -d #{File.join(self.temp_dir, \"extracted\")} #{self.temp_location.shellescape}`",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ZipFile",
+        "method": "extract_contents"
+      },
+      "user_input": "Whitehall.system_binaries[:unzip]",
+      "confidence": "Medium",
+      "note": "The system binaries are constants, and the others are built in code, there is no user input."
+    }
+  ],
+  "updated": "2018-08-02 15:45:50 +0100",
+  "brakeman_version": "4.3.1"
+}
