@@ -61,6 +61,26 @@
       "note": "We check that the params[:id] is valid before rendering the template."
     },
     {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "a80b1ada840e777530b7d268cb70246543b56fc30be5a06ba5f63ccf362e750e",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/edition/limited_access.rb",
+      "line": 44,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "where((\"access_limited = false OR EXISTS (\\n                 SELECT * FROM edition_organisations eo_accessibility_check\\n                 WHERE\\n                   eo_accessibility_check.edition_id = editions.id\\n                 AND eo_accessibility_check.organisation_id = :organisation_id) OR EXISTS (\\n                 SELECT * FROM edition_authors author_accessibility_check\\n                 WHERE\\n                   author_accessibility_check.edition_id = editions.id\\n                 AND author_accessibility_check.user_id = :user_id)\" or \"(#{\"access_limited = false OR EXISTS (\\n                 SELECT * FROM edition_organisations eo_accessibility_check\\n                 WHERE\\n                   eo_accessibility_check.edition_id = editions.id\\n                 AND eo_accessibility_check.organisation_id = :organisation_id) OR EXISTS (\\n                 SELECT * FROM edition_authors author_accessibility_check\\n                 WHERE\\n                   author_accessibility_check.edition_id = editions.id\\n                 AND author_accessibility_check.user_id = :user_id)\"}) AND (#{[\"EXISTS (\\n                 SELECT 1 FROM edition_world_locations location_accessibility_check\\n                  WHERE location_accessibility_check.edition_id = editions.id\\n                    AND location_accessibility_check.world_location_id IN (:user_location_ids))\"].join(\" OR \")})\"), :organisation_id => user.organisation.id, :user_id => user.id, :user_location_ids => ([0, *user.world_location_ids]))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Edition::LimitedAccess::ClassMethods",
+        "method": "accessible_to"
+      },
+      "user_input": "[\"EXISTS (\\n                 SELECT 1 FROM edition_world_locations location_accessibility_check\\n                  WHERE location_accessibility_check.edition_id = editions.id\\n                    AND location_accessibility_check.world_location_id IN (:user_location_ids))\"].join(\" OR \")",
+      "confidence": "Medium",
+      "note": "No user input is passed directly into this query, they are passed as parameters."
+    },
+    {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
       "fingerprint": "bfbe0bba0663223d6bb8d55f1cb09457e3569396c8c2634c7fa2c0e8e5cbc63c",
@@ -101,6 +121,6 @@
       "note": "This comes from the Content Store and we trust data from there."
     }
   ],
-  "updated": "2018-08-02 15:49:22 +0100",
+  "updated": "2018-08-02 15:55:28 +0100",
   "brakeman_version": "4.3.1"
 }
