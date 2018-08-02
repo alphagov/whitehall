@@ -41,6 +41,46 @@
       "note": "The system binaries are constants, and the others are built in code, there is no user input."
     },
     {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "747304befb46c303981c417146f3119a6356e90d97e01b61cef01dde596c3c86",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/controllers/past_foreign_secretaries_controller.rb",
+      "line": 6,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(template => \"past_foreign_secretaries/#{params[:id].underscore}\", {})",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "PastForeignSecretariesController",
+        "method": "show"
+      },
+      "user_input": "params[:id].underscore",
+      "confidence": "Medium",
+      "note": "We check that the params[:id] is valid before rendering the template."
+    },
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "bfbe0bba0663223d6bb8d55f1cb09457e3569396c8c2634c7fa2c0e8e5cbc63c",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/controllers/histories_controller.rb",
+      "line": 6,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(template => \"histories/#{params[:id].underscore}\", {})",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "HistoriesController",
+        "method": "show"
+      },
+      "user_input": "params[:id].underscore",
+      "confidence": "Medium",
+      "note": "We check that the params[:id] is valid before rendering the template."
+    },
+    {
       "warning_type": "Redirect",
       "warning_code": 18,
       "fingerprint": "eb4406ba30350c46d5613c9dc9bbd8c21c8565b95e19ca4975a4489c120835a0",
@@ -61,6 +101,6 @@
       "note": "This comes from the Content Store and we trust data from there."
     }
   ],
-  "updated": "2018-08-02 15:47:22 +0100",
+  "updated": "2018-08-02 15:49:22 +0100",
   "brakeman_version": "4.3.1"
 }
