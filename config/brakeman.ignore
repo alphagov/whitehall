@@ -39,8 +39,28 @@
       "user_input": "Whitehall.system_binaries[:unzip]",
       "confidence": "Medium",
       "note": "The system binaries are constants, and the others are built in code, there is no user input."
+    },
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "eb4406ba30350c46d5613c9dc9bbd8c21c8565b95e19ca4975a4489c120835a0",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/email_signups_controller.rb",
+      "line": 10,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(EmailSignup.new(email_signup_params).signup_url)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "EmailSignupsController",
+        "method": "create"
+      },
+      "user_input": "EmailSignup.new(email_signup_params).signup_url",
+      "confidence": "High",
+      "note": "This comes from the Content Store and we trust data from there."
     }
   ],
-  "updated": "2018-08-02 15:45:50 +0100",
+  "updated": "2018-08-02 15:47:22 +0100",
   "brakeman_version": "4.3.1"
 }
