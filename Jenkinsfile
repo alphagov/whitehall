@@ -11,6 +11,7 @@ node {
     sassLint: false,
     rubyLintDiff: false,
     publishingE2ETests: true,
+    brakeman: true,
     beforeTest: {
       stage("Generate directories for upload tests") {
         sh ("mkdir -p ./incoming-uploads")
