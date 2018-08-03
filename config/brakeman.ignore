@@ -41,6 +41,25 @@
       "note": "The system binaries are constants, and the others are built in code, there is no user input."
     },
     {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "3c2dad0990dade4949a7b6978cd911fcea48b7989a3d0b44515ad1eddb03b19d",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in link_to href",
+      "file": "app/views/admin/editions/_speed_tagging.html.erb",
+      "line": 18,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(truncate((Unresolved Model).new.url, :length => 90), (Unresolved Model).new.url, :title => (Unresolved Model).new.url, :target => \"_new\")",
+      "render_path": [{"type":"controller","class":"Admin::EditionsController","method":"show","line":81,"file":"app/controllers/admin/editions_controller.rb"},{"type":"template","name":"admin/editions/show","line":78,"file":"app/views/admin/editions/show.html.erb"}],
+      "location": {
+        "type": "template",
+        "template": "admin/editions/_speed_tagging"
+      },
+      "user_input": "(Unresolved Model).new.url",
+      "confidence": "Weak",
+      "note": "This comes from a new model so we trust the data."
+    },
+    {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
       "fingerprint": "747304befb46c303981c417146f3119a6356e90d97e01b61cef01dde596c3c86",
@@ -101,6 +120,63 @@
       "note": "We check that the params[:id] is valid before rendering the template."
     },
     {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "c08711cc21cb1dbf0709db0011a9a4a782bf6c1a6f7a0a1e1d4b000d20462ae2",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in link_to href",
+      "file": "app/views/contacts/_contact.html.erb",
+      "line": 31,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to((Unresolved Model).new.contact_form_url.truncate(25), (Unresolved Model).new.contact_form_url)",
+      "render_path": [{"type":"template","name":"organisations/show","line":240,"file":"app/views/organisations/show.html.erb"}],
+      "location": {
+        "type": "template",
+        "template": "contacts/_contact"
+      },
+      "user_input": "(Unresolved Model).new.contact_form_url",
+      "confidence": "Weak",
+      "note": "This comes from a new model so we trust the data."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "d2ed6c34c4abbd741229c6f6eea87abccd5b368b4957f3854fe1e78ef2f6b98e",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in link_to href",
+      "file": "app/views/classifications/_classification_featuring.html.erb",
+      "line": 7,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to((Unresolved Model).new.title, (Unresolved Model).new.url, ({ :rel => \"external\" } if is_external?((Unresolved Model).new.url)))",
+      "render_path": [{"type":"template","name":"topical_events/show","line":58,"file":"app/views/topical_events/show.html.erb"}],
+      "location": {
+        "type": "template",
+        "template": "classifications/_classification_featuring"
+      },
+      "user_input": "(Unresolved Model).new.url",
+      "confidence": "Weak",
+      "note": "This comes from a new model so we trust the data."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "e6dc90800cf614086407f331d47a8c66bac55b4eed5d7fe8edafcc6f989abc15",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in link_to href",
+      "file": "app/views/classifications/_classification_featuring.html.erb",
+      "line": 4,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to((Unresolved Model).new.image_tag(:s465), (Unresolved Model).new.url, :title => t(\"document.read\", :title => (Unresolved Model).new.title), :class => \"img\")",
+      "render_path": [{"type":"template","name":"topical_events/show","line":58,"file":"app/views/topical_events/show.html.erb"}],
+      "location": {
+        "type": "template",
+        "template": "classifications/_classification_featuring"
+      },
+      "user_input": "(Unresolved Model).new.url",
+      "confidence": "Weak",
+      "note": "This comes from a new model so we trust the data."
+    },
+    {
       "warning_type": "Redirect",
       "warning_code": 18,
       "fingerprint": "eb4406ba30350c46d5613c9dc9bbd8c21c8565b95e19ca4975a4489c120835a0",
@@ -121,6 +197,6 @@
       "note": "This comes from the Content Store and we trust data from there."
     }
   ],
-  "updated": "2018-08-02 15:55:28 +0100",
+  "updated": "2018-08-03 08:02:25 +0100",
   "brakeman_version": "4.3.1"
 }
