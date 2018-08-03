@@ -117,6 +117,25 @@
       "note": "This comes from a new model so we trust the data."
     },
     {
+      "warning_type": "Cross-Site Request Forgery",
+      "warning_code": 86,
+      "fingerprint": "4d109bd02e4ccb3ea4c51485c947be435ee006a61af7d2cd37d1b358c7469189",
+      "check_name": "ForgerySetting",
+      "message": "protect_from_forgery should be configured with 'with: :exception'",
+      "file": "app/controllers/application_controller.rb",
+      "line": null,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross-site_request_forgery/",
+      "code": null,
+      "render_path": null,
+      "location": {
+        "type": "controller",
+        "controller": "ApplicationController"
+      },
+      "user_input": null,
+      "confidence": "Medium",
+      "note": "The app is too big to check every possible case where this might break something. We've found at least one example where this breaks signing up to emails."
+    },
+    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 4,
       "fingerprint": "6536a4d099ce4dde6f007e943e61dd078ba220703e0e0cab6ed152ac12b2abfc",
@@ -425,6 +444,6 @@
       "note": "This comes from the Content Store and we trust data from there."
     }
   ],
-  "updated": "2018-08-03 08:20:14 +0100",
+  "updated": "2018-08-03 13:39:30 +0100",
   "brakeman_version": "4.3.1"
 }
