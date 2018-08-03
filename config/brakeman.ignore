@@ -39,6 +39,25 @@
       "note": "We don't link directly to any unescaped model attribute."
     },
     {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "1cc573a78d6cc4fbcde77a4b472fc7095eea27e1135442d379dd20e64f08085c",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in link_to href",
+      "file": "app/views/admin/organisations/show.html.erb",
+      "line": 25,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(Organisation.friendly.find(params[:id]).custom_jobs_url, Organisation.friendly.find(params[:id]).custom_jobs_url)",
+      "render_path": [{"type":"controller","class":"Admin::OrganisationsController","method":"show","line":26,"file":"app/controllers/admin/organisations_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "admin/organisations/show"
+      },
+      "user_input": "Organisation.friendly.find(params[:id]).custom_jobs_url",
+      "confidence": "Weak",
+      "note": "We control the organisation URLs in the database."
+    },
+    {
       "warning_type": "Command Injection",
       "warning_code": 14,
       "fingerprint": "21261c5d1c30f8fd170519be7dc8f833099e979a726a9342665e94246e42c00d",
@@ -99,6 +118,25 @@
     },
     {
       "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "6536a4d099ce4dde6f007e943e61dd078ba220703e0e0cab6ed152ac12b2abfc",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in link_to href",
+      "file": "app/views/admin/organisations/show.html.erb",
+      "line": 12,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(Organisation.friendly.find(params[:id]).url, Organisation.friendly.find(params[:id]).url)",
+      "render_path": [{"type":"controller","class":"Admin::OrganisationsController","method":"show","line":26,"file":"app/controllers/admin/organisations_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "admin/organisations/show"
+      },
+      "user_input": "Organisation.friendly.find(params[:id]).url",
+      "confidence": "Weak",
+      "note": "We control the organisation URLs in the database."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
       "fingerprint": "67fd3ecbd9c17600721b3ee74edeb4d9a11fdec3d154809edaece6dbeecb439e",
       "check_name": "CrossSiteScripting",
@@ -115,6 +153,25 @@
       "user_input": "Organisation.friendly.find(params[:id])",
       "confidence": "Weak",
       "note": "We don't link directly to any unescaped model attribute."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "700eb8e568347e67e8a5f06e5caf2f051f27158362b6448b57fd48e26b26916f",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in link_to href",
+      "file": "app/views/organisations/not_live.html.erb",
+      "line": 31,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(Organisation.with_translations(I18n.locale).find(params[:id]).url, Organisation.with_translations(I18n.locale).find(params[:id]).url, :class => \"url-link\")",
+      "render_path": [{"type":"controller","class":"OrganisationsController","method":"show","line":63,"file":"app/controllers/organisations_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "organisations/not_live"
+      },
+      "user_input": "Organisation.with_translations(I18n.locale).find(params[:id]).url",
+      "confidence": "Weak",
+      "note": "We control the organisation URLs in the database."
     },
     {
       "warning_type": "Dynamic Render Path",
@@ -368,6 +425,6 @@
       "note": "This comes from the Content Store and we trust data from there."
     }
   ],
-  "updated": "2018-08-03 08:14:12 +0100",
+  "updated": "2018-08-03 08:20:14 +0100",
   "brakeman_version": "4.3.1"
 }
