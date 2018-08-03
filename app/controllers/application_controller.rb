@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   include LocalisedUrlPathHelper
   include LegacyUrlHelper
 
-  protect_from_forgery with: :exception
+  protect_from_forgery
 
   before_action :set_slimmer_application_name
   before_action :set_slimmer_show_organisations_filter
