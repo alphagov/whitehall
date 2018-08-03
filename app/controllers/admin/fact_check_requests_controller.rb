@@ -4,7 +4,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   before_action :enforce_permissions!, only: [:create]
   before_action :limit_edition_access!, only: [:create]
   before_action :check_edition_availability, only: %i[show edit]
-  skip_before_action :authenticate_user!, except: [:create]
+  skip_before_action :authenticate_user!, only: %i[show edit update]
 
   def show; end
 

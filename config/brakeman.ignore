@@ -1,0 +1,430 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "0b14d4ff3460aca1ffc72f3408993c9a20264f454f291c3cbd92e1f9ff7239bc",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/admin/organisations/features.html.erb",
+      "line": 8,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => Organisation.friendly.find(params[:id]).load_or_create_feature_list(params[:locale]), { :filter_by => ([:title, :type, :author, :organisation]) })",
+      "render_path": [{"type":"controller","class":"Admin::OrganisationsController","method":"features","line":57,"file":"app/controllers/admin/organisations_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "admin/organisations/features"
+      },
+      "user_input": "params[:locale]",
+      "confidence": "Weak",
+      "note": "We don't use the user data directly to find the template, it comes from the database."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "1b28bbfd8fcc341513e1b805b05624e55defe0ef04198bc7f482b119dd2da7c4",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/worldwide_organisations/_header.html.erb",
+      "line": 27,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "(Organisation.friendly.find(params[:organisation_id]) or if params.has_key?(:worldwide_organisation_id) then\n  WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])\nelse\n  raise(ActiveRecord::RecordNotFound)\nend).sponsoring_organisations.map do\n link_to(o.name, o, :class => \"sponsoring-organisation\")\n end.to_sentence",
+      "render_path": [{"type":"controller","class":"CorporateInformationPagesController","method":"show","line":9,"file":"app/controllers/corporate_information_pages_controller.rb"},{"type":"template","name":"corporate_information_pages/show_worldwide_organisation","line":4,"file":"app/views/corporate_information_pages/show_worldwide_organisation.html.erb"}],
+      "location": {
+        "type": "template",
+        "template": "worldwide_organisations/_header"
+      },
+      "user_input": "Organisation.friendly.find(params[:organisation_id])",
+      "confidence": "Weak",
+      "note": "We don't link directly to any unescaped model attribute."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "1cc573a78d6cc4fbcde77a4b472fc7095eea27e1135442d379dd20e64f08085c",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in link_to href",
+      "file": "app/views/admin/organisations/show.html.erb",
+      "line": 25,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(Organisation.friendly.find(params[:id]).custom_jobs_url, Organisation.friendly.find(params[:id]).custom_jobs_url)",
+      "render_path": [{"type":"controller","class":"Admin::OrganisationsController","method":"show","line":26,"file":"app/controllers/admin/organisations_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "admin/organisations/show"
+      },
+      "user_input": "Organisation.friendly.find(params[:id]).custom_jobs_url",
+      "confidence": "Weak",
+      "note": "We control the organisation URLs in the database."
+    },
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "21261c5d1c30f8fd170519be7dc8f833099e979a726a9342665e94246e42c00d",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/models/bulk_upload.rb",
+      "line": 149,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "Open3.popen3(\"#{Whitehall.system_binaries[:zipinfo]} -1 #{self.temp_location.shellescape} > /dev/null\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ZipFile",
+        "method": "is_a_zip?"
+      },
+      "user_input": "Whitehall.system_binaries[:zipinfo]",
+      "confidence": "Medium",
+      "note": "The system binaries are constants, and the others are built in code, there is no user input."
+    },
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "3bbe521f1296024aed2d6a49f3cb14ea53fdd0aaa221aac334d8fc89bd855e17",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/models/bulk_upload.rb",
+      "line": 138,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "`#{Whitehall.system_binaries[:unzip]} -o -d #{File.join(self.temp_dir, \"extracted\")} #{self.temp_location.shellescape}`",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ZipFile",
+        "method": "extract_contents"
+      },
+      "user_input": "Whitehall.system_binaries[:unzip]",
+      "confidence": "Medium",
+      "note": "The system binaries are constants, and the others are built in code, there is no user input."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "3c2dad0990dade4949a7b6978cd911fcea48b7989a3d0b44515ad1eddb03b19d",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in link_to href",
+      "file": "app/views/admin/editions/_speed_tagging.html.erb",
+      "line": 18,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(truncate((Unresolved Model).new.url, :length => 90), (Unresolved Model).new.url, :title => (Unresolved Model).new.url, :target => \"_new\")",
+      "render_path": [{"type":"controller","class":"Admin::EditionsController","method":"show","line":81,"file":"app/controllers/admin/editions_controller.rb"},{"type":"template","name":"admin/editions/show","line":78,"file":"app/views/admin/editions/show.html.erb"}],
+      "location": {
+        "type": "template",
+        "template": "admin/editions/_speed_tagging"
+      },
+      "user_input": "(Unresolved Model).new.url",
+      "confidence": "Weak",
+      "note": "This comes from a new model so we trust the data."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "6536a4d099ce4dde6f007e943e61dd078ba220703e0e0cab6ed152ac12b2abfc",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in link_to href",
+      "file": "app/views/admin/organisations/show.html.erb",
+      "line": 12,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(Organisation.friendly.find(params[:id]).url, Organisation.friendly.find(params[:id]).url)",
+      "render_path": [{"type":"controller","class":"Admin::OrganisationsController","method":"show","line":26,"file":"app/controllers/admin/organisations_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "admin/organisations/show"
+      },
+      "user_input": "Organisation.friendly.find(params[:id]).url",
+      "confidence": "Weak",
+      "note": "We control the organisation URLs in the database."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "67fd3ecbd9c17600721b3ee74edeb4d9a11fdec3d154809edaece6dbeecb439e",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/admin/organisations/show.html.erb",
+      "line": 19,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Organisation.friendly.find(params[:id]).superseding_organisations.map do\n link_to(org.name, admin_organisation_path(org))\n end.join(\", \")",
+      "render_path": [{"type":"controller","class":"Admin::OrganisationsController","method":"show","line":26,"file":"app/controllers/admin/organisations_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "admin/organisations/show"
+      },
+      "user_input": "Organisation.friendly.find(params[:id])",
+      "confidence": "Weak",
+      "note": "We don't link directly to any unescaped model attribute."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "700eb8e568347e67e8a5f06e5caf2f051f27158362b6448b57fd48e26b26916f",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in link_to href",
+      "file": "app/views/organisations/not_live.html.erb",
+      "line": 31,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(Organisation.with_translations(I18n.locale).find(params[:id]).url, Organisation.with_translations(I18n.locale).find(params[:id]).url, :class => \"url-link\")",
+      "render_path": [{"type":"controller","class":"OrganisationsController","method":"show","line":63,"file":"app/controllers/organisations_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "organisations/not_live"
+      },
+      "user_input": "Organisation.with_translations(I18n.locale).find(params[:id]).url",
+      "confidence": "Weak",
+      "note": "We control the organisation URLs in the database."
+    },
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "747304befb46c303981c417146f3119a6356e90d97e01b61cef01dde596c3c86",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/controllers/past_foreign_secretaries_controller.rb",
+      "line": 6,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(template => \"past_foreign_secretaries/#{params[:id].underscore}\", {})",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "PastForeignSecretariesController",
+        "method": "show"
+      },
+      "user_input": "params[:id].underscore",
+      "confidence": "Medium",
+      "note": "We check that the params[:id] is valid before rendering the template."
+    },
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "9babd9b58f8e6b7eefd8418ea20b8c96b1c7a2e4222448b9239b911b1a6d1e42",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/admin/world_locations/features.html.erb",
+      "line": 12,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => WorldLocation.friendly.find((params[:id] or params[:world_location_id])).load_or_create_feature_list(params[:locale]), { :filter_by => ([:title, :type, :world_location]) })",
+      "render_path": [{"type":"controller","class":"Admin::WorldLocationsController","method":"features","line":29,"file":"app/controllers/admin/world_locations_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "admin/world_locations/features"
+      },
+      "user_input": "params[:locale]",
+      "confidence": "Weak",
+      "note": "We don't use the user data directly to find the template, it comes from the database."
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "a80b1ada840e777530b7d268cb70246543b56fc30be5a06ba5f63ccf362e750e",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/edition/limited_access.rb",
+      "line": 44,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "where((\"access_limited = false OR EXISTS (\\n                 SELECT * FROM edition_organisations eo_accessibility_check\\n                 WHERE\\n                   eo_accessibility_check.edition_id = editions.id\\n                 AND eo_accessibility_check.organisation_id = :organisation_id) OR EXISTS (\\n                 SELECT * FROM edition_authors author_accessibility_check\\n                 WHERE\\n                   author_accessibility_check.edition_id = editions.id\\n                 AND author_accessibility_check.user_id = :user_id)\" or \"(#{\"access_limited = false OR EXISTS (\\n                 SELECT * FROM edition_organisations eo_accessibility_check\\n                 WHERE\\n                   eo_accessibility_check.edition_id = editions.id\\n                 AND eo_accessibility_check.organisation_id = :organisation_id) OR EXISTS (\\n                 SELECT * FROM edition_authors author_accessibility_check\\n                 WHERE\\n                   author_accessibility_check.edition_id = editions.id\\n                 AND author_accessibility_check.user_id = :user_id)\"}) AND (#{[\"EXISTS (\\n                 SELECT 1 FROM edition_world_locations location_accessibility_check\\n                  WHERE location_accessibility_check.edition_id = editions.id\\n                    AND location_accessibility_check.world_location_id IN (:user_location_ids))\"].join(\" OR \")})\"), :organisation_id => user.organisation.id, :user_id => user.id, :user_location_ids => ([0, *user.world_location_ids]))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Edition::LimitedAccess::ClassMethods",
+        "method": "accessible_to"
+      },
+      "user_input": "[\"EXISTS (\\n                 SELECT 1 FROM edition_world_locations location_accessibility_check\\n                  WHERE location_accessibility_check.edition_id = editions.id\\n                    AND location_accessibility_check.world_location_id IN (:user_location_ids))\"].join(\" OR \")",
+      "confidence": "Medium",
+      "note": "No user input is passed directly into this query, they are passed as parameters."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "b9a59bd95d6f54e1a34b77c1f7dcceebfe0c44401a1060cf026bcb1f13263b5a",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/worldwide_organisations/_header.html.erb",
+      "line": 24,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "(Organisation.friendly.find(params[:organisation_id]) or if params.has_key?(:worldwide_organisation_id) then\n  WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])\nelse\n  raise(ActiveRecord::RecordNotFound)\nend).world_locations.map do\n link_to(l.name, l)\n end.to_sentence",
+      "render_path": [{"type":"controller","class":"CorporateInformationPagesController","method":"show","line":9,"file":"app/controllers/corporate_information_pages_controller.rb"},{"type":"template","name":"corporate_information_pages/show_worldwide_organisation","line":4,"file":"app/views/corporate_information_pages/show_worldwide_organisation.html.erb"}],
+      "location": {
+        "type": "template",
+        "template": "worldwide_organisations/_header"
+      },
+      "user_input": "Organisation.friendly.find(params[:organisation_id])",
+      "confidence": "Weak",
+      "note": "We don't link directly to any unescaped model attribute."
+    },
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "bfbe0bba0663223d6bb8d55f1cb09457e3569396c8c2634c7fa2c0e8e5cbc63c",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/controllers/histories_controller.rb",
+      "line": 6,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(template => \"histories/#{params[:id].underscore}\", {})",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "HistoriesController",
+        "method": "show"
+      },
+      "user_input": "params[:id].underscore",
+      "confidence": "Medium",
+      "note": "We check that the params[:id] is valid before rendering the template."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "c028d9a68abae01d97f7ef17f1809ca27778be2eeac978d6b6c04d76cab890ec",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/admin/organisations/show.html.erb",
+      "line": 35,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Organisation.friendly.find(params[:id]).classifications.map do\n link_to(t.name, [:edit, :admin, t])\n end.to_sentence",
+      "render_path": [{"type":"controller","class":"Admin::OrganisationsController","method":"show","line":26,"file":"app/controllers/admin/organisations_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "admin/organisations/show"
+      },
+      "user_input": "Organisation.friendly.find(params[:id])",
+      "confidence": "Weak",
+      "note": "We don't link directly to any unescaped model attribute"
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "c08711cc21cb1dbf0709db0011a9a4a782bf6c1a6f7a0a1e1d4b000d20462ae2",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in link_to href",
+      "file": "app/views/contacts/_contact.html.erb",
+      "line": 31,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to((Unresolved Model).new.contact_form_url.truncate(25), (Unresolved Model).new.contact_form_url)",
+      "render_path": [{"type":"template","name":"organisations/show","line":240,"file":"app/views/organisations/show.html.erb"}],
+      "location": {
+        "type": "template",
+        "template": "contacts/_contact"
+      },
+      "user_input": "(Unresolved Model).new.contact_form_url",
+      "confidence": "Weak",
+      "note": "This comes from a new model so we trust the data."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "c4b40274a6e6d5a420ea1cf02c2a29e14817c60e5d3d4b870ce2e2a8b868754f",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/admin/worldwide_organisations/show.html.erb",
+      "line": 14,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "WorldwideOrganisation.friendly.find(params[:id]).sponsoring_organisations.map do\n link_to(o.name, [:admin, o])\n end.to_sentence",
+      "render_path": [{"type":"controller","class":"Admin::WorldwideOrganisationsController","method":"show","line":32,"file":"app/controllers/admin/worldwide_organisations_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "admin/worldwide_organisations/show"
+      },
+      "user_input": "WorldwideOrganisation.friendly.find(params[:id])",
+      "confidence": "Weak",
+      "note": "We don't link directly to any unescaped model attribute."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "d002a74bd6bfb77cc6c33fddbb22da0fae41784d5ddf487cc7d610d90d1f48fe",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/admin/organisations/show.html.erb",
+      "line": 28,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Organisation.friendly.find(params[:id]).parent_organisations.map do\n link_to(o.name, [:admin, o])\n end.to_sentence",
+      "render_path": [{"type":"controller","class":"Admin::OrganisationsController","method":"show","line":26,"file":"app/controllers/admin/organisations_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "admin/organisations/show"
+      },
+      "user_input": "Organisation.friendly.find(params[:id])",
+      "confidence": "Weak",
+      "note": "We don't link directly to any unescaped model attribute"
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "d2ed6c34c4abbd741229c6f6eea87abccd5b368b4957f3854fe1e78ef2f6b98e",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in link_to href",
+      "file": "app/views/classifications/_classification_featuring.html.erb",
+      "line": 7,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to((Unresolved Model).new.title, (Unresolved Model).new.url, ({ :rel => \"external\" } if is_external?((Unresolved Model).new.url)))",
+      "render_path": [{"type":"template","name":"topical_events/show","line":58,"file":"app/views/topical_events/show.html.erb"}],
+      "location": {
+        "type": "template",
+        "template": "classifications/_classification_featuring"
+      },
+      "user_input": "(Unresolved Model).new.url",
+      "confidence": "Weak",
+      "note": "This comes from a new model so we trust the data."
+    },
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "e3247d26b239eabad855a8642304816c8635f4c9f6d4eba6ba7ebbb94a7f0def",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/admin/promotional_features/show.html.erb",
+      "line": 7,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => Organisation.allowed_promotional.find(params[:organisation_id]).promotional_features.find(params[:id]).items, {})",
+      "render_path": [{"type":"controller","class":"Admin::PromotionalFeaturesController","method":"show","line":25,"file":"app/controllers/admin/promotional_features_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "admin/promotional_features/show"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "note": "We don't use the user data directly to find the template, it comes from the database."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "e6dc90800cf614086407f331d47a8c66bac55b4eed5d7fe8edafcc6f989abc15",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in link_to href",
+      "file": "app/views/classifications/_classification_featuring.html.erb",
+      "line": 4,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to((Unresolved Model).new.image_tag(:s465), (Unresolved Model).new.url, :title => t(\"document.read\", :title => (Unresolved Model).new.title), :class => \"img\")",
+      "render_path": [{"type":"template","name":"topical_events/show","line":58,"file":"app/views/topical_events/show.html.erb"}],
+      "location": {
+        "type": "template",
+        "template": "classifications/_classification_featuring"
+      },
+      "user_input": "(Unresolved Model).new.url",
+      "confidence": "Weak",
+      "note": "This comes from a new model so we trust the data."
+    },
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "eb4406ba30350c46d5613c9dc9bbd8c21c8565b95e19ca4975a4489c120835a0",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/email_signups_controller.rb",
+      "line": 10,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(EmailSignup.new(email_signup_params).signup_url)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "EmailSignupsController",
+        "method": "create"
+      },
+      "user_input": "EmailSignup.new(email_signup_params).signup_url",
+      "confidence": "High",
+      "note": "This comes from the Content Store and we trust data from there."
+    }
+  ],
+  "updated": "2018-08-03 08:20:14 +0100",
+  "brakeman_version": "4.3.1"
+}

@@ -6,7 +6,15 @@ module DevelopmentModeStubs
         raise_unless_values_are_strings(params)
 
         scope = ::StatisticsAnnouncement.joins(:current_release_date).order("statistics_announcement_dates.release_date ASC")
-        scope = scope.where("statistics_announcements.title LIKE('%#{params[:keywords]}%') or statistics_announcements.summary LIKE('%#{params[:keywords]}%')") if params[:keywords].present?
+
+        if params[:keywords].present?
+          scope = scope.where(
+            "statistics_announcements.title LIKE ? OR statistics_announcements.summary LIKE ?",
+            "%#{params[:keywords]}%",
+            "%#{params[:keywords]}%"
+          )
+        end
+
         if params[:organisations].present?
           organisation_ids = Organisation.where(slug: params[:organisations]).pluck(:id)
           scope = scope.in_organisations(organisation_ids)
