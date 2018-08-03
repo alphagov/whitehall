@@ -1,6 +1,25 @@
 {
   "ignored_warnings": [
     {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "0b14d4ff3460aca1ffc72f3408993c9a20264f454f291c3cbd92e1f9ff7239bc",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/admin/organisations/features.html.erb",
+      "line": 8,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => Organisation.friendly.find(params[:id]).load_or_create_feature_list(params[:locale]), { :filter_by => ([:title, :type, :author, :organisation]) })",
+      "render_path": [{"type":"controller","class":"Admin::OrganisationsController","method":"features","line":57,"file":"app/controllers/admin/organisations_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "admin/organisations/features"
+      },
+      "user_input": "params[:locale]",
+      "confidence": "Weak",
+      "note": "We don't use the user data directly to find the template, it comes from the database."
+    },
+    {
       "warning_type": "Command Injection",
       "warning_code": 14,
       "fingerprint": "21261c5d1c30f8fd170519be7dc8f833099e979a726a9342665e94246e42c00d",
@@ -78,6 +97,25 @@
       "user_input": "params[:id].underscore",
       "confidence": "Medium",
       "note": "We check that the params[:id] is valid before rendering the template."
+    },
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "9babd9b58f8e6b7eefd8418ea20b8c96b1c7a2e4222448b9239b911b1a6d1e42",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/admin/world_locations/features.html.erb",
+      "line": 12,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => WorldLocation.friendly.find((params[:id] or params[:world_location_id])).load_or_create_feature_list(params[:locale]), { :filter_by => ([:title, :type, :world_location]) })",
+      "render_path": [{"type":"controller","class":"Admin::WorldLocationsController","method":"features","line":29,"file":"app/controllers/admin/world_locations_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "admin/world_locations/features"
+      },
+      "user_input": "params[:locale]",
+      "confidence": "Weak",
+      "note": "We don't use the user data directly to find the template, it comes from the database."
     },
     {
       "warning_type": "SQL Injection",
@@ -158,6 +196,25 @@
       "note": "This comes from a new model so we trust the data."
     },
     {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "e3247d26b239eabad855a8642304816c8635f4c9f6d4eba6ba7ebbb94a7f0def",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/admin/promotional_features/show.html.erb",
+      "line": 7,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => Organisation.allowed_promotional.find(params[:organisation_id]).promotional_features.find(params[:id]).items, {})",
+      "render_path": [{"type":"controller","class":"Admin::PromotionalFeaturesController","method":"show","line":25,"file":"app/controllers/admin/promotional_features_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "admin/promotional_features/show"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "note": "We don't use the user data directly to find the template, it comes from the database."
+    },
+    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 4,
       "fingerprint": "e6dc90800cf614086407f331d47a8c66bac55b4eed5d7fe8edafcc6f989abc15",
@@ -197,6 +254,6 @@
       "note": "This comes from the Content Store and we trust data from there."
     }
   ],
-  "updated": "2018-08-03 08:02:25 +0100",
+  "updated": "2018-08-03 08:03:37 +0100",
   "brakeman_version": "4.3.1"
 }
