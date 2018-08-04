@@ -2,11 +2,7 @@ require "test_helper"
 require "gds_api/test_helpers/publishing_api_v2"
 
 class OperationalFieldPublishingTest < ActiveSupport::TestCase
-  #api calls happen in after commit so we need to disable transactions
-  self.use_transactional_tests = false
-
   setup do
-    DatabaseCleaner.clean_with :truncation, pre_count: true
     stub_any_publishing_api_call
   end
 

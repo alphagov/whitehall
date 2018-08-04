@@ -2,8 +2,6 @@ require "test_helper"
 require "gds_api/test_helpers/publishing_api_v2"
 
 class StatisticsAnnouncementTest < ActiveSupport::TestCase
-  self.use_transactional_tests = false
-
   # Similar methods to these exist in `gds_api/test_helpers/publishing_api`.
   # To avoid clashes between v1 and v2 helpers, we've reimplemented them here,
   # as `publish_intents` only exist in v1 and there's no plan to reimplement them
@@ -21,7 +19,6 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   end
 
   setup do
-    DatabaseCleaner.clean_with :truncation, pre_count: true
     stub_any_publishing_api_call
   end
 
