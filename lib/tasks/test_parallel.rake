@@ -8,11 +8,12 @@ namespace :test do
     ENV['CUCUMBER_FORMAT'] = 'progress'
     ENV['RAILS_ENV'] = 'test'
 
-    setup_tasks = ['parallel:drop', 'parallel:create', 'parallel:load_schema']
     test_tasks = ['test_queue', 'shared_mustache:compile', 'parallel:features', 'test:javascript']
     cleanup_tasks = ['test:cleanup']
 
-    setup_tasks.each { |task| Rake::Task[task].invoke }
+    ParallelTests::Tasks.run_in_parallel(
+      "rake db:drop db:create db:schema:load RAILS_ENV=test DISABLE_DATABASE_ENVIRONMENT_CHECK=1"
+    )
     ParallelTests::Tasks.check_for_pending_migrations
 
     test_tasks.each { |task| Rake::Task[task].invoke }
