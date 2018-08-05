@@ -502,13 +502,14 @@ module AdminEditionControllerTestHelpers
       end
 
       test "creating an edition with multiple images should attach all files" do
-        image = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
+        image_file_0 = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
+        image_file_1 = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
         attributes = controller_attributes_for(edition_type)
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
-            image_data_attributes: attributes_for(:image_data, file: image) },
+            image_data_attributes: attributes_for(:image_data, file: image_file_0) },
           "1" => { alt_text: "more-alt-text",
-            image_data_attributes: attributes_for(:image_data, file: image) }
+            image_data_attributes: attributes_for(:image_data, file: image_file_1) }
         }
 
         post :create, params: {
@@ -627,12 +628,13 @@ module AdminEditionControllerTestHelpers
 
       test 'updating an edition should attach multiple images' do
         edition = create(edition_type)
-        image = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
+        image_file_0 = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
+        image_file_1 = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
         attributes = { images_attributes: {
           "0" => { alt_text: "some-alt-text",
-            image_data_attributes: attributes_for(:image_data, file: image) },
+            image_data_attributes: attributes_for(:image_data, file: image_file_0) },
           "1" => { alt_text: "more-alt-text",
-            image_data_attributes: attributes_for(:image_data, file: image) }
+            image_data_attributes: attributes_for(:image_data, file: image_file_1) }
         } }
 
         put :update, params: { id: edition, edition: attributes }
