@@ -154,7 +154,7 @@ GEM
     fugit (1.1.1)
       et-orbi (~> 1.1, >= 1.1.1)
       raabro (~> 1.1)
-    gds-api-adapters (52.6.0)
+    gds-api-adapters (52.7.0)
       addressable
       link_header
       lrucache (~> 0.1.1)
