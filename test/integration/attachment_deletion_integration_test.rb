@@ -27,13 +27,6 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
       VirusScanHelpers.simulate_virus_scan
       attachment.attachment_data.uploaded_to_asset_manager!
       edition.save!
-
-      visit admin_news_article_path(edition)
-      click_link 'Modify attachments'
-      @attachment_url = find('.existing-attachments a', text: filename)[:href]
-
-      asset_host = URI.parse(Plek.new.public_asset_host).host
-      host! asset_host
     end
 
     context 'when attachment is deleted' do
@@ -46,13 +39,6 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
         assert_text 'Attachment deleted'
       end
 
-      it 'responds with 404 Not Found for attachment URL' do
-        logout
-
-        get @attachment_url
-        assert_response :not_found
-      end
-
       it 'deletes corresponding asset(s) in Asset Manager' do
         Services.asset_manager.expects(:delete_asset).at_least_once.with(asset_id)
         AssetManagerAttachmentMetadataWorker.drain
@@ -63,13 +49,6 @@ class AttachmentDeletionIntegrationTest < ActionDispatch::IntegrationTest
       before do
         visit admin_news_article_path(edition)
         click_button 'Discard draft'
-      end
-
-      it 'responds with 404 Not Found for attachment URL' do
-        logout
-
-        get @attachment_url
-        assert_response :not_found
       end
 
       it 'deletes corresponding asset(s) in Asset Manager' do
