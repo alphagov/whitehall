@@ -440,7 +440,7 @@ GEM
       rubocop (>= 0.51.0)
     ruby-graphviz (1.2.3)
     ruby-prof (0.17.0)
-    ruby-progressbar (1.9.0)
+    ruby-progressbar (1.10.0)
     ruby-rc4 (0.1.5)
     rufus-scheduler (3.5.0)
       fugit (~> 1.1, >= 1.1.1)
