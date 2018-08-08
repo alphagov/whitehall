@@ -364,6 +364,7 @@ GEM
       pry (~> 0.10)
     pry-rails (0.3.6)
       pry (>= 0.10.4)
+    ptools (1.3.5)
     public_suffix (3.0.2)
     raabro (1.1.5)
     rack (2.0.5)
@@ -627,6 +628,7 @@ DEPENDENCIES
   poltergeist
   pry-byebug
   pry-rails
+  ptools
   rack (~> 2.0)
   rack-test
   rack_strip_client_ip (~> 0.0.2)

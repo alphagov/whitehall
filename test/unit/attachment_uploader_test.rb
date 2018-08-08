@@ -151,7 +151,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   test 'returns Asset Manager version of path' do
     uploader = AttachmentUploader.new(FactoryBot.create(:attachment_data), 'mounted-as')
     uploader.store!(fixture_file_upload('simple.pdf'))
-    expected_path = '/government/uploads/system/uploads/attachment_data/mounted-as/1/simple.pdf'
+    expected_path = "/government/uploads/system/uploads/attachment_data/mounted-as/#{uploader.model.id}/simple.pdf"
     assert_equal expected_path, uploader.file.asset_manager_path
   end
 

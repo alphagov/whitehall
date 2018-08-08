@@ -2,8 +2,6 @@ require 'test_helper'
 
 module Whitehall
   class DataMigrationTest < ActiveSupport::TestCase
-    self.use_transactional_tests = false
-
     class MyData
       def self.migrate!; end
     end

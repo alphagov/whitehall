@@ -2,6 +2,10 @@ require 'test_helper'
 
 # NB: Topic is being renamed to "Policy Area" across GOV.UK.
 class TopicTest < ActiveSupport::TestCase
+  setup do
+    Topic.delete_all
+  end
+
   test "should set a slug from the topic name" do
     topic = create(:topic, name: 'Love all the people')
     assert_equal 'love-all-the-people', topic.slug

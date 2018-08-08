@@ -42,8 +42,8 @@ module Whitehall
 
   def self.system_binaries
     {
-      zipinfo: "/usr/bin/zipinfo",
-      unzip: "/usr/bin/unzip"
+      zipinfo: File.which("zipinfo"),
+      unzip: File.which("unzip")
     }
   end
 
