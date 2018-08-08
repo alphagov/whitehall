@@ -98,10 +98,6 @@ module Whitehall
     Rails.root.join("tmp/test/env_#{env_number}")
   end
 
-  def self.clean_uploads_root
-    File.join(uploads_root, 'clean-uploads')
-  end
-
   def self.asset_manager_tmp_dir
     File.join(uploads_root, 'asset-manager-tmp')
   end
