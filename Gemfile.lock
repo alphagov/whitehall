@@ -377,7 +377,7 @@ GEM
       rack (>= 0.4)
     rack-protection (2.0.3)
       rack
-    rack-test (1.0.0)
+    rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rack_strip_client_ip (0.0.2)
     rails (5.1.6)
