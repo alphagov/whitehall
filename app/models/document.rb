@@ -66,6 +66,10 @@ class Document < ApplicationRecord
   def similar_slug_exists?
     scope = Document.where(document_type: document_type)
     sequence_separator = friendly_id_config.sequence_separator
+
+    # slug is a nullable column, so we can't assume that it exists
+    return false if slug.nil?
+
     slug_without_sequence = slug.split(sequence_separator).first
 
     scope.where("slug IN (?) OR slug LIKE ?", [slug, slug_without_sequence].uniq,
