@@ -16,10 +16,10 @@ module Organisation::OrganisationSearchIndexConcern
 private
 
   def going_live_on_govuk?
-    govuk_status_changed? && govuk_status == 'live'
+    saved_change_to_govuk_status? && govuk_status == 'live'
   end
 
   def leaving_live_on_govuk?
-    govuk_status_changed? && govuk_status_was == 'live'
+    saved_change_to_govuk_status? && govuk_status_was == 'live'
   end
 end

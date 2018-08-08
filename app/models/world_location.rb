@@ -65,7 +65,7 @@ class WorldLocation < ApplicationRecord
 
   after_update :remove_from_index_if_became_inactive
   def remove_from_index_if_became_inactive
-    remove_from_search_index if self.active_changed? && !self.active
+    remove_from_search_index if self.saved_change_to_active? && !self.active
   end
 
   scope :ordered_by_name, -> { with_translations(I18n.default_locale).order('world_location_translations.name') }

@@ -209,14 +209,14 @@ class Organisation < ApplicationRecord
   after_save do
     # If the organisation has an about us page and the chart URL changes we need
     # to republish the about us page as it contains the chart URL.
-    if organisation_chart_url_changed? && about_us.present?
+    if saved_change_to_organisation_chart_url? && about_us.present?
       PublishingApiDocumentRepublishingWorker
         .perform_async(about_us.document_id)
     end
 
     # If the default news organisation image changes we need to republish all
     # news articles belonging to the organisation
-    if default_news_organisation_image_data_id_changed?
+    if saved_change_to_default_news_organisation_image_data_id?
       documents = NewsArticle
         .in_organisation(self)
         .includes(:images)

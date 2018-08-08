@@ -5,7 +5,7 @@ class GovspeakContent < ApplicationRecord
   validates_with SafeHtmlValidator
 
   before_save :reset_computed_html, if: :body_or_numbering_scheme_changed?
-  after_save :queue_html_compute_job, if: :body_or_numbering_scheme_changed?
+  after_save :queue_html_compute_job, if: :saved_change_to_body_or_numbering_scheme?
 
   def body_html
     computed_body_html.try(:html_safe)
@@ -35,6 +35,10 @@ private
 
   def body_or_numbering_scheme_changed?
     body_changed? || manually_numbered_headings_changed?
+  end
+
+  def saved_change_to_body_or_numbering_scheme?
+    saved_change_to_body? || saved_change_to_manually_numbered_headings?
   end
 
   def reset_computed_html

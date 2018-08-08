@@ -414,7 +414,9 @@ module AdminEditionControllerTestHelpers
           edition: attributes
         }
 
-        assert edition = edition_class.last
+        assert_response :redirect
+
+        edition = edition_class.last!
         assert_equal 1, edition.images.length
         image = edition.images.first
         assert_equal "some-alt-text", image.alt_text
@@ -500,20 +502,23 @@ module AdminEditionControllerTestHelpers
       end
 
       test "creating an edition with multiple images should attach all files" do
-        image = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
+        image_file_0 = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
+        image_file_1 = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
         attributes = controller_attributes_for(edition_type)
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
-            image_data_attributes: attributes_for(:image_data, file: image) },
+            image_data_attributes: attributes_for(:image_data, file: image_file_0) },
           "1" => { alt_text: "more-alt-text",
-            image_data_attributes: attributes_for(:image_data, file: image) }
+            image_data_attributes: attributes_for(:image_data, file: image_file_1) }
         }
 
         post :create, params: {
           edition: attributes
         }
 
-        assert edition = edition_class.last
+        assert_response :redirect
+
+        edition = edition_class.last!
         assert_equal 2, edition.images.length
         image_1 = edition.images.first
         assert_equal "some-alt-text", image_1.alt_text
@@ -623,17 +628,19 @@ module AdminEditionControllerTestHelpers
 
       test 'updating an edition should attach multiple images' do
         edition = create(edition_type)
-        image = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
+        image_file_0 = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
+        image_file_1 = fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
         attributes = { images_attributes: {
           "0" => { alt_text: "some-alt-text",
-            image_data_attributes: attributes_for(:image_data, file: image) },
+            image_data_attributes: attributes_for(:image_data, file: image_file_0) },
           "1" => { alt_text: "more-alt-text",
-            image_data_attributes: attributes_for(:image_data, file: image) }
+            image_data_attributes: attributes_for(:image_data, file: image_file_1) }
         } }
 
         put :update, params: { id: edition, edition: attributes }
 
-        edition.reload
+        assert_response :redirect
+
         assert_equal 2, edition.images.length
         image_1 = edition.images.first
         assert_equal "some-alt-text", image_1.alt_text
@@ -775,7 +782,7 @@ module AdminEditionControllerTestHelpers
           )
         }
 
-        assert document = edition_class.last
+        document = edition_class.last!
         assert_equal [
           policy_area_1['content_id'],
           policy_area_2['content_id'],
@@ -1027,7 +1034,7 @@ module AdminEditionControllerTestHelpers
           )
         }
 
-        assert edition = edition_class.last
+        edition = edition_class.last!
         assert_equal [first_topic, second_topic], edition.topics
       end
 
@@ -1417,7 +1424,7 @@ module AdminEditionControllerTestHelpers
           )
         }
 
-        assert created_publication = edition_class.last
+        created_publication = edition_class.last!
         assert created_publication.relevant_to_local_government?
       end
 
@@ -1474,7 +1481,7 @@ module AdminEditionControllerTestHelpers
           )
         }
 
-        assert edition = edition_class.last
+        edition = edition_class.last!
         assert_equal [first_topical_event, second_topical_event], edition.topical_events
       end
 
@@ -1567,7 +1574,7 @@ module AdminEditionControllerTestHelpers
           )
         }
 
-        assert edition = edition_class.last
+        edition = edition_class.last!
         assert_equal [first_world_organisation, second_world_organisation], edition.worldwide_organisations
       end
     end
@@ -1619,10 +1626,10 @@ private
 
   def new_edition_path(edition_type)
     edition = build(edition_type)
-    new_polymorphic_path([:admin, edition])
+    @controller.new_polymorphic_path([:admin, edition])
   end
 
   def edit_edition_path(edition)
-    edit_polymorphic_path([:admin, edition])
+    @controller.edit_polymorphic_path([:admin, edition])
   end
 end

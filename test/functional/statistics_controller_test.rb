@@ -167,7 +167,7 @@ class StatisticsControllerTest < ActionController::TestCase
       get :index
 
       assert_select_object(statistics) do
-        assert_select ".document-collections a[href=?]", public_document_path(collection)
+        assert_select ".document-collections a[href=?]", @controller.public_document_path(collection)
       end
     end
   end
@@ -187,7 +187,7 @@ class StatisticsControllerTest < ActionController::TestCase
       json = ActiveSupport::JSON.decode(response.body)
       result = json['results'].first['result']
 
-      path = public_document_path(collection)
+      path = @controller.public_document_path(collection)
       link = %{<a href="#{path}">#{collection.title}</a>}
       assert_equal %{Part of a collection: #{link}}, result['publication_collections']
     end
@@ -239,7 +239,7 @@ class StatisticsControllerTest < ActionController::TestCase
         )
 
         assert_equal(
-          public_document_path(published_statistics),
+          @controller.public_document_path(published_statistics),
           statistics_link.attributes['data-label'].value,
           "Expected the data label attribute to be the link of the published statistic"
         )

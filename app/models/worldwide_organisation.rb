@@ -42,7 +42,7 @@ class WorldwideOrganisation < ApplicationRecord
   after_save do
     # If the default news organisation image changes we need to republish all
     # news articles belonging to the worldwide organisation
-    if default_news_organisation_image_data_id_changed?
+    if saved_change_to_default_news_organisation_image_data_id?
       documents = NewsArticle
         .in_worldwide_organisation(self)
         .includes(:images)

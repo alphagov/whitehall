@@ -30,7 +30,7 @@ class Admin::EditionUnpublishingControllerTest < ActionController::TestCase
 
     put :update, params: { edition_id: @edition.id, unpublishing: { explanation: "this used to say withdrawn" } }
 
-    assert_redirected_to admin_edition_path(@edition)
+    assert_redirected_to @controller.admin_edition_path(@edition)
     assert_equal "The public explanation was updated", flash[:notice]
     assert_equal "this used to say withdrawn", @edition.unpublishing.reload.explanation
   end
@@ -47,7 +47,7 @@ class Admin::EditionUnpublishingControllerTest < ActionController::TestCase
 
     put :update, params: { edition_id: @unpublished_edition.id, unpublishing: { explanation: "this used to say unpublished" } }
 
-    assert_redirected_to admin_edition_path(@unpublished_edition)
+    assert_redirected_to @controller.admin_edition_path(@unpublished_edition)
     assert_equal "The public explanation was updated", flash[:notice]
     assert_equal "this used to say unpublished", @unpublished_edition.unpublishing.reload.explanation
   end
