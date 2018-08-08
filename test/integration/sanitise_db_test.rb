@@ -83,10 +83,15 @@ class SanitiseDBTest < ActiveSupport::TestCase
 private
 
   def run_script
-    database, username, password = %w(database username password).map do |key|
+    database, host, port, username, password = %w(database host port username password).map do |key|
       ActiveRecord::Base.configurations[Rails.env][key]
     end
 
-    `./script/scrub-database --no-copy -D #{database} -U #{username} -P #{password}`
+    # Use the right port, if one is specified in the Rails
+    # configuration
+    ENV['MYSQL_TCP_PORT'] = port.to_s if port
+    host_arg = "-H #{host}" if host
+
+    `./script/scrub-database --no-copy #{host_arg} -D #{database} -U #{username} -P #{password}`
   end
 end
