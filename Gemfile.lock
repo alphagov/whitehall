@@ -310,7 +310,7 @@ GEM
     minitest-stub-const (0.6)
     mlanett-redis-lock (0.2.7)
       redis
-    mocha (1.6.0)
+    mocha (1.7.0)
       metaclass (~> 0.0.1)
     money (6.12.0)
       i18n (>= 0.6.4, < 1.1)
