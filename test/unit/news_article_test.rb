@@ -48,6 +48,11 @@ class NewsArticleTest < ActiveSupport::TestCase
     assert_equal news_article.role_appointments.map(&:slug), news_article.search_index["people"]
   end
 
+  test "search_index includes image_url" do
+    news_article = create(:news_article)
+    assert_equal "https://static.test.gov.uk/government/assets/placeholder.jpg", news_article.search_index["image_url"]
+  end
+
   test "search_format_types tags the news article as a news-article and announcement" do
     news_article = build(:news_article)
     assert news_article.search_format_types.include?('news-article')

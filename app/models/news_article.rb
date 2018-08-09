@@ -42,7 +42,10 @@ class NewsArticle < Newsesque
   end
 
   def search_index
-    super.merge("news_article_type" => news_article_type.slug)
+    super.merge(
+      "news_article_type" => news_article_type.slug,
+      "image_url" => image_url
+    )
   end
 
   def search_format_types
@@ -88,6 +91,10 @@ class NewsArticle < Newsesque
   end
 
 private
+
+  def image_url
+    PublishingApi::NewsArticlePresenter::Image.for(self).dig(:image, :url)
+  end
 
   def organisations_are_not_associated
     if edition_organisations.present? && !all_edition_organisations_marked_for_destruction?
