@@ -317,29 +317,14 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     assert_equal [], PublishingApiVanishWorker.jobs
   end
 
-  test ".save_draft_async publishes a draft edition" do
+  test ".save_draft publishes a draft edition" do
     draft_edition = create(:draft_case_study)
     payload = PublishingApiPresenters.presenter_for(draft_edition)
     request = stub_publishing_api_put_content(payload.content_id, payload.content)
 
-    Sidekiq::Testing.inline! do
-      Whitehall::PublishingApi.save_draft_async(draft_edition)
-    end
+    Whitehall::PublishingApi.save_draft(draft_edition)
 
     assert_requested request
-  end
-
-  test ".save_draft_async propagates update_type and queue overrides to worker" do
-    queue_name = "bang"
-    update_type = "whizzo"
-
-    draft_edition = create(:draft_case_study)
-
-    PublishingApiDraftWorker.expects(:perform_async_in_queue)
-      .with(queue_name, draft_edition.class.name, draft_edition.id,
-            update_type, draft_edition.primary_locale.to_sym)
-
-    Whitehall::PublishingApi.save_draft_async(draft_edition, update_type, queue_name)
   end
 
   test ".publish_redirect_async publishes a redirect to the Publishing API" do

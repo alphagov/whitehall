@@ -44,7 +44,7 @@ private
     params.require(:edition).permit(:title, :summary, :body)
   end
 
-  def save_draft_translation_async
+  def save_draft_translation
     Whitehall.edition_services.draft_translation_updater(translatable_item, locale: translation_locale.code).perform!
   end
 

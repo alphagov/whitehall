@@ -127,11 +127,10 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
     test "with an html attachment on a new document saves it as a draft" do
       publication = create(:draft_publication)
       attachment = publication.html_attachments.first
-      PublishingApiDraftWorker.any_instance.expects(:perform).with(
-        "HtmlAttachment",
-        attachment.id,
-        "major",
-        "en"
+      Whitehall::PublishingApi.expects(:save_draft_translation).with(
+        attachment,
+        "en",
+        "major"
       )
       call(publication)
     end
@@ -141,11 +140,10 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
       new_edition = publication.create_draft(create(:writer))
 
       attachment = new_edition.html_attachments.first
-      PublishingApiDraftWorker.any_instance.expects(:perform).with(
-        "HtmlAttachment",
-        attachment.id,
-        "major",
-        "en"
+      Whitehall::PublishingApi.expects(:save_draft_translation).with(
+        attachment,
+        "en",
+        "major"
       )
 
       call(new_edition)
@@ -167,11 +165,10 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
       new_edition.attachments = [build(:html_attachment)]
 
       new_attachment = new_edition.html_attachments.first
-      PublishingApiDraftWorker.any_instance.expects(:perform).with(
-        "HtmlAttachment",
-        new_attachment.id,
-        "major",
-        "en"
+      Whitehall::PublishingApi.expects(:save_draft_translation).with(
+        new_attachment,
+        "en",
+        "major"
       )
 
       call(new_edition)
@@ -299,11 +296,10 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
     test "for a draft publication with an attachment saves the draft" do
       publication = create(:draft_publication)
       attachment = publication.html_attachments.first
-      PublishingApiDraftWorker.any_instance.expects(:perform).with(
-        'HtmlAttachment',
-        attachment.id,
-        "republish",
-        "en"
+      Whitehall::PublishingApi.expects(:save_draft_translation).with(
+        attachment,
+        "en",
+        "republish"
       )
       call(publication)
     end
@@ -353,11 +349,10 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
     test "for a publication that has been consolidated publishes a redirect to the alternative url" do
       publication = create(:unpublished_publication_consolidated)
       attachment = publication.html_attachments.first
-      PublishingApiWorker.any_instance.expects(:perform).with(
-        'HtmlAttachment',
-        attachment.id,
-        "republish",
-        "en"
+      Whitehall::PublishingApi.expects(:save_draft_translation).with(
+        attachment,
+        "en",
+        "republish"
       )
       PublishingApiRedirectWorker.any_instance.expects(:perform).with(
         attachment.content_id,
@@ -371,11 +366,10 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
     test "for a publication that has been unpublished with a redirect publishes a redirect to the alternative url" do
       publication = create(:unpublished_publication_in_error_redirect)
       attachment = publication.html_attachments.first
-      PublishingApiWorker.any_instance.expects(:perform).with(
-        'HtmlAttachment',
-        attachment.id,
-        "republish",
-        "en"
+      Whitehall::PublishingApi.expects(:save_draft_translation).with(
+        attachment,
+        "en",
+        "republish"
       )
       PublishingApiRedirectWorker.any_instance.expects(:perform).with(
         attachment.content_id,
@@ -389,11 +383,10 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
     test "for a publication that has been unpublished without a redirect publishes a redirect to the parent document" do
       publication = create(:unpublished_publication_in_error_no_redirect)
       attachment = publication.html_attachments.first
-      PublishingApiWorker.any_instance.expects(:perform).with(
-        'HtmlAttachment',
-        attachment.id,
-        "republish",
-        "en"
+      Whitehall::PublishingApi.expects(:save_draft_translation).with(
+        attachment,
+        "en",
+        "republish"
       )
       PublishingApiRedirectWorker.any_instance.expects(:perform).with(
         attachment.content_id,

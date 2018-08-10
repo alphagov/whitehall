@@ -90,14 +90,7 @@ private
   end
 
   def send_draft_edition
-    locales_for(pre_publication_edition) do |locale|
-      PublishingApiDraftWorker.new.perform(
-        pre_publication_edition.class.name,
-        pre_publication_edition.id,
-        "republish",
-        locale
-      )
-    end
+    Whitehall::PublishingApi.save_draft(pre_publication_edition, "republish")
     handle_attachments_for(pre_publication_edition)
   end
 

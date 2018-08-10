@@ -14,14 +14,28 @@ module Whitehall
       push_live(model_instance, update_type_override, queue_override)
     end
 
-    def self.save_draft_async(model_instance, update_type_override = nil, queue_override = nil)
+    def self.save_draft(model_instance, update_type_override = nil)
       locales_for(model_instance).each do |locale|
-        save_draft_translation_async(model_instance, locale, update_type_override, queue_override)
+        save_draft_translation(model_instance, locale, update_type_override)
       end
     end
 
-    def self.save_draft_translation_async(model_instance, locale, update_type_override = nil, queue_override = nil)
-      PublishingApiDraftWorker.perform_async_in_queue(queue_override, model_instance.class.name, model_instance.id, update_type_override, locale)
+    def self.save_draft_translation(
+          model_instance,
+          locale,
+          update_type_override = nil
+    )
+      presenter = PublishingApiPresenters.presenter_for(
+        model_instance,
+        update_type: update_type_override
+      )
+
+      I18n.with_locale(locale) do
+        Services.publishing_api.put_content(
+          presenter.content_id,
+          presenter.content
+        )
+      end
     end
 
     def self.republish_async(model_instance)
