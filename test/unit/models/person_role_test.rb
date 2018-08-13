@@ -6,7 +6,7 @@ class PersonRoleTest < ActiveSupport::TestCase
     role = create(:role, organisations: [test_object])
     person = create(:person)
     role_appointment = build(:role_appointment, person: person, role: role)
-    Whitehall::PublishingApi.expects(:publish_async).with(test_object).once
+    Whitehall::PublishingApi.expects(:republish_async).with(test_object).once
     Whitehall::PublishingApi.expects(:publish_async).with(role_appointment).once
     role_appointment.save!
   end
@@ -19,7 +19,7 @@ class PersonRoleTest < ActiveSupport::TestCase
     person.reload
     person.forename = "Test"
     Whitehall::PublishingApi.expects(:publish_async).with(person).once
-    Whitehall::PublishingApi.expects(:publish_async).with(test_object).once
+    Whitehall::PublishingApi.expects(:republish_async).with(test_object).once
     person.save!
   end
 
@@ -31,7 +31,7 @@ class PersonRoleTest < ActiveSupport::TestCase
     person.reload
     role.cabinet_member = true
     Whitehall::PublishingApi.expects(:publish_async).with(role).once
-    Whitehall::PublishingApi.expects(:publish_async).with(test_object).once
+    Whitehall::PublishingApi.expects(:republish_async).with(test_object).once
     role.save!
   end
 end

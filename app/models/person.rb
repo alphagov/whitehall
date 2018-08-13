@@ -53,7 +53,9 @@ class Person < ApplicationRecord
   after_update :touch_role_appointments
 
   def republish_organisation_to_publishing_api
-    organisations.each(&:publish_to_publishing_api)
+    organisations.each do |organisation|
+      Whitehall::PublishingApi.republish_async(organisation)
+    end
   end
 
   def published_policies

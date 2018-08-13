@@ -12,7 +12,7 @@ class FeaturedLink < ApplicationRecord
 
   def republish_organisation_to_publishing_api
     if linkable_type == "Organisation" && linkable.persisted?
-      linkable.publish_to_publishing_api
+      Whitehall::PublishingApi.republish_async(linkable)
     end
   end
 

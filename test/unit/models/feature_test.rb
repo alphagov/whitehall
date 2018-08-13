@@ -6,7 +6,7 @@ class FeatureTest < ActiveSupport::TestCase
   test "creating a new feature republishes the linked featurable if it's an Organisation" do
     test_object = create(:organisation)
     feature_list = create(:feature_list, featurable: test_object)
-    Whitehall::PublishingApi.expects(:publish_async).with(test_object).once
+    Whitehall::PublishingApi.expects(:republish_async).with(test_object).once
     create(:feature, feature_list: feature_list)
   end
 
@@ -15,7 +15,7 @@ class FeatureTest < ActiveSupport::TestCase
     feature_list = create(:feature_list, featurable: test_object)
     feature = create(:feature, feature_list: feature_list)
     feature.alt_text = "Test"
-    Whitehall::PublishingApi.expects(:publish_async).with(test_object).once
+    Whitehall::PublishingApi.expects(:republish_async).with(test_object).once
     feature.save!
   end
 
@@ -23,14 +23,14 @@ class FeatureTest < ActiveSupport::TestCase
     test_object = create(:organisation)
     feature_list = create(:feature_list, featurable: test_object)
     feature = create(:feature, feature_list: feature_list)
-    Whitehall::PublishingApi.expects(:publish_async).with(test_object).once
+    Whitehall::PublishingApi.expects(:republish_async).with(test_object).once
     feature.destroy
   end
 
   test "creating a new feature does not republish the linked featurable if it's not an Organisation" do
     test_object = create(:world_location)
     feature_list = create(:feature_list, featurable: test_object)
-    Whitehall::PublishingApi.expects(:publish_async).with(test_object).never
+    Whitehall::PublishingApi.expects(:republish_async).with(test_object).never
     create(:feature, feature_list: feature_list)
   end
 end

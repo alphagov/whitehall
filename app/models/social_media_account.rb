@@ -11,7 +11,7 @@ class SocialMediaAccount < ApplicationRecord
 
   def republish_organisation_to_publishing_api
     if socialable_type == "Organisation" && socialable.persisted?
-      socialable.publish_to_publishing_api
+      Whitehall::PublishingApi.republish_async(socialable)
     end
   end
 
