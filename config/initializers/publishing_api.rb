@@ -6,3 +6,9 @@ Whitehall.publishing_api_client = GdsApi::PublishingApi.new(
 )
 
 require 'services'
+
+Whitehall::PublishingApi::LogSubscriber.attach_to :publishing_api
+
+ActiveSupport.on_load(:action_controller) do
+  include Whitehall::PublishingApi::ControllerRuntime
+end

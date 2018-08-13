@@ -1,9 +1,13 @@
 Whitehall.edition_services.tap do |coordinator|
   # publishing API
   coordinator.subscribe do |event, edition, options|
-    ServiceListeners::PublishingApiPusher
-      .new(edition)
-      .push(event: event, options: options)
+    ActiveSupport::Notifications.instrument(
+      "process_event.publishing_api", event: event, options: options
+    ) do
+      ServiceListeners::PublishingApiPusher
+        .new(edition)
+        .push(event: event, options: options)
+    end
   end
 
   coordinator.subscribe do |_event, edition, _options|
