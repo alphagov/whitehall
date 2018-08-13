@@ -100,6 +100,10 @@ Whitehall::Application.configure do
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
 
+  # Disable the server timing headers, as they are only for local
+  # development
+  config.server_timings.enabled = false
+
   # Enable threaded mode
   # config.threadsafe!
 

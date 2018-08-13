@@ -404,6 +404,8 @@ GEM
     rails-i18n (5.1.1)
       i18n (>= 0.7, < 2)
       railties (>= 5.0, < 6)
+    rails_server_timings (1.0.8)
+      railties (>= 3.0.0)
     rails_translation_manager (0.0.2)
       activesupport
       rails-i18n
@@ -640,6 +642,7 @@ DEPENDENCIES
   rails (~> 5.1)
   rails-controller-testing
   rails-i18n (~> 5.1)
+  rails_server_timings
   rails_translation_manager (~> 0.0.2)
   raindrops (= 0.19.0)
   rake (= 12.3.1)
