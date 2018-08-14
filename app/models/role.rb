@@ -59,7 +59,9 @@ class Role < ApplicationRecord
   translates :name, :responsibilities
 
   def republish_organisation_to_publishing_api
-    organisations.each(&:publish_to_publishing_api)
+    organisations.each do |organisation|
+      Whitehall::PublishingApi.republish_async(organisation)
+    end
   end
 
   def self.whip

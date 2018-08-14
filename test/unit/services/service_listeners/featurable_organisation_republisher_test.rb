@@ -14,7 +14,7 @@ class ServiceListeners::FeaturableOrganisationRepublisherTest < ActiveSupport::T
     create(:feature, document: published_edition.document, feature_list: feature_list)
 
     Sidekiq::Testing.inline! do
-      expect_publishing(organisation)
+      expect_republishing(organisation)
 
       assert ServiceListeners::FeaturableOrganisationRepublisher.new(published_edition).call
     end

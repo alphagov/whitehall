@@ -78,10 +78,10 @@ class TopicalEventTest < ActiveSupport::TestCase
     topical_event = create(:topical_event)
     organisation = create(:organisation, :with_feature_list)
 
-    create(:feature, feature_list: organisation.feature_lists.sample, topical_event: topical_event)
+    create(:feature, feature_list: organisation.feature_lists.first, topical_event: topical_event)
 
     Whitehall::PublishingApi.expects(:publish_async).with(topical_event).once
-    Whitehall::PublishingApi.expects(:publish_async).with(organisation).once
+    Whitehall::PublishingApi.expects(:republish_async).with(organisation).once
 
     topical_event.save
   end

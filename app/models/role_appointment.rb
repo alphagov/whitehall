@@ -72,7 +72,9 @@ class RoleAppointment < ApplicationRecord
   after_destroy :update_indexes
 
   def republish_organisation_to_publishing_api
-    organisations.each(&:publish_to_publishing_api)
+    organisations.each do |organisation|
+      Whitehall::PublishingApi.republish_async(organisation)
+    end
   end
 
   def self.between(start_time, end_time)
