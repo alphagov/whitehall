@@ -212,7 +212,7 @@ GEM
     govuk_frontend_toolkit (7.6.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
-    govuk_publishing_components (9.12.1)
+    govuk_publishing_components (9.13.0)
       govspeak (>= 5.0.3)
       govuk_app_config
       govuk_frontend_toolkit
@@ -300,9 +300,9 @@ GEM
     method_source (0.9.0)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2016.0521)
+    mime-types-data (3.2018.0812)
     mini_magick (4.8.0)
-    mini_mime (1.0.0)
+    mini_mime (1.0.1)
     mini_portile2 (2.3.0)
     minitest (5.10.3)
     minitest-fail-fast (0.1.0)
@@ -604,7 +604,7 @@ DEPENDENCIES
   govuk_admin_template (~> 6.6)
   govuk_app_config (~> 1.8)
   govuk_frontend_toolkit (= 7.6.0)
-  govuk_publishing_components (~> 9.12.1)
+  govuk_publishing_components (~> 9.13.0)
   govuk_sidekiq (~> 3)
   graphviz_transitions
   invalid_utf8_rejector (~> 0.0.4)
