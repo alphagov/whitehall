@@ -3,14 +3,11 @@ Given(/^email alert api exists$/) do
 end
 
 When(/^I sign up for emails$/) do
-  within '.feeds' do
-    click_on 'email'
-  end
-
   # There is a bug which is causes external urls to get requested from the
   # server. So catch the routing error and handle it so we can continue to
   # assert that the right things have happened to generate the redirect.
   begin
+    click_on 'email'
     click_on 'Create subscription'
   rescue ActionController::RoutingError # rubocop:disable Lint/HandleExceptions
   end

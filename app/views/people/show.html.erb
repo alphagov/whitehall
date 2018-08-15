@@ -101,7 +101,27 @@
         </section>
       <% end %>
 
-      <%= render 'shared/announcement_list', announcer: @person %>
+      <% atom_discovery_link_tag atom_feed_url_for(@person), t('announcements.heading') %>
+
+      <% if @person.announcements.any? %>
+        <section class="announcements" id="announcements">
+          <h2><%=  %></h2>
+          <%= render "govuk_publishing_components/components/heading", {
+            text: t("announcements.heading")
+          } %>
+
+          <%= render "govuk_publishing_components/components/subscription-links", {
+            email_signup_link: email_signup_path(atom_feed_url_for(@person)),
+            feed_link: atom_feed_url_for(@person)
+          } %>
+
+          <%= render "govuk_publishing_components/components/document_list", items: @person.announcements %>
+
+          <div class="read-more">
+            <%= link_to t('announcements.view_all'), announcements_path(people: [@person.slug]) %>
+          </div>
+        </section>
+      <% end %>
     </div>
   </div>
 <% end %>
