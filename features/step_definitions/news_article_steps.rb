@@ -70,9 +70,19 @@ Then(/^I should see both the news articles for the Deputy Prime Minister role$/)
   assert has_css?(".news_article", text: "News from Harriet, Deputy PM")
 end
 
+Given(/^"([^"]*)" has news associated with her$/) do |arg1|
+  stub_any_rummager_search.to_return(
+    body: {
+      results: [
+        { link: "/foo", title: "First article" },
+        { link: "/foo", title: "Second article" }
+      ]
+    }.to_json)
+end
+
 Then(/^I should see both the news articles for Harriet Home$/) do
-  assert has_css?(".news_article", text: "News from Harriet, Deputy PM")
-  assert has_css?(".news_article", text: "News from Harriet, Home Sec")
+  assert has_content?("First article")
+  assert has_content?("Second article")
 end
 
 Then(/^I should be informed I shouldn't use this image in the markdown$/) do

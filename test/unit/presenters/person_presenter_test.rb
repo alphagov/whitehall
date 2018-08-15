@@ -37,21 +37,6 @@ class PersonPresenterTest < ActionView::TestCase
     assert_no_match %r[This is the second paragraph.], @presenter.biography
   end
 
-  test "#announcements returns decorated published speeches and news articles available in the current locale in descending date" do
-    speech_1 = build(:published_speech, first_published_at: 1.day.ago)
-    speech_2 = build(:published_speech, first_published_at: 30.days.ago, translated_into: :cy)
-    _speech_3 = build(:draft_speech)
-    news_1 = build(:published_news_article, first_published_at: 4.days.ago, translated_into: :cy)
-    role_appointment = create(:ministerial_role_appointment, news_articles: [news_1], speeches: [speech_1, speech_2])
-    presenter = PersonPresenter.new(role_appointment.person)
-
-    assert_equal [speech_1, news_1, speech_2], presenter.announcements.map(&:model)
-
-    I18n.with_locale(:cy) do
-      assert_equal [news_1, speech_2], presenter.announcements.map(&:model)
-    end
-  end
-
   test "is not available in multiple languages if person is not available in multiple languages" do
     role = stub_translatable_record(:role_without_organisations)
     role.stubs(:translated_locales).returns(%i[en fr])

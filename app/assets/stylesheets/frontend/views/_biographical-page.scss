@@ -41,6 +41,12 @@
 
     section {
       margin: $gutter 0 $gutter*2;
+
+      // The components also use `section`, so fix the margin on that.
+      &.gem-c-subscription-links {
+        margin: 20px 0;
+      }
+
       h1 {
         @include ig-core-27;
         font-weight: bold;

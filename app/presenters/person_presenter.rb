@@ -30,10 +30,33 @@ class PersonPresenter < Whitehall::Decorators::Decorator
   end
 
   def announcements
-    announcements =
-      model.published_speeches.with_translations(I18n.locale).limit(10).map { |s| SpeechPresenter.new(s, context) } +
-      model.published_news_articles.with_translations(I18n.locale).limit(10).map { |na| NewsArticlePresenter.new(na, context) }
-    announcements.sort_by { |a| a.public_timestamp.to_datetime }.reverse[0..9]
+    search_results = Whitehall.search_client.search(
+      filter_people: model.slug,
+      count: 10,
+      order: "-public_timestamp",
+      reject_content_purpose_supergroup: "other",
+      fields: %w[title link content_store_document_type public_timestamp]
+    )["results"]
+
+    search_results.map do |item|
+      metadata = {}
+
+      if item["public_timestamp"]
+        metadata[:public_updated_at] = Date.parse(item["public_timestamp"])
+      end
+
+      if item["content_store_document_type"]
+        metadata[:document_type] = item["content_store_document_type"].humanize
+      end
+
+      {
+        link: {
+          text: item["title"],
+          path: item["link"]
+        },
+        metadata: metadata
+      }
+    end
   end
 
   def speeches
