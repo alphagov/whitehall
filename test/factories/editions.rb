@@ -9,10 +9,6 @@ FactoryBot.define do
     summary 'edition-summary'
     previously_published false
 
-    after :build do |edition, _evaluator|
-      edition.skip_virus_status_check = true
-    end
-
     trait(:with_organisations) do
       transient do
         organisations { [] }
@@ -119,9 +115,6 @@ FactoryBot.define do
     trait(:with_file_attachment) do
       association :alternative_format_provider, factory: :organisation_with_alternative_format_contact_email
       attachments { FactoryBot.build_list :file_attachment, 1 }
-      after :create do |edition, _evaluator|
-        VirusScanHelpers.simulate_virus_scan(edition.attachments.first.attachment_data.file)
-      end
     end
 
     trait(:with_html_attachment) do

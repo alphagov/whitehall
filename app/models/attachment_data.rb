@@ -9,7 +9,7 @@ class AttachmentData < ApplicationRecord
 
   before_save :update_file_attributes
 
-  validates :file, presence: true, unless: :virus_scan_pending?
+  validates :file, presence: true
   validate :file_is_not_empty
 
   attr_accessor :to_replace_id
@@ -54,31 +54,6 @@ class AttachmentData < ApplicationRecord
 
   def indexable?
     AttachmentUploader::INDEXABLE_TYPES.include?(file_extension)
-  end
-
-  def virus_status
-    if File.exist?(infected_path)
-      :infected
-    elsif File.exist?(clean_path) || skip_virus_check?
-      :clean
-    else
-      :pending
-    end
-  end
-
-  def skip_virus_check?
-    Rails.env.development? && !File.exist?(path)
-  end
-
-  # Newly instantiated AttachmentData will report the file path as in the incoming
-  # directory because of the way Whitehall::QuarantinedFileStorage works. This method
-  # will return the expected clean path, regardless of what path reports.
-  def clean_path
-    path.gsub(Whitehall.incoming_uploads_root, Whitehall.clean_uploads_root)
-  end
-
-  def infected_path
-    clean_path.gsub(Whitehall.clean_uploads_root, Whitehall.infected_uploads_root)
   end
 
   def update_file_attributes
@@ -215,9 +190,5 @@ private
 
   def file_is_not_empty
     errors.add(:file, "is an empty file") if file.present? && file.file.zero_size?
-  end
-
-  def virus_scan_pending?
-    path.present? && virus_status == :pending
   end
 end

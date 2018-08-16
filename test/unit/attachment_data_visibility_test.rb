@@ -17,7 +17,6 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
     before do
       attachable.attachments << attachment
-      VirusScanHelpers.simulate_virus_scan(attachment_data.file)
     end
 
     context 'on a draft edition' do

@@ -2,12 +2,6 @@ When(/^I visit the attachments page$/) do
   first(:link, 'Attachments').click
 end
 
-When(/^the (?:attachment|image)s? (?:has|have) been virus\-checked$/) do
-  FileUtils.cp_r(Whitehall.incoming_uploads_root + '/.', Whitehall.clean_uploads_root + "/")
-  FileUtils.rm_rf(Whitehall.incoming_uploads_root)
-  FileUtils.mkdir(Whitehall.incoming_uploads_root)
-end
-
 When(/^the attachment has been uploaded to the asset\-manager$/) do
   Attachment.last.attachment_data.uploaded_to_asset_manager!
 end

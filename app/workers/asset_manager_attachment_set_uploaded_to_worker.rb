@@ -31,10 +31,10 @@ class AssetManagerAttachmentSetUploadedToWorker < WorkerBase
       # generated SQL only checks if the 'attachment_data_id' is
       # nil.
       next unless attachment_data
-      if attachment_data.url == legacy_url_path
+      if attachment_data.path == legacy_url_path
         found = true
         attachment_data.uploaded_to_asset_manager!
-      elsif attachment_data.pdf? && attachment_data.file.thumbnail.url == legacy_url_path
+      elsif attachment_data.pdf? && attachment_data.file.thumbnail.path == legacy_url_path
         # don't mark the attachment_data as uploaded when the
         # thumbnail makes it across, because we mostly care about the
         # actual pdf

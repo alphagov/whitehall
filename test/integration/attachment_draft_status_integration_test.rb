@@ -39,7 +39,6 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
         visit admin_news_article_path(edition)
         unpublish_document_published_in_error
         attachable.attachments << attachment
-        VirusScanHelpers.simulate_virus_scan
         attachable.save!
         Attachment.last.attachment_data.uploaded_to_asset_manager!
         assert_sets_draft_status_in_asset_manager_to true
@@ -56,7 +55,6 @@ class AttachmentDraftStatusIntegrationTest < ActionDispatch::IntegrationTest
     before do
       setup_publishing_api_for(edition)
       attachable.attachments << attachment
-      VirusScanHelpers.simulate_virus_scan
       attachable.save!
     end
 

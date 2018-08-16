@@ -23,12 +23,6 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert_match %r[empty file], attachment.errors[:file].first
   end
 
-  test 'is still valid whilst file is being virus-scanned' do
-    attachment_data = create(:attachment_data)
-    assert_equal :pending, attachment_data.reload.virus_status
-    assert AttachmentData.find(attachment_data.id).valid?
-  end
-
   test 'should return filename even after reloading' do
     attachment = create(:attachment_data)
     refute_nil attachment.filename
@@ -149,10 +143,19 @@ class AttachmentDataTest < ActiveSupport::TestCase
   test "should successfully create PNG thumbnail from the file_cache after a validation failure" do
     greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
     attachment = build(:attachment_data, file: greenpaper_pdf)
+
+    Services.asset_manager.stubs(:create_whitehall_asset)
+    Services.asset_manager.expects(:create_whitehall_asset).with do |value|
+      if value[:file].path.ends_with?('.png')
+        type = `file -b --mime-type "#{value[:file].path}"`
+        assert_equal "image/png", type.strip
+      end
+    end
+
     second_attempt_attachment = build(:attachment_data, file: nil, file_cache: attachment.file_cache)
     assert second_attempt_attachment.save
-    type = `file -b --mime-type "#{second_attempt_attachment.file.thumbnail.path}"`
-    assert_equal "image/png", type.strip
+
+    AssetManagerCreateWhitehallAssetWorker.drain
   end
 
   test "should return nil file extension when no uploader present" do
@@ -183,26 +186,6 @@ class AttachmentDataTest < ActiveSupport::TestCase
     greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
     attachment = build(:attachment_data, file: greenpaper_pdf)
     assert_equal "greenpaper", attachment.filename_without_extension
-  end
-
-  test "should return virus status as pending when in incoming folder" do
-    test_pdf = fixture_file_upload('simple.pdf', 'application/pdf')
-    attachment = create(:attachment_data, file: test_pdf)
-    assert_equal :pending, attachment.virus_status
-  end
-
-  test "should return virus status as failed when in infected folder" do
-    test_pdf = fixture_file_upload('simple.pdf', 'application/pdf')
-    attachment = create(:attachment_data, file: test_pdf)
-    VirusScanHelpers.simulate_virus_scan_infected(attachment.file)
-    assert_equal :infected, attachment.virus_status
-  end
-
-  test "should return virus status as clean when in the clean folder" do
-    test_pdf = fixture_file_upload('simple.pdf', 'application/pdf')
-    attachment = create(:attachment_data, file: test_pdf)
-    VirusScanHelpers.simulate_virus_scan(attachment.file)
-    assert_equal :clean, attachment.virus_status
   end
 
   test "should ensure instances know when they've been replaced by a new instance" do

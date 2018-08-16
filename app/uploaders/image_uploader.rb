@@ -1,6 +1,4 @@
 class ImageUploader < WhitehallUploader
-  storage :asset_manager
-
   include CarrierWave::MiniMagick
 
   configure do |config|
