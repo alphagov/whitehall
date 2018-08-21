@@ -57,6 +57,8 @@ GEM
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
     afm (0.2.2)
+    archive-zip (0.11.0)
+      io-like (~> 0.3.0)
     arel (8.0.0)
     asset_bom_removal-rails (1.0.2)
       rails (>= 4.2)
@@ -93,13 +95,17 @@ GEM
       activesupport (>= 4.0.0)
       mime-types (>= 1.16)
     carrierwave-i18n (0.2.0)
+    childprocess (0.9.0)
+      ffi (~> 1.0, >= 1.0.11)
+    chromedriver-helper (1.2.0)
+      archive-zip (~> 0.10)
+      nokogiri (~> 1.8)
     chronic (0.10.2)
     ci_reporter (2.0.0)
       builder (>= 2.1.2)
     ci_reporter_minitest (1.0.0)
       ci_reporter (~> 2.0)
       minitest (~> 5.0)
-    cliver (0.3.2)
     coderay (1.1.2)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
@@ -228,6 +234,11 @@ GEM
       sidekiq (>= 5, < 6)
       sidekiq-logging-json (~> 0.0)
       sidekiq-statsd (~> 0.1)
+    govuk_test (0.1.0)
+      capybara
+      chromedriver-helper
+      puma
+      selenium-webdriver
     graphviz_transitions (0.1.2)
       ruby-graphviz
       transitions
@@ -241,6 +252,7 @@ GEM
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     invalid_utf8_rejector (0.0.4)
+    io-like (0.3.0)
     isbn_validation (1.2.2)
       activerecord (>= 3)
     jbuilder (2.7.0)
@@ -356,10 +368,6 @@ GEM
       ruby-rc4
       ttfunk
     plek (2.1.1)
-    poltergeist (1.18.1)
-      capybara (>= 2.1, < 4)
-      cliver (~> 0.3.1)
-      websocket-driver (>= 0.2.0)
     powerpack (0.1.1)
     pry (0.11.3)
       coderay (~> 1.1.0)
@@ -371,6 +379,7 @@ GEM
       pry (>= 0.10.4)
     ptools (1.3.5)
     public_suffix (3.0.3)
+    puma (3.12.0)
     raabro (1.1.5)
     rack (2.0.5)
     rack-cache (1.8.0)
@@ -448,6 +457,7 @@ GEM
     ruby-prof (0.17.0)
     ruby-progressbar (1.10.0)
     ruby-rc4 (0.1.5)
+    rubyzip (1.2.1)
     rufus-scheduler (3.5.0)
       fugit (~> 1.1, >= 1.1.1)
     safe_yaml (1.0.4)
@@ -478,6 +488,9 @@ GEM
     scss_lint (0.57.0)
       rake (>= 0.9, < 13)
       sass (~> 3.5.5)
+    selenium-webdriver (3.14.0)
+      childprocess (~> 0.5)
+      rubyzip (~> 1.2)
     sentry-raven (2.7.4)
       faraday (>= 0.7.6, < 1.0)
     shared_mustache (1.0.1)
@@ -606,6 +619,7 @@ DEPENDENCIES
   govuk_frontend_toolkit (= 7.6.0)
   govuk_publishing_components (~> 9.15.0)
   govuk_sidekiq (~> 3)
+  govuk_test
   graphviz_transitions
   invalid_utf8_rejector (~> 0.0.4)
   isbn_validation
@@ -630,7 +644,6 @@ DEPENDENCIES
   parallel_tests
   pdf-reader (~> 2.1)
   plek (~> 2.1)
-  poltergeist
   pry-byebug
   pry-rails
   ptools
@@ -672,4 +685,4 @@ DEPENDENCIES
   whenever (~> 0.10.0)
 
 BUNDLED WITH
-   1.16.1
+   1.16.2
