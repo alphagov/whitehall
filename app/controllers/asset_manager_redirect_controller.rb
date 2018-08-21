@@ -5,6 +5,6 @@ class AssetManagerRedirectController < ApplicationController
       asset_url = Plek.new.external_url_for('draft-assets')
     end
 
-    redirect_to host: URI.parse(asset_url).host
+    redirect_to host: URI.parse(asset_url).host, status: 301
   end
 end
