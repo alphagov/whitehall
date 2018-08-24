@@ -123,6 +123,10 @@ class DocumentHelperTest < ActionView::TestCase
     assert_equal '<abbr title="Zip archive">ZIP</abbr>', humanized_content_type("zip")
   end
 
+  test "should return XML for humanized content type" do
+    assert_equal '<abbr title="XML document">XML</abbr>', humanized_content_type("xml")
+  end
+
   test "should return native language name for locale" do
     assert_equal "English", native_language_name_for(:en)
     assert_equal "Español", native_language_name_for(:es)

@@ -110,6 +110,7 @@ module DocumentHelper
       "xlsm" => file_abbr_tag('XLSM', 'MS Excel Macro-Enabled Workbook'),
       "xlsx" => MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE,
       "xlt"  => file_abbr_tag('XLT', 'MS Excel Spreadsheet Template'),
+      "xml"  => file_abbr_tag('XML', 'XML document'),
       "xsd"  => file_abbr_tag('XSD', 'XML Schema'),
       "xslt" => file_abbr_tag('XSLT', 'Extensible Stylesheet Language Transformation'),
       "zip"  => file_abbr_tag('ZIP', 'Zip archive'),
