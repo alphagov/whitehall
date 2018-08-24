@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180726082757) do
+ActiveRecord::Schema.define(version: 20180823163015) do
 
   create_table "about_pages", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "topical_event_id"
@@ -1135,6 +1135,7 @@ ActiveRecord::Schema.define(version: 20180726082757) do
     t.string "iso2", limit: 2
     t.string "analytics_identifier"
     t.string "content_id"
+    t.string "news_page_content_id"
     t.index ["iso2"], name: "index_world_locations_on_iso2", unique: true
     t.index ["slug"], name: "index_world_locations_on_slug"
     t.index ["world_location_type_id"], name: "index_world_locations_on_world_location_type_id"

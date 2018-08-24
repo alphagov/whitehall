@@ -40,14 +40,6 @@ private
   # We use the same content_id for all locales so that Publishing API knows
   # these are translations, rather than separate documents.
   def content_id
-    @content_id ||= (content_id_from_publishing_api || SecureRandom.uuid)
-  end
-
-  def content_id_from_publishing_api
-    Services.publishing_api.lookup_content_ids(base_paths: english_base_path)[english_base_path]
-  end
-
-  def english_base_path
-    Whitehall.url_maker.world_location_news_index_path(world_location, locale: "en")
+    world_location.news_page_content_id
   end
 end
