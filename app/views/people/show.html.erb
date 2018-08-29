@@ -1,6 +1,12 @@
 <% page_title @person.name %>
 <% page_class "people-show biographical-page" %>
 
+<% content_for :extra_head do %>
+  <%= render 'govuk_publishing_components/components/machine_readable_metadata',
+    schema: :person,
+    content_item: @content_item %>
+<% end %>
+
 <%= content_tag_for :div, @person, class: "two-column-page" do %>
   <header class="block headings-block">
     <div class="inner-block floated-children">
