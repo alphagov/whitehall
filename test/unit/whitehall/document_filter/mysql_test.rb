@@ -49,7 +49,7 @@ module Whitehall::DocumentFilter
     test "topics param does not filter if topic is 'all'" do
       document_scope.expects(:published_in_topic).never
 
-      filter = create_filter(document_scope, topics: ['all'])
+      filter = create_filter(document_scope, topics: %w[all])
 
       assert_equal document_scope, filter.documents
     end
@@ -80,7 +80,7 @@ module Whitehall::DocumentFilter
 
     test "does not filter if departments is 'all'" do
       document_scope.expects(:in_organisation).never
-      create_filter(document_scope, departments: ['all'])
+      create_filter(document_scope, departments: %w[all])
     end
 
     test "keywords param filters by content containing each keyword" do
@@ -129,7 +129,7 @@ module Whitehall::DocumentFilter
     end
 
     test "publication_type param can also filter by publication edition type" do
-      publication_filter_option = stub_publication_filter_option("testing filter - statistics", publication_types: [stub('type', id: 123), stub('other type', id: 234)], edition_types: ["EditionType"])
+      publication_filter_option = stub_publication_filter_option("testing filter - statistics", publication_types: [stub('type', id: 123), stub('other type', id: 234)], edition_types: %w[EditionType])
 
       filtered_scope = stub_document_scope('filtered_scope')
       expected_query = "(`editions`.`publication_type_id` IN (123, 234) OR `editions`.`type` IN ('EditionType'))"

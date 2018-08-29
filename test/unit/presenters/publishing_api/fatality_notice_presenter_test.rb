@@ -280,6 +280,6 @@ class PublishingApi::AccessLimitedFatalityNoticeTest < ActiveSupport::TestCase
   end
 
   test "presents allowed users" do
-    assert_equal ["booyah"], @presented_content[:access_limited][:users]
+    assert_equal %w[booyah], @presented_content[:access_limited][:users]
   end
 end

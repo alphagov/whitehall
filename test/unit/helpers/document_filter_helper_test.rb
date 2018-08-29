@@ -23,14 +23,14 @@ class DocumentFilterHelperTest < ActionView::TestCase
     stubs(:params).returns(first: 'one', second: %w[two three])
 
     assert_equal ({ first: nil, second: %w[two three] }), remove_filter_from_params(:first)
-    assert_equal ({ first: 'one', second: ['three'] }), remove_filter_from_params(:second, 'two')
+    assert_equal ({ first: 'one', second: %w[three] }), remove_filter_from_params(:second, 'two')
   end
 
   test "filter_results_selections gets objects ready for mustache" do
     topic = build(:topic, slug: 'my-slug')
     stubs(:params).returns(controller: 'announcements', action: 'index', "topics" => ['my-slug', 'three'])
 
-    assert_equal [{ name: topic.name, value: topic.slug, url: announcements_path(topics: ['three']), joining: '' }], filter_results_selections([topic], 'topics')
+    assert_equal [{ name: topic.name, value: topic.slug, url: announcements_path(topics: %w[three]), joining: '' }], filter_results_selections([topic], 'topics')
   end
 
   test "filter_results_selections handles when params aren't in the expected format" do

@@ -25,6 +25,6 @@ class Edition::FeaturableTest < ActiveSupport::TestCase
     world_location = create(:world_location)
     world_location.load_or_create_feature_list(:fr)
     world_location.reload
-    assert_equal ["fr"], world_location.feature_lists.map(&:locale)
+    assert_equal %w[fr], world_location.feature_lists.map(&:locale)
   end
 end

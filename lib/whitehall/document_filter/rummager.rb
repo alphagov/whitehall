@@ -40,7 +40,7 @@ module Whitehall::DocumentFilter
     end
 
     def filter_by_people
-      if @people.present? && @people != ["all"]
+      if @people.present? && @people != %w[all]
         { people: @people }
       else
         {}

@@ -923,7 +923,7 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test 'when a secondary specialist sector exists' do
-    edition = create(:edition, secondary_specialist_sector_tags: ['secondary'])
+    edition = create(:edition, secondary_specialist_sector_tags: %w[secondary])
     assert edition.has_secondary_sectors?
     assert edition.has_legacy_tags?
   end

@@ -69,7 +69,7 @@ module Whitehall
 
       test "advanced search for a field which is not present in a document does not return the document" do
         documents = build_documents('Foo', 'Bar')
-        documents[0]['world_locations'] = ["Hawaii"]
+        documents[0]['world_locations'] = %w[Hawaii]
         @index.add_batch(documents)
         assert_search_returns_documents %w{Foo}, world_locations: "Hawaii"
       end

@@ -353,20 +353,20 @@ end
 class PublishingApi::PublishedDocumentCollectionPresenterTopicalEventsLinksTest < ActiveSupport::TestCase
   setup do
     document_collection = create(:document_collection)
-    PublishingApi::PayloadBuilder::TopicalEvents.stubs(:for).with(document_collection).returns(topical_events: ['bfa'])
+    PublishingApi::PayloadBuilder::TopicalEvents.stubs(:for).with(document_collection).returns(topical_events: %w[bfa])
     @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(document_collection)
   end
 
   test "it presents the topical events as links, topical_events" do
     assert_equal(
-      ["bfa"],
+      %w[bfa],
       @presented_document_collection.links[:topical_events]
     )
   end
 
   test "it presents the topical events as content, links, topical_events" do
     assert_equal(
-      ["bfa"],
+      %w[bfa],
       @presented_document_collection.content[:links][:topical_events]
     )
   end

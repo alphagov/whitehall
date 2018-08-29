@@ -63,8 +63,8 @@ class UrlToSubscriberListCriteriaTest < ActiveSupport::TestCase
                    "organisations" => [
                      "advisory-committee-on-clinical-excellence-awards",
                    ],
-                   "policy_areas" => [
-                     "employment",
+                   "policy_areas" => %w[
+                     employment
                    ],
                  }
   end
@@ -74,7 +74,7 @@ class UrlToSubscriberListCriteriaTest < ActiveSupport::TestCase
       'https://www.gov.uk/government/feed?departments%5B%5D=advisory-committee-on-clinical-excellence-awards',
       stub("StaticData", topical_event?: false, content_id: 'aaaaa'),
     )
-    assert_equal converter.convert, "links" => { "organisations" => ["aaaaa"] }
+    assert_equal converter.convert, "links" => { "organisations" => %w[aaaaa] }
   end
 
   test "can extract `email_document_supertype` and `government_document_supertype` from announcement url" do

@@ -17,7 +17,7 @@ class Taxonomy::TopicTaxonomyTest < ActiveSupport::TestCase
   test "#visible_taxons" do
     redis_cache_has_taxons([build(:taxon_hash, content_id: 'visible_id', visibility: true),
                             build(:taxon_hash, content_id: 'visible_id', visibility: false),])
-    assert_equal ['visible_id'], subject.visible_taxons.map(&:content_id)
+    assert_equal %w[visible_id], subject.visible_taxons.map(&:content_id)
   end
 
   test "#ordered_taxons are ordered by name" do

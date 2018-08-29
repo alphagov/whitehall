@@ -243,7 +243,7 @@ module PublishingApi::ConsultationPresenterTest
                         Newark
                         NG22 8PE
                         UK
-      ADDRESS
+        ADDRESS
       )
 
       self.consultation = create(:open_consultation,
@@ -267,7 +267,7 @@ module PublishingApi::ConsultationPresenterTest
                         Newark
                         NG22 8PE
                         UK
-                        ADDRESS
+        ADDRESS
       }
 
       assert_details_attribute :ways_to_respond, expected_ways_to_respond

@@ -29,7 +29,7 @@ class EmailSignup::FeedUrlValidatorTest < ActiveSupport::TestCase
       topics: ["arts-and-culture"],
       departments: ["the-cabinet-office"],
       official_document_status: "command_and_act_papers",
-      world_locations: ["afghanistan"]
+      world_locations: %w[afghanistan]
     )
     validator = klass.new(feed_url)
 
@@ -46,7 +46,7 @@ class EmailSignup::FeedUrlValidatorTest < ActiveSupport::TestCase
       document_type: "announcements",
       topics: ["arts-and-culture"],
       departments: ["the-cabinet-office"],
-      world_locations: ["afghanistan"]
+      world_locations: %w[afghanistan]
     )
     validator = klass.new(feed_url)
 

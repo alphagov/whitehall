@@ -45,8 +45,8 @@ module Whitehall::DocumentFilter
 
     test 'announcements_search looks for all Announcements if we need to include world location news' do
       rummager = Rummager.new(include_world_location_news: '1')
-      expected_types = [
-        "announcement"
+      expected_types = %w[
+        announcement
       ]
       expect_search_by_format_types(expected_types)
       rummager.announcements_search

@@ -5,7 +5,7 @@ class EmbassyPresenter < SimpleDelegator
   include ActionView::Helpers::UrlHelper
 
   def text
-    if SPECIAL_CASES.keys.include?(name)
+    if SPECIAL_CASES.key?(name)
       "British nationals should contact the #{SPECIAL_CASES[name][:building]} in #{SPECIAL_CASES[name][:location]}."
     elsif offices.empty?
       "British nationals should contact the local authorities."
@@ -26,7 +26,7 @@ class EmbassyPresenter < SimpleDelegator
   end
 
   def has_consular_service_in_location?
-    ! SPECIAL_CASES.keys.include?(name)
+    ! SPECIAL_CASES.key?(name)
   end
 
   def has_remote_service?

@@ -3,7 +3,7 @@
 # *NOTE* this file deliberately does not include test_helper
 # in order to attempt to speed up the tests
 
-require File.expand_path("../../../fast_test_helper", __FILE__)
+require File.expand_path('../../fast_test_helper', __dir__)
 require 'whitehall/extra_quote_remover'
 
 module Whitehall

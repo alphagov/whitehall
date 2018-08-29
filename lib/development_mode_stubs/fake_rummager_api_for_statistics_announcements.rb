@@ -62,7 +62,7 @@ module DevelopmentModeStubs
           "organisations" => announcement.organisations_slugs,
           "policy_areas" => announcement.topic_slugs,
           "display_type" => announcement.publication_type.singular_name,
-          "search_format_types" => ["statistics_announcement"],
+          "search_format_types" => %w[statistics_announcement],
           "format" => "statistics_announcement",
           "statistics_announcement_state" => announcement.state,
           "metadata" => {

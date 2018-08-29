@@ -119,7 +119,7 @@ class GovspeakHelperTest < ActionView::TestCase
           <a href=\"#second\"><span class=\"heading-number\">2.</span> Second</a>
         </li>
       </ol>
-      HTML
+    HTML
 
     rendered_attachment_headers = html_attachment_govspeak_headers_html(attachment)
     assert_equivalent_html expected, rendered_attachment_headers
@@ -347,7 +347,7 @@ class GovspeakHelperTest < ActionView::TestCase
     Contact.stubs(:find_by).with(id: '1').returns(contact)
     input = '[Contact:1]'
     contact_html = render('contacts/contact', contact: contact, heading_tag: 'h3')
-    @controller.lookup_context.formats = ['atom']
+    @controller.lookup_context.formats = %w[atom]
     assert_nothing_raised do
       assert_equivalent_html "<div class=\"govspeak\">#{contact_html}</div>", govspeak_to_html(input)
     end

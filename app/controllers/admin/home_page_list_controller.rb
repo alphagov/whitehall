@@ -25,7 +25,7 @@ module Admin::HomePageListController
         redirect_to redirect_proc.call(home_page_list_container, home_page_list_item), notice: %{#{plural_name.titleize} on home page reordered successfully}
       end
 
-    protected # rubocop:disable Layout/AccessModifierIndentation
+    protected
 
       define_method(:home_page_list_item) do
         instance_variable_get("@#{single_name}")

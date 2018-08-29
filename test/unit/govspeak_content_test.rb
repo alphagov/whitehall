@@ -65,7 +65,7 @@ class GovspeakContentTest < ActiveSupport::TestCase
           <a href="#a-heading">1.0 A heading</a>
         </li>
       </ol>
-      HTML
+    HTML
     assert_equivalent_html expected_headers_html, govspeak_content.computed_headers_html
   end
 
@@ -84,7 +84,7 @@ class GovspeakContentTest < ActiveSupport::TestCase
           </a>
         </li>
       </ol>
-      HTML
+    HTML
     assert_equivalent_html expected_headers_html, govspeak_content.computed_headers_html
   end
 
