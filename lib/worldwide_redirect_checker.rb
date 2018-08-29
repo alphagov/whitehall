@@ -30,7 +30,7 @@ class WorldwideRedirectChecker
     end
 
     def http_response
-      @_response ||= connection.get(URI.parse(Plek.current.website_root + url))
+      @http_response ||= connection.get(URI.parse(Plek.current.website_root + url))
     end
 
     def response_redirect_url

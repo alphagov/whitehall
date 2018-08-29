@@ -20,7 +20,7 @@ class EditionTaxonsFetcher
 private
 
   def taxons
-    @_taxons ||= taxon_links.map { |taxon_link| Taxonomy::Taxon.from_taxon_hash(taxon_link) }
+    @taxons ||= taxon_links.map { |taxon_link| Taxonomy::Taxon.from_taxon_hash(taxon_link) }
   end
 
   def visible?(taxon)

@@ -93,7 +93,7 @@ class Taxonomy::TreeTest < ActiveSupport::TestCase
   end
 
   def root_taxon_hash(links = {})
-    @_root_taxon_hash ||= {
+    @root_taxon_hash ||= {
       'title' => 'root',
       'base_path' => '/root',
       'content_id' => 'root_id',

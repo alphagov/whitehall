@@ -6,7 +6,7 @@ module Taxonomy
     end
 
     def all_world_taxons
-      @_all_world_taxons ||= sorted_world_taxons
+      @all_world_taxons ||= sorted_world_taxons
     end
 
   private
@@ -18,7 +18,7 @@ module Taxonomy
     end
 
     def world_taxon_branches
-      @_branches ||= @adapter.world_taxon_data.map do |world_taxon_hash|
+      @world_taxon_branches ||= @adapter.world_taxon_data.map do |world_taxon_hash|
         @tree_builder_class.new(world_taxon_hash).root_taxon
       end
     end

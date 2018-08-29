@@ -80,7 +80,7 @@ module TaxonomyHelper
 private
 
   def redis_client
-    @_redis ||= Redis.current = stub
+    @redis_client ||= Redis.current = stub
   end
 
   def child_taxon

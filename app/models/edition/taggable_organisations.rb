@@ -21,7 +21,7 @@ private
   end
 
   def organisations_content_ids
-    @_org_ids ||= organisations.map(&:content_id)
+    @organisations_content_ids ||= organisations.map(&:content_id)
   end
 
   def edition_in_world_taggable_document_types?

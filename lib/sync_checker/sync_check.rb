@@ -36,7 +36,7 @@ module SyncChecker
     end
 
     def progress_bar
-      @progress ||= ProgressBar.create(
+      @progress_bar ||= ProgressBar.create(
         autostart: false,
         format: "%e [%b>%i] [%c/%C]"
       )

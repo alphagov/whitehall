@@ -25,7 +25,7 @@ private
   end
 
   def link_header
-    @link_hedaer ||= extract_link_header_from_options_and_resource
+    @link_header ||= extract_link_header_from_options_and_resource
   end
 
   def extract_link_header_from_options_and_resource

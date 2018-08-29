@@ -139,11 +139,11 @@ module Whitehall
   end
 
   def self.edition_services
-    @edition_actions ||= EditionServiceCoordinator.new
+    @edition_services ||= EditionServiceCoordinator.new
   end
 
   def self.worldwide_tagging_organisations
-    @worldwide_taggable_organisations ||=
+    @worldwide_tagging_organisations ||=
       YAML.load_file(Rails.root + "config/worldwide_tagging_organisations.yml")
   end
 

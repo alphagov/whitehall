@@ -3,7 +3,7 @@ require_relative '../../lib/whitehall'
 module SyncChecker
   class DraftTopicContentIds
     def self.fetch
-      @draft_content_ids ||= begin
+      @fetch ||= begin
         Services.publishing_api
           .get_linkables(document_type: 'topic')
           .map(&:with_indifferent_access)

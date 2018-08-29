@@ -58,7 +58,7 @@ module Taxonomy
     end
 
     def taxon_list
-      @_taxon_list ||= children.each_with_object([self]) do |child, tree|
+      @taxon_list ||= children.each_with_object([self]) do |child, tree|
         tree.concat(child.taxon_list)
       end
     end

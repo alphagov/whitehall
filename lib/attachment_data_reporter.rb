@@ -66,7 +66,7 @@ private
   end
 
   def published_editions_with_attachments
-    @editions ||= Edition.find_by_sql([
+    @published_editions_with_attachments ||= Edition.find_by_sql([
       "SELECT e.*
        FROM editions e
        WHERE e.state = 'published'
