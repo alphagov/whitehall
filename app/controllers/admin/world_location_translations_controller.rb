@@ -29,7 +29,7 @@ private
   end
 
   def load_translatable_item
-    @world_location ||= WorldLocation.friendly.find(params[:world_location_id])
+    @world_location = WorldLocation.friendly.find(params[:world_location_id])
   end
 
   def translation_params
