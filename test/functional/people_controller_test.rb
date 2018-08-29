@@ -4,6 +4,7 @@ require "gds_api/test_helpers/rummager"
 class PeopleControllerTest < ActionController::TestCase
   include FeedHelper
   include GdsApi::TestHelpers::Rummager
+  include GdsApi::TestHelpers::ContentStore
 
   should_be_a_public_facing_controller
 
@@ -21,6 +22,7 @@ class PeopleControllerTest < ActionController::TestCase
   setup do
     @person = create(:person)
     rummager_has_no_policies_for_any_type
+    content_store_has_item(@person.search_link)
   end
 
   view_test "#show displays the details of the person and their roles" do

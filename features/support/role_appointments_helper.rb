@@ -1,4 +1,8 @@
+require "gds_api/test_helpers/content_store"
+
 module RoleAppointmentsHelper
+  include GdsApi::TestHelpers::ContentStore
+
   def create_role_appointment(person_name, role_name, organisation_name, timespan, options = {})
     person = find_or_create_person(person_name)
     organisation = Organisation.find_by(name: organisation_name) || create(:ministerial_department, name: organisation_name)
@@ -14,6 +18,7 @@ module RoleAppointmentsHelper
     end
 
     create(:role_appointment, role: role, person: person, started_at: started_at, ended_at: ended_at)
+    content_store_has_item(person.search_link)
   end
 
   def find_or_create_ministerial_role(name)

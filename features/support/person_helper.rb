@@ -1,6 +1,12 @@
+require "gds_api/test_helpers/content_store"
+
 module PersonHelper
+  include GdsApi::TestHelpers::ContentStore
+
   def create_person(name, attributes = {})
-    create(:person, split_person_name(name).merge(attributes))
+    person = create(:person, split_person_name(name).merge(attributes))
+    content_store_has_item(person.search_link)
+    person
   end
 
   def find_person(name)
