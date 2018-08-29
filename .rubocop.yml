@@ -25,9 +25,3 @@ Style/FormatStringToken:
     - 'lib/migrate_assets_to_asset_manager.rb'
     - 'lib/tasks/scheduled_publishing.rake'
 
-Style/MethodMissing:
-  Exclude:
-    - 'app/helpers/admin/edition_routes_helper.rb'
-    - 'app/presenters/edition_collection_presenter.rb'
-    - 'features/support/retrospective_stub.rb'
-    - 'lib/localised_model.rb'
