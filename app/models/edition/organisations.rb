@@ -153,6 +153,11 @@ private
     end
   end
 
+  # rubocop:disable Naming/MemoizedInstanceVariableName
+  #
+  # This seems to result in false positives here, even if the variable
+  # names are changed to start with __.
+
   def __edition_organisations_touched_by_lead_or_supporting_organisations_setters
     @edition_organisations_touched_by_lead_or_supporting_organisations_setters ||= []
   end
@@ -160,6 +165,8 @@ private
   def __edition_organisations_for_destruction_on_save
     @edition_organisations_for_destruction_on_save ||= []
   end
+
+  # rubocop:enable Naming/MemoizedInstanceVariableName
 
   def mark_for_destruction_all_edition_organisations_for_destruction
     __edition_organisations_for_destruction_on_save.each(&:mark_for_destruction)
