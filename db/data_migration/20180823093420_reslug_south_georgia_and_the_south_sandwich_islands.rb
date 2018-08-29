@@ -1,7 +1,7 @@
 old_slug = "south-georgia-and-south-sandwich-islands"
 new_slug = "south-georgia-and-the-south-sandwich-islands"
 
-world_location = WorldLocation.where(slug: old_slug)
+world_location = WorldLocation.find_by(slug: old_slug)
 
 Whitehall::SearchIndex.delete(world_location)
 
