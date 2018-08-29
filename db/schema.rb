@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180823163015) do
+ActiveRecord::Schema.define(version: 20180829180335) do
 
   create_table "about_pages", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "topical_event_id"
@@ -1041,15 +1041,6 @@ ActiveRecord::Schema.define(version: 20180823163015) do
     t.index ["slug"], name: "index_statistics_announcements_on_slug"
     t.index ["title"], name: "index_statistics_announcements_on_title"
     t.index ["topic_id"], name: "index_statistics_announcements_on_topic_id"
-  end
-
-  create_table "sync_check_results", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "check_class"
-    t.integer "item_id"
-    t.text "failures"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["check_class", "item_id"], name: "index_sync_check_results_on_check_class_and_item_id", unique: true
   end
 
   create_table "take_part_pages", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
