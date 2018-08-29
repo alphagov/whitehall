@@ -25,3 +25,10 @@ Style/FormatStringToken:
     - 'lib/migrate_assets_to_asset_manager.rb'
     - 'lib/tasks/scheduled_publishing.rake'
 
+# Cops disabled, due to false positives and infinite loops
+
+Layout/AccessModifierIndentation:
+  Enabled: false
+
+Style/AccessModifierDeclarations:
+  Enabled: false
