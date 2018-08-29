@@ -80,10 +80,6 @@ module Whitehall
     @admin_root ||= Plek.new.external_url_for('whitehall-admin')
   end
 
-  # NOOP until alphagov-deployment is updated to not set this in the
-  # public_host.rb initializer
-  def self.public_host=(_); end
-
   def self.secrets
     @secrets ||= load_secrets
   end
