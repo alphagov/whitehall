@@ -114,10 +114,6 @@ class Classification < ApplicationRecord
     organisations.reorder("organisation_classifications.lead DESC, organisation_classifications.lead_ordering")
   end
 
-  def destroyable?
-    policies.empty?
-  end
-
   def base_path
     Whitehall.url_maker.topic_path(slug)
   end

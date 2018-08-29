@@ -16,4 +16,14 @@ class Topic < Classification
     joins(:statistics_announcement_topics)
       .group('statistics_announcement_topics.topic_id')
   end
+
+  def unpublish_and_redirect(redirect_path)
+    Services.publishing_api.unpublish(
+      self.content_id,
+      alternative_path: redirect_path,
+      type: "redirect",
+      discard_drafts: true
+    )
+    self.delete
+  end
 end

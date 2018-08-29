@@ -127,12 +127,4 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     assert_response :redirect
     assert topic.reload.deleted?
   end
-
-  test "DELETE :destroy does not delete topics with associated content" do
-    topic = create(:topic, policy_content_ids: [policy_1["content_id"]])
-
-    delete :destroy, params: { id: topic }
-    assert_equal "Cannot destroy Policy area with associated content", flash[:alert]
-    refute topic.reload.deleted?
-  end
 end
