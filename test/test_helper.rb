@@ -54,7 +54,6 @@ class ActiveSupport::TestCase
     stub_any_publishing_api_call
     stub_publishing_api_publish_intent
     stub_publishing_api_policies
-    SyncCheckWorker.stubs(:enqueue)
     Services.stubs(:asset_manager).returns(stub_everything('asset-manager'))
   end
 
