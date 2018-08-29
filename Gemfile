@@ -93,7 +93,6 @@ end
 # rubocop:enable Bundler/DuplicatedGem
 
 group :development, :test do
-  gem 'dotenv-rails'
   gem 'govuk-lint', '~> 3.8.0'
   gem 'parallel_tests'
   gem 'pry-byebug'
