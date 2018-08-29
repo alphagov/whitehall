@@ -9,7 +9,7 @@ class FeedHelperTest < ActionView::TestCase
     Whitehall.public_host
   end
 
-  def schema_date(_)
+  def schema_date(_builder)
     '2005'
   end
 

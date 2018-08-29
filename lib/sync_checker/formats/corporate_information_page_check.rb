@@ -1,7 +1,7 @@
 module SyncChecker
   module Formats
     class CorporateInformationPageCheck < EditionBase
-      def expected_details_hash(corporate_information_page, _)
+      def expected_details_hash(corporate_information_page, _locale)
         super.tap do |details|
           details.delete(:change_history)
           details.delete(:first_public_at)

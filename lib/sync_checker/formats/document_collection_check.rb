@@ -39,7 +39,7 @@ module SyncChecker
         ]
       end
 
-      def expected_details_hash(edition, _)
+      def expected_details_hash(edition, _locale)
         super.merge(
           collection_groups: collection_groups(edition)
         )

@@ -1,7 +1,7 @@
 module SyncChecker
   module Formats
     class ConsultationCheck < EditionBase
-      def expected_details_hash(consultation, _)
+      def expected_details_hash(consultation, _locale)
         super.tap do |details|
           details.except!(:change_history) unless consultation.change_history.present?
           details.merge!(expected_documents(consultation))
@@ -211,7 +211,7 @@ module SyncChecker
         @govspeak_renderer ||= Whitehall::GovspeakRenderer.new
       end
 
-      def top_level_fields_hash(consultation, _)
+      def top_level_fields_hash(consultation, _locale)
         super.tap do |fields|
           fields[:document_type] = consultation.display_type_key
         end

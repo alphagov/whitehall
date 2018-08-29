@@ -33,7 +33,7 @@ module SyncChecker
         "detailed_guide"
       end
 
-      def expected_details_hash(edition, _)
+      def expected_details_hash(edition, _locale)
         super.tap do |expected_details_hash|
           if edition.nation_inapplicabilities.any?
             expected_details_hash.merge(

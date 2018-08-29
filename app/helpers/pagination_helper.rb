@@ -1,3 +1,5 @@
+# rubocop:disable Naming/UncommunicativeMethodParamName
+
 module PaginationHelper
   def next_page_link(url: nil, page: nil, of: nil)
     link_content = "Next <span class=\"visuallyhidden\">page</span> <span class=\"page-numbers\">#{page} of #{of}</span>".html_safe
@@ -15,3 +17,5 @@ module PaginationHelper
     end
   end
 end
+
+# rubocop:enable Naming/UncommunicativeMethodParamName

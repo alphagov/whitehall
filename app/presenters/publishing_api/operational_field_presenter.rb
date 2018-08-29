@@ -2,7 +2,7 @@ module PublishingApi
   class OperationalFieldPresenter
     attr_reader :links, :update_type
 
-    def initialize(operational_field, **_)
+    def initialize(operational_field, _options = {})
       @operational_field = operational_field
       @links = {}
       @update_type = "major"

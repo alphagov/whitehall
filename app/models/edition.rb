@@ -409,7 +409,7 @@ class Edition < ApplicationRecord
     false
   end
 
-  def image_disallowed_in_body_text?(_)
+  def image_disallowed_in_body_text?(_index)
     false
   end
 

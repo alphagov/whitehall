@@ -8,11 +8,11 @@ module Whitehall::Authority::Rules
       end
     end
 
-    def can_for_get_involved_section?(_)
+    def can_for_get_involved_section?(_action)
       actor.gds_editor?
     end
 
-    def can_for_sitewide_settings_section?(_)
+    def can_for_sitewide_settings_section?(_action)
       actor.gds_editor?
     end
   end
