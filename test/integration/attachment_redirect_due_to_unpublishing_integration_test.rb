@@ -54,6 +54,20 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
       withdraw_document
       refute_sets_redirect_url_in_asset_manager
     end
+
+    it 'does not redirect new attachments added after a document is unpublished' do
+      stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
+
+      visit admin_news_article_path(edition)
+      unpublish_document_published_in_error
+
+      file = File.open(path_to_attachment('sample.csv'))
+      new_attachment = build(:file_attachment, attachable: attachable, file: file)
+      attachable.attachments << new_attachment
+      new_attachment.save!
+
+      refute_sets_redirect_url_in_asset_manager
+    end
   end
 
   context 'given a published consultation with outcome with file attachment' do
