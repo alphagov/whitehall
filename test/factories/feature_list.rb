@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :feature_list do
-    locale :en
+    locale { :en }
   end
 end

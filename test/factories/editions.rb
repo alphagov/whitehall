@@ -4,10 +4,10 @@ FactoryBot.define do
   factory :edition, class: GenericEdition, traits: [:translated] do
     creator
     sequence(:title) { |index| "edition-title-#{index}" }
-    body "edition-body"
-    change_note "change-note"
-    summary 'edition-summary'
-    previously_published false
+    body { "edition-body" }
+    change_note { "change-note" }
+    summary { 'edition-summary' }
+    previously_published { false }
 
     trait(:with_organisations) do
       transient do
@@ -57,7 +57,7 @@ FactoryBot.define do
 
     trait(:with_policy_edition) do
       transient do
-        policy_content_id ''
+        policy_content_id { '' }
       end
       after :create do |edition, evaluator|
         EditionPolicy.create(edition_id: edition.id, policy_content_id: evaluator.policy_content_id)
@@ -65,17 +65,17 @@ FactoryBot.define do
     end
 
     trait(:imported) do
-      state "imported"
+      state { "imported" }
       first_published_at { 1.year.ago }
     end
 
-    trait(:draft) { state "draft" }
+    trait(:draft) { state { "draft" } }
 
     trait(:submitted) do
       transient do
-        submitter nil
+        submitter { nil }
       end
-      state "submitted"
+      state { "submitted" }
       after :create do |edition, evaluator|
         edition.versions.first.update_attributes(event: 'create', state: 'draft')
         submitter = evaluator.submitter.present? ? evaluator.submitter : edition.creator
@@ -83,30 +83,30 @@ FactoryBot.define do
       end
     end
 
-    trait(:rejected) { state "rejected" }
+    trait(:rejected) { state { "rejected" } }
 
     trait(:published) do
-      state "published"
+      state { "published" }
       first_published_at { 2.days.ago }
       major_change_published_at { 1.day.ago }
       force_published { false }
-      published_major_version 1
-      published_minor_version 0
+      published_major_version { 1 }
+      published_minor_version { 0 }
       after :create, &:refresh_index_if_required
     end
 
-    trait(:deleted) { state "deleted" }
+    trait(:deleted) { state { "deleted" } }
 
-    trait(:superseded) { state "superseded" }
+    trait(:superseded) { state { "superseded" } }
 
-    trait(:featured) { featured true }
+    trait(:featured) { featured { true } }
 
     trait(:scheduled) do
-      state "scheduled"
-      scheduled_publication 7.days.from_now
+      state { "scheduled" }
+      scheduled_publication { 7.days.from_now }
     end
 
-    trait(:access_limited) { access_limited true }
+    trait(:access_limited) { access_limited { true } }
 
     trait(:with_alternative_format_provider) do
       association :alternative_format_provider, factory: :organisation_with_alternative_format_contact_email
@@ -156,7 +156,7 @@ FactoryBot.define do
     end
 
     trait(:withdrawn) do
-      state "withdrawn"
+      state { "withdrawn" }
       after(:create) do |edition|
         edition.unpublishing = build(:withdrawn_unpublishing, edition: edition)
       end

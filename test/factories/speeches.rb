@@ -1,11 +1,11 @@
 FactoryBot.define do
   factory :speech, class: Speech, parent: :edition, traits: %i[with_organisations with_topics] do
-    title "speech-title"
-    body  "speech-body"
+    title { "speech-title" }
+    body  { "speech-body" }
     association :role_appointment, factory: :ministerial_role_appointment
     delivered_on { Time.zone.now }
-    location "speech-location"
-    speech_type SpeechType::Transcript
+    location { "speech-location" }
+    speech_type { SpeechType::Transcript }
     transient do
       relevant_to_local_government { false }
     end

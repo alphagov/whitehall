@@ -7,11 +7,11 @@ FactoryBot.define do
 
   factory :role_without_organisations, class: MinisterialRole, traits: [:translated] do
     sequence(:name) { |index| "role-name-#{index}" }
-    role_type "minister"
+    role_type { "minister" }
   end
 
   factory :historic_role, parent: :ministerial_role do
-    supports_historical_accounts true
+    supports_historical_accounts { true }
   end
 
   trait :occupied do

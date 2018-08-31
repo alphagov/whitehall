@@ -6,6 +6,6 @@ FactoryBot.define do
   end
 
   factory :ministerial_role_without_organisation, class: MinisterialRole do
-    name "Parliamentary Under-Secretary of State"
+    name { "Parliamentary Under-Secretary of State" }
   end
 end

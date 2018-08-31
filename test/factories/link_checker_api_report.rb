@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :link_checker_api_report do
-    batch_id 1
-    status "in_progress"
+    batch_id { 1 }
+    status { "in_progress" }
     link_reportable do
       create(:draft_edition, body: "Includes a [link](http://www.example.com)")
     end
@@ -14,8 +14,8 @@ FactoryBot.define do
   end
 
   factory :link_checker_api_report_completed, class: LinkCheckerApiReport do
-    batch_id 1
-    status "completed"
+    batch_id { 1 }
+    status { "completed" }
     link_reportable do
       create(:draft_edition, body: "Includes a [link](http://www.example.com)")
     end
