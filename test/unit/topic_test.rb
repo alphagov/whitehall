@@ -22,17 +22,6 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal 'bobs-bike', topic.slug
   end
 
-  test "should not be deletable if there are associated policies" do
-    topic = create(:topic, policy_content_ids: [])
-    assert topic.destroyable?
-
-    topic.update(policy_content_ids: [policy_1["content_id"]])
-
-    refute topic.destroyable?
-    topic.delete!
-    refute topic.deleted?
-  end
-
   test 'includes linked policies with multiple parents' do
     topic = create(:topic)
     assert_equal [], topic.policy_content_ids
