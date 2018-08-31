@@ -19,7 +19,7 @@ FactoryBot.define do
   end
 
   factory :disabled_user, parent: :user do
-    disabled true
+    disabled { true }
   end
 
   factory :writer, parent: :user, aliases: %i[author creator fact_check_requestor] do
@@ -34,8 +34,8 @@ FactoryBot.define do
   end
 
   factory :scheduled_publishing_robot, parent: :user do
-    uid nil
-    name "Scheduled Publishing Robot"
+    uid { nil }
+    name { "Scheduled Publishing Robot" }
     permissions { [User::Permissions::SIGNIN, User::Permissions::PUBLISH_SCHEDULED_EDITIONS] }
   end
 
@@ -63,8 +63,8 @@ FactoryBot.define do
   end
 
   factory :gds_team_user, parent: :user do
-    name "GDS Inside Government Team"
-    email 'govuk-whitehall@digital.cabinet-office.gov.uk'
+    name { "GDS Inside Government Team" }
+    email { 'govuk-whitehall@digital.cabinet-office.gov.uk' }
     permissions {
       [
         User::Permissions::SIGNIN,

@@ -1,12 +1,12 @@
 FactoryBot.define do
   factory :statistical_data_set, class: StatisticalDataSet, parent: :edition, traits: %i[with_organisations with_topics] do
-    title   "statistical-data-set-title"
-    body    "statistical-data-set-body"
-    summary "statistical-data-set-summary"
+    title   { "statistical-data-set-title" }
+    body    { "statistical-data-set-body" }
+    summary { "statistical-data-set-summary" }
   end
 
   factory :imported_statistical_data_set, parent: :statistical_data_set, traits: [:imported] do
-    access_limited false
+    access_limited { false }
   end
   factory :draft_statistical_data_set, parent: :statistical_data_set, traits: [:draft]
   factory :submitted_statistical_data_set, parent: :statistical_data_set, traits: [:submitted]

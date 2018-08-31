@@ -1,7 +1,7 @@
 FactoryBot.define do
   trait :translated do
     transient do
-      translated_into nil
+      translated_into { nil }
     end
 
     after(:build) do |object, evaluator|

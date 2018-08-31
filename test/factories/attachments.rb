@@ -25,8 +25,8 @@ FactoryBot.define do
     sequence(:title) { |index| "html-attachment-title-#{index}" }
 
     transient do
-      body "Attachment body"
-      manually_numbered_headings false
+      body { "Attachment body" }
+      manually_numbered_headings { false }
     end
 
     attachable { build :edition }
@@ -44,6 +44,6 @@ FactoryBot.define do
 
   factory :external_attachment, traits: [:abstract_attachment] do
     sequence(:title) { |index| "external-attachment-title-#{index}" }
-    external_url "http://www.google.com"
+    external_url { "http://www.google.com" }
   end
 end

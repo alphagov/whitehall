@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :news_article, class: NewsArticle, parent: :edition, traits: %i[with_organisations with_topics] do
-    title "news-title"
-    summary "news-summary"
-    body "news-body"
+    title { "news-title" }
+    summary { "news-summary" }
+    body { "news-body" }
     news_article_type_id { NewsArticleType::PressRelease.id }
     transient do
       relevant_to_local_government { false }

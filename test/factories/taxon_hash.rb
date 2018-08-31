@@ -1,14 +1,14 @@
 FactoryBot.define do
   factory :taxon_hash, class: Hash do
     transient do
-      is_level_one_taxon true
-      children []
-      visibility true
+      is_level_one_taxon { true }
+      children { [] }
+      visibility { true }
     end
     sequence("title") { |i| "Taxon Name #{i}" }
     sequence("base_path") { |i| "/path/to_taxon_#{i}" }
     sequence("content_id") { |i| "taxon_uuid_#{i}" }
-    phase 'live'
+    phase { 'live' }
     after :build do |hash, evaluator|
       hash["links"] = {
         "child_taxons" => evaluator.children

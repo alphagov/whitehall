@@ -1,14 +1,14 @@
 FactoryBot.define do
   factory :statistics_announcement do
     transient do
-      release_date nil
-      previous_display_date nil
-      change_note nil
+      release_date { nil }
+      previous_display_date { nil }
+      change_note { nil }
     end
 
     sequence(:title) { |index| "Stats announcement #{index}" }
-    summary "Summary of announcement"
-    publication_type_id PublicationType::OfficialStatistics.id
+    summary { "Summary of announcement" }
+    publication_type_id { PublicationType::OfficialStatistics.id }
     organisations { FactoryBot.build_list :organisation, 1 }
 
     topics { FactoryBot.build_list :topic, 1 }
@@ -34,13 +34,13 @@ FactoryBot.define do
   end
 
   factory :cancelled_statistics_announcement, parent: :statistics_announcement do
-    cancellation_reason "Cancelled for a reason"
-    cancelled_at Time.zone.now
+    cancellation_reason { "Cancelled for a reason" }
+    cancelled_at { Time.zone.now }
   end
 
   factory :unpublished_statistics_announcement, parent: :statistics_announcement do
-    publishing_state "unpublished"
-    redirect_url "https://www.test.gov.uk/government/sparkle"
+    publishing_state { "unpublished" }
+    redirect_url { "https://www.test.gov.uk/government/sparkle" }
   end
 
   factory :statistics_announcement_requiring_redirect,
