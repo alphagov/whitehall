@@ -31,7 +31,7 @@ class PolicyGroupTest < ActiveSupport::TestCase
 
   test "publishes to the publishing API" do
     policy_group = create(:policy_group)
-    Whitehall::PublishingApi.expects(:publish_async).with(policy_group).once
+    Whitehall::PublishingApi.expects(:publish).with(policy_group).once
     policy_group.publish_to_publishing_api
   end
 

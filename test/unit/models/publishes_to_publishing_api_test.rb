@@ -63,7 +63,7 @@ class PublishesToPublishingApiTest < ActiveSupport::TestCase
 
   test "publish to publishing api publishes async" do
     test_object = include_module(TestObject.new)
-    Whitehall::PublishingApi.expects(:publish_async).with(test_object)
+    Whitehall::PublishingApi.expects(:publish).with(test_object)
     test_object.publish_to_publishing_api
   end
 
@@ -75,7 +75,7 @@ class PublishesToPublishingApiTest < ActiveSupport::TestCase
   end
 
   test "defines and executes published callback when published" do
-    Whitehall::PublishingApi.stubs(:publish_async)
+    Whitehall::PublishingApi.stubs(:publish)
     test_object = TestObject.new
     class << test_object
       include PublishesToPublishingApi

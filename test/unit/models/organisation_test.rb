@@ -778,6 +778,8 @@ class OrganisationTest < ActiveSupport::TestCase
   test 'destroy deletes related social media accounts' do
     organisation = create(:organisation)
     social_media_account = create(:social_media_account, socialable: organisation)
+    organisation.social_media_accounts.reload
+
     organisation.destroy
     assert_nil SocialMediaAccount.find_by(id: social_media_account.id)
   end

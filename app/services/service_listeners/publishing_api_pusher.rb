@@ -14,7 +14,7 @@ module ServiceListeners
 
       case event
       when "force_publish", "publish", "unwithdraw"
-        api.publish_async(edition)
+        api.publish(edition)
       when "update_draft"
         api.save_draft(edition)
       when "update_draft_translation"

@@ -22,7 +22,7 @@ class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_equal @organisation, assigns(:organisation)
-    assert_equal @organisation.promotional_features, assigns(:promotional_features)
+    assert_equal @organisation.reload.promotional_features, assigns(:promotional_features)
     assert_template :index
   end
 

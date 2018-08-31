@@ -150,6 +150,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
 
       date_change_attrs = attributes_for(:statistics_announcement_date_change)
       date_change = statistics_announcement.build_statistics_announcement_date_change(date_change_attrs)
+      statistics_announcement.reload
       date_change.save!
 
       expected = {

@@ -66,7 +66,7 @@ When(/^I delete the promotional item$/) do
 end
 
 Then(/^I should see the promotional feature on the organisation's page$/) do
-  assert promotional_feature = @executive_office.promotional_features.first
+  assert promotional_feature = @executive_office.reload.promotional_features.first
   assert_current_url admin_organisation_promotional_feature_url(@executive_office, promotional_feature)
 
   within record_css_selector(promotional_feature) do
