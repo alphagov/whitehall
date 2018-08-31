@@ -12,7 +12,6 @@ GEM
   remote: https://rubygems.org/
   specs:
     Ascii85 (1.0.3)
-    PriorityQueue (0.1.2)
     actioncable (5.1.6)
       actionpack (= 5.1.6)
       nio4r (~> 2.0)
@@ -171,10 +170,9 @@ GEM
     fugit (1.1.1)
       et-orbi (~> 1.1, >= 1.1.1)
       raabro (~> 1.1)
-    gds-api-adapters (52.8.0)
+    gds-api-adapters (53.0.0)
       addressable
       link_header
-      lrucache (~> 0.1.1)
       null_logger
       plek (>= 1.9.0)
       rack-cache
@@ -295,8 +293,6 @@ GEM
     loofah (2.2.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
-    lrucache (0.1.4)
-      PriorityQueue (~> 0.1.2)
     mail (2.7.0)
       mini_mime (>= 0.1.1)
     maxitest (3.1.0)
