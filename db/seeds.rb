@@ -13,6 +13,7 @@ end
 if Organisation.where(name: "HM Revenue & Customs").present?
   puts "Skipping because HMRC organisation already exists"
 else
+  Organisation.skip_callback(:commit, :after, :publish_to_publishing_api)
   Organisation.create!(
     name: "HM Revenue & Customs",
     slug: "hm-revenue-customs",
@@ -47,6 +48,7 @@ end
 if Topic.where(name: "Test Policy Area").present?
   puts "Skipping because Test Policy Area already exists"
 else
+  Topic.skip_callback(:commit, :after, :publish_to_publishing_api)
   Topic.create(
     name: "Test Policy Area",
     description: "Test Policy Area Description"
