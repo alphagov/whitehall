@@ -142,6 +142,6 @@ group :cucumber, :test do
   gem 'capybara'
   gem 'cucumber', '~> 2.4.0'
   gem 'cucumber-rails', require: false
+  gem 'govuk_test'
   gem 'launchy'
-  gem 'poltergeist'
 end

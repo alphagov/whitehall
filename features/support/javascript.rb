@@ -1,12 +1,3 @@
-require 'capybara/poltergeist'
-# For now, we override the default SSLv3 PhantomJS SSL Protocol as it is not
-# supported by our servers. Note that a future release of poltergeist will likely
-# set this as the default setting.
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, phantomjs_options: ['--ssl-protocol=any'])
-end
-Capybara.javascript_driver = :poltergeist
-
 require "slimmer/test"
 
 Before('@javascript') do
@@ -47,37 +38,5 @@ module Capybara::DSL
 
     page.execute_script("$('##{field[:id]}').val(#{option_value.to_json})")
     page.execute_script("$('##{field[:id]}').trigger('liszt:updated').trigger('change')")
-  end
-end
-
-# This monkey catches Capybara::Poltergeist::TimeoutErrors and logs out network traffic before re-raising.
-class Capybara::Poltergeist::WebSocketServer
-  alias_method :_send, :send
-
-  def send(cmd_id, message, accept_timeout = nil)
-    _send(cmd_id, message, accept_timeout)
-  rescue Capybara::Poltergeist::TimeoutError => e
-    log_network_traffic
-    raise e
-  end
-
-private
-
-  def log_network_traffic(opts = {})
-    traffic = Capybara.page.driver.network_traffic
-    traffic = traffic.select { |request| request.response_parts.empty? } if opts[:hide_completed]
-
-    traffic.each do |request|
-      puts render_network_traffic_request(request)
-    end
-  end
-
-  def render_network_traffic_request(request)
-    request_complete = request.response_parts.any?
-    %{
-      #{request.method}: #{request.url}
-      Complete: #{request_complete}
-      Duration: #{request_complete ? (request.response_parts.last.time - request.time) : (Time.zone.now.localtime - request.time)}
-    }
   end
 end
