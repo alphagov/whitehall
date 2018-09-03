@@ -456,7 +456,7 @@ GEM
     ruby-prof (0.17.0)
     ruby-progressbar (1.10.0)
     ruby-rc4 (0.1.5)
-    rubyzip (1.2.1)
+    rubyzip (1.2.2)
     rufus-scheduler (3.5.0)
       fugit (~> 1.1, >= 1.1.1)
     safe_yaml (1.0.4)
