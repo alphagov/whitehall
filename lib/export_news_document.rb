@@ -1,4 +1,25 @@
 class ExportNewsDocument
+  EDITION_FIELDS = %i[
+    id
+    created_at
+    updated_at
+    lock_version
+    state
+    type
+    major_change_published_at
+    first_published_at
+    change_note
+    force_published
+    minor_change
+    public_timestamp
+    scheduled_publication
+    access_limited
+    published_major_version
+    published_minor_version
+    primary_locale
+    political
+  ].freeze
+
   attr_reader :document
 
   def initialize(document)
@@ -14,32 +35,9 @@ private
   def editions
     document.editions.map do |edition|
       edition
-        .as_json(only: edition_fields)
+        .as_json(only: EDITION_FIELDS)
         .merge(edition_associations(edition))
     end
-  end
-
-  def edition_fields
-    %i[
-      id
-      created_at
-      updated_at
-      lock_version
-      state
-      type
-      major_change_published_at
-      first_published_at
-      change_note
-      force_published
-      minor_change
-      public_timestamp
-      scheduled_publication
-      access_limited
-      published_major_version
-      published_minor_version
-      primary_locale
-      political
-    ]
   end
 
   def edition_associations(edition)
@@ -74,8 +72,13 @@ private
   end
 
   def translations(edition)
-    fields = %i[locale title summary body]
-    edition.translations.map { |translation| translation.as_json(only: fields) }
+    edition.translations.map do |translation|
+      base_path = Whitehall.url_maker.public_document_path(edition, locale: translation.locale)
+
+      translation
+        .as_json(only: %i[locale title summary body])
+        .merge(base_path: base_path)
+    end
   end
 
   def unpublishing(edition)
