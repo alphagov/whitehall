@@ -53,8 +53,8 @@ private
       # These specialist sectors map to document types of topic
       primary_specialist_sectors: edition.primary_specialist_sectors.map(&:topic_content_id),
       secondary_specialist_sectors: edition.secondary_specialist_sectors.map(&:topic_content_id),
-      lead_organisations: edition.lead_organisations.map { |o| organisation(o) },
-      supporting_organisations: edition.supporting_organisations.map { |o| organisation(o) },
+      lead_organisations: edition.lead_organisations.map(&:content_id),
+      supporting_organisations: edition.supporting_organisations.map(&:content_id),
       topics: edition.topics.map { |t| t.as_json(only: %i[id content_id name type]) },
       policy_content_ids: edition.policy_content_ids,
       world_locations: edition.world_locations.map(&:content_id),
