@@ -26,7 +26,7 @@ class ExportNewsDocument
     @document = document
   end
 
-  def as_json
+  def call
     document.as_json.merge("editions" => editions.as_json)
   end
 
