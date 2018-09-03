@@ -149,10 +149,9 @@ namespace :export do
     puts result.to_json
   end
 
-  desc "Export news documents to JSON format export:news_documents ORGS=org-slug FROM=2018-07-01 OUTPUT=/path/to/file"
+  desc "Export news documents to JSON format export:news_documents e.g. ORGS=org-slug FROM=2018-07-01"
   task news_documents: :environment do
     org_slugs = ENV.fetch("ORGS", "").split(',')
-    path = ENV.fetch("OUTPUT", "tmp/news-documents-export-#{Time.now.to_i}.json")
 
     scope = Document
       .eager_load(:editions)
@@ -165,12 +164,9 @@ namespace :export do
     scope = scope.where("editions.updated_at >= ?", ENV["FROM"]) if ENV["FROM"]
     total = scope.count
 
-    document_data = scope.find_each.with_index.map do |document, index|
-      puts "#{index + 1}/#{total} exported" if ((index + 1) % 100).zero?
-      ExportNewsDocument.new(document).as_json
+    scope.find_each.with_index do |document, index|
+      puts "#{index + 1}/#{total} exported", STDERR if ((index + 1) % 100).zero?
+      puts ExportNewsDocument.new(document).call.to_json
     end
-
-    File.open(path, "w") { |f| f.write(document_data.to_json + "\n") }
-    puts "JSON wrote to #{path}"
   end
 end
