@@ -31,6 +31,7 @@ class AssetManagerCreateWhitehallAssetWorker < WorkerBase
       )
     end
 
+    file.close
     FileUtils.rm(file)
     FileUtils.rmdir(File.dirname(file))
   end
