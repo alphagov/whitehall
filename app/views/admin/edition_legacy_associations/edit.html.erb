@@ -29,11 +29,15 @@
         <legend>Associations</legend>
 
         <div class="important-associations">
-          <% if @edition.can_be_related_to_policies? %>
+          <% if @edition.can_be_related_to_policies? && Policy.all.any? %>
             <%= render 'admin/shared/policy_fields', form: form %>
+          <% else %>
+            <p>There are no Policies to tag to.</p>
           <% end %>
-          <% if @edition.can_be_associated_with_topics? %>
+          <% if @edition.can_be_associated_with_topics? && Topic.exists? %>
             <%= render 'policy_area_fields', form: form, edition: @edition %>
+          <% else %>
+            <p>There are no Policy Areas to tag to.</p>
           <% end %>
         </div>
       </fieldset>
