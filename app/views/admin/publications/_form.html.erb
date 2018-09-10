@@ -11,7 +11,15 @@
 
     <fieldset>
       <legend>Associations</legend>
-      <p>You'll be able to select policies, policy areas and specialist sectors later.</p>
+      <% if Topic.exists? && Policy.all.any? %>
+        <p>You'll be able to select Topics, Policies, Policy Areas and Specialist Sectors later.</p>
+      <% elsif Topic.exists? %>
+        <p>You'll be able to select Topics, Policy Areas, and Specialist Sectors later.</p>
+      <% elsif Policy.all.any? %>
+        <p>You'll be able to select Topics, Policies, and Specialist Sectors later.</p>
+      <% else %>
+        <p>You'll be able to select Topics and Specialist Sectors later.</p>
+      <% end %>
       <%= render 'appointment_fields', form: form, edition: edition %>
       <%= render 'statistical_data_set_fields', form: form, edition: edition %>
       <%= render 'topical_event_fields', form: form, edition: edition %>
