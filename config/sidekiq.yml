@@ -8,7 +8,6 @@
   - asset_manager
   - email_alert_api_signup
   - bulk_republishing
-  - sync_checks
   - link_checks
   - asset_migration
 :schedule:
