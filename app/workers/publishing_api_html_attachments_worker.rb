@@ -24,11 +24,10 @@ class PublishingApiHtmlAttachmentsWorker
 
   def update_draft(update_type: nil)
     current_html_attachments.each do |html_attachment|
-      PublishingApiDraftWorker.new.perform(
-        html_attachment.class.name,
-        html_attachment.id,
-        update_type || (edition.minor_change? ? "minor" : "major"),
-        html_attachment.locale || I18n.default_locale.to_s
+      Whitehall::PublishingApi.save_draft_translation(
+        html_attachment,
+        html_attachment.locale || I18n.default_locale.to_s,
+        update_type || (edition.minor_change? ? "minor" : "major")
       )
     end
     discard_drafts(deleted_html_attachments)

@@ -120,7 +120,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     attachment = valid_html_attachment_params
 
     Whitehall::PublishingApi
-      .expects(:save_draft_async)
+      .expects(:save_draft)
       .with(instance_of(HtmlAttachment))
 
     post :create, params: { edition_id: @edition.id, type: 'html', attachment: attachment }
@@ -130,7 +130,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     attachment = valid_file_attachment_params
 
     Whitehall::PublishingApi
-      .expects(:save_draft_async)
+      .expects(:save_draft)
       .never
 
     post :create, params: { edition_id: @edition.id, type: 'file', attachment: attachment }
@@ -280,7 +280,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     attachment = create(:html_attachment, attachable: @edition)
 
     Whitehall::PublishingApi
-      .expects(:save_draft_async)
+      .expects(:save_draft)
       .with(attachment)
 
     put :update, params: {
@@ -297,7 +297,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     attachment = create(:file_attachment, attachable: @edition)
 
     Whitehall::PublishingApi
-      .expects(:save_draft_async)
+      .expects(:save_draft)
       .never
 
     put :update, params: {

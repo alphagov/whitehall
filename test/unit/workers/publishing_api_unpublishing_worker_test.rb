@@ -90,7 +90,7 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
       :consolidated_redirect
     )
 
-    Whitehall::PublishingApi.expects(:save_draft_async).with(unpublished_edition)
+    Whitehall::PublishingApi.expects(:save_draft).with(unpublished_edition)
     PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id)
   end
 

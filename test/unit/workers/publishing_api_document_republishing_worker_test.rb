@@ -16,8 +16,9 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
     PublishingApiWorker.expects(:new).returns(api_worker = mock)
     api_worker.expects(:perform).with(published_edition.class.name, published_edition.id, "republish", "en")
 
-    PublishingApiDraftWorker.expects(:new).returns(draft_worker = mock)
-    draft_worker.expects(:perform).with(draft_edition.class.name, draft_edition.id, "republish", "en")
+    Whitehall::PublishingApi
+      .expects(:save_draft)
+      .with(draft_edition, "republish")
 
     invocation_order = sequence('invocation_order')
     PublishingApiHtmlAttachmentsWorker
@@ -47,8 +48,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
 
     PublishingApiWorker.stubs(:new).returns(api_worker = mock)
     api_worker.stubs(:perform).raises(PublishException)
-    PublishingApiDraftWorker.stubs(:new).returns(draft_worker = mock)
-    draft_worker.stubs(:perform).raises(DraftException)
+    Whitehall::PublishingApi.stubs(:save_draft).raises(DraftException)
 
     assert_raises PublishException do
       PublishingApiDocumentRepublishingWorker.new.perform(document.id)
@@ -149,7 +149,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
     raising_worker.stubs(:perform).raises
 
     PublishingApiWorker.stubs(:new).returns(raising_worker)
-    PublishingApiDraftWorker.stubs(:new).returns(raising_worker)
+    Whitehall::PublishingApi.stubs(:save_draft).raises
     PublishingApiUnpublishingWorker.stubs(:new).returns(raising_worker)
 
     assert_nothing_raised do

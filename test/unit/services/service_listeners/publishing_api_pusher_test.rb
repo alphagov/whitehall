@@ -25,7 +25,7 @@ module ServiceListeners
 
     test "saves draft async for update_draft" do
       edition = build(:draft_publication, document: build(:document))
-      Whitehall::PublishingApi.expects(:save_draft_async).with(edition)
+      Whitehall::PublishingApi.expects(:save_draft).with(edition)
       stub_html_attachment_pusher(edition, "update_draft")
       stub_publications_pusher(edition, "update_draft")
       Sidekiq::Testing.inline! do
@@ -39,7 +39,7 @@ module ServiceListeners
         html_attachments: [build(:html_attachment)],
         document: build(:document)
       )
-      Whitehall::PublishingApi.expects(:save_draft_async).with(edition)
+      Whitehall::PublishingApi.expects(:save_draft).with(edition)
       stub_html_attachment_pusher(edition, "update_draft")
       stub_publications_pusher(edition, "update_draft")
       Sidekiq::Testing.inline! do
@@ -69,7 +69,7 @@ module ServiceListeners
 
     test "update_draft_translation saves draft translation" do
       edition = build(:publication, document: build(:document))
-      Whitehall::PublishingApi.expects(:save_draft_translation_async).with(edition, 'en')
+      Whitehall::PublishingApi.expects(:save_draft_translation).with(edition, 'en')
       stub_html_attachment_pusher(edition, "update_draft_translation")
       stub_publications_pusher(edition, "update_draft_translation")
       Sidekiq::Testing.inline! do
@@ -192,23 +192,21 @@ module ServiceListeners
     test 'handles corporate information pages' do
       edition = build(:corporate_information_page, document: build(:document))
 
-      stub_corporate_information_pages_pusher(edition, 'update_draft')
-      stub_html_attachment_pusher(edition, 'update_draft')
+      Whitehall::PublishingApi
+        .expects(:save_draft_translation)
+        .with(edition, :en, nil)
 
-      Sidekiq::Testing.inline! do
-        PublishingApiPusher.new(edition).push(event: 'update_draft')
-      end
+      PublishingApiPusher.new(edition).push(event: 'update_draft')
     end
 
     test 'handles publications' do
       edition = build(:publication, document: build(:document))
 
-      stub_publications_pusher(edition, 'update_draft')
-      stub_html_attachment_pusher(edition, 'update_draft')
+      Whitehall::PublishingApi
+        .expects(:save_draft_translation)
+        .with(edition, :en, nil)
 
-      Sidekiq::Testing.inline! do
-        PublishingApiPusher.new(edition).push(event: 'update_draft')
-      end
+      PublishingApiPusher.new(edition).push(event: 'update_draft')
     end
   end
 end

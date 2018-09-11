@@ -16,9 +16,9 @@ module ServiceListeners
       when "force_publish", "publish", "unwithdraw"
         api.publish_async(edition)
       when "update_draft"
-        api.save_draft_async(edition)
+        api.save_draft(edition)
       when "update_draft_translation"
-        api.save_draft_translation_async(edition, options.fetch(:locale))
+        api.save_draft_translation(edition, options.fetch(:locale))
       when "unpublish"
         api.unpublish_async(edition.unpublishing)
       when "withdraw"

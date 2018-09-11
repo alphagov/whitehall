@@ -33,7 +33,7 @@ class UnpublishingTest < ActiveSupport::TestCase
   end
 
   test "When an edition is unpublished, a job is queued to republish the draft to the draft stack" do
-    Whitehall::PublishingApi.expects(:save_draft_async).once
+    Whitehall::PublishingApi.expects(:save_draft).once
 
     Sidekiq::Testing.inline! do
       unpublish(@published_edition, unpublishing_params)

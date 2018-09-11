@@ -188,7 +188,7 @@ private
   def save_attachment
     attachment.save.tap do |result|
       if result && attachment.is_a?(HtmlAttachment)
-        Whitehall::PublishingApi.save_draft_async(attachment)
+        Whitehall::PublishingApi.save_draft(attachment)
       end
     end
   end

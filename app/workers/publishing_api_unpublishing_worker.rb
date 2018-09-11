@@ -44,6 +44,6 @@ class PublishingApiUnpublishingWorker
       end
     end
 
-    Whitehall::PublishingApi.save_draft_async(edition)
+    Whitehall::PublishingApi.save_draft(edition)
   end
 end
