@@ -31,11 +31,11 @@ class Admin::FinancialReportsController < Admin::BaseController
 private
 
   def load_financial_report
-    @financial_report ||= @organisation.financial_reports.find(params[:id])
+    @financial_report = @organisation.financial_reports.find(params[:id])
   end
 
   def load_organisation
-    @organisation ||= Organisation.friendly.find(params[:organisation_id])
+    @organisation = Organisation.friendly.find(params[:organisation_id])
   end
 
   def financial_report_params

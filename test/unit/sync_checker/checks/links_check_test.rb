@@ -12,8 +12,8 @@ module SyncChecker::Checks
         response_code: 410
       )
 
-      expected_content_ids = [
-        "ABC1"
+      expected_content_ids = %w[
+        ABC1
       ]
 
       assert_equal [], LinksCheck.new(
@@ -30,8 +30,8 @@ module SyncChecker::Checks
         }.to_json
       )
 
-      expected_content_ids = [
-        "ABC1"
+      expected_content_ids = %w[
+        ABC1
       ]
 
       assert_equal [], LinksCheck.new(
@@ -135,8 +135,8 @@ module SyncChecker::Checks
         }.to_json
       )
 
-      expected_content_ids = [
-        "ABC1",
+      expected_content_ids = %w[
+        ABC1
       ]
 
       expected_errors = [
@@ -158,8 +158,8 @@ module SyncChecker::Checks
         }.to_json
       )
 
-      expected_content_ids = [
-        "ABC1",
+      expected_content_ids = %w[
+        ABC1
       ]
 
       expected_errors = [

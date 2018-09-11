@@ -409,7 +409,7 @@ class Edition < ApplicationRecord
     false
   end
 
-  def image_disallowed_in_body_text?(_)
+  def image_disallowed_in_body_text?(_index)
     false
   end
 
@@ -461,7 +461,7 @@ class Edition < ApplicationRecord
 
     self.class.new(draft_attributes).tap do |draft|
       traits.each { |t| t.process_associations_before_save(draft) }
-      if draft.valid? || !draft.errors.keys.include?(:base)
+      if draft.valid? || !draft.errors.key?(:base)
         if draft.save(validate: false)
           traits.each { |t| t.process_associations_after_save(draft) }
         end

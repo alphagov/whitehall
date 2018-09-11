@@ -82,11 +82,11 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
   end
 
   test "#valid_filter_params skips blank attributes" do
-    refute build(keywords: nil).valid_filter_params.keys.include? :keywords
-    refute build(from_date: nil).valid_filter_params.keys.include? :from_date
-    refute build(to_date: nil).valid_filter_params.keys.include? :to_date
-    refute build(organisations: []).valid_filter_params.keys.include? :organisations
-    refute build(topics: []).valid_filter_params.keys.include? :topics
+    refute build(keywords: nil).valid_filter_params.key?(:keywords)
+    refute build(from_date: nil).valid_filter_params.key?(:from_date)
+    refute build(to_date: nil).valid_filter_params.key?(:to_date)
+    refute build(organisations: []).valid_filter_params.key?(:organisations)
+    refute build(topics: []).valid_filter_params.key?(:topics)
   end
 
   test "#results should ask the provider for results, using #valid_filter_params + pagination params as search terms" do

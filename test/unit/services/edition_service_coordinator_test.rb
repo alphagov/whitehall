@@ -111,6 +111,6 @@ class EditionServiceCoordinatorTest < ActiveSupport::TestCase
     @service_coordinator.publish '1.a'
     @service_coordinator.publish 'Foo'
 
-    assert_equal [['1'], ['a.1'], ['1.a']], events
+    assert_equal [%w[1], ['a.1'], ['1.a']], events
   end
 end

@@ -53,7 +53,7 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
       "organisations" => ["cabinet-office"],
       "policy_areas" => ["home-affairs"],
       "display_type" => "Statistics",
-      "search_format_types" => ["statistics_announcement"],
+      "search_format_types" => %w[statistics_announcement],
       "format" => "statistics_announcement",
       "statistics_announcement_state" => "cancelled",
       "metadata" => {

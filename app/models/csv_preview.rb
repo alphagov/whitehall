@@ -77,7 +77,7 @@ private
   end
 
   def preview_rows
-    @preview ||= File.foreach(file_path).take(maximum_rows + 1).join
+    @preview_rows ||= File.foreach(file_path).take(maximum_rows + 1).join
   end
 
   def encoding

@@ -42,7 +42,7 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
     assert_equal "The summary", returned_announcement_hash["description"]
     assert_equal "the-title", returned_announcement_hash["slug"]
     assert_equal "Official Statistics", returned_announcement_hash["display_type"]
-    assert_equal ["statistics_announcement"], returned_announcement_hash["search_format_types"]
+    assert_equal %w[statistics_announcement], returned_announcement_hash["search_format_types"]
     assert_equal "statistics_announcement", returned_announcement_hash["format"]
     assert_equal announcement.organisations_slugs, returned_announcement_hash["organisations"]
     assert_equal announcement.topic_slugs, returned_announcement_hash["policy_areas"]

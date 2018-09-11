@@ -1,4 +1,3 @@
-
 class EditionForceScheduler < EditionScheduler
   def verb
     'force_schedule'

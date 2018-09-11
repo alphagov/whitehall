@@ -9,11 +9,11 @@ class Taxonomy::RedisCacheAdapterTest < ActiveSupport::TestCase
   end
 
   def redis_client
-    @client ||= stub
+    @redis_client ||= stub
   end
 
   def publishing_api_adapter
-    @adapter ||= stub
+    @publishing_api_adapter ||= stub
   end
 
   test "#rebuild_caches" do

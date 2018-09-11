@@ -91,6 +91,6 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
     # duplicate content_ids because it constructs a left outer join
     html_attachment.attachable.organisations.expects(:pluck).with(:content_id).returns(%w(abcdef abcdef))
 
-    assert_equal ["abcdef"], present(html_attachment).links[:organisations]
+    assert_equal %w[abcdef], present(html_attachment).links[:organisations]
   end
 end

@@ -194,7 +194,7 @@ private
     result = {}
     [Nation.scotland, Nation.wales, Nation.northern_ireland].each.with_index do |nation, index|
       h = result[index.to_s] = {
-        excluded: (nations_vs_urls.keys.include?(nation) ? "1" : "0"),
+        excluded: (nations_vs_urls.key?(nation) ? "1" : "0"),
         nation_id: nation
       }
       if (existing = existing_applicabilities.detect { |ea| ea.nation_id == nation.id })

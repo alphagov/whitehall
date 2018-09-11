@@ -70,7 +70,7 @@ module PublishingApi
 
     def additional_routes
       return [] if court_or_tribunal?
-      ["atom"]
+      %w[atom]
     end
 
     def details

@@ -83,7 +83,7 @@ private
 
   def no_reply_email_address
     name = "GOV.UK publishing"
-    if GovukAdminTemplate.environment_label !~ /production/i
+    if !/production/i.match?(GovukAdminTemplate.environment_label)
       name.prepend("[GOV.UK #{GovukAdminTemplate.environment_label}] ")
     end
 

@@ -35,6 +35,6 @@ private
   end
 
   def load_translatable_item
-    @organisation ||= Organisation.friendly.find(params[:organisation_id])
+    @organisation = Organisation.friendly.find(params[:organisation_id])
   end
 end

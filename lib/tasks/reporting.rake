@@ -38,7 +38,7 @@ namespace :reporting do
 
     csv = CSV.open("organisation_publishing_by_month-#{options[:start_date]}-#{options[:end_date]}.csv", 'w')
     csv << ([''] + months.map { |m| [m, m] }.flatten)
-    csv << (['Organisation'] + months.size.times.map { |_| %w{Published Updates} }.flatten)
+    csv << (%w[Organisation] + months.size.times.map { |_| %w{Published Updates} }.flatten)
 
     first_editions = Edition.
       order(:id).

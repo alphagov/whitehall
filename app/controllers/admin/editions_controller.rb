@@ -339,7 +339,7 @@ private
 
   def clear_scheduled_publication_if_not_activated
     if params[:scheduled_publication_active] && params[:scheduled_publication_active].to_i.zero?
-      edition_params.keys.each do |key| # rubocop:disable Performance/HashEachMethods
+      edition_params.keys.each do |key|
         if key.match?(/^scheduled_publication(\([0-9]i\))?/)
           edition_params.delete(key)
         end

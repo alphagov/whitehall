@@ -31,11 +31,11 @@ namespace :report_primary_organisation do
         end
 
         def filtered_editions(start_date)
-          @filtered ||= Edition.published.where("first_published_at >= ?", start_date)
+          @filtered_editions ||= Edition.published.where("first_published_at >= ?", start_date)
         end
 
         def progress_bar
-          @progress ||= ProgressBar.create(
+          @progress_bar ||= ProgressBar.create(
             autostart: false,
             format: "%e [%b>%i] [%c/%C]"
           )

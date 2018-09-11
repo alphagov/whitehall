@@ -71,7 +71,7 @@ class Unpublishing < ApplicationRecord
 private
 
   def alternative_uri
-    @_uri ||= begin
+    @alternative_uri ||= begin
       return if alternative_url.nil?
 
       Addressable::URI.parse(alternative_url)

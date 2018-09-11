@@ -10,11 +10,11 @@ class FormObject
   end
 
   def self.named(name)
-    @model_name ||= ActiveModel::Name.new(self, nil, name)
+    @named ||= ActiveModel::Name.new(self, nil, name)
   end
 
   def self.model_name
-    @model_name || super
+    @named || super
   end
 
   def persisted?

@@ -31,6 +31,6 @@ class TaxonomyTagForm
 private
 
   def topic_taxonomy
-    @_taxonomy ||= Taxonomy::TopicTaxonomy.new
+    @topic_taxonomy ||= Taxonomy::TopicTaxonomy.new
   end
 end

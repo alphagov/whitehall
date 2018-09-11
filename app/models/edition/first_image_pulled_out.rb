@@ -9,7 +9,7 @@ module Edition::FirstImagePulledOut
     }
   end
 
-  def image_disallowed_in_body_text?(i)
-    i == 1
+  def image_disallowed_in_body_text?(index)
+    index == 1
   end
 end

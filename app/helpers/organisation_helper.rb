@@ -196,12 +196,12 @@ module OrganisationHelper
     organisations.group_by(&:organisation_type).sort_by { |type, _department| type.listing_position }
   end
 
-  def extra_board_member_class(organisation, i)
+  def extra_board_member_class(organisation, index)
     clear_number = 3
     if organisation.important_board_members > 1
       clear_number = 4
     end
-    (i % clear_number).zero? ? 'clear-person' : ''
+    (index % clear_number).zero? ? 'clear-person' : ''
   end
 
   def array_of_links_to_organisations(organisations)

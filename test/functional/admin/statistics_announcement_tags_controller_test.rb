@@ -27,7 +27,7 @@ class Admin::StatisticsAnnouncementTagsControllerTest < ActionController::TestCa
     publishing_api_patch_request = stub_request(:patch, "#{@publishing_api_endpoint}/links/#{@announcement.content_id}")
       .with(
         body: {
-          links: { taxons: ["child"] },
+          links: { taxons: %w[child] },
           previous_version: "1"
         }
       ).to_return(status: 409)

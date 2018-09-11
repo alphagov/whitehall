@@ -29,7 +29,7 @@ private
   end
 
   def load_translatable_item
-    @person ||= Person.friendly.find(params[:person_id])
+    @person = Person.friendly.find(params[:person_id])
   end
 
   def translation_params

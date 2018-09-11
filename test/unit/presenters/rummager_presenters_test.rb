@@ -14,17 +14,17 @@ class RummagerPresentersTest < ActiveSupport::TestCase
   end
 
   test "RummagerPresenters.present_all_government_content includes WorldLocationNewsArticles" do
-    WorldLocationNewsArticle.stubs(search_index: ['world_location_news_articles_index'])
+    WorldLocationNewsArticle.stubs(search_index: %w[world_location_news_articles_index])
     assert RummagerPresenters.present_all_government_content.include?('world_location_news_articles_index')
   end
 
   test "RummagerPresenters.present_all_government_content includes WorldLocations" do
-    WorldLocation.stubs(search_index: ['world_locations_index'])
+    WorldLocation.stubs(search_index: %w[world_locations_index])
     assert RummagerPresenters.present_all_government_content.include?('world_locations_index')
   end
 
   test "RummagerPresenters.present_all_government_content includes WorldwideOrganisations" do
-    WorldwideOrganisation.stubs(search_index: ['worldwide_organisations_index'])
+    WorldwideOrganisation.stubs(search_index: %w[worldwide_organisations_index])
     assert RummagerPresenters.present_all_government_content.include?('worldwide_organisations_index')
   end
 

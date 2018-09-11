@@ -135,7 +135,7 @@ private
     def extract_contents
       unzip = Whitehall.system_binaries[:unzip]
       destination = File.join(self.temp_dir, 'extracted')
-      @unzip_output ||= `#{unzip} -o -d #{destination} #{self.temp_location.shellescape}`
+      @extract_contents ||= `#{unzip} -o -d #{destination} #{self.temp_location.shellescape}`
     end
 
     def must_be_a_zip_file

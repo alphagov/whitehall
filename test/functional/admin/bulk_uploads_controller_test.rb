@@ -7,9 +7,9 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
     @titles = []
   end
 
-  def params_for_attachment(attachment, i)
+  def params_for_attachment(attachment, index)
     file_cache = attachment.attachment_data.file_cache
-    @titles << "Title #{i}"
+    @titles << "Title #{index}"
     {
       title: @titles.last,
       attachment_data_attributes: { file_cache: file_cache }

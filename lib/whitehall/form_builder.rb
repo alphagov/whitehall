@@ -6,7 +6,7 @@ module Whitehall
       if calculate_required(method, options)
         unless !options[:required].nil? && options[:required] == false
           add_class_to_options(options, 'required')
-          text_override = text ? text : method.to_s.humanize
+          text_override = text || method.to_s.humanize
           text = "#{text_override}<span>*</span>".html_safe
         end
       end

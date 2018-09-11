@@ -29,7 +29,7 @@ private
   end
 
   def load_translatable_item
-    @role ||= Role.find(params[:role_id])
+    @role = Role.find(params[:role_id])
   end
 
   def translation_params

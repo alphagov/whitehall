@@ -6,6 +6,6 @@ class WorldwideOrganisationPresenter < Whitehall::Decorators::Decorator
   end
 
   def organisation_type
-    @other_type ||= OrganisationType.find_by_name('Other')
+    @organisation_type ||= OrganisationType.find_by_name('Other')
   end
 end

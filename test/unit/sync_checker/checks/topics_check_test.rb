@@ -278,7 +278,7 @@ module SyncChecker
       end
 
       def test_it_returns_an_error_if_there_are_unexpected_topics
-        tags = ["CORRECT_TOPIC_ID_ONE"]
+        tags = %w[CORRECT_TOPIC_ID_ONE]
         edition = stub(
           specialist_sector_tags: tags,
           primary_specialist_sector_tag: nil,

@@ -144,8 +144,8 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
   end
 
   test "#translated_locales lists only the attachment's locale" do
-    assert_equal ["en"], HtmlAttachment.new.translated_locales
-    assert_equal ["cy"], HtmlAttachment.new(locale: "cy").translated_locales
+    assert_equal %w[en], HtmlAttachment.new.translated_locales
+    assert_equal %w[cy], HtmlAttachment.new(locale: "cy").translated_locales
   end
 
   test "attachment with the same base path as a previously deleted attachment

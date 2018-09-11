@@ -80,10 +80,6 @@ module Whitehall
     @admin_root ||= Plek.new.external_url_for('whitehall-admin')
   end
 
-  # NOOP until alphagov-deployment is updated to not set this in the
-  # public_host.rb initializer
-  def self.public_host=(_); end
-
   def self.secrets
     @secrets ||= load_secrets
   end
@@ -143,11 +139,11 @@ module Whitehall
   end
 
   def self.edition_services
-    @edition_actions ||= EditionServiceCoordinator.new
+    @edition_services ||= EditionServiceCoordinator.new
   end
 
   def self.worldwide_tagging_organisations
-    @worldwide_taggable_organisations ||=
+    @worldwide_tagging_organisations ||=
       YAML.load_file(Rails.root + "config/worldwide_tagging_organisations.yml")
   end
 

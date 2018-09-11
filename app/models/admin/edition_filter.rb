@@ -50,7 +50,7 @@ module Admin
     end
 
     def show_stats
-      ['published'].include?(options[:state])
+      %w[published].include?(options[:state])
     end
 
     def published_count

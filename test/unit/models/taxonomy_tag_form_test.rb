@@ -60,6 +60,6 @@ class TaxonomyTagFormTest < ActiveSupport::TestCase
 
     form = TaxonomyTagForm.load(content_id)
 
-    assert_equal ['invisible_id'], form.invisible_taxons
+    assert_equal %w[invisible_id], form.invisible_taxons
   end
 end

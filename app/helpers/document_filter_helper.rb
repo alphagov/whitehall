@@ -1,18 +1,18 @@
 module DocumentFilterHelper
   def topic_filter_options(selected_topics = [])
-    selected_values = selected_topics.any? ? selected_topics.map(&:slug) : ["all"]
+    selected_values = selected_topics.any? ? selected_topics.map(&:slug) : %w[all]
     options_for_select([filter_options.for(:topics).all], selected_values) +
       unsorted_grouped_options_for_select(filter_options.for(:topics).grouped, selected_values)
   end
 
   def organisation_filter_options(selected_organisations = [])
-    selected_values = selected_organisations.any? ? selected_organisations.map(&:slug) : ["all"]
+    selected_values = selected_organisations.any? ? selected_organisations.map(&:slug) : %w[all]
     options_for_select([filter_options.for(:organisations).all], selected_values) +
       unsorted_grouped_options_for_select(filter_options.for(:organisations).grouped, selected_values)
   end
 
   def people_filter_options(selected_people = [])
-    selected_value = selected_people ? selected_people.map(&:slug) : ["all"]
+    selected_value = selected_people ? selected_people.map(&:slug) : %w[all]
     filter_option_html(filter_options.for(:people), selected_value)
   end
 
@@ -27,7 +27,7 @@ module DocumentFilterHelper
   end
 
   def locations_options(_document_type, selected_locations = [])
-    selected_values = selected_locations.any? ? selected_locations.map(&:slug) : ["all"]
+    selected_values = selected_locations.any? ? selected_locations.map(&:slug) : %w[all]
     filter_option_html(filter_options.for(:locations), selected_values)
   end
 

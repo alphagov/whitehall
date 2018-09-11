@@ -31,10 +31,10 @@ module HasCorporateInformationPages
   end
 
   def about_us
-    @about ||= corporate_information_pages.published.for_slug('about')
+    @about_us ||= corporate_information_pages.published.for_slug('about')
   end
 
   def draft_about_us
-    @draft_about ||= corporate_information_pages.draft.for_slug('about')
+    @draft_about_us ||= corporate_information_pages.draft.for_slug('about')
   end
 end

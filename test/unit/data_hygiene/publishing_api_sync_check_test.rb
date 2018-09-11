@@ -129,7 +129,7 @@ class DataHygiene::PublishingApiSyncCheckTest < ActiveSupport::TestCase
       [
         check_failure(
           base_path: "/government/get-involved/take-part/take-part-slug",
-          failed_expectations: ["format"],
+          failed_expectations: %w[format],
         )
       ] * 2,
       check.failures

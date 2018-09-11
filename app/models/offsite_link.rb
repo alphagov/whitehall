@@ -1,7 +1,7 @@
 class OffsiteLink < ApplicationRecord
   module LinkTypes
     def self.all
-      @types ||= %w(alert blog_post campaign careers manual nhs_content service)
+      @all ||= %w(alert blog_post campaign careers manual nhs_content service)
     end
 
     def self.humanize(link_type)

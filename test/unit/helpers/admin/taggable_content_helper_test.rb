@@ -272,6 +272,6 @@ private
   # means we need to clear the stored value if we want to test that they
   # are recalculated correctly between requests
   def clear_memoization_for(digest_name)
-    remove_instance_variable("@_#{digest_name}".to_sym)
+    remove_instance_variable("@#{digest_name}".to_sym)
   end
 end

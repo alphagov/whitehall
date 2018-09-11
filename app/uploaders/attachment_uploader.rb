@@ -5,7 +5,7 @@ class AttachmentUploader < WhitehallUploader
   INDEXABLE_TYPES = %w(csv doc docx ods odp odt pdf ppt pptx rdf rtf txt xls xlsx xml).freeze
 
   THUMBNAIL_GENERATION_TIMEOUT = 10.seconds
-  FALLBACK_PDF_THUMBNAIL = File.expand_path("../../assets/images/pub-cover.png", __FILE__)
+  FALLBACK_PDF_THUMBNAIL = File.expand_path('../assets/images/pub-cover.png', __dir__)
   EXTENSION_WHITELIST = %w(chm csv diff doc docx dot dxf eps gif gml ics jpg kml odp ods odt pdf png ppt pptx ps rdf ris rtf sch txt vcf wsdl xls xlsm xlsx xlt xml xsd xslt zip).freeze
 
   before :cache, :validate_zipfile_contents!
@@ -235,7 +235,7 @@ class AttachmentUploader < WhitehallUploader
     examiners = [
       ZipFile::UTF8FilenamesExaminer.new(zip_file),
       ZipFile::AnyValidExaminer.new(zip_file, [
-        ZipFile::WhitelistedExtensionsExaminer.new(zip_file, extension_whitelist - ['zip']),
+        ZipFile::WhitelistedExtensionsExaminer.new(zip_file, extension_whitelist - %w[zip]),
         ZipFile::ArcGISShapefileExaminer.new(zip_file)
       ])
     ]

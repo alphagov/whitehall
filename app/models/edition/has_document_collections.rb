@@ -1,4 +1,3 @@
-
 module Edition::HasDocumentCollections
   extend ActiveSupport::Concern
 

@@ -13,13 +13,13 @@ class ApplicationHelperTest < ActionView::TestCase
 
   test "#policies_finder_path escapes provided query params" do
     assert_equal "/government/policies?organisations%5B%5D=slug",
-      policies_finder_path(organisations: ['slug'])
+      policies_finder_path(organisations: %w[slug])
 
     assert_equal "/government/policies?organisations%5B%5D=slug1&organisations%5B%5D=slug2",
       policies_finder_path(organisations: %w[slug1 slug2])
 
     assert_equal "/government/policies?keywords=word&organisations%5B%5D=slug1",
-      policies_finder_path(keywords: 'word', organisations: ['slug1'])
+      policies_finder_path(keywords: 'word', organisations: %w[slug1])
   end
 
   test '#link_to_attachment returns nil when attachment is nil' do
