@@ -44,7 +44,6 @@ $ bundle exec rake
 - [Internationalisation](docs/internationalisation_guide.md)
 - [JavaScript](docs/javascript.md)
 - [Local assets](docs/local_asset_setup_guide.md)
-- [Migration sync checks](docs/migration_sync_checks.md)
 - [Search setup guide](docs/search_setup_guide.md)
 - [Testing guide](docs/testing_guide.md)
 - [Timestamps](docs/timestamps.md)
