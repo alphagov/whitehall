@@ -60,7 +60,7 @@
 
   <div class="block-3">
     <div class="inner-block" id="responsibilities">
-      <%= content_tag_for :section, @ministerial_role, class: "responsibilities" do %>
+      <%= content_tag_for :section, @ministerial_role, 'responsibilities_for', class: "responsibilities" do %>
         <h1><%= t('roles.headings.responsibilities') %></h1>
         <%= @ministerial_role.responsibilities %>
       <% end %>
