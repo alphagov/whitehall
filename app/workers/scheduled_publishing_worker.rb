@@ -42,7 +42,7 @@ class ScheduledPublishingWorker < WorkerBase
 
   def perform(edition_id)
     edition = Edition.find(edition_id)
-    return if edition.published?
+    return if edition.published? || !edition.scheduled?
 
     # Call `ScheduledEditionPublisher` via the `EditionServiceCoordinator`.
     publisher = Whitehall.edition_services.scheduled_publisher(edition)
