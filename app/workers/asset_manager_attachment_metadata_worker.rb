@@ -16,6 +16,8 @@ class AssetManagerAttachmentMetadataWorker < WorkerBase
 
     AttachmentData.where(replaced_by: attachment_data).find_each do |replaced_attachment_data|
       AssetManager::AttachmentUpdater.call(replaced_attachment_data, replacement_id: true)
+    rescue AssetManager::ServiceHelper::AssetNotFound => exception
+      logger.warn("AssetManagerAttachmentMetadataWorker: #{exception}")
     end
   end
 end
