@@ -35,7 +35,7 @@ class AttachmentDataReporter
       csv << ["Slug", "Organisations", "Total attachments", "Accessible attachments", "Content types", "Combined size"]
       published_editions_with_attachments.each do |edition|
         csv << [edition.document.slug, edition.organisations.map(&:name).join(","), edition.attachments.size,
-                accessible_details(edition.attachments), content_type_details(edition.attachments),
+                accessible_details(edition.attachments), content_type_details(edition.attachments.to_a),
                 combined_attachments_file_size(edition.attachments)]
       end
     end
