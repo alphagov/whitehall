@@ -31,12 +31,34 @@ class AttachmentDataReporter
   end
 
   def report
-    CSV.open(csv_file_path, 'wb') do |csv|
+    CSV.open(csv_file_path('upload-report'), 'wb') do |csv|
       csv << ["Slug", "Organisations", "Total attachments", "Accessible attachments", "Content types", "Combined size"]
       published_editions_with_attachments.each do |edition|
         csv << [edition.document.slug, edition.organisations.map(&:name).join(","), edition.attachments.size,
                 accessible_details(edition.attachments), content_type_details(edition.attachments.to_a),
                 combined_attachments_file_size(edition.attachments)]
+      end
+    end
+  end
+
+  def attachment_upload_report
+    CSV.open(csv_file_path, 'wb') do |csv|
+      csv << ["Attached date", "Document title", "Document path", "Attachment title", "Organisations", "Mime type", "Filename"]
+
+      published_editions_with_attachments.each do |edition|
+        edition.attachments.each do |attachment|
+          if attachment.attachment_data
+            csv << [
+              attachment.created_at,
+              edition.title,
+              Whitehall::UrlMaker.new.public_document_path(edition),
+              attachment.title,
+              edition.organisations.map(&:name).join(","),
+              attachment.attachment_data.content_type,
+              attachment.attachment_data.carrierwave_file
+            ]
+          end
+        end
       end
     end
   end
