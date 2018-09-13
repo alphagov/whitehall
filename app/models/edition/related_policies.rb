@@ -70,6 +70,6 @@ module Edition::RelatedPolicies
   end
 
   def has_policies?
-    policy_content_ids.any?
+    policies.any?
   end
 end
