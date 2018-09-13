@@ -31,7 +31,7 @@ class AttachmentDataReporter
   end
 
   def report
-    CSV.open(csv_file_path('upload-report'), 'wb') do |csv|
+    CSV.open(csv_file_path, 'wb') do |csv|
       csv << ["Slug", "Organisations", "Total attachments", "Accessible attachments", "Content types", "Combined size"]
       published_editions_with_attachments.each do |edition|
         csv << [edition.document.slug, edition.organisations.map(&:name).join(","), edition.attachments.size,
@@ -42,23 +42,32 @@ class AttachmentDataReporter
   end
 
   def attachment_upload_report
-    CSV.open(csv_file_path, 'wb') do |csv|
-      csv << ["Attached date", "Document title", "Document path", "Attachment title", "Organisations", "Mime type", "Filename"]
+    sql = <<-SQL.strip_heredoc
+      SELECT a.created_at,
+             et.title,
+             d.slug,
+             a.title,
+             ot.name,
+             ad.content_type,
+             ad.carrierwave_file
+      FROM documents d
+      JOIN editions e ON e.document_id = d.id
+      JOIN edition_translations et ON e.id = et.edition_id
+      JOIN attachments a ON a.attachable_id = e.id AND a.attachable_type = 'Edition'
+      JOIN attachment_data ad ON a.attachment_data_id = ad.id
+      JOIN edition_organisations eo ON eo.edition_id = e.id AND eo.lead = TRUE
+      JOIN organisations o ON eo.organisation_id = o.id
+      JOIN organisation_translations ot ON o.id = ot.organisation_id
+      WHERE e.state = 'published'
+      AND a.created_at BETWEEN '#{start_date.strftime('%Y-%m-%d %H:%M:%S')}' AND '#{end_date.strftime('%Y-%m-%d %H:%M:%S')}'
+    SQL
 
-      published_editions_with_attachments.each do |edition|
-        edition.attachments.each do |attachment|
-          if attachment.attachment_data
-            csv << [
-              attachment.created_at,
-              edition.title,
-              Whitehall::UrlMaker.new.public_document_path(edition),
-              attachment.title,
-              edition.organisations.map(&:name).join(","),
-              attachment.attachment_data.content_type,
-              attachment.attachment_data.carrierwave_file
-            ]
-          end
-        end
+    results = ActiveRecord::Base.connection.execute(sql)
+
+    CSV.open(csv_file_path('upload-report'), 'wb') do |csv|
+      csv << ["Attached date", "Document title", "Document path", "Attachment title", "Organisation", "Mime type", "Filename"]
+      results.each do |result|
+        csv << result
       end
     end
   end
