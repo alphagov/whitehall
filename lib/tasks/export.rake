@@ -167,6 +167,8 @@ namespace :export do
     scope.find_each.with_index do |document, index|
       puts "#{index + 1}/#{total} exported", STDERR if ((index + 1) % 100).zero?
       puts ExportNewsDocument.new(document).call.to_json
+    rescue Errno::EPIPE
+      break # Can't do much about this, so just break
     end
   end
 end
