@@ -20,11 +20,10 @@ class ScheduledPublishingWorkerTest < ActiveSupport::TestCase
   test '#perform raises an error if the edition cannot be published' do
     edition = create(:superseded_edition)
 
-    exception = assert_raise(ScheduledPublishingWorker::ScheduledPublishingFailure) do
-      ScheduledPublishingWorker.new.perform(edition.id)
-    end
+    Whitehall.edition_services.expects(:scheduled_publisher).never
 
-    assert_equal 'Only scheduled editions can be published with ScheduledEditionPublisher', exception.message
+    ScheduledPublishingWorker.new.perform(edition.id)
+
     assert edition.reload.superseded?
   end
 
