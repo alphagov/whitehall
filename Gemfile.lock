@@ -589,7 +589,6 @@ DEPENDENCIES
   bootsnap
   bootstrap-kaminari-views (= 0.0.5)
   bourne
-  capybara
   carrierwave (~> 1.2.3)
   carrierwave-i18n
   chronic

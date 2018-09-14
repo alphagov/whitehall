@@ -138,7 +138,6 @@ end
 
 group :cucumber, :test do
   gem 'bourne'
-  gem 'capybara'
   gem 'cucumber', '~> 2.4.0'
   gem 'cucumber-rails', require: false
   gem 'govuk_test'
