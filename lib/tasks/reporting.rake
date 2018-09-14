@@ -19,6 +19,11 @@ namespace :reporting do
     AttachmentDataReporter.new(opts_from_environment(:data_path, :start_date, :end_date)).report
   end
 
+  desc "A report of attachment uploads with related document title and path"
+  task attachment_upload_report: :environment do
+    AttachmentDataReporter.new(opts_from_environment(:data_path, :start_date, :end_date)).attachment_upload_report
+  end
+
   desc "A report of collection statistics by organisation as CSV"
   task collections_report: :environment do
     CollectionDataReporter.new(ENV.fetch('OUTPUT_DIR', './tmp')).report

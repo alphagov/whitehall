@@ -6,7 +6,7 @@ class AttachmentDataReporter
   attr_reader :data_path, :start_date, :end_date
 
   def initialize(opts = {})
-    @data_path  = opts.fetch(:data_path, Rails.root)
+    @data_path  = opts.fetch(:data_path, Rails.root.join("tmp"))
     @start_date = Date.parse(opts.fetch(:start_date, 1.month.ago.to_s))
     @end_date   = Date.parse(opts.fetch(:end_date,   1.day.since.to_s))
   end
@@ -37,6 +37,37 @@ class AttachmentDataReporter
         csv << [edition.document.slug, edition.organisations.map(&:name).join(","), edition.attachments.size,
                 accessible_details(edition.attachments), content_type_details(edition.attachments.to_a),
                 combined_attachments_file_size(edition.attachments)]
+      end
+    end
+  end
+
+  def attachment_upload_report
+    sql = <<-SQL.strip_heredoc
+      SELECT a.created_at,
+             et.title,
+             d.slug,
+             a.title,
+             ot.name,
+             ad.content_type,
+             ad.carrierwave_file
+      FROM documents d
+      JOIN editions e ON e.document_id = d.id
+      JOIN edition_translations et ON e.id = et.edition_id
+      JOIN attachments a ON a.attachable_id = e.id AND a.attachable_type = 'Edition'
+      JOIN attachment_data ad ON a.attachment_data_id = ad.id
+      JOIN edition_organisations eo ON eo.edition_id = e.id AND eo.lead = TRUE
+      JOIN organisations o ON eo.organisation_id = o.id
+      JOIN organisation_translations ot ON o.id = ot.organisation_id
+      WHERE e.state = 'published'
+      AND a.created_at BETWEEN '#{start_date.strftime('%Y-%m-%d %H:%M:%S')}' AND '#{end_date.strftime('%Y-%m-%d %H:%M:%S')}'
+    SQL
+
+    results = ActiveRecord::Base.connection.execute(sql)
+
+    CSV.open(csv_file_path('upload-report'), 'wb') do |csv|
+      csv << ["Attached date", "Document title", "Document path", "Attachment title", "Organisation", "Mime type", "Filename"]
+      results.each do |result|
+        csv << result
       end
     end
   end
