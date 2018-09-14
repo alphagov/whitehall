@@ -45,13 +45,11 @@ class AttachmentDataReporter
     sql = <<-SQL.strip_heredoc
       SELECT a.created_at,
              et.title,
-             d.slug,
              a.title,
              ot.name,
              ad.content_type,
              ad.carrierwave_file
-      FROM documents d
-      JOIN editions e ON e.document_id = d.id
+      FROM editions e
       JOIN edition_translations et ON e.id = et.edition_id
       JOIN attachments a ON a.attachable_id = e.id AND a.attachable_type = 'Edition'
       JOIN attachment_data ad ON a.attachment_data_id = ad.id
@@ -60,12 +58,13 @@ class AttachmentDataReporter
       JOIN organisation_translations ot ON o.id = ot.organisation_id
       WHERE e.state = 'published'
       AND a.created_at BETWEEN '#{start_date.strftime('%Y-%m-%d %H:%M:%S')}' AND '#{end_date.strftime('%Y-%m-%d %H:%M:%S')}'
+      ORDER BY a.created_at DESC
     SQL
 
     results = ActiveRecord::Base.connection.execute(sql)
 
     CSV.open(csv_file_path('upload-report'), 'wb') do |csv|
-      csv << ["Attached date", "Document title", "Document path", "Attachment title", "Organisation", "Mime type", "Filename"]
+      csv << ["Attached date", "Document title", "Attachment title", "Organisation", "Mime type", "Filename"]
       results.each do |result|
         csv << result
       end
