@@ -69,7 +69,7 @@ class PublishingApi::PersonPresenterTest < ActiveSupport::TestCase
       ordered_previous_appointments: [previous_role_appointment.content_id],
     }
 
-    presented_item = present(person)
+    presented_item = present(person.reload)
 
     assert_equal expected_hash, presented_item.content
     assert_hash_includes presented_item.links, expected_links

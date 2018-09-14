@@ -49,7 +49,7 @@ module ServiceListeners
 
     test "publish publishes" do
       edition = build(:publication, document: build(:document))
-      Whitehall::PublishingApi.expects(:publish_async).with(edition)
+      Whitehall::PublishingApi.expects(:publish).with(edition)
       stub_html_attachment_pusher(edition, "publish")
       stub_publications_pusher(edition, "publish")
       Sidekiq::Testing.inline! do
@@ -59,7 +59,7 @@ module ServiceListeners
 
     test "force_publish publishes" do
       edition = build(:publication, document: build(:document))
-      Whitehall::PublishingApi.expects(:publish_async).with(edition)
+      Whitehall::PublishingApi.expects(:publish).with(edition)
       stub_html_attachment_pusher(edition, "force_publish")
       stub_publications_pusher(edition, "force_publish")
       Sidekiq::Testing.inline! do
@@ -167,7 +167,7 @@ module ServiceListeners
       new_edition = res[:draft_edition]
       fr = res[:deleted_translation]
 
-      Whitehall::PublishingApi.expects(:publish_async).with(new_edition)
+      Whitehall::PublishingApi.expects(:publish).with(new_edition)
       stub_html_attachment_pusher(new_edition, "publish")
 
       pusher = mock

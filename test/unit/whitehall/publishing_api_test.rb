@@ -17,57 +17,51 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     stub_any_publishing_api_publish
   end
 
-  test ".publish_async publishes an Edition with the Publishing API" do
+  test ".publish publishes an Edition with the Publishing API" do
     edition = create(:published_publication)
     presenter = PublishingApiPresenters.presenter_for(edition)
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: presenter.update_type)
+      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil)
     ]
 
-    Sidekiq::Testing.inline! do
-      Whitehall::PublishingApi.publish_async(edition)
-    end
+    Whitehall::PublishingApi.publish(edition)
 
     assert_all_requested(requests)
   end
 
-  test ".publish_async publishes non-Edition instances with the Publishing API" do
+  test ".publish publishes non-Edition instances with the Publishing API" do
     organisation = create(:organisation)
     WebMock.reset! # because creating an organisation also pushes to Publishing API
     presenter = PublishingApiPresenters.presenter_for(organisation)
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: presenter.update_type)
+      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil)
     ]
 
-    Sidekiq::Testing.inline! do
-      Whitehall::PublishingApi.publish_async(organisation)
-    end
+    Whitehall::PublishingApi.publish(organisation)
 
     assert_all_requested(requests)
   end
 
-  test ".publish_async sends case studies to the content store" do
+  test ".publish sends case studies to the content store" do
     edition = create(:published_case_study)
 
     presenter = PublishingApiPresenters.presenter_for(edition)
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: presenter.update_type)
+      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil)
     ]
 
-    Sidekiq::Testing.inline! do
-      Whitehall::PublishingApi.publish_async(edition)
-    end
+    Whitehall::PublishingApi.publish(edition)
 
     assert_all_requested(requests)
   end
 
-  test ".publish_async publishes all available translations of a translatable model" do
+  test ".publish publishes all available translations of a translatable model" do
     organisation = create(:organisation)
     presenter = PublishingApiPresenters.presenter_for(organisation)
 
@@ -78,37 +72,22 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
       [
         stub_publishing_api_put_content(presenter.content_id, presenter.content),
-        stub_publishing_api_publish(presenter.content_id, locale: 'fr', update_type: 'major')
+        stub_publishing_api_publish(presenter.content_id, locale: 'fr', update_type: nil)
       ]
     end
 
     english_requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_publish(presenter.content_id, locale: 'en', update_type: 'major')
+      stub_publishing_api_publish(presenter.content_id, locale: 'en', update_type: nil)
     ]
 
     links_request = stub_publishing_api_patch_links(presenter.content_id, links: presenter.links)
 
-    Sidekiq::Testing.inline! do
-      Whitehall::PublishingApi.publish_async(organisation)
-    end
+    Whitehall::PublishingApi.publish(organisation)
 
     assert_all_requested(french_requests)
     assert_all_requested(english_requests)
     assert_requested(links_request, times: 2)
-  end
-
-  test ".publish_async propagates update_type and queue overrides to worker" do
-    queue_name = "bang"
-    update_type = "whizzo"
-
-    edition = create(:published_case_study)
-
-    PublishingApiWorker.expects(:perform_async_in_queue)
-      .with(queue_name, edition.class.name, edition.id,
-            update_type, edition.primary_locale.to_sym)
-
-    Whitehall::PublishingApi.publish_async(edition, update_type, queue_name)
   end
 
   test ".republish_async publishes to the Publishing API as a 'republish' update_type" do
@@ -119,7 +98,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: 'republish')
+      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil)
     ]
 
     Sidekiq::Testing.inline! do
@@ -140,13 +119,13 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
       [
         stub_publishing_api_put_content(presenter.content_id, presenter.content),
-        stub_publishing_api_publish(presenter.content_id, locale: 'fr', update_type: 'republish')
+        stub_publishing_api_publish(presenter.content_id, locale: 'fr', update_type: nil)
       ]
     end
 
     english_requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_publish(presenter.content_id, locale: 'en', update_type: 'republish')
+      stub_publishing_api_publish(presenter.content_id, locale: 'en', update_type: nil)
     ]
 
     links_request = stub_publishing_api_patch_links(presenter.content_id, links: presenter.links)
@@ -175,7 +154,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: 'republish')
+      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil)
     ]
 
     Sidekiq::Testing.inline! do
@@ -206,8 +185,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: 'republish'),
-      stub_publishing_api_publish(html_attachment_content_id, locale: presenter.content[:locale], update_type: 'republish')
+      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil),
+      stub_publishing_api_publish(html_attachment_content_id, locale: presenter.content[:locale], update_type: nil)
     ]
 
     Sidekiq::Testing.inline! do

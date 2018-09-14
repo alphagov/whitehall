@@ -13,7 +13,7 @@ module PublishingApiTestHelpers
       presenter = PublishingApiPresenters.presenter_for(edition)
       stub_publishing_api_put_content(presenter.content_id, presenter.content)
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links)
-      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: 'major')
+      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil)
     end
   end
 
@@ -25,7 +25,7 @@ module PublishingApiTestHelpers
       Services.publishing_api.stubs(:patch_links)
         .with(edition.content_id, has_entries(links: anything))
       Services.publishing_api.expects(:publish)
-        .with(edition.content_id, 'major', locale: "en")
+        .with(edition.content_id, nil, locale: "en")
     end
   end
 
@@ -37,7 +37,7 @@ module PublishingApiTestHelpers
       Services.publishing_api.stubs(:patch_links)
         .with(edition.content_id, has_entries(links: anything))
       Services.publishing_api.expects(:publish)
-        .with(edition.content_id, 'republish', locale: "en")
+        .with(edition.content_id, nil, locale: "en")
     end
   end
 

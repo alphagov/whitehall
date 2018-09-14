@@ -70,12 +70,12 @@ module Organisation::OrganisationTypeConcern
   alias_method :type=, :organisation_type=
 
   def supporting_bodies
-    @supporting_bodies ||=
-      child_organisations.
+    child_organisations.
       excluding_govuk_status_closed.
       excluding_courts_and_tribunals.
       excluding_sub_organisations.
-      with_translations(I18n.locale).ordered_by_name_ignoring_prefix
+      with_translations(I18n.locale).
+      ordered_by_name_ignoring_prefix
   end
 
   def supporting_bodies_grouped_by_type

@@ -68,7 +68,7 @@ class PersonTest < ActiveSupport::TestCase
   test '#previous_role_appointments include appointments that have ended' do
     person = create(:person)
     role_appointment = create(:ministerial_role_appointment, person: person, started_at: 1.year.ago, ended_at: 1.day.ago)
-    assert_equal [role_appointment], person.previous_role_appointments
+    assert_equal [role_appointment], person.reload.previous_role_appointments
   end
 
   test '#previous_role_appointments excludes current appointments' do
@@ -81,7 +81,7 @@ class PersonTest < ActiveSupport::TestCase
     person = create(:person)
     older_appointment = create(:ministerial_role_appointment, person: person, started_at: 2.year.ago, ended_at: 1.year.ago)
     newer_appointment = create(:ministerial_role_appointment, person: person, started_at: 1.year.ago, ended_at: 1.day.ago)
-    assert_equal [newer_appointment, older_appointment], person.previous_role_appointments
+    assert_equal [newer_appointment, older_appointment], person.reload.previous_role_appointments
   end
 
   test '#organisations includes organisations linked through current ministerial roles' do

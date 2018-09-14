@@ -13,12 +13,10 @@ class PublishingTest < ActiveSupport::TestCase
     requests = [
       stub_publishing_api_put_content(@presenter.content_id, @presenter.content),
       stub_publishing_api_patch_links(@presenter.content_id, links: @presenter.links),
-      stub_publishing_api_publish(@presenter.content_id, locale: 'en', update_type: 'major')
+      stub_publishing_api_publish(@presenter.content_id, locale: 'en', update_type: nil)
     ]
 
-    Sidekiq::Testing.inline! do
-      perform_force_publishing_for(@draft_edition)
-    end
+    perform_force_publishing_for(@draft_edition)
 
     assert_all_requested(requests)
   end
@@ -30,20 +28,18 @@ class PublishingTest < ActiveSupport::TestCase
 
       [
         stub_publishing_api_put_content(@presenter.content_id, @presenter.content),
-        stub_publishing_api_publish(@presenter.content_id, locale: 'fr', update_type: 'major')
+        stub_publishing_api_publish(@presenter.content_id, locale: 'fr', update_type: nil)
       ]
     end
 
     english_requests = [
       stub_publishing_api_put_content(@presenter.content_id, @presenter.content),
-      stub_publishing_api_publish(@presenter.content_id, locale: 'en', update_type: 'major')
+      stub_publishing_api_publish(@presenter.content_id, locale: 'en', update_type: nil)
     ]
 
     links_request = stub_publishing_api_patch_links(@presenter.content_id, links: @presenter.links)
 
-    Sidekiq::Testing.inline! do
-      perform_force_publishing_for(@draft_edition)
-    end
+    perform_force_publishing_for(@draft_edition)
 
     assert_all_requested(english_requests)
     assert_all_requested(french_requests)

@@ -11,7 +11,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, update_type: "major", locale: "en")
+      stub_publishing_api_publish(presenter.content_id, update_type: nil, locale: "en")
     ]
 
     PublishingApiWorker.new.perform(edition.class.name, edition.id)
@@ -25,7 +25,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, update_type: "major", locale: "en")
+      stub_publishing_api_publish(presenter.content_id, update_type: nil, locale: "en")
     ]
 
     PublishingApiWorker.new.perform(edition.class.name, edition.id)
@@ -41,7 +41,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
       requests = [
         stub_publishing_api_put_content(presenter.content_id, presenter.content),
         stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-        stub_publishing_api_publish(presenter.content_id, update_type: "major", locale: "en")
+        stub_publishing_api_publish(presenter.content_id, update_type: nil, locale: "en")
       ]
 
       PublishingApiWorker.new.perform(organisation.class.name, organisation.id)
@@ -64,7 +64,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, update_type: update_type, locale: "en")
+      stub_publishing_api_publish(presenter.content_id, update_type: nil, locale: "en")
     ]
 
     PublishingApiWorker.new.perform(edition.class.name, edition.id, update_type)
@@ -84,7 +84,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
         [
           stub_publishing_api_put_content(presenter.content_id, presenter.content),
           stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-          stub_publishing_api_publish(presenter.content_id, locale: "es", update_type: "major")
+          stub_publishing_api_publish(presenter.content_id, locale: "es", update_type: nil)
         ]
       end
 

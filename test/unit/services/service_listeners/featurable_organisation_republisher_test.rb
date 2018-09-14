@@ -8,7 +8,7 @@ class ServiceListeners::FeaturableOrganisationRepublisherTest < ActiveSupport::T
   test 'republish organisation to Publishing API' do
     organisation = create(:organisation, :with_feature_list, :with_published_edition)
 
-    feature_list = organisation.feature_lists.sample
+    feature_list = organisation.feature_lists.first
     published_edition = organisation.published_editions.sample
 
     create(:feature, document: published_edition.document, feature_list: feature_list)

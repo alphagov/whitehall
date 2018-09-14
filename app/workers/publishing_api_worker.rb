@@ -25,7 +25,7 @@ private
   def send_item(payload, locale)
     save_draft(payload)
     Services.publishing_api.patch_links(payload.content_id, links: payload.links)
-    Services.publishing_api.publish(payload.content_id, payload.update_type, locale: locale)
+    Services.publishing_api.publish(payload.content_id, nil, locale: locale)
   end
 
   def save_draft(payload)

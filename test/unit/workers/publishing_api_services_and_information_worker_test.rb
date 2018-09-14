@@ -17,8 +17,8 @@ class PublishingApiServicesAndInformationWorkerTest < ActiveSupport::TestCase
 
     put_content_request = stub_publishing_api_put_content("a-content-id", @payload.content)
     publish_request = stub_publishing_api_publish("a-content-id",
-                                                  update_type: "minor",
-                                                  locale: "en")
+                                                  locale: "en",
+                                                  update_type: nil)
     patch_links_request = stub_publishing_api_patch_links("a-content-id", links: @payload.links)
 
     PublishingApiServicesAndInformationWorker.new.perform(@organisation.id)
@@ -33,7 +33,7 @@ class PublishingApiServicesAndInformationWorkerTest < ActiveSupport::TestCase
 
     put_content_request = stub_publishing_api_put_content("a-content-id", @payload.content)
     publish_request = stub_publishing_api_publish("a-content-id",
-                                                  update_type: "minor",
+                                                  update_type: nil,
                                                   locale: "en")
     patch_links_request = stub_publishing_api_patch_links("a-content-id", links: @payload.links)
 
@@ -53,7 +53,7 @@ class PublishingApiServicesAndInformationWorkerTest < ActiveSupport::TestCase
 
     put_content_request = stub_publishing_api_put_content("another-content-id", @payload.content)
     publish_request = stub_publishing_api_publish("another-content-id",
-                                                  update_type: "minor",
+                                                  update_type: nil,
                                                   locale: "en")
     patch_links_request = stub_publishing_api_patch_links("another-content-id", links: @payload.links)
 

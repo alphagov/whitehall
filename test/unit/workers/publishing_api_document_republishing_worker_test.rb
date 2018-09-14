@@ -64,9 +64,9 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
     presenter = PublishingApiPresenters.presenter_for(edition, update_type: 'republish')
     requests = [
       stub_publishing_api_put_content(document.content_id, with_locale(:en) { presenter.content }),
-      stub_publishing_api_publish(document.content_id, locale: 'en', update_type: 'republish'),
+      stub_publishing_api_publish(document.content_id, locale: 'en', update_type: nil),
       stub_publishing_api_put_content(document.content_id, with_locale(:es) { presenter.content }),
-      stub_publishing_api_publish(document.content_id, locale: 'es', update_type: 'republish')
+      stub_publishing_api_publish(document.content_id, locale: 'es', update_type: nil)
     ]
     # Have to separate this as we need to manually assert it was done twice. If
     # we split the pushing of links into a separate job, then we would only push

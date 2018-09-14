@@ -14,7 +14,7 @@ module PublishesToPublishingApi
 
   def publish_to_publishing_api
     run_callbacks :published do
-      Whitehall::PublishingApi.publish_async(self)
+      Whitehall::PublishingApi.publish(self)
     end
   end
 
