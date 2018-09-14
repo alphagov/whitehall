@@ -18,7 +18,7 @@ class OperationalFieldPublishingTest < ActiveSupport::TestCase
 
       assert_publishing_api_publish(
         operational_field.content_id,
-        { update_type: 'major', locale: 'en' },
+        { update_type: nil, locale: 'en' },
         1
       )
     end

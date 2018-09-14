@@ -37,7 +37,7 @@ module OrganisationResluggerTest
       expected_publish_requests = [
         stub_publishing_api_put_content(content_item.content_id, content_item.content),
         stub_publishing_api_patch_links(content_item.content_id, links: content_item.links),
-        stub_publishing_api_publish(content_item.content_id, locale: 'en', update_type: 'major')
+        stub_publishing_api_publish(content_item.content_id, locale: 'en', update_type: nil)
       ]
 
       Sidekiq::Testing.inline! do

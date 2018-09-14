@@ -23,7 +23,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: presenter.update_type)
+      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil)
     ]
 
     Whitehall::PublishingApi.publish(edition)
@@ -38,7 +38,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: presenter.update_type)
+      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil)
     ]
 
     Whitehall::PublishingApi.publish(organisation)
@@ -53,7 +53,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: presenter.update_type)
+      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil)
     ]
 
     Whitehall::PublishingApi.publish(edition)
@@ -72,13 +72,13 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
       [
         stub_publishing_api_put_content(presenter.content_id, presenter.content),
-        stub_publishing_api_publish(presenter.content_id, locale: 'fr', update_type: 'major')
+        stub_publishing_api_publish(presenter.content_id, locale: 'fr', update_type: nil)
       ]
     end
 
     english_requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_publish(presenter.content_id, locale: 'en', update_type: 'major')
+      stub_publishing_api_publish(presenter.content_id, locale: 'en', update_type: nil)
     ]
 
     links_request = stub_publishing_api_patch_links(presenter.content_id, links: presenter.links)
@@ -98,7 +98,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: 'republish')
+      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil)
     ]
 
     Sidekiq::Testing.inline! do
@@ -119,13 +119,13 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
       [
         stub_publishing_api_put_content(presenter.content_id, presenter.content),
-        stub_publishing_api_publish(presenter.content_id, locale: 'fr', update_type: 'republish')
+        stub_publishing_api_publish(presenter.content_id, locale: 'fr', update_type: nil)
       ]
     end
 
     english_requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
-      stub_publishing_api_publish(presenter.content_id, locale: 'en', update_type: 'republish')
+      stub_publishing_api_publish(presenter.content_id, locale: 'en', update_type: nil)
     ]
 
     links_request = stub_publishing_api_patch_links(presenter.content_id, links: presenter.links)
@@ -154,7 +154,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: 'republish')
+      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil)
     ]
 
     Sidekiq::Testing.inline! do
@@ -185,8 +185,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: 'republish'),
-      stub_publishing_api_publish(html_attachment_content_id, locale: presenter.content[:locale], update_type: 'republish')
+      stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil),
+      stub_publishing_api_publish(html_attachment_content_id, locale: presenter.content[:locale], update_type: nil)
     ]
 
     Sidekiq::Testing.inline! do

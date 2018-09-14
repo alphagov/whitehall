@@ -23,7 +23,7 @@ class TopicalEventAboutPageTest < ActiveSupport::TestCase
       assert_publishing_api_publish(
         @topical_event_about_page.content_id,
         {
-          update_type: 'major',
+          update_type: nil,
           locale: 'en'
         },
         1
@@ -66,7 +66,7 @@ class TopicalEventAboutPageTest < ActiveSupport::TestCase
       assert_publishing_api_publish(
         @topical_event_about_page.content_id,
         {
-          update_type: 'major',
+          update_type: nil,
           locale: 'en'
         },
         2

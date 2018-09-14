@@ -35,9 +35,7 @@ module Whitehall
 
           Services.publishing_api.publish(
             presenter.content_id,
-            # TODO: Replace this with nil, which means the Publishing
-            # API will use the update type from the edition
-            presenter.update_type,
+            nil,
             locale: locale.to_s
           )
         end

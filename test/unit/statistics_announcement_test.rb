@@ -279,7 +279,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
       requests = [
         stub_publishing_api_put_content(presenter.content_id, presenter.content),
         stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-        stub_publishing_api_publish(presenter.content_id, update_type: "minor", locale: "en")
+        stub_publishing_api_publish(presenter.content_id, locale: "en", update_type: nil)
       ]
 
       requests.each { |request| assert_requested request }
