@@ -55,7 +55,8 @@ class UrlToSubscriberListCriteria
       if result.fetch("links", {})["announcement_filter_option"]
         result[GOVERNMENT_SUPERTYPE] = result["links"].delete("announcement_filter_option")
       end
-
+      #Official document status has not been implemented in the email-alert-api so remove this option
+      result.fetch("links", {}).delete('official_document_status')
       result
     end
   end
