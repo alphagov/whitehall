@@ -3,6 +3,8 @@ require 'test_helper'
 module Whitehall
   module DocumentFilter
     class OptionsTest < ActiveSupport::TestCase
+      include TaxonomyHelper
+
       def filter_options
         @filter_options ||= Options.new
       end
@@ -108,6 +110,18 @@ module Whitehall
 
       test "valid_resource_filter_options? doesn't choke on string values" do
         refute filter_options.valid_resource_filter_options?(topics: 'string-option')
+      end
+
+      test "can get the list of options for taxons" do
+        has_level_one_taxons([
+           taxon('id1', 'taxon1'),
+           taxon('id2', 'taxon2')
+        ])
+        options = filter_options.for(:taxons)
+
+        assert_equal ["All topics", "all"], options.all
+        assert_equal [%w[taxon1 id1], %w[taxon2 id2]], options.ungrouped
+        assert_empty options.grouped
       end
 
       test "can get the list of options for publication_type" do

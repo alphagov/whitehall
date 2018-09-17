@@ -30,6 +30,7 @@ module Whitehall
         official_documents: 'official_document_status',
         locations: 'world_locations',
         people: 'people',
+        taxons: 'taxons',
       }.freeze
 
       def valid_option_name?(option_name)
@@ -75,6 +76,15 @@ module Whitehall
 
       def options_for_topics
         @options_for_topics ||= StructuredOptions.new(all_label: "All policy areas", grouped: Classification.grouped_by_type)
+      end
+
+      def options_for_taxons
+        taxons = Taxonomy::LevelOneTaxonsFetcher.fetch
+
+        options = taxons.map do |taxon|
+          [taxon.name, taxon.content_id]
+        end
+        @options_for_taxons ||= StructuredOptions.new(all_label: "All topics", grouped: {}, ungrouped: options)
       end
 
       def options_for_people

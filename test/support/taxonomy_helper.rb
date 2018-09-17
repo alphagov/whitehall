@@ -1,4 +1,18 @@
 module TaxonomyHelper
+  def has_a_level_one_taxon
+    has_level_one_taxons([taxon('id1', 'taxon1')])
+  end
+
+  def has_level_one_taxons(taxons)
+    Taxonomy::LevelOneTaxonsFetcher.stubs(:fetch).returns(taxons)
+  end
+
+  def taxon(content_id, title)
+    ::Taxonomy::Taxon.from_taxon_hash(
+      build(:taxon_hash, content_id: content_id, title: title)
+    )
+  end
+
   def homepage_content_id
     Taxonomy::PublishingApiAdapter::HOMEPAGE_CONTENT_ID
   end

@@ -2,6 +2,16 @@ require 'test_helper'
 
 class DocumentFilterHelperTest < ActionView::TestCase
   include ApplicationHelper
+  include TaxonomyHelper
+
+  test "#taxon_filter_options makes option tags for taxons" do
+    has_level_one_taxons([taxon('id1', 'taxon1'),
+                          taxon('id2', 'taxon2')])
+    result = taxon_filter_options
+    assert_includes result, '<option selected="selected" value="all">All topics</option>'
+    assert_includes result, '<option value="id1">taxon1</option>'
+    assert_includes result, '<option value="id2">taxon2</option>'
+  end
 
   test "#announcement_type_filter_options makes option tags with subtype name as text and slug as value" do
     expected = Whitehall::AnnouncementFilterOption.all.map { |o| [o.label, o.slug] }.unshift(["All announcement types", "all"])

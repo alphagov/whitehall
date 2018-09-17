@@ -1,4 +1,9 @@
 module DocumentFilterHelper
+  def taxon_filter_options(selected_taxons = [])
+    selected_value = selected_taxons.any? ? selected_taxons : %w[all]
+    filter_option_html(filter_options.for(:taxons), selected_value)
+  end
+
   def topic_filter_options(selected_topics = [])
     selected_values = selected_topics.any? ? selected_topics.map(&:slug) : %w[all]
     options_for_select([filter_options.for(:topics).all], selected_values) +
