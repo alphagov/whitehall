@@ -112,6 +112,16 @@ class UrlToSubscriberListCriteriaTest < ActiveSupport::TestCase
                  "government_document_supertype" => "statistics"
   end
 
+  test "It converts URLs containing taxons" do
+    converter = UrlToSubscriberListCriteria.new(
+      'http://www.dev.gov.uk/government/publications.atom?taxons%5B%5D=a544d48b-1e9e-47fb-b427-7a987c658c14',
+        stub("StaticData"),
+        )
+
+    assert_equal converter.convert, "links" => { "taxons" => ["a544d48b-1e9e-47fb-b427-7a987c658c14"] },
+                                      "email_document_supertype" => "publications"
+  end
+
   test "for now official document status gets ignored" do
     converter = UrlToSubscriberListCriteria.new(
       'http://www.dev.gov.uk/government/publications.atom?official_document_status=command_papers_only&taxons%5B%5D=a544d48b-1e9e-47fb-b427-7a987c658c14',

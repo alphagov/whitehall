@@ -15,7 +15,11 @@ class UrlToSubscriberListCriteria
       hash = map_url_to_hash.dup
       if hash["links"]
         links = hash["links"].each_with_object({}) do |(key, values), result|
-          result[key] = values.map { |value| lookup_content_id(key, value) }
+          result[key] = if key == 'taxons'
+                          values
+                        else
+                          Array.wrap(values).map { |value| lookup_content_id(key, value) }
+                        end
         end
         hash["links"] = links
       end
