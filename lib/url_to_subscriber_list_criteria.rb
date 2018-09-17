@@ -1,7 +1,6 @@
 require 'uri'
 
 class UrlToSubscriberListCriteria
-  MISSING_LOOKUP = "*** MISSING KEY ***".freeze
   EMAIL_SUPERTYPE = "email_document_supertype".freeze
   GOVERNMENT_SUPERTYPE = "government_document_supertype".freeze
   class UnprocessableUrl < StandardError; end
@@ -9,7 +8,6 @@ class UrlToSubscriberListCriteria
   def initialize(url, static_data = StaticData)
     @url = URI.parse(url.strip)
     @static_data = static_data
-    @missing_lookups = []
   end
 
   def convert
@@ -23,11 +21,6 @@ class UrlToSubscriberListCriteria
       end
       hash
     end
-  end
-
-  def missing_lookup
-    convert
-    @missing_lookups.to_sentence if @missing_lookups.any?
   end
 
   def map_url_to_hash
@@ -52,7 +45,6 @@ class UrlToSubscriberListCriteria
                  { "links" => from_params.merge("world_locations" => [path_match[1]]) }
                elsif @url.path.match?(%r{/government/feed})
                  { 'links' => from_params }
-
                else
                  raise UnprocessableUrl, @url.to_s
                end
@@ -85,44 +77,7 @@ class UrlToSubscriberListCriteria
   end
 
   def lookup_content_id(key, slug)
-    @static_data.content_id(key, slug).tap do |value|
-      @missing_lookups << "#{key}: #{slug}" if value == MISSING_LOOKUP
-    end
-  end
-
-  # Static data can currently be injected into the mapping process in two forms.
-  # This was done to allow optimisation of the process depending on the use case.
-  # - BulkStaticData which is designed to be used with the mass migration of data
-  #   and can be deleted once the migration is complete.
-  # - StaticData which uses standard DB queries and is expected to be used when
-  #   converting individual URLs.
-  class BulkStaticData
-    def topical_event?(values)
-      @topical_events ||= TopicalEvent.pluck(:slug)
-      (@topical_events & values).any?
-    end
-
-    def content_id(key, slug)
-      case key
-      when "world_locations"
-        @world_locations_lookup ||= Hash[WorldLocation.pluck(:slug, :content_id)]
-        @world_locations_lookup.fetch(slug, UrlToSubscriberListCriteria::MISSING_LOOKUP)
-      when "organisations"
-        @organisations_lookup ||= Hash[Organisation.pluck(:slug, :content_id)]
-        @organisations_lookup.fetch(slug, UrlToSubscriberListCriteria::MISSING_LOOKUP)
-      when "roles"
-        @roles_lookup ||= Hash[Role.pluck(:slug, :content_id)]
-        @roles_lookup.fetch(slug, UrlToSubscriberListCriteria::MISSING_LOOKUP)
-      when "people"
-        @people_lookup ||= Hash[Person.pluck(:slug, :content_id)]
-        @people_lookup.fetch(slug, UrlToSubscriberListCriteria::MISSING_LOOKUP)
-      when "policy_areas", "topical_events"
-        @classifications_lookup ||= Hash[Classification.pluck(:slug, :content_id)]
-        @classifications_lookup.fetch(slug, UrlToSubscriberListCriteria::MISSING_LOOKUP)
-      else
-        raise [key, slug].inspect
-      end
-    end
+    @static_data.content_id(key, slug)
   end
 
   module StaticData
