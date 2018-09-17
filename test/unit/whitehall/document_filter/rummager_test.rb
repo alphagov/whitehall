@@ -21,6 +21,17 @@ module Whitehall::DocumentFilter
         )
     end
 
+    def expect_search_by_taxonomy_tree(taxons)
+      Whitehall
+          .government_search_client
+          .expects(:advanced_search)
+          .with(
+            has_entry(
+              part_of_taxonomy_tree: taxons
+            )
+          )
+    end
+
     def expect_search_by_people(people)
       Whitehall
         .government_search_client
@@ -64,6 +75,12 @@ module Whitehall::DocumentFilter
       rummager.announcements_search
     end
 
+    test 'announcements_search search the taxonomy tree if we use the taxons option' do
+      rummager = Rummager.new(taxons: 'content-id')
+      expect_search_by_taxonomy_tree(%w[content-id])
+      rummager.announcements_search
+    end
+
     test 'publications_search looks for Publications, Consultations, and StatisticalDataSets by default' do
       rummager = Rummager.new({})
       expect_search_by_format_types(format_types(Consultation, Publication, StatisticalDataSet))
@@ -73,6 +90,12 @@ module Whitehall::DocumentFilter
     test 'publications_search looks for a specific announcement sub type if we use the publication_type option' do
       rummager = Rummager.new(publication_type: 'policy-papers')
       expect_search_by_format_types(PublicationType::PolicyPaper.search_format_types)
+      rummager.publications_search
+    end
+
+    test 'publications_search search the taxonomy tree if we use the taxons option' do
+      rummager = Rummager.new(taxons: 'content-id')
+      expect_search_by_taxonomy_tree(%w[content-id])
       rummager.publications_search
     end
 
