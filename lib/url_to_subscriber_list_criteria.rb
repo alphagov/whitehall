@@ -69,23 +69,15 @@ class UrlToSubscriberListCriteria
   end
 
   def from_params
-    return {} if @url.query.blank?
-
-    result = Rack::Utils.parse_nested_query(@url.query)
-    {
-      'departments' => 'organisations',
-      'topics' => method(:topic_map),
-    }.each do |from_key, to_key|
-      next unless result.key?(from_key)
-
-      if to_key.is_a?(String)
-        result[to_key] = result.delete(from_key)
-      else
-        values = result.delete(from_key)
-        result[to_key.call(values)] = values
+    Rack::Utils.parse_nested_query(@url.query).tap do |result|
+      if result.key?('departments')
+        result['organisations'] = result.delete('departments')
+      end
+      if result.key?('topics')
+        values = result.delete('topics')
+        result[topic_map(values)] = values
       end
     end
-    result
   end
 
   def topic_map(values)
