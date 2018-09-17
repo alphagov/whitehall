@@ -1,4 +1,9 @@
 <span class="count">{{result_count}}</span> <strong>{{pluralized_result_type}}</strong>
+<span class="taxons-selections">
+  {{#taxons}}
+    about <strong>{{name}}</strong> <a href="{{url}}" data-field="taxons" data-val="{{value}}" title="Remove {{name}} filter">&times;</a> {{joining}}
+  {{/taxons}}
+</span>
 <span class="topics-selections">
   {{#topics}}
     about <strong>{{name}}</strong> <a href="{{url}}" data-field="topics" data-val="{{value}}" title="Remove {{name}} filter">&times;</a> {{joining}}

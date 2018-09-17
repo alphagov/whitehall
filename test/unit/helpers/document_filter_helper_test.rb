@@ -36,6 +36,20 @@ class DocumentFilterHelperTest < ActionView::TestCase
     assert_equal ({ first: 'one', second: %w[three] }), remove_filter_from_params(:second, 'two')
   end
 
+  test "#filter_taxon_selections gets objects ready for mustache" do
+    has_level_one_taxons([taxon('id1', 'taxon1'),
+                          taxon('id2', 'taxon2'),
+                          taxon('id3', 'taxon3')])
+
+    stubs(:params).returns(controller: 'publications', action: 'index', "taxons" => %w[id1 id2])
+
+    expected = [{ name: 'taxon1', value: 'id1', url: publications_path(taxons: %w[id2]), joining: 'and' },
+                { name: 'taxon2', value: 'id2', url: publications_path(taxons: %w[id1]), joining: '' }]
+    actual = filter_taxon_selections(%w[id1 id2])
+
+    assert_same_elements expected, actual
+  end
+
   test "filter_results_selections gets objects ready for mustache" do
     topic = build(:topic, slug: 'my-slug')
     stubs(:params).returns(controller: 'announcements', action: 'index', "topics" => ['my-slug', 'three'])

@@ -48,6 +48,20 @@ module DocumentFilterHelper
     end
   end
 
+  def filter_taxon_selections(content_ids)
+    taxons = ::Taxonomy::LevelOneTaxonsFetcher.fetch.select do |first_level_taxon|
+      content_ids.include?(first_level_taxon.content_id)
+    end
+    results = taxons.map do |obj|
+      {
+        name: obj.name,
+        url: url_for(remove_filter_from_params('taxons', obj.content_id)),
+        value: obj.content_id
+      }
+    end
+    merge_joining_option(results)
+  end
+
   def filter_results_selections(objects, type)
     results = objects.map do |obj|
       {
@@ -56,7 +70,7 @@ module DocumentFilterHelper
         value: obj.slug
       }
     end
-    results.map.with_index { |obj, i| obj.merge(joining: (results.length - 1 == i ? '' : 'and')) }
+    merge_joining_option(results)
   end
 
   def filter_results_keywords(keywords)
@@ -69,6 +83,10 @@ module DocumentFilterHelper
   end
 
 protected
+
+  def merge_joining_option(results)
+    results.map.with_index { |obj, i| obj.merge(joining: (results.length - 1 == i ? '' : 'and')) }
+  end
 
   def filter_options
     @filter_options ||= Whitehall::DocumentFilter::Options.new
