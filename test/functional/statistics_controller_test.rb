@@ -3,6 +3,7 @@ require "gds_api/test_helpers/content_store"
 
 class StatisticsControllerTest < ActionController::TestCase
   include GdsApi::TestHelpers::ContentStore
+  include TaxonomyHelper
 
   with_not_quite_as_fake_search
   should_be_a_public_facing_controller
@@ -20,6 +21,8 @@ class StatisticsControllerTest < ActionController::TestCase
     )
 
     content_store_has_item(@content_item['base_path'], @content_item)
+
+    has_level_one_taxons([taxon('id1', 'taxon1'), taxon('id2', 'taxon2')])
   end
 
   view_test "#index only displays *published* statistics" do
@@ -65,6 +68,23 @@ class StatisticsControllerTest < ActionController::TestCase
     assert_select "select#departments[name='departments[]']" do
       assert_select "option[selected]", text: @organisation_1.name
       assert_select "option[selected]", text: @organisation_2.name
+    end
+  end
+
+  view_test "#index highlights selected taxon filter options" do
+    get :index, params: { taxons: %w[id1 id2] }
+
+    assert_select "select#taxons[name='taxons[]']" do
+      assert_select "option[selected='selected']", text: 'taxon1'
+      assert_select "option[selected='selected']", text: 'taxon2'
+    end
+  end
+
+  view_test "#index highlights all taxons filter options by default" do
+    get :index
+
+    assert_select "select[name='taxons[]']" do
+      assert_select "option[selected='selected']", text: "All topics"
     end
   end
 
