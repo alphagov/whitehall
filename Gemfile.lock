@@ -98,7 +98,7 @@ GEM
     carrierwave-i18n (0.2.0)
     childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
-    chromedriver-helper (1.2.0)
+    chromedriver-helper (2.0.1)
       archive-zip (~> 0.10)
       nokogiri (~> 1.8)
     chronic (0.10.2)
@@ -230,7 +230,7 @@ GEM
       sidekiq (>= 5, < 6)
       sidekiq-logging-json (~> 0.0)
       sidekiq-statsd (~> 0.1)
-    govuk_test (0.2.0)
+    govuk_test (0.2.1)
       capybara
       chromedriver-helper
       puma
