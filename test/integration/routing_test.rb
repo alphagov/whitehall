@@ -3,6 +3,7 @@ require "gds_api/test_helpers/content_store"
 
 class RoutingTest < ActionDispatch::IntegrationTest
   include GdsApi::TestHelpers::ContentStore
+  include TaxonomyHelper
 
   test "visiting #{Whitehall.router_prefix}/policy-topics redirects to #{Whitehall.router_prefix}/topics" do
     get "#{Whitehall.router_prefix}/policy-topics"
@@ -11,6 +12,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
 
   test "assets are served under the #{Whitehall.router_prefix} prefix" do
     content_store_has_item('/government/publications', {})
+    has_a_level_one_taxon
 
     get publications_path
     assert_select "script[src=?]", "#{Whitehall.router_prefix}/assets/application.js"
