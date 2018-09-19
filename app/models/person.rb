@@ -36,8 +36,8 @@ class Person < ApplicationRecord
 
   searchable title: :name,
              link: :search_link,
-             content: :biography_without_markup,
-             description: :biography_without_markup,
+             content: :biography_appropriate_for_role_without_markup,
+             description: :biography_appropriate_for_role_without_markup,
              slug: :slug
 
   extend FriendlyId
@@ -70,8 +70,20 @@ class Person < ApplicationRecord
     Whitehall.url_maker.person_path(slug)
   end
 
-  def biography_without_markup
-    Govspeak::Document.new(biography).to_text
+  def biography_appropriate_for_role_without_markup
+    Govspeak::Document.new(biography_appropriate_for_role).to_text
+  end
+
+  def biography_appropriate_for_role
+    if currently_in_a_role?
+      biography
+    else
+      truncated_biography
+    end
+  end
+
+  def currently_in_a_role?
+    current_role_appointments.any?
   end
 
   def ministerial_roles_at(date)
@@ -153,5 +165,9 @@ private
   # taggable_ministerial_role_appointments_container gets invalidated.
   def touch_role_appointments
     role_appointments.update_all updated_at: Time.zone.now
+  end
+
+  def truncated_biography
+    biography&.split(/\n/)&.first
   end
 end

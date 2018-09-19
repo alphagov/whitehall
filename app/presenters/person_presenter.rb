@@ -64,11 +64,7 @@ class PersonPresenter < Whitehall::Decorators::Decorator
   end
 
   def biography
-    if in_current_role?
-      context.govspeak_to_html model.biography
-    elsif model.biography
-      context.govspeak_to_html truncated_biography
-    end
+    context.govspeak_to_html(model.biography_appropriate_for_role)
   end
 
   def link(options = {})
@@ -86,15 +82,5 @@ class PersonPresenter < Whitehall::Decorators::Decorator
     if (img = image_url(:s216))
       context.image_tag img, alt: name
     end
-  end
-
-  def in_current_role?
-    current_role_appointments.any?
-  end
-
-private
-
-  def truncated_biography
-    model.biography.split(/\n/).first
   end
 end
