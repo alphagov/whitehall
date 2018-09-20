@@ -129,7 +129,7 @@ class Role < ApplicationRecord
   end
 
   def current_person_biography
-    current_person && current_person.biography_without_markup
+    current_person&.biography_appropriate_for_role_without_markup
   end
 
   def organisation_names

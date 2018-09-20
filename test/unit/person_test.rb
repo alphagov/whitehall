@@ -17,6 +17,25 @@ class PersonTest < ActiveSupport::TestCase
                   }, person.search_index)
   end
 
+  test "truncates the biography sent to rummager unless they currently hold a role" do
+    full_bio = <<~BIO
+      Dapibus Mattis Euismod
+
+      Sit Aenean Venenatis
+
+      Vulputate Euismod Vehicula
+    BIO
+
+    person_in_role = FactoryBot.create(:person, biography: full_bio)
+    FactoryBot.create(:role_appointment, person: person_in_role)
+    person_in_role.reload
+
+    person_not_in_role = FactoryBot.create(:person, biography: full_bio)
+
+    assert_equal "Dapibus Mattis Euismod", person_not_in_role.search_index["indexable_content"]
+    assert_equal full_bio.gsub(/[\n]+/, " ").strip, person_in_role.search_index["indexable_content"]
+  end
+
   test "should be invalid without a name" do
     person = build(:person, title: nil, forename: nil, surname: nil, letters: nil)
     refute person.valid?

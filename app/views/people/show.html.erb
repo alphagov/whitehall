@@ -19,7 +19,7 @@
   <div class="block-2 ">
     <div class="inner-block">
       <section class="contextual-info in-page-navigation ">
-        <% if @person.in_current_role? %>
+        <% if @person.currently_in_a_role? %>
           <div class="image">
             <figure class="img">
               <%= @person.image %>
@@ -30,7 +30,7 @@
         <nav role="navigation">
           <ul>
             <li><%= link_to t('people.biography'), '#biography' %></li>
-            <% if @person.in_current_role? %>
+            <% if @person.currently_in_a_role? %>
               <li><%= link_to t('roles.heading', count: @person.current_role_appointments.count), "#current-roles" %></li>
             <% end %>
             <% if @person.previous_role_appointments.any? %>
