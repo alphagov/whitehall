@@ -85,7 +85,16 @@ module PublishingApi
     def change_history
       return {} unless corporate_information_page.change_history.present?
 
-      { change_history: corporate_information_page.change_history.as_json }
+      # Some speeches and corporate information pages don't seem to
+      # have first_published_at data, so ignore those change notes to
+      # avoid violating the relevant content schema.
+      changes_with_public_timestamps =
+        corporate_information_page
+          .change_history
+          .as_json
+          .select { |change| change[:public_timestamp].present? }
+
+      { change_history: changes_with_public_timestamps.as_json }
     end
 
     class CorporateInformationGroups

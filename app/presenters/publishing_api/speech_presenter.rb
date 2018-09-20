@@ -30,11 +30,20 @@ module PublishingApi
     end
 
     def details
+      # Some speeches and corporate information pages don't seem to
+      # have first_published_at data, so ignore those change notes to
+      # avoid violating the relevant content schema.
+      changes_with_public_timestamps =
+        item
+          .change_history
+          .as_json
+          .select { |change| change[:public_timestamp].present? }
+
       details = {
         body: body,
         political: item.political,
         delivered_on: item.delivered_on.iso8601,
-        change_history: item.change_history.as_json,
+        change_history: changes_with_public_timestamps.as_json,
       }
       details.merge!(speech_type_explanation)
       details.merge!(image_payload) if has_image?
