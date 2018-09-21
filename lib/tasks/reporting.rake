@@ -123,5 +123,11 @@ namespace :reporting do
       options = opts_from_environment(:start_date, :data_path)
       ConsultationReporter.new(options).all_consultations
     end
+
+    desc "Report percentages of closed consultations with published reponses before and after a specific date"
+    task response_percentages: :environment do
+      options = opts_from_environment(:closed_date)
+      ConsultationReporter.new(options).response_percentages
+    end
   end
 end
