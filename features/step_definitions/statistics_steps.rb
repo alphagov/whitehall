@@ -63,28 +63,34 @@ When(/^I should only see statistics matching the given keyword, from date and to
 end
 
 Given(/^there are some statisics for various departments and topics$/) do
-  beard_topic = create(:topic, name: 'Beards')
-  wombat_topic = create(:topic, name: 'Wombats')
+  has_level_one_taxons([taxon('beard_id', 'Beards'),
+                        taxon('wombat_id', 'Wombats')])
 
   beard_org = create(:ministerial_department, name: 'Ministry of Beards')
   wombat_org = create(:ministerial_department, name: 'Wombats of Wimbledon')
 
-  create :published_statistics, title: '2015 Average beard lengths figures',
-                                topics: [beard_topic],
-                                organisations: [beard_org]
+  beard_stat = create :published_statistics, title: '2015 Average beard lengths figures',
+                                             organisations: [beard_org]
 
-  create :published_statistics, title: 'Average beard lengths of wombat organisations',
-                                topics: [beard_topic, wombat_topic],
-                                organisations: [wombat_org]
+  beard_wombat_stat = create :published_statistics, title: 'Average beard lengths of wombat organisations',
+                                                    organisations: [wombat_org]
 
-  create :published_statistics, title: 'Wombat population levels',
-                                topics: [wombat_topic],
-                                organisations: [wombat_org]
+  wombat_stat = create :published_statistics, title: 'Wombat population levels',
+                                              organisations: [wombat_org]
+
+  rummager_can_find_document_with_taxon(beard_stat.search_link, %w[beard_id])
+  rummager_can_find_document_with_taxon(beard_wombat_stat.search_link, %w[beard_id wombat_id])
+  rummager_can_find_document_with_taxon(wombat_stat.search_link, %w[wombat_id])
+end
+
+Given(/^Some statistics are tagged to a taxon$/) do
+  publication = Publication.find_by(title: "Publication with taxon")
+  rummager_can_find_document_with_taxon(publication.search_link, %w[id1])
 end
 
 When(/^I filter the statistics by department and topic$/) do
   within '.filter-form' do
-    select "Beards", from: "Policy area"
+    select "Beards", from: "Topic"
     select "Wombats of Wimbledon", from: "Department"
     click_on "Refresh results"
   end

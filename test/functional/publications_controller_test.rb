@@ -84,17 +84,6 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "#index highlights selected topic filter options" do
-    given_two_documents_in_two_topics
-
-    get :index, params: { topics: [@topic_1, @topic_2] }
-
-    assert_select "select#topics[name='topics[]']" do
-      assert_select "option[selected='selected']", text: @topic_1.name
-      assert_select "option[selected='selected']", text: @topic_2.name
-    end
-  end
-
   view_test "#index highlights selected organisation filter options" do
     given_two_documents_in_two_organisations
 
@@ -170,16 +159,6 @@ class PublicationsControllerTest < ActionController::TestCase
 
       assert_equal "publication_#{publication.id}", css_select(".filter-results .document-row").first['id']
       assert_equal "consultation_#{consultation.id}", css_select(".filter-results .document-row").last['id']
-    end
-  end
-
-  view_test "#index highlights all topics filter option by default" do
-    given_two_documents_in_two_topics
-
-    get :index
-
-    assert_select "select[name='topics[]']" do
-      assert_select "option[selected='selected']", text: "All policy areas"
     end
   end
 
@@ -309,24 +288,21 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "#index requested as JSON includes URL to the atom feed including any filters" do
-    create(:topic, name: "topic-1")
     create(:organisation, name: "organisation-1")
 
-    get :index, params: { topics: ["topic-1"], departments: ["organisation-1"] }, format: :json
+    get :index, params: { taxons: ["taxon-1"], departments: ["organisation-1"] }, format: :json
 
     json = ActiveSupport::JSON.decode(response.body)
 
-    assert_equal json["atom_feed_url"], publications_url(format: "atom", topics: ["topic-1"], departments: ["organisation-1"], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+    assert_equal json["atom_feed_url"], publications_url(format: "atom", taxons: ["taxon-1"], departments: ["organisation-1"], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
   end
 
   view_test "#index requested as JSON includes atom feed URL without date parameters" do
-    create(:topic, name: "topic-1")
-
-    get :index, params: { from_date: "2012-01-01", topics: ["topic-1"] }, format: :json
+    get :index, params: { from_date: "2012-01-01", taxons: ["taxon-1"] }, format: :json
 
     json = ActiveSupport::JSON.decode(response.body)
 
-    assert_equal json["atom_feed_url"], publications_url(format: "atom", topics: ["topic-1"], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+    assert_equal json["atom_feed_url"], publications_url(format: "atom", taxons: ["taxon-1"], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
   end
 
   view_test "#index requested as JSON includes email signup path without date parameters" do
@@ -339,14 +315,13 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal json["email_signup_url"], new_email_signups_path(email_signup: { feed: atom_url })
   end
 
-  view_test "#index requested as JSON includes email signup path with organisation and topic parameters" do
-    topic = create(:topic)
+  view_test "#index requested as JSON includes email signup path with organisation and taxon parameters" do
     organisation = create(:organisation)
 
-    get :index, params: { from_date: "2012-01-01", topics: [topic.slug], departments: [organisation.slug] }, format: :json
+    get :index, params: { from_date: "2012-01-01", taxons: ["taxon-1"], departments: [organisation.slug] }, format: :json
 
     json = ActiveSupport::JSON.decode(response.body)
-    atom_url = publications_url(format: "atom", topics: [topic.slug], departments: [organisation.slug], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+    atom_url = publications_url(format: "atom", taxons: ["taxon-1"], departments: [organisation.slug], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
 
     assert_equal json["email_signup_url"], new_email_signups_path(email_signup: { feed: atom_url })
   end
@@ -357,29 +332,25 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test '#index atom feed autodiscovery link includes any present filters' do
-    topic = create(:topic)
     organisation = create(:organisation)
 
-    get :index, params: { topics: [topic], departments: [organisation] }
+    get :index, params: { taxons: ["taxon-1"], departments: [organisation] }
 
-    assert_select_autodiscovery_link publications_url(format: "atom", topics: [topic], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+    assert_select_autodiscovery_link publications_url(format: "atom", taxons: ["taxon-1"], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
   end
 
   view_test '#index atom feed autodiscovery link does not include date filter' do
-    topic = create(:topic)
+    get :index, params: { taxons: ["taxon-1"], to_date: "2012-01-01" }
 
-    get :index, params: { topics: [topic], to_date: "2012-01-01" }
-
-    assert_select_autodiscovery_link publications_url(format: "atom", topics: [topic], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+    assert_select_autodiscovery_link publications_url(format: "atom", taxons: ["taxon-1"], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
   end
 
   view_test '#index shows a link to the atom feed including any present filters' do
-    topic = create(:topic)
     organisation = create(:organisation)
 
-    get :index, params: { topics: [topic], departments: [organisation] }
+    get :index, params: { taxons: ["taxon-1"], departments: [organisation] }
 
-    feed_url = publications_url(format: "atom", topics: [topic], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+    feed_url = publications_url(format: "atom", taxons: ["taxon-1"], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
     assert_select "a.feed[href=?]", feed_url
   end
 
@@ -575,17 +546,6 @@ private
     @organisation_2 = create(:organisation, type: OrganisationType.ministerial_department)
     create(:published_publication, organisations: [@organisation_1])
     create(:published_consultation, organisations: [@organisation_2])
-  end
-
-  def given_two_documents_in_two_topics
-    @topic_1 = create(:topic)
-    @topic_2 = create(:topic)
-    create(:published_publication, topics: [@topic_1])
-    create(:published_consultation, topics: [@topic_2])
-  end
-
-  def create_publications_in(*topics)
-    create(:published_publication, topics: [topics])
   end
 
   view_test 'index includes tracking details on all links' do

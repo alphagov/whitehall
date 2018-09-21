@@ -91,6 +91,18 @@ module TaxonomyHelper
       )
   end
 
+  def rummager_can_find_document_with_taxon(search_link,
+                                            taxon_ids,
+                                            index_name = Whitehall::SearchIndex.government_search_index_path)
+    store = Whitehall::SearchIndex.indexer_class.store
+    unless store.is_a?(Whitehall::NotQuiteAsFakeSearch::Store)
+      raise "Not a NotQuiteAsFakeSearch Datastore"
+    end
+    document = store.delete(search_link, index_name)
+    store.add([document.merge(part_of_taxonomy_tree: taxon_ids)], index_name)
+  end
+
+
 private
 
   def redis_client
