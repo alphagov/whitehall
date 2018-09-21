@@ -5,6 +5,7 @@ require "gds_api/test_helpers/content_store"
 
 class PublicationsControllerTest < ActionController::TestCase
   include GdsApi::TestHelpers::ContentStore
+  include TaxonomyHelper
 
   with_not_quite_as_fake_search
   should_be_a_public_facing_controller
@@ -21,6 +22,7 @@ class PublicationsControllerTest < ActionController::TestCase
   setup do
     @content_item = content_item_for_base_path('/government/publications')
     content_store_has_item(@content_item['base_path'], @content_item)
+    has_level_one_taxons([taxon('id1', 'taxon1'), taxon('id2', 'taxon2')])
   end
 
   view_test "#index only displays *published* publications" do
@@ -70,6 +72,15 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select "select#world_locations[name='world_locations[]']" do
       assert_select "option[selected='selected']", text: @world_location_1.name
       assert_select "option[selected='selected']", text: @world_location_2.name
+    end
+  end
+
+  view_test "#index highlights selected taxon filter options" do
+    get :index, params: { taxons: %w[id1 id2] }
+
+    assert_select "select#taxons[name='taxons[]']" do
+      assert_select "option[selected='selected']", text: 'taxon1'
+      assert_select "option[selected='selected']", text: 'taxon2'
     end
   end
 
@@ -179,6 +190,14 @@ class PublicationsControllerTest < ActionController::TestCase
 
     assert_select "select[name='departments[]']" do
       assert_select "option[selected='selected']", text: "All departments"
+    end
+  end
+
+  view_test "#index highlights all taxons filter options by default" do
+    get :index
+
+    assert_select "select[name='taxons[]']" do
+      assert_select "option[selected='selected']", text: "All topics"
     end
   end
 

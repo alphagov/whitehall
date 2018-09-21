@@ -28,6 +28,7 @@ module Whitehall::DocumentFilter
         .merge(filter_by_organisations)
         .merge(filter_by_locations)
         .merge(filter_by_date)
+        .merge(filter_by_taxon)
         .merge(sort)
     end
 
@@ -52,6 +53,14 @@ module Whitehall::DocumentFilter
     def filter_by_topics
       if selected_topics.any?
         { policy_areas: selected_topics.map(&:slug) }
+      else
+        {}
+      end
+    end
+
+    def filter_by_taxon
+      if selected_taxons.any?
+        { part_of_taxonomy_tree: selected_taxons }
       else
         {}
       end

@@ -17,6 +17,7 @@ module Whitehall::DocumentFilter
 
       @include_world_location_news = @params[:include_world_location_news]
 
+      @taxons          = Array(@params[:taxons])
       @topics          = Array(@params[:topics])
       @departments     = Array(@params[:departments])
       @people          = Array(@params[:people])
@@ -39,6 +40,10 @@ module Whitehall::DocumentFilter
 
     def documents
       raise NotImplementedError, 'you must provide #documents implementation in your filterer subclass'
+    end
+
+    def selected_taxons
+      @taxons.reject { |taxon| taxon == "all" }
     end
 
     def selected_topics

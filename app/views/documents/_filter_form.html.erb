@@ -14,6 +14,13 @@
           </div>
         <% end %>
 
+        <% if filters.include? :taxon %>
+          <div class="filter">
+            <%= label_tag "taxons", "Topic" %>
+            <%= select_tag "taxons[]", taxon_filter_options(@filter.selected_taxons), class: "single-row-select", id: "taxons" %>
+          </div>
+        <% end %>
+
         <% if filters.include? :publication_type %>
           <div class="filter">
             <%= label_tag "publication_filter_option", "Publication type", class: "title" %>

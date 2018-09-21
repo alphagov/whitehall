@@ -55,6 +55,7 @@ module Whitehall
             organisations
             people
             policy_areas
+            part_of_taxonomy_tree
             topical_events
             search_format_types
             world_locations

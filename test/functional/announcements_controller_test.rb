@@ -5,6 +5,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   include ActionView::Helpers::DateHelper
   include DocumentFilterHelpers
   include GdsApi::TestHelpers::ContentStore
+  include TaxonomyHelper
 
   with_not_quite_as_fake_search
   should_be_a_public_facing_controller
@@ -17,6 +18,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     )
 
     content_store_has_item(@content_item['base_path'], @content_item)
+    has_level_one_taxons([taxon('id1', 'taxon1'), taxon('id2', 'taxon2')])
   end
 
   view_test "index shows a mix of news and speeches" do
@@ -192,6 +194,23 @@ class AnnouncementsControllerTest < ActionController::TestCase
       (news + speeches[0..0]).each do |speech|
         refute_select_object(speech)
       end
+    end
+  end
+
+  view_test "#index highlights selected taxon filter options" do
+    get :index, params: { taxons: %w[id1 id2] }
+
+    assert_select "select#taxons[name='taxons[]']" do
+      assert_select "option[selected='selected']", text: 'taxon1'
+      assert_select "option[selected='selected']", text: 'taxon2'
+    end
+  end
+
+  view_test "#index highlights all taxons filter options by default" do
+    get :index
+
+    assert_select "select[name='taxons[]']" do
+      assert_select "option[selected='selected']", text: "All topics"
     end
   end
 

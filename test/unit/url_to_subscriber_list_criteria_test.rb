@@ -112,36 +112,23 @@ class UrlToSubscriberListCriteriaTest < ActiveSupport::TestCase
                  "government_document_supertype" => "statistics"
   end
 
-  test "can detect missing mappings from slug to content_id" do
+  test "It converts URLs containing taxons" do
     converter = UrlToSubscriberListCriteria.new(
-      'https://www.gov.uk/government/feed?departments%5B%5D=other',
-      stub("StaticData", topical_event?: false, content_id: UrlToSubscriberListCriteria::MISSING_LOOKUP),
-    )
+      'http://www.dev.gov.uk/government/publications.atom?taxons%5B%5D=a544d48b-1e9e-47fb-b427-7a987c658c14',
+        stub("StaticData"),
+        )
 
-    assert_equal converter.convert, "links" => { "organisations" => ["*** MISSING KEY ***"] }
-    assert_equal converter.missing_lookup, "organisations: other"
+    assert_equal converter.convert, "links" => { "taxons" => ["a544d48b-1e9e-47fb-b427-7a987c658c14"] },
+                                      "email_document_supertype" => "publications"
   end
 
-  test "can detect multiple missing mappings from slug to content_id" do
+  test "for now official document status gets ignored" do
     converter = UrlToSubscriberListCriteria.new(
-      'https://www.gov.uk/government/feed?departments%5B%5D=other&topics%5B%5D=unknown',
-      stub("StaticData", topical_event?: false, content_id: UrlToSubscriberListCriteria::MISSING_LOOKUP),
-    )
+      'http://www.dev.gov.uk/government/publications.atom?official_document_status=command_papers_only&taxons%5B%5D=a544d48b-1e9e-47fb-b427-7a987c658c14',
+        stub("StaticData"),
+        )
 
-    assert_equal converter.convert,
-                 "links" => {
-                   "organisations" => ["*** MISSING KEY ***"],
-                   "policy_areas" => ["*** MISSING KEY ***"],
-                 }
-    assert_equal converter.missing_lookup, "organisations: other and policy_areas: unknown"
-  end
-
-  test "does not incorrectly detect missing mapping from slug to content id" do
-    converter = UrlToSubscriberListCriteria.new(
-      'https://www.gov.uk/government/feed?departments%5B%5D=advisory-committee-on-clinical-excellence-awards',
-      stub("StaticData", topical_event?: false, content_id: 'aaaaa-111111'),
-    )
-
-    assert !converter.missing_lookup
+    assert_equal converter.convert,  "links" => { "taxons" => ["a544d48b-1e9e-47fb-b427-7a987c658c14"] },
+                                     "email_document_supertype" => "publications"
   end
 end
