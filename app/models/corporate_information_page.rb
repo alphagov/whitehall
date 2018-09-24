@@ -29,7 +29,7 @@ class CorporateInformationPage < Edition
   validate :only_one_organisation_or_worldwide_organisation
 
   def republish_organisation_to_publishing_api
-    owning_organisation.publish_to_publishing_api if owning_organisation.is_a?(Organisation)
+    Whitehall::PublishingApi.republish_async(owning_organisation) if owning_organisation.is_a?(Organisation)
   end
 
   def reindex_organisation_in_search_index
