@@ -59,7 +59,9 @@ module Whitehall::DocumentFilter
     end
 
     def filter_by_taxon
-      if selected_taxons.any?
+      if selected_subtaxons.any? { |taxon| taxon != "all" }
+        { part_of_taxonomy_tree: selected_subtaxons }
+      elsif selected_taxons.any?
         { part_of_taxonomy_tree: selected_taxons }
       else
         {}

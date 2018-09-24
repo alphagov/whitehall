@@ -4,6 +4,13 @@ module DocumentFilterHelper
     filter_option_html(filter_options.for(:taxons), selected_value)
   end
 
+  def subtaxon_filter_options(selected_taxons = [], selected_subtaxons = [])
+    filter_option_html(
+      filter_options.for(:subtaxons, selected_taxons),
+      selected_subtaxons
+    )
+  end
+
   def topic_filter_options(selected_topics = [])
     selected_values = selected_topics.any? ? selected_topics.map(&:slug) : %w[all]
     options_for_select([filter_options.for(:topics).all], selected_values) +
@@ -48,18 +55,53 @@ module DocumentFilterHelper
     end
   end
 
-  def filter_taxon_selections(content_ids)
-    taxons = ::Taxonomy::LevelOneTaxonsFetcher.fetch.select do |first_level_taxon|
-      content_ids.include?(first_level_taxon.content_id)
+  def filter_taxon_selections(taxon_content_ids, subtaxon_content_ids)
+    options_for_taxons = Taxonomy::TopicTaxonomy
+                           .new
+                           .ordered_taxons
+                           .map do |level_one_taxon|
+
+      if taxon_content_ids.include? level_one_taxon.content_id
+        subtaxon_content_ids_without_all = subtaxon_content_ids - %w[all]
+
+        if subtaxon_content_ids_without_all.empty?
+          {
+            name: level_one_taxon.name,
+            value: level_one_taxon.content_id,
+            url: url_for(
+              remove_filter_from_params(
+                'taxons',
+                level_one_taxon.content_id
+              )
+            )
+          }
+        else
+          filtered_child_taxons = level_one_taxon
+                                    .children
+                                    .select do |taxon|
+
+            subtaxon_content_ids.include? taxon.content_id
+          end
+
+          filtered_child_taxons.map do |child_taxon|
+            {
+              name: child_taxon.name,
+              value: child_taxon.content_id,
+              url: url_for(
+                remove_filter_from_params(
+                  'subtaxons',
+                  child_taxon.content_id
+                )
+              )
+            }
+          end
+        end
+      else
+        []
+      end
     end
-    results = taxons.map do |obj|
-      {
-        name: obj.name,
-        url: url_for(remove_filter_from_params('taxons', obj.content_id)),
-        value: obj.content_id
-      }
-    end
-    merge_joining_option(results)
+
+    merge_joining_option(options_for_taxons.flatten)
   end
 
   def filter_results_selections(objects, type)

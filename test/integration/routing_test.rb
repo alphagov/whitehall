@@ -13,6 +13,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
   test "assets are served under the #{Whitehall.router_prefix} prefix" do
     content_store_has_item('/government/publications', {})
     has_a_level_one_taxon
+    stub_taxonomy_with_all_taxons
 
     get publications_path
     assert_select "script[src=?]", "#{Whitehall.router_prefix}/assets/application.js"

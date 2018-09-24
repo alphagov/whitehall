@@ -133,7 +133,10 @@ class EmailSignup
     def parameter_fragments
       return unless resource_filter_params.any?
 
-      "related to " + resource_filter_params.map { |param_key, _|
+      params = resource_filter_params.to_h
+      params["subtaxons"] = params.delete("taxons") if params.key? "subtaxons"
+
+      "related to " + params.map { |param_key, _|
         fragment_for_filter_option(param_key)
       }.to_sentence
     end

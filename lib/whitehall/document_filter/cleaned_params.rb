@@ -1,7 +1,7 @@
 module Whitehall::DocumentFilter
   class CleanedParams < ActiveSupport::HashWithIndifferentAccess
     # These filter parameters are expected to be an array of values
-    PERMITTED_ARRAY_PARAMETER_KEYS  = %w(taxons topics departments people world_locations).freeze
+    PERMITTED_ARRAY_PARAMETER_KEYS  = %w(taxons subtaxons topics departments people world_locations).freeze
     # These filter params are expected to be scalar values, as defined by the strong_parameters code
     PERMITTED_SCALAR_PARAMETER_KEYS = %w(page
                                          per_page

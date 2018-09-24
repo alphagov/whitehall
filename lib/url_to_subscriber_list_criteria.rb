@@ -74,6 +74,9 @@ class UrlToSubscriberListCriteria
         values = result.delete('topics')
         result[topic_map(values)] = values
       end
+      if result.key?('subtaxons')
+        result['taxons'] = result.delete('subtaxons')
+      end
     end
   end
 

@@ -5,9 +5,9 @@ module Whitehall
         @locale = options[:locale] || I18n.locale
       end
 
-      def for(option_name)
+      def for(option_name, *args)
         raise ArgumentError.new("Unknown option name #{option_name}") unless valid_option_name?(option_name)
-        send(:"options_for_#{option_name}")
+        send(:"options_for_#{option_name}", *args)
       end
 
       def for_filter_key(filter_key)
@@ -31,6 +31,7 @@ module Whitehall
         locations: 'world_locations',
         people: 'people',
         taxons: 'taxons',
+        subtaxons: 'subtaxons',
       }.freeze
 
       def valid_option_name?(option_name)
@@ -85,6 +86,37 @@ module Whitehall
           [taxon.name, taxon.content_id]
         end
         @options_for_taxons ||= StructuredOptions.new(all_label: "All topics", grouped: {}, ungrouped: options)
+      end
+
+      def options_for_subtaxons(selected_taxons = [])
+        @options_for_subtaxons ||= begin
+          level_two_taxons = Taxonomy::TopicTaxonomy
+                               .new
+                               .ordered_taxons
+                               .map(&:descendants)
+
+          options = level_two_taxons.flatten(1).map do |taxon|
+            # Only show subtopics that make sense given the selected
+            # topic
+            show_option = selected_taxons.include?(
+              taxon.parent_node.content_id
+            )
+
+            [
+              taxon.name,
+              taxon.content_id,
+              # Add the parent content id, so that the JavaScript can
+              # show and hide the options when the taxon filter is
+              # changed
+              {
+                "hidden" => !show_option,
+                "data-parent-content-id" => taxon.parent_node.content_id
+              }
+            ]
+          end
+
+          StructuredOptions.new(all_label: "All subtopics", grouped: {}, ungrouped: options)
+        end
       end
 
       def options_for_people

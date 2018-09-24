@@ -23,6 +23,7 @@ class StatisticsControllerTest < ActionController::TestCase
     content_store_has_item(@content_item['base_path'], @content_item)
 
     has_level_one_taxons([taxon('id1', 'taxon1'), taxon('id2', 'taxon2')])
+    stub_taxonomy_with_all_taxons
   end
 
   view_test "#index only displays *published* statistics" do
