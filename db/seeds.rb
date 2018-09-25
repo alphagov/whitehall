@@ -1,3 +1,8 @@
+# The test environment expects an empty test database. These seeds are used
+# to set up the minimum for a dev environment and are used with
+# https://github.com/alphagov/publishing-e2e-tests
+return if Rails.env.test?
+
 if User.where(name: "Test user").present?
   puts "Skipping because user already exists"
 else
