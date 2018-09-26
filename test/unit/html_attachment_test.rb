@@ -63,6 +63,18 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal "/government/publications/#{edition.slug}/#{attachment.slug}", attachment.url
   end
 
+  test "#url works with consultation outcomes" do
+    consultation = create(:consultation_with_outcome_html_attachment)
+    attachment = consultation.outcome.attachments.first
+    assert_equal "/government/consultations/#{consultation.slug}/outcome/#{attachment.slug}", attachment.url
+  end
+
+  test "#url works with consultation public feedback" do
+    consultation = create(:consultation_with_public_feedback_html_attachment)
+    attachment = consultation.public_feedback.attachments.first
+    assert_equal "/government/consultations/#{consultation.slug}/public-feedback/#{attachment.slug}", attachment.url
+  end
+
   test "slug is copied from previous edition's attachment" do
     edition = create(:published_publication, attachments: [
       build(:html_attachment, title: "an-html-attachment")

@@ -10,7 +10,11 @@ FactoryBot.define do
     end
 
     trait(:with_file_attachment) do
-      attachments { FactoryBot.build_list :file_attachment, 1 }
+      attachments { [FactoryBot.build(:file_attachment)] }
+    end
+
+    trait(:with_html_attachment) do
+      attachments { [FactoryBot.build(:html_attachment)] }
     end
   end
 
@@ -20,7 +24,11 @@ FactoryBot.define do
     end
 
     trait(:with_file_attachment) do
-      attachments { FactoryBot.build_list :file_attachment, 1 }
+      attachments { [FactoryBot.build(:file_attachment)] }
+    end
+
+    trait(:with_html_attachment) do
+      attachments { [FactoryBot.build(:html_attachment)] }
     end
   end
 end

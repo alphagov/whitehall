@@ -366,7 +366,7 @@ module PublishingApi::ConsultationPresenterTest
 
   class ClosedConsultationWithOutcomeTest < TestCase
     setup do
-      self.consultation = create(:consultation_with_outcome_attachment)
+      self.consultation = create(:consultation_with_outcome_file_attachment)
     end
 
     test 'document type' do

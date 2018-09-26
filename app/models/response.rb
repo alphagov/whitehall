@@ -44,6 +44,12 @@ class Response < ApplicationRecord
     true
   end
 
+  def allows_html_attachments?
+    true
+  end
+
+  delegate :public_timestamp, :first_published_version?, :slug, :document, to: :consultation
+
 private
 
   def has_attachments

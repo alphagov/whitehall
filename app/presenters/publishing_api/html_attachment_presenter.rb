@@ -75,7 +75,7 @@ module PublishingApi
     end
 
     def parent_content_ids
-      ::Edition.joins(:document).where(editions: { id: item.attachable_id }).pluck(:content_id)
+      [parent.document.content_id]
     end
 
     def govspeak_content

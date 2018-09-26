@@ -63,11 +63,8 @@ class HtmlAttachment < Attachment
       options[:host] = URI(Plek.new.external_url_for("www-origin")).host
     end
 
-    type = :publication
-    type = :consultation if attachable.is_a?(Consultation)
-
-    path_or_url = full_url ? :url : :path
-
+    type = attachable.class.name.underscore
+    path_or_url = full_url ? "url" : "path"
     path_helper = "#{type}_html_attachment_#{path_or_url}"
 
     Whitehall.url_maker.public_send(path_helper, attachable.slug, self, options)

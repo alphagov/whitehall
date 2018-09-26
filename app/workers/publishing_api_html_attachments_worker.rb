@@ -106,19 +106,26 @@ private
   end
 
   def current_html_attachments
-    edition.html_attachments
+    edition.attachables.flat_map(&:html_attachments)
+  end
+
+  def previous_html_attachments
+    return [] unless previous_edition
+
+    previous_edition.attachables.flat_map(&:html_attachments)
   end
 
   def content_ids_to_remove
     return Set[] unless previous_edition
-    old_content_ids = previous_edition.html_attachments.pluck(:content_id).to_set
-    new_content_ids = current_html_attachments.pluck(:content_id).to_set
+
+    old_content_ids = previous_html_attachments.map(&:content_id).to_set
+    new_content_ids = current_html_attachments.map(&:content_id).to_set
 
     old_content_ids - new_content_ids
   end
 
   def deleted_html_attachments
-    edition.deleted_html_attachments
+    edition.attachables.flat_map(&:deleted_html_attachments)
   end
 
   def do_publish(update_type)

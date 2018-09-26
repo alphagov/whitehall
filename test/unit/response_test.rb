@@ -148,4 +148,12 @@ class ResponseTest < ActiveSupport::TestCase
 
     assert_equal [], response.organisations
   end
+
+  test "allows HTML attachments" do
+    outcome = build(:consultation_outcome)
+    assert outcome.allows_html_attachments?
+
+    public_feedback = build(:consultation_public_feedback)
+    assert public_feedback.allows_html_attachments?
+  end
 end
