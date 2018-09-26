@@ -43,7 +43,9 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
       history.pushState(documentFilter.currentPageState(), null, url);
     },
     updateTracking: function(url) {
-      GOVUK.analytics.trackPageview(url);
+      if (GOVUK.analytics) {
+        GOVUK.analytics.trackPageview(url);
+      }
     },
     updateSubtopics: function() {
       var $taxonsSelect = $('#taxons');
