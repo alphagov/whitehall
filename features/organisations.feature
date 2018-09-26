@@ -204,27 +204,3 @@ Scenario: Citizen views a closed organisation
   When I view the organisation
   Then I can see that the organisation is closed and has been superseded by the other
   And I can see the documents associated with that organisation
-
-Scenario: Featuring policies on an organisation
-  Given I am an editor in the organisation "Department of Fun"
-  And and the policies "Dance around" and "Sing aloud" exist
-  When I feature the policies "Dance around" and "Sing aloud" for "Department of Fun"
-  Then I should see the featured policies in the "Department of Fun" organisation are:
-    |Dance around|
-    |Sing aloud|
-  When I stop featuring the polices "Dance around" for "Department of Fun"
-  Then I should see the featured policies in the "Department of Fun" organisation are:
-    |Sing aloud|
-  When I stop featuring the polices "Sing aloud" for "Department of Fun"
-  Then there should be no featured policies on the home page of "Department of Fun"
-
-Scenario: Setting the order of policies featured on an organisation
-  Given I am an editor in the organisation "Department of Fun"
-  And and the policies "Dance around" and "Sing aloud" exist
-  When I feature the policies "Dance around" and "Sing aloud" for "Department of Fun"
-  And I order the featured policies in the "Department of Fun" organisation as:
-    |Sing aloud|
-    |Dance around|
-  Then I should see the featured policies in the "Department of Fun" organisation are:
-    |Sing aloud|
-    |Dance around|
