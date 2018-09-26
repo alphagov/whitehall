@@ -6,6 +6,14 @@ end
 
 After('@javascript') do
   ENV.delete("USE_SLIMMER")
+
+  errors = page.driver.browser.manage.logs.get(:browser)
+  if errors.present?
+    errors.each do |error|
+      STDERR.puts "javascript: #{error.level}:"
+      STDERR.puts error.message
+    end
+  end
 end
 
 # Capybara 2 is a lot stricter with the elements that it finds. Not only does it complain if your
