@@ -63,6 +63,18 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal "/government/publications/#{edition.slug}/#{attachment.slug}", attachment.url
   end
 
+  test "#url works with consultation outcomes" do
+    consultation = create(:consultation_with_outcome_html_attachment)
+    attachment = consultation.outcome.attachments.first
+    assert_equal "/government/consultations/#{consultation.slug}/outcome/#{attachment.slug}", attachment.url
+  end
+
+  test "#url works with consultation public feedback" do
+    consultation = create(:consultation_with_public_feedback_html_attachment)
+    attachment = consultation.public_feedback.attachments.first
+    assert_equal "/government/consultations/#{consultation.slug}/public-feedback/#{attachment.slug}", attachment.url
+  end
+
   test "slug is copied from previous edition's attachment" do
     edition = create(:published_publication, attachments: [
       build(:html_attachment, title: "an-html-attachment")
@@ -146,111 +158,6 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
   test "#translated_locales lists only the attachment's locale" do
     assert_equal %w[en], HtmlAttachment.new.translated_locales
     assert_equal %w[cy], HtmlAttachment.new(locale: "cy").translated_locales
-  end
-
-  test "attachment with the same base path as a previously deleted attachment
-    retains the content_id" do
-    content_id = "2f142514-15bf-4779-b651-5a9aaf6df93c"
-    deleted_attachment = create(
-      :html_attachment,
-      content_id: content_id,
-      title: "booyah",
-      attachable: build(:published_publication)
-    )
-    first_edition = deleted_attachment.attachable
-    deleted_attachment.destroy
-
-    new_draft = first_edition.create_draft(first_edition.creator)
-    new_attachment = create(
-      :html_attachment,
-      title: "booyah",
-      attachable: new_draft
-    )
-
-    assert_equal content_id, new_attachment.content_id
-  end
-
-  test "attachment with the same title but different base_path does not retain
-    the content_id" do
-    deleted_attachment = create(
-      :html_attachment,
-      title: "original title",
-      attachable: build(:published_publication)
-    )
-    #this will have slug `original-title`
-    deleted_attachment.update_attributes(title: "new title")
-
-    first_edition = deleted_attachment.attachable
-    deleted_attachment.destroy
-
-    new_draft = first_edition.create_draft(first_edition.creator)
-    #this will have slug `new-title`
-    new_attachment = create(
-      :html_attachment,
-      title: "new title",
-      attachable: new_draft
-    )
-
-    assert_not_equal new_attachment.content_id, deleted_attachment.content_id
-  end
-
-  test "translations with the same title retain the same content_id" do
-    content_id = "97660b60-d4cd-4bfe-b9f5-d95d20e78449"
-    first_attachment = create(
-      :html_attachment,
-      title: "Le Boeuf",
-      locale: "fr",
-      content_id: content_id
-    )
-
-    edition = first_attachment.attachable
-    first_attachment.destroy
-    second_attachment = create(
-      :html_attachment,
-      title: "Le Boeuf",
-      locale: "fr",
-      attachable: edition
-    )
-
-    assert_equal content_id, second_attachment.content_id
-  end
-
-  test "translations with the different titles get different content_id" do
-    content_id = "97660b60-d4cd-4bfe-b9f5-d95d20e78449"
-    first_attachment = create(
-      :html_attachment,
-      title: "Le Boeuf",
-      locale: "fr",
-      content_id: content_id
-    )
-
-    edition = first_attachment.attachable
-    first_attachment.destroy
-    second_attachment = create(
-      :html_attachment,
-      title: "Les Oeufs",
-      locale: "fr",
-      attachable: edition
-    )
-
-    assert_not_equal content_id, second_attachment.content_id
-  end
-
-  test "attachment with an unused base path gets a new content_id" do
-    first_attachment = create(
-      :html_attachment,
-      title: "booyah",
-      attachable: build(:published_publication)
-    )
-    published_edition = first_attachment.attachable
-    new_draft = published_edition.create_draft(published_edition.creator)
-    second_attachment = create(
-      :html_attachment,
-      title: "kasha",
-      attachable: new_draft
-    )
-
-    assert_not_equal first_attachment.content_id, second_attachment.content_id
   end
 
   test "#rendering_app returns government_frontend" do

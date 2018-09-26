@@ -8,6 +8,10 @@ FactoryBot.define do
     transient do
       relevant_to_local_government { false }
     end
+
+    trait(:with_html_attachment) do
+      attachments { [FactoryBot.build(:html_attachment)] }
+    end
   end
 
   factory :imported_consultation, parent: :consultation, traits: [:imported]
@@ -38,7 +42,15 @@ FactoryBot.define do
     outcome { create(:consultation_outcome) }
   end
 
-  factory :consultation_with_outcome_attachment, parent: :closed_consultation do
+  factory :consultation_with_outcome_file_attachment, parent: :closed_consultation do
     outcome { create(:consultation_outcome, :with_file_attachment) }
+  end
+
+  factory :consultation_with_outcome_html_attachment, parent: :closed_consultation do
+    outcome { create(:consultation_outcome, :with_html_attachment) }
+  end
+
+  factory :consultation_with_public_feedback_html_attachment, parent: :closed_consultation do
+    public_feedback { create(:consultation_public_feedback, :with_html_attachment) }
   end
 end

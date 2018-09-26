@@ -28,6 +28,56 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
       call(publication)
     end
 
+    test "with an html attachment on a new consultation outcome it publishes the attachment" do
+      consultation = create(:consultation_with_outcome_html_attachment, :published)
+      attachment = consultation.outcome.html_attachments.first
+
+      PublishingApiWorker.any_instance.expects(:perform).with(
+        "HtmlAttachment",
+        attachment.id,
+        "major",
+        "en"
+      ).once
+
+      call(consultation)
+    end
+
+    test "with an html attachment on a new consultation public feedback it publishes the attachment" do
+      consultation = create(:consultation_with_public_feedback_html_attachment, :published)
+      attachment = consultation.public_feedback.html_attachments.first
+
+      PublishingApiWorker.any_instance.expects(:perform).with(
+        "HtmlAttachment",
+        attachment.id,
+        "major",
+        "en"
+      ).once
+
+      call(consultation)
+    end
+
+    test "with an html attachment on all parts of a new consultation it publishes all the attachments" do
+      outcome = create(:consultation_outcome, :with_html_attachment)
+      public_feedback = create(:consultation_public_feedback, :with_html_attachment)
+
+      consultation = create(:published_consultation, :with_html_attachment,
+        outcome: outcome,
+        public_feedback: public_feedback)
+
+      attachments = [outcome, public_feedback, consultation].flat_map(&:html_attachments)
+
+      attachments.each do |attachment|
+        PublishingApiWorker.any_instance.expects(:perform).with(
+          "HtmlAttachment",
+          attachment.id,
+          "major",
+          "en"
+        ).once
+      end
+
+      call(consultation)
+    end
+
     test "with an html attachment on all versions of a document publishes the attachment" do
       publication = create(:published_publication)
 
