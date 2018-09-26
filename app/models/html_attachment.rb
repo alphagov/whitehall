@@ -102,10 +102,6 @@ class HtmlAttachment < Attachment
     [locale || I18n.default_locale.to_s]
   end
 
-  def generate_content_id
-    previously_deleted_content_id || super
-  end
-
 private
 
   def sluggable_locale?
@@ -120,27 +116,5 @@ private
     if locale_changed? && !sluggable_locale?
       self.slug = nil
     end
-  end
-
-  def previously_deleted_content_id
-    @previously_deleted_content_id ||= fetch_previously_published_content_ids.last
-  end
-
-  def fetch_previously_published_content_ids
-    document_id = attachable.document_id
-    edition_ids = Edition.unscoped.where(document_id: document_id).pluck(:id)
-    params = {
-      attachable_id: edition_ids,
-      slug: slug
-    }
-
-    if !sluggable_locale? #translations don't have slugs
-      params.delete(:slug)
-      params[:title] = title
-    end
-
-    HtmlAttachment.where(
-      params
-    ).pluck(:content_id)
   end
 end
