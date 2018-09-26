@@ -5,13 +5,17 @@ class DocumentFilterHelperTest < ActionView::TestCase
   include TaxonomyHelper
 
   test "#taxon_filter_options makes option tags for taxons" do
-    has_level_one_taxons([taxon('id1', 'taxon1'),
-                          taxon('id2', 'taxon2')])
     redis_cache_has_taxons([root_taxon, grandparent_taxon])
     result = taxon_filter_options
     assert_includes result, '<option selected="selected" value="all">All topics</option>'
-    assert_includes result, '<option value="id1">taxon1</option>'
-    assert_includes result, '<option value="id2">taxon2</option>'
+    assert_includes(
+      result,
+      "<option value=\"#{root_taxon['content_id']}\">#{root_taxon['title']}</option>"
+    )
+    assert_includes(
+      result,
+      "<option value=\"#{root_taxon['content_id']}\">#{root_taxon['title']}</option>"
+    )
   end
 
   test "#announcement_type_filter_options makes option tags with subtype name as text and slug as value" do

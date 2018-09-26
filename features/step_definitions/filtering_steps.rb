@@ -47,7 +47,7 @@ Given(/^there are some published publications$/) do
 end
 
 Given(/^A publication is tagged to a taxon$/) do
-  has_level_one_taxons([taxon('id1', 'Taxon')])
+  redis_cache_has_taxons([build(:taxon_hash, content_id: 'id1', title: 'Taxon')])
   publication = Publication.find_by(title: "Publication with taxon")
   rummager_can_find_document_with_taxon(publication.search_link, %w[id1])
 end
@@ -168,7 +168,7 @@ Given(/^there are some published announcements$/) do
 end
 
 Given(/^an Announcement is tagged to a taxon$/) do
-  has_level_one_taxons([taxon('id1', 'Taxon')])
+  redis_cache_has_taxons([build(:taxon_hash, content_id: 'id1', title: 'Taxon')])
   announcement = Announcement.find_by(title: "News Article with keyword, topic, department, world location published within date range")
   rummager_can_find_document_with_taxon(announcement.search_link, %w[id1])
 end

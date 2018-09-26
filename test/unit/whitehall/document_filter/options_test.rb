@@ -113,14 +113,14 @@ module Whitehall
       end
 
       test "can get the list of options for taxons" do
-        has_level_one_taxons([
-           taxon('id1', 'taxon1'),
-           taxon('id2', 'taxon2')
-        ])
+        redis_cache_has_taxons([root_taxon])
         options = filter_options.for(:taxons)
 
         assert_equal ["All topics", "all"], options.all
-        assert_equal [%w[taxon1 id1], %w[taxon2 id2]], options.ungrouped
+        assert_equal(
+          [[root_taxon['title'], root_taxon['content_id']]],
+          options.ungrouped
+        )
         assert_empty options.grouped
       end
 

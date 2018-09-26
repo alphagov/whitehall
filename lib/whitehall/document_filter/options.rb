@@ -80,12 +80,16 @@ module Whitehall
       end
 
       def options_for_taxons
-        taxons = Taxonomy::LevelOneTaxonsFetcher.fetch
+        @options_for_taxons ||= begin
+          options = Taxonomy::TopicTaxonomy
+                      .new
+                      .ordered_taxons
+                      .map do |taxon|
+            [taxon.name, taxon.content_id]
+          end
 
-        options = taxons.map do |taxon|
-          [taxon.name, taxon.content_id]
+          StructuredOptions.new(all_label: "All topics", grouped: {}, ungrouped: options)
         end
-        @options_for_taxons ||= StructuredOptions.new(all_label: "All topics", grouped: {}, ungrouped: options)
       end
 
       def options_for_subtaxons(selected_taxons = [])
