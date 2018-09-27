@@ -86,7 +86,6 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     expected_links = {
       ordered_contacts: [],
       ordered_foi_contacts: [],
-      ordered_featured_policies: [],
       ordered_parent_organisations: [parent_organisation.content_id],
       ordered_child_organisations: [],
       ordered_successor_organisations: [],

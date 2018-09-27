@@ -45,7 +45,6 @@ module PublishingApi
       {
         ordered_contacts: contacts_links,
         ordered_foi_contacts: foi_contacts_links,
-        ordered_featured_policies: featured_policies_links,
         ordered_parent_organisations: parent_organisation_links,
         ordered_child_organisations: child_organisation_links,
         ordered_successor_organisations: successor_organisation_links,
@@ -491,10 +490,6 @@ module PublishingApi
 
     def high_profile_groups_links
       item.sub_organisations.distinct.pluck(:content_id)
-    end
-
-    def featured_policies_links
-      item.featured_policies.order(:ordering).distinct.pluck(:policy_content_id)
     end
 
     def roles_links
