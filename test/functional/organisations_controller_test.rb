@@ -107,9 +107,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     create(:corporate_information_page, organisation: organisation)
     organisation.add_contact_to_home_page!(contact)
 
-    policy = publishing_api_has_policies(['test-title']).first
-    create(:featured_policy, organisation: organisation, policy_content_id: policy["content_id"])
-
     get :show, params: { id: organisation }
 
     assert_select '#corporate-info'
@@ -118,7 +115,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select '#ministers'
     assert_select '#org-contacts'
     assert_select '#people'
-    assert_select '#policies'
     assert_select '#what-we-do'
   end
 
@@ -233,16 +229,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_template 'show-promotional'
   end
 
-  view_test "promotional template shows featured policies if there are any" do
-    organisation = create_org_and_stub_content_store(:executive_office, govuk_status: 'live')
-    policies = publishing_api_has_policies(['test-policy'])
-    create(:featured_policy, organisation: organisation, policy_content_id: policies.first["content_id"])
-
-    get :show, params: { id: organisation }
-
-    assert_select "#featured-policies"
-  end
-
   test "showing a joining organisation renders the not live template" do
     organisation = create_org_and_stub_content_store(:organisation, govuk_status: 'joining')
 
@@ -352,38 +338,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     hmcts_tribunal = create_org_and_stub_content_store(:hmcts_tribunal)
     get :show, params: { id: hmcts_tribunal, courts_only: true }
     assert_select "p.parent-organisations", text: /Administered by\s+HMCTS/m
-  end
-
-  view_test "should display the organisation's policies with content" do
-    organisation = create_org_and_stub_content_store(:organisation)
-    policy = publishing_api_has_policies(['Welfare reform']).first
-    create(:featured_policy, organisation: organisation, policy_content_id: policy["content_id"])
-
-    get :show, params: { id: organisation }
-
-    assert_select "#policies" do
-      assert_select "a[href='#{policy['base_path']}']", text: "Welfare reform"
-
-      assert_select "a[href='#{policies_finder_path(organisations: [organisation])}']"
-    end
-  end
-
-  test "should display organisation's latest three policies" do
-    first_three_policy_titles = [
-      "Welfare reform",
-      "State Pension simplification",
-      "State Pension age",
-    ]
-
-    organisation = create_org_and_stub_content_store(:organisation)
-    policies = publishing_api_has_policies(first_three_policy_titles)
-    create(:featured_policy, organisation: organisation, policy_content_id: policies[0]["content_id"])
-    create(:featured_policy, organisation: organisation, policy_content_id: policies[1]["content_id"])
-    create(:featured_policy, organisation: organisation, policy_content_id: policies[2]["content_id"])
-
-    get :show, params: { id: organisation }
-
-    assert_equal first_three_policy_titles, assigns[:policies].map(&:title)
   end
 
   test "should display 2 announcements in reverse chronological order" do
