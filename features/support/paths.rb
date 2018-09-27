@@ -34,12 +34,6 @@ module NavigationHelpers
     visit organisation_email_signup_information_path(organisation)
   end
 
-  def visit_organisation_featured_policies_admin(name)
-    organisation = Organisation.find_by!(name: name)
-    visit admin_organisation_path(organisation)
-    click_link "Featured policies"
-  end
-
   def visit_worldwide_organisation_page(name)
     worldwide_organisation = WorldwideOrganisation.find_by!(name: name)
     visit worldwide_organisation_path(worldwide_organisation)
