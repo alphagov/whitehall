@@ -18,6 +18,7 @@ module Whitehall::DocumentFilter
       @include_world_location_news = @params[:include_world_location_news]
 
       @taxons          = Array(@params[:taxons])
+      @subtaxons       = Array(@params[:subtaxons])
       @topics          = Array(@params[:topics])
       @departments     = Array(@params[:departments])
       @people          = Array(@params[:people])
@@ -44,6 +45,10 @@ module Whitehall::DocumentFilter
 
     def selected_taxons
       @taxons.reject { |taxon| taxon == "all" }
+    end
+
+    def selected_subtaxons
+      @subtaxons
     end
 
     def selected_topics

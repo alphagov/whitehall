@@ -21,6 +21,13 @@
           </div>
         <% end %>
 
+        <% if filters.include? :subtaxon %>
+          <div class="filter" <% if @filter.selected_taxons.empty? %>style="display: none;"<% end %>>
+            <%= label_tag "subtaxons", "Subtopic" %>
+            <%= select_tag "subtaxons[]", subtaxon_filter_options(@filter.selected_taxons, @filter.selected_subtaxons), class: "single-row-select", id: "subtaxons" %>
+          </div>
+        <% end %>
+
         <% if filters.include? :publication_type %>
           <div class="filter">
             <%= label_tag "publication_filter_option", "Publication type", class: "title" %>

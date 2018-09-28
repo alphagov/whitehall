@@ -43,7 +43,32 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
       history.pushState(documentFilter.currentPageState(), null, url);
     },
     updateTracking: function(url) {
-      GOVUK.analytics.trackPageview(url);
+      if (GOVUK.analytics) {
+        GOVUK.analytics.trackPageview(url);
+      }
+    },
+    updateSubtopics: function() {
+      var $taxonsSelect = $('#taxons');
+      var $subtaxonsSelect = $('#subtaxons');
+
+      if ($taxonsSelect.val() === 'all') {
+        $subtaxonsSelect.parent().hide();
+      } else {
+        $subtaxonsSelect.parent().show();
+
+        var selectedTopicContentId = $taxonsSelect.val();
+
+        $subtaxonsSelect.children().each(function(index, option) {
+          var parentContentId = option.dataset.parentContentId;
+
+          if (parentContentId) {
+            // Hide optoins which don't belong to the selected topic
+            option.hidden = (parentContentId !== selectedTopicContentId);
+          }
+        });
+
+        $subtaxonsSelect.val('all');
+      }
     },
     submitFilters: function(e){
       e.preventDefault();
@@ -172,6 +197,13 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           }
         }
       }
+
+      if (context.subtaxons && context.subtaxons.length != 0) {
+        // If a subtaxon is present, use it over the parent taxon
+        context.taxons = context.subtaxons
+        delete context.subtaxons
+      }
+
       if(formStatus.text) {
         for(i=0,_i=formStatus.text.length; i<_i; i++) {
           field = formStatus.text[i];
@@ -309,6 +341,10 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
             timer = setTimeout(callback, ms);
           }
         })();
+
+        $('#taxons').change(function(event) {
+          documentFilter.updateSubtopics();
+        });
 
         $form.find('select, input[type=checkbox]').change(function() {
           $form.submit();

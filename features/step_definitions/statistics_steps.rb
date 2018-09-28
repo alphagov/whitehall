@@ -63,8 +63,8 @@ When(/^I should only see statistics matching the given keyword, from date and to
 end
 
 Given(/^there are some statisics for various departments and topics$/) do
-  has_level_one_taxons([taxon('beard_id', 'Beards'),
-                        taxon('wombat_id', 'Wombats')])
+  redis_cache_has_taxons([build(:taxon_hash, content_id: 'beard_id', title: 'Beards'),
+                          build(:taxon_hash, content_id: 'wombat_id', title: 'Wombats')])
 
   beard_org = create(:ministerial_department, name: 'Ministry of Beards')
   wombat_org = create(:ministerial_department, name: 'Wombats of Wimbledon')

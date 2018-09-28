@@ -22,7 +22,7 @@ class StatisticsControllerTest < ActionController::TestCase
 
     content_store_has_item(@content_item['base_path'], @content_item)
 
-    has_level_one_taxons([taxon('id1', 'taxon1'), taxon('id2', 'taxon2')])
+    stub_taxonomy_with_all_taxons
   end
 
   view_test "#index only displays *published* statistics" do
@@ -61,11 +61,10 @@ class StatisticsControllerTest < ActionController::TestCase
   end
 
   view_test "#index highlights selected taxon filter options" do
-    get :index, params: { taxons: %w[id1 id2] }
+    get :index, params: { taxons: [root_taxon['content_id']] }
 
     assert_select "select#taxons[name='taxons[]']" do
-      assert_select "option[selected='selected']", text: 'taxon1'
-      assert_select "option[selected='selected']", text: 'taxon2'
+      assert_select "option[selected='selected']", text: root_taxon['title']
     end
   end
 
