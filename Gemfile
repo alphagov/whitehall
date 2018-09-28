@@ -25,7 +25,7 @@ gem(
 gem 'govuk_ab_testing', '~> 2.4x'
 gem 'govuk_admin_template', '~> 6.6'
 gem 'govuk_app_config', '~> 1.9'
-gem 'govuk_publishing_components', '~> 10.1.0'
+gem 'govuk_publishing_components', '~> 10.2.0'
 gem 'govuk_sidekiq', '~> 3'
 gem 'invalid_utf8_rejector', '~> 0.0.4'
 gem 'isbn_validation'
