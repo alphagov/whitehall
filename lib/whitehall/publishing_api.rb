@@ -10,7 +10,7 @@ module Whitehall
   class UnpublishableInstanceError < StandardError; end
 
   class PublishingApi
-    def self.publish(model_instance, update_type_override = nil)
+    def self.publish(model_instance)
       assert_public_edition!(model_instance)
 
       # TODO: This should be unnecessary eventually, as the Publishing
@@ -18,12 +18,9 @@ module Whitehall
       # through Whitehall Frontend, this can definately be removed, as
       # the previews will always be representative of what will be
       # published.
-      save_draft(model_instance, update_type_override)
+      save_draft(model_instance)
 
-      presenter = PublishingApiPresenters.presenter_for(
-        model_instance,
-        update_type: update_type_override
-      )
+      presenter = PublishingApiPresenters.presenter_for(model_instance)
 
       locales_for(model_instance).each do |locale|
         I18n.with_locale(locale) do
