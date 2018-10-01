@@ -21,7 +21,6 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     edition = create(:published_publication)
     presenter = PublishingApiPresenters.presenter_for(edition)
     requests = [
-      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
       stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil)
     ]
 
@@ -35,7 +34,6 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     WebMock.reset! # because creating an organisation also pushes to Publishing API
     presenter = PublishingApiPresenters.presenter_for(organisation)
     requests = [
-      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
       stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil)
     ]
 
@@ -49,7 +47,6 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
     presenter = PublishingApiPresenters.presenter_for(edition)
     requests = [
-      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
       stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil)
     ]
 
@@ -76,13 +73,10 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       stub_publishing_api_publish(presenter.content_id, locale: 'en', update_type: nil)
     ]
 
-    links_request = stub_publishing_api_patch_links(presenter.content_id, links: presenter.links)
-
     Whitehall::PublishingApi.publish(organisation)
 
     assert_all_requested(french_requests)
     assert_all_requested(english_requests)
-    assert_requested(links_request, times: 2)
   end
 
   test ".republish_async publishes to the Publishing API as a 'republish' update_type" do

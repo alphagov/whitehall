@@ -17,12 +17,6 @@ module Whitehall
 
       locales_for(model_instance).each do |locale|
         I18n.with_locale(locale) do
-          # TODO: This is probably redundant
-          Services.publishing_api.patch_links(
-            presenter.content_id,
-            links: presenter.links
-          )
-
           Services.publishing_api.publish(
             presenter.content_id,
             nil,
@@ -54,6 +48,15 @@ module Whitehall
           presenter.content
         )
       end
+    end
+
+    def self.patch_links(model_instance)
+      presenter = PublishingApiPresenters.presenter_for(model_instance)
+
+      Services.publishing_api.patch_links(
+        presenter.content_id,
+        links: presenter.links
+      )
     end
 
     def self.republish_async(model_instance)

@@ -11,7 +11,6 @@ class PublishingTest < ActiveSupport::TestCase
 
   test "When an edition is published, it gets published with the Publishing API" do
     requests = [
-      stub_publishing_api_patch_links(@presenter.content_id, links: @presenter.links),
       stub_publishing_api_publish(@presenter.content_id, locale: 'en', update_type: nil)
     ]
 
@@ -34,13 +33,10 @@ class PublishingTest < ActiveSupport::TestCase
       stub_publishing_api_publish(@presenter.content_id, locale: 'en', update_type: nil)
     ]
 
-    links_request = stub_publishing_api_patch_links(@presenter.content_id, links: @presenter.links)
-
     perform_force_publishing_for(@draft_edition)
 
     assert_all_requested(english_requests)
     assert_all_requested(french_requests)
-    assert_requested(links_request, times: 2)
   end
 
 private

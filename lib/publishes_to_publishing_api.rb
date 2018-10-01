@@ -15,6 +15,7 @@ module PublishesToPublishingApi
   def publish_to_publishing_api
     run_callbacks :published do
       Whitehall::PublishingApi.save_draft(self)
+      Whitehall::PublishingApi.patch_links(self)
       Whitehall::PublishingApi.publish(self)
     end
   end
