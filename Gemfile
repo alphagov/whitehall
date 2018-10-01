@@ -55,7 +55,7 @@ gem 'redis-namespace'
 gem 'responders', '~> 2.4'
 gem 'rinku', require: 'rails_rinku'
 gem 'ruby-progressbar', require: false
-gem 'sass', '~> 3.5'
+gem 'sass', '~> 3.6'
 gem 'sassc-rails', '~> 1.3'
 gem 'shared_mustache', '~> 1.0.0'
 gem 'sidekiq-scheduler', '~> 3.0'
