@@ -68,7 +68,7 @@ module Whitehall
 
     def self.republish_async(model_instance)
       if model_instance.class < Edition
-        raise ArgumentError, "Use republish_document_async for republishing Editions"
+        raise ArgumentError, "This method does not support Editions: call republish_document_async with the Document this Edition belongs to"
       end
       push_live(model_instance, 'republish')
     end
