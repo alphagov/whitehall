@@ -351,7 +351,10 @@ regulator_social_housing = Organisation.find_by(slug: 'regulator-of-social-housi
     edition.lead_organisations = lead_organisations
     edition.save!
 
-    Whitehall::PublishingApi.republish_document_async(document, bulk: true)
+    PublishingApiDocumentRepublishingWorker.perform_in(
+      2.seconds,
+      document.id,
+    )
   rescue Exception => ex
     puts "#{slug}: #{ex.class}, #{ex.message}"
   end
