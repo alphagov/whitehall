@@ -118,6 +118,7 @@ class ContactTest < ActiveSupport::TestCase
       ServiceListeners::EditionDependenciesPopulator.new(news_article).populate!
       ServiceListeners::EditionDependenciesPopulator.new(corp_info_page).populate!
 
+      expect_put_content(contact)
       expect_publishing(contact)
       expect_republishing(news_article, corp_info_page)
 

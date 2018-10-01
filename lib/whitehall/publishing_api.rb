@@ -10,29 +10,13 @@ module Whitehall
   class UnpublishableInstanceError < StandardError; end
 
   class PublishingApi
-    def self.publish(model_instance, update_type_override = nil)
+    def self.publish(model_instance)
       assert_public_edition!(model_instance)
 
-      # TODO: This should be unnecessary eventually, as the Publishing
-      # API should be kept up to date. Once no content is rendered
-      # through Whitehall Frontend, this can definately be removed, as
-      # the previews will always be representative of what will be
-      # published.
-      save_draft(model_instance, update_type_override)
-
-      presenter = PublishingApiPresenters.presenter_for(
-        model_instance,
-        update_type: update_type_override
-      )
+      presenter = PublishingApiPresenters.presenter_for(model_instance)
 
       locales_for(model_instance).each do |locale|
         I18n.with_locale(locale) do
-          # TODO: This is probably redundant
-          Services.publishing_api.patch_links(
-            presenter.content_id,
-            links: presenter.links
-          )
-
           Services.publishing_api.publish(
             presenter.content_id,
             nil,
@@ -64,6 +48,15 @@ module Whitehall
           presenter.content
         )
       end
+    end
+
+    def self.patch_links(model_instance)
+      presenter = PublishingApiPresenters.presenter_for(model_instance)
+
+      Services.publishing_api.patch_links(
+        presenter.content_id,
+        links: presenter.links
+      )
     end
 
     def self.republish_async(model_instance)
