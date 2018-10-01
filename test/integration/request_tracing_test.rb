@@ -53,14 +53,12 @@ class RequestTracingTest < ActionDispatch::IntegrationTest
 
     # Main document
     content_id = @draft_edition.content_id
-    assert_requested(:put, %r|publishing-api.*content/#{content_id}|, headers: onward_headers)
     assert_requested(:post, %r|publishing-api.*content/#{content_id}/publish|, headers: onward_headers)
     assert_requested(:patch, %r|publishing-api.*links/#{content_id}|, headers: onward_headers)
 
     # HTML attachments
     @draft_edition.html_attachments.each do |html_attachment|
       attachment_content_id = html_attachment.content_id
-      assert_requested(:put, %r|publishing-api.*content/#{attachment_content_id}|, headers: onward_headers)
       assert_requested(:post, %r|publishing-api.*content/#{attachment_content_id}/publish|, headers: onward_headers)
       assert_requested(:patch, %r|publishing-api.*links/#{attachment_content_id}|, headers: onward_headers)
     end

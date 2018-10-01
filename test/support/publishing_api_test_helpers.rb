@@ -17,11 +17,17 @@ module PublishingApiTestHelpers
     end
   end
 
-  def expect_publishing(*editions, content_entries: {})
+  def expect_put_content(*editions, content_entries: {})
     editions.each do |edition|
-      Services.publishing_api.expects(:put_content)
-        .with(edition.content_id,
-          has_entries({ publishing_app: 'whitehall' }.merge(content_entries)))
+      Services.publishing_api.expects(:put_content).with(
+        edition.content_id,
+        has_entries({ publishing_app: 'whitehall' }.merge(content_entries))
+      )
+    end
+  end
+
+  def expect_publishing(*editions)
+    editions.each do |edition|
       Services.publishing_api.stubs(:patch_links)
         .with(edition.content_id, has_entries(links: anything))
       Services.publishing_api.expects(:publish)

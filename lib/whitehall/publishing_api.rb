@@ -13,13 +13,6 @@ module Whitehall
     def self.publish(model_instance)
       assert_public_edition!(model_instance)
 
-      # TODO: This should be unnecessary eventually, as the Publishing
-      # API should be kept up to date. Once no content is rendered
-      # through Whitehall Frontend, this can definately be removed, as
-      # the previews will always be representative of what will be
-      # published.
-      save_draft(model_instance)
-
       presenter = PublishingApiPresenters.presenter_for(model_instance)
 
       locales_for(model_instance).each do |locale|
