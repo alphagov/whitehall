@@ -15,7 +15,7 @@ docs_with_lead.each do |document|
     orgs.delete natural_england
 
     edition.lead_organisations = orgs
-    edition.save!
+    edition.save(validate: false)
 
     PublishingApiDocumentRepublishingWorker.perform_in(
       2.seconds,
@@ -38,7 +38,7 @@ docs_with_support.each do |document|
     orgs.delete natural_england
 
     edition.supporting_organisations = orgs
-    edition.save!
+    edition.save(validate: false)
 
     PublishingApiDocumentRepublishingWorker.perform_in(
       2.seconds,
