@@ -1,3 +1,4 @@
+@not-quite-as-fake-search
 Feature: Viewing upcoming statistics announcements
 
   Scenario: Citizen filters the list of statistics announcements and uses the pagination
