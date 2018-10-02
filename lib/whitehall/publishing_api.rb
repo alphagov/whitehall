@@ -88,9 +88,6 @@ module Whitehall
       locales_for(edition).each do |locale|
         base_path = Whitehall.url_maker.public_document_path(edition, locale: locale)
         PublishingApiScheduleWorker.perform_async(base_path, publish_timestamp)
-        unless edition.document.published?
-          PublishingApiComingSoonWorker.perform_async(edition.id, locale)
-        end
       end
     end
 
@@ -98,7 +95,6 @@ module Whitehall
       locales_for(edition).each do |locale|
         base_path = Whitehall.url_maker.public_document_path(edition, locale: locale)
         PublishingApiUnscheduleWorker.perform_async(base_path)
-        self.publish_vanish_async(edition.content_id, locale) unless edition.document.published?
       end
     end
 
