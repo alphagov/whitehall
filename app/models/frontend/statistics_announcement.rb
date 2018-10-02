@@ -9,15 +9,6 @@ class Frontend::StatisticsAnnouncement
 
   attr_reader :release_date, :cancellation_date
 
-  # DID YOU MEAN: Policy Area?
-  # "Policy area" is the newer name for "topic"
-  # (https://www.gov.uk/government/topics)
-  # "Topic" is the newer name for "specialist sector"
-  # (https://www.gov.uk/topic)
-  # You can help improve this code by renaming all usages of this field to use
-  # the new terminology.
-  attr_accessor :topics
-
   def initialize(attrs = {})
     attrs = Hash(attrs)
     attrs.each do |key, value|
