@@ -217,7 +217,7 @@ GEM
     govuk_frontend_toolkit (8.0.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
-    govuk_publishing_components (11.0.0)
+    govuk_publishing_components (11.1.0)
       govspeak (>= 5.0.3)
       govuk_app_config
       govuk_frontend_toolkit
@@ -322,8 +322,8 @@ GEM
       redis
     mocha (1.7.0)
       metaclass (~> 0.0.1)
-    money (6.12.0)
-      i18n (>= 0.6.4, < 1.1)
+    money (6.13.0)
+      i18n (>= 0.6.4, <= 2)
     msgpack (1.2.4)
     multi_json (1.13.1)
     multi_test (0.1.2)
@@ -443,7 +443,7 @@ GEM
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
     rinku (2.0.4)
-    rouge (3.2.1)
+    rouge (3.3.0)
     rubocop (0.58.2)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
@@ -462,7 +462,7 @@ GEM
     rufus-scheduler (3.5.0)
       fugit (~> 1.1, >= 1.1.1)
     safe_yaml (1.0.4)
-    sanitize (2.1.0)
+    sanitize (2.1.1)
       nokogiri (>= 1.4.4)
     sass (3.6.0)
       sass-listen (~> 4.0.0)
@@ -617,7 +617,7 @@ DEPENDENCIES
   govuk_admin_template (~> 6.6)
   govuk_app_config (~> 1.9)
   govuk_frontend_toolkit (= 8.0.0)
-  govuk_publishing_components (~> 11.0.0)
+  govuk_publishing_components (~> 11.1.0)
   govuk_sidekiq (~> 3)
   govuk_test
   graphviz_transitions
