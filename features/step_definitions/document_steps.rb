@@ -119,7 +119,7 @@ When(/^I filter by organisation "(.*?)" with javascript enabled$/) do |organisat
   select_from_chosen(organisation_name, from: "organisation")
 end
 
-When(/^I visit the (publication|consultation) "([^"]*)"$/) do |document_type, title|
+When /^I visit the (publication|news article|consultation) "([^"]*)"$/ do |document_type, title|
   edition = document_class(document_type).find_by!(title: title)
   visit public_document_path(edition)
 end
