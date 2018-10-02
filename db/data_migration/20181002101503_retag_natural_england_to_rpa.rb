@@ -8,6 +8,7 @@ docs_with_lead.each do |document|
   begin
     next if document.document_type == 'CorporateInformationPage'
     edition = document.latest_edition
+    edition.read_consultation_principles = true if document.document_type == 'Consultation'
     orgs = edition.lead_organisations.to_a
 
     orgs << rpa unless orgs.include? rpa
@@ -29,6 +30,7 @@ docs_with_support.each do |document|
   begin
     next if document.document_type == 'CorporateInformationPage'
     edition = document.latest_edition
+    edition.read_consultation_principles = true if document.document_type == 'Consultation'
     orgs = edition.supporting_organisations.to_a
 
     # handle the case where NE is the lead and RPA the support (or vice versa)
