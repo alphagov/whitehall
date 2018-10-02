@@ -28,25 +28,13 @@
 
   <div class="block feature-block">
     <div class="inner-block floated-children">
-      <% if @policies.any? %>
-        <section id="featured-policies" class="promo">
-          <div class="content">
-            <h2>Featured policies</h2>
-            <%= render partial: "policies/document_list", locals: {policies: @policies} %>
-            <p class="see-all">
-              <%= link_to t_see_all_our(:policy), policies_finder_path(organisations: [@organisation]) %>
-            </p>
-          </div>
-        </section>
-      <% else %>
-        <section id="what-we-do" class="promo">
-          <div class="content">
-            <h2>What we do</h2>
-            <p class="description"><%= @organisation.summary %></p>
-            <p><%= link_to t('organisation.about.read_more'), organisation_corporate_information_pages_path(@organisation), id: 'read_more_link' %></p>
-          </div>
-        </section>
-      <% end %>
+      <section id="what-we-do" class="promo">
+        <div class="content">
+          <h2>What we do</h2>
+          <p class="description"><%= @organisation.summary %></p>
+          <p><%= link_to t('organisation.about.read_more'), organisation_corporate_information_pages_path(@organisation), id: 'read_more_link' %></p>
+        </div>
+      </section>
 
       <% if @organisation.social_media_accounts.any? %>
         <div class="social-media promo">

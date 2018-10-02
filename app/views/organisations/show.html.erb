@@ -54,24 +54,6 @@
     </div>
   </div>
 
-  <% if @policies.any? %>
-    <div class="block-7 heading-block">
-      <div class="inner-block">
-        <section id="policies">
-          <div class="head-section">
-            <h1 class="label"><%= t('organisation.headings.our_policies') %></h1>
-          </div>
-          <div class="content">
-            <%= render partial: "policies/document_list", locals: {policies: @policies} %>
-            <p class="see-all">
-              <%= link_to t_see_all_our(:policy), policies_finder_path(organisations: [@organisation]) %>
-            </p>
-          </div>
-        </section>
-      </div>
-    </div>
-  <% end %>
-
   <%= render 'documents' if (@non_statistics_publications + @announcements + @consultations + @statistics_publications).any? %>
 
   <% if people_to_show? %>

@@ -38,7 +38,6 @@ class OrganisationsController < PublicFacingController
         if @organisation.live?
           @recently_updated = recently_updated_source.with_translations(I18n.locale).limit(3)
           @feature_list = OrganisationFeatureListPresenter.new(@organisation, view_context)
-          @policies = featured_policies
           set_meta_description(@organisation.summary)
 
           expire_on_next_scheduled_publication(@organisation.scheduled_editions)
@@ -104,18 +103,6 @@ private
   def judges
     @judge_roles ||= roles_presenter_for(@organisation, :judge)
     @judge_roles.with_unique_people
-  end
-
-  def featured_policies
-    @featured_policies ||= FeaturedPoliciesPresenter.new(
-      @organisation.featured_policies.order('ordering').limit(5),
-      links_for_featured_policies
-    )
-  end
-
-  def links_for_featured_policies
-    return unless organisation_content
-    organisation_content["links"].try(:[], "featured_policies")
   end
 
   def filled_roles_presenter_for(organisation, association)
