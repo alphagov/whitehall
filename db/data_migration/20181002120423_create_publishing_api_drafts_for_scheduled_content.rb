@@ -1,6 +1,8 @@
 Document.where(
   id: Edition.where(state: :scheduled).select(:document_id)
-).pluck(:id).each do |document_id|
-  puts "Enqueuing document #{document_id}"
-  PublishingApiDocumentRepublishingWorker.perform_async(document_id)
+).all.each do |document|
+  next unless document.published_edition.nil?
+
+  puts "Saving draft for #{document.id} (content_id: #{document.content_id})"
+  Whitehall::PublishingApi.save_draft(document.pre_publication_edition)
 end
