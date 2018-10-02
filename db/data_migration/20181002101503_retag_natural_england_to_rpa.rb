@@ -16,11 +16,6 @@ docs_with_lead.each do |document|
 
     edition.lead_organisations = orgs
     edition.save(validate: false)
-
-    PublishingApiDocumentRepublishingWorker.perform_in(
-      2.seconds,
-      document.id,
-    )
   rescue StandardError => ex
     puts "#{document.slug}: #{ex.class}, #{ex.message}"
   end
@@ -39,11 +34,6 @@ docs_with_support.each do |document|
 
     edition.supporting_organisations = orgs
     edition.save(validate: false)
-
-    PublishingApiDocumentRepublishingWorker.perform_in(
-      2.seconds,
-      document.id,
-    )
   rescue StandardError => ex
     puts "#{document.slug}: #{ex.class}, #{ex.message}"
   end
