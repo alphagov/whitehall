@@ -43,7 +43,6 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
 
   test "#search: release announcments are inflated from rummager hashes" do
     organisation = create(:organisation, name: 'Cabinet Office', slug: 'cabinet-office')
-    topic = create(:topic, name: 'Home affairs', slug: 'home-affairs')
 
     @mock_source.stubs(:advanced_search).returns('total' => 1, 'results' => [{
       "title" => "A title",
@@ -52,6 +51,7 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
       "release_timestamp" => Time.zone.now,
       "organisations" => ["cabinet-office"],
       "policy_areas" => ["home-affairs"],
+      "part_of_taxonomy_tree" => %w[home-affairs-id],
       "display_type" => "Statistics",
       "search_format_types" => %w[statistics_announcement],
       "format" => "statistics_announcement",
@@ -78,7 +78,6 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
     assert_equal "Change is good", release_announcement.release_date_change_note
     assert_equal 1.year.ago,       release_announcement.previous_display_date
     assert_equal organisation,     release_announcement.organisations.first
-    assert_equal topic,            release_announcement.topics.first
     assert_equal "cancelled",      release_announcement.state
     assert_equal "Cancel reason",  release_announcement.cancellation_reason
     assert_equal 1.week.ago,       release_announcement.cancellation_date
