@@ -5,8 +5,13 @@ module FilterHelper
     options_for_select(Organisation.with_statistics_announcements.alphabetical.map { |org| [org.name, org.slug] }.unshift(['All departments', nil]), Array(selected_slug))
   end
 
-  def topic_options_for_statistics_announcement_filter(selected_slug = nil)
-    options_for_select(Topic.with_statistics_announcements.alphabetical.map { |topic| [topic.name, topic.slug] }.unshift(['All policy areas', nil]), Array(selected_slug))
+  def topic_options_for_statistics_announcement_filter(content_id = nil)
+    options_for_select(
+      Taxonomy::TopicTaxonomy
+        .new
+        .ordered_taxons
+        .map { |taxon| [taxon.name, taxon.content_id] }.unshift(['All topics', nil]), Array(content_id)
+    )
   end
 
   def describe_filter(filter, base_url, opts = {})
@@ -53,7 +58,7 @@ module FilterHelper
     def topics_fragment
       if filter.respond_to?(:topics) && filter.topics.any?
         "about " + filter.topics.map { |topic|
-          "<strong>#{CGI::escapeHTML(topic.name)}</strong> #{remove_field_link(:topics, topic.slug, topic.name)}"
+          "<strong>#{CGI::escapeHTML(topic.name)}</strong> #{remove_field_link(:topics, topic.base_path, topic.name)}"
         }.to_sentence
       end
     end

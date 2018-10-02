@@ -3,14 +3,6 @@ class Frontend::StatisticsAnnouncementsFilter < FormObject
   attr_accessor :keywords
   attr_reader :from_date, :to_date
 
-  # DID YOU MEAN: Policy Area?
-  # "Policy area" is the newer name for "topic"
-  # (https://www.gov.uk/government/topics)
-  # "Topic" is the newer name for "specialist sector"
-  # (https://www.gov.uk/topic)
-  # You can help improve this code by renaming all usages of this field to use
-  # the new terminology.
-
   RESULTS_PER_PAGE = 40
 
   def filter_type
@@ -53,22 +45,18 @@ class Frontend::StatisticsAnnouncementsFilter < FormObject
     organisations.map(&:slug)
   end
 
-  def topics=(topics)
-    @topics = Topic.where(slug: Array(topics))
+  def topic_ids
+    topics.map(&:content_id)
+  end
+
+  def topics=(ids)
+    @topics = Taxonomy::TopicTaxonomy.new.ordered_taxons.select do |taxon|
+      ids.include?(taxon.content_id)
+    end
   end
 
   def topics
     Array(@topics)
-  end
-
-  # Policy areas used to be named topics.
-  # Elsewhere we use "topic" to refer to specialist sectors.
-  def policy_areas
-    topics
-  end
-
-  def policy_area_slugs
-    policy_areas.map(&:slug)
   end
 
   def valid_filter_params
@@ -77,7 +65,7 @@ class Frontend::StatisticsAnnouncementsFilter < FormObject
     params[:to_date]       = to_date            if to_date.present?
     params[:from_date]     = from_date          if from_date.present?
     params[:organisations] = organisation_slugs if organisations.present?
-    params[:policy_areas]  = policy_area_slugs  if policy_areas.present?
+    params[:part_of_taxonomy_tree] = topic_ids if topics.present?
     params
   end
 
