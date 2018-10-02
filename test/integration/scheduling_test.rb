@@ -14,13 +14,14 @@ class SchedulingTest < ActiveSupport::TestCase
     stub_default_publishing_api_put_intent
   end
 
-  test "scheduling a first-edition publishes a publish intent and 'coming_soon' content item to the Publishing API" do
+  test "scheduling a first-edition publishes a publish intent" do
     Sidekiq::Testing.inline! do
       path = Whitehall.url_maker.public_document_path(@submitted_edition)
       schedule(@submitted_edition)
-      assert_publishing_api_put_content(@submitted_edition.content_id,
-                                        request_json_includes(schema_name: 'coming_soon'))
-      assert_publishing_api_put_intent(path, publish_time: @submitted_edition.scheduled_publication.as_json)
+      assert_publishing_api_put_intent(
+        path,
+        publish_time: @submitted_edition.scheduled_publication.as_json
+      )
     end
   end
 
@@ -68,7 +69,7 @@ class SchedulingTest < ActiveSupport::TestCase
     end
   end
 
-  test "unscheduling a scheduled first-edition removes the publish intent and deletes the 'coming_soon' item" do
+  test "unscheduling a scheduled first-edition removes the publish intent" do
     Sidekiq::Testing.inline! do
       gone_uuid = SecureRandom.uuid
       SecureRandom.stubs(uuid: gone_uuid)
@@ -77,22 +78,13 @@ class SchedulingTest < ActiveSupport::TestCase
       base_path         = Whitehall.url_maker.public_document_path(scheduled_edition)
 
       destroy_intent_request = stub_publishing_api_destroy_intent(base_path)
-      gone_request = stub_publishing_api_unpublish(
-        scheduled_edition.content_id,
-        body: {
-          type: "vanish",
-          locale: "en",
-        }
-      )
-
       unscheduler.perform!
 
       assert_requested destroy_intent_request
-      assert_requested gone_request
     end
   end
 
-  test "unscheduling a scheduled subsequent edition removes the publish intent but doesn't delete the original item" do
+  test "unscheduling a scheduled subsequent edition removes the publish intent" do
     Sidekiq::Testing.inline! do
       published_edition = create(:published_case_study)
       scheduled_edition = create(:scheduled_case_study, document: published_edition.document)
@@ -105,7 +97,6 @@ class SchedulingTest < ActiveSupport::TestCase
       unscheduler.perform!
 
       assert_requested destroy_intent_request
-      assert_not_requested(:put, %r{#{PUBLISHING_API_ENDPOINT}/content.*})
     end
   end
 
