@@ -1,16 +1,16 @@
 old = Organisation.find_by!(slug: 'rural-payments-agency')
 new = Organisation.find_by!(slug: 'natural-england')
 
-undo_from = DateTime.new(2018,10,2,16,40,0)
+undo_from = DateTime.new(2018,10,2,15,40,0)
+undo_upto = undo_from + 60.minutes
 
-docs_with_lead = EditionOrganisation.where(organisation: old, lead: true).map(&:edition).compact.map(&:document).uniq
-docs_with_support = EditionOrganisation.where(organisation: old, lead: false).map(&:edition).compact.map(&:document).uniq
+docs_with_lead = EditionOrganisation.where('updated_at > ?', undo_from).where('updated_at < ?', undo_upto).where(organisation: old, lead: true).map(&:edition).compact.map(&:document).uniq
+docs_with_support = EditionOrganisation.where('updated_at > ?', undo_from).where('updated_at < ?', undo_upto).where(organisation: old, lead: false).map(&:edition).compact.map(&:document).uniq
 
 docs_with_lead.each do |document|
   begin
     next if document.document_type == 'CorporateInformationPage'
     edition = document.latest_edition
-    next if edition.updated_at < undo_from
     edition.read_consultation_principles = true if document.document_type == 'Consultation'
     orgs = edition.lead_organisations.to_a
 
@@ -29,7 +29,6 @@ docs_with_support.each do |document|
   begin
     next if document.document_type == 'CorporateInformationPage'
     edition = document.latest_edition
-    next if edition.updated_at < undo_from
     edition.read_consultation_principles = true if document.document_type == 'Consultation'
     orgs = edition.supporting_organisations.to_a
 
