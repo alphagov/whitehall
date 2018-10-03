@@ -8,11 +8,6 @@ namespace :taxonomy do
     end
   end
 
-  desc "Tags content to the new Brexit taxon if it's only tagged to the Brexit policy taxon"
-  task copy_brexit_policies_to_brexit_taxon: [:environment] do
-    Taxonomy::SyncBrexitPolicies.new.call
-  end
-
   task populate_end_to_end_test_data: [:environment] do
     taxon_content_id = SecureRandom.uuid
     taxon_payload = {
