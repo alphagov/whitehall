@@ -52,10 +52,6 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
     assert_equal topics.map(&:name), [topic_1['title'], topic_2['title']]
   end
 
-  test "topics= handles nil" do
-    assert_equal [], build_class_instance(topics: nil).topics
-  end
-
   test "topic_ids returns topic ids" do
     topic = build(:taxon_hash)
     redis_cache_has_taxons([topic])
