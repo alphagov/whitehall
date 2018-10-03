@@ -23,7 +23,7 @@ module PublishingApi
         public_updated_at: item.public_timestamp || item.updated_at,
         rendering_app: item.rendering_app,
         schema_name: "publication",
-        links: links,
+        links: edition_links,
       )
       content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
       content.merge!(PayloadBuilder::AccessLimitation.for(item))
@@ -31,6 +31,14 @@ module PublishingApi
     end
 
     def links
+      # TODO: Previously, this presenter was sending all links to the
+      # Publishing API at both the document level, and edition
+      # level. This is probably redundant, and hopefully can be
+      # improved.
+      edition_links
+    end
+
+    def edition_links
       LinksPresenter.new(item).extract(
         %i[
           topics

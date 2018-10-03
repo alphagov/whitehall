@@ -27,11 +27,19 @@ module PublishingApi
           public_updated_at: public_updated_at,
           rendering_app: corporate_information_page.rendering_app,
           schema_name: SCHEMA_NAME,
-          links: links,
+          links: edition_links,
         )
     end
 
     def links
+      # TODO: Previously, this presenter was sending all links to the
+      # Publishing API at both the document level, and edition
+      # level. This is probably redundant, and hopefully can be
+      # improved.
+      edition_links
+    end
+
+    def edition_links
       links_presenter.extract(
         %i(
           organisations

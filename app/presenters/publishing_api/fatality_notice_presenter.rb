@@ -24,7 +24,7 @@ module PublishingApi
           rendering_app: item.rendering_app,
           schema_name: "fatality_notice",
           details: details,
-          links: links,
+          links: edition_links,
         )
         content.merge!(PayloadBuilder::AccessLimitation.for(item))
         content.merge!(PayloadBuilder::FirstPublishedAt.for(item))
@@ -32,6 +32,14 @@ module PublishingApi
     end
 
     def links
+      # TODO: Previously, this presenter was sending all links to the
+      # Publishing API at both the document level, and edition
+      # level. This is probably redundant, and hopefully can be
+      # improved.
+      edition_links
+    end
+
+    def edition_links
       LinksPresenter.new(item).extract(
         %i(organisations policy_areas)
       ).merge(
