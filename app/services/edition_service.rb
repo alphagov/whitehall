@@ -42,7 +42,11 @@ class EditionService
 private
 
   def notify!
-    notifier && notifier.publish(verb, edition, options)
+    # reload the edition to strip the LocalisedModel, as this can
+    # cause problems later with localisation.
+    #
+    # If we can get rid of LocalisedModel, this can be removed.
+    notifier && notifier.publish(verb, edition.reload, options)
   end
 
   def prepare_edition
