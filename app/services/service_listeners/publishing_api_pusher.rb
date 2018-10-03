@@ -13,7 +13,7 @@ module ServiceListeners
       handle_translations
 
       case event
-      when "force_publish", "publish", "unwithdraw"
+      when "force_publish", "publish"
         api.publish(edition)
       when "update_draft"
         api.patch_links(edition)
