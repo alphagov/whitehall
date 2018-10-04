@@ -3,7 +3,7 @@ module PublishingApi
     class FirstPublicAt
       def self.for(item)
         if item.document.published?
-          { first_public_at: item.document.first_published_date }
+          { first_public_at: item.document.first_published_date || item.document.created_at }
         else
           {}
         end

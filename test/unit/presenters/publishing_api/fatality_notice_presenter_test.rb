@@ -2,14 +2,18 @@ require 'test_helper'
 
 class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
   setup do
+    document = build(:document, id: 12345, slug: "fatality-notice-title")
     @fatality_notice = build(
       :fatality_notice,
-      document: build(:document, id: 12345, slug: "fatality-notice-title"),
+      document: document,
+      state: :published,
       title: "Fatality Notice title",
       summary: "Fatality Notice summary",
       first_published_at: @first_published_at = Time.zone.now,
       updated_at: 1.year.ago,
     )
+    document.stubs(:published_edition).returns(@fatality_notice)
+    document.stubs(:reload_published_edition).returns(@fatality_notice)
 
     @presented_fatality_notice = PublishingApi::FatalityNoticePresenter.new(@fatality_notice)
     @presented_content = I18n.with_locale("de") { @presented_fatality_notice.content }
@@ -92,37 +96,6 @@ class PublishingApi::FatalityNoticePresenterWithPublicTimestampTest < ActiveSupp
     assert_equal @expected_time, @presented_fatality_notice.content[:public_updated_at]
   end
 end
-
-class PublishingApi::DraftFatalityNoticePresenter < ActiveSupport::TestCase
-  test "it presents the Fatality Notice's parent document created_at as first_public_at" do
-    presented_notice = PublishingApi::FatalityNoticePresenter.new(
-      create(:draft_fatality_notice) do |fatality_notice|
-        fatality_notice.document.stubs(:created_at).returns(Date.new(2015, 4, 10))
-      end
-    )
-
-    assert_equal(
-      Date.new(2015, 4, 10),
-      presented_notice.content[:details][:first_public_at]
-    )
-  end
-end
-
-class PublishingApi::DraftFatalityBelongingToPublishedDocumentNoticePresenter < ActiveSupport::TestCase
-  test "it presents the Fatality Notice's first_public_at" do
-    presented_notice = PublishingApi::FatalityNoticePresenter.new(
-      create(:published_fatality_notice) do |fatality_notice|
-        fatality_notice.stubs(:first_published_at).returns(Date.new(2015, 4, 10))
-      end
-    )
-
-    assert_equal(
-      Date.new(2015, 4, 10),
-      presented_notice.content[:details][:first_public_at]
-    )
-  end
-end
-
 
 class PublishingApi::FatalityNoticePresenterDetailsTest < ActiveSupport::TestCase
   setup do

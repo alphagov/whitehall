@@ -74,36 +74,6 @@ class PublishingApi::DocumentCollectionPresenterWithPublicTimestampTest < Active
   end
 end
 
-class PublishingApi::DraftDocumentCollectionPresenter < ActiveSupport::TestCase
-  test "it presents the Document Collection's parent document created_at as first_public_at" do
-    presented_notice = PublishingApi::DocumentCollectionPresenter.new(
-      create(:draft_document_collection) do |document_collection|
-        document_collection.document.stubs(:created_at).returns(Date.new(2015, 4, 10))
-      end
-    )
-
-    assert_equal(
-      Date.new(2015, 4, 10),
-      presented_notice.content[:details][:first_public_at]
-    )
-  end
-end
-
-class PublishingApi::DraftDocumentCollectionBelongingToPublishedDocumentNoticePresenter < ActiveSupport::TestCase
-  test "it presents the Document Collection's first_published_at as first_public_at" do
-    presented_notice = PublishingApi::DocumentCollectionPresenter.new(
-      create(:published_document_collection) do |document_collection|
-        document_collection.stubs(:first_published_at).returns(Date.new(2015, 4, 10))
-      end
-    )
-
-    assert_equal(
-      Date.new(2015, 4, 10),
-      presented_notice.content[:details][:first_public_at]
-    )
-  end
-end
-
 class PublishingApi::DocumentCollectionPresenterGroupTest < ActiveSupport::TestCase
   setup do
     document_collection = create(:document_collection, :with_groups)
