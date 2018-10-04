@@ -2,7 +2,11 @@ module PublishingApi
   module PayloadBuilder
     class FirstPublicAt
       def self.for(item)
-        { first_public_at: FirstPublishedAt.for(item)[:first_published_at] }
+        if item.document.published?
+          { first_public_at: item.document.first_published_date || item.document.created_at }
+        else
+          {}
+        end
       end
     end
   end
