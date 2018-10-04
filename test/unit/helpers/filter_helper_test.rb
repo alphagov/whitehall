@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class FilterHelperTest < ActionView::TestCase
+  include TaxonomyHelper
+
   test "#organisation_options_for_statistics_announcement_filter renders select options for all organisations with an associated release announcement in alphabetical order selecting passed in organisation" do
     _org_1 = create(:organisation, name: "B org")
     org_2 = create(:organisation, name: "C org")
@@ -19,25 +21,28 @@ class FilterHelperTest < ActionView::TestCase
   end
 
   test "#topic_options_for_statistics_announcement_filter renders select options for all topics with an associated release announcement in alphabetical order selecting passed in topic" do
-    _topic_1 = create(:topic, name: "B topic")
-    topic_2 = create(:topic, name: "C topic")
-    topic_3 = create(:topic, name: "A topic")
+    topic_b = build(:taxon_hash, content_id: 'b-content-id', title: 'B')
+    topic_c = build(:taxon_hash, content_id: 'c-content-id', title: 'C')
+    topic_z = build(:taxon_hash, content_id: 'z-content-id', title: 'Z')
 
-    create :statistics_announcement, topics: [topic_2]
-    create :statistics_announcement, topics: [topic_3]
+    redis_cache_has_taxons([topic_b, topic_c, topic_z])
 
-    rendered = Nokogiri::HTML::DocumentFragment.parse(topic_options_for_statistics_announcement_filter(topic_3.slug))
+    create :statistics_announcement
+    create :statistics_announcement
+
+    rendered = Nokogiri::HTML::DocumentFragment.parse(topic_options_for_statistics_announcement_filter(topic_b['content_id']))
     options = rendered.css("option")
     option_values = options.map { |option| option[:value] }
 
-    assert_equal ["All policy areas", topic_3.name, topic_2.name], options.map(&:text)
-    assert_equal ["", topic_3.slug, topic_2.slug], option_values
+    assert_equal ["All topics", topic_b['title'], topic_c['title'], topic_z['title']], options.map(&:text)
+    assert_equal ["", topic_b['content_id'], topic_c['content_id'], topic_z['content_id']], option_values
     assert options[1][:selected]
   end
 end
 
 class FilterHelperTest::FilterDescriptionTest < ActionView::TestCase
   include TextAssertions
+  include TaxonomyHelper
 
   def build_filter(params = {})
     OpenStruct.new(params.reverse_merge(filter_type: "publication",
@@ -63,8 +68,10 @@ class FilterHelperTest::FilterDescriptionTest < ActionView::TestCase
   end
 
   test "It describes topics" do
-    topic = build(:topic, name: "Community and society")
-    assert_string_includes "about Community and society", rendered_description(build_filter(topics: [topic])).text
+    topic = build(:taxon_hash, content_id: "contenty-content-id", title: "Community and society")
+    topic_object = Taxonomy::Taxon.from_taxon_hash(topic)
+
+    assert_string_includes "about Community and society", rendered_description(build_filter(topics: [topic_object])).text
   end
 
   test "It describes organisations" do
@@ -90,19 +97,21 @@ class FilterHelperTest::FilterDescriptionTest < ActionView::TestCase
   end
 
   test "It renders links to remove search parameters" do
-    topic = build(:topic, name: "Community and society", slug: "community-and-society")
+    topic = build(:taxon_hash, title: "Community and society", base_path: "community-and-society")
+    topic_object = Taxonomy::Taxon.from_taxon_hash(topic)
+
     organisation = build(:organisation, name: "Department of Magic", slug: "department-of-magic")
 
     filter = build_filter keywords: "fishslice",
                           organisations: [organisation],
-                          topics: [topic],
+                          topics: [topic_object],
                           from_date: Date.new(2040, 1, 1),
                           to_date: Date.new(2050, 1, 1)
 
     expected_filter_params = {
       keywords: "fishslice",
       organisations: [organisation.slug],
-      topics: [topic.slug],
+      topics: [topic_object.content_id],
       from_date: "2040-01-01",
       to_date: "2050-01-01"
     }
@@ -110,10 +119,10 @@ class FilterHelperTest::FilterDescriptionTest < ActionView::TestCase
     filter.stubs(:valid_filter_params).returns(expected_filter_params)
 
     rendered = rendered_description(filter)
-    assert_remove_filter_link_present(rendered, :keywords,      "fishslice",             "fishslice",       expected_filter_params.except(:keywords))
-    assert_remove_filter_link_present(rendered, :organisations, organisation.name,       organisation.slug, expected_filter_params.except(:organisations))
-    assert_remove_filter_link_present(rendered, :topics,        topic.name,              topic.slug,        expected_filter_params.except(:topics))
-    assert_remove_filter_link_present(rendered, :from_date,     "published after date",  "2040-01-01",      expected_filter_params.except(:from_date))
-    assert_remove_filter_link_present(rendered, :to_date,       "published before date", "2050-01-01",      expected_filter_params.except(:to_date))
+    assert_remove_filter_link_present(rendered, :keywords, "fishslice", "fishslice", expected_filter_params.except(:keywords))
+    assert_remove_filter_link_present(rendered, :organisations, organisation.name, organisation.slug, expected_filter_params.except(:organisations))
+    assert_remove_filter_link_present(rendered, :topics, topic_object.name, topic_object.base_path, expected_filter_params.except(:topics))
+    assert_remove_filter_link_present(rendered, :from_date, "published after date", "2040-01-01", expected_filter_params.except(:from_date))
+    assert_remove_filter_link_present(rendered, :to_date, "published before date", "2050-01-01", expected_filter_params.except(:to_date))
   end
 end

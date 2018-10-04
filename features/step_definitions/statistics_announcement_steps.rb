@@ -35,20 +35,20 @@ Given(/^there is a cancelled statistics announcement, originally due to be publi
 end
 
 Given(/^there are some statistics announcements for various departments and topics$/) do
-  @department = create :ministerial_department
-  @topic = create :topic
+  redis_cache_has_taxons([build(:taxon_hash, content_id: 'dogs_id', title: 'Dogs')])
 
-  create :statistics_announcement, title: "Announcement for both department and topic", organisation_ids: [@department.id], topics: [@topic]
-  create :statistics_announcement, title: "Announcement for department", organisation_ids: [@department.id]
-  create :statistics_announcement, title: "Announcement for topic", topics: [@topic]
+  @department = create :ministerial_department
+
+  stat_one = create(:statistics_announcement, title: "Dogs are mans best friend", organisation_ids: [@department.id])
+  create(:statistics_announcement, title: "Engine engine number 9", organisation_ids: [@department.id])
+
+  rummager_can_find_document_with_taxon(stat_one.search_link, %w[dogs_id])
 end
 
 Given(/^there is a statistics announcement$/) do
   @organisation = create :ministerial_department
-  @topic = create :topic
   @announcement = create :statistics_announcement,
                          organisation_ids: [@organisation.id],
-                         topics: [@topic],
                          statistics_announcement_dates: [build(:statistics_announcement_date, release_date: 1.year.from_now, precision: StatisticsAnnouncementDate::PRECISION[:one_month], created_at: 10.days.ago)],
                          current_release_date: build(:statistics_announcement_date_change, release_date: 1.year.from_now + 2.months, change_note: "A change note")
   @announcement.reload # StatisticsAnnouncement doesn't get statistics_announcement_date related stuff right until after reload.
@@ -73,8 +73,8 @@ end
 
 When(/^I filter the statistics announcements by department and topic$/) do
   within '.filter-form' do
-    select @department.name, from: "Department"
-    select @topic.name, from: "Policy Area"
+    select @department.name, from: "organisations"
+    select 'Dogs', from: "topics"
     click_on "Refresh results"
   end
 end
@@ -105,7 +105,9 @@ Then(/^I should only see statistics announcements for those filters$/) do
 end
 
 Then(/^I should only see statistics announcements for the selected departments and topics$/) do
-  assert page.has_content? "Announcement for both department and topic"
-  assert page.has_no_content? "Announcement for department"
-  assert page.has_no_content? "Announcement for topic"
+  assert page.has_content? "release announcements about Dogs"
+  assert page.has_content? "by #{@department.name}"
+  within '.filter-results' do
+    assert page.has_content? "Dogs are mans best friend"
+  end
 end

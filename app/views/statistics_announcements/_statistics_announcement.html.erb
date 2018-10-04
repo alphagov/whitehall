@@ -6,8 +6,5 @@
     <%- statistics_announcement.organisations.each do |org| -%>
       <li><%= link_to org.name, organisation_path(org) %></li>
     <%- end -%>
-    <%- statistics_announcement.topics.each do |topic| -%>
-      <li><%= link_to topic.name, topic_path(topic) %></li>
-    <%- end -%>
   </ul>
 </li>

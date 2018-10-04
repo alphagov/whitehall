@@ -28,8 +28,8 @@
             <%= text_field_tag :keywords, @filter.keywords, placeholder: "keywords" %>
           </div>
           <div class="filter">
-            <%= label_tag "topics", "Policy Area" %>
-            <%= select_tag "topics[]", topic_options_for_statistics_announcement_filter(@filter.policy_area_slugs), id: "topics", class: "single-row-select" %>
+           <%= label_tag "topics", "Topic" %>
+            <%= select_tag "topics[]", topic_options_for_statistics_announcement_filter(@filter.topic_ids), id: "topics", class: "single-row-select" %>
           </div>
           <div class="filter">
             <%= label_tag "organisations", "Department" %>
