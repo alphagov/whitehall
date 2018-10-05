@@ -48,11 +48,9 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
         { path: public_path, type: "exact" }
       ],
       redirects: [],
-      first_published_at: detailed_guide.created_at,
       update_type: "major",
       details: {
         body: "<div class=\"govspeak\"><p>Some content</p></div>",
-        first_public_at: detailed_guide.created_at,
         change_history: [],
         tags: {
           browse_pages: [],

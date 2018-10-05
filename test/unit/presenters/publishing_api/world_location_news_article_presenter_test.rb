@@ -73,21 +73,6 @@ class PublishingApi::WorldLocationNewsArticleWithPublicTimestampTest < ActiveSup
   end
 end
 
-class PublishingApi::DraftWorldLocationNewsArticlePresenter < ActiveSupport::TestCase
-  test "it presents the world location news article's parent document created_at as first_public_at" do
-    presented_notice = PublishingApi::WorldLocationNewsArticlePresenter.new(
-      create(:draft_world_location_news_article) do |world_location_news_article|
-        world_location_news_article.document.stubs(:created_at).returns(Date.new(2015, 4, 10))
-      end
-    )
-
-    assert_equal(
-      Date.new(2015, 4, 10),
-      presented_notice.content[:details][:first_public_at]
-    )
-  end
-end
-
 class PublishingApi::WorldLocationNewsArticleBelongingToPublishedDocumentNoticePresenter < ActiveSupport::TestCase
   test "it presents the World Location News Article's first_published_at as first_public_at" do
     presented_notice = PublishingApi::WorldLocationNewsArticlePresenter.new(
