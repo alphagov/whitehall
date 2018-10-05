@@ -13,6 +13,17 @@ module Whitehall
     def self.publish(model_instance)
       assert_public_edition!(model_instance)
 
+      # Ideally this wouldn't happen, but aspects of Whitehall still
+      # depend on this behaviour, as the drafts sent to the Publishing
+      # API are not suitable for publishing.
+      #
+      # For example, the change notes only include changes from
+      # published editions in Whitehall, so the edition in Whitehall
+      # needs to be published, then the draft updated in the
+      # Publishing API updated to update the change notes (and
+      # possibly other things), and only then can it be published.
+      save_draft(model_instance)
+
       presenter = PublishingApiPresenters.presenter_for(model_instance)
 
       locales_for(model_instance).each do |locale|

@@ -70,8 +70,9 @@ class PublishesToPublishingApiTest < ActiveSupport::TestCase
 
   test "defines and executes published callback when published" do
     Whitehall::PublishingApi.stubs(:publish)
-    Whitehall::PublishingApi.stubs(:patch_links)
     Whitehall::PublishingApi.stubs(:save_draft)
+    Whitehall::PublishingApi.stubs(:patch_links)
+
     test_object = TestObject.new
     class << test_object
       include PublishesToPublishingApi

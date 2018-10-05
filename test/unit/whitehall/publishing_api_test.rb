@@ -21,6 +21,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     edition = create(:published_publication)
     presenter = PublishingApiPresenters.presenter_for(edition)
     requests = [
+      stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil)
     ]
 
@@ -34,6 +35,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     WebMock.reset! # because creating an organisation also pushes to Publishing API
     presenter = PublishingApiPresenters.presenter_for(organisation)
     requests = [
+      stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil)
     ]
 
@@ -47,6 +49,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
     presenter = PublishingApiPresenters.presenter_for(edition)
     requests = [
+      stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_publish(presenter.content_id, locale: presenter.content[:locale], update_type: nil)
     ]
 
@@ -65,11 +68,13 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       WebMock.reset!
 
       [
+        stub_publishing_api_put_content(presenter.content_id, presenter.content),
         stub_publishing_api_publish(presenter.content_id, locale: 'fr', update_type: nil)
       ]
     end
 
     english_requests = [
+      stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_publish(presenter.content_id, locale: 'en', update_type: nil)
     ]
 
