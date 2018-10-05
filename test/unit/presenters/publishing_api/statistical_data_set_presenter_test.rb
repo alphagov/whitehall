@@ -74,21 +74,6 @@ class PublishingApi::StatisticalDataSetWithPublicTimestampTest < ActiveSupport::
   end
 end
 
-class PublishingApi::DraftStatisticalDataSetPresenter < ActiveSupport::TestCase
-  test "it presents the statistical data set's parent document created_at as first_public_at" do
-    presented_notice = PublishingApi::StatisticalDataSetPresenter.new(
-      create(:draft_statistical_data_set) do |statistical_data_set|
-        statistical_data_set.document.stubs(:created_at).returns(Date.new(2015, 4, 10))
-      end
-    )
-
-    assert_equal(
-      Date.new(2015, 4, 10),
-      presented_notice.content[:details][:first_public_at]
-    )
-  end
-end
-
 class PublishingApi::StatisticalDataSetBelongingToPublishedDocumentNoticePresenter < ActiveSupport::TestCase
   test "it presents the Statistical Data Set's first_published_at as first_public_at" do
     presented_notice = PublishingApi::StatisticalDataSetPresenter.new(
