@@ -137,6 +137,17 @@ class SpeechTest < ActiveSupport::TestCase
     refute speech.search_index.has_key?('people')
   end
 
+  test "search_index includes default image_url if it has no image" do
+    speech = create(:published_speech)
+    assert_equal "https://static.test.gov.uk/government/assets/placeholder.jpg", speech.search_index["image_url"]
+  end
+
+  test "search_index includes default image_url if it has one" do
+    image = create(:image)
+    speech = create(:published_speech, images: [image])
+    assert_equal image.url(:s300), speech.search_index["image_url"]
+  end
+
   test 'search_format_types tags the speech as a speech and announcement' do
     speech = build(:speech)
     assert speech.search_format_types.include?('speech')

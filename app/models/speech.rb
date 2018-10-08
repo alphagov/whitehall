@@ -2,6 +2,7 @@ class Speech < Announcement
   include Edition::Appointment
   include Edition::HasDocumentCollections
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
+  include LeadImagePresenterHelper
 
   validates :speech_type_id, presence: true
   validates :delivered_on, presence: true, unless: ->(speech) { speech.can_have_some_invalid_data? }
@@ -22,6 +23,12 @@ class Speech < Announcement
 
   def search_format_types
     super + [Speech.search_format_type] + speech_type.search_format_types
+  end
+
+  def search_index
+    super.merge(
+      "image_url" => lead_image_url
+    )
   end
 
   def speech_type
@@ -64,5 +71,11 @@ private
 
   def skip_organisation_validation?
     can_have_some_invalid_data? || person_override.present?
+  end
+
+  def lead_image_url
+    ActionController::Base.helpers.image_url(
+      lead_image_path, host: Whitehall.public_asset_host
+    )
   end
 end
