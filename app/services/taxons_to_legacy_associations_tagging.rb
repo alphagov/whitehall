@@ -3,7 +3,7 @@ class TaxonsToLegacyAssociationsTagging
     # Only perform the taxon based tagging for content with no
     # existing legacy associations, to avoid overriding human tagging
     # decisions
-    return false if any_legacy_associations_for_edition?(edition)
+    return false if tagged_to_specialist_sectors?(edition)
 
     legacy_associations_from_mappping = legacy_mapping_for_taxons(selected_taxons)
 
@@ -20,12 +20,7 @@ class TaxonsToLegacyAssociationsTagging
         legacy_association["content_id"]
       end
 
-      case document_type
-      when "policy"
-        edition.policy_content_ids = content_ids
-      when "policy_area"
-        edition.topics = Topic.where(content_id: content_ids)
-      when "topic"
+      if document_type == "topic"
         # This is inperfect, as the primary specialist sector tag is
         # being set in an arbitrary manor. But, this mapping function
         # is only a temporary thing while the specialist sectors still
@@ -51,20 +46,6 @@ private
     Taxonomy::Mapping
       .new
       .legacy_mapping_for_taxons(selected_taxons)
-  end
-
-  def any_legacy_associations_for_edition?(edition)
-    tagged_to_policies?(edition) ||
-      tagged_to_policy_areas?(edition) ||
-      tagged_to_specialist_sectors?(edition)
-  end
-
-  def tagged_to_policies?(edition)
-    defined?(edition.policy_content_ids) && edition.policy_content_ids.any?
-  end
-
-  def tagged_to_policy_areas?(edition)
-    defined?(edition.topic_ids) && edition.topic_ids.any?
   end
 
   def tagged_to_specialist_sectors?(edition)
