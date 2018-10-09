@@ -77,14 +77,14 @@
       <%= organisation_form.select :parent_organisation_ids, options_from_collection_for_select(Organisation.with_translations(:en) - [organisation_form.object], 'id', 'select_name', organisation.parent_organisation_ids), {}, multiple: true, class: 'chzn-select form-control', data: { placeholder: "Choose parent organisations…" } %>
     </p>
 
-    <h3>Policy Areas</h3>
-    <% organisation_form.object.organisation_classifications.each do |ot| %>
+    <h3>Topical events</h3>
+    <% organisation_form.object.organisation_classifications.each do |oc| %>
       <p>
-        <%= label_tag "organisation_topic_ids_#{ot.ordering}" do %>
-          Policy Area <%= ot.ordering + 1 %>
-          <%= select_tag "organisation[organisation_classifications_attributes][][classification_id]", options_from_collection_for_select(Classification.all, 'id', 'name', ot.classification_id), include_blank: true, multiple: false, class: 'chzn-select form-control', data: { placeholder: "Choose policy areas…"}, id: "organisation_topic_ids_#{ot.ordering}" %>
-          <%= hidden_field_tag "organisation[organisation_classifications_attributes][][ordering]", ot.ordering %>
-          <%= hidden_field_tag "organisation[organisation_classifications_attributes][][id]", ot.id %>
+        <%= label_tag "organisation_topical_event_ids_#{oc.ordering}" do %>
+          Topical Event <%= oc.ordering + 1 %>
+          <%= select_tag "organisation[organisation_classifications_attributes][][classification_id]", options_from_collection_for_select(TopicalEvent.all, 'id', 'name', oc.classification_id), include_blank: true, multiple: false, class: 'chzn-select form-control', data: { placeholder: "Choose topical events…"}, id: "organisation_topical_event_ids_#{oc.ordering}" %>
+          <%= hidden_field_tag "organisation[organisation_classifications_attributes][][ordering]", oc.ordering %>
+          <%= hidden_field_tag "organisation[organisation_classifications_attributes][][id]", oc.id %>
         <% end %>
       </p>
     <% end %>
