@@ -116,7 +116,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   test '#most_recent_change_note returns the most recent change note' do
     announcement = create_announcement_with_changes
 
-    assert_equal '11 January 2012 9:30am', announcement.reload.display_date
+    assert_equal '18 January 2012 9:30am', announcement.reload.display_date
     assert announcement.confirmed?
     assert_equal 'Delayed because of census', announcement.last_change_note
   end
@@ -124,7 +124,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   test '#previous_display_date returns the release date prior to the most recent change note' do
     announcement = create_announcement_with_changes
 
-    assert_equal '11 January 2012 9:30am', announcement.reload.display_date
+    assert_equal '18 January 2012 9:30am', announcement.reload.display_date
     assert_equal 'December 2011', announcement.previous_display_date
   end
 
