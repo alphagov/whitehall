@@ -3,7 +3,7 @@ require 'test_helper'
 module Whitehall::DocumentFilter
   class RummagerTest < ActiveSupport::TestCase
     setup do
-      Whitehall.government_search_client.stubs(:advanced_search).returns {}
+      Whitehall.search_client.stubs(:search).returns {}
     end
 
     def format_types(*classes)
@@ -12,32 +12,32 @@ module Whitehall::DocumentFilter
 
     def expect_search_by_format_types(format_types)
       Whitehall
-        .government_search_client
-        .expects(:advanced_search)
+        .search_client
+        .expects(:search)
         .with(
           has_entry(
-            search_format_types: format_types
+            filter_search_format_types: format_types
           )
         )
     end
 
     def expect_search_by_taxonomy_tree(taxons)
       Whitehall
-          .government_search_client
-          .expects(:advanced_search)
+          .search_client
+          .expects(:search)
           .with(
             has_entry(
-              part_of_taxonomy_tree: taxons
+              filter_part_of_taxonomy_tree: taxons
             )
           )
     end
 
     def expect_search_by_people(people)
       Whitehall
-        .government_search_client
-        .expects(:advanced_search)
+        .search_client
+        .expects(:search)
         .with(
-          has_entry(people: people)
+          has_entry(filter_people: people)
         )
     end
 
