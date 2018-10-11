@@ -1,5 +1,6 @@
 class OrganisationClassification < ApplicationRecord
   belongs_to :organisation
+  belongs_to :classification
 
   # DID YOU MEAN: Policy Area?
   # "Policy area" is the newer name for "topic"
@@ -9,5 +10,5 @@ class OrganisationClassification < ApplicationRecord
   # You can help improve this code by renaming all usages of this field to use
   # the new terminology.
   belongs_to :topic, foreign_key: :classification_id
-  belongs_to :classification
+  belongs_to :topical_event, foreign_key: :classification_id
 end

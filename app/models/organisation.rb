@@ -80,6 +80,7 @@ class Organisation < ApplicationRecord
   has_many :organisation_classifications,
            -> { order('organisation_classifications.ordering') },
            dependent: :destroy
+  has_many :classifications, through: :organisation_classifications
 
   # DID YOU MEAN: Policy Area?
   # "Policy area" is the newer name for "topic"
@@ -91,7 +92,9 @@ class Organisation < ApplicationRecord
   has_many :topics,
            -> { order('organisation_classifications.ordering') },
            through: :organisation_classifications
-  has_many :classifications, through: :organisation_classifications
+  has_many :topical_events,
+           -> { order('organisation_classifications.ordering') },
+           through: :organisation_classifications
 
   has_many :users, foreign_key: :organisation_slug, primary_key: :slug, dependent: :nullify
 

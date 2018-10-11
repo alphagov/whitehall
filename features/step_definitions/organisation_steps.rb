@@ -126,7 +126,7 @@ Given(/^I have an offsite link "(.*?)" for the organisation "(.*?)"$/) do |title
 end
 
 When(/^I add a new organisation called "([^"]*)"$/) do |organisation_name|
-  create(:topic, name: 'Jazz Bizniz')
+  create(:topical_event, name: 'Jazz Bizniz')
 
   visit new_admin_organisation_path
 
@@ -134,7 +134,7 @@ When(/^I add a new organisation called "([^"]*)"$/) do |organisation_name|
   fill_in 'Acronym', with: organisation_name.split(' ').collect { |word| word.chars.first }.join
   fill_in 'Logo formatted name', with: organisation_name
   select 'Ministerial department', from: 'Organisation type'
-  select 'Jazz Bizniz', from: 'organisation_topic_ids_0'
+  select 'Jazz Bizniz', from: 'organisation_topical_event_ids_0'
   within '.featured-links' do
     fill_in 'Title', with: 'Top task 1'
     fill_in 'URL', with: 'http://mainstream.co.uk'

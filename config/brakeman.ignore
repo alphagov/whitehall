@@ -117,6 +117,25 @@
       "note": "This comes from a new model so we trust the data."
     },
     {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "4ab694e969b0cd5569812723ed4985088c9a4e2a8e241316bb97c26325cab992",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/admin/organisations/show.html.erb",
+      "line": 35,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Organisation.friendly.find(params[:id]).topical_events.map do\n link_to(t.name, [:edit, :admin, t])\n end.to_sentence",
+      "render_path": [{"type":"controller","class":"Admin::OrganisationsController","method":"show","line":26,"file":"app/controllers/admin/organisations_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "admin/organisations/show"
+      },
+      "user_input": "Organisation.friendly.find(params[:id])",
+      "confidence": "Weak",
+      "note": "We don't link directly to any unescaped model attribute."
+    },
+    {
       "warning_type": "Cross-Site Request Forgery",
       "warning_code": 86,
       "fingerprint": "4d109bd02e4ccb3ea4c51485c947be435ee006a61af7d2cd37d1b358c7469189",
@@ -183,7 +202,7 @@
       "line": 31,
       "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
       "code": "link_to(Organisation.with_translations(I18n.locale).find(params[:id]).url, Organisation.with_translations(I18n.locale).find(params[:id]).url, :class => \"url-link\")",
-      "render_path": [{"type":"controller","class":"OrganisationsController","method":"show","line":63,"file":"app/controllers/organisations_controller.rb"}],
+      "render_path": [{"type":"controller","class":"OrganisationsController","method":"show","line":62,"file":"app/controllers/organisations_controller.rb"}],
       "location": {
         "type": "template",
         "template": "organisations/not_live"
@@ -292,25 +311,6 @@
     },
     {
       "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "c028d9a68abae01d97f7ef17f1809ca27778be2eeac978d6b6c04d76cab890ec",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped model attribute",
-      "file": "app/views/admin/organisations/show.html.erb",
-      "line": 35,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "Organisation.friendly.find(params[:id]).classifications.map do\n link_to(t.name, [:edit, :admin, t])\n end.to_sentence",
-      "render_path": [{"type":"controller","class":"Admin::OrganisationsController","method":"show","line":26,"file":"app/controllers/admin/organisations_controller.rb"}],
-      "location": {
-        "type": "template",
-        "template": "admin/organisations/show"
-      },
-      "user_input": "Organisation.friendly.find(params[:id])",
-      "confidence": "Weak",
-      "note": "We don't link directly to any unescaped model attribute"
-    },
-    {
-      "warning_type": "Cross-Site Scripting",
       "warning_code": 4,
       "fingerprint": "c08711cc21cb1dbf0709db0011a9a4a782bf6c1a6f7a0a1e1d4b000d20462ae2",
       "check_name": "LinkToHref",
@@ -319,7 +319,7 @@
       "line": 31,
       "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
       "code": "link_to((Unresolved Model).new.contact_form_url.truncate(25), (Unresolved Model).new.contact_form_url)",
-      "render_path": [{"type":"template","name":"organisations/show","line":240,"file":"app/views/organisations/show.html.erb"}],
+      "render_path": [{"type":"template","name":"organisations/show","line":222,"file":"app/views/organisations/show.html.erb"}],
       "location": {
         "type": "template",
         "template": "contacts/_contact"
@@ -444,6 +444,6 @@
       "note": "This comes from the Content Store and we trust data from there."
     }
   ],
-  "updated": "2018-08-03 13:39:30 +0100",
+  "updated": "2018-10-08 12:33:24 +0100",
   "brakeman_version": "4.3.1"
 }
