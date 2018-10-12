@@ -356,6 +356,23 @@ module PublishingApi::CorporateInformationPagePresenterTest
     end
   end
 
+  class PublishedCorporateInformationPage < TestCase
+    setup do
+      self.corporate_information_page = create(
+        :published_corporate_information_page
+      )
+    end
+
+    test 'change history' do
+      assert_equal(
+        1,
+        presented_corporate_information_page
+          .content[:details][:change_history]
+          .length
+      )
+    end
+  end
+
   class CorporateInformationPageWithMinorChange < TestCase
     setup do
       self.corporate_information_page = create(:corporate_information_page,

@@ -91,7 +91,6 @@ module PublishingApi
       changes_with_public_timestamps =
         corporate_information_page
           .change_history
-          .as_json
           .select { |change| change[:public_timestamp].present? }
 
       { change_history: changes_with_public_timestamps.as_json }

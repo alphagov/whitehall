@@ -36,7 +36,6 @@ module PublishingApi
       changes_with_public_timestamps =
         item
           .change_history
-          .as_json
           .select { |change| change[:public_timestamp].present? }
 
       details = {
