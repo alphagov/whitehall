@@ -78,6 +78,18 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
     end
   end
 
+  describe "change_history" do
+    it "is generated for a published speech" do
+      assert_equal(
+        1,
+        PublishingApi::SpeechPresenter
+          .new(create(:published_speech))
+          .content[:details][:change_history]
+          .length
+      )
+    end
+  end
+
   describe "links" do
     let(:policy_content_id) { SecureRandom.uuid }
     let(:topical_event) { create(:topical_event) }
