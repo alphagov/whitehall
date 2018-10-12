@@ -87,20 +87,6 @@
           </div>
         </section>
       <% end %>
-      <% if @related_classifications.any? %>
-        <section id="related-topics" class="document-block documents-<%= document_block_counter %>">
-          <h1 class="label">Related policy areas</h1>
-          <div class="content">
-            <ol class="document-list">
-              <% @related_classifications.each do |topic| %>
-                <%= content_tag_for :li, topic, class: 'document-row' do %>
-                  <h2><%= link_to topic.name, topic_path(topic) %></h2>
-                <% end %>
-              <% end %>
-            </ol>
-          </div>
-        </section>
-      <% end %>
     </div>
   </div>
 
