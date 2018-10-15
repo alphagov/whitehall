@@ -1,8 +1,8 @@
 module Whitehall::DocumentFilter
   class Result
     ACCESSORS = %w{title description indexable_content attachments
-                   format display_type link id search_format_types
-                   relevant_to_local_government}.freeze
+                   format link content_id search_format_types
+                   relevant_to_local_government display_type}.freeze
     ACCESSORS.each do |attribute_name|
       define_method attribute_name.to_sym do
         @doc[attribute_name.to_s]
@@ -17,6 +17,10 @@ module Whitehall::DocumentFilter
       format
     end
 
+    def id
+      content_id
+    end
+
     def search_government_name
       @doc['government_name']
     end
@@ -26,7 +30,7 @@ module Whitehall::DocumentFilter
     end
 
     def public_timestamp
-      Time.zone.parse(@doc['public_timestamp'])
+      @doc['public_timestamp'].nil? ? Time.zone.now : Time.zone.parse(@doc['public_timestamp'])
     end
 
     def part_of_published_collection?
@@ -34,15 +38,15 @@ module Whitehall::DocumentFilter
     end
 
     def organisations
-      @doc.fetch('organisations', []).map { |slug| fetch_from_cache(:organisation, slug) }.compact
+      @doc.fetch('organisations', []).map { |organisation| fetch_from_cache(:organisation, organisation.fetch('slug', nil)) }.compact
     end
 
     def topics
-      @doc.fetch('topics', []).map { |slug| fetch_from_cache(:topic, slug) }.compact
+      @doc.fetch('topics', []).map { |topic| fetch_from_cache(:topic, topic.fetch('slug', nil)) }.compact
     end
 
     def published_document_collections
-      @doc.fetch('document_collections', []).map { |slug| fetch_from_cache(:document_collection, slug) }.compact
+      @doc.fetch('document_collections', []).map { |document_collection| fetch_from_cache(:document_collection, document_collection.fetch('slug', nil)) }.compact
     end
 
     def operational_field
