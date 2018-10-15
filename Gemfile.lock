@@ -217,7 +217,7 @@ GEM
     govuk_frontend_toolkit (8.1.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
-    govuk_publishing_components (12.0.1)
+    govuk_publishing_components (12.1.0)
       govspeak (>= 5.0.3)
       govuk_app_config
       govuk_frontend_toolkit
@@ -292,7 +292,7 @@ GEM
     loofah (2.2.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
-    mail (2.7.0)
+    mail (2.7.1)
       mini_mime (>= 0.1.1)
     maxitest (3.1.0)
       minitest (>= 5.0.0, < 5.12.0)
@@ -616,7 +616,7 @@ DEPENDENCIES
   govuk_admin_template (~> 6.6)
   govuk_app_config (~> 1.10)
   govuk_frontend_toolkit (= 8.1.0)
-  govuk_publishing_components (~> 12.0.1)
+  govuk_publishing_components (~> 12.1.0)
   govuk_sidekiq (~> 3)
   govuk_test
   graphviz_transitions
