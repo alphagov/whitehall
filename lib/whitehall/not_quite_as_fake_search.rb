@@ -1,10 +1,14 @@
 require 'whitehall/document_filter/filterer'
 module Whitehall
   module NotQuiteAsFakeSearch
+
     def self.stop_faking_it_quite_so_much!
       store = Whitehall::NotQuiteAsFakeSearch::Store.new
       SearchIndex.indexer_class.store = store
       Whitehall.government_search_client = Whitehall::NotQuiteAsFakeSearch::GdsApiRummager.new(
+        SearchIndex.government_search_index_path, store
+      )
+      Whitehall.search_client = Whitehall::NotQuiteAsFakeSearch::GdsApiRummager.new(
         SearchIndex.government_search_index_path, store
       )
       Whitehall.search_backend = Whitehall::DocumentFilter::Rummager
@@ -21,8 +25,24 @@ module Whitehall
         @store = store
       end
 
-      def search(*_args)
-        raise "Not implemented"
+      def search(params)
+        params = params.stringify_keys
+        raise "Pagination params are required." if params["count"].nil? || params["start"].nil?
+
+        order =  { public_timestamp: "desc" }
+        params.delete("sort")
+         # { public_timestamp: "desc" }
+
+        keywords  = params.delete("q")
+        per_page  = params.delete("count").to_i
+        page      = params.delete("start").to_i
+        params.delete("fields")
+
+        apply_filters(keywords,
+                      params.transform_keys!{ |key| key.gsub("filter_", "") },
+                      order,
+                      per_page,
+                      page)
       end
 
       def autocomplete(*_args)
@@ -47,6 +67,7 @@ module Whitehall
         {
           simple: %w{
             id
+            content_id
             title
             description
             indexable_content
