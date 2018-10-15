@@ -19,19 +19,12 @@ class Taxonomy::Mapping
       taxon.content_id == start_taxon_content_id
     end
 
-    document_types = %w(policy policy_area topic)
-    result = start_taxon.legacy_mapping.slice(*document_types)
+    result = start_taxon.legacy_mapping.slice('topic')
 
-    document_types.each do |document_type|
-      start_taxon.ancestors.each do |ancestor|
-        # Look up through the ancestors to find a mapping for each
-        # document_type, but stop once one is found
+    start_taxon.ancestors.each do |ancestor|
+      break if result['topic'].present?
 
-        result[document_type] = ancestor.legacy_mapping
-                                  .fetch(document_type, [])
-
-        break if result[document_type].present?
-      end
+      result['topic'] = ancestor.legacy_mapping.fetch('topic', [])
     end
 
     result

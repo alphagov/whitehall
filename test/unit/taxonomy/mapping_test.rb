@@ -13,7 +13,7 @@ class Taxonomy::MappingTest < ActiveSupport::TestCase
       test_taxon_with_direct_mapping.content_id
     )
 
-    assert_equal result.dig("policy_area", 0, "title"), "Test Policy Area"
+    assert_equal "Test Specialist Sector", result.dig("topic", 0, "title")
   end
 
   test "legacy_mapping_for_taxon with a indirect mapping" do
@@ -21,20 +21,17 @@ class Taxonomy::MappingTest < ActiveSupport::TestCase
       test_taxon_with_indirect_mapping.content_id
     )
 
-    assert_equal result.dig("policy_area", 0, "title"), "Test Policy Area"
+    assert_equal "Test Specialist Sector", result.dig("topic", 0, "title")
   end
 
   test "legacy_mapping_for_taxons" do
     result = Taxonomy::Mapping.new.legacy_mapping_for_taxons(
-      [
-        test_taxon_with_direct_mapping.content_id,
-        test_taxon_with_multiple_legacy_taxons.content_id
-      ]
+      all_taxons.map(&:content_id)
     )
 
     assert_equal 2, result.length
     assert_same_elements(
-      ["Test Policy Area", "Test legacy policy"],
+      ["Test Specialist Sector", "Another Test Specialist Sector"],
       result.map { |x| x["title"] }
     )
   end
@@ -43,7 +40,7 @@ class Taxonomy::MappingTest < ActiveSupport::TestCase
     [
       test_taxon_with_direct_mapping,
       test_taxon_with_indirect_mapping,
-      test_taxon_with_multiple_legacy_taxons
+      another_test_taxon_with_direct_mapping
     ]
   end
 
@@ -53,10 +50,10 @@ class Taxonomy::MappingTest < ActiveSupport::TestCase
       base_path: "/direct-mapping",
       content_id: "341b0937-8590-47d6-8fa6-3203e162ec93",
       legacy_mapping: {
-        "policy_area" => [
+        "topic" => [
           {
             "content_id" => "35baa314-9f31-4276-bad2-30bba3f40975",
-            "title" => "Test Policy Area"
+            "title" => "Test Specialist Sector"
           }
         ]
       }
@@ -76,22 +73,16 @@ class Taxonomy::MappingTest < ActiveSupport::TestCase
     taxon
   end
 
-  def test_taxon_with_multiple_legacy_taxons
+  def another_test_taxon_with_direct_mapping
     Taxonomy::Taxon.new(
-      title: "Multiple legacy",
-      base_path: "/multiple-legacy",
-      content_id: "bb5fbd37-0b75-4f90-8a24-b19d1d8b16f4",
+      title: "Direct mapping",
+      base_path: "/direct-mapping",
+      content_id: "59d39ef3-2d6d-4b38-8d8b-37c0d0390a29",
       legacy_mapping: {
-        "policy_area" => [
+        "topic" => [
           {
-            "content_id" => "35baa314-9f31-4276-bad2-30bba3f40975",
-            "title" => "Test Policy Area"
-          }
-        ],
-        "policy" => [
-          {
-            "content_id" => "40911228-459d-4568-8199-c2d921f5388f",
-            "title" => "Test legacy policy"
+            "content_id" => "e2aa4b5a-60d1-40c8-a1fd-ae94ee469efc",
+            "title" => "Another Test Specialist Sector"
           }
         ]
       }
