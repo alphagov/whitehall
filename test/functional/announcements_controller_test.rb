@@ -7,12 +7,12 @@ class AnnouncementsControllerTest < ActionController::TestCase
   include GdsApi::TestHelpers::ContentStore
   include TaxonomyHelper
 
-  with_not_quite_as_fake_search
   should_be_a_public_facing_controller
   should_return_json_suitable_for_the_document_filter :news_article
   should_return_json_suitable_for_the_document_filter :speech
 
   setup do
+    @rummager = stub
     @content_item = content_item_for_base_path(
       '/government/announcements'
     )
@@ -22,13 +22,15 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index shows a mix of news and speeches" do
-    Sidekiq::Testing.inline! do
-      announced_today = [create(:published_news_article), create(:published_speech)]
+    with_stubbed_rummager(@rummager) do
+      @rummager.expects(:search).returns('results' =>
+                                           [{ 'format' => 'news_article', 'id' => 'news_id' },
+                                            { 'format' => 'speech', 'id' => 'speech_id' }])
 
       get :index
 
-      assert_select_object announced_today[0]
-      assert_select_object announced_today[1]
+      assert_select '#news_article_news_id'
+      assert_select '#speech_speech_id'
     end
   end
 
@@ -43,80 +45,95 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index shows which type a record is" do
-    Sidekiq::Testing.inline! do
-      announced_today = [
-        create(:published_news_article, news_article_type: NewsArticleType::NewsStory),
-        create(:published_speech),
-        create(:published_speech, speech_type: SpeechType::WrittenStatement),
-      ]
+    with_stubbed_rummager(@rummager) do
+      @rummager.expects(:search).returns('results' =>
+                                           [{ 'format' => 'news_story', 'id' => 'news_id', 'display_type' => 'News story' },
+                                            { 'format' => 'speech', 'id' => 'speech_id', 'display_type' => 'Speech' },
+                                            { 'format' => 'written_statement', 'id' => 'written_statement_id', 'display_type' => 'Statement to Parliament' }])
 
       get :index
 
-      assert_select_object announced_today[0] do
+      assert_select '#news_story_news_id' do
         assert_select ".display-type", text: "News story"
       end
-      assert_select_object announced_today[1] do
+      assert_select '#speech_speech_id' do
         assert_select ".display-type", text: "Speech"
       end
-      assert_select_object announced_today[2] do
+      assert_select '#written_statement_written_statement_id' do
         assert_select ".display-type", text: "Statement to Parliament"
       end
     end
   end
 
   view_test "index shows the date on which a speech was first published" do
-    first_published_at = Date.parse("1999-12-31")
-    Sidekiq::Testing.inline! do
-      speech = create(:published_speech, first_published_at: first_published_at)
-
+    with_stubbed_rummager(@rummager) do
+      first_published_at = Date.parse("1999-12-31").to_datetime.iso8601
+      @rummager.expects(:search).returns('results' =>
+                                          [{ 'format' => 'speech',
+                                             'id' => 'speech_id',
+                                             'public_timestamp' => first_published_at }])
       get :index
 
-      assert_select_object(speech) do
-        assert_select "time.public_timestamp[datetime=?]", first_published_at.to_datetime.iso8601
+      assert_select '#speech_speech_id' do
+        assert_select "time.public_timestamp[datetime=?]", first_published_at
       end
     end
   end
 
   view_test "index shows the time when a news article was first published" do
-    first_published_at = Time.zone.parse("2001-01-01 01:01")
-    Sidekiq::Testing.inline! do
-      news_article = create(:published_news_article, first_published_at: first_published_at)
-
+    with_stubbed_rummager(@rummager) do
+      first_published_at = Time.zone.parse("2001-01-01 01:01").iso8601
+      @rummager.expects(:search).returns('results' =>
+                                            [{ 'format' => 'speech',
+                                               'id' => 'speech_id',
+                                               'public_timestamp' => first_published_at }])
       get :index
 
-      assert_select_object(news_article) do
-        assert_select "time.public_timestamp[datetime=?]", first_published_at.iso8601
+      assert_select '#speech_speech_id' do
+        assert_select "time.public_timestamp[datetime=?]", first_published_at
       end
     end
   end
 
   view_test "index shows related organisations for each type of article" do
-    Sidekiq::Testing.inline! do
+    with_stubbed_rummager(@rummager) do
       first_org = create(:organisation, name: 'first-org', acronym: "FO")
       second_org = create(:organisation, name: 'second-org', acronym: "SO")
-      news_article = create(:published_news_article, first_published_at: 4.days.ago, organisations: [first_org, second_org])
-      speech = create(:published_speech, delivered_on: 5.days.ago, organisations: [second_org])
+
+      @rummager.expects(:search).returns('results' =>
+                                          [{ 'format' => 'news_article',
+                                             'id' => 'news_id',
+                                             'organisations' =>
+                                               [{ 'slug' => first_org.slug },
+                                                { 'slug' => second_org.slug }] },
+                                           { 'format' => 'speech',
+                                             'id' => 'speech_id',
+                                             'organisations' =>
+                                               [{ 'slug' => second_org.slug }] }])
 
       get :index
 
-      assert_select_object news_article do
-        assert_select ".organisations", text: "#{first_org.acronym} and #{second_org.acronym}", count: 1
+      assert_select '#news_article_news_id' do
+        assert_select ".organisations", text: "FO and SO", count: 1
       end
 
-      assert_select_object speech do
-        assert_select ".organisations", text: second_org.acronym, count: 1
+      assert_select '#speech_speech_id' do
+        assert_select ".organisations", text: "SO", count: 1
       end
     end
   end
 
   view_test "index shows articles in reverse chronological order" do
-    Sidekiq::Testing.inline! do
-      oldest = create(:published_speech, first_published_at: 5.days.ago)
-      newest = create(:published_news_article, first_published_at: 4.days.ago)
+    with_stubbed_rummager(@rummager) do
+      @rummager.expects(:search).with(has_entry(order: '-public_timestamp')).returns(
+        'results' =>
+          [{ 'format' => 'published_speech', 'id' => 'new_id' },
+           { 'format' => 'published_news_article', 'id' => 'old_id' }]
+      )
 
       get :index
 
-      assert_select "#{record_css_selector(newest)} + #{record_css_selector(oldest)}"
+      assert_select '#published_speech_new_id + #published_news_article_old_id'
     end
   end
 
@@ -160,31 +177,40 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   def assert_documents_appear_in_order_within(containing_selector, expected_documents)
     articles = css_select "#{containing_selector} li.document-row"
-    expected_document_ids = expected_documents.map { |doc| dom_id(doc) }
+    expected_document_ids = expected_documents.map { |doc| "#{doc['format']}_#{doc['id']}" }
     actual_document_ids = articles.map { |a| a["id"] }
     assert_equal expected_document_ids, actual_document_ids
   end
 
+  def refute_select(hash)
+    assert_select "#{hash['format']}_#{hash['content_id']}", count: 0
+  end
+
   view_test "index shows only the first page of news articles or speeches" do
-    Sidekiq::Testing.inline! do
-      news = (1..2).map { |n| create(:published_news_article, first_published_at: n.days.ago) }
-      speeches = (3..4).map { |n| create(:published_speech, first_published_at: n.days.ago) }
+    with_stubbed_rummager(@rummager) do
+      news = (1..2).map { |n| { 'format' => 'news_article', 'id' => n } }
+      speeches = (3..4).map { |n| { 'format' => 'published_speech', 'id' => n } }
+
+      @rummager.expects(:search).returns('results' => news + speeches)
 
       with_number_of_documents_per_page(3) do
         get :index
       end
 
       assert_documents_appear_in_order_within(".filter-results", news + speeches[0..0])
+
       (speeches[1..2]).each do |speech|
-        refute_select_object(speech)
+        refute_select(speech)
       end
     end
   end
 
   view_test "index shows the requested page" do
-    Sidekiq::Testing.inline! do
-      news = (1..3).map { |n| create(:published_news_article, first_published_at: n.days.ago) }
-      speeches = (4..6).map { |n| create(:published_speech, first_published_at: n.days.ago) }
+    with_stubbed_rummager(@rummager) do
+      news = (1..3).map { |n| { 'format' => 'news_article', 'id' => n } }
+      speeches = (4..6).map { |n| { 'format' => 'published_speech', 'id' => n } }
+
+      @rummager.expects(:search).returns('results' => news + speeches)
 
       with_number_of_documents_per_page(4) do
         get :index, params: { page: 2 }
@@ -192,7 +218,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
       assert_documents_appear_in_order_within(".filter-results", speeches[1..2])
       (news + speeches[0..0]).each do |speech|
-        refute_select_object(speech)
+        refute_select(speech)
       end
     end
   end
@@ -244,12 +270,12 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index generates an atom feed with entries for announcements matching the current filter" do
-    Sidekiq::Testing.inline! do
+    with_stubbed_rummager(@rummager) do
       org = create(:organisation, name: "org-name")
-      other_org = create(:organisation, name: "other-org")
       news = create(:published_news_article, organisations: [org], first_published_at: 1.week.ago)
-      _speech = create(:published_speech, organisations: [other_org], delivered_on: 3.days.ago)
 
+      @rummager.expects(:search).returns('results' =>
+                                          [{ 'format' => 'news_article', 'id' => news.id }])
       get :index, params: { departments: [org.to_param] }, format: :atom
 
       assert_select_atom_feed do
@@ -259,9 +285,11 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index generates an atom feed with the legacy announcement_type_option param set" do
-    Sidekiq::Testing.inline! do
+    with_stubbed_rummager(@rummager) do
       news = create(:published_news_story, first_published_at: 1.week.ago)
-      _speech = create(:published_speech, delivered_on: 3.days.ago)
+
+      @rummager.expects(:search).returns('results' =>
+                                          [{ 'format' => 'news_article', 'id' => news.id }])
 
       get :index, params: { announcement_type_option: 'news-stories' }, format: :atom
 
@@ -322,12 +350,16 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test 'index includes tracking details on all links' do
-    Sidekiq::Testing.inline! do
-      news_article = create(:published_news_article)
+    with_stubbed_rummager(@rummager) do
+      @rummager.expects(:search).returns('results' =>
+                                          [{ 'format' => 'published_news_article',
+                                             'id' => 'news_id',
+                                             'link' => '/path/to/somewhere',
+                                             'title' => 'title' }])
 
       get :index
 
-      assert_select_object(news_article) do
+      assert_select '#published_news_article_news_id' do
         results_list = css_select('ol.document-list').first
 
         assert_equal(
@@ -351,7 +383,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
         )
 
         assert_equal(
-          @controller.public_document_path(news_article),
+          '/path/to/somewhere',
           article_link.attributes['data-label'].value,
           "Expected the data label attribute to be the link of the news article"
         )
@@ -365,7 +397,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
         )
 
         assert_equal(
-          news_article.title,
+          'title',
           options['dimension29'],
           "Expected the custom dimension 29 to have the title of the article"
         )

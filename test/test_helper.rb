@@ -63,6 +63,16 @@ class ActiveSupport::TestCase
     Sidekiq::Worker.clear_all
   end
 
+  def with_stubbed_rummager(stubbed_object)
+    previous_client = Whitehall.search_client
+    previous_backend = Whitehall.search_backend
+    Whitehall.search_client = stubbed_object
+    Whitehall.search_backend = Whitehall::DocumentFilter::AdvancedSearchRummager
+    yield
+    Whitehall.search_client = previous_client
+    Whitehall.search_backend = previous_backend
+  end
+
   def acting_as(actor, &block)
     Edition::AuditTrail.acting_as(actor, &block)
   end

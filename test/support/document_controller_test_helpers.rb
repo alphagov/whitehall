@@ -395,25 +395,30 @@ module DocumentControllerTestHelpers
       include DocumentFilterHelpers
 
       view_test "index requested as JSON includes a count of #{document_type}" do
-        Sidekiq::Testing.inline! do
-          create(:"published_#{document_type}")
+        rummager = stub
+        with_stubbed_rummager(rummager) do
+          rummager.expects(:search).returns('results' =>
+                                              [{ 'format' => "published_#{document_type}",
+                                                 'content_id' => 1 }])
+
+          get :index, format: :json
+
+          assert_equal 1, ActiveSupport::JSON.decode(response.body)["count"]
         end
-
-        get :index, format: :json
-
-        assert_equal 1, ActiveSupport::JSON.decode(response.body)["count"]
       end
 
       view_test "index requested as JSON includes the total pages of #{document_type}" do
-        Sidekiq::Testing.inline! do
-          4.times { create(:"published_#{document_type}") }
-        end
+        rummager = stub
+        with_stubbed_rummager(rummager) do
+          rummager.expects(:search).returns('results' =>
+                                              (0..4).map { |n| { 'format' => "published_#{document_type}", 'content_id' => n } })
 
-        with_number_of_documents_per_page(3) do
-          get :index, format: :json
-        end
+          with_number_of_documents_per_page(3) do
+            get :index, format: :json
+          end
 
-        assert_equal 2, ActiveSupport::JSON.decode(response.body)["total_pages"]
+          assert_equal 2, ActiveSupport::JSON.decode(response.body)["total_pages"]
+        end
       end
 
       view_test "index requested as JSON includes the current page of #{document_type}" do
