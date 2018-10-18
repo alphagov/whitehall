@@ -47,8 +47,18 @@ class ScheduledPublishingWorker < WorkerBase
     # Call `ScheduledEditionPublisher` via the `EditionServiceCoordinator`.
     publisher = Whitehall.edition_services.scheduled_publisher(edition)
 
-    Edition::AuditTrail.acting_as(publishing_robot) do
-      publisher.perform! || raise(ScheduledPublishingFailure, publisher.failure_reason)
+    # The Publishing API part of publishing (which is critically
+    # important) isn't part of the transaction in the
+    # EditionService. Starting the transaction here ensures that it
+    # is, and thus the edition won't be marked as published in the
+    # event of the actual publishing failing.
+    #
+    # Hopefully the Publishing API interaction can be improved
+    # generally to the point where this can be removed.
+    ActiveRecord::Base.transaction do
+      Edition::AuditTrail.acting_as(publishing_robot) do
+        publisher.perform! || raise(ScheduledPublishingFailure, publisher.failure_reason)
+      end
     end
   end
 
