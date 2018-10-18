@@ -421,12 +421,21 @@ class EditionTest < ActiveSupport::TestCase
     assert_not publication.search_index.include?("topics")
   end
 
-  test "rummager policy_areas include topical_events" do
+  test "rummager policy_areas include topics" do
     government = create(:current_government)
     publication = create(:published_policy_paper, :with_topical_events, title: "publication-title", political: true, first_published_at: government.start_date)
 
-    expected = publication.topics.map(&:name) + publication.topical_events.map(&:name)
+    expected = publication.topics.map(&:name)
     assert_equal expected.sort, publication.search_index["policy_areas"].sort
+    assert_not publication.search_index.include?("topics")
+  end
+
+  test "rummager topical_events include topical_events" do
+    government = create(:current_government)
+    publication = create(:published_policy_paper, :with_topical_events, title: "publication-title", political: true, first_published_at: government.start_date)
+
+    expected = publication.topical_events.map(&:name)
+    assert_equal expected.sort, publication.search_index["topical_events"].sort
     assert_not publication.search_index.include?("topics")
   end
 

@@ -22,12 +22,6 @@ module Edition::TopicalEvents
   end
 
   def search_index
-    # "Policy area" is the newer name for "topic"
-    # (https://www.gov.uk/government/topics)
-    # Rummager's policy areas also include "topical events", which we model
-    # separately in whitehall.
-    new_slugs = topical_events.map(&:slug)
-    existing_slugs = super.fetch("policy_areas", [])
-    super.merge("policy_areas" => new_slugs + existing_slugs)
+    super.merge("topical_events" => topical_events.pluck(:slug))
   end
 end

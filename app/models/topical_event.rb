@@ -42,6 +42,10 @@ class TopicalEvent < Classification
             class_name: "Consultation",
             source: :consultation
 
+  has_many :editions,
+            -> { where("editions.state" => "published") },
+            through: :classification_memberships
+
   has_many :features, inverse_of: :topical_event, dependent: :destroy
 
   scope :active, -> { where("end_date > ?", Date.today) }
