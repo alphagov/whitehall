@@ -41,11 +41,15 @@ namespace :reslug do
   - reindexes the document with it's new slug
   - republishes the document to Publishing API (automatically handles the redirect)"
   task :document, %i[old_slug new_slug] => :environment do |_task, args|
-    document = Document.find_by(slug: args.old_slug)
+    documents = Document.where(slug: args.old_slug)
+    if documents.count > 1
+      raise "There are multiple documents with the slug '#{args.old_slug}'. Consider writing a migration and fetching the document with a content_id or document_type to uniquely identify it."
+    end
+
+    document = documents.first
     # remove the most recent edition from the search index
     edition = document.editions.published.last
     Whitehall::SearchIndex.delete(edition)
-
     # change the slug of the document and create a redirect from the original
     document.update_attributes!(slug: args.new_slug)
     PublishingApiDocumentRepublishingWorker.new.perform(document.id)
