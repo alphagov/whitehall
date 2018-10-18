@@ -1,0 +1,1 @@
+Topic.all.each(&:delete!)
