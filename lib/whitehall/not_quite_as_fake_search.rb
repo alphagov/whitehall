@@ -7,7 +7,10 @@ module Whitehall
       Whitehall.government_search_client = Whitehall::NotQuiteAsFakeSearch::GdsApiRummager.new(
         SearchIndex.government_search_index_path, store
       )
-      Whitehall.search_backend = Whitehall::DocumentFilter::Rummager
+      Whitehall.search_client = Whitehall::NotQuiteAsFakeSearch::GdsApiRummager.new(
+        SearchIndex.government_search_index_path, store
+      )
+      Whitehall.search_backend = Whitehall::DocumentFilter::AdvancedSearchRummager
     end
 
     def self.start_faking_it_again!
@@ -21,8 +24,15 @@ module Whitehall
         @store = store
       end
 
-      def search(*_args)
-        raise "Not implemented"
+      def search(params)
+        params = params.stringify_keys
+        keywords = params.delete("q")
+        order = { public_timestamp: "desc" }
+        per_page = params.delete("count").to_i
+        page = params.delete("start").to_i
+        params.delete("fields")
+        params.delete("order")
+        apply_filters(keywords, params, order, per_page, page)
       end
 
       def autocomplete(*_args)
@@ -60,6 +70,7 @@ module Whitehall
             search_format_types
             world_locations
             document_collections
+            content_store_document_type
           },
           date: %w{public_timestamp},
           boolean: %w{
@@ -78,10 +89,10 @@ module Whitehall
 
       def apply_filters(keywords, params, order, per_page, page)
         results = @store.index(@index_name).values
-
         results = filter_by_keywords(keywords, results) unless keywords.blank?
 
         results = params.inject(results) do |new_results, (field_name, value)|
+          field_name = field_name.gsub(/filter_/, "")
           case field_type(field_name)
           when :date
             filter_by_date_field(field_name, value, new_results)
@@ -163,7 +174,14 @@ module Whitehall
       end
 
       def filter_by_simple_field(field, desired_field_values, document_hashes)
-        document_hashes.select { |document_hash| ([*desired_field_values] & document_hash.fetch(field, [])).any? }
+        document_hashes.select do |document_hash|
+          value = document_hash.fetch(field, [])
+          if value.is_a?(String)
+            [*desired_field_values].include?(value)
+          else
+            ([*desired_field_values] & value).any?
+          end
+        end
       end
 
       def filter_by_date_field(field, date_filter_hash, document_hashes)
