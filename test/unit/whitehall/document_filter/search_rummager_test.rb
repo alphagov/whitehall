@@ -6,17 +6,31 @@ module Whitehall::DocumentFilter
       Whitehall.search_client.stubs(:search).returns {}
     end
 
+    ANNOUNCEMENT_TYPES = %w[
+      press_release
+      news_article
+      news_story
+      fatality_notice
+      speech
+      written_statement
+      oral_statement
+      authored_article
+      government_response
+    ].freeze
+
+    WORLD_ANNOUNCEMENT_TYPES = %w[world_location_news_article world_news_story].freeze
+
     def format_types(*classes)
       classes.map(&:search_format_type)
     end
 
-    def expect_search_by_format_types(format_types)
+    def expect_search_by_content_store_document_type(document_types)
       Whitehall
         .search_client
         .expects(:search)
         .with(
           has_entry(
-            filter_search_format_types: format_types
+            filter_content_store_document_type: document_types
           )
         )
     end
@@ -43,29 +57,21 @@ module Whitehall::DocumentFilter
 
     test 'announcements_search looks for all announcements excluding world types by default' do
       rummager = SearchRummager.new({})
-      expected_types = [
-        "fatality-notice",
-        "speech",
-        "news-article-news-story",
-        "news-article-press-release",
-        "news-article-government-response",
-      ]
-      expect_search_by_format_types(expected_types)
+      expected_types = ANNOUNCEMENT_TYPES
+      expect_search_by_content_store_document_type(expected_types)
       rummager.announcements_search
     end
 
     test 'announcements_search looks for all Announcements if we need to include world location news' do
       rummager = SearchRummager.new(include_world_location_news: '1')
-      expected_types = %w[
-        announcement
-      ]
-      expect_search_by_format_types(expected_types)
+      expected_types = WORLD_ANNOUNCEMENT_TYPES + ANNOUNCEMENT_TYPES
+      expect_search_by_content_store_document_type(expected_types)
       rummager.announcements_search
     end
 
     test 'announcements_search looks for a specific announcement sub type if we use the announcement_type option' do
       rummager = SearchRummager.new(announcement_type: 'government-responses')
-      expect_search_by_format_types(NewsArticleType::GovernmentResponse.search_format_types)
+      expect_search_by_content_store_document_type("government_response")
       rummager.announcements_search
     end
 
