@@ -96,6 +96,10 @@ module Whitehall::DocumentFilter
       @include_world_location_news.to_s == '1'
     end
 
+    def all_announcement_filter_options
+      Whitehall::AnnouncementFilterOption.all
+    end
+
   private
 
     def find_by_slug(klass, slugs)
