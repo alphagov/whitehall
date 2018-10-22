@@ -32,7 +32,7 @@ module Whitehall
         page = params.delete("start").to_i
         params.delete("fields")
         params.delete("order")
-        apply_filters(keywords, params, order, per_page, page)
+        apply_filters(keywords, params, order, per_page, page, true)
       end
 
       def autocomplete(*_args)
@@ -87,7 +87,7 @@ module Whitehall
         end
       end
 
-      def apply_filters(keywords, params, order, per_page, page)
+      def apply_filters(keywords, params, order, per_page, page, announcements_search = false)
         results = @store.index(@index_name).values
         results = filter_by_keywords(keywords, results) unless keywords.blank?
 
@@ -99,7 +99,7 @@ module Whitehall
           when :boolean
             filter_by_boolean_field(field_name, value, new_results)
           when :simple
-            filter_by_simple_field(field_name, value, new_results)
+            filter_by_simple_field(field_name, value, new_results, announcements_search)
           else
             raise GdsApi::HTTPErrorResponse, "cannot filter by field '#{field_name}', its type is not known"
           end
@@ -185,13 +185,15 @@ module Whitehall
         document_hashes.select { |document_hash| document_hash[field] == desired_boolean }
       end
 
-      def filter_by_simple_field(field, desired_field_values, document_hashes)
+      def filter_by_simple_field(field, desired_field_values, document_hashes, announcements_search = false)
         document_hashes.select do |document_hash|
-          if field == "organisations"
-            value = organisation_slugs(document_hash["organisations"])
-          else
-            value = document_hash.fetch(field, [])
-          end
+          value =
+            if field == "organisations" && announcements_search
+              organisation_slugs(document_hash.fetch("organisations", []))
+            else
+              document_hash.fetch(field, [])
+            end
+
           if value.is_a?(String)
             [*desired_field_values].include?(value)
           else
