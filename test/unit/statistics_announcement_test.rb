@@ -49,11 +49,6 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_equal 'beard-statistics-2015', announcement.slug
   end
 
-  test 'must have at least one topic' do
-    announcement = build(:statistics_announcement, topics: [])
-    refute announcement.valid?
-  end
-
   test 'is search indexable' do
     announcement = create_announcement_with_changes
     expected_indexed_content = {
