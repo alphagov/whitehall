@@ -96,7 +96,6 @@ When(/^I announce an upcoming statistics publication called "(.*?)"$/) do |annou
   fill_in :statistics_announcement_summary, with: "Summary of publication"
   select_date 1.year.from_now.to_s, from: "Release date"
   select organisation.name, from: :statistics_announcement_organisation_ids
-  select topic.name, from: :statistics_announcement_topic_ids
 
   click_on 'Publish announcement'
 end

@@ -48,7 +48,7 @@ class StatisticsAnnouncement < ApplicationRecord
   validates :redirect_url, presence: { message: "must be provided when unpublishing an announcement" }, if: :unpublished?
   validates :redirect_url, uri: true, allow_blank: true
   validates :redirect_url, gov_uk_url: true, allow_blank: true
-  validates :title, :summary, :organisations, :topics, :creator, :current_release_date, presence: true
+  validates :title, :summary, :organisations, :creator, :current_release_date, presence: true
   validates :cancellation_reason, presence: { message: "must be provided when cancelling an announcement" }, if: :cancelled?
   validates :publication_type_id,
               inclusion: {
