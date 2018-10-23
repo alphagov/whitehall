@@ -1,22 +1,19 @@
 require 'whitehall/document_filter/filterer'
 
 module Whitehall::DocumentFilter
-  class Rummager < Filterer
+  class SearchRummager < Filterer
     def announcements_search
       filter_args = standard_filter_args.merge(filter_by_announcement_type)
-      @results = Whitehall.government_search_client.advanced_search(filter_args)
-    end
-
-    def publications_search
-      filter_args = standard_filter_args.merge(filter_by_publication_type)
-                                        .merge(filter_by_official_document_status)
-      @results = Whitehall.government_search_client.advanced_search(filter_args)
+      @results = Whitehall.search_client.search(filter_args)
     end
 
     def default_filter_args
       @default = {
-        page: @page.to_s,
-        per_page: @per_page.to_s
+        start: @page.to_s,
+        count: @per_page.to_s,
+        fields: %w[content_store_document_type government_name is_historic
+                   public_timestamp organisations operational_field format
+                   content_id title description display_type id]
       }
     end
 
@@ -24,7 +21,6 @@ module Whitehall::DocumentFilter
       default_filter_args
         .merge(filter_by_keywords)
         .merge(filter_by_people)
-        .merge(filter_by_topical_events)
         .merge(filter_by_organisations)
         .merge(filter_by_locations)
         .merge(filter_by_date)
@@ -34,7 +30,7 @@ module Whitehall::DocumentFilter
 
     def filter_by_keywords
       if @keywords.present?
-        { keywords: @keywords.to_s }
+        { q: @keywords.to_s }
       else
         {}
       end
@@ -42,17 +38,7 @@ module Whitehall::DocumentFilter
 
     def filter_by_people
       if @people.present? && @people != %w[all]
-        { people: @people }
-      else
-        {}
-      end
-    end
-
-    # Note that though 'topic' terminology is used here, elsewhere in Whitehall, and
-    # in the UI, we are actually interested in topical events when querying rummager.
-    def filter_by_topical_events
-      if selected_topics.any?
-        { topical_events: selected_topics.map(&:slug) }
+        { filter_people: @people }
       else
         {}
       end
@@ -60,9 +46,9 @@ module Whitehall::DocumentFilter
 
     def filter_by_taxon
       if selected_subtaxons.any? { |taxon| taxon != "all" }
-        { part_of_taxonomy_tree: selected_subtaxons }
+        { filter_part_of_taxonomy_tree: selected_subtaxons }
       elsif selected_taxons.any?
-        { part_of_taxonomy_tree: selected_taxons }
+        { filter_part_of_taxonomy_tree: selected_taxons }
       else
         {}
       end
@@ -70,7 +56,7 @@ module Whitehall::DocumentFilter
 
     def filter_by_organisations
       if selected_organisations.any?
-        { organisations: selected_organisations.map(&:slug) }
+        { filter_organisations: selected_organisations.map(&:slug) }
       else
         {}
       end
@@ -78,20 +64,7 @@ module Whitehall::DocumentFilter
 
     def filter_by_locations
       if selected_locations.any?
-        { world_locations: selected_locations.map(&:slug) }
-      else
-        {}
-      end
-    end
-
-    def filter_by_official_document_status
-      case selected_official_document_status
-      when "command_and_act_papers"
-        { has_official_document: "1" }
-      when "command_papers_only"
-        { has_command_paper: "1" }
-      when "act_papers_only"
-        { has_act_paper: "1" }
+        { filter_world_locations: selected_locations.map(&:slug) }
       else
         {}
       end
@@ -105,13 +78,13 @@ module Whitehall::DocumentFilter
       if dates_hash.empty?
         {}
       else
-        { public_timestamp: dates_hash }
+        { filter_public_timestamp: dates_hash.map { |k, v| "#{k}:#{v}" }.join(',') }
       end
     end
 
     def sort
       if @keywords.blank?
-        { order: { public_timestamp: "desc" } }
+        { order: '-public_timestamp' }
       else
         {}
       end
@@ -126,17 +99,7 @@ module Whitehall::DocumentFilter
         else
           non_world_announcement_types
         end
-      { search_format_types: announcement_types }
-    end
-
-    def filter_by_publication_type
-      publication_types =
-        if selected_publication_filter_option
-          selected_publication_filter_option.search_format_types
-        else
-          Publicationesque.concrete_descendant_search_format_types
-        end
-      { search_format_types: publication_types }
+      { filter_search_format_types: announcement_types }
     end
 
     def documents
