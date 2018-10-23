@@ -9,7 +9,12 @@ class DocumentsController < PublicFacingController
 
 private
 
-  def build_document_filter
+  def build_document_filter(filter_type = nil)
+    search_backend = if filter_type == "announcements"
+                       Whitehall::DocumentFilter::SearchRummager
+                     else
+                       Whitehall::DocumentFilter::AdvancedSearchRummager
+                     end
     search_backend.new(cleaned_document_filter_params)
   end
 
