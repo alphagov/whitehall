@@ -1,12 +1,7 @@
 require 'whitehall/document_filter/filterer'
 
 module Whitehall::DocumentFilter
-  class Rummager < Filterer
-    def announcements_search
-      filter_args = standard_filter_args.merge(filter_by_announcement_type)
-      @results = Whitehall.government_search_client.advanced_search(filter_args)
-    end
-
+  class AdvancedSearchRummager < Filterer
     def publications_search
       filter_args = standard_filter_args.merge(filter_by_publication_type)
                                         .merge(filter_by_official_document_status)
@@ -117,18 +112,6 @@ module Whitehall::DocumentFilter
       end
     end
 
-    def filter_by_announcement_type
-      announcement_types =
-        if selected_announcement_filter_option
-          selected_announcement_filter_option.search_format_types
-        elsif include_world_location_news
-          [Announcement.search_format_type]
-        else
-          non_world_announcement_types
-        end
-      { search_format_types: announcement_types }
-    end
-
     def filter_by_publication_type
       publication_types =
         if selected_publication_filter_option
@@ -141,21 +124,6 @@ module Whitehall::DocumentFilter
 
     def documents
       @documents ||= ResultSet.new(@results, @page, @per_page).paginated
-    end
-
-  private
-
-    def all_announcement_types
-      all_descendants = Announcement.concrete_descendant_search_format_types
-      descendants_without_news = all_descendants - [NewsArticle.search_format_type]
-      news_article_subtypes = NewsArticleType.search_format_types
-      descendants_without_news + news_article_subtypes
-    end
-
-    def non_world_announcement_types
-      types = all_announcement_types
-      types = types - NewsArticleType::WorldNewsStory.search_format_types
-      types - [WorldLocationNewsArticle.search_format_type]
     end
   end
 end
