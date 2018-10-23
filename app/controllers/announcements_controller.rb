@@ -3,7 +3,7 @@ class AnnouncementsController < DocumentsController
 
   def index
     expire_on_next_scheduled_publication(scheduled_announcements)
-    @filter = build_document_filter
+    @filter = build_document_filter("announcements")
     @filter.announcements_search
 
     respond_to do |format|
