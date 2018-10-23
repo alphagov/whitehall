@@ -103,7 +103,7 @@ module Whitehall::DocumentFilter
     end
 
     def documents
-      @documents ||= ResultSet.new(@results, @page, @per_page).paginated
+      @documents ||= ResultSet.new(@results, @page, @per_page, SearchResult).paginated
     end
 
   private
