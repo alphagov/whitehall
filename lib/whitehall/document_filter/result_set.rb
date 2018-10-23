@@ -1,16 +1,15 @@
 module Whitehall::DocumentFilter
   class ResultSet
-    def initialize(results, page, per_page)
+    def initialize(results, page, per_page, result_type)
       @results = results
       @docs = results.respond_to?(:[]) ? results['results'] : []
       @page = page
       @per_page = per_page
+      @result_type = result_type
     end
 
     def merged_results
-      @docs.map do |doc|
-        Result.new(doc)
-      end
+      @docs.map { |doc| @result_type.new(doc) }
     end
 
     def paginated
