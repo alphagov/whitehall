@@ -13,6 +13,7 @@ class EditionService
       ActiveRecord::Base.transaction do
         prepare_edition
         fire_transition!
+        update_publishing_api!
       end
       notify!
       true
@@ -47,6 +48,12 @@ private
     #
     # If we can get rid of LocalisedModel, this can be removed.
     notifier && notifier.publish(verb, edition.reload, options)
+  end
+
+  def update_publishing_api!
+    ServiceListeners::PublishingApiPusher
+      .new(edition.reload)
+      .push(event: verb, options: options)
   end
 
   def prepare_edition

@@ -183,4 +183,25 @@ class EditionPublisherTest < ActiveSupport::TestCase
     edition.reload
     assert edition.political?
   end
+
+  test '#perform! is reliable with respect to Publishing API failures' do
+    edition = create(:submitted_edition)
+
+    stub_request(
+      :post,
+      "#{Plek.find('publishing-api')}/v2/content/#{edition.content_id}/publish"
+    ).to_return(
+      status: 504
+    ).then.to_return(
+      status: 200
+    )
+
+    assert_raises GdsApi::HTTPGatewayTimeout do
+      EditionPublisher.new(edition).perform!
+    end
+    refute edition.reload.published?
+
+    EditionPublisher.new(edition).perform!
+    assert edition.reload.published?
+  end
 end
