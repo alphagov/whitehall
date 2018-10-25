@@ -28,12 +28,20 @@ module PublishingApi
         public_updated_at: item.updated_at,
         rendering_app: item.rendering_app,
         schema_name: schema_name,
-        links: links,
+        links: edition_links,
       )
       content.merge!(PayloadBuilder::Routes.for(base_path))
     end
 
     def links
+      # TODO: Previously, this presenter was sending all links to the
+      # Publishing API at both the document level, and edition
+      # level. This is probably redundant, and hopefully can be
+      # improved.
+      edition_links
+    end
+
+    def edition_links
       {
         parent: parent_content_ids, # please use the breadcrumb component when migrating document_type to government-frontend
         organisations: parent.organisations.pluck(:content_id).uniq,
