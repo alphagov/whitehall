@@ -38,6 +38,20 @@ namespace :rummager do
       index.commit
     end
 
+    # useful if a topical event changes and we want to change related docs
+    desc "indexes all topical events and related documents"
+    task topical_event_editions: :environment do
+      puts 'Getting documents related to a topical event...'
+      index = Whitehall::SearchIndex.for(:government)
+      related_editions = TopicalEvent.all.flat_map(&:editions).uniq
+      puts 'Getting search indexes for document editions...'
+      related_edition_search_indexes = related_editions.lazy.map(&:search_index)
+      puts "Adding batch of #{related_editions.count} documents to indexing queue..."
+      index.add_batch(related_edition_search_indexes)
+      puts "Done adding those documents to the queue; the indexing will now occur asynchronously."
+      index.commit
+    end
+
     desc "indexes all withdrawn content"
     task withdrawn: :environment do
       Edition.where(state: "withdrawn").each do |ed|
