@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181008152313) do
+ActiveRecord::Schema.define(version: 20181023071345) do
 
   create_table "about_pages", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "topical_event_id"
@@ -618,38 +618,6 @@ ActiveRecord::Schema.define(version: 20181008152313) do
     t.datetime "updated_at"
     t.index ["edition_id"], name: "index_images_on_edition_id"
     t.index ["image_data_id"], name: "index_images_on_image_data_id"
-  end
-
-  create_table "import_errors", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "import_id"
-    t.integer "row_number"
-    t.text "message"
-    t.datetime "created_at"
-    t.index ["import_id"], name: "index_import_errors_on_import_id"
-  end
-
-  create_table "import_logs", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "import_id"
-    t.integer "row_number"
-    t.string "level"
-    t.text "message"
-    t.datetime "created_at"
-  end
-
-  create_table "imports", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "original_filename"
-    t.string "data_type"
-    t.text "csv_data", limit: 4294967295
-    t.text "successful_rows"
-    t.integer "creator_id"
-    t.datetime "import_started_at"
-    t.datetime "import_finished_at"
-    t.integer "total_rows"
-    t.integer "current_row"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "import_enqueued_at"
-    t.integer "organisation_id"
   end
 
   create_table "link_checker_api_report_links", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
