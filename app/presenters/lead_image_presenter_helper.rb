@@ -7,6 +7,14 @@ module LeadImagePresenterHelper
     end
   end
 
+  def high_resolution_lead_image_path
+    if image_data
+      image_data.file.url(:s960)
+    else
+      "placeholder.jpg"
+    end
+  end
+
   def lead_image_alt_text
     if images.first
       images.first.alt_text.squish
