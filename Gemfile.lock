@@ -356,7 +356,7 @@ GEM
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     parallel (1.12.1)
-    parallel_tests (2.25.0)
+    parallel_tests (2.26.2)
       parallel
     parser (2.5.1.2)
       ast (~> 2.4.0)
