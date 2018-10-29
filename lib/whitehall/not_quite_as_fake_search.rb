@@ -2,19 +2,29 @@ require 'whitehall/document_filter/filterer'
 module Whitehall
   module NotQuiteAsFakeSearch
     def self.stop_faking_it_quite_so_much!
+      @search_indexer_class_store = SearchIndex.indexer_class.store
       store = Whitehall::NotQuiteAsFakeSearch::Store.new
       SearchIndex.indexer_class.store = store
+
+      @government_search_client = Whitehall.government_search_client
       Whitehall.government_search_client = Whitehall::NotQuiteAsFakeSearch::GdsApiRummager.new(
         SearchIndex.government_search_index_path, store
       )
+
+      @search_client = Whitehall.search_client
       Whitehall.search_client = Whitehall::NotQuiteAsFakeSearch::GdsApiRummager.new(
         SearchIndex.government_search_index_path, store
       )
+
+      @search_backend = Whitehall.search_backend
       Whitehall.search_backend = Whitehall::DocumentFilter::AdvancedSearchRummager
     end
 
     def self.start_faking_it_again!
-      SearchIndex.indexer_class.store = nil
+      SearchIndex.indexer_class.store = @search_indexer_class_store
+      Whitehall.government_search_client = @government_search_client
+      Whitehall.search_client = @search_client
+      Whitehall.search_backend = @search_backend
     end
 
     class GdsApiRummager
