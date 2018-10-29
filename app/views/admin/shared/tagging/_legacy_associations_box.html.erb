@@ -12,14 +12,6 @@
   </h2>
   <% if edition.has_legacy_tags? %>
     <div class="content content-bordered">
-      <% if edition.has_policies? %>
-        <h4>Policies</h4>
-        <ul class="policies">
-          <% tagged_policy_names(edition.policy_content_ids).each do |name| %>
-            <li><%= name %></li>
-          <% end %>
-        </ul>
-      <% end %>
       <% if edition.has_policy_areas? %>
         <h4>Policy Areas</h4>
         <ul class="policy-areas">

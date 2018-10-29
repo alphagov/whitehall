@@ -5,11 +5,6 @@ class SpeechTest < ActiveSupport::TestCase
   should_allow_a_role_appointment
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
 
-  test "should be able to relate to other editions" do
-    article = build(:speech)
-    assert article.can_be_related_to_policies?
-  end
-
   test "should be invalid without a speech type" do
     speech = build(:speech, speech_type: nil)
     assert_not speech.valid?

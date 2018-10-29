@@ -768,62 +768,6 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_related_policies_for(document_type)
-      edition_class = class_for(document_type)
-
-      test "creating should create a new document with related policies" do
-        stub_publishing_api_policies
-        attributes = controller_attributes_for(document_type)
-
-        post :create, params: {
-          edition: attributes.merge(
-            policy_content_ids: [policy_1["content_id"], policy_2["content_id"]],
-          ),
-        }
-
-        document = edition_class.last!
-        assert_equal [
-          policy_area_1["content_id"],
-          policy_area_2["content_id"],
-          policy_1["content_id"],
-          policy_2["content_id"],
-        ], document.policy_content_ids
-      end
-
-      test "updating should save modified edition attributes with related policies" do
-        stub_publishing_api_policies
-        edition = create(document_type, policy_content_ids: [policy_1["content_id"]])
-
-        put :update, params: {
-          id: edition,
-          edition: {
-            policy_content_ids: [policy_2["content_id"]],
-          },
-        }
-
-        assert_equal [
-          policy_area_1["content_id"],
-          policy_area_2["content_id"],
-          policy_2["content_id"],
-        ], edition.reload.policy_content_ids
-      end
-
-      view_test "updating a stale edition should render edit page with conflicting edition" do
-        edition = create(document_type)
-        lock_version = edition.lock_version
-        edition.touch
-
-        put :update, params: {
-          id: edition,
-          edition: {
-            lock_version: lock_version,
-          },
-        }
-
-        assert_select ".document.conflict"
-      end
-    end
-
     def should_allow_references_to_statistical_data_sets_for(edition_type)
       edition_class = class_for(edition_type)
 

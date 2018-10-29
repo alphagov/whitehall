@@ -3,10 +3,6 @@ class WorldLocationNewsArticle < Newsesque
   include Edition::WorldwideOrganisations
   include ::Attachable
 
-  def can_be_related_to_policies?
-    false
-  end
-
   def can_be_related_to_organisations?
     false
   end

@@ -58,14 +58,6 @@ class Person < ApplicationRecord
     end
   end
 
-  def published_policies
-    Whitehall.search_client.search(
-      filter_people: [slug],
-      filter_format: "policy",
-      order: "-public_timestamp",
-    )["results"]
-  end
-
   def search_link
     Whitehall.url_maker.person_path(slug)
   end

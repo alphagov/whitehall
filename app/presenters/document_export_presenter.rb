@@ -27,7 +27,6 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
       attachments: present_attachments(edition),
       authors: edition.authors.pluck(:id).uniq,
       contacts: slice_association(edition, :depended_upon_contacts, %i[id content_id]),
-      edition_policies: slice_association(edition, :edition_policies, %i[id policy_content_id]),
       editorial_remarks: present_editorial_remarks(edition),
       fact_check_requests: present_fact_check_requests(edition),
       government: edition.government&.as_json,

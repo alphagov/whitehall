@@ -96,14 +96,12 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
     let(:world_location) { create(:world_location) }
 
     before do
-      speech.add_policy(policy_content_id)
       speech.topical_events << topical_event
       speech.world_locations << world_location
     end
 
     it "contains the expected keys and values" do
       assert_includes(presented.links.keys, :organisations)
-      assert_includes(presented.links.keys, :related_policies)
       assert_includes(presented.links.keys, :speaker)
       assert_includes(presented.links.keys, :topical_events)
       assert_includes(presented.links.keys, :people)
@@ -111,7 +109,6 @@ class PublishingApi::SpeechPresenterTest < ActiveSupport::TestCase
       assert_includes(presented.links.keys, :world_locations)
 
       assert_includes(presented.links[:organisations], speech.organisations.first.content_id)
-      assert_includes(presented.links[:related_policies], policy_content_id)
       assert_includes(presented.links[:speaker], person.content_id)
       assert_includes(presented.links[:topical_events], topical_event.content_id)
       assert_includes(presented.links[:roles], speech.role_appointment.role.content_id)

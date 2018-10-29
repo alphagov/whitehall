@@ -35,15 +35,6 @@ Given(/^"([^"]*)" drafts a new publication "([^"]*)"$/) do |user_name, title|
   end
 end
 
-When(/^I draft a new publication "([^"]*)" relating it to the policies "([^"]*)" and "([^"]*)"$/) do |title, first_policy, second_policy|
-  begin_drafting_publication(title)
-  click_button "Save and continue"
-  click_button "Save and review legacy tagging"
-  select first_policy, from: "Policies"
-  select second_policy, from: "Policies"
-  click_button "Save"
-end
-
 When(/^I draft a new publication "([^"]*)" referencing the data set "([^"]*)"$/) do |title, data_set_name|
   begin_drafting_publication(title)
   select data_set_name, from: "Related statistical data sets"

@@ -43,8 +43,6 @@
   </section>
 <% end %>
 
-<%= render_partial_if_exists 'extra_metadata' %>
-
 <%= render partial: '/admin/shared/tagging/show_topics_box', locals: {
   path_to_edit_tags: edit_admin_edition_tags_path(@edition.id),
   selected_taxon_paths: @edition_taxons.map(&:full_path),

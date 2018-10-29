@@ -24,7 +24,6 @@ class DocumentListExportPresenter
       "Content sub-type",
       "State",
       "Attachments",
-      "Policies",
       "Specialist sectors",
       "Collections",
       "Can have history-mode",
@@ -50,7 +49,6 @@ class DocumentListExportPresenter
       sub_content_type,
       state,
       attachment_types,
-      policies,
       specialist_sectors,
       collections,
       edition.political?,
@@ -111,12 +109,6 @@ class DocumentListExportPresenter
       "unpublished"
     else
       edition.state
-    end
-  end
-
-  def policies
-    if edition.can_be_related_to_policies?
-      edition.policies.map(&:title)
     end
   end
 

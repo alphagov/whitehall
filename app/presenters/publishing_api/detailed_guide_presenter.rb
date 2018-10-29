@@ -37,7 +37,6 @@ module PublishingApi
           organisations
           parent
           policy_areas
-          related_policies
           topics
           government
         ],

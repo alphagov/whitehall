@@ -47,12 +47,6 @@ private
     end
   end
 
-  def document_related_policies
-    @document.policies
-  rescue GdsApi::TimedOutException, GdsApi::HTTPServerError
-    []
-  end
-
   def find_unpublishing
     unpublishing = Unpublishing.from_slug(params[:id], document_class)
 

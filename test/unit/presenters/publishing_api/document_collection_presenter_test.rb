@@ -291,32 +291,6 @@ class PublishingApi::PublishedDocumentCollectionPresenterDuplicateDocumentsTest 
   end
 end
 
-class PublishingApi::PublishedDocumentCollectionPresenterRelatedPolicyLinksTest < ActiveSupport::TestCase
-  setup do
-    @document_collection = create(:document_collection)
-    @document_collection.stubs(:policy_content_ids).returns(%w[
-      5a8420a2-eafa-4780-87f4-9cf5fb6783f3
-      a8b90171-7f0a-4dd5-986c-d9e414a2dc17
-      7a892570-6428-4baa-b825-9ebc4faf5773
-    ])
-    @presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(@document_collection)
-  end
-
-  test "it presents the policy_content_ids as links, related_policies" do
-    assert_equal(
-      @document_collection.policy_content_ids,
-      @presented_document_collection.links[:related_policies],
-    )
-  end
-
-  test "it presents the policy_content_ids as content, links, related_policies" do
-    assert_equal(
-      @document_collection.policy_content_ids,
-      @presented_document_collection.content[:links][:related_policies],
-    )
-  end
-end
-
 class PublishingApi::PublishedDocumentCollectionPresenterTopicalEventsLinksTest < ActiveSupport::TestCase
   setup do
     document_collection = create(:document_collection)

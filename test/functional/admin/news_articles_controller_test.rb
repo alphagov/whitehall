@@ -12,7 +12,6 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
   should_allow_speed_tagging_of :news_article
   should_allow_setting_first_published_at_during_speed_tagging :news_article
-  should_allow_related_policies_for :news_article
   should_allow_organisations_for :news_article
   should_allow_role_appointments_for :news_article
   should_allow_association_between_world_locations_and :news_article

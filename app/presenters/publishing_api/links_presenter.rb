@@ -5,7 +5,6 @@ module PublishingApi
       primary_publishing_organisation: :primary_publishing_organisation_id,
       original_primary_publishing_organisation: :original_primary_publishing_organisation_id,
       policy_areas: :policy_area_ids,
-      related_policies: :related_policy_ids,
       statistical_data_set_documents: :statistical_data_set_ids,
       topics: :topic_content_ids,
       parent: :parent_content_ids,
@@ -37,10 +36,6 @@ module PublishingApi
 
     def policy_area_ids
       (item.try(:topics) || []).map(&:content_id)
-    end
-
-    def related_policy_ids
-      item.try(:policy_content_ids) || []
     end
 
     def statistical_data_set_ids
