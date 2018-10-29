@@ -38,6 +38,8 @@ Whitehall::Application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
+  config.log_level = (ENV['LOG_LEVEL'].presence || :debug).to_sym
+
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
