@@ -79,9 +79,10 @@ end
 
 Then(/^I should see (#{THE_DOCUMENT}) in the (announcements|publications|consultations) section of the topical event "([^"]*)"$/) do |edition, section, topical_event_name|
   topical_event = TopicalEvent.find_by!(name: topical_event_name)
+  stub_any_rummager_search.to_return(body: rummager_response_of_single_edition(edition))
   visit topical_event_path(topical_event)
-  within "##{section}" do
-    assert page.has_css?(record_css_selector(edition))
+  within "##{section}.document-block" do
+    assert page.has_css?("##{section}_#{edition.content_id}")
   end
 end
 
@@ -160,6 +161,7 @@ Given(/^a topical event with published documents$/) do
   @topical_event = create(:topical_event, name: name)
   stub_topical_event_in_content_store(name)
   create_recently_published_documents_for_topical_event(@topical_event)
+  stub_any_rummager_search.to_return(body: rummager_response)
 end
 
 When(/^I view that topical event page$/) do
@@ -172,4 +174,17 @@ Then(/^I should be able to delete the topical event "([^"]*)"$/) do |name|
   click_on 'Edit'
   click_button 'Delete'
   refute TopicalEvent.exists?(topical_event.id)
+end
+
+def rummager_response_of_single_edition(edition)
+  {
+    "results" => [{
+      "link" => "/foo/policy_paper",
+      "title" => edition.title,
+      "public_timestamp" => edition.public_timestamp.to_s,
+      "display_type" => edition.display_type,
+      "description" => edition.summary,
+      "content_id" => edition.content_id,
+    }]
+  }.to_json
 end

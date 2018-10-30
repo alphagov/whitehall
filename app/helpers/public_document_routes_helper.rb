@@ -15,6 +15,8 @@ module PublicDocumentRoutesHelper
   end
 
   def document_url(edition, options = {}, _builder_options = {})
+    return edition.url if edition.is_a?(RummagerDocumentPresenter)
+
     if edition.non_english_edition?
       options[:locale] = edition.primary_locale
     elsif edition.translatable?
