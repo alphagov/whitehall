@@ -75,11 +75,12 @@ private
     set_slimmer_format_header(Whitehall.analytics_format(analytics_format))
   end
 
-  def search_backend
-    if Locale.current.english?
-      Whitehall.search_backend
+  def search_backend(filter_type)
+    return Whitehall::DocumentFilter::Mysql unless Locale.current.english?
+    if filter_type == "announcements"
+      Whitehall::DocumentFilter::SearchRummager
     else
-      Whitehall::DocumentFilter::Mysql
+      Whitehall::DocumentFilter::AdvancedSearchRummager
     end
   end
 
