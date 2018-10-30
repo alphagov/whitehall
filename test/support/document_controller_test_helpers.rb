@@ -398,7 +398,7 @@ module DocumentControllerTestHelpers
         rummager = stub
         with_stubbed_rummager(rummager) do
           rummager.expects(:search).returns('results' =>
-                                              [{ 'format' => "published_#{document_type}",
+                                              [{ 'format' => document_type.to_s,
                                                  'content_id' => 1 }])
 
           get :index, format: :json
@@ -411,7 +411,7 @@ module DocumentControllerTestHelpers
         rummager = stub
         with_stubbed_rummager(rummager) do
           rummager.expects(:search).returns('results' =>
-                                              (0..4).map { |n| { 'format' => "published_#{document_type}", 'content_id' => n } })
+                                              (0..4).map { |n| { 'format' => document_type.to_s, 'content_id' => n } })
 
           with_number_of_documents_per_page(3) do
             get :index, format: :json
@@ -422,11 +422,14 @@ module DocumentControllerTestHelpers
       end
 
       view_test "index requested as JSON includes the current page of #{document_type}" do
-        create(:"published_#{document_type}")
+        rummager = stub
+        with_stubbed_rummager(rummager) do
+          doc = create(:"published_#{document_type}")
+          rummager.expects(:search).returns('results' => { 'format' => document_type.to_s, 'slug' => doc.slug })
 
-        get :index, format: :json
-
-        assert_equal 1, ActiveSupport::JSON.decode(response.body)["current_page"]
+          get :index, format: :json
+          assert_equal 1, ActiveSupport::JSON.decode(response.body)["current_page"]
+        end
       end
     end
 
