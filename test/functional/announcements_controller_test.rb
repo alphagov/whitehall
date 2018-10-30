@@ -22,7 +22,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index shows a mix of news and speeches" do
-    with_stubbed_rummager(@rummager) do
+    with_stubbed_rummager(@rummager, true) do
       @rummager.expects(:search).returns('results' =>
                                            [{ 'format' => 'news_article', 'id' => 'news_id' },
                                             { 'format' => 'speech', 'id' => 'speech_id' }])
@@ -35,17 +35,20 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "index sets Cache-Control: max-age to the time of the next scheduled publication" do
-    create(:scheduled_news_article, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
+    with_stubbed_rummager(@rummager, true) do
+      @rummager.expects(:search)
+      create(:scheduled_news_article, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
 
-    Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
-      get :index
+      Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
+        get :index
+      end
+
+      assert_cache_control("max-age=#{Whitehall.default_cache_max_age / 2}")
     end
-
-    assert_cache_control("max-age=#{Whitehall.default_cache_max_age / 2}")
   end
 
   view_test "index shows which type a record is" do
-    with_stubbed_rummager(@rummager) do
+    with_stubbed_rummager(@rummager, true) do
       @rummager.expects(:search).returns('results' =>
                                            [{ 'format' => 'news_story', 'id' => 'news_id', 'display_type' => 'News story' },
                                             { 'format' => 'speech', 'id' => 'speech_id', 'display_type' => 'Speech' },
@@ -66,7 +69,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index shows the date on which a speech was first published" do
-    with_stubbed_rummager(@rummager) do
+    with_stubbed_rummager(@rummager, true) do
       first_published_at = Date.parse("1999-12-31").to_datetime.iso8601
       @rummager.expects(:search).returns('results' =>
                                           [{ 'format' => 'speech',
@@ -81,7 +84,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index shows the time when a news article was first published" do
-    with_stubbed_rummager(@rummager) do
+    with_stubbed_rummager(@rummager, true) do
       first_published_at = Time.zone.parse("2001-01-01 01:01").iso8601
       @rummager.expects(:search).returns('results' =>
                                             [{ 'format' => 'speech',
@@ -96,7 +99,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index shows related organisations for each type of article" do
-    with_stubbed_rummager(@rummager) do
+    with_stubbed_rummager(@rummager, true) do
       first_org = create(:organisation, name: 'first-org', acronym: "FO")
       second_org = create(:organisation, name: 'second-org', acronym: "SO")
 
@@ -124,7 +127,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index shows articles in reverse chronological order" do
-    with_stubbed_rummager(@rummager) do
+    with_stubbed_rummager(@rummager, true) do
       @rummager.expects(:search).with(has_entry(order: '-public_timestamp')).returns(
         'results' =>
           [{ 'format' => 'published_speech', 'id' => 'new_id' },
@@ -138,40 +141,52 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index shows selected announcement type filter option in the title" do
-    get :index, params: { announcement_filter_option: 'news-stories' }
+    with_stubbed_rummager(@rummager, true) do
+      @rummager.expects(:search).returns('results' => [])
+      get :index, params: { announcement_filter_option: 'news-stories' }
 
-    assert_select 'h1 span', ': news stories'
+      assert_select 'h1 span', ': news stories'
+    end
   end
 
   view_test "index indicates selected announcement type filter option in the filter selector" do
-    get :index, params: { announcement_filter_option: 'news-stories' }
+    with_stubbed_rummager(@rummager, true) do
+      @rummager.expects(:search).returns('results' => [{ 'format' => 'news_article' }])
+      get :index, params: { announcement_filter_option: 'news-stories' }
 
-    assert_select "select[name='announcement_filter_option']" do
-      assert_select "option[selected='selected']", text: Whitehall::AnnouncementFilterOption::NewsStory.label
+      assert_select "select[name='announcement_filter_option']" do
+        assert_select "option[selected='selected']", text: Whitehall::AnnouncementFilterOption::NewsStory.label
+      end
     end
   end
 
   view_test "index indicates selected world location in the filter selector" do
-    world_location_1 = create(:world_location, name: "Afghanistan")
-    world_location_2 = create(:world_location, name: "Albania")
-    world_location_3 = create(:world_location, name: "Algeria")
+    with_stubbed_rummager(@rummager, true) do
+      world_location_1 = create(:world_location, name: "Afghanistan")
+      world_location_2 = create(:world_location, name: "Albania")
+      world_location_3 = create(:world_location, name: "Algeria")
+      create(:published_news_article, world_locations: [world_location_1, world_location_2, world_location_3])
 
-    create(:published_news_article, world_locations: [world_location_1, world_location_2, world_location_3])
+      @rummager.expects(:search).returns('results' =>
+        [{ "format" => 'news_article', "world_locations" => [{ slug: world_location_1.slug }, { slug: world_location_3.slug }] }])
 
-    get :index, params: { world_locations: [world_location_1.slug, world_location_3.slug] }
+      get :index, params: { world_locations: [world_location_1.slug, world_location_3.slug] }
 
-    assert_select "select[name='world_locations[]']" do
-      assert_select "option[selected='selected']", count: 2
+      assert_select "select[name='world_locations[]']" do
+        assert_select "option[selected='selected']", count: 2
+      end
     end
   end
 
   view_test "index indicates selected people in the filter selector" do
-    a_person = create(:person, forename: "Jane", surname: "Doe")
+    with_stubbed_rummager(@rummager, true) do
+      a_person = create(:person, forename: "Jane", surname: "Doe")
+      @rummager.expects(:search).returns('results' => [{ "format" => "news_article", "people" => [{ "slug" => a_person.slug }] }])
+      get :index, params: { people: [a_person.slug] }
 
-    get :index, params: { people: [a_person.slug] }
-
-    assert_select "select[name='people[]']" do
-      assert_select "option[selected='selected']", text: "Jane Doe"
+      assert_select "select[name='people[]']" do
+        assert_select "option[selected='selected']", text: "Jane Doe"
+      end
     end
   end
 
@@ -187,7 +202,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index shows only the first page of news articles or speeches" do
-    with_stubbed_rummager(@rummager) do
+    with_stubbed_rummager(@rummager, true) do
       news = (1..2).map { |n| { 'format' => 'news_article', 'id' => n } }
       speeches = (3..4).map { |n| { 'format' => 'published_speech', 'id' => n } }
 
@@ -206,7 +221,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index shows the requested page" do
-    with_stubbed_rummager(@rummager) do
+    with_stubbed_rummager(@rummager, true) do
       news = (1..3).map { |n| { 'format' => 'news_article', 'id' => n } }
       speeches = (4..6).map { |n| { 'format' => 'published_speech', 'id' => n } }
 
@@ -224,53 +239,69 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "#index highlights selected taxon filter options" do
-    get :index, params: { taxons: [root_taxon['content_id']] }
+    with_stubbed_rummager(@rummager, true) do
+      @rummager.expects(:search).returns('results' => [{ 'format' => 'news_article', 'part_of_taxonomy_tree' => [root_taxon['content_id']] }])
+      get :index, params: { taxons: [root_taxon['content_id']] }
 
-    assert_select "select#taxons[name='taxons[]']" do
-      assert_select "option[selected='selected']", text: root_taxon['title']
+      assert_select "select#taxons[name='taxons[]']" do
+        assert_select "option[selected='selected']", text: root_taxon['title']
+      end
     end
   end
 
   view_test "#index highlights all taxons filter options by default" do
-    get :index
+    with_stubbed_rummager(@rummager, true) do
+      @rummager.expects(:search).returns('results' => [])
+      get :index
 
-    assert_select "select[name='taxons[]']" do
-      assert_select "option[selected='selected']", text: "All topics"
+      assert_select "select[name='taxons[]']" do
+        assert_select "option[selected='selected']", text: "All topics"
+      end
     end
   end
 
   view_test 'index has atom feed autodiscovery link' do
-    get :index
-    assert_select_autodiscovery_link announcements_url(format: "atom", host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+    with_stubbed_rummager(@rummager, true) do
+      @rummager.expects(:search).returns('results' => [])
+      get :index
+      assert_select_autodiscovery_link announcements_url(format: "atom", host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+    end
   end
 
   view_test 'index atom feed autodiscovery link includes any present filters' do
-    topic = create(:topic)
-    organisation = create(:organisation)
+    with_stubbed_rummager(@rummager, true) do
+      topic = create(:topic)
+      organisation = create(:organisation)
 
-    get :index, params: { topics: [topic], departments: [organisation] }
+      @rummager.expects(:search).returns('results' => [{ "format" => 'news_article', "organisations" => [{ "slug" => organisation.slug }], "topics" => [{ "slug" => topic.slug }] }])
 
-    assert_select_autodiscovery_link announcements_url(format: "atom", topics: [topic], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+      get :index, params: { topics: [topic], departments: [organisation] }
+
+      assert_select_autodiscovery_link announcements_url(format: "atom", topics: [topic], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+    end
   end
 
   view_test "index generates an atom feed for the current filter" do
-    org = create(:organisation, name: "org-name")
+    with_stubbed_rummager(@rummager, true) do
+      org = create(:organisation, name: "org-name")
+      @rummager.expects(:search).returns('results' =>
+        [{ content_store_document_type: "news_article", organisations: [{ slug: org.slug }] }])
+      get :index, params: { departments: [org.to_param] }, format: :atom
 
-    get :index, params: { departments: [org.to_param] }, format: :atom
-
-    assert_select_atom_feed do
-      assert_select 'feed > id', 1
-      assert_select 'feed > title', 1
-      assert_select 'feed > author, feed > entry > author'
-      assert_select 'feed > updated', 1
-      assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml',
-                    announcements_url(format: :atom, departments: [org.to_param]), 1
-      assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', root_url, 1
+      assert_select_atom_feed do
+        assert_select 'feed > id', 1
+        assert_select 'feed > title', 1
+        assert_select 'feed > author, feed > entry > author'
+        assert_select 'feed > updated', 1
+        assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml',
+        announcements_url(format: :atom, departments: [org.to_param]), 1
+        assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', root_url, 1
+      end
     end
   end
 
   view_test "index generates an atom feed with entries for announcements matching the current filter" do
-    with_stubbed_rummager(@rummager) do
+    with_stubbed_rummager(@rummager, true) do
       org = create(:organisation, name: "org-name")
       news = create(:published_news_article, organisations: [org], first_published_at: 1.week.ago)
 
@@ -285,7 +316,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index generates an atom feed with the legacy announcement_type_option param set" do
-    with_stubbed_rummager(@rummager) do
+    with_stubbed_rummager(@rummager, true) do
       news = create(:published_news_story, first_published_at: 1.week.ago)
 
       @rummager.expects(:search).returns('results' =>
@@ -300,38 +331,42 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test 'index atom feed should return a valid feed if there are no matching documents' do
-    get :index, format: :atom
+    with_stubbed_rummager(@rummager, true) do
+      @rummager.expects(:search).returns('results' => [])
+      get :index, format: :atom
 
-    assert_select_atom_feed do
-      assert_select 'feed > updated', text: Time.zone.now.iso8601
-      assert_select 'feed > entry', count: 0
+      assert_select_atom_feed do
+        assert_select 'feed > updated', text: Time.zone.now.iso8601
+        assert_select 'feed > entry', count: 0
+      end
     end
   end
 
   view_test "index requested as JSON includes email signup path with organisation and topic parameters" do
-    topic = create(:topic)
-    organisation = create(:organisation)
+    with_stubbed_rummager(@rummager, true) do
+      @rummager.expects(:search).returns('results' => [])
+      topic = create(:topic)
+      organisation = create(:organisation)
 
-    get :index, params: { to_date: "2012-01-01", topics: [topic.slug], departments: [organisation.slug] }, format: :json
+      get :index, params: { to_date: "2012-01-01", topics: [topic.slug], departments: [organisation.slug] }, format: :json
 
-    json = ActiveSupport::JSON.decode(response.body)
-    atom_url = announcements_url(format: "atom", topics: [topic.slug], departments: [organisation.slug], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+      json = ActiveSupport::JSON.decode(response.body)
+      atom_url = announcements_url(format: "atom", topics: [topic.slug], departments: [organisation.slug], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
 
-    assert_equal json["email_signup_url"], new_email_signups_path(email_signup: { feed: atom_url })
+      assert_equal json["email_signup_url"], new_email_signups_path(email_signup: { feed: atom_url })
+    end
   end
 
   view_test 'index only lists documents in the given locale' do
-    english_article = create(:published_news_article)
-    french_article = create(:published_news_article, translated_into: [:fr])
+    news = create(:published_news_article, translated_into: [:fr])
     get :index, params: { locale: 'fr' }
 
-    assert_select_object french_article
-    refute_select_object english_article
+    assert_select "#news_article_#{news.id}"
   end
 
   view_test 'index for non-english locale copes when a nil page is specified' do
-    _english_article = create(:published_news_article)
-    _french_article = create(:published_news_article, translated_into: [:fr])
+    create(:published_news_article)
+    create(:published_news_article, translated_into: [:fr])
     get :index, params: { locale: 'fr', page: nil }
 
     assert_response :success
@@ -350,7 +385,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test 'index includes tracking details on all links' do
-    with_stubbed_rummager(@rummager) do
+    with_stubbed_rummager(@rummager, true) do
       @rummager.expects(:search).returns('results' =>
                                           [{ 'format' => 'published_news_article',
                                              'id' => 'news_id',
