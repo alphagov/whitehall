@@ -55,6 +55,15 @@ module Whitehall::DocumentFilter
         )
     end
 
+    def expect_search_by_topical_event(topical_event)
+      Whitehall
+        .search_client
+        .expects(:search)
+        .with(
+          has_entry(filter_topical_events: topical_event)
+        )
+    end
+
     test 'announcements_search looks for all announcements excluding world types by default' do
       rummager = SearchRummager.new({})
       expected_types = ANNOUNCEMENT_TYPES
@@ -84,6 +93,13 @@ module Whitehall::DocumentFilter
     test 'announcements_search search the taxonomy tree if we use the taxons option' do
       rummager = SearchRummager.new(taxons: 'content-id')
       expect_search_by_taxonomy_tree(%w[content-id])
+      rummager.announcements_search
+    end
+
+    test 'announcements_search looks for announcements associated with a Topical Event' do
+      topical_event = create(:topical_event)
+      rummager = SearchRummager.new(topics: topical_event.slug)
+      expect_search_by_topical_event([topical_event.slug])
       rummager.announcements_search
     end
 

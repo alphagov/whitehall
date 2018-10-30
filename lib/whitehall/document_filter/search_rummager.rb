@@ -25,6 +25,7 @@ module Whitehall::DocumentFilter
         .merge(filter_by_locations)
         .merge(filter_by_date)
         .merge(filter_by_taxon)
+        .merge(filter_by_topical_event)
         .merge(sort)
     end
 
@@ -65,6 +66,14 @@ module Whitehall::DocumentFilter
     def filter_by_locations
       if selected_locations.any?
         { filter_world_locations: selected_locations.map(&:slug) }
+      else
+        {}
+      end
+    end
+
+    def filter_by_topical_event
+      if selected_topical_events.any?
+        { filter_topical_events: selected_topical_events.map(&:slug) }
       else
         {}
       end
