@@ -58,8 +58,8 @@
           <%= render partial: 'classifications/classification_featuring',
                    collection: @featurings %>
         <% end %>
-        <%= render partial: 'shared/recently_updated',
-                   locals: { recently_updated: @recently_changed_documents,
+        <%= render partial: 'shared/recently_updated_from_rummager',
+                   locals: { recently_updated: @recently_changed_documents['results'],
                            atom_url: atom_feed_url_for(@classification),
                            extra_class: 'panel',
                            see_all_link: latest_path(topics: [@classification]) } %>
@@ -69,9 +69,9 @@
 
   <div class="documents-grid <%= topic_grid_size_class(@publications, @consultations, @announcements) %>">
     <div class="inner-block">
-      <%= render(partial: 'document_list', locals: { documents: @publications, type: :publications }) if @publications.any? %>
-      <%= render(partial: 'document_list', locals: { documents: @consultations, type: :consultations }) if @consultations.any? %>
-      <%= render(partial: 'document_list', locals: { documents: @announcements, type: :announcements }) if @announcements.any? %>
+      <%= render(partial: 'document_list_from_rummager', locals: { documents: @publications['results'], type: :publications, documents_count: @publications['total'] }) if @publications['results'].any? %>
+      <%= render(partial: 'document_list_from_rummager', locals: { documents: @consultations['results'], type: :consultations, documents_count: @consultations['total'] }) if @consultations['results'].any? %>
+      <%= render(partial: 'document_list_from_rummager', locals: { documents: @announcements['results'], type: :announcements, documents_count: @announcements['total'] }) if @announcements['results'].any? %>
 
       <% if @detailed_guides.any? %>
         <section id="detailed-guidance" class="document-block documents-<%= document_block_counter %>">

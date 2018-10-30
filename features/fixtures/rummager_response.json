@@ -1,0 +1,36 @@
+{
+    "results": [
+        {
+            "link": "/foo/policy_paper",
+            "title": "Policy on Topicals",
+            "public_timestamp": "2016-10-07T22:18:32Z",
+            "display_type": "news_article",
+            "description": "Description of document...",
+            "content_id": "1234-A"
+        },
+        {
+            "link": "/foo/consultation",
+            "title": "Examination of Events",
+            "public_timestamp": "2017-10-07T22:18:32Z",
+            "display_type": "news_article",
+            "description": "Description of document...",
+            "content_id": "1234-B"
+        },
+        {
+            "link": "/foo/news_story",
+            "title": "PM attends summit on topical events",
+            "public_timestamp": "2018-10-07T22:18:32Z",
+            "display_type": "news_article",
+            "description": "Description of document...",
+            "content_id": "1234-C"
+        },
+        {
+            "link": "/foo/statistics",
+            "title": "Weekly topical event price",
+            "public_timestamp": "2018-10-17T22:18:32Z",
+            "display_type": "news_article",
+            "description": "Description of document...",
+            "content_id": "1234-D"
+        }
+    ]
+}
