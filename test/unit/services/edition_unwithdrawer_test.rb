@@ -8,7 +8,7 @@ class EditionUnwithdrawerTest < ActiveSupport::TestCase
   end
 
   test "initialize raises an error unless the edition is withdrawn" do
-    @edition.update_attribute(:state, "published")
+    @edition = FactoryBot.create(:published_edition, state: 'published')
     unwithdraw
 
     assert_equal ["An edition that is published cannot be unwithdrawn"], @unwithdrawer.failure_reasons
