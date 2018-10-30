@@ -80,6 +80,11 @@ module Whitehall::DocumentFilter
       WorldLocation.where(slug: @world_locations)
     end
 
+    def selected_topical_events
+      topics = find_by_slug(Classification, @topics)
+      topics.select { |topic| topic.type == "TopicalEvent" }
+    end
+
     def selected_official_document_status
       @official_document_status
     end
