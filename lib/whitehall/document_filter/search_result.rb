@@ -1,7 +1,7 @@
 module Whitehall::DocumentFilter
   class SearchResult
     ACCESSORS = %w{title description indexable_content attachments
-                   format link content_id search_format_types
+                   format content_id search_format_types
                    relevant_to_local_government display_type id}.freeze
     ACCESSORS.each do |attribute_name|
       define_method attribute_name.to_sym do
@@ -47,6 +47,10 @@ module Whitehall::DocumentFilter
 
     def operational_field
       fetch_from_cache(:operational_field, @doc['operational_field'])
+    end
+
+    def link
+      @doc.fetch('link', [])
     end
 
   private

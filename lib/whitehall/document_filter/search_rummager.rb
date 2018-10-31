@@ -13,7 +13,7 @@ module Whitehall::DocumentFilter
         count: @per_page.to_s,
         fields: %w[content_store_document_type government_name is_historic
                    public_timestamp organisations operational_field format
-                   content_id title description display_type id]
+                   content_id title description display_type link]
       }
     end
 
