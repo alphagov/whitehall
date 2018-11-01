@@ -17,7 +17,7 @@ class AnnouncementPresenter < Whitehall::Decorators::Decorator
   end
 
   def publication_collections
-    if model.respond_to?(:part_of_published_collection?) && model.part_of_published_collection?
+    if model.respond_to?(:published_document_collections) && model.published_document_collections.any?
       links = model.published_document_collections.map do |dc|
         context.link_to(dc.title, context.public_document_path(dc))
       end
