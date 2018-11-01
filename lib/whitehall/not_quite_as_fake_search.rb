@@ -39,7 +39,7 @@ module Whitehall
         keywords = params.delete("q")
         order = { public_timestamp: "desc" }
         per_page = params.delete("count").to_i
-        page = params.delete("start").to_i
+        page = params.delete("start").to_i + 1
         params.delete("fields")
         params.delete("order")
         apply_filters(keywords, params, order, per_page, page, true)

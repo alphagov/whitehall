@@ -9,7 +9,7 @@ module Whitehall::DocumentFilter
 
     def default_filter_args
       @default = {
-        start: @page.to_s,
+        start: position_in_result_list.to_s,
         count: @per_page.to_s,
         fields: %w[content_store_document_type government_name is_historic
                    public_timestamp organisations operational_field format
@@ -123,6 +123,10 @@ module Whitehall::DocumentFilter
 
     def non_world_announcement_types
       all_announcement_filter_options.map(&:document_type).flatten
+    end
+
+    def position_in_result_list
+      (@page.to_i - 1) * @per_page.to_i
     end
   end
 end
