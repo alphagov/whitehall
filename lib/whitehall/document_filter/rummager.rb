@@ -24,7 +24,7 @@ module Whitehall::DocumentFilter
       default_filter_args
         .merge(filter_by_keywords)
         .merge(filter_by_people)
-        .merge(filter_by_topics)
+        .merge(filter_by_topical_events)
         .merge(filter_by_organisations)
         .merge(filter_by_locations)
         .merge(filter_by_date)
@@ -48,11 +48,11 @@ module Whitehall::DocumentFilter
       end
     end
 
-    # Note that "Topics" are called "Policy Areas" in Rummager. That's why we
-    # use `policy_areas` as the filter key here.
-    def filter_by_topics
+    # Note that though 'topic' terminology is used here, elsewhere in Whitehall, and
+    # in the UI, we are actually interested in topical events when querying rummager.
+    def filter_by_topical_events
       if selected_topics.any?
-        { policy_areas: selected_topics.map(&:slug) }
+        { topical_events: selected_topics.map(&:slug) }
       else
         {}
       end
