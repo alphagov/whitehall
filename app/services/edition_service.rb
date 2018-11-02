@@ -13,7 +13,7 @@ class EditionService
       ActiveRecord::Base.transaction do
         prepare_edition
         fire_transition!
-        update_publishing_api!
+        update_publishing_api! unless is_whitehall_corp_info_page?
       end
       notify!
       true
@@ -41,6 +41,11 @@ class EditionService
   end
 
 private
+
+  def is_whitehall_corp_info_page?
+    edition.type == 'CorporateInformationPage' &&
+      edition.rendering_app == Whitehall::RenderingApp::WHITEHALL_FRONTEND
+  end
 
   def notify!
     # reload the edition to strip the LocalisedModel, as this can
