@@ -71,5 +71,15 @@ content_ids = [
 documents = Document.where(content_id: content_ids)
 
 documents.find_each do |document|
+  edition = document.published_edition
+
+  if edition.respond_to?(:attachments)
+    edition.attachments.each do |attachment|
+      if attachment.attachment_data
+        AssetManagerAttachmentMetadataWorker.new.perform(attachment.attachment_data.id)
+      end
+    end
+  end
+
   PublishingApiDocumentRepublishingWorker.new.perform(document.id)
 end
