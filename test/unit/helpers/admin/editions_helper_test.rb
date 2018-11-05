@@ -40,4 +40,14 @@ class Admin::EditionsHelperTest < ActionView::TestCase
 
     refute_includes admin_author_filter_options(current_user), disabled_user
   end
+
+  def one_hundred_thousand_words
+    " There are ten words contained in this sentence there are" * 10000
+  end
+
+  test '#show_link_check_report does not execute LinkCheckerApiService#has_links? when the edition is novel length' do
+    edition = stub(body: one_hundred_thousand_words)
+    LinkCheckerApiService.expects(:has_links?).never
+    show_link_check_report?(edition)
+  end
 end

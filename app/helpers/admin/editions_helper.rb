@@ -291,4 +291,23 @@ module Admin::EditionsHelper
   def show_similar_slugs_warning?(edition)
     !edition.document.published? && edition.document.similar_slug_exists?
   end
+
+  def edition_is_a_novel?(edition)
+    edition.body.split.size > 99999
+  end
+
+  def edition_has_links?(edition)
+    LinkCheckerApiService.has_links?(edition, convert_admin_links: false)
+  end
+
+  def show_link_check_report?(edition)
+    # There is an edition that is over 200000 words long.
+    # This causes timeouts when LinkCheckerApiService tries to extract links from the body.
+    # This is an exceptional case, but it stops publishers editing their editions.
+    # Short circuit the call to LinkCheckerApiService by testing for an edition being
+    # over 99999 words long. The number was chosen because Wikipedia suggests 100000 words is
+    # the lower length of a novel (https://en.wikipedia.org/wiki/Word_count#In_fiction).
+    # Returning true from the first half of the "or" means the second half doesn't get computed.
+    edition_is_a_novel?(edition) || edition_has_links?(edition)
+  end
 end
