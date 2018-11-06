@@ -547,7 +547,7 @@ GEM
     timecop (0.9.1)
     transitions (1.2.1)
     ttfunk (1.5.1)
-    typhoeus (1.3.0)
+    typhoeus (1.3.1)
       ethon (>= 0.9.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
@@ -676,7 +676,7 @@ DEPENDENCIES
   test-queue (~> 0.2.13)
   timecop
   transitions
-  typhoeus (~> 1.1)
+  typhoeus (~> 1.3)
   uglifier (~> 4.1)
   unicorn (= 5.4.1)
   validates_email_format_of
