@@ -4,7 +4,7 @@ class AnnouncementsController < DocumentsController
   def index
     expire_on_next_scheduled_publication(scheduled_announcements)
     @filter = build_document_filter("announcements")
-    @filter.announcements_search
+    search_results = @filter.announcements_search
 
     respond_to do |format|
       format.html do
@@ -23,12 +23,9 @@ class AnnouncementsController < DocumentsController
         )
       end
       format.atom do
-        documents = Announcement.published_with_eager_loading(@filter.documents.map(&:id))
-        @announcements = Whitehall::Decorators::CollectionDecorator.new(
-          documents.sort_by(&:public_timestamp).reverse,
-          AnnouncementPresenter,
-          view_context,
-        )
+        @announcements = search_results["results"].map do |result|
+          RummagerDocumentPresenter.new(result)
+        end
       end
     end
   end

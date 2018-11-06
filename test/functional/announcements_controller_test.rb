@@ -284,8 +284,27 @@ class AnnouncementsControllerTest < ActionController::TestCase
   view_test "index generates an atom feed for the current filter" do
     with_stubbed_rummager(@rummager, true) do
       org = create(:organisation, name: "org-name")
-      @rummager.expects(:search).returns('results' =>
-        [{ content_store_document_type: "news_article", organisations: [{ slug: org.slug }] }])
+
+      rummager_results_with_org = {
+        "results" => [
+            {
+            "link": "/foo/news_story",
+            "title": "PM attends summit on topical events",
+            "public_timestamp": "2018-10-07T22:18:32Z",
+            "display_type": "news_article",
+            "description": "Description of document...",
+            "content_id": "1234-C",
+            "organisations": [
+              {
+                "slug": org.slug
+              }
+            ]
+          }
+        ]
+      }.with_indifferent_access
+
+      @rummager.expects(:search).returns(rummager_results_with_org)
+
       get :index, params: { departments: [org.to_param] }, format: :atom
 
       assert_select_atom_feed do
@@ -303,29 +322,36 @@ class AnnouncementsControllerTest < ActionController::TestCase
   view_test "index generates an atom feed with entries for announcements matching the current filter" do
     with_stubbed_rummager(@rummager, true) do
       org = create(:organisation, name: "org-name")
-      news = create(:published_news_article, organisations: [org], first_published_at: 1.week.ago)
+      create(:published_news_article, organisations: [org], first_published_at: 1.week.ago)
 
-      @rummager.expects(:search).returns('results' =>
-                                          [{ 'format' => 'news_article', 'id' => news.id }])
+      @rummager.expects(:search).returns(search_results_from_rummager)
+
+      processed_rummager_documents = search_results_from_rummager['results'].map do |result|
+        RummagerDocumentPresenter.new(result)
+      end
+
       get :index, params: { departments: [org.to_param] }, format: :atom
 
       assert_select_atom_feed do
-        assert_select_atom_entries([news])
+        assert_select_atom_entries(processed_rummager_documents)
       end
     end
   end
 
   view_test "index generates an atom feed with the legacy announcement_type_option param set" do
     with_stubbed_rummager(@rummager, true) do
-      news = create(:published_news_story, first_published_at: 1.week.ago)
+      create(:published_news_story, first_published_at: 1.week.ago)
 
-      @rummager.expects(:search).returns('results' =>
-                                          [{ 'format' => 'news_article', 'id' => news.id }])
+      @rummager.expects(:search).returns(search_results_from_rummager)
+
+      processed_rummager_documents = search_results_from_rummager['results'].map do |result|
+        RummagerDocumentPresenter.new(result)
+      end
 
       get :index, params: { announcement_type_option: 'news-stories' }, format: :atom
 
       assert_select_atom_feed do
-        assert_select_atom_entries([news])
+        assert_select_atom_entries(processed_rummager_documents)
       end
     end
   end
@@ -438,5 +464,20 @@ class AnnouncementsControllerTest < ActionController::TestCase
         )
       end
     end
+  end
+
+  def search_results_from_rummager
+    {
+      "results" => [
+          {
+          "link": "/foo/news_story",
+          "title": "PM attends summit on topical events",
+          "public_timestamp": "2018-10-07T22:18:32Z",
+          "display_type": "news_article",
+          "description": "Description of document...",
+          "content_id": "1234-C"
+        }
+      ]
+    }.with_indifferent_access
   end
 end
