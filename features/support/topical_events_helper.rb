@@ -30,6 +30,10 @@ module TopicalEventsHelper
     }
   end
 
+  def rummager_response
+    File.read(Rails.root.join('features/fixtures/rummager_response.json'))
+  end
+
   def stub_topical_event_in_content_store(name)
     content_item = {
       format: "topical_event",

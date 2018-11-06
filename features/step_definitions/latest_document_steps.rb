@@ -6,6 +6,14 @@ Then(/^I can see some of the latest documents$/) do
   end
 end
 
+Then(/^I can see some of the latest documents from rummager$/) do
+  within('#recently-updated') do
+    assert page.has_css?('header', text: 'Latest')
+    assert page.has_link?('Policy on Topicals')
+    assert page.has_link?('Examination of Events')
+  end
+end
+
 Then(/^I can follow a link to see all documents$/) do
   within('#recently-updated') do
     click_link 'See all'

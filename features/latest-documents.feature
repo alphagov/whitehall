@@ -7,7 +7,7 @@ Feature: List of most recently published documents
   Scenario: Latest documents on topical event page
     Given a topical event with published documents
     When I view that topical event page
-    Then I can see some of the latest documents
+    Then I can see some of the latest documents from rummager
     And I can follow a link to see all documents
 
   Scenario: List of all documents published about a topical event

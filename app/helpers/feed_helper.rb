@@ -4,6 +4,12 @@ module FeedHelper
   end
 
   def documents_as_feed_entries(documents, builder, feed_updated_timestamp = Time.current)
+    # This is to support cases where the documents feed has been provided by
+    # another service (e.g. Rummager) rather than from Whitehall via ActiveRecord.
+    if documents.is_a?(GdsApi::Response) && documents['results']
+      documents = documents['results']
+    end
+
     feed_updated_timestamp =
       if documents.any?
         documents.first.public_timestamp
@@ -13,7 +19,7 @@ module FeedHelper
     builder.updated feed_updated_timestamp
 
     documents.each do |document|
-      builder.entry(document, id: document_id(document, builder), url: public_document_url(document), published: document.first_public_at, updated: document.public_timestamp) do |_entry|
+      builder.entry(document, id: document_id(document, builder), url: public_document_url(document), published: document.try(:first_public_at), updated: document.public_timestamp) do |_entry|
         document_as_feed_entry(document, builder)
       end
     end
@@ -26,7 +32,7 @@ module FeedHelper
     # spec.
     # The interpolation logic is straight out of:
     # http://api.rubyonrails.org/classes/ActionView/Helpers/AtomFeedHelper/AtomFeedBuilder.html#method-i-entry
-    id = record.document ? record.document.id : record.id
+    id = record.try(:document) ? record.document.id : record.id
     "tag:#{host},#{schema_date(builder)}:#{record.class}/#{id}"
   end
 
@@ -55,6 +61,7 @@ module FeedHelper
   end
 
   def entry_content(document)
+    return '' if document.is_a?(RummagerDocumentPresenter)
     change_note = document.most_recent_change_note
     change_note = "<p><em>Updated:</em> #{change_note}</p>" if change_note
     "#{change_note}#{govspeak_edition_to_html(document)}"

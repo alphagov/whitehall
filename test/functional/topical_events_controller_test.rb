@@ -90,7 +90,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
 
   view_test 'GET :show renders an atom feed' do
     topical_event = create_topical_event_and_stub_in_content_store
-    publication = create(:published_publication, topical_events: [topical_event])
+    create(:published_publication, topical_events: [topical_event])
 
     get :show, params: { id: topical_event }, format: :atom
 
@@ -102,12 +102,14 @@ class TopicalEventsControllerTest < ActionController::TestCase
       assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml', topical_event_url(topical_event, format: 'atom'), 1
       assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', topical_event_url(topical_event), 1
 
-      assert_select_atom_entries([publication])
+      assert_select_atom_entries(processed_rummager_documents)
     end
   end
 
   def create_topical_event_and_stub_in_content_store(*args)
     topical_event = create(:topical_event, *args)
+    stub_any_rummager_search.to_return(body: rummager_response)
+
     payload = {
       format: "topical_event",
       title: "Title of topical event",
@@ -115,5 +117,15 @@ class TopicalEventsControllerTest < ActionController::TestCase
     content_store_has_item(topical_event.base_path, payload)
 
     topical_event
+  end
+
+  def rummager_response
+    File.read(Rails.root.join('features/fixtures/rummager_response.json'))
+  end
+
+  def processed_rummager_documents
+    ActiveSupport::JSON.decode(rummager_response)['results'].map! { |res|
+      RummagerDocumentPresenter.new(res)
+    }
   end
 end
