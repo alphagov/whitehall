@@ -18,6 +18,7 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
                                  contact_numbers: [
                                    ContactNumber.new(label: "Mail Room", number: "+44 12345 67890")
                                  ],
+                                 comments: "Quiet at weekends",
                                  email: "gds-mailroom@digital.cabinet-office.gov.uk",
                                  contact_form_url: "https://www.gov.uk")
 
@@ -30,6 +31,7 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
   test "contact presentation includes the correct values" do
     expected_content = {
       title: "Government Digital Service",
+      description: "Quiet at weekends",
       schema_name: "contact",
       document_type: "contact",
       locale: "en",
@@ -38,22 +40,18 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
       publishing_app: "whitehall",
       update_type: "major",
       details: {
-        description: nil,
+        description: "Quiet at weekends",
         title: "Government Digital Service",
         contact_type: "General contact",
         contact_form_links: [
           {
-            title: "Government Digital Service",
             link: "https://www.gov.uk",
-            description: "",
           }
         ],
         post_addresses: [
           {
             title: "GDS Mail Room",
             street_address: "Aviation House, 125 Kingsway",
-            locality: "",
-            region: "",
             postal_code: "WC2B 6NH",
             world_location: "United Kingdom",
           }
@@ -86,8 +84,20 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
     assert_equal expected_links, @presented.links
   end
 
-  test "world_location rendered as empty string when not present" do
-    @contact.country = nil
-    assert_equal "", @presented.content[:details][:post_addresses].first[:world_location]
+  test "does not render empty postal addresses" do
+    @contact.street_address = ""
+    @contact.postal_code = ""
+
+    assert @presented.content[:details][:post_addresses].empty?
+  end
+
+  test "removes or sets to null fields that could be empty strings" do
+    @contact.comments = ""
+    @contact.recipient = ""
+    @contact.email = ""
+
+    assert @presented.content[:description].nil?
+    refute @presented.content[:details][:post_addresses][0].has_key?(:title)
+    refute @presented.content[:details].has_key?(:email_addresses)
   end
 end
