@@ -474,15 +474,13 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    sassc (1.11.4)
-      bundler
+    sassc (2.0.0)
       ffi (~> 1.9.6)
-      sass (>= 3.3.0)
-    sassc-rails (1.3.0)
+      rake
+    sassc-rails (2.0.0)
       railties (>= 4.0.0)
-      sass
-      sassc (~> 1.9)
-      sprockets (> 2.11)
+      sassc (>= 2.0)
+      sprockets (> 3.0)
       sprockets-rails
       tilt
     scss_lint (0.57.1)
@@ -662,7 +660,7 @@ DEPENDENCIES
   ruby-prof
   ruby-progressbar
   sass (~> 3.6)
-  sassc-rails (~> 1.3)
+  sassc-rails (~> 2.0)
   shared_mustache (~> 1.0.0)
   sidekiq-scheduler (~> 3.0)
   simplecov
