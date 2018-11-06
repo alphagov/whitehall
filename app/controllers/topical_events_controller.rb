@@ -4,9 +4,9 @@ class TopicalEventsController < ClassificationsController
   def show
     @classification = TopicalEvent.friendly.find(params[:id])
     @content_item = Whitehall.content_store.content_item(@classification.base_path)
-    @publications = fetch_associated(:published_publications, PublicationesquePresenter)
-    @consultations = fetch_associated(:published_consultations, PublicationesquePresenter)
-    @announcements = fetch_associated(:published_announcements, AnnouncementPresenter)
+    @publications = fetch_related_documents(filter_format: 'publication')
+    @consultations = fetch_related_documents(filter_format: 'consultation')
+    @announcements = fetch_related_documents(filter_format: 'news_article')
     @detailed_guides = @classification.published_detailed_guides.includes(:translations, :document).limit(5)
     @featurings = decorate_collection(@classification.classification_featurings.includes(:image, edition: :document).limit(5), ClassificationFeaturingPresenter)
 
@@ -17,22 +17,30 @@ class TopicalEventsController < ClassificationsController
     set_expiry 5.minutes
     respond_to do |format|
       format.html do
-        @recently_changed_documents = @classification.latest(3)
+        @recently_changed_documents = fetch_related_documents(count: 3)['results']
       end
       format.atom do
-        @recently_changed_documents = @classification.latest(10)
+        @recently_changed_documents = fetch_related_documents(count: 10)['results']
       end
     end
   end
 
 private
 
-  def fetch_associated(type, presenter_class)
-    editions = @classification
-      .send(type)
-      .in_reverse_chronological_order
-      .includes(:translations, :document)
-      .limit(3)
-    decorate_collection(editions, presenter_class)
+  def fetch_related_documents(additional_options = {})
+    options = default_search_options.merge(additional_options)
+    search_response = Whitehall.search_client.search(options)
+    search_response["results"].map! { |res| RummagerDocumentPresenter.new(res) }
+
+    search_response
+  end
+
+  def default_search_options
+    {
+      filter_topical_events: @classification.slug,
+      count: 3,
+      order: "-public_timestamp",
+      fields: %w[display_type title link public_timestamp format description content_id]
+    }
   end
 end
