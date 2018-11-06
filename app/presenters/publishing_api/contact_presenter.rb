@@ -98,7 +98,8 @@ module PublishingApi
         locality: locality.presence,
         region: region.presence,
         postal_code: postal_code.presence,
-        world_location: country.try(:name),
+        world_location: country&.name,
+        iso2_country_code: country&.iso2&.downcase,
       }
 
       [post_address.compact]

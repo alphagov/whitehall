@@ -7,7 +7,8 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
 
     world_location = FactoryBot.build(:world_location,
                                        content_id: @world_location_content_id,
-                                       name: "United Kingdom")
+                                       name: "United Kingdom",
+                                       iso2: "GB")
 
     @contact = FactoryBot.build(:contact,
                                  title: "Government Digital Service",
@@ -54,6 +55,7 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
             street_address: "Aviation House, 125 Kingsway",
             postal_code: "WC2B 6NH",
             world_location: "United Kingdom",
+            iso2_country_code: "gb",
           }
         ],
         email_addresses: [
