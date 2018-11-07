@@ -463,7 +463,7 @@ GEM
     safe_yaml (1.0.4)
     sanitize (2.1.1)
       nokogiri (>= 1.4.4)
-    sass (3.6.0)
+    sass (3.7.1)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -659,7 +659,7 @@ DEPENDENCIES
   rinku
   ruby-prof
   ruby-progressbar
-  sass (~> 3.6)
+  sass (~> 3.7)
   sassc-rails (~> 2.0)
   shared_mustache (~> 1.0.0)
   sidekiq-scheduler (~> 3.0)
