@@ -27,6 +27,8 @@ module FeedHelper
     # The interpolation logic is straight out of:
     # http://api.rubyonrails.org/classes/ActionView/Helpers/AtomFeedHelper/AtomFeedBuilder.html#method-i-entry
     id = record.try(:document) ? record.document.id : record.id
+    return id if record.is_a?(RummagerDocumentPresenter)
+
     "tag:#{host},#{schema_date(builder)}:#{record.class}/#{id}"
   end
 
