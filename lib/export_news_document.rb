@@ -27,7 +27,10 @@ class ExportNewsDocument
   end
 
   def call
-    document.as_json.merge("editions" => editions.as_json)
+    document.as_json.merge(
+      "editions" => editions.as_json,
+      "contacts" => contacts.as_json,
+    )
   end
 
 private
@@ -132,5 +135,14 @@ private
 
       data
     end
+  end
+
+  def contacts
+    bodies = document.editions.flat_map(&:translations).map(&:body)
+    contact_ids = bodies.flat_map do |body|
+      body.scan(/\[Contact:\s*(.*?)\s*\]/).flatten.map(&:to_i).reject(&:zero?)
+    end
+
+    Contact.where(id: contact_ids).pluck(:id, :content_id).to_h
   end
 end

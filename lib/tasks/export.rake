@@ -149,7 +149,7 @@ namespace :export do
     puts result.to_json
   end
 
-  desc "Export news documents to JSON format export:news_documents e.g. ORGS=org-slug FROM=2018-07-01"
+  desc "Export news documents to JSON format e.g. export:news_documents ORGS=org-slug FROM=2018-07-01"
   task news_documents: :environment do
     org_slugs = ENV.fetch("ORGS", "").split(',')
 
