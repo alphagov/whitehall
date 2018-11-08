@@ -1,9 +1,11 @@
 require "test_helper"
 require 'gds_api/test_helpers/content_store'
+require_relative '../support/search_rummager_helper'
 
 class TopicalEventsControllerTest < ActionController::TestCase
   include FeedHelper
   include GdsApi::TestHelpers::ContentStore
+  include SearchRummagerHelper
 
   should_be_a_public_facing_controller
 
@@ -117,15 +119,5 @@ class TopicalEventsControllerTest < ActionController::TestCase
     content_store_has_item(topical_event.base_path, payload)
 
     topical_event
-  end
-
-  def rummager_response
-    File.read(Rails.root.join('features/fixtures/rummager_response.json'))
-  end
-
-  def processed_rummager_documents
-    ActiveSupport::JSON.decode(rummager_response)['results'].map! { |res|
-      RummagerDocumentPresenter.new(res)
-    }
   end
 end
