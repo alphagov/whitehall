@@ -14,6 +14,7 @@ module PublishingApi
     def content
       {
         title: title,
+        description: comments.presence,
         schema_name: schema_name,
         document_type: document_type,
         locale: locale,
@@ -58,10 +59,6 @@ module PublishingApi
 
     alias_method :document_type, :schema_name
 
-    def description
-      comments
-    end
-
     def locale
       I18n.locale.to_s
     end
@@ -71,10 +68,15 @@ module PublishingApi
     end
 
     def details
-      details = { description: description, contact_type: contact_type, title: title }
-      details[:contact_form_links] = [contact_form_links] if contact_form_url
-      details[:post_addresses] = [post_address] if postal_code
-      details[:email_addresses] = [email_address] if email
+      details = {
+        title: title,
+        description: comments.presence,
+        contact_type: contact_type,
+      }.compact
+
+      details[:contact_form_links] = [contact_form_links] if contact_form_url.present?
+      details[:post_addresses] = post_addresses
+      details[:email_addresses] = [email_address] if email.present?
       details[:phone_numbers] = phone_numbers if contact_numbers.any?
 
       details
@@ -82,23 +84,25 @@ module PublishingApi
 
     def contact_form_links
       {
-        title: title,
         link: contact_form_url,
-        description: ""
       }
     end
 
-    def post_address
+    def post_addresses
+      # These are the three required fields for the schema
+      return [] if !street_address.present? || !postal_code.present? || !country
+
       post_address = {
-        title: recipient || "",
-        street_address: street_address,
-        locality: locality || "",
-        region: region || "",
-        postal_code: postal_code,
-        world_location: country_name
+        title: recipient.presence,
+        street_address: street_address.presence,
+        locality: locality.presence,
+        region: region.presence,
+        postal_code: postal_code.presence,
+        world_location: country&.name,
+        iso2_country_code: country&.iso2&.downcase,
       }
 
-      post_address
+      [post_address.compact]
     end
 
     def phone_numbers
@@ -112,13 +116,9 @@ module PublishingApi
 
     def email_address
       {
-        title: recipient || "",
+        title: recipient.presence,
         email: email,
-      }
-    end
-
-    def country_name
-      country.try(:name) || ""
+      }.compact
     end
 
     def updated_at
