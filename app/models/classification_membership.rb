@@ -19,8 +19,6 @@ class ClassificationMembership < ApplicationRecord
   belongs_to :publication, foreign_key: :edition_id
   belongs_to :consultation, foreign_key: :edition_id
 
-  validates :edition, :classification, presence: true
-
   def self.published
     joins(:edition).where("editions.state" => "published")
   end
