@@ -119,7 +119,7 @@ GEM
     coffee-script-source (1.12.2)
     commander (4.4.7)
       highline (~> 2.0.0)
-    concurrent-ruby (1.1.1)
+    concurrent-ruby (1.1.3)
     connection_pool (2.2.2)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
@@ -217,7 +217,7 @@ GEM
     govuk_frontend_toolkit (8.1.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
-    govuk_publishing_components (12.4.0)
+    govuk_publishing_components (12.6.0)
       govspeak (>= 5.0.3)
       govuk_app_config
       govuk_frontend_toolkit
@@ -306,7 +306,7 @@ GEM
       ntlm-http (~> 0.1, >= 0.1.1)
       webrobots (>= 0.0.9, < 0.2)
     metaclass (0.0.4)
-    method_source (0.9.0)
+    method_source (0.9.1)
     mime-types (3.2.2)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2018.0812)
@@ -614,7 +614,7 @@ DEPENDENCIES
   govuk_admin_template (~> 6.6)
   govuk_app_config (~> 1.10)
   govuk_frontend_toolkit (= 8.1.0)
-  govuk_publishing_components (~> 12.4.0)
+  govuk_publishing_components (~> 12.6.0)
   govuk_sidekiq (~> 3)
   govuk_test
   graphviz_transitions
