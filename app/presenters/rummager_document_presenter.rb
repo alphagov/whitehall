@@ -3,8 +3,9 @@
 ## provided by Rummager/Search API, in order to present documents in Finders.
 ##
 
-class RummagerDocumentPresenter
+class RummagerDocumentPresenter < ActionView::Base
   include ActionView::Helpers::UrlHelper
+  include ActionView::Helpers::TagHelper
 
   attr_reader :title, :link, :display_type, :summary, :content_id
 
@@ -63,6 +64,12 @@ class RummagerDocumentPresenter
     end
     orgs.compact
     orgs.to_sentence if orgs.any?
+  end
+
+  # Returns a block of html:
+  # "<time class=\"public_timestamp\" datetime=\"2018-09-19T17:06:34+01:00\">19 September 2018</time>"
+  def display_date_microformat
+    content_tag(:time, class: :public_timestamp, datetime: self.public_timestamp.iso8601) { self.publication_date }
   end
 
 private

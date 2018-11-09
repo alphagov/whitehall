@@ -49,6 +49,10 @@ class RummagerDocumentPresenterTest < ActiveSupport::TestCase
     assert_equal presenter.publication_date, '25 October 2018'
   end
 
+  test "will produce an html block containing a time tag and the publication date" do
+    assert_equal presenter.display_date_microformat, '<time class="public_timestamp" datetime="2018-10-25T10:18:32+00:00">25 October 2018</time>'
+  end
+
   test "will returns associated document collections" do
     expected_result = "Part of a collection: <a href=\"https://www.test.gov.uk/government/collections/wizarding-sports\">" +
       "Wizarding sports</a> and <a href=\"https://www.test.gov.uk/government/collections/guidance-for-hosting-wizarding-competitions\">" +
