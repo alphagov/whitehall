@@ -45,6 +45,18 @@ class RummagerDocumentPresenter
     "Part of a collection: #{links.to_sentence}" if links.any?
   end
 
+  def type
+    @document.fetch('format', '')
+  end
+
+  def government_name
+    @document.fetch('government_name', '')
+  end
+
+  def historic?
+    @document.fetch('is_historic', false)
+  end
+
 private
 
   def collection_link(title, link)

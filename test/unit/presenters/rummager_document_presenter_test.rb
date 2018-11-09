@@ -8,6 +8,9 @@ class RummagerDocumentPresenterTest < ActiveSupport::TestCase
       "description" => "The Quiddich World Cup 2018 will be...",
       "public_timestamp" => "2018-10-25T10:18:32Z",
       "display_type" => "News story",
+      "format" => "news_article",
+      "government_name" => "2015 Ministry of Magic",
+      "is_historic" => true,
       "document_collections" => [
         {
           "title" => "Wizarding sports",
@@ -29,6 +32,9 @@ class RummagerDocumentPresenterTest < ActiveSupport::TestCase
     assert_equal rummager_result['title'], presenter.title
     assert_equal rummager_result['link'], presenter.link
     assert_equal rummager_result['display_type'], presenter.display_type_key
+    assert_equal rummager_result['format'], presenter.type
+    assert_equal rummager_result['government_name'], presenter.government_name
+    assert_equal rummager_result['is_historic'], presenter.historic?
   end
 
   test "will produce a humanized publication date required by Finders and Lists" do
