@@ -107,12 +107,14 @@ class AnnouncementsControllerTest < ActionController::TestCase
                                           [{ 'format' => 'news_article',
                                              'id' => 'news_id',
                                              'organisations' =>
-                                               [{ 'slug' => first_org.slug },
-                                                { 'slug' => second_org.slug }] },
+                                               [{ 'acronym' => first_org.acronym },
+                                                { 'acronym' => second_org.acronym }],
+                                              'public_timestamp' => Time.zone.now.to_s },
                                            { 'format' => 'speech',
                                              'id' => 'speech_id',
                                              'organisations' =>
-                                               [{ 'slug' => second_org.slug }] }])
+                                               [{ 'acronym' => second_org.acronym }],
+                                             'public_timestamp' => Time.zone.now.to_s }])
 
       get :index
 

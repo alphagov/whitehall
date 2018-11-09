@@ -21,6 +21,14 @@ class RummagerDocumentPresenterTest < ActiveSupport::TestCase
           "link" => "/government/collections/guidance-for-hosting-wizarding-competitions"
         },
       ],
+      "organisations" => [
+        {
+          "acronym" => "DMGS",
+        },
+        {
+          "acronym" => "MOM",
+        }
+      ]
     }
   end
 
@@ -46,5 +54,22 @@ class RummagerDocumentPresenterTest < ActiveSupport::TestCase
       "Wizarding sports</a> and <a href=\"https://www.test.gov.uk/government/collections/guidance-for-hosting-wizarding-competitions\">" +
       "Guidance for hosting wizarding competitions</a>"
     assert_equal expected_result, presenter.publication_collections
+  end
+
+  test "will return acronyms for associated organisations" do
+    expected_result = "DMGS and MOM"
+    assert_equal expected_result, presenter.organisations
+  end
+
+  test "will return title for associated organisation if there is no acronym" do
+    search_result = {
+      "organisations" => [
+        {
+          "title" => "Department for Magical Games and Sports",
+        }
+      ]
+    }
+
+    assert_equal search_result["organisations"].first["title"], RummagerDocumentPresenter.new(search_result).organisations
   end
 end

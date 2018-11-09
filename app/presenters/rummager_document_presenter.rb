@@ -57,6 +57,14 @@ class RummagerDocumentPresenter
     @document.fetch('is_historic', false)
   end
 
+  def organisations
+    orgs = @document.fetch('organisations', []).map do |organisation|
+      organisation.fetch('acronym', nil) || organisation.fetch('title', nil)
+    end
+    orgs.compact
+    orgs.to_sentence if orgs.any?
+  end
+
 private
 
   def collection_link(title, link)
