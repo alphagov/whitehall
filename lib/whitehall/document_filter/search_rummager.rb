@@ -112,7 +112,7 @@ module Whitehall::DocumentFilter
     end
 
     def documents
-      @documents ||= ResultSet.new(@results, @page, @per_page, SearchResult).paginated
+      @documents ||= ResultSet.new(@results, @page, @per_page, RummagerDocumentPresenter).paginated
     end
 
   private

@@ -4,7 +4,7 @@ class AnnouncementsController < DocumentsController
   def index
     expire_on_next_scheduled_publication(scheduled_announcements)
     @filter = build_document_filter("announcements")
-    search_results = @filter.announcements_search
+    @filter.announcements_search
 
     respond_to do |format|
       format.html do
@@ -14,18 +14,16 @@ class AnnouncementsController < DocumentsController
           .to_hash
 
         @filter = AnnouncementFilterJsonPresenter.new(
-          @filter, view_context, AnnouncementPresenter
+          @filter, view_context
         )
       end
       format.json do
         render json: AnnouncementFilterJsonPresenter.new(
-          @filter, view_context, AnnouncementPresenter
+          @filter, view_context
         )
       end
       format.atom do
-        @announcements = search_results["results"].map do |result|
-          RummagerDocumentPresenter.new(result)
-        end
+        @announcements = @filter.documents
       end
     end
   end
