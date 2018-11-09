@@ -28,7 +28,8 @@ class RummagerDocumentPresenterTest < ActiveSupport::TestCase
         {
           "acronym" => "MOM",
         }
-      ]
+      ],
+      "operational_field" => "hogwarts"
     }
   end
 
@@ -75,5 +76,10 @@ class RummagerDocumentPresenterTest < ActiveSupport::TestCase
     }
 
     assert_equal search_result["organisations"].first["title"], RummagerDocumentPresenter.new(search_result).organisations
+  end
+
+  test "will return formatted operational field" do
+    expected_result = "Field of operation: <a href=\"https://www.test.gov.uk/government/fields-of-operation/hogwarts\">Hogwarts</a>"
+    assert_equal expected_result, presenter.field_of_operation
   end
 end

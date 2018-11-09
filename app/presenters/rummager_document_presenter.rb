@@ -41,7 +41,7 @@ class RummagerDocumentPresenter < ActionView::Base
   end
 
   def publication_collections
-    links = @document.fetch('document_collections', []).map { |collection| collection_link(collection["title"], collection["link"]) }.compact
+    links = @document.fetch('document_collections', []).map { |collection| format_link(collection["title"], collection["link"]) }.compact
 
     "Part of a collection: #{links.to_sentence}" if links.any?
   end
@@ -66,6 +66,11 @@ class RummagerDocumentPresenter < ActionView::Base
     orgs.to_sentence if orgs.any?
   end
 
+  def field_of_operation
+    operational_field = @document.fetch('operational_field', '')
+    "Field of operation: #{operational_field_link(operational_field)}" if operational_field.present?
+  end
+
   # Returns a block of html:
   # "<time class=\"public_timestamp\" datetime=\"2018-09-19T17:06:34+01:00\">19 September 2018</time>"
   def display_date_microformat
@@ -74,7 +79,12 @@ class RummagerDocumentPresenter < ActionView::Base
 
 private
 
-  def collection_link(title, link)
+  def format_link(title, link)
     link_to(title, Plek.current.website_root + link)
+  end
+
+  def operational_field_link(operational_field)
+    path = "/government/fields-of-operation/#{operational_field}"
+    format_link(operational_field.titleize, path)
   end
 end
