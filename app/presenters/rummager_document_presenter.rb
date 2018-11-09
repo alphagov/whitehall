@@ -4,6 +4,8 @@
 ##
 
 class RummagerDocumentPresenter
+  include ActionView::Helpers::UrlHelper
+
   attr_reader :title, :link, :display_type, :summary, :content_id
 
   def initialize(document_hash)
@@ -35,5 +37,17 @@ class RummagerDocumentPresenter
 
   def url
     Plek.current.website_root + link
+  end
+
+  def publication_collections
+    links = @document.fetch('document_collections', []).map { |collection| collection_link(collection["title"], collection["link"]) }.compact
+
+    "Part of a collection: #{links.to_sentence}" if links.any?
+  end
+
+private
+
+  def collection_link(title, link)
+    link_to(title, Plek.current.website_root + link)
   end
 end
