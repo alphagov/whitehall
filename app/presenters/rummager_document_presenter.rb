@@ -15,7 +15,7 @@ class RummagerDocumentPresenter < ActionView::Base
     @title = @document.fetch('title', '')
     @display_type = @document.fetch('display_type', '')
     @summary = @document.fetch('description', '')
-    @content_id = @document.fetch('content_id', '')
+    @content_id = @document.fetch('content_id', SecureRandom.uuid)
   end
 
   def publication_date
@@ -80,6 +80,23 @@ class RummagerDocumentPresenter < ActionView::Base
   def topics
     # Retuns nil as topics aren't rendered in the announcements finder.
     # This method is needed because the shared mustache template expects it to be available.
+  end
+
+  def as_hash
+    {
+      id: content_id,
+      type: type,
+      display_type: display_type,
+      title: title,
+      url: link,
+      organisations: organisations,
+      display_date_microformat: display_date_microformat,
+      public_timestamp: public_timestamp,
+      historic?: historic?,
+      government_name: government_name,
+      field_of_operation: field_of_operation,
+      publication_collections: publication_collections
+    }
   end
 
 private
