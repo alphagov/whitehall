@@ -5,6 +5,7 @@ class AnnouncementsController < DocumentsController
     expire_on_next_scheduled_publication(scheduled_announcements)
     @filter = build_document_filter("announcements")
     @filter.announcements_search
+    presenter = AnnouncementPresenter if params[:locale].present?
 
     respond_to do |format|
       format.html do
@@ -14,12 +15,12 @@ class AnnouncementsController < DocumentsController
           .to_hash
 
         @filter = AnnouncementFilterJsonPresenter.new(
-          @filter, view_context
+          @filter, view_context, presenter
         )
       end
       format.json do
         render json: AnnouncementFilterJsonPresenter.new(
-          @filter, view_context
+          @filter, view_context, presenter
         )
       end
       format.atom do
