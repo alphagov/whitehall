@@ -11,20 +11,7 @@ class UrlToSubscriberListCriteria
   end
 
   def convert
-    @convert ||= begin
-      hash = map_url_to_hash.dup
-      if hash["links"]
-        links = hash["links"].each_with_object({}) do |(key, values), result|
-          result[key] = if key == 'taxons'
-                          values
-                        else
-                          Array.wrap(values).map { |value| lookup_content_id(key, value) }
-                        end
-        end
-        hash["links"] = links
-      end
-      hash
-    end
+    @convert ||= map_url_to_hash.dup
   end
 
   def map_url_to_hash
@@ -53,14 +40,21 @@ class UrlToSubscriberListCriteria
                  raise UnprocessableUrl, @url.to_s
                end
 
-      if result.fetch("links", {})["publication_filter_option"]
+      if result.dig("links", "publication_filter_option")
         result[GOVERNMENT_SUPERTYPE] = result["links"].delete("publication_filter_option")
       end
-      if result.fetch("links", {})["announcement_filter_option"]
+      if result.dig("links", "announcement_filter_option")
         result[GOVERNMENT_SUPERTYPE] = result["links"].delete("announcement_filter_option")
       end
-      #Official document status has not been implemented in the email-alert-api so remove this option
-      result.fetch("links", {}).delete('official_document_status')
+
+      links = result["links"].each_with_object({}) do |(key, values), hash|
+        if key == 'taxons'
+          hash['taxon_tree'] = values
+        else
+          hash[key] = Array.wrap(values).map { |value| lookup_content_id(key, value) }
+        end
+      end
+      result['links'] = links
       result
     end
   end
@@ -77,6 +71,8 @@ class UrlToSubscriberListCriteria
       if result.key?('subtaxons')
         result['taxons'] = result.delete('subtaxons')
       end
+      #Official document status has not been implemented in the email-alert-api so remove this option
+      result.delete('official_document_status')
     end
   end
 

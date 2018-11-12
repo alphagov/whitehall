@@ -2,70 +2,78 @@ require 'test_helper'
 
 class UrlToSubscriberListCriteriaTest < ActiveSupport::TestCase
   test "can convert department to organisation" do
+    static_data = stub("StaticData", topical_event?: false)
+    static_data.expects(:content_id).with('organisations', 'advisory-committee-on-clinical-excellence-awards').returns '123'
     converter = UrlToSubscriberListCriteria.new(
       'https://www.gov.uk/government/feed?departments%5B%5D=advisory-committee-on-clinical-excellence-awards',
-      stub("StaticData", topical_event?: false),
+      static_data,
     )
-    assert_equal converter.map_url_to_hash,
+    assert_equal converter.convert,
                  "links" => {
                    "organisations" => [
-                     "advisory-committee-on-clinical-excellence-awards",
+                     "123",
                    ],
                  }
   end
 
   test "can convert when topic is not a topical_event" do
+    static_data = stub("StaticData", topical_event?: false)
+    static_data.expects(:content_id).with('policy_areas', 'wildlife-and-animal-welfare').returns '123'
     converter = UrlToSubscriberListCriteria.new(
       'https://www.gov.uk/government/feed?topics%5B%5D=wildlife-and-animal-welfare',
-      stub("StaticData", topical_event?: false),
+      static_data,
     )
-    assert_equal converter.map_url_to_hash,
+    assert_equal converter.convert,
                  "links" => {
                    "policy_areas" => [
-                     "wildlife-and-animal-welfare",
+                     "123",
                    ],
                  }
   end
 
   test "can convert when topic is a topical_event" do
+    static_data = stub("StaticData", topical_event?: true)
+    static_data.expects(:content_id).with('topical_events', 'spending-round-2013').returns '123'
     converter = UrlToSubscriberListCriteria.new(
       'https://www.gov.uk/government/feed?topics%5B%5D=spending-round-2013',
-      stub("StaticData", topical_event?: true),
+      static_data,
     )
-    assert_equal converter.map_url_to_hash,
+    assert_equal converter.convert,
                  "links" => {
                    "topical_events" => [
-                     "spending-round-2013"
+                     "123"
                    ],
                  }
   end
 
   test "ignores trailing whitespace" do
+    static_data = stub("StaticData", topical_event?: false)
+    static_data.expects(:content_id).with('organisations', 'advisory-committee-on-clinical-excellence-awards').returns '123'
     converter = UrlToSubscriberListCriteria.new(
       'https://www.gov.uk/government/feed?departments%5B%5D=advisory-committee-on-clinical-excellence-awards  ',
-      stub("StaticData", topical_event?: false),
+      static_data,
     )
-    assert_equal converter.map_url_to_hash,
+    assert_equal converter.convert,
                  "links" => {
                    "organisations" => [
-                     "advisory-committee-on-clinical-excellence-awards",
+                     "123",
                    ],
                  }
   end
 
   test "can convert multiple options" do
+    static_data = stub("StaticData", topical_event?: false)
+    static_data.expects(:content_id).with('organisations', 'advisory-committee-on-clinical-excellence-awards').returns '123'
+    static_data.expects(:content_id).with('policy_areas', 'employment').returns '456'
+
     converter = UrlToSubscriberListCriteria.new(
       'https://www.gov.uk/government/feed?departments%5B%5D=advisory-committee-on-clinical-excellence-awards&topics%5B%5D=employment ',
-      stub("StaticData", topical_event?: false),
+      static_data,
     )
-    assert_equal converter.map_url_to_hash,
+    assert_equal converter.convert,
                  "links" => {
-                   "organisations" => [
-                     "advisory-committee-on-clinical-excellence-awards",
-                   ],
-                   "policy_areas" => %w[
-                     employment
-                   ],
+                   "organisations" => %w[123],
+                   "policy_areas" =>  %w[456]
                  }
   end
 
@@ -118,7 +126,7 @@ class UrlToSubscriberListCriteriaTest < ActiveSupport::TestCase
         stub("StaticData"),
         )
 
-    assert_equal converter.convert, "links" => { "taxons" => ["a544d48b-1e9e-47fb-b427-7a987c658c14"] },
+    assert_equal converter.convert, "links" => { "taxon_tree" => ["a544d48b-1e9e-47fb-b427-7a987c658c14"] },
                                       "email_document_supertype" => "publications"
   end
 
@@ -128,7 +136,7 @@ class UrlToSubscriberListCriteriaTest < ActiveSupport::TestCase
         stub("StaticData"),
         )
 
-    assert_equal converter.convert,  "links" => { "taxons" => ["a544d48b-1e9e-47fb-b427-7a987c658c14"] },
+    assert_equal converter.convert,  "links" => { "taxon_tree" => ["a544d48b-1e9e-47fb-b427-7a987c658c14"] },
                                      "email_document_supertype" => "publications"
   end
 end
