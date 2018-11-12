@@ -399,7 +399,8 @@ module DocumentControllerTestHelpers
         with_stubbed_rummager(rummager, announcement) do
           if announcement
             rummager.expects(:search).returns('results' =>
-              [{ 'format' => document_type.to_s }])
+              [{ 'format' => document_type.to_s,
+                 'public_timestamp' => Time.zone.now.to_s }])
           else
             rummager.expects(:advanced_search).returns('results' =>
               [{ 'format' => document_type.to_s,
@@ -415,7 +416,7 @@ module DocumentControllerTestHelpers
         rummager = stub
         with_stubbed_rummager(rummager, announcement) do
           if announcement
-            rummager.expects(:search).returns('results' => (0..4).map { |n| { 'format' => document_type.to_s, 'content_id' => n } })
+            rummager.expects(:search).returns('results' => (0..4).map { |n| { 'format' => document_type.to_s, 'content_id' => n, 'public_timestamp' => Time.zone.now.to_s } })
           else
             rummager.expects(:advanced_search).returns('results' =>
                                                 (0..4).map { { 'format' => document_type.to_s, 'public_timestamp' => Time.zone.now.to_s } })
@@ -432,7 +433,7 @@ module DocumentControllerTestHelpers
         rummager = stub
         with_stubbed_rummager(rummager) do
           if announcement
-            rummager.expects(:search).returns('results' => [{ 'format' => document_type.to_s, 'id' => 1 }])
+            rummager.expects(:search).returns('results' => [{ 'format' => document_type.to_s, 'id' => 1, 'public_timestamp' => Time.zone.now.to_s }])
           else
             rummager.expects(:advanced_search).returns('results' =>
               [{ 'format' => document_type.to_s, 'id' => 1, 'public_timestamp' => Time.zone.now.to_s }])

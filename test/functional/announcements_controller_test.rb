@@ -24,8 +24,8 @@ class AnnouncementsControllerTest < ActionController::TestCase
   view_test "index shows a mix of news and speeches" do
     with_stubbed_rummager(@rummager, true) do
       @rummager.expects(:search).returns('results' =>
-                                           [{ 'format' => 'news_article', 'id' => 'news_id' },
-                                            { 'format' => 'speech', 'id' => 'speech_id' }])
+                                           [{ 'format' => 'news_article', 'content_id' => 'news_id', 'public_timestamp' => Time.zone.now.to_s },
+                                            { 'format' => 'speech', 'content_id' => 'speech_id', 'public_timestamp' => Time.zone.now.to_s }])
 
       get :index
 
@@ -50,9 +50,9 @@ class AnnouncementsControllerTest < ActionController::TestCase
   view_test "index shows which type a record is" do
     with_stubbed_rummager(@rummager, true) do
       @rummager.expects(:search).returns('results' =>
-                                           [{ 'format' => 'news_story', 'id' => 'news_id', 'display_type' => 'News story' },
-                                            { 'format' => 'speech', 'id' => 'speech_id', 'display_type' => 'Speech' },
-                                            { 'format' => 'written_statement', 'id' => 'written_statement_id', 'display_type' => 'Statement to Parliament' }])
+                                           [{ 'format' => 'news_story', 'content_id' => 'news_id', 'display_type' => 'News story', 'public_timestamp' => Time.zone.now.to_s },
+                                            { 'format' => 'speech', 'content_id' => 'speech_id', 'display_type' => 'Speech', 'public_timestamp' => Time.zone.now.to_s },
+                                            { 'format' => 'written_statement', 'content_id' => 'written_statement_id', 'display_type' => 'Statement to Parliament', 'public_timestamp' => Time.zone.now.to_s }])
 
       get :index
 
@@ -73,7 +73,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
       first_published_at = Date.parse("1999-12-31").to_datetime.iso8601
       @rummager.expects(:search).returns('results' =>
                                           [{ 'format' => 'speech',
-                                             'id' => 'speech_id',
+                                             'content_id' => 'speech_id',
                                              'public_timestamp' => first_published_at }])
       get :index
 
@@ -86,13 +86,14 @@ class AnnouncementsControllerTest < ActionController::TestCase
   view_test "index shows the time when a news article was first published" do
     with_stubbed_rummager(@rummager, true) do
       first_published_at = Time.zone.parse("2001-01-01 01:01").iso8601
+      content_id = SecureRandom.uuid
       @rummager.expects(:search).returns('results' =>
                                             [{ 'format' => 'speech',
-                                               'id' => 'speech_id',
+                                               'content_id' => content_id,
                                                'public_timestamp' => first_published_at }])
       get :index
 
-      assert_select '#speech_speech_id' do
+      assert_select "#speech_#{content_id}" do
         assert_select "time.public_timestamp[datetime=?]", first_published_at
       end
     end
@@ -105,13 +106,13 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
       @rummager.expects(:search).returns('results' =>
                                           [{ 'format' => 'news_article',
-                                             'id' => 'news_id',
+                                             'content_id' => 'news_id',
                                              'organisations' =>
                                                [{ 'acronym' => first_org.acronym },
                                                 { 'acronym' => second_org.acronym }],
                                               'public_timestamp' => Time.zone.now.to_s },
                                            { 'format' => 'speech',
-                                             'id' => 'speech_id',
+                                             'content_id' => 'speech_id',
                                              'organisations' =>
                                                [{ 'acronym' => second_org.acronym }],
                                              'public_timestamp' => Time.zone.now.to_s }])
@@ -132,8 +133,8 @@ class AnnouncementsControllerTest < ActionController::TestCase
     with_stubbed_rummager(@rummager, true) do
       @rummager.expects(:search).with(has_entry(order: '-public_timestamp')).returns(
         'results' =>
-          [{ 'format' => 'published_speech', 'id' => 'new_id' },
-           { 'format' => 'published_news_article', 'id' => 'old_id' }]
+          [{ 'format' => 'published_speech', 'content_id' => 'new_id', 'public_timestamp' => Time.zone.now.to_s },
+           { 'format' => 'published_news_article', 'content_id' => 'old_id', 'public_timestamp' => Time.zone.now.to_s }]
       )
 
       get :index
@@ -153,7 +154,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   view_test "index indicates selected announcement type filter option in the filter selector" do
     with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).returns('results' => [{ 'format' => 'news_article' }])
+      @rummager.expects(:search).returns('results' => [{ 'format' => 'news_article', 'public_timestamp' => Time.zone.now.to_s }])
       get :index, params: { announcement_filter_option: 'news-stories' }
 
       assert_select "select[name='announcement_filter_option']" do
@@ -170,7 +171,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
       create(:published_news_article, world_locations: [world_location_1, world_location_2, world_location_3])
 
       @rummager.expects(:search).returns('results' =>
-        [{ "format" => 'news_article', "world_locations" => [{ slug: world_location_1.slug }, { slug: world_location_3.slug }] }])
+        [{ "format" => 'news_article', "world_locations" => [{ slug: world_location_1.slug }, { slug: world_location_3.slug }], 'public_timestamp' => Time.zone.now.to_s }])
 
       get :index, params: { world_locations: [world_location_1.slug, world_location_3.slug] }
 
@@ -183,7 +184,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   view_test "index indicates selected people in the filter selector" do
     with_stubbed_rummager(@rummager, true) do
       a_person = create(:person, forename: "Jane", surname: "Doe")
-      @rummager.expects(:search).returns('results' => [{ "format" => "news_article", "people" => [{ "slug" => a_person.slug }] }])
+      @rummager.expects(:search).returns('results' => [{ "format" => "news_article", "people" => [{ "slug" => a_person.slug }], "public_timestamp" => Time.zone.now.to_s }])
       get :index, params: { people: [a_person.slug] }
 
       assert_select "select[name='people[]']" do
@@ -194,7 +195,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   def assert_documents_appear_in_order_within(containing_selector, expected_documents)
     articles = css_select "#{containing_selector} li.document-row"
-    expected_document_ids = expected_documents.map { |doc| "#{doc['format']}_#{doc['id']}" }
+    expected_document_ids = expected_documents.map { |doc| "#{doc['format']}_#{doc['content_id']}" }
     actual_document_ids = articles.map { |a| a["id"] }
     assert_equal expected_document_ids, actual_document_ids
   end
@@ -205,8 +206,8 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   view_test "index shows only the first page of news articles or speeches" do
     with_stubbed_rummager(@rummager, true) do
-      news = (1..2).map { |n| { 'format' => 'news_article', 'id' => n } }
-      speeches = (3..4).map { |n| { 'format' => 'published_speech', 'id' => n } }
+      news = (1..2).map { |n| { 'format' => 'news_article', 'content_id' => n, 'public_timestamp' => Time.zone.now.to_s } }
+      speeches = (3..4).map { |n| { 'format' => 'published_speech', 'content_id' => n, 'public_timestamp' => Time.zone.now.to_s } }
 
       @rummager.expects(:search).returns('results' => news + speeches)
 
@@ -224,8 +225,8 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   view_test "index shows the requested page" do
     with_stubbed_rummager(@rummager, true) do
-      news = (1..3).map { |n| { 'format' => 'news_article', 'id' => n } }
-      speeches = (4..6).map { |n| { 'format' => 'published_speech', 'id' => n } }
+      news = (1..3).map { |n| { 'format' => 'news_article', 'content_id' => n, 'public_timestamp' => Time.zone.now.to_s } }
+      speeches = (4..6).map { |n| { 'format' => 'published_speech', 'content_id' => n, 'public_timestamp' => Time.zone.now.to_s } }
 
       @rummager.expects(:search).returns('results' => news + speeches)
 
@@ -242,7 +243,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   view_test "#index highlights selected taxon filter options" do
     with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).returns('results' => [{ 'format' => 'news_article', 'part_of_taxonomy_tree' => [root_taxon['content_id']] }])
+      @rummager.expects(:search).returns('results' => [{ 'format' => 'news_article', 'part_of_taxonomy_tree' => [root_taxon['content_id']], 'public_timestamp' => Time.zone.now.to_s }])
       get :index, params: { taxons: [root_taxon['content_id']] }
 
       assert_select "select#taxons[name='taxons[]']" do
@@ -275,7 +276,10 @@ class AnnouncementsControllerTest < ActionController::TestCase
       topic = create(:topic)
       organisation = create(:organisation)
 
-      @rummager.expects(:search).returns('results' => [{ "format" => 'news_article', "organisations" => [{ "slug" => organisation.slug }], "topics" => [{ "slug" => topic.slug }] }])
+      @rummager.expects(:search).returns('results' => [{ "format" => 'news_article',
+                                                         "organisations" => [{ "slug" => organisation.slug }],
+                                                         "topics" => [{ "slug" => topic.slug }],
+                                                         "public_timestamp" => Time.zone.now.to_s }])
 
       get :index, params: { topics: [topic], departments: [organisation] }
 
@@ -416,9 +420,10 @@ class AnnouncementsControllerTest < ActionController::TestCase
     with_stubbed_rummager(@rummager, true) do
       @rummager.expects(:search).returns('results' =>
                                           [{ 'format' => 'published_news_article',
-                                             'id' => 'news_id',
+                                             'content_id' => 'news_id',
                                              'link' => '/path/to/somewhere',
-                                             'title' => 'title' }])
+                                             'title' => 'title',
+                                             'public_timestamp' => Time.zone.now.to_s }])
 
       get :index
 
