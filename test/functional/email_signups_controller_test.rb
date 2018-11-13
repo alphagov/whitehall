@@ -22,14 +22,14 @@ class EmailSignupsControllerTest < ActionController::TestCase
   end
 
   test 'POST :create with a valid email signup redirects to the signup URL' do
-    topic = create(:topic)
+    topical_event = create(:topical_event)
 
     email_alert_api_has_subscriber_list(
-      "links" => { "policy_areas" => [topic.content_id] },
+      "links" => { "topical_events" => [topical_event.content_id] },
       "subscription_url" => "http://email_alert_api_signup_url",
     )
 
-    post :create, params: { email_signup: { feed: atom_feed_url_for(topic) } }
+    post :create, params: { email_signup: { feed: atom_feed_url_for(topical_event) } }
 
     assert_response :redirect
     assert_redirected_to 'http://email_alert_api_signup_url'

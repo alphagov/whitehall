@@ -28,10 +28,8 @@ class UrlToSubscriberListCriteria
                  { "links" => from_params.merge("roles" => [path_match[1]]) }
                elsif (path_match = @url.path.match(%r{^/government/organisations/(.*)\.atom$}))
                  { "links" => from_params.merge("organisations" => [path_match[1]]) }
-               elsif (path_match = @url.path.match(%r{^/government/topical-events/(.*)\.atom$}))
+               elsif (path_match = @url.path.match(%r{^/government/(?:topical-events|topics)/(.*)\.atom$}))
                  { "links" => from_params.merge("topical_events" => [path_match[1]]) }
-               elsif (path_match = @url.path.match(%r{^/government/topics/(.*)\.atom$}))
-                 { "links" => from_params.merge(topic_map([path_match[1]]) => [path_match[1]]) }
                elsif (path_match = @url.path.match(%r{^/world/(.*)\.atom$}))
                  { "links" => from_params.merge("world_locations" => [path_match[1]]) }
                elsif @url.path.match?(%r{/government/feed})
@@ -65,8 +63,7 @@ class UrlToSubscriberListCriteria
         result['organisations'] = result.delete('departments')
       end
       if result.key?('topics')
-        values = result.delete('topics')
-        result[topic_map(values)] = values
+        result['topical_events'] = result.delete('topics')
       end
       if result.key?('subtaxons')
         result['taxons'] = result.delete('subtaxons')
@@ -76,10 +73,6 @@ class UrlToSubscriberListCriteria
     end
   end
 
-  def topic_map(values)
-    @static_data.topical_event?(values) ? 'topical_events' : 'policy_areas'
-  end
-
   def lookup_content_id(key, slug)
     @static_data.content_id(key, slug)
   end
@@ -87,18 +80,13 @@ class UrlToSubscriberListCriteria
   module StaticData
     class UnknownStaticDataKey < StandardError; end
 
-    def self.topical_event?(values)
-      TopicalEvent.where(slug: values).any?
-    end
-
     def self.content_id(key, slug)
       lookup_map = {
         "world_locations" => WorldLocation,
         "organisations" => Organisation,
         "roles" => Role,
         "people" => Person,
-        "topical_events" => Classification,
-        "policy_areas" => Classification,
+        "topical_events" => Classification
       }
 
       lookup_class = lookup_map[key] || raise(UnknownStaticDataKey, key)

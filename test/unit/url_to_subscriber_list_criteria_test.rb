@@ -2,7 +2,7 @@ require 'test_helper'
 
 class UrlToSubscriberListCriteriaTest < ActiveSupport::TestCase
   test "can convert department to organisation" do
-    static_data = stub("StaticData", topical_event?: false)
+    static_data = stub("StaticData")
     static_data.expects(:content_id).with('organisations', 'advisory-committee-on-clinical-excellence-awards').returns '123'
     converter = UrlToSubscriberListCriteria.new(
       'https://www.gov.uk/government/feed?departments%5B%5D=advisory-committee-on-clinical-excellence-awards',
@@ -10,29 +10,12 @@ class UrlToSubscriberListCriteriaTest < ActiveSupport::TestCase
     )
     assert_equal converter.convert,
                  "links" => {
-                   "organisations" => [
-                     "123",
-                   ],
-                 }
-  end
-
-  test "can convert when topic is not a topical_event" do
-    static_data = stub("StaticData", topical_event?: false)
-    static_data.expects(:content_id).with('policy_areas', 'wildlife-and-animal-welfare').returns '123'
-    converter = UrlToSubscriberListCriteria.new(
-      'https://www.gov.uk/government/feed?topics%5B%5D=wildlife-and-animal-welfare',
-      static_data,
-    )
-    assert_equal converter.convert,
-                 "links" => {
-                   "policy_areas" => [
-                     "123",
-                   ],
+                   "organisations" => %w[123]
                  }
   end
 
   test "can convert when topic is a topical_event" do
-    static_data = stub("StaticData", topical_event?: true)
+    static_data = stub("StaticData")
     static_data.expects(:content_id).with('topical_events', 'spending-round-2013').returns '123'
     converter = UrlToSubscriberListCriteria.new(
       'https://www.gov.uk/government/feed?topics%5B%5D=spending-round-2013',
@@ -40,14 +23,12 @@ class UrlToSubscriberListCriteriaTest < ActiveSupport::TestCase
     )
     assert_equal converter.convert,
                  "links" => {
-                   "topical_events" => [
-                     "123"
-                   ],
+                   "topical_events" => %w[123]
                  }
   end
 
   test "ignores trailing whitespace" do
-    static_data = stub("StaticData", topical_event?: false)
+    static_data = stub("StaticData")
     static_data.expects(:content_id).with('organisations', 'advisory-committee-on-clinical-excellence-awards').returns '123'
     converter = UrlToSubscriberListCriteria.new(
       'https://www.gov.uk/government/feed?departments%5B%5D=advisory-committee-on-clinical-excellence-awards  ',
@@ -55,16 +36,14 @@ class UrlToSubscriberListCriteriaTest < ActiveSupport::TestCase
     )
     assert_equal converter.convert,
                  "links" => {
-                   "organisations" => [
-                     "123",
-                   ],
+                   "organisations" => %w[123]
                  }
   end
 
   test "can convert multiple options" do
-    static_data = stub("StaticData", topical_event?: false)
+    static_data = stub("StaticData")
     static_data.expects(:content_id).with('organisations', 'advisory-committee-on-clinical-excellence-awards').returns '123'
-    static_data.expects(:content_id).with('policy_areas', 'employment').returns '456'
+    static_data.expects(:content_id).with('topical_events', 'employment').returns '456'
 
     converter = UrlToSubscriberListCriteria.new(
       'https://www.gov.uk/government/feed?departments%5B%5D=advisory-committee-on-clinical-excellence-awards&topics%5B%5D=employment ',
@@ -73,7 +52,7 @@ class UrlToSubscriberListCriteriaTest < ActiveSupport::TestCase
     assert_equal converter.convert,
                  "links" => {
                    "organisations" => %w[123],
-                   "policy_areas" =>  %w[456]
+                   "topical_events" =>  %w[456]
                  }
   end
 
