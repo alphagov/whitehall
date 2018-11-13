@@ -339,7 +339,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
       get :index, params: { departments: [org.to_param] }, format: :atom
 
       assert_select_atom_feed do
-        assert_select_atom_entries(processed_rummager_documents)
+        assert_select_atom_entries(processed_rummager_documents, false)
       end
     end
   end
@@ -357,7 +357,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
       get :index, params: { announcement_type_option: 'news-stories' }, format: :atom
 
       assert_select_atom_feed do
-        assert_select_atom_entries(processed_rummager_documents)
+        assert_select_atom_entries(processed_rummager_documents, false)
       end
     end
   end
