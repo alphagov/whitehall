@@ -19,7 +19,7 @@ end
 Then(/^I see all documents for that topical event with the most recent first$/) do
   docs = sample_document_types_and_titles
 
-  within('.documents-index') do
+  within('.document-list') do
     assert_equal(page.body.scan('document-row').length, docs.length, "Can't see all the documents for the topical event")
     docs.each_value do |title|
       assert page.has_css?('.document-row', text: title)
