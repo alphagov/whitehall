@@ -79,7 +79,7 @@ When(/^I explicitly ask for world location news to be included$/) do
 end
 
 Then(/^I should be able to see the world location news article$/) do
-  assert page.has_css?(record_css_selector(@world_location_news))
+  assert page.has_css?(search_result_css_selector(@world_location_news))
 end
 
 Given(/^a draft right\-to\-left non\-English edition exists$/) do

@@ -188,6 +188,10 @@ Then(/^I should not see (#{THE_DOCUMENT})$/) do |edition|
   assert has_no_css?(record_css_selector(edition))
 end
 
+Then(/^I should see (#{THE_DOCUMENT}) in the list of announcements$/) do |edition|
+  assert has_css?(search_result_css_selector(edition))
+end
+
 Then(/^I should see (#{THE_DOCUMENT}) in the list of draft documents$/) do |edition|
   visit admin_editions_path
   assert has_css?(record_css_selector(edition))

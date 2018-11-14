@@ -9,7 +9,7 @@ module AtomTestHelpers
     assert_select 'head > link[rel=?][type=?][href=?]', 'alternate', 'application/atom+xml', url
   end
 
-  def assert_select_atom_entries(documents)
+  def assert_select_atom_entries(documents, renders_content = true)
     assert_select 'feed > entry', count: documents.length do |entries|
       entries.zip(documents).each do |entry, document|
         assert_select entry, 'id', 1
@@ -22,7 +22,7 @@ module AtomTestHelpers
         assert_select entry, 'title', count: 1, text: "#{document.display_type}: #{document.title}"
         assert_select entry, 'summary', count: 1, text: document.summary
         assert_select entry, 'category', count: 1, label: document.display_type, term: document.display_type
-        assert_select entry, 'content[type=?]', 'html', count: 1, text: /#{document.try(:body)}/
+        assert_select(entry, 'content[type=?]', 'html', count: 1, text: /#{document.try(:body)}/) if renders_content
       end
     end
   end

@@ -2,16 +2,29 @@ require 'whitehall/document_filter/filterer'
 module Whitehall
   module NotQuiteAsFakeSearch
     def self.stop_faking_it_quite_so_much!
+      @search_indexer_class_store = SearchIndex.indexer_class.store
       store = Whitehall::NotQuiteAsFakeSearch::Store.new
       SearchIndex.indexer_class.store = store
+
+      @government_search_client = Whitehall.government_search_client
       Whitehall.government_search_client = Whitehall::NotQuiteAsFakeSearch::GdsApiRummager.new(
         SearchIndex.government_search_index_path, store
       )
-      Whitehall.search_backend = Whitehall::DocumentFilter::Rummager
+
+      @search_client = Whitehall.search_client
+      Whitehall.search_client = Whitehall::NotQuiteAsFakeSearch::GdsApiRummager.new(
+        SearchIndex.government_search_index_path, store
+      )
+
+      @search_backend = Whitehall.search_backend
+      Whitehall.search_backend = Whitehall::DocumentFilter::AdvancedSearchRummager
     end
 
     def self.start_faking_it_again!
-      SearchIndex.indexer_class.store = nil
+      SearchIndex.indexer_class.store = @search_indexer_class_store
+      Whitehall.government_search_client = @government_search_client
+      Whitehall.search_client = @search_client
+      Whitehall.search_backend = @search_backend
     end
 
     class GdsApiRummager
@@ -21,8 +34,15 @@ module Whitehall
         @store = store
       end
 
-      def search(*_args)
-        raise "Not implemented"
+      def search(params)
+        params = params.stringify_keys
+        keywords = params.delete("q")
+        order = { public_timestamp: "desc" }
+        per_page = params.delete("count").to_i
+        page = params.delete("start").to_i + 1
+        params.delete("fields")
+        params.delete("order")
+        apply_filters(keywords, params, order, per_page, page, true)
       end
 
       def autocomplete(*_args)
@@ -60,6 +80,7 @@ module Whitehall
             search_format_types
             world_locations
             document_collections
+            content_store_document_type
           },
           date: %w{public_timestamp},
           boolean: %w{
@@ -76,24 +97,24 @@ module Whitehall
         end
       end
 
-      def apply_filters(keywords, params, order, per_page, page)
+      def apply_filters(keywords, params, order, per_page, page, announcements_search = false)
         results = @store.index(@index_name).values
-
         results = filter_by_keywords(keywords, results) unless keywords.blank?
 
         results = params.inject(results) do |new_results, (field_name, value)|
+          field_name = field_name.gsub(/filter_/, "")
           case field_type(field_name)
           when :date
             filter_by_date_field(field_name, value, new_results)
           when :boolean
             filter_by_boolean_field(field_name, value, new_results)
           when :simple
-            filter_by_simple_field(field_name, value, new_results)
+            filter_by_simple_field(field_name, value, new_results, announcements_search)
           else
             raise GdsApi::HTTPErrorResponse, "cannot filter by field '#{field_name}', its type is not known"
           end
         end
-
+        results = announcements_search ? format_organisations(results) : results
         if order && order.any?
           results = Ordering.new(order).sort(results)
         end
@@ -101,6 +122,18 @@ module Whitehall
           "total" => results.count,
           "results" => paginate(results, per_page, page)
         }
+      end
+
+      def format_organisations(results)
+        # Now we're querying the 'search' endpoint, results["organisations"]
+        # needs to return a hash
+        results.each do |result|
+          organisations = result.fetch("organisations", [])
+          if organisations.any? && organisations[0].is_a?(String)
+            result["organisations"] = organisations.map { |org| { "slug" => org } }
+          end
+        end
+        results
       end
 
       def paginate(results, per_page, page)
@@ -162,8 +195,25 @@ module Whitehall
         document_hashes.select { |document_hash| document_hash[field] == desired_boolean }
       end
 
-      def filter_by_simple_field(field, desired_field_values, document_hashes)
-        document_hashes.select { |document_hash| ([*desired_field_values] & document_hash.fetch(field, [])).any? }
+      def filter_by_simple_field(field, desired_field_values, document_hashes, announcements_search = false)
+        document_hashes.select do |document_hash|
+          value =
+            if field == "organisations" && announcements_search
+              organisation_slugs(document_hash.fetch("organisations", []))
+            else
+              document_hash.fetch(field, [])
+            end
+
+          if value.is_a?(String)
+            Array(desired_field_values).include?(value)
+          else
+            (Array(desired_field_values) & value).any?
+          end
+        end
+      end
+
+      def organisation_slugs(organisations)
+        organisations.map { |org| org["slug"] if org.fetch("slug") }
       end
 
       def filter_by_date_field(field, date_filter_hash, document_hashes)

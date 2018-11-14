@@ -27,6 +27,8 @@ module FeedHelper
     # The interpolation logic is straight out of:
     # http://api.rubyonrails.org/classes/ActionView/Helpers/AtomFeedHelper/AtomFeedBuilder.html#method-i-entry
     id = record.try(:document) ? record.document.id : record.id
+    return id if record.is_a?(RummagerDocumentPresenter)
+
     "tag:#{host},#{schema_date(builder)}:#{record.class}/#{id}"
   end
 
@@ -47,7 +49,7 @@ module FeedHelper
     builder.title "#{feed_display_type_for(document)}: #{document.title}"
     builder.category label: document.display_type, term: document.display_type
     builder.summary entry_summary(document)
-    builder.content entry_content(document), type: 'html'
+    builder.content(entry_content(document), type: 'html') unless document.is_a?(RummagerDocumentPresenter)
   end
 
   def entry_summary(document)
@@ -55,7 +57,6 @@ module FeedHelper
   end
 
   def entry_content(document)
-    return '' if document.is_a?(RummagerDocumentPresenter)
     change_note = document.most_recent_change_note
     change_note = "<p><em>Updated:</em> #{change_note}</p>" if change_note
     "#{change_note}#{govspeak_edition_to_html(document)}"

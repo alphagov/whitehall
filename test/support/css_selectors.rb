@@ -5,6 +5,10 @@ module CssSelectors
     '#' + dom_id(object, prefix)
   end
 
+  def search_result_css_selector(object)
+    '#' + object.type.underscore + "_" + object.content_id
+  end
+
   def record_id_from(element)
     element["id"].split("_").last
   end

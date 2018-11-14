@@ -23,6 +23,7 @@ class StatisticsControllerTest < ActionController::TestCase
     content_store_has_item(@content_item['base_path'], @content_item)
 
     stub_taxonomy_with_all_taxons
+    @rummager = stub
   end
 
   view_test "#index only displays *published* statistics" do
@@ -115,11 +116,10 @@ class StatisticsControllerTest < ActionController::TestCase
   view_test "#index only lists statistics in the given locale" do
     english_publication = create(:published_statistics)
     french_publication = create(:published_statistics, translated_into: [:fr])
-
     get :index, params: { locale: 'fr' }
 
-    assert_select_object french_publication
-    refute_select_object english_publication
+    assert_select "#publication_#{french_publication.id}"
+    refute_select "#publication_#{english_publication.id}"
   end
 
   view_test '#index for non-english locales does not allow any filtering' do

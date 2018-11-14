@@ -201,11 +201,10 @@ class PublicationsControllerTest < ActionController::TestCase
   view_test "#index only lists publications in the given locale" do
     english_publication = create(:published_publication)
     french_publication = create(:published_publication, translated_into: [:fr])
-
     get :index, params: { locale: 'fr' }
 
-    assert_select_object french_publication
-    refute_select_object english_publication
+    assert_select "#publication_#{french_publication.id}"
+    refute_select "#publication_#{english_publication.id}"
   end
 
   view_test '#index for non-english locales only allows filtering by world location' do

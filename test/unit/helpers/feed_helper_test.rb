@@ -128,4 +128,21 @@ class FeedHelperTest < ActionView::TestCase
 
     assert_equal document_id(d, nil), "tag:#{host},2005:Publication/33"
   end
+
+  test 'document_id sets ID as link and updated date when record is from rummager' do
+    rummager_result = {
+      "link": "/foo/news_story",
+      "title": "PM attends summit on topical events",
+      "public_timestamp": "2018-10-07T22:18:32Z",
+      "display_type": "news_article",
+      "description": "Description of document...",
+      "content_id": "1234-C",
+      "content_store_document_type": "news_article"
+    }.with_indifferent_access
+
+    document = RummagerDocumentPresenter.new(rummager_result)
+
+    expected_date = rummager_result["public_timestamp"].to_date.rfc3339
+    assert_equal "#{Whitehall.public_root}/foo/news_story##{expected_date}", document_id(document, nil)
+  end
 end

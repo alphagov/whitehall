@@ -3,8 +3,9 @@ class AnnouncementsController < DocumentsController
 
   def index
     expire_on_next_scheduled_publication(scheduled_announcements)
-    @filter = build_document_filter
+    @filter = build_document_filter("announcements")
     @filter.announcements_search
+    presenter = AnnouncementPresenter if params[:locale].present?
 
     respond_to do |format|
       format.html do
@@ -14,21 +15,16 @@ class AnnouncementsController < DocumentsController
           .to_hash
 
         @filter = AnnouncementFilterJsonPresenter.new(
-          @filter, view_context, AnnouncementPresenter
+          @filter, view_context, presenter
         )
       end
       format.json do
         render json: AnnouncementFilterJsonPresenter.new(
-          @filter, view_context, AnnouncementPresenter
+          @filter, view_context, presenter
         )
       end
       format.atom do
-        documents = Announcement.published_with_eager_loading(@filter.documents.map(&:id))
-        @announcements = Whitehall::Decorators::CollectionDecorator.new(
-          documents.sort_by(&:public_timestamp).reverse,
-          AnnouncementPresenter,
-          view_context,
-        )
+        @announcements = @filter.documents
       end
     end
   end
