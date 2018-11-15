@@ -63,7 +63,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
         assert_select ".display-type", text: "Speech"
       end
       assert_select '#written_statement_written_statement_id' do
-        assert_select ".display-type", text: "Statement to Parliament"
+        assert_select ".display-type", text: "Statement to parliament"
       end
     end
   end

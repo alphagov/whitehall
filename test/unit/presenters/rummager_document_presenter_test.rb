@@ -40,7 +40,6 @@ class RummagerDocumentPresenterTest < ActiveSupport::TestCase
   test "will provide access to document attributes required for Finders and Lists" do
     assert_equal rummager_result['title'], presenter.title
     assert_equal rummager_result['link'], presenter.link
-    assert_equal rummager_result['display_type'], presenter.display_type_key
     assert_equal rummager_result['format'], presenter.type
     assert_equal rummager_result['government_name'], presenter.government_name
     assert_equal rummager_result['is_historic'], presenter.historic?
@@ -81,5 +80,18 @@ class RummagerDocumentPresenterTest < ActiveSupport::TestCase
   test "will return formatted operational field" do
     expected_result = "Field of operation: <a href=\"https://www.test.gov.uk/government/fields-of-operation/hogwarts\">Hogwarts</a>"
     assert_equal expected_result, presenter.field_of_operation
+  end
+
+  test "will return underscored display_type from Rummager if present" do
+    assert_equal "news_story", presenter.display_type_key
+  end
+
+  test "will return content_store_document_type if display_type is not present" do
+    search_result = { "content_store_document_type" => "news_story" }
+    assert_equal "news_story", RummagerDocumentPresenter.new(search_result).display_type_key
+  end
+
+  test "will return humanized display_type_key" do
+    assert_equal "News story", presenter.display_type
   end
 end

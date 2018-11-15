@@ -7,13 +7,12 @@ class RummagerDocumentPresenter < ActionView::Base
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::TagHelper
 
-  attr_reader :title, :link, :display_type, :summary, :content_id
+  attr_reader :title, :link, :summary, :content_id
 
   def initialize(document_hash)
     @document = document_hash
     @link = @document.fetch('link', '')
     @title = @document.fetch('title', '')
-    @display_type = @document.fetch('display_type', '')
     @summary = @document.fetch('description', '')
     @content_id = @document.fetch('content_id', SecureRandom.uuid)
   end
@@ -27,7 +26,12 @@ class RummagerDocumentPresenter < ActionView::Base
   end
 
   def display_type_key
-    @document.fetch('display_type', '')
+    key = @document.fetch('display_type', nil) || @document.fetch('content_store_document_type', '')
+    key.parameterize.underscore
+  end
+
+  def display_type
+    display_type_key.humanize
   end
 
   def id
