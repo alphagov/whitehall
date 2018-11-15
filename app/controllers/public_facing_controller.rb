@@ -52,7 +52,7 @@ private
 
   def log_error_and_render_500(exception)
     logger.error "\n#{exception.class} (#{exception.message}):\n#{exception.backtrace.join("\n")}\n\n"
-    render plain: 'API Timed Out', status: :internal_server_error
+    render plain: 'API error', status: :internal_server_error
   end
 
   def set_locale(&block)
