@@ -35,8 +35,8 @@ class PublicFacingControllerTest < ActionController::TestCase
       raise GdsApi::HTTPBadGateway.new('Bad Gateway')
     end
 
-    def api_not_found
-      raise GdsApi::HTTPNotFound.new('Not found')
+    def api_unprocessable_entity
+      raise GdsApi::HTTPUnprocessableEntity.new('Unprocessable entity')
     end
   end
 
@@ -158,6 +158,13 @@ class PublicFacingControllerTest < ActionController::TestCase
     end
   end
 
+  test "public facing controllers catch GDS API client errors and renders a 400 response" do
+    with_routing_for_test_controller do
+      get :api_unprocessable_entity
+      assert_response :bad_request
+    end
+  end
+
   test "public facing controllers catch GDS API timeouts and error responses and renders a 500 response" do
     with_routing_for_test_controller do
       get :api_timeout
@@ -172,14 +179,6 @@ class PublicFacingControllerTest < ActionController::TestCase
     end
   end
 
-  test "public facing controllers do not catch client GDS API errors" do
-    with_routing_for_test_controller do
-      assert_raise GdsApi::HTTPErrorResponse do
-        get :api_not_found
-      end
-    end
-  end
-
   test "public facing controllers explicitly set X-FRAME-OPTIONS header" do
     with_routing_for_test_controller do
       get :test
@@ -190,7 +189,7 @@ class PublicFacingControllerTest < ActionController::TestCase
   def with_routing_for_test_controller
     with_routing do |map|
       map.draw do
-        %w(test json js_or_atom locale api_timeout api_bad_gateway api_not_found).each do |action|
+        %w(test json js_or_atom locale api_timeout api_bad_gateway api_unprocessable_entity).each do |action|
           get "/test/#{action}.{.:format}", to: "public_facing_controller_test/test##{action}"
         end
       end
