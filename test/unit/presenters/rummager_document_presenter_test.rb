@@ -90,4 +90,8 @@ class RummagerDocumentPresenterTest < ActiveSupport::TestCase
     search_result = { "content_store_document_type" => "news_story" }
     assert_equal "news_story", RummagerDocumentPresenter.new(search_result).display_type_key
   end
+
+  test "will return humanized display_type_key" do
+    assert_equal "News story", presenter.display_type
+  end
 end
