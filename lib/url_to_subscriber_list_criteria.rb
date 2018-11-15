@@ -11,20 +11,7 @@ class UrlToSubscriberListCriteria
   end
 
   def convert
-    @convert ||= begin
-      hash = map_url_to_hash.dup
-      if hash["links"]
-        links = hash["links"].each_with_object({}) do |(key, values), result|
-          result[key] = if key == 'taxons'
-                          values
-                        else
-                          Array.wrap(values).map { |value| lookup_content_id(key, value) }
-                        end
-        end
-        hash["links"] = links
-      end
-      hash
-    end
+    @convert ||= map_url_to_hash.dup
   end
 
   def map_url_to_hash
@@ -41,10 +28,8 @@ class UrlToSubscriberListCriteria
                  { "links" => from_params.merge("roles" => [path_match[1]]) }
                elsif (path_match = @url.path.match(%r{^/government/organisations/(.*)\.atom$}))
                  { "links" => from_params.merge("organisations" => [path_match[1]]) }
-               elsif (path_match = @url.path.match(%r{^/government/topical-events/(.*)\.atom$}))
+               elsif (path_match = @url.path.match(%r{^/government/(?:topical-events|topics)/(.*)\.atom$}))
                  { "links" => from_params.merge("topical_events" => [path_match[1]]) }
-               elsif (path_match = @url.path.match(%r{^/government/topics/(.*)\.atom$}))
-                 { "links" => from_params.merge(topic_map([path_match[1]]) => [path_match[1]]) }
                elsif (path_match = @url.path.match(%r{^/world/(.*)\.atom$}))
                  { "links" => from_params.merge("world_locations" => [path_match[1]]) }
                elsif @url.path.match?(%r{/government/feed})
@@ -53,14 +38,21 @@ class UrlToSubscriberListCriteria
                  raise UnprocessableUrl, @url.to_s
                end
 
-      if result.fetch("links", {})["publication_filter_option"]
+      if result.dig("links", "publication_filter_option")
         result[GOVERNMENT_SUPERTYPE] = result["links"].delete("publication_filter_option")
       end
-      if result.fetch("links", {})["announcement_filter_option"]
+      if result.dig("links", "announcement_filter_option")
         result[GOVERNMENT_SUPERTYPE] = result["links"].delete("announcement_filter_option")
       end
-      #Official document status has not been implemented in the email-alert-api so remove this option
-      result.fetch("links", {}).delete('official_document_status')
+
+      links = result["links"].each_with_object({}) do |(key, values), hash|
+        if key == 'taxons'
+          hash['taxon_tree'] = values
+        else
+          hash[key] = Array.wrap(values).map { |value| lookup_content_id(key, value) }
+        end
+      end
+      result['links'] = links
       result
     end
   end
@@ -71,17 +63,14 @@ class UrlToSubscriberListCriteria
         result['organisations'] = result.delete('departments')
       end
       if result.key?('topics')
-        values = result.delete('topics')
-        result[topic_map(values)] = values
+        result['topical_events'] = result.delete('topics')
       end
       if result.key?('subtaxons')
         result['taxons'] = result.delete('subtaxons')
       end
+      #Official document status has not been implemented in the email-alert-api so remove this option
+      result.delete('official_document_status')
     end
-  end
-
-  def topic_map(values)
-    @static_data.topical_event?(values) ? 'topical_events' : 'policy_areas'
   end
 
   def lookup_content_id(key, slug)
@@ -91,18 +80,13 @@ class UrlToSubscriberListCriteria
   module StaticData
     class UnknownStaticDataKey < StandardError; end
 
-    def self.topical_event?(values)
-      TopicalEvent.where(slug: values).any?
-    end
-
     def self.content_id(key, slug)
       lookup_map = {
         "world_locations" => WorldLocation,
         "organisations" => Organisation,
         "roles" => Role,
         "people" => Person,
-        "topical_events" => Classification,
-        "policy_areas" => Classification,
+        "topical_events" => Classification
       }
 
       lookup_class = lookup_map[key] || raise(UnknownStaticDataKey, key)
