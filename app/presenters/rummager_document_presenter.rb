@@ -27,7 +27,8 @@ class RummagerDocumentPresenter < ActionView::Base
   end
 
   def display_type_key
-    @document.fetch('display_type', '')
+    key = @document.fetch('display_type', nil) || @document.fetch('content_store_document_type', '')
+    key.parameterize.underscore
   end
 
   def id
