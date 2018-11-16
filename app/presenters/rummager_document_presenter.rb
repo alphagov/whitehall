@@ -106,6 +106,7 @@ class RummagerDocumentPresenter < ActionView::Base
 private
 
   def format_link(title, link)
+    return unless title.present? && link.present?
     link_to(title, Plek.current.website_root + link)
   end
 

@@ -60,6 +60,11 @@ class RummagerDocumentPresenterTest < ActiveSupport::TestCase
     assert_equal expected_result, presenter.publication_collections
   end
 
+  test "will not return a document collection if title and link are not present" do
+    search_result = { "document_collections" => [{ "title" => "A title" }] }
+    assert_nil RummagerDocumentPresenter.new(search_result).publication_collections
+  end
+
   test "will return acronyms for associated organisations" do
     expected_result = "DMGS and MOM"
     assert_equal expected_result, presenter.organisations
