@@ -19,8 +19,8 @@
         %>
       </h2>
       <ul class="attributes">
-        <li class="publication-date"><%= edition.publication_date %></li>
-        <li class="document-type"><%= t_display_type(edition) %></li>
+        <li class="publication-date"><%= edition.display_date_microformat %></li>
+        <li class="document-type"><%= edition.display_type %></li>
       </ul>
     </li>
   <% end %>
