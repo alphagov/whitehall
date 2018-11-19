@@ -14,7 +14,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     {
       filter_world_locations: @world_location.slug,
       order: "-public_timestamp",
-      fields: %w[display_type title link public_timestamp content_store_document_type]
+      fields: %w[display_type title link public_timestamp content_store_document_type description]
     }
   end
 
@@ -82,13 +82,24 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   end
 
   view_test "index generates an atom feed with entries for latest activity" do
-    pub = create(:published_publication, world_locations: [@world_location], first_published_at: 1.week.ago.to_date)
-    news = create(:published_news_article, world_locations: [@world_location], first_published_at: 1.day.ago)
+    with_stubbed_rummager(@rummager, true) do
+      documents = [
+        { 'content_store_document_type' => 'publication', 'public_timestamp' => 1.week.ago.to_date },
+        { 'content_store_document_type' => 'news_article', 'public_timestamp' => 1.day.ago },
+      ]
+      @rummager.expects(:search).once.returns('results' => documents)
 
-    get :index, params: { world_location_id: @world_location }, format: :atom
+      get :index, params: { world_location_id: @world_location }, format: :atom
 
-    assert_select_atom_feed do
-      assert_select_atom_entries([news, pub])
+      assert_select_atom_feed do
+        assert_select 'feed > id', 1
+        assert_select 'feed > title', 1
+        assert_select 'feed > author, feed > entry > author'
+        assert_select 'feed > updated', 1
+        assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml',
+        world_location_news_index_url(format: :atom, world_location_id: @world_location), 1
+        assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', root_url, 1
+      end
     end
   end
 

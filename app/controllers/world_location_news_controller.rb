@@ -24,7 +24,11 @@ class WorldLocationNewsController < PublicFacingController
         redirect_to api_world_location_path(@world_location, format: :json)
       end
       format.atom do
-        @documents = EditionCollectionPresenter.new(recently_updated_source.limit(10), view_context)
+        @documents = if Locale.current.english?
+                       fetch_documents(count: 10)
+                     else
+                       EditionCollectionPresenter.new(recently_updated_source.limit(10), view_context)
+                     end
       end
     end
   end
@@ -45,7 +49,7 @@ private
     {
       filter_world_locations: @world_location.slug,
       order: "-public_timestamp",
-      fields: %w[display_type title link public_timestamp content_store_document_type]
+      fields: %w[display_type title link public_timestamp content_store_document_type description]
     }
   end
 
