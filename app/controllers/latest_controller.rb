@@ -7,24 +7,22 @@ class LatestController < PublicFacingController
 
 private
 
+  helper_method :subject, :documents
+
   def subject
     case subject_param
     when 'departments'
       Organisation.with_translations(I18n.locale).find(subject_id)
-    when 'topics'
-      Classification.find(subject_id)
+    when 'topical_events'
+      TopicalEvent.find(subject_id)
     when 'world_locations'
       WorldLocation.with_translations(I18n.locale).find(subject_id)
     end
   end
-  helper_method :subject
 
   def documents
-    Whitehall::Decorators::CollectionDecorator.new(filter.documents,
-                                                   LatestDocumentPresenter,
-                                                   view_context)
+    filter.documents
   end
-  helper_method :documents
 
   def filter
     @filter = LatestDocumentsFilter.for_subject(subject, page_params)
@@ -45,7 +43,7 @@ private
   end
 
   def supported_subjects
-    %w(departments topics world_locations)
+    %w(departments topical_events world_locations)
   end
 
   def redirect_unless_subject

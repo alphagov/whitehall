@@ -62,7 +62,7 @@
                    locals: { recently_updated: @recently_changed_documents,
                            atom_url: atom_feed_url_for(@topical_event),
                            extra_class: 'panel',
-                           see_all_link: latest_path(topics: [@classification]),
+                           see_all_link: latest_path(topical_events: [@topical_event]),
                            documents_source: 'rummager' } %>
       </section>
     </div>
