@@ -9,7 +9,7 @@ class WorldLocationNewsController < PublicFacingController
         set_meta_description("What the UK government is doing in #{@world_location.name}.")
         set_slimmer_world_locations_header([@world_location])
 
-        @recently_updated = recently_updated_source.limit(3)
+        @recently_updated = Locale.current.english? ? fetch_documents(count: 3) : recently_updated_source.limit(3)
         publications = Publication.published.in_world_location(@world_location)
         @non_statistics_publications = latest_presenters(publications.not_statistics, translated: true, count: 2)
         @statistics_publications = latest_presenters(publications.statistics, translated: true, count: 2)

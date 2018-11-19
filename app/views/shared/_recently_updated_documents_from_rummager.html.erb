@@ -1,6 +1,6 @@
 <ol class="document-list">
   <% recently_updated.each do |document| %>
-    <li class="document-row">
+    <li class="recent_<%= document.display_type_key %> document-row" id="recent_<%= document.display_type_key %>_<%= document.content_id %>">
       <h2><%= link_to document.title, document.link %></h2>
       <ul class="attributes">
         <li class="published-date">
