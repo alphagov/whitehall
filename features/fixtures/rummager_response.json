@@ -1,36 +1,79 @@
 {
-    "results": [
+  "results": [
+    {
+      "link": "/foo/policy_paper",
+      "title": "Policy on Topicals",
+      "public_timestamp": "2016-10-07T22:18:32Z",
+      "display_type": "news_article",
+      "description": "Description of document...",
+      "content_id": "1234-A",
+      "organisations": [
         {
-            "link": "/foo/policy_paper",
-            "title": "Policy on Topicals",
-            "public_timestamp": "2016-10-07T22:18:32Z",
-            "display_type": "news_article",
-            "description": "Description of document...",
-            "content_id": "1234-A"
-        },
-        {
-            "link": "/foo/consultation",
-            "title": "Examination of Events",
-            "public_timestamp": "2017-10-07T22:18:32Z",
-            "display_type": "news_article",
-            "description": "Description of document...",
-            "content_id": "1234-B"
-        },
-        {
-            "link": "/foo/news_story",
-            "title": "PM attends summit on topical events",
-            "public_timestamp": "2018-10-07T22:18:32Z",
-            "display_type": "news_article",
-            "description": "Description of document...",
-            "content_id": "1234-C"
-        },
-        {
-            "link": "/foo/statistics",
-            "title": "Weekly topical event price",
-            "public_timestamp": "2018-10-17T22:18:32Z",
-            "display_type": "news_article",
-            "description": "Description of document...",
-            "content_id": "1234-D"
+          "acronym": "HMRC",
+          "title": "HM Revenue & Customs"
         }
-    ]
+      ],
+      "document_collections": [
+        {
+          "title": "Budget 2016: tax-related documents",
+          "link": "/government/collections/budget-2016-tax-related-documents"
+        },
+        {
+          "title": "Tax information and impact notes",
+          "link": "/government/collections/tax-information-and-impact-notes-tiins"
+        }
+      ]
+    },
+    {
+      "link": "/foo/consultation",
+      "title": "Examination of Events",
+      "public_timestamp": "2017-10-07T22:18:32Z",
+      "display_type": "news_article",
+      "description": "Description of document...",
+      "content_id": "1234-B",
+      "organisations": [
+        {
+          "acronym": "FCO",
+          "title": "Foreign and Commonwealth Office"
+        }
+      ]
+    },
+    {
+      "link": "/foo/news_story",
+      "title": "PM attends summit on topical events",
+      "public_timestamp": "2018-10-07T22:18:32Z",
+      "display_type": "news_article",
+      "description": "Description of document...",
+      "content_id": "1234-C",
+      "organisations": [
+        {
+          "title": "Number 10"
+        }
+      ],
+      "document_collections": [
+        {
+          "title": "PM Topical events",
+          "link": "/government/collections/pm-topical-events"
+        },
+        {
+          "title": "Tax information and impact notes",
+          "link": "/government/collections/tax-information-and-impact-notes-tiins"
+        }
+      ]
+    },
+    {
+      "link": "/foo/statistics",
+      "title": "Weekly topical event prices",
+      "public_timestamp": "2018-10-17T22:18:32Z",
+      "display_type": "news_article",
+      "description": "Description of document...",
+      "content_id": "1234-D",
+      "organisations": [
+        {
+          "acronym": "DEP",
+          "title": "Some other Department"
+        }
+      ]
+    }
+  ]
 }
