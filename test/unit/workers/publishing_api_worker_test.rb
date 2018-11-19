@@ -94,6 +94,26 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
     end
   end
 
+  test "adds any additional metadata" do
+    update_type = "republish"
+    extra_metadata = { foo: 'bar' }
+
+    create(:government)
+    edition = create(:published_detailed_guide)
+    presenter = PublishingApiPresenters.presenter_for(edition, update_type: update_type)
+    expected_content = presenter.content
+    expected_content[:details][:metadata] = extra_metadata
+    requests = [
+      stub_publishing_api_put_content(presenter.content_id, expected_content),
+      stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
+      stub_publishing_api_publish(presenter.content_id, update_type: nil, locale: "en")
+    ]
+
+    PublishingApiWorker.new.perform(edition.class.name, edition.id, update_type, I18n.default_locale.to_s, extra_metadata)
+
+    assert_all_requested requests
+  end
+
   test "only raises >= 500 errors" do
     organisation = create(:organisation)
 

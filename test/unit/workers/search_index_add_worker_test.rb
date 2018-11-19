@@ -30,4 +30,12 @@ class SearchIndexAddWorkerTest < ActiveSupport::TestCase
     Sidekiq.logger.expects(:warn).once
     SearchIndexAddWorker.new.perform(draft_publication.class.name, draft_publication.id)
   end
+
+  test '#perform adds any additional metadata' do
+    published_publication = create(:published_publication)
+    extra_metadata = { foo: 'bar' }
+
+    Whitehall::SearchIndex.indexer_class.any_instance.expects(:add).with(has_entries(extra_metadata))
+    SearchIndexAddWorker.new.perform(published_publication.class.name, published_publication.id, extra_metadata)
+  end
 end

@@ -1,7 +1,7 @@
 class PublishingApiWorker < WorkerBase
   sidekiq_options queue: "publishing_api"
 
-  def perform(model_name, id, update_type = nil, locale = I18n.default_locale.to_s, extra_metadata: nil)
+  def perform(model_name, id, update_type = nil, locale = I18n.default_locale.to_s, extra_metadata = nil)
     model = class_for(model_name).unscoped.find_by(id: id)
     return if model.nil?
 
