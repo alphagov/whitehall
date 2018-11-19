@@ -10,6 +10,26 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     assert_equal editions, assigns(:feature_list).current_featured.map(&:edition)
   end
 
+  def default_search_options
+    {
+      filter_world_locations: @world_location.slug,
+      order: "-public_timestamp",
+      fields: %w[display_type title link public_timestamp content_store_document_type]
+    }
+  end
+
+  def announcement_search_options
+    default_search_options.merge(
+      count: 2,
+      filter_content_store_document_type: announcement_document_types
+    )
+  end
+
+  def announcement_document_types
+    non_world_announcement_types = Whitehall::AnnouncementFilterOption.all.map(&:document_type).flatten
+    %w(world_location_news_article world_news_story).concat(non_world_announcement_types)
+  end
+
   setup do
     @world_location = create(:world_location,
                              title: "UK and India",
@@ -17,6 +37,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
                              mission_statement: "country-mission-statement")
 
     @translated_world_location = create(:world_location, translated_into: [:fr])
+    @rummager = stub
   end
 
   view_test "index displays world location title and mission-statement" do
@@ -132,22 +153,25 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   end
 
   view_test "should display 2 announcements with details and a link to announcements filter if there are many announcements" do
-    announcement_2 = create(:published_news_article, world_locations: [@world_location], first_published_at: 2.days.ago)
-    announcement_3 = create(:published_speech, world_locations: [@world_location], first_published_at: 3.days.ago)
-    announcement_1 = create(:published_news_article, world_locations: [@world_location], first_published_at: 1.day.ago)
+    with_stubbed_rummager(@rummager, true) do
+      @rummager.expects(:search).returns('results' => []).once
+      @rummager.expects(:search).with(announcement_search_options).returns("results" => [
+        { "public_timestamp" => 1.day.ago, "content_id" => "content_id_1", "content_store_document_type" => "news_story" },
+        { "public_timestamp" => 2.days.ago, "content_id" => "content_id_2", "content_store_document_type" => "news_story" },
+      ]).once
 
-    get :index, params: { world_location_id: @world_location }
-
-    assert_select "#announcements" do
-      assert_select_object announcement_1 do
-        assert_select '.publication-date time[datetime=?]', 1.days.ago.iso8601
-        assert_select '.document-type', "Press release"
+      get :index, params: { world_location_id: @world_location }
+      assert_select "#our-announcements" do
+        assert_select "#announcements_content_id_1" do
+          assert_select '.publication-date time[datetime=?]', 1.days.ago.iso8601
+          assert_select '.document-type', "News story"
+        end
+        assert_select "#announcements_content_id_2" do
+          assert_select '.publication-date time[datetime=?]', 2.days.ago.iso8601
+          assert_select '.document-type', "News story"
+        end
+        assert_select "a[href^='#{announcements_path}'][href*='world_locations%5B%5D=#{@world_location.to_param}']"
       end
-      assert_select_object announcement_2
-      refute_select_object announcement_3
-      # there mey be other args and we can't guarantee the order
-      # so just specifiy the bits we care about
-      assert_select "a[href^='#{announcements_path}'][href*='world_locations%5B%5D=#{@world_location.to_param}']"
     end
   end
 
