@@ -1,29 +1,29 @@
-<% page_title @classification.name %>
+<% page_title @topical_event.name %>
 <% page_class "topical-events-show" %>
-<% atom_discovery_link_tag atom_feed_url_for(@classification), "Latest activity on #{@classification.name}" %>
+<% atom_discovery_link_tag atom_feed_url_for(@topical_event), "Latest activity on #{@topical_event.name}" %>
 
-<%= content_tag_for(:div, @classification, class: "classification #{@classification.class.name.underscore}") do %>
+<%= content_tag_for(:div, @topical_event, class: "classification #{@topical_event.class.name.underscore}") do %>
 
   <header class="block headings-block">
     <div class="inner-block floated-children">
       <%= render partial: 'shared/heading',
-                locals: { heading: "#{h(@classification.name)}#{' <span class="archived">(Archived)</span>' if @classification.archived?}".html_safe,
+                locals: { heading: "#{h(@topical_event.name)}#{' <span class="archived">(Archived)</span>' if @topical_event.archived?}".html_safe,
                           big: true, extra: true } %>
-      <% if @classification.logo_url.present? %>
+      <% if @topical_event.logo_url.present? %>
         <div class="heading-extra topical-event-logo">
           <div class="heading-inner">
-            <%= image_tag(@classification.logo_url(:s300), alt: @classification.logo_alt_text) if @classification.logo_url %>
+            <%= image_tag(@topical_event.logo_url(:s300), alt: @topical_event.logo_alt_text) if @topical_event.logo_url %>
           </div>
         </div>
       <% end %>
-      <% if @classification.organisations.any? %>
+      <% if @topical_event.organisations.any? %>
         <aside class="meta metadata-list">
           <div class="inner-heading">
             <dl>
-              <dt><%= t('document.headings.organisations', count: @classification.organisations.length) %>:</dt>
+              <dt><%= t('document.headings.organisations', count: @topical_event.organisations.length) %>:</dt>
               <dd>
                 <%= render  partial: 'organisations/organisations_name_list',
-                            locals: { organisations: @classification.organisations } %>
+                            locals: { organisations: @topical_event.organisations } %>
               </dd>
             </dl>
           </div>
@@ -36,15 +36,15 @@
     <div class="inner-block">
       <div class="page-description">
         <section class="description">
-          <%= govspeak_to_html @classification.description %>
-          <% if @classification.about_page.present? %>
+          <%= govspeak_to_html @topical_event.description %>
+          <% if @topical_event.about_page.present? %>
             <p class="read-more">
-              <%= link_to @classification.about_page.read_more_link_text, topical_event_about_pages_path(@classification) %>
+              <%= link_to @topical_event.about_page.read_more_link_text, topical_event_about_pages_path(@topical_event) %>
             </p>
           <% end %>
-          <% if @classification.social_media_accounts.any? %>
+          <% if @topical_event.social_media_accounts.any? %>
             <%= render partial: 'shared/social_media_accounts',
-                       locals: { socialable: @classification, followus: true } %>
+                       locals: { socialable: @topical_event, followus: true } %>
           <% end %>
         </section>
       </div>
@@ -60,7 +60,7 @@
         <% end %>
         <%= render partial: 'shared/recently_updated',
                    locals: { recently_updated: @recently_changed_documents,
-                           atom_url: atom_feed_url_for(@classification),
+                           atom_url: atom_feed_url_for(@topical_event),
                            extra_class: 'panel',
                            see_all_link: latest_path(topics: [@classification]),
                            documents_source: 'rummager' } %>
@@ -94,14 +94,14 @@
 
   <div class="block heading-block">
     <div class="inner-block">
-      <% if @classification.lead_organisations.any? %>
+      <% if @topical_event.lead_organisations.any? %>
         <section id="organisations" class="organisations">
           <div class="head-section">
             <h1 class="label">Who&rsquo;s involved</h1>
           </div>
           <div class="content">
             <ul>
-              <% @classification.lead_organisations.each do |organisation| %>
+              <% @topical_event.lead_organisations.each do |organisation| %>
                 <%= content_tag_for(:li, organisation, class: organisation_brand_colour_class(organisation)) do %>
                   <%= link_to organisation_path(organisation),
                         class: logo_classes(organisation: organisation, stacked: true) do %>
@@ -109,7 +109,7 @@
                   <% end %>
                 <% end %>
               <% end %>
-              <% if @classification.slug == 'first-world-war-centenary' %>
+              <% if @topical_event.slug == 'first-world-war-centenary' %>
                 <li class="non-govuk imperial-war-museums">
                   <a href="http://www.iwm.org.uk">Imperial War Museums</a>
                 </li>

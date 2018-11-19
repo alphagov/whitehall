@@ -13,7 +13,7 @@ Then(/^I can follow a link to see all documents$/) do
 end
 
 When(/^I view the list of all documents for that topical event$/) do
-  visit latest_path(topics: [@topical_event])
+  visit latest_path(topical_events: [@topical_event])
 end
 
 Then(/^I see all documents for that topical event with the most recent first$/) do
