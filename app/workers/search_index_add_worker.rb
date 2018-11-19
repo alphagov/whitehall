@@ -1,7 +1,7 @@
 class SearchIndexAddWorker < WorkerBase
   attr_reader :id, :class_name
 
-  def perform(class_name, id)
+  def perform(class_name, id, extra_metadata = nil)
     @class_name = class_name
     @id = id
 
@@ -11,7 +11,11 @@ class SearchIndexAddWorker < WorkerBase
       logger.warn("SearchIndexAddWorker: Was asked to index #{class_name} with id #{id}, but it was unindexable (#{Time.zone.now.utc}).")
     else
       index = Whitehall::SearchIndex.for(searchable_instance.rummager_index, logger: logger)
-      index.add searchable_instance.search_index
+
+      payload = searchable_instance.search_index
+      payload = payload.merge(extra_metadata) if extra_metadata.is_a? Hash
+
+      index.add(payload)
     end
   end
 

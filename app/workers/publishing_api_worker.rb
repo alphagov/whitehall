@@ -1,10 +1,11 @@
 class PublishingApiWorker < WorkerBase
   sidekiq_options queue: "publishing_api"
 
-  def perform(model_name, id, update_type = nil, locale = I18n.default_locale.to_s)
+  def perform(model_name, id, update_type = nil, locale = I18n.default_locale.to_s, extra_metadata: nil)
     model = class_for(model_name).unscoped.find_by(id: id)
     return if model.nil?
 
+    @extra_metadata = extra_metadata
     presenter = PublishingApiPresenters.presenter_for(model, update_type: update_type)
 
     I18n.with_locale(locale) do
@@ -29,7 +30,14 @@ private
   end
 
   def save_draft(payload)
-    Services.publishing_api.put_content(payload.content_id, payload.content)
+    content = payload.content
+
+    if @extra_metadata.is_a? Hash
+      content[:details] = content.fetch(:details, {})
+      content[:details][:metadata] = content[:details].fetch(:metadata, {}).merge(@extra_metadata)
+    end
+
+    Services.publishing_api.put_content(payload.content_id, content)
   end
 
   def handle_client_error(error)
