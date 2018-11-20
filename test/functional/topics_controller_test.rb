@@ -200,24 +200,6 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select_autodiscovery_link atom_feed_url_for(topic)
   end
 
-  view_test 'GET :show for atom feed has the right elements' do
-    topic = create_topic_and_stub_content_store
-    publication = create(:published_publication, topics: [topic])
-
-    get :show, params: { id: topic }, format: :atom
-
-    assert_select_atom_feed do
-      assert_select 'feed > id', 1
-      assert_select 'feed > title', 1
-      assert_select 'feed > author, feed > entry > author'
-      assert_select 'feed > updated', 1
-      assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml', topic_url(topic, format: 'atom'), 1
-      assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', topic_url(topic), 1
-
-      assert_select_atom_entries([publication])
-    end
-  end
-
   test 'GET :show has a 5 minute expiry time' do
     topic = create_topic_and_stub_content_store
     get :show, params: { id: topic }
