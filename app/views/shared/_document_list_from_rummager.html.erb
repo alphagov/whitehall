@@ -1,8 +1,10 @@
 <%
    heading ||= type.to_s.humanize
    filter_option = (heading == "Publications") ? "all" : heading.downcase
+   world_location_news ||= "0"
+   filter_type = @classification || @world_location
 %>
-<section id="<%= heading.downcase %>" class="document-block">
+<section id="<%= heading.downcase.parameterize %>" class="document-block">
   <h1 class="label"><%= heading %></h1>
   <div class="content">
     <%= render partial: "shared/list_description_for_rummager_list", locals: { heading: heading, editions: documents, documents_count: documents_count, type: type } %>
@@ -10,8 +12,9 @@
     <%-
       see_more_url = public_send(
         "#{type}_filter_path",
-        @classification,
-        publication_filter_option: filter_option
+        filter_type,
+        publication_filter_option: filter_option,
+        include_world_location_news: world_location_news
       )
     %>
     <%=
