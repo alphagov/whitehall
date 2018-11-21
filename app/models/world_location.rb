@@ -60,7 +60,11 @@ class WorldLocation < ApplicationRecord
   end
 
   def search_description
-    "Services if you're visiting, studying, working or living in #{name}. Includes information about trading with and doing business in the UK and #{name}."
+    if world_location_type == WorldLocationType::InternationalDelegation
+      "Updates, news and events from the UK government in #{name}."
+    else
+      "Services if you're visiting, studying, working or living in #{name}. Includes information about trading with and doing business in the UK and #{name}."
+    end
   end
 
   after_update :remove_from_index_if_became_inactive
