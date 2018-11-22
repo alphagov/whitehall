@@ -3,8 +3,8 @@ class LatestDocumentsFilter
 
   def self.for_subject(subject, options = {})
     case subject
-    when Classification
-      ClassificationFilter.new(subject, options)
+    when TopicalEvent
+      TopicalEventFilter.new(subject, options)
     when Organisation
       OrganisationFilter.new(subject, options)
     when WorldLocation
@@ -17,15 +17,11 @@ class LatestDocumentsFilter
     @options = options
   end
 
-  def documents
-    documents_source.page(page_number).per(page_size)
+  def documents(params = {})
+    paginate_rummager_results(search_rummager(params))
   end
 
 private
-
-  def documents_source
-    raise NotImplementedError, 'you must provide #documents_source implementation in your LatestDocumentsFilter subclass'
-  end
 
   def page_number
     options.fetch(:page, 0)
@@ -35,35 +31,43 @@ private
     options.fetch(:per_page, 40)
   end
 
-  class OrganisationFilter < LatestDocumentsFilter
-  private
+  def paginate_rummager_results(results)
+    Kaminari.paginate_array(results).page(page_number).per(page_size)
+  end
 
-    def documents_source
-      subject.published_editions
-             .in_reverse_chronological_order
-             .without_editions_of_type(CorporateInformationPage)
-             .with_translations(I18n.locale)
+  def search_rummager(params)
+    SearchRummagerService.new.fetch_related_documents(params)['results']
+  end
+
+  class OrganisationFilter < LatestDocumentsFilter
+    def documents
+      super(
+        {
+          filter_organisations: subject.slug,
+          reject_any_format: 'corporate_information_page'
+        }
+      )
     end
   end
 
-  class ClassificationFilter < LatestDocumentsFilter
-  private
-
-    def documents_source
-      subject.published_editions
-             .in_reverse_chronological_order
-             .without_editions_of_type(WorldLocationNewsArticle)
-             .with_translations(I18n.locale)
+  class TopicalEventFilter < LatestDocumentsFilter
+    def documents
+      super(
+        {
+          filter_topical_events: subject.slug,
+          reject_any_content_store_document_type: 'news_article'
+        }
+      )
     end
   end
 
   class WorldLocationFilter < LatestDocumentsFilter
-  private
-
-    def documents_source
-      subject.published_editions
-             .in_reverse_chronological_order
-             .with_translations(I18n.locale)
+    def documents
+      super(
+        {
+          filter_world_locations: subject.slug,
+        }
+      )
     end
   end
 end

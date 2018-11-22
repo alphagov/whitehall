@@ -1,0 +1,21 @@
+<ol class="document-list">
+  <% documents.each do |document| %>
+    <li class="document-row">
+      <h3><%= link_to document.title, document.link %></h3>
+      <ul class="attributes">
+        <li class="date">
+          <%= document.publication_date %>
+        </li>
+        <li class="display-type"><%= document.display_type %></li>
+
+        <% if document.organisations.present? %>
+          <li class="organisations"><%= document.organisations.html_safe %></li>
+        <% end %>
+
+        <% if document.publication_collections.present? %>
+          <li class="document-collections"><%= document.publication_collections.html_safe %></li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+</ol>

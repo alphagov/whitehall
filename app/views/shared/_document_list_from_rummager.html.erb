@@ -2,7 +2,7 @@
    heading ||= type.to_s.humanize
    filter_option = (heading == "Publications") ? "all" : heading.downcase
    world_location_news ||= "0"
-   filter_type = @classification || @world_location
+   filter_type = @classification || @world_location || @topical_event
 %>
 <section id="<%= heading.downcase.parameterize %>" class="document-block">
   <h1 class="label"><%= heading %></h1>

@@ -2,7 +2,7 @@ Feature: List of most recently published documents
   So that I can …
   As a user
   I want to be able to see the most recently published content by an
-  organisation or about a topic, topical event or world location
+  organisation, topical event or world location
 
   Scenario: Latest documents on topical event page
     Given a topical event with published documents
