@@ -256,6 +256,16 @@ class WorldLocationTest < ActiveSupport::TestCase
                    'slug' => 'hat-land' }, location.search_index)
   end
 
+  test 'search index description for a international delegation world location' do
+    international_delegation = build(:international_delegation,
+                                     name: 'UK Mission to Somewhere',
+                                     title: 'UK Mission to Somewhere',
+                                     slug: 'uk-mission-to-somewhere')
+
+    assert_equal 'Updates, news and events from the UK government in UK Mission to Somewhere.',
+                 international_delegation.search_index['description']
+  end
+
   test 'search index includes data for all active locations' do
     create(:international_delegation, name: 'hat land', mission_statement: 'helping people in hat land find out about other clothing', active: true)
     create(:international_delegation, name: 'sheep land', mission_statement: 'helping people in sheep land find out about other animals', active: false)
