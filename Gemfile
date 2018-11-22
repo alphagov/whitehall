@@ -18,9 +18,7 @@ gem 'gds-sso', '~> 13.6'
 # Use globalize 5.1, plus an unreleased change to resolve a
 # deprecation warning
 gem(
-  'globalize',
-  git: 'https://github.com/globalize/globalize.git',
-  ref: 'e946e63983d42c9ff49b39b13ffcc3ad45626dd3'
+  'globalize'
 )
 gem 'govuk_ab_testing', '~> 2.4x'
 gem 'govuk_admin_template', '~> 6.6'
