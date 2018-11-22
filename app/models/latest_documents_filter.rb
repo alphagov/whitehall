@@ -44,7 +44,7 @@ private
       super(
         {
           filter_organisations: subject.slug,
-          reject_any_format: 'corporate_information_page'
+          reject_any_format: %w[corporate_information_page organisation person]
         }
       )
     end
