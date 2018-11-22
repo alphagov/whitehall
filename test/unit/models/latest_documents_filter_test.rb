@@ -68,7 +68,7 @@ class OrganisationFilterTest < ActiveSupport::TestCase
 
     search_rummager_service_stub(
       filter_organisations: organisation.slug,
-      reject_any_format: %w[corporate_information_page organisation person]
+      reject_any_format: %w[corporate_information_page minister organisation person statistics_announcement]
     )
 
     assert_equal attributes(processed_rummager_documents), attributes(filter.documents)
