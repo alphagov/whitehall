@@ -39,18 +39,9 @@ private
     @world_location = WorldLocation.with_translations(I18n.locale).find(params[:world_location_id])
   end
 
-  def fetch_documents(additional_options = {})
-    options = search_options.merge(additional_options)
-    search_response = Whitehall.search_client.search(options)
-    search_response["results"].map { |res| RummagerDocumentPresenter.new(res) }
-  end
-
-  def search_options
-    {
-      filter_world_locations: @world_location.slug,
-      order: "-public_timestamp",
-      fields: %w[display_type title link public_timestamp content_store_document_type description]
-    }
+  def fetch_documents(filter_params = {})
+    filter_params[:filter_world_locations] = @world_location.slug
+    SearchRummagerService.new.fetch_related_documents(filter_params)
   end
 
   def announcement_document_types
