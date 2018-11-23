@@ -48,7 +48,8 @@ private
                                 minister
                                 organisation
                                 person
-                                statistics_announcement]
+                                statistics_announcement
+                                topical_event]
         }
       )
     end
