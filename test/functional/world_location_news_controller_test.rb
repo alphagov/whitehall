@@ -14,7 +14,10 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     {
       filter_world_locations: @world_location.slug,
       order: "-public_timestamp",
-      fields: %w[display_type title link public_timestamp content_store_document_type description]
+      fields: %w[
+        display_type title link public_timestamp format content_store_document_type
+        description content_id organisations document_collections
+      ]
     }
   end
 
