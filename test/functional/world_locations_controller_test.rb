@@ -10,6 +10,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
   def setup
     WorldLocationNewsPageWorker.any_instance.stubs(:perform).returns(true)
+    @rummager = stub
   end
 
   def assert_featured_editions(editions)
@@ -105,28 +106,54 @@ class WorldLocationsControllerTest < ActionController::TestCase
   end
 
   view_test "show world location generates an atom feed with entries for latest activity" do
-    world_location = create(
-      :world_location,
-      world_location_type: WorldLocationType::WorldLocation
-    )
-    pub = create(:published_publication, world_locations: [world_location], first_published_at: 1.week.ago.to_date)
-    news = create(:published_news_article, world_locations: [world_location], first_published_at: 1.day.ago)
-    get :show, params: { id: world_location }, format: :atom
-    assert_select_atom_feed do
-      assert_select_atom_entries([news, pub])
+    with_stubbed_rummager(@rummager, true) do
+      world_location = create(
+        :world_location,
+        world_location_type: WorldLocationType::WorldLocation
+      )
+      documents = [
+        { "content_store_document_type" => "news_article", "world_location" => world_location.slug, "public_timestamp" => 1.day.ago },
+        { "content_store_document_type" => "publication", "world_location" => world_location.slug, "public_timestamp" => 1.week.ago.to_date },
+      ]
+      @rummager.expects(:search).returns('results' => documents)
+
+      get :show, params: { id: world_location }, format: :atom
+
+      assert_select_atom_feed do
+        assert_select 'feed > id', 1
+        assert_select 'feed > title', 1
+        assert_select 'feed > author, feed > entry > author'
+        assert_select 'feed > updated', 1
+        assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml',
+        world_location_url(format: :atom), 1
+        assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', root_url, 1
+      end
     end
   end
 
   view_test "show international delegation generates an atom feed with entries for latest activity" do
-    world_location = create(
-      :world_location,
-      world_location_type: WorldLocationType::InternationalDelegation
-    )
-    pub = create(:published_publication, world_locations: [world_location], first_published_at: 1.week.ago.to_date)
-    news = create(:published_news_article, world_locations: [world_location], first_published_at: 1.day.ago)
-    get :show, params: { id: world_location }, format: :atom
-    assert_select_atom_feed do
-      assert_select_atom_entries([news, pub])
+    with_stubbed_rummager(@rummager, true) do
+      world_location = create(
+        :world_location,
+        world_location_type: WorldLocationType::InternationalDelegation
+      )
+      documents = [
+        { "content_store_document_type" => "news_article", "world_location" => world_location.slug, "public_timestamp" => 1.day.ago },
+        { "content_store_document_type" => "publication", "world_location" => world_location.slug, "public_timestamp" => 1.week.ago.to_date },
+      ]
+      @rummager.expects(:search).returns('results' => documents)
+
+      get :show, params: { id: world_location }, format: :atom
+
+      assert_select_atom_feed do
+        assert_select 'feed > id', 1
+        assert_select 'feed > title', 1
+        assert_select 'feed > author, feed > entry > author'
+        assert_select 'feed > updated', 1
+        assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml',
+        world_location_url(format: :atom), 1
+        assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', root_url, 1
+      end
     end
   end
 
