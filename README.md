@@ -36,7 +36,6 @@ $ bundle exec rake
 
 - [Contributing guide](CONTRIBUTING.md)
 - [CSS](docs/css.md)
-- [Draft assets](docs/draft-assets.md)
 - [Edition workflow](docs/edition_workflow.md)
 - [How to publish a finder in whitehall](docs/finders.md)
 - [Internationalisation](docs/internationalisation_guide.md)
