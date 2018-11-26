@@ -10,11 +10,9 @@ whitehall is a Ruby on Rails content management application for content publishe
 
 whitehall is a Ruby on Rails app built on a MySQL database. It is deployed in two modes: 'admin' for publishers to create and manage content and 'frontend' for rendering some content under https://www.gov.uk/government and https://www.gov.uk/world. whitehall also sends most content to the publishing-api and rummager.
 
-Assets are currently handled by whitehall. It handles uploads, virus scanning and serving of assets. There is a current project to migrate whitehall to use [Asset Manager](http://github.com/alphagov/asset-manager).
-
 ## Dependencies
 
-- [alphagov/asset-manager](http://github.com/alphagov/asset-manager): provides uploading for static files (migration in progress)
+- [alphagov/asset-manager](http://github.com/alphagov/asset-manager): provides uploading for static files
 - [alphagov/publishing-api](http://github.com/alphagov/publishing-api): documents are sent here, persisted and then requested
 - [alphagov/rummager](http://github.com/alphagov/rummager): allows documents to be indexed for searching in both finders and site search
 - [alphagov/link-checker-api](https://github.com/alphagov/link-checker-api): checks all the links in an edition on request from the edition show page.
