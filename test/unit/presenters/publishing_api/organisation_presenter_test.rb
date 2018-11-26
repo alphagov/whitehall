@@ -18,13 +18,15 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
 
   test 'presents an Organisation ready for adding to the publishing API' do
     parent_organisation = create(:organisation, name: 'Department for Stuff')
+    news_image = create(:default_news_organisation_image_data)
     organisation = create(
       :organisation,
       name: 'Organisation of Things',
       analytics_identifier: 'O123',
       parent_organisations: [parent_organisation],
       url: "https://www.gov.uk/oot",
-      important_board_members: 5
+      important_board_members: 5,
+      default_news_image: news_image,
     )
     role = create(:role, organisations: [organisation])
     public_path = Whitehall.url_maker.organisation_path(organisation)
@@ -80,6 +82,10 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
         },
         organisation_type: "other",
         social_media_links: [],
+        default_news_image: {
+          url: news_image.file.url(:s300),
+          high_resolution_url: news_image.file.url(:s960),
+        }
       },
       analytics_identifier: "O123",
     }
@@ -236,5 +242,17 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
 
     assert_equal("whitehall-frontend", presented_item.content[:rendering_app])
     assert_equal([{ path: "/courts-tribunals/court-at-mid-wicket", type: "exact" }], presented_item.content[:routes])
+  end
+
+  test 'present default news image url only when image is SVG' do
+    news_image = create(
+      :default_news_organisation_image_data,
+      file: File.open(File.join(Rails.root, 'test', 'fixtures', 'images', 'test-svg.svg'))
+    )
+    organisation = create(:organisation, default_news_image: news_image)
+    presented_item = present(organisation)
+    expected_hash = { url: news_image.file.url }
+
+    assert_equal expected_hash, presented_item.content[:details][:default_news_image]
   end
 end
