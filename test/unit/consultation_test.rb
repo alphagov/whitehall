@@ -120,9 +120,10 @@ class ConsultationTest < ActiveSupport::TestCase
     assert_same_elements [closed_with_outcome], Consultation.responded
   end
 
-  test ".awaiting_response includes closed consultations with no outcome" do
+  test ".awaiting_response includes published closed consultations with no outcome" do
     FactoryBot.create(:consultation_with_outcome)
     closed_without_outcome = FactoryBot.create(:closed_consultation)
+    FactoryBot.create(:closed_consultation, :superseded)
     FactoryBot.create(:open_consultation)
 
     assert_same_elements [closed_without_outcome], Consultation.awaiting_response

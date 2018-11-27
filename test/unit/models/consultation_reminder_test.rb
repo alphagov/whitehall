@@ -159,6 +159,7 @@ class ConsultationReminderTest < ActiveSupport::TestCase
     author = FactoryBot.create(:author)
     consultation = FactoryBot.create(
       :consultation,
+      :published,
       opening_at: 10.months.ago,
       closing_at: Time.new(2018, 3, 6, 23, 45, 0),
     )
@@ -172,6 +173,6 @@ class ConsultationReminderTest < ActiveSupport::TestCase
 
   def create_consultation(closing_at:, responded: false)
     type = responded ? :consultation_with_outcome : :consultation
-    FactoryBot.create(type, opening_at: 10.months.ago, closing_at: closing_at)
+    FactoryBot.create(type, :published, opening_at: 10.months.ago, closing_at: closing_at)
   end
 end
