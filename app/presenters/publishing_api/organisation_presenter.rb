@@ -332,7 +332,7 @@ module PublishingApi
         },
         summary: Whitehall::GovspeakRenderer.new.govspeak_to_html(offsite_link.summary),
         public_updated_at: offsite_link.date,
-        document_type: offsite_link.humanized_link_type
+        document_type: offsite_link.display_type
       }
     end
 

@@ -255,4 +255,18 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
 
     assert_equal expected_hash, presented_item.content[:details][:default_news_image]
   end
+
+  test 'presents the display type of an offsite link' do
+    organisation = create(
+      :court,
+      name: 'An organisation with offsite links'
+    )
+    offsite_link = create(:offsite_link, link_type: "content_publisher_news_story")
+    feature = create(:feature, document: nil, offsite_link: offsite_link)
+    create(:feature_list, features: [feature], featurable: organisation)
+    presented_item = present(organisation)
+    document_type = presented_item.content.dig(:details, :ordered_featured_documents, 0, :document_type)
+
+    assert_equal document_type, offsite_link.display_type
+  end
 end
