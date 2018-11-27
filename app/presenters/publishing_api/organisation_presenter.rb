@@ -73,7 +73,7 @@ module PublishingApi
     end
 
     def details
-      {
+      details = {
         acronym: acronym,
         body: summary,
         brand: brand,
@@ -100,6 +100,8 @@ module PublishingApi
         organisation_type: organisation_type,
         social_media_links: social_media_links,
       }
+      details[:default_news_image] = default_news_image if default_news_image
+      details
     end
 
     def acronym
@@ -494,6 +496,25 @@ module PublishingApi
 
     def roles_links
       item.roles.distinct.pluck(:content_id)
+    end
+
+    def default_news_image
+      return unless item.default_news_image
+      return { url: default_news_image_url } if default_news_image_is_svg?
+
+      {
+        url: default_news_image_url(:s300),
+        high_resolution_url: default_news_image_url(:s960),
+      }
+    end
+
+    def default_news_image_url(size = nil)
+      size ? item.default_news_image.file.url(size) : item.default_news_image.file.url
+    end
+
+    def default_news_image_is_svg?
+      content_type = item.default_news_image.file.content_type
+      content_type && content_type =~ /svg/
     end
   end
 end
