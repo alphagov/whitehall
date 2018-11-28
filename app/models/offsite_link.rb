@@ -1,12 +1,26 @@
 class OffsiteLink < ApplicationRecord
   module LinkTypes
     def self.all
-      @all ||= %w(alert blog_post campaign careers manual nhs_content service)
+      @all ||= %w[
+        alert
+        blog_post
+        campaign
+        careers
+        manual
+        nhs_content
+        service
+        content_publisher_news_story
+        content_publisher_press_release
+      ]
     end
 
     def self.humanize(link_type)
       if link_type == 'nhs_content'
         'NHS content'
+      elsif link_type == 'content_publisher_news_story'
+        'News story (Content Publisher)'
+      elsif link_type == 'content_publisher_press_release'
+        'Press release (Content Publisher)'
       else
         link_type.humanize
       end
@@ -14,6 +28,16 @@ class OffsiteLink < ApplicationRecord
 
     def self.as_select_options
       all.map { |type| [humanize(type), type] }
+    end
+
+    def self.display_type(link_type)
+      if link_type == 'content_publisher_news_story'
+        'News story'
+      elsif link_type == 'content_publisher_press_release'
+        'Press release'
+      else
+        humanize(link_type)
+      end
     end
   end
 
@@ -40,6 +64,10 @@ class OffsiteLink < ApplicationRecord
 
   def humanized_link_type
     LinkTypes.humanize(link_type)
+  end
+
+  def display_type
+    LinkTypes.display_type(link_type)
   end
 
   def to_s

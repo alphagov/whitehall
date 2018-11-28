@@ -105,6 +105,16 @@ class OffsiteLinkTest < ActiveSupport::TestCase
     assert offsite_link.valid?
   end
 
+  test 'should be valid if the type is content_publisher_news_story' do
+    offsite_link = build(:offsite_link, link_type: 'content_publisher_news_story')
+    assert offsite_link.valid?
+  end
+
+  test 'should be valid if the type is content_publisher_press_release' do
+    offsite_link = build(:offsite_link, link_type: 'content_publisher_press_release')
+    assert offsite_link.valid?
+  end
+
   test "#destroy also destroys 'featured offsite link' associations" do
     offsite_link = create(:offsite_link)
     feature = create(:feature, offsite_link: offsite_link)
