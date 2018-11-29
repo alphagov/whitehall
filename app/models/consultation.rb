@@ -29,7 +29,7 @@ class Consultation < Publicationesque
   scope :opened_at_or_after, ->(time) { open.where('opening_at >= ?', time) }
   scope :upcoming, -> { where('opening_at > ?', Time.zone.now) }
   scope :responded, -> { joins(:outcome) }
-  scope :awaiting_response, -> { closed.where.not(id: responded.pluck(:id)) }
+  scope :awaiting_response, -> { published.closed.where.not(id: responded.pluck(:id)) }
 
   add_trait do
     def process_associations_after_save(edition)
