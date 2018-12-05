@@ -13,7 +13,7 @@ class EditionService
       ActiveRecord::Base.transaction do
         prepare_edition
         fire_transition!
-        update_publishing_api! unless is_whitehall_corp_info_page?
+        update_publishing_api!
       end
       notify!
       true
@@ -56,6 +56,8 @@ private
   end
 
   def update_publishing_api!
+    return if is_whitehall_corp_info_page?
+
     ServiceListeners::PublishingApiPusher
       .new(edition.reload)
       .push(event: verb, options: options)
