@@ -38,7 +38,7 @@ private
 
   def subject_param
     supported_subjects.find do |param_name|
-      params[param_name].present?
+      params[param_name].present? && params[param_name].is_a?(Array)
     end
   end
 
