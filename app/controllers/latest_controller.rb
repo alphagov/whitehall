@@ -29,16 +29,16 @@ private
   end
 
   def page_params
-    { page: params.fetch(:page, 0) }
+    { page: filtered_params.fetch(:page, 0) }
   end
 
   def subject_id
-    params[subject_param].first
+    filtered_params[subject_param].first
   end
 
   def subject_param
     supported_subjects.find do |param_name|
-      params[param_name].present? && params[param_name].is_a?(Array)
+      filtered_params[param_name].present? && filtered_params[param_name].is_a?(Array)
     end
   end
 
@@ -48,5 +48,9 @@ private
 
   def redirect_unless_subject
     redirect_to atom_feed_path unless subject
+  end
+
+  def filtered_params
+    params.permit(:page, departments: [], topical_events: [], world_locations: [])
   end
 end
