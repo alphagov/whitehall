@@ -171,4 +171,34 @@ namespace :export do
       break # Can't do much about this, so just break
     end
   end
+
+  desc "Export command papers"
+  task command_papers: :environment do
+    puts 'Fetching command papers...'
+    path = "tmp/command-papers-#{Time.now.to_i}.csv"
+    puts "Generating CSV in #{path}..."
+
+    CSV.open(path, 'w') do |csv|
+      csv << [
+        'Title',
+        'Command Paper Number',
+        'URL'
+      ]
+
+      Attachment.where("command_paper_number <> ''").all.each do |file|
+        begin
+          url = file&.attachable.try(:search_link)
+
+          csv << [
+            file.title,
+            file.command_paper_number,
+            url ? "https://gov.uk#{url}" : file.url
+          ]
+        rescue StandardError => e
+          puts e
+          next
+        end
+      end
+    end
+  end
 end
