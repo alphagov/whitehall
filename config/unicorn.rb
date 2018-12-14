@@ -2,7 +2,6 @@ require "govuk_app_config/govuk_unicorn"
 GovukUnicorn.configure(self)
 
 working_directory File.dirname(File.dirname(__FILE__))
-worker_processes Integer(ENV["UNICORN_WORKER_PROCESSES"] || 4)
 
 # Preload the entire app
 preload_app true
