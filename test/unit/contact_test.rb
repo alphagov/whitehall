@@ -124,4 +124,17 @@ class ContactTest < ActiveSupport::TestCase
       contact.update_attributes(title: "Changed contact title")
     end
   end
+
+  test "creating a new contact republishes the organisation" do
+    test_object = create(:organisation)
+    Whitehall::PublishingApi.expects(:republish_async).with(test_object).once
+    create(:contact, contactable: test_object)
+  end
+
+  test "deleting a contact republishes the organisation" do
+    test_object = create(:organisation)
+    contact = create(:contact, contactable: test_object)
+    Whitehall::PublishingApi.expects(:republish_async).with(test_object).once
+    contact.destroy
+  end
 end
