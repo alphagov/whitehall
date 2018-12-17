@@ -16,12 +16,19 @@ class Contact < ApplicationRecord
 
   after_update :republish_dependent_editions
 
+  after_create :republish_organisation_to_publishing_api
+  after_destroy :republish_organisation_to_publishing_api
+
   include TranslatableModel
   translates :title, :comments, :recipient, :street_address, :locality,
              :region, :email, :contact_form_url
 
   extend HomePageList::ContentItem
   is_stored_on_home_page_lists
+
+  def republish_organisation_to_publishing_api
+    Whitehall::PublishingApi.republish_async(contactable) if contactable.is_a?(Organisation)
+  end
 
   def contactable_name
     if contactable.is_a? WorldwideOffice
