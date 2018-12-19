@@ -40,7 +40,7 @@ class TaxonomyTagFormTest < ActiveSupport::TestCase
     assert_equal(form.previous_version, 1)
   end
 
-  test '#invisible_draft_taxons returns all invisible draft taxons tagged to the content item' do
+  test '#invisible_taxons returns all invisible draft taxons tagged to the content item' do
     content_id = "64aadc14-9bca-40d9-abb6-4f21f9792a05"
 
     publishing_api_has_links(
