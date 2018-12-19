@@ -114,7 +114,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
 
     get :edit, params: { edition_id: @edition }
 
-    assert_select "input[name='taxonomy_tag_form[invisible_draft_taxons]'][value='invisible_draft_taxon_1_content_id,invisible_draft_taxon_2_content_id']"
+    assert_select "input[name='taxonomy_tag_form[invisible_taxons]'][value='invisible_draft_taxon_1_content_id,invisible_draft_taxon_2_content_id']"
   end
 
   def assert_tracking_attributes(element:, track_label:)
