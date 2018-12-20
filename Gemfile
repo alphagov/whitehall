@@ -50,7 +50,7 @@ gem 'responders', '~> 2.4'
 gem 'rinku', require: 'rails_rinku'
 gem 'ruby-progressbar', require: false
 gem 'sass', '~> 3.7'
-gem 'sassc-rails', '~> 2.0'
+gem 'sassc-rails', '~> 2.1'
 gem 'shared_mustache', '~> 1.0.0'
 gem 'sidekiq-scheduler', '~> 3.0'
 gem 'slimmer', '~> 13.0'
