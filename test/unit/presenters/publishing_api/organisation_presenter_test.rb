@@ -28,6 +28,11 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       important_board_members: 5,
       default_news_image: news_image,
     )
+    create(
+      :about_corporate_information_page,
+      organisation: organisation,
+      summary: "This org is a thing!"
+    )
     role = create(:role, organisations: [organisation])
     public_path = Whitehall.url_maker.organisation_path(organisation)
     public_atom_path = "#{public_path}.atom"
@@ -35,7 +40,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     expected_hash = {
       base_path: public_path,
       title: "Organisation of Things",
-      description: nil,
+      description: "This org is a thing! Organisation of Things works with the Department for Stuff .",
       schema_name: 'organisation',
       document_type: 'organisation',
       locale: 'en',
@@ -50,7 +55,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       update_type: "major",
       details: {
         acronym: nil,
-        body: govspeak_to_html("\nOrganisation of Things works with the <a class=\"brand__color\" href=\"/government/organisations/department-for-stuff\">Department for Stuff</a>."),
+        body: govspeak_to_html("This org is a thing!\n\nOrganisation of Things works with the <a class=\"brand__color\" href=\"/government/organisations/department-for-stuff\">Department for Stuff</a>."),
         brand: nil,
         logo: {
           formatted_title: "Organisation<br/>of<br/>Things",

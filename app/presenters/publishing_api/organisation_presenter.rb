@@ -28,7 +28,7 @@ module PublishingApi
       ).base_attributes
 
       content.merge!(
-        description: nil,
+        description: text_summary,
         details: details,
         document_type: item.class.name.underscore,
         public_updated_at: item.updated_at,
@@ -75,7 +75,7 @@ module PublishingApi
     def details
       details = {
         acronym: acronym,
-        body: summary,
+        body: html_summary,
         brand: brand,
         logo: {
           formatted_title: formatted_title,
@@ -108,14 +108,20 @@ module PublishingApi
       item.acronym
     end
 
-    def summary
-      text = if item.court_or_hmcts_tribunal?
-               item.body
-             else
-               "#{item.summary}#{parent_child_relationships_text}"
-             end
+    def govspeak_summary
+      if item.court_or_hmcts_tribunal?
+        item.body
+      else
+        "#{item.summary}#{parent_child_relationships_text}"
+      end
+    end
 
-      Whitehall::GovspeakRenderer.new.govspeak_to_html(text)
+    def html_summary
+      Whitehall::GovspeakRenderer.new.govspeak_to_html(govspeak_summary)
+    end
+
+    def text_summary
+      Govspeak::Document.new(govspeak_summary).to_text
     end
 
     def parent_child_relationships_text
