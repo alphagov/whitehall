@@ -11,6 +11,14 @@ Metrics/BlockLength:
 Layout/EmptyLinesAroundArguments:
   Enabled: false
 
+# This suggests awkward alignment, so disable it
+Layout/RescueEnsureAlignment:
+  Exclude:
+    - 'app/models/email_signup/feed_url_validator.rb'
+    - 'app/models/unpublishing.rb'
+    - 'app/presenters/detailed_guide_presenter.rb'
+    - 'app/presenters/detailed_guide_presenter.rb'
+
 Style/EvalWithLocation:
   Exclude:
     - 'app/helpers/admin/edition_routes_helper.rb'
