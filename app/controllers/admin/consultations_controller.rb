@@ -15,7 +15,8 @@ private
     # update). This is because consultation_participation objects are not
     # (yet) versioned with their editions like attachments are.
     return unless edition_params[:consultation_participation_attributes] &&
-        edition_params[:consultation_participation_attributes][:consultation_response_form_attributes]
+      edition_params[:consultation_participation_attributes][:consultation_response_form_attributes]
+
     response_form_params = edition_params[:consultation_participation_attributes][:consultation_response_form_attributes]
 
     if response_form_params[:id]

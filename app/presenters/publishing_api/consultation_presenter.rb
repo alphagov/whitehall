@@ -233,7 +233,7 @@ module PublishingApi
 
       def call
         return {} unless consultation.closed? &&
-            consultation.public_feedback.present?
+          consultation.public_feedback.present?
 
         {
           public_feedback_detail: detail,
@@ -284,8 +284,8 @@ module PublishingApi
 
       def call
         return {} if consultation.external? ||
-            !consultation.open? ||
-            !consultation.has_consultation_participation?
+          !consultation.open? ||
+          !consultation.has_consultation_participation?
 
         {
           ways_to_respond: {
