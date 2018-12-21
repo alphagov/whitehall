@@ -20,8 +20,6 @@ Whitehall.edition_services.tap do |coordinator|
   end
 
   coordinator.subscribe(/^(force_publish|publish|unwithdraw)$/) do |_event, edition, options|
-    # handling edition's dependency on other content
-    edition.republish_dependent_editions
     ServiceListeners::EditionDependenciesPopulator
       .new(edition)
       .populate!
@@ -29,6 +27,9 @@ Whitehall.edition_services.tap do |coordinator|
     ServiceListeners::AttachmentDependencyPopulator
       .new(edition)
       .populate!
+
+    # handling edition's dependency on other content
+    edition.republish_dependent_editions
 
     ServiceListeners::AnnouncementClearer
       .new(edition)
