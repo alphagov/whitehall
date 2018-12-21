@@ -101,20 +101,20 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
     refute_select "input[value='#{child_taxon_content_id}'][checked='checked']"
   end
 
-  view_test 'keep invisible draft taxon mappings' do
+  view_test 'keep invisible taxon mappings' do
     stub_publishing_api_links_with_taxons(
       @edition.content_id,
       [
         child_taxon_content_id,
         draft_taxon_1_content_id,
-        "invisible_draft_taxon_1_content_id",
-        "invisible_draft_taxon_2_content_id",
+        "invisible_taxon_1_content_id",
+        "invisible_taxon_2_content_id",
       ]
     )
 
     get :edit, params: { edition_id: @edition }
 
-    assert_select "input[name='taxonomy_tag_form[invisible_taxons]'][value='invisible_draft_taxon_1_content_id,invisible_draft_taxon_2_content_id']"
+    assert_select "input[name='taxonomy_tag_form[invisible_taxons]'][value='invisible_taxon_1_content_id,invisible_taxon_2_content_id']"
   end
 
   def assert_tracking_attributes(element:, track_label:)
@@ -152,14 +152,14 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'should post invisible draft taxons to publishing-api' do
+  test 'should post invisible taxons to publishing-api' do
     stub_publishing_api_expanded_links_with_taxons(@edition.content_id, [])
 
     put :update, params: {
       edition_id: @edition,
       taxonomy_tag_form: {
         taxons: [child_taxon_content_id],
-        invisible_taxons: "invisible_draft_taxon_1_content_id",
+        invisible_taxons: "invisible_taxon_1_content_id",
         previous_version: 1
       }
     }
@@ -169,7 +169,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
       links: {
         taxons: [
           child_taxon_content_id,
-          "invisible_draft_taxon_1_content_id"
+          "invisible_taxon_1_content_id"
         ]
       },
       previous_version: "1"
