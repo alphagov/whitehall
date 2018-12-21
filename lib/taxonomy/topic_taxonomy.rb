@@ -14,7 +14,9 @@ module Taxonomy
     end
 
     def visible_taxons
-      @visible_taxons = all_taxons.select(&:visible_to_departmental_editors)
+      @visible_taxons = branches.select(
+        &:visible_to_departmental_editors
+      ).flat_map(&:taxon_list)
     end
 
   private
