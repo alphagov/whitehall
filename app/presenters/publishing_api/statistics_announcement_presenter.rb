@@ -64,6 +64,7 @@ module PublishingApi
 
     def cancelled_at
       return nil unless item.cancelled_at
+
       item.cancelled_at.to_datetime
     end
   end

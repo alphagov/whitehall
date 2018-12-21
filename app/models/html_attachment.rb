@@ -76,6 +76,7 @@ class HtmlAttachment < Attachment
 
   def should_generate_new_friendly_id?
     return false unless sluggable_locale?
+
     slug.nil? || attachable.nil? || !attachable.document.published?
   end
 

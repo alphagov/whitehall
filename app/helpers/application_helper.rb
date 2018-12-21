@@ -49,6 +49,7 @@ module ApplicationHelper
 
   def link_to_attachment(attachment, options = {})
     return unless attachment
+
     name = attachment.name_for_link
     name = truncate(name) if options[:truncate]
     link_to name, attachment.url(options)
@@ -118,6 +119,7 @@ module ApplicationHelper
 
   def render_list_of_roles(roles, class_name = "ministerial_roles")
     raise ArgumentError, "please supply the content of the list item" unless block_given?
+
     content_tag(:ul, class: class_name) do
       roles.each do |role|
         li = content_tag_for(:li, role) {

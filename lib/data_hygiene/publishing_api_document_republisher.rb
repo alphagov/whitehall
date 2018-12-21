@@ -12,6 +12,7 @@ module DataHygiene
       unless edition_class.is_a?(Class) && edition_class < Edition # http://ruby-doc.org/core-2.3.0/Module.html#method-i-3C
         raise ArgumentError, "The argument to PublishingApiDocumentRepublisher must be a subclass of Edition"
       end
+
       @edition_class = edition_class
       @logger = logger
       @queued = 0

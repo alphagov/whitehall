@@ -39,6 +39,7 @@ class TakePartPage < ApplicationRecord
 
   def self.reorder!(ids_in_new_ordering)
     return if ids_in_new_ordering.empty?
+
     ids_in_new_ordering = ids_in_new_ordering.map(&:to_s)
     TakePartPage.transaction do
       TakePartPage.where(id: ids_in_new_ordering).each do |page|

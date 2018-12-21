@@ -276,6 +276,7 @@ private
 
   def delete_absent_edition_organisations
     return if edition_params.empty?
+
     if edition_params[:lead_organisation_ids]
       edition_params[:lead_organisation_ids] = edition_params[:lead_organisation_ids].reject(&:blank?)
     end
@@ -332,6 +333,7 @@ private
 
   def clean_edition_parameters
     return if edition_params.empty?
+
     edition_params[:title].strip! if edition_params[:title]
     edition_params.delete(:primary_locale) if edition_params[:primary_locale].blank?
     edition_params[:policy_content_ids].reject!(&:blank?) if edition_params[:policy_content_ids]
@@ -380,6 +382,7 @@ private
 
   def deduplicate_specialist_sectors
     return if edition_params.empty?
+
     if edition_params[:secondary_specialist_sector_tags] && edition_params[:primary_specialist_sector_tag]
       edition_params[:secondary_specialist_sector_tags] -= [edition_params[:primary_specialist_sector_tag]]
     end

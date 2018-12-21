@@ -16,6 +16,7 @@ class SpecialistTagFinder
   def topics
     @topics ||= begin
       return [] unless edition_content_item
+
       Array(edition_content_item["links"]["topics"])
     end
   end
@@ -28,6 +29,7 @@ class SpecialistTagFinder
     # in the frontend when rendering an Edition's breadcrumb.
     @top_level_topic ||= begin
       return unless edition_content_item
+
       parent = Array(edition_content_item["links"]["parent"])
       return unless parent.any?
 

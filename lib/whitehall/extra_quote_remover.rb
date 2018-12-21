@@ -5,6 +5,7 @@ module Whitehall
 
     def remove(source)
       return nil if source.nil?
+
       source.gsub(/^>[ \t]*[#{QUOTE}]*([^ \t\n].+?)[#{QUOTE}]*[ \t]*(#{LINE_BREAK}?)$/, '> \1\2')
     end
   end

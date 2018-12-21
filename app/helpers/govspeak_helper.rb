@@ -78,6 +78,7 @@ module GovspeakHelper
         headers << { header: header, children: [] }
       elsif header.level == 3
         raise OrphanedHeadingError.new(header.text) if headers.none?
+
         headers.last[:children] << header
       end
     end
@@ -139,6 +140,7 @@ private
 
   def render_embedded_contacts(govspeak, heading_tag)
     return govspeak if govspeak.blank?
+
     heading_tag ||= 'h3'
     govspeak.gsub(Govspeak::EmbeddedContentPatterns::CONTACT) do
       if (contact = Contact.find_by(id: $1))
@@ -151,6 +153,7 @@ private
 
   def render_embedded_fractions(govspeak)
     return govspeak if govspeak.blank?
+
     govspeak.gsub(GovspeakHelper::FRACTION_REGEXP) do |_match|
       if $1.present? && $2.present?
         render(partial: 'shared/govspeak_fractions', formats: [:html], locals: { numerator: $1, denominator: $2 })

@@ -90,6 +90,7 @@ module TaxonomyHelper
     unless store.is_a?(Whitehall::NotQuiteAsFakeSearch::Store)
       raise "Not a NotQuiteAsFakeSearch Datastore"
     end
+
     document = store.delete(search_link, index_name)
     store.add([document.merge('part_of_taxonomy_tree' => taxon_ids)], index_name)
   end

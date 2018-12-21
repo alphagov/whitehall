@@ -6,6 +6,7 @@ module Govspeak
 
     def contacts
       return [] if @govspeak.blank?
+
       # scan yields an array of capture groups for each match
       # so "[Contact:1] is now [Contact:2]" => [["1"], ["2"]]
       @govspeak.scan(EmbeddedContentPatterns::CONTACT).map { |capture|

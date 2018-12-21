@@ -8,6 +8,7 @@ module ServiceListeners
 
     def populate!
       return unless edition.respond_to?(:html_attachments)
+
       edition.html_attachments.each do |attachment|
         extractor = Govspeak::ContactsExtractor.new(attachment.govspeak_content_body)
         extractor.contacts.each do |contact|

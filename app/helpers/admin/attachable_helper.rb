@@ -14,6 +14,7 @@ module Admin::AttachableHelper
 
   def attachment_action_fields(fields, data_object_name = :attachment_data)
     return if fields.object.new_record?
+
     keep_destroy_or_replace =
       if fields.object[:_destroy].present? && fields.object[:_destroy] == '1'
         'destroy'
@@ -31,6 +32,7 @@ module Admin::AttachableHelper
 
   def replacement_attachment_data_fields(fields)
     return if fields.object.new_record?
+
     fields.fields_for(:attachment_data, include_id: false) do |attachment_data_fields|
       contents = [
         attachment_data_fields.hidden_field(:to_replace_id, value: attachment_data_fields.object.to_replace_id || attachment_data_fields.object.id),
@@ -76,6 +78,7 @@ module Admin::AttachableHelper
 
   def attachment_note(model_name)
     return "Attachments added to a #{model_name} will appear automatically." if is_publication?(model_name) || is_consultation?(model_name)
+
     "Attachments need to be referenced in the body markdown to appear in your document."
   end
 end

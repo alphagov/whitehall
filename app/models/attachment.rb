@@ -85,6 +85,7 @@ class Attachment < ApplicationRecord
 
   def rtl_locale?
     return false if locale.blank?
+
     Locale.new(locale).rtl?
   end
 

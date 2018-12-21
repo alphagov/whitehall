@@ -77,6 +77,7 @@ module Whitehall
       if model_instance.class < Edition
         raise ArgumentError, "This method does not support Editions: call republish_document_async with the Document this Edition belongs to"
       end
+
       push_live(model_instance, 'republish')
     end
 
@@ -84,6 +85,7 @@ module Whitehall
       if model_instance.class < Edition
         raise ArgumentError, "This method does not support Editions"
       end
+
       push_live(model_instance, 'republish', 'bulk_republishing')
     end
 

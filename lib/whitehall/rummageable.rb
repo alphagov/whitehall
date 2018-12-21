@@ -63,6 +63,7 @@ module Whitehall
           rescue RestClient::RequestFailed, RestClient::RequestTimeout, RestClient::ServerBrokeConnection => e
             @logger.warn e.message
             raise if @attempts == i + 1
+
             @logger.info 'Retrying...'
             sleep(@retry_delay) if @retry_delay
           end

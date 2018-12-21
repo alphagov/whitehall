@@ -20,6 +20,7 @@ class HomePageList < ApplicationRecord
     name = opts[:called]
     build_if_missing = opts.has_key?(:build_if_missing) ? opts[:build_if_missing] : true
     raise ArgumentError, "Must supply owned_by: and called: options" if owner.nil? || name.nil?
+
     scoping = where(owner_id: owner.id, owner_type: owner.class.to_s, name: name)
     if (list = scoping.first)
       list
@@ -49,6 +50,7 @@ class HomePageList < ApplicationRecord
   def reorder_items!(items_in_order)
     persist_if_required
     return if items_in_order.empty?
+
     HomePageListItem.transaction do
       home_page_list_items.each do |home_page_list_item|
         new_ordering = items_in_order.index(home_page_list_item.item)
