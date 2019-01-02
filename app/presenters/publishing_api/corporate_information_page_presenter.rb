@@ -121,7 +121,7 @@ module PublishingApi
 
       def call
         return {} unless corporate_information_page.about_page? &&
-            organisation_has_any_transparency_pages?
+          organisation_has_any_transparency_pages?
 
         {
           corporate_information_groups: corporate_information_groups
@@ -279,7 +279,7 @@ module PublishingApi
 
       def call
         return {} unless corporate_information_page.about_page? &&
-            pages.present?
+          pages.present?
 
         {
           corporate_information_pages: pages,

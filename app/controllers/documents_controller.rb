@@ -65,6 +65,7 @@ private
 
   def find_document_or_edition_for_preview
     return unless current_user_can_preview?
+
     document = document_class.with_translations(I18n.locale).find(params[:preview])
     if can_preview?(document)
       expires_now

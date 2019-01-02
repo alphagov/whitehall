@@ -76,6 +76,7 @@ private
 
   def as_percentage(count, total = 100)
     return 0 unless total.positive?
+
     ((count.to_f / total.to_f) * 100).round(2)
   end
 end

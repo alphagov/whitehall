@@ -32,6 +32,7 @@ module Whitehall::Authority::Rules
 
     def can?(action)
       return false unless valid_action?(action)
+
       if subject.is_a?(Class)
         can_with_a_class?(action)
       else

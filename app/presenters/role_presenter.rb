@@ -19,6 +19,7 @@ class RolePresenter < Whitehall::Decorators::Decorator
 
   def announcements
     return [] unless ministerial?
+
     announcements =
       model.published_speeches.limit(10).map { |s| SpeechPresenter.new(s, context) } +
       model.published_news_articles.limit(10).map { |na| NewsArticlePresenter.new(na, context) }

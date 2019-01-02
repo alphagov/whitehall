@@ -31,6 +31,7 @@ class AssetManagerAttachmentSetUploadedToWorker < WorkerBase
       # generated SQL only checks if the 'attachment_data_id' is
       # nil.
       next unless attachment_data
+
       if attachment_data.path == legacy_url_path
         found = true
         attachment_data.uploaded_to_asset_manager!

@@ -79,6 +79,7 @@ private
 
   def remove_blank_parameters
     return if params[model_name][:policy_content_ids].blank?
+
     params[model_name][:policy_content_ids].reject!(&:blank?)
   end
 end

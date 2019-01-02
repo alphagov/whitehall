@@ -8,6 +8,7 @@ module ServiceListeners
     private_class_method def self.update_attachable!(attachable)
       Attachment.where(attachable: attachable.attachables).find_each do |attachment|
         next unless attachment.attachment_data
+
         update_attachment_data! attachment.attachment_data
       end
     end

@@ -24,6 +24,7 @@ private
 
   def update_ordering(key, column)
     return unless params.include?(key)
+
     params[key].keys.each do |id|
       Role.where(id: id).update_all(
         column => params[key][id.to_s]["ordering"],
@@ -33,6 +34,7 @@ private
 
   def update_organisation_ordering
     return unless params.include?(:organisation)
+
     params[:organisation].each_pair do |id, org_params|
       Organisation.find(id).update_attributes(
         ministerial_ordering: org_params["ordering"]

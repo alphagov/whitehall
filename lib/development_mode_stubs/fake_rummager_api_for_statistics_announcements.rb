@@ -3,6 +3,7 @@ module DevelopmentModeStubs
     class << self
       def advanced_search(params = {})
         raise ArgumentError.new(":page and :per_page are required") unless params[:page].present? && params[:per_page].present?
+
         raise_unless_values_are_strings(params)
 
         scope = ::StatisticsAnnouncement.joins(:current_release_date).order("statistics_announcement_dates.release_date ASC")

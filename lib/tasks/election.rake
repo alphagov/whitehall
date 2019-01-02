@@ -48,6 +48,7 @@ namespace :election do
       end
       appointments.each do |appointment|
         next if appointment.role_id == prime_ministerial_role_id
+
         print "."
         appointment.update_attribute(:ended_at, end_date)
       end

@@ -33,6 +33,7 @@ class CsvFileFromPublicHost
   def initialize(response)
     csv_file = begin
       raise ConnectionError unless response.status == 206
+
       body = response.body
       set_encoding!(body)
       body

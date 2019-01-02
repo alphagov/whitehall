@@ -71,6 +71,7 @@ private
 
   def can_handle_format?(format)
     return true if format == Mime[:html]
+
     format && self.class.acceptable_formats.fetch(params[:action].to_sym, []).include?(format.to_sym)
   end
 
@@ -86,6 +87,7 @@ private
 
   def search_backend(filter_type)
     return Whitehall::DocumentFilter::Mysql unless Locale.current.english?
+
     if filter_type == "announcements"
       Whitehall::DocumentFilter::SearchRummager
     else

@@ -67,6 +67,7 @@ private
 
   def broken_links(edition)
     return [] unless edition.link_check_reports.present?
+
     edition.link_check_reports.last.broken_links.map(&:uri)
   end
 

@@ -126,6 +126,7 @@ class DocumentListExportPresenter
 
   def attachment_types
     return unless edition.respond_to? :attachments
+
     edition.attachments.map do |att|
       case att
       when FileAttachment

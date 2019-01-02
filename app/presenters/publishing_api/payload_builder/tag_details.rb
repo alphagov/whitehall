@@ -28,6 +28,7 @@ module PublishingApi
 
       def policies
         return [] unless item.can_be_related_to_policies?
+
         item.policies.map(&:slug)
       end
 

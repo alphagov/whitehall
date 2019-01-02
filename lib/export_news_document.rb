@@ -69,6 +69,7 @@ private
 
   def organisation(organisation)
     return unless organisation
+
     organisation
       .as_json(only: %i[id content_id name])
       .merge(type: "Organisation")
@@ -86,6 +87,7 @@ private
 
   def unpublishing(edition)
     return unless edition.unpublishing
+
     edition.unpublishing
       .as_json(only: %i[explanation alternative_url redirect])
       .merge(reason: edition.unpublishing.unpublishing_reason.name)

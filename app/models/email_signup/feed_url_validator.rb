@@ -179,6 +179,7 @@ class EmailSignup
       if !%w(organisation policy topic topical_event person role world_location).include?(feed_type)
         raise ArgumentError.new("Can't process a feed for unknown type '#{feed_type}'")
       end
+
       Kernel.const_get feed_type.camelize
     end
 

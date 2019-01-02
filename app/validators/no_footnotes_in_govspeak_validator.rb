@@ -1,5 +1,5 @@
 class NoFootnotesInGovspeakValidator < ActiveModel::Validator
-  FOOTNOTE_TAG_MATCHER = /(\[\^.*\])/
+  FOOTNOTE_TAG_MATCHER = /(\[\^.*\])/.freeze
 
   def initialize(opts = {})
     @attributes = opts[:attributes] || [opts[:attribute]]

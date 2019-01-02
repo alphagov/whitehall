@@ -50,6 +50,7 @@ module PublishingApi
 
     def maybe_add_national_applicability(content)
       return content unless item.nation_inapplicabilities.any?
+
       content.merge(national_applicability: item.national_applicability)
     end
 

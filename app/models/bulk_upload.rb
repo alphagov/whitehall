@@ -112,6 +112,7 @@ private
 
     def store_temporarily
       return if @zip_file.nil?
+
       @temp_location = File.join(self.temp_dir, self.zip_file.original_filename)
       FileUtils.cp(self.zip_file.tempfile, @temp_location)
     end

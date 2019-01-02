@@ -69,6 +69,7 @@ module Admin::TaggableContentHelper
   rescue GdsApi::TimedOutException, GdsApi::HTTPServerError
     stale_data = Rails.cache.fetch("need.linkables")
     return stale_data if stale_data
+
     raise
   end
 

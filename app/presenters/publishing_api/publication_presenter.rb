@@ -64,6 +64,7 @@ module PublishingApi
 
     def maybe_add_national_applicability(content)
       return content unless item.nation_inapplicabilities.any?
+
       content.merge(national_applicability: item.national_applicability)
     end
 
@@ -86,6 +87,7 @@ module PublishingApi
 
     def documents
       return [] unless item.attachments.any?
+
       Whitehall::GovspeakRenderer.new.block_attachments(
         attachments_for_current_locale,
         alternative_format_email

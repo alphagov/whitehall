@@ -441,6 +441,7 @@ class Edition < ApplicationRecord
     api_response = Services.publishing_api.get_links(content_id)
 
     return false if api_response["links"].nil? || api_response["links"]["taxons"].nil?
+
     api_response["links"]["taxons"].any?
   end
 
@@ -454,6 +455,7 @@ class Edition < ApplicationRecord
     unless published?
       raise "Cannot create new edition based on edition in the #{state} state"
     end
+
     ignorable_attribute_keys = %w(id type state created_at updated_at change_note
                                   minor_change force_published scheduled_publication)
     draft_attributes = attributes.except(*ignorable_attribute_keys)
@@ -630,6 +632,7 @@ class Edition < ApplicationRecord
   def previously_published
     return first_published_at.present? unless new_record?
     return true if imported?
+
     @previously_published
   end
 

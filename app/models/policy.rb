@@ -54,6 +54,7 @@ class Policy
       # display empty data, but admin controllers will prefer to error the page.
       stale_data = Rails.cache.fetch('policy.linkables')
       return stale_data if stale_data
+
       raise
     end
 

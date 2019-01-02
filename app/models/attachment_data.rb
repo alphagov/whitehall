@@ -74,6 +74,7 @@ class AttachmentData < ApplicationRecord
     self.replaced_by = replacement
     cant_be_replaced_by_self
     raise ActiveRecord::RecordInvalid, self if self.errors.any?
+
     self.update_column(:replaced_by_id, replacement.id)
     AttachmentData.where(replaced_by_id: self.id).each do |ad|
       ad.replace_with!(replacement)
@@ -174,11 +175,13 @@ private
 
   def cant_be_replaced_by_self
     return if replaced_by.nil?
+
     errors.add(:base, "can't be replaced by itself") if replaced_by == self
   end
 
   def handle_to_replace_id
     return if to_replace_id.blank?
+
     AttachmentData.find(to_replace_id).replace_with!(self)
   end
 

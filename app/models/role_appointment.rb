@@ -137,6 +137,7 @@ class RoleAppointment < ApplicationRecord
   def current_at(date)
     return true if date.nil?
     return false if date < started_at
+
     ended_at.nil? || date <= ended_at
   end
 
@@ -152,6 +153,7 @@ private
 
   def make_other_current_appointments_non_current
     return unless make_current
+
     other_appointments = other_appointments_for_same_role.current
     other_appointments.each do |oa|
       oa.ended_at = started_at

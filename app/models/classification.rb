@@ -132,6 +132,7 @@ class Classification < ApplicationRecord
 
   def featured?(edition)
     return false unless edition.persisted?
+
     featuring_of(edition).present?
   end
 

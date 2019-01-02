@@ -8,6 +8,7 @@ module Govspeak
 
     def editions
       return [] if @govspeak.blank?
+
       editions = []
       { ADMIN_EDITION_PATH => 0,
         ADMIN_ORGANISATION_CIP_PATH => 1,
