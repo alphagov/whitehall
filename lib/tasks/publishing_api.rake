@@ -87,4 +87,10 @@ namespace :publishing_api do
 
     puts "Finished queuing items for Publishing API"
   end
+
+  desc "Republish a document to the Publishing API"
+  task :republish_document, [:slug] => :environment do |_, args|
+    document = Document.find_by!(slug: args[:slug])
+    PublishingApiDocumentRepublishingWorker.new.perform(document.id)
+  end
 end
