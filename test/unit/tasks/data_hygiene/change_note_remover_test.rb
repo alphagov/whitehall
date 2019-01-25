@@ -3,9 +3,10 @@ require "test_helper"
 class ChangeNoteRemoverTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
-  let(:document)            { create(:document) }
-  let!(:superseded_edition) { create(:superseded_edition, document: document, change_note: "First change note.") }
-  let!(:live_edition)       { create(:published_edition, document: document, change_note: "Second change note.") }
+  let(:document)                { create(:document) }
+  let!(:superseded_edition)     { create(:superseded_edition, document: document, change_note: "First change note.", first_published_at: Time.zone.now - 2.days, major_change_published_at: Time.zone.now - 2.days) }
+  let!(:previous_major_edition) { create(:superseded_edition, document: document, change_note: "Second change note.", first_published_at: Time.zone.now - 1.day, major_change_published_at: Time.zone.now - 1.day) }
+  let!(:live_edition)           { create(:published_edition, document: document, change_note: "Third change note.", first_published_at: Time.zone.now, major_change_published_at: Time.zone.now) }
 
   let(:query) { nil }
 
@@ -21,12 +22,17 @@ class ChangeNoteRemoverTest < ActiveSupport::TestCase
     let(:dry_run) { true }
 
     context "the query matches a change note" do
-      let(:query) { "second" }
+      let(:query) { "third" }
 
       it "doesn't delete the change note" do
         call_change_note_remover
         assert_not_nil(superseded_edition.reload.change_note)
         assert_not_nil(live_edition.reload.change_note)
+      end
+
+      it "doesn't change the major published at time" do
+        call_change_note_remover
+        assert_equal(live_edition.reload.major_change_published_at, deleted_edition.major_change_published_at)
       end
 
       it "returns the change note" do
@@ -49,7 +55,7 @@ class ChangeNoteRemoverTest < ActiveSupport::TestCase
     end
 
     context "the query matches a change note" do
-      let(:query) { "second" }
+      let(:query) { "third" }
 
       it "deletes the change note" do
         call_change_note_remover
@@ -61,8 +67,16 @@ class ChangeNoteRemoverTest < ActiveSupport::TestCase
         call_change_note_remover
         assert_equal(
           document.change_history.changes,
-          [DocumentHistory::Change.new(nil, superseded_edition.change_note)]
+          [
+            DocumentHistory::Change.new(previous_major_edition.public_timestamp, previous_major_edition.change_note),
+            DocumentHistory::Change.new(superseded_edition.public_timestamp, superseded_edition.change_note)
+          ]
         )
+      end
+
+      it "changes the major published at time to the previous major update" do
+        call_change_note_remover
+        assert_equal(live_edition.reload.major_change_published_at, previous_major_edition.major_change_published_at)
       end
 
       it "represents to the content store" do

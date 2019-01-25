@@ -11,7 +11,7 @@ module DataHygiene
       raise DataHygiene::ChangeNoteNotFound.new unless edition
       return edition if dry_run
 
-      destroy_edition_change_note
+      downgrade_edition_change_note
       represent_downstream
 
       edition
@@ -31,18 +31,27 @@ module DataHygiene
       @document ||= Document.find_by(content_id: content_id)
     end
 
-    def find_edition_with_change_note
-      fuzzy_match = FuzzyMatch.new(document.editions, read: :change_note)
-      fuzzy_match.find(change_note_search, must_match_at_least_one_word: true)
+    def editions
+      @editions ||= document.editions
     end
 
     def edition
       @edition ||= find_edition_with_change_note
     end
 
-    def destroy_edition_change_note
+    def find_edition_with_change_note
+      fuzzy_match = FuzzyMatch.new(editions, read: :change_note)
+      fuzzy_match.find(change_note_search, must_match_at_least_one_word: true)
+    end
+
+    def previous_major_change
+      editions.where(minor_change: false).where("id < ?", edition.id).last
+    end
+
+    def downgrade_edition_change_note
       edition[:minor_change] = true
       edition.change_note = nil
+      edition.major_change_published_at = previous_major_change.try(:major_change_published_at)
       edition.save!(validate: false)
     end
 
