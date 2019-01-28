@@ -158,6 +158,7 @@ GEM
     fugit (1.1.1)
       et-orbi (~> 1.1, >= 1.1.1)
       raabro (~> 1.1)
+    fuzzy_match (2.1.0)
     gds-api-adapters (57.1.0)
       addressable
       link_header
@@ -598,6 +599,7 @@ DEPENDENCIES
   factory_bot
   faraday
   friendly_id (~> 5.2.4)
+  fuzzy_match (~> 2.1)
   gds-api-adapters
   gds-sso (~> 14.0)
   globalize (~> 5)
