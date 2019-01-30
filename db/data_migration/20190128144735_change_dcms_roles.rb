@@ -13,7 +13,7 @@ ActiveRecord::Base.transaction do
     EditionRoleAppointment.where(role_appointment_id: incorrect_role_appointment).each do |edition_role_appointment|
       edition_role_appointment.update!(role_appointment_id: correct_role_appointment.id)
     end
-    Edition.where(role_appointment_id: role.id).each do |edition|
+    Edition.where(role_appointment_id: incorrect_role_appointment.id).each do |edition|
       edition.role_appointment_id = correct_role_appointment.id
       edition.save!(validate: false)
     end
@@ -38,7 +38,7 @@ end
     EditionRoleAppointment.where(role_appointment_id: incorrect_role_appointment.id).each do |edition_role_appointment|
       edition_role_appointment.update!(role_appointment_id: correct_role_appointment.id)
     end
-    Edition.where(role_appointment_id: incorrect_role.id).each do |edition|
+    Edition.where(role_appointment_id: incorrect_role_appointment.id).each do |edition|
       edition.role_appointment_id = correct_role_appointment.id
       edition.save!(validate: false)
     end
