@@ -17,7 +17,7 @@ ActiveRecord::Base.transaction do
       edition.role_appointment_id = correct_role_appointment.id
       edition.save!(validate: false)
     end
-    incorrect_role_appointment.delete!
+    incorrect_role_appointment.delete
   end
 end
 
