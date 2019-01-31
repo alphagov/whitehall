@@ -6,6 +6,36 @@ class Api::OrganisationsControllerTest < ActionController::TestCase
   disable_database_queries
   should_be_a_public_facing_controller
 
+  test "sets cache expiry to 30 minutes" do
+    presenter = Api::PagePresenter.new(Kaminari.paginate_array([]).page(1).per(1), controller.view_context)
+    presenter.stubs(:as_json).returns(paged: :representation)
+
+    orgs_includes = stub
+    orgs_includes.stubs(:order).returns([])
+    Organisation.stubs(:includes).returns(orgs_includes)
+
+    Api::OrganisationPresenter.stubs(:paginate).with(Organisation.includes(:parent_organisations, :child_organisations, :translations).order(:id), anything).returns(presenter)
+
+    get :index, format: 'json'
+
+    assert_cache_control("max-age=#{Whitehall.default_api_cache_max_age}")
+  end
+
+  test "sets Access-Control-Allow-Origin to *" do
+    presenter = Api::PagePresenter.new(Kaminari.paginate_array([]).page(1).per(1), controller.view_context)
+    presenter.stubs(:as_json).returns(paged: :representation)
+
+    orgs_includes = stub
+    orgs_includes.stubs(:order).returns([])
+    Organisation.stubs(:includes).returns(orgs_includes)
+
+    Api::OrganisationPresenter.stubs(:paginate).with(Organisation.includes(:parent_organisations, :child_organisations, :translations).order(:id), anything).returns(presenter)
+
+    get :index, format: 'json'
+
+    assert response.headers['Access-Control-Allow-Origin'] == '*'
+  end
+
   view_test "show responds with JSON representation of found organisation" do
     organisation = stub_record(:organisation, slug: 'meh')
     organisation.stubs(:to_param).returns('meh')
