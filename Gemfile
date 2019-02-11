@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby File.read(".ruby-version").chomp
+
 gem 'activemodel-serializers-xml'
 gem 'addressable', ">= 2.3.7"
 gem 'asset_bom_removal-rails', '~> 1.0.0'
