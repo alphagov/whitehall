@@ -58,7 +58,7 @@ GEM
     aws-xray-sdk (0.10.2)
       oj (~> 3.0)
     babosa (1.0.2)
-    better_errors (2.5.0)
+    better_errors (2.5.1)
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
