@@ -89,7 +89,7 @@ class CsvFileFromPublicHostTest < ActiveSupport::TestCase
     response = stub('response')
     file = stub('file', path: 'some-path')
     CsvFileFromPublicHost.stubs(:new).with(response).yields(file)
-    CsvPreview.stubs(:new).with('some-path').raises(CSV::MalformedCSVError)
+    CsvPreview.stubs(:new).with('some-path').raises(CSV::MalformedCSVError.new("", 1))
 
     assert_nil CsvFileFromPublicHost.csv_preview_from(response)
   end
