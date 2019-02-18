@@ -105,8 +105,15 @@ class RoutingTest < ActionDispatch::IntegrationTest
 
   test "routing to world location news" do
     create(:world_location, slug: "france", translated_into: [:fr])
+    rummager = stub
 
-    get "/world/france/news.fr"
-    assert_response :success
+    with_stubbed_rummager(rummager, true) do
+      rummager.expects(:search).returns('results' =>
+                                         [{ 'format' => 'news_article', 'content_id' => 'news_id', 'public_timestamp' => Time.zone.now.to_s },
+                                          { 'format' => 'speech', 'content_id' => 'speech_id', 'public_timestamp' => Time.zone.now.to_s }])
+
+      get "/world/france/news.fr"
+      assert_response :success
+    end
   end
 end

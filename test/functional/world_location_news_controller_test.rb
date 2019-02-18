@@ -21,17 +21,17 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     }
   end
 
-  def announcement_search_options
+  def news_and_communications_search_options
     default_search_options.merge(
       count: 2,
-      filter_content_store_document_type: announcement_document_types
+      filter_content_purpose_supergroup: 'news_and_communications'
     )
   end
 
-  def announcement_document_types
-    non_world_announcement_types = Whitehall::AnnouncementFilterOption.all.map(&:document_type).flatten
-    %w(world_location_news_article world_news_story).concat(non_world_announcement_types)
-  end
+  # def announcement_document_types
+  #   non_world_announcement_types = Whitehall::AnnouncementFilterOption.all.map(&:document_type).flatten
+  #   %w(world_location_news_article world_news_story).concat(non_world_announcement_types)
+  # end
 
   setup do
     @world_location = create(:world_location,
@@ -124,6 +124,11 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
 
   test "shows featured items in defined order for locale" do
     with_stubbed_rummager(@rummager, true) do
+      @rummager.expects(:search).with(news_and_communications_search_options).returns("results" => [
+        { "public_timestamp" => 1.day.ago, "content_id" => "content_id_1", "content_store_document_type" => "news_story" },
+        { "public_timestamp" => 2.days.ago, "content_id" => "content_id_2", "content_store_document_type" => "news_story" },
+      ]).once
+
       WorldLocationNewsPageWorker.any_instance.stubs(:perform).returns(true)
       LocalisedModel.new(@world_location, :fr).update_attributes(name: "Territoire antarctique britannique")
 
@@ -184,22 +189,23 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   view_test "should display 2 announcements with details and a link to announcements filter if there are many announcements" do
     with_stubbed_rummager(@rummager, true) do
       @rummager.expects(:search).returns('results' => []).once
-      @rummager.expects(:search).with(announcement_search_options).returns("results" => [
+      @rummager.expects(:search).with(news_and_communications_search_options).returns("results" => [
         { "public_timestamp" => 1.day.ago, "content_id" => "content_id_1", "content_store_document_type" => "news_story" },
         { "public_timestamp" => 2.days.ago, "content_id" => "content_id_2", "content_store_document_type" => "news_story" },
       ]).once
 
       get :index, params: { world_location_id: @world_location }
-      assert_select "#our-announcements" do
-        assert_select "#announcements_content_id_1" do
+      assert_select "#news-and-communications" do
+        assert_select "#news_and_communications_content_id_1" do
           assert_select '.publication-date time[datetime=?]', 1.days.ago.iso8601
           assert_select '.document-type', "News story"
         end
-        assert_select "#announcements_content_id_2" do
+        assert_select "#news_and_communications_content_id_2" do
           assert_select '.publication-date time[datetime=?]', 2.days.ago.iso8601
           assert_select '.document-type', "News story"
         end
-        assert_select "a[href^='#{announcements_path}'][href*='world_locations%5B%5D=#{@world_location.to_param}']"
+
+        assert_select "a[href^='/news-and-communications'][href*='world_locations%5B%5D=#{@world_location.to_param}']"
       end
     end
   end
@@ -278,49 +284,56 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   end
 
   view_test "should display translated page labels when requested in a different locale" do
-    create(:published_publication, world_locations: [@translated_world_location], translated_into: [:fr])
-    create(:published_news_article, world_locations: [@translated_world_location], translated_into: [:fr])
+    with_stubbed_rummager(@rummager, true) do
+      @rummager.expects(:search).returns('results' => []).once
 
-    get :index, params: { world_location_id: @translated_world_location, locale: 'fr' }
+      create(:published_publication, world_locations: [@translated_world_location], translated_into: [:fr])
+      create(:published_news_article, world_locations: [@translated_world_location], translated_into: [:fr])
 
-    assert_select ".type", "World location news"
-    assert_select "#publications .see-all a", /Voir toutes nos publications/
-  end
+      get :index, params: { world_location_id: @translated_world_location, locale: 'fr' }
 
-  test "should only display translated announcements when requested for a locale" do
-    translated_speech = create(:published_speech, world_locations: [@translated_world_location], translated_into: [:fr])
-    create(:published_speech, world_locations: [@translated_world_location])
-
-    get :index, params: { world_location_id: @translated_world_location, locale: 'fr' }
-
-    assert_equal [translated_speech], assigns(:announcements).object
+      assert_select ".type", "World location news"
+      assert_select "#publications .see-all a", /Voir toutes nos publications/
+    end
   end
 
   test "should only display translated publications when requested for a locale" do
     translated_publication = create(:published_publication, world_locations: [@translated_world_location], translated_into: [:fr])
     create(:published_publication, world_locations: [@translated_world_location])
 
-    get :index, params: { world_location_id: @translated_world_location, locale: 'fr' }
+    with_stubbed_rummager(@rummager, true) do
+      @rummager.expects(:search).returns('results' => []).once
 
-    assert_equal [translated_publication], assigns(:non_statistics_publications).object
+      get :index, params: { world_location_id: @translated_world_location, locale: 'fr' }
+
+      assert_equal [translated_publication], assigns(:non_statistics_publications).object
+    end
   end
 
   test "should only display translated statistics when requested for a locale" do
     translated_statistics = create(:published_statistics, world_locations: [@translated_world_location], translated_into: [:fr])
     create(:published_statistics, world_locations: [@translated_world_location])
 
-    get :index, params: { world_location_id: @translated_world_location, locale: 'fr' }
+    with_stubbed_rummager(@rummager, true) do
+      @rummager.expects(:search).returns('results' => []).once
 
-    assert_equal [translated_statistics], assigns(:statistics_publications).object
+      get :index, params: { world_location_id: @translated_world_location, locale: 'fr' }
+
+      assert_equal [translated_statistics], assigns(:statistics_publications).object
+    end
   end
 
   test "should only display translated recently updated editions when requested for a locale" do
     translated_publication = create(:published_publication, world_locations: [@translated_world_location], translated_into: [:fr])
     create(:published_publication, world_locations: [@translated_world_location])
 
-    get :index, params: { world_location_id: @translated_world_location, locale: 'fr' }
+    with_stubbed_rummager(@rummager, true) do
+      @rummager.expects(:search).returns('results' => []).once
 
-    assert_equal [translated_publication], assigns(:recently_updated)
+      get :index, params: { world_location_id: @translated_world_location, locale: 'fr' }
+
+      assert_equal [translated_publication], assigns(:recently_updated)
+    end
   end
 
   view_test "restricts atom feed entries to those with the current locale" do

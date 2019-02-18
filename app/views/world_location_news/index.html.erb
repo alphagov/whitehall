@@ -50,17 +50,17 @@
     </div>
   </div>
 
-  <% if (@non_statistics_publications + @announcements + @statistics_publications).any? %>
+  <% if (@non_statistics_publications + @news_and_communications + @statistics_publications).any? %>
     <div class="block documents-grid">
       <div class="inner-block">
         <h1 class="block-title"><%= t('world_location.headings.documents') %></h1>
-        <% if @announcements.any? %>
+        <% if @news_and_communications.any? %>
           <div class="content">
             <%= render partial: "shared/document_list_from_rummager", locals: {
-              documents: @announcements,
-              type: :announcements,
-              documents_count: @announcements.count,
-              heading: t('world_location.headings.announcements'),
+              documents: @news_and_communications,
+              type: :news_and_communications,
+              documents_count: @news_and_communications.count,
+              heading: t('world_location.headings.news_and_communications'),
               world_location_news: "1",
             } %>
           </div>
