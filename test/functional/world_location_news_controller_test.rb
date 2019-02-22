@@ -28,11 +28,6 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
     )
   end
 
-  # def announcement_document_types
-  #   non_world_announcement_types = Whitehall::AnnouncementFilterOption.all.map(&:document_type).flatten
-  #   %w(world_location_news_article world_news_story).concat(non_world_announcement_types)
-  # end
-
   setup do
     @world_location = create(:world_location,
                              title: "UK and India",
