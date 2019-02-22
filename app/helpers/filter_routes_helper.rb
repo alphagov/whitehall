@@ -3,6 +3,10 @@ module FilterRoutesHelper
     announcements_path(path_arguments(objects))
   end
 
+  def news_and_communications_filter_path(*objects)
+    "/news-and-communications?#{path_arguments(objects).to_query}"
+  end
+
   def publications_filter_path(*objects)
     publications_path(path_arguments(objects))
   end
