@@ -42,7 +42,7 @@ module Whitehall
     end
 
     def self.rummager_host
-      Plek.find('rummager')
+      Plek.find('search')
     end
   end
 

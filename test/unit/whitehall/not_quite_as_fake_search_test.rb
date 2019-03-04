@@ -7,7 +7,7 @@ module Whitehall
       setup do
         @store = Store.new
         SearchIndex.indexer_class.store = @store
-        @index = SearchIndex.indexer_class.new('http://rummager.test', 'government')
+        @index = SearchIndex.indexer_class.new('http://search.test', 'government')
       end
 
       teardown do
