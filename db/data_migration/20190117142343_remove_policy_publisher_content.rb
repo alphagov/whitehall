@@ -2,7 +2,8 @@ puts 'Unpublishing /government/policies/school-and-college-funding-and-accountab
 Services.publishing_api.unpublish(
   '377e1772-a6d5-454c-836f-f9c282457b0e',
   type: 'redirect',
-  alternative_path: '/email-signup/?topic=/education/school-and-academy-funding'
+  alternative_path: '/email-signup/?topic=/education/school-and-academy-funding',
+  discard_drafts: true
 )
 
 puts 'Unpublishing /government/policies/all and redirecting to /'
