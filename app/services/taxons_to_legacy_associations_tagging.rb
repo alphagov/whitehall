@@ -49,6 +49,6 @@ private
   end
 
   def tagged_to_specialist_sectors?(edition)
-    defined?(edition.specialist_sectors) && edition.specialist_sectors.any?
+    edition.respond_to?(:specialist_sectors) && edition.specialist_sectors.any?
   end
 end

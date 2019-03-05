@@ -1,28 +1,56 @@
 require 'test_helper'
 
 class TaxonsToLegacyAssociationsTaggingTest < ActiveSupport::TestCase
-  test "handles specialist sectors" do
-    specialist_sector_content_id = SecureRandom.uuid
-    taxon = taxon_mapped_to_specialist_sector(
-      specialist_sector_content_id
+  setup do
+    @specialist_sector_content_id = SecureRandom.uuid
+    @taxon = taxon_mapped_to_specialist_sector(
+      @specialist_sector_content_id
     )
 
     Taxonomy::TopicTaxonomy
       .any_instance
       .stubs(:all_taxons)
-      .returns([taxon])
+      .returns([@taxon])
 
-    edition = create(:publication)
-    edition.topics.delete_all
+    @edition = create(:publication)
+    @edition.topics.delete_all
+  end
 
+  test "handles specialist sectors" do
     TaxonsToLegacyAssociationsTagging.new.call(
-      edition: edition,
+      edition: @edition,
       user: create(:user),
-      selected_taxons: [taxon.content_id]
+      selected_taxons: [@taxon.content_id]
     )
 
-    assert edition.specialist_sectors.count, 1
-    assert edition.specialist_sectors.first.topic_content_id, specialist_sector_content_id
+    assert @edition.specialist_sectors.count, 1
+    assert @edition.specialist_sectors.first.topic_content_id, @specialist_sector_content_id
+  end
+
+  test "it doesn't set specialist sectors if they're already set" do
+    specialist_sector = FactoryBot.create(:specialist_sector, edition: @edition, topic_content_id: SecureRandom.uuid)
+
+    TaxonsToLegacyAssociationsTagging.new.call(
+      edition: @edition,
+      user: create(:user),
+      selected_taxons: [@taxon.content_id]
+    )
+
+    assert_equal(1, @edition.specialist_sectors.count)
+    assert_equal(specialist_sector, @edition.specialist_sectors.first)
+  end
+
+  test "it doesn't set specialist sectors if they're already set and the edition is wrapped in a LocalisedModel" do
+    specialist_sector = FactoryBot.create(:specialist_sector, edition: @edition, topic_content_id: SecureRandom.uuid)
+
+    TaxonsToLegacyAssociationsTagging.new.call(
+      edition: LocalisedModel.new(@edition, @edition.primary_locale),
+      user: create(:user),
+      selected_taxons: [@taxon.content_id]
+    )
+
+    assert_equal(1, @edition.specialist_sectors.count)
+    assert_equal(specialist_sector, @edition.specialist_sectors.first)
   end
 
   def taxon_mapped_to_specialist_sector(specialist_sector_content_id)
