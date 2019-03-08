@@ -80,6 +80,46 @@ namespace :reporting do
     end
   end
 
+  desc "A CSV report of the number of publications in draft state by organisation between the dates specified [Month Day Year 00:00:00]"
+  task :number_of_draft_publications_by_organisation_by_date_range, %i[start_date end_date] => :environment do |_t, args|
+    if args[:start_date].present? && args[:end_date].present?
+      start_date = Time.parse(args[:start_date])
+      end_date = Time.parse(args[:end_date])
+    end
+
+    date_range = start_date...end_date
+
+    path = "#{Rails.root}/tmp/number_of_draft_publications_by_organisation_between_#{start_date}_to_#{end_date}.csv"
+
+    CSV_HEADERS = ["Lead publishing organisation", "Number of draft publications"].freeze
+
+    CSV.open(path, "wb", headers: CSV_HEADERS, write_headers: true) do |csv|
+      Edition.include(Edition::Organisations)
+
+      puts "Searching for draft publications between #{start_date} and #{end_date}"
+
+      draft_publications = Edition.latest_edition
+      .joins(:edition_organisations)
+      .where(state: "draft")
+      .where(type: "publication")
+      .where(updated_at: date_range)
+
+      organisations = Organisation.order(slug: :asc)
+
+      organisations.find_each do |organisation|
+        publications = draft_publications.where(edition_organisations: { lead: 1, organisation_id: organisation.id })
+
+        csv << [
+          organisation,
+          publications.count
+        ]
+        puts "#{organisation.slug}: #{publications.count}"
+      end
+
+      puts "Report available at #{path}"
+    end
+  end
+
   desc "A CSV report of all documents published by the given organisation"
   task organisation_documents: :environment do
     options = opts_from_environment(:organisation_slug)
