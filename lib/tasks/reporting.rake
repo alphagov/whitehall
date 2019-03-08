@@ -80,6 +80,40 @@ namespace :reporting do
     end
   end
 
+  desc "A CSV report of the number of publications in draft state by organisation"
+  task number_of_draft_publications_by_organisation: :environment do
+    path = "#{Rails.root}/tmp/number_of_draft_publications_by_organisation_#{Time.zone.now.strftime('%d-%m-%Y-%H-%M')}.csv"
+
+    CSV_HEADERS = ["Lead publishing organisation", "Number of draft publications"].freeze
+
+    CSV.open(path, 'wb') do |csv|
+      csv << CSV_HEADERS
+
+      Edition.include(Edition::Organisations)
+
+      puts "Searching for draft publications"
+
+      draft_publications = Edition.latest_edition
+      .joins(:edition_organisations)
+      .where(state: "draft")
+      .where(type: "publication")
+
+      organisations = Organisation.order(slug: :asc)
+
+      Organisation.all.each do |organisation|
+        publications = draft_publications.where(edition_organisations: { lead: 1, organisation_id: organisation.id } )
+
+        csv << [
+          organisation,
+          publications.count
+        ]
+        puts "#{organisation.slug}: #{publications.count}"
+      end
+
+      puts "Report available at #{path}"
+    end
+  end
+
   desc "A CSV report of all documents published by the given organisation"
   task organisation_documents: :environment do
     options = opts_from_environment(:organisation_slug)
