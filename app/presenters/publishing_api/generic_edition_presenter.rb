@@ -19,7 +19,7 @@ module PublishingApi
       content.merge!(
         description: item.summary,
         details: PayloadBuilder::TagDetails.for(item),
-        document_type: item.display_type_key,
+        document_type: document_type,
         public_updated_at: item.public_timestamp || item.updated_at,
         rendering_app: item.rendering_app,
         schema_name: "placeholder_#{item.class.name.underscore}",
@@ -34,6 +34,10 @@ module PublishingApi
         :topics,
         :parent, # please use the breadcrumb component when migrating document_type to government-frontend
       ])
+    end
+
+    def document_type
+      item.display_type_key
     end
   end
 end

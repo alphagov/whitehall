@@ -18,7 +18,7 @@ module PublishingApi
       content.merge!(
         description: item.summary,
         details: details,
-        document_type: "world_location_news_article",
+        document_type: document_type,
         public_updated_at: item.public_timestamp || item.updated_at,
         rendering_app: item.rendering_app,
         schema_name: "world_location_news_article",
@@ -32,6 +32,10 @@ module PublishingApi
       LinksPresenter.new(item).extract(
         %i(worldwide_organisations parent policy_areas topics world_locations)
       )
+    end
+
+    def document_type
+      "world_location_news_article"
     end
 
   private

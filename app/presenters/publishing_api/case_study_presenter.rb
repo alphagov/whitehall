@@ -19,7 +19,7 @@ module PublishingApi
       content.merge!(
         description: item.summary,
         details: details,
-        document_type: "case_study",
+        document_type: document_type,
         public_updated_at: item.public_timestamp || item.updated_at,
         rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
         schema_name: "case_study",
@@ -39,6 +39,10 @@ module PublishingApi
           worldwide_organisations
         ]
       )
+    end
+
+    def document_type
+      "case_study"
     end
 
   private

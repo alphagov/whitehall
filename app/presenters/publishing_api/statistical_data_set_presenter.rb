@@ -18,7 +18,7 @@ module PublishingApi
       content.merge!(
         description: item.summary,
         details: details,
-        document_type: "statistical_data_set",
+        document_type: document_type,
         public_updated_at: item.public_timestamp || item.updated_at,
         rendering_app: item.rendering_app,
         schema_name: "statistical_data_set",
@@ -32,6 +32,10 @@ module PublishingApi
       LinksPresenter.new(item).extract(
         %i(organisations policy_areas topics parent)
       )
+    end
+
+    def document_type
+      "statistical_data_set"
     end
 
   private

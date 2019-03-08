@@ -659,7 +659,7 @@ class Edition < ApplicationRecord
   end
 
   def content_store_document_type
-    PublishingApiPresenters.presenter_for(self).content.fetch(:document_type)
+    PublishingApiPresenters.presenter_for(self).document_type
   end
 
   def has_legacy_tags?

@@ -19,7 +19,7 @@ module PublishingApi
       content.merge!(
         description: item.summary,
         details: details,
-        document_type: item.display_type_key,
+        document_type: document_type,
         public_updated_at: item.public_timestamp || item.updated_at,
         rendering_app: item.rendering_app,
         schema_name: "publication",
@@ -58,6 +58,10 @@ module PublishingApi
       ).merge(
         PayloadBuilder::People.for(item, :people)
       )
+    end
+
+    def document_type
+      item.display_type_key
     end
 
   private
