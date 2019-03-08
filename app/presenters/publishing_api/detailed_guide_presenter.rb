@@ -21,7 +21,7 @@ module PublishingApi
         .merge(
           description: item.summary,
           details: details,
-          document_type: "detailed_guide",
+          document_type: document_type,
           public_updated_at: item.public_timestamp || item.updated_at,
           rendering_app: item.rendering_app,
           schema_name: "detailed_guide",
@@ -44,6 +44,10 @@ module PublishingApi
         related_guides: item.related_detailed_guide_content_ids,
         related_mainstream_content: related_mainstream_content_ids
       )
+    end
+
+    def document_type
+      "detailed_guide"
     end
 
   private

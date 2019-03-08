@@ -24,7 +24,7 @@ module PublishingApi
         .merge(
           description: news_article.summary,
           details: details,
-          document_type: display_type_key,
+          document_type: document_type,
           public_updated_at: public_updated_at,
           rendering_app: news_article.rendering_app,
           schema_name: SCHEMA_NAME,
@@ -49,6 +49,10 @@ module PublishingApi
         .merge(PayloadBuilder::TopicalEvents.for(news_article))
         .merge(PayloadBuilder::Roles.for(news_article))
         .merge(PayloadBuilder::People.for(news_article, :people))
+    end
+
+    def document_type
+      display_type_key
     end
 
   private

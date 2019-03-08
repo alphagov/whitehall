@@ -19,7 +19,7 @@ module PublishingApi
         content.merge!(PayloadBuilder::PublicDocumentPath.for(item))
         content.merge!(
           description: item.summary,
-          document_type: "fatality_notice",
+          document_type: document_type,
           public_updated_at: item.public_timestamp || item.updated_at,
           rendering_app: item.rendering_app,
           schema_name: "fatality_notice",
@@ -51,6 +51,10 @@ module PublishingApi
       ).merge(
         PayloadBuilder::Roles.for(item)
       )
+    end
+
+    def document_type
+      "fatality_notice"
     end
 
   private

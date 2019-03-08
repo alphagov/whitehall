@@ -23,7 +23,7 @@ module PublishingApi
         .merge(
           description: corporate_information_page.summary,
           details: details,
-          document_type: display_type_key,
+          document_type: document_type,
           public_updated_at: public_updated_at,
           rendering_app: corporate_information_page.rendering_app,
           schema_name: SCHEMA_NAME,
@@ -46,6 +46,10 @@ module PublishingApi
           parent
         )
       ).merge(CorporateInformationPages.for(corporate_information_page))
+    end
+
+    def document_type
+      display_type_key
     end
 
   private

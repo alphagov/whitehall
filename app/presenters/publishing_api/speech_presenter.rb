@@ -65,8 +65,6 @@ module PublishingApi
       links.merge!(PayloadBuilder::People.for(item, :people))
     end
 
-  private
-
     def document_type
       if SpeechType.non_statements.include?(item.speech_type)
         "speech"
@@ -74,6 +72,8 @@ module PublishingApi
         item.speech_type.key
       end
     end
+
+  private
 
     def body
       Whitehall::GovspeakRenderer.new.govspeak_edition_to_html(item)

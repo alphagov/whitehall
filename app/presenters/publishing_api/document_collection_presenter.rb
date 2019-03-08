@@ -18,7 +18,7 @@ module PublishingApi
       content.merge!(
         description: item.summary,
         details: details,
-        document_type: "document_collection",
+        document_type: document_type,
         public_updated_at: item.public_timestamp || item.updated_at,
         rendering_app: item.rendering_app,
         schema_name: "document_collection",
@@ -43,6 +43,10 @@ module PublishingApi
       )
       links[:documents] = item.documents.pluck(:content_id).uniq
       links.merge!(PayloadBuilder::TopicalEvents.for(item))
+    end
+
+    def document_type
+      "document_collection"
     end
 
   private

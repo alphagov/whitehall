@@ -61,10 +61,10 @@ module PublishingApiPresenters
         else
           PublishingApi::CorporateInformationPagePresenter
         end
-      when ::DocumentCollection
-        PublishingApi::DocumentCollectionPresenter
       when ::DetailedGuide
         PublishingApi::DetailedGuidePresenter
+      when ::DocumentCollection
+        PublishingApi::DocumentCollectionPresenter
       when ::FatalityNotice
         PublishingApi::FatalityNoticePresenter
       when ::NewsArticle
