@@ -332,7 +332,7 @@ class Edition < ApplicationRecord
   end
 
   def creator
-    edition_authors.first && edition_authors.first.user
+    edition_authors.first&.user
   end
 
   def creator=(user)
