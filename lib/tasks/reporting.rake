@@ -82,11 +82,10 @@ namespace :reporting do
 
   desc "A CSV report of the number of publications in draft state by organisation between the dates specified [Month Day Year 00:00:00]"
   task :number_of_draft_publications_by_organisation_by_date_range, %i[start_date end_date] => :environment do |_t, args|
-    if args[:start_date].present? && args[:end_date].present?
-      start_date = Time.parse(args[:start_date])
-      end_date = Time.parse(args[:end_date])
-    end
+    raise "Missing start_date or end_date" unless args[:start_date].present? && args[:end_date].present?
 
+    start_date = Time.parse(args[:start_date])
+    end_date = Time.parse(args[:end_date])
     date_range = start_date...end_date
 
     path = "#{Rails.root}/tmp/number_of_draft_publications_by_organisation_between_#{start_date}_to_#{end_date}.csv"
