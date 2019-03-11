@@ -35,7 +35,7 @@ module Reports
     attr_reader :start_date, :end_date
 
     def parse_date(date)
-      Time.parse(date)
+      Time.zone.parse(date)
     end
 
     def get_draft_publications(date_range)
