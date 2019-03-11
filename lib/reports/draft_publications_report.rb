@@ -10,7 +10,8 @@ module Reports
       draft_publications = get_draft_publications(date_range)
       organisations = Organisation.order(slug: :asc)
 
-      path = "#{Rails.root}/tmp/number_of_draft_publications_by_organisation_#{@start_date}_to_#{@end_date}.csv"
+      path = "#{Rails.root}/tmp/number_of_draft_publications_by_organisation_#{@start_date}_to_#{@end_date}.csv".delete(' ')
+
       csv_headers = ["Lead publishing organisation", "Number of draft publications"]
 
       CSV.open(path, "wb", headers: csv_headers, write_headers: true) do |csv|
