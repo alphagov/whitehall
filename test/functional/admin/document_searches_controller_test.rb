@@ -22,8 +22,6 @@ class Admin::DocumentSearchesControllerTest < ActionController::TestCase
     assert_equal publication.id, publication_json['id']
     assert_equal publication.document_id, publication_json['document_id']
     assert_equal publication.title, publication_json['title']
-    assert_equal 'publication', publication_json['type']
-    assert_equal publication.display_type, publication_json['display_type']
   end
 
   view_test 'GET #show can filter by edition type and subtype' do
@@ -40,7 +38,5 @@ class Admin::DocumentSearchesControllerTest < ActionController::TestCase
     assert_equal guidance.id, publication_json['id']
     assert_equal guidance.document_id, publication_json['document_id']
     assert_equal guidance.title, publication_json['title']
-    assert_equal 'publication', publication_json['type']
-    assert_equal guidance.display_type, publication_json['display_type']
   end
 end
