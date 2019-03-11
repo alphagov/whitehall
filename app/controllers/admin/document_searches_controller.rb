@@ -1,6 +1,6 @@
 class Admin::DocumentSearchesController < Admin::BaseController
   def show
-    @editions = Filterer.new(params).editions
+    @editions = Filterer.new(params).editions.pluck(:id, :document_id, :title)
   end
 
   class Filterer
