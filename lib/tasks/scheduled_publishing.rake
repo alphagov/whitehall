@@ -1,6 +1,6 @@
 namespace :publishing do
   namespace :scheduled do
-    desc "List editions scheduled for publication"
+    desc "Lists editions scheduled for publication"
     task list: :environment do
       previous = nil
       puts "%6s  %-25s  %s" % ["ID", "Scheduled date", "Title"]
@@ -12,6 +12,31 @@ namespace :publishing do
         puts "%6s  %-25s  %s" % [edition.id, edition.scheduled_publication.to_s, edition.title]
         previous = edition
       end
+    end
+
+    desc "Counts scheduled publications for the next 8 weeks"
+    task next_8_weeks: :environment do
+      scheduled = Edition.scheduled
+      now = Time.zone.now
+      end_of_this_week = now.end_of_week
+      monday = now.beginning_of_week + 1.week
+      sunday = end_of_this_week + 1.week
+      past_scheduled_count = scheduled.where("scheduled_publication < ?", now).count
+      rest_of_the_week_count = scheduled.where("scheduled_publication >= ?", now).where("scheduled_publication < ?", end_of_this_week).count
+      puts "---"
+      puts "There are currently #{scheduled.count} scheduled publications in Whitehall."
+      puts "Of all the scheduled publications:"
+      puts " - #{past_scheduled_count} were scheduled before now (#{now.rfc822})"
+      puts " - #{rest_of_the_week_count} are scheduled between now (#{now.rfc822}) and the end of this week (#{end_of_this_week.rfc822})"
+      8.times do
+        weekly_count = scheduled.where("scheduled_publication >= ?", monday).where("scheduled_publication < ?", sunday).count
+        puts " - #{weekly_count} are scheduled in the week beginning on #{monday.rfc822}"
+        monday += 1.week
+        sunday += 1.week
+      end
+      remaining_count = scheduled.where("scheduled_publication >= ?", monday).count
+      puts " - #{remaining_count} are scheduled on or after #{monday.rfc822}"
+      puts "---"
     end
 
     desc "Queues missing jobs for any scheduled editions (including overdue ones)"
