@@ -92,14 +92,6 @@ class PublishStaticPages
         locales: Locale.non_english.map(&:code),
       },
       {
-        content_id: "88936763-df8a-441f-8b96-9ea0dc0758a1",
-        title: "Government announcements",
-        document_type: "finder",
-        description: "Find news articles, speeches and statements from government organisations",
-        base_path: "/government/announcements",
-        locales: Locale.non_english.map(&:code),
-      },
-      {
         content_id: "324e4708-2285-40a0-b3aa-cb13af14ec5f",
         title: "Ministers",
         document_type: "finder",
