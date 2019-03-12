@@ -90,7 +90,10 @@ class Document < ApplicationRecord
   end
 
   def published?
-    reload_published_edition.present?
+    Edition.exists?(
+      state: Edition::PUBLICLY_VISIBLE_STATES,
+      document_id: id,
+    )
   end
 
   def first_published_date
