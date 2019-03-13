@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190312101215) do
+ActiveRecord::Schema.define(version: 20181023071345) do
 
   create_table "about_pages", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "topical_event_id"
@@ -421,7 +421,6 @@ ActiveRecord::Schema.define(version: 20190312101215) do
     t.index ["state", "type"], name: "index_editions_on_state_and_type"
     t.index ["state"], name: "index_editions_on_state"
     t.index ["type"], name: "index_editions_on_type"
-    t.index ["updated_at"], name: "index_editions_on_updated_at"
   end
 
   create_table "editorial_remarks", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
