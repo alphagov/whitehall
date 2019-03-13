@@ -39,6 +39,24 @@ namespace :publishing do
       puts "---"
     end
 
+    desc "Counts publications that are scheduled at the same time"
+    task at_same_time: :environment do
+      grouped_publications_dates = Edition.scheduled.pluck(:scheduled_publication).group_by(&:itself).transform_values(&:count)
+      less_then_five_count = grouped_publications_dates.count { |_k, v| v < 5 }
+      between_five_and_nine_count = grouped_publications_dates.count { |_k, v| v >= 5 && v <= 9 }
+      ten_or_more_count = grouped_publications_dates.count { |_k, v| v >= 10 }
+      puts "---"
+      puts "In #{less_then_five_count} instances, less than 5 publications are scheduled at the same time."
+      puts "In #{between_five_and_nine_count} instances, between 5 and 9 publications are scheduled at the same time."
+      puts "In #{ten_or_more_count} instances, 10 or more publications are scheduled at the same time."
+      puts "The #{ten_or_more_count} instances in which 10 or more publications are scheduled at the same time are divided as follows:"
+      grouped_publications_dates_above_threshold = grouped_publications_dates.select { |_k, v| v >= 10 }
+      grouped_publications_dates_above_threshold.each do |date, count|
+        puts " - #{count} publications scheduled on #{date.rfc822}"
+      end
+      puts "---"
+    end
+
     desc "Queues missing jobs for any scheduled editions (including overdue ones)"
     task queue_missing_jobs: :environment do
       queued_ids      = ScheduledPublishingWorker.queued_edition_ids
