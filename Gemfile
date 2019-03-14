@@ -50,6 +50,7 @@ gem 'redis-namespace'
 gem 'responders', '~> 2.4'
 gem 'rinku', require: 'rails_rinku'
 gem 'ruby-progressbar', require: false
+gem 'rubyzip', '~> 1.2'
 gem 'sass', '~> 3.7'
 gem 'sassc-rails', '~> 2.1'
 gem 'shared_mustache', '~> 1.0.0'
