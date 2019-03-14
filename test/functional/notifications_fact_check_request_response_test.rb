@@ -126,7 +126,7 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
     file = file_fixture('sample.csv').read
     receiver = 'test@gov.co.uk'
     mail = Notifications.document_list(file, receiver, "Everyone's documents")
-    assert_equal 'document_list.csv', mail.attachments.first.filename
+    assert_equal 'document_list.zip', mail.attachments.first.filename
     assert_match %r{list of documents}, mail.parts.first.body.to_s
   end
 
