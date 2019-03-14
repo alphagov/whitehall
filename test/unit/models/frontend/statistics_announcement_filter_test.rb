@@ -92,6 +92,7 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
     refute build_class_instance(from_date: nil).valid_filter_params.key?(:from_date)
     refute build_class_instance(to_date: nil).valid_filter_params.key?(:to_date)
     refute build_class_instance(organisations: []).valid_filter_params.key?(:organisations)
+    redis_cache_has_taxons([])
     refute build_class_instance(topics: []).valid_filter_params.key?(:topics)
   end
 
