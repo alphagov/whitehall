@@ -199,14 +199,14 @@ module PublishingApi
       if item.has_published_publications_of_type?(PublicationType::CorporateReport)
         cips << {
           title: I18n.t('organisation.headings.corporate_reports'),
-          href: publications_filter_path(item, publication_type: 'corporate-reports')
+          href: transparency_and_freedom_of_information_href(item)
         }
       end
 
       if item.has_published_publications_of_type?(PublicationType::TransparencyData)
         cips << {
           title: I18n.t('organisation.corporate_information.transparency'),
-          href: publications_filter_path(item, publication_type: 'transparency-data')
+          href: transparency_and_freedom_of_information_href(item)
         }
       end
 
@@ -522,6 +522,11 @@ module PublishingApi
     def default_news_image_is_svg?
       content_type = item.default_news_image.file.content_type
       content_type && content_type =~ /svg/
+    end
+
+    def transparency_and_freedom_of_information_href(item)
+      params = { organisations: [item.slug] }
+      "/transparency-and-freedom-of-information-releases?#{params.to_query}"
     end
   end
 end
