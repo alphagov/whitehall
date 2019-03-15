@@ -526,7 +526,7 @@ module PublishingApi
 
     def transparency_and_freedom_of_information_href(item)
       params = { organisations: [item.slug] }
-      "/transparency-and-freedom-of-information-releases?#{params.to_query}"
+      "/search/transparency-and-freedom-of-information-releases?#{params.to_query}"
     end
   end
 end
