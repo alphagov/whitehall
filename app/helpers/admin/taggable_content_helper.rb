@@ -244,17 +244,6 @@ module Admin::TaggableContentHelper
     @taggable_worldwide_organisations_cache_digest ||= calculate_digest(WorldwideOrganisation.order(:id), 'worldwide-organisations')
   end
 
-  # Note: Taken from Rails 4
-  def cache_if(condition, name = {}, options = nil, &block)
-    if condition
-      cache(name, options, &block)
-    else
-      yield
-    end
-
-    nil
-  end
-
 private
 
   def calculate_digest(scope, digest_name)
