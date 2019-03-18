@@ -46,7 +46,7 @@ GEM
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
     afm (0.2.2)
-    archive-zip (0.11.0)
+    archive-zip (0.12.0)
       io-like (~> 0.3.0)
     arel (8.0.0)
     asset_bom_removal-rails (1.0.2)
@@ -227,9 +227,10 @@ GEM
       sidekiq (>= 5, < 6)
       sidekiq-logging-json (~> 0.0)
       sidekiq-statsd (~> 0.1)
-    govuk_test (0.3.1)
+    govuk_test (0.4.0)
       capybara
       chromedriver-helper
+      ptools
       puma
       selenium-webdriver
     graphviz_transitions (0.1.2)
