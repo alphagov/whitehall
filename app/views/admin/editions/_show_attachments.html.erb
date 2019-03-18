@@ -6,7 +6,7 @@
     <th></th>
   </tr>
 </thead>
-<% @edition.attachments.each do |attachment| %>
+<% @edition.attachments.includes(:attachment_data).each do |attachment| %>
   <tr>
     <td>
       <%= attachment.title %>
