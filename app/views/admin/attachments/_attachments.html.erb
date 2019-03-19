@@ -9,7 +9,7 @@
 
 <%= form_tag [:order, :admin, typecast_for_attachable_routing(attachable), Attachment], method: :put do %>
   <ol class="existing-attachments list-unstyled">
-    <% attachable.attachments.each do |attachment| %>
+    <% attachable.attachments.includes(:attachment_data).each do |attachment| %>
       <%= content_tag_for(:li, attachment.becomes(Attachment), class: "well") do %>
         <strong><%= attachment.title %></strong>
         <span class="file">
