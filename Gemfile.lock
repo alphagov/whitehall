@@ -655,6 +655,7 @@ DEPENDENCIES
   rinku
   ruby-prof
   ruby-progressbar
+  rubyzip (~> 1.2)
   sass (~> 3.7)
   sassc-rails (~> 2.1)
   shared_mustache (~> 1.0.0)
@@ -678,4 +679,4 @@ DEPENDENCIES
   whenever (~> 0.10.0)
 
 BUNDLED WITH
-   1.16.2
+   1.17.3

@@ -21,8 +21,9 @@ private
   end
 
   def generate_csv(filter, csv_file)
-    csv = CSV.new(csv_file)
-    csv << DocumentListExportPresenter.header_row
+    headers = DocumentListExportPresenter.header_row
+    csv = CSV.new(csv_file, headers: headers, write_headers: true)
+
     filter.each_edition_for_csv do |edition|
       presenter = DocumentListExportPresenter.new(edition)
       csv << presenter.row
