@@ -9,7 +9,7 @@
       <th></th>
     </tr>
   </thead>
-  <% @edition.attachments.each do |attachment| %>
+  <% @edition.attachments.includes(:attachment_data).each do |attachment| %>
     <tr>
       <td id='<%= "js-attachment-#{attachment.id}" %>' class="control-group">
         <%= fields_for 'attachments[]', attachment, builder: ActionView::Helpers::FormBuilder do |f| %>
