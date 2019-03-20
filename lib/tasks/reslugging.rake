@@ -89,4 +89,21 @@ namespace :reslug do
     organisation = Organisation.find_by!(slug: old_slug)
     DataHygiene::OrganisationReslugger.new(organisation, new_slug).run!
   end
+
+  desc "Change a worldwide organisation slug (DANGER!).\n
+
+  This rake task changes the slug of a worldwide organisation in whitehall.
+
+  It performs the following steps:
+  - updates the WorldwideOrganisation's slug
+  - republishes the org to Publishing API (which creates a redirect)
+  - reindexes the org for search
+  - reindexes all dependent documents in search"
+  task :worldwide_organisation, %i[old_slug new_slug] => :environment do |_task, args|
+    old_slug = args[:old_slug]
+    new_slug = args[:new_slug]
+
+    organisation = WorldwideOrganisation.find_by!(slug: old_slug)
+    DataHygiene::OrganisationReslugger.new(organisation, new_slug).run!
+  end
 end
