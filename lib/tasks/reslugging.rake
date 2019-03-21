@@ -73,6 +73,13 @@ namespace :reslug do
     Whitehall::SearchIndex.add(policy_group)
   end
 
+  desc "Change the slug of a WorldLocation"
+  task :world_location, %i[old_slug new_slug] => :environment do |_task, args|
+    world_location = WorldLocation.find_by!(slug: args.old_slug)
+    Whitehall::SearchIndex.delete(world_location)
+    world_location.update_attributes!(slug: args.new_slug)
+  end
+
   def reslug_organisation(organisation_class, args)
     old_slug = args[:old_slug]
     new_slug = args[:new_slug]
