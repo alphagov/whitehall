@@ -73,6 +73,14 @@ namespace :reslug do
     Whitehall::SearchIndex.add(policy_group)
   end
 
+  def reslug_organisation(organisation_class, args)
+    old_slug = args[:old_slug]
+    new_slug = args[:new_slug]
+
+    organisation = organisation_class.find_by!(slug: old_slug)
+    DataHygiene::OrganisationReslugger.new(organisation, new_slug).run!
+  end
+
   desc "Change an organisation slug (DANGER!).\n
 
   This rake task changes the slug of an organisation in whitehall.
@@ -83,10 +91,19 @@ namespace :reslug do
   - reindexes the org for search
   - reindexes all dependent documents in search"
   task :organisation, %i[old_slug new_slug] => :environment do |_task, args|
-    old_slug = args[:old_slug]
-    new_slug = args[:new_slug]
+    reslug_organisation(Organisation, args)
+  end
 
-    organisation = Organisation.find_by!(slug: old_slug)
-    DataHygiene::OrganisationReslugger.new(organisation, new_slug).run!
+  desc "Change a worldwide organisation slug (DANGER!).\n
+
+  This rake task changes the slug of a worldwide organisation in whitehall.
+
+  It performs the following steps:
+  - updates the WorldwideOrganisation's slug
+  - republishes the org to Publishing API (which creates a redirect)
+  - reindexes the org for search
+  - reindexes all dependent documents in search"
+  task :worldwide_organisation, %i[old_slug new_slug] => :environment do |_task, args|
+    reslug_organisation(WorldwideOrganisation, args)
   end
 end
