@@ -39,21 +39,10 @@ Feature: Fatalities
     When I create a new field of operation called "New Field" with description "Description"
     Then I am able to associate fatality notices with "New Field"
 
-  @not-quite-as-fake-search
-  Scenario: Writer creates a fatality notice
-    When I create a fatality notice titled "Death of Joe" in the field "Iraq" associated with "Defence Policy"
-    Then the fatality notice is shown on the Announcements page
-
   Scenario: Writer manages casualty entries for a fatality shown on the field of operation page
     Given there is a fatality notice titled "Death of Joe" in the field "Iraq"
     When I add a casualty to the fatality notice
     Then I should see a casualty listed on the field of operation page for "Iraq"
-
-  @not-quite-as-fake-search
-  Scenario: Citizen sees all fatalities in a filtered list
-    Given there is a fatality notice titled "Death of Joe and Jim" in the field "Iraq"
-    When I visit the list of announcements
-    Then I can view the field of operations information from a link in the metadata
 
   Scenario: Only editors/writers from organisations which handle fatalities can create fatality notices
     Given I am a writer in the organisation "DFT"

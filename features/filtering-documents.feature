@@ -36,12 +36,6 @@ Feature: Filtering Documents
     When I visit the publications index page
     Then I should be able to filter publications by keyword, publication type, taxon, department, official document status, world location, and publication date
 
-  Scenario: Filtering announcements
-    Given there are some published announcements
-    Given an Announcement is tagged to a taxon
-    When I visit the announcements index page
-    Then I should be able to filter announcements by keyword, announcement type, taxon, department, world location and publication date
-
   @javascript
   Scenario: Filtering publications in a javascript-enabled browser
     Given there are some published publications

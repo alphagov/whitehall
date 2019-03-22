@@ -64,24 +64,6 @@ Then(/^the world location news article "([^"]+)" appears on the (?:world locatio
   end
 end
 
-Given(/^there is a world location news article$/) do
-  @world_location_news = create(:published_world_location_news_article)
-end
-
-Then(/^I should not be able to see the world location news article$/) do
-  assert page.has_no_css?(record_css_selector(@world_location_news))
-end
-
-When(/^I explicitly ask for world location news to be included$/) do
-  visit announcements_path
-  check 'Include local news from UK embassies and other world organisations'
-  click_on "Refresh results"
-end
-
-Then(/^I should be able to see the world location news article$/) do
-  assert page.has_css?(search_result_css_selector(@world_location_news))
-end
-
 Given(/^a draft right\-to\-left non\-English edition exists$/) do
   I18n.with_locale(:ar) do
     @edition = create(:world_location_news_article, title: 'Arabic title', body: 'Arabic body', summary: 'Arabic summary', primary_locale: :ar)

@@ -32,14 +32,6 @@ Feature: World location news
   Background:
     Given I am an GDS editor
 
-  @not-quite-as-fake-search
-  Scenario: World location news on the announcements index
-    Given there is a world location news article
-    When I browse to the announcements index
-    Then I should not be able to see the world location news article
-    When I explicitly ask for world location news to be included
-    Then I should be able to see the world location news article
-
   Scenario: View news articles relating to an international delegation
     Given an international delegation "UK and the World Government" exists
     And a published news article "World Government publishes fishing statistics for the Atlantic Ocean" exists relating to the international delegation "UK and the World Government"

@@ -10,6 +10,11 @@ Given(/^a published (publication|news article|consultation|speech|detailed guide
   create("published_#{document_class(document_type).name.underscore}".to_sym, title: title)
 end
 
+Given(/^a published (publication|news article|consultation|speech|detailed guide) "([^"]*)" with locale "([^"]*)" exists$/) do |document_type, title, locale|
+  create(:government) if Government.first.nil?
+  create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, translated_into: [locale.to_sym])
+end
+
 Given(/^a published document "([^"]*)" exists$/) do |title|
   create(:published_publication, title: title)
 end
@@ -189,7 +194,7 @@ Then(/^I should not see (#{THE_DOCUMENT})$/) do |edition|
 end
 
 Then(/^I should see (#{THE_DOCUMENT}) in the list of announcements$/) do |edition|
-  assert has_css?(search_result_css_selector(edition))
+  assert has_css?(record_css_selector(edition))
 end
 
 Then(/^I should see (#{THE_DOCUMENT}) in the list of draft documents$/) do |edition|

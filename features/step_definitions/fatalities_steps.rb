@@ -10,12 +10,6 @@ When(/^I create a fatality notice titled "([^"]*)" in the field "([^"]*)" associ
   publish(force: true)
 end
 
-Then(/^the fatality notice is shown on the Announcements page$/) do
-  stub_content_item_from_content_store_for(announcements_path)
-  visit announcements_path
-  assert page.has_content?(FatalityNotice.last.title)
-end
-
 Given(/^there is a fatality notice titled "([^"]*)" in the field "([^"]*)"$/) do |title, field_name|
   field = create(:operational_field, name: field_name)
   create(:published_fatality_notice, title: title, operational_field: field)

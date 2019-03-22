@@ -21,182 +21,140 @@ class AnnouncementsControllerTest < ActionController::TestCase
     stub_taxonomy_with_all_taxons
   end
 
-  view_test "index shows a mix of news and speeches" do
+  test "when locale is english it redirects to news and communications" do
     with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).returns('results' =>
-                                           [{ 'format' => 'news_article', 'content_id' => 'news_id', 'public_timestamp' => Time.zone.now.to_s },
-                                            { 'format' => 'speech', 'content_id' => 'speech_id', 'public_timestamp' => Time.zone.now.to_s }])
+      @rummager.expects(:search).returns('results' => [])
 
       get :index
-
-      assert_select '#news_article_news_id'
-      assert_select '#speech_speech_id'
+      assert_response :redirect
     end
   end
 
-  test "index sets Cache-Control: max-age to the time of the next scheduled publication" do
+  test "when locale is english it redirects with params for finder-frontend" do
     with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search)
-      create(:scheduled_news_article, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
+      @rummager.expects(:search).returns('results' => [])
 
-      Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
-        get :index
-      end
+      get :index, params: {
+        keywords: "one two",
+        taxons: %w[one],
+        subtaxons: %w[two],
+        people: %w[one two],
+        departments: %w[one two],
+        world_locations: %w[one two],
+        from_date: '01/01/2014',
+        to_date: '01/01/2014'
+      }
 
-      assert_cache_control("max-age=#{Whitehall.default_cache_max_age / 2}")
+      redirect_params_query = {
+        keywords: "one two",
+        level_one_taxon: 'one',
+        level_two_taxon: 'two',
+        people: %w[one two],
+        organisations: %w[one two],
+        world_locations: %w[one two],
+        public_timestamp: { from: '01/01/2014', to: '01/01/2014' }
+      }.to_query
+
+      assert_redirected_to "#{Plek.new.website_root}/search/news-and-communications?#{redirect_params_query}"
     end
   end
 
-  view_test "index shows which type a record is" do
-    with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).returns('results' =>
-                                           [{ 'format' => 'news_story', 'content_id' => 'news_id', 'display_type' => 'News story', 'public_timestamp' => Time.zone.now.to_s },
-                                            { 'format' => 'speech', 'content_id' => 'speech_id', 'display_type' => 'Speech', 'public_timestamp' => Time.zone.now.to_s },
-                                            { 'format' => 'written_statement', 'content_id' => 'written_statement_id', 'display_type' => 'Statement to Parliament', 'public_timestamp' => Time.zone.now.to_s }])
+  view_test "index with locale shows a mix of news and speeches" do
+    news = create(:published_news_article, translated_into: [:fr])
+    speech = create(:published_speech, translated_into: [:fr])
+    get :index, params: { locale: 'fr' }
 
-      get :index
+    assert_select "#news_article_#{news.id}"
+    assert_select "#speech_#{speech.id}"
+  end
 
-      assert_select '#news_story_news_id' do
-        assert_select ".display-type", text: "News story"
-      end
-      assert_select '#speech_speech_id' do
-        assert_select ".display-type", text: "Speech"
-      end
-      assert_select '#written_statement_written_statement_id' do
-        assert_select ".display-type", text: "Statement to parliament"
-      end
+  test "index with locale sets Cache-Control: max-age to the time of the next scheduled publication" do
+    create(:scheduled_news_article, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
+
+    Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
+      get :index, params: { locale: 'fr' }
+    end
+
+    assert_cache_control("max-age=#{Whitehall.default_cache_max_age / 2}")
+  end
+
+  view_test "index with locale shows which type a record is" do
+    news = create(:published_news_story, translated_into: [:fr], news_article_type: NewsArticleType::NewsStory)
+    speech = create(:published_speech, translated_into: [:fr])
+    written_statement = create(:published_speech, translated_into: [:fr], speech_type: SpeechType::WrittenStatement)
+
+    get :index, params: { locale: 'fr' }
+
+    assert_select "#news_article_#{news.id}" do
+      assert_select ".display-type", text: "News story"
+    end
+    assert_select "#speech_#{speech.id}" do
+      assert_select ".display-type", text: "Speech"
+    end
+    assert_select "#speech_#{written_statement.id}" do
+      assert_select ".display-type", text: "Statement to Parliament"
     end
   end
 
-  view_test "index shows the date on which a speech was first published" do
-    with_stubbed_rummager(@rummager, true) do
-      first_published_at = Date.parse("1999-12-31").to_datetime.iso8601
-      @rummager.expects(:search).returns('results' =>
-                                          [{ 'format' => 'speech',
-                                             'content_id' => 'speech_id',
-                                             'public_timestamp' => first_published_at }])
-      get :index
+  view_test "index with locale shows the date on which a speech was first published" do
+    first_published_at = Date.parse("1999-12-31").to_datetime.iso8601
+    speech = create(:published_speech, first_published_at: first_published_at, translated_into: [:fr])
 
-      assert_select '#speech_speech_id' do
-        assert_select "time.public_timestamp[datetime=?]", first_published_at
-      end
+    get :index, params: { locale: 'fr' }
+
+    assert_select "#speech_#{speech.id}" do
+      assert_select "time.public_timestamp[datetime=?]", first_published_at
     end
   end
 
-  view_test "index shows the time when a news article was first published" do
-    with_stubbed_rummager(@rummager, true) do
-      first_published_at = Time.zone.parse("2001-01-01 01:01").iso8601
-      content_id = SecureRandom.uuid
-      @rummager.expects(:search).returns('results' =>
-                                            [{ 'format' => 'speech',
-                                               'content_id' => content_id,
-                                               'public_timestamp' => first_published_at }])
-      get :index
+  view_test "index with locale shows the time when a news article was first published" do
+    first_published_at = Date.parse("1999-12-31").to_datetime.iso8601
+    news = create(:published_news_article, first_published_at: first_published_at, translated_into: [:fr])
+    get :index, params: { locale: 'fr' }
 
-      assert_select "#speech_#{content_id}" do
-        assert_select "time.public_timestamp[datetime=?]", first_published_at
-      end
+    assert_select "#news_article_#{news.id}" do
+      assert_select "time.public_timestamp[datetime=?]", first_published_at
     end
   end
 
   view_test "index shows related organisations for each type of article" do
-    with_stubbed_rummager(@rummager, true) do
-      first_org = create(:organisation, name: 'first-org', acronym: "FO")
-      second_org = create(:organisation, name: 'second-org', acronym: "SO")
+    first_org = create(:organisation, name: 'first-org', acronym: "FO")
+    second_org = create(:organisation, name: 'second-org', acronym: "SO")
+    news = create(:published_news_story, translated_into: [:fr], organisations: [first_org, second_org])
+    speech = create(:published_speech, translated_into: [:fr], organisations: [second_org])
 
-      @rummager.expects(:search).returns('results' =>
-                                          [{ 'format' => 'news_article',
-                                             'content_id' => 'news_id',
-                                             'organisations' =>
-                                               [{ 'acronym' => first_org.acronym },
-                                                { 'acronym' => second_org.acronym }],
-                                              'public_timestamp' => Time.zone.now.to_s },
-                                           { 'format' => 'speech',
-                                             'content_id' => 'speech_id',
-                                             'organisations' =>
-                                               [{ 'acronym' => second_org.acronym }],
-                                             'public_timestamp' => Time.zone.now.to_s }])
+    get :index, params: { locale: 'fr' }
 
-      get :index
+    assert_select "#news_article_#{news.id}" do
+      assert_select ".organisations", text: "FO et SO", count: 1
+    end
 
-      assert_select '#news_article_news_id' do
-        assert_select ".organisations", text: "FO and SO", count: 1
-      end
-
-      assert_select '#speech_speech_id' do
-        assert_select ".organisations", text: "SO", count: 1
-      end
+    assert_select "#speech_#{speech.id}" do
+      assert_select ".organisations", text: "SO", count: 1
     end
   end
 
-  view_test "index shows articles in reverse chronological order" do
-    with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).with(has_entry(order: '-public_timestamp')).returns(
-        'results' =>
-          [{ 'format' => 'published_speech', 'content_id' => 'new_id', 'public_timestamp' => Time.zone.now.to_s },
-           { 'format' => 'published_news_article', 'content_id' => 'old_id', 'public_timestamp' => Time.zone.now.to_s }]
-      )
+  view_test "index with locale shows articles in reverse chronological order" do
+    nineties = Date.parse("1999-12-31").to_datetime.iso8601
+    twenty_first_century = Date.parse("2000-01-01").to_datetime.iso8601
+    second_speech = create(:published_speech, first_published_at: twenty_first_century, translated_into: [:fr])
+    first_speech = create(:published_speech, first_published_at: nineties, translated_into: [:fr])
 
-      get :index
+    get :index, params: { locale: 'fr' }
 
-      assert_select '#published_speech_new_id + #published_news_article_old_id'
-    end
+    assert_select "#speech_#{second_speech.id} + #speech_#{first_speech.id}"
   end
 
-  view_test "index shows selected announcement type filter option in the title" do
-    with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).returns('results' => [])
-      get :index, params: { announcement_filter_option: 'news-stories' }
+  view_test "index with locale shows selected announcement type filter option in the title" do
+    get :index, params: { announcement_filter_option: 'news-stories', locale: 'fr' }
 
-      assert_select 'h1 span', ': news stories'
-    end
-  end
-
-  view_test "index indicates selected announcement type filter option in the filter selector" do
-    with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).returns('results' => [{ 'format' => 'news_article', 'public_timestamp' => Time.zone.now.to_s }])
-      get :index, params: { announcement_filter_option: 'news-stories' }
-
-      assert_select "select[name='announcement_filter_option']" do
-        assert_select "option[selected='selected']", text: Whitehall::AnnouncementFilterOption::NewsStory.label
-      end
-    end
-  end
-
-  view_test "index indicates selected world location in the filter selector" do
-    with_stubbed_rummager(@rummager, true) do
-      world_location_1 = create(:world_location, name: "Afghanistan")
-      world_location_2 = create(:world_location, name: "Albania")
-      world_location_3 = create(:world_location, name: "Algeria")
-      create(:published_news_article, world_locations: [world_location_1, world_location_2, world_location_3])
-
-      @rummager.expects(:search).returns('results' =>
-        [{ "format" => 'news_article', "world_locations" => [{ slug: world_location_1.slug }, { slug: world_location_3.slug }], 'public_timestamp' => Time.zone.now.to_s }])
-
-      get :index, params: { world_locations: [world_location_1.slug, world_location_3.slug] }
-
-      assert_select "select[name='world_locations[]']" do
-        assert_select "option[selected='selected']", count: 2
-      end
-    end
-  end
-
-  view_test "index indicates selected people in the filter selector" do
-    with_stubbed_rummager(@rummager, true) do
-      a_person = create(:person, forename: "Jane", surname: "Doe")
-      @rummager.expects(:search).returns('results' => [{ "format" => "news_article", "people" => [{ "slug" => a_person.slug }], "public_timestamp" => Time.zone.now.to_s }])
-      get :index, params: { people: [a_person.slug] }
-
-      assert_select "select[name='people[]']" do
-        assert_select "option[selected='selected']", text: "Jane Doe"
-      end
-    end
+    assert_select 'h1 span', ': news stories'
   end
 
   def assert_documents_appear_in_order_within(containing_selector, expected_documents)
     articles = css_select "#{containing_selector} li.document-row"
-    expected_document_ids = expected_documents.map { |doc| "#{doc['format']}_#{doc['content_id']}" }
-    actual_document_ids = articles.map { |a| a["id"] }
+    expected_document_ids = expected_documents.map { |doc| "#{doc.display_type_key}_#{doc.id}" }
+    actual_document_ids = articles.map { |a| a['id'] }
     assert_equal expected_document_ids, actual_document_ids
   end
 
@@ -205,130 +163,78 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index shows only the first page of news articles or speeches" do
-    with_stubbed_rummager(@rummager, true) do
-      news = (1..2).map { |n| { 'format' => 'news_article', 'content_id' => n, 'public_timestamp' => Time.zone.now.to_s } }
-      speeches = (3..4).map { |n| { 'format' => 'published_speech', 'content_id' => n, 'public_timestamp' => Time.zone.now.to_s } }
+    speeches = (1..2).map { create(:published_speech, translated_into: [:fr]) }
+    news = (1..2).map { create(:published_news_article, translated_into: [:fr]) }
 
-      @rummager.expects(:search).returns('results' => news + speeches)
-
-      with_number_of_documents_per_page(3) do
-        get :index
-      end
-
-      assert_documents_appear_in_order_within(".filter-results", news + speeches[0..0])
-
-      (speeches[1..2]).each do |speech|
-        refute_select(speech)
-      end
+    with_number_of_documents_per_page(3) do
+      get :index, params: { locale: 'fr' }
     end
+
+    articles = css_select ".filter-results li.document-row"
+    actual_document_ids = articles.map { |a| a['id'] }
+    assert_equal [
+      "news_article_#{news.second.id}",
+      "news_article_#{news.first.id}",
+      "speech_#{speeches.second.id}",
+    ], actual_document_ids
+
+    refute_select(speeches.first)
   end
 
   view_test "index shows the requested page" do
-    with_stubbed_rummager(@rummager, true) do
-      news = (1..3).map { |n| { 'format' => 'news_article', 'content_id' => n, 'public_timestamp' => Time.zone.now.to_s } }
-      speeches = (4..6).map { |n| { 'format' => 'published_speech', 'content_id' => n, 'public_timestamp' => Time.zone.now.to_s } }
+    speeches = (1..3).map { create(:published_speech, translated_into: [:fr]) }
+    news = (1..3).map { create(:published_news_article, translated_into: [:fr]) }
 
-      @rummager.expects(:search).returns('results' => news + speeches)
-
-      with_number_of_documents_per_page(4) do
-        get :index, params: { page: 2 }
-      end
-
-      assert_documents_appear_in_order_within(".filter-results", speeches[1..2])
-      (news + speeches[0..0]).each do |speech|
-        refute_select(speech)
-      end
+    with_number_of_documents_per_page(4) do
+      get :index, params: { page: 2, locale: 'fr' }
     end
-  end
 
-  view_test "#index highlights selected taxon filter options" do
-    with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).returns('results' => [{ 'format' => 'news_article', 'part_of_taxonomy_tree' => [root_taxon['content_id']], 'public_timestamp' => Time.zone.now.to_s }])
-      get :index, params: { taxons: [root_taxon['content_id']] }
+    articles = css_select ".filter-results li.document-row"
 
-      assert_select "select#taxons[name='taxons[]']" do
-        assert_select "option[selected='selected']", text: root_taxon['title']
-      end
-    end
-  end
+    actual_document_ids = articles.map { |a| a['id'] }
+    assert_equal [
+      "speech_#{speeches.second.id}",
+      "speech_#{speeches.first.id}",
+    ], actual_document_ids
 
-  view_test "#index highlights all taxons filter options by default" do
-    with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).returns('results' => [])
-      get :index
-
-      assert_select "select[name='taxons[]']" do
-        assert_select "option[selected='selected']", text: "All topics"
-      end
+    (news + speeches[0..0]).each do |speech|
+      refute_select(speech)
     end
   end
 
   view_test 'index has atom feed autodiscovery link' do
-    with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).returns('results' => [])
-      get :index
-      assert_select_autodiscovery_link announcements_url(format: "atom", host: Whitehall.public_host, protocol: Whitehall.public_protocol)
-    end
+    get :index, params: { locale: 'fr' }
+    assert_select_autodiscovery_link announcements_url(format: "atom", host: Whitehall.public_host, protocol: Whitehall.public_protocol)
   end
 
   view_test 'index atom feed autodiscovery link includes any present filters' do
-    with_stubbed_rummager(@rummager, true) do
-      topic = create(:topic)
-      organisation = create(:organisation)
+    topic = create(:topic)
+    organisation = create(:organisation)
 
-      @rummager.expects(:search).returns('results' => [{ "format" => 'news_article',
-                                                         "organisations" => [{ "slug" => organisation.slug }],
-                                                         "topics" => [{ "slug" => topic.slug }],
-                                                         "public_timestamp" => Time.zone.now.to_s }])
+    get :index, params: { topics: [topic], departments: [organisation], locale: 'fr' }
 
-      get :index, params: { topics: [topic], departments: [organisation] }
-
-      assert_select_autodiscovery_link announcements_url(format: "atom", topics: [topic], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
-    end
+    assert_select_autodiscovery_link announcements_url(format: "atom", topics: [topic], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
   end
 
   view_test "index generates an atom feed for the current filter" do
-    with_stubbed_rummager(@rummager, true) do
-      org = create(:organisation, name: "org-name")
+    org = create(:organisation, name: "org-name")
+    get :index, params: { departments: [org.to_param], locale: 'fr' }, format: :atom
 
-      rummager_results_with_org = {
-        "results" => [
-            {
-            "link": "/foo/news_story",
-            "title": "PM attends summit on topical events",
-            "public_timestamp": "2018-10-07T22:18:32Z",
-            "display_type": "news_article",
-            "description": "Description of document...",
-            "content_id": "1234-C",
-            "organisations": [
-              {
-                "slug": org.slug
-              }
-            ]
-          }
-        ]
-      }.with_indifferent_access
-
-      @rummager.expects(:search).returns(rummager_results_with_org)
-
-      get :index, params: { departments: [org.to_param] }, format: :atom
-
-      assert_select_atom_feed do
-        assert_select 'feed > id', 1
-        assert_select 'feed > title', 1
-        assert_select 'feed > author, feed > entry > author'
-        assert_select 'feed > updated', 1
-        assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml',
-        announcements_url(format: :atom, departments: [org.to_param]), 1
-        assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', root_url, 1
-      end
+    assert_select_atom_feed do
+      assert_select 'feed > id', 1
+      assert_select 'feed > title', 1
+      assert_select 'feed > author, feed > entry > author'
+      assert_select 'feed > updated', 1
+      assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml',
+      announcements_url(format: :atom, departments: [org.to_param]), 1
+      assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', root_url, 1
     end
   end
 
   view_test "index generates an atom feed with entries for announcements matching the current filter" do
     with_stubbed_rummager(@rummager, true) do
-      org = create(:organisation, name: "org-name")
-      create(:published_news_article, organisations: [org], first_published_at: 1.week.ago)
+      location = create(:world_location, name: "beetlejuice")
+      create(:published_news_story, world_locations: [location], first_published_at: 1.week.ago)
 
       @rummager.expects(:search).returns(search_results_from_rummager)
 
@@ -336,7 +242,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
         RummagerDocumentPresenter.new(result)
       end
 
-      get :index, params: { departments: [org.to_param] }, format: :atom
+      get :index, params: { world_locations: [location.to_param] }, format: :atom
 
       assert_select_atom_feed do
         assert_select_atom_entries(processed_rummager_documents, false)
@@ -417,59 +323,53 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test 'index includes tracking details on all links' do
-    with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).returns('results' =>
-                                          [{ 'format' => 'published_news_article',
-                                             'content_id' => 'news_id',
-                                             'link' => '/path/to/somewhere',
-                                             'title' => 'title',
-                                             'public_timestamp' => Time.zone.now.to_s }])
+    news_article = create(:published_news_article, translated_into: [:fr])
+    path = Whitehall.url_maker.public_document_path(news_article, locale: :fr)
 
-      get :index
+    get :index, params: { locale: 'fr' }
 
-      assert_select '#published_news_article_news_id' do
-        results_list = css_select('ol.document-list').first
+    assert_select "#news_article_#{news_article.id}" do
+      results_list = css_select('ol.document-list').first
 
-        assert_equal(
-          'track-click',
-          results_list.attributes['data-module'].value,
-          "Expected the document list to have the 'track-click' module"
-        )
+      assert_equal(
+        'track-click',
+        results_list.attributes['data-module'].value,
+        "Expected the document list to have the 'track-click' module"
+      )
 
-        article_link = css_select('li.document-row a').first
+      article_link = css_select('li.document-row a').first
 
-        assert_equal(
-          'navAnnouncementLinkClicked',
-          article_link.attributes['data-category'].value,
-          "Expected the data category attribute to be 'navAnnouncementLinkClicked'"
-        )
+      assert_equal(
+        'navAnnouncementLinkClicked',
+        article_link.attributes['data-category'].value,
+        "Expected the data category attribute to be 'navAnnouncementLinkClicked'"
+      )
 
-        assert_equal(
-          '1',
-          article_link.attributes['data-action'].value,
-          "Expected the data action attribute to be the 1st position on the list"
-        )
+      assert_equal(
+        '1',
+        article_link.attributes['data-action'].value,
+        "Expected the data action attribute to be the 1st position on the list"
+      )
 
-        assert_equal(
-          '/path/to/somewhere',
-          article_link.attributes['data-label'].value,
-          "Expected the data label attribute to be the link of the news article"
-        )
+      assert_equal(
+        path,
+        article_link.attributes['data-label'].value,
+        "Expected the data label attribute to be the link of the news article"
+      )
 
-        options = JSON.parse(article_link.attributes['data-options'].value)
+      options = JSON.parse(article_link.attributes['data-options'].value)
 
-        assert_equal(
-          '1',
-          options['dimension28'],
-          "Expected the custom dimension 28 to have the total number of articles"
-        )
+      assert_equal(
+        '1',
+        options['dimension28'],
+        "Expected the custom dimension 28 to have the total number of articles"
+      )
 
-        assert_equal(
-          'title',
-          options['dimension29'],
-          "Expected the custom dimension 29 to have the title of the article"
-        )
-      end
+      assert_equal(
+        'fr-news-title',
+        options['dimension29'],
+        "Expected the custom dimension 29 to have the title of the article"
+      )
     end
   end
 

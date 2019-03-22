@@ -135,67 +135,6 @@ end
 
 ### Announcements
 
-Given(/^there are some published announcements$/) do
-  department = create(:ministerial_department, name: "A Department")
-  world_location = create(:world_location, name: "A World Location", active: true)
-
-  create :published_news_story, title: "News Article with keyword, topic, department, world location published within date range",
-         first_published_at: "2013-02-01",
-         organisations: [department],
-         world_locations: [world_location]
-  create :published_fatality_notice, title: "Fatality Notice with keyword, topic, department, world location published within date range",
-         first_published_at: "2013-02-01",
-         organisations: [department],
-         world_locations: [world_location]
-  create :published_news_story, title: "News Article without wordkey",
-         first_published_at: "2013-02-01",
-         organisations: [department],
-         world_locations: [world_location]
-  create :published_news_story, title: "News Article with keyword without topic",
-         first_published_at: "2013-02-01",
-         organisations: [department],
-         world_locations: [world_location]
-  create :published_news_story, title: "News Article with keyword without department",
-         first_published_at: "2013-02-01",
-         world_locations: [world_location]
-  create :published_news_story, title: "News Article with keyword without world location",
-         first_published_at: "2013-02-01",
-         organisations: [department]
-  create :published_news_story, title: "News Article with keyword published out of range",
-         first_published_at: "2013-06-01",
-         organisations: [department],
-         world_locations: [world_location]
-end
-
-Given(/^an Announcement is tagged to a taxon$/) do
-  redis_cache_has_taxons([build(:taxon_hash, content_id: 'id1', title: 'Taxon')])
-  announcement = Announcement.find_by(title: "News Article with keyword, topic, department, world location published within date range")
-  rummager_can_find_document_with_taxon(announcement.search_link, %w[id1])
-end
-
-When(/^I visit the announcements index page$/) do
-  stub_content_item_from_content_store_for(announcements_path)
-  visit announcements_path
-end
-
-Then(/^I should be able to filter announcements by keyword, announcement type, taxon, department, world location and publication date$/) do
-  clear_filters
-  within '#document-filter' do
-    page.fill_in "Contains", with: "keyword"
-    page.select "News stories", from: "Announcement type"
-    page.select "Taxon", from: "Topic"
-    page.select "A Department", from: "Department"
-    page.select "A World Location", from: "World locations"
-    page.fill_in "Published after", with: "01/01/2013"
-    page.fill_in "Published before", with: "01/03/2013"
-  end
-  page.click_on "Refresh results"
-
-  assert_listed_document_count 1
-  assert page.has_content? "News Article with keyword, topic, department, world location published within date range"
-  assert page.text.match %r[1 announcement about Taxon . by A Department . from A World Location . containing keyword . published after 01\/01\/2013 published before 01\/03\/2013]
-end
-
 Given(/^there are some published announcments including a few in French$/) do
   create :published_news_story, title: "News Article in English only"
   I18n.with_locale :fr do

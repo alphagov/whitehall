@@ -101,13 +101,6 @@ When(/^I publish a new news article of the type "(.*?)" called "(.*?)"$/) do |an
   publish(force: true)
 end
 
-When(/^I filter the announcements list by "(.*?)"$/) do |announcement_type|
-  stub_content_item_from_content_store_for(announcements_path)
-  visit announcements_path
-  select announcement_type, from: "Announcement type"
-  click_on "Refresh results"
-end
-
 When(/^I draft a French\-only "World news story" news article associated with "([^"]*)"$/) do |location_name|
   create(:worldwide_organisation, name: "French embassy")
 

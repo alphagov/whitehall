@@ -4,7 +4,8 @@ Given(/^I can navigate to the list of announcements$/) do
   stub_organisation_homepage_in_content_store
 end
 
-When(/^I visit the list of announcements$/) do
+When(/^I visit the list of announcements with locale "([^"]*)"$/) do |locale|
   stub_content_item_from_content_store_for(announcements_path)
-  visit announcements_path
+  stub_content_item_from_content_store_for(announcements_path(locale: locale.to_sym))
+  visit announcements_path(locale: locale.to_sym)
 end
