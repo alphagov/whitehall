@@ -18,7 +18,7 @@ gem "fuzzy_match", "~> 2.1"
 gem 'gds-sso', '~> 14.0'
 gem 'globalize', '~> 5'
 gem 'govuk_ab_testing', '~> 2.4x'
-gem 'govuk_admin_template', '~> 6.6'
+gem 'govuk_admin_template', '~> 6.7'
 gem 'govuk_app_config', '~> 1.13'
 gem 'govuk_publishing_components', '~> 12.13.0'
 gem 'govuk_sidekiq', '~> 3'
