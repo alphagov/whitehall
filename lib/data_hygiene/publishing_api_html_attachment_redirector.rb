@@ -41,7 +41,7 @@ module DataHygiene
     end
 
     def dry_run_results
-      puts "Would have redirected: #{html_attachments.map(&:slug).to_s}\n to #{destination}"
+      puts "Would have redirected: #{html_attachments.map(&:slug)}\nto #{destination}"
     end
 
     def send_redirects_to_publishing_api
@@ -52,7 +52,7 @@ module DataHygiene
           attachment.locale || I18n.default_locale.to_s,
         )
       end
-      "Redirected #{html_attachments.count} HTML attachments to #{destination}"
+      puts "Redirected: #{html_attachments.map(&:slug)}\nto #{destination}"
     end
   end
 end
