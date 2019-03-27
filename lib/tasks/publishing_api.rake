@@ -111,4 +111,15 @@ namespace :publishing_api do
     document = Document.find_by!(slug: args[:slug])
     PublishingApiDocumentRepublishingWorker.new.perform(document.id)
   end
+
+  desc "Redirect HTML Attachments to a given URL"
+  namespace :redirect_html_attachments do
+    task :dry, %i[content_id destination] => :environment do |_, args|
+      DataHygiene::PublishingApiHtmlAttachmentRedirector.call(args[:content_id], args[:destination], dry_run: true)
+    end
+
+    task :real, %i[content_id destination] => :environment do |_, args|
+      DataHygiene::PublishingApiHtmlAttachmentRedirector.call(args[:content_id], args[:destination], dry_run: false)
+    end
+  end
 end
