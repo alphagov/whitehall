@@ -79,6 +79,15 @@ namespace :rummager do
       end
       puts "Complete."
     end
+
+    desc "indexes all documents which were last updated in the given
+    date range.  The time defaults to midnight if only a date is
+    given, so date ranges include the start date but exclude the end
+    date."
+    task :published_between, %i(start_date end_date) => :environment do |_t, args|
+      eds = Document.joins(:published_edition).where(editions: { updated_at: args[:start_date]..args[:end_date] }).map(&:published_edition)
+      eds.each(&:update_in_search_index)
+    end
   end
 
   desc "removes and re-indexes all searchable whitehall content"
