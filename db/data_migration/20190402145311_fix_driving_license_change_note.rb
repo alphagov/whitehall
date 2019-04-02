@@ -5,6 +5,6 @@ document = Document.find_by(slug: "international-driving-permits-for-uk-drivers-
 
 edition = document.editions.find_by(change_note: original_change_note)
 
-edition.update_attributes(change_note: new_change_note)
+edition.update_column(:change_note, new_change_note)
 
 PublishingApiDocumentRepublishingWorker.perform_async(document.id)
