@@ -52,6 +52,16 @@ en:
     tk: Turkmen
     uz: Uzbeki
     id: Indonesian
+    nl: Dutch
+    "no": Norwegian
+    hr: Croatian
+    mt: Maltese
+    da: Danish
+    fi: Finish
+    is: Icelandic
+    gd: Irish
+    sl: Slovenian
+    sv: Swedish
   activerecord:
     nested_attachment_field_names: &nested_attachment_field_names
       command_paper_number: Attachment command paper number
