@@ -328,7 +328,7 @@
   i18n:
     direction: ltr
   language_names:
-    'no':
+    'no': Norsk
   latest_feed:
     no_updates:
     title:

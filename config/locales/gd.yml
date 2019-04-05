@@ -430,7 +430,7 @@ gd:
   i18n:
     direction: ltr
   language_names:
-    gd:
+    gd: Gaeilge
   latest_feed:
     no_updates:
     title:
