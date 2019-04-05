@@ -212,7 +212,7 @@ GEM
     govuk_frontend_toolkit (8.1.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
-    govuk_publishing_components (12.13.0)
+    govuk_publishing_components (16.10.0)
       govspeak (>= 5.0.3)
       govuk_app_config
       govuk_frontend_toolkit
@@ -239,7 +239,7 @@ GEM
     hashdiff (0.3.7)
     hashery (2.1.2)
     hashie (3.6.0)
-    highline (2.0.0)
+    highline (2.0.1)
     htmlentities (4.3.4)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
@@ -317,7 +317,7 @@ GEM
       redis
     mocha (1.8.0)
       metaclass (~> 0.0.1)
-    money (6.13.1)
+    money (6.13.2)
       i18n (>= 0.6.4, <= 2)
     msgpack (1.2.6)
     multi_json (1.13.1)
@@ -611,7 +611,7 @@ DEPENDENCIES
   govuk_admin_template (~> 6.7)
   govuk_app_config (~> 1.13)
   govuk_frontend_toolkit (= 8.1.0)
-  govuk_publishing_components (~> 12.13.0)
+  govuk_publishing_components (~> 16.10.0)
   govuk_sidekiq (~> 3)
   govuk_test
   graphviz_transitions
