@@ -49,9 +49,6 @@ GEM
     archive-zip (0.12.0)
       io-like (~> 0.3.0)
     arel (8.0.0)
-    asset_bom_removal-rails (1.0.2)
-      rails (>= 4.2)
-      sass (> 3.4)
     ast (2.4.0)
     autoprefixer-rails (9.5.0)
       execjs
@@ -579,7 +576,6 @@ PLATFORMS
 DEPENDENCIES
   activemodel-serializers-xml
   addressable (>= 2.3.7)
-  asset_bom_removal-rails (~> 1.0.0)
   babosa (= 1.0.2)
   better_errors
   binding_of_caller

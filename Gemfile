@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 gem 'activemodel-serializers-xml'
 gem 'addressable', ">= 2.3.7"
-gem 'asset_bom_removal-rails', '~> 1.0.0'
 gem 'babosa', '1.0.2'
 gem 'bootsnap', require: false
 gem 'bootstrap-kaminari-views', '0.0.5'

@@ -35,6 +35,11 @@ module Whitehall
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
+    # Using a sass css compressor causes a scss file to be processed twice (once
+    # to build, once to compress) which breaks the usage of "unquote" to use
+    # CSS that has same function names as SCSS such as max
+    config.assets.css_compressor = nil
+
     config.slimmer.wrapper_id = "whitehall-wrapper-slimmer"
 
     config.action_dispatch.ignore_accept_header = true
