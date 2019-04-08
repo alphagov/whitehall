@@ -9,7 +9,7 @@ class AnnouncementsController < DocumentsController
 
     respond_to do |format|
       format.html do
-        return redirect_to_news_and_communications if is_english_locale?
+        return redirect_to_news_and_communications if Locale.current.english?
 
         @content_item = Whitehall
           .content_store
@@ -26,7 +26,7 @@ class AnnouncementsController < DocumentsController
         )
       end
       format.atom do
-        return redirect_to_news_and_communications(".atom") if is_english_locale?
+        return redirect_to_news_and_communications(".atom") if Locale.current.english?
 
         @announcements = @filter.documents
       end
@@ -37,12 +37,6 @@ private
 
   def scheduled_announcements
     Announcement.scheduled.order("scheduled_publication asc")
-  end
-
-  def is_english_locale?
-    # We only want to redirect English locale requests for now,
-    # as translations for this finder haven't been moved to finder-frontend yet.
-    params[:locale].nil?
   end
 
   def redirect_to_news_and_communications(format = "")
