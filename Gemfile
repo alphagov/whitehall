@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 gem 'activemodel-serializers-xml'
 gem 'addressable', ">= 2.3.7"
-gem 'asset_bom_removal-rails', '~> 1.0.0'
 gem 'babosa', '1.0.2'
 gem 'bootsnap', require: false
 gem 'bootstrap-kaminari-views', '0.0.5'
@@ -20,7 +19,7 @@ gem 'globalize', '~> 5'
 gem 'govuk_ab_testing', '~> 2.4x'
 gem 'govuk_admin_template', '~> 6.7'
 gem 'govuk_app_config', '~> 1.13'
-gem 'govuk_publishing_components', '~> 12.13.0'
+gem 'govuk_publishing_components', '~> 16.10.0'
 gem 'govuk_sidekiq', '~> 3'
 gem 'invalid_utf8_rejector', '~> 0.0.4'
 gem 'isbn_validation'
