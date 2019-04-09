@@ -23,6 +23,7 @@ class Api::PagePresenterTest < PresenterTestCase
 
   test "json includes next page url if next page available" do
     @page.stubs(:last_page?).returns(false)
+    @page.stubs(:out_of_range?).returns(false)
     assert_equal api_organisations_url(page: 3), @presenter.as_json[:next_page_url]
   end
 
@@ -72,6 +73,7 @@ class Api::PagePresenterTest < PresenterTestCase
 
   test 'links include a rel=next url pointing to the next page if it has a next page' do
     @page.stubs(:last_page?).returns false
+    @page.stubs(:out_of_range?).returns(false)
     next_link = @presenter.links.detect { |(_url, attrs)| attrs['rel'] == 'next' }
     assert next_link
     next_url, = *next_link
@@ -80,6 +82,13 @@ class Api::PagePresenterTest < PresenterTestCase
 
   test 'links do not include a rel=next url if it is the last page' do
     @page.stubs(:last_page?).returns true
+    next_link = @presenter.links.detect { |(_url, attrs)| attrs['rel'] == 'next' }
+    refute next_link
+  end
+
+  test 'links do not include a rel=next url if it is the page is out of range' do
+    @page.stubs(:last_page?).returns false
+    @page.stubs(:out_of_range?).returns true
     next_link = @presenter.links.detect { |(_url, attrs)| attrs['rel'] == 'next' }
     refute next_link
   end

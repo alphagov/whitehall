@@ -27,7 +27,7 @@ Api::PagePresenter = Struct.new(:page, :context) do
   end
 
   def next_page_url
-    unless page.last_page?
+    if !page.last_page? && !page.out_of_range?
       url(page: page.current_page + 1)
     end
   end
