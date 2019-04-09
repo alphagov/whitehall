@@ -59,3 +59,12 @@ else
     description: "Test Policy Area Description"
   )
 end
+
+if WorldLocation.where(name: "Test World Location").present?
+  puts "Skipping because Test World Location already exists"
+else
+  WorldLocation.create(
+    name: "Test World Location",
+    world_location_type_id: 1
+  )
+end
