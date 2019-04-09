@@ -9,6 +9,8 @@ class StatisticsController < DocumentsController
 
     respond_to do |format|
       format.html do
+        return redirect_to_research_and_statistics if Locale.current.english?
+
         @content_item = Whitehall
           .content_store
           .content_item("/government/statistics")
@@ -33,6 +35,24 @@ class StatisticsController < DocumentsController
   end
 
 private
+
+  def redirect_to_research_and_statistics
+    base_path = "#{Plek.new.website_root}/search/research-and-statistics"
+    redirect_to("#{base_path}?#{research_and_statistics_query_string}")
+  end
+
+  def research_and_statistics_query_string
+    {
+      content_store_document_type: 'published_statistics',
+      keywords: params['keywords'],
+      level_one_taxon: params['taxons'].try(:first),
+      organisations: filter_query_array(params['departments']),
+      public_timestamp: {
+        from: params['from_date'],
+        to: params['to_date']
+      }.compact.presence,
+    }.compact.to_query
+  end
 
   def inject_statistics_publication_filter_option_param
     params[:publication_filter_option] = "statistics"
