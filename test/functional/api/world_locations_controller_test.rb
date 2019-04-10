@@ -74,4 +74,10 @@ class Api::WorldLocationsControllerTest < ActionController::TestCase
 
     assert_equal 'ok', json_response['_response_info']['status']
   end
+
+  view_test "no world locations" do
+    ActiveRecord::Base.connection.unstub(:select)
+    get :index, format: 'json'
+    assert_equal nil, json_response['next_page_url']
+  end
 end
