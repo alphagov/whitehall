@@ -13,14 +13,6 @@ When(/^I sign up for emails$/) do
   end
 end
 
-Then(/^I should be signed up for the all publications mailing list$/) do
-  assert_signed_up_to_mailing_list("/government/publications.atom", "publications")
-end
-
-Then(/^I should be signed up to the correspondence publications mailing list$/) do
-  assert_signed_up_to_mailing_list("/government/publications.atom?publication_filter_option=correspondence", "correspondence")
-end
-
 Then(/^I should be signed up for the "(.*?)" organisation mailing list$/) do |org_name|
   org_slug = Organisation.find_by!(name: org_name).slug
   assert_signed_up_to_mailing_list("/government/organisations/#{org_slug}.atom", org_name)

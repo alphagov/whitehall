@@ -19,14 +19,6 @@ Scenario: Submitting a draft publication to a second pair of eyes
   When I submit the publication "Standard Beard Lengths"
   Then I should see the publication "Standard Beard Lengths" in the list of submitted documents
 
-@not-quite-as-fake-search
-Scenario: Publishing a submitted publication
-  Given I am an editor
-  Given a submitted publication "Standard Beard Lengths" exists
-  When I publish the publication "Standard Beard Lengths"
-  Then I should see the publication "Standard Beard Lengths" in the list of published documents
-  And the publication "Standard Beard Lengths" should be visible to the public
-
 Scenario: Publishing an edition I submitted is forbidden
   Given I am an editor
   And there is a user called "Beardy"
@@ -56,11 +48,3 @@ Scenario: Viewing a publication that's been submitted for review with a PDF atta
   When I visit the list of documents awaiting review
   And I view the publication "Legalise beards"
   And I should see a link to the PDF attachment
-
-@not-quite-as-fake-search
-Scenario: Viewing published publications
-  Given a published publication "Lamb chops on baker's faces" with a PDF attachment
-  And a list of publications exists
-  When I visit the list of publications
-  Then I should see the publication "Lamb chops on baker's faces"
-  And I should see the summary of the publication "Lamb chops on baker's faces"

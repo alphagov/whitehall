@@ -3,6 +3,7 @@ class PublicationsController < DocumentsController
   before_action :expire_cache_when_next_publication_published
   before_action :redirect_statistics_filtering, only: [:index]
   before_action :redirect_statistics_documents, only: [:show]
+  include PublicationsRoutes
 
   def index
     @filter = build_document_filter
@@ -10,6 +11,8 @@ class PublicationsController < DocumentsController
 
     respond_to do |format|
       format.html do
+        return redirect_to_finder_frontend_finder if Locale.current.english?
+
         @content_item = Whitehall
           .content_store
           .content_item("/government/publications")
@@ -34,6 +37,32 @@ class PublicationsController < DocumentsController
   end
 
 private
+
+  def redirect_to_finder_frontend_finder
+    base_path = "#{Plek.new.website_root}/#{publications_base_path}"
+    redirect_to("#{base_path}?#{publications_query_string}")
+  end
+
+  def publications_base_path
+    base_path = PUBLICATIONS_ROUTES.dig(params[:publication_filter_option], :base_path)
+    base_path || DEFAULT_PUBLICATIONS_PATH
+  end
+
+  def special_params
+    PUBLICATIONS_ROUTES.dig(params[:publication_filter_option], :special_params) || {}
+  end
+
+  def publications_query_string
+    {
+      keywords: params['keywords'],
+      level_one_taxon: params['taxons'].try(:first) || params['topics'].try(:first),
+      level_two_taxon: params['subtaxons'].try(:first),
+      organisations: params['departments'] || params['organisations'],
+      people: params['people'],
+      world_locations: params['world_locations'],
+      public_timestamp: { from: params['from_date'], to: params['to_date'] }.compact.presence
+    }.compact.merge(special_params).to_query
+  end
 
   def expire_cache_when_next_publication_published
     expire_on_next_scheduled_publication(Publicationesque.scheduled.order("scheduled_publication asc"))

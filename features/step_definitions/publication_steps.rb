@@ -1,7 +1,3 @@
-Given(/^a list of publications exists$/) do
-  stub_organisation_homepage_in_content_store
-end
-
 Given(/^a published publication "([^"]*)" exists that is about "([^"]*)"$/) do |publication_title, world_location_name|
   world_location = WorldLocation.find_by!(name: world_location_name)
   create(:published_publication, title: publication_title, world_locations: [world_location])
@@ -39,12 +35,6 @@ Given(/^"([^"]*)" drafts a new publication "([^"]*)"$/) do |user_name, title|
   end
 end
 
-When(/^I visit the list of publications$/) do
-  stub_content_item_from_content_store_for(publications_path)
-  visit homepage
-  click_link "Publications"
-end
-
 When(/^I draft a new publication "([^"]*)" relating it to the policies "([^"]*)" and "([^"]*)"$/) do |title, first_policy, second_policy|
   begin_drafting_publication(title)
   click_button "Save and continue"
@@ -68,16 +58,6 @@ end
 
 Then(/^I should see a thumbnail of the first page of the PDF$/) do
   assert page.has_css?(".attachment img[src*='#{@attachment.filename}.png']") || page.has_css?("div.img img[src*='#{@attachment.filename}.png']")
-end
-
-Then(/^I should see the summary of the publication "([^"]*)"$/) do |publication_title|
-  publication = Publication.published.find_by!(title: publication_title)
-  assert has_css?("#{record_css_selector(publication)} h3", text: publication.title)
-end
-
-Then(/^I should see the summary of the draft publication "([^"]*)"$/) do |publication_title|
-  publication = Publication.find_by!(title: publication_title)
-  assert has_css?("h1", text: publication.title)
 end
 
 Then(/^I should see "([^"]*)" is a corporate publication of the "([^"]*)"$/) do |title, organisation|
@@ -146,19 +126,6 @@ end
 Given(/^a published publication "([^"]*)" with type "([^"]*)"$/) do |publication_title, publication_type|
   type_id = PublicationType.all.select { |pt| pt.singular_name == publication_type }.first.id
   create(:published_publication, title: publication_title, publication_type_id: type_id)
-end
-
-When(/^I filter the publications list by "([^"]*)"$/) do |publication_filter|
-  stub_content_item_from_content_store_for(publications_path)
-  filter_path_name = (publication_filter.to_s.underscore + "_path").to_sym
-
-  if respond_to?(filter_path_name)
-    stub_content_item_from_content_store_for(send(filter_path_name))
-  end
-
-  visit publications_path
-  select publication_filter, from: "Publication type"
-  click_on "Refresh results"
 end
 
 Then(/^I should see "([^"]*)" in the result list$/) do |title|
