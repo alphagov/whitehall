@@ -77,14 +77,21 @@ module ServiceListeners
       end
     end
 
-    test "withdraw republishes" do
+    test "withdraw republishes for all translations" do
+      translations = %i[es fr]
       document = build(:document)
-      edition = build(:publication, document: document)
+      edition = create(:publication, document: document, translated_into: translations)
       edition.build_unpublishing(explanation: 'Old information',
         unpublishing_reason_id: UnpublishingReason::Withdrawn.id)
 
       Whitehall::PublishingApi.expects(:publish_withdrawal_async)
         .with(edition.document.content_id, edition.unpublishing.explanation, edition.primary_locale)
+
+      translations.each do |translation|
+        Whitehall::PublishingApi.expects(:publish_withdrawal_async)
+          .with(edition.document.content_id, edition.unpublishing.explanation, translation.to_s)
+      end
+
       stub_html_attachment_pusher(edition, "withdraw")
       stub_publications_pusher(edition, "withdraw")
 
