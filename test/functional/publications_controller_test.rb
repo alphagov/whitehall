@@ -9,8 +9,6 @@ class PublicationsControllerTest < ActionController::TestCase
 
   with_not_quite_as_fake_search
   should_be_a_public_facing_controller
-  should_paginate :publication, timestamp_key: :first_published_at
-  should_paginate :consultation, timestamp_key: :opening_at
   should_return_json_suitable_for_the_document_filter :publication
   should_return_json_suitable_for_the_document_filter :consultation
 
@@ -23,14 +21,41 @@ class PublicationsControllerTest < ActionController::TestCase
     @content_item = content_item_for_base_path('/government/publications')
     content_store_has_item(@content_item['base_path'], @content_item)
     stub_taxonomy_with_all_taxons
+    @default_params = {
+      keywords: "one two",
+      taxons: %w[one],
+      subtaxons: %w[two],
+      departments: %w[one two],
+      world_locations: %w[one two],
+      from_date: '01/01/2014',
+      to_date: '01/01/2014'
+    }
+    @default_converted_params = {
+      keywords: "one two",
+      level_one_taxon: 'one',
+      level_two_taxon: 'two',
+      organisations: %w[one two],
+      world_locations: %w[one two],
+      public_timestamp: { from: '01/01/2014', to: '01/01/2014' }
+    }
+  end
+
+  test "when locale is English redirect to a finder-frontend finder" do
+    get :index
+    assert_response :redirect
+  end
+
+  test "when locale is English it redirects with params for finder-frontend" do
+    get :index, params: @default_params
+    assert_redirected_to "#{Plek.new.website_root}/search/all?#{@default_converted_params.to_query}"
   end
 
   view_test "#index only displays *published* publications" do
     Sidekiq::Testing.inline! do
-      superseded_publication = create(:superseded_publication)
-      published_publication = create(:published_publication)
-      draft_publication = create(:draft_publication)
-      get :index
+      superseded_publication = create(:superseded_publication, translated_into: :fr)
+      published_publication = create(:published_publication, translated_into: :fr)
+      draft_publication = create(:draft_publication, translated_into: :fr)
+      get :index, params: { locale: :fr }
 
       assert_select_object(published_publication)
       refute_select_object(superseded_publication)
@@ -40,10 +65,10 @@ class PublicationsControllerTest < ActionController::TestCase
 
   view_test "#index only displays *published* consultations" do
     Sidekiq::Testing.inline! do
-      superseded_consultation = create(:superseded_consultation)
-      published_consultation = create(:published_consultation)
-      draft_consultation = create(:draft_consultation)
-      get :index
+      superseded_consultation = create(:superseded_consultation, translated_into: :fr)
+      published_consultation = create(:published_consultation, translated_into: :fr)
+      draft_consultation = create(:draft_consultation, translated_into: :fr)
+      get :index, params: { locale: :fr }
 
       assert_select_object(published_consultation)
       refute_select_object(superseded_consultation)
@@ -51,23 +76,13 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "#index sets Cache-Control: max-age to the time of the next scheduled publication" do
-    create(:scheduled_publication, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
-
-    Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
-      get :index
-    end
-
-    assert_cache_control("max-age=#{Whitehall.default_cache_max_age / 2}")
-  end
-
   view_test "#index highlights selected world filter options" do
     @world_location_1 = create(:world_location)
     @world_location_2 = create(:world_location)
-    create(:published_publication, world_locations: [@world_location_1])
-    create(:published_publication, world_locations: [@world_location_2])
+    create(:published_publication, world_locations: [@world_location_1], translated_into: :fr)
+    create(:published_publication, world_locations: [@world_location_2], translated_into: :fr)
 
-    get :index, params: { world_locations: [@world_location_1, @world_location_2] }
+    get :index, params: { world_locations: [@world_location_1, @world_location_2], locale: :fr }
 
     assert_select "select#world_locations[name='world_locations[]']" do
       assert_select "option[selected='selected']", text: @world_location_1.name
@@ -75,63 +90,11 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "#index highlights selected taxon filter options" do
-    get :index, params: { taxons: [root_taxon['content_id']] }
-
-    assert_select "select#taxons[name='taxons[]']" do
-      assert_select "option[selected='selected']", text: root_taxon['title']
-    end
-  end
-
-  view_test "#index highlights selected organisation filter options" do
-    given_two_documents_in_two_organisations
-
-    get :index, params: { departments: [@organisation_1, @organisation_2] }
-
-    assert_select "select#departments[name='departments[]']" do
-      assert_select "option[selected]", text: @organisation_1.name
-      assert_select "option[selected]", text: @organisation_2.name
-    end
-  end
-
-  view_test "#index shows selected publication_filter_option in the title " do
-    get :index, params: { publication_filter_option: 'consultations' }
-
-    assert_select 'h1 span', ': all consultations'
-  end
-
-  view_test "#index capitalises FOI in the title correctly" do
-    get :index, params: { publication_filter_option: 'foi-releases' }
-
-    assert_select 'h1', html: 'Publications<span>: FOI releases</span>'
-  end
-
-  view_test "#index highlights selected publication type filter options" do
-    get :index, params: { publication_filter_option: "forms" }
-
-    assert_select "select[name='publication_filter_option']" do
-      assert_select "option[selected='selected']", text: Whitehall::PublicationFilterOption::Form.label
-    end
-  end
-
-  view_test "#index displays filter keywords" do
-    get :index, params: { keywords: "olympics 2012" }
-
-    assert_select "input[name='keywords'][value=?]", "olympics 2012"
-  end
-
-  view_test "#index displays date filter" do
-    get :index, params: { from_date: "01/01/2011", to_date: "01/02/2012" }
-
-    assert_select "input#from_date[name='from_date'][value='01/01/2011']"
-    assert_select "input#to_date[name='to_date'][value='01/02/2012']"
-  end
-
   view_test "#index orders publications by publication date by default" do
     Sidekiq::Testing.inline! do
-      publications = 5.times.map { |i| create(:published_publication, first_published_at: (10 - i).days.ago) }
+      publications = 5.times.map { |i| create(:published_publication, first_published_at: (10 - i).days.ago, translated_into: :fr) }
 
-      get :index
+      get :index, params: { locale: :fr }
 
       assert_equal "publication_#{publications.last.id}", css_select(".filter-results .document-row").first['id']
       assert_equal "publication_#{publications.first.id}", css_select(".filter-results .document-row").last['id']
@@ -140,9 +103,9 @@ class PublicationsControllerTest < ActionController::TestCase
 
   view_test "#index orders consultations by first_published_at date by default" do
     Sidekiq::Testing.inline! do
-      consultations = 5.times.map { |i| create(:published_consultation, first_published_at: (10 - i).days.ago) }
+      consultations = 5.times.map { |i| create(:published_consultation, first_published_at: (10 - i).days.ago, translated_into: :fr) }
 
-      get :index
+      get :index, params: { locale: :fr }
 
       assert_equal "consultation_#{consultations.last.id}", css_select(".filter-results .document-row").first['id']
       assert_equal "consultation_#{consultations.first.id}", css_select(".filter-results .document-row").last['id']
@@ -151,51 +114,20 @@ class PublicationsControllerTest < ActionController::TestCase
 
   view_test "#index orders documents by appropriate timestamp by default" do
     Sidekiq::Testing.inline! do
-      consultation = create(:published_consultation, first_published_at: 5.days.ago)
-      publication = create(:published_publication, first_published_at: 4.days.ago)
+      consultation = create(:published_consultation, first_published_at: 5.days.ago, translated_into: :fr)
+      publication = create(:published_publication, first_published_at: 4.days.ago, translated_into: :fr)
 
-      get :index
+      get :index, params: { locale: :fr }
 
       assert_equal "publication_#{publication.id}", css_select(".filter-results .document-row").first['id']
       assert_equal "consultation_#{consultation.id}", css_select(".filter-results .document-row").last['id']
     end
   end
 
-  view_test "#index highlights all organisations filter options by default" do
-    given_two_documents_in_two_organisations
-
-    get :index
-
-    assert_select "select[name='departments[]']" do
-      assert_select "option[selected='selected']", text: "All departments"
-    end
-  end
-
-  view_test "#index highlights all taxons filter options by default" do
-    get :index
-
-    assert_select "select[name='taxons[]']" do
-      assert_select "option[selected='selected']", text: "All topics"
-    end
-  end
-
-  view_test "#index shows filter keywords placeholder by default" do
-    get :index
-
-    assert_select "input[name='keywords'][placeholder=?]", "keywords"
-  end
-
-  view_test "#index does not select a date filter by default" do
-    get :index
-
-    assert_select "input[name='from_date'][placeholder=?]", "e.g. 01/01/2013"
-    assert_select "input[name='to_date'][placeholder=?]", "e.g. 28/02/2013"
-  end
-
   view_test "#index should show a helpful message if there are no matching publications" do
-    get :index
+    get :index, params: { locale: :fr }
 
-    assert_select "h2", text: "There are no matching documents."
+    assert_select "h2", text: "Vous pouvez utiliser les filtres pour afficher uniquement les résultats qui correspondent à vos intérêts"
   end
 
   view_test "#index only lists publications in the given locale" do
@@ -217,23 +149,6 @@ class PublicationsControllerTest < ActionController::TestCase
   view_test '#index for non-english locales skips results summary' do
     get :index, params: { locale: 'fr' }
     refute_select '.filter-results-summary'
-  end
-
-  test '#index for statistics document type redirect to statistics index' do
-    get :index, params: { publication_filter_option: 'statistics', keywords: 'wombles' }
-    assert_redirected_to statistics_path(keywords: 'wombles')
-  end
-
-  view_test '#index for regulation displays only regulation type documents' do
-    Sidekiq::Testing.inline! do
-      regulation = create(:published_publication, publication_type_id: PublicationType::Regulation.id)
-      guidance = create(:published_publication, publication_type_id: PublicationType::Guidance.id)
-
-      get :index, params: { publication_filter_option: 'regulations' }
-
-      assert_select_object(regulation)
-      refute_select_object(guidance)
-    end
   end
 
   view_test "#index requested as JSON includes data for publications" do
@@ -325,39 +240,24 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test '#index has atom feed autodiscovery link' do
-    get :index
+    get :index, params: { locale: :fr }
     assert_select_autodiscovery_link publications_url(format: "atom", host: Whitehall.public_host, protocol: Whitehall.public_protocol)
   end
 
   view_test '#index atom feed autodiscovery link includes any present filters' do
     organisation = create(:organisation)
 
-    get :index, params: { taxons: ["taxon-1"], departments: [organisation] }
+    get :index, params: { taxons: ["taxon-1"], departments: [organisation], locale: :fr }
 
     assert_select_autodiscovery_link publications_url(format: "atom", taxons: ["taxon-1"], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
-  end
-
-  view_test '#index atom feed autodiscovery link does not include date filter' do
-    get :index, params: { taxons: ["taxon-1"], to_date: "2012-01-01" }
-
-    assert_select_autodiscovery_link publications_url(format: "atom", taxons: ["taxon-1"], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
   end
 
   view_test '#index shows a link to the atom feed including any present filters' do
     organisation = create(:organisation)
 
-    get :index, params: { taxons: ["taxon-1"], departments: [organisation] }
+    get :index, params: { taxons: ["taxon-1"], departments: [organisation], locale: :fr }
 
     feed_url = publications_url(format: "atom", taxons: ["taxon-1"], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
-    assert_select "a.feed[href=?]", feed_url
-  end
-
-  view_test '#index shows a link to the atom feed without any date filters' do
-    organisation = create(:organisation)
-
-    get :index, params: { from_date: "2012-01-01", departments: [organisation] }
-
-    feed_url = publications_url(format: "atom", departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
     assert_select "a.feed[href=?]", feed_url
   end
 
@@ -490,13 +390,13 @@ class PublicationsControllerTest < ActionController::TestCase
   view_test '#index should show relevant document collection information' do
     Sidekiq::Testing.inline! do
       create(:departmental_editor)
-      publication = create(:draft_publication)
-      collection = create(:document_collection, :with_group)
+      publication = create(:draft_publication, translated_into: :fr)
+      collection = create(:document_collection, :with_group, translated_into: :fr)
       collection.groups.first.documents = [publication.document]
       stub_publishing_api_registration_for([collection, publication])
       Whitehall.edition_services.force_publisher(collection).perform!
       Whitehall.edition_services.force_publisher(publication).perform!
-      get :index
+      get :index, params: { locale: :fr }
 
       assert_select_object(publication) do
         assert_select(
@@ -548,9 +448,9 @@ private
 
   view_test 'index includes tracking details on all links' do
     Sidekiq::Testing.inline! do
-      published_publication = create(:published_publication)
+      published_publication = create(:published_publication, translated_into: :fr)
 
-      get :index
+      get :index, params: { locale: :fr }
 
       assert_select_object(published_publication) do
         results_list = css_select('ol.document-list').first
@@ -576,7 +476,7 @@ private
         )
 
         assert_equal(
-          @controller.public_document_path(published_publication),
+          @controller.public_document_path(published_publication, locale: :fr),
           publication_link.attributes['data-label'].value,
           "Expected the data label attribute to be the link of the publication"
         )
@@ -590,7 +490,7 @@ private
         )
 
         assert_equal(
-          published_publication.title,
+          "fr-#{published_publication.title}",
           options['dimension29'],
           "Expected the custom dimension 29 to have the title of the publication"
         )

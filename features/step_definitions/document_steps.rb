@@ -219,13 +219,6 @@ Then(/^(#{THE_DOCUMENT}) should no longer be listed on the public site$/) do |ed
   assert page.has_no_content?(edition.title)
 end
 
-Then(/^(#{THE_DOCUMENT}) should be visible to the public$/) do |edition|
-  public_edition_path = public_path_for(edition)
-  stub_content_item_from_content_store_for(public_edition_path)
-  visit_public_index_for(edition)
-  assert page.has_css?(record_css_selector(edition), text: edition.title)
-end
-
 Then(/^the publication should be related to "([^"]*)" and "([^"]*)" policies$/) do |related_policy_1, related_policy_2|
   policies_titles = Publication.last.policies.map(&:title)
 
