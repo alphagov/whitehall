@@ -33,3 +33,14 @@ namespace :data_hygiene do
     end
   end
 end
+
+namespace :data_hygiene do
+  desc "Add the withdrawal note to all translations of withdrawn editions."
+  task add_translation_withdrawal_notices: :environment do
+    Edition.where(state: 'withdrawn').find_each do |edition|
+      if edition.translations.count > 1
+        ServiceListeners::PublishingApiPusher.new(edition).push(event: "withdraw")
+      end
+    end
+  end
+end

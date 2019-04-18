@@ -24,11 +24,13 @@ module ServiceListeners
       when "unpublish"
         api.unpublish_async(edition.unpublishing)
       when "withdraw"
-        api.publish_withdrawal_async(
-          edition.content_id,
-          edition.unpublishing.explanation,
-          edition.primary_locale
-        )
+        edition.translations.each do |translation|
+          api.publish_withdrawal_async(
+            edition.content_id,
+            edition.unpublishing.explanation,
+            translation.locale.to_s
+          )
+        end
       when "force_schedule", "schedule"
         api.schedule_async(edition)
       when "unschedule"
