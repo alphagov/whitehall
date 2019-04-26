@@ -63,7 +63,7 @@ gem 'typhoeus', '~> 1.3'
 gem 'uglifier', '~> 4.1'
 gem 'unicorn', '5.4.1'
 gem 'validates_email_format_of'
-gem 'whenever', '~> 0.10.0', require: false
+gem 'whenever', '~> 0.11.0', require: false
 
 # rubocop:disable Bundler/DuplicatedGem
 if ENV['GDS_API_ADAPTERS_DEV']
