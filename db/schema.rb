@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181023071345) do
+ActiveRecord::Schema.define(version: 20190426132424) do
 
   create_table "about_pages", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "topical_event_id"
@@ -467,7 +467,7 @@ ActiveRecord::Schema.define(version: 20181023071345) do
   end
 
   create_table "featured_links", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "url"
+    t.text "url"
     t.string "title"
     t.integer "linkable_id"
     t.string "linkable_type"
