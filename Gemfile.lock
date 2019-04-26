@@ -85,9 +85,9 @@ GEM
       activesupport (>= 4.0.0)
       mime-types (>= 1.16)
     carrierwave-i18n (0.2.0)
-    childprocess (0.9.0)
-      ffi (~> 1.0, >= 1.0.11)
-    chromedriver-helper (2.1.0)
+    childprocess (1.0.1)
+      rake (< 13.0)
+    chromedriver-helper (2.1.1)
       archive-zip (~> 0.10)
       nokogiri (~> 1.8)
     chronic (0.10.2)
@@ -224,7 +224,7 @@ GEM
       sidekiq (>= 5, < 6)
       sidekiq-logging-json (~> 0.0)
       sidekiq-statsd (~> 0.1)
-    govuk_test (0.4.1)
+    govuk_test (0.4.2)
       capybara
       chromedriver-helper
       ptools
@@ -479,8 +479,8 @@ GEM
     scss_lint (0.57.1)
       rake (>= 0.9, < 13)
       sass (~> 3.5, >= 3.5.5)
-    selenium-webdriver (3.141.0)
-      childprocess (~> 0.5)
+    selenium-webdriver (3.142.0)
+      childprocess (>= 0.5, < 2.0)
       rubyzip (~> 1.2, >= 1.2.2)
     sentry-raven (2.7.4)
       faraday (>= 0.7.6, < 1.0)
