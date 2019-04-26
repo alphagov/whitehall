@@ -5,8 +5,7 @@
       <li><%= main_navigation_link_to "Worldwide", world_locations_path(locale: :en) %></li>
       <li><%= main_navigation_link_to 'How government works', how_government_works_path %></li>
       <li><%= main_navigation_link_to "Get involved", get_involved_path %></li>
-      <li class="clear-child"><%= main_navigation_link_to "Publications", publications_path %></li>
-      <li><a href="<%= CGI::escapeHTML('/search/policy-papers-and-consultations?content_store_document_type[]=open_consultations&content_store_document_type[]=closed_consultations') %>">Consultations</a></li>
+      <li class="clear-child"><a href="<%= CGI::escapeHTML('/search/policy-papers-and-consultations?content_store_document_type[]=open_consultations&content_store_document_type[]=closed_consultations') %>">Consultations</a></li>
       <li><%= main_navigation_link_to "Statistics", statistics_path %></li>
       <li><a href="/news-and-communications">News and communications</a></li>
     </ul>
