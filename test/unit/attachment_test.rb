@@ -167,6 +167,16 @@ class AttachmentTest < ActiveSupport::TestCase
     assert_nil attachment.price
   end
 
+  test 'should be valid without a unique_reference' do
+    attachment = build(:file_attachment, unique_reference: nil)
+    assert attachment.valid?
+  end
+
+  test 'should be invalid with a long unique_reference' do
+    attachment = build(:file_attachment, unique_reference: SecureRandom.hex(300))
+    refute attachment.valid?
+  end
+
   test 'should generate list of parliamentary sessions' do
     earliest_session = '1951-52'
     now = Time.zone.now

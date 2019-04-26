@@ -28,6 +28,7 @@ class Attachment < ApplicationRecord
   validates :price, numericality: {
     allow_blank: true, greater_than: 0
   }
+  validates :unique_reference, length: { maximum: 255 }, allow_blank: true
 
   scope :with_filename, ->(basename) {
     joins(:attachment_data).where('attachment_data.carrierwave_file = ?', basename)
