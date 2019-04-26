@@ -9,6 +9,7 @@ class FeaturedLink < ApplicationRecord
 
   validates :url, :title, presence: true
   validates :url, uri: true
+  validates_length_of :url, maximum: 255, message: "The URL can have maximum of 255 characters"
 
   def republish_organisation_to_publishing_api
     if linkable_type == "Organisation" && linkable.persisted?
