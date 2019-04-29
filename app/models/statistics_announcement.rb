@@ -79,6 +79,7 @@ class StatisticsAnnouncement < ApplicationRecord
               slug: :slug,
               organisations: :organisations_slugs,
               policy_areas: :topic_slugs,
+              public_timestamp: :updated_at,
               release_timestamp: :release_date,
               statistics_announcement_state: :state,
               metadata: :search_metadata,
