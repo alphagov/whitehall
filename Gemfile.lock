@@ -46,8 +46,6 @@ GEM
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
     afm (0.2.2)
-    archive-zip (0.12.0)
-      io-like (~> 0.3.0)
     arel (8.0.0)
     ast (2.4.0)
     autoprefixer-rails (9.5.0)
@@ -85,11 +83,8 @@ GEM
       activesupport (>= 4.0.0)
       mime-types (>= 1.16)
     carrierwave-i18n (0.2.0)
-    childprocess (0.9.0)
-      ffi (~> 1.0, >= 1.0.11)
-    chromedriver-helper (2.1.0)
-      archive-zip (~> 0.10)
-      nokogiri (~> 1.8)
+    childprocess (1.0.1)
+      rake (< 13.0)
     chronic (0.10.2)
     ci_reporter (2.0.0)
       builder (>= 2.1.2)
@@ -224,12 +219,11 @@ GEM
       sidekiq (>= 5, < 6)
       sidekiq-logging-json (~> 0.0)
       sidekiq-statsd (~> 0.1)
-    govuk_test (0.4.1)
+    govuk_test (0.4.3)
       capybara
-      chromedriver-helper
-      ptools
       puma
       selenium-webdriver
+      webdrivers
     graphviz_transitions (0.1.2)
       ruby-graphviz
       transitions
@@ -243,7 +237,6 @@ GEM
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     invalid_utf8_rejector (0.0.4)
-    io-like (0.3.0)
     isbn_validation (1.2.2)
       activerecord (>= 3)
     jaro_winkler (1.5.2)
@@ -479,8 +472,8 @@ GEM
     scss_lint (0.57.1)
       rake (>= 0.9, < 13)
       sass (~> 3.5, >= 3.5.5)
-    selenium-webdriver (3.141.0)
-      childprocess (~> 0.5)
+    selenium-webdriver (3.142.0)
+      childprocess (>= 0.5, < 2.0)
       rubyzip (~> 1.2, >= 1.2.2)
     sentry-raven (2.7.4)
       faraday (>= 0.7.6, < 1.0)
@@ -557,6 +550,10 @@ GEM
       rack (>= 2.0.6)
     warden-oauth2 (0.0.1)
       warden
+    webdrivers (3.8.0)
+      nokogiri (~> 1.6)
+      rubyzip (~> 1.0)
+      selenium-webdriver (~> 3.0)
     webmock (3.5.1)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
