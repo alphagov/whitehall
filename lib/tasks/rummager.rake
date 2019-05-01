@@ -103,4 +103,11 @@ namespace :rummager do
       Rake::Task["rummager:index:detailed"].invoke
     end
   end
+
+  desc "indexes statistics announcements"
+  task statistics_announcements: :environment do
+    index = Whitehall::SearchIndex.for(:government)
+    index.add_batch(StatisticsAnnouncement.all.map(&:search_index))
+    index.commit
+  end
 end
