@@ -61,7 +61,7 @@ module Whitehall
       end
     end
 
-    def self.patch_links(model_instance)
+    def self.patch_links(model_instance, bulk_publishing: false)
       presenter = PublishingApiPresenters.presenter_for(model_instance)
 
       links = presenter.links
@@ -69,7 +69,8 @@ module Whitehall
 
       Services.publishing_api.patch_links(
         presenter.content_id,
-        links: links
+        links: links,
+        bulk_publishing: bulk_publishing
       )
     end
 
