@@ -12,7 +12,7 @@ gem 'dalli', '~> 2.7'
 gem 'deprecated_columns', '~> 0.1.1'
 gem 'equivalent-xml', '~> 0.6.0', require: false
 gem 'faraday'
-gem 'friendly_id', '~> 5.2.4'
+gem 'friendly_id', '~> 5.2.5'
 gem "fuzzy_match", "~> 2.1"
 gem 'gds-sso', '~> 14.0'
 gem 'globalize', '~> 5'

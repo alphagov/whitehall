@@ -143,7 +143,7 @@ GEM
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
     ffi (1.10.0)
-    friendly_id (5.2.4)
+    friendly_id (5.2.5)
       activerecord (>= 4.0.0)
     fugit (1.1.1)
       et-orbi (~> 1.1, >= 1.1.1)
@@ -595,7 +595,7 @@ DEPENDENCIES
   equivalent-xml (~> 0.6.0)
   factory_bot
   faraday
-  friendly_id (~> 5.2.4)
+  friendly_id (~> 5.2.5)
   fuzzy_match (~> 2.1)
   gds-api-adapters
   gds-sso (~> 14.0)
