@@ -1,11 +1,11 @@
-namespace :rummager do
+namespace :search do
   desc "Re-index one Document. Takes a `content_id` as argument."
   task :resend_document, [:content_id] => [:environment] do |_, args|
     Document.find_by(content_id: args[:content_id]).published_edition.update_in_search_index
   end
 
   desc "indexes all published searchable whitehall content"
-  task index: ['rummager:index:detailed', 'rummager:index:government']
+  task index: ['search:index:detailed', 'search:index:government']
 
   namespace :index do
     desc "indexes all organisations"
@@ -90,17 +90,17 @@ namespace :rummager do
   end
 
   desc "removes and re-indexes all searchable whitehall content"
-  task reset: ['rummager:reset:detailed', 'rummager:reset:government']
+  task reset: ['search:reset:detailed', 'search:reset:government']
 
   namespace :reset do
     task government: :environment do
       Whitehall::SearchIndex.for(:government).delete_all
-      Rake::Task["rummager:index:government"].invoke
+      Rake::Task["search:index:government"].invoke
     end
 
     task detailed: :environment do
       Whitehall::SearchIndex.for(:detailed_guides).delete_all
-      Rake::Task["rummager:index:detailed"].invoke
+      Rake::Task["search:index:detailed"].invoke
     end
   end
 

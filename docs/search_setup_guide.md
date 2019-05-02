@@ -32,11 +32,11 @@ reindex), and seamlessly switching to the new index on completion.
 
 Steps:
 
-1. Make sure you have created the rummager indices by running the
-following task from the rummager repo:
+1. Make sure you have created the search indices by running the
+following task from the search-api repo:
 
     ```
-    RUMMAGER_INDEX=government bundle exec rake rummager:migrate_schema
+    SEARCH_INDEX=government bundle exec rake search:migrate_schema
     ```
 
 2. Run the bulk export and load:
