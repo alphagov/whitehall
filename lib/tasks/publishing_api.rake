@@ -75,6 +75,22 @@ namespace :publishing_api do
     puts "Finished queuing items for Publishing API"
   end
 
+  desc "Send links for all organisations to Publishing API."
+  task patch_organisation_links: :environment do
+    count = Organisation.count
+    puts "# Sending links for #{count} organisations to Publishing API"
+
+    Organisation.pluck(:id).each_with_index do |item_id, i|
+      item = Organisation.find(item_id)
+
+      Whitehall::PublishingApi.patch_links(item, bulk_publishing: true)
+
+      puts "Processing #{i}-#{i + 99} of #{count} items" if (i % 100).zero?
+    end
+
+    puts "Finished sending links for all organisations to Publishing API"
+  end
+
   desc "Send withdrawn item links to Publishing API."
   task patch_withdrawn_item_links: :environment do
     editions = Edition.withdrawn
