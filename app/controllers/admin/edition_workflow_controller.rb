@@ -94,12 +94,11 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def unpublish
-    @service_object = withdrawer_or_unpublisher_for(@edition)
+    @service_object = withdrawer_or_unpublisher_for_edition
 
     if @service_object.perform!
       redirect_to admin_edition_path(@edition), notice: unpublish_success_notice
     else
-      @unpublishing = @edition.unpublishing
       flash.now[:alert] = @service_object.failure_reason
       render :confirm_unpublish
     end
@@ -173,7 +172,7 @@ private
     end
   end
 
-  def withdrawer_or_unpublisher_for(_edition)
+  def withdrawer_or_unpublisher_for_edition
     if withdrawing?
       Whitehall.edition_services.withdrawer(@edition, user: current_user, remark: "Withdrawn", unpublishing: unpublishing_params)
     else
