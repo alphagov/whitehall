@@ -102,7 +102,7 @@ class OrganisationHelperTest < ActionView::TestCase
     organisation = build(:organisation, name: 'Beard Ministry', govuk_status: 'closed', closed_at: closed_time, govuk_closed_status: 'replaced', superseding_organisations: [superseding_organisation])
 
     assert_equal "Beard Ministry was replaced by <a href=\"/government/organisations/superseding-organisation\">Superseding organisation</a> in November 2011",
-    organisation_govuk_status_description(organisation)
+                 organisation_govuk_status_description(organisation)
   end
 
   test '#organisation_govuk_status_description describes an organisation that has been split' do
@@ -120,7 +120,7 @@ class OrganisationHelperTest < ActionView::TestCase
     organisation = build(:organisation, name: 'Beard Ministry', govuk_status: 'closed', closed_at: closed_time, govuk_closed_status: 'split', superseding_organisations: [superseding_organisation_1, superseding_organisation_2])
 
     assert_equal "Beard Ministry was replaced by <a href=\"/government/organisations/superseding-organisation-1\">Superseding organisation 1</a> and <a href=\"/government/organisations/superseding-organisation-2\">Superseding organisation 2</a> in November 2011",
-    organisation_govuk_status_description(organisation)
+                 organisation_govuk_status_description(organisation)
   end
 
   test '#organisation_govuk_status_description describes an organisation that has merged' do
@@ -161,14 +161,14 @@ class OrganisationHelperTest < ActionView::TestCase
     organisation = build(:organisation, name: 'Taxidermy Commission', govuk_status: 'transitioning', url: 'http://taxidermy.uk')
 
     assert_equal 'Taxidermy Commission is in the process of joining GOV.UK. In the meantime, <a href="http://taxidermy.uk">http://taxidermy.uk</a> remains the official source.',
-      organisation_govuk_status_description(organisation)
+                 organisation_govuk_status_description(organisation)
   end
 
   test '#organisation_govuk_status_description links to joining organisations when a url is available' do
     organisation = build(:organisation, name: 'Parrot Office', govuk_status: 'joining', url: 'http://parrot.org')
 
     assert_equal 'Parrot Office currently has a <a href="http://parrot.org">separate website</a> but will soon be incorporated into GOV.UK',
-      organisation_govuk_status_description(organisation)
+                 organisation_govuk_status_description(organisation)
   end
 
   test '#organisation_govuk_status_description describes a joining organisation without a website' do
@@ -219,7 +219,7 @@ class OrganisationHelperTest < ActionView::TestCase
   test "#show_corporate_information_pages? for organisations that are not live should be false" do
     organisation = create(:organisation, :closed)
 
-    refute show_corporate_information_pages?(organisation)
+    assert_not show_corporate_information_pages?(organisation)
   end
 
   test "#show_corporate_information_pages? for live organisations should be true" do
@@ -239,7 +239,7 @@ class OrganisationHelperTest < ActionView::TestCase
     organisation = create(:court)
     create(:about_corporate_information_page, organisation: organisation)
 
-    refute show_corporate_information_pages?(organisation)
+    assert_not show_corporate_information_pages?(organisation)
   end
 
   test "#show_corporate_information_pages? for live courts with published about_us and other corporate information pages should be true" do
@@ -369,7 +369,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
 
     description = organisation_display_name_including_parental_and_child_relationships(parent)
     assert description.include? 'is supported by'
-    refute description.include? 'is an other'
+    assert_not description.include? 'is an other'
   end
 
   test 'organisations of type other with no relationships are described correctly' do
@@ -378,6 +378,6 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
 
     description = organisation_display_name_including_parental_and_child_relationships(organisation)
     assert description.include? 'Other Organisation Name'
-    refute description.include? 'is an other'
+    assert_not description.include? 'is an other'
   end
 end

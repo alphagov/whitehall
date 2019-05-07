@@ -10,16 +10,16 @@ class Organisation < ApplicationRecord
   belongs_to :default_news_image, class_name: 'DefaultNewsOrganisationImageData', foreign_key: :default_news_organisation_image_data_id
 
   has_many :child_organisational_relationships,
-            foreign_key: :parent_organisation_id,
-            class_name: "OrganisationalRelationship"
+           foreign_key: :parent_organisation_id,
+           class_name: "OrganisationalRelationship"
   has_many :parent_organisational_relationships,
-            foreign_key: :child_organisation_id,
-            class_name: "OrganisationalRelationship",
-            dependent: :destroy
+           foreign_key: :child_organisation_id,
+           class_name: "OrganisationalRelationship",
+           dependent: :destroy
   has_many :child_organisations,
-            through: :child_organisational_relationships
+           through: :child_organisational_relationships
   has_many :parent_organisations,
-            through: :parent_organisational_relationships
+           through: :parent_organisational_relationships
 
   has_many :edition_organisations, dependent: :destroy, inverse_of: :organisation
   # This include is dependant on the above has_many
@@ -33,43 +33,43 @@ class Organisation < ApplicationRecord
   has_many :organisation_roles, inverse_of: :organisation
   has_many :roles, through: :organisation_roles
   has_many :ministerial_roles,
-            -> { where("roles.whip_organisation_id IS null") },
-            class_name: 'MinisterialRole',
-            through: :organisation_roles,
-            source: :role
+           -> { where("roles.whip_organisation_id IS null") },
+           class_name: 'MinisterialRole',
+           through: :organisation_roles,
+           source: :role
   has_many :ministerial_whip_roles,
-            -> { where("roles.whip_organisation_id IS NOT null") },
-            class_name: 'MinisterialRole',
-            through: :organisation_roles,
-            source: :role
+           -> { where("roles.whip_organisation_id IS NOT null") },
+           class_name: 'MinisterialRole',
+           through: :organisation_roles,
+           source: :role
   has_many :management_roles,
-            -> { where("type = 'BoardMemberRole' OR type = 'ChiefScientificAdvisorRole'") },
-            through: :organisation_roles,
-            source: :role
+           -> { where("type = 'BoardMemberRole' OR type = 'ChiefScientificAdvisorRole'") },
+           through: :organisation_roles,
+           source: :role
   has_many :military_roles,
-            class_name: 'MilitaryRole',
-            through: :organisation_roles,
-            source: :role
+           class_name: 'MilitaryRole',
+           through: :organisation_roles,
+           source: :role
   has_many :traffic_commissioner_roles,
-            class_name: 'TrafficCommissionerRole',
-            through: :organisation_roles,
-            source: :role
+           class_name: 'TrafficCommissionerRole',
+           through: :organisation_roles,
+           source: :role
   has_many :chief_professional_officer_roles,
-            class_name: 'ChiefProfessionalOfficerRole',
-            through: :organisation_roles,
-            source: :role
+           class_name: 'ChiefProfessionalOfficerRole',
+           through: :organisation_roles,
+           source: :role
   has_many :special_representative_roles,
-            class_name: 'SpecialRepresentativeRole',
-            through: :organisation_roles,
-            source: :role
+           class_name: 'SpecialRepresentativeRole',
+           through: :organisation_roles,
+           source: :role
   has_many :ministerial_role_appointments,
-            class_name: 'RoleAppointment',
-            through: :ministerial_roles,
-            source: :role_appointments
+           class_name: 'RoleAppointment',
+           through: :ministerial_roles,
+           source: :role_appointments
   has_many :ministerial_whip_role_appointments,
-            class_name: 'RoleAppointment',
-            through: :ministerial_whip_roles,
-            source: :role_appointments
+           class_name: 'RoleAppointment',
+           through: :ministerial_whip_roles,
+           source: :role_appointments
   has_many :judge_roles,
            class_name: 'JudgeRole',
            through: :organisation_roles,
@@ -282,13 +282,13 @@ class Organisation < ApplicationRecord
   end
 
   def ensure_analytics_identifier
-    unless analytics_identifier.present?
+    if analytics_identifier.blank?
       update_column(:analytics_identifier, organisation_type.analytics_prefix + self.id.to_s)
     end
   end
 
   def organisation_logo_type
-    OrganisationLogoType.find_by_id(organisation_logo_type_id)
+    OrganisationLogoType.find_by(id: organisation_logo_type_id)
   end
 
   def organisation_logo_type=(organisation_logo_type)
@@ -300,7 +300,7 @@ class Organisation < ApplicationRecord
   end
 
   def organisation_brand_colour
-    OrganisationBrandColour.find_by_id(organisation_brand_colour_id)
+    OrganisationBrandColour.find_by(id: organisation_brand_colour_id)
   end
 
   def organisation_brand_colour=(organisation_brand_colour)
@@ -415,7 +415,7 @@ class Organisation < ApplicationRecord
   end
 
   def jobs_url
-    custom_jobs_url.present? ? custom_jobs_url : DEFAULT_JOBS_URL
+    custom_jobs_url.presence || DEFAULT_JOBS_URL
   end
 
   def indexable_content

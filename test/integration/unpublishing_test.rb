@@ -12,7 +12,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     @published_edition.reload
 
     assert_equal "draft", @published_edition.state
-    refute_nil @published_edition.unpublishing
+    assert_not_nil @published_edition.unpublishing
   end
 
   test "When unpublishing an edition, it is removed from the search index" do

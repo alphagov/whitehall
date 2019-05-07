@@ -24,7 +24,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     test "should prevent a #{state} edition being rejected" do
       edition = create("#{state}_edition")
       edition.reject! rescue nil
-      refute edition.rejected?
+      assert_not edition.rejected?
     end
   end
 
@@ -40,7 +40,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     test "should prevent a #{state} edition being submitted" do
       edition = create("#{state}_edition")
       edition.submit! rescue nil
-      refute edition.submitted?
+      assert_not edition.submitted?
     end
   end
 
@@ -48,7 +48,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     test "should prevent a #{state} edition being superseded" do
       edition = create("#{state}_edition")
       edition.supersede! rescue nil
-      refute edition.superseded?
+      assert_not edition.superseded?
     end
   end
 
@@ -71,7 +71,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
       edition = create("#{state}_edition")
       edition.title = "new-title"
       edition.body = "new-body"
-      refute edition.valid?
+      assert_not edition.valid?
       assert_equal ["cannot be modified when edition is in the #{state} state"], edition.errors[:title]
       assert_equal ["cannot be modified when edition is in the #{state} state"], edition.errors[:body]
     end
@@ -145,7 +145,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   test "#save_as returns false if save fails" do
     edition = create(:publication)
     edition.stubs(:save).returns(false)
-    refute edition.save_as(create(:user))
+    assert_not edition.save_as(create(:user))
   end
 
   test "#supersede! on a depended-upon edition destroys its dependencies" do

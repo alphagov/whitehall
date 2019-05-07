@@ -1,16 +1,16 @@
 class WorldLocation < ApplicationRecord
   has_many :edition_world_locations, inverse_of: :world_location
   has_many :editions,
-            through: :edition_world_locations
+           through: :edition_world_locations
   has_many :published_edition_world_locations,
            -> { where(editions: { state: "published" }).includes(:edition) },
            class_name: "EditionWorldLocation"
   has_many :published_editions,
-            through: :published_edition_world_locations,
-            source: :edition
+           through: :published_edition_world_locations,
+           source: :edition
   has_many :published_documents,
-            through: :published_editions,
-            source: :document
+           through: :published_editions,
+           source: :document
   has_many :worldwide_organisation_world_locations, dependent: :destroy
   has_many :worldwide_organisations, through: :worldwide_organisation_world_locations
   has_many :offsite_links, as: :parent
@@ -103,7 +103,7 @@ class WorldLocation < ApplicationRecord
   end
 
   def world_location_type
-    WorldLocationType.find_by_id(world_location_type_id)
+    WorldLocationType.find_by(id: world_location_type_id)
   end
 
   def world_location_type=(new_world_location_type)

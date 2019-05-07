@@ -36,7 +36,7 @@ class DepartmentEditorTest < ActiveSupport::TestCase
     user.stubs(:organisation).returns(organisation_1)
     edition = limited_publication([organisation_2])
 
-    refute enforcer_for(user, edition).can?(:see)
+    assert_not enforcer_for(user, edition).can?(:see)
   end
 
   test 'cannot do anything to an edition they are not allowed to see' do
@@ -48,7 +48,7 @@ class DepartmentEditorTest < ActiveSupport::TestCase
     enforcer = enforcer_for(user, edition)
 
     Whitehall::Authority::Rules::EditionRules.actions.each do |action|
-      refute enforcer.can?(action)
+      assert_not enforcer.can?(action)
     end
   end
 
@@ -85,11 +85,11 @@ class DepartmentEditorTest < ActiveSupport::TestCase
   end
 
   test 'cannot publish a scheduled edition' do
-    refute enforcer_for(department_editor, scheduled_edition).can?(:publish)
+    assert_not enforcer_for(department_editor, scheduled_edition).can?(:publish)
   end
 
   test 'cannot force publish a scheduled edition' do
-    refute enforcer_for(department_editor, scheduled_edition).can?(:force_publish)
+    assert_not enforcer_for(department_editor, scheduled_edition).can?(:force_publish)
   end
 
   test 'can force publish a limited access edition outside their org if they can_force_publish_anything?' do
@@ -117,7 +117,7 @@ class DepartmentEditorTest < ActiveSupport::TestCase
 
   test 'cannot clear the "not reviewed" flag on editions they did force publish' do
     user = department_editor
-    refute enforcer_for(user, force_published_edition(user)).can?(:approve)
+    assert_not enforcer_for(user, force_published_edition(user)).can?(:approve)
   end
 
   test 'can clear the "not reviewed" flag on editions they did not force schedule' do
@@ -126,7 +126,7 @@ class DepartmentEditorTest < ActiveSupport::TestCase
 
   test 'cannot clear the "not reviewed" flag on editions they force scheduled' do
     user = department_editor
-    refute enforcer_for(user, force_scheduled_edition(user)).can?(:approve)
+    assert_not enforcer_for(user, force_scheduled_edition(user)).can?(:approve)
   end
 
   test 'can limit access to an edition' do
@@ -134,19 +134,19 @@ class DepartmentEditorTest < ActiveSupport::TestCase
   end
 
   test 'cannot unpublish an edition' do
-    refute enforcer_for(department_editor, normal_edition).can?(:unpublish)
+    assert_not enforcer_for(department_editor, normal_edition).can?(:unpublish)
   end
 
   test 'cannot reorder cabinet ministers' do
-    refute enforcer_for(department_editor, MinisterialRole).can?(:reorder_cabinet_ministers)
+    assert_not enforcer_for(department_editor, MinisterialRole).can?(:reorder_cabinet_ministers)
   end
 
   test 'cannot administer the get_involved_section' do
-    refute enforcer_for(department_editor, :get_involved_section).can?(:administer)
+    assert_not enforcer_for(department_editor, :get_involved_section).can?(:administer)
   end
 
   test 'cannot administer the sitewide_settings section' do
-    refute enforcer_for(department_editor, :sitewide_settings_section).can?(:administer)
+    assert_not enforcer_for(department_editor, :sitewide_settings_section).can?(:administer)
   end
 
   test 'cannot manage featured links for any organisation' do
@@ -155,8 +155,8 @@ class DepartmentEditorTest < ActiveSupport::TestCase
     editors_org = user.organisation
     other_org = build(:organisation)
 
-    refute enforcer_for(user, editors_org).can?(:manage_featured_links)
-    refute enforcer_for(user, other_org).can?(:manage_featured_links)
+    assert_not enforcer_for(user, editors_org).can?(:manage_featured_links)
+    assert_not enforcer_for(user, other_org).can?(:manage_featured_links)
   end
 
   test 'can export editions' do
@@ -164,10 +164,10 @@ class DepartmentEditorTest < ActiveSupport::TestCase
   end
 
   test 'cannot mark editions as political' do
-    refute enforcer_for(department_editor, normal_edition).can?(:mark_political)
+    assert_not enforcer_for(department_editor, normal_edition).can?(:mark_political)
   end
 
   test 'cannot modify historic editions' do
-    refute enforcer_for(department_editor, historic_edition).can?(:modify)
+    assert_not enforcer_for(department_editor, historic_edition).can?(:modify)
   end
 end

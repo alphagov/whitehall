@@ -22,15 +22,15 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
 
   test 'POST :create saves the new promotional item to the feature' do
     post :create,
-      params: {
-        organisation_id: @organisation,
-        promotional_feature_id: @promotional_feature,
-        promotional_feature_item: {
-          summary: 'Summary text',
-          image_alt_text: 'Alt text',
-          image: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
-        }
-      }
+         params: {
+           organisation_id: @organisation,
+           promotional_feature_id: @promotional_feature,
+           promotional_feature_item: {
+             summary: 'Summary text',
+             image_alt_text: 'Alt text',
+             image: fixture_file_upload('minister-of-funk.960x640.jpg', 'image/jpg')
+           }
+         }
 
     assert promotional_feature_item = @promotional_feature.reload.promotional_feature_items.first
     assert_equal 'Alt text', promotional_feature_item.image_alt_text
@@ -92,7 +92,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     delete :destroy, params: { organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item }
 
     assert_redirected_to admin_organisation_promotional_feature_url(@organisation, @promotional_feature)
-    refute PromotionalFeatureItem.exists?(promotional_feature_item.id)
+    assert_not PromotionalFeatureItem.exists?(promotional_feature_item.id)
     assert_equal 'Feature item deleted.', flash[:notice]
   end
 end

@@ -86,7 +86,7 @@ class Admin::HistoricalAccountsControllerTest < ActionController::TestCase
 
   test "Delete on :destroy destroys the historical account" do
     delete :destroy, params: { person_id: @person, id: @historical_account }
-    refute HistoricalAccount.exists?(@historical_account.id)
+    assert_not HistoricalAccount.exists?(@historical_account.id)
     assert_redirected_to admin_person_historical_accounts_path(@person)
   end
 end

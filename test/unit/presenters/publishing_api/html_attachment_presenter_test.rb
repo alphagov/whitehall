@@ -46,7 +46,7 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
     # inconsistencies with line breaks between different XML libraries
     presented_content = presented_item.content
     assert_equivalent_html expected_hash[:details].delete(:body),
-      presented_content[:details].delete(:body)
+                           presented_content[:details].delete(:body)
 
     expected_content = expected_hash.merge(links: presented_item.links)
     assert_equal expected_content, presented_content

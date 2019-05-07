@@ -9,7 +9,7 @@ class Edition::TranslatableTest < ActiveSupport::TestCase
 
   test 'locale is validated as a locale' do
     edition = build(:edition, primary_locale: '123')
-    refute edition.valid?
+    assert_not edition.valid?
     assert_equal ['is not valid'], edition.errors[:primary_locale]
 
     edition.primary_locale = :fr
@@ -28,18 +28,18 @@ class Edition::TranslatableTest < ActiveSupport::TestCase
   end
 
   test 'locale_can_be_changed? returns false for a persisted new WorldLocationNewsArticle' do
-    refute create(:world_location_news_article).locale_can_be_changed?
+    assert_not create(:world_location_news_article).locale_can_be_changed?
   end
 
   test 'locale_can_be_changed? returns false for other edition types' do
     Edition.concrete_descendants.reject { |k| [WorldLocationNewsArticle, NewsArticle].include?(k) }.each do |klass|
-      refute klass.new.locale_can_be_changed?, "Instance of #{klass} should not allow the changing of primary locale"
+      assert_not klass.new.locale_can_be_changed?, "Instance of #{klass} should not allow the changing of primary locale"
     end
   end
 
   test 'right-to-left editions identify themselves' do
     french_edition = create(:edition, primary_locale: :fr)
-    refute french_edition.rtl?
+    assert_not french_edition.rtl?
 
     arabic_edition = create(:edition, primary_locale: :ar)
     assert arabic_edition.rtl?
@@ -78,11 +78,11 @@ class Edition::TranslatableTest < ActiveSupport::TestCase
   test 'updating a non-English edition does not save an empty English translation' do
     french_edition = I18n.with_locale(:fr) { create(:edition, title: 'French Title', body: 'French Body', primary_locale: :fr) }
     assert french_edition.available_in_locale?(:fr)
-    refute french_edition.available_in_locale?(:en)
+    assert_not french_edition.available_in_locale?(:en)
 
     force_publish(french_edition)
 
     assert french_edition.available_in_locale?(:fr)
-    refute french_edition.available_in_locale?(:en)
+    assert_not french_edition.available_in_locale?(:en)
   end
 end

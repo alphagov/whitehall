@@ -100,7 +100,7 @@ module PublishingApi
       end
 
       def call
-        return {} unless consultation.change_history.present?
+        return {} if consultation.change_history.blank?
 
         { change_history: consultation.change_history.as_json }
       end
@@ -121,7 +121,7 @@ module PublishingApi
       end
 
       def call
-        return {} unless consultation.attachments.present?
+        return {} if consultation.attachments.blank?
 
         { documents: documents }
       end
@@ -190,7 +190,7 @@ module PublishingApi
       end
 
       def final_outcome_documents
-        return unless outcome.attachments.present?
+        return if outcome.attachments.blank?
 
         renderer.block_attachments(
           outcome.attachments,
@@ -209,7 +209,7 @@ module PublishingApi
       end
 
       def call
-        return {} unless consultation.nation_inapplicabilities.present?
+        return {} if consultation.nation_inapplicabilities.blank?
 
         { national_applicability: consultation.national_applicability }
       end
@@ -248,13 +248,13 @@ module PublishingApi
       def_delegator :consultation, :public_feedback
 
       def detail
-        return unless public_feedback.summary.present?
+        return if public_feedback.summary.blank?
 
         renderer.govspeak_to_html(public_feedback.summary)
       end
 
       def documents
-        return unless public_feedback.attachments.present?
+        return if public_feedback.attachments.blank?
 
         renderer.block_attachments(
           public_feedback.attachments,
@@ -264,7 +264,7 @@ module PublishingApi
       end
 
       def publication_date
-        return unless public_feedback.published_on.present?
+        return if public_feedback.published_on.blank?
 
         public_feedback.published_on.rfc3339
       end

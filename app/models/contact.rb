@@ -54,7 +54,7 @@ class Contact < ApplicationRecord
   end
 
   def contact_type
-    ContactType.find_by_id(contact_type_id)
+    ContactType.find_by(id: contact_type_id)
   end
 
   def contact_type=(new_contact_type)

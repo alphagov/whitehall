@@ -160,16 +160,16 @@ module DocumentHelper
     end
 
     mail_to alternative_format_contact_email, alternative_format_contact_email,
-      subject: "Request for '#{attachment.title}' in an alternative format",
-      body: %(Details of document required:
+            subject: "Request for '#{attachment.title}' in an alternative format",
+            body: %(Details of document required:
 
-#{attachment_info.join("\n")}
+      #{attachment_info.join("\n")}
 
-Please tell us:
+      Please tell us:
 
-  1. What makes this format unsuitable for you?
-  2. What format you would prefer?
-      )
+        1. What makes this format unsuitable for you?
+        2. What format you would prefer?
+            )
   end
 
   def attachment_references(attachment)
@@ -278,8 +278,8 @@ Please tell us:
 
   def political_state_analytics_tag(edition)
     tag :meta,
-      name: 'govuk:political-status',
-      content: political_state_analytics_value(edition)
+        name: 'govuk:political-status',
+        content: political_state_analytics_value(edition)
   end
 
   def political_state_analytics_value(edition)
@@ -292,7 +292,7 @@ Please tell us:
     return unless edition.government
 
     tag :meta,
-      name: 'govuk:publishing-government',
-      content: edition.government.slug
+        name: 'govuk:publishing-government',
+        content: edition.government.slug
   end
 end

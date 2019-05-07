@@ -17,7 +17,7 @@ class Admin::UsersController < Admin::BaseController
       return
     end
 
-    if @user.update_attributes(user_params)
+    if @user.update(user_params)
       redirect_to admin_user_path(@user), notice: "Your settings have been saved"
     else
       render action: "edit"

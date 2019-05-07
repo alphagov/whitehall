@@ -107,7 +107,7 @@ module PublishingApi
       end
 
       def call
-        return {} unless change_history.present?
+        return {} if change_history.blank?
 
         { change_history: change_history.as_json }
       end

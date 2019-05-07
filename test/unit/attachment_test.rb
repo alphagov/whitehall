@@ -4,12 +4,12 @@ class AttachmentTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
   test 'should be invalid without an attachable' do
-    refute build(:file_attachment, attachable: nil).valid?
+    assert_not build(:file_attachment, attachable: nil).valid?
   end
 
   test 'should be invalid without a title' do
     attachment = build(:file_attachment, title: nil)
-    refute attachment.valid?
+    assert_not attachment.valid?
   end
 
   test 'should be valid without ISBN' do
@@ -24,7 +24,7 @@ class AttachmentTest < ActiveSupport::TestCase
 
   test "should be invalid with an ISBN that's not in ISBN-10 or ISBN-13 format" do
     attachment = build(:file_attachment, isbn: "invalid-isbn")
-    refute attachment.valid?
+    assert_not attachment.valid?
   end
 
   test 'should be valid with ISBN in ISBN-10 format' do
@@ -56,14 +56,14 @@ class AttachmentTest < ActiveSupport::TestCase
 
   test "should be invalid when the command paper number starts with an unrecognised prefix" do
     attachment = build(:file_attachment, command_paper_number: "NA 1234")
-    refute attachment.valid?
+    assert_not attachment.valid?
     expected_message = "is invalid. The number must start with one of #{Attachment::VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ')}"
     assert attachment.errors[:command_paper_number].include?(expected_message)
   end
 
   test 'should be invalid with malformed order url' do
     attachment = build(:file_attachment, order_url: "invalid-url")
-    refute attachment.valid?
+    assert_not attachment.valid?
   end
 
   test 'should be valid with order url with HTTP protocol' do
@@ -108,22 +108,22 @@ class AttachmentTest < ActiveSupport::TestCase
 
   test 'should be invalid if the price is non numeric' do
     attachment = build(:file_attachment, price: 'free', order_url: 'http://example.com')
-    refute attachment.valid?
+    assert_not attachment.valid?
   end
 
   test 'should be invalid if the price is zero' do
     attachment = build(:file_attachment, price: "0", order_url: 'http://example.com')
-    refute attachment.valid?
+    assert_not attachment.valid?
   end
 
   test 'should be invalid if the price is less than zero' do
     attachment = build(:file_attachment, price: "-1.23", order_url: 'http://example.com')
-    refute attachment.valid?
+    assert_not attachment.valid?
   end
 
   test 'should be invalid if a price is entered without an order url' do
     attachment = build(:file_attachment, price: "1.23")
-    refute attachment.valid?
+    assert_not attachment.valid?
   end
 
   test "should save the price as price_in_pence" do
@@ -174,7 +174,7 @@ class AttachmentTest < ActiveSupport::TestCase
 
   test 'should be invalid with a long unique_reference' do
     attachment = build(:file_attachment, unique_reference: SecureRandom.hex(300))
-    refute attachment.valid?
+    assert_not attachment.valid?
   end
 
   test 'should generate list of parliamentary sessions' do
@@ -186,13 +186,13 @@ class AttachmentTest < ActiveSupport::TestCase
   end
 
   test '#is_command_paper? should be true if attachment has a command paper number or is flagged as an unnumbered command paper' do
-    refute build(:html_attachment, command_paper_number: nil,     unnumbered_command_paper: false).is_command_paper?
+    assert_not build(:html_attachment, command_paper_number: nil,     unnumbered_command_paper: false).is_command_paper?
     assert build(:html_attachment, command_paper_number: '12345', unnumbered_command_paper: false).is_command_paper?
     assert build(:html_attachment, command_paper_number: nil,     unnumbered_command_paper: true).is_command_paper?
   end
 
   test '#is_act_paper? should be true if attachment has an act paper number or is flagged as an unnumbered act paper' do
-    refute build(:html_attachment, hoc_paper_number: nil,     unnumbered_hoc_paper: false).is_act_paper?
+    assert_not build(:html_attachment, hoc_paper_number: nil,     unnumbered_hoc_paper: false).is_act_paper?
     assert build(:html_attachment, hoc_paper_number: '12345', unnumbered_hoc_paper: false).is_act_paper?
     assert build(:html_attachment, hoc_paper_number: nil,     unnumbered_hoc_paper: true).is_act_paper?
   end
@@ -204,7 +204,7 @@ class AttachmentTest < ActiveSupport::TestCase
   end
 
   test '#rtl_locale? should be false for non-rtl locale' do
-    refute build(:html_attachment, locale: "fr").rtl_locale?
+    assert_not build(:html_attachment, locale: "fr").rtl_locale?
   end
 
   test '#rtl_locale? should be true for an rtl locale' do
@@ -212,8 +212,8 @@ class AttachmentTest < ActiveSupport::TestCase
   end
 
   test '#rtl_locale? should be false for a blank locale' do
-    refute build(:html_attachment, locale: nil).rtl_locale?
-    refute build(:html_attachment, locale: "").rtl_locale?
+    assert_not build(:html_attachment, locale: nil).rtl_locale?
+    assert_not build(:html_attachment, locale: "").rtl_locale?
   end
 
   test '#content_id is set on save' do

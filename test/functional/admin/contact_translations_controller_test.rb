@@ -63,7 +63,7 @@ class Admin::ContactTranslationsControllerTest < ActionController::TestCase
     delete :destroy, params: { organisation_id: organisation, contact_id: contact, id: "fr" }
 
     contact.reload
-    refute contact.translated_locales.include?(:fr)
+    assert_not contact.translated_locales.include?(:fr)
     assert_redirected_to admin_organisation_contacts_path(organisation)
   end
 end

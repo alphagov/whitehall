@@ -41,7 +41,7 @@ module AddressFormatter
     end
 
     def interpolate_address_property(property_name)
-      properties[property_name].present? ? properties[property_name] : ''
+      properties[property_name].presence || ''
     end
 
   private

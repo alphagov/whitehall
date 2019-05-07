@@ -22,14 +22,14 @@ class FileAttachmentTest < ActiveSupport::TestCase
   end
 
   test "html? is false" do
-    refute attachment.html?
+    assert_not attachment.html?
   end
 
   test "should be invalid if an attachment already exists on the attachable with the same filename" do
     attachable = create(:policy_group, attachments: [build(:file_attachment, file: file_fixture('whitepaper.pdf'))])
     duplicate  = build(:file_attachment, file: file_fixture('whitepaper.pdf'), attachable: attachable)
 
-    refute duplicate.valid?
+    assert_not duplicate.valid?
     assert_match %r(This policy group already has a file called "whitepaper.pdf"), duplicate.errors[:base].first
   end
 
@@ -37,7 +37,7 @@ class FileAttachmentTest < ActiveSupport::TestCase
     attachable = create(:policy_group, attachments: [build(:file_attachment)])
     attachment = build(:file_attachment, attachable: attachable, file: nil)
 
-    refute attachment.valid?
+    assert_not attachment.valid?
     assert_match %r(can't be blank), attachment.errors[:"attachment_data.file"].first
   end
 
@@ -52,7 +52,7 @@ class FileAttachmentTest < ActiveSupport::TestCase
     }
     attachment.reload
 
-    assert attachment.update_attributes(params), attachment.errors.full_messages.to_sentence
+    assert attachment.update(params), attachment.errors.full_messages.to_sentence
     assert_equal 'Filename', attachment.title
   end
 end

@@ -10,7 +10,7 @@ class GovspeakContentTest < ActiveSupport::TestCase
 
   test 'clears computed values and queues a job to re-compute the HTML when the body changes' do
     govspeak_content = create(:html_attachment,
-                         body: "## A heading\nSome content").govspeak_content
+                              body: "## A heading\nSome content").govspeak_content
     compute_govspeak(govspeak_content)
 
     govspeak_content.body = "Updated body"
@@ -26,7 +26,7 @@ class GovspeakContentTest < ActiveSupport::TestCase
   test "doesn't clear computed values and doesn't queue a job to re-compute the HTML when the body has not changed" do
     Sidekiq::Testing.inline! do
       govspeak_content = create(:html_attachment,
-                           body: "## A heading\nSome content").govspeak_content
+                                body: "## A heading\nSome content").govspeak_content
       compute_govspeak(govspeak_content)
 
       govspeak_content.save!
@@ -40,8 +40,8 @@ class GovspeakContentTest < ActiveSupport::TestCase
 
   test 'clears computed values and queues a job to re-compute the HTML when the numbering scheme changes' do
     govspeak_content = create(:html_attachment,
-                        manually_numbered_headings: false,
-                        body: "## 1.0 A heading\nSome content").govspeak_content
+                              manually_numbered_headings: false,
+                              body: "## 1.0 A heading\nSome content").govspeak_content
     compute_govspeak(govspeak_content)
 
     govspeak_content.manually_numbered_headings = true
@@ -56,8 +56,8 @@ class GovspeakContentTest < ActiveSupport::TestCase
 
   test "#render_govspeak sets computed_headers_html correctly" do
     govspeak_content = create(:html_attachment,
-                        manually_numbered_headings: false,
-                        body: "## 1.0 A heading\nSome content").govspeak_content
+                              manually_numbered_headings: false,
+                              body: "## 1.0 A heading\nSome content").govspeak_content
     govspeak_content.render_govspeak!
     expected_headers_html = <<-HTML
       <ol>
@@ -72,8 +72,8 @@ class GovspeakContentTest < ActiveSupport::TestCase
   test "#render_govspeak sets computed_headers_html correctly when manually
     numbered headings is true" do
     govspeak_content = create(:html_attachment,
-                        manually_numbered_headings: true,
-                        body: "## 1.0 A heading\nSome content").govspeak_content
+                              manually_numbered_headings: true,
+                              body: "## 1.0 A heading\nSome content").govspeak_content
     govspeak_content.render_govspeak!
     expected_headers_html = <<-HTML
       <ol class="unnumbered">
@@ -90,8 +90,8 @@ class GovspeakContentTest < ActiveSupport::TestCase
 
   test "#render_govspeak sets computed_body_html correctly" do
     govspeak_content = create(:html_attachment,
-                        manually_numbered_headings: false,
-                        body: "## 1.0 A heading\nSome content").govspeak_content
+                              manually_numbered_headings: false,
+                              body: "## 1.0 A heading\nSome content").govspeak_content
     govspeak_content.render_govspeak!
     expected_body_html = <<-HTML
       <div class="govspeak">

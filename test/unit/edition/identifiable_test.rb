@@ -26,7 +26,7 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
     publication_1 = create(:publication, title: same_title)
     publication_2 = create(:publication, title: same_title)
 
-    refute_equal publication_1.document.slug, publication_2.document.slug
+    assert_not_equal publication_1.document.slug, publication_2.document.slug
   end
 
   test "should allow the same slug to be used again for another document type" do
@@ -80,7 +80,7 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
 
   test "should not be linkable if document is not published" do
     publication = create(:draft_publication)
-    refute publication.linkable?
+    assert_not publication.linkable?
   end
 
   test "should be linkable when superseded if document is published" do
@@ -93,7 +93,7 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
 
   test "update slug if title changes on draft edition" do
     publication = create(:draft_publication, title: "This is my publication")
-    publication.update_attributes!(title: "Another thing")
+    publication.update!(title: "Another thing")
 
     assert_equal "another-thing", publication.document.reload.slug
   end
@@ -101,7 +101,7 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
   test "do not update slug if non-english title changes on draft edition" do
     publication = create(:draft_publication, title: "This is my publication")
     with_locale(:es) do
-      publication.update_attributes!(title: "Spanish thing", summary: "Avoid validation error", body: "Avoid validation error")
+      publication.update!(title: "Spanish thing", summary: "Avoid validation error", body: "Avoid validation error")
     end
 
     assert_equal "this-is-my-publication", publication.document.reload.slug
@@ -137,7 +137,7 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
     edition = create(:edition)
 
     Timecop.travel 1.month do
-      edition.update_attributes!(title: 'Title updated')
+      edition.update!(title: 'Title updated')
       assert_equal edition.updated_at.to_i, edition.document.updated_at.to_i
     end
   end

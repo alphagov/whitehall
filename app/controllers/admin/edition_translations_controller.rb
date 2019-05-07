@@ -2,7 +2,7 @@ class Admin::EditionTranslationsController < Admin::BaseController
   include TranslationControllerConcern
 
   def update
-    @translated_edition.change_note = 'Added translation' unless @translated_edition.change_note.present?
+    @translated_edition.change_note = 'Added translation' if @translated_edition.change_note.blank?
     super
   end
 

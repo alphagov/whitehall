@@ -26,7 +26,7 @@ module LeadImagePresenterHelper
   def lead_image_caption
     if images.first
       caption = images.first.caption && images.first.caption.strip
-      caption.present? ? caption : nil
+      caption.presence
     end
   end
 

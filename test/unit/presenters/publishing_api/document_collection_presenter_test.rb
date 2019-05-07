@@ -162,7 +162,7 @@ end
 
 class PublishingApi::PublishedDocumentCollectionPresenterDetailsTest < ActiveSupport::TestCase
   setup do
-    @expected_first_published_at = Time.new(2011, 2, 5)
+    @expected_first_published_at = Time.new(2011, 2, 5).in_time_zone
     @document_collection = create(
       :document_collection,
       :published,

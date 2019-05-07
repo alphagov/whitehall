@@ -18,7 +18,7 @@ class Admin::AccessAndOpeningTimesController < Admin::BaseController
 
   def update
     @access_and_opening_times = @accessible.access_and_opening_times
-    if @access_and_opening_times.update_attributes(access_and_opening_times_params)
+    if @access_and_opening_times.update(access_and_opening_times_params)
       redirect_to accessible_path(@accessible), notice: 'Access information saved.'
     else
       render :edit

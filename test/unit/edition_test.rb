@@ -61,7 +61,7 @@ class EditionTest < ActiveSupport::TestCase
   test ".latest_edition includes only latest edition of a edition" do
     original_edition = create(:published_edition)
     new_draft = original_edition.create_draft(create(:writer))
-    refute Edition.latest_edition.include?(original_edition)
+    assert_not Edition.latest_edition.include?(original_edition)
     assert Edition.latest_edition.include?(new_draft)
   end
 
@@ -71,7 +71,7 @@ class EditionTest < ActiveSupport::TestCase
     deleted_edition = create(:deleted_edition, document: document)
 
     assert Edition.latest_edition.include?(original_edition)
-    refute Edition.latest_edition.include?(deleted_edition)
+    assert_not Edition.latest_edition.include?(deleted_edition)
   end
 
   test ".latest_published_edition includes only published editions" do
@@ -80,15 +80,15 @@ class EditionTest < ActiveSupport::TestCase
     draft_edition = create(:draft_edition, document: document)
 
     assert Edition.latest_published_edition.include?(original_edition)
-    refute Edition.latest_published_edition.include?(draft_edition)
+    assert_not Edition.latest_published_edition.include?(draft_edition)
   end
 
   test '.most_recent_change_note returns the most recent change note' do
     editor = create(:departmental_editor)
     edition = create(:published_edition)
 
-    refute edition.most_recent_change_note,
-      "Expected nil, found #{edition.most_recent_change_note}"
+    assert_not edition.most_recent_change_note,
+               "Expected nil, found #{edition.most_recent_change_note}"
 
     version_2 = edition.create_draft(editor)
     version_2.change_note = 'My new version'
@@ -176,7 +176,7 @@ class EditionTest < ActiveSupport::TestCase
 
   test "#first_edition? is false if published and published_major_version is not 1" do
     edition = build(:published_edition, published_major_version: 2)
-    refute edition.first_published_version?
+    assert_not edition.first_published_version?
   end
 
   test "#creator= builds an edition_author with the given creator for new records" do
@@ -230,14 +230,14 @@ class EditionTest < ActiveSupport::TestCase
 
   test ".authored_by excludes editions creatored by another user" do
     publication = create(:publication)
-    refute Edition.authored_by(create(:writer)).include?(publication)
+    assert_not Edition.authored_by(create(:writer)).include?(publication)
   end
 
   test ".authored_by respects chained scopes" do
     publication = create(:publication)
     assert Edition.authored_by(publication.creator).include?(publication)
     assert Publication.authored_by(publication.creator).include?(publication)
-    refute NewsArticle.authored_by(publication.creator).include?(publication)
+    assert_not NewsArticle.authored_by(publication.creator).include?(publication)
   end
 
   test "#rejected_by uses information from the audit trail" do
@@ -330,12 +330,12 @@ class EditionTest < ActiveSupport::TestCase
 
   test "should not return published editions in submitted" do
     edition = create(:published_edition)
-    refute Edition.submitted.include?(edition)
+    assert_not Edition.submitted.include?(edition)
   end
 
   test "should be invalid if has image but no alt text" do
     article = build(:news_article, images: [build(:image, alt_text: nil)])
-    refute article.valid?
+    assert_not article.valid?
   end
 
   test "should still be valid if has no image and no alt text" do
@@ -350,7 +350,7 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "should be invalid without a summary" do
-    refute build(:edition, summary: nil).valid?
+    assert_not build(:edition, summary: nil).valid?
   end
 
   test "generate title for a draft edition" do
@@ -447,10 +447,10 @@ class EditionTest < ActiveSupport::TestCase
   test 'concrete_descendant_search_format_types does not include Edition subclasses that themselves have subclasses' do
     concrete_formats = Edition.concrete_descendant_search_format_types
 
-    refute concrete_formats.include? Announcement.search_format_type
-    refute concrete_formats.include? Newsesque.search_format_type
-    refute concrete_formats.include? Publicationesque.search_format_type
-    refute concrete_formats.include? Edition.search_format_type
+    assert_not concrete_formats.include? Announcement.search_format_type
+    assert_not concrete_formats.include? Newsesque.search_format_type
+    assert_not concrete_formats.include? Publicationesque.search_format_type
+    assert_not concrete_formats.include? Edition.search_format_type
 
     assert concrete_formats.include? NewsArticle.search_format_type
     assert concrete_formats.include? WorldLocationNewsArticle.search_format_type
@@ -490,14 +490,14 @@ class EditionTest < ActiveSupport::TestCase
     edition = create(:draft_edition, creator: create(:writer))
     relation = edition.edition_authors.first
     edition.destroy
-    refute EditionAuthor.find_by(id: relation.id)
+    assert_not EditionAuthor.find_by(id: relation.id)
   end
 
   test "#destroy should also remove the relationship to any editorial remarks" do
     edition = create(:draft_edition, editorial_remarks: [create(:editorial_remark)])
     relation = edition.editorial_remarks.first
     edition.destroy
-    refute EditorialRemark.find_by(id: relation.id)
+    assert_not EditorialRemark.find_by(id: relation.id)
   end
 
   test ".in_chronological_order returns editions in ascending order of first_published_at" do
@@ -679,7 +679,7 @@ class EditionTest < ActiveSupport::TestCase
   test "is not available in multiple languages if only one translation exists" do
     edition = build(:edition)
     edition.save!
-    refute edition.available_in_multiple_languages?
+    assert_not edition.available_in_multiple_languages?
   end
 
   test ".with_translations should only return editions in the given locale" do
@@ -703,7 +703,7 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "is not translatable by default" do
-    refute build(:edition).translatable?
+    assert_not build(:edition).translatable?
   end
 
   test "returns non-english translations" do
@@ -718,11 +718,11 @@ class EditionTest < ActiveSupport::TestCase
     stub_any_publishing_api_call
 
     edition = create(:edition)
-    with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body') }
-    with_locale(:es) { edition.update_attributes!(title: 'spanish-title', summary: 'spanish-summary', body: 'spanish-body') }
+    with_locale(:fr) { edition.update!(title: 'french-title', summary: 'french-summary', body: 'french-body') }
+    with_locale(:es) { edition.update!(title: 'spanish-title', summary: 'spanish-summary', body: 'spanish-body') }
 
     edition.remove_translations_for(:fr)
-    refute edition.translated_locales.include?(:fr)
+    assert_not edition.translated_locales.include?(:fr)
     assert edition.translated_locales.include?(:es)
   end
 
@@ -732,7 +732,7 @@ class EditionTest < ActiveSupport::TestCase
 
     no_case_studies = Edition.without_editions_of_type(CaseStudy)
     assert no_case_studies.include?(edition_2)
-    refute no_case_studies.include?(edition_1)
+    assert_not no_case_studies.include?(edition_1)
   end
 
   test 'without_editions_of_type takes multiple classes to exclude' do
@@ -742,8 +742,8 @@ class EditionTest < ActiveSupport::TestCase
 
     no_fatalities_or_guides = Edition.without_editions_of_type(FatalityNotice, DetailedGuide)
     assert no_fatalities_or_guides.include?(edition_1)
-    refute no_fatalities_or_guides.include?(edition_2)
-    refute no_fatalities_or_guides.include?(edition_3)
+    assert_not no_fatalities_or_guides.include?(edition_2)
+    assert_not no_fatalities_or_guides.include?(edition_3)
   end
 
   test 'without_editions_of_type doesn\'t exclude subclasses of the supplied classes' do
@@ -752,7 +752,7 @@ class EditionTest < ActiveSupport::TestCase
 
     no_editions = Edition.without_editions_of_type(Announcement)
     assert no_editions.include?(edition_2)
-    refute no_editions.include?(edition_1)
+    assert_not no_editions.include?(edition_1)
   end
 
   test 'Edition.with_classification returns any editions tagged with the given classification' do
@@ -769,7 +769,7 @@ class EditionTest < ActiveSupport::TestCase
 
   test 'previously_published returns true for edition with first_published_at timestamp' do
     edition = create(:edition)
-    refute edition.previously_published
+    assert_not edition.previously_published
 
     edition.first_published_at = Time.zone.now
     assert edition.previously_published
@@ -782,7 +782,7 @@ class EditionTest < ActiveSupport::TestCase
 
   test 'first_published_at required when previously_published' do
     edition = build(:edition, previously_published: true)
-    refute edition.valid?
+    assert_not edition.valid?
     assert_equal "First published at can't be blank", edition.errors.full_messages.first
 
     edition.first_published_at = Time.zone.now
@@ -792,7 +792,7 @@ class EditionTest < ActiveSupport::TestCase
   test 'first_published_at cannot be set to a future date' do
     edition = build(:edition, first_published_at: 10.years.from_now)
 
-    refute edition.valid?
+    assert_not edition.valid?
     assert_equal "First published at can't be set to a future date", edition.errors.full_messages.first
   end
 
@@ -828,21 +828,21 @@ class EditionTest < ActiveSupport::TestCase
     previous_government = create(:previous_government)
 
     edition = create(:edition, political: false, first_published_at: previous_government.start_date)
-    refute edition.historic?
+    assert_not edition.historic?
 
     edition = create(:edition, political: false, first_published_at: current_government.start_date)
-    refute edition.historic?
+    assert_not edition.historic?
 
     edition = create(:edition, political: true, first_published_at: current_government.start_date)
-    refute edition.historic?
+    assert_not edition.historic?
   end
 
   test '#historic? is false when the document has no government' do
     edition = create(:edition, political: true, first_published_at: nil)
-    refute edition.historic?
+    assert_not edition.historic?
 
     edition = create(:edition, political: false, first_published_at: nil)
-    refute edition.historic?
+    assert_not edition.historic?
   end
 
   test '#has_been_tagged? is false when request from publishing-api has no taxons' do
@@ -856,7 +856,7 @@ class EditionTest < ActiveSupport::TestCase
       "version" => 1
     )
 
-    refute edition.has_been_tagged?
+    assert_not edition.has_been_tagged?
   end
 
   test '#has_been_tagged? is true when request from publishing-api has taxons' do
@@ -876,20 +876,20 @@ class EditionTest < ActiveSupport::TestCase
 
   test '#attachables returns empty array' do
     non_attachable_edition = build(:announcement)
-    refute non_attachable_edition.allows_attachments?
+    assert_not non_attachable_edition.allows_attachments?
     assert_equal [], non_attachable_edition.attachables
   end
 
   test 'when policies not supported' do
     edition = create(:edition)
-    refute edition.has_policies?
-    refute edition.has_legacy_tags?
+    assert_not edition.has_policies?
+    assert_not edition.has_legacy_tags?
   end
 
   test 'when policies are supported but no policies' do
     edition = create(:publication_without_policy_areas, policy_content_ids: [])
-    refute edition.has_policies?
-    refute edition.has_legacy_tags?
+    assert_not edition.has_policies?
+    assert_not edition.has_legacy_tags?
   end
 
   test 'when policies exist' do
@@ -901,14 +901,14 @@ class EditionTest < ActiveSupport::TestCase
 
   test 'when policy areas are not supported' do
     edition = create(:edition)
-    refute edition.has_policy_areas?
-    refute edition.has_legacy_tags?
+    assert_not edition.has_policy_areas?
+    assert_not edition.has_legacy_tags?
   end
 
   test 'when policy areas supported but no policy areas' do
     edition = create(:publication_without_policy_areas)
-    refute edition.has_policy_areas?
-    refute edition.has_legacy_tags?
+    assert_not edition.has_policy_areas?
+    assert_not edition.has_legacy_tags?
   end
 
   test 'when policy areas exist' do
@@ -920,9 +920,9 @@ class EditionTest < ActiveSupport::TestCase
 
   test 'when no specialist sectors' do
     edition = create(:edition)
-    refute edition.has_primary_sector?
-    refute edition.has_secondary_sectors?
-    refute edition.has_legacy_tags?
+    assert_not edition.has_primary_sector?
+    assert_not edition.has_secondary_sectors?
+    assert_not edition.has_legacy_tags?
   end
 
   test 'when a primary specialist sector exists' do

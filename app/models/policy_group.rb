@@ -49,7 +49,7 @@ class PolicyGroup < ApplicationRecord
   friendly_id
 
   def summary_or_name
-    summary.present? ? summary : name
+    summary.presence || name
   end
 
   searchable title: :name,

@@ -12,9 +12,9 @@ class ConsultationReminderTest < ActiveSupport::TestCase
 
   test ".send_all notifies authors of consultations with 4 weeks left without an outcome which closed within the 24 hour window" do
     consultations = [
-      create_consultation(closing_at: Time.new(2018, 3, 6, 2, 30, 0)), # 02:30 day before
-      create_consultation(closing_at: Time.new(2018, 3, 6, 23, 45, 0)), # 23:45 day before
-      create_consultation(closing_at: Time.new(2018, 3, 7, 0, 30, 0)), # 00:30 day of
+      create_consultation(closing_at: Time.new(2018, 3, 6, 2, 30, 0).in_time_zone), # 02:30 day before
+      create_consultation(closing_at: Time.new(2018, 3, 6, 23, 45, 0).in_time_zone), # 23:45 day before
+      create_consultation(closing_at: Time.new(2018, 3, 7, 0, 30, 0).in_time_zone), # 00:30 day of
     ]
 
     ConsultationReminder.send_all
@@ -32,37 +32,37 @@ class ConsultationReminderTest < ActiveSupport::TestCase
   end
 
   test ".send_all doesn't send notifications for consultations with 4 weeks left which closed on or before the 24 hour window" do
-    create_consultation(closing_at: Time.new(2018, 3, 6, 0, 30, 0)) # 00:30 day before
-    create_consultation(closing_at: Time.new(2018, 3, 6, 1, 0, 0)) # 01:00 day before
+    create_consultation(closing_at: Time.new(2018, 3, 6, 0, 30, 0).in_time_zone) # 00:30 day before
+    create_consultation(closing_at: Time.new(2018, 3, 6, 1, 0, 0).in_time_zone) # 01:00 day before
     ConsultationReminder.send_all
     assert ActionMailer::Base.deliveries.empty?
 
-    create_consultation(closing_at: Time.new(2018, 3, 6, 1, 1, 0)) # 01:01 day before
+    create_consultation(closing_at: Time.new(2018, 3, 6, 1, 1, 0).in_time_zone) # 01:01 day before
     ConsultationReminder.send_all
     assert_equal 1, ActionMailer::Base.deliveries.size
   end
 
   test ".send_all doesn't send notifications for consultations with 4 weeks left which closed after the 24 hour window" do
-    create_consultation(closing_at: Time.new(2018, 3, 7, 1, 1, 0)) # 01:01 day of
+    create_consultation(closing_at: Time.new(2018, 3, 7, 1, 1, 0).in_time_zone) # 01:01 day of
     ConsultationReminder.send_all
     assert ActionMailer::Base.deliveries.empty?
 
-    create_consultation(closing_at: Time.new(2018, 3, 7, 1, 0, 0)) # 01:00 day of
+    create_consultation(closing_at: Time.new(2018, 3, 7, 1, 0, 0).in_time_zone) # 01:00 day of
     ConsultationReminder.send_all
     assert_equal 1, ActionMailer::Base.deliveries.size
   end
 
   test ".send_all doesn't send notifications for consultations with 4 weeks left which closed within the 24 hour window but have an outcome" do
-    create_consultation(closing_at: Time.new(2018, 3, 6, 23, 45, 0), responded: true) # 23:45
+    create_consultation(closing_at: Time.new(2018, 3, 6, 23, 45, 0).in_time_zone, responded: true) # 23:45
     ConsultationReminder.send_all
     assert ActionMailer::Base.deliveries.empty?
   end
 
   test ".send_all notifies authors of consultations with 1 week left without an outcome which closed within the 24 hour window" do
     consultations = [
-      create_consultation(closing_at: Time.new(2018, 2, 13, 2, 30, 0)), # 02:30 day before
-      create_consultation(closing_at: Time.new(2018, 2, 13, 23, 45, 0)), # 23:45 day before
-      create_consultation(closing_at: Time.new(2018, 2, 14, 0, 30, 0)), # 00:30 day of
+      create_consultation(closing_at: Time.new(2018, 2, 13, 2, 30, 0).in_time_zone), # 02:30 day before
+      create_consultation(closing_at: Time.new(2018, 2, 13, 23, 45, 0).in_time_zone), # 23:45 day before
+      create_consultation(closing_at: Time.new(2018, 2, 14, 0, 30, 0).in_time_zone), # 00:30 day of
     ]
 
     ConsultationReminder.send_all
@@ -80,37 +80,37 @@ class ConsultationReminderTest < ActiveSupport::TestCase
   end
 
   test ".send_all doesn't send notifications for consultations with 1 week left which closed on or before the 24 hour window" do
-    create_consultation(closing_at: Time.new(2018, 2, 13, 0, 30, 0)) # 00:30 day before
-    create_consultation(closing_at: Time.new(2018, 2, 13, 1, 0, 0)) # 01:00 day before
+    create_consultation(closing_at: Time.new(2018, 2, 13, 0, 30, 0).in_time_zone) # 00:30 day before
+    create_consultation(closing_at: Time.new(2018, 2, 13, 1, 0, 0).in_time_zone) # 01:00 day before
     ConsultationReminder.send_all
     assert ActionMailer::Base.deliveries.empty?
 
-    create_consultation(closing_at: Time.new(2018, 2, 13, 1, 1, 0)) # 01:01 day before
+    create_consultation(closing_at: Time.new(2018, 2, 13, 1, 1, 0).in_time_zone) # 01:01 day before
     ConsultationReminder.send_all
     assert_equal 1, ActionMailer::Base.deliveries.size
   end
 
   test ".send_all doesn't send notifications for consultations with 1 week left which closed after the 24 hour window" do
-    create_consultation(closing_at: Time.new(2018, 2, 14, 1, 1, 0)) # 01:01 day of
+    create_consultation(closing_at: Time.new(2018, 2, 14, 1, 1, 0).in_time_zone) # 01:01 day of
     ConsultationReminder.send_all
     assert ActionMailer::Base.deliveries.empty?
 
-    create_consultation(closing_at: Time.new(2018, 2, 14, 1, 0, 0)) # 01:00 day of
+    create_consultation(closing_at: Time.new(2018, 2, 14, 1, 0, 0).in_time_zone) # 01:00 day of
     ConsultationReminder.send_all
     assert_equal 1, ActionMailer::Base.deliveries.size
   end
 
   test ".send_all doesn't send notifications for consultations with 1 week left which closed within the 24 hour window but have an outcome" do
-    create_consultation(closing_at: Time.new(2018, 2, 13, 23, 45, 0), responded: true) # 23:45 day before
+    create_consultation(closing_at: Time.new(2018, 2, 13, 23, 45, 0).in_time_zone, responded: true) # 23:45 day before
     ConsultationReminder.send_all
     assert ActionMailer::Base.deliveries.empty?
   end
 
   test ".send_all notifies authors of consultations without an outcome which became overdue within the last 24 hours" do
     consultations = [
-      create_consultation(closing_at: Time.new(2018, 2, 6, 2, 30, 0)), # 02:30 day before
-      create_consultation(closing_at: Time.new(2018, 2, 6, 23, 45, 0)), # 23:45 day before
-      create_consultation(closing_at: Time.new(2018, 2, 7, 0, 30, 0)), # 00:30 day of
+      create_consultation(closing_at: Time.new(2018, 2, 6, 2, 30, 0).in_time_zone), # 02:30 day before
+      create_consultation(closing_at: Time.new(2018, 2, 6, 23, 45, 0).in_time_zone), # 23:45 day before
+      create_consultation(closing_at: Time.new(2018, 2, 7, 0, 30, 0).in_time_zone), # 00:30 day of
     ]
 
     ConsultationReminder.send_all
@@ -129,28 +129,28 @@ class ConsultationReminderTest < ActiveSupport::TestCase
   end
 
   test ".send_all doesn't send notifications for consultations which became overdue on or before the last 24 hours" do
-    create_consultation(closing_at: Time.new(2018, 2, 6, 0, 30, 0)) # 00:30 day before
-    create_consultation(closing_at: Time.new(2018, 2, 6, 1, 0, 0)) # 01:00 day before
+    create_consultation(closing_at: Time.new(2018, 2, 6, 0, 30, 0).in_time_zone) # 00:30 day before
+    create_consultation(closing_at: Time.new(2018, 2, 6, 1, 0, 0).in_time_zone) # 01:00 day before
     ConsultationReminder.send_all
     assert ActionMailer::Base.deliveries.empty?
 
-    create_consultation(closing_at: Time.new(2018, 2, 6, 1, 1, 0)) # 01:01 day before
+    create_consultation(closing_at: Time.new(2018, 2, 6, 1, 1, 0).in_time_zone) # 01:01 day before
     ConsultationReminder.send_all
     assert_equal 1, ActionMailer::Base.deliveries.size
   end
 
   test ".send_all doesn't send notifications for consultations became overdue after the last 24 hours" do
-    create_consultation(closing_at: Time.new(2018, 2, 7, 1, 1, 0)) # 01:01 day of
+    create_consultation(closing_at: Time.new(2018, 2, 7, 1, 1, 0).in_time_zone) # 01:01 day of
     ConsultationReminder.send_all
     assert ActionMailer::Base.deliveries.empty?
 
-    create_consultation(closing_at: Time.new(2018, 2, 7, 1, 0, 0)) # 01:00 day of
+    create_consultation(closing_at: Time.new(2018, 2, 7, 1, 0, 0).in_time_zone) # 01:00 day of
     ConsultationReminder.send_all
     assert_equal 1, ActionMailer::Base.deliveries.size
   end
 
   test ".send_all doesn't send notifications for consultations which became overdue within the last 24 hours but have an outcome" do
-    create_consultation(closing_at: Time.new(2018, 2, 6, 23, 45, 0), responded: true) # 23:45 day before
+    create_consultation(closing_at: Time.new(2018, 2, 6, 23, 45, 0).in_time_zone, responded: true) # 23:45 day before
     ConsultationReminder.send_all
     assert ActionMailer::Base.deliveries.empty?
   end
@@ -161,7 +161,7 @@ class ConsultationReminderTest < ActiveSupport::TestCase
       :consultation,
       :published,
       opening_at: 10.months.ago,
-      closing_at: Time.new(2018, 3, 6, 23, 45, 0),
+      closing_at: Time.new(2018, 3, 6, 23, 45, 0).in_time_zone,
     )
     consultation.update(authors: [author, author])
 

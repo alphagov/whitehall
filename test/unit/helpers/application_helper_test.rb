@@ -13,13 +13,13 @@ class ApplicationHelperTest < ActionView::TestCase
 
   test "#policies_finder_path escapes provided query params" do
     assert_equal "/government/policies?organisations%5B%5D=slug",
-      policies_finder_path(organisations: %w[slug])
+                 policies_finder_path(organisations: %w[slug])
 
     assert_equal "/government/policies?organisations%5B%5D=slug1&organisations%5B%5D=slug2",
-      policies_finder_path(organisations: %w[slug1 slug2])
+                 policies_finder_path(organisations: %w[slug1 slug2])
 
     assert_equal "/government/policies?keywords=word&organisations%5B%5D=slug1",
-      policies_finder_path(keywords: 'word', organisations: %w[slug1])
+                 policies_finder_path(keywords: 'word', organisations: %w[slug1])
   end
 
   test '#link_to_attachment returns nil when attachment is nil' do
@@ -155,16 +155,16 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal "Inner Text", anchor.inner_text
     assert_equal "/some/path", anchor.attr("href").value
     classes = anchor.attr("class").value.split
-    refute classes.include?("active")
+    assert_not classes.include?("active")
     assert classes.include?("class-1")
     assert classes.include?("class-2")
   end
 
   test "correctly identifies external links" do
     assert is_external?('http://www.facebook.com/something'), 'wrong host'
-    refute is_external?('/something'), 'no host'
-    refute is_external?(Whitehall.public_root), 'good host'
-    refute is_external?("#{Whitehall.public_root}/something"), 'good host with path'
+    assert_not is_external?('/something'), 'no host'
+    assert_not is_external?(Whitehall.public_root), 'good host'
+    assert_not is_external?("#{Whitehall.public_root}/something"), 'good host with path'
   end
 
   test "full_width_tabs should render tabs" do
@@ -180,7 +180,7 @@ class ApplicationHelperTest < ActionView::TestCase
     links = rendered.css "li a"
     assert_equal "Guitar tabs", links[0].text
     assert_equal "/hipster-guitars", links[0][:href]
-    refute links[0][:class].to_s.include? "current"
+    assert_not links[0][:class].to_s.include? "current"
     assert_equal "Document tabs", links[1].text
     assert_equal "/stationary", links[1][:href]
     assert links[1][:class].to_s.include? "current"
@@ -192,7 +192,7 @@ class ApplicationHelperTest < ActionView::TestCase
       { label: "Document tabs", link_to: "/stationary", current_when: true }
     ])).children.first
 
-    refute rendered.at_xpath(".//a[.='Guitar tabs']")[:class].to_s.include? 'current'
+    assert_not rendered.at_xpath(".//a[.='Guitar tabs']")[:class].to_s.include? 'current'
     assert rendered.at_xpath(".//a[.='Document tabs']")[:class].to_s.include? 'current'
   end
 

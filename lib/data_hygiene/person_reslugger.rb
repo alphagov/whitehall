@@ -32,7 +32,7 @@ module DataHygiene
     def update_slug
       # Note: This will trigger calls to both rummager and the Publishing API,
       # meaning that entries in both places will exist with the correct slug
-      person.update_attributes!(slug: new_slug)
+      person.update!(slug: new_slug)
     end
 
     def new_base_path

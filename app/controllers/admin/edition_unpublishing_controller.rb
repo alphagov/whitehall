@@ -4,7 +4,7 @@ class Admin::EditionUnpublishingController < Admin::BaseController
 
   def update
     services = Whitehall.edition_services
-    if @unpublishing.update_attributes(explanation: params[:unpublishing][:explanation])
+    if @unpublishing.update(explanation: params[:unpublishing][:explanation])
       if withdrawing?
         services.withdrawer(@unpublishing.edition, user: current_user).perform!
       else

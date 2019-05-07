@@ -52,8 +52,8 @@ namespace :election do
         print "."
         appointment.update_attribute(:ended_at, end_date)
       end
-    rescue StandardError => ex
-      puts ex.message
+    rescue StandardError => e
+      puts e.message
     end
   end
 end

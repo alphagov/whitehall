@@ -11,7 +11,7 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
     edition = create(:published_news_article, topical_events: [topical_event])
     relation = edition.classification_memberships.first
     edition.destroy
-    refute ClassificationMembership.find_by(id: relation.id)
+    assert_not ClassificationMembership.find_by(id: relation.id)
   end
 
   test "new edition of document that is a member of a topical event should remain a member of that topical event" do
@@ -31,7 +31,7 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
     _rel = topical_event.feature(edition_id: edition.id, alt_text: 'Woooo', image: create(:classification_featuring_image_data))
     relation = edition.classification_featurings.first
     edition.destroy
-    refute ClassificationFeaturing.find_by(id: relation.id)
+    assert_not ClassificationFeaturing.find_by(id: relation.id)
   end
 
   test "new edition of document featured in topical event should remain featured in that topic event with image, alt text and ordering" do

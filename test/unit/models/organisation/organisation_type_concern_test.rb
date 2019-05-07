@@ -65,7 +65,7 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
     closed_org = create(:closed_organisation)
     assert Organisation.listable.include?(ministerial_department)
     assert Organisation.listable.include?(sub_organisation)
-    refute Organisation.listable.include?(closed_org)
+    assert_not Organisation.listable.include?(closed_org)
   end
 
   test "allowed_promotional should return all organisatiosn which are allowed_promotional" do
@@ -73,7 +73,7 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
     non_promotional_org = create(:sub_organisation)
 
     assert Organisation.allowed_promotional.include?(promotional_org)
-    refute Organisation.allowed_promotional.include?(non_promotional_org)
+    assert_not Organisation.allowed_promotional.include?(non_promotional_org)
   end
 
   class HMCTSOrganisationTests < ActiveSupport::TestCase
@@ -89,11 +89,11 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
 
     test "hmcts_tribunals selects Tribunals that are administrered by HMCTS" do
       result = Organisation.closed.hmcts_tribunals
-      refute_includes result, @other_org
-      refute_includes result, @copyright_tribunal
-      refute_includes result, @court
+      assert_not_includes result, @other_org
+      assert_not_includes result, @copyright_tribunal
+      assert_not_includes result, @court
       assert_includes result, @closed_hmcts_tribunal
-      refute_includes result, @hmcts_tribunal
+      assert_not_includes result, @hmcts_tribunal
     end
 
     test "excluding_hmcts_tribunals excludes Tribunals that are administrered by HMCTS" do
@@ -101,22 +101,22 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
       assert_includes result, @other_org
       assert_includes result, @copyright_tribunal
       assert_includes result, @court
-      refute_includes result, @hmcts_tribunal
+      assert_not_includes result, @hmcts_tribunal
     end
 
     test "excluding_courts_and_tribunals scopes to exclude courts and HMCTS tribunals" do
       result = Organisation.excluding_courts_and_tribunals.listable
       assert_includes result, @other_org
       assert_includes result, @copyright_tribunal
-      refute_includes result, @court
-      refute_includes result, @hmcts_tribunal
+      assert_not_includes result, @court
+      assert_not_includes result, @hmcts_tribunal
     end
 
     test "excluding_courts scopes to exclude courts tribunals" do
       result = Organisation.excluding_courts.listable
       assert_includes result, @other_org
       assert_includes result, @copyright_tribunal
-      refute_includes result, @court
+      assert_not_includes result, @court
       assert_includes result, @hmcts_tribunal
     end
 
@@ -180,10 +180,10 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
     hmcts_tribunal = create(:hmcts_tribunal)
     tribunal = create(:organisation, organisation_type_key: :tribunal_ndpb)
     hmcts_child = create(:organisation,
-      parent_organisations: [Organisation.find_by(slug: "hm-courts-and-tribunals-service")])
+                         parent_organisations: [Organisation.find_by(slug: "hm-courts-and-tribunals-service")])
 
     assert hmcts_tribunal.hmcts_tribunal?
-    refute tribunal.hmcts_tribunal?
-    refute hmcts_child.hmcts_tribunal?
+    assert_not tribunal.hmcts_tribunal?
+    assert_not hmcts_child.hmcts_tribunal?
   end
 end

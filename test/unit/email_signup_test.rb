@@ -28,12 +28,12 @@ class EmailSignupTest < ActiveSupport::TestCase
   end
 
   test "#save does not create an email-alert-api topic if the feed is missing" do
-    refute EmailSignup.new.save
+    assert_not EmailSignup.new.save
     assert_not_requested(stub_any_email_alert_api_call)
   end
 
   test "#save does not create an email-alert-api topic if the feed is invalid" do
-    refute EmailSignup.new(feed: 'http://fake/feed').save
+    assert_not EmailSignup.new(feed: 'http://fake/feed').save
     assert_not_requested(stub_any_email_alert_api_call)
   end
 

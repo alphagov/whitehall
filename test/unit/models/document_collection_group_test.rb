@@ -23,7 +23,7 @@ class DocumentSeriesGroupTest < ActiveSupport::TestCase
 
     assert group.documents.include? doc_1
     assert group.documents.include? doc_3
-    refute group.documents.include? doc_2
+    assert_not group.documents.include? doc_2
 
     assert_equal 0, group.memberships.find_by(document_id: doc_3.id).ordering
     assert_equal 1, group.memberships.find_by(document_id: doc_1.id).ordering

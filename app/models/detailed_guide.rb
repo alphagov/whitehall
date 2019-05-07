@@ -151,7 +151,7 @@ private
   end
 
   def parse_base_path_from_related_mainstream_url(url)
-    return nil if url.nil? || url.empty?
+    return nil if url.blank?
 
     parsed_url = URI.parse(url)
     url_is_invalid = !['gov.uk', 'www.gov.uk'].include?(parsed_url.host)

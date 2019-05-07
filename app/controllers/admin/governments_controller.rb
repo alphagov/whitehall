@@ -26,7 +26,7 @@ class Admin::GovernmentsController < Admin::BaseController
   def update
     @government = Government.find(params[:id])
 
-    if @government.update_attributes(government_params)
+    if @government.update(government_params)
       redirect_to admin_governments_path, notice: 'Updated government information'
     else
       render action: 'edit'

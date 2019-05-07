@@ -17,8 +17,8 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
 
   view_test 'GET #show displays the document collection' do
     collection = create(:document_collection,
-      title: "collection-title",
-      summary: "the summary")
+                        title: "collection-title",
+                        summary: "the summary")
 
     stub_publishing_api_expanded_links_with_taxons(collection.content_id, [])
 
@@ -104,7 +104,7 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
     document_collection = create(:document_collection)
     delete :destroy, params: { id: document_collection }
 
-    refute DocumentCollection.exists?(document_collection.id)
+    assert_not DocumentCollection.exists?(document_collection.id)
     assert_response :redirect
   end
 end

@@ -95,7 +95,7 @@ module PublishingApi
     end
 
     def change_history
-      return {} unless corporate_information_page.change_history.present?
+      return {} if corporate_information_page.change_history.blank?
 
       # Some speeches and corporate information pages don't seem to
       # have first_published_at data, so ignore those change notes to
@@ -173,14 +173,14 @@ module PublishingApi
       end
 
       def organisation_has_any_transparency_pages?
-        return unless organisation.present?
+        return if organisation.blank?
 
         organisation_has_freedom_of_information_publications? ||
           organisation_has_transparency_data_publications?
       end
 
       def organisation_has_corporate_report_publications?
-        return unless organisation.present?
+        return if organisation.blank?
 
         organisation.has_published_publications_of_type?(
           PublicationType::CorporateReport,
@@ -188,13 +188,13 @@ module PublishingApi
       end
 
       def organisation_has_chart_url?
-        return unless organisation.present?
+        return if organisation.blank?
 
         organisation.organisation_chart_url.present?
       end
 
       def organisation_has_freedom_of_information_publications?
-        return unless organisation.present?
+        return if organisation.blank?
 
         organisation.has_published_publications_of_type?(
           PublicationType::FoiRelease,
@@ -202,7 +202,7 @@ module PublishingApi
       end
 
       def organisation_has_transparency_data_publications?
-        return unless organisation.present?
+        return if organisation.blank?
 
         organisation.has_published_publications_of_type?(
           PublicationType::TransparencyData,
@@ -336,7 +336,7 @@ module PublishingApi
       end
 
       def call
-        return {} unless organisation.present?
+        return {} if organisation.blank?
 
         {
           organisation: organisation.content_id

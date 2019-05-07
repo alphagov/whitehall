@@ -100,7 +100,7 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     cip = create(:corporate_information_page, :unpublished, organisation: organisation)
     alternative_url = Whitehall.url_maker.root_url
-    cip.unpublishing.update_attributes!(redirect: true, slug: cip.slug, alternative_url: alternative_url)
+    cip.unpublishing.update!(redirect: true, slug: cip.slug, alternative_url: alternative_url)
 
     get :show, params: { organisation_id: cip.organisation, id: cip.slug }
     assert_response :redirect
@@ -112,7 +112,7 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
     organisation_2 = create(:organisation, slug: 'another_organisation')
     cip = create(:corporate_information_page, :unpublished, organisation: organisation)
     alternative_url = Whitehall.url_maker.root_url
-    cip.unpublishing.update_attributes!(redirect: true, slug: cip.slug, alternative_url: alternative_url)
+    cip.unpublishing.update!(redirect: true, slug: cip.slug, alternative_url: alternative_url)
     draft_cip = create(:corporate_information_page, organisation: organisation_2)
 
     # Even though the Unpublishing has the same slug as the draft CIP, we should

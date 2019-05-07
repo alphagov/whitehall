@@ -65,7 +65,7 @@ class Admin::OrganisationsController < Admin::BaseController
 
   def update
     delete_absent_organisation_classifications
-    if @organisation.update_attributes(organisation_params)
+    if @organisation.update(organisation_params)
       publish_services_and_information_page
       redirect_to admin_organisation_path(@organisation)
     else

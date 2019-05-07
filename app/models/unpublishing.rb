@@ -31,7 +31,7 @@ class Unpublishing < ApplicationRecord
   end
 
   def unpublishing_reason
-    UnpublishingReason.find_by_id unpublishing_reason_id
+    UnpublishingReason.find_by id: unpublishing_reason_id
   end
 
   def unpublishing_reason=(new_unpublishing_reason)

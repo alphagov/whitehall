@@ -311,7 +311,7 @@ class PublicationsControllerTest < ActionController::TestCase
   test '#index atom feed orders publications according to first_published_at (newest first)' do
     Sidekiq::Testing.inline! do
       oldest = create(:published_publication, first_published_at: 5.days.ago, title: "oldest")
-      newest = create(:published_publication, first_published_at: 1.days.ago, title: "newest")
+      newest = create(:published_publication, first_published_at: 1.day.ago, title: "newest")
       middle = create(:published_publication, first_published_at: 3.days.ago, title: "middle")
 
       get :index, format: :atom
@@ -323,7 +323,7 @@ class PublicationsControllerTest < ActionController::TestCase
   test '#index atom feed orders consultations according to first_published_at (newest first)' do
     Sidekiq::Testing.inline! do
       oldest = create(:published_consultation, first_published_at: 5.days.ago, title: "oldest")
-      newest = create(:published_consultation, first_published_at: 1.days.ago, title: "newest")
+      newest = create(:published_consultation, first_published_at: 1.day.ago, title: "newest")
       middle = create(:published_consultation, first_published_at: 3.days.ago, title: "middle")
 
       get :index, format: :atom
@@ -335,7 +335,7 @@ class PublicationsControllerTest < ActionController::TestCase
   test '#index atom feed orders mixed publications and consultations according to first_published_at or opening_at (newest first)' do
     Sidekiq::Testing.inline! do
       oldest = create(:published_publication,  first_published_at: 5.days.ago, title: "oldest")
-      newest = create(:published_consultation, opening_at: 1.days.ago, title: "newest")
+      newest = create(:published_consultation, opening_at: 1.day.ago, title: "newest")
       middle = create(:published_publication,  first_published_at: 3.days.ago, title: "middle")
 
       get :index, format: :atom
@@ -435,7 +435,7 @@ private
     trait = "with_#{type}_attachment".to_sym
     create(:published_publication, trait, body: "!@1").tap do |publication|
       attachment = publication.attachments.first
-      attachment.update_attributes(params)
+      attachment.update(params)
     end
   end
 

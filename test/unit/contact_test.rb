@@ -3,64 +3,64 @@ require "test_helper"
 class ContactTest < ActiveSupport::TestCase
   test "should be invalid without a description" do
     contact = build(:contact, title: nil)
-    refute contact.valid?
+    assert_not contact.valid?
   end
 
   test "should be invalid if contact_form_url is invalid" do
     contact = build(:contact, contact_form_url: "not.a.url")
-    refute contact.valid?
+    assert_not contact.valid?
   end
 
   test "should be invalid without a contact_type" do
     contact = build(:contact, contact_type: nil)
-    refute contact.valid?
+    assert_not contact.valid?
   end
 
   test "should be valid with no postal address fields" do
     contact = build(:contact,
-      recipient: "",
-      street_address: "",
-      locality: "",
-      region: "",
-      postal_code: "",
-      country_id: "")
+                    recipient: "",
+                    street_address: "",
+                    locality: "",
+                    region: "",
+                    postal_code: "",
+                    country_id: "")
     assert contact.valid?
   end
 
   test "should be invalid with only country but no street address" do
     country = create(:world_location)
     contact = build(:contact,
-      recipient: "",
-      street_address: "",
-      locality: "",
-      region: "",
-      postal_code: "",
-      country_id: country.id)
-    refute contact.valid?
+                    recipient: "",
+                    street_address: "",
+                    locality: "",
+                    region: "",
+                    postal_code: "",
+                    country_id: country.id)
+    assert_not contact.valid?
     assert_equal ["can't be blank"], contact.errors[:street_address]
   end
 
   test "should be invalid with only street address but no country" do
     contact = build(:contact,
-      recipient: "",
-      street_address: "123 Acacia Avenue",
-      locality: "",
-      region: "",
-      postal_code: "",
-      country_id: "")
-    refute contact.valid?
+                    recipient: "",
+                    street_address: "123 Acacia Avenue",
+                    locality: "",
+                    region: "",
+                    postal_code: "",
+                    country_id: "")
+    assert_not contact.valid?
     assert_equal ["can't be blank"], contact.errors[:country_id]
   end
 
   test "should be valid with only street address and country" do
     country = create(:world_location)
     contact = build(:contact,
-      recipient: "",
-      street_address: "123 Acacia avenue",
-      locality: "",
-      region: "",
-      postal_code: "",
-      country_id: country.id)
+                    recipient: "",
+                    street_address: "123 Acacia avenue",
+                    locality: "",
+                    region: "",
+                    postal_code: "",
+                    country_id: country.id)
     assert contact.valid?
   end
 
@@ -99,7 +99,7 @@ class ContactTest < ActiveSupport::TestCase
 
     contact.destroy
 
-    refute list.shown_on_home_page?(contact)
+    assert_not list.shown_on_home_page?(contact)
   end
 
   test "#missing_translations should only include contactable translations" do
@@ -121,7 +121,7 @@ class ContactTest < ActiveSupport::TestCase
       expect_publishing(contact)
       expect_republishing(news_article, corp_info_page)
 
-      contact.update_attributes(title: "Changed contact title")
+      contact.update(title: "Changed contact title")
     end
   end
 

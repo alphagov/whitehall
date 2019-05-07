@@ -26,7 +26,7 @@ class NewsArticle < Newsesque
   end
 
   def news_article_type
-    NewsArticleType.find_by_id(news_article_type_id)
+    NewsArticleType.find_by(id: news_article_type_id)
   end
 
   def news_article_type=(news_article_type)

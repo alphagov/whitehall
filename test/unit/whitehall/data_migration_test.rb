@@ -30,7 +30,7 @@ module Whitehall
     test "#due? returns true if migration has not been run, false otherwise" do
       assert @data_migration.due?
       DataMigrationRecord.create!(version: @data_migration.version)
-      refute @data_migration.due?
+      assert_not @data_migration.due?
     end
 
     test '#run performs the migration and saves a record for it' do
@@ -46,7 +46,7 @@ module Whitehall
       assert_no_difference('Person.count') do
         bad_migration.run
       end
-      refute DataMigrationRecord.find_by(version: bad_migration.version)
+      assert_not DataMigrationRecord.find_by(version: bad_migration.version)
     end
   end
 end

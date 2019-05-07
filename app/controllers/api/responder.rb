@@ -1,5 +1,5 @@
 class Api::Responder < ActionController::Responder
-  def to_json
+  def to_json(*_args)
     display resource.as_json.merge(response_info)
   end
 

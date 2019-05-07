@@ -17,7 +17,7 @@ module OrganisationControllerTestHelpers
 
       view_test "#{org_type}:shows organisation name" do
         organisation = create_org_and_stub_content_store(org_type,
-          logo_formatted_name: "unformatted name")
+                                                         logo_formatted_name: "unformatted name")
         get :show, params: { id: organisation }
         assert_select ".organisation h1", text: "unformatted name"
       end
@@ -97,7 +97,7 @@ module OrganisationControllerTestHelpers
       view_test "#{org_type}:show includes a link to the atom feed and featured documents" do
         organisation = create_org_and_stub_content_store(org_type)
         feature_list = organisation.load_or_create_feature_list(:en)
-        edition = create(:published_news_article, first_published_at: 1.days.ago)
+        edition = create(:published_news_article, first_published_at: 1.day.ago)
         create(:feature, document: edition.document, feature_list: feature_list, ordering: 1)
         get :show, params: { id: organisation }
 
@@ -106,7 +106,7 @@ module OrganisationControllerTestHelpers
 
       view_test "#{org_type}:shows 3 most recently published editions associated with organisation when featuring a doc" do
         # different edition types sort on different attributes
-        editions = [create(:published_news_article, first_published_at: 1.days.ago),
+        editions = [create(:published_news_article, first_published_at: 1.day.ago),
                     create(:published_publication, first_published_at: 2.days.ago),
                     create(:published_consultation, first_published_at: 3.days.ago),
                     create(:published_speech, first_published_at: 4.days.ago)]
@@ -155,7 +155,7 @@ module OrganisationControllerTestHelpers
       view_test "#{org_type}:show has a link to sign up if one exists and featured documents" do
         organisation = create_org_and_stub_content_store(org_type)
         feature_list = organisation.load_or_create_feature_list(:en)
-        edition = create(:published_news_article, first_published_at: 1.days.ago)
+        edition = create(:published_news_article, first_published_at: 1.day.ago)
         create(:feature, document: edition.document, feature_list: feature_list, ordering: 1)
 
         get :show, params: { id: organisation }

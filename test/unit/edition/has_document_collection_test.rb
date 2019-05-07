@@ -10,22 +10,22 @@ class Edition::HasDocumentCollectionsTest < ActiveSupport::TestCase
 
   test '#part_of_published_collection? returns true when its document is in a published collection' do
     edition = create(:published_publication)
-    refute edition.part_of_published_collection?
+    assert_not edition.part_of_published_collection?
 
     create(:published_document_collection,
-      groups: [build(:document_collection_group, documents: [edition.document])])
+           groups: [build(:document_collection_group, documents: [edition.document])])
 
     assert edition.reload.part_of_published_collection?
   end
 
   test '#part_of_published_collection? returns false when its document is in a draft collection' do
     edition = create(:published_publication)
-    refute edition.part_of_published_collection?
+    assert_not edition.part_of_published_collection?
 
     create(:draft_document_collection,
-      groups: [build(:document_collection_group, documents: [edition.document])])
+           groups: [build(:document_collection_group, documents: [edition.document])])
 
-    refute edition.reload.part_of_published_collection?
+    assert_not edition.reload.part_of_published_collection?
   end
 
   test 'allows assignment of document collection on a saved edition' do

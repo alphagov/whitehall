@@ -100,7 +100,7 @@ class CorporateInformationPage < Edition
   end
 
   def corporate_information_page_type
-    CorporateInformationPageType.find_by_id(corporate_information_page_type_id)
+    CorporateInformationPageType.find_by(id: corporate_information_page_type_id)
   end
 
   def corporate_information_page_type=(type)

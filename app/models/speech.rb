@@ -32,7 +32,7 @@ class Speech < Announcement
   end
 
   def speech_type
-    SpeechType.find_by_id(speech_type_id)
+    SpeechType.find_by(id: speech_type_id)
   end
 
   def speech_type=(speech_type)

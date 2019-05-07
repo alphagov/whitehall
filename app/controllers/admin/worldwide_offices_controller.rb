@@ -16,7 +16,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
 
   def update
     worldwide_office_params[:service_ids] ||= []
-    @worldwide_office.update_attributes(worldwide_office_params)
+    @worldwide_office.update(worldwide_office_params)
     if @worldwide_office.save
       handle_show_on_home_page_param
       redirect_to [:admin, @worldwide_organisation, WorldwideOffice]
@@ -45,10 +45,10 @@ class Admin::WorldwideOfficesController < Admin::BaseController
 
   extend Admin::HomePageListController
   is_home_page_list_controller_for :offices,
-    item_type: WorldwideOffice,
-    contained_by: :worldwide_organisation,
-    redirect_to: ->(container, _item) { [:admin, container, WorldwideOffice] },
-    params_name: :worldwide_office
+                                   item_type: WorldwideOffice,
+                                   contained_by: :worldwide_organisation,
+                                   redirect_to: ->(container, _item) { [:admin, container, WorldwideOffice] },
+                                   params_name: :worldwide_office
   def home_page_list_item
     @worldwide_office
   end

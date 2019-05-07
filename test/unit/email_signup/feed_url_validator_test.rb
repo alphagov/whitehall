@@ -6,8 +6,8 @@ class EmailSignup::FeedUrlValidatorTest < ActiveSupport::TestCase
   end
 
   test 'handles badly formatted feed urls' do
-    refute klass.new('https://www.glue=latvia').valid?
-    refute klass.new('https://www.gov.uk/government]').valid?
+    assert_not klass.new('https://www.glue=latvia').valid?
+    assert_not klass.new('https://www.gov.uk/government]').valid?
   end
 
   test 'validates and describes a base publication filter feed url' do
@@ -132,45 +132,45 @@ class EmailSignup::FeedUrlValidatorTest < ActiveSupport::TestCase
   end
 
   test 'does not validate a feed url for another host' do
-    refute klass.new('http://somewhere-else.com/publications.atom').valid?
+    assert_not klass.new('http://somewhere-else.com/publications.atom').valid?
   end
 
   test 'does not validate a feed url with an incorrect protocol' do
-    refute klass.new("ftp://#{Whitehall.public_host}/government/publications.atom").valid?
+    assert_not klass.new("ftp://#{Whitehall.public_host}/government/publications.atom").valid?
   end
 
   test 'does not validate a feed url with an unrecognised path' do
-    refute klass.new("#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/does-not-exist.atom").valid?
+    assert_not klass.new("#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/does-not-exist.atom").valid?
   end
 
   test 'does not validate a feed url with a dodgy format' do
-    refute klass.new("#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.foo").valid?
+    assert_not klass.new("#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.foo").valid?
   end
 
   test 'does not validate a feed url when the resource does not exist' do
     feed_url = atom_feed_maker.topic_url('non-existant-slug')
 
-    refute klass.new(feed_url).valid?
+    assert_not klass.new(feed_url).valid?
   end
 
   test 'does not validate a feed url with additional parameters' do
     feed_url = atom_feed_maker.ministerial_role_url(create(:role), extra_param: 'hax')
 
-    refute klass.new(feed_url).valid?
+    assert_not klass.new(feed_url).valid?
   end
 
   test 'does not validate a feed url for filtered documents with invalid filter options' do
     feed_url   = atom_feed_maker.publications_url(extra_param: 'boo')
     validator  = klass.new(feed_url)
 
-    refute validator.valid?
+    assert_not validator.valid?
   end
 
   test 'does not validate a feed url for filtered documents when one of the filter options refers to a non-existant resource' do
     feed_url = feed_url_for(document_type: "publications", departments: ["does-not-exist"])
     validator = klass.new(feed_url)
 
-    refute validator.valid?
+    assert_not validator.valid?
   end
 
   test 'does not validate a feed url for an unsupported type, e.g. a document collection' do
@@ -178,7 +178,7 @@ class EmailSignup::FeedUrlValidatorTest < ActiveSupport::TestCase
     feed_url   = atom_feed_maker.document_collection_url(collection)
     validator  = klass.new(feed_url)
 
-    refute validator.valid?
+    assert_not validator.valid?
   end
 
   test '#description does not fall over when the feed is bad' do

@@ -99,7 +99,7 @@ module Admin::EditionsHelper
     end
 
     # copy default values from Transcript SpeechType for '' select option
-    default_type = SpeechType.find_by_name('Transcript')
+    default_type = SpeechType.find_by(name: 'Transcript')
     label_data.merge('' => {
       ownerGroup: I18n.t("document.speech.#{default_type.owner_key_group}"),
       publishedExternallyLabel: t_delivered_on(default_type),

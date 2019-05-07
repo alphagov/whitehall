@@ -27,11 +27,11 @@ class CollectionPageTest < ActiveSupport::TestCase
 
   test "#next_page? return true if there is a next page available" do
     assert build([], total: 2, page: 1, per_page: 1).next_page?
-    refute build([], total: 2, page: 2, per_page: 1).next_page?
+    assert_not build([], total: 2, page: 2, per_page: 1).next_page?
   end
 
   test "#previous_page? return true if there is a previous page available" do
     assert build([], total: 2, page: 2, per_page: 1).previous_page?
-    refute build([], total: 2, page: 1, per_page: 1).previous_page?
+    assert_not build([], total: 2, page: 1, per_page: 1).previous_page?
   end
 end

@@ -92,7 +92,7 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
 
     LinkReporterCsvService.new(reports_dir: reports_dir, organisation: hmrc).generate
     hmrc_csv = CSV.read(reports_dir_pathname.join("hm-revenue-customs_links_report.csv"))
-    refute File.file?(reports_dir_pathname.join("british-embassy-paris_links_report.csv"))
+    assert_not File.file?(reports_dir_pathname.join("british-embassy-paris_links_report.csv"))
     assert_equal 3, hmrc_csv.size
   end
 
@@ -120,20 +120,20 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
                   "DetailedGuide",
                   "2",
                   "https://www.gov.uk/bad-link\r\nhttps://www.gov.uk/missing-link"], hmrc_csv[1]
-    refute_equal ["https://www.gov.uk#{Whitehall.url_maker.publication_path(publication.slug)}",
-                  "https://whitehall-admin.publishing.service.gov.uk#{Whitehall.url_maker.admin_publication_path(publication)}",
-                  publication.public_timestamp.to_s,
-                  "Publication",
-                  "0",
-                  ""], hmrc_csv[2]
+    assert_not_equal ["https://www.gov.uk#{Whitehall.url_maker.publication_path(publication.slug)}",
+                      "https://whitehall-admin.publishing.service.gov.uk#{Whitehall.url_maker.admin_publication_path(publication)}",
+                      publication.public_timestamp.to_s,
+                      "Publication",
+                      "0",
+                      ""], hmrc_csv[2]
   end
 
   test "creates a new csv file even if no organisation passed to it" do
     speech = create(:published_speech,
-                     person_override: "The Queen",
-                     body: "[Good link](https://www.gov.uk/good-link)\n[Missing page](https://www.gov.uk/missing-link)",
-                     role_appointment: nil,
-                     create_default_organisation: false)
+                    person_override: "The Queen",
+                    body: "[Good link](https://www.gov.uk/good-link)\n[Missing page](https://www.gov.uk/missing-link)",
+                    role_appointment: nil,
+                    create_default_organisation: false)
     missing_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/missing-link", status: "broken")
     good_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/good-link", status: "ok")
 

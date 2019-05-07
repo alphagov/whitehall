@@ -24,7 +24,7 @@ class Admin::PolicyGroupsController < Admin::BaseController
 
   def update
     @policy_group = PolicyGroup.friendly.find(params[:id])
-    if @policy_group.update_attributes(policy_group_params)
+    if @policy_group.update(policy_group_params)
       redirect_to admin_policy_groups_path, notice: %{"#{@policy_group.name}" saved.}
     else
       render action: "edit"

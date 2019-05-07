@@ -3,20 +3,20 @@ require 'test_helper'
 class EditionRelationTest < ActiveSupport::TestCase
   test "should be invalid without a edition_id" do
     edition_relation = build(:edition_relation, edition_id: nil)
-    refute edition_relation.valid?
+    assert_not edition_relation.valid?
   end
 
   test "should be invalid without a document" do
     edition_relation = build(:edition_relation, document: nil)
-    refute edition_relation.valid?
+    assert_not edition_relation.valid?
   end
 
   test "should be invalid if more than one relation exists from one edition to another" do
     existing_relation = create(:edition_relation)
     relation = build(:edition_relation,
-      edition: existing_relation.edition,
-      document: existing_relation.document)
-    refute relation.valid?
+                     edition: existing_relation.edition,
+                     document: existing_relation.document)
+    assert_not relation.valid?
   end
 
   test "should be valid if one edition is related to two others" do

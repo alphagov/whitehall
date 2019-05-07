@@ -52,7 +52,7 @@ namespace :reslug do
     Whitehall::SearchIndex.delete(edition)
 
     # change the slug of the document and create a redirect from the original
-    document.update_attributes!(slug: args.new_slug)
+    document.update!(slug: args.new_slug)
 
     # send edition to publishing api
     PublishingApiDocumentRepublishingWorker.new.perform(document.id)
@@ -67,7 +67,7 @@ namespace :reslug do
 
     Whitehall::SearchIndex.delete(policy_group)
 
-    policy_group.update_attributes!(slug: args.new_slug)
+    policy_group.update!(slug: args.new_slug)
 
     Whitehall::PublishingApi.republish_async(policy_group)
     Whitehall::SearchIndex.add(policy_group)
@@ -77,7 +77,7 @@ namespace :reslug do
   task :world_location, %i[old_slug new_slug] => :environment do |_task, args|
     world_location = WorldLocation.find_by!(slug: args.old_slug)
     Whitehall::SearchIndex.delete(world_location)
-    world_location.update_attributes!(slug: args.new_slug)
+    world_location.update!(slug: args.new_slug)
   end
 
   def reslug_organisation(organisation_class, args)

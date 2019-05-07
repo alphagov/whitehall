@@ -12,7 +12,7 @@ class Edition::FirstImagePulledOutTest < ActiveSupport::TestCase
   end
 
   test "reports other images are not disallowed" do
-    refute edition_with_first_image_pulled_out.image_disallowed_in_body_text?(2)
+    assert_not edition_with_first_image_pulled_out.image_disallowed_in_body_text?(2)
   end
 
   def body_text_valid(body)
@@ -20,10 +20,10 @@ class Edition::FirstImagePulledOutTest < ActiveSupport::TestCase
   end
 
   test "validates that the first image is not included in the body text" do
-    refute body_text_valid("foo\n!!1\nbar")
-    refute body_text_valid("foo\n!!1 \nbar")
-    refute body_text_valid("foo\n!!1")
-    refute body_text_valid("foo\n!!1s\nbar")
+    assert_not body_text_valid("foo\n!!1\nbar")
+    assert_not body_text_valid("foo\n!!1 \nbar")
+    assert_not body_text_valid("foo\n!!1")
+    assert_not body_text_valid("foo\n!!1s\nbar")
     assert body_text_valid("foo\n!!10\nbar")
     assert body_text_valid("foo\nfoo bar !!1\nbar")
   end

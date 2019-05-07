@@ -5,16 +5,16 @@ class EmailSignupPagesFinderTest < ActiveSupport::TestCase
     signup_page = EmailSignupPagesFinder.find(mhra)
 
     assert_equal signup_page.map { |p| p[:text] },
-      [
-        'Drug alerts and medical device alerts',
-        'Drug Safety Update',
-        'News and publications from the MHRA',
-      ]
+                 [
+                   'Drug alerts and medical device alerts',
+                   'Drug Safety Update',
+                   'News and publications from the MHRA',
+                 ]
   end
 
   test 'EmailSignupPagesFinder.find returns nil for a non-matching organisations' do
     another_org = create(:organisation, name: 'Org without custom signup page')
-    refute EmailSignupPagesFinder.find(another_org)
+    assert_not EmailSignupPagesFinder.find(another_org)
   end
 
   test 'EmailSignupPagesFinder.exists_for_atom_feed? returns true for the MHRA atom feed' do
@@ -25,7 +25,7 @@ class EmailSignupPagesFinderTest < ActiveSupport::TestCase
 
   test 'EmailSignupPagesFinder.exists_for_atom_feed? returns false for other atom feeds' do
     non_matching_atom_feed = Whitehall.atom_feed_maker.organisation_url(create(:organisation))
-    refute EmailSignupPagesFinder.exists_for_atom_feed?(non_matching_atom_feed)
+    assert_not EmailSignupPagesFinder.exists_for_atom_feed?(non_matching_atom_feed)
   end
 
 private

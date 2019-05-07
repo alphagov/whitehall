@@ -92,7 +92,7 @@ module Whitehall
   end
 
   def self.uploads_root_for_test_env
-    env_number = ENV['TEST_ENV_NUMBER'].blank? ? '1' : ENV['TEST_ENV_NUMBER']
+    env_number = ENV['TEST_ENV_NUMBER'].presence || '1'
     Rails.root.join("tmp/test/env_#{env_number}")
   end
 

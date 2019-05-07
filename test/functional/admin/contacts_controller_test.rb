@@ -10,13 +10,13 @@ class Admin::ContactsControllerTest < ActionController::TestCase
   test "POST on :create creates contact" do
     organisation = create(:organisation)
     post :create,
-      params: {
-                contact: {
-              title: "Main office",
-              contact_type_id: ContactType::General.id
-            },
-            organisation_id: organisation.id
-    }
+         params: {
+                   contact: {
+                 title: "Main office",
+                 contact_type_id: ContactType::General.id
+               },
+               organisation_id: organisation.id
+       }
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert contact = organisation.contacts.last
@@ -28,16 +28,16 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
 
     post :create,
-      params: {
-                contact: {
-              title: "Head office",
-              contact_numbers_attributes: {
-                "0" => { label: "Main phone", number: "1234" }
-              },
-              contact_type_id: ContactType::General.id
-            },
-            organisation_id: organisation.id
-    }
+         params: {
+                   contact: {
+                 title: "Head office",
+                 contact_numbers_attributes: {
+                   "0" => { label: "Main phone", number: "1234" }
+                 },
+                 contact_type_id: ContactType::General.id
+               },
+               organisation_id: organisation.id
+       }
 
     contact = organisation.contacts.last
     actual_numbers = contact
@@ -52,14 +52,14 @@ class Admin::ContactsControllerTest < ActionController::TestCase
   test "POST on :create creates contact on the home page of the organisation if told to" do
     organisation = create(:organisation)
     post :create,
-      params: {
-                contact: {
-              title: "Main office",
-              show_on_home_page: '1',
-              contact_type_id: ContactType::General.id
-            },
-            organisation_id: organisation.id
-    }
+         params: {
+                   contact: {
+                 title: "Main office",
+                 show_on_home_page: '1',
+                 contact_type_id: ContactType::General.id
+               },
+               organisation_id: organisation.id
+       }
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert contact = organisation.contacts.last
@@ -71,38 +71,38 @@ class Admin::ContactsControllerTest < ActionController::TestCase
   test "POST on :create creates contact without adding to the home page of the organisation if told not to" do
     organisation = create(:organisation)
     post :create,
-      params: {
-                contact: {
-              title: "Main office",
-              show_on_home_page: '0',
-              contact_type_id: ContactType::General.id
-            },
-            organisation_id: organisation.id
-    }
+         params: {
+                   contact: {
+                 title: "Main office",
+                 show_on_home_page: '0',
+                 contact_type_id: ContactType::General.id
+               },
+               organisation_id: organisation.id
+       }
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert contact = organisation.contacts.last
     assert_equal %{"#{contact.title}" created successfully}, flash[:notice]
     assert_equal "Main office", organisation.contacts.first.title
-    refute organisation.contact_shown_on_home_page?(contact)
+    assert_not organisation.contact_shown_on_home_page?(contact)
   end
 
   test "POST on :create creates contact without adding to the home page of the organisation if no suggestion made" do
     organisation = create(:organisation)
     post :create,
-      params: {
-                contact: {
-              title: "Main office",
-              contact_type_id: ContactType::General.id
-            },
-            organisation_id: organisation.id
-    }
+         params: {
+                   contact: {
+                 title: "Main office",
+                 contact_type_id: ContactType::General.id
+               },
+               organisation_id: organisation.id
+       }
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert contact = organisation.contacts.last
     assert_equal %{"#{contact.title}" created successfully}, flash[:notice]
     assert_equal "Main office", organisation.contacts.first.title
-    refute organisation.contact_shown_on_home_page?(contact)
+    assert_not organisation.contact_shown_on_home_page?(contact)
   end
 
   test "PUT on :update updates a contact" do
@@ -122,16 +122,16 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     contact_number = contact.contact_numbers.create(label: "Main phone", number: "1234")
 
     put :update,
-      params: {
-                contact: {
-              title: "Head office",
-              contact_numbers_attributes: {
-                "0" => { id: contact_number.id, label: "Main phone", number: "5678" }
-              }
-            },
-            organisation_id: organisation,
-            id: contact
-    }
+        params: {
+                  contact: {
+                title: "Head office",
+                contact_numbers_attributes: {
+                  "0" => { id: contact_number.id, label: "Main phone", number: "5678" }
+                }
+              },
+              organisation_id: organisation,
+              id: contact
+      }
 
     actual_numbers = contact
                        .reload
@@ -148,14 +148,14 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     contact = organisation.contacts.create(title: "Main office", contact_type: ContactType::General)
 
     put :update,
-      params: {
-                contact: {
-              title: "Head office",
-              show_on_home_page: '1',
-            },
-            organisation_id: organisation,
-            id: contact
-    }
+        params: {
+                  contact: {
+                title: "Head office",
+                show_on_home_page: '1',
+              },
+              organisation_id: organisation,
+              id: contact
+      }
 
     contact.reload
     assert_redirected_to admin_organisation_contacts_url(organisation)
@@ -170,20 +170,20 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     organisation.add_contact_to_home_page!(contact)
 
     put :update,
-      params: {
-                contact: {
-              title: "Head office",
-              show_on_home_page: '0',
-            },
-            organisation_id: organisation,
-            id: contact
-    }
+        params: {
+                  contact: {
+                title: "Head office",
+                show_on_home_page: '0',
+              },
+              organisation_id: organisation,
+              id: contact
+      }
 
     contact.reload
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert_equal %{"#{contact.title}" updated successfully}, flash[:notice]
     assert_equal "Head office", contact.title
-    refute organisation.contact_shown_on_home_page?(contact)
+    assert_not organisation.contact_shown_on_home_page?(contact)
   end
 
   test "PUT on :update doesn\'t change home page status of the organisation if no suggestion made" do
@@ -192,13 +192,13 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     organisation.add_contact_to_home_page!(contact)
 
     put :update,
-      params: {
-                contact: {
-              title: "Head office",
-            },
-            organisation_id: organisation,
-            id: contact
-    }
+        params: {
+                  contact: {
+                title: "Head office",
+              },
+              organisation_id: organisation,
+              id: contact
+      }
 
     contact.reload
     assert_redirected_to admin_organisation_contacts_url(organisation)
@@ -215,7 +215,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert_equal %{"#{contact.title}" deleted successfully}, flash[:notice]
-    refute Contact.exists?(contact.id)
+    assert_not Contact.exists?(contact.id)
   end
 
   test "POST on :remove_from_home_page removes contact from the home page of the organisation" do
@@ -227,7 +227,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert_equal %{"#{contact.title}" removed from home page successfully}, flash[:notice]
-    refute organisation.contact_shown_on_home_page?(contact)
+    assert_not organisation.contact_shown_on_home_page?(contact)
   end
 
   test "POST on :add_to_home_page adds contact to the home page of the organisation" do

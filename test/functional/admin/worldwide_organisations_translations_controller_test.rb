@@ -79,9 +79,9 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
 
   view_test 'edit presents a form to update an existing translation' do
     worldwide_organisation = create(:worldwide_organisation,
-      translated_into: { fr: {
-        name: 'Département des barbes en France',
-      } })
+                                    translated_into: { fr: {
+                                      name: 'Département des barbes en France',
+                                    } })
 
     get :edit, params: { worldwide_organisation_id: worldwide_organisation, id: 'fr' }
 
@@ -122,7 +122,7 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
       name: '',
     } }
 
-    refute @worldwide_organisation.available_in_locale?('fr')
+    assert_not @worldwide_organisation.available_in_locale?('fr')
     translation_path = admin_worldwide_organisation_translation_path(@worldwide_organisation, 'fr')
     assert_select "form[action=?]", translation_path
   end
@@ -133,7 +133,7 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
     delete :destroy, params: { worldwide_organisation_id: worldwide_organisation, id: 'fr' }
 
     worldwide_organisation.reload
-    refute worldwide_organisation.translated_locales.include?(:fr)
+    assert_not worldwide_organisation.translated_locales.include?(:fr)
     assert_redirected_to admin_worldwide_organisation_translations_path(worldwide_organisation)
   end
 end

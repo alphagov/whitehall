@@ -40,7 +40,7 @@ class Policy
   end
 
   class << self
-  private
+    private
 
     def linkables
       Rails.cache.fetch('policy.linkables', expires_in: 5.minutes) do

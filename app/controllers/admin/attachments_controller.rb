@@ -42,7 +42,7 @@ class Admin::AttachmentsController < Admin::BaseController
     errors = {}
     params[:attachments].each do |id, attributes|
       attachment = attachable.attachments.find(id)
-      if attachment.update_attributes(attributes.permit(:title))
+      if attachment.update(attributes.permit(:title))
         attachment_updater
       else
         errors[id] = attachment.errors.full_messages
@@ -96,7 +96,7 @@ private
 
   def build_html_attachment
     HtmlAttachment.new(attachment_params).tap do |attachment|
-      attachment.build_govspeak_content unless attachment.govspeak_content.present?
+      attachment.build_govspeak_content if attachment.govspeak_content.blank?
     end
   end
 

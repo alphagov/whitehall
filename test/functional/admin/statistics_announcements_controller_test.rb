@@ -19,11 +19,11 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
 
   test "GET :index defaults to future-dated announcements by the current user's organisation" do
     @future_announcement = create(:statistics_announcement,
-                            organisation_ids: [@organisation.id],
-                            current_release_date: create(:statistics_announcement_date, release_date: 1.week.from_now))
+                                  organisation_ids: [@organisation.id],
+                                  current_release_date: create(:statistics_announcement_date, release_date: 1.week.from_now))
     @past_announcement   = create(:statistics_announcement,
-                             organisation_ids: [@organisation.id],
-                             current_release_date: create(:statistics_announcement_date, release_date: 1.day.ago))
+                                  organisation_ids: [@organisation.id],
+                                  current_release_date: create(:statistics_announcement_date, release_date: 1.day.ago))
     @other_announcement  = create(:statistics_announcement)
 
     get :index
@@ -68,7 +68,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_select "ul.errors li[data-track-action='statistics-announcement-error'][data-track-label=\"Title can't be blank\"]", text: "Title can't be blank"
-    refute StatisticsAnnouncement.any?
+    assert_not StatisticsAnnouncement.any?
   end
 
   view_test "GET :show renders the details of the announcement" do
@@ -107,10 +107,10 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
   test "POST :publish_cancellation cancels the announcement" do
     announcement = create(:statistics_announcement)
     post :publish_cancellation,
-          params: {
-            id: announcement.id,
-            statistics_announcement: { cancellation_reason: "Reason" }
-          }
+         params: {
+           id: announcement.id,
+           statistics_announcement: { cancellation_reason: "Reason" }
+         }
 
     assert_redirected_to [:admin, announcement]
     assert announcement.reload.cancelled?
@@ -125,10 +125,10 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     assert_redirected_to [:admin, announcement]
 
     post :publish_cancellation,
-          params: {
-            id: announcement.id,
-            statistics_announcement: { cancellation_reason: "Reason" }
-          }
+         params: {
+           id: announcement.id,
+           statistics_announcement: { cancellation_reason: "Reason" }
+         }
     assert_redirected_to [:admin, announcement]
   end
 

@@ -11,7 +11,7 @@ class Edition::FeaturableTest < ActiveSupport::TestCase
     arabic = location.feature_list_for_locale(:ar)
     assert_equal "ar", arabic.locale
     assert_equal location, arabic.featurable
-    refute arabic.persisted?
+    assert_not arabic.persisted?
   end
 
   test "get features with locale should find feature list if present" do

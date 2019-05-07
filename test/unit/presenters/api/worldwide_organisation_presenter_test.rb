@@ -121,7 +121,7 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
 
   test 'json does not include main key in offices if there is no main office' do
     @world_org.stubs(:main_office).returns(nil)
-    refute @presenter.as_json[:offices].has_key?(:main)
+    assert_not @presenter.as_json[:offices].has_key?(:main)
   end
 
   test 'json includes main and other offices in offices with separate keys' do

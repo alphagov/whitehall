@@ -10,7 +10,7 @@ module Whitehall
     test 'default url options set on an instance do not interfere with other instances' do
       with_defaults = Whitehall::UrlMaker.new(host: 'yahoo.com', protocol: 'ftp')
       without_defaults = Whitehall::UrlMaker.new(host: 'meh.com', protocol: 'gopher')
-      refute_equal with_defaults.get_involved_url, without_defaults.get_involved_url
+      assert_not_equal with_defaults.get_involved_url, without_defaults.get_involved_url
     end
 
     test 'host can be set when using _url helpers' do

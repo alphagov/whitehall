@@ -3,24 +3,24 @@ require 'test_helper'
 class WorldwideOfficeTest < ActiveSupport::TestCase
   %w{contact worldwide_organisation worldwide_office_type}.each do |param|
     test "should not be valid without a #{param}" do
-      refute build(:worldwide_office, param.to_sym => nil).valid?
+      assert_not build(:worldwide_office, param.to_sym => nil).valid?
     end
   end
 
   test "delegates address-related methods to its contact" do
     contact = create(:contact_with_country,
-                      latitude: "67890",
-                      longitude: "12345",
-                      email: "email@email.com",
-                      contact_form_url: "http://contact.com/form",
-                      title: "Consulate General's Office",
-                      comments: "Totally bananas",
-                      recipient: "Eric",
-                      street_address: "29 Acacier Road",
-                      locality: "Dandytown",
-                      region: "Dandyville",
-                      postal_code: "D12 4CY", contact_numbers: [create(:contact_number)],
-                      country: create(:world_location, iso2: 'GB'))
+                     latitude: "67890",
+                     longitude: "12345",
+                     email: "email@email.com",
+                     contact_form_url: "http://contact.com/form",
+                     title: "Consulate General's Office",
+                     comments: "Totally bananas",
+                     recipient: "Eric",
+                     street_address: "29 Acacier Road",
+                     locality: "Dandytown",
+                     region: "Dandyville",
+                     postal_code: "D12 4CY", contact_numbers: [create(:contact_number)],
+                     country: create(:world_location, iso2: 'GB'))
     office = create(:worldwide_office, contact: contact)
 
     # attributes
@@ -81,7 +81,7 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
   end
 
   test 'is not translatable just yet' do
-    refute WorldwideOffice.new.available_in_multiple_languages?
+    assert_not WorldwideOffice.new.available_in_multiple_languages?
   end
 
   test 'removes itself from any home page lists when it is destroyed' do
@@ -91,6 +91,6 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
 
     office.destroy
 
-    refute list.shown_on_home_page?(office)
+    assert_not list.shown_on_home_page?(office)
   end
 end

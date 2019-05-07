@@ -5,7 +5,7 @@ class HtmlAttachment < Attachment
   include HasContentId
 
   has_one :govspeak_content,
-    autosave: true, inverse_of: :html_attachment, dependent: :destroy
+          autosave: true, inverse_of: :html_attachment, dependent: :destroy
 
   before_validation :clear_slug_if_non_english_locale
 
@@ -13,7 +13,7 @@ class HtmlAttachment < Attachment
 
   accepts_nested_attributes_for :govspeak_content
   delegate :body, :body_html, :headers_html,
-            to: :govspeak_content, allow_nil: true, prefix: true
+           to: :govspeak_content, allow_nil: true, prefix: true
 
   def rendering_app
     Whitehall::RenderingApp::GOVERNMENT_FRONTEND

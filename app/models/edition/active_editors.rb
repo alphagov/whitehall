@@ -13,8 +13,8 @@ module Edition::ActiveEditors
     begin
       recent_edition_openings.create(editor: editor)
     rescue ActiveRecord::RecordNotUnique
-      recent_edition_openings.where(editor_id: editor).each do |r|
-        r.update_attributes!(created_at: Time.zone.now)
+      recent_edition_openings.where(editor_id: editor).find_each do |r|
+        r.update!(created_at: Time.zone.now)
       end
     end
   end

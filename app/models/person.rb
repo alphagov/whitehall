@@ -152,7 +152,7 @@ private
   end
 
   def slug_name
-    prefix = forename.present? ? forename : title
+    prefix = forename.presence || title
     [prefix, surname].join(' ')
   end
 

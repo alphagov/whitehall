@@ -152,7 +152,7 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
     delete :destroy, params: { role_id: role, id: 'fr' }
 
     role.reload
-    refute role.translated_locales.include?(:fr)
+    assert_not role.translated_locales.include?(:fr)
     assert_redirected_to admin_role_translations_path(role)
   end
 end

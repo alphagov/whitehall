@@ -22,7 +22,7 @@ class Admin::ResponsesController < Admin::BaseController
   def edit; end
 
   def update
-    if @response.update_attributes(response_params)
+    if @response.update(response_params)
       redirect_to [:admin, @edition, @response.singular_routing_symbol], notice: "#{@response.friendly_name.capitalize} updated"
     else
       render :edit

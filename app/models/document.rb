@@ -73,7 +73,7 @@ class Document < ApplicationRecord
     slug_without_sequence = slug.split(sequence_separator).first
 
     scope.where("slug IN (?) OR slug LIKE ?", [slug, slug_without_sequence].uniq,
-      slug_without_sequence + sequence_separator + '%').count > 1
+                slug_without_sequence + sequence_separator + '%').count > 1
   end
 
   def should_generate_new_friendly_id?
@@ -85,7 +85,7 @@ class Document < ApplicationRecord
 
     candidate_slug = normalize_friendly_id(new_title)
     unless candidate_slug == slug
-      update_attributes(sluggable_string: new_title)
+      update(sluggable_string: new_title)
     end
   end
 

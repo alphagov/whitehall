@@ -26,7 +26,7 @@ class DocumentHelperTest < ActionView::TestCase
 
   test "should generate no National Statistics logo for an edition that is not a national statistic" do
     publication = create(:publication)
-    refute_match %r[National Statistics], national_statistics_logo(publication)
+    assert_no_match %r[National Statistics], national_statistics_logo(publication)
   end
 
   test "should generate list of links to inapplicable nations with alternative URL" do
@@ -50,7 +50,7 @@ class DocumentHelperTest < ActionView::TestCase
   test "#see_alternative_urls_for_inapplicable_nations skips nations without alternative urls" do
     publication = create(:publication, nation_inapplicabilities: [create(:nation_inapplicability, nation: Nation.scotland, alternative_url: "http://scotland.com"), create(:nation_inapplicability, nation: Nation.wales, alternative_url: "")])
     html = see_alternative_urls_for_inapplicable_nations(publication)
-    refute_match %r[Wales], html
+    assert_no_match %r[Wales], html
   end
 
   test "#see_alternative_urls_for_inapplicable_nations returns nothing if no alternative urls exist" do
@@ -140,7 +140,7 @@ class DocumentHelperTest < ActionView::TestCase
       id: "a-world-location"
     )
     assert_dom_equal %(<a lang="de" href="/world/a-world-location.de">Deutsch</a>),
-      link_to_translation(:de)
+                     link_to_translation(:de)
   end
 
   test "#link_to_translation should not suffix URLs with 'en'" do
@@ -151,7 +151,7 @@ class DocumentHelperTest < ActionView::TestCase
       id: "a-world-location"
     )
     assert_dom_equal %(<a lang="en" href="/world/a-world-location">English</a>),
-      link_to_translation(:en)
+                     link_to_translation(:en)
   end
 
   test "part_of_metadata does not have any links for a simple document" do

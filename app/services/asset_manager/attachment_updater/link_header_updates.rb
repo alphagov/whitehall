@@ -1,7 +1,7 @@
 class AssetManager::AttachmentUpdater::LinkHeaderUpdates
   def self.call(attachment_data)
     visible_edition = attachment_data.visible_edition_for(nil)
-    return [] unless visible_edition.present?
+    return [] if visible_edition.blank?
 
     parent_document_url = Whitehall.url_maker.public_document_url(visible_edition)
 

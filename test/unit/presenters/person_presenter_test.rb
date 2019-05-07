@@ -46,7 +46,7 @@ class PersonPresenterTest < ActionView::TestCase
     @person.stubs(:translated_locales).returns([:en])
 
     assert_equal [:en], @presenter.translated_locales
-    refute @presenter.available_in_multiple_languages?
+    assert_not @presenter.available_in_multiple_languages?
   end
 
   test "is not available in multiple languages if any current role is not available in multiple languages" do
@@ -61,7 +61,7 @@ class PersonPresenterTest < ActionView::TestCase
     @person.stubs(:translated_locales).returns(%i[en es])
 
     assert_equal [:en], @presenter.translated_locales
-    refute @presenter.available_in_multiple_languages?
+    assert_not @presenter.available_in_multiple_languages?
   end
 
   test "is available in multiple languages if person and all current roles are available in the same multiple languages" do

@@ -9,10 +9,10 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     government = create(:government)
     statistical_data_set = create(:published_statistical_data_set)
     publication = create(:published_publication,
-                    title: 'Publication title',
-                    summary: 'The summary',
-                    body: 'Some content',
-                    statistical_data_sets: [statistical_data_set])
+                         title: 'Publication title',
+                         summary: 'The summary',
+                         body: 'Some content',
+                         statistical_data_sets: [statistical_data_set])
 
     public_path = Whitehall.url_maker.public_document_path(publication)
     expected_content = {
@@ -82,12 +82,12 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     assert_valid_against_links_schema({ links: presented_item.links }, 'publication')
 
     assert_equal expected_content.except(:details),
-      presented_item.content.except(:details)
+                 presented_item.content.except(:details)
 
     # We test for HTML equivalence rather than string equality to get around
     # inconsistencies with line breaks between different XML libraries
     assert_equivalent_html expected_content[:details].delete(:body),
-      presented_item.content[:details].delete(:body)
+                           presented_item.content[:details].delete(:body)
     assert_equal expected_content[:details], presented_item.content[:details].except(:body)
     assert_hash_includes presented_item.links, expected_links
     assert_equal expected_links, presented_item.content[:links]
@@ -115,8 +115,8 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     lead_org_2 = create(:organisation)
     supporting_org = create(:organisation)
     publication = create(:published_publication,
-                        lead_organisations: [lead_org_1, lead_org_2],
-                        supporting_organisations: [supporting_org])
+                         lead_organisations: [lead_org_1, lead_org_2],
+                         supporting_organisations: [supporting_org])
     presented_item = present(publication)
 
     expected_links_hash = {
@@ -147,7 +147,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
   test "links hash includes world locations" do
     location = create(:world_location)
     publication = create(:published_publication,
-                        world_locations: [location])
+                         world_locations: [location])
     presented_item = present(publication)
     assert_valid_against_links_schema({ links: presented_item.links }, 'publication')
     assert_equal [location.content_id], presented_item.links[:world_locations]
@@ -192,7 +192,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     #this factory creates an nil locale attachment
     publication = create(:published_publication)
     attachment = publication.html_attachments.first
-    attachment.update_attributes!(locale: 'cy', title: "welsh one")
+    attachment.update!(locale: 'cy', title: "welsh one")
     publication.reload #ensures the html attachment is in #attachments and #html_attachmnents
 
     presented_publication = PublishingApi::PublicationPresenter.new(publication)
@@ -208,7 +208,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     #this factory creates an nil locale attachment
     publication = create(:published_publication)
     attachment = publication.html_attachments.first
-    attachment.update_attributes!(locale: 'cy', title: "welsh one")
+    attachment.update!(locale: 'cy', title: "welsh one")
     publication.reload
 
     presented_publication = PublishingApi::PublicationPresenter.new(publication)
@@ -223,7 +223,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     #this factory creates an nil locale attachment
     publication = create(:published_publication)
     attachment = publication.html_attachments.first
-    attachment.update_attributes!(title: "nil one")
+    attachment.update!(title: "nil one")
     publication.reload
 
     presented_publication = PublishingApi::PublicationPresenter.new(publication)

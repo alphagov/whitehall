@@ -22,7 +22,7 @@ class HistoricalAccount < ApplicationRecord
   end
 
   def political_parties
-    political_party_ids.collect { |id| PoliticalParty.find_by_id(id.to_i) }
+    political_party_ids.collect { |id| PoliticalParty.find_by(id: id.to_i) }
   end
 
   def political_parties=(political_parties)
@@ -48,7 +48,7 @@ private
 
   def validate_correct_political_party
     political_party_ids.each do |party_id|
-      errors.add(:base, "No political party with an ID of #{party_id} exists.") if PoliticalParty.find_by_id(party_id.to_i).nil?
+      errors.add(:base, "No political party with an ID of #{party_id} exists.") if PoliticalParty.find_by(id: party_id.to_i).nil?
     end
   end
 end

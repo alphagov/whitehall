@@ -44,7 +44,7 @@ class Admin::BaseController < ApplicationController
 private
 
   def forbidden!
-    render "admin/editions/forbidden", status: 403
+    render "admin/editions/forbidden", status: :forbidden
   end
 
   def typecast_for_attachable_routing(attachable)

@@ -85,6 +85,6 @@ class SearchableTest < ActiveSupport::TestCase
 
     searchable_topics = SearchableTestTopic.searchable_instances
     assert searchable_topics.include?(published_topic)
-    refute searchable_topics.include?(draft_topic)
+    assert_not searchable_topics.include?(draft_topic)
   end
 end

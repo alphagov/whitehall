@@ -7,9 +7,9 @@ class HomePageList < ApplicationRecord
                    length: { maximum: 255 }
 
   has_many :home_page_list_items,
-    -> { order(:ordering) },
-     dependent: :destroy,
-     before_add: :ensure_ordering!
+           -> { order(:ordering) },
+           dependent: :destroy,
+           before_add: :ensure_ordering!
 
   def items
     home_page_list_items.includes(:item).map(&:item)

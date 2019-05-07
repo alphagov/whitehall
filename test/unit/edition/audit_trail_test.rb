@@ -126,8 +126,8 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     Timecop.freeze(Time.zone.now + 1.day)
     published_edition.editorial_remarks.create!(body: editorial_remark_body, author: writer)
     draft_edition = published_edition.create_draft(writer)
-    refute draft_edition.document_version_trail.map(&:object).map(&:class).include? EditorialRemark
-    refute draft_edition.document_remarks_trail.map(&:object).map(&:class).include? Version
+    assert_not draft_edition.document_version_trail.map(&:object).map(&:class).include? EditorialRemark
+    assert_not draft_edition.document_remarks_trail.map(&:object).map(&:class).include? Version
   end
 
   test "editorial remark appears as an audit action" do

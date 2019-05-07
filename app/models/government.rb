@@ -60,7 +60,7 @@ private
   end
 
   def not_overlapping?
-    self.class.all.each do |existing_government|
+    self.class.all.find_each do |existing_government|
       next if self == existing_government
 
       if self.overlaps?(existing_government)

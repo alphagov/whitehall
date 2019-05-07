@@ -13,19 +13,19 @@ class AttachmentDataTest < ActiveSupport::TestCase
 
   test 'should be invalid without a file' do
     attachment = build(:attachment_data, file: nil)
-    refute attachment.valid?
+    assert_not attachment.valid?
   end
 
   test 'is invalid with an empty file' do
     empty_file = fixture_file_upload('empty_file.txt', 'text/plain')
     attachment = build(:attachment_data, file: empty_file)
-    refute attachment.valid?
+    assert_not attachment.valid?
     assert_match %r[empty file], attachment.errors[:file].first
   end
 
   test 'should return filename even after reloading' do
     attachment = create(:attachment_data)
-    refute_nil attachment.filename
+    assert_not_nil attachment.filename
     assert_equal attachment.filename, AttachmentData.find(attachment.id).filename
   end
 
@@ -42,7 +42,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
     greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
     whitepaper_pdf = fixture_file_upload('whitepaper.pdf', 'application/pdf')
     attachment = create(:attachment_data, file: greenpaper_pdf)
-    attachment.update_attributes!(file: whitepaper_pdf)
+    attachment.update!(file: whitepaper_pdf)
     attachment.reload
     assert_equal "whitepaper.pdf", attachment.filename
     assert_equal "application/pdf", attachment.content_type
@@ -88,7 +88,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
     two_pages_pdf = fixture_file_upload('two-pages.pdf')
     three_pages_pdf = fixture_file_upload('three-pages.pdf')
     attachment = create(:attachment_data, file: two_pages_pdf)
-    attachment.update_attributes!(file: three_pages_pdf)
+    attachment.update!(file: three_pages_pdf)
     attachment.reload
     assert_equal 3, attachment.number_of_pages
   end
@@ -130,7 +130,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
     sample_csv = fixture_file_upload('sample-from-excel.csv', 'text/csv')
     attachment = create(:attachment_data, file: sample_csv)
     attachment.reload
-    refute attachment.pdf?
+    assert_not attachment.pdf?
   end
 
   test "should return the url to a PNG for PDF thumbnails" do
@@ -228,7 +228,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
   test '#access_limited? is falsey if there is no last attachable' do
     attachment_data = build(:attachment_data)
     attachment_data.stubs(:attachments).returns([])
-    refute attachment_data.access_limited?
+    assert_not attachment_data.access_limited?
   end
 
   test '#access_limited? delegates to the last attachable' do
@@ -337,7 +337,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
     attachment_data = build(:attachment_data)
     attachment_data.stubs(:attachments).returns([deleted_attachment])
 
-    refute attachment_data.deleted?
+    assert_not attachment_data.deleted?
   end
 
   test '#deleted? returns true if attachment is deleted even if attachable is nil' do
@@ -353,6 +353,6 @@ class AttachmentDataTest < ActiveSupport::TestCase
     attachment_data = build(:attachment_data)
     attachment_data.stubs(:attachments).returns([deleted_attachment])
 
-    refute attachment_data.deleted?
+    assert_not attachment_data.deleted?
   end
 end

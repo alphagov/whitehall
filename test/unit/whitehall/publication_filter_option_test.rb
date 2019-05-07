@@ -12,7 +12,7 @@ module Whitehall
     end
 
     test "finding by slug returns the slugged version" do
-      assert_equal PublicationFilterOption::OpenConsultation, PublicationFilterOption.find_by_slug("open-consultations")
+      assert_equal PublicationFilterOption::OpenConsultation, PublicationFilterOption.find_by(slug: "open-consultations")
     end
 
     test "edition_types is an empty array by default" do

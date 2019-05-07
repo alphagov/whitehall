@@ -3,9 +3,9 @@ module PublishingApi
     extend Forwardable
 
     def_delegators :contact,
-      :contact_numbers, :content_id, :comments, :country, :email,
-      :locality, :region, :postal_code, :recipient, :street_address,
-      :title, :contact_form_url, :translation
+                   :contact_numbers, :content_id, :comments, :country, :email,
+                   :locality, :region, :postal_code, :recipient, :street_address,
+                   :title, :contact_form_url, :translation
 
     def initialize(model, _options)
       @contact = model
@@ -90,7 +90,7 @@ module PublishingApi
 
     def post_addresses
       # These are the required fields for the schema
-      return [] if !street_address.present? || !country
+      return [] if street_address.blank? || !country
 
       post_address = {
         title: recipient.presence,

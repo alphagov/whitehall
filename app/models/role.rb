@@ -69,11 +69,11 @@ class Role < ApplicationRecord
   end
 
   def role_payment_type
-    RolePaymentType.find_by_id(role_payment_type_id)
+    RolePaymentType.find_by(id: role_payment_type_id)
   end
 
   def attends_cabinet_type
-    RoleAttendsCabinetType.find_by_id(attends_cabinet_type_id)
+    RoleAttendsCabinetType.find_by(id: attends_cabinet_type_id)
   end
 
   def self.also_attends_cabinet
@@ -96,7 +96,7 @@ class Role < ApplicationRecord
   end
 
   def role_type=(role_type)
-    unless role_type.blank?
+    if role_type.present?
       role_attributes = RoleTypePresenter.role_attributes_from(role_type)
       self.attributes = role_attributes.except(:type)
     end

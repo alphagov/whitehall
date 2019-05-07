@@ -62,7 +62,7 @@ class OrganisationsIndexPresenterTest < ActiveSupport::TestCase
     subject = OrganisationsIndexPresenter.new([aagb_org, non_aagb_org])
 
     assert subject.agencies_and_government_bodies.include?(aagb_org)
-    refute subject.agencies_and_government_bodies.include?(non_aagb_org)
+    assert_not subject.agencies_and_government_bodies.include?(non_aagb_org)
 
     assert subject.agencies_and_government_bodies.is_a? OrganisationsIndexPresenter
   end
@@ -74,7 +74,7 @@ class OrganisationsIndexPresenterTest < ActiveSupport::TestCase
     subject = OrganisationsIndexPresenter.new([high_profile_group, ministerial_department])
 
     assert subject.high_profile_groups.include?(high_profile_group)
-    refute subject.high_profile_groups.include?(ministerial_department)
+    assert_not subject.high_profile_groups.include?(ministerial_department)
 
     assert subject.high_profile_groups.is_a?(OrganisationsIndexPresenter)
   end

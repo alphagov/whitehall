@@ -29,7 +29,7 @@ module PublishingApi::CorporateInformationPagePresenterTest
 
     def assert_payload(builder, data: -> { presented_content })
       builder_double = builder.demodulize.underscore
-      payload_double = { :"#{builder_double}_key" => "#{builder_double}_value" }
+      payload_double = { "#{builder_double}_key": "#{builder_double}_value" }
 
       builder
         .constantize
@@ -53,7 +53,7 @@ module PublishingApi::CorporateInformationPagePresenterTest
     end
 
     def refute_details_attribute(attribute)
-      refute presented_content[:details].key?(attribute)
+      assert_not presented_content[:details].key?(attribute)
     end
   end
 

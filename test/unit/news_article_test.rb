@@ -26,7 +26,7 @@ class NewsArticleTest < ActiveSupport::TestCase
 
   test "is invalid without a news article type" do
     news_article = build(:news_article, news_article_type: nil)
-    refute news_article.valid?
+    assert_not news_article.valid?
   end
 
   test "non-English locale is invalid for non-world-news-story types" do
@@ -39,7 +39,7 @@ class NewsArticleTest < ActiveSupport::TestCase
     non_foreign_language_news_types.each do |news_type|
       news_article = build(:news_article, news_article_type: news_type)
       news_article.primary_locale = 'fr'
-      refute news_article.valid?
+      assert_not news_article.valid?
     end
   end
 
@@ -74,13 +74,13 @@ class NewsArticleTest < ActiveSupport::TestCase
   end
 
   test "is not translatable when non-English" do
-    refute build(:news_article, primary_locale: :es).translatable?
+    assert_not build(:news_article, primary_locale: :es).translatable?
   end
 
   test "#world_news_story? returns false" do
     article = build(:news_article)
 
-    refute article.world_news_story?
+    assert_not article.world_news_story?
   end
 
   test "can be related to policies" do
@@ -105,7 +105,7 @@ class NewsArticleTest < ActiveSupport::TestCase
     non_world_news_story_news_article_types.each do |news_article_type|
       news_article = build(:news_article, news_article_type: news_article_type)
       news_article.worldwide_organisations.build(name: "Zimbabwean Embassy")
-      refute news_article.valid?
+      assert_not news_article.valid?
       assert news_article.errors[:worldwide_organisations].include?("must be blank")
     end
   end
@@ -126,21 +126,21 @@ class WorldNewsStoryTypeNewsArticleTest < ActiveSupport::TestCase
   test "is invalid when not associating a worldwide organisation" do
     news_article = build(:news_article_world_news_story)
     news_article.worldwide_organisations = []
-    refute news_article.valid?
+    assert_not news_article.valid?
     assert news_article.errors[:worldwide_organisations].include?("at least one required")
   end
 
   test "can't be related to policies" do
     article = build(:news_article_world_news_story)
 
-    refute article.can_be_related_to_policies?
+    assert_not article.can_be_related_to_policies?
   end
 
   test "is invalid if a policy is associated" do
     article = build(:news_article_world_news_story)
     article.stubs(:edition_policies).returns([Policy.new({})])
 
-    refute article.valid?
+    assert_not article.valid?
     assert_equal ["You can't tag a world news story to policies, please remove policy"], article.errors[:base]
   end
 
@@ -148,9 +148,9 @@ class WorldNewsStoryTypeNewsArticleTest < ActiveSupport::TestCase
     article = build(:news_article_world_news_story)
     article.role_appointments << build(:ministerial_role_appointment)
 
-    refute article.valid?
+    assert_not article.valid?
     assert_equal ["You can't tag a world news story to ministers, please remove minister"],
-      article.errors[:base]
+                 article.errors[:base]
   end
 
   test "is valid when not associating an organisation" do
@@ -163,18 +163,18 @@ class WorldNewsStoryTypeNewsArticleTest < ActiveSupport::TestCase
     news_article = build(:news_article_world_news_story)
     news_article.edition_organisations.build(organisation: FactoryBot.build(:organisation))
 
-    refute news_article.valid?
+    assert_not news_article.valid?
     assert_equal ["You can't tag a world news story to organisations, please remove organisation"],
-      news_article.errors[:base]
+                 news_article.errors[:base]
   end
 
   test "is invalid without a world_location" do
     article = build(:news_article_world_news_story)
     article.world_locations.clear
 
-    refute article.valid?
+    assert_not article.valid?
     assert_equal ["at least one required"],
-      article.errors[:world_locations]
+                 article.errors[:world_locations]
   end
 
   test "is valid when removing an organisation after changing type" do

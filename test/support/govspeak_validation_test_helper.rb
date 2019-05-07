@@ -11,7 +11,7 @@ module GovspeakValidationTestHelper
         ensure
           Whitehall.skip_safe_html_validation = old_skip_value
         end
-        refute valid, "should be invalid with unsafe content"
+        assert_not valid, "should be invalid with unsafe content"
         assert object.errors[attribute].include?("cannot include invalid formatting or JavaScript"), "didn't add validation errors to #{attribute} attribute"
       end
     end

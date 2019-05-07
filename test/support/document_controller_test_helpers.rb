@@ -500,7 +500,7 @@ private
   end
 
   def refute_filtered_documents_include(edition)
-    refute_includes assigns(:filter).documents.map(&:id), edition.id
+    assert_not_includes assigns(:filter).documents.map(&:id), edition.id
   end
 
   def controller_attributes_for(edition_type, attributes = {})

@@ -84,7 +84,7 @@ class AddressFormatter::JsonTest < ActiveSupport::TestCase
 
   test "has no type key in the adr hash unless specified" do
     address = AddressFormatter::Json.new(addr_fields, 'JP').render['address']
-    refute address['adr'].has_key?('type')
+    assert_not address['adr'].has_key?('type')
   end
 
   test "includes a type key in the adr hash if specificed" do
@@ -94,7 +94,7 @@ class AddressFormatter::JsonTest < ActiveSupport::TestCase
 
   test "has no type key in the label hash unless specified" do
     address = AddressFormatter::Json.new(addr_fields, 'JP').render['address']
-    refute address['label'].has_key?('type')
+    assert_not address['label'].has_key?('type')
   end
 
   test "includes a type key in the label hash if specificed" do

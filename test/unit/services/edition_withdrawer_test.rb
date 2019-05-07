@@ -36,7 +36,7 @@ class EditionWithdrawerTest < ActiveSupport::TestCase
       edition.build_unpublishing(unpublishing_params)
       unpublisher = EditionWithdrawer.new(edition)
 
-      refute unpublisher.perform!
+      assert_not unpublisher.perform!
       assert_equal state, edition.current_state
       assert_equal "An edition that is #{state} cannot be withdrawn", unpublisher.failure_reason
     end
@@ -68,16 +68,16 @@ class EditionWithdrawerTest < ActiveSupport::TestCase
     edition.create_draft(create(:writer))
     unpublisher = EditionWithdrawer.new(edition)
 
-    refute unpublisher.can_perform?
+    assert_not unpublisher.can_perform?
     assert_equal 'There is already a draft edition of this document. You must discard it before you can withdraw this edition.',
-      unpublisher.failure_reason
+                 unpublisher.failure_reason
   end
 
   test 'cannot withdraw without an Unpublishing prepared on the edition' do
     edition = create(:published_edition)
     unpublisher = EditionWithdrawer.new(edition)
 
-    refute unpublisher.can_perform?
+    assert_not unpublisher.can_perform?
     assert_equal 'The reason for unpublishing must be present', unpublisher.failure_reason
   end
 
@@ -87,7 +87,7 @@ class EditionWithdrawerTest < ActiveSupport::TestCase
 
     unpublisher = EditionWithdrawer.new(edition)
 
-    refute unpublisher.can_perform?
+    assert_not unpublisher.can_perform?
     assert_equal 'Alternative url must be provided to redirect the document', unpublisher.failure_reason
   end
 

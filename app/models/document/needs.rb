@@ -25,7 +25,7 @@ module Document::Needs
   def patch_meets_user_needs_links
     Services.publishing_api.patch_links(
       content_id,
-        links: { meets_user_needs: need_ids.reject(&:empty?) }
+      links: { meets_user_needs: need_ids.reject(&:empty?) }
     )
   end
 

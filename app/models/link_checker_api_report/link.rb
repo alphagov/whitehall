@@ -1,4 +1,4 @@
-class LinkCheckerApiReport::Link < ActiveRecord::Base
+class LinkCheckerApiReport::Link < ApplicationRecord
   serialize :check_errors, Array
   serialize :check_warnings, Array
 

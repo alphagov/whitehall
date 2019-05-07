@@ -31,7 +31,7 @@ class GDSEditorFatalityNoticeTest < ActiveSupport::TestCase
     user.stubs(:organisation).returns(organisation_1)
     edition = limited_fatality_notice([organisation_2])
 
-    refute enforcer_for(user, edition).can?(:see)
+    assert_not enforcer_for(user, edition).can?(:see)
   end
 
   test 'cannot do anything to a fatality notice they are not allowed to see' do
@@ -43,7 +43,7 @@ class GDSEditorFatalityNoticeTest < ActiveSupport::TestCase
     enforcer = enforcer_for(user, edition)
 
     Whitehall::Authority::Rules::EditionRules.actions.each do |action|
-      refute enforcer.can?(action)
+      assert_not enforcer.can?(action)
     end
   end
 
@@ -69,7 +69,7 @@ class GDSEditorFatalityNoticeTest < ActiveSupport::TestCase
 
   test 'cannot publish a fatality notice we submitted' do
     me = gds_editor
-    refute enforcer_for(me, submitted_fatality_notice(me)).can?(:publish)
+    assert_not enforcer_for(me, submitted_fatality_notice(me)).can?(:publish)
   end
 
   test 'can reject a fatality notice' do
@@ -99,7 +99,7 @@ class GDSEditorFatalityNoticeTest < ActiveSupport::TestCase
 
   test 'cannot clear the "not reviewed" flag on fatality notices they did force publish' do
     me = gds_editor
-    refute enforcer_for(me, force_published_fatality_notice(me)).can?(:approve)
+    assert_not enforcer_for(me, force_published_fatality_notice(me)).can?(:approve)
   end
 
   test 'can limit access to a fatality notice' do
@@ -107,6 +107,6 @@ class GDSEditorFatalityNoticeTest < ActiveSupport::TestCase
   end
 
   test 'cannot unpublish a fatality notice' do
-    refute enforcer_for(gds_editor, normal_fatality_notice).can?(:unpublish)
+    assert_not enforcer_for(gds_editor, normal_fatality_notice).can?(:unpublish)
   end
 end

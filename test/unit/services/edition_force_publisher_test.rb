@@ -22,7 +22,7 @@ class EditionForcePublisherTest < ActiveSupport::TestCase
     edition.reload
 
     assert edition.published?
-    refute edition.unpublishing.present?
+    assert_not edition.unpublishing.present?
   end
 
   %w(published imported rejected superseded).each do |state|
@@ -30,7 +30,7 @@ class EditionForcePublisherTest < ActiveSupport::TestCase
       edition = create(:"#{state}_edition")
       publisher = EditionForcePublisher.new(edition)
 
-      refute publisher.perform!
+      assert_not publisher.perform!
       assert_equal state, edition.state
       assert_equal "An edition that is #{state} cannot be force published", publisher.failure_reason
     end
@@ -39,6 +39,6 @@ class EditionForcePublisherTest < ActiveSupport::TestCase
   test 'a draft edition with a scheduled publication time cannot be force published' do
     edition = build(:draft_edition, scheduled_publication: 1.day.from_now)
     publisher = EditionForcePublisher.new(edition)
-    refute publisher.can_perform?
+    assert_not publisher.can_perform?
   end
 end

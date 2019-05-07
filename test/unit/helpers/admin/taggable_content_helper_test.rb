@@ -49,10 +49,10 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     deputy_leader_appointment  = create(:role_appointment, role: deputy, person: joe)
     current_leader_appointment = create(:role_appointment, role: leader, person: fred)
     old_leader_appointment     = create(:role_appointment,
-                                          role: leader,
-                                          person: slate,
-                                          started_at: Date.new(1960, 5, 12),
-                                          ended_at: Date.new(1972, 5, 14))
+                                        role: leader,
+                                        person: slate,
+                                        started_at: Date.new(1960, 5, 12),
+                                        ended_at: Date.new(1972, 5, 14))
 
     assert_equal [
       ['Fred Flintstone, Leader, Ministry for Rocks and Bones', current_leader_appointment.id],
@@ -69,10 +69,10 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     slate = create(:person, forename: "Mr.", surname: 'Slate')
 
     old_leader_appointment = create(:role_appointment,
-                                      role: leader,
-                                      person: joe,
-                                      started_at: Date.new(2006, 5, 12),
-                                      ended_at: Date.new(2011, 5, 11))
+                                    role: leader,
+                                    person: joe,
+                                    started_at: Date.new(2006, 5, 12),
+                                    ended_at: Date.new(2011, 5, 11))
     current_leader_appointment = create(:role_appointment, role: leader, person: slate)
 
     assert_equal [
@@ -93,10 +93,10 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     minister_appointment     = create(:role_appointment, role: minister, person: brown)
     board_member_appointment = create(:role_appointment, role: board_member, person: clinton)
     old_minister_appointment = create(:role_appointment,
-                                          role: minister,
-                                          person: richard,
-                                          started_at: Date.new(1932, 12, 5),
-                                          ended_at: Date.new(1972, 5, 14))
+                                      role: minister,
+                                      person: richard,
+                                      started_at: Date.new(1932, 12, 5),
+                                      ended_at: Date.new(1972, 5, 14))
 
     assert_equal [
       ['James Brown, Minister of Funk, Ministry for Funk', minister_appointment.id],
@@ -214,8 +214,8 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     current_cache_digest = taggable_ministerial_role_appointments_cache_digest
 
     clear_memoization_for("taggable_ministerial_role_appointments_cache_digest")
-    role_appointment.update_attributes!(ended_at: 1.minute.ago)
-    refute_equal current_cache_digest, taggable_ministerial_role_appointments_cache_digest
+    role_appointment.update!(ended_at: 1.minute.ago)
+    assert_not_equal current_cache_digest, taggable_ministerial_role_appointments_cache_digest
   end
 
   test '#taggable_ministerial_role_appointments_cache_digest changes when a filled ministerial role is updated' do
@@ -228,12 +228,12 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     Timecop.return
 
     clear_memoization_for("taggable_ministerial_role_appointments_cache_digest")
-    other_role.update_attributes!(name: 'Updated the Board Member Role name')
+    other_role.update!(name: 'Updated the Board Member Role name')
     assert_equal current_cache_digest, taggable_ministerial_role_appointments_cache_digest
 
     clear_memoization_for("taggable_ministerial_role_appointments_cache_digest")
-    minister_role.update_attributes!(name: 'Updated the Role name')
-    refute_equal current_cache_digest, taggable_ministerial_role_appointments_cache_digest
+    minister_role.update!(name: 'Updated the Role name')
+    assert_not_equal current_cache_digest, taggable_ministerial_role_appointments_cache_digest
   end
 
   test '#taggable_ministerial_role_appointments_cache_digest changes when a person in a role is updated' do
@@ -244,8 +244,8 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     current_cache_digest = taggable_ministerial_role_appointments_cache_digest
 
     clear_memoization_for("taggable_ministerial_role_appointments_cache_digest")
-    person.update_attributes!(surname: 'Smith')
-    refute_equal current_cache_digest, taggable_ministerial_role_appointments_cache_digest
+    person.update!(surname: 'Smith')
+    assert_not_equal current_cache_digest, taggable_ministerial_role_appointments_cache_digest
   end
 
   test '#taggable_role_appointments_cache_digest changes when any filled role is updated' do
@@ -258,12 +258,12 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     Timecop.return
 
     clear_memoization_for("taggable_role_appointments_cache_digest")
-    other_role.update_attributes!(name: 'Updated the Board Member Role name')
-    refute_equal current_cache_digest, taggable_role_appointments_cache_digest
+    other_role.update!(name: 'Updated the Board Member Role name')
+    assert_not_equal current_cache_digest, taggable_role_appointments_cache_digest
 
     clear_memoization_for("taggable_role_appointments_cache_digest")
-    minister_role.update_attributes!(name: 'Updated the Role name')
-    refute_equal current_cache_digest, taggable_role_appointments_cache_digest
+    minister_role.update!(name: 'Updated the Role name')
+    assert_not_equal current_cache_digest, taggable_role_appointments_cache_digest
   end
 
 private

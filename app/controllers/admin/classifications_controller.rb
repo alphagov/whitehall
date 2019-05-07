@@ -24,7 +24,7 @@ class Admin::ClassificationsController < Admin::BaseController
 
   def update
     @classification = model_class.friendly.find(params[:id])
-    if @classification.update_attributes(object_params)
+    if @classification.update(object_params)
       redirect_to [:admin, @classification], notice: "#{human_friendly_model_name} updated"
     else
       render action: "edit"

@@ -22,7 +22,7 @@ class CsvPreviewTest < ActiveSupport::TestCase
     iso_encoded_preview = CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/iso-8859-1.csv'))
 
     assert_equal ['ECO Lot', 'Band', 'Contract Term', 'Price Per Unit', 'Above reserve price?', 'Reserve Price (£)'],
-      iso_encoded_preview.headings
+                 iso_encoded_preview.headings
 
     expected_data = [['Carbon Saving Communities', 'Carbon Saving Band 1 [1K-3K]', '3 months', '£69.10', 'YES', nil],
                      ['Carbon Saving Communities', 'Carbon Saving Band 1 [1K-3K]', '12 months', '£62.10', 'YES', '£40.00']]
@@ -34,7 +34,7 @@ class CsvPreviewTest < ActiveSupport::TestCase
     iso_encoded_preview = CsvPreview.new(File.open(Rails.root.join('test/fixtures/csv_encodings/windows-1252.csv')))
 
     assert_equal %w(name address1 address2 town postcode access_notes general_notes url email phone fax text_phone),
-      iso_encoded_preview.headings
+                 iso_encoded_preview.headings
   end
 
   test "raises CsvPreview::FileEncodingError if the encoding cannot be handled by the CSV library" do
@@ -67,7 +67,7 @@ class CsvPreviewTest < ActiveSupport::TestCase
 
   test '#truncated? returns true if the preview does not include all the rows' do
     csv_preview.each_row {}
-    refute csv_preview.truncated?
+    assert_not csv_preview.truncated?
 
     truncated_preview = CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/utf-8.csv'), 1)
     truncated_preview.each_row {}
@@ -76,7 +76,7 @@ class CsvPreviewTest < ActiveSupport::TestCase
 
   test '#truncated? returns true if the preview does not include all the columns' do
     csv_preview.each_row {}
-    refute csv_preview.truncated?
+    assert_not csv_preview.truncated?
 
     truncated_preview = CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/utf-8.csv'), 10, 1)
     truncated_preview.each_row {}
@@ -94,7 +94,7 @@ class CsvPreviewTest < ActiveSupport::TestCase
     mixed_newlines_preview = CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/mixed-newlines.csv'))
 
     assert_equal ['this', 'header row', "has an embedded new\nline but", 'it is different to', 'the row separator'],
-      mixed_newlines_preview.headings
+                 mixed_newlines_preview.headings
 
     expected_data = [['this', 'is', 'the', 'second', 'line in the file']]
 

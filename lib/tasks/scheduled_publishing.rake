@@ -87,8 +87,8 @@ namespace :publishing do
       yesterday = Date.yesterday
       today = Date.today
 
-      time_from = Time.new(yesterday.year, yesterday.month, yesterday.day, 23, 0, 0)
-      time_to = Time.new(today.year, today.month, today.day, 0, 0, 0)
+      time_from = Time.new(yesterday.year, yesterday.month, yesterday.day, 23, 0, 0).in_time_zone
+      time_to = Time.new(today.year, today.month, today.day, 0, 0, 0).in_time_zone
 
       editions = Edition.where("scheduled_publication between ? and ?", time_from, time_to)
 
