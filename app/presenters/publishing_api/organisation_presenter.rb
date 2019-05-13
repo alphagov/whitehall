@@ -77,6 +77,7 @@ module PublishingApi
     def details
       details = {
         acronym: acronym,
+        alternative_format_contact_email: alternative_format_contact_email,
         body: html_summary,
         brand: brand,
         logo: {
@@ -108,6 +109,10 @@ module PublishingApi
 
     def acronym
       item.acronym
+    end
+
+    def alternative_format_contact_email
+      item.alternative_format_contact_email
     end
 
     def govspeak_summary

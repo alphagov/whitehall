@@ -55,6 +55,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       update_type: "major",
       details: {
         acronym: nil,
+        alternative_format_contact_email: nil,
         body: govspeak_to_html("This org is a thing!\n\nOrganisation of Things works with the <a class=\"brand__color\" href=\"/government/organisations/department-for-stuff\">Department for Stuff</a>."),
         brand: nil,
         logo: {
@@ -274,5 +275,16 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     document_type = presented_item.content.dig(:details, :ordered_featured_documents, 0, :document_type)
 
     assert_equal document_type, offsite_link.display_type
+  end
+
+  test 'presents the alternative format contact email' do
+    organisation = create(
+      :organisation,
+      alternative_format_contact_email: "foo@bar.com"
+    )
+    presented_item = present(organisation)
+    email = presented_item.content.dig(:details, :alternative_format_contact_email)
+
+    assert_equal email, "foo@bar.com"
   end
 end
