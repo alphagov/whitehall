@@ -50,6 +50,7 @@ module PublishingApi
         ordered_successor_organisations: successor_organisation_links,
         ordered_high_profile_groups: high_profile_groups_links,
         ordered_roles: roles_links,
+        primary_publishing_organisation: [content_id]
       }
     end
 
