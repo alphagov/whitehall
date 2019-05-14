@@ -51,7 +51,7 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
     expected_content = expected_hash.merge(links: presented_item.links)
     assert_equal expected_content, presented_content
 
-    %i(organisations parent).each { |k| assert_includes(expected_content[:links].keys, k) }
+    %i(organisations parent primary_publishing_organisation).each { |k| assert_includes(expected_content[:links].keys, k) }
   end
 
   test "HtmlAttachment presentation includes the correct locale" do
@@ -92,5 +92,16 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
     html_attachment.attachable.organisations.expects(:pluck).with(:content_id).returns(%w(abcdef abcdef))
 
     assert_equal %w[abcdef], present(html_attachment).links[:organisations]
+  end
+
+  test "HtmlAttachment presents primary_publishing_organisation" do
+    create(:publication, :with_html_attachment, :published)
+
+    html_attachment = HtmlAttachment.last
+    # if an organisation has multiple translations, pluck returns
+    # duplicate content_ids because it constructs a left outer join
+
+    assert_equal [html_attachment.attachable.lead_organisations.first.content_id],
+      present(html_attachment).links[:primary_publishing_organisation]
   end
 end

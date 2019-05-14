@@ -139,6 +139,24 @@ namespace :publishing_api do
     end
   end
 
+  desc "Patch links for html publications to include primary_publishing_organisation"
+  task patch_html_publication_links: :environment do
+    scope = Publicationesque.published
+    count = scope.count
+    attachment_count = 0
+    puts "# Sending HTML attachments for #{count} publications to Publishing API"
+    scope.each_with_index do |pub, i|
+      pub.html_attachments.each do |attachment|
+        Whitehall::PublishingApi.patch_links(attachment, bulk_publishing: true)
+        attachment_count += 1
+      rescue StandardError => e
+        puts e.inspect
+      end
+      puts "Processing #{i}-#{i + 99} of #{count} publications - #{attachment_count} attachments updated" if (i % 100).zero?
+    end
+    puts 'Finished sending HTML Attachments to publishing API'
+  end
+
   desc "Discard all draft about pages that have the same base_path as their WorldwideOrganisation"
   task discard_draft_worldwide_organisation_about_pages: :environment do
     about_pages = YAML.load_file(File.join(Rails.root, 'lib', 'tasks', 'about_pages.yml'))
