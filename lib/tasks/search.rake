@@ -107,7 +107,7 @@ namespace :search do
   desc "indexes statistics announcements"
   task statistics_announcements: :environment do
     index = Whitehall::SearchIndex.for(:government)
-    index.add_batch(StatisticsAnnouncement.all.map(&:search_index))
+    index.add_batch(StatisticsAnnouncement.without_published_publication.map(&:search_index))
     index.commit
   end
 end
