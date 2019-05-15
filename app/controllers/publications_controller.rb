@@ -40,16 +40,20 @@ private
 
   def redirect_to_finder_frontend_finder
     base_path = "#{Plek.new.website_root}/#{publications_base_path}"
-    redirect_to("#{base_path}?#{publications_query_string}")
+    if publications_query_string == ''
+      redirect_to(base_path)
+    else
+      redirect_to("#{base_path}?#{publications_query_string}")
+    end
   end
 
   def publications_base_path
-    base_path = PUBLICATIONS_ROUTES.dig(params[:publication_filter_option], :base_path)
+    base_path = PUBLICATIONS_ROUTES.dig(publication_finder_type, :base_path)
     base_path || DEFAULT_PUBLICATIONS_PATH
   end
 
   def special_params
-    PUBLICATIONS_ROUTES.dig(params[:publication_filter_option], :special_params) || {}
+    PUBLICATIONS_ROUTES.dig(publication_finder_type, :special_params) || {}
   end
 
   def publications_query_string
@@ -62,6 +66,10 @@ private
       world_locations: params['world_locations'],
       public_timestamp: { from: params['from_date'], to: params['to_date'] }.compact.presence
     }.compact.merge(special_params).to_query
+  end
+
+  def publication_finder_type
+    params[:publication_filter_option] || params[:publication_type]
   end
 
   def expire_cache_when_next_publication_published
