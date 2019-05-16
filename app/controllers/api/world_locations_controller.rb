@@ -1,4 +1,6 @@
 class Api::WorldLocationsController < PublicFacingController
+  include WorldLocationHelper
+
   skip_before_action :set_cache_control_headers
   skip_before_action :restrict_request_formats
   before_action :set_api_cache_control_headers
@@ -18,7 +20,7 @@ class Api::WorldLocationsController < PublicFacingController
 
   def index
     respond_with Api::WorldLocationPresenter.paginate(
-      WorldLocation.ordered_by_name,
+      Kaminari.paginate_array(sorted_world_locations),
       view_context
     )
   end
@@ -27,5 +29,10 @@ private
 
   def respond_with_not_found
     respond_with Hash.new, status: :not_found
+  end
+
+  def sorted_world_locations
+    group_and_sort(WorldLocation.ordered_by_name)
+      .flat_map { |_, locations| locations }
   end
 end

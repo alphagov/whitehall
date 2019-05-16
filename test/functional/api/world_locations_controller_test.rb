@@ -5,9 +5,7 @@ class Api::WorldLocationsControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
   test "sets cache expiry to 30 minutes" do
-    presenter = Api::PagePresenter.new(Kaminari.paginate_array([]).page(1).per(1), controller.view_context)
-    presenter.stubs(:as_json).returns(paged: :representation)
-    Api::WorldLocationPresenter.stubs(:paginate).with(WorldLocation.ordered_by_name, anything).returns(presenter)
+    Api::WorldLocationsController.any_instance.stubs(:sorted_world_locations).returns([])
 
     get :index, format: 'json'
 
@@ -15,9 +13,7 @@ class Api::WorldLocationsControllerTest < ActionController::TestCase
   end
 
   test "sets Access-Control-Allow-Origin to *" do
-    presenter = Api::PagePresenter.new(Kaminari.paginate_array([]).page(1).per(1), controller.view_context)
-    presenter.stubs(:as_json).returns(paged: :representation)
-    Api::WorldLocationPresenter.stubs(:paginate).with(WorldLocation.ordered_by_name, anything).returns(presenter)
+    Api::WorldLocationsController.any_instance.stubs(:sorted_world_locations).returns([])
 
     get :index, format: 'json'
 
@@ -56,9 +52,8 @@ class Api::WorldLocationsControllerTest < ActionController::TestCase
   end
 
   view_test "index paginates world locations" do
-    presenter = Api::PagePresenter.new(Kaminari.paginate_array([]).page(1).per(1), controller.view_context)
-    presenter.stubs(:as_json).returns(paged: :representation)
-    Api::WorldLocationPresenter.stubs(:paginate).with(WorldLocation.ordered_by_name, anything).returns(presenter)
+    Api::WorldLocationsController.any_instance.stubs(:sorted_world_locations).returns([])
+    Api::PagePresenter.any_instance.stubs(:as_json).returns(paged: :representation)
 
     get :index, format: 'json'
 
@@ -66,9 +61,7 @@ class Api::WorldLocationsControllerTest < ActionController::TestCase
   end
 
   view_test "index includes _response_info in response" do
-    presenter = Api::PagePresenter.new(Kaminari.paginate_array([]).page(1).per(1), controller.view_context)
-    presenter.stubs(:as_json).returns(paged: :representation)
-    Api::WorldLocationPresenter.stubs(:paginate).with(WorldLocation.ordered_by_name, anything).returns(presenter)
+    Api::WorldLocationsController.any_instance.stubs(:sorted_world_locations).returns([])
 
     get :index, format: 'json'
 
