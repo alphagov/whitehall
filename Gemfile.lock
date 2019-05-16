@@ -242,7 +242,7 @@ GEM
     isbn_validation (1.2.2)
       activerecord (>= 3)
     jaro_winkler (1.5.2)
-    jbuilder (2.9.0)
+    jbuilder (2.9.1)
       activesupport (>= 4.2.0)
     jquery-rails (4.3.3)
       rails-dom-testing (>= 1, < 3)
