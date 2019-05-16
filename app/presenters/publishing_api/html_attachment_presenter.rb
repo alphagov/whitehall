@@ -45,7 +45,7 @@ module PublishingApi
       {
         parent: parent_content_ids, # please use the breadcrumb component when migrating document_type to government-frontend
         organisations: parent.organisations.pluck(:content_id).uniq,
-        primary_publishing_organisation: [parent.lead_organisations.first.content_id]
+        primary_publishing_organisation: primary_publishing_organisation
       }
     end
 
@@ -77,6 +77,18 @@ module PublishingApi
 
     def public_timestamp
       parent.public_timestamp || parent.updated_at
+    end
+
+    def primary_publishing_organisation
+      [lead_org_id || first_org_id].compact
+    end
+
+    def lead_org_id
+      parent.try(:lead_organisations).try(:first).try(:content_id)
+    end
+
+    def first_org_id
+      parent.try(:organisations).try(:first).try(:content_id)
     end
 
     def parent
