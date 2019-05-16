@@ -141,7 +141,7 @@ namespace :publishing_api do
 
   desc "Patch links for html publications to include primary_publishing_organisation"
   task patch_html_publication_links: :environment do
-    scope = Publicationesque.published
+    scope = Publicationesque.publicly_visible
     count = scope.count
     attachment_count = 0
     puts "# Sending HTML attachments for #{count} publications to Publishing API"
