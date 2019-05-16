@@ -50,6 +50,21 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_redirected_to "#{Plek.new.website_root}/search/all?#{@default_converted_params.to_query}"
   end
 
+  test "strips out 'all' departments from query string in redirect" do
+    get :index, params: @default_params.merge(departments: %w[all])
+    assert_redirected_to "#{Plek.new.website_root}/search/all?#{@default_converted_params.merge(organisations: nil).compact.to_query}"
+  end
+
+  test "strips out 'all' people from query string in redirect" do
+    get :index, params: @default_params.merge(people: %w[all])
+    assert_redirected_to "#{Plek.new.website_root}/search/all?#{@default_converted_params.to_query}"
+  end
+
+  test "strips out 'all' world locations from query string in redirect" do
+    get :index, params: @default_params.merge(world_locations: %w[all])
+    assert_redirected_to "#{Plek.new.website_root}/search/all?#{@default_converted_params.merge(world_locations: nil).compact.to_query}"
+  end
+
   view_test "#index only displays *published* publications" do
     Sidekiq::Testing.inline! do
       superseded_publication = create(:superseded_publication, translated_into: :fr)
