@@ -98,10 +98,19 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
     create(:publication, :with_html_attachment, :published)
 
     html_attachment = HtmlAttachment.last
+
+    assert_equal [html_attachment.attachable.lead_organisations.first.content_id],
+      present(html_attachment).links[:primary_publishing_organisation]
+  end
+
+  test "HtmlAttachment presents primary_publishing_organisation from 1st org when lead_organisations is not implemented" do
+    create(:consultation_outcome, :with_html_attachment)
+
+    html_attachment = HtmlAttachment.last
     # if an organisation has multiple translations, pluck returns
     # duplicate content_ids because it constructs a left outer join
 
-    assert_equal [html_attachment.attachable.lead_organisations.first.content_id],
+    assert_equal [html_attachment.attachable.organisations.first.content_id],
       present(html_attachment).links[:primary_publishing_organisation]
   end
 end
