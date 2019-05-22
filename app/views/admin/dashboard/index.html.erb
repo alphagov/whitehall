@@ -7,6 +7,14 @@
   <div class="col-md-4">
     <h3>Writing and publishing</h3>
     <ul>
+    <li><%= link_to('Content Data',
+                    content_data_base_url,
+                    data: {
+                        track_category: 'external-link-clicked',
+                        track_action: content_data_base_url,
+                        track_label: 'Content Data'
+                    })%>
+    </li>
       <li><a href="https://www.gov.uk/guidance/style-guide">GOV.UK style guide</a></li>
       <li><a href="https://www.gov.uk/guidance/how-to-publish-on-gov-uk">How to publish content on GOV.UK</a></li>
       <li><a href="https://www.gov.uk/guidance/content-design">Planning, writing and managing content</a></li>

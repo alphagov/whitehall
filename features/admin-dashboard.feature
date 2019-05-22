@@ -15,3 +15,4 @@ Feature: Admin Dashboard
     And I visit the admin dashboard
     Then I should see the draft document "draft document"
     And I should see the force published document "forced document"
+    And I should see a link to the content data app
