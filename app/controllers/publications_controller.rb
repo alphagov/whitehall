@@ -57,10 +57,14 @@ private
   end
 
   def publications_query_string
+    level_one_taxon = params['taxons'].try(:first) || params['topics'].try(:first)
+    level_two_taxon = params['subtaxons'].try(:first)
+    level_one_taxon = nil if level_one_taxon == 'all'
+    level_two_taxon = nil if level_two_taxon == 'all'
     {
       keywords: params['keywords'],
-      level_one_taxon: params['taxons'].try(:first) || params['topics'].try(:first),
-      level_two_taxon: params['subtaxons'].try(:first),
+      level_one_taxon: level_one_taxon,
+      level_two_taxon: level_two_taxon,
       organisations: filter_query_array(params['departments'] || params['organisations']),
       people: filter_query_array(params['people']),
       world_locations: filter_query_array(params['world_locations']),
