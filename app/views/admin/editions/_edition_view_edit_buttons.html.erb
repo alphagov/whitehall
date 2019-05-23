@@ -14,4 +14,7 @@
   <% elsif @edition.is_latest_edition? and @edition.published? %>
     <%= redraft_edition_button(@edition) %>
   <% end %>
+  <% if @edition.publicly_visible? %>
+      <%= content_data_button(@edition) %>
+  <% end %>
 </section>
