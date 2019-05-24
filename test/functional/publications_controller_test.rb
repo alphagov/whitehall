@@ -50,6 +50,16 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_redirected_to "#{Plek.new.website_root}/search/all?#{@default_converted_params.to_query}"
   end
 
+  test "strips out 'all' taxons from query string in redirect" do
+    get :index, params: @default_params.merge(taxons: %w[all])
+    assert_redirected_to "#{Plek.new.website_root}/search/all?#{@default_converted_params.merge(level_one_taxon: nil).compact.to_query}"
+  end
+
+  test "strips out 'all' subtaxons from query string in redirect" do
+    get :index, params: @default_params.merge(subtaxons: %w[all])
+    assert_redirected_to "#{Plek.new.website_root}/search/all?#{@default_converted_params.merge(level_two_taxon: nil).compact.to_query}"
+  end
+
   test "strips out 'all' departments from query string in redirect" do
     get :index, params: @default_params.merge(departments: %w[all])
     assert_redirected_to "#{Plek.new.website_root}/search/all?#{@default_converted_params.merge(organisations: nil).compact.to_query}"
