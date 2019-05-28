@@ -19,7 +19,8 @@ class Admin::GenericEditionsController::LinkingToContentDataTest < ActionControl
       'href' => url,
       'data-track-category' => 'external-link-clicked',
       'data-track-action' => url,
-      'data-track-label' => 'View data about page'
+      'data-track-label' => 'View data about page',
+      'data-track-dimension-1' => url
     }
 
     attributes = el.attributes.transform_values(&:value).slice(*expected_attributes.keys)
