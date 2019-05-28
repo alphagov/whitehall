@@ -14,10 +14,15 @@ class Admin::GenericEditionsController::LinkingToContentDataTest < ActionControl
 
     get :show, params: { id: published_edition }
     el = css_select("a[text()='View data about page']").first
+    url = "https://content-data.test.gov.uk/metrics/government/generic-editions/#{published_edition.slug}"
     expected_attributes = {
-      'href' => "https://content-data.test.gov.uk/metrics/government/generic-editions/#{published_edition.slug}"
+      'href' => url,
+      'data-track-category' => 'external-link-clicked',
+      'data-track-action' => url,
+      'data-track-label' => 'View data about page'
     }
-    attributes = el.attributes.transform_values(&:value).slice('href', 'title')
+
+    attributes = el.attributes.transform_values(&:value).slice(*expected_attributes.keys)
 
     assert_equal expected_attributes, attributes
   end

@@ -8,8 +8,14 @@ module Admin::EditionActionsHelper
   end
 
   def content_data_button(edition)
-    link_to 'View data about page', content_data_page_data_url(edition),
-     class: 'btn btn-default btn-lg pull-right'
+    url = content_data_page_data_url(edition)
+    link_to 'View data about page', url,
+      class: 'btn btn-default btn-lg pull-right',
+      data: {
+        track_category: 'external-link-clicked',
+        track_action: url,
+        track_label:  'View data about page'
+      }
   end
 
   def approve_retrospectively_edition_button(edition)
