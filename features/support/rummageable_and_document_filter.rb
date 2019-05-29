@@ -18,7 +18,7 @@ After do
 end
 
 # For everything we don't explicitly want a "real" search for, use FakeSearch
-Before("~@not-quite-as-fake-search") do
+Before("not @not-quite-as-fake-search") do
   Whitehall.search_backend = Whitehall::DocumentFilter::FakeSearch
 end
 
