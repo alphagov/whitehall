@@ -15,7 +15,8 @@ module Admin::EditionActionsHelper
         track_category: 'external-link-clicked',
         track_action: url,
         track_label:  'View data about page',
-        track_dimension_1: url
+        track_dimension_1: url,
+        track_dimension_2: edition.type.underscore
       }
   end
 
