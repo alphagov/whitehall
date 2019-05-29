@@ -1,12 +1,12 @@
-require "gds_api/test_helpers/rummager"
+require "gds_api/test_helpers/search"
 require "gds_api/test_helpers/publishing_api_v2"
 
 module PolicyTaggingHelpers
-  include GdsApi::TestHelpers::Rummager
+  include GdsApi::TestHelpers::Search
   include GdsApi::TestHelpers::PublishingApiV2
 
   def assert_published_policies_returns_all_tagged_policies(object)
-    rummager_has_policies_for_every_type
+    stub_search_has_policies_for_every_type
 
     all_policy_titles = [
       "Welfare reform",

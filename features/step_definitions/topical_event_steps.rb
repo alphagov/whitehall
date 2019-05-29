@@ -79,7 +79,7 @@ end
 
 Then(/^I should see (#{THE_DOCUMENT}) in the (announcements|publications|consultations) section of the topical event "([^"]*)"$/) do |edition, section, topical_event_name|
   topical_event = TopicalEvent.find_by!(name: topical_event_name)
-  stub_any_rummager_search.to_return(body: rummager_response_of_single_edition(edition))
+  stub_any_search.to_return(body: rummager_response_of_single_edition(edition))
   visit topical_event_path(topical_event)
   within "##{section}.document-block" do
     assert page.has_css?("##{section}_#{edition.content_id}")
@@ -161,7 +161,7 @@ Given(/^a topical event with published documents$/) do
   @topical_event = create(:topical_event, name: name)
   stub_topical_event_in_content_store(name)
   create_recently_published_documents_for_topical_event(@topical_event)
-  stub_any_rummager_search.to_return(body: rummager_response)
+  stub_any_search.to_return(body: rummager_response)
 end
 
 When(/^I view that topical event page$/) do

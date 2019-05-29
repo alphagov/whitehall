@@ -1,8 +1,8 @@
 require 'test_helper'
-require 'gds_api/test_helpers/rummager'
+require 'gds_api/test_helpers/search'
 
 class PersonSlugChangerTest < ActiveSupport::TestCase
-  include GdsApi::TestHelpers::Rummager
+  include GdsApi::TestHelpers::Search
 
   setup do
     stub_any_publishing_api_call

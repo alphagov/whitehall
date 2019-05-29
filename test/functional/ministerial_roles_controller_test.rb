@@ -1,14 +1,14 @@
 require "test_helper"
-require "gds_api/test_helpers/rummager"
+require "gds_api/test_helpers/search"
 
 class MinisterialRolesControllerTest < ActionController::TestCase
   include FeedHelper
-  include GdsApi::TestHelpers::Rummager
+  include GdsApi::TestHelpers::Search
 
   should_be_a_public_facing_controller
 
   setup do
-    rummager_has_no_policies_for_any_type
+    stub_search_has_no_policies_for_any_type
   end
 
   test "shows cabinet roles in correct order" do

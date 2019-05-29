@@ -1,5 +1,5 @@
 require 'test_helper'
-require "gds_api/test_helpers/rummager"
+require "gds_api/test_helpers/search"
 require_relative "../../support/search_rummager_helper"
 
 class LatestDocumentsFilterTest < ActiveSupport::TestCase
@@ -28,7 +28,7 @@ class LatestDocumentsFilterTest < ActiveSupport::TestCase
 
   test '#documents should return paginated results' do
     topical_event = create(:topical_event)
-    stub_any_rummager_search.to_return(body: rummager_response)
+    stub_any_search.to_return(body: rummager_response)
     filter = LatestDocumentsFilter::TopicalEventFilter.new(
       topical_event, page: 2, per_page: 2
     )
@@ -51,7 +51,7 @@ class LatestDocumentsFilterTest < ActiveSupport::TestCase
       }
     end
 
-    stub_any_rummager_search.to_return(body: results.to_json)
+    stub_any_search.to_return(body: results.to_json)
 
     filter = LatestDocumentsFilter::TopicalEventFilter.new(topical_event)
 

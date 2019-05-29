@@ -110,7 +110,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
 
   def create_topical_event_and_stub_in_content_store(*args)
     topical_event = create(:topical_event, *args)
-    stub_any_rummager_search.to_return(body: rummager_response)
+    stub_any_search.to_return(body: rummager_response)
 
     payload = {
       format: "topical_event",

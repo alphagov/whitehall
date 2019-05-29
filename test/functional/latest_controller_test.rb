@@ -1,5 +1,5 @@
 require "test_helper"
-require "gds_api/test_helpers/rummager"
+require "gds_api/test_helpers/search"
 require_relative "../support/search_rummager_helper"
 
 class LatestControllerTest < ActionController::TestCase
@@ -41,7 +41,7 @@ class LatestControllerTest < ActionController::TestCase
   test 'GET :index should expose rummager documents for the subject' do
     topical_event = create(:topical_event)
 
-    stub_any_rummager_search.to_return(body: rummager_response)
+    stub_any_search.to_return(body: rummager_response)
 
     get :index, params: { topical_events: [topical_event] }
 
@@ -52,7 +52,7 @@ class LatestControllerTest < ActionController::TestCase
   test 'GET :index should accept pagination parameters with rummager documents' do
     world_location = create(:world_location)
 
-    stub_any_rummager_search.to_return(body: rummager_response)
+    stub_any_search.to_return(body: rummager_response)
 
     get :index, params: { world_locations: [world_location], page: 2 }
 
@@ -62,7 +62,7 @@ class LatestControllerTest < ActionController::TestCase
   test 'GET :index should expose documents for the subject' do
     organisation = create(:organisation)
 
-    stub_any_rummager_search.to_return(body: rummager_response)
+    stub_any_search.to_return(body: rummager_response)
 
     get :index, params: { departments: [organisation] }
 
@@ -73,7 +73,7 @@ class LatestControllerTest < ActionController::TestCase
   test 'GET :index should accept pagination parameters' do
     organisation = create(:organisation)
 
-    stub_any_rummager_search.to_return(body: rummager_response)
+    stub_any_search.to_return(body: rummager_response)
 
     get :index, params: { departments: [organisation], page: 2 }
 

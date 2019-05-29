@@ -1,5 +1,5 @@
 require 'test_helper'
-require "gds_api/test_helpers/rummager"
+require "gds_api/test_helpers/search"
 require_relative "../../support/search_rummager_helper"
 
 class SearchRummagerServiceTest < ActiveSupport::TestCase
@@ -11,12 +11,12 @@ class SearchRummagerServiceTest < ActiveSupport::TestCase
   end
 
   test 'returns empty results array if topical event has no documents' do
-    stub_any_rummager_search_to_return_no_results
+    stub_any_search_to_return_no_results
     assert_equal [], SearchRummagerService.new.fetch_related_documents(topical_params)['results']
   end
 
   test 'fetches documents related to a topical event' do
-    stub_any_rummager_search.to_return(body: rummager_response)
+    stub_any_search.to_return(body: rummager_response)
     results = SearchRummagerService.new.fetch_related_documents(topical_params)['results']
 
     assert_instance_of RummagerDocumentPresenter, results.first
