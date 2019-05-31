@@ -10,8 +10,10 @@ class Admin::GenericEditionsController::LinkingToContentDataTest < ActionControl
 
   view_test "should link to content-data when published" do
     published_edition = create(:published_edition)
-    stub_publishing_api_expanded_links_with_taxons(published_edition.content_id, [])
+    stub_publishing_api_expanded_links_with_taxons(published_edition.content_id,
+      [taxon_with_parents, taxon_with_different_root, taxon_with_same_root])
 
+    redis_cache_has_world_taxons([world_taxon])
     get :show, params: { id: published_edition }
     el = css_select("a[text()='View data about page']").first
     url = "https://content-data.test.gov.uk/metrics/government/generic-editions/#{published_edition.slug}"
@@ -22,6 +24,7 @@ class Admin::GenericEditionsController::LinkingToContentDataTest < ActionControl
       'data-track-label' => 'View data about page',
       'data-track-dimension-1' => url,
       'data-track-dimension-2' => 'generic_edition',
+      'data-track-dimension-3' => '/education,/money',
       'data-track-dimension-4' => published_edition.document.content_id
     }
 

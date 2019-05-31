@@ -13,6 +13,10 @@ module TaxonomyHelper
     "root"
   end
 
+  def different_root_taxon_content_id
+    'money'
+  end
+
   def parent_taxon_content_id
     "parent"
   end
@@ -134,6 +138,46 @@ private
                      base_path: "/education",
                      content_id: root_taxon_content_id,
                      children: [grandparent_taxon])
+  end
+
+  def different_root_taxon
+    FactoryBot.build(:taxon_hash,
+                     title: "Money",
+                     base_path: "/money",
+                     content_id: different_root_taxon_content_id,
+                     children: [])
+  end
+
+  def taxon_with_parents
+    FactoryBot.build(:taxon_hash,
+                     title: 'Student finance',
+                     base_path: '/education/funding/student-finance',
+                     content_id: 'grandchild-with-parent',
+                     parents: [parent_with_root_parent])
+  end
+
+  def taxon_with_same_root
+    FactoryBot.build(:taxon_hash,
+                     title: 'Another thing',
+                     base_path: '/education/another-thing',
+                     content_id: 'another-thing',
+                     parents: [root_taxon])
+  end
+
+  def taxon_with_different_root
+    FactoryBot.build(:taxon_hash,
+                     title: 'Personal tax',
+                     base_path: '/money/personal-tax',
+                     content_id: 'personal-tax-1',
+                     parents: [different_root_taxon])
+  end
+
+  def parent_with_root_parent
+    FactoryBot.build(:taxon_hash,
+                     title: 'Finance',
+                     base_path: '/education/funding/',
+                     content_id: 'parent-with-root',
+                     parents: [root_taxon])
   end
 
   def draft_taxon_1

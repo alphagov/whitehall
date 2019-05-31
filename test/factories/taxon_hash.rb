@@ -3,6 +3,7 @@ FactoryBot.define do
     transient do
       is_level_one_taxon { true }
       children { [] }
+      parents { [] }
       visibility { true }
     end
     sequence("title") { |i| "Taxon Name #{i}" }
@@ -11,7 +12,8 @@ FactoryBot.define do
     phase { 'live' }
     after :build do |hash, evaluator|
       hash["links"] = {
-        "child_taxons" => evaluator.children
+        "child_taxons" => evaluator.children,
+        "parent_taxons" => evaluator.parents
       }
       hash["details"] = {
         "visible_to_departmental_editors" => evaluator.visibility

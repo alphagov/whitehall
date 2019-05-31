@@ -17,6 +17,7 @@ module Admin::EditionActionsHelper
         track_label:  'View data about page',
         track_dimension_1: url,
         track_dimension_2: edition.type.underscore,
+        track_dimension_3: root_taxon_paths,
         track_dimension_4: edition.document.content_id
       }
   end
@@ -151,5 +152,15 @@ private
       'Speech sub-types' => SpeechType.all.map { |sub_type| [sub_type.plural_name, "speech_#{sub_type.id}"] }
     }
     grouped_options_for_select(subtype_options_hash, selected)
+  end
+
+  def root_taxon_paths
+    @edition_taxons.map(&method(:get_root)).map(&:base_path).uniq.sort.join(',')
+  end
+
+  def get_root(taxon)
+    return taxon if taxon.parent_node.nil?
+
+    get_root(taxon.parent_node)
   end
 end
