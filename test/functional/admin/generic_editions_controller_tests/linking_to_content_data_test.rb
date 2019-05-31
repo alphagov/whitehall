@@ -1,0 +1,40 @@
+require 'test_helper'
+
+class Admin::GenericEditionsController::LinkingToContentDataTest < ActionController::TestCase
+  include TaxonomyHelper
+  tests Admin::GenericEditionsController
+
+  setup do
+    login_as :writer
+  end
+
+  view_test "should link to content-data when published" do
+    published_edition = create(:published_edition)
+    stub_publishing_api_expanded_links_with_taxons(published_edition.content_id, [])
+
+    get :show, params: { id: published_edition }
+    el = css_select("a[text()='View data about page']").first
+    url = "https://content-data.test.gov.uk/metrics/government/generic-editions/#{published_edition.slug}"
+    expected_attributes = {
+      'href' => url,
+      'data-track-category' => 'external-link-clicked',
+      'data-track-action' => url,
+      'data-track-label' => 'View data about page',
+      'data-track-dimension-1' => url,
+      'data-track-dimension-2' => 'generic_edition',
+      'data-track-dimension-4' => published_edition.document.content_id
+    }
+
+    attributes = el.attributes.transform_values(&:value).slice(*expected_attributes.keys)
+
+    assert_equal expected_attributes, attributes
+  end
+
+  view_test "should not link to content-data when unpublished" do
+    draft_edition = create(:draft_edition)
+    stub_publishing_api_expanded_links_with_taxons(draft_edition.content_id, [])
+
+    get :show, params: { id: draft_edition }
+    refute_select("a[text()='View data about page']")
+  end
+end

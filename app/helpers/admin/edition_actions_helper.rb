@@ -7,6 +7,20 @@ module Admin::EditionActionsHelper
     button_to 'Create new edition to edit', revise_admin_edition_path(edition), title: "Create new edition to edit", class: "btn btn-default btn-lg"
   end
 
+  def content_data_button(edition)
+    url = content_data_page_data_url(edition)
+    link_to 'View data about page', url,
+      class: 'btn btn-default btn-lg pull-right',
+      data: {
+        track_category: 'external-link-clicked',
+        track_action: url,
+        track_label:  'View data about page',
+        track_dimension_1: url,
+        track_dimension_2: edition.type.underscore,
+        track_dimension_4: edition.document.content_id
+      }
+  end
+
   def approve_retrospectively_edition_button(edition)
     confirmation_prompt = "Are you sure you want to retrospectively approve this document?"
     content_tag(:div, class: "approve_retrospectively_button") do
