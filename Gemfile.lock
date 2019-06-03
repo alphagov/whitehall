@@ -353,7 +353,7 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
-    plek (2.1.1)
+    plek (3.0.0)
     powerpack (0.1.2)
     pry (0.12.2)
       coderay (~> 1.1.0)
@@ -625,7 +625,7 @@ DEPENDENCIES
   parallel
   parallel_tests
   pdf-reader (~> 2.2)
-  plek (~> 2.1)
+  plek (~> 3.0)
   pry-byebug
   pry-rails
   ptools
