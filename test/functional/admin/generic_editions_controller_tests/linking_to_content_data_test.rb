@@ -22,10 +22,6 @@ class Admin::GenericEditionsController::LinkingToContentDataTest < ActionControl
       'data-track-category' => 'external-link-clicked',
       'data-track-action' => url,
       'data-track-label' => 'View data about page',
-      'data-track-dimension-1' => url,
-      'data-track-dimension-2' => 'generic_edition',
-      'data-track-dimension-3' => '/education,/money',
-      'data-track-dimension-4' => published_edition.document.content_id
     }
 
     attributes = el.attributes.transform_values(&:value).slice(*expected_attributes.keys)
