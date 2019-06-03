@@ -4,8 +4,7 @@ module Admin::ContentDataRoutesHelper
   end
 
   def content_data_page_data_url(edition)
-    path = public_document_path(edition)
-    "#{content_data_base_url}/metrics#{path}"
+    "#{content_data_base_url}/metrics#{public_document_path(edition)}"
   end
 
 private

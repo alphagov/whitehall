@@ -9,17 +9,23 @@ module Admin::EditionActionsHelper
 
   def content_data_button(edition)
     url = content_data_page_data_url(edition)
+
     link_to 'View data about page', url,
       class: 'btn btn-default btn-lg pull-right',
       data: {
         track_category: 'external-link-clicked',
         track_action: url,
         track_label:  'View data about page',
-        track_dimension_1: url,
-        track_dimension_2: edition.type.underscore,
-        track_dimension_3: root_taxon_paths,
-        track_dimension_4: edition.document.content_id
       }
+  end
+
+  def custom_track_dimensions(edition)
+    {
+      1 => public_document_path(edition),
+      2 => edition.type.underscore,
+      3 => root_taxon_paths,
+      4 => edition.document.content_id
+    }
   end
 
   def approve_retrospectively_edition_button(edition)
@@ -155,7 +161,16 @@ private
   end
 
   def root_taxon_paths
-    @edition_taxons.map(&method(:get_root)).map(&:base_path).uniq.sort.join(',')
+    @edition_taxons
+      .map(&method(:get_root))
+      .map(&:base_path)
+      .uniq
+      .map(&method(:delete_leading_slash))
+      .sort.join(', ')
+  end
+
+  def delete_leading_slash(str)
+    str.delete_prefix('/')
   end
 
   def get_root(taxon)
