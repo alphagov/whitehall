@@ -48,7 +48,7 @@ class Response < ApplicationRecord
     true
   end
 
-  delegate :public_timestamp, :first_published_version?, :slug, :document, to: :consultation
+  delegate :public_timestamp, :first_published_version?, :slug, :document, :images, to: :consultation
 
 private
 
