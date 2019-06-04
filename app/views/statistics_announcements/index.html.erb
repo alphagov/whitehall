@@ -14,6 +14,10 @@
   </div>
 </header>
 
+<%= render "govuk_publishing_components/components/notice", {
+    title: 'This page is being replaced by <a href="/search/research-and-statistics?content_store_document_type=upcoming_statistics">research and statistics search</a>'.html_safe
+} %>
+
 <%= render 'statistics/impartiality' %>
 <%= render 'upcoming_calendar_tabs' %>
 
