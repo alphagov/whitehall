@@ -105,6 +105,18 @@ class GovspeakContentTest < ActiveSupport::TestCase
     assert_equivalent_html expected_body_html, govspeak_content.computed_body_html
   end
 
+  test "#render_govspeak adds images from consultations to HTML attachments on the consultation's responses" do
+    consultation = FactoryBot.create(:consultation_with_outcome, images: [FactoryBot.create(:image)])
+    consultation_outcome = consultation.outcome
+
+    html_attachment = FactoryBot.create(:html_attachment, body: "!!1", attachable: consultation_outcome)
+
+    govspeak_content = html_attachment.govspeak_content
+    govspeak_content.render_govspeak!
+
+    assert_includes govspeak_content.computed_body_html, "image"
+  end
+
 private
 
   def compute_govspeak(govspeak_content)
