@@ -124,27 +124,6 @@ Scenario: Editing an existing translation
     | description         | Barbes, moustaches, même rouflaquettes            |
     | about us            | Nous nous occupons de la pilosité faciale du pays |
 
-Scenario: Viewing the organisations index and seeing organisations grouped into categories
-  Given some organisations of every type exist
-  When I visit the organisations page
-  Then I should see the executive offices listed
-  And I should see the ministerial departments including their sub-organisations listed with count and number live
-  And I should see the non ministerial departments including their sub-organisations listed with count
-  And I should see the agencies and government bodies listed with count
-  And I should see the public corporations listed with count
-  And I should see the devolved administrations listed with count
-  And I should see the high profile groups listed with count
-
-Scenario: Viewing the organisations index and seeing the status of agencies and public bodies live on govuk
-  Given 1 live, 1 transitioning and 1 exempt executive agencies
-  When I visit the organisations page
-  Then I should see metadata in the agency list indicating the status of each organisation which is not live
-
-Scenario: Viewing the organisations index and seeing the status of non ministerial departments
-  Given 1 live, 1 transitioning and 1 exempt non ministerial departments
-  When I visit the organisations page
-  Then I should see metadata in the non ministerial department list indicating the status of each organisation which is not live
-
 Scenario: Organisation page should show consultations
   Given the organisation "Attorney General's Office" is associated with consultations "More tea vicar?" and "Cake or biscuit?"
   When I visit the "Attorney General's Office" organisation

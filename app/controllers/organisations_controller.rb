@@ -8,19 +8,9 @@ class OrganisationsController < PublicFacingController
   before_action :set_cache_max_age, only: [:show]
 
   def index
-    @content_item = Whitehall.content_store.content_item("/government/organisations")
-
-    if params[:courts_only]
-      @courts = Organisation.courts.listable.ordered_by_name_ignoring_prefix
-      @hmcts_tribunals = Organisation.hmcts_tribunals.listable.ordered_by_name_ignoring_prefix
-      render :courts_index
-    else
-      @organisations = OrganisationsIndexPresenter.new(
-        Organisation.excluding_courts_and_tribunals.listable.ordered_by_name_ignoring_prefix
-      )
-      set_meta_description("What's the latest from a department, agency or public body?")
-      render :index
-    end
+    @courts = Organisation.courts.listable.ordered_by_name_ignoring_prefix
+    @hmcts_tribunals = Organisation.hmcts_tribunals.listable.ordered_by_name_ignoring_prefix
+    render :courts_index
   end
 
   def show
