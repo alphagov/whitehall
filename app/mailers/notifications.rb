@@ -88,6 +88,8 @@ class Notifications < ActionMailer::Base
       subject: "Consultation deadline breached"
   end
 
+  helper_method :production?
+
   def production?
     GovukAdminTemplate.environment_style == "production"
   end

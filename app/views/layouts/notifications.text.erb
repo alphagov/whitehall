@@ -1,0 +1,5 @@
+<%= yield %>
+
+<% unless production? -%>
+Note: this email has been sent from a GOV.UK testing environment (<%= GovukAdminTemplate.environment_label %>). Depending on the contents of the email, this likely means it's safe to ignore any calls to action. Due to the way that we sync content to our testing environments, you may sometimes receive emails about content being published in those environments.
+<%- end %>
