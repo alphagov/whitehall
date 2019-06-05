@@ -1,19 +1,19 @@
 require "test_helper"
-require "gds_api/test_helpers/rummager"
+require "gds_api/test_helpers/search"
 
 class OrganisationsControllerTest < ActionController::TestCase
   include ApplicationHelper
   include FeedHelper
   include FilterRoutesHelper
   include OrganisationControllerTestHelpers
-  include GdsApi::TestHelpers::Rummager
+  include GdsApi::TestHelpers::Search
 
   should_be_a_public_facing_controller
   should_display_organisation_page_elements_for(:organisation)
   should_display_organisation_page_elements_for(:executive_office)
 
   setup do
-    rummager_has_no_policies_for_any_type
+    stub_search_has_no_policies_for_any_type
 
     content_store_has_item(
       "/government/organisations",

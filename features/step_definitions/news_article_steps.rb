@@ -71,7 +71,7 @@ Then(/^I should see both the news articles for the Deputy Prime Minister role$/)
 end
 
 Given(/^"([^"]*)" has news associated with her$/) do |arg1|
-  stub_any_rummager_search.to_return(
+  stub_any_search.to_return(
     body: {
       results: [
         { link: "/foo", title: "First article" },

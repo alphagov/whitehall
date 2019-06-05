@@ -1,9 +1,9 @@
 require 'test_helper'
-require "gds_api/test_helpers/rummager"
+require "gds_api/test_helpers/search"
 
 class PeopleControllerTest < ActionController::TestCase
   include FeedHelper
-  include GdsApi::TestHelpers::Rummager
+  include GdsApi::TestHelpers::Search
 
   should_be_a_public_facing_controller
 
@@ -20,7 +20,7 @@ class PeopleControllerTest < ActionController::TestCase
 
   setup do
     @person = create(:person)
-    rummager_has_no_policies_for_any_type
+    stub_search_has_no_policies_for_any_type
   end
 
   view_test "#show displays the details of the person and their roles" do
@@ -70,7 +70,7 @@ class PeopleControllerTest < ActionController::TestCase
 
   view_test "should display the person's policies with content" do
     create(:ministerial_role_appointment, person: @person)
-    rummager_has_policies_for_every_type
+    stub_search_has_policies_for_every_type
 
     get :show, params: { id: @person }
 
