@@ -16,7 +16,7 @@ module PublishingApi
       {
         title: title,
         locale: locale,
-        details: {},
+        details: details,
         publishing_app: "whitehall",
         update_type: update_type,
         document_type: item.class.name.underscore,
@@ -40,6 +40,13 @@ module PublishingApi
 
     def title
       "#{item.person.name} - #{item.role.name}"
+    end
+
+    def details
+      {}.tap { |details|
+        details[:started_on] = item.started_at.rfc3339 if item.started_at.present?
+        details[:ended_on] = item.ended_at.rfc3339 if item.ended_at.present?
+      }
     end
 
     def locale

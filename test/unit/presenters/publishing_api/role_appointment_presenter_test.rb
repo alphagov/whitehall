@@ -29,7 +29,9 @@ class PublishingApi::RoleAppointmentPresenterTest < ActionView::TestCase
       publishing_app: 'whitehall',
       public_updated_at: role.updated_at,
       update_type: 'major',
-      details: {}
+      details: {
+        started_on: '2011-11-10T11:11:11+00:00'
+      }
     }
     expected_links = {
       person: [person.content_id],
