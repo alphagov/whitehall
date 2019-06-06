@@ -88,15 +88,26 @@ class Notifications < ActionMailer::Base
       subject: "Consultation deadline breached"
   end
 
+  helper_method :production?
+
+  def production?
+    GovukAdminTemplate.environment_style == "production"
+  end
+
 private
 
   def no_reply_email_address
     name = "GOV.UK publishing"
-    if !/production/i.match?(GovukAdminTemplate.environment_label)
+    unless production?
       name.prepend("[GOV.UK #{GovukAdminTemplate.environment_label}] ")
     end
 
-    address = Mail::Address.new("inside-government@digital.cabinet-office.gov.uk")
+    email_address = "inside-government@digital.cabinet-office.gov.uk"
+    unless production?
+      email_address = "inside-government+#{GovukAdminTemplate.environment_style}@digital.cabinet-office.gov.uk"
+    end
+
+    address = Mail::Address.new(email_address)
     address.display_name = name
     address.format
   end
