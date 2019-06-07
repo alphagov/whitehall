@@ -70,6 +70,48 @@ class AttachmentRedirectDueToUnpublishingIntegrationTest < ActionDispatch::Integ
     end
   end
 
+  context "given a published document with HTML attachment" do
+    let(:edition) { create(:published_publication, :with_html_attachment) }
+
+    it "unpublishes the HTML attachment when the document is unpublished" do
+      stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
+
+      visit admin_publication_path(edition)
+      unpublish_document_published_in_error
+      assert_redirected_in_publishing_api(edition.html_attachments.first.content_id, redirect_path)
+    end
+
+    it 'sets redirect URL for attachment in Asset Manager when document is consolidated' do
+      stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
+
+      visit admin_publication_path(edition)
+      consolidate_document
+      assert_sets_redirect_url_in_asset_manager_to redirect_url
+    end
+
+    it 'does not set a redirect URI for attachment in Asset Manager when document is withdrawn' do
+      stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
+
+      visit admin_publication_path(edition)
+      withdraw_document
+      refute_sets_redirect_url_in_asset_manager
+    end
+
+    it 'does not redirect new attachments added after a document is unpublished' do
+      stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
+
+      visit admin_publication_path(edition)
+      unpublish_document_published_in_error
+
+      file = File.open(path_to_attachment('sample.csv'))
+      new_attachment = build(:file_attachment, attachable: attachable, file: file)
+      attachable.attachments << new_attachment
+      new_attachment.save!
+
+      refute_sets_redirect_url_in_asset_manager
+    end
+  end
+
   context 'given a published consultation with outcome with file attachment' do
     let(:edition) { create(:published_consultation) }
     let(:outcome_attributes) { attributes_for(:consultation_outcome) }
@@ -197,6 +239,21 @@ private
       .with(asset_id, 'redirect_url' => redirect_url)
       .at_least_once
     AssetManagerAttachmentRedirectUrlUpdateWorker.drain
+  end
+
+  def assert_redirected_in_publishing_api(content_id, redirect_path)
+    Services.publishing_api.expects(:unpublish)
+      .with(
+        content_id,
+        type: "redirect",
+        alternative_path: redirect_path,
+        locale: "en",
+        allow_draft: false,
+        discard_drafts: true,
+      )
+      .once
+
+    PublishingApiHtmlAttachmentsWorker.drain
   end
 
   def refute_sets_redirect_url_in_asset_manager

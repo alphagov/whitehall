@@ -9,11 +9,11 @@ module ServiceListeners
         .with(edition.id, event)
     end
 
-    def stub_html_attachment_pusher(edition, event)
+    def stub_html_attachment_pusher(edition, event, unpublishing = nil)
       PublishingApiHtmlAttachmentsWorker
         .any_instance
         .expects(:perform)
-        .with(edition.id, event)
+        .with(edition.id, event, unpublishing.try(:id))
     end
 
     def stub_publications_pusher(edition, event)
@@ -103,7 +103,7 @@ module ServiceListeners
     test "unpublish publishes the unpublishing" do
       edition = create(:unpublished_publication)
       Whitehall::PublishingApi.expects(:unpublish_async).with(edition.unpublishing)
-      stub_html_attachment_pusher(edition, "unpublish")
+      stub_html_attachment_pusher(edition, "unpublish", edition.unpublishing)
       stub_publications_pusher(edition, "unpublish")
       Sidekiq::Testing.inline! do
         PublishingApiPusher.new(edition).push(event: "unpublish")
