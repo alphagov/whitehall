@@ -257,7 +257,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_equal 'No longer government publication', published_edition.reload.unpublishing.explanation
   end
 
-  test '#unpublish when there are validation errors re-renders the unpublish form' do
+  view_test '#unpublish when there are validation errors re-renders the unpublish form' do
     login_as create(:managing_editor)
     unpublish_params = {
         unpublishing_reason_id: UnpublishingReason::Consolidated.id,

@@ -99,6 +99,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
     if @service_object.perform!
       redirect_to admin_edition_path(@edition), notice: unpublish_success_notice
     else
+      @unpublishing = @edition.unpublishing
       flash.now[:alert] = @service_object.failure_reason
       render :confirm_unpublish
     end
