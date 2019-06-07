@@ -46,6 +46,9 @@
         </ul>
         <div class="navbar-text pull-right remove-bottom-margin">
           <ul class="list-inline">
+              <li>
+                  <%= signon_link %>
+              </li>
             <% if user_signed_in? %>
               <li>
                 <%= link_to current_user.name, admin_user_path(current_user), id: "#user_settings" %>
