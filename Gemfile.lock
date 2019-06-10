@@ -151,7 +151,7 @@ GEM
       et-orbi (~> 1.1, >= 1.1.1)
       raabro (~> 1.1)
     fuzzy_match (2.1.0)
-    gds-api-adapters (59.4.0)
+    gds-api-adapters (59.5.1)
       addressable
       link_header
       null_logger
