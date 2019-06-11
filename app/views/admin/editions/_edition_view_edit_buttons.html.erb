@@ -18,3 +18,8 @@
       <%= content_data_button(@edition) %>
   <% end %>
 </section>
+<% content_for :before_pageview_js do %>
+ <% custom_track_dimensions(@edition).each do |k,v| %>
+ GOVUKAdmin.setDimension(<%= k %>, '<%= v %>');
+ <% end %>
+<% end %>
