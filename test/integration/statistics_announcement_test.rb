@@ -192,7 +192,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     statistics_announcement = create(:statistics_announcement)
 
     Whitehall::PublishingApi.expects(:publish_redirect_async)
-      .with(statistics_announcement.content_id, "https://www.test.gov.uk/government/something-else")
+      .with(statistics_announcement.content_id, "/government/something-else")
 
     statistics_announcement.update_attributes!(
       publishing_state: "unpublished",
