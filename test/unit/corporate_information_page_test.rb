@@ -147,7 +147,8 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
         CorporateInformationPageType::OurGovernance,
         CorporateInformationPageType::Membership,
         CorporateInformationPageType::OfficeAccessAndOpeningTimes,
-        CorporateInformationPageType::MediaEnquiries
+        CorporateInformationPageType::MediaEnquiries,
+        CorporateInformationPageType::AccessibilityStatement,
       ],
       jobs_and_contracts: [
         CorporateInformationPageType::Procurement,
