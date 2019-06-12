@@ -128,6 +128,46 @@ namespace :publishing_api do
     PublishingApiDocumentRepublishingWorker.new.perform(document.id)
   end
 
+  def ensure_document_with_content_id_doesnt_exist(content_id)
+    document = Document.find_by(content_id: content_id)
+
+    return unless document
+
+    puts "Document with this content ID exists: #{document}"
+    abort 'This Rake task is only for unknown content'
+  end
+
+  desc "Manually unpublish content with a redirect"
+  # This task is for unpublishing Whitehall managed content where
+  # Whitehall has forgotten it is managing the content (as it often
+  # does). Do not use this Rake task for content which Whitehall still
+  # has a record of.
+  namespace :unpublish_with_redirect do
+    task :dry_run, %i[content_id alternative_path locale] => :environment do |_, args|
+      args.with_defaults(locale: 'en')
+
+      ensure_document_with_content_id_doesnt_exist(args[:content_id])
+
+      puts "Would send an unpublish request to the Publishing API for #{args[:content_id]} with:"
+      puts "  type 'redirect', locale: #{args[:locale]} and alternative_path #{args[:alternative_path].strip}"
+    end
+
+    task :real, %i[content_id alternative_path locale] => :environment do |_, args|
+      args.with_defaults(locale: 'en')
+
+      ensure_document_with_content_id_doesnt_exist(args[:content_id])
+
+      response = Services.publishing_api.unpublish(
+        args[:content_id],
+        type: 'redirect',
+        locale: args[:locale],
+        alternative_path: args[:alternative_path].strip
+      )
+
+      puts response
+    end
+  end
+
   desc "Redirect HTML Attachments to a given URL"
   namespace :redirect_html_attachments do
     task :dry, %i[content_id destination] => :environment do |_, args|
