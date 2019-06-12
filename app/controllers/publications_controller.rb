@@ -79,7 +79,7 @@ private
   end
 
   def publication_finder_type
-    params[:publication_filter_option] || params[:publication_type]
+    params[:official_document_status] || params[:publication_filter_option] || params[:publication_type]
   end
 
   def expire_cache_when_next_publication_published

@@ -50,6 +50,11 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_redirected_to "#{Plek.new.website_root}/search/all?#{@default_converted_params.to_query}"
   end
 
+  test "when official_document_status is specified redirects with params for official-documents finder" do
+    get :index, params: @default_params.merge(official_document_status: "command_and_act_papers")
+    assert_redirected_to "#{Plek.new.website_root}/official-documents?#{@default_converted_params.to_query}"
+  end
+
   test "strips out 'all' taxons from query string in redirect" do
     get :index, params: @default_params.merge(taxons: %w[all])
     assert_redirected_to "#{Plek.new.website_root}/search/all?#{@default_converted_params.merge(level_one_taxon: nil).compact.to_query}"
