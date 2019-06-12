@@ -1,13 +1,17 @@
 class PublishingApiHtmlAttachmentsWorker
   include Sidekiq::Worker
 
-  attr_reader :edition
-  private :edition
+  attr_reader :edition, :unpublishing
+  private :edition, :unpublishing
 
   sidekiq_options queue: 'publishing_api'
 
-  def perform(edition_id, event)
-    @edition = Edition.unscoped.find(edition_id)
+  def perform(edition_id, event, unpublishing_id = nil)
+    @edition = Edition.unscoped.includes(:unpublishing).find(edition_id)
+
+    # there are times when this worker runs and the unpublishing isn't yet associated with the edition
+    @unpublishing = @edition.unpublishing || (unpublishing_id ? Unpublishing.find(unpublishing_id) : nil)
+
     send(event) if respond_to?(event) && edition.respond_to?(:html_attachments)
   end
 
@@ -38,7 +42,6 @@ class PublishingApiHtmlAttachmentsWorker
   alias :update_draft_translation :update_draft
 
   def unpublish(allow_draft: false)
-    unpublishing = edition.unpublishing
     return if unpublishing.nil?
 
     destination = if unpublishing.redirect?
