@@ -93,7 +93,7 @@ class CorporateInformationPageType
   AboutUs = create(
     id: 20, slug: 'about', menu_heading: :other
   )
-  AccessibilityStatement = create(
-    id: 21, slug: 'accessibility-statement', menu_heading: :our_information
+  AccessibleDocumentsPolicy = create(
+    id: 21, slug: 'accessible-documents-policy', menu_heading: :our_information
   )
 end
