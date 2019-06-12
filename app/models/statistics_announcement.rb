@@ -250,6 +250,24 @@ private
   end
 
   def publish_redirect_to_redirect_url
-    Whitehall::PublishingApi.publish_redirect_async(content_id, redirect_url)
+    Whitehall::PublishingApi.publish_redirect_async(content_id, redirect_path)
+  end
+
+  def redirect_uri
+    @redirect_uri ||= begin
+                        return if redirect_url.nil?
+
+                        Addressable::URI.parse(redirect_url)
+                      rescue URI::InvalidURIError
+                        nil
+                      end
+  end
+
+  def redirect_path
+    return if redirect_uri.nil?
+
+    path = redirect_uri.path
+    path << "##{redirect_uri.fragment}" if redirect_uri.fragment.present?
+    path
   end
 end
