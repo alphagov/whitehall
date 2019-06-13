@@ -16,27 +16,19 @@ class OrganisationsControllerTest < ActionController::TestCase
     stub_search_has_no_policies_for_any_type
 
     content_store_has_item(
-      "/government/organisations",
-      format: "finder",
-      title: "Title of organisations homepage"
+      "/courts-tribunals",
+      format: "special_route",
+      title: "Court at midwicket"
     )
   end
 
   ### Describing :index ###
-  test "index should instantiate an OrganisationsIndexPresenter with all organisations which are listable ordered by name" do
-    Organisation.stubs(:listable).returns(stub(ordered_by_name_ignoring_prefix: :some_listable_ordered_orgs))
-    OrganisationsIndexPresenter.expects(:new).with(:some_listable_ordered_orgs).returns(:some_presented_organisations)
-    get :index
-    assert_equal :some_presented_organisations, assigns(:organisations)
-    assert_template :index
-  end
-
   test "index from the courts route renders the court index" do
     create(:organisation)
     court = create(:court)
     hmcts_tribunal = create(:hmcts_tribunal)
 
-    get :index, params: { courts_only: true }
+    get :index
 
     assert_template :courts_index
     assert_nil assigns(:organisations)
@@ -44,43 +36,21 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_equal [hmcts_tribunal], assigns(:hmcts_tribunals)
   end
 
-  view_test "should include a rel='alternate' link to JSON representation of organisations" do
-    get :index
-
-    assert_select "link[rel=alternate][type='application/json'][href=?]", api_organisations_url
-  end
-
-  view_test "links to the correct path for organisations" do
-    organisation = create(:organisation)
-
-    get :index
-
-    assert_select "a[href='/government/organisations/#{organisation.slug}']", text: organisation.name
-  end
-
   view_test "links to the correct paths for courts and tribunals" do
     court = create(:court)
     hmcts_tribunal = create(:hmcts_tribunal)
 
-    get :index, params: { courts_only: true }
+    get :index
 
     assert_select "a[href='/courts-tribunals/#{court.slug}']", text: court.name
     assert_select "a[href='/courts-tribunals/#{hmcts_tribunal.slug}']", text: hmcts_tribunal.name
-  end
-
-  view_test "shows a count of organisations" do
-    2.times { create(:organisation) }
-
-    get :index
-
-    assert_select "#agencies-and-government-bodies span.count.js-filter-count", text: "2"
   end
 
   view_test "does not show a count of organisations for courts and tribunals" do
     create(:court)
     create(:hmcts_tribunal)
 
-    get :index, params: { courts_only: true }
+    get :index
 
     refute_select "span.count.js-filter-count"
   end

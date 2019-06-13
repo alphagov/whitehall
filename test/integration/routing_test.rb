@@ -11,7 +11,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   test "assets are served under the #{Whitehall.router_prefix} prefix" do
-    content_store_has_item('/government/organisations', {})
+    content_store_has_item('/courts-tribunals', {})
     stub_taxonomy_with_all_taxons
     rummager = stub
 

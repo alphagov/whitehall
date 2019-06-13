@@ -2,21 +2,19 @@
   block_class ||= 'other-departments'
   block_id ||= false
   header_text ||= nil
-  hide_organisation_count_paragraph ||= false
 %>
 
 <div class="heading-block js-filter-block js-hide-department-children <%= block_class %>" <%= raw("id=\"#{block_id}\"") if block_id %>>
   <% if header_text %>
     <header class="type-heading">
       <h1><%= raw(header_text) %></h1>
-      <%= organisation_count_paragraph(organisations) if !hide_organisation_count_paragraph %>
     </header>
   <% end %>
 
   <div class="content">
     <ol>
       <% organisations.each do |organisation| %>
-        <%= render list_item_partial, organisation: organisation %>
+        <%= render 'organisations/index_item_plain', organisation: organisation %>
       <% end %>
     </ol>
   </div>
