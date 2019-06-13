@@ -26,7 +26,7 @@ namespace :publishing_api do
         base_path: "/courts-tribunals",
         content_id: "f990c58c-687a-4baf-b1a0-ec2d02c4d654",
         title: "Courts and tribunals",
-        description: "The prefix route under which pages for courts and tribunals are published.",
+        description: "Courts and tribunals on GOV.UK.",
       },
       {
         base_path: "/api/governments",

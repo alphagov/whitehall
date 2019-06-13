@@ -16,9 +16,9 @@ class OrganisationsControllerTest < ActionController::TestCase
     stub_search_has_no_policies_for_any_type
 
     content_store_has_item(
-      "/government/organisations",
-      format: "finder",
-      title: "Title of organisations homepage"
+      "/courts-tribunals",
+      format: "special_route",
+      title: "Court at midwicket"
     )
   end
 
