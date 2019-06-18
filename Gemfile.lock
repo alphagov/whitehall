@@ -185,7 +185,7 @@ GEM
       sanitize (~> 2.1.0)
     govuk-content-schema-test-helpers (1.6.1)
       json-schema (~> 2.8.0)
-    govuk-lint (3.11.0)
+    govuk-lint (3.11.2)
       rubocop (~> 0.64)
       rubocop-rspec (~> 1.28)
       scss_lint
@@ -241,7 +241,7 @@ GEM
     invalid_utf8_rejector (0.0.4)
     isbn_validation (1.2.2)
       activerecord (>= 3)
-    jaro_winkler (1.5.2)
+    jaro_winkler (1.5.3)
     jbuilder (2.9.1)
       activesupport (>= 4.2.0)
     jquery-rails (4.3.3)
@@ -345,7 +345,7 @@ GEM
     parallel (1.17.0)
     parallel_tests (2.25.0)
       parallel
-    parser (2.6.0.0)
+    parser (2.6.3.0)
       ast (~> 2.4.0)
     pdf-reader (2.2.0)
       Ascii85 (~> 1.0.0)
@@ -354,7 +354,6 @@ GEM
       ruby-rc4
       ttfunk
     plek (3.0.0)
-    powerpack (0.1.2)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -430,15 +429,14 @@ GEM
       netrc (~> 0.8)
     rinku (2.0.6)
     rouge (3.4.1)
-    rubocop (0.64.0)
+    rubocop (0.71.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
-      parser (>= 2.5, != 2.5.1.1)
-      powerpack (~> 0.1)
+      parser (>= 2.6)
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
-      unicode-display_width (~> 1.4.0)
-    rubocop-rspec (1.32.0)
+      unicode-display_width (>= 1.4.0, < 1.7)
+    rubocop-rspec (1.33.0)
       rubocop (>= 0.60.0)
     ruby-graphviz (1.2.3)
     ruby-prof (0.18.0)
@@ -464,7 +462,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    scss_lint (0.57.1)
+    scss_lint (0.58.0)
       rake (>= 0.9, < 13)
       sass (~> 3.5, >= 3.5.5)
     selenium-webdriver (3.142.3)
@@ -535,7 +533,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.6)
-    unicode-display_width (1.4.1)
+    unicode-display_width (1.6.0)
     unicorn (5.4.1)
       kgio (~> 2.6)
       raindrops (~> 0.7)
