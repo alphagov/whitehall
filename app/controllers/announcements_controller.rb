@@ -26,6 +26,8 @@ class AnnouncementsController < DocumentsController
         )
       end
       format.atom do
+        return redirect_to_news_and_communications(".atom") if is_english_locale?
+
         @announcements = @filter.documents
       end
     end
@@ -43,8 +45,8 @@ private
     params[:locale].nil?
   end
 
-  def redirect_to_news_and_communications
-    base_path = "#{Plek.new.website_root}/search/news-and-communications"
+  def redirect_to_news_and_communications(format = "")
+    base_path = "#{Plek.new.website_root}/search/news-and-communications#{format}"
     redirect_to("#{base_path}?#{news_and_communications_query_string}")
   end
 

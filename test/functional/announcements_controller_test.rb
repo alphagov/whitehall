@@ -59,6 +59,35 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
+  test "when locale is english it redirects and atom feed with params for finder-frontend" do
+    with_stubbed_rummager(@rummager, true) do
+      @rummager.expects(:search).returns('results' => [])
+
+      get :index, params: {
+        keywords: "one two",
+        taxons: %w[one],
+        subtaxons: %w[two],
+        people: %w[one two],
+        departments: %w[one two],
+        world_locations: %w[one two],
+        from_date: '01/01/2014',
+        to_date: '01/01/2014'
+      }, format: :atom
+
+      redirect_params_query = {
+        keywords: "one two",
+        level_one_taxon: 'one',
+        level_two_taxon: 'two',
+        people: %w[one two],
+        organisations: %w[one two],
+        world_locations: %w[one two],
+        public_timestamp: { from: '01/01/2014', to: '01/01/2014' }
+      }.to_query
+
+      assert_redirected_to "#{Plek.new.website_root}/search/news-and-communications.atom?#{redirect_params_query}"
+    end
+  end
+
   view_test "index with locale shows a mix of news and speeches" do
     news = create(:published_news_article, translated_into: [:fr])
     speech = create(:published_speech, translated_into: [:fr])
@@ -228,55 +257,6 @@ class AnnouncementsControllerTest < ActionController::TestCase
       assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml',
       announcements_url(format: :atom, departments: [org.to_param]), 1
       assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', root_url, 1
-    end
-  end
-
-  view_test "index generates an atom feed with entries for announcements matching the current filter" do
-    with_stubbed_rummager(@rummager, true) do
-      location = create(:world_location, name: "beetlejuice")
-      create(:published_news_story, world_locations: [location], first_published_at: 1.week.ago)
-
-      @rummager.expects(:search).returns(search_results_from_rummager)
-
-      processed_rummager_documents = search_results_from_rummager['results'].map do |result|
-        RummagerDocumentPresenter.new(result)
-      end
-
-      get :index, params: { world_locations: [location.to_param] }, format: :atom
-
-      assert_select_atom_feed do
-        assert_select_atom_entries(processed_rummager_documents, false)
-      end
-    end
-  end
-
-  view_test "index generates an atom feed with the legacy announcement_type_option param set" do
-    with_stubbed_rummager(@rummager, true) do
-      create(:published_news_story, first_published_at: 1.week.ago)
-
-      @rummager.expects(:search).returns(search_results_from_rummager)
-
-      processed_rummager_documents = search_results_from_rummager['results'].map do |result|
-        RummagerDocumentPresenter.new(result)
-      end
-
-      get :index, params: { announcement_type_option: 'news-stories' }, format: :atom
-
-      assert_select_atom_feed do
-        assert_select_atom_entries(processed_rummager_documents, false)
-      end
-    end
-  end
-
-  view_test 'index atom feed should return a valid feed if there are no matching documents' do
-    with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).returns('results' => [])
-      get :index, format: :atom
-
-      assert_select_atom_feed do
-        assert_select 'feed > updated', text: Time.zone.now.iso8601
-        assert_select 'feed > entry', count: 0
-      end
     end
   end
 
