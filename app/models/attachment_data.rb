@@ -1,4 +1,5 @@
 require 'pdf-reader'
+require 'timeout'
 
 class AttachmentData < ApplicationRecord
   mount_uploader :file, AttachmentUploader, mount_on: :carrierwave_file
@@ -186,8 +187,10 @@ private
   end
 
   def calculate_number_of_pages
-    PDF::Reader.new(path).page_count
-  rescue PDF::Reader::MalformedPDFError, PDF::Reader::UnsupportedFeatureError, OpenSSL::Cipher::CipherError
+    Timeout::timeout(10) do
+      PDF::Reader.new(path).page_count
+    end
+  rescue Timeout::Error, PDF::Reader::MalformedPDFError, PDF::Reader::UnsupportedFeatureError, OpenSSL::Cipher::CipherError
     nil
   end
 
