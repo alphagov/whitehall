@@ -10,13 +10,14 @@ module Admin::EditionActionsHelper
   def content_data_button(edition)
     url = content_data_page_data_url(edition)
 
-    link_to 'View data about page', url,
-      class: 'btn btn-default btn-lg pull-right',
-      data: {
-        track_category: 'external-link-clicked',
-        track_action: url,
-        track_label:  'View data about page',
-      }
+    link_to 'View data about page',
+            url,
+            class: 'btn btn-default btn-lg pull-right',
+            data: {
+              track_category: 'external-link-clicked',
+              track_action: url,
+              track_label:  'View data about page',
+            }
   end
 
   def custom_track_dimensions(edition)
@@ -92,10 +93,10 @@ module Admin::EditionActionsHelper
   def unschedule_edition_button(edition)
     confirm = "Are you sure you want to unschedule this edition and return it to the submitted state?"
     button_to "Unschedule",
-      unschedule_admin_edition_path(edition, lock_version: edition.lock_version),
-      title: "Unschedule this edition to allow changes or prevent automatic publication on #{l edition.scheduled_publication, format: :long}",
-      class: "btn btn-warning",
-      data: { confirm: confirm }
+              unschedule_admin_edition_path(edition, lock_version: edition.lock_version),
+              title: "Unschedule this edition to allow changes or prevent automatic publication on #{l edition.scheduled_publication, format: :long}",
+              class: "btn btn-warning",
+              data: { confirm: confirm }
   end
 
   def delete_edition_button(edition)
@@ -105,10 +106,10 @@ module Admin::EditionActionsHelper
   # If adding new models also update filter_options_for_edition
   def document_creation_dropdown
     content_tag(:ul,
-      class: "masthead-menu list-unstyled js-hidden",
-      id: 'new-document-menu',
-      role: 'menu',
-      'aria-labelledby' => 'new-document-label') do
+                class: "masthead-menu list-unstyled js-hidden",
+                id: 'new-document-menu',
+                role: 'menu',
+                'aria-labelledby' => 'new-document-label') do
       edition_types = [
         Consultation,
         Publication,

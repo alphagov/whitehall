@@ -24,25 +24,25 @@ class Classification < ApplicationRecord
   has_many :organisations, through: :organisation_classifications
   has_many :classification_relations, inverse_of: :classification
   has_many :related_classifications,
-            through: :classification_relations,
-            before_remove: ->(pa, rpa) {
-              ClassificationRelation.relation_for(pa.id, rpa.id).destroy_inverse_relation
-            }
+           through: :classification_relations,
+           before_remove: ->(pa, rpa) {
+             ClassificationRelation.relation_for(pa.id, rpa.id).destroy_inverse_relation
+           }
 
   has_many :classification_featurings,
-            -> {
-              where("editions.state = 'published' or classification_featurings.edition_id is null").
-                references(:edition).
-                includes(edition: :translations).
-                order("classification_featurings.ordering asc")
-            },
-            foreign_key: :classification_id,
-            inverse_of: :classification
+           -> {
+             where("editions.state = 'published' or classification_featurings.edition_id is null").
+               references(:edition).
+               includes(edition: :translations).
+               order("classification_featurings.ordering asc")
+           },
+           foreign_key: :classification_id,
+           inverse_of: :classification
 
   has_many :featured_editions,
-            -> { order("classification_featurings.ordering ASC") },
-            through: :classification_featurings,
-            source: :edition
+           -> { order("classification_featurings.ordering ASC") },
+           through: :classification_featurings,
+           source: :edition
 
   has_many :classification_policies
 

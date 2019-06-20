@@ -24,9 +24,9 @@ class StatisticsAnnouncement < ApplicationRecord
   belongs_to :publication
 
   has_one  :current_release_date,
-    -> { order('created_at DESC') },
-    class_name: 'StatisticsAnnouncementDate',
-    inverse_of: :statistics_announcement
+           -> { order('created_at DESC') },
+           class_name: 'StatisticsAnnouncementDate',
+           inverse_of: :statistics_announcement
   has_many :statistics_announcement_dates, dependent: :destroy
 
   # DID YOU MEAN: Policy Area?
@@ -51,10 +51,10 @@ class StatisticsAnnouncement < ApplicationRecord
   validates :title, :summary, :organisations, :creator, :current_release_date, presence: true
   validates :cancellation_reason, presence: { message: "must be provided when cancelling an announcement" }, if: :cancelled?
   validates :publication_type_id,
-              inclusion: {
-                in: PublicationType.statistical.map(&:id),
-                message: 'must be a statistical type'
-              }
+            inclusion: {
+              in: PublicationType.statistical.map(&:id),
+              message: 'must be a statistical type'
+            }
 
   accepts_nested_attributes_for :current_release_date, reject_if: :persisted?
 
@@ -86,8 +86,10 @@ class StatisticsAnnouncement < ApplicationRecord
               index_after: [],
               unindex_after: []
 
-  delegate :release_date, :display_date, :confirmed?,
-              to: :current_release_date, allow_nil: true
+  delegate :release_date,
+           :display_date,
+           :confirmed?,
+           to: :current_release_date, allow_nil: true
 
   after_touch :publish_redirect_to_publication, if: :publication_has_been_published?
   set_callback :published, :after, :after_publish

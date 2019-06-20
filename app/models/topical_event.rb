@@ -25,26 +25,26 @@ class TopicalEvent < Classification
   has_many :consultations, through: :classification_memberships
 
   has_many :published_announcements,
-            -> { where("editions.state" => "published") },
-            through: :classification_memberships,
-            class_name: "Announcement",
-            source: :announcement
+           -> { where("editions.state" => "published") },
+           through: :classification_memberships,
+           class_name: "Announcement",
+           source: :announcement
 
   has_many :published_publications,
-            -> { where("editions.state" => "published") },
-            through: :classification_memberships,
-            class_name: "Publication",
-            source: :publication
+           -> { where("editions.state" => "published") },
+           through: :classification_memberships,
+           class_name: "Publication",
+           source: :publication
 
   has_many :published_consultations,
-            -> { where("editions.state" => "published") },
-            through: :classification_memberships,
-            class_name: "Consultation",
-            source: :consultation
+           -> { where("editions.state" => "published") },
+           through: :classification_memberships,
+           class_name: "Consultation",
+           source: :consultation
 
   has_many :editions,
-            -> { where("editions.state" => "published") },
-            through: :classification_memberships
+           -> { where("editions.state" => "published") },
+           through: :classification_memberships
 
   has_many :features, inverse_of: :topical_event, dependent: :destroy
 

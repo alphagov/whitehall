@@ -3,9 +3,19 @@ module PublishingApi
     extend Forwardable
 
     def_delegators :contact,
-      :contact_numbers, :content_id, :comments, :country, :email,
-      :locality, :region, :postal_code, :recipient, :street_address,
-      :title, :contact_form_url, :translation
+                   :contact_numbers,
+                   :content_id,
+                   :comments,
+                   :country,
+                   :email,
+                   :locality,
+                   :region,
+                   :postal_code,
+                   :recipient,
+                   :street_address,
+                   :title,
+                   :contact_form_url,
+                   :translation
 
     def initialize(model, _options)
       @contact = model

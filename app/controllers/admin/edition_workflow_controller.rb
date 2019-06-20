@@ -15,13 +15,12 @@ class Admin::EditionWorkflowController < Admin::BaseController
 
   rescue_from ActiveRecord::RecordInvalid do
     redirect_to admin_edition_path(@edition),
-      alert: "Unable to #{action_name_as_human_interaction(params[:action])} because it is invalid (#{@edition.errors.full_messages.to_sentence}). " +
-        "Please edit it and try again."
+                alert: "Unable to #{action_name_as_human_interaction(params[:action])} because it is invalid (#{@edition.errors.full_messages.to_sentence}). Please edit it and try again."
   end
 
   rescue_from Transitions::InvalidTransition do
     redirect_to admin_edition_path(@edition),
-      alert: "Unable to #{action_name_as_human_interaction(params[:action])} because it is not ready yet. Please try again."
+                alert: "Unable to #{action_name_as_human_interaction(params[:action])} because it is not ready yet. Please try again."
   end
 
   def enforce_permissions!
@@ -48,7 +47,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   def submit
     @edition.submit!
     redirect_to admin_edition_path(@edition),
-      notice: "Your document has been submitted for review by a second pair of eyes"
+                notice: "Your document has been submitted for review by a second pair of eyes"
   end
 
   def reject
@@ -57,14 +56,14 @@ class Admin::EditionWorkflowController < Admin::BaseController
       Notifications.edition_rejected(user, @edition, admin_edition_url(@edition)).deliver_now
     end
     redirect_to new_admin_edition_editorial_remark_path(@edition),
-      notice: "Document rejected; please explain why in an editorial remark"
+                notice: "Document rejected; please explain why in an editorial remark"
   end
 
   def publish
     edition_publisher = Whitehall.edition_services.publisher(@edition)
     if edition_publisher.perform!
       redirect_to admin_editions_path(session_filters || { state: :published }),
-        notice: "The document #{@edition.title} has been published"
+                  notice: "The document #{@edition.title} has been published"
     else
       redirect_to admin_edition_path(@edition), alert: edition_publisher.failure_reason
     end
@@ -149,7 +148,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   def approve_retrospectively
     if @edition.approve_retrospectively
       redirect_to admin_edition_path(@edition),
-        notice: "Thanks for reviewing; this document is no longer marked as force-published"
+                  notice: "Thanks for reviewing; this document is no longer marked as force-published"
     else
       redirect_to admin_edition_path(@edition), alert: @edition.errors.full_messages.to_sentence
     end
@@ -158,7 +157,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   def convert_to_draft
     @edition.convert_to_draft!
     redirect_to admin_editions_path(session_filters.merge(state: :imported)),
-      notice: "The imported document #{@edition.title} has been converted into a draft"
+                notice: "The imported document #{@edition.title} has been converted into a draft"
   end
 
 private

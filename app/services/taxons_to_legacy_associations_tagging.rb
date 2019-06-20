@@ -11,7 +11,6 @@ class TaxonsToLegacyAssociationsTagging
 
     legacy_associations_by_document_type = legacy_associations_from_mappping
                                              .group_by do |legacy_association|
-
       legacy_association["document_type"]
     end
 

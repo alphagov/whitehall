@@ -18,7 +18,7 @@ class Admin::EditionsController < Admin::BaseController
   def forbid_editing_of_historic_content!
     unless can?(:modify, @edition)
       redirect_to [:admin, @edition],
-        alert: %{This document is in <a href="https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#history-mode">history mode</a>. Please <a href="https://support.publishing.service.gov.uk/content_change_request/new">contact GDS</a> if you need to change it.}
+                  alert: %{This document is in <a href="https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#history-mode">history mode</a>. Please <a href="https://support.publishing.service.gov.uk/content_change_request/new">contact GDS</a> if you need to change it.}
     end
   end
 
@@ -138,7 +138,7 @@ class Admin::EditionsController < Admin::BaseController
       redirect_to edit_admin_edition_path(new_draft)
     else
       redirect_to edit_admin_edition_path(@edition.document.latest_edition),
-        alert: new_draft.errors.full_messages.to_sentence
+                  alert: new_draft.errors.full_messages.to_sentence
     end
   end
 
