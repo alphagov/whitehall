@@ -31,7 +31,7 @@ module PublishingApi
         description: text_summary,
         details: details,
         document_type: item.class.name.underscore,
-        rendering_app: rendering_app,
+        rendering_app: Whitehall::RenderingApp::COLLECTIONS_FRONTEND,
         schema_name: schema_name,
       )
       content.merge!(
@@ -57,14 +57,6 @@ module PublishingApi
 
     def schema_name
       "organisation"
-    end
-
-    def rendering_app
-      if court_or_tribunal?
-        Whitehall::RenderingApp::WHITEHALL_FRONTEND
-      else
-        Whitehall::RenderingApp::COLLECTIONS_FRONTEND
-      end
     end
 
     def additional_routes
