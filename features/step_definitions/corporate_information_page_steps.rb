@@ -6,30 +6,6 @@ def find_corporation_information_page_type_by_title(title)
   }
 end
 
-Given(/^I add a "([^"]*)" corporate information page to "([^"]*)" with body "([^"]*)"$/) do |page_type, org_name, body|
-  organisation = Organisation.find_by(name: org_name)
-  visit admin_organisation_path(organisation)
-  click_link "Corporate information pages"
-  click_link "New corporate information page"
-  fill_in "Body", with: body
-  select page_type, from: "Type"
-  click_button "Save"
-end
-
-Given(/^I force-publish the "([^"]*)" corporate information page for the organisation "([^"]*)"$/) do |page_type, org_name|
-  organisation = Organisation.find_by(name: org_name)
-  info_page = organisation.corporate_information_pages.last
-  stub_publishing_api_links_with_taxons(info_page.content_id, %w[a-taxon-content-id])
-  visit admin_organisation_path(organisation)
-  click_link "Corporate information pages"
-  click_link page_type
-  publish(force: true)
-end
-
-When(/^I click the "([^"]*)" link$/) do |link_text|
-  click_link link_text
-end
-
 Then(/^I should see the text "([^"]*)"$/) do |text|
   assert_text text, normalize_ws: true
 end
@@ -85,48 +61,4 @@ Then(/^I should be able to read the translated "([^"]*)" corporate information p
 
   assert_selector ".description", text: "Le summary"
   assert_selector ".body", text: "Le body"
-end
-
-When(/^I translate the "([^"]*)" corporate information page for the organisation "([^"]*)"$/) do |corp_page, organisation_name|
-  organisation = Organisation.find_by(name: organisation_name)
-  visit admin_organisation_path(organisation)
-  click_link "Corporate information pages"
-  click_link corp_page
-  click_link "open-add-translation-modal"
-  select "Français", from: "Locale"
-  click_button "Add translation"
-  fill_in "Summary", with: "Le summary"
-  fill_in "Body", with: "Le body"
-  click_on "Save"
-end
-
-Then(/^I should be able to read the translated "([^"]*)" corporate information page for the organisation "([^"]*)" on the site$/) do |corp_page, organisation_name|
-  organisation = Organisation.find_by(name: organisation_name)
-  visit organisation_path(organisation)
-
-  click_link corp_page
-  click_link "Français"
-
-  assert_selector ".description", text: "Le summary"
-  assert_selector ".body", text: "Le body"
-end
-
-Given(/^my organisation has a "(.*?)" corporate information page$/) do |page_title|
-  @user.organisation ||= create(:organisation)
-  stub_organisation_in_content_store("Organisation name", @user.organisation.base_path)
-  page_type = find_corporation_information_page_type_by_title(page_title)
-  create(:corporate_information_page,
-         corporate_information_page_type: page_type,
-         organisation: @user.organisation)
-end
-
-Then(/^I should be able to add attachments to the "(.*?)" corporate information page$/) do |page_title|
-  page_type = find_corporation_information_page_type_by_title(page_title)
-  page = @user.organisation.corporate_information_pages.find_by_corporate_information_page_type_id(page_type.id)
-  stub_publishing_api_links_with_taxons(page.content_id, %w[a-taxon-content-id])
-  attachment = upload_pdf_to_corporate_information_page(page)
-  insert_attachment_markdown_into_corporate_information_page_body(attachment, page)
-  Attachment.last.attachment_data.uploaded_to_asset_manager!
-  publish(force: true)
-  check_attachment_appears_on_corporate_information_page(attachment, page)
 end

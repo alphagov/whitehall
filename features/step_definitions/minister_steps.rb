@@ -135,16 +135,6 @@ When(/^I specify an order for those ministers$/) do
   click_on "Save"
 end
 
-Then(/^I should see that ordering displayed on the organisation page$/) do
-  visit organisation_path(@the_ministerial_organisation)
-
-  minister_headings = all("#ministers li h3").map(&:text)
-
-  @the_ordered_ministers.each.with_index do |role_appointment, idx|
-    assert_equal role_appointment.person.name, minister_headings[idx]
-  end
-end
-
 Then(/^I should see that ordering displayed on the section for the organisation on the ministers page$/) do
   visit ministers_page
 

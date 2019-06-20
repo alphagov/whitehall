@@ -36,13 +36,6 @@ Scenario: Viewing ministers and ministers that also attend cabinet
   And I should see that "Fred Bloggs" also attends cabinet
   And I should see that "Fred Bloggs" is a minister in the "Department of Foo"
 
-Scenario: Ordering ministers in their organisation
-  Given I am a GDS editor in the organisation "Department of Woah"
-  And there are some ministers for the "Department of Woah"
-  When I specify an order for those ministers
-  Then I should see that ordering displayed on the organisation page
-  And I should see that ordering displayed on the section for the organisation on the ministers page
-
 Scenario: Administering the order of cabinet ministers
   Given I am a GDS editor called "Jane"
   And two cabinet ministers "Mary Moffet" and "Catherine Tuffet"

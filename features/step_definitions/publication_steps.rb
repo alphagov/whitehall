@@ -52,11 +52,6 @@ Then(/^I should see a thumbnail of the first page of the PDF$/) do
     has_selector?("div.img img[src*='#{@attachment.filename}.png']")
 end
 
-Then(/^I should see "([^"]*)" is a corporate publication of the "([^"]*)"$/) do |title, organisation|
-  visit_organisation organisation
-  assert_selector "#{corporate_publications_selector}, .publication a", text: title
-end
-
 Then(/^I should see that the publication is about "([^"]*)"$/) do |world_location_name|
   assert_selector ".meta a", text: world_location_name
 end
