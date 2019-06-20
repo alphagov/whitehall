@@ -26,7 +26,7 @@ class Admin::NeedsControllerTest < ActionController::TestCase
 
     stub_request(
       :get,
-        %r{\A#{Plek.find('publishing-api')}/v2/links}
+      %r{\A#{Plek.find('publishing-api')}/v2/links}
     ).to_return(body: { links: { meets_user_needs: [@need_1, @need_2] } }.to_json)
 
     publishing_api_has_linkables([@need_1, @need_2], document_type: "need")
@@ -39,7 +39,7 @@ class Admin::NeedsControllerTest < ActionController::TestCase
 
     patch_links_request = stub_request(
       :patch,
-        %r{\A#{Plek.find('publishing-api')}/v2/links}
+      %r{\A#{Plek.find('publishing-api')}/v2/links}
     ).with(body: { links: { meets_user_needs: need_content_ids } })
 
     post :update, params: { content_id: document.content_id, edition_id: edition.id, need_ids: need_content_ids }

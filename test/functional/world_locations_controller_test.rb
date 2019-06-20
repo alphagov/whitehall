@@ -36,9 +36,9 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
   test "should return a 404 for any world location that isn't an international delegation" do
     world_location = create(:world_location,
-      title: "UK in country-name",
-      world_location_type: WorldLocationType::WorldLocation,
-      mission_statement: "country-mission-statement")
+                            title: "UK in country-name",
+                            world_location_type: WorldLocationType::WorldLocation,
+                            mission_statement: "country-mission-statement")
     assert_raise ActiveRecord::RecordNotFound do
       get :show, params: { id: world_location }
     end
@@ -125,7 +125,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
         assert_select 'feed > author, feed > entry > author'
         assert_select 'feed > updated', 1
         assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml',
-        world_location_url(format: :atom), 1
+                      world_location_url(format: :atom), 1
         assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', root_url, 1
       end
     end
@@ -151,7 +151,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
         assert_select 'feed > author, feed > entry > author'
         assert_select 'feed > updated', 1
         assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml',
-        world_location_url(format: :atom), 1
+                      world_location_url(format: :atom), 1
         assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', root_url, 1
       end
     end

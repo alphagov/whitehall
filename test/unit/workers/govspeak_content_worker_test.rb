@@ -7,75 +7,75 @@ class GovspeakContentWorkerTest < ActiveSupport::TestCase
 
   test "saves generated HTML to the GovspeakContent instance" do
     govspeak_content =  create(:html_attachment,
-                          body: example_govspeak).govspeak_content
+                               body: example_govspeak).govspeak_content
 
     GovspeakContentWorker.new.perform(govspeak_content.id)
     govspeak_content.reload
 
     assert_equivalent_html example_govspeak_html,
-      govspeak_content.computed_body_html
+                           govspeak_content.computed_body_html
   end
 
   test "saves generated HTML with manual numbering" do
     govspeak_content =  create(:html_attachment,
-                          body: example_govspeak,
-                          manually_numbered_headings: true).govspeak_content
+                               body: example_govspeak,
+                               manually_numbered_headings: true).govspeak_content
 
     GovspeakContentWorker.new.perform(govspeak_content.id)
     govspeak_content.reload
 
     assert_equivalent_html example_govspeak_manually_numbered_html,
-      govspeak_content.computed_body_html
+                           govspeak_content.computed_body_html
   end
 
   test "saves generated HTML with image interpolation" do
     image = create(:image, alt_text: 'Alt')
     publication = create(:publication, images: [image])
     govspeak_content = create(:html_attachment,
-                          attachable: publication,
-                          body: example_govspeak_with_image).govspeak_content
+                              attachable: publication,
+                              body: example_govspeak_with_image).govspeak_content
 
     GovspeakContentWorker.new.perform(govspeak_content.id)
     govspeak_content.reload
 
     assert_equivalent_html example_govspeak_with_image_html(image),
-      govspeak_content.computed_body_html
+                           govspeak_content.computed_body_html
   end
 
   test "saves generated govspeak headers HTML to the GovspeakContent instance" do
     govspeak_content =  create(:html_attachment,
-                          body: example_govspeak).govspeak_content
+                               body: example_govspeak).govspeak_content
 
     GovspeakContentWorker.new.perform(govspeak_content.id)
     govspeak_content.reload
 
     assert_equivalent_html example_headers_html,
-      govspeak_content.computed_headers_html
+                           govspeak_content.computed_headers_html
   end
 
   test "handles embedded contacts" do
     contact = create(:contact)
 
     govspeak_content = create(:html_attachment,
-                          body: "[Contact:#{contact.id}]").govspeak_content
+                              body: "[Contact:#{contact.id}]").govspeak_content
 
     GovspeakContentWorker.new.perform(govspeak_content.id)
     govspeak_content.reload
 
     assert_select_within_html govspeak_content.computed_body_html,
-      "div.contact#contact_#{contact.id}"
+                              "div.contact#contact_#{contact.id}"
   end
 
   test "saves generated govspeak headers HTML with manual numbering" do
     govspeak_content =  create(:html_attachment,
-                          body: example_govspeak,
-                          manually_numbered_headings: true).govspeak_content
+                               body: example_govspeak,
+                               manually_numbered_headings: true).govspeak_content
 
     GovspeakContentWorker.new.perform(govspeak_content.id)
     govspeak_content.reload
 
     assert_equivalent_html example_manually_numbered_headers_html,
-      govspeak_content.computed_headers_html
+                           govspeak_content.computed_headers_html
   end
 
   test "silently handles non-existant GovspeakContent" do

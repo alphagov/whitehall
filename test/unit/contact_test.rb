@@ -18,36 +18,36 @@ class ContactTest < ActiveSupport::TestCase
 
   test "should be valid with no postal address fields" do
     contact = build(:contact,
-      recipient: "",
-      street_address: "",
-      locality: "",
-      region: "",
-      postal_code: "",
-      country_id: "")
+                    recipient: "",
+                    street_address: "",
+                    locality: "",
+                    region: "",
+                    postal_code: "",
+                    country_id: "")
     assert contact.valid?
   end
 
   test "should be invalid with only country but no street address" do
     country = create(:world_location)
     contact = build(:contact,
-      recipient: "",
-      street_address: "",
-      locality: "",
-      region: "",
-      postal_code: "",
-      country_id: country.id)
+                    recipient: "",
+                    street_address: "",
+                    locality: "",
+                    region: "",
+                    postal_code: "",
+                    country_id: country.id)
     refute contact.valid?
     assert_equal ["can't be blank"], contact.errors[:street_address]
   end
 
   test "should be invalid with only street address but no country" do
     contact = build(:contact,
-      recipient: "",
-      street_address: "123 Acacia Avenue",
-      locality: "",
-      region: "",
-      postal_code: "",
-      country_id: "")
+                    recipient: "",
+                    street_address: "123 Acacia Avenue",
+                    locality: "",
+                    region: "",
+                    postal_code: "",
+                    country_id: "")
     refute contact.valid?
     assert_equal ["can't be blank"], contact.errors[:country_id]
   end
@@ -55,12 +55,12 @@ class ContactTest < ActiveSupport::TestCase
   test "should be valid with only street address and country" do
     country = create(:world_location)
     contact = build(:contact,
-      recipient: "",
-      street_address: "123 Acacia avenue",
-      locality: "",
-      region: "",
-      postal_code: "",
-      country_id: country.id)
+                    recipient: "",
+                    street_address: "123 Acacia avenue",
+                    locality: "",
+                    region: "",
+                    postal_code: "",
+                    country_id: country.id)
     assert contact.valid?
   end
 

@@ -9,18 +9,18 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
 
   test "delegates address-related methods to its contact" do
     contact = create(:contact_with_country,
-                      latitude: "67890",
-                      longitude: "12345",
-                      email: "email@email.com",
-                      contact_form_url: "http://contact.com/form",
-                      title: "Consulate General's Office",
-                      comments: "Totally bananas",
-                      recipient: "Eric",
-                      street_address: "29 Acacier Road",
-                      locality: "Dandytown",
-                      region: "Dandyville",
-                      postal_code: "D12 4CY", contact_numbers: [create(:contact_number)],
-                      country: create(:world_location, iso2: 'GB'))
+                     latitude: "67890",
+                     longitude: "12345",
+                     email: "email@email.com",
+                     contact_form_url: "http://contact.com/form",
+                     title: "Consulate General's Office",
+                     comments: "Totally bananas",
+                     recipient: "Eric",
+                     street_address: "29 Acacier Road",
+                     locality: "Dandytown",
+                     region: "Dandyville",
+                     postal_code: "D12 4CY", contact_numbers: [create(:contact_number)],
+                     country: create(:world_location, iso2: 'GB'))
     office = create(:worldwide_office, contact: contact)
 
     # attributes

@@ -44,6 +44,6 @@ FactoryBot.define do
   end
 
   factory :statistics_announcement_requiring_redirect,
-    parent: :unpublished_statistics_announcement do
+          parent: :unpublished_statistics_announcement do
   end
 end

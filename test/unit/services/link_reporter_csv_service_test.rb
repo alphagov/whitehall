@@ -130,10 +130,10 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
 
   test "creates a new csv file even if no organisation passed to it" do
     speech = create(:published_speech,
-                     person_override: "The Queen",
-                     body: "[Good link](https://www.gov.uk/good-link)\n[Missing page](https://www.gov.uk/missing-link)",
-                     role_appointment: nil,
-                     create_default_organisation: false)
+                    person_override: "The Queen",
+                    body: "[Good link](https://www.gov.uk/good-link)\n[Missing page](https://www.gov.uk/missing-link)",
+                    role_appointment: nil,
+                    create_default_organisation: false)
     missing_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/missing-link", status: "broken")
     good_link = create(:link_checker_api_report_link, uri: "https://www.gov.uk/good-link", status: "ok")
 

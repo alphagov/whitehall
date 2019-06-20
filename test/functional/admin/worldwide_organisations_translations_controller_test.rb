@@ -79,9 +79,9 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
 
   view_test 'edit presents a form to update an existing translation' do
     worldwide_organisation = create(:worldwide_organisation,
-      translated_into: { fr: {
-        name: 'Département des barbes en France',
-      } })
+                                    translated_into: { fr: {
+                                      name: 'Département des barbes en France',
+                                    } })
 
     get :edit, params: { worldwide_organisation_id: worldwide_organisation, id: 'fr' }
 

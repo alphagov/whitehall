@@ -72,7 +72,7 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
 
     refute unpublisher.can_perform?
     assert_equal 'There is already a draft edition of this document. You must discard it before you can unpublish this edition.',
-      unpublisher.failure_reason
+                 unpublisher.failure_reason
   end
 
   test 'cannot unpublish a published edition if a newer submitted version exists' do
@@ -82,7 +82,7 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
 
     refute unpublisher.can_perform?
     assert_equal 'There is already a submitted edition of this document. You must discard it before you can unpublish this edition.',
-      unpublisher.failure_reason
+                 unpublisher.failure_reason
   end
 
   test 'cannot unpublish without an unpublishing details' do

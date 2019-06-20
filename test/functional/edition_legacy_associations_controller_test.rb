@@ -102,7 +102,7 @@ class Admin::EditionLegacyAssociationsControllerTest < ActionController::TestCas
     assert_equal ['5d37821b-7631-11e4-a3cb-005056011aef'], @edition.policy_content_ids
     assert_equal 'aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa', @edition.primary_specialist_sector_tag
     assert_equal ['aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee', 'eeeeeeee-bbbb-cccc-dddd-aaaaaaaaaaaaa'],
-      @edition.secondary_specialist_sector_tags
+                 @edition.secondary_specialist_sector_tags
   end
 
   test 'should clear the legacy tags' do
@@ -127,7 +127,6 @@ class Admin::EditionLegacyAssociationsControllerTest < ActionController::TestCas
     assert_equal [], @edition.topic_ids
     assert_equal [], @edition.policy_content_ids
     assert_nil @edition.primary_specialist_sector_tag
-    assert_equal [],
-      @edition.secondary_specialist_sector_tags
+    assert_equal [], @edition.secondary_specialist_sector_tags
   end
 end

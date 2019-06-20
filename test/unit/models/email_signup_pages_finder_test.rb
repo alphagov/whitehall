@@ -5,11 +5,11 @@ class EmailSignupPagesFinderTest < ActiveSupport::TestCase
     signup_page = EmailSignupPagesFinder.find(mhra)
 
     assert_equal signup_page.map { |p| p[:text] },
-      [
-        'Drug alerts and medical device alerts',
-        'Drug Safety Update',
-        'News and publications from the MHRA',
-      ]
+                 [
+                   'Drug alerts and medical device alerts',
+                   'Drug Safety Update',
+                   'News and publications from the MHRA',
+                 ]
   end
 
   test 'EmailSignupPagesFinder.find returns nil for a non-matching organisations' do

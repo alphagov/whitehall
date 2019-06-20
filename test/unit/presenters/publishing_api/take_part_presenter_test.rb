@@ -43,7 +43,7 @@ class PublishingApi::TakePartPresenterTest < ActiveSupport::TestCase
     # We test for HTML equivalance rather than string equality to get around
     # inconsistencies with line breaks between different XML libraries
     assert_equivalent_html expected_hash[:details].delete(:body),
-      presented_content[:details].delete(:body)
+                           presented_content[:details].delete(:body)
 
     assert_equal expected_hash, presented_content
   end

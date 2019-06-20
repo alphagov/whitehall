@@ -51,7 +51,7 @@ class PublicationTest < ActiveSupport::TestCase
     assert_kind_of Attachment, published.attachments.first
     assert_not_equal published.attachments, draft.attachments
     assert_equal published.attachments.first.attachment_data,
-        draft.attachments.first.attachment_data
+                 draft.attachments.first.attachment_data
     assert_equal published.first_published_at, draft.first_published_at
     assert_equal published.publication_type, draft.publication_type
   end

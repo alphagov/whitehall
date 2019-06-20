@@ -17,8 +17,8 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
 
   view_test 'GET #show displays the document collection' do
     collection = create(:document_collection,
-      title: "collection-title",
-      summary: "the summary")
+                        title: "collection-title",
+                        summary: "the summary")
 
     stub_publishing_api_expanded_links_with_taxons(collection.content_id, [])
 

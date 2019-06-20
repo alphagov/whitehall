@@ -180,7 +180,7 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
     hmcts_tribunal = create(:hmcts_tribunal)
     tribunal = create(:organisation, organisation_type_key: :tribunal_ndpb)
     hmcts_child = create(:organisation,
-      parent_organisations: [Organisation.find_by(slug: "hm-courts-and-tribunals-service")])
+                         parent_organisations: [Organisation.find_by(slug: "hm-courts-and-tribunals-service")])
 
     assert hmcts_tribunal.hmcts_tribunal?
     refute tribunal.hmcts_tribunal?

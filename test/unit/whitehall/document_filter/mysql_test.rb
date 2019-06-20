@@ -224,9 +224,9 @@ module Whitehall::DocumentFilter
       document_scope.expects(:page).with(2).returns(document_scope)
 
       filter = create_filter(document_scope,
-        departments: [organisation.slug],
-        topics: [topic.slug],
-        page: 2)
+                             departments: [organisation.slug],
+                             topics: [topic.slug],
+                             page: 2)
 
       assert_equal [organisation], filter.selected_organisations
       assert_equal [topic], filter.selected_topics
@@ -286,9 +286,9 @@ module Whitehall::DocumentFilter
 
     def stub_document_scope(name)
       document_scope = stub(name,
-        count: stub_everything,
-        current_page: stub_everything,
-        total_pages: stub_everything)
+                            count: stub_everything,
+                            current_page: stub_everything,
+                            total_pages: stub_everything)
       document_scope.stubs(:arel_table).returns(Edition.arel_table)
       document_scope.stubs(:without_editions_of_type).returns(document_scope)
       document_scope.stubs(:in_reverse_chronological_order).returns(document_scope)

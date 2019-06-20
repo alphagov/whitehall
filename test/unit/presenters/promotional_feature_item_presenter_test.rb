@@ -64,12 +64,12 @@ class PromotionalFeatureItemPresenterTest < ActionView::TestCase
 
   test '#title returns the title with a link if there is a link present' do
     assert_dom_equal "<h3><a href=\"http://#{Whitehall.public_host}/page\">Optional title with link</a></h3>",
-      item_presenter(title: 'Optional title with link', title_url: "http://#{Whitehall.public_host}/page").title
+                     item_presenter(title: 'Optional title with link', title_url: "http://#{Whitehall.public_host}/page").title
   end
 
   test '#title recognises external links and marks the appropriately' do
     assert_dom_equal '<h3><a href="http://external.com" rel="external">Optional title with link</a></h3>',
-      item_presenter(title: 'Optional title with link', title_url: "http://external.com").title
+                     item_presenter(title: 'Optional title with link', title_url: "http://external.com").title
   end
 
 private

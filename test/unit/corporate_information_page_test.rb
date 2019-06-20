@@ -13,8 +13,8 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
 
   test 'AboutUs pages do not require a body' do
     corporate_information_page = build(:corporate_information_page,
-                                        body: '',
-                                        corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id)
+                                       body: '',
+                                       corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id)
 
     assert corporate_information_page.valid?
   end
@@ -31,15 +31,15 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
   test 'should be invalid if it refers to the same document of another page' do
     organisation = create(:organisation)
     corporate_information_page_1 = build(:corporate_information_page,
-                                       organisation: organisation,
-                                       corporate_information_page_type: CorporateInformationPageType::AboutUs,
-                                       state: 'published',
-                                       major_change_published_at: Time.zone.now)
+                                         organisation: organisation,
+                                         corporate_information_page_type: CorporateInformationPageType::AboutUs,
+                                         state: 'published',
+                                         major_change_published_at: Time.zone.now)
     corporate_information_page_1.save!
 
     corporate_information_page_2 = build(:corporate_information_page,
-                                       organisation: organisation,
-                                       corporate_information_page_type: CorporateInformationPageType::AboutUs)
+                                         organisation: organisation,
+                                         corporate_information_page_type: CorporateInformationPageType::AboutUs)
     refute corporate_information_page_2.valid?
 
     assert corporate_information_page_2.errors.full_messages.include?("Another 'About' page was already published for this organisation")
@@ -48,25 +48,25 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
   test 'should be valid if it is a new draft of the same document' do
     organisation = create(:organisation)
     corporate_information_page_1 = build(:corporate_information_page,
-                                       organisation: organisation,
-                                       corporate_information_page_type: CorporateInformationPageType::AboutUs,
-                                       state: 'published',
-                                       major_change_published_at: Time.zone.now)
+                                         organisation: organisation,
+                                         corporate_information_page_type: CorporateInformationPageType::AboutUs,
+                                         state: 'published',
+                                         major_change_published_at: Time.zone.now)
     corporate_information_page_1.save!
 
     corporate_information_page_2 = build(:corporate_information_page,
-                                       organisation: organisation,
-                                       corporate_information_page_type: CorporateInformationPageType::AboutUs,
-                                       document_id: corporate_information_page_1.document_id,
-                                       state: 'draft')
+                                         organisation: organisation,
+                                         corporate_information_page_type: CorporateInformationPageType::AboutUs,
+                                         document_id: corporate_information_page_1.document_id,
+                                         state: 'draft')
     assert corporate_information_page_2.valid?
   end
 
   test 'should return search index data suitable for Rummageable' do
     organisation = create(:organisation)
     corporate_information_page = create(:corporate_information_page,
-      corporate_information_page_type: CorporateInformationPageType::TermsOfReference,
-      organisation: organisation)
+                                        corporate_information_page_type: CorporateInformationPageType::TermsOfReference,
+                                        organisation: organisation)
 
     assert_equal corporate_information_page.content_id, corporate_information_page.search_index['content_id']
     assert_equal "#{organisation.name} \u2013 #{corporate_information_page.title}", corporate_information_page.search_index['title']

@@ -100,7 +100,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
         assert_select 'feed > author, feed > entry > author'
         assert_select 'feed > updated', 1
         assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml',
-        world_location_news_index_url(format: :atom, world_location_id: @world_location), 1
+                      world_location_news_index_url(format: :atom, world_location_id: @world_location), 1
         assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', root_url, 1
       end
     end

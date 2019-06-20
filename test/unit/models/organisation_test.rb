@@ -370,10 +370,10 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test 'should return search index data suitable for Rummageable' do
     organisation = create(:organisation,
-      name: 'Ministry of Funk',
-      acronym: 'MoF',
-      organisation_logo_type_id: OrganisationLogoType::HomeOffice.id,
-      organisation_brand_colour_id: OrganisationBrandColour::HomeOffice.id)
+                          name: 'Ministry of Funk',
+                          acronym: 'MoF',
+                          organisation_logo_type_id: OrganisationLogoType::HomeOffice.id,
+                          organisation_brand_colour_id: OrganisationBrandColour::HomeOffice.id)
 
     assert_equal 'Ministry of Funk', organisation.search_index['title']
     assert_equal 'MoF', organisation.search_index['acronym']
@@ -390,12 +390,12 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test 'should return search index data suitable for Rummageable with a custom logo' do
     organisation = build(:organisation,
-      slug: 'ministry-of-funk',
-      name: 'Ministry of Funk',
-      acronym: 'MoF',
-      logo: File.open(fixture_path.join('images', '960x640_gif.gif')),
-      organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
-      organisation_brand_colour_id: OrganisationBrandColour::HomeOffice.id)
+                         slug: 'ministry-of-funk',
+                         name: 'Ministry of Funk',
+                         acronym: 'MoF',
+                         logo: File.open(fixture_path.join('images', '960x640_gif.gif')),
+                         organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
+                         organisation_brand_colour_id: OrganisationBrandColour::HomeOffice.id)
 
     assert_equal 'Ministry of Funk', organisation.search_index['title']
     assert_equal 'MoF', organisation.search_index['acronym']

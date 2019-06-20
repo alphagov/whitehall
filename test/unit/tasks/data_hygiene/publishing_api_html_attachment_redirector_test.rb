@@ -9,9 +9,9 @@ class PublishingApiHtmlAttachmentRedirectorTest < ActiveSupport::TestCase
   let!(:edition)                {
     create(
       :unpublished_edition,
-                                  state: "withdrawn",
-                                  document: document,
-                                  attachments: [attachment]
+      state: "withdrawn",
+      document: document,
+      attachments: [attachment]
 )
   }
   let!(:redirection)            { "www.example.com/attachment_path" }

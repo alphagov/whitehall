@@ -9,7 +9,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
 
       assert attachment.reload.govspeak_content_body_html.html_safe?
       assert_equivalent_html "<div class=\"govspeak\"><p>Some govspeak</p></div>",
-        attachment.govspeak_content_body_html
+                             attachment.govspeak_content_body_html
     end
   end
 

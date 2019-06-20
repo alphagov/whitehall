@@ -30,7 +30,7 @@ module Whitehall
       assert_equal feed_url("publications.atom"), Whitehall::FeedUrlBuilder.new(document_type: 'publications', official_document_status: "all").url
       assert_equal feed_url("publications.atom"), Whitehall::FeedUrlBuilder.new(document_type: 'publications', official_document_status: "").url
       assert_equal feed_url("publications.atom?official_document_status=something"),
-        Whitehall::FeedUrlBuilder.new(document_type: 'publications', official_document_status: "something").url
+                   Whitehall::FeedUrlBuilder.new(document_type: 'publications', official_document_status: "something").url
 
       assert_equal feed_url("publications.atom"), Whitehall::FeedUrlBuilder.new(document_type: 'publications', departments: []).url
       assert_equal feed_url("publications.atom"), Whitehall::FeedUrlBuilder.new(document_type: 'publications', departments: %w[all]).url
@@ -40,7 +40,7 @@ module Whitehall
 
     test "it strips out invalid filter params" do
       assert_equal feed_url("publications.atom?departments%5B%5D=something"),
-        Whitehall::FeedUrlBuilder.new(document_type: 'publications', departments: %w[something], favourite_power_ranger: ["the blue one"]).url
+                   Whitehall::FeedUrlBuilder.new(document_type: 'publications', departments: %w[something], favourite_power_ranger: ["the blue one"]).url
     end
 
   protected
