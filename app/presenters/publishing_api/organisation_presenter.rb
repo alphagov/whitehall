@@ -31,7 +31,6 @@ module PublishingApi
         description: text_summary,
         details: details,
         document_type: item.class.name.underscore,
-        public_updated_at: item.updated_at,
         rendering_app: rendering_app,
         schema_name: schema_name,
       )

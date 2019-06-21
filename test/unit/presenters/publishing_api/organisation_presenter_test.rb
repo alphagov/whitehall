@@ -46,7 +46,6 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
       locale: 'en',
       publishing_app: 'whitehall',
       rendering_app: 'collections',
-      public_updated_at: organisation.updated_at,
       routes: [
         { path: public_path, type: "exact" },
         { path: public_atom_path, type: "exact" }
