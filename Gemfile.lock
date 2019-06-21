@@ -221,10 +221,10 @@ GEM
       sidekiq (>= 5, < 6)
       sidekiq-logging-json (~> 0.0)
       sidekiq-statsd (~> 0.1)
-    govuk_test (0.5.0)
+    govuk_test (1.0.0)
       capybara
       puma
-      selenium-webdriver
+      selenium-webdriver (>= 3.142)
       webdrivers
     graphviz_transitions (0.1.2)
       ruby-graphviz
