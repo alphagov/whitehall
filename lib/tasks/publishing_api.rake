@@ -91,6 +91,12 @@ namespace :publishing_api do
     puts "Finished sending links for all organisations to Publishing API"
   end
 
+  desc "Republish an organisation to the Publishing API"
+  task :republish_organisation, [:slug] => :environment do |_, args|
+    organisation = Organisation.find_by!(slug: args[:slug])
+    organisation.publish_to_publishing_api
+  end
+
   desc "Send withdrawn item links to Publishing API."
   task patch_withdrawn_item_links: :environment do
     editions = Edition.withdrawn
