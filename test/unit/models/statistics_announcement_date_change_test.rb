@@ -62,6 +62,6 @@ class StatisticsAnnouncementDateChangeTest < ActiveSupport::TestCase
     new_date.save!
 
     assert announcement.updated_at > announcement.created_at,
-      "StatisticsAnnouncement has not been updated"
+           "StatisticsAnnouncement has not been updated"
   end
 end

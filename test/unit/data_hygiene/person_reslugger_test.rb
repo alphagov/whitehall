@@ -55,8 +55,8 @@ class PersonSlugChangerTest < ActiveSupport::TestCase
     published_news = create(:published_news_article)
     draft_news = create(:draft_news_article)
     role_appointment = create(:role_appointment,
-                        person: @person,
-                        editions: [published_news, draft_news])
+                              person: @person,
+                              editions: [published_news, draft_news])
 
     published_speech = create(:published_speech, role_appointment: role_appointment)
     draft_speech = create(:draft_speech, role_appointment: role_appointment)

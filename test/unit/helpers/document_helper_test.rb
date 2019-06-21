@@ -140,7 +140,7 @@ class DocumentHelperTest < ActionView::TestCase
       id: "a-world-location"
     )
     assert_dom_equal %(<a lang="de" href="/world/a-world-location.de">Deutsch</a>),
-      link_to_translation(:de)
+                     link_to_translation(:de)
   end
 
   test "#link_to_translation should not suffix URLs with 'en'" do
@@ -151,7 +151,7 @@ class DocumentHelperTest < ActionView::TestCase
       id: "a-world-location"
     )
     assert_dom_equal %(<a lang="en" href="/world/a-world-location">English</a>),
-      link_to_translation(:en)
+                     link_to_translation(:en)
   end
 
   test "part_of_metadata does not have any links for a simple document" do

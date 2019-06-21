@@ -30,13 +30,13 @@ class Admin::EditionTagsController < Admin::BaseController
     end
 
     redirect_to redirect_path,
-      notice: "The tags have been updated."
+                notice: "The tags have been updated."
   rescue GdsApi::HTTPConflict
     redirect_to edit_admin_edition_tags_path(@edition),
-      alert: "Somebody changed the tags before you could. Your changes have not been saved."
+                alert: "Somebody changed the tags before you could. Your changes have not been saved."
   end
 
-private
+  private
 
   def redirect_path
     if params[:save]

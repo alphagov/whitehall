@@ -46,7 +46,7 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
     # inconsistencies with line breaks between different XML libraries
     presented_content = presented_item.content
     assert_equivalent_html expected_hash[:details].delete(:body),
-      presented_content[:details].delete(:body)
+                           presented_content[:details].delete(:body)
 
     expected_content = expected_hash.merge(links: presented_item.links)
     assert_equal expected_content, presented_content
@@ -100,7 +100,7 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
     html_attachment = HtmlAttachment.last
 
     assert_equal [html_attachment.attachable.lead_organisations.first.content_id],
-      present(html_attachment).links[:primary_publishing_organisation]
+                 present(html_attachment).links[:primary_publishing_organisation]
   end
 
   test "HtmlAttachment presents primary_publishing_organisation from 1st org when lead_organisations is not implemented" do
@@ -111,6 +111,6 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
     # duplicate content_ids because it constructs a left outer join
 
     assert_equal [html_attachment.attachable.organisations.first.content_id],
-      present(html_attachment).links[:primary_publishing_organisation]
+                 present(html_attachment).links[:primary_publishing_organisation]
   end
 end

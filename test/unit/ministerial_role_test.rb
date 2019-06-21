@@ -36,8 +36,8 @@ class MinisterialRoleTest < ActiveSupport::TestCase
 
   test "should be able to get published speeches associated with the current appointee" do
     appointment = create(:ministerial_role_appointment,
-      started_at: 1.day.ago,
-      ended_at: nil)
+                         started_at: 1.day.ago,
+                         ended_at: nil)
     create(:published_speech, role_appointment: appointment)
     create(:draft_speech, role_appointment: appointment)
 
@@ -47,8 +47,8 @@ class MinisterialRoleTest < ActiveSupport::TestCase
 
   test "published_speeches should not return speeches from previous appointees" do
     appointment = create(:ministerial_role_appointment,
-      started_at: 2.days.ago,
-      ended_at: 1.day.ago)
+                         started_at: 2.days.ago,
+                         ended_at: 1.day.ago)
     create(:published_speech, role_appointment: appointment)
 
     assert_equal 1, appointment.role.published_speeches.count

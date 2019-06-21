@@ -80,7 +80,7 @@ class TopicTest < ActiveSupport::TestCase
                   'description' => 'topic description',
                   'slug' => 'topic-name'
                   },
-                topic.search_index)
+                 topic.search_index)
   end
 
   test 'should add topic to search index on creating' do

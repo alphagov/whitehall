@@ -44,9 +44,9 @@ module Whitehall
     end
 
     def self.save_draft_translation(
-          model_instance,
-          locale,
-          update_type_override = nil
+      model_instance,
+      locale,
+      update_type_override = nil
     )
       presenter = PublishingApiPresenters.presenter_for(
         model_instance,

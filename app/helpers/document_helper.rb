@@ -159,9 +159,10 @@ module DocumentHelper
       attachment_info << "  Parliamentary session: #{attachment.parliamentary_session}"
     end
 
-    mail_to alternative_format_contact_email, alternative_format_contact_email,
-      subject: "Request for '#{attachment.title}' in an alternative format",
-      body: %(Details of document required:
+    mail_to alternative_format_contact_email,
+            alternative_format_contact_email,
+            subject: "Request for '#{attachment.title}' in an alternative format",
+            body: %(Details of document required:
 
 #{attachment_info.join("\n")}
 
@@ -278,8 +279,8 @@ Please tell us:
 
   def political_state_analytics_tag(edition)
     tag :meta,
-      name: 'govuk:political-status',
-      content: political_state_analytics_value(edition)
+        name: 'govuk:political-status',
+        content: political_state_analytics_value(edition)
   end
 
   def political_state_analytics_value(edition)
@@ -292,7 +293,7 @@ Please tell us:
     return unless edition.government
 
     tag :meta,
-      name: 'govuk:publishing-government',
-      content: edition.government.slug
+        name: 'govuk:publishing-government',
+        content: edition.government.slug
   end
 end

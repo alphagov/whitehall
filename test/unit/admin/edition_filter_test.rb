@@ -167,12 +167,12 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     policy_paper = create(:publication, publication_type: PublicationType::PolicyPaper)
 
     assert_same_elements [form, policy_paper],
-      Admin::EditionFilter.new(Edition, @current_user, type: "publication",
-                               subtypes: [PublicationType::PolicyPaper.id, PublicationType::Form.id]).editions
+                         Admin::EditionFilter.new(Edition, @current_user, type: "publication",
+                                                  subtypes: [PublicationType::PolicyPaper.id, PublicationType::Form.id]).editions
 
     assert_equal [guidance],
-      Admin::EditionFilter.new(Edition, @current_user, type: "publication",
-                               subtypes: [PublicationType::Guidance.id]).editions
+                 Admin::EditionFilter.new(Edition, @current_user, type: "publication",
+                                          subtypes: [PublicationType::Guidance.id]).editions
   end
 
   test "should filter by title" do

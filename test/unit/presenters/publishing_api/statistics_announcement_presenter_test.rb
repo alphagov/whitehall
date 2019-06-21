@@ -43,7 +43,7 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
     assert_valid_against_links_schema({ links: presented_item.links }, 'statistics_announcement')
 
     assert_equivalent_html expected_content[:details].delete(:body),
-      presented_content[:details].delete(:body)
+                           presented_content[:details].delete(:body)
 
     assert_equal expected_content, presented_content
     assert_hash_includes presented_item.links, expected_links
@@ -89,7 +89,7 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
     assert_valid_against_links_schema({ links: presented_item.links }, 'statistics_announcement')
 
     assert_equivalent_html expected_content[:details].delete(:body),
-      presented_content[:details].delete(:body)
+                           presented_content[:details].delete(:body)
 
     assert_equal expected_content, presented_content
     assert_hash_includes presented_item.links, expected_links
@@ -97,8 +97,8 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
 
   test "a statistics announcement with a date change presents both dates and a notice" do
     statistics_announcement = create(:statistics_announcement,
-      previous_display_date: 7.days.from_now,
-      change_note: "Reasons")
+                                     previous_display_date: 7.days.from_now,
+                                     change_note: "Reasons")
 
     public_path = Whitehall.url_maker.statistics_announcement_path(statistics_announcement)
 
@@ -137,7 +137,7 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
     assert_valid_against_links_schema({ links: presented_item.links }, 'statistics_announcement')
 
     assert_equivalent_html expected_content[:details].delete(:body),
-      presented_content[:details].delete(:body)
+                           presented_content[:details].delete(:body)
 
     assert_equal expected_content, presented_content
     assert_hash_includes presented_item.links, expected_links

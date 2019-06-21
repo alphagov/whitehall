@@ -16,10 +16,10 @@ class Admin::EditionWorldTagsController < Admin::BaseController
       previous_version: params["taxonomy_tag_form"]["previous_version"],
     )
     redirect_to admin_edition_path(@edition),
-      notice: "The tags have been updated."
+                notice: "The tags have been updated."
   rescue GdsApi::HTTPConflict
     redirect_to edit_admin_edition_world_tags_path(@edition),
-      alert: "Somebody changed the tags before you could. Your changes have not been saved."
+                alert: "Somebody changed the tags before you could. Your changes have not been saved."
   end
 
 private

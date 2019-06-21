@@ -255,7 +255,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
       assert_select 'feed > author, feed > entry > author'
       assert_select 'feed > updated', 1
       assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml',
-      announcements_url(format: :atom, departments: [org.to_param]), 1
+                    announcements_url(format: :atom, departments: [org.to_param]), 1
       assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', root_url, 1
     end
   end

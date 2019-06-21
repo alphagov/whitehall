@@ -60,7 +60,6 @@ module DocumentFilterHelper
                            .new
                            .ordered_taxons
                            .map do |level_one_taxon|
-
       if taxon_content_ids.include? level_one_taxon.content_id
         subtaxon_content_ids_without_all = subtaxon_content_ids - %w[all]
 
@@ -79,7 +78,6 @@ module DocumentFilterHelper
           filtered_child_taxons = level_one_taxon
                                     .children
                                     .select do |taxon|
-
             subtaxon_content_ids.include? taxon.content_id
           end
 

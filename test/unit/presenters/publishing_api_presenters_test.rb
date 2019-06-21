@@ -31,12 +31,12 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
 
   test ".presenter_for returns a Speech Presenter for the Speech model" do
     assert_equal PublishingApi::SpeechPresenter,
-      PublishingApiPresenters.presenter_for(Speech.new).class
+                 PublishingApiPresenters.presenter_for(Speech.new).class
   end
 
   test ".presenter_for returns a Generic Edition presenter for all models without a presenter class" do
     assert_equal PublishingApi::GenericEditionPresenter,
-      PublishingApiPresenters.presenter_for(GenericEdition.new).class
+                 PublishingApiPresenters.presenter_for(GenericEdition.new).class
   end
 
   test ".presenter_for returns a Placeholder presenter for an organisation" do

@@ -8,16 +8,16 @@ class ContactTest < ActiveSupport::TestCase
     @world_location_content_id = SecureRandom.uuid
 
     world_location = FactoryBot.create(:world_location,
-                                        content_id: @world_location_content_id,
-                                        title: "United Kingdom")
+                                       content_id: @world_location_content_id,
+                                       title: "United Kingdom")
 
     @contact = FactoryBot.build(:contact,
-                                 title: "Government Digital Service",
-                                 recipient: "GDS mail room",
-                                 street_address: "Aviation House, 125 Kingsway",
-                                 postal_code: "WC2B 6NH",
-                                 country: world_location,
-                                 email: "gds-mailroom@digital.cabinet-office.gov.uk")
+                                title: "Government Digital Service",
+                                recipient: "GDS mail room",
+                                street_address: "Aviation House, 125 Kingsway",
+                                postal_code: "WC2B 6NH",
+                                country: world_location,
+                                email: "gds-mailroom@digital.cabinet-office.gov.uk")
 
     @contact.contactable = FactoryBot.create(:organisation, content_id: @organisation_content_id)
   end

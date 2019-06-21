@@ -14,8 +14,8 @@ class EditionRelationTest < ActiveSupport::TestCase
   test "should be invalid if more than one relation exists from one edition to another" do
     existing_relation = create(:edition_relation)
     relation = build(:edition_relation,
-      edition: existing_relation.edition,
-      document: existing_relation.document)
+                     edition: existing_relation.edition,
+                     document: existing_relation.document)
     refute relation.valid?
   end
 

@@ -7,10 +7,10 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
     membership = DocumentCollectionGroupMembership.new(document: @document, document_collection_group: @group)
     if membership.save
       redirect_to admin_document_collection_groups_path(@collection),
-        notice: "'#{params[:title]}' added to '#{@group.heading}'"
+                  notice: "'#{params[:title]}' added to '#{@group.heading}'"
     else
       redirect_to admin_document_collection_groups_path(@collection),
-        alert: membership.errors.full_messages.join(". ") + '.'
+                  alert: membership.errors.full_messages.join(". ") + '.'
     end
   end
 
@@ -66,7 +66,7 @@ private
   def find_document
     unless (@document = Document.where(id: params[:document_id]).first)
       redirect_to admin_document_collection_groups_path(@collection),
-        alert: "We couldn't find a document titled '#{params[:title]}'"
+                  alert: "We couldn't find a document titled '#{params[:title]}'"
     end
   end
 end

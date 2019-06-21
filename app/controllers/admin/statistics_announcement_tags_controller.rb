@@ -16,10 +16,10 @@ class Admin::StatisticsAnnouncementTagsController < Admin::BaseController
     )
 
     redirect_to admin_statistics_announcement_path(@statistics_announcement),
-      notice: "The tags have been updated."
+                notice: "The tags have been updated."
   rescue GdsApi::HTTPConflict
     redirect_to edit_admin_statistics_announcement_tags_path(@statistics_announcement),
-      alert: "Somebody changed the tags before you could. Your changes have not been saved."
+                alert: "Somebody changed the tags before you could. Your changes have not been saved."
   end
 
 private

@@ -1,16 +1,16 @@
 class WorldLocation < ApplicationRecord
   has_many :edition_world_locations, inverse_of: :world_location
   has_many :editions,
-            through: :edition_world_locations
+           through: :edition_world_locations
   has_many :published_edition_world_locations,
            -> { where(editions: { state: "published" }).includes(:edition) },
            class_name: "EditionWorldLocation"
   has_many :published_editions,
-            through: :published_edition_world_locations,
-            source: :edition
+           through: :published_edition_world_locations,
+           source: :edition
   has_many :published_documents,
-            through: :published_editions,
-            source: :document
+           through: :published_editions,
+           source: :document
   has_many :worldwide_organisation_world_locations, dependent: :destroy
   has_many :worldwide_organisations, through: :worldwide_organisation_world_locations
   has_many :offsite_links, as: :parent

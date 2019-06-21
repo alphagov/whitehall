@@ -150,7 +150,7 @@ class WorldNewsStoryTypeNewsArticleTest < ActiveSupport::TestCase
 
     refute article.valid?
     assert_equal ["You can't tag a world news story to ministers, please remove minister"],
-      article.errors[:base]
+                 article.errors[:base]
   end
 
   test "is valid when not associating an organisation" do
@@ -165,7 +165,7 @@ class WorldNewsStoryTypeNewsArticleTest < ActiveSupport::TestCase
 
     refute news_article.valid?
     assert_equal ["You can't tag a world news story to organisations, please remove organisation"],
-      news_article.errors[:base]
+                 news_article.errors[:base]
   end
 
   test "is invalid without a world_location" do
@@ -174,7 +174,7 @@ class WorldNewsStoryTypeNewsArticleTest < ActiveSupport::TestCase
 
     refute article.valid?
     assert_equal ["at least one required"],
-      article.errors[:world_locations]
+                 article.errors[:world_locations]
   end
 
   test "is valid when removing an organisation after changing type" do

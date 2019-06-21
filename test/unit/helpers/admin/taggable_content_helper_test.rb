@@ -49,10 +49,10 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     deputy_leader_appointment  = create(:role_appointment, role: deputy, person: joe)
     current_leader_appointment = create(:role_appointment, role: leader, person: fred)
     old_leader_appointment     = create(:role_appointment,
-                                          role: leader,
-                                          person: slate,
-                                          started_at: Date.new(1960, 5, 12),
-                                          ended_at: Date.new(1972, 5, 14))
+                                        role: leader,
+                                        person: slate,
+                                        started_at: Date.new(1960, 5, 12),
+                                        ended_at: Date.new(1972, 5, 14))
 
     assert_equal [
       ['Fred Flintstone, Leader, Ministry for Rocks and Bones', current_leader_appointment.id],
@@ -69,10 +69,10 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     slate = create(:person, forename: "Mr.", surname: 'Slate')
 
     old_leader_appointment = create(:role_appointment,
-                                      role: leader,
-                                      person: joe,
-                                      started_at: Date.new(2006, 5, 12),
-                                      ended_at: Date.new(2011, 5, 11))
+                                    role: leader,
+                                    person: joe,
+                                    started_at: Date.new(2006, 5, 12),
+                                    ended_at: Date.new(2011, 5, 11))
     current_leader_appointment = create(:role_appointment, role: leader, person: slate)
 
     assert_equal [
@@ -93,10 +93,10 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     minister_appointment     = create(:role_appointment, role: minister, person: brown)
     board_member_appointment = create(:role_appointment, role: board_member, person: clinton)
     old_minister_appointment = create(:role_appointment,
-                                          role: minister,
-                                          person: richard,
-                                          started_at: Date.new(1932, 12, 5),
-                                          ended_at: Date.new(1972, 5, 14))
+                                      role: minister,
+                                      person: richard,
+                                      started_at: Date.new(1932, 12, 5),
+                                      ended_at: Date.new(1972, 5, 14))
 
     assert_equal [
       ['James Brown, Minister of Funk, Ministry for Funk', minister_appointment.id],

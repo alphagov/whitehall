@@ -100,7 +100,7 @@ class DocumentCollectionTest < ActiveSupport::TestCase
 
   test "indexes the body without markup as indexable_content" do
     collection = create(:document_collection,
-                    title: "A doc collection", body: "This is a *body*")
+                        title: "A doc collection", body: "This is a *body*")
     assert_match %r[^This is a body$], collection.search_index["indexable_content"]
   end
 

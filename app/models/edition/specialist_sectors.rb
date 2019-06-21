@@ -9,15 +9,15 @@ module Edition::SpecialistSectors
   included do
     has_many :specialist_sectors, foreign_key: :edition_id, dependent: :destroy
     has_many :primary_specialist_sectors,
-      -> { where(primary: true) },
-      class_name: 'SpecialistSector',
-      foreign_key: :edition_id,
-      dependent: :destroy
+             -> { where(primary: true) },
+             class_name: 'SpecialistSector',
+             foreign_key: :edition_id,
+             dependent: :destroy
     has_many :secondary_specialist_sectors,
-      -> { where(primary: false) },
-      class_name: 'SpecialistSector',
-      foreign_key: :edition_id,
-      dependent: :destroy
+             -> { where(primary: false) },
+             class_name: 'SpecialistSector',
+             foreign_key: :edition_id,
+             dependent: :destroy
 
     add_trait do
       def process_associations_before_save(edition)
