@@ -25,7 +25,10 @@ class PublicationsControllerTest < ActionController::TestCase
       keywords: "one two",
       taxons: %w[one],
       subtaxons: %w[two],
-      departments: %w[one two],
+      departments: {
+        '0': 'one',
+        '1': 'two',
+      },
       world_locations: %w[one two],
       from_date: '01/01/2014',
       to_date: '01/01/2014'

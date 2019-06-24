@@ -57,18 +57,19 @@ private
   end
 
   def publications_query_string
-    level_one_taxon = params['taxons'].try(:first) || params['topics'].try(:first)
-    level_two_taxon = params['subtaxons'].try(:first)
+    allowed_params = cleaned_document_filter_params
+    level_one_taxon = allowed_params['taxons'].try(:first) || allowed_params['topics'].try(:first)
+    level_two_taxon = allowed_params['subtaxons'].try(:first)
     level_one_taxon = nil if level_one_taxon == 'all'
     level_two_taxon = nil if level_two_taxon == 'all'
     {
       keywords: params['keywords'],
       level_one_taxon: level_one_taxon,
       level_two_taxon: level_two_taxon,
-      organisations: filter_query_array(params['departments'] || params['organisations']),
-      people: filter_query_array(params['people']),
-      world_locations: filter_query_array(params['world_locations']),
-      public_timestamp: { from: params['from_date'], to: params['to_date'] }.compact.presence
+      organisations: filter_query_array(allowed_params['departments'] || allowed_params['organisations']),
+      people: filter_query_array(allowed_params['people']),
+      world_locations: filter_query_array(allowed_params['world_locations']),
+      public_timestamp: { from: allowed_params['from_date'], to: allowed_params['to_date'] }.compact.presence
     }.compact.merge(special_params).to_query
   end
 

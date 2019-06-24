@@ -68,7 +68,10 @@ class AnnouncementsControllerTest < ActionController::TestCase
         taxons: %w[one],
         subtaxons: %w[two],
         people: %w[one two],
-        departments: %w[one two],
+        departments: {
+          '0' => 'one',
+          '1' => 'two',
+        },
         world_locations: %w[one two],
         from_date: '01/01/2014',
         to_date: '01/01/2014'

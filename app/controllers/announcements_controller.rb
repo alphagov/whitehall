@@ -51,16 +51,17 @@ private
   end
 
   def news_and_communications_query_string
+    allowed_params = cleaned_document_filter_params
     {
-      keywords: params['keywords'],
-      level_one_taxon: params['taxons'].try(:first),
-      level_two_taxon: params['subtaxons'].try(:first),
-      people: params['people'],
-      organisations: params['departments'],
-      world_locations: params['world_locations'],
+      keywords: allowed_params['keywords'],
+      level_one_taxon: allowed_params['taxons'].try(:first),
+      level_two_taxon: allowed_params['subtaxons'].try(:first),
+      people: allowed_params['people'],
+      organisations: allowed_params['departments'],
+      world_locations: allowed_params['world_locations'],
       public_timestamp: {
-        from: params['from_date'],
-        to: params['to_date']
+        from: allowed_params['from_date'],
+        to: allowed_params['to_date']
       }.compact.presence,
     }.compact.to_query
   end
