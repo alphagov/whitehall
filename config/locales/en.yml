@@ -62,6 +62,7 @@ en:
     gd: Irish
     sl: Slovenian
     sv: Swedish
+    kk: Kazakh
   activerecord:
     nested_attachment_field_names: &nested_attachment_field_names
       command_paper_number: Attachment command paper number
