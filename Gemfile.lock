@@ -185,7 +185,7 @@ GEM
       sanitize (~> 2.1.0)
     govuk-content-schema-test-helpers (1.6.1)
       json-schema (~> 2.8.0)
-    govuk-lint (3.11.2)
+    govuk-lint (3.11.3)
       rubocop (~> 0.64)
       rubocop-rspec (~> 1.28)
       scss_lint
