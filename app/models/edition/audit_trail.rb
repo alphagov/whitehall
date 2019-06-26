@@ -57,12 +57,6 @@ module Edition::AuditTrail
   end
   private :should_alert_for?
 
-  def edition_audit_trail(edition_serial_number = 0)
-    versions = edition_version_trail(edition_serial_number)
-    remarks = edition_remarks_trail(edition_serial_number)
-    (versions + remarks).sort
-  end
-
   def edition_remarks_trail(edition_serial_number = 0)
     self.editorial_remarks.map { |r|
       EditorialRemarkAuditEntry.new(edition_serial_number, self, r)
@@ -75,35 +69,32 @@ module Edition::AuditTrail
     }.sort
   end
 
-  def document_audit_trail
-    document
-      .editions
-      .includes(versions: [:user], editorial_remarks: [:author])
-      .order("created_at asc, id asc")
-      .map
-      .with_index { |edition, i| edition.edition_audit_trail(i) }
-      .flatten
+  def document_remarks_trail(superseded: true)
+    document_trail(superseded: superseded, remarks: true)
   end
 
-  def document_remarks_trail
-    document
-      .editions
-      .includes(editorial_remarks: [:author])
-      .order("created_at asc, id asc")
-      .map
-      .with_index { |edition, i| edition.edition_remarks_trail(i) }
-      .flatten
+  def document_version_trail(superseded: true)
+    document_trail(superseded: superseded, versions: true)
   end
 
-  def document_version_trail
-    document
-      .editions
+  def document_trail(superseded: true, versions: false, remarks: false)
+    scope = document.editions
+
+    scope = scope.active if superseded
+    scope = scope.includes(versions: [:user]) if versions
+    scope = scope.includes(editorial_remarks: [:author]) if remarks
+
+    scope
       .includes(versions: [:user])
       .order("created_at asc, id asc")
-      .map
-      .with_index { |edition, i| edition.edition_version_trail(i) }
-      .flatten
+      .map.with_index { |edition, i|
+        [
+          (edition.edition_version_trail(i) if versions),
+          (edition.edition_remarks_trail(i) if remarks),
+        ].compact
+      }.flatten
   end
+  private :document_trail
 
   def latest_version_audit_entry_for(state)
     edition_version_trail.reverse.detect { |audit_entry| audit_entry.version.state == state }

@@ -31,9 +31,9 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
 
   test "creation appears as a creation action" do
     edition = create(:draft_edition)
-    assert_equal 1, edition.document_audit_trail.size
-    assert_equal "created", edition.document_audit_trail.first.action
-    assert_equal @user, edition.document_audit_trail.first.actor
+    assert_equal 1, edition.document_version_trail.size
+    assert_equal "created", edition.document_version_trail.first.action
+    assert_equal @user, edition.document_version_trail.first.actor
   end
 
   test "saving after changing the state records a state change action" do
@@ -41,44 +41,44 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     edition.state = "published"
     edition.save!
 
-    assert_equal "published", edition.document_audit_trail.second.action
+    assert_equal "published", edition.document_version_trail.second.action
   end
 
   test "saving without any changes does not get recorded as an action" do
     edition = create(:draft_edition)
     edition.save!
-    assert_equal 1, edition.document_audit_trail.size
+    assert_equal 1, edition.document_version_trail.size
   end
 
   test "saving after changing an attribute without changing the state records an update action" do
     edition = create(:draft_edition)
     edition.title = "foo"
     edition.save!
-    assert_equal 2, edition.document_audit_trail.size
-    assert_equal "updated", edition.document_audit_trail.last.action
-    assert_equal @user, edition.document_audit_trail.last.actor
+    assert_equal 2, edition.document_version_trail.size
+    assert_equal "updated", edition.document_version_trail.last.action
+    assert_equal @user, edition.document_version_trail.last.actor
   end
 
   test "submitting for review records a submitted action" do
     edition = create(:draft_edition)
     edition.submit!
-    assert_equal 2, edition.document_audit_trail.size
-    assert_equal "submitted", edition.document_audit_trail.last.action
+    assert_equal 2, edition.document_version_trail.size
+    assert_equal "submitted", edition.document_version_trail.last.action
   end
 
   test "submitting for review records the person who submitted it" do
     edition = create(:draft_edition)
     Edition::AuditTrail.whodunnit = @user_2
     edition.submit!
-    assert_equal @user_2, edition.document_audit_trail.last.actor
+    assert_equal @user_2, edition.document_version_trail.last.actor
   end
 
   test "rejecting records a rejected action" do
     edition = create(:submitted_edition)
     Edition::AuditTrail.whodunnit = @user_2
     edition.reject!
-    assert_equal "rejected", edition.document_audit_trail.last.action
-    assert_equal @user_2, edition.document_audit_trail.last.actor
+    assert_equal "rejected", edition.document_version_trail.last.action
+    assert_equal @user_2, edition.document_version_trail.last.actor
   end
 
   test "publishing records a published action" do
@@ -87,8 +87,8 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     edition.major_change_published_at = Time.zone.now
     Edition::AuditTrail.whodunnit = @user_2
     edition.publish!
-    assert_equal "published", edition.document_audit_trail.last.action
-    assert_equal @user_2, edition.document_audit_trail.last.actor
+    assert_equal "published", edition.document_version_trail.last.action
+    assert_equal @user_2, edition.document_version_trail.last.actor
   end
 
   test "creating a new draft of a published edition records an edition action" do
@@ -96,25 +96,15 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     writer = create(:writer)
     Edition::AuditTrail.whodunnit = writer
     draft_edition = published_edition.create_draft(writer)
-    assert_equal "editioned", draft_edition.document_audit_trail.last.action
-    assert_equal writer, draft_edition.document_audit_trail.last.actor
+    assert_equal "editioned", draft_edition.document_version_trail.last.action
+    assert_equal writer, draft_edition.document_version_trail.last.actor
   end
 
   test "after creating a new draft, audit events from previous editions still available" do
     published_edition = create(:published_edition)
-    previous_events = published_edition.document_audit_trail
+    previous_events = published_edition.document_version_trail
     draft_edition = published_edition.create_draft(@user)
-    assert_equal previous_events, draft_edition.document_audit_trail[0..-2]
-  end
-
-  test "can request audit trail for one edition" do
-    published_edition = create(:published_edition)
-    writer = create(:writer)
-    Edition::AuditTrail.whodunnit = writer
-    draft_edition = published_edition.create_draft(writer)
-    assert_equal 1, published_edition.edition_audit_trail.size
-    assert_equal "editioned", draft_edition.document_audit_trail.last.action
-    assert_equal writer, draft_edition.document_audit_trail.last.actor
+    assert_equal previous_events, draft_edition.document_version_trail[0..-2]
   end
 
   test "can request version only trail or remark only trail" do
@@ -128,17 +118,6 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     draft_edition = published_edition.create_draft(writer)
     refute draft_edition.document_version_trail.map(&:object).map(&:class).include? EditorialRemark
     refute draft_edition.document_remarks_trail.map(&:object).map(&:class).include? Version
-  end
-
-  test "editorial remark appears as an audit action" do
-    Timecop.freeze(Time.zone.now - 2.days)
-    edition = create(:draft_edition)
-    writer = create(:writer)
-    editorial_remark_body = "blah"
-    Timecop.freeze(Time.zone.now + 1.day)
-    edition.editorial_remarks.create!(body: editorial_remark_body, author: writer)
-    assert_equal %w{created editorial_remark}, edition.document_audit_trail.map(&:action)
-    assert_equal editorial_remark_body, edition.document_audit_trail.last.message
   end
 
   test "latest_version_audit_entry_for returns most recent entry in a state" do
