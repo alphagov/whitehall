@@ -53,6 +53,11 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_redirected_to "#{Plek.new.website_root}/search/all?#{@default_converted_params.to_query}"
   end
 
+  test "when locale is English it redirects an atom feed request with params for finder-frontend" do
+    get :index, params: @default_params, format: :atom
+    assert_redirected_to "#{Plek.new.website_root}/search/all.atom?#{@default_converted_params.to_query}"
+  end
+
   test "when official_document_status is specified redirects with params for official-documents finder" do
     get :index, params: @default_params.merge(official_document_status: "command_and_act_papers")
     assert_redirected_to "#{Plek.new.website_root}/official-documents?#{@default_converted_params.to_query}"
@@ -292,132 +297,6 @@ class PublicationsControllerTest < ActionController::TestCase
 
     feed_url = publications_url(format: "atom", taxons: ["taxon-1"], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
     assert_select "a.feed[href=?]", feed_url
-  end
-
-  view_test "#index generates an atom feed for the current filter" do
-    organisation = create(:organisation, name: "org-name")
-
-    get :index, params: { departments: [organisation.to_param] }, format: :atom
-
-    assert_select_atom_feed do
-      assert_select 'feed > id', 1
-      assert_select 'feed > title', 1
-      assert_select 'feed > author, feed > entry > author'
-      assert_select 'feed > updated', 1
-      assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml',
-                    publications_url(format: :atom, departments: [organisation.to_param]), 1
-      assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', root_url, 1
-    end
-  end
-
-  view_test "#index generates an atom feed entries for publications matching the current filter" do
-    Sidekiq::Testing.inline! do
-      organisation = create(:organisation, name: "org-name")
-      other_organisation = create(:organisation, name: "other-org")
-      publication_1 = create(:published_publication, organisations: [organisation], first_published_at: 2.days.ago.to_date)
-      consultation_1 = create(:published_consultation, organisations: [organisation], opening_at: 1.day.ago)
-      _publication_2 = create(:published_publication, organisations: [other_organisation])
-
-      get :index, params: { departments: [organisation.to_param] }, format: :atom
-
-      assert_select_atom_feed do
-        assert_select_atom_entries([consultation_1, publication_1])
-      end
-    end
-  end
-
-  view_test "#index generates an atom feed entries for consultations matching the current filter" do
-    Sidekiq::Testing.inline! do
-      organisation = create(:organisation, name: "org-name")
-      other_org = create(:organisation, name: "other-org")
-      document = create(:published_consultation, organisations: [organisation], opening_at: Date.parse('2001-12-12'))
-      create(:published_consultation, organisations: [other_org])
-
-      get :index, params: { departments: [organisation.to_param] }, format: :atom
-
-      assert_select_atom_feed do
-        assert_select_atom_entries([document])
-      end
-    end
-  end
-
-  test '#index atom feed orders publications according to first_published_at (newest first)' do
-    Sidekiq::Testing.inline! do
-      oldest = create(:published_publication, first_published_at: 5.days.ago, title: "oldest")
-      newest = create(:published_publication, first_published_at: 1.days.ago, title: "newest")
-      middle = create(:published_publication, first_published_at: 3.days.ago, title: "middle")
-
-      get :index, format: :atom
-
-      assert_publication_order [newest, middle, oldest]
-    end
-  end
-
-  test '#index atom feed orders consultations according to first_published_at (newest first)' do
-    Sidekiq::Testing.inline! do
-      oldest = create(:published_consultation, first_published_at: 5.days.ago, title: "oldest")
-      newest = create(:published_consultation, first_published_at: 1.days.ago, title: "newest")
-      middle = create(:published_consultation, first_published_at: 3.days.ago, title: "middle")
-
-      get :index, format: :atom
-
-      assert_publication_order [newest, middle, oldest]
-    end
-  end
-
-  test '#index atom feed orders mixed publications and consultations according to first_published_at or opening_at (newest first)' do
-    Sidekiq::Testing.inline! do
-      oldest = create(:published_publication,  first_published_at: 5.days.ago, title: "oldest")
-      newest = create(:published_consultation, opening_at: 1.days.ago, title: "newest")
-      middle = create(:published_publication,  first_published_at: 3.days.ago, title: "middle")
-
-      get :index, format: :atom
-
-      assert_publication_order [newest, middle, oldest]
-    end
-  end
-
-  view_test '#index atom feed should return a valid feed if there are no matching documents' do
-    get :index, format: :atom
-
-    assert_select_atom_feed do
-      assert_select 'feed > updated', text: Time.zone.now.iso8601
-      assert_select 'feed > entry', count: 0
-    end
-  end
-
-  view_test '#index atom feed should include links to download attachments' do
-    Sidekiq::Testing.inline! do
-      publication = create(:published_publication, :with_file_attachment, title: "publication-title",
-                           body: "include the attachment:\n\n!@1")
-
-      get :index, format: :atom
-
-      assert_select_atom_feed do
-        assert_select 'feed > entry' do
-          assert_select "content" do |content|
-            assert content[0].to_s.include?(publication.attachments.first.url), "escaped publication body should include link to attachment"
-          end
-        end
-      end
-    end
-  end
-
-  view_test '#index atom feed should render fractions' do
-    Sidekiq::Testing.inline! do
-      create(:published_publication, body: "My favourite fraction is [Fraction:1/4].")
-    end
-
-    get :index, format: :atom
-
-    assert_select_atom_feed do
-      assert_select 'feed > entry' do
-        assert_select "content" do |content|
-          assert content[0].to_s.include?("1_4.png"), "publication body should render fractions"
-          assert content[0].to_s.include?("alt=\"1/4\""), "publication body should render fraction alt text"
-        end
-      end
-    end
   end
 
   view_test '#index should show relevant document collection information' do

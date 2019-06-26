@@ -26,6 +26,8 @@ class PublicationsController < DocumentsController
         render json: PublicationFilterJsonPresenter.new(@filter, view_context, PublicationesquePresenter)
       end
       format.atom do
+        return redirect_to_finder_frontend_finder(".atom") if Locale.current.english?
+
         documents = Publicationesque.published_with_eager_loading(@filter.documents.map(&:id))
         @publications = Whitehall::Decorators::CollectionDecorator.new(
           documents.sort_by(&:public_timestamp).reverse,
@@ -38,8 +40,8 @@ class PublicationsController < DocumentsController
 
 private
 
-  def redirect_to_finder_frontend_finder
-    base_path = "#{Plek.new.website_root}/#{publications_base_path}"
+  def redirect_to_finder_frontend_finder(format = "")
+    base_path = "#{Plek.new.website_root}/#{publications_base_path}#{format}"
     if publications_query_string == ''
       redirect_to(base_path)
     else
