@@ -80,7 +80,7 @@ module Edition::AuditTrail
   def document_trail(superseded: true, versions: false, remarks: false)
     scope = document.editions
 
-    scope = scope.active if superseded
+    scope = scope.active unless superseded
     scope = scope.includes(versions: [:user]) if versions
     scope = scope.includes(editorial_remarks: [:author]) if remarks
 
