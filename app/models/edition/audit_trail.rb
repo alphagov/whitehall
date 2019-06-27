@@ -63,8 +63,11 @@ module Edition::AuditTrail
     }.sort
   end
 
-  def edition_version_trail(edition_serial_number = 0)
-    self.versions.map { |v|
+  def edition_version_trail(edition_serial_number = 0, superseded: true)
+    scope = versions
+    scope = scope.where.not(state: "superseded") unless superseded
+
+    scope.map { |v|
       VersionAuditEntry.new(edition_serial_number, self, v)
     }.sort
   end
@@ -80,7 +83,6 @@ module Edition::AuditTrail
   def document_trail(superseded: true, versions: false, remarks: false)
     scope = document.editions
 
-    scope = scope.active unless superseded
     scope = scope.includes(versions: [:user]) if versions
     scope = scope.includes(editorial_remarks: [:author]) if remarks
 
@@ -89,7 +91,7 @@ module Edition::AuditTrail
       .order("created_at asc, id asc")
       .map.with_index { |edition, i|
         [
-          (edition.edition_version_trail(i) if versions),
+          (edition.edition_version_trail(i, superseded: superseded) if versions),
           (edition.edition_remarks_trail(i) if remarks),
         ].compact
       }.flatten
