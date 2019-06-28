@@ -68,7 +68,7 @@ module Whitehall
           assert filter_options.valid_option_name?(option_name)
         end
 
-        refute filter_options.valid_option_name?(:not_a_real_option_name)
+        assert_not filter_options.valid_option_name?(:not_a_real_option_name)
       end
 
       test "#valid_filter_key? identifies valid filter keys" do
@@ -86,7 +86,7 @@ module Whitehall
           assert filter_options.valid_filter_key?(filter_key)
         end
 
-        refute filter_options.valid_filter_key?(:not_a_real_filter_key)
+        assert_not filter_options.valid_filter_key?(:not_a_real_filter_key)
       end
 
       test "#valid_keys? returns true when given valid keys" do
@@ -96,7 +96,7 @@ module Whitehall
       end
 
       test "#valid_keys? returns false when given invalid keys" do
-        refute Options.new.valid_keys?(%w(topics frank))
+        assert_not Options.new.valid_keys?(%w(topics frank))
       end
 
       test "#valid_resource_filter_options? returns true when filtered resources exist" do
@@ -105,11 +105,11 @@ module Whitehall
       end
 
       test "valid_resource_filter_options? returns false when filtered resources do not exist" do
-        refute filter_options.valid_resource_filter_options?(topics: ['no-such-topic'])
+        assert_not filter_options.valid_resource_filter_options?(topics: ['no-such-topic'])
       end
 
       test "valid_resource_filter_options? doesn't choke on string values" do
-        refute filter_options.valid_resource_filter_options?(topics: 'string-option')
+        assert_not filter_options.valid_resource_filter_options?(topics: 'string-option')
       end
 
       test "can get the list of options for taxons" do

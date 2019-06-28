@@ -41,7 +41,7 @@ class EditionTaggableOrganisationTestForWorldOrganisations < ActiveSupport::Test
                        publication_type_id: publication_type.id,
                        organisations: [@lead_org])
 
-      refute edition.can_be_tagged_to_worldwide_taxonomy?
+      assert_not edition.can_be_tagged_to_worldwide_taxonomy?
     end
   end
 
@@ -61,6 +61,6 @@ class EditionTaggableOrganisationTestForWorldOrganisations < ActiveSupport::Test
   test '#can_be_tagged_to_worldwide_taxonomy? is false for NewsArticle' do
     edition = create(:news_article, organisations: [@lead_org])
 
-    refute edition.can_be_tagged_to_worldwide_taxonomy?
+    assert_not edition.can_be_tagged_to_worldwide_taxonomy?
   end
 end

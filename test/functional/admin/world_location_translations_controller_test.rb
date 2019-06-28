@@ -113,7 +113,7 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
     delete :destroy, params: { world_location_id: location, id: 'fr' }
 
     location.reload
-    refute location.translated_locales.include?(:fr)
+    assert_not location.translated_locales.include?(:fr)
     assert_redirected_to admin_world_location_translations_path(location)
   end
 end

@@ -3,7 +3,7 @@ require 'test_helper'
 class NationInapplicabilityTest < ActiveSupport::TestCase
   test 'should be invalid with a malformed alternative url' do
     inapplicability = build(:nation_inapplicability, alternative_url: "invalid-url")
-    refute inapplicability.valid?
+    assert_not inapplicability.valid?
   end
 
   test 'should be valid with an alternative url with HTTP protocol' do

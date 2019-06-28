@@ -188,7 +188,7 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
     delete :destroy, params: { person_id: person, id: 'fr' }
 
     person.reload
-    refute person.translated_locales.include?(:fr)
+    assert_not person.translated_locales.include?(:fr)
     assert_redirected_to admin_person_translations_path(person)
   end
 end

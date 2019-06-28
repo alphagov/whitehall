@@ -57,7 +57,7 @@ class MinisterialRoleTest < ActiveSupport::TestCase
   test "should not be destroyable when it is responsible for editions" do
     ministerial_role = create(:ministerial_role)
     create(:role_appointment, role: ministerial_role, editions: [create(:edition)])
-    refute ministerial_role.destroyable?
+    assert_not ministerial_role.destroyable?
     assert_equal false, ministerial_role.destroy
   end
 
@@ -69,12 +69,12 @@ class MinisterialRoleTest < ActiveSupport::TestCase
 
   test "can never be a permanent secretary" do
     ministerial_role = build(:ministerial_role)
-    refute ministerial_role.permanent_secretary?
+    assert_not ministerial_role.permanent_secretary?
   end
 
   test "can never be a chief of the defence staff" do
     ministerial_role = build(:ministerial_role)
-    refute ministerial_role.chief_of_the_defence_staff?
+    assert_not ministerial_role.chief_of_the_defence_staff?
   end
 
   test 'should return search index data suitable for Rummageable' do

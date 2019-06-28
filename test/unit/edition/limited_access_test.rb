@@ -20,7 +20,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   end
 
   test "sets access_limit on new instances according to class.access_limited_by_default?" do
-    refute build(:limited_access_edition).access_limited?
+    assert_not build(:limited_access_edition).access_limited?
     assert build(:limited_by_default_edition).access_limited?
   end
 
@@ -31,7 +31,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     assert e.reload.access_limited?
     e.access_limited = false
     e.save!
-    refute e.reload.access_limited?
+    assert_not e.reload.access_limited?
   end
 
   test "can select all editions accessible to a particular user" do
@@ -49,7 +49,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     accessible.each.with_index do |edition, i|
       assert Edition.accessible_to(user).include?(edition), "doc #{i} should be accessible"
     end
-    refute Edition.accessible_to(user).include?(inaccessible)
+    assert_not Edition.accessible_to(user).include?(inaccessible)
   end
 
   test "can select all editions accessible to a particular world user, respecting access_limit, org and location" do
@@ -74,7 +74,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
       assert Edition.accessible_to(user).include?(edition), "doc #{i} should be accessible"
     end
     inaccessible.each.with_index do |edition, i|
-      refute Edition.accessible_to(user).include?(edition), "doc #{i} should not be accessible"
+      assert_not Edition.accessible_to(user).include?(edition), "doc #{i} should not be accessible"
     end
   end
 
@@ -87,7 +87,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   test 'is not accessible if no user specified' do
     edition = LimitedAccessEdition.new
 
-    refute edition.accessible_to?(nil)
+    assert_not edition.accessible_to?(nil)
   end
 
   test 'is not accessible if edition is not accessible to user' do
@@ -100,7 +100,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
 
     accessible_scope.stubs(:where).with(id: edition_id).returns([])
 
-    refute edition.accessible_to?(user)
+    assert_not edition.accessible_to?(user)
   end
 
   test 'is accessible if edition is accessible to user' do

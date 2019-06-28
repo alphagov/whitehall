@@ -38,12 +38,12 @@ class PersonTest < ActiveSupport::TestCase
 
   test "should be invalid without a name" do
     person = build(:person, title: nil, forename: nil, surname: nil, letters: nil)
-    refute person.valid?
+    assert_not person.valid?
   end
 
   test "should be invalid if image isn't 960x640px" do
     person = build(:person, image: File.open(Rails.root.join('test/fixtures/horrible-image.64x96.jpg')))
-    refute person.valid?
+    assert_not person.valid?
   end
 
   test "should be valid if legacy image isn't 960x640px" do
@@ -167,7 +167,7 @@ class PersonTest < ActiveSupport::TestCase
 
   test "should not be destroyable when it has appointments" do
     person = create(:person, role_appointments: [create(:role_appointment)])
-    refute person.destroyable?
+    assert_not person.destroyable?
     assert_equal false, person.destroy
   end
 
@@ -245,16 +245,16 @@ class PersonTest < ActiveSupport::TestCase
       es: { biography: "spanish-biography" }
     })
     person.remove_translations_for(:fr)
-    refute person.translated_locales.include?(:fr)
+    assert_not person.translated_locales.include?(:fr)
     assert person.translated_locales.include?(:es)
   end
 
   test '#can_have_historical_accounts? returns true when person has roles that support them' do
     person = create(:person)
-    refute person.can_have_historical_accounts?
+    assert_not person.can_have_historical_accounts?
 
     create(:role_appointment, person: person)
-    refute person.reload.can_have_historical_accounts?
+    assert_not person.reload.can_have_historical_accounts?
 
     create(:historic_role_appointment, person: person)
     assert person.reload.can_have_historical_accounts?

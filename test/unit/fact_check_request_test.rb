@@ -3,25 +3,25 @@ require "test_helper"
 class FactCheckRequestTest < ActiveSupport::TestCase
   test "should be invalid without a edition" do
     fact_check_request = build(:fact_check_request, edition: nil)
-    refute fact_check_request.valid?
+    assert_not fact_check_request.valid?
   end
 
   test "should be invalid with a mangled email address" do
     fact_check_request = build(:fact_check_request, email_address: "not-a-valid-email")
-    refute fact_check_request.valid?
+    assert_not fact_check_request.valid?
   end
 
   test "should be invalid without a requestor" do
     fact_check_request = build(:fact_check_request, requestor: nil)
-    refute fact_check_request.valid?
+    assert_not fact_check_request.valid?
   end
 
   test "sets a 16 character random key during initialization" do
     keys = 100.times.collect { FactCheckRequest.new.key }
     assert_equal 100, keys.compact.uniq.size
     assert_equal [16], keys.collect(&:length).uniq
-    refute_equal keys.sort, keys
-    refute_equal keys.sort.reverse, keys
+    assert_not_equal keys.sort, keys
+    assert_not_equal keys.sort.reverse, keys
   end
 
   test "doesn't allow key to change via setter" do

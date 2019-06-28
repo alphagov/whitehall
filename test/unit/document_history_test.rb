@@ -97,7 +97,7 @@ class DocumentHistoryTest < ActiveSupport::TestCase
     assert DocumentHistory.new(document).newly_published?
 
     create(:superseded_edition, document: document)
-    refute DocumentHistory.new(document).newly_published?
+    assert_not DocumentHistory.new(document).newly_published?
   end
 
   test 'withdrawn documents still get a history' do

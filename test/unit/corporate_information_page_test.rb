@@ -4,7 +4,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
   def self.should_be_invalid_without(type, attribute_name)
     test "#{type} should be invalid without #{attribute_name}" do
       document = build(type, attribute_name => nil)
-      refute document.valid?
+      assert_not document.valid?
     end
   end
 
@@ -25,7 +25,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     corporate_information_page = build(:corporate_information_page,
                                        organisation: organisation,
                                        worldwide_organisation: worldwide_org)
-    refute corporate_information_page.valid?
+    assert_not corporate_information_page.valid?
   end
 
   test 'should be invalid if it refers to the same document of another page' do
@@ -40,7 +40,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     corporate_information_page_2 = build(:corporate_information_page,
                                          organisation: organisation,
                                          corporate_information_page_type: CorporateInformationPageType::AboutUs)
-    refute corporate_information_page_2.valid?
+    assert_not corporate_information_page_2.valid?
 
     assert corporate_information_page_2.errors.full_messages.include?("Another 'About' page was already published for this organisation")
   end

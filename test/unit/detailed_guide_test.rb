@@ -63,13 +63,13 @@ class DetailedGuideTest < ActiveSupport::TestCase
   end
 
   test "can be associated with some content in the mainstream application" do
-    refute build(:detailed_guide).has_related_mainstream_content?
+    assert_not build(:detailed_guide).has_related_mainstream_content?
     guide = build(:detailed_guide, related_mainstream_content_url: "http://mainstream/content")
     assert guide.has_related_mainstream_content?
   end
 
   test "can be associated with some additional content in the mainstream application" do
-    refute build(:detailed_guide).has_additional_related_mainstream_content?
+    assert_not build(:detailed_guide).has_additional_related_mainstream_content?
     guide = build(:detailed_guide, additional_related_mainstream_content_url: "http://mainstream/content")
     assert guide.has_additional_related_mainstream_content?
   end
@@ -83,7 +83,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
   test "should be invalid if level-3 heading has no parent level-2 heading" do
     body = "### Orphan\n\n## Uncle\n\n## Aunt"
     detailed_guide = build(:detailed_guide, body: body)
-    refute detailed_guide.valid?
+    assert_not detailed_guide.valid?
     assert_equal ["must have a level-2 heading (h2 - ##) before level-3 heading (h3 - ###): 'Orphan'"], detailed_guide.errors[:body]
   end
 
@@ -142,7 +142,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
       additional_related_mainstream_content_url: "http://www.gov.uk/another-content-missing-from-publishing-api"
     )
 
-    refute detailed_guide.valid?
+    assert_not detailed_guide.valid?
     assert_equal ["This mainstream content could not be found"], detailed_guide.errors[:related_mainstream_content_url]
     assert_equal ["This mainstream content could not be found"], detailed_guide.errors[:additional_related_mainstream_content_url]
   end

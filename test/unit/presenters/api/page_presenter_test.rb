@@ -83,14 +83,14 @@ class Api::PagePresenterTest < PresenterTestCase
   test 'links do not include a rel=next url if it is the last page' do
     @page.stubs(:last_page?).returns true
     next_link = @presenter.links.detect { |(_url, attrs)| attrs['rel'] == 'next' }
-    refute next_link
+    assert_not next_link
   end
 
   test 'links do not include a rel=next url if it is the page is out of range' do
     @page.stubs(:last_page?).returns false
     @page.stubs(:out_of_range?).returns true
     next_link = @presenter.links.detect { |(_url, attrs)| attrs['rel'] == 'next' }
-    refute next_link
+    assert_not next_link
   end
 
   test 'links include a rel=previous url pointing to the previous page if it has a previous page' do
@@ -104,6 +104,6 @@ class Api::PagePresenterTest < PresenterTestCase
   test 'links do not include a rel=previous url if it is the first page' do
     @page.stubs(:first_page?).returns true
     previous_link = @presenter.links.detect { |(_url, attrs)| attrs['rel'] == 'previous' }
-    refute previous_link
+    assert_not previous_link
   end
 end

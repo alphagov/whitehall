@@ -178,7 +178,7 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
     delete :destroy, params: { edition_id: edition, id: 'fr' }
 
     edition.reload
-    refute edition.translated_locales.include?(:fr)
+    assert_not edition.translated_locales.include?(:fr)
     assert_redirected_to @controller.admin_edition_path(edition)
   end
 

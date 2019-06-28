@@ -3,39 +3,39 @@ require "test_helper"
 class RoleAppointmentTest < ActiveSupport::TestCase
   test "should be invalid with no started_at" do
     role_appointment = build(:role_appointment, started_at: nil)
-    refute role_appointment.valid?
+    assert_not role_appointment.valid?
   end
 
   test "should be invalid with no role" do
     role_appointment = build(:role_appointment, role: nil)
-    refute role_appointment.valid?
+    assert_not role_appointment.valid?
   end
 
   test "should be invalid with no person" do
     role_appointment = build(:role_appointment, person: nil)
-    refute role_appointment.valid?
+    assert_not role_appointment.valid?
   end
 
   test "should be invalid if ended_at is before started_at" do
     role_appointment = build(:role_appointment,
                              started_at: Time.zone.parse("2000-12-30"),
                              ended_at: Time.zone.parse("1999-01-01"))
-    refute role_appointment.valid?
+    assert_not role_appointment.valid?
   end
 
   test "should be invalid if started_at is in the future" do
     role_appointment = build(:role_appointment, started_at: 1.second.from_now)
-    refute role_appointment.valid?
+    assert_not role_appointment.valid?
   end
 
   test "should be invalid if ended_at is in the future" do
     role_appointment = build(:role_appointment, ended_at: 1.second.from_now)
-    refute role_appointment.valid?
+    assert_not role_appointment.valid?
   end
 
   test "should not be current if not started" do
     role_appointment = build(:role_appointment, started_at: nil, ended_at: nil)
-    refute role_appointment.current?
+    assert_not role_appointment.current?
   end
 
   test "should be current if started but not ended" do
@@ -45,7 +45,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
   test "should not be current if started and ended" do
     role_appointment = build(:role_appointment, started_at: 2.years.ago, ended_at: 1.year.ago)
-    refute role_appointment.current?
+    assert_not role_appointment.current?
   end
 
   test "should link a MinisterialRole to the Person who currently holds the role" do
@@ -98,12 +98,12 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     role = create(:role)
     create(:role_appointment, role: role, started_at: 10.days.ago, ended_at: 5.days.ago)
     appointment = build(:role_appointment, role: role, started_at: 10.days.ago, ended_at: 3.days.ago)
-    refute appointment.valid?
+    assert_not appointment.valid?
   end
 
   test "should not be considered to overlap with itself" do
     appointment = create(:role_appointment, started_at: 10.days.ago, ended_at: 5.days.ago)
-    refute appointment.reload.overlaps_any?
+    assert_not appointment.reload.overlaps_any?
   end
 
   # TEST FIXTURES FOR #overlaps_any? tests
@@ -210,7 +210,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     examples.each do |example|
       test "should not detect any overlapping appointments between #{existing} and #{example}" do
         appointment = create_existing_appointment_and_build_example(existing, example)
-        refute appointment.overlaps_any?
+        assert_not appointment.overlaps_any?
       end
     end
   end
@@ -275,14 +275,14 @@ class RoleAppointmentTest < ActiveSupport::TestCase
   negative_before_examples.each do |example|
     test "should detect that #{example} is not before #{existing}" do
       appointment = create_existing_appointment_and_build_example(existing, example)
-      refute appointment.before_any?
+      assert_not appointment.before_any?
     end
   end
 
   test "setting make_current should only result in a valid appointment if started_at is greater than all others" do
     role = create(:ministerial_role)
     _original_appointment = create(:role_appointment, role: role, started_at: 3.days.ago)
-    refute build(:role_appointment, role: role, started_at: 4.days.ago, make_current: true).valid?
+    assert_not build(:role_appointment, role: role, started_at: 4.days.ago, make_current: true).valid?
   end
 
   test "should not overwrite ended_at if ended_at already set" do
@@ -318,7 +318,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
   test "should not be destroyable when it has speeches" do
     speech = create(:speech)
     appointment = speech.role_appointment
-    refute appointment.destroyable?
+    assert_not appointment.destroyable?
     assert_equal false, appointment.destroy
   end
 
@@ -357,14 +357,14 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
   test "current_at is only true if the appointment is current at the given date" do
     role_appointment = build(:role_appointment, started_at: 2.years.ago, ended_at: 1.year.ago)
-    refute role_appointment.current_at(3.years.ago)
+    assert_not role_appointment.current_at(3.years.ago)
     assert role_appointment.current_at(18.months.ago)
-    refute role_appointment.current_at(6.months.ago)
+    assert_not role_appointment.current_at(6.months.ago)
   end
 
   test "current_at is true for current appointments if the given date is newer than started_at" do
     role_appointment = build(:role_appointment, started_at: 2.years.ago, ended_at: nil)
-    refute role_appointment.current_at(3.years.ago)
+    assert_not role_appointment.current_at(3.years.ago)
     assert role_appointment.current_at(18.months.ago)
     assert role_appointment.current_at(1.second.ago)
   end

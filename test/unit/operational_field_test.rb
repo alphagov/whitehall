@@ -12,13 +12,13 @@ class OperationalFieldTest < ActiveSupport::TestCase
 
   test "is invalid without a name" do
     operational_field = build(:operational_field, name: "")
-    refute operational_field.valid?
+    assert_not operational_field.valid?
   end
 
   test "is invalid without a unique name" do
     existing_operational_field = create(:operational_field)
     new_operational_field = build(:operational_field, name: existing_operational_field.name)
-    refute new_operational_field.valid?
+    assert_not new_operational_field.valid?
   end
 
   test "sets a slug from the field name" do

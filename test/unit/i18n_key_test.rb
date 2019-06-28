@@ -4,7 +4,7 @@ class I18nKeyTest < ActiveSupport::TestCase
   test "the default locale has values for all keys" do
     default_translation_data = YAML.load_file default_locale_file_path
 
-    refute any_nil_values?(default_translation_data), "Default translation #{I18n.default_locale}.yml contains keys with nil values."
+    assert_not any_nil_values?(default_translation_data), "Default translation #{I18n.default_locale}.yml contains keys with nil values."
   end
 
   test "all locale files are up-to-date" do

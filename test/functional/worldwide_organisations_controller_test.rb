@@ -61,7 +61,7 @@ class WorldwideOrganisationsControllerTest < ActionController::TestCase
     get :show, params: { id: worldwide_organisation }
 
     worldwide_organisation.reload
-    refute worldwide_organisation.has_home_page_offices_list?
+    assert_not worldwide_organisation.has_home_page_offices_list?
   end
 
   view_test "showing a preview of draft content when requested and a user is logged in" do

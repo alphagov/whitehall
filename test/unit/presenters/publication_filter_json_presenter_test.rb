@@ -32,7 +32,7 @@ class PublicationFilterJsonPresenterTest < PresenterTestCase
     presenter = PublicationFilterJsonPresenter.new(@filter, @view_context)
     email_signup_url = JSON.parse(presenter.to_json)["email_signup_url"]
 
-    refute email_signup_url.include?("open-consultations")
+    assert_not email_signup_url.include?("open-consultations")
     assert email_signup_url.include?("consultations")
   end
 
@@ -42,7 +42,7 @@ class PublicationFilterJsonPresenterTest < PresenterTestCase
     presenter = PublicationFilterJsonPresenter.new(@filter, @view_context)
     email_signup_url = JSON.parse(presenter.to_json)["email_signup_url"]
 
-    refute email_signup_url.include?("closed-consultations")
+    assert_not email_signup_url.include?("closed-consultations")
     assert email_signup_url.include?("consultations")
   end
 end

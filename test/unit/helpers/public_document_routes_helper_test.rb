@@ -109,7 +109,7 @@ class PublicDocumentRoutesHelperTest < LocalisedUrlTestCase
 
   test 'Locale is ignored if edition is a non-translatable type' do
     non_translatable_edition = create(:consultation)
-    refute public_document_url(non_translatable_edition, locale: 'fr').include?('fr')
+    assert_not public_document_url(non_translatable_edition, locale: 'fr').include?('fr')
   end
 
   test "With non-english editions, the edition's locale is always used" do

@@ -19,7 +19,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
 
     attachment.destroy
 
-    refute GovspeakContent.exists?(govspeak_content.id)
+    assert_not GovspeakContent.exists?(govspeak_content.id)
   end
 
   test '#deep_clone deep clones the HTML attachment, body, content_id and slug' do

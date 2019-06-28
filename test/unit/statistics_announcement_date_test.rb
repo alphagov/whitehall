@@ -6,7 +6,7 @@ class StatisticsAnnouncementDateTest < ActiveSupport::TestCase
       assert build(:statistics_announcement_date, precision: value).valid?
     end
 
-    refute build(:statistics_announcement_date, precision: 42).valid?
+    assert_not build(:statistics_announcement_date, precision: 42).valid?
   end
 
   test '#display_date gives exact date when precision is :exact' do
@@ -34,11 +34,11 @@ class StatisticsAnnouncementDateTest < ActiveSupport::TestCase
   end
 
   test 'a confirmed date must be of exact precision' do
-    refute build(:statistics_announcement_date,
+    assert_not build(:statistics_announcement_date,
                  precision: StatisticsAnnouncementDate::PRECISION[:one_month],
                  confirmed: true).valid?
 
-    refute build(:statistics_announcement_date,
+    assert_not build(:statistics_announcement_date,
                  precision: StatisticsAnnouncementDate::PRECISION[:two_month],
                  confirmed: true).valid?
 

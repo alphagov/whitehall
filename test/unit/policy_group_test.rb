@@ -3,7 +3,7 @@ require "test_helper"
 class PolicyGroupTest < ActiveSupport::TestCase
   test "should be invalid without a name" do
     policy_group = build(:policy_group, name: '')
-    refute policy_group.valid?
+    assert_not policy_group.valid?
   end
 
   test "should be valid without an email" do
@@ -19,7 +19,7 @@ class PolicyGroupTest < ActiveSupport::TestCase
 
   test "should be invalid without a valid email" do
     policy_group = build(:policy_group, email: "invalid-email")
-    refute policy_group.valid?
+    assert_not policy_group.valid?
   end
 
   test "should allow a description" do
@@ -42,7 +42,7 @@ class PolicyGroupTest < ActiveSupport::TestCase
 
   test '#access_limited? returns false' do
     policy_group = FactoryBot.build(:policy_group)
-    refute policy_group.access_limited?
+    assert_not policy_group.access_limited?
   end
 
   test '#access_limited_object returns nil' do
@@ -57,7 +57,7 @@ class PolicyGroupTest < ActiveSupport::TestCase
 
   test 'is never unpublished' do
     policy_group = FactoryBot.build(:policy_group)
-    refute policy_group.unpublished?
+    assert_not policy_group.unpublished?
   end
 
   test 'never has unpublished edition' do

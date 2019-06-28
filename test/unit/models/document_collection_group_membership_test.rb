@@ -9,15 +9,15 @@ class DocumentCollectionGroupMembershipTest < ActiveSupport::TestCase
   end
 
   test 'is invalid without a document' do
-    refute build(:document_collection_group_membership, document: nil).valid?
+    assert_not build(:document_collection_group_membership, document: nil).valid?
   end
 
   test 'is invalid without a document_collection_group' do
-    refute build(:document_collection_group_membership, document_collection_group: nil).valid?
+    assert_not build(:document_collection_group_membership, document_collection_group: nil).valid?
   end
 
   test 'is invalid when document is a document collection' do
     membership = build(:document_collection_group_membership, document: create(:document_collection).document)
-    refute membership.valid?
+    assert_not membership.valid?
   end
 end

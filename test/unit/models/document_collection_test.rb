@@ -52,7 +52,7 @@ class DocumentCollectionTest < ActiveSupport::TestCase
   test "it should not create a group if it's already been given one" do
     doc_collection = create(:document_collection, groups: [build(:document_collection_group, heading: 'not documents')])
     assert_equal 1, doc_collection.groups.length
-    refute_equal "Documents", doc_collection.groups[0].heading
+    assert_not_equal "Documents", doc_collection.groups[0].heading
   end
 
   def assert_collection_groups_are_the_same(original, draft)
@@ -79,7 +79,7 @@ class DocumentCollectionTest < ActiveSupport::TestCase
   end
 
   test "only indexes published collections" do
-    refute create(:unpublished_document_collection).can_index_in_search?
+    assert_not create(:unpublished_document_collection).can_index_in_search?
     assert create(:published_document_collection).can_index_in_search?
   end
 
@@ -112,7 +112,7 @@ class DocumentCollectionTest < ActiveSupport::TestCase
     collection = create(:document_collection, groups: [empty_group, visible_group])
 
     assert_match %r[^The Heading$], collection.search_index['indexable_content']
-    refute_match %r[^Empty Heading$], collection.search_index['indexable_content']
+    assert_no_match %r[^Empty Heading$], collection.search_index['indexable_content']
     assert_match %r[^The Body$], collection.search_index['indexable_content']
   end
 

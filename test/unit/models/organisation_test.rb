@@ -5,23 +5,23 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test 'should be invalid without a name' do
     organisation = build(:organisation, name: nil)
-    refute organisation.valid?
+    assert_not organisation.valid?
   end
 
   test 'should be invalid without a logo formatted name' do
     organisation = build(:organisation, logo_formatted_name: nil)
-    refute organisation.valid?
+    assert_not organisation.valid?
   end
 
   test 'should be invalid with a duplicate name' do
     existing_organisation = create(:organisation)
     new_organisation = build(:organisation, name: existing_organisation.name)
-    refute new_organisation.valid?
+    assert_not new_organisation.valid?
   end
 
   test 'should be invalid with a badly formatted alternative_format_contact_email' do
     new_organisation = build(:organisation, alternative_format_contact_email: "this@email@is@invalid")
-    refute new_organisation.valid?
+    assert_not new_organisation.valid?
   end
 
   test 'should be valid if govuk status is live' do
@@ -41,7 +41,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test 'should be invalid if a custom logo is used with an exempt organisation' do
     assert build(:organisation, govuk_status: 'exempt', organisation_logo_type: OrganisationLogoType::NoIdentity).valid?
-    refute build(:organisation, govuk_status: 'exempt', organisation_logo_type: OrganisationLogoType::CustomLogo).valid?
+    assert_not build(:organisation, govuk_status: 'exempt', organisation_logo_type: OrganisationLogoType::CustomLogo).valid?
   end
 
   test 'should be valid if govuk status is transitioning' do
@@ -51,12 +51,12 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test 'should be invalid if govuk status is closed and has no govuk closed status' do
     new_organisation = build(:organisation, govuk_status: 'closed')
-    refute new_organisation.valid?
+    assert_not new_organisation.valid?
   end
 
   test 'should be invalid if govuk status is closed and has an invalid govuk closed status' do
     new_organisation = build(:organisation, govuk_status: 'closed', govuk_closed_status: 'not-known-status')
-    refute new_organisation.valid?
+    assert_not new_organisation.valid?
   end
 
   test 'should be valid if govuk status is closed and has a valid govuk closed status' do
@@ -66,67 +66,67 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test 'should be invalid if govuk status is not active, coming, exempt or transitioning' do
     new_organisation = build(:organisation, govuk_status: 'something-elese')
-    refute new_organisation.valid?
+    assert_not new_organisation.valid?
   end
 
   test 'should be invalid if govuk closed status is merged and it has no superseding organisations' do
     new_organisation = build(:organisation, govuk_status: 'closed', govuk_closed_status: 'merged', superseding_organisations: [])
-    refute new_organisation.valid?
+    assert_not new_organisation.valid?
   end
 
   test 'should be invalid if govuk closed status is merged and it has more than one superseding organisation' do
     organisation_1 = create(:organisation, name: 'Superseding 1')
     organisation_2 = create(:organisation, name: 'Superseding 2')
     new_organisation = build(:organisation, govuk_status: 'closed', govuk_closed_status: 'merged', superseding_organisations: [organisation_1, organisation_2])
-    refute new_organisation.valid?
+    assert_not new_organisation.valid?
   end
 
   test 'should be invalid if govuk closed status is replaced and it has no superseding organisations' do
     new_organisation = build(:organisation, govuk_status: 'closed', govuk_closed_status: 'replaced', superseding_organisations: [])
-    refute new_organisation.valid?
+    assert_not new_organisation.valid?
   end
 
   test 'should be invalid if govuk closed status is replaced and it has more than one superseding organisation' do
     organisation_1 = create(:organisation, name: 'Superseding 1')
     organisation_2 = create(:organisation, name: 'Superseding 2')
     new_organisation = build(:organisation, govuk_status: 'closed', govuk_closed_status: 'replaced', superseding_organisations: [organisation_1, organisation_2])
-    refute new_organisation.valid?
+    assert_not new_organisation.valid?
   end
 
   test 'should be invalid if govuk closed status is name changed and it has no superseding organisations' do
     new_organisation = build(:organisation, govuk_status: 'closed', govuk_closed_status: 'changed_name', superseding_organisations: [])
-    refute new_organisation.valid?
+    assert_not new_organisation.valid?
   end
 
   test 'should be invalid if govuk closed status is name changed and it has more than one superseding organisation' do
     organisation_1 = create(:organisation)
     organisation_2 = create(:organisation)
     new_organisation = build(:organisation, govuk_status: 'closed', govuk_closed_status: 'changed_name', superseding_organisations: [organisation_1, organisation_2])
-    refute new_organisation.valid?
+    assert_not new_organisation.valid?
   end
 
   test 'should be invalid if govuk closed status is split and it has less than two superseding organisations' do
     organisation_1 = create(:organisation)
     new_organisation = build(:organisation, govuk_status: 'closed', govuk_closed_status: 'split', superseding_organisations: [organisation_1])
-    refute new_organisation.valid?
+    assert_not new_organisation.valid?
   end
 
   test 'should be invalid if govuk closed status is devolved and it has no superseding organisations' do
     new_organisation = build(:organisation, govuk_status: 'closed', govuk_closed_status: 'devolved', superseding_organisations: [])
-    refute new_organisation.valid?
+    assert_not new_organisation.valid?
   end
 
   test 'should be invalid if govuk closed status is devolved and it has more than one superseding organisation' do
     organisation_1 = create(:organisation, name: 'Superseding 1')
     organisation_2 = create(:organisation, name: 'Superseding 2')
     new_organisation = build(:organisation, govuk_status: 'closed', govuk_closed_status: 'devolved', superseding_organisations: [organisation_1, organisation_2])
-    refute new_organisation.valid?
+    assert_not new_organisation.valid?
   end
 
   test 'should be invalid if govuk closed status is devolved and its superseding organisation is not devolved' do
     organisation_1 = create(:organisation)
     new_organisation = build(:organisation, govuk_status: 'closed', govuk_closed_status: 'devolved', superseding_organisations: [organisation_1])
-    refute new_organisation.valid?
+    assert_not new_organisation.valid?
   end
 
   test 'should be invalid with a blank alternative_format_contact_email if it is used as a alternative_format_provider' do
@@ -134,7 +134,7 @@ class OrganisationTest < ActiveSupport::TestCase
     create(:draft_publication, alternative_format_provider: organisation)
     assert organisation.valid?
     organisation.alternative_format_contact_email = ""
-    refute organisation.valid?
+    assert_not organisation.valid?
   end
 
   test 'should be valid with a blank alternative_format_contact_email if the org is closed' do
@@ -148,14 +148,14 @@ class OrganisationTest < ActiveSupport::TestCase
   test 'should be invalid with a URL that doesnt start with a protocol' do
     assert build(:organisation, url: nil).valid?
     assert build(:organisation, url: '').valid?
-    refute build(:organisation, url: "blah").valid?
-    refute build(:organisation, url: "www.example.com").valid?
+    assert_not build(:organisation, url: "blah").valid?
+    assert_not build(:organisation, url: "www.example.com").valid?
     assert build(:organisation, url: "http://www.example.com").valid?
   end
 
   test 'should be invalid without a organisation logo type' do
     organisation = build(:organisation, organisation_logo_type: nil)
-    refute organisation.valid?
+    assert_not organisation.valid?
   end
 
   test 'should be invalid if custom logo type selected but no logo present' do
@@ -163,7 +163,7 @@ class OrganisationTest < ActiveSupport::TestCase
       :organisation,
       organisation_logo_type_id: OrganisationLogoType::CustomLogo.id
     )
-    refute organisation.valid?
+    assert_not organisation.valid?
     assert organisation.errors[:logo].present?
   end
 
@@ -212,15 +212,15 @@ class OrganisationTest < ActiveSupport::TestCase
     parent_org = create(:organisation, child_organisations: [child_org])
 
     assert parent_org.has_child_organisation?(child_org)
-    refute child_org.has_child_organisation?(parent_org)
+    assert_not child_org.has_child_organisation?(parent_org)
   end
 
   test "considers itself as superseded_by_devolved_administration if it's devolved and any of its superseding organisations are devolved administrations" do
     devolved_administration = build :devolved_administration
     other_organisation = build :organisation
 
-    refute build(:closed_organisation, govuk_closed_status: 'devolved', superseding_organisations: [other_organisation]).superseded_by_devolved_administration?
-    refute build(:closed_organisation, govuk_closed_status: 'no_longer_exists', superseding_organisations: [other_organisation, devolved_administration]).superseded_by_devolved_administration?
+    assert_not build(:closed_organisation, govuk_closed_status: 'devolved', superseding_organisations: [other_organisation]).superseded_by_devolved_administration?
+    assert_not build(:closed_organisation, govuk_closed_status: 'no_longer_exists', superseding_organisations: [other_organisation, devolved_administration]).superseded_by_devolved_administration?
     assert build(:closed_organisation, govuk_closed_status: 'devolved', superseding_organisations: [other_organisation, devolved_administration]).superseded_by_devolved_administration?
   end
 
@@ -693,7 +693,7 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation = create(:organisation)
     role = create(:role)
     organisation.roles << role
-    refute organisation.destroyable?
+    assert_not organisation.destroyable?
     organisation.destroy
     assert Organisation.find(organisation.id)
   end
@@ -702,7 +702,7 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation = create(:organisation)
     child_org = create(:organisation)
     organisation.child_organisations << child_org
-    refute organisation.destroyable?
+    assert_not organisation.destroyable?
     organisation.destroy
     assert Organisation.find(organisation.id)
   end
@@ -738,14 +738,14 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test "can report whether any published publications of a particular type are available" do
     organisation = create(:organisation)
-    refute organisation.has_published_publications_of_type?(PublicationType::FoiRelease)
+    assert_not organisation.has_published_publications_of_type?(PublicationType::FoiRelease)
     create(:published_publication, :foi_release, organisations: [organisation])
     assert organisation.has_published_publications_of_type?(PublicationType::FoiRelease)
   end
 
   test "ensures that analytics identifier exists on save" do
     organisation = build(:organisation, analytics_identifier: nil)
-    refute organisation.analytics_identifier.present?
+    assert_not organisation.analytics_identifier.present?
     organisation.save!
     assert organisation.reload.analytics_identifier.present?
   end
@@ -825,9 +825,9 @@ class OrganisationTest < ActiveSupport::TestCase
 
     foi_contacts = organisation.foi_contacts
     assert foi_contacts.include?(contact_1), 'expected our foi contact to be in our list of foi contacts'
-    refute foi_contacts.include?(contact_2), 'expected someone else\'s foi contact not to be in our list of foi contacts'
-    refute foi_contacts.include?(contact_3), 'expected our media contact not to be in our list of foi contacts'
-    refute foi_contacts.include?(contact_4), 'expected our general contact not to be in our list of foi contacts'
+    assert_not foi_contacts.include?(contact_2), 'expected someone else\'s foi contact not to be in our list of foi contacts'
+    assert_not foi_contacts.include?(contact_3), 'expected our media contact not to be in our list of foi contacts'
+    assert_not foi_contacts.include?(contact_4), 'expected our general contact not to be in our list of foi contacts'
   end
 
   test 'knows if a given contact is on its home page' do
@@ -846,7 +846,7 @@ class OrganisationTest < ActiveSupport::TestCase
     contact_2 = create(:contact, contact_type: ContactType::FOI)
 
     assert organisation.contact_shown_on_home_page?(contact_1), 'expected FOI contact that belongs to org to be shown_on_home_page?, but it wasn\'t'
-    refute organisation.contact_shown_on_home_page?(contact_2), 'expected FOI contact that doesn\'t belong to org to not be shown_on_home_page?, but it was'
+    assert_not organisation.contact_shown_on_home_page?(contact_2), 'expected FOI contact that doesn\'t belong to org to not be shown_on_home_page?, but it was'
   end
 
   test 'has a list of contacts that are on its home page' do
@@ -912,7 +912,7 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation = create(:organisation)
     h = organisation.__send__(:home_page_contacts_list)
     organisation.destroy
-    refute HomePageList.exists?(h.id)
+    assert_not HomePageList.exists?(h.id)
   end
 
   test 'Organisation.with_published_editions returns organisations with published editions' do
@@ -974,7 +974,7 @@ class OrganisationTest < ActiveSupport::TestCase
     org = create(:organisation)
     org.stubs(:organisations_with_services_and_information_link).returns(list)
 
-    refute org.has_services_and_information_link?
+    assert_not org.has_services_and_information_link?
   end
 
   test '#jobs_url defaults to the default jobs url' do
@@ -1000,14 +1000,14 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation = build(:organisation, homepage_type: 'service')
 
     assert organisation.service_priority_homepage?
-    refute organisation.news_priority_homepage?
+    assert_not organisation.news_priority_homepage?
   end
 
   test "#news_priority_homepage? should be true if its homepage type is news" do
     organisation = build(:organisation, homepage_type: 'news')
 
     assert organisation.news_priority_homepage?
-    refute organisation.service_priority_homepage?
+    assert_not organisation.service_priority_homepage?
   end
 
   test "search description for a closed organisation" do

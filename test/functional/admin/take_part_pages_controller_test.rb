@@ -23,7 +23,7 @@ class Admin::TakePartPagesControllerTest < ActionController::TestCase
     get :new
 
     assert assigns(:take_part_page).is_a? TakePartPage
-    refute assigns(:take_part_page).persisted?
+    assert_not assigns(:take_part_page).persisted?
     assert_response :success
     assert_template 'new'
   end
@@ -49,7 +49,7 @@ class Admin::TakePartPagesControllerTest < ActionController::TestCase
     attrs = attributes_for(:take_part_page, title: '')
     post :create, params: { take_part_page: attrs }
 
-    refute assigns(:take_part_page).persisted?
+    assert_not assigns(:take_part_page).persisted?
     assert_response :success
     assert_template 'new'
   end
@@ -80,7 +80,7 @@ class Admin::TakePartPagesControllerTest < ActionController::TestCase
     post :update, params: { id: page, take_part_page: attrs }
 
     assert_equal page, assigns(:take_part_page)
-    refute_equal '', page.reload.title
+    assert_not_equal '', page.reload.title
     assert_equal '', assigns(:take_part_page).title
     assert_response :success
     assert_template 'edit'
@@ -92,7 +92,7 @@ class Admin::TakePartPagesControllerTest < ActionController::TestCase
 
     delete :destroy, params: { id: page }
 
-    refute TakePartPage.exists?(page.id)
+    assert_not TakePartPage.exists?(page.id)
     assert_redirected_to admin_take_part_pages_path
   end
 

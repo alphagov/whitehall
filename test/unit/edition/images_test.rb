@@ -57,7 +57,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
     assert draft_edition.valid?
 
     new_image = draft_edition.images.last
-    refute_equal image, new_image
+    assert_not_equal image, new_image
     assert_equal image.alt_text, new_image.alt_text
     assert_equal image.caption, new_image.caption
   end
@@ -130,7 +130,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
     image = create(:image)
     edition = EditionWithImages.create!(valid_edition_attributes.merge(images: [image]))
     edition.destroy
-    refute Image.find_by(id: image.id)
+    assert_not Image.find_by(id: image.id)
   end
 
   test "should indicate that it allows image attachments" do

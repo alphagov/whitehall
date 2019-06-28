@@ -12,21 +12,21 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert build(:statistics_announcement, publication_type_id: PublicationType::NationalStatistics.id).valid?
 
     announcement = build(:statistics_announcement, publication_type_id: PublicationType::PolicyPaper.id)
-    refute announcement.valid?
+    assert_not announcement.valid?
 
     assert_match %r[must be a statistical type], announcement.errors[:publication_type_id].first
   end
 
   test 'when unpublished, a redirect_url is required' do
     announcement = build(:unpublished_statistics_announcement, redirect_url: nil)
-    refute announcement.valid?
+    assert_not announcement.valid?
 
     assert_match %r[must be provided when unpublishing an announcement], announcement.errors[:redirect_url].first
   end
 
   test 'when unpublished, a GOV.UK redirect_url is required' do
     announcement = build(:unpublished_statistics_announcement, redirect_url: "https://www.youtube.com")
-    refute announcement.valid?
+    assert_not announcement.valid?
 
     assert_match %r{must be in the form of https://www.test.gov.uk/example}, announcement.errors[:redirect_url].first
   end
@@ -34,7 +34,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   test 'when unpublished, it cannot redirect to itself' do
     announcement = build(:unpublished_statistics_announcement, slug: "dummy")
     announcement.redirect_url = announcement.public_path
-    refute announcement.valid?
+    assert_not announcement.valid?
 
     assert_match %r[cannot redirect to itself], announcement.errors[:redirect_url].first
   end
@@ -91,14 +91,14 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert announcement.valid?
 
     announcement.publication = national_statistics
-    refute announcement.valid?
+    assert_not announcement.valid?
     assert_equal ["type does not match: must be statistics"], announcement.errors[:publication]
 
     announcement.publication_type_id = PublicationType::NationalStatistics.id
     assert announcement.valid?
 
     announcement.publication = policy_paper
-    refute announcement.valid?
+    assert_not announcement.valid?
     assert_equal ["type does not match: must be national statistics"], announcement.errors[:publication]
   end
 
@@ -181,7 +181,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   test 'cannot cancel without a reason' do
     announcement = create(:statistics_announcement)
 
-    refute announcement.cancel!('', announcement.creator)
+    assert_not announcement.cancel!('', announcement.creator)
     assert_match %r[must be provided when cancelling an announcement], announcement.errors[:cancellation_reason].first
   end
 
@@ -246,7 +246,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
       publishing_state: 'published',
       publication: nil,
     )
-    refute statistics_announcement.requires_redirect?
+    assert_not statistics_announcement.requires_redirect?
   end
 
   test 'requires_redirect? returns true when when publication is published?' do
@@ -264,7 +264,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
       publishing_state: 'published',
       publication: build(:draft_statistics),
     )
-    refute statistics_announcement.requires_redirect?
+    assert_not statistics_announcement.requires_redirect?
   end
 
   test 'publishes to publishing api with a minor update type' do

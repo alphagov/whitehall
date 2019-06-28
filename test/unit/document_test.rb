@@ -46,7 +46,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "should not be published if no published edition exists" do
     draft_publication = create(:draft_publication)
-    refute draft_publication.document.published?
+    assert_not draft_publication.document.published?
   end
 
   test "should no longer be published when it's edition is unpublished" do
@@ -55,7 +55,7 @@ class DocumentTest < ActiveSupport::TestCase
 
     published_publication.unpublish!
 
-    refute published_publication.document.published?
+    assert_not published_publication.document.published?
   end
 
   test "should ignore deleted editions when finding latest edition" do
@@ -81,8 +81,8 @@ class DocumentTest < ActiveSupport::TestCase
     deleted_edition = create(:deleted_edition, document: document)
 
     document.destroy
-    refute Edition.unscoped.exists?(original_edition.id)
-    refute Edition.unscoped.exists?(deleted_edition.id)
+    assert_not Edition.unscoped.exists?(original_edition.id)
+    assert_not Edition.unscoped.exists?(deleted_edition.id)
   end
 
   test "#destroy also destroys relations to other editions" do
@@ -168,14 +168,14 @@ class DocumentTest < ActiveSupport::TestCase
     assert draft.document.similar_slug_exists?
 
     distinct_draft = create(:news_article, title: "Latest news from the crime scene")
-    refute distinct_draft.document.similar_slug_exists?
+    assert_not distinct_draft.document.similar_slug_exists?
   end
 
   test "#similar_slug_exists? scopes to documents of the same type" do
     _existing = create(:news_article, title: "UK prospers")
     draft = create(:speech, title: "UK prospers")
 
-    refute draft.document.similar_slug_exists?
+    assert_not draft.document.similar_slug_exists?
   end
 
   test "should have no associated needs when there are no need ids" do

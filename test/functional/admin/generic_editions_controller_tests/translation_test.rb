@@ -51,7 +51,7 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
   view_test 'show omits create form unless the edition is editable' do
     edition = create(:published_edition)
     stub_publishing_api_expanded_links_with_taxons(edition.content_id, [])
-    refute edition.editable?
+    assert_not edition.editable?
 
     get :show, params: { id: edition }
 

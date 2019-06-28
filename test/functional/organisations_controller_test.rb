@@ -63,7 +63,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, params: { id: organisation }
 
     organisation.reload
-    refute organisation.has_home_page_contacts_list?
+    assert_not organisation.has_home_page_contacts_list?
   end
 
   view_test "provides ids for links with fragment identifiers to jump to relevent sections" do

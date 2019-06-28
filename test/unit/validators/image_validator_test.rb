@@ -52,7 +52,7 @@ private
   def assert_validates_as_valid(validator, image_file_name)
     example = build_example(image_file_name)
     validator.validate(example)
-    refute example.errors.any?
+    assert_not example.errors.any?
   end
 
   def assert_validates_as_invalid(validator, image_file_name)

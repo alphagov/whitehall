@@ -16,7 +16,7 @@ class LinkCheckerApiServiceTest < ActiveSupport::TestCase
     edition = Edition.new(body: "A doc with a link to [an admin URL](/government/admin/speeches/#{speech.id})")
 
     assert LinkCheckerApiService.has_links?(edition, convert_admin_links: false)
-    refute LinkCheckerApiService.has_links?(edition, convert_admin_links: true)
+    assert_not LinkCheckerApiService.has_links?(edition, convert_admin_links: true)
   end
 
   test "it knows whether there are draft admin links" do

@@ -1381,7 +1381,7 @@ module AdminEditionControllerTestHelpers
         }
 
         created_publication = edition_class.last
-        refute created_publication.nil?
+        assert_not created_publication.nil?
         assert created_publication.access_limited?
       end
 

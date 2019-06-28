@@ -3,17 +3,17 @@ require "test_helper"
 class ContactTest < ActiveSupport::TestCase
   test "should be invalid without a description" do
     contact = build(:contact, title: nil)
-    refute contact.valid?
+    assert_not contact.valid?
   end
 
   test "should be invalid if contact_form_url is invalid" do
     contact = build(:contact, contact_form_url: "not.a.url")
-    refute contact.valid?
+    assert_not contact.valid?
   end
 
   test "should be invalid without a contact_type" do
     contact = build(:contact, contact_type: nil)
-    refute contact.valid?
+    assert_not contact.valid?
   end
 
   test "should be valid with no postal address fields" do
@@ -36,7 +36,7 @@ class ContactTest < ActiveSupport::TestCase
                     region: "",
                     postal_code: "",
                     country_id: country.id)
-    refute contact.valid?
+    assert_not contact.valid?
     assert_equal ["can't be blank"], contact.errors[:street_address]
   end
 
@@ -48,7 +48,7 @@ class ContactTest < ActiveSupport::TestCase
                     region: "",
                     postal_code: "",
                     country_id: "")
-    refute contact.valid?
+    assert_not contact.valid?
     assert_equal ["can't be blank"], contact.errors[:country_id]
   end
 
@@ -99,7 +99,7 @@ class ContactTest < ActiveSupport::TestCase
 
     contact.destroy
 
-    refute list.shown_on_home_page?(contact)
+    assert_not list.shown_on_home_page?(contact)
   end
 
   test "#missing_translations should only include contactable translations" do

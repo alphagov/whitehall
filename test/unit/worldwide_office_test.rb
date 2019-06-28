@@ -3,7 +3,7 @@ require 'test_helper'
 class WorldwideOfficeTest < ActiveSupport::TestCase
   %w{contact worldwide_organisation worldwide_office_type}.each do |param|
     test "should not be valid without a #{param}" do
-      refute build(:worldwide_office, param.to_sym => nil).valid?
+      assert_not build(:worldwide_office, param.to_sym => nil).valid?
     end
   end
 
@@ -81,7 +81,7 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
   end
 
   test 'is not translatable just yet' do
-    refute WorldwideOffice.new.available_in_multiple_languages?
+    assert_not WorldwideOffice.new.available_in_multiple_languages?
   end
 
   test 'removes itself from any home page lists when it is destroyed' do
@@ -91,6 +91,6 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
 
     office.destroy
 
-    refute list.shown_on_home_page?(office)
+    assert_not list.shown_on_home_page?(office)
   end
 end

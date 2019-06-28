@@ -53,7 +53,7 @@ module PublishingApi::CorporateInformationPagePresenterTest
     end
 
     def refute_details_attribute(attribute)
-      refute presented_content[:details].key?(attribute)
+      assert_not presented_content[:details].key?(attribute)
     end
   end
 

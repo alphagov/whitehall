@@ -246,7 +246,7 @@ class GovspeakHelperTest < ActionView::TestCase
     text = "para\n!@1"
     document = build(:published_detailed_guide, :with_file_attachment, body: text)
     html = govspeak_edition_to_html(document)
-    refute html.include?("&lt;div"), "should not escape embedded attachment"
+    assert_not html.include?("&lt;div"), "should not escape embedded attachment"
     assert_select_within_html html, ".attachment.embedded"
   end
 

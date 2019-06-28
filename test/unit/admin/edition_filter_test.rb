@@ -22,7 +22,7 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
 
     editions = Admin::EditionFilter.new(Edition, @current_user).editions
     assert_equal news_article, editions.first
-    refute editions.first.association(:unpublishing).loaded?
+    assert_not editions.first.association(:unpublishing).loaded?
   end
 
   test "can preload last author data if asked to" do
@@ -38,7 +38,7 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
 
     editions = Admin::EditionFilter.new(Edition, @current_user).editions
     assert_equal news_article, editions.first
-    refute editions.first.association(:last_author).loaded?
+    assert_not editions.first.association(:last_author).loaded?
   end
 
   test "can preload link check report data if asked to" do
@@ -56,7 +56,7 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
 
     editions = Admin::EditionFilter.new(Edition, @current_user).editions
     assert_equal news_article, editions.first
-    refute editions.first.association(:last_author).loaded?
+    assert_not editions.first.association(:last_author).loaded?
   end
 
   test "ignores invalid state scopes" do
@@ -221,12 +221,12 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
 
   test "should be invalid if author can't be found" do
     filter = Admin::EditionFilter.new(Edition, @current_user, author: 'invalid')
-    refute filter.valid?
+    assert_not filter.valid?
   end
 
   test "should be invalid if organisation can't be found" do
     filter = Admin::EditionFilter.new(Edition, @current_user, organisation: 'invalid')
-    refute filter.valid?
+    assert_not filter.valid?
   end
 
   test "should generate page title when there are no filter options" do
@@ -331,7 +331,7 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     filter.stubs(:unpaginated_editions).returns(stub(count: 8000))
     assert filter.exportable?
     filter.stubs(:unpaginated_editions).returns(stub(count: 8001))
-    refute filter.exportable?
+    assert_not filter.exportable?
   end
 
   test "should exclude locked documents" do

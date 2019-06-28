@@ -78,7 +78,7 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
       } }
     } }
 
-    refute FeaturedLink.exists?(featured_link.id)
+    assert_not FeaturedLink.exists?(featured_link.id)
   end
 
   view_test "the 'View on website' link on the show page goes to the news page" do

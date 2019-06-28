@@ -219,7 +219,7 @@ class OrganisationHelperTest < ActionView::TestCase
   test "#show_corporate_information_pages? for organisations that are not live should be false" do
     organisation = create(:organisation, :closed)
 
-    refute show_corporate_information_pages?(organisation)
+    assert_not show_corporate_information_pages?(organisation)
   end
 
   test "#show_corporate_information_pages? for live organisations should be true" do
@@ -239,7 +239,7 @@ class OrganisationHelperTest < ActionView::TestCase
     organisation = create(:court)
     create(:about_corporate_information_page, organisation: organisation)
 
-    refute show_corporate_information_pages?(organisation)
+    assert_not show_corporate_information_pages?(organisation)
   end
 
   test "#show_corporate_information_pages? for live courts with published about_us and other corporate information pages should be true" do
@@ -369,7 +369,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
 
     description = organisation_display_name_including_parental_and_child_relationships(parent)
     assert description.include? 'is supported by'
-    refute description.include? 'is an other'
+    assert_not description.include? 'is an other'
   end
 
   test 'organisations of type other with no relationships are described correctly' do
@@ -378,6 +378,6 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
 
     description = organisation_display_name_including_parental_and_child_relationships(organisation)
     assert description.include? 'Other Organisation Name'
-    refute description.include? 'is an other'
+    assert_not description.include? 'is an other'
   end
 end

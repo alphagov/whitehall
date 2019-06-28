@@ -88,12 +88,12 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
   end
 
   test "#valid_filter_params skips blank attributes" do
-    refute build_class_instance(keywords: nil).valid_filter_params.key?(:keywords)
-    refute build_class_instance(from_date: nil).valid_filter_params.key?(:from_date)
-    refute build_class_instance(to_date: nil).valid_filter_params.key?(:to_date)
-    refute build_class_instance(organisations: []).valid_filter_params.key?(:organisations)
+    assert_not build_class_instance(keywords: nil).valid_filter_params.key?(:keywords)
+    assert_not build_class_instance(from_date: nil).valid_filter_params.key?(:from_date)
+    assert_not build_class_instance(to_date: nil).valid_filter_params.key?(:to_date)
+    assert_not build_class_instance(organisations: []).valid_filter_params.key?(:organisations)
     redis_cache_has_taxons([])
-    refute build_class_instance(topics: []).valid_filter_params.key?(:topics)
+    assert_not build_class_instance(topics: []).valid_filter_params.key?(:topics)
   end
 
   test "#results should ask the provider for results, using #valid_filter_params + pagination params as search terms" do

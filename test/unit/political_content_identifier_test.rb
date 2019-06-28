@@ -5,14 +5,14 @@ class PoliticalContentIdentifierTest < ActiveSupport::TestCase
     fatality_notice = create(:fatality_notice,
                              role_appointments: [create(:ministerial_role_appointment)])
 
-    refute political?(fatality_notice)
+    assert_not political?(fatality_notice)
   end
 
   test 'statistics publications are never political, even when associated with a minister' do
     statistics_publication = create(:publication, :statistics,
                                     role_appointments: [create(:ministerial_role_appointment)])
 
-    refute political?(statistics_publication)
+    assert_not political?(statistics_publication)
   end
 
   test 'world location news articles are always political' do
@@ -38,14 +38,14 @@ class PoliticalContentIdentifierTest < ActiveSupport::TestCase
     non_political_organisation = create(:organisation, :non_political)
     edition = create(:consultation, lead_organisations: [non_political_organisation])
 
-    refute political?(edition)
+    assert_not political?(edition)
   end
 
   test 'non-political formats associated with political orgs are not political' do
     political_organisation = create(:organisation, :political)
     edition = create(:detailed_guide, lead_organisations: [political_organisation])
 
-    refute political?(edition)
+    assert_not political?(edition)
   end
 
   test 'publications of a political sub-type associated with political orgs are political' do
@@ -59,7 +59,7 @@ class PoliticalContentIdentifierTest < ActiveSupport::TestCase
     political_organisation = create(:organisation, :political)
     edition = create(:publication, :guidance, lead_organisations: [political_organisation])
 
-    refute political?(edition)
+    assert_not political?(edition)
   end
 
   test 'publications of a non-political sub-type associated with ministers are political' do

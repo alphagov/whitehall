@@ -18,7 +18,7 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
 
     assert unpublisher.perform!
     assert_equal :draft, edition.reload.current_state
-    refute edition.force_published?
+    assert_not edition.force_published?
   end
 
   test '#perform! ends any featurings associated with the document' do
@@ -49,7 +49,7 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
       edition = create(:edition, state: state, first_published_at: 1.hour.ago)
       unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
 
-      refute unpublisher.perform!
+      assert_not unpublisher.perform!
       assert_equal state, edition.current_state
       assert_equal "An edition that is #{state} cannot be unpublished", unpublisher.failure_reason
     end
@@ -70,7 +70,7 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
     edition.create_draft(create(:writer))
     unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
 
-    refute unpublisher.can_perform?
+    assert_not unpublisher.can_perform?
     assert_equal 'There is already a draft edition of this document. You must discard it before you can unpublish this edition.',
                  unpublisher.failure_reason
   end
@@ -80,7 +80,7 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
     _submitted_edition = create(:submitted_edition, document: edition.document)
     unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
 
-    refute unpublisher.can_perform?
+    assert_not unpublisher.can_perform?
     assert_equal 'There is already a submitted edition of this document. You must discard it before you can unpublish this edition.',
                  unpublisher.failure_reason
   end
@@ -89,7 +89,7 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
     edition = create(:published_edition)
     unpublisher = EditionUnpublisher.new(edition)
 
-    refute unpublisher.can_perform?
+    assert_not unpublisher.can_perform?
     assert_equal 'The reason for unpublishing must be present', unpublisher.failure_reason
   end
 
@@ -97,7 +97,7 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
     edition = create(:published_edition)
     unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params.merge(redirect: true))
 
-    refute unpublisher.can_perform?
+    assert_not unpublisher.can_perform?
     assert_equal 'Alternative url must be provided to redirect the document', unpublisher.failure_reason
   end
 

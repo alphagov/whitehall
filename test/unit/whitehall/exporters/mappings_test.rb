@@ -27,7 +27,7 @@ module Whitehall
       actual = []
       @exporter.export(actual)
       actual = arrays_to_csv(actual)
-      refute actual.include?(unexpected.strip), "Expected:\n#{actual} to NOT contain: \n#{unexpected}"
+      assert_not actual.include?(unexpected.strip), "Expected:\n#{actual} to NOT contain: \n#{unexpected}"
     end
 
     def publication_with_source(publication_trait)

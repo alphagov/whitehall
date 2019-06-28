@@ -38,6 +38,6 @@ class Frontend::StatisticsAnnouncementTest < ActiveSupport::TestCase
 
   test "#national_statistic? is true if the document_type is 'National Statistics'" do
     assert build_announcement(document_type: "National Statistics").national_statistic?
-    refute build_announcement(document_type: "Statistics").national_statistic?
+    assert_not build_announcement(document_type: "Statistics").national_statistic?
   end
 end

@@ -26,7 +26,7 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
     publication_1 = create(:publication, title: same_title)
     publication_2 = create(:publication, title: same_title)
 
-    refute_equal publication_1.document.slug, publication_2.document.slug
+    assert_not_equal publication_1.document.slug, publication_2.document.slug
   end
 
   test "should allow the same slug to be used again for another document type" do
@@ -80,7 +80,7 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
 
   test "should not be linkable if document is not published" do
     publication = create(:draft_publication)
-    refute publication.linkable?
+    assert_not publication.linkable?
   end
 
   test "should be linkable when superseded if document is published" do
