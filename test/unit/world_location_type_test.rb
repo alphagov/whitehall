@@ -7,8 +7,8 @@ class WorldLocationTypeTest < ActiveSupport::TestCase
   end
 
   test "should be findable by slug" do
-    world_location_type = WorldLocationType.find_by_id(1)
-    assert_equal world_location_type, WorldLocationType.find_by_slug(world_location_type.slug)
+    world_location_type = WorldLocationType.find_by(id: 1)
+    assert_equal world_location_type, WorldLocationType.find_by(slug: world_location_type.slug)
   end
 
   test 'we can find those types that are geographic' do

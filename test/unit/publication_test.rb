@@ -10,13 +10,13 @@ class PublicationTest < ActiveSupport::TestCase
 
   test 'imported publications are valid when the publication_type is imported-awaiting-type' do
     publication = build(:publication, state: 'imported',
-                        publication_type: PublicationType.find_by_slug('imported-awaiting-type'),
+                        publication_type: PublicationType.find_by(slug: 'imported-awaiting-type'),
                         first_published_at: 1.year.ago)
     assert publication.valid?
   end
 
   test 'imported publications are not valid_as_draft? when the publcation_type is imported-awaiting-type' do
-    publication = build(:publication, state: 'imported', publication_type: PublicationType.find_by_slug('imported-awaiting-type'))
+    publication = build(:publication, state: 'imported', publication_type: PublicationType.find_by(slug: 'imported-awaiting-type'))
     assert_not publication.valid_as_draft?
   end
 

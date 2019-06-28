@@ -7,8 +7,8 @@ class PublicationTypeTest < ActiveSupport::TestCase
   end
 
   test "should be findable by slug" do
-    publication_type = PublicationType.find_by_id(1)
-    assert_equal publication_type, PublicationType.find_by_slug(publication_type.slug)
+    publication_type = PublicationType.find_by(id: 1)
+    assert_equal publication_type, PublicationType.find_by(slug: publication_type.slug)
   end
 
   test "should allow listing of all publication types by prevalence" do
