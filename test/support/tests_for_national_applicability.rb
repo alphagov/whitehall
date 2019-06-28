@@ -156,7 +156,7 @@ module TestsForNationalApplicability
       scotland_inapplicability = edition.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://www.scotland.com/")
       wales_inapplicability = edition.nation_inapplicabilities.create!(nation: Nation.wales, alternative_url: "http://www.wales.com/")
       lock_version = edition.lock_version
-      edition.update_attributes!(title: "new title", change_note: "foo")
+      edition.update!(title: "new title", change_note: "foo")
 
       attributes = nation_inapplicabilities_attributes_for({ Nation.northern_ireland => "http://www.northernireland.com/" }, scotland_inapplicability, wales_inapplicability).merge(lock_version: lock_version)
 

@@ -122,7 +122,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
         before do
           attributes = attributes_for(:attachment_data)
           attributes[:to_replace_id] = attachment_data.id
-          attachment.update_attributes!(attachment_data_attributes: attributes)
+          attachment.update!(attachment_data_attributes: attributes)
         end
 
         it 'is not deleted' do
@@ -255,7 +255,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
             before do
               attributes = attributes_for(:attachment_data)
               attributes[:to_replace_id] = attachment_data.id
-              new_attachment.update_attributes!(attachment_data_attributes: attributes)
+              new_attachment.update!(attachment_data_attributes: attributes)
             end
 
             it 'is not deleted' do
@@ -384,7 +384,7 @@ class AttachmentDataVisibilityTest < ActiveSupport::TestCase
 
       context 'consultation is access-limited' do
         before do
-          consultation.update_attributes!(access_limited: true)
+          consultation.update!(access_limited: true)
         end
 
         it 'is not accessible to anonymous user' do

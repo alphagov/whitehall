@@ -125,7 +125,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   test "shows featured items in defined order for locale" do
     with_stubbed_rummager(@rummager, true) do
       WorldLocationNewsPageWorker.any_instance.stubs(:perform).returns(true)
-      LocalisedModel.new(@world_location, :fr).update_attributes(name: "Territoire antarctique britannique")
+      LocalisedModel.new(@world_location, :fr).update(name: "Territoire antarctique britannique")
 
       less_recent_news_article = create(:published_news_article, first_published_at: 2.days.ago)
       more_recent_news_article = create(:published_publication, first_published_at: 1.day.ago)

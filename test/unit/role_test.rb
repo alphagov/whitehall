@@ -110,7 +110,7 @@ class RoleTest < ActiveSupport::TestCase
 
   test 'should not change the slug when the name is changed' do
     role = create(:role, name: 'Prime Minister')
-    role.update_attributes(name: 'Chancellor of the Exchequer')
+    role.update(name: 'Chancellor of the Exchequer')
     assert_equal 'prime-minister', role.slug
   end
 
@@ -214,7 +214,7 @@ class RoleTest < ActiveSupport::TestCase
     role_appointment = create(:role_appointment, role: role)
 
     Timecop.freeze 1.month do
-      role.update_attributes!(name: 'Name change')
+      role.update!(name: 'Name change')
 
       assert_equal Time.zone.now, role_appointment.reload.updated_at
     end

@@ -121,7 +121,7 @@ class ContactTest < ActiveSupport::TestCase
       expect_publishing(contact)
       expect_republishing(news_article, corp_info_page)
 
-      contact.update_attributes(title: "Changed contact title")
+      contact.update(title: "Changed contact title")
     end
   end
 

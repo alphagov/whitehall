@@ -349,7 +349,7 @@ private
     trait = "with_#{type}_attachment".to_sym
     create(:published_publication, trait, body: "!@1").tap do |publication|
       attachment = publication.attachments.first
-      attachment.update_attributes(params)
+      attachment.update(params)
     end
   end
 

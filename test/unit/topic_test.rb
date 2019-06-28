@@ -13,7 +13,7 @@ class TopicTest < ActiveSupport::TestCase
 
   test "should not change the slug when the name is changed" do
     topic = create(:topic, name: 'Love all the people')
-    topic.update_attributes(name: 'Hold hands')
+    topic.update(name: 'Hold hands')
     assert_equal 'love-all-the-people', topic.slug
   end
 
@@ -50,7 +50,7 @@ class TopicTest < ActiveSupport::TestCase
     topic_2 = create(:topic)
     topic = create(:topic, related_classifications: [])
 
-    topic.update_attributes!(related_classification_ids: [topic_1.id, topic_2.id])
+    topic.update!(related_classification_ids: [topic_1.id, topic_2.id])
 
     assert_equal [topic_1, topic_2], topic.related_classifications
     assert_equal [topic], topic_1.related_classifications
@@ -62,7 +62,7 @@ class TopicTest < ActiveSupport::TestCase
     topic_2 = create(:topic)
     topic = create(:topic, related_classifications: [topic_1, topic_2])
 
-    topic.update_attributes!(related_classification_ids: [])
+    topic.update!(related_classification_ids: [])
 
     assert_equal [], topic.related_classifications
     assert_equal [], topic_1.related_classifications

@@ -27,7 +27,7 @@ class TakePartPageTest < ActiveSupport::TestCase
 
   test "won't change the slug when the name is changed" do
     page = create(:take_part_page, title: 'Show me the money')
-    page.update_attributes(title: 'You had me at hello')
+    page.update(title: 'You had me at hello')
     assert_equal 'show-me-the-money', page.slug
   end
 

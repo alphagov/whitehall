@@ -120,7 +120,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
     )
 
     draft_edition = published_edition.create_draft(build(:user))
-    draft_edition.images.first.update_attributes(caption: "new-caption")
+    draft_edition.images.first.update(caption: "new-caption")
 
     assert_equal "original-caption", published_edition.images.first.caption
   end

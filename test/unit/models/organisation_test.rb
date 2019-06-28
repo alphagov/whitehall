@@ -359,7 +359,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test "should not change the slug when the name is changed" do
     organisation = create(:organisation, name: 'Love all the people')
-    organisation.update_attributes(name: 'Hold hands')
+    organisation.update(name: 'Hold hands')
     assert_equal 'love-all-the-people', organisation.slug
   end
 

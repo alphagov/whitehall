@@ -189,7 +189,7 @@ class PersonTest < ActiveSupport::TestCase
 
   test 'should not change the slug when the name is changed' do
     person = create(:person, forename: "John", surname: "Smith")
-    person.update_attributes(forename: "Joe", surname: "Bloggs")
+    person.update(forename: "Joe", surname: "Bloggs")
     assert_equal 'john-smith', person.slug
   end
 
@@ -265,7 +265,7 @@ class PersonTest < ActiveSupport::TestCase
     role_appointment = create(:role_appointment, person: person)
 
     Timecop.freeze 1.month do
-      person.update_attributes!(surname: 'Smith')
+      person.update!(surname: 'Smith')
 
       assert_equal Time.zone.now, role_appointment.reload.updated_at
     end

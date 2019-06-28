@@ -42,7 +42,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
     greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
     whitepaper_pdf = fixture_file_upload('whitepaper.pdf', 'application/pdf')
     attachment = create(:attachment_data, file: greenpaper_pdf)
-    attachment.update_attributes!(file: whitepaper_pdf)
+    attachment.update!(file: whitepaper_pdf)
     attachment.reload
     assert_equal "whitepaper.pdf", attachment.filename
     assert_equal "application/pdf", attachment.content_type
@@ -88,7 +88,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
     two_pages_pdf = fixture_file_upload('two-pages.pdf')
     three_pages_pdf = fixture_file_upload('three-pages.pdf')
     attachment = create(:attachment_data, file: two_pages_pdf)
-    attachment.update_attributes!(file: three_pages_pdf)
+    attachment.update!(file: three_pages_pdf)
     attachment.reload
     assert_equal 3, attachment.number_of_pages
   end

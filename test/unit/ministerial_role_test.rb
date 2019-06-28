@@ -8,7 +8,7 @@ class MinisterialRoleTest < ActiveSupport::TestCase
 
   test "should not change the slug when the name is changed" do
     role = create(:ministerial_role, name: 'Prime Minister, Cabinet Office')
-    role.update_attributes(name: 'Prime Minister')
+    role.update(name: 'Prime Minister')
     assert_equal 'prime-minister-cabinet-office', role.slug
   end
 

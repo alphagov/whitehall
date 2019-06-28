@@ -192,7 +192,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     #this factory creates an nil locale attachment
     publication = create(:published_publication)
     attachment = publication.html_attachments.first
-    attachment.update_attributes!(locale: 'cy', title: "welsh one")
+    attachment.update!(locale: 'cy', title: "welsh one")
     publication.reload #ensures the html attachment is in #attachments and #html_attachmnents
 
     presented_publication = PublishingApi::PublicationPresenter.new(publication)
@@ -208,7 +208,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     #this factory creates an nil locale attachment
     publication = create(:published_publication)
     attachment = publication.html_attachments.first
-    attachment.update_attributes!(locale: 'cy', title: "welsh one")
+    attachment.update!(locale: 'cy', title: "welsh one")
     publication.reload
 
     presented_publication = PublishingApi::PublicationPresenter.new(publication)
@@ -223,7 +223,7 @@ class PublishingApi::PublicationPresenterTest < ActiveSupport::TestCase
     #this factory creates an nil locale attachment
     publication = create(:published_publication)
     attachment = publication.html_attachments.first
-    attachment.update_attributes!(title: "nil one")
+    attachment.update!(title: "nil one")
     publication.reload
 
     presented_publication = PublishingApi::PublicationPresenter.new(publication)

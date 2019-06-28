@@ -52,7 +52,7 @@ class FileAttachmentTest < ActiveSupport::TestCase
     }
     attachment.reload
 
-    assert attachment.update_attributes(params), attachment.errors.full_messages.to_sentence
+    assert attachment.update(params), attachment.errors.full_messages.to_sentence
     assert_equal 'Filename', attachment.title
   end
 end

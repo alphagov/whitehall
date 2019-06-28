@@ -24,7 +24,7 @@ class WorldLocationTest < ActiveSupport::TestCase
 
   test 'should not change the slug when the name is changed' do
     world_location = create(:world_location, name: 'New Holland')
-    world_location.update_attributes(name: 'Australia')
+    world_location.update(name: 'Australia')
     assert_equal 'new-holland', world_location.slug
   end
 

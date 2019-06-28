@@ -103,7 +103,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     topic = create(:topic)
     published_publication = create(:published_publication, topics: [topic])
     association = topic.classification_memberships.where(edition_id: published_publication.id).first
-    association.update_attributes(ordering: 31)
+    association.update(ordering: 31)
 
     draft_publication = published_publication.create_draft(create(:writer))
 
@@ -113,7 +113,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   test "should build a draft copy even if parent is invalid" do
     published_publication = create(:published_publication)
-    published_publication.update_attributes(title: nil)
+    published_publication.update(title: nil)
     refute published_publication.valid?
     draft_publication = published_publication.create_draft(create(:writer))
     assert draft_publication.persisted?
@@ -127,7 +127,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
       body: 'spanish-body'
     }
     publication = create(:draft_publication)
-    with_locale(:es) { publication.update_attributes!(spanish_translation_attributes) }
+    with_locale(:es) { publication.update!(spanish_translation_attributes) }
     force_publish(publication)
 
     assert_equal 2, publication.translations.length
