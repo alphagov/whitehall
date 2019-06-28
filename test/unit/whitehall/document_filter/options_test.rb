@@ -105,7 +105,7 @@ module Whitehall
       end
 
       test "valid_resource_filter_options? returns false when filtered resources do not exist" do
-        assert_not filter_options.valid_resource_filter_options?(topics: ['no-such-topic'])
+        assert_not filter_options.valid_resource_filter_options?(topics: %w[no-such-topic])
       end
 
       test "valid_resource_filter_options? doesn't choke on string values" do

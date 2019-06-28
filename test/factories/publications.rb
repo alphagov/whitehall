@@ -54,7 +54,7 @@ FactoryBot.define do
 
     after(:build) do |object, evaluator|
       if evaluator.relevant_to_local_government
-        object.policy_content_ids = ["5d37821b-7631-11e4-a3cb-005056011aef"]
+        object.policy_content_ids = %w[5d37821b-7631-11e4-a3cb-005056011aef]
       end
     end
   end

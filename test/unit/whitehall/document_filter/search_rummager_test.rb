@@ -86,7 +86,7 @@ module Whitehall::DocumentFilter
 
     test 'announcements_search looks for announcements that are associated with a person if we use the people option' do
       rummager = SearchRummager.new(people: 'jane-doe')
-      expect_search_by_people(["jane-doe"])
+      expect_search_by_people(%w[jane-doe])
       rummager.announcements_search
     end
 

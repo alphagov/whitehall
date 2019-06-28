@@ -435,7 +435,7 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation = create(:organisation, name: "A Child Org")
     create(:organisation, name: "A Parent Org", child_organisations: [organisation])
 
-    assert_equal ['a-parent-org'], organisation.search_index['organisations']
+    assert_equal %w[a-parent-org], organisation.search_index['organisations']
   end
 
   test 'should add organisation to search index on creating' do
@@ -605,7 +605,7 @@ class OrganisationTest < ActiveSupport::TestCase
       'parent_organisations' => [],
       'child_organisations' => [],
       'superseded_organisations' => [],
-      'superseding_organisations' => ['devolved-administration'],
+      'superseding_organisations' => %w[devolved-administration],
       'format' => 'organisation',
       'boost_phrases' => 'dev',
       'organisation_type' => :other,
@@ -968,8 +968,8 @@ class OrganisationTest < ActiveSupport::TestCase
   end
 
   test "#has_services_and_information_link? returns false if slug is not in the whitelist" do
-    list = [
-      'a-slug'
+    list = %w[
+      a-slug
     ]
     org = create(:organisation)
     org.stubs(:organisations_with_services_and_information_link).returns(list)

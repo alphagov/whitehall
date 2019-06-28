@@ -105,7 +105,7 @@ class UrlToSubscriberListCriteriaTest < ActiveSupport::TestCase
       stub("StaticData"),
         )
 
-    assert_equal converter.convert, "links" => { "taxon_tree" => ["a544d48b-1e9e-47fb-b427-7a987c658c14"] },
+    assert_equal converter.convert, "links" => { "taxon_tree" => %w[a544d48b-1e9e-47fb-b427-7a987c658c14] },
                                       "email_document_supertype" => "publications"
   end
 
@@ -115,7 +115,7 @@ class UrlToSubscriberListCriteriaTest < ActiveSupport::TestCase
       stub("StaticData"),
         )
 
-    assert_equal converter.convert,  "links" => { "taxon_tree" => ["a544d48b-1e9e-47fb-b427-7a987c658c14"] },
+    assert_equal converter.convert,  "links" => { "taxon_tree" => %w[a544d48b-1e9e-47fb-b427-7a987c658c14] },
                                      "email_document_supertype" => "publications"
   end
 end

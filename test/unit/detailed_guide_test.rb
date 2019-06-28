@@ -129,7 +129,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
 
     detailed_guide.save
 
-    assert_equal ["9af50189-de1c-49af-a334-6b1d87b593a6", "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"], detailed_guide.related_mainstream_content_ids
+    assert_equal %w[9af50189-de1c-49af-a334-6b1d87b593a6 9dd9e077-ae45-45f6-ad9d-2a484e5ff312], detailed_guide.related_mainstream_content_ids
   end
 
 
@@ -198,7 +198,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
       additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content"
     )
 
-    assert_equal ["9af50189-de1c-49af-a334-6b1d87b593a6", "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"], detailed_guide.related_mainstream_content_ids
+    assert_equal %w[9af50189-de1c-49af-a334-6b1d87b593a6 9dd9e077-ae45-45f6-ad9d-2a484e5ff312], detailed_guide.related_mainstream_content_ids
   end
 
   test "if related_mainstream_content_url gets updated, #persist_content_ids should update existing RelatedMainstream records" do
@@ -221,7 +221,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
     detailed_guide.save
 
     assert_equal 1, detailed_guide.related_mainstream_content_ids.count
-    assert_equal ["9dd9e077-ae45-45f6-ad9d-2a484e5ff312"], detailed_guide.related_mainstream_content_ids
+    assert_equal %w[9dd9e077-ae45-45f6-ad9d-2a484e5ff312], detailed_guide.related_mainstream_content_ids
   end
 
   test "if related_mainstream_content_url gets deleted, #persist_content_ids should delete existing RelatedMainstream records" do

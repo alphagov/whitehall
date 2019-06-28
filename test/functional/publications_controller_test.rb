@@ -243,19 +243,19 @@ class PublicationsControllerTest < ActionController::TestCase
   view_test "#index requested as JSON includes URL to the atom feed including any filters" do
     create(:organisation, name: "organisation-1")
 
-    get :index, params: { taxons: ["taxon-1"], departments: ["organisation-1"] }, format: :json
+    get :index, params: { taxons: %w[taxon-1], departments: %w[organisation-1] }, format: :json
 
     json = ActiveSupport::JSON.decode(response.body)
 
-    assert_equal json["atom_feed_url"], publications_url(format: "atom", taxons: ["taxon-1"], departments: ["organisation-1"], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+    assert_equal json["atom_feed_url"], publications_url(format: "atom", taxons: %w[taxon-1], departments: %w[organisation-1], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
   end
 
   view_test "#index requested as JSON includes atom feed URL without date parameters" do
-    get :index, params: { from_date: "2012-01-01", taxons: ["taxon-1"] }, format: :json
+    get :index, params: { from_date: "2012-01-01", taxons: %w[taxon-1] }, format: :json
 
     json = ActiveSupport::JSON.decode(response.body)
 
-    assert_equal json["atom_feed_url"], publications_url(format: "atom", taxons: ["taxon-1"], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+    assert_equal json["atom_feed_url"], publications_url(format: "atom", taxons: %w[taxon-1], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
   end
 
   view_test "#index requested as JSON includes email signup path without date parameters" do
@@ -271,10 +271,10 @@ class PublicationsControllerTest < ActionController::TestCase
   view_test "#index requested as JSON includes email signup path with organisation and taxon parameters" do
     organisation = create(:organisation)
 
-    get :index, params: { from_date: "2012-01-01", taxons: ["taxon-1"], departments: [organisation.slug] }, format: :json
+    get :index, params: { from_date: "2012-01-01", taxons: %w[taxon-1], departments: [organisation.slug] }, format: :json
 
     json = ActiveSupport::JSON.decode(response.body)
-    atom_url = publications_url(format: "atom", taxons: ["taxon-1"], departments: [organisation.slug], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+    atom_url = publications_url(format: "atom", taxons: %w[taxon-1], departments: [organisation.slug], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
 
     assert_equal json["email_signup_url"], new_email_signups_path(email_signup: { feed: atom_url })
   end
@@ -287,17 +287,17 @@ class PublicationsControllerTest < ActionController::TestCase
   view_test '#index atom feed autodiscovery link includes any present filters' do
     organisation = create(:organisation)
 
-    get :index, params: { taxons: ["taxon-1"], departments: [organisation], locale: :fr }
+    get :index, params: { taxons: %w[taxon-1], departments: [organisation], locale: :fr }
 
-    assert_select_autodiscovery_link publications_url(format: "atom", taxons: ["taxon-1"], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+    assert_select_autodiscovery_link publications_url(format: "atom", taxons: %w[taxon-1], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
   end
 
   view_test '#index shows a link to the atom feed including any present filters' do
     organisation = create(:organisation)
 
-    get :index, params: { taxons: ["taxon-1"], departments: [organisation], locale: :fr }
+    get :index, params: { taxons: %w[taxon-1], departments: [organisation], locale: :fr }
 
-    feed_url = publications_url(format: "atom", taxons: ["taxon-1"], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+    feed_url = publications_url(format: "atom", taxons: %w[taxon-1], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
     assert_select "a.feed[href=?]", feed_url
   end
 

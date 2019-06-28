@@ -22,11 +22,11 @@ class NewsArticleTypeTest < ActiveSupport::TestCase
   end
 
   test "NewsArticleType.search_format_types returns all of the type #search_format_types" do
-    expected = [
-      "news-article-news-story",
-      "news-article-press-release",
-      "news-article-government-response",
-      "news-article-world-news-story",
+    expected = %w[
+      news-article-news-story
+      news-article-press-release
+      news-article-government-response
+      news-article-world-news-story
     ]
     assert_equal expected, NewsArticleType.search_format_types
   end

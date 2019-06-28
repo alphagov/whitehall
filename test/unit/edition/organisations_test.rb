@@ -54,7 +54,7 @@ class Edition::OrganisationsTest < ActiveSupport::TestCase
     organisation_2 = create(:organisation, name: 'Free Jazz Foundation')
     edition = create(:published_news_article, organisations: [organisation_1, organisation_2])
 
-    assert_equal ['ministry-of-jazz', 'free-jazz-foundation'], edition.search_index["organisations"]
+    assert_equal %w[ministry-of-jazz free-jazz-foundation], edition.search_index["organisations"]
   end
 
   test '#importance_ordered_organisations' do
