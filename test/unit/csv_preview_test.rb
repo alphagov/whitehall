@@ -4,7 +4,7 @@ require "test_helper"
 
 class CsvPreviewTest < ActiveSupport::TestCase
   def csv_preview
-    @csv_preview ||= CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/utf-8.csv'))
+    @csv_preview ||= CsvPreview.new(Rails.root.join("test", "fixtures", "csv_encodings", "utf-8.csv"))
   end
 
   test "returns the header row for a CSV file" do
@@ -19,7 +19,7 @@ class CsvPreviewTest < ActiveSupport::TestCase
   end
 
   test "handles iso-8859-1 encoded files" do
-    iso_encoded_preview = CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/iso-8859-1.csv'))
+    iso_encoded_preview = CsvPreview.new(Rails.root.join("test", "fixtures", "csv_encodings", "iso-8859-1.csv"))
 
     assert_equal ['ECO Lot', 'Band', 'Contract Term', 'Price Per Unit', 'Above reserve price?', 'Reserve Price (£)'],
                  iso_encoded_preview.headings
@@ -31,7 +31,7 @@ class CsvPreviewTest < ActiveSupport::TestCase
   end
 
   test "handles windows-1252 encoded files" do
-    iso_encoded_preview = CsvPreview.new(File.open(Rails.root.join('test/fixtures/csv_encodings/windows-1252.csv')))
+    iso_encoded_preview = CsvPreview.new(File.open(Rails.root.join("test","fixtures","csv_encodings","windows-1252.csv")))
 
     assert_equal %w(name address1 address2 town postcode access_notes general_notes url email phone fax text_phone),
                  iso_encoded_preview.headings
@@ -40,13 +40,13 @@ class CsvPreviewTest < ActiveSupport::TestCase
   test "raises CsvPreview::FileEncodingError if the encoding cannot be handled by the CSV library" do
     CSV.expects(:open).raises(ArgumentError, 'invalid byte sequence in UTF-8')
     assert_raise CsvPreview::FileEncodingError do
-      CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/utf-8.csv'))
+      CsvPreview.new(Rails.root.join("test", "fixtures", "csv_encodings", "utf-8.csv"))
     end
   end
 
   test "handles UTF-8 conversion errors caused by unrecognised characters" do
     assert_raise CsvPreview::FileEncodingError do
-      CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/strange-encoding.csv'))
+      CsvPreview.new(Rails.root.join("test", "fixtures", "csv_encodings", "strange-encoding.csv"))
     end
   end
 
@@ -59,7 +59,7 @@ class CsvPreviewTest < ActiveSupport::TestCase
   end
 
   test 'the size of the preview can be overridden' do
-    preview       = CsvPreview.new(File.open(Rails.root.join('test/fixtures/csv_encodings/utf-8.csv')), 1)
+    preview       = CsvPreview.new(File.open(Rails.root.join("test", "fixtures", "csv_encodings", "utf-8.csv")), 1)
     expected_data = [['Office for Facial Hair Studies', '£12000000', '£10000000']]
 
     assert_csv_data(expected_data, preview)
@@ -69,7 +69,7 @@ class CsvPreviewTest < ActiveSupport::TestCase
     csv_preview.each_row {}
     assert_not csv_preview.truncated?
 
-    truncated_preview = CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/utf-8.csv'), 1)
+    truncated_preview = CsvPreview.new(Rails.root.join("test", "fixtures", "csv_encodings", "utf-8.csv"), 1)
     truncated_preview.each_row {}
     assert truncated_preview.truncated?
   end
@@ -78,7 +78,7 @@ class CsvPreviewTest < ActiveSupport::TestCase
     csv_preview.each_row {}
     assert_not csv_preview.truncated?
 
-    truncated_preview = CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/utf-8.csv'), 10, 1)
+    truncated_preview = CsvPreview.new(Rails.root.join("test", "fixtures", "csv_encodings", "utf-8.csv"), 10, 1)
     truncated_preview.each_row {}
 
     assert truncated_preview.truncated?
@@ -86,12 +86,12 @@ class CsvPreviewTest < ActiveSupport::TestCase
 
   test 'raises CSV::MalformedCSVError early if the data cannot be handled by the CSV library' do
     assert_raise CSV::MalformedCSVError do
-      CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/eof.csv'))
+      CsvPreview.new(Rails.root.join("test", "fixtures", "csv_encodings", "eof.csv"))
     end
   end
 
   test 'handles files with a newline embedded in a cell in the first row that is not the same as the newlines used to separate the rows' do
-    mixed_newlines_preview = CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/mixed-newlines.csv'))
+    mixed_newlines_preview = CsvPreview.new(Rails.root.join("test", "fixtures", "csv_encodings", "mixed-newlines.csv"))
 
     assert_equal ['this', 'header row', "has an embedded new\nline but", 'it is different to', 'the row separator'],
                  mixed_newlines_preview.headings

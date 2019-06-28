@@ -7,7 +7,7 @@ module Whitehall
     end
 
     setup do
-      migration_file_path = Rails.root.join('test/fixtures/whitehall_data_migrator/20100101120000_migrate_some_data.rb')
+      migration_file_path = Rails.root.join("test", "fixtures", "whitehall_data_migrator", "20100101120000_migrate_some_data.rb")
       @data_migration = DataMigration.new(migration_file_path, logger: stub_everything('logger'))
     end
 
@@ -40,7 +40,7 @@ module Whitehall
     end
 
     test "#run will rollback any changes if the data migration fails part way through" do
-      bad_migration_path = Rails.root.join('test/fixtures/whitehall_data_migrator/20130529103338_bad_data_migration_that_creates_a_person.rb')
+      bad_migration_path = Rails.root.join("test", "fixtures", "whitehall_data_migrator", "20130529103338_bad_data_migration_that_creates_a_person.rb")
       bad_migration = DataMigration.new(bad_migration_path, logger: stub_everything('logger'))
 
       assert_no_difference('Person.count') do

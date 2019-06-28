@@ -1,6 +1,6 @@
 module SearchRummagerHelper
   def rummager_response
-    File.read(Rails.root.join('features/fixtures/rummager_response.json'))
+    File.read(Rails.root.join('features', 'fixtures', 'rummager_response.json'))
   end
 
   def processed_rummager_documents

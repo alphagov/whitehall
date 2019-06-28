@@ -21,7 +21,7 @@ require 'sidekiq/testing'
 require 'govuk-content-schema-test-helpers/test_unit'
 require 'parallel_tests/test/runtime_logger'
 
-Dir[Rails.root.join('test/support/*.rb')].each { |f| require f }
+Dir[Rails.root.join("test", "support", "*.rb")].each { |f| require f }
 
 Mocha::Configuration.prevent(:stubbing_non_existent_method)
 
@@ -162,7 +162,7 @@ class ActiveSupport::TestCase
   end
 
   def file_fixture(filename)
-    File.new(Rails.root.join('test/fixtures', filename))
+    File.new(Rails.root.join("test", "fixtures", filename))
   end
 
   def assert_file_content_identical(file_1, file_2)
@@ -184,7 +184,7 @@ class ActiveSupport::TestCase
   end
 
   def fixture_path
-    Pathname.new(Rails.root.join('test', 'fixtures'))
+    Pathname.new(Rails.root.join("test", "fixtures"))
   end
 end
 

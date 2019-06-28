@@ -191,6 +191,6 @@ private
   end
 
   def reports_dir
-    Rails.root.join("tmp/broken_link_reports")
+    Rails.root.join("tmp", "broken_link_reports")
   end
 end

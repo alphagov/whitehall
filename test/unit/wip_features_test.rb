@@ -2,7 +2,7 @@ require "test_helper"
 
 class WipFeaturesTest < ActiveSupport::TestCase
   test "do not commit features tagged work-in-progress" do
-    directories = Dir.glob(File.join(Rails.root, 'features', '**', '*.feature'))
+    directories = Dir.glob(Rails.root.join('features', '**', '*.feature'))
     matching_files = directories.select do |filename|
       match = false
       File.open(filename) do |file|

@@ -42,7 +42,7 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   test "should be invalid if image isn't 960x640px" do
-    person = build(:person, image: File.open(Rails.root.join('test/fixtures/horrible-image.64x96.jpg')))
+    person = build(:person, image: File.open(Rails.root.join("test", "fixtures", "horrible-image.64x96.jpg")))
     assert_not person.valid?
   end
 
@@ -50,7 +50,7 @@ class PersonTest < ActiveSupport::TestCase
     person = build(
       :person,
       slug: 'stubbed',
-      image: File.open(Rails.root.join('test/fixtures/horrible-image.64x96.jpg')),
+      image: File.open(Rails.root.join("test", "fixtures", "horrible-image.64x96.jpg")),
       content_id: SecureRandom.uuid,
     )
     person.save(validate: false)

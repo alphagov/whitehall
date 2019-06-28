@@ -253,7 +253,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
   test 'present default news image url only when image is SVG' do
     news_image = create(
       :default_news_organisation_image_data,
-      file: File.open(File.join(Rails.root, 'test', 'fixtures', 'images', 'test-svg.svg'))
+      file: File.open(Rails.root.join('test', 'fixtures', 'images', 'test-svg.svg'))
     )
     organisation = create(:organisation, default_news_image: news_image)
     presented_item = present(organisation)
