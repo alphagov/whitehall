@@ -44,8 +44,8 @@ class DocumentHistoryTest < ActiveSupport::TestCase
 
     expected = [
       [1.day.ago, 'more changes'],
-      [2.day.ago, 'some changes'],
-      [3.day.ago, 'First published.']
+      [2.days.ago, 'some changes'],
+      [3.days.ago, 'First published.']
     ]
 
     assert_history_equal expected, history
@@ -84,7 +84,7 @@ class DocumentHistoryTest < ActiveSupport::TestCase
     document         = original_edition.document
 
     Timecop.travel(2.days.ago) { create(:superseded_edition, document: document, published_major_version: 2, published_minor_version: 0, major_change_published_at: Time.zone.now, change_note: "some changes") }
-    Timecop.travel(1.days.ago) { create(:published_edition,  document: document, published_major_version: 3, published_minor_version: 0, major_change_published_at: Time.zone.now, change_note: "more changes") }
+    Timecop.travel(1.day.ago) { create(:published_edition,  document: document, published_major_version: 3, published_minor_version: 0, major_change_published_at: Time.zone.now, change_note: "more changes") }
     create(:published_edition, document: document, published_major_version: 2, published_minor_version: 1, minor_change: true)
 
     history = DocumentHistory.new(document)

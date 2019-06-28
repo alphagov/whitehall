@@ -50,7 +50,7 @@ class RolePresenterTest < ActionView::TestCase
     @presenter = RolePresenter.new(@role, @view_context)
 
     speech_1 = Speech.new
-    speech_1.stubs(:public_timestamp).returns(1.days.ago)
+    speech_1.stubs(:public_timestamp).returns(1.day.ago)
 
     speech_2 = Speech.new
     speech_2.stubs(:public_timestamp).returns(30.days.ago)

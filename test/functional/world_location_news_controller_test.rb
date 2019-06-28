@@ -192,7 +192,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
       get :index, params: { world_location_id: @world_location }
       assert_select "#our-announcements" do
         assert_select "#announcements_content_id_1" do
-          assert_select '.publication-date time[datetime=?]', 1.days.ago.iso8601
+          assert_select '.publication-date time[datetime=?]', 1.day.ago.iso8601
           assert_select '.document-type', "News story"
         end
         assert_select "#announcements_content_id_2" do
@@ -267,7 +267,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
 
       assert_select "#statistics-publications" do
         assert_select_object publication_1 do
-          assert_select '.publication-date time[datetime=?]', 1.days.ago.to_date.to_datetime.iso8601
+          assert_select '.publication-date time[datetime=?]', 1.day.ago.to_date.to_datetime.iso8601
           assert_select '.document-type', "National Statistics"
         end
         assert_select_object publication_2

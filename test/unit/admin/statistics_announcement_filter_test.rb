@@ -203,6 +203,6 @@ private
   end
 
   def next_year
-    2.year.from_now
+    2.years.from_now
   end
 end

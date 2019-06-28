@@ -83,7 +83,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
     assert_equal [role], alice.current_roles, "alice should be the minister"
     assert_equal [], bob.current_roles, "bob should have no roles"
 
-    create(:role_appointment, role: role, person: bob, started_at: 10.day.ago, ended_at: 5.days.ago)
+    create(:role_appointment, role: role, person: bob, started_at: 10.days.ago, ended_at: 5.days.ago)
 
     role.reload
     alice.reload

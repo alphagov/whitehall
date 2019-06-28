@@ -95,7 +95,7 @@ class ConsultationTest < ActiveSupport::TestCase
     closed_two_days_ago = create(:consultation, opening_at: 1.month.ago, closing_at: 2.days.ago)
     _open = create(:consultation, opening_at: 1.month.ago, closing_at: 1.day.from_now)
 
-    assert_same_elements [], Consultation.closed_at_or_after(1.days.ago)
+    assert_same_elements [], Consultation.closed_at_or_after(1.day.ago)
     assert_same_elements [closed_two_days_ago], Consultation.closed_at_or_after(2.days.ago)
     assert_same_elements [closed_two_days_ago, closed_three_days_ago], Consultation.closed_at_or_after(3.days.ago)
   end
@@ -153,7 +153,7 @@ class ConsultationTest < ActiveSupport::TestCase
     open_three_days_ago = create(:consultation, opening_at: 3.days.ago)
     open_two_days_ago = create(:consultation, opening_at: 2.days.ago)
 
-    assert_same_elements [], Consultation.opened_at_or_after(1.days.ago)
+    assert_same_elements [], Consultation.opened_at_or_after(1.day.ago)
     assert_same_elements [open_two_days_ago], Consultation.opened_at_or_after(2.days.ago)
     assert_same_elements [open_two_days_ago, open_three_days_ago], Consultation.opened_at_or_after(3.days.ago)
   end
