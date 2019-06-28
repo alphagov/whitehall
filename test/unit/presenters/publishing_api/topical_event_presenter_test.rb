@@ -67,11 +67,11 @@ class PublishingApi::TopicalEventPresenterTest < ActiveSupport::TestCase
   end
 
   test "handles topical events without an end_date" do
-    topical_event = create(:topical_event, start_date: Date.today)
+    topical_event = create(:topical_event, start_date: Time.zone.today)
 
     presenter = PublishingApi::TopicalEventPresenter.new(topical_event)
 
-    assert_equal({ start_date: Date.today }, presenter.content[:details])
+    assert_equal({ start_date: Time.zone.today }, presenter.content[:details])
     assert_valid_against_schema(presenter.content, 'placeholder')
   end
 end

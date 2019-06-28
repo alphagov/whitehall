@@ -283,7 +283,7 @@ class ConsultationTest < ActiveSupport::TestCase
   end
 
   test "should return the published_on date of the outcome" do
-    today = Date.today
+    today = Time.zone.today
     consultation = create(:consultation)
     outcome = create(:consultation_outcome, consultation: consultation)
     outcome.stubs(:published_on).returns(today)
