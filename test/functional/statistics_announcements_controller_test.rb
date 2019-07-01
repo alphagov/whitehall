@@ -26,7 +26,7 @@ class StatisticsAnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "#index shows correct data for a statistics announcement" do
-    Timecop.freeze(Time.local(2014)) do
+    Timecop.freeze(Time.zone.local(2014)) do
       organisation = create :organisation, name: "Ministry of beards"
       taxon = build(:taxon_hash, content_id: 'id-123', title: 'Taxon 123')
 
