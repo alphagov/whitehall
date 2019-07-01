@@ -4,4 +4,8 @@ BULK_UPLOAD_ZIPFILE_DEFAULT_ROOT_DIRECTORY = if Rails.env.test?
                                                Rails.root.join('bulk-upload-zip-file-tmp')
                                              end
 
-FileUtils.mkdir_p(BULK_UPLOAD_ZIPFILE_DEFAULT_ROOT_DIRECTORY)
+begin
+  FileUtils.mkdir_p(BULK_UPLOAD_ZIPFILE_DEFAULT_ROOT_DIRECTORY)
+rescue Errno::EEXIST
+  puts "#{BULK_UPLOAD_ZIPFILE_DEFAULT_ROOT_DIRECTORY} exists"
+end
