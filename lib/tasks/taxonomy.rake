@@ -9,7 +9,7 @@ namespace :taxonomy do
   end
 
   task populate_end_to_end_test_data: [:environment] do
-    taxon_content_id = SecureRandom.uuid
+    taxon_content_id = "44171085-15e5-4524-89ca-b409d3675f93"
     taxon_payload = {
       base_path: "/test_taxon",
       document_type: "taxon",
@@ -18,7 +18,7 @@ namespace :taxonomy do
       description: "Test taxon description",
       publishing_app: "content-tagger",
       rendering_app: "collections",
-      public_updated_at: Time.now.iso8601,
+      public_updated_at: Time.new(1985, 7, 24, 1, 2, 3).iso8601,
       locale: "en",
       details: {
         internal_name: "Test taxon",
