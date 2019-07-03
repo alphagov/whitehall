@@ -71,14 +71,9 @@ private
       organisations: filter_query_array(allowed_params['departments'] || allowed_params['organisations']),
       people: filter_query_array(allowed_params['people']),
       world_locations: filter_query_array(allowed_params['world_locations']),
+      topical_events: filter_query_array(allowed_params['topical_events']),
       public_timestamp: { from: allowed_params['from_date'], to: allowed_params['to_date'] }.compact.presence
     }.compact.merge(special_params).to_query
-  end
-
-  def filter_query_array(arr)
-    if arr.respond_to? 'reject'
-      arr.reject { |v| v == 'all' }.compact.presence
-    end
   end
 
   def publication_finder_type
