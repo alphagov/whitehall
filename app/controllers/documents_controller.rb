@@ -105,4 +105,10 @@ private
 
     set_slimmer_world_locations_header(@document.world_locations) if @document.can_be_associated_with_world_locations?
   end
+
+  def filter_query_array(arr)
+    if arr.respond_to? 'reject'
+      arr.reject { |v| v == 'all' }.compact.presence
+    end
+  end
 end

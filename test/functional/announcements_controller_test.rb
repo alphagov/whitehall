@@ -42,7 +42,8 @@ class AnnouncementsControllerTest < ActionController::TestCase
         departments: %w[one two],
         world_locations: %w[one two],
         from_date: '01/01/2014',
-        to_date: '01/01/2014'
+        to_date: '01/01/2014',
+        topical_events: %w[one two]
       }
 
       redirect_params_query = {
@@ -52,7 +53,8 @@ class AnnouncementsControllerTest < ActionController::TestCase
         people: %w[one two],
         organisations: %w[one two],
         world_locations: %w[one two],
-        public_timestamp: { from: '01/01/2014', to: '01/01/2014' }
+        public_timestamp: { from: '01/01/2014', to: '01/01/2014' },
+        topical_events: %w[one two]
       }.to_query
 
       assert_redirected_to "#{Plek.new.website_root}/search/news-and-communications?#{redirect_params_query}"

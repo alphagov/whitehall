@@ -31,7 +31,8 @@ class PublicationsControllerTest < ActionController::TestCase
       },
       world_locations: %w[one two],
       from_date: '01/01/2014',
-      to_date: '01/01/2014'
+      to_date: '01/01/2014',
+      topical_events: %w[one two]
     }
     @default_converted_params = {
       keywords: "one two",
@@ -39,7 +40,8 @@ class PublicationsControllerTest < ActionController::TestCase
       level_two_taxon: 'two',
       organisations: %w[one two],
       world_locations: %w[one two],
-      public_timestamp: { from: '01/01/2014', to: '01/01/2014' }
+      public_timestamp: { from: '01/01/2014', to: '01/01/2014' },
+      topical_events: %w[one two],
     }
   end
 
