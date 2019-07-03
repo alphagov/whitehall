@@ -51,11 +51,6 @@ Whitehall::Application.configure do
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
 
-  # Debug mode disables concatenation and preprocessing of assets.
-  # This option may cause significant delays in view rendering with a large
-  # number of complex assets.
-  config.assets.debug = true
-
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
@@ -66,7 +61,9 @@ Whitehall::Application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  # Expands the lines which load the assets
+  # Debug mode disables concatenation and preprocessing of assets.
+  # This option may cause significant delays in view rendering with a large
+  # number of complex assets.
   config.assets.debug = ENV['DISABLE_ASSETS_DEBUG'].nil?
 
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
