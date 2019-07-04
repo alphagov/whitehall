@@ -239,14 +239,14 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     assert_equal("<div class=\"govspeak\"><p>Habeus loudius noisus</p>\n</div>", presented_item.content[:details][:body])
   end
 
-  test 'renders courts and tribunals using Whitehall' do
+  test 'renders courts and tribunals using Collections' do
     organisation = create(
       :court,
       name: 'Court at mid-wicket'
     )
     presented_item = present(organisation)
 
-    assert_equal("whitehall-frontend", presented_item.content[:rendering_app])
+    assert_equal("collections", presented_item.content[:rendering_app])
     assert_equal([{ path: "/courts-tribunals/court-at-mid-wicket", type: "exact" }], presented_item.content[:routes])
   end
 
