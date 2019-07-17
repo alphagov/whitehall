@@ -8,8 +8,8 @@
       <% socialable.social_media_accounts.each do |account| %>
         <%= content_tag_for(:li, account) do %>
           <%= link_to account.url,
-                      class: "social-media-link #{account.service_name.parameterize}" do %>
-            <span class="connect">Connect with <%= account.socialable.display_name %> on</span> <%= account.display_name %>
+                      class: "social-media-link #{account.service_name.parameterize}", lang: 'en' do %>
+            <span class="connect"></span><%= account.display_name %>
           <% end %>
         <% end %>
       <% end %>
