@@ -37,16 +37,17 @@ module Whitehall
       end
     end
 
-    def self.save_draft(model_instance, update_type_override = nil)
+    def self.save_draft(model_instance, update_type_override = nil, bulk_publishing = false)
       locales_for(model_instance).each do |locale|
-        save_draft_translation(model_instance, locale, update_type_override)
+        save_draft_translation(model_instance, locale, update_type_override, bulk_publishing)
       end
     end
 
     def self.save_draft_translation(
       model_instance,
       locale,
-      update_type_override = nil
+      update_type_override = nil,
+      bulk_publishing = false
     )
       presenter = PublishingApiPresenters.presenter_for(
         model_instance,
@@ -54,10 +55,11 @@ module Whitehall
       )
 
       I18n.with_locale(locale) do
-        Services.publishing_api.put_content(
-          presenter.content_id,
-          presenter.content
-        )
+        content = presenter.content
+
+        content.merge!(bulk_publishing: true) if bulk_publishing
+
+        Services.publishing_api.put_content(presenter.content_id, content)
       end
     end
 

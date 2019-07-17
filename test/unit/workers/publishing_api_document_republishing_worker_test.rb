@@ -18,7 +18,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
 
     Whitehall::PublishingApi
       .expects(:save_draft)
-      .with(draft_edition, "republish")
+      .with(draft_edition, "republish", false)
 
     invocation_order = sequence('invocation_order')
     PublishingApiHtmlAttachmentsWorker
