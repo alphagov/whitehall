@@ -1,7 +1,12 @@
 class PublishingApiWorker < WorkerBase
   sidekiq_options queue: "publishing_api"
 
-  def perform(model_name, id, update_type = nil, locale = I18n.default_locale.to_s)
+  def perform(model_name,
+              id,
+              update_type = nil,
+              locale = I18n.default_locale.to_s,
+              bulk_publishing = false)
+
     model = class_for(model_name).unscoped.find_by(id: id)
     return if model.nil?
 
@@ -9,7 +14,7 @@ class PublishingApiWorker < WorkerBase
 
     I18n.with_locale(locale) do
       begin
-        send_item(presenter, locale)
+        send_item(presenter, locale, bulk_publishing)
       rescue GdsApi::HTTPClientError => e
         handle_client_error(e)
       end
@@ -22,14 +27,22 @@ private
     model_name.constantize
   end
 
-  def send_item(payload, locale)
-    save_draft(payload)
-    Services.publishing_api.patch_links(payload.content_id, links: payload.links)
+  def send_item(payload, locale, bulk_publishing = false)
+    save_draft(payload, bulk_publishing)
+    Services.publishing_api.patch_links(
+      payload.content_id,
+      links: payload.links,
+      bulk_publishing: bulk_publishing
+    )
     Services.publishing_api.publish(payload.content_id, nil, locale: locale)
   end
 
-  def save_draft(payload)
-    Services.publishing_api.put_content(payload.content_id, payload.content)
+  def save_draft(payload, bulk_publishing)
+    content = payload.content
+
+    content.merge!(bulk_publishing: true) if bulk_publishing
+
+    Services.publishing_api.put_content(payload.content_id, content)
   end
 
   def handle_client_error(error)
