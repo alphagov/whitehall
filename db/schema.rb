@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190426132424) do
+ActiveRecord::Schema.define(version: 20190711112443) do
 
   create_table "about_pages", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "topical_event_id"
@@ -270,6 +270,7 @@ ActiveRecord::Schema.define(version: 20190426132424) do
     t.string "slug"
     t.string "document_type"
     t.string "content_id", null: false
+    t.boolean "locked", default: false, null: false
     t.index ["document_type"], name: "index_documents_on_document_type"
     t.index ["slug", "document_type"], name: "index_documents_on_slug_and_document_type", unique: true
   end
