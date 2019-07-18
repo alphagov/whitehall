@@ -26,6 +26,7 @@ class User < ApplicationRecord
     WORLD_EDITOR = 'World Editor'.freeze
     FORCE_PUBLISH_ANYTHING = 'Force publish anything'.freeze
     GDS_ADMIN = 'GDS Admin'.freeze
+    EXPORT_DATA = 'Export data'.freeze
   end
 
   def role
@@ -60,6 +61,10 @@ class User < ApplicationRecord
 
   def gds_admin?
     has_permission?(Permissions::GDS_ADMIN)
+  end
+
+  def can_export_data?
+    has_permission?(Permissions::EXPORT_DATA)
   end
 
   def scheduled_publishing_robot?
