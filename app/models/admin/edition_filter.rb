@@ -117,6 +117,7 @@ module Admin
       editions = editions.from_date(from_date) if from_date
       editions = editions.to_date(to_date) if to_date
       editions = editions.only_broken_links if only_broken_links
+      editions = editions.without_locked_documents
 
       editions = editions.includes(:unpublishing) if include_unpublishing?
       editions = editions.includes(:link_check_reports) if include_link_check_reports?

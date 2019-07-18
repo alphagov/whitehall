@@ -333,4 +333,11 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     filter.stubs(:unpaginated_editions).returns(stub(count: 8001))
     refute filter.exportable?
   end
+
+  test "should exclude locked documents" do
+    document = create(:document, locked: true)
+    edition = create(:edition, :published, document: document)
+    filter = Admin::EditionFilter.new(Edition, build(:user), per_page: 2)
+    refute_includes filter.editions, edition
+  end
 end
