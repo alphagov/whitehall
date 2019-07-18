@@ -1,6 +1,4 @@
-class Admin::Export::DocumentController < Admin::BaseController
-  respond_to :json
-
+class Admin::Export::DocumentController < Admin::Export::BaseController
   self.responder = Api::Responder
 
   def show
