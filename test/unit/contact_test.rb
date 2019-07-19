@@ -125,6 +125,13 @@ class ContactTest < ActiveSupport::TestCase
     end
   end
 
+  test "updating a contact republishes the organisation" do
+    test_object = create(:organisation)
+    contact = create(:contact, contactable: test_object)
+    Whitehall::PublishingApi.expects(:republish_async).with(test_object).once
+    contact.update!(title: "new title")
+  end
+
   test "creating a new contact republishes the organisation" do
     test_object = create(:organisation)
     Whitehall::PublishingApi.expects(:republish_async).with(test_object).once
