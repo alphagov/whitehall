@@ -16,7 +16,7 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
 
   sidekiq_options queue: 'publishing_api'
 
-  def perform(document_id, bulk_publishing: false)
+  def perform(document_id, bulk_publishing = false)
     @bulk_publishing = bulk_publishing
     document = Document.find(document_id)
     #this the latest edition in a visible state ie: withdrawn, published
