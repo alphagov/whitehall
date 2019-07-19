@@ -24,7 +24,7 @@ namespace :election do
       PublishingApiDocumentRepublishingWorker.perform_async_in_queue(
         "bulk_republishing",
         document_id,
-        bulk_publishing: true
+        true # bulk_publishing
       )
     end
   end
