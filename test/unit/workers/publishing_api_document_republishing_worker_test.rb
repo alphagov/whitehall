@@ -14,11 +14,11 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
     Document.stubs(:find).returns(document)
 
     PublishingApiWorker.expects(:new).returns(api_worker = mock)
-    api_worker.expects(:perform).with(published_edition.class.name, published_edition.id, "republish", "en")
+    api_worker.expects(:perform).with(published_edition.class.name, published_edition.id, "republish", "en", false)
 
     Whitehall::PublishingApi
       .expects(:save_draft)
-      .with(draft_edition, "republish")
+      .with(draft_edition, "republish", false)
 
     invocation_order = sequence('invocation_order')
     PublishingApiHtmlAttachmentsWorker
@@ -100,7 +100,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
 
     Document.stubs(:find).returns(document)
     PublishingApiWorker.expects(:new).returns(api_worker = mock)
-    api_worker.expects(:perform).with(published_edition.class.name, published_edition.id, "republish", "en")
+    api_worker.expects(:perform).with(published_edition.class.name, published_edition.id, "republish", "en", false)
 
     PublishingApiUnpublishingWorker.expects(:new).returns(unpublishing_worker = mock)
     unpublishing_worker.expects(:perform).with(published_edition.unpublishing.id, false)

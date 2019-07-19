@@ -16,7 +16,8 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
 
   sidekiq_options queue: 'publishing_api'
 
-  def perform(document_id)
+  def perform(document_id, bulk_publishing: false)
+    @bulk_publishing = bulk_publishing
     document = Document.find(document_id)
     #this the latest edition in a visible state ie: withdrawn, published
     @published_edition = document.published_edition
@@ -90,7 +91,11 @@ private
   end
 
   def send_draft_edition
-    Whitehall::PublishingApi.save_draft(pre_publication_edition, "republish")
+    Whitehall::PublishingApi.save_draft(
+      pre_publication_edition,
+      "republish",
+      @bulk_publishing
+    )
     handle_attachments_for(pre_publication_edition)
   end
 
@@ -106,7 +111,8 @@ private
         published_edition.class.name,
         published_edition.id,
         'republish',
-        locale
+        locale,
+        @bulk_publishing
       )
     end
     handle_attachments_for(published_edition)
