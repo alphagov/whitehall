@@ -14,7 +14,8 @@ class Api::WorldLocationPresenter < Api::BasePresenter
       organisations: {
         id: context.api_world_location_worldwide_organisations_url(model),
         web_url: Whitehall.url_maker.world_location_url(model, anchor: 'organisations'),
-      }
+      },
+      content_id: model.content_id
     }
   end
 
