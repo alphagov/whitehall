@@ -31,7 +31,7 @@ end
 
 Then(/^the "([^"]*)" logo should show correctly with the HMG crest$/) do |name|
   worldwide_organisation = WorldwideOrganisation.find_by(name: name)
-  assert page.has_css?(".organisation-logo-stacked-single-identity", text: worldwide_organisation.logo_formatted_name)
+  assert page.has_css?(".gem-c-organisation-logo", text: worldwide_organisation.logo_formatted_name)
 end
 
 Then(/^I should see that it is part of the "([^"]*)"$/) do |sponsoring_organisation|
