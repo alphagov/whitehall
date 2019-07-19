@@ -6,7 +6,14 @@ end
 
 Given(/^a published news article "([^"]*)" associated with "([^"]*)"$/) do |title, appointee|
   appointment = find_person(appointee).current_role_appointments.last
-  create(:published_news_article, title: title, role_appointments: [appointment])
+  news_article = create(:published_news_article, title: title, role_appointments: [appointment])
+
+  stub_any_search.to_return(
+    body: {
+      results: [
+        { link: document_path(news_article), title: news_article.title },
+      ]
+    }.to_json)
 end
 
 Given(/^a published news article "([^"]*)" which isn't explicitly associated with "([^"]*)"$/) do |title, _thing|
