@@ -4,6 +4,21 @@ namespace :search do
     Document.find_by(content_id: args[:content_id]).published_edition.update_in_search_index
   end
 
+  desc "Re-index a collection of Documents with specified world location. Takes a `world_location_slug` as argument."
+  task :resend_documents_in_world_location, [:world_location_slug] => [:environment] do |_, args|
+    world_location = WorldLocation.find_by(slug: args[:world_location_slug])
+
+    if world_location
+      content_ids = Edition.in_world_location(world_location.id).map(&:content_id)
+
+      Document.where(content_id: content_ids).each do |document|
+        document.published_edition.try(:update_in_search_index)
+      end
+    else
+      puts "World location for #{args[:world_location_slug]} not found"
+    end
+  end
+
   desc "indexes all published searchable whitehall content"
   task index: ['search:index:detailed', 'search:index:government']
 
