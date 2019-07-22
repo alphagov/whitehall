@@ -62,6 +62,10 @@ FactoryBot.define do
     permissions { [User::Permissions::SIGNIN, User::Permissions::WORLD_WRITER] }
   end
 
+  factory :export_data_user, parent: :user do
+    permissions { [User::Permissions::SIGNIN, User::Permissions::EXPORT_DATA] }
+  end
+
   factory :gds_team_user, parent: :user do
     name { "GDS Inside Government Team" }
     email { 'govuk-whitehall@digital.cabinet-office.gov.uk' }
