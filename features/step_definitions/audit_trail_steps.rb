@@ -4,7 +4,7 @@ Given(/^a document that has gone through many changes$/) do
   assert page.has_content?('An frequently changed publication')
   @the_publication = Publication.find_by(title: 'An frequently changed publication')
   # fake it
-  states = %w[draft submitted published superseded]
+  states = %w[draft submitted published]
   50.times do |i|
     Timecop.travel i.hours.from_now do
       @the_publication.versions.create event: 'update', whodunnit: @user, state: states.sample
