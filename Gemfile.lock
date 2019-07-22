@@ -418,9 +418,9 @@ GEM
       redis (>= 3.0.4)
     request_store (1.4.1)
       rack (>= 1.4)
-    responders (2.4.1)
-      actionpack (>= 4.2.0, < 6.0)
-      railties (>= 4.2.0, < 6.0)
+    responders (3.0.0)
+      actionpack (>= 5.0)
+      railties (>= 5.0)
     rest-client (2.0.2)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
@@ -638,7 +638,7 @@ DEPENDENCIES
   rake (= 12.3.3)
   record_tag_helper (~> 1.0)
   redis-namespace
-  responders (~> 2.4)
+  responders (~> 3.0)
   rinku
   ruby-prof
   ruby-progressbar

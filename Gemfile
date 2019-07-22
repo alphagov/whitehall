@@ -46,7 +46,7 @@ gem 'raindrops', '0.19.0'
 gem 'rake', '12.3.3'
 gem 'record_tag_helper', '~> 1.0'
 gem 'redis-namespace'
-gem 'responders', '~> 2.4'
+gem 'responders', '~> 3.0'
 gem 'rinku', require: 'rails_rinku'
 gem 'ruby-progressbar', require: false
 gem 'rubyzip', '~> 1.2'
