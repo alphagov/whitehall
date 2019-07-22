@@ -62,6 +62,11 @@ class Api::WorldLocationPresenterTest < PresenterTestCase
     assert_equal 'location-display-type', @presenter.as_json[:format]
   end
 
+  test "json includes content_id" do
+    @location.stubs(:content_id).returns('world-location-content-id')
+    assert_equal 'world-location-content-id', @presenter.as_json[:content_id]
+  end
+
   test "json includes public location url as web_url" do
     assert_equal Whitehall.url_maker.world_location_url(@location), @presenter.as_json[:web_url]
   end
