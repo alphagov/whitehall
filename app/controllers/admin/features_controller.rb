@@ -6,6 +6,10 @@ class Admin::FeaturesController < Admin::BaseController
   def new; end
 
   def create
+    if @feature.document.present?
+      raise "Cannot feature a locked document" if @feature.document.locked?
+    end
+
     if @feature.save
       PublishingApiDocumentRepublishingWorker.perform_async(@feature.document_id) if @feature.document_id.present?
       redirect_to admin_feature_list_path(@feature_list), notice: "The document has been saved"

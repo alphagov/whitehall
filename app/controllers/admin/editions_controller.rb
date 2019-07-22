@@ -318,7 +318,8 @@ private
       merge(
         include_unpublishing: true,
         include_link_check_reports: true,
-        include_last_author: true
+        include_last_author: true,
+        include_locked_documents: true,
       )
   end
 
