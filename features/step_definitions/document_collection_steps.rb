@@ -134,3 +134,16 @@ And(/^I tag that document collection to the policy "(.*?)"$/) do |policy|
   select policy, from: "Policies"
   click_button "Save"
 end
+
+And(/^I search for "(.*?)" to add it to the document collection$/) do |document_title|
+  visit admin_document_collection_path(@document_collection)
+  click_on "Edit draft"
+  click_on "Collection documents"
+  fill_in "title", with: document_title
+  click_on "Find"
+end
+
+Then(/^the document does not appear in the search results$/) do
+  result = find('li.ui-menu-item')
+  assert_equal result.text, "No results matching search criteria"
+end
