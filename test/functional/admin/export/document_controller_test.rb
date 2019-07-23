@@ -55,4 +55,15 @@ class Admin::Export::DocumentControllerTest < ActionController::TestCase
     get :show, params: { id: edition.document.id }, format: 'json'
     assert_equal expected_whitehall_admin_links, json_response['editions'][-1]['whitehall_admin_links']
   end
+
+  test "appends the image url to the images response hash" do
+    image = create(:image)
+    publication = create(:publication, images: [image])
+
+    login_as :export_data_user
+    get :show, params: { id: publication.document.id }, format: 'json'
+    images = json_response['editions'].first['associations']['images']
+
+    assert_equal image.image_data.file_url, images.first['url']
+  end
 end
