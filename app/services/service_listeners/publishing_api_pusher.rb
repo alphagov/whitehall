@@ -7,6 +7,10 @@ module ServiceListeners
     end
 
     def push(event:, options: {})
+      if edition.locked?
+        raise RuntimeError, "Cannot send a locked document to the Publishing API"
+      end
+
       # This is done synchronously before the rest of the publishing.
       # Currently (02/11/2016) publishing-api links
       # are not recalculated on parent documents when their translations are unpublished.

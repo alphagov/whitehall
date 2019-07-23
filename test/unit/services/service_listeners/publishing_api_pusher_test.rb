@@ -215,5 +215,14 @@ module ServiceListeners
 
       PublishingApiPusher.new(edition).push(event: 'update_draft')
     end
+
+    test "raises an error if an edition's document is locked" do
+      document = build(:document, locked: true)
+      edition = build(:edition, document: document)
+
+      assert_raises RuntimeError, "Cannot send a locked document to the Publishing API" do
+        PublishingApiPusher.new(edition).push(event: "anything")
+      end
+    end
   end
 end
