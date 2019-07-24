@@ -19,6 +19,10 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
   def perform(document_id, bulk_publishing = false)
     @bulk_publishing = bulk_publishing
     document = Document.find(document_id)
+    if document.locked?
+      raise RuntimeError, "Cannot send a locked document to the Publishing API"
+    end
+
     #this the latest edition in a visible state ie: withdrawn, published
     @published_edition = document.published_edition
     #this is the latest edition in a non visible state - draft, scheduled

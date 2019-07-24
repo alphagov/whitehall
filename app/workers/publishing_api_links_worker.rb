@@ -4,8 +4,13 @@ class PublishingApiLinksWorker < WorkerBase
 
   def perform(edition_id)
     item = Edition.find(edition_id)
+    if item.locked?
+      raise RuntimeError, "Cannot send a locked document to the Publishing API"
+    end
+
     content_id = item.content_id
     links = PublishingApiPresenters.presenter_for(item).links
+
     if links && !links.empty?
       Services.publishing_api.patch_links(
         content_id,
