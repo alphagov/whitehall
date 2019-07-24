@@ -37,7 +37,7 @@ Then(/^the "([^"]*)" social link should be shown on the public website for the (
     social_container = Organisation.last
     visit organisation_path(social_container)
   end
-  assert page.has_css?(".social-media-accounts .social-media-link.#{social_service.parameterize}", text: "Connect with #{social_container.display_name} on #{social_service}")
+  assert page.has_css?(".social-media-accounts .social-media-link.#{social_service.parameterize}", text: social_service)
 end
 
 Then(/^the "([^"]*)" social link called "([^"]+)" should be shown on the public website for the (worldwide organisation|organisation)$/) do |social_service, title, social_container|
@@ -48,5 +48,5 @@ Then(/^the "([^"]*)" social link called "([^"]+)" should be shown on the public 
     social_container = Organisation.last
     visit organisation_path(social_container)
   end
-  assert page.has_css?(".social-media-accounts .social-media-link.#{social_service.parameterize}", text: "Connect with #{social_container.display_name} on #{title}")
+  assert page.has_css?(".social-media-accounts .social-media-link.#{social_service.parameterize}", text: title)
 end
