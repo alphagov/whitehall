@@ -5,7 +5,8 @@ class PublishingApiRedirectWorkerTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApiV2
 
   setup do
-    @uuid = SecureRandom.uuid
+    document = create(:document)
+    @uuid = document.content_id
     @base_path = "/government/this-needs-redirecting.fr"
 
     @destination = "/government/has-been-redirected.fr"
@@ -74,6 +75,14 @@ class PublishingApiRedirectWorkerTest < ActiveSupport::TestCase
         PublishingApiRedirectWorker.new.perform(@uuid, @destination, "fr", true)
         assert_mock govukerror_notify
       end
+    end
+  end
+
+  test "raises an error if an edition's document is locked" do
+    document = create(:document, locked: true)
+
+    assert_raises RuntimeError, "Cannot send a locked document to the Publishing API" do
+      PublishingApiRedirectWorker.new.perform(document.content_id, @destination, "fr", true)
     end
   end
 end

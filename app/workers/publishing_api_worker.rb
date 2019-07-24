@@ -10,6 +10,10 @@ class PublishingApiWorker < WorkerBase
     model = class_for(model_name).unscoped.find_by(id: id)
     return if model.nil?
 
+    if model.is_a?(Edition)
+      check_if_locked_document(model.content_id)
+    end
+
     presenter = PublishingApiPresenters.presenter_for(model, update_type: update_type)
 
     I18n.with_locale(locale) do
@@ -48,5 +52,14 @@ private
   def handle_client_error(error)
     explanation = "The error code indicates that retrying this request will not help. This job is being aborted and will not be retried."
     GovukError.notify(error, extra: { explanation: explanation })
+  end
+
+  def check_if_locked_document(content_id)
+    document = Document.find_by(content_id: content_id)
+    return unless document.present?
+
+    if document.locked?
+      raise RuntimeError, "Cannot send a locked document to the Publishing API"
+    end
   end
 end

@@ -5,7 +5,8 @@ class PublishingApiGoneWorkerTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApiV2
 
   setup do
-    @uuid = SecureRandom.uuid
+    document = create(:document)
+    @uuid = document.content_id
   end
 
   test "publishes a 'gone' item for the supplied content id" do
@@ -74,6 +75,14 @@ class PublishingApiGoneWorkerTest < ActiveSupport::TestCase
         PublishingApiGoneWorker.new.perform(@uuid, "alternative_path", "*why?*", "de")
         assert_mock govukerror_notify
       end
+    end
+  end
+
+  test "raises an error if a document is locked" do
+    document = create(:document, locked: true)
+
+    assert_raises RuntimeError, "Cannot send a locked document to the Publishing API" do
+      PublishingApiGoneWorker.new.perform(document.content_id, "alternative_path", "*why?*", "de")
     end
   end
 end

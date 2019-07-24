@@ -23,4 +23,14 @@ class PublishingApiWithdrawalWorkerTest < ActiveSupport::TestCase
 
     assert_requested request
   end
+
+  test "raises an error if the document is locked" do
+    document = create(:document, locked: true)
+
+    assert_raises RuntimeError, "Cannot send a locked document to the Publishing API" do
+      PublishingApiWithdrawalWorker.new.perform(
+        document.content_id, "*why?*", "en"
+      )
+    end
+  end
 end

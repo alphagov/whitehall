@@ -6,6 +6,10 @@ class PublishingApiUnpublishingWorker
   def perform(unpublishing_id, allow_draft = false)
     unpublishing = Unpublishing.includes(:edition).find(unpublishing_id)
     edition = unpublishing.edition
+    if edition.locked?
+      raise RuntimeError, "Cannot send a locked document to the Publishing API"
+    end
+
     content_id = Document.where(id: edition.document_id).pluck(:content_id).first
 
     edition.available_locales.each do |locale|

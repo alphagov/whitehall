@@ -33,4 +33,13 @@ class PublishingApDiscardDraftiWorkerTest < ActiveSupport::TestCase
 
     assert_requested request
   end
+
+  test "raises an error if an edition's document is locked" do
+    document = build(:document, locked: true)
+    edition = create(:published_edition, document: document)
+
+    assert_raises RuntimeError, "Cannot send a locked document to the Publishing API" do
+      PublishingApiDiscardDraftWorker.new.perform(edition.content_id, "en")
+    end
+  end
 end
