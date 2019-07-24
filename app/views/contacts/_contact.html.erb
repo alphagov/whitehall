@@ -9,7 +9,7 @@
   extra_class << 'postal-address' if contact.has_postal_address?
 %>
 <%= content_tag_for(:div, contact, class: extra_class.join(' ')) do %>
-  <div class="content">
+  <div class="content" <%= lang if local_assigns[:lang] %> >
     <% unless local_assigns[:hide_title] %><%= content_tag heading_tag, contact.title %><% end %>
 
     <div class="vcard contact-inner">
