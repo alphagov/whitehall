@@ -84,7 +84,7 @@ class DocumentHistoryTest < ActiveSupport::TestCase
     document         = original_edition.document
 
     Timecop.travel(2.days.ago) { create(:superseded_edition, document: document, published_major_version: 2, published_minor_version: 0, major_change_published_at: Time.zone.now, change_note: "some changes") }
-    Timecop.travel(1.day.ago) { create(:published_edition,  document: document, published_major_version: 3, published_minor_version: 0, major_change_published_at: Time.zone.now, change_note: "more changes") }
+    Timecop.travel(1.day.ago) { create(:published_edition, document: document, published_major_version: 3, published_minor_version: 0, major_change_published_at: Time.zone.now, change_note: "more changes") }
     create(:published_edition, document: document, published_major_version: 2, published_minor_version: 1, minor_change: true)
 
     history = DocumentHistory.new(document)
