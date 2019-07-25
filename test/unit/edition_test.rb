@@ -88,7 +88,7 @@ class EditionTest < ActiveSupport::TestCase
     edition = create(:published_edition)
 
     assert_not edition.most_recent_change_note,
-           "Expected nil, found #{edition.most_recent_change_note}"
+               "Expected nil, found #{edition.most_recent_change_note}"
 
     version_2 = edition.create_draft(editor)
     version_2.change_note = 'My new version'

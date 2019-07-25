@@ -35,12 +35,12 @@ class StatisticsAnnouncementDateTest < ActiveSupport::TestCase
 
   test 'a confirmed date must be of exact precision' do
     assert_not build(:statistics_announcement_date,
-                 precision: StatisticsAnnouncementDate::PRECISION[:one_month],
-                 confirmed: true).valid?
+                     precision: StatisticsAnnouncementDate::PRECISION[:one_month],
+                     confirmed: true).valid?
 
     assert_not build(:statistics_announcement_date,
-                 precision: StatisticsAnnouncementDate::PRECISION[:two_month],
-                 confirmed: true).valid?
+                     precision: StatisticsAnnouncementDate::PRECISION[:two_month],
+                     confirmed: true).valid?
 
     assert build(:statistics_announcement_date,
                  precision: StatisticsAnnouncementDate::PRECISION[:exact],
