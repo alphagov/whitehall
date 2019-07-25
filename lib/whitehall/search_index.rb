@@ -4,6 +4,10 @@ module Whitehall
   #
   class SearchIndex
     def self.add(instance)
+      if instance.is_a?(Edition) && instance.locked?
+        raise RuntimeError, "Cannot send a locked document to the Search API"
+      end
+
       # Note We delay the search index job to ensure that any transactions
       # around publishing will have had time to complete. Specifically,
       # EditionPublishingWorker publishes scheduled editions in a transaction
