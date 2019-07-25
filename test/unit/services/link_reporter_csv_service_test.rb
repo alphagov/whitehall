@@ -121,11 +121,11 @@ class LinkReporterCsvServiceTest < ActiveSupport::TestCase
                   "2",
                   "https://www.gov.uk/bad-link\r\nhttps://www.gov.uk/missing-link"], hmrc_csv[1]
     assert_not_equal ["https://www.gov.uk#{Whitehall.url_maker.publication_path(publication.slug)}",
-                  "https://whitehall-admin.publishing.service.gov.uk#{Whitehall.url_maker.admin_publication_path(publication)}",
-                  publication.public_timestamp.to_s,
-                  "Publication",
-                  "0",
-                  ""], hmrc_csv[2]
+                      "https://whitehall-admin.publishing.service.gov.uk#{Whitehall.url_maker.admin_publication_path(publication)}",
+                      publication.public_timestamp.to_s,
+                      "Publication",
+                      "0",
+                      ""], hmrc_csv[2]
   end
 
   test "creates a new csv file even if no organisation passed to it" do
