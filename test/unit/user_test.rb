@@ -87,7 +87,7 @@ class UserTest < ActiveSupport::TestCase
 
   test 'should not be able to export data if does not have whitehall Export data role' do
     user = build(:user, permissions: [])
-    refute user.can_export_data?
+    assert_not user.can_export_data?
   end
 
   test 'returns enabled users' do

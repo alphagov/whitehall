@@ -338,7 +338,7 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     document = create(:document, locked: true)
     edition = create(:edition, :published, document: document)
     filter = Admin::EditionFilter.new(Edition, build(:user), per_page: 2)
-    refute_includes filter.editions, edition
+    assert_not_includes filter.editions, edition
   end
 
   test "should include locked document if 'include_locked_documents' flag is set" do
