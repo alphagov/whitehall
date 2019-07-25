@@ -31,7 +31,7 @@ class CsvPreviewTest < ActiveSupport::TestCase
   end
 
   test "handles windows-1252 encoded files" do
-    iso_encoded_preview = CsvPreview.new(File.open(Rails.root.join("test","fixtures","csv_encodings","windows-1252.csv")))
+    iso_encoded_preview = CsvPreview.new(File.open(Rails.root.join("test", "fixtures", "csv_encodings", "windows-1252.csv")))
 
     assert_equal %w(name address1 address2 town postcode access_notes general_notes url email phone fax text_phone),
                  iso_encoded_preview.headings
