@@ -32,7 +32,9 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
         output[:associations][association] = edition.public_send(association)
       end
     end
-    output[:whitehall_admin_links].concat(resolve_whitehall_admin_links(edition.body))
+
+    output[:government] = edition.government
+    output[:whitehall_admin_links] = resolve_whitehall_admin_links(edition.body)
     if edition.withdrawn?
       output[:whitehall_admin_links].concat(resolve_whitehall_admin_links(edition.unpublishing.explanation))
     end
