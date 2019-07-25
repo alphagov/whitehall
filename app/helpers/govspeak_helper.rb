@@ -103,6 +103,12 @@ module GovspeakHelper
     { heading_numbering: numbering_method, contact_heading_tag: 'h4' }
   end
 
+  def whitehall_admin_links(body)
+    govspeak = build_govspeak_document(body)
+    links = Govspeak::LinkExtractor.new(govspeak).call
+    links.select { |link| DataHygiene::GovspeakLinkValidator::is_internal_admin_link?(link) }
+  end
+
 private
 
   def remove_extra_quotes_from_blockquotes(govspeak)
