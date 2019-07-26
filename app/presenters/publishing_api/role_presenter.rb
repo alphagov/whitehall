@@ -59,8 +59,8 @@ module PublishingApi
     def details
       {
         body: body,
-        attends_cabinet_type: item.attends_cabinet_type,
-        role_payment_type: item.role_payment_type,
+        attends_cabinet_type: item.attends_cabinet_type&.name,
+        role_payment_type: item.role_payment_type&.name,
         supports_historical_accounts: item.supports_historical_accounts,
       }
     end
