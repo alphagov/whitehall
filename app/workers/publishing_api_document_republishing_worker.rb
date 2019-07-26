@@ -12,6 +12,8 @@
 # and sending it again after republishing. This also changes the version
 # numbering and would probably appear in the version history.
 class PublishingApiDocumentRepublishingWorker < WorkerBase
+  include LockedDocumentConcern
+
   attr_reader :published_edition, :pre_publication_edition
 
   sidekiq_options queue: 'publishing_api'
@@ -19,9 +21,7 @@ class PublishingApiDocumentRepublishingWorker < WorkerBase
   def perform(document_id, bulk_publishing = false)
     @bulk_publishing = bulk_publishing
     document = Document.find(document_id)
-    if document.locked?
-      raise RuntimeError, "Cannot send a locked document to the Publishing API"
-    end
+    check_if_locked_document(document: document)
 
     #this the latest edition in a visible state ie: withdrawn, published
     @published_edition = document.published_edition

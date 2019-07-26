@@ -57,7 +57,7 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
       alt_text: "some text",
     }
 
-    assert_raises "Cannot feature a locked document" do
+    assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
       post :create, params: { feature_list_id: feature_list.id, feature: params }
     end
   end
