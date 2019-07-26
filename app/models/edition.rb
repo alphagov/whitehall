@@ -31,6 +31,7 @@ class Edition < ApplicationRecord
   extend Edition::FindableByWorldwideOrganisation
 
   include Searchable
+  include LockedDocumentConcern
 
   has_many :editorial_remarks, dependent: :destroy
   has_many :edition_authors, dependent: :destroy
@@ -92,6 +93,7 @@ class Edition < ApplicationRecord
 
   # @!group Callbacks
   before_save :set_public_timestamp
+  before_save { check_if_locked_document(edition: self) }
   # @!endgroup
 
   class UnmodifiableValidator < ActiveModel::Validator

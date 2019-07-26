@@ -238,4 +238,12 @@ class DocumentTest < ActiveSupport::TestCase
 
     assert_equal document.patch_meets_user_needs_links, "Links updated"
   end
+
+  test 'should raise an exception when attempting to modify a locked document' do
+    document = create(:document, locked: true)
+    document.id = 42
+    assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
+      document.save
+    end
+  end
 end

@@ -83,6 +83,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
     published_edition = EditionWithImages.new(
       valid_edition_attributes.merge(
         state: 'published',
+        document: create(:document),
         major_change_published_at: Time.zone.now,
         first_published_at: Time.zone.now,
         images_attributes: [{

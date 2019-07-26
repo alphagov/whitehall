@@ -161,6 +161,12 @@ FactoryBot.define do
         edition.unpublishing = build(:withdrawn_unpublishing, edition: edition)
       end
     end
+
+    trait(:with_locked_document) do
+      after(:create) do |edition|
+        edition.document.update(locked: true)
+      end
+    end
   end
 
   factory :announcement, parent: :edition, class: Announcement, traits: %i[with_organisations with_topics]

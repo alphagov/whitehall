@@ -16,7 +16,7 @@ module Whitehall
     end
 
     test 'SearchIndex.add does not queue a search index add job if a document is locked' do
-      edition = create(:edition, document: build(:document, locked: true))
+      edition = create(:unpublished_edition, :with_locked_document)
       assert_raises LockedDocumentConcern::LockedDocumentError, 'Cannot perform this operation on a locked document' do
         SearchIndex.add(edition)
       end

@@ -250,7 +250,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   end
 
   test "POST :create with an edition belonging to a locked document does not save the attachment" do
-    edition = create(:edition, document: build(:document, locked: true))
+    edition = create(:unpublished_edition, :with_locked_document)
     assert_raise LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
       post :create, params: { edition_id: edition, attachment: valid_file_attachment_params }
     end
