@@ -1,5 +1,7 @@
 module ServiceListeners
   class PublishingApiPusher
+    include LockedDocumentConcern
+
     attr_reader :edition
 
     def initialize(edition)
@@ -7,9 +9,7 @@ module ServiceListeners
     end
 
     def push(event:, options: {})
-      if edition.locked?
-        raise RuntimeError, "Cannot send a locked document to the Publishing API"
-      end
+      check_if_locked_document(edition: edition)
 
       # This is done synchronously before the rest of the publishing.
       # Currently (02/11/2016) publishing-api links

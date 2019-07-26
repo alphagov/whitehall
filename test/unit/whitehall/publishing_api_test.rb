@@ -243,7 +243,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     document = create(:document, locked: true)
     edition = build(:edition, document: document)
 
-    assert_raises RuntimeError, "Cannot send a locked document to the Publishing API" do
+    assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
       Whitehall::PublishingApi.schedule_async(edition)
     end
   end
@@ -287,7 +287,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     document = create(:document, locked: true)
     edition = build(:edition, document: document)
 
-    assert_raises RuntimeError, "Cannot send a locked document to the Publishing API" do
+    assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
       Whitehall::PublishingApi.unschedule_async(edition)
     end
   end

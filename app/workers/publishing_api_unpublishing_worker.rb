@@ -1,14 +1,13 @@
 class PublishingApiUnpublishingWorker
   include Sidekiq::Worker
+  include LockedDocumentConcern
 
   sidekiq_options queue: 'publishing_api'
 
   def perform(unpublishing_id, allow_draft = false)
     unpublishing = Unpublishing.includes(:edition).find(unpublishing_id)
     edition = unpublishing.edition
-    if edition.locked?
-      raise RuntimeError, "Cannot send a locked document to the Publishing API"
-    end
+    check_if_locked_document(edition: edition)
 
     content_id = Document.where(id: edition.document_id).pluck(:content_id).first
 

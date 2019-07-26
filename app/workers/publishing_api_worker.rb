@@ -12,7 +12,7 @@ class PublishingApiWorker < WorkerBase
     return if model.nil?
 
     if model.is_a?(Edition)
-      check_if_locked_document(content_id: model.content_id)
+      check_if_locked_document(edition: model)
     end
 
     presenter = PublishingApiPresenters.presenter_for(model, update_type: update_type)

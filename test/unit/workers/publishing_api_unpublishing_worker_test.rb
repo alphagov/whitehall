@@ -116,7 +116,7 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
     document = build(:document, locked: true)
     edition = create(:unpublished_edition, document: document)
 
-    assert_raises RuntimeError, "Cannot send a locked document to the Publishing API" do
+    assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
       PublishingApiUnpublishingWorker.new.perform(edition.unpublishing.id)
     end
   end

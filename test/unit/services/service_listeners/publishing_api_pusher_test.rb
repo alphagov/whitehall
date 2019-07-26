@@ -220,7 +220,7 @@ module ServiceListeners
       document = build(:document, locked: true)
       edition = build(:edition, document: document)
 
-      assert_raises RuntimeError, "Cannot send a locked document to the Publishing API" do
+      assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
         PublishingApiPusher.new(edition).push(event: "anything")
       end
     end

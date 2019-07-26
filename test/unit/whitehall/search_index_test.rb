@@ -17,7 +17,7 @@ module Whitehall
 
     test 'SearchIndex.add does not queue a search index add job if a document is locked' do
       edition = create(:edition, document: build(:document, locked: true))
-      assert_raises RuntimeError, 'Cannot send a locked document to the Search API' do
+      assert_raises LockedDocumentConcern::LockedDocumentError, 'Cannot perform this operation on a locked document' do
         SearchIndex.add(edition)
       end
 
