@@ -22,15 +22,27 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
                "associations": {},
                "whitehall_admin_links": []
              }
+
     associations = edition.class.reflect_on_all_associations.map(&:name)
     associations.each do |association|
-      output[:associations][association] = edition.public_send(association)
+      if association == :images
+        edition_images = edition.public_send(association)
+        output[:associations][association] = complete_images_hash(edition_images)
+      else
+        output[:associations][association] = edition.public_send(association)
+      end
     end
     output[:whitehall_admin_links].concat(resolve_whitehall_admin_links(edition.body))
     if edition.withdrawn?
       output[:whitehall_admin_links].concat(resolve_whitehall_admin_links(edition.unpublishing.explanation))
     end
     output
+  end
+
+  def complete_images_hash(edition_images)
+    edition_images.map do |image|
+      image.as_json(methods: :url)
+    end
   end
 
   def resolve_whitehall_admin_links(body)
