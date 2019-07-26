@@ -282,6 +282,7 @@ hi:
     see_all_updates:
     updated_at:
   contact:
+    access_and_opening_times:
     contact_form: संपर्क प्रपत्र
     email: ईमेल
   corporate_information_page:

@@ -282,6 +282,7 @@ sq:
     see_all_updates:
     updated_at:
   contact:
+    access_and_opening_times:
     contact_form: Forme kontakti
     email: Email
   corporate_information_page:

@@ -283,6 +283,7 @@ ta:
     see_all_updates:
     updated_at:
   contact:
+    access_and_opening_times:
     contact_form: தொடர்புகொள்ளல் படிவம்
     email: மின்னஞ்சல்
   corporate_information_page:
