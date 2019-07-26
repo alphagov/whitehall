@@ -18,9 +18,8 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
 
   def edition_associations(edition)
     output = {
-               "edition": edition,
-               "associations": {},
-               "whitehall_admin_links": []
+               edition: edition,
+               associations: {}
              }
 
     associations = edition.class.reflect_on_all_associations.map(&:name)
@@ -49,7 +48,7 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
 
   def resolve_whitehall_admin_links(body)
     whitehall_admin_links(body).map do |link|
-      { "whitehall_admin_url": link, "public_url": public_url_for_admin_link(link) }
+      { whitehall_admin_url: link, public_url: public_url_for_admin_link(link) }
     end
   end
 
