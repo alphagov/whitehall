@@ -25,7 +25,7 @@ class PublishingApiVanishWorkerTest < ActiveSupport::TestCase
   test "an error if document is locked" do
     document = create(:document, locked: true)
 
-    assert_raises RuntimeError, "Cannot send a locked document to the Publishing API" do
+    assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
       PublishingApiVanishWorker.new.perform(document.content_id, "en")
     end
   end

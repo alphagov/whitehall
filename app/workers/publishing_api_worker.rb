@@ -1,5 +1,6 @@
 class PublishingApiWorker < WorkerBase
   sidekiq_options queue: "publishing_api"
+  include LockedDocumentConcern
 
   def perform(model_name,
               id,
@@ -11,7 +12,7 @@ class PublishingApiWorker < WorkerBase
     return if model.nil?
 
     if model.is_a?(Edition)
-      check_if_locked_document(model.content_id)
+      check_if_locked_document(content_id: model.content_id)
     end
 
     presenter = PublishingApiPresenters.presenter_for(model, update_type: update_type)
@@ -52,14 +53,5 @@ private
   def handle_client_error(error)
     explanation = "The error code indicates that retrying this request will not help. This job is being aborted and will not be retried."
     GovukError.notify(error, extra: { explanation: explanation })
-  end
-
-  def check_if_locked_document(content_id)
-    document = Document.find_by(content_id: content_id)
-    return unless document.present?
-
-    if document.locked?
-      raise RuntimeError, "Cannot send a locked document to the Publishing API"
-    end
   end
 end

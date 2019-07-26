@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'gds_api/test_helpers/publishing_api_v2'
 
-class PublishingApDiscardDraftiWorkerTest < ActiveSupport::TestCase
+class PublishingApiDiscardDraftWorkerTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApiV2
 
   def setup
@@ -38,7 +38,7 @@ class PublishingApDiscardDraftiWorkerTest < ActiveSupport::TestCase
     document = build(:document, locked: true)
     edition = create(:published_edition, document: document)
 
-    assert_raises RuntimeError, "Cannot send a locked document to the Publishing API" do
+    assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
       PublishingApiDiscardDraftWorker.new.perform(edition.content_id, "en")
     end
   end
