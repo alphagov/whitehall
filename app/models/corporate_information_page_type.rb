@@ -1,5 +1,6 @@
 class CorporateInformationPageType
   include ActiveRecordLikeInterface
+  include TranslationHelper
 
   attr_accessor :id, :title_template, :slug, :menu_heading
 
@@ -16,13 +17,13 @@ class CorporateInformationPageType
   end
 
   def title(organisation)
-    organisation_name = if organisation.respond_to?(:acronym) && organisation.acronym.present?
-                          organisation.acronym
-                        else
-                          organisation.name
-                        end
     translation_key = slug.tr('-', '_')
-    I18n.t("corporate_information_page.type.title.#{translation_key}", organisation_name: organisation_name)
+    I18n.t("corporate_information_page.type.title.#{translation_key}", organisation_name: organisation_name(organisation))
+  end
+
+  def title_lang(organisation)
+    translation_key = slug.tr('-', '_')
+    t_lang("corporate_information_page.type.title.#{translation_key}", organisation_name: organisation_name(organisation))
   end
 
   def self.by_menu_heading(menu_heading)
@@ -96,4 +97,14 @@ class CorporateInformationPageType
   AccessibleDocumentsPolicy = create(
     id: 21, slug: 'accessible-documents-policy', menu_heading: :our_information
   )
+
+private
+
+  def organisation_name(organisation)
+    if organisation.respond_to?(:acronym) && organisation.acronym.present?
+      organisation.acronym
+    else
+      organisation.name
+    end
+  end
 end
