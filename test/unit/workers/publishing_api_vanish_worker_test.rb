@@ -21,4 +21,12 @@ class PublishingApiVanishWorkerTest < ActiveSupport::TestCase
 
     assert_requested request
   end
+
+  test "an error if document is locked" do
+    document = create(:document, locked: true)
+
+    assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
+      PublishingApiVanishWorker.new.perform(document.content_id, "en")
+    end
+  end
 end

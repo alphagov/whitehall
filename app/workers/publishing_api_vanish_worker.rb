@@ -1,5 +1,7 @@
 class PublishingApiVanishWorker < PublishingApiWorker
   def perform(content_id, locale)
+    check_if_locked_document(content_id: content_id)
+
     Services.publishing_api.unpublish(
       content_id,
       type: "vanish",

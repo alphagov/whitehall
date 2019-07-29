@@ -1,4 +1,6 @@
 class Admin::FeaturesController < Admin::BaseController
+  include LockedDocumentConcern
+
   before_action :find_feature_list
   before_action :build_feature
   before_action :find_edition, :find_topical_event, :find_offsite_link, only: [:new]
@@ -7,7 +9,7 @@ class Admin::FeaturesController < Admin::BaseController
 
   def create
     if @feature.document.present?
-      raise "Cannot feature a locked document" if @feature.document.locked?
+      check_if_locked_document(document: @feature.document)
     end
 
     if @feature.save

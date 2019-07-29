@@ -9,6 +9,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
       published_edition: published_edition = build(:edition, id: 1),
       id: 1,
       pre_publication_edition: draft_edition = build(:edition, id: 2),
+      locked?: false,
     )
 
     Document.stubs(:find).returns(document)
@@ -42,6 +43,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
       published_edition: build(:edition),
       id: 1,
       pre_publication_edition: build(:edition),
+      locked?: false,
     )
 
     Document.stubs(:find).returns(document)
@@ -96,6 +98,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
       published_edition: published_edition = create(:withdrawn_edition, unpublishing: unpublishing),
       id: 1,
       pre_publication_edition: nil,
+      locked?: false,
     )
 
     Document.stubs(:find).returns(document)
@@ -125,6 +128,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
       published_edition: stub(id: 2, unpublishing: stub(id: 4, unpublishing_reason_id: 100)),
       id: 1,
       pre_publication_edition: nil,
+      locked?: false,
     )
 
     Document.stubs(:find).returns(document)
@@ -141,6 +145,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
       published_edition: nil,
       id: 1,
       pre_publication_edition: nil,
+      locked?: false,
     )
 
     Document.stubs(:find).returns(document)
@@ -153,6 +158,14 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
     PublishingApiUnpublishingWorker.stubs(:new).returns(raising_worker)
 
     assert_nothing_raised do
+      PublishingApiDocumentRepublishingWorker.new.perform(document.id)
+    end
+  end
+
+  test "raises an error if an edition's document is locked" do
+    document = create(:document, locked: true)
+
+    assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
       PublishingApiDocumentRepublishingWorker.new.perform(document.id)
     end
   end

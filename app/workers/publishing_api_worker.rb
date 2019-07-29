@@ -1,5 +1,6 @@
 class PublishingApiWorker < WorkerBase
   sidekiq_options queue: "publishing_api"
+  include LockedDocumentConcern
 
   def perform(model_name,
               id,
@@ -9,6 +10,10 @@ class PublishingApiWorker < WorkerBase
 
     model = class_for(model_name).unscoped.find_by(id: id)
     return if model.nil?
+
+    if model.is_a?(Edition)
+      check_if_locked_document(edition: model)
+    end
 
     presenter = PublishingApiPresenters.presenter_for(model, update_type: update_type)
 

@@ -1,5 +1,7 @@
 module ServiceListeners
   class PublishingApiPusher
+    include LockedDocumentConcern
+
     attr_reader :edition
 
     def initialize(edition)
@@ -7,6 +9,8 @@ module ServiceListeners
     end
 
     def push(event:, options: {})
+      check_if_locked_document(edition: edition)
+
       # This is done synchronously before the rest of the publishing.
       # Currently (02/11/2016) publishing-api links
       # are not recalculated on parent documents when their translations are unpublished.

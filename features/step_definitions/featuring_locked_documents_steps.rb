@@ -1,6 +1,7 @@
 Given(/^a locked document titled "([^"]*)"$/) do |title|
-  document = create(:document, locked: true)
-  @edition = create(:published_news_article, title: title, document: document)
+  @edition = create(:published_news_article, title: title)
+  @edition.document.locked = true
+  @edition.document.save
 end
 
 And(/^the locked document is tagged to organisation "([^"]*)"$/) do |organisation_name|

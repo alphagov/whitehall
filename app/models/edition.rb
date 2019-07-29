@@ -680,6 +680,10 @@ class Edition < ApplicationRecord
     false
   end
 
+  def locked?
+    document.locked?
+  end
+
 private
 
   def date_for_government

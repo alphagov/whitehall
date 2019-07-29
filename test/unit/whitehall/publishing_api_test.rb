@@ -239,6 +239,15 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     assert_equal timestamp, second_job[1]
   end
 
+  test ".schedule_async raises an error if the edition belongs to a locked document" do
+    document = create(:document, locked: true)
+    edition = build(:edition, document: document)
+
+    assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
+      Whitehall::PublishingApi.schedule_async(edition)
+    end
+  end
+
   test ".unschedule_async for a first edition served from the content store queues jobs to remove publish intents" do
     edition = create(:scheduled_publication)
 
@@ -274,6 +283,15 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     assert_equal english_path, PublishingApiUnscheduleWorker.jobs[1]['args'].first
   end
 
+  test ".unschedule_async raises an error if the edition belongs to a locked document" do
+    document = create(:document, locked: true)
+    edition = build(:edition, document: document)
+
+    assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
+      Whitehall::PublishingApi.unschedule_async(edition)
+    end
+  end
+
   test ".save_draft publishes a draft edition" do
     draft_edition = create(:draft_case_study)
     payload = PublishingApiPresenters.presenter_for(draft_edition)
@@ -285,10 +303,10 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
   end
 
   test ".publish_redirect_async publishes a redirect to the Publishing API" do
-    redirect_uuid = SecureRandom.uuid
+    document = create(:document)
     destination = "/government/people/milli-vanilli"
     redirect_request = stub_publishing_api_unpublish(
-      redirect_uuid,
+      document.content_id,
       body: {
         type: "redirect",
         alternative_path: destination,
@@ -298,17 +316,17 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     )
 
     Sidekiq::Testing.inline! do
-      Whitehall::PublishingApi.publish_redirect_async(redirect_uuid, destination)
+      Whitehall::PublishingApi.publish_redirect_async(document.content_id, destination)
     end
 
     assert_requested redirect_request
   end
 
   test ".publish_gone_async publishes a gone to the Publishing API" do
-    gone_uuid = SecureRandom.uuid
+    document = create(:document)
 
     gone_request = stub_publishing_api_unpublish(
-      gone_uuid,
+      document.content_id,
       body: {
         type: "gone",
         locale: "en",
@@ -317,7 +335,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     )
 
     Sidekiq::Testing.inline! do
-      Whitehall::PublishingApi.publish_gone_async(gone_uuid, nil, nil)
+      Whitehall::PublishingApi.publish_gone_async(document.content_id, nil, nil)
     end
 
     assert_requested gone_request

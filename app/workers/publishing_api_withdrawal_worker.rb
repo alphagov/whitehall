@@ -1,5 +1,7 @@
 class PublishingApiWithdrawalWorker < PublishingApiWorker
   def perform(content_id, explanation, locale, allow_draft = false)
+    check_if_locked_document(content_id: content_id)
+
     unpublished_at = Edition
       .joins(:document)
       .where(documents: { content_id: content_id })

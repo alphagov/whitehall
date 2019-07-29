@@ -249,6 +249,13 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_equal 0, @edition.reload.attachments.size
   end
 
+  test "POST :create with an edition belonging to a locked document does not save the attachment" do
+    edition = create(:edition, document: build(:document, locked: true))
+    assert_raise LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
+      post :create, params: { edition_id: edition, attachment: valid_file_attachment_params }
+    end
+  end
+
   view_test "GET :edit renders the edit form" do
     attachment = create(:file_attachment, attachable: @edition)
     get :edit, params: { edition_id: @edition, id: attachment }

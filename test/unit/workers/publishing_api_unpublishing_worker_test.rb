@@ -111,4 +111,13 @@ class PublishingApiUnpublishingWorkerTest < ActiveSupport::TestCase
 
     PublishingApiUnpublishingWorker.new.perform(unpublished_edition.unpublishing.id, true)
   end
+
+  test "raises an error if an edition's document is locked" do
+    document = build(:document, locked: true)
+    edition = create(:unpublished_edition, document: document)
+
+    assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
+      PublishingApiUnpublishingWorker.new.perform(edition.unpublishing.id)
+    end
+  end
 end
