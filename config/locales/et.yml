@@ -283,6 +283,7 @@ et:
     see_all_updates: Vaadake kõiki täiendusi
     updated_at: Viimane täiendus
   contact:
+    access_and_opening_times:
     contact_form: Võtke ühendust
     email: E-post
   corporate_information_page:

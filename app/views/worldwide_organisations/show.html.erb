@@ -58,8 +58,11 @@
   <section class="block contact-us" id="contact-us">
     <div class="inner-block floated-children">
       <h1 class="keyline-header"><%= t('worldwide_organisation.headings.contact_us' ) %></h1>
-      <%= render partial: 'contacts/contact', locals: {contact: @main_office, is_main: true} %>
-      <%= render partial: 'contacts/contact', collection: @home_page_offices %>
+      <%= render partial: 'contacts/contact', locals: {contact: @main_office, is_main: true, lang: t_lang_translated_locales(@main_office.contact) } %>
+
+      <% @home_page_offices.each do |home_page_office| %>
+        <%= render partial: 'contacts/contact', locals: { contact: home_page_office, lang:  t_lang_translated_locales(home_page_office.contact) } %>
+      <% end %>
     </div>
   </section>
 <% end %>

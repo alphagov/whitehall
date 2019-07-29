@@ -281,6 +281,7 @@ lv:
     see_all_updates:
     updated_at:
   contact:
+    access_and_opening_times:
     contact_form: Saziņas forma
     email: E-pasts
   corporate_information_page:

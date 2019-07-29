@@ -384,6 +384,7 @@ sr:
     see_all_updates:
     updated_at:
   contact:
+    access_and_opening_times:
     contact_form: formular za kontakt
     email: e-mail
   corporate_information_page:

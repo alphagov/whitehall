@@ -30,6 +30,19 @@ class CorporateInformationPageTypeTest < ActiveSupport::TestCase
     assert_equal "Procurement at Department of Alphabet", corporate_information_page.title
   end
 
+  test '.title_lang returns lang=en if the title translation does not exist' do
+    @organisation.acronym = ''
+    corporate_information_page = create(
+      :corporate_information_page,
+      corporate_information_page_type: @corporate_information_page_type,
+      organisation: @organisation
+    )
+
+    I18n.with_locale(:de) do
+      assert_equal "lang=en", corporate_information_page.title_lang
+    end
+  end
+
   test '.title uses the organisation\'s name when the acronym is empty' do
     @organisation.acronym = ''
     corporate_information_page = create(

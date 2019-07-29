@@ -9,7 +9,7 @@
   extra_class << 'postal-address' if contact.has_postal_address?
 %>
 <%= content_tag_for(:div, contact, class: extra_class.join(' ')) do %>
-  <div class="content">
+  <div class="content" <%= lang if local_assigns[:lang] %> >
     <% unless local_assigns[:hide_title] %><%= content_tag heading_tag, contact.title %><% end %>
 
     <div class="vcard contact-inner">
@@ -45,7 +45,11 @@
       <% end %>
 
       <% if contact.is_a?(WorldwideOffice) && contact.access_and_opening_times_body.present? %>
-        <%= link_to 'Access and opening times', [contact.worldwide_organisation, contact], class: "url" %>
+        <%
+          fallback = t_fallback('contact.access_and_opening_times')
+          lang = fallback if fallback && fallback != I18n.locale
+        %>
+        <%= link_to t('contact.access_and_opening_times'), [contact.worldwide_organisation, contact], class: "url", lang: lang %>
       <% end %>
     </div>
   </div>
