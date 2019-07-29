@@ -26,21 +26,31 @@
             </figure>
           </div>
         <% end %>
-        <h1><%= t('document.contents') %></h1>
+        <h1 <%= t_lang('document.contents') %>><%= t('document.contents') %></h1>
         <nav role="navigation">
           <ul>
-            <li><%= link_to t('people.biography'), '#biography' %></li>
+            <li <%= t_lang('people.biography') %> >
+              <%= link_to t('people.biography'), '#biography' %>
+            </li>
             <% if @person.currently_in_a_role? %>
-              <li><%= link_to t('roles.heading', count: @person.current_role_appointments.count), "#current-roles" %></li>
+              <li <%= t_lang('roles.heading', count: @person.current_role_appointments.count) %> >
+                <%= link_to t('roles.heading', count: @person.current_role_appointments.count), "#current-roles" %>
+              </li>
             <% end %>
             <% if @person.previous_role_appointments.any? %>
-              <li><%= link_to t('people.previous_roles'), "#previous-roles" %></li>
+              <li <%= t_lang('people.previous_roles') %>>
+                <%= link_to t('people.previous_roles'), "#previous-roles" %>
+              </li>
             <% end %>
             <% if @person.has_policy_responsibilities? %>
-              <li><%= link_to t('policies.heading'), "#policy" %></li>
+              <li <%= t_lang('policies.heading') %>>
+                <%= link_to t('policies.heading'), "#policy" %>
+              </li>
             <% end %>
             <% if @person.announcements.any? %>
-              <li><%= link_to t('announcements.heading'), "#announcements" %></li>
+              <li <%= t_lang('announcements.heading') %>>
+                <%= link_to t('announcements.heading'), "#announcements" %>
+              </li>
             <% end %>
           </ul>
         </nav>

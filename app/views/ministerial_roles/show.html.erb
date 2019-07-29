@@ -36,21 +36,33 @@
   <div class="block-2 ">
     <div class="inner-block">
       <section class="contextual-info in-page-navigation ">
-        <h1><%= t('document.contents') %></h1>
+        <h1 <%= t_lang('document.contents') %> >
+          <%= t('document.contents') %>
+        </h1>
         <nav role="navigation">
           <ul>
-            <li><%= link_to t('roles.headings.responsibilities'), '#responsibilities' %></li>
+            <li <%= t_lang('roles.headings.responsibilities') %> >
+              <%= link_to t('roles.headings.responsibilities'), '#responsibilities' %>
+            </li>
             <% if @ministerial_role.occupied? %>
-              <li><%= link_to t('roles.headings.current_holder'), "#current-role-holder" %></li>
+              <li <%= t_lang('roles.headings.current_holder') %> >
+                <%= link_to t('roles.headings.current_holder'), "#current-role-holder" %>
+              </li>
             <% end %>
             <% if @ministerial_role.published_policies.any? %>
-              <li><%= link_to t('policies.heading'), "#policies" %></li>
+              <li <%= t_lang('policies.heading') %> >
+                <%= link_to t('policies.heading'), "#policies" %>
+              </li>
             <% end %>
             <% if @ministerial_role.previous_appointments.any? %>
-              <li><%= link_to t('roles.headings.previous_holders'), "#previous-holders-of-this-role" %></li>
+              <li <%= t_lang('roles.headings.previous_holders') %> >
+                <%= link_to t('roles.headings.previous_holders'), "#previous-holders-of-this-role" %>
+              </li>
             <% end %>
             <% if @ministerial_role.announcements.any? %>
-              <li><%= link_to t('announcements.heading'), "#announcements" %></li>
+              <li <%= t_lang('announcements.heading') %> >
+                <%= link_to t('announcements.heading'), "#announcements" %>
+              </li>
             <% end %>
           </ul>
         </nav>

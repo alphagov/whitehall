@@ -10,7 +10,7 @@
         <% headers = govspeak_headers(@corporate_information_page.body) %>
         <% if headers.any? %>
           <nav>
-            <h1><%= t 'document.contents' %></h1>
+            <h1 <%= t_lang('document.contents') %> ><%= t 'document.contents' %></h1>
             <ol class="dash-list">
               <% headers.each do |header| %>
                 <li><%= link_to header.text, "##{header.id}" %></li>
