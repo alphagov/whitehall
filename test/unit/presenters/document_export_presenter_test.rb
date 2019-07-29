@@ -48,4 +48,11 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
 
     assert_equal image.image_data.file_url, images.first['url']
   end
+
+  test "returns government information about an edition" do
+    edition = create(:edition)
+
+    result = DocumentExportPresenter.new(edition.document).as_json
+    assert_equal edition.government, result[:editions].first[:government]
+  end
 end
