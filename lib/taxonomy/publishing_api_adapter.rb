@@ -36,11 +36,8 @@ module Taxonomy
     end
 
     def publishing_api_with_huge_timeout
-      @publishing_api_with_huge_timeout ||= begin
-        Services.publishing_api.dup.tap do |client|
-          client.options[:timeout] = 60
-        end
-      end
+      @publishing_api_with_huge_timeout ||=
+        Services.publishing_api_client_with_timeout(60)
     end
   end
 end

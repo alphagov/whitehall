@@ -44,7 +44,7 @@ class Policy
 
     def linkables
       Rails.cache.fetch('policy.linkables', expires_in: 5.minutes) do
-        publishing_api_with_low_timeout.get_linkables(document_type: "policy").to_a
+        Services.publishing_api_with_low_timeout.get_linkables(document_type: "policy").to_a
       end
     rescue GdsApi::TimedOutException, GdsApi::HTTPServerError
       # This call normally takes ~20ms. If it takes longer than a second, fetch a stale value from
@@ -60,14 +60,6 @@ class Policy
 
     def find_policy(content_id)
       linkables.find { |p| p["content_id"] == content_id }
-    end
-
-    def publishing_api_with_low_timeout
-      @publishing_api_with_low_timeout ||= begin
-        Services.publishing_api.dup.tap do |client|
-          client.options[:timeout] = 1
-        end
-      end
     end
   end
 end
