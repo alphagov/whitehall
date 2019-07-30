@@ -2,7 +2,7 @@
 
 Whitehall is primarily a publishing application but it also provides an API used by some applications. This API is public and is served under [https://www.gov.uk/api/](https://www.gov.uk/api/governments).
 
-Whitehall is not the only application to provide APIs under this path. For example, [/api/content](https://www.gov.uk/api/content/government) is served by [Content API](https://content-api.publishing.service.gov.uk) and [/api/search.json](https://www.gov.uk/api/search.json) is served by [Rummager](https://docs.publishing.service.gov.uk/apps/rummager.html). [This Nginx file](https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/templates/publicapi_nginx_extra_config.erb) configures this behaviour.
+Whitehall is not the only application to provide APIs under this path. For example, [/api/content](https://www.gov.uk/api/content/government) is served by [Content API](https://content-api.publishing.service.gov.uk) and [/api/search.json](https://www.gov.uk/api/search.json) is served by [Search API](https://docs.publishing.service.gov.uk/apis/search/search-api.html) (previously known as Rummager). [This Nginx file](https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/templates/publicapi_nginx_extra_config.erb) configures this behaviour.
 
 ## Endpoints
 
