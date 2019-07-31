@@ -339,7 +339,6 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
   view_test "should show featured links if there are some" do
     with_stubbed_rummager(@rummager, true) do
       @rummager.expects(:search).returns('results' => []).twice
-
       featured_link = create(:featured_link, linkable: @world_location)
 
       get :index, params: { world_location_id: @world_location }
@@ -348,5 +347,25 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
         assert_select "a[href='#{featured_link.url}']", text: featured_link.title
       end
     end
+  end
+
+  view_test "does not set lang=en on featured links for english pages" do
+    with_stubbed_rummager(@rummager, true) do
+      @rummager.expects(:search).returns('results' => []).twice
+      create(:featured_link, linkable: @world_location)
+
+      get :index, params: { world_location_id: @world_location }
+
+      assert_select '.featured-links[lang=en]', false, "English world location pages should not set lang=en on featured links"
+    end
+  end
+
+  view_test "sets lang=en on featured links for translated pages" do
+    create(:published_publication, world_locations: [@translated_world_location], translated_into: [:fr])
+    create(:published_publication, world_locations: [@translated_world_location])
+
+    get :index, params: { world_location_id: @translated_world_location, locale: 'fr' }
+
+    assert_select '.featured-links[lang=en]'
   end
 end
