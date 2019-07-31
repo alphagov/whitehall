@@ -27,9 +27,9 @@
             <%= absolute_date(feature.time_stamp) %>
           <% else %>
             <% if feature.time_stamp %>
-              <%= absolute_date(feature.time_stamp) %> &mdash; <%= t_display_type feature %>
+              <%= absolute_date(feature.time_stamp) %><span <%= t_lang('document.type.' + feature.display_type_key, {count: 1}) %> > &mdash; <%= t_display_type feature %></span>
             <% else %>
-              <%= t_display_type feature %>
+              <span <%= t_lang('document.type.' + feature.display_type_key, {count: 1}) %> ><%= t_display_type feature %></span>
             <% end %>
           <% end %>
         </p>
