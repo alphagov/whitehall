@@ -106,6 +106,7 @@ en:
       storage_units:
          format: ! '%n%u'
   document:
+    see_all: "See all"
     published: published
     contents: Contents
     headings:

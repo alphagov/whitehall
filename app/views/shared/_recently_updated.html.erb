@@ -15,8 +15,8 @@
     <% end %>
     <%= render 'shared/feeds', atom_url: atom_url %>
     <% if local_assigns[:see_all_link] %>
-      <p class="see-all">
-        <%= link_to 'See all', see_all_link %>
+      <p class="see-all" <%= t_lang('document.see_all') %> >
+        <%= link_to t('document.see_all'), see_all_link %>
       </p>
     <% end %>
   </div>
