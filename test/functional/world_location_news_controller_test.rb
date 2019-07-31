@@ -285,6 +285,7 @@ class WorldLocationNewsControllerTest < ActionController::TestCase
 
     assert_select ".type", "World location news"
     assert_select "#publications .see-all a", /Voir toutes nos publications/
+    assert_select ".see-all a", /Voir toutes nos annonces/
   end
 
   test "should only display translated announcements when requested for a locale" do
