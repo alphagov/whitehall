@@ -1,4 +1,5 @@
-# Statistics Announcements can be found at https://www.gov.uk/government/statistics/announcements
+# Statistics Announcements can be found at
+# https://www.gov.uk/search/research-and-statistics?content_store_document_type=upcoming_statistics
 #
 # They are used to announce the publication of official statistics. Some info
 # can be found in the Wiki - https://gov-uk.atlassian.net/wiki/display/GOVUK/Statistics.
