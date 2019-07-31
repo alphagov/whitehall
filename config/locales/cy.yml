@@ -343,6 +343,7 @@ cy:
       updated:
     published: Cyhoeddwyd
     read: Darllenwch yr erthygl %{title}
+    see_all:
     speech:
       author_title:
         minister:

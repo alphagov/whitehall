@@ -155,6 +155,7 @@ uz:
       updated:
     published: nashr qilindi
     read: Maqolani o'qish %{title}
+    see_all:
     speech:
       author_title:
         minister: Vazir

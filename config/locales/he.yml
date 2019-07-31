@@ -155,6 +155,7 @@ he:
       updated:
     published: פורסם
     read: קראו את מאמר %{title}
+    see_all:
     speech:
       author_title:
         minister: שר

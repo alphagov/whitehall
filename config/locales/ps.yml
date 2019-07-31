@@ -155,6 +155,7 @@ ps:
       updated:
     published: خپور شوی
     read: دا مضمون ووایاست %{title}
+    see_all:
     speech:
       author_title:
         minister: وزیر

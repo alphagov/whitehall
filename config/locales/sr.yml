@@ -249,6 +249,7 @@ sr:
       updated:
     published: objavljeno
     read: Pročitajte %{title}
+    see_all:
     speech:
       author_title:
         minister: Ministar

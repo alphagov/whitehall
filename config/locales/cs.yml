@@ -202,6 +202,7 @@ cs:
       updated:
     published: Publikováno
     read: Čtěte %{title}
+    see_all:
     speech:
       author_title:
         minister: Minister

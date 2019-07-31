@@ -126,6 +126,7 @@ id:
       part_of:
     published: Diterbitkan
     read: Baca artikel %{title}
+    see_all:
     speech:
       author_title:
         minister: Menteri

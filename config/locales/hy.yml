@@ -155,6 +155,7 @@ hy:
       updated:
     published: հրապարակված
     read: Կարդացեք  %{title} հոդվածը
+    see_all:
     speech:
       author_title:
         minister: Նախարար

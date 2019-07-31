@@ -126,6 +126,7 @@ fa:
       part_of:
     published: منتشر شده
     read: مقاله  %{title} را بخوانید
+    see_all:
     speech:
       author_title:
         minister: معاون وزیر

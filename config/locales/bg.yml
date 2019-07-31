@@ -155,6 +155,7 @@ bg:
       updated:
     published: Публикувано
     read: 'Прочетете статията %{title} '
+    see_all:
     speech:
       author_title:
         minister: Министър

@@ -202,6 +202,7 @@ ro:
       updated:
     published: Data publicării
     read: 'Citește articolul %{title} '
+    see_all:
     speech:
       author_title:
         minister: 'Ministru '

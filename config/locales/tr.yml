@@ -126,6 +126,7 @@ tr:
       part_of:
     published: Yayında
     read: "%{title} makalesini okuyunuz"
+    see_all:
     speech:
       author_title:
         minister: Bakan

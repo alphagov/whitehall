@@ -155,6 +155,7 @@ sq:
       updated:
     published: publikuar
     read: 'Lexo %{title} '
+    see_all:
     speech:
       author_title:
         minister: Minister

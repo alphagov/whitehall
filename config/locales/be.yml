@@ -249,6 +249,7 @@ be:
       updated:
     published: Апублікаваны
     read: Чытаць %{title} артыкул
+    see_all:
     speech:
       author_title:
         minister: Міністр

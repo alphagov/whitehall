@@ -125,6 +125,7 @@ ja:
       part_of:
     published: 掲載日
     read: "%{title} の記事を読む"
+    see_all:
     speech:
       author_title:
         minister: 大臣

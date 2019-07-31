@@ -126,6 +126,7 @@ vi:
       part_of:
     published: Đã xuất bản
     read: Đọc bài có  %{title}
+    see_all:
     speech:
       author_title:
         minister: Thứ trưởng

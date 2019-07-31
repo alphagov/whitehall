@@ -155,6 +155,7 @@ es-419:
       updated:
     published: publicado
     read: Lea el artículo %{title}
+    see_all:
     speech:
       author_title:
         minister: Ministro

@@ -343,6 +343,7 @@ ar:
       updated:
     published: نشر
     read: اقرأ %{title} المقال
+    see_all:
     speech:
       author_title:
         minister: وزير

@@ -155,6 +155,7 @@ it:
       updated:
     published: pubblicato
     read: Leggi l'articolo %{title}
+    see_all:
     speech:
       author_title:
         minister: Ministro

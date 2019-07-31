@@ -155,6 +155,7 @@ lv:
       updated:
     published: publicēts
     read: Lasīt %{title} rakstu
+    see_all:
     speech:
       author_title:
         minister: Ministrs

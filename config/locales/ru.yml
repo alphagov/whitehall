@@ -249,6 +249,7 @@ ru:
       updated:
     published: Опубликовано
     read: Прочитать статью %{title}
+    see_all:
     speech:
       author_title:
         minister: Министр

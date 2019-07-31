@@ -155,6 +155,7 @@ ta:
       updated:
     published: பிரசுரிக்கப்பட்டது
     read: கட்டுரையின் %{title} வாசிக்கவும்
+    see_all:
     speech:
       author_title:
         minister: அமைச்சர்
