@@ -155,6 +155,7 @@ el:
       updated:
     published: Δημοσιευμένο
     read: Διαβάστε το άρθρο  %{title}
+    see_all:
     speech:
       author_title:
         minister: Υπουργός

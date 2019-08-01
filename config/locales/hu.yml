@@ -155,6 +155,7 @@ hu:
       updated:
     published: közzététel dátuma
     read: 'Olvassa el a következő cikket: %{title}'
+    see_all:
     speech:
       author_title:
         minister: Miniszter

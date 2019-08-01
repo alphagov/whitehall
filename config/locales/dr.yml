@@ -155,6 +155,7 @@ dr:
       updated:
     published: نشر شده
     read: مقاله %{title} را بخوانید
+    see_all:
     speech:
       author_title:
         minister: وزیر

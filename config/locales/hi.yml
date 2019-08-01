@@ -155,6 +155,7 @@ hi:
       updated:
     published: प्रकाशित
     read: पढ़ें %{title} लेख
+    see_all:
     speech:
       author_title:
         minister: मंत्री

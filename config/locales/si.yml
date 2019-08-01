@@ -155,6 +155,7 @@ si:
       updated:
     published: පල කරන ලදී
     read: ලිපිය  %{title} කියවන්න
+    see_all:
     speech:
       author_title:
         minister: අමාත්‍යවරයා

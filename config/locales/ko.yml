@@ -125,6 +125,7 @@ ko:
       part_of:
     published: 발행
     read: "%{title} 기사를 확인하세요"
+    see_all:
     speech:
       author_title:
         minister: 장관

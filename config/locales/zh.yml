@@ -124,6 +124,7 @@ zh:
       part_of:
     published: 已发布
     read: 阅读%{title}文章
+    see_all:
     speech:
       author_title:
         minister: 首相/大臣/秘书

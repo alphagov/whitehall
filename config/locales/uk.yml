@@ -249,6 +249,7 @@ uk:
       updated:
     published: опубліковано
     read: Читати %{title} статтю
+    see_all:
     speech:
       author_title:
         minister: Міністр

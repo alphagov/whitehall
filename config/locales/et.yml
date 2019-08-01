@@ -155,6 +155,7 @@ et:
       updated: Täiendatud
     published: avaldatud
     read: 'Lugege artiklit: %{title} '
+    see_all:
     speech:
       author_title:
         minister: Minister

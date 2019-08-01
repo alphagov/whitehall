@@ -2,6 +2,7 @@
    heading ||= type.to_s.humanize
    filter_option = (heading == "Publications") ? "all" : heading.downcase
    world_location_news ||= "0"
+   see_all_text ||= "See all #{heading.downcase}"
    filter_type = @classification || @world_location || @topical_event
 %>
 <section id="<%= heading.downcase.parameterize %>" class="document-block">
@@ -19,7 +20,7 @@
     %>
     <%=
       link_to(
-        "See all #{heading.downcase}",
+        see_all_text,
         see_more_url,
         data: {
           track_category: 'navPolicyAreaLinkClicked',

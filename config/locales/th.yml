@@ -125,6 +125,7 @@ th:
       part_of:
     published: ตีพิมพ์
     read: อ่าน%{title}บทความ
+    see_all:
     speech:
       author_title:
         minister: รัฐมนตรี

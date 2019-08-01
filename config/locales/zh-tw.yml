@@ -124,6 +124,7 @@ zh-tw:
       part_of:
     published: 發行
     read: 閱讀%{title}文章
+    see_all:
     speech:
       author_title:
         minister: 部長
