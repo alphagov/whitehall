@@ -7,7 +7,7 @@
           <%= published_or_updated(document) %>
           <%= absolute_date(document.public_timestamp, class: 'published-at') %>
         </li>
-        <li class="display-type"><%= t_display_type(document) %></li>
+        <li class="display-type" <%= t_lang('document.type.' + document.display_type_key, {count: 1}) %>  ><%= t_display_type(document) %></li>
       </ul>
     <% end %>
   <% end %>
