@@ -23,13 +23,6 @@ class Admin::EditionsController < Admin::BaseController
     end
   end
 
-  def forbid_editing_of_locked_documents
-    if @edition.locked?
-      redirect_to [:admin, @edition],
-                  alert: %{This document is locked and cannot be edited}
-    end
-  end
-
   def enforce_permissions!
     case action_name
     when 'index', 'topics'

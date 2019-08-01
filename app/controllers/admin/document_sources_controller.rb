@@ -1,6 +1,7 @@
 class Admin::DocumentSourcesController < Admin::BaseController
   before_action :require_import_permission!
   before_action :find_edition
+  before_action :forbid_editing_of_locked_documents
 
   def update
     @document_sources = params[:document_sources]
