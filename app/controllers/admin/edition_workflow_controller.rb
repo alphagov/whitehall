@@ -1,5 +1,6 @@
 class Admin::EditionWorkflowController < Admin::BaseController
   include PublicDocumentRoutesHelper
+  include LockedDocumentConcern
 
   before_action :find_edition
   before_action :enforce_permissions!
@@ -8,6 +9,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   before_action :set_change_note
   before_action :set_minor_change_flag
   before_action :ensure_reason_given_for_force_publishing, only: :force_publish
+  before_action { check_if_locked_document(edition: @edition) }
 
   rescue_from ActiveRecord::StaleObjectError do
     redirect_to admin_edition_path(@edition), alert: "This document has been edited since you viewed it; you are now viewing the latest version"
@@ -21,6 +23,11 @@ class Admin::EditionWorkflowController < Admin::BaseController
   rescue_from Transitions::InvalidTransition do
     redirect_to admin_edition_path(@edition),
                 alert: "Unable to #{action_name_as_human_interaction(params[:action])} because it is not ready yet. Please try again."
+  end
+
+  rescue_from LockedDocumentConcern::LockedDocumentError do
+    redirect_to admin_edition_path(@edition),
+                alert: "Unable to #{action_name_as_human_interaction(params[:action])} because it is locked."
   end
 
   def enforce_permissions!
@@ -230,8 +237,16 @@ private
     case action_name.to_s
     when 'convert_to_draft'
       "convert this imported edition to a draft"
+    when "approve_retrospectively"
+      "retrospectively approve this edition"
+    when "confirm_unpublish"
+      "unpublish this edition"
+    when "confirm_force_publish"
+      "force publish this edition"
+    when "confirm_unwithdraw"
+      "unwithdraw this edition"
     else
-      "#{action_name} this edition"
+      "#{action_name.humanize(capitalize: false)} this edition"
     end
   end
 
