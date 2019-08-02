@@ -27,6 +27,9 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
       if association == :images
         edition_images = edition.public_send(association)
         output[:associations][association] = complete_images_hash(edition_images)
+      elsif association == :attachments
+        edition_attachments = edition.public_send(association)
+        output[:associations][association] = complete_attachments_hash(edition_attachments)
       else
         output[:associations][association] = edition.public_send(association)
       end
@@ -43,6 +46,14 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
   def complete_images_hash(edition_images)
     edition_images.map do |image|
       image.as_json(methods: :url)
+    end
+  end
+
+  def complete_attachments_hash(edition_attachments)
+    edition_attachments.map do |attachment|
+      attachment.as_json(include: :attachment_data, methods: %i[url type]).tap do |json|
+        json.merge!("govspeak_content" => attachment.govspeak_content.as_json) if attachment.respond_to?(:govspeak_content)
+      end
     end
   end
 
