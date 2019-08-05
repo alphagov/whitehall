@@ -116,9 +116,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
   end
 
   test "raises an error if an edition's document is locked" do
-    document = build(:document, locked: true)
-    edition = create(:published_edition, document: document)
-
+    edition = create(:unpublished_edition, :with_locked_document)
     assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
       PublishingApiWorker.new.perform(edition.class.name, edition.id)
     end

@@ -27,7 +27,8 @@ Feature: Grouping documents into a collection
 
   @javascript
   Scenario:
-    Given a locked document titled "Wimbledon wombats and where to find them"
+    Given a document titled "Wimbledon wombats and where to find them"
+    And the document is locked
     When I draft a new document collection called "Wildlife of Wimbledon Common"
     And I search for "Wimbledon wombats and where to find them" to add it to the document collection
     Then the document does not appear in the search results

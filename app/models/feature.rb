@@ -1,8 +1,11 @@
 class Feature < ApplicationRecord
+  include LockedDocumentConcern
   belongs_to :document
   belongs_to :topical_event
   belongs_to :offsite_link
   belongs_to :feature_list
+
+  before_save { check_if_locked_document(document: self.document) }
 
   after_save :republish_organisation_to_publishing_api
   after_destroy :republish_organisation_to_publishing_api
