@@ -81,7 +81,7 @@ class Document::NeedsTest < ActiveSupport::TestCase
     document = create(:document)
 
     document.stubs(:get_user_needs_from_publishing_api)
-      .returns(["f5f42227-b7c6-4543-bb30-68379f29aa40"])
+      .returns(%w[f5f42227-b7c6-4543-bb30-68379f29aa40])
 
     Services
       .publishing_api

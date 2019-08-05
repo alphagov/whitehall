@@ -22,8 +22,8 @@ module Whitehall::DocumentFilter
 
     test "unrecognised scaler parameters are scrubbed" do
       Rails.application.config.action_controller.action_on_unpermitted_parameters = false
-      raw_params       = build_unclean_params('page' => '3', 'keywords' => 'statistics', 'hax' => 'javascript:alert("boo!")')
-      cleaned_params   = CleanedParams.new(raw_params)
+      raw_params = build_unclean_params('page' => '3', 'keywords' => 'statistics', 'hax' => 'javascript:alert("boo!")')
+      cleaned_params = CleanedParams.new(raw_params)
 
       assert_equal({ 'page' => '3', 'keywords' => 'statistics' }, cleaned_params)
     end

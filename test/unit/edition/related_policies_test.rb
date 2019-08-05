@@ -23,7 +23,7 @@ class Edition::RelatedPoliciesTest < ActiveSupport::TestCase
     assert_equal [], edition.search_index[:policies]
 
     edition.policy_content_ids = [policy_area_1.fetch("content_id")]
-    assert_equal ['policy-area-1'], edition.search_index[:policies]
+    assert_equal %w[policy-area-1], edition.search_index[:policies]
   end
 
   test 'includes linked policies with parent policies in search index data' do
@@ -31,7 +31,7 @@ class Edition::RelatedPoliciesTest < ActiveSupport::TestCase
     assert_equal [], edition.search_index[:policies]
 
     edition.policy_content_ids = [policy_1.fetch("content_id")]
-    assert_equal ['policy-area-1', 'policy-1'], edition.search_index[:policies]
+    assert_equal %w[policy-area-1 policy-1], edition.search_index[:policies]
   end
 
   test 'includes linked policies with multiple parents in search index data' do
@@ -39,7 +39,7 @@ class Edition::RelatedPoliciesTest < ActiveSupport::TestCase
     assert_equal [], edition.search_index[:policies]
 
     edition.policy_content_ids = [policy_2.fetch("content_id")]
-    assert_equal ['policy-area-1', 'policy-area-2', 'policy-2'], edition.search_index[:policies]
+    assert_equal %w[policy-area-1 policy-area-2 policy-2], edition.search_index[:policies]
   end
 
   test 'ignores non-existant content_ids' do
@@ -48,7 +48,7 @@ class Edition::RelatedPoliciesTest < ActiveSupport::TestCase
     publishing_api_does_not_have_links(nonexistant_policy_id)
 
     edition = create(:news_article, policy_content_ids: [nonexistant_policy_id, policy_area_1.fetch("content_id")])
-    assert_equal ['policy-area-1'], edition.search_index[:policies]
+    assert_equal %w[policy-area-1], edition.search_index[:policies]
   end
 
   test 'ignores non-existant parent policies' do
@@ -69,7 +69,7 @@ class Edition::RelatedPoliciesTest < ActiveSupport::TestCase
     assert_equal [], edition.search_index[:policies]
 
     edition.policy_content_ids = [policy_1.fetch("content_id")]
-    assert_equal ['policy-1'], edition.search_index[:policies]
+    assert_equal %w[policy-1], edition.search_index[:policies]
   end
 
   test '#policy_content_ids returns content_ids on an unsaved instance' do

@@ -12,7 +12,7 @@ class TabPaneState
 private
 
   def classes(extra_classes = nil)
-    ["tab-pane"].tap { |tab_classes|
+    %w[tab-pane].tap { |tab_classes|
       tab_classes << "active" if @first_pane
       @first_pane = false
       tab_classes << extra_classes if extra_classes

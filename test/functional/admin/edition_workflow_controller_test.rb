@@ -48,7 +48,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'GET #confirm_force_publish renders force publishing form'do
-    stub_publishing_api_links_with_taxons(draft_edition.content_id, ["a-taxon-content-id"])
+    stub_publishing_api_links_with_taxons(draft_edition.content_id, %w[a-taxon-content-id])
     get :confirm_force_publish, params: { id: draft_edition, lock_version: draft_edition.lock_version }
 
     assert_response :success
@@ -64,7 +64,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'POST #force_publish force publishes the edition' do
-    stub_publishing_api_links_with_taxons(draft_edition.content_id, ["a-taxon-content-id"])
+    stub_publishing_api_links_with_taxons(draft_edition.content_id, %w[a-taxon-content-id])
     stub_publishing_api_registration_for(draft_edition)
     post :force_publish, params: { id: draft_edition, lock_version: draft_edition.lock_version, reason: 'Urgent change' }
 

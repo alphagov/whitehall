@@ -102,17 +102,17 @@ class AssetManager::AssetUpdaterTest < ActiveSupport::TestCase
     @worker.stubs(:find_asset_by).with(@legacy_url_path)
       .returns('id' => @asset_id)
     Services.asset_manager.expects(:update_asset)
-      .with(@asset_id, 'access_limited' => ['uid-1'])
+      .with(@asset_id, 'access_limited' => %w[uid-1])
 
-    @worker.call(@attachment_data, @legacy_url_path, 'access_limited' => ['uid-1'])
+    @worker.call(@attachment_data, @legacy_url_path, 'access_limited' => %w[uid-1])
   end
 
   test 'does not mark asset as access-limited if already set' do
     @worker.stubs(:find_asset_by).with(@legacy_url_path)
-      .returns('id' => @asset_id, 'access_limited' => ['uid-1'])
+      .returns('id' => @asset_id, 'access_limited' => %w[uid-1])
     Services.asset_manager.expects(:update_asset).never
 
-    @worker.call(@attachment_data, @legacy_url_path, 'access_limited' => ['uid-1'])
+    @worker.call(@attachment_data, @legacy_url_path, 'access_limited' => %w[uid-1])
   end
 
   test 'marks asset as replaced by another asset' do

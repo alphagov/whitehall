@@ -11,7 +11,7 @@ class TaxonValidatorTest < ActiveSupport::TestCase
     publishing_api_has_links(
       "content_id" => edition.content_id,
       "links" => {
-        "organisations" => ["569a9ee5-c195-4b7f-b9dc-edc17a09113f"],
+        "organisations" => %w[569a9ee5-c195-4b7f-b9dc-edc17a09113f],
       },
       "version" => 1
     )
@@ -36,8 +36,8 @@ class TaxonValidatorTest < ActiveSupport::TestCase
     publishing_api_has_links(
       "content_id" => edition.content_id,
       "links" => {
-        "organisations" => ["569a9ee5-c195-4b7f-b9dc-edc17a09113f"],
-        "taxons" => ["7754ae52-34aa-499e-a6dd-88f04633b8ab"]
+        "organisations" => %w[569a9ee5-c195-4b7f-b9dc-edc17a09113f],
+        "taxons" => %w[7754ae52-34aa-499e-a6dd-88f04633b8ab]
       },
       "version" => 1
     )

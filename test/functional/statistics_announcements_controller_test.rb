@@ -14,7 +14,7 @@ class StatisticsAnnouncementsControllerTest < ActionController::TestCase
                   from_date: "2050-02-02",
                   to_date: "2055-01-01",
                   organisations: [organisation.slug],
-                  topics: ['id-123']
+                  topics: %w[id-123]
                 }
 
     assert assigns(:filter).is_a? Frontend::StatisticsAnnouncementsFilter
