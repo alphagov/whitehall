@@ -1,7 +1,7 @@
 class Admin::FindInAdminBookmarkletController < Admin::BaseController
   def show
     case params[:browser]
-    when "ie", "other" then
+    when "ie", "other"
       render params[:browser]
     else
       render plain: "Not found", status: :not_found

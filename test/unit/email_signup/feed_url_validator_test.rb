@@ -26,8 +26,8 @@ class EmailSignup::FeedUrlValidatorTest < ActiveSupport::TestCase
     feed_url = feed_url_for(
       document_type: "publications",
       publication_filter_option: "corporate-reports",
-      topics: ["arts-and-culture"],
-      departments: ["the-cabinet-office"],
+      topics: %w[arts-and-culture],
+      departments: %w[the-cabinet-office],
       official_document_status: "command_and_act_papers",
       world_locations: %w[afghanistan]
     )
@@ -44,8 +44,8 @@ class EmailSignup::FeedUrlValidatorTest < ActiveSupport::TestCase
 
     feed_url = feed_url_for(
       document_type: "announcements",
-      topics: ["arts-and-culture"],
-      departments: ["the-cabinet-office"],
+      topics: %w[arts-and-culture],
+      departments: %w[the-cabinet-office],
       world_locations: %w[afghanistan]
     )
     validator = klass.new(feed_url)
@@ -60,8 +60,8 @@ class EmailSignup::FeedUrlValidatorTest < ActiveSupport::TestCase
 
     feed_url = feed_url_for(
       document_type: "statistics",
-      topics: ["arts-and-culture"],
-      departments: ["the-cabinet-office"]
+      topics: %w[arts-and-culture],
+      departments: %w[the-cabinet-office]
     )
     validator = klass.new(feed_url)
 
@@ -79,7 +79,7 @@ class EmailSignup::FeedUrlValidatorTest < ActiveSupport::TestCase
 
   test 'validates and describes an organisation feed url' do
     organisation = create(:ministerial_department, :with_published_edition)
-    feed_url  = atom_feed_maker.organisation_url(organisation)
+    feed_url = atom_feed_maker.organisation_url(organisation)
     validator = klass.new(feed_url)
 
     assert validator.valid?
@@ -167,7 +167,7 @@ class EmailSignup::FeedUrlValidatorTest < ActiveSupport::TestCase
   end
 
   test 'does not validate a feed url for filtered documents when one of the filter options refers to a non-existant resource' do
-    feed_url = feed_url_for(document_type: "publications", departments: ["does-not-exist"])
+    feed_url = feed_url_for(document_type: "publications", departments: %w[does-not-exist])
     validator = klass.new(feed_url)
 
     refute validator.valid?

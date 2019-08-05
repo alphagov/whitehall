@@ -54,12 +54,12 @@ module Whitehall
 
       test "advanced search can select documents with a field matching a list of values" do
         @index.add_batch(build_documents('Foo', 'Bar'))
-        assert_search_returns_documents %w{Bar}, policy_areas: ["Bar-topic1"]
+        assert_search_returns_documents %w{Bar}, policy_areas: %w[Bar-topic1]
       end
 
       test "advanced search can select documents with a field matching any item from a list of values" do
         @index.add_batch(build_documents('Foo', 'Bar', 'FooBar'))
-        assert_search_returns_documents %w{Foo Bar}, policy_areas: ["Foo-topic2", "Bar-topic1"]
+        assert_search_returns_documents %w{Foo Bar}, policy_areas: %w[Foo-topic2 Bar-topic1]
       end
 
       test "advanced search can select documents with a field matching a single value" do

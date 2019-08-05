@@ -46,9 +46,9 @@ private
 
   def response_class
     case params[:type]
-    when 'ConsultationOutcome' then
+    when 'ConsultationOutcome'
       ConsultationOutcome
-    when 'ConsultationPublicFeedback' then
+    when 'ConsultationPublicFeedback'
       ConsultationPublicFeedback
     end
   end

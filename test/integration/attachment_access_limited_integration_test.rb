@@ -40,7 +40,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
       it 'marks attachment as access limited in Asset Manager' do
         Services.asset_manager
           .expects(:update_asset)
-          .at_least_once.with('asset-id', has_entry('access_limited', ['user-uid']))
+          .at_least_once.with('asset-id', has_entry('access_limited', %w[user-uid]))
 
         AssetManagerAttachmentMetadataWorker.drain
       end
@@ -72,7 +72,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
         Services.asset_manager.expects(:create_whitehall_asset).with(
           has_entries(
             legacy_url_path: regexp_matches(/logo\.png/),
-            access_limited: ['user-uid']
+            access_limited: %w[user-uid]
           )
         )
         AssetManagerCreateWhitehallAssetWorker.drain
@@ -95,13 +95,13 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
         Services.asset_manager.expects(:create_whitehall_asset).with(
           has_entries(
             legacy_url_path: regexp_matches(/greenpaper\.pdf/),
-            access_limited: ['user-uid']
+            access_limited: %w[user-uid]
           )
         )
         Services.asset_manager.expects(:create_whitehall_asset).with(
           has_entries(
             legacy_url_path: regexp_matches(/thumbnail_greenpaper\.pdf\.png/),
-            access_limited: ['user-uid']
+            access_limited: %w[user-uid]
           )
         )
 
@@ -139,7 +139,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
         Services.asset_manager.expects(:create_whitehall_asset).with(
           has_entries(
             legacy_url_path: regexp_matches(/logo\.png/),
-            access_limited: ['user-uid']
+            access_limited: %w[user-uid]
           )
         )
         AssetManagerCreateWhitehallAssetWorker.drain
@@ -190,7 +190,7 @@ class AttachmentAccessLimitedIntegrationTest < ActionDispatch::IntegrationTest
       it 'marks replacement attachment as access limited in Asset Manager' do
         Services.asset_manager.expects(:create_whitehall_asset).with do |params|
           params[:legacy_url_path] =~ /big-cheese/ &&
-            params[:access_limited] == ['user-uid']
+            params[:access_limited] == %w[user-uid]
         end
 
         AssetManagerCreateWhitehallAssetWorker.drain

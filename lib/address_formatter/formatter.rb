@@ -18,7 +18,7 @@ module AddressFormatter
     end
 
     def self.property_keys
-      ['fn', 'street-address', 'postal-code', 'locality', 'region', 'country-name']
+      %w[fn street-address postal-code locality region country-name]
     end
 
     class << self

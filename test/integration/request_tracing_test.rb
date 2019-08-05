@@ -29,7 +29,7 @@ class RequestTracingTest < ActionDispatch::IntegrationTest
     inbound_headers = {
       "HTTP_GOVUK_REQUEST_ID" => @govuk_request_id,
     }
-    stub_publishing_api_links_with_taxons(@draft_edition.content_id, ["a-taxon-content-id"])
+    stub_publishing_api_links_with_taxons(@draft_edition.content_id, %w[a-taxon-content-id])
 
     Sidekiq::Testing.fake! do
       force_publish(@draft_edition, inbound_headers)

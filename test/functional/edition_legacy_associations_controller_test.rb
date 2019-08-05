@@ -36,7 +36,7 @@ class Admin::EditionLegacyAssociationsControllerTest < ActionController::TestCas
     @edition = create(
       :publication,
       title: 'the edition',
-      policy_content_ids: ['5d37821b-7631-11e4-a3cb-005056011aef'],
+      policy_content_ids: %w[5d37821b-7631-11e4-a3cb-005056011aef],
       topic_ids: [@topic.id.to_s],
       primary_specialist_sector_tag: 'WELLS',
       secondary_specialist_sector_tags: %w(FIELDS OFFSHORE)
@@ -95,13 +95,13 @@ class Admin::EditionLegacyAssociationsControllerTest < ActionController::TestCas
         policy_content_ids: ['', '5d37821b-7631-11e4-a3cb-005056011aef'],
         topic_ids: ['', @topic.id.to_s],
         primary_specialist_sector_tag: 'aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa',
-        secondary_specialist_sector_tags: ['aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee', 'eeeeeeee-bbbb-cccc-dddd-aaaaaaaaaaaaa']
+        secondary_specialist_sector_tags: %w[aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee eeeeeeee-bbbb-cccc-dddd-aaaaaaaaaaaaa]
       } }
     @edition.reload
     assert_equal [@topic.id], @edition.topic_ids
-    assert_equal ['5d37821b-7631-11e4-a3cb-005056011aef'], @edition.policy_content_ids
+    assert_equal %w[5d37821b-7631-11e4-a3cb-005056011aef], @edition.policy_content_ids
     assert_equal 'aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa', @edition.primary_specialist_sector_tag
-    assert_equal ['aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee', 'eeeeeeee-bbbb-cccc-dddd-aaaaaaaaaaaaa'],
+    assert_equal %w[aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee eeeeeeee-bbbb-cccc-dddd-aaaaaaaaaaaaa],
                  @edition.secondary_specialist_sector_tags
   end
 
@@ -110,10 +110,10 @@ class Admin::EditionLegacyAssociationsControllerTest < ActionController::TestCas
     @edition = create(
       :publication,
       title: 'the edition',
-      policy_content_ids: ['5d37821b-7631-11e4-a3cb-005056011aef'],
+      policy_content_ids: %w[5d37821b-7631-11e4-a3cb-005056011aef],
       topic_ids: [@topic.id.to_s],
       primary_specialist_sector_tag: 'aaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa',
-      secondary_specialist_sector_tags: ['aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee', 'eeeeeeee-bbbb-cccc-dddd-aaaaaaaaaaaaa']
+      secondary_specialist_sector_tags: %w[aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee eeeeeeee-bbbb-cccc-dddd-aaaaaaaaaaaaa]
     )
 
 
