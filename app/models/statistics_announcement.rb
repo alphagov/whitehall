@@ -212,7 +212,7 @@ class StatisticsAnnouncement < ApplicationRecord
   end
 
   def statistics_published?
-    publication.first_published_at.present?
+    publication.first_published_at.present? if publication
   end
 
   def requires_redirect?
