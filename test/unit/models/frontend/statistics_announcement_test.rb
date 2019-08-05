@@ -32,6 +32,11 @@ class Frontend::StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_equal "March 12 2015 (cancelled)", announcement.display_date_with_status
   end
 
+  test "#disply_date_with_status appends (statistics_published) to published announcements" do
+    announcement = build_announcement(display_date: "March 12 2015", state: "statistics_published")
+    assert_equal "March 12 2015 (statistics_published)", announcement.display_date_with_status
+  end
+
   test "it identifies by its slug" do
     assert_equal 'a-slug', build_announcement(slug: 'a-slug').to_param
   end

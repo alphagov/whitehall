@@ -200,6 +200,8 @@ class StatisticsAnnouncement < ApplicationRecord
       'cancelled'
     elsif confirmed?
       'confirmed'
+    elsif statistics_published?
+      'statistics_published'
     else
       'provisional'
     end
@@ -207,6 +209,10 @@ class StatisticsAnnouncement < ApplicationRecord
 
   def unpublished?
     publishing_state == "unpublished"
+  end
+
+  def statistics_published?
+    publication.first_published_at.present?
   end
 
   def requires_redirect?

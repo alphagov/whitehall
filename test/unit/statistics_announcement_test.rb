@@ -178,6 +178,13 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_equal "confirmed", announcement.state
   end
 
+  test 'an announcement with published statistics is in a "statistics_published" state' do
+    announcement = build(:statistics_announcement,
+                         current_release_date: build(:statistics_announcement_date, statistics_published: true))
+
+    assert_equal "statistics_published", announcement.state
+  end
+
   test 'cannot cancel without a reason' do
     announcement = create(:statistics_announcement)
 
