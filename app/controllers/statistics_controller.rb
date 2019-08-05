@@ -24,6 +24,8 @@ class StatisticsController < DocumentsController
         render json: StatisticsFilterJsonPresenter.new(@filter, view_context, PublicationesquePresenter)
       end
       format.atom do
+        return redirect_to_research_and_statistics(".atom") if Locale.current.english?
+
         documents = Publicationesque.published_with_eager_loading(@filter.documents.map(&:id))
         @statistics = Whitehall::Decorators::CollectionDecorator.new(
           documents.sort_by(&:public_timestamp).reverse,
@@ -36,8 +38,8 @@ class StatisticsController < DocumentsController
 
 private
 
-  def redirect_to_research_and_statistics
-    base_path = "#{Plek.new.website_root}/search/research-and-statistics"
+  def redirect_to_research_and_statistics(format = "")
+    base_path = "#{Plek.new.website_root}/search/research-and-statistics#{format}"
     redirect_to("#{base_path}?#{research_and_statistics_query_string}")
   end
 
