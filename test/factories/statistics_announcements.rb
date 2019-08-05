@@ -43,6 +43,10 @@ FactoryBot.define do
     redirect_url { "https://www.test.gov.uk/government/sparkle" }
   end
 
+  factory :statistics_announcement_with_published_stats, parent: :statistics_announcement do
+    publication { FactoryBot.build :published_statistics }
+  end
+
   factory :statistics_announcement_requiring_redirect,
           parent: :unpublished_statistics_announcement do
   end

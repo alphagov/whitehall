@@ -179,8 +179,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   end
 
   test 'an announcement with published statistics is in a "statistics_published" state' do
-    announcement = build(:statistics_announcement,
-                         current_release_date: build(:statistics_announcement_date, statistics_published: true))
+    announcement = build(:statistics_announcement_with_published_stats)
 
     assert_equal "statistics_published", announcement.state
   end
