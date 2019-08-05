@@ -1,7 +1,7 @@
 <% page_title @person.name %>
-<% page_class "people-show biographical-page" %>
+<% page_class 'people-show biographical-page' %>
 
-<%= content_tag_for :div, @person, class: "two-column-page" do %>
+<%= content_tag_for :div, @person, class: 'two-column-page' do %>
   <header class="block headings-block">
     <div class="inner-block floated-children">
       <%= render partial: 'shared/heading',
@@ -26,8 +26,8 @@
             </figure>
           </div>
         <% end %>
-        <h1 <%= t_lang('document.contents') %>><%= t('document.contents') %></h1>
-        <nav role="navigation">
+        <nav role="navigation" aria-labelledby="document-contents-heading">
+          <h2 id="document-contents-heading" <%= t_lang('document.contents') %>><%= t('document.contents') %></h2>
           <ul>
             <li <%= t_lang('people.biography') %> >
               <%= link_to t('people.biography'), '#biography' %>
@@ -61,14 +61,14 @@
   <div class="block-3">
     <div class="inner-block">
       <section class="biography" id="biography">
-        <h1 class="label"><%= t('people.biography') %></h1>
+        <h2 class="label gem-c-heading" <%= t_lang('people.biography') %>><%= t('people.biography') %></h2>
         <%= @person.biography %>
       </section>
 
       <div class="current-roles" id="current-roles">
         <% @person.current_role_appointments.each do |appointment| %>
           <%= content_tag_for :section, appointment, class: "role" do %>
-            <h1 id="<%= appointment.role.name.parameterize%>"><%= appointment.role.name %></h1>
+            <h2 id="<%= appointment.role.name.parameterize%>"><%= appointment.role.name %></h2>
             <%= appointment.role.responsibilities %>
             <div class="read-more">
               <% if appointment.role.ministerial? %>
@@ -88,8 +88,9 @@
 
       <% if @person.previous_role_appointments.any? %>
         <section class="previous-roles" id="previous-roles">
-          <h1><%= t('people.previous_roles_in_government') %></h1>
-
+          <h2 class="gem-c-heading" <%= t_lang('people.previous_roles_in_government') %>>
+            <%= t('people.previous_roles_in_government') %>
+          </h2>
           <ol class="document-list">
             <% @person.previous_role_appointments.each do |appointment| %>
               <%= content_tag_for :li, appointment, class: "document-row" do %>
@@ -105,8 +106,9 @@
 
       <% if @person.has_policy_responsibilities? %>
         <section id="policy">
-          <h1><%= t('policies.heading') %></h1>
-
+          <h2 class="gem-c-heading" <%= t_lang('policies.heading') %>>
+            <%= t('policies.heading') %>
+          </h2>
           <%= render 'policies/document_list', policies: @person.published_policies %>
         </section>
       <% end %>
@@ -114,10 +116,9 @@
       <% atom_discovery_link_tag atom_feed_url_for(@person), t('announcements.heading') %>
 
       <% if @person.announcements.any? %>
-        <section class="announcements" id="announcements">
-          <h2><%=  %></h2>
-          <%= render "govuk_publishing_components/components/heading", {
-            text: t("announcements.heading")
+        <section class="announcements" id="announcements" <%= t_lang('announcements.heading') %>>
+          <%= render 'govuk_publishing_components/components/heading', {
+            text: t('announcements.heading')
           } %>
 
           <%= render "govuk_publishing_components/components/subscription-links", {
@@ -127,7 +128,7 @@
 
           <%= render "govuk_publishing_components/components/document_list", items: @person.announcements %>
 
-          <div class="read-more">
+          <div class="read-more" <%= t_lang('announcements.view_all') %>>
             <%= link_to t('announcements.view_all'), announcements_path(people: [@person.slug]) %>
           </div>
         </section>
