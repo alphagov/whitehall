@@ -32,6 +32,7 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
       end
     end
 
+    provide_doctype_information(edition, output)
     output[:government] = edition.government
     output[:whitehall_admin_links] = resolve_whitehall_admin_links(edition.body)
     if edition.withdrawn?
@@ -43,6 +44,12 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
   def complete_images_hash(edition_images)
     edition_images.map do |image|
       image.as_json(methods: :url)
+    end
+  end
+
+  def provide_doctype_information(edition, output)
+    %i[news_article_type publication_type corporate_information_page_type speech_type].each do |type|
+      output[type] = edition.public_send(type)&.key if edition.respond_to?(type)
     end
   end
 
