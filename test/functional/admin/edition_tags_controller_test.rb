@@ -198,4 +198,22 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
       previous_version: "1"
     )
   end
+
+  test "#update should redirect to the document show page if the document is locked" do
+    edition = create(:news_article, :with_locked_document)
+
+    put :update, params: { edition_id: edition.id }
+
+    assert_redirected_to admin_news_article_path(edition)
+    assert_equal "This document is locked and cannot be edited", flash[:alert]
+  end
+
+  test "#edit should redirect to the document show page if the document is locked" do
+    edition = create(:news_article, :with_locked_document)
+
+    get :edit, params: { edition_id: edition.id }
+
+    assert_redirected_to admin_news_article_path(edition)
+    assert_equal "This document is locked and cannot be edited", flash[:alert]
+  end
 end

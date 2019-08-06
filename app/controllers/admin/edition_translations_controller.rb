@@ -1,6 +1,8 @@
 class Admin::EditionTranslationsController < Admin::BaseController
   include TranslationControllerConcern
 
+  before_action :forbid_editing_of_locked_documents
+
   def update
     @translated_edition.change_note = 'Added translation' unless @translated_edition.change_note.present?
     super

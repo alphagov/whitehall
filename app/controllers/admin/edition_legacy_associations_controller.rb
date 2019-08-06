@@ -2,7 +2,7 @@ class Admin::EditionLegacyAssociationsController < Admin::BaseController
   before_action :find_edition
   before_action :enforce_permissions!
   before_action :limit_edition_access!
-
+  before_action :forbid_editing_of_locked_documents
 
   def edit
     @path = get_path

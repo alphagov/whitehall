@@ -41,6 +41,13 @@ class Admin::BaseController < ApplicationController
     end
   end
 
+  def forbid_editing_of_locked_documents
+    if @edition.locked?
+      redirect_to [:admin, @edition],
+                  alert: %{This document is locked and cannot be edited}
+    end
+  end
+
 private
 
   def forbidden!

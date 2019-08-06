@@ -14,6 +14,7 @@ class Admin::EditionsController < Admin::BaseController
   before_action :redirect_to_controller_for_type, only: [:show]
   before_action :deduplicate_specialist_sectors, only: %i[create update]
   before_action :forbid_editing_of_historic_content!, only: %i[create edit update submit destory revise]
+  before_action :forbid_editing_of_locked_documents, only: %i[edit update revise destroy]
 
   def forbid_editing_of_historic_content!
     unless can?(:modify, @edition)

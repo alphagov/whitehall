@@ -15,6 +15,15 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
     assert_redirected_to @controller.edit_admin_edition_translation_path(edition, id: 'fr')
   end
 
+  test 'create should redirect to the document show page if the document is locked' do
+    edition = create(:news_article, :with_locked_document)
+
+    post :create, params: { edition_id: edition.id, translation_locale: 'en' }
+
+    assert_redirected_to admin_news_article_path(edition)
+    assert_equal "This document is locked and cannot be edited", flash[:alert]
+  end
+
   view_test 'edit indicates which language we are adding a translation for' do
     edition = create(:edition, title: 'english-title')
 
@@ -74,6 +83,15 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
     refute_select "input#edition_title"
   end
 
+  test "edit should redirect to the document show page if the document is locked" do
+    edition = create(:news_article, :with_locked_document)
+
+    get :edit, params: { edition_id: edition.id, id: "cy" }
+
+    assert_redirected_to admin_news_article_path(edition)
+    assert_equal "This document is locked and cannot be edited", flash[:alert]
+  end
+
   test "update creates a translation for an edition that's yet to be published, and redirect back to the edition admin page" do
     edition = create(:draft_edition)
 
@@ -125,6 +143,15 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
     edition.reload
 
     assert_equal 'manually-added-change-note', edition.change_note
+  end
+
+  test "update should redirect to the document show page if the document is locked" do
+    edition = create(:news_article, :with_locked_document)
+
+    put :update, params: { edition_id: edition.id, id: "cy", edition: { title: "title" } }
+
+    assert_redirected_to admin_news_article_path(edition)
+    assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 
   view_test 'update renders the form again, with errors, if the translation is invalid' do
@@ -191,5 +218,14 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
 
       assert_publishing_api_discard_draft(edition.content_id, locale: 'fr')
     end
+  end
+
+  test "destroy should redirect to the document show page if the document is locked" do
+    edition = create(:news_article, :with_locked_document)
+
+    delete :destroy, params: { edition_id: edition.id, id: "fr" }
+
+    assert_redirected_to admin_news_article_path(edition)
+    assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 end
