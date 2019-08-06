@@ -122,8 +122,13 @@
           } %>
 
           <%= render "govuk_publishing_components/components/subscription-links", {
+            hide_heading: true,
             email_signup_link: email_signup_path(atom_feed_url_for(@person)),
-            feed_link: atom_feed_url_for(@person)
+            email_signup_link_text: t('feeds.get_email_alerts'),
+            email_signup_link_text_locale: t_locale('feeds.get_email_alerts'),
+            feed_link: atom_feed_url_for(@person),
+            feed_link_text: t('feeds.subscribe_to_feed'),
+            feed_link_text_locale: t_locale('feeds.subscribe_to_feed')
           } %>
 
           <%= render "govuk_publishing_components/components/document_list", items: @person.announcements %>

@@ -331,8 +331,11 @@ so:
   feeds:
     email:
     feed:
+    get_email_alerts:
     get_updates_to_this_list:
     latest_activity: Waxqabadkii ugu dambeeyey
+    subscribe_to_feed:
+    view_feed:
   i18n:
     direction: ltr
   language_names:

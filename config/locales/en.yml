@@ -278,6 +278,9 @@ en:
     feed: feed
     email: email
     latest_activity: Latest activity
+    get_email_alerts: Get email alerts
+    subscribe_to_feed: Subscribe to feed
+    view_feed: View feed
   latest_feed:
     no_updates: There are no updates yet.
     title: Latest
