@@ -20,6 +20,9 @@ class DocumentCollection < Edition
            dependent: :destroy,
            inverse_of: :document_collection
   has_many :documents, through: :groups
+  has_many :non_whitehall_links,
+           class_name: 'DocumentCollectionNonWhitehallLink',
+           through: :groups
   has_many :editions, through: :documents
 
   before_create :create_default_group
@@ -63,6 +66,10 @@ class DocumentCollection < Edition
 
   def rendering_app
     Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+  end
+
+  def content_ids
+    groups.flat_map(&:content_ids)
   end
 
 private

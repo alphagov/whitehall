@@ -19,6 +19,10 @@ class DocumentCollectionGroupMembership < ApplicationRecord
   validate :document_is_of_allowed_type, if: -> { document.present? }
   validate :presence_of_document_or_non_whitehall_link
 
+  def content_id
+    document&.content_id || non_whitehall_link&.content_id
+  end
+
 private
 
   def assign_ordering

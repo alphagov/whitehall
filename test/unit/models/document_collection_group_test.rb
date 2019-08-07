@@ -74,4 +74,38 @@ class DocumentSeriesGroupTest < ActiveSupport::TestCase
     group = create(:document_collection_group, heading: 'Foo bar')
     assert_equal group.slug, 'foo-bar'
   end
+
+  test '#visible? should be true if only non-whitehall links are present' do
+    group = create(:document_collection_group, non_whitehall_links: [
+      build(:document_collection_non_whitehall_link),
+    ])
+
+    assert group.visible?
+  end
+
+  test '#visible? should be false if only non-published editions are present' do
+    group = create(:document_collection_group, documents: [
+      create(:draft_edition).document,
+    ])
+
+    refute group.visible?
+  end
+
+  test '#content_ids contain document and non-whitehall links in order' do
+    document = build(:document)
+    non_whitehall_link = build(:document_collection_non_whitehall_link)
+    group = create(:document_collection_group, memberships: [
+      build(:document_collection_group_membership, document: document),
+      build(:document_collection_group_membership,
+            document: nil,
+            non_whitehall_link:
+            non_whitehall_link),
+    ])
+
+    group.memberships[0].update(ordering: 2)
+    group.memberships[1].update(ordering: 1)
+    group.reload
+
+    assert_equal group.content_ids, [non_whitehall_link.content_id, document.content_id]
+  end
 end

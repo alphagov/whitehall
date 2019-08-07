@@ -146,4 +146,16 @@ class DocumentCollectionTest < ActiveSupport::TestCase
     document_collection = DocumentCollection.new
     assert_equal Whitehall::RenderingApp::GOVERNMENT_FRONTEND, document_collection.rendering_app
   end
+
+  test '#content_ids returns content_ids from each group' do
+    doc = create(:published_news_article).document
+    non_whitehall_link = create(:document_collection_non_whitehall_link)
+    groups = [
+      build(:document_collection_group, documents: [doc]),
+      build(:document_collection_group, non_whitehall_links: [non_whitehall_link]),
+    ]
+    doc_collection = create(:document_collection, groups: groups)
+
+    assert_equal doc_collection.content_ids, [doc.content_id, non_whitehall_link.content_id]
+  end
 end
