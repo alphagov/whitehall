@@ -8,8 +8,14 @@ class DocumentCollectionGroupMembershipTest < ActiveSupport::TestCase
     assert_equal [1, 2], group.memberships.reload.map(&:ordering)
   end
 
-  test 'is invalid without a document' do
-    refute build(:document_collection_group_membership, document: nil).valid?
+  test 'is invalid without a document or a non-whitehall link' do
+    refute build(:document_collection_group_membership, document: nil, non_whitehall_link: nil).valid?
+  end
+
+  test 'is invalid with both a document and a external link' do
+    refute build(:document_collection_group_membership,
+                 document: build(:document),
+                 non_whitehall_link: build(:document_collection_non_whitehall_link)).valid?
   end
 
   test 'is invalid without a document_collection_group' do
