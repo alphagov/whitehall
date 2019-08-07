@@ -73,8 +73,10 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
   end
 
   test "returns government information about an edition" do
+    current_government = create(:current_government)
     edition = create(:edition)
     result = DocumentExportPresenter.new(edition.document).as_json
     assert_equal edition.government, result[:editions].first[:government]
+    assert_equal current_government, result[:editions].first[:government]
   end
 end
