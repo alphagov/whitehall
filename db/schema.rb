@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190711112443) do
+ActiveRecord::Schema.define(version: 20190806120852) do
 
   create_table "about_pages", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "topical_event_id"
@@ -240,8 +240,10 @@ ActiveRecord::Schema.define(version: 20190711112443) do
     t.integer "ordering"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "non_whitehall_link_id"
     t.index ["document_collection_group_id", "ordering"], name: "index_dc_group_memberships_on_dc_group_id_and_ordering"
     t.index ["document_id"], name: "index_document_collection_group_memberships_on_document_id"
+    t.index ["non_whitehall_link_id"], name: "index_document_collection_non_whitehall_link"
   end
 
   create_table "document_collection_groups", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
@@ -252,6 +254,15 @@ ActiveRecord::Schema.define(version: 20190711112443) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["document_collection_id", "ordering"], name: "index_dc_groups_on_dc_id_and_ordering"
+  end
+
+  create_table "document_collection_non_whitehall_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "content_id", null: false
+    t.string "title", null: false
+    t.text "base_path", null: false
+    t.string "publishing_app", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "document_sources", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
