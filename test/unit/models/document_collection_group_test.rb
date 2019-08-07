@@ -29,6 +29,28 @@ class DocumentSeriesGroupTest < ActiveSupport::TestCase
     assert_equal 1, group.memberships.find_by(document_id: doc_1.id).ordering
   end
 
+  test "#set_membership_ids_in_order! should associate documents and set their\
+        membership's ordering to the position of the membership id in the passed in array" do
+    group = build(:document_collection_group)
+
+    membership_1 = create(:document_collection_group_membership)
+    membership_2 = create(:document_collection_group_membership)
+    membership_3 = create(:document_collection_group_membership)
+
+    group.memberships << membership_1
+    group.memberships << membership_2
+    group.memberships << membership_3
+
+    group.set_membership_ids_in_order! [membership_3.id, membership_1.id]
+
+    assert group.memberships.include? membership_1
+    assert group.memberships.include? membership_3
+    refute group.memberships.include? membership_2
+
+    assert_equal 0, group.memberships.find(membership_3.id).ordering
+    assert_equal 1, group.memberships.find(membership_1.id).ordering
+  end
+
   test '::published_editions should list published editions ordered by membership ordering' do
     group = create(:document_collection_group)
     published_1 = create(:published_publication)
