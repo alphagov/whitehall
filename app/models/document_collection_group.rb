@@ -8,6 +8,10 @@ class DocumentCollectionGroup < ApplicationRecord
   has_many :documents,
            -> { order('document_collection_group_memberships.ordering') },
            through: :memberships
+  has_many :non_whitehall_links,
+           -> { order('document_collection_group_memberships.ordering') },
+           class_name: 'DocumentCollectionNonWhitehallLink',
+           through: :memberships
   has_many :editions,
            -> { order('document_collection_group_memberships.ordering') },
            through: :documents
@@ -44,7 +48,7 @@ class DocumentCollectionGroup < ApplicationRecord
   end
 
   def visible?
-    published_editions.present?
+    published_editions.present? || non_whitehall_links.present?
   end
 
   def dup
@@ -55,6 +59,10 @@ class DocumentCollectionGroup < ApplicationRecord
 
   def slug
     heading.parameterize
+  end
+
+  def content_ids
+    memberships.map(&:content_id)
   end
 
 private
