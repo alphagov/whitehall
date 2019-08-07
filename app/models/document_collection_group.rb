@@ -29,6 +29,14 @@ class DocumentCollectionGroup < ApplicationRecord
     end
   end
 
+  def set_membership_ids_in_order!(membership_ids)
+    self.membership_ids = membership_ids
+    self.save!
+    self.memberships.each do |membership|
+      membership.update_attribute(:ordering, membership_ids.index(membership.id))
+    end
+  end
+
   def self.visible
     includes(:editions).references(:editions).where(editions: { state: 'published' })
   end
