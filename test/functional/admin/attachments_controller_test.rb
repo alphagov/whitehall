@@ -96,7 +96,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
     post :create, params: { edition_id: edition.id, attachment: valid_file_attachment_params }
 
-    assert_redirected_to admin_news_article_path(edition)
+    assert_redirected_to show_locked_admin_edition_path(edition)
     assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 
@@ -114,7 +114,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
     get :index, params: { edition_id: edition.id }
 
-    assert_redirected_to admin_news_article_path(edition)
+    assert_redirected_to show_locked_admin_edition_path(edition)
     assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 
@@ -186,7 +186,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
     delete :destroy, params: { edition_id: edition.id, id: attachment.id }
 
-    assert_redirected_to admin_news_article_path(edition)
+    assert_redirected_to show_locked_admin_edition_path(edition)
     assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 
@@ -254,7 +254,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
     put :order, params: { edition_id: edition.id, order: {} }
 
-    assert_redirected_to admin_news_article_path(edition)
+    assert_redirected_to show_locked_admin_edition_path(edition)
     assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 
@@ -285,7 +285,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
     get :new, params: { edition_id: edition, type: "file" }
 
-    assert_redirected_to admin_news_article_path(edition)
+    assert_redirected_to show_locked_admin_edition_path(edition)
     assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 
@@ -313,7 +313,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
     get :edit, params: { edition_id: edition.id, id: attachment }
 
-    assert_redirected_to admin_news_article_path(edition)
+    assert_redirected_to show_locked_admin_edition_path(edition)
     assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 
@@ -375,7 +375,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       attachment: { title: "New title" },
     }
 
-    assert_redirected_to admin_news_article_path(edition)
+    assert_redirected_to show_locked_admin_edition_path(edition)
     assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 
@@ -472,7 +472,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     new_data = attachments.map { |a| [a.id.to_s, { title: a.title + '_' }] }
     put :update_many, params: { edition_id: edition, attachments: Hash[new_data] }
 
-    assert_redirected_to admin_news_article_path(edition)
+    assert_redirected_to show_locked_admin_edition_path(edition)
     assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 

@@ -20,7 +20,7 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
 
     post :create, params: { edition_id: edition.id, translation_locale: 'en' }
 
-    assert_redirected_to admin_news_article_path(edition)
+    assert_redirected_to show_locked_admin_edition_path(edition)
     assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 
@@ -88,7 +88,7 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
 
     get :edit, params: { edition_id: edition.id, id: "cy" }
 
-    assert_redirected_to admin_news_article_path(edition)
+    assert_redirected_to show_locked_admin_edition_path(edition)
     assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 
@@ -150,7 +150,7 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
 
     put :update, params: { edition_id: edition.id, id: "cy", edition: { title: "title" } }
 
-    assert_redirected_to admin_news_article_path(edition)
+    assert_redirected_to show_locked_admin_edition_path(edition)
     assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 
@@ -225,7 +225,7 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
 
     delete :destroy, params: { edition_id: edition.id, id: "fr" }
 
-    assert_redirected_to admin_news_article_path(edition)
+    assert_redirected_to show_locked_admin_edition_path(edition)
     assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 end

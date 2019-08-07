@@ -204,7 +204,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
 
     put :update, params: { edition_id: edition.id }
 
-    assert_redirected_to admin_news_article_path(edition)
+    assert_redirected_to show_locked_admin_edition_path(edition)
     assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 
@@ -213,7 +213,7 @@ class Admin::EditionTagsControllerTest < ActionController::TestCase
 
     get :edit, params: { edition_id: edition.id }
 
-    assert_redirected_to admin_news_article_path(edition)
+    assert_redirected_to show_locked_admin_edition_path(edition)
     assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 end

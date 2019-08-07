@@ -45,21 +45,21 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
     edition = create(:news_article, :with_locked_document)
     get :edit, params: { id: edition }
 
-    assert_redirected_to admin_news_article_path(edition)
+    assert_redirected_to show_locked_admin_edition_path(edition)
   end
 
   test "update should redirect to index page if document is locked" do
     edition = create(:news_article, :with_locked_document)
     put :update, params: { id: edition }
 
-    assert_redirected_to admin_news_article_path(edition)
+    assert_redirected_to show_locked_admin_edition_path(edition)
   end
 
   test "destroy should redirect to index page if document is locked" do
     edition = create(:news_article, :with_locked_document)
     delete :destroy, params: { id: edition }
 
-    assert_redirected_to admin_news_article_path(edition)
+    assert_redirected_to show_locked_admin_edition_path(edition)
   end
 
 private
