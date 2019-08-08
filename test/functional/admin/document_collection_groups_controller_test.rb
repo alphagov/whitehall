@@ -186,7 +186,7 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
       }
     }
 
-    assert_equal [@doc_1_1], @group_1.reload.documents
+    assert_equal [@doc_1_1], @group_1.reload.memberships
   end
 
   test "POST #update_memberships should support moving memberships between groups" do
@@ -213,7 +213,7 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
       }
     }
 
-    assert @group_2.reload.documents.include?(@doc_1_2)
+    assert @group_2.reload.memberships.include?(@doc_1_2)
   end
 
   test "POST #update_memberships should handle empty groups" do
@@ -224,7 +224,7 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
       groups: {
         0 => {
           id: @group_1.id,
-          document_ids: [
+          membership_ids: [
             @doc_1_1.id,
             @doc_1_2.id,
             @doc_2_1.id,
@@ -240,7 +240,7 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
     }
 
     assert_response :success
-    assert_equal [@doc_1_1, @doc_1_2, @doc_2_1, @doc_2_2], @group_1.reload.documents
+    assert_equal [@doc_1_1, @doc_1_2, @doc_2_1, @doc_2_2], @group_1.reload.memberships
     assert_empty @group_2.reload.documents
   end
 
@@ -249,9 +249,9 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
     @group_2 = build(:document_collection_group)
     @collection.update_attribute :groups, [@group_1, @group_2]
 
-    @group_1.documents << @doc_1_1 = create(:document)
-    @group_1.documents << @doc_1_2 = create(:document)
-    @group_2.documents << @doc_2_1 = create(:document)
-    @group_2.documents << @doc_2_2 = create(:document)
+    @group_1.memberships << @doc_1_1 = create(:document_collection_group_membership)
+    @group_1.memberships << @doc_1_2 = create(:document_collection_group_membership)
+    @group_2.memberships << @doc_2_1 = create(:document_collection_group_membership)
+    @group_2.memberships << @doc_2_2 = create(:document_collection_group_membership)
   end
 end

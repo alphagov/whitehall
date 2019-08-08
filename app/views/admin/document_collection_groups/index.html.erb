@@ -71,7 +71,7 @@
                 <% end %>
               </ul>
               <ol class="document-list js-document-group list-unstyled" data-group-id="<%= group.id %>">
-                <%= render partial: 'collection_document', collection: group.latest_editions, as: :edition, locals: { document_collection: @collection } %>
+                <%= render partial: 'collection_document', collection: group.memberships, as: :membership, locals: { document_collection: @collection } %>
               </ol>
             <% end %>
           <% end %>

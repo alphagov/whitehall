@@ -8,27 +8,6 @@ class DocumentSeriesGroupTest < ActiveSupport::TestCase
     assert_equal [1, 2], series.groups.reload.map(&:ordering)
   end
 
-  test "#set_document_ids_in_order! should associate documents and set their\
-        membership's ordering to the position of the document id in the passed in array" do
-    group = build(:document_collection_group)
-
-    doc_1 = create(:document)
-    doc_2 = create(:document)
-    doc_3 = create(:document)
-
-    group.documents << doc_1
-    group.documents << doc_2
-
-    group.set_document_ids_in_order! [doc_3.id, doc_1.id]
-
-    assert group.documents.include? doc_1
-    assert group.documents.include? doc_3
-    refute group.documents.include? doc_2
-
-    assert_equal 0, group.memberships.find_by(document_id: doc_3.id).ordering
-    assert_equal 1, group.memberships.find_by(document_id: doc_1.id).ordering
-  end
-
   test "#set_membership_ids_in_order! should associate documents and set their\
         membership's ordering to the position of the membership id in the passed in array" do
     group = build(:document_collection_group)

@@ -3,8 +3,7 @@ class DocumentCollectionGroup < ApplicationRecord
   has_many :memberships,
            -> { order('document_collection_group_memberships.ordering') },
            class_name: 'DocumentCollectionGroupMembership',
-           inverse_of: :document_collection_group,
-           dependent: :destroy
+           inverse_of: :document_collection_group
   has_many :documents,
            -> { order('document_collection_group_memberships.ordering') },
            through: :memberships

@@ -15,12 +15,11 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
   end
 
   def destroy
-    document_ids = params.fetch(:documents, []).map(&:to_i)
-    if document_ids.present?
-      delete_from_old_group(document_ids)
-      move_to_new_group(document_ids) if moving?
+    membership_ids = params.fetch(:memberships, []).map(&:to_i)
+    if membership_ids.present?
+      move_membership_to_new_group(membership_ids)
       redirect_to admin_document_collection_groups_path(@collection),
-                  notice: success_message(document_ids)
+                  notice: success_message(membership_ids)
     else
       redirect_to admin_document_collection_groups_path(@collection),
                   alert: 'Select one or more documents and try again'
@@ -33,16 +32,15 @@ private
     params[:commit] == 'Move'
   end
 
-  def delete_from_old_group(document_ids)
-    @group.memberships.where(document_id: document_ids).destroy_all
+  def move_membership_to_new_group(membership_ids)
+    DocumentCollectionGroupMembership.where('id in (?)', membership_ids).each do | member |
+      member.document_collection_group_id = new_group.id
+      member.save
+    end
   end
 
-  def move_to_new_group(document_ids)
-    new_group.documents << Document.where('id in (?)', document_ids)
-  end
-
-  def success_message(document_ids)
-    count = "#{document_ids.size} #{'document'.pluralize(document_ids.size)}"
+  def success_message(membership_ids)
+    count = "#{membership_ids.size} #{'document'.pluralize(membership_ids.size)}"
     if moving?
       "#{count} moved to '#{new_group.heading}'"
     else
