@@ -80,10 +80,34 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     assert_equal publication_html.attachments.first.govspeak_content.as_json, attachments.first['govspeak_content']
   end
 
-  test "returns government information about an edition" do
-    edition = create(:edition)
+  test "appends the editions document type key to the response" do
+    news = create(:news_article)
+    publication = create(:publication)
+    speech = create(:speech)
+    corp_info = create(:corporate_information_page)
 
+    news_result = DocumentExportPresenter.new(news.document).as_json
+    doctype_data = news_result[:editions].first[:news_article_type]
+    assert_equal news.news_article_type.key, doctype_data
+
+    pub_result = DocumentExportPresenter.new(publication.document).as_json
+    doctype_data = pub_result[:editions].first[:publication_type]
+    assert_equal publication.publication_type.key, doctype_data
+
+    speech_result = DocumentExportPresenter.new(speech.document).as_json
+    doctype_data = speech_result[:editions].first[:speech_type]
+    assert_equal speech.speech_type.key, doctype_data
+
+    corp_result = DocumentExportPresenter.new(corp_info.document).as_json
+    doctype_data = corp_result[:editions].first[:corporate_information_page_type]
+    assert_equal corp_info.corporate_information_page_type.key, doctype_data
+  end
+
+  test "returns government information about an edition" do
+    current_government = create(:current_government)
+    edition = create(:edition)
     result = DocumentExportPresenter.new(edition.document).as_json
     assert_equal edition.government, result[:editions].first[:government]
+    assert_equal current_government, result[:editions].first[:government]
   end
 end

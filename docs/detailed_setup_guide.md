@@ -25,8 +25,9 @@ The database.yml for this project is checked into source control so
 you'll need a local user with credentials that match those in
 database.yml.
 
-```
-mysql> grant all on `whitehall\_%`.* to whitehall@localhost identified by 'whitehall';
+```sql
+mysql> CREATE USER 'whitehall'@'localhost' IDENTIFIED BY 'whitehall';
+mysql> GRANT ALL ON `whitehall\_%`.* TO 'whitehall'@'localhost';
 ```
 
 ### Preparing the app
@@ -60,4 +61,3 @@ Once that is imported upgrade your import to the latest schema version with
 ```
 $ bundle exec rake db:setup
 ```
-

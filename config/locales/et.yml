@@ -334,8 +334,11 @@ et:
   feeds:
     email: e-post
     feed: uudisvoog
+    get_email_alerts:
     get_updates_to_this_list: Telli uudiskiri
     latest_activity: Viimased uudised
+    subscribe_to_feed:
+    view_feed:
   i18n:
     direction: ltr
   language_names:
