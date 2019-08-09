@@ -49,6 +49,37 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     assert_equal image.image_data.file_url, images.first['url']
   end
 
+  test "appends expected attachment data to the file attachment response hash" do
+    publication_file = create(:publication, :with_command_paper)
+
+    result = DocumentExportPresenter.new(publication_file.document).as_json
+    attachments = result[:editions].first[:associations][:attachments]
+
+    assert_equal publication_file.attachments.first.url, attachments.first['url']
+    assert_equal "FileAttachment", attachments.first['type']
+    assert_equal publication_file.attachments.first.attachment_data.as_json, attachments.first['attachment_data']
+  end
+
+  test "exports expected data with the external attachment response hash" do
+    publication_external = create(:publication, :with_external_attachment)
+
+    result = DocumentExportPresenter.new(publication_external.document).as_json
+    attachments = result[:editions].first[:associations][:attachments]
+
+    assert_equal publication_external.attachments.first.url, attachments.first['url']
+    assert_equal "ExternalAttachment", attachments.first['type']
+  end
+
+  test "appends expected govspeak data to the html attachment response hash" do
+    publication_html = create(:publication)
+
+    result = DocumentExportPresenter.new(publication_html.document).as_json
+    attachments = result[:editions].first[:associations][:attachments]
+
+    assert_equal "HtmlAttachment", attachments.first['type']
+    assert_equal publication_html.attachments.first.govspeak_content.as_json, attachments.first['govspeak_content']
+  end
+
   test "appends the editions document type key to the response" do
     news = create(:news_article)
     publication = create(:publication)
