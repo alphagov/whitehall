@@ -1,26 +1,34 @@
 # Note that announcement pages are rendered by the `government-frontend` application.
 class StatisticsAnnouncementsController < PublicFacingController
-  include PublicDocumentRoutesHelper
-
   enable_request_formats(index: [:js])
 
   def index
-    @filter = Frontend::StatisticsAnnouncementsFilter.new(filter_params)
-    expire_cache_for_index_on_next_announcement_expiry(@filter.results)
-    if request.xhr?
-      skip_slimmer
-      render partial: "statistics_announcements/filter_results"
-    end
+    redirect_to_research_and_statistics
   end
 
 private
 
-  def filter_params
-    params.permit!.to_h.slice(:page, :keywords, :from_date, :to_date, :organisations, :topics)
+  def redirect_to_research_and_statistics
+    base_path = "#{Plek.new.website_root}/search/research-and-statistics"
+    redirect_to("#{base_path}?#{research_and_statistics_query_string}")
   end
 
-  def expire_cache_for_index_on_next_announcement_expiry(announcements)
-    time_to_releases = announcements.map { |ann| ann.release_date - Time.zone.now }.reject { |time_span| time_span <= 0 }
-    expires_in((time_to_releases << Whitehall.default_cache_max_age).min)
+  def research_and_statistics_query_string
+    {
+      content_store_document_type: 'upcoming_statistics',
+      keywords: params['keywords'],
+      level_one_taxon: params['topics'].try(:first),
+      organisations: filter_query_array(params['organisations']),
+      public_timestamp: {
+        from: params['from_date'],
+        to: params['to_date']
+      }.compact.presence,
+    }.compact.to_query
+  end
+
+  def filter_query_array(arr)
+    if arr.respond_to? 'reject'
+      arr.reject { |v| v == 'all' }.compact.presence
+    end
   end
 end

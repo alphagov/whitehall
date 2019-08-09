@@ -7,7 +7,6 @@ class StatisticsControllerTest < ActionController::TestCase
 
   with_not_quite_as_fake_search
   should_be_a_public_facing_controller
-  should_paginate :statistics, timestamp_key: :first_published_at
   should_return_json_suitable_for_the_document_filter :statistics
 
   def assert_publication_order(expected_order)
@@ -26,91 +25,29 @@ class StatisticsControllerTest < ActionController::TestCase
     @rummager = stub
   end
 
-  view_test "#index only displays *published* statistics" do
-    Sidekiq::Testing.inline! do
-      superseded_statistics = create(:superseded_publication, :statistics)
-      published_statistics = create(:published_statistics)
-      draft_statistics = create(:draft_statistics)
-      get :index
-
-      assert_select_object(published_statistics)
-      refute_select_object(superseded_statistics)
-      refute_select_object(draft_statistics)
-    end
-  end
-
-  test "#index sets Cache-Control: max-age to the time of the next scheduled publication" do
-    login_as(:departmental_editor)
-    create(:scheduled_publication, :statistics, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
-
-    Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
-      get :index
-    end
-
-    assert_cache_control("max-age=#{Whitehall.default_cache_max_age / 2}")
-  end
-
-  view_test "#index highlights selected organisation filter options" do
-    given_two_statistics_publications_in_two_organisations
-
-    get :index, params: { departments: [@organisation_1, @organisation_2] }
-
-    assert_select "select#departments[name='departments[]']" do
-      assert_select "option[selected]", text: @organisation_1.name
-      assert_select "option[selected]", text: @organisation_2.name
-    end
-  end
-
-  view_test "#index highlights selected taxon filter options" do
-    get :index, params: { taxons: [root_taxon['content_id']] }
-
-    assert_select "select#taxons[name='taxons[]']" do
-      assert_select "option[selected='selected']", text: root_taxon['title']
-    end
-  end
-
-  view_test "#index highlights all taxons filter options by default" do
+  test "when locale is english it redirects to research and statistics" do
     get :index
-
-    assert_select "select[name='taxons[]']" do
-      assert_select "option[selected='selected']", text: "All topics"
-    end
+    assert_response :redirect
   end
 
-  def given_two_statistics_publications_in_two_organisations
-    @organisation_1, @organisation_2 = 2.times.map { create(:organisation, type: OrganisationType.ministerial_department) }
-    create(:published_statistics, organisations: [@organisation_1])
-    create(:published_national_statistics, organisations: [@organisation_2])
-  end
+  test "when locale is english it redirects with params for finder-frontend" do
+    get :index, params: {
+      keywords: "one two",
+      taxons: %w[one],
+      departments: %w[all one two],
+      from_date: '01/01/2014',
+      to_date: '01/01/2014'
+    }
 
-  view_test "#index displays filter keywords" do
-    get :index, params: { keywords: "olympics 2012" }
+    redirect_params_query = {
+      content_store_document_type: 'published_statistics',
+      keywords: "one two",
+      level_one_taxon: 'one',
+      organisations: %w[one two],
+      public_timestamp: { from: '01/01/2014', to: '01/01/2014' }
+    }.to_query
 
-    assert_select "input[name='keywords'][value=?]", "olympics 2012"
-  end
-
-  view_test "#index displays date filter" do
-    get :index, params: { from_date: "01/01/2011", to_date: "01/02/2012" }
-
-    assert_select "input#from_date[name='from_date'][value='01/01/2011']"
-    assert_select "input#to_date[name='to_date'][value='01/02/2012']"
-  end
-
-  view_test "#index orders statistics by publication date by default" do
-    Sidekiq::Testing.inline! do
-      statistics = 5.times.map { |i| create(:published_statistics, first_published_at: (10 - i).days.ago) }
-
-      get :index
-
-      assert_equal "publication_#{statistics.last.id}", css_select(".filter-results .document-row").first['id']
-      assert_equal "publication_#{statistics.first.id}", css_select(".filter-results .document-row").last['id']
-    end
-  end
-
-  view_test "#index should show a helpful message if there are no matching statistics" do
-    get :index
-
-    assert_select "h2", text: "There are no matching documents."
+    assert_redirected_to "#{Plek.new.website_root}/search/research-and-statistics?#{redirect_params_query}"
   end
 
   view_test "#index only lists statistics in the given locale" do
@@ -133,24 +70,55 @@ class StatisticsControllerTest < ActionController::TestCase
     refute_select '.filter-results-summary'
   end
 
+  view_test "#index only displays *published* statistics" do
+    Sidekiq::Testing.inline! do
+      superseded_statistics = create(:superseded_publication, :statistics, translated_into: :fr)
+      published_statistics = create(:published_statistics, translated_into: :fr)
+      draft_statistics = create(:draft_statistics, translated_into: :fr)
+      get :index, params: { locale: 'fr' }
+
+      assert_select_object(published_statistics)
+      refute_select_object(superseded_statistics)
+      refute_select_object(draft_statistics)
+    end
+  end
+
+  view_test "#index orders statistics by publication date by default" do
+    Sidekiq::Testing.inline! do
+      statistics = 5.times.map { |i| create(:published_statistics, first_published_at: (10 - i).days.ago, translated_into: :fr) }
+
+      get :index, params: { locale: 'fr' }
+
+      assert_equal "publication_#{statistics.last.id}", css_select(".filter-results .document-row").first['id']
+      assert_equal "publication_#{statistics.first.id}", css_select(".filter-results .document-row").last['id']
+    end
+  end
+
+  view_test "#index should show a helpful message if there are no matching statistics" do
+    get :index, params: { locale: 'fr' }
+
+    assert_select "h2", text: "Vous pouvez utiliser les filtres pour afficher uniquement les résultats qui correspondent à vos intérêts"
+  end
+
   view_test "#index requested as JSON includes data for statistics" do
     Sidekiq::Testing.inline! do
       organisation_1 = create(:organisation, name: "org-name")
       organisation_2 = create(:organisation, name: "other-org")
       statistics_publication = create(:published_statistics, title: "statistics-title",
                                                              organisations: [organisation_1, organisation_2],
-                                                             first_published_at: Date.parse("2011-03-14"))
+                                                             first_published_at: Date.parse("2011-03-14"),
+                                                             translated_into: :fr)
 
-      get :index, format: :json
+      get :index, format: :json, params: { locale: 'fr' }
 
       results = ActiveSupport::JSON.decode(response.body)["results"]
       assert_equal 1, results.length
       json = results.first['result']
-      assert_equal "statistics-title", json["title"]
+      assert_equal "fr-statistics-title", json["title"]
       assert_equal statistics_publication.id, json["id"]
       assert_equal statistic_path(statistics_publication.document), json["url"]
-      assert_equal "org-name and other-org", json["organisations"]
-      assert_equal %{<time class="public_timestamp" datetime="2011-03-14T00:00:00+00:00">14 March 2011</time>}, json["display_date_microformat"]
+      assert_equal "org-name et other-org", json["organisations"]
+      assert_equal %{<time class="public_timestamp" datetime="2011-03-14T00:00:00+00:00">mars 14, 2011</time>}, json["display_date_microformat"]
       assert_equal "Official Statistics", json["display_type"]
     end
   end
@@ -158,17 +126,17 @@ class StatisticsControllerTest < ActionController::TestCase
   view_test '#index should show relevant document collection information' do
     Sidekiq::Testing.inline! do
       create(:departmental_editor)
-      statistics = create(:draft_statistics)
-      collection = create(:document_collection, :with_group)
+      statistics = create(:draft_statistics, translated_into: :fr)
+      collection = create(:document_collection, :with_group, translated_into: :fr)
       collection.groups.first.documents = [statistics.document]
       stub_publishing_api_registration_for([collection, statistics])
 
       Whitehall.edition_services.force_publisher(collection).perform!
       Whitehall.edition_services.force_publisher(statistics).perform!
-      get :index
+      get :index, params: { locale: :fr }
 
       assert_select_object(statistics) do
-        assert_select ".document-collections a[href=?]", @controller.public_document_path(collection)
+        assert_select ".document-collections a[href=?]", @controller.public_document_path(collection, locale: :fr)
       end
     end
   end
@@ -176,45 +144,29 @@ class StatisticsControllerTest < ActionController::TestCase
   view_test '#index requested as JSON includes document collection information' do
     Sidekiq::Testing.inline! do
       create(:departmental_editor)
-      statistics = create(:draft_statistics)
-      collection = create(:document_collection, :with_group)
+      statistics = create(:draft_statistics, translated_into: :fr)
+      collection = create(:document_collection, :with_group, translated_into: :fr)
       collection.groups.first.documents = [statistics.document]
       stub_publishing_api_registration_for([collection, statistics])
       Whitehall.edition_services.force_publisher(collection).perform!
       Whitehall.edition_services.force_publisher(statistics).perform!
 
-      get :index, format: :json
+      get :index, format: :json, params: { locale: 'fr' }
 
       json = ActiveSupport::JSON.decode(response.body)
       result = json['results'].first['result']
 
       path = @controller.public_document_path(collection)
-      link = %{<a href="#{path}">#{collection.title}</a>}
+      link = %{<a href="#{path}">fr-#{collection.title}</a>}
       assert_equal %{Part of a collection: #{link}}, result['publication_collections']
-    end
-  end
-
-  view_test "index generates an atom feed with entries for statistics matching the current filter" do
-    Sidekiq::Testing.inline! do
-      organisation_1 = create(:organisation, name: "org-name")
-      organisation_2 = create(:organisation, name: "other-org")
-      statistics_publication = create(:published_statistics, title: "statistics-title",
-                                                             organisations: [organisation_1, organisation_2],
-                                                             first_published_at: Date.parse("2011-03-14"))
-
-      get :index, params: { departments: [organisation_1.to_param] }, format: :atom
-
-      assert_select_atom_feed do
-        assert_select_atom_entries([statistics_publication])
-      end
     end
   end
 
   view_test 'index includes tracking details on all links' do
     Sidekiq::Testing.inline! do
-      published_statistics = create(:published_statistics)
+      published_statistics = create(:published_statistics, translated_into: :fr)
 
-      get :index
+      get :index, params: { locale: 'fr' }
 
       assert_select_object(published_statistics) do
         results_list = css_select('ol.document-list').first
@@ -240,7 +192,7 @@ class StatisticsControllerTest < ActionController::TestCase
         )
 
         assert_equal(
-          @controller.public_document_path(published_statistics),
+          @controller.public_document_path(published_statistics, locale: :fr),
           statistics_link.attributes['data-label'].value,
           "Expected the data label attribute to be the link of the published statistic"
         )
@@ -254,7 +206,7 @@ class StatisticsControllerTest < ActionController::TestCase
         )
 
         assert_equal(
-          published_statistics.title,
+          "fr-#{published_statistics.title}",
           options['dimension29'],
           "Expected the custom dimension 29 to have the title of the published statistic"
         )
