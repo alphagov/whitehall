@@ -196,14 +196,20 @@ module PublishingApi
       if item.has_published_publications_of_type?(PublicationType::CorporateReport)
         cips << {
           title: I18n.t('organisation.headings.corporate_reports'),
-          href: transparency_and_freedom_of_information_href(item)
+          href: transparency_and_freedom_of_information_href(
+            item,
+            content_store_document_type: 'corporate_report',
+          )
         }
       end
 
       if item.has_published_publications_of_type?(PublicationType::TransparencyData)
         cips << {
           title: I18n.t('organisation.corporate_information.transparency'),
-          href: transparency_and_freedom_of_information_href(item)
+          href: transparency_and_freedom_of_information_href(
+            item,
+            content_store_document_type: 'transparency'
+          )
         }
       end
 
@@ -521,8 +527,8 @@ module PublishingApi
       content_type && content_type =~ /svg/
     end
 
-    def transparency_and_freedom_of_information_href(item)
-      params = { organisations: [item.slug] }
+    def transparency_and_freedom_of_information_href(item, args = {})
+      params = args.merge(organisations: [item.slug])
       "/search/transparency-and-freedom-of-information-releases?#{params.to_query}"
     end
   end

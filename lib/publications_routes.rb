@@ -35,10 +35,16 @@ module PublicationsRoutes
       }
     },
     'foi-releases' => {
-      base_path: 'search/transparency-and-freedom-of-information-releases'
+      base_path: 'search/transparency-and-freedom-of-information-releases',
+      special_params: {
+        content_store_document_type: 'foi_release',
+      }
     },
     'transparency-data' => {
-      base_path: 'search/transparency-and-freedom-of-information-releases'
+      base_path: 'search/transparency-and-freedom-of-information-releases',
+      special_params: {
+        content_store_document_type: 'transparency',
+      }
     },
     'guidance' => {
       base_path: 'search/guidance-and-regulation'
