@@ -87,6 +87,13 @@ namespace :reporting do
     Reports::DraftPublicationsReport.new(args[:start_date], args[:end_date]).report
   end
 
+  desc "A CSV report of non-accessible attachments uploads published by the given organisation"
+  task :organisation_attachments_report, %i[organisation_slug] => :environment do |_t, args|
+    raise "Missing organisation slug" unless args[:organisation_slug].present?
+
+    Reports::OrganisationAttachmentsReport.new(args[:organisation_slug]).report
+  end
+
   desc "A CSV report of all documents published by the given organisation"
   task organisation_documents: :environment do
     options = opts_from_environment(:organisation_slug)
