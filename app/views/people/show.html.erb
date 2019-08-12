@@ -68,7 +68,7 @@
       <div class="current-roles" id="current-roles">
         <% @person.current_role_appointments.each do |appointment| %>
           <%= content_tag_for :section, appointment, class: "role" do %>
-            <h2 id="<%= appointment.role.name.parameterize%>"><%= appointment.role.name %></h2>
+            <h2 class="gem-c-heading" id="<%= appointment.role.name.parameterize%>"><%= appointment.role.name %></h2>
             <%= appointment.role.responsibilities %>
             <div class="read-more">
               <% if appointment.role.ministerial? %>
