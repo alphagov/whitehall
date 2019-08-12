@@ -3,7 +3,12 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
   before_action :load_document_collection_group, only: %i[delete destroy edit update]
 
   def index
-    @groups = @collection.groups
+    @groups = @collection.groups.includes(
+      memberships: [
+        { document: { latest_edition: %i[organisations translations] } },
+        :non_whitehall_link
+      ]
+    )
   end
 
   def new
@@ -37,11 +42,8 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
   def delete; end
 
   def update_memberships
-    params[:groups].each_pair do |_key, group_params|
-      group = @collection.groups.find(group_params[:id])
-      group.ordering = group_params[:order]
-      group.set_document_ids_in_order! group_params.fetch(:document_ids, []).map(&:to_i).uniq
-    end
+    add_moved_groups
+    reorder_groups
     respond_to do |format|
       format.html { render :index }
       format.json { render json: { result: :success } }
@@ -49,6 +51,26 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
   end
 
 private
+
+  def add_moved_groups
+    params[:groups].each do |_key, group_params|
+      group = @collection.groups.find(group_params[:id])
+      new_ids = membership_ids(group_params) - group.membership_ids
+      group.membership_ids += new_ids
+    end
+  end
+
+  def reorder_groups
+    params[:groups].each do |_key, group_params|
+      group = @collection.groups.find(group_params[:id])
+      group.ordering = group_params[:order]
+      group.set_membership_ids_in_order! membership_ids(group_params)
+    end
+  end
+
+  def membership_ids(group_params)
+    group_params.fetch(:membership_ids, []).map(&:to_i)
+  end
 
   def load_document_collection
     @collection = DocumentCollection.find(params[:document_collection_id])

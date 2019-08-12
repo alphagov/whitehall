@@ -226,7 +226,7 @@ class PublishingApi::PublishedDocumentCollectionPresenterEditionLinksTest < Acti
 
   test "it presents the documents content_ids as links, documents" do
     assert_equal(
-      @document_collection.documents.map(&:content_id),
+      @document_collection.content_ids,
       @presented_links[:documents]
     )
   end

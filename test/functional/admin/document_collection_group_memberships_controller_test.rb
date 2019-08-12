@@ -40,11 +40,12 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
     id_params.merge(commit: 'Move')
   end
 
-  view_test 'DELETE #destroy removes documents and redirects when Remove clicked' do
-    documents = [create(:publication), create(:publication)].map(&:document)
-    @group.documents << documents
-    assert_difference '@group.reload.documents.size', -1 do
-      delete :destroy, params: remove_params.merge(documents: [documents.first.id])
+  view_test 'DELETE #destroy removes memberships and redirects when Remove clicked' do
+    memberships = [create(:document_collection_group_membership),
+                   create(:document_collection_group_membership)]
+    @group.memberships << memberships
+    assert_difference '@group.reload.memberships.size', -1 do
+      delete :destroy, params: remove_params.merge(memberships: [memberships.first.id])
     end
     assert_redirected_to admin_document_collection_groups_path(@collection)
     assert_match %r[1 document removed], flash[:notice]
@@ -56,14 +57,15 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
   end
 
   test 'DELETE #destroy moves documents and redirects when Move clicked' do
-    documents = [create(:publication), create(:publication)].map(&:document)
-    @group.documents << documents
+    memberships = [create(:document_collection_group_membership),
+                   create(:document_collection_group_membership)]
+    @group.memberships << memberships
     new_group = build(:document_collection_group)
     @collection.groups << new_group
-    assert_difference 'new_group.reload.documents.size', 1 do
-      assert_difference '@group.reload.documents.size', -1 do
+    assert_difference 'new_group.reload.memberships.size', 1 do
+      assert_difference '@group.reload.memberships.size', -1 do
         delete :destroy, params: move_params.merge(
-          documents: [documents.first.id],
+          memberships: [memberships.first.id],
           new_group_id: new_group.id
         )
       end

@@ -49,7 +49,7 @@
     for(var i=0; i<this.documentGroups.length; i++) {
       postData.groups.push({
         id: this.documentGroups[i].groupID(),
-        document_ids: this.documentGroups[i].documentIDs(),
+        membership_ids: this.documentGroups[i].membershipIDs(),
         order: i
       });
     }
@@ -84,8 +84,8 @@
       return documentList.data('group-id');
     };
 
-    this.documentIDs = function documentIDs() {
-      return documentList.find("input[name='documents[]']").map(function(i, input) {
+    this.membershipIDs = function membershipIDs() {
+      return documentList.find("input[name='memberships[]']").map(function(i, input) {
         return input.value;
       }).toArray();
     };

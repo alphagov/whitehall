@@ -15,12 +15,11 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
   end
 
   def destroy
-    document_ids = params.fetch(:documents, []).map(&:to_i)
-    if document_ids.present?
-      delete_from_old_group(document_ids)
-      move_to_new_group(document_ids) if moving?
+    membership_ids = params.fetch(:memberships, []).map(&:to_i)
+    if membership_ids.present?
+      moving? ? move_to_new_group(membership_ids) : delete_from_old_group(membership_ids)
       redirect_to admin_document_collection_groups_path(@collection),
-                  notice: success_message(document_ids)
+                  notice: success_message(membership_ids)
     else
       redirect_to admin_document_collection_groups_path(@collection),
                   alert: 'Select one or more documents and try again'
@@ -33,16 +32,18 @@ private
     params[:commit] == 'Move'
   end
 
-  def delete_from_old_group(document_ids)
-    @group.memberships.where(document_id: document_ids).destroy_all
+  def delete_from_old_group(membership_ids)
+    ids = @group.membership_ids - membership_ids
+    @group.set_membership_ids_in_order!(ids)
   end
 
-  def move_to_new_group(document_ids)
-    new_group.documents << Document.where('id in (?)', document_ids)
+  def move_to_new_group(membership_ids)
+    ids = new_group.membership_ids + membership_ids
+    new_group.set_membership_ids_in_order!(ids)
   end
 
-  def success_message(document_ids)
-    count = "#{document_ids.size} #{'document'.pluralize(document_ids.size)}"
+  def success_message(membership_ids)
+    count = "#{membership_ids.size} #{'document'.pluralize(membership_ids.size)}"
     if moving?
       "#{count} moved to '#{new_group.heading}'"
     else

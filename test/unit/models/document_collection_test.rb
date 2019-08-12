@@ -16,19 +16,6 @@ class DocumentCollectionTest < ActiveSupport::TestCase
     assert_equal [groups[1], groups[0], groups[2]], doc_collection.reload.groups
   end
 
-  test "editions lists all editions associated through the document collection groups" do
-    doc_collection = create(:document_collection)
-
-    pub_1 = create(:publication)
-    pub_2 = create(:publication)
-
-    create(:document_collection_group, document_collection: doc_collection, documents: [pub_1.document])
-    create(:document_collection_group, document_collection: doc_collection, documents: [pub_2.document])
-
-    assert doc_collection.editions.include? pub_1
-    assert doc_collection.editions.include? pub_2
-  end
-
   should_validate_with_safe_html_validator
 
   test "it should be invalid without a title" do
@@ -119,27 +106,6 @@ class DocumentCollectionTest < ActiveSupport::TestCase
   test 'indexes the summary as description' do
     collection = create(:document_collection, summary: 'a summary')
     assert_match 'a summary', collection.search_index['description']
-  end
-
-  test 'published_editions returns published editions from collection in reverse chronological order' do
-    collection = create(:document_collection, :with_group)
-    draft = create(:draft_publication)
-    old = create(:published_publication, first_published_at: 2.days.ago)
-    new = create(:published_publication, first_published_at: 1.day.ago)
-    group = collection.groups.first
-    group.documents = [draft.document, old.document, new.document]
-
-    assert_equal [new, old], collection.published_editions
-  end
-
-  test 'scheduled_editions returns editions that are scheduled for publishing in the collection' do
-    collection = create(:document_collection, :with_group)
-    publication = create(:published_publication, first_published_at: 2.days.ago)
-    scheduled_publication = create(:scheduled_publication)
-    group = collection.groups.first
-    group.documents = [scheduled_publication.document, publication.document]
-
-    assert_equal [scheduled_publication], collection.scheduled_editions
   end
 
   test 'specifies the rendering app as government frontend' do
