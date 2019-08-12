@@ -317,7 +317,7 @@ GEM
       connection_pool (~> 2.2)
     netrc (0.11.0)
     nio4r (2.4.0)
-    nokogiri (1.10.3)
+    nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
     nokogumbo (2.0.1)
       nokogiri (~> 1.8, >= 1.8.4)
@@ -620,7 +620,7 @@ DEPENDENCIES
   mlanett-redis-lock
   mocha
   mysql2 (~> 0.4.10)
-  nokogiri (~> 1.10.3)
+  nokogiri (~> 1.10.4)
   parallel
   parallel_tests
   pdf-reader (~> 2.2)
