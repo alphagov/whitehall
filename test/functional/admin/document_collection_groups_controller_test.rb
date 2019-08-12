@@ -9,7 +9,7 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  view_test 'GET #index lists the groups and documents in the collection' do
+  view_test 'GET #index lists the groups and memberships in the collection' do
     publication = create(:publication)
     @group.documents = [publication.document]
     get :index, params: { document_collection_id: @collection }
@@ -33,15 +33,15 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test 'GET #index shows a warning if > 50 documents in collection' do
-    @group.documents = create_list(:document, 51)
+  view_test 'GET #index shows a warning if > 50 memberships in collection' do
+    @group.non_whitehall_links = create_list(:document_collection_non_whitehall_link, 51)
     get :index, params: { document_collection_id: @collection }
     assert_response :ok
     assert_select '.alert-info', text: /it may be slow or impossible to update/
   end
 
-  view_test 'GET #index does not show a warning if <= 50 documents in collection' do
-    @group.documents = create_list(:document, 50)
+  view_test 'GET #index does not show a warning if <= 50 memberships in collection' do
+    @group.non_whitehall_links = create_list(:document_collection_non_whitehall_link, 50)
     get :index, params: { document_collection_id: @collection }
     assert_response :ok
     assert_select '.alert-info', false, text: /it may be slow or impossible to update/
@@ -96,7 +96,7 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
     assert_select '.errors li', text: /Heading/
   end
 
-  view_test "GET #delete explains you can't delete groups that have documents" do
+  view_test "GET #delete explains you can't delete groups that have members" do
     @group.documents = [create(:publication).document]
     @collection.groups << build(:document_collection_group)
     get :delete, params: { document_collection_id: @collection, id: @group }
@@ -124,42 +124,42 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
   end
 
   test "POST #update_memberships saves the order of group members" do
-    given_two_groups_with_documents
+    given_two_groups_with_memberships
     post :update_memberships, params: {
       document_collection_id: @collection.id,
       groups: {
         0 => {
           id: @group_1.id,
-          document_ids: [
-            @doc_1_2.id,
-            @doc_1_1.id
+          membership_ids: [
+            @member_1_2.id,
+            @member_1_1.id
           ],
           order: 0
         }
       }
     }
 
-    assert_equal [@doc_1_2, @doc_1_1], @group_1.reload.documents
+    assert_equal [@member_1_2, @member_1_1], @group_1.reload.memberships
   end
 
   test "POST #update_memberships saves the order of groups" do
-    given_two_groups_with_documents
+    given_two_groups_with_memberships
     post :update_memberships, params: {
       document_collection_id: @collection.id,
       groups: {
         0 => {
           id: @group_1.id,
-          document_ids: [
-            @doc_1_1.id,
-            @doc_1_2.id
+          membership_ids: [
+            @member_1_1.id,
+            @member_1_2.id
           ],
           order: 1
         },
         1 => {
           id: @group_2.id,
-          document_ids: [
-            @doc_2_1.id,
-            @doc_2_2.id
+          membership_ids: [
+            @member_2_1.id,
+            @member_2_2.id
           ],
           order: 0
         }
@@ -170,65 +170,65 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
     assert_equal [@group_2.id, @group_1.id], @collection.reload.groups.pluck(:id)
   end
 
-  test "POST #update_memberships should cope with duplicate documents in group" do
-    given_two_groups_with_documents
+  test "POST #update_memberships should cope with duplicate members in group" do
+    given_two_groups_with_memberships
     post :update_memberships, params: {
       document_collection_id: @collection.id,
       groups: {
         0 => {
           id: @group_1.id,
-          document_ids: [
-            @doc_1_1.id,
-            @doc_1_1.id
+          membership_ids: [
+            @member_1_1.id,
+            @member_1_1.id
           ],
           order: 0
         }
       }
     }
 
-    assert_equal [@doc_1_1], @group_1.reload.documents
+    assert_equal [@member_1_1], @group_1.reload.memberships
   end
 
   test "POST #update_memberships should support moving memberships between groups" do
-    given_two_groups_with_documents
+    given_two_groups_with_memberships
     post :update_memberships, params: {
       document_collection_id: @collection.id,
       groups: {
         0 => {
           id: @group_1.id,
-          document_ids: [
-            @doc_1_1.id
+          membership_ids: [
+            @member_1_1.id
           ],
           order: 0
         },
         1 => {
           id: @group_2.id,
-          document_ids: [
-            @doc_1_2.id,
-            @doc_2_1.id,
-            @doc_2_2.id
+          membership_ids: [
+            @member_1_2.id,
+            @member_2_1.id,
+            @member_2_2.id
           ],
           order: 1
         }
       }
     }
 
-    assert @group_2.reload.documents.include?(@doc_1_2)
+    assert @group_2.reload.memberships.include?(@member_1_2)
   end
 
   test "POST #update_memberships should handle empty groups" do
-    given_two_groups_with_documents
+    given_two_groups_with_memberships
 
     post :update_memberships, params: {
       document_collection_id: @collection.id,
       groups: {
         0 => {
           id: @group_1.id,
-          document_ids: [
-            @doc_1_1.id,
-            @doc_1_2.id,
-            @doc_2_1.id,
-            @doc_2_2.id
+          membership_ids: [
+            @member_1_1.id,
+            @member_1_2.id,
+            @member_2_1.id,
+            @member_2_2.id
           ],
           order: 0
         },
@@ -240,18 +240,18 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
     }
 
     assert_response :success
-    assert_equal [@doc_1_1, @doc_1_2, @doc_2_1, @doc_2_2], @group_1.reload.documents
-    assert_empty @group_2.reload.documents
+    assert_equal [@member_1_1, @member_1_2, @member_2_1, @member_2_2], @group_1.reload.memberships
+    assert_empty @group_2.reload.memberships
   end
 
-  def given_two_groups_with_documents
+  def given_two_groups_with_memberships
     @group_1 = build(:document_collection_group)
     @group_2 = build(:document_collection_group)
     @collection.update_attribute :groups, [@group_1, @group_2]
 
-    @group_1.documents << @doc_1_1 = create(:document)
-    @group_1.documents << @doc_1_2 = create(:document)
-    @group_2.documents << @doc_2_1 = create(:document)
-    @group_2.documents << @doc_2_2 = create(:document)
+    @group_1.memberships << @member_1_1 = create(:document_collection_group_membership)
+    @group_1.memberships << @member_1_2 = create(:document_collection_group_membership)
+    @group_2.memberships << @member_2_1 = create(:document_collection_group_membership)
+    @group_2.memberships << @member_2_2 = create(:document_collection_group_membership)
   end
 end

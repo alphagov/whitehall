@@ -16,7 +16,7 @@ module ServiceListeners
 
     def reindex_collection_documents
       if edition.is_a?(DocumentCollection)
-        edition.published_editions.each do |collected_edition|
+        edition.groups.flat_map(&:published_editions).each do |collected_edition|
           Whitehall::SearchIndex.add(collected_edition)
         end
       end

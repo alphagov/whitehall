@@ -48,7 +48,7 @@
           </ul>
         </header>
         <div class="js-group-body">
-          <% if group.latest_editions.empty? %>
+          <% if group.editable_members.empty? %>
             <p class="no-content no-content-bordered js-document-group" data-group-id="<%= group.id %>">
               No documents in this group<br />
               Add documents by searching or dragging them from another group.
@@ -71,7 +71,7 @@
                 <% end %>
               </ul>
               <ol class="document-list js-document-group list-unstyled" data-group-id="<%= group.id %>">
-                <%= render partial: 'collection_document', collection: group.latest_editions, as: :edition, locals: { document_collection: @collection } %>
+                <%= render partial: 'collection_document', collection: group.editable_members, as: :membership, locals: { document_collection: @collection } %>
               </ol>
             <% end %>
           <% end %>
