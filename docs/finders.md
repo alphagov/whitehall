@@ -1,4 +1,27 @@
-# How to publish a finder in whitehall
+# Finders
+
+## Retired finders
+
+There used to be finders for announcements, publications and statistics in this
+application, however these have been replaced by new finders rendered by
+finder-frontend and published from [search-api](https://github.com/alphagov/search-api/tree/master/config/finders).
+
+We redirect searches from the old finders to the new in order to maintain a
+reasonable experience for users.  Because we need to translate some of the
+query parameters, we do it in the controllers:
+- [announcements](https://github.com/alphagov/whitehall/blob/master/app/controllers/announcements_controller.rb)
+- [publications](https://github.com/alphagov/whitehall/blob/master/app/controllers/publications_controller.rb)
+- [statistics](https://github.com/alphagov/whitehall/blob/master/app/controllers/statistics_controller.rb)
+- [statistics announcements](https://github.com/alphagov/whitehall/blob/master/app/controllers/statistics_announcements_controller.rb)
+
+There are still some remaining finder-like-things for translated content
+([example of statistics in Welsh](https://www.gov.uk/government/statistics.cy)).
+These use the Whitehall database and not Elasticsearch so they're different from
+the things that we've retired.
+
+## How to publish a finder in whitehall
+
+**Please consider publishing new finders from [search-api](https://github.com/alphagov/search-api/tree/master/config/finders). There are [schema tests for both finders and email signup pages](https://github.com/alphagov/search-api/tree/630a6947395d11267be3cc056c7370c65bb5723e/spec/unit/content_item_publisher) there.**
 
 Create a JSON file in [lib/finders][finders-folder]. You can base it on one of the existing files in that folder.
 
