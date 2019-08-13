@@ -6,7 +6,7 @@ class OrganisationType
     executive_agency:            { name: "Executive agency",                       analytics_prefix: "EA", agency_or_public_body: true,  non_departmental_public_body: false, allowed_promotional: false },
     executive_ndpb:              { name: "Executive non-departmental public body", analytics_prefix: "PB", agency_or_public_body: true,  non_departmental_public_body: true, allowed_promotional: false },
     advisory_ndpb:               { name: "Advisory non-departmental public body",  analytics_prefix: "PB", agency_or_public_body: true,  non_departmental_public_body: true, allowed_promotional: false },
-    tribunal:                    { name: "Tribunal",                               analytics_prefix: "PB", agency_or_public_body: true,  non_departmental_public_body: false, allowed_promotional: false },
+    tribunal:                    { name: "Tribunal",                               analytics_prefix: "PB", agency_or_public_body: true,  non_departmental_public_body: true, allowed_promotional: false },
     public_corporation:          { name: "Public corporation",                     analytics_prefix: "PC", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: false },
     independent_monitoring_body: { name: "Independent monitoring body",            analytics_prefix: "IM", agency_or_public_body: true,  non_departmental_public_body: false, allowed_promotional: false },
     adhoc_advisory_group:        { name: "Ad-hoc advisory group",                  analytics_prefix: "AG", agency_or_public_body: true,  non_departmental_public_body: false, allowed_promotional: false },
