@@ -171,7 +171,7 @@ pt:
     heading:
       one:
       other:
-    biography:
+    biography: Biografia
     previous_roles:
     previous_roles_in_government:
     read_more:
@@ -294,7 +294,7 @@ pt:
         about_our_services:
         access_and_opening:
         accessible_documents_policy:
-        complaints_procedure:
+        complaints_procedure: Processo de reclamação
         equality_and_diversity:
         media_enquiries:
         membership:
@@ -304,7 +304,7 @@ pt:
         petitions_and_campaigns:
         procurement:
         publication_scheme: Programa de publicação
-        recruitment:
+        recruitment: Trabalhar para a %{organisation_name}
         research:
         social_media_use: Uso de mídias sociais
         staff_update:
@@ -459,11 +459,11 @@ pt:
     find_out_more: 'Veja o perfil completo e todos os contatos '
     headings:
       about_us: Sobre
-      contact_us: Contato
+      contact_us: Contactos
       contents:
       corporate_information: Informação corporativa
       follow_us: Siga-nos
-      our_people: Nosso pessoal
+      our_people: A nossa equipa
       our_services: Nossos serviços
     location: Localização
     part_of: Parte de
