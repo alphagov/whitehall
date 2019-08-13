@@ -80,7 +80,7 @@ class PersonPresenter < Whitehall::Decorators::Decorator
 
   def image
     if (img = image_url(:s216))
-      context.image_tag img, alt: name
+      context.image_tag img, alt: name, loading: "lazy"
     end
   end
 end
