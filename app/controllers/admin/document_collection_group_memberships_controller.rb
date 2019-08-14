@@ -1,9 +1,9 @@
 class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseController
   before_action :load_document_collection
   before_action :load_document_collection_group
-  before_action :find_document, only: :create
+  before_action :find_document, only: :create_whitehall_member
 
-  def create
+  def create_whitehall_member
     membership = DocumentCollectionGroupMembership.new(document: @document, document_collection_group: @group)
     if membership.save
       redirect_to admin_document_collection_groups_path(@collection),
@@ -11,6 +11,20 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
     else
       redirect_to admin_document_collection_groups_path(@collection),
                   alert: membership.errors.full_messages.join(". ") + '.'
+    end
+  end
+
+  def create_non_whitehall_member
+    govuk_link = DocumentCollectionNonWhitehallLink::GovukUrl.new(url: params[:url],
+                                                                  document_collection_group: @group)
+    if govuk_link.save
+      redirect_to admin_document_collection_groups_path(@collection),
+                  notice: "'#{govuk_link.title}' added to '#{@group.heading}'"
+    else
+      flash[:url] = params[:url]
+      flash[:open_non_whitehall] = true
+      redirect_to admin_document_collection_groups_path(@collection),
+                  alert: govuk_link.errors.full_messages.join(". ") + '.'
     end
   end
 

@@ -13,23 +13,51 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
     { document_collection_id: @collection, group_id: @group }
   end
 
-  test 'POST #create adds a document to a group and redirects' do
+  test 'POST #create_whitehall_member adds a whitehall document to a group and redirects' do
     document = create(:publication).document
     assert_difference '@group.reload.documents.size' do
-      post :create, params: id_params.merge(document_id: document.id)
+      post :create_whitehall_member, params: id_params.merge(document_id: document.id)
     end
     assert_redirected_to admin_document_collection_groups_path(@collection)
   end
 
-  test 'POST #create warns user when document not found' do
-    post :create, params: id_params.merge(document_id: 1234, title: 'blah')
+  test 'POST #create_whitehall_member warns user when document not found' do
+    post :create_whitehall_member, params: id_params.merge(document_id: 1234, title: 'blah')
     assert_match %r[couldn't find.*blah], flash[:alert]
   end
 
-  test 'POST #create handles invalid DocumentCollectionGroupMemberships' do
+  test 'POST #create_whitehall_member handles invalid DocumentCollectionGroupMemberships' do
     collection_document = create(:document, document_type: 'DocumentCollection')
-    post :create, params: id_params.merge(document_id: collection_document.id)
+    post :create_whitehall_member, params: id_params.merge(document_id: collection_document.id)
     assert_match %r[Document cannot be a document collection], flash[:alert]
+  end
+
+  test 'POST #create_non_whitehall_member adds a non-whitehall document to a group and redirects' do
+    stub_publishing_api_has_lookups("/government/news/test" => "51ac4247-fd92-470a-a207-6b852a97f2db")
+    res = stub_publishing_api_has_item(
+      content_id: "51ac4247-fd92-470a-a207-6b852a97f2db",
+      base_path: "/government/news/test",
+      publishing_app: "content-publisher",
+      title: "Lots of news"
+    )
+
+    assert_difference '@group.reload.non_whitehall_links.size' do
+      post :create_non_whitehall_member, params: id_params.merge(url: "https://www.gov.uk/government/news/test")
+    end
+    response = JSON.parse(res.response.body)
+
+    assert_match "'#{response['title']}' added to '#{@group.heading}'", flash[:notice]
+    assert_redirected_to admin_document_collection_groups_path(@collection)
+  end
+
+  test 'POST #create_non_whitehall_member warns user when url is not from gov.uk' do
+    post :create_non_whitehall_member, params: id_params.merge(url: "https://www.peters-animals.com")
+    assert_match "Url must be a valid GOV.UK URL.", flash[:alert]
+  end
+
+  test 'POST #create_non_whitehall_member warns user when url is invalid' do
+    post :create_non_whitehall_member, params: id_params.merge(url: "https://wwww.too-many-dubs.com")
+    assert_match "Url must be a valid GOV.UK URL", flash[:alert]
   end
 
   def remove_params
