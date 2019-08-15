@@ -1,6 +1,10 @@
 <div class="paper-number clearfix">
-  <%= form.text_field :hoc_paper_number, label_text: 'House of Commons paper number', class: 'input-md-3' %>
-  <%= form.check_box :unnumbered_hoc_paper, label_text: 'Unnumbered act paper' %>
+  <%= form.text_field :hoc_paper_number,
+                      label_text: "House of Commons paper number",
+                      class: 'input-md-3' %>
+
+  <%= form.check_box :unnumbered_hoc_paper,
+                     label_text: "Unnumbered act paper" %>
 
   <p class="help-block">
     Fill in the command and House of Commons boxes to publish an official
@@ -10,7 +14,11 @@
 
 <div class="form-group">
   <%= form.label :parliamentary_session %>
-  <%= form.select :parliamentary_session, Attachment.parliamentary_sessions, {include_blank: true}, {class: 'form-control input-md-3'} %>
+
+  <%= form.select :parliamentary_session,
+                  Attachment.parliamentary_sessions,
+                  { include_blank: true },
+                  { class: "form-control input-md-3" } %>
 
   <p class="help-block">Choose the right Parliamentary session.</p>
 </div>
