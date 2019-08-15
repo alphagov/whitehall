@@ -76,6 +76,7 @@ class StatisticsAnnouncement < ApplicationRecord
               title: :title,
               link: :public_path,
               description: :summary,
+              display_date: :display_date,
               display_type: :display_type,
               slug: :slug,
               organisations: :organisations_slugs,
