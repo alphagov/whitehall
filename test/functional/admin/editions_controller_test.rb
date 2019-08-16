@@ -293,7 +293,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
     post :revise, params: { id: edition.id }
 
-    assert_redirected_to admin_news_article_path(edition)
+    assert_redirected_to show_locked_admin_edition_path(edition)
   end
 
 private

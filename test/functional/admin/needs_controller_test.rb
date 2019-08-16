@@ -53,7 +53,7 @@ class Admin::NeedsControllerTest < ActionController::TestCase
 
     post :update, params: { content_id: document.content_id, document_sources: "http://woo.example.com" }
 
-    assert_redirected_to admin_news_article_path(edition)
+    assert_redirected_to show_locked_admin_edition_path(edition)
     assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 
@@ -63,7 +63,7 @@ class Admin::NeedsControllerTest < ActionController::TestCase
 
     get :edit, params: { content_id: document.content_id, edition_id: edition.id }
 
-    assert_redirected_to admin_news_article_path(edition)
+    assert_redirected_to show_locked_admin_edition_path(edition)
     assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 

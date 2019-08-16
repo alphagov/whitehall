@@ -64,7 +64,7 @@ http://woo.example.com} }
 
     put :update, params: { edition_id: edition.id, document_sources: "http://woo.example.com" }
 
-    assert_redirected_to admin_news_article_path(edition)
+    assert_redirected_to show_locked_admin_edition_path(edition)
     assert_equal "This document is locked and cannot be edited", flash[:alert]
   end
 end

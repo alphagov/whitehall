@@ -2,7 +2,7 @@ class Admin::EditionsController < Admin::BaseController
   before_action :remove_blank_parameters
   before_action :clean_edition_parameters, only: %i[create update]
   before_action :clear_scheduled_publication_if_not_activated, only: %i[create update]
-  before_action :find_edition, only: %i[show edit update submit revise diff reject destroy]
+  before_action :find_edition, only: %i[show show_locked edit update submit revise diff reject destroy]
   before_action :prevent_modification_of_unmodifiable_edition, only: %i[edit update]
   before_action :delete_absent_edition_organisations, only: %i[create update]
   before_action :build_edition, only: %i[new create]
@@ -27,7 +27,7 @@ class Admin::EditionsController < Admin::BaseController
     case action_name
     when 'index', 'topics'
       enforce_permission!(:see, edition_class || Edition)
-    when 'show'
+    when 'show', 'show_locked'
       enforce_permission!(:see, @edition)
     when 'new'
       enforce_permission!(:create, edition_class || Edition)
@@ -74,6 +74,11 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def show
+    if @edition.locked?
+      redirect_to show_locked_admin_edition_path(@edition)
+      return
+    end
+
     fetch_version_and_remark_trails
 
     @edition_taxons = EditionTaxonsFetcher.new(@edition.content_id).fetch
@@ -82,6 +87,8 @@ class Admin::EditionsController < Admin::BaseController
       @edition_world_taxons = EditionTaxonsFetcher.new(@edition.content_id).fetch_world_taxons
     end
   end
+
+  def show_locked; end
 
   def new; end
 
