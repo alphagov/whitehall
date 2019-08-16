@@ -13,6 +13,13 @@ class EmailSignupsControllerTest < ActionController::TestCase
     assert_select "input[name='email_signup[feed]'][value='#{atom_feed_url_for(topic)}']"
   end
 
+  view_test 'GET :new redirects to email-alert-frontend if signup is for an organisation' do
+    organisation = create(:organisation)
+    get :new, params: { email_signup: { feed: atom_feed_url_for(organisation) } }
+
+    assert_redirected_to "http://test.host/email-signup?link=#{organisation.base_path}"
+  end
+
   view_test 'GET :new with an invalid feed shows an error message' do
     get :new, params: { email_signup: { feed: 'http://nonse-feed.atom' } }
 
