@@ -9,7 +9,7 @@ class OrganisationsIndexPresenterTest < ActiveSupport::TestCase
       executive_agency:            build(:organisation, organisation_type_key: :executive_agency),
       executive_ndpb:              build(:organisation, organisation_type_key: :executive_ndpb),
       advisory_ndpb:               build(:organisation, organisation_type_key: :advisory_ndpb),
-      tribunal_ndpb:               build(:organisation, organisation_type_key: :tribunal_ndpb),
+      tribunal:                    build(:organisation, organisation_type_key: :tribunal),
       public_corporation:          build(:organisation, organisation_type_key: :public_corporation),
       independent_monitoring_body: build(:organisation, organisation_type_key: :independent_monitoring_body),
       adhoc_advisory_group:        build(:organisation, organisation_type_key: :adhoc_advisory_group),
