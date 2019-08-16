@@ -26,8 +26,6 @@ class UrlToSubscriberListCriteria
                  { "links" => from_params.merge("people" => [path_match[1]]) }
                elsif (path_match = @url.path.match(%r{^/government/ministers/(.*)\.atom$}))
                  { "links" => from_params.merge("roles" => [path_match[1]]) }
-               elsif (path_match = @url.path.match(%r{^/government/organisations/(.*)\.atom$}))
-                 { "links" => from_params.merge("organisations" => [path_match[1]]) }
                elsif (path_match = @url.path.match(%r{^/government/(?:topical-events|topics)/(.*)\.atom$}))
                  { "links" => from_params.merge("topical_events" => [path_match[1]]) }
                elsif (path_match = @url.path.match(%r{^/world/(.*)\.atom$}))
@@ -83,7 +81,6 @@ class UrlToSubscriberListCriteria
     def self.content_id(key, slug)
       lookup_map = {
         "world_locations" => WorldLocation,
-        "organisations" => Organisation,
         "roles" => Role,
         "people" => Person,
         "topical_events" => Classification
