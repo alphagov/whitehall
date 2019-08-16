@@ -46,6 +46,12 @@ module PublicationsRoutes
         content_store_document_type: 'transparency',
       }
     },
+    'corporate-reports' => {
+      base_path: 'search/transparency-and-freedom-of-information-releases',
+      special_params: {
+        content_store_document_type: 'corporate_report',
+      }
+    },
     'guidance' => {
       base_path: 'search/guidance-and-regulation'
     },
