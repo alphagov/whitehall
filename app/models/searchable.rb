@@ -12,6 +12,7 @@ module Searchable
     :content_id,
     :content_store_document_type,
     :description,
+    :display_date,
     :display_type,
     :detailed_format,
     :end_date,
