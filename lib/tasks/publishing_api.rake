@@ -97,6 +97,11 @@ namespace :publishing_api do
     organisation.publish_to_publishing_api
   end
 
+  desc "Republish all organisations"
+  task republish_all_organisations: :environment do
+    Organisation.find_each(&:publish_to_publishing_api)
+  end
+
   desc "Send withdrawn item links to Publishing API."
   task patch_withdrawn_item_links: :environment do
     editions = Edition.withdrawn
