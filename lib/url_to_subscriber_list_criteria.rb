@@ -81,6 +81,7 @@ class UrlToSubscriberListCriteria
     def self.content_id(key, slug)
       lookup_map = {
         "world_locations" => WorldLocation,
+        "organisations" => Organisation,
         "roles" => Role,
         "people" => Person,
         "topical_events" => Classification
