@@ -22,7 +22,7 @@ module("Document filter", {
     this.filterResults = $('<div class="js-filter-results" />');
     $('#qunit-fixture').append(this.filterResults);
 
-    this.feedLinks = $('<div class="feeds"><a class="feed">feed</a> <a class="govdelivery">email</a></div>');
+    this.feedLinks = $('<div class="feeds"><a class="feed">feed</a> <a class="email-signup">email</a></div>');
     $('#qunit-fixture').append(this.feedLinks);
 
     this.resultsSummary = $('<div class="filter-results-summary"></div>');

@@ -196,7 +196,7 @@ class TopicsControllerTest < ActionController::TestCase
       assert_select_prefix_object news_article, "recent"
     end
 
-    assert_select ".govdelivery[href='https://www.test.gov.uk/email-signup?link=#{topic.base_path}']"
+    assert_select ".email-signup[href='https://www.test.gov.uk/email-signup?link=#{topic.base_path}']"
     assert_select_autodiscovery_link atom_feed_url_for(topic)
   end
 

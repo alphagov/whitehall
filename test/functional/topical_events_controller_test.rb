@@ -47,7 +47,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
 
     get :show, params: { id: event }
 
-    assert_select ".govdelivery[href='https://www.test.gov.uk/email-signup?link=#{event.base_path}']"
+    assert_select ".email-signup[href='https://www.test.gov.uk/email-signup?link=#{event.base_path}']"
   end
 
   view_test "#show displays extra org logos for first-world-war-centenary" do

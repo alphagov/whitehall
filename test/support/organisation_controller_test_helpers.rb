@@ -160,7 +160,7 @@ module OrganisationControllerTestHelpers
 
         get :show, params: { id: organisation }
 
-        assert_select ".govdelivery[href='https://www.test.gov.uk/email-signup?link=#{organisation.base_path}']"
+        assert_select ".email-signup[href='https://www.test.gov.uk/email-signup?link=#{organisation.base_path}']"
       end
 
       view_test "#{org_type}:show has link to published corporate information pages" do
