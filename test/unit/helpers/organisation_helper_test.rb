@@ -315,7 +315,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     assert_relationship_type_is_described_as(:executive_agency, '{this_org_name} is an executive agency, sponsored by the {parent_org_name}.')
     assert_relationship_type_is_described_as(:executive_ndpb, '{this_org_name} is an executive non-departmental public body, sponsored by the {parent_org_name}.')
     assert_relationship_type_is_described_as(:advisory_ndpb, '{this_org_name} is an advisory non-departmental public body, sponsored by the {parent_org_name}.')
-    assert_relationship_type_is_described_as(:tribunal, '{this_org_name} is a tribunal of the {parent_org_name}.')
+    assert_relationship_type_is_described_as(:tribunal_ndpb, '{this_org_name} is a tribunal non-departmental public body, sponsored by the {parent_org_name}.')
     assert_relationship_type_is_described_as(:public_corporation, '{this_org_name} is a public corporation of the {parent_org_name}.')
     assert_relationship_type_is_described_as(:independent_monitoring_body, '{this_org_name} is an independent monitoring body of the {parent_org_name}.')
     assert_relationship_type_is_described_as(:other, '{this_org_name} works with the {parent_org_name}.')

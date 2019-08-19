@@ -31,7 +31,7 @@ module Organisation::OrganisationTypeConcern
     scope :hmcts_tribunals, -> {
       hmcts_id = Organisation.unscoped.where(slug: "hm-courts-and-tribunals-service").ids.first
       joins(:parent_organisational_relationships).
-        where(organisation_type_key: :tribunal).
+        where(organisation_type_key: :tribunal_ndpb).
         where("organisational_relationships.parent_organisation_id" => hmcts_id)
     }
 
@@ -44,7 +44,7 @@ module Organisation::OrganisationTypeConcern
           where("NOT (parent_organisational_relationships.parent_organisation_id = ? AND
                 organisations.organisation_type_key = ?) OR
                 parent_organisational_relationships.child_organisation_id IS NULL",
-                hmcts_id, :tribunal)
+                hmcts_id, :tribunal_ndpb)
       end
     }
 
@@ -85,7 +85,7 @@ module Organisation::OrganisationTypeConcern
   end
 
   def hmcts_tribunal?
-    organisation_type_key == :tribunal &&
+    organisation_type_key == :tribunal_ndpb &&
       parent_organisations.pluck(:slug).include?("hm-courts-and-tribunals-service")
   end
 

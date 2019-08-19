@@ -79,7 +79,7 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
   class HMCTSOrganisationTests < ActiveSupport::TestCase
     def setup
       @other_org = create(:organisation)
-      @copyright_tribunal = create(:organisation, organisation_type_key: :tribunal,
+      @copyright_tribunal = create(:organisation, organisation_type_key: :tribunal_ndpb,
         name: "Copyright Tribunal", parent_organisations: [@other_org])
       @multiple_parent_child_org = create(:organisation, parent_organisations: [@other_org, @copyright_tribunal])
       @court = create(:court)
@@ -134,7 +134,7 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
     child_org_3 = create(:organisation, parent_organisations: [parent_org_1], name: "a first")
     _child_org_4 = create(:closed_organisation, parent_organisations: [parent_org_1])
     _child_org_5 = create(:court, parent_organisations: [parent_org_1])
-    child_org_6 = create(:organisation, parent_organisations: [parent_org_1], name: "c third", organisation_type_key: :tribunal)
+    child_org_6 = create(:organisation, parent_organisations: [parent_org_1], name: "c third", organisation_type_key: :tribunal_ndpb)
 
     assert_equal [child_org_3, child_org_1, child_org_6], parent_org_1.supporting_bodies
   end
@@ -178,7 +178,7 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
 
   test "#hmcts_tribunal? should be true if it's an HMCTS tribunal only" do
     hmcts_tribunal = create(:hmcts_tribunal)
-    tribunal = create(:organisation, organisation_type_key: :tribunal)
+    tribunal = create(:organisation, organisation_type_key: :tribunal_ndpb)
     hmcts_child = create(:organisation,
                          parent_organisations: [Organisation.find_by(slug: "hm-courts-and-tribunals-service")])
 
