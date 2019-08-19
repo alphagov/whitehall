@@ -1,5 +1,5 @@
-#document-finder {
-  margin: $gutter 0;
+.document-finder {
+  margin: $gutter/2 0;
   position: relative;
 
   h2 {
@@ -13,13 +13,20 @@
   $spacing: 0.5em;
 
   input#title,
+  input#url,
   select {
     margin: 0 $spacing;
   }
+  input#url,
 
   input#title {
     width: 25%;
     margin-right: 0.1em;
+  }
+
+  input#url {
+    width: 40%;
+    margin-right: 0.5em;
   }
 
   .document-finder-fields {

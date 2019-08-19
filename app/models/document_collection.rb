@@ -19,8 +19,6 @@ class DocumentCollection < Edition
            class_name: 'DocumentCollectionGroup',
            dependent: :destroy,
            inverse_of: :document_collection
-  has_many :documents, through: :groups
-  has_many :editions, through: :documents
 
   before_create :create_default_group
 
@@ -43,7 +41,7 @@ class DocumentCollection < Edition
   def indexable_content
     [
       Govspeak::Document.new(body).to_text,
-      groups.visible.map do |group|
+      groups.live.map do |group|
         [group.heading, Govspeak::Document.new(group.body).to_text]
       end
     ].flatten.join("\n")
@@ -53,16 +51,12 @@ class DocumentCollection < Edition
     "Collection"
   end
 
-  def published_editions
-    editions.published.reorder(nil).in_reverse_chronological_order
-  end
-
-  def scheduled_editions
-    editions.scheduled
-  end
-
   def rendering_app
     Whitehall::RenderingApp::GOVERNMENT_FRONTEND
+  end
+
+  def content_ids
+    groups.flat_map(&:content_ids)
   end
 
 private

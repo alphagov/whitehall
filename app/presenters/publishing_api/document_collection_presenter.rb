@@ -41,7 +41,7 @@ module PublishingApi
       links = LinksPresenter.new(item).extract(
         %i(organisations policy_areas topics related_policies parent)
       )
-      links[:documents] = item.documents.pluck(:content_id).uniq
+      links[:documents] = item.content_ids.uniq
       links.merge!(PayloadBuilder::TopicalEvents.for(item))
     end
 
@@ -70,7 +70,7 @@ module PublishingApi
         {
           title: group.heading,
           body: govspeak_renderer.govspeak_to_html(group.body),
-          documents: group.documents.collect(&:content_id)
+          documents: group.content_ids
         }
       end
     end

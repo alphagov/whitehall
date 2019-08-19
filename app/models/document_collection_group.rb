@@ -8,43 +8,40 @@ class DocumentCollectionGroup < ApplicationRecord
   has_many :documents,
            -> { order('document_collection_group_memberships.ordering') },
            through: :memberships
+  has_many :non_whitehall_links,
+           -> { order('document_collection_group_memberships.ordering') },
+           class_name: 'DocumentCollectionNonWhitehallLink',
+           through: :memberships
   has_many :editions,
            -> { order('document_collection_group_memberships.ordering') },
            through: :documents
+
+  scope :live, -> do
+    left_joins(:non_whitehall_links, documents: :editions)
+      .where("editions.state = 'published' OR document_collection_non_whitehall_links.id IS NOT NULL")
+  end
 
   validates :heading, presence: true, uniqueness: { scope: :document_collection_id }
   validates_associated :memberships
 
   before_create :assign_ordering
 
-  def set_document_ids_in_order!(document_ids)
-    self.document_ids = document_ids
+  def set_membership_ids_in_order!(membership_ids)
+    self.membership_ids = membership_ids
     self.save!
     self.memberships.each do |membership|
-      membership.update_attribute(:ordering, document_ids.index(membership.document_id))
+      membership.update_attribute(:ordering, membership_ids.index(membership.id))
     end
-  end
-
-  def self.visible
-    includes(:editions).references(:editions).where(editions: { state: 'published' })
   end
 
   def self.default_attributes
     { heading: 'Documents' }
   end
 
-  def published_editions
-    editions.published
-  end
-
-  def latest_editions
-    associations = { latest_edition: %i[organisations translations] }
-    editions = documents.includes(associations).map(&:latest_edition)
-    editions.compact
-  end
-
-  def visible?
-    published_editions.present?
+  def editable_members
+    memberships.filter do |member|
+      member.document&.latest_edition || member.non_whitehall_link
+    end
   end
 
   def dup
@@ -55,6 +52,14 @@ class DocumentCollectionGroup < ApplicationRecord
 
   def slug
     heading.parameterize
+  end
+
+  def content_ids
+    memberships.map(&:content_id)
+  end
+
+  def published_editions
+    editions.published
   end
 
 private

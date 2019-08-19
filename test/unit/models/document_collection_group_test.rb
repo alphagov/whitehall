@@ -8,47 +8,26 @@ class DocumentSeriesGroupTest < ActiveSupport::TestCase
     assert_equal [1, 2], series.groups.reload.map(&:ordering)
   end
 
-  test "#set_document_ids_in_order! should associate documents and set their\
-        membership's ordering to the position of the document id in the passed in array" do
+  test "#set_membership_ids_in_order! should associate documents and set their\
+        membership's ordering to the position of the membership id in the passed in array" do
     group = build(:document_collection_group)
 
-    doc_1 = create(:document)
-    doc_2 = create(:document)
-    doc_3 = create(:document)
+    membership_1 = create(:document_collection_group_membership)
+    membership_2 = create(:document_collection_group_membership)
+    membership_3 = create(:document_collection_group_membership)
 
-    group.documents << doc_1
-    group.documents << doc_2
+    group.memberships << membership_1
+    group.memberships << membership_2
+    group.memberships << membership_3
 
-    group.set_document_ids_in_order! [doc_3.id, doc_1.id]
+    group.set_membership_ids_in_order! [membership_3.id, membership_1.id]
 
-    assert group.documents.include? doc_1
-    assert group.documents.include? doc_3
-    refute group.documents.include? doc_2
+    assert group.memberships.include? membership_1
+    assert group.memberships.include? membership_3
+    refute group.memberships.include? membership_2
 
-    assert_equal 0, group.memberships.find_by(document_id: doc_3.id).ordering
-    assert_equal 1, group.memberships.find_by(document_id: doc_1.id).ordering
-  end
-
-  test '::published_editions should list published editions ordered by membership ordering' do
-    group = create(:document_collection_group)
-    published_1 = create(:published_publication)
-    published_2 = create(:published_publication)
-    draft = create(:draft_publication)
-
-    group.set_document_ids_in_order! [draft.document.id, published_2.document.id, published_1.document.id]
-
-    assert_equal [published_2, published_1], group.published_editions
-  end
-
-  test '::latest_editions should list latest editions for each document ordered by membership ordering' do
-    group = create(:document_collection_group)
-    draft = create(:draft_publication)
-    published_1 = create(:published_publication)
-    published_2 = create(:published_publication)
-
-    group.set_document_ids_in_order! [published_1.document.id, draft.document.id, published_2.document.id]
-
-    assert_equal [published_1, draft, published_2], group.latest_editions
+    assert_equal 0, group.memberships.find(membership_3.id).ordering
+    assert_equal 1, group.memberships.find(membership_1.id).ordering
   end
 
   test '#dup should also clone document memberships' do
@@ -73,5 +52,23 @@ class DocumentSeriesGroupTest < ActiveSupport::TestCase
   test '#slug generates slugs of the heading' do
     group = create(:document_collection_group, heading: 'Foo bar')
     assert_equal group.slug, 'foo-bar'
+  end
+
+  test '#content_ids contain document and non-whitehall links in order' do
+    document = build(:document)
+    non_whitehall_link = build(:document_collection_non_whitehall_link)
+    group = create(:document_collection_group, memberships: [
+      build(:document_collection_group_membership, document: document),
+      build(:document_collection_group_membership,
+            document: nil,
+            non_whitehall_link:
+            non_whitehall_link),
+    ])
+
+    group.memberships[0].update(ordering: 2)
+    group.memberships[1].update(ordering: 1)
+    group.reload
+
+    assert_equal group.content_ids, [non_whitehall_link.content_id, document.content_id]
   end
 end

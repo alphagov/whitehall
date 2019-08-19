@@ -204,9 +204,8 @@ Whitehall::Application.routes.draw do
                                                         path: 'members',
                                                         only: [:destroy]
           end
-          resource :document_collection_group_membership, as: :new_member,
-                                                      path: 'members',
-                                                      only: [:create]
+          post 'whitehall-member' => 'document_collection_group_memberships#create_whitehall_member', as: :new_whitehall_member
+          post 'non-whitehall-member' => 'document_collection_group_memberships#create_non_whitehall_member', as: :new_non_whitehall_member
           post 'groups/update_memberships' => 'document_collection_groups#update_memberships', as: :update_group_memberships
         end
         resources :organisations do

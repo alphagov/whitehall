@@ -15,6 +15,12 @@ Feature: Grouping documents into a collection
     Then I can see in the admin that "Wombats of Wimbledon" is part of the document collection
 
   @javascript
+  Scenario: Admin creates a document collection with non whitehall links.
+    Given a document collection "Some super collection" exists
+    And I add the non whitehall url "https://www.gov.uk/king-content-publisher" for "King Content Publisher" to the document collection
+    Then I can see in the admin that "King Content Publisher" is part of the document collection
+
+  @javascript
   Scenario: Removing documents from a collection
     Given a published publication called "May 2012 Update" in a published document collection
     When I redraft the document collection and remove "May 2012 Update" from it

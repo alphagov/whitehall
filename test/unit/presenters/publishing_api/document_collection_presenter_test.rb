@@ -95,24 +95,10 @@ class PublishingApi::DocumentCollectionPresenterGroupTest < ActiveSupport::TestC
     group_one = document_collection.groups.first
     group_two = document_collection.groups.second
 
-    group_one.stubs(:documents).returns(
-      [
-        stub(content_id: "aaa"),
-        stub(content_id: "bbb"),
-      ]
-    )
-    group_two.stubs(:documents).returns(
-      [
-        stub(content_id: "fff"),
-        stub(content_id: "eee"),
-      ]
-    )
-    group_one.stubs(:heading).returns(
-      "Group 1"
-    )
-    group_two.stubs(:heading).returns(
-      "Group 2"
-    )
+    group_one.stubs(:content_ids).returns(%w(aaa bbb))
+    group_two.stubs(:content_ids).returns(%w(fff eee))
+    group_one.stubs(:heading).returns("Group 1")
+    group_two.stubs(:heading).returns("Group 2")
 
     presenter = PublishingApi::DocumentCollectionPresenter.new(
       document_collection
@@ -143,9 +129,7 @@ end
 class PublishingApi::DocumentCollectionPresenterDocumentLinksTestCase < ActiveSupport::TestCase
   setup do
     document_collection = create(:document_collection)
-    documents = mock('documents')
-    documents.expects(:pluck).with(:content_id).returns(%w(faf afa))
-    document_collection.stubs(:documents).returns(documents)
+    document_collection.stubs(:content_ids).returns(%w(faf afa))
 
     @presented_links = PublishingApi::DocumentCollectionPresenter.new(
       document_collection
@@ -242,7 +226,7 @@ class PublishingApi::PublishedDocumentCollectionPresenterEditionLinksTest < Acti
 
   test "it presents the documents content_ids as links, documents" do
     assert_equal(
-      @document_collection.documents.map(&:content_id),
+      @document_collection.content_ids,
       @presented_links[:documents]
     )
   end
@@ -286,9 +270,7 @@ end
 class PublishingApi::PublishedDocumentCollectionPresenterDuplicateDocumentsTest < ActiveSupport::TestCase
   setup do
     @document_collection = create(:document_collection)
-    documents = mock('documents')
-    documents.expects(:pluck).twice.with(:content_id).returns(%w(test test ers))
-    @document_collection.stubs(:documents).returns(documents)
+    @document_collection.stubs(:content_ids).returns(%w(test test ers))
     presented_document_collection = PublishingApi::DocumentCollectionPresenter.new(@document_collection)
     @presented_edition_links = presented_document_collection.content[:links]
     @presented_links = presented_document_collection.links

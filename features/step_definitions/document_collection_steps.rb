@@ -20,6 +20,33 @@ When(/^I draft a new document collection called "(.*?)"$/) do |title|
   @document_collection = DocumentCollection.find_by!(title: title)
 end
 
+When(/^I add the non whitehall url "(.*?)" for "(.*?)" to the document collection$/) do |url, title|
+  visit admin_document_collection_path(@document_collection)
+  click_on "Edit draft"
+  click_on "Collection documents"
+
+  base_path = URI.parse(url).path
+  content_id = SecureRandom.uuid
+
+  stub_publishing_api_has_lookups(base_path => content_id)
+  res = stub_publishing_api_has_item(
+    content_id: content_id,
+    base_path: base_path,
+    publishing_app: "content-publisher",
+    title: title
+  )
+
+  within '.non-whitehall-disclosure' do
+    find('summary').click
+    fill_in 'url', with: url
+    click_on 'Add'
+  end
+
+  within 'section.group' do
+    assert page.has_content? title
+  end
+end
+
 When(/^I add the document "(.*?)" to the document collection$/) do |document_title|
   doc_edition = Edition.find_by!(title: document_title)
   refute @document_collection.nil?, "No document collection to act on."
