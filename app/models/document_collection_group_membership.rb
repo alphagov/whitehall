@@ -26,7 +26,8 @@ class DocumentCollectionGroupMembership < ApplicationRecord
 private
 
   def assign_ordering
-    self.ordering = document_collection_group.documents.size + 1
+    memberships = document_collection_group.memberships
+    self.ordering = memberships.size + (memberships.include?(self) ? 0 : 1)
   end
 
   def document_is_of_allowed_type
