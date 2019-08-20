@@ -81,7 +81,7 @@ FactoryBot.define do
   end
 
   factory :hmcts_tribunal, parent: :organisation do
-    organisation_type_key { :tribunal_ndpb }
+    organisation_type_key { :tribunal }
     organisation_logo_type_id { OrganisationLogoType::NoIdentity.id }
     logo_formatted_name { name }
     parent_organisations {
