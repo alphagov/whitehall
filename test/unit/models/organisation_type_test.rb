@@ -65,7 +65,6 @@ class OrganisationTypeTest < ActiveSupport::TestCase
         executive_agency
         executive_ndpb
         advisory_ndpb
-        tribunal_ndpb
         tribunal
         public_corporation
         independent_monitoring_body
