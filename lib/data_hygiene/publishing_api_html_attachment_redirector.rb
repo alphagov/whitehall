@@ -7,7 +7,9 @@ module DataHygiene
     end
 
     def call
-      raise DataHygiene::EditionNotUnpublished.new unless unpublished_or_withdrawn
+      if document
+        raise DataHygiene::EditionNotUnpublished.new unless unpublished_or_withdrawn
+      end
       raise DataHygiene::HTMLAttachmentsNotFound.new unless html_attachments.any?
       return dry_run_results if dry_run
 
@@ -37,7 +39,11 @@ module DataHygiene
     end
 
     def html_attachments
-      @html_attachments ||= last_edition.html_attachments
+      @html_attachments ||= document ? last_edition.html_attachments : [html_attachment]
+    end
+
+    def html_attachment
+      @html_attachment ||= HtmlAttachment.find_by(content_id: content_id)
     end
 
     def dry_run_results

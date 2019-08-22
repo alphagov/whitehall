@@ -4,7 +4,9 @@ class PublishingApiHtmlAttachmentRedirectorTest < ActiveSupport::TestCase
   extend Minitest::Spec::DSL
 
   let!(:document)               { create(:document) }
-  let!(:attachment)             { create(:html_attachment, locale: 'en') }
+  let!(:attachment)             {
+    create(:html_attachment, locale: 'en', content_id: SecureRandom.uuid)
+  }
   let!(:superseded_edition)     { create(:superseded_edition) }
   let!(:edition)                {
     create(
@@ -12,7 +14,7 @@ class PublishingApiHtmlAttachmentRedirectorTest < ActiveSupport::TestCase
       state: "withdrawn",
       document: document,
       attachments: [attachment]
-)
+    )
   }
   let!(:redirection)            { "www.example.com/attachment_path" }
   let(:queried_document_id)     {}
@@ -82,6 +84,21 @@ class PublishingApiHtmlAttachmentRedirectorTest < ActiveSupport::TestCase
       it "reports the redirections sent to the Publishing API" do
         output = "Redirected: #{[attachment.slug]}\nto #{redirection}\n"
         assert_output(output) { call_html_attachment_redirector }
+      end
+    end
+
+    context "a single HTML attachment" do
+      it "calls the redirect worker" do
+        PublishingApiRedirectWorker
+          .any_instance
+          .expects(:perform)
+          .with(attachment.content_id, redirection, attachment.locale)
+
+        DataHygiene::PublishingApiHtmlAttachmentRedirector.call(
+          attachment.content_id,
+          redirection,
+          dry_run: dry_run,
+        )
       end
     end
   end
