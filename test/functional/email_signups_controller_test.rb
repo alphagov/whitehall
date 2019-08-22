@@ -5,48 +5,65 @@ class EmailSignupsControllerTest < ActionController::TestCase
   include FeedHelper
   include GdsApi::TestHelpers::EmailAlertApi
 
-  view_test 'GET :new with a valid field displays the subscription form' do
-    topic = create(:topic)
-    get :new, params: { email_signup: { feed: atom_feed_url_for(topic) } }
-
-    assert_response :success
-    assert_select "input[name='email_signup[feed]'][value='#{atom_feed_url_for(topic)}']"
-  end
-
-  view_test 'GET :new redirects to email-alert-frontend if signup is for an organisation' do
+  view_test 'GET :new redirects to email-alert-frontend if signup is for a organisation' do
     organisation = create(:organisation)
     get :new, params: { email_signup: { feed: atom_feed_url_for(organisation) } }
 
     assert_redirected_to "http://test.host/email-signup?link=#{organisation.base_path}"
   end
 
-  view_test 'GET :new with an invalid feed shows an error message' do
+  view_test 'GET :new redirects to email-alert-frontend if signup is for a ministerial role' do
+    ministerial_role = create(:ministerial_role)
+    get :new, params: { email_signup: { feed: atom_feed_url_for(ministerial_role) } }
+
+    assert_redirected_to "http://test.host/email-signup?link=/government/ministers/#{ministerial_role.slug}"
+  end
+
+  view_test 'GET :new redirects to email-alert-frontend if signup is for a person' do
+    person = create(:person)
+    get :new, params: { email_signup: { feed: atom_feed_url_for(person) } }
+
+    assert_redirected_to "http://test.host/email-signup?link=/government/people/#{person.slug}"
+  end
+
+  view_test 'GET :new redirects to email-alert-frontend if signup is for a topical event' do
+    topical_event = create(:topical_event)
+    get :new, params: { email_signup: { feed: atom_feed_url_for(topical_event) } }
+
+    assert_redirected_to "http://test.host/email-signup?link=#{topical_event.base_path}"
+  end
+
+  view_test 'GET :new redirects to email-alert-frontend if signup is for a world location' do
+    world_location = create(:world_location)
+    get :new, params: { email_signup: { feed: atom_feed_url_for(world_location) } }
+
+    assert_redirected_to "http://test.host/email-signup?link=/world/#{world_location.slug}"
+  end
+
+  view_test 'GET :new redirects to publications controller if signup is for a publication finder' do
+    feed = "http://test.host/government/publications.atom?departments%5B%5D=org1&departments%5B%5D=org2&publication_filter_option=open-consultations"
+    get :new, params: { email_signup: { feed: feed } }
+
+    assert_redirected_to publications_path(publication_filter_option: "open-consultations", departments: %w[org1 org2])
+  end
+
+  view_test 'GET :new redirects to statistics controller if signup is for a statistics finder' do
+    feed = "http://test.host/government/statistics.atom?departments%5B%5D=org1&departments%5B%5D=org2"
+    get :new, params: { email_signup: { feed: feed } }
+
+    assert_redirected_to statistics_path(departments: %w[org1 org2])
+  end
+
+  view_test 'GET :new redirects to announcements controller if signup is for an announcement finder' do
+    feed = "http://test.host/government/announcements.atom?departments%5B%5D=org1&departments%5B%5D=org2"
+    get :new, params: { email_signup: { feed: feed } }
+
+    assert_redirected_to announcements_path(departments: %w[org1 org2])
+  end
+
+  view_test 'GET :new with an invalid feed redirects to the home page' do
     get :new, params: { email_signup: { feed: 'http://nonse-feed.atom' } }
 
-    assert_response :success
-    refute_select "input[name='email_signup[feed]']"
-    assert_select "p", text: /we could not find a valid email alerts feed/
-  end
-
-  test 'POST :create with a valid email signup redirects to the signup URL' do
-    topical_event = create(:topical_event)
-
-    email_alert_api_has_subscriber_list(
-      "links" => { "topical_events" => [topical_event.content_id] },
-      "subscription_url" => "http://email_alert_api_signup_url",
-    )
-
-    post :create, params: { email_signup: { feed: atom_feed_url_for(topical_event) } }
-
-    assert_response :redirect
-    assert_redirected_to 'http://email_alert_api_signup_url'
-  end
-
-  view_test 'POST :create with an invalid email signup shows an error message' do
-    post :create, params: { email_signup: { feed: 'http://gov.uk/invalid/feed.atom' } }
-
-    assert_response :success
-    assert_select "p", text: /we could not find a valid email alerts feed/
-    assert_not_requested(stub_any_email_alert_api_call)
+    assert_redirected_to "http://test.host/"
   end
 end
