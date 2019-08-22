@@ -39,7 +39,7 @@ gem "plek", "~> 3.0"
 gem "ptools"
 gem "rack", "~> 2.0"
 gem "rack_strip_client_ip", "~> 0.0.2"
-gem "rails", "~> 5.1"
+gem "rails", "~> 5.2"
 gem "rails-i18n", "~> 5.1"
 gem "rails_translation_manager", "~> 0.1.0"
 gem "rake", "13.0.1"
@@ -75,6 +75,7 @@ group :development do
   gem "better_errors"
   gem "binding_of_caller"
   gem "graphviz_transitions"
+  gem 'listen'
   gem "mechanize"
 end
 

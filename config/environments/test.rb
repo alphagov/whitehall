@@ -1,4 +1,4 @@
-Whitehall::Application.configure do
+Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # The test environment is used exclusively to run your application's
@@ -18,7 +18,7 @@ Whitehall::Application.configure do
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = true
   config.public_file_server.headers = {
-    "Cache-Control" => "public, max-age=3600",
+    'Cache-Control' => "public, max-age=#{1.hour.to_i}"
   }
 
   # Show full error reports and disable caching.
@@ -32,6 +32,9 @@ Whitehall::Application.configure do
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
   config.action_mailer.perform_caching = false
+
+  # Store uploaded files on the local file system in a temporary directory
+  # config.active_storage.service = :test
 
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
