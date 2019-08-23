@@ -31,7 +31,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
     },
     updateEmailSignup: function(data) {
       if (data.email_signup_url) {
-        $(".feeds .govdelivery").attr("href", data.email_signup_url);
+        $(".feeds .email-signup").attr("href", data.email_signup_url);
       }
     },
     updateFeeds: function(data) {

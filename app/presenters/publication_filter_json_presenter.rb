@@ -17,10 +17,8 @@ class PublicationFilterJsonPresenter < DocumentFilterPresenter
   end
 
   def email_signup_url
-    generalise_consultations(
-      context.new_email_signups_path(
-        email_signup: { feed: context.filter_atom_feed_url },
-      ),
+    context.new_email_signups_path(
+      email_signup: { feed: context.filter_atom_feed_url },
     )
   end
 end
