@@ -2,7 +2,7 @@
   published_on ||= ""
   help_block_id = "attachment-#{attachment.id}-accessibility-help"
   help_block_toggle_id = "attachment-#{attachment.id}-accessibility-request"
-  thumbnail_link_options = { "aria-hidden" => true, class: 'thumbnail' }
+  thumbnail_link_options = { "aria-hidden" => true, class: 'thumbnail', tabindex: '-1'}
 
   title_link_options = {}
   title_link_options['rel'] = 'external' if attachment.external?
