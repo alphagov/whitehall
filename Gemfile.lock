@@ -199,7 +199,7 @@ GEM
     govuk_frontend_toolkit (8.2.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
-    govuk_publishing_components (17.21.0)
+    govuk_publishing_components (19.0.0)
       gds-api-adapters
       govuk_app_config
       govuk_frontend_toolkit
@@ -314,7 +314,7 @@ GEM
     net-http-persistent (3.0.0)
       connection_pool (~> 2.2)
     netrc (0.11.0)
-    nio4r (2.4.0)
+    nio4r (2.5.1)
     nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
     nokogumbo (2.0.1)
@@ -453,7 +453,7 @@ GEM
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
-    sassc (2.1.0)
+    sassc (2.2.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
       railties (>= 4.0.0)
@@ -595,7 +595,7 @@ DEPENDENCIES
   govuk_admin_template (~> 6.7)
   govuk_app_config (~> 2.0)
   govuk_frontend_toolkit (= 8.2.0)
-  govuk_publishing_components (~> 17.21.0)
+  govuk_publishing_components (~> 19.0.0)
   govuk_sidekiq (~> 3)
   govuk_test
   graphviz_transitions
