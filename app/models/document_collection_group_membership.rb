@@ -27,7 +27,12 @@ private
 
   def assign_ordering
     memberships = document_collection_group.memberships
-    self.ordering = memberships.size + (memberships.include?(self) ? 0 : 1)
+    self.ordering = if memberships.include?(self)
+                      memberships.index(self)
+                    else
+                      maximum = memberships.maximum(:ordering)
+                      maximum.nil? ? 0 : maximum + 1
+                    end
   end
 
   def document_is_of_allowed_type
