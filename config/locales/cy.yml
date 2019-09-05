@@ -459,7 +459,7 @@ cy:
     view_all: Gwelir holl datganiadau
   attachment:
     accessibility:
-      full_help_html: Os ydych yn defnyddio technoleg gynorthwyol (megis darllenydd sgrin) ac mae angen fersiwn o’r ddogfen hon arnoch mewn fformat mwy hygyrch, anfonwch e-bost i gwasanaeth.cymraeg@hmrc.gsi.gov.uk. Rhowch wybod i ni pa fformat sydd ei angen arnoch. Bydd o gymorth i ni os nodwch pa dechnoleg gynorthwyol yr ydych yn ei defnyddio.
+      full_help_html: Os ydych yn defnyddio technoleg gynorthwyol (megis darllenydd sgrin) ac mae angen fersiwn o’r ddogfen hon arnoch mewn fformat mwy hygyrch, anfonwch e-bost i %{email}. Rhowch wybod i ni pa fformat sydd ei angen arnoch. Bydd o gymorth i ni os nodwch pa dechnoleg gynorthwyol yr ydych yn ei defnyddio.
       heading: Efallai na fydd y ffeil hon yn addas ar gyfer defnyddwyr technoleg
         gynorthwyol
       request_a_different_format: Gwneud cais am fformat gwahanol.
