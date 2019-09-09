@@ -7,7 +7,7 @@ class StatisticsControllerTest < ActionController::TestCase
 
   with_not_quite_as_fake_search
   should_be_a_public_facing_controller
-  should_return_json_suitable_for_the_document_filter :statistics
+  should_redirect_json_in_english_locale
 
   def assert_publication_order(expected_order)
     actual_order = assigns(:publications).map(&:model).map(&:id)

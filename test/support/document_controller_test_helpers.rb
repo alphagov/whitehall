@@ -391,57 +391,11 @@ module DocumentControllerTestHelpers
       end
     end
 
-    def should_return_json_suitable_for_the_document_filter(document_type)
+    def should_redirect_json_in_english_locale
       include DocumentFilterHelpers
-      announcement = %i(news_article speech).include?(document_type)
-      view_test "index requested as JSON includes a count of #{document_type}" do
-        rummager = stub
-        with_stubbed_rummager(rummager, announcement) do
-          if announcement
-            rummager.expects(:search).returns('results' =>
-              [{ 'format' => document_type.to_s,
-                 'public_timestamp' => Time.zone.now.to_s }])
-          else
-            rummager.expects(:advanced_search).returns('results' =>
-              [{ 'format' => document_type.to_s,
-                 'public_timestamp' => Time.zone.now.to_s }])
-          end
-          get :index, format: :json
-
-          assert_equal 1, ActiveSupport::JSON.decode(response.body)["count"]
-        end
-      end
-
-      view_test "index requested as JSON includes the total pages of #{document_type}" do
-        rummager = stub
-        with_stubbed_rummager(rummager, announcement) do
-          if announcement
-            rummager.expects(:search).returns('results' => (0..4).map { |n| { 'format' => document_type.to_s, 'content_id' => n, 'public_timestamp' => Time.zone.now.to_s } })
-          else
-            rummager.expects(:advanced_search).returns('results' =>
-                                                (0..4).map { { 'format' => document_type.to_s, 'public_timestamp' => Time.zone.now.to_s } })
-          end
-          with_number_of_documents_per_page(3) do
-            get :index, format: :json
-          end
-
-          assert_equal 2, ActiveSupport::JSON.decode(response.body)["total_pages"]
-        end
-      end
-
-      view_test "index requested as JSON includes the current page of #{document_type}" do
-        rummager = stub
-        with_stubbed_rummager(rummager) do
-          if announcement
-            rummager.expects(:search).returns('results' => [{ 'format' => document_type.to_s, 'id' => 1, 'public_timestamp' => Time.zone.now.to_s }])
-          else
-            rummager.expects(:advanced_search).returns('results' =>
-              [{ 'format' => document_type.to_s, 'id' => 1, 'public_timestamp' => Time.zone.now.to_s }])
-          end
-
-          get :index, format: :json
-          assert_equal 1, ActiveSupport::JSON.decode(response.body)["current_page"]
-        end
+      view_test "index requested as JSON is redirected" do
+        get :index, format: :json
+        assert_response :redirect
       end
     end
 

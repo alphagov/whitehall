@@ -9,8 +9,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
   with_not_quite_as_fake_search
   should_be_a_public_facing_controller
-  should_return_json_suitable_for_the_document_filter :publication
-  should_return_json_suitable_for_the_document_filter :consultation
+  should_redirect_json_in_english_locale
 
   def assert_publication_order(expected_order)
     actual_order = assigns(:publications).map(&:model).map(&:id)
@@ -191,94 +190,6 @@ class PublicationsControllerTest < ActionController::TestCase
     refute_select '.filter-results-summary'
   end
 
-  view_test "#index requested as JSON includes data for publications" do
-    Sidekiq::Testing.inline! do
-      org_1 = create(:organisation, name: "org-name")
-      org_2 = create(:organisation, name: "other-org")
-      publication = create(:published_publication, title: "publication-title",
-                           organisations: [org_1, org_2],
-                           first_published_at: Date.parse("2011-03-14"),
-                           publication_type: PublicationType::CorporateReport)
-
-      get :index, format: :json
-
-      results = ActiveSupport::JSON.decode(response.body)["results"]
-      assert_equal 1, results.length
-      json = results.first['result']
-      assert_equal "publication", json["type"]
-      assert_equal "publication-title", json["title"]
-      assert_equal publication.id, json["id"]
-      assert_equal publication_path(publication.document), json["url"]
-      assert_equal "org-name and other-org", json["organisations"]
-      assert_equal %{<time class="public_timestamp" datetime="2011-03-14T00:00:00+00:00">14 March 2011</time>}, json["display_date_microformat"]
-      assert_equal "Corporate report", json["display_type"]
-    end
-  end
-
-  view_test "#index requested as JSON includes data for consultations" do
-    Sidekiq::Testing.inline! do
-      organisation_1 = create(:organisation, name: "org-name")
-      organisation_2 = create(:organisation, name: "other-org")
-      consultation = create(:published_consultation, title: "consultation-title",
-                           organisations: [organisation_1, organisation_2],
-                           opening_at: Time.zone.parse("2012-03-14"),
-                           closing_at: Time.zone.parse("2012-03-15"),
-                           first_published_at: Time.zone.parse("2011-03-10"))
-
-      get :index, format: :json
-
-      results = ActiveSupport::JSON.decode(response.body)["results"]
-      assert_equal 1, results.length
-      json = results.first['result']
-      assert_equal "consultation", json["type"]
-      assert_equal "consultation-title", json["title"]
-      assert_equal consultation.id, json["id"]
-      assert_equal consultation_path(consultation.document), json["url"]
-      assert_equal "org-name and other-org", json["organisations"]
-      assert_equal %{<time class="public_timestamp" datetime="2011-03-10T00:00:00+00:00">10 March 2011</time>}, json["display_date_microformat"]
-      assert_equal "Consultation", json["display_type"]
-    end
-  end
-
-  view_test "#index requested as JSON includes URL to the atom feed including any filters" do
-    create(:organisation, name: "organisation-1")
-
-    get :index, params: { taxons: %w[taxon-1], departments: %w[organisation-1] }, format: :json
-
-    json = ActiveSupport::JSON.decode(response.body)
-
-    assert_equal json["atom_feed_url"], publications_url(format: "atom", taxons: %w[taxon-1], departments: %w[organisation-1], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
-  end
-
-  view_test "#index requested as JSON includes atom feed URL without date parameters" do
-    get :index, params: { from_date: "2012-01-01", taxons: %w[taxon-1] }, format: :json
-
-    json = ActiveSupport::JSON.decode(response.body)
-
-    assert_equal json["atom_feed_url"], publications_url(format: "atom", taxons: %w[taxon-1], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
-  end
-
-  view_test "#index requested as JSON includes email signup path without date parameters" do
-    get :index, params: { to_date: "2012-01-01" }, format: :json
-
-    json = ActiveSupport::JSON.decode(response.body)
-
-    atom_url = publications_url(format: "atom", host: Whitehall.public_host, protocol: Whitehall.public_protocol)
-
-    assert_equal json["email_signup_url"], new_email_signups_path(email_signup: { feed: atom_url })
-  end
-
-  view_test "#index requested as JSON includes email signup path with organisation and taxon parameters" do
-    organisation = create(:organisation)
-
-    get :index, params: { from_date: "2012-01-01", taxons: %w[taxon-1], departments: [organisation.slug] }, format: :json
-
-    json = ActiveSupport::JSON.decode(response.body)
-    atom_url = publications_url(format: "atom", taxons: %w[taxon-1], departments: [organisation.slug], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
-
-    assert_equal json["email_signup_url"], new_email_signups_path(email_signup: { feed: atom_url })
-  end
-
   view_test '#index has atom feed autodiscovery link' do
     get :index, params: { locale: :fr }
     assert_select_autodiscovery_link publications_url(format: "atom", host: Whitehall.public_host, protocol: Whitehall.public_protocol)
@@ -318,27 +229,6 @@ class PublicationsControllerTest < ActionController::TestCase
           @controller.public_document_path(collection)
         )
       end
-    end
-  end
-
-  view_test '#index requested as JSON includes document collection information' do
-    Sidekiq::Testing.inline! do
-      create(:departmental_editor)
-      publication = create(:draft_publication)
-      collection = create(:document_collection, :with_group)
-      collection.groups.first.documents = [publication.document]
-      stub_publishing_api_registration_for([collection, publication])
-      Whitehall.edition_services.force_publisher(collection).perform!
-      Whitehall.edition_services.force_publisher(publication).perform!
-
-      get :index, format: :json
-
-      json = ActiveSupport::JSON.decode(response.body)
-      result = json['results'].first['result']
-
-      path = @controller.public_document_path(collection)
-      link = %{<a href="#{path}">#{collection.title}</a>}
-      assert_equal %{Part of a collection: #{link}}, result['publication_collections']
     end
   end
 

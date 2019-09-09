@@ -2,6 +2,8 @@ class AnnouncementsController < DocumentsController
   enable_request_formats index: %i[json atom]
 
   def index
+    return redirect_formats_to_finder_frontend if Locale.current.english?
+
     expire_on_next_scheduled_publication(scheduled_announcements)
     @filter = build_document_filter("announcements")
     @filter.announcements_search
@@ -9,8 +11,6 @@ class AnnouncementsController < DocumentsController
 
     respond_to do |format|
       format.html do
-        return redirect_to_news_and_communications if Locale.current.english?
-
         @content_item = Whitehall
           .content_store
           .content_item("/government/announcements")
@@ -26,14 +26,26 @@ class AnnouncementsController < DocumentsController
         )
       end
       format.atom do
-        return redirect_to_news_and_communications(".atom") if Locale.current.english?
-
         @announcements = @filter.documents
       end
     end
   end
 
 private
+
+  def redirect_formats_to_finder_frontend
+    respond_to do |format|
+      format.html do
+        return redirect_to_news_and_communications
+      end
+      format.json do
+        redirect_to_news_and_communications(".json")
+      end
+      format.atom do
+        return redirect_to_news_and_communications(".atom")
+      end
+    end
+  end
 
   def scheduled_announcements
     Announcement.scheduled.order("scheduled_publication asc")

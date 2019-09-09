@@ -8,11 +8,9 @@ class AnnouncementsControllerTest < ActionController::TestCase
   include TaxonomyHelper
 
   should_be_a_public_facing_controller
-  should_return_json_suitable_for_the_document_filter :news_article
-  should_return_json_suitable_for_the_document_filter :speech
+  should_redirect_json_in_english_locale
 
   setup do
-    @rummager = stub
     @content_item = content_item_for_base_path(
       '/government/announcements'
     )
@@ -22,75 +20,63 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "when locale is english it redirects to news and communications" do
-    with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).returns('results' => [])
-
-      get :index
-      assert_response :redirect
-    end
+    get :index
+    assert_response :redirect
   end
 
   test "when locale is english it redirects with params for finder-frontend" do
-    with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).returns('results' => [])
+    get :index, params: {
+      keywords: "one two",
+      taxons: %w[one],
+      subtaxons: %w[two],
+      people: %w[one two],
+      departments: %w[one two],
+      world_locations: %w[one two],
+      from_date: '01/01/2014',
+      to_date: '01/01/2014',
+      topical_events: %w[one two]
+    }
 
-      get :index, params: {
-        keywords: "one two",
-        taxons: %w[one],
-        subtaxons: %w[two],
-        people: %w[one two],
-        departments: %w[one two],
-        world_locations: %w[one two],
-        from_date: '01/01/2014',
-        to_date: '01/01/2014',
-        topical_events: %w[one two]
-      }
+    redirect_params_query = {
+      keywords: "one two",
+      level_one_taxon: 'one',
+      level_two_taxon: 'two',
+      people: %w[one two],
+      organisations: %w[one two],
+      world_locations: %w[one two],
+      public_timestamp: { from: '01/01/2014', to: '01/01/2014' },
+      topical_events: %w[one two]
+    }.to_query
 
-      redirect_params_query = {
-        keywords: "one two",
-        level_one_taxon: 'one',
-        level_two_taxon: 'two',
-        people: %w[one two],
-        organisations: %w[one two],
-        world_locations: %w[one two],
-        public_timestamp: { from: '01/01/2014', to: '01/01/2014' },
-        topical_events: %w[one two]
-      }.to_query
-
-      assert_redirected_to "#{Plek.new.website_root}/search/news-and-communications?#{redirect_params_query}"
-    end
+    assert_redirected_to "#{Plek.new.website_root}/search/news-and-communications?#{redirect_params_query}"
   end
 
   test "when locale is english it redirects and atom feed with params for finder-frontend" do
-    with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).returns('results' => [])
+    get :index, params: {
+      keywords: "one two",
+      taxons: %w[one],
+      subtaxons: %w[two],
+      people: %w[one two],
+      departments: {
+        '0' => 'one',
+        '1' => 'two',
+      },
+      world_locations: %w[one two],
+      from_date: '01/01/2014',
+      to_date: '01/01/2014'
+    }, format: :atom
 
-      get :index, params: {
-        keywords: "one two",
-        taxons: %w[one],
-        subtaxons: %w[two],
-        people: %w[one two],
-        departments: {
-          '0' => 'one',
-          '1' => 'two',
-        },
-        world_locations: %w[one two],
-        from_date: '01/01/2014',
-        to_date: '01/01/2014'
-      }, format: :atom
+    redirect_params_query = {
+      keywords: "one two",
+      level_one_taxon: 'one',
+      level_two_taxon: 'two',
+      people: %w[one two],
+      organisations: %w[one two],
+      world_locations: %w[one two],
+      public_timestamp: { from: '01/01/2014', to: '01/01/2014' }
+    }.to_query
 
-      redirect_params_query = {
-        keywords: "one two",
-        level_one_taxon: 'one',
-        level_two_taxon: 'two',
-        people: %w[one two],
-        organisations: %w[one two],
-        world_locations: %w[one two],
-        public_timestamp: { from: '01/01/2014', to: '01/01/2014' }
-      }.to_query
-
-      assert_redirected_to "#{Plek.new.website_root}/search/news-and-communications.atom?#{redirect_params_query}"
-    end
+    assert_redirected_to "#{Plek.new.website_root}/search/news-and-communications.atom?#{redirect_params_query}"
   end
 
   view_test "index with locale shows a mix of news and speeches" do
@@ -265,19 +251,12 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "index requested as JSON includes email signup path with organisation and topic parameters" do
-    with_stubbed_rummager(@rummager, true) do
-      @rummager.expects(:search).returns('results' => [])
-      topic = create(:topic)
-      organisation = create(:organisation)
+  view_test "index requested as JSON redirects to news and comms finder" do
+    topic = create(:topic)
+    organisation = create(:organisation)
 
-      get :index, params: { to_date: "2012-01-01", topics: [topic.slug], departments: [organisation.slug] }, format: :json
-
-      json = ActiveSupport::JSON.decode(response.body)
-      atom_url = announcements_url(format: "atom", topics: [topic.slug], departments: [organisation.slug], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
-
-      assert_equal json["email_signup_url"], new_email_signups_path(email_signup: { feed: atom_url })
-    end
+    get :index, params: { to_date: "2012-01-01", topics: [topic.slug], departments: [organisation.slug] }, format: :json
+    assert_response :redirect
   end
 
   view_test 'index only lists documents in the given locale' do
@@ -356,20 +335,5 @@ class AnnouncementsControllerTest < ActionController::TestCase
         "Expected the custom dimension 29 to have the title of the article"
       )
     end
-  end
-
-  def search_results_from_rummager
-    {
-      "results" => [
-          {
-          "link": "/foo/news_story",
-          "title": "PM attends summit on topical events",
-          "public_timestamp": "2018-10-07T22:18:32Z",
-          "display_type": "news_article",
-          "description": "Description of document...",
-          "content_id": "1234-C"
-        }
-      ]
-    }.with_indifferent_access
   end
 end
