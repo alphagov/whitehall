@@ -6,11 +6,7 @@ class PersonPresenter < Whitehall::Decorators::Decorator
   end
 
   def translated_locales
-    initial_locales = model.translated_locales
-    roles = model.current_role_appointments.map(&:role)
-    roles.reduce(initial_locales) do |locales, role|
-      locales & role.translated_locales
-    end
+    model.translated_locales
   end
 
   def current_role_appointments
