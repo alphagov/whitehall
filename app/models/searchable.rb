@@ -48,6 +48,7 @@ module Searchable
     :superseded_organisations,
     :superseding_organisations,
     :title,
+    :updated_at,
 
     # "Policy area" is the newer name for "topic"
     # (https://www.gov.uk/government/topics)
