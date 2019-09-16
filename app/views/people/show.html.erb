@@ -68,18 +68,16 @@
       <div class="current-roles" id="current-roles">
         <% @person.current_role_appointments.each do |appointment| %>
           <%= content_tag_for :section, appointment, class: "role" do %>
-            <h2 class="gem-c-heading" id="<%= appointment.role.name.parameterize%>"><%= appointment.role.name %></h2>
-            <%= appointment.role.responsibilities %>
+            <h2 class="gem-c-heading" id="<%= appointment.role.name.parameterize%>" <%= t_lang_translated_locales(appointment.role) %> ><%= appointment.role.name %></h2>
+            <div <%= t_lang_translated_locales(appointment.role) %> ><%= appointment.role.responsibilities %></div>
             <div class="read-more">
               <% if appointment.role.ministerial? %>
                 <%= link_to t('roles.read_more'), appointment.role %>
               <% end %>
               <% if appointment.role.worldwide? %>
-                <%= render partial: 'organisations/organisations_name_list',
-                           locals: { organisations: appointment.role.worldwide_organisations } %>
+                <%= render partial: 'organisations/organisations_name_list', locals: { organisations: appointment.role.worldwide_organisations } %>
               <% else %>
-                <%= render  partial: 'organisations/organisations_name_list',
-                            locals: { organisations: appointment.role.organisations } %>
+                <%= render  partial: 'organisations/organisations_name_list', locals: { organisations: appointment.role.organisations } %>
               <% end %>
             </div>
           <% end %>
@@ -94,8 +92,8 @@
           <ol class="document-list">
             <% @person.previous_role_appointments.each do |appointment| %>
               <%= content_tag_for :li, appointment, class: "document-row" do %>
-                <h3><%= appointment.role_link %></h3>
-                <ul class="attributes">
+                <h3 <%= t_lang_translated_locales(appointment.role) %>><%= appointment.role_link %></h3>
+                <ul class="attributes" <%= t_lang_translated_locales(appointment.role) %>>
                   <li class="date"><%= appointment.date_range %></li>
                 </ul>
               <% end %>
