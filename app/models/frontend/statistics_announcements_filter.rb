@@ -111,7 +111,7 @@ private
   def get_cancelled_announcements_within_preceding_month
     provider.search(valid_filter_params.merge(page: page,
                                               per_page: RESULTS_PER_PAGE,
-                                              statistics_announcement_state: 'cancelled',
+                                              statistics_announcement_state: "cancelled",
                                               from_date: 1.month.ago.to_date,
                                               to_date: Time.zone.now.to_date))
   end

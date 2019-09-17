@@ -4,20 +4,20 @@ class EditionTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
   test "returns downcased humanized class name as format name" do
-    assert_equal 'case study', CaseStudy.format_name
-    assert_equal 'publication', Publication.format_name
-    assert_equal 'consultation', Consultation.format_name
+    assert_equal "case study", CaseStudy.format_name
+    assert_equal "publication", Publication.format_name
+    assert_equal "consultation", Consultation.format_name
   end
 
   test "delegates format name to class" do
-    Edition.stubs(:format_name).returns('format name')
-    assert_equal 'format name', Edition.new.format_name
+    Edition.stubs(:format_name).returns("format name")
+    assert_equal "format name", Edition.new.format_name
   end
 
   test "returns capitalized format name as default display type" do
     edition = Edition.new
-    edition.stubs(:format_name).returns('format name')
-    assert_equal 'Format name', edition.display_type
+    edition.stubs(:format_name).returns("format name")
+    assert_equal "Format name", edition.display_type
   end
 
   test "adds a document before validation if none provided" do
@@ -50,7 +50,7 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test ".published_as returns nil if document is unknown" do
-    assert_nil Edition.published_as('unknown')
+    assert_nil Edition.published_as("unknown")
   end
 
   test ".latest_edition includes first edition of any edition" do
@@ -83,7 +83,7 @@ class EditionTest < ActiveSupport::TestCase
     refute Edition.latest_published_edition.include?(draft_edition)
   end
 
-  test '.most_recent_change_note returns the most recent change note' do
+  test ".most_recent_change_note returns the most recent change note" do
     editor = create(:departmental_editor)
     edition = create(:published_edition)
 
@@ -91,16 +91,16 @@ class EditionTest < ActiveSupport::TestCase
            "Expected nil, found #{edition.most_recent_change_note}"
 
     version_2 = edition.create_draft(editor)
-    version_2.change_note = 'My new version'
+    version_2.change_note = "My new version"
     force_publish(version_2)
 
-    assert_equal 'My new version', version_2.most_recent_change_note
+    assert_equal "My new version", version_2.most_recent_change_note
 
     version_3 = version_2.create_draft(editor)
     version_3.minor_change = true
     force_publish(version_3)
 
-    assert_equal 'My new version', version_3.most_recent_change_note
+    assert_equal "My new version", version_3.most_recent_change_note
   end
 
   test "can find editions due for publication" do
@@ -135,7 +135,7 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test ".scheduled_for_publication_as returns nil if document is unknown" do
-    assert_nil Edition.scheduled_for_publication_as('unknown')
+    assert_nil Edition.scheduled_for_publication_as("unknown")
   end
 
   test "should return a list of editions in a topic" do
@@ -199,12 +199,12 @@ class EditionTest < ActiveSupport::TestCase
     acting_as(user_2) do
       edition = create(:draft_news_article)
     end
-    assert_equal user_2, edition.last_author, 'creating'
+    assert_equal user_2, edition.last_author, "creating"
 
     acting_as(user_1) do
       force_publish(edition)
     end
-    assert_equal user_1, edition.reload.last_author, 'publishing'
+    assert_equal user_1, edition.reload.last_author, "publishing"
   end
 
   test ".authored_by includes editions created by the given user" do
@@ -269,7 +269,7 @@ class EditionTest < ActiveSupport::TestCase
     publication = create(:submitted_publication, submitter: submitter)
     reviewer = create(:writer)
     Edition::AuditTrail.whodunnit = reviewer
-    publication.body = 'updated body'
+    publication.body = "updated body"
     publication.save!
     assert_equal submitter, publication.submitted_by
   end
@@ -369,18 +369,18 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "should use the edition title as the basis for the document's slug" do
-    edition = create(:edition, title: 'My Publication Title')
-    assert_equal 'my-publication-title', edition.document.slug
+    edition = create(:edition, title: "My Publication Title")
+    assert_equal "my-publication-title", edition.document.slug
   end
 
   test "should not include apostrophes in slug" do
     edition = create(:edition, title: "Bob's bike")
-    assert_equal 'bobs-bike', edition.document.slug
+    assert_equal "bobs-bike", edition.document.slug
   end
 
   test "should not include ellipsis in the slug" do
     edition = create(:edition, title: "Something… going on")
-    assert_equal 'something-going-on', edition.document.slug
+    assert_equal "something-going-on", edition.document.slug
   end
 
   test "is filterable by edition type" do
@@ -389,10 +389,10 @@ class EditionTest < ActiveSupport::TestCase
     speech = create(:speech)
     consultation = create(:consultation)
 
-    assert_equal [publication], Edition.by_type('Publication')
-    assert_equal [news], Edition.by_type('NewsArticle')
-    assert_equal [speech], Edition.by_type('Speech')
-    assert_equal [consultation], Edition.by_type('Consultation')
+    assert_equal [publication], Edition.by_type("Publication")
+    assert_equal [news], Edition.by_type("NewsArticle")
+    assert_equal [speech], Edition.by_type("Speech")
+    assert_equal [consultation], Edition.by_type("Consultation")
   end
 
   test "should return search index suitable for Rummageable" do
@@ -439,12 +439,12 @@ class EditionTest < ActiveSupport::TestCase
     assert_not publication.search_index.include?("topics")
   end
 
-  test 'search_format_types tags the edtion as an edition' do
+  test "search_format_types tags the edtion as an edition" do
     edition = build(:edition)
-    assert edition.search_format_types.include?('edition')
+    assert edition.search_format_types.include?("edition")
   end
 
-  test 'concrete_descendant_search_format_types does not include Edition subclasses that themselves have subclasses' do
+  test "concrete_descendant_search_format_types does not include Edition subclasses that themselves have subclasses" do
     concrete_formats = Edition.concrete_descendant_search_format_types
 
     refute concrete_formats.include? Announcement.search_format_type
@@ -481,7 +481,7 @@ class EditionTest < ActiveSupport::TestCase
            body: "stuff and things", summary: "publication-summary")
     create(:draft_publication, title: "draft-publication-title", body: "bits and bobs")
 
-    result_titles = Edition.search_index.to_a.map { |r| r['title'] }
+    result_titles = Edition.search_index.to_a.map { |r| r["title"] }
 
     assert_equal %w[news_article-title publication-title], result_titles
   end
@@ -628,8 +628,8 @@ class EditionTest < ActiveSupport::TestCase
 
   test "should store title in multiple languages" do
     edition = build(:edition)
-    with_locale(:en) { edition.title = 'english-title' }
-    with_locale(:es) { edition.title = 'spanish-title' }
+    with_locale(:en) { edition.title = "english-title" }
+    with_locale(:es) { edition.title = "spanish-title" }
     edition.save!
     edition.reload
     assert_equal "english-title", edition.title(:en)
@@ -718,15 +718,15 @@ class EditionTest < ActiveSupport::TestCase
     stub_any_publishing_api_call
 
     edition = create(:edition)
-    with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body') }
-    with_locale(:es) { edition.update_attributes!(title: 'spanish-title', summary: 'spanish-summary', body: 'spanish-body') }
+    with_locale(:fr) { edition.update_attributes!(title: "french-title", summary: "french-summary", body: "french-body") }
+    with_locale(:es) { edition.update_attributes!(title: "spanish-title", summary: "spanish-summary", body: "spanish-body") }
 
     edition.remove_translations_for(:fr)
     refute edition.translated_locales.include?(:fr)
     assert edition.translated_locales.include?(:es)
   end
 
-  test 'without_editions_of_type allows us to exclude certain subclasses from a result set' do
+  test "without_editions_of_type allows us to exclude certain subclasses from a result set" do
     edition_1 = create(:case_study)
     edition_2 = create(:fatality_notice)
 
@@ -735,7 +735,7 @@ class EditionTest < ActiveSupport::TestCase
     refute no_case_studies.include?(edition_1)
   end
 
-  test 'without_editions_of_type takes multiple classes to exclude' do
+  test "without_editions_of_type takes multiple classes to exclude" do
     edition_1 = create(:case_study)
     edition_2 = create(:fatality_notice)
     edition_3 = create(:detailed_guide)
@@ -746,8 +746,8 @@ class EditionTest < ActiveSupport::TestCase
     refute no_fatalities_or_guides.include?(edition_3)
   end
 
-  test 'without_editions_of_type doesn\'t exclude subclasses of the supplied classes' do
-    edition_1 = create(:edition, type: 'Announcement')
+  test "without_editions_of_type doesn't exclude subclasses of the supplied classes" do
+    edition_1 = create(:edition, type: "Announcement")
     edition_2 = create(:fatality_notice)
 
     no_editions = Edition.without_editions_of_type(Announcement)
@@ -755,7 +755,7 @@ class EditionTest < ActiveSupport::TestCase
     refute no_editions.include?(edition_1)
   end
 
-  test 'Edition.with_classification returns any editions tagged with the given classification' do
+  test "Edition.with_classification returns any editions tagged with the given classification" do
     topic_1 = create(:topic)
     topic_2 = create(:topic)
     news_article = create(:news_article, topics: [topic_1])
@@ -767,7 +767,7 @@ class EditionTest < ActiveSupport::TestCase
 
   should_not_accept_footnotes_in :body
 
-  test 'previously_published returns true for edition with first_published_at timestamp' do
+  test "previously_published returns true for edition with first_published_at timestamp" do
     edition = create(:edition)
     refute edition.previously_published
 
@@ -775,12 +775,12 @@ class EditionTest < ActiveSupport::TestCase
     assert edition.previously_published
   end
 
-  test 'previously_published always returns true for an imported edition' do
+  test "previously_published always returns true for an imported edition" do
     edition = create(:edition, state: :imported, first_published_at: 1.hour.ago)
     assert edition.previously_published
   end
 
-  test 'first_published_at required when previously_published' do
+  test "first_published_at required when previously_published" do
     edition = build(:edition, previously_published: true)
     refute edition.valid?
     assert_equal "First published at can't be blank", edition.errors.full_messages.first
@@ -789,32 +789,32 @@ class EditionTest < ActiveSupport::TestCase
     assert edition.valid?
   end
 
-  test 'first_published_at cannot be set to a future date' do
+  test "first_published_at cannot be set to a future date" do
     edition = build(:edition, first_published_at: 10.years.from_now)
 
     refute edition.valid?
     assert_equal "First published at can't be set to a future date", edition.errors.full_messages.first
   end
 
-  test '#government returns the current government for a newly published edition' do
+  test "#government returns the current government for a newly published edition" do
     government = create(:current_government)
     edition = create(:edition, first_published_at: Time.zone.now)
     assert_equal government, edition.government
   end
 
-  test '#government returns the historic government for a previously published edition' do
+  test "#government returns the historic government for a previously published edition" do
     previous_government = create(:previous_government)
     create(:current_government)
     edition = create(:edition, first_published_at: 4.years.ago)
     assert_equal previous_government, edition.government
   end
 
-  test '#government returns nil for an edition without a first_published_at' do
+  test "#government returns nil for an edition without a first_published_at" do
     edition = create(:edition, first_published_at: nil)
     assert_nil edition.government
   end
 
-  test '#historic? is true when political and from a previous government' do
+  test "#historic? is true when political and from a previous government" do
     create(:current_government)
     previous_government = create(:previous_government)
 
@@ -822,7 +822,7 @@ class EditionTest < ActiveSupport::TestCase
     assert edition.historic?
   end
 
-  test '#historic? is false for when not political or from the current government' do
+  test "#historic? is false for when not political or from the current government" do
     current_government = create(:current_government)
 
     previous_government = create(:previous_government)
@@ -837,7 +837,7 @@ class EditionTest < ActiveSupport::TestCase
     refute edition.historic?
   end
 
-  test '#historic? is false when the document has no government' do
+  test "#historic? is false when the document has no government" do
     edition = create(:edition, political: true, first_published_at: nil)
     refute edition.historic?
 
@@ -845,7 +845,7 @@ class EditionTest < ActiveSupport::TestCase
     refute edition.historic?
   end
 
-  test '#has_been_tagged? is false when request from publishing-api has no taxons' do
+  test "#has_been_tagged? is false when request from publishing-api has no taxons" do
     edition = create(:edition)
 
     publishing_api_has_links(
@@ -853,85 +853,85 @@ class EditionTest < ActiveSupport::TestCase
       "links" => {
         "organisations" => %w[569a9ee5-c195-4b7f-b9dc-edc17a09113f],
       },
-      "version" => 1
+      "version" => 1,
     )
 
     refute edition.has_been_tagged?
   end
 
-  test '#has_been_tagged? is true when request from publishing-api has taxons' do
+  test "#has_been_tagged? is true when request from publishing-api has taxons" do
     edition = create(:edition)
 
     publishing_api_has_links(
       "content_id" => edition.content_id,
       "links" => {
         "organisations" => %w[569a9ee5-c195-4b7f-b9dc-edc17a09113f],
-        "taxons" => %w[7754ae52-34aa-499e-a6dd-88f04633b8ab]
+        "taxons" => %w[7754ae52-34aa-499e-a6dd-88f04633b8ab],
       },
-      "version" => 1
+      "version" => 1,
     )
 
     assert edition.has_been_tagged?
   end
 
-  test '#attachables returns empty array' do
+  test "#attachables returns empty array" do
     non_attachable_edition = build(:announcement)
     refute non_attachable_edition.allows_attachments?
     assert_equal [], non_attachable_edition.attachables
   end
 
-  test 'when policies not supported' do
+  test "when policies not supported" do
     edition = create(:edition)
     refute edition.has_policies?
     refute edition.has_legacy_tags?
   end
 
-  test 'when policies are supported but no policies' do
+  test "when policies are supported but no policies" do
     edition = create(:publication_without_policy_areas, policy_content_ids: [])
     refute edition.has_policies?
     refute edition.has_legacy_tags?
   end
 
-  test 'when policies exist' do
-    edition = create(:publication_without_policy_areas, policy_content_ids: [policy_1['content_id']])
+  test "when policies exist" do
+    edition = create(:publication_without_policy_areas, policy_content_ids: [policy_1["content_id"]])
     stub_publishing_api_policies
     assert edition.has_policies?
     assert edition.has_legacy_tags?
   end
 
-  test 'when policy areas are not supported' do
+  test "when policy areas are not supported" do
     edition = create(:edition)
     refute edition.has_policy_areas?
     refute edition.has_legacy_tags?
   end
 
-  test 'when policy areas supported but no policy areas' do
+  test "when policy areas supported but no policy areas" do
     edition = create(:publication_without_policy_areas)
     refute edition.has_policy_areas?
     refute edition.has_legacy_tags?
   end
 
-  test 'when policy areas exist' do
+  test "when policy areas exist" do
     topic = create(:topic)
     edition = create(:publication, topic_ids: [topic.id])
     assert edition.has_policy_areas?
     assert edition.has_legacy_tags?
   end
 
-  test 'when no specialist sectors' do
+  test "when no specialist sectors" do
     edition = create(:edition)
     refute edition.has_primary_sector?
     refute edition.has_secondary_sectors?
     refute edition.has_legacy_tags?
   end
 
-  test 'when a primary specialist sector exists' do
-    edition = create(:edition, primary_specialist_sector_tag: 'primary')
+  test "when a primary specialist sector exists" do
+    edition = create(:edition, primary_specialist_sector_tag: "primary")
     assert edition.has_primary_sector?
     assert edition.has_legacy_tags?
   end
 
-  test 'when a secondary specialist sector exists' do
+  test "when a secondary specialist sector exists" do
     edition = create(:edition, secondary_specialist_sector_tags: %w[secondary])
     assert edition.has_secondary_sectors?
     assert edition.has_legacy_tags?

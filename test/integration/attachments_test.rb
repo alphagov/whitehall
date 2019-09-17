@@ -1,5 +1,5 @@
-require 'test_helper'
-require 'capybara/rails'
+require "test_helper"
+require "capybara/rails"
 
 class AttachmentsTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
@@ -8,7 +8,7 @@ class AttachmentsTest < ActionDispatch::IntegrationTest
     login_as_admin
   end
 
-  test 'displays attachment helper copy for non-publications' do
+  test "displays attachment helper copy for non-publications" do
     edition = create(:edition)
     visit "/government/admin/editions/#{edition.id}/attachments"
 
@@ -17,7 +17,7 @@ class AttachmentsTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'displays different helper copy for publications' do
+  test "displays different helper copy for publications" do
     publication = create(:publication)
     visit "/government/admin/editions/#{publication.id}/attachments"
 
@@ -39,10 +39,10 @@ class AttachmentsTest < ActionDispatch::IntegrationTest
   test "redirects asset requests that aren't made via the asset host when the filename contains multiple periods" do
     logout
 
-    Plek.any_instance.stubs(:public_asset_host).returns('http://asset-host.com')
-    host! 'not-asset-host.com'
+    Plek.any_instance.stubs(:public_asset_host).returns("http://asset-host.com")
+    host! "not-asset-host.com"
 
-    filename_with_multiple_periods = 'big-cheese.960x640.jpg'
+    filename_with_multiple_periods = "big-cheese.960x640.jpg"
     file = File.open(fixture_path.join(filename_with_multiple_periods))
     attachment_data = FactoryBot.create(:attachment_data, file: file)
 

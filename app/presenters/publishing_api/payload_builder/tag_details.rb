@@ -20,7 +20,7 @@ module PublishingApi
             browse_pages: [],
             policies: policies,
             topics: specialist_sectors,
-          }
+          },
         }
       end
 

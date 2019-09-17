@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Frontend::StatisticsAnnouncementTest < ActiveSupport::TestCase
   def build_announcement(attrs = {})
@@ -33,7 +33,7 @@ class Frontend::StatisticsAnnouncementTest < ActiveSupport::TestCase
   end
 
   test "it identifies by its slug" do
-    assert_equal 'a-slug', build_announcement(slug: 'a-slug').to_param
+    assert_equal "a-slug", build_announcement(slug: "a-slug").to_param
   end
 
   test "#national_statistic? is true if the document_type is 'National Statistics'" do

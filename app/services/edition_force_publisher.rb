@@ -1,6 +1,6 @@
 class EditionForcePublisher < EditionPublisher
   def verb
-    'force_publish'
+    "force_publish"
   end
 
 private

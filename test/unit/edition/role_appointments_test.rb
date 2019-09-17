@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Edition::RoleAppointmentsTest < ActiveSupport::TestCase
   test "re-drafting an edition with role appointments copies the appointments" do
@@ -14,6 +14,6 @@ class Edition::RoleAppointmentsTest < ActiveSupport::TestCase
     appointment = create(:role_appointment)
     news_article = create(:news_article, role_appointments: [appointment])
 
-    assert_equal [appointment.slug], news_article.search_index['people']
+    assert_equal [appointment.slug], news_article.search_index["people"]
   end
 end

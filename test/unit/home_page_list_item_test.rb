@@ -1,7 +1,7 @@
-require 'test_helper'
+require "test_helper"
 
 class HomePageListItemTest < ActiveSupport::TestCase
-  test 'is invalid without an item' do
+  test "is invalid without an item" do
     item = build(:home_page_list_item, item: nil)
     refute item.valid?
   end

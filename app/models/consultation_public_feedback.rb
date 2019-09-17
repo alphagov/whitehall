@@ -4,6 +4,6 @@ class ConsultationPublicFeedback < Response
   end
 
   def friendly_name
-    'public feedback'
+    "public feedback"
   end
 end

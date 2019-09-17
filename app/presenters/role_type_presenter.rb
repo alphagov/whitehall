@@ -11,22 +11,22 @@ class RoleTypePresenter
   GROUPS_VS_NAMES_VS_TYPES = {
     "Ministerial" => {
       "cabinet_minister" => RoleType.new(MinisterialRole.name, true, false, false),
-      "minister" => RoleType.new(MinisterialRole.name, false, false, false)
+      "minister" => RoleType.new(MinisterialRole.name, false, false, false),
     },
     "Managerial" => {
       "permanent_secretary" => RoleType.new(BoardMemberRole.name, false, true, false),
       "board_level_manager" => RoleType.new(BoardMemberRole.name, false, false, false),
-      "chief_scientific_advisor" => RoleType.new(ChiefScientificAdvisorRole.name, false, false, false)
+      "chief_scientific_advisor" => RoleType.new(ChiefScientificAdvisorRole.name, false, false, false),
     },
     "DFT only" => {
       "traffic_commissioner" => RoleType.new(TrafficCommissionerRole.name, false, false, false),
     },
     "MOD only" => {
       "chief_of_the_defence_staff" => RoleType.new(MilitaryRole.name, false, false, true),
-      "chief_of_staff" => RoleType.new(MilitaryRole.name, false, false, false)
+      "chief_of_staff" => RoleType.new(MilitaryRole.name, false, false, false),
     },
     "FCO only" => {
-      "special_representative" => RoleType.new(SpecialRepresentativeRole.name, false, false, false)
+      "special_representative" => RoleType.new(SpecialRepresentativeRole.name, false, false, false),
     },
     "DH only" => {
       "chief_professional_officer" => RoleType.new(ChiefProfessionalOfficerRole.name, false, false, false),
@@ -36,11 +36,11 @@ class RoleTypePresenter
       "high_commissioner" => RoleType.new(HighCommissionerRole.name, false, false, false),
       "governor" => RoleType.new(GovernorRole.name, false, false, false),
       "deputy_head_of_mission" => RoleType.new(DeputyHeadOfMissionRole.name, false, false, false),
-      "worldwide_office_staff" => RoleType.new(WorldwideOfficeStaffRole.name, false, false, false)
+      "worldwide_office_staff" => RoleType.new(WorldwideOfficeStaffRole.name, false, false, false),
     },
     "MOJ only" => {
-      "judge" => RoleType.new(JudgeRole.name, false, false, false)
-    }
+      "judge" => RoleType.new(JudgeRole.name, false, false, false),
+    },
   }.freeze
 
   NAMES_VS_TYPES = RoleTypePresenter::GROUPS_VS_NAMES_VS_TYPES.values.reduce(:merge)
@@ -52,7 +52,7 @@ class RoleTypePresenter
       [group, names_vs_types.map { |name, _type| [name.humanize, name] }]
     end
     # Put ministers at the end of the list.
-    ministerial = options.find_index { |opt| opt[0] == 'Ministerial' }
+    ministerial = options.find_index { |opt| opt[0] == "Ministerial" }
     options.append(options.delete_at(ministerial))
   end
 

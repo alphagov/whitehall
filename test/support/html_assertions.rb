@@ -1,5 +1,5 @@
-require 'support/css_selectors'
-require 'equivalent-xml'
+require "support/css_selectors"
+require "equivalent-xml"
 
 module HtmlAssertions
   include Rails::Dom::Testing::Assertions::SelectorAssertions

@@ -1,2 +1,2 @@
 create(:person)
-raise 'bad migration!'
+raise "bad migration!"

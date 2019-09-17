@@ -15,9 +15,9 @@ class NewsArticleTypeTest < ActiveSupport::TestCase
     assert_equal "news-stories, press-releases, government-responses and world-news-stories", NewsArticleType.all_slugs
   end
 
-  test 'search_format_types tags the type with the key, prefixed with news-article-' do
+  test "search_format_types tags the type with the key, prefixed with news-article-" do
     NewsArticleType.all.each do |news_article_type|
-      assert news_article_type.search_format_types.include?('news-article-' + news_article_type.key.tr('_', ' ').parameterize)
+      assert news_article_type.search_format_types.include?("news-article-" + news_article_type.key.tr("_", " ").parameterize)
     end
   end
 

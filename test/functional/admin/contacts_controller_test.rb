@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::ContactsControllerTest < ActionController::TestCase
   setup do
@@ -13,9 +13,9 @@ class Admin::ContactsControllerTest < ActionController::TestCase
          params: {
                    contact: {
                  title: "Main office",
-                 contact_type_id: ContactType::General.id
+                 contact_type_id: ContactType::General.id,
                },
-               organisation_id: organisation.id
+               organisation_id: organisation.id,
        }
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
@@ -32,11 +32,11 @@ class Admin::ContactsControllerTest < ActionController::TestCase
                    contact: {
                  title: "Head office",
                  contact_numbers_attributes: {
-                   "0" => { label: "Main phone", number: "1234" }
+                   "0" => { label: "Main phone", number: "1234" },
                  },
-                 contact_type_id: ContactType::General.id
+                 contact_type_id: ContactType::General.id,
                },
-               organisation_id: organisation.id
+               organisation_id: organisation.id,
        }
 
     contact = organisation.contacts.last
@@ -55,10 +55,10 @@ class Admin::ContactsControllerTest < ActionController::TestCase
          params: {
                    contact: {
                  title: "Main office",
-                 show_on_home_page: '1',
-                 contact_type_id: ContactType::General.id
+                 show_on_home_page: "1",
+                 contact_type_id: ContactType::General.id,
                },
-               organisation_id: organisation.id
+               organisation_id: organisation.id,
        }
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
@@ -74,10 +74,10 @@ class Admin::ContactsControllerTest < ActionController::TestCase
          params: {
                    contact: {
                  title: "Main office",
-                 show_on_home_page: '0',
-                 contact_type_id: ContactType::General.id
+                 show_on_home_page: "0",
+                 contact_type_id: ContactType::General.id,
                },
-               organisation_id: organisation.id
+               organisation_id: organisation.id,
        }
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
@@ -93,9 +93,9 @@ class Admin::ContactsControllerTest < ActionController::TestCase
          params: {
                    contact: {
                  title: "Main office",
-                 contact_type_id: ContactType::General.id
+                 contact_type_id: ContactType::General.id,
                },
-               organisation_id: organisation.id
+               organisation_id: organisation.id,
        }
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
@@ -126,11 +126,11 @@ class Admin::ContactsControllerTest < ActionController::TestCase
                   contact: {
                 title: "Head office",
                 contact_numbers_attributes: {
-                  "0" => { id: contact_number.id, label: "Main phone", number: "5678" }
-                }
+                  "0" => { id: contact_number.id, label: "Main phone", number: "5678" },
+                },
               },
               organisation_id: organisation,
-              id: contact
+              id: contact,
       }
 
     actual_numbers = contact
@@ -151,10 +151,10 @@ class Admin::ContactsControllerTest < ActionController::TestCase
         params: {
                   contact: {
                 title: "Head office",
-                show_on_home_page: '1',
+                show_on_home_page: "1",
               },
               organisation_id: organisation,
-              id: contact
+              id: contact,
       }
 
     contact.reload
@@ -173,10 +173,10 @@ class Admin::ContactsControllerTest < ActionController::TestCase
         params: {
                   contact: {
                 title: "Head office",
-                show_on_home_page: '0',
+                show_on_home_page: "0",
               },
               organisation_id: organisation,
-              id: contact
+              id: contact,
       }
 
     contact.reload
@@ -197,7 +197,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
                 title: "Head office",
               },
               organisation_id: organisation,
-              id: contact
+              id: contact,
       }
 
     contact.reload
@@ -241,11 +241,11 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     assert organisation.contact_shown_on_home_page?(contact)
   end
 
-  test 'POST on :reorder_for_home_page takes id => ordering mappings and reorders the list based on this' do
+  test "POST on :reorder_for_home_page takes id => ordering mappings and reorders the list based on this" do
     organisation = create(:organisation)
     contact_1 = organisation.contacts.create(title: "Head office", contact_type: ContactType::General)
     contact_2 = organisation.contacts.create(title: "Body office", contact_type: ContactType::General)
-    contact_3 = organisation.contacts.create(title: 'Spirit office', contact_type: ContactType::General)
+    contact_3 = organisation.contacts.create(title: "Spirit office", contact_type: ContactType::General)
     organisation.add_contact_to_home_page!(contact_1)
     organisation.add_contact_to_home_page!(contact_2)
     organisation.add_contact_to_home_page!(contact_3)
@@ -253,10 +253,10 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     post :reorder_for_home_page, params: {
         organisation_id: organisation,
         ordering: {
-          contact_1.id.to_s => '3',
-          contact_2.id.to_s => '1',
-          contact_3.id.to_s => '2'
-        }
+          contact_1.id.to_s => "3",
+          contact_2.id.to_s => "1",
+          contact_3.id.to_s => "2",
+        },
       }
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
@@ -264,7 +264,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     assert_equal [contact_2, contact_3, contact_1], organisation.reload.home_page_contacts
   end
 
-  test 'POST on :reorder_for_home_page doesn\'t break with unknown contact ids' do
+  test "POST on :reorder_for_home_page doesn't break with unknown contact ids" do
     organisation = create(:organisation)
     contact = organisation.contacts.create(title: "Head office", contact_type: ContactType::General)
     organisation.add_contact_to_home_page!(contact)
@@ -272,9 +272,9 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     post :reorder_for_home_page, params: {
         organisation_id: organisation,
         ordering: {
-          contact.id.to_s => '2',
-          '1000000' => '1'
-        }
+          contact.id.to_s => "2",
+          "1000000" => "1",
+        },
       }
 
     assert_redirected_to admin_organisation_contacts_url(organisation)

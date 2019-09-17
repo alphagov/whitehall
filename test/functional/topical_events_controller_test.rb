@@ -1,6 +1,6 @@
 require "test_helper"
-require 'gds_api/test_helpers/content_store'
-require_relative '../support/search_rummager_helper'
+require "gds_api/test_helpers/content_store"
+require_relative "../support/search_rummager_helper"
 
 class TopicalEventsControllerTest < ActionController::TestCase
   include FeedHelper
@@ -31,10 +31,10 @@ class TopicalEventsControllerTest < ActionController::TestCase
 
     get :show, params: { id: topical_event }
     parsed_response = Nokogiri::HTML::Document.parse(response.body)
-    assert_equal 5, parsed_response.css('.featured-news .feature').length
+    assert_equal 5, parsed_response.css(".featured-news .feature").length
   end
 
-  view_test 'show has a link to the atom feed' do
+  view_test "show has a link to the atom feed" do
     event = create_topical_event_and_stub_in_content_store
 
     get :show, params: { id: event }
@@ -42,7 +42,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
     assert_select "a.feed[href=?]", atom_feed_url_for(event)
   end
 
-  view_test 'show has a link to email signup page' do
+  view_test "show has a link to email signup page" do
     event = create_topical_event_and_stub_in_content_store
 
     get :show, params: { id: event }
@@ -51,58 +51,58 @@ class TopicalEventsControllerTest < ActionController::TestCase
   end
 
   view_test "#show displays extra org logos for first-world-war-centenary" do
-    topical_event = create_topical_event_and_stub_in_content_store(name: 'First World War Centenary')
+    topical_event = create_topical_event_and_stub_in_content_store(name: "First World War Centenary")
     create(:organisation_classification, lead: true, classification: topical_event)
 
     get :show, params: { id: topical_event }
 
-    assert_select '.arts-council-england'
-    assert_select '.bbc'
-    assert_select '.british-library'
-    assert_select '.commonwealth-war-graves-commission'
-    assert_select '.heritage-lottery-fund'
-    assert_select '.historic-england'
-    assert_select '.imperial-war-museums'
-    assert_select '.war-memorials-trust'
+    assert_select ".arts-council-england"
+    assert_select ".bbc"
+    assert_select ".british-library"
+    assert_select ".commonwealth-war-graves-commission"
+    assert_select ".heritage-lottery-fund"
+    assert_select ".historic-england"
+    assert_select ".imperial-war-museums"
+    assert_select ".war-memorials-trust"
   end
 
   view_test "#show doesn't show extra org logos for non first-world-war-centenary" do
-    topical_event = create_topical_event_and_stub_in_content_store(name: 'Something exciting')
+    topical_event = create_topical_event_and_stub_in_content_store(name: "Something exciting")
     create(:organisation_classification, lead: true, classification: topical_event)
 
     get :show, params: { id: topical_event }
 
-    refute_select '.arts-council-england'
-    refute_select '.bbc'
-    refute_select '.british-library'
-    refute_select '.commonwealth-war-graves-commission'
-    refute_select '.heritage-lottery-fund'
-    refute_select '.historic-england'
-    refute_select '.imperial-war-museums'
-    refute_select '.war-memorials-trust'
+    refute_select ".arts-council-england"
+    refute_select ".bbc"
+    refute_select ".british-library"
+    refute_select ".commonwealth-war-graves-commission"
+    refute_select ".heritage-lottery-fund"
+    refute_select ".historic-england"
+    refute_select ".imperial-war-museums"
+    refute_select ".war-memorials-trust"
   end
 
   test "sets a meta description" do
-    topical_event = create_topical_event_and_stub_in_content_store(description: 'my description')
+    topical_event = create_topical_event_and_stub_in_content_store(description: "my description")
 
     get :show, params: { id: topical_event }
 
-    assert_equal 'my description', assigns(:meta_description)
+    assert_equal "my description", assigns(:meta_description)
   end
 
-  view_test 'GET :show renders an atom feed' do
+  view_test "GET :show renders an atom feed" do
     topical_event = create_topical_event_and_stub_in_content_store
     create(:published_publication, topical_events: [topical_event])
 
     get :show, params: { id: topical_event }, format: :atom
 
     assert_select_atom_feed do
-      assert_select 'feed > id', 1
-      assert_select 'feed > title', 1
-      assert_select 'feed > author, feed > entry > author'
-      assert_select 'feed > updated', 1
-      assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml', topical_event_url(topical_event, format: 'atom'), 1
-      assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', topical_event_url(topical_event), 1
+      assert_select "feed > id", 1
+      assert_select "feed > title", 1
+      assert_select "feed > author, feed > entry > author"
+      assert_select "feed > updated", 1
+      assert_select "feed > link[rel=?][type=?][href=?]", "self", "application/atom+xml", topical_event_url(topical_event, format: "atom"), 1
+      assert_select "feed > link[rel=?][type=?][href=?]", "alternate", "text/html", topical_event_url(topical_event), 1
 
       assert_select_atom_entries(processed_rummager_documents, false)
     end

@@ -1,5 +1,5 @@
-require 'test_helper'
-require 'gds_api/test_helpers/publishing_api_v2'
+require "test_helper"
+require "gds_api/test_helpers/publishing_api_v2"
 
 class PublishingApiDiscardDraftWorkerTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApiV2
@@ -12,7 +12,7 @@ class PublishingApiDiscardDraftWorkerTest < ActiveSupport::TestCase
   test "registers a draft edition with the publishing api" do
     request = stub_publishing_api_discard_draft(@edition.content_id)
 
-    PublishingApiDiscardDraftWorker.new.perform(@edition.content_id, 'en')
+    PublishingApiDiscardDraftWorker.new.perform(@edition.content_id, "en")
 
     assert_requested request
   end
@@ -21,7 +21,7 @@ class PublishingApiDiscardDraftWorkerTest < ActiveSupport::TestCase
     request = stub_any_publishing_api_call
       .to_return(status: 422)
 
-    PublishingApiDiscardDraftWorker.new.perform(@edition.content_id, 'en')
+    PublishingApiDiscardDraftWorker.new.perform(@edition.content_id, "en")
 
     assert_requested request
   end
@@ -29,7 +29,7 @@ class PublishingApiDiscardDraftWorkerTest < ActiveSupport::TestCase
   test "gracefully handles the deletion of a non-existant content item" do
     request = stub_any_publishing_api_call_to_return_not_found
 
-    PublishingApiDiscardDraftWorker.new.perform(@edition.content_id, 'en')
+    PublishingApiDiscardDraftWorker.new.perform(@edition.content_id, "en")
 
     assert_requested request
   end

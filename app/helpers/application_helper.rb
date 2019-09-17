@@ -18,7 +18,7 @@ module ApplicationHelper
   end
 
   def meta_description_tag
-    tag :meta, name: 'description', content: @meta_description
+    tag :meta, name: "description", content: @meta_description
   end
 
   def page_class(css_class)
@@ -32,14 +32,14 @@ module ApplicationHelper
   end
 
   def api_link_tag(path)
-    tag :link, href: path, rel: 'alternate', type: Mime[:json]
+    tag :link, href: path, rel: "alternate", type: Mime[:json]
   end
 
   def format_in_paragraphs(string)
     safe_join(
       String(string)
         .split(/(?:\r?\n){2}/)
-        .map { |paragraph| content_tag(:p, paragraph) }
+        .map { |paragraph| content_tag(:p, paragraph) },
     )
   end
 
@@ -74,7 +74,7 @@ module ApplicationHelper
       }],
       ["Use discouraged", PublicationType.use_discouraged.map { |publication_type|
         [publication_type.singular_name, publication_type.id]
-      }]
+      }],
     ]
   end
 
@@ -82,7 +82,7 @@ module ApplicationHelper
     WorldwideOfficeType.by_grouping.map { |grouping, types|
       [
         grouping,
-        types.map { |t| [t.name, t.id] }
+        types.map { |t| [t.name, t.id] },
       ]
     }
   end
@@ -92,7 +92,7 @@ module ApplicationHelper
       ["", [""]],
       ["Common types", NewsArticleType.all.map { |type|
         [type.singular_name, type.id]
-      }]
+      }],
     ]
   end
 
@@ -101,7 +101,7 @@ module ApplicationHelper
       ["", [""]],
       ["Common types", SpeechType.primary.map { |type|
         [type.singular_name, type.id]
-      }]
+      }],
     ]
   end
 
@@ -110,7 +110,7 @@ module ApplicationHelper
   end
 
   def link_to_person(person)
-    PersonPresenter.new(person, self).link(class: 'person-link')
+    PersonPresenter.new(person, self).link(class: "person-link")
   end
 
   def image_for_person(person)
@@ -140,7 +140,7 @@ module ApplicationHelper
         tab_data.map { |tab|
           content_tag :li do
             if tab[:current_when]
-              link_to tab[:label], tab[:link_to], class: ('current' if tab[:current_when])
+              link_to tab[:label], tab[:link_to], class: ("current" if tab[:current_when])
             else
               link_to_with_current(tab[:label], tab[:link_to])
             end
@@ -160,7 +160,7 @@ module ApplicationHelper
   end
 
   def current_link_class(path_matcher)
-    request.path.match?(path_matcher) ? 'current' : ''
+    request.path.match?(path_matcher) ? "current" : ""
   end
 
   def render_datetime_microformat(object, method, &block)
@@ -192,7 +192,7 @@ module ApplicationHelper
   end
 
   def main_navigation_documents_class
-    document_paths = [publications_path, consultations_path, announcements_path, publications_path(publication_filter_option: 'consultations'), publications_path(publication_filter_option: 'statistics')]
+    document_paths = [publications_path, consultations_path, announcements_path, publications_path(publication_filter_option: "consultations"), publications_path(publication_filter_option: "statistics")]
     if document_paths.include? current_main_navigation_path(params)
       "current"
     else
@@ -203,9 +203,9 @@ module ApplicationHelper
   def current_main_navigation_path(parameters)
     case parameters[:controller]
     when "home"
-      if parameters[:action] == 'home'
+      if parameters[:action] == "home"
         root_path
-      elsif parameters[:action] == 'get_involved'
+      elsif parameters[:action] == "get_involved"
         get_involved_path
       else
         how_government_works_path
@@ -219,17 +219,17 @@ module ApplicationHelper
     when "statistics", "statistics_announcements"
       statistics_path
     when "publications", "statistical_data_sets"
-      if parameters[:publication_filter_option] == 'consultations'
-        publications_path(publication_filter_option: 'consultations')
-      elsif parameters[:publication_filter_option] == 'statistics' ||
-          parameters[:controller] == 'statistical_data_sets' ||
+      if parameters[:publication_filter_option] == "consultations"
+        publications_path(publication_filter_option: "consultations")
+      elsif parameters[:publication_filter_option] == "statistics" ||
+          parameters[:controller] == "statistical_data_sets" ||
           @document && @document.try(:statistics?)
-        publications_path(publication_filter_option: 'statistics')
+        publications_path(publication_filter_option: "statistics")
       else
         publications_path
       end
     when "consultations", "consultation_responses"
-      publications_path(publication_filter_option: 'consultations')
+      publications_path(publication_filter_option: "consultations")
     when "ministerial_roles"
       ministerial_roles_path
     when "organisations", "groups", "email_signup_information"
@@ -265,7 +265,7 @@ module ApplicationHelper
     if author
       link_to(author.name, admin_author_path(author), link_options)
     else
-      '-'
+      "-"
     end
   end
 
@@ -312,7 +312,7 @@ module ApplicationHelper
   end
 
   def unsorted_grouped_options_for_select(grouped_options, selected_key = nil, prompt = nil)
-    body = ''
+    body = ""
     body << content_tag(:option, prompt, { value: "" }, true) if prompt
 
     grouped_options.each do |group, options|

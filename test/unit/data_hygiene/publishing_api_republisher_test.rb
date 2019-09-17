@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class DataHygiene::PublishingApiRepublisherTest < ActiveSupport::TestCase
   setup do
@@ -13,7 +13,7 @@ class DataHygiene::PublishingApiRepublisherTest < ActiveSupport::TestCase
     expected_requests = [
       stub_publishing_api_put_content(presenter.content_id, presenter.content),
       stub_publishing_api_patch_links(presenter.content_id, links: presenter.links),
-      stub_publishing_api_publish(presenter.content_id, locale: 'en', update_type: nil)
+      stub_publishing_api_publish(presenter.content_id, locale: "en", update_type: nil),
     ]
 
     Sidekiq::Testing.inline! do

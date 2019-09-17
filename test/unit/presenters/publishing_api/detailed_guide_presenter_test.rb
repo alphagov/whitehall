@@ -1,5 +1,5 @@
 require "test_helper"
-require 'gds_api/test_helpers/publishing_api_v2'
+require "gds_api/test_helpers/publishing_api_v2"
 
 class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApiV2
@@ -14,7 +14,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
       :detailed_guide,
       title: "Some detailed guide",
       summary: "Some summary",
-      body: "Some content"
+      body: "Some content",
     )
 
     presented_item = present(detailed_guide)
@@ -29,7 +29,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
       :detailed_guide,
       title: "Some detailed guide",
       summary: "Some summary",
-      body: "Some content"
+      body: "Some content",
     )
     EditionPolicy.create(edition_id: detailed_guide.id, policy_content_id: "dc6d2e0e-8f5d-4c3f-aaea-c890e07d0cf8")
 
@@ -45,7 +45,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
       publishing_app: "whitehall",
       rendering_app: "government-frontend",
       routes: [
-        { path: public_path, type: "exact" }
+        { path: public_path, type: "exact" },
       ],
       redirects: [],
       update_type: "major",
@@ -55,13 +55,13 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
         tags: {
           browse_pages: [],
           topics: [],
-          policies: []
+          policies: [],
         },
         political: false,
         government: {
           title: government.name,
           slug: government.slug,
-          current: government.current?
+          current: government.current?,
         },
         related_mainstream_content: [],
         emphasised_organisations: detailed_guide.lead_organisations.map(&:content_id),
@@ -85,7 +85,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     assert_equal detailed_guide.document.content_id, presented_item.content_id
   end
 
-  test 'links hash includes topics and parent if set' do
+  test "links hash includes topics and parent if set" do
     edition = create(:detailed_guide)
     create(:specialist_sector, topic_content_id: "content_id_1", edition: edition, primary: true)
     create(:specialist_sector, topic_content_id: "content_id_2", edition: edition, primary: false)
@@ -96,10 +96,10 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     assert_equal links[:parent], %w(content_id_1)
   end
 
-  test 'DetailedGuide presents related mainstream in links and details' do
+  test "DetailedGuide presents related mainstream in links and details" do
     lookup_hash = {
       "/mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312",
-      "/another-mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6"
+      "/another-mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
     }
 
     publishing_api_has_lookups(lookup_hash)
@@ -121,9 +121,9 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     assert_equal %w[9dd9e077-ae45-45f6-ad9d-2a484e5ff312 9af50189-de1c-49af-a334-6b1d87b593a6].sort!, links[:related_mainstream_content].sort!
   end
 
-  test 'DetailedGuide presents related_mainstream with dodgy data' do
+  test "DetailedGuide presents related_mainstream with dodgy data" do
     lookup_hash = {
-      "/guidance/lorem" => "cd7fde45-5f79-4982-8939-cedc4bed161c"
+      "/guidance/lorem" => "cd7fde45-5f79-4982-8939-cedc4bed161c",
     }
     publishing_api_has_lookups(lookup_hash)
 
@@ -134,7 +134,7 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
       summary: "Some summary",
       body: "Some content",
       related_mainstream_content_title: "Lorem",
-      related_mainstream_content_url: "http://www.gov.uk/guidance/lorem?query=string"
+      related_mainstream_content_url: "http://www.gov.uk/guidance/lorem?query=string",
     )
 
     presented_item = present(detailed_guide)
@@ -144,14 +144,14 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     assert_equal expected_ids.sort, links[:related_mainstream_content].sort
   end
 
-  test 'DetailedGuide presents political information correctly' do
+  test "DetailedGuide presents political information correctly" do
     government = create(:government)
     detailed_guide = create(
       :published_detailed_guide,
       title: "Some detailed guide",
       summary: "Some summary",
       body: "Some content",
-      political: true
+      political: true,
     )
 
     presented_item = present(detailed_guide)
@@ -160,13 +160,13 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
     expected_government = {
       title: government.name,
       slug: government.slug,
-      current: government.current?
+      current: government.current?,
     }
     assert_equal details[:political], true
     assert_equal details[:government], expected_government
   end
 
-  test 'DetailedGuide presents related_guides correctly' do
+  test "DetailedGuide presents related_guides correctly" do
     create(:government)
     some_detailed_guide = create(:published_detailed_guide)
     detailed_guide = create(
@@ -174,31 +174,31 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
       title: "Some detailed guide",
       summary: "Some summary",
       body: "Some content",
-      related_editions: [some_detailed_guide]
+      related_editions: [some_detailed_guide],
     )
 
     presented_item = present(detailed_guide)
     related_guides = presented_item.links[:related_guides]
 
     expected_related_guides = [
-      some_detailed_guide.content_id
+      some_detailed_guide.content_id,
     ]
 
     assert_equal related_guides, expected_related_guides
   end
 
-  test 'DetailedGuide presents national_applicability correctly when some are specified' do
+  test "DetailedGuide presents national_applicability correctly when some are specified" do
     scotland_nation_inapplicability = create(
       :nation_inapplicability,
       nation: Nation.scotland,
-      alternative_url: "http://scotland.com"
+      alternative_url: "http://scotland.com",
     )
     create(:government)
     detailed_guide = create(
       :published_detailed_guide,
       nation_inapplicabilities: [
-        scotland_nation_inapplicability
-      ]
+        scotland_nation_inapplicability,
+      ],
     )
 
     presented_item = present(detailed_guide)
@@ -224,17 +224,17 @@ class PublishingApi::DetailedGuidePresenterTest < ActiveSupport::TestCase
       },
     }
 
-    assert_valid_against_schema(presented_item.content, 'detailed_guide')
+    assert_valid_against_schema(presented_item.content, "detailed_guide")
     assert_equal expected_national_applicability, details[:national_applicability]
   end
 
-  test 'DetailedGuide presents an image correctly' do
+  test "DetailedGuide presents an image correctly" do
     detailed_guide = create(
       :published_detailed_guide,
       title: "Some detailed guide",
       summary: "Some summary",
       body: "Some content",
-      logo_url: "http://www.example.com/foo.jpg"
+      logo_url: "http://www.example.com/foo.jpg",
     )
 
     presented_item = present(detailed_guide)

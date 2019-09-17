@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::DetailedGuidesControllerTest < ActionController::TestCase
   class NationalApplicabilityTest < ActionController::TestCase
@@ -8,7 +8,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
       login_as create(:writer, organisation: create(:organisation))
       stub_request(
         :get,
-        %r{\A#{Plek.find('publishing-api')}/v2/links}
+        %r{\A#{Plek.find('publishing-api')}/v2/links},
       ).to_return(body: { links: {} }.to_json)
       publishing_api_has_linkables([], document_type: "need")
     end

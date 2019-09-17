@@ -65,13 +65,13 @@ class ContactTest < ActiveSupport::TestCase
   end
 
   test "should return a country code" do
-    contact = build(:contact, country: build(:world_location, iso2: 'GB'))
-    assert_equal 'GB', contact.country_code
+    contact = build(:contact, country: build(:world_location, iso2: "GB"))
+    assert_equal "GB", contact.country_code
   end
 
   test "should return a country name" do
-    contact = build(:contact, country: build(:world_location, name: 'United Kingdom'))
-    assert_equal 'United Kingdom', contact.country_name
+    contact = build(:contact, country: build(:world_location, name: "United Kingdom"))
+    assert_equal "United Kingdom", contact.country_name
   end
 
   test "should allow creation of nested contact numbers" do
@@ -92,7 +92,7 @@ class ContactTest < ActiveSupport::TestCase
     assert contact.contact_numbers.empty?
   end
 
-  test 'removes itself from any home page lists when it is destroyed' do
+  test "removes itself from any home page lists when it is destroyed" do
     contact = create(:contact)
     list = create(:home_page_list)
     list.add_item(contact)

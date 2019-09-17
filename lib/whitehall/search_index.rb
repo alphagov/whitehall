@@ -18,23 +18,23 @@ module Whitehall
     end
 
     def self.delete(instance)
-      SearchIndexDeleteWorker.perform_async(instance.search_index['link'], instance.rummager_index)
+      SearchIndexDeleteWorker.perform_async(instance.search_index["link"], instance.rummager_index)
     end
 
     def self.for(type, options = {})
       path = {
         government: government_search_index_path,
-        detailed_guides: detailed_search_index_path
+        detailed_guides: detailed_search_index_path,
       }.fetch(type)
       indexer_class.new(rummager_host, path, { logger: Rails.logger }.merge(options))
     end
 
     def self.government_search_index_path
-      '/government'
+      "/government"
     end
 
     def self.detailed_search_index_path
-      '/detailed'
+      "/detailed"
     end
 
     def self.indexer_class
@@ -46,7 +46,7 @@ module Whitehall
     end
 
     def self.rummager_host
-      Plek.find('search')
+      Plek.find("search")
     end
   end
 

@@ -7,7 +7,7 @@ module DocumentFilterHelper
   def subtaxon_filter_options(selected_taxons = [], selected_subtaxons = [])
     filter_option_html(
       filter_options.for(:subtaxons, selected_taxons),
-      selected_subtaxons
+      selected_subtaxons,
     )
   end
 
@@ -69,10 +69,10 @@ module DocumentFilterHelper
             value: level_one_taxon.content_id,
             url: url_for(
               remove_filter_from_params(
-                'taxons',
-                level_one_taxon.content_id
-              )
-            )
+                "taxons",
+                level_one_taxon.content_id,
+              ),
+            ),
           }
         else
           filtered_child_taxons = level_one_taxon
@@ -87,10 +87,10 @@ module DocumentFilterHelper
               value: child_taxon.content_id,
               url: url_for(
                 remove_filter_from_params(
-                  'subtaxons',
-                  child_taxon.content_id
-                )
-              )
+                  "subtaxons",
+                  child_taxon.content_id,
+                ),
+              ),
             }
           end
         end
@@ -107,7 +107,7 @@ module DocumentFilterHelper
       {
         name: obj.name,
         url: url_for(remove_filter_from_params(type, obj.slug)),
-        value: obj.slug
+        value: obj.slug,
       }
     end
     merge_joining_option(results)
@@ -116,8 +116,8 @@ module DocumentFilterHelper
   def filter_results_keywords(keywords)
     if keywords.any?
       {
-        name: keywords.join(' '),
-        url: url_for(remove_filter_from_params('keywords'))
+        name: keywords.join(" "),
+        url: url_for(remove_filter_from_params("keywords")),
       }
     end
   end
@@ -125,7 +125,7 @@ module DocumentFilterHelper
 protected
 
   def merge_joining_option(results)
-    results.map.with_index { |obj, i| obj.merge(joining: (results.length - 1 == i ? '' : 'and')) }
+    results.map.with_index { |obj, i| obj.merge(joining: (results.length - 1 == i ? "" : "and")) }
   end
 
   def filter_options

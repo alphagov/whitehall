@@ -22,7 +22,7 @@ module PublishingApi
         {
           key => role_appointments
             .map(&:person)
-            .collect(&:content_id)
+            .collect(&:content_id),
         }
       end
 

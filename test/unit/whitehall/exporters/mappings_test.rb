@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-require 'test_helper'
+require "test_helper"
 
 module Whitehall
   class MappingsTest < ActiveSupport::TestCase
@@ -49,7 +49,7 @@ module Whitehall
 
     test "handles documents without an edition" do
       document = create(:document)
-      _source = create(:document_source, document: document, url: 'http://oldurl')
+      _source = create(:document_source, document: document, url: "http://oldurl")
       assert_nothing_raised do
         @exporter.export([])
       end
@@ -57,7 +57,7 @@ module Whitehall
 
     test "includes published publication with a Document Source" do
       publication = create(:published_publication)
-      _source = create(:document_source, document: publication.document, url: 'http://oldurl')
+      _source = create(:document_source, document: publication.document, url: "http://oldurl")
 
       assert_csv_contains <<-CSV.strip_heredoc
         http://oldurl,#{Whitehall.public_root}/government/publications/#{publication.slug},#{Whitehall.admin_root}/government/admin/publications/#{publication.id},published
@@ -66,7 +66,7 @@ module Whitehall
 
     test "prefers published editions to newer works-in-progress" do
       document = create(:document)
-      _source = create(:document_source, document: document, url: 'http://oldurl')
+      _source = create(:document_source, document: document, url: "http://oldurl")
       published = create(:published_publication, document: document)
       _draft = create(:draft_publication, document: document)
 
@@ -77,11 +77,11 @@ module Whitehall
 
     test "includes works-in-progress with a Document Source" do
       publications = {
-        'imported'  => publication_with_source(:imported),
-        'draft'     => publication_with_source(:draft),
-        'submitted' => publication_with_source(:submitted),
-        'rejected'  => publication_with_source(:rejected),
-        'scheduled' => publication_with_source(:scheduled),
+        "imported"  => publication_with_source(:imported),
+        "draft"     => publication_with_source(:draft),
+        "submitted" => publication_with_source(:submitted),
+        "rejected"  => publication_with_source(:rejected),
+        "scheduled" => publication_with_source(:scheduled),
       }
       publications.each do |state, publication|
         assert_csv_contains <<-CSV.strip_heredoc
@@ -123,8 +123,8 @@ module Whitehall
 
     test "includes a row per Document Source" do
       publication = create(:published_publication)
-      create(:document_source, document: publication.document, url: 'http://oldurl1')
-      create(:document_source, document: publication.document, url: 'http://oldurl2')
+      create(:document_source, document: publication.document, url: "http://oldurl1")
+      create(:document_source, document: publication.document, url: "http://oldurl2")
       assert_csv_contains <<-CSV.strip_heredoc
         http://oldurl1,#{Whitehall.public_root}/government/publications/#{publication.slug},#{Whitehall.admin_root}/government/admin/publications/#{publication.id},published
         http://oldurl2,#{Whitehall.public_root}/government/publications/#{publication.slug},#{Whitehall.admin_root}/government/admin/publications/#{publication.id},published
@@ -133,12 +133,12 @@ module Whitehall
 
     test "excludes document sources with fabricated or placeholder URLs" do
       publication = create(:published_publication)
-      create(:document_source, document: publication.document, url: 'http://oldurl1/fabricatedurl/foo')
-      create(:document_source, document: publication.document, url: 'http://oldurl2/placeholderunique/1')
-      create(:document_source, document: publication.document, url: 'http://oldurl3')
+      create(:document_source, document: publication.document, url: "http://oldurl1/fabricatedurl/foo")
+      create(:document_source, document: publication.document, url: "http://oldurl2/placeholderunique/1")
+      create(:document_source, document: publication.document, url: "http://oldurl3")
 
-      assert_csv_does_not_contain 'oldurl1'
-      assert_csv_does_not_contain 'oldurl2'
+      assert_csv_does_not_contain "oldurl1"
+      assert_csv_does_not_contain "oldurl2"
       assert_csv_contains <<-CSV.strip_heredoc
         http://oldurl3,#{Whitehall.public_root}/government/publications/#{publication.slug},#{Whitehall.admin_root}/government/admin/publications/#{publication.id},published
       CSV
@@ -146,7 +146,7 @@ module Whitehall
 
     test "attachment sources are included, without an admin URL" do
       attachment = create(:csv_attachment)
-      create(:attachment_source, url: 'http://oldurl', attachment: attachment)
+      create(:attachment_source, url: "http://oldurl", attachment: attachment)
       assert_csv_contains <<-CSV.strip_heredoc
         http://oldurl,#{Whitehall.public_root}#{attachment.url},"",published
       CSV
@@ -154,12 +154,12 @@ module Whitehall
 
     test "excludes attachment sources with fabricated or placeholder URLs" do
       attachment = create(:csv_attachment)
-      create(:attachment_source, url: 'http://oldurl1/fabricatedurl/foo', attachment: attachment)
-      create(:attachment_source, url: 'http://oldurl2/placeholderunique/1', attachment: attachment)
-      create(:attachment_source, url: 'http://oldurl3', attachment: attachment)
+      create(:attachment_source, url: "http://oldurl1/fabricatedurl/foo", attachment: attachment)
+      create(:attachment_source, url: "http://oldurl2/placeholderunique/1", attachment: attachment)
+      create(:attachment_source, url: "http://oldurl3", attachment: attachment)
 
-      assert_csv_does_not_contain 'oldurl1'
-      assert_csv_does_not_contain 'oldurl2'
+      assert_csv_does_not_contain "oldurl1"
+      assert_csv_does_not_contain "oldurl2"
       assert_csv_contains <<-CSV.strip_heredoc
         http://oldurl3,#{Whitehall.public_root}#{attachment.url},"",published
       CSV
@@ -176,8 +176,8 @@ module Whitehall
 
     test "maps localised sources to localised New URLs in addition to the the default mapping" do
       publication = create(:published_publication)
-      _source = create(:document_source, document: publication.document, url: 'http://oldurl/foo')
-      _localised_source = create(:document_source, document: publication.document, url: 'http://oldurl/foo.es', locale: 'es')
+      _source = create(:document_source, document: publication.document, url: "http://oldurl/foo")
+      _localised_source = create(:document_source, document: publication.document, url: "http://oldurl/foo.es", locale: "es")
 
       assert_csv_contains <<-CSV.strip_heredoc
         http://oldurl/foo,#{Whitehall.public_root}/government/publications/#{publication.slug},#{Whitehall.admin_root}/government/admin/publications/#{publication.id},published
@@ -187,11 +187,11 @@ module Whitehall
 
     test "an error exporting one document doesn't cause the whole export to fail" do
       problem_publication = create(:published_publication)
-      create(:document_source, document: problem_publication.document, url: 'http://oldurl/problem')
+      create(:document_source, document: problem_publication.document, url: "http://oldurl/problem")
       good_publication = create(:published_publication)
-      create(:document_source, document: good_publication.document, url: 'http://oldurl/good')
+      create(:document_source, document: good_publication.document, url: "http://oldurl/good")
 
-      @exporter.expects(:document_url).twice.raises('Error!').then.returns('http://example.com/slug')
+      @exporter.expects(:document_url).twice.raises("Error!").then.returns("http://example.com/slug")
 
       assert_csv_contains <<-CSV.strip_heredoc
         http://oldurl/good,http://example.com/slug,#{Whitehall.admin_root}/government/admin/publications/#{good_publication.id},published

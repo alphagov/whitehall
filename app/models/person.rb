@@ -8,21 +8,21 @@ class Person < ApplicationRecord
   has_many :role_appointments
   has_many :current_role_appointments,
            -> { where(RoleAppointment::CURRENT_CONDITION) },
-           class_name: 'RoleAppointment'
+           class_name: "RoleAppointment"
   has_many :previous_role_appointments,
            -> { where.not(RoleAppointment::CURRENT_CONDITION) },
-           class_name: 'RoleAppointment'
+           class_name: "RoleAppointment"
   has_many :speeches, through: :role_appointments
   has_many :news_articles, through: :role_appointments
 
   has_many :roles, through: :role_appointments
-  has_many :current_roles, class_name: 'Role', through: :current_role_appointments, source: :role
+  has_many :current_roles, class_name: "Role", through: :current_role_appointments, source: :role
 
-  has_many :ministerial_roles, class_name: 'MinisterialRole', through: :role_appointments, source: :role
-  has_many :current_ministerial_roles, class_name: 'MinisterialRole', through: :current_role_appointments, source: :role
+  has_many :ministerial_roles, class_name: "MinisterialRole", through: :role_appointments, source: :role
+  has_many :current_ministerial_roles, class_name: "MinisterialRole", through: :current_role_appointments, source: :role
 
-  has_many :board_member_roles, class_name: 'BoardMemberRole', through: :role_appointments, source: :role
-  has_many :current_board_member_roles, class_name: 'BoardMemberRole', through: :current_role_appointments, source: :role
+  has_many :board_member_roles, class_name: "BoardMemberRole", through: :role_appointments, source: :role
+  has_many :current_board_member_roles, class_name: "BoardMemberRole", through: :current_role_appointments, source: :role
 
   has_many :organisation_roles, through: :current_roles
   has_many :organisations, through: :organisation_roles
@@ -62,7 +62,7 @@ class Person < ApplicationRecord
     Whitehall.search_client.search(
       filter_people: [slug],
       filter_format: "policy",
-      order: "-public_timestamp"
+      order: "-public_timestamp",
     )["results"]
   end
 
@@ -93,7 +93,7 @@ class Person < ApplicationRecord
   def role_appointments_at(date)
     role_appointments.where([
       ":date >= started_at AND (:date <= ended_at OR ended_at IS NULL)",
-      { date: date }
+      { date: date },
     ])
   end
 
@@ -126,7 +126,7 @@ class Person < ApplicationRecord
   end
 
   def sort_key
-    [surname, forename].compact.join(' ').downcase
+    [surname, forename].compact.join(" ").downcase
   end
 
   def can_have_historical_accounts?
@@ -138,13 +138,13 @@ class Person < ApplicationRecord
     role_name = role.try(:name)
     organisation = role.organisations.first.try(:name) if role
 
-    [name, role_name, organisation].compact.join(' – ')
+    [name, role_name, organisation].compact.join(" \u2013 ")
   end
 
 private
 
   def name_as_words(*elements)
-    elements.select(&:present?).join(' ')
+    elements.select(&:present?).join(" ")
   end
 
   def image_changed?
@@ -153,7 +153,7 @@ private
 
   def slug_name
     prefix = forename.present? ? forename : title
-    [prefix, surname].join(' ')
+    [prefix, surname].join(" ")
   end
 
   def prevent_destruction_if_appointed

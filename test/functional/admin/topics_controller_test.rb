@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::TopicsControllerTest < ActionController::TestCase
   setup do
@@ -27,7 +27,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     get :show, params: { id: topic }
 
     assert_response :success
-    assert_select 'h1', topic.name
+    assert_select "h1", topic.name
   end
 
   view_test "GET :show as JSON lists the topic's classification policies" do
@@ -35,7 +35,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     get :show, params: { id: topic }, format: :json
 
     assert_response :success
-    assert json_response['classification_policies']
+    assert json_response["classification_policies"]
   end
 
   ### Describing :new ###
@@ -54,8 +54,8 @@ class Admin::TopicsControllerTest < ActionController::TestCase
 
     post :create, params: {
       topic: attributes.merge(
-        related_classification_ids: [first_topic.id]
-      )
+        related_classification_ids: [first_topic.id],
+      ),
     }
 
     assert_response :redirect
@@ -90,7 +90,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
 
     put :update, params: { id: topic, topic: {
       name: "new-name",
-      description: "new-description"
+      description: "new-description",
     } }
 
     assert_response :redirect
@@ -99,10 +99,10 @@ class Admin::TopicsControllerTest < ActionController::TestCase
   end
 
   view_test "PUT :update with bad data renders errors" do
-    topic = create(:topic, name: 'topic')
+    topic = create(:topic, name: "topic")
     put :update, params: { id: topic.id, topic: { name: "Blah", description: "" } }
 
-    assert_equal 'topic', topic.reload.name
+    assert_equal "topic", topic.reload.name
     assert_select ".form-errors"
   end
 
@@ -112,7 +112,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     association = topic.classification_memberships.first
 
     put :update, params: { id: topic.id, topic: { name: "Blah", description: "Blah", classification_memberships_attributes: {
-      "0" => { id: association.id, ordering: "4" }
+      "0" => { id: association.id, ordering: "4" },
     } } }
 
     assert_equal 4, association.reload.ordering

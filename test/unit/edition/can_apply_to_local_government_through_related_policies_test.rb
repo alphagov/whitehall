@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Edition::CanApplyToLocalGovernmentThroughRelatedPoliciesTest < ActiveSupport::TestCase
   class EditionWhichCanBeApplied < Edition
@@ -10,9 +10,9 @@ class Edition::CanApplyToLocalGovernmentThroughRelatedPoliciesTest < ActiveSuppo
 
   def valid_edition_attributes
     {
-      title:   'edition-title',
-      body:    'edition-body',
-      summary: 'edition-summary',
+      title:   "edition-title",
+      body:    "edition-body",
+      summary: "edition-summary",
       creator: build(:user),
       previously_published: false,
     }

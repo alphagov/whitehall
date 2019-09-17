@@ -22,7 +22,7 @@ module DataHygiene
       logger.info "Queuing #{documents.count} #{edition_class} instances for republishing to the Publishing API"
       documents.find_each do |document|
         Whitehall::PublishingApi.republish_document_async(document, bulk: true)
-        logger << '.'
+        logger << "."
         @queued += 1
       end
       logger.info("Queued #{queued} instances for republishing")

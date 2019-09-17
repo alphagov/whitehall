@@ -3,16 +3,16 @@ class ParallelTestRunner < TestQueue::Runner::MiniTest
     super
 
     # Use separate mysql database for each fork.
-    ActiveRecord::Base.configurations['test']['database'] << database_number_for(number)
+    ActiveRecord::Base.configurations["test"]["database"] << database_number_for(number)
     ActiveRecord::Base.establish_connection(:test)
 
     # Allow the app to instrospect the current test environment number
-    ENV['TEST_ENV_NUMBER'] = number.to_s
+    ENV["TEST_ENV_NUMBER"] = number.to_s
   end
 
   # We are relying on the parallel test databases created and used by parallel_test, which are
   # whitehall_test, whitehall_test2 ,whitehall_test3, whitehall_test4, etc.
   def database_number_for(number)
-    number == 1 ? '' : number.to_s
+    number == 1 ? "" : number.to_s
   end
 end

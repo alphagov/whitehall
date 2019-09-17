@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PlaceholderControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller

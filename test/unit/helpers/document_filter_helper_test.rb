@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class DocumentFilterHelperTest < ActionView::TestCase
   include ApplicationHelper
@@ -10,18 +10,18 @@ class DocumentFilterHelperTest < ActionView::TestCase
     assert_includes result, '<option selected="selected" value="all">All topics</option>'
     assert_includes(
       result,
-      "<option value=\"#{root_taxon['content_id']}\">#{root_taxon['title']}</option>"
+      "<option value=\"#{root_taxon['content_id']}\">#{root_taxon['title']}</option>",
     )
     assert_includes(
       result,
-      "<option value=\"#{root_taxon['content_id']}\">#{root_taxon['title']}</option>"
+      "<option value=\"#{root_taxon['content_id']}\">#{root_taxon['title']}</option>",
     )
   end
 
   test "#announcement_type_filter_options makes option tags with subtype name as text and slug as value" do
     expected = Whitehall::AnnouncementFilterOption.all.map { |o| [o.label, o.slug] }.unshift(["All announcement types", "all"])
     option_set = Nokogiri::HTML::DocumentFragment.parse(announcement_type_filter_options)
-    actual = option_set.css('option').map { |o| [o.text, o['value']] }
+    actual = option_set.css("option").map { |o| [o.text, o["value"]] }
 
     assert_same_elements expected, actual
   end
@@ -29,67 +29,67 @@ class DocumentFilterHelperTest < ActionView::TestCase
   test "#publication_type_filter_options makes option tags with subtype name as text and slug as value" do
     expected = Whitehall::PublicationFilterOption.all.map { |o| [o.label, o.slug] }.unshift(["All publication types", "all"])
     option_set = Nokogiri::HTML::DocumentFragment.parse(publication_type_filter_options)
-    actual = option_set.css('option').map { |o| [o.text, o['value']] }
+    actual = option_set.css("option").map { |o| [o.text, o["value"]] }
 
     assert_same_elements expected, actual
   end
 
   test "remove_filter_from_params removes filter from params" do
-    stubs(:params).returns(first: 'one', second: %w[two three])
+    stubs(:params).returns(first: "one", second: %w[two three])
 
     assert_equal ({ first: nil, second: %w[two three] }), remove_filter_from_params(:first)
-    assert_equal ({ first: 'one', second: %w[three] }), remove_filter_from_params(:second, 'two')
+    assert_equal ({ first: "one", second: %w[three] }), remove_filter_from_params(:second, "two")
   end
 
   test "#filter_taxon_selections gets objects ready for mustache" do
     stubs(:params).returns(
-      controller: 'publications',
-      action: 'index',
-      "taxons" => [grandparent_taxon['content_id']],
-      "subtaxons" => [parent_taxon['content_id']]
+      controller: "publications",
+      action: "index",
+      "taxons" => [grandparent_taxon["content_id"]],
+      "subtaxons" => [parent_taxon["content_id"]],
     )
     redis_cache_has_taxons([root_taxon, grandparent_taxon, parent_taxon])
 
     expected = [
       {
-        name: parent_taxon['title'],
-        value: parent_taxon['content_id'],
-        url: publications_path(taxons: [grandparent_taxon['content_id']]),
-        joining: ''
-      }
+        name: parent_taxon["title"],
+        value: parent_taxon["content_id"],
+        url: publications_path(taxons: [grandparent_taxon["content_id"]]),
+        joining: "",
+      },
     ]
     actual = filter_taxon_selections(
-      [grandparent_taxon['content_id']],
-      [parent_taxon['content_id']]
+      [grandparent_taxon["content_id"]],
+      [parent_taxon["content_id"]],
     )
 
     assert_same_elements expected, actual
   end
 
   test "filter_results_selections gets objects ready for mustache" do
-    topic = build(:topic, slug: 'my-slug')
-    stubs(:params).returns(controller: 'announcements', action: 'index', "topics" => %w[my-slug three])
+    topic = build(:topic, slug: "my-slug")
+    stubs(:params).returns(controller: "announcements", action: "index", "topics" => %w[my-slug three])
 
-    assert_equal [{ name: topic.name, value: topic.slug, url: announcements_path(topics: %w[three]), joining: '' }], filter_results_selections([topic], 'topics')
+    assert_equal [{ name: topic.name, value: topic.slug, url: announcements_path(topics: %w[three]), joining: "" }], filter_results_selections([topic], "topics")
   end
 
   test "filter_results_selections handles when params aren't in the expected format" do
-    topic = build(:topic, slug: 'my-slug')
-    stubs(:params).returns(controller: 'announcements', action: 'index', "topics" => 'my-slug')
+    topic = build(:topic, slug: "my-slug")
+    stubs(:params).returns(controller: "announcements", action: "index", "topics" => "my-slug")
 
-    assert_equal [{ name: topic.name, value: topic.slug, url: announcements_path, joining: '' }], filter_results_selections([topic], 'topics')
+    assert_equal [{ name: topic.name, value: topic.slug, url: announcements_path, joining: "" }], filter_results_selections([topic], "topics")
   end
 
   test "filter_results_keywords gets objects ready for mustache" do
-    stubs(:params).returns(controller: 'announcements', action: 'index', "keywords" => 'one two')
+    stubs(:params).returns(controller: "announcements", action: "index", "keywords" => "one two")
 
-    assert_equal({ name: 'one two', url: announcements_path }, filter_results_keywords(%w{one two}))
+    assert_equal({ name: "one two", url: announcements_path }, filter_results_keywords(%w{one two}))
   end
 
   test "#organisation_filter_options makes option tags with organsation name as text and slug as value" do
     org = create(:ministerial_department, :with_published_edition, name: "Some organisation")
     option_set = Nokogiri::HTML::DocumentFragment.parse(organisation_filter_options)
-    option_set.at_css('optgroup option').tap { |option|
+    option_set.at_css("optgroup option").tap { |option|
       assert_equal org.name, option.text
       assert_equal org.slug, option["value"]
     }
@@ -97,9 +97,9 @@ class DocumentFilterHelperTest < ActionView::TestCase
 
   test "#organisation_filter_options makes an 'All departments' option tag" do
     option_set = Nokogiri::HTML::DocumentFragment.parse(organisation_filter_options)
-    option_set.at_css('option').tap { |option|
-      assert_equal 'All departments', option.text
-      assert_equal 'all', option["value"]
+    option_set.at_css("option").tap { |option|
+      assert_equal "All departments", option.text
+      assert_equal "all", option["value"]
     }
   end
 
@@ -119,7 +119,7 @@ class DocumentFilterHelperTest < ActionView::TestCase
     ]
 
     actual_options = option_set
-                       .css('optgroup')
+                       .css("optgroup")
                        .map { |optgroup| [optgroup["label"], optgroup.css("option").map(&:text)] }
 
     assert_equal expected_options, actual_options
@@ -130,19 +130,19 @@ class DocumentFilterHelperTest < ActionView::TestCase
 
     option_set.css("option")[0].tap { |option|
       assert_equal "All documents", option.text
-      assert_equal "all", option['value']
+      assert_equal "all", option["value"]
     }
     option_set.css("option")[1].tap { |option|
       assert_equal "Command or act papers", option.text
-      assert_equal "command_and_act_papers", option['value']
+      assert_equal "command_and_act_papers", option["value"]
     }
     option_set.css("option")[2].tap { |option|
       assert_equal "Command papers only", option.text
-      assert_equal "command_papers_only", option['value']
+      assert_equal "command_papers_only", option["value"]
     }
     option_set.css("option")[3].tap { |option|
       assert_equal "Act papers only", option.text
-      assert_equal "act_papers_only", option['value']
+      assert_equal "act_papers_only", option["value"]
     }
   end
 

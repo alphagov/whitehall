@@ -5,7 +5,7 @@ class PublicFacingControllerTest < ActionController::TestCase
     enable_request_formats json: :json, js_or_atom: %i[js atom]
 
     def test
-      render html: 'ok'
+      render html: "ok"
     end
 
     def locale
@@ -14,16 +14,16 @@ class PublicFacingControllerTest < ActionController::TestCase
 
     def json
       respond_to do |format|
-        format.html { render html: 'html' }
-        format.json { render json: '{}' }
+        format.html { render html: "html" }
+        format.json { render json: "{}" }
       end
     end
 
     def js_or_atom
       respond_to do |format|
-        format.html  { render html: 'html' }
-        format.js    { render js: 'javascript' }
-        format.atom  { render xml: 'atom' }
+        format.html  { render html: "html" }
+        format.js    { render js: "javascript" }
+        format.atom  { render xml: "atom" }
       end
     end
 
@@ -32,11 +32,11 @@ class PublicFacingControllerTest < ActionController::TestCase
     end
 
     def api_bad_gateway
-      raise GdsApi::HTTPBadGateway.new('Bad Gateway')
+      raise GdsApi::HTTPBadGateway.new("Bad Gateway")
     end
 
     def api_unprocessable_entity
-      raise GdsApi::HTTPUnprocessableEntity.new('Unprocessable entity')
+      raise GdsApi::HTTPUnprocessableEntity.new("Unprocessable entity")
     end
   end
 
@@ -70,7 +70,7 @@ class PublicFacingControllerTest < ActionController::TestCase
 
     mime_types.each do |type|
       with_routing_for_test_controller do
-        @request.env['HTTP_ACCEPT'] = type
+        @request.env["HTTP_ACCEPT"] = type
         get :test
         assert_equal 200, response.status, "mime type #{type} should be acceptable"
         assert_equal Mime[:html], response.content_type
@@ -93,12 +93,12 @@ class PublicFacingControllerTest < ActionController::TestCase
       get :json
       assert_response :success
       assert_equal Mime[:html].to_s, response.content_type
-      assert_equal 'html', response.body
+      assert_equal "html", response.body
 
       get :json, format: :json
       assert_response :success
       assert_equal Mime[:json].to_s, response.content_type
-      assert_equal '{}', response.body
+      assert_equal "{}", response.body
 
       get :json, format: :atom
       assert_response :not_acceptable
@@ -110,17 +110,17 @@ class PublicFacingControllerTest < ActionController::TestCase
       get :js_or_atom
       assert_response :success
       assert_equal Mime[:html].to_s, response.content_type
-      assert_equal 'html', response.body
+      assert_equal "html", response.body
 
       get :js_or_atom, xhr: true
       assert_response :success
       assert_equal Mime[:js].to_s, response.content_type
-      assert_equal 'javascript', response.body
+      assert_equal "javascript", response.body
 
       get :js_or_atom, format: :atom
       assert_response :success
       assert_equal Mime[:atom].to_s, response.content_type
-      assert_equal 'atom', response.body
+      assert_equal "atom", response.body
 
       get :js_or_atom, format: :json
       assert_response :not_acceptable
@@ -138,22 +138,22 @@ class PublicFacingControllerTest < ActionController::TestCase
     with_routing_for_test_controller do
       I18n.default_locale = :dr
       get :locale
-      assert_equal 'dr', response.body
+      assert_equal "dr", response.body
     end
   end
 
   test "all public facing requests with a locale should use the given locale" do
     with_routing_for_test_controller do
       I18n.default_locale = :tr
-      get :locale, params: { locale: 'fr' }
-      assert_equal 'fr', response.body
+      get :locale, params: { locale: "fr" }
+      assert_equal "fr", response.body
     end
   end
 
   test "all public facing requests with a locale should reset locale back to its original value after completion" do
     with_routing_for_test_controller do
       I18n.locale = :dr
-      get :locale, params: { locale: 'fr' }
+      get :locale, params: { locale: "fr" }
       assert_equal :dr, I18n.locale
     end
   end
@@ -182,7 +182,7 @@ class PublicFacingControllerTest < ActionController::TestCase
   test "public facing controllers explicitly set X-FRAME-OPTIONS header" do
     with_routing_for_test_controller do
       get :test
-      assert response.headers["X-Frame-Options"] == 'ALLOWALL'
+      assert response.headers["X-Frame-Options"] == "ALLOWALL"
     end
   end
 

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PublishingApiPresentersTest < ActiveSupport::TestCase
   test ".presenter_for returns a presenter for a case study" do

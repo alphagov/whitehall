@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::FinancialReportsControllerTest < ActionController::TestCase
   setup do
@@ -10,8 +10,8 @@ class Admin::FinancialReportsControllerTest < ActionController::TestCase
   view_test "GET :index lists the organisation's reports" do
     report = create(:financial_report, funding: 20000)
     get :index, params: { organisation_id: report.organisation }
-    assert_select 'td', text: report.year.to_s
-    assert_select 'td', /20,000/
+    assert_select "td", text: report.year.to_s
+    assert_select "td", /20,000/
   end
 
   test "POST to :create with valid data creates a new financial_report" do
@@ -41,9 +41,9 @@ class Admin::FinancialReportsControllerTest < ActionController::TestCase
     financial_report = create(:financial_report)
     organisation = financial_report.organisation
     put :update, params: { organisation_id: organisation, id: financial_report, financial_report: {
-      year: 'not-a-year', spending: 0, funding: 0
+      year: "not-a-year", spending: 0, funding: 0
     } }
-    assert_select 'div.alert'
+    assert_select "div.alert"
     assert_response :bad_request
   end
 
@@ -51,7 +51,7 @@ class Admin::FinancialReportsControllerTest < ActionController::TestCase
     financial_report = create(:financial_report, year: 2013, spending: 0, funding: 0)
     organisation = financial_report.organisation
 
-    assert_difference 'organisation.financial_reports.count', -1 do
+    assert_difference "organisation.financial_reports.count", -1 do
       delete :destroy, params: { organisation_id: organisation, id: financial_report }
     end
 

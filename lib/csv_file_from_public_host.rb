@@ -3,7 +3,7 @@ class CsvFileFromPublicHost
   class FileEncodingError < ::EncodingError
   end
 
-  MAXIMUM_RANGE_BYTES = '300000'.freeze
+  MAXIMUM_RANGE_BYTES = "300000".freeze
 
   def self.csv_response(path, env: ENV)
     connection = Faraday.new(url: Plek.new.public_asset_host)
@@ -16,7 +16,7 @@ class CsvFileFromPublicHost
     end
 
     connection.get(path) do |req|
-      req.headers['Range'] = "bytes=0-#{MAXIMUM_RANGE_BYTES}"
+      req.headers["Range"] = "bytes=0-#{MAXIMUM_RANGE_BYTES}"
     end
   end
 
@@ -39,8 +39,8 @@ class CsvFileFromPublicHost
       body
     end
 
-    temp_fn = 'csv-file-from-public-host'
-    temp_dir = File.join(Rails.root, 'tmp')
+    temp_fn = "csv-file-from-public-host"
+    temp_dir = File.join(Rails.root, "tmp")
 
     Tempfile.create(temp_fn, temp_dir, encoding: csv_file.encoding) do |tmp_file|
       tmp_file.write(csv_file)
@@ -53,20 +53,20 @@ private
 
   def set_encoding!(body)
     if utf_8_encoding?(body)
-      body.force_encoding('utf-8')
+      body.force_encoding("utf-8")
     elsif windows_1252_encoding?(body)
-      body.force_encoding('windows-1252')
+      body.force_encoding("windows-1252")
     else
-      raise FileEncodingError, 'File encoding not recognised'
+      raise FileEncodingError, "File encoding not recognised"
     end
   end
 
   def utf_8_encoding?(body)
-    body.force_encoding('utf-8').valid_encoding?
+    body.force_encoding("utf-8").valid_encoding?
   end
 
   def windows_1252_encoding?(body)
-    body.force_encoding('windows-1252')
+    body.force_encoding("windows-1252")
     # This regexp checks for the presence of ASCII control characters, which
     # would indicate we have the wrong encoding.
     body.valid_encoding? && !body.match(/[\x00-\x08\x0b\x0c\x0e-\x1f]/)

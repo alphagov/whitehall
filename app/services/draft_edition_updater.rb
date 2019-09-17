@@ -16,6 +16,6 @@ class DraftEditionUpdater < EditionService
   end
 
   def verb
-    'update_draft'
+    "update_draft"
   end
 end

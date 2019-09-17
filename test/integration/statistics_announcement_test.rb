@@ -6,7 +6,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   # To avoid clashes between v1 and v2 helpers, we've reimplemented them here,
   # as `publish_intents` only exist in v1 and there's no plan to reimplement them
   # as their functionality will ultimately be included in `publishing-api`.
-  PUBLISHING_API_V1_ENDPOINT = Plek.current.find('publishing-api')
+  PUBLISHING_API_V1_ENDPOINT = Plek.current.find("publishing-api")
 
   def assert_publishing_api_put_intent(base_path, attributes = {}, times = 1)
     intent_url = PUBLISHING_API_V1_ENDPOINT + "/publish-intent" + base_path
@@ -30,12 +30,12 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
       statistics_announcement.save!
 
       expected = presenter.content.merge(
-        public_updated_at: Time.zone.now.as_json
+        public_updated_at: Time.zone.now.as_json,
       )
 
       expected_intent = PublishingApi::PublishIntentPresenter.new(
         statistics_announcement.base_path,
-        statistics_announcement.statistics_announcement_dates.last.release_date
+        statistics_announcement.statistics_announcement_dates.last.release_date,
       )
 
       assert_publishing_api_put_content(statistics_announcement.content_id,
@@ -44,7 +44,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
                                     { update_type: nil, locale: "en" }, 1)
       assert_publishing_api_put_intent(
         statistics_announcement.base_path,
-        expected_intent.as_json
+        expected_intent.as_json,
       )
     end
   end
@@ -58,7 +58,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
           type: "gone",
           locale: "en",
           discard_drafts: true,
-        }
+        },
       )
 
       statistics_announcement.destroy
@@ -74,12 +74,12 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
 
       presenter = PublishingApiPresenters.presenter_for(statistics_announcement)
       expected = presenter.content.merge(
-        public_updated_at: Time.zone.now.as_json
+        public_updated_at: Time.zone.now.as_json,
       )
 
       expected_intent = PublishingApi::PublishIntentPresenter.new(
         statistics_announcement.base_path,
-        statistics_announcement.statistics_announcement_dates.last.release_date
+        statistics_announcement.statistics_announcement_dates.last.release_date,
       )
 
       assert_publishing_api_put_content(statistics_announcement.content_id,
@@ -89,7 +89,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
       assert_publishing_api_put_intent(
         statistics_announcement.base_path,
         expected_intent.as_json,
-        2
+        2,
       )
     end
   end
@@ -157,13 +157,13 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
         details: {
           display_date: date_change.display_date,
           state: "confirmed",
-          format_sub_type: "official"
-        }
+          format_sub_type: "official",
+        },
       }
 
       expected_intent = PublishingApi::PublishIntentPresenter.new(
         statistics_announcement.base_path,
-        statistics_announcement.statistics_announcement_dates.last.release_date
+        statistics_announcement.statistics_announcement_dates.last.release_date,
       )
 
       assert_publishing_api_put_content(statistics_announcement.content_id,
@@ -173,7 +173,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
       assert_publishing_api_put_intent(
         statistics_announcement.base_path,
         expected_intent.as_json,
-        2
+        2,
       )
     end
   end
@@ -196,7 +196,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
 
     statistics_announcement.update_attributes!(
       publishing_state: "unpublished",
-      redirect_url: "https://www.test.gov.uk/government/something-else"
+      redirect_url: "https://www.test.gov.uk/government/something-else",
     )
   end
 end

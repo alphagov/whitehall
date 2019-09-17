@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 require "gds_api/test_helpers/link_checker_api"
 
 class Admin::LinkCheckReportsControllerTest < ActionController::TestCase

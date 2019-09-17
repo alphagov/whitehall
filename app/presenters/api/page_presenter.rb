@@ -8,15 +8,15 @@ Api::PagePresenter = Struct.new(:page, :context) do
       total: page.total_count,
       pages: page.total_pages,
       page_size: page.limit_value,
-      start_index: start_index
+      start_index: start_index,
     }.reject { |_k, v| v.nil? }
   end
 
   def links
     links = []
-    links << [previous_page_url, { 'rel' => 'previous' }] if previous_page_url
-    links << [next_page_url, { 'rel' => 'next' }] if next_page_url
-    links << [url(page: page.current_page), { 'rel' => 'self' }]
+    links << [previous_page_url, { "rel" => "previous" }] if previous_page_url
+    links << [next_page_url, { "rel" => "next" }] if next_page_url
+    links << [url(page: page.current_page), { "rel" => "self" }]
     links
   end
 
@@ -47,7 +47,7 @@ private
       :world_location_id,
       :page,
     ).merge(
-      override_params.merge(only_path: false)
+      override_params.merge(only_path: false),
     ))
   end
 end

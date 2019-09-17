@@ -12,7 +12,7 @@ module DevelopmentModeStubs
           scope = scope.where(
             "statistics_announcements.title LIKE ? OR statistics_announcements.summary LIKE ?",
             "%#{params[:keywords]}%",
-            "%#{params[:keywords]}%"
+            "%#{params[:keywords]}%",
           )
         end
 
@@ -28,7 +28,7 @@ module DevelopmentModeStubs
           scope = scope.where("statistics_announcement_dates.release_date > ?", params[:release_timestamp][:from]) if params[:release_timestamp][:from].present?
           scope = scope.where("statistics_announcement_dates.release_date < ?", params[:release_timestamp][:to]) if params[:release_timestamp][:to].present?
         end
-        if params[:statistics_announcement_state] == 'cancelled'
+        if params[:statistics_announcement_state] == "cancelled"
           scope = scope.where("cancelled_at IS NOT NULL")
         end
 
@@ -37,8 +37,8 @@ module DevelopmentModeStubs
         scope = scope.limit(params[:per_page]).offset((params[:page].to_i - 1) * params[:per_page].to_i)
 
         {
-          'total' => count,
-          'results' => scope.map { |announcement| announcement_to_rummager_hash(announcement) }
+          "total" => count,
+          "results" => scope.map { |announcement| announcement_to_rummager_hash(announcement) },
         }
       end
 
@@ -73,7 +73,7 @@ module DevelopmentModeStubs
             "previous_display_date" => announcement.previous_display_date,
             "cancellation_reason" => announcement.cancellation_reason,
             "cancellation_date" => announcement.cancelled_at,
-          }
+          },
         }
       end
     end

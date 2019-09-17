@@ -129,7 +129,7 @@ class CorporateInformationPage < Edition
   end
 
   def about_page?
-    corporate_information_page_type.try(:slug) == 'about'
+    corporate_information_page_type.try(:slug) == "about"
   end
 
   def rendering_app

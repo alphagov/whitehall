@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class StatisticsAnnouncementDateChangeTest < ActiveSupport::TestCase
   test "a change to a confirmed release date requires a change note" do
@@ -35,7 +35,7 @@ class StatisticsAnnouncementDateChangeTest < ActiveSupport::TestCase
     announcement = create(:statistics_announcement)
     new_date = announcement.build_statistics_announcement_date_change(
       release_date: (announcement.release_date + 1.year),
-      change_note: 'Not required so will be ignored'
+      change_note: "Not required so will be ignored",
     )
 
     assert new_date.save
@@ -47,7 +47,7 @@ class StatisticsAnnouncementDateChangeTest < ActiveSupport::TestCase
     new_date = announcement
                  .build_statistics_announcement_date_change(
                    precision: StatisticsAnnouncementDate::PRECISION[:exact],
-                   release_date: announcement.release_date + 2.months
+                   release_date: announcement.release_date + 2.months,
                  )
 
     assert new_date.save

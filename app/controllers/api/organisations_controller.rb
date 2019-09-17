@@ -15,7 +15,7 @@ class Api::OrganisationsController < PublicFacingController
                             :translations,
                             :superseding_organisations,
                             :superseded_organisations).order(:id),
-      view_context
+      view_context,
     )
   end
 

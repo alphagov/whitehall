@@ -1,5 +1,5 @@
-require 'test_helper'
-require 'gds_api/test_helpers/publishing_api_v2'
+require "test_helper"
+require "gds_api/test_helpers/publishing_api_v2"
 
 class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApiV2
@@ -21,7 +21,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
       .expects(:save_draft)
       .with(draft_edition, "republish", false)
 
-    invocation_order = sequence('invocation_order')
+    invocation_order = sequence("invocation_order")
     PublishingApiHtmlAttachmentsWorker
       .any_instance
       .expects(:perform)
@@ -63,12 +63,12 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
     with_locale(:es) { edition.title = "spanish-title" }
     edition.save!
 
-    presenter = PublishingApiPresenters.presenter_for(edition, update_type: 'republish')
+    presenter = PublishingApiPresenters.presenter_for(edition, update_type: "republish")
     requests = [
       stub_publishing_api_put_content(document.content_id, with_locale(:en) { presenter.content }),
-      stub_publishing_api_publish(document.content_id, locale: 'en', update_type: nil),
+      stub_publishing_api_publish(document.content_id, locale: "en", update_type: nil),
       stub_publishing_api_put_content(document.content_id, with_locale(:es) { presenter.content }),
-      stub_publishing_api_publish(document.content_id, locale: 'es', update_type: nil)
+      stub_publishing_api_publish(document.content_id, locale: "es", update_type: nil),
     ]
     # Have to separate this as we need to manually assert it was done twice. If
     # we split the pushing of links into a separate job, then we would only push
@@ -108,7 +108,7 @@ class PublishingApiDocumentRepublishingWorkerTest < ActiveSupport::TestCase
     PublishingApiUnpublishingWorker.expects(:new).returns(unpublishing_worker = mock)
     unpublishing_worker.expects(:perform).with(published_edition.unpublishing.id, false)
 
-    invocation_order = sequence('invocation_order')
+    invocation_order = sequence("invocation_order")
     PublishingApiHtmlAttachmentsWorker
       .any_instance
       .expects(:perform)

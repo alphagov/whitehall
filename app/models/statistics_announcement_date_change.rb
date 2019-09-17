@@ -1,5 +1,5 @@
 class StatisticsAnnouncementDateChange < StatisticsAnnouncementDate
-  validates :change_note, presence: { if: :changing_a_confirmed_date?, message: 'required for this date change' }
+  validates :change_note, presence: { if: :changing_a_confirmed_date?, message: "required for this date change" }
   before_save :ignore_change_note, unless: :changing_a_confirmed_date?
 
   attr_accessor :current_release_date
@@ -16,7 +16,7 @@ private
 
   def change_note_only_present_for_major_changes
     if change_note.present? && !major_date_change?
-      errors[:change_note] << 'only required for significant changes to the release date'
+      errors[:change_note] << "only required for significant changes to the release date"
     end
   end
 end

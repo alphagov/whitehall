@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::CabinetMinistersHelperTest < ActionView::TestCase
   test "#organisation_ordering_fields returns input for org" do

@@ -16,7 +16,7 @@ class WorldLocation < ApplicationRecord
   has_many :offsite_links, as: :parent
 
   has_many :featured_links, -> { order(:created_at) }, as: :linkable, dependent: :destroy
-  accepts_nested_attributes_for :featured_links, reject_if: ->(attributes) { attributes['url'].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :featured_links, reject_if: ->(attributes) { attributes["url"].blank? }, allow_destroy: true
 
   include Featurable
 
@@ -26,7 +26,7 @@ class WorldLocation < ApplicationRecord
   after_update :send_news_page_to_publishing_api_and_rummager
 
   include AnalyticsIdentifierPopulator
-  self.analytics_prefix = 'WL'
+  self.analytics_prefix = "WL"
 
   include TranslatableModel
   translates :name, :title, :mission_statement
@@ -36,7 +36,7 @@ class WorldLocation < ApplicationRecord
              link: :search_link,
              description: :search_description,
              only: :active_international_delegation,
-             format: 'world_location',
+             format: "world_location",
              slug: :slug
   include PublishesToPublishingApi
 
@@ -50,7 +50,7 @@ class WorldLocation < ApplicationRecord
         self.class.name,
         id,
         nil,
-        "en"
+        "en",
       )
     end
   end
@@ -72,7 +72,7 @@ class WorldLocation < ApplicationRecord
     remove_from_search_index if self.saved_change_to_active? && !self.active
   end
 
-  scope :ordered_by_name, -> { with_translations(I18n.default_locale).order('world_location_translations.name') }
+  scope :ordered_by_name, -> { with_translations(I18n.default_locale).order("world_location_translations.name") }
 
   def self.active
     where(active: true)
@@ -87,7 +87,7 @@ class WorldLocation < ApplicationRecord
                                             published.
                                             where(type: Announcement.sti_names).
                                             where("edition_world_locations.world_location_id = world_locations.id").
-                                            select('*').to_sql
+                                            select("*").to_sql
 
     where("exists (#{announcement_conditions})")
   end
@@ -97,7 +97,7 @@ class WorldLocation < ApplicationRecord
                                             published.
                                             where(type: Publicationesque.sti_names).
                                             where("edition_world_locations.world_location_id = world_locations.id").
-                                            select('*').to_sql
+                                            select("*").to_sql
 
     where("exists (#{publication_conditions})")
   end

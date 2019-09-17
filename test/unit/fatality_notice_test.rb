@@ -14,7 +14,7 @@ class FatalityNoticeTest < ActiveSupport::TestCase
     assert build(:fatality_notice, operational_field: operational_field).valid?
   end
 
-  test 'is not valid without a roll call introduction' do
+  test "is not valid without a roll call introduction" do
     refute build(:fatality_notice, roll_call_introduction: nil).valid?
   end
 
@@ -23,17 +23,17 @@ class FatalityNoticeTest < ActiveSupport::TestCase
   end
 
   test "casualties are persisted across new editions" do
-    notice = create(:published_fatality_notice, operational_field: create(:operational_field),)
+    notice = create(:published_fatality_notice, operational_field: create(:operational_field))
     _casualty = create(:fatality_notice_casualty, fatality_notice: notice)
     assert_equal 1, notice.fatality_notice_casualties.length
     new_notice = notice.create_draft(build(:user))
     assert_equal 1, new_notice.fatality_notice_casualties.length
   end
 
-  test 'search_format_types tags the fatality notice as a fatality-notice and announcement' do
+  test "search_format_types tags the fatality notice as a fatality-notice and announcement" do
     fatality_notice = build(:fatality_notice)
-    assert fatality_notice.search_format_types.include?('fatality-notice')
-    assert fatality_notice.search_format_types.include?('announcement')
+    assert fatality_notice.search_format_types.include?("fatality-notice")
+    assert fatality_notice.search_format_types.include?("announcement")
   end
 
   test "search_index includes slug of operational field" do

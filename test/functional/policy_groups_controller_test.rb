@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PolicyGroupsControllerTest < ActionController::TestCase
   test "should redirect to the slug URL if a policy id is provided" do

@@ -4,7 +4,7 @@ module CorporateInformationPagesHelper
            locals: {
               organisation: organisation,
               link_to_organisation: true,
-              object_for_translation: corporate_information_page
+              object_for_translation: corporate_information_page,
            })
   end
 end

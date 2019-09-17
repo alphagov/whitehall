@@ -47,7 +47,7 @@ private
     assert_match(
       /<% page_title /,
       File.read(template),
-      "could not locate setting of page title in #{template}"
+      "could not locate setting of page title in #{template}",
     )
   end
 
@@ -55,7 +55,7 @@ private
     assert_match(
       /<% page_title |<%= render partial: "page_title"/,
       File.read(template),
-      "could not locate setting of page title in #{template}"
+      "could not locate setting of page title in #{template}",
     )
   end
 end

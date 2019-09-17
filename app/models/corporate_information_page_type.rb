@@ -13,16 +13,16 @@ class CorporateInformationPageType
     # attribute: Publication and WorldLocation for example define this to have
     # different subtype kinds. Our use of _type is slightly different and all
     # types have the same kind, ie CIP.
-    'corporate_information_page'
+    "corporate_information_page"
   end
 
   def title(organisation)
-    translation_key = slug.tr('-', '_')
+    translation_key = slug.tr("-", "_")
     I18n.t("corporate_information_page.type.title.#{translation_key}", organisation_name: organisation_name(organisation))
   end
 
   def title_lang(organisation)
-    translation_key = slug.tr('-', '_')
+    translation_key = slug.tr("-", "_")
     t_lang("corporate_information_page.type.title.#{translation_key}", organisation_name: organisation_name(organisation))
   end
 
@@ -74,28 +74,28 @@ class CorporateInformationPageType
     id: 13, slug: "petitions-and-campaigns", menu_heading: :our_information,
   )
   Research = create(
-    id: 14, slug: "research", menu_heading: :our_information
+    id: 14, slug: "research", menu_heading: :our_information,
   )
   OfficeAccessAndOpeningTimes = create(
-    id: 15, slug: "access-and-opening", menu_heading: :our_information
+    id: 15, slug: "access-and-opening", menu_heading: :our_information,
   )
   StaffNewsAndInformation = create(
-    id: 16, slug: "staff-update", menu_heading: :other
+    id: 16, slug: "staff-update", menu_heading: :other,
   )
   MediaEnquiries = create(
-    id: 17, slug: 'media-enquiries', menu_heading: :our_information
+    id: 17, slug: "media-enquiries", menu_heading: :our_information,
   )
   SocialMediaUse = create(
-    id: 18, slug: 'social-media-use', menu_heading: :other
+    id: 18, slug: "social-media-use", menu_heading: :other,
   )
   AboutOurServices = create(
-    id: 19, slug: 'about-our-services', menu_heading: :other
+    id: 19, slug: "about-our-services", menu_heading: :other,
   )
   AboutUs = create(
-    id: 20, slug: 'about', menu_heading: :other
+    id: 20, slug: "about", menu_heading: :other,
   )
   AccessibleDocumentsPolicy = create(
-    id: 21, slug: 'accessible-documents-policy', menu_heading: :our_information
+    id: 21, slug: "accessible-documents-policy", menu_heading: :our_information,
   )
 
 private

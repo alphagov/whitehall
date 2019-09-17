@@ -55,7 +55,7 @@ private
 
   def locale_is_valid
     unless I18n.available_locales.include?(primary_locale.intern)
-      errors.add(:primary_locale, 'is not valid')
+      errors.add(:primary_locale, "is not valid")
     end
   end
 end

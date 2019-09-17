@@ -30,14 +30,14 @@ class FeatureTest < ActiveSupport::TestCase
     assert_same_elements [current, ended], Feature.all
   end
 
-  test '#end! sets the ended_at timestamp and saves the model' do
+  test "#end! sets the ended_at timestamp and saves the model" do
     feature = create(:feature, ended_at: nil)
 
     assert feature.end!
     assert_equal Time.zone.now, feature.reload.ended_at
   end
 
-  test 'should raise an exception when attempting to feature a locked document' do
+  test "should raise an exception when attempting to feature a locked document" do
     assert_raises LockedDocumentConcern::LockedDocumentError, "Cannot perform this operation on a locked document" do
       create(:feature, document: create(:document, locked: true))
     end

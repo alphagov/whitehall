@@ -1,7 +1,7 @@
 module TaxonomyHelper
   def taxon(content_id, title)
     ::Taxonomy::Taxon.from_taxon_hash(
-      build(:taxon_hash, content_id: content_id, title: title)
+      build(:taxon_hash, content_id: content_id, title: title),
     )
   end
 
@@ -14,7 +14,7 @@ module TaxonomyHelper
   end
 
   def different_root_taxon_content_id
-    'money'
+    "money"
   end
 
   def parent_taxon_content_id
@@ -96,7 +96,7 @@ module TaxonomyHelper
     end
 
     document = store.delete(search_link, index_name)
-    store.add([document.merge('part_of_taxonomy_tree' => taxon_ids)], index_name)
+    store.add([document.merge("part_of_taxonomy_tree" => taxon_ids)], index_name)
   end
 
 
@@ -150,33 +150,33 @@ private
 
   def taxon_with_parents
     FactoryBot.build(:taxon_hash,
-                     title: 'Student finance',
-                     base_path: '/education/funding/student-finance',
-                     content_id: 'grandchild-with-parent',
+                     title: "Student finance",
+                     base_path: "/education/funding/student-finance",
+                     content_id: "grandchild-with-parent",
                      parents: [parent_with_root_parent])
   end
 
   def taxon_with_same_root
     FactoryBot.build(:taxon_hash,
-                     title: 'Another thing',
-                     base_path: '/education/another-thing',
-                     content_id: 'another-thing',
+                     title: "Another thing",
+                     base_path: "/education/another-thing",
+                     content_id: "another-thing",
                      parents: [root_taxon])
   end
 
   def taxon_with_different_root
     FactoryBot.build(:taxon_hash,
-                     title: 'Personal tax',
-                     base_path: '/money/personal-tax',
-                     content_id: 'personal-tax-1',
+                     title: "Personal tax",
+                     base_path: "/money/personal-tax",
+                     content_id: "personal-tax-1",
                      parents: [different_root_taxon])
   end
 
   def parent_with_root_parent
     FactoryBot.build(:taxon_hash,
-                     title: 'Finance',
-                     base_path: '/education/funding/',
-                     content_id: 'parent-with-root',
+                     title: "Finance",
+                     base_path: "/education/funding/",
+                     content_id: "parent-with-root",
                      parents: [root_taxon])
   end
 

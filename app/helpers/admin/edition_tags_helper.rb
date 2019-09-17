@@ -11,7 +11,7 @@ module Admin::EditionTagsHelper
       id: taxon.content_id,
       "data-taxon-name" => taxon.name,
       "data-parent-content-id" => taxon.parent_node.try(:content_id),
-      "data-ancestors": taxon.breadcrumb_trail.map(&:name).join('|')
+      "data-ancestors": taxon.breadcrumb_trail.map(&:name).join("|"),
     )
   end
 end

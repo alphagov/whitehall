@@ -25,19 +25,19 @@ class Admin::EditionsController < Admin::BaseController
 
   def enforce_permissions!
     case action_name
-    when 'index', 'topics'
+    when "index", "topics"
       enforce_permission!(:see, edition_class || Edition)
-    when 'show', 'show_locked'
+    when "show", "show_locked"
       enforce_permission!(:see, @edition)
-    when 'new'
+    when "new"
       enforce_permission!(:create, edition_class || Edition)
-    when 'create'
+    when "create"
       enforce_permission!(:create, @edition)
-    when 'edit', 'update', 'revise', 'diff'
+    when "edit", "update", "revise", "diff"
       enforce_permission!(:update, @edition)
-    when 'destroy'
+    when "destroy"
       enforce_permission!(:delete, @edition)
-    when 'export', 'confirm_export'
+    when "export", "confirm_export"
       enforce_permission!(:export, edition_class || Edition)
     else
       raise Whitehall::Authority::Errors::InvalidAction.new(action_name)
@@ -48,7 +48,7 @@ class Admin::EditionsController < Admin::BaseController
     if filter && filter.valid?
       session[:document_filters] = params_filters
       if request.xhr?
-        render partial: 'search_results'
+        render partial: "search_results"
       else
         render :index
       end
@@ -313,7 +313,7 @@ private
   end
 
   def params_filters_with_default_state
-    params_filters.reverse_merge('state' => 'active')
+    params_filters.reverse_merge("state" => "active")
   end
 
   def filter
@@ -360,7 +360,7 @@ private
   end
 
   def redirect_to_controller_for_type
-    if params[:controller] == 'admin/editions'
+    if params[:controller] == "admin/editions"
       redirect_to admin_edition_path(@edition)
     end
   end

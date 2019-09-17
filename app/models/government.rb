@@ -16,7 +16,7 @@ class Government < ApplicationRecord
   def self.on_date(date)
     return if date.to_date > Time.zone.today
 
-    where('start_date <= ?', date).order(start_date: :asc).last
+    where("start_date <= ?", date).order(start_date: :asc).last
   end
 
   def current?

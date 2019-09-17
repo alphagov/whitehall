@@ -1,11 +1,11 @@
-require 'test_helper'
+require "test_helper"
 
 class PublishingApi::OperationalFieldPresenterTest < ActiveSupport::TestCase
   setup do
     @operational_field = create(
       :operational_field,
       name: "Operational Field name",
-      description: "Operational Field description"
+      description: "Operational Field description",
     )
 
     @presented_operational_field = PublishingApi::OperationalFieldPresenter.new(@operational_field)
@@ -33,11 +33,11 @@ class PublishingApi::OperationalFieldPresenterTest < ActiveSupport::TestCase
   end
 
   test "it presents the publishing_app as whitehall" do
-    assert_equal 'whitehall', @presented_content[:publishing_app]
+    assert_equal "whitehall", @presented_content[:publishing_app]
   end
 
   test "it presents the rendering_app as whitehall-frontend" do
-    assert_equal 'whitehall-frontend', @presented_content[:rendering_app]
+    assert_equal "whitehall-frontend", @presented_content[:rendering_app]
   end
 
   test "it presents the schema_name as placeholder" do

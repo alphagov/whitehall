@@ -18,15 +18,15 @@ module Whitehall::DocumentFilter
     end
 
     def search_government_name
-      @doc['government_name']
+      @doc["government_name"]
     end
 
     def historic?
-      @doc['is_historic']
+      @doc["is_historic"]
     end
 
     def public_timestamp
-      @doc['public_timestamp'].nil? ? Time.zone.now : Time.zone.parse(@doc['public_timestamp'])
+      @doc["public_timestamp"].nil? ? Time.zone.now : Time.zone.parse(@doc["public_timestamp"])
     end
 
     def part_of_published_collection?
@@ -34,19 +34,19 @@ module Whitehall::DocumentFilter
     end
 
     def organisations
-      @doc.fetch('organisations', []).map { |organisation| fetch_from_cache(:organisation, organisation.fetch('slug', nil)) }.compact
+      @doc.fetch("organisations", []).map { |organisation| fetch_from_cache(:organisation, organisation.fetch("slug", nil)) }.compact
     end
 
     def topics
-      @doc.fetch('topics', []).map { |topic| fetch_from_cache(:topic, topic.fetch('slug', nil)) }.compact
+      @doc.fetch("topics", []).map { |topic| fetch_from_cache(:topic, topic.fetch("slug", nil)) }.compact
     end
 
     def published_document_collections
-      @doc.fetch('document_collections', []).map { |document_collection| fetch_from_cache(:document_collection, document_collection.fetch('slug', nil)) }.compact
+      @doc.fetch("document_collections", []).map { |document_collection| fetch_from_cache(:document_collection, document_collection.fetch("slug", nil)) }.compact
     end
 
     def operational_field
-      fetch_from_cache(:operational_field, @doc['operational_field'])
+      fetch_from_cache(:operational_field, @doc["operational_field"])
     end
 
   private

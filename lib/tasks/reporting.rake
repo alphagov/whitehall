@@ -1,4 +1,4 @@
-require 'ruby-progressbar'
+require "ruby-progressbar"
 
 namespace :reporting do
   def opts_from_environment(*option_keys)
@@ -26,7 +26,7 @@ namespace :reporting do
 
   desc "A report of collection statistics by organisation as CSV"
   task collections_report: :environment do
-    CollectionDataReporter.new(ENV.fetch('OUTPUT_DIR', './tmp')).report
+    CollectionDataReporter.new(ENV.fetch("OUTPUT_DIR", "./tmp")).report
   end
 
   desc "A report of PDF attachments counts by organisation as CSV. Takes many hours to run."
@@ -41,8 +41,8 @@ namespace :reporting do
     date_range = Date.parse(options[:start_date])...Date.parse(options[:end_date])
     months = date_range.select { |d| d.day == 1 }.map { |m| "#{m.year}-#{m.month.to_s.rjust(2, '0')}" }
 
-    csv = CSV.open("organisation_publishing_by_month-#{options[:start_date]}-#{options[:end_date]}.csv", 'w')
-    csv << ([''] + months.map { |m| [m, m] }.flatten)
+    csv = CSV.open("organisation_publishing_by_month-#{options[:start_date]}-#{options[:end_date]}.csv", "w")
+    csv << ([""] + months.map { |m| [m, m] }.flatten)
     csv << (%w[Organisation] + months.size.times.map { |_| %w{Published Updates} }.flatten)
 
     first_editions = Edition.
@@ -61,7 +61,7 @@ namespace :reporting do
         updated_at: date_range,
         edition_organisations: { lead: 1 },
         state: %w{published superseded},
-        organisation_translations: { locale: 'en' }
+        organisation_translations: { locale: "en" },
       ).
       pluck(*EditionRecord.members).
       map { |r| EditionRecord.new(*r).tap { |er| er.name.strip! } } # One organisation has a leading space
@@ -98,8 +98,8 @@ namespace :reporting do
   task organisation_documents: :environment do
     options = opts_from_environment(:organisation_slug)
 
-    CSV.open("#{options[:organisation_slug]}-documents.csv", 'w') do |csv|
-      csv << ['Content ID', 'Path', 'Title', 'Format', 'First Published', 'Last Updated']
+    CSV.open("#{options[:organisation_slug]}-documents.csv", "w") do |csv|
+      csv << ["Content ID", "Path", "Title", "Format", "First Published", "Last Updated"]
 
       # So we have the organisation association for all edition types
       Edition.include(Edition::Organisations)
@@ -112,7 +112,7 @@ namespace :reporting do
         includes(:document, :translations).
         where(
           edition_organisations: { lead: 1, organisation_id: org_id },
-          state: %w{published}
+          state: %w{published},
         )
 
       progress_bar = ProgressBar.create(format: "%e [%b>%i] [%c/%C]", total: scope.count)
@@ -125,7 +125,7 @@ namespace :reporting do
           edition.title,
           edition.class.name.underscore.humanize,
           first_published.iso8601,
-          edition.public_timestamp.iso8601
+          edition.public_timestamp.iso8601,
         ]
         progress_bar.increment
       end

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::GenericEditionsController::RevisingDocumentsTest < ActionController::TestCase
   include TaxonomyHelper

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class DraftEditionUpdaterTest < ActiveSupport::TestCase
   test "#perform! calls notify! without modifying the edition" do

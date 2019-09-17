@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class WorkerBaseTest < ActiveSupport::TestCase
   def self.worker_has_run!; end
@@ -20,19 +20,19 @@ class WorkerBaseTest < ActiveSupport::TestCase
   test ".perform_async_in_queue runs the job in the specified queue" do
     example_arg = stub("example arg")
     WorkerBase.expects(:client_push).with(
-      'class' => WorkerBaseTest::MyWorker,
-      'args' => [example_arg],
-      'queue' => 'test_queue'
+      "class" => WorkerBaseTest::MyWorker,
+      "args" => [example_arg],
+      "queue" => "test_queue",
     )
-    MyWorker.perform_async_in_queue('test_queue', example_arg)
+    MyWorker.perform_async_in_queue("test_queue", example_arg)
   end
 
   test ".perform_async_in_queue uses default queue if queue is nil" do
     example_arg = stub("example arg")
     WorkerBase.expects(:client_push).with(
-      'class' => WorkerBaseTest::MyWorker,
-      'args' => [example_arg],
-      'queue' => 'my-test-queue'
+      "class" => WorkerBaseTest::MyWorker,
+      "args" => [example_arg],
+      "queue" => "my-test-queue",
     )
     MyWorker.perform_async_in_queue(nil, example_arg)
   end

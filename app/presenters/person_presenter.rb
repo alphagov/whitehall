@@ -31,7 +31,7 @@ class PersonPresenter < Whitehall::Decorators::Decorator
       count: 10,
       order: "-public_timestamp",
       reject_content_purpose_supergroup: "other",
-      fields: %w[title link content_store_document_type public_timestamp]
+      fields: %w[title link content_store_document_type public_timestamp],
     )["results"]
 
     search_results.map do |item|
@@ -48,9 +48,9 @@ class PersonPresenter < Whitehall::Decorators::Decorator
       {
         link: {
           text: item["title"],
-          path: item["link"]
+          path: item["link"],
         },
-        metadata: metadata
+        metadata: metadata,
       }
     end
   end

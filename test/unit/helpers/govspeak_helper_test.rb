@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-require 'test_helper'
+require "test_helper"
 
 class GovspeakHelperTest < ActionView::TestCase
   test "should not alter urls to other sites" do
@@ -84,13 +84,13 @@ class GovspeakHelperTest < ActionView::TestCase
         header: Govspeak::Header.new("Heading 2a", 2, "heading-2a"),
         children: [
           Govspeak::Header.new("Heading 3a", 3, "heading-3a"),
-          Govspeak::Header.new("Heading 3b", 3, "heading-3b")
-        ]
+          Govspeak::Header.new("Heading 3b", 3, "heading-3b"),
+        ],
       },
       {
         header: Govspeak::Header.new("Heading 2b", 2, "heading-2b"),
-        children: []
-      }
+        children: [],
+      },
     ], headers
   end
 
@@ -108,7 +108,7 @@ class GovspeakHelperTest < ActionView::TestCase
     attachment = build(
       :html_attachment,
       body: "## 1. First\n\n## 2. Second\n\n### 2.1 Sub",
-      manually_numbered_headings: true
+      manually_numbered_headings: true,
     )
     expected = <<-HTML
       <ol class=\"unnumbered\">
@@ -130,7 +130,7 @@ class GovspeakHelperTest < ActionView::TestCase
     attachment = build(
       :html_attachment,
       body: "## First\n{:#overridden-first}\n\n## Second\n{:#overridden-second}\n\n## Third\n{:#overridden-third}",
-      manually_numbered_headings: true
+      manually_numbered_headings: true,
     )
     expected = <<-HTML
       <ol class=\"unnumbered\">
@@ -162,7 +162,7 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   test "should return an empty string if nil edition" do
-    assert_equal '', govspeak_edition_to_html(nil)
+    assert_equal "", govspeak_edition_to_html(nil)
   end
 
   test "should optionally not wrap output in a govspeak class" do
@@ -224,7 +224,7 @@ class GovspeakHelperTest < ActionView::TestCase
     text = "#heading\n\n!@1\n\n!@2"
     document = build(:published_detailed_guide, :with_file_attachment, body: text, attachments: [
       attachment_1 = build(:file_attachment, id: 1),
-      attachment_2 = build(:file_attachment, id: 2)
+      attachment_2 = build(:file_attachment, id: 2),
     ])
     html = govspeak_edition_to_html(document)
     assert_select_within_html html, "#attachment_#{attachment_1.id}"
@@ -235,7 +235,7 @@ class GovspeakHelperTest < ActionView::TestCase
     text = "#Heading\n\nText about my [InlineAttachment:2] and [InlineAttachment:1]."
     document = build(:published_detailed_guide, :with_file_attachment, body: text, attachments: [
       attachment_1 = build(:file_attachment, id: 1),
-      attachment_2 = build(:file_attachment, id: 2)
+      attachment_2 = build(:file_attachment, id: 2),
     ])
     html = govspeak_edition_to_html(document)
     assert_select_within_html html, "#attachment_#{attachment_1.id}"
@@ -275,13 +275,13 @@ class GovspeakHelperTest < ActionView::TestCase
   test "should add class to last paragraph of blockquote" do
     input = "\n> firstline\n>\n> lastline\n"
     output = '<div class="govspeak"> <blockquote> <p>firstline</p> <p class="last-child">lastline</p> </blockquote></div>'
-    assert_equivalent_html output, govspeak_to_html(input).gsub(/\s+/, ' ')
+    assert_equivalent_html output, govspeak_to_html(input).gsub(/\s+/, " ")
   end
 
   test "adds numbers to h2 headings" do
     input = "# main\n\n## first\n\n## second"
     output = '<div class="govspeak"><h1 id="main">main</h1> <h2 id="first"> <span class="number">1. </span>first</h2> <h2 id="second"> <span class="number">2. </span>second</h2></div>'
-    assert_equivalent_html output, govspeak_to_html(input, [], heading_numbering: :auto).gsub(/\s+/, ' ')
+    assert_equivalent_html output, govspeak_to_html(input, [], heading_numbering: :auto).gsub(/\s+/, " ")
   end
 
   test "adds sub-numbers to h3 tags" do
@@ -291,7 +291,7 @@ class GovspeakHelperTest < ActionView::TestCase
     expected_output_1_2 = '<h3 id="first-point-two"> <span class="number">1.2 </span>first point two</h3>'
     expected_output_2 = '<h2 id="second"> <span class="number">2. </span>second</h2>'
     expected_output_2_1 = '<h3 id="second-point-one"> <span class="number">2.1 </span>second point one</h3>'
-    actual_output = govspeak_to_html(input, [], heading_numbering: :auto).gsub(/\s+/, ' ')
+    actual_output = govspeak_to_html(input, [], heading_numbering: :auto).gsub(/\s+/, " ")
     assert_match %r(#{expected_output_1}), actual_output
     assert_match %r(#{expected_output_1_1}), actual_output
     assert_match %r(#{expected_output_1_2}), actual_output
@@ -302,58 +302,58 @@ class GovspeakHelperTest < ActionView::TestCase
   test "adds manual numbering to heading tags" do
     input = "## 1. Main\n\n## 2. Second\n\n### Sub heading without a number\n\n## 42.12 Out of sequence"
     expected_output = '<div class="govspeak"><h2 id="main"> <span class="number">1. </span> Main</h2> <h2 id="second"> <span class="number">2. </span> Second</h2> <h3 id="sub-heading-without-a-number">Sub heading without a number</h3> <h2 id="out-of-sequence"> <span class="number">42.12 </span> Out of sequence</h2></div>'
-    assert_equivalent_html expected_output, govspeak_to_html(input, [], heading_numbering: :manual).gsub(/\s+/, ' ')
+    assert_equivalent_html expected_output, govspeak_to_html(input, [], heading_numbering: :manual).gsub(/\s+/, " ")
   end
 
   test "leaves heading numbers not occuring at the start of the heading text alone when using manual heading numbering" do
     input = "## Number 8"
     result = Nokogiri::HTML::DocumentFragment.parse(govspeak_to_html(input, [], heading_numbering: :manual))
-    assert_equal "Number 8", result.css('h2').first.text
+    assert_equal "Number 8", result.css("h2").first.text
   end
 
   test "should not corrupt character encoding of numbered headings" do
-    input = '# café'
+    input = "# caf\u00E9"
     actual_output = govspeak_to_html(input, [], heading_numbering: :auto)
-    assert actual_output.include?('café</h1>')
+    assert actual_output.include?("caf\u00E9</h1>")
   end
 
-  test 'converts [Contact:<id>] into a rendering of contacts/_contact for the Contact with id = <id>' do
+  test "converts [Contact:<id>] into a rendering of contacts/_contact for the Contact with id = <id>" do
     contact = build(:contact)
-    Contact.stubs(:find_by).with(id: '1').returns(contact)
-    input = '[Contact:1]'
+    Contact.stubs(:find_by).with(id: "1").returns(contact)
+    input = "[Contact:1]"
     output = govspeak_to_html(input)
-    contact_html = render('contacts/contact', contact: contact, heading_tag: 'h3')
+    contact_html = render("contacts/contact", contact: contact, heading_tag: "h3")
     assert_equivalent_html "<div class=\"govspeak\">#{contact_html}</div>", output
   end
 
-  test 'converts [Contact:<id>] into a rendering of contacts/_contact for the Contact with id = <id> with defined header level' do
+  test "converts [Contact:<id>] into a rendering of contacts/_contact for the Contact with id = <id> with defined header level" do
     contact = build(:contact)
-    Contact.stubs(:find_by).with(id: '1').returns(contact)
-    input = '[Contact:1]'
-    output = govspeak_to_html(input, [], contact_heading_tag: 'h4')
-    contact_html = render('contacts/contact', contact: contact, heading_tag: 'h4')
+    Contact.stubs(:find_by).with(id: "1").returns(contact)
+    input = "[Contact:1]"
+    output = govspeak_to_html(input, [], contact_heading_tag: "h4")
+    contact_html = render("contacts/contact", contact: contact, heading_tag: "h4")
     assert_equivalent_html "<div class=\"govspeak\">#{contact_html}</div>", output
   end
 
-  test 'silently converts [Contact:<id>] into nothing if there is no Contact with id = <id>' do
-    Contact.stubs(:find_by).with(id: '1').returns(nil)
-    input = '[Contact:1]'
+  test "silently converts [Contact:<id>] into nothing if there is no Contact with id = <id>" do
+    Contact.stubs(:find_by).with(id: "1").returns(nil)
+    input = "[Contact:1]"
     output = govspeak_to_html(input)
     assert_equivalent_html "<div class=\"govspeak\"></div>", output
   end
 
-  test 'will use the html version of the contact partial, even if the view context is for a different format' do
+  test "will use the html version of the contact partial, even if the view context is for a different format" do
     contact = build(:contact)
-    Contact.stubs(:find_by).with(id: '1').returns(contact)
-    input = '[Contact:1]'
-    contact_html = render('contacts/contact', contact: contact, heading_tag: 'h3')
+    Contact.stubs(:find_by).with(id: "1").returns(contact)
+    input = "[Contact:1]"
+    contact_html = render("contacts/contact", contact: contact, heading_tag: "h3")
     @controller.lookup_context.formats = %w[atom]
     assert_nothing_raised do
       assert_equivalent_html "<div class=\"govspeak\">#{contact_html}</div>", govspeak_to_html(input)
     end
   end
 
-  test 'will add a barchart class to a marked table' do
+  test "will add a barchart class to a marked table" do
     input = <<~INPUT
       |col|
       |---|
@@ -364,7 +364,7 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, "table.js-barchart-table"
   end
 
-  test 'will add a stacked, compact, negative barchart class to a marked table' do
+  test "will add a stacked, compact, negative barchart class to a marked table" do
     input = <<~INPUT
       |col|
       |---|
@@ -375,7 +375,7 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, "table.mc-stacked.js-barchart-table.mc-negative.compact"
   end
 
-  test 'will make a marked table sortable' do
+  test "will make a marked table sortable" do
     input = <<~INPUT
       |col|
       |---|
@@ -386,7 +386,7 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, "table.sortable"
   end
 
-  test 'will make a marked table sortable and a barchart' do
+  test "will make a marked table sortable and a barchart" do
     input = <<~INPUT
       |col|
       |---|
@@ -407,20 +407,20 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html(html, "img[src='#{path}']")
   end
 
-  test 'will create bespoke fractions' do
+  test "will create bespoke fractions" do
     input = "Some text [Fraction:1/72] and some text"
     html = govspeak_to_html(input)
-    assert_select_within_html html, "span.fraction > sup", text: '1'
-    assert_select_within_html html, "span.fraction > sub", text: '72'
+    assert_select_within_html html, "span.fraction > sup", text: "1"
+    assert_select_within_html html, "span.fraction > sub", text: "72"
   end
 
-  test 'will create fractions using images for a known set' do
+  test "will create fractions using images for a known set" do
     input = "Some text [Fraction:1/4] and some text"
     html = govspeak_to_html(input)
     assert_select_within_html html, "span.fraction > img[alt='1/4']"
   end
 
-  test 'will create algebraic and trigonometric fractions using images for a known set' do
+  test "will create algebraic and trigonometric fractions using images for a known set" do
     input = "Some text [Fraction:c/sinC] and some text"
     html = govspeak_to_html(input)
     assert_select_within_html html, "span.fraction > img[alt='c/sinC']"
@@ -434,11 +434,11 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, "span.fraction > img[alt='1/x']"
   end
 
-  test 'govspeak_with_attachments_and_alt_format_information' do
+  test "govspeak_with_attachments_and_alt_format_information" do
     body = "#Heading\n\n!@1\n\n##Subheading"
     document = build(:published_detailed_guide, :with_file_attachment, body: body)
     attachments = document.attachments
-    html = govspeak_with_attachments_to_html(body, attachments, 'batman@wayne.technology')
-    assert html.include? '>batman@wayne.technology</a>'
+    html = govspeak_with_attachments_to_html(body, attachments, "batman@wayne.technology")
+    assert html.include? ">batman@wayne.technology</a>"
   end
 end

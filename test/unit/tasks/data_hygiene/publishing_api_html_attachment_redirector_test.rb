@@ -5,7 +5,7 @@ class PublishingApiHtmlAttachmentRedirectorTest < ActiveSupport::TestCase
 
   let!(:document)               { create(:document) }
   let!(:attachment)             {
-    create(:html_attachment, locale: 'en', content_id: SecureRandom.uuid)
+    create(:html_attachment, locale: "en", content_id: SecureRandom.uuid)
   }
   let!(:superseded_edition)     { create(:superseded_edition) }
   let!(:edition)                {
@@ -13,7 +13,7 @@ class PublishingApiHtmlAttachmentRedirectorTest < ActiveSupport::TestCase
       :unpublished_edition,
       state: "withdrawn",
       document: document,
-      attachments: [attachment]
+      attachments: [attachment],
     )
   }
   let!(:redirection)            { "www.example.com/attachment_path" }
@@ -23,7 +23,7 @@ class PublishingApiHtmlAttachmentRedirectorTest < ActiveSupport::TestCase
     DataHygiene::PublishingApiHtmlAttachmentRedirector.call(
       queried_document_id,
       redirection,
-      dry_run: dry_run
+      dry_run: dry_run,
     )
   end
 

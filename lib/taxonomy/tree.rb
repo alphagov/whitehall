@@ -24,8 +24,8 @@ module Taxonomy
     end
 
     def child_nodes(item_hash)
-      children = item_hash.dig('links', 'child_taxons') || []
-      children.sort_by { |hsh| hsh.fetch('title') }
+      children = item_hash.dig("links", "child_taxons") || []
+      children.sort_by { |hsh| hsh.fetch("title") }
     end
   end
 end

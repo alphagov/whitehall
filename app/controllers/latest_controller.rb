@@ -11,11 +11,11 @@ private
 
   def subject
     case subject_param
-    when 'departments'
+    when "departments"
       Organisation.with_translations(I18n.locale).find(subject_id)
-    when 'topical_events'
+    when "topical_events"
       TopicalEvent.find(subject_id)
-    when 'world_locations'
+    when "world_locations"
       WorldLocation.with_translations(I18n.locale).find(subject_id)
     end
   end

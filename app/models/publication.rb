@@ -134,7 +134,7 @@ class Publication < Publicationesque
     super.merge(
       has_official_document: has_official_document?,
       has_command_paper: has_command_paper?,
-      has_act_paper: has_act_paper?
+      has_act_paper: has_act_paper?,
     )
   end
 
@@ -158,7 +158,7 @@ private
 
   def only_publications_allowed_invalid_data_can_be_awaiting_type
     unless self.can_have_some_invalid_data?
-      errors.add(:publication_type, 'must be changed') if PublicationType.migration.include?(self.publication_type)
+      errors.add(:publication_type, "must be changed") if PublicationType.migration.include?(self.publication_type)
     end
   end
 end

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 module PublishingApi::ConsultationPresenterTest
   class TestCase < ActiveSupport::TestCase
@@ -58,11 +58,11 @@ module PublishingApi::ConsultationPresenterTest
       self.consultation = create(:consultation)
     end
 
-    test 'base' do
+    test "base" do
       attributes_double = {
-        base_attribute_one: 'base_attribute_one',
-        base_attribute_two: 'base_attribute_two',
-        base_attribute_three: 'base_attribute_three',
+        base_attribute_one: "base_attribute_one",
+        base_attribute_two: "base_attribute_two",
+        base_attribute_three: "base_attribute_three",
       }
 
       PublishingApi::BaseItemPresenter
@@ -76,7 +76,7 @@ module PublishingApi::ConsultationPresenterTest
       assert_equal actual_content, expected_content
     end
 
-    test 'base links' do
+    test "base links" do
       expected_link_keys = %i(
         organisations
         parent
@@ -86,20 +86,20 @@ module PublishingApi::ConsultationPresenterTest
       )
 
       links_double = {
-        link_one: 'link_one',
-        link_two: 'link_two',
-        link_three: 'link_three',
+        link_one: "link_one",
+        link_two: "link_two",
+        link_three: "link_three",
       }
 
       PublishingApi::LinksPresenter
         .expects(:new)
         .with(consultation)
         .returns(
-          mock('PublishingApi::LinksPresenter') {
+          mock("PublishingApi::LinksPresenter") {
             expects(:extract)
               .with(expected_link_keys)
               .returns(links_double)
-          }
+          },
         )
 
       actual_links = presented_links
@@ -108,22 +108,22 @@ module PublishingApi::ConsultationPresenterTest
       assert_equal actual_links, expected_links
     end
 
-    test 'edition links' do
+    test "edition links" do
       expected_links = {
         organisations: consultation.organisations.map(&:content_id),
         parent: [],
         policy_areas: consultation.topics.map(&:content_id),
         related_policies: [],
-        topics: []
+        topics: [],
       }
 
       assert_hash_includes presented_content[:links], expected_links
     end
 
-    test 'body details' do
+    test "body details" do
       body_double = Object.new
 
-      govspeak_renderer = mock('Whitehall::GovspeakRenderer')
+      govspeak_renderer = mock("Whitehall::GovspeakRenderer")
 
       govspeak_renderer
         .expects(:govspeak_edition_to_html)
@@ -139,49 +139,49 @@ module PublishingApi::ConsultationPresenterTest
       assert_details_attribute :body, body_double
     end
 
-    test 'content id' do
+    test "content id" do
       assert_equal consultation.content_id, presented_consultation.content_id
     end
 
-    test 'description' do
+    test "description" do
       assert_attribute :description, consultation.summary
     end
 
-    test 'document type' do
-      assert_attribute :document_type, 'open_consultation'
+    test "document type" do
+      assert_attribute :document_type, "open_consultation"
     end
 
-    test 'emphasised organisations' do
+    test "emphasised organisations" do
       assert_details_attribute :emphasised_organisations,
                                consultation.lead_organisations.map(&:content_id)
     end
 
-    test 'first public at details' do
-      assert_details_payload 'PublishingApi::PayloadBuilder::FirstPublicAt'
+    test "first public at details" do
+      assert_details_payload "PublishingApi::PayloadBuilder::FirstPublicAt"
     end
 
-    test 'political details' do
-      assert_details_payload 'PublishingApi::PayloadBuilder::PoliticalDetails'
+    test "political details" do
+      assert_details_payload "PublishingApi::PayloadBuilder::PoliticalDetails"
     end
 
-    test 'public document path' do
-      assert_payload 'PublishingApi::PayloadBuilder::PublicDocumentPath'
+    test "public document path" do
+      assert_payload "PublishingApi::PayloadBuilder::PublicDocumentPath"
     end
 
-    test 'rendering app' do
-      assert_attribute :rendering_app, 'government-frontend'
+    test "rendering app" do
+      assert_attribute :rendering_app, "government-frontend"
     end
 
-    test 'schema name' do
-      assert_attribute :schema_name, 'consultation'
+    test "schema name" do
+      assert_attribute :schema_name, "consultation"
     end
 
-    test 'tags' do
-      assert_details_payload 'PublishingApi::PayloadBuilder::TagDetails'
+    test "tags" do
+      assert_details_payload "PublishingApi::PayloadBuilder::TagDetails"
     end
 
-    test 'validity' do
-      assert_valid_against_schema presented_content, 'consultation'
+    test "validity" do
+      assert_valid_against_schema presented_content, "consultation"
     end
   end
 
@@ -190,8 +190,8 @@ module PublishingApi::ConsultationPresenterTest
       self.consultation = create(:unopened_consultation)
     end
 
-    test 'document type' do
-      assert_attribute :document_type, 'consultation'
+    test "document type" do
+      assert_attribute :document_type, "consultation"
     end
   end
 
@@ -204,40 +204,40 @@ module PublishingApi::ConsultationPresenterTest
       )
     end
 
-    test 'closing date' do
+    test "closing date" do
       assert_details_attribute :closing_date, 1.day.from_now
     end
 
-    test 'document type' do
-      assert_attribute :document_type, 'open_consultation'
+    test "document type" do
+      assert_attribute :document_type, "open_consultation"
     end
 
-    test 'opening date' do
+    test "opening date" do
       assert_details_attribute :opening_date, 1.day.ago
     end
 
-    test 'validity' do
-      assert_valid_against_schema presented_content, 'consultation'
+    test "validity" do
+      assert_valid_against_schema presented_content, "consultation"
     end
   end
 
   class OpenConsultationWithParticipationTest < TestCase
     setup do
       response_form_data_attributes = attributes_for(
-        :consultation_response_form_data
+        :consultation_response_form_data,
       )
 
       response_form_attributes = attributes_for(
         :consultation_response_form,
-        consultation_response_form_data_attributes: response_form_data_attributes
+        consultation_response_form_data_attributes: response_form_data_attributes,
       )
 
       participation = create(
         :consultation_participation,
         consultation_response_form_attributes: response_form_attributes,
-        email: 'postmaster@example.com',
-        link_url: 'http://www.example.com',
-        postal_address: <<-ADDRESS.strip_heredoc.chop
+        email: "postmaster@example.com",
+        link_url: "http://www.example.com",
+        postal_address: <<-ADDRESS.strip_heredoc.chop,
                         2 Home Farm Ln
                         Kirklington
                         Newark
@@ -250,18 +250,18 @@ module PublishingApi::ConsultationPresenterTest
                                  consultation_participation: participation)
     end
 
-    test 'document type' do
-      assert_attribute :document_type, 'open_consultation'
+    test "document type" do
+      assert_attribute :document_type, "open_consultation"
     end
 
-    test 'ways to respond' do
-      Plek.any_instance.stubs(:public_asset_host).returns('https://asset-host.com')
-      expected_id = ConsultationResponseFormData.where(carrierwave_file: 'two-pages.pdf').last.id
+    test "ways to respond" do
+      Plek.any_instance.stubs(:public_asset_host).returns("https://asset-host.com")
+      expected_id = ConsultationResponseFormData.where(carrierwave_file: "two-pages.pdf").last.id
       expected_ways_to_respond = {
         attachment_url: "https://asset-host.com/government/uploads/system/uploads/consultation_response_form_data/file/#{expected_id}/two-pages.pdf",
-        email: 'postmaster@example.com',
-        link_url: 'http://www.example.com',
-        postal_address: <<-ADDRESS.strip_heredoc.chop
+        email: "postmaster@example.com",
+        link_url: "http://www.example.com",
+        postal_address: <<-ADDRESS.strip_heredoc.chop,
                         2 Home Farm Ln
                         Kirklington
                         Newark
@@ -273,22 +273,22 @@ module PublishingApi::ConsultationPresenterTest
       assert_details_attribute :ways_to_respond, expected_ways_to_respond
     end
 
-    test 'validity' do
-      assert_valid_against_schema presented_content, 'consultation'
+    test "validity" do
+      assert_valid_against_schema presented_content, "consultation"
     end
   end
 
   class ClosedConsultationTest < TestCase
     setup do
-      self.consultation = create('closed_consultation')
+      self.consultation = create("closed_consultation")
     end
 
-    test 'document type' do
-      assert_attribute :document_type, 'closed_consultation'
+    test "document type" do
+      assert_attribute :document_type, "closed_consultation"
     end
 
-    test 'validity' do
-      assert_valid_against_schema presented_content, 'consultation'
+    test "validity" do
+      assert_valid_against_schema presented_content, "consultation"
     end
   end
 
@@ -299,17 +299,17 @@ module PublishingApi::ConsultationPresenterTest
       create(:consultation_public_feedback,
              :with_file_attachment,
              consultation: consultation,
-             summary: 'Public feedback summary')
+             summary: "Public feedback summary")
     end
 
-    test 'document type' do
-      assert_attribute :document_type, 'closed_consultation'
+    test "document type" do
+      assert_attribute :document_type, "closed_consultation"
     end
 
-    test 'public feedback detail' do
+    test "public feedback detail" do
       public_feedback_detail_double = Object.new
 
-      govspeak_renderer = mock('Whitehall::GovspeakRenderer')
+      govspeak_renderer = mock("Whitehall::GovspeakRenderer")
 
       govspeak_renderer.stubs(:block_attachments)
 
@@ -328,10 +328,10 @@ module PublishingApi::ConsultationPresenterTest
                                public_feedback_detail_double
     end
 
-    test 'public feedback documents' do
+    test "public feedback documents" do
       attachments_double = Object.new
 
-      govspeak_renderer = mock('Whitehall::GovspeakRenderer')
+      govspeak_renderer = mock("Whitehall::GovspeakRenderer")
 
       govspeak_renderer.stubs(:govspeak_to_html)
 
@@ -354,13 +354,13 @@ module PublishingApi::ConsultationPresenterTest
                                attachments_double
     end
 
-    test 'public feedback publication date' do
+    test "public feedback publication date" do
       assert_details_attribute :public_feedback_publication_date,
-                               '2011-11-11T00:00:00+00:00'
+                               "2011-11-11T00:00:00+00:00"
     end
 
-    test 'validity' do
-      assert_valid_against_schema presented_content, 'consultation'
+    test "validity" do
+      assert_valid_against_schema presented_content, "consultation"
     end
   end
 
@@ -369,14 +369,14 @@ module PublishingApi::ConsultationPresenterTest
       self.consultation = create(:consultation_with_outcome_file_attachment)
     end
 
-    test 'document type' do
-      assert_attribute :document_type, 'consultation_outcome'
+    test "document type" do
+      assert_attribute :document_type, "consultation_outcome"
     end
 
-    test 'final outcome detail' do
+    test "final outcome detail" do
       final_outcome_detail_double = Object.new
 
-      govspeak_renderer = mock('Whitehall::GovspeakRenderer')
+      govspeak_renderer = mock("Whitehall::GovspeakRenderer")
 
       govspeak_renderer.stubs(:block_attachments)
 
@@ -395,10 +395,10 @@ module PublishingApi::ConsultationPresenterTest
                                final_outcome_detail_double
     end
 
-    test 'final outcome documents' do
+    test "final outcome documents" do
       attachments_double = Object.new
 
-      govspeak_renderer = mock('Whitehall::GovspeakRenderer')
+      govspeak_renderer = mock("Whitehall::GovspeakRenderer")
 
       govspeak_renderer.stubs(:govspeak_to_html)
 
@@ -419,8 +419,8 @@ module PublishingApi::ConsultationPresenterTest
       assert_details_attribute :final_outcome_documents, attachments_double
     end
 
-    test 'validity' do
-      assert_valid_against_schema presented_content, 'consultation'
+    test "validity" do
+      assert_valid_against_schema presented_content, "consultation"
     end
   end
 
@@ -429,8 +429,8 @@ module PublishingApi::ConsultationPresenterTest
       self.consultation = create(:consultation)
     end
 
-    test 'access limited' do
-      assert_payload 'PublishingApi::PayloadBuilder::AccessLimitation'
+    test "access limited" do
+      assert_payload "PublishingApi::PayloadBuilder::AccessLimitation"
     end
   end
 
@@ -439,10 +439,10 @@ module PublishingApi::ConsultationPresenterTest
       self.consultation = create(:consultation, :with_html_attachment)
     end
 
-    test 'documents' do
+    test "documents" do
       attachments_double = Object.new
 
-      govspeak_renderer = mock('Whitehall::GovspeakRenderer')
+      govspeak_renderer = mock("Whitehall::GovspeakRenderer")
 
       govspeak_renderer
         .expects(:block_attachments)
@@ -461,8 +461,8 @@ module PublishingApi::ConsultationPresenterTest
       assert_details_attribute :documents, attachments_double
     end
 
-    test 'validity' do
-      assert_valid_against_schema presented_content, 'consultation'
+    test "validity" do
+      assert_valid_against_schema presented_content, "consultation"
     end
   end
 
@@ -474,13 +474,13 @@ module PublishingApi::ConsultationPresenterTest
                          updated_at: Date.new(2012))
     end
 
-    test 'public updated at' do
+    test "public updated at" do
       assert_attribute :public_updated_at,
-                       '1999-01-01T00:00:00+00:00'
+                       "1999-01-01T00:00:00+00:00"
     end
 
-    test 'validity' do
-      assert_valid_against_schema presented_content, 'consultation'
+    test "validity" do
+      assert_valid_against_schema presented_content, "consultation"
     end
   end
 
@@ -492,13 +492,13 @@ module PublishingApi::ConsultationPresenterTest
                          updated_at: Date.new(2012))
     end
 
-    test 'public updated at' do
+    test "public updated at" do
       assert_attribute :public_updated_at,
-                       '2012-01-01T00:00:00+00:00'
+                       "2012-01-01T00:00:00+00:00"
     end
 
-    test 'validity' do
-      assert_valid_against_schema presented_content, 'consultation'
+    test "validity" do
+      assert_valid_against_schema presented_content, "consultation"
     end
   end
 
@@ -507,17 +507,17 @@ module PublishingApi::ConsultationPresenterTest
       self.consultation = create(
         :open_consultation,
         external: true,
-        external_url: 'https://example.com/link/to/consultation'
+        external_url: "https://example.com/link/to/consultation",
       )
     end
 
-    test 'held on another website URL' do
+    test "held on another website URL" do
       assert_details_attribute :held_on_another_website_url,
-                               'https://example.com/link/to/consultation'
+                               "https://example.com/link/to/consultation"
     end
 
-    test 'validity' do
-      assert_valid_against_schema presented_content, 'consultation'
+    test "validity" do
+      assert_valid_against_schema presented_content, "consultation"
     end
   end
 
@@ -526,38 +526,38 @@ module PublishingApi::ConsultationPresenterTest
       scotland_nation_inapplicability = create(
         :nation_inapplicability,
         nation: Nation.scotland,
-        alternative_url: 'http://scotland.com'
+        alternative_url: "http://scotland.com",
       )
 
       self.consultation = create(
         :consultation,
-        nation_inapplicabilities: [scotland_nation_inapplicability]
+        nation_inapplicabilities: [scotland_nation_inapplicability],
       )
     end
 
-    test 'national applicability' do
+    test "national applicability" do
       assert_details_attribute :national_applicability,
                                england: {
-                                 label: 'England',
+                                 label: "England",
                                  applicable: true,
                                },
                                northern_ireland: {
-                                 label: 'Northern Ireland',
+                                 label: "Northern Ireland",
                                  applicable: true,
                                },
                                scotland: {
-                                 label: 'Scotland',
+                                 label: "Scotland",
                                  applicable: false,
-                                 alternative_url: 'http://scotland.com'
+                                 alternative_url: "http://scotland.com",
                                },
                                wales: {
-                                 label: 'Wales',
+                                 label: "Wales",
                                  applicable: true,
                                }
     end
 
-    test 'validity' do
-      assert_valid_against_schema presented_content, 'consultation'
+    test "validity" do
+      assert_valid_against_schema presented_content, "consultation"
     end
   end
 
@@ -566,30 +566,30 @@ module PublishingApi::ConsultationPresenterTest
       self.consultation = create(:open_consultation)
     end
 
-    test 'change history' do
+    test "change history" do
       expected_change_history = [
         {
-          'public_timestamp' => '2011-11-09T11:11:11.000+00:00',
-          'note' => 'change-note',
-        }
+          "public_timestamp" => "2011-11-09T11:11:11.000+00:00",
+          "note" => "change-note",
+        },
       ]
 
       assert_details_attribute :change_history, expected_change_history
     end
 
-    test 'validity' do
-      assert_valid_against_schema presented_content, 'consultation'
+    test "validity" do
+      assert_valid_against_schema presented_content, "consultation"
     end
   end
 
   class ConsultationWithMajorChange < TestCase
     setup do
       self.consultation = create(:consultation, minor_change: false)
-      self.update_type = 'major'
+      self.update_type = "major"
     end
 
-    test 'update type' do
-      assert_equal 'major', presented_consultation.update_type
+    test "update type" do
+      assert_equal "major", presented_consultation.update_type
     end
   end
 
@@ -598,18 +598,18 @@ module PublishingApi::ConsultationPresenterTest
       self.consultation = create(:consultation, minor_change: true)
     end
 
-    test 'update type' do
-      assert_equal 'minor', presented_consultation.update_type
+    test "update type" do
+      assert_equal "minor", presented_consultation.update_type
     end
   end
 
   class ConsultationWithoutMinorChange < TestCase
     setup do
-      self.consultation = create(:consultation, minor_change: false,)
+      self.consultation = create(:consultation, minor_change: false)
     end
 
-    test 'update type' do
-      assert_equal 'major', presented_consultation.update_type
+    test "update type" do
+      assert_equal "major", presented_consultation.update_type
     end
   end
 
@@ -622,7 +622,7 @@ module PublishingApi::ConsultationPresenterTest
       )
     end
 
-    test 'ministers' do
+    test "ministers" do
       expected_content_ids = consultation
         .role_appointments
         .map(&:person)

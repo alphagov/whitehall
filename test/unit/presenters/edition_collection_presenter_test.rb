@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class EditionCollectionPresenterTest < PresenterTestCase
   test "should wrap publicationesque things in a publicationesque presenter" do

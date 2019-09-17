@@ -20,7 +20,7 @@ class Api::WorldwideOrganisationsController < PublicFacingController
     if world_location
       respond_with Api::WorldwideOrganisationPresenter.paginate(
         world_location.worldwide_organisations,
-        view_context
+        view_context,
       )
     else
       respond_with_not_found

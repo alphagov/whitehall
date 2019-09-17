@@ -6,7 +6,7 @@ class CorporateInformationPagesController < DocumentsController
     @corporate_information_page = @document
 
     if @organisation.is_a? WorldwideOrganisation
-      render 'show_worldwide_organisation'
+      render "show_worldwide_organisation"
     else
       render :show
     end
@@ -31,9 +31,9 @@ private
     # Use manual join because base Edition does not have a direct relationship
     # to Organisation, and the assocation with Unpublishing is not polymorphic.
     Unpublishing.joins(
-      'JOIN edition_organisations ON edition_organisations.edition_id = unpublishings.edition_id'
+      "JOIN edition_organisations ON edition_organisations.edition_id = unpublishings.edition_id",
     ).where(
-      edition_organisations: { organisation_id: @organisation.id }, slug: params[:id], document_type: document_class.to_s
+      edition_organisations: { organisation_id: @organisation.id }, slug: params[:id], document_type: document_class.to_s,
     ).first
   end
 

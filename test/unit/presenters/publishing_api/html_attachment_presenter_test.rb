@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
   def present(record)
@@ -19,14 +19,14 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
       base_path: "/government/publications/#{edition.document.slug}/#{html_attachment.slug}",
       title: html_attachment.title,
       description: nil,
-      schema_name: 'html_publication',
-      document_type: 'html_publication',
-      locale: 'en',
+      schema_name: "html_publication",
+      document_type: "html_publication",
+      locale: "en",
       public_updated_at: html_attachment.updated_at,
-      publishing_app: 'whitehall',
-      rendering_app: 'government-frontend',
+      publishing_app: "whitehall",
+      rendering_app: "government-frontend",
       routes: [
-        { path: html_attachment.url, type: 'exact' }
+        { path: html_attachment.url, type: "exact" },
       ],
       redirects: [],
       update_type: "major",
@@ -39,8 +39,8 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
     }
     presented_item = present(html_attachment)
 
-    assert_valid_against_schema(presented_item.content, 'html_publication')
-    assert_valid_against_links_schema({ links: presented_item.links }, 'html_publication')
+    assert_valid_against_schema(presented_item.content, "html_publication")
+    assert_valid_against_links_schema({ links: presented_item.links }, "html_publication")
 
     # We test for HTML equivalance rather than string equality to get around
     # inconsistencies with line breaks between different XML libraries

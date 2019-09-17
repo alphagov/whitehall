@@ -43,7 +43,7 @@ class Admin::TakePartPagesController < Admin::BaseController
   def reorder
     new_ordering = (params.permit!.to_h[:ordering] || []).sort_by { |_id, ordering| ordering.to_i }.map(&:first)
     TakePartPage.reorder!(new_ordering)
-    redirect_to admin_take_part_pages_path, notice: 'Take part pages reordered!'
+    redirect_to admin_take_part_pages_path, notice: "Take part pages reordered!"
   end
 
 private

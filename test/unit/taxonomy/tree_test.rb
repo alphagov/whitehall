@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Taxonomy::TreeTest < ActiveSupport::TestCase
   test ".new sets the root_taxon property" do
@@ -38,9 +38,9 @@ class Taxonomy::TreeTest < ActiveSupport::TestCase
     single_root_node = {
       "links" => {
         "child_taxons" => [
-          node
-        ]
-      }
+          node,
+        ],
+      },
     }
 
     assert is_an_array_of_taxons result(single_root_node)
@@ -52,9 +52,9 @@ class Taxonomy::TreeTest < ActiveSupport::TestCase
       "links" => {
         "child_taxons" => [
           node,
-          node
-        ]
-      }
+          node,
+        ],
+      },
     }
 
     assert is_an_array_of_taxons result(two_root_nodes)
@@ -65,9 +65,9 @@ class Taxonomy::TreeTest < ActiveSupport::TestCase
     single_root_with_descendant = {
       "links" => {
         "child_taxons" => [
-          node([node])
-        ]
-      }
+          node([node]),
+        ],
+      },
     }
 
     assert result(single_root_with_descendant).length == 1
@@ -80,9 +80,9 @@ class Taxonomy::TreeTest < ActiveSupport::TestCase
       "links" => {
         "child_taxons" => [
           node,
-          node
-        ]
-      }
+          node,
+        ],
+      },
     }
 
     taxons["links"]["child_taxons"][0]["title"] = "zaphod"
@@ -94,9 +94,9 @@ class Taxonomy::TreeTest < ActiveSupport::TestCase
 
   def root_taxon_hash(links = {})
     @root_taxon_hash ||= {
-      'title' => 'root',
-      'base_path' => '/root',
-      'content_id' => 'root_id',
+      "title" => "root",
+      "base_path" => "/root",
+      "content_id" => "root_id",
     }.merge(links)
   end
 
@@ -116,7 +116,7 @@ class Taxonomy::TreeTest < ActiveSupport::TestCase
       "title" => "Taxon title",
       "phase" => "live",
       "details" => { "visible_to_departmental_editors" => true },
-      "links" => {}
+      "links" => {},
     }
 
     children.each do |child|

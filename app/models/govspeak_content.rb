@@ -63,7 +63,7 @@ private
 
   def govspeak_options
     method = manually_numbered_headings? ? :manual : :auto
-    { heading_numbering: method, contact_heading_tag: 'h4' }
+    { heading_numbering: method, contact_heading_tag: "h4" }
   end
 
   def renderer

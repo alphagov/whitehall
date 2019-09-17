@@ -13,7 +13,7 @@ class HistoricalAccount < ApplicationRecord
   serialize :political_party_ids, Array
 
   def self.for_role(role)
-    includes(:historical_account_roles).where('historical_account_roles.role_id' => role)
+    includes(:historical_account_roles).where("historical_account_roles.role_id" => role)
   end
 
   def political_party_ids=(ids)
@@ -42,7 +42,7 @@ private
 
   def roles_support_historical_accounts
     unless roles.all?(&:supports_historical_accounts?)
-      errors.add(:base, 'The selected role(s) do not all support historical accounts')
+      errors.add(:base, "The selected role(s) do not all support historical accounts")
     end
   end
 

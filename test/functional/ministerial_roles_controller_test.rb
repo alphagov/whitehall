@@ -12,19 +12,19 @@ class MinisterialRolesControllerTest < ActionController::TestCase
   end
 
   test "shows cabinet roles in correct order" do
-    nick_clegg = create(:person, forename: 'Nick', surname: 'Clegg')
-    jeremy_hunt = create(:person, forename: 'Jeremy', surname: 'Hunt')
-    edward_garnier = create(:person, forename: 'Edward', surname: 'Garnier')
-    david_cameron = create(:person, forename: 'David', surname: 'Cameron')
-    philip_hammond = create(:person, forename: 'Philip', surname: 'Hammond')
-    davey_jones = create(:person, forename: 'Davey', surname: 'Jones')
+    nick_clegg = create(:person, forename: "Nick", surname: "Clegg")
+    jeremy_hunt = create(:person, forename: "Jeremy", surname: "Hunt")
+    edward_garnier = create(:person, forename: "Edward", surname: "Garnier")
+    david_cameron = create(:person, forename: "David", surname: "Cameron")
+    philip_hammond = create(:person, forename: "Philip", surname: "Hammond")
+    davey_jones = create(:person, forename: "Davey", surname: "Jones")
 
-    deputy_prime_minister = create(:ministerial_role, name: 'Deputy Prime Minister', cabinet_member: true, seniority: 1)
-    culture_minister = create(:ministerial_role, name: 'Secretary of State for Culture', cabinet_member: true)
-    solicitor_general = create(:ministerial_role, name: 'Solicitor General', cabinet_member: false)
-    prime_minister = create(:ministerial_role, name: 'Prime Minister', cabinet_member: true, seniority: 0)
-    defence_minister = create(:ministerial_role, name: 'Secretary of State for Defence', cabinet_member: true)
-    first_sec_of_state = create(:ministerial_role, name: 'First Secretary of State', cabinet_member: true, seniority: 2)
+    deputy_prime_minister = create(:ministerial_role, name: "Deputy Prime Minister", cabinet_member: true, seniority: 1)
+    culture_minister = create(:ministerial_role, name: "Secretary of State for Culture", cabinet_member: true)
+    solicitor_general = create(:ministerial_role, name: "Solicitor General", cabinet_member: false)
+    prime_minister = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, seniority: 0)
+    defence_minister = create(:ministerial_role, name: "Secretary of State for Defence", cabinet_member: true)
+    first_sec_of_state = create(:ministerial_role, name: "First Secretary of State", cabinet_member: true, seniority: 2)
 
     create(:ministerial_role_appointment, role: deputy_prime_minister, person: nick_clegg)
     create(:ministerial_role_appointment, role: culture_minister, person: jeremy_hunt)
@@ -60,15 +60,15 @@ class MinisterialRolesControllerTest < ActionController::TestCase
   test "shows ministers by organisation with the ministers in the cms-defined order" do
     organisation = create(:ministerial_department)
 
-    person_1 = create(:person, forename: 'Nick', surname: 'Clegg')
-    person_2 = create(:person, forename: 'Jeremy', surname: 'Hunt')
-    person_3 = create(:person, forename: 'George', surname: 'Foreman')
-    person_4 = create(:person, forename: 'Brian', surname: 'Smith')
+    person_1 = create(:person, forename: "Nick", surname: "Clegg")
+    person_2 = create(:person, forename: "Jeremy", surname: "Hunt")
+    person_3 = create(:person, forename: "George", surname: "Foreman")
+    person_4 = create(:person, forename: "Brian", surname: "Smith")
 
-    role_1 = create(:ministerial_role, name: 'Prime Minister', cabinet_member: true, organisations: [organisation], seniority: 0)
-    role_2 = create(:ministerial_role, name: 'Non-Executive Director', cabinet_member: false, organisations: [organisation], seniority: 1)
-    role_3 = create(:board_member_role, name: 'Chief Griller', organisations: [organisation], seniority: 3)
-    role_4 = create(:ministerial_role, name: 'First Secretary of State', cabinet_member: true, organisations: [organisation], seniority: 2)
+    role_1 = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, organisations: [organisation], seniority: 0)
+    role_2 = create(:ministerial_role, name: "Non-Executive Director", cabinet_member: false, organisations: [organisation], seniority: 1)
+    role_3 = create(:board_member_role, name: "Chief Griller", organisations: [organisation], seniority: 3)
+    role_4 = create(:ministerial_role, name: "First Secretary of State", cabinet_member: true, organisations: [organisation], seniority: 2)
 
     organisation.organisation_roles.find_by(role_id: role_2.id).update_column(:ordering, 3)
     organisation.organisation_roles.find_by(role_id: role_1.id).update_column(:ordering, 2)
@@ -87,13 +87,13 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
   test "doesn't list closed organisations in the ministers by organisation list" do
     organisation_1 = create(:ministerial_department)
-    person_1 = create(:person, forename: 'Tony', surname: 'Blair')
-    role_1 = create(:ministerial_role, name: 'Prime Minister', cabinet_member: true, organisations: [organisation_1], seniority: 0)
+    person_1 = create(:person, forename: "Tony", surname: "Blair")
+    role_1 = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, organisations: [organisation_1], seniority: 0)
     create(:ministerial_role_appointment, role: role_1, person: person_1)
 
     organisation_2 = create(:ministerial_department, :closed)
-    person_2 = create(:person, forename: 'Frank', surname: 'Underwood')
-    role_2 = create(:ministerial_role, name: 'President', cabinet_member: true, organisations: [organisation_2], seniority: 0)
+    person_2 = create(:person, forename: "Frank", surname: "Underwood")
+    role_2 = create(:ministerial_role, name: "President", cabinet_member: true, organisations: [organisation_2], seniority: 0)
     create(:ministerial_role_appointment, role: role_2, person: person_2)
 
     get :index
@@ -104,13 +104,13 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
   test "shows ministers who also attend cabinet separately" do
     organisation = create(:ministerial_department)
-    person_1 = create(:person, forename: 'Nick', surname: 'Clegg')
-    person_2 = create(:person, forename: 'Jeremy', surname: 'Hunt')
-    person_3 = create(:person, forename: 'Geroge', surname: 'Foreman')
+    person_1 = create(:person, forename: "Nick", surname: "Clegg")
+    person_2 = create(:person, forename: "Jeremy", surname: "Hunt")
+    person_3 = create(:person, forename: "Geroge", surname: "Foreman")
 
-    role_1 = create(:ministerial_role, name: 'Prime Minister', cabinet_member: true, organisations: [organisation])
-    role_2 = create(:ministerial_role, name: 'Non-Executive Director', cabinet_member: false, organisations: [organisation])
-    role_3 = create(:ministerial_role, name: 'Chief Whip and Parliamentary Secretary to the Treasury', organisations: [organisation], whip_organisation_id: 1, attends_cabinet_type_id: 1)
+    role_1 = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, organisations: [organisation])
+    role_2 = create(:ministerial_role, name: "Non-Executive Director", cabinet_member: false, organisations: [organisation])
+    role_3 = create(:ministerial_role, name: "Chief Whip and Parliamentary Secretary to the Treasury", organisations: [organisation], whip_organisation_id: 1, attends_cabinet_type_id: 1)
 
     create(:ministerial_role_appointment, role: role_1, person: person_1)
     create(:ministerial_role_appointment, role: role_2, person: person_2)
@@ -125,13 +125,13 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
   test "shows whips separately" do
     organisation = create(:ministerial_department)
-    person_1 = create(:person, forename: 'Nick', surname: 'Clegg')
-    person_2 = create(:person, forename: 'Jeremy', surname: 'Hunt')
-    person_3 = create(:person, forename: 'Geroge', surname: 'Foreman')
+    person_1 = create(:person, forename: "Nick", surname: "Clegg")
+    person_2 = create(:person, forename: "Jeremy", surname: "Hunt")
+    person_3 = create(:person, forename: "Geroge", surname: "Foreman")
 
-    role_1 = create(:ministerial_role, name: 'Prime Minister', cabinet_member: true, organisations: [organisation])
-    role_2 = create(:ministerial_role, name: 'Non-Executive Director', cabinet_member: false, organisations: [organisation])
-    role_3 = create(:ministerial_role, name: 'Chief Whip and Parliamentary Secretary to the Treasury', organisations: [organisation], whip_organisation_id: 1)
+    role_1 = create(:ministerial_role, name: "Prime Minister", cabinet_member: true, organisations: [organisation])
+    role_2 = create(:ministerial_role, name: "Non-Executive Director", cabinet_member: false, organisations: [organisation])
+    role_3 = create(:ministerial_role, name: "Chief Whip and Parliamentary Secretary to the Treasury", organisations: [organisation], whip_organisation_id: 1)
 
     create(:ministerial_role_appointment, role: role_1, person: person_1)
     create(:ministerial_role_appointment, role: role_2, person: person_2)
@@ -144,7 +144,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     assert_equal whips, assigns(:whips_by_organisation)
   end
 
-  test 'orders whips by organisation sort order' do
+  test "orders whips by organisation sort order" do
     organisation = create(:ministerial_department)
 
     person_1 = create(:person)
@@ -172,7 +172,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
       [Whitehall::WhipOrganisation.find_by_id(3), RolesPresenter.new([role_3], @controller.view_context)],
       [Whitehall::WhipOrganisation.find_by_id(4), RolesPresenter.new([role_4], @controller.view_context)],
       [Whitehall::WhipOrganisation.find_by_id(2), RolesPresenter.new([role_2], @controller.view_context)],
-      [Whitehall::WhipOrganisation.find_by_id(5), RolesPresenter.new([role_5], @controller.view_context)]
+      [Whitehall::WhipOrganisation.find_by_id(5), RolesPresenter.new([role_5], @controller.view_context)],
     ]
     assert_equal whips, assigns(:whips_by_organisation)
   end
@@ -241,7 +241,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     end
   end
 
-  view_test 'show has atom feed autodiscovery link' do
+  view_test "show has atom feed autodiscovery link" do
     ministerial_role = create(:ministerial_role)
     get :show, params: { id: ministerial_role }
     assert_select_autodiscovery_link atom_feed_url_for(ministerial_role)
@@ -252,7 +252,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     role_appointment = create(:role_appointment, role: ministerial_role)
     expected_entries = [
       create(:published_news_article, role_appointments: [role_appointment], first_published_at: 1.day.ago),
-      create(:published_speech, role_appointment: role_appointment, delivered_on: 2.days.ago.to_date)
+      create(:published_speech, role_appointment: role_appointment, delivered_on: 2.days.ago.to_date),
     ]
 
     get :show, params: { id: ministerial_role }, format: :atom
@@ -287,11 +287,11 @@ class MinisterialRolesControllerTest < ActionController::TestCase
   end
 
   view_test "show links to historical appointments when the role is historic" do
-    historic_role = create(:historic_role, name: 'Prime Minister')
+    historic_role = create(:historic_role, name: "Prime Minister")
     get :show, params: { id: historic_role }
 
     assert_select ".previous-roles" do
-      assert_select "a[href=?]", historic_appointments_path('past-prime-ministers'), text: "past #{historic_role.name.pluralize}"
+      assert_select "a[href=?]", historic_appointments_path("past-prime-ministers"), text: "past #{historic_role.name.pluralize}"
     end
   end
 

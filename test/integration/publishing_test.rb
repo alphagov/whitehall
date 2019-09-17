@@ -12,7 +12,7 @@ class PublishingTest < ActiveSupport::TestCase
   test "When an edition is published, it gets published with the Publishing API" do
     requests = [
       stub_publishing_api_put_content(@presenter.content_id, @presenter.content),
-      stub_publishing_api_publish(@presenter.content_id, locale: 'en', update_type: nil)
+      stub_publishing_api_publish(@presenter.content_id, locale: "en", update_type: nil),
     ]
 
     perform_force_publishing_for(@draft_edition)
@@ -27,13 +27,13 @@ class PublishingTest < ActiveSupport::TestCase
 
       [
         stub_publishing_api_put_content(@presenter.content_id, @presenter.content),
-        stub_publishing_api_publish(@presenter.content_id, locale: 'fr', update_type: nil)
+        stub_publishing_api_publish(@presenter.content_id, locale: "fr", update_type: nil),
       ]
     end
 
     english_requests = [
       stub_publishing_api_put_content(@presenter.content_id, @presenter.content),
-      stub_publishing_api_publish(@presenter.content_id, locale: 'en', update_type: nil)
+      stub_publishing_api_publish(@presenter.content_id, locale: "en", update_type: nil),
     ]
 
     perform_force_publishing_for(@draft_edition)

@@ -1,4 +1,4 @@
-require_relative '../support/generic_edition'
+require_relative "../support/generic_edition"
 
 FactoryBot.define do
   factory :edition, class: GenericEdition, traits: [:translated] do
@@ -6,7 +6,7 @@ FactoryBot.define do
     sequence(:title) { |index| "edition-title-#{index}" }
     body { "edition-body" }
     change_note { "change-note" }
-    summary { 'edition-summary' }
+    summary { "edition-summary" }
     previously_published { false }
 
     trait(:with_organisations) do
@@ -57,7 +57,7 @@ FactoryBot.define do
 
     trait(:with_policy_edition) do
       transient do
-        policy_content_id { '' }
+        policy_content_id { "" }
       end
       after :create do |edition, evaluator|
         EditionPolicy.create(edition_id: edition.id, policy_content_id: evaluator.policy_content_id)
@@ -77,9 +77,9 @@ FactoryBot.define do
       end
       state { "submitted" }
       after :create do |edition, evaluator|
-        edition.versions.first.update_attributes(event: 'create', state: 'draft')
+        edition.versions.first.update_attributes(event: "create", state: "draft")
         submitter = evaluator.submitter.present? ? evaluator.submitter : edition.creator
-        edition.versions.create! event: 'update', whodunnit: submitter.id, state: 'submitted'
+        edition.versions.create! event: "update", whodunnit: submitter.id, state: "submitted"
       end
     end
 

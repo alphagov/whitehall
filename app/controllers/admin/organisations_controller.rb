@@ -45,14 +45,14 @@ class Admin::OrganisationsController < Admin::BaseController
     filtering_organisation = params[:organisation] || @organisation.id
 
     filter_params = params.permit!.to_h.slice(:page, :type, :author, :title).
-      merge(state: 'published', organisation: filtering_organisation)
+      merge(state: "published", organisation: filtering_organisation)
 
     @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
     @featurable_topical_events = TopicalEvent.active
     @featurable_offsite_links = @organisation.offsite_links
 
     if request.xhr?
-      render partial: 'admin/feature_lists/search_results', locals: { feature_list: @feature_list }
+      render partial: "admin/feature_lists/search_results", locals: { feature_list: @feature_list }
     else
       render :features
     end
@@ -82,9 +82,9 @@ private
 
   def enforce_permissions!
     case action_name
-    when 'new', 'create'
+    when "new", "create"
       enforce_permission!(:create, Organisation)
-    when 'edit', 'update'
+    when "edit", "update"
       enforce_permission!(:edit, @organisation)
     end
   end
@@ -103,7 +103,7 @@ private
       organisation_roles_attributes: %i[id ordering],
       parent_organisation_ids: [],
       organisation_classifications_attributes: %i[classification_id ordering id _destroy],
-      featured_links_attributes: %i[title url _destroy id],
+      featured_links_attributes: %i[title url _destroy id]
     )
   end
 

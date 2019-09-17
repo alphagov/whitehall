@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::AboutPagesControllerTest < ActionController::TestCase
   def setup
@@ -9,8 +9,8 @@ class Admin::AboutPagesControllerTest < ActionController::TestCase
   view_test "GET show prompts user to create an about page" do
     get :show, params: { topical_event_id: @topical_event.to_param }
     assert_response :success
-    assert_select 'h1', @topical_event.name
-    assert_select 'p', /doesn’t yet have a page/
+    assert_select "h1", @topical_event.name
+    assert_select "p", /doesn’t yet have a page/
   end
 
   view_test "GET new allows user to enter copy for new about page" do
@@ -19,7 +19,7 @@ class Admin::AboutPagesControllerTest < ActionController::TestCase
   end
 
   test "POST create saves a new about page" do
-    assert_difference 'AboutPage.count' do
+    assert_difference "AboutPage.count" do
       post :create, params: { topical_event_id: @topical_event.to_param, about_page: attributes_for(:about_page) }
     end
     assert_not_nil @topical_event.about_page, "expected topical event to have an about page"
@@ -33,7 +33,7 @@ class Admin::AboutPagesControllerTest < ActionController::TestCase
 
   test "PUT update saves changes to the about page" do
     about = create(:about_page, topical_event: @topical_event)
-    put :update, params: { topical_event_id: @topical_event.to_param, about_page: { name: 'New name' } }
-    assert_equal 'New name', about.reload.name
+    put :update, params: { topical_event_id: @topical_event.to_param, about_page: { name: "New name" } }
+    assert_equal "New name", about.reload.name
   end
 end

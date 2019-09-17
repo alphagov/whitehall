@@ -8,14 +8,14 @@ namespace :specialist_sectors do
     specialist_sectors.each do |specialist_sector|
       begin
         content_item = Services.publishing_api.get_content(
-          specialist_sector.topic_content_id
+          specialist_sector.topic_content_id,
         ).to_hash
       rescue GdsApi::HTTPNotFound
         # Some incorrect specialist sectors have base paths rather than
         # content IDs, so we skip these for now
         next
       end
-      new_tag = content_item['base_path'].sub('/topic/', '')
+      new_tag = content_item["base_path"].sub("/topic/", "")
       puts "Updating specialist sector #{specialist_sector.id} with tag #{new_tag}"
       specialist_sector.tag = new_tag
       specialist_sector.save!

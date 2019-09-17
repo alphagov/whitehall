@@ -16,7 +16,7 @@ module PublishingApi
 
     def content_id
       @content_id ||= Services.publishing_api.lookup_content_id(
-        base_path: base_path
+        base_path: base_path,
       ) || SecureRandom.uuid
     end
 
@@ -38,19 +38,19 @@ module PublishingApi
         routes: [
           {
             type: "exact",
-            path: "/government/organisations/#{organisation.slug}/services-information"
+            path: "/government/organisations/#{organisation.slug}/services-information",
           },
-        ]
+        ],
       )
     end
 
     def links
       {
         parent: [
-          organisation.content_id
+          organisation.content_id,
         ],
         organisations: [
-          organisation.content_id
+          organisation.content_id,
         ],
       }
     end

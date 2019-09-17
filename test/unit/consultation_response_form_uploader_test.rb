@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class ConsultationResponseFormUploaderTest < ActiveSupport::TestCase
   test "should only allow RTF, CSV, Word, Excel, ODT, ODS, or PDF images" do
@@ -12,7 +12,7 @@ class ConsultationResponseFormUploaderTest < ActiveSupport::TestCase
     assert_match %r[^system], uploader.store_dir
   end
 
-  test 'uses the asset manager storage engine' do
+  test "uses the asset manager storage engine" do
     assert_equal Whitehall::AssetManagerStorage, ConsultationResponseFormUploader.storage
   end
 end

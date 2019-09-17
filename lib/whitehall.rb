@@ -1,11 +1,11 @@
 module Whitehall
-  autoload :Random, 'whitehall/random'
-  autoload :RandomKey, 'whitehall/random_key'
-  autoload :FormBuilder, 'whitehall/form_builder'
-  autoload :Uploader, 'whitehall/uploader'
-  autoload :UrlMaker, 'whitehall/url_maker'
-  autoload :ExtraQuoteRemover, 'whitehall/extra_quote_remover'
-  autoload :GovspeakRenderer, 'whitehall/govspeak_renderer'
+  autoload :Random, "whitehall/random"
+  autoload :RandomKey, "whitehall/random_key"
+  autoload :FormBuilder, "whitehall/form_builder"
+  autoload :Uploader, "whitehall/uploader"
+  autoload :UrlMaker, "whitehall/url_maker"
+  autoload :ExtraQuoteRemover, "whitehall/extra_quote_remover"
+  autoload :GovspeakRenderer, "whitehall/govspeak_renderer"
 
   mattr_accessor :content_store
   mattr_accessor :default_cache_max_age
@@ -28,24 +28,24 @@ module Whitehall
   end
 
   def self.support_url
-    Plek.new.external_url_for('support')
+    Plek.new.external_url_for("support")
   end
 
   def self.available_locales
     [
       :en, :ar, :az, :be, :bg, :bn, :cs, :cy, :da, :de, :dr, :el,
-      :es, 'es-419', :et, :fa, :fi, :fr, :gd, :he, :hi, :hr, :hu,
+      :es, "es-419", :et, :fa, :fi, :fr, :gd, :he, :hi, :hr, :hu,
       :hy, :id, :is, :it, :ja, :ka, :kk, :ko, :lt, :lv, :ms, :mt,
       :nl, :no, :pl, :ps, :pt, :ro, :ru, :si, :sk, :sl, :so, :sq,
       :sr, :sv, :sw, :ta, :th, :tk, :tr, :uk, :ur, :uz, :vi, :zh,
-      'zh-hk',  'zh-tw'
+      "zh-hk",  "zh-tw"
     ]
   end
 
   def self.system_binaries
     {
       zipinfo: File.which("zipinfo"),
-      unzip: File.which("unzip")
+      unzip: File.which("unzip"),
     }
   end
 
@@ -67,7 +67,7 @@ module Whitehall
 
   def self.internal_admin_host
     @internal_admin_host ||=
-      URI(Plek.new.find('whitehall-admin')).host
+      URI(Plek.new.find("whitehall-admin")).host
   end
 
   def self.public_host
@@ -79,7 +79,7 @@ module Whitehall
   end
 
   def self.admin_root
-    @admin_root ||= Plek.new.external_url_for('whitehall-admin')
+    @admin_root ||= Plek.new.external_url_for("whitehall-admin")
   end
 
   def self.secrets
@@ -92,12 +92,12 @@ module Whitehall
   end
 
   def self.uploads_root_for_test_env
-    env_number = ENV['TEST_ENV_NUMBER'].blank? ? '1' : ENV['TEST_ENV_NUMBER']
+    env_number = ENV["TEST_ENV_NUMBER"].blank? ? "1" : ENV["TEST_ENV_NUMBER"]
     Rails.root.join("tmp/test/env_#{env_number}")
   end
 
   def self.asset_manager_tmp_dir
-    File.join(uploads_root, 'asset-manager-tmp')
+    File.join(uploads_root, "asset-manager-tmp")
   end
 
   def self.edition_classes
@@ -124,12 +124,12 @@ module Whitehall
     {
       policy: "policy",
       news: "news",
-      detailed_guidance: "detailed_guidance"
+      detailed_guidance: "detailed_guidance",
     }[format]
   end
 
   def self.rummager_work_queue_name
-    'rummager-delayed-indexing'
+    "rummager-delayed-indexing"
   end
 
   def self.url_maker
@@ -137,7 +137,7 @@ module Whitehall
   end
 
   def self.atom_feed_maker
-    @atom_feed_maker ||= Whitehall::UrlMaker.new(host: Whitehall.public_host, protocol: Whitehall.public_protocol, format: 'atom')
+    @atom_feed_maker ||= Whitehall::UrlMaker.new(host: Whitehall.public_host, protocol: Whitehall.public_protocol, format: "atom")
   end
 
   def self.edition_services
@@ -159,7 +159,7 @@ module Whitehall
   private_class_method :load_secrets
 
   def self.secrets_path
-    Rails.root + 'config' + 'whitehall_secrets.yml'
+    Rails.root + "config" + "whitehall_secrets.yml"
   end
   private_class_method :secrets_path
 end

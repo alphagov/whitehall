@@ -4,7 +4,7 @@ class PublishingApiHtmlAttachmentsWorker
   attr_reader :edition, :unpublishing
   private :edition, :unpublishing
 
-  sidekiq_options queue: 'publishing_api'
+  sidekiq_options queue: "publishing_api"
 
   def perform(edition_id, event, unpublishing_id = nil)
     @edition = Edition.unscoped.includes(:unpublishing).find(edition_id)
@@ -31,7 +31,7 @@ class PublishingApiHtmlAttachmentsWorker
       Whitehall::PublishingApi.save_draft_translation(
         html_attachment,
         html_attachment.locale || I18n.default_locale.to_s,
-        update_type || (edition.minor_change? ? "minor" : "major")
+        update_type || (edition.minor_change? ? "minor" : "major"),
       )
     end
     discard_drafts(deleted_html_attachments)
@@ -55,7 +55,7 @@ class PublishingApiHtmlAttachmentsWorker
         html_attachment.content_id,
         destination,
         html_attachment.locale || I18n.default_locale.to_s,
-        allow_draft
+        allow_draft,
       )
     end
   end
@@ -65,7 +65,7 @@ class PublishingApiHtmlAttachmentsWorker
       PublishingApiWithdrawalWorker.new.perform(
         html_attachment.content_id,
         edition.unpublishing.explanation,
-        edition.primary_locale
+        edition.primary_locale,
       )
     end
   end
@@ -80,7 +80,7 @@ private
     html_attachments.each do |html_attachment|
       PublishingApiDiscardDraftWorker.perform_async(
         html_attachment.content_id,
-        edition.primary_locale
+        edition.primary_locale,
       )
     end
   end
@@ -136,7 +136,7 @@ private
       PublishingApiRedirectWorker.new.perform(
         content_id,
         Whitehall.url_maker.public_document_path(edition),
-        I18n.default_locale.to_s
+        I18n.default_locale.to_s,
       )
     end
 
@@ -145,7 +145,7 @@ private
         html_attachment.class.name,
         html_attachment.id,
         update_type,
-        html_attachment.locale || I18n.default_locale.to_s
+        html_attachment.locale || I18n.default_locale.to_s,
       )
     end
   end

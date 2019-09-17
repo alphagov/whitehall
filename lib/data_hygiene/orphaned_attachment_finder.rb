@@ -1,4 +1,4 @@
-require 'csv'
+require "csv"
 
 module DataHygiene
   class OrphanedAttachmentFinder
@@ -42,7 +42,7 @@ module DataHygiene
               edition.title,
               edition.respond_to?(:state) && edition.state,
               admin_url(edition),
-              record[:expected] - record[:actual]
+              record[:expected] - record[:actual],
             ]
           end
         end
@@ -62,7 +62,7 @@ module DataHygiene
           else
             state = "published"
           end
-          next if state == 'superseded'
+          next if state == "superseded"
 
           num_attachments = edition.attachments.count
           actual_placeholders = edition.body.scan(/!@[1-9][0-9]*/).sort
@@ -73,7 +73,7 @@ module DataHygiene
               edition: edition,
               expected: expected_placeholders,
               actual: actual_placeholders,
-              state: state
+              state: state,
             }
           end
         end

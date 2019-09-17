@@ -1,8 +1,8 @@
-require 'test_helper'
+require "test_helper"
 
 class TimeZoneTest < ActiveSupport::TestCase
   test "only use instances of TimeWithZone, not instances of Time" do
-    directories = Dir.glob(File.join(Rails.root, '**', '*.rb'))
+    directories = Dir.glob(File.join(Rails.root, "**", "*.rb"))
     matching_files = directories.select do |filename|
       match = false
       File.open(filename) do |file|

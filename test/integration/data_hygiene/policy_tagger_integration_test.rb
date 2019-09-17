@@ -1,11 +1,11 @@
-require 'test_helper'
-require 'data_hygiene/policy_tagger'
+require "test_helper"
+require "data_hygiene/policy_tagger"
 
 class PolicyTaggerTest < ActiveSupport::TestCase
   include DataHygiene
 
   setup do
-    @csv_file = Tempfile.new('policy_changes')
+    @csv_file = Tempfile.new("policy_changes")
     @content_id_1 = policy_area_1["content_id"]
     @content_id_2 = policy_area_2["content_id"]
     @content_id_3 = policy_area_3["content_id"]

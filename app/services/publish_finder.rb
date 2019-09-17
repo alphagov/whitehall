@@ -18,7 +18,7 @@ private
   def send_to_publishing_api
     Services.publishing_api.put_content(
       content_id,
-      finder_content_item
+      finder_content_item,
     )
     Services.publishing_api.publish(content_id)
   end
@@ -28,6 +28,6 @@ private
   end
 
   def existing_content_id
-    Services.publishing_api.lookup_content_id(base_path: finder_content_item['base_path'])
+    Services.publishing_api.lookup_content_id(base_path: finder_content_item["base_path"])
   end
 end

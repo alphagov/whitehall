@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Api::OrganisationPresenterTest < PresenterTestCase
   setup do
@@ -24,8 +24,8 @@ class Api::OrganisationPresenterTest < PresenterTestCase
     assert_equal @organisation, paginated.page.first.model
   end
 
-  test 'links has a self link, pointing to the request-relative api organisation url' do
-    self_link = @presenter.links.detect { |(_url, attrs)| attrs['rel'] == 'self' }
+  test "links has a self link, pointing to the request-relative api organisation url" do
+    self_link = @presenter.links.detect { |(_url, attrs)| attrs["rel"] == "self" }
     assert self_link
     url, _attrs = *self_link
     assert_equal api_organisation_url(@organisation), url
@@ -36,8 +36,8 @@ class Api::OrganisationPresenterTest < PresenterTestCase
   end
 
   test "json includes organisation name as title" do
-    @organisation.stubs(:name).returns('organisation-name')
-    assert_equal 'organisation-name', @presenter.as_json[:title]
+    @organisation.stubs(:name).returns("organisation-name")
+    assert_equal "organisation-name", @presenter.as_json[:title]
   end
 
   test "json includes organisation updated_at as updated_at" do
@@ -47,13 +47,13 @@ class Api::OrganisationPresenterTest < PresenterTestCase
   end
 
   test "json includes acronym in details hash as abbreviation" do
-    @organisation.stubs(:acronym).returns('decc')
-    assert_equal 'decc', @presenter.as_json[:details][:abbreviation]
+    @organisation.stubs(:acronym).returns("decc")
+    assert_equal "decc", @presenter.as_json[:details][:abbreviation]
   end
 
   test "json includes slug in details hash" do
-    @organisation.stubs(:slug).returns('organisation-slug')
-    assert_equal 'organisation-slug', @presenter.as_json[:details][:slug]
+    @organisation.stubs(:slug).returns("organisation-slug")
+    assert_equal "organisation-slug", @presenter.as_json[:details][:slug]
   end
 
   test "json includes closed_at in details hash" do
@@ -77,7 +77,7 @@ class Api::OrganisationPresenterTest < PresenterTestCase
   end
 
   test "json includes human organisation type as format" do
-    assert_equal 'Ministerial department', @presenter.as_json[:format]
+    assert_equal "Ministerial department", @presenter.as_json[:format]
   end
 
   test "json includes public organisation url as web_url" do

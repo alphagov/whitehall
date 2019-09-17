@@ -2,7 +2,7 @@ class Admin::BaseController < ApplicationController
   include Admin::EditionRoutesHelper
   include PermissionsChecker
 
-  layout 'admin'
+  layout "admin"
   prepend_before_action :skip_slimmer
   prepend_before_action :authenticate_user!
 

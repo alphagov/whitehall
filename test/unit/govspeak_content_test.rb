@@ -1,14 +1,14 @@
-require 'test_helper'
+require "test_helper"
 
 class GovspeakContentTest < ActiveSupport::TestCase
-  test 'queues a job to compute the HTML on creation' do
+  test "queues a job to compute the HTML on creation" do
     govspeak_content = create(:html_attachment).govspeak_content
 
     assert job = GovspeakContentWorker.jobs.last
-    assert_equal govspeak_content.id, job['args'].first
+    assert_equal govspeak_content.id, job["args"].first
   end
 
-  test 'clears computed values and queues a job to re-compute the HTML when the body changes' do
+  test "clears computed values and queues a job to re-compute the HTML when the body changes" do
     govspeak_content = create(:html_attachment,
                               body: "## A heading\nSome content").govspeak_content
     compute_govspeak(govspeak_content)
@@ -20,7 +20,7 @@ class GovspeakContentTest < ActiveSupport::TestCase
     assert_nil govspeak_content.computed_headers_html
 
     assert job = GovspeakContentWorker.jobs.last
-    assert_equal govspeak_content.id, job['args'].first
+    assert_equal govspeak_content.id, job["args"].first
   end
 
   test "doesn't clear computed values and doesn't queue a job to re-compute the HTML when the body has not changed" do
@@ -38,7 +38,7 @@ class GovspeakContentTest < ActiveSupport::TestCase
     end
   end
 
-  test 'clears computed values and queues a job to re-compute the HTML when the numbering scheme changes' do
+  test "clears computed values and queues a job to re-compute the HTML when the numbering scheme changes" do
     govspeak_content = create(:html_attachment,
                               manually_numbered_headings: false,
                               body: "## 1.0 A heading\nSome content").govspeak_content
@@ -51,7 +51,7 @@ class GovspeakContentTest < ActiveSupport::TestCase
     assert_nil govspeak_content.computed_headers_html
 
     assert job = GovspeakContentWorker.jobs.last
-    assert_equal govspeak_content.id, job['args'].first
+    assert_equal govspeak_content.id, job["args"].first
   end
 
   test "#render_govspeak sets computed_headers_html correctly" do

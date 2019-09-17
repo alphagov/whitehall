@@ -2,7 +2,7 @@ class PublishingApiPublicationsWorker
   extend Forwardable
   include Sidekiq::Worker
 
-  sidekiq_options queue: 'publishing_api'
+  sidekiq_options queue: "publishing_api"
 
   def perform(edition_id, event)
     self.publication =

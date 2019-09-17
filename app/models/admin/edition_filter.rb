@@ -27,7 +27,7 @@ module Admin
 
       @editions[locale] = Kaminari.paginate_array(
         permitted_only(requested_editions),
-        total_count: requested_editions.total_count
+        total_count: requested_editions.total_count,
       ).page(options[:page])
     end
 
@@ -38,7 +38,7 @@ module Admin
     end
 
     def page_title
-      "#{ownership} #{edition_state} #{type_for_display}#{title_matches}#{location_matches} #{date_range_string}".squeeze(' ').strip
+      "#{ownership} #{edition_state} #{type_for_display}#{title_matches}#{location_matches} #{date_range_string}".squeeze(" ").strip
     end
 
     def default_page_size
@@ -152,7 +152,7 @@ module Admin
     end
 
     def type
-      EDITION_TYPE_LOOKUP[options[:type].sub(/_\d+$/, '').classify] if options[:type]
+      EDITION_TYPE_LOOKUP[options[:type].sub(/_\d+$/, "").classify] if options[:type]
     end
 
     def subtype
@@ -212,7 +212,7 @@ module Admin
     end
 
     def edition_state
-      options[:state].humanize.downcase if options[:state].present? && options[:state] != 'active'
+      options[:state].humanize.downcase if options[:state].present? && options[:state] != "active"
     end
 
     def organisation

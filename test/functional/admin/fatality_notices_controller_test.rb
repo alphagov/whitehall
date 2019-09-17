@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::FatalityNoticesControllerTest < ActionController::TestCase
   include TaxonomyHelper
@@ -65,7 +65,7 @@ class Admin::FatalityNoticesControllerTest < ActionController::TestCase
         "0" => {
           personal_details: "Personal details",
         },
-      }
+      },
     )
 
     post :create, params: { edition: attributes }

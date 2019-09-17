@@ -1,23 +1,23 @@
-require 'test_helper'
+require "test_helper"
 
 class Api::ResponderTest < ActiveSupport::TestCase
-  test 'to_json asks the resource to become json' do
+  test "to_json asks the resource to become json" do
     resource = mock
-    resource.expects(:as_json).returns('meh' => 1)
+    resource.expects(:as_json).returns("meh" => 1)
     responder = make_responder_for_resource(resource)
 
     responder.to_json
   end
 
-  test 'to_json sends the json-ified resource to display' do
+  test "to_json sends the json-ified resource to display" do
     resource = { meh: 1 }
     responder = make_responder_for_resource(resource)
 
     responder.to_json
-    assert_equal 1, responder.displayed_json['meh']
+    assert_equal 1, responder.displayed_json["meh"]
   end
 
-  test 'to_json injects the _response_info into the json-ified resource it sends to display' do
+  test "to_json injects the _response_info into the json-ified resource it sends to display" do
     resource = {}
     responder = make_responder_for_resource(resource)
 
@@ -25,23 +25,23 @@ class Api::ResponderTest < ActiveSupport::TestCase
     assert responder.displayed_json.has_key?(:_response_info)
   end
 
-  test 'the _response_info in the json includes the status' do
+  test "the _response_info in the json includes the status" do
     resource = {}
     responder = make_responder_for_resource(resource)
 
     responder.to_json
-    assert_equal 'ok', responder.displayed_json[:_response_info][:status]
+    assert_equal "ok", responder.displayed_json[:_response_info][:status]
   end
 
-  test 'the _response_info in the json includes the status from the options' do
+  test "the _response_info in the json includes the status from the options" do
     resource = {}
     responder = make_responder_for_resource(resource, status: :not_found)
 
     responder.to_json
-    assert_equal 'not found', responder.displayed_json[:_response_info][:status]
+    assert_equal "not found", responder.displayed_json[:_response_info][:status]
   end
 
-  test 'the _response_info in the json has no links if none are specified' do
+  test "the _response_info in the json has no links if none are specified" do
     resource = {}
     responder = make_responder_for_resource(resource)
 
@@ -50,34 +50,34 @@ class Api::ResponderTest < ActiveSupport::TestCase
     refute response_info.has_key?(:links)
   end
 
-  test 'providing links in the options will include them in the _response_info json' do
+  test "providing links in the options will include them in the _response_info json" do
     resource = {}
-    responder = make_responder_for_resource(resource, links: [['http://example.com/woo', { 'rel' => 'self' }]])
+    responder = make_responder_for_resource(resource, links: [["http://example.com/woo", { "rel" => "self" }]])
 
     responder.to_json
     response_info = responder.displayed_json[:_response_info]
     assert response_info.has_key?(:links)
     assert_equal 1, response_info[:links].size
     assert_equal %i[href rel], response_info[:links].first.keys.sort
-    assert_equal 'http://example.com/woo', response_info[:links].first[:href]
-    assert_equal 'self', response_info[:links].first[:rel]
+    assert_equal "http://example.com/woo", response_info[:links].first[:href]
+    assert_equal "self", response_info[:links].first[:rel]
   end
 
-  test 'providing links in the options sets the Link http header with them' do
+  test "providing links in the options sets the Link http header with them" do
     resource = {}
-    responder = make_responder_for_resource(resource, links: [['http://example.com/woo', { 'rel' => 'self' }]])
+    responder = make_responder_for_resource(resource, links: [["http://example.com/woo", { "rel" => "self" }]])
     headers = {}
     responder.controller.expects(:headers).returns(headers)
     responder.to_json
 
-    assert headers.has_key?('Link')
-    assert_equal '<http://example.com/woo>; rel="self"', headers['Link']
+    assert headers.has_key?("Link")
+    assert_equal '<http://example.com/woo>; rel="self"', headers["Link"]
   end
 
-  test 'providing links via the resource will include them in the _response_info json' do
+  test "providing links via the resource will include them in the _response_info json" do
     resource = stub
     resource.stubs(:as_json).returns({})
-    resource.stubs(:links).returns([['http://example.com/woo', { 'rel' => 'self' }]])
+    resource.stubs(:links).returns([["http://example.com/woo", { "rel" => "self" }]])
     responder = make_responder_for_resource(resource)
 
     responder.to_json
@@ -85,28 +85,28 @@ class Api::ResponderTest < ActiveSupport::TestCase
     assert response_info.has_key?(:links)
     assert_equal 1, response_info[:links].size
     assert_equal %i[href rel], response_info[:links].first.keys.sort
-    assert_equal 'http://example.com/woo', response_info[:links].first[:href]
-    assert_equal 'self', response_info[:links].first[:rel]
+    assert_equal "http://example.com/woo", response_info[:links].first[:href]
+    assert_equal "self", response_info[:links].first[:rel]
   end
 
-  test 'providing links via the resource sets the Link http header with them' do
+  test "providing links via the resource sets the Link http header with them" do
     resource = stub
     resource.stubs(:as_json).returns({})
-    resource.stubs(:links).returns([['http://example.com/woo', { 'rel' => 'self' }]])
+    resource.stubs(:links).returns([["http://example.com/woo", { "rel" => "self" }]])
     responder = make_responder_for_resource(resource)
     headers = {}
     responder.controller.expects(:headers).returns(headers)
     responder.to_json
 
-    assert headers.has_key?('Link')
-    assert_equal '<http://example.com/woo>; rel="self"', headers['Link']
+    assert headers.has_key?("Link")
+    assert_equal '<http://example.com/woo>; rel="self"', headers["Link"]
   end
 
-  test 'providing links via the resource and options will include them both in the _response_info json' do
+  test "providing links via the resource and options will include them both in the _response_info json" do
     resource = stub
     resource.stubs(:as_json).returns({})
-    resource.stubs(:links).returns([['http://example.com/woo', { 'rel' => 'self' }]])
-    responder = make_responder_for_resource(resource, links: [['http://example.com/foo', { 'rel' => 'next' }]])
+    resource.stubs(:links).returns([["http://example.com/woo", { "rel" => "self" }]])
+    responder = make_responder_for_resource(resource, links: [["http://example.com/foo", { "rel" => "next" }]])
 
     responder.to_json
     response_info = responder.displayed_json[:_response_info]
@@ -114,32 +114,32 @@ class Api::ResponderTest < ActiveSupport::TestCase
     assert_equal 2, response_info[:links].size
 
     assert_equal %i[href rel], response_info[:links][0].keys.sort
-    assert_equal 'http://example.com/woo', response_info[:links][0][:href]
-    assert_equal 'self', response_info[:links][0][:rel]
+    assert_equal "http://example.com/woo", response_info[:links][0][:href]
+    assert_equal "self", response_info[:links][0][:rel]
 
     assert_equal %i[href rel], response_info[:links][1].keys.sort
-    assert_equal 'http://example.com/foo', response_info[:links][1][:href]
-    assert_equal 'next', response_info[:links][1][:rel]
+    assert_equal "http://example.com/foo", response_info[:links][1][:href]
+    assert_equal "next", response_info[:links][1][:rel]
   end
 
-  test 'providing links via the resource and options sets the Link http header with them all' do
+  test "providing links via the resource and options sets the Link http header with them all" do
     resource = stub
     resource.stubs(:as_json).returns({})
-    resource.stubs(:links).returns([['http://example.com/woo', { 'rel' => 'self' }]])
-    responder = make_responder_for_resource(resource, links: [['http://example.com/foo', { 'rel' => 'next' }]])
+    resource.stubs(:links).returns([["http://example.com/woo", { "rel" => "self" }]])
+    responder = make_responder_for_resource(resource, links: [["http://example.com/foo", { "rel" => "next" }]])
     headers = {}
     responder.controller.expects(:headers).returns(headers)
     responder.to_json
 
-    assert headers.has_key?('Link')
-    assert_equal '<http://example.com/woo>; rel="self", <http://example.com/foo>; rel="next"', headers['Link']
+    assert headers.has_key?("Link")
+    assert_equal '<http://example.com/woo>; rel="self", <http://example.com/foo>; rel="next"', headers["Link"]
   end
 
-  test 'providing the same links via the resource and options will not create duplicates in the json' do
+  test "providing the same links via the resource and options will not create duplicates in the json" do
     resource = stub
     resource.stubs(:as_json).returns({})
-    resource.stubs(:links).returns([['http://example.com/woo', { 'rel' => 'self' }]])
-    responder = make_responder_for_resource(resource, links: [['http://example.com/woo', { 'rel' => 'self' }]])
+    resource.stubs(:links).returns([["http://example.com/woo", { "rel" => "self" }]])
+    responder = make_responder_for_resource(resource, links: [["http://example.com/woo", { "rel" => "self" }]])
 
     responder.to_json
     response_info = responder.displayed_json[:_response_info]
@@ -147,21 +147,21 @@ class Api::ResponderTest < ActiveSupport::TestCase
     assert_equal 1, response_info[:links].size
 
     assert_equal %i[href rel], response_info[:links][0].keys.sort
-    assert_equal 'http://example.com/woo', response_info[:links][0][:href]
-    assert_equal 'self', response_info[:links][0][:rel]
+    assert_equal "http://example.com/woo", response_info[:links][0][:href]
+    assert_equal "self", response_info[:links][0][:rel]
   end
 
-  test 'providing the same links via the resource and options will not create duplicates in the Link header' do
+  test "providing the same links via the resource and options will not create duplicates in the Link header" do
     resource = stub
     resource.stubs(:as_json).returns({})
-    resource.stubs(:links).returns([['http://example.com/woo', { 'rel' => 'self' }]])
-    responder = make_responder_for_resource(resource, links: [['http://example.com/woo', { 'rel' => 'self' }]])
+    resource.stubs(:links).returns([["http://example.com/woo", { "rel" => "self" }]])
+    responder = make_responder_for_resource(resource, links: [["http://example.com/woo", { "rel" => "self" }]])
     headers = {}
     responder.controller.expects(:headers).returns(headers)
     responder.to_json
 
-    assert headers.has_key?('Link')
-    assert_equal '<http://example.com/woo>; rel="self"', headers['Link']
+    assert headers.has_key?("Link")
+    assert_equal '<http://example.com/woo>; rel="self"', headers["Link"]
   end
 
   def make_responder_for_resource(resource, options = {})

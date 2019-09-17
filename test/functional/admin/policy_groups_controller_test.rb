@@ -23,11 +23,11 @@ class Admin::PolicyGroupsControllerTest < ActionController::TestCase
   end
 
   test "POST :create" do
-    post :create, params: { policy_group: { name: 'Policy Forum' } }
+    post :create, params: { policy_group: { name: "Policy Forum" } }
 
     assert_response :redirect
     assert_redirected_to admin_policy_groups_path
-    assert_equal 'Policy Forum', PolicyGroup.last.name
+    assert_equal "Policy Forum", PolicyGroup.last.name
   end
 
   view_test "GET :edit" do
@@ -40,13 +40,13 @@ class Admin::PolicyGroupsControllerTest < ActionController::TestCase
   end
 
   test "PUT :update" do
-    group = create(:policy_group, name: 'Policy Forum')
+    group = create(:policy_group, name: "Policy Forum")
 
-    put :update, params: { id: group, policy_group: { name: 'Policy Board' } }
+    put :update, params: { id: group, policy_group: { name: "Policy Board" } }
 
     assert_response :redirect
     assert_redirected_to admin_policy_groups_path
-    assert_equal 'Policy Board', group.reload.name
+    assert_equal "Policy Board", group.reload.name
   end
 
   test "DELETE :destroy is forbidden for writers" do

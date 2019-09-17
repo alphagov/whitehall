@@ -1,8 +1,8 @@
-require 'test_helper'
+require "test_helper"
 
 module Govspeak
   class AdminLinkReplacerTest < ActiveSupport::TestCase
-    test 'rewrites admin links for published editions' do
+    test "rewrites admin links for published editions" do
       speech     = create(:published_speech)
       public_url = Whitehall.url_maker.public_document_url(speech)
       fragment   = govspeak_to_nokogiri_fragment("this and [that](/government/admin/speeches/#{speech.id}) yeah?")
@@ -12,7 +12,7 @@ module Govspeak
       assert_select_within_html fragment.to_html, "a[href='#{public_url}']", text: "that"
     end
 
-    test 'unpublished edition links are replaced with plain text' do
+    test "unpublished edition links are replaced with plain text" do
       draft_speech = create(:draft_speech)
       _admin_path  = Whitehall.url_maker.admin_speech_path(draft_speech)
       fragment     = govspeak_to_nokogiri_fragment("this is an [unpublished thing](/government/admin/speeches/#{draft_speech.id})")
@@ -20,10 +20,10 @@ module Govspeak
       AdminLinkReplacer.new(fragment).replace!
 
       refute_select_within_html fragment.to_html, "a"
-      assert_select_within_html fragment.to_html, "p", text: 'this is an unpublished thing'
+      assert_select_within_html fragment.to_html, "p", text: "this is an unpublished thing"
     end
 
-    test 'rewrites admin links to published corporate information pages' do
+    test "rewrites admin links to published corporate information pages" do
       cip        = create(:published_corporate_information_page)
       admin_path = Whitehall.url_maker.polymorphic_path([:admin, cip.organisation, cip])
       public_url = Whitehall.url_maker.public_document_url(cip)
@@ -34,7 +34,7 @@ module Govspeak
       assert_select_within_html fragment.to_html, "a[href='#{public_url}']", text: "info page"
     end
 
-    test 'handles cips on world orgs' do
+    test "handles cips on world orgs" do
       world_org  = create(:worldwide_organisation)
       cip        = create(:published_corporate_information_page, organisation: nil, worldwide_organisation: world_org)
       admin_path = Whitehall.url_maker.polymorphic_path([:admin, world_org, cip])
@@ -46,7 +46,7 @@ module Govspeak
       assert_select_within_html fragment.to_html, "a[href='#{public_url}']", text: "world info page"
     end
 
-    test 'replaces other types of admin links with plain text' do
+    test "replaces other types of admin links with plain text" do
       topic    = create(:topic)
       fragment = govspeak_to_nokogiri_fragment("Here is an [admin link that should not link](/government/admin/topics/#{topic.id})")
 

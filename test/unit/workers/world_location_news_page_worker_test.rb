@@ -5,7 +5,7 @@ class WorldLocationNewsPageWorkerTest < ActiveSupport::TestCase
     world_location = FactoryBot.create(
       :world_location,
       name: "France",
-      news_page_content_id: "id-123"
+      news_page_content_id: "id-123",
     )
     presenter = PublishingApi::WorldLocationNewsPagePresenter.new(world_location)
 
@@ -19,7 +19,7 @@ class WorldLocationNewsPageWorkerTest < ActiveSupport::TestCase
     world_location = FactoryBot.create(
       :world_location,
       name: "France",
-      news_page_content_id: "id-123"
+      news_page_content_id: "id-123",
     )
     presenter = PublishingApi::WorldLocationNewsPagePresenter.new(world_location)
 
@@ -34,7 +34,7 @@ class WorldLocationNewsPageWorkerTest < ActiveSupport::TestCase
       :world_location,
       name: "France",
       news_page_content_id: "id-123",
-      translated_into: [:fr]
+      translated_into: [:fr],
     )
 
     I18n.with_locale(:en) do

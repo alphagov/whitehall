@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class ImageValidatorTest < ActiveSupport::TestCase
   EXAMPLE_MODEL = ImageData
@@ -21,7 +21,7 @@ class ImageValidatorTest < ActiveSupport::TestCase
 
   test "should allow specified mime-types" do
     subject = ImageValidator.new(mime_types: {
-      "image/gif" => /.gif$/
+      "image/gif" => /.gif$/,
     })
 
     assert_validates_as_invalid(subject, "960x640_jpeg.jpg")
@@ -63,7 +63,7 @@ private
 
   def build_example(file_name)
     if file_name.present?
-      File.open(File.join(Rails.root, 'test/fixtures/images', file_name)) do |file|
+      File.open(File.join(Rails.root, "test/fixtures/images", file_name)) do |file|
         EXAMPLE_MODEL.new(file: file).tap do |image_data|
           carrierwave_file = image_data.file.file
           carrierwave_file.content_type = content_type(file_name)

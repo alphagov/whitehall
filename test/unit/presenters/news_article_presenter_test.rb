@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class NewsArticlePresenterTest < ActionView::TestCase
   setup do
@@ -8,7 +8,7 @@ class NewsArticlePresenterTest < ActionView::TestCase
   end
 
   test "lead_image_path returns the default image" do
-    assert_match 'placeholder', @presenter.lead_image_path
+    assert_match "placeholder", @presenter.lead_image_path
   end
 
   test "lead_image_path returns the department default image" do

@@ -3,6 +3,6 @@ class ClassificationFeaturingPresenter < Whitehall::Decorators::Decorator
 
   def image_tag(size)
     image_url = model.image.file.url(size || :s630)
-    context.image_tag image_url, class: 'featured-image', alt: model.alt_text
+    context.image_tag image_url, class: "featured-image", alt: model.alt_text
   end
 end

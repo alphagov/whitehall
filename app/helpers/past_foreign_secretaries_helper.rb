@@ -10,7 +10,7 @@ module PastForeignSecretariesHelper
       "george-gower" => "George Leveson Gower",
       "george-gordon" => "George Hamilton Gordon",
       "charles-fox" => "Charles James Fox",
-      "william-grenville" => "William Wyndham Grenville"
+      "william-grenville" => "William Wyndham Grenville",
     }
     people
       .map { |slug, name|
@@ -18,7 +18,7 @@ module PastForeignSecretariesHelper
           link_to_if(slug == current_person, name.html_safe, past_foreign_secretary_path(id: slug))
         end
       }
-      .join('')
+      .join("")
       .html_safe
   end
 end

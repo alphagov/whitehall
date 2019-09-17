@@ -1,11 +1,11 @@
-require 'test_helper'
+require "test_helper"
 
 class TaxonValidatorTest < ActiveSupport::TestCase
   setup do
     @validator = TaxonValidator.new
   end
 
-  test 'is invalid when edition has not been tagged to a taxon' do
+  test "is invalid when edition has not been tagged to a taxon" do
     edition = create(:draft_edition)
 
     publishing_api_has_links(
@@ -13,12 +13,12 @@ class TaxonValidatorTest < ActiveSupport::TestCase
       "links" => {
         "organisations" => %w[569a9ee5-c195-4b7f-b9dc-edc17a09113f],
       },
-      "version" => 1
+      "version" => 1,
     )
 
     publishing_api_has_expanded_links(
       content_id:  edition.content_id,
-      expanded_links:  {}
+      expanded_links:  {},
     )
 
     @validator.validate(edition)
@@ -26,20 +26,20 @@ class TaxonValidatorTest < ActiveSupport::TestCase
     assert_equal 1, edition.errors.count
     assert_equal(
       "<b>This document has not been published.</b> You need to add a topic before publishing.",
-      edition.errors[:base].first
+      edition.errors[:base].first,
     )
   end
 
-  test 'is valid when edition has been tagged to a taxon' do
+  test "is valid when edition has been tagged to a taxon" do
     edition = create(:draft_edition)
 
     publishing_api_has_links(
       "content_id" => edition.content_id,
       "links" => {
         "organisations" => %w[569a9ee5-c195-4b7f-b9dc-edc17a09113f],
-        "taxons" => %w[7754ae52-34aa-499e-a6dd-88f04633b8ab]
+        "taxons" => %w[7754ae52-34aa-499e-a6dd-88f04633b8ab],
       },
-      "version" => 1
+      "version" => 1,
     )
 
     publishing_api_has_expanded_links(
@@ -52,13 +52,13 @@ class TaxonValidatorTest < ActiveSupport::TestCase
               "parent_taxons" => [
                 {
                   "title" => "Education, Training and Skills",
-                  "links" => {}
-                }
-              ]
-            }
-          }
-        ]
-      }
+                  "links" => {},
+                },
+              ],
+            },
+          },
+        ],
+      },
     )
 
     @validator.validate(edition)

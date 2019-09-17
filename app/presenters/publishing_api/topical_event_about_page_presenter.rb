@@ -48,7 +48,7 @@ module PublishingApi
     def details
       {
         body: body,
-        read_more: item.read_more_link_text
+        read_more: item.read_more_link_text,
       }
     end
 

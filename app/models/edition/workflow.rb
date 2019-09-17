@@ -3,7 +3,7 @@ module Edition::Workflow
 
   module ClassMethods
     def active
-      where(arel_table[:state].not_eq('superseded'))
+      where(arel_table[:state].not_eq("superseded"))
     end
 
     def in_state(state)
@@ -18,7 +18,7 @@ module Edition::Workflow
   included do
     include ActiveRecord::Transitions
 
-    default_scope -> { where(arel_table[:state].not_eq('deleted')) }
+    default_scope -> { where(arel_table[:state].not_eq("deleted")) }
 
     state_machine auto_scopes: true do
       state :imported

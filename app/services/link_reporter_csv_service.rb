@@ -30,7 +30,7 @@ private
   end
 
   def csv_for_organisation(edition_organisation)
-    slug = edition_organisation.try(:slug) || 'no-organisation'
+    slug = edition_organisation.try(:slug) || "no-organisation"
     csv_reports[slug] ||= CsvReport.new(csv_report_path(slug))
   end
 
@@ -49,7 +49,7 @@ private
       timestamp(edition),
       edition.type,
       broken_links(edition).size,
-      broken_links(edition).join("\r\n")
+      broken_links(edition).join("\r\n"),
     ]
   end
 
@@ -95,7 +95,7 @@ private
     delegate :<<, :close, to: :csv
 
     def initialize(file_path)
-      @csv = CSV.open(file_path, 'w', encoding: 'UTF-8')
+      @csv = CSV.open(file_path, "w", encoding: "UTF-8")
       @csv << headings
     end
 

@@ -6,7 +6,7 @@ class DocumentCollectionGroupMembership < ApplicationRecord
              inverse_of: :document_collection_group_memberships,
              optional: true
   belongs_to :non_whitehall_link,
-             class_name: 'DocumentCollectionNonWhitehallLink',
+             class_name: "DocumentCollectionNonWhitehallLink",
              inverse_of: :document_collection_group_memberships,
              optional: true
   belongs_to :document_collection_group, inverse_of: :memberships

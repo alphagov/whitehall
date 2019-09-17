@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Api::OrganisationsControllerTest < ActionController::TestCase
   tests Api::OrganisationsController
@@ -16,7 +16,7 @@ class Api::OrganisationsControllerTest < ActionController::TestCase
 
     Api::OrganisationPresenter.stubs(:paginate).with(Organisation.includes(:parent_organisations, :child_organisations, :translations).order(:id), anything).returns(presenter)
 
-    get :index, format: 'json'
+    get :index, format: "json"
 
     assert_cache_control("max-age=#{Whitehall.default_api_cache_max_age}")
   end
@@ -31,14 +31,14 @@ class Api::OrganisationsControllerTest < ActionController::TestCase
 
     Api::OrganisationPresenter.stubs(:paginate).with(Organisation.includes(:parent_organisations, :child_organisations, :translations).order(:id), anything).returns(presenter)
 
-    get :index, format: 'json'
+    get :index, format: "json"
 
-    assert response.headers['Access-Control-Allow-Origin'] == '*'
+    assert response.headers["Access-Control-Allow-Origin"] == "*"
   end
 
   view_test "show responds with JSON representation of found organisation" do
-    organisation = stub_record(:organisation, slug: 'meh')
-    organisation.stubs(:to_param).returns('meh')
+    organisation = stub_record(:organisation, slug: "meh")
+    organisation.stubs(:to_param).returns("meh")
     friendly = stub
     Organisation.stubs(:friendly).returns(friendly)
     friendly.stubs(:find).with(organisation.slug).returns(organisation)
@@ -46,13 +46,13 @@ class Api::OrganisationsControllerTest < ActionController::TestCase
     presenter.stubs(:as_json).returns(foo: :bar)
     Api::OrganisationPresenter.stubs(:new).with(organisation, anything).returns(presenter)
 
-    get :show, params: { id: organisation.slug }, format: 'json'
-    assert_equal 'bar', json_response['foo']
+    get :show, params: { id: organisation.slug }, format: "json"
+    assert_equal "bar", json_response["foo"]
   end
 
   view_test "show includes _response_info in response" do
-    organisation = stub_record(:organisation, slug: 'meh')
-    organisation.stubs(:to_param).returns('meh')
+    organisation = stub_record(:organisation, slug: "meh")
+    organisation.stubs(:to_param).returns("meh")
     friendly = stub
     Organisation.stubs(:friendly).returns(friendly)
     friendly.stubs(:find).with(organisation.slug).returns(organisation)
@@ -60,17 +60,17 @@ class Api::OrganisationsControllerTest < ActionController::TestCase
     presenter.stubs(:as_json).returns(foo: :bar)
     Api::OrganisationPresenter.stubs(:new).with(organisation, anything).returns(presenter)
 
-    get :show, params: { id: organisation.slug }, format: 'json'
-    assert_equal 'ok', json_response['_response_info']['status']
+    get :show, params: { id: organisation.slug }, format: "json"
+    assert_equal "ok", json_response["_response_info"]["status"]
   end
 
   view_test "show responds with 404 if organisation is not found" do
     friendly = stub
     Organisation.stubs(:friendly).returns(friendly)
-    friendly.stubs(:find).with('unknown').returns(nil)
-    get :show, params: { id: 'unknown' }, format: 'json'
+    friendly.stubs(:find).with("unknown").returns(nil)
+    get :show, params: { id: "unknown" }, format: "json"
     assert_response :not_found
-    assert_equal 'not found', json_response['_response_info']['status']
+    assert_equal "not found", json_response["_response_info"]["status"]
   end
 
   view_test "index paginates organisations" do
@@ -83,9 +83,9 @@ class Api::OrganisationsControllerTest < ActionController::TestCase
 
     Api::OrganisationPresenter.stubs(:paginate).with(Organisation.includes(:parent_organisations, :child_organisations, :translations).order(:id), anything).returns(presenter)
 
-    get :index, format: 'json'
+    get :index, format: "json"
 
-    assert_equal 'representation', json_response['paged']
+    assert_equal "representation", json_response["paged"]
   end
 
   view_test "index includes _response_info in response" do
@@ -98,8 +98,8 @@ class Api::OrganisationsControllerTest < ActionController::TestCase
 
     Api::OrganisationPresenter.stubs(:paginate).with(Organisation.includes(:parent_organisations, :child_organisations, :translations).order(:id), anything).returns(presenter)
 
-    get :index, format: 'json'
+    get :index, format: "json"
 
-    assert_equal 'ok', json_response['_response_info']['status']
+    assert_equal "ok", json_response["_response_info"]["status"]
   end
 end

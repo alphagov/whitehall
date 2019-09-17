@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Edition::FirstImagePulledOutTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess

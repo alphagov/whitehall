@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::StatisticsAnnouncementUnpublishingsControllerTest < ActionController::TestCase
   include GdsApi::TestHelpers::PublishingApi
@@ -25,19 +25,19 @@ class Admin::StatisticsAnnouncementUnpublishingsControllerTest < ActionControlle
 
   test "POST :create with invalid params rerenders the form" do
     post :create, params: { statistics_announcement_id: @announcement, statistics_announcement: {
-      redirect_url: 'https://youtube.com'
+      redirect_url: "https://youtube.com",
     } }
 
     assert_template :new
   end
 
   test "POST :create with valid params unpublishes the announcement" do
-    redirect_url = 'https://www.test.gov.uk/example'
+    redirect_url = "https://www.test.gov.uk/example"
 
     stub_publishing_api_destroy_intent(@announcement.base_path)
 
     post :create, params: { statistics_announcement_id: @announcement, statistics_announcement: {
-      redirect_url: redirect_url
+      redirect_url: redirect_url,
     } }
 
     @announcement.reload

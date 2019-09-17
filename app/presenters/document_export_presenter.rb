@@ -4,7 +4,7 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
   def as_json
     {
       document: model,
-      editions: editions
+      editions: editions,
     }
   end
 
@@ -19,7 +19,7 @@ class DocumentExportPresenter < Whitehall::Decorators::Decorator
   def edition_associations(edition)
     output = {
                edition: edition,
-               associations: {}
+               associations: {},
              }
 
     associations = edition.class.reflect_on_all_associations.map(&:name)

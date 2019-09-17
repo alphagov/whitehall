@@ -37,7 +37,7 @@ private
 
     params[:organisation].each_pair do |id, org_params|
       Organisation.where(id: id).update_all(
-        ministerial_ordering: org_params["ordering"]
+        ministerial_ordering: org_params["ordering"],
       )
     end
   end

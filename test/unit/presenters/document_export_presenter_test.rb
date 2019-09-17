@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class DocumentExportPresenterTest < ActiveSupport::TestCase
   test "resolves internal Whitehall URLs in edition body with a public URL" do
@@ -6,14 +6,14 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     document = create(:document)
     create(:edition, document: document, body: body)
 
-    linked_document = create(:document, slug: 'some-article')
-    linked_edition = create(:published_edition, document: linked_document, state: 'published')
+    linked_document = create(:document, slug: "some-article")
+    linked_edition = create(:published_edition, document: linked_document, state: "published")
 
-    Whitehall::AdminLinkLookup.stubs(:find_edition).with('/government/admin/news/2').returns(linked_edition)
+    Whitehall::AdminLinkLookup.stubs(:find_edition).with("/government/admin/news/2").returns(linked_edition)
 
     expected_whitehall_admin_links = [{
       whitehall_admin_url: "/government/admin/news/2",
-      public_url: "www.test.gov.uk/government/generic-editions/some-article"
+      public_url: "www.test.gov.uk/government/generic-editions/some-article",
     }]
 
     result = DocumentExportPresenter.new(document).as_json
@@ -25,14 +25,14 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     edition = create(:withdrawn_edition)
     edition.unpublishing.update_attribute(:explanation, body)
 
-    linked_document = create(:document, slug: 'some-article')
-    linked_edition = create(:published_edition, document: linked_document, state: 'published')
+    linked_document = create(:document, slug: "some-article")
+    linked_edition = create(:published_edition, document: linked_document, state: "published")
 
-    Whitehall::AdminLinkLookup.stubs(:find_edition).with('/government/admin/news/2').returns(linked_edition)
+    Whitehall::AdminLinkLookup.stubs(:find_edition).with("/government/admin/news/2").returns(linked_edition)
 
     expected_whitehall_admin_links = [{
       whitehall_admin_url: "/government/admin/news/2",
-      public_url: "www.test.gov.uk/government/generic-editions/some-article"
+      public_url: "www.test.gov.uk/government/generic-editions/some-article",
     }]
 
     result = DocumentExportPresenter.new(edition.document).as_json
@@ -46,7 +46,7 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     result = DocumentExportPresenter.new(publication.document).as_json
     images = result[:editions].first[:associations][:images]
 
-    assert_equal image.image_data.file_url, images.first['url']
+    assert_equal image.image_data.file_url, images.first["url"]
   end
 
   test "appends expected attachment data to the file attachment response hash" do
@@ -55,9 +55,9 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     result = DocumentExportPresenter.new(publication_file.document).as_json
     attachments = result[:editions].first[:associations][:attachments]
 
-    assert_equal publication_file.attachments.first.url, attachments.first['url']
-    assert_equal "FileAttachment", attachments.first['type']
-    assert_equal publication_file.attachments.first.attachment_data.as_json, attachments.first['attachment_data']
+    assert_equal publication_file.attachments.first.url, attachments.first["url"]
+    assert_equal "FileAttachment", attachments.first["type"]
+    assert_equal publication_file.attachments.first.attachment_data.as_json, attachments.first["attachment_data"]
   end
 
   test "exports expected data with the external attachment response hash" do
@@ -66,8 +66,8 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     result = DocumentExportPresenter.new(publication_external.document).as_json
     attachments = result[:editions].first[:associations][:attachments]
 
-    assert_equal publication_external.attachments.first.url, attachments.first['url']
-    assert_equal "ExternalAttachment", attachments.first['type']
+    assert_equal publication_external.attachments.first.url, attachments.first["url"]
+    assert_equal "ExternalAttachment", attachments.first["type"]
   end
 
   test "appends expected govspeak data to the html attachment response hash" do
@@ -76,8 +76,8 @@ class DocumentExportPresenterTest < ActiveSupport::TestCase
     result = DocumentExportPresenter.new(publication_html.document).as_json
     attachments = result[:editions].first[:associations][:attachments]
 
-    assert_equal "HtmlAttachment", attachments.first['type']
-    assert_equal publication_html.attachments.first.govspeak_content.as_json, attachments.first['govspeak_content']
+    assert_equal "HtmlAttachment", attachments.first["type"]
+    assert_equal publication_html.attachments.first.govspeak_content.as_json, attachments.first["govspeak_content"]
   end
 
   test "appends the editions document type key to the response" do

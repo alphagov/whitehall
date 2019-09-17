@@ -11,7 +11,7 @@ module PublishingApi
 
         expected_hash = {
           base_path: "/polymorphic/doc/path",
-          routes: [{ path: "/polymorphic/doc/path", type: "exact" }]
+          routes: [{ path: "/polymorphic/doc/path", type: "exact" }],
         }
 
         assert_equal PolymorphicPath.for(dummy_item), expected_hash

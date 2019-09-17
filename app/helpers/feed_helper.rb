@@ -50,7 +50,7 @@ module FeedHelper
     builder.title "#{feed_display_type_for(document)}: #{document.title}"
     builder.category label: document.display_type, term: document.display_type
     builder.summary entry_summary(document)
-    builder.content(entry_content(document), type: 'html') unless document.is_a?(RummagerDocumentPresenter)
+    builder.content(entry_content(document), type: "html") unless document.is_a?(RummagerDocumentPresenter)
   end
 
   def entry_summary(document)

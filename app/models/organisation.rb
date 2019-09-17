@@ -5,9 +5,9 @@ class Organisation < ApplicationRecord
   include Organisation::OrganisationSearchIndexConcern
   include Organisation::OrganisationTypeConcern
 
-  DEFAULT_JOBS_URL = 'https://www.civilservicejobs.service.gov.uk/csr'.freeze
+  DEFAULT_JOBS_URL = "https://www.civilservicejobs.service.gov.uk/csr".freeze
 
-  belongs_to :default_news_image, class_name: 'DefaultNewsOrganisationImageData', foreign_key: :default_news_organisation_image_data_id
+  belongs_to :default_news_image, class_name: "DefaultNewsOrganisationImageData", foreign_key: :default_news_organisation_image_data_id
 
   has_many :child_organisational_relationships,
            foreign_key: :parent_organisation_id,
@@ -34,12 +34,12 @@ class Organisation < ApplicationRecord
   has_many :roles, through: :organisation_roles
   has_many :ministerial_roles,
            -> { where("roles.whip_organisation_id IS null") },
-           class_name: 'MinisterialRole',
+           class_name: "MinisterialRole",
            through: :organisation_roles,
            source: :role
   has_many :ministerial_whip_roles,
            -> { where("roles.whip_organisation_id IS NOT null") },
-           class_name: 'MinisterialRole',
+           class_name: "MinisterialRole",
            through: :organisation_roles,
            source: :role
   has_many :management_roles,
@@ -47,38 +47,38 @@ class Organisation < ApplicationRecord
            through: :organisation_roles,
            source: :role
   has_many :military_roles,
-           class_name: 'MilitaryRole',
+           class_name: "MilitaryRole",
            through: :organisation_roles,
            source: :role
   has_many :traffic_commissioner_roles,
-           class_name: 'TrafficCommissionerRole',
+           class_name: "TrafficCommissionerRole",
            through: :organisation_roles,
            source: :role
   has_many :chief_professional_officer_roles,
-           class_name: 'ChiefProfessionalOfficerRole',
+           class_name: "ChiefProfessionalOfficerRole",
            through: :organisation_roles,
            source: :role
   has_many :special_representative_roles,
-           class_name: 'SpecialRepresentativeRole',
+           class_name: "SpecialRepresentativeRole",
            through: :organisation_roles,
            source: :role
   has_many :ministerial_role_appointments,
-           class_name: 'RoleAppointment',
+           class_name: "RoleAppointment",
            through: :ministerial_roles,
            source: :role_appointments
   has_many :ministerial_whip_role_appointments,
-           class_name: 'RoleAppointment',
+           class_name: "RoleAppointment",
            through: :ministerial_whip_roles,
            source: :role_appointments
   has_many :judge_roles,
-           class_name: 'JudgeRole',
+           class_name: "JudgeRole",
            through: :organisation_roles,
            source: :role
 
   has_many :people, through: :roles
 
   has_many :organisation_classifications,
-           -> { order('organisation_classifications.ordering') },
+           -> { order("organisation_classifications.ordering") },
            dependent: :destroy
   has_many :classifications, through: :organisation_classifications
 
@@ -90,10 +90,10 @@ class Organisation < ApplicationRecord
   # You can help improve this code by renaming all usages of this field to use
   # the new terminology.
   has_many :topics,
-           -> { order('organisation_classifications.ordering') },
+           -> { order("organisation_classifications.ordering") },
            through: :organisation_classifications
   has_many :topical_events,
-           -> { order('organisation_classifications.ordering') },
+           -> { order("organisation_classifications.ordering") },
            through: :organisation_classifications
 
   has_many :users, foreign_key: :organisation_slug, primary_key: :slug, dependent: :nullify
@@ -136,13 +136,13 @@ class Organisation < ApplicationRecord
   has_many :promotional_features
 
   has_many :featured_links, -> { order(:created_at) }, as: :linkable, dependent: :destroy
-  accepts_nested_attributes_for :featured_links, reject_if: ->(attributes) { attributes['url'].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :featured_links, reject_if: ->(attributes) { attributes["url"].blank? }, allow_destroy: true
   validates :homepage_type, inclusion: { in: %w{news service} }
 
   accepts_nested_attributes_for :default_news_image, reject_if: :all_blank
   accepts_nested_attributes_for :organisation_roles
   accepts_nested_attributes_for :edition_organisations
-  accepts_nested_attributes_for :organisation_classifications, reject_if: ->(attributes) { attributes['classification_id'].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :organisation_classifications, reject_if: ->(attributes) { attributes["classification_id"].blank? }, allow_destroy: true
   accepts_nested_attributes_for :offsite_links
 
   validates :slug, presence: true, uniqueness: true
@@ -263,7 +263,7 @@ class Organisation < ApplicationRecord
   scope :closed, -> { where(govuk_status: "closed") }
   scope :with_statistics_announcements, -> {
     joins(:statistics_announcement_organisations)
-      .group('statistics_announcement_organisations.organisation_id')
+      .group("statistics_announcement_organisations.organisation_id")
   }
 
   def self.grouped_by_type(locale = I18n.locale)
@@ -274,9 +274,9 @@ class Organisation < ApplicationRecord
       ministerial_orgs, other_orgs = open_orgs.partition(&:ministerial_department?)
 
       {
-        'Ministerial departments' => ministerial_orgs.map { |o| [o.name, o.slug] },
-        'Other departments & public bodies' => other_orgs.map { |o| [o.name, o.slug] },
-        'Closed organisations' => closed_orgs.map { |o| [o.name, o.slug] }
+        "Ministerial departments" => ministerial_orgs.map { |o| [o.name, o.slug] },
+        "Other departments & public bodies" => other_orgs.map { |o| [o.name, o.slug] },
+        "Closed organisations" => closed_orgs.map { |o| [o.name, o.slug] },
       }
     end
   end
@@ -312,7 +312,7 @@ class Organisation < ApplicationRecord
   end
 
   def self.alphabetical(locale = I18n.locale)
-    with_translations(locale).order('organisation_translations.name ASC')
+    with_translations(locale).order("organisation_translations.name ASC")
   end
 
   def self.ordered_by_name_ignoring_prefix
@@ -340,7 +340,7 @@ class Organisation < ApplicationRecord
 
   def searchable_govuk_status
     if closed? && devolved?
-      'devolved'
+      "devolved"
     else
       govuk_status
     end
@@ -351,51 +351,51 @@ class Organisation < ApplicationRecord
   end
 
   def live?
-    govuk_status == 'live'
+    govuk_status == "live"
   end
 
   def joining?
-    govuk_status == 'joining'
+    govuk_status == "joining"
   end
 
   def transitioning?
-    govuk_status == 'transitioning'
+    govuk_status == "transitioning"
   end
 
   def closed?
-    govuk_status == 'closed'
+    govuk_status == "closed"
   end
 
   def exempt?
-    govuk_status == 'exempt'
+    govuk_status == "exempt"
   end
 
   def no_longer_exists?
-    govuk_closed_status == 'no_longer_exists'
+    govuk_closed_status == "no_longer_exists"
   end
 
   def replaced?
-    govuk_closed_status == 'replaced'
+    govuk_closed_status == "replaced"
   end
 
   def split?
-    govuk_closed_status == 'split'
+    govuk_closed_status == "split"
   end
 
   def merged?
-    govuk_closed_status == 'merged'
+    govuk_closed_status == "merged"
   end
 
   def changed_name?
-    govuk_closed_status == 'changed_name'
+    govuk_closed_status == "changed_name"
   end
 
   def left_gov?
-    govuk_closed_status == 'left_gov'
+    govuk_closed_status == "left_gov"
   end
 
   def devolved?
-    govuk_closed_status == 'devolved'
+    govuk_closed_status == "devolved"
   end
 
   def superseded_by_devolved_administration?
@@ -411,7 +411,7 @@ class Organisation < ApplicationRecord
   end
 
   def select_name
-    [name, ("(#{acronym})" if acronym.present?)].compact.join(' ')
+    [name, ("(#{acronym})" if acronym.present?)].compact.join(" ")
   end
 
   def jobs_url
@@ -473,7 +473,7 @@ class Organisation < ApplicationRecord
   end
 
   def scheduled_editions
-    editions.scheduled.order('scheduled_publication ASC')
+    editions.scheduled.order("scheduled_publication ASC")
   end
 
   def published_non_corporate_information_pages
@@ -537,11 +537,11 @@ class Organisation < ApplicationRecord
   end
 
   def news_priority_homepage?
-    homepage_type == 'news'
+    homepage_type == "news"
   end
 
   def service_priority_homepage?
-    homepage_type == 'service'
+    homepage_type == "service"
   end
 
   def visible_featured_links_count

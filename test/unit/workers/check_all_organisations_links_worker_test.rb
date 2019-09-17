@@ -37,7 +37,7 @@ private
   def stub_news_article
     links = [
       { uri: "https://www.gov.uk/good-link" },
-      { uri: "https://www.gov.uk/missing-link" }
+      { uri: "https://www.gov.uk/missing-link" },
     ]
 
     body = link_checker_api_batch_report_hash(id: 5, links: links)
@@ -50,7 +50,7 @@ private
   def stub_published_publication
     links = [
       { uri: "https://www.gov.uk/bad-link" },
-      { uri: "https://www.gov.uk/another-good-link" }
+      { uri: "https://www.gov.uk/another-good-link" },
     ]
 
     body = link_checker_api_batch_report_hash(id: 6, links: links)
@@ -65,8 +65,8 @@ private
 
     {
       uris: uris,
-      webhook_uri: admin_link_checker_api_callback_url(host: Plek.find('whitehall-admin')),
-      webhook_secret_token: Rails.application.secrets.link_checker_api_secret_token
+      webhook_uri: admin_link_checker_api_callback_url(host: Plek.find("whitehall-admin")),
+      webhook_secret_token: Rails.application.secrets.link_checker_api_secret_token,
     }
   end
 

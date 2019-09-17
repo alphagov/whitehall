@@ -11,7 +11,7 @@ class Admin::AttachmentsController < Admin::BaseController
     attachment_ids = params.permit!.to_h[:ordering].sort_by { |_, ordering| ordering.to_i }.map { |id, _| id }
     attachable.reorder_attachments(attachment_ids)
 
-    redirect_to attachable_attachments_path(attachable), notice: 'Attachments re-ordered'
+    redirect_to attachable_attachments_path(attachable), notice: "Attachments re-ordered"
   end
 
   def new; end
@@ -60,7 +60,7 @@ class Admin::AttachmentsController < Admin::BaseController
   def destroy
     attachment.destroy
     attachment_updater
-    redirect_to attachable_attachments_path(attachable), notice: 'Attachment deleted'
+    redirect_to attachable_attachments_path(attachable), notice: "Attachment deleted"
   end
 
   def attachable_attachments_path(attachable)
@@ -124,15 +124,15 @@ private
   end
 
   def type
-    params[:type].presence || 'file'
+    params[:type].presence || "file"
   end
 
   def html?
-    type == 'html'
+    type == "html"
   end
 
   def external?
-    type == 'external'
+    type == "external"
   end
 
   def check_attachable_allows_attachment_type
@@ -145,7 +145,7 @@ private
 
   def attachable_class
     if attachable_param
-      attachable_param.sub(/_id$/, '').classify.constantize
+      attachable_param.sub(/_id$/, "").classify.constantize
     else
       raise ActiveRecord::RecordNotFound
     end
@@ -179,7 +179,7 @@ private
   end
 
   def handle_duplicate_key_errors_caused_by_double_create_requests(exception)
-    if action_name == 'create' && exception.message =~ /Duplicate entry .+ for key 'no_duplicate_attachment_orderings'/
+    if action_name == "create" && exception.message =~ /Duplicate entry .+ for key 'no_duplicate_attachment_orderings'/
       redirect_to attachable_attachments_path(attachable), notice: "Attachment '#{attachment.title}' uploaded"
     else
       raise

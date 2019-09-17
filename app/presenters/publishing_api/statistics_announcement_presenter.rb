@@ -43,7 +43,7 @@ module PublishingApi
       {
         display_date: item.current_release_date.display_date,
         state: item.state,
-        format_sub_type: format_sub_type
+        format_sub_type: format_sub_type,
       }.tap do |d|
         if item.cancelled?
           d[:cancellation_reason] = item.cancellation_reason
@@ -52,7 +52,7 @@ module PublishingApi
         if item.previous_display_date
           d.merge!(
             previous_display_date: item.previous_display_date,
-            latest_change_note: item.last_change_note
+            latest_change_note: item.last_change_note,
           )
         end
       end

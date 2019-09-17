@@ -96,7 +96,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
     detailed_guide = build(
       :detailed_guide,
       related_mainstream_content_url: "http://gov.uk/content",
-      additional_related_mainstream_content_url: "http://gov.uk/additional-content"
+      additional_related_mainstream_content_url: "http://gov.uk/additional-content",
     )
 
     assert_equal detailed_guide.related_mainstream_base_path, "/content"
@@ -107,7 +107,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
     some_detailed_guide = create(:published_detailed_guide)
     detailed_guide = create(
       :published_detailed_guide,
-      related_editions: [some_detailed_guide]
+      related_editions: [some_detailed_guide],
     )
 
     assert_equal detailed_guide.related_detailed_guide_content_ids, [some_detailed_guide.content_id]
@@ -116,7 +116,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
   test "related_mainstream_found works correctly for two correct related mainstream paths" do
     lookup_hash = {
       "/mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
-      "/another-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"
+      "/another-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312",
     }
 
     publishing_api_has_lookups(lookup_hash)
@@ -124,7 +124,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
     detailed_guide = build(
       :detailed_guide,
       related_mainstream_content_url: "http://www.gov.uk/mainstream-content",
-      additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content"
+      additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content",
     )
 
     detailed_guide.save
@@ -139,7 +139,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
     detailed_guide = build(
       :detailed_guide,
       related_mainstream_content_url: "http://www.gov.uk/content-missing-from-publishing-api",
-      additional_related_mainstream_content_url: "http://www.gov.uk/another-content-missing-from-publishing-api"
+      additional_related_mainstream_content_url: "http://www.gov.uk/another-content-missing-from-publishing-api",
     )
 
     refute detailed_guide.valid?
@@ -150,7 +150,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
   test "should persist related mainstream content ids" do
     lookup_hash = {
       "/mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
-      "/another-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"
+      "/another-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312",
     }
 
     publishing_api_has_lookups(lookup_hash)
@@ -158,7 +158,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
     create(
       :detailed_guide,
       related_mainstream_content_url: "http://www.gov.uk/mainstream-content",
-      additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content"
+      additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content",
     )
 
     assert_equal 2, RelatedMainstream.count
@@ -167,7 +167,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
   test "should not persist related mainstream content ids if edition isn't valid" do
     lookup_hash = {
       "/mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
-      "/another-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"
+      "/another-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312",
     }
 
     publishing_api_has_lookups(lookup_hash)
@@ -176,7 +176,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
       :detailed_guide,
       title: nil,
       related_mainstream_content_url: "http://www.gov.uk/mainstream-content",
-      additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content"
+      additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content",
     )
 
     invalid_detailed_guide.save
@@ -187,7 +187,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
   test "#related_mainstream_content_ids should return the content_ids of associated RelatedMainstream records" do
     lookup_hash = {
       "/mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
-      "/another-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"
+      "/another-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312",
     }
 
     publishing_api_has_lookups(lookup_hash)
@@ -195,7 +195,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
     detailed_guide = create(
       :detailed_guide,
       related_mainstream_content_url: "http://www.gov.uk/mainstream-content",
-      additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content"
+      additional_related_mainstream_content_url: "http://www.gov.uk/another-mainstream-content",
     )
 
     assert_equal %w[9af50189-de1c-49af-a334-6b1d87b593a6 9dd9e077-ae45-45f6-ad9d-2a484e5ff312], detailed_guide.related_mainstream_content_ids
@@ -204,14 +204,14 @@ class DetailedGuideTest < ActiveSupport::TestCase
   test "if related_mainstream_content_url gets updated, #persist_content_ids should update existing RelatedMainstream records" do
     lookup_hash = {
       "/mainstream-content" => "9af50189-de1c-49af-a334-6b1d87b593a6",
-      "/new-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312"
+      "/new-mainstream-content" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312",
     }
 
     publishing_api_has_lookups(lookup_hash)
 
     create(
       :detailed_guide,
-      related_mainstream_content_url: "http://www.gov.uk/mainstream-content"
+      related_mainstream_content_url: "http://www.gov.uk/mainstream-content",
     )
 
     detailed_guide = DetailedGuide.last
@@ -233,7 +233,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
 
     create(
       :detailed_guide,
-      related_mainstream_content_url: "http://www.gov.uk/mainstream-content"
+      related_mainstream_content_url: "http://www.gov.uk/mainstream-content",
     )
 
     detailed_guide = DetailedGuide.last

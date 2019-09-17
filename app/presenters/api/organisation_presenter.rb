@@ -21,13 +21,13 @@ class Api::OrganisationPresenter < Api::BasePresenter
       parent_organisations: parent_organisations,
       child_organisations: child_organisations,
       superseded_organisations: superseded_organisations,
-      superseding_organisations: superseding_organisations
+      superseding_organisations: superseding_organisations,
     }
   end
 
   def links
     [
-      [context.api_organisation_url(model), { 'rel' => 'self' }]
+      [context.api_organisation_url(model), { "rel" => "self" }],
     ]
   end
 
@@ -53,7 +53,7 @@ private
     organisations.map do |organisation|
       {
         id: context.api_organisation_url(organisation),
-        web_url: Whitehall.url_maker.organisation_url(organisation)
+        web_url: Whitehall.url_maker.organisation_url(organisation),
       }
     end
   end

@@ -1,4 +1,4 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class HistoricalAccountTest < ActiveSupport::TestCase
   test "is invalid without a summary, body, political party or person" do
@@ -21,7 +21,7 @@ class HistoricalAccountTest < ActiveSupport::TestCase
 
     historical_account = build(:historical_account, roles: [create(:role)])
     refute historical_account.valid?
-    assert_equal ['The selected role(s) do not all support historical accounts'], historical_account.errors[:base]
+    assert_equal ["The selected role(s) do not all support historical accounts"], historical_account.errors[:base]
   end
 
   test "has accessor for political parties" do
@@ -40,7 +40,7 @@ class HistoricalAccountTest < ActiveSupport::TestCase
 
   test "strips blank political party ids" do
     historical_account = HistoricalAccount.new
-    historical_account.political_party_ids = ['', PoliticalParty::Whigs.id]
+    historical_account.political_party_ids = ["", PoliticalParty::Whigs.id]
     assert_equal [PoliticalParty::Whigs], historical_account.political_parties
   end
 
@@ -55,14 +55,14 @@ class HistoricalAccountTest < ActiveSupport::TestCase
   end
 
   test "returns political membership" do
-    assert_equal '', HistoricalAccount.new.political_membership
+    assert_equal "", HistoricalAccount.new.political_membership
     historical_account = build(:historical_account, political_parties: [PoliticalParty::Whigs])
-    assert_equal 'Whig', historical_account.political_membership
+    assert_equal "Whig", historical_account.political_membership
   end
 
   test "returns multiple political memberships" do
     historical_account = build(:historical_account, political_parties: [PoliticalParty::Whigs, PoliticalParty::Tories])
-    assert_equal 'Whig and Tory', historical_account.political_membership
+    assert_equal "Whig and Tory", historical_account.political_membership
   end
 
   test "#role defaults to the first role when there are multiple" do

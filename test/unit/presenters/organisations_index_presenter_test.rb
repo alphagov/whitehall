@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class OrganisationsIndexPresenterTest < ActiveSupport::TestCase
   def organisation_variety_pack
@@ -15,7 +15,7 @@ class OrganisationsIndexPresenterTest < ActiveSupport::TestCase
       independent_monitoring_body: build(:organisation, organisation_type_key: :independent_monitoring_body),
       adhoc_advisory_group:        build(:organisation, organisation_type_key: :adhoc_advisory_group),
       devolved_administration:     build(:organisation, organisation_type_key: :devolved_administration),
-      other:                       build(:organisation, organisation_type_key: :other)
+      other:                       build(:organisation, organisation_type_key: :other),
     }
   end
 

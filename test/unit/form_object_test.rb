@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class FormObjectTest < ActiveSupport::TestCase
   test "#initialize should set attributes from the given hash" do

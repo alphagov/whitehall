@@ -33,13 +33,13 @@ class ContactTest < ActiveSupport::TestCase
                                         schema_name: "contact",
                                         document_type: "contact",
                                         locale: "en",
-                                        publishing_app: "whitehall"
+                                        publishing_app: "whitehall",
                                       ))
 
     assert_publishing_api_patch_links(@contact.content_id,
                                       links: {
                                         organisations: [@organisation_content_id],
-                                        world_locations: [@world_location_content_id]
+                                        world_locations: [@world_location_content_id],
                                       })
 
     assert_publishing_api_publish(@contact.content_id)

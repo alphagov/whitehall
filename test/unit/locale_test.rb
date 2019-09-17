@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-require 'test_helper'
+require "test_helper"
 
 class LocaleTest < ActiveSupport::TestCase
   test "provides a list of all available locales" do

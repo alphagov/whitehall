@@ -23,6 +23,6 @@ module Admin::DefinitionListHelper
   end
 
   def default_definition_list_value
-    '<em>empty</em>'.html_safe
+    "<em>empty</em>".html_safe
   end
 end

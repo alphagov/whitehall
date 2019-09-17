@@ -1,11 +1,11 @@
 # encoding: utf-8
 
-require 'test_helper'
+require "test_helper"
 
 class HtmlAttachmentTest < ActiveSupport::TestCase
-  test '#govspeak_content_body_html returns the computed HTML as an HTML safe string' do
+  test "#govspeak_content_body_html returns the computed HTML as an HTML safe string" do
     Sidekiq::Testing.inline! do
-      attachment = create(:html_attachment, body: 'Some govspeak')
+      attachment = create(:html_attachment, body: "Some govspeak")
 
       assert attachment.reload.govspeak_content_body_html.html_safe?
       assert_equivalent_html "<div class=\"govspeak\"><p>Some govspeak</p></div>",
@@ -13,7 +13,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     end
   end
 
-  test 'associated govspeak content is deleted with the html attachment' do
+  test "associated govspeak content is deleted with the html attachment" do
     attachment = create(:html_attachment)
     govspeak_content = attachment.govspeak_content
 
@@ -22,7 +22,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     refute GovspeakContent.exists?(govspeak_content.id)
   end
 
-  test '#deep_clone deep clones the HTML attachment, body, content_id and slug' do
+  test "#deep_clone deep clones the HTML attachment, body, content_id and slug" do
     attachment = create(:html_attachment)
 
     clone = attachment.deep_clone
@@ -35,7 +35,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal attachment.content_id, clone.content_id
   end
 
-  test '#url returns absolute path to the draft stack when previewing' do
+  test "#url returns absolute path to the draft stack when previewing" do
     edition = create(:draft_publication, :with_html_attachment)
     attachment = edition.attachments.first
 
@@ -46,7 +46,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal expected, actual
   end
 
-  test '#url returns absolute path to the live site when not previewing' do
+  test "#url returns absolute path to the live site when not previewing" do
     edition = create(:published_publication, :with_html_attachment)
     attachment = edition.attachments.first
 
@@ -57,7 +57,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal expected, actual
   end
 
-  test '#url returns relative path by default' do
+  test "#url returns relative path by default" do
     edition = create(:published_publication, :with_html_attachment)
     attachment = edition.attachments.first
     assert_equal "/government/publications/#{edition.slug}/#{attachment.slug}", attachment.url
@@ -77,7 +77,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
 
   test "slug is copied from previous edition's attachment" do
     edition = create(:published_publication, attachments: [
-      build(:html_attachment, title: "an-html-attachment")
+      build(:html_attachment, title: "an-html-attachment"),
     ])
     draft = edition.create_draft(create(:writer))
 
@@ -98,7 +98,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
 
   test "slug is not updated when the title is changed if edition is published" do
     edition = create(:published_publication, attachments: [
-      build(:html_attachment, title: "an-html-attachment")
+      build(:html_attachment, title: "an-html-attachment"),
     ])
     draft = edition.create_draft(create(:writer))
     attachment = draft.attachments.first
@@ -112,7 +112,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
 
   test "slug is not updated when the title has been changed in a prior published edition" do
     edition = create(:published_publication, attachments: [
-      build(:html_attachment, title: "an-html-attachment")
+      build(:html_attachment, title: "an-html-attachment"),
     ])
     draft = edition.create_draft(create(:writer))
     attachment = draft.attachments.first
@@ -121,7 +121,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     attachment.save
     attachment.reload
 
-    draft.change_note = 'Edited HTML attachment title'
+    draft.change_note = "Edited HTML attachment title"
     force_publish(draft)
 
     second_draft = draft.create_draft(create(:writer))

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 module ServiceListeners
   class PublishingApiPusherTest < ActiveSupport::TestCase
@@ -37,7 +37,7 @@ module ServiceListeners
       edition = build(
         :draft_publication,
         html_attachments: [build(:html_attachment)],
-        document: build(:document)
+        document: build(:document),
       )
       Whitehall::PublishingApi.expects(:save_draft).with(edition)
       stub_html_attachment_pusher(edition, "update_draft")
@@ -69,7 +69,7 @@ module ServiceListeners
 
     test "update_draft_translation saves draft translation" do
       edition = build(:publication, document: build(:document))
-      Whitehall::PublishingApi.expects(:save_draft_translation).with(edition, 'en')
+      Whitehall::PublishingApi.expects(:save_draft_translation).with(edition, "en")
       stub_html_attachment_pusher(edition, "update_draft_translation")
       stub_publications_pusher(edition, "update_draft_translation")
       Sidekiq::Testing.inline! do
@@ -81,7 +81,7 @@ module ServiceListeners
       translations = %i[es fr]
       document = build(:document)
       edition = create(:publication, document: document, translated_into: translations)
-      edition.build_unpublishing(explanation: 'Old information',
+      edition.build_unpublishing(explanation: "Old information",
         unpublishing_reason_id: UnpublishingReason::Withdrawn.id)
 
       Whitehall::PublishingApi.expects(:publish_withdrawal_async)
@@ -165,7 +165,7 @@ module ServiceListeners
 
       {
         draft_edition: draft_edition,
-        deleted_translation: fr
+        deleted_translation: fr,
       }
     end
 
@@ -188,7 +188,7 @@ module ServiceListeners
         new_edition.document.content_id,
         "",
         "This translation is no longer available. You can find the original version of this content at [#{expected_original_url}](#{expected_original_url})",
-        fr.locale
+        fr.locale,
       )
 
       Sidekiq::Testing.inline! do
@@ -196,24 +196,24 @@ module ServiceListeners
       end
     end
 
-    test 'handles corporate information pages' do
+    test "handles corporate information pages" do
       edition = build(:corporate_information_page, document: build(:document))
 
       Whitehall::PublishingApi
         .expects(:save_draft_translation)
         .with(edition, :en, nil, false)
 
-      PublishingApiPusher.new(edition).push(event: 'update_draft')
+      PublishingApiPusher.new(edition).push(event: "update_draft")
     end
 
-    test 'handles publications' do
+    test "handles publications" do
       edition = build(:publication, document: build(:document))
 
       Whitehall::PublishingApi
         .expects(:save_draft_translation)
         .with(edition, :en, nil, false)
 
-      PublishingApiPusher.new(edition).push(event: 'update_draft')
+      PublishingApiPusher.new(edition).push(event: "update_draft")
     end
 
     test "raises an error if an edition's document is locked" do

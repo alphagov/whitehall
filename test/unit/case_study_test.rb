@@ -12,9 +12,9 @@ class CaseStudyTest < ActiveSupport::TestCase
     assert article.can_be_related_to_policies?
   end
 
-  test 'search_format_types tags the case study as a case-study' do
+  test "search_format_types tags the case study as a case-study" do
     case_study = build(:case_study)
-    assert case_study.search_format_types.include?('case-study')
+    assert case_study.search_format_types.include?("case-study")
   end
 
   test "should be translatable" do
@@ -25,13 +25,13 @@ class CaseStudyTest < ActiveSupport::TestCase
     refute build(:case_study, primary_locale: :es).translatable?
   end
 
-  test 'imported case study is not valid when the first_published_at is blank' do
-    case_study = build(:case_study, state: 'imported', first_published_at: nil)
+  test "imported case study is not valid when the first_published_at is blank" do
+    case_study = build(:case_study, state: "imported", first_published_at: nil)
     refute case_study.valid?
   end
 
-  test 'imported case_study is not valid_as_draft? when the first_published_at is blank, but draft case_study is' do
-    refute build(:case_study, state: 'imported', first_published_at: nil).valid_as_draft?
-    assert build(:case_study, state: 'draft', first_published_at: nil).valid_as_draft?
+  test "imported case_study is not valid_as_draft? when the first_published_at is blank, but draft case_study is" do
+    refute build(:case_study, state: "imported", first_published_at: nil).valid_as_draft?
+    assert build(:case_study, state: "draft", first_published_at: nil).valid_as_draft?
   end
 end

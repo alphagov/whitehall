@@ -23,7 +23,7 @@ module Edition::Organisations
   end
 
   def lead_edition_organisations
-    edition_organisations.where(lead: true).order('edition_organisations.lead_ordering')
+    edition_organisations.where(lead: true).order("edition_organisations.lead_ordering")
   end
 
   def supporting_edition_organisations
@@ -31,7 +31,7 @@ module Edition::Organisations
   end
 
   def lead_organisations
-    organisations.where(edition_organisations: { lead: true }).reorder('edition_organisations.lead_ordering')
+    organisations.where(edition_organisations: { lead: true }).reorder("edition_organisations.lead_ordering")
   end
 
   def lead_organisation_ids
@@ -103,7 +103,7 @@ private
       .map(&:organisation_id)
 
     if all_organisations.uniq.size != all_organisations.size
-      errors.add(:organisations, 'must be unique')
+      errors.add(:organisations, "must be unique")
     end
   end
 

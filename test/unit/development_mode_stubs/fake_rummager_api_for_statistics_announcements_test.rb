@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < ActiveSupport::TestCase
   def subject
@@ -6,23 +6,23 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
   end
 
   def matched_titles(params = {})
-    params = params.reverse_merge(page: '1', per_page: '100')
-    subject.advanced_search(params)['results'].map { |hash| hash["title"] }
+    params = params.reverse_merge(page: "1", per_page: "100")
+    subject.advanced_search(params)["results"].map { |hash| hash["title"] }
   end
 
   test "#advanced_search returns 'total' and 'results'" do
     4.times { create :statistics_announcement }
 
-    returned = subject.advanced_search(page: '1', per_page: '2')
+    returned = subject.advanced_search(page: "1", per_page: "2")
 
-    assert_equal 4, returned['total']
-    assert_equal 2, returned['results'].length
+    assert_equal 4, returned["total"]
+    assert_equal 2, returned["results"].length
   end
 
   test "#advanced_search returns announcements in an array of hashes similar to that which rummager would return" do
     announcement = create :statistics_announcement,
                           title: "The title",
-                          slug: 'the-title',
+                          slug: "the-title",
                           summary: "The summary",
                           publication_type_id: PublicationType.find_by_slug("official-statistics").id,
                           statistics_announcement_dates: [build(:statistics_announcement_date,
@@ -34,9 +34,9 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
                                                                 release_date:  Time.zone.parse("2050-01-01 09:30"),
                                                                 precision: StatisticsAnnouncementDate::PRECISION[:exact],
                                                                 confirmed: true,
-                                                                change_note: 'The change note')]
+                                                                change_note: "The change note")]
 
-    returned_announcement_hash = subject.advanced_search(page: '1', per_page: '100')['results'].first
+    returned_announcement_hash = subject.advanced_search(page: "1", per_page: "100")["results"].first
 
     assert_equal "The title", returned_announcement_hash["title"]
     assert_equal "The summary", returned_announcement_hash["description"]
@@ -66,7 +66,7 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
     create :statistics_announcement, title: "Unwanted release announcement"
     create :cancelled_statistics_announcement, title: "Wanted release announcement"
 
-    assert_equal ["Wanted release announcement"], matched_titles(statistics_announcement_state: 'cancelled')
+    assert_equal ["Wanted release announcement"], matched_titles(statistics_announcement_state: "cancelled")
   end
 
   test "#advanced_search with release_timestamp[:from] returns release announcements after the given date" do
@@ -95,7 +95,7 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
   end
 
   test "#advanced_search with topics returns results associated with the topics" do
-    topic = create(:topic, name: 'A topic')
+    topic = create(:topic, name: "A topic")
     announcement_1 = create :statistics_announcement, topics: [topic]
     _announcement_2 = create :statistics_announcement
 
@@ -115,42 +115,42 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
       create :statistics_announcement, title: n, current_release_date: build(:statistics_announcement_date, release_date: (n + 1).days.from_now)
     end
 
-    assert_equal %w[0 1], matched_titles(page: '1', per_page: '2')
-    assert_equal %w[2 3], matched_titles(page: '2', per_page: '2')
-    assert_equal %w[0 1 2], matched_titles(page: '1', per_page: '3')
+    assert_equal %w[0 1], matched_titles(page: "1", per_page: "2")
+    assert_equal %w[2 3], matched_titles(page: "2", per_page: "2")
+    assert_equal %w[0 1 2], matched_titles(page: "1", per_page: "3")
   end
 
   test "#advanced_search requires :page and :per_page params to be provided" do
     assert_raises(ArgumentError) {
-      subject.advanced_search(page: nil, per_page: '1')
+      subject.advanced_search(page: nil, per_page: "1")
     }
     assert_raises(ArgumentError) {
-      subject.advanced_search(page: '1', per_page: nil)
+      subject.advanced_search(page: "1", per_page: nil)
     }
   end
 
   test "#advanced_search doesn't return duplicate results when announcement has 2 or more announcement dates" do
     create :statistics_announcement, title: "stats announcement", statistics_announcement_dates: 2.times.map { |_n| build :statistics_announcement_date }
-    assert_equal ['stats announcement'], matched_titles(page: '1', per_page: '10')
+    assert_equal ["stats announcement"], matched_titles(page: "1", per_page: "10")
   end
 
   test "#advanced_search requires all paramaters to be provided as strings" do
     # Due to a bug in Rack::Utils.build_nested_query used by gds-api-adapters to form the request to rummager, non-string values in
     # query hashes are dropped silently. This is here to mimic the actual behavior of the rummager api adapter.
     assert_raises(ArgumentError) {
-      subject.advanced_search(some_date: Date.new, page: '1', per_page: '1')
+      subject.advanced_search(some_date: Date.new, page: "1", per_page: "1")
     }
     assert_raises(ArgumentError) {
-      subject.advanced_search(life_the_universe_and_everything: 42, page: '1', per_page: '1')
+      subject.advanced_search(life_the_universe_and_everything: 42, page: "1", per_page: "1")
     }
     assert_raises(ArgumentError) {
-      subject.advanced_search(release_timestamp: { from: Time.new }, page: '1', per_page: '1')
+      subject.advanced_search(release_timestamp: { from: Time.new }, page: "1", per_page: "1")
     }
     assert_nothing_raised {
-      subject.advanced_search(some_hash: { from: "some date" }, page: '1', per_page: '1')
+      subject.advanced_search(some_hash: { from: "some date" }, page: "1", per_page: "1")
     }
     assert_nothing_raised {
-      subject.advanced_search(some_array: %w[a-slug], page: '1', per_page: '1')
+      subject.advanced_search(some_array: %w[a-slug], page: "1", per_page: "1")
     }
   end
 end

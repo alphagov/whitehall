@@ -43,7 +43,7 @@ class EditionService
 private
 
   def is_whitehall_corp_info_page?
-    edition.type == 'CorporateInformationPage' &&
+    edition.type == "CorporateInformationPage" &&
       edition.rendering_app == Whitehall::RenderingApp::WHITEHALL_FRONTEND
   end
 

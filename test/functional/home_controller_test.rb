@@ -4,8 +4,8 @@ class HomeControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
   setup do
-    pm_person = create(:person, forename: 'Firstname', surname: 'Lastname')
-    pm_role = create(:ministerial_role_without_organisation, name: 'Prime Minister', cabinet_member: true)
+    pm_person = create(:person, forename: "Firstname", surname: "Lastname")
+    pm_role = create(:ministerial_role_without_organisation, name: "Prime Minister", cabinet_member: true)
     create(:ministerial_role_appointment, role: pm_role, person: pm_person)
   end
 
@@ -18,24 +18,24 @@ class HomeControllerTest < ActionController::TestCase
   view_test "how government works shows the current prime minister" do
     get :how_government_works
 
-    assert_select '.prime-minister p a', 'Firstname Lastname'
+    assert_select ".prime-minister p a", "Firstname Lastname"
   end
 
   view_test "how government works does not fail when there is no prime minister" do
     RoleAppointment.delete_all
     get :how_government_works
 
-    assert_select '.prime-minister p a', 'Prime Minister'
+    assert_select ".prime-minister p a", "Prime Minister"
   end
 
   view_test "how government works page shows a count of cabinet ministers, other ministers and total ministers" do
-    philip_hammond = create(:person, forename: 'Philip', surname: 'Hammond')
-    mark_prisk = create(:person, forename: 'Mark', surname: 'Prisk')
-    michael_gove = create(:person, forename: 'Michael', surname: 'Gove')
+    philip_hammond = create(:person, forename: "Philip", surname: "Hammond")
+    mark_prisk = create(:person, forename: "Mark", surname: "Prisk")
+    michael_gove = create(:person, forename: "Michael", surname: "Gove")
 
-    defence_minister = create(:ministerial_role, name: 'Secretary of State for Defence', cabinet_member: true)
-    state_for_housing_minister = create(:ministerial_role, name: 'Minister of State for Housing', cabinet_member: false)
-    education_minister = create(:ministerial_role, name: 'Secretary of State for Education', cabinet_member: true)
+    defence_minister = create(:ministerial_role, name: "Secretary of State for Defence", cabinet_member: true)
+    state_for_housing_minister = create(:ministerial_role, name: "Minister of State for Housing", cabinet_member: false)
+    education_minister = create(:ministerial_role, name: "Secretary of State for Education", cabinet_member: true)
 
     create(:ministerial_role_appointment, role: defence_minister, person: philip_hammond)
     create(:ministerial_role_appointment, role: state_for_housing_minister, person: mark_prisk)
@@ -43,9 +43,9 @@ class HomeControllerTest < ActionController::TestCase
 
     get :how_government_works
 
-    assert_select '.cabinet-ministers .count', '2'
-    assert_select '.other-ministers .count', '1'
-    assert_select '.all-ministers .count', '4'
+    assert_select ".cabinet-ministers .count", "2"
+    assert_select ".other-ministers .count", "1"
+    assert_select ".all-ministers .count", "4"
   end
 
   test "how_government_works should assign @ministerial_department_count to the count of active ministerial departments" do
@@ -107,7 +107,7 @@ class HomeControllerTest < ActionController::TestCase
     assert_equal recent_outcomes[-3..-1].reverse, assigns[:recent_consultation_outcomes].object
   end
 
-  test 'get involved collects all the take part pages in order' do
+  test "get involved collects all the take part pages in order" do
     page_3 = create(:take_part_page, ordering: 3)
     page_1 = create(:take_part_page, ordering: 1)
     page_2 = create(:take_part_page, ordering: 2)
@@ -133,7 +133,7 @@ private
       create(:draft_news_article),
       create(:draft_speech),
       create(:draft_consultation),
-      create(:draft_publication)
+      create(:draft_publication),
     ]
   end
 end

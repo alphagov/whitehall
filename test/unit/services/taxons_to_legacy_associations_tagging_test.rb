@@ -1,10 +1,10 @@
-require 'test_helper'
+require "test_helper"
 
 class TaxonsToLegacyAssociationsTaggingTest < ActiveSupport::TestCase
   setup do
     @specialist_sector_content_id = SecureRandom.uuid
     @taxon = taxon_mapped_to_specialist_sector(
-      @specialist_sector_content_id
+      @specialist_sector_content_id,
     )
 
     Taxonomy::TopicTaxonomy
@@ -20,7 +20,7 @@ class TaxonsToLegacyAssociationsTaggingTest < ActiveSupport::TestCase
     TaxonsToLegacyAssociationsTagging.new.call(
       edition: @edition,
       user: create(:user),
-      selected_taxons: [@taxon.content_id]
+      selected_taxons: [@taxon.content_id],
     )
 
     assert @edition.specialist_sectors.count, 1
@@ -33,7 +33,7 @@ class TaxonsToLegacyAssociationsTaggingTest < ActiveSupport::TestCase
     TaxonsToLegacyAssociationsTagging.new.call(
       edition: @edition,
       user: create(:user),
-      selected_taxons: [@taxon.content_id]
+      selected_taxons: [@taxon.content_id],
     )
 
     assert_equal(1, @edition.specialist_sectors.count)
@@ -46,7 +46,7 @@ class TaxonsToLegacyAssociationsTaggingTest < ActiveSupport::TestCase
     TaxonsToLegacyAssociationsTagging.new.call(
       edition: LocalisedModel.new(@edition, @edition.primary_locale),
       user: create(:user),
-      selected_taxons: [@taxon.content_id]
+      selected_taxons: [@taxon.content_id],
     )
 
     assert_equal(1, @edition.specialist_sectors.count)
@@ -63,10 +63,10 @@ class TaxonsToLegacyAssociationsTaggingTest < ActiveSupport::TestCase
           {
             "content_id" => specialist_sector_content_id,
             "document_type" => "topic",
-            "title" => "Test Specialist Sector"
-          }
-        ]
-      }
+            "title" => "Test Specialist Sector",
+          },
+        ],
+      },
     )
   end
 end

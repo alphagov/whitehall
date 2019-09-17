@@ -54,7 +54,7 @@ private
 
   def redirect_to_finder_frontend_finder(format = "")
     base_path = "#{Plek.new.website_root}/#{publications_base_path}#{format}"
-    if publications_query_string == ''
+    if publications_query_string == ""
       redirect_to(base_path)
     else
       redirect_to("#{base_path}?#{publications_query_string}")
@@ -72,19 +72,19 @@ private
 
   def publications_query_string
     allowed_params = cleaned_document_filter_params
-    level_one_taxon = allowed_params['taxons'].try(:first) || allowed_params['topics'].try(:first)
-    level_two_taxon = allowed_params['subtaxons'].try(:first)
-    level_one_taxon = nil if level_one_taxon == 'all'
-    level_two_taxon = nil if level_two_taxon == 'all'
+    level_one_taxon = allowed_params["taxons"].try(:first) || allowed_params["topics"].try(:first)
+    level_two_taxon = allowed_params["subtaxons"].try(:first)
+    level_one_taxon = nil if level_one_taxon == "all"
+    level_two_taxon = nil if level_two_taxon == "all"
     {
-      keywords: params['keywords'],
+      keywords: params["keywords"],
       level_one_taxon: level_one_taxon,
       level_two_taxon: level_two_taxon,
-      organisations: filter_query_array(allowed_params['departments'] || allowed_params['organisations']),
-      people: filter_query_array(allowed_params['people']),
-      world_locations: filter_query_array(allowed_params['world_locations']),
-      topical_events: filter_query_array(allowed_params['topical_events']),
-      public_timestamp: { from: allowed_params['from_date'], to: allowed_params['to_date'] }.compact.presence
+      organisations: filter_query_array(allowed_params["departments"] || allowed_params["organisations"]),
+      people: filter_query_array(allowed_params["people"]),
+      world_locations: filter_query_array(allowed_params["world_locations"]),
+      topical_events: filter_query_array(allowed_params["topical_events"]),
+      public_timestamp: { from: allowed_params["from_date"], to: allowed_params["to_date"] }.compact.presence,
     }.compact.merge(special_params).to_query
   end
 
@@ -97,9 +97,9 @@ private
   end
 
   def redirect_statistics_filtering
-    if !request.xhr? && (params[:publication_filter_option] == 'statistics')
+    if !request.xhr? && (params[:publication_filter_option] == "statistics")
       redirect_to statistics_path(
-        params.permit!.except(:publication_filter_option, :controller, :action, :host).to_h
+        params.permit!.except(:publication_filter_option, :controller, :action, :host).to_h,
       ), status: :moved_permanently
     end
   end

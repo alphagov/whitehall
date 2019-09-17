@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class ClassificationTest < ActiveSupport::TestCase
   should_protect_against_xss_and_content_attacks_on :name, :description
@@ -8,7 +8,7 @@ class ClassificationTest < ActiveSupport::TestCase
     assert topic.current?
   end
 
-  test 'should be invalid without a name' do
+  test "should be invalid without a name" do
     topic = build(:classification, name: nil)
     refute topic.valid?
   end
@@ -23,13 +23,13 @@ class ClassificationTest < ActiveSupport::TestCase
     refute topic.valid?
   end
 
-  test 'should be invalid without a unique name' do
+  test "should be invalid without a unique name" do
     existing_topic = create(:classification)
     new_topic = build(:classification, name: existing_topic.name)
     refute new_topic.valid?
   end
 
-  test 'should be invalid without a description' do
+  test "should be invalid without a description" do
     topic = build(:classification, description: nil)
     refute topic.valid?
   end
@@ -42,7 +42,7 @@ class ClassificationTest < ActiveSupport::TestCase
       create(:published_news_article, topics: [topic], first_published_at: 1.week.ago),
       create(:published_publication, topics: [topic], first_published_at: 2.weeks.ago),
       create(:published_speech, topics: [topic], first_published_at: 3.weeks.ago),
-      create(:published_publication, topics: [topic], first_published_at: 4.weeks.ago)
+      create(:published_publication, topics: [topic], first_published_at: 4.weeks.ago),
     ]
     create(:draft_speech, topics: [topic], first_published_at: 2.days.ago)
     create(:published_speech, topics: [other_topic], first_published_at: 2.days.ago)
@@ -81,23 +81,23 @@ class ClassificationTest < ActiveSupport::TestCase
     refute topical_event.featured?(news_article)
   end
 
-  test '#featured_editions returns featured editions by ordering' do
+  test "#featured_editions returns featured editions by ordering" do
     topic = create(:topic)
-    _alpha = topic.feature(edition_id: create(:edition, title: "Alpha").id, ordering: 1, alt_text: 'A thing', image: create(:classification_featuring_image_data))
-    beta = topic.feature(edition_id: create(:published_news_article, title: "Beta").id, ordering: 2, alt_text: 'A thing', image: create(:classification_featuring_image_data))
-    gamma = topic.feature(edition_id: create(:published_news_article, title: "Gamma").id, ordering: 3, alt_text: 'A thing', image: create(:classification_featuring_image_data))
-    delta = topic.feature(edition_id: create(:published_news_article, title: "Delta").id, ordering: 0, alt_text: 'A thing', image: create(:classification_featuring_image_data))
+    _alpha = topic.feature(edition_id: create(:edition, title: "Alpha").id, ordering: 1, alt_text: "A thing", image: create(:classification_featuring_image_data))
+    beta = topic.feature(edition_id: create(:published_news_article, title: "Beta").id, ordering: 2, alt_text: "A thing", image: create(:classification_featuring_image_data))
+    gamma = topic.feature(edition_id: create(:published_news_article, title: "Gamma").id, ordering: 3, alt_text: "A thing", image: create(:classification_featuring_image_data))
+    delta = topic.feature(edition_id: create(:published_news_article, title: "Delta").id, ordering: 0, alt_text: "A thing", image: create(:classification_featuring_image_data))
 
     assert_equal [delta.edition, beta.edition, gamma.edition], topic.featured_editions
   end
 
-  test '#featured_editions includes the newly published version of a featured edition, but not the original' do
+  test "#featured_editions includes the newly published version of a featured edition, but not the original" do
     topical_event = create(:topical_event)
-    old_version = topical_event.feature(edition_id: create(:published_news_article, title: "Gamma").id, ordering: 3, alt_text: 'A thing', image: create(:classification_featuring_image_data)).edition
+    old_version = topical_event.feature(edition_id: create(:published_news_article, title: "Gamma").id, ordering: 3, alt_text: "A thing", image: create(:classification_featuring_image_data)).edition
 
     editor = create(:departmental_editor)
     new_version = old_version.create_draft(editor)
-    new_version.change_note = 'New stuffs!'
+    new_version.change_note = "New stuffs!"
     new_version.save
     force_publish(new_version)
 
@@ -105,7 +105,7 @@ class ClassificationTest < ActiveSupport::TestCase
     assert topical_event.featured_editions.include?(new_version)
   end
 
-  test '#importance_ordered_organisations' do
+  test "#importance_ordered_organisations" do
     topic = create(:topic)
     supporting_org = create(:organisation)
     supporting_org.organisation_classifications.create(classification_id: topic.id, lead: false)

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class AbbreviationExtractorTest < ActiveSupport::TestCase
   test "extracts a single abbreviation couple from an edition" do
@@ -22,7 +22,7 @@ class AbbreviationExtractorTest < ActiveSupport::TestCase
 
     assert_equal [
       { terms: ["Ministry of Defence", "MOD"], type: "abbreviation" },
-      { terms: ["Ministry of Justice", "MOJ"], type: "abbreviation" }
+      { terms: ["Ministry of Justice", "MOJ"], type: "abbreviation" },
     ], abbreviations
   end
 
@@ -35,7 +35,7 @@ class AbbreviationExtractorTest < ActiveSupport::TestCase
     abbreviations = Whitehall::AbbreviationExtractor.new(edition).extract
 
     assert_equal [
-      { terms: ["Ministry of Defence", "MOD"], type: "abbreviation" }
+      { terms: ["Ministry of Defence", "MOD"], type: "abbreviation" },
     ], abbreviations
   end
 end

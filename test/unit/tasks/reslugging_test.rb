@@ -13,7 +13,7 @@ class ResluggingTest < ActiveSupport::TestCase
     Sidekiq::Worker.clear_all
   end
 
-  test 'it should reslug a document' do
+  test "it should reslug a document" do
     document = create(:document, slug: "slugs-are-not-snails")
     edition = create(:published_publication, document: document)
 
@@ -26,7 +26,7 @@ class ResluggingTest < ActiveSupport::TestCase
     assert_equal 1, Document.where(slug: "snails-are-not-slugs").count
   end
 
-  test 'it should not reslug when there are multiple documents with the same slug' do
+  test "it should not reslug when there are multiple documents with the same slug" do
     document_one = create(:document, document_type: "StatisticalDataSet", slug: "a-slug-that-is-not-unique")
     document_two = create(:document, document_type: "Collection", slug: "a-slug-that-is-not-unique")
 

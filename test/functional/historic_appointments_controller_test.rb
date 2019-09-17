@@ -1,24 +1,24 @@
-require 'test_helper'
+require "test_helper"
 
 class HistoricAppointmentsControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
   test "routing constraints stop routes historic appointments routes stomping on histories routes" do
-    assert_routing({ path: 'government/history/past-prime-ministers', method: :get },
-                   controller: 'historic_appointments', action: 'index', role: 'past-prime-ministers')
+    assert_routing({ path: "government/history/past-prime-ministers", method: :get },
+                   controller: "historic_appointments", action: "index", role: "past-prime-ministers")
 
-    assert_routing({ path: 'government/history/king-charles-street', method: :get },
-                   controller: 'histories', action: 'show', id: 'king-charles-street')
+    assert_routing({ path: "government/history/king-charles-street", method: :get },
+                   controller: "histories", action: "show", id: "king-charles-street")
   end
 
   test "routing for static chancellors page" do
-    assert_routing({ path: 'government/history/past-chancellors', method: :get },
-                   controller: 'historic_appointments', action: 'past_chancellors')
+    assert_routing({ path: "government/history/past-chancellors", method: :get },
+                   controller: "historic_appointments", action: "past_chancellors")
   end
 
   test "routing for :show action" do
-    assert_routing({ path: 'government/history/past-prime-ministers/barry', method: :get },
-                   controller: 'historic_appointments', action: 'show', role: 'past-prime-ministers', person_id: 'barry')
+    assert_routing({ path: "government/history/past-prime-ministers/barry", method: :get },
+                   controller: "historic_appointments", action: "show", role: "past-prime-ministers", person_id: "barry")
   end
 
   test "GET on :index loads the past appointments for the role and renders the index template" do
@@ -29,7 +29,7 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
     eighteenth_century_pm = create(:ministerial_role_appointment, role: pm_role, started_at: Date.civil(1701), ended_at: Date.civil(1704))
 
     create(:historical_account, roles: [chancellor_role])
-    get :index, params: { role: 'past-prime-ministers' }
+    get :index, params: { role: "past-prime-ministers" }
 
     assert_response :success
     assert_template :index
@@ -40,7 +40,7 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
     assert_equal_role_presenters [eighteenth_century_pm], assigns(:eighteenth_century_appointments)
   end
 
-  test 'GET on :past_chancellors renders the template' do
+  test "GET on :past_chancellors renders the template" do
     get :past_chancellors
 
     assert_response :success
@@ -50,7 +50,7 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
   test "GET on :show loads the person, appointment and historical account for previous Prime Ministers" do
     pm_account = create(:historical_account, roles: [pm_role])
     create(:role_appointment, person: pm_account.person, role: pm_role)
-    get :show, params: { role: 'past-prime-ministers', person_id: pm_account.person.slug }
+    get :show, params: { role: "past-prime-ministers", person_id: pm_account.person.slug }
 
     assert_response :success
     assert_template :show
@@ -62,7 +62,7 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
   test "GET on :show loads the person, appointment and historical account for previous Chanellors" do
     chancellor_account = create(:historical_account, roles: [chancellor_role])
     create(:role_appointment, person: chancellor_account.person, role: chancellor_role)
-    get :show, params: { role: 'past-chancellors', person_id: chancellor_account.person.slug }
+    get :show, params: { role: "past-chancellors", person_id: chancellor_account.person.slug }
 
     assert_response :success
     assert_template :show
@@ -75,18 +75,18 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
     chancellor_account = create(:historical_account, roles: [chancellor_role])
 
     assert_raise ActiveRecord::RecordNotFound do
-      get :show, params: { role: 'past-prime-ministers', person_id: chancellor_account.person.slug }
+      get :show, params: { role: "past-prime-ministers", person_id: chancellor_account.person.slug }
     end
   end
 
 private
 
   def pm_role
-    @pm_role ||= create(:historic_role, name: 'Prime Minister', slug: 'prime-minister')
+    @pm_role ||= create(:historic_role, name: "Prime Minister", slug: "prime-minister")
   end
 
   def chancellor_role
-    @chancellor_role ||= create(:historic_role, name: 'Chancellor of the Exchequer', slug: 'chancellor-of-the-exchequer')
+    @chancellor_role ||= create(:historic_role, name: "Chancellor of the Exchequer", slug: "chancellor-of-the-exchequer")
   end
 
   def assert_equal_role_presenters(role_appointments, expected)

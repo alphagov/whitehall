@@ -14,7 +14,7 @@ class SpecialistTagFinderTest < ActiveSupport::TestCase
                            { "title" => "topic-1" },
                            { "title" => "topic-2" },
                          ],
-                       }
+                       },
                      )
 
     content_store_has_item(edition_base_path, content_item)
@@ -37,7 +37,7 @@ class SpecialistTagFinderTest < ActiveSupport::TestCase
     edition = create(:edition_with_document)
     edition_base_path = Whitehall.url_maker.public_document_path(edition)
     content_item = content_item_for_base_path(edition_base_path).merge!(
-      "links" => { "other" => [] }
+      "links" => { "other" => [] },
     )
 
     content_store_has_item(edition_base_path, content_item)
@@ -65,7 +65,7 @@ class SpecialistTagFinderTest < ActiveSupport::TestCase
                                      },
                                    },
                                  ],
-                               }
+                               },
                              )
     content_store_has_item(edition_base_path, edition_content_item)
 
@@ -83,10 +83,10 @@ class SpecialistTagFinderTest < ActiveSupport::TestCase
             "base_path" => parent_base_path,
             "expanded_links" => {
               "parent" => [{ "base_path" => "/grandpa", links: {} }],
-            }
-          }
-        ]
-      }
+            },
+          },
+        ],
+      },
     )
     content_store_has_item(edition_base_path, edition_content_item)
 

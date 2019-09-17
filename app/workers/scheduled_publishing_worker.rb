@@ -1,4 +1,4 @@
-require 'sidekiq/api'
+require "sidekiq/api"
 
 # ScheduledPublishingWorker is a job that is scheduled by the `EditionScheduler`.
 # It is never executed immediately but uses the Sidekiq delay mechanism to
@@ -14,7 +14,7 @@ class ScheduledPublishingWorker < WorkerBase
     def dequeue(edition)
       Sidekiq::ScheduledSet
         .new
-        .select { |joby| joby['class'] == name && joby.args[0] == edition.id }
+        .select { |joby| joby["class"] == name && joby.args[0] == edition.id }
         .map(&:delete)
     end
 
@@ -28,13 +28,13 @@ class ScheduledPublishingWorker < WorkerBase
     end
 
     def queued_edition_ids
-      queued_jobs.map { |job| job['args'][0] }
+      queued_jobs.map { |job| job["args"][0] }
     end
 
   private
 
     def queued_jobs
-      Sidekiq::ScheduledSet.new.select { |job| job['class'] == name }
+      Sidekiq::ScheduledSet.new.select { |job| job["class"] == name }
     end
   end
 

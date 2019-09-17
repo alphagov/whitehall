@@ -1,7 +1,7 @@
 module Admin::UrlHelper
   def admin_user_organisation_header_link
     if user_signed_in? && (organisation = current_user.organisation)
-      admin_header_link 'Corporate information', admin_organisation_corporate_information_pages_path(organisation)
+      admin_header_link "Corporate information", admin_organisation_corporate_information_pages_path(organisation)
     end
   end
 
@@ -78,7 +78,7 @@ module Admin::UrlHelper
   end
 
   def admin_header_menu_link(name, path)
-    content_tag(:li, link_to(name, path, role: 'menuitem'), class: 'masthead-menu-item')
+    content_tag(:li, link_to(name, path, role: "menuitem"), class: "masthead-menu-item")
   end
 
   def admin_header_link(name, path, path_matcher = nil, options = {})
@@ -86,17 +86,17 @@ module Admin::UrlHelper
     if user_signed_in?
       li_class = active_link_class(path_matcher)
       if options[:class]
-        li_class = [li_class, options[:class]].join(' ')
+        li_class = [li_class, options[:class]].join(" ")
       end
       content_tag(:li, link_to(name, path), class: "masthead-tab-item #{li_class}")
     end
   end
 
   def active_link_class(path_matcher)
-    request.path.match?(path_matcher) ? 'active' : ''
+    request.path.match?(path_matcher) ? "active" : ""
   end
 
   def signon_link
-    link_to 'Switch app', Plek.new.external_url_for('signon')
+    link_to "Switch app", Plek.new.external_url_for("signon")
   end
 end

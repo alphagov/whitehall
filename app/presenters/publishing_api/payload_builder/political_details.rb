@@ -14,7 +14,7 @@ module PublishingApi
       def call
         {
           political: item.political?,
-          government: government
+          government: government,
         }
       end
 
@@ -27,7 +27,7 @@ module PublishingApi
         {
           title: gov.name,
           slug: gov.slug,
-          current: gov.current?
+          current: gov.current?,
         }
       end
     end

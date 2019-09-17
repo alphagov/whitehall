@@ -7,7 +7,7 @@ class DocumentCollectionTest < ActiveSupport::TestCase
     doc_collection = create(:document_collection, groups: groups = [
       build(:document_collection_group),
       build(:document_collection_group),
-      build(:document_collection_group)
+      build(:document_collection_group),
     ])
     groups[0].update_attribute(:ordering, 2)
     groups[1].update_attribute(:ordering, 1)
@@ -37,13 +37,13 @@ class DocumentCollectionTest < ActiveSupport::TestCase
   end
 
   test "it should not create a group if it's already been given one" do
-    doc_collection = create(:document_collection, groups: [build(:document_collection_group, heading: 'not documents')])
+    doc_collection = create(:document_collection, groups: [build(:document_collection_group, heading: "not documents")])
     assert_equal 1, doc_collection.groups.length
     refute_equal "Documents", doc_collection.groups[0].heading
   end
 
   def assert_collection_groups_are_the_same(original, draft)
-    relevant_attributes = ->(g) { g.attributes.slice('heading', 'body', 'ordering') }
+    relevant_attributes = ->(g) { g.attributes.slice("heading", "body", "ordering") }
     original_attributes = original.groups.map(&relevant_attributes)
     draft_attributes = draft.groups.map(&relevant_attributes)
 
@@ -54,7 +54,7 @@ class DocumentCollectionTest < ActiveSupport::TestCase
     doc = create(:published_news_article).document
 
     original = create(:published_document_collection, groups: [
-      build(:document_collection_group, documents: [doc])
+      build(:document_collection_group, documents: [doc]),
     ])
 
     draft = original.create_draft(create(:gds_editor))
@@ -70,19 +70,19 @@ class DocumentCollectionTest < ActiveSupport::TestCase
     assert create(:published_document_collection).can_index_in_search?
   end
 
-  test 'indexes the title as title' do
-    collection = create(:document_collection, title: 'a title')
-    assert_equal 'a title', collection.search_index['title']
+  test "indexes the title as title" do
+    collection = create(:document_collection, title: "a title")
+    assert_equal "a title", collection.search_index["title"]
   end
 
-  test 'indexes the full URL to the collection show page as link' do
+  test "indexes the full URL to the collection show page as link" do
     collection = create(:document_collection)
-    assert_equal "/government/collections/#{collection.slug}", collection.search_index['link']
+    assert_equal "/government/collections/#{collection.slug}", collection.search_index["link"]
   end
 
-  test 'indexes the slug' do
+  test "indexes the slug" do
     collection = create(:published_document_collection)
-    assert_equal collection.slug, collection.search_index['slug']
+    assert_equal collection.slug, collection.search_index["slug"]
   end
 
   test "indexes the body without markup as indexable_content" do
@@ -91,29 +91,29 @@ class DocumentCollectionTest < ActiveSupport::TestCase
     assert_match %r[^This is a body$], collection.search_index["indexable_content"]
   end
 
-  test 'indexes the group headings and body copy without markup as indexable_content' do
+  test "indexes the group headings and body copy without markup as indexable_content" do
     doc = create(:published_news_article).document
-    empty_group = create(:document_collection_group, heading: 'Empty Heading', body: 'The *Body*')
-    visible_group = create(:document_collection_group, heading: 'The Heading', body: 'The *Body*', documents: [doc])
+    empty_group = create(:document_collection_group, heading: "Empty Heading", body: "The *Body*")
+    visible_group = create(:document_collection_group, heading: "The Heading", body: "The *Body*", documents: [doc])
 
     collection = create(:document_collection, groups: [empty_group, visible_group])
 
-    assert_match %r[^The Heading$], collection.search_index['indexable_content']
-    refute_match %r[^Empty Heading$], collection.search_index['indexable_content']
-    assert_match %r[^The Body$], collection.search_index['indexable_content']
+    assert_match %r[^The Heading$], collection.search_index["indexable_content"]
+    refute_match %r[^Empty Heading$], collection.search_index["indexable_content"]
+    assert_match %r[^The Body$], collection.search_index["indexable_content"]
   end
 
-  test 'indexes the summary as description' do
-    collection = create(:document_collection, summary: 'a summary')
-    assert_match 'a summary', collection.search_index['description']
+  test "indexes the summary as description" do
+    collection = create(:document_collection, summary: "a summary")
+    assert_match "a summary", collection.search_index["description"]
   end
 
-  test 'specifies the rendering app as government frontend' do
+  test "specifies the rendering app as government frontend" do
     document_collection = DocumentCollection.new
     assert_equal Whitehall::RenderingApp::GOVERNMENT_FRONTEND, document_collection.rendering_app
   end
 
-  test '#content_ids returns content_ids from each group' do
+  test "#content_ids returns content_ids from each group" do
     doc = create(:published_news_article).document
     non_whitehall_link = create(:document_collection_non_whitehall_link)
     groups = [

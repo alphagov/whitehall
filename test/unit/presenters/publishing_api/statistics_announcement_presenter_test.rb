@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCase
   def present(record)
@@ -14,22 +14,22 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
       base_path: public_path,
       description: statistics_announcement.summary,
       title: statistics_announcement.title,
-      schema_name: 'statistics_announcement',
-      document_type: 'official_statistics_announcement',
-      locale: 'en',
+      schema_name: "statistics_announcement",
+      document_type: "official_statistics_announcement",
+      locale: "en",
       public_updated_at: statistics_announcement.updated_at,
-      publishing_app: 'whitehall',
-      rendering_app: 'government-frontend',
+      publishing_app: "whitehall",
+      rendering_app: "government-frontend",
       routes: [
-        { path: public_path, type: 'exact' }
+        { path: public_path, type: "exact" },
       ],
       redirects: [],
       update_type: "minor",
       details: {
         display_date: statistics_announcement.current_release_date.display_date,
         state: statistics_announcement.state,
-        format_sub_type: 'official'
-      }
+        format_sub_type: "official",
+      },
     }
 
     expected_links = {
@@ -39,8 +39,8 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
     presented_item = present(statistics_announcement)
     presented_content = presented_item.content
 
-    assert_valid_against_schema(presented_content, 'statistics_announcement')
-    assert_valid_against_links_schema({ links: presented_item.links }, 'statistics_announcement')
+    assert_valid_against_schema(presented_content, "statistics_announcement")
+    assert_valid_against_links_schema({ links: presented_item.links }, "statistics_announcement")
 
     assert_equivalent_html expected_content[:details].delete(:body),
                            presented_content[:details].delete(:body)
@@ -58,24 +58,24 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
       base_path: public_path,
       description: statistics_announcement.summary,
       title: statistics_announcement.title,
-      schema_name: 'statistics_announcement',
-      document_type: 'official_statistics_announcement',
-      locale: 'en',
+      schema_name: "statistics_announcement",
+      document_type: "official_statistics_announcement",
+      locale: "en",
       public_updated_at: statistics_announcement.updated_at,
-      publishing_app: 'whitehall',
-      rendering_app: 'government-frontend',
+      publishing_app: "whitehall",
+      rendering_app: "government-frontend",
       routes: [
-        { path: public_path, type: 'exact' }
+        { path: public_path, type: "exact" },
       ],
       redirects: [],
       update_type: "minor",
       details: {
         display_date: statistics_announcement.current_release_date.display_date,
         state: statistics_announcement.state,
-        format_sub_type: 'official',
+        format_sub_type: "official",
         cancelled_at: statistics_announcement.cancelled_at,
-        cancellation_reason: 'Cancelled for a reason'
-      }
+        cancellation_reason: "Cancelled for a reason",
+      },
     }
 
     expected_links = {
@@ -85,8 +85,8 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
     presented_item = present(statistics_announcement)
     presented_content = presented_item.content
 
-    assert_valid_against_schema(presented_content, 'statistics_announcement')
-    assert_valid_against_links_schema({ links: presented_item.links }, 'statistics_announcement')
+    assert_valid_against_schema(presented_content, "statistics_announcement")
+    assert_valid_against_links_schema({ links: presented_item.links }, "statistics_announcement")
 
     assert_equivalent_html expected_content[:details].delete(:body),
                            presented_content[:details].delete(:body)
@@ -106,14 +106,14 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
       base_path: public_path,
       description: statistics_announcement.summary,
       title: statistics_announcement.title,
-      schema_name: 'statistics_announcement',
-      document_type: 'official_statistics_announcement',
-      locale: 'en',
+      schema_name: "statistics_announcement",
+      document_type: "official_statistics_announcement",
+      locale: "en",
       public_updated_at: statistics_announcement.updated_at,
-      publishing_app: 'whitehall',
-      rendering_app: 'government-frontend',
+      publishing_app: "whitehall",
+      rendering_app: "government-frontend",
       routes: [
-        { path: public_path, type: 'exact' }
+        { path: public_path, type: "exact" },
       ],
       redirects: [],
       update_type: "minor",
@@ -122,8 +122,8 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
         previous_display_date: 7.days.from_now.to_s(:date_with_time),
         latest_change_note: "Reasons",
         state: statistics_announcement.state,
-        format_sub_type: 'official',
-      }
+        format_sub_type: "official",
+      },
     }
 
     expected_links = {
@@ -133,8 +133,8 @@ class PublishingApi::StatisticsAnnouncementPresenterTest < ActiveSupport::TestCa
     presented_item = present(statistics_announcement)
     presented_content = presented_item.content
 
-    assert_valid_against_schema(presented_content, 'statistics_announcement')
-    assert_valid_against_links_schema({ links: presented_item.links }, 'statistics_announcement')
+    assert_valid_against_schema(presented_content, "statistics_announcement")
+    assert_valid_against_links_schema({ links: presented_item.links }, "statistics_announcement")
 
     assert_equivalent_html expected_content[:details].delete(:body),
                            presented_content[:details].delete(:body)

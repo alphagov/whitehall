@@ -1,15 +1,15 @@
-require 'test_helper'
+require "test_helper"
 
 class ImageTest < ActiveSupport::TestCase
-  test 'should be invalid without alt-text for accessibility' do
+  test "should be invalid without alt-text for accessibility" do
     image = build(:image, alt_text: nil)
     refute image.valid?
   end
 
-  test 'is invalid without any image data' do
+  test "is invalid without any image data" do
     image = build(:image, image_data: nil)
     refute image.valid?
-    assert_equal 'must be present', image.errors[:image_data][0]
+    assert_equal "must be present", image.errors[:image_data][0]
   end
 
   test "#url returns the url from the image data" do

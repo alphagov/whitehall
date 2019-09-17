@@ -1,4 +1,4 @@
-require 'csv'
+require "csv"
 
 class CsvPreview
   class FileEncodingError < ::EncodingError
@@ -82,20 +82,20 @@ private
 
   def encoding
     @encoding ||= if utf_8_encoding?
-                    'UTF-8'
+                    "UTF-8"
                   elsif windows_1252_encoding?
-                    'windows-1252'
+                    "windows-1252"
                   else
-                    raise FileEncodingError, 'File encoding not recognised'
+                    raise FileEncodingError, "File encoding not recognised"
                   end
   end
 
   def utf_8_encoding?
-    preview_rows.force_encoding('utf-8').valid_encoding?
+    preview_rows.force_encoding("utf-8").valid_encoding?
   end
 
   def windows_1252_encoding?
-    preview_rows.force_encoding('windows-1252')
+    preview_rows.force_encoding("windows-1252")
     # This regexp checks for the presence of ASCII control characters, which
     # would indicate we have the wrong encoding.
     preview_rows.valid_encoding? && !preview_rows.match(/[\x00-\x08\x0b\x0c\x0e-\x1f]/)
@@ -108,6 +108,6 @@ private
   end
 
   def raise_encoding_error
-    raise FileEncodingError, 'File encoding not recognised'
+    raise FileEncodingError, "File encoding not recognised"
   end
 end

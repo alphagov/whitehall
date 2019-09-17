@@ -20,13 +20,13 @@ class StatisticsAnnouncement < ApplicationRecord
     super && !publication_has_been_published? && !unpublished?
   end
 
-  belongs_to :creator, class_name: 'User'
-  belongs_to :cancelled_by, class_name: 'User'
+  belongs_to :creator, class_name: "User"
+  belongs_to :cancelled_by, class_name: "User"
   belongs_to :publication
 
   has_one  :current_release_date,
-           -> { order('created_at DESC') },
-           class_name: 'StatisticsAnnouncementDate',
+           -> { order("created_at DESC") },
+           class_name: "StatisticsAnnouncementDate",
            inverse_of: :statistics_announcement
   has_many :statistics_announcement_dates, dependent: :destroy
 
@@ -54,7 +54,7 @@ class StatisticsAnnouncement < ApplicationRecord
   validates :publication_type_id,
             inclusion: {
               in: PublicationType.statistical.map(&:id),
-              message: 'must be a statistical type'
+              message: "must be a statistical type",
             }
 
   accepts_nested_attributes_for :current_release_date, reject_if: :persisted?
@@ -173,7 +173,7 @@ class StatisticsAnnouncement < ApplicationRecord
   end
 
   def build_statistics_announcement_date_change(attributes = {})
-    current_date_attributes = current_release_date.attributes.slice('release_date', 'confirmed', 'precision')
+    current_date_attributes = current_release_date.attributes.slice("release_date", "confirmed", "precision")
 
     StatisticsAnnouncementDateChange.new(attributes.reverse_merge(current_date_attributes)) do |change|
       change.statistics_announcement = self
@@ -198,11 +198,11 @@ class StatisticsAnnouncement < ApplicationRecord
 
   def state
     if cancelled?
-      'cancelled'
+      "cancelled"
     elsif confirmed?
-      'confirmed'
+      "confirmed"
     else
-      'provisional'
+      "provisional"
     end
   end
 
@@ -226,7 +226,7 @@ private
 
   def last_major_change
     statistics_announcement_dates.
-      where('change_note IS NOT NULL && change_note != ?', '').
+      where("change_note IS NOT NULL && change_note != ?", "").
       order(:created_at).
       last
   end
@@ -238,7 +238,7 @@ private
   end
 
   def type_string
-    national_statistic? ? 'national statistics' : 'statistics'
+    national_statistic? ? "national statistics" : "statistics"
   end
 
   def redirect_not_circular

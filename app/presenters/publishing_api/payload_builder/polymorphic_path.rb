@@ -14,7 +14,7 @@ module PublishingApi
 
       def call
         { base_path: base_path }.merge(
-          PayloadBuilder::Routes.for(base_path, additional_routes: additional_routes)
+          PayloadBuilder::Routes.for(base_path, additional_routes: additional_routes),
         )
       end
 

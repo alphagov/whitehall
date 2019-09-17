@@ -38,7 +38,7 @@ class NewsArticleTest < ActiveSupport::TestCase
 
     non_foreign_language_news_types.each do |news_type|
       news_article = build(:news_article, news_article_type: news_type)
-      news_article.primary_locale = 'fr'
+      news_article.primary_locale = "fr"
       refute news_article.valid?
     end
   end
@@ -55,8 +55,8 @@ class NewsArticleTest < ActiveSupport::TestCase
 
   test "search_format_types tags the news article as a news-article and announcement" do
     news_article = build(:news_article)
-    assert news_article.search_format_types.include?('news-article')
-    assert news_article.search_format_types.include?('announcement')
+    assert news_article.search_format_types.include?("news-article")
+    assert news_article.search_format_types.include?("announcement")
   end
 
   test "search_format_types includes search_format_types of the speech_type" do
@@ -65,8 +65,8 @@ class NewsArticleTest < ActiveSupport::TestCase
     news_article_type.stubs(:search_format_types).returns(%w[stuff-innit other-thing])
     news_article = build(:news_article)
     news_article.stubs(:news_article_type).returns(news_article_type)
-    assert news_article.search_format_types.include?('stuff-innit')
-    assert news_article.search_format_types.include?('other-thing')
+    assert news_article.search_format_types.include?("stuff-innit")
+    assert news_article.search_format_types.include?("other-thing")
   end
 
   test "is translatable" do
@@ -119,7 +119,7 @@ class WorldNewsStoryTypeNewsArticleTest < ActiveSupport::TestCase
 
   test "non-English primary locale is valid" do
     news_article = build(:news_article_world_news_story)
-    news_article.primary_locale = 'fr'
+    news_article.primary_locale = "fr"
     assert news_article.valid?
   end
 

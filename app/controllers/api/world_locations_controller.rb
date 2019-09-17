@@ -21,7 +21,7 @@ class Api::WorldLocationsController < PublicFacingController
   def index
     respond_with Api::WorldLocationPresenter.paginate(
       Kaminari.paginate_array(sorted_world_locations),
-      view_context
+      view_context,
     )
   end
 

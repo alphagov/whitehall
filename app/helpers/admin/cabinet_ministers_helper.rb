@@ -10,7 +10,7 @@ module Admin::CabinetMinistersHelper
 
         form_elements = [
           label_tag(form_element_name, label_link),
-          text_field_tag(form_element_name, yield(role), class: "ordering")
+          text_field_tag(form_element_name, yield(role), class: "ordering"),
         ]
 
         content_tag(:div, form_elements.join.html_safe, class: "well")
@@ -26,7 +26,7 @@ module Admin::CabinetMinistersHelper
 
         form_elements = [
           label_tag(form_element_name, organisation.name),
-          text_field_tag(form_element_name, organisation.ministerial_ordering, class: "ordering")
+          text_field_tag(form_element_name, organisation.ministerial_ordering, class: "ordering"),
         ]
 
         content_tag(:div, form_elements.join.html_safe, class: "well")

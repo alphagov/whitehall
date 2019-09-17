@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PublishingApi::WorldLocationNewsPagePresenterTest < ActiveSupport::TestCase
   def present(model_instance)
@@ -9,7 +9,7 @@ class PublishingApi::WorldLocationNewsPagePresenterTest < ActiveSupport::TestCas
     @world_location ||= create(:world_location, name: "Aardistan", "title": "Aardistan and the Uk")
   end
 
-  test 'presents an item for publishing api' do
+  test "presents an item for publishing api" do
     expected = {
       title: "Aardistan and the Uk",
       locale: "en",
@@ -30,20 +30,20 @@ class PublishingApi::WorldLocationNewsPagePresenterTest < ActiveSupport::TestCas
     assert_equal expected, present(world_location).content
   end
 
-  test 'presents an item for rummager' do
+  test "presents an item for rummager" do
     expected = {
       content_id: "id-123",
       link: "/world/aardistan/news",
       format: "world_location_news_page",
       title: "Aardistan and the Uk",
       description: "Updates, news and events from the UK government in Aardistan",
-      indexable_content: "Updates, news and events from the UK government in Aardistan"
+      indexable_content: "Updates, news and events from the UK government in Aardistan",
     }
 
     assert_equal expected, present(world_location).content_for_rummager("id-123")
   end
 
-  test 'it builds localised base paths correctly' do
+  test "it builds localised base paths correctly" do
     I18n.with_locale(:fr) do
       presented_item = present(world_location)
       base_path = presented_item.content[:base_path]

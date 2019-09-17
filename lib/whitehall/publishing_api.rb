@@ -33,7 +33,7 @@ module Whitehall
           Services.publishing_api.publish(
             presenter.content_id,
             nil,
-            locale: locale.to_s
+            locale: locale.to_s,
           )
         end
       end
@@ -53,7 +53,7 @@ module Whitehall
     )
       presenter = PublishingApiPresenters.presenter_for(
         model_instance,
-        update_type: update_type_override
+        update_type: update_type_override,
       )
 
       I18n.with_locale(locale) do
@@ -74,7 +74,7 @@ module Whitehall
       Services.publishing_api.patch_links(
         presenter.content_id,
         links: links,
-        bulk_publishing: bulk_publishing
+        bulk_publishing: bulk_publishing,
       )
     end
 
@@ -83,7 +83,7 @@ module Whitehall
         raise ArgumentError, "This method does not support Editions: call republish_document_async with the Document this Edition belongs to"
       end
 
-      push_live(model_instance, 'republish')
+      push_live(model_instance, "republish")
     end
 
     def self.bulk_republish_async(model_instance)
@@ -91,16 +91,16 @@ module Whitehall
         raise ArgumentError, "This method does not support Editions"
       end
 
-      push_live(model_instance, 'republish', 'bulk_republishing')
+      push_live(model_instance, "republish", "bulk_republishing")
     end
 
     # Synchronise the published and/or draft documents in publishing-api with
     # the contents of Whitehall's database.
     def self.republish_document_async(document, bulk: false)
-      queue = bulk ? 'bulk_republishing' : 'default'
+      queue = bulk ? "bulk_republishing" : "default"
       PublishingApiDocumentRepublishingWorker.perform_async_in_queue(
         queue,
-        document.id
+        document.id,
       )
     end
 
@@ -148,7 +148,7 @@ module Whitehall
         base_path,
         redirects,
         locale,
-        draft: true
+        draft: true,
       )
     end
 

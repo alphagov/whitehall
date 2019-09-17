@@ -11,7 +11,7 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
   def create
     @promotional_feature_item = @promotional_feature.promotional_feature_items.create(promotional_feature_item_params)
     if @promotional_feature_item.save
-      redirect_to_feature 'Feature item added.'
+      redirect_to_feature "Feature item added."
     else
       render :new
     end
@@ -23,7 +23,7 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
 
   def update
     if @promotional_feature_item.update_attributes(promotional_feature_item_params)
-      redirect_to_feature 'Feature item updated.'
+      redirect_to_feature "Feature item updated."
     else
       render :edit
     end
@@ -31,7 +31,7 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
 
   def destroy
     @promotional_feature_item.destroy
-    redirect_to_feature 'Feature item deleted.'
+    redirect_to_feature "Feature item deleted."
   end
 
 private

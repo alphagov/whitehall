@@ -17,7 +17,7 @@ class Edition::WorldwideOrganisationsTest < ActiveSupport::TestCase
     organisation = create(:worldwide_organisation)
     edition = create(:published_case_study, worldwide_organisations: [organisation])
     new_edition = edition.create_draft(create(:writer))
-    new_edition.change_note = 'change-note'
+    new_edition.change_note = "change-note"
     force_publish(new_edition)
 
     assert_equal [organisation], new_edition.worldwide_organisations

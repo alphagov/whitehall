@@ -1,4 +1,4 @@
-require 'whitehall/document_filter/filterer'
+require "whitehall/document_filter/filterer"
 
 module Whitehall::DocumentFilter
   class SearchRummager < Filterer
@@ -13,7 +13,7 @@ module Whitehall::DocumentFilter
         count: @per_page.to_s,
         fields: %w[content_store_document_type government_name is_historic
                    public_timestamp organisations operational_field format
-                   content_id title description display_type link document_collections]
+                   content_id title description display_type link document_collections],
       }
     end
 
@@ -87,13 +87,13 @@ module Whitehall::DocumentFilter
       if dates_hash.empty?
         {}
       else
-        { filter_public_timestamp: dates_hash.map { |k, v| "#{k}:#{v}" }.join(',') }
+        { filter_public_timestamp: dates_hash.map { |k, v| "#{k}:#{v}" }.join(",") }
       end
     end
 
     def sort
       if @keywords.blank?
-        { order: '-public_timestamp' }
+        { order: "-public_timestamp" }
       else
         {}
       end

@@ -26,8 +26,8 @@ class FileAttachmentTest < ActiveSupport::TestCase
   end
 
   test "should be invalid if an attachment already exists on the attachable with the same filename" do
-    attachable = create(:policy_group, attachments: [build(:file_attachment, file: file_fixture('whitepaper.pdf'))])
-    duplicate  = build(:file_attachment, file: file_fixture('whitepaper.pdf'), attachable: attachable)
+    attachable = create(:policy_group, attachments: [build(:file_attachment, file: file_fixture("whitepaper.pdf"))])
+    duplicate  = build(:file_attachment, file: file_fixture("whitepaper.pdf"), attachable: attachable)
 
     refute duplicate.valid?
     assert_match %r(This policy group already has a file called "whitepaper.pdf"), duplicate.errors[:base].first
@@ -45,14 +45,14 @@ class FileAttachmentTest < ActiveSupport::TestCase
     attachment = create(:file_attachment)
 
     params = {
-      'title' => 'Filename',
-      'attachment_data_attributes' => {
-        'file_cache' => '', 'to_replace_id' => attachment.attachment_data.id
-      }
+      "title" => "Filename",
+      "attachment_data_attributes" => {
+        "file_cache" => "", "to_replace_id" => attachment.attachment_data.id
+      },
     }
     attachment.reload
 
     assert attachment.update_attributes(params), attachment.errors.full_messages.to_sentence
-    assert_equal 'Filename', attachment.title
+    assert_equal "Filename", attachment.title
   end
 end

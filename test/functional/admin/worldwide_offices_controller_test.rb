@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
   setup do
@@ -16,15 +16,15 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                  worldwide_office_type_id: WorldwideOfficeType::Other.id,
                  contact_attributes: {
                    title: "Main office",
-                   contact_type_id: ContactType::General.id
-                 }
+                   contact_type_id: ContactType::General.id,
+                 },
                },
-               worldwide_organisation_id: worldwide_organisation.id
+               worldwide_organisation_id: worldwide_organisation.id,
        }
 
     assert_redirected_to admin_worldwide_organisation_worldwide_offices_path(worldwide_organisation)
     assert_equal 1, worldwide_organisation.offices.count
-    assert_equal 'Main office', worldwide_organisation.offices.first.contact.title
+    assert_equal "Main office", worldwide_organisation.offices.first.contact.title
   end
 
   test "post create creates worldwide office on the home page of the world org if told to" do
@@ -36,15 +36,15 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                  worldwide_office_type_id: WorldwideOfficeType::Other.id,
                  contact_attributes: {
                    title: "Main office",
-                   contact_type_id: ContactType::General.id
+                   contact_type_id: ContactType::General.id,
                  },
-                 show_on_home_page: '1'
+                 show_on_home_page: "1",
                },
-               worldwide_organisation_id: worldwide_organisation.id
+               worldwide_organisation_id: worldwide_organisation.id,
        }
 
     new_office = worldwide_organisation.offices.last
-    assert_equal 'Main office', new_office.contact.title
+    assert_equal "Main office", new_office.contact.title
     assert worldwide_organisation.office_shown_on_home_page?(new_office)
   end
 
@@ -57,15 +57,15 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                  worldwide_office_type_id: WorldwideOfficeType::Other.id,
                  contact_attributes: {
                    title: "Main office",
-                   contact_type_id: ContactType::General.id
+                   contact_type_id: ContactType::General.id,
                  },
-                 show_on_home_page: '0'
+                 show_on_home_page: "0",
                },
-               worldwide_organisation_id: worldwide_organisation.id
+               worldwide_organisation_id: worldwide_organisation.id,
        }
 
     new_office = worldwide_organisation.offices.last
-    assert_equal 'Main office', new_office.contact.title
+    assert_equal "Main office", new_office.contact.title
     refute worldwide_organisation.office_shown_on_home_page?(new_office)
   end
 
@@ -78,14 +78,14 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                  worldwide_office_type_id: WorldwideOfficeType::Other.id,
                  contact_attributes: {
                    title: "Main office",
-                   contact_type_id: ContactType::General.id
-                 }
+                   contact_type_id: ContactType::General.id,
+                 },
                },
-               worldwide_organisation_id: worldwide_organisation.id
+               worldwide_organisation_id: worldwide_organisation.id,
        }
 
     new_office = worldwide_organisation.offices.last
-    assert_equal 'Main office', new_office.contact.title
+    assert_equal "Main office", new_office.contact.title
     refute worldwide_organisation.office_shown_on_home_page?(new_office)
   end
 
@@ -100,11 +100,11 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                  worldwide_office_type_id: WorldwideOfficeType::Other.id,
                  contact_attributes: {
                    title: "Main office",
-                   contact_type_id: ContactType::General.id
+                   contact_type_id: ContactType::General.id,
                  },
-                 service_ids: [service_2.id, service_1.id]
+                 service_ids: [service_2.id, service_1.id],
                },
-               worldwide_organisation_id: worldwide_organisation.id
+               worldwide_organisation_id: worldwide_organisation.id,
        }
 
     assert_equal 1, worldwide_organisation.offices.count
@@ -122,11 +122,11 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                    title: "Head office",
                    contact_type_id: ContactType::General.id,
                    contact_numbers_attributes: {
-                     "0" => { label: "Main phone", number: "1234" }
-                   }
-                 }
+                     "0" => { label: "Main phone", number: "1234" },
+                   },
+                 },
                },
-               worldwide_organisation_id: worldwide_organisation.id
+               worldwide_organisation_id: worldwide_organisation.id,
        }
 
     actual_numbers = worldwide_organisation
@@ -148,11 +148,11 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                   worldwide_office: {
                 contact_attributes: {
                   id: office.contact.id,
-                  title: "Head office"
-                }
+                  title: "Head office",
+                },
               },
               id: office,
-              worldwide_organisation_id: worldwide_organisation
+              worldwide_organisation_id: worldwide_organisation,
       }
 
     assert_equal "Head office", office.reload.contact.title
@@ -166,12 +166,12 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                   worldwide_office: {
                 contact_attributes: {
                   id: office.contact.id,
-                  title: "Head office"
+                  title: "Head office",
                 },
-                show_on_home_page: '1'
+                show_on_home_page: "1",
               },
               id: office,
-              worldwide_organisation_id: worldwide_organisation
+              worldwide_organisation_id: worldwide_organisation,
       }
 
     assert_equal "Head office", office.reload.contact.title
@@ -187,12 +187,12 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                   worldwide_office: {
                 contact_attributes: {
                   id: office.contact.id,
-                  title: "Head office"
+                  title: "Head office",
                 },
-                show_on_home_page: '0'
+                show_on_home_page: "0",
               },
               id: office,
-              worldwide_organisation_id: worldwide_organisation
+              worldwide_organisation_id: worldwide_organisation,
       }
 
     assert_equal "Head office", office.reload.contact.title
@@ -208,11 +208,11 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                   worldwide_office: {
                 contact_attributes: {
                   id: office.contact.id,
-                  title: "Head office"
-                }
+                  title: "Head office",
+                },
               },
               id: office,
-              worldwide_organisation_id: worldwide_organisation
+              worldwide_organisation_id: worldwide_organisation,
       }
 
     assert_equal "Head office", office.reload.contact.title
@@ -227,10 +227,10 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     put :update,
         params: {
                   worldwide_office: {
-                service_ids: [service_3.id, service_2.id]
+                service_ids: [service_3.id, service_2.id],
               },
               id: office,
-              worldwide_organisation_id: worldwide_organisation
+              worldwide_organisation_id: worldwide_organisation,
       }
 
     assert_equal [service_2, service_3], office.reload.services.sort_by(&:id)
@@ -247,12 +247,12 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                   id: office.contact.id,
                   title: "Head office",
                   contact_numbers_attributes: {
-                    "0" => { id: contact_number.id, label: "Main phone", number: "5678" }
-                  }
+                    "0" => { id: contact_number.id, label: "Main phone", number: "5678" },
+                  },
                 },
               },
               id: office,
-              worldwide_organisation_id: worldwide_organisation
+              worldwide_organisation_id: worldwide_organisation,
       }
 
     actual_numbers = office
@@ -280,13 +280,13 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
                       id: contact_number.id,
                       label: contact_number.label,
                       number: contact_number.number,
-                      _destroy: 'true'
-                    }
-                  }
+                      _destroy: "true",
+                    },
+                  },
                 },
               },
               id: office,
-              worldwide_organisation_id: worldwide_organisation
+              worldwide_organisation_id: worldwide_organisation,
       }
 
     refute ContactNumber.exists?(contact_number.id)
@@ -313,21 +313,21 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     assert worldwide_organisation.office_shown_on_home_page?(office)
   end
 
-  test 'POST on :reorder_for_home_page takes id => ordering mappings and reorders the list based on this' do
+  test "POST on :reorder_for_home_page takes id => ordering mappings and reorders the list based on this" do
     worldwide_organisation, office_1 = create_worldwide_organisation_and_office
     office_2 = worldwide_organisation.offices.create(
       worldwide_office_type_id: WorldwideOfficeType::Other.id,
       contact_attributes: {
         title: "Body office",
-        contact_type_id: ContactType::General.id
-      }
+        contact_type_id: ContactType::General.id,
+      },
     )
     office_3 = worldwide_organisation.offices.create(
       worldwide_office_type_id: WorldwideOfficeType::Other.id,
       contact_attributes: {
         title: "Spirit office",
-        contact_type_id: ContactType::General.id
-      }
+        contact_type_id: ContactType::General.id,
+      },
     )
     worldwide_organisation.add_office_to_home_page!(office_1)
     worldwide_organisation.add_office_to_home_page!(office_2)
@@ -336,10 +336,10 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     post :reorder_for_home_page, params: {
         worldwide_organisation_id: worldwide_organisation,
         ordering: {
-          office_1.id.to_s => '3',
-          office_2.id.to_s => '1',
-          office_3.id.to_s => '2'
-        }
+          office_1.id.to_s => "3",
+          office_2.id.to_s => "1",
+          office_3.id.to_s => "2",
+        },
       }
 
     assert_redirected_to admin_worldwide_organisation_worldwide_offices_url(worldwide_organisation)
@@ -347,16 +347,16 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     assert_equal [office_2, office_3, office_1], worldwide_organisation.reload.home_page_offices
   end
 
-  test 'POST on :reorder_for_home_page doesn\'t break with unknown contact ids' do
+  test "POST on :reorder_for_home_page doesn't break with unknown contact ids" do
     worldwide_organisation, office = create_worldwide_organisation_and_office
     worldwide_organisation.add_office_to_home_page!(office)
 
     post :reorder_for_home_page, params: {
         worldwide_organisation_id: worldwide_organisation,
         ordering: {
-          office.id.to_s => '2',
-          '1000000' => '1'
-        }
+          office.id.to_s => "2",
+          "1000000" => "1",
+        },
       }
 
     assert_redirected_to admin_worldwide_organisation_worldwide_offices_url(worldwide_organisation)
@@ -372,8 +372,8 @@ private
       worldwide_office_type_id: WorldwideOfficeType::Other.id,
       contact_attributes: {
         title: "Main office",
-        contact_type_id: ContactType::General.id
-      }
+        contact_type_id: ContactType::General.id,
+      },
     )
     [worldwide_organisation, office]
   end

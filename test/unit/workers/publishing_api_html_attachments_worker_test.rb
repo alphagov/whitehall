@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
   def call(edition)
@@ -23,7 +23,7 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
         "HtmlAttachment",
         attachment.id,
         "major",
-        "en"
+        "en",
       )
       call(publication)
     end
@@ -36,7 +36,7 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
         "HtmlAttachment",
         attachment.id,
         "major",
-        "en"
+        "en",
       ).once
 
       call(consultation)
@@ -50,7 +50,7 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
         "HtmlAttachment",
         attachment.id,
         "major",
-        "en"
+        "en",
       ).once
 
       call(consultation)
@@ -71,7 +71,7 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
           "HtmlAttachment",
           attachment.id,
           "major",
-          "en"
+          "en",
         ).once
       end
 
@@ -92,7 +92,7 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
         "HtmlAttachment",
         attachment.id,
         "minor",
-        "en"
+        "en",
       )
       call(new_edition)
     end
@@ -112,7 +112,7 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
         "HtmlAttachment",
         attachment.id,
         "minor",
-        "en"
+        "en",
       )
       call(new_edition)
     end
@@ -130,7 +130,7 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
       PublishingApiRedirectWorker.any_instance.expects(:perform).with(
         old_attachment.content_id,
         new_edition.search_link,
-        "en"
+        "en",
       )
 
       call(new_edition)
@@ -150,14 +150,14 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
         "HtmlAttachment",
         new_attachment.id,
         "minor",
-        "en"
+        "en",
       )
 
       old_attachment = publication.html_attachments.first
       PublishingApiRedirectWorker.any_instance.expects(:perform).with(
         old_attachment.content_id,
         new_edition.search_link,
-        "en"
+        "en",
       )
 
       call(new_edition)
@@ -180,7 +180,7 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
       Whitehall::PublishingApi.expects(:save_draft_translation).with(
         attachment,
         "en",
-        "major"
+        "major",
       )
       call(publication)
     end
@@ -193,7 +193,7 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
       Whitehall::PublishingApi.expects(:save_draft_translation).with(
         attachment,
         "en",
-        "major"
+        "major",
       )
 
       call(new_edition)
@@ -218,7 +218,7 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
       Whitehall::PublishingApi.expects(:save_draft_translation).with(
         new_attachment,
         "en",
-        "major"
+        "major",
       )
 
       call(new_edition)
@@ -231,7 +231,7 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
 
       PublishingApiDiscardDraftWorker.any_instance.expects(:perform).with(
         attachment.content_id,
-        "en"
+        "en",
       )
 
       Sidekiq::Testing.inline! do
@@ -257,7 +257,7 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
         attachment.content_id,
         "/government/another/page",
         "en",
-        false
+        false,
       )
       call(publication)
     end
@@ -269,7 +269,7 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
         attachment.content_id,
         "/government/another/page",
         "en",
-        false
+        false,
       )
       call(publication)
     end
@@ -281,7 +281,7 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
         attachment.content_id,
         publication.search_link,
         "en",
-        false
+        false,
       )
       call(publication)
     end
@@ -302,7 +302,7 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
         PublishingApiWithdrawalWorker.any_instance.expects(:perform).with(
           attachment.content_id,
           "content was withdrawn",
-          "en"
+          "en",
         )
         call(publication)
       end
@@ -323,7 +323,7 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
         attachment = publication.html_attachments.first
         PublishingApiDiscardDraftWorker.expects(:perform_async).with(
           attachment.content_id,
-          "en"
+          "en",
         )
         call(publication)
       end
@@ -335,7 +335,7 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
 
         PublishingApiDiscardDraftWorker.expects(:perform_async).with(
           attachment.content_id,
-          "en"
+          "en",
         )
         call(publication)
       end
@@ -349,7 +349,7 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
       Whitehall::PublishingApi.expects(:save_draft_translation).with(
         attachment,
         "en",
-        "republish"
+        "republish",
       )
       call(publication)
     end
@@ -358,10 +358,10 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
       publication = create(:published_publication)
       attachment = publication.html_attachments.first
       PublishingApiWorker.any_instance.expects(:perform).with(
-        'HtmlAttachment',
+        "HtmlAttachment",
         attachment.id,
         "republish",
-        "en"
+        "en",
       )
       call(publication)
     end
@@ -372,7 +372,7 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
       attachment.destroy
       PublishingApiDiscardDraftWorker.any_instance.expects(:perform).with(
         attachment.content_id,
-        "en"
+        "en",
       )
       Sidekiq::Testing.inline! do
         call(publication)
@@ -383,15 +383,15 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
       publication = create(:withdrawn_publication)
       attachment = publication.html_attachments.first
       PublishingApiWorker.any_instance.expects(:perform).with(
-        'HtmlAttachment',
+        "HtmlAttachment",
         attachment.id,
         "republish",
-        "en"
+        "en",
       )
       PublishingApiWithdrawalWorker.any_instance.expects(:perform).with(
         attachment.content_id,
         "content was withdrawn",
-        "en"
+        "en",
       )
       call(publication)
     end
@@ -402,13 +402,13 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
       Whitehall::PublishingApi.expects(:save_draft_translation).with(
         attachment,
         "en",
-        "republish"
+        "republish",
       )
       PublishingApiRedirectWorker.any_instance.expects(:perform).with(
         attachment.content_id,
         "/government/another/page",
         "en",
-        true
+        true,
       )
       call(publication)
     end
@@ -419,13 +419,13 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
       Whitehall::PublishingApi.expects(:save_draft_translation).with(
         attachment,
         "en",
-        "republish"
+        "republish",
       )
       PublishingApiRedirectWorker.any_instance.expects(:perform).with(
         attachment.content_id,
         "/government/another/page",
         "en",
-        true
+        true,
       )
       call(publication)
     end
@@ -436,13 +436,13 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
       Whitehall::PublishingApi.expects(:save_draft_translation).with(
         attachment,
         "en",
-        "republish"
+        "republish",
       )
       PublishingApiRedirectWorker.any_instance.expects(:perform).with(
         attachment.content_id,
         publication.search_link,
         "en",
-        true
+        true,
       )
       call(publication)
     end
@@ -456,7 +456,7 @@ class PublishingApiHtmlAttachmentsWorkerTest < ActiveSupport::TestCase
         "HtmlAttachment",
         attachment.id,
         "major",
-        "en"
+        "en",
       )
       call(publication)
     end

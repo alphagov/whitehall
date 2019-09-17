@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
   setup do
@@ -40,11 +40,11 @@ class PublishingApi::FatalityNoticePresenterTest < ActiveSupport::TestCase
   end
 
   test "it presents the publishing_app as whitehall" do
-    assert_equal 'whitehall', @presented_content[:publishing_app]
+    assert_equal "whitehall", @presented_content[:publishing_app]
   end
 
   test "it presents the rendering_app as government-frontend" do
-    assert_equal 'government-frontend', @presented_content[:rendering_app]
+    assert_equal "government-frontend", @presented_content[:rendering_app]
   end
 
   test "it presents the schema_name as fatality_notice" do
@@ -82,7 +82,7 @@ class PublishingApi::FatalityNoticePresenterWithPublicTimestampTest < ActiveSupp
   setup do
     @expected_time = Time.zone.parse("10/01/2016")
     @fatality_notice = create(
-      :fatality_notice
+      :fatality_notice,
     )
     @fatality_notice.public_timestamp = @expected_time
     @presented_fatality_notice = PublishingApi::FatalityNoticePresenter.new(@fatality_notice)
@@ -98,12 +98,12 @@ class PublishingApi::DraftFatalityBelongingToPublishedDocumentNoticePresenter < 
     presented_notice = PublishingApi::FatalityNoticePresenter.new(
       create(:published_fatality_notice) do |fatality_notice|
         fatality_notice.stubs(:first_published_at).returns(Date.new(2015, 4, 10))
-      end
+      end,
     )
 
     assert_equal(
       Date.new(2015, 4, 10),
-      presented_notice.content[:details][:first_public_at]
+      presented_notice.content[:details][:first_public_at],
     )
   end
 end
@@ -112,7 +112,7 @@ class PublishingApi::FatalityNoticePresenterDetailsTest < ActiveSupport::TestCas
   setup do
     @fatality_notice = create(
       :fatality_notice,
-      body: "*Test string*"
+      body: "*Test string*",
     )
 
     @presented_details = PublishingApi::FatalityNoticePresenter.new(@fatality_notice).content[:details]
@@ -121,7 +121,7 @@ class PublishingApi::FatalityNoticePresenterDetailsTest < ActiveSupport::TestCas
   test "it presents the Govspeak body as details rendered as HTML" do
     assert_equal(
       "<div class=\"govspeak\"><p><em>Test string</em></p>\n</div>",
-      @presented_details[:body]
+      @presented_details[:body],
     )
   end
 
@@ -137,7 +137,7 @@ class PublishingApi::PublishedFatalityNoticePresenterDetailsTest < ActiveSupport
       :fatality_notice,
       :published,
       body: "*Test string*",
-      first_published_at: @expected_time
+      first_published_at: @expected_time,
     )
 
     @presented_details = PublishingApi::FatalityNoticePresenter.new(@fatality_notice).content[:details]
@@ -151,8 +151,8 @@ class PublishingApi::PublishedFatalityNoticePresenterDetailsTest < ActiveSupport
     change_history = [
       {
         "public_timestamp" => @expected_time,
-        "note" => "change-note"
-      }
+        "note" => "change-note",
+      },
     ]
 
     assert_equal change_history, @presented_details[:change_history]
@@ -161,7 +161,7 @@ class PublishingApi::PublishedFatalityNoticePresenterDetailsTest < ActiveSupport
   test "it presents the lead organisation content_ids as details, emphasised_organisations" do
     assert_equal(
       @fatality_notice.lead_organisations.map(&:content_id),
-      @presented_details[:emphasised_organisations]
+      @presented_details[:emphasised_organisations],
     )
   end
 end
@@ -177,42 +177,42 @@ class PublishingApi::PublishedFatalityNoticePresenterLinksTest < ActiveSupport::
   test "it presents the organisation content_ids as links, organisations" do
     assert_equal(
       @fatality_notice.organisations.map(&:content_id),
-      @presented_links[:organisations]
+      @presented_links[:organisations],
     )
   end
 
   test "it presents the topics content_ids as links, policy_areas" do
     assert_equal(
       @fatality_notice.topics.map(&:content_id),
-      @presented_links[:policy_areas]
+      @presented_links[:policy_areas],
     )
   end
 
   test "it presents the field of operation as links, field_of_operation" do
     assert_equal(
       [@fatality_notice.operational_field.content_id],
-      @presented_links[:field_of_operation]
+      @presented_links[:field_of_operation],
     )
   end
 
   test "it presents the role_appointments person content_ids as links, ministers" do
     assert_equal(
       @fatality_notice.role_appointments.map(&:person).collect(&:content_id),
-      @presented_links[:ministers]
+      @presented_links[:ministers],
     )
   end
 
   test "it presents the role_appointments person content_ids as links, people" do
     assert_equal(
       @fatality_notice.role_appointments.map(&:person).collect(&:content_id),
-      @presented_links[:people]
+      @presented_links[:people],
     )
   end
 
   test "it presents the role_appointments role content_ids as links, roles" do
     assert_equal(
       @fatality_notice.role_appointments.map(&:role).collect(&:content_id),
-      @presented_links[:roles]
+      @presented_links[:roles],
     )
   end
 end
@@ -220,7 +220,7 @@ end
 class PublishingApi::FatalityNoticePresenterUpdateTypeTest < ActiveSupport::TestCase
   setup do
     @presented_fatality_notice = PublishingApi::FatalityNoticePresenter.new(
-      create(:fatality_notice, minor_change: false)
+      create(:fatality_notice, minor_change: false),
     )
   end
 
@@ -232,7 +232,7 @@ end
 class PublishingApi::FatalityNoticePresenterMinorUpdateTypeTest < ActiveSupport::TestCase
   setup do
     @presented_fatality_notice = PublishingApi::FatalityNoticePresenter.new(
-      create(:fatality_notice, minor_change: true)
+      create(:fatality_notice, minor_change: true),
     )
   end
 
@@ -245,7 +245,7 @@ class PublishingApi::FatalityNoticePresenterUpdateTypeArgumentTest < ActiveSuppo
   setup do
     @presented_fatality_notice = PublishingApi::FatalityNoticePresenter.new(
       create(:fatality_notice, minor_change: true),
-      update_type: "major"
+      update_type: "major",
     )
   end
 
@@ -257,7 +257,7 @@ end
 class PublishingApi::AccessLimitedFatalityNoticeTest < ActiveSupport::TestCase
   setup do
     @presented_fatality_notice = PublishingApi::FatalityNoticePresenter.new(
-      @fatality_notice = create(:fatality_notice, :access_limited)
+      @fatality_notice = create(:fatality_notice, :access_limited),
     )
     @user = create(:user, organisation: @fatality_notice.organisations.first, uid: "booyah")
     @presented_content = @presented_fatality_notice.content

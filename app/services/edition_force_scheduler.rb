@@ -1,10 +1,10 @@
 class EditionForceScheduler < EditionScheduler
   def verb
-    'force_schedule'
+    "force_schedule"
   end
 
   def past_participle
-    'force_scheduled'
+    "force_scheduled"
   end
 
 private
