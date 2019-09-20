@@ -32,7 +32,6 @@ Whitehall::Application.routes.draw do
   # https://github.com/alphagov/whitehall/blob/master/docs/api.md
   namespace 'api' do
     resources :governments, only: %i[index show], defaults: { format: :json }
-    resources :organisations, only: %i[index show], defaults: { format: :json }
     resources :world_locations, path: 'world-locations', only: %i[index show], defaults: { format: :json } do
       resources :worldwide_organisations, path: 'organisations', only: [:index], defaults: { format: :json }
     end
