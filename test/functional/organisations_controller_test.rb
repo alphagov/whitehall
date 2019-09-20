@@ -476,14 +476,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "show should include a rel='alternate' link to the organisation's JSON representation" do
-    organisation = create_org_and_stub_content_store(:organisation, name: "org-name")
-
-    get :show, params: { id: organisation }
-
-    assert_select "link[rel=alternate][type='application/json'][href=?]", api_organisation_url(organisation)
-  end
-
   test "shows ministerial roles in the specified order" do
     junior_role = create(:ministerial_role, role_appointments: [create(:role_appointment)])
     senior_role = create(:ministerial_role, role_appointments: [create(:role_appointment)])
